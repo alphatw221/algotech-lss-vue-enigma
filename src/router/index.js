@@ -2,6 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import SideMenu from "../layouts/side-menu/Main.vue";
 import SimpleMenu from "../layouts/simple-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
+import LssSideMenu from "../layouts/lss-side-menu/Main.vue";
 import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
 import DashboardOverview3 from "../views/dashboard-overview-3/Main.vue";
@@ -66,7 +67,7 @@ import ImageZoom from "../views/image-zoom/Main.vue";
 const routes = [
   {
     path: "/",
-    component: SideMenu,
+    component: LssSideMenu,
     children: [
       {
         path: "dashboard-overview-1",
