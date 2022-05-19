@@ -135,7 +135,28 @@ const routes = [
     ],
   },
   {
-    path: "/simple-menu",
+    path: "/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/register",
+    name: "register",
+    component: Register,
+  },
+  {
+    path: "/error-page",
+    name: "error-page",
+    component: ErrorPage,
+  },
+  {
+    path: "/:pathMatch(.*)*",
+    component: ErrorPage,
+  },
+
+  // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
+  {
+    path: "/enigma-template/simple-menu",
     component: SimpleMenu,
     children: [
       {
@@ -426,7 +447,7 @@ const routes = [
     ],
   },
   {
-    path: "/top-menu",
+    path: "/enigma-template/top-menu",
     component: TopMenu,
     children: [
       {
@@ -715,25 +736,6 @@ const routes = [
         component: ImageZoom,
       },
     ],
-  },
-  {
-    path: "/login",
-    name: "login",
-    component: Login,
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: Register,
-  },
-  {
-    path: "/error-page",
-    name: "error-page",
-    component: ErrorPage,
-  },
-  {
-    path: "/:pathMatch(.*)*",
-    component: ErrorPage,
   },
 ];
 
