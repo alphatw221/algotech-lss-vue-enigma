@@ -2,22 +2,22 @@
 <!-- OUTTER BOX --> 
   <div class="intro-y chat grid grid-cols-12 gap-5" style="height: 100%; overflow: auto;">
     <!-- BEGIN: commit box -->
-        <TabGroup class=" col-span-5 lg:col-span-6 sm:col-span-12 s:col-span-12 m:col-span-12">
-            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
-                <div class="col-start-1 col-span-4">
+        <TabGroup class=" col-span-12 lg:col-span-5 2xl:col-span-4 ">
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 w-150">
+                <div class="col-start-1 col-span-5 -mt-4">
                     <h2 class="text-lg font-medium">Comments 
                         <button class="p-3" @click="showTags"> 
                             <FolderIcon /> </button> </h2>
                 </div>
-                <div class="col-end-11">
+                <div class="col-end-11 -mt-3">
                     <TabList class="nav-pills">
                     <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"> <FacebookIcon class="m-1 -mt-1"/></Tab>
                     <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"> <InstagramIcon class="m-1 -mt-1"/></Tab>
                     <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"> <YoutubeIcon class="m-1 -mt-1"/></Tab>
                     </TabList>
                 </div>
-                <div class="col-start-1 col-span-12 -mt-5">
-                    <video width="400" controls class="flex justify-around ">
+                <div class=" col-start-1 col-span-12 -mt-2">
+                    <video width="600" controls>
                         <source src="mov_bbb.mp4" type="video/mp4">
                         <source src="mov_bbb.ogg" type="video/ogg">
                         Your browser does not support HTML video.
@@ -51,16 +51,18 @@
                     class="intro-x cursor-pointer relative flex items-center p-3"
                     @click="showReplyBar"
                     >
-                    <div class="w-12 h-12 flex-none image-fit mr-1">
-                        <img
-                        alt="Midone Tailwind HTML Admin Template"
-                        class="rounded-full"
-                        :src="faker.photos[0]"
-                        />
-                        <div
-                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600"
-                        ></div>
-                    </div>
+                    <Tippy class="rounded-full" content="Reply" theme='light'>
+                        <div class="w-12 h-12 flex-none image-fit mr-1">
+                                <img
+                                alt="Midone Tailwind HTML Admin Template"
+                                class="rounded-full"
+                                :src="faker.photos[0]"
+                                />
+                            <div
+                            class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600"
+                            ></div>
+                        </div>
+                    </Tippy>
                     <div class="ml-2 overflow-hidden">
                         <div class="flex items-center">
                         <a href="javascript:;" class="font-medium">{{
@@ -102,7 +104,20 @@
             </TabPanels>
         </TabGroup>
 
-        <div class="box" height="750px" >  </div>
+        <div class="col-span-12 lg:col-span-4 2xl:col-span-4" height="750px" >  
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 w-150">
+                <div class="col-start-1 col-span-5 -mt-4">
+                    <h2 class="text-lg font-medium">Product</h2>
+                </div>
+            </div>
+        </div>
+        <div class="col-span-12 lg:col-span-4 2xl:col-span-4" height="750px" >  
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 w-150">
+                <div class="col-start-1 col-span-5 -mt-4">
+                    <h2 class="text-lg font-medium">Incoming Order</h2>
+                </div>
+            </div>
+        </div>
 
     </div>
     <!-- END: Chat Side Menu -->
