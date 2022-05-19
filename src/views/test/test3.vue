@@ -384,3 +384,4 @@ export default {
   width: 100px;
   border-radius: 42px 42px;
 }
+</style>
