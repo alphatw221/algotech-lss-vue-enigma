@@ -4,8 +4,8 @@ import App from "./App.vue";
 import router from "./router";
 import globalComponents from "./global-components";
 import utils from "./utils";
-import axios from 'axios'
-import VueAxios from 'vue-axios'
+import axios from 'axios';
+import VueAxios from 'vue-axios';
 import "./assets/css/app.css";
 
 

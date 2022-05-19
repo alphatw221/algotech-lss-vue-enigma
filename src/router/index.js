@@ -63,6 +63,11 @@ import Validation from "../views/validation/Main.vue";
 import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
+
+import CampaignList from "../views/campaignlist/Main.vue";
+import Test3 from "../views/test/test3.vue";
+
+
 import Test from "../views/test/Main.vue";
 import Test2 from "../views/test/test2.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
@@ -71,6 +76,11 @@ const routes = [
     path: "/",
     component: LssSideMenu,
     children: [
+      {
+        path: "campaign-list",
+        name: "side-menu-campaign-list",
+        component: CampaignList,
+      },
       {
         path: "test",
         name: "side-menu-test",
