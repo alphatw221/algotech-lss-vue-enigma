@@ -77,11 +77,14 @@ const routes = [
     component: LssSideMenu,
     children: [
       {
+<<<<<<< HEAD
         path: "campaign-list",
         name: "side-menu-campaign-list",
         component: CampaignList,
       },
       {
+=======
+>>>>>>> 7290cc44b009d4a7ccd6253a370d0af45a6674ba
         path: "test",
         name: "side-menu-test",
         component: Test,
