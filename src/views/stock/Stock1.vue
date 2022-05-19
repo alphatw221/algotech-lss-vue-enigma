@@ -1,6 +1,17 @@
 <template>
 	<div>
 		<div class="mt-10">
+			<Breadcrumb>
+				<BreadcrumbItem to="/">
+					<Icon type="ios-home-outline"></Icon> Home
+				</BreadcrumbItem>
+				<BreadcrumbItem to="/components/breadcrumb">
+					<Icon type="logo-buffer"></Icon> Components
+				</BreadcrumbItem>
+				<BreadcrumbItem>
+					<Icon type="ios-cafe"></Icon> Breadcrumb
+				</BreadcrumbItem>
+			</Breadcrumb>
 			
 			<TabGroup class="grid grid-cols-2 gap-4">
 				<div class="col-start-1 ml-5">
@@ -88,7 +99,6 @@
 <script setup>
 import { ref, reactive, onMounted } from "vue";
 import Tabulator from "tabulator-tables";
-
 
 const tabulator = ref();
 
