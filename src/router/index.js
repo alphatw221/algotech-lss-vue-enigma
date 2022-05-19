@@ -64,11 +64,25 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
+import CampaignList from "../views/campaignlist/Main.vue";
+import Test from "../views/test/Main.vue";
+
+
 const routes = [
   {
     path: "/",
     component: LssSideMenu,
     children: [
+      {
+        path: "campaign-list",
+        name: "side-menu-campaign-list",
+        component: CampaignList,
+      },
+      {
+        path: "test",
+        name: "side-menu-test",
+        component: Test,
+      },
       {
         path: "dashboard-overview-1",
         name: "side-menu-dashboard-overview-1",

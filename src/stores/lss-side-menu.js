@@ -15,7 +15,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
       },
       {
         icon: "InboxIcon",
-        pageName: "side-menu-inbox",
+        pageName: "side-menu-campaign-list",
         title: "Campaign List",
       },
       {
