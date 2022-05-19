@@ -374,7 +374,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
     .demo-breadcrumb-separator{
         color: #ff5500;
         padding: 0 5px;

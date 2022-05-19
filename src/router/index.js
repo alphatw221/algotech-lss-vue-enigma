@@ -65,10 +65,9 @@ import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
+import CampaignLive from "../views/campaign-live/Main.vue"; 
+
 import Test3 from "../views/test/test3.vue";
-
-
-import Test from "../views/test/Main.vue";
 import Test2 from "../views/test/test2.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
 const routes = [
@@ -82,14 +81,19 @@ const routes = [
         component: CampaignList,
       },
       {
-        path: "test",
-        name: "side-menu-test",
-        component: Test,
+        path: "campaign-live",
+        name: "side-menu-campaign-live",
+        component: CampaignLive,
       },
       {
         path: "test2",
         name: "side-menu-test2",
         component: Test2,
+      },
+      {
+        path: "test3",
+        name: "side-menu-test2",
+        component: Test3,
       },
       {
         path: "createCamp",
