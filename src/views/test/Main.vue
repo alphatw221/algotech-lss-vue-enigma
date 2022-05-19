@@ -1,388 +1,135 @@
 <template>
-  <!-- OUTTER BOX -->
-  <div class="intro-y chat grid grid-cols-12 gap-5" style="height: 725px">
+<!-- OUTTER BOX --> 
+  <div class="intro-y chat grid grid-cols-12 gap-5" style="height: 100%; overflow: auto;">
     <!-- BEGIN: commit box -->
-    <div class="col-span-12">
-      <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
-        <div class="switch-toggle switch-3 switch-candy col-start-1 m-2">
-          <input id="on" name="state-d" type="radio" checked="checked" />
-          <label for="on" onclick="" style="width: 100px">Scheduled</label>
-
-          <input id="na" name="state-d" type="radio" class="my-0" />
-          <label for="na" onclick="" style="width: 100px">History</label>
-
-          <input id="off" name="state-d" type="radio" />
-          <label for="off" onclick="" style="width: 100px">Ongoing</label>
-        </div>
-        <div class="col-end-13 col-span-2">
-          <button
-            class="btn btn-primary-soft w-11 col-start-1 m-2 rounded-full"
-          >
-            <SearchIcon />
-          </button>
-          <button
-            class="btn btn-primary-soft w-11 col-start-1 m-2 rounded-full"
-          >
-            <FilterIcon />
-          </button>
-        </div>
-      </div>
-
-      <div class="box">
-        <div class="overflow-x-auto">
-          <table class="table table-report mt-5">
-            <thead>
-              <tr>
-                <th
-                  class="whitespace-nowrap"
-                  v-for="column in columns"
-                  :key="column.key"
+        <TabGroup class=" col-span-5 lg:col-span-6 sm:col-span-12 s:col-span-12 m:col-span-12">
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
+                <div class="col-start-1 col-span-4">
+                    <h2 class="text-lg font-medium">Comments 
+                        <button class="p-3" @click="showTags"> 
+                            <FolderIcon /> </button> </h2>
+                </div>
+                <div class="col-end-11">
+                    <TabList class="nav-pills">
+                    <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"> <FacebookIcon class="m-1 -mt-1"/></Tab>
+                    <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"> <InstagramIcon class="m-1 -mt-1"/></Tab>
+                    <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"> <YoutubeIcon class="m-1 -mt-1"/></Tab>
+                    </TabList>
+                </div>
+                <div class="col-start-1 col-span-12 -mt-5">
+                    <video width="400" controls class="flex justify-around ">
+                        <source src="mov_bbb.mp4" type="video/mp4">
+                        <source src="mov_bbb.ogg" type="video/ogg">
+                        Your browser does not support HTML video.
+                    </video>
+                </div>
+                <div v-show="tagBox" class="col-start-1 col-span-12" >
+                    <button class="btn btn-rounded-danger w-fit col-start-2 mr-2 " @click="this.tags = 'Tag : # Shipping'" >
+                        <HashIcon class="w-4 h-4 mr-2" /> Shipping
+                    </button>
+                    <button class="btn btn-rounded-pending w-fit  col-start-1 mr-2 "  @click="this.tags = 'Tag : # Return'" >
+                        <HashIcon class="w-4 h-4 mr-2" /> Return
+                    </button>
+                    <button class="btn btn-rounded-warning w-fit  col-start-1 mr-2 " @click="this.tags = 'Tag : # Size'">
+                        <HashIcon class="w-4 h-4 mr-2" /> Size
+                    </button>
+                    <button class="btn btn-rounded-dark w-fit h-10  col-start-1 mr-2 " @click="this.tags = 'Tag : Undefined'" >
+                        <HashIcon class="w-4 h-4 mr-2" /> Undefined
+                    </button>
+                    <h2 class="p-2" >{{tags}}</h2>
+                </div>
+            </div>
+      
+            <TabPanels>
+                <TabPanel>
+                <div
+                    class="chat__lss__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4"
                 >
-                  {{ column.name }}
-                </th>
-                <!--<th class="text-center whitespace-nowrap">Edit</th> -->
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(product, key) in results" :key="key" class="intro-x">
-                <td class="w-40">
-                  <div class="flex">
-                    <div class="w-10 h-10 image-fit zoom-in">
-                      <Tippy
-                        tag="img"
+                    <div
+                    v-for="(faker, fakerKey) in $_.take($f(), 10)"
+                    :key="fakerKey"
+                    class="intro-x cursor-pointer relative flex items-center p-3"
+                    @click="showReplyBar"
+                    >
+                    <div class="w-12 h-12 flex-none image-fit mr-1">
+                        <img
+                        alt="Midone Tailwind HTML Admin Template"
                         class="rounded-full"
-                        :src="product.image"
-                        :content="`Uploaded at`"
-                      />
+                        :src="faker.photos[0]"
+                        />
+                        <div
+                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600"
+                        ></div>
                     </div>
-                  </div>
-                </td>
-                <td>
-                  <a href="" class="font-medium whitespace-nowrap">
-                    {{ product.name }}
-                  </a>
-                </td>
-                <td class="text-center">
-                  {{ product.order_code }}
-                </td>
-                <td class="text-center">
-                  {{ product.type }}
-                </td>
-                <td class="text-center">
-                  {{ product.category }}
-                </td>
-                <td class="text-center">
-                  {{ product.description }}
-                </td>
-                <td class="text-center">
-                  {{ product.qty }}
-                </td>
-                <td class="text-center">
-                  {{ product.price }}
-                </td>
-                <td class="table-report__action w-30">
-                  <div class="flex justify-center items-center">
-                    <a class="flex items-center mr-3" href="javascript:;">
-                      <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
+                    <div class="ml-2 overflow-hidden">
+                        <div class="flex items-center">
+                        <a href="javascript:;" class="font-medium">{{
+                            faker.users[0].name
+                        }}</a>
+                        <div class="text-xs text-slate-400 ml-auto">
+                            {{ faker.times[0] }}
+                        </div>
+                        </div>
+                        <div class="w-full truncate text-slate-500 mt-0.5">
+                        {{ faker.news[0].shortContent }}
+                        </div>
+                    </div>
+                    </div>
+                </div>
+                <div
+                    v-show="replyBar"
+                    class="pt-4 pb-10 sm:py-4 flex items-center border-t border-slate-200/60 dark:border-darkmode-400"
+                >
+                    <textarea
+                    class="chat__box__input form-control dark:bg-darkmode-600 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:border-transparent focus:ring-0"
+                    rows="1"
+                    placeholder="Type your message..."
+                    ></textarea>
+                    <div
+                    class="flex absolute sm:static left-0 bottom-0 ml-5 sm:ml-0 mb-5 sm:mb-0"
+                    >
+                    <a
+                        href="javascript:;"
+                        class="w-8 h-8 sm:w-10 sm:h-10 block bg-primary text-white rounded-full flex-none flex items-center justify-center mx-2"
+                    >
+                        <SendIcon class="w-4 h-4" />
                     </a>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <!-- <div class="box"> -->
-      <!-- BEGIN: Basic Sticky Notification Content -->
-      <!-- <Notification refKey="basicStickyNotification" class="">
-        <div class="font-medium m-3">
-          You have an upcoming campaign in 1 hour
-        </div>
-        <br />
-        <a
-          class="
-            font-medium
-            text-primary
-            dark:text-slate-400
-            mt-1
-            sm:mt-0 sm:ml-40
-          "
-          href=""
-          >Start Now</a
-        >
-        <a
-          class="
-            font-medium
-            text-primary
-            dark:text-slate-400
-            mt-1
-            sm:mt-0 sm:ml-40
-          "
-          href=""
-          >Remind me 15 mins before</a
-        >
-      </Notification> -->
-      <!-- END: Basic Sticky Notification Content -->
-      <!-- BEGIN: Notification Toggle -->
-      <!-- <button
-        class="btn btn-primary mt-2 sm:mt-0"
-        @click="basicStickyNotificationToggle"
-      >
-        Show Notification
-      </button> -->
-      <!-- END: Notification Toggle -->
-      <!-- <button
-        class="btn btn-primary mt-2 sm:mt-0"
-        @click="videoStickyNotificationToggle"
-      >
-        Show video
-      </button>
+                    </div>
+                </div>
+                </TabPanel>
+                <TabPanel> second </TabPanel>
+                <TabPanel> thrid </TabPanel>
+            </TabPanels>
+        </TabGroup>
 
-      <Notification refKey="videoStickyNotification" class="">
-        <video width="400" controls>
-          <source src="mov_bbb.mp4" type="video/mp4" />
-          <source src="mov_bbb.ogg" type="video/ogg" />
-          Your browser does not support HTML video.
-        </video>
-      </Notification>
-    </div> -->
-  </div>
+        <div class="box" height="750px" >  </div>
+
+    </div>
+    <!-- END: Chat Side Menu -->
 </template>
 
 <script>
-export default {
-  data() {
-    return {
-      columns: [
-        { name: "Fan Page", key: "page" },
-        { name: "Platform", key: "platform" },
-        { name: "Title", key: "title" },
-        { name: "Time", key: "time" },
-        { name: "Manage Order", key: "manager_order" },
-        { name: "Stop Checkout", key: "stop" },
-        { name: " ", key: "entry" },
-        { name: "Edit", key: "edit" },
-      ],
-      results: [
-        {
-          image:"",
-          platform:"",
-          title:"",
-          time:"",
+// import {campaign_comment_summarize} from '@/api/user';
+export default{
 
-        },
-        {
-          id: 124,
-          created_by: null,
-          meta: {},
-          meta_logistic: {},
-          tag: [],
-          qty: 24,
-          name: "2363",
-          category: null,
-          excerpt: null,
-          description: "",
-          content: null,
-          remark: null,
-          price: 8.0,
-          price_ori: 0.0,
-          tax: 0.0,
-          currency: null,
-          currency_sign: "$",
-          points: 0,
-          model: null,
-          sku: null,
-          upc: null,
-          image: "",
-          sort_order: 0,
-          order_code: "A2M",
-          max_order_amount: null,
-          customer_removable: false,
-          customer_editable: false,
-          type: "product",
-          status: "enabled",
-          created_at: "2022-02-25T09:24:54.512000Z",
-          updated_at: "2022-02-25T09:24:54.512000Z",
-          user_subscription: 1,
-        },
-        {
-          id: 125,
-          created_by: null,
-          meta: {},
-          meta_logistic: {},
-          tag: [],
-          qty: 25,
-          name: "2364",
-          category: null,
-          excerpt: null,
-          description: "",
-          content: null,
-          remark: null,
-          price: 7.0,
-          price_ori: 0.0,
-          tax: 0.0,
-          currency: null,
-          currency_sign: "$",
-          points: 0,
-          model: null,
-          sku: null,
-          upc: null,
-          image: "",
-          sort_order: 0,
-          order_code: "A2L",
-          max_order_amount: null,
-          customer_removable: false,
-          customer_editable: false,
-          type: "product",
-          status: "enabled",
-          created_at: "2022-02-25T09:25:39.884000Z",
-          updated_at: "2022-02-25T09:25:39.884000Z",
-          user_subscription: 1,
-        },
-        {
-          id: 126,
-          created_by: null,
-          meta: {},
-          meta_logistic: {},
-          tag: [],
-          qty: 68,
-          name: "2365",
-          category: null,
-          excerpt: null,
-          description: "",
-          content: null,
-          remark: null,
-          price: 35.0,
-          price_ori: 0.0,
-          tax: 0.0,
-          currency: null,
-          currency_sign: "$",
-          points: 0,
-          model: null,
-          sku: null,
-          upc: null,
-          image: "",
-          sort_order: 0,
-          order_code: "A3",
-          max_order_amount: null,
-          customer_removable: false,
-          customer_editable: false,
-          type: "product",
-          status: "enabled",
-          created_at: "2022-02-25T09:26:12.655000Z",
-          updated_at: "2022-02-25T09:26:12.655000Z",
-          user_subscription: 1,
-        },
-        {
-          id: 127,
-          created_by: null,
-          meta: {},
-          meta_logistic: {},
-          tag: [],
-          qty: 110,
-          name: "2366",
-          category: null,
-          excerpt: null,
-          description: "",
-          content: null,
-          remark: null,
-          price: 4.0,
-          price_ori: 0.0,
-          tax: 0.0,
-          currency: null,
-          currency_sign: "$",
-          points: 0,
-          model: null,
-          sku: null,
-          upc: null,
-          image: "",
-          sort_order: 0,
-          order_code: "DB",
-          max_order_amount: null,
-          customer_removable: false,
-          customer_editable: false,
-          type: "product",
-          status: "enabled",
-          created_at: "2022-02-25T09:26:41.585000Z",
-          updated_at: "2022-02-25T09:26:41.585000Z",
-          user_subscription: 1,
-        },
-      ],
-    };
-  },
-  methods: {
-    append_1() {
-      console.log("popoo");
-
-      this.results.push({
-        id: 127,
-        created_by: null,
-        meta: {},
-        meta_logistic: {},
-        tag: [],
-        qty: 110,
-        name: "2366",
-        category: null,
-        excerpt: null,
-        description: "",
-        content: null,
-        remark: null,
-        price: 4.0,
-        price_ori: 0.0,
-        tax: 0.0,
-        currency: null,
-        currency_sign: "$",
-        points: 0,
-        model: null,
-        sku: null,
-        upc: null,
-        image: "",
-        sort_order: 0,
-        order_code: "DB",
-        max_order_amount: null,
-        customer_removable: false,
-        customer_editable: false,
-        type: "product",
-        status: "enabled",
-        created_at: "2022-02-25T09:26:41.585000Z",
-        updated_at: "2022-02-25T09:26:41.585000Z",
-        user_subscription: 1,
-      });
-      console.log(results);
+    data(){
+        return{
+            tags: '', 
+            replyBar: false,
+            tagBox: false, 
+        }
     },
-  },
-};
+    methods:{
+        showReplyBar(){
+            this.replyBar = !this.replyBar;
+        },
+        showTags(){
+            this.tagBox = !this.tagBox;
+        }
+    }
+}
 </script>
 
 <style scoped>
-.switch-toggle {
-  float: left;
-  height: 42px;
-  width: 300px;
-  background: #363636ce;
-  border-radius: 42px 42px;
-}
-.switch-toggle input {
-  position: absolute;
-  opacity: 0;
-}
-.switch-toggle input + label {
-  padding-top: 12px;
-  padding-bottom: 12px;
-  padding-left: 15px;
-  padding-right: 15px;
-  float: left;
-  text-align: center;
-  font-weight: 500;
-  font-size: 16px;
-  color: #fff;
-  cursor: pointer;
-}
-.switch-toggle input:checked + label {
-  background: #055770;
-  height: 42px;
-  width: 100px;
-  border-radius: 42px 42px;
-}
+
 </style>
