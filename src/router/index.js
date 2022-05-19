@@ -69,9 +69,18 @@ import CampaignLive from "../views/campaign-live/Main.vue";
 
 import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
+import Test4 from "../views/test/test4.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
 const routes = [
+
+  
+  // {
+  //   path: "/test4",
+  //   name: "side-menu-test4",
+  //   component: Test4,
+  // },
   {
+
     path: "/",
     component: LssSideMenu,
     children: [
