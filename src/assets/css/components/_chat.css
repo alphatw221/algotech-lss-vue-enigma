@@ -2,6 +2,9 @@
     .chat__chat-list {
         @apply h-[525px];
     }
+    .chat__lss__chat-list{
+        @apply h-[590px];
+    }
     .chat__user-list {
         @apply h-[525px];
     }
