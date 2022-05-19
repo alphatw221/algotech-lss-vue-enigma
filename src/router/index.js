@@ -63,12 +63,49 @@ import Validation from "../views/validation/Main.vue";
 import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
-
+import Test from "../views/test/Main.vue";
+import Test2 from "../views/test/test2.vue"; 
+import CreateCamp from "../views/test/createCamp.vue";
 const routes = [
   {
     path: "/",
     component: LssSideMenu,
     children: [
+      {
+        path: "test",
+        name: "side-menu-test",
+        component: Test,
+      },
+      {
+        path: "test2",
+        name: "side-menu-test2",
+        component: Test2,
+      },
+      {
+        path: "createCamp",
+        name: "side-menu-createCamp",
+        component: CreateCamp,
+      },
+      {
+        path: "dashboard-overview-1",
+        name: "side-menu-dashboard-overview-1",
+        component: DashboardOverview1,
+      },
+      {
+        path: "dashboard-overview-2",
+        name: "side-menu-dashboard-overview-2",
+        component: DashboardOverview2,
+      },
+      {
+        path: "dashboard-overview-3",
+        name: "side-menu-dashboard-overview-3",
+        component: DashboardOverview3,
+      },
+      {
+        path: "/",
+        name: "side-menu-dashboard-overview-4",
+        component: DashboardOverview4,
+      },
       {
         path: "inbox",
         name: "side-menu-inbox",
