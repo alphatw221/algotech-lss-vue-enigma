@@ -1,67 +1,255 @@
 <template>
-  <!-- BEGIN: Boxed Tab -->
-  <!-- <div
-      class="
-        flex flex-col
-        sm:flex-row
-        items-center
-        p-5
-        border-b border-slate-200/60
-        dark:border-darkmode-400
-      "
-    >
-      <h2 class="font-medium text-base mr-auto">Boxed Tab</h2>
-      <div
-        class="form-check form-switch w-full sm:w-auto sm:ml-auto mt-3 sm:mt-0"
-      >
+  <!-- OUTTER BOX -->
+  <div class="intro-y chat grid grid-cols-12 gap-5" style="height: 725px">
+    <!-- BEGIN: commit box -->
+    <div class="col-span-12">
+      <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
+        <div class="switch-toggle switch-3 switch-candy col-start-1 m-2">
+          <input id="on" name="state-d" type="radio" checked="checked" />
+          <label for="on" onclick="" style="width: 100px">Scheduled</label>
+
+          <input id="na" name="state-d" type="radio" class="my-0" />
+          <label for="na" onclick="" style="width: 100px">History</label>
+
+          <input id="off" name="state-d" type="radio" />
+          <label for="off" onclick="" style="width: 100px">Ongoing</label>
+        </div>
+        <div class="col-end-13 col-span-2">
+          <button
+            class="btn btn-primary-soft w-11 col-start-1 m-2 rounded-full"
+          >
+            <SearchIcon />
+          </button>
+          <button
+            class="btn btn-primary-soft w-11 col-start-1 m-2 rounded-full"
+          >
+            <FilterIcon />
+          </button>
+        </div>
       </div>
-    </div> -->
-  <div>
-    <div class="p-5">
-      <TabGroup class="grid grid-cols-12 gap-4">
-        <div class="col-start-1">
-          <TabList class="nav-boxed-tabs">
-            <Tab class="w-full py-2" tag="button">Secheduled</Tab>
-            <Tab class="w-full py-2" tag="button">History</Tab>
-            <Tab class="w-full py-2" tag="button">Ongoing</Tab>
-          </TabList>
-          <!-- BEGIN: Basic Table -->
+
+      <div class="box">
+        <div class="overflow-x-auto">
+          <table class="table table-report mt-5">
+            <thead>
+              <tr>
+                <th
+                  class="whitespace-nowrap text-center"
+                  v-for="column in columns"
+                  :key="column.key"
+                >
+                  {{ column.name }}
+                </th>
+                <!--<th class="text-center whitespace-nowrap">Edit</th> -->
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(campaign, key) in results" :key="key" class="intro-x">
+                <td class="w-32">
+                  <div class="flex">
+                    <div class="w-10 h-10 image-fit zoom-in">
+                      <Tippy
+                        tag="img"
+                        class="rounded-full"
+                        :src="campaign.image"
+                        :content="`Uploaded at`"
+                      />
+                    </div>
+                  </div>
+                </td>
+                <td class="text-center">
+                  {{ campaign.platform }}
+                </td>
+                <td class="text-center">
+                  {{ campaign.title }}
+                </td>
+                <td class="text-center">
+                  {{ campaign.time }}
+                </td>
+                <td class="items-center">
+                  <a class="flex items-center ml-20" href="javascript:;">
+                    <ListIcon class="w-4 h-4" />
+                  </a>
+                </td>
+                <td class="text-center">
+                  <div
+                    class="
+                      form-check form-switch
+                      w-full
+                      sm:w-auto sm:ml-auto
+                      mt-3
+                      sm:mt-0
+                    "
+                  >
+                    <input
+                      @click="toggle"
+                      class="form-check-input mr-0 ml-20"
+                      type="checkbox"
+                    />
+                  </div>
+                </td>
+                <td class="text-center">
+                  <button
+                    class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2"
+                    @click="entry"
+                  >
+                    Entry
+                  </button>
+                </td>
+                <td class="table-report__action w-30">
+                  <div class="flex justify-center items-center">
+                    <a class="flex items-center mr-3" href="javascript:;">
+                      <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
         </div>
-        <div class="p-5 col-span-12">
-          <div class="overflow-x-auto">
-            <table class="table">
-              <thead>
-                <tr>
-                  <th class="whitespace-nowrap">Title</th>
-                  <th class="whitespace-nowrap">Time</th>
-                  <th class="whitespace-nowrap">Manage Order</th>
-                  <th class="whitespace-nowrap">Stop Checkout</th>
-                  <th class="whitespace-nowrap"></th>
-                  <th class="whitespace-nowrap"></th>
-                </tr>
-              </thead>
-            </table>
-            <TabPanels class="mt-5">
-              <TabPanel class="leading-relaxed">
-                <tbody>
-                  <tr>
-                    <td>adfa</td>
-                    <td>ffff</td>
-                    <td>asd</td>
-                    <td>asd</td>
-                    <td>asd</td>
-                    <td>das</td>
-                  </tr>
-                </tbody>
-              </TabPanel>
-              <TabPanel class="leading-relaxed"> History. </TabPanel>
-              <TabPanel class="leading-relaxed"> Ongoing. </TabPanel>
-            </TabPanels>
-          </div>
-        </div>
-        <!-- END: Basic Table -->
-      </TabGroup>
+      </div>
     </div>
-    <!-- END: Boxed Tab -->
+    <!-- <div class="box"> -->
+    <!-- BEGIN: Basic Sticky Notification Content -->
+    <!-- <Notification refKey="basicStickyNotification" class="">
+        <div class="font-medium m-3">
+          You have an upcoming campaign in 1 hour
+        </div>
+        <br />
+        <a
+          class="
+            font-medium
+            text-primary
+            dark:text-slate-400
+            mt-1
+            sm:mt-0 sm:ml-40
+          "
+          href=""
+          >Start Now</a
+        >
+        <a
+          class="
+            font-medium
+            text-primary
+            dark:text-slate-400
+            mt-1
+            sm:mt-0 sm:ml-40
+          "
+          href=""
+          >Remind me 15 mins before</a
+        >
+      </Notification> -->
+    <!-- END: Basic Sticky Notification Content -->
+    <!-- BEGIN: Notification Toggle -->
+    <!-- <button
+        class="btn btn-primary mt-2 sm:mt-0"
+        @click="basicStickyNotificationToggle"
+      >
+        Show Notification
+      </button> -->
+    <!-- END: Notification Toggle -->
+    <!-- <button
+        class="btn btn-primary mt-2 sm:mt-0"
+        @click="videoStickyNotificationToggle"
+      >
+        Show video
+      </button>
+
+      <Notification refKey="videoStickyNotification" class="">
+        <video width="400" controls>
+          <source src="mov_bbb.mp4" type="video/mp4" />
+          <source src="mov_bbb.ogg" type="video/ogg" />
+          Your browser does not support HTML video.
+        </video>
+      </Notification>
+    </div> -->
   </div>
 </template>
+
+<script>
+export default {
+  data() {
+    return {
+      columns: [
+        { name: "Fan Page", key: "page" },
+        { name: "Platform", key: "platform" },
+        { name: "Title", key: "title" },
+        { name: "Time", key: "time" },
+        { name: "Manage Order", key: "manager_order" },
+        { name: "Stop Checkout", key: "stop" },
+        { name: " ", key: "entry" },
+        { name: " ", key: "edit" },
+      ],
+      results: [
+        {
+          image: "",
+          platform: "",
+          title: "uuaaakjdkh",
+          time: "2022/07/08",
+        },
+        {
+          image: "",
+          platform: "",
+          title: "test0708",
+          time: "2022/07/08",
+        },
+        {
+          image: "",
+          platform: "",
+          title: "test0101",
+          time: "2022/01/01",
+        },
+        {
+          image: "",
+          platform: "",
+          title: "test1231",
+          time: "2022/12/31",
+        },
+        {
+          image: "",
+          platform: "",
+          title: "UU",
+          time: "2022/07/08",
+        },
+      ],
+    };
+  },
+  methods: {
+      entry(){
+          this.$router.push({path: '/cart?goodsId=12'})
+      }
+  },
+};
+</script>
+
+<style scoped>
+.switch-toggle {
+  float: left;
+  height: 42px;
+  width: 300px;
+  background: #363636ce;
+  border-radius: 42px 42px;
+}
+.switch-toggle input {
+  position: absolute;
+  opacity: 0;
+}
+.switch-toggle input + label {
+  padding-top: 12px;
+  padding-bottom: 12px;
+  padding-left: 15px;
+  padding-right: 15px;
+  float: left;
+  text-align: center;
+  font-weight: 500;
+  font-size: 16px;
+  color: #fff;
+  cursor: pointer;
+}
+.switch-toggle input:checked + label {
+  background: #055770;
+  height: 42px;
+  width: 100px;
+  border-radius: 42px 42px;
+}
+</style>

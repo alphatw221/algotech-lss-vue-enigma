@@ -226,6 +226,7 @@
                          <a href="javascript:;" @click="this.largeSlideOverSizePreview = !this.largeSlideOverSizePreview" 
                         class="btn btn-primary right-0">Add Product From Stock</a>
                 </row>
+                
             </div>
         </div>
     <!-- END: Product -->
@@ -268,7 +269,7 @@
                     <table class="table table-report mt-5">
                         <thead>
                             <tr >
-                                <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
+                                <th class="whitespace-nowrap" v-for="column in add_product_columns" :key="column.key">
                                     {{ column.name }}
                                 </th>
                                 <!--<th class="text-center whitespace-nowrap">Edit</th> -->
@@ -276,56 +277,26 @@
                         </thead>
                         <tbody>
                             <tr
-                                v-for="(product, key) in results"
+                                v-for="(product, key) in add_product_results"
                                 :key="key"
                                 class="intro-x"
                             >
-                                <td class="text-center">
-                                    <div class="form-check">
-                                        <input id="horizontal-form-3" class="form-check-input" type="checkbox" value="" />
-                                    </div>
-                                </td>
-                                <td class="w-40">
-                                    <div class="flex">
-                                        <div class="w-10 h-10 image-fit zoom-in">
-                                            <Tippy
-                                                tag="img"
-                                                class="rounded-full"
-                                                :src="product.image"
-                                                :content="`Uploaded at`"
-                                            />
+                                <td v-for="column in add_product_columns" :key="column.key">
+                                    <template v-if="column.key === 'image'" class="w-40">
+                                        <div class="flex">
+                                            <div class="w-10 h-10 image-fit zoom-in">
+                                                <Tippy
+                                                    tag="img"
+                                                    class="rounded-full"
+                                                    :src="product.image"
+                                                    :content="`Uploaded at`"
+                                                />
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <a href="" class="font-medium whitespace-nowrap">
-                                        {{ product.name }}
-                                    </a>
-                                </td>
-                                <td class="text-center">
-                                    {{ product.order_code }}
-                                </td>
-                                <td class="text-center">
-                                    {{ product.qty }}
-                                </td>
-                                <td class="text-center">
-                                    {{ product.qty }}
-                                </td>
-                                <td class="text-center">
-                                    {{ product.price }}
-                                </td>
-                                <td class="text-center">
-                                    {{ product.category }}
-                                </td>
-                                <!-- <td class="text-center">
-                                    {{ product.edit }}
-                                </td> -->
-                                <td class="table-report__action w-30">
-                                    <div class="flex justify-center items-center">
-                                        <a class="flex items-center mr-3" href="javascript:;">
-                                            <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
-                                        </a>
-                                    </div>
+                                    </template>
+                                    <template v-else>
+                                        {{ product[column.key] }}
+                                    </template>
                                 </td>
                             </tr>
                         </tbody>
@@ -348,6 +319,29 @@ export default{
             replyBar: false,
             tagBox: false, 
             largeSlideOverSizePreview:false,
+            add_product_columns: [
+                {name: 'Select', key: 'select'},
+				{name: 'Image', key: 'image'},
+                {name: 'Name', key: 'name'}, 
+                {name: 'Order Code', key: 'order_code'}, 
+				{name: 'OTY for Campaign', key: 'qty_for_campaign'},
+				{name: 'Max OTYOrder', key: 'max_qty'},
+                {name: 'Price', key: 'price'},
+				{name: 'Editable', key: 'editable'},
+                {name: 'Deletable', key: 'deletable'},
+                {name: 'Type', key: 'type'},
+            ],
+            add_product_results: [
+                {
+                    image: '',
+                    name: '',
+                    order_code: '',
+                    qty_for_campaign: '',
+                    max_qty: 20,
+                    price: 20,
+                    type: 'Product'
+                },
+            ],
             columns: [
                 {name: 'Select', key:''},
 				{name: 'Product', key: 'image'},
@@ -357,7 +351,6 @@ export default{
 				{name: 'OTYOrder', key: 'qty'},
                 {name: 'Price', key: 'price'},
 				{name: 'Category', key: 'category'},
-				{name: 'Edit', key: 'edit'},
 			],
 			results: [
 				{

@@ -113,7 +113,7 @@ const routes = [
       },
       {
         path: "test3",
-        name: "side-menu-test2",
+        name: "side-menu-test3",
         component: Test3,
       },
       {
