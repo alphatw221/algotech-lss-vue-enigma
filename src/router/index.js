@@ -66,6 +66,7 @@ import ImageZoom from "../views/image-zoom/Main.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
+import ManageOrder from "../views/manage-order/Main.vue"; 
 
 import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
@@ -84,6 +85,11 @@ const routes = [
         path: "campaign-live",
         name: "side-menu-campaign-live",
         component: CampaignLive,
+      },
+      {
+        path: "manage-order",
+        name: "side-menu-manage-order",
+        component: ManageOrder,
       },
       {
         path: "test2",
