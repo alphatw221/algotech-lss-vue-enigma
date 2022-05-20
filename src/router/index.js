@@ -63,12 +63,18 @@ import Validation from "../views/validation/Main.vue";
 import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
+import LssModal from "../views/modal/LssModal.vue";
 
 const routes = [
   {
     path: "/",
     component: LssSideMenu,
     children: [
+      {
+        path: "LssModal",
+        name: "LssModal",
+        component: LssModal,
+      },
       {
         path: "dashboard-overview-1",
         name: "side-menu-dashboard-overview-1",
