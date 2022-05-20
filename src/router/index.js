@@ -86,11 +86,10 @@ const routes = [
     component: LssSideMenu,
     children: [
       {
-<<<<<<< HEAD
         path: "LssModal",
         name: "LssModal",
-        component: LssModal,
-=======
+        component: LssModal}
+        ,{
         path: "campaign-list",
         name: "side-menu-campaign-list",
         component: CampaignList,
@@ -114,7 +113,6 @@ const routes = [
         path: "createCamp",
         name: "side-menu-createCamp",
         component: CreateCamp,
->>>>>>> b052b72f7e2ec9f767cbf192a05742ccd9b27116
       },
       {
         path: "dashboard-overview-1",
