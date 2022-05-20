@@ -63,6 +63,7 @@ import Validation from "../views/validation/Main.vue";
 import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
+import LssModal from "../views/modal/LssModal.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
@@ -70,13 +71,26 @@ import ManageOrder from "../views/manage-order/Main.vue";
 
 import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
+import Test4 from "../views/test/test4.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
 const routes = [
+
+  
+  // {
+  //   path: "/test4",
+  //   name: "side-menu-test4",
+  //   component: Test4,
+  // },
   {
+
     path: "/",
     component: LssSideMenu,
     children: [
       {
+        path: "LssModal",
+        name: "LssModal",
+        component: LssModal}
+        ,{
         path: "campaign-list",
         name: "side-menu-campaign-list",
         component: CampaignList,
