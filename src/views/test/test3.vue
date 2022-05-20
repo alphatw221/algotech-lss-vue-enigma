@@ -66,9 +66,9 @@
                 <td class="text-center">
                   {{ campaign.time }}
                 </td>
-                <td class="text-center">
-                  <a class="flex items-center mr-3" href="javascript:;">
-                    <ListIcon class="w-4 h-4 mr-1" />
+                <td class="items-center">
+                  <a class="flex items-center ml-20" href="javascript:;">
+                    <ListIcon class="w-4 h-4" />
                   </a>
                 </td>
                 <td class="text-center">
@@ -83,7 +83,7 @@
                   >
                     <input
                       @click="toggle"
-                      class="form-check-input mr-0 ml-3"
+                      class="form-check-input mr-0 center"
                       type="checkbox"
                     />
                   </div>

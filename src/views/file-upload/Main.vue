@@ -94,6 +94,15 @@
         </div>
         <div class="p-5">
           <Preview>
+            <label for="modal-form-1" class="text-lg font-medium mr-5">Title</label>
+                <div class="col-span-12">
+                  <input
+                    id="modal-form-1"
+                    type="text"
+                    class="form-control"
+                    placeholder=""
+                  />
+                </div>
             <Dropzone
               ref-key="dropzoneMultipleRef"
               :options="{

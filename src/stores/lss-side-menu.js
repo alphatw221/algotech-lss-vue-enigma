@@ -4,38 +4,38 @@ export const useSideMenuStore = defineStore("sideMenu", {
   state: () => ({
     menu: [
       {
-        icon: "InboxIcon",
+        icon: "HomeIcon",
         pageName: "side-menu-inbox",
         title: "Home",
       },
       {
-        icon: "InboxIcon",
+        icon: "BoxIcon",
         pageName: "Stock",
         title: "Stock",
       },
       {
-        icon: "InboxIcon",
+        icon: "BoxIcon",
         pageName: "Stock1",
         title: "Stock1",
       },
       {
-        icon: "InboxIcon",
+        icon: "ListIcon",
         pageName: "side-menu-campaign-list",
         title: "Campaign List",
       },
       {
-        icon: "InboxIcon",
-        pageName: "side-menu-inbox",
+        icon: "VideoIcon",
+        pageName: "side-menu-campaign-live",
         title: "Campaign Live",
       },
       {
-        icon: "InboxIcon",
+        icon: "MessageSquareIcon",
         pageName: "side-menu-inbox",
         title: "Auto Reply",
       },
       {
-        icon: "InboxIcon",
-        pageName: "side-menu-inbox",
+        icon: "PackageIcon",
+        pageName: "side-menu-manage-order",
         title: "Manage Order",
       },
     ],

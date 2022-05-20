@@ -71,7 +71,6 @@
 												<th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
 													{{ column.name }}
 												</th>
-												<!--<th class="text-center whitespace-nowrap">Edit</th> -->
 											</tr>
 										</thead>
 										<tbody>
@@ -79,41 +78,23 @@
 												v-for="(product, key) in results"
 												:key="key"
 												class="intro-x"
-											>
-												<td class="w-40">
-													<div class="flex">
-														<div class="w-10 h-10 image-fit zoom-in">
-															<Tippy
-																tag="img"
-																class="rounded-full"
-																:src="product.image"
-																:content="`Uploaded at`"
-															/>
+											>	
+												<td v-for="column in columns" :key="column.key">
+													<template v-if="column.key === 'image'" class="w-40">
+														<div class="flex">
+															<div class="w-10 h-10 image-fit zoom-in">
+																<Tippy
+																	tag="img"
+																	class="rounded-full"
+																	:src="product.image"
+																	:content="`Uploaded at`"
+																/>
+															</div>
 														</div>
-													</div>
-												</td>
-												<td>
-													<a href="" class="font-medium whitespace-nowrap">
-														{{ product.name }}
-													</a>
-												</td>
-												<td class="text-center">
-													{{ product.order_code }}
-												</td>
-												<td class="text-center">
-													{{ product.type }}
-												</td>
-												<td class="text-center">
-													{{ product.category }}
-												</td>
-												<td class="text-center">
-													{{ product.description }}
-												</td>
-												<td class="text-center">
-													{{ product.qty }}
-												</td>
-												<td class="text-center">
-													{{ product.price }}
+													</template>
+													<template v-else>
+														{{ product[column.key] }}
+													</template>
 												</td>
 												<td class="table-report__action w-30">
 													<div class="flex justify-center items-center">
@@ -152,7 +133,7 @@ export default {
 				{name: 'Description', key: 'description'},
 				{name: 'Quantity', key: 'qty'},
 				{name: 'Price', key: 'price'},
-				{name: 'Edit', key: 'edit'},
+				// {name: 'Edit', key: 'edit'},
 			],
 			results: [
 				{
@@ -374,7 +355,7 @@ export default {
 
 </script>
 
-<style>
+<style scoped>
     .demo-breadcrumb-separator{
         color: #ff5500;
         padding: 0 5px;

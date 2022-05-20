@@ -71,7 +71,7 @@
           <div class="intro-y grid grid-cols-12 gap-5 mt-5">
             <button
               class="col-end-10 btn btn-rounded-primary py-2 w-48 text-lg"
-              @click=""
+              @click="test"
             >
               Select Product
             </button>

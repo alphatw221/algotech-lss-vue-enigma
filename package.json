@@ -38,6 +38,7 @@
     "tippy.js": "^6.2.7",
     "toastify-js": "^1.9.3",
     "tom-select": "^1.7.5",
+    "view-ui-plus": "^1.0.0",
     "vue": "^3.2.25",
     "vue-axios": "^3.4.1",
     "vue-router": "4",
