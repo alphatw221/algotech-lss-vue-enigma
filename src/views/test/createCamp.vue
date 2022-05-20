@@ -127,13 +127,30 @@
                 >
                   Express Delivery</label
                 >
-                <select
-                  class="form-select form-select-lg col-span-4"
-                  aria-label=".form-select-lg example"
-                >
-                  <option>On top of delivery charge</option>
-                  <option>Replace delivery charge</option>
-                </select>
+                <Dropdown class="col-span-4">
+                  <DropdownToggle
+                    class="btn btn-rounded-secondary relative justify-center w-full text-lg"
+                  >
+                    On top of delivery charge
+                    <span
+                      class="w-8 h-8 absolute flex justify-center items-center right-0 top-0 bottom-0 my-auto ml-auto mr-1"
+                    >
+                      <ChevronDownIcon class="w-4 h-4" />
+                    </span>
+                  </DropdownToggle>
+                  <DropdownMenu class="w-full text-lg">
+                    <DropdownContent>
+                      <DropdownItem>
+                        <FileTextIcon class="w-4 h-4 mr-2" />
+                        On top of delivery charge
+                      </DropdownItem>
+                      <DropdownItem>
+                        <FileTextIcon class="w-4 h-4 mr-2" />
+                        Replace delivery charge
+                      </DropdownItem>
+                    </DropdownContent>
+                  </DropdownMenu>
+                </Dropdown>
                 <input
                   id="regular-form-2"
                   type="text"
@@ -151,13 +168,30 @@
                 >
                   Overseas</label
                 >
-                <select
-                  class="form-select form-select-lg col-span-4"
-                  aria-label=".form-select-lg example"
-                >
-                  <option>On top of delivery charge</option>
-                  <option>Replace delivery charge</option>
-                </select>
+                <Dropdown class="col-span-4">
+                  <DropdownToggle
+                    class="btn btn-rounded-secondary relative justify-center w-full text-lg"
+                  >
+                    On top of delivery charge
+                    <span
+                      class="w-8 h-8 absolute flex justify-center items-center right-0 top-0 bottom-0 my-auto ml-auto mr-1"
+                    >
+                      <ChevronDownIcon class="w-4 h-4" />
+                    </span>
+                  </DropdownToggle>
+                  <DropdownMenu class="w-full text-lg">
+                    <DropdownContent>
+                      <DropdownItem>
+                        <FileTextIcon class="w-4 h-4 mr-2" />
+                        On top of delivery charge
+                      </DropdownItem>
+                      <DropdownItem>
+                        <FileTextIcon class="w-4 h-4 mr-2" />
+                        Replace delivery charge
+                      </DropdownItem>
+                    </DropdownContent>
+                  </DropdownMenu>
+                </Dropdown>
                 <input
                   id="regular-form-2"
                   type="text"
