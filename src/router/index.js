@@ -88,9 +88,10 @@ const routes = [
     children: [
       {
         path: "LssModal",
-        name: "LssModal",
-        component: LssModal}
-        ,{
+        name: "side-menu-LssModal",
+        component: LssModal
+      },
+      {
         path: "campaign-list",
         name: "side-menu-campaign-list",
         component: CampaignList,

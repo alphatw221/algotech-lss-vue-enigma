@@ -218,11 +218,23 @@
                   </a>
               </ModalHeader>
               <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">     
-                <label for="modal-form-1" class="text-lg font-medium mr-5">Facebook</label>
+                <div class="col-span-12 items-end" style="display:inline-flex"> 
+                  <label for="modal-form-1" class="text-lg font-medium  mr-5">Facebook</label> 
+                    <div
+                      v-show="facebookPageSelected"
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone Tailwind HTML Admin Template"
+                        :src="fbAvatar"
+                      />
+                    </div>
+                </div>
                 <div class="col-span-12" style="display:inline-flex">
                   <button
                     type="button"
-                    @click="warningModalPreview = false"
+                    href="javascript:;" 
+                    @click="facebookOverlappingModalPreview = true"
                     class="btn w-48 btn-primary mr-3"
                   >
                     Select Page
@@ -234,11 +246,23 @@
                     placeholder=""
                   />
                 </div>
-                <label for="modal-form-1" class="text-lg font-medium mt-3 mr-5">YouTube</label>
+                <div class="col-span-12 items-end" style="display:inline-flex"> 
+                  <label for="modal-form-1" class="text-lg font-medium  mr-5">YouTube</label> 
+                    <div
+                      v-show="youtubePageSelected"
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone Tailwind HTML Admin Template"
+                        :src="ytAvatar"
+                      />
+                    </div>
+                </div>
                 <div class="col-span-12" style="display:inline-flex">
                   <button
                     type="button"
-                    @click="warningModalPreview = false"
+                    href="javascript:;" 
+                    @click="youtubeOverlappingModalPreview = true"
                     class="btn w-48 btn-primary mr-3"
                   >
                   Select Page
@@ -250,11 +274,23 @@
                     placeholder=""
                   />
                 </div>
-                <label for="modal-form-1" class="text-lg font-medium mt-3 mr-5">Instagram</label>
+                <div class="col-span-12 items-end" style="display:inline-flex"> 
+                  <label for="modal-form-1" class="text-lg font-medium  mr-5">Instagram</label> 
+                    <div
+                      v-show="instagramPageSelected"
+                      class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+                    >
+                      <img
+                        alt="Midone Tailwind HTML Admin Template"
+                        :src="igAvatar"
+                      />
+                    </div>
+                </div>
                 <div class="col-span-12" style="display:inline-flex">
                   <button
                     type="button"
-                    @click="warningModalPreview = false"
+                    href="javascript:;" 
+                    @click="instagramOverlappingModalPreview = true"
                     class="btn w-48 btn-primary mr-3"
                   >
                   Select Page
@@ -265,20 +301,160 @@
                     class="form-control"
                     placeholder=""
                   />
+
                 </div>
                   
               </ModalBody>
-              <ModalFooter>
-                <button
-                  type="button"
-                  @click="enterIDModalPreview = false"
-                  class="btn btn-outline-secondary w-20 mr-1"
-                >
-                  Cancel
-                </button>
-                <button type="button" class="btn btn-primary w-20">Save</button>
-              </ModalFooter>
-            </Modal>
+              <!-- BEGIN: Select Facebook Fan Page -->
+                <Modal :show="facebookOverlappingModalPreview" @hidden="facebookOverlappingModalPreview = false">
+                    <ModalBody class="text-left content-center">
+                        <div class="intro-y grid grid-cols-12 gap-5 my-5">
+                          <div
+                            @click="facebookAccountClick(fbimg1)"
+                            class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden col-start-1 col-span-2 "
+                          >
+                            <img
+                              alt="Midone Tailwind HTML Admin Template"
+                              src="@/assets/images/lss-img/kuaimai-avatar.jpeg"
+                            />
+                          </div>
+                          <span 
+                            @click="facebookAccountClick(fbimg1)"
+                            class="col-span-6 text-lg content-center"
+                            > Kuai Mai </span>
+
+                          <div
+                            @click="facebookAccountClick(fbimg2)"
+                            class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden col-start-1 col-span-2"
+                          >
+                            <img
+                              alt="Midone Tailwind HTML Admin Template"
+                              :src="fbimg2"
+                            />
+                          </div>
+                          <span
+                            @click="facebookAccountClick(fbimg2)" 
+                            class="col-span-6 text-lg"
+                            > Nick Lian </span>
+
+                          <div
+                            @click="facebookAccountClick(fbimg3)"
+                            class="w-14 flex-none image-fit rounded-md overflow-hidden col-start-1 col-span-2"
+                          >
+                            <img
+                              alt="Midone Tailwind HTML Admin Template"
+                              :src="fbimg3"
+                            />
+                          </div>
+                          <span
+                            @click="facebookAccountClick(fbimg3)"
+                            class="col-span-6 text-lg"> Live Show Seller </span>
+                        </div>
+                    </ModalBody>
+                  </Modal>
+                <!-- END: Select Facebook Fan Page -->
+
+                <!-- BEGIN: Select YouTube Channel Page -->
+                  <Modal :show="youtubeOverlappingModalPreview" @hidden="youtubeOverlappingModalPreview = false">
+                      <ModalBody class="text-left align-middle">
+                          <div class="intro-y grid grid-cols-12 gap-5 my-5">
+                          <div
+                            @click="youtubeAccountClick(ytimg1)"
+                            class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden col-start-1 col-span-2"
+                          >
+                            <img
+                              alt="Midone Tailwind HTML Admin Template"
+                              :src="ytimg1"
+                            />
+                          </div>
+                          <span
+                            @click="youtubeAccountClick(ytimg2)"
+                            class="col-span-6 text-lg"> Beboo Feng </span>
+                          <div
+                            @click="youtubeAccountClick(ytimg2)"
+                            class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden col-start-1 col-span-2"
+                          >
+                            <img
+                              alt="Midone Tailwind HTML Admin Template"
+                              :src="ytimg2"
+                            />
+                          </div>
+                          <span 
+                            @click="youtubeAccountClick(ytimg3)"
+                            class="col-span-6 text-lg"> Jennifer Nicholson </span>
+                          <div
+                            @click="youtubeAccountClick(ytimg3)"
+                            class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden col-start-1 col-span-2"
+                          >
+                            <img
+                              alt="Midone Tailwind HTML Admin Template"
+                              :src="ytimg3"
+                            />
+                          </div>
+                          <span
+                            @click="youtubeAccountClick()"
+                            class="col-span-6 text-lg"> Maureen Hiatt </span>
+                        </div>
+                      </ModalBody>
+                  </Modal>
+                <!-- END: Select Select YouTube Channel Page -->
+
+                <!-- BEGIN: Select Instagram Profile Page -->
+                  <Modal :show="instagramOverlappingModalPreview" @hidden="instagramOverlappingModalPreview = false">
+                      <ModalBody class="text-left">
+                          <div class="intro-y grid grid-cols-12 gap-5 my-5">
+                          <div
+                            @click="instagramAccountClick(igimg1)"
+                            class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden col-start-1 col-span-2"
+                          >
+                            <img
+                              alt="Midone Tailwind HTML Admin Template"
+                              :src="igimg1"
+                            />
+                          </div>
+                          <span 
+                            @click="instagramAccountClick(igimg1)"
+                            class="col-span-6 text-lg"> Alejandro Gonzalez </span>
+                          <div
+                            @click="instagramAccountClick(igimg2)"
+                            class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden col-start-1 col-span-2"
+                          >
+                            <img
+                              alt="Midone Tailwind HTML Admin Template"
+                              :src="igimg2"
+                            />
+                          </div>
+                          <span
+                            @click="instagramAccountClick(igimg2)"
+                            class="col-span-6 text-lg"> David Tsui </span>
+                          <div
+                            @click="instagramAccountClick(igimg3)"
+                            class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden col-start-1 col-span-2"
+                          >
+                            <img
+                              alt="Midone Tailwind HTML Admin Template"
+                              :src="igimg3"
+                            />
+                          </div>
+                          <span
+                            @click="instagramAccountClick(igimg3)" 
+                            class="col-span-6 text-lg"> Fushia Liu </span>
+                        </div>
+                      </ModalBody>
+                  </Modal>
+                <!-- END: Select Instagram Profile Page -->
+
+                <ModalFooter>
+                    <button
+                      type="button"
+                      class="btn btn-outline-secondary w-20 mr-1"
+                      @click="cancelClean()" 
+                    >
+                      Cancel
+                    </button>
+                    <button type="button" class="btn btn-primary w-20">Save</button>
+                  </ModalFooter>
+                </Modal>
             <!-- END: Modal Content -->
           </Preview>
         </div>
@@ -362,9 +538,7 @@
         </div>
       </PreviewComponent>
       <!-- END: Lucky Draw> Create New Animation -->
-
     </div>
-
   </div>
 </template>
 
@@ -381,7 +555,9 @@ const warningModalPreview = ref(false);
 const buttonModalPreview = ref(false);
 const staticBackdropModalPreview = ref(false);
 const overlappingModalPreview = ref(false);
-const nextOverlappingModalPreview = ref(false);
+const facebookOverlappingModalPreview = ref(false);
+const youtubeOverlappingModalPreview = ref(false);
+const instagramOverlappingModalPreview = ref(false);
 const deleteModalPreview = ref(false);
 const successModalPreview = ref(false);
 const tinySliderModalPreview = ref(false);
@@ -390,4 +566,51 @@ const editProductModalPreview = ref(false);
 const idPopupModalPreview = ref(false);
 const enterIDModalPreview = ref(false);
 const createAnimationModalPreview = ref(false);
+
+const facebookPageSelected = ref(false);
+const instagramPageSelected = ref(false); 
+const youtubePageSelected = ref(false);  
+
+const fbAvatar = ref(); 
+const fbimg1 = '/src/assets/images/lss-img/kuaimai-avatar.jpeg';
+const fbimg2 = '/src/assets/images/profile-1.jpg';
+const fbimg3 = '/src/assets/images/lss-logo/LSS_logo_words.png';
+
+
+const ytAvatar = ref(); 
+const ytimg1 = '/src/assets/images/lss-img/beboo-avatar.png';
+const ytimg2 = '/src/assets/images/profile-2.jpg';
+const ytimg3 = '/src/assets/images/profile-3.jpg';
+
+const igAvatar = ref(); 
+const igimg1 = '/src/assets/images/profile-4.jpg';
+const igimg2 = '/src/assets/images/profile-5.jpg';
+const igimg3 = '/src/assets/images/profile-6.jpg';
+
+
+function facebookAccountClick(img){
+  facebookOverlappingModalPreview.value = false
+  facebookPageSelected.value = true
+  fbAvatar.value = img
+}
+
+function youtubeAccountClick(img){
+  youtubeOverlappingModalPreview.value = false
+  youtubePageSelected.value = true
+  ytAvatar.value = img
+}
+function instagramAccountClick(img){
+  instagramOverlappingModalPreview.value = false
+  instagramPageSelected.value = true
+  igAvatar.value = img
+}
+
+function cancelClean(){
+  enterIDModalPreview.value = false
+  facebookPageSelected.value = false
+  youtubePageSelected.value = false
+  instagramPageSelected.value = false
+}
+
+
 </script>

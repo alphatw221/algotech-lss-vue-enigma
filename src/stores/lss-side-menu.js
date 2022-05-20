@@ -19,6 +19,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         title: "Stock1",
       },
       {
+        icon: "PackageIcon",
+        pageName: "side-menu-createCamp",
+        title: "createCamp",
+      },
+      {
         icon: "ListIcon",
         pageName: "side-menu-campaign-list",
         title: "Campaign List",
