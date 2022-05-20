@@ -1,6 +1,6 @@
 .chat {
     .chat__chat-list {
-        @apply h-[525px];
+        @apply h-[475px];
     }
     .chat__user-list {
         @apply h-[525px];
