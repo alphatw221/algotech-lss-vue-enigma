@@ -92,6 +92,11 @@ const routes = [
         component: Test2,
       },
       {
+        path: "test3",
+        name: "side-menu-test3",
+        component: Test3,
+      },
+      {
         path: "createCamp",
         name: "side-menu-createCamp",
         component: CreateCamp,
