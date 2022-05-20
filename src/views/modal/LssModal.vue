@@ -542,75 +542,75 @@
   </div>
 </template>
 
-<script setup>
-import { ref } from "vue";
+  <script setup>
+  import { ref } from "vue";
 
-const basicModalPreview = ref(false);
-const smallModalSizePreview = ref(false);
-const mediumModalSizePreview = ref(false);
-const largeModalSizePreview = ref(false);
-const superlargeModalSizePreview = ref(false);
-const programmaticallyModal = ref(false);
-const warningModalPreview = ref(false);
-const buttonModalPreview = ref(false);
-const staticBackdropModalPreview = ref(false);
-const overlappingModalPreview = ref(false);
-const facebookOverlappingModalPreview = ref(false);
-const youtubeOverlappingModalPreview = ref(false);
-const instagramOverlappingModalPreview = ref(false);
-const deleteModalPreview = ref(false);
-const successModalPreview = ref(false);
-const tinySliderModalPreview = ref(false);
-const createCategoryModalPreview = ref(false);
-const editProductModalPreview = ref(false);
-const idPopupModalPreview = ref(false);
-const enterIDModalPreview = ref(false);
-const createAnimationModalPreview = ref(false);
+  const basicModalPreview = ref(false);
+  const smallModalSizePreview = ref(false);
+  const mediumModalSizePreview = ref(false);
+  const largeModalSizePreview = ref(false);
+  const superlargeModalSizePreview = ref(false);
+  const programmaticallyModal = ref(false);
+  const warningModalPreview = ref(false);
+  const buttonModalPreview = ref(false);
+  const staticBackdropModalPreview = ref(false);
+  const overlappingModalPreview = ref(false);
+  const deleteModalPreview = ref(false);
+  const successModalPreview = ref(false);
+  const tinySliderModalPreview = ref(false);
+  const createCategoryModalPreview = ref(false);
+  const editProductModalPreview = ref(false);
+  const idPopupModalPreview = ref(false);
+  const enterIDModalPreview = ref(false);
+  const createAnimationModalPreview = ref(false);
 
-const facebookPageSelected = ref(false);
-const instagramPageSelected = ref(false); 
-const youtubePageSelected = ref(false);  
+  const facebookOverlappingModalPreview = ref(false);
+  const youtubeOverlappingModalPreview = ref(false);
+  const instagramOverlappingModalPreview = ref(false);
+  
+  const facebookPageSelected = ref(false);
+  const instagramPageSelected = ref(false); 
+  const youtubePageSelected = ref(false);  
 
-const fbAvatar = ref(); 
-const fbimg1 = '/src/assets/images/lss-img/kuaimai-avatar.jpeg';
-const fbimg2 = '/src/assets/images/profile-1.jpg';
-const fbimg3 = '/src/assets/images/lss-logo/LSS_logo_words.png';
-
-
-const ytAvatar = ref(); 
-const ytimg1 = '/src/assets/images/lss-img/beboo-avatar.png';
-const ytimg2 = '/src/assets/images/profile-2.jpg';
-const ytimg3 = '/src/assets/images/profile-3.jpg';
-
-const igAvatar = ref(); 
-const igimg1 = '/src/assets/images/profile-4.jpg';
-const igimg2 = '/src/assets/images/profile-5.jpg';
-const igimg3 = '/src/assets/images/profile-6.jpg';
+  const fbAvatar = ref(); 
+  const fbimg1 = '/src/assets/images/lss-img/kuaimai-avatar.jpeg';
+  const fbimg2 = '/src/assets/images/profile-1.jpg';
+  const fbimg3 = '/src/assets/images/lss-logo/LSS_logo_words.png';
 
 
-function facebookAccountClick(img){
-  facebookOverlappingModalPreview.value = false
-  facebookPageSelected.value = true
-  fbAvatar.value = img
-}
+  const ytAvatar = ref(); 
+  const ytimg1 = '/src/assets/images/lss-img/beboo-avatar.png';
+  const ytimg2 = '/src/assets/images/profile-2.jpg';
+  const ytimg3 = '/src/assets/images/profile-3.jpg';
 
-function youtubeAccountClick(img){
-  youtubeOverlappingModalPreview.value = false
-  youtubePageSelected.value = true
-  ytAvatar.value = img
-}
-function instagramAccountClick(img){
-  instagramOverlappingModalPreview.value = false
-  instagramPageSelected.value = true
-  igAvatar.value = img
-}
+  const igAvatar = ref(); 
+  const igimg1 = '/src/assets/images/profile-4.jpg';
+  const igimg2 = '/src/assets/images/profile-5.jpg';
+  const igimg3 = '/src/assets/images/profile-6.jpg';
 
-function cancelClean(){
-  enterIDModalPreview.value = false
-  facebookPageSelected.value = false
-  youtubePageSelected.value = false
-  instagramPageSelected.value = false
-}
 
+  function facebookAccountClick(img){
+    facebookOverlappingModalPreview.value = false
+    facebookPageSelected.value = true
+    fbAvatar.value = img
+  }
+
+  function youtubeAccountClick(img){
+    youtubeOverlappingModalPreview.value = false
+    youtubePageSelected.value = true
+    ytAvatar.value = img
+  }
+  function instagramAccountClick(img){
+    instagramOverlappingModalPreview.value = false
+    instagramPageSelected.value = true
+    igAvatar.value = img
+  }
+
+  function cancelClean(){
+    enterIDModalPreview.value = false
+    facebookPageSelected.value = false
+    youtubePageSelected.value = false
+    instagramPageSelected.value = false
+  }
 
 </script>
