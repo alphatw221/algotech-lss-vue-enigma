@@ -81,22 +81,23 @@
             <!-- END: campaign Status -->
 
             <div class="col-span-12 mt-8 ">
-                <div class="flex align-baseline text-xl -mb-5 text-primary">
-                    <a class="mr-2 ml-2 text-primary" href="">All </a>
-                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white align-top">32</span>
-                    <a class="mr-2 ml-5 text-primary" href="">In Cart </a>
+                <div class="flex align-baseline text-xl -mb-5">
+                    <a class="mr-2 ml-2 ">All </a>
+                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white">32</span>
+                    <a class="mr-2 ml-5">In Cart </a>
                     <span class="text-xs p-1 h-5 rounded-full bg-danger text-white align-top">12</span>
-                    <a class="mr-2 ml-5 text-primary" href="">Pending Payment </a>
+                    <a class="mr-2 ml-5">Pending Payment </a>
                     <!-- <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr- align-top">2</span> -->
-                    <a class="mr-2 ml-5 text-primary" href="">Complete Order </a>
+                    <a class="mr-2 ml-5">Complete Order </a>
                     <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr-5 align-top">12</span>
                 </div>
                 <!--分隔線-->
                 <div class="w-full border-t border-slate-800/60 dark:border-darkmode-400 mt-5"></div>
+
                 <div class="relative w-full h-16">
                     <div class="flex w-full absolute mr-auto m-1 right-0 sm:mt-1 sm:w-auto">
                         <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-slate-700" />
-                        <input type="text" class="form-control mr-2 w-full sm:w-64 box px-10" placeholder="Search files" />
+                        <input type="text" class="form-control rounded-full mr-2 w-full sm:w-64 box px-10" placeholder="Search files" />
 
                         <Dropdown class="relative inset-y-0 p-2 mr-1 flex rounded-sm items-center btn btn-success"
                             placement="bottom-start"> Export

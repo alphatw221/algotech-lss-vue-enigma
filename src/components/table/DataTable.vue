@@ -104,7 +104,7 @@ export default {
                 }
             )
 		},
-		changePage(page) {
+		changePage(page) {      
 			this.currentPage = page;
 			this.search();
 		},

@@ -190,6 +190,7 @@
 
 .dark {
   .side-nav {
+    background-color: #232d45;
     > ul {
       & > li {
         & > .side-menu {
