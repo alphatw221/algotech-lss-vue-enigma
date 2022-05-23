@@ -266,11 +266,21 @@
                         </form>
                     </div>
 
-                    <table class="table table-report mt-5">
+                    <table class="table table-report mt-3">
                         <thead>
                             <tr >
                                 <th class="whitespace-nowrap" v-for="column in add_product_columns" :key="column.key">
-                                    {{ column.name }}
+                                    <template v-if="column.key == 'select'">
+                                         <div class="form-check mt-2" >
+                                            <input id="checkbox-switch-1" class="form-check-input" type="checkbox" value=""/>
+                                        </div>   
+                                    </template>    
+                                    <template v-if="column.key === 'qty_for_campaign' || column.key === 'max_qty'" style="width:80px;">
+                                        {{ column.name }}        
+                                    </template>
+                                    <template v-else>
+                                        {{ column.name }}
+                                    </template>
                                 </th>
                                 <!--<th class="text-center whitespace-nowrap">Edit</th> -->
                             </tr>
@@ -282,6 +292,11 @@
                                 class="intro-x"
                             >
                                 <td v-for="column in add_product_columns" :key="column.key">
+                                    <template v-if="column.key === 'select' || column.key == 'editable' || column.key == 'deletable'">
+                                        <div class="form-check mt-2">
+                                            <input id="checkbox-switch-1" class="form-check-input" type="checkbox" value=""/>
+                                        </div>
+                                    </template>
                                     <template v-if="column.key === 'image'" class="w-40">
                                         <div class="flex">
                                             <div class="w-10 h-10 image-fit zoom-in">
@@ -294,7 +309,10 @@
                                             </div>
                                         </div>
                                     </template>
-                                    <template v-else>
+                                    <template v-if="column.key === 'qty_for_campaign' || column.key === 'max_qty'">
+                                        <input id="regular-form-1" type="text" class="form-control" placeholder="" style="width:100px;"/>
+                                    </template>
+                                    <template v-else class="w-30">
                                         {{ product[column.key] }}
                                     </template>
                                 </td>
@@ -304,6 +322,7 @@
                 </div>
             </ModalBody>
         </Modal>
+        
     <!-- END: Add Product From Stock -->
     </div>
     
@@ -320,12 +339,12 @@ export default{
             tagBox: false, 
             largeSlideOverSizePreview:false,
             add_product_columns: [
-                {name: 'Select', key: 'select'},
+                {name: '', key: 'select'},
 				{name: 'Image', key: 'image'},
                 {name: 'Name', key: 'name'}, 
                 {name: 'Order Code', key: 'order_code'}, 
 				{name: 'OTY for Campaign', key: 'qty_for_campaign'},
-				{name: 'Max OTYOrder', key: 'max_qty'},
+				{name: 'Max OTY/Order', key: 'max_qty'},
                 {name: 'Price', key: 'price'},
 				{name: 'Editable', key: 'editable'},
                 {name: 'Deletable', key: 'deletable'},
@@ -334,8 +353,35 @@ export default{
             add_product_results: [
                 {
                     image: '',
-                    name: '',
-                    order_code: '',
+                    name: 'Box 1',
+                    order_code: 'B1',
+                    qty_for_campaign: '',
+                    max_qty: 20,
+                    price: 20,
+                    type: 'Product'
+                },
+                {
+                    image: '',
+                    name: 'Box 2',
+                    order_code: 'B2',
+                    qty_for_campaign: '',
+                    max_qty: 20,
+                    price: 20,
+                    type: 'Product'
+                },
+                {
+                    image: '',
+                    name: 'Box 3',
+                    order_code: 'B3',
+                    qty_for_campaign: '',
+                    max_qty: 20,
+                    price: 20,
+                    type: 'Product'
+                },
+                {
+                    image: '',
+                    name: 'Box 4',
+                    order_code: 'B4',
                     qty_for_campaign: '',
                     max_qty: 20,
                     price: 20,
@@ -539,7 +585,19 @@ export default{
 
 <style scoped>
 .demo-breadcrumb-separator{
-        color: #ff5500;
-        padding: 0 5px;
-    }
+    color: #ff5500;
+    padding: 0 5px;
+}
+
+.form-check-input {
+    border-color: black !important;
+}
+
+.table th {
+    padding-left: 0 !important;
+}
+
+.table td {
+    padding-left: 0 !important;
+}
 </style>

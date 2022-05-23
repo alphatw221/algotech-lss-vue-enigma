@@ -82,7 +82,7 @@ export default {
 		return {
 			page: 1,
 			pageSize: 10,
-			searchColumn: undefined,
+			searchColumn: 'name',
 			keyword: undefined,
 		}
 	},
