@@ -25,7 +25,6 @@
 										:columns="tableColumns"
 									>
 									</DataTable>
-									
 								</div>
 							</TabPanel>
 							<TabPanel class="leading-relaxed"> Delisted. </TabPanel>
@@ -74,7 +73,7 @@ export default {
 		}
 	},	
 	mounted() {
-		this.$cookies.set("access_token", 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzNjQ0MDMwLCJpYXQiOjE2NTMwMzkyMzAsImp0aSI6Ijk4NDQ5N2QxMGEwYjQzNDRiOGVkNzdhZDRiYTg5YmFlIiwidXNlcl9pZCI6ODAsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo4MCwic2VsbGVyX2lkIjoyNCwiY3VzdG9tZXJfaWQiOjk3LCJuYW1lIjoiRGVyZWsgSHdhbmciLCJlbWFpbCI6ImRlcmVraHdhbmczM0BnbWFpbC5jb20ifX0.v1Sx4RAU38zSNLJpMQ6wbu8m2-dVhjtV9hLZ6PF5ASE')
+		this.$cookies.set("access_token", 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzODc1MzU0LCJpYXQiOjE2NTMyNzA1NTQsImp0aSI6IjZmYWFjZTY2NDIwZTQ5NTg4ZWJhM2E5ZjFjNmJmNThlIiwidXNlcl9pZCI6ODAsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo4MCwic2VsbGVyX2lkIjoyNCwiY3VzdG9tZXJfaWQiOjk3LCJuYW1lIjoiRGVyZWsgSHdhbmciLCJlbWFpbCI6ImRlcmVraHdhbmczM0BnbWFpbC5jb20ifX0.JeRVYZMKkkJSywtrqvw1hb1oEYgtLqSaDx56WFJ-HKk')
 		
 		// createAxiosWithBearer().get('/api/user-subscription/buyer/list?page=1&page_size=5&search_column=shipping_email&keyword=qq').then(response => {
 		// 	console.log(response);

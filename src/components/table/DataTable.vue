@@ -45,31 +45,9 @@
 			<Page 
 				:total="dataCount" 
 				show-sizer
-				:on-change="changePageSize()"
+				@on-change="changePage"
+				@on-page-size-change="changePageSize"
 			/>
-			<!-- <nav class="w-full sm:w-auto sm:mr-auto">
-				<ul class="pagination">
-					<li class="page-item">
-						<a class="page-link" href="#">
-							<ChevronLeftIcon class="w-4 h-4" />
-						</a>
-					</li>
-					<li class="page-item" v-for="pageNum in totalPage" :key="pageNum">
-						<a class="page-link" href="#">{{ pageNum }}</a>
-					</li>
-					<li class="page-item">
-						<a class="page-link" href="#">
-							<ChevronRightIcon class="w-4 h-4" />
-						</a>
-					</li>
-				</ul>
-			</nav>
-			<select class="w-20 form-select box mt-3 sm:mt-0" v-model="pageSize">
-				<option>5</option>
-				<option>10</option>
-				<option>20</option>
-				<option>30</option>
-			</select> -->
 		</div> 
 	</div>
 </template>
@@ -126,8 +104,13 @@ export default {
                 }
             )
 		},
+		changePage(page) {
+			this.currentPage = page;
+			this.search();
+		},
 		changePageSize(pageSize) {
-			console.log('poooooop')
+			this.pageSize = pageSize;
+			this.search();
 		}
 	},
 }
