@@ -21,15 +21,15 @@
                     <select
                         id="tabulator-html-filter-field"
                         class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto"
-												v-model="searchColumn"
+                        v-model="searchColumn"
                     >
                         <option 
-														v-for="searchColumn in searchColumns.keywords"
-														:key="searchColumn.value" 
-														:value="searchColumn.value"
-												>
-														{{ searchColumn.text }}
-												</option>
+                            v-for="searchColumn in searchColumns.keywords"
+                            :key="searchColumn.value" 
+                            :value="searchColumn.value"
+                        >
+                            {{ searchColumn.text }}
+                        </option>
                     </select>
                 </div>
                 <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
@@ -41,8 +41,8 @@
                         type="text"
                         class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0"
                         placeholder="Search..."
-												v-model="keyword"
-												@keydown.enter.prevent="search"
+                        v-model="keyword"
+                        @keydown.enter.prevent="search"
                     />
                 </div>
                 <div class="mt-2 xl:mt-0">
@@ -50,7 +50,7 @@
                         id="tabulator-html-filter-go"
                         type="button"
                         class="btn btn-primary w-full sm:w-16"
-												@click="search"
+                        @click="search"
                     >
                         Go
                     </button>
@@ -58,13 +58,13 @@
                         id="tabulator-html-filter-reset"
                         type="button"
                         class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1"
-												@click="reset"
+                        @click="reset"
                     >
                         Reset
                     </button>
                 </div>
             </form>
-            <button class="btn btn-primary shadow-md mr-2">Add New Product</button>
+            <button class="btn btn-primary shadow-md mr-2" @click="this.$router.push('add_product')">Add New Product</button>
         </div>
     </div>
 </template>
