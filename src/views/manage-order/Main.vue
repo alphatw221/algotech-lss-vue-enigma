@@ -35,7 +35,7 @@
                                         <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                     </Tippy>
                                 </div>
-                            </div> 
+                            </div>
                             <div class="text-3xl font-medium leading-8 mt-6">$ 1352,000</div>
                             <div class="text-base text-slate-500 mt-1">Sales</div>
                         </div>
@@ -80,86 +80,114 @@
             </div>
             <!-- END: campaign Status -->
 
-            <div class="box col-span-12 mt-6">
+            <div class=" col-span-12 mt-8">
+                <div class="flex align-baseline text-xl -mb-5 text-primary"> 
+                    <a class="mr-2 ml-2 text-primary" href="">All </a> 
+                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white align-top">32</span>
+                    <a class="mr-2 ml-5 text-primary" href="">In Cart </a> 
+                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white align-top">12</span>
+                    <a class="mr-2 ml-5 text-primary" href="">Pending Payment </a> 
+                    <!-- <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr- align-top">2</span> -->
+                    <a class="mr-2 ml-5 text-primary" href="">Complete Order </a> 
+                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr-5 align-top">12</span>
+
+                </div>    
+                <div class="w-full border-t border-slate-800/60 dark:border-darkmode-400 mt-5"></div>
+
+
+
                 <div class="w-full sm:w-auto relative mr-auto mt-3 sm:mt-0">
-          <SearchIcon
-            class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-slate-500"
-          />
-          <input
-            type="text"
-            class="form-control w-full sm:w-64 box px-10"
-            placeholder="Search files"
-          />
-          <Dropdown
-            class="inbox-filter absolute inset-y-0 mr-3 right-0 flex items-center"
-            placement="bottom-start"
-          >
-            <DropdownToggle
-              tag="a"
-              role="button"
-              class="w-4 h-4 block"
-              href="javascript:;"
-            >
-              <ChevronDownIcon class="w-4 h-4 cursor-pointer text-slate-500" />
-            </DropdownToggle>
-            <DropdownMenu class="inbox-filter__dropdown-menu pt-2">
-              <DropdownContent tag="div">
-                <div class="grid grid-cols-12 gap-4 gap-y-3 p-3">
-                  <div class="col-span-6">
-                    <label for="input-filter-1" class="form-label text-xs"
-                      >File Name</label
-                    >
-                    <input
-                      id="input-filter-1"
-                      type="text"
-                      class="form-control flex-1"
-                      placeholder="Type the file name"
-                    />
-                  </div>
-                  <div class="col-span-6">
-                    <label for="input-filter-2" class="form-label text-xs"
-                      >Shared With</label
-                    >
-                    <input
-                      id="input-filter-2"
-                      type="text"
-                      class="form-control flex-1"
-                      placeholder="example@gmail.com"
-                    />
-                  </div>
-                  <div class="col-span-6">
-                    <label for="input-filter-3" class="form-label text-xs"
-                      >Created At</label
-                    >
-                    <input
-                      id="input-filter-3"
-                      type="text"
-                      class="form-control flex-1"
-                      placeholder="Important Meeting"
-                    />
-                  </div>
-                  <div class="col-span-6">
-                    <label for="input-filter-4" class="form-label text-xs"
-                      >Size</label
-                    >
-                    <select id="input-filter-4" class="form-select flex-1">
-                      <option>10</option>
-                      <option>25</option>
-                      <option>35</option>
-                      <option>50</option>
-                    </select>
-                  </div>
-                  <div class="col-span-12 flex items-center mt-3">
-                    <button class="btn btn-secondary w-32 ml-auto">
-                      Create Filter
-                    </button>
-                    <button class="btn btn-primary w-32 ml-2">Search</button>
-                  </div>
+                    <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-slate-500" />
+                    <input type="text" class="form-control w-full sm:w-64 box px-10" placeholder="Search files" />
+
+                    <Dropdown class="inbox-filter absolute inset-y-0 p-2 mr-3 right-20 flex rounded-lg items-center btn-success"
+                        placement="bottom-start">
+                        <DropdownToggle tag="a" role="button" class="w-4 h-4 block " href="javascript:;">
+                            <FilterIcon class="w-4 h-4 cursor-pointer text-slate-500" />
+                        </DropdownToggle>
+                        Filter
+                        <DropdownMenu class="inbox-filter__dropdown-menu pt-2">
+                            <DropdownContent tag="div">
+                                <div class="grid grid-cols-12 gap-4 gap-y-3 p-3">
+                                    <div class="col-span-6">
+                                        <label for="input-filter-1" class="form-label text-xs">File Name</label>
+                                        <input id="input-filter-1" type="text" class="form-control flex-1"
+                                            placeholder="Type the file name" />
+                                    </div>
+                                    <div class="col-span-6">
+                                        <label for="input-filter-2" class="form-label text-xs">Shared With</label>
+                                        <input id="input-filter-2" type="text" class="form-control flex-1"
+                                            placeholder="example@gmail.com" />
+                                    </div>
+                                    <div class="col-span-6">
+                                        <label for="input-filter-3" class="form-label text-xs">Created At</label>
+                                        <input id="input-filter-3" type="text" class="form-control flex-1"
+                                            placeholder="Important Meeting" />
+                                    </div>
+                                    <div class="col-span-6">
+                                        <label for="input-filter-4" class="form-label text-xs">Size</label>
+                                        <select id="input-filter-4" class="form-select flex-1">
+                                            <option>10</option>
+                                            <option>25</option>
+                                            <option>35</option>
+                                            <option>50</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-span-12 flex items-center mt-3">
+                                        <button class="btn btn-secondary w-32 ml-auto">
+                                            Create Filter
+                                        </button>
+                                        <button class="btn btn-primary w-32 ml-2">Search</button>
+                                    </div>
+                                </div>
+                            </DropdownContent>
+                        </DropdownMenu>
+                    </Dropdown>
+
+                    <Dropdown class="inbox-filter absolute inset-y-0 p-2 mr-3 right-0 flex rounded-lg items-center btn-warning"
+                        placement="bottom-start">
+                        <DropdownToggle tag="a" role="button" class="w-4 h-4 block " href="javascript:;">
+                            <FilterIcon class="w-4 h-4 cursor-pointer text-slate-500" />
+                        </DropdownToggle>
+                        Filter
+                        <DropdownMenu class="inbox-filter__dropdown-menu pt-2">
+                            <DropdownContent tag="div">
+                                <div class="grid grid-cols-12 gap-4 gap-y-3 p-3">
+                                    <div class="col-span-6">
+                                        <label for="input-filter-1" class="form-label text-xs">File Name</label>
+                                        <input id="input-filter-1" type="text" class="form-control flex-1"
+                                            placeholder="Type the file name" />
+                                    </div>
+                                    <div class="col-span-6">
+                                        <label for="input-filter-2" class="form-label text-xs">Shared With</label>
+                                        <input id="input-filter-2" type="text" class="form-control flex-1"
+                                            placeholder="example@gmail.com" />
+                                    </div>
+                                    <div class="col-span-6">
+                                        <label for="input-filter-3" class="form-label text-xs">Created At</label>
+                                        <input id="input-filter-3" type="text" class="form-control flex-1"
+                                            placeholder="Important Meeting" />
+                                    </div>
+                                    <div class="col-span-6">
+                                        <label for="input-filter-4" class="form-label text-xs">Size</label>
+                                        <select id="input-filter-4" class="form-select flex-1">
+                                            <option>10</option>
+                                            <option>25</option>
+                                            <option>35</option>
+                                            <option>50</option>
+                                        </select>
+                                    </div>
+                                    <div class="col-span-12 flex items-center mt-3">
+                                        <button class="btn btn-secondary w-32 ml-auto">
+                                            Create Filter
+                                        </button>
+                                        <button class="btn btn-primary w-32 ml-2">Search</button>
+                                    </div>
+                                </div>
+                            </DropdownContent>
+                        </DropdownMenu>
+                    </Dropdown>
                 </div>
-              </DropdownContent>
-            </DropdownMenu>
-          </Dropdown>
-        </div>
 
             </div>
 
