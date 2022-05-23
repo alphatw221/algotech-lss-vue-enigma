@@ -134,7 +134,7 @@
                     <input @click="toggle" class="form-check-input mr-0 ml-3" type="checkbox" />
             </div>
             
-            <div class="box overflow-x-scroll mt-3">
+            <div class="box overflow-x-auto mt-3">
                 <table class="table table-striped">
                     <thead>
                         <tr>
