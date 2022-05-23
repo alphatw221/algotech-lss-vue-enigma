@@ -330,7 +330,7 @@ export default {
       ],
       results: [
         {
-          image: "",
+          image: "/src/assets/images/profile-1.jpg",
           platform: "",
           title: "uuaaakjdkh",
           time: "2022/07/08",
