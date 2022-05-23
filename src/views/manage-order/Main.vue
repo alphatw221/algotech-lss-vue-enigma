@@ -171,18 +171,24 @@
                                 <template v-else-if="column.key === 'platform'" class="w-40">
                                     <div class="flex place-content-center">
                                         <div v-if="product[column.key] === 'facebook'"
-                                            class="w-10 h-10 image-fit zoom-in">
-                                            <FacebookIcon />
+                                            class="w-10 h-10 image-fit">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src='/src/assets/images/lss-img/facebook.png' />
+                                            </div>
                                         </div>
                                         <div v-else-if="product[column.key] === 'instagram'"
-                                            class="w-10 h-10 image-fit zoom-in">
-                                            <InstagramIcon />
+                                            class="w-10 h-10 image-fit">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src='/src/assets/images/lss-img/instagram.png' />
+                                            </div>
                                         </div>
                                         <div v-else-if="product[column.key] === 'youtube'"
-                                            class="w-10 h-10 image-fit zoom-in">
-                                            <YoutubeIcon />
+                                            class="w-10 h-10 image-fit">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src='/src/assets/images/lss-img/youtube.png' />
+                                            </div>
                                         </div>
-                                        <div v-else class="w-10 h-10 image-fit zoom-in">
+                                        <div v-else class="w-10 h-10 image-fit">
                                             <ShoppingBagIcon />
                                         </div>
                                     </div>
@@ -190,14 +196,14 @@
 
                                 <template v-else-if="column.key === 'view'" class="w-40">
                                     <div class="flex place-content-center">
-                                        <div class="w-10 h-10 image-fit zoom-in">
+                                        <div class="w-10 h-10 image-fit">
                                             <EyeIcon />
                                         </div>
                                     </div>
                                 </template>
                                 <template v-else-if="column.key === 'delivery'" class="w-40">
                                     <div class="flex place-content-center">
-                                        <div class="w-10 h-10 image-fit zoom-in ">
+                                        <div class="w-10 h-10 image-fit">
                                             <TruckIcon @click="this.deliveryStatus = !this.deliveryStatus" />
                                         </div>
                                     </div>
@@ -215,7 +221,7 @@
 
     <Modal size="modal-xl" class="text-center" :slideOver="true" :show="deliveryStatus"
         @hidden="deliveryStatus = false">
-        <ModalHeader class="text-center p-5">
+        <ModalHeader class="text-center p-5 ">
             <h2 class="font-medium text-base text-center mr-5">
                 Order No. #15861
             </h2>
@@ -224,7 +230,7 @@
         <ModalBody>
             <div class="intro-y grid grid-cols-12 gap-5">
                 <div class="intro-y col-span-7 overflow-auto lg:overflow-visible">
-                    <h2> Shopping Cart</h2>
+                    <h2 class="text-left text-lg"> Shopping Cart</h2>
 
                     <table class="table table-report mt-3 text-lg">
                         <thead>
@@ -240,8 +246,7 @@
                                     <template v-if="column.key === 'image'" class="w-40">
                                         <div class="flex">
                                             <div class="w-10 h-10 image-fit zoom-in">
-                                                <Tippy tag="img" class="rounded-full" :src="product.image"
-                                                    :content="`Uploaded at`" />
+                                                <Tippy tag="img" class="rounded-full" :src="product.image" />
                                             </div>
                                         </div>
                                     </template>
@@ -252,6 +257,14 @@
                             </tr>
                         </tbody>
                     </table>
+                </div>
+                <div class="intro-y col-span-5 overflow-auto lg:overflow-visible">
+                    <div class="box w-full h-64 p-4 my-1 rounded-xl"> 
+                        <h2 class="text-left text-lg">Delivery Info</h2>
+                    </div>
+                    <div class="box w-full h-64 p-4 my-2 rounded-xl"> 
+                        <h2 class="text-left text-lg">Payment Info</h2>
+                    </div>
                 </div>
             </div>
 
@@ -282,7 +295,7 @@ const add_product_results = ref([
         order_number: '#15861',
         platform: 'facebook',
         name: 'Andy',
-        price: '513',
+        price: '$ 513',
         status: 'Complete',
         date: '25 April 2022 16:24',
         delivery: '',
@@ -292,7 +305,7 @@ const add_product_results = ref([
         order_number: '#15862',
         platform: 'instagram',
         name: 'Malesa',
-        price: '125',
+        price: '$ 125',
         status: 'Pending',
         date: '25 April 2022 16:31',
         delivery: '',
@@ -302,7 +315,7 @@ const add_product_results = ref([
         order_number: '#15863',
         platform: 'youtube',
         name: 'Johny',
-        price: '996',
+        price: '$ 996',
         status: 'In-Cart',
         date: '25 April 2022 16:33',
         delivery: '',
@@ -312,7 +325,7 @@ const add_product_results = ref([
         order_number: '#15864',
         platform: '',
         name: 'Anna',
-        price: '254',
+        price: '$ 254',
         status: 'Complete',
         date: '25 April 2022 16:54',
         delivery: '',
@@ -330,43 +343,17 @@ const shoppingCart_columns = ref([
 
 const shoppingCart_results = ref([
     { image: '/src/assets/images/lss-product/shirt.jpg', name: 'T-shirt', price: '$64', qty: '3', subtotal: '$192', },
-    { image: '/src/assets/images/profile-4.jpg', name: 'Turtleneck Sweatshirt', price: '$88', qty: '2', subtotal: '$176', },
-    { image: '/src/assets/images/profile-4.jpg', name: 'Vintage Cinched Sweatpants', price: '$59', qty: '4', subtotal: '$236', },
-    { image: '/src/assets/images/profile-4.jpg', name: 'Relaxed Flannel', price: '$45', qty: '1', subtotal: '$45', },
+    { image: '/src/assets/images/lss-product/sweatshirt.jpg', name: 'Turtleneck Sweatshirt', price: '$88', qty: '2', subtotal: '$176', },
+    { image: '/src/assets/images/lss-product/sweatpants.jpg', name: 'Vintage Sweatpants', price: '$59', qty: '4', subtotal: '$236', },
+    { image: '/src/assets/images/lss-product/socks.jpg', name: 'Christmas Socks', price: '$45', qty: '1', subtotal: '$45', },
 ]);
 </script>
 
 <style scoped>
-.switch-toggle {
-    float: left;
-    height: 42px;
-    width: 300px;
-    background: #363636ce;
-    border-radius: 42px 42px;
-}
-
-.switch-toggle input {
-    position: absolute;
-    opacity: 0;
-}
-
-.switch-toggle input+label {
-    padding-top: 12px;
-    padding-bottom: 12px;
-    padding-left: 15px;
-    padding-right: 15px;
-    float: left;
-    text-align: center;
-    font-weight: 500;
-    font-size: 16px;
-    color: #fff;
-    cursor: pointer;
-}
-
-.switch-toggle input:checked+label {
-    background: #064e3b;
-    height: 42px;
-    width: 100px;
-    border-radius: 42px 42px;
-}
+    .modal-content{
+        background-color: theme('colors.secondary');
+    }
+    .dark .modal-content{
+        --color-secondary: theme("colors.rgb.blueGray.800");
+    }
 </style>

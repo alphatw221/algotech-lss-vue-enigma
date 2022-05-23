@@ -18,10 +18,10 @@
 						<template v-if="column.key === 'image'" class="w-40">
 							<div class="flex">
 								<div class="w-10 h-10 image-fit zoom-in">
-									<Tippy
+									<Tippy 
 										tag="img"
 										class="rounded-full"
-										:src="product.image"
+										:src= "`${publicPath}` + product.image "
 										:content="`Uploaded at`"
 									/>
 								</div>
@@ -69,6 +69,7 @@ export default {
             searchColumn: undefined,
             keyword: undefined,
             listItems: [],
+			publicPath: import.meta.env.VITE_APP_IMG_URL,
 		}
 	},
 	mounted() {
