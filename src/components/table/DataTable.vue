@@ -1,245 +1,133 @@
 <template>
-    <table class="table table-report mt-5">
-        <thead>
-            <tr >
-                <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
-                    {{ column.name }}
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr
-                v-for="(product, key) in results"
-                :key="key"
-                class="intro-x"
-            >	
-                <td v-for="column in columns" :key="column.key">
-                    <template v-if="column.key === 'image'" class="w-40">
-                        <div class="flex">
-                            <div class="w-10 h-10 image-fit zoom-in">
-                                <Tippy
-                                    tag="img"
-                                    class="rounded-full"
-                                    :src="product.image"
-                                    :content="`Uploaded at`"
-                                />
-                            </div>
-                        </div>
-                    </template>
-                    <template v-else>
-                        {{ product[column.key] }}
-                    </template>
-                </td>
-                <td class="table-report__action w-30">
-                    <div class="flex justify-center items-center">
-                        <a class="flex items-center mr-3" href="javascript:;">
-                            <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
-                        </a>
-                    </div>
-                </td>
-            </tr>
-        </tbody>
-    </table>  
+	<div>
+		<table class="table table-report mt-5">
+			<thead>
+				<tr >
+					<th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
+						{{ column.name }}
+					</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr
+					v-for="(product, key) in listItems"
+					:key="key"
+					class="intro-x"
+				>	
+					<td v-for="column in columns" :key="column.key">
+						<template v-if="column.key === 'image'" class="w-40">
+							<div class="flex">
+								<div class="w-10 h-10 image-fit zoom-in">
+									<Tippy
+										tag="img"
+										class="rounded-full"
+										:src="product.image"
+										:content="`Uploaded at`"
+									/>
+								</div>
+							</div>
+						</template>
+						<template v-else>
+							{{ product[column.key] }}
+						</template>
+					</td>
+					<td class="table-report__action w-30">
+						<div class="flex justify-center items-center">
+							<a class="flex items-center mr-3" href="javascript:;">
+								<CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
+							</a>
+						</div>
+					</td>
+				</tr>
+			</tbody>
+		</table> 
+		<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+			<Page 
+				:total="dataCount" 
+				show-sizer
+				:on-change="changePageSize()"
+			/>
+			<!-- <nav class="w-full sm:w-auto sm:mr-auto">
+				<ul class="pagination">
+					<li class="page-item">
+						<a class="page-link" href="#">
+							<ChevronLeftIcon class="w-4 h-4" />
+						</a>
+					</li>
+					<li class="page-item" v-for="pageNum in totalPage" :key="pageNum">
+						<a class="page-link" href="#">{{ pageNum }}</a>
+					</li>
+					<li class="page-item">
+						<a class="page-link" href="#">
+							<ChevronRightIcon class="w-4 h-4" />
+						</a>
+					</li>
+				</ul>
+			</nav>
+			<select class="w-20 form-select box mt-3 sm:mt-0" v-model="pageSize">
+				<option>5</option>
+				<option>10</option>
+				<option>20</option>
+				<option>30</option>
+			</select> -->
+		</div> 
+	</div>
 </template>
 
 <script>
+import { createAxiosWithBearer } from '@/libs/axiosClient'
+
 export default {
-	setup() {
-			
-	},
-	mounted() {
-		// this.search();
-	},
-	methods: {
-		// search() {
-		// 	createAxiosWithBearer().get()
-		// }
+	props: {
+		requestUrl: String,
+		columns: Array
 	},
 	data() {
 		return {
-			columns: [
-				{name: 'Image', key: 'image'},
-				{name: 'Product Name', key: 'name'},
-				{name: 'Order Code', key: 'order_code'},
-				{name: 'Type', key: 'type'},
-				{name: 'Category', key: 'category'},
-				{name: 'Description', key: 'description'},
-				{name: 'Quantity', key: 'qty'},
-				{name: 'Price', key: 'price'},
-				// {name: 'Edit', key: 'edit'},
-			],
-			results: [
-				{
-					id: 123,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 15,
-					name: "2362",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 12.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "A2S",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:24:09.840000Z",
-					updated_at: "2022-02-25T09:24:09.840000Z",
-					user_subscription: 1
-				},
-				{
-					id: 124,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 24,
-					name: "2363",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 8.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "A2M",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:24:54.512000Z",
-					updated_at: "2022-02-25T09:24:54.512000Z",
-					user_subscription: 1
-				},
-				{
-					id: 125,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 25,
-					name: "2364",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 7.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "A2L",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:25:39.884000Z",
-					updated_at: "2022-02-25T09:25:39.884000Z",
-					user_subscription: 1
-				},
-				{
-					id: 126,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 68,
-					name: "2365",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 35.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "A3",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:26:12.655000Z",
-					updated_at: "2022-02-25T09:26:12.655000Z",
-					user_subscription: 1
-				},
-				{
-					id: 127,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 110,
-					name: "2366",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 4.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "DB",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:26:41.585000Z",
-					updated_at: "2022-02-25T09:26:41.585000Z",
-					user_subscription: 1
+			currentPage: 1,
+            totalPage: 1,
+            pageSize: 10,
+			dataCount: 0,
+            searchColumn: undefined,
+            keyword: undefined,
+            listItems: [],
+		}
+	},
+	mounted() {
+		this.search();
+        
+		this.eventBus.on("searchTable", (payload) => {
+			this.currentPage = 1
+			this.searchColumn = payload.searchColumn
+			this.keyword = payload.keyword
+			this.pageSize = payload.pageSize
+			this.search()
+		});
+	},
+	unmounted() {
+		this.eventBus.off("searchTable");
+	},
+	methods: {
+		search() {
+			createAxiosWithBearer()
+			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}`)
+			.then(
+				response => {
+					if(response.data.count != undefined){
+						this.dataCount = response.data.count
+                        const totalPage = parseInt(response.data.count / this.pageSize)
+                        this.totalPage = totalPage == 0 ? 1 : totalPage
+                    }
+                    this.listItems = response.data.results
 				}
-			]
+			).catch(
+                error => {
+                    console.log(error)
+                }
+            )
+		},
+		changePageSize(pageSize) {
+			console.log('poooooop')
 		}
 	},
 }
