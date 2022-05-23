@@ -228,17 +228,78 @@
                 </row>
                 
             </div>
+            <div class="overflow-x-auto box">
+                <table class="table table-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="whitespace-nowrap" style="padding-right: 0px;" v-for="column in product_columns" :key="column.key">
+                                {{ column.name }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="data in product_results" :key="data.id">
+                            <td><img :src="data.image"></td>
+                            <td>{{ data.name }}</td>
+                            <td>{{ data.order_code }}</td>
+                            <td>{{ data.qty_sold }}/{{ data.qty_for_sale - data.qty_sold }}</td>
+                            <td>{{ data.currency_sign}}{{ data.price }}</td>
+                            <td>
+                                <div v-if="data.status === 1" class="
+                                    form-check form-switch
+                                    w-full
+                                    sm:w-auto sm:ml-auto
+                                    mt-3
+                                    sm:mt-0
+                                    ">
+                                    <input @click="toggle" class="form-check-input mr-0 ml-0" type="checkbox" checked />
+                                </div>
+                                <div class="
+                                    form-check form-switch
+                                    w-full
+                                    sm:w-auto sm:ml-auto
+                                    mt-3
+                                    sm:mt-0
+                                    " v-else>
+                                    <input @click="toggle" class="form-check-input mr-0 ml-0" type="checkbox">
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     <!-- END: Product -->
 
     <!-- BEGIN: Incoming Order -->
         <div class="col-span-12 lg:col-span-4 2xl:col-span-4" height="750px" >  
-            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 w-150">
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6">
                 <div class="col-start-1 col-span-5 -mt-4">
                     <h2 class="text-lg font-medium">Incoming Order</h2>
                 </div>
             </div>
+            <div class="overflow-x-auto box">
+                <table class="table table-sm">
+                    <thead class="table-dark">
+                        <tr>
+                            <th class="whitespace-nowrap" style="padding-right: 0px;" v-for="column in incoming_order_columns" :key="column.key">
+                                {{ column.name }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="data in incoming_order_results" :key="data.id">
+                            <td>#{{ data.id }}</td>
+                            <td>{{ data.platform }}</td>
+                            <td>{{ data.customer_name }}</td>
+                            <td>{{ data.currency_sign}}{{ data.subtotal }}</td>
+                            <td></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
+        
     <!-- END: Incoming Order -->
 
     <!-- BEGIN: Add Product From Stock -->
@@ -342,186 +403,145 @@ export default{
                     type: 'Product'
                 },
             ],
-            columns: [
-                {name: 'Select', key:''},
-				{name: 'Product', key: 'image'},
+            product_columns: [
+                {name: 'Image', key:'image'},
 				{name: 'Name', key: 'name'},
                 {name: 'Order Code', key: 'order_code'}, 
-				{name: 'OTY for Campaign', key: 'qty'},
-				{name: 'OTYOrder', key: 'qty'},
+				{name: 'Sold/Left', key: 'Sold_Left'},
                 {name: 'Price', key: 'price'},
-				{name: 'Category', key: 'category'},
+				{name: 'Activate', key: 'activate'},
 			],
-			results: [
+			product_results: [
 				{
-					id: 123,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 15,
-					name: "2362",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 12.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "A2S",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:24:09.840000Z",
-					updated_at: "2022-02-25T09:24:09.840000Z",
-					user_subscription: 1
+					"id": 407,
+                    "campaign_id": 155,
+                    "created_by_id": 44,
+                    "product_id": 53,
+                    "qty_for_sale": 50,
+                    "qty_sold": 4,
+                    "name": "trousers",
+                    "excerpt": null,
+                    "description": null,
+                    "content": null,
+                    "remark": null,
+                    "price": 950,
+                    "price_ori": 0,
+                    "tax": 0,
+                    "currency": null,
+                    "currency_sign": "$",
+                    "points": 0,
+                    "model": null,
+                    "sku": null,
+                    "upc": null,
+                    "image": "3/product/53/6ece99405ad93e0ce091b798cea2f0f5.jpg",
+                    "sort_order": 0,
+                    "order_code": "tro",
+                    "max_order_amount": 10,
+                    "customer_removable": true,
+                    "customer_editable": true,
+                    "type": "product",
+                    "status": 0,
+                    "created_at": {
+                        "$date": "2022-05-05T09:06:47.734Z"
+                    },
+                    "updated_at": {
+                        "$date": "2022-05-05T09:07:37.779Z"
+                    },
+                    "meta": {},
+                    "meta_logistic": {},
+                    "tag": {}
 				},
+            ],
+            incoming_order_columns: [
+                {name: 'Order No', key:'order_no'},
+				{name: 'Platform', key: 'platform'},
+                {name: 'Name', key: 'name'}, 
+				{name: 'Amount', key: 'amount'},
+                {name: 'Detail', key: 'detail'},
+			],
+			incoming_order_results: [
 				{
-					id: 124,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 24,
-					name: "2363",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 8.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "A2M",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:24:54.512000Z",
-					updated_at: "2022-02-25T09:24:54.512000Z",
-					user_subscription: 1
-				},
-				{
-					id: 125,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 25,
-					name: "2364",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 7.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "A2L",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:25:39.884000Z",
-					updated_at: "2022-02-25T09:25:39.884000Z",
-					user_subscription: 1
-				},
-				{
-					id: 126,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 68,
-					name: "2365",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 35.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "A3",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:26:12.655000Z",
-					updated_at: "2022-02-25T09:26:12.655000Z",
-					user_subscription: 1
-				},
-				{
-					id: 127,
-					created_by: null,
-					meta: {},
-					meta_logistic: {},
-					tag: [],
-					qty: 110,
-					name: "2366",
-					category: null,
-					excerpt: null,
-					description: "",
-					content: null,
-					remark: null,
-					price: 4.0,
-					price_ori: 0.0,
-					tax: 0.0,
-					currency: null,
-					currency_sign: "$",
-					points: 0,
-					model: null,
-					sku: null,
-					upc: null,
-					image: "",
-					sort_order: 0,
-					order_code: "DB",
-					max_order_amount: null,
-					customer_removable: false,
-					customer_editable: false,
-					type: "product",
-					status: "enabled",
-					created_at: "2022-02-25T09:26:41.585000Z",
-					updated_at: "2022-02-25T09:26:41.585000Z",
-					user_subscription: 1
+					"id": 801,
+                    "campaign_id": 440,
+                    "customer_id": "4715244265240387",
+                    "customer_name": "Chiangcheng Lien",
+                    "customer_img": "https://platform-lookaside.fbsbx.com/platform/profilepic/?psid=4715244265240387&height=50&width=50&ext=1655619700&hash=AeS_9qc2HVOMIfvys18",
+                    "email": null,
+                    "phone": null,
+                    "first_name": null,
+                    "last_name": null,
+                    "gender": null,
+                    "remark": null,
+                    "subtotal": 3200,
+                    "total": 3200,
+                    "currency": null,
+                    "currency_sign": "$",
+                    "cost": 0,
+                    "cost_currency": null,
+                    "cost_currency_sign": "$",
+                    "payment_first_name": "",
+                    "payment_last_name": "",
+                    "payment_gender": "",
+                    "payment_company": "",
+                    "payment_postcode": "",
+                    "payment_region": "",
+                    "payment_location": "",
+                    "payment_address_1": "",
+                    "payment_address_2": "",
+                    "payment_method": "",
+                    "payment_status": "",
+                    "payment_remark": "",
+                    "paid_at": null,
+                    "shipping_cost": 0,
+                    "shipping_first_name": "",
+                    "shipping_last_name": "",
+                    "shipping_email": "",
+                    "shipping_phone": "",
+                    "shipping_gender": "",
+                    "shipping_company": "",
+                    "shipping_postcode": "",
+                    "shipping_region": "",
+                    "shipping_location": "",
+                    "shipping_address_1": "",
+                    "shipping_address_2": "",
+                    "shipping_method": "",
+                    "shipping_status": "",
+                    "shipping_details": "",
+                    "shipping_remark": "",
+                    "shipping_date": null,
+                    "shipping_time": null,
+                    "tracking": "",
+                    "platform": "facebook",
+                    "platform_id": 1,
+                    "type": null,
+                    "status": "review",
+                    "created_at": {
+                        "$date": "2022-05-20T06:21:45.512Z"
+                    },
+                    "updated_at": null,
+                    "meta": {},
+                    "products": {
+                        "7609": {
+                            "order_product_id": 252822,
+                            "name": "vitamin C",
+                            "image": "1/product/633/C.png",
+                            "price": 1600,
+                            "type": "product",
+                            "currency": null,
+                            "currency_sign": "$",
+                            "qty": 2,
+                            "subtotal": 3200
+                        }
+                    },
+                    "checkout_details": {},
+                    "history": {},
+                    "lock_at": {
+                        "$date": "2022-05-20T06:24:38.529Z"
+                    },
+                    "adjust_title": null,
+                    "adjust_price": 0,
+                    "free_delivery": false,
+                    "buyer_id": null
 				},
             ]
         }
