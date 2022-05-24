@@ -173,19 +173,19 @@
                                         <div v-if="product[column.key] === 'facebook'"
                                             class="w-10 h-10 image-fit">
                                             <div class="w-10 h-10 image-fit">
-                                                <img src='/src/assets/images/lss-img/facebook.png' />
+                                                <img src='/src/assets/images/lss-img/fb_ad.jpeg' />
                                             </div>
                                         </div>
                                         <div v-else-if="product[column.key] === 'instagram'"
                                             class="w-10 h-10 image-fit">
                                             <div class="w-10 h-10 image-fit">
-                                                <img src='/src/assets/images/lss-img/instagram.png' />
+                                                <img src='/src/assets/images/lss-img/ig_ad.jpeg' />
                                             </div>
                                         </div>
                                         <div v-else-if="product[column.key] === 'youtube'"
                                             class="w-10 h-10 image-fit">
                                             <div class="w-10 h-10 image-fit">
-                                                <img src='/src/assets/images/lss-img/youtube.png' />
+                                                <img src='/src/assets/images/lss-img/yt_ad.jpeg' />
                                             </div>
                                         </div>
                                         <div v-else class="w-10 h-10 image-fit">

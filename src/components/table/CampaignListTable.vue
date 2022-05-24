@@ -59,9 +59,20 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-10"
                   :src="facebook_platform"
                   :content="`Facebook`"
+                />
+              </div>
+              <div
+                class="w-10 h-10 image-fit zoom-in"
+                v-if="campaign.instagram_profile !== null"
+              >
+                <Tippy
+                  tag="img"
+                  class="rounded-full ml-5"
+                  :src="instagram_platform"
+                  :content="`Instagram`"
                 />
               </div>
               <div
@@ -73,17 +84,6 @@
                   class="rounded-full"
                   :src="youtube_platform"
                   :content="`Youtube`"
-                />
-              </div>
-              <div
-                class="w-10 h-10 image-fit zoom-in"
-                v-if="campaign.instagram_profile !== null"
-              >
-                <Tippy
-                  tag="img"
-                  class="rounded-full"
-                  :src="instagram_platform"
-                  :content="`Instagram`"
                 />
               </div>
             </div>
@@ -168,9 +168,9 @@ export default {
       status: this.routerParam,
       order_by: "created_at",
 
-      youtube_platform: "/src/assets/images/lss-img/youtube.png",
-      facebook_platform: "/src/assets/images/lss-img/facebook.png",
-      instagram_platform: "/src/assets/images/lss-img/instagram.png",
+      youtube_platform: "/src/assets/images/lss-img/yt_ad.jpeg",
+      facebook_platform: "/src/assets/images/lss-img/fb_ad.jpeg",
+      instagram_platform: "/src/assets/images/lss-img/ig_ad.jpeg",
     };
   },
   mounted() {
