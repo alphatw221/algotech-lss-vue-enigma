@@ -34,7 +34,7 @@
             <thead>
               <tr>
                 <th
-                  class="whitespace-nowrap"
+                  class="whitespace-nowrap text-center"
                   v-for="column in columns"
                   :key="column.key"
                 >
@@ -44,41 +44,57 @@
               </tr>
             </thead>
             <tbody>
-              <tr v-for="(product, key) in results" :key="key" class="intro-x">
-                <td class="w-40">
+              <tr v-for="(campaign, key) in results" :key="key" class="intro-x">
+                <td class="w-32">
                   <div class="flex">
                     <div class="w-10 h-10 image-fit zoom-in">
                       <Tippy
                         tag="img"
                         class="rounded-full"
-                        :src="product.image"
+                        :src="campaign.image"
                         :content="`Uploaded at`"
                       />
                     </div>
                   </div>
                 </td>
-                <td>
-                  <a href="" class="font-medium whitespace-nowrap">
-                    {{ product.name }}
+                <td class="text-center">
+                  {{ campaign.platform }}
+                </td>
+                <td class="text-center">
+                  {{ campaign.title }}
+                </td>
+                <td class="text-center">
+                  {{ campaign.time }}
+                </td>
+                <td class="items-center">
+                  <a class="flex items-center ml-20" href="javascript:;">
+                    <ListIcon class="w-4 h-4" />
                   </a>
                 </td>
                 <td class="text-center">
-                  {{ product.order_code }}
+                  <div
+                    class="
+                      form-check form-switch
+                      w-full
+                      sm:w-auto sm:ml-auto
+                      mt-3
+                      sm:mt-0
+                    "
+                  >
+                    <input
+                      @click="toggle"
+                      class="form-check-input mr-0 center"
+                      type="checkbox"
+                    />
+                  </div>
                 </td>
                 <td class="text-center">
-                  {{ product.type }}
-                </td>
-                <td class="text-center">
-                  {{ product.category }}
-                </td>
-                <td class="text-center">
-                  {{ product.description }}
-                </td>
-                <td class="text-center">
-                  {{ product.qty }}
-                </td>
-                <td class="text-center">
-                  {{ product.price }}
+                  <button
+                    class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2"
+                    @click="entry"
+                  >
+                    Entry
+                  </button>
                 </td>
                 <td class="table-report__action w-30">
                   <div class="flex justify-center items-center">
@@ -162,194 +178,46 @@ export default {
         { name: "Manage Order", key: "manager_order" },
         { name: "Stop Checkout", key: "stop" },
         { name: " ", key: "entry" },
-        { name: "Edit", key: "edit" },
+        { name: " ", key: "edit" },
       ],
       results: [
         {
           image: "",
           platform: "",
-          title: "",
-          time: "",
+          title: "uuaaakjdkh",
+          time: "2022/07/08",
         },
         {
-          id: 124,
-          created_by: null,
-          meta: {},
-          meta_logistic: {},
-          tag: [],
-          qty: 24,
-          name: "2363",
-          category: null,
-          excerpt: null,
-          description: "",
-          content: null,
-          remark: null,
-          price: 8.0,
-          price_ori: 0.0,
-          tax: 0.0,
-          currency: null,
-          currency_sign: "$",
-          points: 0,
-          model: null,
-          sku: null,
-          upc: null,
           image: "",
-          sort_order: 0,
-          order_code: "A2M",
-          max_order_amount: null,
-          customer_removable: false,
-          customer_editable: false,
-          type: "product",
-          status: "enabled",
-          created_at: "2022-02-25T09:24:54.512000Z",
-          updated_at: "2022-02-25T09:24:54.512000Z",
-          user_subscription: 1,
+          platform: "",
+          title: "test0708",
+          time: "2022/07/08",
         },
         {
-          id: 125,
-          created_by: null,
-          meta: {},
-          meta_logistic: {},
-          tag: [],
-          qty: 25,
-          name: "2364",
-          category: null,
-          excerpt: null,
-          description: "",
-          content: null,
-          remark: null,
-          price: 7.0,
-          price_ori: 0.0,
-          tax: 0.0,
-          currency: null,
-          currency_sign: "$",
-          points: 0,
-          model: null,
-          sku: null,
-          upc: null,
           image: "",
-          sort_order: 0,
-          order_code: "A2L",
-          max_order_amount: null,
-          customer_removable: false,
-          customer_editable: false,
-          type: "product",
-          status: "enabled",
-          created_at: "2022-02-25T09:25:39.884000Z",
-          updated_at: "2022-02-25T09:25:39.884000Z",
-          user_subscription: 1,
+          platform: "",
+          title: "test0101",
+          time: "2022/01/01",
         },
         {
-          id: 126,
-          created_by: null,
-          meta: {},
-          meta_logistic: {},
-          tag: [],
-          qty: 68,
-          name: "2365",
-          category: null,
-          excerpt: null,
-          description: "",
-          content: null,
-          remark: null,
-          price: 35.0,
-          price_ori: 0.0,
-          tax: 0.0,
-          currency: null,
-          currency_sign: "$",
-          points: 0,
-          model: null,
-          sku: null,
-          upc: null,
           image: "",
-          sort_order: 0,
-          order_code: "A3",
-          max_order_amount: null,
-          customer_removable: false,
-          customer_editable: false,
-          type: "product",
-          status: "enabled",
-          created_at: "2022-02-25T09:26:12.655000Z",
-          updated_at: "2022-02-25T09:26:12.655000Z",
-          user_subscription: 1,
+          platform: "",
+          title: "test1231",
+          time: "2022/12/31",
         },
         {
-          id: 127,
-          created_by: null,
-          meta: {},
-          meta_logistic: {},
-          tag: [],
-          qty: 110,
-          name: "2366",
-          category: null,
-          excerpt: null,
-          description: "",
-          content: null,
-          remark: null,
-          price: 4.0,
-          price_ori: 0.0,
-          tax: 0.0,
-          currency: null,
-          currency_sign: "$",
-          points: 0,
-          model: null,
-          sku: null,
-          upc: null,
           image: "",
-          sort_order: 0,
-          order_code: "DB",
-          max_order_amount: null,
-          customer_removable: false,
-          customer_editable: false,
-          type: "product",
-          status: "enabled",
-          created_at: "2022-02-25T09:26:41.585000Z",
-          updated_at: "2022-02-25T09:26:41.585000Z",
-          user_subscription: 1,
+          platform: "",
+          title: "UU",
+          time: "2022/07/08",
         },
       ],
     };
   },
   methods: {
-    append_1() {
-      console.log("popoo");
-
-      this.results.push({
-        id: 127,
-        created_by: null,
-        meta: {},
-        meta_logistic: {},
-        tag: [],
-        qty: 110,
-        name: "2366",
-        category: null,
-        excerpt: null,
-        description: "",
-        content: null,
-        remark: null,
-        price: 4.0,
-        price_ori: 0.0,
-        tax: 0.0,
-        currency: null,
-        currency_sign: "$",
-        points: 0,
-        model: null,
-        sku: null,
-        upc: null,
-        image: "",
-        sort_order: 0,
-        order_code: "DB",
-        max_order_amount: null,
-        customer_removable: false,
-        customer_editable: false,
-        type: "product",
-        status: "enabled",
-        created_at: "2022-02-25T09:26:41.585000Z",
-        updated_at: "2022-02-25T09:26:41.585000Z",
-        user_subscription: 1,
-      });
-      console.log(results);
-    },
+      entry(){
+          this.$router.push({path: '/cart?goodsId=12'})
+      }
   },
 };
 </script>

@@ -8,10 +8,10 @@
       <a href="" class="logo -intro-x hidden md:flex xl:w-[180px] block">
         <img
           alt="Enigma Tailwind HTML Admin Template"
-          class="logo__image w-6"
-          src="@/assets/images/logo.svg"
+          class="logo__image ml-6" style="width:130px;"
+          src="@/assets/images/lss-logo/LSS_logo_words_white.png"
         />
-        <span class="logo__text text-white text-lg ml-3"> Enigma </span>
+        <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
       </a>
       <!-- END: Logo -->
       <!-- BEGIN: Breadcrumb -->

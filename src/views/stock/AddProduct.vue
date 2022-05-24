@@ -3,9 +3,7 @@
 		<div class="intro-y flex items-center mt-8">
 			<h2 class="text-lg font-medium mr-auto">Add New Product</h2>
 		</div>
-
 		<div class="intro-y grid grid-cols-12 gap-4 box p-5 mt-5">
-
 			<div class="col-span-6 col-start-1">
 				<label for="crud-form-1" class="form-label">Product Name</label>
 				<input
@@ -13,13 +11,14 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
+					v-model="productInfo.name"
 				/>
 			</div>
 			<div class="col-span-6">
 				<label for="crud-form-2" class="form-label">Category</label>
 				<TomSelect
 					id="crud-form-2"
-					v-model="categories"
+					v-model="productInfo.categories"
 					class="w-full"
 					multiple
 				>
@@ -34,24 +33,7 @@
 				<label class="form-label">Upload Image</label>
 				<div class="border-2 border-dashed dark:border-darkmode-400 rounded-md pt-4">
 					<div class="flex flex-wrap px-4">
-						<div
-							v-for="(faker, fakerKey) in $_.take($f(), 4)"
-							:key="fakerKey"
-							class="w-24 h-24 relative image-fit mb-5 mr-5 cursor-pointer zoom-in"
-						>
-							<img
-								class="rounded-md"
-								alt="Midone Tailwind HTML Admin Template"
-								:src="faker.images[0]"
-							/>
-							<Tippy
-								tag="div"
-								content="Remove this image?"
-								class="w-5 h-5 flex items-center justify-center absolute rounded-full text-white bg-danger right-0 top-0 -mr-2 -mt-2"
-							>
-								<xIcon class="w-4 h-4" />
-							</Tippy>
-						</div>
+						<img :src="previewImage" class="uploading-image" />
 					</div>
 					<div class="px-4 pb-4 flex items-center cursor-pointer relative">
 						<ImageIcon class="w-4 h-4 mr-2" />
@@ -60,6 +42,8 @@
 						<input
 							type="file"
 							class="w-full h-full top-0 left-0 absolute opacity-0"
+							accept="image/jpeg" 
+							@change="uploadImage"
 						/>
 					</div>
 				</div>
@@ -67,15 +51,22 @@
 
 			<div class="mt-3 col-span-12 col-start-1">
 				<label>Type</label>
-				<div class="flex flex-col sm:flex-row mt-2">
-						<div class="form-check mr-2">
-								<input id="radio-switch-4" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-chris-evans" />
-								<label class="form-check-label" for="radio-switch-4">Product</label>
-						</div>
-						<div class="form-check mr-2 mt-2 ml-2 sm:mt-0">
-								<input id="radio-switch-5" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-liam-neeson" />
-								<label class="form-check-label" for="radio-switch-5">Lucky Draw</label>
-						</div>
+				<div class="flex flex-col sm:flex-row mt-2" v-for="type in typeRadio" :key="type.id">
+					<div class="form-check mr-2 mt-2 ml-2 sm:mt-0">
+						<input 
+							class="form-check-input" 
+							type="radio" 
+							name="horizontal_radio_button" 
+							:value="type.id"
+							v-model="productInfo.type"
+						/>
+						<label 
+							class="form-check-label" 
+							:for="type.id"
+						>
+							{{ type.text }}
+						</label>
+					</div>
 				</div>
 			</div>
 
@@ -86,6 +77,7 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
+					v-model="productInfo.order_code"
 				/>
 			</div>
 			<div class=" mt-3 col-span-6">
@@ -95,6 +87,7 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
+					v-model="productInfo.description"
 				/>
 			</div>
 
@@ -105,6 +98,7 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
+					v-model="productInfo.quantity"
 				/>
 			</div>
 			<div class=" mt-3 col-span-6">
@@ -114,20 +108,36 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
+					v-model="productInfo.price"
 				/>
 			</div>
 
 			<div class="mt-3 col-span-12 col-start-1">
 				<label>Status</label>
-				<div class="flex flex-col sm:flex-row mt-2">
-						<div class="form-check mr-2">
-								<input id="radio-switch-4" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-chris-evans" />
-								<label class="form-check-label" for="radio-switch-4">For Sale</label>
-						</div>
-						<div class="form-check mr-2 mt-2 ml-2 sm:mt-0">
-								<input id="radio-switch-5" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-liam-neeson" />
-								<label class="form-check-label" for="radio-switch-5">Delisted</label>
-						</div>
+				<div class="flex flex-col sm:flex-row mt-2" v-for="status in statusRadio" :key="status.id">
+					<div class="form-check mr-2 mt-2 ml-2 sm:mt-0">
+						<input 
+							class="form-check-input" 
+							type="radio" 
+							name="horizontal_radio_button1" 
+							:value="status.id"
+							v-model="productInfo.status"
+						/>
+						<label 
+							class="form-check-label" 
+							:for="status.id"
+						>
+							{{ status.text }}
+						</label>
+					</div>
+					<!-- <div class="form-check mr-2">
+						<input id="radio-switch-4" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-chris-evans" />
+						<label class="form-check-label" for="radio-switch-4">For Sale</label>
+					</div>
+					<div class="form-check mr-2 mt-2 ml-2 sm:mt-0">
+						<input id="radio-switch-5" class="form-check-input" type="radio" name="horizontal_radio_button" value="horizontal-radio-liam-neeson" />
+						<label class="form-check-label" for="radio-switch-5">Delisted</label>
+					</div> -->
 				</div>
 			</div>
 
@@ -136,7 +146,7 @@
 					<button class="btn w-32 dark:border-darkmode-400 ">
 						Cancel
 					</button>
-					<button class="btn btn-primary w-32 shadow-md ml-5">
+					<button class="btn btn-primary w-32 shadow-md ml-5" @click="submit">
 						Save
 					</button>
 				</div>
@@ -146,3 +156,85 @@
 
 	</div>
 </template>
+
+<script>
+import { createAxiosWithBearer } from '@/libs/axiosClient'
+
+export default {
+	setup() {
+	},
+	data() {
+		return {
+			formType: '',
+			updateId: 0,
+			productInfo: {
+				name: '',
+				categories: [],
+				image: '',
+				type: '',
+				order_code: '',
+				description: '',
+				quantity: '',
+				price: '',
+				status: ''
+			},
+			typeRadio: [
+				{text: 'Product', id: 'product'},
+				{text: 'Lucky Draw', id: 'lucky_draw'},
+			],
+			statusRadio: [
+				{text: 'For Sale', id: 'enabled'},
+				{text: 'Delisted', id: 'disabled'},
+			],
+			previewImage: null,
+			formData: new FormData(),
+		}
+	},
+	mounted() {
+		this.formType = this.$route.query.type
+		this.updateId = this.$route.query.id
+
+		if (this.formType == 'update') {
+			createAxiosWithBearer()
+			.get(`/api/product/${this.updateId}/retrieve_product/`)
+			.then(
+				response => {
+					this.productInfo = {
+						name: response.data.name,
+						order_code: response.data.order_code,
+						description: response.data.description,
+						quantity: response.data.qty,
+						type: response.data.type,
+						price: response.data.price,
+						status: response.data.status
+					}
+					this.previewImage = import.meta.env.VITE_APP_IMG_URL + response.data.image
+				}
+			)
+			
+		}
+	},
+	methods: {
+		submit() {
+			this.formData.append('text', JSON.stringify(this.productInfo))
+			createAxiosWithBearer()
+			.post('/api/product/create_product/', this.formData)
+			.then(
+				response => {
+					console.log('image upload response > ', response)
+				}
+			)
+		},
+		uploadImage(e){
+			const image = e.target.files[0];
+			this.formData.append('image', image)
+
+			const reader = new FileReader();
+			reader.readAsDataURL(image);
+			reader.onload = e =>{
+				this.previewImage = e.target.result;
+			};
+		}
+	},
+}
+</script>

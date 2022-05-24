@@ -32,6 +32,7 @@
     "litepicker": "^2.0.11",
     "lucide": "^0.17.3",
     "lucide-vue-next": "^0.17.3",
+    "mitt": "^3.0.0",
     "pinia": "^2.0.9",
     "tabulator-tables": "^4.9.3",
     "tiny-slider": "^2.9.3",
@@ -42,6 +43,7 @@
     "vue": "^3.2.25",
     "vue-axios": "^3.4.1",
     "vue-router": "4",
+    "vue3-cookies": "^1.0.6",
     "xlsx": "^0.16.9",
     "zoom-vanilla.js": "^2.0.6"
   },
