@@ -223,7 +223,7 @@
             <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6">
                 <row class="col-span-12"> 
                         <h2 class="text-lg font-medium w-48">Product</h2> 
-                         <a href="javascript:;" @click="this.largeSlideOverSizePreview = !this.largeSlideOverSizePreview" 
+                         <a href="javascript:;" @click="this.addProductFromStock = !this.addProductFromStock" 
                         class="btn btn-primary right-0">Add Product From Stock</a>
                 </row>
                 
@@ -303,7 +303,7 @@
     <!-- END: Incoming Order -->
 
     <!-- BEGIN: Add Product From Stock -->
-        <Modal size="modal-xl" class="text-center" :slideOver="true" :show="largeSlideOverSizePreview" @hidden="largeSlideOverSizePreview = false">
+        <Modal size="modal-xl" class="text-center" :slideOver="true" :show="addProductFromStock" @hidden="addProductFromStock = false">
             <ModalHeader class="text-center p-5">
                 <h2 class="font-medium text-base text-center">
                     Add Product From Stock
@@ -398,7 +398,7 @@ export default{
             tags: '', 
             replyBar: false,
             tagBox: false, 
-            largeSlideOverSizePreview:false,
+            addProductFromStock:false,
             add_product_columns: [
                 {name: '', key: 'select'},
 				{name: 'Image', key: 'image'},
