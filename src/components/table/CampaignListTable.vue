@@ -60,7 +60,7 @@
                 <Tippy
                   tag="img"
                   class="rounded-full"
-                  :src=facebook_platform
+                  :src="facebook_platform"
                   :content="`Facebook`"
                 />
               </div>
@@ -71,7 +71,7 @@
                 <Tippy
                   tag="img"
                   class="rounded-full"
-                  :src=youtube_platform
+                  :src="youtube_platform"
                   :content="`Youtube`"
                 />
               </div>
@@ -82,7 +82,7 @@
                 <Tippy
                   tag="img"
                   class="rounded-full"
-                  :src=instagram_platform
+                  :src="instagram_platform"
                   :content="`Instagram`"
                 />
               </div>
@@ -99,9 +99,11 @@
               <ListIcon class="w-4 h-4" />
             </a>
           </td>
-          <td class="text-center">
+          <td class="items-center">
             <div
               class="
+                flex
+                items-center
                 form-check form-switch
                 w-full
                 sm:w-auto sm:ml-auto
@@ -119,7 +121,7 @@
           <td class="text-center">
             <button
               class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2"
-              @click="entry"
+              @click="idPopupModalPreview = true"
             >
               Entry
             </button>
@@ -134,15 +136,7 @@
         </tr>
       </tbody>
     </table>
-    <div
-      class="
-        intro-y
-        col-span-12
-        flex flex-wrap
-        sm:flex-row sm:flex-nowrap
-        items-center
-      "
-    >
+    <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
       <Page
         :total="dataCount"
         show-sizer
@@ -160,6 +154,7 @@ export default {
   props: {
     requestUrl: String,
     columns: Array,
+    routerParam: String,
   },
   data() {
     return {
@@ -167,10 +162,10 @@ export default {
       totalPage: 1,
       page_size: 10,
       dataCount: 0,
-      search_column: undefined,
-      key_word: undefined,
+      searchCcolumn: undefined,
+      keyword: undefined,
       listItems: [],
-      status: "schedule",
+      status: this.routerParam,
       order_by: "created_at",
 
       youtube_platform: "/src/assets/images/lss-img/youtube.png",
@@ -180,6 +175,11 @@ export default {
   },
   mounted() {
     this.search();
+
+    this.eventBus.on("campaignStatus", (payload) => {
+      this.status = payload.status;
+      this.search();
+    });
 
     this.eventBus.on("searchTable", (payload) => {
       this.currentPage = 1;
@@ -198,8 +198,8 @@ export default {
       [
         "page_size",
         "page",
-        "search_column",
-        "key_word",
+        "searchColumn",
+        "keyword",
         "status",
         "order_by",
       ].forEach((v) => {
@@ -217,17 +217,18 @@ export default {
             this.totalPage = totalPage == 0 ? 1 : totalPage;
           }
           this.listItems = response.data.results;
+          console.log(this.listItems);
         })
         .catch((error) => {
           console.log(error);
         });
     },
     changePage(page) {
-      this.currentPage = page;
+      this.page = page;
       this.search();
     },
     changePageSize(pageSize) {
-      this.pageSize = pageSize;
+      this.page_Size = pageSize;
       this.search();
     },
   },

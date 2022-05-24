@@ -1,18 +1,18 @@
 <template>
   <!-- OUTTER BOX -->
-  <div class="intro-y chat grid grid-cols-12 gap-5" style="height: 725px">
+  <div class="intro-y chat grid grid-cols-12 gap-5">
     <!-- BEGIN: commit box -->
     <div class="col-span-12">
       <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
         <div class="switch-toggle switch-3 switch-candy col-start-1 m-2">
-          <input id="on" name="state-d" type="radio" checked="checked" />
-          <label for="on" onclick="" style="width: 100px">Scheduled</label>
+          <input id="on" name="state-d" type="radio" checked="checked"/>
+          <label for="on" @click="status_change('schedule')" style="width: 100px">Scheduled</label>
 
           <input id="na" name="state-d" type="radio" class="my-0" />
-          <label for="na" onclick="" style="width: 100px">History</label>
+          <label for="na" @click="status_change('history')" style="width: 100px">History</label>
 
           <input id="off" name="state-d" type="radio" />
-          <label for="off" onclick="" style="width: 100px">Ongoing</label>
+          <label for="off" @click="status_change('ongoing')" style="width: 100px">Ongoing</label>
         </div>
       </div>
 
@@ -22,6 +22,7 @@
           <CampaignListTable
             :requestUrl="'/api/v2/campaign/list_campaign/'"
             :columns="tableColumns"
+            :routerParam="campaign_status"
           >
           </CampaignListTable>
         </div>
@@ -57,6 +58,7 @@ export default {
         { name: " ", key: "entry" },
         { name: " ", key: "edit" },
       ],
+      campaign_status : 'schedule'
     };
   },
   mounted() {
@@ -68,7 +70,13 @@ export default {
 		// 	console.log(error);
 		// })
 	},
-  methods: {},
+  methods: {
+      status_change(status){
+        this.campaign_status = status
+        this.eventBus.emit("campaignStatus", {status: this.campaign_status})
+      }
+    
+  },
 };
 </script>
 
