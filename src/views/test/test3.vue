@@ -14,211 +14,61 @@
           <input id="off" name="state-d" type="radio" />
           <label for="off" onclick="" style="width: 100px">Ongoing</label>
         </div>
-        <div class="col-end-13 col-span-2">
-          <button
-            class="btn btn-primary-soft w-11 col-start-1 m-2 rounded-full"
-          >
-            <SearchIcon />
-          </button>
-          <button
-            class="btn btn-primary-soft w-11 col-start-1 m-2 rounded-full"
-          >
-            <FilterIcon />
-          </button>
-        </div>
       </div>
 
       <div class="box">
         <div class="overflow-x-auto">
-          <table class="table table-report mt-5">
-            <thead>
-              <tr>
-                <th
-                  class="whitespace-nowrap text-center"
-                  v-for="column in columns"
-                  :key="column.key"
-                >
-                  {{ column.name }}
-                </th>
-                <!--<th class="text-center whitespace-nowrap">Edit</th> -->
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(campaign, key) in results" :key="key" class="intro-x">
-                <td class="w-32">
-                  <div class="flex">
-                    <div class="w-10 h-10 image-fit zoom-in">
-                      <Tippy
-                        tag="img"
-                        class="rounded-full"
-                        :src="campaign.image"
-                        :content="`Uploaded at`"
-                      />
-                    </div>
-                  </div>
-                </td>
-                <td class="text-center">
-                  {{ campaign.platform }}
-                </td>
-                <td class="text-center">
-                  {{ campaign.title }}
-                </td>
-                <td class="text-center">
-                  {{ campaign.time }}
-                </td>
-                <td class="items-center">
-                  <a class="flex items-center ml-20" href="javascript:;">
-                    <ListIcon class="w-4 h-4" />
-                  </a>
-                </td>
-                <td class="text-center">
-                  <div
-                    class="
-                      form-check form-switch
-                      w-full
-                      sm:w-auto sm:ml-auto
-                      mt-3
-                      sm:mt-0
-                    "
-                  >
-                    <input
-                      @click="toggle"
-                      class="form-check-input mr-0 center"
-                      type="checkbox"
-                    />
-                  </div>
-                </td>
-                <td class="text-center">
-                  <button
-                    class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2"
-                    @click="entry"
-                  >
-                    Entry
-                  </button>
-                </td>
-                <td class="table-report__action w-30">
-                  <div class="flex justify-center items-center">
-                    <a class="flex items-center mr-3" href="javascript:;">
-                      <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
-                    </a>
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          </table>
+          <SearchBar :searchColumns="searchColumns"> </SearchBar>
+          <CampaignListTable
+            :requestUrl="'/api/v2/campaign/list_campaign/'"
+            :columns="tableColumns"
+          >
+          </CampaignListTable>
         </div>
       </div>
     </div>
-    <!-- <div class="box"> -->
-    <!-- BEGIN: Basic Sticky Notification Content -->
-    <!-- <Notification refKey="basicStickyNotification" class="">
-        <div class="font-medium m-3">
-          You have an upcoming campaign in 1 hour
-        </div>
-        <br />
-        <a
-          class="
-            font-medium
-            text-primary
-            dark:text-slate-400
-            mt-1
-            sm:mt-0 sm:ml-40
-          "
-          href=""
-          >Start Now</a
-        >
-        <a
-          class="
-            font-medium
-            text-primary
-            dark:text-slate-400
-            mt-1
-            sm:mt-0 sm:ml-40
-          "
-          href=""
-          >Remind me 15 mins before</a
-        >
-      </Notification> -->
-    <!-- END: Basic Sticky Notification Content -->
-    <!-- BEGIN: Notification Toggle -->
-    <!-- <button
-        class="btn btn-primary mt-2 sm:mt-0"
-        @click="basicStickyNotificationToggle"
-      >
-        Show Notification
-      </button> -->
-    <!-- END: Notification Toggle -->
-    <!-- <button
-        class="btn btn-primary mt-2 sm:mt-0"
-        @click="videoStickyNotificationToggle"
-      >
-        Show video
-      </button>
-
-      <Notification refKey="videoStickyNotification" class="">
-        <video width="400" controls>
-          <source src="mov_bbb.mp4" type="video/mp4" />
-          <source src="mov_bbb.ogg" type="video/ogg" />
-          Your browser does not support HTML video.
-        </video>
-      </Notification>
-    </div> -->
   </div>
 </template>
 
 <script>
+import SearchBar from "@/components/bar/SearchBar.vue";
+import CampaignListTable from "@/components/table/CampaignListTable.vue";
 export default {
+  components: { 
+		SearchBar,
+		CampaignListTable
+	},
   data() {
     return {
-      columns: [
+      searchColumns: {
+        keywords: [
+          { text: "Title", value: "title" },
+          { text: "Time", value: "time" },
+          { text: "Platform", value: "platform" },
+        ],
+      },
+      tableColumns: [
         { name: "Fan Page", key: "page" },
         { name: "Platform", key: "platform" },
         { name: "Title", key: "title" },
-        { name: "Time", key: "time" },
+        { name: "Time", key: "start_at" },
         { name: "Manage Order", key: "manager_order" },
         { name: "Stop Checkout", key: "stop" },
         { name: " ", key: "entry" },
         { name: " ", key: "edit" },
       ],
-      results: [
-        {
-          image: "",
-          platform: "",
-          title: "uuaaakjdkh",
-          time: "2022/07/08",
-        },
-        {
-          image: "",
-          platform: "",
-          title: "test0708",
-          time: "2022/07/08",
-        },
-        {
-          image: "",
-          platform: "",
-          title: "test0101",
-          time: "2022/01/01",
-        },
-        {
-          image: "",
-          platform: "",
-          title: "test1231",
-          time: "2022/12/31",
-        },
-        {
-          image: "",
-          platform: "",
-          title: "UU",
-          time: "2022/07/08",
-        },
-      ],
     };
   },
-  methods: {
-      entry(){
-          this.$router.push({path: '/cart?goodsId=12'})
-      }
-  },
+  mounted() {
+		this.$cookies.set("access_token", 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzODc1MDI1LCJpYXQiOjE2NTMyNzAyMjUsImp0aSI6IjM4MDNmYTdiYzhmZTQyOWFiNDc4OWNmNjcxMThiZGNjIiwidXNlcl9pZCI6NzcsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo3Nywic2VsbGVyX2lkIjo5MCwiY3VzdG9tZXJfaWQiOjEwNCwibmFtZSI6IkplcmVteSBDaG91IiwiZW1haWwiOiJqZXJlbXljaG91QGFjY29sYWRlZ2xvYmFsLm5ldCJ9fQ.XM2nRfhg-h8REC__rAnxIcW-WR3CpUlLKQZ-wXC6FrQ')
+		
+		// createAxiosWithBearer().get('/api/user-subscription/buyer/list?page=1&page_size=5&search_column=shipping_email&keyword=qq').then(response => {
+		// 	console.log(response);
+		// }).catch(function (error) {
+		// 	console.log(error);
+		// })
+	},
+  methods: {},
 };
 </script>
 

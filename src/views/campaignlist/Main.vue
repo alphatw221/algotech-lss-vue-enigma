@@ -45,7 +45,32 @@
                   </div>
                 </td>
                 <td class="text-center">
-                  {{ campaign.platform }}
+                  <div class="flex">
+                      <div class="w-10 h-10 image-fit zoom-in">
+                        <Tippy
+                          tag="img"
+                          alt="Midone Tailwind HTML Admin Template"
+                          class="rounded-full"
+                          :src="instagram_platform"
+                        />
+                      </div>
+                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                        <Tippy
+                          tag="img"
+                          alt="Midone Tailwind HTML Admin Template"
+                          class="rounded-full"
+                          :src="youtube_platform"
+                        />
+                      </div>
+                      <div class="w-10 h-10 image-fit zoom-in -ml-5">
+                        <Tippy
+                          tag="img"
+                          alt="Midone Tailwind HTML Admin Template"
+                          class="rounded-full"
+                          :src="facebook_platform"
+                        />
+                      </div>
+                    </div>
                 </td>
                 <td class="text-center">
                   {{ campaign.title }}
@@ -306,7 +331,11 @@ export default {
       instagramOverlappingModalPreview: false,
       facebookPageSelected: false,
       instagramPageSelected: false, 
-      youtubePageSelected: false,  
+      youtubePageSelected: false,
+      
+      youtube_platform:'/src/assets/images/lss-img/youtube.png',
+      facebook_platform:'/src/assets/images/lss-img/facebook.png',
+      instagram_platform:'/src/assets/images/lss-img/instagram.png',
 
       fbAvatar: '', 
       fbimg1:'/src/assets/images/lss-img/kuaimai-avatar.jpeg',
