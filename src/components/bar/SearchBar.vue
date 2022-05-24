@@ -64,7 +64,13 @@
                     </button>
                 </div>
             </form>
-            <button class="btn btn-primary shadow-md mr-2" @click="this.$router.push('add_product')">Add New Product</button>
+            <button 
+                class="btn btn-primary shadow-md mr-2" 
+                @click="this.$router.push({ path: routerPath, query: { type: routerParam }})"
+                v-if="isAddBtn"
+            >
+                Add Product
+            </button>
         </div>
     </div>
 </template>
@@ -73,10 +79,12 @@
 
 export default {
 	setup() {
-		
 	},
 	props: {
-		searchColumns: Object
+		searchColumns: Object,
+        isAddBtn: Boolean,
+        routerPath: String,
+        routerParam: String
 	},
 	data() {
 		return {

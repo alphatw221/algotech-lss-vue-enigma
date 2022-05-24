@@ -18,11 +18,16 @@
 								<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
 									<SearchBar
 										:searchColumns="searchColumns"
+										:isAddBtn="true"
+										:routerPath="'add_product'"
+										:routerParam="'create'"
 									>
 									</SearchBar>	
 									<DataTable
 										:requestUrl="'/api/v2/product/list_product/'"
 										:columns="tableColumns"
+										:routerPath="'add_product'"
+										:routerParam="'update'"
 									>
 									</DataTable>
 								</div>

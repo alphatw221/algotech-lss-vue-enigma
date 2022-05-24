@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div class="bg-secondary">
     <!-- <DarkModeSwitcher /> -->
     <!-- <MainColorSwitcher /> -->
     <ThemeModeSwitcher />
@@ -16,7 +16,7 @@
               :key="menu + menuKey"
               class="side-nav__devider my-6"
             ></li>
-            <li v-else :key="menu + menuKey">
+            <li v-else :key="menu + menuKey"> 
               <SideMenuTooltip
                 tag="a"
                 :content="menu.title"
@@ -112,7 +112,7 @@
                             <div class="side-menu__title">
                               {{ lastSubMenu.title }}
                             </div>
-                          </SideMenuTooltip>
+                          </SideMenuTooltip >
                         </li>
                       </ul>
                     </transition>

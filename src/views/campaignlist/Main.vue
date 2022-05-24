@@ -6,11 +6,9 @@
       <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
         <div class="switch-toggle switch-3 switch-candy col-start-1 m-2">
           <input id="on" name="state-d" type="radio" checked="checked" />
-          <label for="on" onclick="" style="width: 100px">Scheduled</label>
-
+          <label for="on" onclick="" style="width: 100px"> Scheduled</label>
           <input id="na" name="state-d" type="radio" class="my-0" />
           <label for="na" onclick="" style="width: 100px">History</label>
-
           <input id="off" name="state-d" type="radio" />
           <label for="off" onclick="" style="width: 100px">Ongoing</label>
         </div>
@@ -361,7 +359,7 @@ export default {
       ],
       results: [
         {
-          image: "",
+          image: "/src/assets/images/profile-1.jpg",
           platform: "",
           title: "uuaaakjdkh",
           time: "2022/07/08",
@@ -433,11 +431,20 @@ export default {
 
 <style scoped>
   .switch-toggle {
+    overflow: visible;
     float: left;
     height: 42px;
     width: 300px;
-    background: #363636ce;
+    background: theme('colors.secondary');
     border-radius: 42px 42px;
+    letter-spacing: .7px;
+    box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.185),
+        inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+  }
+  .dark .switch-toggle {
+    box-shadow: inset -4px -4px 8px rgba(22, 22, 22, 0.596),
+      inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+    --color-secondary: theme("colors.rgb.blueGray.800");
   }
 
   .switch-toggle input {
@@ -452,16 +459,20 @@ export default {
     padding-right: 15px;
     float: left;
     text-align: center;
-    font-weight: 500;
     font-size: 16px;
-    color: #fff;
+    color: rgb(56, 56, 56);
     cursor: pointer;
+  }
+  .dark .switch-toggle input+label{
+    color: rgb(255, 255, 255);
   }
 
   .switch-toggle input:checked+label {
-    background: #055770;
+    background: theme('colors.primary');
     height: 42px;
     width: 100px;
     border-radius: 42px 42px;
+    font-weight: 500;
+    color: aliceblue;
   }
 </style>
