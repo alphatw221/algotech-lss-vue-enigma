@@ -18,13 +18,16 @@
         <div class="col-end-11 -mt-3">
           <TabList class="nav-pills">
             <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <FacebookIcon class="m-1 -mt-1" />
+              <!-- <FacebookIcon class="m-1 -mt-1" /> -->
+              FB
             </Tab>
             <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <InstagramIcon class="m-1 -mt-1" />
+              <!-- <InstagramIcon class="m-1 -mt-1" /> -->
+              IG
             </Tab>
             <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <YoutubeIcon class="m-1 -mt-1" />
+              <!-- <YoutubeIcon class="m-1 -mt-1" /> -->
+              YT
             </Tab>
           </TabList>
         </div>
@@ -63,9 +66,9 @@
           <button
             class="btn btn-outline-none w-18"
             style="border: 0px; box-shadow: 0px"
-            @click="this.tags = 'Tag : '"
+            @click="showTags"
           >
-            <XIcon class="w-4 h-4 mr-2" /> Clean
+            <XIcon class="w-4 h-4 mr-2" /> Close
           </button>
           <h2 class="p-2">{{ tags }}</h2>
         </div>
@@ -2050,6 +2053,7 @@ export default {
       this.replyBar = !this.replyBar;
     },
     showTags() {
+      this.tags = ''
       this.tagBox = !this.tagBox;
     },
   },

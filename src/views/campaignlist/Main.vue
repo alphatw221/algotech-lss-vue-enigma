@@ -435,6 +435,12 @@ export default {
   },
   mounted() {
     this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzODc1MDI1LCJpYXQiOjE2NTMyNzAyMjUsImp0aSI6IjM4MDNmYTdiYzhmZTQyOWFiNDc4OWNmNjcxMThiZGNjIiwidXNlcl9pZCI6NzcsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo3Nywic2VsbGVyX2lkIjo5MCwiY3VzdG9tZXJfaWQiOjEwNCwibmFtZSI6IkplcmVteSBDaG91IiwiZW1haWwiOiJqZXJlbXljaG91QGFjY29sYWRlZ2xvYmFsLm5ldCJ9fQ.XM2nRfhg-h8REC__rAnxIcW-WR3CpUlLKQZ-wXC6FrQ");
+    this.eventBus.on("entryPoint", (payload) => {
+      this.idPopupModalPreview = true
+    })
+  },
+  unmounted() {
+    this.eventBus.off("entryPoint")
   },
   methods: {
     status_change(status){

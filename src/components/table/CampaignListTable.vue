@@ -121,7 +121,7 @@
           <td class="text-center">
             <button
               class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2"
-              @click="idPopupModalPreview = true"
+              @click="changeEntry"
             >
               Entry
             </button>
@@ -231,6 +231,9 @@ export default {
       this.page_Size = pageSize;
       this.search();
     },
+    changeEntry() {
+      this.eventBus.emit("entryPoint", {idPopupModalPreview: true})
+    }
   },
 };
 </script>

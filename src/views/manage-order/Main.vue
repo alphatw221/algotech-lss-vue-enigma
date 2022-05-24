@@ -84,11 +84,11 @@
                 <div class="flex align-baseline text-xl -mb-5">
                     <a class="mr-2 ml-2 ">All </a>
                     <span class="text-xs p-1 h-5 rounded-full bg-danger text-white">32</span>
-                    <a class="mr-2 ml-5">In Cart </a>
+                    <a class="mr-2 ml-5">Review </a>
                     <span class="text-xs p-1 h-5 rounded-full bg-danger text-white align-top">12</span>
-                    <a class="mr-2 ml-5">Pending Payment </a>
+                    <!--  <a class="mr-2 ml-5">Pending Payment </a> -->
                     <!-- <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr- align-top">2</span> -->
-                    <a class="mr-2 ml-5">Complete Order </a>
+                    <a class="mr-2 ml-5">Complete </a>
                     <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr-5 align-top">12</span>
                 </div>
                 <!--分隔線-->
@@ -100,7 +100,7 @@
                         <input type="text" class="form-control rounded-full mr-2 w-full sm:w-64 box px-10"
                             placeholder="Search files" />
 
-                        <Dropdown class="relative inset-y-0 p-2 mr-1 flex rounded-sm items-center btn btn-success"
+                        <Dropdown class="relative inset-y-0 p-2 mr-1 flex rounded-full items-center btn btn-success"
                             placement="bottom-start"> Export
                             <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
                                 <ChevronDownIcon class="w-5 h-5 text-slate-700" />
@@ -112,7 +112,7 @@
                             </DropdownMenu>
                         </Dropdown>
 
-                        <Dropdown class=" relative inset-y-0 p-2 flex rounded-sm items-center btn btn-warning"
+                        <Dropdown class=" relative inset-y-0 p-2 flex rounded-full items-center btn btn-warning"
                             placement="bottom-start">
                             <DropdownToggle role="button" class="w-5 h-5 mr-1 block" href="javascript:;">
                                 <FilterIcon class="w-5 h-5 text-slate-700" />
@@ -323,7 +323,7 @@ const add_product_results = ref([
     },
     {
         order_number: '#15864',
-        platform: '',
+        platform: 'youtube',
         name: 'Anna',
         price: '$ 254',
         status: 'Complete',
