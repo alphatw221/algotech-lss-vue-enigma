@@ -33,8 +33,11 @@
 					</td>
 					<td class="table-report__action w-30">
 						<div class="flex justify-center items-center">
-							<a class="flex items-center mr-3" href="javascript:;">
-								<CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
+							<a 
+								class="flex items-center mr-3" 
+								@click="this.$router.push({ path: routerPath, query: { type: routerParam, id: product['id'] }})"
+							>
+								<CheckSquareIcon class="w-4 h-4 mr-1"/> Edit
 							</a>
 						</div>
 					</td>
@@ -58,7 +61,9 @@ import { createAxiosWithBearer } from '@/libs/axiosClient'
 export default {
 	props: {
 		requestUrl: String,
-		columns: Array
+		columns: Array,
+		routerPath: String,
+        routerParam: String
 	},
 	data() {
 		return {

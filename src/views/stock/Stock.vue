@@ -1,40 +1,47 @@
 <template>
-  <div class="mt-8">
-    <TabGroup class="grid grid-cols-2 gap-4 -mt-2">
-      <div class="col-start-1 ml-5">
-        <TabList class="nav-boxed-tabs">
-          <Tab class="w-full py-2" tag="button">For Sale</Tab>
-          <Tab class="w-full py-2" tag="button">Delisted</Tab>
-          <Tab class="w-full py-2" tag="button">Sold out</Tab>
-          <Tab class="w-full py-2" tag="button">Delete</Tab>
-        </TabList>
-      </div>
-      <div class="p-5 col-span-12">
-          <TabPanels class="mt-5">
-            <TabPanel class="leading-relaxed">
-              <div
-                class="intro-y grid grid-cols-12"
-              >
-                <div class="intro-y col-start-1 col-span-12">
-                  <SearchBar :searchColumns="searchColumns" />
-                </div>
-                <div class="intro-y col-start-1 col-span-12 overflow-auto lg:overflow-visible xl:overflow-y-auto">
-                  <DataTable
-                    :requestUrl="'/api/v2/product/list_product/'"
-                    :columns="tableColumns"
-                  >
-                  </DataTable>
-                </div>
-              </div>
-			  
-            </TabPanel>
-            <TabPanel class="leading-relaxed"> Delisted. </TabPanel>
-            <TabPanel class="leading-relaxed"> Sold. </TabPanel>
-            <TabPanel class="leading-relaxed"> Delete. </TabPanel>
-          </TabPanels>
-      </div>
-    </TabGroup>
-  </div>
+	<div>
+		<div class="mt-10">
+			
+			<TabGroup class="grid grid-cols-2 gap-4">
+				<div class="col-start-1 ml-5">
+					<TabList class="nav-boxed-tabs">
+						<Tab class="w-full py-2" tag="button">For Sale</Tab>
+						<Tab class="w-full py-2" tag="button">Delisted</Tab>
+						<Tab class="w-full py-2" tag="button">Sold out</Tab>
+						<Tab class="w-full py-2" tag="button">Delete</Tab>
+					</TabList>
+				</div>
+				<div class="p-5 col-span-12">
+					<div class="overflow-x-auto">
+						<TabPanels class="mt-5">
+							<TabPanel class="leading-relaxed"> 
+								<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+									<SearchBar
+										:searchColumns="searchColumns"
+										:isAddBtn="true"
+										:routerPath="'add_product'"
+										:routerParam="'create'"
+									>
+									</SearchBar>	
+									<DataTable
+										:requestUrl="'/api/v2/product/list_product/'"
+										:columns="tableColumns"
+										:routerPath="'add_product'"
+										:routerParam="'update'"
+									>
+									</DataTable>
+								</div>
+							</TabPanel>
+							<TabPanel class="leading-relaxed"> Delisted. </TabPanel>
+							<TabPanel class="leading-relaxed"> Sold. </TabPanel>
+							<TabPanel class="leading-relaxed"> Delete. </TabPanel>
+						</TabPanels>
+					</div>
+				</div>
+				
+			</TabGroup>
+		</div>
+	</div>
 </template>
 
 <script>

@@ -47,43 +47,49 @@
                     </button>
                 </div>
             </div>
-            <button
-                class="btn btn-primary shadow-md mt-3 col-start-1 col-span-12 xl:w-36 xl:mt-0 sm:col-start-10 2xl:w-48 2xl:col-start-11 2xl:mt-0"
-                @click="this.$router.push('add_product')">Add New Product</button>
-        </form>
+            <button 
+                class="btn btn-primary shadow-md mt-3 col-start-1 col-span-12 xl:w-36 xl:mt-0 sm:col-start-10 2xl:w-48 2xl:col-start-11 2xl:mt-0" 
+                @click="this.$router.push({ path: routerPath, query: { type: routerParam }})"
+                v-if="isAddBtn"
+            >
+                Add Product
+            </button>
+        </form>        
     </div>
 </template>
 
 <script>
 
 export default {
-    setup() {
-
-    },
-    props: {
-        searchColumns: Object
-    },
-    data() {
-        return {
-            page: 1,
-            pageSize: 10,
-            searchColumn: 'name',
-            keyword: undefined,
-        }
-    },
-    watch: {
-        searchColumn() {
-            this.search();
-        },
-    },
-    methods: {
-        search() {
-            this.eventBus.emit("searchTable", { searchColumn: this.searchColumn, keyword: this.keyword, pageSize: this.pageSize })
-        },
-        reset() {
-            this.searchColumn = ''
-            this.keyword = ''
-        }
-    }
+	setup() {
+	},
+	props: {
+		searchColumns: Object,
+        isAddBtn: Boolean,
+        routerPath: String,
+        routerParam: String
+	},
+	data() {
+		return {
+			page: 1,
+			pageSize: 10,
+			searchColumn: 'name',
+			keyword: undefined,
+		}
+	},
+	watch: {
+		searchColumn() {
+			this.search();
+		},
+	},
+	methods: {
+		search() {
+			this.eventBus.emit("searchTable", {searchColumn: this.searchColumn, keyword: this.keyword, pageSize: this.pageSize})
+		},
+		reset() {
+			this.searchColumn = ''
+			this.keyword = ''
+		}
+	}
 }
 </script>
