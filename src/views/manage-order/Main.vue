@@ -227,9 +227,9 @@
             </h2>
             <h3 class="btn btn-rounded-pending"> Complete</h3>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody >
             <div class="intro-y grid grid-cols-12 gap-5">
-                <div class="intro-y col-span-7 overflow-auto lg:overflow-visible">
+                <div class="intro-y col-span-12 overflow-auto lg:overflow-visible xl:col-span-7 2xl:col-span-7">
                     <h2 class="text-left text-lg"> Shopping Cart</h2>
 
                     <table class="table table-report mt-3 text-lg">
@@ -258,7 +258,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="intro-y col-span-5 overflow-auto lg:overflow-visible">
+                <div class="intro-y col-span-12 overflow-auto lg:overflow-visible 2xl:col-span-5 xl:col-span-5">
                     <div class="box w-full h-64 p-4 my-1 rounded-xl"> 
                         <h2 class="text-left text-lg">Delivery Info</h2>
                     </div>
