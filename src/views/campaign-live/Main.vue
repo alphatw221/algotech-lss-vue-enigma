@@ -1,57 +1,78 @@
 <template>
-    <!-- OUTTER BOX -->
-    <div class="intro-y chat grid grid-cols-12 gap-5" style="height: 100%; overflow: auto">
-        <!-- BEGIN: Comments -->
-        <TabGroup class="col-span-12 lg:col-span-5 2xl:col-span-4">
-            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 w-150">
-                <div class="col-start-1 col-span-5 -mt-4">
-                    <h2 class="text-lg font-medium">
-                        Comments
-                        <button class="p-3" @click="showTags">
-                            <FolderIcon />
-                        </button>
-                    </h2>
-                </div>
-                <div class="col-end-11 -mt-3">
-                    <TabList class="nav-pills">
-                        <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-                            <FacebookIcon class="m-1 -mt-1" />
-                        </Tab>
-                        <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-                            <InstagramIcon class="m-1 -mt-1" />
-                        </Tab>
-                        <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-                            <YoutubeIcon class="m-1 -mt-1" />
-                        </Tab>
-                    </TabList>
-                </div>
-                <div class="col-start-1 col-span-12 -mt-2">
-                    <video width="600" controls>
-                        <source src="mov_bbb.mp4" type="video/mp4" />
-                        <source src="mov_bbb.ogg" type="video/ogg" />
-                        Your browser does not support HTML video.
-                    </video>
-                </div>
-                <div v-show="tagBox" class="col-start-1 col-span-12 -mt-2 -mb-6">
-                    <button class="btn btn-rounded-danger w-fit m-1" @click="this.tags = 'Tag : # Shipping'">
-                        <HashIcon class="w-4 h-4 mr-2" /> Shipping
-                    </button>
-                    <button class="btn btn-rounded-pending w-fit m-1" @click="this.tags = 'Tag : # Return'">
-                        <HashIcon class="w-4 h-4 mr-2" /> Return
-                    </button>
-                    <button class="btn btn-rounded-warning w-fit m-1" @click="this.tags = 'Tag : # Size'">
-                        <HashIcon class="w-4 h-4 mr-2" /> Size
-                    </button>
-                    <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="this.tags = 'Tag : Undefined'">
-                        <HashIcon class="w-4 h-4 mr-2" /> Undefined
-                    </button>
-                    <button class="btn btn-outline-none w-18" style="border: 0px; box-shadow: 0px"
-                        @click="this.tags = 'Tag : '">
-                        <XIcon class="w-4 h-4 mr-2" /> Clean
-                    </button>
-                    <h2 class="p-2">{{ tags }}</h2>
-                </div>
-            </div>
+  <!-- OUTTER BOX -->
+  <div
+    class="intro-y chat grid grid-cols-12 gap-5"
+    style="height: 100%; overflow: auto"
+  >
+    <!-- BEGIN: Comments -->
+    <TabGroup class="col-span-12 lg:col-span-5 2xl:col-span-4">
+      <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 w-150">
+        <div class="col-start-1 col-span-5 -mt-4">
+          <h2 class="text-lg font-medium">
+            Comments
+            <button class="p-3" @click="showTags">
+              <FolderIcon />
+            </button>
+          </h2>
+        </div>
+        <div class="col-end-11 -mt-3">
+          <TabList class="nav-pills">
+            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+              <!-- <FacebookIcon class="m-1 -mt-1" /> -->
+              FB
+            </Tab>
+            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+              <!-- <InstagramIcon class="m-1 -mt-1" /> -->
+              IG
+            </Tab>
+            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+              <!-- <YoutubeIcon class="m-1 -mt-1" /> -->
+              YT
+            </Tab>
+          </TabList>
+        </div>
+        <div class="col-start-1 col-span-12 -mt-2">
+          <video width="600" controls>
+            <source src="mov_bbb.mp4" type="video/mp4" />
+            <source src="mov_bbb.ogg" type="video/ogg" />
+            Your browser does not support HTML video.
+          </video>
+        </div>
+        <div v-show="tagBox" class="col-start-1 col-span-12 -mt-2 -mb-6">
+          <button
+            class="btn btn-rounded-danger w-fit m-1"
+            @click="this.tags = 'Tag : # Shipping'"
+          >
+            <HashIcon class="w-4 h-4 mr-2" /> Shipping
+          </button>
+          <button
+            class="btn btn-rounded-pending w-fit m-1"
+            @click="this.tags = 'Tag : # Return'"
+          >
+            <HashIcon class="w-4 h-4 mr-2" /> Return
+          </button>
+          <button
+            class="btn btn-rounded-warning w-fit m-1"
+            @click="this.tags = 'Tag : # Size'"
+          >
+            <HashIcon class="w-4 h-4 mr-2" /> Size
+          </button>
+          <button
+            class="btn btn-rounded-dark w-fit h-10 m-1"
+            @click="this.tags = 'Tag : Undefined'"
+          >
+            <HashIcon class="w-4 h-4 mr-2" /> Undefined
+          </button>
+          <button
+            class="btn btn-outline-none w-18"
+            style="border: 0px; box-shadow: 0px"
+            @click="showTags"
+          >
+            <XIcon class="w-4 h-4 mr-2" /> Close
+          </button>
+          <h2 class="p-2">{{ tags }}</h2>
+        </div>
+      </div>
 
             <TabPanels>
                 <!-- FB -->
@@ -2316,13 +2337,9 @@ export default {
             ],
         };
     },
-    methods: {
-        showReplyBar() {
-            this.replyBar = !this.replyBar;
-        },
-        showTags() {
-            this.tagBox = !this.tagBox;
-        },
+    showTags() {
+      this.tags = ''
+      this.tagBox = !this.tagBox;
     },
 };
 </script>

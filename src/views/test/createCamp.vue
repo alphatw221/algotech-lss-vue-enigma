@@ -16,7 +16,7 @@
             </div>
             <div class="col-span-3">
               <label for="regular-form-2" class="form-label -mb-3">Period</label>
-              <Litepicker id="post-form-2" v-model="salesReportFilter" :options="{
+              <Litepicker id="post-form-2" v-model="salesReportFilter" placeholder="Start" :options="{
                 autoApply: false,
                 showWeekNumbers: true,
                 dropdowns: {
@@ -29,7 +29,7 @@
             </div>
             <div class="col-span-3">
               <label for="regular-form-2" class="form-label -mb-3">　</label>
-              <Litepicker id="post-form-2" v-model="salesReportFilter" :options="{
+              <Litepicker id="post-form-2" v-model="salesReportFilter" placeholder="End" :options="{
                 autoApply: false,
                 showWeekNumbers: true,
                 dropdowns: {
@@ -43,11 +43,11 @@
           </div>
         </div>
         <!-- Assign Product-->
-        <div class="box mt-5 p-10">
+        <div class="box mt-5 p-2 intro-y col-span-12 overflow-auto lg:overflow-visible">
           <span class="text-2xl font-medium leading-none mb-3">Assign Product</span>
-          <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+          <div>
             <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-              <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto sm:flex items-center">
+              <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto sm:flex items-center mt-2">
                 <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Category</label>
                 <select id="tabulator-html-filter-field"
                   class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto">
@@ -58,7 +58,7 @@
               </form>
             </div>
 
-            <table class="table table-report mt-3">
+            <table class="table table-report mt-2 h-fit overflow-x-scroll">
               <thead>
                 <tr>
                   <th class="whitespace-nowrap" v-for="column in add_product_columns" :key="column.key">

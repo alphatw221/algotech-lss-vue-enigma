@@ -64,7 +64,7 @@
     --color-success: theme("colors.rgb.lime.500");
     --color-info: theme("colors.rgb.cyan.500");
     --color-warning: theme("colors.rgb.yellow.400");
-    --color-pending: theme("colors.rgb.orange.500");
+    --color-pending: 19	28 52;
     --color-danger: theme("colors.rgb.red.600");
     --color-light: theme("colors.rgb.slate.100");
     --color-dark: theme("colors.rgb.slate.800");

@@ -84,11 +84,11 @@
                 <div class="flex align-baseline text-xl -mb-5">
                     <a class="mr-2 ml-2 ">All </a>
                     <span class="text-xs p-1 h-5 rounded-full bg-danger text-white">32</span>
-                    <a class="mr-2 ml-5">In Cart </a>
+                    <a class="mr-2 ml-5">Review </a>
                     <span class="text-xs p-1 h-5 rounded-full bg-danger text-white align-top">12</span>
-                    <a class="mr-2 ml-5">Pending Payment </a>
+                    <!--  <a class="mr-2 ml-5">Pending Payment </a> -->
                     <!-- <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr- align-top">2</span> -->
-                    <a class="mr-2 ml-5">Complete Order </a>
+                    <a class="mr-2 ml-5">Complete </a>
                     <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr-5 align-top">12</span>
                 </div>
                 <!--分隔線-->
@@ -100,7 +100,7 @@
                         <input type="text" class="form-control rounded-full mr-2 w-full sm:w-64 box px-10"
                             placeholder="Search files" />
 
-                        <Dropdown class="relative inset-y-0 p-2 mr-1 flex rounded-sm items-center btn btn-success"
+                        <Dropdown class="relative inset-y-0 p-2 mr-1 flex rounded-full items-center btn btn-success"
                             placement="bottom-start"> Export
                             <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
                                 <ChevronDownIcon class="w-5 h-5 text-slate-700" />
@@ -112,7 +112,7 @@
                             </DropdownMenu>
                         </Dropdown>
 
-                        <Dropdown class=" relative inset-y-0 p-2 flex rounded-sm items-center btn btn-warning"
+                        <Dropdown class=" relative inset-y-0 p-2 flex rounded-full items-center btn btn-warning"
                             placement="bottom-start">
                             <DropdownToggle role="button" class="w-5 h-5 mr-1 block" href="javascript:;">
                                 <FilterIcon class="w-5 h-5 text-slate-700" />
@@ -227,9 +227,9 @@
             </h2>
             <h3 class="btn btn-rounded-pending"> Complete</h3>
         </ModalHeader>
-        <ModalBody>
+        <ModalBody >
             <div class="intro-y grid grid-cols-12 gap-5">
-                <div class="intro-y col-span-7 overflow-auto lg:overflow-visible">
+                <div class="intro-y col-span-12 overflow-auto lg:overflow-visible xl:col-span-7 2xl:col-span-7">
                     <h2 class="text-left text-lg"> Shopping Cart</h2>
 
                     <table class="table table-report mt-3 text-lg">
@@ -258,7 +258,7 @@
                         </tbody>
                     </table>
                 </div>
-                <div class="intro-y col-span-5 overflow-auto lg:overflow-visible">
+                <div class="intro-y col-span-12 overflow-auto lg:overflow-visible 2xl:col-span-5 xl:col-span-5">
                     <div class="box w-full h-64 p-4 my-1 rounded-xl"> 
                         <h2 class="text-left text-lg">Delivery Info</h2>
                     </div>
@@ -323,7 +323,7 @@ const add_product_results = ref([
     },
     {
         order_number: '#15864',
-        platform: '',
+        platform: 'youtube',
         name: 'Anna',
         price: '$ 254',
         status: 'Complete',
