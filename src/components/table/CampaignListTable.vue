@@ -22,7 +22,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-10"
+                  class="rounded-full ml-6"
                   :src="campaign.facebook_page.image"
                   :content="`Facebook`"
                 />
@@ -30,7 +30,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-5"
+                  class="rounded-full ml-6"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -41,7 +41,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-5"
+                  class="rounded-full ml-3"
                   :src="campaign.youtube_channel.image"
                   :content="`Youtube`"
                 />
@@ -49,7 +49,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-3"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -83,9 +83,17 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-10"
+                  class="rounded-full ml-6"
                   :src="facebook_platform"
                   :content="`Facebook`"
+                />
+              </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full ml-6"
+                  :src="unbound"
+                  :content="`Unbound`"
                 />
               </div>
               <div
@@ -94,9 +102,17 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-5"
+                  class="rounded-full ml-3"
                   :src="instagram_platform"
                   :content="`Instagram`"
+                />
+              </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full ml-3"
+                  :src="unbound"
+                  :content="`Unbound`"
                 />
               </div>
               <div
@@ -108,6 +124,14 @@
                   class="rounded-full"
                   :src="youtube_platform"
                   :content="`Youtube`"
+                />
+              </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="unbound"
+                  :content="`Unbound`"
                 />
               </div>
             </div>
