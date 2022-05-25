@@ -87,8 +87,8 @@ export default {
 			this.eventBus.emit("searchTable", {searchColumn: this.searchColumn, keyword: this.keyword, pageSize: this.pageSize})
 		},
 		reset() {
-			this.searchColumn = ''
-			this.keyword = ''
+			this.searchColumn = 'name';
+			this.keyword = '';
 		}
 	}
 }
