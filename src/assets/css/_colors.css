@@ -25,7 +25,7 @@
     --color-success: theme("colors.rgb.teal.600");
     --color-info: theme("colors.rgb.cyan.500");
     --color-warning: theme("colors.rgb.amber.500");
-    --color-pending: theme("colors.rgb.amber.600");
+    --color-pending: 19 28 52;
     --color-danger: theme("colors.rgb.red.700");
     --color-light: theme("colors.rgb.slate.100");
     --color-dark: theme("colors.rgb.slate.800");
@@ -78,7 +78,7 @@
     --color-success: theme("colors.rgb.lime.500");
     --color-info: theme("colors.rgb.cyan.500");
     --color-warning: theme("colors.rgb.yellow.400");
-    --color-pending: theme("colors.rgb.orange.500");
+    --color-pending: 161 34 36;
     --color-danger: theme("colors.rgb.red.600");
     --color-light: theme("colors.rgb.slate.100");
     --color-dark: theme("colors.rgb.slate.800");
@@ -108,7 +108,7 @@
     --color-success: theme("colors.rgb.teal.600");
     --color-info: theme("colors.rgb.cyan.500");
     --color-warning: theme("colors.rgb.amber.500");
-    --color-pending: theme("colors.rgb.orange.500");
+    --color-pending: 62 70 94;
     --color-danger: theme("colors.rgb.red.700");
     --color-light: theme("colors.rgb.slate.100");
     --color-dark: theme("colors.rgb.slate.800");

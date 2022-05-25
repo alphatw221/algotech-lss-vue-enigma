@@ -73,6 +73,7 @@ import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
+import Campaignselect from "../views/manage-order/Campaignselect.vue";
 const routes = [
 
   
@@ -146,6 +147,11 @@ const routes = [
         component: Inbox,
       },
       {
+        path: "campaignselect",
+        name: "Campaignselect",
+        component: Campaignselect,
+      }, 
+      {
         path: "stock",
         name: "Stock",
         component: () => import('@/views/stock/Stock.vue')
@@ -160,6 +166,7 @@ const routes = [
         name: "AddProduct",
         component: () => import('@/views/stock/AddProduct.vue')
       },
+      
     ],
   },
   {

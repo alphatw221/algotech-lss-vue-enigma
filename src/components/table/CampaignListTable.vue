@@ -22,7 +22,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-10"
                   :src="campaign.facebook_page.image"
                   :content="`Facebook`"
                 />
@@ -30,7 +30,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-5"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -41,7 +41,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-5"
                   :src="campaign.youtube_channel.image"
                   :content="`Youtube`"
                 />
@@ -75,8 +75,8 @@
               </div>
             </div>
           </td>
-          <td class="text-center">
-            <div class="flex">
+          <td class="text-center w-18">
+            <div class="flex ">
               <div
                 class="w-10 h-10 image-fit zoom-in"
                 v-if="campaign.facebook_page !== null"
