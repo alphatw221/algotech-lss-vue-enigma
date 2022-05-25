@@ -65,6 +65,7 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 import LssModal from "../views/modal/LssModal.vue";
+import ShoppingCart from "../views/shoppingcart/Main.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
@@ -75,7 +76,6 @@ import Test2 from "../views/test/test2.vue";
 import Test4 from "../views/test/test4.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
 import Campaignselect from "../views/manage-order/Campaignselect.vue";  
-import ShoppingCart from "../views/shopping-cart/Main.vue"; 
 
 
 const routes = [

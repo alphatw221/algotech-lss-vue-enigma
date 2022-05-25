@@ -994,7 +994,9 @@
     </div>
 </template>
 
+
 <script>
+
 // import {campaign_comment_summarize} from '@/api/user';
 import CampaignLiveTable from "@/components/table/CampaignLiveTable.vue";
 
@@ -2349,6 +2351,7 @@ export default {
         this.replyBar = !this.replyBar;
     }
 };
+
 </script>
 
 <style scoped>
