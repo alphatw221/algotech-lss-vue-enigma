@@ -19,14 +19,14 @@
 									<SearchBar
 										:searchColumns="searchColumns"
 										:isAddBtn="true"
-										:routerPath="'add_product'"
+										:routerPath="'add-product'"
 										:routerParam="'create'"
 									>
 									</SearchBar>	
 									<DataTable
 										:requestUrl="'/api/v2/product/list_product/'"
 										:columns="tableColumns"
-										:routerPath="'add_product'"
+										:routerPath="'add-product'"
 										:routerParam="'update'"
 									>
 									</DataTable>

@@ -82,7 +82,6 @@ const routes = [
   //   component: Test4,
   // },
   {
-
     path: "/",
     component: LssSideMenu,
     children: [
@@ -155,19 +154,23 @@ const routes = [
         path: "stock1",
         name: "Stock1",
         component: () => import('@/views/stock/Stock1.vue'),
-        // children: [
-        //   {
-        //     path: "addproduct",
-        //     component: () => import('@/views/stock/AddProduct.vue')
-        //   },
-        // ]
       },
       {
-        path: "add_product",
+        path: "add-product",
         name: "AddProduct",
         component: () => import('@/views/stock/AddProduct.vue')
-      }
+      },
     ],
+  },
+  {
+    path: "/login-page",
+    name: "LoginPage",
+    component: () => import('@/views/general/LoginPage.vue')
+  },
+  {
+    path: "/password/forgot",
+    name: "PasswordForgot",
+    component: () => import('@/views/general/ForgotPasswordPage.vue')
   },
   {
     path: "/login",
