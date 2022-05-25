@@ -163,7 +163,7 @@ const routes = [
     ],
   },
   {
-    path: "/login-page",
+    path: "/seller/login",
     name: "LoginPage",
     component: () => import('@/views/general/LoginPage.vue')
   },
