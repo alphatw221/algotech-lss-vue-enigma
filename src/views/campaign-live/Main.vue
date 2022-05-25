@@ -710,9 +710,18 @@
   </div>
 </template>
 
+
 <script>
+
+import CampaignLiveTable from "@/components/table/CampaignLiveTable.vue";
+
 // import {campaign_comment_summarize} from '@/api/user';
+
 export default {
+  components: { 
+		CampaignLiveTable
+	},
+
   data() {
     return {
       imagePath: import.meta.env.VITE_APP_IMG_URL,
@@ -720,6 +729,7 @@ export default {
       replyBar: false,
       tagBox: false,
       addProductFromStock: false,
+      add: false,
       add_product_columns: [
         { name: "", key: "select" },
         { name: "Image", key: "image" },
@@ -2046,7 +2056,22 @@ export default {
           buyer_id: null,
         }
       ],
+      comments: [
+        { name: "Image", key: "image" },
+        { name: "Name", key: "name" },
+        { name: "Comment id", key: "_id" },
+        { name: "message", key: "message" }
+      ]
     };
+  },
+  mounted() {
+    this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzODc1MDI1LCJpYXQiOjE2NTMyNzAyMjUsImp0aSI6IjM4MDNmYTdiYzhmZTQyOWFiNDc4OWNmNjcxMThiZGNjIiwidXNlcl9pZCI6NzcsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo3Nywic2VsbGVyX2lkIjo5MCwiY3VzdG9tZXJfaWQiOjEwNCwibmFtZSI6IkplcmVteSBDaG91IiwiZW1haWwiOiJqZXJlbXljaG91QGFjY29sYWRlZ2xvYmFsLm5ldCJ9fQ.XM2nRfhg-h8REC__rAnxIcW-WR3CpUlLKQZ-wXC6FrQ");
+    this.eventBus.on("entryPoint", (payload) => {
+      this.idPopupModalPreview = true
+    })
+  },
+  unmounted() {
+    this.eventBus.off("entryPoint")
   },
   methods: {
     showReplyBar() {
@@ -2058,6 +2083,7 @@ export default {
     },
   },
 };
+
 </script>
 
 <style scoped>
