@@ -3,6 +3,7 @@ import SideMenu from "../layouts/side-menu/Main.vue";
 import SimpleMenu from "../layouts/simple-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
 import LssSideMenu from "../layouts/lss-side-menu/Main.vue";
+import BuyerSideMenu from "../layouts/buyer-side-menu/Main.vue";
 import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
 import DashboardOverview3 from "../views/dashboard-overview-3/Main.vue";
@@ -73,6 +74,10 @@ import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
+import Campaignselect from "../views/manage-order/Campaignselect.vue";  
+import ShoppingCart from "../views/shopping-cart/Main.vue"; 
+
+
 const routes = [
 
   
@@ -82,7 +87,6 @@ const routes = [
   //   component: Test4,
   // },
   {
-
     path: "/",
     component: LssSideMenu,
     children: [
@@ -106,6 +110,16 @@ const routes = [
         name: "side-menu-manage-order",
         component: ManageOrder,
       },
+      {
+        path: "campaign-select",
+        name: "Campaignselect",
+        component: Campaignselect,
+      }, 
+      {
+        path: "shopping-cart",
+        name: "ShoppingCart",
+        component: ShoppingCart,
+      }, 
       {
         path: "test2",
         name: "side-menu-test2",
@@ -155,29 +169,24 @@ const routes = [
         path: "stock1",
         name: "Stock1",
         component: () => import('@/views/stock/Stock1.vue'),
-        // children: [
-        //   {
-        //     path: "addproduct",
-        //     component: () => import('@/views/stock/AddProduct.vue')
-        //   },
-        // ]
       },
       {
-        path: "add_product",
+        path: "add-product",
         name: "AddProduct",
         component: () => import('@/views/stock/AddProduct.vue')
-      }
+      },
+      
     ],
   },
   {
-    path: "/login",
-    name: "login",
-    component: Login,
+    path: "/seller/login",
+    name: "LoginPage",
+    component: () => import('@/views/general/LoginPage.vue')
   },
   {
-    path: "/register",
-    name: "register",
-    component: Register,
+    path: "/password/forgot",
+    name: "PasswordForgot",
+    component: () => import('@/views/general/ForgotPasswordPage.vue')
   },
   {
     path: "/error-page",
@@ -188,8 +197,35 @@ const routes = [
     path: "/:pathMatch(.*)*",
     component: ErrorPage,
   },
+  // -------------------------------Buyer Route-----------------------------
+  {
+    path: "/buyer",
+    component: BuyerSideMenu,
+    children: [
+      {
+        path: "test3",
+        name: "side-menu-test3",
+        component: Test3,
+      },
+    ]
+  },
+  {
+    path: "/buyer/login",
+    name: "LoginPage",
+    component: () => import('@/views/general/LoginPage.vue')
+  },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
+  {
+    path: "/enigma-template/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/enigma-template/register",
+    name: "register",
+    component: Register,
+  },
   {
     path: "/enigma-template/simple-menu",
     component: SimpleMenu,
