@@ -14,7 +14,7 @@
             <Row><h3>Reset Password</h3></Row>
 
             <div class="mt-10">
-                <input id="regular-form-1" type="text" class="form-control email_input" placeholder="Please Enter your E-mail" />
+                <input id="regular-form-1" type="text" class="form-control email_input" v-model="email" placeholder="Please Enter your E-mail" />
             </div>
 
             <Button class="resend_btn" long @click="sendResetLink">Send Password Reset Link</Button>
@@ -38,13 +38,17 @@ export default {
             carousel_items: [
                 { src: "/src/assets/images/login-page/new-lss-carousel-1.jpeg" },
                 { src: "/src/assets/images/login-page/new-lss-carousel-2.jpeg" }
-            ]
+            ],
+            email: ''
         }
     },
     methods: {
-        // sendResetLink() {
-        //     console.log(this.$ref.input1)
-        // }
+        sendResetLink() {
+            forgot_password({email: this.email})
+            .then(res=>{
+                alert(res.data.message)
+            })
+        }
     },
 }
 </script>

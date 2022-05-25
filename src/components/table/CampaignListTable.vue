@@ -22,7 +22,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-6"
                   :src="campaign.facebook_page.image"
                   :content="`Facebook`"
                 />
@@ -30,7 +30,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-6"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -41,7 +41,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-3"
                   :src="campaign.youtube_channel.image"
                   :content="`Youtube`"
                 />
@@ -49,7 +49,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-3"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -75,17 +75,25 @@
               </div>
             </div>
           </td>
-          <td class="text-center">
-            <div class="flex">
+          <td class="text-center w-18">
+            <div class="flex ">
               <div
                 class="w-10 h-10 image-fit zoom-in"
                 v-if="campaign.facebook_page !== null"
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-10"
+                  class="rounded-full ml-6"
                   :src="facebook_platform"
                   :content="`Facebook`"
+                />
+              </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full ml-6"
+                  :src="unbound"
+                  :content="`Unbound`"
                 />
               </div>
               <div
@@ -94,9 +102,17 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-5"
+                  class="rounded-full ml-3"
                   :src="instagram_platform"
                   :content="`Instagram`"
+                />
+              </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full ml-3"
+                  :src="unbound"
+                  :content="`Unbound`"
                 />
               </div>
               <div
@@ -110,6 +126,14 @@
                   :content="`Youtube`"
                 />
               </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="unbound"
+                  :content="`Unbound`"
+                />
+              </div>
             </div>
           </td>
           <td class="text-center">
@@ -119,7 +143,7 @@
             {{ campaign.start_at }}
           </td>
           <td class="items-center">
-            <a class="flex items-center ml-20" href="javascript:;">
+            <a class="flex items-center ml-20" href="javascript:;" @click="manageOrder">
               <ListIcon class="w-4 h-4" />
             </a>
           </td>
@@ -257,8 +281,11 @@ export default {
       this.search();
     },
     changeEntry() {
-      this.eventBus.emit("entryPoint", { idPopupModalPreview: true });
+      this.eventBus.emit("entryPoint");
     },
+    manageOrder(){
+      this.eventBus.emit("manageOrder");
+    }
   },
 };
 </script>

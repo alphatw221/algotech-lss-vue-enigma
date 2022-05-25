@@ -21,6 +21,8 @@
 </template>
 
 <script>
+import loadScript from '@/libs/loadScript.js';
+
 export default {
     props:{
         busName: String
@@ -45,6 +47,10 @@ export default {
         // });
     },
     mounted(){
+        loadScript("https://connect.facebook.net/en_US/sdk.js",()=>{
+            console.log("FB SDK loaded")
+        });
+
         //facebook SDK use eval() at backend
         window.checkLoginState=() => {
             console.log('checkloginstate')

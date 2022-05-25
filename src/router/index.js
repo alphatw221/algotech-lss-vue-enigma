@@ -74,6 +74,10 @@ import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
+import Campaignselect from "../views/manage-order/Campaignselect.vue";  
+import ShoppingCart from "../views/shopping-cart/Main.vue"; 
+
+
 const routes = [
 
   
@@ -106,6 +110,16 @@ const routes = [
         name: "side-menu-manage-order",
         component: ManageOrder,
       },
+      {
+        path: "campaign-select",
+        name: "Campaignselect",
+        component: Campaignselect,
+      }, 
+      {
+        path: "shopping-cart",
+        name: "ShoppingCart",
+        component: ShoppingCart,
+      }, 
       {
         path: "test2",
         name: "side-menu-test2",
@@ -161,10 +175,11 @@ const routes = [
         name: "AddProduct",
         component: () => import('@/views/stock/AddProduct.vue')
       },
+      
     ],
   },
   {
-    path: "/login-page",
+    path: "/seller/login",
     name: "LoginPage",
     component: () => import('@/views/general/LoginPage.vue')
   },

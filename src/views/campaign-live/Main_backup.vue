@@ -6,8 +6,9 @@
             <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 w-150">
                 <div class="col-start-1 col-span-5 -mt-4">
                     <h2 class="text-lg font-medium">Comments 
-                        <button class="p-3" @click="showTags"> 
-                            <FolderIcon /> </button> </h2>
+                        <button class="p-3"  @click="this.tagBox = !this.tagBox"> 
+                            <FolderIcon /> </button> 
+                    </h2>
                 </div>
                 <div class="col-end-11 -mt-3">
                     <TabList class="nav-pills">
@@ -531,9 +532,9 @@ export default{
         showReplyBar(){
             this.replyBar = !this.replyBar;
         },
-        showTags(){
-            this.tagBox = !this.tagBox;
-        }
+        // showTags(){
+        //     this.tagBox = !this.tagBox;
+        // }
     }
 }
 </script>
