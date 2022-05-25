@@ -81,11 +81,11 @@ import ShoppingCart from "../views/shopping-cart/Main.vue";
 const routes = [
 
   
-  // {
-  //   path: "/test4",
-  //   name: "side-menu-test4",
-  //   component: Test4,
-  // },
+  {
+    path: "/test4",
+    name: "side-menu-test4",
+    component: Test4,
+  },
   {
     path: "/",
     component: LssSideMenu,
