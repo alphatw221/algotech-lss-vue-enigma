@@ -996,7 +996,13 @@
 
 <script>
 // import {campaign_comment_summarize} from '@/api/user';
+import CampaignLiveTable from "@/components/table/CampaignLiveTable.vue";
+
 export default {
+    components: { 
+		CampaignLiveTable
+	},
+
     data() {
         return {
             imagePath: import.meta.env.VITE_APP_IMG_URL,
@@ -2330,6 +2336,13 @@ export default {
                     buyer_id: null,
                 }
             ],
+            comments: [
+            { name: "Image", key: "image" },
+            { name: "Name", key: "name" },
+            { name: "Comment id", key: "_id" },
+            { name: "message", key: "message" }
+            ],
+
         };
     },
     showReplyBar() {
