@@ -143,7 +143,7 @@
             {{ campaign.start_at }}
           </td>
           <td class="items-center">
-            <a class="flex items-center ml-20" href="javascript:;">
+            <a class="flex items-center ml-20" href="javascript:;" @click="manageOrder">
               <ListIcon class="w-4 h-4" />
             </a>
           </td>
@@ -281,8 +281,11 @@ export default {
       this.search();
     },
     changeEntry() {
-      this.eventBus.emit("entryPoint", { idPopupModalPreview: true });
+      this.eventBus.emit("entryPoint");
     },
+    manageOrder(){
+      this.eventBus.emit("manageOrder");
+    }
   },
 };
 </script>

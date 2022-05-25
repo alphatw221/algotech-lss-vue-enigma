@@ -7,7 +7,7 @@
                 <div class="col-start-1 col-span-5 -mt-4">
                     <h2 class="text-lg font-medium">
                         Comments
-                        <button class="p-3" @click="showTags">
+                        <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = ''; ">
                             <FolderIcon />
                         </button>
                     </h2>
@@ -62,7 +62,7 @@
                         <HashIcon class="w-4 h-4 mr-2" /> Undefined
                     </button>
                     <button class="btn btn-outline-none w-18" style="border: 0px; box-shadow: 0px"
-                        @click="this.tags = ''">
+                        @click="this.tagBox = !this.tagBox">
                         <XIcon class="w-4 h-4 mr-2" /> Close
                     </button>
                     <h2 class="p-2">{{ tags }}</h2>
@@ -1002,7 +1002,7 @@ export default {
             imagePath: import.meta.env.VITE_APP_IMG_URL,
             tags: "",
             replyBar: false,
-            tagBox: true,
+            tagBox: false,
             addProductFromStock: false,
             add_product_columns: [
                 { name: "", key: "select" },
@@ -2331,10 +2331,6 @@ export default {
                 }
             ],
         };
-    },
-    showTags() {
-        this.tags = ''
-        this.tagBox = !this.tagBox;
     },
     showReplyBar() {
         this.replyBar = !this.replyBar;

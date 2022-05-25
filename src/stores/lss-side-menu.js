@@ -40,8 +40,13 @@ export const useSideMenuStore = defineStore("sideMenu", {
       },
       {
         icon: "PackageIcon",
-        pageName: "side-menu-manage-order",
+        pageName: "Campaignselect", 
         title: "Manage Order",
+      },
+      {
+        icon: "ShoppingCartIcon",
+        pageName: "ShoppingCart",
+        title: "Shopping Cart",
       },
     ],
   }),
