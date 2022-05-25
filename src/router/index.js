@@ -3,6 +3,7 @@ import SideMenu from "../layouts/side-menu/Main.vue";
 import SimpleMenu from "../layouts/simple-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
 import LssSideMenu from "../layouts/lss-side-menu/Main.vue";
+import BuyerSideMenu from "../layouts/buyer-side-menu/Main.vue";
 import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
 import DashboardOverview3 from "../views/dashboard-overview-3/Main.vue";
@@ -173,16 +174,6 @@ const routes = [
     component: () => import('@/views/general/ForgotPasswordPage.vue')
   },
   {
-    path: "/login",
-    name: "login",
-    component: Login,
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: Register,
-  },
-  {
     path: "/error-page",
     name: "error-page",
     component: ErrorPage,
@@ -191,8 +182,35 @@ const routes = [
     path: "/:pathMatch(.*)*",
     component: ErrorPage,
   },
+  // -------------------------------Buyer Route-----------------------------
+  {
+    path: "/buyer",
+    component: BuyerSideMenu,
+    children: [
+      {
+        path: "test3",
+        name: "side-menu-test3",
+        component: Test3,
+      },
+    ]
+  },
+  {
+    path: "/buyer/login",
+    name: "LoginPage",
+    component: () => import('@/views/general/LoginPage.vue')
+  },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
+  {
+    path: "/enigma-template/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/enigma-template/register",
+    name: "register",
+    component: Register,
+  },
   {
     path: "/enigma-template/simple-menu",
     component: SimpleMenu,
