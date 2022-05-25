@@ -64,6 +64,7 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 import LssModal from "../views/modal/LssModal.vue";
+import ShoppingCart from "../views/shoppingcart/Main.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
@@ -119,6 +120,11 @@ const routes = [
         path: "createCamp",
         name: "side-menu-createCamp",
         component: CreateCamp,
+      },
+      {
+        path: "shoppingcart",
+        name: "side-menu-shoppingcart",
+        component: ShoppingCart,
       },
       {
         path: "dashboard-overview-1",
