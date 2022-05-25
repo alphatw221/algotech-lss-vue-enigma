@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<table class="table table-report mt-5">
+	<div >
+		<table class="table table-report mt-5 overflow-y-scroll">
 			<thead>
 				<tr >
 					<th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
@@ -8,7 +8,7 @@
 					</th>
 				</tr>
 			</thead>
-			<tbody>
+			<tbody style=" height: 500px;">
 				<tr
 					v-for="(product, key) in listItems"
 					:key="key"

@@ -13,11 +13,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         pageName: "Stock",
         title: "Stock",
       },
-      {
-        icon: "BoxIcon",
-        pageName: "Stock1",
-        title: "Stock1",
-      },
+      // {
+      //   icon: "BoxIcon",
+      //   pageName: "Stock1",
+      //   title: "Stock1",
+      // },
       {
         icon: "PackageIcon",
         pageName: "side-menu-createCamp",

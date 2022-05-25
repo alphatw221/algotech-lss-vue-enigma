@@ -50,49 +50,47 @@ import SearchBar from "@/components/bar/SearchBar.vue";
 import DataTable from "@/components/table/DataTable.vue";
 
 export default {
-	components: { 
-		SearchBar,
-		DataTable
-	},
-	data() {
-		return {
-			searchColumns:{
-				keywords: [ 
-					{text: "Name", value: "name"},
-					{text: "Order Code", value: "order_code"},
-					{text: "Category", value: "category"},
-					{text: "Description", value: "description"}
-				],
-			},
-			tableColumns: [
-				{name: 'Image', key: 'image'},
-				{name: 'Product Name', key: 'name'},
-				{name: 'Order Code', key: 'order_code'},
-				{name: 'Type', key: 'type'},
-				{name: 'Category', key: 'category'},
-				{name: 'Description', key: 'description'},
-				{name: 'Quantity', key: 'qty'},
-				{name: 'Price', key: 'price'},
-				// {name: 'Edit', key: 'edit'},
-			],
-		}
-	},	
-	mounted() {
-		this.$cookies.set("access_token", 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzODc1MzU0LCJpYXQiOjE2NTMyNzA1NTQsImp0aSI6IjZmYWFjZTY2NDIwZTQ5NTg4ZWJhM2E5ZjFjNmJmNThlIiwidXNlcl9pZCI6ODAsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo4MCwic2VsbGVyX2lkIjoyNCwiY3VzdG9tZXJfaWQiOjk3LCJuYW1lIjoiRGVyZWsgSHdhbmciLCJlbWFpbCI6ImRlcmVraHdhbmczM0BnbWFpbC5jb20ifX0.JeRVYZMKkkJSywtrqvw1hb1oEYgtLqSaDx56WFJ-HKk')
-		
-		// createAxiosWithBearer().get('/api/user-subscription/buyer/list?page=1&page_size=5&search_column=shipping_email&keyword=qq').then(response => {
-		// 	console.log(response);
-		// }).catch(function (error) {
-		// 	console.log(error);
-		// })
-	},
-	methods: {
-		
-	},
-}
+  components: {
+    SearchBar,
+    DataTable,
+  },
+  data() {
+    return {
+      searchColumns: {
+        keywords: [
+          { text: "Name", value: "name" },
+          { text: "Order Code", value: "order_code" },
+          { text: "Category", value: "category" },
+          { text: "Description", value: "description" },
+        ],
+      },
+      tableColumns: [
+        { name: "Image", key: "image" },
+        { name: "Product Name", key: "name" },
+        { name: "Order Code", key: "order_code" },
+        { name: "Type", key: "type" },
+        { name: "Category", key: "category" },
+        { name: "Description", key: "description" },
+        { name: "Quantity", key: "qty" },
+        { name: "Price", key: "price" },
+        // {name: 'Edit', key: 'edit'},
+      ],
+    };
+  },
+  mounted() {
+    this.$cookies.set(
+      "access_token",
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzODc1MzU0LCJpYXQiOjE2NTMyNzA1NTQsImp0aSI6IjZmYWFjZTY2NDIwZTQ5NTg4ZWJhM2E5ZjFjNmJmNThlIiwidXNlcl9pZCI6ODAsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo4MCwic2VsbGVyX2lkIjoyNCwiY3VzdG9tZXJfaWQiOjk3LCJuYW1lIjoiRGVyZWsgSHdhbmciLCJlbWFpbCI6ImRlcmVraHdhbmczM0BnbWFpbC5jb20ifX0.JeRVYZMKkkJSywtrqvw1hb1oEYgtLqSaDx56WFJ-HKk"
+    );
 
+    // createAxiosWithBearer().get('/api/user-subscription/buyer/list?page=1&page_size=5&search_column=shipping_email&keyword=qq').then(response => {
+    // 	console.log(response);
+    // }).catch(function (error) {
+    // 	console.log(error);
+    // })
+  },
+  methods: {},
+};
 </script>
 
-<style scoped>
-    
-</style>
+<style scoped></style>
