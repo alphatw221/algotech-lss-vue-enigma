@@ -40,28 +40,7 @@
                 <FacebookLoginButton :busName="'sellerFacebookLogin'" block/>
             </Row>
             <Row class="login_btn">
-                <!-- <div id="g_id_onload"
-                    data-client_id="536277208137-okgj3vg6tskek5eg6r62jis5didrhfc3.apps.googleusercontent.com"
-                    data-context="signin"
-                    data-ux_mode="popup"
-                    data-login_uri="http://localhost:8000/api/user/google_user_login_callback"
-                    data-auto_prompt="false">
-                </div>
-
-                <div class="g_id_signin"
-                    data-type="standard"
-                    data-shape="rectangular"
-                    data-theme="outline"
-                    data-text="signin_with"
-                    data-size="large"
-                    data-logo_alignment="left">
-                </div> -->
-                <div id="g_id_onload"
-                    data-client_id="647555482564-u2s769q2ve0b270gnmr5bpqdfmc9tphl.apps.googleusercontent.com"
-                    data-callback="handleCredentialResponse">
-                </div>
-
-                <!-- <GoogleLoginButton block /> -->
+                <GoogleLoginButton block />
             </Row>
             <Row style="margin-top: 20px;">
                 <div style="font-size:18px; margin-left: 80px;">No Account ? <a href="">Create one !</a></div>
@@ -72,11 +51,9 @@
 
 <script>
 import { seller_login, general_login } from '@/api/user';
+import loadScript from '@/libs/loadScript.js';
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
-import loadScript from '@/libs/loadScript.js';
-import { axiosInstance } from '@/libs/axiosClient'
-
 
 export default {
     setup() {
@@ -87,8 +64,8 @@ export default {
         GoogleLoginButton
     },
     mounted() {
-        loadScript("https://apis.google.com/js/platform.js",()=>{
-            console.log("Google SDK loaded")
+        loadScript("https://connect.facebook.net/en_US/sdk.js",()=>{
+            console.log("FB SDK loaded")
         });
         loadScript("https://accounts.google.com/gsi/client",()=>{
             console.log("Google SDK loaded")
@@ -133,7 +110,7 @@ export default {
         }
     },
     methods:{
-        _general_login() {
+        _general_login(){
             general_login(this.loginForm).then(response=>{
                 var set_cookie = new Promise((res) => {
                     this.$cookies.set("access_token", response.data.access)
@@ -144,24 +121,6 @@ export default {
                 })
             })
         },
-        // handleCredentialResponse(response) {
-        //     axiosInstance()
-        //     .get(`/api/user/google_user_login_callback?token=${response.credential}`)
-        //     .then(res => {
-        //         res.json().then(result => {
-        //             this.$cookies.set("access_token", result.access)
-        //             if (result.refresh) GS.set_refresh_token(result.refresh)
-        //             $('div.login-spinner').addClass('d-none');
-        //             this.$router.push('/')
-        //         })
-        //     }).catch(error => {
-        //         error.json().then(json => {
-        //             alert(json.message);
-        //         })
-        //     }).catch(error =>{
-        //         alert('Oops! Encounter api server error. Please contact tech support.');
-        //     })
-        // },
     }
 }
 </script>

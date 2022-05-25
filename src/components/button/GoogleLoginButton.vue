@@ -15,6 +15,8 @@
 </template>
 
 <script>
+import loadScript from '@/libs/loadScript.js';
+
 export default {
     props: {
         pathDir: String,
@@ -36,7 +38,9 @@ export default {
         }
     },
     mounted() {
-        
+        loadScript("https://accounts.google.com/gsi/client",()=>{
+            console.log("Google SDK loaded")
+        });
     },
     computed:{
         googleLoginHyperReference(){
