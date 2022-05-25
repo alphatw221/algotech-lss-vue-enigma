@@ -27,6 +27,14 @@
                   :content="`Facebook`"
                 />
               </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="unbound"
+                  :content="`Unbound`"
+                />
+              </div>
               <div
                 class="w-10 h-10 image-fit zoom-in"
                 v-if="campaign.youtube_channel !== null"
@@ -38,6 +46,14 @@
                   :content="`Youtube`"
                 />
               </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="unbound"
+                  :content="`Unbound`"
+                />
+              </div>
               <div
                 class="w-10 h-10 image-fit zoom-in"
                 v-if="campaign.instagram_profile !== null"
@@ -47,6 +63,14 @@
                   class="rounded-full"
                   :src="campaign.instagram_profile.image"
                   :content="`Instagram`"
+                />
+              </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="unbound"
+                  :content="`Unbound`"
                 />
               </div>
             </div>
@@ -171,6 +195,7 @@ export default {
       youtube_platform: "/src/assets/images/lss-img/yt_ad.jpeg",
       facebook_platform: "/src/assets/images/lss-img/fb_ad.jpeg",
       instagram_platform: "/src/assets/images/lss-img/ig_ad.jpeg",
+      unbound: "/src/assets/images/lss-img/noname_ad.jpeg",
     };
   },
   mounted() {
@@ -232,8 +257,8 @@ export default {
       this.search();
     },
     changeEntry() {
-      this.eventBus.emit("entryPoint", {idPopupModalPreview: true})
-    }
+      this.eventBus.emit("entryPoint", { idPopupModalPreview: true });
+    },
   },
 };
 </script>
