@@ -27,6 +27,14 @@
                   :content="`Facebook`"
                 />
               </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="unbound"
+                  :content="`Unbound`"
+                />
+              </div>
               <div
                 class="w-10 h-10 image-fit zoom-in"
                 v-if="campaign.youtube_channel !== null"
@@ -36,6 +44,14 @@
                   class="rounded-full"
                   :src="campaign.youtube_channel.image"
                   :content="`Youtube`"
+                />
+              </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="unbound"
+                  :content="`Unbound`"
                 />
               </div>
               <div
@@ -49,6 +65,14 @@
                   :content="`Instagram`"
                 />
               </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="unbound"
+                  :content="`Unbound`"
+                />
+              </div>
             </div>
           </td>
           <td class="text-center">
@@ -59,9 +83,20 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-10"
                   :src="facebook_platform"
                   :content="`Facebook`"
+                />
+              </div>
+              <div
+                class="w-10 h-10 image-fit zoom-in"
+                v-if="campaign.instagram_profile !== null"
+              >
+                <Tippy
+                  tag="img"
+                  class="rounded-full ml-5"
+                  :src="instagram_platform"
+                  :content="`Instagram`"
                 />
               </div>
               <div
@@ -73,17 +108,6 @@
                   class="rounded-full"
                   :src="youtube_platform"
                   :content="`Youtube`"
-                />
-              </div>
-              <div
-                class="w-10 h-10 image-fit zoom-in"
-                v-if="campaign.instagram_profile !== null"
-              >
-                <Tippy
-                  tag="img"
-                  class="rounded-full"
-                  :src="instagram_platform"
-                  :content="`Instagram`"
                 />
               </div>
             </div>
@@ -168,9 +192,10 @@ export default {
       status: this.routerParam,
       order_by: "created_at",
 
-      youtube_platform: "/src/assets/images/lss-img/youtube.png",
-      facebook_platform: "/src/assets/images/lss-img/facebook.png",
-      instagram_platform: "/src/assets/images/lss-img/instagram.png",
+      youtube_platform: "/src/assets/images/lss-img/yt_ad.jpeg",
+      facebook_platform: "/src/assets/images/lss-img/fb_ad.jpeg",
+      instagram_platform: "/src/assets/images/lss-img/ig_ad.jpeg",
+      unbound: "/src/assets/images/lss-img/noname_ad.jpeg",
     };
   },
   mounted() {
@@ -232,8 +257,8 @@ export default {
       this.search();
     },
     changeEntry() {
-      this.eventBus.emit("entryPoint", {idPopupModalPreview: true})
-    }
+      this.eventBus.emit("entryPoint", { idPopupModalPreview: true });
+    },
   },
 };
 </script>

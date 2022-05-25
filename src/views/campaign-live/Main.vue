@@ -13,24 +13,37 @@
             <button class="p-3" @click="showTags">
               <FolderIcon />
             </button>
-          </h2>
+          </h2> 
         </div>
         <div class="col-end-11 -mt-3">
           <TabList class="nav-pills">
-            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+            <Tab class=" w-8 h-8 pr-0 pt-1 pl-0 mt-1 bg-white" tag="button">
               <!-- <FacebookIcon class="m-1 -mt-1" /> -->
-              FB
+              <img src='/src/assets/images/lss-img/fb_ad.jpeg' class="-mt-2"/>
             </Tab>
-            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <!-- <InstagramIcon class="m-1 -mt-1" /> -->
-              IG
+            <Tab class=" w-8 h-8 pr-0 pt-1 pl-0 mt-1" tag="button">
+              <img src='/src/assets/images/lss-img/ig_ad.jpeg' class="-mt-2"/>
             </Tab>
-            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <!-- <YoutubeIcon class="m-1 -mt-1" /> -->
-              YT
+            <Tab class=" w-8 h-8 pr-0 pt-1 pl-0 mt-1" tag="button">
+              <img src='/src/assets/images/lss-img/yt_ad.jpeg' class="-mt-2"/>
             </Tab>
           </TabList>
         </div>
+<!--         
+        <div class="col-end-11 -mt-3">
+          <TabList class="nav-pills">
+            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+              <FacebookIcon class="m-1 -mt-1" />
+              <img src='/src/assets/images/lss-img/fb_ad.jpeg' />
+            </Tab>
+            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+              <InstagramIcon class="m-1 -mt-1" />
+            </Tab>
+            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+              <YoutubeIcon class="m-1 -mt-1" />
+            </Tab>
+          </TabList>
+        </div> -->
         <div class="col-start-1 col-span-12 -mt-2">
           <video width="600" controls>
             <source src="mov_bbb.mp4" type="video/mp4" />
