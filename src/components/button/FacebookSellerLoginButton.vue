@@ -31,7 +31,7 @@ export default {
         window.fbAsyncInit = function() {
             FB.init({
                 // appId: process.env.VUE_APP_FB_APP_ID,  
-                appId: "967598017063136", 
+                appId: import.meta.env.VITE_APP_FB_APP_ID, 
                 cookie: true,
                 xfbml: true,
                 version: "v13.0",

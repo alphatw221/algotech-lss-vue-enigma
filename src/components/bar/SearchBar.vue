@@ -3,7 +3,7 @@
         <form id="tabulator-html-filter-form" class="grid grid-cols-12 grid-warp">
             <div class="col-span-12 2xl:col-span-8 xl:col-span-8">
                 <div class="flex flex-wrap justify-start justify-items-stretch content-end">
-                    <div class="flex-initial w-auto mr-4 items-center sm:mr-4">
+                    <div class="flex-initial w-auto mr-4 items-center sm:mr-4" v-if="page_type === 'stock'">
                         <label class="w-14 mr-2">
                             Category
                         </label>
@@ -18,7 +18,7 @@
                             Field
                         </label>
                         <select id="tabulator-html-filter-field"
-                            class="form-select w-auto mr-4 h-10 mt-2 2xl:mt-0 xl:mt-0 " v-model="searchColumn">
+                            class="form-select w-auto mr-4 h-10 mt-2 2xl:mt-0 xl:mt-0 " v-model="searchField">
                             <option v-for="searchColumn in searchColumns.keywords" :key="searchColumn.value"
                                 :value="searchColumn.value">
                                 {{ searchColumn.text }}
@@ -67,27 +67,34 @@ export default {
 		searchColumns: Object,
         isAddBtn: Boolean,
         routerPath: String,
-        routerParam: String
+        routerParam: String,
+        page_type: String
 	},
 	data() {
 		return {
 			page: 1,
 			pageSize: 10,
-			searchColumn: 'name',
+			searchColumn: {campaign_list:'title',stock:'name',manage_order:'title'},
 			keyword: undefined,
+            searchField: undefined
 		}
 	},
+    created(){
+        this.$nextTick(() => {
+            this.searchField = this.searchColumn[this.page_type];
+        })
+    },
 	watch: {
-		searchColumn() {
+		searchField() {
 			this.search();
 		},
 	},
 	methods: {
 		search() {
-			this.eventBus.emit("searchTable", {searchColumn: this.searchColumn, keyword: this.keyword, pageSize: this.pageSize})
+			this.eventBus.emit("searchTable", {searchColumn: this.searchField, keyword: this.keyword, pageSize: this.pageSize})
 		},
 		reset() {
-			this.searchColumn = 'name';
+			this.searchField = this.searchColumn[this.page_type];
 			this.keyword = '';
 		}
 	}
