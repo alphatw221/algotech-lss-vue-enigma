@@ -21,6 +21,7 @@
             :requestUrl="'/api/v2/campaign/list_campaign/'"
             :columns="tableColumns"
             :routerParam="campaign_status"
+            :page_type="'campaign_list'"
           >
           </CampaignListTable>
         </div>
