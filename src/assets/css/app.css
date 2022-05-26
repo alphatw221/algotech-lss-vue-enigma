@@ -78,7 +78,6 @@
 @import "@left4code/tw-starter/dist/css/_pagination.css";
 @import "@left4code/tw-starter/dist/css/_progress.css";
 @import "@left4code/tw-starter/dist/css/_scrollbar.css";
-@import "@left4code/tw-starter/dist/css/_tab.css";
 @import "@left4code/tw-starter/dist/css/_table.css";
 @import "@left4code/tw-starter/dist/css/_typing-dots.css";
 @import "@left4code/tw-starter/dist/css/_zoom-in.css";
@@ -94,6 +93,7 @@
 @import "tabulator-tables/dist/css/tabulator.css";
 @import "tom-select/dist/css/tom-select.css";
 @import "tiny-slider/dist/tiny-slider.css";
+
 
 /*
  |--------------------------------------------------------------------------
@@ -147,3 +147,4 @@
 @import "./components/_source-preview.css";
 @import "./components/_full-calendar.css";
 @import "./components/_pristine.css";
+@import "./components/_lss_tab.css";

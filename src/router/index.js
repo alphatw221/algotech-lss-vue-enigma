@@ -66,16 +66,18 @@ import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 import LssModal from "../views/modal/LssModal.vue";
 import ShoppingCart from "../views/shoppingcart/Main.vue";
+import OrderHistoryDetails from "../views/shoppingcart/OrderHistoryDetails.vue"; 
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
+import Campaignselect from "../views/manage-order/Campaignselect.vue";  
 import ManageOrder from "../views/manage-order/Main.vue"; 
 
 import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
-import Campaignselect from "../views/manage-order/Campaignselect.vue";  
+
 
 
 const routes = [
@@ -113,10 +115,15 @@ const routes = [
         name: "Campaignselect",
         component: Campaignselect,
       }, 
-      {
+      {  
         path: "shopping-cart",
         name: "ShoppingCart",
         component: ShoppingCart,
+      }, 
+      {  
+        path: "OrderHistory-details",
+        name: "OrderHistoryDetails",
+        component: OrderHistoryDetails,
       }, 
       {
         path: "test2",

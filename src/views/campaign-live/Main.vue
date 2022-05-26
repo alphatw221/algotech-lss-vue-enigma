@@ -862,17 +862,17 @@
                             <td>
                                 <div v-if="data.platform === 'facebook'" class="w-10 h-10 image-fit">
                                     <div class="w-10 h-10 image-fit">
-                                        <img src="/src/assets/images/lss-img/fb_ad.jpeg" />
+                                        <img src="/src/assets/images/lss-img/facebook.png" />
                                     </div>
                                 </div>
                                 <div v-else-if="data.platform === 'instagram'" class="w-10 h-10 image-fit">
                                     <div class="w-10 h-10 image-fit">
-                                        <img src="/src/assets/images/lss-img/ig_ad.jpeg" />
+                                        <img src="/src/assets/images/lss-img/instagram.png" />
                                     </div>
                                 </div>
                                 <div v-else-if="data.platform === 'youtube'" class="w-10 h-10 image-fit">
                                     <div class="w-10 h-10 image-fit">
-                                        <img src="/src/assets/images/lss-img/yt_ad.jpeg" />
+                                        <img src="/src/assets/images/lss-img/youtube.png" />
                                     </div>
                                 </div>
                             </td>
