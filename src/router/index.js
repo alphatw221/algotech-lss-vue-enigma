@@ -101,7 +101,7 @@ const routes = [
         component: CampaignList,
       },
       {
-        path: "campaign-live",
+        path: "campaign-live/:campaign_id",
         name: "side-menu-campaign-live",
         component: CampaignLive,
       },

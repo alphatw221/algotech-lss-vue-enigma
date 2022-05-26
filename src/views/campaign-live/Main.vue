@@ -49,16 +49,16 @@
                     </video>
                 </div>
                 <div v-show="tagBox" class="col-start-1 col-span-12 -mt-2 -mb-6">
-                    <button class="btn btn-rounded-danger w-fit m-1" @click="this.tags = 'Tag : # Shipping'">
+                    <button class="btn btn-rounded-danger w-fit m-1" @click="status_change('Shipping')">
                         <HashIcon class="w-4 h-4 mr-2" /> Shipping
                     </button>
-                    <button class="btn btn-rounded-pending w-fit m-1" @click="this.tags = 'Tag : # Return'">
+                    <button class="btn btn-rounded-pending w-fit m-1" @click="status_change('Return')">
                         <HashIcon class="w-4 h-4 mr-2" /> Return
                     </button>
-                    <button class="btn btn-rounded-warning w-fit m-1" @click="this.tags = 'Tag : # Size'">
+                    <button class="btn btn-rounded-warning w-fit m-1" @click="status_change('Size')">
                         <HashIcon class="w-4 h-4 mr-2" /> Size
                     </button>
-                    <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="this.tags = 'Tag : Undefined'">
+                    <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="status_change('Undefined')">
                         <HashIcon class="w-4 h-4 mr-2" /> Undefined
                     </button>
                     <button class="btn btn-outline-none w-18" style="border: 0px; box-shadow: 0px"
@@ -73,172 +73,13 @@
                 <!-- FB -->
                 <TabPanel>
                     <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-1.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Sinyee Woon</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    U9+1
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium zoom-in">Kuai.mai</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    Live Show Seller: "U9" Qty: 1 is added. Shopping cart link is sent via
-                                    FB Messenger, please contact page admin if not received any
-                                    notification.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full zoom-in" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-7.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Lih Wen</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    U9+3
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full zoom-in" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Kuai.mai</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    Live Show Seller: "U9" Qty: 3 is added. Shopping cart link is sent via
-                                    FB Messenger, please contact page admin if not received any
-                                    notification.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-3.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Daisies Salt</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    U10+1
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-2.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Vi Vian</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    U10+1
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Kuai.mai</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    Live Show Seller: "U10" Qty: 1 is added. Shopping cart link is sent via
-                                    FB Messenger, please contact page admin if not received any
-                                    notification.
-                                </div>
-                            </div>
-                        </div>
+                        <!-- <CampaignLiveTable/> -->
+                        <CampaignLiveTable
+                            :requestUrl="'/api/campaign-comment/:campaign_id'"
+                            :columns="tableColumns"
+                            :routerParam="comment_status"
+                        >
+                        </CampaignLiveTable>
 
                         <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
                             @click="showReplyBar">
@@ -269,18 +110,6 @@
 
 
 
-                    <div v-show="replyBar"
-                        class="pt-4 pb-10 sm:py-4 flex items-center border-t border-slate-200/60 dark:border-darkmode-400">
-                        <textarea
-                            class="chat__box__input form-control dark:bg-darkmode-600 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:border-transparent focus:ring-0"
-                            rows="1" placeholder="Type your message..."></textarea>
-                        <div class="flex absolute sm:static left-0 bottom-0 ml-5 sm:ml-0 mb-5 sm:mb-0">
-                            <a href="javascript:;"
-                                class="w-8 h-8 sm:w-10 sm:h-10 block bg-primary text-white rounded-full flex-none flex items-center justify-center mx-2">
-                                <SendIcon class="w-4 h-4" />
-                            </a>
-                        </div>
-                    </div>
                 </TabPanel>
                 <!-- IG -->
                 <TabPanel>
@@ -1012,6 +841,7 @@ export default {
             replyBar: false,
             tagBox: false,
             addProductFromStock: false,
+            campaign_id: this.$route.params.campaign_id,
             add_product_columns: [
                 { name: "", key: "select" },
                 { name: "Image", key: "image" },
@@ -2344,12 +2174,55 @@ export default {
             { name: "Comment id", key: "_id" },
             { name: "message", key: "message" }
             ],
-
+        comment_status: "Shipping",
         };
     },
     showReplyBar() {
         this.replyBar = !this.replyBar;
-    }
+    },
+    mounted() {
+        console.log(this.campaign_id)
+    },
+    methods: {
+        status_change(status){
+            this.comment_status = status;
+            console.log(this.comment_status);
+            this.eventBus.emit("commentStatus", {status: this.comment_status})
+        },
+        toEnterID() {
+        this.idPopupModalPreview = false;
+        this.enterIDModalPreview = true;
+        },
+
+        facebookAccountClick(img) {
+        this.facebookOverlappingModalPreview = false;
+        this.facebookPageSelected = true;
+        this.fbAvatar = img;
+        },
+
+        youtubeAccountClick(img) {
+        this.youtubeOverlappingModalPreview = false;
+        this.youtubePageSelected = true;
+        this.ytAvatar = img;
+        },
+
+        instagramAccountClick(img) {
+        this.instagramOverlappingModalPreview = false;
+        this.instagramPageSelected = true;
+        this.igAvatar = img;
+        },
+
+        cancelClean() {
+        this.enterIDModalPreview = false;
+        this.facebookPageSelected = false;
+        this.youtubePageSelected = false;
+        this.instagramPageSelected = false;
+        },
+        closeJump() {
+        this.enterIDModalPreview = false;
+        this.$router.push("campaign-live");
+        },
+  },
 };
 
 </script>
