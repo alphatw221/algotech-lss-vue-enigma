@@ -1,11 +1,11 @@
 <template>
-  <div>
+  <div class="bg-secondary">
     <!-- <DarkModeSwitcher /> -->
     <!-- <MainColorSwitcher /> -->
     <ThemeModeSwitcher />
     <MobileMenu />
     <TopBar />
-    <div class="flex overflow-hidden bg-secondary">
+    <div class="flex overflow-hidden">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
         <ul>
@@ -140,7 +140,7 @@
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { helper as $h } from "@/utils/helper";
-import { useSideMenuStore } from "@/stores/lss-side-menu";
+// import { useSideMenuStore } from "@/stores/lss-side-menu";
 import TopBar from "@/components/top-bar/Main.vue";
 import MobileMenu from "@/components/mobile-menu/Main.vue";
 import DarkModeSwitcher from "@/components/dark-mode-switcher/Main.vue";
@@ -153,8 +153,22 @@ import dom from "@left4code/tw-starter/dist/js/dom";
 const route = useRoute();
 const router = useRouter();
 const formattedMenu = ref([]);
-const sideMenuStore = useSideMenuStore();
-const sideMenu = computed(() => nestedMenu(sideMenuStore.menu, route));
+// const sideMenuStore = useSideMenuStore();
+
+const menu = [
+      {
+        icon: "HomeIcon",
+        pageName: "side-menu-inbox",
+        title: "Home",
+      },
+      {
+        icon: "BoxIcon",
+        pageName: "Stock",
+        title: "Stock",
+      },
+    ]
+
+const sideMenu = computed(() => nestedMenu(menu, route));
 
 provide("forceActiveMenu", (pageName) => {
   route.forceActiveMenu = pageName;

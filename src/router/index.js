@@ -3,6 +3,7 @@ import SideMenu from "../layouts/side-menu/Main.vue";
 import SimpleMenu from "../layouts/simple-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
 import LssSideMenu from "../layouts/lss-side-menu/Main.vue";
+import BuyerSideMenu from "../layouts/buyer-side-menu/Main.vue";
 import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
 import DashboardOverview3 from "../views/dashboard-overview-3/Main.vue";
@@ -64,6 +65,7 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 import LssModal from "../views/modal/LssModal.vue";
+import ShoppingCart from "../views/shoppingcart/Main.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
@@ -74,17 +76,16 @@ import Test2 from "../views/test/test2.vue";
 import Test4 from "../views/test/test4.vue"; 
 import CreateCamp from "../views/test/createCamp.vue";
 import Campaignselect from "../views/manage-order/Campaignselect.vue";  
-import ShoppingCart from "../views/shopping-cart/Main.vue"; 
 
 
 const routes = [
 
   
-  // {
-  //   path: "/test4",
-  //   name: "side-menu-test4",
-  //   component: Test4,
-  // },
+  {
+    path: "/test4",
+    name: "side-menu-test4",
+    component: Test4,
+  },
   {
     path: "/",
     component: LssSideMenu,
@@ -188,16 +189,6 @@ const routes = [
     component: () => import('@/views/general/ForgotPasswordPage.vue')
   },
   {
-    path: "/login",
-    name: "login",
-    component: Login,
-  },
-  {
-    path: "/register",
-    name: "register",
-    component: Register,
-  },
-  {
     path: "/error-page",
     name: "error-page",
     component: ErrorPage,
@@ -206,8 +197,35 @@ const routes = [
     path: "/:pathMatch(.*)*",
     component: ErrorPage,
   },
+  // -------------------------------Buyer Route-----------------------------
+  {
+    path: "/buyer",
+    component: BuyerSideMenu,
+    children: [
+      {
+        path: "test3",
+        name: "side-menu-test3",
+        component: Test3,
+      },
+    ]
+  },
+  {
+    path: "/buyer/login",
+    name: "LoginPage",
+    component: () => import('@/views/general/LoginPage.vue')
+  },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
+  {
+    path: "/enigma-template/login",
+    name: "login",
+    component: Login,
+  },
+  {
+    path: "/enigma-template/register",
+    name: "register",
+    component: Register,
+  },
   {
     path: "/enigma-template/simple-menu",
     component: SimpleMenu,

@@ -239,6 +239,7 @@ export default {
     });
   },
   unmounted() {
+    this.eventBus.off("campaignStatus"); 
     this.eventBus.off("searchTable");
   },
   methods: {
