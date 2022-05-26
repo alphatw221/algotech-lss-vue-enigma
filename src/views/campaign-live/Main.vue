@@ -1,9 +1,9 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="intro-y chat grid grid-cols-12 gap-5" style="height: 100%; overflow: auto">
+    <div class="chat grid grid-cols-12 gap-3 h-full">
         <!-- BEGIN: Comments -->
-        <TabGroup class="col-span-12 lg:col-span-5 2xl:col-span-4">
-            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 w-150">
+        <TabGroup class="col-span-12 col-start-1 row-start-1 row-span-4 lg:col-span-5 2xl:col-span-4">
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-2 p-5">
                 <div class="col-start-1 col-span-5 -mt-4">
                     <h2 class="text-lg font-medium">
                         Comments
@@ -13,34 +13,18 @@
                     </h2>
                 </div>
                 <div class="col-end-11 -mt-3">
-                    <TabList class="nav-pills">
-                        <Tab class=" w-8 h-8 pr-0 pt-1 pl-0 mt-1 bg-white" tag="button">
-                            <!-- <FacebookIcon class="m-1 -mt-1" /> -->
-                            <img src='/src/assets/images/lss-img/fb_ad.jpeg' class="-mt-2" />
-                        </Tab>
-                        <Tab class=" w-8 h-8 pr-0 pt-1 pl-0 mt-1" tag="button">
-                            <img src='/src/assets/images/lss-img/ig_ad.jpeg' class="-mt-2" />
-                        </Tab>
-                        <Tab class=" w-8 h-8 pr-0 pt-1 pl-0 mt-1" tag="button">
-                            <img src='/src/assets/images/lss-img/yt_ad.jpeg' class="-mt-2" />
-                        </Tab>
-                    </TabList>
+                <TabList class="nav-pills">
+                    <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                    <FacebookIcon class="m-1 -mt-1" />
+                    </Tab>
+                    <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                    <InstagramIcon class="m-1 -mt-1" />
+                    </Tab>
+                    <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                    <YoutubeIcon class="m-1 -mt-1" />
+                    </Tab>
+                </TabList>
                 </div>
-                <!--         
-        <div class="col-end-11 -mt-3">
-          <TabList class="nav-pills">
-            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <FacebookIcon class="m-1 -mt-1" />
-              <img src='/src/assets/images/lss-img/fb_ad.jpeg' />
-            </Tab>
-            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <InstagramIcon class="m-1 -mt-1" />
-            </Tab>
-            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <YoutubeIcon class="m-1 -mt-1" />
-            </Tab>
-          </TabList>
-        </div> -->
                 <div class="col-start-1 col-span-12 -mt-2">
                     <video width="600" controls>
                         <source src="mov_bbb.mp4" type="video/mp4" />
@@ -113,7 +97,7 @@
                 </TabPanel>
                 <!-- IG -->
                 <TabPanel>
-                    <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
+                    <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4 max-h-[26rem]">
                         <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
@@ -368,7 +352,7 @@
                 </TabPanel>
                 <!-- YT -->
                 <TabPanel>
-                    <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
+                    <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4 max-h-[26rem]">
                         <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
@@ -626,23 +610,27 @@
         <!-- END: comments -->
 
         <!-- BEGIN: Product -->
-        <div class="col-span-12 lg:col-span-5 2xl:col-span-4" height="750px">
-            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6">
+        <div class="col-span-12 col-start-1 row-span-4 lg:col-span-7 lg:row-span-2 lg:row-start-1 2xl:col-span-4 2xl:max-h-screen" >
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 lg:mt-2">
                 <row class="col-span-12" style="margin: -13px 0 -13px 0px;">
                     <h2 class="text-lg font-medium w-48">Product</h2>
                     <a href="javascript:;" @click="this.addProductFromStock = !this.addProductFromStock"
                         class="btn btn-primary right-0">Add Product From Stock</a>
                 </row>
             </div>
-            <div class="overflow-x-auto box">
+            <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem]">
+                <div class="sticky top-0 z-50"> 
+                    <table class="table table-sm">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="whitespace-nowrap" style="" v-for="column in product_columns" :key="column.key">
+                                    {{ column.name }}
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>    
                 <table class="table table-sm">
-                    <thead class="table-dark">
-                        <tr>
-                            <th class="whitespace-nowrap" style="" v-for="column in product_columns" :key="column.key">
-                                {{ column.name }}
-                            </th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr v-for="data in product_results" :key="data.id">
                             <td><img data-action="zoom" :src="imagePath + data.image" class="w-10 zoom-in" /></td>
@@ -678,41 +666,44 @@
             </div>
         </div>
         <!-- END: Product -->
-
         <!-- BEGIN: Incoming Order -->
-        <div class="col-span-12 lg:col-span-4 2xl:col-span-4" height="750px">
-            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6">
-                <div class="col-start-1 col-span-5 -mt-4">
+        <div class="col-span-12 col-start-1 row-span-4 h-fit mt-0 lg:col-span-7 lg:row-start-3 lg:-mt-2 2xl:col-span-4 2xl:row-start-1" >
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-5">
+                <div class="col-start-1 col-span-5 -mt-3 p-3">
                     <h2 class="text-lg font-medium">Incoming Order</h2>
                 </div>
             </div>
-            <div class="overflow-x-auto box">
+            <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem]">
+                <div class="sticky top-0 z-50">
+                    <table class="table table-sm">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="whitespace-nowrap" style="" v-for="column in incoming_order_columns"
+                                    :key="column.key">
+                                    {{ column.name }}
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> 
                 <table class="table table-sm">
-                    <thead class="table-dark">
-                        <tr>
-                            <th class="whitespace-nowrap" style="" v-for="column in incoming_order_columns"
-                                :key="column.key">
-                                {{ column.name }}
-                            </th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr v-for="data in incoming_order_results" :key="data.id">
                             <td>#{{ data.id }}</td>
                             <td>
                                 <div v-if="data.platform === 'facebook'" class="w-10 h-10 image-fit">
                                     <div class="w-10 h-10 image-fit">
-                                        <img src="/src/assets/images/lss-img/fb_ad.jpeg" />
+                                        <img src="/src/assets/images/lss-img/facebook.png" />
                                     </div>
                                 </div>
                                 <div v-else-if="data.platform === 'instagram'" class="w-10 h-10 image-fit">
                                     <div class="w-10 h-10 image-fit">
-                                        <img src="/src/assets/images/lss-img/ig_ad.jpeg" />
+                                        <img src="/src/assets/images/lss-img/instagram.png" />
                                     </div>
                                 </div>
                                 <div v-else-if="data.platform === 'youtube'" class="w-10 h-10 image-fit">
                                     <div class="w-10 h-10 image-fit">
-                                        <img src="/src/assets/images/lss-img/yt_ad.jpeg" />
+                                        <img src="/src/assets/images/lss-img/youtube.png" />
                                     </div>
                                 </div>
                             </td>
@@ -728,9 +719,10 @@
         </div>
 
         <!-- END: Incoming Order -->
+    </div>
 
-        <!-- BEGIN: Add Product From Stock -->
-        <Modal size="modal-xl" class="text-center" :slideOver="true" :show="addProductFromStock"
+    <!-- BEGIN: Add Product From Stock -->
+    <Modal size="modal-xl" class="text-center" :slideOver="true" :show="addProductFromStock"
             @hidden="addProductFromStock = false">
             <ModalHeader class="text-center p-5">
                 <h2 class="font-medium text-base text-center">
@@ -817,10 +809,8 @@
                     </table>
                 </div>
             </ModalBody>
-        </Modal>
-
-        <!-- END: Add Product From Stock -->
-    </div>
+    </Modal>
+    <!-- END: Add Product From Stock -->
 </template>
 
 

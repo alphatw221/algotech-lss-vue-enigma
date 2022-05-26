@@ -16,11 +16,12 @@
 
       <div class="box">
         <div class="overflow-x-auto">
-          <SearchBar :searchColumns="searchColumns"> </SearchBar>
+          <SearchBar :searchColumns="searchColumns" :page_type="'manage_order'"> </SearchBar>
           <CampaignListTable
             :requestUrl="'/api/v2/campaign/list_campaign/'"
             :columns="tableColumns"
             :routerParam="campaign_status"
+            :page_type="'manage_order'"
           >
           </CampaignListTable>
         </div>
@@ -47,14 +48,9 @@ export default {
         ],
       },
       tableColumns: [
-        { name: "Fan Page", key: "page" },
-        { name: "Platform", key: "platform" },
         { name: "Title", key: "title" },
         { name: "Time", key: "start_at" },
-        { name: "Manage Order", key: "manager_order" },
-        { name: "Stop Checkout", key: "stop" },
         { name: " ", key: "entry" },
-        { name: " ", key: "edit" },
       ],
       campaign_status: "schedule",
     };
