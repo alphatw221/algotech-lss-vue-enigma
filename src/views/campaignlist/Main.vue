@@ -16,7 +16,7 @@
 
       <div class="box">
         <div class="overflow-x-auto">
-          <SearchBar :searchColumns="searchColumns"> </SearchBar>
+          <SearchBar :searchColumns="searchColumns" :page_type="'campaign_list'"> </SearchBar>
           <CampaignListTable
             :requestUrl="'/api/v2/campaign/list_campaign/'"
             :columns="tableColumns"

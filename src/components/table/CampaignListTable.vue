@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr v-for="(campaign, key) in listItems" :key="key" class="intro-x">
-          <td>
+          <td v-if="page_type === 'campaign_list'">
             <div class="flex">
               <div
                 class="w-10 h-10 image-fit zoom-in"
@@ -24,32 +24,13 @@
                   tag="img"
                   class="rounded-full ml-6"
                   :src="campaign.facebook_page.image"
-                  :content="`Facebook`"
+                  :content="campaign.facebook_page.name"
                 />
               </div>
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
                   class="rounded-full ml-6"
-                  :src="unbound"
-                  :content="`Unbound`"
-                />
-              </div>
-              <div
-                class="w-10 h-10 image-fit zoom-in"
-                v-if="campaign.youtube_channel !== null"
-              >
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-3"
-                  :src="campaign.youtube_channel.image"
-                  :content="`Youtube`"
-                />
-              </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-3"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -60,9 +41,28 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full ml-3"
                   :src="campaign.instagram_profile.image"
-                  :content="`Instagram`"
+                  :content="campaign.instagram_profile.name"
+                />
+              </div>
+              <div class="w-10 h-10 image-fit zoom-in" v-else>
+                <Tippy
+                  tag="img"
+                  class="rounded-full ml-3"
+                  :src="unbound"
+                  :content="`Unbound`"
+                />
+              </div>
+                            <div
+                class="w-10 h-10 image-fit zoom-in"
+                v-if="campaign.youtube_channel !== null"
+              >
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="campaign.youtube_channel.image"
+                  :content="campaign.youtube_channel.name"
                 />
               </div>
               <div class="w-10 h-10 image-fit zoom-in" v-else>
@@ -75,7 +75,7 @@
               </div>
             </div>
           </td>
-          <td class="text-center w-18">
+          <td class="text-center w-18" v-if="page_type === 'campaign_list'">
             <div class="flex ">
               <div
                 class="w-10 h-10 image-fit zoom-in"
@@ -142,12 +142,12 @@
           <td class="text-center">
             {{ campaign.start_at }}
           </td>
-          <td class="items-center">
+          <td class="items-center" v-if="page_type === 'campaign_list'">
             <a class="flex items-center ml-20" href="javascript:;" @click="manageOrder">
               <ListIcon class="w-4 h-4" />
             </a>
           </td>
-          <td class="items-center">
+          <td class="items-center" v-if="page_type === 'campaign_list'">
             <div
               class="
                 flex
@@ -174,7 +174,7 @@
               Entry
             </button>
           </td>
-          <td class="table-report__action w-30">
+          <td class="table-report__action w-30" v-if="page_type === 'campaign_list'">
             <div class="flex justify-center items-center">
               <a class="flex items-center mr-3" href="javascript:;">
                 <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
@@ -203,6 +203,7 @@ export default {
     requestUrl: String,
     columns: Array,
     routerParam: String,
+    page_type: String,
   },
   data() {
     return {
@@ -226,15 +227,16 @@ export default {
     this.search();
 
     this.eventBus.on("campaignStatus", (payload) => {
+      this.page = 1;
       this.status = payload.status;
       this.search();
     });
 
     this.eventBus.on("searchTable", (payload) => {
-      this.currentPage = 1;
+      this.page = 1;
       this.searchColumn = payload.searchColumn;
       this.keyword = payload.keyword;
-      this.pageSize = payload.pageSize;
+      this.page_size = payload.pageSize;
       this.search();
     });
   },
