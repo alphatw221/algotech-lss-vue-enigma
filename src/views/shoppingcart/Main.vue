@@ -133,15 +133,27 @@
 
       <TabPanels class="w-full h-full mt-5">
         <TabPanel>
-          <div></div>
-          <div class="box">
-            <div class="overflow-x-auto">
+          <div>My Cart</div>
+          <div class="box grid grid-cols-12 gap-4">
+            <div class="overflow-x-auto col-span-12 2xl:col-span-7 lg:col-span-7">
               <ShoppingCartTable
                 :requestUrl="'.'"
                 :columns="tableColumns"
                 :product="products"
               >
               </ShoppingCartTable>
+            </div>
+            <div class="col-span-10 2xl:col-start-8 col-span-5 lg:col-start-8 col-span-5">
+              <OrderSummary
+                :page_type="'stap1'"
+              >
+              </OrderSummary>
+            </div>
+          </div>
+          <div class="box grid grid-cols-12 gap-4 ml-4 mr-4">
+            <div class="overflow-x-auto col-start-1 col-span-7">
+              <div><span class="text-lg">Special Note:</span></div>
+              <div class="flex"><div class="mr-auto">Special Note!!!!!!!!!!!!!!!!!!!!</div></div>
             </div>
           </div>
         </TabPanel>
@@ -179,6 +191,7 @@ export default {
   data() {
     return {
       tableColumns: [
+        { name: " ", key: "image" },
         { name: "Product", key: "product" },
         { name: "Q'TY", key: "qty" },
         { name: "Price", key: "price" },

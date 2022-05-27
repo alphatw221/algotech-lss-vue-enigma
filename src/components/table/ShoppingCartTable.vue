@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th
-            class="whitespace-nowrap"
+            class="whitespace-nowrap text-center"
             v-for="column in columns"
             :key="column.key"
           >
@@ -12,33 +12,33 @@
           </th>
         </tr>
       </thead>
-      <tbody style="height: 500px">
+      <tbody>
         <tr v-for="(product, key) in listItems" :key="key" class="intro-x">
-          <td>
-              <div class="flex">
-                <div class="w-10 h-10 image-fit zoom-in">
-                  <Tippy
-                    tag="img"
-                    class="rounded-full"
-                    :src="product.image"
-                    :content="`Uploaded at`"
-                  />
-                </div>
-                <div>
-                  {{product.name}}
-                </div>
+          <td class=" h-20">
+            <div class="flex">
+              <div class="w-10 h-10 image-fit zoom-in">
+                <Tippy
+                  tag="img"
+                  class="rounded-full"
+                  :src="product.image"
+                  :content="`Uploaded at`"
+                />
               </div>
+            </div>
           </td>
-          <td class="text-center">
+          <td class="text-center h-20">
+            {{ product.name }}
+          </td>
+          <td class="text-center h-20">
             {{ product.qty }}
           </td>
-          <td class="text-center">
+          <td class="text-center h-20">
             {{ product.price }}
           </td>
-          <td class="text-center">
+          <td class="text-center h-20">
             {{ product.qty * product.price }}
           </td>
-          <td class="table-report__action w-30">
+          <td class="table-report__action w-30 h-20">
             <div class="flex justify-center items-center">
               <a class="flex items-center text-danger" href="">
                 <Trash2Icon class="w-4 h-4 mr-1" /> Delete
@@ -69,15 +69,11 @@ export default {
   },
   mounted() {},
   unmounted() {},
-  computed:{
-    
-  },
+  computed: {},
   methods: {
     pre_order() {
       createAxiosWithBearer()
-        .get(
-          this.requestUrl 
-        )
+        .get(this.requestUrl)
         .then((response) => {
           this.listItems = response.data.results;
         })
@@ -88,3 +84,8 @@ export default {
   },
 };
 </script>
+<style scoped>
+  td{
+    height: 60px !important;
+  }
+</style>
