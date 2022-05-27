@@ -21,11 +21,18 @@
 					v-model="productInfo.categories"
 					class="w-full"
 					multiple
+					v-if="formType=='create'"
 				>
-					<option value="1">Sport & Outdoor</option>
-					<option value="2">PC & Laptop</option>
-					<option value="3">Smartphone & Tablet</option>
-					<option value="4">Photography</option>
+					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
+				</TomSelect>
+				<TomSelect
+					id="crud-form-2"
+					v-model="productInfo.tag"
+					class="w-full"
+					multiple
+					v-else-if="formType=='update'"
+				>
+					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
 				</TomSelect>
 			</div>
 
@@ -143,7 +150,7 @@
 
 			<div class="mt-3 col-span-12 ">
 				<div class="flex mt-5 float-right">
-					<button class="btn w-32 dark:border-darkmode-400 ">
+					<button class="btn w-32 dark:border-darkmode-400 " @click="this.$router.push('/stock')">
 						Cancel
 					</button>
 					<button class="btn btn-primary w-32 shadow-md ml-5" @click="submit">
@@ -153,12 +160,12 @@
 			</div>
 
 		</div>
-
 	</div>
 </template>
 
 <script>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
+import { list_category } from '@/api/stock';
 
 export default {
 	setup() {
@@ -168,6 +175,7 @@ export default {
 			formType: '',
 			updateId: 0,
 			productInfo: {
+				id: 0,
 				name: '',
 				categories: [],
 				image: '',
@@ -176,7 +184,8 @@ export default {
 				description: '',
 				quantity: '',
 				price: '',
-				status: ''
+				status: '',
+				tag: []
 			},
 			typeRadio: [
 				{text: 'Product', id: 'product'},
@@ -188,11 +197,16 @@ export default {
 			],
 			previewImage: null,
 			formData: new FormData(),
+			categorySelection: []
 		}
 	},
 	mounted() {
 		this.formType = this.$route.query.type
 		this.updateId = this.$route.query.id
+
+		list_category().then(
+			response => { this.categorySelection = response.data }
+		)
 
 		if (this.formType == 'update') {
 			createAxiosWithBearer()
@@ -200,30 +214,45 @@ export default {
 			.then(
 				response => {
 					this.productInfo = {
+						id: response.data.id,
 						name: response.data.name,
 						order_code: response.data.order_code,
 						description: response.data.description,
 						quantity: response.data.qty,
 						type: response.data.type,
 						price: response.data.price,
-						status: response.data.status
+						status: response.data.status,
+						categories: response.data.tag,
 					}
 					this.previewImage = import.meta.env.VITE_APP_IMG_URL + response.data.image
 				}
 			)
-			
 		}
 	},
 	methods: {
 		submit() {
-			this.formData.append('text', JSON.stringify(this.productInfo))
-			createAxiosWithBearer()
-			.post('/api/product/create_product/', this.formData)
-			.then(
-				response => {
-					console.log('image upload response > ', response)
-				}
-			)
+			if (this.formType == 'create') {
+				this.formData.append('text', JSON.stringify(this.productInfo))
+				createAxiosWithBearer()
+				.post('/api/v2/product/create_product/', this.formData)
+				.then(
+					response => {
+						console.log('image upload response > ', response)
+						this.$router.push('/stock')
+					}
+				)
+			} else if (this.formType == 'update') {
+				this.formData.append('text', JSON.stringify(this.productInfo))
+				createAxiosWithBearer()
+				.put(`/api/v2/product/${this.productInfo.id}/update_product/`, this.formData)
+				.then(
+					response => {
+						console.log('image upload response > ', response)
+						this.$router.push('/stock')
+					}
+				)
+			}
+			
 		},
 		uploadImage(e){
 			const image = e.target.files[0];

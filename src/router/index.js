@@ -188,19 +188,18 @@ const routes = [
       {
         path: "stock",
         name: "Stock",
-        component: () => import('@/views/stock/Stock.vue')
-      },
-      {
-        path: "stock1",
-        name: "Stock1",
-        component: () => import('@/views/stock/Stock1.vue'),
+        component: () => import('@/views/stock/Stock.vue'),
       },
       {
         path: "add-product",
         name: "AddProduct",
-        component: () => import('@/views/stock/AddProduct.vue')
+        component: () => import('@/views/stock/AddProduct.vue'),
       },
-      
+      {
+        path: "category/manager",
+        name: "CategoryManager",
+        component: () => import('@/views/stock/CategoryManager.vue')
+      }
     ],
   },
   {
@@ -234,11 +233,11 @@ const routes = [
       },
     ]
   },
-  {
-    path: "/buyer/login",
-    name: "LoginPage",
-    component: () => import('@/views/general/LoginPage.vue')
-  },
+  // {
+  //   path: "/buyer/login",
+  //   name: "LoginPage",
+  //   component: () => import('@/views/general/LoginPage.vue')
+  // },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
   {
