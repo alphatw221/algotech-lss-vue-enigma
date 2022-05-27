@@ -17,16 +17,8 @@
                         <label class="w-14 xl:w-auto mr-2 ">
                             Field
                         </label>
-<<<<<<< HEAD
-                        <select 
-                            id="tabulator-html-filter-field"
-                            class="form-select w-auto mr-4 h-10 mt-2 2xl:mt-0 xl:mt-0 " 
-                            v-model="searchColumn"
-                        >
-=======
                         <select id="tabulator-html-filter-field"
                             class="form-select w-auto mr-4 h-10 mt-2 2xl:mt-0 xl:mt-0 " v-model="searchField">
->>>>>>> 6ccbfb4ba0a179304ea3cb384b06fc40185c7b42
                             <option v-for="searchColumn in searchColumns.keywords" :key="searchColumn.value"
                                 :value="searchColumn.value">
                                 {{ searchColumn.text }}
