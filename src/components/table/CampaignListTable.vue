@@ -217,9 +217,9 @@ export default {
       status: this.routerParam,
       order_by: "created_at",
 
-      youtube_platform: "/src/assets/images/lss-img/yt_ad.jpeg",
-      facebook_platform: "/src/assets/images/lss-img/fb_ad.jpeg",
-      instagram_platform: "/src/assets/images/lss-img/ig_ad.jpeg",
+      youtube_platform: "/src/assets/images/lss-img/youtube.png",
+      facebook_platform: "/src/assets/images/lss-img/facebook.png",
+      instagram_platform: "/src/assets/images/lss-img/instagram.png",
       unbound: "/src/assets/images/lss-img/noname_ad.jpeg",
     };
   },

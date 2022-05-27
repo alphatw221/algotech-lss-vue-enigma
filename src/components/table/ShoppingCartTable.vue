@@ -14,26 +14,29 @@
       </thead>
       <tbody style="height: 500px">
         <tr v-for="(product, key) in listItems" :key="key" class="intro-x">
-          <td v-for="column in columns" :key="column.key">
+          <td>
               <div class="flex">
                 <div class="w-10 h-10 image-fit zoom-in">
                   <Tippy
                     tag="img"
                     class="rounded-full"
-                    :src="`${publicPath}` + product.image"
+                    :src="product.image"
                     :content="`Uploaded at`"
                   />
+                </div>
+                <div>
+                  {{product.name}}
                 </div>
               </div>
           </td>
           <td class="text-center">
-            <!-- product.qty -->
+            {{ product.qty }}
           </td>
           <td class="text-center">
             {{ product.price }}
           </td>
           <td class="text-center">
-            {{ product.subtotal }}
+            {{ product.qty * product.price }}
           </td>
           <td class="table-report__action w-30">
             <div class="flex justify-center items-center">
@@ -55,11 +58,12 @@ export default {
   props: {
     requestUrl: String,
     columns: Array,
+    product: Array,
   },
   data() {
     return {
       dataCount: 0,
-      listItems: [],
+      listItems: this.product,
       publicPath: import.meta.env.VITE_APP_IMG_URL,
     };
   },
