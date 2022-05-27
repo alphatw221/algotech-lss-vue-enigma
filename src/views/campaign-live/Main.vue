@@ -65,31 +65,6 @@
                         >
                         </CampaignLiveTable>
 
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Kuai.mai</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    Live Show Seller: "U10" Qty: 1 is added. Shopping cart link is sent via
-                                    FB Messenger, please contact page admin if not received any
-                                    notification.
-                                </div>
-                            </div>
-                        </div>
-
                     </div>
 
 
@@ -831,7 +806,6 @@ export default {
             replyBar: false,
             tagBox: false,
             addProductFromStock: false,
-            campaign_id: this.$route.params.campaign_id,
             add_product_columns: [
                 { name: "", key: "select" },
                 { name: "Image", key: "image" },
@@ -2165,18 +2139,20 @@ export default {
             { name: "message", key: "message" }
             ],
         comment_status: "Shipping",
+        campaign_id: this.$route.params.campaign_id,
         };
     },
     showReplyBar() {
         this.replyBar = !this.replyBar;
     },
     mounted() {
-        console.log(this.campaign_id)
+        console.log(this.campaign_id);
+        console.log(this.comment_status);
     },
     methods: {
         status_change(status){
             this.comment_status = status;
-            console.log(this.comment_status);
+            // console.log(this.comment_status);
             this.eventBus.emit("commentStatus", {status: this.comment_status})
         },
         toEnterID() {

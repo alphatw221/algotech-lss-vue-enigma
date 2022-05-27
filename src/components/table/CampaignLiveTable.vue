@@ -24,7 +24,7 @@
 
 
 <script>
-import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
+import { axiosInstance } from "@/libs/axiosClient";
 import { get_comments } from "@/api/campaign_comment"
 
 export default {
@@ -56,22 +56,12 @@ export default {
   methods: {
     url_param() {
       let param = "";
-      [ "campaign_id",
+      [ 
         "status"
       ].forEach((v) => {
         if (this[v]) param += `&${v}=${this[v]}`;
       });
       return param.substr(1, param.length);
-    },
-    search() {
-      createAxiosWithBearer()
-        .get(`${this.requestUrl}?${this.url_param()}`)
-        .then((response) => {
-          console.log(this.listItems);
-        })
-        .catch((error) => {
-          console.log(error);
-        });
     },
     get_campaign_comments(status) {
         console.log("in");

@@ -81,11 +81,11 @@ import CreateCamp from "../views/test/createCamp.vue";
 
 
 const routes = [
-  {
-    path: "/test4",
-    name: "side-menu-test4",
-    component: Test4,
-  },
+  // {
+  //   path: "/test4",
+  //   name: "side-menu-test4",
+  //   component: Test4,
+  // },
   {
     path: "/",
     component: LssSideMenu,
@@ -101,7 +101,7 @@ const routes = [
         component: CampaignList,
       },
       {
-        path: "campaign-live/:campaign_id",
+        path: "campaign-live/:campaign_id?",
         name: "side-menu-campaign-live",
         component: CampaignLive,
       },
