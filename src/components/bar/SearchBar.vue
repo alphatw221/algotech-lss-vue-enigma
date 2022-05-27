@@ -17,8 +17,11 @@
                         <label class="w-14 xl:w-auto mr-2 ">
                             Field
                         </label>
-                        <select id="tabulator-html-filter-field"
-                            class="form-select w-auto mr-4 h-10 mt-2 2xl:mt-0 xl:mt-0 " v-model="searchColumn">
+                        <select 
+                            id="tabulator-html-filter-field"
+                            class="form-select w-auto mr-4 h-10 mt-2 2xl:mt-0 xl:mt-0 " 
+                            v-model="searchColumn"
+                        >
                             <option v-for="searchColumn in searchColumns.keywords" :key="searchColumn.value"
                                 :value="searchColumn.value">
                                 {{ searchColumn.text }}
@@ -48,9 +51,10 @@
                 </div>
             </div>
             <button 
+                v-if="isAddBtn"
+                type="button"
                 class="btn btn-primary shadow-md mt-3 col-start-1 col-span-12 xl:w-36 xl:mt-0 sm:col-start-10 2xl:w-48 2xl:col-start-11 2xl:mt-0" 
                 @click="this.$router.push({ path: routerPath, query: { type: routerParam }})"
-                v-if="isAddBtn"
             >
                 Add Product
             </button>
