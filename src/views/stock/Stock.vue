@@ -21,6 +21,7 @@
 										:isAddBtn="true"
 										:routerPath="'add-product'"
 										:routerParam="'create'"
+										:page_type="'stock'"
 									>
 									</SearchBar>	
 									<DataTable
