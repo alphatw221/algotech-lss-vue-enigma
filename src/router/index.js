@@ -67,6 +67,7 @@ import ImageZoom from "../views/image-zoom/Main.vue";
 import LssModal from "../views/modal/LssModal.vue";
 
 import ShoppingCart from "../views/shoppingcart/Main.vue";
+import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
 import OrderHistoryDetails from "../views/shoppingcart/OrderHistoryDetails.vue"; 
 
 import CampaignList from "../views/campaignlist/Main.vue";
@@ -125,6 +126,11 @@ const routes = [
         name: "side-menu-shopping-cart",
         component: ShoppingCart,
       }, 
+      {  
+        path: "orderHistory",
+        name: "OrderHistory",
+        component: OrderHistory,
+      },
       {  
         path: "orderHistory-details",
         name: "OrderHistoryDetails",

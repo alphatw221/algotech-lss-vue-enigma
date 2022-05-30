@@ -75,6 +75,7 @@
               </div>
             </div>
           </td>
+
           <td class="text-center w-18" v-if="page_type === 'campaign_list'">
             <div class="flex ">
               <div
@@ -216,7 +217,6 @@ export default {
       listItems: [],
       status: this.routerParam,
       order_by: "created_at",
-
       youtube_platform: "/src/assets/images/lss-img/youtube.png",
       facebook_platform: "/src/assets/images/lss-img/facebook.png",
       instagram_platform: "/src/assets/images/lss-img/instagram.png",
