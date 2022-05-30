@@ -13,7 +13,7 @@
         <Card style="width:400px; height: 600px; opacity: .9;" class="center">
             <Row><h3>Login</h3></Row>
 
-            <Form ref="loginForm" :model="loginForm" :rules="ruleInline" style="margin-top:50px;">
+            <!-- <Form ref="loginForm" :model="loginForm" :rules="ruleInline" style="margin-top:50px;">
                 <FormItem prop="email" class="login_form">
                     <Input type="text" v-model="loginForm.email" placeholder="E-mail">
                         <template #prepend>
@@ -34,10 +34,10 @@
             </Form>
 
             <Row><a style="margin:auto;" @click="this.$router.push({ path: '/password/forgot' })">forgot password ?</a></Row>
-            <Divider plain :size="small">or</Divider>
+            <Divider plain :size="small">or</Divider> -->
 
             <Row class="login_btn">
-                <FacebookLoginButton :busName="'sellerFacebookLogin'" block/>
+                <!-- <FacebookLoginButton :busName="'buyerFacebookLogin'" block/> -->
             </Row>
             <Row class="login_btn">
                 <GoogleLoginButton block />
@@ -50,9 +50,10 @@
 </template>
 
 <script>
-import { seller_login, general_login } from '@/api/user';
-import loadScript from '@/libs/loadScript.js';
-import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
+// import { seller_login, buy, general_login } from '@/api/user';
+import {buyer_login_with_facebook} from '@/api_v2/user';
+
+// import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
 export default {
@@ -60,24 +61,17 @@ export default {
         
     },
     components:{
-        FacebookLoginButton,
+        // FacebookLoginButton,
         GoogleLoginButton
     },
     mounted() {
-        loadScript("https://connect.facebook.net/en_US/sdk.js",()=>{
-            console.log("FB SDK loaded")
-        });
-        loadScript("https://accounts.google.com/gsi/client",()=>{
-            console.log("Google SDK loaded")
-        });
-
-        this.eventBus.on('sellerFacebookLogin', payload=>{
-            seller_login(payload).then(response=>{
-                var set_cookie = new Promise((res)=>{
+        this.eventBus.on('buyerFacebookLogin', payload=>{
+            buyer_login_with_facebook(payload).then(response => {
+                var set_cookie = new Promise((res) => {
                     this.$cookies.set("access_token", response.data.access)
                     res()
                 })
-                set_cookie.then(()=>{
+                set_cookie.then(() => {
                     this.$router.push('/')
                 })
             }).catch(error=>{
@@ -86,7 +80,7 @@ export default {
         })
     },
     unmounted(){
-        this.eventBus.off('sellerFacebookLogin')
+        this.eventBus.off('buyerFacebookLogin')
     },
     data() {
         return {
@@ -110,17 +104,7 @@ export default {
         }
     },
     methods:{
-        _general_login(){
-            general_login(this.loginForm).then(response=>{
-                var set_cookie = new Promise((res) => {
-                    this.$cookies.set("access_token", response.data.access)
-                    res()
-                })
-                set_cookie.then(()=>{
-                    this.$router.push('/')
-                })
-            })
-        },
+      
     }
 }
 </script>

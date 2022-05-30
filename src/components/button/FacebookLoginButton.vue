@@ -38,13 +38,6 @@ export default {
             });
         }
 
-        // window.FB.init({
-        //     // appId: process.env.VUE_APP_FB_APP_ID,  
-        //     appId: "967598017063136", 
-        //     cookie: true,
-        //     xfbml: true,
-        //     version: "v13.0",
-        // });
     },
     mounted(){
         loadScript("https://connect.facebook.net/en_US/sdk.js",()=>{
@@ -61,13 +54,6 @@ export default {
                 } 
             });
         }
-        // var finished_rendering = function() {
-        // console.log("finished rendering plugins");
-        // var spinner = document.getElementById("spinner");
-        // spinner.removeAttribute("style");
-        // spinner.removeChild(spinner.childNodes[0]);
-        // }
-        // FB.Event.subscribe('xfbml.render', finished_rendering);
     },
     unmounted(){
         window.checkLoginState = undefined

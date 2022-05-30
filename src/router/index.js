@@ -84,7 +84,8 @@ import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
 
-
+import isAdminMiddleware from "@/libs/routerMiddleware/isAdminMiddleware"
+import isAuthMiddleware from "@/libs/routerMiddleware/isAuthMiddleware"
 
 const routes = [
   // {
@@ -231,6 +232,7 @@ const routes = [
   {
     path: "/buyer",
     component: LSSBuyerLayout,
+    beforeEnter: isAuthMiddleware,
     children: [
       {
         path: "test3",
@@ -239,11 +241,11 @@ const routes = [
       },
     ]
   },
-  // {
-  //   path: "/buyer/login",
-  //   name: "LoginPage",
-  //   component: () => import('@/views/general/LoginPage.vue')
-  // },
+  {
+    path: "/buyer/login",
+    name: "buyer-login-page",
+    component: () => import('@/views/general/BuyerLoginPage.vue')
+  },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
   {
