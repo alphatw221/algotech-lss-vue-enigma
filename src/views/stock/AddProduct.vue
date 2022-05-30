@@ -27,7 +27,7 @@
 				</TomSelect>
 				<TomSelect
 					id="crud-form-2"
-					v-model="productInfo.tag"
+					v-model="productInfo.categories"
 					class="w-full"
 					multiple
 					v-else-if="formType=='update'"

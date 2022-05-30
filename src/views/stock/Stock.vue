@@ -22,6 +22,7 @@
 										:routerPath="'add-product'"
 										:routerParam="'create'"
 										:page_type="'stock'"
+										:filterColums="categorySelection"
 									>
 									</SearchBar>	
 									<DataTable
@@ -65,9 +66,9 @@
 </template>
 
 <script>
-import { createAxiosWithBearer } from "@/libs/axiosClient";
 import SearchBar from "@/components/bar/SearchBar.vue";
 import DataTable from "@/components/table/DataTable.vue";
+import { list_category } from '@/api/stock';
 
 export default {
   components: {
@@ -80,7 +81,6 @@ export default {
         keywords: [
           { text: "Name", value: "name" },
           { text: "Order Code", value: "order_code" },
-          { text: "Category", value: "category" },
           { text: "Description", value: "description" },
         ],
       },
@@ -95,19 +95,20 @@ export default {
         { name: "Price", key: "price" },
         // {name: 'Edit', key: 'edit'},
       ],
+	  categorySelection: []
     };
   },
   mounted() {
     this.$cookies.set(
       "access_token",
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzODc1MzU0LCJpYXQiOjE2NTMyNzA1NTQsImp0aSI6IjZmYWFjZTY2NDIwZTQ5NTg4ZWJhM2E5ZjFjNmJmNThlIiwidXNlcl9pZCI6ODAsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo4MCwic2VsbGVyX2lkIjoyNCwiY3VzdG9tZXJfaWQiOjk3LCJuYW1lIjoiRGVyZWsgSHdhbmciLCJlbWFpbCI6ImRlcmVraHdhbmczM0BnbWFpbC5jb20ifX0.JeRVYZMKkkJSywtrqvw1hb1oEYgtLqSaDx56WFJ-HKk"
+      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0NDgzMjA1LCJpYXQiOjE2NTM4Nzg0MDUsImp0aSI6IjExMTBjNjcwNWEwNjRiMGRiNDk5N2JjZDBlMGQ3NmE4IiwidXNlcl9pZCI6ODAsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo4MCwic2VsbGVyX2lkIjoyNCwiY3VzdG9tZXJfaWQiOjk3LCJuYW1lIjoiRGVyZWsgSHdhbmciLCJlbWFpbCI6ImRlcmVraHdhbmczM0BnbWFpbC5jb20ifX0.Ad5siST1SjnpkTLaNmIBaYcwJZxu9vGRi_BfNXGR8mg"
     );
 
-    // createAxiosWithBearer().get('/api/user-subscription/buyer/list?page=1&page_size=5&search_column=shipping_email&keyword=qq').then(response => {
-    // 	console.log(response);
-    // }).catch(function (error) {
-    // 	console.log(error);
-    // })
+	list_category().then(
+		response => { 
+			this.categorySelection = response.data 
+		}
+	)
   },
   methods: {},
 };

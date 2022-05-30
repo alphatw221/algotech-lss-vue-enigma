@@ -27,6 +27,9 @@
 								</div>
 							</div>
 						</template>
+						<template v-else-if="column.key === 'category'" v-for="tag in product['tag']">
+							<div>{{ tag }}</div> 
+						</template>
 						<template v-else>
 							{{ product[column.key] }}
 						</template>
@@ -76,6 +79,7 @@ export default {
             keyword: undefined,
             listItems: [],
 			publicPath: import.meta.env.VITE_APP_IMG_URL,
+			category: undefined
 		}
 	},
 	mounted() {
@@ -86,8 +90,10 @@ export default {
 			this.searchColumn = payload.searchColumn
 			this.keyword = payload.keyword
 			this.pageSize = payload.pageSize
+			this.category = payload.filterColumn
 			this.search()
 		});
+
 	},
 	unmounted() {
 		this.eventBus.off("searchTable");
@@ -95,7 +101,7 @@ export default {
 	methods: {
 		search() {
 			createAxiosWithBearer()
-			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.status}`)
+			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.status}&category=${this.category}`)
 			.then(
 				response => {
 					if(response.data.count != undefined){
@@ -104,6 +110,7 @@ export default {
                         this.totalPage = totalPage == 0 ? 1 : totalPage
                     }
                     this.listItems = response.data.results
+					console.log(this.listItems)
 				}
 			).catch(
                 error => {
