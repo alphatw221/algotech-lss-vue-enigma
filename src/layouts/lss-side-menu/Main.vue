@@ -1,11 +1,11 @@
 <template>
-  <div class="bg-secondary">
+  <div>
     <!-- <DarkModeSwitcher /> -->
     <!-- <MainColorSwitcher /> -->
     <ThemeModeSwitcher />
     <MobileMenu />
     <TopBar />
-    <div class="flex overflow-hidden">
+    <div class="flex overflow-hidden bg-secondary">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
         <ul>
