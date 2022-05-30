@@ -18,6 +18,7 @@
                 <div class="text-gray-600">
                     This is just a demo dropzone. Selected files are
                     <span class="font-medium">not</span> actually uploaded.
+                    <br>accepted File types: jpeg, png, jpg
                 </div>
             </Dropzone>
             <div class="m-3">

@@ -3,12 +3,12 @@
     <div class="w-full">
     <!-- Tab List-->
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
-        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <li class="-mb-px last:mr-0 flex-auto text-center ml-14">
           <div
+            @click="toggleTabs(1)"
             class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10"
           >
             <button
-              @click="toggleTabs(1)"
               v-bind:class="{
                 'text-neutral-600 bg-white': openTab !== 1,
                 'text-white bg-primary': openTab === 1,
@@ -18,22 +18,22 @@
               <ShoppingCartIcon />
             </button>
             <div
-              class="lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               v-bind:class="{
                 'text-neutral-600': openTab !== 1,
-                'text-white font-bold': openTab === 1,
+                'font-bold': openTab === 1,
               }"
             >
               Shopping Cart
             </div>
           </div>
         </li>
-        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <li class="-mb-px last:mr-0 flex-auto text-center">
           <div
+            @click="toggleTabs(2)"
             class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10"
           >
             <button
-              @click="toggleTabs(2)"
               v-bind:class="{
                 'text-neutral-600 bg-white': openTab !== 2,
                 'text-white bg-primary': openTab === 2,
@@ -43,7 +43,7 @@
               <TruckIcon />
             </button>
             <div
-              class="lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               v-bind:class="{
                 'text-neutral-600': openTab !== 2,
                 'font-bold': openTab === 2,
@@ -53,22 +53,22 @@
             </div>
           </div>
         </li>
-        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+        <li class="-mb-px last:mr-0 flex-auto text-center">
           <div
+            @click="toggleTabs(3)"
             class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10"
           >
             <button
-              @click="toggleTabs(3)"
               v-bind:class="{
                 'text-neutral-600 bg-white': openTab !== 3,
-                'bg-primary': openTab === 3,
+                'text-white bg-primary': openTab === 3,
               }"
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400"
             >
               <CreditCardIcon />
             </button>
             <div
-              class="lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               v-bind:class="{
                 'text-neutral-600': openTab !== 3,
                 'font-bold': openTab === 3,
@@ -390,7 +390,7 @@
                       </div>
                       <p
                         id=""
-                        class="form-control col-start-1 col-span-12"
+                        class="form-control col-start-1 col-span-12 p-5"
                         placeholder=""
                       >
                         Delivery will be shipped after Dragon Boat Festval sorry
