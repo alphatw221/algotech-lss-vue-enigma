@@ -1,8 +1,8 @@
 <template>
-      <div id="lss-mobil-side-nav" class=" lss-mobil-side-nav-show absolute z-50 top-15 h-full dark:bg-darkmode-500 bg-primary">
+      <div id="lss-mobil-side-nav" class=" lss-mobil-side-nav-show absolute z-50 top-15 h-full dark:bg-darkmode-500 bg-primary overflow-hidden md:hidden">
 
       <!-- BEGIN: Mobile Menu -->
-  <div class="mobile-menu ">
+  <div class="mobile-menu">
     <!-- <div class="mobile-menu-bar">
       <a href="" class="flex mr-auto">
         <img
@@ -173,17 +173,20 @@ watch(
 
 <style scoped>
 .lss-mobil-side-nav-show{
-  left:11px;
+  /* left:11px; */
+  height: 100%;
   transition: 1s;
 }
 
 .lss-mobil-side-nav-close{
-  left: -100%;
+  /* left: -100%; */
+  height: 0%;
   transition: 1s;
 }
 
 #lss-mobil-side-nav{
-  width: 90%;
+  left: 0%;
+  width: 100%;
   border-radius: 30px;
 }
 
