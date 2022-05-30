@@ -48,9 +48,10 @@
                 </div>
             </div>
             <button 
+                v-if="isAddBtn"
+                type="button"
                 class="btn btn-primary shadow-md mt-3 col-start-1 col-span-12 xl:w-36 xl:mt-0 sm:col-start-10 2xl:w-48 2xl:col-start-11 2xl:mt-0" 
                 @click="this.$router.push({ path: routerPath, query: { type: routerParam }})"
-                v-if="isAddBtn"
             >
                 Add Product
             </button>

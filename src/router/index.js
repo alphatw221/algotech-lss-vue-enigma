@@ -65,18 +65,23 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 import LssModal from "../views/modal/LssModal.vue";
+
 import ShoppingCart from "../views/shoppingcart/Main.vue";
 import OrderHistoryDetails from "../views/shoppingcart/OrderHistoryDetails.vue"; 
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
-import Campaignselect from "../views/manage-order/Campaignselect.vue";  
-import ManageOrder from "../views/manage-order/Main.vue"; 
+import CampaignSelect from "../views/manage-order/Campaignselect.vue";
+import CreateCampaign from "../views/create-campaign/CreateCamp.vue";  
+import ManageOrder from "../views/manage-order/Main.vue";  
+
+import CampaignGlobalSetting from "../views/settings/CampaignGlobalSetting.vue";  
+import Localization from "../views/settings/Localization.vue";  
+import ConnectPlatform from "../views/settings/ConnectPlatform.vue";  
 
 import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
-import CreateCamp from "../views/test/createCamp.vue";
 
 
 
@@ -90,11 +95,6 @@ const routes = [
     path: "/",
     component: LssSideMenu,
     children: [
-      {
-        path: "LssModal",
-        name: "side-menu-LssModal",
-        component: LssModal
-      },
       {
         path: "campaign-list",
         name: "side-menu-campaign-list",
@@ -112,19 +112,39 @@ const routes = [
       },
       {
         path: "campaign-select",
-        name: "Campaignselect",
-        component: Campaignselect,
+        name: "side-menu-campaign-select",
+        component: CampaignSelect,
+      },
+      {
+        path: "create-campaign",
+        name: "side-menu-create-campaign",
+        component: CreateCampaign,
       }, 
       {  
         path: "shopping-cart",
-        name: "ShoppingCart",
+        name: "side-menu-shopping-cart",
         component: ShoppingCart,
       }, 
       {  
-        path: "OrderHistory-details",
+        path: "orderHistory-details",
         name: "OrderHistoryDetails",
         component: OrderHistoryDetails,
-      }, 
+      },
+      {  
+        path: "campaign-global-setting",
+        name: "side-menu-campaign-global-setting",
+        component: CampaignGlobalSetting,
+      },  
+      {  
+        path: "localization-setting",
+        name: "side-menu-localization",
+        component: Localization,
+      },  
+      {  
+        path: "platform-setting",
+        name: "side-menu-connect-platform",
+        component: ConnectPlatform,
+      },  
       {
         path: "test2",
         name: "side-menu-test2",
@@ -136,9 +156,9 @@ const routes = [
         component: Test3,
       },
       {
-        path: "createCamp",
-        name: "side-menu-createCamp",
-        component: CreateCamp,
+        path: "LssModal",
+        name: "side-menu-LssModal",
+        component: LssModal
       },
       {
         path: "dashboard-overview-1",
@@ -168,19 +188,18 @@ const routes = [
       {
         path: "stock",
         name: "Stock",
-        component: () => import('@/views/stock/Stock.vue')
-      },
-      {
-        path: "stock1",
-        name: "Stock1",
-        component: () => import('@/views/stock/Stock1.vue'),
+        component: () => import('@/views/stock/Stock.vue'),
       },
       {
         path: "add-product",
         name: "AddProduct",
-        component: () => import('@/views/stock/AddProduct.vue')
+        component: () => import('@/views/stock/AddProduct.vue'),
       },
-      
+      {
+        path: "category/manager",
+        name: "CategoryManager",
+        component: () => import('@/views/stock/CategoryManager.vue')
+      }
     ],
   },
   {
@@ -214,11 +233,11 @@ const routes = [
       },
     ]
   },
-  {
-    path: "/buyer/login",
-    name: "LoginPage",
-    component: () => import('@/views/general/LoginPage.vue')
-  },
+  // {
+  //   path: "/buyer/login",
+  //   name: "LoginPage",
+  //   component: () => import('@/views/general/LoginPage.vue')
+  // },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
   {

@@ -21,7 +21,7 @@
 									<Tippy 
 										tag="img"
 										class="rounded-full"
-										:src= "`${publicPath}` + product.image "
+										:src= "`${publicPath}` + product.image"
 										:content="`Uploaded at`"
 									/>
 								</div>
@@ -63,7 +63,8 @@ export default {
 		requestUrl: String,
 		columns: Array,
 		routerPath: String,
-        routerParam: String
+        routerParam: String,
+		status: String
 	},
 	data() {
 		return {
@@ -94,7 +95,7 @@ export default {
 	methods: {
 		search() {
 			createAxiosWithBearer()
-			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}`)
+			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.status}`)
 			.then(
 				response => {
 					if(response.data.count != undefined){

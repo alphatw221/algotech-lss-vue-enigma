@@ -17,12 +17,12 @@
           <td v-if="page_type === 'campaign_list'">
             <div class="flex">
               <div
-                class="w-10 h-10 image-fit zoom-in"
+                class="w-10 h-10 image-fit zoom-in border-0"
                 v-if="campaign.facebook_page !== null"
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-6"
+                  class="rounded-full ml-6 border-0"
                   :src="campaign.facebook_page.image"
                   :content="campaign.facebook_page.name"
                 />

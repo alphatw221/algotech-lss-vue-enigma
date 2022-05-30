@@ -7,13 +7,13 @@ import utils from "./utils";
 import axios from 'axios';
 import VueAxios from 'vue-axios';
 import "./assets/css/app.css";
+import 'v-calendar/dist/style.css';
+import 'view-ui-plus/dist/styles/viewuiplus.css';
+import ViewUIPlus from 'view-ui-plus';
+import VCalendar from 'v-calendar';
+import VueCookies from 'vue3-cookies';
 
-import 'view-ui-plus/dist/styles/viewuiplus.css'
-import ViewUIPlus from 'view-ui-plus'
-
-import VueCookies from 'vue3-cookies'
-
-const app = createApp(App).use(router).use(createPinia()).use(ViewUIPlus);
+const app = createApp(App).use(router).use(createPinia()).use(ViewUIPlus).use(VCalendar, {});
 app.use(VueCookies);
 app.use(VueAxios, axios)
 
