@@ -220,7 +220,7 @@ export default {
       youtube_platform: "/src/assets/images/lss-img/youtube.png",
       facebook_platform: "/src/assets/images/lss-img/facebook.png",
       instagram_platform: "/src/assets/images/lss-img/instagram.png",
-      unbound: "/src/assets/images/lss-img/noname_ad.jpeg",
+      unbound: "/src/assets/images/lss-img/noname.png",
     };
   },
   mounted() {
