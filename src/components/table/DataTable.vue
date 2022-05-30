@@ -1,6 +1,6 @@
 <template>
 	<div >
-		<table class="table table-report mt-5 overflow-y-scroll">
+		<table class="table table-report mt-5 overflow-y-scroll table-auto">
 			<thead>
 				<tr >
 					<th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
@@ -14,10 +14,10 @@
 					:key="key"
 					class="intro-x"
 				>	
-					<td v-for="column in columns" :key="column.key">
-						<template v-if="column.key === 'image'" class="w-40">
+					<td v-for="column in columns" :key="column.key" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm">
+						<template v-if="column.key === 'image'" >
 							<div class="flex">
-								<div class="w-10 h-10 image-fit zoom-in">
+								<div class="w-10 h-10 image-fit zoom-in lg:w-14 lg:h-14 2xl:w-14 lg:h-14">
 									<Tippy 
 										tag="img"
 										class="rounded-full"
@@ -31,10 +31,10 @@
 							<div>{{ tag }}</div> 
 						</template>
 						<template v-else>
-							{{ product[column.key] }}
+							{{product[column.key]}}
 						</template>
 					</td>
-					<td class="table-report__action w-30">
+					<td class="table-report__action w-12">
 						<div class="flex justify-center items-center">
 							<a 
 								class="flex items-center mr-3" 
