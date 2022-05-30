@@ -21,13 +21,21 @@
                 <div class="font-medium text-base">$220</div>
             </div>
         </div>
-        <div class="flex mt-5"> 
+        <div class="flex mt-5" v-if="page_type === 'stap1'"> 
             <button class="btn w-32 border-slate-300 dark:border-darkmode-400 text-slate-500">
-                Clear Items
+                + Add more items
             </button>
             <button class="btn btn-primary w-32 shadow-md ml-auto">
-                Charge
+                Checkout
             </button>
         </div>
     </div>
-</template> 
+</template>
+<script>
+export default({
+    props:{
+        page_type: String,
+    }
+})
+</script>
+ 
