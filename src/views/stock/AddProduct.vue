@@ -165,7 +165,7 @@
 
 <script>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
-import { list_category } from '@/api/stock';
+import { list_category, create, update } from '@/api/stock';
 
 export default {
 	setup() {
@@ -233,8 +233,7 @@ export default {
 		submit() {
 			if (this.formType == 'create') {
 				this.formData.append('text', JSON.stringify(this.productInfo))
-				createAxiosWithBearer()
-				.post('/api/v2/product/create_product/', this.formData)
+				create(this.formData)
 				.then(
 					response => {
 						console.log('image upload response > ', response)
@@ -243,8 +242,7 @@ export default {
 				)
 			} else if (this.formType == 'update') {
 				this.formData.append('text', JSON.stringify(this.productInfo))
-				createAxiosWithBearer()
-				.put(`/api/v2/product/${this.productInfo.id}/update_product/`, this.formData)
+				update(this.productInfo.id, this.formData)
 				.then(
 					response => {
 						console.log('image upload response > ', response)
