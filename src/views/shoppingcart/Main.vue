@@ -79,10 +79,10 @@
           </div>
         </li>
       </ul>
-      <div
-        class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg"
-      >
+
+      <div class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg">
         <div class="px-4 py-5 flex-auto">
+
           <div class="tab-content tab-space">
             <div v-bind:class="{ hidden: openTab !== 1, block: openTab === 1 }">
               <div>My Cart</div>
@@ -97,9 +97,7 @@
                   >
                   </ShoppingCartTable>
                 </div>
-                <div
-                  class="col-span-10 2xl:col-start-8 col-span-5 lg:col-start-8 col-span-5"
-                >
+                <div class="col-span-10 2xl:col-start-8 col-span-5 lg:col-start-8 col-span-5">
                   <OrderSummary :page_type="'stap1'"> </OrderSummary>
                 </div>
               </div>
@@ -112,6 +110,7 @@
                 </div>
               </div>
             </div>
+
             <div v-bind:class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
                 <h2 class="text-xl font-medium mr-auto">Contact Information</h2>
@@ -518,6 +517,7 @@
                 </button>
               </div>
             </div>
+
             <div v-bind:class="{ hidden: openTab !== 3, block: openTab === 3 }">
               <div class="grid grid-cols-12 gap-4">
                 <div
