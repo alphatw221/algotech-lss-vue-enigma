@@ -84,7 +84,7 @@
     </nav>
     <!-- END: Top Menu -->
     <!-- BEGIN: Content -->
-    <div class="content content--top-nav">
+    <div class="content content--top-nav ">
       <router-view />
     </div>
     <!-- END: Content -->

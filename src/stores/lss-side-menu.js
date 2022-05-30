@@ -20,8 +20,8 @@ export const useSideMenuStore = defineStore("sideMenu", {
       // },
       {
         icon: "PackageIcon",
-        pageName: "side-menu-createCamp",
-        title: "createCamp",
+        pageName: "side-menu-create-campaign",
+        title: "Create Campaign",
       },
       {
         icon: "ListIcon",
@@ -40,8 +40,32 @@ export const useSideMenuStore = defineStore("sideMenu", {
       },
       {
         icon: "PackageIcon",
-        pageName: "side-menu-manage-order",
+        pageName: "side-menu-campaign-select", 
         title: "Manage Order",
+      },
+      {
+        icon: "ShoppingCartIcon",
+        pageName: "side-menu-shopping-cart",
+        title: "Shopping Cart",
+      },
+      {
+        icon: "SettingsIcon",
+        pageName: "side-menu-campaign-global-setting",
+        title: "Settings",
+        subMenu: [
+          {
+            pageName: "side-menu-campaign-global-setting",
+            title: "Campaign Global Setting",
+          },
+          {
+            pageName: "side-menu-localization",
+            title: "Localization",
+          },
+          {
+            pageName: "side-menu-connect-platform",
+            title: "Connect Platform",
+          },
+        ],
       },
     ],
   }),

@@ -19,20 +19,40 @@
 									<SearchBar
 										:searchColumns="searchColumns"
 										:isAddBtn="true"
-										:routerPath="'add_product'"
+										:routerPath="'add-product'"
 										:routerParam="'create'"
+										:page_type="'stock'"
 									>
 									</SearchBar>	
 									<DataTable
-										:requestUrl="'/api/v2/product/list_product/'"
+										:requestUrl="'/api/v2/product/list'"
 										:columns="tableColumns"
-										:routerPath="'add_product'"
+										:routerPath="'add-product'"
 										:routerParam="'update'"
+										:status="'enabled'"
 									>
 									</DataTable>
 								</div>
 							</TabPanel>
-							<TabPanel class="leading-relaxed"> Delisted. </TabPanel>
+							<TabPanel class="leading-relaxed"> 
+								<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
+									<SearchBar
+										:searchColumns="searchColumns"
+										:isAddBtn="true"
+										:routerPath="'add-product'"
+										:routerParam="'create'"
+									>
+									</SearchBar>	
+									<DataTable
+										:requestUrl="'/api/v2/product/list'"
+										:columns="tableColumns"
+										:routerPath="'add-product'"
+										:routerParam="'update'"
+										:status="'disabled'"
+									>
+									</DataTable>
+								</div>
+							</TabPanel>
 							<TabPanel class="leading-relaxed"> Sold. </TabPanel>
 							<TabPanel class="leading-relaxed"> Delete. </TabPanel>
 						</TabPanels>

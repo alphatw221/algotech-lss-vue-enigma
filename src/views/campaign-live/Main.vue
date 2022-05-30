@@ -1,300 +1,83 @@
 <template>
-  <!-- OUTTER BOX -->
-  <div
-    class="intro-y chat grid grid-cols-12 gap-5"
-    style="height: 100%; overflow: auto"
-  >
-    <!-- BEGIN: Comments -->
-    <TabGroup class="col-span-12 lg:col-span-5 2xl:col-span-4">
-      <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 w-150">
-        <div class="col-start-1 col-span-5 -mt-4">
-          <h2 class="text-lg font-medium">
-            Comments
-            <button class="p-3" @click="showTags">
-              <FolderIcon />
-            </button>
-          </h2>
-        </div>
-        <div class="col-end-11 -mt-3">
-          <TabList class="nav-pills">
-            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <!-- <FacebookIcon class="m-1 -mt-1" /> -->
-              FB
-            </Tab>
-            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <!-- <InstagramIcon class="m-1 -mt-1" /> -->
-              IG
-            </Tab>
-            <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
-              <!-- <YoutubeIcon class="m-1 -mt-1" /> -->
-              YT
-            </Tab>
-          </TabList>
-        </div>
-        <div class="col-start-1 col-span-12 -mt-2">
-          <video width="600" controls>
-            <source src="mov_bbb.mp4" type="video/mp4" />
-            <source src="mov_bbb.ogg" type="video/ogg" />
-            Your browser does not support HTML video.
-          </video>
-        </div>
-        <div v-show="tagBox" class="col-start-1 col-span-12 -mt-2 -mb-6">
-          <button
-            class="btn btn-rounded-danger w-fit m-1"
-            @click="this.tags = 'Tag : # Shipping'"
-          >
-            <HashIcon class="w-4 h-4 mr-2" /> Shipping
-          </button>
-          <button
-            class="btn btn-rounded-pending w-fit m-1"
-            @click="this.tags = 'Tag : # Return'"
-          >
-            <HashIcon class="w-4 h-4 mr-2" /> Return
-          </button>
-          <button
-            class="btn btn-rounded-warning w-fit m-1"
-            @click="this.tags = 'Tag : # Size'"
-          >
-            <HashIcon class="w-4 h-4 mr-2" /> Size
-          </button>
-          <button
-            class="btn btn-rounded-dark w-fit h-10 m-1"
-            @click="this.tags = 'Tag : Undefined'"
-          >
-            <HashIcon class="w-4 h-4 mr-2" /> Undefined
-          </button>
-          <button
-            class="btn btn-outline-none w-18"
-            style="border: 0px; box-shadow: 0px"
-            @click="showTags"
-          >
-            <XIcon class="w-4 h-4 mr-2" /> Close
-          </button>
-          <h2 class="p-2">{{ tags }}</h2>
-        </div>
-      </div>
+    <!-- OUTTER BOX -->
+    <div class="chat grid grid-cols-12 gap-3 h-full">
+        <!-- BEGIN: Comments -->
+        <TabGroup class="col-span-12 col-start-1 row-start-1 row-span-4 lg:col-span-5 2xl:col-span-4">
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-2 p-5">
+                <div class="col-start-1 col-span-5 -mt-4">
+                    <h2 class="text-lg font-medium">
+                        Comments
+                        <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = ''; ">
+                            <FolderIcon />
+                        </button>
+                    </h2>
+                </div>
+                <div class="col-end-11 -mt-3">
+                <TabList class="nav-pills">
+                    <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                    <FacebookIcon class="m-1 -mt-1" />
+                    </Tab>
+                    <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                    <InstagramIcon class="m-1 -mt-1" />
+                    </Tab>
+                    <Tab class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                    <YoutubeIcon class="m-1 -mt-1" />
+                    </Tab>
+                </TabList>
+                </div>
+                <div class="col-start-1 col-span-12 -mt-2">
+                    <video width="600" controls>
+                        <source src="mov_bbb.mp4" type="video/mp4" />
+                        <source src="mov_bbb.ogg" type="video/ogg" />
+                        Your browser does not support HTML video.
+                    </video>
+                </div>
+                <div v-show="tagBox" class="col-start-1 col-span-12 -mt-2 -mb-6">
+                    <button class="btn btn-rounded-danger w-fit m-1" @click="status_change('Shipping')">
+                        <HashIcon class="w-4 h-4 mr-2" /> Shipping
+                    </button>
+                    <button class="btn btn-rounded-pending w-fit m-1" @click="status_change('Return')">
+                        <HashIcon class="w-4 h-4 mr-2" /> Return
+                    </button>
+                    <button class="btn btn-rounded-warning w-fit m-1" @click="status_change('Size')">
+                        <HashIcon class="w-4 h-4 mr-2" /> Size
+                    </button>
+                    <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="status_change('Undefined')">
+                        <HashIcon class="w-4 h-4 mr-2" /> Undefined
+                    </button>
+                    <button class="btn btn-outline-none w-18" style="border: 0px; box-shadow: 0px"
+                        @click="this.tagBox = !this.tagBox">
+                        <XIcon class="w-4 h-4 mr-2" /> Close
+                    </button>
+                    <h2 class="p-2">{{ tags }}</h2>
+                </div>
+            </div>
 
             <TabPanels>
                 <!-- FB -->
                 <TabPanel>
                     <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-1.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Sinyee Woon</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    U9+1
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Kuai.mai</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    Live Show Seller: "U9" Qty: 1 is added. Shopping cart link is sent via
-                                    FB Messenger, please contact page admin if not received any
-                                    notification.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-7.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Lih Wen</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    U9+3
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Kuai.mai</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    Live Show Seller: "U9" Qty: 3 is added. Shopping cart link is sent via
-                                    FB Messenger, please contact page admin if not received any
-                                    notification.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-3.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Daisies Salt</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    U10+1
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-2.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Vi Vian</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    U10+1
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Kuai.mai</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    Live Show Seller: "U10" Qty: 1 is added. Shopping cart link is sent via
-                                    FB Messenger, please contact page admin if not received any
-                                    notification.
-                                </div>
-                            </div>
-                        </div>
-
-                        <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
-                            @click="showReplyBar">
-                            <Tippy class="rounded-full" content="Reply" theme='light'>
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
-                                    <div
-                                        class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                    </div>
-                                </div>
-                            </Tippy>
-                            <div class="ml-2 overflow-hidden">
-                                <div class="flex items-center">
-                                    <a href="javascript:;" class="font-medium">Kuai.mai</a>
-                                    <div class="text-xs text-slate-400 ml-auto">
-
-                                    </div>
-                                </div>
-                                <div class="w-full truncate text-slate-500 mt-0.5">
-                                    Live Show Seller: "U10" Qty: 1 is added. Shopping cart link is sent via
-                                    FB Messenger, please contact page admin if not received any
-                                    notification.
-                                </div>
-                            </div>
-                        </div>
+                        <!-- <CampaignLiveTable/> -->
+                        <CampaignLiveTable
+                            :requestUrl="'/api/campaign-comment/:campaign_id'"
+                            :columns="tableColumns"
+                            :routerParam="comment_status"
+                        >
+                        </CampaignLiveTable>
 
                     </div>
 
 
 
-                    <div v-show="replyBar"
-                        class="pt-4 pb-10 sm:py-4 flex items-center border-t border-slate-200/60 dark:border-darkmode-400">
-                        <textarea
-                            class="chat__box__input form-control dark:bg-darkmode-600 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:border-transparent focus:ring-0"
-                            rows="1" placeholder="Type your message..."></textarea>
-                        <div class="flex absolute sm:static left-0 bottom-0 ml-5 sm:ml-0 mb-5 sm:mb-0">
-                            <a href="javascript:;"
-                                class="w-8 h-8 sm:w-10 sm:h-10 block bg-primary text-white rounded-full flex-none flex items-center justify-center mx-2">
-                                <SendIcon class="w-4 h-4" />
-                            </a>
-                        </div>
-                    </div>
                 </TabPanel>
                 <!-- IG -->
                 <TabPanel>
-                    <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
+                    <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4 max-h-[26rem]">
                         <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-2.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-2.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -317,7 +100,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-6.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-6.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -340,7 +123,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -365,7 +148,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -390,7 +173,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-11.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-11.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -413,7 +196,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -438,7 +221,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-3.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-3.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -461,7 +244,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-2.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-2.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -484,7 +267,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -509,7 +292,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-12.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-12.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -535,7 +318,7 @@
                         <div class="flex items-center">
                             <a href="javascript:;" class="font-medium">
                                 <!-- {{faker.users[1].name}} -->
-                                </a>
+                            </a>
                             <div class="text-xs text-slate-400 ml-auto">
                                 <!-- {{ faker.times[1] }} -->
                             </div>
@@ -544,12 +327,12 @@
                 </TabPanel>
                 <!-- YT -->
                 <TabPanel>
-                    <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
+                    <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4 max-h-[26rem]">
                         <div :key="fakerKey" class="intro-x cursor-pointer relative flex items-center p-3"
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-3.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-3.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -572,7 +355,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -597,7 +380,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-4.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-4.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -620,7 +403,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -645,7 +428,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-11.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-11.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -668,7 +451,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -693,7 +476,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-3.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-3.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -716,7 +499,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-2.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-2.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -739,7 +522,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/kuai.mai.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/kuai.mai.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -764,7 +547,7 @@
                             @click="showReplyBar">
                             <Tippy class="rounded-full" content="Reply" theme='light'>
                                 <div class="w-12 h-12 flex-none image-fit mr-1">
-                                    <img alt="" class="rounded-full" :src="'src/assets/images/profile-12.jpg'" />
+                                    <img alt="" class="rounded-full zoom-in" :src="'src/assets/images/profile-12.jpg'" />
                                     <div
                                         class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                     </div>
@@ -802,26 +585,30 @@
         <!-- END: comments -->
 
         <!-- BEGIN: Product -->
-        <div class="col-span-12 lg:col-span-5 2xl:col-span-4" height="750px">
-            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6">
+        <div class="col-span-12 col-start-1 row-span-4 lg:col-span-7 lg:row-span-2 lg:row-start-1 2xl:col-span-4 2xl:max-h-screen" >
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 lg:mt-2">
                 <row class="col-span-12" style="margin: -13px 0 -13px 0px;">
                     <h2 class="text-lg font-medium w-48">Product</h2>
                     <a href="javascript:;" @click="this.addProductFromStock = !this.addProductFromStock"
                         class="btn btn-primary right-0">Add Product From Stock</a>
                 </row>
             </div>
-            <div class="overflow-x-auto box">
+            <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem]">
+                <div class="sticky top-0 z-50"> 
+                    <table class="table table-sm">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="whitespace-nowrap" style="" v-for="column in product_columns" :key="column.key">
+                                    {{ column.name }}
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div>    
                 <table class="table table-sm">
-                    <thead class="table-dark">
-                        <tr>
-                            <th class="whitespace-nowrap" style="" v-for="column in product_columns" :key="column.key">
-                                {{ column.name }}
-                            </th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr v-for="data in product_results" :key="data.id">
-                            <td><img :src="imagePath + data.image" class="w-10" /></td>
+                            <td><img data-action="zoom" :src="imagePath + data.image" class="w-10 zoom-in" /></td>
                             <td>{{ data.name }}</td>
                             <td>{{ data.order_code }}</td>
                             <td>
@@ -854,24 +641,27 @@
             </div>
         </div>
         <!-- END: Product -->
-
         <!-- BEGIN: Incoming Order -->
-        <div class="col-span-12 lg:col-span-4 2xl:col-span-4" height="750px">
-            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6">
-                <div class="col-start-1 col-span-5 -mt-4">
+        <div class="col-span-12 col-start-1 row-span-4 h-fit mt-0 lg:col-span-7 lg:row-start-3 lg:-mt-2 2xl:col-span-4 2xl:row-start-1" >
+            <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-5">
+                <div class="col-start-1 col-span-5 -mt-3 p-3">
                     <h2 class="text-lg font-medium">Incoming Order</h2>
                 </div>
             </div>
-            <div class="overflow-x-auto box">
+            <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem]">
+                <div class="sticky top-0 z-50">
+                    <table class="table table-sm">
+                        <thead class="table-dark">
+                            <tr>
+                                <th class="whitespace-nowrap" style="" v-for="column in incoming_order_columns"
+                                    :key="column.key">
+                                    {{ column.name }}
+                                </th>
+                            </tr>
+                        </thead>
+                    </table>
+                </div> 
                 <table class="table table-sm">
-                    <thead class="table-dark">
-                        <tr>
-                            <th class="whitespace-nowrap" style="" v-for="column in incoming_order_columns"
-                                :key="column.key">
-                                {{ column.name }}
-                            </th>
-                        </tr>
-                    </thead>
                     <tbody>
                         <tr v-for="data in incoming_order_results" :key="data.id">
                             <td>#{{ data.id }}</td>
@@ -904,9 +694,10 @@
         </div>
 
         <!-- END: Incoming Order -->
+    </div>
 
-        <!-- BEGIN: Add Product From Stock -->
-        <Modal size="modal-xl" class="text-center" :slideOver="true" :show="addProductFromStock"
+    <!-- BEGIN: Add Product From Stock -->
+    <Modal size="modal-xl" class="text-center" :slideOver="true" :show="addProductFromStock"
             @hidden="addProductFromStock = false">
             <ModalHeader class="text-center p-5">
                 <h2 class="font-medium text-base text-center">
@@ -919,13 +710,13 @@
                         <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto sm:flex items-center">
                             <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Category</label>
                             <select id="tabulator-html-filter-field" class="
-                  form-select
-                  w-full
-                  sm:w-32
-                  2xl:w-full
-                  mt-2
-                  sm:mt-0 sm:w-auto
-                ">
+                                form-select
+                                w-full
+                                sm:w-32
+                                2xl:w-full
+                                mt-2
+                                sm:mt-0 sm:w-auto
+                                ">
                                 <option value="name">Name</option>
                                 <option value="category">Category</option>
                                 <option value="remaining_stock">Remaining Stock</option>
@@ -977,7 +768,7 @@
                                             </div>
                                         </div>
                                     </template>
-                                    <template v-if="
+                                    <template v-else-if="
                                         column.key === 'qty_for_campaign' ||
                                         column.key === 'max_qty'
                                     ">
@@ -993,15 +784,21 @@
                     </table>
                 </div>
             </ModalBody>
-        </Modal>
-
-        <!-- END: Add Product From Stock -->
-    </div>
+    </Modal>
+    <!-- END: Add Product From Stock -->
 </template>
 
+
 <script>
+
 // import {campaign_comment_summarize} from '@/api/user';
+import CampaignLiveTable from "@/components/table/CampaignLiveTable.vue";
+
 export default {
+    components: { 
+		CampaignLiveTable
+	},
+
     data() {
         return {
             imagePath: import.meta.env.VITE_APP_IMG_URL,
@@ -1015,7 +812,7 @@ export default {
                 { name: "Name", key: "name" },
                 { name: "Order Code", key: "order_code" },
                 { name: "OTY for Campaign", key: "qty_for_campaign" },
-                { name: "Max OTY/Order", key: "max_qty" },
+                { name: "Max OTY/order", key: "max_qty" },
                 { name: "Price", key: "price" },
                 { name: "Editable", key: "editable" },
                 { name: "Deletable", key: "deletable" },
@@ -1023,39 +820,39 @@ export default {
             ],
             add_product_results: [
                 {
-                    image: "",
-                    name: "Box 1",
+                    image: "/src/assets/images/lss-product/shirt.jpg",
+                    name: "T-shirt",
                     order_code: "B1",
                     qty_for_campaign: "",
                     max_qty: 20,
-                    price: 20,
+                    price: '$64',
                     type: "Product",
                 },
                 {
-                    image: "",
-                    name: "Box 2",
+                    image: "/src/assets/images/lss-product/sweatshirt.jpg",
+                    name: "Turtleneck Sweatshirt",
                     order_code: "B2",
                     qty_for_campaign: "",
                     max_qty: 20,
-                    price: 20,
+                    price: '$88',
                     type: "Product",
                 },
                 {
-                    image: "",
-                    name: "Box 3",
+                    image: "/src/assets/images/lss-product/sweatpants.jpg",
+                    name: "Vintage Sweatpants",
                     order_code: "B3",
                     qty_for_campaign: "",
                     max_qty: 20,
-                    price: 20,
+                    price: '$59',
                     type: "Product",
                 },
                 {
-                    image: "",
-                    name: "Box 4",
+                    image: "/src/assets/images/lss-product/socks.jpg",
+                    name: "Christmas Socks",
                     order_code: "B4",
                     qty_for_campaign: "",
                     max_qty: 20,
-                    price: 20,
+                    price: '$45',
                     type: "Product",
                 },
             ],
@@ -2335,13 +2132,65 @@ export default {
                     buyer_id: null,
                 }
             ],
+            comments: [
+            { name: "Image", key: "image" },
+            { name: "Name", key: "name" },
+            { name: "Comment id", key: "_id" },
+            { name: "message", key: "message" }
+            ],
+        comment_status: "Shipping",
+        campaign_id: this.$route.params.campaign_id,
         };
     },
-    showTags() {
-      this.tags = ''
-      this.tagBox = !this.tagBox;
+    showReplyBar() {
+        this.replyBar = !this.replyBar;
     },
+    mounted() {
+        console.log(this.campaign_id);
+        console.log(this.comment_status);
+    },
+    methods: {
+        status_change(status){
+            this.comment_status = status;
+            // console.log(this.comment_status);
+            this.eventBus.emit("commentStatus", {status: this.comment_status})
+        },
+        toEnterID() {
+        this.idPopupModalPreview = false;
+        this.enterIDModalPreview = true;
+        },
+
+        facebookAccountClick(img) {
+        this.facebookOverlappingModalPreview = false;
+        this.facebookPageSelected = true;
+        this.fbAvatar = img;
+        },
+
+        youtubeAccountClick(img) {
+        this.youtubeOverlappingModalPreview = false;
+        this.youtubePageSelected = true;
+        this.ytAvatar = img;
+        },
+
+        instagramAccountClick(img) {
+        this.instagramOverlappingModalPreview = false;
+        this.instagramPageSelected = true;
+        this.igAvatar = img;
+        },
+
+        cancelClean() {
+        this.enterIDModalPreview = false;
+        this.facebookPageSelected = false;
+        this.youtubePageSelected = false;
+        this.instagramPageSelected = false;
+        },
+        closeJump() {
+        this.enterIDModalPreview = false;
+        this.$router.push("campaign-live");
+        },
+  },
 };
+
 </script>
 
 <style scoped>
