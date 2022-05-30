@@ -23,7 +23,7 @@
                 <Tippy
                   tag="img"
                   class="rounded-full"
-                  :src="campaign.facebook_page.image"
+                  :src="campaign.facebook_page.image" 
                   :content="`Facebook`"
                 />
               </div>
@@ -51,7 +51,7 @@
               </div>
             </div>
           </td>
-          <td class="text-center">
+          <td class="text-center w-40">
             <div class="flex">
               <div
                 class="w-10 h-10 image-fit zoom-in"
@@ -168,9 +168,9 @@ export default {
       status: this.routerParam,
       order_by: "created_at",
 
-      youtube_platform: "/src/assets/images/lss-img/youtube.png",
-      facebook_platform: "/src/assets/images/lss-img/facebook.png",
-      instagram_platform: "/src/assets/images/lss-img/instagram.png",
+      youtube_platform: "/src/assets/images/lss-img/fb_ad.jpeg",
+      facebook_platform: "/src/assets/images/lss-img/yt_ad.jpeg",
+      instagram_platform: "/src/assets/images/lss-img/ig_ad.jpeg",
     };
   },
   mounted() {
