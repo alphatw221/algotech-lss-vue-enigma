@@ -96,7 +96,7 @@ const routes = [
   //   component: Test4,
   // },
   {
-    path: "/",
+    path: "/seller",
     component: LssSideMenu,
     children: [
       {
@@ -250,7 +250,12 @@ const routes = [
         path: "cart/:pre_order_id?",
         name: "buyer-shopping-cart-detail-page",
         component: ShoppingCart,
-      }
+      },
+      {
+        path: "stock",
+        name: "Stock",
+        component: () => import('@/views/stock/Stock.vue'),
+      },
 
     ]
   },
