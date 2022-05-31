@@ -1,10 +1,4 @@
 <template>
-
-    <!-- <button @click="login">
-        Login with Facebook
-    </button> -->
-
-    <!-- <div id="fb-root"></div> -->
     <div id="spinner">
         <div class="fb-login-button" 
             data-width="310px"
@@ -17,69 +11,57 @@
             onlogin="checkLoginState()">
         </div>
     </div>
-    
 </template>
 
 <script>
 import loadScript from '@/libs/loadScript.js';
+import { buyer_login_with_facebook, seller_login_with_facebook} from '@/api_v2/user'
 
 export default {
     props:{
-        busName: String
-    },
-    setup(){
-        window.fbAsyncInit = function() {
-            FB.init({
-                // appId: process.env.VUE_APP_FB_APP_ID,  
-                appId: import.meta.env.VITE_APP_FB_APP_ID, 
-                cookie: true,
-                xfbml: true,
-                version: "v13.0",
-            });
-        }
-
+        role:String
     },
     mounted(){
         loadScript("https://connect.facebook.net/en_US/sdk.js",()=>{
             console.log("FB SDK loaded")
+            window.fbAsyncInit = function() {
+                FB.init({
+                    appId: import.meta.env.VITE_APP_FB_APP_ID, 
+                    cookie: true,
+                    xfbml: true,
+                    version: "v13.0",
+                });
+            }
+
+            window.checkLoginState=() => {   //facebook SDK use eval() 
+                window.FB.getLoginStatus(response => {
+                    if (response.status === 'connected') {
+                        const payload = {'accessToken': response.authResponse.accessToken}
+                        this.eventBus.emit(this.busName, payload)
+
+                        const loginRequest = this.role=='buyer' ? buyer_login_with_facebook : seller_login_with_facebook
+                        loginRequest({facebook_token:response.authResponse.accessToken})
+                        .then(response => {
+                            var set_cookie = new Promise((res) => {
+                                this.$cookies.set("access_token", response.data.access)
+                                res()
+                            })
+                            set_cookie.then(() => {
+                                this.$router.push('/')
+                            })
+                        })
+
+
+
+                    } 
+                });
+            }
         });
 
-        //facebook SDK use eval() at backend
-        window.checkLoginState=() => {
-            console.log('checkloginstate')
-            window.FB.getLoginStatus(response => {
-                if (response.status === 'connected') {
-                    const payload = {'accessToken': response.authResponse.accessToken}
-                    this.eventBus.emit(this.busName, payload)
-                } 
-            });
-        }
+        
     },
     unmounted(){
         window.checkLoginState = undefined
-    },
-    methods:{
-        // login(){
-        //     console.log("login")
-        //     // window.FB.init({
-        //     //     appId: process.env.VUE_APP_FB_APP_ID,   
-        //     //     cookie: true,
-        //     //     xfbml: true,
-        //     //     version: "v13.0",
-        //     // });
-        //     window.FB.login(response => {
-        //         console.log(response)
-        //         // if (response.status === 'connected') {
-        //         //     const payload = {'token':response.authResponse.accessToken}
-        //         //     this.eventBus.emit(this.busName,payload)
-        //         // } else {
-        //         //     // The person is not logged into your webpage or we are unable to tell. 
-        //         // }
-        //         window.FB.logout();
-        //     },{scope: 'public_profile,email'});
-            
-
-        // }
     }
 }
 </script>

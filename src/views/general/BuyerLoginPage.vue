@@ -37,10 +37,10 @@
             <Divider plain :size="small">or</Divider> -->
 
             <Row class="login_btn">
-                <!-- <FacebookLoginButton :busName="'buyerFacebookLogin'" block/> -->
+                <FacebookLoginButton block role='buyer'/>
             </Row>
             <Row class="login_btn">
-                <GoogleLoginButton block />
+                <GoogleLoginButton block role='buyer'/>
             </Row>
             <Row style="margin-top: 20px;">
                 <div style="font-size:18px; margin-left: 80px;">No Account ? <a href="">Create one !</a></div>
@@ -50,10 +50,8 @@
 </template>
 
 <script>
-// import { seller_login, buy, general_login } from '@/api/user';
-import {buyer_login_with_facebook} from '@/api_v2/user';
 
-// import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
+import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
 export default {
@@ -61,26 +59,8 @@ export default {
         
     },
     components:{
-        // FacebookLoginButton,
+        FacebookLoginButton,
         GoogleLoginButton
-    },
-    mounted() {
-        this.eventBus.on('buyerFacebookLogin', payload=>{
-            buyer_login_with_facebook(payload).then(response => {
-                var set_cookie = new Promise((res) => {
-                    this.$cookies.set("access_token", response.data.access)
-                    res()
-                })
-                set_cookie.then(() => {
-                    this.$router.push('/')
-                })
-            }).catch(error=>{
-                alert(error)
-            })
-        })
-    },
-    unmounted(){
-        this.eventBus.off('buyerFacebookLogin')
     },
     data() {
         return {
@@ -88,19 +68,6 @@ export default {
                 { src: "/src/assets/images/login-page/new-lss-carousel-1.jpeg" },
                 { src: "/src/assets/images/login-page/new-lss-carousel-2.jpeg" }
             ],
-            loginForm: {
-                email: '',
-                password: ''
-            },
-            ruleInline: {
-                email: [
-                    { required: true, message: 'Please fill in the email', trigger: 'blur' }
-                ],
-                password: [
-                    { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-                    { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
-                ]
-            }
         }
     },
     methods:{
