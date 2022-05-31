@@ -64,7 +64,6 @@ import Validation from "../views/validation/Main.vue";
 import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
-import LssModal from "../views/modal/LssModal.vue";
 
 import ShoppingCart from "../views/shoppingcart/Main.vue";
 import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
@@ -72,9 +71,10 @@ import OrderHistoryDetails from "../views/shoppingcart/OrderHistoryDetails.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
-import CampaignSelect from "../views/manage-order/Campaignselect.vue";
-import CreateCampaign from "../views/create-campaign/CreateCamp.vue";  
+import CreateCampaign from "../views/create-campaign/CreateCamp.vue";
+import CreateCampDetails from "../views/create-campaign/CreateCampDetails.vue"; 
 import ManageOrder from "../views/manage-order/Main.vue";  
+import CampaignSelect from "../views/manage-order/Campaignselect.vue";
 
 import CampaignGlobalSetting from "../views/settings/CampaignGlobalSetting.vue";  
 import Localization from "../views/settings/Localization.vue";  
@@ -120,7 +120,12 @@ const routes = [
         path: "create-campaign",
         name: "side-menu-create-campaign",
         component: CreateCampaign,
-      }, 
+      },  
+      {
+        path: "create-campaign/details",
+        name: "side-menu-create-campaign-details",
+        component: CreateCampDetails,
+      },
       {  
         path: "shopping-cart",
         name: "side-menu-shopping-cart",
@@ -160,11 +165,6 @@ const routes = [
         path: "test3",
         name: "side-menu-test3",
         component: Test3,
-      },
-      {
-        path: "LssModal",
-        name: "side-menu-LssModal",
-        component: LssModal
       },
       {
         path: "dashboard-overview-1",

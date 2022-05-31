@@ -2,26 +2,26 @@
 	<div>
 		<div class="mt-10">
 			
-			<TabGroup class="grid grid-cols-2 gap-4">
+			<TabGroup class="grid grid-cols-12 gap-4">
 				<div class="col-start-1 ml-5">
-					<TabList class="nav-boxed-tabs">
-						<Tab class="w-full py-2" tag="button">For Sale</Tab>
-						<Tab class="w-full py-2" tag="button">Delisted</Tab>
-						<Tab class="w-full py-2" tag="button">Sold out</Tab>
-						<Tab class="w-full py-2" tag="button">Delete</Tab>
+					<TabList class="nav-boxed-tabs flex w-full">
+						<Tab class="w-full py-2 flex-1 w-24" tag="button">For Sale</Tab>
+						<Tab class="w-full py-2 flex-1 w-24" tag="button">Delisted</Tab>
+						<Tab class="w-full py-2 flex-1 w-24" tag="button">Sold out</Tab>
+						<Tab class="w-full py-2 flex-1 w-24" tag="button">Delete</Tab>
 					</TabList>
 				</div>
-				<div class="col-start-7 ml-5">
+				<div class="col-start-1 w-full lg:col-start-10 lg:ml-5 2xl:col-start-10 2xl:ml-5">
 					<button id="tabulator-html-filter-go" 
 						type="button" 
-						class="btn btn-primary shadow-md mt-3 col-start-1 col-span-12 xl:w-36 xl:mt-0 sm:col-start-10 2xl:w-48 2xl:col-start-11 2xl:mt-0" 
+						class="btn btn-primary shadow-md w-48 lg:w-36 2xl:w-48" 
 						@click="this.$router.push('/category/manager')">
 						Category Manager
 					</button>
 				</div>
-				<div class="p-5 col-span-12">
-					<div class="overflow-x-auto">
-						<TabPanels class="mt-5">
+				<div class="p-1 col-span-12 lg:p-5 2xl:p-5">
+					<div>
+						<TabPanels class="mt-0 lg:mt-5 2xl:mt-5">
 							<TabPanel class="leading-relaxed"> 
 								<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
 									<SearchBar
@@ -34,6 +34,7 @@
 									>
 									</SearchBar>	
 									<DataTable
+										class="overflow-x-auto"
 										:requestUrl="'/api/v2/product/search'"
 										:columns="tableColumns"
 										:routerPath="'add-product'"
