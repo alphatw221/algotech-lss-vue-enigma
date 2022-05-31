@@ -36,11 +36,8 @@ export default {
             window.checkLoginState=() => {   //facebook SDK use eval() 
                 window.FB.getLoginStatus(response => {
                     if (response.status === 'connected') {
-                        const payload = {'accessToken': response.authResponse.accessToken}
-                        this.eventBus.emit(this.busName, payload)
-
                         const loginRequest = this.role=='buyer' ? buyer_login_with_facebook : seller_login_with_facebook
-                        loginRequest({facebook_token:response.authResponse.accessToken})
+                        loginRequest({facebook_token: response.authResponse.accessToken})
                         .then(response => {
                             var set_cookie = new Promise((res) => {
                                 this.$cookies.set("access_token", response.data.access)
@@ -48,23 +45,22 @@ export default {
                             })
                             set_cookie.then(() => {
                                 console.log(this.$route.params)
-                                if(this.$route.params.pre_order_id ){
-                                    this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
-                                }else{
-                                    this.$router.push(`/buyer/`)
+                                if (this.role == 'buyer') {
+                                    if (this.$route.params.pre_order_id ){
+                                        this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
+                                    } else {
+                                        this.$router.push(`/buyer/`)
+                                    }
+                                } else if (this.role == 'seller') {
+                                    this.$router.push(`/`)
                                 }
-
                             })
                         })
-
-
-
                     } 
                 });
             }
         });
-
-        
+       
     },
     unmounted(){
         window.checkLoginState = undefined
