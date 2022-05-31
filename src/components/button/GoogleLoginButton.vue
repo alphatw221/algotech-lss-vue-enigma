@@ -26,7 +26,13 @@ export default {
                             res()
                         })
                         set_cookie.then(() => {
-                            this.$router.push('/')
+
+                            if(this.$route.params.campaign_id ){
+                                this.$router.push(`/buyer/cart/${this.$route.params.campaign_id}`)
+                            }else{
+                                this.$router.push(`/buyer/`)
+                            }
+                            
                         })
                     })
                 }
