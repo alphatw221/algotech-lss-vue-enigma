@@ -119,6 +119,7 @@
           </div>
         </div>
       </TabPanel>
+      
       <!--Delivery-->
       <TabPanel class="p-5 grid grid-cols-12 gap-5">
         <div class="col-span-12"> 

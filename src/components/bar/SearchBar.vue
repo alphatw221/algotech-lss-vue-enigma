@@ -7,10 +7,13 @@
                         <label class="w-14 mr-2">
                             Category
                         </label>
-                        <select id="tabulator-html-filter-field"
-                            class="form-select mr-4 h-10 w-auto mt-2 sm:mt-0 ">
-                            <option value="category">Accesories</option>
-                            <option value="remaining_stock">Shorts</option>
+                        <select 
+                            id="tabulator-html-filter-field"
+                            class="form-select mr-4 h-10 w-auto mt-2 sm:mt-0"
+                            v-model="filterColumn"
+                            @change="search"
+                        >
+                            <option v-for="filter in filterColums" :key="filter">{{ filter }}</option>
                         </select>
                     </div>
                     <div class="flex-initial w-auto items-center sm:mr-4">
@@ -69,15 +72,17 @@ export default {
         isAddBtn: Boolean,
         routerPath: String,
         routerParam: String,
-        page_type: String
+        page_type: String,
+        filterColums: Object
 	},
 	data() {
 		return {
 			page: 1,
 			pageSize: 10,
-			searchColumn: {campaign_list:'title',stock:'name',manage_order:'title'},
+			searchColumn: {campaign_list:'title', stock:'name', manage_order:'title'},
 			keyword: undefined,
-            searchField: undefined
+            searchField: undefined,
+            filterColumn: undefined
 		}
 	},
     created(){
@@ -92,7 +97,7 @@ export default {
 	},
 	methods: {
 		search() {
-			this.eventBus.emit("searchTable", {searchColumn: this.searchField, keyword: this.keyword, pageSize: this.pageSize})
+			this.eventBus.emit("searchTable", {searchColumn: this.searchField, keyword: this.keyword, pageSize: this.pageSize, filterColumn: this.filterColumn})
 		},
 		reset() {
 			this.searchField = this.searchColumn[this.page_type];

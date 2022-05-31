@@ -98,14 +98,16 @@ export default {
         },
         update() {
             if (this.editType == 'create') {
-                create_category(this.categoryName).then(
+                let data = { 'category_name': this.categoryName }
+                create_category(data).then(
                     response => {
                         this.showModal = false;
                         this.list();
                     }
                 )
             } else if (this.editType == 'update') {
-                update_category(this.oldCategory, this.categoryName).then(
+                let data = { 'category_name': this.categoryName }
+                update_category(this.oldCategory, data).then(
                     response => {
                         this.showModal = false;
                         this.list();
