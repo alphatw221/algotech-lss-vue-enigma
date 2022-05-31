@@ -36,13 +36,15 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
     response => response,
     error => {
-        if (error.response.data.message) {
-            alert(error.response.data.message)
+        if (error.response.data) {
+            if (error.response.data.detail){
+                alert(error.response.data.detail)
+            }else if (error.response.data.message){
+                alert(error.response.data.message)
+            }
         }
-        else if (error.response.data.detail){
-            alert(error.response.data.detail)
-        }else{
-            alert('error')
+        else{
+            alert('error ! please refresh the page.')
         }
         return Promise.reject(error);
     }
@@ -56,13 +58,15 @@ export function createAxiosWithBearer(){
     axiosInstanceWithBearer.interceptors.response.use(
         response => response,
         error => {
-            if (error.response.data.message) {
-                alert(error.response.data.message)
+            if (error.response.data) {
+                if (error.response.data.detail){
+                    alert(error.response.data.detail)
+                }else if (error.response.data.message){
+                    alert(error.response.data.message)
+                }
             }
-            else if (error.response.data.detail){
-                alert(error.response.data.detail)
-            }else{
-                alert('error')
+            else{
+                alert('error ! please refresh the page.')
             }
             return Promise.reject(error);
         }

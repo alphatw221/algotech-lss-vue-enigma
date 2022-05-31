@@ -84,12 +84,6 @@
                   </div>
                 </div>
               </div>
-              <!-- Add item popup -->
-              <AddItemModal
-                :addItemPopupModalPreview="addItemPopupModalPreview"
-                :product="products"
-              >
-              </AddItemModal>
             </div>
             <div :class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -326,7 +320,7 @@ import PaymentMethods from "@/components/box/PaymentMethods.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import ShippingSummary from "@/components/box/ShippingSummary.vue";
 import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
-import AddItemModal from "@/components/modal/AddItemModal.vue";
+
 
 export default {
   components: {
@@ -334,11 +328,9 @@ export default {
     OrderSummary,
     ShippingSummary,
     ShoppingCartTable,
-    AddItemModal,
   },
   data() {
     return {
-      addItemPopupModalPreview: false,
       openTab: 1,
       tableColumns: [
         { name: " ", key: "image" },
@@ -354,21 +346,18 @@ export default {
           name: "cookie",
           price: 10.0,
           qty: 3,
-          limit:5
         },
         {
           img: "",
           name: "car",
           price: 10000.0,
           qty: 1,
-          limit:6
         },
         {
           img: "",
           name: "pooo",
           price: 1024.0,
           qty: 10,
-          limit:10
         },
       ],
     };
@@ -392,6 +381,5 @@ export default {
       this.openTab = tabNumber;
     },
   },
-  
 };
 </script>

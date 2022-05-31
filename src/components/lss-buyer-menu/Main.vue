@@ -1,11 +1,4 @@
 <template>
-  <div class="bg-secondary">
-    <!-- <DarkModeSwitcher /> -->
-    <!-- <MainColorSwitcher /> -->
-    <ThemeModeSwitcher />
-    <MobileMenu />
-    <TopBar />
-    <div class="flex overflow-hidden">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
         <ul>
@@ -127,25 +120,14 @@
         </ul>
       </nav>
       <!-- END: Side Menu -->
-      <!-- BEGIN: Content -->
-      <div class="content">
-        <router-view />
-      </div>
-      <!-- END: Content -->
-    </div>
-  </div>
 </template>
 
 <script setup>
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { helper as $h } from "@/utils/helper";
-// import { useSideMenuStore } from "@/stores/lss-side-menu";
-import TopBar from "@/components/top-bar/Main.vue";
-import MobileMenu from "@/components/mobile-menu/Main.vue";
-import DarkModeSwitcher from "@/components/dark-mode-switcher/Main.vue";
-import MainColorSwitcher from "@/components/main-color-switcher/Main.vue";
-import ThemeModeSwitcher from "@/components/theme-mode-switcher/Main.vue";
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+
 import SideMenuTooltip from "@/components/side-menu-tooltip/Main.vue";
 import { linkTo, nestedMenu, enter, leave } from "./index";
 import dom from "@left4code/tw-starter/dist/js/dom";
@@ -153,24 +135,12 @@ import dom from "@left4code/tw-starter/dist/js/dom";
 const route = useRoute();
 const router = useRouter();
 const formattedMenu = ref([]);
-// const sideMenuStore = useSideMenuStore();
+const layoutStore = useLSSBuyerLayoutStore();
 
-const menu = [
-      {
-        icon: "HomeIcon",
-        pageName: "side-menu-inbox",
-        title: "Home",
-      },
-      {
-        icon: "BoxIcon",
-        pageName: "Stock",
-        title: "Stock",
-      },
-    ]
-
-const sideMenu = computed(() => nestedMenu(menu, route));
+const sideMenu = computed(() => nestedMenu(layoutStore.menu, route));
 
 provide("forceActiveMenu", (pageName) => {
+  
   route.forceActiveMenu = pageName;
   formattedMenu.value = $h.toRaw(sideMenu.value);
 });
@@ -186,5 +156,6 @@ watch(
 onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
   formattedMenu.value = $h.toRaw(sideMenu.value);
+
 });
 </script>

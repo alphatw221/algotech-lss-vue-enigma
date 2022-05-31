@@ -13,7 +13,7 @@
         <Card style="width:400px; height: 600px; opacity: .9;" class="center">
             <Row><h3>Login</h3></Row>
 
-            <Form ref="loginForm" :model="loginForm" :rules="ruleInline" style="margin-top:50px;">
+            <!-- <Form ref="loginForm" :model="loginForm" :rules="ruleInline" style="margin-top:50px;">
                 <FormItem prop="email" class="login_form">
                     <Input type="text" v-model="loginForm.email" placeholder="E-mail">
                         <template #prepend>
@@ -34,13 +34,13 @@
             </Form>
 
             <Row><a style="margin:auto;" @click="this.$router.push({ path: '/password/forgot' })">forgot password ?</a></Row>
-            <Divider plain :size="small">or</Divider>
+            <Divider plain :size="small">or</Divider> -->
 
             <Row class="login_btn">
-                <FacebookLoginButton :busName="'sellerFacebookLogin'" block/>
+                <FacebookLoginButton block role='buyer'/>
             </Row>
             <Row class="login_btn">
-                <GoogleLoginButton block />
+                <GoogleLoginButton block role='buyer'/>
             </Row>
             <Row style="margin-top: 20px;">
                 <div style="font-size:18px; margin-left: 80px;">No Account ? <a href="">Create one !</a></div>
@@ -50,8 +50,7 @@
 </template>
 
 <script>
-import { seller_login, general_login } from '@/api/user';
-import loadScript from '@/libs/loadScript.js';
+
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
@@ -63,64 +62,16 @@ export default {
         FacebookLoginButton,
         GoogleLoginButton
     },
-    mounted() {
-        loadScript("https://connect.facebook.net/en_US/sdk.js",()=>{
-            console.log("FB SDK loaded")
-        });
-        loadScript("https://accounts.google.com/gsi/client",()=>{
-            console.log("Google SDK loaded")
-        });
-
-        this.eventBus.on('sellerFacebookLogin', payload=>{
-            seller_login(payload).then(response=>{
-                var set_cookie = new Promise((res)=>{
-                    this.$cookies.set("access_token", response.data.access)
-                    res()
-                })
-                set_cookie.then(()=>{
-                    this.$router.push('/')
-                })
-            }).catch(error=>{
-                alert(error)
-            })
-        })
-    },
-    unmounted(){
-        this.eventBus.off('sellerFacebookLogin')
-    },
     data() {
         return {
             carousel_items: [
                 { src: "/src/assets/images/login-page/new-lss-carousel-1.jpeg" },
                 { src: "/src/assets/images/login-page/new-lss-carousel-2.jpeg" }
             ],
-            loginForm: {
-                email: '',
-                password: ''
-            },
-            ruleInline: {
-                email: [
-                    { required: true, message: 'Please fill in the email', trigger: 'blur' }
-                ],
-                password: [
-                    { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-                    { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
-                ]
-            }
         }
     },
     methods:{
-        _general_login(){
-            general_login(this.loginForm).then(response=>{
-                var set_cookie = new Promise((res) => {
-                    this.$cookies.set("access_token", response.data.access)
-                    res()
-                })
-                set_cookie.then(()=>{
-                    this.$router.push('/')
-                })
-            })
-        },
+      
     }
 }
 </script>

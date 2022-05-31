@@ -51,7 +51,7 @@
 
 <script>
 import { seller_login, general_login } from '@/api/user';
-import FacebookLoginButton from '@/components/button/FacebookSellerLoginButton.vue';
+import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButtonV2.vue';
 
 export default {

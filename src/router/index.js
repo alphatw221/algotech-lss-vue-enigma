@@ -3,7 +3,7 @@ import SideMenu from "../layouts/side-menu/Main.vue";
 import SimpleMenu from "../layouts/simple-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
 import LssSideMenu from "../layouts/lss-side-menu/Main.vue";
-import BuyerSideMenu from "../layouts/buyer-side-menu/Main.vue";
+import LSSBuyerLayout from "../layouts/lss-buyer-layout/Main.vue";
 import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
 import DashboardOverview3 from "../views/dashboard-overview-3/Main.vue";
@@ -84,7 +84,8 @@ import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
 
-
+import isAdminMiddleware from "@/libs/routerMiddleware/isAdminMiddleware"
+import isAuthMiddleware from "@/libs/routerMiddleware/isAuthMiddleware"
 
 const routes = [
   // {
@@ -230,7 +231,8 @@ const routes = [
   // -------------------------------Buyer Route-----------------------------
   {
     path: "/buyer",
-    component: BuyerSideMenu,
+    component: LSSBuyerLayout,
+    beforeEnter: isAuthMiddleware,
     children: [
       {
         path: "test3",
@@ -239,11 +241,11 @@ const routes = [
       },
     ]
   },
-  // {
-  //   path: "/buyer/login",
-  //   name: "LoginPage",
-  //   component: () => import('@/views/general/LoginPage.vue')
-  // },
+  {
+    path: "/buyer/login",
+    name: "buyer-login-page",
+    component: () => import('@/views/general/BuyerLoginPage.vue')
+  },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
   {
