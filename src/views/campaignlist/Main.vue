@@ -4,7 +4,7 @@
     <!-- BEGIN: commit box -->
     <div class="col-span-12">
       <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
-        <div class="switch-toggle switch-3 switch-candy col-start-1 m-2">
+        <div class="switch-toggle switch-3 switch-candy col-start-1 col-span-12 m-2 lg:col-start-1 2-xl:col-start-1">
           <input id="on" name="state-d" type="radio" checked="checked"/>
           <label for="on" @click="status_change('schedule')" style="width: 100px">Scheduled</label>
           <input id="na" name="state-d" type="radio" class="my-0" />

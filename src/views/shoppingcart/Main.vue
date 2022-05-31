@@ -3,6 +3,49 @@
     <div class="w-full">
       <!-- Tab List-->
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+<<<<<<< HEAD
+        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <div
+            class="
+              intro-x
+              lg:text-center
+              flex
+              items-center
+              lg:mt-0 lg:block
+              flex-1
+              z-10
+            "
+          >
+            <button
+              @click="toggleTabs(1)"
+              v-bind:class="{
+                'text-neutral-600 bg-white': openTab !== 1,
+                'text-white bg-primary': openTab === 1,
+              }"
+              class="
+                w-12
+                h-12
+                rounded-full
+                shadow-lg
+                btn
+                text-slate-500
+                dark:bg-darkmode-400 dark:border-darkmode-400
+              "
+            >
+              <ShoppingCartIcon />
+            </button>
+            <div
+              class="
+                lg:w-32
+                text-base
+                lg:mt-1
+                ml-3
+                lg:mx-auto
+                text-slate-600
+                dark:text-slate-400
+              "
+              v-bind:class="{
+=======
         <li class="-mb-px last:mr-0 flex-auto text-center ml-14">
           <div @click="toggleTabs(1)" class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
             <button :class="{
@@ -15,6 +58,7 @@
             <div
               class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               :class="{
+>>>>>>> c8b26a4e6dafd0a5c68e87c864933c803b24e1b2
                 'text-neutral-600': openTab !== 1,
                 'font-bold': openTab === 1,
               }">
@@ -22,6 +66,49 @@
             </div>
           </div>
         </li>
+<<<<<<< HEAD
+        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <div
+            class="
+              intro-x
+              lg:text-center
+              flex
+              items-center
+              lg:mt-0 lg:block
+              flex-1
+              z-10
+            "
+          >
+            <button
+              @click="toggleTabs(2)"
+              v-bind:class="{
+                'text-neutral-600 bg-white': openTab !== 2,
+                'text-white bg-primary': openTab === 2,
+              }"
+              class="
+                w-12
+                h-12
+                rounded-full
+                shadow-lg
+                btn
+                text-slate-500
+                dark:bg-darkmode-400 dark:border-darkmode-400
+              "
+            >
+              <TruckIcon />
+            </button>
+            <div
+              class="
+                lg:w-32
+                text-base
+                lg:mt-1
+                ml-3
+                lg:mx-auto
+                text-slate-600
+                dark:text-slate-400
+              "
+              v-bind:class="{
+=======
         <li class="-mb-px last:mr-0 flex-auto text-center">
           <div @click="toggleTabs(2)" class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
             <button :class="{
@@ -34,6 +121,7 @@
             <div
               class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               :class="{
+>>>>>>> c8b26a4e6dafd0a5c68e87c864933c803b24e1b2
                 'text-neutral-600': openTab !== 2,
                 'font-bold': openTab === 2,
               }">
@@ -41,6 +129,49 @@
             </div>
           </div>
         </li>
+<<<<<<< HEAD
+        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
+          <div
+            class="
+              intro-x
+              lg:text-center
+              flex
+              items-center
+              lg:mt-0 lg:block
+              flex-1
+              z-10
+            "
+          >
+            <button
+              @click="toggleTabs(3)"
+              v-bind:class="{
+                'text-neutral-600 bg-white': openTab !== 3,
+                'bg-primary': openTab === 3,
+              }"
+              class="
+                w-12
+                h-12
+                rounded-full
+                shadow-lg
+                btn
+                text-slate-500
+                dark:bg-darkmode-400 dark:border-darkmode-400
+              "
+            >
+              <CreditCardIcon />
+            </button>
+            <div
+              class="
+                lg:w-32
+                text-base
+                lg:mt-1
+                ml-3
+                lg:mx-auto
+                text-slate-600
+                dark:text-slate-400
+              "
+              v-bind:class="{
+=======
         <li class="-mb-px last:mr-0 flex-auto text-center">
           <div @click="toggleTabs(3)" class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
             <button :class="{
@@ -53,6 +184,7 @@
             <div
               class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               :class="{
+>>>>>>> c8b26a4e6dafd0a5c68e87c864933c803b24e1b2
                 'text-neutral-600': openTab !== 3,
                 'font-bold': openTab === 3,
               }">
@@ -61,18 +193,61 @@
           </div>
         </li>
       </ul>
+<<<<<<< HEAD
+      <div
+        class="
+          relative
+          flex flex-col
+          min-w-0
+          break-words
+          bg-white
+          w-full
+          mb-6
+          shadow-lg
+          rounded-lg
+        "
+      >
+=======
       <div class="box relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg">
+>>>>>>> c8b26a4e6dafd0a5c68e87c864933c803b24e1b2
         <div class="px-4 py-5 flex-auto">
 
           <div class="tab-content tab-space">
             <div :class="{ hidden: openTab !== 1, block: openTab === 1 }">
               <div>My Cart</div>
               <div class="box grid grid-cols-12 gap-4">
+<<<<<<< HEAD
+                <div
+                  class="
+                    overflow-x-auto
+                    col-span-12
+                    2xl:col-span-7
+                    lg:col-span-7
+                  "
+                >
+                  <ShoppingCartTable
+                    :requestUrl="'.'"
+                    :columns="tableColumns"
+                    :product="products"
+                  >
+                  </ShoppingCartTable>
+                </div>
+                <div
+                  class="
+                    col-span-10
+                    2xl:col-start-8
+                    col-span-5
+                    lg:col-start-8
+                    col-span-5
+                  "
+                >
+=======
                 <div class="overflow-x-auto col-span-12 2xl:col-span-7 lg:col-span-7">
                   <ShoppingCartTable :requestUrl="'.'" :columns="tableColumns" :product="products">
                   </ShoppingCartTable>
                 </div>
                 <div class="col-span-12 2xl:col-start-8 2xl:col-span-5 lg:col-start-8 lg:col-span-5">
+>>>>>>> c8b26a4e6dafd0a5c68e87c864933c803b24e1b2
                   <OrderSummary :page_type="'stap1'"> </OrderSummary>
                 </div>
               </div>
@@ -84,6 +259,12 @@
                   </div>
                 </div>
               </div>
+              <!-- Add item popup -->
+              <AddItemModal
+                :addItemPopupModalPreview="addItemPopupModalPreview"
+                :product="products"
+              >
+              </AddItemModal>
             </div>
             <div :class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -91,6 +272,75 @@
               </div>
               <div class="intro-y grid grid-cols-12 gap-5">
                 <div class="intro-y col-span-12 lg:col-span-8">
+<<<<<<< HEAD
+                  <div
+                    class="box p-10 mt-3 intro-y grid grid-cols-12 gap-5 my-10"
+                  >
+                    <label
+                      for="regular-form-2"
+                      class="form-label col-span-4 lg:col-span-2 2xl:col-span-2"
+                      >First Name</label
+                    >
+                    <input
+                      id="regular-form-2"
+                      type="text"
+                      class="
+                        form-control form-control-rounded
+                        col-span-8
+                        lg:col-span-4
+                        2xl:col-span-4
+                      "
+                      placeholder=""
+                    />
+                    <label
+                      for="regular-form-2"
+                      class="form-label col-span-4 lg:col-span-2 2xl:col-span-2"
+                      >Last Name</label
+                    >
+                    <input
+                      id="regular-form-2"
+                      type="text"
+                      class="
+                        form-control form-control-rounded
+                        col-span-8
+                        lg:col-span-4
+                        2xl:col-span-4
+                      "
+                      placeholder=""
+                    />
+                    <label
+                      for="regular-form-2"
+                      class="form-label col-span-4 lg:col-span-2 2xl:col-span-2"
+                      >Email</label
+                    >
+                    <input
+                      id="regular-form-2"
+                      type="text"
+                      class="
+                        form-control form-control-rounded
+                        col-span-8
+                        lg:col-span-4
+                        2xl:col-span-4
+                      "
+                      placeholder=""
+                    />
+                    <label
+                      for="regular-form-2"
+                      class="form-label col-span-4 lg:col-span-2 2xl:col-span-2"
+                      >Phone</label
+                    >
+                    <input
+                      id="regular-form-2"
+                      type="text"
+                      class="
+                        form-control form-control-rounded
+                        col-span-8
+                        lg:col-span-4
+                        2xl:col-span-4
+                      "
+                      placeholder=""
+                    />
+=======
                   <div class="box p-10 mt-3 intro-y grid grid-cols-12 gap-5 my-10">
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">First
                       Name</label>
@@ -110,6 +360,7 @@
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder="" />
+>>>>>>> c8b26a4e6dafd0a5c68e87c864933c803b24e1b2
                   </div>
 
                   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -119,6 +370,42 @@
                   </div>
 
                   <TabGroup>
+<<<<<<< HEAD
+                    <TabList class="nav-boxed-tabs">
+                      <Tab
+                        class="
+                          w-48
+                          py-6
+                          lg:w-60
+                          2xl:w-60
+                          xl:py-10
+                          2xl:py-10
+                          inline-flex
+                          border-[#131c34]
+                        "
+                        tag="button"
+                      >
+                        <TruckIcon class="block mr-3" /><span class="text-lg"
+                          >Delivery</span
+                        >
+                      </Tab>
+                      <Tab
+                        class="
+                          w-48
+                          py-3
+                          lg:w-60
+                          2xl:w-60
+                          xl:py-10
+                          2xl:py-10
+                          inline-flex
+                          border-[#131c34]
+                        "
+                        tag="button"
+                      >
+                        <HomeIcon class="block mr-3" /><span class="text-lg"
+                          >Collect In Store</span
+                        >
+=======
                     <TabList class="nav-boxed-tabs mx-10">
                       <Tab class="w-48 py-6 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
                         tag="button">
@@ -127,12 +414,82 @@
                       <Tab class="w-48 py-3 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
                         tag="button">
                         <HomeIcon class="block mr-3" /><span class="text-lg">Collect In Store</span>
+>>>>>>> c8b26a4e6dafd0a5c68e87c864933c803b24e1b2
                       </Tab>
                     </TabList>
                     <TabPanels class="mt-5">
                       <TabPanel class="leading-relaxed">
                         <label class="text-md font-medium col-span-12">Delivery Information</label>
                         <div class="grid grid-cols-12">
+<<<<<<< HEAD
+                          <div
+                            class="
+                              box
+                              p-10
+                              mt-3
+                              intro-y
+                              col-span-12
+                              gap-5
+                              my-10
+                            "
+                          >
+                            <label
+                              for="regular-form-2"
+                              class="form-label col-span-12"
+                              >Address</label
+                            >
+                            <input
+                              id="regular-form-2"
+                              type="text"
+                              class="
+                                form-control form-control-rounded
+                                col-span-12
+                              "
+                              placeholder=""
+                            />
+                            <label
+                              for="regular-form-2"
+                              class="form-label col-span-2"
+                              >City</label
+                            >
+                            <input
+                              id="regular-form-2"
+                              type="text"
+                              class="
+                                form-control form-control-rounded
+                                col-span-4
+                              "
+                              placeholder=""
+                            />
+                            <label
+                              for="regular-form-2"
+                              class="form-label col-span-2"
+                              >State</label
+                            >
+                            <input
+                              id="regular-form-2"
+                              type="text"
+                              class="
+                                form-control form-control-rounded
+                                col-span-4
+                              "
+                              placeholder=""
+                            />
+                            <label
+                              for="regular-form-2"
+                              class="form-label col-span-2"
+                              >Postal Code</label
+                            >
+                            <input
+                              id="regular-form-2"
+                              type="text"
+                              class="
+                                form-control form-control-rounded
+                                col-span-4
+                              "
+                              placeholder=""
+                            />
+=======
                           <div class="box p-8 intro-y col-span-12 gap-5">
                             <label for="regular-form-2" class="form-label my-2">Address</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
@@ -146,6 +503,7 @@
                             <label for="regular-form-2" class="form-label my-2">Postal Code</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
                               placeholder="" />
+>>>>>>> c8b26a4e6dafd0a5c68e87c864933c803b24e1b2
                           </div>
                           <label class="text-md font-medium col-span-12">Delivery Option</label>
                           <div class="box p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
@@ -220,7 +578,20 @@
                   </div>
                   <div class="intro-y box col-span-12 lg:col-span-6 mt-5">
                     <div
+<<<<<<< HEAD
+                      class="
+                        flex
+                        items-center
+                        px-5
+                        py-5
+                        sm:py-3
+                        border-b border-slate-200/60
+                        dark:border-darkmode-400
+                      "
+                    >
+=======
                       class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400">
+>>>>>>> c8b26a4e6dafd0a5c68e87c864933c803b24e1b2
                       <h2 class="font-medium text-base mr-auto">
                         My Cart (4 Items)
                       </h2>
@@ -320,6 +691,7 @@ import PaymentMethods from "@/components/box/PaymentMethods.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import ShippingSummary from "@/components/box/ShippingSummary.vue";
 import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
+import AddItemModal from "@/components/modal/AddItemModal.vue";
 
 export default {
   components: {
@@ -327,9 +699,11 @@ export default {
     OrderSummary,
     ShippingSummary,
     ShoppingCartTable,
+    AddItemModal,
   },
   data() {
     return {
+      addItemPopupModalPreview: false,
       openTab: 1,
       tableColumns: [
         { name: " ", key: "image" },
@@ -345,18 +719,21 @@ export default {
           name: "cookie",
           price: 10.0,
           qty: 3,
+          limit:5
         },
         {
           img: "",
           name: "car",
           price: 10000.0,
           qty: 1,
+          limit:6
         },
         {
           img: "",
           name: "pooo",
           price: 1024.0,
           qty: 10,
+          limit:10
         },
       ],
     };
@@ -380,5 +757,6 @@ export default {
       this.openTab = tabNumber;
     },
   },
+  
 };
 </script>
