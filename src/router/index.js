@@ -68,7 +68,7 @@ import ImageZoom from "../views/image-zoom/Main.vue";
 import ShoppingCart from "../views/shoppingcart/Main.vue";
 import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
 import OrderDetails from "../views/shoppingcart/OrderDetails.vue";
-import ShoppingPayment from "../views/shoppingcart/payment.vue";
+import ShoppingPayment from "../views/shoppingcart/Payment.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
