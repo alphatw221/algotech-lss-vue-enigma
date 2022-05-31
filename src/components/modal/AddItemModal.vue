@@ -52,16 +52,26 @@
                   ml-auto
                 " 
               >
+                <option>0</option>
                 <option v-for="num in product.limit">{{ num }}</option>
               </select>
             </div>
           </div>
         </a>
       </div>
-      <div class="px-5 pb-8 text-center">
-        <button type="button" @click="toEnterID" class="btn btn-primary w-24">
-          Comfirm
-        </button>
+      <div class="flex mt-5 p-5">
+      <button
+        class="
+          btn
+          w-32
+          border-slate-300
+          dark:border-darkmode-400
+          text-slate-500
+        "
+      >
+        Cancel
+      </button>
+      <button class="btn btn-primary w-32 shadow-md ml-auto">Add to Cart</button>
       </div>
     </ModalBody>
   </Modal>
