@@ -4,7 +4,7 @@
     <!-- BEGIN: commit box -->
     <div class="col-span-12">
       <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
-        <div class="switch-toggle switch-3 switch-candy col-start-1 m-2">
+        <div class="switch-toggle switch-3 switch-candy col-start-1 col-span-12 m-2 lg:col-start-1 2-xl:col-start-1">
           <input id="on" name="state-d" type="radio" checked="checked"/>
           <label for="on" @click="status_change('schedule')" style="width: 100px">Scheduled</label>
           <input id="na" name="state-d" type="radio" class="my-0" />
@@ -435,7 +435,7 @@ export default {
     };
   },
   mounted() {
-    this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzODc1MDI1LCJpYXQiOjE2NTMyNzAyMjUsImp0aSI6IjM4MDNmYTdiYzhmZTQyOWFiNDc4OWNmNjcxMThiZGNjIiwidXNlcl9pZCI6NzcsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo3Nywic2VsbGVyX2lkIjo5MCwiY3VzdG9tZXJfaWQiOjEwNCwibmFtZSI6IkplcmVteSBDaG91IiwiZW1haWwiOiJqZXJlbXljaG91QGFjY29sYWRlZ2xvYmFsLm5ldCJ9fQ.XM2nRfhg-h8REC__rAnxIcW-WR3CpUlLKQZ-wXC6FrQ");
+    this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0NTA2NDc0LCJpYXQiOjE2NTM5MDE2NzQsImp0aSI6IjMzZTJjNGQ2YzdhZjRhNzBiYjI1OTYxYTUxNTRmMmRlIiwidXNlcl9pZCI6NzcsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo3Nywic2VsbGVyX2lkIjo5MCwiY3VzdG9tZXJfaWQiOjEwNCwibmFtZSI6IkplcmVteSBDaG91IiwiZW1haWwiOiJqZXJlbXljaG91QGFjY29sYWRlZ2xvYmFsLm5ldCJ9fQ.biiHaWAFjED1nEib9jeT5ncO5lGTBJNjVg9T5IH6vc4");
     this.eventBus.on("entryPoint", (payload) => {
       this.idPopupModalPreview = true
     })

@@ -1,11 +1,19 @@
 <template>
   <div class="flex flex-wrap">
     <div class="w-full">
-    <!-- Tab List-->
+      <!-- Tab List-->
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
         <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
           <div
-            class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10"
+            class="
+              intro-x
+              lg:text-center
+              flex
+              items-center
+              lg:mt-0 lg:block
+              flex-1
+              z-10
+            "
           >
             <button
               @click="toggleTabs(1)"
@@ -13,12 +21,28 @@
                 'text-neutral-600 bg-white': openTab !== 1,
                 'text-white bg-primary': openTab === 1,
               }"
-              class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400"
+              class="
+                w-12
+                h-12
+                rounded-full
+                shadow-lg
+                btn
+                text-slate-500
+                dark:bg-darkmode-400 dark:border-darkmode-400
+              "
             >
               <ShoppingCartIcon />
             </button>
             <div
-              class="lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              class="
+                lg:w-32
+                text-base
+                lg:mt-1
+                ml-3
+                lg:mx-auto
+                text-slate-600
+                dark:text-slate-400
+              "
               v-bind:class="{
                 'text-neutral-600': openTab !== 1,
                 'text-white font-bold': openTab === 1,
@@ -30,7 +54,15 @@
         </li>
         <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
           <div
-            class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10"
+            class="
+              intro-x
+              lg:text-center
+              flex
+              items-center
+              lg:mt-0 lg:block
+              flex-1
+              z-10
+            "
           >
             <button
               @click="toggleTabs(2)"
@@ -38,12 +70,28 @@
                 'text-neutral-600 bg-white': openTab !== 2,
                 'text-white bg-primary': openTab === 2,
               }"
-              class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400"
+              class="
+                w-12
+                h-12
+                rounded-full
+                shadow-lg
+                btn
+                text-slate-500
+                dark:bg-darkmode-400 dark:border-darkmode-400
+              "
             >
               <TruckIcon />
             </button>
             <div
-              class="lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              class="
+                lg:w-32
+                text-base
+                lg:mt-1
+                ml-3
+                lg:mx-auto
+                text-slate-600
+                dark:text-slate-400
+              "
               v-bind:class="{
                 'text-neutral-600': openTab !== 2,
                 'font-bold': openTab === 2,
@@ -55,7 +103,15 @@
         </li>
         <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
           <div
-            class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10"
+            class="
+              intro-x
+              lg:text-center
+              flex
+              items-center
+              lg:mt-0 lg:block
+              flex-1
+              z-10
+            "
           >
             <button
               @click="toggleTabs(3)"
@@ -63,12 +119,28 @@
                 'text-neutral-600 bg-white': openTab !== 3,
                 'bg-primary': openTab === 3,
               }"
-              class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400"
+              class="
+                w-12
+                h-12
+                rounded-full
+                shadow-lg
+                btn
+                text-slate-500
+                dark:bg-darkmode-400 dark:border-darkmode-400
+              "
             >
               <CreditCardIcon />
             </button>
             <div
-              class="lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              class="
+                lg:w-32
+                text-base
+                lg:mt-1
+                ml-3
+                lg:mx-auto
+                text-slate-600
+                dark:text-slate-400
+              "
               v-bind:class="{
                 'text-neutral-600': openTab !== 3,
                 'font-bold': openTab === 3,
@@ -80,7 +152,17 @@
         </li>
       </ul>
       <div
-        class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg"
+        class="
+          relative
+          flex flex-col
+          min-w-0
+          break-words
+          bg-white
+          w-full
+          mb-6
+          shadow-lg
+          rounded-lg
+        "
       >
         <div class="px-4 py-5 flex-auto">
           <div class="tab-content tab-space">
@@ -88,7 +170,12 @@
               <div>My Cart</div>
               <div class="box grid grid-cols-12 gap-4">
                 <div
-                  class="overflow-x-auto col-span-12 2xl:col-span-7 lg:col-span-7"
+                  class="
+                    overflow-x-auto
+                    col-span-12
+                    2xl:col-span-7
+                    lg:col-span-7
+                  "
                 >
                   <ShoppingCartTable
                     :requestUrl="'.'"
@@ -98,7 +185,13 @@
                   </ShoppingCartTable>
                 </div>
                 <div
-                  class="col-span-10 2xl:col-start-8 col-span-5 lg:col-start-8 col-span-5"
+                  class="
+                    col-span-10
+                    2xl:col-start-8
+                    col-span-5
+                    lg:col-start-8
+                    col-span-5
+                  "
                 >
                   <OrderSummary :page_type="'stap1'"> </OrderSummary>
                 </div>
@@ -111,6 +204,12 @@
                   </div>
                 </div>
               </div>
+              <!-- Add item popup -->
+              <AddItemModal
+                :addItemPopupModalPreview="addItemPopupModalPreview"
+                :product="products"
+              >
+              </AddItemModal>
             </div>
             <div v-bind:class="{ hidden: openTab !== 2, block: openTab === 2 }">
               <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -129,7 +228,12 @@
                     <input
                       id="regular-form-2"
                       type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
+                      class="
+                        form-control form-control-rounded
+                        col-span-8
+                        lg:col-span-4
+                        2xl:col-span-4
+                      "
                       placeholder=""
                     />
                     <label
@@ -140,7 +244,12 @@
                     <input
                       id="regular-form-2"
                       type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
+                      class="
+                        form-control form-control-rounded
+                        col-span-8
+                        lg:col-span-4
+                        2xl:col-span-4
+                      "
                       placeholder=""
                     />
                     <label
@@ -151,7 +260,12 @@
                     <input
                       id="regular-form-2"
                       type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
+                      class="
+                        form-control form-control-rounded
+                        col-span-8
+                        lg:col-span-4
+                        2xl:col-span-4
+                      "
                       placeholder=""
                     />
                     <label
@@ -162,7 +276,12 @@
                     <input
                       id="regular-form-2"
                       type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
+                      class="
+                        form-control form-control-rounded
+                        col-span-8
+                        lg:col-span-4
+                        2xl:col-span-4
+                      "
                       placeholder=""
                     />
                   </div>
@@ -178,7 +297,16 @@
                   <TabGroup>
                     <TabList class="nav-boxed-tabs">
                       <Tab
-                        class="w-48 py-6 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
+                        class="
+                          w-48
+                          py-6
+                          lg:w-60
+                          2xl:w-60
+                          xl:py-10
+                          2xl:py-10
+                          inline-flex
+                          border-[#131c34]
+                        "
                         tag="button"
                       >
                         <TruckIcon class="block mr-3" /><span class="text-lg"
@@ -186,7 +314,16 @@
                         >
                       </Tab>
                       <Tab
-                        class="w-48 py-3 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
+                        class="
+                          w-48
+                          py-3
+                          lg:w-60
+                          2xl:w-60
+                          xl:py-10
+                          2xl:py-10
+                          inline-flex
+                          border-[#131c34]
+                        "
                         tag="button"
                       >
                         <HomeIcon class="block mr-3" /><span class="text-lg"
@@ -201,7 +338,15 @@
                         >
                         <div class="grid grid-cols-12">
                           <div
-                            class="box p-10 mt-3 intro-y col-span-12 gap-5 my-10"
+                            class="
+                              box
+                              p-10
+                              mt-3
+                              intro-y
+                              col-span-12
+                              gap-5
+                              my-10
+                            "
                           >
                             <label
                               for="regular-form-2"
@@ -211,7 +356,10 @@
                             <input
                               id="regular-form-2"
                               type="text"
-                              class="form-control form-control-rounded col-span-12"
+                              class="
+                                form-control form-control-rounded
+                                col-span-12
+                              "
                               placeholder=""
                             />
                             <label
@@ -222,7 +370,10 @@
                             <input
                               id="regular-form-2"
                               type="text"
-                              class="form-control form-control-rounded col-span-4"
+                              class="
+                                form-control form-control-rounded
+                                col-span-4
+                              "
                               placeholder=""
                             />
                             <label
@@ -233,7 +384,10 @@
                             <input
                               id="regular-form-2"
                               type="text"
-                              class="form-control form-control-rounded col-span-4"
+                              class="
+                                form-control form-control-rounded
+                                col-span-4
+                              "
                               placeholder=""
                             />
                             <label
@@ -244,7 +398,10 @@
                             <input
                               id="regular-form-2"
                               type="text"
-                              class="form-control form-control-rounded col-span-4"
+                              class="
+                                form-control form-control-rounded
+                                col-span-4
+                              "
                               placeholder=""
                             />
                           </div>
@@ -418,7 +575,15 @@
                   </div>
                   <div class="intro-y box col-span-12 lg:col-span-6 mt-5">
                     <div
-                      class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400"
+                      class="
+                        flex
+                        items-center
+                        px-5
+                        py-5
+                        sm:py-3
+                        border-b border-slate-200/60
+                        dark:border-darkmode-400
+                      "
                     >
                       <h2 class="font-medium text-base mr-auto">
                         My Cart (4 Items)
@@ -547,6 +712,7 @@ import PaymentMethods from "@/components/box/PaymentMethods.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import ShippingSummary from "@/components/box/ShippingSummary.vue";
 import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
+import AddItemModal from "@/components/modal/AddItemModal.vue";
 
 export default {
   components: {
@@ -554,9 +720,11 @@ export default {
     OrderSummary,
     ShippingSummary,
     ShoppingCartTable,
+    AddItemModal,
   },
   data() {
     return {
+      addItemPopupModalPreview: false,
       openTab: 1,
       tableColumns: [
         { name: " ", key: "image" },
@@ -572,18 +740,21 @@ export default {
           name: "cookie",
           price: 10.0,
           qty: 3,
+          limit:5
         },
         {
           img: "",
           name: "car",
           price: 10000.0,
           qty: 1,
+          limit:6
         },
         {
           img: "",
           name: "pooo",
           price: 1024.0,
           qty: 10,
+          limit:10
         },
       ],
     };
@@ -607,5 +778,6 @@ export default {
       this.openTab = tabNumber;
     },
   },
+  
 };
 </script>
