@@ -7,12 +7,12 @@
             <div class="switch-toggle switch-3 switch-candy col-start-1 m-2 align-middle">
                 <div @click="toggleTabs(1)">
                     <input id="on" name="state-d" type="radio" checked="checked" />
-                    <label for="on" style="width: 130px" class="align-middle">Notes</label>
+                    <label for="on" style="width: 100px; font-size:14px;" class="align-middle">Notes</label>
                 </div>
                 <input id="na" name="state-d" type="radio" class="my-0" @click="toggleTabs(2)" />
-                <label for="na" style="width: 130px" class="align-middle">Payment</label>
+                <label for="na" style="width: 100px; font-size:14px;" class="align-middle">Payment</label>
                 <input id="off" name="state-d" type="radio" @click="toggleTabs(3)" />
-                <label for="off" style="width: 130px" class="align-middle">Delivery</label>
+                <label for="off" style="width: 100px; font-size:14px;" class="align-middle">Delivery</label>
             </div>
         </div>
         <div :class="{ hidden: openTab !== 1, block: openTab === 1 }">
@@ -244,7 +244,7 @@ export default {
     overflow: visible;
     float: left;
     height: 42px;
-    width: 390px;
+    width: 300px;
     background: theme("colors.secondary");
     border-radius: 42px 42px;
     letter-spacing: 0.7px;
@@ -281,7 +281,7 @@ export default {
 .switch-toggle input:checked+label {
     background: theme("colors.primary");
     height: 42px;
-    width: 130px;
+    width: 100px;
     border-radius: 42px 42px;
     font-weight: 500;
     color: aliceblue;
