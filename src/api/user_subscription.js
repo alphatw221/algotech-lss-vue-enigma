@@ -15,9 +15,9 @@ export const get_user_subscription_youtube_channels = () => {
     return createAxiosWithBearer().get(`/api/user-subscription/youtube_channels/`)
 }
 
-// export const get_user_subscription_instagram_profiles = () => {
-//     return axiosInstanceWithBearer.get(`/api/user-subscription/instagram_profiles/`)
-// }
+export const get_user_subscription_instagram_profiles = () => {
+    return createAxiosWithBearer().get(`/api/user-subscription/instagram_profiles/`)
+}
 
 export const bind_user_facebook_pages = (id,data) => {
     return createAxiosWithBearer().post(`/api/user-subscription/${id}/bind_facebook_pages/`, data)
