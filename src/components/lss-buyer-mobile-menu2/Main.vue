@@ -1,5 +1,5 @@
 <template>
-      <div id="lss-mobil-side-nav" class=" lss-mobil-side-nav-show absolute z-50 top-15 h-full dark:bg-darkmode-500 bg-primary overflow-hidden md:hidden">
+      <div id="lss-mobil-side-nav" class=" lss-mobil-side-nav-close absolute z-50 top-15 h-full dark:bg-darkmode-500 bg-primary overflow-hidden md:hidden">
 
       <!-- BEGIN: Mobile Menu -->
   <div class="mobile-menu">

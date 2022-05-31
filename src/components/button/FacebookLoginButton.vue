@@ -47,7 +47,13 @@ export default {
                                 res()
                             })
                             set_cookie.then(() => {
-                                this.$router.push('/')
+                                console.log(this.$route.params)
+                                if(this.$route.params.pre_order_id ){
+                                    this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
+                                }else{
+                                    this.$router.push(`/buyer/`)
+                                }
+
                             })
                         })
 
