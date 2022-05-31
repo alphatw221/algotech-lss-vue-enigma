@@ -68,7 +68,7 @@ import LssModal from "../views/modal/LssModal.vue";
 
 import ShoppingCart from "../views/shoppingcart/Main.vue";
 import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
-import OrderHistoryDetails from "../views/shoppingcart/OrderHistoryDetails.vue"; 
+import OrderDetails from "../views/shoppingcart/OrderDetails.vue"; 
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
@@ -135,7 +135,7 @@ const routes = [
       {  
         path: "orderHistory-details",
         name: "OrderHistoryDetails",
-        component: OrderHistoryDetails,
+        component: OrderDetails,
       },
       {  
         path: "campaign-global-setting",
@@ -235,14 +235,25 @@ const routes = [
     beforeEnter: isAuthMiddleware,
     children: [
       {
-        path: "test3",
-        name: "side-menu-test3",
-        component: Test3,
+        path: "orders",
+        name: "buyer-order-history-page",
+        component: OrderHistory,
       },
+      {  
+        path: "order/:order_id?",
+        name: "buyer-order-detail-page",
+        component: OrderDetails,
+      },
+      {  
+        path: "cart/:pre_order_id?",
+        name: "buyer-shopping-cart-detail-page",
+        component: ShoppingCart,
+      }
+
     ]
   },
   {
-    path: "/buyer/login",
+    path: "/buyer/login/:pre_order_id?",
     name: "buyer-login-page",
     component: () => import('@/views/general/BuyerLoginPage.vue')
   },

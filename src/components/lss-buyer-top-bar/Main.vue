@@ -39,7 +39,7 @@
 
 
       <!-- BEGIN: Notifications -->
-      <Dropdown class="intro-x mr-4 sm:mr-6 md:ml-auto">
+      <!-- <Dropdown class="intro-x mr-4 sm:mr-6 md:ml-auto">
         <DropdownToggle
           tag="div"
           role="button"
@@ -82,18 +82,23 @@
             </div>
           </DropdownContent>
         </DropdownMenu>
-      </Dropdown>
+      </Dropdown> -->
       <!-- END: Notifications -->
+
       <!-- BEGIN: Account Menu -->
-      <Dropdown class="intro-x w-8 h-8 mr-3 ">
+      <Dropdown class="intro-x w-8 h-8 mr-3 md:mr-0 md:ml-auto">
         <DropdownToggle
           tag="div"
           role="button"
           class="w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
         >
-          <img
+          <!-- <img
             alt="Enigma Tailwind HTML Admin Template"
             :src="$f()[9].photos[0]"
+          /> -->
+          <img
+            alt="Enigma Tailwind HTML Admin Template"
+            :src="userAvatar"
           />
         </DropdownToggle>
         <DropdownMenu class="w-56">
@@ -102,14 +107,21 @@
           >
             <DropdownHeader tag="div" class="!font-normal">
               <div class="font-medium">
-                {{ $f()[0].users[0].name }}
+                {{ buyerLayoutStore.userInfo.name }}
               </div>
               <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                {{ $f()[0].jobs[0] }}
+                {{ buyerLayoutStore.userInfo.email }}
               </div>
+
+              <!-- <div class="font-medium">
+                {{ $f()[0].users[0].name }}
+              </div> -->
+              <!-- <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
+                {{ $f()[0].jobs[0] }}
+              </div> -->
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5">
+            <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
               <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
             >
             <DropdownItem class="dropdown-item hover:bg-white/5">
@@ -117,12 +129,12 @@
             >
             <DropdownItem class="dropdown-item hover:bg-white/5">
               <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
-            >
+            > -->
             <DropdownItem class="dropdown-item hover:bg-white/5">
               <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
             >
             <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5">
+            <DropdownItem class="dropdown-item hover:bg-white/5" @click="logout()">
               <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout</DropdownItem
             >
           </DropdownContent>
@@ -137,10 +149,26 @@
 <script setup>
 import { ref, defineEmits } from "vue";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import { useRoute, useRouter } from "vue-router";
+import dom from "@left4code/tw-starter/dist/js/dom";
+
+const route = useRoute();
+const router = useRouter();
+
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 
 const toggleMobileMenu = ()=>{
   buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
+}
+
+const userAvatar = buyerLayoutStore.loginWith=='facebook' ? buyerLayoutStore.userInfo.facebook_info.picture : buyerLayoutStore.userInfo.google_info.picture
+
+const logout = () => {
+  // clear cookies
+  // clear token
+  dom('.dropdown-menu').removeClass('show')
+  router.replace('/buyer/login')
+  
 }
 
 const searchDropdown = ref(false);
