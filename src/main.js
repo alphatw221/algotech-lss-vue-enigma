@@ -1,7 +1,6 @@
 import { createApp } from "vue";
 import { createPinia } from "pinia";
 import App from "./App.vue";
-import router from "./router";
 import globalComponents from "./global-components";
 import utils from "./utils";
 import axios from 'axios';
@@ -13,7 +12,10 @@ import ViewUIPlus from 'view-ui-plus';
 import VCalendar from 'v-calendar';
 import VueCookies from 'vue3-cookies';
 
-const app = createApp(App).use(router).use(createPinia()).use(ViewUIPlus).use(VCalendar, {});
+const app = createApp(App).use(createPinia());
+
+import router from "./router";
+app.use(router).use(ViewUIPlus).use(VCalendar, {});
 app.use(VueCookies);
 app.use(VueAxios, axios)
 

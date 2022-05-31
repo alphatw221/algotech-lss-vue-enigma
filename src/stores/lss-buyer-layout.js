@@ -8,12 +8,11 @@ export const useLSSBuyerLayoutStore = defineStore("buyerLayout", {
         pageName: "buyer-order-history-page",
         title: "Order History",
       },
-      
     ],
-    showMobileMenu:ref(false),
-    isAuthenticated:ref(false),
-    loginWith:ref('facebook'),
-    userInfo:ref({
+    showMobileMenu: ref(false),
+    isAuthenticated: ref(false),
+    loginWith: ref('facebook'),
+    userInfo: ref({
       id: 382,
       facebook_info: {
           id: "1508909916131805",
