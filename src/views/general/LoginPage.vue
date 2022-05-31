@@ -51,11 +51,13 @@
 
 <script>
 import { seller_login, general_login } from '@/api/user';
-import FacebookLoginButton from '@/components/button/FacebookSellerLoginButton.vue';
-import GoogleLoginButton from '@/components/button/GoogleLoginButtonV2.vue';
+import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
+import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
+import { userStore } from '@/stores/main';
 
 export default {
     setup() {
+        const store = userStore();
         
     },
     components:{
@@ -67,6 +69,9 @@ export default {
             seller_login(payload).then(response => {
                 var set_cookie = new Promise((res) => {
                     this.$cookies.set("access_token", response.data.access)
+                    store.$patch((state) => {
+                        state.accessToken = response.data.access;
+                    })
                     res()
                 })
                 set_cookie.then(() => {
@@ -106,6 +111,9 @@ export default {
             general_login(this.loginForm).then(response=>{
                 var set_cookie = new Promise((res) => {
                     this.$cookies.set("access_token", response.data.access)
+                    store.$patch((state) => {
+                        state.accessToken = response.data.access;
+                    })
                     res()
                 })
                 set_cookie.then(()=>{

@@ -169,7 +169,7 @@
           <td class="text-center">
             <button
               class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2"
-              @click="changeEntry"
+              @click="changeEntry(campaign.id)"
             >
               Entry
             </button>
@@ -282,8 +282,8 @@ export default {
       this.page_Size = pageSize;
       this.search();
     },
-    changeEntry() {
-      this.eventBus.emit("entryPoint");
+    changeEntry(campaign_id) {
+      this.eventBus.emit("entryPoint", campaign_id);
     },
     manageOrder(){
       this.eventBus.emit("manageOrder");

@@ -1,8 +1,7 @@
   <template>
     <div class="box p-2 my-5 lg:p-5 lg:m-5 2xl:p-10 2xl:m-5 grid grid-cols-12 gap-4">
-        <span class="col-start-1 col-span-12 lg:col-span-6 2xl:col-span-6 text-lg"> Delivery Details </span>
-        <span class="col-span-12 lg:col-span-6 2xl:col-span-6 text-lg"> Payment Details</span>
-        <div class="col-start-1 text-sm col-span-12 lg:col-span-6 lg:text-lg 2xl:text-lg 2xl:col-span-6 text-lg">
+        <span class="col-start-1 col-span-12 text-lg"> <strong>Delivery Details</strong></span>
+        <div class="col-start-1 text-sm col-span-12 lg:text-lg 2xl:text-lg">
             <div class="relative">
                 <u class="text-lg"> Delivery</u>
                 <a href="" class="absolute top-0 right-0 text-[15px]"> Edit</a>
@@ -68,7 +67,8 @@
                 Submit </button>
             </div>
         </div>
-        <div id="paymentDetails" class="col-span-12 lg:col-span-6 2xl:col-span-6">
+        <span class="col-span-12 text-lg"><strong>Payment Details</strong> </span>
+        <div id="paymentDetails" class="col-span-12">
             <AccordionGroup class="accordion-boxed">
                 <AccordionItem>
                     <Accordion class="bg-primary rounded-t-lg ">
@@ -141,6 +141,13 @@
                     </AccordionPanel>
                 </AccordionItem>
             </AccordionGroup>
+
+        </div>
+        <div class="col-span-12 flex justify-end">
+            <button class="btn btn-outline-primary mr-5" 
+            @click="this.$router.back()"> Privious</button>
+            <button class="btn btn-outline-primary" 
+            @click="this.$router.push('/create-campaign')" > Save</button>
 
         </div>
     </div>

@@ -3,7 +3,7 @@ import SideMenu from "../layouts/side-menu/Main.vue";
 import SimpleMenu from "../layouts/simple-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
 import LssSideMenu from "../layouts/lss-side-menu/Main.vue";
-import BuyerSideMenu from "../layouts/buyer-side-menu/Main.vue";
+import LSSBuyerLayout from "../layouts/lss-buyer-layout/Main.vue";
 import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
 import DashboardOverview3 from "../views/dashboard-overview-3/Main.vue";
@@ -67,7 +67,8 @@ import ImageZoom from "../views/image-zoom/Main.vue";
 
 import ShoppingCart from "../views/shoppingcart/Main.vue";
 import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
-import OrderHistoryDetails from "../views/shoppingcart/OrderHistoryDetails.vue"; 
+import OrderDetails from "../views/shoppingcart/OrderDetails.vue";
+import ShoppingPayment from "../views/shoppingcart/payment.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
@@ -83,8 +84,10 @@ import ConnectPlatform from "../views/settings/ConnectPlatform.vue";
 import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
+import Test5 from "../views/test/test5.vue"; 
 
-
+import isAdminMiddleware from "@/libs/routerMiddleware/isAdminMiddleware"
+import isAuthMiddleware from "@/libs/routerMiddleware/isAuthMiddleware"
 
 const routes = [
   // {
@@ -132,14 +135,14 @@ const routes = [
         component: ShoppingCart,
       }, 
       {  
-        path: "orderHistory",
-        name: "OrderHistory",
-        component: OrderHistory,
+        path: "shopping-payment",
+        name: "side-menu-shopping-payment",
+        component: ShoppingPayment,
       },
       {  
         path: "orderHistory-details",
         name: "OrderHistoryDetails",
-        component: OrderHistoryDetails,
+        component: OrderDetails,
       },
       {  
         path: "campaign-global-setting",
@@ -230,20 +233,32 @@ const routes = [
   // -------------------------------Buyer Route-----------------------------
   {
     path: "/buyer",
-    component: BuyerSideMenu,
+    component: LSSBuyerLayout,
+    beforeEnter: isAuthMiddleware,
     children: [
       {
-        path: "test3",
-        name: "side-menu-test3",
-        component: Test3,
+        path: "orders",
+        name: "buyer-order-history-page",
+        component: OrderHistory,
       },
+      {  
+        path: "order/:order_id?",
+        name: "buyer-order-detail-page",
+        component: OrderDetails,
+      },
+      {  
+        path: "cart/:pre_order_id?",
+        name: "buyer-shopping-cart-detail-page",
+        component: ShoppingCart,
+      }
+
     ]
   },
-  // {
-  //   path: "/buyer/login",
-  //   name: "LoginPage",
-  //   component: () => import('@/views/general/LoginPage.vue')
-  // },
+  {
+    path: "/buyer/login/:pre_order_id?",
+    name: "buyer-login-page",
+    component: () => import('@/views/general/BuyerLoginPage.vue')
+  },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
   {

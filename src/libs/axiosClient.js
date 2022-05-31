@@ -36,13 +36,15 @@ const axiosInstance = axios.create({
 axiosInstance.interceptors.response.use(
     response => response,
     error => {
-        if (error.response.data.message) {
-            alert(error.response.data.message)
+        if (error.response.data) {
+            if (error.response.data.detail){
+                alert(error.response.data.detail)
+            }else if (error.response.data.message){
+                alert(error.response.data.message)
+            }
         }
-        else if (error.response.data.detail){
-            alert(error.response.data.detail)
-        }else{
-            alert('error')
+        else{
+            alert('error ! please refresh the page.')
         }
         return Promise.reject(error);
     }
@@ -56,6 +58,30 @@ export function createAxiosWithBearer(){
     axiosInstanceWithBearer.interceptors.response.use(
         response => response,
         error => {
+            if (error.response.data) {
+                if (error.response.data.detail){
+                    alert(error.response.data.detail)
+                }else if (error.response.data.message){
+                    alert(error.response.data.message)
+                }
+            }
+            else{
+                alert('error ! please refresh the page.')
+            }
+            return Promise.reject(error);
+        }
+    );
+    return axiosInstanceWithBearer
+}
+
+export function facebookAxios(accessToken){
+    const axiosInstance = axios.create({
+        baseURL: import.meta.env.VITE_FACEBOOK_API_URL_V13,
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+    })
+    axiosInstance.interceptors.response.use(
+        response => response,
+        error => {
             if (error.response.data.message) {
                 alert(error.response.data.message)
             }
@@ -67,9 +93,52 @@ export function createAxiosWithBearer(){
             return Promise.reject(error);
         }
     );
-    return axiosInstanceWithBearer
+    return axiosInstance
 }
 
+export function instagramAxios(accessToken){
+    const axiosInstance = axios.create({
+        baseURL: import.meta.env.VITE_FACEBOOK_API_URL_V13,
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+    })
+    axiosInstance.interceptors.response.use(
+        response => response,
+        error => {
+            if (error.response.data.message) {
+                alert(error.response.data.message)
+            }
+            else if (error.response.data.detail){
+                alert(error.response.data.detail)
+            }else{
+                alert('error')
+            }
+            return Promise.reject(error);
+        }
+    );
+    return axiosInstance
+}
+
+export function youtubeAxios(accessToken){
+    const axiosInstance = axios.create({
+        baseURL: import.meta.env.VITE_YOUTUBE_API_URL,
+        headers: { 'Authorization': `Bearer ${accessToken}` },
+    })
+    axiosInstance.interceptors.response.use(
+        response => response,
+        error => {
+            if (error.response.data.message) {
+                alert(error.response.data.message)
+            }
+            else if (error.response.data.detail){
+                alert(error.response.data.detail)
+            }else{
+                alert('error')
+            }
+            return Promise.reject(error);
+        }
+    );
+    return axiosInstance
+}
 // const axiosInstanceWithBearer = axios.create({
 //     baseURL: process.env.VUE_APP_ROOT_API,
 //     headers: { 'Authorization': `Bearer ${cookies.get("access_token")}` },

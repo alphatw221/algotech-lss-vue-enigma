@@ -78,6 +78,8 @@
 import SearchBar from "@/components/bar/SearchBar.vue";
 import DataTable from "@/components/table/DataTable.vue";
 import { list_category } from '@/api/stock';
+import { userStore } from '@/stores/main';
+
 
 export default {
   components: {

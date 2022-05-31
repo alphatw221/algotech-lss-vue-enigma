@@ -2140,6 +2140,7 @@ export default {
             ],
         comment_status: "Shipping",
         campaign_id: this.$route.params.campaign_id,
+        // campaign_id: 443,
         };
     },
     showReplyBar() {

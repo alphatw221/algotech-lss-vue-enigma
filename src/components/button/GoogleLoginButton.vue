@@ -1,91 +1,56 @@
 <template>
-    <div class="google-login-btn">
-        <a 
-        style="margin: auto"
-        v-bind:href="googleLoginHyperReference" role="button" >
-            <img width="24"
-            alt="Google sign-in" 
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" 
-            />
-            Log in with Google
-    </a>
-    </div>
-    
-
+    <div id="g_login_button" style="margin: 10px 0 0 0;"></div>
 </template>
 
 <script>
 import loadScript from '@/libs/loadScript.js';
-
+import { buyer_login_with_google, seller_login_with_google} from '@/api_v2/user'
 export default {
-    props: {
-        pathDir: String,
-    },
-    data(){
-        return {
-            scopes:[
-                "https://www.googleapis.com/auth/youtube"+"%20",
-                "https://www.googleapis.com/auth/userinfo.email"+"%20",
-                "https://www.googleapis.com/auth/userinfo.profile"
-            ],
-            // redirect_uri:"gipassl.algotech.app/api/user/google_user_login_callback",
-            callback_uri:"http://localhost:8000/api/user/google_user_login_callback",
-            redirect_uri:"https://localhost:8080/"+ this.pathDir,
-            redirect_route:"test_page1",
-            response_type:"code",
-            client_id:"536277208137-okgj3vg6tskek5eg6r62jis5didrhfc3.apps.googleusercontent.com",
-            access_type:"offline",
-        }
+    props:{
+        role:String
     },
     mounted() {
-        loadScript("https://accounts.google.com/gsi/client",()=>{
+        loadScript("https://accounts.google.com/gsi/client",() =>{
             console.log("Google SDK loaded")
+            window.google.accounts.id.initialize({
+                client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+                callback: res => {
+
+                    const loginRequest = this.role=='buyer' ? buyer_login_with_google : seller_login_with_google
+                    loginRequest({google_token:res.credential})
+                    .then(response => {
+                        console.log(response.data)
+                        var set_cookie = new Promise((res) => {
+                            this.$cookies.set("access_token", response.data.access)
+                            this.$cookies.set("refresh_token", response.data.refresh)
+                            res()
+                        })
+                        set_cookie.then(() => {
+
+                            if(this.$route.params.campaign_id ){
+                                this.$router.push(`/buyer/cart/${this.$route.params.campaign_id}`)
+                            }else{
+                                this.$router.push(`/buyer/`)
+                            }
+                            
+                        })
+                    })
+                }
+            });
+            window.google.accounts.id.renderButton(
+                document.getElementById("g_login_button"),
+                { theme: "white", size: "large", width: "310", locale: "en" }  // customization attributes
+            );
+            window.google.accounts.id.renderButton(
+                document.getElementById("g_login_button").style.font = "bold arial,serif"  // customization attributes 
+            );
+            window.google.accounts.id.renderButton(
+                document.getElementById("g_login_button").style.boxShadow = "0px 0px 2px 0.5px rgba(0, 0, 0, 1)"  // customization attributes 
+            );
+            window.google.accounts.id.renderButton(
+                document.getElementById("g_login_button").style.borderRadius = "2% 2%"  // customization attributes 
+            );
         });
     },
-    computed:{
-        googleLoginHyperReference(){
-            let href=`https://accounts.google.com/o/oauth2/v2/auth?`
-            href+=`redirect_uri=${this.callback_uri}&`
-            href+=`response_type=${this.response_type}&`
-            href+=`client_id=${this.client_id}&`
-            href+=`access_type=${this.access_type}&`
-            // href+=`state=${this.redirect_uri},${this.callback_uri}&`
-            href+=`state=${JSON.stringify({
-                redirect_uri:this.redirect_uri,
-                redirect_route:this.redirect_route,
-                callback_uri:this.callback_uri
-                })}&`
-
-            href+=`scope=`
-            this.scopes.forEach(value=>{
-                href+=value
-            })
-            // for (const scope in this.scopes) href+=scope
-            return href
-        }
-    },
 }
-
 </script>
-
-<style scoped>
-.google-login-btn {
-    background-color: white;
-    width:310px;
-    height:45px;
-    padding: 10px 8px;
-    margin-top:2px;
-    font-weight: 700; 
-    font-size: 16px;
-    border: 1.5px solid rgb(112, 112, 112);
-    border-radius: 5px;
-    text-align: center;
-}
-
-img{
-    float:left;
-    margin-bottom: 1px;
-}
-</style>
-
-
