@@ -320,6 +320,7 @@ import PaymentMethods from "@/components/box/PaymentMethods.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import ShippingSummary from "@/components/box/ShippingSummary.vue";
 import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
+import { buyer_cart_retrieve } from "@/api_v2/buyer";
 
 
 export default {
@@ -340,27 +341,12 @@ export default {
         { name: "Subtotal", key: "subtotal" },
         { name: " ", key: "remove" },
       ],
-      products: [
-        {
-          img: "",
-          name: "cookie",
-          price: 10.0,
-          qty: 3,
-        },
-        {
-          img: "",
-          name: "car",
-          price: 10000.0,
-          qty: 1,
-        },
-        {
-          img: "",
-          name: "pooo",
-          price: 1024.0,
-          qty: 10,
-        },
-      ],
+      products: [],
+      orderSummary: {}
     };
+  },
+  mounted() {
+    this.buyer_cart_retrieve(818)
   },
   computed: {
     filterStyle() {
@@ -380,6 +366,17 @@ export default {
     toggleTabs: function (tabNumber) {
       this.openTab = tabNumber;
     },
+    buyer_cart_retrieve(pre_order_id) {
+      buyer_cart_retrieve(pre_order_id)
+      .then(
+        response => {
+          for (const [key, value] of Object.entries(response.data['products'])) {
+            this.products.push(value)
+          }
+          this.orderSummary = response.data['pre_order_price_detail']
+        }
+      )
+    }
   },
 };
 </script>

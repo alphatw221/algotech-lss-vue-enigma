@@ -83,6 +83,7 @@ import ConnectPlatform from "../views/settings/ConnectPlatform.vue";
 import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
+import Test5 from "../views/test/test5.vue"; 
 
 import isAdminMiddleware from "@/libs/routerMiddleware/isAdminMiddleware"
 import isAuthMiddleware from "@/libs/routerMiddleware/isAuthMiddleware"
@@ -127,11 +128,6 @@ const routes = [
         name: "side-menu-shopping-cart",
         component: ShoppingCart,
       }, 
-      {  
-        path: "orderHistory",
-        name: "OrderHistory",
-        component: OrderHistory,
-      },
       {  
         path: "orderHistory-details",
         name: "OrderHistoryDetails",

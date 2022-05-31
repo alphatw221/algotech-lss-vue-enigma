@@ -82,7 +82,7 @@
           <button
             type="button"
             href="javascript:;"
-            @click="facebookOverlappingModalPreview = true"
+            @click="facebookSelectPage()"
             class="btn w-48 btn-primary mr-3"
           >
             Select Page
@@ -92,33 +92,8 @@
             type="text"
             class="form-control"
             placeholder=""
-          />
-        </div>
-        <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >YouTube</label
-          >
-          <div
-            v-show="youtubePageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="ytAvatar" />
-          </div>
-        </div>
-        <div class="col-span-12" style="display: inline-flex">
-          <button
-            type="button"
-            href="javascript:;"
-            @click="youtubeOverlappingModalPreview = true"
-            class="btn w-48 btn-primary mr-3"
-          >
-            Select Page
-          </button>
-          <input
-            id="modal-form-1"
-            type="text"
-            class="form-control"
-            placeholder=""
+            v-model="fb_post_id"
+            @click="facebookSelectCurrentLive()"
           />
         </div>
         <div class="col-span-12 items-end" style="display: inline-flex">
@@ -136,7 +111,7 @@
           <button
             type="button"
             href="javascript:;"
-            @click="instagramOverlappingModalPreview = true"
+            @click="instagramSelectPage()"
             class="btn w-48 btn-primary mr-3"
           >
             Select Page
@@ -146,6 +121,37 @@
             type="text"
             class="form-control"
             placeholder=""
+            v-model="ig_live_media_id"
+            @click="instagramSelectCurrentLive()"
+          />
+        </div>
+                <div class="col-span-12 items-end" style="display: inline-flex">
+          <label for="modal-form-1" class="text-lg font-medium mr-5"
+            >YouTube</label
+          >
+          <div
+            v-show="youtubePageSelected"
+            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+          >
+            <img alt="Midone Tailwind HTML Admin Template" :src="ytAvatar" />
+          </div>
+        </div>
+        <div class="col-span-12" style="display: inline-flex">
+          <button
+            type="button"
+            href="javascript:;"
+            @click="youtubeSelectPage()"
+            class="btn w-48 btn-primary mr-3"
+          >
+            Select Page
+          </button>
+          <input
+            id="modal-form-1"
+            type="text"
+            class="form-control"
+            placeholder=""
+            v-model="yt_live_video_id"
+            @click="youtubeSelectCurrentLive()"
           />
         </div>
       </ModalBody>
@@ -156,70 +162,31 @@
       >
         <ModalBody class="text-left content-center">
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
-            <div
-              @click="facebookAccountClick(fbimg1)"
-              class="
-                w-14
-                h-14
-                flex-none
-                image-fit
-                rounded-md
-                overflow-hidden
-                col-start-1 col-span-2
-              "
-            >
-              <img
-                alt="Midone Tailwind HTML Admin Template"
-                src="@/assets/images/lss-img/kuaimai-avatar.jpeg"
-              />
-            </div>
-            <span
-              @click="facebookAccountClick(fbimg1)"
-              class="col-span-6 text-lg content-center"
-            >
-              Kuai Mai
-            </span>
-
-            <div
-              @click="facebookAccountClick(fbimg2)"
-              class="
-                w-14
-                h-14
-                flex-none
-                image-fit
-                rounded-md
-                overflow-hidden
-                col-start-1 col-span-2
-              "
-            >
-              <img alt="Midone Tailwind HTML Admin Template" :src="fbimg2" />
-            </div>
-            <span
-              @click="facebookAccountClick(fbimg2)"
-              class="col-span-6 text-lg"
-            >
-              Nick Lian
-            </span>
-
-            <div
-              @click="facebookAccountClick(fbimg3)"
-              class="
-                w-14
-                flex-none
-                image-fit
-                rounded-md
-                overflow-hidden
-                col-start-1 col-span-2
-              "
-            >
-              <img alt="Midone Tailwind HTML Admin Template" :src="fbimg3" />
-            </div>
-            <span
-              @click="facebookAccountClick(fbimg3)"
-              class="col-span-6 text-lg"
-            >
-              Live Show Seller
-            </span>
+            <template v-for="page in campaignEntrydata.facebook.ownPageItems" :key="page.page_id">
+              <div
+                @click="facebookAccountClick(page.image, page.page_id, page.token)"
+                class="
+                  w-14
+                  h-14
+                  flex-none
+                  image-fit
+                  rounded-md
+                  overflow-hidden
+                  col-start-1 col-span-2
+                "
+              >
+                <img
+                  alt=""
+                  :src="page.image"
+                />
+              </div>
+              <span
+                @click="facebookAccountClick(page.image, page.page_id, page.token)"
+                class="col-span-6 text-lg content-center"
+              >
+                {{ page.name }}
+              </span>
+            </template>
           </div>
         </ModalBody>
       </Modal>
@@ -232,63 +199,31 @@
       >
         <ModalBody class="text-left align-middle">
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
-            <div
-              @click="youtubeAccountClick(ytimg1)"
-              class="
-                w-14
-                h-14
-                flex-none
-                image-fit
-                rounded-md
-                overflow-hidden
-                col-start-1 col-span-2
-              "
-            >
-              <img alt="Midone Tailwind HTML Admin Template" :src="ytimg1" />
-            </div>
-            <span
-              @click="youtubeAccountClick(ytimg2)"
-              class="col-span-6 text-lg"
-            >
-              Beboo Feng
-            </span>
-            <div
-              @click="youtubeAccountClick(ytimg2)"
-              class="
-                w-14
-                h-14
-                flex-none
-                image-fit
-                rounded-md
-                overflow-hidden
-                col-start-1 col-span-2
-              "
-            >
-              <img alt="Midone Tailwind HTML Admin Template" :src="ytimg2" />
-            </div>
-            <span
-              @click="youtubeAccountClick(ytimg3)"
-              class="col-span-6 text-lg"
-            >
-              Jennifer Nicholson
-            </span>
-            <div
-              @click="youtubeAccountClick(ytimg3)"
-              class="
-                w-14
-                h-14
-                flex-none
-                image-fit
-                rounded-md
-                overflow-hidden
-                col-start-1 col-span-2
-              "
-            >
-              <img alt="Midone Tailwind HTML Admin Template" :src="ytimg3" />
-            </div>
-            <span @click="youtubeAccountClick()" class="col-span-6 text-lg">
-              Maureen Hiatt
-            </span>
+            <template v-for="page in campaignEntrydata.youtube.ownPageItems" :key="page.channel_id">
+              <div
+                @click="youtubeAccountClick(page.image, page.channel_id, page.token)"
+                class="
+                  w-14
+                  h-14
+                  flex-none
+                  image-fit
+                  rounded-md
+                  overflow-hidden
+                  col-start-1 col-span-2
+                "
+              >
+                <img
+                  alt=""
+                  :src="page.image"
+                />
+              </div>
+              <span
+                @click="youtubeAccountClick(page.image, page.channel_id, page.token)"
+                class="col-span-6 text-lg content-center"
+              >
+                {{ page.name }}
+              </span>
+            </template>
           </div>
         </ModalBody>
       </Modal>
@@ -301,70 +236,75 @@
       >
         <ModalBody class="text-left">
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
-            <div
-              @click="instagramAccountClick(igimg1)"
-              class="
-                w-14
-                h-14
-                flex-none
-                image-fit
-                rounded-md
-                overflow-hidden
-                col-start-1 col-span-2
-              "
-            >
-              <img alt="Midone Tailwind HTML Admin Template" :src="igimg1" />
-            </div>
-            <span
-              @click="instagramAccountClick(igimg1)"
-              class="col-span-6 text-lg"
-            >
-              Alejandro Gonzalez
-            </span>
-            <div
-              @click="instagramAccountClick(igimg2)"
-              class="
-                w-14
-                h-14
-                flex-none
-                image-fit
-                rounded-md
-                overflow-hidden
-                col-start-1 col-span-2
-              "
-            >
-              <img alt="Midone Tailwind HTML Admin Template" :src="igimg2" />
-            </div>
-            <span
-              @click="instagramAccountClick(igimg2)"
-              class="col-span-6 text-lg"
-            >
-              David Tsui
-            </span>
-            <div
-              @click="instagramAccountClick(igimg3)"
-              class="
-                w-14
-                h-14
-                flex-none
-                image-fit
-                rounded-md
-                overflow-hidden
-                col-start-1 col-span-2
-              "
-            >
-              <img alt="Midone Tailwind HTML Admin Template" :src="igimg3" />
-            </div>
-            <span
-              @click="instagramAccountClick(igimg3)"
-              class="col-span-6 text-lg"
-            >
-              Fushia Liu
-            </span>
+            <template v-for="page in campaignEntrydata.instagram.ownPageItems" :key="page.business_id">
+              <div
+                @click="instagramAccountClick(page.image, page.business_id, page.token)"
+                class="
+                  w-14
+                  h-14
+                  flex-none
+                  image-fit
+                  rounded-md
+                  overflow-hidden
+                  col-start-1 col-span-2
+                "
+              >
+                <img
+                  alt=""
+                  :src="page.image"
+                />
+              </div>
+              <span
+                @click="instagramAccountClick(page.image, page.business_id, page.token)"
+                class="col-span-6 text-lg content-center"
+              >
+                {{ page.name }}
+              </span>
+            </template>
           </div>
         </ModalBody>
       </Modal>
       <!-- END: Select Instagram Profile Page -->
+
+      <!-- BEGIN: Select Current Live -->
+      <Modal
+        :show="CurrentLiveOverlappingModalPreview"
+        @hidden="CurrentLiveOverlappingModalPreview = false"
+      >
+        <ModalBody class="text-left content-center">
+          <div class="intro-y grid grid-cols-12 gap-5 my-5">
+            <template v-for="live in currentLiveItems" :key="live.id">
+              <div
+                class="
+                  flex-none
+                  rounded-md
+                  overflow-hidden
+                  col-start-1 col-span-12
+                "
+                @click="chooseLive(live.id, currentLiveListPlatform)"  style="cursor: pointer"
+              >
+                <template v-if="live.embed_html">
+                  <div v-html="live.embed_html" style="z-index: 0"></div>
+                </template>
+                <template v-else-if="live.image">
+                  <img
+                    alt=""
+                    :src="live.image"
+                    style="z-index: 0"
+                  />
+                </template>
+              </div>
+              <span
+                class="col-span-6 text-lg content-center"
+                @click="chooseLive(live.id, currentLiveListPlatform)"  style="cursor: pointer"
+              >
+                {{ live.title }}
+              </span>
+            </template>
+          </div>
+        </ModalBody>
+      </Modal>
+      <!-- END: Select Current Live -->
 
       <ModalFooter>
         <button
@@ -385,6 +325,11 @@
 <script>
 import SearchBar from "@/components/bar/SearchBar.vue";
 import CampaignListTable from "@/components/table/CampaignListTable.vue";
+import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
+import { get_fb_page_live_media } from "@/api/facebook"
+import { get_ig_live_media } from "@/api/instagram"
+import { get_yt_live_media } from "@/api/youtube"
+
 export default {
   components: { 
 		SearchBar,
@@ -400,6 +345,10 @@ export default {
       facebookPageSelected: false,
       instagramPageSelected: false,
       youtubePageSelected: false,
+      currentLiveItems: [],
+      currentLiveListPlatform: null,
+      CurrentLiveOverlappingModalPreview: false,
+      EntryCampaignId: null,
 
       fbAvatar: "",
       fbimg1: "/src/assets/images/lss-img/kuaimai-avatar.jpeg",
@@ -413,6 +362,17 @@ export default {
       igimg1: "/src/assets/images/profile-4.jpg",
       igimg2: "/src/assets/images/profile-5.jpg",
       igimg3: "/src/assets/images/profile-6.jpg",
+      fb_page_id: null,
+      fb_post_id: null,
+      fb_page_token: null,
+      ig_profile_id: null,
+      ig_live_media_id: null,
+      ig_page_token: null,
+      yt_channel_id: null,
+      yt_live_video_id:null,
+      yt_page_token: null,
+
+
 
       searchColumns: {
         keywords: [
@@ -432,11 +392,39 @@ export default {
         { name: " ", key: "edit" },
       ],
       campaign_status: "schedule",
+      campaignEntrydata: {
+        facebook:{
+          ownPageItems:{},
+          chosenPageInfo:{
+            pageID: this.fb_page_id,
+            pageAccessToken:this.fb_page_token,
+            post_id: this.fb_post_id
+          },
+        },
+        instagram:{
+          ownPageItems:{},
+          chosenPageInfo:{
+            pageID: this.ig_profile_id,
+            pageAccessToken:this.fb_page_token,
+            live_media_id: this.ig_live_media_id,
+          },
+        },
+        youtube:{
+          ownPageItems:{},
+          chosenPageInfo:{
+            pageID:this.yt_channel_id,
+            pageAccessToken:this.yt_page_token,
+            live_video_id: this.yt_live_video_id,
+          },
+        },
+      }
     };
   },
   mounted() {
-    this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0NTA2NDc0LCJpYXQiOjE2NTM5MDE2NzQsImp0aSI6IjMzZTJjNGQ2YzdhZjRhNzBiYjI1OTYxYTUxNTRmMmRlIiwidXNlcl9pZCI6NzcsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo3Nywic2VsbGVyX2lkIjo5MCwiY3VzdG9tZXJfaWQiOjEwNCwibmFtZSI6IkplcmVteSBDaG91IiwiZW1haWwiOiJqZXJlbXljaG91QGFjY29sYWRlZ2xvYmFsLm5ldCJ9fQ.biiHaWAFjED1nEib9jeT5ncO5lGTBJNjVg9T5IH6vc4");
+    this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0NTcwNjE4LCJpYXQiOjE2NTM5NjU4MTgsImp0aSI6ImEwZDk5MDNmNTdiYTQyMGM5OTczMGVlM2NhNDEyMDg0IiwidXNlcl9pZCI6MSwiZGF0YSI6eyJhdXRoX3VzZXJfaWQiOjEsInNlbGxlcl9pZCI6MTQsImN1c3RvbWVyX2lkIjoxMDMsIm5hbWUiOiJDaGlhbmdjaGVuZyBMaWVuIiwiZW1haWwiOiJuaWNrODgwNjhAZ21haWwuY29tIn19.35cm9DgWG4dJ82mBPqDetkca_g6E_SSges-aQr9YuPU");
     this.eventBus.on("entryPoint", (payload) => {
+      console.log(payload)
+      this.EntryCampaignId = payload
       this.idPopupModalPreview = true
     })
   },
@@ -452,25 +440,158 @@ export default {
       this.idPopupModalPreview = false;
       this.enterIDModalPreview = true;
     },
-
-    facebookAccountClick(img) {
+    facebookSelectPage() {
+      get_user_subscription_facebook_pages()
+      .then((response) => {
+          console.log(response);
+          console.log(response.data);
+          this.campaignEntrydata.facebook.ownPageItems = response.data
+          this.facebookOverlappingModalPreview = true
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+    facebookAccountClick(img, official_page_id, token) {
+      this.fb_page_id = official_page_id
+      this.fb_page_token = token
+      console.log(this.campaignEntrydata.facebook.chosenPageInfo)
       this.facebookOverlappingModalPreview = false;
       this.facebookPageSelected = true;
       this.fbAvatar = img;
     },
+    facebookSelectCurrentLive() {
+      get_fb_page_live_media(this.fb_page_id, this.fb_page_token)
+      .then((response) => {
+          console.log(response);
+          console.log(response.data);
+          // const sort = response.data.data.filter(v => v.status === "LIVE")
+          const live_campaign = response.data.data.filter(v => v.status === "LIVE")
+          if (!live_campaign.length) {
+              alert('You have no Facebook live posts now.')
+          } else {
+              let currentLiveItems = []
+              live_campaign.forEach(v => {
 
-    youtubeAccountClick(img) {
-      this.youtubeOverlappingModalPreview = false;
-      this.youtubePageSelected = true;
-      this.ytAvatar = img;
+                currentLiveItems.push({
+                  id: v.video.id,
+                  title: v.title?v.title:"Current Live",
+                  image: null,
+                  video_url: null,
+                  embed_html: v.embed_html,
+                })
+              });
+              this.currentLiveItems = currentLiveItems
+              this.currentLiveListPlatform = "facebook"
+              this.CurrentLiveOverlappingModalPreview = true
+          }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
     },
-
-    instagramAccountClick(img) {
+    
+    instagramSelectPage() {
+      get_user_subscription_instagram_profiles()
+      .then((response) => {
+          console.log(response);
+          console.log(response.data);
+          this.campaignEntrydata.instagram.ownPageItems = response.data
+          this.instagramOverlappingModalPreview = true
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+    instagramAccountClick(img, official_page_id, token) {
+      this.ig_profile_id = official_page_id
+      this.ig_page_token = token
+      console.log(this.campaignEntrydata.instagram.chosenPageInfo)
       this.instagramOverlappingModalPreview = false;
       this.instagramPageSelected = true;
       this.igAvatar = img;
     },
+    instagramSelectCurrentLive() {
+      get_ig_live_media(this.ig_profile_id, this.ig_page_token)
+      .then((response) => {
+          console.log(response);
+          console.log(response.data);
+          // const sort = response.data.data.filter(v => v.status === "LIVE")
+          const live_campaign = response.data.data
+          if (!live_campaign.length) {
+              alert('You have no Instagram live posts now.')
+          } else {
+              let currentLiveItems = []
+              live_campaign.forEach(v => {
 
+                currentLiveItems.push({
+                  id: v.id,
+                  title: v.username,
+                  image: v.media_url,
+                  video_url: null,
+                  embed_html: null,
+                })
+              });
+              this.currentLiveItems = currentLiveItems
+              this.currentLiveListPlatform = "instagram"
+              this.CurrentLiveOverlappingModalPreview = true
+          }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+
+    youtubeSelectPage() {
+      get_user_subscription_youtube_channels()
+      .then((response) => {
+          console.log(response);
+          console.log(response.data);
+          this.campaignEntrydata.youtube.ownPageItems = response.data
+          this.youtubeOverlappingModalPreview = true
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
+    youtubeAccountClick(img, official_page_id, token) {
+      this.yt_channel_id = official_page_id
+      this.yt_page_token = token
+      console.log(this.campaignEntrydata.youtube.chosenPageInfo)
+      this.youtubeOverlappingModalPreview = false;
+      this.youtubePageSelected = true;
+      this.ytAvatar = img;
+    },
+    youtubeSelectCurrentLive() {
+      get_yt_live_media(this.yt_page_token)
+      .then((response) => {
+          console.log(response);
+          console.log(response.data);
+          // const sort = response.data.data.filter(v => v.status === "LIVE")
+          const live_campaign = response.data.items
+          if (!live_campaign.length) {
+              alert('You have no YouTube live stream now.')
+          } else {
+              let currentLiveItems = []
+              live_campaign.forEach(v => {
+
+                currentLiveItems.push({
+                  id: v.id,
+                  title: v.snippet.title,
+                  image: v.snippet.thumbnails.standard.url,
+                  video_url: null,
+                  embed_html: null,
+                })
+              });
+              this.currentLiveItems = currentLiveItems
+              this.currentLiveListPlatform = "youtube"
+              this.CurrentLiveOverlappingModalPreview = true
+          }
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    },
     cancelClean() {
       this.enterIDModalPreview = false;
       this.facebookPageSelected = false;
@@ -479,8 +600,31 @@ export default {
     },
     closeJump() {
       this.enterIDModalPreview = false;
-      this.$router.push("campaign-live");
+      console.log(this.EntryCampaignId)
+      this.$router.push(`/campaign-live/${this.EntryCampaignId}`);
     },
+
+    chooseFacebookLive(post_id) {
+      this.fb_post_id = post_id
+    },
+    chooseInstagramLive(live_media_id) {
+      this.ig_live_media_id = live_media_id
+    },
+    chooseYoutubeLive(live_video_id) {
+      this.yt_live_video_id = live_video_id
+    },
+    chooseLive(live_id, platform) {
+      if (platform === "facebook") {
+        this.chooseFacebookLive(live_id)
+      }
+      if (platform === "instagram") {
+        this.chooseInstagramLive(live_id)
+      }
+      if (platform === "youtube") {
+        this.chooseYoutubeLive(live_id)
+      }
+      this.CurrentLiveOverlappingModalPreview = false
+    }
   },
 };
 </script>
