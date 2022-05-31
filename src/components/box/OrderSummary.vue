@@ -2,7 +2,7 @@
   <div class="box p-5 m-3 border-2 border-secondary">
     <div>
       <div class="flex mb-4 dark:border-darkmode-400">
-        <span class="text-lg"> Order Summary</span>
+        <span class="text-lg">Order Summary</span>
       </div>
       <div class="flex">
         <div class="mr-auto">Subtotal</div>
@@ -29,7 +29,7 @@
         <div class="font-medium text-base">$220</div>
       </div>
     </div>
-    <div class="flex mt-5" v-if="page_type === 'stap1'">
+    <div class="flex mt-5" v-if="page_type === 'step1'">
       <button
         class="
           btn
@@ -50,6 +50,11 @@
 export default {
   props: {
     page_type: String,
+    orderSummary: Array
+  },
+  mounted() {
+      console.log('poooooooop')
+      console.log(this.orderSummary)
   },
   methods: {
     addItem() {
