@@ -80,7 +80,8 @@ watch(
     if(!meta_logistic)return
 
     let delivery_charge = meta_logistic.delivery_charge || 0
-
+    delivery_charge = Number(delivery_charge)
+    
     const delivery_titles = meta_logistic.additional_delivery_charge_title || null
     const delivery_types = meta_logistic.additional_delivery_charge_type || null
     const delivery_prices = meta_logistic.additional_delivery_charge_type || null
