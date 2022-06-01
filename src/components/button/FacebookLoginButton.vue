@@ -16,6 +16,7 @@
 <script>
 import loadScript from '@/libs/loadScript.js';
 import { buyer_login_with_facebook, seller_login_with_facebook} from '@/api_v2/user'
+import { useLSSBuyerLayoutStore } from '@/stores/lss-buyer-layout';
 
 export default {
     props:{
@@ -37,6 +38,8 @@ export default {
                 window.FB.getLoginStatus(response => {
                     if (response.status === 'connected') {
                         const loginRequest = this.role=='buyer' ? buyer_login_with_facebook : seller_login_with_facebook
+                        const store = this.role=='buyer' ? useLSSBuyerLayoutStore():useLSSBuyerLayoutStore()
+
                         loginRequest({facebook_token: response.authResponse.accessToken})
                         .then(response => {
                             var set_cookie = new Promise((res) => {
@@ -44,7 +47,7 @@ export default {
                                 res()
                             })
                             set_cookie.then(() => {
-                                console.log(this.$route.params)
+                                store.loginWith='facebook'
                                 if (this.role == 'buyer') {
                                     if (this.$route.params.pre_order_id ){
                                         this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)

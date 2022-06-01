@@ -5,6 +5,8 @@
 <script>
 import loadScript from '@/libs/loadScript.js';
 import { buyer_login_with_google, seller_login_with_google} from '@/api_v2/user'
+import { useLSSBuyerLayoutStore } from '@/stores/lss-buyer-layout';
+
 export default {
     props:{
         role:String
@@ -17,17 +19,18 @@ export default {
                 callback: res => {
 
                     const loginRequest = this.role=='buyer' ? buyer_login_with_google : seller_login_with_google
+                    const store = this.role=='buyer' ? useLSSBuyerLayoutStore():useLSSBuyerLayoutStore()
+
                     loginRequest({google_token:res.credential})
                     .then(response => {
-                        console.log(response.data)
+
                         var set_cookie = new Promise((res) => {
                             this.$cookies.set("access_token", response.data.access)
                             this.$cookies.set("refresh_token", response.data.refresh)
                             res()
                         })
                         set_cookie.then(() => {
-                            console.log('this.$route.params')
-                            console.log(this.$route.params)
+                            store.loginWith='google'
                             if (this.role == 'buyer') {
                                 if (this.$route.params.pre_order_id ){
                                     this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
