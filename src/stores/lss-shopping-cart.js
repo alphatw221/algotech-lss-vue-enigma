@@ -4,8 +4,6 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
   state: () => ({
     products:ref([]),
     openTab:ref(1),
-
-
     orderSummary:ref({}),
     delivery_info:ref({
         shipping_first_name: "",

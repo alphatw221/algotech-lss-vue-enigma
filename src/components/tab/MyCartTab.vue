@@ -38,25 +38,31 @@ const router = useRouter();
 
 const store = useShoppingCartStore(); 
 
-const tableColumns =ref( [
-        { name: " ", key: "image" },
-        { name: "Product", key: "product" },
-        { name: "Q'TY", key: "qty" },
-        { name: "Price", key: "price" },
-        { name: "Subtotal", key: "subtotal" },
-        { name: " ", key: "remove" },
-      ])
+const tableColumns = ref( [
+    { name: " ", key: "image" },
+    { name: "Product", key: "product" },
+    { name: "Q'TY", key: "qty" },
+    { name: "Price", key: "price" },
+    { name: "Subtotal", key: "subtotal" },
+    { name: " ", key: "remove" },
+])
 
 onMounted(()=>{
-  console.log(router.params)
-    // retrieve_pre_order(router.params.pre_order_id)
-    //   .then(
-    //     res => {
-    //       for (const [key, value] of Object.entries(res.data.products)) {
-    //           store.products.push(value)
-
-    //       }
-    //     }
-    //   )
+    retrieve_pre_order(route.params.pre_order_id)
+      .then(
+        res => {
+            console.log(res.data)
+            for (const [key, value] of Object.entries(res.data.products)) {
+                value.image = import.meta.env.VITE_APP_IMG_URL + value.image
+                store.products.push(value)
+            }
+            store.orderSummary = {
+                'subtotal': res.data.subtotal,
+                'total': res.data.total,
+                'deliveryCharge': res.data.shipping_cost,
+                'adjustPrice': res.data.adjust_price,
+            }
+        }
+      )
 })
 </script>
