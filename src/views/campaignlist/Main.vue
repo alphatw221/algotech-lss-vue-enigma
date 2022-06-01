@@ -4,14 +4,20 @@
     <!-- BEGIN: commit box -->
     <div class="col-span-12">
       <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
-        <div class="switch-toggle switch-3 switch-candy col-start-1 col-span-12 m-2 lg:col-start-1 2-xl:col-start-1">
+        <div class="switch-toggle switch-3 switch-candy col-start-1 col-span-12 m-2">
           <input id="on" name="state-d" type="radio" checked="checked"/>
-          <label for="on" @click="status_change('schedule')" style="width: 100px">Scheduled</label>
+          <label for="on" @click="status_change('schedule')" style="width: 100px; font-size:14px;">Scheduled</label>
           <input id="na" name="state-d" type="radio" class="my-0" />
-          <label for="na" @click="status_change('history')" style="width: 100px">History</label>
+          <label for="na" @click="status_change('history')" style="width: 100px; font-size:14px;">History</label>
           <input id="off" name="state-d" type="radio" />
-          <label for="off" @click="status_change('ongoing')" style="width: 100px">Ongoing</label>
+          <label for="off" @click="status_change('ongoing')" style="width: 100px; font-size:14px;">Ongoing</label>
         </div>
+        <button 
+          class="col-start-1 btn btn-warning btn-rounded w-24 h-10 text-white
+            lg:col-start-11 lg:m-2 
+              2xl:col-start-11 2xl:m-2"
+                @click="this.$router.push('/create-campaign')" > 
+          <span class="font-bold mr-1 text-lg">+</span> Create</button>
       </div>
 
       <div class="box">

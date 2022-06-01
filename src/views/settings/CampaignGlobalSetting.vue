@@ -7,15 +7,15 @@
             <div class="switch-toggle switch-3 switch-candy col-start-1 m-2 align-middle">
                 <div @click="toggleTabs(1)">
                     <input id="on" name="state-d" type="radio" checked="checked" />
-                    <label for="on" style="width: 130px" class="align-middle">Notes</label>
+                    <label for="on" style="width: 100px; font-size:14px;" class="align-middle">Notes</label>
                 </div>
                 <input id="na" name="state-d" type="radio" class="my-0" @click="toggleTabs(2)" />
-                <label for="na" style="width: 130px" class="align-middle">Payment</label>
+                <label for="na" style="width: 100px; font-size:14px;" class="align-middle">Payment</label>
                 <input id="off" name="state-d" type="radio" @click="toggleTabs(3)" />
-                <label for="off" style="width: 130px" class="align-middle">Delivery</label>
+                <label for="off" style="width: 100px; font-size:14px;" class="align-middle">Delivery</label>
             </div>
         </div>
-        <div :class="{ hidden: openTab !== 1, block: openTab === 1 }">
+        <div id="notes" :class="{ hidden: openTab !== 1, block: openTab === 1 }">
             <div class="box p-10">
                 <AccordionGroup class="accordion-boxed">
                     <AccordionItem>
@@ -84,7 +84,7 @@
                 </AccordionGroup>
             </div>
         </div>
-        <div :class="{ hidden: openTab !== 2, block: openTab === 2 }">
+        <div id="payment" :class="{ hidden: openTab !== 2, block: openTab === 2 }">
             <div class="box p-5 2xl:p-10">
                 <TabGroup>
                     <TabList class="nav-boxed-tabs flex flex-wrap content-between self-stretch self-auto ">
@@ -215,9 +215,126 @@
                 </TabGroup>
             </div>
         </div>
-        <div :class="{ hidden: openTab !== 3, block: openTab === 3 }">
-            <div class="box p-10">
-                third somthing
+        <div id="delivery" :class="{ hidden: openTab !== 3, block: openTab === 3 }">
+            <div class="box p-10 grid grid-cols-12 gap-5">
+        <div class="col-span-12"> 
+          <span class="text-2xl font-medium leading-none m-10">Delivery</span>
+          <div class="box p-10 mt-3 intro-y grid grid-cols-12 gap-5 my-10 -z-50">
+            <label for="regular-form-2" class="form-label col-start-1 col-span-3">Delivery Charge</label>
+            <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-6" value="USD $20" />
+            <label for="regular-form-2" class="form-label col-start-1 col-span-3">Free Delivery Charge Above</label>
+            <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-6" placeholder="" />
+            <label for="regular-form-2" class="form-label col-start-1 col-span-3">Free Delivery for Minimum</label>
+            <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-6" placeholder="" />
+            <label for="regular-form-2" class="form-label col-start-1 col-span-3">Delivery Charge Option</label>
+            <div class="col-start-2 col-span-10">
+              <div class="intro-y grid grid-cols-12 gap-5">
+                <label for="regular-form-2" class="form-label deLable col-start-1 col-span-3 h-10">
+                  Express Delivery</label>
+                <Dropdown class="col-span-4">
+                  <DropdownToggle class="btn btn-rounded-secondary relative justify-center w-full text-lg">
+                    On top of delivery charge
+                    <span
+                      class="w-8 h-8 absolute flex justify-center items-center right-0 top-0 bottom-0 my-auto ml-auto mr-1">
+                      <ChevronDownIcon class="w-4 h-4" />
+                    </span>
+                  </DropdownToggle>
+                  <DropdownMenu class="w-full text-lg">
+                    <DropdownContent>
+                      <DropdownItem>
+                        <FileTextIcon class="w-4 h-4 mr-2" />
+                        On top of delivery charge
+                      </DropdownItem>
+                      <DropdownItem>
+                        <FileTextIcon class="w-4 h-4 mr-2" />
+                        Replace delivery charge
+                      </DropdownItem>
+                    </DropdownContent>
+                  </DropdownMenu>
+                </Dropdown>
+                <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-3 h-10"
+                  placeholder="" />
+                <button class="btn btn-outline-danger w-24 inline-block mr-1 mb-2">
+                  Delete
+                </button>
+                <label for="regular-form-2" class="form-label deLable col-start-1 col-span-3 h-10">
+                  Overseas</label>
+                <Dropdown class="col-span-4">
+                  <DropdownToggle class="btn btn-rounded-secondary relative justify-center w-full text-lg">
+                    On top of delivery charge
+                    <span
+                      class="w-8 h-8 absolute flex justify-center items-center right-0 top-0 bottom-0 my-auto ml-auto mr-1">
+                      <ChevronDownIcon class="w-4 h-4" />
+                    </span>
+                  </DropdownToggle>
+                  <DropdownMenu class="w-full text-lg">
+                    <DropdownContent>
+                      <DropdownItem>
+                        <FileTextIcon class="w-4 h-4 mr-2" />
+                        On top of delivery charge
+                      </DropdownItem>
+                      <DropdownItem>
+                        <FileTextIcon class="w-4 h-4 mr-2" />
+                        Replace delivery charge
+                      </DropdownItem>
+                    </DropdownContent>
+                  </DropdownMenu>
+                </Dropdown>
+                <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-3"
+                  placeholder="" />
+                <button class="btn btn-outline-danger w-24 inline-block mr-1 mb-2">
+                  Delete
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>         
+        <div class="col-start-1 col-span-12"> 
+          <span class="text-2xl font-medium leading-none m-10">Collect In Store</span>
+          <div class="box intro-y grid grid-cols-8 gap-5 mt-5 p-10 z-50">
+            <div class="col-span-8">
+              <label for="regular-form-2" class="form-label col-start-1 col-span-1">Choose pickup start & end date</label>
+              <v-date-picker v-model="range" :timezone="timezone" mode="dateTime" :model-config="modelConfig" is-range is-required >
+                <template v-slot="{ inputValue, inputEvents }">
+                  <div class="flex justify-center items-center">
+                    <input
+                      :value="inputValue.start"
+                      v-on="inputEvents.start"
+                      class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300"
+                    />
+                    <ChevronsRightIcon class="w-8 h-8 m-1" /> 
+                    <input
+                      :value="inputValue.end"
+                      disabled
+                      class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300"
+                    />
+                  </div>
+                </template>
+              </v-date-picker>
+            </div>
+            <div v-for="n in range" class="col-span-8">
+                <div class="grid grid-cols-8 gap-5">
+                    <label for="regular-form-2" class="form-label col-start-1 w-48">Pickup Store</label>
+                    <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-4" placeholder="" />
+                    <label for="regular-form-2" class="form-label col-start-1 w-48">Pickup Address</label>
+                    <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-6 h-10"
+                    placeholder="" />
+                    <button class="btn btn-outline-danger w-24 inline-block mr-1 mb-2"
+                    @click="range--">
+                    Delete
+                    </button>
+                </div>
+            </div>
+            <a class="col-start-8" @click="range++"> + Add </a>
+          </div>
+        </div>
+        <div class="col-start-1 col-span-12">
+          <div class="box grid grid-cols-8 gap-5 mt-5 p-10 ">
+          <label for="regular-form-2" class="form-label col-start-1 col-span-2 text-xl">Delivery Note</label>
+          <textarea id="update-profile-form-5" class="form-control col-start-1 col-span-7 " placeholder="Address">
+                10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore</textarea>
+          </div>
+        </div>
             </div>
         </div>
     </div>
@@ -229,6 +346,7 @@ export default {
     data() {
         return {
             openTab: 1,
+            range:1,
         }
     },
     methods: {
@@ -244,7 +362,7 @@ export default {
     overflow: visible;
     float: left;
     height: 42px;
-    width: 390px;
+    width: 300px;
     background: theme("colors.secondary");
     border-radius: 42px 42px;
     letter-spacing: 0.7px;
@@ -281,7 +399,7 @@ export default {
 .switch-toggle input:checked+label {
     background: theme("colors.primary");
     height: 42px;
-    width: 130px;
+    width: 100px;
     border-radius: 42px 42px;
     font-weight: 500;
     color: aliceblue;
