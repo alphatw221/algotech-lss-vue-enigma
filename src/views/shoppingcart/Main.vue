@@ -285,7 +285,7 @@
               </div>
               <div class="my-5 flex justify-end">
                 <button class="w-full btn btn-primary lg:w-fit 2xl:lg:w-fit"
-                  @click="this.$router.push('/shopping-payment')">
+                  @click="this.$router.push('/seller/shopping-payment')">
                   Proceed to Payment
                 </button>
               </div>

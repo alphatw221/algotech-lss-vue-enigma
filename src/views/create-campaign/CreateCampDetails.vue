@@ -147,7 +147,7 @@
             <button class="btn btn-outline-primary mr-5" 
             @click="this.$router.back()"> Privious</button>
             <button class="btn btn-outline-primary" 
-            @click="this.$router.push('/create-campaign')" > Save</button>
+            @click="this.$router.push('/seller/campaign-list')" > Save</button>
 
         </div>
     </div>

@@ -155,7 +155,7 @@
         <button class="btn btn-outline-primary mr-5" 
           @click="comfirmProduct=false, selectProduct=true"> Edit</button>
         <button class="btn btn-outline-primary" 
-          @click="this.$router.push('/create-campaign/details')" > Next</button>
+          @click="this.$router.push('create-campaign/details')" > Next</button>
     </div>
   </div>
 </template>
