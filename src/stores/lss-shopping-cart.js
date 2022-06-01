@@ -13,15 +13,22 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
       shipping_last_name: "",
       shipping_email: "",
       shipping_phone: "",
-      shipping_address_1: "",
-      shipping_location: "",
-      shipping_region: "",
-      shipping_postcode: "",
-      shipping_cost: 0.00,
-      shipping_option: "",
-      shipping_method: "",
-      shipping_remark: ""
-    }),
-     
+      shipping_method: "delivery",
+      // total: 0.00,
+      shipping_remark: "",
+      delivery_info: {
+        shipping_address_1: "",
+        shipping_location: "",
+        shipping_region: "",
+        shipping_postcode: "",  
+        shipping_option: "",
+        shipping_cost: 0.00,
+      },
+      pickup_info: {
+        shipping_option: "",
+        shipping_cost: 0.00,
+      },
+    }
+  ),     
   }),
 });

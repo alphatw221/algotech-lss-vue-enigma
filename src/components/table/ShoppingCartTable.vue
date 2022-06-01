@@ -12,7 +12,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(product, index) in store.preOrder.products" :key="index" class="intro-x">
+        <tr v-for="(product, index) in store.preOrder.products" :key="index">
           <td class=" h-20">
             <div class="flex">
               <div class="w-10 h-10 image-fit zoom-in">

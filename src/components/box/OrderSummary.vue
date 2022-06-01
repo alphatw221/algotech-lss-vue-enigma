@@ -53,9 +53,9 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 const store = useShoppingCartStore(); 
 
-const addItem ()=>{
-  
-}
+// const addItem ()=>{
+
+// }
 
 
 //  this.eventBus.emit("addPoint");
