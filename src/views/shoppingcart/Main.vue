@@ -53,7 +53,6 @@
         <div class="px-4 py-5 flex-auto">
 
           <div class="tab-content tab-space">
-
             <!-- BEGIN My Cart Tab -->
               <MyCartTab />
             <!-- END My Cart Tab -->
@@ -61,8 +60,6 @@
             <!-- BEGIN Delivery Tab -->
               <DeliveryTab/>
             <!-- END Delivery Tab-->
-
-
           </div>
         </div>
       </div>
@@ -88,7 +85,7 @@ export default {
   },
   data() {
     return {
-      store:useShoppingCartStore()
+      store: useShoppingCartStore()
     };
   },
   computed: {
@@ -104,6 +101,10 @@ export default {
         return "";
       }
     },
+  },
+  mounted() {
+    console.log('popp')
+    console.log(this.$route.params.pre_order_id)
   },
   methods: {
     toggleTabs: function (tabNumber) {

@@ -38,7 +38,7 @@ export default {
                                     this.$router.push(`/buyer/`)
                                 }
                             } else if (this.role == 'seller') {
-                                this.$router.push(`/`)
+                                this.$router.push(`/seller`)
                             }
                         })
                     })

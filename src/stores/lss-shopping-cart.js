@@ -8,7 +8,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 
 
     orderSummary:ref({}),
-    delvery_info:ref({
+    delivery_info:ref({
       shipping_first_name: "",
       shipping_last_name: "",
       shipping_email: "",

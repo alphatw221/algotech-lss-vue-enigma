@@ -4,9 +4,10 @@
       <div class="flex mb-4 dark:border-darkmode-400">
         <span class="text-lg">Order Summary</span>
       </div>
+	  
       <div class="flex">
         <div class="mr-auto">Subtotal</div>
-        <div class="font-medium">$250</div>
+        <div class="font-medium">$ 250</div>
       </div>
       <div class="flex mt-4">
         <div class="mr-auto">Discount</div>
@@ -47,18 +48,33 @@
   </div>
 </template>
 <script>
+import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+
 export default {
-  props: {
-    page_type: String,
-    orderSummary: Object
-  },
-  mounted() {
-  },
-  methods: {
-    addItem() {
-      this.eventBus.emit("addPoint");
+	props: {
+        page_type: String,
     },
-  },
+    data() {
+		return {
+			orderSummary: {}
+		}
+    },
+	setup() {
+		
+	},
+    
+    mounted() {
+        const store = useShoppingCartStore(); 
+		console.log(store.orderSummary)
+		this.orderSummary = store.orderSummary
+
+		// console.log(this.orderSummary)
+    },
+    methods: {
+        addItem() {
+            this.eventBus.emit("addPoint");
+        },
+    },
 };
 </script>
  
