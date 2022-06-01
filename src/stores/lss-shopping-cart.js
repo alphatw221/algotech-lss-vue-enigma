@@ -12,10 +12,10 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
         shipping_last_name: "",
         shipping_email: "",
         shipping_phone: "",
-        shipping_method: "",
-        total: 0.00,
+        shipping_method: "delivery",
+        // total: 0.00,
         shipping_remark: "",
-        shipping_delivery_info: {
+        delivery_info: {
           shipping_address_1: "",
           shipping_location: "",
           shipping_region: "",

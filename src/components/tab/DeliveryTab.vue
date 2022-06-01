@@ -39,11 +39,11 @@
                   <TabGroup>
                     <TabList class="nav-boxed-tabs mx-10">
                       <Tab class="w-48 py-6 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
-                        tag="button" v-model="method">
+                        tag="button" @click="delivery_method('delivery')">
                         <TruckIcon class="block mr-3" /><span class="text-lg">Delivery</span>
                       </Tab>
                       <Tab class="w-48 py-3 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
-                        tag="button" v-model="method">
+                        tag="button" @click="delivery_method('pickup')">
                         <HomeIcon class="block mr-3" /><span class="text-lg">Collect In Store</span>
                       </Tab>
                     </TabList>
@@ -54,17 +54,18 @@
                           <div class="box p-8 intro-y col-span-12 gap-5">
                             <label for="regular-form-2" class="form-label my-2">Address</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
-                              placeholder="" />
+                              placeholder=""  v-model="store.delivery_info.delivery_info.shipping_address_1" />
                             <label for="regular-form-2" class="form-label my-2">City</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
-                              placeholder="" />
+                              placeholder=""  v-model="store.delivery_info.delivery_info.shipping_location" />
                             <label for="regular-form-2" class="form-label my-2">State</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
-                              placeholder="" />
+                              placeholder="" v-model="store.delivery_info.delivery_info.shipping_region" />
                             <label for="regular-form-2" class="form-label my-2">Postal Code</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
-                              placeholder="" />
+                              placeholder="" v-model="store.delivery_info.delivery_info.shipping_postcode" />
                           </div>
+                          <!-- Delivery Option -->
                           <label class="text-md font-medium col-span-12">Delivery Option</label>
                           <div class="box p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
                             <div class="flex form-check my-5">
@@ -125,7 +126,7 @@
                     </div>
                     <div class="col-span-12 mt-10">
                       <div class="text-md font-medium">Remark</div>
-                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="">
+                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.delivery_info.shipping_remark">
                                   Remark remark remark remark</textarea>
                     </div>
                   </TabGroup>
@@ -221,10 +222,16 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 import { useRoute, useRouter } from "vue-router";
+import { method } from "lodash";
 const route = useRoute();
 const router = useRouter();
 
 const store = useShoppingCartStore(); 
+
+function delivery_method(method) {
+  store.delivery_info.shipping_method = method
+  console.log(store.delivery_info.shipping_method)
+}
 
 
 onMounted(()=>{
