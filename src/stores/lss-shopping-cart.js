@@ -2,7 +2,8 @@ import { defineStore } from "pinia";
 import { ref } from "vue"
 export const useShoppingCartStore = defineStore("buyerShoppingCart", {
   state: () => ({
-    products:ref([]),
+
+    preOrder:ref({}),
     openTab:ref(1),
 
 
