@@ -50,11 +50,9 @@
 export default {
   props: {
     page_type: String,
-    orderSummary: Array
+    orderSummary: Object
   },
   mounted() {
-      console.log('poooooooop')
-      console.log(this.orderSummary)
   },
   methods: {
     addItem() {

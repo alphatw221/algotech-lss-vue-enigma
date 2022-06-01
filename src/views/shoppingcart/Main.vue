@@ -345,7 +345,24 @@ export default {
         { name: " ", key: "remove" },
       ],
       products: [],
-      orderSummary: {}
+      orderSummary: {},
+      delvery_info:{
+        shipping_first_name: "",
+        shipping_last_name: "",
+        shipping_email: "",
+        shipping_phone: "",
+        shipping_address_1: "",
+        shipping_location: "",
+        shipping_region: "",
+        shipping_postcode: "",
+        shipping_cost: 0.00,
+        shipping_option: "",
+        shipping_method: "",
+        // shipping_date: '1997-01-01',
+        total: 0.00,
+        //meta: meta,
+        shipping_remark: ""
+      }
     };
   },
   mounted() {
