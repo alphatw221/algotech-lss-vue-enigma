@@ -68,24 +68,20 @@
                           <!-- Delivery Option -->
                           <label class="text-md font-medium col-span-12">Delivery Option</label>
                           <div class="box p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
-                            <div class="flex form-check my-5">
-                              <input id="radio-switch-1" class="form-check-input" type="radio"
-                                name="vertical_radio_button" value="vertical-radio-chris-evans" />
-                              <label class="form-check-label mr-auto" for="radio-switch-1">Option 1</label>
-                              <label class="form-check-label" for="radio-switch-1">USD $10</label>
+                            <!-- {{ store.preOrder.campaign.meta_logistic }} -->
+                            <div v-if="'campaign' in store.preOrder && store.preOrder.campaign!=undefined">
+                              <div v-if="'meta_logistic' in store.preOrder.campaign && store.preOrder.campaign.meta_logistic!=undefined">
+                                <div class="flex form-check my-5" v-for="(item,index) in store.preOrder.cmapaign.meta_logistic.additional_delivery_charge_title" :key="index">
+                                  <template>
+                                    <input id="radio-switch-1" class="form-check-input" type="radio"
+                                      name="vertical_radio_button" value="vertical-radio-chris-evans" />
+                                    <label class="form-check-label mr-auto" for="radio-switch-1">{{ item }}</label>
+                                    <label class="form-check-label" for="radio-switch-1">USD $10</label>
+                                  </template>
+                                </div>
+                              </div>
                             </div>
-                            <div class="flex form-check my-5">
-                              <input id="radio-switch-2" class="form-check-input" type="radio"
-                                name="vertical_radio_button" value="vertical-radio-liam-neeson" />
-                              <label class="form-check-label mr-auto" for="radio-switch-2">Option 2</label>
-                              <label class="form-check-label" for="radio-switch-1">USD $20</label>
-                            </div>
-                            <div class="flex form-check my-5">
-                              <input id="radio-switch-3" class="form-check-input" type="radio"
-                                name="vertical_radio_button" value="vertical-radio-daniel-craig" />
-                              <label class="form-check-label mr-auto" for="radio-switch-3">Option 3</label>
-                              <label class="form-check-label" for="radio-switch-1">USD $30</label>
-                            </div>
+                            
                           </div>
                         </div>
                       </TabPanel>
@@ -97,18 +93,6 @@
                               <input id="radio-switch-1" class="form-check-input" type="radio"
                                 name="vertical_radio_button" value="vertical-radio-store-1" />
                               <label class="form-check-label mr-auto" for="radio-switch-1">Store 1</label>
-                              <label class="form-check-label" for="radio-switch-1">Add 1, Stress 1, City 1 , State 1 10654</label>
-                            </div>
-                            <div class="flex form-check my-5">
-                              <input id="radio-switch-2" class="form-check-input" type="radio"
-                                name="vertical_radio_button" value="vertical-radio-store-2" />
-                              <label class="form-check-label mr-auto" for="radio-switch-2">Store 2</label>
-                              <label class="form-check-label" for="radio-switch-1">Add 1, Stress 1, City 1 , State 1 10654</label>
-                            </div>
-                            <div class="flex form-check my-5">
-                              <input id="radio-switch-3" class="form-check-input" type="radio"
-                                name="vertical_radio_button" value="vertical-radio-store-3" />
-                              <label class="form-check-label mr-auto" for="radio-switch-3">Store 3</label>
                               <label class="form-check-label" for="radio-switch-1">Add 1, Stress 1, City 1 , State 1 10654</label>
                             </div>
                           </div>
@@ -231,6 +215,7 @@ const store = useShoppingCartStore();
 function delivery_method(method) {
   store.delivery_info.shipping_method = method
   console.log(store.delivery_info.shipping_method)
+  console.log(store.preOrder)
 }
 
 
