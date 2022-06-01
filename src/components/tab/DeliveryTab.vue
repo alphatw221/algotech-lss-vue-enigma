@@ -10,20 +10,24 @@
                       Name</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder="" />
+                      placeholder="" 
+                      v-model="store.delvery_info.shipping_first_name"/>
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Last
                       Name</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder="" />
+                      placeholder=""
+                      v-model="store.delvery_info.shipping_last_name" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Email</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder="" />
+                      placeholder=""
+                      v-model="store.delvery_info.shipping_email" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder="" />
+                      placeholder=""
+                      v-model="store.delvery_info.shipping_phone" />
                   </div>
 
                   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -35,11 +39,11 @@
                   <TabGroup>
                     <TabList class="nav-boxed-tabs mx-10">
                       <Tab class="w-48 py-6 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
-                        tag="button">
+                        tag="button" v-model="method">
                         <TruckIcon class="block mr-3" /><span class="text-lg">Delivery</span>
                       </Tab>
                       <Tab class="w-48 py-3 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
-                        tag="button">
+                        tag="button" v-model="method">
                         <HomeIcon class="block mr-3" /><span class="text-lg">Collect In Store</span>
                       </Tab>
                     </TabList>

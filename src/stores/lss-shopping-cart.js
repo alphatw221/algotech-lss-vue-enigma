@@ -7,21 +7,28 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 
 
     orderSummary:ref({}),
-    delvery_info:ref({
-      shipping_first_name: "",
-      shipping_last_name: "",
-      shipping_email: "",
-      shipping_phone: "",
-      shipping_address_1: "",
-      shipping_location: "",
-      shipping_region: "",
-      shipping_postcode: "",
-      shipping_cost: 0.00,
-      shipping_option: "",
-      shipping_method: "",
-      total: 0.00,
-      shipping_remark: ""
-    }),
+    delivery_info:ref({
+        shipping_first_name: "",
+        shipping_last_name: "",
+        shipping_email: "",
+        shipping_phone: "",
+        shipping_method: "",
+        total: 0.00,
+        shipping_remark: "",
+        shipping_delivery_info: {
+          shipping_address_1: "",
+          shipping_location: "",
+          shipping_region: "",
+          shipping_postcode: "",  
+          shipping_option: "",
+          shipping_cost: 0.00,
+        },
+        pickup_info: {
+          shipping_option: "",
+          shipping_cost: 0.00,
+        },
+      }
+    ),
      
   }),
 });
