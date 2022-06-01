@@ -1,5 +1,5 @@
 <template>
-    <div :class="{ hidden: openTab !== 2, block: openTab === 2 }">
+    <div :class="{ hidden: store.openTab !== 2, block: store.openTab === 2 }">
               <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
                 <h2 class="text-xl font-medium mr-auto">Contact Information</h2>
               </div>
@@ -210,3 +210,19 @@
               </div>
             </div>
 </template>
+<script setup>
+import OrderSummary from "@/components/box/OrderSummary.vue";
+
+import { computed, onMounted, ref, watch } from "vue";
+import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+const router = useRouter();
+
+const store = useShoppingCartStore(); 
+
+
+onMounted(()=>{
+})
+</script>

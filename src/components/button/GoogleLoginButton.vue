@@ -32,8 +32,8 @@ export default {
                         set_cookie.then(() => {
                             store.loginWith='google'
                             if (this.role == 'buyer') {
-                                if (this.$route.params.campaign_id ){
-                                    this.$router.push(`/buyer/cart/${this.$route.params.campaign_id}`)
+                                if (this.$route.params.pre_order_id ){
+                                    this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
                                 } else {
                                     this.$router.push(`/buyer/`)
                                 }
