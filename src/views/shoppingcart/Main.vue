@@ -99,7 +99,7 @@ export default {
   },
   data() {
     return {
-      store:useShoppingCartStore()
+      store: useShoppingCartStore()
     };
   },
   computed: {
