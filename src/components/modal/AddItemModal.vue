@@ -91,6 +91,7 @@ export default {
   mounted() {
     this.eventBus.on("addPoint", (payload) => {
       this.addItemPopupModalPreview = true;
+      console.log(2154354)
     });
   },
   unmounted() {
