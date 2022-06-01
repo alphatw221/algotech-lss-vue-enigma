@@ -30,7 +30,7 @@
         <div class="font-medium text-base">$220</div>
       </div>
     </div>
-    <div class="flex mt-5" v-if="page_type === 'step1'">
+    <div class="flex mt-5" v-if="store.openTab === 1">
       <button
         class="
           btn
@@ -47,34 +47,17 @@
     </div>
   </div>
 </template>
-<script>
+<script setup>
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
-export default {
-	props: {
-        page_type: String,
-    },
-    data() {
-		return {
-			orderSummary: {}
-		}
-    },
-	setup() {
-		
-	},
-    
-    mounted() {
-        const store = useShoppingCartStore(); 
-		console.log(store.orderSummary)
-		this.orderSummary = store.orderSummary
 
-		// console.log(this.orderSummary)
-    },
-    methods: {
-        addItem() {
-            this.eventBus.emit("addPoint");
-        },
-    },
-};
+const store = useShoppingCartStore(); 
+
+const addItem ()=>{
+  
+}
+
+
+//  this.eventBus.emit("addPoint");
 </script>
  

@@ -20,7 +20,6 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
       shipping_cost: 0.00,
       shipping_option: "",
       shipping_method: "",
-      total: 0.00,
       shipping_remark: ""
     }),
      
