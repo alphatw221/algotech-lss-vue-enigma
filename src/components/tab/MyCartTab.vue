@@ -34,7 +34,7 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 
-const store = useShoppingCartStore();
+const store = useShoppingCartStore(); 
 
 const tableColumns =ref( [
         { name: " ", key: "image" },
@@ -46,14 +46,15 @@ const tableColumns =ref( [
       ])
 
 onMounted(()=>{
-    retrieve_pre_order(router.params.pre_order_id)
-      .then(
-        res => {
-          for (const [key, value] of Object.entries(res.data.products)) {
-              store.products.push(value)
+  console.log(router.params)
+    // retrieve_pre_order(router.params.pre_order_id)
+    //   .then(
+    //     res => {
+    //       for (const [key, value] of Object.entries(res.data.products)) {
+    //           store.products.push(value)
 
-          }
-        }
-      )
+    //       }
+    //     }
+    //   )
 })
 </script>

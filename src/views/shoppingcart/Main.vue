@@ -81,9 +81,7 @@
 </template>
 
 <script>
-// import OrderSummary from "@/components/box/OrderSummary.vue";
-// import ShippingSummary from "@/components/box/ShippingSummary.vue";
-// import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
+
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 import MyCartTab from "@/components/tab/MyCartTab.vue";
