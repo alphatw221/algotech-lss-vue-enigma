@@ -67,7 +67,7 @@
                   </ShoppingCartTable>
                 </div>
                 <div class="col-span-12 2xl:col-start-8 2xl:col-span-5 lg:col-start-8 lg:col-span-5">
-                  <OrderSummary :page_type="'stap1'"> </OrderSummary>
+                  <OrderSummary :page_type="'step1'"> </OrderSummary>
                 </div>
               </div>
               <div class="box grid grid-cols-12 gap-4 ml-4 mr-4">
@@ -322,7 +322,24 @@ export default {
         { name: " ", key: "remove" },
       ],
       products: [],
-      orderSummary: {}
+      orderSummary: {},
+      delvery_info:{
+        shipping_first_name: "",
+        shipping_last_name: "",
+        shipping_email: "",
+        shipping_phone: "",
+        shipping_address_1: "",
+        shipping_location: "",
+        shipping_region: "",
+        shipping_postcode: "",
+        shipping_cost: 0.00,
+        shipping_option: "",
+        shipping_method: "",
+        // shipping_date: '1997-01-01',
+        total: 0.00,
+        //meta: meta,
+        shipping_remark: ""
+      }
     };
   },
   mounted() {

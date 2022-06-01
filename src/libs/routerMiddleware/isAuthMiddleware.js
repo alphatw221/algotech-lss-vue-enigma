@@ -4,24 +4,57 @@ import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
 
-export default (to, from)=>{
+export default async (to, from)=>{
     const buyerStore = useLSSBuyerLayoutStore();
-    const token = cookies.get('access_token')
+
     console.log(to)
     console.log(from)
+    if (buyerStore.isAuthenticated) {
+        console.log('isAuth')
+        return true
+    }
 
-    if (token == '' && buyerStore.isAuthenticated == false) {
-        return from
-    } else if (token != '' && buyerStore.isAuthenticated == false) {
-        get_buyer_account().then(
-            response => {
-                buyerStore.$patch((state) => {
-                    state.userInfo = response.data;
-                    state.isAuthenticated = true;
-                })
-            }
-        )
+    if (cookies.get('access_token')) {
+
+        console.log('is not Auth')
+        const res = await get_buyer_account()
+        
+        console.log(res)
+
+        buyerStore.isAuthenticated=true;
+        buyerStore.userInfo=res.data;
+
+        console.log(buyerStore.userInfo)
+        // buyerStore.$patch((state) => {
+        //     state.userInfo = res.data;
+        //     state.isAuthenticated = true;
+        // // })
+        // buyerStore.isAuthenticated = true
+
+        if(res.status!=200){
+            return '/buyer/login'
+        }
+        return true
+
+        // .then(response=>{
+        //     // buyerStore.isAuthenticated=true;
+        //     // buyerStore.userInfo=response.data;
+
+        //     // console.log(buyerStore.userInfo)
+        //     buyerStore.$patch((state) => {
+        //         state.userInfo = response.data;
+        //         state.isAuthenticated = true;
+        //     })
+        //     return true
+
+        // }).catch(error=>{
+        //     return 'buyer/login'
+        // })
+
+
     }
     
-    return true
+    
+    
+
 }
