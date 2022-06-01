@@ -383,8 +383,6 @@ export default {
       searchColumns: {
         keywords: [
           { text: "Title", value: "title" },
-          { text: "Time", value: "time" },
-          { text: "Platform", value: "platform" },
         ],
       },
       tableColumns: [
