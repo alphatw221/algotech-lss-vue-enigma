@@ -65,6 +65,8 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
+import AutoReply from "../views/autoReply/AutoReply.vue";  
+
 import ShoppingCart from "../views/shoppingcart/Main.vue";
 import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
 import OrderDetails from "../views/shoppingcart/OrderDetails.vue";
@@ -152,6 +154,11 @@ const routes = [
         path: "platform-setting",
         name: "side-menu-connect-platform",
         component: ConnectPlatform,
+      },
+      {  
+        path: "autoreply",
+        name: "side-menu-auto-reply",
+        component: AutoReply,
       },  
       {
         path: "test2",

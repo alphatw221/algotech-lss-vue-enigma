@@ -29,7 +29,7 @@
         <div class="font-medium text-base">$220</div>
       </div>
     </div>
-    <div class="flex mt-5" v-if="page_type === 'step1'">
+    <div class="flex mt-5" v-show="page_type === 'step1'">
       <button
         class="
           btn
