@@ -45,7 +45,7 @@
             <ShippingSummary />
         </div>
         <div class="col-span-12 lg:col-span-5 2xl:col-span-5">
-            <OrderSummary />
+            <OrderSummary :page_type="'step1'"/>
         </div>
         <div class="col-start-1 col-span-12 lg:col-span-7 2xl:col-span-7">
             <PaymentMethods />

@@ -2,7 +2,6 @@
   <Modal
     size="modal-lg"
     :show="addItemPopupModalPreview"
-    @hidden="addItemPopupModalPreview = false"
   >
     <a
       @click="addItemPopupModalPreview = false"
@@ -81,20 +80,14 @@
 export default {
   props: {
     product: Array,
+    show_point: Boolean
+    
   },
   data() {
     return {
       listItems: this.product,
-      addItemPopupModalPreview: false,
-    };
-  },
-  mounted() {
-    this.eventBus.on("addPoint", (payload) => {
-      this.addItemPopupModalPreview = true;
-    });
-  },
-  unmounted() {
-    this.eventBus.off("addPoint");
-  },
+      addItemPopupModalPreview: this.show_point,
+    }
+  }
 };
 </script>
