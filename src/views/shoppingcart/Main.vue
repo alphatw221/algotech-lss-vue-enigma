@@ -301,7 +301,7 @@
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import ShippingSummary from "@/components/box/ShippingSummary.vue";
 import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
-import { buyer_cart_retrieve } from "@/api_v2/buyer";
+import { retrieve_pre_order } from "@/api_v2/pre_order"
 
 
 export default {
@@ -343,7 +343,7 @@ export default {
     };
   },
   mounted() {
-    this.buyer_cart_retrieve(818)
+    this.retrieve_pre_order(818)
   },
   computed: {
     filterStyle() {
@@ -364,7 +364,7 @@ export default {
       this.openTab = tabNumber;
     },
     buyer_cart_retrieve(pre_order_id) {
-      buyer_cart_retrieve(pre_order_id)
+      retrieve_pre_order(pre_order_id)
       .then(
         response => {
           for (const [key, value] of Object.entries(response.data['products'])) {
