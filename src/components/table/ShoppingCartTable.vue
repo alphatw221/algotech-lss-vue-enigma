@@ -1,52 +1,71 @@
 <template>
-    <table class="table table-report mt-5 overflow-y-scroll">
-      <thead>
-        <tr>
-          <th
-            class="whitespace-nowrap text-center"
-            v-for="column in tableColumns"
-            :key="column.key"
-          >
-            {{ column.name }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr v-for="(product, index) in store.preOrder.products" :key="index" class="intro-x">
-          <td class=" h-20">
-            <div class="flex">
-              <div class="w-10 h-10 image-fit zoom-in">
-                <Tippy
-                  tag="img"
-                  class="rounded-full"
-                  :src="storageUrl+product.image"
-                  :content="product.name"
-                />
-              </div>
-            </div>
-          </td>
-          <td class="text-center h-20">
-            {{ product.name }}
-          </td>
-          <td class="text-center h-20">
-            {{ product.qty }}
-          </td>
-          <td class="text-center h-20">
-            {{ product.price }}
-          </td>
-          <td class="text-center h-20">
-            {{ product.qty * product.price }}
-          </td>
-          <td class="table-report__action w-30 h-20">
-            <div class="flex justify-center items-center">
-              <a class="flex items-center text-danger" @click="deleteOrderProduct(product.order_product_id, index)">
-                <Trash2Icon class="w-4 h-4 mr-1" /> Delete
-              </a>
-            </div>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+	<table class="table table-report mt-5 overflow-y-scroll">
+		<thead>
+			<tr>
+				<th
+					class="whitespace-nowrap text-center"
+					v-for="column in tableColumns"
+					:key="column.key"
+				>
+				{{ column.name }}
+				</th>
+			</tr>
+			</thead>
+			<tbody>
+			<tr v-for="(product, index) in store.preOrder.products" :key="index" class="intro-x">
+				<td class=" h-20">
+					<div class="flex">
+						<div class="w-10 h-10 image-fit zoom-in">
+						<Tippy
+							tag="img"
+							class="rounded-full"
+							:src="storageUrl+product.image"
+							:content="product.name"
+						/>
+						</div>
+					</div>
+				</td>
+				<td class="text-center h-20">
+					{{ product.name }}
+				</td>
+				<td class="text-center h-20">
+					<div class="flex">
+						<MinusSquareIcon 
+							class="w-5 h-5 mt-2 mr-2" 
+							@click="changeQuantity(index, product.qty, 'minus')"
+						/>
+						<input 
+							type="text" 
+							class="form-control" 
+							placeholder="Input inline 1" 
+							aria-label="default input" 
+							:value="product.qty"
+							style="width: 3rem;"
+							@change="changeQuantity(index, product.qty, 'input')"
+							disabled
+						/>
+						<PlusSquareIcon 
+							class="w-5 h-5 mt-2 ml-2" 
+							@click="changeQuantity(index, product.qty, 'add')" 
+						/>
+					</div>
+				</td>
+				<td class="text-center h-20">
+					{{ product.price }}
+				</td>
+				<td class="text-center h-20">
+					{{ product.qty * product.price }}
+				</td>
+				<td class="table-report__action w-30 h-20">
+				<div class="flex justify-center items-center">
+					<a class="flex items-center text-danger" @click="deleteOrderProduct(product.order_product_id, index)">
+					<Trash2Icon class="w-4 h-4 mr-1" /> Delete
+					</a>
+				</div>
+				</td>
+			</tr>
+		</tbody>
+	</table>
 </template>
 
 <script setup>
@@ -58,7 +77,7 @@ import { delete_order_product } from "@/api_v2/pre_order"
 // const route = useRoute();
 const store = useShoppingCartStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
-const tableColumns =ref( [
+const tableColumns = ref([
         { key: "image", name: " ",  },
         { key: "product", name: "Product",  },
         { key: "qty", name: "Quantity",  },
@@ -69,13 +88,18 @@ const tableColumns =ref( [
 
 const deleteOrderProduct = (order_product_id, index) =>{
   delete_order_product(order_product_id).then(res=>{
-    store.products.splice(index, 1);
+    store.preOrder.products.splice(index, 1);
   })
 }
 
-
+const changeQuantity = (index, qty, caculate) => {
+	if (caculate == 'add') {
+		store.preOrder.products[index].qty += 1 
+	} else if (caculate == 'minus') {
+		store.preOrder.products[index].qty -= 1 
+	} 
+}
 </script>
-
 
 <style scoped>
   td{

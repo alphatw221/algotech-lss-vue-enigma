@@ -38,10 +38,10 @@ const store = useShoppingCartStore();
 
 onMounted(()=>{
     retrieve_pre_order(route.params.pre_order_id)
-      .then(
+    .then(
         res => {
           store.preOrder = res.data
         }
-      )
+    )
 })
 </script>
