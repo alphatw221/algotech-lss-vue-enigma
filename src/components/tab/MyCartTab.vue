@@ -34,8 +34,6 @@ import { retrieve_pre_order } from "@/api_v2/pre_order"
 
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
-const router = useRouter();
-
 const store = useShoppingCartStore(); 
 
 const tableColumns = ref( [
@@ -51,7 +49,6 @@ onMounted(()=>{
     retrieve_pre_order(route.params.pre_order_id)
       .then(
         res => {
-            console.log(res.data)
             for (const [key, value] of Object.entries(res.data.products)) {
                 value.image = import.meta.env.VITE_APP_IMG_URL + value.image
                 store.products.push(value)
@@ -63,6 +60,6 @@ onMounted(()=>{
                 'adjustPrice': res.data.adjust_price,
             }
         }
-      )
+    )
 })
 </script>
