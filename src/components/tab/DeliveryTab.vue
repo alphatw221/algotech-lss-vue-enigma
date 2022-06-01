@@ -11,23 +11,23 @@
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder="" 
-                      v-model="store.delvery_info.shipping_first_name"/>
+                      v-model="store.delivery_info.shipping_first_name"/>
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Last
                       Name</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delvery_info.shipping_last_name" />
+                      v-model="store.delivery_info.shipping_last_name" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Email</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delvery_info.shipping_email" />
+                      v-model="store.delivery_info.shipping_email" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delvery_info.shipping_phone" />
+                      v-model="store.delivery_info.shipping_phone" />
                   </div>
 
                   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
