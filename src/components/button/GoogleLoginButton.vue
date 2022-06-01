@@ -26,9 +26,11 @@ export default {
                             res()
                         })
                         set_cookie.then(() => {
+                            console.log('this.$route.params')
+                            console.log(this.$route.params)
                             if (this.role == 'buyer') {
-                                if (this.$route.params.campaign_id ){
-                                    this.$router.push(`/buyer/cart/${this.$route.params.campaign_id}`)
+                                if (this.$route.params.pre_order_id ){
+                                    this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
                                 } else {
                                     this.$router.push(`/buyer/`)
                                 }

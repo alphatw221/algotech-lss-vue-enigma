@@ -67,7 +67,7 @@
                   </ShoppingCartTable>
                 </div>
                 <div class="col-span-12 2xl:col-start-8 2xl:col-span-5 lg:col-start-8 lg:col-span-5">
-                  <OrderSummary :page_type="'stap1'"> </OrderSummary>
+                  <OrderSummary :page_type="'step1'"> </OrderSummary>
                 </div>
               </div>
               <div class="box grid grid-cols-12 gap-4 ml-4 mr-4">
@@ -326,7 +326,8 @@ export default {
     };
   },
   mounted() {
-    this.buyer_cart_retrieve(818)
+    const pre_order_id = this.$route.params.pre_order_id
+    this.buyer_cart_retrieve(pre_order_id)
   },
   computed: {
     filterStyle() {
@@ -353,7 +354,8 @@ export default {
           for (const [key, value] of Object.entries(response.data['products'])) {
             this.products.push(value)
           }
-          this.orderSummary = response.data['pre_order_price_detail']
+          
+          console.log(response.data)
         }
       )
     }
