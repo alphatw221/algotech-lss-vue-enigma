@@ -26,13 +26,15 @@ export default {
                             res()
                         })
                         set_cookie.then(() => {
-
-                            if(this.$route.params.campaign_id ){
-                                this.$router.push(`/buyer/cart/${this.$route.params.campaign_id}`)
-                            }else{
-                                this.$router.push(`/buyer/`)
+                            if (this.role == 'buyer') {
+                                if (this.$route.params.campaign_id ){
+                                    this.$router.push(`/buyer/cart/${this.$route.params.campaign_id}`)
+                                } else {
+                                    this.$router.push(`/buyer/`)
+                                }
+                            } else if (this.role == 'seller') {
+                                this.$router.push(`/`)
                             }
-                            
                         })
                     })
                 }

@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr v-for="(campaign, key) in listItems" :key="key" class="intro-x">
-          <td v-if="page_type === 'campaign_list'">
+          <td v-if="page_type === 'campaign_list'" class="w-32 items-center">
             <div class="flex">
               <div
                 class="w-10 h-10 image-fit zoom-in border-0"
@@ -22,7 +22,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-6 border-0"
+                  class="rounded-full ml-3 border-0"
                   :src="campaign.facebook_page.image"
                   :content="campaign.facebook_page.name"
                 />
@@ -30,7 +30,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-6"
+                  class="rounded-full ml-3"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -41,7 +41,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-3"
+                  class="rounded-full ml-0"
                   :src="campaign.instagram_profile.image"
                   :content="campaign.instagram_profile.name"
                 />
@@ -49,7 +49,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-3"
+                  class="rounded-full ml-0"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -60,7 +60,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full -ml-3"
                   :src="campaign.youtube_channel.image"
                   :content="campaign.youtube_channel.name"
                 />
@@ -68,7 +68,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full -ml-3"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -84,7 +84,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-6"
+                  class="rounded-full ml-3"
                   :src="facebook_platform"
                   :content="`Facebook`"
                 />
@@ -92,7 +92,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-6"
+                  class="rounded-full ml-3"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -103,7 +103,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-3"
+                  class="rounded-full ml-0"
                   :src="instagram_platform"
                   :content="`Instagram`"
                 />
@@ -111,7 +111,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-3"
+                  class="rounded-full ml-0"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -122,7 +122,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full -ml-3"
                   :src="youtube_platform"
                   :content="`Youtube`"
                 />
@@ -130,7 +130,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full"
+                  class="rounded-full -ml-3"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -144,7 +144,7 @@
             {{ campaign.start_at }}
           </td>
           <td class="items-center" v-if="page_type === 'campaign_list'">
-            <a class="flex items-center ml-20" href="javascript:;" @click="manageOrder">
+            <a class="flex items-center ml-10" href="javascript:;" @click="manageOrder">
               <ListIcon class="w-4 h-4" />
             </a>
           </td>
@@ -153,16 +153,15 @@
               class="
                 flex
                 items-center
-                form-check form-switch
+                form-check form-switch 
                 w-full
                 sm:w-auto sm:ml-auto
-                mt-3
                 sm:mt-0
               "
             >
               <input
                 @click="toggle"
-                class="form-check-input mr-0 center"
+                class="form-check-input center"
                 type="checkbox"
               />
             </div>
@@ -170,7 +169,7 @@
           <td class="text-center">
             <button
               class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2"
-              @click="changeEntry"
+              @click="changeEntry(campaign.id)"
             >
               Entry
             </button>
@@ -283,8 +282,8 @@ export default {
       this.page_Size = pageSize;
       this.search();
     },
-    changeEntry() {
-      this.eventBus.emit("entryPoint");
+    changeEntry(campaign_id) {
+      this.eventBus.emit("entryPoint", campaign_id);
     },
     manageOrder(){
       this.eventBus.emit("manageOrder");

@@ -37,10 +37,10 @@
             <Divider plain :size="small">or</Divider>
 
             <Row class="login_btn">
-                <FacebookLoginButton :busName="'sellerFacebookLogin'" block/>
+                <FacebookLoginButton role='seller' block/>
             </Row>
             <Row class="login_btn">
-                <GoogleLoginButton block />
+                <GoogleLoginButton block role='seller'/>
             </Row>
             <Row style="margin-top: 20px;">
                 <div style="font-size:18px; margin-left: 80px;">No Account ? <a href="">Create one !</a></div>
@@ -53,37 +53,15 @@
 import { seller_login, general_login } from '@/api/user';
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
-import { userStore } from '@/stores/main';
+
 
 export default {
     setup() {
-        const store = userStore();
         
     },
     components:{
         FacebookLoginButton,
         GoogleLoginButton
-    },
-    mounted() {
-        this.eventBus.on('sellerFacebookLogin', payload=>{
-            seller_login(payload).then(response => {
-                var set_cookie = new Promise((res) => {
-                    this.$cookies.set("access_token", response.data.access)
-                    store.$patch((state) => {
-                        state.accessToken = response.data.access;
-                    })
-                    res()
-                })
-                set_cookie.then(() => {
-                    this.$router.push('/')
-                })
-            }).catch(error=>{
-                alert(error)
-            })
-        })
-    },
-    unmounted(){
-        this.eventBus.off('sellerFacebookLogin')
     },
     data() {
         return {

@@ -42,20 +42,14 @@
           </div>
         </li>
         <li class="-mb-px last:mr-0 flex-auto text-center">
-          <div @click="toggleTabs(3)" class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
-            <button :class="{
-              'text-neutral-600 bg-white': openTab !== 3,
-              'text-white bg-primary': openTab === 3,
-            }"
+          <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
+            <button 
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
               <CreditCardIcon />
             </button>
             <div
               class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
-              :class="{
-                'text-neutral-600': openTab !== 3,
-                'font-bold': openTab === 3,
-              }">
+              >
               Payment
             </div>
           </div>
@@ -73,10 +67,7 @@
                   </ShoppingCartTable>
                 </div>
                 <div class="col-span-12 2xl:col-start-8 2xl:col-span-5 lg:col-start-8 lg:col-span-5">
-                  <OrderSummary 
-                    :page_type="'step1'"
-                    :orderSummary="orderSummary"
-                  ></OrderSummary>
+                  <OrderSummary :page_type="'stap1'"> </OrderSummary>
                 </div>
               </div>
               <div class="box grid grid-cols-12 gap-4 ml-4 mr-4">
@@ -293,22 +284,10 @@
                 </div>
               </div>
               <div class="my-5 flex justify-end">
-                <button class="w-full btn btn-primary lg:w-fit 2xl:lg:w-fit">
+                <button class="w-full btn btn-primary lg:w-fit 2xl:lg:w-fit"
+                  @click="this.$router.push('/shopping-payment')">
                   Proceed to Payment
                 </button>
-              </div>
-            </div>
-            <div :class="{ hidden: openTab !== 3, block: openTab === 3 }">
-              <div class="grid grid-cols-12 gap-4">
-                <div class="col-start-1 col-span-12 lg:col-span-7 2xl:col-span-7">
-                  <ShippingSummary />
-                </div>
-                <div class="col-span-12 lg:col-span-5 2xl:col-span-5">
-                  <OrderSummary />
-                </div>
-                <div class="col-start-1 col-span-12 lg:col-span-7 2xl:col-span-7">
-                  <PaymentMethods />
-                </div>
               </div>
             </div>
           </div>
@@ -319,7 +298,6 @@
 </template>
 
 <script>
-import PaymentMethods from "@/components/box/PaymentMethods.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import ShippingSummary from "@/components/box/ShippingSummary.vue";
 import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
@@ -328,7 +306,6 @@ import { buyer_cart_retrieve } from "@/api_v2/buyer";
 
 export default {
   components: {
-    PaymentMethods,
     OrderSummary,
     ShippingSummary,
     ShoppingCartTable,

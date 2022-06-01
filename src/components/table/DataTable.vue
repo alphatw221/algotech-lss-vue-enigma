@@ -17,7 +17,7 @@
 					<td v-for="column in columns" :key="column.key" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm">
 						<template v-if="column.key === 'image'" >
 							<div class="flex">
-								<div class="w-10 h-10 image-fit zoom-in lg:w-14 lg:h-14 2xl:w-14 lg:h-14">
+								<div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
 									<Tippy 
 										tag="img"
 										class="rounded-full"
