@@ -6,7 +6,7 @@
         <ShoppingCartTable />
     </div>
     <div class="col-span-12 2xl:col-start-8 2xl:col-span-5 lg:col-start-8 lg:col-span-5">
-        <OrderSummary :page_type="'step1'"> </OrderSummary>
+        <OrderSummary /> 
         <AddItemModal :product="store.products"></AddItemModal>
     </div>
     </div>
@@ -40,6 +40,7 @@ onMounted(()=>{
     retrieve_pre_order(route.params.pre_order_id)
       .then(
         res => {
+          console.log(res.data)
           store.preOrder = res.data
         }
       )
