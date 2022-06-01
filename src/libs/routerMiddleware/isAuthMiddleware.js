@@ -13,7 +13,6 @@ export default async (to, from)=>{
     }
 
     if (cookies.get('access_token')) {
-
         const res = await get_buyer_account()
         
         buyerStore.isAuthenticated=true;
@@ -23,8 +22,5 @@ export default async (to, from)=>{
             return '/buyer/login'
         }
         return true
-
-
     }
-
 }
