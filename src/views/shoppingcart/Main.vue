@@ -68,6 +68,7 @@
                 </div>
                 <div class="col-span-12 2xl:col-start-8 2xl:col-span-5 lg:col-start-8 lg:col-span-5">
                   <OrderSummary :page_type="'step1'"> </OrderSummary>
+                  <AddItemMadol :product="products"></AddItemMadol>
                 </div>
               </div>
               <div class="box grid grid-cols-12 gap-4 ml-4 mr-4">
@@ -90,20 +91,24 @@
                       Name</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder="" />
+                      placeholder=""
+                      v-model="buyer_delivery_info.last_name" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Last
                       Name</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder="" />
+                      placeholder=""
+                      v-model="buyer_delivery_info.email" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Email</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder="" />
+                      placeholder="" 
+                      v-model="buyer_delivery_info.phone" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder="" />
+                      placeholder="" 
+                      v-model="buyer_delivery_info.first_name" />
                   </div>
 
                   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -301,6 +306,7 @@
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import ShippingSummary from "@/components/box/ShippingSummary.vue";
 import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
+import AddItemMadol from "@/components/modal/AddItemModal.vue";
 import { buyer_cart_retrieve } from "@/api_v2/buyer";
 
 
@@ -309,6 +315,7 @@ export default {
     OrderSummary,
     ShippingSummary,
     ShoppingCartTable,
+    AddItemMadol,
   },
   data() {
     return {
@@ -323,21 +330,25 @@ export default {
       ],
       products: [],
       orderSummary: {},
-      delvery_info:{
+      buyer_delivery_info:{
         shipping_first_name: "",
         shipping_last_name: "",
         shipping_email: "",
         shipping_phone: "",
-        shipping_address_1: "",
-        shipping_location: "",
-        shipping_region: "",
-        shipping_postcode: "",
-        shipping_cost: 0.00,
-        shipping_option: "",
+        shipping_delivery_info: {
+          shipping_address_1: "",
+          shipping_location: "",
+          shipping_region: "",
+          shipping_postcode: "",  
+          shipping_option: "",
+          shipping_cost: 0.00,
+        },
+        pickup_info: {
+          shipping_option: "",
+          shipping_cost: 0.00,
+        },
         shipping_method: "",
-        // shipping_date: '1997-01-01',
         total: 0.00,
-        //meta: meta,
         shipping_remark: ""
       }
     };
