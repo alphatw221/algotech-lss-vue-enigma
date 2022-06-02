@@ -88,7 +88,9 @@ const tableColumns = ref([
 
 const deleteOrderProduct = (order_product_id, index) =>{
   buyer_delete_order_product(order_product_id).then(res=>{
-    store.preOrder.products.splice(index, 1);
+	store.preOrder.products.splice(index, 1);
+	store.preOrder = res.data
+    
   })
 }
 
