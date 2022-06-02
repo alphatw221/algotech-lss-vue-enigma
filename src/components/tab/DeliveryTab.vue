@@ -1,11 +1,9 @@
 <template>
     <div :class="{ hidden: store.openTab !== 2, block: store.openTab === 2 }">
-              <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-                <h2 class="text-xl font-medium mr-auto">Contact Information</h2>
-              </div>
               <div class="intro-y grid grid-cols-12 gap-5">
-                <div class="intro-y col-span-12 lg:col-span-8">
-                  <div class="box p-10 mt-3 intro-y grid grid-cols-12 gap-5 my-10">
+                <div class="intro-y col-span-12 row-start-2 lg:row-start-1 2xl:row-start-1 lg:col-span-8">
+                  <h2 class="text-xl font-medium mr-auto w-full">Contact Information</h2>
+                  <div class=" p-0 mt-3 intro-y grid grid-cols-12 gap-5 my-10 lg:p-10 2xl:p-10">
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">First
                       Name</label>
                     <input id="regular-form-2" type="text"
@@ -37,14 +35,14 @@
                   </div>
 
                   <TabGroup>
-                    <TabList class="nav-boxed-tabs mx-10">
-                      <Tab class="w-48 py-6 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
+                    <TabList class="nav-boxed-tabs mx-0 lg:mx-10 2xl:mx-10 flex">
+                      <Tab class="flex-1 shrink inline-flex w-max-44 py-6 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 border-[#131c34]"
                         tag="button" @click="delivery_method('delivery')">
-                        <TruckIcon class="block mr-3" /><span class="text-lg">Delivery</span>
+                        <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Delivery</span>
                       </Tab>
-                      <Tab class="w-48 py-3 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
+                      <Tab class="flex-1 shrink inline-flex w-max-44 py-6 lg:w-60 lg:py-6 2xl:w-60 xl:py-10 2xl:py-10 border-[#131c34]"
                         tag="button" @click="delivery_method('pickup')">
-                        <HomeIcon class="block mr-3" /><span class="text-lg">Collect In Store</span>
+                        <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Collect In Store</span>
                       </Tab>
                     </TabList>
                     <TabPanels class="mt-5">
@@ -114,7 +112,7 @@
                   </TabGroup>
                 </div>
 
-                <div class="col-span-12 lg:col-span-4">
+                <div class="col-span-12 row-start-1 lg:col-span-4">
                   <div class="intro-y">
                     <OrderSummary />
                   </div>
