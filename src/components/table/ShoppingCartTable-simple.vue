@@ -20,7 +20,7 @@
 				<img alt="" class="rounded-md" :src="storageUrl+product.image" />
 			</div>
 			<div class="ml-4 mr-auto">
-				<a href="" class="font-medium">{{product.name}}</a>
+				<a class="font-medium">{{product.name}}</a>
 				<div class="text-slate-500 mr-5 sm:mr-5">
 				Quantity {{product.qty}}
 				</div>
