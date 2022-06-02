@@ -72,15 +72,9 @@
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-<<<<<<< HEAD
 import { delete_order_product, buyer_cart_update } from "@/api_v2/pre_order"
 import { useRoute } from "vue-router";
 const route = useRoute();
-=======
-import { buyer_delete_order_product } from "@/api_v2/pre_order"
-// import { useRoute, useRouter } from "vue-router";
-// const route = useRoute();
->>>>>>> 8edcd3b012a88da539b1a66059481c6bfa72b99f
 const store = useShoppingCartStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
