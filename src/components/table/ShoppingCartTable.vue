@@ -89,7 +89,7 @@ const tableColumns = ref([
 
 const deleteOrderProduct = (order_product_id, index) =>{
   buyer_delete_order_product(order_product_id).then(res=>{
-	store.order.products.splice(index, 1);
+	// store.order.products.splice(index, 1);
 	store.order = res.data
     
   })
@@ -111,7 +111,7 @@ const changeQuantity = (index, qty, operation, order_product_id) => {
 	buyer_update_order_product(order_product_id, qty)
 	.then(
 		res => {
-			console.log(res.data)
+			// console.log(res.data)
 			store.order = res.data
 		}
 	)
