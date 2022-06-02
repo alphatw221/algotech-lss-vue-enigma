@@ -147,7 +147,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits } from "vue";
+import { ref, defineEmits, computed } from "vue";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useRoute, useRouter } from "vue-router";
 import dom from "@left4code/tw-starter/dist/js/dom";
@@ -161,8 +161,18 @@ const toggleMobileMenu = ()=>{
   buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
 }
 
-const userAvatar = buyerLayoutStore.loginWith=='facebook' ? buyerLayoutStore.userInfo.facebook_info.picture : buyerLayoutStore.userInfo.google_info.picture
-
+// const userAvatar = buyerLayoutStore.loginWith=='facebook' ? buyerLayoutStore.userInfo.facebook_info.picture : buyerLayoutStore.userInfo.google_info.picture
+const userAvatar = computed(() => {
+  if(buyerLayoutStore.loginWith=='facebook'){
+    return buyerLayoutStore.userInfo.facebook_info.picture
+  }else if (buyerLayoutStore.loginWith=='google'){
+    return buyerLayoutStore.userInfo.google_info.picture
+  }
+  if(buyerLayoutStore.userInfo.facebook_info.picture){
+    return buyerLayoutStore.userInfo.facebook_info.picture
+  }
+  return buyerLayoutStore.userInfo.google_info.picture
+});
 const logout = () => {
   // clear cookies
   // clear token

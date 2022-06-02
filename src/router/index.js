@@ -65,7 +65,7 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
-import AutoReply from "../views/autoReply/AutoReply.vue";  
+import AutoReply from "../views/autoReply/Main.vue";  
 
 import ShoppingCart from "../views/shoppingcart/Main.vue";
 import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 

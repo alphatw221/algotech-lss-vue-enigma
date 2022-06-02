@@ -1,6 +1,6 @@
      <template>
     <div class="w-full h-full">
-        <div class="text-2xl text-base text-center my-5"> Order History Details </div>
+        <div class="text-2xl text-base text-center my-5"> Order Details </div>
 
         <div class="grid grid-cols-12 gap-4">
 
