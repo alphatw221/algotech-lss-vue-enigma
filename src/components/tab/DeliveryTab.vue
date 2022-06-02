@@ -37,15 +37,18 @@
                   <TabGroup>
                     <TabList class="nav-boxed-tabs mx-0 lg:mx-10 2xl:mx-10 flex">
                       <Tab class="flex-1 shrink inline-flex w-max-44 py-6 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 border-[#131c34]"
-                        tag="button" @click="delivery_method('delivery')">
+                        tag="button" @click="select_shipping_method('delivery')">
                         <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Delivery</span>
                       </Tab>
                       <Tab class="flex-1 shrink inline-flex w-max-44 py-6 lg:w-60 lg:py-6 2xl:w-60 xl:py-10 2xl:py-10 border-[#131c34]"
-                        tag="button" @click="delivery_method('pickup')">
+                        tag="button" @click="select_shipping_method('pickup')">
                         <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Collect In Store</span>
                       </Tab>
                     </TabList>
+
+
                     <TabPanels class="mt-5">
+                      <!-- BEGIN Delivery Panel -->
                       <TabPanel class="leading-relaxed">
                         <label class="text-md font-medium col-span-12">Delivery Information</label>
                         <div class="grid grid-cols-12">
@@ -63,37 +66,46 @@
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
                               placeholder="" v-model="store.shipping_info.delivery_info.shipping_postcode" />
                           </div>
-                          <!-- Delivery Option -->
+                          <!-- BEGIN Delivery Option -->
                           <label class="text-md font-medium col-span-12">Delivery Option</label>
                           <div class="box p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
-                            <!-- {{ store.order.campaign.meta_logistic }} -->
                             <div v-if="'campaign' in store.order">
-                                <div class="flex form-check my-5" v-for="(item,index) in store.order.campaign.meta_logistic.additional_delivery_charge_title" :key="index">
+                                <div class="flex form-check my-5" v-for="(title,index) in store.order.campaign.meta_logistic.additional_delivery_charge_title" :key="index">
                                   <input :id="'radio-switch-'+index" class="form-check-input" type="radio"
-                                    name="vertical_radio_button" value="vertical-radio-chris-evans" @click="info(item)"/>
-                                  <label class="form-check-label mr-auto" :for="'radio-switch-'+index">{{ item }}</label>
+                                    name="vertical_radio_button" :value="title" v-model="store.shipping_info.shipping_option"/>
+                                  <label class="form-check-label mr-auto" :for="'radio-switch-'+index">{{ title }}</label>
+
                                   <label class="form-check-label">{{store.order.campaign.currency}} {{store.order.campaign.meta_logistic.additional_delivery_charge_price[index]}}</label>
                                 </div>
                             </div>
-                            
                           </div>
+                          <!-- END Delivery Option -->
                         </div>
                       </TabPanel>
+                      <!-- END Delivery Panel -->
+
+
+
+                      <!-- BEGIN Pickup Panel -->
                       <TabPanel class="leading-relaxed">
                         <div class="grid grid-cols-12">
                           <label class="text-md font-medium col-span-12">Pickup Option</label>
                           <div class="box p-2 intro-y col-span-12 gap-5 mx-0 lg:mx-20 lg:p-8 2xl:mx-20 2xl:p-8">
                             <div v-if="'campaign' in store.order">
-                              <div class="flex form-check my-5" v-for="(item,index) in store.order.campaign.meta_logistic.branch_name" :key="index">
+                              <div class="flex form-check my-5" v-for="(branch_name,index) in store.order.campaign.meta_logistic.branch_name" :key="index">
+
                                 <input :id="'pickup-switch-'+index" class="form-check-input" type="radio"
-                                  name="vertical_radio_button" value="vertical-radio-store-1" @click="info(item)"/>
-                                <label class="form-check-label mr-auto" :for="'pickup-switch-'+index">{{ item }}</label>
+                                  name="vertical_radio_button" :value="branch_name" v-model="store.shipping_info.shipping_option"/>
+                                <label class="form-check-label mr-auto" :for="'pickup-switch-'+index">{{ branch_name }}</label>
+
+
                                 <label class="form-check-label" :for="'pickup-switch-'+index">{{ store.order.campaign.meta_logistic.branch_address[index] }}</label>
                               </div>
                             </div>
                           </div>
                         </div>
                       </TabPanel>
+                      <!-- END Pickup Panel -->
                     </TabPanels>
                     <div class="col-span-12 mt-10">
                       <div class="text-md font-medium">
@@ -147,45 +159,9 @@ const router = useRouter();
 
 const store = useShoppingCartStore(); 
 
-function delivery_method(method) {
+function select_shipping_method(method) {
   store.shipping_info.method = method
 }
-const info = (title) => {
-	if(store.shipping_info.method == 'delivery'){
-    store.shipping_info.delivery_info.shipping_option = title
-    store.shipping_info.pickup_info.shipping_option = ""
-  }else{
-    store.shipping_info.pickup_info.shipping_option = title
-    store.shipping_info.delivery_info.shipping_option = ""
-  }
-}
-const delivery_data = () =>{
-  if(store.shipping_info.method == 'delivery'){
-    store.delivery_info.delivery_info.shipping_first_name = store.delivery_info.first_name
-    store.delivery_info.delivery_info.shipping_last_name = store.delivery_info.last_name
-    store.delivery_info.delivery_info.shipping_email = store.delivery_info.email
-    store.delivery_info.delivery_info.shipping_phone = store.delivery_info.phone
-    store.delivery_info.delivery_info.shipping_remark = store.delivery_info.remark
-  }else{
-    store.delivery_info.pickup_info.shipping_first_name = store.delivery_info.first_name
-    store.delivery_info.pickup_info.shipping_last_name = store.delivery_info.last_name
-    store.delivery_info.pickup_info.shipping_email = store.delivery_info.email
-    store.delivery_info.pickup_info.shipping_phone = store.delivery_info.phone
-    store.delivery_info.pickup_info.shipping_remark = store.delivery_info.remark
-  }
-}
-const to_payment = () => {
-  
-  delivery_data()
-  // update_delivery_info(route.params.pre_order_id, store.shipping_info)
-  // .then(
-  //       res => {
-  //         console.log(res.data)
-  //       }
-  //   )
-}
 
 
-onMounted(()=>{
-})
 </script>

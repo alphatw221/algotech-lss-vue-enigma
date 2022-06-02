@@ -65,11 +65,9 @@ const addItem = ()=>{
 const shippingCost = ref(0)
 const cartTotal = ref(0)
 
-watch(
-  computed(() => store.order),
-  () => {
 
-    if (store.shipping_info.method=='pickup'){
+const updateOrderSummary = ()=>{
+   if (store.shipping_info.method=='pickup'){
       shippingCost.value = 0
       cartTotal.value = store.order.subtotal + store.order.adjust_price 
       return
@@ -88,7 +86,7 @@ watch(
 
     const delivery_titles = meta_logistic.additional_delivery_charge_title || null
     const delivery_types = meta_logistic.additional_delivery_charge_type || null
-    const delivery_prices = meta_logistic.additional_delivery_charge_type || null
+    const delivery_prices = meta_logistic.additional_delivery_charge_price || null
 
 
     const free_delivery_for_order_above_price = meta_logistic.is_free_delivery_for_order_above_price == 1 ? meta_logistic.free_delivery_for_order_above_price : 0
@@ -97,14 +95,14 @@ watch(
     const is_subtotal_over_free_delivery_threshold = store.order.subtotal >= free_delivery_for_order_above_price
     const is_items_over_free_delivery_threshold = store.order.products.length >= free_delivery_for_how_many_order_minimum
 
-    if (store.shipping_info.delivery_info && delivery_titles && delivery_types && delivery_prices ){      //TODO shipping_option
-      const index = delivery_titles.indexOf(store.shipping_info.delivery_info.shipping_option)
+    if ( delivery_titles && delivery_types && delivery_prices ){      
+      const index = delivery_titles.indexOf(store.shipping_info.shipping_option)
 
       if (delivery_types[index] == '+'){
-        delivery_charge += delivery_prices[index]
+        delivery_charge += Number(delivery_prices[index])
       }
       else if(delivery_types[index] == '='){
-        delivery_charge =  delivery_prices[index]
+        delivery_charge =  Number(delivery_prices[index])
       }
     }
         
@@ -113,10 +111,24 @@ watch(
         
     shippingCost.value = delivery_charge
     cartTotal.value = store.order.subtotal + store.order.adjust_price + delivery_charge
-
-  }
+}
+watch(
+  computed(() => store.order),
+  updateOrderSummary
 );
 
+watch(
+  computed(() => store.shipping_info.method),
+  updateOrderSummary
+);
+watch(
+  computed(() => store.shipping_info.shipping_option),
+  ()=>{
+    console.log(store.shipping_info.shipping_option)
+    updateOrderSummary()
+  }
+  
+);
 
 //  this.eventBus.emit("addPoint");
 </script>
