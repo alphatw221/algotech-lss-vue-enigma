@@ -249,6 +249,9 @@ const routes = [
       {  
         path: "order/:order_id?/payment",
         name: "buyer-order-payment-page",
+        beforeEnter:()=>{
+          //order incomplete middleware over here
+        },
         component: ShoppingPayment,
       },
       {  
