@@ -72,7 +72,8 @@
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { delete_order_product, buyer_cart_update } from "@/api_v2/pre_order"
+import {  buyer_cart_update } from "@/api_v2/pre_order";
+import { buyer_delete_order_product } from "@/api_v2/order_product"
 import { useRoute } from "vue-router";
 const route = useRoute();
 const store = useShoppingCartStore(); 
@@ -95,20 +96,16 @@ const deleteOrderProduct = (order_product_id, index) =>{
   })
 }
 
-
-
 const changeQuantity = (index, qty, caculate, order_product_id) => {
-	console.log(store.preOrder)
 	buyer_cart_update(order_product_id, qty)
 	.then(
 		response => {
-			store.preOrder.subtotal = response.data.subtotal
-			store.preOrder.total = response.data.total
+			store.order = response.data
 
 			if (caculate == 'add' && qty < 99) {
-				store.preOrder.products[index].qty += 1 
+				store.order.products[index].qty += 1 
 			} else if (caculate == 'minus' && qty > 1) {
-				store.preOrder.products[index].qty -= 1 
+				store.order.products[index].qty -= 1 
 			} 
 		}
 	)
