@@ -1,5 +1,6 @@
 <template>
 <AccordionGroup class="accordion-boxed">
+
     <AccordionItem>
         <Accordion class="bg-primary rounded-t-lg ">
             <div class="text-white mx-3"> Direct Payment </div>
@@ -27,6 +28,8 @@
             </div>
         </AccordionPanel>
     </AccordionItem>
+
+<!--     
     <AccordionItem>
         <Accordion class="bg-primary rounded-t-lg">
             <div class="text-white mx-3"> HitPay </div>
@@ -64,6 +67,23 @@
         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary p-5">
             When you place an order, you will be taken to PayPal to complete your service.
         </AccordionPanel>
-    </AccordionItem>
+    </AccordionItem> -->
 </AccordionGroup>
 </template>
+
+
+<script setup>
+
+import { computed, onMounted, ref, watch } from "vue";
+import { useLSSPaymentMetaStore } from "@/stores/lss-payment-meta";
+import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { buyer_upload_receipt } from "@/api_v2/order"
+
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+
+const paymentMetaStore = useLSSPaymentMetaStore();
+const shoppingCartStore = useShoppingCartStore(); 
+
+
+</script>

@@ -6,14 +6,15 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 		openTab: ref(1),
 		order: ref({}),
 		// orderSummary:ref({}),
-		delivery_info: ref({
+		contact_info: ref({
 			shipping_first_name: "",
 			shipping_last_name: "",
 			shipping_email: "",
 			shipping_phone: "",
-			shipping_method: "delivery",
-			// total: 0.00,
+		}),
+		shipping_info: ref({
 			shipping_remark: "",
+			method: "delivery",
 			delivery_info: {
 				shipping_address_1: "",
 				shipping_location: "",
@@ -26,7 +27,6 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 				shipping_option: "",
 				shipping_cost: 0.00,
 			},
-		}),  
-		addOnProducts: []   
+		}),     
 	}),
 });

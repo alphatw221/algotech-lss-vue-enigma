@@ -65,6 +65,8 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
+import AutoReply from "../views/autoReply/Main.vue";  
+
 import ShoppingCart from "../views/shoppingcart/Main.vue";
 import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
 import OrderDetails from "../views/shoppingcart/OrderDetails.vue";
@@ -73,7 +75,6 @@ import ShoppingPayment from "../views/shoppingcart/Payment.vue";
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
 import CreateCampaign from "../views/create-campaign/CreateCamp.vue";
-import CreateCampDetails from "../views/create-campaign/CreateCampDetails.vue"; 
 import ManageOrder from "../views/manage-order/Main.vue";  
 import CampaignSelect from "../views/manage-order/Campaignselect.vue";
 
@@ -124,11 +125,6 @@ const routes = [
         name: "side-menu-create-campaign",
         component: CreateCampaign,
       },  
-      {
-        path: "create-campaign/details",
-        name: "side-menu-create-campaign-details",
-        component: CreateCampDetails,
-      },
       {  
         path: "shopping-cart",
         name: "side-menu-shopping-cart",
@@ -158,6 +154,11 @@ const routes = [
         path: "platform-setting",
         name: "side-menu-connect-platform",
         component: ConnectPlatform,
+      },
+      {  
+        path: "autoreply",
+        name: "side-menu-auto-reply",
+        component: AutoReply,
       },  
       {
         path: "test2",
@@ -249,6 +250,9 @@ const routes = [
       {  
         path: "order/:order_id?/payment",
         name: "buyer-order-payment-page",
+        beforeEnter:()=>{
+          //order incomplete middleware over here
+        },
         component: ShoppingPayment,
       },
       {  
