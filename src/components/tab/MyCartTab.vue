@@ -40,8 +40,7 @@ onMounted(()=>{
     retrieve_pre_order(route.params.pre_order_id)
     .then(
         res => {
-          console.log(res.data)
-          store.preOrder = res.data
+          store.order = res.data
         }
     )
 })

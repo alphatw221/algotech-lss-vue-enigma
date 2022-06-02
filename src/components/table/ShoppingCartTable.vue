@@ -12,7 +12,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="(product, index) in store.preOrder.products" :key="index" class="intro-x">
+			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
 				<td class=" h-20">
 					<div class="flex">
 						<div class="w-10 h-10 image-fit zoom-in">
@@ -88,17 +88,17 @@ const tableColumns = ref([
 
 const deleteOrderProduct = (order_product_id, index) =>{
   buyer_delete_order_product(order_product_id).then(res=>{
-	store.preOrder.products.splice(index, 1);
-	store.preOrder = res.data
+	store.order.products.splice(index, 1);
+	store.order = res.data
     
   })
 }
 
 const changeQuantity = (index, qty, caculate) => {
 	if (caculate == 'add') {
-		store.preOrder.products[index].qty += 1 
+		store.order.products[index].qty += 1 
 	} else if (caculate == 'minus') {
-		store.preOrder.products[index].qty -= 1 
+		store.order.products[index].qty -= 1 
 	} 
 }
 </script>

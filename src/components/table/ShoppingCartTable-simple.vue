@@ -12,8 +12,8 @@
 	<!-- END title -->
 
 	<!-- BEGIN table -->
-	<div v-if="store.preOrder.products">
-		<div class="p-5" v-for="(product, key) in store.preOrder.products" :key="key">
+	<div v-if="store.order.products">
+		<div class="p-5" v-for="(product, key) in store.order.products" :key="key">
 
 			<div class="relative flex items-center">
 			<div class="w-12 h-12 flex-none image-fit">
@@ -46,7 +46,7 @@ const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 
 const numOfItems = computed(()=>{
-	if(store.preOrder.products)return Object.keys(store.preOrder.products).length
+	if(store.order.products)return Object.keys(store.order.products).length
 	return 0
 })
 

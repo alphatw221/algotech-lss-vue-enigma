@@ -68,13 +68,13 @@
                           <!-- Delivery Option -->
                           <label class="text-md font-medium col-span-12">Delivery Option</label>
                           <div class="box p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
-                            <!-- {{ store.preOrder.campaign.meta_logistic }} -->
-                            <div v-if="'campaign' in store.preOrder">
-                                <div class="flex form-check my-5" v-for="(item,index) in store.preOrder.campaign.meta_logistic.additional_delivery_charge_title" :key="index">
+                            <!-- {{ store.order.campaign.meta_logistic }} -->
+                            <div v-if="'campaign' in store.order">
+                                <div class="flex form-check my-5" v-for="(item,index) in store.order.campaign.meta_logistic.additional_delivery_charge_title" :key="index">
                                   <input :id="'radio-switch-'+index" class="form-check-input" type="radio"
                                     name="vertical_radio_button" value="vertical-radio-chris-evans" />
                                   <label class="form-check-label mr-auto" :for="'radio-switch-'+index">{{ item }}</label>
-                                  <label class="form-check-label">{{store.preOrder.campaign.currency}} {{store.preOrder.campaign.meta_logistic.additional_delivery_charge_price[index]}}</label>
+                                  <label class="form-check-label">{{store.order.campaign.currency}} {{store.order.campaign.meta_logistic.additional_delivery_charge_price[index]}}</label>
                                 </div>
                             </div>
                             
@@ -85,12 +85,12 @@
                         <div class="grid grid-cols-12">
                           <label class="text-md font-medium col-span-12">Pickup Option</label>
                           <div class="box p-2 intro-y col-span-12 gap-5 mx-0 lg:mx-20 lg:p-8 2xl:mx-20 2xl:p-8">
-                            <div v-if="'campaign' in store.preOrder">
-                              <div class="flex form-check my-5" v-for="(item,index) in store.preOrder.campaign.meta_logistic.branch_name" :key="index">
+                            <div v-if="'campaign' in store.order">
+                              <div class="flex form-check my-5" v-for="(item,index) in store.order.campaign.meta_logistic.branch_name" :key="index">
                                 <input :id="'pickup-switch-'+index" class="form-check-input" type="radio"
                                   name="vertical_radio_button" value="vertical-radio-store-1" />
                                 <label class="form-check-label mr-auto" :for="'pickup-switch-'+index">{{ item }}</label>
-                                <label class="form-check-label" :for="'pickup-switch-'+index">{{ store.preOrder.campaign.meta_logistic.branch_address[index] }}</label>
+                                <label class="form-check-label" :for="'pickup-switch-'+index">{{ store.order.campaign.meta_logistic.branch_address[index] }}</label>
                               </div>
                             </div>
                           </div>
@@ -151,7 +151,7 @@ const store = useShoppingCartStore();
 function delivery_method(method) {
   store.delivery_info.shipping_method = method
   console.log(store.delivery_info.shipping_method)
-  console.log(store.preOrder)
+  console.log(store.order)
 }
 
 

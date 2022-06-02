@@ -7,18 +7,18 @@
 	  
       <div class="flex">
         <div class="mr-auto">Subtotal</div>
-        <div class="font-medium">$ {{ store.preOrder.subtotal }}</div>
+        <div class="font-medium">$ {{ store.order.subtotal }}</div>
       </div>
       <div class="flex mt-4">
 
 
-        <div class="mr-auto" v-if="store.preOrder.adjust_title">
-          <div>{{ store.preOrder.adjust_title }}</div>
+        <div class="mr-auto" v-if="store.order.adjust_title">
+          <div>{{ store.order.adjust_title }}</div>
           <div>(Price Adjustment)</div>
         </div>
         <div class="mr-auto" v-else>Price Adjustment</div>
 
-        <div class="font-medium text-danger">${{ store.preOrder.adjust_price }}</div>
+        <div class="font-medium text-danger">${{ store.order.adjust_price }}</div>
       </div>
       
       <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
@@ -70,10 +70,10 @@ const shippingCost = ref(0)
 const cartTotal = ref(0)
 
 watch(
-  computed(() => store.preOrder),
+  computed(() => store.order),
   () => {
 
-    const campaign = store.preOrder.campaign||null
+    const campaign = store.order.campaign||null
     if(!campaign)return
     
     const meta_logistic = campaign.meta_logistic || null
@@ -90,10 +90,10 @@ watch(
     const free_delivery_for_order_above_price = meta_logistic.is_free_delivery_for_order_above_price == 1 ? meta_logistic.free_delivery_for_order_above_price : 0
     const free_delivery_for_how_many_order_minimum = meta_logistic.is_free_delivery_for_how_many_order_minimum == 1 ? meta_logistic.free_delivery_for_how_many_order_minimum : 0
 
-    const is_subtotal_over_free_delivery_threshold = store.preOrder.subtotal >= free_delivery_for_order_above_price
-    const is_items_over_free_delivery_threshold = store.preOrder.products.length >= free_delivery_for_how_many_order_minimum
+    const is_subtotal_over_free_delivery_threshold = store.order.subtotal >= free_delivery_for_order_above_price
+    const is_items_over_free_delivery_threshold = store.order.products.length >= free_delivery_for_how_many_order_minimum
 
-    if (store.preOrder.shipping_option && delivery_titles && delivery_types && delivery_prices ){      //TODO shipping_option
+    if (store.order.shipping_option && delivery_titles && delivery_types && delivery_prices ){      //TODO shipping_option
       index = delivery_titles.indexOf(shipping_option)
 
       if (delivery_types[index] == '+'){
@@ -105,10 +105,10 @@ watch(
     }
         
 
-    if (store.preOrder.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
+    if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
         
     shippingCost.value = delivery_charge
-    cartTotal.value = store.preOrder.subtotal + store.preOrder.adjust_price + delivery_charge
+    cartTotal.value = store.order.subtotal + store.order.adjust_price + delivery_charge
 
   }
 );
