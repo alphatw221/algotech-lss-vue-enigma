@@ -11,23 +11,23 @@
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder="" 
-                      v-model="store.delivery_info.shipping_first_name"/>
+                      v-model="store.delivery_info.first_name"/>
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Last
                       Name</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delivery_info.shipping_last_name" />
+                      v-model="store.delivery_info.last_name" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Email</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delivery_info.shipping_email" />
+                      v-model="store.delivery_info.email" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delivery_info.shipping_phone" />
+                      v-model="store.delivery_info.phone" />
                   </div>
 
                   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -72,7 +72,7 @@
                             <div v-if="'campaign' in store.preOrder">
                                 <div class="flex form-check my-5" v-for="(item,index) in store.preOrder.campaign.meta_logistic.additional_delivery_charge_title" :key="index">
                                   <input :id="'radio-switch-'+index" class="form-check-input" type="radio"
-                                    name="vertical_radio_button" value="vertical-radio-chris-evans" />
+                                    name="vertical_radio_button" value="vertical-radio-chris-evans" @click="info(item)"/>
                                   <label class="form-check-label mr-auto" :for="'radio-switch-'+index">{{ item }}</label>
                                   <label class="form-check-label">{{store.preOrder.campaign.currency}} {{store.preOrder.campaign.meta_logistic.additional_delivery_charge_price[index]}}</label>
                                 </div>
@@ -88,7 +88,7 @@
                             <div v-if="'campaign' in store.preOrder">
                               <div class="flex form-check my-5" v-for="(item,index) in store.preOrder.campaign.meta_logistic.branch_name" :key="index">
                                 <input :id="'pickup-switch-'+index" class="form-check-input" type="radio"
-                                  name="vertical_radio_button" value="vertical-radio-store-1" />
+                                  name="vertical_radio_button" value="vertical-radio-store-1" @click="info(item)"/>
                                 <label class="form-check-label mr-auto" :for="'pickup-switch-'+index">{{ item }}</label>
                                 <label class="form-check-label" :for="'pickup-switch-'+index">{{ store.preOrder.campaign.meta_logistic.branch_address[index] }}</label>
                               </div>
@@ -108,7 +108,7 @@
                     </div>
                     <div class="col-span-12 mt-10">
                       <div class="text-md font-medium">Remark</div>
-                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.delivery_info.shipping_remark">
+                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.delivery_info.remark">
                                   Remark remark remark remark</textarea>
                     </div>
                   </TabGroup>
@@ -191,7 +191,7 @@
               </div>
               <div class="my-5 flex justify-end">
                 <button class="w-full btn btn-primary lg:w-fit 2xl:lg:w-fit"
-                  @click="this.$router.push('/shopping-payment')">
+                  @click="to_payment">
                   Proceed to Payment
                 </button>
               </div>
@@ -205,15 +205,52 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 import { useRoute, useRouter } from "vue-router";
 import { method } from "lodash";
+import { update_delivery_info } from "@/api_v2/pre_order"
 const route = useRoute();
 const router = useRouter();
 
 const store = useShoppingCartStore(); 
 
 function delivery_method(method) {
-  store.delivery_info.shipping_method = method
-  console.log(store.delivery_info.shipping_method)
-  console.log(store.preOrder)
+  store.delivery_info.method = method
+}
+const info = (title) => {
+	if(store.delivery_info.method == 'delivery'){
+    store.delivery_info.delivery_info.shipping_option = title
+    store.delivery_info.pickup_info.shipping_option = ""
+  }else{
+    store.delivery_info.pickup_info.shipping_option = title
+    store.delivery_info.delivery_info.shipping_option = ""
+  }
+}
+const delivery_data = () =>{
+  if(store.delivery_info.method == 'delivery'){
+    store.delivery_info.delivery_info.shipping_first_name = store.delivery_info.first_name
+    store.delivery_info.delivery_info.shipping_last_name = store.delivery_info.last_name
+    store.delivery_info.delivery_info.shipping_email = store.delivery_info.email
+    store.delivery_info.delivery_info.shipping_phone = store.delivery_info.phone
+    store.delivery_info.delivery_info.shipping_remark = store.delivery_info.remark
+  }else{
+    store.delivery_info.pickup_info.shipping_first_name = store.delivery_info.first_name
+    store.delivery_info.pickup_info.shipping_last_name = store.delivery_info.last_name
+    store.delivery_info.pickup_info.shipping_email = store.delivery_info.email
+    store.delivery_info.pickup_info.shipping_phone = store.delivery_info.phone
+    store.delivery_info.pickup_info.shipping_remark = store.delivery_info.remark
+  }
+}
+const to_payment = () => {
+  
+  delivery_data()
+  update_delivery_info(route.params.pre_order_id, store.delivery_info)
+  .then(
+        res => {
+          console.log(res.data)
+        }
+    )
+  console.log(store.delivery_info.method)
+  console.log(store.delivery_info)
+  //update_delivery_info(route.params.pre_order_id,store,)
+	//this.$router.push('/shopping-payment')
 }
 
 
