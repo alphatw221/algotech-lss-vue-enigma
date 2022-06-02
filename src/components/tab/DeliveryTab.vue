@@ -9,23 +9,23 @@
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder="" 
-                      v-model="store.delivery_info.first_name"/>
+                      v-model="store.contact_info.first_name"/>
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Last
                       Name</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delivery_info.last_name" />
+                      v-model="store.contact_info.last_name" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Email</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delivery_info.email" />
+                      v-model="store.contact_info.email" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delivery_info.phone" />
+                      v-model="store.contact_info.phone" />
                   </div>
 
                   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -52,16 +52,16 @@
                           <div class="box p-8 intro-y col-span-12 gap-5">
                             <label for="regular-form-2" class="form-label my-2">Address</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
-                              placeholder=""  v-model="store.delivery_info.delivery_info.shipping_address_1" />
+                              placeholder=""  v-model="store.shipping_info.delivery_info.shipping_address_1" />
                             <label for="regular-form-2" class="form-label my-2">City</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
-                              placeholder=""  v-model="store.delivery_info.delivery_info.shipping_location" />
+                              placeholder=""  v-model="store.shipping_info.delivery_info.shipping_location" />
                             <label for="regular-form-2" class="form-label my-2">State</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
-                              placeholder="" v-model="store.delivery_info.delivery_info.shipping_region" />
+                              placeholder="" v-model="store.shipping_info.delivery_info.shipping_region" />
                             <label for="regular-form-2" class="form-label my-2">Postal Code</label>
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded"
-                              placeholder="" v-model="store.delivery_info.delivery_info.shipping_postcode" />
+                              placeholder="" v-model="store.shipping_info.delivery_info.shipping_postcode" />
                           </div>
                           <!-- Delivery Option -->
                           <label class="text-md font-medium col-span-12">Delivery Option</label>
@@ -106,7 +106,7 @@
                     </div>
                     <div class="col-span-12 mt-10">
                       <div class="text-md font-medium">Remark</div>
-                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.delivery_info.remark">
+                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.shipping_info.remark">
                                   Remark remark remark remark</textarea>
                     </div>
                   </TabGroup>
@@ -148,19 +148,19 @@ const router = useRouter();
 const store = useShoppingCartStore(); 
 
 function delivery_method(method) {
-  store.delivery_info.method = method
+  store.shipping_info.method = method
 }
 const info = (title) => {
-	if(store.delivery_info.method == 'delivery'){
-    store.delivery_info.delivery_info.shipping_option = title
-    store.delivery_info.pickup_info.shipping_option = ""
+	if(store.shipping_info.method == 'delivery'){
+    store.shipping_info.delivery_info.shipping_option = title
+    store.shipping_info.pickup_info.shipping_option = ""
   }else{
-    store.delivery_info.pickup_info.shipping_option = title
-    store.delivery_info.delivery_info.shipping_option = ""
+    store.shipping_info.pickup_info.shipping_option = title
+    store.shipping_info.delivery_info.shipping_option = ""
   }
 }
 const delivery_data = () =>{
-  if(store.delivery_info.method == 'delivery'){
+  if(store.shipping_info.method == 'delivery'){
     store.delivery_info.delivery_info.shipping_first_name = store.delivery_info.first_name
     store.delivery_info.delivery_info.shipping_last_name = store.delivery_info.last_name
     store.delivery_info.delivery_info.shipping_email = store.delivery_info.email
@@ -177,12 +177,12 @@ const delivery_data = () =>{
 const to_payment = () => {
   
   delivery_data()
-  update_delivery_info(route.params.pre_order_id, store.delivery_info)
-  .then(
-        res => {
-          console.log(res.data)
-        }
-    )
+  // update_delivery_info(route.params.pre_order_id, store.shipping_info)
+  // .then(
+  //       res => {
+  //         console.log(res.data)
+  //       }
+  //   )
 }
 
 

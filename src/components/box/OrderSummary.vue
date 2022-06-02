@@ -69,7 +69,7 @@ watch(
   computed(() => store.order),
   () => {
 
-    if (store.delivery_info.method=='pickup'){
+    if (store.shipping_info.method=='pickup'){
       shippingCost.value = 0
       cartTotal.value = store.order.subtotal + store.order.adjust_price 
       return
@@ -97,8 +97,8 @@ watch(
     const is_subtotal_over_free_delivery_threshold = store.order.subtotal >= free_delivery_for_order_above_price
     const is_items_over_free_delivery_threshold = store.order.products.length >= free_delivery_for_how_many_order_minimum
 
-    if (store.delivery_info.delivery_info && delivery_titles && delivery_types && delivery_prices ){      //TODO shipping_option
-      const index = delivery_titles.indexOf(store.delivery_info.delivery_info.shipping_option)
+    if (store.shipping_info.delivery_info && delivery_titles && delivery_types && delivery_prices ){      //TODO shipping_option
+      const index = delivery_titles.indexOf(store.shipping_info.delivery_info.shipping_option)
 
       if (delivery_types[index] == '+'){
         delivery_charge += delivery_prices[index]
