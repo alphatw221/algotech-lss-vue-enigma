@@ -1,5 +1,5 @@
 <template>
-	<table class="table table-report mt-5 overflow-y-scroll">
+	<table class="table table-report mt-5 overflow-y-scroll overflow-x-auto">
 		<thead>
 			<tr>
 				<th
@@ -12,7 +12,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="(product, index) in store.preOrder.products" :key="index" class="intro-x">
+			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
 				<td class=" h-20">
 					<div class="flex">
 						<div class="w-10 h-10 image-fit zoom-in">
@@ -72,9 +72,15 @@
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+<<<<<<< HEAD
 import { delete_order_product, buyer_cart_update } from "@/api_v2/pre_order"
 import { useRoute } from "vue-router";
 const route = useRoute();
+=======
+import { buyer_delete_order_product } from "@/api_v2/pre_order"
+// import { useRoute, useRouter } from "vue-router";
+// const route = useRoute();
+>>>>>>> 8edcd3b012a88da539b1a66059481c6bfa72b99f
 const store = useShoppingCartStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
@@ -88,8 +94,10 @@ const tableColumns = ref([
       ])
 
 const deleteOrderProduct = (order_product_id, index) =>{
-  delete_order_product(order_product_id).then(res=>{
-    store.preOrder.products.splice(index, 1);
+  buyer_delete_order_product(order_product_id).then(res=>{
+	store.order.products.splice(index, 1);
+	store.order = res.data
+    
   })
 }
 
