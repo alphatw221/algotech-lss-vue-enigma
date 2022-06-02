@@ -31,10 +31,10 @@
 				</td>
 				<td class="text-center h-20">
 					<div class="flex">
-						<MinusSquareIcon 
-							class="w-5 h-5 mt-2 mr-2" 
-							@click="changeQuantity(index, product.qty, 'minus', product.order_product_id)"
-						/>
+						<button type="button" @click="changeQuantity(index, product.qty, 'minus', product.order_product_id)">
+							<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
+						</button>
+						
 						<input 
 							type="text" 
 							class="form-control" 
@@ -44,10 +44,10 @@
 							style="width: 3rem;"
 							disabled
 						/>
-						<PlusSquareIcon 
-							class="w-5 h-5 mt-2 ml-2" 
-							@click="changeQuantity(index, product.qty, 'add', product.order_product_id)" 
-						/>
+						<button type="button" @click="changeQuantity(index, product.qty, 'add', product.order_product_id)" >
+							<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
+						</button>
+						
 					</div>
 				</td>
 				<td class="text-center h-20">
@@ -72,7 +72,7 @@
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { delete_order_product, buyer_cart_update } from "@/api_v2/pre_order"
+import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
 import { useRoute } from "vue-router";
 const route = useRoute();
 const store = useShoppingCartStore(); 
@@ -97,19 +97,22 @@ const deleteOrderProduct = (order_product_id, index) =>{
 
 
 
-const changeQuantity = (index, qty, caculate, order_product_id) => {
-	console.log(store.preOrder)
-	buyer_cart_update(order_product_id, qty)
-	.then(
-		response => {
-			store.preOrder.subtotal = response.data.subtotal
-			store.preOrder.total = response.data.total
+const changeQuantity = (index, qty, operation, order_product_id) => {
 
-			if (caculate == 'add' && qty < 99) {
-				store.preOrder.products[index].qty += 1 
-			} else if (caculate == 'minus' && qty > 1) {
-				store.preOrder.products[index].qty -= 1 
-			} 
+	if (operation == 'add' && qty < 99) {
+		qty+=1
+	} else if (operation == 'minus' && qty > 1) {
+		qty-=1
+	} else{
+		alert('Invalid Quantity')
+		return
+	}
+	console.log(qty)
+	buyer_update_order_product(order_product_id, qty)
+	.then(
+		res => {
+			console.log(res.data)
+			store.order = res.data
 		}
 	)
 }

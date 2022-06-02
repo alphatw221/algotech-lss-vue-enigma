@@ -67,6 +67,14 @@ watch(
   computed(() => store.order),
   () => {
 
+    if (store.delivery_info.method=='pickup'){
+      shippingCost.value = 0
+      cartTotal.value = store.order.subtotal + store.order.adjust_price 
+      return
+    }
+    
+
+
     const campaign = store.order.campaign||null
     if(!campaign)return
     
@@ -87,8 +95,8 @@ watch(
     const is_subtotal_over_free_delivery_threshold = store.order.subtotal >= free_delivery_for_order_above_price
     const is_items_over_free_delivery_threshold = store.order.products.length >= free_delivery_for_how_many_order_minimum
 
-    if (store.order.shipping_option && delivery_titles && delivery_types && delivery_prices ){      //TODO shipping_option
-      index = delivery_titles.indexOf(shipping_option)
+    if (store.delivery_info.delivery_info && delivery_titles && delivery_types && delivery_prices ){      //TODO shipping_option
+      index = delivery_titles.indexOf(store.delivery_info.delivery_info.shipping_option)
 
       if (delivery_types[index] == '+'){
         delivery_charge += delivery_prices[index]

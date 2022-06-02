@@ -17,6 +17,3 @@ export const list_buyer_campapign_product = (pre_order_id) => {
     return createAxiosWithBearer().get(`/api/v2/campaign-product/buyer/list/?pre_order_id=${pre_order_id}`)
 }
 
-export const buyer_cart_update = (pre_order_id, qty) => {
-    return createAxiosWithBearer().put(`/api/v2/order-product/${pre_order_id}/buyer/update/?qty=${qty}`)
-}
