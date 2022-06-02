@@ -13,19 +13,16 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			shipping_phone: "",
 		}),
 		shipping_info: ref({
-			shipping_remark: "",
 			method: "delivery",
+			shipping_option: "",
+			shipping_remark: "",
 			delivery_info: {
 				shipping_address_1: "",
 				shipping_location: "",
 				shipping_region: "",
 				shipping_postcode: "",  
-				shipping_option: "",
-				shipping_cost: 0.00,
 			},
 			pickup_info: {
-				shipping_option: "",
-				shipping_cost: 0.00,
 			},
 		}),     
 	}),
