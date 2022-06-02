@@ -103,8 +103,7 @@ export default {
     },
   },
   mounted() {
-    console.log('popp')
-    console.log(this.$route.params.pre_order_id)
+    
   },
   methods: {
     toggleTabs: function (tabNumber) {

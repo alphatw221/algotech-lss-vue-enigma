@@ -3,11 +3,11 @@ import { ref } from "vue"
 export const useShoppingCartStore = defineStore("buyerShoppingCart", {
   state: () => ({
 
-    preOrder:ref({}),
+    // preOrder:ref({}),
     openTab:ref(1),
+    order:ref({}),
 
-
-    orderSummary:ref({}),
+    // orderSummary:ref({}),
     delivery_info:ref({
       first_name: "",
       last_name: "",
