@@ -10,7 +10,7 @@
             :key="item"
         >
             <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in" >
-                <div class="w-3/5 file__icon file__icon--empty-directory mx-auto"></div>
+                <div class="w-50 file__icon file__icon--empty-directory mx-auto"></div>
                 <div class="block font-medium mt-4 text-center truncate">
                     {{ item }}
                 </div>

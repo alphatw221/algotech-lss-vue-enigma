@@ -11,23 +11,23 @@
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder="" 
-                      v-model="store.delivery_info.shipping_first_name"/>
+                      v-model="store.delivery_info.first_name"/>
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Last
                       Name</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delivery_info.shipping_last_name" />
+                      v-model="store.delivery_info.last_name" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Email</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delivery_info.shipping_email" />
+                      v-model="store.delivery_info.email" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.delivery_info.shipping_phone" />
+                      v-model="store.delivery_info.phone" />
                   </div>
 
                   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -68,13 +68,13 @@
                           <!-- Delivery Option -->
                           <label class="text-md font-medium col-span-12">Delivery Option</label>
                           <div class="box p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
-                            <!-- {{ store.preOrder.campaign.meta_logistic }} -->
-                            <div v-if="'campaign' in store.preOrder">
-                                <div class="flex form-check my-5" v-for="(item,index) in store.preOrder.campaign.meta_logistic.additional_delivery_charge_title" :key="index">
+                            <!-- {{ store.order.campaign.meta_logistic }} -->
+                            <div v-if="'campaign' in store.order">
+                                <div class="flex form-check my-5" v-for="(item,index) in store.order.campaign.meta_logistic.additional_delivery_charge_title" :key="index">
                                   <input :id="'radio-switch-'+index" class="form-check-input" type="radio"
-                                    name="vertical_radio_button" value="vertical-radio-chris-evans" />
+                                    name="vertical_radio_button" value="vertical-radio-chris-evans" @click="info(item)"/>
                                   <label class="form-check-label mr-auto" :for="'radio-switch-'+index">{{ item }}</label>
-                                  <label class="form-check-label">{{store.preOrder.campaign.currency}} {{store.preOrder.campaign.meta_logistic.additional_delivery_charge_price[index]}}</label>
+                                  <label class="form-check-label">{{store.order.campaign.currency}} {{store.order.campaign.meta_logistic.additional_delivery_charge_price[index]}}</label>
                                 </div>
                             </div>
                             
@@ -85,12 +85,12 @@
                         <div class="grid grid-cols-12">
                           <label class="text-md font-medium col-span-12">Pickup Option</label>
                           <div class="box p-2 intro-y col-span-12 gap-5 mx-0 lg:mx-20 lg:p-8 2xl:mx-20 2xl:p-8">
-                            <div v-if="'campaign' in store.preOrder">
-                              <div class="flex form-check my-5" v-for="(item,index) in store.preOrder.campaign.meta_logistic.branch_name" :key="index">
+                            <div v-if="'campaign' in store.order">
+                              <div class="flex form-check my-5" v-for="(item,index) in store.order.campaign.meta_logistic.branch_name" :key="index">
                                 <input :id="'pickup-switch-'+index" class="form-check-input" type="radio"
-                                  name="vertical_radio_button" value="vertical-radio-store-1" />
+                                  name="vertical_radio_button" value="vertical-radio-store-1" @click="info(item)"/>
                                 <label class="form-check-label mr-auto" :for="'pickup-switch-'+index">{{ item }}</label>
-                                <label class="form-check-label" :for="'pickup-switch-'+index">{{ store.preOrder.campaign.meta_logistic.branch_address[index] }}</label>
+                                <label class="form-check-label" :for="'pickup-switch-'+index">{{ store.order.campaign.meta_logistic.branch_address[index] }}</label>
                               </div>
                             </div>
                           </div>
@@ -108,7 +108,7 @@
                     </div>
                     <div class="col-span-12 mt-10">
                       <div class="text-md font-medium">Remark</div>
-                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.delivery_info.shipping_remark">
+                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.delivery_info.remark">
                                   Remark remark remark remark</textarea>
                     </div>
                   </TabGroup>
@@ -118,80 +118,18 @@
                   <div class="intro-y">
                     <OrderSummary />
                   </div>
+
                   <div class="intro-y box col-span-12 lg:col-span-6 mt-5">
-                    <div
-                      class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400">
-                      <h2 class="font-medium text-base mr-auto">
-                        My Cart (4 Items)
-                      </h2>
-                      <button class="border-none hidden sm:flex underline">
-                        Edit
-                      </button>
-                    </div>
-                    <div class="p-5">
-                      <div class="relative flex items-center">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img alt="" class="rounded-md" :src="$f()[0].photos[0]" />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 1</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Description 123
-                          </div>
-                        </div>
-                        <div class="font-medium text-slate-600 dark:text-slate-500">
-                          USD25.99
-                        </div>
-                      </div>
-                      <div class="relative flex items-center mt-5">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img alt="" class="rounded-md" :src="$f()[1].photos[0]" />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 2</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Description 123
-                          </div>
-                        </div>
-                        <div class="font-medium text-slate-600 dark:text-slate-500">
-                          USD25.99
-                        </div>
-                      </div>
-                      <div class="relative flex items-center mt-5">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img alt="" class="rounded-md" :src="$f()[2].photos[0]" />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 3</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Product 3
-                          </div>
-                        </div>
-                        <div class="font-medium text-slate-600 dark:text-slate-500">
-                          USD21
-                        </div>
-                      </div>
-                      <div class="relative flex items-center mt-5">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img alt="" class="rounded-md" :src="$f()[2].photos[0]" />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 4</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Product 3
-                          </div>
-                        </div>
-                        <div class="font-medium text-slate-600 dark:text-slate-500">
-                          USD21
-                        </div>
-                      </div>
-                    </div>
+                    <ShoppingCartTableSimple/>
                   </div>
+
+
+
                 </div>
               </div>
               <div class="my-5 flex justify-end">
                 <button class="w-full btn btn-primary lg:w-fit 2xl:lg:w-fit"
-                  @click="this.$router.push('/shopping-payment')">
+                  @click="to_payment">
                   Proceed to Payment
                 </button>
               </div>
@@ -199,21 +137,54 @@
 </template>
 <script setup>
 import OrderSummary from "@/components/box/OrderSummary.vue";
-
+import ShoppingCartTableSimple from "@/components/table/ShoppingCartTable-simple.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 import { useRoute, useRouter } from "vue-router";
 import { method } from "lodash";
+import { update_delivery_info } from "@/api_v2/pre_order"
 const route = useRoute();
 const router = useRouter();
 
 const store = useShoppingCartStore(); 
 
 function delivery_method(method) {
-  store.delivery_info.shipping_method = method
-  console.log(store.delivery_info.shipping_method)
-  console.log(store.preOrder)
+  store.delivery_info.method = method
+}
+const info = (title) => {
+	if(store.delivery_info.method == 'delivery'){
+    store.delivery_info.delivery_info.shipping_option = title
+    store.delivery_info.pickup_info.shipping_option = ""
+  }else{
+    store.delivery_info.pickup_info.shipping_option = title
+    store.delivery_info.delivery_info.shipping_option = ""
+  }
+}
+const delivery_data = () =>{
+  if(store.delivery_info.method == 'delivery'){
+    store.delivery_info.delivery_info.shipping_first_name = store.delivery_info.first_name
+    store.delivery_info.delivery_info.shipping_last_name = store.delivery_info.last_name
+    store.delivery_info.delivery_info.shipping_email = store.delivery_info.email
+    store.delivery_info.delivery_info.shipping_phone = store.delivery_info.phone
+    store.delivery_info.delivery_info.shipping_remark = store.delivery_info.remark
+  }else{
+    store.delivery_info.pickup_info.shipping_first_name = store.delivery_info.first_name
+    store.delivery_info.pickup_info.shipping_last_name = store.delivery_info.last_name
+    store.delivery_info.pickup_info.shipping_email = store.delivery_info.email
+    store.delivery_info.pickup_info.shipping_phone = store.delivery_info.phone
+    store.delivery_info.pickup_info.shipping_remark = store.delivery_info.remark
+  }
+}
+const to_payment = () => {
+  
+  delivery_data()
+  update_delivery_info(route.params.pre_order_id, store.delivery_info)
+  .then(
+        res => {
+          console.log(res.data)
+        }
+    )
 }
 
 

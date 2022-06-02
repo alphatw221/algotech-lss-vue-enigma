@@ -248,6 +248,11 @@ const routes = [
         component: OrderDetails,
       },
       {  
+        path: "order/:order_id?/payment",
+        name: "buyer-order-payment-page",
+        component: ShoppingPayment,
+      },
+      {  
         path: "cart/:pre_order_id?",
         name: "buyer-shopping-cart-detail-page",
         component: ShoppingCart,
