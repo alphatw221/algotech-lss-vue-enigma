@@ -9,6 +9,6 @@ export const update_delivery_info = (pre_order_id,data) =>{
 }
 
 
-export const delete_order_product = (order_product_id) =>{
-    return createAxiosWithBearer().delete(`/api/v2/order_product/${order_product_id}/delete/`)
+export const buyer_delete_order_product = (order_product_id) =>{
+    return createAxiosWithBearer().delete(`/api/v2/order_product/buyer/${order_product_id}/delete/`)
 }

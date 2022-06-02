@@ -1,5 +1,5 @@
 <template>
-	<table class="table table-report mt-5 overflow-y-scroll">
+	<table class="table table-report mt-5 overflow-y-scroll overflow-x-auto">
 		<thead>
 			<tr>
 				<th
@@ -72,7 +72,7 @@
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { delete_order_product } from "@/api_v2/pre_order"
+import { buyer_delete_order_product } from "@/api_v2/pre_order"
 // import { useRoute, useRouter } from "vue-router";
 // const route = useRoute();
 const store = useShoppingCartStore(); 
@@ -87,7 +87,7 @@ const tableColumns = ref([
       ])
 
 const deleteOrderProduct = (order_product_id, index) =>{
-  delete_order_product(order_product_id).then(res=>{
+  buyer_delete_order_product(order_product_id).then(res=>{
     store.preOrder.products.splice(index, 1);
   })
 }

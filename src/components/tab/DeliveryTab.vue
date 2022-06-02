@@ -118,75 +118,13 @@
                   <div class="intro-y">
                     <OrderSummary />
                   </div>
+
                   <div class="intro-y box col-span-12 lg:col-span-6 mt-5">
-                    <div
-                      class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400">
-                      <h2 class="font-medium text-base mr-auto">
-                        My Cart (4 Items)
-                      </h2>
-                      <button class="border-none hidden sm:flex underline">
-                        Edit
-                      </button>
-                    </div>
-                    <div class="p-5">
-                      <div class="relative flex items-center">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img alt="" class="rounded-md" :src="$f()[0].photos[0]" />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 1</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Description 123
-                          </div>
-                        </div>
-                        <div class="font-medium text-slate-600 dark:text-slate-500">
-                          USD25.99
-                        </div>
-                      </div>
-                      <div class="relative flex items-center mt-5">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img alt="" class="rounded-md" :src="$f()[1].photos[0]" />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 2</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Description 123
-                          </div>
-                        </div>
-                        <div class="font-medium text-slate-600 dark:text-slate-500">
-                          USD25.99
-                        </div>
-                      </div>
-                      <div class="relative flex items-center mt-5">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img alt="" class="rounded-md" :src="$f()[2].photos[0]" />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 3</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Product 3
-                          </div>
-                        </div>
-                        <div class="font-medium text-slate-600 dark:text-slate-500">
-                          USD21
-                        </div>
-                      </div>
-                      <div class="relative flex items-center mt-5">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img alt="" class="rounded-md" :src="$f()[2].photos[0]" />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 4</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Product 3
-                          </div>
-                        </div>
-                        <div class="font-medium text-slate-600 dark:text-slate-500">
-                          USD21
-                        </div>
-                      </div>
-                    </div>
+                    <ShoppingCartTableSimple/>
                   </div>
+
+
+
                 </div>
               </div>
               <div class="my-5 flex justify-end">
@@ -199,7 +137,7 @@
 </template>
 <script setup>
 import OrderSummary from "@/components/box/OrderSummary.vue";
-
+import ShoppingCartTableSimple from "@/components/table/ShoppingCartTable-simple.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 

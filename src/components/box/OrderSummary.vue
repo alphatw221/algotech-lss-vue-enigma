@@ -81,7 +81,7 @@ watch(
 
     let delivery_charge = meta_logistic.delivery_charge || 0
     delivery_charge = Number(delivery_charge)
-    
+
     const delivery_titles = meta_logistic.additional_delivery_charge_title || null
     const delivery_types = meta_logistic.additional_delivery_charge_type || null
     const delivery_prices = meta_logistic.additional_delivery_charge_type || null
@@ -93,7 +93,7 @@ watch(
     const is_subtotal_over_free_delivery_threshold = store.preOrder.subtotal >= free_delivery_for_order_above_price
     const is_items_over_free_delivery_threshold = store.preOrder.products.length >= free_delivery_for_how_many_order_minimum
 
-    if (store.preOrder.shipping_option && delivery_titles && delivery_types && delivery_prices ){
+    if (store.preOrder.shipping_option && delivery_titles && delivery_types && delivery_prices ){      //TODO shipping_option
       index = delivery_titles.indexOf(shipping_option)
 
       if (delivery_types[index] == '+'){
