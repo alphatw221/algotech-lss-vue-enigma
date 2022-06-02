@@ -42,14 +42,8 @@
     </div>
     <div class="flex mt-5" v-if="store.openTab === 1">
       <button
-        class="
-          btn
-          w-32
-          border-slate-300
-          dark:border-darkmode-400
-          text-slate-500
-        "
-        @click="addItem"
+        class="btn w-32 border-slate-300 dark:border-darkmode-400 text-slate-500"
+        @click="store.showAddItemModal = ! store.showAddItemModal"
       >
         + Add more items
       </button>

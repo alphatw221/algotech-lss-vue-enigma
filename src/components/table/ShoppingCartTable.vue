@@ -27,12 +27,13 @@
 				</td>
 				<td class="text-center h-20">
 					{{ product.name }}
+				
 				</td>
 				<td class="text-center h-20">
 					<div class="flex">
 						<MinusSquareIcon 
 							class="w-5 h-5 mt-2 mr-2" 
-							@click="changeQuantity(index, product.qty, 'minus')"
+							@click="changeQuantity(index, product.qty, 'minus', product.order_product_id)"
 						/>
 						<input 
 							type="text" 
@@ -41,12 +42,11 @@
 							aria-label="default input" 
 							:value="product.qty"
 							style="width: 3rem;"
-							@change="changeQuantity(index, product.qty, 'input')"
 							disabled
 						/>
 						<PlusSquareIcon 
 							class="w-5 h-5 mt-2 ml-2" 
-							@click="changeQuantity(index, product.qty, 'add')" 
+							@click="changeQuantity(index, product.qty, 'add', product.order_product_id)" 
 						/>
 					</div>
 				</td>
@@ -72,11 +72,12 @@
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { buyer_delete_order_product } from "@/api_v2/pre_order"
-// import { useRoute, useRouter } from "vue-router";
-// const route = useRoute();
+import { delete_order_product, buyer_cart_update } from "@/api_v2/pre_order"
+import { useRoute } from "vue-router";
+const route = useRoute();
 const store = useShoppingCartStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
 const tableColumns = ref([
         { key: "image", name: " ",  },
         { key: "product", name: "Product",  },
@@ -94,12 +95,23 @@ const deleteOrderProduct = (order_product_id, index) =>{
   })
 }
 
-const changeQuantity = (index, qty, caculate) => {
-	if (caculate == 'add') {
-		store.order.products[index].qty += 1 
-	} else if (caculate == 'minus') {
-		store.order.products[index].qty -= 1 
-	} 
+
+
+const changeQuantity = (index, qty, caculate, order_product_id) => {
+	console.log(store.preOrder)
+	buyer_cart_update(order_product_id, qty)
+	.then(
+		response => {
+			store.preOrder.subtotal = response.data.subtotal
+			store.preOrder.total = response.data.total
+
+			if (caculate == 'add' && qty < 99) {
+				store.preOrder.products[index].qty += 1 
+			} else if (caculate == 'minus' && qty > 1) {
+				store.preOrder.products[index].qty -= 1 
+			} 
+		}
+	)
 }
 </script>
 
