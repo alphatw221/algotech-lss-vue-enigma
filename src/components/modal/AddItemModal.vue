@@ -51,6 +51,7 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 import { list_campapign_product, buyer_cart_add } from "@/api_v2/pre_order";
+import { retrieve_pre_order } from "@/api_v2/pre_order";
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute } from "vue-router";
@@ -81,5 +82,10 @@ const buyer_add_item = (campaing_product_id) => {
 	).catch(error => {
 		console.log(error)
 	})
+
+	retrieve_pre_order(route.params.pre_order_id)
+    .then(
+        res => { store.order = res.data }
+    )
 }
 </script>

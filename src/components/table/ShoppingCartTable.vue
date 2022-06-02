@@ -31,7 +31,7 @@
 				</td>
 				<td class="text-center h-20">
 					<div class="flex">
-						<button type="button" @click="changeQuantity(index, product.qty, 'minus', product.order_product_id)">
+						<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
 							<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 						</button>
 						
@@ -41,10 +41,10 @@
 							placeholder="Input inline 1" 
 							aria-label="default input" 
 							:value="product.qty"
-							style="width: 3rem;"
-							disabled
+							style="width: 2.7rem;"
+							@input="changeQuantity($event, index, product.qty, 'input', product.order_product_id)"
 						/>
-						<button type="button" @click="changeQuantity(index, product.qty, 'add', product.order_product_id)" >
+						<button type="button" @click="changeQuantity($event, index, product.qty, 'add', product.order_product_id)" >
 							<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 						</button>
 						
@@ -69,10 +69,11 @@
 </template>
 
 <script setup>
-
 import { computed, onMounted, ref, watch } from "vue";
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
+import { list_campapign_product } from "@/api_v2/pre_order";
+
+import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute } from "vue-router";
 const route = useRoute();
 const store = useShoppingCartStore(); 
@@ -87,33 +88,38 @@ const tableColumns = ref([
         { key: "remove", name: " ",  },
       ])
 
+
 const deleteOrderProduct = (order_product_id, index) =>{
-  buyer_delete_order_product(order_product_id).then(res=>{
-	// store.order.products.splice(index, 1);
-	store.order = res.data
-    
-  })
+	buyer_delete_order_product(order_product_id).then(res=>{
+		// store.order.products.splice(index, 1);
+		store.order = res.data
+		list_campapign_product(route.params.pre_order_id)
+		.then(
+			response => { store.addOnProducts = response.data }
+		)
+	})
 }
 
-
-
-const changeQuantity = (index, qty, operation, order_product_id) => {
-
+const changeQuantity = (event, index, qty, operation, order_product_id) => {
+	console.log(event.target.value)
 	if (operation == 'add' && qty < 99) {
-		qty+=1
+		qty += 1
 	} else if (operation == 'minus' && qty > 1) {
-		qty-=1
-	} else{
+		qty -= 1
+	} else if (operation == 'input' && event.target.value >= 1 && event.target.value <= 99) {
+		qty = event.target.value
+	} else {
 		alert('Invalid Quantity')
+		event.target.value = store.order.products[index].qty
 		return
 	}
-	console.log(qty)
 	buyer_update_order_product(order_product_id, qty)
 	.then(
 		res => {
-			// console.log(res.data)
 			store.order = res.data
 		}
+	).catch(
+		event.target.value = store.order.products[index].qty
 	)
 }
 </script>
