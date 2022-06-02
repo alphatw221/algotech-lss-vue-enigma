@@ -16,7 +16,7 @@
           class="col-start-1 btn btn-warning btn-rounded w-24 h-10 text-white
             lg:col-start-11 lg:m-2 
               2xl:col-start-11 2xl:m-2"
-                @click="this.$router.push('/create-campaign')" > 
+                @click="this.$router.push('create-campaign')" > 
           <span class="font-bold mr-1 text-lg">+</span> Create</button>
       </div>
 
@@ -357,17 +357,8 @@ export default {
       EntryCampaignId: null,
 
       fbAvatar: "",
-      fbimg1: "/src/assets/images/lss-img/kuaimai-avatar.jpeg",
-      fbimg2: "/src/assets/images/profile-1.jpg",
-      fbimg3: "/src/assets/images/lss-logo/LSS_logo_words.png",
       ytAvatar: "",
-      ytimg1: "/src/assets/images/lss-img/beboo-avatar.png",
-      ytimg2: "/src/assets/images/profile-2.jpg",
-      ytimg3: "/src/assets/images/profile-3.jpg",
       igAvatar: "",
-      igimg1: "/src/assets/images/profile-4.jpg",
-      igimg2: "/src/assets/images/profile-5.jpg",
-      igimg3: "/src/assets/images/profile-6.jpg",
       fb_page_id: null,
       fb_post_id: null,
       fb_page_token: null,
@@ -605,7 +596,7 @@ export default {
     closeJump() {
       this.enterIDModalPreview = false;
       console.log(this.EntryCampaignId)
-      this.$router.push(`/campaign-live/${this.EntryCampaignId}`);
+      this.$router.push(`/seller/campaign-live/${this.EntryCampaignId}`);
     },
 
     chooseFacebookLive(post_id) {

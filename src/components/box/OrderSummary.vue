@@ -47,10 +47,12 @@
       >
         + Add more items
       </button>
-      <button class="btn btn-primary w-32 shadow-md ml-auto">Checkout</button>
+      <button class="btn btn-primary w-32 shadow-md ml-auto" @click="store.openTab=2">Checkout</button>
     </div>
   </div>
+    
 </template>
+
 <script setup>
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { computed, onMounted, ref, watch } from "vue";
@@ -96,7 +98,7 @@ watch(
     const is_items_over_free_delivery_threshold = store.order.products.length >= free_delivery_for_how_many_order_minimum
 
     if (store.delivery_info.delivery_info && delivery_titles && delivery_types && delivery_prices ){      //TODO shipping_option
-      index = delivery_titles.indexOf(store.delivery_info.delivery_info.shipping_option)
+      const index = delivery_titles.indexOf(store.delivery_info.delivery_info.shipping_option)
 
       if (delivery_types[index] == '+'){
         delivery_charge += delivery_prices[index]
