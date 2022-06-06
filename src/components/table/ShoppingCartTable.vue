@@ -27,7 +27,6 @@
 				</td>
 				<td class="text-center h-20">
 					{{ product.name }}
-				
 				</td>
 				<td class="text-center h-20">
 					<div class="flex">
@@ -47,7 +46,6 @@
 						<button type="button" @click="changeQuantity($event, index, product.qty, 'add', product.order_product_id)" >
 							<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 						</button>
-						
 					</div>
 				</td>
 				<td class="text-center h-20">
@@ -75,6 +73,7 @@ import { list_campapign_product } from "@/api_v2/pre_order";
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute } from "vue-router";
+
 const route = useRoute();
 const store = useShoppingCartStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
