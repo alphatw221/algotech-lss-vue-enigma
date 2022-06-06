@@ -5,6 +5,7 @@
             @click="createModal = true; createAutoReply">
             <span class="font-bold mr-1 text-lg">+</span> Create
         </button>
+        <Alert :show="showAlert" class="col-start-1 col-span-12 alert-danger mb-2"> Change - Not Saved </Alert>
         <div class="col-start-1 col-span-12">
             <div class="overflow-x-auto">
                 <AutoReplyTable class="overflow-x-auto" :requestUrl="'/api/auto_response/list'" :columns="tableColumns">
@@ -14,10 +15,10 @@
     </div>
 
     <!--Modal Create -->
-    <Modal :show="createModal" @hidden="createModal = false">
+    <Modal :show="createModal">
         <ModalHeader>
             <h2 class="font-medium text-base mr-auto">Create New Response</h2>
-            <a @click="createModal = false" class="absolute right-0 top-0 mt-3 mr-3">
+            <a @click="closeWithAlert()" class="absolute right-0 top-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             </a>
         </ModalHeader>
@@ -42,14 +43,13 @@
             </div>
         </ModalBody>
         <ModalFooter class="w-full flex">
-            <button type="button" @click="basicNonStickyNotificationToggle"
+            <button type="button" @click="closeWithAlert()"
                 class="btn btn-outline-secondary w-20 mr-auto">
                 Cancel
             </button>
             <button type="button" @click="createAutoReply" class="btn btn-primary w-20">Save</button>
         </ModalFooter>
     </Modal>
-    <NotSaveAlert />
 </template>
 
 <script setup>
@@ -60,6 +60,7 @@ import { create_auto_response, auto_response_list } from "@/api/auto_reply";
 const createModal = ref(false)
 const userPlatforms = ref('facebook')
 const platformID = ref()
+const showAlert = ref(false)
 
 const tableColumns = ref([
     { name: "#", key: 'id' },
@@ -89,5 +90,10 @@ function createAutoReply() {
     )
 }
 
+function closeWithAlert(){
+    createModal.value = false; 
+    showAlert.value = true;
+    setTimeout( () => ( showAlert.value = false ), 3000);
+}
 
 </script>
