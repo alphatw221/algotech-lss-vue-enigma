@@ -12,3 +12,7 @@ export const buyer_upload_receipt = (order_id) => {
 export const buyer_retrieve_order_state = (order_id) => {
     return createAxiosWithBearer().get(`/api/v2/order/${order_id}/buyer/retrieve/state`)
 }
+
+export const buyer_orders_history = (page, page_size) => {
+    return createAxiosWithBearer().get(`/api/v2/order/buyer/history/?page=${page}&page_size=${page_size}`)
+}

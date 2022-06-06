@@ -5,15 +5,16 @@
         <div class="grid grid-cols-12 gap-4">
 
             <div class="col-span-6">
-                    <div class="w-full mx-2 ">
-                        <div class="flex mb-2">
-                            <h2 class="font-medium mr-5"> Order No. #15861 <span class="btn btn-rounded-pending h-8">
-                                    Complete</span> </h2>
-                        </div>
-                        <div class="flex mb-2">
-                            <span class="font-medium mr-5"> Order Date : 20 April. 2022 </span>
-                        </div>
+                <div class="w-full mx-2 ">
+                    <div class="flex mb-2">
+                        <h2 class="font-medium mr-5"> 
+                            Order No. #15861 <span class="btn btn-rounded-pending h-8">Complete</span> 
+                        </h2>
                     </div>
+                    <div class="flex mb-2">
+                        <span class="font-medium mr-5"> Order Date : 20 April. 2022 </span>
+                    </div>
+                </div>
                 <div class="box p-5 my-4 border-2 border-secondary ">
                     <div class="flex">
                         <div class="mr-10">Name</div>

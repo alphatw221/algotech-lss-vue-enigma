@@ -67,19 +67,17 @@ const cartTotal = ref(0)
 
 
 const updateOrderSummary = ()=>{
-   if (store.shipping_info.method=='pickup'){
+    if (store.shipping_info.method=='pickup'){
       shippingCost.value = 0
       cartTotal.value = store.order.subtotal + store.order.adjust_price 
       return
     }
-    
-
 
     const campaign = store.order.campaign||null
-    if(!campaign)return
+    if (!campaign) return
     
     const meta_logistic = campaign.meta_logistic || null
-    if(!meta_logistic)return
+    if (!meta_logistic) return
 
     let delivery_charge = meta_logistic.delivery_charge || 0
     delivery_charge = Number(delivery_charge)
@@ -105,7 +103,6 @@ const updateOrderSummary = ()=>{
         delivery_charge =  Number(delivery_prices[index])
       }
     }
-        
 
     if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
         
@@ -127,7 +124,6 @@ watch(
     console.log(store.shipping_info.shipping_option)
     updateOrderSummary()
   }
-  
 );
 
 //  this.eventBus.emit("addPoint");
