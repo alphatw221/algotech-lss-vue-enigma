@@ -4,6 +4,7 @@
 
         <div class="grid grid-cols-12 gap-4">
 
+<<<<<<< HEAD
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
                     <div class="w-full mx-2 ">
                         <div class="flex mb-2">
@@ -15,6 +16,20 @@
                         </div>
                     </div>
                 <div class="box p-6 m-3 border-2 border-secondary ">
+=======
+            <div class="col-span-6">
+                <div class="w-full mx-2 ">
+                    <div class="flex mb-2">
+                        <h2 class="font-medium mr-5"> 
+                            Order No. #15861 <span class="btn btn-rounded-pending h-8">Complete</span> 
+                        </h2>
+                    </div>
+                    <div class="flex mb-2">
+                        <span class="font-medium mr-5"> Order Date : 20 April. 2022 </span>
+                    </div>
+                </div>
+                <div class="box p-5 my-4 border-2 border-secondary ">
+>>>>>>> 5f56c005a506d9a14a84403c0e6717de9448ca60
                     <div class="flex">
                         <div class="mr-10">Name</div>
                         <div>{{store.order.shipping_last_name}} {{store.order.shipping_first_name}}</div>

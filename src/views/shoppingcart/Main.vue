@@ -48,7 +48,6 @@
       </ul>
       <!-- END Tab List-->
 
-
       <div class="box relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg">
         <div class="px-4 py-5 flex-auto">
 
@@ -69,14 +68,9 @@
 </template>
 
 <script>
-
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-
 import MyCartTab from "@/components/tab/MyCartTab.vue";
 import DeliveryTab from "@/components/tab/DeliveryTab.vue";
-
-
-
+import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 export default {
   components: {

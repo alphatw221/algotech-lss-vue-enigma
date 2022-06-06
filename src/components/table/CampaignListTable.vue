@@ -144,7 +144,7 @@
             {{ campaign.start_at }}
           </td>
           <td class="items-center" v-if="page_type === 'campaign_list'">
-            <a class="flex items-center ml-10" href="javascript:;" @click="manageOrder">
+            <a class="flex items-center ml-10" @click="manageOrder">
               <ListIcon class="w-4 h-4" />
             </a>
           </td>
