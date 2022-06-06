@@ -16,3 +16,7 @@ export const buyer_retrieve_order_state = (order_id) => {
 export const buyer_orders_history = (page, page_size) => {
     return createAxiosWithBearer().get(`/api/v2/order/buyer/history/?page=${page}&page_size=${page_size}`)
 }
+
+export const buyer_order_detail = (order_id) => {
+    return createAxiosWithBearer().get(`/api/v2/order/${order_id}/buyer/detail/`)
+}
