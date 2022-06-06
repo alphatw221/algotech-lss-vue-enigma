@@ -80,13 +80,13 @@ const store = useShoppingCartStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const tableColumns = ref([
-        { key: "image", name: " ",  },
-        { key: "product", name: "Product",  },
-        { key: "qty", name: "Quantity",  },
-        { key: "price", name: "Price",  },
-        { key: "subtotal", name: "Subtotal",  },
-        { key: "remove", name: " ",  },
-      ])
+	{ key: "image", name: " ",  },
+	{ key: "product", name: "Product",  },
+	{ key: "qty", name: "Quantity",  },
+	{ key: "price", name: "Price",  },
+	{ key: "subtotal", name: "Subtotal",  },
+	{ key: "remove", name: " ",  },
+])
 
 
 const deleteOrderProduct = (order_product_id, index) =>{
@@ -101,18 +101,21 @@ const deleteOrderProduct = (order_product_id, index) =>{
 }
 
 const changeQuantity = (event, index, qty, operation, order_product_id) => {
-	console.log(event.target.value)
 	if (operation == 'add' && qty < 99) {
 		qty += 1
 	} else if (operation == 'minus' && qty > 1) {
 		qty -= 1
 	} else if (operation == 'input' && event.target.value >= 1 && event.target.value <= 99) {
 		qty = event.target.value
+	} else if (event.target.value == '') {
+		event.target.value = 1
+		return
 	} else {
 		alert('Invalid Quantity')
 		event.target.value = store.order.products[index].qty
 		return
 	}
+
 	buyer_update_order_product(order_product_id, qty)
 	.then(
 		res => {
