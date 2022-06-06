@@ -10,11 +10,15 @@
 			</thead>
 			<tbody>
 				<tr
+					class="intro-x"
 					v-for="order in orderItems"
 					:key="order.id"
-					class="intro-x"
 				>
-					<td v-for="column in tableColumns" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm">
+					<td 
+						class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm"
+						v-for="column in tableColumns" 
+						:key="column.key"
+					>
                         <template v-if="column.key === 'action'">
                             <EyeIcon @click="this.$router.push(`/buyer/order/${order.id}`);" />
                         </template>
