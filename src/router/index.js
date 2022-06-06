@@ -271,7 +271,7 @@ const routes = [
   {
     path: "/buyer/login/:pre_order_id?",
     name: "buyer-login-page",
-    component: () => import('@/views/general/BuyerLoginPage.vue')
+    component: () => import('@/views/general/BuyerLoginPage.vue'),
   },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------

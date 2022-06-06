@@ -416,7 +416,7 @@ export default {
     };
   },
   mounted() {
-    this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0NTcwNjE4LCJpYXQiOjE2NTM5NjU4MTgsImp0aSI6ImEwZDk5MDNmNTdiYTQyMGM5OTczMGVlM2NhNDEyMDg0IiwidXNlcl9pZCI6MSwiZGF0YSI6eyJhdXRoX3VzZXJfaWQiOjEsInNlbGxlcl9pZCI6MTQsImN1c3RvbWVyX2lkIjoxMDMsIm5hbWUiOiJDaGlhbmdjaGVuZyBMaWVuIiwiZW1haWwiOiJuaWNrODgwNjhAZ21haWwuY29tIn19.35cm9DgWG4dJ82mBPqDetkca_g6E_SSges-aQr9YuPU");
+    this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0Njc3MDkyLCJpYXQiOjE2NTQwNzIyOTIsImp0aSI6ImMyODZlZjM5MmVjMjQzMzRhYTI3MzczNDcwOTJlNGQxIiwidXNlcl9pZCI6MzI4LCJkYXRhIjp7ImF1dGhfdXNlcl9pZCI6MzI4LCJzZWxsZXJfaWQiOjM2MCwiY3VzdG9tZXJfaWQiOjM3MywibmFtZSI6IkNlY2lsaWEgVyIsImVtYWlsIjoibWJydzE5QGdtYWlsLmNvbSJ9fQ.Kw0LEwlg3QrYG3I5sJTDawtsrGQWq28kz5CHiKHEgDI");
     this.eventBus.on("entryPoint", (payload) => {
       console.log(payload)
       this.EntryCampaignId = payload
