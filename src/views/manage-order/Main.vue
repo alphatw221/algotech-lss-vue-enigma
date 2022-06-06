@@ -108,7 +108,7 @@
                             </DropdownToggle>
                             <DropdownMenu class="pt-2">
                                 <DropdownContent class="w-full text-center">
-                                    <DropdownItem> XLSM </DropdownItem>
+                                    <DropdownItem @click="onExportXlsx"> XLSM </DropdownItem>
                                 </DropdownContent>
                             </DropdownMenu>
                         </Dropdown>
@@ -140,7 +140,7 @@
             </div>
 
             <div class="overflow-x-auto mt-3">
-                <table class="table table-report mt-3 text-lg">
+                <table id="orderTable" class="table table-report mt-3 text-lg">
                     <thead>
                         <tr>
                             <th class="whitespace-nowrap" v-for="column in add_product_columns" :key="column.key">
@@ -176,23 +176,23 @@
                                         <div v-if="product[column.key] === 'facebook'"
                                             class="w-10 h-10 image-fit">
                                             <div class="w-10 h-10 image-fit">
-                                                <img src='/src/assets/images/lss-img/fb_ad.jpeg' />
+                                                <img src='/src/assets/images/lss-img/facebook.png' />
                                             </div>
                                         </div>
                                         <div v-else-if="product[column.key] === 'instagram'"
                                             class="w-10 h-10 image-fit">
                                             <div class="w-10 h-10 image-fit">
-                                                <img src='/src/assets/images/lss-img/ig_ad.jpeg' />
+                                                <img src='/src/assets/images/lss-img/instagram.png' />
                                             </div>
                                         </div>
                                         <div v-else-if="product[column.key] === 'youtube'"
                                             class="w-10 h-10 image-fit">
                                             <div class="w-10 h-10 image-fit">
-                                                <img src='/src/assets/images/lss-img/yt_ad.jpeg' />
+                                                <img src='/src/assets/images/lss-img/youtube.png' />
                                             </div>
                                         </div>
                                         <div v-else class="w-10 h-10 image-fit">
-                                            <ShoppingBagIcon />
+                                            <img src='/src/assets/images/lss-img/noname.png' />
                                         </div>
                                     </div>
                                 </template>
@@ -278,11 +278,12 @@
 <script setup>
 // import {campaign_comment_summarize} from '@/api/user';
 import { ref, provide } from "vue";
+import xlsx from "xlsx";
 
 const deliveryStatus = ref(false);
 
 const add_product_columns = ref([
-    { name: 'order Number', key: 'order_number' },
+    { name: 'Order Number', key: 'order_number' },
     { name: 'Platform', key: 'platform' },
     { name: 'Name', key: 'name' },
     { name: 'Amount', key: 'price' },
@@ -350,6 +351,8 @@ const shoppingCart_results = ref([
     { image: '/src/assets/images/lss-product/sweatpants.jpg', name: 'Vintage Sweatpants', price: '$59', qty: '4', subtotal: '$236', },
     { image: '/src/assets/images/lss-product/socks.jpg', name: 'Christmas Socks', price: '$45', qty: '1', subtotal: '$45', },
 ]);
+
+
 </script>
 
 <style scoped>

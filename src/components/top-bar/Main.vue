@@ -185,11 +185,11 @@
               </div>
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5">
+            <DropdownItem class="dropdown-item hover:bg-white/5" @click="this.$router.push('/seller/profile')">
               <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
             >
             <DropdownItem class="dropdown-item hover:bg-white/5">
-              <EditIcon class="w-4 h-4 mr-2" /> Add Account</DropdownItem
+              <AwardIcon class="w-4 h-4 mr-2" /> Subscription</DropdownItem
             >
             <DropdownItem class="dropdown-item hover:bg-white/5">
               <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
