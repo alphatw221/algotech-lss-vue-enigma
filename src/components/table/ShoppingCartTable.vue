@@ -19,7 +19,7 @@
 						<Tippy
 							tag="img"
 							class="rounded-full"
-							:src="storageUrl+product.image"
+							:src="storageUrl + product.image"
 							:content="product.name"
 						/>
 						</div>
@@ -87,7 +87,6 @@ const tableColumns = ref([
 	{ key: "subtotal", name: "Subtotal",  },
 	{ key: "remove", name: " ",  },
 ])
-
 
 const deleteOrderProduct = (order_product_id, index) =>{
 	buyer_delete_order_product(order_product_id).then(res=>{
