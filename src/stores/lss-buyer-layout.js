@@ -13,7 +13,8 @@ export const useLSSBuyerLayoutStore = defineStore("buyerLayout", {
     showMobileMenu: ref(false),
     isAuthenticated: ref(false),
     loginWith: ref(null),
-    userInfo: ref({})
+    userInfo: ref({}),
+    completedOrder: ref([])
      
   }),
 });

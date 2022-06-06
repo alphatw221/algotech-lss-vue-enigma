@@ -1,5 +1,5 @@
 <template>
-    <div>this page is not ready yet</div>
+    <div>order history this page is not ready yet</div>
 </template>
 
 <script setup>

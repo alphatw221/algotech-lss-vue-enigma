@@ -87,8 +87,8 @@ import Test2 from "../views/test/test2.vue";
 import Test4 from "../views/test/test4.vue"; 
 import Test5 from "../views/test/test5.vue"; 
 
-import isAdminMiddleware from "@/libs/routerMiddleware/isAdminMiddleware"
-import isAuthMiddleware from "@/libs/routerMiddleware/isAuthMiddleware"
+import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
+import isBuyerAuth from "@/libs/routerMiddleware/isBuyerAuth"
 
 const routes = [
   // {
@@ -235,7 +235,7 @@ const routes = [
   {
     path: "/buyer",
     component: LSSBuyerLayout,
-    beforeEnter: isAuthMiddleware,
+    beforeEnter: isBuyerAuth,
     children: [
       {
         path: "orders",
@@ -250,22 +250,14 @@ const routes = [
       {  
         path: "order/:order_id?/payment",
         name: "buyer-order-payment-page",
-        beforeEnter:()=>{
-          //order incomplete middleware over here
-        },
-        component: ShoppingPayment,
+        beforeEnter: isOrderCompleted,
+        component: () => import('@/views/shoppingcart/Payment.vue')
       },
       {  
         path: "cart/:pre_order_id?",
         name: "buyer-shopping-cart-detail-page",
-        component: ShoppingCart,
+        component: () => import('@/views/shoppingcart/Main.vue')
       },
-      {
-        path: "stock",
-        name: "Stock",
-        component: () => import('@/views/stock/Stock.vue'),
-      },
-
     ]
   },
   {
