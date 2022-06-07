@@ -19,16 +19,15 @@ import PaymentMethods from "./payment-methods/Main.vue";
 import ShippingSummary from "./ShippingSummary.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { buyer_retrieve_order } from "@/api_v2/order";
 
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
-const store = useShoppingCartStore(); 
 
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+const store = useLSSBuyerOrderStore(); 
 
 onMounted(()=>{
-  store.openTab=0
   buyer_retrieve_order(route.params.order_id)
   .then(
       res => {
