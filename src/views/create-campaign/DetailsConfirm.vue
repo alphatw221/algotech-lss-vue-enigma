@@ -17,8 +17,8 @@
 </template>  
 
 <script>
-import PaymentForm from '@/components/createCampaign/PaymentForm.vue';
-import DeliveryForm from '../../components/createCampaign/DeliveryForm.vue';
+import PaymentForm from '@/components/create-Campaign/PaymentForm.vue';
+import DeliveryForm from '../../components/create-Campaign/DeliveryForm.vue';
 export default {
     components: {
     PaymentForm,
