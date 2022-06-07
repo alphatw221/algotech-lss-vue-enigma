@@ -7,7 +7,7 @@
 	  
       <div class="flex">
         <div class="mr-auto">Subtotal</div>
-        <div class="font-medium">$ {{ store.order.subtotal }}</div>
+        <div class="font-medium">$ {{ parseFloat(store.order.subtotal).toFixed(2) }}</div>
       </div>
       <div class="flex mt-4">
 
@@ -24,7 +24,7 @@
       <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">
         <div class="mr-auto">Shipping</div>
-        <div class="font-medium">${{ shippingCost}}</div>
+        <div class="font-medium">${{ shippingCost }}</div>
       </div>
 
       <div
@@ -69,7 +69,7 @@ const cartTotal = ref(0)
 const updateOrderSummary = ()=>{
     if (store.shipping_info.method=='pickup'){
       shippingCost.value = 0
-      cartTotal.value = store.order.subtotal + store.order.adjust_price 
+      cartTotal.value = parseFloat(store.order.subtotal + store.order.adjust_price ).toFixed(2)
       return
     }
 
