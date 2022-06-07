@@ -10,14 +10,14 @@
             </div>
         </div>
         <div for="orderHistoryTable" class="box border-2 border-slate-200 col-start-1 col-span-12 lg:col-start-4 lg:col-span-9 2xl:col-start-4 2xl:col-span-9">
-            <OrderHistorylList class="overflow-x-auto"  />
+            <OrderHistoryTable class="overflow-x-auto"  />
         </div>
     </div>
 </template>
 
 <script setup>
 import { computed, onMounted, provide, ref, watch } from "vue";
-import OrderHistorylList from "@/components/order/OrderHistoryTable.vue"; 
+import OrderHistoryTable from "@/views/buyer-order-history/OrderHistoryTable.vue"; 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import dom from "@left4code/tw-starter/dist/js/dom";

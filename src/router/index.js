@@ -71,10 +71,10 @@ import DetailsConfirm from "../views/create-campaign/DetailsConfirm.vue";
 
 import AutoReply from "../views/autoReply/Main.vue";  
 
-import ShoppingCart from "../views/shoppingcart/Main.vue";
-import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
-import OrderDetails from "../views/shoppingcart/OrderDetails.vue";
-import ShoppingPayment from "../views/shoppingcart/Payment.vue";
+// import ShoppingCart from "../views/shoppingcart/Main.vue";
+// import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
+// import OrderDetails from "../views/shoppingcart/OrderDetails.vue";
+// import ShoppingPayment from "../views/shoppingcart/Payment.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
@@ -130,21 +130,21 @@ const routes = [
         name: "side-menu-campaign-select",
         component: CampaignSelect,
       },
-      {  
-        path: "shopping-cart",
-        name: "side-menu-shopping-cart",
-        component: ShoppingCart,
-      }, 
-      {  
-        path: "shopping-payment",
-        name: "side-menu-shopping-payment",
-        component: ShoppingPayment,
-      },
-      {  
-        path: "orderHistory-details",
-        name: "OrderHistoryDetails",
-        component: OrderDetails,
-      },
+      // {  
+      //   path: "shopping-cart",
+      //   name: "side-menu-shopping-cart",
+      //   component: ShoppingCart,
+      // }, 
+      // {  
+      //   path: "shopping-payment",
+      //   name: "side-menu-shopping-payment",
+      //   component: ShoppingPayment,
+      // },
+      // {  
+      //   path: "orderHistory-details",
+      //   name: "OrderHistoryDetails",
+      //   component: OrderDetails,
+      // },
 /*                CREATE CAMPAIGN                        */      
       {
         path: "create-campaign",
@@ -264,18 +264,18 @@ const routes = [
       {
         path: "orders",
         name: "buyer-order-history-page",
-        component: OrderHistory,
+        component: () => import('@/views/buyer-order-history/Main.vue'),
       },
       {  
         path: "order/:order_id?",
         name: "buyer-order-detail-page",
-        component: OrderDetails,
+        component: () => import('@/views/buyer-order-detail/Main.vue'),
       },
       {  
         path: "order/:order_id?/payment",
         name: "buyer-order-payment-page",
         beforeEnter: isOrderCompleted,
-        component: () => import('@/views/shoppingcart/Payment.vue')
+        component: () => import('@/views/buyer-order-payment/Main.vue')
       },
       {  
         path: "cart/:pre_order_id?",

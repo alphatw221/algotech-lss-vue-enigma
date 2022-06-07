@@ -35,8 +35,8 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-const store = useShoppingCartStore(); 
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 
+const store = useLSSBuyerOrderStore(); 
 
 </script>
