@@ -68,8 +68,8 @@
 </template>
 
 <script>
-import MyCartTab from "@/components/tab/MyCartTab.vue";
-import DeliveryTab from "@/components/tab/DeliveryTab.vue";
+import MyCartTab from "@/components/shopping-cart/MyCartTab.vue";
+import DeliveryTab from "@/components/shopping-cart/DeliveryTab.vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 export default {

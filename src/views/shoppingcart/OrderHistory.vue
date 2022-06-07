@@ -17,7 +17,7 @@
 
 <script setup>
 import { computed, onMounted, provide, ref, watch } from "vue";
-import OrderHistorylList from "@/components/table/OrderHistoryTable.vue"; 
+import OrderHistorylList from "@/components/order/OrderHistoryTable.vue"; 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import dom from "@left4code/tw-starter/dist/js/dom";

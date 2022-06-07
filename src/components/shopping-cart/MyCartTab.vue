@@ -24,7 +24,7 @@
 
 <script setup>
 import OrderSummary from "@/components/box/OrderSummary.vue";
-import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
+import ShoppingCartTable from "@/components/shopping-cart/ShoppingCartTable.vue";
 import AddItemModal from "@/components/modal/AddItemModal.vue";
 
 import { computed, onMounted, ref, watch } from "vue";

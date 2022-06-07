@@ -97,7 +97,7 @@
 </template>
 
 <script setup>
-import OrderDetailTable from "@/components/table/OrderDetailTable.vue";
+import OrderDetailTable from "@/components/order/OrderDetailTable.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { buyer_order_detail } from "@/api_v2/order";
