@@ -43,11 +43,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         pageName: "side-menu-campaign-select", 
         title: "Manage Order",
       },
-      {
-        icon: "ShoppingCartIcon",
-        pageName: "side-menu-shopping-cart",
-        title: "Shopping Cart",
-      },
+      // {
+      //   icon: "ShoppingCartIcon",
+      //   pageName: "side-menu-shopping-cart",
+      //   title: "Shopping Cart",
+      // },
       {
         icon: "SettingsIcon",
         pageName: "side-menu-campaign-global-setting",

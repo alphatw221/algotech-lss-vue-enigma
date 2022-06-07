@@ -67,8 +67,6 @@
 
                     </div>
 
-
-
                 </TabPanel>
                 <!-- IG -->
                 <TabPanel>
