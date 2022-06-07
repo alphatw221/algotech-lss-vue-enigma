@@ -71,6 +71,13 @@ export default {
         };
     },
     mounted() {
+<<<<<<< HEAD
+        console.log("incoming order", this.campaign_id)
+        list_campaign_pre_order(this.campaign_id).then(res => {
+            console.log(res.data)
+            this.incoming_order_results = res.data.results
+        })
+=======
         if (this.campaign_id) {
             list_campaign_pre_order(this.campaign_id).then(res => {
                 this.incoming_order_results = res.data
@@ -78,6 +85,7 @@ export default {
                 console.log(error);
             })
         }
+>>>>>>> 3550aae858f8ab6790fc532e217bfbfcbdce04db
     },
     methods: {
     },
