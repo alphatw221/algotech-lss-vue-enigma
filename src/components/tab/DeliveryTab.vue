@@ -9,23 +9,23 @@
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder="" 
-                      v-model="store.contact_info.first_name"/>
+                      v-model="store.contact_info.shipping_first_name"/>
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Last
                       Name</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.contact_info.last_name" />
+                      v-model="store.contact_info.shipping_last_name" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Email</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.contact_info.email" />
+                      v-model="store.contact_info.shipping_email" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
                     <input id="regular-form-2" type="text"
                       class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
                       placeholder=""
-                      v-model="store.contact_info.phone" />
+                      v-model="store.contact_info.shipping_phone" />
                   </div>
 
                   <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
@@ -118,7 +118,7 @@
                     </div>
                     <div class="col-span-12 mt-10">
                       <div class="text-md font-medium">Remark</div>
-                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.shipping_info.remark">
+                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.shipping_info.shipping_remark">
                                   Remark remark remark remark</textarea>
                     </div>
                   </TabGroup>
@@ -161,6 +161,20 @@ const store = useShoppingCartStore();
 
 function select_shipping_method(method) {
   store.shipping_info.method = method
+}
+
+function to_payment(){
+  if (store.shipping_info.method == 'delivery'){
+    store.shipping_info.delivery_info = Object.assign(store.shipping_info.delivery_info,store.contact_info)
+    store.shipping_info.delivery_info.shipping_option = store.shipping_info.shipping_option
+    store.shipping_info.delivery_info.shipping_remark = store.shipping_info.shipping_remark
+  } else {
+    store.shipping_info.pickup_info = Object.assign(store.shipping_info.pickup_info,store.contact_info)
+    store.shipping_info.pickup_info.shipping_option = store.shipping_info.shipping_option
+    store.shipping_info.pickup_info.shipping_remark = store.shipping_info.shipping_remark
+  }
+  console.log(store.shipping_info)
+  update_delivery_info(route.params.pre_order_id,store.shipping_info)
 }
 
 

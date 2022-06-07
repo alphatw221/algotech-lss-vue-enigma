@@ -11,11 +11,17 @@
             <TomSelect v-model="currencySelect" :options="{
                         placeholder: 'Choose Currency Symbol',
                         }" class="w-full">
-                <option value="1">Leonardo DiCaprio</option>
-                <option value="2">Johnny Deep</option>
-                <option value="3">Robert Downey, Jr</option>
-                <option value="4">Samuel L. Jackson</option>
-                <option value="5">Morgan Freeman</option>
+                <option value="USD"> $ </option>
+                <option value="TWD">NT $</option>
+                <option value="SGD">SGD $</option>
+                <option value="IDR">Rp</option>
+                <option value="PHP">PH ₱</option>
+                <option value="MYR">RM</option>
+                <option value="VND">VN ₫</option>
+                <option value="RMB">RMB ¥</option>
+                <option value="KHR">KHR ៛</option>
+                <option value="AUD">AUD $</option>
+                <option value="HKD">HKD $</option>
             </TomSelect>
         </div>
         <div class="flex my-3 text-lg">

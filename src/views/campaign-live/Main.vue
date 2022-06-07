@@ -67,8 +67,6 @@
 
                     </div>
 
-
-
                 </TabPanel>
                 <!-- IG -->
                 <TabPanel>
@@ -593,7 +591,7 @@
                         class="btn btn-primary right-0">Add Product From Stock</a>
                 </row>
             </div>
-            <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem]">
+            <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem] mt-5">
                 <div class="sticky top-0 z-50"> 
                     <table class="table table-sm">
                         <thead class="table-dark">
@@ -648,7 +646,7 @@
                     <h2 class="text-lg font-medium">Incoming Order</h2>
                 </div>
             </div>
-            <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem]">
+            <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem] mt-5">
                 <div class="sticky top-0 z-50">
                     <table class="table table-sm">
                         <thead class="table-dark">

@@ -1,5 +1,7 @@
 <template>
-	<div >
+<Alert :show="successAlert" class="col-start-1 col-span-12 alert-warning mb-2"> Update Success </Alert>
+<Alert :show="warnAlert" class="col-start-1 col-span-12 alert-danger mb-2"> Change - Not Saved </Alert>
+	<div>
 		<table class="table table-report mt-5 overflow-y-scroll table-auto">
 			<thead>
 				<tr >
@@ -53,7 +55,7 @@
 	<Modal :show="updateModal" @hidden="updateModal = false">
         <ModalHeader>
             <h2 class="font-medium text-base mr-auto">Update Auto Response</h2>
-            <a @click="updateModal = false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
+            <a @click="closeUpdate" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
                 <XIcon class="w-8 h-8 text-slate-400" />
             </a>
         </ModalHeader>
@@ -72,7 +74,7 @@
             </div>
         </ModalBody>
         <ModalFooter>
-            <button type="button" @click="updateModal = false" class="btn btn-outline-secondary w-20 mr-1">
+            <button type="button" @click="closeUpdate" class="btn btn-outline-secondary w-20 mr-1">
                 Cancel
             </button>
             <button type="button" @click="updateAutoReply(this.currentInfo.id)" class="btn btn-primary w-20">Save</button>
@@ -95,6 +97,8 @@ export default {
             pageSize: 10,
 			totalCount: 0,
 			updateModal: false,
+			warnAlert : false,
+			successAlert : false,
             listItems: [],
 			currentInfo:{
 				id:'',
@@ -137,9 +141,16 @@ export default {
 				response => {
 					console.log(response)
 					this.updateModal = false;
+					this.successAlert = true;
 					this.getReplyData()
+					setTimeout( () => ( this.successAlert= false ), 3000);
 				}
 			)
+		},
+		closeUpdate(){
+			this.updateModal = false, 
+			this.warnAlert = true, 
+			setTimeout( () => ( this.warnAlert= false ), 5000);
 		},
         deleteAutoReply(id) {
             delete_auto_response(id).then(

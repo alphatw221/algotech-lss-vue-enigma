@@ -15,10 +15,10 @@ export default async (to, from)=>{
     if (cookies.get('access_token')) {
         const res = await get_buyer_account()
         
-        buyerStore.isAuthenticated=true;
-        buyerStore.userInfo=res.data;
+        buyerStore.isAuthenticated = true;
+        buyerStore.userInfo = res.data;
 
-        if(res.status!=200){
+        if (res.status!=200) {
             return '/buyer/login'
         }
         return true

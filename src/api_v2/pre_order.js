@@ -20,6 +20,6 @@ export const buyer_cart_update = (order_product_id, qty) => {
     return createAxiosWithBearer().put(`/api/v2/order-product/${order_product_id}/buyer/update/?qty=${qty}`)
 }
 
-export const buyer_cart_add = (pre_order_id, campaign_product_id) => {
-    return createAxiosWithBearer().put(`/api/v2/pre_order/${pre_order_id}/buyer/add/?campaign_product_id=${campaign_product_id}&qty=1`)
+export const buyer_cart_add = (pre_order_id, campaign_product_id, qty) => {
+    return createAxiosWithBearer().put(`/api/v2/pre_order/${pre_order_id}/buyer/add/?campaign_product_id=${campaign_product_id}&qty=${qty}`)
 }
