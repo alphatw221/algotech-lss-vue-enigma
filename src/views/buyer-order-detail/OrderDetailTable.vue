@@ -45,10 +45,10 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
-const store = useShoppingCartStore(); 
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+const store = useLSSBuyerOrderStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const tableColumns = ref([

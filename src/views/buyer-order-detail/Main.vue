@@ -22,7 +22,9 @@
                         </h2>
                     </div>
                     <div class="flex mb-2">
-                        <span class="font-medium mr-5"> Order Date : {{ store.order.created_at }} </span>
+                        <!-- <span class="font-medium mr-5"> Order Date : {{ store.order.created_at }} </span> -->
+                        <span class="font-medium mr-5"> Order Date : {{ new Date(store.order.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})  }} </span>
+                        
                     </div>
                 </div>
                 <div class="box p-6 m-3 border-2 border-secondary ">
@@ -109,21 +111,23 @@
 
 <script setup>
 import OrderDetailTable from "./OrderDetailTable.vue";
-import OrderSummary from "@/components/box/OrderSummary.vue";
+// import OrderSummary from "@/components/box/OrderSummary.vue";
+import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
+
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_order_detail } from "@/api_v2/order";
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { buyer_retrieve_order } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
-const store = useShoppingCartStore(); 
+
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+const store = useLSSBuyerOrderStore(); 
 
 onMounted(() => {
-    buyer_order_detail(route.params.order_id)
+    buyer_retrieve_order(route.params.order_id)
     .then(
         res => { 
             store.order = res.data 
-            console.log(store.order)
         }
     )
 })

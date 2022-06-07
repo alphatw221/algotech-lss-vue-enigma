@@ -11,8 +11,8 @@
 			<tbody>
 				<tr
 					class="intro-x"
-					v-for="order in orders"
-					:key="order.id"
+					v-for="(order,index) in orders"
+					:key="index"
 				>
 					<td 
 						class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm"
@@ -47,50 +47,49 @@
 	</div>
 </template>
 
-<script>
+<script setup>
 import { buyer_orders_history } from '@/api_v2/order';
+import { computed, onMounted, provide, ref, watch } from "vue";
 
-export default {
-	data() {
-		return {
-			currentPage: 1,
-			totalPage: 1,
-			pageSize: 10,
-			dataCount: 0,
-            orders: [],
-			tableColumns: [
+
+const currentPage = ref(1)
+
+const totalPage = ref(1)
+const pageSize = ref(10)
+const dataCount = ref(0)
+const orders = ref([])
+const tableColumns = ref([
                 { name: "Order NO.", key: 'id', type:'int'},
                 { name: "Date", key: "created_at", type:'dateTime' },
                 { name: "Payment Method", key: "payment_method", type:'string'},
                 { name: "Amount", key: "total", type:'float'},
                 { name: "Status", key: "status", type:'string'},
                 { name: "Action", key: "action", type:'link' },
-            ],
-		}
-	},
-	mounted() {
-		this.getOrderHistoryListData()
-	},
-	methods: {
-		changePage(page) {      
-			this.currentPage = page;
-			this.getOrderHistoryListData()
-		},
-		changePageSize(pageSize) {
-			this.pageSize = pageSize;
-			this.getOrderHistoryListData()
-		},
-		getOrderHistoryListData() {
-			buyer_orders_history(this.currentPage, this.pageSize).then(response => {
-				this.dataCount = response.data.count;
-				const totalPage = parseInt(this.dataCount / this.pageSize);
-				this.totalPage = totalPage == 0 ? 1 : totalPage;
+            ])
 
-				this.orders = response.data.results;
-			}).catch(function (error) {
-				console.log(error);
-			})
-		},
-	},
+
+const changePage = page=> {      
+			currentPage.value = page;
+			getOrderHistoryListData()
+		}
+
+const changePageSize = pageSize => {
+			pageSize.value = pageSize;
+			getOrderHistoryListData()
+		}
+
+const getOrderHistoryListData = ()=>{
+	buyer_orders_history(currentPage.value, pageSize.value).then(response => {
+		dataCount.value = response.data.count;
+		const total_page = parseInt(dataCount.value / pageSize.value);
+		totalPage.value = total_page == 0 ? 1 : total_page;
+		orders.value = response.data.results;
+	}).catch(function (error) {
+		console.log(error);
+	})
 }
+onMounted(()=>{
+	getOrderHistoryListData()
+})
+
 </script>
