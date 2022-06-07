@@ -4,7 +4,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
   state: () => ({
     directPayment:{
       multiple:true,
-      tab: "Direct Payment",
+      name: "Direct Payment",
       request_url: "api/user-subscription/direct_payment/",
       fields:[
         {key:"mode", name:"Mode", type:"text", r:0, c:0, w:4},
@@ -26,7 +26,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
     },
     stripe:{
       multiple:false,
-      tab:"Stripe",
+      name:"Stripe",
       request_url: "api/user-subscription/stripe/",
       fields:[
         {key:"secret", type:"password", name: "Secret Key", r:0, c:0, w:6},
@@ -55,27 +55,27 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
   },
     
 
-    SG : ['direct_payment', 'stripe'],
+    SG : ['directPayment', 'stripe'],
     
-    ID : ['direct_payment', 'stripe'],
+    ID : ['directPayment', 'stripe'],
 
-    MY : ['direct_payment', 'stripe'],
+    MY : ['directPayment', 'stripe'],
     
-    IN : ['direct_payment', 'stripe'],
+    IN : ['directPayment', 'stripe'],
     
-    PH : ['direct_payment', 'stripe'],
+    PH : ['directPayment', 'stripe'],
 
-    VN : ['direct_payment', 'stripe'],
+    VN : ['directPayment', 'stripe'],
 
-    TW : ['direct_payment', 'stripe'],
+    TW : ['directPayment', 'stripe'],
 
-    CN : ['direct_payment', 'stripe'],
+    CN : ['directPayment', 'stripe'],
 
-    KH : ['direct_payment', 'stripe'],
+    KH : ['directPayment', 'stripe'],
 
-    AU : ['direct_payment', 'stripe'],
+    AU : ['directPayment', 'stripe'],
 
-    HK : ['direct_payment', 'stripe'],
+    HK : ['directPayment', 'stripe'],
     
   }),
 });

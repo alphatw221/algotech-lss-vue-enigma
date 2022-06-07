@@ -14,14 +14,13 @@
               
 <script setup>
 
-
-import PaymentMethods from "@/components/box/PaymentMethods.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
-import ShippingSummary from "@/components/box/ShippingSummary.vue";
+import PaymentMethods from "@/views/buyer-order-payment/PaymentMethods.vue";
+import ShippingSummary from "@/views/buyer-order-payment/ShippingSummary.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { buyer_retrieve_order } from "@/api_v2/order"
+import { buyer_retrieve_order } from "@/api_v2/order";
 
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
