@@ -53,26 +53,26 @@
                         <div class="col-start-1 col-span-2 py-2">Payment Method</div>
                         <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method }}</div>
                         
-                        <template v-if="store.order.shipping_method === 'in_store'">
+                        <template v-if="store.orderDetail.shipping_method === 'in_store'">
                             <div class="col-start-1 col-span-2 py-2">Delivery Information</div>
                             <div class="col-start-3 col-span-3 py-2">In-store pickup</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Store</div>
-                            <div class="col-start-3 col-span-3 py-2">{{ store.order.meta.pick_up_store }}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
-                            <div class="col-start-3 col-span-3 py-2">{{ store.order.meta.pick_up_store_address }}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store_address}}</div>
                         </template>
-                        <template v-if="store.order.shipping_method === 'delivery'">
+                        <template v-if="store.orderDetail.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
                             <div class="col-start-3 col-span-3 py-3">Delivery</div>
 
                             <div class="col-start-1 col-span-2 py-3">Delivery Address</div>
                             <div class="col-start-3 col-span-3 py-3">
-                                {{ store.order.shipping_location }} ,
-                                {{ store.order.shipping_region }} ,
-                                {{ store.order.shipping_postcode }} ,
-                                {{ store.order.shipping_address_1 }}
+                                {{store.orderDetail.shipping_location}} ,
+                                {{store.orderDetail.shipping_region}} ,
+                                {{store.orderDetail.shipping_postcode}} ,
+                                {{store.orderDetail.shipping_address_1}}
                             </div>
                         </template>
                     </div>
@@ -87,19 +87,19 @@
                 <div class="grid grid-cols-3 gap-2">
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Total</div>
-                        <div class="mr-20">{{ parseFloat(store.order.subtotal).toFixed(2) }}</div>
+                        <div class="mr-20">{{store.orderDetail.subtotal}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Delivery Charge</div>
-                        <div class="mr-20">{{ store.order.shipping_cost }}</div>
+                        <div class="mr-20">{{store.orderDetail.shipping_cost}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
-                        <div class="mr-auto">Discount {{ store.order.adjust_title ?? '' }}</div>
-                        <div class="mr-20">{{ store.order.adjust_price }}</div>
+                        <div class="mr-auto">Discount {{store.orderDetail.adjust_title ?? ''}}</div>
+                        <div class="mr-20">{{store.orderDetail.adjust_price}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Grand Total</div>
-                        <div class="mr-20">{{ parseFloat(store.order.total).toFixed(2) }}</div>
+                        <div class="mr-20">{{store.orderDetail.total}}</div>
                     </div>
                 </div>
             </div>
@@ -111,20 +111,18 @@
 import OrderDetailTable from "./OrderDetailTable.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_order_detail } from "@/api_v2/order";
+import { buyer_retrieve_order } from "@/api_v2/order";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
 const store = useShoppingCartStore(); 
 
-onMounted(() => {
-    buyer_order_detail(route.params.order_id)
+onMounted(()=>{
+    buyer_retrieve_order(route.params.order_id)
     .then(
-        res => { 
-            store.order = res.data 
-            console.log(store.order)
-        }
+        res => { store.orderDetail = res.data 
+        console.log(store.orderDetail)}
     )
 })
 </script>

@@ -99,7 +99,7 @@
 <script>
 import SearchBar from "@/components/create-Campaign/SearchBar.vue";
 import AssignTable from "@/components/create-Campaign/AssignTable.vue";
-import { list_category } from '@/api/stock';
+import { list_category } from '@/api_v2/stock';
 
 export default {
   components: {

@@ -115,7 +115,7 @@ export default {
     methods: {
         search() {
             createAxiosWithBearer()
-                .get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&product_status=${this.status}&category=${this.category}`)
+                .get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&product_status=${this.status}&category=${this.category}`)
                 .then(
                     response => {
                         if (response.data.count != undefined) {
