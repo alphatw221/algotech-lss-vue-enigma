@@ -11,7 +11,7 @@
 			<tbody>
 				<tr
 					class="intro-x"
-					v-for="order in orderItems"
+					v-for="order in orders"
 					:key="order.id"
 				>
 					<td 
@@ -22,6 +22,13 @@
                         <template v-if="column.key === 'action'">
                             <EyeIcon @click="this.$router.push(`/buyer/order/${order.id}`);" />
                         </template>
+						<template v-else-if="column.type=='dateTime'">
+							{{ new Date(order[column.key]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
+						</template>
+						<template v-else-if="column.type=='float'">
+							{{parseFloat(order[column.key]).toFixed(2)}}
+						</template>
+
 						<template v-else>
 							{{ order[column.key] }}
 						</template>
@@ -50,14 +57,14 @@ export default {
 			totalPage: 1,
 			pageSize: 10,
 			dataCount: 0,
-            orderItems: [],
+            orders: [],
 			tableColumns: [
-                { name: "Order NO.", key: 'id' },
-                { name: "Date", key: "created_at" },
-                { name: "Payment Method", key: "payment_method" },
-                { name: "Amount", key: "total" },
-                { name: "Status", key: "status" },
-                { name: "Action", key: "action" },
+                { name: "Order NO.", key: 'id', type:'int'},
+                { name: "Date", key: "created_at", type:'dateTime' },
+                { name: "Payment Method", key: "payment_method", type:'string'},
+                { name: "Amount", key: "total", type:'float'},
+                { name: "Status", key: "status", type:'string'},
+                { name: "Action", key: "action", type:'link' },
             ],
 		}
 	},
@@ -79,11 +86,7 @@ export default {
 				const totalPage = parseInt(this.dataCount / this.pageSize);
 				this.totalPage = totalPage == 0 ? 1 : totalPage;
 
-				this.orderItems = response.data.results;
-				for (let i = 0; i < this.orderItems.length; i++) {
-					this.orderItems[i].created_at = new Date(this.orderItems[i].created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})
-					this.orderItems[i].total = parseFloat(this.orderItems[i].total).toFixed(2)
-				}
+				this.orders = response.data.results;
 			}).catch(function (error) {
 				console.log(error);
 			})

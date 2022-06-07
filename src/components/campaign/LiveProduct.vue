@@ -1,5 +1,5 @@
 <template>
-    <div class="col-span-12 col-start-1 row-span-4 lg:col-span-7 lg:row-span-2 lg:row-start-1 2xl:col-span-4 2xl:max-h-screen" >
+    <div class="box col-span-12 col-start-1 row-span-4 lg:col-span-7 lg:row-span-2 lg:row-start-1 2xl:col-span-4 2xl:max-h-screen" >
         <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 lg:mt-2">
             <row class="col-span-12" style="margin: -13px 0 -13px 0px;">
                 <h2 class="text-lg font-medium w-48">Product</h2>
@@ -7,7 +7,7 @@
                     class="btn btn-primary right-0">Add Product From Stock</a>
             </row>
         </div>
-        <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem] mt-5">
+        <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem] mt-1">
             <div class="sticky top-0 z-50"> 
                 <table class="table table-sm">
                     <thead class="table-dark">
