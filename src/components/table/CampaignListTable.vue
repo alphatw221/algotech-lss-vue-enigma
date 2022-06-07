@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th
-            class="whitespace-nowrap text-center"
+            class="whitespace-nowrap text-center "
             v-for="column in columns"
             :key="column.key"
           >
@@ -14,10 +14,10 @@
       </thead>
       <tbody>
         <tr v-for="(campaign, key) in listItems" :key="key" class="intro-x">
-          <td v-if="page_type === 'campaign_list'" class="w-32 items-center">
+          <td v-if="page_type === 'campaign_list'" class="w-20 items-center">
             <div class="flex">
               <div
-                class="w-10 h-10 image-fit zoom-in border-0"
+                class="w-10 h-10 image-fit zoom-in border-0 lg:w-15"
                 v-if="campaign.facebook_page !== null"
               >
                 <Tippy
@@ -76,7 +76,7 @@
             </div>
           </td>
 
-          <td class="text-center w-18" v-if="page_type === 'campaign_list'">
+          <td class="text-center w-12" v-if="page_type === 'campaign_list'">
             <div class="flex ">
               <div
                 class="w-10 h-10 image-fit zoom-in"
@@ -84,7 +84,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-3"
+                  class="rounded-full ml-3 2xl:ml-3"
                   :src="facebook_platform"
                   :content="`Facebook`"
                 />
@@ -92,7 +92,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-3"
+                  class="rounded-full ml-3 2xl:ml-3"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -103,7 +103,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-0"
+                  class="rounded-full ml-0 2xl:ml-0"
                   :src="instagram_platform"
                   :content="`Instagram`"
                 />
@@ -111,7 +111,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full ml-0"
+                  class="rounded-full ml-0 2xl:ml-0"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -122,7 +122,7 @@
               >
                 <Tippy
                   tag="img"
-                  class="rounded-full -ml-3"
+                  class="rounded-full -ml-3 2xl:-ml-3"
                   :src="youtube_platform"
                   :content="`Youtube`"
                 />
@@ -130,7 +130,7 @@
               <div class="w-10 h-10 image-fit zoom-in" v-else>
                 <Tippy
                   tag="img"
-                  class="rounded-full -ml-3"
+                  class="rounded-full -ml-3 2xl:-ml-3"
                   :src="unbound"
                   :content="`Unbound`"
                 />
@@ -140,11 +140,11 @@
           <td class="text-center">
             {{ campaign.title }}
           </td>
-          <td class="text-center">
-            {{ campaign.start_at }}
+          <td class="w-5 text-center">
+            <div class="w-20 truncate hover:text-clip hover:w-fit">{{ campaign.start_at }}</div>
           </td>
           <td class="items-center" v-if="page_type === 'campaign_list'">
-            <a class="flex items-center ml-10" @click="manageOrder">
+            <a class="flex items-center ml-10 2xl:ml-20" @click="manageOrder">
               <ListIcon class="w-4 h-4" />
             </a>
           </td>
@@ -152,11 +152,10 @@
             <div
               class="
                 flex
-                items-center
-                form-check form-switch 
-                w-full
-                sm:w-auto sm:ml-auto
-                sm:mt-0
+                form-check form-switch
+                w-5
+                ml-5
+                2xl:ml-20
               "
             >
               <input
