@@ -74,49 +74,41 @@
 	</div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { createAxiosWithBearer } from "@/libs/axiosClient";
 import SearchBar from "@/components/bar/SearchBar.vue";
 import DataTable from "@/components/table/DataTable.vue";
 import { list_category } from '@/api_v2/stock';
 
-
-export default {
-  components: {
-    SearchBar,
-    DataTable,
-  },
-  data() {
-    return {
-      searchColumns: {
-        keywords: [
+const searchColumns = ref([{
+	keywords: [
           { text: "Name", value: "name" },
           { text: "Order Code", value: "order_code" },
           { text: "Description", value: "description" },
         ],
-      },
-      tableColumns: [
-        { name: "Image", key: "image" },
-        { name: "Product Name", key: "name" },
-        { name: "Order Code", key: "order_code" },
-        { name: "Type", key: "type" },
-        { name: "Category", key: "category" },
-        { name: "Description", key: "description" },
-        { name: "Quantity", key: "qty" },
-        { name: "Price", key: "price" },
-        // {name: 'Edit', key: 'edit'},
-      ],
-	  categorySelection: []
-    };
-  },
-  mounted() {
+}])
+
+const tableColumns = ref([
+    { name: "Image", key: "image" },
+	{ name: "Product Name", key: "name" },
+	{ name: "Order Code", key: "order_code" },
+	{ name: "Type", key: "type" },
+	{ name: "Category", key: "category" },
+	{ name: "Description", key: "description" },
+	{ name: "Quantity", key: "qty" },
+	{ name: "Price", key: "price" },
+	// {name: 'Edit', key: 'edit'},
+])
+
+const categorySelection= ref([])
+
+onMounted(() => {
 	list_category().then(
 		response => { 
-			this.categorySelection = response.data 
+			categorySelection.value = response.data 
 		}
 	)
-  },
-  methods: {},
-};
+})
 </script>
 
-<style scoped></style>
