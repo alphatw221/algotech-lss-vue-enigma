@@ -20,7 +20,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
       // },
       {
         icon: "PackageIcon",
-        pageName: "side-menu-create-campaign",
+        pageName: "side-menu-createCam-productselect",
         title: "Create Campaign",
       },
       {

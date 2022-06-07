@@ -65,6 +65,10 @@ import Chart from "../views/chart/Main.vue";
 import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
+
+import ProductSelect from "../views/create-campaign/ProductSelect.vue";
+import DetailsConfirm from "../views/create-campaign/DetailsConfirm.vue";
+
 import AutoReply from "../views/autoReply/Main.vue";  
 
 import ShoppingCart from "../views/shoppingcart/Main.vue";
@@ -74,7 +78,6 @@ import ShoppingPayment from "../views/shoppingcart/Payment.vue";
 
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
-import CreateCampaign from "../views/create-campaign/CreateCamp.vue";
 import ManageOrder from "../views/manage-order/Main.vue";  
 import CampaignSelect from "../views/manage-order/Campaignselect.vue";
 
@@ -126,11 +129,6 @@ const routes = [
         name: "side-menu-campaign-select",
         component: CampaignSelect,
       },
-      {
-        path: "create-campaign",
-        name: "side-menu-create-campaign",
-        component: CreateCampaign,
-      },  
       {  
         path: "shopping-cart",
         name: "side-menu-shopping-cart",
@@ -146,6 +144,19 @@ const routes = [
         name: "OrderHistoryDetails",
         component: OrderDetails,
       },
+/*                CREATE CAMPAIGN                        */      
+      {
+        path: "create-campaign",
+        name: "side-menu-createCam-productselect",
+        component: ProductSelect,
+      },  
+      {
+        path: "create-campaign/details",
+        name: "side-menu-createCam-detailsconfirm",
+        component: DetailsConfirm,
+      },  
+
+/*                     SETTINGS                           */
       {  
         path: "campaign-global-setting",
         name: "side-menu-campaign-global-setting",
@@ -161,6 +172,7 @@ const routes = [
         name: "side-menu-connect-platform",
         component: ConnectPlatform,
       },
+/*                     AUTOREPLY                           */
       {  
         path: "autoreply",
         name: "side-menu-auto-reply",
