@@ -14,10 +14,9 @@
               
 <script setup>
 
-
-import PaymentMethods from "@/components/box/PaymentMethods.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
-import ShippingSummary from "@/components/box/ShippingSummary.vue";
+import PaymentMethods from "@/views/buyer-order-payment/PaymentMethods.vue";
+import ShippingSummary from "@/views/buyer-order-payment/ShippingSummary.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
