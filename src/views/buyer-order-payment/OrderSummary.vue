@@ -7,7 +7,7 @@
 	  
       <div class="flex">
         <div class="mr-auto">Subtotal</div>
-        <div class="font-medium">$ {{ store.order.subtotal }}</div>
+        <div class="font-medium">$ {{parseFloat(store.order.subtotal).toFixed(2)}}</div>
       </div>
       <div class="flex mt-4">
 
@@ -37,7 +37,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">Total Charge</div>
-        <div class="font-medium text-base">${{ store.order.total }}</div>
+        <div class="font-medium text-base">${{ parseFloat(store.order.total).toFixed(2) }}</div>
       </div>
     </div>
    
