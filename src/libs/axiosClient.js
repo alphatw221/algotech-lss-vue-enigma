@@ -39,7 +39,7 @@ axiosInstance.interceptors.response.use(
         if (error.response.data) {
             if (error.response.data.detail){
                 alert(error.response.data.detail)
-            }else if (error.response.data.message){
+            } else if (error.response.data.message){
                 alert(error.response.data.message)
             }
         }
@@ -61,7 +61,7 @@ export function createAxiosWithBearer(){
             if (error.response.data) {
                 if (error.response.data.detail){
                     alert(error.response.data.detail)
-                }else if (error.response.data.message){
+                } else if (error.response.data.message){
                     alert(error.response.data.message)
                 }
             }

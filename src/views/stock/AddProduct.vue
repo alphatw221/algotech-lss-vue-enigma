@@ -165,7 +165,7 @@
 
 <script>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
-import { list_category, create, update } from '@/api/stock';
+import { list_category, create, update } from '@/api_v2/stock';
 
 export default {
 	setup() {

@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { list_category, create_category, update_category, delete_category } from '@/api/stock';
+import { list_category, create_category, update_category, delete_category } from '@/api_v2/stock';
 
 export default {
     setup() {
