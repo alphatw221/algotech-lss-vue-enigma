@@ -7,29 +7,29 @@
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
                     <div class="w-full mx-2 ">
                         <div class="flex mb-2">
-                            <h2 class="font-medium mr-5"> Order No. #{{store.order.id}} <span class="btn btn-rounded-pending h-8">
-                                    {{store.order.status}}</span> </h2>
+                            <h2 class="font-medium mr-5"> Order No. #{{store.orderDetail.id}} <span class="btn btn-rounded-pending h-8">
+                                    {{store.orderDetail.status}}</span> </h2>
                         </div>
                         <div class="flex mb-2">
-                            <span class="font-medium mr-5"> Order Date : {{store.order.created_at}} </span>
+                            <span class="font-medium mr-5"> Order Date : {{store.orderDetail.created_at}} </span>
                         </div>
                     </div>
                 <div class="box p-6 m-3 border-2 border-secondary ">
                     <div class="flex">
                         <div class="mr-10">Name</div>
-                        <div>{{store.order.shipping_last_name}} {{store.order.shipping_first_name}}</div>
+                        <div>{{store.orderDetail.shipping_last_name}} {{store.orderDetail.shipping_first_name}}</div>
                     </div>
                     <div class="flex mt-4">
                         <div class="mr-10">Phone</div>
-                        <div>{{store.order.shipping_phone}}</div>
+                        <div>{{store.orderDetail.shipping_phone}}</div>
                     </div>
                     <div class="flex mt-4">
                         <div class="mr-10">Email</div>
-                        <div>{{store.order.shipping_email}}</div>
+                        <div>{{store.orderDetail.shipping_email}}</div>
                     </div>
                     <div class="flex mt-4">
                         <div class="mr-7">Remark</div>
-                        <div>{{store.order.shipping_remark}}</div>
+                        <div>{{store.orderDetail.shipping_remark}}</div>
                     </div>
                 </div>
             </div>
@@ -40,28 +40,28 @@
                     </div>
                     <div class="grid grid-cols-6 gap-2">
                         <div class="col-start-1 col-span-2 py-2">Payment Method</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.order.payment_method}}</div>
+                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.payment_method}}</div>
                         
-                        <template v-if="store.order.shipping_method === 'in_store'">
+                        <template v-if="store.orderDetail.shipping_method === 'in_store'">
                             <div class="col-start-1 col-span-2 py-2">Delivery Information</div>
                             <div class="col-start-3 col-span-3 py-2">In-store pickup</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Store</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.meta.pick_up_store}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.meta.pick_up_store_address}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store_address}}</div>
                         </template>
-                        <template v-if="store.order.shipping_method === 'delivery'">
+                        <template v-if="store.orderDetail.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
                             <div class="col-start-3 col-span-3 py-3">Delivery</div>
 
                             <div class="col-start-1 col-span-2 py-3">Delivery Address</div>
                             <div class="col-start-3 col-span-3 py-3">
-                                {{store.order.shipping_location}} ,
-                                {{store.order.shipping_region}} ,
-                                {{store.order.shipping_postcode}} ,
-                                {{store.order.shipping_address_1}}
+                                {{store.orderDetail.shipping_location}} ,
+                                {{store.orderDetail.shipping_region}} ,
+                                {{store.orderDetail.shipping_postcode}} ,
+                                {{store.orderDetail.shipping_address_1}}
                             </div>
                         </template>
                     </div>
@@ -76,19 +76,19 @@
                 <div class="grid grid-cols-3 gap-2">
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Total</div>
-                        <div class="mr-20">{{store.order.subtotal}}</div>
+                        <div class="mr-20">{{store.orderDetail.subtotal}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Delivery Charge</div>
-                        <div class="mr-20">{{store.order.shipping_cost}}</div>
+                        <div class="mr-20">{{store.orderDetail.shipping_cost}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
-                        <div class="mr-auto">Discount {{store.order.adjust_title ?? ''}}</div>
-                        <div class="mr-20">{{store.order.adjust_price}}</div>
+                        <div class="mr-auto">Discount {{store.orderDetail.adjust_title ?? ''}}</div>
+                        <div class="mr-20">{{store.orderDetail.adjust_price}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Grand Total</div>
-                        <div class="mr-20">{{store.order.total}}</div>
+                        <div class="mr-20">{{store.orderDetail.total}}</div>
                     </div>
                 </div>
             </div>
@@ -100,7 +100,7 @@
 import OrderDetailTable from "@/components/order/OrderDetailTable.vue";
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_order_detail } from "@/api_v2/order";
+import { buyer_retrieve_order } from "@/api_v2/order";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 
@@ -108,10 +108,10 @@ const route = useRoute();
 const store = useShoppingCartStore(); 
 
 onMounted(()=>{
-    buyer_order_detail(route.params.order_id)
+    buyer_retrieve_order(route.params.order_id)
     .then(
-        res => { store.order = res.data 
-            console.log(store.order)}
+        res => { store.orderDetail = res.data 
+        console.log(store.orderDetail)}
     )
 })
 </script>
