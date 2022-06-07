@@ -15,7 +15,7 @@
                     <template v-if="column.key === 'image'">
                         <div class="flex">
                             <div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
-                                <Tippy tag="img" class="rounded-full" :src="`${publicPath.value}` + product.image"
+                                <Tippy tag="img" class="rounded-full" :src="`${publicPath}` + product.image"
                                     :content="`Uploaded at`" />
                             </div>
                         </div>
@@ -67,17 +67,18 @@
     </div>
 </template>
 
-<script>
-import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance} from 'vue'
+<script setup>
+import { ref, reactive, onMounted, onUnmounted, defineProps, getCurrentInstance} from 'vue'
 import { createAxiosWithBearer } from '@/libs/axiosClient'
+import { useCampaignProductsStore } from "@/stores/lss-campaign-products";
 
+const store = useCampaignProductsStore(); 
 const props = defineProps({
-    requestUrl: String,
     columns: Array,
 });
 
 const internalInstance = getCurrentInstance();
-const eventBus = internalInstance.AppContext.config.globalProperties.eventBus;
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const currentPage = ref(1)
 const totalPage = ref(1)
@@ -87,41 +88,60 @@ const searchColumn = ref(undefined)
 const listItems = ref([])
 const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
 const category = ref(undefined)
-const status = ref('enabled')
+
 
 onMounted(() => {
-    search()
+    createAxiosWithBearer().get('/api/v2/product/search' + `?product_status=enabled`)
+    .then(res => {
+        console.log(res);
+        store.stock = res.data;
+        console.log(store.stock);
+    }).catch(function (error) {
+        console.log(error);
+    })
+    
     eventBus.on("assignTable", (payload) => {
-        currentPage.value = 1
-        searchColumn.value = payload.searchColumn
-        pageSize.value = payload.pageSize
-        category.value = payload.filterColumn
-        search()
-    });
+    currentPage.value = 1
+    searchColumn.value = payload.searchColumn
+    pageSize.value = payload.pageSize
+    category.value = payload.filterColumn
+    search()
+    })
 })
 onUnmounted(() => {
     eventBus.off("assignTable");
 })
 
 function search() {
-    createAxiosWithBearer()
-        .get(requestUrl.value + `?page_size=${pageSize.value}&page=${currentPage.value}&product_status=${status.value}&category=${category.value}`)
-        .then(
-            response => {
-                if (response.data.count != undefined) {
-                    dataCount.value = response.data.count
-                    const total = parseInt(response.data.count / pageSize.value)
-                    totalPage.value = total == 0 ? 1 : total
-                }
-                listItems.value = response.data.results
-                console.log(listItems.value)
-            }
-        ).catch(
-            error => {
-                console.log(error)
-            }
-        )
+
+    if (store.stock.count != undefined) {
+        dataCount.value = store.stock.count
+        const total = parseInt(store.stock.count / pageSize.value)
+        totalPage.value = total == 0 ? 1 : total
+    }
+    listItems.value = store.stock.results
+    console.log('here')
+    console.log(listItems.value)
 }
+// function search() {
+//     createAxiosWithBearer()
+//         .get('/api/v2/product/search' + `?page_size=${pageSize.value}&page=${currentPage.value}&product_status=${status.value}&category=${category.value}`)
+//         .then(
+//             response => {
+//                 if (response.data.count != undefined) {
+//                     dataCount.value = response.data.count
+//                     const total = parseInt(response.data.count / pageSize.value)
+//                     totalPage.value = total == 0 ? 1 : total
+//                 }
+//                 listItems.value = response.data.results
+//                 console.log(listItems.value)
+//             }
+//         ).catch(
+//             error => {
+//                 console.log(error)
+//             }
+//         )
+// }
 
 function changePage(page) {
     currentPage.value = page;

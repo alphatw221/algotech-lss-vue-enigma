@@ -80,9 +80,7 @@ import { createAxiosWithBearer } from "@/libs/axiosClient";
 import SearchBar from "@/components/bar/SearchBar.vue";
 import DataTable from "@/components/table/DataTable.vue";
 import { list_category } from '@/api_v2/stock';
-import { useCampaignProductsStore } from "@/stores/lss-campaign-products";
 
-const store = useCampaignProductsStore(); 
 const searchColumns = ref([{
 	keywords: [
           { text: "Name", value: "name" },
@@ -110,15 +108,7 @@ onMounted(() => {
 		response => { 
 			categorySelection.value = response.data 
 		}
-	),
-	createAxiosWithBearer().get('/api/v2/product/search' + `?page_size=10&page=1&product_status=enabled`)
-	.then(res => {
-		console.log(res);
-		store.stock = res.data;
-		console.log(store.stock);
-	}).catch(function (error) {
-		console.log(error);
-	})
+	)
 })
 </script>
 

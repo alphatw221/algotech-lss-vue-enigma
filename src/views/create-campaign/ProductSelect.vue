@@ -32,7 +32,7 @@
       <div>
         <div class="overflow-x-auto intro-y col-span-12" v-show="selectProduct">
           <SearchBar :searchColumns="searchColumns" :filterColums="categorySelection" class="-mb-8" />
-          <AssignTable :requestUrl="'/api/v2/product/search'" :columns="tableColumns" />
+          <AssignTable :columns="tableColumns" />
         </div>
         
         <table class="table-report mt-2" v-show="comfirmProduct">
