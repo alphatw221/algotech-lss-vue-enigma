@@ -54,7 +54,7 @@
 									>
 									</SearchBar>	
 									<DataTable
-										:requestUrl="'/api/v2/product/list'"
+										:requestUrl="'/api/v2/product/search'"
 										:columns="tableColumns"
 										:routerPath="'add-product'"
 										:routerParam="'update'"

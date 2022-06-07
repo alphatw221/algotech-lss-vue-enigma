@@ -74,7 +74,7 @@ export default {
         console.log("incoming order", this.campaign_id)
         list_campaign_pre_order(this.campaign_id).then(res => {
             console.log(res.data)
-            this.incoming_order_results = res.data
+            this.incoming_order_results = res.data.results
         })
     },
     methods: {

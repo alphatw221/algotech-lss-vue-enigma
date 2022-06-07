@@ -56,7 +56,7 @@ export default {
     };
   },
   mounted() {
-    this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU0Njc3MDkyLCJpYXQiOjE2NTQwNzIyOTIsImp0aSI6ImMyODZlZjM5MmVjMjQzMzRhYTI3MzczNDcwOTJlNGQxIiwidXNlcl9pZCI6MzI4LCJkYXRhIjp7ImF1dGhfdXNlcl9pZCI6MzI4LCJzZWxsZXJfaWQiOjM2MCwiY3VzdG9tZXJfaWQiOjM3MywibmFtZSI6IkNlY2lsaWEgVyIsImVtYWlsIjoibWJydzE5QGdtYWlsLmNvbSJ9fQ.Kw0LEwlg3QrYG3I5sJTDawtsrGQWq28kz5CHiKHEgDI");
+    
     this.eventBus.on("entryPoint", (payload) => {
       this.$router.push("manage-order");
     }) 

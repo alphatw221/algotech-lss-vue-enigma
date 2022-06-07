@@ -93,7 +93,12 @@ const deleteOrderProduct = (order_product_id, index) =>{
 		store.order = res.data
 		list_campapign_product(route.params.pre_order_id)
 		.then(
-			response => { store.addOnProducts = response.data }
+			response => { 
+				store.addOnProducts = response.data 
+				for (let i = 0; i < store.addOnProducts.length; i ++) {
+					store.addOnProducts[i].qty = 1
+				}
+			}
 		)
 	})
 }

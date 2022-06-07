@@ -103,7 +103,6 @@ export default {
 	},
 	methods: {
 		search() {
-			console.log('poooooooooooooooooooooooooooooooop')
 			createAxiosWithBearer()
 			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.status}&category=${this.category}`)
 			.then(
