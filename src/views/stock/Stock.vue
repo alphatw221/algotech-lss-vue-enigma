@@ -78,7 +78,7 @@
 import SearchBar from "@/components/bar/SearchBar.vue";
 import DataTable from "@/components/table/DataTable.vue";
 import { list_category } from '@/api/stock';
-
+import { useSellerStockStore } from "@/stores/lss-seller-stock";
 
 export default {
   components: {
@@ -108,6 +108,9 @@ export default {
 	  categorySelection: []
     };
   },
+  setup(){
+	  const store = useSellerStockStore(); 
+  },
   mounted() {
     this.$cookies.set(
       "access_token",
@@ -118,7 +121,13 @@ export default {
 		response => { 
 			this.categorySelection = response.data 
 		}
-	)
+	),
+	createAxiosWithBearer().get('/api/v2/product/search').then(res => {
+		console.log(res);
+		store.stock = res.data;
+	}).catch(function (error) {
+		console.log(error);
+	})
   },
   methods: {},
 };

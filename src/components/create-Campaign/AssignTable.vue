@@ -35,7 +35,7 @@
                             </div>
                         </template>
                         <template v-else-if="column.key === 'qty_camp'">
-                            <div class="form-check mt-2 self-center place-content-center">
+                            <div class="form-check self-center place-content-center">
                                 <input 
 								type="text" 
 								class="form-control" 
@@ -47,7 +47,7 @@
                             </div>
                         </template>
                         <template v-else-if="column.key === 'qty_order'">
-                            <div class="form-check mt-2 self-center place-content-center">
+                            <div class="form-check self-center place-content-center">
                                 <input 
 								type="text" 
 								class="form-control" 
@@ -60,9 +60,6 @@
                         </template>
                         <template v-else-if="column.key === 'price'">
                             <div class="w-12">{{product.currency_sign}} {{ product[column.key] }}</div>
-                        </template>
-                        <template v-else-if="column.key === 'category'" v-for="tag in product['tag']">
-                            <div>{{ tag }}</div>
                         </template>
                         <template v-else-if="column.key === 'name'">
                             <div class="truncate hover:text-clip lg:w-28 2xl:w-36">{{ product[column.key] }}</div>
@@ -149,7 +146,10 @@ export default {
                 store.productsForOrder[key].qty == event.target.value
             } else if (type == 'qty_order' && event.target.value <= store.productsForOrder['qty_camp'].qty) {
                 store.productsForOrder[key].qty == event.target.value
-            } 
+            } else {
+                alert('Invalid Quantity')
+                return
+            }
         }
     },
 }

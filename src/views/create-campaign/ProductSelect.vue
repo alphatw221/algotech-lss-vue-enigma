@@ -32,7 +32,7 @@
       <div class="overflow-x-auto">
         <div class="intro-y col-span-12 overflow-auto lg:overflow-visible" v-show="selectProduct">
           <SearchBar :searchColumns="searchColumns" :filterColums="categorySelection" class="-mb-8" />
-          <DataTable class="overflow-x-auto" :requestUrl="'/api/v2/product/search'" :columns="tableColumns" />
+          <AssignTable class="overflow-x-auto" :requestUrl="'/api/v2/product/search'" :columns="tableColumns" />
         </div>
         <table class="table table-report mt-2" v-show="comfirmProduct">
           <thead>
@@ -98,13 +98,13 @@
 
 <script>
 import SearchBar from "@/components/create-Campaign/SearchBar.vue";
-import DataTable from "@/components/create-Campaign/AssignTable.vue";
+import AssignTable from "@/components/create-Campaign/AssignTable.vue";
 import { list_category } from '@/api/stock';
 
 export default {
   components: {
     SearchBar,
-    DataTable,
+    AssignTable,
   },
   data() {
     return {
