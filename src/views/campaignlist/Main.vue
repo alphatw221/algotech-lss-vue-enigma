@@ -330,7 +330,7 @@
 
 <script>
 import SearchBar from "@/components/bar/SearchBar.vue";
-import CampaignListTable from "@/components/table/CampaignListTable.vue";
+import CampaignListTable from "@/components/campaignlist/CampaignListTable.vue";
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
 import { get_fb_page_live_media } from "@/api/facebook"
 import { get_ig_live_media } from "@/api/instagram"
