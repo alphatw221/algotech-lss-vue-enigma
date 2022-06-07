@@ -147,7 +147,7 @@
 </template>
 <script setup>
 import OrderSummary from "@/components/box/OrderSummary.vue";
-import ShoppingCartTableSimple from "@/components/table/ShoppingCartTable-simple.vue";
+import ShoppingCartTableSimple from "@/components/shopping-cart/ShoppingCartTable-simple.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
