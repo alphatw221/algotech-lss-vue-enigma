@@ -29,17 +29,12 @@ import AddItemModal from "./AddItemModal.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { retrieve_pre_order } from "@/api_v2/pre_order";
+// import { retrieve_pre_order } from "@/api_v2/pre_order";
 
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const store = useShoppingCartStore(); 
 
 
-onMounted(()=>{
-    retrieve_pre_order(route.params.pre_order_id)
-    .then(
-        res => { store.order = res.data }
-    )
-})
+
 </script>

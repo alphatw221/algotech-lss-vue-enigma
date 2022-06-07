@@ -8,8 +8,8 @@
             <button 
             @click="toggleTabs(1)"
             :class="{
-              'text-neutral-600 bg-white': this.store.openTab !== 1,
-              'text-white bg-primary': this.store.openTab === 1,
+              'text-neutral-600 bg-white': store.openTab !== 1,
+              'text-white bg-primary': store.openTab === 1,
             }"
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
               <ShoppingCartIcon />
@@ -17,8 +17,8 @@
             <div
               class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               :class="{
-                'text-neutral-600': this.store.openTab !== 1,
-                'font-bold': this.store.openTab === 1,
+                'text-neutral-600': store.openTab !== 1,
+                'font-bold': store.openTab === 1,
               }">
               Shopping Cart
             </div>
@@ -29,8 +29,8 @@
             <button 
             @click="toggleTabs(2)"
             :class="{
-              'text-neutral-600 bg-white': this.store.openTab !== 2,
-              'text-white bg-primary': this.store.openTab === 2,
+              'text-neutral-600 bg-white': store.openTab !== 2,
+              'text-white bg-primary': store.openTab === 2,
             }"
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
               <TruckIcon />
@@ -38,8 +38,8 @@
             <div
               class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               :class="{
-                'text-neutral-600': this.store.openTab !== 2,
-                'font-bold': this.store.openTab === 2,
+                'text-neutral-600': store.openTab !== 2,
+                'font-bold': store.openTab === 2,
               }">
               Delivery
             </div>
@@ -67,46 +67,23 @@
   </div>
 </template>
 
-<script>
+<script setup>
 // import MyCartTab from "@/components/shopping-cart/MyCartTab.vue";
 // import DeliveryTab from "@/components/shopping-cart/DeliveryTab.vue";
 
 import MyCartTab from "./MyCartTab.vue";
 import DeliveryTab from "./DeliveryTab.vue";
-
+import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-
-export default {
-  components: {
-    MyCartTab,
-    DeliveryTab
-  },
-  data() {
-    return {
-      store: useShoppingCartStore()
-    };
-  },
-  computed: {
-    filterStyle() {
-      if (this.show) {
-        return {
-          top: 0,
-          background: primary,
-          marginTop: "15px",
-          marginBottom: "15px",
-        };
-      } else {
-        return "";
-      }
-    },
-  },
-  mounted() {
-    
-  },
-  methods: {
-    toggleTabs: function (tabNumber) {
-      this.store.openTab = tabNumber
-    },
-  },
-};
+import { retrieve_pre_order } from "@/api_v2/pre_order";
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+const store = useShoppingCartStore()
+const toggleTabs = tabNumber => store.openTab = tabNumber
+onMounted(()=>{
+    retrieve_pre_order(route.params.pre_order_id)
+    .then(
+        res => { store.order = res.data }
+    )
+})
 </script>
