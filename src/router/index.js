@@ -128,6 +128,11 @@ const routes = [
         component: ManageOrder,
       },
       {
+        path: "order/:order_id?",
+        name: "SellerOrderDetail",
+        component: () => import('@/views/seller-order-detail/Main.vue'),
+      },
+      {
         path: "campaign-select",
         name: "side-menu-campaign-select",
         component: CampaignSelect,

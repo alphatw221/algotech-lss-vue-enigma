@@ -141,7 +141,7 @@
             {{ campaign.title }}
           </td>
           <td class="w-5 text-center">
-            <div class="w-20 truncate hover:text-clip hover:w-fit">{{ campaign.start_at }}</div>
+            <div class="w-20 truncate hover:text-clip hover:w-fit">{{new Date(campaign.start_at).toLocaleTimeString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})}}</div>
           </td>
           <td class="items-center" v-if="page_type === 'campaign_list'">
             <a class="flex items-center ml-10 2xl:ml-20" @click="manageOrder">
