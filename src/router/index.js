@@ -94,6 +94,7 @@ import Test6 from "../views/test/test6.vue";
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import isBuyerAuth from "@/libs/routerMiddleware/isBuyerAuth"
+import isSellerAuth from "@/libs/routerMiddleware/isSellerAuth"
 
 const routes = [
   // {
@@ -104,6 +105,7 @@ const routes = [
   {
     path: "/seller",
     component: LssSideMenu,
+    beforeEnter: isSellerAuth,
     children: [
       {
         path: "profile",

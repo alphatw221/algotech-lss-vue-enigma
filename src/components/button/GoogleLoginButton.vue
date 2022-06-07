@@ -4,8 +4,9 @@
 
 <script>
 import loadScript from '@/libs/loadScript.js';
-import { buyer_login_with_google, seller_login_with_google} from '@/api_v2/user'
+import { buyer_login_with_google, seller_login_with_google } from '@/api_v2/user'
 import { useLSSBuyerLayoutStore } from '@/stores/lss-buyer-layout';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 export default {
     props:{
@@ -19,7 +20,7 @@ export default {
                 callback: res => {
 
                     const loginRequest = this.role=='buyer' ? buyer_login_with_google : seller_login_with_google
-                    const store = this.role=='buyer' ? useLSSBuyerLayoutStore():useLSSBuyerLayoutStore()
+                    const store = this.role == 'buyer' ? useLSSBuyerLayoutStore() : useLSSSellerLayoutStore()
 
                     loginRequest({google_token:res.credential})
                     .then(response => {
@@ -38,7 +39,7 @@ export default {
                                     this.$router.push(`/buyer/`)
                                 }
                             } else if (this.role == 'seller') {
-                                this.$router.push(`/seller`)
+                                this.$router.push(`/seller/campaign-list`)
                             }
                         })
                     })

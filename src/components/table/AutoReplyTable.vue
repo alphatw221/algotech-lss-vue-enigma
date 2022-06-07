@@ -30,10 +30,10 @@
 							</div>
 						</template>
                         <template v-else-if="column.key === 'edit'">
-                            <EditIcon @click="updateInfo(reply.id,reply.input_msg,reply.output_msg,reply.description)" />
+                            <EditIcon class="click-icon" @click="updateInfo(reply.id,reply.input_msg,reply.output_msg,reply.description)" />
                         </template>
                         <template v-else-if="column.key === 'delete'">
-                            <Trash2Icon @click="deleteAutoReply(reply.id)"/>
+                            <Trash2Icon class="click-icon" @click="deleteAutoReply(reply.id)"/>
                         </template>
 						<template v-else>
 							{{reply[column.key]}}
@@ -72,6 +72,10 @@
                 <label for="modal-form-1" class="form-label">Remark</label>
                 <input id="modal-form-1" type="text" class="form-control rounded-full" placeholder="" v-model="currentInfo.description"/>
             </div>
+			<div class="col-span-12">
+                <label for="modal-form-1" class="form-label">Following</label>
+                <img :src="currentInfo.facebook_page.image"/>
+            </div>
         </ModalBody>
         <ModalFooter>
             <button type="button" @click="closeUpdate" class="btn btn-outline-secondary w-20 mr-1">
@@ -105,11 +109,19 @@ export default {
 				input_msg:'', 
 				output_msg:'',
 				discription:'',
+				facebook_page:{},
 			},
 		}
 	},
 	mounted() {
 		this.getReplyData()
+		this.eventBus.on("getReplyData", (payload) => {
+			console.log(payload)
+			this.getReplyData()
+		})
+	},
+	unmounted() {
+		this.eventBus.off("getReplyData")
 	},
 	methods: {
 		changePage(page) {      
@@ -118,13 +130,14 @@ export default {
 		changePageSize(pageSize) {
 			this.pageSize = pageSize;
 		},
-		updateInfo(id,input,output,description){
+		updateInfo(id,input,output,description, facebook_page){
 			console.log(id)
 			this.updateModal=true;
 			this.currentInfo.id = id;
 			this.currentInfo.input_msg = input;
 			this.currentInfo.output_msg = output; 
 			this.currentInfo.description = description;
+			this.currentInfo.facebook_page = facebook_page;
 			console.log(this.currentInfo)
 		},
 		getReplyData() {
@@ -132,6 +145,7 @@ export default {
 				console.log(response);
                 this.totalCount = response.data.length;
 				this.listItems = response.data;
+				console.log(response.data)
 			}).catch(function (error) {
 				console.log(error);
 			})
@@ -165,3 +179,9 @@ export default {
 	},
 }
 </script>
+
+<style scoped>
+.click-icon:hover {
+	cursor: pointer;
+}
+</style>

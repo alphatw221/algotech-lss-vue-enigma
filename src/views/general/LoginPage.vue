@@ -50,7 +50,7 @@
 </template>
 
 <script>
-import { seller_login, general_login } from '@/api/user';
+import { general_login } from '@/api/user';
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
