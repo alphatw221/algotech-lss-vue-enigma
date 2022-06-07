@@ -3,7 +3,7 @@
 		<table class="table table-report mt-5 overflow-y-scroll table-auto">
 			<thead>
 				<tr >
-					<th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
+					<th class="whitespace-normal truncate hover:text-clip" v-for="column in columns" :key="column.key">
 						{{ column.name }}
 					</th>
 				</tr>
@@ -30,8 +30,11 @@
 						<template v-else-if="column.key === 'category'" v-for="tag in product['tag']">
 							<div>{{ tag }}</div> 
 						</template>
+						<template v-else-if="column.key === 'qty' || column.key === 'price' || column.key === 'type'">
+							<div class=" w-fit">{{product[column.key]}}</div> 
+						</template>
 						<template v-else>
-							{{product[column.key]}}
+							<div class="truncate hover:text-clip lg:w-28 2xl:w-36"> {{product[column.key]}} </div>
 						</template>
 					</td>
 					<td class="table-report__action w-12">
