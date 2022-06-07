@@ -5,16 +5,6 @@
         <div class="grid grid-cols-12 gap-4">
 
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
-<<<<<<< HEAD
-                    <div class="w-full mx-2 ">
-                        <div class="flex mb-2">
-                            <h2 class="font-medium mr-5"> Order No. #{{store.orderDetail.id}} <span class="btn btn-rounded-pending h-8">
-                                    {{store.orderDetail.status}}</span> </h2>
-                        </div>
-                        <div class="flex mb-2">
-                            <span class="font-medium mr-5"> Order Date : {{store.orderDetail.created_at}} </span>
-                        </div>
-=======
                 <div class="w-full mx-2 ">
                     <div class="flex mb-2">
                         <h2 class="font-medium mr-5">
@@ -30,7 +20,6 @@
                                 proceed to pay
                             </button>
                         </h2>
->>>>>>> 590646a7acce4e66d0420692886f616d695c80b3
                     </div>
                     <div class="flex mb-2">
                         <span class="font-medium mr-5"> Order Date : {{ store.order.created_at }} </span>
@@ -39,21 +28,6 @@
                 <div class="box p-6 m-3 border-2 border-secondary ">
                     <div class="flex">
                         <div class="mr-10">Name</div>
-<<<<<<< HEAD
-                        <div>{{store.orderDetail.shipping_last_name}} {{store.orderDetail.shipping_first_name}}</div>
-                    </div>
-                    <div class="flex mt-4">
-                        <div class="mr-10">Phone</div>
-                        <div>{{store.orderDetail.shipping_phone}}</div>
-                    </div>
-                    <div class="flex mt-4">
-                        <div class="mr-10">Email</div>
-                        <div>{{store.orderDetail.shipping_email}}</div>
-                    </div>
-                    <div class="flex mt-4">
-                        <div class="mr-7">Remark</div>
-                        <div>{{store.orderDetail.shipping_remark}}</div>
-=======
                         <div>{{ store.order.shipping_last_name }} {{ store.order.shipping_first_name }}</div>
                     </div>
                     <div class="flex mt-4">
@@ -67,7 +41,6 @@
                     <div class="flex mt-4">
                         <div class="mr-7">Remark</div>
                         <div>{{ store.order.shipping_remark }}</div>
->>>>>>> 590646a7acce4e66d0420692886f616d695c80b3
                     </div>
                 </div>
             </div>
@@ -78,28 +51,17 @@
                     </div>
                     <div class="grid grid-cols-6 gap-2">
                         <div class="col-start-1 col-span-2 py-2">Payment Method</div>
-<<<<<<< HEAD
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.payment_method}}</div>
-=======
                         <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method }}</div>
->>>>>>> 590646a7acce4e66d0420692886f616d695c80b3
                         
                         <template v-if="store.orderDetail.shipping_method === 'in_store'">
                             <div class="col-start-1 col-span-2 py-2">Delivery Information</div>
                             <div class="col-start-3 col-span-3 py-2">In-store pickup</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Store</div>
-<<<<<<< HEAD
                             <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
                             <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store_address}}</div>
-=======
-                            <div class="col-start-3 col-span-3 py-2">{{ store.order.meta.pick_up_store }}</div>
-
-                            <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
-                            <div class="col-start-3 col-span-3 py-2">{{ store.order.meta.pick_up_store_address }}</div>
->>>>>>> 590646a7acce4e66d0420692886f616d695c80b3
                         </template>
                         <template v-if="store.orderDetail.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
@@ -107,17 +69,10 @@
 
                             <div class="col-start-1 col-span-2 py-3">Delivery Address</div>
                             <div class="col-start-3 col-span-3 py-3">
-<<<<<<< HEAD
                                 {{store.orderDetail.shipping_location}} ,
                                 {{store.orderDetail.shipping_region}} ,
                                 {{store.orderDetail.shipping_postcode}} ,
                                 {{store.orderDetail.shipping_address_1}}
-=======
-                                {{ store.order.shipping_location }} ,
-                                {{ store.order.shipping_region }} ,
-                                {{ store.order.shipping_postcode }} ,
-                                {{ store.order.shipping_address_1 }}
->>>>>>> 590646a7acce4e66d0420692886f616d695c80b3
                             </div>
                         </template>
                     </div>
@@ -132,7 +87,6 @@
                 <div class="grid grid-cols-3 gap-2">
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Total</div>
-<<<<<<< HEAD
                         <div class="mr-20">{{store.orderDetail.subtotal}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
@@ -146,21 +100,6 @@
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Grand Total</div>
                         <div class="mr-20">{{store.orderDetail.total}}</div>
-=======
-                        <div class="mr-20">{{ parseFloat(store.order.subtotal).toFixed(2) }}</div>
-                    </div>
-                    <div class="flex col-start-1 col-span-3 p-2">
-                        <div class="mr-auto">Delivery Charge</div>
-                        <div class="mr-20">{{ store.order.shipping_cost }}</div>
-                    </div>
-                    <div class="flex col-start-1 col-span-3 p-2">
-                        <div class="mr-auto">Discount {{ store.order.adjust_title ?? '' }}</div>
-                        <div class="mr-20">{{ store.order.adjust_price }}</div>
-                    </div>
-                    <div class="flex col-start-1 col-span-3 p-2">
-                        <div class="mr-auto">Grand Total</div>
-                        <div class="mr-20">{{ parseFloat(store.order.total).toFixed(2) }}</div>
->>>>>>> 590646a7acce4e66d0420692886f616d695c80b3
                     </div>
                 </div>
             </div>
@@ -169,11 +108,7 @@
 </template>
 
 <script setup>
-<<<<<<< HEAD
-import OrderDetailTable from "@/views/buyer-order-detail/OrderDetailTable.vue";
-=======
 import OrderDetailTable from "./OrderDetailTable.vue";
->>>>>>> 590646a7acce4e66d0420692886f616d695c80b3
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { buyer_retrieve_order } from "@/api_v2/order";
@@ -183,21 +118,11 @@ import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const store = useShoppingCartStore(); 
 
-<<<<<<< HEAD
 onMounted(()=>{
     buyer_retrieve_order(route.params.order_id)
     .then(
         res => { store.orderDetail = res.data 
         console.log(store.orderDetail)}
-=======
-onMounted(() => {
-    buyer_order_detail(route.params.order_id)
-    .then(
-        res => { 
-            store.order = res.data 
-            console.log(store.order)
-        }
->>>>>>> 590646a7acce4e66d0420692886f616d695c80b3
     )
 })
 </script>
