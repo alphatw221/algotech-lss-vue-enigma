@@ -14,8 +14,7 @@
               
 <script setup>
 
-import OrderSummary from "@/components/box/OrderSummary.vue";
-// import PaymentMethods from "./PaymentMethods.vue";
+import OrderSummary from "./OrderSummary.vue";
 import PaymentMethods from "./payment-methods/Main.vue";
 import ShippingSummary from "./ShippingSummary.vue";
 
