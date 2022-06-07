@@ -32,6 +32,7 @@ onMounted(()=>{
   .then(
       res => {
         store.order = res.data
+        console.log(res.data)
       }
   )
 })

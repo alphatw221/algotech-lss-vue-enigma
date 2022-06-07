@@ -1,7 +1,7 @@
 <template>
-    <AccordionItem >
+    <AccordionItem v-if="store.order.campaign">
         <Accordion class="bg-primary rounded-t-lg ">
-            <div class="text-white mx-3"> Direct Payment </div>
+            <div class="text-white mx-3"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
         </Accordion>
 
         <!-- BEGIN Direct Payment -->
@@ -10,38 +10,55 @@
             <!-- BEGIN Direct Payment Select -->
             <div >
 
-                <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
+                <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index">
                     <li class="-mb-px last:mr-0 flex-auto text-center ml-14">
                         <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
-                            <button @click="toggleTabs(count)" :class="{
-                                'text-neutral-600 bg-white': this.openTab !== count,
-                                'text-white bg-primary': this.openTab === count,
+                            <button @click="select_account(index)" :class="{
+                                'text-neutral-600 bg-white': openTab !== index,
+                                'text-white bg-primary': openTab === index,
                             }" class="w-8 h-8 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
-                                1
+                                {{index+1}}
                             </button>
                         </div>
                     </li>
                 </ul>
 
-                <div class="gird grid-cols-2 gap-5 mx-5 px-10" 
-                    :class="{ hidden: this.openTab !== count, block: this.openTab === count }">
+                <div class="gird grid-cols-2 gap-5 mx-5 px-10" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index"
+                    :class="{ hidden: openTab !== index, block: openTab === index }">
                     <table>
                         <tr>
-                            <td>Country</td><td></td>
+                            <td>Direct Payment Mode: </td><td>{{account.direct_payment_mode}}</td>
                         </tr>
                         <tr>
-                            <td>Account Number</td><td></td>
+                            <td>Account Number: </td><td>{{account.direct_payment_number}}</td>
                         </tr>
                         <tr>
-                            <td>Account Name</td><td></td>
+                            <td>Account Name: </td><td>{{account.direct_payment_name}}</td>
                         </tr>
                         <tr>
+                            <td>Note: </td><td>{{account.direct_payment_note}}</td>
+                        </tr>
+                        <tr>
+                            <td></td><td><img :src="storageUrl+account.image" alt=""></td>
+                        </tr>
+                        <!-- <tr>
                             <td>Other Note ( Press enter to add new line )</td><td></td>
-                        </tr>
+                        </tr> -->
                     </table>
                 </div>
 
             </div>
+
+            <!-- direct_payment_mode: "22"
+            direct_payment_name: "123"
+            direct_payment_note: "555555555"
+            direct_payment_number: "112"
+            direct_payment_require_customer_return: 1
+            image: "/1/payment/direct_payment/prize 2022-02-15 150845.png" -->
+
+
+
+
             <!-- END Direct Payment Select -->
             
             <!-- acceptedFiles: 'image/jpeg|image/png|image/jpg', -->
@@ -85,11 +102,17 @@ import { buyer_upload_receipt } from "@/api_v2/order";
 
 import { useRoute, useRouter } from "vue-router";
 
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+const store = useLSSBuyerOrderStore(); 
 
 const route = useRoute();
+const router = useRouter();
 
-
+const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1)
 const receiptUploadDropzoneRef = ref();
+const openTab = ref(0)
+
+const select_account = index => openTab.value=index
 
 provide("bind[receiptUploadDropzoneRef]", (el) => {
     receiptUploadDropzoneRef.value = el;
@@ -107,10 +130,13 @@ const uploadReceipt = ()=>{
     let formData = new FormData()
     formData.append('last_five_digits','12345' )
     formData.append('image',receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]||null)
+
+    
     buyer_upload_receipt(route.params.order_id, formData)
     .then(
         res => {
-
+            store.order = res.data
+            router.push(`/buyer/orders/`)
 
 
         }
