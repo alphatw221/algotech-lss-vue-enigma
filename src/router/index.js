@@ -90,6 +90,7 @@ import Test3 from "../views/test/test3.vue";
 import Test2 from "../views/test/test2.vue"; 
 import Test4 from "../views/test/test4.vue"; 
 import Test5 from "../views/test/test5.vue"; 
+import Test6 from "../views/test/test6.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import isBuyerAuth from "@/libs/routerMiddleware/isBuyerAuth"
@@ -187,6 +188,11 @@ const routes = [
         path: "test3",
         name: "side-menu-test3",
         component: Test3,
+      },
+      {
+        path: "test6",
+        name: "side-menu-test6",
+        component: Test6,
       },
       {
         path: "dashboard-overview-1",

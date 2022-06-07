@@ -1,11 +1,11 @@
 <template>
-    <div class="col-span-12 col-start-1 row-span-4 h-fit mt-0 lg:col-span-7 lg:row-start-3 lg:-mt-2 2xl:col-span-4 2xl:row-start-1" >
+    <div class="box col-span-12 col-start-1 row-span-4 h-fit mt-0 lg:col-span-7 lg:row-start-3 lg:-mt-2 2xl:col-span-4 2xl:row-start-1" >
         <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-5">
             <div class="col-start-1 col-span-5 -mt-3 p-3">
                 <h2 class="text-lg font-medium">Incoming Order</h2>
             </div>
         </div>
-        <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem] mt-5">
+        <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem]">
             <div class="sticky top-0 z-50">
                 <table class="table table-sm">
                     <thead class="table-dark">

@@ -1,5 +1,5 @@
-<template> 
- <div class="grid grid-cols-12 box p-5 my-5 gap-2">
+<template>
+  <div class="grid grid-cols-12 box p-5 my-5 gap-2">
     <span class="col-start-1 col-span-12 text-2xl font-medium leading-none mb-2">Create Campaign</span>
     <div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
       <div class="flex">
@@ -28,64 +28,12 @@
     </div>
     <div class="box mt-5 p-5 col-span-12">
       <span class="text-2xl font-medium leading-none mb-3">Assign Product</span>
-      <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
-        <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto sm:flex items-center mt-2">
-          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Category</label>
-          <select id="tabulator-html-filter-field" class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto">
-            <option value="name">Cloths</option>
-            <option value="category">Short</option>
-            <option value="remaining_stock">Snacks</option>
-          </select>
-        </form>
-      </div>
 
       <div class="overflow-x-auto">
-        <table class="table table-report mt-2" v-show="selectProduct">
-          <thead>
-            <tr>
-              <th class="whitespace-nowrap" v-for="column in add_product_columns" :key="column.key">
-                <template v-if="column.key == 'select'">
-                  <div class="form-check mt-2">
-                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="" />
-                  </div>
-                </template>
-                <template v-else-if="column.key === 'qty_for_campaign' || column.key === 'max_qty'" style="width:80px;">
-                  {{ column.name }}
-                </template>
-                <template v-else>
-                  {{ column.name }}
-                </template>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(product, key) in add_product_results" :key="key" class="intro-x">
-              <td v-for="column in add_product_columns" :key="column.key">
-                <template v-if="column.key === 'select' || column.key == 'editable' || column.key == 'deletable'">
-                  <div class="form-check mt-2">
-                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="" />
-                  </div>
-                </template>
-                <template v-else-if="column.key === 'image'" class="w-40">
-                  <div class="flex">
-                    <div class="w-10 h-10 image-fit zoom-in">
-                      <Tippy tag="img" class="rounded-full" :src="product.image" :content="`Uploaded at`" />
-                    </div>
-                  </div>
-                </template>
-                <template v-else-if="column.key === 'qty_for_campaign' || column.key === 'max_qty'">
-                  <input id="regular-form-1" type="text" class="form-control" placeholder="" style="width:100px;" />
-                </template>
-                <template v-else-if="column.key === 'price'">
-                  $ {{ product.price }}
-                </template>
-                <template v-else class="w-30">
-                  {{ product[column.key] }}
-                </template>
-              </td>
-            </tr>
-          </tbody>
-        </table>
+        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible" v-show="selectProduct">
+          <SearchBar :searchColumns="searchColumns" :filterColums="categorySelection" class="-mb-8" />
+          <DataTable class="overflow-x-auto" :requestUrl="'/api/v2/product/search'" :columns="tableColumns" />
+        </div>
         <table class="table table-report mt-2" v-show="comfirmProduct">
           <thead>
             <tr>
@@ -149,14 +97,19 @@
 
 
 <script>
+import SearchBar from "@/components/create-Campaign/SearchBar.vue";
+import DataTable from "@/components/create-Campaign/AssignTable.vue";
+import { list_category } from '@/api/stock';
+
 export default {
+  components: {
+    SearchBar,
+    DataTable,
+  },
   data() {
     return {
       selectProduct: true,
       comfirmProduct: false,
-      editDelivery: false,
-      editPickup: false,
-      editNotes: true,
       campaignPeriod: {
         start: new Date(),
         end: new Date(),
@@ -169,6 +122,20 @@ export default {
           timeAdjust: '',
         },
       },
+      tableColumns: [
+        { name: "Selected", key: "selected" },
+        { name: "Image", key: "image" },
+        { name: "Product Name", key: "name" },
+        { name: "Order Code", key: "order_code" },
+        { name: "O`ty for Campaign", key: "qty_camp" },
+        { name: "Max O`ty /Order", key: "qty_order" },
+        { name: "Quantity", key: "qty" },
+        { name: "Price", key: "price" },
+        { name: "Editable", key: "edit" },
+        { name: "Deletable", key: "delete" },
+        { name: "Type", key: "type" },
+      ],
+      categorySelection: [],
       add_product_columns: [
         { name: '', key: 'select' },
         { name: 'Image', key: 'image' },
@@ -219,6 +186,14 @@ export default {
           type: 'Product'
         }],
     }
+  },
+  mounted() {
+    this.$cookies.set("access_token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU1MDkzMzAxLCJpYXQiOjE2NTQ0ODg1MDEsImp0aSI6IjI0YjNlNjQ5YWJiNjRjMzNhYzc3NjAyNDUxOTI1ZGMwIiwidXNlcl9pZCI6ODAsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo4MCwic2VsbGVyX2lkIjoyNCwiY3VzdG9tZXJfaWQiOjk3LCJuYW1lIjoiRGVyZWsgSHdhbmciLCJlbWFpbCI6ImRlcmVraHdhbmczM0BnbWFpbC5jb20ifX0.6Vk1vwq5fNOipuUUBl0HE3Vmz0BD4Vs3X6Yebvl_S0c");
+    list_category().then(
+      response => {
+        this.categorySelection = response.data
+      }
+    )
   },
 }
 
