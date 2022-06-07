@@ -21,7 +21,7 @@ import ShippingSummary from "@/components/box/ShippingSummary.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { buyer_retrieve_order } from "@/api_v2/order"
+import { buyer_retrieve_order } from "@/api_v2/order";
 
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();

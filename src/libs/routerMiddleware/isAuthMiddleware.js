@@ -23,4 +23,5 @@ export default async (to, from)=>{
         }
         return true
     }
+    return '/buyer/login'
 }
