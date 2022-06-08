@@ -2,12 +2,12 @@
 <div :class="{ hidden: store.openTab !== 1, block: store.openTab === 1 }">
     <div>My Cart</div>
     <div class="box grid grid-cols-12 gap-4">
-    <div class="overflow-x-auto hidden col-span-12 2xl:col-span-7 2xl:block lg:block sm:block lg:col-span-7">
+    <div class="overflow-x-auto  col-span-12 2xl:col-span-7 2xl:block lg:block sm:block lg:col-span-7">
         <ShoppingCartTable />
     </div>
-    <div class="block overflow-x-auto col-span-12 2xl:col-span-7 lg:col-span-7 2xl:hidden lg:hidden sm:hidden">
+    <!-- <div class="block overflow-x-auto col-span-12 2xl:col-span-7 lg:col-span-7 2xl:hidden lg:hidden sm:hidden">
         <ShoppingCartTable_mobile />
-    </div> 
+    </div>  -->
     <div class="col-span-12 2xl:col-start-8 2xl:col-span-5 lg:col-start-8 lg:col-span-5">
         <OrderSummary /> 
         <AddItemModal></AddItemModal>
@@ -28,7 +28,7 @@
 <script setup>
 import OrderSummary from "./OrderSummary.vue"; 
 import ShoppingCartTable from "./ShoppingCartTable.vue";
-import ShoppingCartTable_mobile from "./ShoppingCartTable-mobile.vue";
+// import ShoppingCartTable_mobile from "./ShoppingCartTable-mobile.vue";
 import AddItemModal from "./AddItemModal.vue";
 
 import { computed, onMounted, ref, watch } from "vue";

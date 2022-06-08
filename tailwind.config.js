@@ -67,6 +67,9 @@ module.exports = {
         1.5: 1.5,
         2.5: 2.5,
       },
+      flexGrow: {
+        '2': 2
+      },
     },
   },
   plugins: [require("@tailwindcss/forms")],
