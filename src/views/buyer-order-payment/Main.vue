@@ -28,13 +28,13 @@ import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 const store = useLSSBuyerOrderStore(); 
 
 onMounted(()=>{
-  buyer_retrieve_order(route.params.order_id)
-  .then(
-      res => {
-        store.order = res.data
-        console.log(res.data)
-      }
-  )
+    buyer_retrieve_order(route.params.order_id)
+    .then(
+        res => {
+            store.order = res.data
+            console.log(res.data)
+        }
+    )
 })
 
 

@@ -146,43 +146,55 @@
       </div>
     </div>
     <div class="my-5 flex justify-end">
-      <button class="w-full btn btn-primary lg:w-fit 2xl:lg:w-fit" @click="to_payment">
+      <button class="w-full btn btn-primary lg:w-fit 2xl:lg:w-fit" @click="proceed_to_payment">
         Proceed to Payment
       </button>
     </div>
   </div>
 </template>
+
+
 <script setup>
 import OrderSummary from "./OrderSummary.vue";
 import ShoppingCartTableSimple from "./ShoppingCartTable-simple.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-
 import { useRoute, useRouter } from "vue-router";
-import { method } from "lodash";
 import { update_delivery_info } from "@/api_v2/pre_order"
+
 const route = useRoute();
 const router = useRouter();
 
 const store = useShoppingCartStore();
 
-function select_shipping_method(method) {
+const select_shipping_method = method=> {
   store.shipping_info.method = method
 }
 
-function to_payment() {
-  if (store.shipping_info.method == 'delivery') {
-    store.shipping_info.delivery_info = Object.assign(store.shipping_info.delivery_info, store.contact_info)
-    store.shipping_info.delivery_info.shipping_option = store.shipping_info.shipping_option
-    store.shipping_info.delivery_info.shipping_remark = store.shipping_info.shipping_remark
-  } else {
-    store.shipping_info.pickup_info = Object.assign(store.shipping_info.pickup_info, store.contact_info)
-    store.shipping_info.pickup_info.shipping_option = store.shipping_info.shipping_option
-    store.shipping_info.pickup_info.shipping_remark = store.shipping_info.shipping_remark
-  }
-  console.log(store.shipping_info)
-  update_delivery_info(route.params.pre_order_id, store.shipping_info)
+const proceed_to_payment = ()=> {
+
+
+  // if (store.shipping_info.method == 'delivery') {
+  //   store.shipping_info.delivery_info = Object.assign(store.shipping_info.delivery_info, store.contact_info)
+  //   store.shipping_info.delivery_info.shipping_option = store.shipping_info.shipping_option
+  //   store.shipping_info.delivery_info.shipping_remark = store.shipping_info.shipping_remark
+  // } else {
+  //   store.shipping_info.pickup_info = Object.assign(store.shipping_info.pickup_info, store.contact_info)
+  //   store.shipping_info.pickup_info.shipping_option = store.shipping_info.shipping_option
+  //   store.shipping_info.pickup_info.shipping_remark = store.shipping_info.shipping_remark
+  // }
+
+  const assignData={shipping_remark:store.shipping_info.shipping_remark}
+  const data ={
+    method:store.shipping_info.method,
+    shipping_option:store.shipping_info.shipping_option,
+    pickup_info:Object.assign(Object.assign(store.shipping_info.pickup_info, store.contact_info),assignData),
+    delivery_info:Object.assign(Object.assign(store.shipping_info.delivery_info, store.contact_info),assignData)
+    }
+  update_delivery_info(route.params.pre_order_id, data).then(res=>{
+    router.push(`/buyer/order/${res.data.id}/payment`)
+  })
 }
 
 

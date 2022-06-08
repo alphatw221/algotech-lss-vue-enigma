@@ -69,13 +69,14 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
-import { list_campapign_product } from "@/api_v2/pre_order";
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 const store = useShoppingCartStore(); 
+const layoutStore = useLSSBuyerLayoutStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const tableColumns = ref([
@@ -89,17 +90,8 @@ const tableColumns = ref([
 
 const deleteOrderProduct = (order_product_id, index) =>{
 	buyer_delete_order_product(order_product_id).then(res=>{
-		// store.order.products.splice(index, 1);
 		store.order = res.data
-		list_campapign_product(route.params.pre_order_id)
-		.then(
-			response => { 
-				store.addOnProducts = response.data 
-				for (let i = 0; i < store.addOnProducts.length; i ++) {
-					store.addOnProducts[i].qty = 1
-				}
-			}
-		)
+		layoutStore.notification.showMessageToast("Delete Success")
 	})
 }
 
@@ -114,7 +106,8 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 		event.target.value = 1
 		return
 	} else {
-		alert('Invalid Quantity')
+		layoutStore.alert.showMessageToast("Invalid Quantity")
+		// alert('Invalid Quantity')
 		event.target.value = store.order.products[index].qty
 		return
 	}
@@ -124,8 +117,6 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 		res => {
 			store.order = res.data
 		}
-	).catch(
-		event.target.value = store.order.products[index].qty
 	)
 }
 </script>
