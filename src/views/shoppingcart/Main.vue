@@ -75,6 +75,8 @@ import MyCartTab from "./MyCartTab.vue";
 import DeliveryTab from "./DeliveryTab.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
+
 import { retrieve_pre_order } from "@/api_v2/pre_order";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
@@ -83,7 +85,21 @@ const toggleTabs = tabNumber => store.openTab = tabNumber
 onMounted(()=>{
     retrieve_pre_order(route.params.pre_order_id)
     .then(
-        res => { store.order = res.data }
+        res => { 
+          store.order = res.data;
+          console.log(res.data) 
+        }
     )
+
+  buyer_list_campapign_product(route.params.pre_order_id)
+	.then(
+		res => {
+			store.campaignProducts = res.data
+			console.log(res.data)
+		}
+	)
+
 })
+
+
 </script>

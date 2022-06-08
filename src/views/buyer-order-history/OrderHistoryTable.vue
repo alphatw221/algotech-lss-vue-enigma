@@ -1,6 +1,6 @@
 <template>
 	<div >
-		<table class="table table-report mt-5 overflow-y-scroll table-auto">
+		<table class="table table-report mt-2 overflow-y-scroll table-auto">
 			<thead>
 				<tr >
 					<th class="whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
@@ -20,7 +20,7 @@
 						:key="column.key"
 					>
                         <template v-if="column.key === 'action'">
-                            <EyeIcon @click="router.push(`/buyer/order/${order.id}`);" />
+                            <EyeIcon @click="router.push(`/buyer/order/${order.id}`);" class="hover:cursor-pointer "/>
                         </template>
 						<template v-else-if="column.type=='dateTime'">
 							{{ new Date(order[column.key]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
@@ -96,3 +96,79 @@ onMounted(()=>{
 })
 
 </script>
+
+
+<style scoped>
+  td{
+    height: 28px !important;
+	padding-left: 20px !important;
+  }
+
+  @media only screen and (max-width: 760px),
+  (min-device-width: 768px) and (max-device-width: 1024px) {
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+	padding: 0px !important;
+	font-size: 15px;
+  }
+
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
+
+  tr {
+    border-bottom: 1px solid black;
+	padding-top: 10px;
+  }
+
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+	width: auto;
+    padding-left: 50% !important;
+    text-align: left !important;
+  }
+
+  td:before {
+    position: absolute;
+    left: 6px;
+    width: 45%;
+    padding-right: 10px;
+    white-space: nowrap;
+    font-weight: bold;
+  }
+
+  td:nth-of-type(1):before {
+    content: "Order NO.";
+    /* color: #0e9893; */
+  }
+  td:nth-of-type(2):before {
+    content: "Date";
+    /* color: #0e9893; */
+  }
+  td:nth-of-type(3):before {
+    content: "Payment Method";
+    /* color: #0e9893; */
+  }
+  td:nth-of-type(4):before {
+    content: "Amount";
+    /* color: #0e9893; */
+  }
+  td:nth-of-type(5):before {
+    content: "Status";
+    /* color: #0e9893; */
+  }
+  td:nth-of-type(6):before {
+    content: "Details";
+    /* color: #0e9893; */
+  }
+}
+</style>

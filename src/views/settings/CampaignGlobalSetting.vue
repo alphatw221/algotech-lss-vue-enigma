@@ -22,8 +22,8 @@
                         <Accordion>
                             <div class="flex">
                                 <div class="mr-auto"> Delivery Note: <br> <span class="text-slate-400">
-                                        13546fe8grglsafoiayg
-                                        ijgdlkgdlgjkjdghdjsghldjhlakjhlgdjhljghdjghghghkjdghkdjfghkjfhgkfjhgkjfhg</span>
+                                13546fe8grglsafoiayg
+                                ijgdlkgdlgjkjdghdjsghldjhlakjhlgdjhljghdjghghghkjdghkdjfghkjfhgkfjhgkjfhg</span>
                                 </div>
                                 <div>
                                     <Edit2Icon />
@@ -31,8 +31,8 @@
                             </div>
                         </Accordion>
                         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed">
-                            <textarea class="form-control h-48 mr-5" placeholder="Address">
-                                        10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore</textarea>
+                            <textarea class="form-control h-48 mr-5 indent-4" placeholder="Address">
+                            10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore</textarea>
                             <div class="flex justify-end">
                                 <button class="btn btn-rounded-secondary mr-5"> Previous</button>
                                 <button class="btn btn-rounded-primary"> Next</button>
@@ -52,7 +52,7 @@
                             </div>
                         </Accordion>
                         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed">
-                            <textarea class="form-control h-48 mr-5" placeholder="Address">
+                            <textarea class="form-control h-48 mr-5 indent-4" placeholder="Address">
                                 10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore</textarea>
                             <div class="flex justify-end">
                                 <button class="btn btn-rounded-secondary mr-5"> Previous</button>
@@ -73,7 +73,7 @@
                             </div>
                         </Accordion>
                         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed">
-                            <textarea class="form-control h-48 mr-5" placeholder="Address">
+                            <textarea class="form-control h-48 mr-5 indent-4" placeholder="Address">
                                         10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore</textarea>
                             <div class="flex justify-end">
                                 <button class="btn btn-rounded-secondary mr-5"> Previous</button>
@@ -209,7 +209,7 @@
                     </div>
                     <div class="col-span-12 m-10 p-5">
                         <div class="text-md font-medium m-2">Remark</div>
-                        <textarea id="" class="form-control" placeholder="">
+                        <textarea id="" class="form-control indent-4" placeholder="">
                                   Remark remark remark remark</textarea>
                     </div>
                 </TabGroup>
