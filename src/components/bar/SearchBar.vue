@@ -9,7 +9,7 @@
                         </label>
                         <select 
                             id="tabulator-html-filter-field"
-                            class="form-select mr-4 h-10 w-auto mt-2 sm:mt-0"
+                            class="form-select mr-4 h-10 w-auto mt-2"
                             v-model="filterColumn"
                             @change="search"
                         >
