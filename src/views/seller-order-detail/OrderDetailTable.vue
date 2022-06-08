@@ -29,7 +29,15 @@
 					{{ product.name }}
 				</td>
 				<td class="text-center h-20">
-					{{ product.qty }}
+					<template v-if="store.order_type === 'order'">
+						{{ product.qty }}
+					</template>
+					<template v-else>
+						<div class="form-check self-center place-content-center">
+                            <input type="text" class="form-control" aria-label="default input" :value="product.qty"
+                                style="width: 4rem; height: 2rem; margin-top: 5px;" @change="update_qty(index)"/>
+                        </div>
+					</template>
 				</td>
 				<td class="text-center h-20">
 					{{ product.price }}
@@ -37,7 +45,7 @@
 				<td class="text-center h-20">
 					{{ product.qty * product.price }}
 				</td>
-                <td class="h-20">
+                <td class="h-20" v-show="store.order_type !== 'order'">
 					<Trash2Icon />
 				</td>
 			</tr>
@@ -51,7 +59,7 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
-const store = useShoppingCartStore(); 
+const store = useShoppingCartStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const tableColumns = ref([
@@ -62,4 +70,8 @@ const tableColumns = ref([
 	{ key: "subtotal", name: "Subtotal",  },
     { key: "remove", name: " ",  }
 ])
+
+function update_qty(product_id){
+	console.log(`store.orderDetail.products.`+product_id+`.qty`)
+}
 </script>

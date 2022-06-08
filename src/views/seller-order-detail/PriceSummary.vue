@@ -1,5 +1,5 @@
 <template>
-  <div class="box p-5 m-3 border-2 border-secondary">
+  <div class="box p-5 border-2 border-secondary">
     <div>
       <div class="flex mb-4 dark:border-darkmode-400">
         <span class="text-lg">Price Summary</span>
@@ -13,7 +13,7 @@
         <div class="mr-auto">Shipping</div>
         <div class="font-medium">{{store.orderDetail.shipping_cost}}</div>
       </div>
-      <template v-if="store.orderDetail.status === 'complete'">
+      <template v-if="store.order_type === 'order'">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
             <div class="font-medium">{{store.orderDetail.adjust_price ?? ''}}</div>

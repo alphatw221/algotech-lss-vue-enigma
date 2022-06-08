@@ -6,6 +6,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 		openTab: ref(1),
 		order: ref({}),
 		orderDetail: ref({}),
+		order_type:ref('pre_order'),
 		// orderSummary:ref({}),
 		contact_info: ref({
 			shipping_first_name: "",
