@@ -6,7 +6,7 @@ import mkcert from 'vite-plugin-mkcert'
 
 // https://vitejs.dev/config/
 export default defineConfig({
-  base:'./static',
+  base:'/',
   build:{
     outDir:'./static',
     manifest:true,
