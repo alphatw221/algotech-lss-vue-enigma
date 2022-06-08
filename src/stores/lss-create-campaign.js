@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue"
-export const useCampaignProductsStore = defineStore("sellerCampaignProducts", {
+export const useCreateCampaignStore = defineStore("sellerCampaignProducts", {
 	state: () => ({
 		campaignPeriod: ref({}),
 		campaignTitle: ref(''),
