@@ -4,8 +4,17 @@
     <LSSBuyerTopBar />
     <LSSBuyerMobileMenu />
     <Notification refKey="buyerMessageNotification" :options="{duration: 3000,}" class="flex flex-col sm:flex-row">
-      <div class="font-medium">Message</div>
+      <div id="message" class="font-medium">Message</div>
     </Notification>
+
+    <Notification refKey="buyerMessageAlert" :options="{duration: 3000,}" class="flex flex-col sm:flex-row">
+      <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
+      <div id="message" class="font-medium">Message</div>
+    </Notification>
+
+    
+
+
     <div class="flex overflow-hidden">
       
       <LSSBuyerMenu />
@@ -31,6 +40,13 @@ const store = useLSSBuyerLayoutStore();
 
 provide("bind[buyerMessageNotification]", (el) => {
   store.notification = el;
+
+  // el.showMessageToast('test notification')
+});
+provide("bind[buyerMessageAlert]", (el) => {
+  store.alert = el;
+
+  // el.showMessageToast('test alert')
 });
 
 </script>

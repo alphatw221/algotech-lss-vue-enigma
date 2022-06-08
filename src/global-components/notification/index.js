@@ -26,7 +26,7 @@ const init = (el, props) => {
   el.showMessageToast = message => {
     const clonedEl = dom(el).clone().removeClass("hidden")[0];
     dom(clonedEl).addClass(toastifyClass);
-    dom(clonedEl).find('div')[0].innerHTML=message
+    dom(clonedEl).find('#message')[0].innerHTML=message
     // dom(clonedEl).find('div')[0].text(message);
     clonedEl.toastify = Toastify({
       text:message,

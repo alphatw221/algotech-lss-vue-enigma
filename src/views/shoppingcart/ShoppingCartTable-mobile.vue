@@ -56,7 +56,7 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
-import { list_campapign_product } from "@/api_v2/pre_order";
+// import { list_campapign_product } from "@/api_v2/campaign_";
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute } from "vue-router";
@@ -71,19 +71,19 @@ const tableColumns = ref([
 ])
 
 const deleteOrderProduct = (order_product_id, index) => {
-    buyer_delete_order_product(order_product_id).then(res => {
-        // store.order.products.splice(index, 1);
-        store.order = res.data
-        list_campapign_product(route.params.pre_order_id)
-            .then(
-                response => {
-                    store.addOnProducts = response.data
-                    for (let i = 0; i < store.addOnProducts.length; i++) {
-                        store.addOnProducts[i].qty = 1
-                    }
-                }
-            )
-    })
+    // buyer_delete_order_product(order_product_id).then(res => {
+    //     // store.order.products.splice(index, 1);
+    //     store.order = res.data
+    //     list_campapign_product(route.params.pre_order_id)
+    //         .then(
+    //             response => {
+    //                 store.addOnProducts = response.data
+    //                 for (let i = 0; i < store.addOnProducts.length; i++) {
+    //                     store.addOnProducts[i].qty = 1
+    //                 }
+    //             }
+    //         )
+    // })
 }
 
 const changeQuantity = (event, index, qty, operation, order_product_id) => {
