@@ -23,7 +23,7 @@
                     </li>
                 </ul>
 
-                <div class="gird grid-cols-2 gap-5 mx-5 px-10" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index"
+                <div class="gird grid-cols-2 gap-5 mx-0 px-5 lg:mx-5 lg:px-10 2xl:mx-5 2xl:px-10" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index"
                     :class="{ hidden: openTab !== index, block: openTab === index }">
                     <table>
                         <tr>

@@ -54,7 +54,7 @@
 									>
 									</SearchBar>	
 									<DataTable
-										:requestUrl="'/api/v2/product/list'"
+										:requestUrl="'/api/v2/product/search'"
 										:columns="tableColumns"
 										:routerPath="'add-product'"
 										:routerParam="'update'"
@@ -74,54 +74,41 @@
 	</div>
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted } from 'vue'
+import { createAxiosWithBearer } from "@/libs/axiosClient";
 import SearchBar from "@/components/bar/SearchBar.vue";
 import DataTable from "@/components/table/DataTable.vue";
-import { list_category } from '@/api/stock';
+import { list_category } from '@/api_v2/stock';
 
-
-export default {
-  components: {
-    SearchBar,
-    DataTable,
-  },
-  data() {
-    return {
-      searchColumns: {
-        keywords: [
+const searchColumns = ref([{
+	keywords: [
           { text: "Name", value: "name" },
           { text: "Order Code", value: "order_code" },
           { text: "Description", value: "description" },
         ],
-      },
-      tableColumns: [
-        { name: "Image", key: "image" },
-        { name: "Product Name", key: "name" },
-        { name: "Order Code", key: "order_code" },
-        { name: "Type", key: "type" },
-        { name: "Category", key: "category" },
-        { name: "Description", key: "description" },
-        { name: "Quantity", key: "qty" },
-        { name: "Price", key: "price" },
-        // {name: 'Edit', key: 'edit'},
-      ],
-	  categorySelection: []
-    };
-  },
-  mounted() {
-    this.$cookies.set(
-      "access_token",
-      "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU1MDkzMzAxLCJpYXQiOjE2NTQ0ODg1MDEsImp0aSI6IjI0YjNlNjQ5YWJiNjRjMzNhYzc3NjAyNDUxOTI1ZGMwIiwidXNlcl9pZCI6ODAsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo4MCwic2VsbGVyX2lkIjoyNCwiY3VzdG9tZXJfaWQiOjk3LCJuYW1lIjoiRGVyZWsgSHdhbmciLCJlbWFpbCI6ImRlcmVraHdhbmczM0BnbWFpbC5jb20ifX0.6Vk1vwq5fNOipuUUBl0HE3Vmz0BD4Vs3X6Yebvl_S0c"
-    );
+}])
 
+const tableColumns = ref([
+    { name: "Image", key: "image" },
+	{ name: "Product Name", key: "name" },
+	{ name: "Order Code", key: "order_code" },
+	{ name: "Type", key: "type" },
+	{ name: "Category", key: "category" },
+	{ name: "Description", key: "description" },
+	{ name: "Quantity", key: "qty" },
+	{ name: "Price", key: "price" },
+	// {name: 'Edit', key: 'edit'},
+])
+
+const categorySelection= ref([])
+
+onMounted(() => {
 	list_category().then(
 		response => { 
-			this.categorySelection = response.data 
+			categorySelection.value = response.data 
 		}
 	)
-  },
-  methods: {},
-};
+})
 </script>
 
-<style scoped></style>

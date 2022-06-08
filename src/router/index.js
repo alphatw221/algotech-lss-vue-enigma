@@ -94,6 +94,7 @@ import Profile from "../views/profile/Profile.vue";
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import isBuyerAuth from "@/libs/routerMiddleware/isBuyerAuth"
+import isSellerAuth from "@/libs/routerMiddleware/isSellerAuth"
 
 const routes = [
   // {
@@ -104,6 +105,7 @@ const routes = [
   {
     path: "/seller",
     component: LssSideMenu,
+    beforeEnter: isSellerAuth,
     children: [
       {
         path: "profile",
@@ -124,6 +126,11 @@ const routes = [
         path: "manage-order",
         name: "side-menu-manage-order",
         component: ManageOrder,
+      },
+      {
+        path: "order/:order_id?",
+        name: "SellerOrderDetail",
+        component: () => import('@/views/seller-order-detail/Main.vue'),
       },
       {
         path: "campaign-select",

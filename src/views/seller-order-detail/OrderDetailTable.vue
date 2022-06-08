@@ -37,6 +37,9 @@
 				<td class="text-center h-20">
 					{{ product.qty * product.price }}
 				</td>
+                <td class="h-20">
+					<Trash2Icon />
+				</td>
 			</tr>
 		</tbody>
 	</table>
@@ -45,10 +48,10 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 
+import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
-import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
-const store = useLSSBuyerOrderStore(); 
+const store = useShoppingCartStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const tableColumns = ref([
@@ -56,6 +59,7 @@ const tableColumns = ref([
 	{ key: "product", name: "Product",  },
 	{ key: "qty", name: "Quantity",  },
 	{ key: "price", name: "Price",  },
-	{ key: "subtotal", name: "Subtotal",  }
+	{ key: "subtotal", name: "Subtotal",  },
+    { key: "remove", name: " ",  }
 ])
 </script>

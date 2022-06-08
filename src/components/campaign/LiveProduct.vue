@@ -1,6 +1,6 @@
 <template>
-    <div class="box col-span-12 col-start-1 row-span-4 lg:col-span-7 lg:row-span-2 lg:row-start-1 2xl:col-span-4 2xl:max-h-screen" >
-        <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 lg:mt-2">
+    <div class="box col-span-12 col-start-1 row-span-4 h-fit mt-0 lg:col-span-7 lg:row-start-3 lg:-mt-2 2xl:col-span-4 2xl:row-start-1" >
+        <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 lg:mt-3">
             <row class="col-span-12" style="margin: -13px 0 -13px 0px;">
                 <h2 class="text-lg font-medium w-48">Product</h2>
                 <a href="javascript:;" @click="this.addProductFromStock = !this.addProductFromStock"
@@ -169,10 +169,15 @@ export default {
         };
     },
     mounted() {
-        list_campaign_product(this.campaign_id).then(res => {
-            console.log(res.data)
-            this.product_results = res.data
-        })
+        if (this.campaign_id) {
+            list_campaign_product(this.campaign_id).then(res => {
+                console.log(res.data)
+                this.product_results = res.data
+            }).catch(error => {
+                console.log(error);
+            })
+        }
+        
     },
     methods: {
         item_status_switch(id, campaign_id, data) {
@@ -189,8 +194,6 @@ export default {
                         break
                     case 401:
                         alert('You have no permission to access this campaign product asset.')
-                        this.items[id].remove()
-                        delete this.items[id]
                         break
                 }
             })

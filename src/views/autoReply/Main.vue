@@ -2,13 +2,13 @@
     <div class="intro-y chat grid grid-cols-12 gap-5 w-full box mt-5">
         <label class="text-lg col-start-1 col-span-4 m-5"> Setup Auto Reply</label>
         <button class="col-start-11 btn btn-warning btn-rounded w-24 h-10 mt-5 text-white"
-            @click="createModal = true; createAutoReply">
+            @click="createModal = true;">
             <span class="font-bold mr-1 text-lg">+</span> Create
         </button>
         <Alert :show="showAlert" class="col-start-1 col-span-12 alert-danger mb-2"> Change - Not Saved </Alert>
         <div class="col-start-1 col-span-12">
             <div class="overflow-x-auto">
-                <AutoReplyTable class="overflow-x-auto" :requestUrl="'/api/auto_response/list'" :columns="tableColumns">
+                <AutoReplyTable class="overflow-x-auto" :requestUrl="'/api/auto_response/list'" :columns="tableColumns" >
                 </AutoReplyTable>
             </div>
         </div>
@@ -26,41 +26,59 @@
             <div class="col-span-12">
                 <label for="modal-form-1" class="form-label">Keywords to Detect</label>
                 <input id="modal-form-1" type="text" class="form-control rounded-full" placeholder=""
-                    v-model="newReplyName" />
+                    v-model="createData.input_msg" />
             </div>
             <div class="col-span-12">
                 <label for="modal-form-1" class="form-label">Set Automated Response</label>
                 <input id="modal-form-1" type="text" class="form-control rounded-full" placeholder=""
-                    v-model="newReplyResponse" />
+                    v-model="createData.output_msg" />
             </div>
             <div class="col-span-12">
                 <label for="modal-form-1" class="form-label">Remark</label>
                 <input id="modal-form-1" type="text" class="form-control rounded-full" placeholder=""
-                    v-model="newReplyRemark" />
+                    v-model="createData.description" />
             </div>
             <div class="col-span-12">
-
+                <label for="modal-form-1" class="form-label">Following</label>
             </div>
+            <row class="col-span-12">
+                <template v-for="(data, key) in facebookPagesData" :key="key">
+                    <row class="flex-row">
+                        <input name="fb_page" type="radio" class="form-control rounded-full vertical-center" style="width:20px" @click="choosePage(data)">
+                    </row>
+                    <img :src="data.image">
+                </template>
+            </row>
+            
+            
         </ModalBody>
         <ModalFooter class="w-full flex">
             <button type="button" @click="closeWithAlert()"
                 class="btn btn-outline-secondary w-20 mr-auto">
                 Cancel
             </button>
-            <button type="button" @click="createAutoReply" class="btn btn-primary w-20">Save</button>
+            <button type="button" @click="createAutoReply()" class="btn btn-primary w-20">Save</button>
         </ModalFooter>
     </Modal>
 </template>
 
 <script setup>
-import { ref, onMounted, provide } from 'vue'
+import { ref, onMounted, provide, getCurrentInstance } from 'vue'
 import AutoReplyTable from "@/components/table/AutoReplyTable.vue";
 import { create_auto_response, auto_response_list } from "@/api/auto_reply";
+import {get_user_subscription_facebook_pages} from "@/api/user_subscription"
 
+const internalInstance = getCurrentInstance();
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const createModal = ref(false)
 const userPlatforms = ref('facebook')
-const platformID = ref()
 const showAlert = ref(false)
+let createData = ref({
+    "input_msg": "",
+    "output_msg": "",
+    "description": ""
+})
+let chosenPage = ref()
 
 const tableColumns = ref([
     { name: "#", key: 'id' },
@@ -72,24 +90,28 @@ const tableColumns = ref([
     { name: "Delete", key: "delete" },
 ])
 
+let facebookPagesData = ref([])
 onMounted(() => {
-    auto_response_list().then(res => {
-        platformID.value = res.data[0].facebook_page.page_id
-        console.log(platformID.value)
-        console.log(res.data)
-    }).catch(err => {
-        alert(err)
+    get_user_subscription_facebook_pages().then(res=>{
+        facebookPagesData.value = res.data
+        console.log(facebookPagesData.value)
     })
 })
 
 function createAutoReply() {
-    create_auto_response('facebook', this.platformID).then(
+    let data = createData.value
+    create_auto_response('facebook', chosenPage.value.id, data).then(
         response => {
             createModal.value = false;
+            eventBus.emit('getReplyData')
         }
     )
 }
 
+
+function choosePage(data) {
+    chosenPage.value = data
+}
 function closeWithAlert(){
     createModal.value = false; 
     showAlert.value = true;

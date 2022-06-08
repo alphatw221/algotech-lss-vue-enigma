@@ -60,10 +60,10 @@
                             <div class="col-start-3 col-span-3 py-2">In-store pickup</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Store</div>
-                            <div class="col-start-3 col-span-3 py-2">{{ store.order.meta.pick_up_store }}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.meta.pick_up_store}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
-                            <div class="col-start-3 col-span-3 py-2">{{ store.order.meta.pick_up_store_address }}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.meta.pick_up_store_address}}</div>
                         </template>
                         <template v-if="store.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
@@ -71,10 +71,10 @@
 
                             <div class="col-start-1 col-span-2 py-3">Delivery Address</div>
                             <div class="col-start-3 col-span-3 py-3">
-                                {{ store.order.shipping_location }} ,
-                                {{ store.order.shipping_region }} ,
-                                {{ store.order.shipping_postcode }} ,
-                                {{ store.order.shipping_address_1 }}
+                                {{store.order.shipping_location}} ,
+                                {{store.order.shipping_region}} ,
+                                {{store.order.shipping_postcode}} ,
+                                {{store.order.shipping_address_1}}
                             </div>
                         </template>
                     </div>
@@ -89,19 +89,19 @@
                 <div class="grid grid-cols-3 gap-2">
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Total</div>
-                        <div class="mr-20">{{ parseFloat(store.order.subtotal).toFixed(2) }}</div>
+                        <div class="mr-20">{{store.order.subtotal}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Delivery Charge</div>
-                        <div class="mr-20">{{ store.order.shipping_cost }}</div>
+                        <div class="mr-20">{{store.order.shipping_cost}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
-                        <div class="mr-auto">Discount {{ store.order.adjust_title ?? '' }}</div>
-                        <div class="mr-20">{{ store.order.adjust_price }}</div>
+                        <div class="mr-auto">Discount {{store.order.adjust_title ?? ''}}</div>
+                        <div class="mr-20">{{store.order.adjust_price}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Grand Total</div>
-                        <div class="mr-20">{{ parseFloat(store.order.total).toFixed(2) }}</div>
+                        <div class="mr-20">{{store.order.total}}</div>
                     </div>
                 </div>
             </div>

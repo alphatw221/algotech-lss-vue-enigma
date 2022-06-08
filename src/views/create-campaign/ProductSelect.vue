@@ -1,5 +1,5 @@
 <template>
-  <div class="grid grid-cols-12 box p-5 my-5 gap-2">
+  <div class="grid grid-cols-12 box p-5 mt-5 gap-2">
     <span class="col-start-1 col-span-12 text-2xl font-medium leading-none mb-2">Create Campaign</span>
     <div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
       <div class="flex">
@@ -29,63 +29,20 @@
     <div class="box mt-5 p-5 col-span-12">
       <span class="text-2xl font-medium leading-none mb-3">Assign Product</span>
 
-      <div class="overflow-x-auto">
-        <div class="intro-y col-span-12 overflow-auto lg:overflow-visible" v-show="selectProduct">
+      <div>
+        <div class="overflow-x-auto intro-y col-span-12" v-show="selectProduct">
           <SearchBar :searchColumns="searchColumns" :filterColums="categorySelection" class="-mb-8" />
-          <DataTable class="overflow-x-auto" :requestUrl="'/api/v2/product/search'" :columns="tableColumns" />
+          <AssignTable :columns="tableColumns" />
         </div>
-        <table class="table table-report mt-2" v-show="comfirmProduct">
-          <thead>
-            <tr>
-              <th class="whitespace-nowrap" v-for="column in add_product_columns" :key="column.key">
-                <template v-if="column.key == 'select'">
-                  <div class="form-check mt-2">
-                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="" />
-                  </div>
-                </template>
-                <template v-else-if="column.key === 'qty_for_campaign' || column.key === 'max_qty'" style="width:80px;">
-                  {{ column.name }}
-                </template>
-                <template v-else>
-                  {{ column.name }}
-                </template>
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr v-for="(product, key) in add_product_results" :key="key" class="intro-x">
-              <td v-for="column in add_product_columns" :key="column.key">
-                <template v-if="column.key === 'select' || column.key == 'editable' || column.key == 'deletable'">
-                  <div class="form-check mt-2">
-                    <input id="checkbox-switch-1" class="form-check-input" type="checkbox" value="" />
-                  </div>
-                </template>
-                <template v-else-if="column.key === 'image'" class="w-40">
-                  <div class="flex">
-                    <div class="w-10 h-10 image-fit zoom-in">
-                      <Tippy tag="img" class="rounded-full" :src="product.image" :content="`Uploaded at`" />
-                    </div>
-                  </div>
-                </template>
-                <template v-else-if="column.key === 'qty_for_campaign' || column.key === 'max_qty'">
-                  <input id="regular-form-1" type="text" class="form-control" placeholder="" style="width:100px;" />
-                </template>
-                <template v-else-if="column.key === 'price'">
-                  $ {{ product.price }}
-                </template>
-                <template v-else class="w-30">
-                  {{ product[column.key] }}
-                </template>
-              </td>
-            </tr>
-          </tbody>
+        
+        <table class="table-report mt-2" v-show="comfirmProduct">
         </table>
       </div>
-      <div v-show="selectProduct" class="flex justify-end mt-5">
+      <div v-show="selectProduct" class="flex justify-end mt-5 -mb-5">
         <button class="btn btn-outline-primary mr-5" @click="this.$router.back()"> Cancel</button>
         <button class="btn btn-outline-primary" @click="selectProduct = false, comfirmProduct = true"> Next</button>
       </div>
-      <div v-show="comfirmProduct" class="flex justify-end mt-5">
+      <div v-show="comfirmProduct" class="flex justify-end mt-5 -mb-5">
         <button class="btn btn-outline-primary mr-5" @click="comfirmProduct = false, selectProduct = true">
           Edit</button>
         <button class="btn btn-outline-primary" @click="this.$router.push('create-campaign/details')">
@@ -97,14 +54,15 @@
 
 
 <script>
+import { useCampaignProductsStore } from "@/stores/lss-campaign-products";
 import SearchBar from "@/components/create-Campaign/SearchBar.vue";
-import DataTable from "@/components/create-Campaign/AssignTable.vue";
-import { list_category } from '@/api/stock';
+import AssignTable from "@/components/create-Campaign/AssignTable.vue";
+import { list_category } from '@/api_v2/stock';
 
 export default {
   components: {
     SearchBar,
-    DataTable,
+    AssignTable,
   },
   data() {
     return {
@@ -136,59 +94,10 @@ export default {
         { name: "Type", key: "type" },
       ],
       categorySelection: [],
-      add_product_columns: [
-        { name: '', key: 'select' },
-        { name: 'Image', key: 'image' },
-        { name: 'Name', key: 'name' },
-        { name: 'Order Code', key: 'order_code' },
-        { name: 'OTY for Campaign', key: 'qty_for_campaign' },
-        { name: 'Max OTY/Order', key: 'max_qty' },
-        { name: 'Price', key: 'price' },
-        { name: 'Editable', key: 'editable' },
-        { name: 'Deletable', key: 'deletable' },
-        { name: 'Type', key: 'type' },
-      ],
-      add_product_results: [
-        {
-          image: '/src/assets/images/lss-product/shirt.jpg',
-          name: 'T-shirt',
-          order_code: 'B1',
-          qty_for_campaign: '',
-          max_qty: 20,
-          price: 64,
-          type: 'Product'
-        },
-        {
-          image: '/src/assets/images/lss-product/sweatshirt.jpg',
-          name: 'Turtleneck Sweatshirt',
-          order_code: 'B2',
-          qty_for_campaign: '',
-          max_qty: 20,
-          price: 88,
-          type: 'Product'
-        },
-        {
-          image: '/src/assets/images/lss-product/sweatpants.jpg',
-          name: 'Vintage Sweatpants',
-          order_code: 'B3',
-          qty_for_campaign: '',
-          max_qty: 20,
-          price: 59,
-          type: 'Product'
-        },
-        {
-          image: '/src/assets/images/lss-product/socks.jpg',
-          name: 'Christmas Socks',
-          order_code: 'B4',
-          qty_for_campaign: '',
-          max_qty: 20,
-          price: 45,
-          type: 'Product'
-        }],
     }
   },
   mounted() {
-    this.$cookies.set("access_token", "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU1MDkzMzAxLCJpYXQiOjE2NTQ0ODg1MDEsImp0aSI6IjI0YjNlNjQ5YWJiNjRjMzNhYzc3NjAyNDUxOTI1ZGMwIiwidXNlcl9pZCI6ODAsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo4MCwic2VsbGVyX2lkIjoyNCwiY3VzdG9tZXJfaWQiOjk3LCJuYW1lIjoiRGVyZWsgSHdhbmciLCJlbWFpbCI6ImRlcmVraHdhbmczM0BnbWFpbC5jb20ifX0.6Vk1vwq5fNOipuUUBl0HE3Vmz0BD4Vs3X6Yebvl_S0c");
+    
     list_category().then(
       response => {
         this.categorySelection = response.data
