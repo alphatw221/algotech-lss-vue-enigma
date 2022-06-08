@@ -70,7 +70,7 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, defineProps, getCurrentInstance} from 'vue'
 import { createAxiosWithBearer } from '@/libs/axiosClient'
-import { useCampaignProductsStore } from "@/stores/lss-campaign-products";
+import { useCampaignProductsStore } from "@/stores/lss-create-campaign";
 
 const store = useCampaignProductsStore(); 
 const props = defineProps({
@@ -91,11 +91,10 @@ const category = ref(undefined)
 
 
 onMounted(() => {
-    createAxiosWithBearer().get('/api/v2/product/search' + `?product_status=enabled`)
+    createAxiosWithBearer().get('/api/v2/product/search?product_status=enabled')
     .then(res => {
-        console.log(res);
-        store.stock = res.data;
-        console.log(store.stock);
+        store.stock = res.data.results;
+        listItems.value = res.data.results
     }).catch(function (error) {
         console.log(error);
     })
@@ -108,6 +107,7 @@ onMounted(() => {
     search()
     })
 })
+
 onUnmounted(() => {
     eventBus.off("assignTable");
 })

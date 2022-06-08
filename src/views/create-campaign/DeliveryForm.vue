@@ -57,7 +57,7 @@
       <div class="relative">
         <u class="text-lg mt-5"> Delivery Note</u>
         <a class="absolute top-0 right-0 text-[15px]" @click="editNotes = false"> Edit</a>
-        <textarea class="form-control flex w-[90%] indent-4 h-48 m-5 " :readonly="editNotes ? true : null">
+        <textarea class="form-control flex w-[90%] h-48 m-5 " :readonly="editNotes ? true : null">
                 Delivery NoteDelivery NoteDelivery NoteDelivery NoteDelivery NoteDelivery Note
                 Delivery NoteDelivery NoteDelivery NoteDelivery NoteDelivery NoteDelivery Note
             </textarea>
@@ -66,7 +66,7 @@
       </div>
     </div>
       <!-- Modals-->
-  <Modal :show="editDelivery" @hidden="editDelivery = false">
+  <Modal :show="editDelivery">
     <ModalHeader>
       <h2 class="font-medium text-base mr-auto">Create New Category</h2>
       <a @click="editDelivery = false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
@@ -95,7 +95,7 @@
     </ModalFooter>
   </Modal>
 
-    <Modal :show="editPickup" @hidden="editPickup = false">
+    <Modal :show="editPickup">
     <ModalHeader>
       <h2 class="font-medium text-base mr-auto">Create New Category</h2>
       <a @click="editPickup = false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">

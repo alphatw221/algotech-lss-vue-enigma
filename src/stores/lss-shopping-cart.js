@@ -26,6 +26,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			},
 			pickup_info: {
 			},
-		}),      
+		}),     
+		campaignProducts:ref([]) 
 	}),
 });

@@ -8,8 +8,8 @@
     <PaymentForm class="col-span-12" />
 
     <div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-      <button class="btn bg-[#969696] mr-5" @click="this.$router.back()"> Privious</button>
-      <button class="btn bg-[#ED2225]" @click="this.$router.push('/seller/campaign-list')"> Save</button>
+      <button class="btn bg-[#969696] mr-5" @click="$router.back()"> Previous</button>
+      <button class="btn bg-[#ED2225]" @click="$router.push('/seller/campaign-list')"> Save</button>
 
     </div>
   </div>

@@ -1,5 +1,5 @@
 <template>
-	<table class="table table-report mt-5 overflow-y-scroll overflow-x-auto">
+	<table class="table table-report overflow-x-auto">
 		<thead>
 			<tr>
 				<th
@@ -12,10 +12,10 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
-				<td class=" h-20">
+			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x mt-5">
+				<td class="imgtd">
 					<div class="flex">
-						<div class="w-10 h-10 image-fit zoom-in">
+						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in ">
 						<Tippy
 							tag="img"
 							class="rounded-full"
@@ -25,8 +25,8 @@
 						</div>
 					</div>
 				</td>
-				<td class="text-center h-20">
-					{{ product.name }}
+				<td class="text-center h-20 font-bold">
+					<div class="productName">{{ product.name }} </div>
 				</td>
 				<td class="text-center h-20">
 					<div class="flex">
@@ -49,10 +49,10 @@
 					</div>
 				</td>
 				<td class="text-center h-20">
-					{{ product.price }}
+					$ {{ product.price }}
 				</td>
 				<td class="text-center h-20">
-					{{ product.qty * product.price }}
+					$ {{ product.qty * product.price }}
 				</td>
 				<td class="table-report__action w-30 h-20">
 				<div class="flex justify-center items-center">
@@ -69,13 +69,14 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
-import { list_campapign_product } from "@/api_v2/pre_order";
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useRoute } from "vue-router";
 
 const route = useRoute();
 const store = useShoppingCartStore(); 
+const layoutStore = useLSSBuyerLayoutStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const tableColumns = ref([
@@ -89,17 +90,8 @@ const tableColumns = ref([
 
 const deleteOrderProduct = (order_product_id, index) =>{
 	buyer_delete_order_product(order_product_id).then(res=>{
-		// store.order.products.splice(index, 1);
 		store.order = res.data
-		list_campapign_product(route.params.pre_order_id)
-		.then(
-			response => { 
-				store.addOnProducts = response.data 
-				for (let i = 0; i < store.addOnProducts.length; i ++) {
-					store.addOnProducts[i].qty = 1
-				}
-			}
-		)
+		layoutStore.notification.showMessageToast("Delete Success")
 	})
 }
 
@@ -114,7 +106,8 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 		event.target.value = 1
 		return
 	} else {
-		alert('Invalid Quantity')
+		layoutStore.alert.showMessageToast("Invalid Quantity")
+		// alert('Invalid Quantity')
 		event.target.value = store.order.products[index].qty
 		return
 	}
@@ -124,21 +117,17 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 		res => {
 			store.order = res.data
 		}
-	).catch(
-		event.target.value = store.order.products[index].qty
 	)
 }
 </script>
 
 <style scoped>
   td{
-    height: 60px !important;
+    height: 40px;
   }
 
-
-
   @media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
+  (min-device-width: 768px) and (max-device-width: 768px) {
   table,
   thead,
   tbody,
@@ -146,6 +135,11 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
   td,
   tr {
     display: block;
+	font-size: 16px;
+	padding: 0px !important;
+  }
+  .imgtd{
+    height: 100px;
   }
 
   thead tr {
@@ -165,10 +159,12 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
     padding-left: 50% !important;
     text-align: left !important;
   }
+  .productName{
+	padding-left: 15px;
+  }
 
   td:before {
     position: absolute;
-    top: 6px;
     left: 6px;
     width: 45%;
     padding-right: 10px;
@@ -177,11 +173,11 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
   }
 
   td:nth-of-type(1):before {
-    content: "Image";
+    content: "";
     /* color: #0e9893; */
   }
   td:nth-of-type(2):before {
-    content: "Product";
+    content: "";
     /* color: #0e9893; */
   }
   td:nth-of-type(3):before {

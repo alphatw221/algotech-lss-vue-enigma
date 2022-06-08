@@ -1,8 +1,8 @@
 import { createAxiosWithBearer } from '@/libs/axiosClient'
 
 
-export const list = (requestUrl, pageSize, currentPage, searchColumn, keyword, product_status, category) => {
-    return createAxiosWithBearer().get(`${requestUrl}?page_size=${pageSize}&page=${currentPage}&search_column=${searchColumn}&keyword=${keyword}&product_status=${product_status}&category=${category}`)
+export const list = (pageSize, currentPage, searchColumn, keyword, product_status, category) => {
+    return createAxiosWithBearer().get(`/api/v2/product/search/?page_size=${pageSize}&page=${currentPage}&search_column=${searchColumn}&keyword=${keyword}&product_status=${product_status}&category=${category}`)
 }
 
 export const create = (data) => {
