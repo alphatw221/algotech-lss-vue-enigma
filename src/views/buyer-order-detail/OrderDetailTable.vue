@@ -12,7 +12,7 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="(product, index) in store.orderDetail.products" :key="index" class="intro-x">
+			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
 				<td class=" h-20">
 					<div class="flex">
 						<div class="w-10 h-10 image-fit zoom-in">
@@ -45,10 +45,10 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
-const store = useShoppingCartStore(); 
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+const store = useLSSBuyerOrderStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const tableColumns = ref([

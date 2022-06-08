@@ -5,9 +5,17 @@
             autoplay-speed="5000" 
             loop
         >
+            <!-- <CarouselItem >
+                <img src="./src/assets/images/login-page/new-lss-carousel-1.jpeg" class="carousel"/>
+            </CarouselItem>
+            <CarouselItem >
+                <img src="./src/assets/images/login-page/new-lss-carousel-2.jpeg" class="carousel"/>
+            </CarouselItem> -->
+
             <CarouselItem v-for="carousel in carousel_items" :key="carousel.src">
                 <img :src="carousel.src" class="carousel"/>
             </CarouselItem>
+
         </Carousel>
         
         <Card style="width:400px; height: 600px; opacity: .9;" class="center">
@@ -53,6 +61,8 @@
 
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
+import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
+import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'
 
 export default {
     setup() {
@@ -64,9 +74,13 @@ export default {
     },
     data() {
         return {
+            // carousel_items: [
+            //     { src: "/src/assets/images/login-page/new-lss-carousel-1.jpeg" },
+            //     { src: "/src/assets/images/login-page/new-lss-carousel-2.jpeg" }
+            // ],
             carousel_items: [
-                { src: "/src/assets/images/login-page/new-lss-carousel-1.jpeg" },
-                { src: "/src/assets/images/login-page/new-lss-carousel-2.jpeg" }
+                { src: img1 },
+                { src: img2 }
             ],
         }
     },
