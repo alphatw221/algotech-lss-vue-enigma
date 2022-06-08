@@ -25,8 +25,8 @@
             </div>
             <div class="col-start-1 col-span-12 -mt-2">
                 <video width="600" controls>
-                    <source src="mov_bbb.mp4" type="video/mp4" />
-                    <source src="mov_bbb.ogg" type="video/ogg" />
+                    <!-- <source src="mov_bbb.mp4" type="video/mp4" />
+                    <source src="mov_bbb.ogg" type="video/ogg" /> -->
                     Your browser does not support HTML video.
                 </video>
             </div>

@@ -86,11 +86,11 @@ import Localization from "../views/settings/Localization.vue";
 import ConnectPlatform from "../views/settings/ConnectPlatform.vue";  
 
 import Profile from "../views/profile/Profile.vue";
-import Test3 from "../views/test/test3.vue";
-import Test2 from "../views/test/test2.vue"; 
-import Test4 from "../views/test/test4.vue"; 
-import Test5 from "../views/test/test5.vue"; 
-import Test6 from "../views/test/test6.vue"; 
+// import Test3 from "../views/test/test3.vue";
+// import Test2 from "../views/test/test2.vue"; 
+// import Test4 from "../views/test/test4.vue"; 
+// import Test5 from "../views/test/test5.vue"; 
+// import Test6 from "../views/test/test6.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import isBuyerAuth from "@/libs/routerMiddleware/isBuyerAuth"
@@ -179,21 +179,21 @@ const routes = [
         name: "side-menu-auto-reply",
         component: AutoReply,
       },  
-      {
-        path: "test2",
-        name: "side-menu-test2",
-        component: Test2,
-      },
-      {
-        path: "test3",
-        name: "side-menu-test3",
-        component: Test3,
-      },
-      {
-        path: "test6",
-        name: "side-menu-test6",
-        component: Test6,
-      },
+      // {
+      //   path: "test2",
+      //   name: "side-menu-test2",
+      //   component: Test2,
+      // },
+      // {
+      //   path: "test3",
+      //   name: "side-menu-test3",
+      //   component: Test3,
+      // },
+      // {
+      //   path: "test6",
+      //   name: "side-menu-test6",
+      //   component: Test6,
+      // },
       {
         path: "dashboard-overview-1",
         name: "side-menu-dashboard-overview-1",
