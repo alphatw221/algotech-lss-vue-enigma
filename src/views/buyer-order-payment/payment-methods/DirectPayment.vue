@@ -129,16 +129,14 @@ const uploadReceipt = ()=>{
 
     let formData = new FormData()
     formData.append('last_five_digits','12345' )
-    formData.append('image',receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]||null)
+    formData.append('image',receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]||'')
 
     
     buyer_upload_receipt(route.params.order_id, formData)
     .then(
         res => {
             store.order = res.data
-            router.push(`/buyer/orders/`)
-
-
+            router.push(`/buyer/order/${route.params.order_id}`)
         }
     )
 }

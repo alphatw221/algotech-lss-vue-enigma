@@ -37,7 +37,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">Total Charge</div>
-        <div class="font-medium text-base">{{store.order.campaign.currency}} {{ cartTotal }}</div>
+        <div class="font-medium text-base" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ cartTotal }}</div>
       </div>
     </div>
     <div class="flex mt-5" v-if="store.openTab === 1">
