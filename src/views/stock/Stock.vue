@@ -81,13 +81,10 @@ import SearchBar from "@/components/bar/SearchBar.vue";
 import DataTable from "@/components/table/DataTable.vue";
 import { list_category } from '@/api_v2/stock';
 
-const searchColumns = ref([{
-	keywords: [
+const searchColumns = ref([
           { text: "Name", value: "name" },
           { text: "Order Code", value: "order_code" },
-          { text: "Description", value: "description" },
-        ],
-}])
+          { text: "Description", value: "description" },])
 
 const tableColumns = ref([
     { name: "Image", key: "image" },
