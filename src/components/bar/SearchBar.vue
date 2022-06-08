@@ -2,7 +2,7 @@
     <div class="intro-y box p-5 -mt-5">
         <form id="tabulator-html-filter-form" class="grid grid-cols-12 grid-warp">
             <div class="col-span-12 2xl:col-span-8 xl:col-span-8">
-                <div class="flex flex-wrap justify-start justify-items-stretch content-end">
+                <div class="flex flex-wrap justify-start justify-items-stretch content-end -mt-3">
                     <div class="flex-initial w-auto mr-4 items-center sm:mr-4" v-if="page_type === 'stock'">
                         <label class="w-14 mr-2">
                             Category
@@ -17,7 +17,7 @@
                         </select>
                     </div>
                     <div class="flex-initial w-auto items-center sm:mr-4">
-                        <label class="w-14 xl:w-auto mr-2 ">
+                        <label class="w-14 xl:w-auto mr-2">
                             Field
                         </label>
                         <select id="tabulator-html-filter-field"
