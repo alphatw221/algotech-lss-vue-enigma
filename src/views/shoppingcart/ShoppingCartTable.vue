@@ -1,5 +1,5 @@
 <template>
-	<table class="table table-report mt-5 overflow-x-auto">
+	<table class="table table-report overflow-x-auto">
 		<thead>
 			<tr>
 				<th
@@ -12,10 +12,10 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
-				<td class=" h-20">
+			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x mt-5">
+				<td class="imgtd">
 					<div class="flex">
-						<div class="w-10 h-10 image-fit zoom-in">
+						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in ">
 						<Tippy
 							tag="img"
 							class="rounded-full"
@@ -25,8 +25,8 @@
 						</div>
 					</div>
 				</td>
-				<td class="text-center h-20">
-					{{ product.name }}
+				<td class="text-center h-20 font-bold">
+					<div class="productName">{{ product.name }} </div>
 				</td>
 				<td class="text-center h-20">
 					<div class="flex">
@@ -49,10 +49,10 @@
 					</div>
 				</td>
 				<td class="text-center h-20">
-					{{ product.price }}
+					$ {{ product.price }}
 				</td>
 				<td class="text-center h-20">
-					{{ product.qty * product.price }}
+					$ {{ product.qty * product.price }}
 				</td>
 				<td class="table-report__action w-30 h-20">
 				<div class="flex justify-center items-center">
@@ -132,11 +132,11 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 
 <style scoped>
   td{
-    height: 60px !important;
+    height: 40px;
   }
 
   @media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
+  (min-device-width: 768px) and (max-device-width: 768px) {
   table,
   thead,
   tbody,
@@ -144,6 +144,11 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
   td,
   tr {
     display: block;
+	font-size: 16px;
+	padding: 0px !important;
+  }
+  .imgtd{
+    height: 100px;
   }
 
   thead tr {
@@ -163,10 +168,12 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
     padding-left: 50% !important;
     text-align: left !important;
   }
+  .productName{
+	padding-left: 15px;
+  }
 
   td:before {
     position: absolute;
-    top: 6px;
     left: 6px;
     width: 45%;
     padding-right: 10px;
@@ -175,11 +182,11 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
   }
 
   td:nth-of-type(1):before {
-    content: "Image";
+    content: "";
     /* color: #0e9893; */
   }
   td:nth-of-type(2):before {
-    content: "Product";
+    content: "";
     /* color: #0e9893; */
   }
   td:nth-of-type(3):before {
