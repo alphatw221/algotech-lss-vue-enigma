@@ -70,7 +70,7 @@
 <script setup>
 import { ref, reactive, onMounted, onUnmounted, defineProps, getCurrentInstance} from 'vue'
 import { createAxiosWithBearer } from '@/libs/axiosClient'
-import { useCampaignProductsStore } from "@/stores/lss-campaign-products";
+import { useCampaignProductsStore } from "@/stores/lss-create-campaign";
 
 const store = useCampaignProductsStore(); 
 const props = defineProps({

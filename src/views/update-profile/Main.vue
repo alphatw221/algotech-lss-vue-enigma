@@ -201,10 +201,10 @@
                     >
                     <textarea
                       id="update-profile-form-5"
-                      class="form-control"
+                      class="form-control indent-4"
                       placeholder="Adress"
                     >
-10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore</textarea
+                      10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore</textarea
                     >
                   </div>
                 </div>

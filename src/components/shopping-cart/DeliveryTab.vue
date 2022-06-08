@@ -118,8 +118,8 @@
                     </div>
                     <div class="col-span-12 mt-10">
                       <div class="text-md font-medium">Remark</div>
-                      <textarea id="" class="form-control col-start-1 col-span-12" placeholder="" v-model="store.shipping_info.shipping_remark">
-                                  Remark remark remark remark</textarea>
+                      <textarea id="" class="form-control col-start-1 col-span-12 indent-4" placeholder="" v-model="store.shipping_info.shipping_remark">
+                      Remark remark remark remark</textarea>
                     </div>
                   </TabGroup>
                 </div>
