@@ -20,7 +20,7 @@
 						:key="column.key"
 					>
                         <template v-if="column.key === 'action'">
-                            <EyeIcon @click="this.$router.push(`/buyer/order/${order.id}`);" />
+                            <EyeIcon @click="router.push(`/buyer/order/${order.id}`);" />
                         </template>
 						<template v-else-if="column.type=='dateTime'">
 							{{ new Date(order[column.key]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
@@ -50,7 +50,10 @@
 <script setup>
 import { buyer_orders_history } from '@/api_v2/order';
 import { computed, onMounted, provide, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 
+const route = useRoute();
+const router = useRouter();
 
 const currentPage = ref(1)
 

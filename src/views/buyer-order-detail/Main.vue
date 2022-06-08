@@ -14,8 +14,8 @@
                             </span> 
                             <button 
                                 class="btn btn-rounded-pending h-8 ml-3"
-                                v-if="store.order.status == 'review'"
-                                @click="this.$router.push(`/buyer/order/${route.params.order_id}/payment`)"
+                                v-if="store.order.status !== 'complete'"
+                                @click="router.push(`/buyer/order/${route.params.order_id}/payment`)"
                             >
                                 proceed to pay
                             </button>
@@ -119,6 +119,7 @@ import { buyer_retrieve_order } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
+const router = useRouter();
 
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 const store = useLSSBuyerOrderStore(); 
