@@ -1,5 +1,5 @@
 <template>
-	<table class="table table-report mt-5 overflow-y-scroll overflow-x-auto">
+	<table class="table table-report mt-5 overflow-x-auto">
 		<thead>
 			<tr>
 				<th
@@ -134,8 +134,6 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
   td{
     height: 60px !important;
   }
-
-
 
   @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 1024px) {
