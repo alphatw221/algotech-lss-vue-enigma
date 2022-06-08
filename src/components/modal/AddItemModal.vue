@@ -2,6 +2,7 @@
 	<Modal
 		size="modal-lg"
 		:show="store.showAddItemModal"
+		@hidden="store.showAddItemModal=false"
 		:slideOver="true"
 	>
 		<ModalBody class="p-0">
