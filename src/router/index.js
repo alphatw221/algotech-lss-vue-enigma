@@ -229,17 +229,22 @@ const routes = [
       {
         path: "stock",
         name: "Stock",
-        component: () => import('@/views/stock/Stock.vue'),
+        component: () => import('@/views/stock/Main.vue'),
       },
       {
-        path: "add-product",
-        name: "AddProduct",
-        component: () => import('@/views/stock/AddProduct.vue'),
+        path: "product/add",
+        name: "add-product",
+        component: () => import('@/views/add-product/Main.vue'),
       },
       {
-        path: "category/manager",
-        name: "CategoryManager",
-        component: () => import('@/views/stock/CategoryManager.vue')
+        path: "product/edit/:product_id?",
+        name: "edit-product",
+        component: () => import('@/views/add-product/Main.vue'),
+      },
+      {
+        path: "category/management",
+        name: "category-management",
+        component: () => import('@/views/category-management/Main.vue')
       }
     ],
   },

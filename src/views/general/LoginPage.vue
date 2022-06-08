@@ -89,13 +89,13 @@ export default {
             general_login(this.loginForm).then(response=>{
                 var set_cookie = new Promise((res) => {
                     this.$cookies.set("access_token", response.data.access)
-                    store.$patch((state) => {
-                        state.accessToken = response.data.access;
-                    })
+                    // store.$patch((state) => {
+                    //     state.accessToken = response.data.access;
+                    // })
                     res()
                 })
                 set_cookie.then(()=>{
-                    this.$router.push('/')
+                    this.$router.push(`/seller/campaign-list`)
                 })
             })
         }

@@ -165,7 +165,7 @@
 
 <script>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
-import { list_category, create, update } from '@/api_v2/stock';
+import { list_product_category, create, update } from '@/api_v2/product';
 
 export default {
 	setup() {
@@ -204,7 +204,7 @@ export default {
 		this.formType = this.$route.query.type
 		this.updateId = this.$route.query.id
 
-		list_category().then(
+		list_product_category().then(
 			response => { this.categorySelection = response.data }
 		)
 

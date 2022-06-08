@@ -16,7 +16,7 @@
 </template>
 
 <script>
-import { list_category } from '@/api_v2/stock';
+import { list_product_category } from '@/api_v2/product';
 
 export default {
     setup() {
@@ -36,7 +36,7 @@ export default {
         },
     },
     mounted() {
-        list_category().then(
+        list_product_category().then(
             response => {
                 console.log()
                 this.categorySelection = response.data

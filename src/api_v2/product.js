@@ -13,18 +13,18 @@ export const update = (id, data) => {
     return createAxiosWithBearer().get(`/api/v2/product/${id}/create/`, data)
 }
 
-export const list_category = () => {
+export const list_product_category = () => {
     return createAxiosWithBearer().get('/api/v2/product/categories/')
 }
 
-export const create_category = (data) => {
+export const create_product_category = (data) => {
     return createAxiosWithBearer().post(`/api/v2/product/category/create/`, data)
 }
 
-export const update_category = (name, data) => {
+export const update_product_category = (name, data) => {
     return createAxiosWithBearer().put(`/api/v2/product/category/update/${name}/`, data)
 }
 
-export const delete_category = (name) => {
+export const delete_product_category = (name) => {
     return createAxiosWithBearer().delete(`/api/v2/product/category/delete/${name}/`)
 }
