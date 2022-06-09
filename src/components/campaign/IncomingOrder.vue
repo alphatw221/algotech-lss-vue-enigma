@@ -40,7 +40,7 @@
                             <td>{{ data.customer_name }}</td>
                             <td>{{ data.currency_sign }}{{ data.subtotal }}</td>
                             <td>
-                                <EyeIcon />
+                                <EyeIcon @click="this.$router.push(`/seller/order/${data.id}`);seller_order_detail"/>
                             </td>
                         </tr>
                     </tbody>
@@ -52,7 +52,12 @@
 
 <script>
 import {list_campaign_pre_order} from '@/api/campaign_pre_order';
+import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { useRoute, useRouter } from "vue-router";
 export default {
+    setup(){
+        const store = useShoppingCartStore();
+    },
     props: {
         campaignId: Number
     },
@@ -80,6 +85,9 @@ export default {
         }
     },
     methods: {
+        seller_order_detail(){
+            store.order_type = 'pre_order'
+        }
     },
 }
 </script>

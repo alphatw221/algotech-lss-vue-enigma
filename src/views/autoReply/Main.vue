@@ -1,7 +1,7 @@
 <template>
     <div class="intro-y chat grid grid-cols-12 gap-5 w-full box mt-5">
-        <label class="text-lg col-start-1 col-span-4 m-5"> Setup Auto Reply</label>
-        <button class="col-start-11 btn btn-warning btn-rounded w-24 h-10 mt-5 text-white"
+        <label class="text-lg col-start-1 col-span-8 lg:col-span-4 2xl:col-span-4 m-5"> Setup Auto Reply</label>
+        <button class="col-start-9 btn btn-warning btn-rounded w-24 h-10 mt-5 text-white lg:col-start-11 2xl:col-start-11 "
             @click="createModal = true; saved=false">
             <span class="font-bold mr-1 text-lg">+</span> Create
         </button>
@@ -30,7 +30,7 @@
             </div>
             <div class="col-span-12">
                 <label for="modal-form-1" class="form-label">Set Automated Response</label>
-                <input id="modal-form-1" type="text" class="form-control rounded-full" placeholder=""
+                <input id="modal-form-1" type="text" class="form-control rounded-full" placeholder="" 
                     v-model="createData.output_msg" />
             </div>
             <div class="col-span-12">
@@ -41,16 +41,12 @@
             <div class="col-span-12">
                 <label for="modal-form-1" class="form-label">Following</label>
             </div>
-            <row class="col-span-12">
-                <template v-for="(data, key) in facebookPagesData" :key="key" class="relative">
-                    <input name="fb_page" type="radio" class="rounded-full vertical-center top-0 right-0 z-50" @click="choosePage(data)">
-                    <div class="w-20 h-20 image-fit zoom-in lg:w-20 lg:h-20 2xl:w-20 lg:h-12">
-                        <Tippy 
-                            tag="img"
-                            class="rounded-full w-fit h-wit"
-                            :src="data.image"
-                            :content="`facebook`"
-                        />
+            <row class="col-span-12 flex flex-wrap items-center justify-around">
+                <template v-for="(data, key) in facebookPagesData" :key="key">
+                    <div class="w-20 h-20 image-fit relative ">
+                        <input name="fb_page" type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" @click="choosePage(data)" />
+                        <Tippy tag="img" class="rounded-full" :src="data.image"
+										:content="`facebook`" />
                     </div>
                 </template>
             </row>
@@ -110,6 +106,7 @@ function createAutoReply() {
         response => {
             saved.value = true
             createModal.value = false
+            createData.value = []
             successAlert.value = true
             setTimeout( () => ( successAlert.value = false ), 3000)
             eventBus.emit('getReplyData')
@@ -133,3 +130,4 @@ function closeWithAlert(){
     saved.value=false
 }
 </script>
+

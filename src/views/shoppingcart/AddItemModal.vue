@@ -118,14 +118,14 @@ const changeQuantity = (event, index, operation) => {
 	} else if (operation == 'minus' && addOnProducts.value[index].qty > 1) {
 		addOnProducts.value[index].qty -= 1
 	} else if (operation=='input' && event.target.value >= 1 && event.target.value <= 99){
-		return
+		addOnProducts.value[index].qty = event.target.value
 	} 
 	else{
 		if(event)event.target.value=1
 		addOnProducts.value[index].qty = 1
 		layoutStore.alert.showMessageToast("Invalid amount")
 	}
-}
+}   // minus after input works, plus after input not works
 
 
 const buyer_add_item = (campaing_product_id, index) => {

@@ -25,7 +25,7 @@
 
 <script>
 import { axiosInstance } from "@/libs/axiosClient";
-import { get_comments } from "@/api/campaign_comment"
+import { get_comments, get_summerize_comments } from "@/api/campaign_comment"
 
 export default {
   props: {
@@ -44,9 +44,11 @@ export default {
   mounted() {
       console.log(this.campaign_id)
       this.eventBus.on("commentStatus", (payload) => {
-    //   this.status = payload.status;
-      this.get_campaign_comments(payload.status);
-    });
+      //   this.status = payload.status;
+        this.get_campaign_summerize_comments(payload.status);
+      });
+      
+
 
   },
   unmounted() {
@@ -63,10 +65,8 @@ export default {
       });
       return param.substr(1, param.length);
     },
-    get_campaign_comments(status) {
-        console.log("in");
-        console.log(status)
-        get_comments(this.campaign_id, status)
+    get_campaign_summerize_comments(status) {
+        get_summerize_comments(this.campaign_id, status)
         .then((response) => {
             console.log(response);
             this.listItems = response.data
@@ -81,6 +81,7 @@ export default {
           console.log(error);
         });
     },
+    
     changeEntry() {
       this.eventBus.emit("entryPoint", {idPopupModalPreview: true})
     }

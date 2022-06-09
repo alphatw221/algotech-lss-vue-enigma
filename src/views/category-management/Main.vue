@@ -70,7 +70,7 @@
 </template>
 
 <script>
-import { list_category, create_category, update_category, delete_category } from '@/api_v2/stock';
+import { list_product_category, create_product_category, update_product_category, delete_product_category } from '@/api_v2/product';
 
 export default {
     setup() {
@@ -90,7 +90,7 @@ export default {
     },
     methods: {
         list() {
-            list_category().then(
+            list_product_category().then(
                 response => {
                     this.listItems = response.data;
                 }
@@ -99,7 +99,7 @@ export default {
         update() {
             if (this.editType == 'create') {
                 let data = { 'category_name': this.categoryName }
-                create_category(data).then(
+                create_product_category(data).then(
                     response => {
                         this.showModal = false;
                         this.list();
@@ -107,7 +107,7 @@ export default {
                 )
             } else if (this.editType == 'update') {
                 let data = { 'category_name': this.categoryName }
-                update_category(this.oldCategory, data).then(
+                update_product_category(this.oldCategory, data).then(
                     response => {
                         this.showModal = false;
                         this.list();
@@ -116,7 +116,7 @@ export default {
             }
         },
         deleteCategory(name) {
-            delete_category(name).then(
+            delete_product_category(name).then(
                 response => {
                     this.list();
                 }

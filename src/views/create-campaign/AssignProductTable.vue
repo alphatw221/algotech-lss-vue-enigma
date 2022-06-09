@@ -98,7 +98,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance} from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
-import { list } from '@/api_v2/stock';
+import { list } from '@/api_v2/product';
 
 const campaignStore = useCreateCampaignStore(); 
 const internalInstance = getCurrentInstance();

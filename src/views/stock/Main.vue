@@ -15,8 +15,8 @@
 					<button id="tabulator-html-filter-go" 
 						type="button" 
 						class="btn btn-primary shadow-md w-48 lg:w-36 2xl:w-48" 
-						@click="this.$router.push('/seller/category/manager')">
-						Category Manager
+						@click="this.$router.push({ path: '/seller/category/management'})">
+						Category Management
 					</button>
 				</div>
 				<div class="p-1 col-span-12 lg:p-5 2xl:p-5">
@@ -26,11 +26,11 @@
 								<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
 									<SearchBar
 										:searchColumns="searchColumns"
-										:isAddBtn="true"
-										:routerPath="'add-product'"
-										:routerParam="'create'"
-										:page_type="'stock'"
-										:filterColums="categorySelection"
+										:productCategories="productCategories"
+										:eventBusName="'searchForSaleTable'"
+										:showAddProductBtn="true"
+										:showCategoryFilter="true"
+										
 									>
 									</SearchBar>	
 									<DataTable
@@ -40,6 +40,7 @@
 										:routerPath="'add-product'"
 										:routerParam="'update'"
 										:status="'enabled'"
+										:eventBusName="'searchForSaleTable'"
 									>
 									</DataTable>
 								</div>
@@ -48,9 +49,10 @@
 								<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
 									<SearchBar
 										:searchColumns="searchColumns"
-										:isAddBtn="true"
-										:routerPath="'add-product'"
-										:routerParam="'create'"
+										:eventBusName="'searchDelistedTable'"
+										:showAddProductBtn="false"
+										:showCategoryFilter="false"
+										
 									>
 									</SearchBar>	
 									<DataTable
@@ -59,6 +61,7 @@
 										:routerPath="'add-product'"
 										:routerParam="'update'"
 										:status="'disabled'"
+										:eventBusName="'searchDelistedTable'"
 									>
 									</DataTable>
 								</div>
@@ -77,17 +80,15 @@
 <script setup>
 import { ref, onMounted } from 'vue'
 import { createAxiosWithBearer } from "@/libs/axiosClient";
-import SearchBar from "@/components/bar/SearchBar.vue";
-import DataTable from "@/components/table/DataTable.vue";
-import { list_category } from '@/api_v2/stock';
+import SearchBar from "./SearchBar.vue";
+import DataTable from "./DataTable.vue";
+import { list_product_category } from '@/api_v2/product';
 
-const searchColumns = ref([{
-	keywords: [
-          { text: "Name", value: "name" },
-          { text: "Order Code", value: "order_code" },
-          { text: "Description", value: "description" },
-        ],
-}])
+const searchColumns = ref([
+	{ text: "Name", value: "name" },
+	{ text: "Order Code", value: "order_code" },
+	{ text: "Description", value: "description" }
+])
 
 const tableColumns = ref([
     { name: "Image", key: "image" },
@@ -101,12 +102,15 @@ const tableColumns = ref([
 	// {name: 'Edit', key: 'edit'},
 ])
 
-const categorySelection= ref([])
+const productCategories= ref([{text:"All", value:''}])
 
 onMounted(() => {
-	list_category().then(
+	list_product_category().then(
 		response => { 
-			categorySelection.value = response.data 
+			response.data.forEach(category => {
+				productCategories.value.push({text:category,value:category})
+			});
+
 		}
 	)
 })

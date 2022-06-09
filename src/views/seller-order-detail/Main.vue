@@ -16,38 +16,78 @@
                 <div class="w-full overflow-x-auto">
                     <OrderDetailTable />
                 </div>
+                <div class="box p-5 border-2 border-secondary"> 
+                    <div class="flex mb-4 dark:border-darkmode-400">
+                        <span class="text-lg">Delivery Information</span>   
+                    </div>
+                    <div class="grid grid-cols-6 gap-2" v-show="store.orderDetail.shipping_method">
+                        <div class="col-start-1 col-span-2 py-2">Delivery Method</div>
+                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_method}}</div>
+
+                        <template v-if="store.orderDetail.shipping_method === 'in_store'">
+                            <div class="col-start-1 col-span-2 py-2">Delivery Information</div>
+                            <div class="col-start-3 col-span-3 py-2">In-store pickup</div>
+
+                            <div class="col-start-1 col-span-2 py-2">Pickup Store</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store}}</div>
+
+                            <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store_address}}</div>
+                        </template>
+                        <template v-if="store.orderDetail.shipping_method === 'delivery'">
+                            <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
+                            <div class="col-start-3 col-span-3 py-3">Delivery</div>
+
+                            <div class="col-start-1 col-span-2 py-3">Delivery Address</div>
+                            <div class="col-start-3 col-span-3 py-3">
+                                {{store.orderDetail.shipping_location}} ,
+                                {{store.orderDetail.shipping_region}} ,
+                                {{store.orderDetail.shipping_postcode}} ,
+                                {{store.orderDetail.shipping_address_1}}
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                <div class="box p-5 border-2 border-secondary" v-show="store.order_type !== 'order'">
+                    <span class="text-lg">Remark</span>
+                    <textarea class="form-control flex"></textarea>
+                </div>
             </div>
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
                 <div>
                     <PriceSummary />
                 </div>
-                <div class="box p-6 m-3 border-2 border-secondary"> 
+                <div class="box p-6 border-2 border-secondary"> 
                     <div class="flex mb-4 dark:border-darkmode-400">
                         <span class="text-lg"> Payment Information</span>   
                     </div>
-                    <div class="grid grid-cols-6 gap-2">
-                        <div class="col-start-1 col-span-2 py-2">Payment Method</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.payment_method}}</div>
+                    <div class="grid grid-cols-6 gap-2" v-if="store.orderDetail.payment_method">
+                        <template v-if="store.orderDetail.payment_method">
+                            <div class="col-start-1 col-span-2 py-2">Payment Method</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.payment_method}}</div>
+                        </template>
 
-                        <div class="col-start-1 col-span-2 py-2">Last Five Digits</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.payment_method}}</div>
+                        <template v-if="store.orderDetail.meta.last_five_digit">
+                            <div class="col-start-1 col-span-2 py-2">Last Five Digits</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</div>
+                        </template>
 
-                        <div class="col-start-1 col-span-2 py-2">Record</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.payment_method}}</div>
-                    </div>
-                </div>
-                <div class="box p-6 m-3 border-2 border-secondary"> 
-                    <div class="flex mb-4 dark:border-darkmode-400">
-                        <span class="text-lg"> Delivery Information</span>   
-                    </div>
-                    <div class="grid grid-cols-6 gap-2">
-                        <div class="col-start-1 col-span-2 py-2">Payment Method</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.payment_method}}</div>
+                        <template v-if="store.orderDetail.meta.receipt_image">
+                            <div class="col-start-1 col-span-2 py-2">Record</div>
+                            <div class="col-start-3 col-span-3 py-2">
+                                    <Tippy tag="img" :src="store.orderDetail.meta.receipt_image" />
+                                
+                            </div>
+                        </template>
                     </div>
                 </div>
             </div>
-        </div>     
+        </div>    
+        <div class="flex flex-row-reverse" v-show="store.order_type !== 'order'">
+            <button class="btn btn-primary w-32 shadow-md" @click="update_order">Update</button>
+        </div> 
     </div>
+    
 </template>
 <script setup>
 import OrderDetailTable from "./OrderDetailTable.vue";
@@ -59,7 +99,11 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
-const store = useShoppingCartStore(); 
+const store = useShoppingCartStore();
+
+function update_order(){
+    
+}
 
 onMounted(()=>{
     buyer_retrieve_order(route.params.order_id)
