@@ -4,7 +4,16 @@
     <!-- <MainColorSwitcher /> -->
     <ThemeModeSwitcher />
     <MobileMenu />
-    <TopBar />
+    <LSSSellerTopBar />
+    <Notification refKey="buyerMessageNotification" :options="{duration: 3000,}" class="flex flex-col sm:flex-row">
+      <div id="message" class="font-medium">Message</div>
+    </Notification>
+
+    <Notification refKey="buyerMessageAlert" :options="{duration: 3000,}" class="flex flex-col sm:flex-row text-red-600">
+      <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
+      <div id="message" class="font-medium">Message</div>
+    </Notification>
+
     <div class="flex overflow-hidden bg-secondary">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
@@ -141,7 +150,7 @@ import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { helper as $h } from "@/utils/helper";
 import { useSideMenuStore } from "@/stores/lss-side-menu";
-import TopBar from "@/components/top-bar/Main.vue";
+import LSSSellerTopBar from "@/components/lss-seller-top-bar/Main.vue";
 import MobileMenu from "@/components/mobile-menu/Main.vue";
 import DarkModeSwitcher from "@/components/dark-mode-switcher/Main.vue";
 import MainColorSwitcher from "@/components/main-color-switcher/Main.vue";
