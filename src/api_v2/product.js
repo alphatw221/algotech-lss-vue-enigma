@@ -1,16 +1,19 @@
 import { createAxiosWithBearer } from '@/libs/axiosClient'
 
+export const retrieve_product = (id) => {
+    return createAxiosWithBearer().get(`/api/v2/product/${id}/retrieve/`)
+}
 
-export const list = (pageSize, currentPage, searchColumn, keyword, product_status, category) => {
+export const list_product = (pageSize, currentPage, searchColumn, keyword, product_status, category) => {
     return createAxiosWithBearer().get(`/api/v2/product/search/?page_size=${pageSize}&page=${currentPage}&search_column=${searchColumn}&keyword=${keyword}&product_status=${product_status}&category=${category}`)
 }
 
-export const create = (data) => {
-    return createAxiosWithBearer().get('/api/v2/product/create/', data)
+export const create_product = (data) => {
+    return createAxiosWithBearer().post('/api/v2/product/create/', data)
 }
 
-export const update = (id, data) => {
-    return createAxiosWithBearer().get(`/api/v2/product/${id}/create/`, data)
+export const update_product = (id, data) => {
+    return createAxiosWithBearer().put(`/api/v2/product/${id}/update/`, data)
 }
 
 export const list_product_category = () => {
