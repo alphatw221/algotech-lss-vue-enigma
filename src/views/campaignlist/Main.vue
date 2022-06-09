@@ -75,91 +75,98 @@
       </ModalHeader>
       <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
         <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >Facebook</label
-          >
-          <div
-            v-show="facebookPageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="fbAvatar" />
-          </div>
+          
         </div>
-        <div class="col-span-12" style="display: inline-flex">
+        <div class="col-span-4 mr-5">
+          <div class="items-end h-10" style="display: inline-flex">
+            <label for="modal-form-1" class="text-lg font-medium mr-5"
+              >Facebook</label
+            >
+            <div
+              v-show="facebookPageSelected"
+              class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+            >
+              <img alt="Midone Tailwind HTML Admin Template" :src="fbAvatar" />
+            </div>
+          </div>
           <button
             type="button"
             href="javascript:;"
-            @click="facebookSelectPage()"
-            class="btn w-48 btn-primary mr-3"
+            @click="facebookSelectPage(); hasSelectFbPage = true"
+            class="btn w-40 btn-primary mt-3 mr-3"
+            :disabled='facebookPageSelected && fb_post_id !== "" && !hasSelectFbPage'
           >
             Select Page
           </button>
-          <input
-            id="modal-form-1"
-            type="text"
-            class="form-control"
-            placeholder=""
-            v-model="fb_post_id"
-            @click="facebookSelectCurrentLive()"
-          />
-        </div>
-        <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >Instagram</label
-          >
-          <div
-            v-show="instagramPageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="igAvatar" />
+          <div>
+            Post ID:<br>{{ fb_post_id }}
           </div>
         </div>
-        <div class="col-span-12" style="display: inline-flex">
+        <div class="col-span-4">
+          <div class="items-end h-10" style="display: inline-flex">
+            <label for="modal-form-1" class="text-lg font-medium mr-5"
+              >Instagram</label
+            >
+            <div
+              v-show="instagramPageSelected"
+              class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+            >
+              <img alt="Midone Tailwind HTML Admin Template" :src="igAvatar" />
+            </div>
+          </div>
           <button
             type="button"
             href="javascript:;"
-            @click="instagramSelectPage()"
-            class="btn w-48 btn-primary mr-3"
+            @click="instagramSelectPage(); hasSelectIgPage = true"
+            class="btn w-40 btn-primary mt-3 mr-3"
+            :disabled='instagramPageSelected && ig_live_media_id !== "" && !hasSelectIgPage'
           >
             Select Page
           </button>
-          <input
+          <!-- <input
             id="modal-form-1"
             type="text"
             class="form-control"
             placeholder=""
             v-model="ig_live_media_id"
             @click="instagramSelectCurrentLive()"
-          />
-        </div>
-                <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >YouTube</label
-          >
-          <div
-            v-show="youtubePageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="ytAvatar" />
+          /> -->
+          <div>
+            Post ID:<br>{{ ig_live_media_id }}
           </div>
         </div>
-        <div class="col-span-12" style="display: inline-flex">
+        <div class="col-span-4">
+          <div class="items-end h-10" style="display: inline-flex">
+            <label for="modal-form-1" class="text-lg font-medium mr-5"
+              >YouTube</label
+            >
+            <div
+              v-show="youtubePageSelected"
+              class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+            >
+              <img alt="Midone Tailwind HTML Admin Template" :src="ytAvatar" />
+            </div>
+          </div>
           <button
             type="button"
             href="javascript:;"
-            @click="youtubeSelectPage()"
-            class="btn w-48 btn-primary mr-3"
+            @click="youtubeSelectPage(); hasSelectYtPage = true"
+            class="btn w-40 btn-primary mt-3 mr-3"
+            :disabled='youtubePageSelected && yt_live_video_id !== "" && !hasSelectYtPage'
           >
             Select Page
           </button>
-          <input
+          <!-- <input
             id="modal-form-1"
             type="text"
             class="form-control"
             placeholder=""
             v-model="yt_live_video_id"
             @click="youtubeSelectCurrentLive()"
-          />
+          /> -->
+          <div>
+            Post ID:<br>{{ yt_live_video_id }}
+          </div>
         </div>
       </ModalBody>
       <!-- BEGIN: Select Facebook Fan Page -->
@@ -171,7 +178,7 @@
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
             <template v-for="page in campaignEntrydata.facebook.ownPageItems" :key="page.page_id">
               <div
-                @click="facebookAccountClick(page.image, page.page_id, page.token)"
+                @click="facebookAccountClick(page.id, page.image, page.page_id)"
                 class="
                   w-14
                   h-14
@@ -188,7 +195,7 @@
                 />
               </div>
               <span
-                @click="facebookAccountClick(page.image, page.page_id, page.token)"
+                @click="facebookAccountClick(page.id, page.image, page.page_id)"
                 class="col-span-6 text-lg content-center"
               >
                 {{ page.name }}
@@ -208,7 +215,7 @@
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
             <template v-for="page in campaignEntrydata.youtube.ownPageItems" :key="page.channel_id">
               <div
-                @click="youtubeAccountClick(page.image, page.channel_id, page.token)"
+                @click="youtubeAccountClick(page.id, page.image, page.channel_id)"
                 class="
                   w-14
                   h-14
@@ -225,7 +232,7 @@
                 />
               </div>
               <span
-                @click="youtubeAccountClick(page.image, page.channel_id, page.token)"
+                @click="youtubeAccountClick(page.id, page.image, page.channel_id)"
                 class="col-span-6 text-lg content-center"
               >
                 {{ page.name }}
@@ -245,7 +252,7 @@
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
             <template v-for="page in campaignEntrydata.instagram.ownPageItems" :key="page.business_id">
               <div
-                @click="instagramAccountClick(page.image, page.business_id, page.token)"
+                @click="instagramAccountClick(page.id, page.image, page.business_id)"
                 class="
                   w-14
                   h-14
@@ -262,7 +269,7 @@
                 />
               </div>
               <span
-                @click="instagramAccountClick(page.image, page.business_id, page.token)"
+                @click="instagramAccountClick(page.id, page.image, page.business_id)"
                 class="col-span-6 text-lg content-center"
               >
                 {{ page.name }}
@@ -336,6 +343,7 @@ import { get_user_subscription_facebook_pages, get_user_subscription_instagram_p
 import { get_fb_page_live_media } from "@/api/facebook"
 import { get_ig_live_media } from "@/api/instagram"
 import { get_yt_live_media } from "@/api/youtube"
+import { check_facebook_page_token, check_instagram_profile_token, check_youtube_channel_token } from "@/api_v2/campaign"
 
 export default {
   components: { 
@@ -349,9 +357,11 @@ export default {
       facebookOverlappingModalPreview: false,
       youtubeOverlappingModalPreview: false,
       instagramOverlappingModalPreview: false,
+
       facebookPageSelected: false,
       instagramPageSelected: false,
       youtubePageSelected: false,
+
       currentLiveItems: [],
       currentLiveListPlatform: null,
       CurrentLiveOverlappingModalPreview: false,
@@ -362,14 +372,10 @@ export default {
       igAvatar: "",
       fb_page_id: null,
       fb_post_id: null,
-      fb_page_token: null,
       ig_profile_id: null,
       ig_live_media_id: null,
-      ig_page_token: null,
       yt_channel_id: null,
       yt_live_video_id:null,
-      yt_page_token: null,
-
 
 
       searchColumns: {
@@ -393,7 +399,6 @@ export default {
           ownPageItems:{},
           chosenPageInfo:{
             pageID: this.fb_page_id,
-            pageAccessToken:this.fb_page_token,
             post_id: this.fb_post_id
           },
         },
@@ -401,7 +406,6 @@ export default {
           ownPageItems:{},
           chosenPageInfo:{
             pageID: this.ig_profile_id,
-            pageAccessToken:this.fb_page_token,
             live_media_id: this.ig_live_media_id,
           },
         },
@@ -409,7 +413,6 @@ export default {
           ownPageItems:{},
           chosenPageInfo:{
             pageID:this.yt_channel_id,
-            pageAccessToken:this.yt_page_token,
             live_video_id: this.yt_live_video_id,
           },
         },
@@ -420,8 +423,25 @@ export default {
     
     this.eventBus.on("entryPoint", (payload) => {
       console.log(payload)
-      this.EntryCampaignId = payload
-      this.idPopupModalPreview = true
+      this.EntryCampaignId = payload.id
+      
+      this.fb_page_id = payload.facebook_page?payload.facebook_page.page_id:null,
+      this.fb_post_id = payload.facebook_campaign.post_id,
+      this.fbAvatar = payload.facebook_page?payload.facebook_page.image:"",
+
+      this.ig_profile_id = payload.instagram_profile?payload.instagram_profile.business_id:null,
+      this.ig_live_media_id = payload.instagram_campaign.live_media_id,
+      this.igAvatar = payload.instagram_profile?payload.instagram_profile.image:"",
+      
+      this.yt_channel_id = payload.youtube_channel?payload.youtube_channel.channel_id:null,
+      this.yt_live_video_id = payload.youtube_campaign.live_video_id,
+      this.ytAvatar = payload.youtube_channel?payload.youtube_channel.image:"",
+
+      this.facebookPageSelected = this.fbAvatar?true:false,
+      this.instagramPageSelected = this.igAvatar?true:false,
+      this.youtubePageSelected = this.ytAvatar?true:false
+
+      this.idPopupModalPreview = true;
     })
   },
   unmounted() {
@@ -439,8 +459,6 @@ export default {
     facebookSelectPage() {
       get_user_subscription_facebook_pages()
       .then((response) => {
-          console.log(response);
-          console.log(response.data);
           this.campaignEntrydata.facebook.ownPageItems = response.data
           this.facebookOverlappingModalPreview = true
       })
@@ -448,38 +466,59 @@ export default {
         console.log(error);
       });
     },
-    facebookAccountClick(img, official_page_id, token) {
-      this.fb_page_id = official_page_id
-      this.fb_page_token = token
-      console.log(this.campaignEntrydata.facebook.chosenPageInfo)
-      this.facebookOverlappingModalPreview = false;
-      this.facebookPageSelected = true;
-      this.fbAvatar = img;
+    facebookAccountClick(id, img, official_page_id) {
+      check_facebook_page_token(id).then(res=>{
+        console.log("check_facebook_page_token")
+        return res.data
+      }).then(res=>{
+        return this.facebookSelectCurrentLive(official_page_id, res.token)
+      }).then(res=>{
+        this.fb_page_id = official_page_id
+        this.facebookOverlappingModalPreview = false;
+        this.fbAvatar = img;
+      }).catch(error => {
+        this.facebookOverlappingModalPreview = false;
+        switch (error.status) {
+            case 500:
+                alert('Oops! Something went wrong when fetch data. Please contact tech support.')
+                break
+            case 404:
+                error.json().then(e => alert(e.detail))
+                break
+            case 400:
+                error.json().then(e => alert(e.message))
+                break
+            case 401:
+                // error.json().then(e => console.log(e))
+                this.$router.push(`/seller/login/`);
+        }
+      })
+      
+      
+      
     },
-    facebookSelectCurrentLive() {
-      get_fb_page_live_media(this.fb_page_id, this.fb_page_token)
+    facebookSelectCurrentLive(fb_page_id, fb_page_token) {
+      get_fb_page_live_media(fb_page_id, fb_page_token)
       .then((response) => {
-          console.log(response);
           console.log(response.data);
-          // const sort = response.data.data.filter(v => v.status === "LIVE")
           const live_campaign = response.data.data.filter(v => v.status === "LIVE")
           if (!live_campaign.length) {
-              alert('You have no Facebook live posts now.')
+            alert('You have no Facebook live posts now.')
           } else {
-              let currentLiveItems = []
-              live_campaign.forEach(v => {
+            let currentLiveItems = []
+            live_campaign.forEach(v => {
 
-                currentLiveItems.push({
-                  id: v.video.id,
-                  title: v.title?v.title:"Current Live",
-                  image: null,
-                  video_url: null,
-                  embed_html: v.embed_html,
-                })
-              });
-              this.currentLiveItems = currentLiveItems
-              this.currentLiveListPlatform = "facebook"
-              this.CurrentLiveOverlappingModalPreview = true
+              currentLiveItems.push({
+                id: v.video.id,
+                title: v.title?v.title:"Current Live",
+                image: null,
+                video_url: null,
+                embed_html: v.embed_html,
+              })
+            });
+            this.currentLiveItems = currentLiveItems
+            this.currentLiveListPlatform = "facebook"
+            this.CurrentLiveOverlappingModalPreview = true
           }
       })
       .catch((error) => {
@@ -490,8 +529,6 @@ export default {
     instagramSelectPage() {
       get_user_subscription_instagram_profiles()
       .then((response) => {
-          console.log(response);
-          console.log(response.data);
           this.campaignEntrydata.instagram.ownPageItems = response.data
           this.instagramOverlappingModalPreview = true
       })
@@ -499,39 +536,59 @@ export default {
         console.log(error);
       });
     },
-    instagramAccountClick(img, official_page_id, token) {
-      this.ig_profile_id = official_page_id
-      this.ig_page_token = token
-      console.log(this.campaignEntrydata.instagram.chosenPageInfo)
-      this.instagramOverlappingModalPreview = false;
-      this.instagramPageSelected = true;
-      this.igAvatar = img;
-    },
-    instagramSelectCurrentLive() {
-      get_ig_live_media(this.ig_profile_id, this.ig_page_token)
-      .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          // const sort = response.data.data.filter(v => v.status === "LIVE")
-          const live_campaign = response.data.data
-          if (!live_campaign.length) {
-              alert('You have no Instagram live posts now.')
-          } else {
-              let currentLiveItems = []
-              live_campaign.forEach(v => {
-
-                currentLiveItems.push({
-                  id: v.id,
-                  title: v.username,
-                  image: v.media_url,
-                  video_url: null,
-                  embed_html: null,
-                })
-              });
-              this.currentLiveItems = currentLiveItems
-              this.currentLiveListPlatform = "instagram"
-              this.CurrentLiveOverlappingModalPreview = true
+    instagramAccountClick(id, img, official_page_id) {
+      check_instagram_profile_token(id).then(res=>{
+        return res.data
+      }).then(res=>{
+        return this.instagramSelectCurrentLive(official_page_id, res.token)
+      }).then(res=>{
+        this.ig_profile_id = official_page_id
+        // console.log(this.campaignEntrydata.instagram.chosenPageInfo)
+        this.instagramOverlappingModalPreview = false;
+        this.igAvatar = img;
+      }).catch(error => {
+        this.instagramOverlappingModalPreview = false;
+          switch (error.status) {
+              case 500:
+                  alert('Oops! Something went wrong when fetch data. Please contact tech support.')
+                  break
+              case 404:
+                  error.json().then(e => alert(e.detail))
+                  break
+              case 400:
+                  error.json().then(e => alert(e.message))
+                  break
+              case 401:
+                  // error.json().then(e => console.log(e))
+                  this.$router.push(`/seller/login/`);
           }
+      })
+      
+      
+      
+    },
+    instagramSelectCurrentLive(ig_page_id, ig_page_token) {
+      get_ig_live_media(ig_page_id, ig_page_token)
+      .then((response) => {
+        console.log(response.data)
+        const live_campaign = response.data.data
+        if (!live_campaign.length) {
+            alert('You have no Instagram live posts now.')
+        } else {
+          let currentLiveItems = []
+          live_campaign.forEach(v => {
+            currentLiveItems.push({
+              id: v.id,
+              title: v.username,
+              image: v.media_url,
+              video_url: null,
+              embed_html: null,
+            })
+          });
+          this.currentLiveItems = currentLiveItems
+          this.currentLiveListPlatform = "instagram"
+          this.CurrentLiveOverlappingModalPreview = true
+        }
       })
       .catch((error) => {
         console.log(error);
@@ -541,8 +598,6 @@ export default {
     youtubeSelectPage() {
       get_user_subscription_youtube_channels()
       .then((response) => {
-          console.log(response);
-          console.log(response.data);
           this.campaignEntrydata.youtube.ownPageItems = response.data
           this.youtubeOverlappingModalPreview = true
       })
@@ -550,38 +605,55 @@ export default {
         console.log(error);
       });
     },
-    youtubeAccountClick(img, official_page_id, token) {
-      this.yt_channel_id = official_page_id
-      this.yt_page_token = token
-      console.log(this.campaignEntrydata.youtube.chosenPageInfo)
-      this.youtubeOverlappingModalPreview = false;
-      this.youtubePageSelected = true;
-      this.ytAvatar = img;
+    youtubeAccountClick(id, img, official_page_id) {
+      check_youtube_channel_token(id).then(res=>{
+        return res.data
+      }).then(res=>{
+        return this.youtubeSelectCurrentLive(res.token)
+      }).then(res=>{
+        this.yt_channel_id = official_page_id
+        // console.log(this.campaignEntrydata.youtube.chosenPageInfo)
+        this.youtubeOverlappingModalPreview = false;
+        this.ytAvatar = img;
+      }).catch(error => {
+        this.youtubeOverlappingModalPreview = false;
+          switch (error.status) {
+              case 500:
+                  alert('Oops! Something went wrong when fetch data. Please contact tech support.')
+                  break
+              case 404:
+                  error.json().then(e => alert(e.detail))
+                  break
+              case 400:
+                  error.json().then(e => alert(e.message))
+                  break
+              case 401:
+                  // error.json().then(e => console.log(e))
+                  this.$router.push(`/seller/login/`);
+          }
+      })
+
     },
-    youtubeSelectCurrentLive() {
-      get_yt_live_media(this.yt_page_token)
+    youtubeSelectCurrentLive(yt_page_token) {
+      get_yt_live_media(yt_page_token)
       .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          // const sort = response.data.data.filter(v => v.status === "LIVE")
           const live_campaign = response.data.items
           if (!live_campaign.length) {
               alert('You have no YouTube live stream now.')
           } else {
-              let currentLiveItems = []
-              live_campaign.forEach(v => {
-
-                currentLiveItems.push({
-                  id: v.id,
-                  title: v.snippet.title,
-                  image: v.snippet.thumbnails.standard.url,
-                  video_url: null,
-                  embed_html: null,
-                })
-              });
-              this.currentLiveItems = currentLiveItems
-              this.currentLiveListPlatform = "youtube"
-              this.CurrentLiveOverlappingModalPreview = true
+            let currentLiveItems = []
+            live_campaign.forEach(v => {
+              currentLiveItems.push({
+                id: v.id,
+                title: v.snippet.title,
+                image: v.snippet.thumbnails.standard.url,
+                video_url: null,
+                embed_html: null,
+              })
+            });
+            this.currentLiveItems = currentLiveItems
+            this.currentLiveListPlatform = "youtube"
+            this.CurrentLiveOverlappingModalPreview = true
           }
       })
       .catch((error) => {
@@ -602,12 +674,15 @@ export default {
 
     chooseFacebookLive(post_id) {
       this.fb_post_id = post_id
+      this.facebookPageSelected = true
     },
     chooseInstagramLive(live_media_id) {
       this.ig_live_media_id = live_media_id
+      this.instagramPageSelected = true
     },
     chooseYoutubeLive(live_video_id) {
       this.yt_live_video_id = live_video_id
+      this.youtubePageSelected = true
     },
     chooseLive(live_id, platform) {
       if (platform === "facebook") {

@@ -1,5 +1,5 @@
-<template >
-  <div class="overflow-x-scroll">
+<template>
+  <div>
     <table class="table table-report mt-5">
       <thead>
         <tr>
@@ -14,7 +14,7 @@
       </thead>
       <tbody>
         <tr v-for="(campaign, key) in listItems" :key="key" class="intro-x">
-          <td v-if="page_type === 'campaign_list'" class="fan_page items-center">
+          <td v-if="page_type === 'campaign_list'" class="w-20 items-center">
             <div class="flex">
               <div
                 class="w-10 h-10 image-fit zoom-in border-0 lg:w-15"
@@ -76,7 +76,7 @@
             </div>
           </td>
 
-          <td class="text-center w-12 platform" v-if="page_type === 'campaign_list'">
+          <td class="text-center w-12" v-if="page_type === 'campaign_list'">
             <div class="flex ">
               <div
                 class="w-10 h-10 image-fit zoom-in"
@@ -137,18 +137,18 @@
               </div>
             </div>
           </td>
-          <td class="text-center title  w-fit">
+          <td class="text-center">
             {{ campaign.title }}
           </td>
-          <td class="w-5 text-center date">
-            <div class="w-40">{{new Date(campaign.start_at).toLocaleTimeString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})}}</div>
+          <td class="w-5 text-center">
+            <div class="w-20 truncate hover:text-clip hover:w-fit">{{new Date(campaign.start_at).toLocaleTimeString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})}}</div>
           </td>
-          <td class="items-center manage_order w-fit" v-if="page_type === 'campaign_list'">
+          <td class="items-center" v-if="page_type === 'campaign_list'">
             <a class="flex items-center ml-10 2xl:ml-20" @click="manageOrder">
               <ListIcon class="w-4 h-4" />
             </a>
           </td>
-          <td class="items-center checkout w-fit" v-if="page_type === 'campaign_list'">
+          <td class="items-center" v-if="page_type === 'campaign_list'">
             <div
               class="
                 flex
@@ -168,7 +168,7 @@
           <td class="text-center">
             <button
               class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2"
-              @click="changeEntry(campaign.id)"
+              @click="changeEntry(campaign)"
             >
               Entry
             </button>
@@ -281,8 +281,18 @@ export default {
       this.page_Size = pageSize;
       this.search();
     },
-    changeEntry(campaign_id) {
-      this.eventBus.emit("entryPoint", campaign_id);
+    changeEntry(data) {
+      let fb_post_id = data.facebook_campaign.post_id
+      let ig_live_media_id = data.instagram_campaign.live_media_id
+      let yt_live_video_id = data.youtube_campaign.live_video_id
+      console.log(fb_post_id)
+      console.log(ig_live_media_id)
+      console.log(yt_live_video_id)
+      if (fb_post_id && ig_live_media_id && yt_live_video_id) {
+        this.$router.push(`/seller/campaign-live/${data.id}`)
+        return false
+      }
+      this.eventBus.emit("entryPoint", data);
     },
     manageOrder(){
       this.eventBus.emit("manageOrder");
@@ -290,99 +300,3 @@ export default {
   },
 };
 </script>
-
-
-<style scoped>
-.click-icon:hover {
-	cursor: pointer;
-}
-
-td {
-	height: 50px;
-}
-
-@media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
-
-	table,
-	thead,
-	tbody,
-	th,
-	td,
-	tr {
-		display: block;
-		font-size: 16px;
-		padding: 0px !important;
-	}
-
-	.fan_page {
-		height: 60px !important;
-    width: auto;
-	}
-  .platform {
-		height: 60px !important;
-    width: auto;
-	}
-
-	thead tr {
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
-
-	tr {
-		border-bottom: 1px solid black;
-		margin-top: 20px;
-	}
-
-	td {
-		border: none;
-		border-bottom: 1px solid #eee;
-		position: relative;
-		padding-left: 40% !important;
-		text-align: left !important;
-	}
-
-	.productName {
-		padding-left: 15px;
-	}
-
-	td:before {
-		position: absolute;
-		left: 6px;
-		width: 30%;
-		padding-right: 10px;
-		white-space: nowrap;
-		font-weight: bold;
-	}
-
-	.fan_page:before {
-		content: "Fan Page";
-		/* color: #0e9893; */
-	}
-
-	.platform:before {
-		content: "Platform";
-		/* color: #0e9893; */
-	}
-
-	.title:before {
-		content: "Title";
-		/* color: #0e9893; */
-	}
-
-	.date:before {
-		content: "Time";
-		/* color: #0e9893; */
-	}
-
-	.manage_order:before {
-		content: "Manage Order";
-		/* color: #0e9893; */
-	}
-  .checkout:before {
-  content: "Stop Checkout";
-  /* color: #0e9893; */
-  } 
-}
-</style>
