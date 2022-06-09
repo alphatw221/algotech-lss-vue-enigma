@@ -101,8 +101,7 @@ import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { list } from '@/api_v2/product';
 
 const campaignStore = useCreateCampaignStore(); 
-const internalInstance = getCurrentInstance();
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
 
 const dataCount = ref(0)
@@ -134,9 +133,7 @@ onMounted(() => {
         search()
     })
 
-    eventBus.on("addProducts", () => {
-        addProdcuts()
-    })
+    eventBus.on("addProducts", () => { addProdcuts() })
 })
 
 onUnmounted(() => {
@@ -149,13 +146,13 @@ const search = () => {
     .then(response => {
         dataCount.value = response.data.count
         productsList.value = response.data.results
-        for (let i = 0; i < productsList.value.length; i ++) {
-            productsList.value[i].qty_campaign = 1
-            productsList.value[i].selected = false
-            productsList.value[i].editable = false
-            productsList.value[i].deletable = false
-        } 
 
+        productsList.value.forEach((item) => {
+            item.qty_campaign = 1
+            item.selected = false
+            item.editable = false
+            item.deletable = false
+        })
         // 跳頁時選取記憶 selected, editable, deletable 欄位
         if (campaignStore.assignedProducts.length > 0) {
             for (let i = 0; i < campaignStore.assignedProducts.length; i ++) {
@@ -205,22 +202,23 @@ const changeInput = (event, index, type) => {
 const addProdcuts = () => {
     let assignProductIdList = []
     if (campaignStore.assignedProducts.length > 0) {
-        for (let j = 0; j < campaignStore.assignedProducts.length; j ++) {
-            assignProductIdList.push(campaignStore.assignedProducts[j].id)
-        }
+        campaignStore.assignedProducts.forEach((item) => {
+            assignProductIdList.push(item.id)
+        })
     }
 
-    for (let i = 0; i < productsList.value.length; i ++) {
-        if (productsList.value[i].selected == true && !assignProductIdList.includes(productsList.value[i].id)) {
+    productsList.value.forEach((item) => {
+        if (item.selected == true && !assignProductIdList.includes(item.id)) {
             campaignStore.$patch((state) => {
-                state.assignedProducts.push(productsList.value[i])
+                state.assignedProducts.push(item)
             })
-        } else if (productsList.value[i].selected == false && assignProductIdList.includes(productsList.value[i].id)) {
+        } else if (item.selected == false && assignProductIdList.includes(item.id)) {
             campaignStore.$patch((state) => {
-                state.assignedProducts.splice(state.assignedProducts.indexOf(productsList.value[i]), 1);
+                state.assignedProducts.splice(state.assignedProducts.indexOf(item), 1);
             })
         }
-    }
+    })
+
     console.log(campaignStore.assignedProducts)
 }
 </script>
