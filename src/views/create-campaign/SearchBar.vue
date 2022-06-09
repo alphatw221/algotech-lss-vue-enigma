@@ -19,8 +19,6 @@
 import { list_product_category } from '@/api_v2/product';
 
 export default {
-    setup() {
-    },
     data() {
         return {
             page: 1,
