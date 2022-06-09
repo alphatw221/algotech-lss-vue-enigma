@@ -26,6 +26,7 @@
         <div class="mr-auto">Shipping</div>
         <div class="font-medium">$ {{ shippingCost }}</div>
       </div>
+      <div v-if="shippingCost === 0">Order is eligible for free delivery</div>
 
       <div
         class="
