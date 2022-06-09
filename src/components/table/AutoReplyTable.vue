@@ -1,6 +1,4 @@
 <template>
-	<Alert :show="successAlert" class="col-start-1 col-span-12 alert-warning mb-2"> Update Success </Alert>
-	<Alert :show="warnAlert" class="col-start-1 col-span-12 alert-danger mb-2"> Change - Not Saved </Alert>
 	<div>
 		<table class="table table-report mt-5 overflow-y-scroll table-auto">
 			<thead>
@@ -40,10 +38,10 @@
 		</div>
 	</div>
 	<!-- update Modal-->
-	<Modal :show="updateModal" @hidden="updateModal = false">
+	<Modal :show="updateModal" @hidden="closeWithAlert()">
 		<ModalHeader>
 			<h2 class="font-medium text-base mr-auto">Update Auto Response</h2>
-			<a @click="closeUpdate" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
+			<a @click="updateModal = false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
 				<XIcon class="w-8 h-8 text-slate-400" />
 			</a>
 		</ModalHeader>
@@ -63,13 +61,13 @@
 				<input id="modal-form-1" type="text" class="form-control rounded-full" placeholder=""
 					v-model="currentInfo.description" />
 			</div>
-			<div class="col-span-12">
+			<!-- <div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Following</label>
 				<img :src="currentInfo.facebook_page.image" />
-			</div>
+			</div> -->
 		</ModalBody>
 		<ModalFooter>
-			<button type="button" @click="closeUpdate" class="btn btn-outline-secondary w-20 mr-1">
+			<button type="button" @click="updateModal=false" class="btn btn-outline-secondary w-20 mr-1">
 				Cancel
 			</button>
 			<button type="button" @click="updateAutoReply(this.currentInfo.id)"
@@ -81,6 +79,8 @@
 <script>
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { delete_auto_response, update_auto_response } from "@/api/auto_reply";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+
 export default {
 	props: {
 		requestUrl: String,
@@ -93,8 +93,7 @@ export default {
 			pageSize: 10,
 			totalCount: 0,
 			updateModal: false,
-			warnAlert: false,
-			successAlert: false,
+			saved: false, 
 			listItems: [],
 			currentInfo: {
 				id: '',
@@ -105,6 +104,11 @@ export default {
 			},
 		}
 	},
+	getters: {
+    getLayoutStore: (state) => {
+      const layoutStore = useLSSSellerLayoutStore()
+    	},
+  	},
 	mounted() {
 		this.getReplyData()
 		this.eventBus.on("getReplyData", (payload) => {
@@ -142,22 +146,26 @@ export default {
 				console.log(error);
 			})
 		},
+		closeWithAlert(){
+			if(this.saved===true){
+				return layoutStore.notification.showMessageToast("Change Not Saved")
+				this.updateModal = false; 
+			}else{
+				this.updateModal = false; 
+				return layoutStore.alert.showMessageToast("Change Not Saved")
+			}
+			saved.value=false
+		},
 		updateAutoReply(id) {
 			update_auto_response(id, this.currentInfo).then(
 				response => {
 					console.log(response)
 					this.updateModal = false;
-					this.successAlert = true;
-					this.getReplyData()
-					setTimeout(() => (this.successAlert = false), 3000);
+					this.saved = true;
 				}
 			)
 		},
-		closeUpdate() {
-			this.updateModal = false,
-				this.warnAlert = true,
-				setTimeout(() => (this.warnAlert = false), 5000);
-		},
+		
 		deleteAutoReply(id) {
 			delete_auto_response(id).then(
 				response => {

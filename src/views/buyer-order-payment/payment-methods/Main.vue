@@ -1,5 +1,5 @@
 <template>
-    <AccordionGroup class="accordion-boxed" > 
+    <AccordionGroup class="mb-10" > 
 
 
         <!-- BEGIN Direct Payment -->

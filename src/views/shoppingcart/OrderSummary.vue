@@ -26,7 +26,7 @@
         <div class="mr-auto">Shipping</div>
         <div class="font-medium">$ {{ shippingCost }}</div>
       </div>
-      <div v-if="shippingCost === 0">Order is eligible for free delivery</div>
+      <div v-if="shippingCost === 0 && store.shipping_info.method !== 'pickup'" class="text-red-600 text-sm">Order is eligible for free delivery</div>
 
       <div
         class="
@@ -38,7 +38,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">Total Charge</div>
-        <div class="font-medium text-base" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ cartTotal }}</div>
+        <div class="font-medium text-base" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ parseFloat(cartTotal).toFixed(2) }}</div>
       </div>
     </div>
     <div class="flex mt-5" v-if="store.openTab === 1">
