@@ -153,7 +153,6 @@ onMounted(() => {
         if (item.status == 'enabled') item.status = true
         else if (item.status == 'disabled') item.status = false
     });
-//    console.log(campaignStore.assignedProducts)
    
    eventBus.on('confirmProducts', () => {
         let campaignTitle = campaignStore.campaignTitle
