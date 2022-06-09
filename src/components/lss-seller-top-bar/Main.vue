@@ -1,14 +1,34 @@
 <template>
   <!-- BEGIN: Top Bar -->
   <div
-    class="top-bar-boxed h-[70px] md:h-[65px] z-[51] border-b border-white/[0.08] -mt-7 md:mt-0 -mx-3 sm:-mx-8 md:-mx-0 px-3 md:border-b-0 relative md:fixed md:inset-x-0 md:top-0 sm:px-8 md:px-10 md:pt-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent dark:md:from-darkmode-700"
+    class="lss-buyer-top-bar-boxed relative border-b border-white/[0.08]
+    h-[70px] z-[51] px-3 -mx-3 pt-4
+    sm:-mx-8 sm:px-8
+    md:h-[65px] md:-mx-0 md:border-b-0 md:fixed md:inset-x-0 md:px-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent
+    dark:md:from-darkmode-700"
   >
     <div class="h-full flex items-center">
+
+
+
+      <!-- BEGIN: Hamburger -->
+      <a @click="toggleMobileMenu()">
+        <AlignJustifyIcon
+          class="w-7 h-7 text-white transform md:hidden intro-x ml-4 mb-1 hover:text-slate-300"
+        />
+      </a>
+      <!-- END: Hamburger -->
+
       <!-- BEGIN: Logo -->
-      <a href="" class="logo -intro-x hidden md:flex xl:w-[180px] block">
+      <a href="" class="logo -intro-x block
+      w-20 mx-auto
+      sm:w-25 sm:mx-auto
+      md:flex md:w-30 md:mx-0
+      xl:w-35
+      ">
         <img
           alt="Enigma Tailwind HTML Admin Template"
-          class="logo__image ml-6" style="width:130px;"
+          class="logo__image mb-1"
           src="@/assets/images/lss-logo/LSS_logo_words_white.png"
         />
         <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
@@ -22,7 +42,7 @@
         </ol>
       </nav>
       <!-- END: Breadcrumb -->
-      <!-- BEGIN: Search -->
+      <!-- BEGIN: Search
       <div class="intro-x relative mr-3 sm:mr-6">
         <div class="search hidden sm:block">
           <input
@@ -112,7 +132,7 @@
             </a>
           </div>
         </div>
-      </div>
+      </div> -->
       <!-- END: Search -->
       <!-- BEGIN: Notifications -->
       <Dropdown class="intro-x mr-4 sm:mr-6">
@@ -169,7 +189,7 @@
         >
           <img
             alt="Enigma Tailwind HTML Admin Template"
-            :src="$f()[9].photos[0]"
+            :src="userAvatar"
           />
         </DropdownToggle>
         <DropdownMenu class="w-56">
@@ -178,10 +198,10 @@
           >
             <DropdownHeader tag="div" class="!font-normal">
               <div class="font-medium">
-                {{ $f()[0].users[0].name }}
+                {{ sellerLayoutStore.userInfo.name }}
               </div>
               <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                {{ $f()[0].jobs[0] }}
+                {{ sellerLayoutStore.userInfo.email }}
               </div>
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
@@ -212,30 +232,30 @@
 
 <script setup>
 import { ref, defineEmits, computed } from "vue";
-import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useRoute, useRouter } from "vue-router";
 import dom from "@left4code/tw-starter/dist/js/dom";
 
 const route = useRoute();
 const router = useRouter();
 
-const buyerLayoutStore = useLSSBuyerLayoutStore();
+const sellerLayoutStore = useLSSSellerLayoutStore();
 
 const toggleMobileMenu = ()=>{
-  buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
+  sellerLayoutStore.showMobileMenu = !sellerLayoutStore.showMobileMenu
 }
 
-// const userAvatar = buyerLayoutStore.loginWith=='facebook' ? buyerLayoutStore.userInfo.facebook_info.picture : buyerLayoutStore.userInfo.google_info.picture
+// const userAvatar = sellerLayoutStore.loginWith=='facebook' ? sellerLayoutStore.userInfo.facebook_info.picture : sellerLayoutStore.userInfo.google_info.picture
 const userAvatar = computed(() => {
-  if(buyerLayoutStore.loginWith=='facebook'){
-    return buyerLayoutStore.userInfo.facebook_info.picture
-  }else if (buyerLayoutStore.loginWith=='google'){
-    return buyerLayoutStore.userInfo.google_info.picture
+  if(sellerLayoutStore.loginWith=='facebook'){
+    return sellerLayoutStore.userInfo.facebook_info.picture
+  }else if (sellerLayoutStore.loginWith=='google'){
+    return sellerLayoutStore.userInfo.google_info.picture
   }
-  if(buyerLayoutStore.userInfo.facebook_info.picture){
-    return buyerLayoutStore.userInfo.facebook_info.picture
+  if(sellerLayoutStore.userInfo.facebook_info.picture){
+    return sellerLayoutStore.userInfo.facebook_info.picture
   }
-  return buyerLayoutStore.userInfo.google_info.picture
+  return sellerLayoutStore.userInfo.google_info.picture
 });
 const logout = () => {
   // clear cookies
