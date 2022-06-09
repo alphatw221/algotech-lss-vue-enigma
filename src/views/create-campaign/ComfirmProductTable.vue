@@ -116,11 +116,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance, computed } from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
-<<<<<<< HEAD
 import { useRoute, useRouter } from "vue-router";
-=======
-import { list_product } from '@/api_v2/product';
->>>>>>> ee21ab70cf5a8260e8d7d07f1a79848d59f88e91
 
 const campaignStore = useCreateCampaignStore(); 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
