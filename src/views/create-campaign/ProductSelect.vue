@@ -32,8 +32,8 @@
 			<span class="text-2xl font-medium leading-none mb-3">{{ productPageTitle }}</span>
 			<div>
 				<div class="overflow-x-auto intro-y col-span-12" >
-					<SearchBar class="-mb-8" />
 					<div v-show="selectProduct">
+						<SearchBar class="-mb-8" />
 						<AssignProductTable />
 					</div>
 					<div v-show="comfirmProduct">

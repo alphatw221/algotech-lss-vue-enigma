@@ -78,10 +78,21 @@
                         <template v-else-if="column.key === 'name'">
                             <div class="truncate hover:text-clip lg:w-28 2xl:w-36">{{ product[column.key] }}</div>
                         </template>
+                        <template v-else-if="column.key === 'status'">
+                            <div class="form-switch mt-2">
+                                <input 
+                                    type="checkbox" 
+                                    class="form-check-input" 
+                                    v-model="product[column.key]"
+                                />
+                            </div>
+                        </template>
                         <template v-else>
                             <div class="w-fit self-center place-content-center"> {{ product[column.key] }} </div>
                         </template>
+                        
                     </td>
+                    
                 </tr>
             </tbody>
         </table>
@@ -122,11 +133,17 @@ const tableColumns = ref([
 	{ name: "Price", key: "price" },
 	{ name: "Editable", key: "editable" },
 	{ name: "Deletable", key: "deletable" },
-	{ name: "Type", key: "type" }
+	{ name: "Type", key: "type" },
+    { name: "Activate", key: "status" }
 ])
 
 onMounted(() => {
-    console.log(campaignStore.assignedProducts)
+    campaignStore.assignedProducts.forEach((item) => {
+        if (item.status == 'enabled') item.status = true
+        else if (item.status == 'disabled') item.status = false
+    });
+
+   console.log(campaignStore.assignedProducts)
 })
 
 onUnmounted(() => {
