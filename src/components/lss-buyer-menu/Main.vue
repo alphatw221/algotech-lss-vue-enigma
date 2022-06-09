@@ -1,6 +1,6 @@
 <template>
       <!-- BEGIN: Side Menu -->
-      <nav class="side-nav">
+      <nav class="side-nav bg-secondary">
         <ul>
           <!-- BEGIN: First Child -->
           <template v-for="(menu, menuKey) in formattedMenu">
@@ -159,3 +159,12 @@ onMounted(() => {
 
 });
 </script>
+
+
+<style scoped>
+.dark .side-nav{ 
+  background-color: theme("colors.dark"); 
+}
+
+
+</style>
