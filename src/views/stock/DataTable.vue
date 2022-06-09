@@ -41,7 +41,7 @@
 						<div class="flex justify-center items-center">
 							<a 
 								class="flex items-center mr-3" 
-								@click="this.$router.push({ path: routerPath, query: { type: routerParam, id: product['id'] }})"
+								@click="this.$router.push({ path: `/seller/product/edit/${product.id}`})"
 							>
 								<CheckSquareIcon class="w-4 h-4 mr-1"/> Edit
 							</a>
@@ -68,9 +68,7 @@ export default {
 	props: {
 		requestUrl: String,
 		columns: Array,
-		routerPath: String,
-        routerParam: String,
-		status: String,
+		product_status: String,
 		eventBusName: String
 	},
 	data() {
@@ -105,7 +103,7 @@ export default {
 	methods: {
 		search() {
 			createAxiosWithBearer()
-			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.status}&category=${this.category}`)
+			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.product_status}&category=${this.category}`)
 			.then(
 				response => {
 					if(response.data.count != undefined){

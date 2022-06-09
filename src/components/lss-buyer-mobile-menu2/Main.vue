@@ -1,5 +1,5 @@
 <template>
-      <div id="lss-mobil-side-nav" class=" lss-mobil-side-nav-close absolute z-50 top-15 h-full dark:bg-darkmode-500 bg-primary overflow-hidden md:hidden">
+      <div id="lss-mobil-side-nav" class=" lss-mobil-side-nav-close ml-3 mr-5 absolute z-50 top-14 h-full dark:bg-darkmode-500 bg-primary overflow-hidden md:hidden">
 
       <!-- BEGIN: Mobile Menu -->
   <div class="mobile-menu">
@@ -18,7 +18,7 @@
     </div> -->
     <!-- <transition @enter="enter" @leave="leave"> -->
       <ul
-        class="border-t border-white/[0.08] py-5 " 
+        class="border-t border-white/[0.08] py-5 pt-7 mt-5" 
       >
         <!-- BEGIN: First Child -->
         <template v-for="(menu, menuKey) in formattedMenu">
@@ -27,7 +27,9 @@
             :key="menu + menuKey"
             class="menu__devider my-6"
           ></li>
-          <li v-else :key="menu + menuKey">
+          <li v-else :key="menu + menuKey" 
+            class="my-2"
+            >
             <a
               href="javascript:;"
               class="menu"
@@ -100,7 +102,9 @@
                             {{ lastSubMenu.title }}
                           </div>
                         </a>
+                        
                       </li>
+                      
                     </ul>
                   </transition>
                   <!-- END: Third Child -->
@@ -108,6 +112,7 @@
               </ul>
             </transition>
             <!-- END: Second Child -->
+            <!-- <div class="w-full border-t border-slate-200/60 border-dashed"></div> -->
           </li>
         </template>
         <!-- END: First Child -->
@@ -174,7 +179,7 @@ watch(
 <style scoped>
 .lss-mobil-side-nav-show{
   /* left:11px; */
-  height: 100%;
+  height: 100vh;
   transition: 1s;
 }
 
@@ -186,8 +191,8 @@ watch(
 
 #lss-mobil-side-nav{
   left: 0%;
-  width: 100%;
-  border-radius: 30px;
+  width: 95vw;
+  border-radius: 0px 0px 30px 30px;
 }
 
 

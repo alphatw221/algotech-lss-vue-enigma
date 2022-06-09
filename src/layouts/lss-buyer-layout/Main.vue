@@ -7,7 +7,7 @@
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
-    <Notification refKey="buyerMessageAlert" :options="{duration: 3000,}" class="flex flex-col sm:flex-row">
+    <Notification refKey="buyerMessageAlert" :options="{duration: 3000,}" class="flex flex-col sm:flex-row text-red-600">
       <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
       <div id="message" class="font-medium">Message</div>
     </Notification>
