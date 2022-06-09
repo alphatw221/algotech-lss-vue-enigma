@@ -123,7 +123,7 @@ const routes = [
         component: CampaignLive,
       },
       {
-        path: "manage-order",
+        path: "manage-order/:campaign_id?",
         name: "side-menu-manage-order",
         component: ManageOrder,
       },
