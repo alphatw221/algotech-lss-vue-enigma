@@ -4,7 +4,7 @@
   bg-primary
   mb-10
   md:hidden">
-    <div class="mobile-menu-bar py-2">
+    <!-- <div class="mobile-menu-bar py-2">
       <a href="" class="flex mr-auto">
         <img
           alt="Enigma Tailwind HTML Admin Template"
@@ -16,7 +16,7 @@
         class="w-8 h-8 text-white transform -rotate-90"
         @click="toggleMobileMenu"
       />
-    </div>
+    </div> -->
     <transition @enter="enter" @leave="leave">
       <ul
         v-if="activeDropdown"
@@ -123,7 +123,6 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { helper as $h } from "@/utils/helper";
-// import { useSideMenuStore } from "@/stores/side-menu";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import {
   activeMobileMenu,
