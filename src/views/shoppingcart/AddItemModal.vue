@@ -15,7 +15,7 @@
 			<div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5" 
 				>
 
-				<div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2" 
+				<div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3" 
 					v-for="(product, index) in addOnProducts" :key="index"
 					>
 					
@@ -125,14 +125,14 @@ const changeQuantity = (event, index, operation) => {
 	} else if (operation == 'minus' && addOnProducts.value[index].qty > 1) {
 		addOnProducts.value[index].qty -= 1
 	} else if (operation=='input' && event.target.value >= 1 && event.target.value <= 99){
-		return
+		addOnProducts.value[index].qty = event.target.value
 	} 
 	else{
 		if(event)event.target.value=1
 		addOnProducts.value[index].qty = 1
 		layoutStore.alert.showMessageToast("Invalid amount")
 	}
-}
+}   // minus after input works, plus after input not works
 
 
 const buyer_add_item = (campaing_product_id, index) => {
