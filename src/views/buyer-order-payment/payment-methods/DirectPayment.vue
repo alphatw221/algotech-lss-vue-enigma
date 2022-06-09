@@ -78,7 +78,7 @@
             </Dropzone>
             <div class="m-3 flex flex-col">
                 <label for="regular-form-2" class="form-label">Last Five Digits</label>
-                <input id="regular-form-2" type="text" class="form-control form-control" />
+                <input id="regular-form-2" type="text" class="form-control" v-model="fiveDigits" />
                 <button type="button" class="mt-5 mx-3 w-fit btn btn-rounded-primary self-center lg:self-end 2xl:self-end" @click="uploadReceipt()" >Upload & Finished Payment</button>
             </div>
         </AccordionPanel>
@@ -104,6 +104,9 @@ const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1)
 const receiptUploadDropzoneRef = ref();
 const openTab = ref(0)
 
+const fiveDigits =ref()
+const inputLength = ref(5)
+
 const select_account = index => openTab.value=index
 
 provide("bind[receiptUploadDropzoneRef]", (el) => {
@@ -120,7 +123,7 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
 const uploadReceipt = ()=>{
 
     let formData = new FormData()
-    formData.append('last_five_digits','12345' )
+    formData.append('last_five_digits', fiveDigits.value )
     formData.append('image',receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]||'')
 
     
@@ -128,7 +131,7 @@ const uploadReceipt = ()=>{
     .then(
         res => {
             store.order = res.data
-            router.push(`/buyer/order/${route.params.order_id}`)
+            router.push(`/buyer/orders`)
         }
     )
 }

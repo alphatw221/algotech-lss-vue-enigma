@@ -5,7 +5,10 @@
 		@hidden="store.showAddItemModal=false"
 		:slideOver="true"
 	>
-		<ModalBody class="p-5" >
+		<ModalBody class="p-5 relative" >
+			<a @click="store.showAddItemModal = !store.showAddItemModal" class="absolute right-0 top-0 mt-3 mr-3">
+                <XIcon class="w-8 h-8 text-slate-400" />
+            	</a>
 			<ModalHeader>
 				<h2 class="font-medium text-base mr-auto">
 					Select add-ons
@@ -57,13 +60,6 @@
 						</div>
 					</div>
 				</div>
-			<button 
-				class="col-span-12 btn btn-rounded btn-primary-soft w-35 mb-5 mt-5"
-				@click="store.showAddItemModal = !store.showAddItemModal"
-				style="margin-left: auto; margin-right: auto;"
-			>
-				Back to Cart
-			</button>
 			</div>
 		</ModalBody>
 	</Modal>

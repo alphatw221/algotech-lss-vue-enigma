@@ -22,7 +22,11 @@
         </div>
         <div class="flex mt-4">
             <!-- <div class="mr-auto">2401 Utah Avenue South Seattle, Washington, U.S.</div> -->
-            <div class="mr-auto">{{ store.order.shipping_address_1 }}</div>
+            <div class="mr-auto">
+                {{store.order.shipping_location}} 
+                {{store.order.shipping_region}} 
+                {{store.order.shipping_postcode}} 
+                {{store.order.shipping_address_1}}</div>
         </div>
 
         <div class="flex mt-4 pt-4 border-t border-slate-200/60 dark:border-darkmode-400">
