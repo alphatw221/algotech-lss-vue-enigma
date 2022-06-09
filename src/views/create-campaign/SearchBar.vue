@@ -45,7 +45,7 @@ export default {
     },
     methods: {
         search() {
-            this.eventBus.emit("assignTable", { pageSize: this.pageSize, filterColumn: this.filterColumn })
+            this.eventBus.emit("assignTable", { filterColumn: this.filterColumn })
         },
     }
 }

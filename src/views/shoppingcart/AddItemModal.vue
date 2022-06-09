@@ -12,13 +12,11 @@
 				</h2>
 			</ModalHeader>
 
-			<div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5" 
-				>
-
-				<div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3" 
+			<div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5" >
+				<div 
+					class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2" 
 					v-for="(product, index) in addOnProducts" :key="index"
-					>
-					
+				>
 					<div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in" >
 
 						<a class="w-4/5 file__icon file__icon--image mx-auto">
@@ -60,9 +58,6 @@
 					</div>
 				</div>
 			</div>
-
-
-
 			<Row>
 				<button 
 					class="btn btn-rounded btn-primary-soft w-35 mb-5 mt-5"
@@ -80,13 +75,11 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 // import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
-import { buyer_cart_add } from "@/api_v2/pre_order";
-
-import { retrieve_pre_order } from "@/api_v2/pre_order";
-
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { useRoute } from "vue-router";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
+import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { buyer_cart_add } from "@/api_v2/pre_order";
+import { useRoute } from "vue-router";
+
 
 const layoutStore = useLSSBuyerLayoutStore();
 

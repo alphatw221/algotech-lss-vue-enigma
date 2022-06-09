@@ -98,7 +98,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance} from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
-import { list } from '@/api_v2/product';
+import { list_product } from '@/api_v2/product';
 
 const campaignStore = useCreateCampaignStore(); 
 const internalInstance = getCurrentInstance();
@@ -130,7 +130,6 @@ onMounted(() => {
 
     eventBus.on("assignTable", (payload) => {
         currentPage.value = 1
-        pageSize.value = payload.pageSize
         category.value = payload.filterColumn
         search()
     })
@@ -142,10 +141,11 @@ onMounted(() => {
 
 onUnmounted(() => {
     eventBus.off("assignTable");
+    eventBus.off("addProducts");
 })
 
 const search = () => {
-    list(pageSize.value, currentPage.value, undefined, undefined, 'enabled', category)
+    list_product(pageSize.value, currentPage.value, undefined, undefined, 'enabled', category.value)
     .then(response => {
         dataCount.value = response.data.count
         productsList.value = response.data.results
@@ -214,6 +214,10 @@ const addProdcuts = () => {
         if (productsList.value[i].selected == true && !assignProductIdList.includes(productsList.value[i].id)) {
             campaignStore.$patch((state) => {
                 state.assignedProducts.push(productsList.value[i])
+            })
+        } else if (productsList.value[i].selected == false && assignProductIdList.includes(productsList.value[i].id)) {
+            campaignStore.$patch((state) => {
+                state.assignedProducts.splice(state.assignedProducts.indexOf(productsList.value[i]), 1);
             })
         }
     }
