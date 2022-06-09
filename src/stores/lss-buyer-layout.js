@@ -9,27 +9,6 @@ export const useLSSBuyerLayoutStore = defineStore("buyerLayout", {
         pageName: "buyer-order-history-page",
         title: "Order History",
       },
-      {
-        icon: "ShoppingBagIcon",
-        pageName: "buyer-order-history-page",
-        title: "Order History",
-      },
-      {
-        icon: "ShoppingBagIcon",
-        pageName: "buyer-order-history-page",
-        title: "Order History",
-      },
-      {
-        icon: "ShoppingBagIcon",
-        pageName: "buyer-order-history-page",
-        title: "Order History",
-      },
-      {
-        icon: "ShoppingBagIcon",
-        pageName: "buyer-order-history-page",
-        title: "Order History",
-      },
-      
     ],
     showMobileMenu: ref(false),
     isAuthenticated: ref(false),
