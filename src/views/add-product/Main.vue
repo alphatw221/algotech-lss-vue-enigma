@@ -1,8 +1,12 @@
 <template>
 	<div>
-		<div class="intro-y flex items-center mt-8">
+		<div class="intro-y flex items-center mt-8" v-if="route.params.product_id">
+			<h2 class="text-lg font-medium mr-auto">Update Product</h2>
+		</div>
+		<div class="intro-y flex items-center mt-8" v-else>
 			<h2 class="text-lg font-medium mr-auto">Add New Product</h2>
 		</div>
+		
 		<div class="intro-y grid grid-cols-12 gap-4 box p-5 mt-5">
 			<div class="col-span-6 col-start-1">
 				<label for="crud-form-1" class="form-label">Product Name</label>
@@ -11,29 +15,32 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
-					v-model="productInfo.name"
+					v-model="product.name"
 				/>
 			</div>
 			<div class="col-span-6">
 				<label for="crud-form-2" class="form-label">Category</label>
+
 				<TomSelect
 					id="crud-form-2"
-					v-model="productInfo.categories"
+					v-model="product.tag"
 					class="w-full"
 					multiple
-					v-if="formType=='create'"
+					v-if="route.params.product_id"
 				>
 					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
 				</TomSelect>
+
 				<TomSelect
 					id="crud-form-2"
-					v-model="productInfo.categories"
+					v-model="product.tag"
 					class="w-full"
 					multiple
-					v-else-if="formType=='update'"
+					v-else
 				>
 					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
 				</TomSelect>
+				
 			</div>
 
 			<div class="mt-3 col-span-12 col-start-1">
@@ -65,7 +72,7 @@
 							type="radio" 
 							name="horizontal_radio_button" 
 							:value="type.id"
-							v-model="productInfo.type"
+							v-model="product.type"
 						/>
 						<label 
 							class="form-check-label" 
@@ -84,7 +91,7 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
-					v-model="productInfo.order_code"
+					v-model="product.order_code"
 				/>
 			</div>
 			<div class=" mt-3 col-span-6">
@@ -94,7 +101,7 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
-					v-model="productInfo.description"
+					v-model="product.description"
 				/>
 			</div>
 
@@ -105,7 +112,7 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
-					v-model="productInfo.quantity"
+					v-model="product.qty"
 				/>
 			</div>
 			<div class=" mt-3 col-span-6">
@@ -115,7 +122,7 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
-					v-model="productInfo.price"
+					v-model="product.price"
 				/>
 			</div>
 
@@ -128,7 +135,7 @@
 							type="radio" 
 							name="horizontal_radio_button1" 
 							:value="status.id"
-							v-model="productInfo.status"
+							v-model="product.status"
 						/>
 						<label 
 							class="form-check-label" 
@@ -150,7 +157,7 @@
 
 			<div class="mt-3 col-span-12 ">
 				<div class="flex mt-5 float-right">
-					<button class="btn w-32 dark:border-darkmode-400 " @click="this.$router.push('/stock')">
+					<button class="btn w-32 dark:border-darkmode-400 " @click="router.push('/seller/stock')">
 						Cancel
 					</button>
 					<button class="btn btn-primary w-32 shadow-md ml-5" @click="submit">
@@ -163,18 +170,16 @@
 	</div>
 </template>
 
-<script>
+<script setup>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
-import { list_product_category, create, update } from '@/api_v2/product';
+import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
+import { ref, onMounted } from 'vue'
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+const router = useRouter();
 
-export default {
-	setup() {
-	},
-	data() {
-		return {
-			formType: '',
-			updateId: 0,
-			productInfo: {
+const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const product = ref({
 				id: 0,
 				name: '',
 				categories: [],
@@ -182,86 +187,81 @@ export default {
 				type: '',
 				order_code: '',
 				description: '',
-				quantity: '',
+				qty: '',
 				price: '',
 				status: '',
 				tag: []
-			},
-			typeRadio: [
+			})
+
+const typeRadio = ref([
 				{text: 'Product', id: 'product'},
 				{text: 'Lucky Draw', id: 'lucky_draw'},
-			],
-			statusRadio: [
+			])
+
+const statusRadio = ref([
 				{text: 'For Sale', id: 'enabled'},
 				{text: 'Delisted', id: 'disabled'},
-			],
-			previewImage: null,
-			formData: new FormData(),
-			categorySelection: []
-		}
-	},
-	mounted() {
-		this.formType = this.$route.query.type
-		this.updateId = this.$route.query.id
+			])
 
-		list_product_category().then(
-			response => { this.categorySelection = response.data }
+const previewImage =ref(null)
+
+const categorySelection =ref([])
+const formData = new FormData()
+
+onMounted(()=>{
+	list_product_category().then(
+		res => { categorySelection.value = res.data }
+	)
+	if (route.params.product_id) {
+		retrieve_product(route.params.product_id)
+		.then(
+			res => {
+				product.value = res.data
+				previewImage.value = storageUrl+res.data.image
+			}
 		)
+	}
+})
 
-		if (this.formType == 'update') {
-			createAxiosWithBearer()
-			.get(`/api/product/${this.updateId}/retrieve_product/`)
-			.then(
-				response => {
-					this.productInfo = {
-						id: response.data.id,
-						name: response.data.name,
-						order_code: response.data.order_code,
-						description: response.data.description,
-						quantity: response.data.qty,
-						type: response.data.type,
-						price: response.data.price,
-						status: response.data.status,
-						categories: response.data.tag,
-					}
-					this.previewImage = import.meta.env.VITE_APP_IMG_URL + response.data.image
-				}
-			)
-		}
-	},
-	methods: {
-		submit() {
-			if (this.formType == 'create') {
-				this.formData.append('text', JSON.stringify(this.productInfo))
-				create(this.formData)
+
+
+
+const submit = ()=>{
+			if (route.params.product_id) {
+				formData.append('data', JSON.stringify(product.value))
+				update_product(route.params.product_id, formData)
 				.then(
 					response => {
-						console.log('image upload response > ', response)
-						this.$router.push('/stock')
+						// console.log('image upload response > ', response)
+						// layoutStore.alert.showMessageToast("Invalid Quantity")
+						router.push('/seller/stock')
 					}
 				)
-			} else if (this.formType == 'update') {
-				this.formData.append('text', JSON.stringify(this.productInfo))
-				update(this.productInfo.id, this.formData)
+			} else {
+				formData.append('data', JSON.stringify(product.value))
+				// formData.append('image', )
+				create_product(formData)
 				.then(
 					response => {
-						console.log('image upload response > ', response)
-						this.$router.push('/stock')
+						// layoutStore.alert.showMessageToast("Invalid Quantity")
+						router.push('/seller/stock')
 					}
 				)
 			}
 			
-		},
-		uploadImage(e){
-			const image = e.target.files[0];
-			this.formData.append('image', image)
-
-			const reader = new FileReader();
-			reader.readAsDataURL(image);
-			reader.onload = e =>{
-				this.previewImage = e.target.result;
-			};
 		}
-	},
+
+
+const uploadImage = e=>{
+	const image = e.target.files[0];
+	formData.append('image', image)
+
+	const reader = new FileReader();
+	reader.readAsDataURL(image);
+	reader.onload = e =>{
+		previewImage.value = e.target.result;
+	};
 }
+
+
 </script>

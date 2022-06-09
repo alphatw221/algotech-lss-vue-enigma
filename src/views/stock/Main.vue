@@ -7,8 +7,8 @@
 					<TabList class="nav-boxed-tabs flex w-full">
 						<Tab class="w-full py-2 flex-1 w-24" tag="button">For Sale</Tab>
 						<Tab class="w-full py-2 flex-1 w-24" tag="button">Delisted</Tab>
-						<Tab class="w-full py-2 flex-1 w-24" tag="button">Sold out</Tab>
-						<Tab class="w-full py-2 flex-1 w-24" tag="button">Delete</Tab>
+						<!-- <Tab class="w-full py-2 flex-1 w-24" tag="button">Sold out</Tab>
+						<Tab class="w-full py-2 flex-1 w-24" tag="button">Delete</Tab> -->
 					</TabList>
 				</div>
 				<div class="col-start-1 w-full lg:col-start-10 lg:ml-5 2xl:col-start-10 2xl:ml-5">
@@ -22,6 +22,9 @@
 				<div class="p-1 col-span-12 lg:p-5 2xl:p-5">
 					<div>
 						<TabPanels class="mt-0 lg:mt-5 2xl:mt-5">
+
+
+							<!-- BEGIN For Sale Tab -->
 							<TabPanel class="leading-relaxed"> 
 								<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
 									<SearchBar
@@ -37,14 +40,15 @@
 										class="overflow-x-auto"
 										:requestUrl="'/api/v2/product/search'"
 										:columns="tableColumns"
-										:routerPath="'add-product'"
-										:routerParam="'update'"
-										:status="'enabled'"
+										:product_status="'enabled'"
 										:eventBusName="'searchForSaleTable'"
 									>
 									</DataTable>
 								</div>
 							</TabPanel>
+							<!-- END For Sale Tab -->
+
+							<!-- BEGIN Delisted Tab -->
 							<TabPanel class="leading-relaxed"> 
 								<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
 									<SearchBar
@@ -58,16 +62,16 @@
 									<DataTable
 										:requestUrl="'/api/v2/product/search'"
 										:columns="tableColumns"
-										:routerPath="'add-product'"
-										:routerParam="'update'"
-										:status="'disabled'"
+										:product_status="'disabled'"
 										:eventBusName="'searchDelistedTable'"
 									>
 									</DataTable>
 								</div>
 							</TabPanel>
-							<TabPanel class="leading-relaxed"> Sold. </TabPanel>
-							<TabPanel class="leading-relaxed"> Delete. </TabPanel>
+							<!-- END Delisted Tab -->
+
+							<!-- <TabPanel class="leading-relaxed"> Sold. </TabPanel>
+							<TabPanel class="leading-relaxed"> Delete. </TabPanel> -->
 						</TabPanels>
 					</div>
 				</div>

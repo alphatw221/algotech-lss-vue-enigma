@@ -77,8 +77,16 @@
                         name="vertical_radio_button" :value="title" v-model="store.shipping_info.shipping_option" />
                       <label class="form-check-label mr-auto" :for="'radio-switch-' + index">{{ title }}</label>
 
-                      <label class="form-check-label">{{ store.order.campaign.currency }}
-                        {{ store.order.campaign.meta_logistic.additional_delivery_charge_price[index] }}</label>
+                      
+                        <div v-if="store.order.campaign.meta_logistic.additional_delivery_charge_type[index] ==='+'">
+                          <label class="form-check-label">{{ store.order.campaign.currency }}</label>
+                          {{ (parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(2) }}
+                        </div>
+                        <div v-else>
+                          <label class="form-check-label">{{ store.order.campaign.currency }}</label>
+                          {{ parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]).toFixed(2)}}
+                        </div>
+                      
                     </div>
                   </div>
                 </div>
@@ -192,6 +200,7 @@ const proceed_to_payment = ()=> {
     pickup_info:Object.assign(Object.assign(store.shipping_info.pickup_info, store.contact_info),assignData),
     delivery_info:Object.assign(Object.assign(store.shipping_info.delivery_info, store.contact_info),assignData)
     }
+
   update_delivery_info(route.params.pre_order_id, data).then(res=>{
     router.push(`/buyer/order/${res.data.id}/payment`)
   })

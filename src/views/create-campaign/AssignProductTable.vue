@@ -98,7 +98,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance} from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
-import { list } from '@/api_v2/product';
+import { list_product } from '@/api_v2/product';
 
 const campaignStore = useCreateCampaignStore(); 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
@@ -142,7 +142,7 @@ onUnmounted(() => {
 })
 
 const search = () => {
-    list(pageSize.value, currentPage.value, undefined, undefined, 'enabled', category.value)
+    list_product(pageSize.value, currentPage.value, undefined, undefined, 'enabled', category.value)
     .then(response => {
         dataCount.value = response.data.count
         productsList.value = response.data.results
