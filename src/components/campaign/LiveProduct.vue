@@ -122,8 +122,8 @@
                                 <template v-if="column.key === 'image'" class="w-40">
                                     <div class="flex">
                                         <div class="w-10 h-10 image-fit zoom-in">
-                                            <Tippy tag="img" class="rounded-full" :src="product.image"
-                                                :content="`Uploaded at`" />
+                                            <Tippy tag="img" class="rounded-lg" :src="product.image"
+                                                :content="`product`" />
                                         </div>
                                     </div>
                                 </template>

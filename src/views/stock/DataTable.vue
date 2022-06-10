@@ -1,8 +1,8 @@
 <template>
 	<div >
-		<table class="table table-report mt-5 overflow-y-scroll table-auto">
+		<table class="box table table-report mt-5 overflow-y-scroll table-auto">
 			<thead>
-				<tr >
+				<tr>
 					<th class="whitespace-normal truncate hover:text-clip" v-for="column in columns" :key="column.key">
 						{{ column.name }}
 					</th>
@@ -14,29 +14,31 @@
 					:key="key"
 					class="intro-x"
 				>	
-					<td v-for="column in columns" :key="column.key" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm">
-						<template v-if="column.key === 'image'" >
-							<div class="flex">
-								<div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
-									<Tippy 
-										tag="img"
-										class="rounded-full"
-										:src= "`${publicPath}` + product.image"
-										:content="`Uploaded at`"
-									/>
-								</div>
+				<template v-for="column in columns" :key="column.key"> 
+					<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm imgtd">
+						<div class="flex">
+							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
+								<Tippy 
+									tag="img"
+									class="rounded-lg"
+									:src= "`${publicPath}` + product.image"
+									:content="product.name"
+								/>
 							</div>
-						</template>
-						<template v-else-if="column.key === 'category'" v-for="tag in product['tag']">
-							<div>{{ tag }}</div> 
-						</template>
-						<template v-else-if="column.key === 'qty' || column.key === 'price' || column.key === 'type'">
-							<div class=" w-fit">{{product[column.key]}}</div> 
-						</template>
-						<template v-else>
-							<div class="truncate hover:text-clip lg:w-28 2xl:w-36"> {{product[column.key]}} </div>
-						</template>
+						</div>
 					</td>
+					<td v-else-if="column.key === 'category'" class="w-fit" >
+						<div v-for="tag in product['tag']">
+							<div >{{ tag }}</div> 
+						</div>
+					</td>
+					<td v-else-if="column.key === 'qty' || column.key === 'price' || column.key === 'type'" class="w-fit">
+						<div class=" w-fit">{{product[column.key]}}</div> 
+					</td>
+					<td v-else>
+						<div class=" lg:truncate hover:text-clip lg:w-28 2xl:w-36"> {{product[column.key]}} </div>
+					</td>
+				</template>
 					<td class="table-report__action w-12">
 						<div class="flex justify-center items-center">
 							<a 
@@ -131,3 +133,106 @@ export default {
 	},
 }
 </script>
+
+
+<style scoped>
+.click-icon:hover {
+	cursor: pointer;
+}
+
+td {
+	height: auto !important;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+
+	table,
+	thead,
+	tbody,
+	th,
+	td,
+	tr {
+		display: block;
+		font-size: 16px;
+		padding: 0px !important;
+	}
+
+	.imgtd {
+		height: 90px !important;
+	}
+
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr {
+		border-bottom: 1px solid black;
+		margin-top: 20px;
+	}
+
+	td {
+		border: none;
+		position: relative;
+		padding-left: 50% !important;
+		text-align: left !important;
+		box-shadow: none !important;
+	}
+
+	.productName {
+		padding-left: 15px;
+	}
+
+	td:before {
+		position: absolute;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+		font-weight: bold;
+		box-shadow: none !important;
+		background-color: white !important;
+	}
+
+	td:nth-of-type(1):before {
+		content: "";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(2):before {
+		content: "Product Name";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(3):before {
+		content: "Order Code";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(4):before {
+		content: "Type";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(5):before {
+		content: "Category";
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(6):before {
+		content: "Description";
+		overflow-wrap: break-word;
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(7):before {
+		content: "Quantity";
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(8):before {
+		content: "Price";
+		/* color: #0e9893; */
+	}
+}
+</style>

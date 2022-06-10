@@ -18,7 +18,7 @@
 						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in">
 						<Tippy
 							tag="img"
-							class="rounded-full"
+							class="rounded-lg"
 							:src="storageUrl + product.image"
 							:content="product.name"
 						/>
