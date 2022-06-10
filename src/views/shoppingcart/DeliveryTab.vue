@@ -54,7 +54,7 @@
           
           <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
           <div class="col-span-8 lg:col-span-4 2xl:col-span-4">
-          <input id="regular-form-2" type="text"
+          <input id="regular-form-2" type="tel"
             class="form-control form-control-rounded " placeholder=""
             :class="{ 'border-danger': validate.phone.$error }"
             v-model.trim="validate.phone.$model" />
@@ -62,7 +62,7 @@
                   <label
                     class="text-danger mt-2"
                   >
-                    ??
+                    Phone number is required
                   </label>
               </template>
           </div>
@@ -257,6 +257,7 @@ import {
   minLength,
   maxLength,
   email,
+integer,
 } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
@@ -264,11 +265,13 @@ import { computed, onMounted, ref, watch, reactive, toRefs } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 import { update_delivery_info } from "@/api_v2/pre_order"
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 
 const route = useRoute();
 const router = useRouter();
 
 const store = useShoppingCartStore();
+const layoutStore = useLSSBuyerLayoutStore();
 
 const select_shipping_method = method => {
   store.shipping_info.method = method
@@ -289,16 +292,18 @@ const delivery_info = reactive({
 const rules = {
   first_name: {required,minLength: minLength(1)},
   last_name: {required,minLength: minLength(1)},
-  phone: {required,minLength: minLength(1)},
+  phone: {required,integer,minLength: minLength(1)},
   email: {required,email,},
+};
+const delivery_rules ={
   address: {required,minLength: minLength(1)},
   city: {required,minLength: minLength(1)},
   state: {required,minLength: minLength(1)},
-  postal_code: {required,minLength: minLength(1)},
-};
+  postal_code: {required,integer,minLength: minLength(1)},
+}
 
 const validate = useVuelidate(rules, toRefs(formData));
-const delivery_validate = useVuelidate(rules, toRefs(delivery_info));
+const delivery_validate = useVuelidate(delivery_rules, toRefs(delivery_info));
 
 const proceed_to_payment = ()=> {
    store.contact_info.shipping_first_name = formData.first_name
@@ -336,9 +341,19 @@ const proceed_to_payment = ()=> {
 
 const test = () =>{
   validate.value.$touch();
-  if (validate.value.$invalid) {}
+  delivery_validate.value.$touch();
+  if (validate.value.$invalid) {
+    console.log('1')
+    layoutStore.alert.showMessageToast("Invild User Infomation Input")
+    return
+  }
+  else if (delivery_validate.value.$invalid && store.shipping_info.method === 'delivery'){
+    console.log(store.shipping_info.method)
+    layoutStore.alert.showMessageToast("Invild Delivery Infomation Input")
+    return
+  }
   
-  if (confirm('Are you sure you want to check out? Your shopping cart will be cleared.')){
+  else if (confirm('Are you sure you want to process check out? Your shopping cart will be cleared.')){
     proceed_to_payment()
   }
 }

@@ -12,20 +12,20 @@
             </div>
             <div class="col-end-11 -mt-3">
             <TabList class="nav-pills">
-                <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = true;">
+                <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = true;this.open_ig_video = false;this.open_yt_video = false;">
                 <FacebookIcon class="m-1 -mt-1" />
                 </Tab>
-                <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_ig_video = true;">
+                <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = false;this.open_ig_video = true;this.open_yt_video = false;">
                 <InstagramIcon class="m-1 -mt-1" />
                 </Tab>
-                <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_yt_video = true;">
+                <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = false;this.open_ig_video = false;this.open_yt_video = true;">
                 <YoutubeIcon class="m-1 -mt-1" />
                 </Tab>
             </TabList>
             </div>
             <div class="col-start-1 col-span-12 -mt-2">
                 <div v-html="fb_video" v-show="open_fb_video"/> 
-                <div v-html="ig_video" v-show="open_fb_video"/> 
+                <div v-html="ig_video" v-show="open_ig_video"/> 
                 <div v-html="yt_video" v-show="open_yt_video"/> 
             </div>
             <div v-show="trigger"></div>
@@ -116,6 +116,7 @@ export default {
     
     data() {
         return {
+            platform: [],
             fbTab:false,
             igTab:false,
             ytTab:false,
@@ -143,10 +144,10 @@ export default {
             ],
             comment_status: "Shipping",
             accessToken: this.$cookies.get('access_token'),
-            websocket_connect: false,
-            fb_video: '',
-            ig_video: '',
-            yt_video: '',
+            webSocket: null,
+            fb_video: '<video width="600" controls></video>',
+            ig_video: '<video width="600" controls></video>',
+            yt_video: '<video width="600" controls></video>',
             open_fb_video: false,
             open_ig_video: false,
             open_yt_video: false,
@@ -155,14 +156,6 @@ export default {
     },
     mounted() {
         this.get_all_comments()
-    },
-    watch: {
-        websocket_connect: function(val) {
-            console.log("watch websocket")
-            if (!val) {
-                this.websocketConnect(this.comment_results)
-            }
-        }
     },
     methods: {
         status_change(status){
@@ -216,41 +209,48 @@ export default {
                 Object.keys(res).forEach(v=> {
                     if ((v === 'facebook' && res[v]['comments'].length != 0) || (v === 'facebook' && res[v]['fully_setup'] === true)) {
                         this.fbTab = true
-                        this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 337.2)
-                        console.log(this.fb_video)
+                        this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 236.33)
+                        this.platform.push('fb')
                     } else if ((v === 'instagram' && res[v]['comments'].length != 0) || (v === 'instagram' && res[v]['fully_setup'] === true)) {
                         this.igTab = true
+                        this.platform.push('ig')
+                        if (res[v]['media_url']) {
+                            this.ig_video = this.generate_ig_embed_url(res[v]['media_url'], '100%', 236.33)
+                            console.log(this.ig_video)
+                        }
                     } else if ((v === 'youtube' && res[v]['comments'].length != 0) || (v === 'youtube' && res[v]['fully_setup'] === true)) {
                         this.ytTab = true
-                        this.yt_video = this.generate_yt_embed_url(res[v]['live_video_id'], '100%', 337.2)
+                        this.yt_video = this.generate_yt_embed_url(res[v]['live_video_id'], '100%', 236.33)
+                        this.platform.push('yt')
                     }
                 })
+                
                 this.trigger = false
             }).then(res=>{
-                this.websocketConnect(this.comment_results)
+                this.websocketConnect()
+                this[`open_${this.platform[0]}_video`] = true
             })
         },
-        websocketConnect: function(comment_results) {
+        websocketConnect: function() {
             const chatSocket = new WebSocket(
                 `wss://gipassl.algotech.app/ws/campaign/${this.campaignId}/?token=${this.accessToken}`
             );
-            chatSocket.onmessage = function(e) {
+            this.webSocket = chatSocket
+            chatSocket.onmessage = e => {
                 const data = JSON.parse(e.data);
                 console.log(data)
                 if (data.type != "comment_data") {
                     return
                 }
-                comment_results[data.data.platform]['comments'].unshift(data.data)
+                this.comment_results[data.data.platform]['comments'].unshift(data.data)
                 
             };
-            chatSocket.onopen = function (e){
+            chatSocket.onopen = e => {
                 console.log('connected')
-                this.websocket_connect = true;
-                console.log(this.websocket_connect)
             };
-            chatSocket.onclose = function(e) {
+            chatSocket.onclose = e => {
                 console.error('Chat socket closed unexpectedly');
-                this.websocket_connect = false;
+                this.websocketConnect()
             };
             chatSocket.onerror = function(err) {
                 console.error('Socket encountered error: ', err.message, 'Closing socket');
@@ -264,8 +264,12 @@ export default {
             return `<iframe data-platform="yt" src="https://www.youtube.com/embed/${live_video_id}"
                 width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
                 autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        },
+        generate_ig_embed_url: function(media_url, width = 1280, height = 720) {
+            return `<iframe data-platform="yt" src="${media_url}"
+                width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
+                autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
-
     }
 }
 </script>

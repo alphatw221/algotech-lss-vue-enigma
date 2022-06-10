@@ -79,7 +79,7 @@
             <div class="m-3 flex flex-col">
                 <label for="regular-form-2" class="form-label">Last Five Digits</label>
                 <input id="regular-form-2" type="text" class="form-control" v-model="fiveDigits" />
-                <button type="button" class="mt-5 mx-3 w-fit btn btn-rounded-primary self-center lg:self-end 2xl:self-end" @click="uploadReceipt()" >Upload & Finished Payment</button>
+                <button type="button" class="mt-5 mx-3 w-fit btn btn-rounded-primary self-center lg:self-end 2xl:self-end" @click="uploadReceipt()" >Upload & Complete Payment</button>
             </div>
         </AccordionPanel>
     </AccordionItem>

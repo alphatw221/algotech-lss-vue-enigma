@@ -136,7 +136,6 @@ onUnmounted(() => {
 		currentInfo.value.output_msg = output;
 		currentInfo.value.description = description;
 		currentInfo.value.facebook_page = facebook_page;
-		console.log(currentInfo.value)
 	}
 
 	function getReplyData() {
@@ -154,7 +153,7 @@ onUnmounted(() => {
 	function closeWithAlert() {
 		if (saved.value === true) {
 			updateModal.value = false;
-			layoutStore.notification.showMessageToast("Saved Change")
+			layoutStore.notification.showMessageToast("Saved the Change")
 		} else {
 			updateModal.value = false;
 			layoutStore.alert.showMessageToast("Change Not Saved")
