@@ -14,3 +14,7 @@ export const check_youtube_channel_token = (page_id) => {
     return createAxiosWithBearer().get(`/api/v2/campaign/check_youtube_channel_token/?youtube_channel_id=${page_id}`)
 }
 
+export const save_pages_info = (campaign_id, data) => {
+    return createAxiosWithBearer().put(`/api/v2/campaign/${campaign_id}/save_pages_info/`,data)
+}
+
