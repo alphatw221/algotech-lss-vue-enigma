@@ -343,14 +343,14 @@ import { get_user_subscription_facebook_pages, get_user_subscription_instagram_p
 import { get_fb_page_live_media } from "@/api/facebook"
 import { get_ig_live_media } from "@/api/instagram"
 import { get_yt_live_media } from "@/api/youtube"
-import { check_facebook_page_token, check_instagram_profile_token, check_youtube_channel_token } from "@/api_v2/campaign"
+import { check_facebook_page_token, check_instagram_profile_token, check_youtube_channel_token, save_pages_info } from "@/api_v2/campaign"
 
 export default {
   components: { 
 		SearchBar,
 		CampaignListTable
 	},
-  data() {
+  data: function() {
     return {
       idPopupModalPreview: false,
       enterIDModalPreview: false,
@@ -412,7 +412,7 @@ export default {
         youtube:{
           ownPageItems:{},
           chosenPageInfo:{
-            pageID:this.yt_channel_id,
+            pageID: this.yt_channel_id,
             live_video_id: this.yt_live_video_id,
           },
         },
@@ -666,10 +666,29 @@ export default {
       this.youtubePageSelected = false;
       this.instagramPageSelected = false;
     },
-    closeJump() {
+    closeJump: function() {
       this.enterIDModalPreview = false;
-      console.log(this.EntryCampaignId)
-      this.$router.push(`/seller/campaign-live/${this.EntryCampaignId}`);
+      
+      let data = {
+        "facebook": {
+          "page_id": this.fb_page_id,
+          "post_id": this.fb_post_id
+        },
+        "instagram": {
+          "profile_id": this.ig_profile_id,
+          "live_media_id": this.ig_live_media_id
+        },
+        "youtube": {
+          "channel_id": this.yt_channel_id,
+          "live_video_id": this.yt_live_video_id
+        }
+      }
+      console.log(data)
+      save_pages_info(this.EntryCampaignId, data).then(res=>{
+        console.log(res.data)
+        this.$router.push(`/seller/campaign-live/${this.EntryCampaignId}`);
+      })
+      
     },
 
     chooseFacebookLive(post_id) {
