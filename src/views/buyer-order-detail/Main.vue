@@ -101,7 +101,7 @@
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Grand Total</div>
-                        <div class="mr-20">$ {{store.order.total}}</div>
+                        <div class="mr-20">$ {{parseFloat(store.order.total).toFixed(2)}}</div>
                     </div>
                 </div>
             </div>
