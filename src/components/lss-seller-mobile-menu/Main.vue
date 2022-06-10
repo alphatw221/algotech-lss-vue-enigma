@@ -4,7 +4,7 @@
 
     <!-- BEGIN: Mobile Menu -->
     <div class="mobile-menu">
-      <!-- <div class="mobile-menu-bar">
+      <!-- <div class="mobile-menu-bar py-2">
       <a href="" class="flex mr-auto">
         <img
           alt="Enigma Tailwind HTML Admin Template"
@@ -94,7 +94,6 @@
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { helper as $h } from "@/utils/helper";
-import { useSideMenuStore } from "@/stores/side-menu";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import {
   activeMobileMenu,

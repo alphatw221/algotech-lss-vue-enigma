@@ -12,23 +12,21 @@
             </div>
             <div class="col-end-11 -mt-3">
             <TabList class="nav-pills">
-                <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = true;">
                 <FacebookIcon class="m-1 -mt-1" />
                 </Tab>
-                <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_ig_video = true;">
                 <InstagramIcon class="m-1 -mt-1" />
                 </Tab>
-                <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_yt_video = true;">
                 <YoutubeIcon class="m-1 -mt-1" />
                 </Tab>
             </TabList>
             </div>
             <div class="col-start-1 col-span-12 -mt-2">
-                <video width="600" controls>
-                    <!-- <source src="mov_bbb.mp4" type="video/mp4" />
-                    <source src="mov_bbb.ogg" type="video/ogg" /> -->
-                    Your browser does not support HTML video.
-                </video>
+                <div v-html="fb_video" v-show="open_fb_video"/> 
+                <div v-html="ig_video" v-show="open_fb_video"/> 
+                <div v-html="yt_video" v-show="open_yt_video"/> 
             </div>
             <div v-show="trigger"></div>
             <div v-show="tagBox" class="col-start-1 col-span-12 -mt-2 -mb-6">
@@ -56,8 +54,8 @@
             <template v-for="(platform_data, index) in comment_results">
                 <TabPanel>
                     <div class="chat__chat-list box overflow-y-auto scrollbar-hidden mt-1 max-h-[26rem]" :class="index">
-                        <template v-if="platform_data">
-                            <div v-for="(data, key) in platform_data" class="intro-x cursor-pointer relative flex items-center p-3" @click="showReplyBar">
+                        <template v-if="platform_data.comments">
+                            <div v-for="(data, key) in platform_data.comments" class="intro-x cursor-pointer relative flex items-center p-3" @click="showReplyBar">
                                 <Tippy class="rounded-full" content="Reply" theme='light'>
                                     <div class="w-12 h-12 flex-none image-fit mr-1">
                                         <img alt="" class="rounded-full zoom-in" :src="data.image" />
@@ -109,7 +107,7 @@
 </template>
 
 <script>
-import { get_comments, get_summerize_comments } from "@/api/campaign_comment"
+import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
 
 export default {
     props: {
@@ -145,7 +143,13 @@ export default {
             ],
             comment_status: "Shipping",
             accessToken: this.$cookies.get('access_token'),
-            websocket_connect: false
+            websocket_connect: false,
+            fb_video: '',
+            ig_video: '',
+            yt_video: '',
+            open_fb_video: false,
+            open_ig_video: false,
+            open_yt_video: false,
             
         };
     },
@@ -154,6 +158,7 @@ export default {
     },
     watch: {
         websocket_connect: function(val) {
+            console.log("watch websocket")
             if (!val) {
                 this.websocketConnect(this.comment_results)
             }
@@ -209,12 +214,15 @@ export default {
                 return res.data
             }).then(res=> {
                 Object.keys(res).forEach(v=> {
-                    if (v === 'facebook' && res[v].length != 0) {
+                    if ((v === 'facebook' && res[v]['comments'].length != 0) || (v === 'facebook' && res[v]['fully_setup'] === true)) {
                         this.fbTab = true
-                    } else if (v === 'instagram' && res[v].length != 0) {
+                        this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 337.2)
+                        console.log(this.fb_video)
+                    } else if ((v === 'instagram' && res[v]['comments'].length != 0) || (v === 'instagram' && res[v]['fully_setup'] === true)) {
                         this.igTab = true
-                    } else if (v === 'youtube' && res[v].length != 0) {
+                    } else if ((v === 'youtube' && res[v]['comments'].length != 0) || (v === 'youtube' && res[v]['fully_setup'] === true)) {
                         this.ytTab = true
+                        this.yt_video = this.generate_yt_embed_url(res[v]['live_video_id'], '100%', 337.2)
                     }
                 })
                 this.trigger = false
@@ -222,7 +230,7 @@ export default {
                 this.websocketConnect(this.comment_results)
             })
         },
-        websocketConnect(comment_results) {
+        websocketConnect: function(comment_results) {
             const chatSocket = new WebSocket(
                 `wss://gipassl.algotech.app/ws/campaign/${this.campaignId}/?token=${this.accessToken}`
             );
@@ -232,23 +240,32 @@ export default {
                 if (data.type != "comment_data") {
                     return
                 }
-                comment_results[data.data.platform].unshift(data.data)
+                comment_results[data.data.platform]['comments'].unshift(data.data)
                 
             };
-            chatSocket.onopen = ()=>{
+            chatSocket.onopen = function (e){
                 console.log('connected')
                 this.websocket_connect = true;
                 console.log(this.websocket_connect)
             };
             chatSocket.onclose = function(e) {
                 console.error('Chat socket closed unexpectedly');
-                this.websocketClosed = false;
+                this.websocket_connect = false;
             };
             chatSocket.onerror = function(err) {
                 console.error('Socket encountered error: ', err.message, 'Closing socket');
                 chatSocket.close();
             };
+        },
+        generate_fb_embed_url: function(page_id, post_id, width = 1280, height = 720) {
+            return `<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F&width=${width}" width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`;
+        },
+        generate_yt_embed_url: function(live_video_id, width = 1280, height = 720) {
+            return `<iframe data-platform="yt" src="https://www.youtube.com/embed/${live_video_id}"
+                width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
+                autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
+
     }
 }
 </script>
@@ -270,5 +287,9 @@ export default {
 .table td {
     /*padding-left: 0 !important;*/
     padding-right: 0 !important;
+}
+
+iframe {
+    max-width: 50% !important;
 }
 </style>

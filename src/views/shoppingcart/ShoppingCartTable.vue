@@ -1,5 +1,5 @@
 <template>
-	<table class="table table-report overflow-x-auto">
+	<table class="table overflow-x-auto">
 		<thead>
 			<tr>
 				<th
@@ -15,7 +15,7 @@
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x mt-5">
 				<td class="imgtd">
 					<div class="flex">
-						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in ">
+						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in">
 						<Tippy
 							tag="img"
 							class="rounded-full"
@@ -48,11 +48,11 @@
 						</button>
 					</div>
 				</td>
-				<td class="text-center h-20">
-					$ {{ product.price }}
+				<td class="text-center h-20 ">
+					<div class="price"> $ {{ product.price }} </div>
 				</td>
 				<td class="text-center h-20">
-					$ {{ product.qty * product.price }}
+					<div class="price"> $ {{ product.qty * product.price }} </div>
 				</td>
 				<td class="table-report__action w-30 h-20">
 				<div class="flex justify-center items-center">
@@ -93,7 +93,7 @@ const deleteOrderProduct = (order_product_id, index) =>{
 		store.order = res.data
 		layoutStore.notification.showMessageToast("Delete Success")
 	})
-}
+} 
 
 const changeQuantity = (event, index, qty, operation, order_product_id) => {
 	if (operation == 'add' && qty < 99) {
@@ -116,6 +116,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 	.then(
 		res => {
 			store.order = res.data
+			layoutStore.notification.showMessageToast("Update Success")
 		}
 	)
 }
@@ -123,7 +124,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 
 <style scoped>
   td{
-    height: 40px;
+    height: 42px;
   }
 
   @media only screen and (max-width: 760px),
@@ -154,15 +155,19 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 
   td {
     border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
     padding-left: 50% !important;
     text-align: left !important;
   }
   .productName{
-	padding-left: 15px;
+	padding-left: 20px;
+	height:40px;
+	padding-top:5px;
   }
-
+  .price{
+	padding-left: 20px;
+	height:40px;
+	padding-top:10px;
+  }
   td:before {
     position: absolute;
     left: 6px;
@@ -182,6 +187,8 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
   }
   td:nth-of-type(3):before {
     content: "Qty";
+	display: flex;
+	align-self: flex-end !important;
     /* color: #0e9893; */
   }
   td:nth-of-type(4):before {

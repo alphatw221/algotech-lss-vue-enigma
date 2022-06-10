@@ -89,7 +89,7 @@
                 <div class="grid grid-cols-3 gap-2">
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Total</div>
-                        <div class="mr-20">{{store.order.subtotal}}</div>
+                        <div class="mr-20">$ {{store.order.subtotal}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Delivery Charge</div>
@@ -97,11 +97,11 @@
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Discount {{store.order.adjust_title ?? ''}}</div>
-                        <div class="mr-20">{{store.order.adjust_price}}</div>
+                        <div class="mr-20">$ {{store.order.adjust_price}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Grand Total</div>
-                        <div class="mr-20">{{store.order.total}}</div>
+                        <div class="mr-20">$ {{store.order.total}}</div>
                     </div>
                 </div>
             </div>

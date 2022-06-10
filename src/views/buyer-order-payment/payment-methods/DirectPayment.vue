@@ -1,36 +1,32 @@
 <template>
-    <AccordionItem v-if="store.order.campaign">
-        <Accordion class="bg-primary rounded-t-lg ">
-            <div class="text-white mx-3"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
+    <AccordionItem v-if="store.order.campaign" class="mx-5">
+        <Accordion class="bg-primary rounded-t-lg">
+            <div class="text-white mx-5"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
         </Accordion>
 
         <!-- BEGIN Direct Payment -->
         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary">
 
             <!-- BEGIN Direct Payment Select -->
-            <div >
-
-                <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index">
-                    <li class="-mb-px last:mr-0 flex-auto text-center ml-14">
-                        <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
+                <ul class="flex list-none flex-wrap pt-3 pb-4 flex-row items-center justify-around self-center" >
+                    <li class="last:mr-0 flex" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index">
+                        <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10 self-center w-fit">
                             <button @click="select_account(index)" :class="{
                                 'text-neutral-600 bg-white': openTab !== index,
                                 'text-white bg-primary': openTab === index,
-                            }" class="w-8 h-8 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
-                                {{index+1}}
+                            }" class="w-18 h-8 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
+                                <div v-if="account.direct_payment_mode === ''"> Account {{index+1}} </div>
+                                <div v-else> {{account.direct_payment_mode}} </div>
                             </button>
                         </div>
                     </li>
                 </ul>
 
-                <div class="gird grid-cols-2 gap-5 mx-0 px-5 lg:mx-5 lg:px-10 2xl:mx-5 2xl:px-10" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index"
+                <div class="flex flex-col place-content-center items-center" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index"
                     :class="{ hidden: openTab !== index, block: openTab === index }">
                     <table>
                         <tr>
-                            <td>Direct Payment Mode: </td><td>{{account.direct_payment_mode}}</td>
-                        </tr>
-                        <tr>
-                            <td>Account Number: </td><td>{{account.direct_payment_number}}</td>
+                            <td class="w-36">Account Number: </td><td>{{account.direct_payment_number}}</td>
                         </tr>
                         <tr>
                             <td>Account Name: </td><td>{{account.direct_payment_name}}</td>
@@ -38,16 +34,12 @@
                         <tr>
                             <td>Note: </td><td>{{account.direct_payment_note}}</td>
                         </tr>
-                        <tr>
-                            <td></td><td><img :src="storageUrl+account.image" alt=""></td>
-                        </tr>
                         <!-- <tr>
                             <td>Other Note ( Press enter to add new line )</td><td></td>
                         </tr> -->
                     </table>
+                    <img class="w-36 h-36 mt-5 " :src="storageUrl+account.image" alt="" />
                 </div>
-
-            </div>
 
             <!-- direct_payment_mode: "22"
             direct_payment_name: "123"
@@ -84,10 +76,10 @@
                     <br>accepted File types: jpeg, png, jpg
                 </div>
             </Dropzone>
-            <div class="m-3">
+            <div class="m-3 flex flex-col">
                 <label for="regular-form-2" class="form-label">Last Five Digits</label>
-                <input id="regular-form-2" type="text" class="form-control form-control" />
-                <button type="button" @click="uploadReceipt()" >Upload</button>
+                <input id="regular-form-2" type="text" class="form-control" v-model="fiveDigits" />
+                <button type="button" class="mt-5 mx-3 w-fit btn btn-rounded-primary self-center lg:self-end 2xl:self-end" @click="uploadReceipt()" >Upload & Finished Payment</button>
             </div>
         </AccordionPanel>
     </AccordionItem>
@@ -112,6 +104,9 @@ const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1)
 const receiptUploadDropzoneRef = ref();
 const openTab = ref(0)
 
+const fiveDigits =ref()
+const inputLength = ref(5)
+
 const select_account = index => openTab.value=index
 
 provide("bind[receiptUploadDropzoneRef]", (el) => {
@@ -128,7 +123,7 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
 const uploadReceipt = ()=>{
 
     let formData = new FormData()
-    formData.append('last_five_digits','12345' )
+    formData.append('last_five_digits', fiveDigits.value )
     formData.append('image',receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]||'')
 
     
@@ -136,7 +131,7 @@ const uploadReceipt = ()=>{
     .then(
         res => {
             store.order = res.data
-            router.push(`/buyer/order/${route.params.order_id}`)
+            router.push(`/buyer/orders`)
         }
     )
 }

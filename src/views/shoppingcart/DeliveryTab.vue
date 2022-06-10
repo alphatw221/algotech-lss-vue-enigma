@@ -76,16 +76,16 @@
 
         <TabGroup>
           <TabList class="nav-boxed-tabs mx-0 lg:mx-10 2xl:mx-10 flex items-center w-full">
-            <Tab class="w-full h-28 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
+            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
               @click="select_shipping_method('delivery')">
               <div class="grow inline-flex items-center place-content-center">
-                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg ">Delivery</span>
+                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg ">Home Delivery</span>
               </div>
             </Tab>
-            <Tab class="w-full h-28 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
+            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
               @click="select_shipping_method('pickup')">
-              <div class="grow inline-flex items-center place-content-center"> 
-                <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Collect In Store</span>
+              <div class="grow inline-flex items-center place-content-center">
+                <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Self Pickup</span>
               </div>
             </Tab>
           </TabList>
@@ -162,16 +162,19 @@
                         name="vertical_radio_button" :value="title" v-model="store.shipping_info.shipping_option" />
                       <label class="form-check-label mr-auto" :for="'radio-switch-' + index">{{ title }}</label>
 
-                      
-                        <div v-if="store.order.campaign.meta_logistic.additional_delivery_charge_type[index] ==='+'">
-                          <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                          {{ (parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(2) }}
-                        </div>
-                        <div v-else>
-                          <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                          {{ parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]).toFixed(2)}}
-                        </div>
-                      
+                      <div v-if="store.order.campaign.meta_logistic.additional_delivery_charge_type[index] === '+'">
+                        <label class="form-check-label">{{ store.order.campaign.currency }}</label>
+                        {{ (parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]) +
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(2)
+                        }}
+                      </div>
+                      <div v-else>
+                        <label class="form-check-label">{{ store.order.campaign.currency }}</label>
+                        {{
+                            parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]).toFixed(2)
+                        }}
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -267,7 +270,7 @@ const router = useRouter();
 
 const store = useShoppingCartStore();
 
-const select_shipping_method = method=> {
+const select_shipping_method = method => {
   store.shipping_info.method = method
 }
 
@@ -303,6 +306,11 @@ const proceed_to_payment = ()=> {
    store.contact_info.shipping_phone = formData.phone
    store.contact_info.shipping_email = formData.email
 
+   store.shipping_info.delivery_info.shipping_address_1 = delivery_validate.address
+   store.shipping_info.delivery_info.shipping_location = delivery_validate.city
+   store.shipping_info.delivery_info.shipping_region = delivery_validate.state
+   store.shipping_info.delivery_info.shipping_postcode = delivery_validate.postal_code
+
 
   // if (store.shipping_info.method == 'delivery') {
   //   store.shipping_info.delivery_info = Object.assign(store.shipping_info.delivery_info, store.contact_info)
@@ -321,10 +329,9 @@ const proceed_to_payment = ()=> {
     pickup_info:Object.assign(Object.assign(store.shipping_info.pickup_info, store.contact_info),assignData),
     delivery_info:Object.assign(Object.assign(store.shipping_info.delivery_info, store.contact_info),assignData)
     }
-  console.log(formData)
-  // update_delivery_info(route.params.pre_order_id, data).then(res=>{
-  //   router.push(`/buyer/order/${res.data.id}/payment`)
-  // })
+  update_delivery_info(route.params.pre_order_id, data).then(res=>{
+    router.push(`/buyer/order/${res.data.id}/payment`)
+  })
 }
 
 const test = () =>{
@@ -338,3 +345,9 @@ const test = () =>{
 
 
 </script>
+
+<style scoped>
+.homeTab {
+  border-radius: 0px !important;
+}
+</style>

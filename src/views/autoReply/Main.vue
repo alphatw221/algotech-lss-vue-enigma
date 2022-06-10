@@ -5,8 +5,6 @@
             @click="createModal = true; saved=false">
             <span class="font-bold mr-1 text-lg">+</span> Create
         </button>
-        <Alert :show="showAlert" class="col-start-1 col-span-12 alert-danger -mb-2"> Change - Not Saved </Alert>
-        <Alert :show="successAlert" class="col-start-1 col-span-12 alert-warning -mb-2"> Success Created! </Alert>
         <div class="col-start-1 col-span-12">
             <div class="overflow-x-auto">
                 <AutoReplyTable class="overflow-x-auto" :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
@@ -18,7 +16,7 @@
     <Modal :show="createModal" @hidden="closeWithAlert()">
         <ModalHeader>
             <h2 class="font-medium text-base mr-auto">Create New Response</h2>
-            <a @click="closeWithAlert()" class="absolute right-0 top-0 mt-3 mr-3">
+            <a @click="createModal=false" class="absolute right-0 top-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             </a>
         </ModalHeader>
@@ -53,7 +51,7 @@
             
         </ModalBody>
         <ModalFooter class="w-full flex">
-            <button type="button" @click="closeWithAlert()"
+            <button type="button" @click="createModal=false"
                 class="btn btn-outline-secondary w-20 mr-auto">
                 Cancel
             </button>
@@ -63,17 +61,17 @@
 </template>
 
 <script setup>
-import { ref, onMounted, provide, getCurrentInstance } from 'vue'
-import AutoReplyTable from "@/components/table/AutoReplyTable.vue";
-import { create_auto_response, auto_response_list } from "@/api/auto_reply";
+import { ref, onMounted, getCurrentInstance } from 'vue'
+import AutoReplyTable from "./AutoReplyTable.vue";
+import { create_auto_response} from "@/api/auto_reply";
 import {get_user_subscription_facebook_pages} from "@/api/user_subscription"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
+const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance();
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const createModal = ref(false)
 const userPlatforms = ref('facebook')
-const showAlert = ref(false)
-const successAlert = ref(false)
 const saved = ref(false)
 let createData = ref({
     "input_msg": "",
@@ -107,8 +105,7 @@ function createAutoReply() {
             saved.value = true
             createModal.value = false
             createData.value = []
-            successAlert.value = true
-            setTimeout( () => ( successAlert.value = false ), 3000)
+            layoutStore.notification.showMessageToast("Create Success")
             eventBus.emit('getReplyData')
         }
     )
@@ -124,8 +121,7 @@ function closeWithAlert(){
         createModal.value = false; 
     }else{
         createModal.value = false; 
-        showAlert.value = true;
-        setTimeout( () => ( showAlert.value = false ), 3000);
+        layoutStore.alert.showMessageToast("Change Not Saved")
     }
     saved.value=false
 }
