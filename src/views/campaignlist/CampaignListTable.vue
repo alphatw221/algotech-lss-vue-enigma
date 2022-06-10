@@ -278,14 +278,16 @@ export default {
     },
 
     clickEntry(campaign,index) {
-      this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
-        return
-      if(campaign.facebook_page == null && campaign.instagram_profile == null && campaign.youtube_channel == null){
-
-        this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
+      // this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
+      //   return
+      console.log(campaign.facebook_campaign.post_id)
+      console.log(campaign.instagram_campaign.live_media_id)
+      console.log(campaign.youtube_campaign.live_video_id)
+      if(campaign.facebook_campaign.post_id !== '' && campaign.instagram_campaign.live_media_id !== '' && campaign.youtube_campaign.live_video_id !== ''){
+        this.$router.push(`/seller/campaign-live/${campaign.id}`)
         return
       }
-      this.$router.push(`/seller/campaign-live/${campaign.id}`)
+       this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
     },
     manageOrder(campaign_id){
       this.$router.push(`/seller/manage-order/${campaign_id}`)
