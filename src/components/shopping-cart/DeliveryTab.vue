@@ -36,11 +36,11 @@
 
                   <TabGroup>
                     <TabList class="nav-boxed-tabs mx-0 lg:mx-10 2xl:mx-10 flex">
-                      <Tab class="flex-1 shrink inline-flex w-max-44 py-6 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 border-[#131c34]"
+                      <Tab class="flex-1 shrink inline-flex w-max-44 py-3 lg:w-60 2xl:w-60 xl:py-10 2xl:py-5 border-[#131c34]"
                         tag="button" @click="select_shipping_method('delivery')">
                         <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Delivery</span>
                       </Tab>
-                      <Tab class="flex-1 shrink inline-flex w-max-44 py-6 lg:w-60 lg:py-6 2xl:w-60 xl:py-10 2xl:py-10 border-[#131c34]"
+                      <Tab class="flex-1 shrink inline-flex w-max-44 py-3 lg:w-60 lg:py-3 2xl:w-60 xl:py-5 2xl:py-5 border-[#131c34]"
                         tag="button" @click="select_shipping_method('pickup')">
                         <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Collect In Store</span>
                       </Tab>

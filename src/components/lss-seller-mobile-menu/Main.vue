@@ -1,9 +1,10 @@
 <template>
-      <div id="lss-mobil-side-nav" class=" lss-mobil-side-nav-close ml-3 mr-5 absolute z-50 top-14 h-full dark:bg-darkmode-500 bg-primary overflow-hidden md:hidden">
+  <div id="lss-mobil-side-nav"
+    class=" lss-mobil-side-nav-close ml-3 mr-5 absolute z-50 top-14 h-full dark:bg-darkmode-500 bg-primary overflow-hidden md:hidden">
 
-      <!-- BEGIN: Mobile Menu -->
-  <div class="mobile-menu">
-    <!-- <div class="mobile-menu-bar">
+    <!-- BEGIN: Mobile Menu -->
+    <div class="mobile-menu">
+      <!-- <div class="mobile-menu-bar py-2">
       <a href="" class="flex mr-auto">
         <img
           alt="Enigma Tailwind HTML Admin Template"
@@ -16,39 +17,23 @@
         @click="toggleMobileMenu"
       />
     </div> -->
-    <!-- <transition @enter="enter" @leave="leave"> -->
-      <ul
-        class="border-t border-white/[0.08] py-5 pt-7 mt-5" 
-      >
+      <!-- <transition @enter="enter" @leave="leave"> -->
+      <ul class="border-t border-white/[0.08] py-5 pt-7 mt-5">
         <!-- BEGIN: First Child -->
         <template v-for="(menu, menuKey) in formattedMenu">
-          <li
-            v-if="menu == 'devider'"
-            :key="menu + menuKey"
-            class="menu__devider my-6"
-          ></li>
-          <li v-else :key="menu + menuKey" 
-            class="my-2"
-            >
-            <a
-              href="javascript:;"
-              class="menu"
-              :class="{
-                'menu--active': menu.active,
-                'menu--open': menu.activeDropdown,
-              }"
-              @click="linkTo(menu, router)"
-            >
+          <li v-if="menu == 'devider'" :key="menu + menuKey" class="menu__devider my-6"></li>
+          <li v-else :key="menu + menuKey" class="my-2">
+            <a href="javascript:;" class="menu" :class="{
+              'menu--active': menu.active,
+              'menu--open': menu.activeDropdown,
+            }" @click="linkTo(menu, router)">
               <div class="menu__icon">
                 <component :is="menu.icon" />
               </div>
               <div class="menu__title">
                 {{ menu.title }}
-                <div
-                  v-if="menu.subMenu"
-                  class="menu__sub-icon"
-                  :class="{ 'transform rotate-180': menu.activeDropdown }"
-                >
+                <div v-if="menu.subMenu" class="menu__sub-icon"
+                  :class="{ 'transform rotate-180': menu.activeDropdown }">
                   <ChevronDownIcon />
                 </div>
               </div>
@@ -56,28 +41,17 @@
             <!-- BEGIN: Second Child -->
             <transition @enter="enter" @leave="leave">
               <ul v-if="menu.subMenu && menu.activeDropdown">
-                <li
-                  v-for="(subMenu, subMenuKey) in menu.subMenu"
-                  :key="subMenuKey"
-                >
-                  <a
-                    href="javascript:;"
-                    class="menu"
-                    :class="{ 'menu--active': subMenu.active }"
-                    @click="linkTo(subMenu, router)"
-                  >
+                <li v-for="(subMenu, subMenuKey) in menu.subMenu" :key="subMenuKey">
+                  <a href="javascript:;" class="menu" :class="{ 'menu--active': subMenu.active }"
+                    @click="linkTo(subMenu, router)">
                     <div class="menu__icon">
                       <ActivityIcon />
                     </div>
                     <div class="menu__title">
                       {{ subMenu.title }}
-                      <div
-                        v-if="subMenu.subMenu"
-                        class="menu__sub-icon"
-                        :class="{
-                          'transform rotate-180': subMenu.activeDropdown,
-                        }"
-                      >
+                      <div v-if="subMenu.subMenu" class="menu__sub-icon" :class="{
+                        'transform rotate-180': subMenu.activeDropdown,
+                      }">
                         <ChevronDownIcon />
                       </div>
                     </div>
@@ -85,16 +59,9 @@
                   <!-- BEGIN: Third Child -->
                   <transition @enter="enter" @leave="leave">
                     <ul v-if="subMenu.subMenu && subMenu.activeDropdown">
-                      <li
-                        v-for="(lastSubMenu, lastSubMenuKey) in subMenu.subMenu"
-                        :key="lastSubMenuKey"
-                      >
-                        <a
-                          href="javascript:;"
-                          class="menu"
-                          :class="{ 'menu--active': lastSubMenu.active }"
-                          @click="linkTo(lastSubMenu, router)"
-                        >
+                      <li v-for="(lastSubMenu, lastSubMenuKey) in subMenu.subMenu" :key="lastSubMenuKey">
+                        <a href="javascript:;" class="menu" :class="{ 'menu--active': lastSubMenu.active }"
+                          @click="linkTo(lastSubMenu, router)">
                           <div class="menu__icon">
                             <ZapIcon />
                           </div>
@@ -102,9 +69,9 @@
                             {{ lastSubMenu.title }}
                           </div>
                         </a>
-                        
+
                       </li>
-                      
+
                     </ul>
                   </transition>
                   <!-- END: Third Child -->
@@ -117,23 +84,17 @@
         </template>
         <!-- END: First Child -->
       </ul>
-    <!-- </transition> -->
+      <!-- </transition> -->
+    </div>
+    <!-- END: Mobile Menu -->
   </div>
-  <!-- END: Mobile Menu -->
-
-
-
-
-
-      </div>
 </template>
 
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { helper as $h } from "@/utils/helper";
-import { useSideMenuStore } from "@/stores/side-menu";
-import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import {
   activeMobileMenu,
   toggleMobileMenu,
@@ -146,8 +107,8 @@ import { nestedMenu } from "@/layouts/side-menu";
 const route = useRoute();
 const router = useRouter();
 const formattedMenu = ref([]);
-const buyerLayoutStore = useLSSBuyerLayoutStore();
-const mobileMenu = computed(() => nestedMenu(buyerLayoutStore.menu, route));
+const sellerLayoutStore = useLSSSellerLayoutStore();
+const mobileMenu = computed(() => nestedMenu(sellerLayoutStore.menu, route));
 
 watch(
   computed(() => route.path),
@@ -161,15 +122,12 @@ onMounted(() => {
   formattedMenu.value = $h.toRaw(mobileMenu.value);
 });
 
-
-
-
 watch(
-  computed(()=>buyerLayoutStore.showMobileMenu),
+  computed(() => sellerLayoutStore.showMobileMenu),
   (currentValue, oldValue) => {
-    if(currentValue){
+    if (currentValue) {
       dom('#lss-mobil-side-nav').removeClass("lss-mobil-side-nav-close").addClass("lss-mobil-side-nav-show")
-    }else{
+    } else {
       dom('#lss-mobil-side-nav').removeClass("lss-mobil-side-nav-show").addClass("lss-mobil-side-nav-close")
     }
   }
@@ -177,23 +135,21 @@ watch(
 </script>
 
 <style scoped>
-.lss-mobil-side-nav-show{
+.lss-mobil-side-nav-show {
   /* left:11px; */
   height: 100vh;
   transition: 1s;
 }
 
-.lss-mobil-side-nav-close{
+.lss-mobil-side-nav-close {
   /* left: -100%; */
   height: 0%;
   transition: 1s;
 }
 
-#lss-mobil-side-nav{
+#lss-mobil-side-nav {
   left: 0%;
   width: 95vw;
   border-radius: 0px 0px 30px 30px;
 }
-
-
 </style>

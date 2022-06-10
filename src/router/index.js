@@ -2,7 +2,7 @@ import { createRouter, createWebHistory } from "vue-router";
 import SideMenu from "../layouts/side-menu/Main.vue";
 import SimpleMenu from "../layouts/simple-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
-import LssSideMenu from "../layouts/lss-side-menu/Main.vue";
+import LssSellerLayout from "../layouts/lss-seller-layout/Main.vue";
 import LSSBuyerLayout from "../layouts/lss-buyer-layout/Main.vue";
 import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
@@ -104,7 +104,7 @@ const routes = [
   // },
   {
     path: "/seller",
-    component: LssSideMenu,
+    component: LssSellerLayout,
     beforeEnter: isSellerAuth,
     children: [
       {

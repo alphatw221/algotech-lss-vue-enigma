@@ -1,15 +1,19 @@
 <template>
     <div class="grid grid-cols-12 box p-5 m-5">
 
-    <span class="col-start-1 col-span-12 text-lg my-4"> <strong>Delivery Details</strong></span>
+    <span class="col-start-1 col-span-12 text-lg my-4"> 
+      	<strong>Delivery Details</strong>
+	</span>
     <DeliveryForm class="col-span-12" />
     
-    <span class="col-span-12 text-lg my-4"><strong>Payment Details</strong> </span>
+    <span class="col-span-12 text-lg my-4">
+		<strong>Payment Details</strong> 
+	</span>
     <PaymentForm class="col-span-12" />
 
     <div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-      <button class="btn bg-[#969696] mr-5" @click="$router.back()"> Previous</button>
-      <button class="btn bg-[#ED2225]" @click="$router.push('/seller/campaign-list')"> Save</button>
+		<button class="btn bg-[#969696] mr-5" @click="$router.back()"> Previous</button>
+		<button class="btn bg-[#ED2225]" @click="$router.push('/seller/campaign-list')"> Save</button>
 
     </div>
   </div>
@@ -17,8 +21,8 @@
 </template>  
 
 <script>
-import PaymentForm from '@/components/create-Campaign/PaymentForm.vue';
-import DeliveryForm from '../../components/create-Campaign/DeliveryForm.vue';
+import PaymentForm from './PaymentForm.vue';
+import DeliveryForm from './DeliveryForm.vue';
 export default {
     components: {
     PaymentForm,

@@ -32,16 +32,16 @@
 
         <TabGroup>
           <TabList class="nav-boxed-tabs mx-0 lg:mx-10 2xl:mx-10 flex items-center w-full">
-            <Tab class="w-full h-28 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
+            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
               @click="select_shipping_method('delivery')">
               <div class="grow inline-flex items-center place-content-center">
-                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg ">Delivery</span>
+                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg ">Home Delivery</span>
               </div>
             </Tab>
-            <Tab class="w-full h-28 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
+            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
               @click="select_shipping_method('pickup')">
-              <div class="grow inline-flex items-center place-content-center"> 
-                <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Collect In Store</span>
+              <div class="grow inline-flex items-center place-content-center">
+                <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Self Pickup</span>
               </div>
             </Tab>
           </TabList>
@@ -77,8 +77,19 @@
                         name="vertical_radio_button" :value="title" v-model="store.shipping_info.shipping_option" />
                       <label class="form-check-label mr-auto" :for="'radio-switch-' + index">{{ title }}</label>
 
-                      <label class="form-check-label">{{ store.order.campaign.currency }}
-                        {{ store.order.campaign.meta_logistic.additional_delivery_charge_price[index] }}</label>
+                      <div v-if="store.order.campaign.meta_logistic.additional_delivery_charge_type[index] === '+'">
+                        <label class="form-check-label">{{ store.order.campaign.currency }}</label>
+                        {{ (parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]) +
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(2)
+                        }}
+                      </div>
+                      <div v-else>
+                        <label class="form-check-label">{{ store.order.campaign.currency }}</label>
+                        {{
+                            parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]).toFixed(2)
+                        }}
+                      </div>
+
                     </div>
                   </div>
                 </div>
@@ -114,22 +125,23 @@
             </TabPanel>
             <!-- END Pickup Panel -->
           </TabPanels>
-          <div class="col-span-12 mt-10">
-            <div class="text-md font-medium">
-              Delivery and Collect Note
-            </div>
-            <p id="" class="form-control col-start-1 col-span-12 p-5" placeholder="">
-              Delivery will be shipped after Dragon Boat Festval sorry
-              for the inconvenience we caused.
-            </p>
-          </div>
-          <div class="col-span-12 mt-10">
-            <div class="text-md font-medium">Remark</div>
-            <textarea id="" class="form-control col-start-1 col-span-12 indent-4" placeholder=""
-              v-model="store.shipping_info.shipping_remark">
-                Remark remark remark remark</textarea>
-          </div>
         </TabGroup>
+
+        <div class="col-span-12 mt-5 mx-5">
+          <div class="text-md font-medium">
+            Delivery and Collect Note
+          </div>
+          <p id="" class="form-control col-start-1 col-span-12 p-5" placeholder="">
+            Delivery will be shipped after Dragon Boat Festval sorry
+            for the inconvenience we caused.
+          </p>
+        </div>
+        <div class="col-span-12 mt-5 mx-5">
+          <div class="text-md font-medium">Remark</div>
+          <textarea id="" class="form-control col-start-1 col-span-12 indent-4" placeholder=""
+            v-model="store.shipping_info.shipping_remark">
+                Remark remark remark remark</textarea>
+        </div>
       </div>
 
       <div class="col-span-12 row-start-1 lg:col-span-4">
@@ -168,11 +180,11 @@ const router = useRouter();
 
 const store = useShoppingCartStore();
 
-const select_shipping_method = method=> {
+const select_shipping_method = method => {
   store.shipping_info.method = method
 }
 
-const proceed_to_payment = ()=> {
+const proceed_to_payment = () => {
 
 
   // if (store.shipping_info.method == 'delivery') {
@@ -185,17 +197,24 @@ const proceed_to_payment = ()=> {
   //   store.shipping_info.pickup_info.shipping_remark = store.shipping_info.shipping_remark
   // }
 
-  const assignData={shipping_remark:store.shipping_info.shipping_remark}
-  const data ={
-    method:store.shipping_info.method,
-    shipping_option:store.shipping_info.shipping_option,
-    pickup_info:Object.assign(Object.assign(store.shipping_info.pickup_info, store.contact_info),assignData),
-    delivery_info:Object.assign(Object.assign(store.shipping_info.delivery_info, store.contact_info),assignData)
-    }
-  update_delivery_info(route.params.pre_order_id, data).then(res=>{
+  const assignData = { shipping_remark: store.shipping_info.shipping_remark }
+  const data = {
+    method: store.shipping_info.method,
+    shipping_option: store.shipping_info.shipping_option,
+    pickup_info: Object.assign(Object.assign(store.shipping_info.pickup_info, store.contact_info), assignData),
+    delivery_info: Object.assign(Object.assign(store.shipping_info.delivery_info, store.contact_info), assignData)
+  }
+
+  update_delivery_info(route.params.pre_order_id, data).then(res => {
     router.push(`/buyer/order/${res.data.id}/payment`)
   })
 }
 
 
 </script>
+
+<style scoped>
+.homeTab {
+  border-radius: 0px !important;
+}
+</style>

@@ -5,14 +5,14 @@
 		<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
 			<div class="flex">
 				<label for="form-2" class="form-label -mb-3 mr-5 w-32 mt-2">Campaign Title</label>
-				<input id="form-2" type="text" class="form-control form-control-rounded" v-model="campaignTitle"/>
+				<input id="form-2" type="text" class="form-control form-control-rounded" v-model="campaignTitle" />
 			</div>
 		</div>
 
 		<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
 			<div class="flex">
 				<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2">Period</label>
-				<v-date-picker class=" z-50" v-model="campaignPeriod" :timezone="timezone" mode="dateTime"
+				<v-date-picker class=" z-40" v-model="campaignPeriod" :timezone="timezone" mode="dateTime"
 					:model-config="campaignConfig" is-range is-required
 				>
 					<template v-slot="{ inputValue, inputEvents }">
@@ -55,7 +55,7 @@
 				<button class="btn btn-outline-primary mr-5" @click="comfirmProduct = false, selectProduct = true">
 					Edit
 				</button>
-				<button class="btn btn-outline-primary" @click="this.$router.push('create-campaign/details')">
+				<button class="btn btn-outline-primary" @click="toDeliveryDetail">
 					Next
 				</button>
 			</div>
@@ -67,12 +67,14 @@
 <script setup>
 import { onMounted, ref, getCurrentInstance, computed } from "vue";
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
+import { useRoute, useRouter } from "vue-router";
 import SearchBar from "./SearchBar.vue";
 import AssignProductTable from "./AssignProductTable.vue";
 import ComfirmProductTable from "./ComfirmProductTable.vue";
 
-const internalInstance = getCurrentInstance();
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const route = useRoute();
+const router = useRouter();
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const campaignStore = useCreateCampaignStore(); 
 const categorySelection = ref([])
@@ -90,7 +92,9 @@ const campaignConfig = ref({
 })
 
 onMounted(() => {
-	
+	if (campaignStore.campaignTitle != '') campaignTitle.value = campaignStore.campaignTitle
+	let campaig_period = campaignStore.campaignPeriod
+	if (campaig_period.length != 0) campaignPeriod.value = campaignStore.campaignPeriod
 })
 
 const productPageTitle = computed(() => {
@@ -105,7 +109,11 @@ const toConfirmPage = () => {
 
 	campaignStore.campaignPeriod = campaignPeriod.value
 	campaignStore.campaignTitle = campaignTitle.value
-	console.log(campaignStore)
+}
+
+const toDeliveryDetail = () => {
+	campaignStore.campaignTitle = campaignTitle.value
+	eventBus.emit('confirmProducts')
 }
 
 </script>
