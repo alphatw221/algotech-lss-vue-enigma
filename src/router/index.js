@@ -85,7 +85,7 @@ import CampaignGlobalSetting from "../views/settings/CampaignGlobalSetting.vue";
 import Localization from "../views/settings/Localization.vue";  
 import ConnectPlatform from "../views/settings/ConnectPlatform.vue";  
 
-import Profile from "../views/profile/Profile.vue";
+import Profile from "../views/profile/Main.vue";
 // import Test3 from "../views/test/test3.vue";
 // import Test2 from "../views/test/test2.vue"; 
 // import Test4 from "../views/test/test4.vue"; 

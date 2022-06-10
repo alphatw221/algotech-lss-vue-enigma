@@ -47,7 +47,7 @@
 				<label class="form-label">Upload Image</label>
 				<div class="border-2 border-dashed dark:border-darkmode-400 rounded-md pt-4">
 					<div class="flex flex-wrap px-4">
-						<img :src="previewImage" class="uploading-image h-96" />
+						<img :src="previewImage" class="uploading-image h-48 lg:h-64 2xl:h-96 object-cover" />
 					</div>
 					<div class="px-4 pb-4 flex items-center cursor-pointer relative">
 						<ImageIcon class="w-4 h-4 mr-2" />

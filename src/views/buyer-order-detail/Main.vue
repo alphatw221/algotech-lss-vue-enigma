@@ -117,11 +117,11 @@ import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { buyer_retrieve_order } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 
 const route = useRoute();
 const router = useRouter();
 
-import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 const store = useLSSBuyerOrderStore(); 
 
 onMounted(() => {
