@@ -126,6 +126,7 @@ const buyer_add_item = (campaing_product_id, index) => {
 	.then(
 		res => {
 			store.order = res.data
+			layoutStore.notification.showMessageToast("Add Item Success")
 		}
 	)
 }

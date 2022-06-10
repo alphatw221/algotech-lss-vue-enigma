@@ -116,6 +116,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 	.then(
 		res => {
 			store.order = res.data
+			layoutStore.notification.showMessageToast("Update Success")
 		}
 	)
 }
