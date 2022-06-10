@@ -1,628 +1,140 @@
 <template>
-  <!-- OUTTER BOX -->
+  <!-- BEGIN OUTTER BOX -->
   <div class="intro-y chat grid grid-cols-12 gap-5">
+
+
     <!-- BEGIN: commit box -->
     <div class="col-span-12">
       <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
         <div class="switch-toggle switch-3 switch-candy col-start-1 col-span-12 m-2 lg:col-span-8 2xl:col-span-8">
           <input id="on" name="state-d" type="radio" checked="checked"/>
-          <label for="on" @click="status_change('schedule')" style="width: 100px; font-size:14px;">Scheduled</label>
+          <label for="on" @click="show_campaign('scheduled')" style="width: 100px; font-size:14px;">Scheduled</label>
           <input id="na" name="state-d" type="radio" class="my-0" />
-          <label for="na" @click="status_change('history')" style="width: 100px; font-size:14px;">History</label>
+          <label for="na" @click="show_campaign('history')" style="width: 100px; font-size:14px;">History</label>
           <input id="off" name="state-d" type="radio" />
-          <label for="off" @click="status_change('ongoing')" style="width: 100px; font-size:14px;">Ongoing</label>
+          <label for="off" @click="show_campaign('ongoing')" style="width: 100px; font-size:14px;">Ongoing</label>
         </div>
         <button 
           class="col-start-1 btn btn-warning btn-rounded w-24 h-10 text-white
             lg:col-start-11 lg:m-2 
               2xl:col-start-11 2xl:m-2"
-                @click="this.$router.push('create-campaign')" > 
+                @click="router.push('/seller/create-campaign')" > 
           <span class="font-bold mr-1 text-lg">+</span> Create</button>
       </div>
 
-      <div class="box mt-3">
-          <SearchBar :searchColumns="searchColumns" :page_type="'campaign_list'"> </SearchBar>
+      <div class="box mt-3" v-show="campaignStatus=='scheduled'">
+          <SearchBar 
+            :searchColumns="searchColumns" 
+            :eventBusName="'searchScheduledCampaign'"
+            
+          /> 
+          <CampaignListTable
+            :requestUrl="'/api/v2/campaign/list/'"
+            :tableColumns="tableColumns"
+            :tableName="'searchScheduledCampaign'"
+            :campaignStatus="'scheduled'"
+            @showRemindModal="handleShowRemindModal"
+          />
+      </div>
 
-          <div class="overflow-x-scroll">
-            <CampaignListTable
-              :requestUrl="'/api/v2/campaign/list_campaign/'"
-              :columns="tableColumns"
-              :routerParam="campaign_status"
-              :page_type="'campaign_list'"
-            >
-            </CampaignListTable>
-          </div>
+      <div class="box mt-3" v-show="campaignStatus=='history'">
+          <SearchBar 
+            :searchColumns="searchColumns" 
+            :eventBusName="'searchHistoryCampaign'"
+          /> 
+          <CampaignListTable
+            :requestUrl="'/api/v2/campaign/list/'"
+            :tableColumns="tableColumns"
+            :tableName="'searchHistoryCampaign'"
+            :campaignStatus="'history'"
+            @showRemindModal="handleShowRemindModal"
+          />
+      </div>
+
+      <div class="box mt-3" v-show="campaignStatus=='ongoing'">
+          <SearchBar 
+            :searchColumns="searchColumns" 
+            :eventBusName="'searchOngoingCampaign'"
+          /> 
+          <CampaignListTable
+            :requestUrl="'/api/v2/campaign/list/'"
+            :tableColumns="tableColumns"
+            :tableName="'searchOngoingCampaign'"
+            :campaignStatus="'ongoing'"
+            @showRemindModal="handleShowRemindModal"
+          />
       </div>
     </div>
+    <!-- END: commit box -->
 
-    <!-- Modal ID Popup -->
-    <Modal :show="idPopupModalPreview" @hidden="idPopupModalPreview = false">
-      <a
-        @click="idPopupModalPreview = false"
-        class="absolute right-0 top-0 mt-3 mr-3"
-        href="javascript:;"
-      >
-        <XIcon class="w-8 h-8 text-slate-400" />
-      </a>
-      <ModalBody class="p-0">
-        <div class="p-5 text-center">
-          <div class="text-xl mt-5">
-            Please enter post ID to start live selling.
-          </div>
-        </div>
-        <div class="px-5 pb-8 text-center">
-          <button type="button" @click="toEnterID" class="btn btn-primary w-24">
-            Comfirm
-          </button>
-        </div>
-      </ModalBody>
-    </Modal>
-    <!--Modal Enter Post ID -->
-    <Modal
-      size="modal-lg"
-      :show="enterIDModalPreview"
-      @hidden="enterIDModalPreview = false"
-    >
-      <ModalHeader>
-        <h2 class="font-medium text-base mr-auto">Enter Post ID</h2>
-        <a
-          @click="enterIDModalPreview = false"
-          class="absolute right-0 top-0 mt-3 mr-3"
-          href="javascript:;"
-        >
-          <XIcon class="w-8 h-8 text-slate-400" />
-        </a>
-      </ModalHeader>
-      <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
-        <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >Facebook</label
-          >
-          <div
-            v-show="facebookPageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="fbAvatar" />
-          </div>
-        </div>
-        <div class="col-span-12" style="display: inline-flex">
-          <button
-            type="button"
-            href="javascript:;"
-            @click="facebookSelectPage()"
-            class="btn w-48 btn-primary mr-3"
-          >
-            Select Page
-          </button>
-          <input
-            id="modal-form-1"
-            type="text"
-            class="form-control"
-            placeholder=""
-            v-model="fb_post_id"
-            @click="facebookSelectCurrentLive()"
-          />
-        </div>
-        <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >Instagram</label
-          >
-          <div
-            v-show="instagramPageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="igAvatar" />
-          </div>
-        </div>
-        <div class="col-span-12" style="display: inline-flex">
-          <button
-            type="button"
-            href="javascript:;"
-            @click="instagramSelectPage()"
-            class="btn w-48 btn-primary mr-3"
-          >
-            Select Page
-          </button>
-          <input
-            id="modal-form-1"
-            type="text"
-            class="form-control"
-            placeholder=""
-            v-model="ig_live_media_id"
-            @click="instagramSelectCurrentLive()"
-          />
-        </div>
-                <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >YouTube</label
-          >
-          <div
-            v-show="youtubePageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="ytAvatar" />
-          </div>
-        </div>
-        <div class="col-span-12" style="display: inline-flex">
-          <button
-            type="button"
-            href="javascript:;"
-            @click="youtubeSelectPage()"
-            class="btn w-48 btn-primary mr-3"
-          >
-            Select Page
-          </button>
-          <input
-            id="modal-form-1"
-            type="text"
-            class="form-control"
-            placeholder=""
-            v-model="yt_live_video_id"
-            @click="youtubeSelectCurrentLive()"
-          />
-        </div>
-      </ModalBody>
-      <!-- BEGIN: Select Facebook Fan Page -->
-      <Modal
-        :show="facebookOverlappingModalPreview"
-        @hidden="facebookOverlappingModalPreview = false"
-      >
-        <ModalBody class="text-left content-center">
-          <div class="intro-y grid grid-cols-12 gap-5 my-5">
-            <template v-for="page in campaignEntrydata.facebook.ownPageItems" :key="page.page_id">
-              <div
-                @click="facebookAccountClick(page.image, page.page_id, page.token)"
-                class="
-                  w-14
-                  h-14
-                  flex-none
-                  image-fit
-                  rounded-md
-                  overflow-hidden
-                  col-start-1 col-span-2
-                "
-              >
-                <img
-                  alt=""
-                  :src="page.image"
-                />
-              </div>
-              <span
-                @click="facebookAccountClick(page.image, page.page_id, page.token)"
-                class="col-span-6 text-lg content-center"
-              >
-                {{ page.name }}
-              </span>
-            </template>
-          </div>
-        </ModalBody>
-      </Modal>
-      <!-- END: Select Facebook Fan Page -->
 
-      <!-- BEGIN: Select YouTube Channel Page -->
-      <Modal
-        :show="youtubeOverlappingModalPreview"
-        @hidden="youtubeOverlappingModalPreview = false"
-      >
-        <ModalBody class="text-left align-middle">
-          <div class="intro-y grid grid-cols-12 gap-5 my-5">
-            <template v-for="page in campaignEntrydata.youtube.ownPageItems" :key="page.channel_id">
-              <div
-                @click="youtubeAccountClick(page.image, page.channel_id, page.token)"
-                class="
-                  w-14
-                  h-14
-                  flex-none
-                  image-fit
-                  rounded-md
-                  overflow-hidden
-                  col-start-1 col-span-2
-                "
-              >
-                <img
-                  alt=""
-                  :src="page.image"
-                />
-              </div>
-              <span
-                @click="youtubeAccountClick(page.image, page.channel_id, page.token)"
-                class="col-span-6 text-lg content-center"
-              >
-                {{ page.name }}
-              </span>
-            </template>
-          </div>
-        </ModalBody>
-      </Modal>
-      <!-- END: Select Select YouTube Channel Page -->
 
-      <!-- BEGIN: Select Instagram Profile Page -->
-      <Modal
-        :show="instagramOverlappingModalPreview"
-        @hidden="instagramOverlappingModalPreview = false"
-      >
-        <ModalBody class="text-left">
-          <div class="intro-y grid grid-cols-12 gap-5 my-5">
-            <template v-for="page in campaignEntrydata.instagram.ownPageItems" :key="page.business_id">
-              <div
-                @click="instagramAccountClick(page.image, page.business_id, page.token)"
-                class="
-                  w-14
-                  h-14
-                  flex-none
-                  image-fit
-                  rounded-md
-                  overflow-hidden
-                  col-start-1 col-span-2
-                "
-              >
-                <img
-                  alt=""
-                  :src="page.image"
-                />
-              </div>
-              <span
-                @click="instagramAccountClick(page.image, page.business_id, page.token)"
-                class="col-span-6 text-lg content-center"
-              >
-                {{ page.name }}
-              </span>
-            </template>
-          </div>
-        </ModalBody>
-      </Modal>
-      <!-- END: Select Instagram Profile Page -->
+    <!-- BEGIN Remind Enter Post ID Modal -->
+      <RemindEnterPostIDModal :show="showRemindEnterPostIDModal" @hide="showRemindEnterPostIDModal=false" @comfirm="()=>{showRemindEnterPostIDModal=false;showEnterPostIDModal=true}"/>
+    <!-- END Remind Enter Post ID Modal -->
 
-      <!-- BEGIN: Select Current Live -->
-      <Modal
-        :show="CurrentLiveOverlappingModalPreview"
-        @hidden="CurrentLiveOverlappingModalPreview = false"
-      >
-        <ModalBody class="text-left content-center">
-          <div class="intro-y grid grid-cols-12 gap-5 my-5">
-            <template v-for="live in currentLiveItems" :key="live.id">
-              <div
-                class="
-                  flex-none
-                  rounded-md
-                  overflow-hidden
-                  col-start-1 col-span-12
-                "
-                @click="chooseLive(live.id, currentLiveListPlatform)"  style="cursor: pointer"
-              >
-                <template v-if="live.embed_html">
-                  <div v-html="live.embed_html" style="z-index: 0"></div>
-                </template>
-                <template v-else-if="live.image">
-                  <img
-                    alt=""
-                    :src="live.image"
-                    style="z-index: 0"
-                  />
-                </template>
-              </div>
-              <span
-                class="col-span-6 text-lg content-center"
-                @click="chooseLive(live.id, currentLiveListPlatform)"  style="cursor: pointer"
-              >
-                {{ live.title }}
-              </span>
-            </template>
-          </div>
-        </ModalBody>
-      </Modal>
-      <!-- END: Select Current Live -->
 
-      <ModalFooter>
-        <button
-          type="button"
-          class="btn btn-outline-secondary w-20 mr-1"
-          @click="cancelClean()"
-        >
-          Cancel
-        </button>
-        <button type="button" class="btn btn-primary w-20" @click="closeJump">
-          Save
-        </button>
-      </ModalFooter>
-    </Modal>
+
+    <!-- BEGIN Enter Post ID Modal -->
+      <EnterPostIDModal :show="showEnterPostIDModal" @hide="showEnterPostIDModal=false" :targetCampaign="targetCampaign"/>
+    <!-- END Enter Post ID Modal -->
+
   </div>
+  <!-- END OUTTER BOX -->
 </template>
 
-<script>
-import SearchBar from "@/components/bar/SearchBar.vue";
-import CampaignListTable from "@/components/table/CampaignListTable.vue";
-import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
-import { get_fb_page_live_media } from "@/api/facebook"
-import { get_ig_live_media } from "@/api/instagram"
-import { get_yt_live_media } from "@/api/youtube"
+<script setup>
+import SearchBar from "./SearchBar.vue";
+import CampaignListTable from "./CampaignListTable.vue";
+import RemindEnterPostIDModal from "./RemindEnterPostIDModal.vue"
+import EnterPostIDModal from "./enter-post-id-modal/Main.vue"
 
-export default {
-  components: { 
-		SearchBar,
-		CampaignListTable
-	},
-  data() {
-    return {
-      idPopupModalPreview: false,
-      enterIDModalPreview: false,
-      facebookOverlappingModalPreview: false,
-      youtubeOverlappingModalPreview: false,
-      instagramOverlappingModalPreview: false,
-      facebookPageSelected: false,
-      instagramPageSelected: false,
-      youtubePageSelected: false,
-      currentLiveItems: [],
-      currentLiveListPlatform: null,
-      CurrentLiveOverlappingModalPreview: false,
-      EntryCampaignId: null,
-
-      fbAvatar: "",
-      ytAvatar: "",
-      igAvatar: "",
-      fb_page_id: null,
-      fb_post_id: null,
-      fb_page_token: null,
-      ig_profile_id: null,
-      ig_live_media_id: null,
-      ig_page_token: null,
-      yt_channel_id: null,
-      yt_live_video_id:null,
-      yt_page_token: null,
+import { ref } from "vue";
+import { useRoute, useRouter } from "vue-router"
+import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 
 
 
-      searchColumns: {
-        keywords: [
-          { text: "Title", value: "title" },
-        ],
-      },
-      tableColumns: [
-        { name: "Fan Page", key: "page" },
-        { name: "Platform", key: "platform" },
-        { name: "Title", key: "title" },
-        { name: "Time", key: "start_at" },
-        { name: "Manage Order", key: "manager_order" },
-        { name: "Stop Checkout", key: "stop" },
-        { name: " ", key: "entry" },
-        { name: " ", key: "edit" },
-      ],
-      campaign_status: "schedule",
-      campaignEntrydata: {
-        facebook:{
-          ownPageItems:{},
-          chosenPageInfo:{
-            pageID: this.fb_page_id,
-            pageAccessToken:this.fb_page_token,
-            post_id: this.fb_post_id
-          },
-        },
-        instagram:{
-          ownPageItems:{},
-          chosenPageInfo:{
-            pageID: this.ig_profile_id,
-            pageAccessToken:this.fb_page_token,
-            live_media_id: this.ig_live_media_id,
-          },
-        },
-        youtube:{
-          ownPageItems:{},
-          chosenPageInfo:{
-            pageID:this.yt_channel_id,
-            pageAccessToken:this.yt_page_token,
-            live_video_id: this.yt_live_video_id,
-          },
-        },
-      }
-    };
-  },
-  mounted() {
-    
-    this.eventBus.on("entryPoint", (payload) => {
-      console.log(payload)
-      this.EntryCampaignId = payload
-      this.idPopupModalPreview = true
-    })
-  },
-  unmounted() {
-    this.eventBus.off("entryPoint")
-  },
-  methods: {
-    status_change(status){
-        this.campaign_status = status
-        this.eventBus.emit("campaignStatus", {status: this.campaign_status})
-    },
-    toEnterID() {
-      this.idPopupModalPreview = false;
-      this.enterIDModalPreview = true;
-    },
-    facebookSelectPage() {
-      get_user_subscription_facebook_pages()
-      .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          this.campaignEntrydata.facebook.ownPageItems = response.data
-          this.facebookOverlappingModalPreview = true
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    },
-    facebookAccountClick(img, official_page_id, token) {
-      this.fb_page_id = official_page_id
-      this.fb_page_token = token
-      console.log(this.campaignEntrydata.facebook.chosenPageInfo)
-      this.facebookOverlappingModalPreview = false;
-      this.facebookPageSelected = true;
-      this.fbAvatar = img;
-    },
-    facebookSelectCurrentLive() {
-      get_fb_page_live_media(this.fb_page_id, this.fb_page_token)
-      .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          // const sort = response.data.data.filter(v => v.status === "LIVE")
-          const live_campaign = response.data.data.filter(v => v.status === "LIVE")
-          if (!live_campaign.length) {
-              alert('You have no Facebook live posts now.')
-          } else {
-              let currentLiveItems = []
-              live_campaign.forEach(v => {
 
-                currentLiveItems.push({
-                  id: v.video.id,
-                  title: v.title?v.title:"Current Live",
-                  image: null,
-                  video_url: null,
-                  embed_html: v.embed_html,
-                })
-              });
-              this.currentLiveItems = currentLiveItems
-              this.currentLiveListPlatform = "facebook"
-              this.CurrentLiveOverlappingModalPreview = true
-          }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    },
-    
-    instagramSelectPage() {
-      get_user_subscription_instagram_profiles()
-      .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          this.campaignEntrydata.instagram.ownPageItems = response.data
-          this.instagramOverlappingModalPreview = true
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    },
-    instagramAccountClick(img, official_page_id, token) {
-      this.ig_profile_id = official_page_id
-      this.ig_page_token = token
-      console.log(this.campaignEntrydata.instagram.chosenPageInfo)
-      this.instagramOverlappingModalPreview = false;
-      this.instagramPageSelected = true;
-      this.igAvatar = img;
-    },
-    instagramSelectCurrentLive() {
-      get_ig_live_media(this.ig_profile_id, this.ig_page_token)
-      .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          // const sort = response.data.data.filter(v => v.status === "LIVE")
-          const live_campaign = response.data.data
-          if (!live_campaign.length) {
-              alert('You have no Instagram live posts now.')
-          } else {
-              let currentLiveItems = []
-              live_campaign.forEach(v => {
 
-                currentLiveItems.push({
-                  id: v.id,
-                  title: v.username,
-                  image: v.media_url,
-                  video_url: null,
-                  embed_html: null,
-                })
-              });
-              this.currentLiveItems = currentLiveItems
-              this.currentLiveListPlatform = "instagram"
-              this.CurrentLiveOverlappingModalPreview = true
-          }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    },
+const store = useLSSCampaignListStore()
 
-    youtubeSelectPage() {
-      get_user_subscription_youtube_channels()
-      .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          this.campaignEntrydata.youtube.ownPageItems = response.data
-          this.youtubeOverlappingModalPreview = true
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    },
-    youtubeAccountClick(img, official_page_id, token) {
-      this.yt_channel_id = official_page_id
-      this.yt_page_token = token
-      console.log(this.campaignEntrydata.youtube.chosenPageInfo)
-      this.youtubeOverlappingModalPreview = false;
-      this.youtubePageSelected = true;
-      this.ytAvatar = img;
-    },
-    youtubeSelectCurrentLive() {
-      get_yt_live_media(this.yt_page_token)
-      .then((response) => {
-          console.log(response);
-          console.log(response.data);
-          // const sort = response.data.data.filter(v => v.status === "LIVE")
-          const live_campaign = response.data.items
-          if (!live_campaign.length) {
-              alert('You have no YouTube live stream now.')
-          } else {
-              let currentLiveItems = []
-              live_campaign.forEach(v => {
 
-                currentLiveItems.push({
-                  id: v.id,
-                  title: v.snippet.title,
-                  image: v.snippet.thumbnails.standard.url,
-                  video_url: null,
-                  embed_html: null,
-                })
-              });
-              this.currentLiveItems = currentLiveItems
-              this.currentLiveListPlatform = "youtube"
-              this.CurrentLiveOverlappingModalPreview = true
-          }
-      })
-      .catch((error) => {
-        console.log(error);
-      });
-    },
-    cancelClean() {
-      this.enterIDModalPreview = false;
-      this.facebookPageSelected = false;
-      this.youtubePageSelected = false;
-      this.instagramPageSelected = false;
-    },
-    closeJump() {
-      this.enterIDModalPreview = false;
-      console.log(this.EntryCampaignId)
-      this.$router.push(`/seller/campaign-live/${this.EntryCampaignId}`);
-    },
+const route = useRoute()
+const router = useRouter()
 
-    chooseFacebookLive(post_id) {
-      this.fb_post_id = post_id
-    },
-    chooseInstagramLive(live_media_id) {
-      this.ig_live_media_id = live_media_id
-    },
-    chooseYoutubeLive(live_video_id) {
-      this.yt_live_video_id = live_video_id
-    },
-    chooseLive(live_id, platform) {
-      if (platform === "facebook") {
-        this.chooseFacebookLive(live_id)
-      }
-      if (platform === "instagram") {
-        this.chooseInstagramLive(live_id)
-      }
-      if (platform === "youtube") {
-        this.chooseYoutubeLive(live_id)
-      }
-      this.CurrentLiveOverlappingModalPreview = false
-    }
-  },
-};
+const campaignStatus = ref('scheduled')
+const show_campaign = status=>{
+  campaignStatus.value=status
+}
+
+const targetCampaign = ref({})
+
+const searchColumns = ref([
+  { text: "Title", value: "title" },
+])
+
+const tableColumns =ref( [
+  { name: "Fan Page", key: "page" },
+  { name: "Platform", key: "platform" },
+  { name: "Title", key: "title" },
+  { name: "Time", key: "start_at" },
+  { name: "Manage Order", key: "manager_order" },
+  { name: "Stop Checkout", key: "stop" },
+  { name: " ", key: "entry" },
+  { name: " ", key: "edit" },
+])
+
+const showRemindEnterPostIDModal = ref(false)
+const showEnterPostIDModal = ref(false)
+
+const handleShowRemindModal = payload=>{
+  targetCampaign.value = payload
+  // targetCampaign.value = campaign
+  console.log(payload)
+  showRemindEnterPostIDModal.value = true
+}
+
 </script>
 
 <style scoped>
