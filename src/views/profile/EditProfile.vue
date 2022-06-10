@@ -23,23 +23,44 @@
             </div>
             <div class="mt-3">
                 <label class="form-label">Old Password</label>
-                <input type="password" class="form-control" />
+                <input type="password" class="form-control"
+                :class="{ 'border-danger': validate.oldPassword.$error }" 
+                    v-model.trim="validate.oldPassword.$model" />
+                <template v-if="validate.oldPassword.$error">
+                          <label
+                            class="text-danger mt-2"
+                          >
+                            Please enter State
+                          </label>
+                  </template>
             </div>
             <div class="mt-3">
                 <label class="form-label">New Password</label>
-                <input type="text" class="form-control" />
-                <div class="form-help">
+                <input type="text" class="form-control"
+                :class="{ 'border-danger': validate.NewPassword.$error }" 
+                    v-model.trim="validate.NewPassword.$model"/>
+                <div class="form-help"
+                    :class="{ 'text-danger': validate.NewPassword.$error }" >
                     Password should be at least 8 characters
                 </div>
             </div>
             <div class="mt-3">
                 <label class="form-label">Phone</label>
-                <input type="text" class="form-control" />
+                <input type="text" class="form-control" 
+                :class="{ 'border-danger': validate.newPhone.$error }" 
+                    v-model.trim="validate.newPhone.$model"/>
+                <template v-if="validate.newPhone.$error">
+                        <label
+                        class="text-danger mt-2"
+                        >
+                        Please enter numbers 
+                        </label>
+                </template>
             </div>
             <div class="flex justify-center lg:justify-end 2xl:justify-end mt-5">
                 <button class="btn btn-outline-primary mr-auto lg:mr-10 2xl:mr-10" @click="sellerLayoutStore.editProfile = false">
                     Cancel</button>
-                <button class="btn btn-outline-primary">
+                <button class="btn btn-outline-primary" @click="save">
                     Save</button>
             </div>
         </div>
@@ -49,6 +70,15 @@
 <script setup>
 import { computed } from "vue"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { reactive, toRefs } from "vue";
+import {
+  required,
+  minLength,
+  maxLength,
+  email,
+  integer,
+} from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
 
 const sellerLayoutStore = useLSSSellerLayoutStore()
 
@@ -64,4 +94,43 @@ const userAvatar = computed(() => {
     return sellerLayoutStore.userInfo.google_info.picture
 });
 
+
+const newData = reactive({
+  userEmail: "",
+  oldPassword: "",
+  newPassword: "",
+  newPhone: "",
+});
+
+const rules = {
+  userEmail: {
+    required,
+    email,
+  },
+  oldPassword: {
+    required,
+    minLength: minLength(8),
+    maxLength: maxLength(20),
+  },
+  NewPassword: {
+    required,
+    integer,
+    maxLength: maxLength(20),
+    minLength: minLength(8),
+  },
+  newPhone: {
+    integer,
+  },
+};
+
+const validate = useVuelidate(rules, toRefs(newData));
+
+const save = () => {
+  validate.value.$touch();
+  if (validate.value.$invalid) {
+    sellerLayoutStore.alert.showMessageToast('Input Error');
+  } else {
+    sellerLayoutStore.notification.showMessageToast('Update Successed');
+  }
+};
 </script>
