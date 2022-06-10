@@ -24,7 +24,8 @@
 
 						<a class="w-4/5 file__icon file__icon--image">
 							<div class="file__icon--image__preview image-fit" >
-								<img :src="publicPath + product.image"/>
+								<img :src="publicPath + product.image"
+								/>
 							</div>
 						</a>
 						<div class="block font-medium text-center truncate">	

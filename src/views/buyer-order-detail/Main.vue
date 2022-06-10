@@ -9,7 +9,7 @@
                     <div class="flex mb-2">
                         <h2 class="font-medium mr-5">
                             Order No. # {{ store.order.id }} 
-                            <span class="btn btn-rounded-secondary h-8 ml-3">
+                            <span class="btn rounded-full bg-secondary h-8 ml-3 cursor-auto">
                                 {{ store.order.status }}
                             </span> 
                             <button 
