@@ -31,7 +31,7 @@
                     </div> -->
                     <div class="truncate sm:whitespace-normal flex items-center mt-3">
                         <PhoneIcon class="w-4 h-4 mr-2" />
-                        {{ sellerLayoutStore.userInfo.phone }}
+                        <img :src="userAvatar" alt="">
                     </div>
                 </div>
             </div>
@@ -50,18 +50,12 @@
                 <div
                 class="col-span-12 lg:col-span-9 2xl:col-span-9 w-full mt-0 p-0 lg:px-10 2xl:px-10">
                     <div>
-                        <div>
-                            <label class="form-label">First Name</label>
-                            <input type="text" class="form-control" disabled />
-                        </div>
-                        <div class="mt-3">
-                            <label class="form-label">Last Name</label>
-                            <input type="text" class="form-control" disabled />
-                        </div>
+                        <label class="form-label">User Name</label>
+                        <input type="text" v-model="sellerLayoutStore.userInfo.name"  class="form-control" disabled />
                     </div>
                     <div class="mt-3">
                         <label class="form-label">Email</label>
-                        <input type="text" class="form-control"/>
+                        <input type="text" v-model="sellerLayoutStore.userInfo.email" class="form-control"/>
                     </div>
                     <div class="mt-3">
                         <label class="form-label">Old Password</label>

@@ -62,8 +62,8 @@
 
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue'
-import AutoReplyTable from "@/components/table/AutoReplyTable.vue";
-import { create_auto_response, auto_response_list } from "@/api/auto_reply";
+import AutoReplyTable from "./AutoReplyTable.vue";
+import { create_auto_response} from "@/api/auto_reply";
 import {get_user_subscription_facebook_pages} from "@/api/user_subscription"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 

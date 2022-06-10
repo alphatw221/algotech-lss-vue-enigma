@@ -38,9 +38,9 @@
             <div class="SeparatorRow">or</div>
 
             <div class="mt-5 flex flex-col items-center">
-                    <FacebookLoginButton block role='buyer'/>
-                    <GoogleLoginButton block role='buyer'/>
-                    <div class="mt-5 mb-5 text-[16px]">No Account ? <a href="">Create one !</a></div>
+                    <FacebookLoginButton block role='seller'/>
+                    <GoogleLoginButton block role='seller'/>
+                    <div class="mt-5 mb-5 text-[16px]">No Account ? <a href="lss/#/registration/SG">Create one !</a></div>
             </div>
         </Card>
     </div>
@@ -53,9 +53,6 @@ import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
 
 export default {
-    setup() {
-        
-    },
     components:{
         FacebookLoginButton,
         GoogleLoginButton
