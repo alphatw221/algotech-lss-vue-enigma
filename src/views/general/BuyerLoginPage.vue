@@ -4,21 +4,14 @@
             autoplay
             autoplay-speed="5000" 
             loop
+            class="carousel"
         >
-            <!-- <CarouselItem >
-                <img src="./src/assets/images/login-page/new-lss-carousel-1.jpeg" class="carousel"/>
+            <CarouselItem v-for="carousel in carousel_items" :key="carousel.src" class="carousel-item">
+                <img :src="carousel.src" class="carousel-item" />
             </CarouselItem>
-            <CarouselItem >
-                <img src="./src/assets/images/login-page/new-lss-carousel-2.jpeg" class="carousel"/>
-            </CarouselItem> -->
-
-            <CarouselItem v-for="carousel in carousel_items" :key="carousel.src">
-                <img :src="carousel.src" class="carousel"/>
-            </CarouselItem>
-
         </Carousel>
         
-        <Card style="width:400px; height: 600px; opacity: .9;" class="center">
+        <Card style="width:400px; height: 300px; opacity: .9;" class="center">
             <Row><h3>Login</h3></Row>
 
             <!-- <Form ref="loginForm" :model="loginForm" :rules="ruleInline" style="margin-top:50px;">
@@ -43,16 +36,15 @@
 
             <Row><a style="margin:auto;" @click="this.$router.push({ path: '/password/forgot' })">forgot password ?</a></Row>
             <Divider plain :size="small">or</Divider> -->
+            <div class="mt-10">
+                <Row class="login_btn">
+                    <FacebookLoginButton block role='buyer'/>
+                </Row>
+                <Row class="login_btn">
+                    <GoogleLoginButton block role='buyer'/>
+                </Row>
+            </div>
 
-            <Row class="login_btn">
-                <FacebookLoginButton block role='buyer'/>
-            </Row>
-            <Row class="login_btn">
-                <GoogleLoginButton block role='buyer'/>
-            </Row>
-            <Row style="margin-top: 20px;">
-                <div style="font-size:18px; margin-left: 80px;">No Account ? <a href="">Create one !</a></div>
-            </Row>
         </Card>
     </div>
 </template>
@@ -80,7 +72,12 @@ export default {
             // ],
             carousel_items: [
                 { src: img1 },
-                { src: img2 }
+                { src: img2 },
+                { src: img1 },
+                { src: img2 },
+                { src: img1 },{ src: img2 },
+                { src: img1 },{ src: img2 },
+                { src: img1 },
             ],
         }
     },
@@ -93,8 +90,19 @@ export default {
 <style scoped>
 
 .carousel {
-    width: 100%;
-    max-height: 100%;
+    width: 100vw !important;
+    height: 100vh !important;
+   background-size: cover !important;
+   overflow: hidden;
+}
+.carousel-item {
+    width: 100vw !important;
+    height: 100vh !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+    overflow: hidden;
 }
 
 .center {
@@ -111,6 +119,7 @@ export default {
     text-align: center;
     margin-left: auto;
     margin-right: auto;
+
 }
 
 h3 {
@@ -124,8 +133,5 @@ h3 {
     margin: 20px 0 0 30px;
 }
 
-.ivu-input-group {
-    font-size: 18px !important;
-}
 
 </style>
