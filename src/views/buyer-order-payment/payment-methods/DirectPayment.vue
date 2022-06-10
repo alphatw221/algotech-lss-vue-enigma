@@ -78,8 +78,16 @@
             </Dropzone>
             <div class="m-3 flex flex-col">
                 <label for="regular-form-2" class="form-label">Last Five Digits</label>
-                <input id="regular-form-2" type="text" class="form-control" v-model="fiveDigits" />
-                <button type="button" class="mt-5 mx-3 w-fit btn btn-rounded-primary self-center lg:self-end 2xl:self-end" @click="uploadReceipt()" >Upload & Complete Payment</button>
+                <input id="regular-form-2" type="text" class="form-control" 
+                    :class="{ 'border-danger': validate.fiveDigits.$error }" 
+                    v-model.trim="validate.fiveDigits.$model"/>
+                <template v-if="validate.fiveDigits.$error">
+                    <div class="form-help"
+                    :class="{ 'text-danger': validate.fiveDigits.$error }" >
+                    Please Enter Exactly 5 Digits
+                </div>
+                </template>
+                <button type="button" class="mt-5 mx-3 w-fit btn btn-rounded-primary self-center lg:self-end 2xl:self-end" @click="uploadReceipt()" >Upload & Complete Order</button>
             </div>
         </AccordionPanel>
     </AccordionItem>
@@ -88,26 +96,44 @@
 
 <script setup>
 
-import { computed, onMounted, ref, watch, provide } from "vue";
+import { computed, onMounted, ref, watch, provide, reactive, toRefs } from "vue";
 
 import { buyer_upload_receipt } from "@/api_v2/order";
 
 import { useRoute, useRouter } from "vue-router";
 
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+
+import {
+  minLength,
+  maxLength,
+  integer,
+  required
+} from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
+
 const store = useLSSBuyerOrderStore(); 
 
 const route = useRoute();
 const router = useRouter();
 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1)
+const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
 const receiptUploadDropzoneRef = ref();
-const openTab = ref(0)
-
-const fiveDigits =ref()
-const inputLength = ref(5)
+const openTab = ref(0);
 
 const select_account = index => openTab.value=index
+
+
+const newData = reactive({ fiveDigits: "" });
+const rules = {
+  fiveDigits: {
+    required,
+    integer,
+    minLength: minLength(5),
+    maxLength: maxLength(5),
+  },
+};
+const validate = useVuelidate(rules, toRefs(newData));
 
 provide("bind[receiptUploadDropzoneRef]", (el) => {
     receiptUploadDropzoneRef.value = el;
@@ -135,6 +161,5 @@ const uploadReceipt = ()=>{
         }
     )
 }
-
 
 </script>
