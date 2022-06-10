@@ -29,6 +29,7 @@
 					<div class="productName">{{ product.name }} </div>
 				</td>
 				<td class="text-center h-20">
+					<template v-if="`store.campaignProducts.${index}.customer_editable` && product.type ==='product'">
 					<div class="flex">
 						<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
 							<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
@@ -47,6 +48,12 @@
 							<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 						</button>
 					</div>
+					</template>
+					<template>
+						<div class="flex">
+							{{ product.qty }}
+						</div>
+					</template>
 				</td>
 				<td class="text-center h-20 ">
 					<div class="price"> $ {{ product.price }} </div>
@@ -55,7 +62,7 @@
 					<div class="price"> $ {{ product.qty * product.price }} </div>
 				</td>
 				<td class="table-report__action w-30 h-20">
-				<div class="flex justify-center items-center">
+				<div class="flex justify-center items-center" v-show="`store.campaignProducts.${index}.customer_removable` && product.type === 'product'">
 					<a class="flex items-center text-danger" @click="deleteOrderProduct(product.order_product_id, index)">
 					<Trash2Icon class="w-4 h-4 mr-1" /> Delete
 					</a>
