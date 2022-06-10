@@ -1,10 +1,11 @@
 <template>
-     <Modal
-        size="modal-lg"
-        :show="props.show"
-        @hidden="cancel()"
-      >
 
+    <!--Modal Enter Post ID -->
+    <Modal
+      size="modal-lg"
+      :show="props.show"
+      @hidden="cancel()"
+    >
       <ModalHeader>
         <h2 class="font-medium text-base mr-auto">Enter Post ID</h2>
         <a
@@ -15,104 +16,99 @@
           <XIcon class="w-8 h-8 text-slate-400" />
         </a>
       </ModalHeader>
-
       <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
-
         <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >Facebook</label
-          >
-          <div
-            v-show="campaignPlatformData.facebook.isPageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="campaignPlatformData.facebook.avatar" />
-          </div>
+          
         </div>
-        <div class="col-span-12" style="display: inline-flex">
+        <div class="col-span-4 mr-5">
+          <div class="items-end h-10" style="display: inline-flex">
+            <label for="modal-form-1" class="text-lg font-medium mr-5"
+              >Facebook</label
+            >
+            <div
+              v-show="campaignPlatformData.facebook.isLiveSelected"
+              class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+            >
+              <img alt="Midone Tailwind HTML Admin Template" :src="campaignPlatformData.facebook.avatar" />
+            </div>
+          </div>
           <button
             type="button"
             href="javascript:;"
             @click="selectPlatformPage('facebook')"
-            class="btn w-48 btn-primary mr-3"
+            class="btn w-40 btn-primary mt-3 mr-3"
           >
             Select Page
           </button>
-          <input
-            id="modal-form-1"
-            type="text"
-            class="form-control"
-            placeholder=""
-            v-model="campaignPlatformData.facebook.post_id"
-            @click="selectCurrentLive('facebook')"
-          />
-        </div>
-
-
-        <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >Instagram</label
-          >
-          <div
-            v-show="campaignPlatformData.instagram.isPageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="campaignPlatformData.instagram.avatar" />
+          <div>
+            Post ID:<br>{{ campaignPlatformData.facebook.post_id }}
           </div>
         </div>
-        <div class="col-span-12" style="display: inline-flex">
+        <div class="col-span-4">
+          <div class="items-end h-10" style="display: inline-flex">
+            <label for="modal-form-1" class="text-lg font-medium mr-5"
+              >Instagram</label
+            >
+            <div
+              v-show="campaignPlatformData.instagram.isLiveSelected"
+              class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+            >
+              <img alt="Midone Tailwind HTML Admin Template" :src="campaignPlatformData.instagram.avatar" />
+            </div>
+          </div>
           <button
             type="button"
             href="javascript:;"
             @click="selectPlatformPage('instagram')"
-            class="btn w-48 btn-primary mr-3"
+            class="btn w-40 btn-primary mt-3 mr-3"
           >
             Select Page
           </button>
-          <input
+          <!-- <input
             id="modal-form-1"
             type="text"
             class="form-control"
             placeholder=""
-            v-model="campaignPlatformData.instagram.live_media_id"
-            @click="selectCurrentLive('instagram')"
-          />
-        </div>
-
-
-        <div class="col-span-12 items-end" style="display: inline-flex">
-          <label for="modal-form-1" class="text-lg font-medium mr-5"
-            >YouTube</label
-          >
-          <div
-            v-show="campaignPlatformData.youtube.isPageSelected"
-            class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-          >
-            <img alt="Midone Tailwind HTML Admin Template" :src="campaignPlatformData.youtube.avatar" />
+            v-model="ig_live_media_id"
+            @click="instagramSelectCurrentLive()"
+          /> -->
+          <div>
+            Post ID:<br>{{  campaignPlatformData.instagram.live_media_id }}
           </div>
         </div>
-        <div class="col-span-12" style="display: inline-flex">
+        <div class="col-span-4">
+          <div class="items-end h-10" style="display: inline-flex">
+            <label for="modal-form-1" class="text-lg font-medium mr-5"
+              >YouTube</label
+            >
+            <div
+              v-show="campaignPlatformData.youtube.isLiveSelected"
+              class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
+            >
+              <img alt="Midone Tailwind HTML Admin Template" :src="campaignPlatformData.youtube.avatar" />
+            </div>
+          </div>
           <button
             type="button"
             href="javascript:;"
             @click="selectPlatformPage('youtube')"
-            class="btn w-48 btn-primary mr-3"
+            class="btn w-40 btn-primary mt-3 mr-3"
           >
             Select Page
           </button>
-          <input
+          <!-- <input
             id="modal-form-1"
             type="text"
             class="form-control"
             placeholder=""
-            v-model="campaignPlatformData.youtube.channel_id"
-            @click="selectCurrentLive('youtube')"
-          />
+            v-model="yt_live_video_id"
+            @click="youtubeSelectCurrentLive()"
+          /> -->
+          <div>
+            Post ID:<br>{{ campaignPlatformData.youtube.live_video_id }}
+          </div>
         </div>
       </ModalBody>
-
-
-
 
 
       <!-- BEGIN: Select Facebook Fan Page -->
@@ -126,10 +122,6 @@
       <!-- END: Select Facebook Fan Page -->
 
 
-
-
-    
-
       <!-- BEGIN: Select Current Live -->
         <SelectCurrentLiveModal
         :show="showSelectCurrentLiveModal" 
@@ -139,7 +131,7 @@
         @selectLive="handleSelectLive"
         />
       <!-- END: Select Current Live -->
-
+      
       <ModalFooter>
         <button
           type="button"
@@ -148,11 +140,14 @@
         >
           Cancel
         </button>
-        <button type="button" class="btn btn-primary w-20" @click="closeJump">
-          Save
+        <button type="button" class="btn btn-primary w-20" @click="enterLive()" 
+          v-show="campaignPlatformData.facebook.isLiveSelected || campaignPlatformData.youtube.isLiveSelected || campaignPlatformData.instagram.isLiveSelected">
+
+          Continue
         </button>
       </ModalFooter>
     </Modal>
+
 </template>
 
 
@@ -162,21 +157,16 @@ import SelectPlatformPageModal from "./SelectPlatformPageModal.vue"
 import SelectCurrentLiveModal from "./SelectCurrentLiveModal.vue"
 
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
-
-import { bind_facebook_page_to_campaign, bind_youtube_channel_to_campaign, bind_instagram_profile_to_campaign } from "@/api/campaign"
 import { update_platform_live_id } from "@/api_v2/campaign"
-
-import { get_fb_page_live_media } from "@/api/facebook"
-import { get_ig_live_media } from "@/api/instagram"
-import { get_yt_live_media } from "@/api/youtube"
-
-
+import { get_fb_page_live_media, check_facebook_page_token_valid } from "@/api/facebook"
+import { get_ig_live_media, check_instagram_profile_token_valid } from "@/api/instagram"
+import { get_yt_live_media, check_youtube_channel_token_valid } from "@/api/youtube"
 import { useRoute, useRouter } from "vue-router"
-
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
-
-
 import { ref, onMounted, onUnmounted, defineProps, defineEmits} from 'vue'
+
+const router = useRouter()
+const route = useRoute()
 
 const props = defineProps({
     show:Boolean,
@@ -184,8 +174,6 @@ const props = defineProps({
 });
 
 const emits = defineEmits(['hide','selectPlatform','selectLive'])
-
-
 const store = useLSSCampaignListStore()
 
 const showSelectPlatformPageModal = ref(false)
@@ -195,21 +183,21 @@ const campaignPlatformData =ref( {
   pages:[],
   currentLiveItems:[],
   facebook:{
-      isPageSelected:false,
+      isLiveSelected:false,
       avatar:'',
       pageID: '',
       token:'',
       post_id: ''
   },
   instagram:{
-      isPageSelected:false,
+      isLiveSelected:false,
       avatar:'',
       pageID: '',
       token:'',
       live_media_id: '',
   },
   youtube:{
-      isPageSelected:false,
+      isLiveSelected:false,
       avatar:'',
       pageID:'',
       token:'',
@@ -217,27 +205,39 @@ const campaignPlatformData =ref( {
   },
 })
 
+const enterLive = ()=>{
+  clearData()
+  router.push(`seller/campaign-live/${props.targetCampaign.id}`)
+}
+
 const cancel = ()=>{
+  clearData()
   emits('hide')
+}
+
+const clearData= ()=>{
   campaignPlatformData.value = {
     pages:[],
     currentLiveItems:[],
     facebook:{
-        isPageSelected:false,
+        isLiveSelected:false,
+        id:'',
         avatar:'',
         pageID: '',
         token:'',
         post_id: ''
     },
     instagram:{
-        isPageSelected:false,
+        isLiveSelected:false,
+        id:'',
         avatar:'',
         pageID: '',
         token:'',
         live_media_id: '',
     },
     youtube:{
-        isPageSelected:false,
+        isLiveSelected:false,
+        id:'',
         avatar:'',
         pageID:'',
         token:'',
@@ -245,7 +245,6 @@ const cancel = ()=>{
     },
   }
 }
-
 
 const selectPlatformPage = (platform)=>{
   currentPlatform.value=platform
@@ -272,56 +271,34 @@ const selectPlatformPage = (platform)=>{
 }
 
 const handleSelectPage = payload=>{
-  console.log(payload.page)
   showSelectPlatformPageModal.value=false
 
   if(payload.platform=='facebook'){
-
-    
-
-    bind_facebook_page_to_campaign(props.targetCampaign.campaign.id, payload.page.id).then(res=>{
-      store[props.targetCampaign.tableName].campaigns[props.targetCampaign.index] = res.data
-
-      campaignPlatformData.value.facebook.isPageSelected = true
-      campaignPlatformData.value.facebook.avatar = payload.page.image
-      campaignPlatformData.value.facebook.pageID = payload.page.page_id
-      campaignPlatformData.value.facebook.token =payload.page.token
-
+    check_facebook_page_token_valid(payload.page.id).then(res=>{
+      campaignPlatformData.value.facebook.id = res.data.id
+      campaignPlatformData.value.facebook.avatar = res.data.image
+      campaignPlatformData.value.facebook.pageID = res.data.page_id
+      campaignPlatformData.value.facebook.token =res.data.token
+      selectCurrentLive(payload.platform)
     })
-    
-
   }else if(payload.platform=='youtube'){
-    
-
-    bind_youtube_channel_to_campaign(props.targetCampaign.campaign.id, payload.page.id).then(res=>{
-      store[props.targetCampaign.tableName].campaigns[props.targetCampaign.index] = res.data
-
-      campaignPlatformData.value.youtube.isPageSelected = true
-      campaignPlatformData.value.youtube.avatar = payload.page.image
-      campaignPlatformData.value.youtube.pageID = payload.page.channel_id
-      campaignPlatformData.value.youtube.token =payload.page.token
-
+    check_youtube_channel_token_valid(payload.page.id).then(res=>{
+      campaignPlatformData.value.youtube.id = res.data.id
+      campaignPlatformData.value.youtube.avatar = res.data.image
+      campaignPlatformData.value.youtube.pageID = res.data.channel_id
+      campaignPlatformData.value.youtube.token =res.data.token
+      selectCurrentLive(payload.platform)
     })
-
   }else if(payload.platform=='instagram'){
-    bind_instagram_profile_to_campaign(props.targetCampaign.campaign.id, payload.page.id).then(res=>{
-      store[props.targetCampaign.tableName].campaigns[props.targetCampaign.index] = res.data
-
-      campaignPlatformData.value.instagram.isPageSelected = true
-      campaignPlatformData.value.instagram.avatar = payload.page.image
-      campaignPlatformData.value.instagram.pageID = payload.page.business_id
-      campaignPlatformData.value.instagram.token =payload.page.token
-
+    check_instagram_profile_token_valid(payload.page.id).then(res=>{
+      campaignPlatformData.value.instagram.id = res.data.id
+      campaignPlatformData.value.instagram.avatar = res.data.image
+      campaignPlatformData.value.instagram.pageID = res.data.business_id
+      campaignPlatformData.value.instagram.token =res.data.token
+      selectCurrentLive(payload.platform)
     })
-
-    
   }
 }
-
-
-
-
-
 const selectCurrentLive = (platform)=>{
   currentPlatform.value=platform
 
@@ -404,32 +381,29 @@ const selectCurrentLive = (platform)=>{
 }
 
 const handleSelectLive = payload=>{
-  console.log(payload)
   showSelectCurrentLiveModal.value=false
 
   if(payload.platform=='facebook'){
-    update_platform_live_id(props.targetCampaign.campaign.id,payload.platform, payload.live_id).then(res=>{
+    update_platform_live_id(props.targetCampaign.campaign.id, payload.platform, campaignPlatformData.value.facebook.id ,payload.live_id).then(res=>{
       store[props.targetCampaign.tableName].campaigns[props.targetCampaign.index] = res.data
       campaignPlatformData.value.facebook.post_id =payload.live_id
+      campaignPlatformData.value.facebook.isLiveSelected = true
     })
     
   }else if(payload.platform=='youtube'){
-    update_platform_live_id(props.targetCampaign.campaign.id,payload.platform, payload.live_id).then(res=>{
+    update_platform_live_id(props.targetCampaign.campaign.id,payload.platform, campaignPlatformData.value.youtube.id, payload.live_id).then(res=>{
       store[props.targetCampaign.tableName].campaigns[props.targetCampaign.index] = res.data
       campaignPlatformData.value.youtube.live_video_id =payload.live_id
+      campaignPlatformData.value.youtube.isLiveSelected = true
     })
     
   }else if(payload.platform=='instagram'){
-    update_platform_live_id(props.targetCampaign.campaign.id,payload.platform, payload.live_id).then(res=>{
+    update_platform_live_id(props.targetCampaign.campaign.id,payload.platform, campaignPlatformData.value.instagram.id, payload.live_id).then(res=>{
       store[props.targetCampaign.tableName].campaigns[props.targetCampaign.index] = res.data
       campaignPlatformData.value.instagram.live_media_id =payload.live_id
+      campaignPlatformData.value.instagram.isLiveSelected = true
     })
     
   }
 }
-
-
-
-
-
 </script>

@@ -278,8 +278,8 @@ export default {
     },
 
     clickEntry(campaign,index) {
-      // this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
-      //   return
+      this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
+        return
       if(campaign.facebook_page == null && campaign.instagram_profile == null && campaign.youtube_channel == null){
 
         this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
