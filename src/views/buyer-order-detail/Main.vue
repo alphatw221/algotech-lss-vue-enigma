@@ -55,7 +55,7 @@
                         <div class="col-start-1 col-span-2 py-2">Payment Method</div>
                         <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method }}</div>
                         
-                        <template v-if="store.order.shipping_method === 'in_store'">
+                        <template v-if="store.order.shipping_method === 'pickup'">
                             <div class="col-start-1 col-span-2 py-2">Delivery Information</div>
                             <div class="col-start-3 col-span-3 py-2">In-store pickup</div>
 
