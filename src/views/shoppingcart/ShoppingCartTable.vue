@@ -50,7 +50,7 @@
 					</div>
 					</template>
 					<template v-else>
-						<div class="flex ml-8">
+						<div class="flex ml-8 2xl:ml-20">
 							{{ product.qty }}
 						</div>
 					</template>
