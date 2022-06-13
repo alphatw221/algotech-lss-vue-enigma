@@ -55,10 +55,10 @@
                 <TabPanel>
                     <div class="chat__chat-list box overflow-y-auto scrollbar-hidden mt-1 max-h-[26rem]" :class="index">
                         <template v-if="platform_data.comments">
-                            <div v-for="(data, key) in platform_data.comments" class="intro-x cursor-pointer relative flex items-center p-3" @click="showReplyBar(data)">
+                            <div v-for="(reply, key) in platform_data.comments" class="intro-x cursor-pointer relative flex items-center p-3" @click="showReplyBar(reply)">
                                 <Tippy class="rounded-full" content="Reply" theme='light'>
                                     <div class="w-12 h-12 flex-none image-fit mr-1">
-                                        <img alt="" class="rounded-full zoom-in" :src="data.image" />
+                                        <img alt="" class="rounded-full zoom-in" :src="reply.image" />
                                         <div
                                             class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                         </div>
@@ -66,16 +66,16 @@
                                 </Tippy>
                                 <div class="ml-2 overflow-hidden">
                                     <div class="flex items-center">
-                                        <a href="javascript:;" class="font-medium">{{ data.customer_name }}</a>
+                                        <a href="javascript:;" class="font-medium">{{ reply.customer_name }}</a>
                                         <div class="text-xs text-slate-400 ml-auto"></div>
                                     </div>
                                     <div class="w-full truncate text-slate-500 mt-0.5">
-                                        {{ data.message }}
+                                        {{ reply.message }}
                                     </div>
                                 </div>
                             </div>
                             <template v-if="showModal">
-                                <ReplyModal  :replyToImg="data.image" :replyToName="data.customer_name" :replyToMessage=" data.message" :openChat="showModal"   /> 
+                                <ReplyModal  :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" /> 
                             </template> 
                         </template>
                     </div>
@@ -160,7 +160,7 @@ export default {
             open_fb_video: false,
             open_ig_video: false,
             open_yt_video: false,
-            data: null,
+            reply: null,
             showModal: false, 
         };
     },
@@ -207,7 +207,7 @@ export default {
             this.$router.push("campaign-live");
         },
         showReplyBar(e) {
-            this.data = e;
+            this.reply = e;
             this.showModal = true; 
         },
         get_all_comments() {

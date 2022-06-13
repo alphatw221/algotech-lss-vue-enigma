@@ -149,7 +149,7 @@ watch(
 
 #lss-mobil-side-nav {
   left: 0%;
-  width: 95vw;
+  width: calc(100vw - 24px);
   border-radius: 0px 0px 30px 30px;
 }
 </style>
