@@ -13,7 +13,6 @@
         <IncomingOrder :campaignId="campaignId"/>
         <!-- END: Incoming Order -->
     </div>
-    
 </template>
 
 <script>
@@ -24,12 +23,13 @@ import LiveComments from '@/components/campaign/LiveComments.vue';
 import LiveProduct from '@/components/campaign/LiveProduct.vue';
 import IncomingOrder from '@/components/campaign/IncomingOrder.vue';
 
+
 export default {
     components: { 
 		CampaignLiveTable,
         LiveComments,
         LiveProduct,
-        IncomingOrder
+        IncomingOrder,
 	},
     data() {
         return {

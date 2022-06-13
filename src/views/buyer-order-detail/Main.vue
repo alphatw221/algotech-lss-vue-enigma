@@ -54,6 +54,19 @@
                     <div class="grid grid-cols-6 gap-2">
                         <div class="col-start-1 col-span-2 py-2">Payment Method</div>
                         <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method }}</div>
+                        <template v-if="store.order.payment_method">
+                            <div class="col-start-1 col-span-2 py-3">Last Five Digit</div>
+                            <div class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
+                            <div class="w-20 h-20 image-fit zoom-in absolute top-30 right-10">
+                                <Tippy
+                                    tag="img"
+                                    data-action="zoom"
+                                    content="receipt image"
+                                    class="rounded-lg"
+                                    :src="store.order.meta.receipt_image"
+                                />
+                            </div>
+                        </template>
                         
                         <template v-if="store.order.shipping_method === 'pickup'">
                             <div class="col-start-1 col-span-2 py-2">Delivery Information</div>
@@ -65,7 +78,7 @@
                             <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
                             <div class="col-start-3 col-span-3 py-2">{{store.order.meta.pick_up_store_address}}</div>
                         </template>
-                        <template v-if="store.order.shipping_method === 'delivery'">
+                        <template v-else-if="store.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
                             <div class="col-start-3 col-span-3 py-3">Delivery</div>
 
@@ -129,6 +142,7 @@ onMounted(() => {
     .then(
         res => { 
             store.order = res.data 
+            console.log(res.data)
         }
     )
 })

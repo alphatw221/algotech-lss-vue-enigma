@@ -94,23 +94,32 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 import PriceSummary from "./PriceSummary.vue"
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_retrieve_order } from "@/api_v2/order";
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
+import { seller_retrieve_order } from "@/api_v2/order";
+import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
-const store = useShoppingCartStore();
+const store = useManageOrderStore();
 
 function update_order(){
     
 }
 
 onMounted(()=>{
-    buyer_retrieve_order(route.params.order_id)
-    .then(
-        res => { store.orderDetail = res.data 
-        console.log(store.orderDetail)}
-    )
+    if (store.order_type === 'pre_order'){
+        seller_retrieve_pre_order(route.params.order_id)
+        .then(
+            res => { store.orderDetail = res.data 
+                console.log(store.orderDetail)}
+        )
+    }else{
+        seller_retrieve_order(route.params.order_id)
+        .then(
+            res => { store.orderDetail = res.data 
+            console.log(store.orderDetail)}
+        )
+    }
 })
 </script>
 

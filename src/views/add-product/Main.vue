@@ -183,28 +183,28 @@ const router = useRouter();
 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const product = ref({
-				id: 0,
-				name: '',
-				categories: [],
-				image: '',
-				type: '',
-				order_code: '',
-				description: '',
-				qty: '',
-				price: '',
-				status: '',
-				tag: []
-			})
+	id: 0,
+	name: '',
+	categories: [],
+	image: '',
+	type: '',
+	order_code: '',
+	description: '',
+	qty: '',
+	price: '',
+	status: '',
+	tag: []
+})
 
 const typeRadio = ref([
-				{text: 'Product', id: 'product'},
-				{text: 'Lucky Draw', id: 'lucky_draw'},
-			])
+	{text: 'Product', id: 'product'},
+	{text: 'Lucky Draw', id: 'lucky_draw'},
+])
 
 const statusRadio = ref([
-				{text: 'For Sale', id: 'enabled'},
-				{text: 'Delisted', id: 'disabled'},
-			])
+	{text: 'For Sale', id: 'enabled'},
+	{text: 'Delisted', id: 'disabled'},
+])
 
 const previewImage =ref(null)
 
@@ -228,31 +228,29 @@ onMounted(()=>{
 
 
 const submit = ()=>{
-			if (route.params.product_id) {
-				formData.append('data', JSON.stringify(product.value))
-				update_product(route.params.product_id, formData)
-				.then(
-					response => {
-						// console.log('image upload response > ', response)
-						// layoutStore.alert.showMessageToast("Invalid Quantity")
-						router.push('/seller/stock')
-					},
-					layoutStore.notification.showMessageToast("Update Success")
-				)
-			} else {
-				formData.append('data', JSON.stringify(product.value))
-				// formData.append('image', )
-				create_product(formData)
-				.then(
-					response => {
-						layoutStore.notification.showMessageToast("Create Success"),
-						router.push('/seller/stock')
-					}
-				)
+	if (route.params.product_id) {
+		formData.append('data', JSON.stringify(product.value))
+		update_product(route.params.product_id, formData)
+		.then(
+			response => {
+				// console.log('image upload response > ', response)
+				// layoutStore.alert.showMessageToast("Invalid Quantity")
+				router.push('/seller/stock')
+			},
+			layoutStore.notification.showMessageToast("Update Success")
+		)
+	} else {
+		formData.append('data', JSON.stringify(product.value))
+		// formData.append('image', )
+		create_product(formData)
+		.then(
+			response => {
+				layoutStore.notification.showMessageToast("Create Success"),
+				router.push('/seller/stock')
 			}
-			
-		}
-
+		)
+	}
+}
 
 const uploadImage = e=>{
 	const image = e.target.files[0];

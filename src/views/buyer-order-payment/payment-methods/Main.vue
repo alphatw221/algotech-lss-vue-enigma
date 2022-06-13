@@ -1,9 +1,9 @@
 <template>
-    <AccordionGroup class="mb-10" > 
+    <AccordionGroup class="mb-10"> 
 
 
         <!-- BEGIN Direct Payment -->
-            <DirectPayment/>
+            <DirectPayment />
         <!-- END Direct Payment -->
 <!-- 
         <AccordionItem v-if="payment.handle.type=='gateway'">

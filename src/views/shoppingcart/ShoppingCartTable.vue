@@ -29,8 +29,8 @@
 					<div class="productName">{{ product.name }} </div>
 				</td>
 				<td class="text-center h-20">
-					<template v-if="`store.cartProducts.${index}.customer_editable` && product.type ==='product'">
-					<div class="flex">
+					<template v-if="checkProductEdit(index) && product.type ==='product'">
+					<div class="flex 2xl:ml-10">
 						<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
 							<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 						</button>
@@ -49,8 +49,8 @@
 						</button>
 					</div>
 					</template>
-					<template>
-						<div class="flex">
+					<template v-else>
+						<div class="flex ml-8 2xl:ml-20">
 							{{ product.qty }}
 						</div>
 					</template>
@@ -62,7 +62,7 @@
 					<div class="price"> $ {{ product.qty * product.price }} </div>
 				</td>
 				<td class="table-report__action w-30 h-20">
-				<div class="flex justify-center items-center" v-show="`store.cartProducts.${index}.customer_removable` && product.type === 'product'">
+				<div class="flex justify-center items-center" v-show="checkProductRemove(index) && product.type === 'product'">
 					<a class="flex items-center text-danger" @click="deleteOrderProduct(product.order_product_id, index)">
 					<Trash2Icon class="w-4 h-4 mr-1" /> Delete
 					</a>
@@ -100,7 +100,23 @@ const deleteOrderProduct = (order_product_id, index) =>{
 		store.order = res.data
 		layoutStore.notification.showMessageToast("Delete Success")
 	})
-} 
+}
+
+const checkProductEdit = (product_id) => {
+	for (const product of store.cartProducts){
+		if ((product.id).toString() === product_id){
+			return product.customer_editable
+		}
+	}
+}
+
+const checkProductRemove = (product_id) => {
+	for (const product of store.cartProducts){
+		if ((product.id).toString() === product_id){
+			return product.customer_removable
+		}
+	}
+}
 
 const changeQuantity = (event, index, qty, operation, order_product_id) => {
 	if (operation == 'add' && qty < 99) {

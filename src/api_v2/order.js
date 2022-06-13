@@ -20,3 +20,7 @@ export const buyer_orders_history = (page, page_size) => {
 export const buyer_retrieve_latest_order_shipping_info = () => {
     return createAxiosWithBearer().get(`/api/v2/order/buyer/retrieve/latest/shipping/`)
 }
+// -------------seller------------------
+export const seller_retrieve_order = (order_id) => {
+    return createAxiosWithBearer().get(`/api/v2/order/${order_id}/seller/retrieve/`);
+}
