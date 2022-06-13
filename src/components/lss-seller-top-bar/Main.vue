@@ -205,10 +205,10 @@
               </div>
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5" @click="router.replace('/seller/profile')">
+            <DropdownItem class="dropdown-item hover:bg-white/5" @click="sellerLayoutStore.profileTab = 0; router.replace('/seller/profile')">
               <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5"> 
+            <DropdownItem class="dropdown-item hover:bg-white/5"  @click="sellerLayoutStore.profileTab = 1;router.replace('/seller/profile')"> 
               <AwardIcon class="w-4 h-4 mr-2" /> Subscription</DropdownItem
             >
             <DropdownItem class="dropdown-item hover:bg-white/5" @click="router.replace('/password/forgot')">

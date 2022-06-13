@@ -20,13 +20,23 @@
             <!-- <div class="mr-auto">Shipping Method : Delivery</div> -->
             <div class="mr-auto">{{ store.order.shipping_method }}</div>
         </div>
-        <div class="flex mt-4">
-            <!-- <div class="mr-auto">2401 Utah Avenue South Seattle, Washington, U.S.</div> -->
-            <div class="mr-auto">{{ store.order.shipping_address_1 }}</div>
-        </div>
+        <template v-if="store.order.shipping_method === 'pickup'">
+            <div class="flex mt-4">In-store pickup</div>
+            <div class="flex mt-4">{{store.order.meta.pick_up_store}}</div>
+            <div class="flex mt-4">{{store.order.meta.pick_up_store_address}}</div>
+        </template>
+        <template v-if="store.order.shipping_method === 'delivery'">
+            <div class="flex mt-4">Delivery Address</div>
+            <div class="flex mt-4">
+                {{store.order.shipping_location}} ,
+                {{store.order.shipping_region}} ,
+                {{store.order.shipping_postcode}} ,
+                {{store.order.shipping_address_1}}
+            </div>
+        </template>
 
         <div class="flex mt-4 pt-4 border-t border-slate-200/60 dark:border-darkmode-400">
-            <div class="mr-auto font-medium text-base">Total Charge</div>
+            <div class="mr-auto font-medium text-base">Shipping Charge</div>
             <div class="font-medium">${{ store.order.shipping_cost }}</div>
         </div>
     </div>

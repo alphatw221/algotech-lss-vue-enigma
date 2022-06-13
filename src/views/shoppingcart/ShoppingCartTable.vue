@@ -1,5 +1,5 @@
 <template>
-	<table class="table table-report overflow-x-auto">
+	<table class="table overflow-x-auto">
 		<thead>
 			<tr>
 				<th
@@ -15,10 +15,10 @@
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x mt-5">
 				<td class="imgtd">
 					<div class="flex">
-						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in ">
+						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in">
 						<Tippy
 							tag="img"
-							class="rounded-full"
+							class="rounded-lg"
 							:src="storageUrl + product.image"
 							:content="product.name"
 						/>
@@ -29,6 +29,7 @@
 					<div class="productName">{{ product.name }} </div>
 				</td>
 				<td class="text-center h-20">
+					<template v-if="checkProductEdit(index) && product.type ==='product'">
 					<div class="flex">
 						<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
 							<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
@@ -47,15 +48,21 @@
 							<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 						</button>
 					</div>
+					</template>
+					<template v-else>
+						<div class="flex ml-8 2xl:ml-20">
+							{{ product.qty }}
+						</div>
+					</template>
+				</td>
+				<td class="text-center h-20 ">
+					<div class="price"> $ {{ product.price }} </div>
 				</td>
 				<td class="text-center h-20">
-					$ {{ product.price }}
-				</td>
-				<td class="text-center h-20">
-					$ {{ product.qty * product.price }}
+					<div class="price"> $ {{ product.qty * product.price }} </div>
 				</td>
 				<td class="table-report__action w-30 h-20">
-				<div class="flex justify-center items-center">
+				<div class="flex justify-center items-center" v-show="checkProductRemove(index) && product.type === 'product'">
 					<a class="flex items-center text-danger" @click="deleteOrderProduct(product.order_product_id, index)">
 					<Trash2Icon class="w-4 h-4 mr-1" /> Delete
 					</a>
@@ -95,6 +102,22 @@ const deleteOrderProduct = (order_product_id, index) =>{
 	})
 }
 
+const checkProductEdit = (product_id) => {
+	for (const product of store.cartProducts){
+		if ((product.id).toString() === product_id){
+			return product.customer_editable
+		}
+	}
+}
+
+const checkProductRemove = (product_id) => {
+	for (const product of store.cartProducts){
+		if ((product.id).toString() === product_id){
+			return product.customer_removable
+		}
+	}
+}
+
 const changeQuantity = (event, index, qty, operation, order_product_id) => {
 	if (operation == 'add' && qty < 99) {
 		qty += 1
@@ -116,6 +139,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 	.then(
 		res => {
 			store.order = res.data
+			layoutStore.notification.showMessageToast("Update Success")
 		}
 	)
 }
@@ -123,7 +147,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 
 <style scoped>
   td{
-    height: 40px;
+    height: 42px;
   }
 
   @media only screen and (max-width: 760px),
@@ -154,15 +178,19 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 
   td {
     border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
     padding-left: 50% !important;
     text-align: left !important;
   }
   .productName{
-	padding-left: 15px;
+	padding-left: 20px;
+	height:40px;
+	padding-top:5px;
   }
-
+  .price{
+	padding-left: 20px;
+	height:40px;
+	padding-top:10px;
+  }
   td:before {
     position: absolute;
     left: 6px;
@@ -182,6 +210,8 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
   }
   td:nth-of-type(3):before {
     content: "Qty";
+	display: flex;
+	align-self: flex-end !important;
     /* color: #0e9893; */
   }
   td:nth-of-type(4):before {

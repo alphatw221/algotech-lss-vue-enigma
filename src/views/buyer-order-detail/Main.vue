@@ -9,7 +9,7 @@
                     <div class="flex mb-2">
                         <h2 class="font-medium mr-5">
                             Order No. # {{ store.order.id }} 
-                            <span class="btn btn-rounded-secondary h-8 ml-3">
+                            <span class="btn rounded-full bg-secondary h-8 ml-3 cursor-auto">
                                 {{ store.order.status }}
                             </span> 
                             <button 
@@ -55,7 +55,7 @@
                         <div class="col-start-1 col-span-2 py-2">Payment Method</div>
                         <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method }}</div>
                         
-                        <template v-if="store.order.shipping_method === 'in_store'">
+                        <template v-if="store.order.shipping_method === 'pickup'">
                             <div class="col-start-1 col-span-2 py-2">Delivery Information</div>
                             <div class="col-start-3 col-span-3 py-2">In-store pickup</div>
 
@@ -89,7 +89,7 @@
                 <div class="grid grid-cols-3 gap-2">
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Total</div>
-                        <div class="mr-20">{{store.order.subtotal}}</div>
+                        <div class="mr-20">$ {{store.order.subtotal}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Delivery Charge</div>
@@ -97,11 +97,11 @@
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Discount {{store.order.adjust_title ?? ''}}</div>
-                        <div class="mr-20">{{store.order.adjust_price}}</div>
+                        <div class="mr-20">$ {{store.order.adjust_price}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Grand Total</div>
-                        <div class="mr-20">{{store.order.total}}</div>
+                        <div class="mr-20">$ {{parseFloat(store.order.total).toFixed(2)}}</div>
                     </div>
                 </div>
             </div>
@@ -117,11 +117,11 @@ import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { buyer_retrieve_order } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 
 const route = useRoute();
 const router = useRouter();
 
-import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 const store = useLSSBuyerOrderStore(); 
 
 onMounted(() => {

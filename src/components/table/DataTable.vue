@@ -20,7 +20,7 @@
 								<div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
 									<Tippy 
 										tag="img"
-										class="rounded-full"
+										class="rounded-lg"
 										:src= "`${publicPath}` + product.image"
 										:content="`Uploaded at`"
 									/>

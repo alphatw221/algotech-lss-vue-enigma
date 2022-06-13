@@ -12,23 +12,21 @@
             </div>
             <div class="col-end-11 -mt-3">
             <TabList class="nav-pills">
-                <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = true;this.open_ig_video = false;this.open_yt_video = false;">
                 <FacebookIcon class="m-1 -mt-1" />
                 </Tab>
-                <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = false;this.open_ig_video = true;this.open_yt_video = false;">
                 <InstagramIcon class="m-1 -mt-1" />
                 </Tab>
-                <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button">
+                <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = false;this.open_ig_video = false;this.open_yt_video = true;">
                 <YoutubeIcon class="m-1 -mt-1" />
                 </Tab>
             </TabList>
             </div>
             <div class="col-start-1 col-span-12 -mt-2">
-                <video width="600" controls>
-                    <!-- <source src="mov_bbb.mp4" type="video/mp4" />
-                    <source src="mov_bbb.ogg" type="video/ogg" /> -->
-                    Your browser does not support HTML video.
-                </video>
+                <div v-html="fb_video" v-show="open_fb_video"/> 
+                <div v-html="ig_video" v-show="open_ig_video"/> 
+                <div v-html="yt_video" v-show="open_yt_video"/> 
             </div>
             <div v-show="trigger"></div>
             <div v-show="tagBox" class="col-start-1 col-span-12 -mt-2 -mb-6">
@@ -56,8 +54,8 @@
             <template v-for="(platform_data, index) in comment_results">
                 <TabPanel>
                     <div class="chat__chat-list box overflow-y-auto scrollbar-hidden mt-1 max-h-[26rem]" :class="index">
-                        <template v-if="platform_data">
-                            <div v-for="(data, key) in platform_data" class="intro-x cursor-pointer relative flex items-center p-3" @click="showReplyBar">
+                        <template v-if="platform_data.comments">
+                            <div v-for="(data, key) in platform_data.comments" class="intro-x cursor-pointer relative flex items-center p-3" @click="showReplyBar(data)">
                                 <Tippy class="rounded-full" content="Reply" theme='light'>
                                     <div class="w-12 h-12 flex-none image-fit mr-1">
                                         <img alt="" class="rounded-full zoom-in" :src="data.image" />
@@ -76,6 +74,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <template v-if="showModal">
+                                <ReplyModal  :replyToImg="data.image" :replyToName="data.customer_name" :replyToMessage=" data.message" :openChat="showModal"   /> 
+                            </template> 
                         </template>
                     </div>
                 </TabPanel>
@@ -91,7 +92,7 @@
                     </CampaignLiveTable>
                 </div>
             </TabPanel> -->
-            <div v-show="replyBar"
+            <!-- <div v-show="replyBar"
                 class="pt-4 pb-10 sm:py-4 flex items-center border-t border-slate-200/60 dark:border-darkmode-400">
                 <textarea
                     class="chat__box__input form-control dark:bg-darkmode-600 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:border-transparent focus:ring-0"
@@ -102,29 +103,36 @@
                         <SendIcon class="w-4 h-4" />
                     </a>
                 </div>
-            </div>
+            </div> -->
+            
         </TabPanels>
     </TabGroup>
     <!-- END: comments -->
 </template>
 
 <script>
-import { get_comments, get_summerize_comments } from "@/api/campaign_comment"
+import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
+import ReplyModal from '@/components/modal/ReplyModal.vue'; 
+
 
 export default {
+    components:{
+        ReplyModal
+    },
     props: {
         campaignId: Number
     },
     
     data() {
         return {
+            platform: [],
             fbTab:false,
             igTab:false,
             ytTab:false,
+            
             imagePath: import.meta.env.VITE_APP_IMG_URL,
             tags: "",
             trigger:true,
-            replyBar: false,
             tagBox: false,
             currentTab: '',
             product_columns: [
@@ -145,19 +153,19 @@ export default {
             ],
             comment_status: "Shipping",
             accessToken: this.$cookies.get('access_token'),
-            websocket_connect: false
-            
+            webSocket: null,
+            fb_video: '<video width="600" controls></video>',
+            ig_video: '<video width="600" controls></video>',
+            yt_video: '<video width="600" controls></video>',
+            open_fb_video: false,
+            open_ig_video: false,
+            open_yt_video: false,
+            data: null,
+            showModal: false, 
         };
     },
     mounted() {
         this.get_all_comments()
-    },
-    watch: {
-        websocket_connect: function(val) {
-            if (!val) {
-                this.websocketConnect(this.comment_results)
-            }
-        }
     },
     methods: {
         status_change(status){
@@ -198,8 +206,9 @@ export default {
             this.enterIDModalPreview = false;
             this.$router.push("campaign-live");
         },
-        showReplyBar() {
-            this.replyBar = !this.replyBar;
+        showReplyBar(e) {
+            this.data = e;
+            this.showModal = true; 
         },
         get_all_comments() {
             console.log("get_all_comments")
@@ -209,45 +218,68 @@ export default {
                 return res.data
             }).then(res=> {
                 Object.keys(res).forEach(v=> {
-                    if (v === 'facebook' && res[v].length != 0) {
+                    if ((v === 'facebook' && res[v]['comments'].length != 0) || (v === 'facebook' && res[v]['fully_setup'] === true)) {
                         this.fbTab = true
-                    } else if (v === 'instagram' && res[v].length != 0) {
+                        this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 236.33)
+                        this.platform.push('fb')
+                    } else if ((v === 'instagram' && res[v]['comments'].length != 0) || (v === 'instagram' && res[v]['fully_setup'] === true)) {
                         this.igTab = true
-                    } else if (v === 'youtube' && res[v].length != 0) {
+                        this.platform.push('ig')
+                        if (res[v]['media_url']) {
+                            this.ig_video = this.generate_ig_embed_url(res[v]['media_url'], '100%', 236.33)
+                            console.log(this.ig_video)
+                        }
+                    } else if ((v === 'youtube' && res[v]['comments'].length != 0) || (v === 'youtube' && res[v]['fully_setup'] === true)) {
                         this.ytTab = true
+                        this.yt_video = this.generate_yt_embed_url(res[v]['live_video_id'], '100%', 236.33)
+                        this.platform.push('yt')
                     }
                 })
+                
                 this.trigger = false
             }).then(res=>{
-                this.websocketConnect(this.comment_results)
+                this.websocketConnect()
+                this[`open_${this.platform[0]}_video`] = true
             })
         },
-        websocketConnect(comment_results) {
+        websocketConnect: function() {
             const chatSocket = new WebSocket(
                 `wss://gipassl.algotech.app/ws/campaign/${this.campaignId}/?token=${this.accessToken}`
             );
-            chatSocket.onmessage = function(e) {
+            this.webSocket = chatSocket
+            chatSocket.onmessage = e => {
                 const data = JSON.parse(e.data);
                 console.log(data)
                 if (data.type != "comment_data") {
                     return
                 }
-                comment_results[data.data.platform].unshift(data.data)
+                this.comment_results[data.data.platform]['comments'].unshift(data.data)
                 
             };
-            chatSocket.onopen = ()=>{
+            chatSocket.onopen = e => {
                 console.log('connected')
-                this.websocket_connect = true;
-                console.log(this.websocket_connect)
             };
-            chatSocket.onclose = function(e) {
+            chatSocket.onclose = e => {
                 console.error('Chat socket closed unexpectedly');
-                this.websocketClosed = false;
+                this.websocketConnect()
             };
             chatSocket.onerror = function(err) {
                 console.error('Socket encountered error: ', err.message, 'Closing socket');
                 chatSocket.close();
             };
+        },
+        generate_fb_embed_url: function(page_id, post_id, width = 1280, height = 720) {
+            return `<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F&width=${width}" width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`;
+        },
+        generate_yt_embed_url: function(live_video_id, width = 1280, height = 720) {
+            return `<iframe data-platform="yt" src="https://www.youtube.com/embed/${live_video_id}"
+                width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
+                autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        },
+        generate_ig_embed_url: function(media_url, width = 1280, height = 720) {
+            return `<iframe data-platform="yt" src="${media_url}"
+                width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
+                autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         }
     }
 }
@@ -270,5 +302,9 @@ export default {
 .table td {
     /*padding-left: 0 !important;*/
     padding-right: 0 !important;
+}
+
+iframe {
+    max-width: 50% !important;
 }
 </style>

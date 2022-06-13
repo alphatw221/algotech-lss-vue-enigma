@@ -26,7 +26,7 @@
 				</div>
 			</div>
 			<div class="font-medium text-slate-600 dark:text-slate-500">
-				USD {{ product.qty * product.price }}
+				{{store.order.campaign.currency}} {{ product.qty * product.price }}
 			</div>
 			</div>
 

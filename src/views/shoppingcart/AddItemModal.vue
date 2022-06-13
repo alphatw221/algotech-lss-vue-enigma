@@ -5,7 +5,10 @@
 		@hidden="store.showAddItemModal=false"
 		:slideOver="true"
 	>
-		<ModalBody class="p-0" >
+		<ModalBody class="p-5 relative" >
+			<a @click="store.showAddItemModal = !store.showAddItemModal" class="absolute right-0 top-0 mt-3 mr-3">
+                <XIcon class="w-8 h-8 text-slate-400" />
+            	</a>
 			<ModalHeader>
 				<h2 class="font-medium text-base mr-auto">
 					Select add-ons
@@ -14,20 +17,21 @@
 
 			<div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5" >
 				<div 
-					class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2" 
+					class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 " 
 					v-for="(product, index) in addOnProducts" :key="index"
 				>
-					<div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in" >
+					<div class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
 
-						<a class="w-4/5 file__icon file__icon--image mx-auto">
-							<div class="file__icon--image__preview image-fit" style="width: 80px; height:80px">
-								<img :src="publicPath + product.image"/>
+						<a class="w-4/5 file__icon file__icon--image">
+							<div class="file__icon--image__preview image-fit" >
+								<img :src="publicPath + product.image"
+								/>
 							</div>
 						</a>
-						<div class="block font-medium mt-4 text-center truncate">	
+						<div class="block font-medium text-center truncate">	
 							{{ product.name }}
 						</div>
-						<div class="text-slate-500 text-xs text-center mt-0.5">
+						<div class="text-slate-500 text-xs text-center">
 							$ {{ product.price }}
 						</div>
 						<div class="flex">
@@ -49,7 +53,7 @@
 						</div>
 						<div>
 							<button 
-								class="btn btn-sm btn-primary w-24 mr-1 mb-2 mt-3"
+								class="btn btn-sm btn-primary w-24 mt-3"
 								@click="buyer_add_item(product.id, index)"
 							>
 								Add
@@ -58,16 +62,6 @@
 					</div>
 				</div>
 			</div>
-			<Row>
-				<button 
-					class="btn btn-rounded btn-primary-soft w-35 mb-5 mt-5"
-					@click="store.showAddItemModal = !store.showAddItemModal"
-					style="margin-left: auto; margin-right: auto;"
-				>
-					Back to Cart
-				</button>
-			</Row>
-			
 		</ModalBody>
 	</Modal>
 </template>
@@ -133,6 +127,7 @@ const buyer_add_item = (campaing_product_id, index) => {
 	.then(
 		res => {
 			store.order = res.data
+			layoutStore.notification.showMessageToast("Add Item Success")
 		}
 	)
 }

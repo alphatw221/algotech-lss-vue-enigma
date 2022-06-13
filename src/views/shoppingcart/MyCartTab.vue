@@ -17,7 +17,7 @@
     <div class="overflow-x-auto col-start-1 col-span-7" v-if="store.order.campaign">
         <div><span class="text-lg">Special Note:</span></div>
         <div class="flex">
-        <div class="mr-auto">{{store.order.campaign.meta_logistic.delivery_note}}</div>
+        <div class="mr-auto">{{store.order.campaign.meta_payment.shopping_note}}</div>
         </div>
     </div>
     </div>

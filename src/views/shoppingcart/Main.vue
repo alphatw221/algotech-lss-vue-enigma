@@ -75,7 +75,7 @@ import MyCartTab from "./MyCartTab.vue";
 import DeliveryTab from "./DeliveryTab.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
+import { buyer_list_campapign_product, buyer_campaign_product_list } from "@/api_v2/campaign_product";
 
 import { retrieve_pre_order } from "@/api_v2/pre_order";
 import { useRoute, useRouter } from "vue-router";
@@ -100,6 +100,13 @@ onMounted(()=>{
 	.then(
 		res => {
 			store.campaignProducts = res.data
+			console.log(res.data)
+		}
+	)
+  buyer_campaign_product_list(route.params.pre_order_id)
+	.then(
+		res => {
+			store.cartProducts = res.data
 			console.log(res.data)
 		}
 	)

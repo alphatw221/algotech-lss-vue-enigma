@@ -47,7 +47,7 @@
 				<label class="form-label">Upload Image</label>
 				<div class="border-2 border-dashed dark:border-darkmode-400 rounded-md pt-4">
 					<div class="flex flex-wrap px-4">
-						<img :src="previewImage" class="uploading-image" />
+						<img :src="previewImage" class="uploading-image h-48 lg:h-64 2xl:h-96 object-cover" />
 					</div>
 					<div class="px-4 pb-4 flex items-center cursor-pointer relative">
 						<ImageIcon class="w-4 h-4 mr-2" />
@@ -90,7 +90,7 @@
 					id="crud-form-1"
 					type="text"
 					class="form-control w-full"
-					placeholder="Input text"
+					placeholder="Input Order Code"
 					v-model="product.order_code"
 				/>
 			</div>
@@ -100,7 +100,7 @@
 					id="crud-form-1"
 					type="text"
 					class="form-control w-full"
-					placeholder="Input text"
+					placeholder="Input Description"
 					v-model="product.description"
 				/>
 			</div>
@@ -111,7 +111,7 @@
 					id="crud-form-1"
 					type="text"
 					class="form-control w-full"
-					placeholder="Input text"
+					placeholder="Input Quantity"
 					v-model="product.qty"
 				/>
 			</div>
@@ -121,7 +121,7 @@
 					id="crud-form-1"
 					type="text"
 					class="form-control w-full"
-					placeholder="Input text"
+					placeholder="Input Price"
 					v-model="product.price"
 				/>
 			</div>
@@ -157,7 +157,7 @@
 
 			<div class="mt-3 col-span-12 ">
 				<div class="flex mt-5 float-right">
-					<button class="btn w-32 dark:border-darkmode-400 " @click="router.push('/seller/stock')">
+					<button class="btn w-32 dark:border-darkmode-400 " @click="cancelButton">
 						Cancel
 					</button>
 					<button class="btn btn-primary w-32 shadow-md ml-5" @click="submit">
@@ -175,6 +175,9 @@ import { createAxiosWithBearer } from '@/libs/axiosClient'
 import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
 import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from "vue-router";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+
+const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -223,6 +226,7 @@ onMounted(()=>{
 	}
 })
 
+
 const submit = ()=>{
 	if (route.params.product_id) {
 		formData.append('data', JSON.stringify(product.value))
@@ -232,7 +236,8 @@ const submit = ()=>{
 				// console.log('image upload response > ', response)
 				// layoutStore.alert.showMessageToast("Invalid Quantity")
 				router.push('/seller/stock')
-			}
+			},
+			layoutStore.notification.showMessageToast("Update Success")
 		)
 	} else {
 		formData.append('data', JSON.stringify(product.value))
@@ -240,12 +245,11 @@ const submit = ()=>{
 		create_product(formData)
 		.then(
 			response => {
-				// layoutStore.alert.showMessageToast("Invalid Quantity")
+				layoutStore.notification.showMessageToast("Create Success"),
 				router.push('/seller/stock')
 			}
 		)
 	}
-	
 }
 
 const uploadImage = e=>{
@@ -259,5 +263,8 @@ const uploadImage = e=>{
 	};
 }
 
-
+const cancelButton = () =>{
+	layoutStore.alert.showMessageToast("Change Not Saved");
+	router.push('/seller/stock');
+}
 </script>
