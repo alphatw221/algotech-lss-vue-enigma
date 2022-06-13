@@ -75,7 +75,7 @@
                                 </div>
                             </div>
                             <template v-if="showModal">
-                                <ReplyModal  :replyToImg="data.image" :replyToName="data.customer_name" :replyToMessage=" data.message" :openChat="showModal" :hide="showModal = false"  /> 
+                                <ReplyModal  :replyToImg="data.image" :replyToName="data.customer_name" :replyToMessage=" data.message" :openChat="showModal"   /> 
                             </template> 
                         </template>
                     </div>
