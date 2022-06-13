@@ -38,7 +38,7 @@ export default {
             window.checkLoginState=() => {   //facebook SDK use eval() 
                 window.FB.getLoginStatus(response => {
                     if (response.status === 'connected') {
-                        const loginRequest = this.role=='buyer' ? buyer_login_with_facebook : seller_login_with_facebook
+                        const loginRequest = this.role== 'buyer' ? buyer_login_with_facebook : seller_login_with_facebook
                         const store = this.role == 'buyer' ? useLSSBuyerLayoutStore() : useLSSSellerLayoutStore()
 
                         loginRequest({facebook_token: response.authResponse.accessToken})
@@ -50,11 +50,13 @@ export default {
                             set_cookie.then(() => {
                                 store.loginWith='facebook'
                                 if (this.role == 'buyer') {
-                                    if (this.$route.params.pre_order_id){
-                                        this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
-                                    } else {
-                                        this.$router.push(`/buyer/`)
-                                    }
+                                    this.$cookies.set("login_with", "facebook")
+                                    this.$router.go()
+                                    // if (this.$route.params.pre_order_id){
+                                    //     this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
+                                    // } else {
+                                    //     this.$router.push(`/buyer/`)
+                                    // }
                                 } else if (this.role == 'seller') {
                                     this.$router.push(`/seller/campaign-list`)
                                 }
