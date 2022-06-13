@@ -65,12 +65,15 @@
                                     type="text" 
                                     class="form-control" 
                                     aria-label="default input" 
-                                    :value="product.qty"
+                                    :value="product.max_order_amount"
                                     @input="changeInput($event, index, 'max_order')"
                                     style="width: 4rem; height: 2rem; margin-top: 5px;" 
                                 />
                             </div>
                         </template>
+                        <template v-else-if="column.key === 'tag'" v-for="tag in product[column.key]">
+							<div>{{ tag }}</div> 
+						</template>
                         <template v-else-if="column.key === 'price'">
                             <div class="w-12">{{ product.currency_sign }} {{ product[column.key] }}</div>
                         </template>
@@ -117,7 +120,7 @@ const tableColumns = ref([
 	{ name: "Order Code", key: "order_code" },
 	{ name: "Qty for Campaign", key: "qty_campaign" },
 	{ name: "Max Qty / Order", key: "max_order" },
-	{ name: "Quantity", key: "qty" },
+	{ name: "Category", key: "tag" },
 	{ name: "Price", key: "price" },
 	{ name: "Editable", key: "editable" },
 	{ name: "Deletable", key: "deletable" },
@@ -152,6 +155,7 @@ const search = () => {
             item.selected = false
             item.editable = false
             item.deletable = false
+            item.max_order_amount = 1
         })
         // 跳頁時選取記憶 selected, editable, deletable 欄位
         if (campaignStore.assignedProducts.length > 0) {
