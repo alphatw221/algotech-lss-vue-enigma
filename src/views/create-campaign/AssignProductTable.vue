@@ -11,10 +11,10 @@
             </thead>
             <tbody>
                 <tr v-for="(product, index) in productsList" :key="index" class="intro-x">
-                    <td v-for="column in tableColumns" :key="column.key"
-                        class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"
-                    >
-                        <template v-if="column.key === 'image'">
+                    <template v-for="column in tableColumns" :key="column.key"> 
+
+                        <td v-if="column.key === 'image'"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="flex">
                                 <div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
                                     <Tippy 
@@ -24,18 +24,10 @@
                                     />
                                 </div>
                             </div>
-                        </template>
-                        <template v-else-if="column.key === 'selected' || column.key === 'editable' || column.key === 'deletable'">
-                            <div class="form-check mt-2 self-center place-content-center">
-                                <input 
-                                    id="selectCheckbox" 
-                                    class="form-check-input" 
-                                    type="checkbox" 
-                                    v-model="product[column.key]"
-                                />
-                            </div>
-                        </template>
-                        <template v-else-if="column.key === 'order_code'">
+                        </td>
+                        
+                        <td v-else-if="column.key === 'order_code'"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="form-check self-center place-content-center">
                                 <input 
                                     type="text" 
@@ -46,8 +38,10 @@
                                     style="width: 4rem; height: 2rem; margin-top: 5px;"
                                 />
                             </div>
-                        </template>
-                        <template v-else-if="column.key === 'qty_campaign'">
+                        </td>
+
+                        <td v-else-if="column.key === 'qty_campaign'"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="form-check self-center place-content-center">
                                 <input 
                                     type="text" 
@@ -58,8 +52,10 @@
                                     style="width: 4rem; height: 2rem; margin-top: 5px;"
                                 />
                             </div>
-                        </template>
-                        <template v-else-if="column.key === 'max_order'">
+                        </td>
+
+                        <td v-else-if="column.key === 'max_order'"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="form-check self-center place-content-center">
                                 <input 
                                     type="text" 
@@ -70,20 +66,85 @@
                                     style="width: 4rem; height: 2rem; margin-top: 5px;" 
                                 />
                             </div>
-                        </template>
-                        <template v-else-if="column.key === 'tag'" v-for="tag in product[column.key]">
-							<div>{{ tag }}</div> 
-						</template>
-                        <template v-else-if="column.key === 'price'">
+                        </td>
+
+                        <td v-else-if="column.key === 'tag'" 
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            <div v-for="tag in product[column.key]" >{{ tag }}</div> 
+                        </td>
+
+                        <td v-else-if="column.key === 'price'"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="w-12">{{ product.currency_sign }} {{ product[column.key] }}</div>
-                        </template>
-                        <template v-else-if="column.key === 'name'">
+                        </td>
+
+                        <td v-else-if="column.key === 'name'"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="truncate hover:text-clip lg:w-28 2xl:w-36">{{ product[column.key] }}</div>
-                        </template>
-                        <template v-else>
+                            
+                        </td>
+
+                        <td v-else-if="column.key === 'selected'"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            <div class="form-check mt-2 self-center place-content-center">
+                               <input 
+                                    id="selectCheckbox" 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    v-model="product[column.key]"
+                                />
+                            </div>
+                        </td>
+
+                        <td v-else-if="column.key === 'editable'"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            <div class="form-check mt-2 self-center place-content-center">
+                                <div v-if="product.type === 'lucky_draw'">
+                                    <input
+                                    id="selectCheckbox" 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    disabled
+                                    v-model="product[column.key]"
+                                    />
+                                </div>
+                                <input
+                                    v-else
+                                    id="selectCheckbox" 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    v-model="product[column.key]"
+                                    @click="product.deletable = !product.deletable"
+                                    />
+                            </div>
+                        </td>
+
+                        <td v-else-if="column.key === 'deletable'"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            <div class="form-check mt-2 self-center place-content-center">
+                               <input 
+                                    v-if="product.editable == false" 
+                                    id="selectCheckbox" 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    disabled
+                                    v-model="product[column.key]"
+                                />
+                                <input 
+                                    v-else
+                                    id="selectCheckbox" 
+                                    class="form-check-input" 
+                                    type="checkbox" 
+                                    v-model="product[column.key]"
+                                />
+                            </div>
+                        </td>
+
+                        <td v-else
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="w-fit self-center place-content-center"> {{ product[column.key] }} </div>
-                        </template>
-                    </td>
+                        </td>
+                    </template>
                 </tr>
             </tbody>
         </table>
@@ -99,7 +160,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, getCurrentInstance} from 'vue';
+import { ref, onMounted, onUnmounted, getCurrentInstance, watch} from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { list_product } from '@/api_v2/product';
 
@@ -153,9 +214,16 @@ const search = () => {
         productsList.value.forEach((item) => {
             item.qty_campaign = 1
             item.selected = false
-            item.editable = false
-            item.deletable = false
+            item.editable = true
+            item.deletable = true
             item.max_order_amount = 1
+            if (item.type === 'lucky_draw'){
+                item.editable = false
+                item.deletable = false
+            }
+            if(item.editable === false){
+                item.deletable = false
+            }
         })
         // 跳頁時選取記憶 selected, editable, deletable 欄位
         if (campaignStore.assignedProducts.length > 0) {
