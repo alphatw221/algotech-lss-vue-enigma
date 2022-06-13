@@ -34,11 +34,6 @@
                 {{store.order.shipping_address_1}}
             </div>
         </template>
-
-        <div class="flex mt-4 pt-4 border-t border-slate-200/60 dark:border-darkmode-400">
-            <div class="mr-auto font-medium text-base">Shipping Charge</div>
-            <div class="font-medium">${{ store.order.shipping_cost }}</div>
-        </div>
     </div>
 
 </template>

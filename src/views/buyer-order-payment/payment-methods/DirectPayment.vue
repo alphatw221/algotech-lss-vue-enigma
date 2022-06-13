@@ -1,6 +1,6 @@
 <template>
     <AccordionItem v-if="store.order.campaign" class="mx-5">
-        <Accordion class="bg-primary rounded-t-lg">
+        <Accordion class="bg-primary rounded-t-lg ">
             <div class="text-white mx-5"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
         </Accordion>
 
