@@ -55,7 +55,7 @@
                 <TabPanel>
                     <div class="chat__chat-list box overflow-y-auto scrollbar-hidden mt-1 max-h-[26rem]" :class="index">
                         <template v-if="platform_data.comments">
-                            <div v-for="(data, key) in platform_data.comments" class="intro-x cursor-pointer relative flex items-center p-3" @click="showReplyBar">
+                            <div v-for="(data, key) in platform_data.comments" class="intro-x cursor-pointer relative flex items-center p-3" @click="showReplyBar(data)">
                                 <Tippy class="rounded-full" content="Reply" theme='light'>
                                     <div class="w-12 h-12 flex-none image-fit mr-1">
                                         <img alt="" class="rounded-full zoom-in" :src="data.image" />
@@ -74,6 +74,9 @@
                                     </div>
                                 </div>
                             </div>
+                            <template v-if="showModal">
+                                <ReplyModal  :replyToImg="data.image" :replyToName="data.customer_name" :replyToMessage=" data.message" :openChat="showModal"   /> 
+                            </template> 
                         </template>
                     </div>
                 </TabPanel>
@@ -89,7 +92,7 @@
                     </CampaignLiveTable>
                 </div>
             </TabPanel> -->
-            <div v-show="replyBar"
+            <!-- <div v-show="replyBar"
                 class="pt-4 pb-10 sm:py-4 flex items-center border-t border-slate-200/60 dark:border-darkmode-400">
                 <textarea
                     class="chat__box__input form-control dark:bg-darkmode-600 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:border-transparent focus:ring-0"
@@ -100,7 +103,8 @@
                         <SendIcon class="w-4 h-4" />
                     </a>
                 </div>
-            </div>
+            </div> -->
+            
         </TabPanels>
     </TabGroup>
     <!-- END: comments -->
@@ -108,8 +112,13 @@
 
 <script>
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
+import ReplyModal from '@/components/modal/ReplyModal.vue'; 
+
 
 export default {
+    components:{
+        ReplyModal
+    },
     props: {
         campaignId: Number
     },
@@ -120,10 +129,10 @@ export default {
             fbTab:false,
             igTab:false,
             ytTab:false,
+            
             imagePath: import.meta.env.VITE_APP_IMG_URL,
             tags: "",
             trigger:true,
-            replyBar: false,
             tagBox: false,
             currentTab: '',
             product_columns: [
@@ -151,7 +160,8 @@ export default {
             open_fb_video: false,
             open_ig_video: false,
             open_yt_video: false,
-            
+            data: null,
+            showModal: false, 
         };
     },
     mounted() {
@@ -196,8 +206,9 @@ export default {
             this.enterIDModalPreview = false;
             this.$router.push("campaign-live");
         },
-        showReplyBar() {
-            this.replyBar = !this.replyBar;
+        showReplyBar(e) {
+            this.data = e;
+            this.showModal = true; 
         },
         get_all_comments() {
             console.log("get_all_comments")

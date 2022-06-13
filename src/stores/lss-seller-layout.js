@@ -7,6 +7,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     isAuthenticated: ref(false),
     loginWith: ref(null),
     editProfile: ref(false),
+    openChatBox: ref(false),
     profileTab: ref(0),
     userInfo: ref({}),
     notification: ref(),

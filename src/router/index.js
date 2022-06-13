@@ -90,7 +90,7 @@ import Profile from "../views/profile/Main.vue";
 // import Test2 from "../views/test/test2.vue"; 
 // import Test4 from "../views/test/test4.vue"; 
 // import Test5 from "../views/test/test5.vue"; 
-// import Test6 from "../views/test/test6.vue"; 
+import Test6 from "../views/test/test6.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import isBuyerAuth from "@/libs/routerMiddleware/isBuyerAuth"
@@ -107,6 +107,11 @@ const routes = [
     component: LssSellerLayout,
     beforeEnter: isSellerAuth,
     children: [
+      {
+        path: "test6",
+        name: "seller-Test6",
+        component: Test6,
+      },
       {
         path: "profile",
         name: "seller-profile",
