@@ -147,9 +147,8 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
 });
 
 const uploadReceipt = ()=>{
-
     let formData = new FormData()
-    formData.append('last_five_digits', fiveDigits.value )
+    formData.append('last_five_digit', newData.fiveDigits )
     formData.append('image',receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]||'')
 
     
