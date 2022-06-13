@@ -114,7 +114,7 @@
                                     class="form-check-input" 
                                     type="checkbox" 
                                     v-model="product[column.key]"
-                                    @click="product.deletable = !product.deletable"
+                                    @click="product.deletable = false"
                                     />
                             </div>
                         </td>
