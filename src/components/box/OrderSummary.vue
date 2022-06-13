@@ -37,7 +37,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">Total Charge</div>
-        <div class="font-medium text-base">${{ cartTotal).toFixed(2) }}</div>
+        <div class="font-medium text-base">${{ cartTotal.toFixed(2) }}</div>
       </div>
     </div>
     <div class="flex mt-5" v-if="store.openTab === 1">
