@@ -1,8 +1,8 @@
 <template>
 <div :class="{ hidden: store.openTab !== 1, block: store.openTab === 1 }">
     <div>My Cart</div>
-    <div class="box grid grid-cols-12 gap-4">
-    <div class="overflow-x-auto  col-span-12 2xl:col-span-7 2xl:block lg:block sm:block lg:col-span-7">
+    <div class="grid grid-cols-12 gap-4">
+    <div class="overflow-x-auto col-span-12 2xl:col-span-7 2xl:block lg:block sm:block lg:col-span-7">
         <ShoppingCartTable />
     </div>
     <!-- <div class="block overflow-x-auto col-span-12 2xl:col-span-7 lg:col-span-7 2xl:hidden lg:hidden sm:hidden">
@@ -13,7 +13,7 @@
         <AddItemModal></AddItemModal>
     </div>
     </div>
-    <div class="box grid grid-cols-12 gap-4 ml-4 mr-4">
+    <div class="grid grid-cols-12 gap-4 ml-4 mr-4">
     <div class="overflow-x-auto col-start-1 col-span-7" v-if="store.order.campaign">
         <div><span class="text-lg">Special Note:</span></div>
         <div class="flex">
