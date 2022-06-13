@@ -61,6 +61,7 @@
                                 <Tippy
                                     tag="img"
                                     data-action="zoom"
+                                    content="receipt image"
                                     class="rounded-lg"
                                     :src="store.order.meta.receipt_image"
                                 />

@@ -13,15 +13,15 @@
 			</thead>
 			<tbody>
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
-				<td class=" h-20 imgTd">
-					<div class="flex">
+				<td class=" h-20 imgTd self-center">
+					<div class="flex items-center self-center justify-center">
 						<div class="w-10 h-10 image-fit zoom-in">
 						<Tippy
 							tag="img"
 							class="rounded-lg"
-              data-action="zoom"
 							:src="storageUrl+product.image"
 							:content="product.name"
+              data-action="zoom"
 						/>
 						</div>
 					</div>
@@ -45,10 +45,9 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
-
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
-import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 const store = useLSSBuyerOrderStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
