@@ -30,7 +30,7 @@
 				</td>
 				<td class="text-center h-20">
 					<template v-if="checkProductEdit(index) && product.type ==='product'">
-					<div class="flex">
+					<div class="flex 2xl:ml-10">
 						<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
 							<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 						</button>
