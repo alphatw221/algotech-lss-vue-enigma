@@ -96,7 +96,7 @@
             <TabPanel class="leading-relaxed">
               <label class="text-md font-medium col-span-12">Delivery Information</label>
               <div class="grid grid-cols-12">
-                <div class="box p-8 intro-y col-span-12 gap-5">
+                <div class="p-8 intro-y col-span-12 gap-5">
                   <label for="regular-form-2" class="form-label my-2">Address</label>
                   <div>
                   <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder=""
@@ -153,7 +153,7 @@
                 </div>
                 <!-- BEGIN Delivery Option -->
                 <label class="text-md font-medium col-span-12">Delivery Option</label>
-                <div class="box p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
+                <div class="p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
                   <div v-if="'campaign' in store.order">
                     <div class="flex form-check my-5"
                       v-for="(title, index) in store.order.campaign.meta_logistic.additional_delivery_charge_title"
@@ -189,7 +189,7 @@
             <TabPanel class="leading-relaxed">
               <div class="grid grid-cols-12">
                 <label class="text-md font-medium col-span-12">Pickup Option</label>
-                <div class="box p-2 intro-y col-span-12 gap-5 mx-0 lg:mx-20 lg:p-8 2xl:mx-20 2xl:p-8">
+                <div class="p-2 intro-y col-span-12 gap-5 mx-0 lg:mx-20 lg:p-8 2xl:mx-20 2xl:p-8">
                   <div v-if="'campaign' in store.order">
                     <div class="flex form-check my-5"
                       v-for="(branch_name, index) in store.order.campaign.meta_logistic.branch_name" :key="index">
