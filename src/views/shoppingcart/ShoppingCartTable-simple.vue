@@ -22,7 +22,7 @@
 			<div class="ml-4 mr-auto">
 				<a class="font-medium">{{product.name}}</a>
 				<div class="text-slate-500 mr-5 sm:mr-5">
-				Quantity {{product.qty}}
+				Q'ty : {{product.qty}}
 				</div>
 			</div>
 			<div class="font-medium text-slate-600 dark:text-slate-500">
