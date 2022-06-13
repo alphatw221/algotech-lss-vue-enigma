@@ -18,6 +18,7 @@
 						<div class="w-10 h-10 image-fit zoom-in">
 						<Tippy
 							tag="img"
+							data-action="zoom"
 							class="rounded-lg"
 							:src="storageUrl+product.image"
 							:content="product.name"
