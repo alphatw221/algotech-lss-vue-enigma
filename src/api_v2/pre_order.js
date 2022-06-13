@@ -25,3 +25,6 @@ export const buyer_cart_add = (pre_order_id, campaign_product_id, qty) => {
 export const buyer_link_create_cart = (campaign_id, loginWith) => {
     return createAxiosWithBearer().get(`/api/v2/pre_order/${campaign_id}/${loginWith}/buyer/create/`)
 }
+export const seller_retrieve_pre_order = (pre_order_id) => {
+    return createAxiosWithBearer().get(`/api/v2/pre_order/${pre_order_id}/seller/retrieve/`);
+}
