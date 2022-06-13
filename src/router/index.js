@@ -95,6 +95,7 @@ import Test6 from "../views/test/test6.vue";
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import isBuyerAuth from "@/libs/routerMiddleware/isBuyerAuth"
 import isSellerAuth from "@/libs/routerMiddleware/isSellerAuth"
+import checkBuyerLoginType from "@/libs/routerMiddleware/checkBuyerLoginType";
 
 const routes = [
   // {
@@ -302,8 +303,9 @@ const routes = [
     ]
   },
   {
-    path: "/buyer/login/:pre_order_id?",
+    path: "/buyer/login/:type?/:pre_order_id?/:campaign_id?",
     name: "buyer-login-page",
+    beforeEnter: checkBuyerLoginType,
     component: () => import('@/views/general/BuyerLoginPage.vue'),
   },
 

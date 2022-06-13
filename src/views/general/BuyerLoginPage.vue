@@ -15,8 +15,8 @@
             <Row><h3>Login</h3></Row>
 
             <div class="mt-10 flex flex-col items-center">
-                    <FacebookLoginButton block role='buyer'/>
-                    <GoogleLoginButton block role='buyer'/>
+                <FacebookLoginButton block role='buyer'/>
+                <GoogleLoginButton block role='buyer'/>
             </div>
 
         </Card>
