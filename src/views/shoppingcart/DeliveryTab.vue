@@ -242,10 +242,10 @@
     </div>
     
     <div class="my-5 flex">
-      <button class="w-fit btn btn-outline-primary mr-auto" @click="store.openTab= 1">
+      <button class="w-fit btn btn-outline-primary mr-auto rounded-full" @click="store.openTab= 1">
         Previous
       </button>
-      <button class="w-fit btn btn-primary" @click="proceed_to_payment">
+      <button class="w-fit btn btn-rounded-primary" @click="proceed_to_payment">
         Proceed to Payment
       </button>
     </div>
