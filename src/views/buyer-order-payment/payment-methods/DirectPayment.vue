@@ -1,13 +1,16 @@
 <template>
-    <AccordionItem v-if="store.order.campaign" class="mx-5 show">
-        <Accordion class="bg-primary rounded-t-lg">
-            <div class="text-white mx-5"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
+    <AccordionItem  class="mx-5 show">
+        <Accordion class="bg-primary rounded-t-lg" >
+            <div class="text-white mx-5" v-if="store.order.campaign"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
         </Accordion>
 
         <!-- BEGIN Direct Payment -->
-        <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary">
+        <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary" >
 
             <!-- BEGIN Direct Payment Select -->
+            <div v-if="store.order.campaign">
+
+            
                 <ul class="flex list-none flex-wrap pt-3 pb-4 flex-row items-center justify-around self-center" >
                     <li class="last:mr-0 flex" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index">
                         <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10 self-center w-fit">
@@ -40,7 +43,7 @@
                     </table>
                     <img class="w-36 h-36 mt-5 " :src="storageUrl+account.image" alt="" />
                 </div>
-
+            </div>
             <!-- direct_payment_mode: "22"
             direct_payment_name: "123"
             direct_payment_note: "555555555"
