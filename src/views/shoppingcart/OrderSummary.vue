@@ -26,7 +26,7 @@
         <div class="mr-auto">Shipping</div>
         <div class="font-medium">$ {{ shippingCost }}</div>
       </div>
-      <div v-if="shippingCost === 0 && store.shipping_info.method !== 'pickup'" class="text-red-600 text-sm">Order is eligible for free delivery</div>
+      <div v-if="shippingCost === 0 && store.shipping_info.shipping_method !== 'pickup'" class="text-red-600 text-sm">Order is eligible for free delivery</div>
 
       <div
         class="
@@ -68,7 +68,9 @@ const cartTotal = ref(0)
 
 
 const updateOrderSummary = ()=>{
-    if (store.shipping_info.method=='pickup'){
+
+    console.log('update')
+    if (store.shipping_info.shipping_method=='pickup'){
       shippingCost.value = 0
       cartTotal.value = parseFloat(store.order.subtotal + store.order.adjust_price ).toFixed(2)
       return
@@ -115,14 +117,19 @@ watch(
   updateOrderSummary
 );
 
+
 watch(
-  computed(() => store.shipping_info.method),
-  updateOrderSummary
-);
-watch(
-  computed(() => store.shipping_info.shipping_option),
+  computed(() => {return store.shipping_info.shipping_method}),
   ()=>{
-    console.log(store.shipping_info.shipping_option)
+    // console.log(store.shipping_info)
+    updateOrderSummary()
+  }
+);
+
+watch(
+  computed(() => {return store.shipping_info.shipping_option}),
+  ()=>{
+    // console.log(store.shipping_info)
     updateOrderSummary()
   }
 );

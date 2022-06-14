@@ -12,28 +12,13 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			shipping_last_name: "",
 			shipping_email: "",
 			shipping_phone: "",
-		}),
-		// shipping_info: ref({
-		// 	method: "delivery",
-		// 	shipping_option: "",
-		// 	shipping_remark: "",
-		// 	delivery_info: {
-		// 		shipping_address_1: "",
-		// 		shipping_location: "",
-		// 		shipping_region: "",
-		// 		shipping_postcode: "",  
-		// 	},
-		// 	pickup_info: {
-		// 	},
-		// }),     
+		}),   
 		campaignProducts:ref([]),
 		cartProducts:ref([]) ,
 
 
-		shipping_info: reactive({
-			
+		shipping_info: ref({
 			shipping_option:"",
-			
 			shipping_method: "pickup",
 			shipping_first_name: "",
 			shipping_last_name: "",
@@ -52,5 +37,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			shipping_date: null,
 			shipping_time: null
 		})
+
+
 	}),
 });

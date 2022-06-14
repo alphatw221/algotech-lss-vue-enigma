@@ -302,8 +302,9 @@ const shipping_info= ref({
 
 onMounted(()=>{
   buyer_retrieve_latest_order_shipping_info().then(res=>{
-    // res.data.shipping_option=""
+    res.data.shipping_option=""
     shipping_info.value = res.data
+    console.log('store')
     console.log(shipping_info.value)
   })
 })
@@ -313,6 +314,7 @@ const select_shipping_method = method => {
 }
 
 watch(computed(()=>{return shipping_info.value}),(()=>{
+  console.log('watch')
   if(shipping_info.value.shipping_method=='delivery'){
     selectedTab.value=0
   }else{
@@ -320,6 +322,16 @@ watch(computed(()=>{return shipping_info.value}),(()=>{
   }
 }))
 
+watch(computed(()=>{return shipping_info.value.shipping_method}),(()=>{
+  console.log('shipping_method')
+  store.shipping_info.shipping_method = shipping_info.value.shipping_method
+  store.shipping_info = shipping_info.value
+}))
+watch(computed(()=>{return shipping_info.value.shipping_option}),(()=>{
+  console.log('shipping_option')
+  store.shipping_info.shipping_option = shipping_info.value.shipping_option
+  store.shipping_info = shipping_info.value
+}))
 
 const reciever_rules = computed(()=>{
     return{
