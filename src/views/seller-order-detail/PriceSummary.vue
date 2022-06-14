@@ -13,7 +13,7 @@
         <div class="mr-auto">Shipping</div>
         <div class="font-medium">{{store.orderDetail.shipping_cost}}</div>
       </div>
-      <template v-if="store.order_type === 'order'">
+      <template v-if="props.order_type === 'order'">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
             <div class="font-medium">{{store.orderDetail.adjust_price ?? ''}}</div>
@@ -24,22 +24,25 @@
           pt-4">
         <div class="mr-auto">Modify Price
             <div class="grid grid-cols-12 gap-4">
-                <div class="col-span-6">
+                <div class="start-col-1 col-span-4">
                     <input :id="'radio-switch-p'" class="form-check-input" type="radio" name="vertical_radio_button"/>
                     <span> Add +</span>
                 </div>
-                <div class="col-span-6">
+                <div class="start-col-5 col-span-4">
                     <input :id="'radio-switch-m'" class="form-check-input" type="radio" name="vertical_radio_button"/>
                     <span> Subtract -</span>
                 </div>
             </div>
                 <div class="m-5 grid grid-cols-12 gap-4">
-                        <div class="col-span-6">
+                        <div class="col-span-4">
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder="Display Name" />
                         </div>
-                        <div class="col-span-6">
+                        <div class="col-span-4">
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder="Amount" />
                         </div>
+                        <div class="flex flex-row-reverse col-span-4">
+                            <button class="btn btn-primary w-32 shadow-md" @click="update_order">Update</button>
+                        </div> 
                 </div>
             <div class="m-3">
                 <input
@@ -49,7 +52,6 @@
                 <span>Free Delivery</span>
             </div>            
         </div>
-        
       </div>
       </template>
       <div
@@ -69,6 +71,12 @@
     
 </template>
 <script setup>
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-const store = useShoppingCartStore();
+import { useManageOrderStore } from "@/stores/lss-manage-order";
+
+const store = useManageOrderStore();
+
+const props = defineProps({
+  order_type: String
+})
+
 </script>

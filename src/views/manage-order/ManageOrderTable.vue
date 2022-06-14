@@ -84,8 +84,7 @@ const columns = ref([
 ]);
 
 function to_order_detail(order_id,type){
-    console.log(type)
     store.order_type = type
-    router.push(`/seller/order/${order_id}`)
+    router.push(`/seller/order/${order_id}?type=${type}`)
 }
 </script>
