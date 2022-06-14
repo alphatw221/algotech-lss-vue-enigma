@@ -2,7 +2,7 @@
 	<Modal
 		size="modal-xl"
 		:show="store.showAddItemModal"
-		@hidden="store.showAddItemModal=false"
+		@hidden="store.showAddItemModal = false"
 		:slideOver="true"
 	>
 		<ModalBody class="p-5 relative" >
@@ -11,7 +11,7 @@
             	</a>
 			<ModalHeader>
 				<h2 class="font-medium text-base mr-auto">
-					Select add-ons
+					{{ addOnTitle }}
 				</h2>
 			</ModalHeader>
 
@@ -74,16 +74,20 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { buyer_cart_add } from "@/api_v2/pre_order";
 import { useRoute } from "vue-router";
 
-
 const layoutStore = useLSSBuyerLayoutStore();
-
 const route = useRoute();
 const store = useShoppingCartStore(); 	
-
 const storageUrl =  import.meta.env.VITE_GOOGLE_STORAGEL_URL;
 
 const addOnProducts = ref([])
+const addOnTitle = ref('Select add-ons')
 
+onMounted(()=> {
+	if (route.query.tag && route.query.tag == 'openAddOn') {
+		store.showAddItemModal = true
+		addOnTitle.value = 'Select Products'
+	}
+})
 
 watch(computed(()=>store.campaignProducts),()=>{
 	if (!(store.order.products||false))return
