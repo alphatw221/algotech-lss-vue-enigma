@@ -1,5 +1,5 @@
 <template>
-    <div class="box col-span-12 col-start-1 row-span-4 h-fit mt-0 lg:col-span-7 lg:row-start-3 lg:-mt-2 2xl:col-span-4 2xl:row-start-1" >
+    <div class="box col-span-12 col-start-1 row-span-5 lg:row-span-2 h-fit mt-0 lg:col-span-7 lg:row-start-1 lg:-mt-2 2xl:col-span-4 2xl:row-start-1" >
         <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-5">
             <div class="col-start-1 col-span-5 -mt-3 p-3">
                 <h2 class="text-lg font-medium">Incoming Order</h2>
@@ -79,10 +79,14 @@ export default {
         if (this.campaign_id) {
             list_campaign_pre_order(this.campaign_id).then(res => {
                 this.incoming_order_results = res.data
+                this.eventBus.emit("startReceivingOrderData");
             }).catch(error => {
                 console.log(error);
             })
         }
+        this.eventBus.on("changeOrderData", (payload) => {
+            this.incoming_order_results.unshift(payload)
+        });
     },
     methods: {
         seller_order_detail(){

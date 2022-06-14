@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-12 box p-5 mt-5 gap-2">
+	<div class="grid grid-cols-12 box p-2 mt-5 gap-5 lg:p-5 2xl:p-5">
 		<span class="col-start-1 col-span-12 text-2xl font-medium leading-none mb-2 mt-3">Create Campaign</span>
 		
 		<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 
-		<div class="box mt-5 p-5 col-span-12 z-0">
+		<div class="mt-5 p-0 col-span-12 z-0 lg:p-5 2xl:p-5">
 			<span class="text-2xl font-medium leading-none mb-3">{{ productPageTitle }}</span>
 			<div>
 				<div class="overflow-x-auto intro-y col-span-12" >

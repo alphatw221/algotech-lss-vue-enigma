@@ -121,7 +121,7 @@ const changeQuantity = (event, index, operation) => {
 	else{
 		if(event)event.target.value=1
 		addOnProducts.value[index].qty = 1
-		layoutStore.alert.showMessageToast("Invalid amount")
+		layoutStore.alert.showMessageToast("Invalid Amount")
 	}
 }   // minus after input works, plus after input not works
 

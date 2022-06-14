@@ -3,7 +3,7 @@
 
 
         <!-- BEGIN Direct Payment -->
-            <DirectPayment />
+                <DirectPayment />
         <!-- END Direct Payment -->
 <!-- 
         <AccordionItem v-if="payment.handle.type=='gateway'">

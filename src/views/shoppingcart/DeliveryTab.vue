@@ -155,6 +155,17 @@
                 <label class="text-md font-medium col-span-12">Delivery Option</label>
                 <div class="intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
                   <div v-if="'campaign' in store.order">
+                    <div class="flex form-check my-4 border-2 px-10 py-6 rounded-lg">
+                      <input :id="'radio-switch-'" class="form-check-input" type="radio"
+                        name="vertical_radio_button" value="" v-model="shipping_info.shipping_option" />
+                      <label class="form-check-label mr-auto" :for="'radio-switch-'">default</label>
+                      <div>
+                        <label class="form-check-label">{{ store.order.campaign.currency }}</label>
+                        {{
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(2)
+                        }}
+                      </div>
+                    </div>
                     <div class="flex form-check my-4 border-2 px-10 py-6 rounded-lg"
                       v-for="(title, index) in store.order.campaign.meta_logistic.additional_delivery_charge_title"
                       :key="index">
@@ -242,10 +253,10 @@
     </div>
     
     <div class="my-5 flex">
-      <button class="w-fit btn btn-outline-primary mr-auto" @click="store.openTab= 1">
+      <button class="w-fit btn btn-outline-primary mr-auto rounded-full" @click="store.openTab= 1">
         Previous
       </button>
-      <button class="w-fit btn btn-primary" @click="proceed_to_payment">
+      <button class="w-fit btn btn-rounded-primary" @click="proceed_to_payment">
         Proceed to Payment
       </button>
     </div>
@@ -302,8 +313,9 @@ const shipping_info= ref({
 
 onMounted(()=>{
   buyer_retrieve_latest_order_shipping_info().then(res=>{
-    // res.data.shipping_option=""
+    res.data.shipping_option=""
     shipping_info.value = res.data
+    console.log('store')
     console.log(shipping_info.value)
   })
 })
@@ -313,6 +325,7 @@ const select_shipping_method = method => {
 }
 
 watch(computed(()=>{return shipping_info.value}),(()=>{
+  console.log('watch')
   if(shipping_info.value.shipping_method=='delivery'){
     selectedTab.value=0
   }else{
@@ -320,6 +333,16 @@ watch(computed(()=>{return shipping_info.value}),(()=>{
   }
 }))
 
+watch(computed(()=>{return shipping_info.value.shipping_method}),(()=>{
+  console.log('shipping_method')
+  store.shipping_info.shipping_method = shipping_info.value.shipping_method
+  store.shipping_info = shipping_info.value
+}))
+watch(computed(()=>{return shipping_info.value.shipping_option}),(()=>{
+  console.log('shipping_option')
+  store.shipping_info.shipping_option = shipping_info.value.shipping_option
+  store.shipping_info = shipping_info.value
+}))
 
 const reciever_rules = computed(()=>{
     return{
