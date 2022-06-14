@@ -313,10 +313,10 @@ const shipping_info= ref({
 
 onMounted(()=>{
   buyer_retrieve_latest_order_shipping_info().then(res=>{
-    res.data.shipping_option=""
+
     shipping_info.value = res.data
-    console.log('store')
-    console.log(shipping_info.value)
+    // console.log('store')
+    // console.log(shipping_info.value)
   })
 })
 
@@ -382,7 +382,7 @@ const proceed_to_payment = () =>{
       return
   }
   else if (confirm('Are you sure you want to process check out? Your shopping cart will be cleared.')){
-    update_delivery_info(route.params.pre_order_id, {shipping_option:shipping_info.value.shipping_option,shipping_data:shipping_info.value}).then(res=>{
+    update_delivery_info(route.params.pre_order_id, {shipping_data:shipping_info.value}).then(res=>{
       router.push(`/buyer/order/${res.data.id}/payment`)
     })
   }
