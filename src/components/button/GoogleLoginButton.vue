@@ -33,18 +33,6 @@ export default {
                         })
                         set_cookie.then(() => {
                             this.$router.go()
-                            // store.loginWith='google'
-                            // if (this.role == 'buyer') {
-                            //     this.$cookies.set("login_with", "google")
-                            //     this.$router.go()
-                            //     // if (this.$route.params.pre_order_id ){
-                            //     //     this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
-                            //     // } else {
-                            //     //     this.$router.push(`/buyer/`)
-                            //     // }
-                            // } else if (this.role == 'seller') {
-                            //     this.$router.push(`/seller/campaign-list`)
-                            // }
                         })
                     })
                 }
