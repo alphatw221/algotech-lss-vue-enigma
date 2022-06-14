@@ -84,18 +84,18 @@ const store = useShoppingCartStore()
 const toggleTabs = tabNumber => store.openTab = tabNumber
 
 onMounted(()=>{
-    buyer_retrieve_pre_order(route.params.pre_order_id)
-    .then(
-        res => { 
-          store.order = res.data;
-          console.log(res.data)
-          if (store.order.campaign) {
-              store.order.campaign.meta_logistic.additional_delivery_charge_title.unshift('default')
-              store.order.campaign.meta_logistic.additional_delivery_charge_price.unshift(store.order.campaign.meta_logistic.delivery_charge)
-              store.order.campaign.meta_logistic.additional_delivery_charge_type.unshift('=')
-          }
+  buyer_retrieve_pre_order(route.params.pre_order_id)
+  .then(
+      res => { 
+        store.order = res.data;
+        console.log(res.data)
+        if (store.order.campaign) {
+            store.order.campaign.meta_logistic.additional_delivery_charge_title.unshift('default')
+            store.order.campaign.meta_logistic.additional_delivery_charge_price.unshift(store.order.campaign.meta_logistic.delivery_charge)
+            store.order.campaign.meta_logistic.additional_delivery_charge_type.unshift('=')
         }
-    )
+      }
+  )
 
   buyer_list_campapign_product(route.params.pre_order_id)
 	.then(

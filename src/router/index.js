@@ -81,7 +81,6 @@ import CampaignLive from "../views/campaign-live/Main.vue";
 import ManageOrder from "../views/manage-order/Main.vue";  
 import CampaignSelect from "../views/manage-order/Campaignselect.vue";
 
-import CampaignGlobalSetting from "../views/settings/CampaignGlobalSetting.vue";  
 import Localization from "../views/settings/Localization.vue";  
 import ConnectPlatform from "../views/settings/ConnectPlatform.vue";  
 
@@ -169,7 +168,7 @@ const routes = [
       {  
         path: "campaign-global-setting",
         name: "side-menu-campaign-global-setting",
-        component: CampaignGlobalSetting,
+        component: () => import('@/views/settings/Main.vue'),
       },  
       {  
         path: "localization-setting",

@@ -152,12 +152,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 
   @media only screen and (max-width: 760px),
   (min-device-width: 768px) and (max-device-width: 768px) {
-  table,
-  thead,
-  tbody,
-  th,
-  td,
-  tr {
+  table, thead, tbody, th, td, tr {
     display: block;
 	font-size: 16px;
 	padding: 0px !important;
