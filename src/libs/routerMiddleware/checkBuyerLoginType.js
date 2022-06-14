@@ -17,7 +17,7 @@ export default async (to, from) => {
         store.loginWith = cookies.get('login_with')
         if (type === 'create') {
             const response = await buyer_link_create_cart(campaign_id, cookies.get('login_with'))
-            return `/buyer/cart/${response.data.id}`
+            return `/buyer/cart/${response.data.id}?tag=openAddOn`
         } else if (type === 'enter' && !['', undefined, null, 0].includes(pre_order_id)) {
             return `/buyer/cart/${pre_order_id}`
         } else {

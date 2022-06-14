@@ -101,3 +101,20 @@
         </TabGroup>
     </div>
 </template>
+
+<script setup>
+import { onMounted } from 'vue';
+import { get_payment_meta } from '@/api/payment';
+
+
+onMounted(() => {
+    get_payment_meta().then(
+        response => {
+            console.log(response.data)
+        }
+    )
+})
+
+
+
+</script>
