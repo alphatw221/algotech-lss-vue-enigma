@@ -1,6 +1,6 @@
 <template>
 	<Modal
-		size="modal-lg"
+		size="modal-xl"
 		:show="store.showAddItemModal"
 		@hidden="store.showAddItemModal=false"
 		:slideOver="true"
@@ -84,6 +84,10 @@ const publicPath =  import.meta.env.VITE_APP_IMG_URL;
 
 const addOnProducts = ref([])
 
+onMounted(()=> {
+	if (route.query.tag && route.query.tag == 'openAddOn') store.showAddItemModal = true
+	
+})
 
 watch(computed(()=>store.campaignProducts),()=>{
 	if (!(store.order.products||false))return
