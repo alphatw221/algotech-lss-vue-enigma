@@ -3,7 +3,7 @@
 
 
         <!-- BEGIN Direct Payment -->
-            <DirectPayment />
+                <DirectPayment />
         <!-- END Direct Payment -->
 <!-- 
         <AccordionItem v-if="payment.handle.type=='gateway'">
@@ -63,7 +63,9 @@
 
 <script setup>
 import DirectPayment from "./DirectPayment.vue";
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 
+const store = useLSSBuyerOrderStore(); 
 
 // import { computed, onMounted, ref, watch, provide } from "vue";
 // import { useLSSPaymentMetaStore } from "@/stores/lss-payment-meta";

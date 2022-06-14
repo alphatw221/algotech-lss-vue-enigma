@@ -84,10 +84,6 @@ const publicPath =  import.meta.env.VITE_APP_IMG_URL;
 
 const addOnProducts = ref([])
 
-onMounted(()=> {
-	if (route.query.tag && route.query.tag == 'openAddOn') store.showAddItemModal = true
-	
-})
 
 watch(computed(()=>store.campaignProducts),()=>{
 	if (!(store.order.products||false))return
@@ -131,6 +127,7 @@ const buyer_add_item = (campaing_product_id, index) => {
 	.then(
 		res => {
 			store.order = res.data
+			layoutStore.notification.showMessageToast("Add Item Success")
 		}
 	)
 }
