@@ -102,15 +102,15 @@
                 <div class="grid grid-cols-3 gap-2">
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Total</div>
-                        <div class="mr-20">$ {{store.order.subtotal}}</div>
+                        <div class="mr-20">$ {{parseFloat(store.order.subtotal).toFixed(2)}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Delivery Charge</div>
-                        <div class="mr-20">{{store.order.shipping_cost}}</div>
+                        <div class="mr-20">{{parseFloat(store.order.shipping_cost).toFixed(2)}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Discount {{store.order.adjust_title ?? ''}}</div>
-                        <div class="mr-20">$ {{store.order.adjust_price}}</div>
+                        <div class="mr-20">$ {{parseFloat(store.order.adjust_price).toFixed(2)}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2">
                         <div class="mr-auto">Grand Total</div>
