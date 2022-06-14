@@ -40,10 +40,6 @@ export default {
     },
     data() {
         return {
-            // carousel_items: [
-            //     { src: "/src/assets/images/login-page/new-lss-carousel-1.jpeg" },
-            //     { src: "/src/assets/images/login-page/new-lss-carousel-2.jpeg" }
-            // ],
             carousel_items: [
                 { src: img1 },
                 { src: img2 },

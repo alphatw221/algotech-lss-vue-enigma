@@ -24,7 +24,7 @@
 
 						<a class="w-4/5 file__icon file__icon--image">
 							<div class="file__icon--image__preview image-fit" >
-								<img :src="publicPath + product.image"
+								<img :src="storageUrl + product.image"
 								/>
 							</div>
 						</a>
@@ -80,14 +80,10 @@ const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const store = useShoppingCartStore(); 	
 
-const publicPath =  import.meta.env.VITE_APP_IMG_URL;
+const storageUrl =  import.meta.env.VITE_GOOGLE_STORAGEL_URL;
 
 const addOnProducts = ref([])
 
-onMounted(()=> {
-	if (route.query.tag && route.query.tag == 'openAddOn') store.showAddItemModal = true
-	
-})
 
 watch(computed(()=>store.campaignProducts),()=>{
 	if (!(store.order.products||false))return
@@ -121,7 +117,7 @@ const changeQuantity = (event, index, operation) => {
 	else{
 		if(event)event.target.value=1
 		addOnProducts.value[index].qty = 1
-		layoutStore.alert.showMessageToast("Invalid amount")
+		layoutStore.alert.showMessageToast("Invalid Amount")
 	}
 }   // minus after input works, plus after input not works
 
