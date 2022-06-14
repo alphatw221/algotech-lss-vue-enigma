@@ -45,21 +45,23 @@ export default {
                         .then(response => {
                             var set_cookie = new Promise((res) => {
                                 this.$cookies.set("access_token", response.data.access)
+                                this.$cookies.set("login_with", 'facebook')
                                 res()
                             })
                             set_cookie.then(() => {
-                                store.loginWith='facebook'
-                                if (this.role == 'buyer') {
-                                    this.$cookies.set("login_with", "facebook")
-                                    this.$router.go()
-                                    // if (this.$route.params.pre_order_id){
-                                    //     this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
-                                    // } else {
-                                    //     this.$router.push(`/buyer/`)
-                                    // }
-                                } else if (this.role == 'seller') {
-                                    this.$router.push(`/seller/campaign-list`)
-                                }
+                                this.$router.go()
+                                // store.loginWith='facebook'
+                                // if (this.role == 'buyer') {
+                                //     this.$cookies.set("login_with", "facebook")
+                                //     this.$router.go()
+                                //     // if (this.$route.params.pre_order_id){
+                                //     //     this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
+                                //     // } else {
+                                //     //     this.$router.push(`/buyer/`)
+                                //     // }
+                                // } else if (this.role == 'seller') {
+                                //     this.$router.push(`/seller/campaign-list`)
+                                // }
                             })
                         })
                     } 

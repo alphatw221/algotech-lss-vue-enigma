@@ -150,11 +150,12 @@
 import { ref, defineEmits, computed } from "vue";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useRoute, useRouter } from "vue-router";
+import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
 
 const route = useRoute();
 const router = useRouter();
-
+const { cookies } = useCookies()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 
 const toggleMobileMenu = ()=>{
@@ -174,8 +175,9 @@ const userAvatar = computed(() => {
   return buyerLayoutStore.userInfo.google_info.picture
 });
 const logout = () => {
-  // clear cookies
-  // clear token
+
+  cookies.remove('access_token')
+  cookies.remove('login_with')
   dom('.dropdown-menu').removeClass('show')
   router.replace('/buyer/login')
   
