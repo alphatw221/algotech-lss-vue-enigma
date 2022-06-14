@@ -1,55 +1,49 @@
-<template  >
-    <AccordionItem v-if="store.order.campaign" class="mx-5">
-        <Accordion class="bg-primary rounded-t-lg">
-            <div class="text-white mx-5">
-                {{ store.order.campaign.meta_payment.direct_payment.direct_payment_button_title }} </div>
+<template>
+    <AccordionItem  class="mx-5 show">
+        <Accordion class="bg-primary rounded-t-lg" >
+            <div class="text-white mx-5" v-if="store.order.campaign"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
         </Accordion>
 
         <!-- BEGIN Direct Payment -->
-        <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary">
+        <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary" >
 
             <!-- BEGIN Direct Payment Select -->
-            <ul class="flex list-none flex-wrap pt-3 pb-4 flex-row items-center justify-around self-center">
-                <li class="last:mr-0 flex"
-                    v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts"
-                    :key="index">
-                    <div
-                        class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10 self-center w-fit">
-                        <button @click="select_account(index)" :class="{
-                            'text-neutral-600 bg-white': openTab !== index,
-                            'text-white bg-primary': openTab === index,
-                        }"
-                            class="w-18 h-8 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
-                            <div v-if="account.direct_payment_mode === ''"> Account {{ index + 1 }} </div>
-                            <div v-else> {{ account.direct_payment_mode }} </div>
-                        </button>
-                    </div>
-                </li>
-            </ul>
+            <div v-if="store.order.campaign">
 
-            <div class="flex flex-col place-content-center items-center"
-                v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index"
-                :class="{ hidden: openTab !== index, block: openTab === index }">
-                <table>
-                    <tr>
-                        <td class="w-36">Account Number: </td>
-                        <td>{{ account.direct_payment_number }}</td>
-                    </tr>
-                    <tr>
-                        <td>Account Name: </td>
-                        <td>{{ account.direct_payment_name }}</td>
-                    </tr>
-                    <tr>
-                        <td>Note: </td>
-                        <td>{{ account.direct_payment_note }}</td>
-                    </tr>
-                    <!-- <tr>
-                        <td>Other Note ( Press enter to add new line )</td><td></td>
-                    </tr> -->
-                </table>
-                <img class="w-36 h-36 mt-5 " :src="storageUrl + account.image" alt="" />
+            
+                <ul class="flex list-none flex-wrap pt-3 pb-4 flex-row items-center justify-around self-center" >
+                    <li class="last:mr-0 flex" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index">
+                        <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10 self-center w-fit">
+                            <button @click="select_account(index)" :class="{
+                                'text-neutral-600 bg-white': openTab !== index,
+                                'text-white bg-primary': openTab === index,
+                            }" class="w-18 h-8 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
+                                <div v-if="account.direct_payment_mode === ''"> Account {{index+1}} </div>
+                                <div v-else> {{account.direct_payment_mode}} </div>
+                            </button>
+                        </div>
+                    </li>
+                </ul>
+
+                <div class="flex flex-col place-content-center items-center" v-for="(account, key, index) in store.order.campaign.meta_payment.direct_payment.accounts" :key="index"
+                    :class="{ hidden: openTab !== index, block: openTab === index }">
+                    <table>
+                        <tr>
+                            <td class="w-36">Account Number: </td><td>{{account.direct_payment_number}}</td>
+                        </tr>
+                        <tr>
+                            <td>Account Name: </td><td>{{account.direct_payment_name}}</td>
+                        </tr>
+                        <tr>
+                            <td>Note: </td><td>{{account.direct_payment_note}}</td>
+                        </tr>
+                        <!-- <tr>
+                            <td>Other Note ( Press enter to add new line )</td><td></td>
+                        </tr> -->
+                    </table>
+                    <img class="w-36 h-36 mt-5 " :src="storageUrl+account.image" alt="" />
+                </div>
             </div>
-
             <!-- direct_payment_mode: "22"
         direct_payment_name: "123"
         direct_payment_note: "555555555"

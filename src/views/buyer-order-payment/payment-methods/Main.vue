@@ -1,5 +1,5 @@
 <template>
-    <AccordionGroup class="mb-10"> 
+    <AccordionGroup class="mb-10" :selectedIndex="selectIndex"> 
 
 
         <!-- BEGIN Direct Payment -->
@@ -63,10 +63,8 @@
 
 <script setup>
 import DirectPayment from "./DirectPayment.vue";
-import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
-
-const store = useLSSBuyerOrderStore(); 
-
+import {ref} from "vue"
+const selectIndex = ref(0)
 // import { computed, onMounted, ref, watch, provide } from "vue";
 // import { useLSSPaymentMetaStore } from "@/stores/lss-payment-meta";
 // import { useShoppingCartStore } from "@/stores/lss-shopping-cart";

@@ -5,7 +5,7 @@
 		<h2 class="font-medium text-base mr-auto">
 		My Cart ({{numOfItems}} Items)
 		</h2>
-		<button class="" @click="switchToMyCartTab()">
+		<button class="border-none sm:flex underline" @click="switchToMyCartTab()">
 		Edit
 		</button>
 	</div>
