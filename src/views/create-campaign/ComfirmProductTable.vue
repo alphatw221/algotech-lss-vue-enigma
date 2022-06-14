@@ -14,13 +14,17 @@
                     <template v-for="column in tableColumns" :key="column.key"
                         class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
 
-                        <td v-if="column.key === 'image'" class="flex">
-                            <div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
-                                <Tippy 
-                                    tag="img" 
-                                    class="rounded-full" 
-                                    :src="`${publicPath}` + product.image"
-                                    :content="product.name" />
+                        <td v-if="column.key === 'image'"
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center imgtd"> 
+                            <div class="flex items-center justify-center">
+                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12 place-items-center">
+                                    <Tippy 
+                                        tag="img" 
+                                        class="rounded-lg cursor-auto" 
+                                        :src="`${publicPath}` + product.image"
+                                        :content="product.name"
+                                    />
+                                </div>
                             </div>
                         </td>
 
@@ -114,11 +118,13 @@
                                 v-model="product[column.key]" 
                                 />
                         </td>
-                        <td v-else-if="column.key === 'type'">
-                            <div class="w-fit self-center place-content-center"> 
+                        <td v-else-if="column.key === 'type'"
+                            class="flex w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                            <div class="form-check mt-2 self-center place-content-center"> 
                                 {{ product[column.key] }} </div>
                         </td>
                     </template>
+
                 </tr>
             </tbody>
         </table>
@@ -249,5 +255,122 @@ const isOrderCodeDuplicate = (index) => {
 <style scoped>
 .red {
     border-color: red !important;
+}
+.click-icon:hover {
+	cursor: pointer;
+}
+
+td {
+	height: auto !important;
+    min-height: 35px !important;
+    width: auto !important;
+}
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+
+	table,
+	thead,
+	tbody,
+	th,
+	td,
+	tr {
+		display: block;
+		font-size: 16px;
+		padding: 0px !important;
+	}
+
+	.imgtd {
+		height: 90px !important;
+	}
+
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr {
+		border-bottom: 1px solid black;
+		margin-top: 20px;
+	}
+
+	td {
+		border: none;
+		position: relative;
+		padding-left: 50% !important;
+		text-align: center !important;
+		box-shadow: none !important;
+        font-size: 14px; 
+	}
+
+	td:before {
+		position: absolute;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+		font-weight: bold;
+		box-shadow: none !important;
+		background-color: white !important;
+	}
+
+	td:nth-of-type(1):before {
+		content: "";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(2):before {
+		content: "Product Name";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(3):before {
+		content: "Order Code";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(4):before {
+		content: "Qty for Campaign";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(5):before {
+		content: "Max Qty / Order";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(6):before {
+		content: "Category";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(7):before {
+		content: "Price";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(8):before {
+		content: "Editable";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(9):before {
+		content: "Deletable";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(10):before {
+		content: "Type";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(11):before {
+		content: "Activite";
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
 }
 </style>

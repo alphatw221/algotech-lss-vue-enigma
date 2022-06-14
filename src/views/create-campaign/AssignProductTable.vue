@@ -143,7 +143,7 @@
 
                         <td v-else-if="column.key === 'type'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="w-fit self-center place-content-center"> {{ product[column.key] }} </div>
+                            <div class="form-check mt-2 self-center place-content-center"> {{ product[column.key] }} </div>
                         </td>
                     </template>
                 </tr>

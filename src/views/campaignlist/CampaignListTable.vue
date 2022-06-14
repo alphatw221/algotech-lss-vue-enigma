@@ -1,6 +1,6 @@
 <template >
-  <div class="overflow-x-scroll">
-    <table class="table table-report mt-5">
+  <div>
+    <table class="table table-report overflow-x-scroll mt-5">
       <thead>
         <tr>
           <th
@@ -346,6 +346,8 @@ td {
 		position: relative;
 		padding-left: 40% !important;
 		text-align: left !important;
+        box-shadow: none !important;
+		background-color: white !important;
 	}
 
 	.productName {
@@ -355,10 +357,11 @@ td {
 	td:before {
 		position: absolute;
 		left: 6px;
-		width: 30%;
-		padding-right: 10px;
+		width: 35%;
 		white-space: nowrap;
 		font-weight: bold;
+    box-shadow: none !important;
+		background-color: white !important;
 	}
 
 	.fan_page:before {
