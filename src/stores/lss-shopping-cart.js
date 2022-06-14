@@ -35,7 +35,8 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			shipping_details: "",
 			shipping_remark: "",
 			shipping_date: null,
-			shipping_time: null
+			shipping_time: null,
+			pickup_address:""
 		})
 
 

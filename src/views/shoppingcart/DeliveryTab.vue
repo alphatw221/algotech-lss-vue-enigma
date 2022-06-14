@@ -308,7 +308,8 @@ const shipping_info= ref({
       shipping_details: "",
       shipping_remark: "",
       shipping_date: null,
-      shipping_time: null
+      shipping_time: null,
+      pickup_address:""
 		})
 
 onMounted(()=>{
