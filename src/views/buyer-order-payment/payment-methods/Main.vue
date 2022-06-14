@@ -1,9 +1,9 @@
 <template>
-    <AccordionGroup class="mb-10"> 
+    <AccordionGroup class="mb-10" :selectedIndex="selectIndex"> 
 
 
         <!-- BEGIN Direct Payment -->
-            <DirectPayment />
+                <DirectPayment />
         <!-- END Direct Payment -->
 <!-- 
         <AccordionItem v-if="payment.handle.type=='gateway'">
@@ -63,8 +63,8 @@
 
 <script setup>
 import DirectPayment from "./DirectPayment.vue";
-
-
+import {ref} from "vue"
+const selectIndex = ref(0)
 // import { computed, onMounted, ref, watch, provide } from "vue";
 // import { useLSSPaymentMetaStore } from "@/stores/lss-payment-meta";
 // import { useShoppingCartStore } from "@/stores/lss-shopping-cart";

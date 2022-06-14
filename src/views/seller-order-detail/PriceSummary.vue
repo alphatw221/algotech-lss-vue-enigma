@@ -41,7 +41,7 @@
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder="Amount" />
                         </div>
                         <div class="flex flex-row-reverse col-span-4">
-                            <button class="btn btn-primary w-32 shadow-md" @click="update_order">Update</button>
+                            <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">Update</button>
                         </div> 
                 </div>
             <div class="m-3">
@@ -72,11 +72,18 @@
 </template>
 <script setup>
 import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { update_adjust_price } from "@/api_v2/pre_order"
 
 const store = useManageOrderStore();
 
 const props = defineProps({
   order_type: String
 })
+
+function update_modify_price(){
+  update_adjust_price(pre_orderid,data).then(
+    
+  )
+}
 
 </script>

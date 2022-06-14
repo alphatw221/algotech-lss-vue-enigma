@@ -37,7 +37,6 @@
             <button type="button" @click="show = false" class="btn btn-outline-secondary w-20 mr-auto">
                 Cancel
             </button>
-            <button type="button" class="btn btn-primary w-20">Save</button>
         </ModalFooter>
     </Modal>
 

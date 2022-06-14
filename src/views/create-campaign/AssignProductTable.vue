@@ -14,20 +14,21 @@
                     <template v-for="column in tableColumns" :key="column.key"> 
 
                         <td v-if="column.key === 'image'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="flex">
-                                <div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center imgtd"> 
+                            <div class="flex items-center justify-center">
+                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12 place-items-center">
                                     <Tippy 
                                         tag="img" 
-                                        class="rounded-full" 
+                                        class="rounded-lg cursor-auto" 
                                         :src="`${publicPath}` + product.image"
+                                        :content="product.name"
                                     />
                                 </div>
                             </div>
                         </td>
                         
                         <td v-else-if="column.key === 'order_code'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="form-check self-center place-content-center">
                                 <input 
                                     type="text" 
@@ -41,7 +42,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'qty_campaign'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="form-check self-center place-content-center">
                                 <input 
                                     type="text" 
@@ -55,7 +56,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'max_order'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="form-check self-center place-content-center">
                                 <input 
                                     type="text" 
@@ -69,13 +70,13 @@
                         </td>
 
                         <td v-else-if="column.key === 'tag'" 
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            class="w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div v-for="tag in product[column.key]" >{{ tag }}</div> 
                         </td>
 
                         <td v-else-if="column.key === 'price'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="w-12">{{ product.currency_sign }} {{ product[column.key] }}</div>
+                            class="w-24 text-[12px] lg:w-24 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            <div>{{ product.currency_sign }} {{ product[column.key] }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'name'"
@@ -85,8 +86,8 @@
                         </td>
 
                         <td v-else-if="column.key === 'selected'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="form-check mt-2 self-center place-content-center">
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-left items-left justify-left"> 
+                            <div class="form-check mt-2 self-left place-content-left">
                                <input 
                                     id="selectCheckbox" 
                                     class="form-check-input" 
@@ -265,6 +266,7 @@ const changeInput = (event, index, type) => {
             }
         } else {
             alert('input number is over product max quantity')
+            event.target.value = productsList.value[index].qty
             return
         } 
     }
@@ -294,3 +296,113 @@ const addProdcuts = () => {
     console.log(campaignStore.assignedProducts)
 }
 </script>
+
+<style scoped>
+.click-icon:hover {
+	cursor: pointer;
+}
+
+td {
+	height: auto !important;
+    width: auto !important;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+
+	table,
+	thead,
+	tbody,
+	th,
+	td,
+	tr {
+		display: block;
+		font-size: 16px;
+		padding: 0px !important;
+	}
+
+	.imgtd {
+		height: 90px !important;
+	}
+
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr {
+		border-bottom: 1px solid black;
+		margin-top: 20px;
+	}
+
+	td {
+		border: none;
+		position: relative;
+		padding-left: 50% !important;
+		text-align: center !important;
+		box-shadow: none !important;
+	}
+
+	td:before {
+		position: absolute;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		white-space: nowrap;
+		font-weight: bold;
+		box-shadow: none !important;
+		background-color: white !important;
+	}
+
+	td:nth-of-type(1):before {
+		content: "Selected";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(2):before {
+		content: "";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(3):before {
+		content: "Product Name";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(4):before {
+		content: "Order Code";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(5):before {
+		content: "Qty for Campaign";
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(6):before {
+		content: "Max Qty / Order";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(7):before {
+		content: "Category";
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(8):before {
+		content: "Price";
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(9):before {
+		content: "Editable";
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(10):before {
+		content: "Deletable";
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(11):before {
+		content: "Type";
+		/* color: #0e9893; */
+	}
+}
+</style>
