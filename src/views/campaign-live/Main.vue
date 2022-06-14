@@ -1,8 +1,9 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="chat grid grid-cols-12 gap-3 h-full">
+    <div class="grid grid-cols-12 gap-3 h-full lg:h-screen 2xl:h-screen">
         <!-- BEGIN: Comments -->
-        <LiveComments :campaignId="campaignId"/>
+        <LiveComments :campaignId="campaignId"
+        />
         <!-- END: Comments -->
 
         <!-- BEGIN: Product -->

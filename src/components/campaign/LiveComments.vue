@@ -3,14 +3,14 @@
     <TabGroup class="col-span-12 col-start-1 row-start-1 row-span-4 lg:col-span-5 2xl:col-span-4" :selectedIndex="0">
         <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-2 p-5">
             <div class="col-start-1 col-span-5 -mt-4">
-                <h2 class="text-lg font-medium">
+                <h2 class="text-lg font-medium sm:text-m">
                     Comments
                     <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
                         <FolderIcon />
                     </button>
                 </h2>
             </div>
-            <div class="col-end-11 -mt-3">
+            <div class="col-end-10 -mt-2 sm:col-end-11" >
             <TabList class="nav-pills">
                 <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = true;this.open_ig_video = false;this.open_yt_video = false;">
                 <FacebookIcon class="m-1 -mt-1" />
@@ -112,7 +112,7 @@
 
 <script>
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
-import ReplyModal from '@/components/modal/ReplyModal.vue'; 
+import ReplyModal from './ReplyModal.vue'; 
 
 
 export default {
