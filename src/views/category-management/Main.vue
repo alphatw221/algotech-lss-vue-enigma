@@ -7,7 +7,7 @@
         <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2" v-for="item in listItems"
             :key="item">
             <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in">
-                <div class="w-50 file__icon file__icon--empty-directory mx-auto"></div>
+                <div class="w-3/5 file__icon file__icon--empty-directory mx-auto"></div>
                 <div class="block font-medium mt-4 text-center truncate">
                     {{ item }}
                 </div>
@@ -32,8 +32,8 @@
 
         <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2"
             @click="showModal = true; editType = 'create'">
-            <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-5 relative zoom-in">
-                <PlusSquareIcon style="margin: auto; width: 8rem; height: 8rem;" />
+            <div class="file box rounded-md px-5 pt-6 pb-5 px-3 sm:px-5 relative zoom-in">
+                <PlusSquareIcon style="margin: auto; width: 6rem; height: 6rem;" />
                 <div class="block font-medium mt-4 text-center truncate">
                     Create New Category
                 </div>
