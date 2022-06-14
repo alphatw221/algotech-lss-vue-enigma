@@ -84,13 +84,13 @@ const store = useShoppingCartStore()
 const toggleTabs = tabNumber => store.openTab = tabNumber
 
 onMounted(()=>{
-    buyer_retrieve_pre_order(route.params.pre_order_id)
-    .then(
-        res => { 
-          store.order = res.data;
-          console.log(res.data)
-        }
-    )
+  buyer_retrieve_pre_order(route.params.pre_order_id)
+  .then(
+      res => { 
+        store.order = res.data;
+        console.log(res.data)
+      }
+  )
 
   buyer_list_campapign_product(route.params.pre_order_id)
 	.then(
