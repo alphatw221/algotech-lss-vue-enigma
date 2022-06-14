@@ -33,10 +33,10 @@
 					{{ product.qty }}
 				</td>
 				<td class="text-center h-20">
-					$ {{ product.price }}
+					$ {{ parseFloat(product.price).toFixed(2) }}
 				</td>
 				<td class="text-center h-20">
-					$ {{ product.qty * product.price }}
+					$ {{ parseFloat(product.qty * product.price).toFixed(2) }}
 				</td>
 			</tr>
 		</tbody>
