@@ -1,6 +1,6 @@
 <template>
 	<Modal
-		size="modal-lg"
+		size="modal-xl"
 		:show="store.showAddItemModal"
 		@hidden="store.showAddItemModal=false"
 		:slideOver="true"
