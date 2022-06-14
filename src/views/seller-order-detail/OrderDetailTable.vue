@@ -30,7 +30,7 @@
 					{{ product.name }}
 				</td>
 				<td class="text-center h-20">
-					<template v-if="store.order_type === 'order'">
+					<template v-if="props.order_type === 'order'">
 						{{ product.qty }}
 					</template>
 					<template v-else>
@@ -46,7 +46,7 @@
 				<td class="text-center h-20">
 					{{ product.qty * product.price }}
 				</td>
-                <td class="h-20" v-show="store.order_type !== 'order'">
+                <td class="h-20" v-show="props.order_type !== 'order'">
 					<Trash2Icon />
 				</td>
 			</tr>
@@ -57,10 +57,10 @@
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
 
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
-const store = useShoppingCartStore();
+const store = useManageOrderStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const tableColumns = ref([
@@ -75,4 +75,7 @@ const tableColumns = ref([
 function update_qty(product_id){
 	console.log(`store.orderDetail.products.`+product_id+`.qty`)
 }
+const props = defineProps({
+  order_type: String
+})
 </script>
