@@ -89,11 +89,6 @@ onMounted(()=>{
         res => { 
           store.order = res.data;
           console.log(res.data)
-          if (store.order.campaign) {
-              store.order.campaign.meta_logistic.additional_delivery_charge_title.unshift('default')
-              store.order.campaign.meta_logistic.additional_delivery_charge_price.unshift(store.order.campaign.meta_logistic.delivery_charge)
-              store.order.campaign.meta_logistic.additional_delivery_charge_type.unshift('=')
-          }
         }
     )
 

@@ -166,6 +166,9 @@ export default {
     },
     mounted() {
         this.get_all_comments()
+        this.eventBus.on("changeCommentData", (payload) => {
+            this.comment_results[payload.platform]['comments'].unshift(payload)
+        });
     },
     methods: {
         status_change(status){
@@ -220,53 +223,26 @@ export default {
                 Object.keys(res).forEach(v=> {
                     if ((v === 'facebook' && res[v]['comments'].length != 0) || (v === 'facebook' && res[v]['fully_setup'] === true)) {
                         this.fbTab = true
-                        this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 236.33)
+                        this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 260)
                         this.platform.push('fb')
                     } else if ((v === 'instagram' && res[v]['comments'].length != 0) || (v === 'instagram' && res[v]['fully_setup'] === true)) {
                         this.igTab = true
-                        this.platform.push('ig')
                         if (res[v]['media_url']) {
-                            this.ig_video = this.generate_ig_embed_url(res[v]['media_url'], '100%', 236.33)
-                            console.log(this.ig_video)
+                            this.ig_video = this.generate_ig_embed_url(res[v]['media_url'], '100%', 260)
                         }
+                        this.platform.push('ig')
                     } else if ((v === 'youtube' && res[v]['comments'].length != 0) || (v === 'youtube' && res[v]['fully_setup'] === true)) {
                         this.ytTab = true
-                        this.yt_video = this.generate_yt_embed_url(res[v]['live_video_id'], '100%', 236.33)
+                        this.yt_video = this.generate_yt_embed_url(res[v]['live_video_id'], '100%', 260)
                         this.platform.push('yt')
                     }
                 })
                 
                 this.trigger = false
             }).then(res=>{
-                this.websocketConnect()
                 this[`open_${this.platform[0]}_video`] = true
+                this.eventBus.emit("startReceivingCommentData");
             })
-        },
-        websocketConnect: function() {
-            const chatSocket = new WebSocket(
-                `wss://gipassl.algotech.app/ws/campaign/${this.campaignId}/?token=${this.accessToken}`
-            );
-            this.webSocket = chatSocket
-            chatSocket.onmessage = e => {
-                const data = JSON.parse(e.data);
-                console.log(data)
-                if (data.type != "comment_data") {
-                    return
-                }
-                this.comment_results[data.data.platform]['comments'].unshift(data.data)
-                
-            };
-            chatSocket.onopen = e => {
-                console.log('connected')
-            };
-            chatSocket.onclose = e => {
-                console.error('Chat socket closed unexpectedly');
-                this.websocketConnect()
-            };
-            chatSocket.onerror = function(err) {
-                console.error('Socket encountered error: ', err.message, 'Closing socket');
-                chatSocket.close();
-            };
         },
         generate_fb_embed_url: function(page_id, post_id, width = 1280, height = 720) {
             return `<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F&width=${width}" width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`;

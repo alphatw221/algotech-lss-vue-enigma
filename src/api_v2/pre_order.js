@@ -31,3 +31,7 @@ export const buyer_link_create_cart = (campaign_id, loginWith) => {
 export const seller_retrieve_pre_order = (pre_order_id) => {
     return createAxiosWithBearer().get(`/api/v2/pre_order/${pre_order_id}/seller/retrieve/`);
 }
+
+export const update_adjust_price = (pre_order_id,data) => {
+    return createAxiosWithBearer().put(`/api/v2/pre_order/${pre_order_id}/seller/adjust`,data)
+}

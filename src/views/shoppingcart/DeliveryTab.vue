@@ -155,6 +155,17 @@
                 <label class="text-md font-medium col-span-12">Delivery Option</label>
                 <div class="intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
                   <div v-if="'campaign' in store.order">
+                    <div class="flex form-check my-4 border-2 px-10 py-6 rounded-lg">
+                      <input :id="'radio-switch-'" class="form-check-input" type="radio"
+                        name="vertical_radio_button" value="" v-model="shipping_info.shipping_option" />
+                      <label class="form-check-label mr-auto" :for="'radio-switch-'">default</label>
+                      <div>
+                        <label class="form-check-label">{{ store.order.campaign.currency }}</label>
+                        {{
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(2)
+                        }}
+                      </div>
+                    </div>
                     <div class="flex form-check my-4 border-2 px-10 py-6 rounded-lg"
                       v-for="(title, index) in store.order.campaign.meta_logistic.additional_delivery_charge_title"
                       :key="index">
@@ -302,10 +313,10 @@ const shipping_info= ref({
 
 onMounted(()=>{
   buyer_retrieve_latest_order_shipping_info().then(res=>{
-    res.data.shipping_option=""
+
     shipping_info.value = res.data
-    console.log('store')
-    console.log(shipping_info.value)
+    // console.log('store')
+    // console.log(shipping_info.value)
   })
 })
 
@@ -371,7 +382,7 @@ const proceed_to_payment = () =>{
       return
   }
   else if (confirm('Are you sure you want to process check out? Your shopping cart will be cleared.')){
-    update_delivery_info(route.params.pre_order_id, {shipping_option:shipping_info.value.shipping_option,shipping_data:shipping_info.value}).then(res=>{
+    update_delivery_info(route.params.pre_order_id, {shipping_data:shipping_info.value}).then(res=>{
       router.push(`/buyer/order/${res.data.id}/payment`)
     })
   }

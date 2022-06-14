@@ -79,10 +79,14 @@ export default {
         if (this.campaign_id) {
             list_campaign_pre_order(this.campaign_id).then(res => {
                 this.incoming_order_results = res.data
+                this.eventBus.emit("startReceivingOrderData");
             }).catch(error => {
                 console.log(error);
             })
         }
+        this.eventBus.on("changeOrderData", (payload) => {
+            this.incoming_order_results.unshift(payload)
+        });
     },
     methods: {
         seller_order_detail(){

@@ -96,7 +96,7 @@ const updateOrderSummary = ()=>{
     const is_subtotal_over_free_delivery_threshold = store.order.subtotal >= free_delivery_for_order_above_price
     const is_items_over_free_delivery_threshold = store.order.products.length >= free_delivery_for_how_many_order_minimum
 
-    if ( delivery_titles && delivery_types && delivery_prices ){      
+    if ( !['',null,undefined].includes(store.shipping_info.shipping_option) && delivery_titles && delivery_types && delivery_prices ){      
       const index = delivery_titles.indexOf(store.shipping_info.shipping_option)
 
       if (delivery_types[index] == '+'){

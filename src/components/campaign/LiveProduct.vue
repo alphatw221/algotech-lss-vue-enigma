@@ -173,10 +173,15 @@ export default {
             list_campaign_product(this.campaign_id).then(res => {
                 console.log(res.data)
                 this.product_results = res.data
+                this.eventBus.emit("startReceivingProductData");
             }).catch(error => {
                 console.log(error);
             })
         }
+        this.eventBus.on("changeProductData", (payload) => {
+            const index = this.product_results.findIndex(item=> item.id === payload.id)
+            this.product_results[index]["qty_sold"] = payload["qty_sold"]
+        });
         
     },
     methods: {
