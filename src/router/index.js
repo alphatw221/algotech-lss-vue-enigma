@@ -298,7 +298,7 @@ const routes = [
     ]
   },
   {
-    path: "/buyer/login/:type?/:pre_order_id?/:campaign_id?",
+    path: "/buyer/login/:type?/:object_id?",
     name: "buyer-login-page",
     beforeEnter: checkBuyerLoginType,
     component: () => import('@/views/general/BuyerLoginPage.vue'),
