@@ -12,7 +12,7 @@
 		<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
 			<div class="flex">
 				<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2">Period</label>
-				<v-date-picker class=" z-40" v-model="campaignPeriod" :timezone="timezone" mode="dateTime"
+				<v-date-picker class=" z-49" v-model="campaignPeriod" :timezone="timezone" mode="dateTime"
 					:model-config="campaignConfig" is-range is-required
 				>
 					<template v-slot="{ inputValue, inputEvents }">
@@ -28,7 +28,7 @@
 			</div>
 		</div>
 
-		<div class="box mt-5 p-5 col-span-12">
+		<div class="box mt-5 p-5 col-span-12 z-0">
 			<span class="text-2xl font-medium leading-none mb-3">{{ productPageTitle }}</span>
 			<div>
 				<div class="overflow-x-auto intro-y col-span-12" >

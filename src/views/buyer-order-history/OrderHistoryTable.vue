@@ -87,9 +87,6 @@ const getOrderHistoryListData = ()=>{
 		const total_page = parseInt(dataCount.value / pageSize.value);
 		totalPage.value = total_page == 0 ? 1 : total_page;
 		orders.value = response.data.results;
-    orders.value = orders.value.reverse();
-	}).catch(function (error) {
-		console.log(error);
 	})
 }
 onMounted(()=>{

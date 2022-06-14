@@ -57,10 +57,12 @@
                         <template v-if="store.order.payment_method">
                             <div class="col-start-1 col-span-2 py-3">Last Five Digit</div>
                             <div class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
-                            <div class="w-5 h-5 image-fit zoom-in">
+                            <div class="w-20 h-20 image-fit zoom-in absolute top-30 right-10">
                                 <Tippy
                                     tag="img"
-                                    class="rounded-full"
+                                    data-action="zoom"
+                                    content="receipt image"
+                                    class="rounded-lg"
                                     :src="store.order.meta.receipt_image"
                                 />
                             </div>
