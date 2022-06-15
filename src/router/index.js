@@ -95,6 +95,7 @@ import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import isBuyerAuth from "@/libs/routerMiddleware/isBuyerAuth"
 import isSellerAuth from "@/libs/routerMiddleware/isSellerAuth"
 import checkBuyerLoginType from "@/libs/routerMiddleware/checkBuyerLoginType";
+import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
   // {
@@ -251,6 +252,7 @@ const routes = [
   {
     path: "/seller/login",
     name: "LoginPage",
+    beforeEnter: checkSellerLogin,
     component: () => import('@/views/general/LoginPage.vue')
   },
   {

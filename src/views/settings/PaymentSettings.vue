@@ -47,14 +47,16 @@
                     v-show="Object.keys(paymentSettings).includes('direct_payment')"
                     class="leading-relaxed"
                 >
-                    <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5">
+                    <TabContent :paymentObject="paymentSettings['direct_payment']" />
+
+                    <!-- <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5">
                         <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Name of Bank</label>
                         <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9 " />
                         <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Account Name</label>
                         <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9" />
                         <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Account No.</label>
                         <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9" />
-                    </div>
+                    </div> -->
                 </TabPanel>
                 <TabPanel 
                     v-show="Object.keys(paymentSettings).includes('paypal')"
@@ -137,6 +139,7 @@
 </template>
 
 <script setup>
+import TabContent from './PaymentTabContent.vue';
 import { onMounted, ref } from 'vue';
 import { get_payment_meta } from '@/api/payment';
 
@@ -147,8 +150,6 @@ onMounted(() => {
     get_payment_meta().then(
         response => {
             paymentSettings.value = response.data
-            console.log(response.data)
-            console.log(Object.keys(paymentSettings.value))
         }
     )
 })
