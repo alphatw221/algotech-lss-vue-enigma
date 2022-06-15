@@ -29,15 +29,15 @@
             </div>
             <div class="col-start-1 col-span-12 -mt-2">
                 <AccordionGroup class="accordion-boxed">
-                    <AccordionItem class="">
+                    <AccordionItem class="mt-0">
                         <Accordion class="bg-primary rounded-lg">
-                                <PlusIcon class="text-white mx-3 -mt-2" />
+                            <div class="w-full flex justify-end"> <PlusIcon class="text-white mx-5 -mt-2" /> </div>
                         </Accordion>
                         <AccordionPanel
                             class="box text-slate-600 dark:text-slate-500 leading-relaxed mt-1">
-                            <div v-html="fb_video" v-show="open_fb_video" />
-                            <div v-html="ig_video" v-show="open_ig_video" />
-                            <div v-html="yt_video" v-show="open_yt_video" />
+                            <div v-html="fb_video" class="-mt-2" v-show="open_fb_video" />
+                            <div v-html="ig_video" class="-mt-2" v-show="open_ig_video" />
+                            <div v-html="yt_video" class="-mt-2" v-show="open_yt_video" />
                         </AccordionPanel>
                     </AccordionItem>
                 </AccordionGroup>
