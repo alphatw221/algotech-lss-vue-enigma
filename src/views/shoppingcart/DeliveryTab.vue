@@ -74,7 +74,7 @@
           </h2>
         </div>
 
-        <TabGroup :selectedIndex="selectedTab">
+        <TabGroup >
           <TabList class="nav-boxed-tabs mx-0 lg:mx-10 2xl:mx-10 flex items-center w-full">
             <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
               @click="select_shipping_method('delivery')">
@@ -289,7 +289,6 @@ const router = useRouter();
 const store = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
 
-const selectedTab =ref(0)
 const shipping_info= ref({
 			shipping_option:"",
       shipping_method: "pickup",
@@ -308,15 +307,15 @@ const shipping_info= ref({
       shipping_details: "",
       shipping_remark: "",
       shipping_date: null,
-      shipping_time: null
+      shipping_time: null,
+      pickup_address:""
 		})
 
 onMounted(()=>{
   buyer_retrieve_latest_order_shipping_info().then(res=>{
-
+    res.data.shipping_method='delivery'
+    res.data.shipping_option=''
     shipping_info.value = res.data
-    // console.log('store')
-    // console.log(shipping_info.value)
   })
 })
 
@@ -324,25 +323,25 @@ const select_shipping_method = method => {
   shipping_info.value.shipping_method = method
 }
 
-watch(computed(()=>{return shipping_info.value}),(()=>{
-  console.log('watch')
-  if(shipping_info.value.shipping_method=='delivery'){
-    selectedTab.value=0
-  }else{
-    selectedTab.value=1
-  }
+watch(computed(()=>{return shipping_info.value.shipping_method}),(()=>{
+  store.shipping_info.shipping_method = shipping_info.value.shipping_method
 }))
 
-watch(computed(()=>{return shipping_info.value.shipping_method}),(()=>{
-  console.log('shipping_method')
-  store.shipping_info.shipping_method = shipping_info.value.shipping_method
-  store.shipping_info = shipping_info.value
-}))
-watch(computed(()=>{return shipping_info.value.shipping_option}),(()=>{
-  console.log('shipping_option')
+watch(computed(()=>{return shipping_info.value.shipping_option}),(()=>{     //this will be removed after seller v2 is ready
   store.shipping_info.shipping_option = shipping_info.value.shipping_option
-  store.shipping_info = shipping_info.value
+  if(shipping_info.value.shipping_method=='pickup'){
+    const campaign = store.order.campaign||null
+    if (!campaign) return
+    const meta_logistic = campaign.meta_logistic || null
+    if (!meta_logistic) return
+    const index = meta_logistic.branch_name.indexOf(store.shipping_info.shipping_option)
+    shipping_info.value.pickup_address=meta_logistic.branch_address[index]
+  }else{
+    shipping_info.value.pickup_address=""
+  }
+  
 }))
+
 
 const reciever_rules = computed(()=>{
     return{

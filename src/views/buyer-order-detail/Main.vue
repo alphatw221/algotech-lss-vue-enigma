@@ -63,7 +63,7 @@
                                     data-action="zoom"
                                     content="receipt image"
                                     class="rounded-lg"
-                                    :src="store.order.meta.receipt_image"
+                                    :src="store.order.meta.receipt_image||storageUrl+'no_image.jpeg'"
                                 />
                             </div>
                         </template>
@@ -73,10 +73,10 @@
                             <div class="col-start-3 col-span-3 py-2">In-store pickup</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Store</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.meta.pick_up_store}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.shipping_option}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.meta.pick_up_store_address}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.pickup_address}}</div>
                         </template>
                         <template v-else-if="store.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
@@ -136,7 +136,7 @@ const route = useRoute();
 const router = useRouter();
 
 const store = useLSSBuyerOrderStore(); 
-
+const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 onMounted(() => {
     buyer_retrieve_order(route.params.order_id)
     .then(

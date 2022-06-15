@@ -162,20 +162,24 @@ const toggleMobileMenu = ()=>{
   buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
 }
 
-// const userAvatar = buyerLayoutStore.loginWith=='facebook' ? buyerLayoutStore.userInfo.facebook_info.picture : buyerLayoutStore.userInfo.google_info.picture
+
 const userAvatar = computed(() => {
-  if(buyerLayoutStore.loginWith=='facebook'){
+  if(cookies.get('login_with')=='facebook'){
     return buyerLayoutStore.userInfo.facebook_info.picture
-  }else if (buyerLayoutStore.loginWith=='google'){
+  }
+  if (cookies.get('login_with')=='google'){
     return buyerLayoutStore.userInfo.google_info.picture
   }
   if(buyerLayoutStore.userInfo.facebook_info.picture){
     return buyerLayoutStore.userInfo.facebook_info.picture
   }
-  return buyerLayoutStore.userInfo.google_info.picture
+  if(buyerLayoutStore.userInfo.google_info.picture){
+    return buyerLayoutStore.userInfo.google_info.picture
+  }
+  return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
 });
-const logout = () => {
 
+const logout = () => {
   cookies.remove('access_token')
   cookies.remove('login_with')
   dom('.dropdown-menu').removeClass('show')

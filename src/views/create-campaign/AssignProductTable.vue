@@ -70,7 +70,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'tag'" 
-                            class="w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            class="my-2 w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div v-for="tag in product[column.key]" >{{ tag }}</div> 
                         </td>
 
@@ -86,8 +86,8 @@
                         </td>
 
                         <td v-else-if="column.key === 'selected'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-left items-left justify-left"> 
-                            <div class="form-check mt-2 self-left place-content-left">
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm "> 
+                            <div class="form-check mt-2 self-center place-content-center">
                                <input 
                                     id="selectCheckbox" 
                                     class="form-check-input" 
@@ -141,9 +141,9 @@
                             </div>
                         </td>
 
-                        <td v-else
+                        <td v-else-if="column.key === 'type'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="w-fit self-center place-content-center"> {{ product[column.key] }} </div>
+                            <div class="form-check mt-2 self-center place-content-center"> {{ product[column.key] }} </div>
                         </td>
                     </template>
                 </tr>
@@ -304,9 +304,9 @@ const addProdcuts = () => {
 
 td {
 	height: auto !important;
+    min-height: 35px !important;
     width: auto !important;
 }
-
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
 
@@ -342,6 +342,7 @@ td {
 		padding-left: 50% !important;
 		text-align: center !important;
 		box-shadow: none !important;
+        font-size: 14px; 
 	}
 
 	td:before {
@@ -357,6 +358,7 @@ td {
 
 	td:nth-of-type(1):before {
 		content: "Selected";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
 
@@ -367,41 +369,50 @@ td {
 
 	td:nth-of-type(3):before {
 		content: "Product Name";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(4):before {
 		content: "Order Code";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(5):before {
 		content: "Qty for Campaign";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
 	td:nth-of-type(6):before {
 		content: "Max Qty / Order";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(7):before {
 		content: "Category";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
 	td:nth-of-type(8):before {
 		content: "Price";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
     td:nth-of-type(9):before {
 		content: "Editable";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
     td:nth-of-type(10):before {
 		content: "Deletable";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
     td:nth-of-type(11):before {
 		content: "Type";
+        text-align: left !important;
 		/* color: #0e9893; */
 	}
 }

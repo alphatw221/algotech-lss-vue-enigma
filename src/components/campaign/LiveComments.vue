@@ -48,9 +48,8 @@
                 </button>
                 <h2 class="p-2">{{ tags }}</h2>
             </div>
-        </div>
-
-        <TabPanels>
+            
+        <TabPanels class="col-span-12">
             <template v-for="(platform_data, index) in comment_results">
                 <TabPanel>
                     <div class="chat__chat-list box overflow-y-auto scrollbar-hidden mt-1 max-h-[26rem]" :class="index">
@@ -106,6 +105,8 @@
             </div> -->
             
         </TabPanels>
+        </div>
+
     </TabGroup>
     <!-- END: comments -->
 </template>

@@ -20,23 +20,24 @@ import { computed, onMounted, provide, ref, watch } from "vue";
 import OrderHistoryTable from "@/views/buyer-order-history/OrderHistoryTable.vue"; 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import dom from "@left4code/tw-starter/dist/js/dom";
-
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 
-onMounted(() => {
-    console.log(buyerLayoutStore.userInfo.name)
-});
-
 const userAvatar = computed(() => {
-	if (buyerLayoutStore.loginWith == 'facebook') {
-		return buyerLayoutStore.userInfo.facebook_info.picture
-	} else if (buyerLayoutStore.loginWith == 'google') {
-		return buyerLayoutStore.userInfo.google_info.picture
-	}
-	if (buyerLayoutStore.userInfo.facebook_info.picture) {
-		return buyerLayoutStore.userInfo.facebook_info.picture
-	}
-	return buyerLayoutStore.userInfo.google_info.picture
+  if(cookies.get('login_with')=='facebook'){
+    return buyerLayoutStore.userInfo.facebook_info.picture
+  }
+  if (cookies.get('login_with')=='google'){
+    return buyerLayoutStore.userInfo.google_info.picture
+  }
+  if(buyerLayoutStore.userInfo.facebook_info.picture){
+    return buyerLayoutStore.userInfo.facebook_info.picture
+  }
+  if(buyerLayoutStore.userInfo.google_info.picture){
+    return buyerLayoutStore.userInfo.google_info.picture
+  }
+  return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
 });
 
 
