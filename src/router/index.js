@@ -96,6 +96,7 @@ import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
 import sellerAuthMiddleware from "@/libs/routerMiddleware/sellerAuthMiddleware"
 
 import buyerLoginMiddleware from "@/libs/routerMiddleware/buyerLoginMiddleware";
+import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
   // {
@@ -252,6 +253,7 @@ const routes = [
   {
     path: "/seller/login",
     name: "LoginPage",
+    beforeEnter: checkSellerLogin,
     component: () => import('@/views/general/LoginPage.vue')
   },
   {

@@ -1,7 +1,8 @@
 <template>
     <!-- BEGIN: Comments -->
-    <TabGroup class="col-span-12 col-start-1 row-start-1 row-span-4 lg:col-span-5 2xl:col-span-4" :selectedIndex="0">
-        <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-2 p-5">
+    <TabGroup class="col-span-12 col-start-1 row-start-1 row-span-6 lg:col-span-5 2xl:col-span-4 h-[100%]"
+        :selectedIndex="0">
+        <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-2 p-5 h-full">
             <div class="col-start-1 col-span-5 -mt-4">
                 <h2 class="text-lg font-medium sm:text-m">
                     Comments
@@ -10,26 +11,39 @@
                     </button>
                 </h2>
             </div>
-            <div class="col-end-10 -mt-2 sm:col-end-11" >
-            <TabList class="nav-pills">
-                <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = true;this.open_ig_video = false;this.open_yt_video = false;">
-                <FacebookIcon class="m-1 -mt-1" />
-                </Tab>
-                <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = false;this.open_ig_video = true;this.open_yt_video = false;">
-                <InstagramIcon class="m-1 -mt-1" />
-                </Tab>
-                <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button" @click="this.open_fb_video = false;this.open_ig_video = false;this.open_yt_video = true;">
-                <YoutubeIcon class="m-1 -mt-1" />
-                </Tab>
-            </TabList>
+            <div class="col-end-10 -mt-2 sm:col-end-11">
+                <TabList class="nav-pills">
+                    <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                        @click="this.open_fb_video = true; this.open_ig_video = false; this.open_yt_video = false;">
+                        <FacebookIcon class="m-1 -mt-1" />
+                    </Tab>
+                    <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                        @click="this.open_fb_video = false; this.open_ig_video = true; this.open_yt_video = false;">
+                        <InstagramIcon class="m-1 -mt-1" />
+                    </Tab>
+                    <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                        @click="this.open_fb_video = false; this.open_ig_video = false; this.open_yt_video = true;">
+                        <YoutubeIcon class="m-1 -mt-1" />
+                    </Tab>
+                </TabList>
             </div>
             <div class="col-start-1 col-span-12 -mt-2">
-                <div v-html="fb_video" v-show="open_fb_video"/> 
-                <div v-html="ig_video" v-show="open_ig_video"/> 
-                <div v-html="yt_video" v-show="open_yt_video"/> 
+                <AccordionGroup class="accordion-boxed">
+                    <AccordionItem class="mt-0">
+                        <Accordion class="bg-primary rounded-lg">
+                            <div class="w-full flex justify-end"> <PlusIcon class="text-white mx-5 -mt-2" /> </div>
+                        </Accordion>
+                        <AccordionPanel
+                            class="box text-slate-600 dark:text-slate-500 leading-relaxed mt-1">
+                            <div v-html="fb_video" class="-mt-2" v-show="open_fb_video" />
+                            <div v-html="ig_video" class="-mt-2" v-show="open_ig_video" />
+                            <div v-html="yt_video" class="-mt-2" v-show="open_yt_video" />
+                        </AccordionPanel>
+                    </AccordionItem>
+                </AccordionGroup>
             </div>
             <div v-show="trigger"></div>
-            <div v-show="tagBox" class="col-start-1 col-span-12 -mt-2 -mb-6">
+            <div v-show="tagBox" class="col-start-1 col-span-12 -mt-3 -mb-6 flex-wrap">
                 <button class="btn btn-rounded-danger w-fit m-1" @click="status_change('Shipping')">
                     <HashIcon class="w-4 h-4 mr-2" /> Shipping
                 </button>
@@ -48,40 +62,42 @@
                 </button>
                 <h2 class="p-2">{{ tags }}</h2>
             </div>
-            
-        <TabPanels class="col-span-12">
-            <template v-for="(platform_data, index) in comment_results">
-                <TabPanel>
-                    <div class="chat__chat-list box overflow-y-auto scrollbar-hidden mt-1 max-h-[26rem]" :class="index">
-                        <template v-if="platform_data.comments">
-                            <div v-for="(reply, key) in platform_data.comments" class="intro-x cursor-pointer relative flex items-center p-3" @click="showReplyBar(reply)">
-                                <Tippy class="rounded-full" content="Reply" theme='light'>
-                                    <div class="w-12 h-12 flex-none image-fit mr-1">
-                                        <img alt="" class="rounded-full zoom-in" :src="reply.image" />
-                                        <div
-                                            class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+
+            <TabPanels class="col-span-12">
+                <template v-for="(platform_data, index) in comment_results">
+                    <TabPanel>
+                        <div class="h-full box overflow-y-auto scrollbar-hidden mt-1 max-h-[28rem]" :class="index">
+                            <template v-if="platform_data.comments">
+                                <div v-for="(reply, key) in platform_data.comments"
+                                    class="intro-x cursor-pointer relative flex items-center p-3"
+                                    @click="showReplyBar(reply)">
+                                    <Tippy class="rounded-full" content="Reply" theme='light'>
+                                        <div class="w-12 h-12 flex-none image-fit mr-1">
+                                            <img alt="" class="rounded-full zoom-in" :src="reply.image" />
+                                            <div
+                                                class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                            </div>
+                                        </div>
+                                    </Tippy>
+                                    <div class="ml-2 overflow-hidden">
+                                        <div class="flex items-center">
+                                            <a href="javascript:;" class="font-medium">{{ reply.customer_name }}</a>
+                                            <div class="text-xs text-slate-400 ml-auto"></div>
+                                        </div>
+                                        <div class="w-full truncate text-slate-500 mt-0.5">
+                                            {{ reply.message }}
                                         </div>
                                     </div>
-                                </Tippy>
-                                <div class="ml-2 overflow-hidden">
-                                    <div class="flex items-center">
-                                        <a href="javascript:;" class="font-medium">{{ reply.customer_name }}</a>
-                                        <div class="text-xs text-slate-400 ml-auto"></div>
-                                    </div>
-                                    <div class="w-full truncate text-slate-500 mt-0.5">
-                                        {{ reply.message }}
-                                    </div>
                                 </div>
-                            </div>
-                            <template v-if="showModal">
-                                <ReplyModal  :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" /> 
-                            </template> 
-                        </template>
-                    </div>
-                </TabPanel>
-            </template>
-            
-            <!-- <TabPanel>
+                                <template v-if="showModal">
+                                    <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" />
+                                </template>
+                            </template>
+                        </div>
+                    </TabPanel>
+                </template>
+
+                <!-- <TabPanel>
                 <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
                     <CampaignLiveTable
                         :requestUrl="'/api/campaign-comment/' + campaignId"
@@ -91,7 +107,7 @@
                     </CampaignLiveTable>
                 </div>
             </TabPanel> -->
-            <!-- <div v-show="replyBar"
+                <!-- <div v-show="replyBar"
                 class="pt-4 pb-10 sm:py-4 flex items-center border-t border-slate-200/60 dark:border-darkmode-400">
                 <textarea
                     class="chat__box__input form-control dark:bg-darkmode-600 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:border-transparent focus:ring-0"
@@ -103,8 +119,8 @@
                     </a>
                 </div>
             </div> -->
-            
-        </TabPanels>
+
+            </TabPanels>
         </div>
 
     </TabGroup>
@@ -113,27 +129,27 @@
 
 <script>
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
-import ReplyModal from './ReplyModal.vue'; 
+import ReplyModal from './ReplyModal.vue';
 
 
 export default {
-    components:{
+    components: {
         ReplyModal
     },
     props: {
         campaignId: Number
     },
-    
+
     data() {
         return {
             platform: [],
-            fbTab:false,
-            igTab:false,
-            ytTab:false,
-            
+            fbTab: false,
+            igTab: false,
+            ytTab: false,
+
             imagePath: import.meta.env.VITE_APP_IMG_URL,
             tags: "",
-            trigger:true,
+            trigger: true,
             tagBox: false,
             currentTab: '',
             product_columns: [
@@ -162,7 +178,7 @@ export default {
             open_ig_video: false,
             open_yt_video: false,
             reply: null,
-            showModal: false, 
+            showModal: false,
         };
     },
     mounted() {
@@ -172,10 +188,10 @@ export default {
         });
     },
     methods: {
-        status_change(status){
+        status_change(status) {
             this.comment_status = status;
             // console.log(this.comment_status);
-            this.eventBus.emit("commentStatus", {status: this.comment_status})
+            this.eventBus.emit("commentStatus", { status: this.comment_status })
         },
         toEnterID() {
             this.idPopupModalPreview = false;
@@ -212,16 +228,16 @@ export default {
         },
         showReplyBar(e) {
             this.reply = e;
-            this.showModal = true; 
+            this.showModal = true;
         },
         get_all_comments() {
             console.log("get_all_comments")
-            get_comments(this.campaign_id).then(res=> {
+            get_comments(this.campaign_id).then(res => {
                 console.log(res.data)
                 this.comment_results = res.data
                 return res.data
-            }).then(res=> {
-                Object.keys(res).forEach(v=> {
+            }).then(res => {
+                Object.keys(res).forEach(v => {
                     if ((v === 'facebook' && res[v]['comments'].length != 0) || (v === 'facebook' && res[v]['fully_setup'] === true)) {
                         this.fbTab = true
                         this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 260)
@@ -238,22 +254,22 @@ export default {
                         this.platform.push('yt')
                     }
                 })
-                
+
                 this.trigger = false
-            }).then(res=>{
+            }).then(res => {
                 this[`open_${this.platform[0]}_video`] = true
                 this.eventBus.emit("startReceivingCommentData");
             })
         },
-        generate_fb_embed_url: function(page_id, post_id, width = 1280, height = 720) {
+        generate_fb_embed_url: function (page_id, post_id, width = 1280, height = 720) {
             return `<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F&width=${width}" width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`;
         },
-        generate_yt_embed_url: function(live_video_id, width = 1280, height = 720) {
+        generate_yt_embed_url: function (live_video_id, width = 1280, height = 720) {
             return `<iframe data-platform="yt" src="https://www.youtube.com/embed/${live_video_id}"
                 width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
                 autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         },
-        generate_ig_embed_url: function(media_url, width = 1280, height = 720) {
+        generate_ig_embed_url: function (media_url, width = 1280, height = 720) {
             return `<iframe data-platform="yt" src="${media_url}"
                 width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
                 autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
@@ -283,5 +299,9 @@ export default {
 
 iframe {
     max-width: 50% !important;
+}
+
+.accordion-item{
+    border: none;
 }
 </style>
