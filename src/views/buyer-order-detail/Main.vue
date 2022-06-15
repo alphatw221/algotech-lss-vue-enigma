@@ -76,7 +76,7 @@
                             <div class="col-start-3 col-span-3 py-2">{{store.order.shipping_option}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.branch_address[0]}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.pickup_address}}</div>
                         </template>
                         <template v-else-if="store.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
