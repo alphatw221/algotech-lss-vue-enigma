@@ -3,177 +3,94 @@
     <table class="table table-report overflow-x-scroll mt-5">
       <thead>
         <tr>
-          <th
-            class="whitespace-nowrap text-center "
-            v-for="column in tableColumns"
-            :key="column.key"
-          >
+          <th class="whitespace-nowrap text-center " v-for="column in tableColumns" :key="column.key">
             {{ column.name }}
           </th>
         </tr>
       </thead>
       <tbody>
         <tr v-for="(campaign, index) in store[tableName].campaigns" :key="index" class="intro-x">
-          <td  class="fan_page items-center">
-            <div class="flex">
-              <div
-                class="w-10 h-10 image-fit zoom-in border-0 lg:w-15"
-                v-if="campaign.facebook_page !== null"
-              >
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-3 border-0"
-                  :src="campaign.facebook_page.image"
-                  :content="campaign.facebook_page.name"
-                />
+          <td class="fan_page items-center w-12">
+            <div class="flex w-fit">
+              <div class="w-10 h-10 image-fit zoom-in border-0 lg:w-15" v-if="campaign.facebook_page !== null">
+                <Tippy tag="img" class="rounded-full ml-3 border-0" :src="campaign.facebook_page.image"
+                  :content="campaign.facebook_page.name" />
               </div>
               <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-3"
-                  :src="unbound"
-                  :content="`Unbound`"
-                />
+                <Tippy tag="img" class="rounded-full ml-3" :src="unbound" :content="`Unbound`" />
               </div>
-              <div
-                class="w-10 h-10 image-fit zoom-in"
-                v-if="campaign.instagram_profile !== null"
-              >
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-0"
-                  :src="campaign.instagram_profile.image"
-                  :content="campaign.instagram_profile.name"
-                />
+              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.instagram_profile !== null">
+                <Tippy tag="img" class="rounded-full ml-0" :src="campaign.instagram_profile.image"
+                  :content="campaign.instagram_profile.name" />
               </div>
               <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-0"
-                  :src="unbound"
-                  :content="`Unbound`"
-                />
+                <Tippy tag="img" class="rounded-full ml-0" :src="unbound" :content="`Unbound`" />
               </div>
-                            <div
-                class="w-10 h-10 image-fit zoom-in"
-                v-if="campaign.youtube_channel !== null"
-              >
-                <Tippy
-                  tag="img"
-                  class="rounded-full -ml-3"
-                  :src="campaign.youtube_channel.image"
-                  :content="campaign.youtube_channel.name"
-                />
+              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.youtube_channel !== null">
+                <Tippy tag="img" class="rounded-full -ml-3" :src="campaign.youtube_channel.image"
+                  :content="campaign.youtube_channel.name" />
               </div>
               <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy
-                  tag="img"
-                  class="rounded-full -ml-3"
-                  :src="unbound"
-                  :content="`Unbound`"
-                />
+                <Tippy tag="img" class="rounded-full -ml-3" :src="unbound" :content="`Unbound`" />
               </div>
             </div>
           </td>
 
-          <td class="text-center w-12 platform" >
+          <td class="platform text-center w-12">
             <div class="flex ">
-              <div
-                class="w-10 h-10 image-fit zoom-in"
-                v-if="campaign.facebook_page !== null"
-              >
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-3 2xl:ml-3"
-                  :src="facebook_platform"
-                  :content="`Facebook`"
-                />
+              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.facebook_page !== null">
+                <Tippy tag="img" class="rounded-full ml-3 2xl:ml-3" :src="facebook_platform" :content="`Facebook`" />
               </div>
               <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-3 2xl:ml-3"
-                  :src="unbound"
-                  :content="`Unbound`"
-                />
+                <Tippy tag="img" class="rounded-full ml-3 2xl:ml-3" :src="unbound" :content="`Unbound`" />
               </div>
-              <div
-                class="w-10 h-10 image-fit zoom-in"
-                v-if="campaign.instagram_profile !== null"
-              >
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-0 2xl:ml-0"
-                  :src="instagram_platform"
-                  :content="`Instagram`"
-                />
+              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.instagram_profile !== null">
+                <Tippy tag="img" class="rounded-full ml-0 2xl:ml-0" :src="instagram_platform" :content="`Instagram`" />
               </div>
               <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy
-                  tag="img"
-                  class="rounded-full ml-0 2xl:ml-0"
-                  :src="unbound"
-                  :content="`Unbound`"
-                />
+                <Tippy tag="img" class="rounded-full ml-0 2xl:ml-0" :src="unbound" :content="`Unbound`" />
               </div>
-              <div
-                class="w-10 h-10 image-fit zoom-in"
-                v-if="campaign.youtube_channel !== null"
-              >
-                <Tippy
-                  tag="img"
-                  class="rounded-full -ml-3 2xl:-ml-3"
-                  :src="youtube_platform"
-                  :content="`Youtube`"
-                />
+              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.youtube_channel !== null">
+                <Tippy tag="img" class="rounded-full -ml-3 2xl:-ml-3" :src="youtube_platform" :content="`Youtube`" />
               </div>
               <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy
-                  tag="img"
-                  class="rounded-full -ml-3 2xl:-ml-3"
-                  :src="unbound"
-                  :content="`Unbound`"
-                />
+                <Tippy tag="img" class="rounded-full -ml-3 2xl:-ml-3" :src="unbound" :content="`Unbound`" />
               </div>
             </div>
           </td>
-          <td class="text-center title  w-fit">
+          <td class="title text-center w-fit">
             {{ campaign.title }}
           </td>
-          <td class="w-5 text-center date">
-            <div class="w-40">{{new Date(campaign.start_at).toLocaleTimeString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})}}</div>
+          <td class="date w-5 text-center">
+            <div class="w-28">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
+                year: "numeric", month: "short",
+                day: "numeric", hour: '2-digit', minute: '2-digit'
+              })
+            }}</div>
           </td>
-          <td class="items-center manage_order w-fit" >
-            <a class="flex items-center ml-10 2xl:ml-20" @click="manageOrder(campaign.id)">
-              <ListIcon class="w-4 h-4" />
+          <td class="manage_order items-center w-fit">
+            <a class="flex items-center justify-center" @click="manageOrder(campaign.id)">
+              <ListIcon class="w-6 h-6 self-center" />
             </a>
           </td>
-          <td class="items-center checkout w-fit" >
-            <div
-              class="
-                flex
-                form-check form-switch
-                w-5
-                ml-5
-                2xl:ml-20
-              "
-            >
-              <input
-                @click="toggle"
-                class="form-check-input center"
-                type="checkbox"
-              />
+          <td class="checkout items-center w-fit">
+            <div class="flex form-check form-switch justify-center">
+              <input @click="toggle" class="form-check-input center" type="checkbox" />
             </div>
           </td>
-          <td class="text-center">
-            <button
-              class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2"
-              @click="clickEntry(campaign,index)"
-            >
+          <td class="copyLink items-center w-fit">
+            <div class="flex justify-center items-center">
+              <button class="flex" @click="copyURL(campaign.id)">
+                <LinkIcon class="w-4 h-4 mr-0.5" /> Copy
+              </button>
+            </div>
+          </td>
+          <td class="entry text-center w-fit">
+            <button class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
               Entry
             </button>
           </td>
-          <td class="table-report__action w-30" >
+          <td class="edit table-report__action w-fit">
             <div class="flex justify-center items-center">
               <a class="flex items-center mr-3" href="javascript:;">
                 <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
@@ -184,12 +101,7 @@
       </tbody>
     </table>
     <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-      <Page
-        :total="dataCount"
-        show-sizer
-        @on-change="changePage"
-        @on-page-size-change="changePageSize"
-      />
+      <Page :total="dataCount" show-sizer @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
   </div>
 </template>
@@ -199,15 +111,15 @@ import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 
 
-import { ref, onMounted, onUnmounted, defineProps, defineEmits} from 'vue'
+import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue'
 
 
 export default {
   props: {
     requestUrl: String,
     tableColumns: Array,
-    tableName:String,
-    campaignStatus:String
+    tableName: String,
+    campaignStatus: String
   },
   data() {
     return {
@@ -223,7 +135,7 @@ export default {
       facebook_platform: "/src/assets/images/lss-img/facebook.png",
       instagram_platform: "/src/assets/images/lss-img/instagram.png",
       unbound: "/src/assets/images/lss-img/noname.png",
-      store:useLSSCampaignListStore(),
+      store: useLSSCampaignListStore(),
     };
   },
   mounted() {
@@ -277,20 +189,29 @@ export default {
       this.search();
     },
 
-    clickEntry(campaign,index) {
+    clickEntry(campaign, index) {
       // this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
       //   return
       console.log(campaign.facebook_campaign.post_id)
       console.log(campaign.instagram_campaign.live_media_id)
       console.log(campaign.youtube_campaign.live_video_id)
-      if(campaign.facebook_campaign.post_id !== '' && campaign.instagram_campaign.live_media_id !== '' && campaign.youtube_campaign.live_video_id !== ''){
+      if (campaign.facebook_campaign.post_id !== '' && campaign.instagram_campaign.live_media_id !== '' && campaign.youtube_campaign.live_video_id !== '') {
         this.$router.push(`/seller/campaign-live/${campaign.id}`)
         return
       }
-       this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
+      this.$emit('showRemindModal', { 'tableName': this.tableName, 'campaign': campaign, 'index': index })
     },
-    manageOrder(campaign_id){
+    manageOrder(campaign_id) {
       this.$router.push(`/seller/manage-order/${campaign_id}`)
+    },
+    copyURL(campaign_id) {
+      var dummy = document.createElement('input'),
+      text = `https://gipassl.algotech.app/buyer/login/create/${campaign_id}`;
+      document.body.appendChild(dummy);
+      dummy.value = text;
+      dummy.select();
+      document.execCommand('copy');
+      document.body.removeChild(dummy);
     }
   },
 };
@@ -299,98 +220,109 @@ export default {
 
 <style scoped>
 .click-icon:hover {
-	cursor: pointer;
+  cursor: pointer;
 }
 
 td {
-	height: 50px;
+  height: 50px;
 }
 
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
 
-	table,
-	thead,
-	tbody,
-	th,
-	td,
-	tr {
-		display: block;
-		font-size: 16px;
-		padding: 0px !important;
-	}
+  table,
+  thead,
+  tbody,
+  th,
+  td,
+  tr {
+    display: block;
+    font-size: 16px;
+    padding: 0px !important;
+  }
 
-	.fan_page {
-		height: 60px !important;
-    width: auto;
-	}
+  .fan_page {
+    height: 60px !important;
+  }
+
   .platform {
-		height: 60px !important;
-    width: auto;
-	}
+    height: 60px !important;
+  }
 
-	thead tr {
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
+  thead tr {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+  }
 
-	tr {
-		border-bottom: 1px solid black;
-		margin-top: 20px;
-	}
+  tr {
+    border-bottom: 1px solid black;
+    margin-top: 20px;
+  }
 
-	td {
-		border: none;
-		border-bottom: 1px solid #eee;
-		position: relative;
-		padding-left: 40% !important;
-		text-align: left !important;
-        box-shadow: none !important;
-		background-color: white !important;
-	}
-
-	.productName {
-		padding-left: 15px;
-	}
-
-	td:before {
-		position: absolute;
-		left: 6px;
-		width: 35%;
-		white-space: nowrap;
-		font-weight: bold;
+  td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    position: relative;
+    display: flex;
+    padding-left: 40% !important;
+    text-align: center !important;
     box-shadow: none !important;
-		background-color: white !important;
-	}
+    align-items: center;
+    justify-content: center;
+    background-color: white !important;
+    width: 100%;
+  }
 
-	.fan_page:before {
-		content: "Fan Page";
-		/* color: #0e9893; */
-	}
+  .productName {
+    padding-left: 15px;
+  }
 
-	.platform:before {
-		content: "Platform";
-		/* color: #0e9893; */
-	}
+  td:before {
+    position: absolute;
+    left: 6px;
+    width: 35%;
+    white-space: nowrap;
+    top: 25%;
+    font-weight: bold;
+    box-shadow: none !important;
+    background-color: white !important;
+    text-align: left !important;
 
-	.title:before {
-		content: "Title";
-		/* color: #0e9893; */
-	}
+  }
 
-	.date:before {
-		content: "Time";
-		/* color: #0e9893; */
-	}
+  .fan_page:before {
+    content: "Fan Page";
+    /* color: #0e9893; */
+  }
 
-	.manage_order:before {
-		content: "Manage Order";
-		/* color: #0e9893; */
-	}
+  .platform:before {
+    content: "Platform";
+    /* color: #0e9893; */
+  }
+
+  .title:before {
+    content: "Title";
+    /* color: #0e9893; */
+  }
+
+  .date:before {
+    content: "Time";
+    /* color: #0e9893; */
+  }
+
+  .manage_order:before {
+    content: "Manage Order";
+    /* color: #0e9893; */
+  }
+
   .checkout:before {
-  content: "Stop Checkout";
-  /* color: #0e9893; */
-  } 
+    content: "Stop Checkout";
+    /* color: #0e9893; */
+  }
+
+  .copyLink:before {
+    content: "Share Product Page";
+  }
 }
 </style>
