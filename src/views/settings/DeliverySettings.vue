@@ -60,15 +60,16 @@
                     />
                     <button 
                         class="btn btn-danger w-24 inline-block text-base ml-5" 
-                        @click="delete additional_delivery[index]"
+                        @click="modifyDelivery('delete', index)"
                     >
+                    <!-- delete additional_delivery[index] -->
                         Delete
                     </button>
                 </div>
             </div>
             <button 
                 class="btn btn-primary col-start-5 w-24 inline-block text-base mb-5 mt-3"
-                @click="additional_delivery[Object.entries(additional_delivery).length] = { title: null, type: null, price: null }"
+                @click="modifyDelivery('add', index)"
             >
                 Add
             </button>
@@ -92,7 +93,7 @@
                     />
                     <button 
                         class="btn btn-danger w-24 inline-block text-base ml-5 col-start-1" 
-                        @click="delete branch[index]"
+                        @click="modifyBranch('delete', index)"
                     >
                         Delete
                     </button>
@@ -100,7 +101,7 @@
             </div>
             <button 
                 class="btn btn-primary col-start-5 w-24 inline-block text-base mt-3 mb-5"
-                @click="branch[Object.entries(branch).length] = { name: null, address: null }"
+                @click="modifyBranch('add', index)"
             >
                 Add
             </button>
@@ -126,8 +127,9 @@
 import { ref, reactive, onMounted } from 'vue';
 import { update_delivery_setting, list_delivery_setting } from '@/api_v2/campaign';
 
-const additional_delivery = reactive({})
-const branch = reactive({})
+
+const additional_delivery = ref([])
+const branch = ref([])
 const deliverySettings = ref({
     delivery_charge : 0,
     is_free_delivery_for_order_above_price : true,
@@ -135,78 +137,55 @@ const deliverySettings = ref({
     is_free_delivery_for_how_many_order_minimum : true,
     free_delivery_for_how_many_order_minimum : 0,
     is_additional_delivery_charge : true,
-    additional_delivery_charge_title : [],
-    additional_delivery_charge_type : [],
-    additional_delivery_charge_price : [],
+    additional_delivery_option: [],
     pickup_start_date : '',
     pickup_end_date : '',
-    branch_name : [],
-    branch_address : [],
+    pickup_option: [],
     delivery_note : ''
 })
-
 
 onMounted(() => {
     list_delivery_setting().then(
         response => {
-            // check if meta_logistic is empty
             if (response.data && Object.keys(response.data).length === 0 && Object.getPrototypeOf(response.data) === Object.prototype) {
                 return
             } else {
-                for (let [key, value] of Object.entries(response.data)) {
-                    if (key === 'is_free_delivery_for_order_above_price' || key === 'is_free_delivery_for_how_many_order_minimum' || key === 'is_additional_delivery_charge') {
-                        if (response.data.key === 1) deliverySettings.value[key] = true
-                        else if (response.data.key === 0) deliverySettings.value[key] = false
-                    } else {
-                        deliverySettings.value[key] = value
-                    }
-                }
-
-                if (deliverySettings.value.additional_delivery_charge_title.length > 0) {
-                    for (let i = 0; i < deliverySettings.value.additional_delivery_charge_title.length; i ++) {
-                        let obj = {
-                            'title': deliverySettings.value.additional_delivery_charge_title[i],
-                            'type': deliverySettings.value.additional_delivery_charge_type[i],
-                            'price': deliverySettings.value.additional_delivery_charge_price[i]
-                        }
-                        additional_delivery[i] = obj
-                    }
-                }
-                
-                if (deliverySettings.value.branch_name.length > 0) {
-                    for (let i = 0; i < deliverySettings.value.branch_name.length; i ++) {
-                        let obj = {
-                            'name': deliverySettings.value.branch_name[i],
-                            'address': deliverySettings.value.branch_address[i]
-                        }
-                        branch[i] = obj
-                    }
-                }
+                deliverySettings.value = response.data
+                if (response.data.additional_delivery_option.length > 0) additional_delivery.value = response.data.additional_delivery_option
+                if (response.data.pickup_option.length > 0) branch.value = response.data.pickup_option
             }
         }
     )
 })
 
+const modifyDelivery = (type, index) => {
+    if (type == 'add') {
+        if (Object.entries(additional_delivery.value).length > 0) {
+            additional_delivery.value[parseInt(Object.keys(additional_delivery.value).at(-1)) + 1] = { title: null, type: null, price: null }
+        } else {
+            additional_delivery.value[Object.entries(additional_delivery.value).length] = { title: null, type: null, price: null }
+        }
+    } else if (type == 'delete') {
+        additional_delivery.value = additional_delivery.value.filter(value => value != additional_delivery.value[index])
+    }
+}
+
+const modifyBranch = (type, index) => {
+    console.log(type)
+    if (type == 'add') {
+        if (Object.entries(branch.value).length > 0) {
+            branch.value[parseInt(Object.keys(branch.value).at(-1)) + 1] = { name: null, address: null }
+        } else {
+            branch.value[Object.entries(branch.value).length] = { name: null, address: null }
+        }
+    } else if (type == 'delete') {
+        branch.value = branch.value.filter(value => value != branch.value[index])
+    }
+}
 
 const updateDelivery = () => {
-    for (let key in additional_delivery) {
-        for (let subkey in additional_delivery[key]) {
-            if (subkey == 'title' && !deliverySettings.value.additional_delivery_charge_title.includes(additional_delivery[key][subkey])) {
-                deliverySettings.value.additional_delivery_charge_title.push(additional_delivery[key]['title'])
-                deliverySettings.value.additional_delivery_charge_type.push(additional_delivery[key]['type'])
-                deliverySettings.value.additional_delivery_charge_price.push(additional_delivery[key]['price'])
-            }
-        }
-    }
-
-    for (let key in branch) {
-        for (let subkey in branch[key]) {
-            if (subkey == 'name' && !deliverySettings.value.branch_name.includes(branch[key][subkey])) {
-                deliverySettings.value.branch_name.push(branch[key]['name'])
-                deliverySettings.value.branch_address.push(branch[key]['address'])
-            } 
-        }
-    }
+    deliverySettings.value.additional_delivery_option = additional_delivery.value
+    deliverySettings.value.pickup_option = branch.value
 
     update_delivery_setting(deliverySettings).then(
         response => {

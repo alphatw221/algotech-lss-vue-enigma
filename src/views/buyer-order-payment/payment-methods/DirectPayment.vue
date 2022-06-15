@@ -82,10 +82,10 @@
             <div class="m-3 flex flex-col">
                 <label for="regular-form-2" class="form-label">Last Five Digits</label>
                 <input id="regular-form-2" type="text" class="form-control"
-                    :class="{ 'border-danger': validate.fiveDigits.$error }"
-                    v-model.trim="validate.fiveDigits.$model" />
-                <template v-if="validate.fiveDigits.$error">
-                    <div class="form-help" :class="{ 'text-danger': validate.fiveDigits.$error }">
+                    :class="{ 'border-danger': uploadValidate.fiveDigits.$error }"
+                    v-model.trim="uploadValidate.fiveDigits.$model" />
+                <template v-if="uploadValidate.fiveDigits.$error">
+                    <div class="form-help" :class="{ 'text-danger': uploadValidate.fiveDigits.$error }">
                         Please Enter Exactly 5 Digits
                     </div>
                 </template>
@@ -115,9 +115,9 @@ import {
     required
 } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
-
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 const store = useLSSBuyerOrderStore();
-
+const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const router = useRouter();
 
@@ -128,8 +128,8 @@ const openTab = ref(0);
 const select_account = index => openTab.value = index
 
 
-const newData = reactive({ fiveDigits: "" });
-const rules = {
+const data = reactive({ fiveDigits: "" });
+const dataRules = {
     fiveDigits: {
         required,
         integer,
@@ -137,7 +137,7 @@ const rules = {
         maxLength: maxLength(5),
     },
 };
-const validate = useVuelidate(rules, toRefs(newData));
+const uploadValidate = useVuelidate(dataRules, toRefs(data));
 
 provide("bind[receiptUploadDropzoneRef]", (el) => {
     receiptUploadDropzoneRef.value = el;
@@ -151,8 +151,13 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
 });
 
 const uploadReceipt = () => {
+    uploadValidate.value.$touch();
+    if (uploadValidate.value.$invalid) {
+        layoutStore.alert.showMessageToast("Invild Data")
+        return
+    }
     let formData = new FormData()
-    formData.append('last_five_digit', newData.fiveDigits)
+    formData.append('last_five_digit', data.fiveDigits)
     formData.append('image', receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0] || '')
 
 

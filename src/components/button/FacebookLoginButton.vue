@@ -16,8 +16,6 @@
 <script>
 import loadScript from '@/libs/loadScript.js';
 import { buyer_login_with_facebook, seller_login_with_facebook} from '@/api_v2/user'
-import { useLSSBuyerLayoutStore } from '@/stores/lss-buyer-layout';
-import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 export default {
     props:{
@@ -39,7 +37,6 @@ export default {
                 window.FB.getLoginStatus(response => {
                     if (response.status === 'connected') {
                         const loginRequest = this.role== 'buyer' ? buyer_login_with_facebook : seller_login_with_facebook
-                        const store = this.role == 'buyer' ? useLSSBuyerLayoutStore() : useLSSSellerLayoutStore()
 
                         loginRequest({facebook_token: response.authResponse.accessToken})
                         .then(response => {
@@ -50,18 +47,6 @@ export default {
                             })
                             set_cookie.then(() => {
                                 this.$router.go()
-                                // store.loginWith='facebook'
-                                // if (this.role == 'buyer') {
-                                //     this.$cookies.set("login_with", "facebook")
-                                //     this.$router.go()
-                                //     // if (this.$route.params.pre_order_id){
-                                //     //     this.$router.push(`/buyer/cart/${this.$route.params.pre_order_id}`)
-                                //     // } else {
-                                //     //     this.$router.push(`/buyer/`)
-                                //     // }
-                                // } else if (this.role == 'seller') {
-                                //     this.$router.push(`/seller/campaign-list`)
-                                // }
                             })
                         })
                     } 
