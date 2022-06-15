@@ -16,16 +16,17 @@
             <!-- <div class="mr-auto">091534846</div> -->
             <div class="mr-auto">{{ store.order.shipping_phone }}</div>
         </div>
-        <div class="flex mt-4">
-            <!-- <div class="mr-auto">Shipping Method : Delivery</div> -->
-            <div class="mr-auto">{{ store.order.shipping_method }}</div>
-        </div>
         <template v-if="store.order.shipping_method === 'pickup'">
-            <div class="flex mt-4">In-store pickup</div>
-            <div class="flex mt-4">{{store.order.meta.pick_up_store}}</div>
-            <div class="flex mt-4">{{store.order.meta.pick_up_store_address}}</div>
+            <div class="flex mt-4 mr-auto">In-store pickup</div>
+            <div class="flex mt-4"> 
+                <span class="mr-10">{{ store.order.shipping_option }}</span>
+                <div >{{store.order.campaign.meta_logistic.branch_address[0]}}</div>
+            </div>
+            
         </template>
         <template v-if="store.order.shipping_method === 'delivery'">
+            <div class="mr-auto">{{ store.order.shipping_method }}</div>
+            <div class="">{{ store.order.shipping_option }}</div>
             <div class="flex mt-4">Delivery Address</div>
             <div class="flex mt-4">
                 {{store.order.shipping_location}} ,

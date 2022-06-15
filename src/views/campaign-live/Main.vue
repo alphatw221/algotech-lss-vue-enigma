@@ -1,6 +1,6 @@
-<template>
+<template class=" h-full lg:h-screen 2xl:h-screen">
     <!-- OUTTER BOX -->
-    <div class="grid grid-cols-12 gap-3 h-full lg:h-screen 2xl:h-screen">
+    <div class="grid grid-cols-12 gap-3">
         <!-- BEGIN: Comments -->
         <LiveComments :campaignId="campaignId"
         />
