@@ -63,7 +63,7 @@
                                     data-action="zoom"
                                     content="receipt image"
                                     class="rounded-lg"
-                                    :src="store.order.meta.receipt_image"
+                                    :src="store.order.meta.receipt_image||storageUrl+'no_image.jpeg'"
                                 />
                             </div>
                         </template>
@@ -136,7 +136,7 @@ const route = useRoute();
 const router = useRouter();
 
 const store = useLSSBuyerOrderStore(); 
-
+const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 onMounted(() => {
     buyer_retrieve_order(route.params.order_id)
     .then(
