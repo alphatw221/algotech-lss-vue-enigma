@@ -66,7 +66,7 @@ import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
 
-import ProductSelect from "../views/create-campaign/ProductSelect.vue";
+import CreateCampaign from "../views/create-campaign/Main.vue";
 import DetailsConfirm from "../views/create-campaign/DetailsConfirm.vue";
 
 import AutoReply from "../views/autoReply/Main.vue";  
@@ -92,9 +92,10 @@ import Profile from "../views/profile/Main.vue";
 // import Test6 from "../views/test/test6.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
-import isBuyerAuth from "@/libs/routerMiddleware/isBuyerAuth"
-import isSellerAuth from "@/libs/routerMiddleware/isSellerAuth"
-import checkBuyerLoginType from "@/libs/routerMiddleware/checkBuyerLoginType";
+import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
+import sellerAuthMiddleware from "@/libs/routerMiddleware/sellerAuthMiddleware"
+
+import buyerLoginMiddleware from "@/libs/routerMiddleware/buyerLoginMiddleware";
 
 const routes = [
   // {
@@ -105,7 +106,7 @@ const routes = [
   {
     path: "/seller",
     component: LssSellerLayout,
-    beforeEnter: isSellerAuth,
+    beforeEnter: sellerAuthMiddleware,
     children: [
       {
         path: "profile",
@@ -154,12 +155,12 @@ const routes = [
       // },
 /*                CREATE CAMPAIGN                        */      
       {
-        path: "create-campaign",
+        path: "campaign/create",
         name: "side-menu-createCam-productselect",
-        component: ProductSelect,
+        component: CreateCampaign,
       },  
       {
-        path: "create-campaign/details",
+        path: "campaign/create/confirm",
         name: "side-menu-createCam-detailsconfirm",
         component: DetailsConfirm,
       },  
@@ -271,7 +272,7 @@ const routes = [
   {
     path: "/buyer",
     component: LSSBuyerLayout,
-    beforeEnter: isBuyerAuth,
+    beforeEnter: buyerAuthMiddleware,
     children: [
       {
         path: "orders",
@@ -299,7 +300,7 @@ const routes = [
   {
     path: "/buyer/login/:type?/:object_id?",
     name: "buyer-login-page",
-    beforeEnter: checkBuyerLoginType,
+    beforeEnter: buyerLoginMiddleware,
     component: () => import('@/views/general/BuyerLoginPage.vue'),
   },
 

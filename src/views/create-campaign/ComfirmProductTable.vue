@@ -58,7 +58,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'tag'">
-                            <div v-for="tag in product[column.key]">
+                            <div v-for="(tag,index) in product[column.key]" :key="index">
                                 {{ tag }}
                             </div>
                         </td>

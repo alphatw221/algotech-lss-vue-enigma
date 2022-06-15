@@ -375,12 +375,13 @@ const proceed_to_payment = () =>{
   }
   if(shipping_info.value.shipping_method==='delivery'){
     delivery_validate.value.$touch();
-  }
-  if(delivery_validate.value.$invalid){
+    if(delivery_validate.value.$invalid){
       layoutStore.alert.showMessageToast("Invild Delivery Infomation Input")
       return
+    }
   }
-  else if (confirm('Are you sure you want to process check out? Your shopping cart will be cleared.')){
+  
+  if (confirm('Are you sure you want to process check out? Your shopping cart will be cleared.')){
     update_delivery_info(route.params.pre_order_id, {shipping_data:shipping_info.value}).then(res=>{
       router.push(`/buyer/order/${res.data.id}/payment`)
     })

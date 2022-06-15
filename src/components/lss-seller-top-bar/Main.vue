@@ -234,32 +234,36 @@
 import { ref, defineEmits, computed } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useRoute, useRouter } from "vue-router";
+import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
 
 const route = useRoute();
 const router = useRouter();
-
+const { cookies } = useCookies()
 const sellerLayoutStore = useLSSSellerLayoutStore();
 
 const toggleMobileMenu = ()=>{
   sellerLayoutStore.showMobileMenu = !sellerLayoutStore.showMobileMenu
 }
 
-// const userAvatar = sellerLayoutStore.loginWith=='facebook' ? sellerLayoutStore.userInfo.facebook_info.picture : sellerLayoutStore.userInfo.google_info.picture
 const userAvatar = computed(() => {
-  if(sellerLayoutStore.loginWith=='facebook'){
+  if(cookies.get('login_with')=='facebook'){
     return sellerLayoutStore.userInfo.facebook_info.picture
-  }else if (sellerLayoutStore.loginWith=='google'){
+  }
+  if (cookies.get('login_with')=='google'){
     return sellerLayoutStore.userInfo.google_info.picture
   }
-  if(sellerLayoutStore.userInfo.facebook_info.picture){
+  if(buyerLayoutStore.userInfo.facebook_info.picture){
     return sellerLayoutStore.userInfo.facebook_info.picture
   }
-  return sellerLayoutStore.userInfo.google_info.picture
+  if(buyerLayoutStore.userInfo.google_info.picture){
+    return sellerLayoutStore.userInfo.google_info.picture
+  }
+  return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
 });
 const logout = () => {
-  // clear cookies
-  // clear token
+  cookies.remove('access_token')
+  cookies.remove('login_with')
   dom('.dropdown-menu').removeClass('show')
   router.replace('/seller/login')
   
