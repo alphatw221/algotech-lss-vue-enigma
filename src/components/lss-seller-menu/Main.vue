@@ -2,6 +2,12 @@
 <div class="flex overflow-hidden bg-secondary">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
+        <div class="flex cursor-pointer m-3 " @click="router.push('/seller/create-campaign')"> 
+          <button class="btn btn-rounded-primary mr-3 w-10 h-10"
+          ><PlusIcon class="w-5 h-5"/> </button>
+          <span class="font-bold hidden xl:block 2xl:block">Create <br> New Campaign</span> 
+        </div>
+        
         <ul>
           <!-- BEGIN: First Child -->
           <template v-for="(menu, menuKey) in formattedMenu">
@@ -118,8 +124,12 @@
             </li>
           </template>
           <!-- END: First Child -->
-        </ul>
+        </ul> 
+          <button class="btn btn-danger text-white rounded-lg m-0 xl:m-5 2xl:m-5 absolute bottom-5"
+              @click="layoutStore.profileTab = 1; router.replace('/seller/profile')"
+          ><ZapIcon class="mr-0 xl:mr-2 2xl:mr-2" /><span class="hidden text-lg xl:block 2xl:block">Upgrade </span>  </button>
       </nav>
+      
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
       <div class="content">

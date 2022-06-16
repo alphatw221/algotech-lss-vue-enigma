@@ -29,7 +29,7 @@
             </div>
             <div class="col-start-1 col-span-12 -mt-2">
                 <AccordionGroup class="accordion-boxed">
-                    <AccordionItem class="mt-0">
+                    <AccordionItem class="mt-0 h-fit">
                         <Accordion class="bg-primary rounded-lg">
                             <div class="w-full flex justify-end"> <PlusIcon class="text-white mx-5 -mt-2" /> </div>
                         </Accordion>

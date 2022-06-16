@@ -2,7 +2,7 @@
     <div  class="intro-y box p-10 m-5 text-sm lg:text-xl 2xl:text-xl" >
         <div class="grid grid-cols-12 gap-5">
             <div class="col-span-12 lg:col-span-8 2xl:col-span-8">
-                <table class="pa-5 w-full">
+                <table class="w-full">
                     <thead>
                         <tr class="p-4">
                             <th class="flex">
@@ -10,7 +10,7 @@
                                 <AwardIcon />
                             </th>
                             <th> Joined : 
-                                <span style="text-align:right;">
+                                <span class="align-right">
                                     {{ new Date(sellerLayoutStore.userInfo.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
                                 </span>
                             </th>
@@ -37,7 +37,7 @@
                 </table>
             </div>
             <div class="col-span-12 lg:col-span-4 2xl:col-span-4 pa-10 mt-5 justify-self-center">
-                <button class="btn btn-elevated-success capitalize text-white" @click="this.$router.push('/changeplan/payment')">
+                <button class="btn btn-elevated-success capitalize text-white" @click="router.replace('lss/#/changeplan/payment')">
                     Change Plan</button>
             </div>
         </div>
@@ -46,12 +46,14 @@
 
 <script setup>
 import { computed, onMounted, provide, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import dom from "@left4code/tw-starter/dist/js/dom";
-import ProfileTab from './ProfileTab.vue';
 
 const sellerLayoutStore = useLSSSellerLayoutStore();
 const editModal = ref(false);
+const route = useRoute();
+const router = useRouter();
 onMounted(() => {
     console.log(sellerLayoutStore.userInfo)
 });

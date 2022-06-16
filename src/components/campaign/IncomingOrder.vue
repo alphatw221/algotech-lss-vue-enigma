@@ -38,7 +38,7 @@
                                 </div>
                             </td>
                             <td>{{ data.customer_name }}</td>
-                            <td>{{ data.currency_sign }}{{ data.subtotal }}</td>
+                            <td>{{ data.currency_sign }}{{ parseFloat(data.subtotal).toFixed(2) }}</td> 
                             <td>
                                 <EyeIcon @click="this.$router.push(`/seller/order/${data.id}`);seller_order_detail"/>
                             </td>

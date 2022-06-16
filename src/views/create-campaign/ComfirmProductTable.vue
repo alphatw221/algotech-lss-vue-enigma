@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <table class="table table-report overflow-x-scroll">
+    <div class="overflow-x-auto ">
+        <table class="table table-report ">
             <thead>
                 <tr>
                     <th class="whitespace-normal truncate hover:text-clip items-center" v-for="column in tableColumns"
@@ -118,10 +118,8 @@
                                 v-model="product[column.key]" 
                                 />
                         </td>
-                        <td v-else-if="column.key === 'type'"
-                            class="flex w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
-                            <div class="form-check mt-2 self-center place-content-center"> 
-                                {{ product[column.key] }} </div>
+                        <td v-else-if="column.key === 'type'" >
+                                {{ product[column.key] }}
                         </td>
                     </template>
 
@@ -262,7 +260,7 @@ const isOrderCodeDuplicate = (index) => {
 
 td {
 	height: auto !important;
-    min-height: 35px !important;
+    min-height: 40px !important;
     width: auto !important;
 }
 @media only screen and (max-width: 760px),
