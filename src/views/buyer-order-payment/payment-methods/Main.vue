@@ -65,32 +65,4 @@
 import DirectPayment from "./DirectPayment.vue";
 import {ref} from "vue"
 const selectIndex = ref(0)
-// import { computed, onMounted, ref, watch, provide } from "vue";
-// import { useLSSPaymentMetaStore } from "@/stores/lss-payment-meta";
-// import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-// import { buyer_upload_receipt } from "@/api_v2/order";
-
-// import { useRoute, useRouter } from "vue-router";
-
-
-// const route = useRoute();
-// const paymentMetaStore = useLSSPaymentMetaStore();
-// const shoppingCartStore = useShoppingCartStore();
-
-// const paymentMeta = computed(()=>{
-
-//     const campaign = shoppingCartStore.order.campaign||null
-//     if(!campaign)return{}
-//     const user_subscription = campaign.user_subscription||null
-//     if(!user_subscription)return{}
-//     let paymentMeta = {}
-//     user_subscription.meta_country.activated_country.forEach(country => {
-//         paymentMetaStore[country].forEach(payment=>{
-//             paymentMeta[payment] = paymentMetaStore[payment]
-//         })
-//     });
-
-//     return paymentMeta
-// })
-
 </script>
