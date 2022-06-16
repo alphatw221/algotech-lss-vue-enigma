@@ -167,6 +167,7 @@ const uploadReceipt = () => {
     let formData = new FormData()
     formData.append('last_five_digit', data.fiveDigits)
     formData.append('image', receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0] || '')
+    formData.append('account_name', account.direct_payment_name)
 
     buyer_upload_receipt(route.params.order_id, formData)
         .then(
