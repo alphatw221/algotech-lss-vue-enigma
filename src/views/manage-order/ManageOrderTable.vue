@@ -8,7 +8,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(order, key) in store.manageOrder" :key="key" class="intro-x">
+                        <tr v-for="(order, key) in store.manageOrderList" :key="key" class="intro-x">
                             <td v-for="column in columns" :key="column.key">
                                 <template v-if="column.key === 'platform'" class="w-40">
                                     <div class="flex place-content-center">
@@ -52,10 +52,20 @@
                                 <template v-if="column.key === 'name'" class="w-40">
                                         <div class="flex">
                                             <div class="w-10 h-10 image-fit zoom-in">
-                                                <Tippy tag="img" class="rounded-full" :src="store.manageOrder.customer_img" />
+                                                <Tippy tag="img" class="rounded-full" :src="store.manageOrderList.customer_img" />
                                             </div>
                                             <div>{{order.customer_name}}</div>
                                         </div>
+                                </template>
+                                <template v-else-if="column.key === 'order_product'" class="w-40">
+                                    <div class="flex place-content-center">
+                                        <div class="w-10 h-10 image-fit">
+                                            <ChevronDownIcon/>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-if="column.key === 'subtotal'" class="w-30">
+                                    {{ (order.subtotal).toFixed(2) }}
                                 </template>
                                 <template v-else class="w-30">
                                     {{ order[column.key] }}
@@ -81,6 +91,7 @@ const columns = ref([
     { name: 'Status', key: 'status' },
     { name: 'View', key: 'view' },
     { name: 'Delivery Status', key: 'delivery' },
+    { name: '', key: 'order_product'}
 ]);
 
 function to_order_detail(order_id,type){
