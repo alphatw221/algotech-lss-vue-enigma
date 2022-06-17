@@ -113,10 +113,16 @@
             </textarea>
 
             <button 
-                class="btn btn-elevated-rounded-success text-base w-48 col-start-5 mt-5"
+                class="btn btn-elevated-rounded-warning text-base w-36 col-start-4 mt-5"
+                @click="discardDelivery"
+            >
+                Discard
+            </button>
+            <button 
+                class="btn btn-elevated-rounded-success text-base w-36 col-start-6 mt-5"
                 @click="updateDelivery"
             >
-                Update
+                {{ upsertButtonName }}
             </button>
             
         </div>        
@@ -143,11 +149,17 @@ const deliverySettings = ref({
     pickup_option: [],
     delivery_note : ''
 })
+const upsertButtonName = ref('Update')
 
 onMounted(() => {
+    list()
+})
+
+const list = () => {
     list_delivery_setting().then(
         response => {
             if (response.data && Object.keys(response.data).length === 0 && Object.getPrototypeOf(response.data) === Object.prototype) {
+                upsertButtonName.value = 'Save'
                 return
             } else {
                 deliverySettings.value = response.data
@@ -155,8 +167,8 @@ onMounted(() => {
                 if (response.data.pickup_option.length > 0) branch.value = response.data.pickup_option
             }
         }
-    )
-})
+    )    
+}
 
 const modifyDelivery = (type, index) => {
     if (type == 'add') {
@@ -192,6 +204,10 @@ const updateDelivery = () => {
             console.log(response)
         }
     )
+}
+
+const discardDelivery = () => {
+    list()
 }
 
 </script>

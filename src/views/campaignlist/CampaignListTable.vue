@@ -69,7 +69,7 @@
             }}</div>
           </td>
           <td class="manage_order items-center w-fit">
-            <a class="flex items-center justify-center" @click="manageOrder(campaign.id)">
+            <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
               <ListIcon class="w-6 h-6 self-center" />
             </a>
           </td>
@@ -203,8 +203,8 @@ export default {
       }
       this.$emit('showRemindModal', { 'tableName': this.tableName, 'campaign': campaign, 'index': index })
     },
-    manageOrder(campaign_id) {
-      this.$router.push(`/seller/manage-order/${campaign_id}`)
+    manageOrder(campaign_id,status) {
+      this.$router.push(`/seller/manage-order/${campaign_id}?checkout=${status}`)
     },
     copyURL(campaign_id) {
       var dummy = document.createElement('input'),

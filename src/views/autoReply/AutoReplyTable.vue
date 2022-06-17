@@ -148,7 +148,6 @@ function getReplyData() {
 			totalCount.value = response.data.length;
 			listItems.value = response.data;
 			listItems.value = listItems.value.reverse();
-			console.log(response.data);
 		})
 		.catch(function (error) {
 			console.log(error);
