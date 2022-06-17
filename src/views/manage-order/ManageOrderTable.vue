@@ -8,7 +8,7 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(order, key) in store.manageOrderList" :key="key" class="intro-x">
+                        <tr v-for="(order, key) in store[tableStatus]" :key="key" class="intro-x">
                             <td v-for="column in columns" :key="column.key">
                                 <template v-if="column.key === 'platform'" class="w-40">
                                     <div class="flex place-content-center">
@@ -52,7 +52,7 @@
                                 <template v-if="column.key === 'name'" class="w-40">
                                         <div class="flex">
                                             <div class="w-10 h-10 image-fit zoom-in">
-                                                <Tippy tag="img" class="rounded-full" :src="store.manageOrderList.customer_img" />
+                                                <Tippy tag="img" class="rounded-full" :src="store[tableStatus].customer_img" />
                                             </div>
                                             <div>{{order.customer_name}}</div>
                                         </div>
@@ -93,6 +93,10 @@ const columns = ref([
     { name: 'Delivery Status', key: 'delivery' },
     { name: '', key: 'order_product'}
 ]);
+
+const props = defineProps({
+    tableStatus: String,
+});
 
 function to_order_detail(order_id,type){
     store.order_type = type
