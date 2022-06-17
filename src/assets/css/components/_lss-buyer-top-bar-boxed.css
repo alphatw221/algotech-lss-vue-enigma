@@ -1,0 +1,38 @@
+.lss-buyer-top-bar-boxed {
+    &.top-bar-boxed--simple-menu {
+        .logo {
+            @apply w-auto;
+            .logo__text {
+                @apply hidden;
+            }
+        }
+    }
+    &.top-bar-boxed--top-menu {
+        @apply dark:md:from-darkmode-800;
+        .logo {
+            @apply w-auto;
+        }
+        .breadcrumb {
+            @apply md:ml-10 md:pl-10;
+        }
+    }
+    &:not(.top-bar-boxed--top-menu) {
+        .logo__text {
+            @apply hidden xl:block;
+        }
+    }
+    &:before {
+        content: "";
+        @apply absolute h-[65px] inset-0 mx-7 bg-primary/30 rounded-xl hidden dark:bg-darkmode-600/30;
+        @apply mt-1;
+        /* @apply md:block; */
+        display: block;
+    }
+    &:after {
+        content: "";
+        @apply absolute inset-0 h-[65px] mx-3 bg-primary rounded-xl shadow-md hidden dark:bg-darkmode-600;
+        @apply mt-2;
+        /* @apply md:block; */
+        display: block;
+    }
+}

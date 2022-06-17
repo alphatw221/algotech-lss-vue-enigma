@@ -1,613 +1,112 @@
 <template>
   <div class="flex flex-wrap">
     <div class="w-full">
-    <!-- Tab List-->
+      <!-- BEGIN Tab List-->
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
-        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-          <div
-            class="intro-x flex items-center z-10 lg:text-center lg:mt-0 lg:block"
-          >
-            <button
-              @click="toggleTabs(1)"
-              v-bind:class="{
-                'text-neutral-600 bg-white': openTab !== 1,
-                'text-white bg-primary': openTab === 1,
-              }"
-              class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400"
-            >
+        <li class="-mb-px last:mr-0 flex-auto text-center ml-14">
+          <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
+            <button 
+            @click="toggleTabs(1)"
+            :class="{
+              'text-neutral-600 bg-white': store.openTab !== 1,
+              'text-white bg-primary': store.openTab === 1,
+            }"
+              class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
               <ShoppingCartIcon />
             </button>
             <div
-              class="ml-3 lg:w-32 text-base lg:mt-1 lg:mx-auto text-slate-600 dark:text-slate-400 invisible lg:visible 2xl:visible"
-              v-bind:class="{
-                'text-neutral-600': openTab !== 1,
-                'text-white font-bold': openTab === 1,
-              }"
-            >
+              class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              :class="{
+                'text-neutral-600': store.openTab !== 1,
+                'font-bold': store.openTab === 1,
+              }">
               Shopping Cart
             </div>
           </div>
         </li>
-        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-          <div
-            class="intro-x flex items-center z-10 lg:text-center lg:mt-0 lg:block"
-          >
-            <button
-              @click="toggleTabs(2)"
-              v-bind:class="{
-                'text-neutral-600 bg-white': openTab !== 2,
-                'text-white bg-primary': openTab === 2,
-              }"
-              class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400"
-            >
+        <li class="-mb-px last:mr-0 flex-auto text-center">
+          <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
+            <button 
+            @click="toggleTabs(2)"
+            :class="{
+              'text-neutral-600 bg-white': store.openTab !== 2,
+              'text-white bg-primary': store.openTab === 2,
+            }"
+              class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
               <TruckIcon />
             </button>
             <div
-              class="lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400 invisible lg:visible 2xl:visible"
-              v-bind:class="{
-                'text-neutral-600': openTab !== 2,
-                'font-bold': openTab === 2,
-              }"
-            >
+              class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              :class="{
+                'text-neutral-600': store.openTab !== 2,
+                'font-bold': store.openTab === 2,
+              }">
               Delivery
             </div>
           </div>
         </li>
-        <li class="-mb-px mr-2 last:mr-0 flex-auto text-center">
-          <div
-            class="intro-x flex items-center z-10 lg:text-center lg:mt-0 lg:block"
-          >
-            <button
-              @click="toggleTabs(3)"
-              v-bind:class="{
-                'text-neutral-600 bg-white': openTab !== 3,
-                'text-white bg-primary': openTab === 3,
-              }"
-              class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400"
-            >
-              <CreditCardIcon />
-            </button>
-            <div
-              class="lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400 invisible lg:visible 2xl:visible"
-              v-bind:class="{
-                'text-neutral-600': openTab !== 3,
-                'font-bold': openTab === 3,
-              }"
-            >
-              Payment
-            </div>
-          </div>
-        </li>
       </ul>
-      <div
-        class="relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg"
-      >
+      <!-- END Tab List-->
+
+      <div class="box relative flex flex-col min-w-0 break-words bg-white w-full mb-6 shadow-lg rounded-lg">
         <div class="px-4 py-5 flex-auto">
+
           <div class="tab-content tab-space">
-            <div v-bind:class="{ hidden: openTab !== 1, block: openTab === 1 }">
-              <div>My Cart</div>
-              <div class="box grid grid-cols-12 gap-4">
-                <div
-                  class="overflow-x-auto col-span-12 2xl:col-span-7 lg:col-span-7"
-                >
-                  <ShoppingCartTable
-                    :requestUrl="'.'"
-                    :columns="tableColumns"
-                    :product="products"
-                  >
-                  </ShoppingCartTable>
-                </div>
-                <div
-                  class="col-span-12 
-                    2xl:col-start-8 2xl:col-span-5 
-                        lg:col-start-8 lg:col-span-5"
-                >
-                  <OrderSummary :page_type="'stap1'"> </OrderSummary>
-                </div>
-              </div>
-              <div class="box grid grid-cols-12 gap-4 ml-4 mr-4">
-                <div class="overflow-x-auto col-start-1 col-span-7">
-                  <div><span class="text-lg">Special Note:</span></div>
-                  <div class="flex">
-                    <div class="mr-auto">Special Note!!!!!!!!!!!!!!!!!!!!</div>
-                  </div>
-                </div>
-              </div>
-            </div>
-            <div v-bind:class="{ hidden: openTab !== 2, block: openTab === 2 }">
-              <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-                <h2 class="text-xl font-medium mr-auto">Contact Information</h2>
-              </div>
-              <div class="intro-y grid grid-cols-12 gap-5">
-                <div class="intro-y col-span-12 lg:col-span-8">
-                  <div
-                    class="box p-10 mt-3 intro-y grid grid-cols-12 gap-5 my-10"
-                  >
-                    <label
-                      for="regular-form-2"
-                      class="form-label col-span-4 lg:col-span-2 2xl:col-span-2"
-                      >First Name</label
-                    >
-                    <input
-                      id="regular-form-2"
-                      type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder=""
-                    />
-                    <label
-                      for="regular-form-2"
-                      class="form-label col-span-4 lg:col-span-2 2xl:col-span-2"
-                      >Last Name</label
-                    >
-                    <input
-                      id="regular-form-2"
-                      type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder=""
-                    />
-                    <label
-                      for="regular-form-2"
-                      class="form-label col-span-4 lg:col-span-2 2xl:col-span-2"
-                      >Email</label
-                    >
-                    <input
-                      id="regular-form-2"
-                      type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder=""
-                    />
-                    <label
-                      for="regular-form-2"
-                      class="form-label col-span-4 lg:col-span-2 2xl:col-span-2"
-                      >Phone</label
-                    >
-                    <input
-                      id="regular-form-2"
-                      type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
-                      placeholder=""
-                    />
-                  </div>
+            <!-- BEGIN My Cart Tab -->
+              <MyCartTab />
+            <!-- END My Cart Tab -->
 
-                  <div
-                    class="intro-y flex flex-col sm:flex-row items-center mt-8"
-                  >
-                    <h2 class="text-xl font-medium mr-auto mb-5">
-                      Shipping Information
-                    </h2>
-                  </div>
-
-                  <TabGroup>
-                    <TabList class="nav-boxed-tabs">
-                      <Tab
-                        class="w-48 py-6 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
-                        tag="button"
-                      >
-                        <TruckIcon class="block mr-3" /><span class="text-lg"
-                          >Delivery</span
-                        >
-                      </Tab>
-                      <Tab
-                        class="w-48 py-3 lg:w-60 2xl:w-60 xl:py-10 2xl:py-10 inline-flex border-[#131c34]"
-                        tag="button"
-                      >
-                        <HomeIcon class="block mr-3" /><span class="text-lg"
-                          >Collect In Store</span
-                        >
-                      </Tab>
-                    </TabList>
-                    <TabPanels class="mt-5">
-                      <TabPanel class="leading-relaxed">
-                        <label class="text-md font-medium"
-                          >Delivery Information</label
-                        >
-                        <div class="grid grid-cols-12">
-                          <div
-                            class="box p-10 mt-3 intro-y col-span-12 gap-5 my-10"
-                          >
-                            <label
-                              for="regular-form-2"
-                              class="form-label col-span-12"
-                              >Address</label
-                            >
-                            <input
-                              id="regular-form-2"
-                              type="text"
-                              class="form-control form-control-rounded col-span-12"
-                              placeholder=""
-                            />
-                            <label
-                              for="regular-form-2"
-                              class="form-label col-span-2"
-                              >City</label
-                            >
-                            <input
-                              id="regular-form-2"
-                              type="text"
-                              class="form-control form-control-rounded col-span-4"
-                              placeholder=""
-                            />
-                            <label
-                              for="regular-form-2"
-                              class="form-label col-span-2"
-                              >State</label
-                            >
-                            <input
-                              id="regular-form-2"
-                              type="text"
-                              class="form-control form-control-rounded col-span-4"
-                              placeholder=""
-                            />
-                            <label
-                              for="regular-form-2"
-                              class="form-label col-span-2"
-                              >Postal Code</label
-                            >
-                            <input
-                              id="regular-form-2"
-                              type="text"
-                              class="form-control form-control-rounded col-span-4"
-                              placeholder=""
-                            />
-                          </div>
-                        </div>
-                        <label class="text-md font-medium"
-                          >Delivery Option</label
-                        >
-                        <div class="grid grid-cols-12">
-                          <div class="col-span-6">
-                            <div class="form-check mt-2">
-                              <input
-                                id="radio-switch-1"
-                                class="form-check-input"
-                                type="radio"
-                                name=""
-                                value=""
-                              />
-                              <label
-                                class="form-check-label"
-                                for="radio-switch-1"
-                                >Option 1</label
-                              >
-                            </div>
-                            <div class="form-check mt-2">
-                              <input
-                                id="radio-switch-2"
-                                class="form-check-input"
-                                type="radio"
-                                name=""
-                                value=""
-                              />
-                              <label
-                                class="form-check-label"
-                                for="radio-switch-2"
-                                >Option 2</label
-                              >
-                            </div>
-                            <div class="form-check mt-2">
-                              <input
-                                id="radio-switch-3"
-                                class="form-check-input"
-                                type="radio"
-                                name=""
-                                value=""
-                              />
-                              <label
-                                class="form-check-label"
-                                for="radio-switch-3"
-                                >Option 3</label
-                              >
-                            </div>
-                          </div>
-                          <div class="col-span-6">
-                            <div class="form-check mt-2">
-                              <label class="form-check-label">USD10</label>
-                            </div>
-                            <div class="form-check mt-2">
-                              <label class="form-check-label">USD10</label>
-                            </div>
-                            <div class="form-check mt-2">
-                              <label class="form-check-label">USD10</label>
-                            </div>
-                          </div>
-                        </div>
-                        <div class="text-center mt-10 text-black underline">
-                          Load More
-                        </div>
-                      </TabPanel>
-                      <TabPanel class="leading-relaxed">
-                        <label class="text-md font-medium">Pickup Option</label>
-                        <div class="grid grid-cols-12">
-                          <div class="col-span-6">
-                            <div>Store</div>
-                            <div class="form-check mt-2">
-                              <input
-                                id="radio-switch-1"
-                                class="form-check-input"
-                                type="radio"
-                                name=""
-                                value=""
-                              />
-                              <label
-                                class="form-check-label"
-                                for="radio-switch-1"
-                                >Store 1</label
-                              >
-                            </div>
-                            <div class="form-check mt-2">
-                              <input
-                                id="radio-switch-2"
-                                class="form-check-input"
-                                type="radio"
-                                name=""
-                                value=""
-                              />
-                              <label
-                                class="form-check-label"
-                                for="radio-switch-2"
-                                >Store 2</label
-                              >
-                            </div>
-                            <div class="form-check mt-2">
-                              <input
-                                id="radio-switch-3"
-                                class="form-check-input"
-                                type="radio"
-                                name=""
-                                value=""
-                              />
-                              <label
-                                class="form-check-label"
-                                for="radio-switch-3"
-                                >Store 3</label
-                              >
-                            </div>
-                          </div>
-                          <div class="col-span-6">
-                            <div>Address</div>
-                            <div class="form-check mt-2">
-                              <label class="form-check-label"
-                                >Add 1, Stress 1, City 1 , State 1 10654</label
-                              >
-                            </div>
-                            <div class="form-check mt-2">
-                              <label class="form-check-label"
-                                >Add 2, Stress 2, City 2 , State 2 20654</label
-                              >
-                            </div>
-                            <div class="form-check mt-2">
-                              <label class="form-check-label"
-                                >Add 3, Stress 3, City 3 , State 3 30654</label
-                              >
-                            </div>
-                          </div>
-                        </div>
-                        <div class="text-center mt-10 text-black underline">
-                          Load More
-                        </div>
-                      </TabPanel>
-                    </TabPanels>
-                    <div class="col-span-12 mt-10">
-                      <div class="text-md font-medium">
-                        Delivery and Collect Note
-                      </div>
-                      <p
-                        id=""
-                        class="form-control col-start-1 col-span-12"
-                        placeholder=""
-                      >
-                        Delivery will be shipped after Dragon Boat Festval sorry
-                        for the inconvenience we caused.
-                      </p>
-                    </div>
-                    <div class="col-span-12 mt-10">
-                      <div class="text-md font-medium">Remark</div>
-                      <textarea
-                        id=""
-                        class="form-control col-start-1 col-span-12"
-                        placeholder=""
-                      >
-                                  Remark remark remark remark</textarea
-                      >
-                    </div>
-                  </TabGroup>
-                </div>
-
-                <!-- BEGIN: Order Summary -->
-                <div class="col-span-12 lg:col-span-4">
-                  <div class="intro-y">
-                    <OrderSummary />
-                  </div>
-                  <div class="intro-y box col-span-12 lg:col-span-6 mt-5">
-                    <div
-                      class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400"
-                    >
-                      <h2 class="font-medium text-base mr-auto">
-                        My Cart (4 Items)
-                      </h2>
-                      <button class="border-none hidden sm:flex underline">
-                        Edit
-                      </button>
-                    </div>
-                    <div class="p-5">
-                      <div class="relative flex items-center">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img
-                            alt=""
-                            class="rounded-md"
-                            :src="$f()[0].photos[0]"
-                          />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 1</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Description 123
-                          </div>
-                        </div>
-                        <div
-                          class="font-medium text-slate-600 dark:text-slate-500"
-                        >
-                          USD25.99
-                        </div>
-                      </div>
-                      <div class="relative flex items-center mt-5">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img
-                            alt=""
-                            class="rounded-md"
-                            :src="$f()[1].photos[0]"
-                          />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 2</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Description 123
-                          </div>
-                        </div>
-                        <div
-                          class="font-medium text-slate-600 dark:text-slate-500"
-                        >
-                          USD25.99
-                        </div>
-                      </div>
-                      <div class="relative flex items-center mt-5">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img
-                            alt=""
-                            class="rounded-md"
-                            :src="$f()[2].photos[0]"
-                          />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 3</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Product 3
-                          </div>
-                        </div>
-                        <div
-                          class="font-medium text-slate-600 dark:text-slate-500"
-                        >
-                          USD21
-                        </div>
-                      </div>
-                      <div class="relative flex items-center mt-5">
-                        <div class="w-12 h-12 flex-none image-fit">
-                          <img
-                            alt=""
-                            class="rounded-md"
-                            :src="$f()[2].photos[0]"
-                          />
-                        </div>
-                        <div class="ml-4 mr-auto">
-                          <a href="" class="font-medium">Product 4</a>
-                          <div class="text-slate-500 mr-5 sm:mr-5">
-                            Product 3
-                          </div>
-                        </div>
-                        <div
-                          class="font-medium text-slate-600 dark:text-slate-500"
-                        >
-                          USD21
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div class="my-5 flex justify-end">
-                <button class="w-full btn btn-primary lg:w-fit 2xl:lg:w-fit">
-                  Proceed to Payment
-                </button>
-              </div>
-            </div>
-            <div v-bind:class="{ hidden: openTab !== 3, block: openTab === 3 }">
-              <div class="grid grid-cols-12 gap-4">
-                <div
-                  class="col-start-1 col-span-12 lg:col-span-7 2xl:col-span-7"
-                >
-                  <ShippingSummary />
-                </div>
-                <div class="col-span-12 lg:col-span-5 2xl:col-span-5">
-                  <OrderSummary />
-                </div>
-                <div
-                  class="col-start-1 col-span-12 lg:col-span-7 2xl:col-span-7"
-                >
-                  <PaymentMethods />
-                </div>
-              </div>
-            </div>
+            <!-- BEGIN Delivery Tab -->
+              <DeliveryTab/>
+            <!-- END Delivery Tab-->
           </div>
         </div>
       </div>
+
     </div>
   </div>
 </template>
 
-<script>
-import PaymentMethods from "@/components/box/PaymentMethods.vue";
-import OrderSummary from "@/components/box/OrderSummary.vue";
-import ShippingSummary from "@/components/box/ShippingSummary.vue";
-import ShoppingCartTable from "@/components/table/ShoppingCartTable.vue";
+<script setup>
+// import MyCartTab from "@/components/shopping-cart/MyCartTab.vue";
+// import DeliveryTab from "@/components/shopping-cart/DeliveryTab.vue";
 
-export default {
-  components: {
-    PaymentMethods,
-    OrderSummary,
-    ShippingSummary,
-    ShoppingCartTable,
-  },
-  data() {
-    return {
-      openTab: 1,
-      tableColumns: [
-        { name: " ", key: "image" },
-        { name: "Product", key: "product" },
-        { name: "Q'TY", key: "qty" },
-        { name: "Price", key: "price" },
-        { name: "Subtotal", key: "subtotal" },
-        { name: " ", key: "remove" },
-      ],
-      products: [
-        {
-          img: "",
-          name: "cookie",
-          price: 10.0,
-          qty: 3,
-        },
-        {
-          img: "",
-          name: "car",
-          price: 10000.0,
-          qty: 1,
-        },
-        {
-          img: "",
-          name: "pooo",
-          price: 1024.0,
-          qty: 10,
-        },
-      ],
-    };
-  },
-  computed: {
-    filterStyle() {
-      if (this.show) {
-        return {
-          top: 0,
-          background: primary,
-          marginTop: "15px",
-          marginBottom: "15px",
-        };
-      } else {
-        return "";
+import MyCartTab from "./MyCartTab.vue";
+import DeliveryTab from "./DeliveryTab.vue";
+import { computed, onMounted, ref, watch } from "vue";
+import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { buyer_list_campapign_product, buyer_cart_list } from "@/api_v2/campaign_product";
+
+import { retrieve_pre_order, buyer_retrieve_pre_order } from "@/api_v2/pre_order";
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+const store = useShoppingCartStore()
+const toggleTabs = tabNumber => store.openTab = tabNumber
+
+onMounted(()=>{
+  buyer_retrieve_pre_order(route.params.pre_order_id)
+  .then(
+      res => { 
+        store.order = res.data;
+        console.log(res.data)
       }
-    },
-  },
-  methods: {
-    toggleTabs: function (tabNumber) {
-      this.openTab = tabNumber;
-    },
-  },
-};
+  )
+
+  buyer_list_campapign_product(route.params.pre_order_id)
+	.then(
+		res => {
+			store.campaignProducts = res.data
+			console.log(res.data)
+		}
+	)
+  buyer_cart_list(route.params.pre_order_id)
+	.then(
+		res => {
+			store.cartProducts = res.data
+			console.log(res.data)
+		}
+	)
+})
+
+
 </script>

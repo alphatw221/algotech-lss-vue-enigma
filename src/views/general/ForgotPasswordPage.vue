@@ -4,9 +4,10 @@
             autoplay
             autoplay-speed="5000" 
             loop
+            class="carousel"
         >
-            <CarouselItem v-for="carousel in carousel_items" :key="carousel.src">
-                <img :src="carousel.src" class="carousel"/>
+            <CarouselItem v-for="carousel in carousel_items" :key="carousel.src" class="carousel-item">
+                <img :src="carousel.src" class="carousel-item" />
             </CarouselItem>
         </Carousel>
 
@@ -55,9 +56,18 @@ export default {
 
 <style scoped>
 .carousel {
-    width: 100%;
-    max-height: 100%;
-    background: no-repeat center center scroll;
+    width: 100vw !important;
+    background-size: cover !important;
+    overflow: hidden;
+}
+.carousel-item {
+    width: 100vw !important;
+    height: 100vh !important;
+    -webkit-background-size: cover !important;
+    -moz-background-size: cover !important;
+    -o-background-size: cover !important;
+    background-size: cover !important;
+    overflow: hidden;
 }
 
 h3 {
@@ -75,7 +85,7 @@ h3 {
 .center {
     width:400px; 
     height: 350px; 
-    opacity: .8;
+    background-color: rgba(255, 255, 255, 0.815);
     margin: 0;
     position: absolute;
     top: 50%;

@@ -102,7 +102,7 @@ const Highlight = defineComponent({
         props.copyButton
           ? h(
               "button",
-              {
+              { 
                 class: ["btn py-1 px-2 btn-outline-secondary", props.class],
                 onClick(event) {
                   copyText.value = "Copied!";

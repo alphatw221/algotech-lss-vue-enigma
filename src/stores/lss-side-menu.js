@@ -3,11 +3,11 @@ import { defineStore } from "pinia";
 export const useSideMenuStore = defineStore("sideMenu", {
   state: () => ({
     menu: [
-      {
-        icon: "HomeIcon",
-        pageName: "side-menu-inbox",
-        title: "Home",
-      },
+      // {
+      //   icon: "HomeIcon",
+      //   pageName: "side-menu-inbox",
+      //   title: "Home",
+      // },
       {
         icon: "BoxIcon",
         pageName: "Stock",
@@ -20,7 +20,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
       // },
       {
         icon: "PackageIcon",
-        pageName: "side-menu-create-campaign",
+        pageName: "side-menu-createCam-productselect",
         title: "Create Campaign",
       },
       {
@@ -35,7 +35,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
       },
       {
         icon: "MessageSquareIcon",
-        pageName: "side-menu-inbox",
+        pageName: "side-menu-auto-reply",
         title: "Auto Reply",
       },
       {
@@ -43,11 +43,11 @@ export const useSideMenuStore = defineStore("sideMenu", {
         pageName: "side-menu-campaign-select", 
         title: "Manage Order",
       },
-      {
-        icon: "ShoppingCartIcon",
-        pageName: "side-menu-shopping-cart",
-        title: "Shopping Cart",
-      },
+      // {
+      //   icon: "ShoppingCartIcon",
+      //   pageName: "side-menu-shopping-cart",
+      //   title: "Shopping Cart",
+      // },
       {
         icon: "SettingsIcon",
         pageName: "side-menu-campaign-global-setting",

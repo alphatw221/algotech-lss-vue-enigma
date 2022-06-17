@@ -1,4 +1,4 @@
-export default async function authMiddleware(to,from){
+export default (to,from)=>{
     // try {
         // const isAdmin = true
         console.log(to)

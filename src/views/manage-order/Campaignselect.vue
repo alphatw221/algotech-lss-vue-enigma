@@ -6,11 +6,11 @@
       <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
         <div class="switch-toggle switch-3 switch-candy col-start-1 m-2">
           <input id="on" name="state-d" type="radio" checked="checked"/>
-          <label for="on" @click="status_change('schedule')" style="width: 100px">Scheduled</label>
+          <label for="on" @click="status_change('schedule')" style="width: 100px; font-size:14px;">Scheduled</label>
           <input id="na" name="state-d" type="radio" class="my-0" />
-          <label for="na" @click="status_change('history')" style="width: 100px">History</label>
+          <label for="na" @click="status_change('history')" style="width: 100px; font-size:14px;">History</label>
           <input id="off" name="state-d" type="radio" />
-          <label for="off" @click="status_change('ongoing')" style="width: 100px">Ongoing</label>
+          <label for="off" @click="status_change('ongoing')" style="width: 100px; font-size:14px;">Ongoing</label>
         </div>
       </div>
 
@@ -56,7 +56,7 @@ export default {
     };
   },
   mounted() {
-    this.$cookies.set("access_token","eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjUzODc1MDI1LCJpYXQiOjE2NTMyNzAyMjUsImp0aSI6IjM4MDNmYTdiYzhmZTQyOWFiNDc4OWNmNjcxMThiZGNjIiwidXNlcl9pZCI6NzcsImRhdGEiOnsiYXV0aF91c2VyX2lkIjo3Nywic2VsbGVyX2lkIjo5MCwiY3VzdG9tZXJfaWQiOjEwNCwibmFtZSI6IkplcmVteSBDaG91IiwiZW1haWwiOiJqZXJlbXljaG91QGFjY29sYWRlZ2xvYmFsLm5ldCJ9fQ.XM2nRfhg-h8REC__rAnxIcW-WR3CpUlLKQZ-wXC6FrQ");
+    
     this.eventBus.on("entryPoint", (payload) => {
       this.$router.push("manage-order");
     }) 

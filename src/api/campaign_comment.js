@@ -12,6 +12,10 @@ export const campaign_list = () => {
     return createAxiosWithBearer().get(`/api/campaign/list_campaign/?page=1&page_size=10`)
 }
 
-export const get_comments = (campaign_id, status) => {
-    return createAxiosWithBearer().get(`/api/campaign-comment/${campaign_id}/?tag=${status}`)
+export const get_summerize_comments = (campaign_id, status) => {
+    return createAxiosWithBearer().get(`/api/campaign-comment/summerize_comment/${campaign_id}/?tag=${status}`)
 }
+export const get_comments = (campaign_id) => {
+    return createAxiosWithBearer().get(`/api/campaign-comment/${campaign_id}/`)
+}
+

@@ -56,30 +56,6 @@
         }
       }
     }
-    &.nav-button-tabs {
-      @apply dark:border-darkmode-400;
-      .nav-item {
-        @apply -mb-px;
-        .nav-link {
-          @apply block border-transparent rounded-t-md;
-          &:hover:not(.disabled):not(.active) {
-            @apply hover:bg-slate-100 dark:hover:bg-darkmode-400 dark:hover:border-transparent;
-          }
-          &.active {
-            @apply bg-white border-slate-200 border-b-transparent font-medium dark:bg-transparent dark:border-t-darkmode-400 dark:border-b-darkmode-600 dark:border-x-darkmode-400;
-          }
-        }
-        .nav-button{
-          @apply bg-primary;
-          &:hover:not(.disabled):not(.active) {
-            @apply hover:bg-slate-100 dark:hover:bg-darkmode-400 dark:hover:border-transparent;
-          }
-          &.active {
-            @apply bg-white border-slate-200 border-b-transparent font-medium dark:bg-transparent dark:border-t-darkmode-400 dark:border-b-darkmode-600 dark:border-x-darkmode-400;
-          }
-        }
-      }
-    }
   }
   .nav-link {
     @apply block px-5 py-2.5 border border-transparent text-slate-700 dark:text-slate-400;
