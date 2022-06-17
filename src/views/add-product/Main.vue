@@ -208,7 +208,7 @@ const statusRadio = ref([
 
 const previewImage =ref(null)
 
-const categorySelection =ref([])
+const categorySelection = ref([])
 const formData = new FormData()
 
 onMounted(()=>{
@@ -220,7 +220,7 @@ onMounted(()=>{
 		.then(
 			res => {
 				product.value = res.data
-				previewImage.value = storageUrl+res.data.image
+				previewImage.value = storageUrl + res.data.image
 			}
 		)
 	}
@@ -252,7 +252,7 @@ const submit = ()=>{
 	}
 }
 
-const uploadImage = e=>{
+const uploadImage = e =>{
 	const image = e.target.files[0];
 	formData.append('image', image)
 

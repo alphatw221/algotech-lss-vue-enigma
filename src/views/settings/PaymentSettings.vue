@@ -3,7 +3,7 @@
         <TabGroup>
             <TabList class="nav-boxed-tabs flex flex-wrap content-around justify-around items-stretch self-auto ">
                 <Tab
-                    v-show="Object.keys(paymentSettings).includes('direct_payment')"
+                    v-show="activePayment.includes('directPayment')"
                     class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
                     tag="button"
                 >
@@ -11,7 +11,7 @@
                     <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">Direct Payment</span>
                 </Tab>
                 <Tab 
-                    v-show="Object.keys(paymentSettings).includes('paypal')"
+                    v-show="activePayment.includes('paypal')"
                     class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
                     tag="button"
                 >
@@ -19,7 +19,7 @@
                     <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">PayPal</span>
                 </Tab>
                 <Tab 
-                    v-show="Object.keys(paymentSettings).includes('hitpay')"
+                    v-show="activePayment.includes('hitpay')"
                     class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
                     tag="button"
                 >
@@ -27,15 +27,15 @@
                     <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">HitPay</span>
                 </Tab>
                 <Tab 
-                    v-show="Object.keys(paymentSettings).includes('stripe')"
+                    v-show="activePayment.includes('stripe')"
                     class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
                     tag="button"
                 >
                     <TruckIcon class="block mr-1" />
                     <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">Stripe</span>
                 </Tab>
-                <Tab 
-                    v-show="Object.keys(paymentSettings).includes('first_data')"
+                <Tab    
+                    v-show="activePayment.includes('firstData')"
                     class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
                     tag="button"
                 >
@@ -44,22 +44,13 @@
             </TabList>
             <TabPanels class="mt-0 lg:mt-5 2xl:mt-5 px-2 lg:px-10 2xl:px-10">
                 <TabPanel 
-                    v-show="Object.keys(paymentSettings).includes('direct_payment')"
+                    v-show="activePayment.includes('directPayment')"
                     class="leading-relaxed"
                 >
-                    <TabContent :paymentObject="paymentSettings['direct_payment']" />
-
-                    <!-- <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5">
-                        <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Name of Bank</label>
-                        <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9 " />
-                        <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Account Name</label>
-                        <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9" />
-                        <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Account No.</label>
-                        <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9" />
-                    </div> -->
+                    <TabContent :paymentName="'directPayment'"/>
                 </TabPanel>
                 <TabPanel 
-                    v-show="Object.keys(paymentSettings).includes('paypal')"
+                    v-show="activePayment.includes('paypal')"
                     class="leading-relaxed"
                 >
                     <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5">
@@ -74,7 +65,7 @@
                     </div>
                 </TabPanel>
                 <TabPanel 
-                    v-show="Object.keys(paymentSettings).includes('hitpay')"
+                    v-show="activePayment.includes('hitpay')"
                     class="leading-relaxed"
                 >
                     <div
@@ -90,20 +81,21 @@
                     </div>
                 </TabPanel>
                 <TabPanel 
-                    v-show="Object.keys(paymentSettings).includes('stripe')"
+                    v-show="activePayment.includes('stripe')"
                     class="leading-relaxed"
                 >
-                    <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5">
+                    <TabContent :paymentName="'stripe'"/>
+                    <!-- <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5">
                         <input @click="toggle" class="form-check-input mr-5 col-start-1" type="checkbox" />
                         <label for="regular-form-2" class="form-label col-start-2 col-span-10">Set As Default Active</label>
                         <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Secret Key</label>
                         <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9 " />
                         <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Currency Code</label>
                         <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9" />
-                    </div>
+                    </div> -->
                 </TabPanel>
                 <TabPanel
-                    v-show="Object.keys(paymentSettings).includes('first_data')"
+                    v-show="activePayment.includes('firstData')"
                     class="leading-relaxed"
                 >
                     <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5">
@@ -139,21 +131,19 @@
 </template>
 
 <script setup>
-import TabContent from './PaymentTabContent.vue';
 import { onMounted, ref } from 'vue';
-import { get_payment_meta } from '@/api/payment';
+import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import TabContent from './PaymentTabContent.vue';
 
+const paymentStore = useLSSPaymentMetaStore()
+const sellerStore = useLSSSellerLayoutStore()
+const activePayment = ref([])
 
-const paymentSettings = ref({})
 
 onMounted(() => {
-    get_payment_meta().then(
-        response => {
-            paymentSettings.value = response.data
-        }
-    )
+    const activated_country = sellerStore.userInfo.user_subscription.meta_country.activated_country[0]
+    activePayment.value = paymentStore[activated_country]
 })
-
-
 
 </script>
