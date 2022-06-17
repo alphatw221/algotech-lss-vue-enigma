@@ -2,7 +2,7 @@
     <div class="intro-y box p-5 -mt-5">
         <form id="tabulator-html-filter-form" class="grid grid-cols-12 grid-warp">
             <div class="col-span-12 2xl:col-span-8 xl:col-span-8">
-                <div class="flex flex-wrap justify-start justify-items-stretch content-end -mt-3">
+                <div class="flex flex-wrap justify-start justify-items-stretch content-end mt-2 lg:-mt-3">
                     <div class="flex-initial w-auto mr-4 items-center sm:mr-4" v-if="showCategoryFilter">
                         <label class="w-14 mr-2">
                             Category
@@ -21,7 +21,7 @@
                             Field
                         </label>
                         <select id="tabulator-html-filter-field"
-                            class="form-select w-auto mr-4 h-10 mt-2 2xl:mt-0 xl:mt-0 " v-model="searchField">
+                            class="form-select w-auto mr-4 h-10 mt-2" v-model="searchField">
                             <option v-for="searchColumn in searchColumns" :key="searchColumn.value"
                                 :value="searchColumn.value">
                                 {{ searchColumn.text }}
@@ -29,11 +29,11 @@
                         </select>
                     </div>
                     <div class="flex-initial w-auto items-center">
-                        <label class="w-14 mt-3 flex-none 2xl:w-auto mr-2 2xl:mt-0">
+                        <label class="w-14 mt-3 flex-none 2xl:w-auto mr-2">
                             Value
                         </label>
                         <input id="tabulator-html-filter-value" type="text"
-                            class="form-control mt-3 w-auto 2xl:mt-0 xl:mt-0" placeholder="Search..."
+                            class="form-control mt-3 w-auto lg:mt-2 2xl:mt-2" placeholder="Search..."
                             v-model="keyword" @keydown.enter.prevent="search" />
                     </div>
                 </div>

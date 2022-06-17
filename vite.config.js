@@ -14,7 +14,12 @@ export default defineConfig({
       input: {lss:'./src/main.js'}
     }
   },
-  server: { https: true ,cors: true,},
+  server: { 
+    https: true ,
+    // https: false ,
+    cors: true,
+    host: true
+  },
   plugins: [ vue(), mkcert() ],
   resolve: {
     alias: {

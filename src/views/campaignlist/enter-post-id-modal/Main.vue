@@ -7,7 +7,7 @@
       @hidden="cancel()"
     >
       <ModalHeader>
-        <h2 class="font-medium text-base mr-auto">Enter Post ID</h2>
+        <h2 class="font-medium text-base mr-auto">Select Live Stream or Enter Post ID</h2>
         <a
           @click="cancel()"
           class="absolute right-0 top-0 mt-3 mr-3"
@@ -41,7 +41,11 @@
             Select Page
           </button>
           <div>
-            Post ID:<br>{{ campaignPlatformData.facebook.post_id }}
+            Post ID: <br>{{ campaignPlatformData.facebook.post_id }}
+            <input class="form-control border-2"
+              @input=""
+              v-model="campaignPlatformData.facebook.post_id"
+            />
           </div>
         </div>
         <div class="col-span-4">
@@ -74,6 +78,10 @@
           /> -->
           <div>
             Post ID:<br>{{  campaignPlatformData.instagram.live_media_id }}
+            <input class="form-control border-2"
+              @input=""
+              v-model="campaignPlatformData.instagram.post_id"
+            />
           </div>
         </div>
         <div class="col-span-4">
@@ -106,6 +114,10 @@
           /> -->
           <div>
             Post ID:<br>{{ campaignPlatformData.youtube.live_video_id }}
+            <input class="form-control border-2"
+              @input=""
+              v-model="campaignPlatformData.youtube.post_id"
+            />
           </div>
         </div>
       </ModalBody>
@@ -163,6 +175,7 @@ import { get_ig_live_media, check_instagram_profile_token_valid } from "@/api/in
 import { get_yt_live_media, check_youtube_channel_token_valid } from "@/api/youtube"
 import { useRoute, useRouter } from "vue-router"
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { ref, onMounted, onUnmounted, defineProps, defineEmits} from 'vue'
 
 const router = useRouter()
@@ -175,6 +188,7 @@ const props = defineProps({
 
 const emits = defineEmits(['hide','selectPlatform','selectLive'])
 const store = useLSSCampaignListStore()
+const layout = useLSSSellerLayoutStore()
 
 const showSelectPlatformPageModal = ref(false)
 const showSelectCurrentLiveModal = ref(false)
@@ -308,7 +322,7 @@ const selectCurrentLive = (platform)=>{
 
       const live_campaign = response.data.data.filter(v => v.status === "LIVE")
       if (!live_campaign.length) {
-          alert('You have no Facebook live posts now.') //use tostify alert
+          layout.alert.showMessageToast("You have no Facebook live posts now.")
           return
       } 
 
@@ -334,7 +348,7 @@ const selectCurrentLive = (platform)=>{
         // const sort = response.data.data.filter(v => v.status === "LIVE")
         const live_campaign = response.data.items
         if (!live_campaign.length) {
-            alert('You have no YouTube live stream now.')
+            layout.alert.showMessageToast("You have no YouTube live stream now.")
             return
         }
 
@@ -358,7 +372,7 @@ const selectCurrentLive = (platform)=>{
 
         const live_campaign = response.data.data
         if (!live_campaign.length) {
-            alert('You have no Instagram live posts now.')
+            layout.alert.showMessageToast("You have no Instagram live posts now.")
             return
         }
 
@@ -405,5 +419,6 @@ const handleSelectLive = payload=>{
     })
     
   }
+
 }
 </script>

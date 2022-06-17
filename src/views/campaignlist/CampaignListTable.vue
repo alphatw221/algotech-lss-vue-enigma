@@ -78,9 +78,9 @@
               <input @click="toggle" class="form-check-input center" type="checkbox" />
             </div>
           </td>
-          <td class="copyLink items-center w-fit">
-            <div class="flex justify-center items-center">
-              <button class="flex" @click="copyURL(campaign.id)">
+          <td class="copyLink items-center w-fit text-teal-900">
+            <div class="flex justify-center items-center ">
+              <button class="flex font-medium" @click="copyURL(campaign.id)">
                 <LinkIcon class="w-4 h-4 mr-0.5" /> Copy
               </button>
             </div>
@@ -109,8 +109,7 @@
 <script>
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
-
-
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue'
 
 
@@ -123,6 +122,7 @@ export default {
   },
   data() {
     return {
+      baseURL: import.meta.env.VITE_APP_ROOT_API,
       page: 1,
       totalPage: 1,
       page_size: 10,
@@ -136,6 +136,7 @@ export default {
       instagram_platform: "/src/assets/images/lss-img/instagram.png",
       unbound: "/src/assets/images/lss-img/noname.png",
       store: useLSSCampaignListStore(),
+      layout: useLSSSellerLayoutStore(),
     };
   },
   mounted() {
@@ -147,7 +148,8 @@ export default {
       this.keyword = payload.keyword;
       this.page_size = payload.pageSize;
       this.search();
-    });
+    }),
+    this.startFromToast();
   },
   unmounted() {
     this.eventBus.off(this.tableName);
@@ -206,12 +208,19 @@ export default {
     },
     copyURL(campaign_id) {
       var dummy = document.createElement('input'),
-      text = `https://gipassl.algotech.app/buyer/login/create/${campaign_id}`;
+      text = `${this.baseURL}/buyer/login/create/${campaign_id}`;
       document.body.appendChild(dummy);
       dummy.value = text;
       dummy.select();
       document.execCommand('copy');
+      this.layout.notification.showMessageToast("copyed!")
       document.body.removeChild(dummy);
+      console.log(this.store.searchScheduledCampaign.campaigns)
+    },
+    startFromToast(){
+      if (this.$route.query.type && this.$route.query.type == 'startCampaign') {
+		    console.log('Wait for info')
+	    }
     }
   },
 };
