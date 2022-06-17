@@ -1,5 +1,5 @@
 <template>
-    <table class="table table-report mt-5 overflow-y-scroll overflow-x-auto">
+    <table class="table table-report mt-5 overflow-y-scroll overflow-x-auto w-full">
 		<thead>
 			<tr>
 				<th
@@ -46,8 +46,10 @@
 				<td class="text-center h-20">
 					{{ product.qty * product.price }}
 				</td>
-                <td class="h-20" v-show="props.order_type !== 'order'">
-					<Trash2Icon @click="delete_product(product.order_product_id)"/>
+                <td class="h-20">
+					<div v-show="props.order_type !== 'order'">
+						<Trash2Icon @click="delete_product(product.order_product_id)"/>
+					</div>
 				</td>
 			</tr>
 		</tbody>
