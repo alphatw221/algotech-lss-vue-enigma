@@ -9,7 +9,7 @@
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-success cursor-pointer"
                                             content="33% Higher than last month">
-                                            {{parseInt(store.manageOrder.close_rate_raise)}}%
+                                            {{parseInt(store.manageOrder.close_rate_raise).toFixed(2)}}%
                                             <ChevronUpIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
                                     </div>
@@ -18,13 +18,13 @@
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-danger cursor-pointer"
                                             content="33% Higher than last month">
-                                            {{parseInt(store.manageOrder.close_rate_raise)}}%
+                                            {{parseInt(store.manageOrder.close_rate_raise).toFixed(2)}}%
                                             <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
                                     </div>
                                 </template>
                             </div>
-                            <div class="text-3xl font-medium leading-8 mt-6">{{store.manageOrder.close_rate}}%</div>
+                            <div class="text-3xl font-medium leading-8 mt-6">{{parseInt(store.manageOrder.close_rate).toFixed(2)}}%</div>
                             <div class="text-base text-slate-500 mt-1">Colsed Rate</div>
                         </div>
                     </div>
@@ -53,7 +53,7 @@
                                     </div>
                                 </template>
                             </div>
-                            <div class="text-3xl font-medium leading-8 mt-6">$ {{store.manageOrder.complete_sales}}</div>
+                            <div class="text-3xl font-medium leading-8 mt-6">$ {{parseFloat(store.manageOrder.complete_sales).toFixed(2)}}</div>
                             <div class="text-base text-slate-500 mt-1">Sales</div>
                         </div>
                     </div>
@@ -82,7 +82,7 @@
                                     </div>
                                 </template>
                             </div>
-                            <div class="text-3xl font-medium leading-8 mt-6">{{store.manageOrder.uncheckout_rate}}%</div>
+                            <div class="text-3xl font-medium leading-8 mt-6">{{parseFloat(store.manageOrder.uncheckout_rate).toFixed(2)}}%</div>
                             <div class="text-base text-slate-500 mt-1">Uncheckout Rate</div>
                         </div>
                     </div>
