@@ -67,7 +67,7 @@ onMounted(()=>{
 const route = useRoute()
 const router = useRouter()
 const currentUrl = ref(window.location.href)
-const showReminder = ref(true)
+const showReminder = ref(false)
 
 const carousel_items = ref([
                 { src: img1 },
