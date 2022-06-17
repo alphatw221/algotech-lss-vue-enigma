@@ -18,7 +18,7 @@
           class="col-start-1 btn btn-warning btn-rounded w-24 h-10 text-white
             lg:col-start-11 lg:m-2 
               2xl:col-start-11 2xl:m-2"
-                @click="router.push('/seller/create-campaign')" > 
+                @click="router.push('/seller/campaign/create')" > 
           <span class="font-bold mr-1 text-lg">+</span> Create</button>
       </div>
 

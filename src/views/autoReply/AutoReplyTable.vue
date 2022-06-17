@@ -11,7 +11,7 @@
 			<tbody style=" height: 500px;">
 				<tr v-for="(reply, key) in listItems" :key="reply.key" class="intro-x">
 					<td v-for="column in columns"
-						class="w-full h-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm">
+						class="w-fit h-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm">
 						<template v-if="column.key === 'facebook_page'">
 							<div class="flex imgtd">
 								<div class="w-12 h-12 image-fit zoom-in ">

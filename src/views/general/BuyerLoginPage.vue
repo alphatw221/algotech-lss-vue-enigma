@@ -14,38 +14,70 @@
         <Card class="center">
             <Row><h3>Login</h3></Row>
 
-            <div class="mt-10 flex flex-col items-center">
+            <div class="mt-10 flex flex-col items-center" v-if="!showReminder">
                 <FacebookLoginButton block role='buyer'/>
                 <GoogleLoginButton block role='buyer'/>
             </div>
+            <Row v-if="showReminder"><p class="text-danger text-center mt-10 text-lg mr-4 ml-4">Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p></Row>
+            <div v-if="showReminder" class="text-center items-center shopping-cart-link-block mt-4" >
+                <a class="inline-block shopping-cart-link-item" @click="copyLink()">{{currentUrl}}</a>
+                <a class="text-black inline-block shopping-cart-link-item"  @click="copyLink()">
+                    <div class="text-center items-center  ml-2">
+                        <CopyIcon class="inline w-4 h-4"/>
+                        <p class="text-xs">copy</p>
+                    </div>
+                </a>
+            </div>
+                     
+                       
+
+
+            <!-- <p>https://12341234.12341234/</p> -->
+
+            <!-- <button> try window open</button> -->
+            <!-- <a @click="test">https://12341234.12341234/ </a> -->
+            <!-- <a href="chrome https://localhost:3000/seller">testtest</a> -->
+            <!-- <button @click="test()">test</button> -->
+
+
+            <!-- please press and hold the Shopping Cart Link below and open on Safari or Chrome -->
+
+            <!-- please press/hold the Shopping Cart Link below and open on Safari or Chrome -->
 
         </Card>
     </div>
 </template>
 
-<script>
+<script setup>
 
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
 import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'
 
-export default {
-    setup() {
-        
-    },
-    components:{
-        FacebookLoginButton,
-        GoogleLoginButton
-    },
-    data() {
-        return {
-            carousel_items: [
+import {ref, onMounted} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+onMounted(()=>{
+    // console.log(navigator.userAgent.toLowerCase())
+    if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
+        showReminder.value=true
+    }
+})
+
+const route = useRoute()
+const router = useRouter()
+const currentUrl = ref(window.location.href)
+const showReminder = ref(false)
+
+const carousel_items = ref([
                 { src: img1 },
                 { src: img2 },
-            ],
-        }
-    },
+            ])
+
+const copyLink = ()=>{
+    navigator.clipboard.writeText(currentUrl.value).then(()=>{
+        alert('copied!')
+    })
 }
 </script>
 
@@ -85,6 +117,11 @@ h3 {
     margin-top: 2rem;
 }
 
+.shopping-cart-link-block{
+    line-height: 10px;
+}
 
-
+.shopping-cart-link-item{
+    vertical-align: middle;
+}
 </style>

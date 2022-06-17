@@ -2,8 +2,7 @@
     <!-- OUTTER BOX -->
     <div class="grid grid-cols-12 gap-3">
         <!-- BEGIN: Comments -->
-        <LiveComments :campaignId="campaignId"
-        />
+        <LiveComments :campaignId="campaignId"/>
         <!-- END: Comments -->
 
         <!-- BEGIN: Product -->

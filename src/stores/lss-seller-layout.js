@@ -9,6 +9,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     editProfile: ref(false),
     profileTab: ref(0),
     userInfo: ref({}),
+    campaignAlert: ref(),
     notification: ref(),
     alert: ref(),
     menu: [

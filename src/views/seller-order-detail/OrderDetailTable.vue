@@ -1,5 +1,5 @@
 <template>
-    <table class="table table-report mt-5 overflow-y-scroll overflow-x-auto">
+    <table class="table table-report mt-5 overflow-y-scroll overflow-x-auto w-full">
 		<thead>
 			<tr>
 				<th
@@ -35,8 +35,8 @@
 					</template>
 					<template v-else>
 						<div class="form-check self-center place-content-center">
-                            <input type="text" class="form-control" aria-label="default input" :value="product.qty"
-                                style="width: 4rem; height: 2rem; margin-top: 5px;" @change="update_qty(index)"/>
+                            <input id="qty" type="number" class="form-control" aria-label="default input" :value="product.qty"
+                                style="width: 4rem; height: 2rem; margin-top: 5px;" @input="update_qty(index,product.order_product_id,$event.target.value)"/>
                         </div>
 					</template>
 				</td>
@@ -46,8 +46,10 @@
 				<td class="text-center h-20">
 					{{ product.qty * product.price }}
 				</td>
-                <td class="h-20" v-show="props.order_type !== 'order'">
-					<Trash2Icon />
+                <td class="h-20">
+					<div v-show="props.order_type !== 'order'">
+						<Trash2Icon @click="delete_product(product.order_product_id)"/>
+					</div>
 				</td>
 			</tr>
 		</tbody>
@@ -55,13 +57,17 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch,getCurrentInstance } from "vue";
 
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
+import { seller_delete_product, seller_update_product } from "@/api_v2/pre_order"
 const route = useRoute();
+const router = useRouter();
 const store = useManageOrderStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const tableColumns = ref([
 	{ key: "image", name: " ",  },
@@ -72,10 +78,27 @@ const tableColumns = ref([
     { key: "remove", name: " ",  }
 ])
 
-function update_qty(product_id){
-	console.log(`store.orderDetail.products.`+product_id+`.qty`)
+function update_qty(id,order_product_id,qty){
+	store.orderDetail.products[id].qty = qty
+	seller_update_product(route.params.order_id,order_product_id,qty).then(
+		eventBus.emit('getNewPrice')
+		
+	).catch(
+		alert('!!')
+	)
+	console.log(qty)
+}
+function delete_product(order_product_id){
+	seller_delete_product(route.params.order_id,order_product_id).then(
+		res=>{
+			alert(res.data.message)
+		}
+	)
+	eventBus.emit('getNewPrice')
 }
 const props = defineProps({
   order_type: String
 })
+
+
 </script>

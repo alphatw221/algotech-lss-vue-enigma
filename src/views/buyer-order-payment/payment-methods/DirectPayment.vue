@@ -124,7 +124,6 @@ const router = useRouter();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
 const receiptUploadDropzoneRef = ref();
 const openTab = ref(0);
-
 const select_account = index => openTab.value = index
 
 
@@ -151,21 +150,30 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
 });
 
 const uploadReceipt = () => {
-    uploadValidate.value.$touch();
-    if (uploadValidate.value.$invalid) {
-        layoutStore.alert.showMessageToast("Invild Data")
-        return
+    
+
+    const campaign = store.order.campaign
+    if(!campaign) return
+    const meta_payment = campaign.meta_payment
+    if(!meta_payment) return
+    const account = Object.values(meta_payment.direct_payment.accounts)[openTab.value]
+    if(account.direct_payment_require_customer_return){
+        uploadValidate.value.$touch();
+        if (uploadValidate.value.$invalid) {
+            layoutStore.alert.showMessageToast("Invild")
+            return
+        }
     }
     let formData = new FormData()
     formData.append('last_five_digit', data.fiveDigits)
     formData.append('image', receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0] || '')
-
+    formData.append('account_name', account.direct_payment_name)
 
     buyer_upload_receipt(route.params.order_id, formData)
         .then(
             res => {
                 store.order = res.data
-                router.push(`/buyer/orders`)
+                router.push(`/buyer/order/${route.params.order_id}`)
             }
         )
 }

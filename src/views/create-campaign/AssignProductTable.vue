@@ -1,6 +1,6 @@
 <template>
-    <div>
-        <table class="table table-report overflow-x-scroll">
+    <div class="overflow-x-auto">
+        <table class="table table-report">
             <thead>
                 <tr>
                     <th class="whitespace-normal truncate hover:text-clip items-center" v-for="column in tableColumns"
@@ -81,7 +81,7 @@
 
                         <td v-else-if="column.key === 'name'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="truncate hover:text-clip lg:w-28 2xl:w-36">{{ product[column.key] }}</div>
+                            <div class="truncate hover:text-clip">{{ product[column.key] }}</div>
                             
                         </td>
 

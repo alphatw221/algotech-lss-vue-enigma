@@ -93,8 +93,8 @@ const updateOrderSummary = ()=>{
     const free_delivery_for_order_above_price = meta_logistic.is_free_delivery_for_order_above_price == 1 ? meta_logistic.free_delivery_for_order_above_price : 0
     const free_delivery_for_how_many_order_minimum = meta_logistic.is_free_delivery_for_how_many_order_minimum == 1 ? meta_logistic.free_delivery_for_how_many_order_minimum : 0
 
-    const is_subtotal_over_free_delivery_threshold = store.order.subtotal >= free_delivery_for_order_above_price
-    const is_items_over_free_delivery_threshold = store.order.products.length >= free_delivery_for_how_many_order_minimum
+    const is_subtotal_over_free_delivery_threshold = free_delivery_for_order_above_price?store.order.subtotal >= free_delivery_for_order_above_price:false
+    const is_items_over_free_delivery_threshold = free_delivery_for_how_many_order_minimum?store.order.products.length >= free_delivery_for_how_many_order_minimum:false
 
     if ( !['',null,undefined].includes(store.shipping_info.shipping_option) && delivery_titles && delivery_types && delivery_prices ){      
       const index = delivery_titles.indexOf(store.shipping_info.shipping_option)
