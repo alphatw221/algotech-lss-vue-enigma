@@ -160,7 +160,7 @@ const uploadReceipt = () => {
     if(account.direct_payment_require_customer_return){
         uploadValidate.value.$touch();
         if (uploadValidate.value.$invalid) {
-            layoutStore.alert.showMessageToast("Invild Data")
+            layoutStore.alert.showMessageToast("Invild")
             return
         }
     }

@@ -6,7 +6,7 @@
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
                     <div class="w-full mx-2 ">
                         <div class="flex mb-2">
-                            <h2 class="font-medium mr-5"> Order No. #{{store.orderDetail.id}} <span class="btn btn-rounded-pending h-8">
+                            <h2 class="font-medium"> Order No. #{{store.orderDetail.id}} <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
                                     {{store.orderDetail.status }}</span> </h2>
                         </div>
                         <div class="flex mb-2">
@@ -21,8 +21,6 @@
                         <span class="text-lg">Delivery Information</span>   
                     </div>
                     <div class="grid grid-cols-6 gap-2" v-show="store.orderDetail.shipping_method">
-                        <div class="col-start-1 col-span-2 py-2">Delivery Method</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_method}}</div>
 
                         <template v-if="store.orderDetail.shipping_method === 'in_store'">
                             <div class="col-start-1 col-span-2 py-2">Delivery Information</div>

@@ -204,7 +204,7 @@ onMounted(() => {
             warningModalPreview.value = true
             return
         }
-        router.push('create-campaign/details')
+        router.push('campaign/create/confirm')
         console.log(campaignStore.assignedProducts)
     })
 })
