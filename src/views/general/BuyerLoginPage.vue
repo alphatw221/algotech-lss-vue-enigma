@@ -18,7 +18,7 @@
                 <FacebookLoginButton block role='buyer'/>
                 <GoogleLoginButton block role='buyer'/>
             </div>
-            <Row v-if="showReminder"><p class="text-danger text-center mt-10 text-lg">Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p></Row>
+            <Row v-if="showReminder"><p class="text-danger text-center mt-10 text-lg mr-4 ml-4">Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p></Row>
             <div v-if="showReminder" class="text-center items-center shopping-cart-link-block mt-4" >
                 <a class="inline-block shopping-cart-link-item" @click="copyLink()">{{currentUrl}}</a>
                 <a class="text-black inline-block shopping-cart-link-item"  @click="copyLink()">
@@ -67,7 +67,7 @@ onMounted(()=>{
 const route = useRoute()
 const router = useRouter()
 const currentUrl = ref(window.location.href)
-const showReminder = ref(false)
+const showReminder = ref(true)
 
 const carousel_items = ref([
                 { src: img1 },
