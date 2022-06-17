@@ -87,7 +87,7 @@
           </td>
           <td class="entry text-center w-fit">
             <button class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
-              Entry
+              Live On
             </button>
           </td>
           <td class="edit table-report__action w-fit">

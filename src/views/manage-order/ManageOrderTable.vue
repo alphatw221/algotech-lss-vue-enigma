@@ -50,11 +50,14 @@
                                     </div>
                                 </template>
                                 <template v-if="column.key === 'name'" class="w-40">
-                                        <div class="flex">
+                                        <div class="flex flex-col items-center">
                                             <div class="w-10 h-10 image-fit zoom-in">
-                                                <Tippy tag="img" class="rounded-full" :src="store.manageOrderList.customer_img" />
+                                                <Tippy tag="img" class="rounded-full" 
+                                                    :src="store.manageOrderList.customer_img" 
+                                                    :content="order.customer_name" 
+                                                    />
                                             </div>
-                                            <div>{{order.customer_name}}</div>
+                                            <div></div>
                                         </div>
                                 </template>
                                 <template v-else-if="column.key === 'order_product'" class="w-40">
@@ -85,7 +88,7 @@ const store = useManageOrderStore()
 const columns = ref([
     { name: 'Order Number', key: 'id' },
     { name: 'Platform', key: 'platform' },
-    { name: 'Name', key: 'name' },
+    { name: 'Customer', key: 'name' },
     { name: 'Amount', key: 'subtotal' },
     { name: 'Payment', key: 'payment_method' },
     { name: 'Status', key: 'status' },

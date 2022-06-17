@@ -3,34 +3,38 @@
 		<table class="table table-report mt-5 overflow-y-scroll table-auto">
 			<thead>
 				<tr>
-					<th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
+					<th v-for="column in columns" :key="column.key" class="w-fit">
 						{{ column.name }}
 					</th>
 				</tr>
 			</thead>
-			<tbody style=" height: 500px;">
+			<tbody style="height: 500px">
 				<tr v-for="(reply, key) in listItems" :key="reply.key" class="intro-x">
-					<td v-for="column in columns"
-						class="w-fit h-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm">
-						<template v-if="column.key === 'facebook_page'">
-							<div class="flex imgtd">
-								<div class="w-12 h-12 image-fit zoom-in ">
-									<Tippy tag="img" class="rounded-full" :src="reply.facebook_page.image"
-										:content="`facebook`" /> 
+					<template v-for="(column, key) in columns" :key="column.key">
+						<td v-if="column.key === 'facebook_page'"
+							class="w-24 h-auto imgtd">
+								<div class="w-14 h-14 image-fit zoom-in flex pt-2">
+									<Tippy tag="img" class="rounded-full w-12 h-12" :src="reply.facebook_page.image"
+										:content="`facebook`" />
 								</div>
-							</div>
-						</template>
-						<template v-else-if="column.key === 'edit'">
-							<EditIcon class="click-icon"
-								@click="updateInfo(reply.id, reply.input_msg, reply.output_msg, reply.description)" />
-						</template>
-						<template v-else-if="column.key === 'delete'">
+						</td>
+						<td v-else-if="column.key === 'edit'"
+							class="w-24 h-auto">
+							<EditIcon class="click-icon" @click="
+								updateInfo(reply.id, reply.input_msg, reply.output_msg, reply.description)
+							" />
+						</td>
+						<td v-else-if="column.key === 'delete'"
+							class="w-24 h-auto">
 							<Trash2Icon class="click-icon" @click="deleteAutoReply(reply.id)" />
-						</template>
-						<template v-else>
+						</td>
+						<td v-else-if="column.key === 'id'" class="w-20 text-[12px] lg:text-sm 2xl:text-sm">
 							{{ reply[column.key] }}
-						</template>
-					</td>
+						</td>
+						<td v-else class="w-auto text-[12px] lg:max-w-30 lg:text-sm xl:max-w-30 2xl:max-w-30 2xl:text-sm">
+							{{ reply[column.key] }}
+						</td>
+					</template>
 				</tr>
 			</tbody>
 		</table>
@@ -71,119 +75,118 @@
 			<button type="button" @click="updateModal = false" class="btn btn-outline-secondary w-20 mr-1">
 				Cancel
 			</button>
-			<button type="button" @click="updateAutoReply(currentInfo.id, currentInfo)"
-				class="btn btn-primary w-20">Save</button>
+			<button type="button" @click="updateAutoReply(currentInfo.id, currentInfo)" class="btn btn-primary w-20">
+				Save
+			</button>
 		</ModalFooter>
 	</Modal>
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance, onUnmounted } from 'vue'
+import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { delete_auto_response, update_auto_response } from "@/api/auto_reply";
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 
 const props = defineProps({
 	requestUrl: String,
 	columns: Array,
 });
 
-const layoutStore = useLSSSellerLayoutStore()
-const internalInstance = getCurrentInstance()
+const layoutStore = useLSSSellerLayoutStore();
+const internalInstance = getCurrentInstance();
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-const currentPage = ref(1)
-const totalPage = ref(1)
-const pageSize = ref(10)
-const totalCount = ref(0)
-const updateModal = ref(false)
-const saved = ref(false)
-const listItems = ref([])
-const currentInfo = ref(
-	{
-		id: '',
-		input_msg: '',
-		output_msg: '',
-		description: '',
-		facebook_page: {}
-	},
-)
+const currentPage = ref(1);
+const totalPage = ref(1);
+const pageSize = ref(10);
+const totalCount = ref(0);
+const updateModal = ref(false);
+const saved = ref(false);
+const listItems = ref([]);
+const currentInfo = ref({
+	id: "",
+	input_msg: "",
+	output_msg: "",
+	description: "",
+	facebook_page: {},
+});
 
 onMounted(() => {
-	getReplyData()
+	getReplyData();
 	eventBus.on("getReplyData", (payload) => {
-		getReplyData()
-	})
-})
+		getReplyData();
+	});
+});
 onUnmounted(() => {
-	eventBus.off("getReplyData")
-})
+	eventBus.off("getReplyData");
+});
 
+function changePage(page) {
+	currentPage.value = page;
+}
 
-	function changePage(page) {
-		currentPage.value = page;
-	}
+function changePageSize(pageSize) {
+	pageSize.value = pageSize;
+}
 
-	function changePageSize(pageSize) {
-		pageSize.value = pageSize;
-	}
+function updateInfo(id, input, output, description, facebook_page) {
+	console.log(id);
+	updateModal.value = true;
+	currentInfo.value.id = id;
+	currentInfo.value.input_msg = input;
+	currentInfo.value.output_msg = output;
+	currentInfo.value.description = description;
+	currentInfo.value.facebook_page = facebook_page;
+}
 
-	function updateInfo(id, input, output, description, facebook_page) {
-		console.log(id)
-		updateModal.value = true;
-		currentInfo.value.id = id;
-		currentInfo.value.input_msg = input;
-		currentInfo.value.output_msg = output;
-		currentInfo.value.description = description;
-		currentInfo.value.facebook_page = facebook_page;
-	}
-
-	function getReplyData() {
-		createAxiosWithBearer().get(`${props.requestUrl}`).then(response => {
+function getReplyData() {
+	createAxiosWithBearer()
+		.get(`${props.requestUrl}`)
+		.then((response) => {
 			console.log(response);
 			totalCount.value = response.data.length;
 			listItems.value = response.data;
-			listItems.value = listItems.value.reverse()
-			console.log(response.data)
-		}).catch(function (error) {
+			listItems.value = listItems.value.reverse();
+			console.log(response.data);
+		})
+		.catch(function (error) {
 			console.log(error);
+		});
+}
+
+function closeWithAlert() {
+	if (saved.value === true) {
+		updateModal.value = false;
+		layoutStore.notification.showMessageToast("Saved the Change");
+	} else {
+		updateModal.value = false;
+		layoutStore.alert.showMessageToast("Change Not Saved");
+	}
+	saved.value = false;
+}
+
+function updateAutoReply(id, currentInfo) {
+	update_auto_response(id, currentInfo).then((response) => {
+		console.log(response.data.results);
+		currentInfo.value = response.data.results;
+		console.log(response);
+		updateModal.value = false;
+		saved.value = true;
+		getReplyData();
+	});
+}
+
+function deleteAutoReply(id) {
+	delete_auto_response(id)
+		.then((response) => {
+			alert(response.data.message);
+			getReplyData();
 		})
-	}
-
-	function closeWithAlert() {
-		if (saved.value === true) {
-			updateModal.value = false;
-			layoutStore.notification.showMessageToast("Saved the Change")
-		} else {
-			updateModal.value = false;
-			layoutStore.alert.showMessageToast("Change Not Saved")
-		}
-		saved.value = false
-	}
-
-	function updateAutoReply(id,currentInfo) {
-		update_auto_response(id,currentInfo).then(
-			response => {
-				console.log(response.data.results)
-				currentInfo.value = response.data.results
-				console.log(response)
-				updateModal.value = false;
-				saved.value = true;
-				getReplyData()
-			}
-		)
-	}
-
-	function deleteAutoReply(id) {
-		delete_auto_response(id).then(
-			response => {
-				alert(response.data.message);
-				getReplyData()
-			}
-		).catch(err => {
-			alert(err)
-		})
-	}
+		.catch((err) => {
+			alert(err);
+		});
+}
 </script>
 
 <style scoped>
@@ -192,7 +195,7 @@ onUnmounted(() => {
 }
 
 td {
-	height: 40px;
+	height: auto !important;
 }
 
 @media only screen and (max-width: 760px),
@@ -210,7 +213,7 @@ td {
 	}
 
 	.imgtd {
-		height: 70px !important;
+		height: 80px !important;
 	}
 
 	thead tr {
@@ -226,10 +229,10 @@ td {
 
 	td {
 		border: none;
-		border-bottom: 1px solid #eee;
 		position: relative;
 		padding-left: 50% !important;
 		text-align: left !important;
+		box-shadow: none !important;
 	}
 
 	.productName {
@@ -243,6 +246,8 @@ td {
 		padding-right: 10px;
 		white-space: nowrap;
 		font-weight: bold;
+		box-shadow: none !important;
+		background-color: white !important;
 	}
 
 	td:nth-of-type(1):before {
@@ -251,12 +256,14 @@ td {
 	}
 
 	td:nth-of-type(2):before {
-		content: "Keywords";
+		content: "Keywords to Detect";
+		overflow-wrap: break-word;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(3):before {
 		content: "Automated Response";
+		overflow-wrap: break-word;
 		/* color: #0e9893; */
 	}
 
@@ -267,6 +274,15 @@ td {
 
 	td:nth-of-type(5):before {
 		content: "Following";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(6):before {
+		content: "";
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(7):before {
+		content: "";
 		/* color: #0e9893; */
 	}
 }

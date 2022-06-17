@@ -42,10 +42,6 @@
           </button>
           <div>
             Post ID: <br>{{ campaignPlatformData.facebook.post_id }}
-            <input class="form-control border-2"
-              @input=""
-              v-model="campaignPlatformData.facebook.post_id"
-            />
           </div>
         </div>
         <div class="col-span-4">
@@ -78,10 +74,6 @@
           /> -->
           <div>
             Post ID:<br>{{  campaignPlatformData.instagram.live_media_id }}
-            <input class="form-control border-2"
-              @input=""
-              v-model="campaignPlatformData.instagram.post_id"
-            />
           </div>
         </div>
         <div class="col-span-4">
@@ -114,10 +106,6 @@
           /> -->
           <div>
             Post ID:<br>{{ campaignPlatformData.youtube.live_video_id }}
-            <input class="form-control border-2"
-              @input=""
-              v-model="campaignPlatformData.youtube.post_id"
-            />
           </div>
         </div>
       </ModalBody>
