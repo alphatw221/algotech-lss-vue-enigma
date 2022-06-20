@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-x-auto">
+    <div class="overflow-x-auto overflow-y-auto h-[500px]">
         <table class="table table-report">
             <thead>
                 <tr>
@@ -94,6 +94,7 @@
                                     type="checkbox" 
                                     v-model="product[column.key]"
                                 />
+                                <span class="checkboxWord ml-3"> Select</span>
                             </div>
                         </td>
 
@@ -117,6 +118,7 @@
                                     v-model="product[column.key]"
                                     @click="product.deletable = false"
                                     />
+                                    <span class="checkboxWord ml-3"> Editable</span>
                             </div>
                         </td>
 
@@ -138,6 +140,7 @@
                                     type="checkbox" 
                                     v-model="product[column.key]"
                                 />
+                                <span class="checkboxWord ml-3"> Deletable</span>
                             </div>
                         </td>
 
@@ -304,9 +307,22 @@ const addProdcuts = () => {
 
 td {
 	height: auto !important;
-    min-height: 35px !important;
+    min-height: 50px;
+    border-collapse: collapse;
     width: auto !important;
 }
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
+  background-color: theme("colors.secondary");
+}
+
+.checkboxWord{
+    display: none;
+}
+
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
 
@@ -324,6 +340,10 @@ td {
 	.imgtd {
 		height: 90px !important;
 	}
+
+    .checkboxWord{
+        display: block;
+    }
 
 	thead tr {
 		position: absolute;
@@ -357,8 +377,14 @@ td {
 	}
 
 	td:nth-of-type(1):before {
-		content: "Selected";
+		display: none;
         text-align: left !important;
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(1){
+		display: inline-block;
+		width: 100% !important;
+		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
 
@@ -400,20 +426,34 @@ td {
         text-align: left !important;
 		/* color: #0e9893; */
 	}
-    td:nth-of-type(9):before {
-		content: "Editable";
-        text-align: left !important;
-		/* color: #0e9893; */
-	}
-    td:nth-of-type(10):before {
-		content: "Deletable";
-        text-align: left !important;
-		/* color: #0e9893; */
-	}
     td:nth-of-type(11):before {
 		content: "Type";
         text-align: left !important;
 		/* color: #0e9893; */
 	}
+    td:nth-of-type(9):before {
+        display: none;
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(10):before {
+        display: none;
+        text-align: left !important;
+		/* color: #0e9893; */
+	}
+
+    td:nth-of-type(9){
+		display: inline-block;
+		width: 50% !important;
+		padding-left: 0% !important;
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(10){
+		display: inline-block;
+		width: 50% !important;
+		padding-left: 0% !important;
+		/* color: #0e9893; */
+	}
+    
 }
 </style>

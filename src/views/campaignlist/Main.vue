@@ -5,7 +5,7 @@
 
     <!-- BEGIN: commit box -->
     <div class="col-span-12">
-      <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-2">
+      <div class="box p-2 intro-y grid grid-cols-12 gap-2 mt-5 p-2">
         <div class="switch-toggle switch-3 switch-candy col-start-1 col-span-12 m-2 lg:col-span-8 2xl:col-span-8">
           <input id="on" name="state-d" type="radio" checked="checked"/>
           <label for="on" @click="show_campaign('scheduled')" style="width: 100px; font-size:14px;">Scheduled</label>
