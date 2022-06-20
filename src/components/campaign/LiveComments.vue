@@ -64,11 +64,11 @@
             </div>
 
             <TabPanels class="col-span-12">
-                <template v-for="(platform_data, index) in comment_results">
+                <template v-for="(platform_data, index) in comment_results" :key="index">
                     <TabPanel>
                         <div class="h-full box overflow-y-auto scrollbar-hidden mt-1 max-h-[28rem]" :class="index">
                             <template v-if="platform_data.comments">
-                                <div v-for="(reply, key) in platform_data.comments"
+                                <div v-for="(reply, key) in platform_data.comments" :key="key"
                                     class="intro-x cursor-pointer relative flex items-center p-3"
                                     @click="showReplyBar(reply)">
                                     <Tippy class="rounded-full" content="Reply" theme='light'>

@@ -1,7 +1,7 @@
 <template>
     <div class="grid grid-cols-12 gap-6 mt-5">
                 <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                    <div class="report-box zoom-in">
+                    <div class="report-box">
                         <div class="box p-5">
                             <div class="flex">
                                 <ShoppingCartIcon class="report-box__icon text-primary" />
@@ -30,7 +30,7 @@
                     </div>
                 </div>
                 <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                    <div class="report-box zoom-in">
+                    <div class="report-box">
                         <div class="box p-5">
                             <div class="flex">
                                 <CreditCardIcon class="report-box__icon text-pending" />
@@ -59,7 +59,7 @@
                     </div>
                 </div>
                 <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                    <div class="report-box zoom-in">
+                    <div class="report-box">
                         <div class="box p-5">
                             <div class="flex">
                                 <MonitorIcon class="report-box__icon text-warning" />
@@ -88,7 +88,7 @@
                     </div>
                 </div>
                 <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
-                    <div class="report-box zoom-in">
+                    <div class="report-box">
                         <div class="box p-5">
                             <div class="flex">
                                 <UserIcon class="report-box__icon text-success" />
