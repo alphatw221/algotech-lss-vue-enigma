@@ -1,9 +1,9 @@
 <template >
-  <div class="overflow-x-auto">
-    <table class="table table-report mt-5">
+  <div class="overflow-x-auto overflow-y-auto h-[670px]">
+    <table class="table table-report -mt-2">
       <thead>
         <tr>
-          <th class="whitespace-nowrap text-center " v-for="column in tableColumns" :key="column.key">
+          <th class="text-center " v-for="column in tableColumns" :key="column.key">
             {{ column.name }}
           </th>
         </tr>
@@ -92,7 +92,7 @@
           </td>
           <td class="edit table-report__action w-fit">
             <div class="flex justify-center items-center">
-              <a class="flex items-center mr-3" href="javascript:;">
+              <a class="flex items-center" href="javascript:;">
                 <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
               </a>
             </div>
@@ -234,6 +234,14 @@ export default {
 
 td {
   height: 50px;
+  border-collapse: collapse;
+}
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
+  background-color: theme("colors.secondary");
 }
 
 @media only screen and (max-width: 760px),

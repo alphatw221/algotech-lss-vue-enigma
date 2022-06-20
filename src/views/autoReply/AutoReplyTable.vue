@@ -1,6 +1,6 @@
 <template>
-	<div>
-		<table class="table table-report mt-5 overflow-y-scroll table-auto">
+	<div class=" overflow-y-scroll h-[720px]">
+		<table class="table table-report">
 			<thead>
 				<tr>
 					<th v-for="column in columns" :key="column.key" class="w-fit">
@@ -8,7 +8,7 @@
 					</th>
 				</tr>
 			</thead>
-			<tbody style="height: 500px">
+			<tbody>
 				<tr v-for="(reply, key) in listItems" :key="reply.key" class="intro-x">
 					<template v-for="(column, key) in columns" :key="column.key">
 						<td v-if="column.key === 'facebook_page'"
@@ -31,7 +31,7 @@
 						<td v-else-if="column.key === 'id'" class="w-20 text-[12px] lg:text-sm 2xl:text-sm">
 							{{ reply[column.key] }}
 						</td>
-						<td v-else class="w-auto text-[12px] lg:max-w-30 lg:text-sm xl:max-w-30 2xl:max-w-30 2xl:text-sm">
+						<td v-else class="w-auto text-[12px] lg:max-w-30 lg:text-sm xl:max-w-30 2xl:max-w-30 2xl:text-sm longMessage">
 							{{ reply[column.key] }}
 						</td>
 					</template>
@@ -53,12 +53,12 @@
 		<ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Keywords to Detect</label>
-				<input id="modal-form-1" type="text" class="form-control rounded-full" placeholder=""
+				<input id="modal-form-1" type="text" class="form-control rounded-full longMessage" placeholder=""
 					v-model="currentInfo.input_msg" />
 			</div>
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Set Automated Response</label>
-				<input id="modal-form-1" type="text" class="form-control rounded-full" placeholder=""
+				<input id="modal-form-1" type="text" class="form-control rounded-full longMessage" placeholder=""
 					v-model="currentInfo.output_msg" />
 			</div>
 			<div class="col-span-12">
@@ -194,8 +194,20 @@ function deleteAutoReply(id) {
 }
 
 td {
-	height: auto !important;
+  min-height: 50px;
+  border-collapse: collapse;
 }
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
+  background-color: theme("colors.secondary");
+}
+
+.longMessage{
+	overflow-wrap: break-word;
+}	
 
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
@@ -232,6 +244,7 @@ td {
 		padding-left: 50% !important;
 		text-align: left !important;
 		box-shadow: none !important;
+		padding-top: 10px !important;
 	}
 
 	.productName {
@@ -243,10 +256,10 @@ td {
 		left: 6px;
 		width: 45%;
 		padding-right: 10px;
-		white-space: nowrap;
 		font-weight: bold;
 		box-shadow: none !important;
 		background-color: white !important;
+		padding-top: 5px !important;
 	}
 
 	td:nth-of-type(1):before {
@@ -262,7 +275,7 @@ td {
 
 	td:nth-of-type(3):before {
 		content: "Automated Response";
-		overflow-wrap: break-word;
+		overflow-wrap: break-word !important;
 		/* color: #0e9893; */
 	}
 
@@ -275,13 +288,26 @@ td {
 		content: "Following";
 		/* color: #0e9893; */
 	}
+	
+	td:nth-of-type(6){
+		display: inline-block;
+		width: 50%;
+		padding-left: 25% !important;
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(7){
+		display: inline-block;
+		width: 50%;
+		padding-left: 15% !important;
+		/* color: #0e9893; */
+	}
 
 	td:nth-of-type(6):before {
-		content: "";
+		display: none;
 		/* color: #0e9893; */
 	}
 	td:nth-of-type(7):before {
-		content: "";
+		display: none;
 		/* color: #0e9893; */
 	}
 }

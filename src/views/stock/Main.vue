@@ -103,7 +103,6 @@ const tableColumns = ref([
 	{ name: "Description", key: "description" },
 	{ name: "Quantity", key: "qty" },
 	{ name: "Price", key: "price" },
-	// {name: 'Edit', key: 'edit'},
 ])
 
 const productCategories= ref([{text:"All", value:''}])

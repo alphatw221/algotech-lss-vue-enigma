@@ -78,6 +78,28 @@ const init = (el, props) => {
     });
   };
 
+  el.videoToast = message => {
+    const clonedEl = dom(el).clone().removeClass("hidden")[0];
+    dom(clonedEl).addClass(toastifyClass);
+    dom(clonedEl).find('#message')[0].innerHTML=message
+    // dom(clonedEl).find('div')[0].text(message);
+    clonedEl.toastify = Toastify({
+      className: "info",
+      text:message,
+      duration: -1,
+      newWindow: true,
+      close: true,
+      gravity: "bottom",
+      position: "right",
+      stopOnFocus: true,
+      ...props.options,
+      node: clonedEl,
+    }).showToast();
+
+    dom(clonedEl).on("click", "[data-dismiss='notification']", function () {
+      clonedEl.toastify.hideToast();
+    });
+  };
 
   el.hideToast = () => {
     dom(`.${toastifyClass}`).each(function () {
