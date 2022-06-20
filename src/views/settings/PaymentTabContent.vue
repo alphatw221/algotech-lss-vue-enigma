@@ -189,6 +189,8 @@ const modifyDirectPayment = (type, index) => {
 }
 
 const updateDirectPayment = () => {
+    console.log(directPaymentSettings);
+
     createAxiosWithBearer().delete(paymentInfo.value.request_url)
     for (let i = 0; i < directPaymentSettings.value.length; i ++) {
         let formData = new FormData()

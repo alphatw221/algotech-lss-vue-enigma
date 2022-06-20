@@ -132,8 +132,9 @@
 <script setup>
 import { ref, reactive, onMounted } from 'vue';
 import { update_delivery_setting, list_delivery_setting } from '@/api_v2/campaign';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
-
+const layoutStore = useLSSSellerLayoutStore();
 const additional_delivery = ref([])
 const branch = ref([])
 const deliverySettings = ref({
@@ -199,11 +200,9 @@ const updateDelivery = () => {
     deliverySettings.value.additional_delivery_option = additional_delivery.value
     deliverySettings.value.pickup_option = branch.value
 
-    update_delivery_setting(deliverySettings).then(
-        response => {
-            console.log(response)
-        }
-    )
+    update_delivery_setting(deliverySettings).then(response => {
+        layoutStore.notification.showMessageToast("Update Success")
+    })
 }
 
 const discardDelivery = () => {
