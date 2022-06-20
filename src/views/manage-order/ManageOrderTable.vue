@@ -106,6 +106,7 @@ let page_size = 10;
 
 const props = defineProps({
     tableStatus: String,
+    dataCount: Number,
 });
 
 function to_order_detail(order_id,type){
@@ -116,7 +117,6 @@ function changePage(page) {
     eventBus.emit('changePage',{'page':page})
     }
 function changePageSize(pageSize) {
-      page_size = pageSize;
-      search();
+    eventBus.emit('changePageSize',{'page_size':page_size})
     }
 </script>
