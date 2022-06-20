@@ -83,8 +83,6 @@ function update_qty(id,order_product_id,qty){
 	seller_update_product(route.params.order_id,order_product_id,qty).then(
 		eventBus.emit('getNewPrice')
 		
-	).catch(
-		alert('!!')
 	)
 	console.log(qty)
 }

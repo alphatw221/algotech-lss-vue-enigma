@@ -187,7 +187,7 @@ export default {
       this.search();
     },
     changePageSize(pageSize) {
-      this.page_Size = pageSize;
+      this.page_size = pageSize;
       this.search();
     },
 

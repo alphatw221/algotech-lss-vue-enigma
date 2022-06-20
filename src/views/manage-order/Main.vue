@@ -29,17 +29,17 @@
                 <input @click="stop_checkout($event.target.checked)" class="form-check-input mr-0 ml-3" type="checkbox" v-model="checkout_status"/>
             </div>
 
-            <div class="overflow-x-auto mt-3">
+            <div class=" mt-3">
                 <ManageOrderTable 
-                    v-show="tableStatus === 'manageAllOrder'"
+                    v-if="tableStatus === 'manageAllOrder'"
                     :tableStatus="tableStatus"
                 />
                 <ManageOrderTable 
-                    v-show="tableStatus === 'manageReviewOrder'"
+                    v-if="tableStatus === 'manageReviewOrder'"
                     :tableStatus="tableStatus"
                 />
                 <ManageOrderTable 
-                    v-show="tableStatus === 'manageCompleteOrder'"
+                    v-if="tableStatus === 'manageCompleteOrder'"
                     :tableStatus="tableStatus"
                 />
             </div>
@@ -54,13 +54,17 @@ import CampaignStatus from "./CampaignStatus.vue";
 import SearchBar from "./SearchBar.vue";
 import { ref, provide, onMounted } from "vue";
 import xlsx from "xlsx";
-import { manage_order_list,campaign_manage_order } from "@/api/manage_order";
-import { allow_checkout } from "@/api_v2/manage_order"
+import { campaign_manage_order } from "@/api/manage_order";
+import { allow_checkout, manage_order_list } from "@/api_v2/manage_order"
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 const route = useRoute();
 const store = useManageOrderStore()
 
+let page = 1;
+let totalPage = 1;
+let page_size = 10;
+let dataCount = 0;
 const deliveryStatus = ref(false);
 const checkout_status = route.query.checkout == 1 ? false : true ;
 const tableStatus = ref('manageAllOrder')
@@ -78,13 +82,7 @@ function stop_checkout(status){
 }
 
 onMounted(()=>{
-    manage_order_list(route.params.campaign_id).then(
-        res => {
-			store.manageAllOrder = res.data
-			console.log(res.data)
-            search()
-		}
-    )
+    search()
     campaign_manage_order(route.params.campaign_id).then(
         res =>{
             store.manageOrder = res.data
@@ -92,7 +90,7 @@ onMounted(()=>{
         }
     )
 })
-function search(){
+function classification(){
     store.manageReviewOrder,store.manageCompleteOrder = []
     for(data of store.manageAllOrder){
         if(data.status ==='review'){
@@ -101,8 +99,23 @@ function search(){
             store.manageCompleteOrder.push(data)
         }
     }
-    console.log(store.manageReviewOrder.length)
 }
+function search(){
+    manage_order_list(route.params.campaign_id).then(
+        res => {
+			store.manageAllOrder = res.data
+            console.log(res.data.length)
+            if (res.data.length != 0) {
+                dataCount = res.data.length;
+                let totalPage = parseInt(res.data.length / page_size);
+                totalPage = totalPage == 0 ? 1 : totalPage;
+            }
+            classification()
+		}
+    )
+}
+
+
 </script>
 
 <style scoped>
