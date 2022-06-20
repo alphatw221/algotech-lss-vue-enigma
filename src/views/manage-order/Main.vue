@@ -45,6 +45,7 @@
                     :tableStatus="tableStatus"
                     :dataCount="dataCount"
                 />
+                <OrderProductModal></OrderProductModal>
             </div>
         </div>
     </div>
@@ -55,13 +56,13 @@
 import  ManageOrderTable  from "./ManageOrderTable.vue";
 import CampaignStatus from "./CampaignStatus.vue";
 import SearchBar from "./SearchBar.vue";
+import OrderProductModal from "./OrderProductModal.vue"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import xlsx from "xlsx";
 import { campaign_manage_order } from "@/api/manage_order";
 import { allow_checkout, manage_order_list } from "@/api_v2/manage_order"
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
-import { unmountComponentAtNode } from "@fullcalendar/common";
 const route = useRoute();
 const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
@@ -80,11 +81,7 @@ const show_order = status=>{
 }
 
 function stop_checkout(status){
-    allow_checkout(route.params.campaign_id,status).then(
-        res=>{
-            console.log(res.data)
-        }
-    )
+    allow_checkout(route.params.campaign_id,status)
 }
 
 onMounted(()=>{

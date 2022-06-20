@@ -62,7 +62,7 @@
                                 <template v-else-if="column.key === 'order_product'" class="w-40">
                                     <div class="flex place-content-center">
                                         <div class="w-10 h-10 image-fit">
-                                            <ChevronDownIcon/>
+                                            <ChevronDownIcon @click="orderProductModal(order.id,order.type)"/>
                                         </div>
                                     </div>
                                 </template>
@@ -119,4 +119,8 @@ function changePage(page) {
 function changePageSize(pageSize) {
     eventBus.emit('changePageSize',{'page_size':page_size})
     }
+function orderProductModal(id,type){
+    eventBus.emit('getProductData',{'id':id,'type':type})
+    store.orderProductModal = !store.orderProductModal
+}
 </script>
