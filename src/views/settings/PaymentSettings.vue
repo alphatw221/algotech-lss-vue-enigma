@@ -85,14 +85,6 @@
                     class="leading-relaxed"
                 >
                     <TabContent :paymentName="'stripe'"/>
-                    <!-- <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5">
-                        <input @click="toggle" class="form-check-input mr-5 col-start-1" type="checkbox" />
-                        <label for="regular-form-2" class="form-label col-start-2 col-span-10">Set As Default Active</label>
-                        <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Secret Key</label>
-                        <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9 " />
-                        <label for="regular-form-2" class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">Currency Code</label>
-                        <input id="regular-form-2" type="text" class="form-control form-control-rounded col-span-9" />
-                    </div> -->
                 </TabPanel>
                 <TabPanel
                     v-show="activePayment.includes('firstData')"

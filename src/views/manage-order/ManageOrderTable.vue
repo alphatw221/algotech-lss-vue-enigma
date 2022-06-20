@@ -76,14 +76,19 @@
                         </tr>
                     </tbody>
                 </table>
+                <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+                    <Page :total="dataCount" show-sizer @on-change="changePage" @on-page-size-change="changePageSize" />
+                </div>
 </template>
 <script setup>
-import { ref, provide, onMounted } from "vue";
+import { ref, provide, onMounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 const route = useRoute();
 const router = useRouter();
 const store = useManageOrderStore()
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
     { name: 'Order Number', key: 'id' },
     { name: 'Platform', key: 'platform' },
@@ -96,6 +101,9 @@ const columns = ref([
     { name: '', key: 'order_product'}
 ]);
 
+let page = 1;
+let page_size = 10;
+
 const props = defineProps({
     tableStatus: String,
 });
@@ -104,4 +112,11 @@ function to_order_detail(order_id,type){
     store.order_type = type
     router.push(`/seller/order/${order_id}?type=${type}`)
 }
+function changePage(page) {
+    eventBus.emit('changePage',{'page':page})
+    }
+function changePageSize(pageSize) {
+      page_size = pageSize;
+      search();
+    }
 </script>
