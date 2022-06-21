@@ -339,7 +339,7 @@ thead th{
   }
 
   .copyLink:before {
-    content: "Share Product Page";
+    content: "Order Link";
   }
 }
 </style>

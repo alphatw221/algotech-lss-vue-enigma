@@ -8,7 +8,7 @@
                                 <template v-if="store.manageOrder.close_rate_raise >= 0">
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-success cursor-pointer"
-                                            content="33% Higher than last month">
+                                            content="">
                                             {{parseInt(store.manageOrder.close_rate_raise).toFixed(2)}}%
                                             <ChevronUpIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -17,7 +17,7 @@
                                 <template v-else>
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-danger cursor-pointer"
-                                            content="33% Higher than last month">
+                                            content="">
                                             {{parseInt(store.manageOrder.close_rate_raise).toFixed(2)}}%
                                             <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -37,7 +37,7 @@
                                 <template v-if="store.manageOrder.campaign_sales_raise >= 0">                                
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-success cursor-pointer"
-                                            content="2% Lower than last month">
+                                            content="">
                                             {{parseFloat(store.manageOrder.campaign_sales_raise*100).toFixed(2)}}%
                                             <ChevronUpIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -46,7 +46,7 @@
                                 <template v-else>                                
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-danger cursor-pointer"
-                                            content="2% Lower than last month">
+                                            content="">
                                             {{parseFloat(store.manageOrder.campaign_sales_raise*100).toFixed(2)}}%
                                             <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -66,7 +66,7 @@
                                 <template v-if="store.manageOrder.uncheckout_rate_raise >= 0">
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-success cursor-pointer"
-                                            content="12% Higher than last month">
+                                            content="">
                                             {{parseFloat(store.manageOrder.uncheckout_rate_raise).toFixed(2)}}%
                                             <ChevronUpIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -75,7 +75,7 @@
                                 <template v-else>
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-danger cursor-pointer"
-                                            content="12% Higher than last month">
+                                            content="">
                                             {{parseFloat(store.manageOrder.uncheckout_rate_raise).toFixed(2)}}%
                                             <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -95,7 +95,7 @@
                                 <template v-if="store.manageOrder.comment_count_raise >= 0">
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-success cursor-pointer"
-                                            content="22% Higher than last month">
+                                            content="">
                                             {{parseFloat(store.manageOrder.comment_count_raise*100).toFixed(2)}}%
                                             <ChevronUpIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -104,7 +104,7 @@
                                 <template v-else>
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="report-box__indicator bg-danger cursor-pointer"
-                                            content="22% Higher than last month">
+                                            content="">
                                             {{parseFloat(store.manageOrder.comment_count_raise*100).toFixed(2)}}%
                                             <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>

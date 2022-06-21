@@ -94,7 +94,7 @@ const tableColumns = ref([
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
-	width: auto;
+	  width: auto;
     padding-left: 50% !important;
     text-align: left !important;
   }

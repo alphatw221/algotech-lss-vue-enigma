@@ -12,9 +12,6 @@
                 <Tippy class="rounded-full" content="Reply" theme='light'>
                     <div class="w-12 h-12 flex-none image-fit mr-1">
                         <img alt="" class="rounded-full zoom-in" :src="replyTo.image" />
-                        <div
-                            class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                        </div>
                     </div>
                 </Tippy>
                 <div class="box overflow-y-auto bg-secondary scrollbar-hidden flex m-3 p-2 w-fit">
@@ -27,7 +24,7 @@
                 <textarea
                     class="chat__box__input form-control dark:bg-darkmode-600 h-14 resize-none border-inherit px-5 py-3 shadow-none focus:border-inherit focus:ring-0"
                     rows="1" placeholder="Type your message..."></textarea>
-                <a href="javascript:;"
+                <a 
                     class="w-10 h-10 block bg-primary text-white rounded-full flex-none flex items-center justify-center mx-3">
                     <SendIcon class="w-6 h-6" />
                 </a>
@@ -43,6 +40,8 @@
 </template>
 
 <script>
+import { createAxiosWithBearer } from '@/libs/axiosClient'
+
 export default {
     props: {
         replyTo: {
@@ -58,6 +57,9 @@ export default {
     data(){
         return {
             show: null,
+            baseURL: import.meta.env.VITE_FACEBOOK_API_URL_V13,
+            comment_id: '',
+            comments:'',
         }
     },
      mounted() {
@@ -69,7 +71,24 @@ export default {
         closeChat(){
             this.show = false,
             this.eventBus.emit("hide")
-        }
+        },
+        // send(reply){
+        //     console.log(reply)
+        //     // FacebookApiCaller(f'{comment_id}/comments', bearer_token=page_token,
+        //     //                 data=data).post()
+            
+        //     createAxiosWithBearer()
+        //         .post(this.baseURL + `${this.comment_id}/${this.comments}` )
+        //         .then(
+        //             response => {
+        //                 console.log(this.comments)
+        //             }
+        //         ).catch(
+        //             error => {
+        //                 console.log(error)
+        //             }
+        //     )
+        // },
     }
 }
 

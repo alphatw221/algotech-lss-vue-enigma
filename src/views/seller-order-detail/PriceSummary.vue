@@ -33,7 +33,7 @@
                     <span> Subtract -</span>
                 </div>
             </div>
-                <div class="m-5 grid grid-cols-12 gap-4">
+                <div class="mt-3 grid grid-cols-12 gap-4 xl:m-5 2xl:m-5">
                         <div class="col-span-4">
                             <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder="Display Name" v-model="store.orderDetail.adjust_title" />
                         </div>
@@ -50,7 +50,7 @@
                     type="checkbox"
                     v-model="store.orderDetail.free_delivery"
                     />
-                <span>Free Delivery</span>
+                <span class="ml-2">Free Delivery</span>
             </div>            
         </div>
       </div>
@@ -65,7 +65,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">Total Charge</div>
-        <div class="font-medium text-base">{{parseFloat(store.orderDetail.total).toFixed(2)}}</div>
+        <div class="font-medium text-base">$ {{parseFloat(store.orderDetail.total).toFixed(2)}}</div>
       </div>
     </div>
   </div>

@@ -9,14 +9,34 @@
 
             <div class="col-span-12 mt-8 ">
                 <div class="flex align-baseline text-xl -mb-5">
-                    <a class="mr-2 ml-2" @click="show_order('manageAllOrder')">All </a>
-                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white">{{store.manageAllOrder.length}}</span>
-                    <a class="mr-2 ml-5" @click="show_order('manageReviewOrder')">Review </a>
-                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white align-top">{{store.manageReviewOrder.length}}</span>
+                    <div class="relative mr-3 ml-2 w-14"> 
+                        <a class="mr-0.5" @click="show_order('manageAllOrder')">All </a>
+                        <div 
+                            v-show="store.manageAllOrder.length > 0"
+                            class="absolute report-box__indicator p-0.5 px-1.5 text-xs rounded-full bg-danger text-white text-center top-0 left-6">
+                            <span>{{store.manageAllOrder.length}}</span>
+                        </div>
+                    </div>
+                    
+                    <div class=" relative ml-2 w-[105px]">
+                        <a class="mr-0.5" @click="show_order('manageReviewOrder')">Review </a>
+                        
+                        <div 
+                            v-show="store.manageReviewOrder.length > 0"
+                            class="absolute report-box__indicator p-0.5 px-1.5 text-xs rounded-full bg-danger text-white text-center top-0 left-16">
+                            <span> {{store.manageReviewOrder.length}} </span>
+                        </div>
+                    </div>
                     <!--  <a class="mr-2 ml-5">Pending Payment </a> -->
                     <!-- <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr- align-top">2</span> -->
-                    <a class="mr-2 ml-5" @click="show_order('manageCompleteOrder')">Complete </a>
-                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr-5 align-top">{{store.manageCompleteOrder.length}}</span>
+                    <div class=" relative mr-3 ml-2 w-28">
+                        <a class="mr-0.5" @click="show_order('manageCompleteOrder')">Complete </a>
+                        <div 
+                            v-show="store.manageCompleteOrder.length > 0" 
+                            class="absolute report-box__indicator p-0.5 px-1.5 text-xs rounded-full bg-danger text-white text-center top-0 left-[90px]">
+                            <span>{{store.manageCompleteOrder.length}} </span>
+                        </div>
+                    </div>
                 </div>
                 <!--分隔線-->
                 <div class="w-full border-t border-slate-800/60 dark:border-darkmode-400 mt-5"></div>
@@ -45,7 +65,7 @@
                     :tableStatus="tableStatus"
                     :dataCount="dataCount"
                 />
-                <OrderProductModal></OrderProductModal>
+                <OrderProductModal />
             </div>
         </div>
     </div>

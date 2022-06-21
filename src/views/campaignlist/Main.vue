@@ -121,7 +121,7 @@ const tableColumns =ref( [
   { name: "Time", key: "start_at" },
   { name: "Manage Order", key: "manager_order" },
   { name: "Stop Checkout", key: "stop" },
-  { name: "Share Product Page", key:"link" },
+  { name: "Order Link", key:"link" },
   { name: " ", key: "entry" },
   { name: " ", key: "edit" },
 ])

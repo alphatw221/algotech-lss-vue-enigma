@@ -13,13 +13,20 @@ import ViewUIPlus from 'view-ui-plus';
 import VCalendar from 'v-calendar';
 import VueCookies from 'vue3-cookies';
 
-const app = createApp(App).use(createPinia());
+import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
+import { library } from '@fortawesome/fontawesome-svg-core'
+import { fas } from '@fortawesome/free-solid-svg-icons'
+import { far } from '@fortawesome/free-regular-svg-icons'
+import { fab } from '@fortawesome/free-brands-svg-icons'
+
+
+const app = createApp(App).use(createPinia()).component("font-awesome-icon", FontAwesomeIcon);
 
 import router from "./router";
 app.use(router).use(ViewUIPlus).use(VCalendar, {});
 app.use(VueCookies);
 app.use(VueAxios, axios)
-
+library.add(fas, far, fab)
 //mitt (eventBus)
 import mitt from 'mitt'
 const eventBus = mitt()
