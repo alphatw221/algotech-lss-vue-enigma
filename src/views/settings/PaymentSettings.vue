@@ -31,7 +31,7 @@
                     class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
                     tag="button"
                 >
-                    <TruckIcon class="block mr-1" />
+                    <font-awesome-icon icon="fa-brands fa-cc-stripe" class="block mr-1 h-8" />
                     <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">Stripe</span>
                 </Tab>
                 <Tab    
