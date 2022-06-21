@@ -7,7 +7,7 @@
                     class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
                     tag="button"
                 >
-                    <CreditCardIcon class="block mr-1" />
+                    <font-awesome-icon icon="fa-regular fa-credit-card" class="block mr-1 h-8" />
                     <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">Direct Payment</span>
                 </Tab>
                 <Tab 
@@ -15,7 +15,7 @@
                     class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
                     tag="button"
                 >
-                    <TruckIcon class="block mr-1" />
+                    <font-awesome-icon icon="fa-brands fa-paypal" class="block mr-1 h-8"/>
                     <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">PayPal</span>
                 </Tab>
                 <Tab 
@@ -23,7 +23,7 @@
                     class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
                     tag="button"
                 >
-                    <TruckIcon class="block mr-1" />
+                    <font-awesome-icon icon="fa-solid fa-circle-h" class="block mr-1 h-8"/>
                     <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">HitPay</span>
                 </Tab>
                 <Tab 
