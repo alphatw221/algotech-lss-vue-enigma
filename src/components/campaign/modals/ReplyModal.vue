@@ -3,7 +3,7 @@
     <Modal :show="show" @hidden="closeChat()">
         <ModalHeader>
             <h2 class="font-medium text-base mr-auto"> Reply to {{ replyTo.customer_name }} </h2>
-            <a @click="show=false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
+            <a @click="show = false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
                 <XIcon class="w-8 h-8 text-slate-400" />
             </a>
         </ModalHeader>
@@ -21,11 +21,10 @@
                 </div>
             </div>
             <div class="pt-4 pb-10 sm:py-4 flex items-center border-t border-slate-200/60 dark:border-darkmode-400">
-                <textarea
+                <textarea v-model="message"
                     class="chat__box__input form-control dark:bg-darkmode-600 h-14 resize-none border-inherit px-5 py-3 shadow-none focus:border-inherit focus:ring-0"
                     rows="1" placeholder="Type your message..."></textarea>
-                <a 
-                    @click="send(replyTo)"
+                <a @click="send(replyTo.id, message)"
                     class="w-10 h-10 block bg-primary text-white rounded-full flex-none flex items-center justify-center mx-3">
                     <SendIcon class="w-6 h-6" />
                 </a>
@@ -41,7 +40,7 @@
 </template>
 
 <script>
-
+import { comment_on_comment } from '@/api_v2/campaign';
 
 export default {
     props: {
@@ -54,32 +53,34 @@ export default {
             required: false,
             type: Boolean,
         },
-    }, 
-    data(){
+    },
+    data() {
         return {
             show: null,
-            baseURL: import.meta.env.VITE_FACEBOOK_API_URL_V13,
-            comment_id: '',
-            comments:'',
+            message: '',
+            campaignId: this.$route.params.campaign_id,
         }
     },
-     mounted() {
+    mounted() {
         if (this.openChat === true) {
             this.show = true
         }
     },
-    methods:{
-        closeChat(){
+    methods: {
+        closeChat() {
             this.show = false,
             this.eventBus.emit("hide")
         },
-        send(reply){
-            console.log(reply)
-            // FacebookApiCaller(f'{comment_id}/comments', bearer_token=page_token,
-            //                 data=data).post()
-            
-          
-        },
+        send(comment_id) {
+            console.log(this.message)
+            comment_on_comment(this.campaignId, comment_id, this.message).then((response) => {
+                console.log(response.data);
+                this.closeChat()
+            }).catch(error => {
+                console.log(error);
+            })
+
+        }
     }
 }
 
