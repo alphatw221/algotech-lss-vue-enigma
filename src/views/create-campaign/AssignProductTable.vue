@@ -71,7 +71,7 @@
 
                         <td v-else-if="column.key === 'tag'" 
                             class="my-2 w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div v-for="tag in product[column.key]" >{{ tag }}</div> 
+                            <div v-for="tag in product[column.key]" :key="tag" >{{ tag }}</div> 
                         </td>
 
                         <td v-else-if="column.key === 'price'"

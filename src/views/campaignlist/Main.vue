@@ -7,12 +7,12 @@
     <div class="col-span-12">
       <div class="box p-2 intro-y grid grid-cols-12 gap-2 mt-5 p-2">
         <div class="switch-toggle switch-3 switch-candy col-start-1 col-span-12 m-2 lg:col-span-8 2xl:col-span-8">
+          <input id="off" name="state-d" type="radio" />
+          <label for="off" @click="show_campaign('ongoing')" style="width: 100px; font-size:14px;">Ongoing</label>
           <input id="on" name="state-d" type="radio" checked="checked"/>
           <label for="on" @click="show_campaign('scheduled')" style="width: 100px; font-size:14px;">Scheduled</label>
           <input id="na" name="state-d" type="radio" class="my-0" />
           <label for="na" @click="show_campaign('history')" style="width: 100px; font-size:14px;">History</label>
-          <input id="off" name="state-d" type="radio" />
-          <label for="off" @click="show_campaign('ongoing')" style="width: 100px; font-size:14px;">Ongoing</label>
         </div>
         <button 
           class="col-start-1 btn btn-warning btn-rounded w-24 h-10 text-white

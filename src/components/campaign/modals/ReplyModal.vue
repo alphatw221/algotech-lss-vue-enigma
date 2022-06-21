@@ -20,6 +20,49 @@
                     </div>
                 </div>
             </div>
+            <template v-for="comment in nestComment" :key="comment">
+            <div v-if="comment.customer_name === replyTo.customer_name"
+                class="intro-x relative flex items-center p-3" >
+                <Tippy class="rounded-full " content="Reply" theme='light'>
+                    <div class="relative flex items-center w-full">
+                        <div class="w-12 h-12 flex-none image-fit mr-1">
+                        <img alt="" class="rounded-full zoom-in" :src="comment.image" />
+                        </div>
+                    
+                        <div class="ml-2 overflow-hidden w-full">
+                            <div class="flex items-center">
+                                <a href="javascript:;" class="font-medium">{{ comment.customer_name }}</a>
+                                <div class="text-xs text-slate-400 ml-auto"></div>
+                            </div>
+                            <div class="text-slate-500 mt-0.5">
+                                {{ comment.message }}
+                            </div>
+                        </div>
+                    </div>
+                </Tippy>
+            </div>
+            <div v-else
+                class="intro-x relative flex items-center p-3" >
+                <Tippy class="rounded-full " content="Reply" theme='light'>
+                    <div class="relative flex items-center w-full">
+                        <div class="w-12 h-12 flex-none image-fit mr-1">
+                        <img alt="" class="rounded-full zoom-in" :src="comment.image" />
+                        </div>
+                    
+                        <div class="ml-2 overflow-hidden w-full">
+                            <div class="flex items-center">
+                                <a href="javascript:;" class="font-medium">{{ comment.customer_name }}</a>
+                                <div class="text-xs text-slate-400 ml-auto"></div>
+                            </div>
+                            <div class="text-slate-500 mt-0.5">
+                                {{ comment.message }}
+                            </div>
+                        </div>
+                    </div>
+                </Tippy>
+            </div>
+            
+            </template>
             <div class="pt-4 pb-10 sm:py-4 flex items-center border-t border-slate-200/60 dark:border-darkmode-400">
                 <textarea v-model="message"
                     class="chat__box__input form-control dark:bg-darkmode-600 h-14 resize-none border-inherit px-5 py-3 shadow-none focus:border-inherit focus:ring-0"
@@ -59,6 +102,7 @@ export default {
             show: null,
             message: '',
             campaignId: this.$route.params.campaign_id,
+            nestComment: [],
         }
     },
     mounted() {
@@ -75,7 +119,7 @@ export default {
             console.log(this.message)
             comment_on_comment(this.campaignId, comment_id, this.message).then((response) => {
                 console.log(response.data);
-                this.closeChat()
+
             }).catch(error => {
                 console.log(error);
             })

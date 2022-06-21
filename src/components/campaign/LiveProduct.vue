@@ -147,10 +147,6 @@ export default {
 </script>
 
 <style scoped>
-.demo-breadcrumb-separator {
-    color: #ff5500;
-    padding: 0 5px;
-}
 
 .form-check-input {
     border-color: black !important;
@@ -158,11 +154,22 @@ export default {
 
 .table th {
     /*padding-left: 0 !important;*/
-    padding-right: 0 !important;
+    padding-right: 5px !important;
+    padding-left: 5px !important;
 }
 
 .table td {
     /*padding-left: 0 !important;*/
-    padding-right: 0 !important;
+    padding-right: 5px !important;
+    padding-left: 5px !important;
+    border-collapse: collapse;
+    overflow-wrap: break-word;
+    max-width: 100px;
+}
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
 }
 </style>
