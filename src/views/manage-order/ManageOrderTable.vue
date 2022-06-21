@@ -15,7 +15,7 @@
                                         <div v-if="order[column.key] === 'facebook'"
                                             class="w-10 h-10 image-fit">
                                             <div class="w-10 h-10 image-fit">
-                                                <img src='/src/assets/images/lss-img/facebook.png' />
+                                                <img src='/src/assets/images/lss-img/facebook.png' >
                                             </div>
                                         </div>
                                         <div v-else-if="order[column.key] === 'instagram'"

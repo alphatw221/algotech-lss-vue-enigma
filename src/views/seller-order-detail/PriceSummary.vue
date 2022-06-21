@@ -13,13 +13,13 @@
         <div class="mr-auto">Shipping</div>
         <div class="font-medium">{{parseFloat(store.orderDetail.shipping_cost).toFixed(2)}}</div>
       </div>
-      <template v-if="props.order_type === 'order'">
+      <template v-if="store.orderDetail.adjust_title !== null">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
             <div class="font-medium">{{store.orderDetail.adjust_price ?? ''}}</div>
         </div>
       </template>
-      <template v-else>
+      <template v-if="props.order_type !== 'order'">
       <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">
         <div class="mr-auto">Modify Price

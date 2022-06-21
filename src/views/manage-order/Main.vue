@@ -101,13 +101,17 @@ onMounted(()=>{
         page_size = payload.page_size
         search()
 	})
+    eventBus.on("search", (payload) => {
+        search(payload.value)
+	})
 })
 onUnmounted(()=>{
     eventBus.off("changePage")
     eventBus.off("changePageSize")
 })
 function classification(){
-    store.manageReviewOrder,store.manageCompleteOrder = []
+    store.manageReviewOrder = []
+    store.manageCompleteOrder = []
     for(data of store.manageAllOrder){
         if(data.status ==='review'){
             store.manageReviewOrder.push(data)
@@ -116,11 +120,11 @@ function classification(){
         }
     }
 }
-function search(){
-    manage_order_list(route.params.campaign_id).then(
+function search(searchValue){
+    manage_order_list(route.params.campaign_id,searchValue,page,page_size).then(
         res => {
 			store.manageAllOrder = res.data
-            console.log(res.data.length)
+            console.log(res.data)
             if (res.data.length != 0) {
                 dataCount = res.data.length;
                 let totalPage = parseInt(res.data.length / page_size);
