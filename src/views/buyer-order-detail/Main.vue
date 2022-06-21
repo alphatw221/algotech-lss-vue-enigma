@@ -15,7 +15,7 @@
                             <button 
                                 class="btn btn-rounded-pending h-8 ml-3"
                                 v-if="store.order.status !== 'complete'"
-                                @click="router.push(`/buyer/order/${route.params.order_id}/payment`)"
+                                @click="router.push(`/buyer/order/${route.params.order_oid}/payment`)"
                             >
                                 proceed to pay
                             </button>
@@ -128,17 +128,20 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_retrieve_order } from "@/api_v2/order";
+import { buyer_retrieve_order, guest_retrieve_order } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
-
+import { useCookies } from 'vue3-cookies'
+const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
 
 const store = useLSSBuyerOrderStore(); 
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 onMounted(() => {
-    buyer_retrieve_order(route.params.order_id)
+    const retrieve_order = isAnonymousUser?guest_retrieve_order:buyer_retrieve_order
+    retrieve_order(route.params.order_oid)
     .then(
         res => { 
             store.order = res.data 

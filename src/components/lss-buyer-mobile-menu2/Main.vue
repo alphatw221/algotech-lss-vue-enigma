@@ -18,7 +18,7 @@
     </div> -->
     <!-- <transition @enter="enter" @leave="leave"> -->
       <ul
-        class="border-t border-white/[0.08] py-5 pt-7 mt-5" 
+        class="border-t border-white/[0.08] py-5 pt-7 mt-5" v-if="!isAnonymousUser"
       >
         <!-- BEGIN: First Child -->
         <template v-for="(menu, menuKey) in formattedMenu">
@@ -142,13 +142,15 @@ import {
   leave,
 } from "./index";
 import { nestedMenu } from "@/layouts/side-menu";
-
+import { useCookies } from "vue3-cookies"
+const { cookies } = useCookies();
 const route = useRoute();
 const router = useRouter();
 const formattedMenu = ref([]);
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const mobileMenu = computed(() => nestedMenu(buyerLayoutStore.menu, route));
 
+const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
 watch(
   computed(() => route.path),
   () => {

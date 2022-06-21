@@ -6,16 +6,24 @@ const { cookies } = useCookies();
 
 export default async (to, from) => {
 
-    if (['', undefined, null].includes(cookies.get('access_token')) || ['', undefined, null].includes(cookies.get('login_with'))) {
+
+    
+    if (['', undefined, null].includes(cookies.get('login_with'))) {
         return true
     } 
     
-    const store = useLSSBuyerLayoutStore();
+    // const store = useLSSBuyerLayoutStore();
     const type = to.params.type
 
-    store.loginWith = cookies.get('login_with')
-    if (type === 'create') {
+
+    if (type === 'create' && cookies.get('login_with')!='anonymousUser') {
         const response = await buyer_link_create_cart(to.params.object_id, cookies.get('login_with'))
+        if(response.status!=200){
+            // add error handle over here
+            cookies.remove('access_token')
+            cookies.remove('login_with')
+            return '/buyer/login'
+        }
         return `/buyer/cart/${response.data.id}?tag=openAddOn`
     } else if (type === 'enter') {
         return `/buyer/cart/${to.params.object_id}`

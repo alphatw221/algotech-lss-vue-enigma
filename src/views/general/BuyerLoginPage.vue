@@ -17,6 +17,7 @@
             <div class="mt-10 flex flex-col items-center" v-if="!showReminder">
                 <FacebookLoginButton block role='buyer'/>
                 <GoogleLoginButton block role='buyer'/>
+                <ContinueWithoutLoginButton block/>
             </div>
             <Row v-if="showReminder"><p class="text-danger text-center mt-10 text-lg mr-4 ml-4">Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p></Row>
             <div v-if="showReminder" class="text-center items-center shopping-cart-link-block mt-4" >
@@ -28,21 +29,6 @@
                     </div>
                 </a>
             </div>
-                     
-                       
-
-
-            <!-- <p>https://12341234.12341234/</p> -->
-
-            <!-- <button> try window open</button> -->
-            <!-- <a @click="test">https://12341234.12341234/ </a> -->
-            <!-- <a href="chrome https://localhost:3000/seller">testtest</a> -->
-            <!-- <button @click="test()">test</button> -->
-
-
-            <!-- please press and hold the Shopping Cart Link below and open on Safari or Chrome -->
-
-            <!-- please press/hold the Shopping Cart Link below and open on Safari or Chrome -->
 
         </Card>
     </div>
@@ -52,6 +38,7 @@
 
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
+import ContinueWithoutLoginButton from '@/components/button/ContinueWithoutLoginButton.vue';
 import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
 import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'
 

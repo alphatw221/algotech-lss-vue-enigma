@@ -31,12 +31,6 @@ const userAvatar = computed(() => {
   if (cookies.get('login_with')=='google'){
     return buyerLayoutStore.userInfo.google_info.picture
   }
-  if(buyerLayoutStore.userInfo.facebook_info.picture){
-    return buyerLayoutStore.userInfo.facebook_info.picture
-  }
-  if(buyerLayoutStore.userInfo.google_info.picture){
-    return buyerLayoutStore.userInfo.google_info.picture
-  }
   return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
 });
 

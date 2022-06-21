@@ -73,7 +73,7 @@
 </template>
 <script setup>
 import { useManageOrderStore } from "@/stores/lss-manage-order";
-import { update_adjust_price } from "@/api_v2/pre_order"
+import { seller_adjust_price } from "@/api_v2/pre_order"
 import { useRoute, useRouter } from "vue-router";
 import {ref, watch, computed, getCurrentInstance} from "vue";
 
@@ -99,7 +99,7 @@ function update_modify_price(){
     store.modify_price.adjust_price = store.orderDetail.adjust_price
   }
 
-  update_adjust_price(route.params.order_id,store.modify_price).then(
+  seller_adjust_price(route.params.order_id,store.modify_price).then(
     res => {
       alert('Update')
       eventBus.emit('getNewPrice')

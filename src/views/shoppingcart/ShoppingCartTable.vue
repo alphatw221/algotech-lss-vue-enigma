@@ -75,16 +75,18 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
+import { buyer_delete_order_product, buyer_update_order_product, guest_delete_order_product, guest_update_order_product } from "@/api_v2/order_product"
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useRoute } from "vue-router";
-
+import { useCookies } from "vue3-cookies"
 const route = useRoute();
 const store = useShoppingCartStore(); 
 const layoutStore = useLSSBuyerLayoutStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const { cookies } = useCookies()
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 const tableColumns = ref([
 	{ key: "image", name: " ",  },
@@ -96,7 +98,8 @@ const tableColumns = ref([
 ])
 
 const deleteOrderProduct = (order_product_id, index) =>{
-	buyer_delete_order_product(order_product_id).then(res=>{
+	const delete_order_product = isAnonymousUser?guest_delete_order_product:buyer_delete_order_product
+	delete_order_product(order_product_id, route.params.pre_order_oid).then(res=>{
 		store.order = res.data
 		layoutStore.notification.showMessageToast("Delete Success")
 	})
@@ -135,8 +138,8 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 		return
 	}
 
-	buyer_update_order_product(order_product_id, qty)
-	.then(
+	const update_order_product = isAnonymousUser?guest_update_order_product:buyer_update_order_product
+	update_order_product(order_product_id, route.params.pre_order_oid, qty).then(
 		res => {
 			store.order = res.data
 			layoutStore.notification.showMessageToast("Update Success")

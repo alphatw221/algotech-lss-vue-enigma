@@ -1,7 +1,7 @@
 <template>
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav bg-secondary">
-        <ul>
+        <ul v-if="!isAnonymousUser">
           <!-- BEGIN: First Child -->
           <template v-for="(menu, menuKey) in formattedMenu">
             <li
@@ -131,14 +131,14 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import SideMenuTooltip from "@/components/side-menu-tooltip/Main.vue";
 import { linkTo, nestedMenu, enter, leave } from "./index";
 import dom from "@left4code/tw-starter/dist/js/dom";
-
+import { useCookies } from "vue3-cookies"
 const route = useRoute();
 const router = useRouter();
 const formattedMenu = ref([]);
 const layoutStore = useLSSBuyerLayoutStore();
-
+const { cookies } = useCookies();
 const sideMenu = computed(() => nestedMenu(layoutStore.menu, route));
-
+const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
 provide("forceActiveMenu", (pageName) => {
   
   route.forceActiveMenu = pageName;
@@ -155,7 +155,8 @@ watch(
 
 onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
-  formattedMenu.value = $h.toRaw(sideMenu.value);
+    formattedMenu.value = $h.toRaw(sideMenu.value);
+  
 
 });
 </script>

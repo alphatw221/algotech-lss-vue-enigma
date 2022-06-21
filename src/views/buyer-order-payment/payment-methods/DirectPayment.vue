@@ -102,7 +102,7 @@
 
 import { computed, onMounted, ref, watch, provide, reactive, toRefs } from "vue";
 
-import { buyer_upload_receipt } from "@/api_v2/order";
+import { buyer_upload_receipt, guest_upload_receipt } from "@/api_v2/order";
 
 import { useRoute, useRouter } from "vue-router";
 
@@ -116,11 +116,13 @@ import {
 } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
+import { useCookies } from 'vue3-cookies'
+const { cookies } = useCookies()
 const store = useLSSBuyerOrderStore();
 const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const router = useRouter();
-
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
 const receiptUploadDropzoneRef = ref();
 const openTab = ref(0);
@@ -169,11 +171,12 @@ const uploadReceipt = () => {
     formData.append('image', receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0] || '')
     formData.append('account_name', account.direct_payment_name)
 
-    buyer_upload_receipt(route.params.order_id, formData)
+    const upload_receipt = isAnonymousUser?guest_upload_receipt:buyer_upload_receipt
+    upload_receipt(route.params.order_oid, formData)
         .then(
             res => {
                 store.order = res.data
-                router.push(`/buyer/order/${route.params.order_id}`)
+                router.push(`/buyer/order/${route.params.order_oid}`)
             }
         )
 }
