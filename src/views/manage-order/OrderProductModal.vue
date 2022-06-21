@@ -89,7 +89,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
     { key: "image", name: "Image",  },
 	{ key: "product", name: "Product",  },
-	{ key: "qty", name: "Quantity",  },
+	{ key: "qty", name: "Qty",  },
 	{ key: "price", name: "Price",  },
 	{ key: "subtotal", name: "Subtotal",  },
 ]);
