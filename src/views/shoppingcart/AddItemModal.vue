@@ -28,10 +28,10 @@
 								/>
 							</div>
 						</a>
-						<div class="block font-medium text-center truncate">	
+						<div class="block font-medium text-center whitespace-normal break-normal w-full truncate">	
 							{{ product.name }}
 						</div>
-						<div class="text-slate-500 text-xs text-center">
+						<div class="text-slate-500 text-sm text-center">
 							$ {{ product.price }}
 						</div>
 						<div class="flex">

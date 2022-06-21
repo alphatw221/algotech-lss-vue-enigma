@@ -29,12 +29,12 @@
             </div>
             <div class="col-start-1 col-span-12 -mt-2">
                 <AccordionGroup class="accordion-boxed">
-                    <AccordionItem class="mt-0 h-fit">
+                    <AccordionItem class="mt-0">
                         <Accordion class="bg-primary rounded-lg">
                             <div class="w-full flex justify-end"> <PlusIcon class="text-white mx-5 -mt-2" /> </div>
                         </Accordion>
                         <AccordionPanel
-                            class="box text-slate-600 dark:text-slate-500 leading-relaxed mt-1">
+                            class="box text-slate-600 dark:text-slate-500 leading-relaxed mt-1 -mb-5">
                             <div v-html="fb_video" class="-mt-2" v-show="open_fb_video" />
                             <div v-html="ig_video" class="-mt-2" v-show="open_ig_video" />
                             <div v-html="yt_video" class="-mt-2" v-show="open_yt_video" />
@@ -71,26 +71,26 @@
                                 <div v-for="(reply, key) in platform_data.comments" :key="key"
                                     class="intro-x cursor-pointer relative flex items-center p-3"
                                     @click="showReplyBar(reply)">
-                                    <Tippy class="rounded-full" content="Reply" theme='light'>
-                                        <div class="w-12 h-12 flex-none image-fit mr-1">
+                                    <Tippy class="rounded-full " content="Reply" theme='light'>
+                                        <div class="relative flex items-center w-full">
+                                            <div class="w-12 h-12 flex-none image-fit mr-1">
                                             <img alt="" class="rounded-full zoom-in" :src="reply.image" />
-                                            <div
-                                                class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                            </div>
+                                        
+                                            <div class="ml-2 overflow-hidden w-full">
+                                                <div class="flex items-center">
+                                                    <a href="javascript:;" class="font-medium">{{ reply.customer_name }}</a>
+                                                    <div class="text-xs text-slate-400 ml-auto"></div>
+                                                </div>
+                                                <div class="text-slate-500 mt-0.5">
+                                                    {{ reply.message }}
+                                                </div>
                                             </div>
                                         </div>
                                     </Tippy>
-                                    <div class="ml-2 overflow-hidden">
-                                        <div class="flex items-center">
-                                            <a href="javascript:;" class="font-medium">{{ reply.customer_name }}</a>
-                                            <div class="text-xs text-slate-400 ml-auto"></div>
-                                        </div>
-                                        <div class="w-full truncate text-slate-500 mt-0.5">
-                                            {{ reply.message }}
-                                        </div>
-                                    </div>
                                 </div>
                                 <template v-if="showModal">
-                                    <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" />
+                                    <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" :campaignId="campaign_id" />
                                 </template>
                             </template>
                         </div>
@@ -129,7 +129,7 @@
 
 <script>
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
-import ReplyModal from './ReplyModal.vue';
+import ReplyModal from './modals/ReplyModal.vue';
 
 
 export default {

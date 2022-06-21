@@ -1,5 +1,6 @@
 <template>
-    <table class="table table-report mt-5 overflow-y-scroll overflow-x-auto w-full">
+<div class="overflow-y-auto overflow-x-auto w-full">
+	    <table class="table table-report">
 		<thead>
 			<tr>
 				<th
@@ -13,9 +14,9 @@
 			</thead>
 			<tbody>
 			<tr v-for="(product, index) in store.orderDetail.products" :key="index" class="intro-x">
-				<td class=" h-20">
+				<td class=" ">
 					<div class="flex">
-						<div class="w-10 h-10 image-fit zoom-in">
+						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex">
 						<Tippy
 							tag="img"
 							data-action="zoom"
@@ -26,27 +27,27 @@
 						</div>
 					</div>
 				</td>
-				<td class="text-center h-20">
+				<td class="text-center ">
 					{{ product.name }}
 				</td>
-				<td class="text-center h-20">
+				<td class="text-center ">
 					<template v-if="props.order_type === 'order'">
 						{{ product.qty }}
 					</template>
 					<template v-else>
-						<div class="form-check self-center place-content-center">
-                            <input id="qty" type="number" class="form-control" aria-label="default input" :value="product.qty"
-                                style="width: 4rem; height: 2rem; margin-top: 5px;" @input="update_qty(index,product.order_product_id,$event.target.value)"/>
+						<div class="form-check self-center place-content-left">
+                            <input id="qty" type="number" class="form-control w-16" aria-label="default input" :value="product.qty"
+                                 @input="update_qty(index,product.order_product_id,$event.target.value)"/>
                         </div>
 					</template>
 				</td>
-				<td class="text-center h-20">
-					{{ product.price }}
+				<td class="text-center ">
+					$ {{ product.price }}
 				</td>
-				<td class="text-center h-20">
-					{{ product.qty * product.price }}
+				<td class="text-center">
+					$ {{ product.qty * product.price }}
 				</td>
-                <td class="h-20">
+                <td class="">
 					<div v-show="props.order_type !== 'order'">
 						<Trash2Icon @click="delete_product(product.order_product_id)"/>
 					</div>
@@ -54,6 +55,7 @@
 			</tr>
 		</tbody>
 	</table>
+</div>
 </template>
 
 <script setup>
@@ -100,3 +102,99 @@ const props = defineProps({
 
 
 </script>
+
+<style scoped>
+.click-icon:hover {
+	cursor: pointer;
+}
+
+td {
+  min-height: 40px;
+  border-collapse: collapse;
+}
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
+  background-color: theme("colors.secondary");
+}
+
+.longMessage{
+	overflow-wrap: break-word;
+}	
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+
+	table,
+	thead,
+	tbody,
+	th,
+	td,
+	tr {
+		display: block;
+		font-size: 16px;
+		padding: 0px !important;
+	}
+
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
+
+	tr {
+		border-bottom: 1px solid black;
+	}
+
+	td {
+		border: none;
+		position: relative;
+		padding-left: 50% !important;
+		text-align: left !important;
+		box-shadow: none !important;
+		padding-top: 10px !important;
+	}
+
+	td:before {
+		position: absolute;
+		left: 6px;
+		width: 45%;
+		padding-right: 10px;
+		font-weight: bold;
+		box-shadow: none !important;
+		background-color: white !important;
+		padding-top: 0px !important;
+	}
+
+	td:nth-of-type(1):before {
+		content: "";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(2):before {
+		content: "Product";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(3):before {
+		content: "Quantity";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(4):before {
+		content: "Price";
+		/* color: #0e9893; */
+	}
+
+	td:nth-of-type(5):before {
+		content: "Subtotal";
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(6):before {
+		display: none;
+		/* color: #0e9893; */
+	}
+}
+</style>

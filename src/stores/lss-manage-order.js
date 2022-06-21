@@ -13,7 +13,9 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 			free_delivery:false
 		}),
 		modify_status: ref('+'),
-		manageOrder:ref({})
+		manageOrder:ref({}),
+		orderProductModal:ref(false),
+		orderProductData:ref({})
 	}),
 });
 	

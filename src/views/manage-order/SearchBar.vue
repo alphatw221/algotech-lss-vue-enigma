@@ -3,7 +3,11 @@
                     <div class="flex w-full absolute mr-auto m-1 right-0 sm:mt-1 sm:w-auto ">
                         <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-slate-700 " />
                         <input type="text" class="form-control rounded-full mr-2 w-full sm:w-64 box px-10"
-                            placeholder="Search files" />
+                            placeholder="Search files" v-model="searchValue"/>
+                        <button id="tabulator-html-filter-go" type="button" class="flex-none btn btn-primary w-16 mr-3"
+                                @click="search()">
+                        Go
+                        </button>
 
                         <div class="export">
                              <Dropdown class="relative p-2 mr-1 flex rounded-full items-center btn border-[#131C34] "
@@ -13,7 +17,7 @@
                             </DropdownToggle>
                             <DropdownMenu class="pt-2">
                                 <DropdownContent class="w-full text-center">
-                                    <DropdownItem @click="onExportXlsx"> XLSM </DropdownItem>
+                                    <DropdownItem @click="onExportXlsx"> CSV </DropdownItem>
                                 </DropdownContent>
                             </DropdownMenu>
                         </Dropdown>
@@ -38,6 +42,15 @@
                 </div>
 </template>
 <script setup>
+import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const searchValue = ref('')
+
+function search(){
+    console.log(searchValue.value)
+    eventBus.emit('search',{'value':searchValue.value})
+}
 
 </script>
