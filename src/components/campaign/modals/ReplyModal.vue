@@ -25,6 +25,7 @@
                     class="chat__box__input form-control dark:bg-darkmode-600 h-14 resize-none border-inherit px-5 py-3 shadow-none focus:border-inherit focus:ring-0"
                     rows="1" placeholder="Type your message..."></textarea>
                 <a 
+                    @click="send(replyTo)"
                     class="w-10 h-10 block bg-primary text-white rounded-full flex-none flex items-center justify-center mx-3">
                     <SendIcon class="w-6 h-6" />
                 </a>
@@ -40,7 +41,7 @@
 </template>
 
 <script>
-import { createAxiosWithBearer } from '@/libs/axiosClient'
+
 
 export default {
     props: {
@@ -72,23 +73,13 @@ export default {
             this.show = false,
             this.eventBus.emit("hide")
         },
-        // send(reply){
-        //     console.log(reply)
-        //     // FacebookApiCaller(f'{comment_id}/comments', bearer_token=page_token,
-        //     //                 data=data).post()
+        send(reply){
+            console.log(reply)
+            // FacebookApiCaller(f'{comment_id}/comments', bearer_token=page_token,
+            //                 data=data).post()
             
-        //     createAxiosWithBearer()
-        //         .post(this.baseURL + `${this.comment_id}/${this.comments}` )
-        //         .then(
-        //             response => {
-        //                 console.log(this.comments)
-        //             }
-        //         ).catch(
-        //             error => {
-        //                 console.log(error)
-        //             }
-        //     )
-        // },
+          
+        },
     }
 }
 

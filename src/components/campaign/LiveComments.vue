@@ -129,7 +129,7 @@
 
 <script>
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
-import ReplyModal from './ReplyModal.vue';
+import ReplyModal from './modals/ReplyModal.vue';
 
 
 export default {

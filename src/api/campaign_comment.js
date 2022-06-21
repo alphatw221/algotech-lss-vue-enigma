@@ -19,3 +19,7 @@ export const get_comments = (campaign_id) => {
     return createAxiosWithBearer().get(`/api/campaign-comment/${campaign_id}/`)
 }
 
+export const comment_on_comment = (page_token,comment_id,message_text) => {
+    return createAxiosWithBearer().get(`/api/campaign-comment/${campaign_id}/`)
+}
+

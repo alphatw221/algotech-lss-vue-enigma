@@ -1,14 +1,27 @@
 <template>
-    <div class="box col-span-12 col-start-1 row-span-4 h-fit mt-0 lg:col-span-7 lg:row-start-3 lg:-mt-2 2xl:col-span-4 2xl:row-start-1" >
-        <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-6 lg:mt-3">
-            <row class="col-span-12" style="margin: -13px 0 -13px 0px;">
-                <h2 class="text-lg font-medium w-48">Product</h2>
-                <a href="javascript:;" @click="this.addProductFromStock = !this.addProductFromStock"
-                    class="btn btn-primary right-0">Add Product From Stock</a>
-            </row>
+    <div
+        class="box col-span-12 col-start-1 row-span-4 h-fit mt-0 lg:col-span-7 lg:row-start-3 lg:mt-2 2xl:col-span-4 2xl:row-start-1 2xl:mt-2">
+        <div class="flex w-full mt-3 mx-3">
+            <h2 class="text-lg font-medium w-48 mr-auto">Product</h2>
+            <Dropdown class="inline-block">
+                <DropdownToggle class="btn btn-primary mr-6 w-40">
+                    Add Product
+                </DropdownToggle>
+                <DropdownMenu class="w-48 ">
+                    <DropdownContent>
+                        <DropdownItem @click="this.instantlyAddProduct = true">
+                            Instantly Add Product
+                        </DropdownItem>
+                        <DropdownItem @click="this.addProductFromStock = true">
+                            Add Product From Stock
+                        </DropdownItem>
+                    </DropdownContent>
+                </DropdownMenu>
+            </Dropdown>
         </div>
-        <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem] mt-1">
-            <div class="sticky top-0 z-50"> 
+        <div
+            class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem] mt-1">
+            <div class="sticky top-0 z-50">
                 <table class="table table-sm">
                     <thead class="table-dark">
                         <tr>
@@ -17,7 +30,7 @@
                             </th>
                         </tr>
                     </thead>
-                
+
                     <tbody>
                         <tr v-for="data in product_results" :key="data.id">
                             <td><img data-action="zoom" :src="imagePath + data.image" class="w-10 zoom-in" /></td>
@@ -35,7 +48,9 @@
                                     mt-3
                                     sm:mt-0
                                 ">
-                                    <input @click="toggle;item_status_switch(data.id, data.campaign, {'status':data.status === 1 ? 0 : 1});" class="form-check-input mr-0 ml-0" type="checkbox" checked />
+                                    <input
+                                        @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === 1 ? 0 : 1 });"
+                                        class="form-check-input mr-0 ml-0" type="checkbox" checked />
                                 </div>
                                 <div class="
                                     form-check form-switch
@@ -43,9 +58,10 @@
                                     sm:w-auto sm:ml-auto
                                     mt-3
                                     sm:mt-0
-                                    " v-else
-                                >
-                                    <input @click="toggle;item_status_switch(data.id, data.campaign, {'status':data.status === 1 ? 0 : 1});" class="form-check-input mr-0 ml-0" type="checkbox" />
+                                    " v-else>
+                                    <input
+                                        @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === 1 ? 0 : 1 });"
+                                        class="form-check-input mr-0 ml-0" type="checkbox" />
                                 </div>
                             </td>
                         </tr>
@@ -53,11 +69,14 @@
                 </table>
             </div>
         </div>
-    </div>      
+    </div>
 
     <!-- BEGIN: Add Product From Stock -->
     <Modal size="modal-xl" class="text-center" :slideOver="true" :show="addProductFromStock"
         @hidden="addProductFromStock = false">
+        <a @click="addProductFromStock = !addProductFromStock" class="absolute right-0 top-0 mt-3 mr-3">
+            <XIcon class="w-8 h-8 text-slate-400" />
+        </a>
         <ModalHeader class="text-center p-5">
             <h2 class="font-medium text-base text-center">
                 Add Product From Stock
@@ -144,17 +163,59 @@
             </div>
         </ModalBody>
     </Modal>
-    <!-- END: Add Product From Stock --> 
+    <!-- END: Add Product From Stock -->
+
+    <!-- BEGIN: Instantly Add Product -->
+    <Modal class="text-center" :slideOver="true" :show="instantlyAddProduct" @hidden="instantlyAddProduct = false">
+        <a @click="instantlyAddProduct = !instantlyAddProduct" class="absolute right-0 top-0 mt-3 mr-3">
+            <XIcon class="w-8 h-8 text-slate-400" />
+        </a>
+        <ModalHeader class="text-center p-5">
+            <h2 class="font-medium text-base text-center w-full">
+                Instantly Add Product
+            </h2>
+        </ModalHeader>
+        <ModalBody class="text-[16px]">
+            <div class="text-left">
+                <form action="#" class="flex flex-col p-2">
+                    <div> <input type="checkbox" /> <span class="ml-2"> Save to Stock </span></div>
+                    <label class="mt-5 mb-2">Product Name</label>
+                    <input type="text" class="rounded-lg" />
+                    <label class="mt-5 mb-2">Category</label>
+                    <TomSelect v-model="select" :options="{
+                      placeholder: 'Select your favorite actors',
+                                }" class="w-full rounded-lg">
+                        <option value="1">Leonardo DiCaprio</option>
+                        <option value="2">Johnny Deep</option>
+                        <option value="3">Robert Downey, Jr</option>
+                        <option value="4">Samuel L. Jackson</option>
+                        <option value="5">Morgan Freeman</option>
+                    </TomSelect>
+                    <label class="mt-5 mb-2">Code</label>
+                    <input type="text" class="rounded-lg" />
+                    <label class="mt-5 mb-2">Price</label>
+                    <input type="text" class="rounded-lg" />
+                    <label class="mt-5 mb-2">Q’TY</label>
+                    <input type="text" class="rounded-lg" />
+                    <button class="btn btn-primary mt-10 ml-auto"> Apply</button>
+                </form>
+            </div>
+        </ModalBody>
+    </Modal>
+    <!-- END: Instantly Add Product -->
+
 </template>
 <script>
-import {list_campaign_product, update_campaign_product} from '@/api/campaign_product';
+import { list_campaign_product, update_campaign_product } from '@/api/campaign_product';
 export default {
     props: {
         campaignId: Number
     },
-    
+
     data() {
         return {
+            addProductFromStock: false,
+            instantlyAddProduct: false,
             imagePath: import.meta.env.VITE_APP_IMG_URL,
             product_columns: [
                 { name: "Image", key: "image" },
@@ -179,10 +240,10 @@ export default {
             })
         }
         this.eventBus.on("changeProductData", (payload) => {
-            const index = this.product_results.findIndex(item=> item.id === payload.id)
+            const index = this.product_results.findIndex(item => item.id === payload.id)
             this.product_results[index]["qty_sold"] = payload["qty_sold"]
         });
-        
+
     },
     methods: {
         item_status_switch(id, campaign_id, data) {
