@@ -96,6 +96,7 @@
 			<button class="btn bg-[#969696] mr-5" @click="$router.back()"> Previous</button>
 			<button class="btn bg-[#ED2225]" @click="saveCampaign"> Save</button>
 		</div>
+		</div>
 	</div>
 </template>  
 
