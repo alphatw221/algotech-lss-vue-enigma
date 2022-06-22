@@ -218,11 +218,11 @@ const search = () => {
             item.editable = true
             item.deletable = true
             item.max_order_amount = 1
-            if (item.type === 'lucky_draw'){
+            if (item.type === 'lucky_draw') {
                 item.editable = false
                 item.deletable = false
             }
-            if(item.editable === false){
+            if (item.editable === false) {
                 item.deletable = false
             }
         })

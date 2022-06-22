@@ -104,7 +104,7 @@
                     </div>
                 </TabPanel>
             </TabPanels>
-            <div class="col-span-12 m-10 p-5">
+            <!-- <div class="col-span-12 m-10 p-5">
                 <div class="text-md font-medium m-2">
                     Delivery and Collect Note
                 </div>
@@ -117,7 +117,7 @@
                 <div class="text-md font-medium m-2">Remark</div>
                 <textarea id="" class="form-control indent-4"
                     placeholder="">Remark remark remark remark</textarea>
-            </div>
+            </div> -->
         </TabGroup>
     </div>
 </template>
@@ -128,10 +128,10 @@ import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import TabContent from './PaymentTabContent.vue';
 
+
 const paymentStore = useLSSPaymentMetaStore()
 const sellerStore = useLSSSellerLayoutStore()
 const activePayment = ref([])
-
 
 onMounted(() => {
     const activated_country = sellerStore.userInfo.user_subscription.meta_country.activated_country[0]
