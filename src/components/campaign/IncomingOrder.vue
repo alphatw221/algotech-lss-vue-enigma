@@ -40,7 +40,7 @@
                             <td>{{ data.customer_name }}</td>
                             <td>{{ data.currency_sign }}{{ parseFloat(data.subtotal).toFixed(2) }}</td> 
                             <td>
-                                <EyeIcon @click="this.$router.push(`/seller/order/${data.id}?type=pre_order`);seller_order_detail"/>
+                                <EyeIcon class="click-icon" @click="this.$router.push(`/seller/order/${data.id}`);seller_order_detail"/>
                             </td>
                         </tr>
                     </tbody>
@@ -114,5 +114,8 @@ export default {
 .table td {
     /*padding-left: 0 !important;*/
     padding-right: 0 !important;
+}
+.click-icon:hover {
+	cursor: pointer;
 }
 </style>
