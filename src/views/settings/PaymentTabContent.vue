@@ -135,9 +135,11 @@ onMounted(() => {
     if (props.paymentName === 'directPayment') {
         createAxiosWithBearer().get(paymentInfo.value.request_url)
         .then(response => {
-            directPaymentSettings.value = response.data.accounts
-            for (let i = 0; i < directPaymentSettings.value.length; i ++) {
-                directPaymentSettings.value[i]['previewImage'] = storageUrl + directPaymentSettings.value[i].image.substring(1)
+            if (response.data.accounts) {
+                directPaymentSettings.value = response.data.accounts
+                for (let i = 0; i < directPaymentSettings.value.length; i ++) {
+                    directPaymentSettings.value[i]['previewImage'] = storageUrl + directPaymentSettings.value[i].image.substring(1)
+                }
             }
         })
 

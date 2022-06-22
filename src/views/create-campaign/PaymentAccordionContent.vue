@@ -156,9 +156,13 @@ onMounted(() => {
     if (props.paymentName === 'directPayment') {
         createAxiosWithBearer().get(paymentInfo.value.request_url)
         .then(response => {
-            directPaymentSettings.value = response.data.accounts
-            for (let i = 0; i < directPaymentSettings.value.length; i ++) {
-                directPaymentSettings.value[i]['previewImage'] = storageUrl + directPaymentSettings.value[i].image.substring(1)
+            if (response.data.accounts) {
+                directPaymentSettings.value = response.data.accounts
+                if (directPaymentSettings.value.length > 0) {
+                    for (let i = 0; i < directPaymentSettings.value.length; i ++) {
+                        directPaymentSettings.value[i]['previewImage'] = storageUrl + directPaymentSettings.value[i].image.substring(1)
+                    }
+                }
             }
         })
 
@@ -201,6 +205,9 @@ const modifyDirectPayment = (type, index) => {
     if (type == 'add') {
         let accountObj = {}
         let copyObj = Object.assign(accountObj, paymentObj.value)
+
+        console.log(directPaymentSettings.value)
+
         if (Object.entries(directPaymentSettings.value).length > 0) {
             directPaymentSettings.value[parseInt(Object.keys(directPaymentSettings.value).at(-1)) + 1] = accountObj
         } else {
