@@ -99,8 +99,8 @@
                 <DropdownMenu class="pt-2">
                   <DropdownContent class="w-full text-center">
                     <DropdownItem> Edit </DropdownItem>
-                    <DropdownItem @click="copyURL(campaign.id)"> Order Link </DropdownItem>
-                    <DropdownItem> MKT </DropdownItem>
+                    <DropdownItem @click="copyURL(campaign.id)"> Blank Cart </DropdownItem>
+                    <DropdownItem> MKT Tools </DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown>
