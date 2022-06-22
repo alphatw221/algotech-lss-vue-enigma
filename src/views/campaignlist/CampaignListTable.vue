@@ -91,7 +91,6 @@
             </button>
           </td>
           <td class="edit table-report__action w-fit">
-            <div class="export">
               <Dropdown placement="bottom-start">
                 <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
                   <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
@@ -103,8 +102,7 @@
                     <DropdownItem> MKT Tools </DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
-              </Dropdown>
-            </div>
+              </Dropdown> 
           </td>
         </tr>
       </tbody>

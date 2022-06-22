@@ -63,7 +63,7 @@ import { computed, onMounted, ref, watch,getCurrentInstance } from "vue";
 
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
-import { seller_delete_product, seller_update_product } from "@/api_v2/pre_order"
+import { seller_delete_product, seller_update_product } from "@/api_v2/order_product"
 const route = useRoute();
 const router = useRouter();
 const store = useManageOrderStore();

@@ -37,9 +37,4 @@ export const seller_retrieve_pre_order = (pre_order_id) => {
 export const seller_adjust_price = (pre_order_id,data) => {
     return createAxiosWithBearer().put(`/api/v2/pre_order/${pre_order_id}/seller/adjust`,data)
 }
-export const seller_delete_product = (pre_order_id,order_product_id) => {
-    return createAxiosWithBearer().get(`/api/v2/pre_order/${pre_order_id}/seller/delete/?order_product_id=${order_product_id}`)
-}
-export const seller_update_product = (pre_order_id,order_product_id,qty) => {
-    return createAxiosWithBearer().get(`/api/v2/pre_order/${pre_order_id}/seller/update/?order_product_id=${order_product_id}&qty=${qty}`)
-}
+
