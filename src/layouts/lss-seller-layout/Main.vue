@@ -35,7 +35,8 @@
             <div class="font-medium">Video Streaming...</div>
             <div class="text-slate-500 mt-1">
                 <video class="w-[450px]" controls>
-                  <source src="movie.mp4" type="video/mp4">
+                  <!-- <source src="movie.mp4" type="video/mp4"> npm can't build with this line-->
+                  <source src="" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
             </div>

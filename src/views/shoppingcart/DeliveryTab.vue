@@ -279,10 +279,11 @@ import { useVuelidate } from "@vuelidate/core";
 import { computed, onMounted, ref, watch, reactive, toRefs } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
-import { update_delivery_info } from "@/api_v2/pre_order"
+import { buyer_update_delivery_info, guest_update_delivery_info } from "@/api_v2/pre_order"
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
-
+import { useCookies } from 'vue3-cookies'
+const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
 
@@ -291,7 +292,7 @@ const layoutStore = useLSSBuyerLayoutStore();
 
 const shipping_info= ref({
 			shipping_option:"",
-      shipping_method: "pickup",
+      shipping_method: "delivery",
       shipping_first_name: "",
       shipping_last_name: "",
       shipping_email: "",
@@ -310,13 +311,17 @@ const shipping_info= ref({
       shipping_time: null,
       pickup_address:""
 		})
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 onMounted(()=>{
-  buyer_retrieve_latest_order_shipping_info().then(res=>{
-    res.data.shipping_method='delivery'
-    res.data.shipping_option=''
-    shipping_info.value = res.data
-  })
+  if(!isAnonymousUser){
+    buyer_retrieve_latest_order_shipping_info().then(res=>{
+      res.data.shipping_method='delivery'
+      res.data.shipping_option=''
+      shipping_info.value = res.data
+    })
+  }
+  
 })
 
 const select_shipping_method = method => {
@@ -382,8 +387,11 @@ const proceed_to_payment = () =>{
   }
   
   if (confirm('Are you sure you want to process check out? Your shopping cart will be cleared.')){
-    update_delivery_info(route.params.pre_order_id, {shipping_data:shipping_info.value}).then(res=>{
-      router.push(`/buyer/order/${res.data.id}/payment`)
+
+    const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
+    update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
+    .then(res=>{
+      router.push(`/buyer/order/${res.data.oid}/payment`)
     })
   }
 }

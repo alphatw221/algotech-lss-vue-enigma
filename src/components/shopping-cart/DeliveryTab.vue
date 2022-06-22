@@ -153,7 +153,7 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 import { useRoute, useRouter } from "vue-router";
 import { method } from "lodash";
-import { update_delivery_info } from "@/api_v2/pre_order"
+import { buyer_update_delivery_info } from "@/api_v2/pre_order"
 const route = useRoute();
 const router = useRouter();
 
@@ -174,7 +174,7 @@ function to_payment(){
     store.shipping_info.pickup_info.shipping_remark = store.shipping_info.shipping_remark
   }
   console.log(store.shipping_info)
-  update_delivery_info(route.params.pre_order_id,store.shipping_info)
+  buyer_update_delivery_info(route.params.pre_order_id,store.shipping_info)
 }
 
 

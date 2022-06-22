@@ -7,7 +7,7 @@ const { cookies } = useCookies();
 export default async (to, from)=>{
     const buyerStore = useLSSBuyerLayoutStore();
 
-    if (buyerStore.isAuthenticated || cookies.get(cookies.get('login_with')=='anonymousUser')) return true
+    if (buyerStore.isAuthenticated && cookies.get(cookies.get('login_with')!='anonymousUser')) return true
 
     if (cookies.get('access_token')) {
         const res = await get_buyer_account()
@@ -21,5 +21,5 @@ export default async (to, from)=>{
 
     cookies.remove('access_token')
     cookies.set('login_with','anonymousUser')
-    return true
+    return '/buyer/'
 }
