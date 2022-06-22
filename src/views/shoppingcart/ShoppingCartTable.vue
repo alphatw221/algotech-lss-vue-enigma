@@ -56,10 +56,10 @@
 					</template>
 				</td>
 				<td class="text-center h-20 ">
-					<div class="price"> $ {{ product.price }} </div>
+					<div class="price whitespace-nowrap"> $ {{ product.price }} </div>
 				</td>
 				<td class="text-center h-20">
-					<div class="price"> $ {{ product.qty * product.price }} </div>
+					<div class="price whitespace-nowrap"> $ {{ product.qty * product.price }} </div>
 				</td>
 				<td class="table-report__action w-30 h-20">
 				<div class="flex justify-center items-center" v-show="checkProductRemove(index) && product.type === 'product'">
@@ -175,14 +175,17 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
     border: none;
     padding-left: 50% !important;
     text-align: left !important;
+	height: auto !important;
   }
   .productName{
 	padding-left: 20px;
-	height:40px;
+	padding-right: 20px;
+	height: auto !important;
 	padding-top:5px;
   }
   .price{
 	padding-left: 20px;
+	padding-right: 20px;
 	height:40px;
 	padding-top:10px;
   }

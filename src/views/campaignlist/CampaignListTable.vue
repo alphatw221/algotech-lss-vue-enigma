@@ -61,8 +61,15 @@
           <td class="title text-center w-fit">
             {{ campaign.title }}
           </td>
-          <td class="date w-5 text-center">
+          <td class="startDate w-5 text-center">
             <div class="w-28">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
+                year: "numeric", month: "short",
+                day: "numeric", hour: '2-digit', minute: '2-digit'
+              })
+            }}</div>
+          </td>
+          <td class="endDate w-5 text-center">
+            <div class="w-28">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
@@ -325,8 +332,12 @@ thead th{
     /* color: #0e9893; */
   }
 
-  .date:before {
-    content: "Time";
+  .startDate:before {
+    content: "Start Time";
+    /* color: #0e9893; */
+  }
+  .endDate:before {
+    content: "End Time";
     /* color: #0e9893; */
   }
 

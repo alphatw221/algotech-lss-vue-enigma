@@ -6,6 +6,8 @@ export const useLSSCampaignListStore = defineStore("CampaignList", {
     campaignStatus:ref('scheduled'),
     showRemindEnterPostIDModal:ref(false),
     showEnterPostIDModal:ref(false),
+    showInstantlyAddProductModal: ref(false), 
+    showAddProductFromStockModal: ref(false), 
     campaign_id:ref(null),     
     
     searchScheduledCampaign:ref({

@@ -82,7 +82,7 @@
                                                     <a href="javascript:;" class="font-medium">{{ reply.customer_name }}</a>
                                                     <div class="text-xs text-slate-400 ml-auto"></div>
                                                 </div>
-                                                <div class="truncate text-slate-500 mt-0.5">
+                                                <div class="text-slate-500 mt-0.5">
                                                     {{ reply.message }}
                                                 </div>
                                             </div>
@@ -90,7 +90,7 @@
                                     </Tippy>
                                 </div>
                                 <template v-if="showModal">
-                                    <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" />
+                                    <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" :campaignId="campaign_id" />
                                 </template>
                             </template>
                         </div>
@@ -129,7 +129,7 @@
 
 <script>
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
-import ReplyModal from './ReplyModal.vue';
+import ReplyModal from './modals/ReplyModal.vue';
 
 
 export default {
