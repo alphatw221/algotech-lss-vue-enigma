@@ -1,14 +1,15 @@
 <template>
-	<div >
-		<table class="box table table-report mt-5 overflow-y-scroll table-auto">
+	<div class="mt-5 overflow-y-scroll overflow-x-scroll h-[675px]">
+		<table class="box table table-report table-auto -mt-3 ">
 			<thead>
 				<tr>
 					<th class="whitespace-normal truncate hover:text-clip" v-for="column in columns" :key="column.key">
 						{{ column.name }}
 					</th>
+					<th> </th>
 				</tr>
 			</thead>
-			<tbody style=" height: 500px;">
+			<tbody>
 				<tr
 					v-for="(product, key) in listItems"
 					:key="key"
@@ -36,8 +37,8 @@
 					<td v-else-if="column.key === 'qty' || column.key === 'price' || column.key === 'type'" class="w-fit">
 						<div class=" w-fit">{{product[column.key]}}</div> 
 					</td>
-					<td v-else>
-						<div class=" lg:truncate hover:text-clip lg:w-28 2xl:w-36"> {{product[column.key]}} </div>
+					<td v-else class="max-w-30 longMessage">
+						<div class="max-w-30 longMessage"> {{product[column.key]}} </div>
 					</td>
 				</template>
 					<td class="table-report__action w-12">
@@ -145,6 +146,17 @@ td {
 	height: auto !important;
 }
 
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
+  background-color: theme("colors.secondary");
+}
+
+.longMessage{
+	overflow-wrap: break-word;
+}
+
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
 
@@ -157,6 +169,7 @@ td {
 		display: block;
 		font-size: 16px;
 		padding: 0px !important;
+		padding-top: 5px !important;
 	}
 
 	.imgtd {
@@ -171,7 +184,6 @@ td {
 
 	tr {
 		border-bottom: 1px solid black;
-		margin-top: 20px;
 	}
 
 	td {
@@ -180,6 +192,8 @@ td {
 		padding-left: 50% !important;
 		text-align: left !important;
 		box-shadow: none !important;
+		margin-top: 10px;
+		height: auto;
 	}
 
 	.productName {

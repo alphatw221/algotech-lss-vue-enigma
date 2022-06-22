@@ -6,12 +6,12 @@
     <LSSSellerMobileMenu />
     <LSSSellerTopBar />
 
-    <Notification refKey="sellerMessageNotification" :options="{duration: 3000,}" class="flex flex-col sm:flex-row text-green-600">
+    <Notification refKey="sellerMessageNotification" :options="{duration: 3000,}" class="flex sm:flex-row text-green-600">
       <CheckCircleIcon class="w-6 h-6 mr-2" /> 
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
-    <Notification refKey="sellerMessageAlert" :options="{duration: 3000,}" class="flex flex-col sm:flex-row text-red-600">
+    <Notification refKey="sellerMessageAlert" :options="{duration: 3000,}" class="flex sm:flex-row text-red-600">
       <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
       <div id="message" class="font-medium">Message</div>
     </Notification>
@@ -21,12 +21,26 @@
         <div class="ml-4 mr-4">
             <div class="font-medium">Upcoming Campaign!!</div>
             <div id="message" class="text-slate-500 mt-1">
-                Message
+                Message1
             </div>
             <div class="font-medium flex mt-2">
-                <button id="leftBTN" class="text-primary dark:text-slate-400 mr-3" data-dismiss="function">Message</button>
-                <a id="rightBTN" class="text-primary dark:text-slate-400" data-dismiss="notification">Message</a>
+                <button id="leftBTN" class="text-primary dark:text-slate-400 mr-3" data-dismiss="function">Message2 and Function</button>
+                <a id="rightBTN" class="text-primary dark:text-slate-400" data-dismiss="notification">Message3</a>
             </div>
+        </div>
+    </Notification>
+
+    <Notification refKey="floatingVideoToast" class="flex flex-col">
+        <div class="ml-4 mr-4">
+            <div class="font-medium">Video Streaming...</div>
+            <div class="text-slate-500 mt-1">
+                <video class="w-[450px]" controls>
+                  <!-- <source src="movie.mp4" type="video/mp4"> npm can't build with this line-->
+                  <source src="" type="video/mp4">
+                  Your browser does not support the video tag.
+                </video>
+            </div>
+            <span id="message"> Message</span>
         </div>
     </Notification>
 <!-- END: Notification Content  -->
@@ -54,7 +68,6 @@ const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
 
 const checkCampaignTime = (data) =>{
-  console.log('Run')
   for (let i =0; i < data.data.length; i++){
     if(data.data[i].campaignTime === true){
       store.campaignAlert.buttonToast("You have a upcoming Campaign starts in an hour","Join now!!","Remind me Later",forPath)
@@ -69,7 +82,7 @@ const forPath = () =>{
   router.push({ path: '/seller/campaign-list', query: { type: 'startCampaign' }})
 }
 // const toast = () =>{
-//   store.campaignAlert.buttonToast("You have a upcoming Campaign starts in an hour","Join now!!","Remind me Later",fun)
+//   store.floatingVideo.videoToast("Faceebook video streaming!!")
 // }
 
 const websocketInit =()=> {
@@ -107,9 +120,13 @@ provide("bind[sellerMessageAlert]", (el) => {
   store.alert = el;
   // el.showMessageToast('test alert')
 });
-
 provide("bind[sellerCampaignAlert]", (el) => {
   store.campaignAlert = el;
+
+  // el.showMessageToast('test alert')
+});
+provide("bind[floatingVideoToast]", (el) => {
+  store.floatingVideo = el;
 
   // el.showMessageToast('test alert')
 });

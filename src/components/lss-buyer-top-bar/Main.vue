@@ -21,8 +21,9 @@
 
       <!-- BEGIN: Logo -->
       <a href="" class="logo -intro-x block
-      w-20 mx-auto
-      sm:w-25 sm:mx-auto
+      mx-auto
+      w-20 
+      sm:w-25 
       md:flex md:w-30 md:mx-0
       xl:w-35
       ">
@@ -85,62 +86,68 @@
       </Dropdown> -->
       <!-- END: Notifications -->
 
-      <!-- BEGIN: Account Menu -->
-      <Dropdown class="intro-x w-8 h-8 mr-3 md:mr-0 md:ml-auto">
-        <DropdownToggle
-          tag="div"
-          role="button"
-          class="w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
-        >
-          <!-- <img
-            alt="Enigma Tailwind HTML Admin Template"
-            :src="$f()[9].photos[0]"
-          /> -->
-          <img
-            alt="Enigma Tailwind HTML Admin Template"
-            :src="userAvatar"
-          />
-        </DropdownToggle>
-        <DropdownMenu class="w-56">
-          <DropdownContent
-            class="bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white"
+      
+      <div class="mr-3 md:ml-auto md:mr-0 flex">
+        <button class="intro-x btn btn-secondary text-black mr-3" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
+        <!-- BEGIN: Account Menu -->
+        <Dropdown class="intro-x w-8 h-8 pt-0.5">
+          <DropdownToggle
+            tag="div"
+            role="button"
+            class="w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
           >
-            <DropdownHeader tag="div" class="!font-normal">
-              <div class="font-medium">
-                {{ buyerLayoutStore.userInfo.name }}
-              </div>
-              <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                {{ buyerLayoutStore.userInfo.email }}
-              </div>
-
-              <!-- <div class="font-medium">
-                {{ $f()[0].users[0].name }}
-              </div> -->
-              <!-- <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                {{ $f()[0].jobs[0] }}
-              </div> -->
-            </DropdownHeader>
-            <DropdownDivider class="border-white/[0.08]" />
-            <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
-              <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
+            <!-- <img
+              alt="Enigma Tailwind HTML Admin Template"
+              :src="$f()[9].photos[0]"
+            /> -->
+            <img
+              alt="Enigma Tailwind HTML Admin Template"
+              :src="userAvatar"
+            />
+          </DropdownToggle>
+          <DropdownMenu class="w-56">
+            <DropdownContent
+              class="bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white"
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5">
-              <EditIcon class="w-4 h-4 mr-2" /> Add Account</DropdownItem
-            >
-            <DropdownItem class="dropdown-item hover:bg-white/5">
-              <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
-            > -->
-            <DropdownItem class="dropdown-item hover:bg-white/5">
-              <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
-            >
-            <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5" @click="logout()">
-              <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout</DropdownItem
-            >
-          </DropdownContent>
-        </DropdownMenu>
-      </Dropdown>
-      <!-- END: Account Menu -->
+              <DropdownHeader tag="div" class="!font-normal" v-if="isAnonymousUser">
+                <div class="font-medium">
+                  Guest
+                </div>
+                <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
+                  you are not login
+                </div>
+              </DropdownHeader>
+              <DropdownHeader tag="div" class="!font-normal" v-else>
+                <div class="font-medium">
+                  {{ buyerLayoutStore.userInfo.name }}
+                </div>
+                <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
+                  {{ buyerLayoutStore.userInfo.email }}
+                </div>
+              </DropdownHeader>
+              <DropdownDivider class="border-white/[0.08]" />
+              <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
+                <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
+              >
+              <DropdownItem class="dropdown-item hover:bg-white/5">
+                <EditIcon class="w-4 h-4 mr-2" /> Add Account</DropdownItem
+              >
+              <DropdownItem class="dropdown-item hover:bg-white/5">
+                <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
+              > -->
+              <DropdownItem class="dropdown-item hover:bg-white/5">
+                <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
+              >
+              <DropdownDivider class="border-white/[0.08]" />
+              <DropdownItem class="dropdown-item hover:bg-white/5" @click="logout()" v-if="!isAnonymousUser">
+                <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout</DropdownItem
+              >
+            </DropdownContent>
+          </DropdownMenu>
+        </Dropdown>
+        <!-- END: Account Menu -->
+      </div>
+      
     </div>
   </div>
   <!-- END: Top Bar -->
@@ -162,18 +169,12 @@ const toggleMobileMenu = ()=>{
   buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
 }
 
-
+const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
 const userAvatar = computed(() => {
   if(cookies.get('login_with')=='facebook'){
     return buyerLayoutStore.userInfo.facebook_info.picture
   }
   if (cookies.get('login_with')=='google'){
-    return buyerLayoutStore.userInfo.google_info.picture
-  }
-  if(buyerLayoutStore.userInfo.facebook_info.picture){
-    return buyerLayoutStore.userInfo.facebook_info.picture
-  }
-  if(buyerLayoutStore.userInfo.google_info.picture){
     return buyerLayoutStore.userInfo.google_info.picture
   }
   return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
@@ -183,10 +184,13 @@ const logout = () => {
   cookies.remove('access_token')
   cookies.remove('login_with')
   dom('.dropdown-menu').removeClass('show')
-  router.replace('/buyer/login')
+  router.go()
   
 }
 
+const showLoginModal = ()=>{
+  buyerLayoutStore.showLoginModal=true
+}
 const searchDropdown = ref(false);
 const showSearchDropdown = () => {
   searchDropdown.value = true;

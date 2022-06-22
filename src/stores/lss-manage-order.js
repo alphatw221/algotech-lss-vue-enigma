@@ -13,7 +13,19 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 			free_delivery:false
 		}),
 		modify_status: ref('+'),
-		manageOrder:ref({})
+		manageOrder:ref({}),
+		orderProductModal:ref(false),
+		filterModal:ref(false),
+		filterTagArray:ref({
+			'Direct Payment':false,
+			'Stripe':false,
+			'Shipping out':false,
+			'To be shipping':false,
+			'Facebook':false,
+			'Youtube':false,
+			'Instagram':false
+		}),
+		orderProductData:ref({})
 	}),
 });
 	

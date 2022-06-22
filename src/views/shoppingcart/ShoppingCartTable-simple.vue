@@ -19,16 +19,16 @@
 			<div class="w-12 h-12 flex-none image-fit">
 				<img alt="" class="rounded-md" :src="storageUrl+product.image" />
 			</div>
-			<div class="ml-4 mr-auto">
-				<a class="font-medium">{{product.name}}</a>
+			<div class="ml-4 mr-auto w-[50%]">
+				<div class="font-medium text-cyan-900 whitespace-normal break-normal">{{product.name}}</div>
 				<div class="text-slate-500 mr-5 sm:mr-5">
 				Q'ty : {{product.qty}}
 				</div>
 			</div>
-			<div class="font-medium text-slate-600 dark:text-slate-500">
+			<div class="font-medium text-slate-600 dark:text-slate-500 whitespace-nowrap w-fit ml-5">
 				{{store.order.campaign.currency}} {{ product.qty * product.price }}
 			</div>
-			</div>
+			</div> 
 
 		</div>
 	</div>

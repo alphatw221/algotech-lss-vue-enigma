@@ -75,35 +75,44 @@ import MyCartTab from "./MyCartTab.vue";
 import DeliveryTab from "./DeliveryTab.vue";
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { buyer_list_campapign_product, buyer_cart_list } from "@/api_v2/campaign_product";
+import { buyer_list_campapign_product, buyer_cart_list, guest_list_campapign_product, guest_cart_list } from "@/api_v2/campaign_product";
 
-import { retrieve_pre_order, buyer_retrieve_pre_order } from "@/api_v2/pre_order";
+import { buyer_retrieve_pre_order, guest_retrieve_pre_order } from "@/api_v2/pre_order";
 import { useRoute, useRouter } from "vue-router";
+import { useCookies } from "vue3-cookies"
 const route = useRoute();
+const router = useRouter();
 const store = useShoppingCartStore()
-const toggleTabs = tabNumber => store.openTab = tabNumber
-
+const { cookies } = useCookies()
+const toggleTabs = tabNumber => {
+  store.openTab = tabNumber
+  router.push({query:{tab:tabNumber}})
+  }
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 onMounted(()=>{
-  buyer_retrieve_pre_order(route.params.pre_order_id)
-  .then(
+
+  if(route.query.tab == 2) store.openTab = 2
+  const retrieve_pre_order= isAnonymousUser?guest_retrieve_pre_order:buyer_retrieve_pre_order
+  retrieve_pre_order(route.params.pre_order_oid).then(
       res => { 
         store.order = res.data;
         console.log(res.data)
       }
   )
 
-  buyer_list_campapign_product(route.params.pre_order_id)
-	.then(
+  const list_campapign_product = isAnonymousUser?guest_list_campapign_product:buyer_list_campapign_product
+	list_campapign_product(route.params.pre_order_oid).then(
 		res => {
 			store.campaignProducts = res.data
-			console.log(res.data)
+      console.log(res.data)
 		}
 	)
-  buyer_cart_list(route.params.pre_order_id)
-	.then(
+
+  const cart_list = isAnonymousUser?guest_cart_list:buyer_cart_list
+	cart_list(route.params.pre_order_oid).then(
 		res => {
 			store.cartProducts = res.data
-			console.log(res.data)
+      console.log(res.data)
 		}
 	)
 })

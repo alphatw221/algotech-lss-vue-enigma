@@ -45,21 +45,21 @@
 
 			<div class="mt-3 col-span-12 col-start-1">
 				<label class="form-label">Upload Image</label>
-				<div class="border-2 border-dashed dark:border-darkmode-400 rounded-md pt-4">
+				<div class="border-2 border-dashed dark:border-darkmode-400 rounded-md pt-4 relative align-baseline cursor-pointer">
 					<div class="flex flex-wrap px-4">
 						<img :src="previewImage" class="uploading-image h-48 lg:h-64 2xl:h-96 object-cover" />
 					</div>
-					<div class="px-4 pb-4 flex items-center cursor-pointer relative">
-						<ImageIcon class="w-4 h-4 mr-2" />
+					<div class="px-4 pb-4 flex text-end text-[16px] align-baseline">
+						<ImageIcon class="w-8 h-8 mr-2 " />
 						<span class="text-primary mr-1">Upload a file</span> or
 						drag and drop
-						<input
+					</div>
+					<input
 							type="file"
-							class="w-full h-full top-0 left-0 absolute opacity-0"
+							class="w-full h-full top-0 left-0 absolute opacity-0 border-6 bg-primary"
 							accept="image/jpeg" 
 							@change="uploadImage"
 						/>
-					</div>
 				</div>
 			</div>
 

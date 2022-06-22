@@ -31,3 +31,10 @@ export const create_campaign = (data) => {
     return createAxiosWithBearer().post('api/v2/campaign/create/', data)
 }
 
+export const comment_on_comment = (campaign_id,comment_id,message_text) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign/facebook/comment-on-comment/?campaign_id=${campaign_id}&comment_id=${comment_id}&message=${message_text}`)
+}
+
+export const nest_comment = (campaign_id,comment_id) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign/facebook/comment-reply/?campaign_id=${campaign_id}&comment_id=${comment_id}`)
+}

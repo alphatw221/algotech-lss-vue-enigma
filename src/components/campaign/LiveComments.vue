@@ -1,9 +1,9 @@
 <template>
     <!-- BEGIN: Comments -->
-    <TabGroup class="col-span-12 col-start-1 row-start-1 row-span-6 lg:col-span-5 2xl:col-span-4 h-[100%]"
+    <TabGroup class="col-span-12 col-start-1 row-start-1 row-span-6 lg:col-span-5 xl:col-span-5 2xl:col-span-4 h-[100%]"
         :selectedIndex="0">
-        <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-2 p-5 h-full">
-            <div class="col-start-1 col-span-5 -mt-4">
+        <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-2 p-5 h-fit">
+            <div class="col-start-1 col-span-5 -mt-4 h-10">
                 <h2 class="text-lg font-medium sm:text-m">
                     Comments
                     <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
@@ -29,12 +29,12 @@
             </div>
             <div class="col-start-1 col-span-12 -mt-2">
                 <AccordionGroup class="accordion-boxed">
-                    <AccordionItem class="mt-0 h-fit">
+                    <AccordionItem class="mt-0">
                         <Accordion class="bg-primary rounded-lg">
                             <div class="w-full flex justify-end"> <PlusIcon class="text-white mx-5 -mt-2" /> </div>
                         </Accordion>
                         <AccordionPanel
-                            class="box text-slate-600 dark:text-slate-500 leading-relaxed mt-1">
+                            class="box text-slate-600 dark:text-slate-500 leading-relaxed mt-0 -mb-5">
                             <div v-html="fb_video" class="-mt-2" v-show="open_fb_video" />
                             <div v-html="ig_video" class="-mt-2" v-show="open_ig_video" />
                             <div v-html="yt_video" class="-mt-2" v-show="open_yt_video" />
@@ -64,39 +64,40 @@
             </div>
 
             <TabPanels class="col-span-12">
-                <template v-for="(platform_data, index) in comment_results">
+                <template v-for="(platform_data, index) in comment_results" :key="index">
                     <TabPanel>
                         <div class="h-full box overflow-y-auto scrollbar-hidden mt-1 max-h-[28rem]" :class="index">
                             <template v-if="platform_data.comments">
-                                <div v-for="(reply, key) in platform_data.comments"
+                                <div v-for="(reply, key) in platform_data.comments" :key="key"
                                     class="intro-x cursor-pointer relative flex items-center p-3"
                                     @click="showReplyBar(reply)">
-                                    <Tippy class="rounded-full" content="Reply" theme='light'>
-                                        <div class="w-12 h-12 flex-none image-fit mr-1">
+                                    <Tippy class="rounded-full " content="Reply" theme='light'>
+                                        <div class="relative flex items-center w-full">
+                                            <div class="w-12 h-12 flex-none image-fit mr-1">
                                             <img alt="" class="rounded-full zoom-in" :src="reply.image" />
-                                            <div
-                                                class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                            </div>
+                                        
+                                            <div class="ml-2 overflow-hidden w-full">
+                                                <div class="flex items-center">
+                                                    <a class="font-medium">{{ reply.customer_name }}</a>
+                                                    <div class="text-xs text-slate-400 ml-auto"></div>
+                                                </div>
+                                                <div class="text-slate-500 mt-0.5">
+                                                    {{ reply.message }}
+                                                </div>
                                             </div>
                                         </div>
                                     </Tippy>
-                                    <div class="ml-2 overflow-hidden">
-                                        <div class="flex items-center">
-                                            <a href="javascript:;" class="font-medium">{{ reply.customer_name }}</a>
-                                            <div class="text-xs text-slate-400 ml-auto"></div>
-                                        </div>
-                                        <div class="w-full truncate text-slate-500 mt-0.5">
-                                            {{ reply.message }}
-                                        </div>
-                                    </div>
                                 </div>
-                                <template v-if="showModal">
-                                    <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" />
-                                </template>
                             </template>
+                           
                         </div>
                     </TabPanel>
                 </template>
-
+                
+                <template v-if="showModal">
+                    <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" :pageId="page_id"/>
+                </template>
                 <!-- <TabPanel>
                 <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
                     <CampaignLiveTable
@@ -129,7 +130,7 @@
 
 <script>
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
-import ReplyModal from './ReplyModal.vue';
+import ReplyModal from './modals/ReplyModal.vue';
 
 
 export default {
@@ -177,8 +178,9 @@ export default {
             open_fb_video: false,
             open_ig_video: false,
             open_yt_video: false,
-            reply: null,
+            reply: [],
             showModal: false,
+            page_id: '',
         };
     },
     mounted() {
@@ -242,6 +244,7 @@ export default {
                         this.fbTab = true
                         this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 260)
                         this.platform.push('fb')
+                        this.page_id = res[v]['page_id']
                     } else if ((v === 'instagram' && res[v]['comments'].length != 0) || (v === 'instagram' && res[v]['fully_setup'] === true)) {
                         this.igTab = true
                         if (res[v]['media_url']) {

@@ -4,7 +4,7 @@
       <nav class="side-nav">
         <div class="flex cursor-pointer m-3 " @click="router.push('/seller/campaign/create')"> 
           <button class="btn btn-rounded-primary mr-3 w-10 h-10"
-          ><PlusIcon class="w-5 h-5"/> </button>
+          ><span class="text-2xl">+</span></button>
           <span class="font-bold hidden xl:block 2xl:block">Create <br> New Campaign</span> 
         </div>
         

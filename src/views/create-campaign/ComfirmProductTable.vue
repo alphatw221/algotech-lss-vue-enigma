@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-x-auto ">
+    <div class="overflow-x-auto overflow-y-auto h-[550px]">
         <table class="table table-report ">
             <thead>
                 <tr>
@@ -89,6 +89,7 @@
                                     v-model="product[column.key]"
                                     @click="product.deletable = false" 
                                 />
+                                <span class="checkboxWord ml-3"> Editable</span>
                             </div>
                         </td>
 
@@ -109,6 +110,7 @@
                                     disabled
                                     v-model="product[column.key]"
                                 />
+                                <span class="checkboxWord ml-3"> Deletable</span>
                             </div>
                         </td>
                         <td v-else-if="column.key === 'status'" class="form-switch mt-2">
@@ -261,9 +263,21 @@ const isOrderCodeDuplicate = (index) => {
 
 td {
 	height: auto !important;
-    min-height: 40px !important;
+    min-height: 50px;
+    border-collapse: collapse;
     width: auto !important;
 }
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
+  background-color: theme("colors.secondary");
+}
+.checkboxWord{
+    display: none;
+}
+
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
 
@@ -281,6 +295,9 @@ td {
 	.imgtd {
 		height: 90px !important;
 	}
+    .checkboxWord{
+        display: block;
+    }
 
 	thead tr {
 		position: absolute;
@@ -352,15 +369,28 @@ td {
 		/* color: #0e9893; */
 	}
     td:nth-of-type(8):before {
-		content: "Editable";
+		display: none;
         text-align: left !important;
 		/* color: #0e9893; */
 	}
     td:nth-of-type(9):before {
-		content: "Deletable";
+		display: none;
         text-align: left !important;
 		/* color: #0e9893; */
 	}
+    td:nth-of-type(8){
+		display: inline-block;
+		width: 50% !important;
+		padding-left: 0% !important;
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(9){
+		display: inline-block;
+		width: 50% !important;
+		padding-left: 0% !important;
+		/* color: #0e9893; */
+	}
+
     td:nth-of-type(10):before {
 		content: "Type";
         text-align: left !important;

@@ -20,7 +20,7 @@
 						:key="column.key"
 					>
                         <template v-if="column.key === 'action'">
-                            <EyeIcon @click="router.push(`/buyer/order/${order.id}`);" class="hover:cursor-pointer "/>
+                            <EyeIcon @click="routeToDetail(order.id)" class="hover:cursor-pointer "/>
                         </template>
 						<template v-else-if="column.type=='dateTime'">
 							{{ new Date(order[column.key]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
@@ -51,6 +51,7 @@
 import { buyer_orders_history } from '@/api_v2/order';
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import { buyer_retrieve_order_oid } from "@/api_v2/order"
 
 const route = useRoute();
 const router = useRouter();
@@ -70,7 +71,11 @@ const tableColumns = ref([
                 { name: "Action", key: "action", type:'link' },
             ])
 
-
+const routeToDetail =(order_id)=>{
+  buyer_retrieve_order_oid(order_id).then(res=>{
+    router.push(`/buyer/order/${res.data}`)
+  })
+}
 const changePage = page=> {      
 			currentPage.value = page;
 			getOrderHistoryListData()

@@ -1,5 +1,11 @@
 <template>
+
+	
+
+
 	<table class="table overflow-x-auto">
+
+
 		<thead>
 			<tr>
 				<th
@@ -12,6 +18,9 @@
 			</tr>
 			</thead>
 			<tbody>
+
+			
+
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x mt-5">
 				<td class="imgtd">
 					<div class="flex">
@@ -56,10 +65,10 @@
 					</template>
 				</td>
 				<td class="text-center h-20 ">
-					<div class="price"> $ {{ product.price }} </div>
+					<div class="price whitespace-nowrap"> $ {{ product.price }} </div>
 				</td>
 				<td class="text-center h-20">
-					<div class="price"> $ {{ product.qty * product.price }} </div>
+					<div class="price whitespace-nowrap"> $ {{ product.qty * product.price }} </div>
 				</td>
 				<td class="table-report__action w-30 h-20">
 				<div class="flex justify-center items-center" v-show="checkProductRemove(index) && product.type === 'product'">
@@ -71,20 +80,30 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<!-- BEGIN Empty Cart Text -->
+			<div class=" text-center mt-5 md:mt-10" v-if="numOfItems==0">
+				<h1 class="text-slate-500 text-sm md:text-lg">
+					Your Shopping Cart Is Empty
+				</h1>
+			</div>
+	<!-- END Empty Cart Text -->
 </template>
 
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
+import { buyer_delete_order_product, buyer_update_order_product, guest_delete_order_product, guest_update_order_product } from "@/api_v2/order_product"
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useRoute } from "vue-router";
-
+import { useCookies } from "vue3-cookies"
 const route = useRoute();
 const store = useShoppingCartStore(); 
 const layoutStore = useLSSBuyerLayoutStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const { cookies } = useCookies()
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 const tableColumns = ref([
 	{ key: "image", name: " ",  },
@@ -94,9 +113,13 @@ const tableColumns = ref([
 	{ key: "subtotal", name: "Subtotal",  },
 	{ key: "remove", name: " ",  },
 ])
-
+const numOfItems = computed(()=>{
+	if(store.order.products)return Object.keys(store.order.products).length
+	return 0
+})
 const deleteOrderProduct = (order_product_id, index) =>{
-	buyer_delete_order_product(order_product_id).then(res=>{
+	const delete_order_product = isAnonymousUser?guest_delete_order_product:buyer_delete_order_product
+	delete_order_product(order_product_id, route.params.pre_order_oid).then(res=>{
 		store.order = res.data
 		layoutStore.notification.showMessageToast("Delete Success")
 	})
@@ -135,8 +158,8 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 		return
 	}
 
-	buyer_update_order_product(order_product_id, qty)
-	.then(
+	const update_order_product = isAnonymousUser?guest_update_order_product:buyer_update_order_product
+	update_order_product(order_product_id, route.params.pre_order_oid, qty).then(
 		res => {
 			store.order = res.data
 			layoutStore.notification.showMessageToast("Update Success")
@@ -175,14 +198,17 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
     border: none;
     padding-left: 50% !important;
     text-align: left !important;
+	height: auto !important;
   }
   .productName{
 	padding-left: 20px;
-	height:40px;
+	padding-right: 20px;
+	height: auto !important;
 	padding-top:5px;
   }
   .price{
 	padding-left: 20px;
+	padding-right: 20px;
 	height:40px;
 	padding-top:10px;
   }

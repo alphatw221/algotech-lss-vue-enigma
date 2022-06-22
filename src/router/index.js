@@ -90,6 +90,7 @@ import Profile from "../views/profile/Main.vue";
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
+import isBuyerLoginMiddleware from "@/libs/routerMiddleware/isBuyerLoginMiddleware"
 import sellerAuthMiddleware from "@/libs/routerMiddleware/sellerAuthMiddleware"
 
 import buyerLoginMiddleware from "@/libs/routerMiddleware/buyerLoginMiddleware";
@@ -274,23 +275,34 @@ const routes = [
     beforeEnter: buyerAuthMiddleware,
     children: [
       {
+        path: "",
+        name: "buyer-index",
+        component: () => import('@/views/buyer-index/Main.vue'),
+      },
+      {
         path: "orders",
         name: "buyer-order-history-page",
+        beforeEnter:isBuyerLoginMiddleware,
         component: () => import('@/views/buyer-order-history/Main.vue'),
       },
       {  
-        path: "order/:order_id?",
+        path: "order/:order_oid?",
         name: "buyer-order-detail-page",
         component: () => import('@/views/buyer-order-detail/Main.vue'),
       },
       {  
-        path: "order/:order_id?/payment",
+        path: "order/:order_oid?/payment",
         name: "buyer-order-payment-page",
         beforeEnter: isOrderCompleted,
         component: () => import('@/views/buyer-order-payment/Main.vue')
       },
       {  
-        path: "cart/:pre_order_id?",
+        path: "order/:order_oid?/confirmation",
+        name: "buyer-order-confirmation-page",
+        component: () => import('@/views/buyer-order-confirmation/Main.vue')
+      },
+      {  
+        path: "cart/:pre_order_oid?",
         name: "buyer-shopping-cart-detail-page",
         component: () => import('@/views/shoppingcart/Main.vue')
       },

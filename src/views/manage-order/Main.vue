@@ -9,14 +9,34 @@
 
             <div class="col-span-12 mt-8 ">
                 <div class="flex align-baseline text-xl -mb-5">
-                    <a class="mr-2 ml-2" @click="show_order('manageAllOrder')">All </a>
-                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white">{{store.manageAllOrder.length}}</span>
-                    <a class="mr-2 ml-5" @click="show_order('manageReviewOrder')">Review </a>
-                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white align-top">{{store.manageReviewOrder.length}}</span>
+                    <div class="relative mr-3 ml-2 w-14"> 
+                        <a class="mr-0.5" @click="show_order('manageAllOrder')">All </a>
+                        <div 
+                            v-show="store.manageAllOrder.length > 0"
+                            class="absolute report-box__indicator p-0.5 px-1.5 text-xs rounded-full bg-danger text-white text-center top-0 left-6">
+                            <span>{{store.manageAllOrder.length}}</span>
+                        </div>
+                    </div>
+                    
+                    <div class=" relative ml-2 w-[105px]">
+                        <a class="mr-0.5" @click="show_order('manageReviewOrder')">Review </a>
+                        
+                        <div 
+                            v-show="store.manageReviewOrder.length > 0"
+                            class="absolute report-box__indicator p-0.5 px-1.5 text-xs rounded-full bg-danger text-white text-center top-0 left-16">
+                            <span> {{store.manageReviewOrder.length}} </span>
+                        </div>
+                    </div>
                     <!--  <a class="mr-2 ml-5">Pending Payment </a> -->
                     <!-- <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr- align-top">2</span> -->
-                    <a class="mr-2 ml-5" @click="show_order('manageCompleteOrder')">Complete </a>
-                    <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr-5 align-top">{{store.manageCompleteOrder.length}}</span>
+                    <div class=" relative mr-3 ml-2 w-28">
+                        <a class="mr-0.5" @click="show_order('manageCompleteOrder')">Complete </a>
+                        <div 
+                            v-show="store.manageCompleteOrder.length > 0" 
+                            class="absolute report-box__indicator p-0.5 px-1.5 text-xs rounded-full bg-danger text-white text-center top-0 left-[90px]">
+                            <span>{{store.manageCompleteOrder.length}} </span>
+                        </div>
+                    </div>
                 </div>
                 <!--分隔線-->
                 <div class="w-full border-t border-slate-800/60 dark:border-darkmode-400 mt-5"></div>
@@ -29,19 +49,23 @@
                 <input @click="stop_checkout($event.target.checked)" class="form-check-input mr-0 ml-3" type="checkbox" v-model="checkout_status"/>
             </div>
 
-            <div class="overflow-x-auto mt-3">
+            <div class=" mt-3">
                 <ManageOrderTable 
-                    v-show="tableStatus === 'manageAllOrder'"
+                    v-if="tableStatus === 'manageAllOrder'"
                     :tableStatus="tableStatus"
+                    :dataCount="dataCount"
                 />
                 <ManageOrderTable 
-                    v-show="tableStatus === 'manageReviewOrder'"
+                    v-if="tableStatus === 'manageReviewOrder'"
                     :tableStatus="tableStatus"
+                    :dataCount="dataCount"
                 />
                 <ManageOrderTable 
-                    v-show="tableStatus === 'manageCompleteOrder'"
+                    v-if="tableStatus === 'manageCompleteOrder'"
                     :tableStatus="tableStatus"
+                    :dataCount="dataCount"
                 />
+                <OrderProductModal />
             </div>
         </div>
     </div>
@@ -52,15 +76,22 @@
 import  ManageOrderTable  from "./ManageOrderTable.vue";
 import CampaignStatus from "./CampaignStatus.vue";
 import SearchBar from "./SearchBar.vue";
-import { ref, provide, onMounted } from "vue";
+import OrderProductModal from "./OrderProductModal.vue"
+import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import xlsx from "xlsx";
-import { manage_order_list,campaign_manage_order } from "@/api/manage_order";
-import { allow_checkout } from "@/api_v2/manage_order"
+import { campaign_manage_order } from "@/api/manage_order";
+import { allow_checkout, manage_order_list } from "@/api_v2/manage_order"
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 const route = useRoute();
 const store = useManageOrderStore()
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
+let page = 1;
+let totalPage = 1;
+let page_size = 10;
+let dataCount = 0;
 const deliveryStatus = ref(false);
 const checkout_status = route.query.checkout == 1 ? false : true ;
 const tableStatus = ref('manageAllOrder')
@@ -70,30 +101,37 @@ const show_order = status=>{
 }
 
 function stop_checkout(status){
-    allow_checkout(route.params.campaign_id,status).then(
-        res=>{
-            console.log(res.data)
-        }
-    )
+    allow_checkout(route.params.campaign_id,status)
 }
 
 onMounted(()=>{
-    manage_order_list(route.params.campaign_id).then(
-        res => {
-			store.manageAllOrder = res.data
-			console.log(res.data)
-            search()
-		}
-    )
+    search()
     campaign_manage_order(route.params.campaign_id).then(
         res =>{
             store.manageOrder = res.data
             // console.log(res.data)
         }
     )
+
+    eventBus.on("changePage", (payload) => {
+        page = payload.page
+        search()
+	})
+    eventBus.on("changePageSize", (payload) => {
+        page_size = payload.page_size
+        search()
+	})
+    eventBus.on("search", (payload) => {
+        search(payload.value)
+	})
 })
-function search(){
-    store.manageReviewOrder,store.manageCompleteOrder = []
+onUnmounted(()=>{
+    eventBus.off("changePage")
+    eventBus.off("changePageSize")
+})
+function classification(){
+    store.manageReviewOrder = []
+    store.manageCompleteOrder = []
     for(data of store.manageAllOrder){
         if(data.status ==='review'){
             store.manageReviewOrder.push(data)
@@ -101,8 +139,23 @@ function search(){
             store.manageCompleteOrder.push(data)
         }
     }
-    console.log(store.manageReviewOrder.length)
 }
+function search(searchValue){
+    manage_order_list(route.params.campaign_id,searchValue,page,page_size).then(
+        res => {
+			store.manageAllOrder = res.data
+            console.log(res.data)
+            if (res.data.length != 0) {
+                dataCount = res.data.length;
+                let totalPage = parseInt(res.data.length / page_size);
+                totalPage = totalPage == 0 ? 1 : totalPage;
+            }
+            classification()
+		}
+    )
+}
+
+
 </script>
 
 <style scoped>

@@ -28,10 +28,10 @@
 								/>
 							</div>
 						</a>
-						<div class="block font-medium text-center truncate">	
+						<div class="block font-medium text-center whitespace-normal break-normal w-full truncate">	
 							{{ product.name }}
 						</div>
-						<div class="text-slate-500 text-xs text-center">
+						<div class="text-slate-500 text-sm text-center">
 							$ {{ product.price }}
 						</div>
 						<div class="flex">
@@ -71,9 +71,10 @@ import { computed, onMounted, ref, watch } from "vue";
 // import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { buyer_cart_add } from "@/api_v2/pre_order";
+import { buyer_cart_add, guest_cart_add } from "@/api_v2/pre_order";
 import { useRoute } from "vue-router";
-
+import { useCookies } from 'vue3-cookies'
+const { cookies } = useCookies()
 const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const store = useShoppingCartStore(); 	
@@ -81,6 +82,8 @@ const storageUrl =  import.meta.env.VITE_GOOGLE_STORAGEL_URL;
 
 const addOnProducts = ref([])
 const addOnTitle = ref('Select add-ons')
+
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 onMounted(()=> {
 	if (route.query.tag && route.query.tag == 'openAddOn') {
@@ -127,7 +130,10 @@ const changeQuantity = (event, index, operation) => {
 
 
 const buyer_add_item = (campaing_product_id, index) => {
-	buyer_cart_add(route.params.pre_order_id, campaing_product_id, addOnProducts.value[index].qty)
+
+
+	const cart_add = isAnonymousUser?guest_cart_add:buyer_cart_add
+	cart_add(route.params.pre_order_oid, campaing_product_id, addOnProducts.value[index].qty)
 	.then(
 		res => {
 			store.order = res.data

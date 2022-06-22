@@ -1,9 +1,9 @@
 <template >
-  <div class="overflow-x-auto">
-    <table class="table table-report mt-5">
+  <div class="overflow-x-auto overflow-y-auto h-[670px]">
+    <table class="table table-report -mt-2">
       <thead>
         <tr>
-          <th class="whitespace-nowrap text-center " v-for="column in tableColumns" :key="column.key">
+          <th class="text-center " v-for="column in tableColumns" :key="column.key">
             {{ column.name }}
           </th>
         </tr>
@@ -61,8 +61,15 @@
           <td class="title text-center w-fit">
             {{ campaign.title }}
           </td>
-          <td class="date w-5 text-center">
+          <td class="startDate w-5 text-center">
             <div class="w-28">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
+                year: "numeric", month: "short",
+                day: "numeric", hour: '2-digit', minute: '2-digit'
+              })
+            }}</div>
+          </td>
+          <td class="endDate w-5 text-center">
+            <div class="w-28">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
@@ -78,24 +85,24 @@
               <input @click="toggle" class="form-check-input center" type="checkbox" />
             </div>
           </td>
-          <td class="copyLink items-center w-fit text-teal-900">
-            <div class="flex justify-center items-center ">
-              <button class="flex font-medium" @click="copyURL(campaign.id)">
-                <LinkIcon class="w-4 h-4 mr-0.5" /> Copy
-              </button>
-            </div>
-          </td>
           <td class="entry text-center w-fit">
             <button class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
               Live On
             </button>
           </td>
           <td class="edit table-report__action w-fit">
-            <div class="flex justify-center items-center">
-              <a class="flex items-center mr-3" href="javascript:;">
-                <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
-              </a>
-            </div>
+              <Dropdown placement="bottom-start">
+                <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
+                  <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
+                </DropdownToggle>
+                <DropdownMenu class="pt-2">
+                  <DropdownContent class="w-full text-center">
+                    <DropdownItem> Edit </DropdownItem>
+                    <DropdownItem @click="copyURL(campaign.id)"> Blank Cart </DropdownItem>
+                    <DropdownItem> MKT Tools </DropdownItem>
+                  </DropdownContent>
+                </DropdownMenu>
+              </Dropdown> 
           </td>
         </tr>
       </tbody>
@@ -187,7 +194,7 @@ export default {
       this.search();
     },
     changePageSize(pageSize) {
-      this.page_Size = pageSize;
+      this.page_size = pageSize;
       this.search();
     },
 
@@ -234,6 +241,14 @@ export default {
 
 td {
   height: 50px;
+  border-collapse: collapse;
+}
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
+  background-color: theme("colors.secondary");
 }
 
 @media only screen and (max-width: 760px),
@@ -315,8 +330,12 @@ td {
     /* color: #0e9893; */
   }
 
-  .date:before {
-    content: "Time";
+  .startDate:before {
+    content: "Start Time";
+    /* color: #0e9893; */
+  }
+  .endDate:before {
+    content: "End Time";
     /* color: #0e9893; */
   }
 
@@ -331,7 +350,7 @@ td {
   }
 
   .copyLink:before {
-    content: "Share Product Page";
+    content: "Order Link";
   }
 }
 </style>
