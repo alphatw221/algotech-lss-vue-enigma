@@ -1,5 +1,11 @@
 <template>
+
+	
+
+
 	<table class="table overflow-x-auto">
+
+
 		<thead>
 			<tr>
 				<th
@@ -12,6 +18,9 @@
 			</tr>
 			</thead>
 			<tbody>
+
+			
+
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x mt-5">
 				<td class="imgtd">
 					<div class="flex">
@@ -71,6 +80,14 @@
 			</tr>
 		</tbody>
 	</table>
+
+	<!-- BEGIN Empty Cart Text -->
+			<div class=" text-center mt-5 md:mt-10" v-if="numOfItems==0">
+				<h1 class="text-slate-500 text-sm md:text-lg">
+					Your Shopping Cart Is Empty
+				</h1>
+			</div>
+	<!-- END Empty Cart Text -->
 </template>
 
 <script setup>
@@ -96,7 +113,10 @@ const tableColumns = ref([
 	{ key: "subtotal", name: "Subtotal",  },
 	{ key: "remove", name: " ",  },
 ])
-
+const numOfItems = computed(()=>{
+	if(store.order.products)return Object.keys(store.order.products).length
+	return 0
+})
 const deleteOrderProduct = (order_product_id, index) =>{
 	const delete_order_product = isAnonymousUser?guest_delete_order_product:buyer_delete_order_product
 	delete_order_product(order_product_id, route.params.pre_order_oid).then(res=>{

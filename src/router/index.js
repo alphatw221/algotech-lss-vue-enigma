@@ -278,6 +278,11 @@ const routes = [
     beforeEnter: buyerAuthMiddleware,
     children: [
       {
+        path: "",
+        name: "buyer-index",
+        component: () => import('@/views/buyer-index/Main.vue'),
+      },
+      {
         path: "orders",
         name: "buyer-order-history-page",
         beforeEnter:isBuyerLoginMiddleware,
@@ -293,6 +298,11 @@ const routes = [
         name: "buyer-order-payment-page",
         beforeEnter: isOrderCompleted,
         component: () => import('@/views/buyer-order-payment/Main.vue')
+      },
+      {  
+        path: "order/:order_oid?/confirmation",
+        name: "buyer-order-confirmation-page",
+        component: () => import('@/views/buyer-order-confirmation/Main.vue')
       },
       {  
         path: "cart/:pre_order_oid?",

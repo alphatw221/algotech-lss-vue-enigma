@@ -176,7 +176,7 @@ const uploadReceipt = () => {
         .then(
             res => {
                 store.order = res.data
-                router.push(`/buyer/order/${route.params.order_oid}`)
+                router.push(`/buyer/order/${route.params.order_oid}/confirmation`)
             }
         )
 }

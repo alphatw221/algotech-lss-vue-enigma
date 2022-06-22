@@ -59,6 +59,10 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { computed, onMounted, ref, watch } from "vue";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useCookies } from "vue3-cookies";
+import { useRoute, useRouter } from "vue-router";
+const route = useRoute();
+const router = useRouter();
+
 const { cookies } = useCookies();
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const store = useShoppingCartStore(); 
@@ -139,6 +143,7 @@ watch(
 
 const checkout=()=>{
   store.openTab=2
+  router.push({query:{tab:2}})
   if(cookies.get('login_with')=='anonymousUser')
   buyerLayoutStore.showLoginModal=true
 }

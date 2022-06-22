@@ -81,11 +81,17 @@ import { buyer_retrieve_pre_order, guest_retrieve_pre_order } from "@/api_v2/pre
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies"
 const route = useRoute();
+const router = useRouter();
 const store = useShoppingCartStore()
 const { cookies } = useCookies()
-const toggleTabs = tabNumber => store.openTab = tabNumber
+const toggleTabs = tabNumber => {
+  store.openTab = tabNumber
+  router.push({query:{tab:tabNumber}})
+  }
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 onMounted(()=>{
+
+  if(route.query.tab == 2) store.openTab = 2
   const retrieve_pre_order= isAnonymousUser?guest_retrieve_pre_order:buyer_retrieve_pre_order
   retrieve_pre_order(route.params.pre_order_oid).then(
       res => { 
