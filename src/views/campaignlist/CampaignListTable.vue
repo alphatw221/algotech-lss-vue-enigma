@@ -78,23 +78,25 @@
               <input @click="toggle" class="form-check-input center" type="checkbox" />
             </div>
           </td>
-          <td class="copyLink items-center w-fit text-teal-900">
-            <div class="flex justify-center items-center ">
-              <button class="flex font-medium" @click="copyURL(campaign.id)">
-                <LinkIcon class="w-4 h-4 mr-0.5" /> Copy
-              </button>
-            </div>
-          </td>
           <td class="entry text-center w-fit">
             <button class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
               Live On
             </button>
           </td>
           <td class="edit table-report__action w-fit">
-            <div class="flex justify-center items-center">
-              <a class="flex items-center" href="javascript:;">
-                <CheckSquareIcon class="w-4 h-4 mr-1" /> Edit
-              </a>
+            <div class="export">
+              <Dropdown placement="bottom-start">
+                <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
+                  <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
+                </DropdownToggle>
+                <DropdownMenu class="pt-2">
+                  <DropdownContent class="w-full text-center">
+                    <DropdownItem> Edit </DropdownItem>
+                    <DropdownItem @click="copyURL(campaign.id)"> Order Link </DropdownItem>
+                    <DropdownItem> MKT </DropdownItem>
+                  </DropdownContent>
+                </DropdownMenu>
+              </Dropdown>
             </div>
           </td>
         </tr>
