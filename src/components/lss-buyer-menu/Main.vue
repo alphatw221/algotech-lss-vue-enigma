@@ -118,6 +118,10 @@
           </template>
           <!-- END: First Child -->
         </ul>
+      <div v-else 
+        @click="showLoginModal()"> 
+        <u class="text-neutral-500 text-[16px] top-20 relative underline-offset-2 leading-6 cursor-pointer hover:text-neutral-800 hover:font-medium "> Login to save or retrive <br/>your order history </u>
+      </div>
       </nav>
       <!-- END: Side Menu -->
 </template>
@@ -139,6 +143,11 @@ const layoutStore = useLSSBuyerLayoutStore();
 const { cookies } = useCookies();
 const sideMenu = computed(() => nestedMenu(layoutStore.menu, route));
 const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
+
+const showLoginModal = ()=>{
+  layoutStore.showLoginModal=true
+}
+
 provide("forceActiveMenu", (pageName) => {
   
   route.forceActiveMenu = pageName;

@@ -28,8 +28,8 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'name'" class="truncate hover:text-clip lg:w-28 2xl:w-36">
-                            {{ product[column.key] }}
+                        <td v-else-if="column.key === 'name'" class="w-20 longMessage">
+                            <div class="w-fit"> {{ product[column.key] }} </div>
                         </td>
 
                         <td v-else-if="column.key === 'order_code'">
@@ -260,11 +260,17 @@ const isOrderCodeDuplicate = (index) => {
 	cursor: pointer;
 }
 
+.longMessage{
+	overflow-wrap: break-word;
+}
+
 td {
 	height: auto !important;
     min-height: 50px;
     border-collapse: collapse;
     width: auto !important;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
 }
 
 thead th{ 
@@ -272,6 +278,8 @@ thead th{
   top: 0 !important;
   z-index: 99;
   background-color: theme("colors.secondary");
+    padding-right: 10px !important;
+    padding-left: 10px !important;
 }
 .checkboxWord{
     display: none;

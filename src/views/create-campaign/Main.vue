@@ -28,7 +28,7 @@
 			</div>
 		</div>
 
-		<div class="mt-5 p-0 col-span-12 z-0 lg:pl-5 2xl:pl-5">
+		<div class="mt-5 p-0 col-span-12 z-0">
 			<span class="text-2xl font-medium leading-none mb-3">{{ productPageTitle }}</span>
 			<div>
 				<div class="intro-y col-span-12" >
