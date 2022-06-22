@@ -311,12 +311,12 @@ const routes = [
       },
     ]
   },
-  // {
-  //   path: "/buyer/login/:type?/:object_id?",
-  //   name: "buyer-login-page",
-  //   beforeEnter: buyerLoginMiddleware,
-  //   component: () => import('@/views/general/BuyerLoginPage.vue'),
-  // },
+  {
+    path: "/buyer/login/:type?/:object_id?",
+    name: "buyer-login-page",
+    beforeEnter: buyerLoginMiddleware,
+    component: () => import('@/views/general/BuyerLoginPage.vue'),
+  },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
   {
