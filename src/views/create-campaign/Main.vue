@@ -93,8 +93,8 @@
 		</div>
 
 		<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-			<button class="btn bg-[#969696] mr-5" @click="$router.back()"> Previous</button>
-			<button class="btn bg-[#ED2225]" @click="saveCampaign"> Save</button>
+			<button class="btn btn-secondary mr-5" @click="$router.back()"> Previous</button>
+			<button class="btn btn-primary" @click="saveCampaign"> Save</button>
 		</div>
 		</div>
 	</div>

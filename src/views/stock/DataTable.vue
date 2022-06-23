@@ -1,9 +1,9 @@
 <template>
-	<div class="mt-5 overflow-y-scroll overflow-x-scroll h-[675px]">
+	<div class="mt-5 overflow-y-scroll overflow-x-scroll h-[600px]">
 		<table class="box table table-report table-auto -mt-3 ">
 			<thead>
 				<tr>
-					<th class="whitespace-normal truncate hover:text-clip" v-for="column in columns" :key="column.key">
+					<th class="whitespace-normal xl:whitespace-nowrap" v-for="column in columns" :key="column.key">
 						{{ column.name }}
 					</th>
 					<th> </th>
@@ -144,6 +144,8 @@ export default {
 
 td {
 	height: auto !important;
+	padding-right:10px;
+	padding-left:10px;
 }
 
 thead th{ 
@@ -151,6 +153,8 @@ thead th{
   top: 0 !important;
   z-index: 99;
   background-color: theme("colors.secondary");
+  	padding-right:10px;
+	padding-left:10px;
 }
 
 .longMessage{
