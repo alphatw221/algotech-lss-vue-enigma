@@ -185,7 +185,7 @@ const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const product = ref({
 	id: 0,
 	name: '',
-	categories: [],
+	category: [],
 	image: '',
 	type: '',
 	order_code: '',

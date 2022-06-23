@@ -16,6 +16,7 @@
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
+<!-- store.campaignAlert.buttonToast("You have a upcoming Campaign starts in an hour","Join now!!","Remind me Later",forPath) -->
     <Notification refKey="sellerCampaignAlert" class="flex">
         <AlertCircleIcon />
         <div class="ml-4 mr-4">

@@ -18,7 +18,7 @@
                     </DropdownToggle>
                     <DropdownMenu class="w-40">
                         <DropdownContent>
-                            <DropdownItem @click="showModal = true; editType = 'update'; oldCategory = item">
+                            <DropdownItem @click="showModal = true; editType = 'update'; oldCategory = item; modalTitle='Edit Category'">
                                 <EditIcon class="w-4 h-4 mr-2" /> Edit
                             </DropdownItem>
                             <DropdownItem @click="deleteCategory(item)">
@@ -31,7 +31,7 @@
         </div>
 
         <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2"
-            @click="showModal = true; editType = 'create'">
+            @click="showModal = true; editType = 'create'; modalTitle='Create New Category'">
             <div class="file box rounded-md px-5 pt-6 pb-5 px-3 sm:px-5 relative zoom-in">
                 <PlusSquareIcon style="margin: auto; width: 7rem; height: 7rem;" />
                 <div class="block font-medium mt-4 text-center truncate">
@@ -43,7 +43,7 @@
         <Modal :show="showModal" @hidden="closeAlert()" backdrop="static">
             <ModalBody class="p-10 text-center">
                 <div class="mt-1">
-                    <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">Edit Category</label>
+                    <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{modalTitle}}</label>
                     <input v-if="editType == 'update'" id="regular-form-2" type="text"
                         class="form-control form-control-rounded mt-3" placeholder="Category Name" disabled
                         v-model="oldCategory" />
@@ -69,6 +69,7 @@ const categoryName = ref('')
 const oldCategory = ref('')
 const editType = ref('create')
 const saved = ref(false)
+const modalTitle = ref('')
 
 onMounted(() => {
     list();
@@ -122,5 +123,6 @@ function closeAlert() {
 		}
 		saved.value = false
         oldCategory.value = ''
+        categoryName.value = ''
 	}
 </script>

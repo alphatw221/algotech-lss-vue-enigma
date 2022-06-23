@@ -95,11 +95,11 @@
                 <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
                   <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
                 </DropdownToggle>
-                <DropdownMenu class="pt-2">
-                  <DropdownContent class="w-full text-center">
-                    <DropdownItem> Edit </DropdownItem>
-                    <DropdownItem @click="copyURL(campaign.id)"> Blank Cart </DropdownItem>
-                    <DropdownItem> MKT Tools </DropdownItem>
+                <DropdownMenu class="pt-2 w-40">
+                  <DropdownContent class="w-40 text-center">
+                    <DropdownItem class="w-full whitespace-nowrap text-center"> Edit </DropdownItem>
+                    <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
+                    <DropdownItem class="w-full whitespace-nowrap"> MKT Tools</DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 

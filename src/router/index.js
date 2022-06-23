@@ -66,9 +66,6 @@ import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
 
-import CreateCampaign from "../views/create-campaign/Main.vue";
-import DetailsConfirm from "../views/create-campaign/DetailsConfirm.vue";
-
 import AutoReply from "../views/autoReply/Main.vue";  
 
 // import ShoppingCart from "../views/shoppingcart/Main.vue";
@@ -159,12 +156,12 @@ const routes = [
       {
         path: "campaign/create",
         name: "side-menu-createCam-productselect",
-        component: CreateCampaign,
+        component: () => import('@/views/create-campaign/Main.vue'),
       },  
       {
         path: "campaign/create/confirm",
         name: "side-menu-createCam-detailsconfirm",
-        component: DetailsConfirm,
+        component: () => import('@/views/create-campaign/AssignProductPage.vue'),
       },  
 
 /*                     SETTINGS                           */
@@ -311,12 +308,12 @@ const routes = [
       },
     ]
   },
-  // {
-  //   path: "/buyer/login/:type?/:object_id?",
-  //   name: "buyer-login-page",
-  //   beforeEnter: buyerLoginMiddleware,
-  //   component: () => import('@/views/general/BuyerLoginPage.vue'),
-  // },
+  {
+    path: "/buyer/login/:type?/:object_id?",
+    name: "buyer-login-page",
+    beforeEnter: buyerLoginMiddleware,
+    component: () => import('@/views/general/BuyerLoginPage.vue'),
+  },
 
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
   {

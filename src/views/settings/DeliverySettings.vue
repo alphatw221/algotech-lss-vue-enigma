@@ -87,12 +87,12 @@
                     />
                     <label class="col-start-1 col-span-12 lg:col-span-3 lg:col-start-1 2xl:col-span-3 2xl:col-start-1 mt-2 text-base">Pickup Address</label>
                     <input 
-                        class="form-control-rounded col-span-12 lg:col-span-8 2xl:col-span-8 text-base"
+                        class="form-control-rounded col-span-12 lg:col-span-6 2xl:col-span-6 text-base"
                         type="text" 
                         v-model="branch[index].address"
                     />
                     <button 
-                        class="btn btn-danger w-24 inline-block text-base ml-5 col-start-1" 
+                        class="btn btn-danger w-24 inline-block text-base ml-5" 
                         @click="modifyBranch('delete', index)"
                     >
                         Delete

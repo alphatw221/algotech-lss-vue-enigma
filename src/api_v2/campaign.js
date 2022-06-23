@@ -4,7 +4,6 @@ export const update_platform_live_id = (campaign_id, platform, platform_id, post
     return createAxiosWithBearer().put(`/api/v2/campaign/${campaign_id}/live/update/?platform=${platform}&platform_id=${platform_id}&post_id=${post_id}`)
 }
 
-
 export const check_facebook_page_token = (page_id) => {
     return createAxiosWithBearer().get(`/api/v2/campaign/check_facebook_page_token/?facebook_page_id=${page_id}`)
 }
@@ -28,6 +27,14 @@ export const save_pages_info = (campaign_id, data) => {
     return createAxiosWithBearer().put(`/api/v2/campaign/${campaign_id}/save_pages_info/`,data)
 }
 
+export const create_campaign = (data) => {
+    return createAxiosWithBearer().post('api/v2/campaign/create/', data)
+}
+
 export const comment_on_comment = (campaign_id,comment_id,message_text) => {
     return createAxiosWithBearer().get(`/api/v2/campaign/facebook/comment-on-comment/?campaign_id=${campaign_id}&comment_id=${comment_id}&message=${message_text}`)
+}
+
+export const nest_comment = (campaign_id,comment_id) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign/facebook/comment-reply/?campaign_id=${campaign_id}&comment_id=${comment_id}`)
 }

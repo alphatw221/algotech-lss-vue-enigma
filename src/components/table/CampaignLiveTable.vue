@@ -24,8 +24,7 @@
 
 
 <script>
-import { axiosInstance } from "@/libs/axiosClient";
-import { get_comments, get_summerize_comments } from "@/api/campaign_comment"
+import { get_summerize_comments } from "@/api/campaign_comment"
 
 export default {
   props: {

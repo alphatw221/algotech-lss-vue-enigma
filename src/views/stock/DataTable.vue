@@ -54,15 +54,15 @@
 				</tr>
 			</tbody>
 		</table> 
-		<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-			<Page 
-				:total="dataCount" 
-				show-sizer
-				@on-change="changePage"
-				@on-page-size-change="changePageSize"
-			/>
-		</div> 
 	</div>
+	<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+		<Page 
+			:total="dataCount" 
+			show-sizer
+			@on-change="changePage"
+			@on-page-size-change="changePageSize"
+		/>
+	</div> 
 </template>
 
 <script>
