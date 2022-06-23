@@ -80,9 +80,8 @@
                         </td>
 
                         <td v-else-if="column.key === 'name'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="truncate hover:text-clip">{{ product[column.key] }}</div>
-                            
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center longMessage"> 
+                            <div class="w-fit">{{ product[column.key] }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'selected'"
@@ -310,13 +309,20 @@ td {
     min-height: 50px;
     border-collapse: collapse;
     width: auto !important;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
 }
+.longMessage{
+	overflow-wrap: break-word;
+}	
 
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
   z-index: 99;
   background-color: theme("colors.secondary");
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 .checkboxWord{

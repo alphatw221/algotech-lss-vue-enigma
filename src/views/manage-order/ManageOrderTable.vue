@@ -53,10 +53,10 @@
                                         <div class="flex flex-col items-left">
                                             <div class="w-10 h-10 image-fit zoom-in">
                                                 <Tippy tag="img" class="rounded-full" 
-                                                    :src="order.customer_img" 
-                                                    :content="order.customer_name" 
+                                                    :src="order.customer_img"
                                                     />
                                             </div>
+                                            {{ order.customer_name }}
                                         </div>
                                 </template>
                                 <template v-else-if="column.key === 'order_product'">

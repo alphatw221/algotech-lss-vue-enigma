@@ -88,7 +88,7 @@
 
       
       <div class="mr-3 md:ml-auto md:mr-0 flex">
-        <button class="intro-x btn btn-secondary text-black mr-3" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
+        <button class="intro-x text-white text-[16px] mx-5" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
         <!-- BEGIN: Account Menu -->
         <Dropdown class="intro-x w-8 h-8 pt-0.5">
           <DropdownToggle
@@ -101,6 +101,7 @@
               :src="$f()[9].photos[0]"
             /> -->
             <img
+              class="opacity-80"
               alt="Enigma Tailwind HTML Admin Template"
               :src="userAvatar"
             />

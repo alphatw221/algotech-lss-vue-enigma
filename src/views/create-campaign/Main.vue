@@ -44,6 +44,33 @@
 
 		<DeliveryForm class="col-span-12" />
 		
+		<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
+			<div class="flex">
+				<label for="form-2" class="form-label -mb-3 mr-5 w-32 mt-2">Campaign Title</label>
+				<input id="form-2" type="text" class="form-control form-control-rounded" v-model="campaignTitle" />
+			</div>
+		</div>
+
+		<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
+			<div class="flex">
+				<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2">Period</label>
+				<v-date-picker class=" z-49" v-model="campaignPeriod" :timezone="timezone" mode="dateTime"
+					:model-config="campaignConfig" is-range is-required
+				>
+					<template v-slot="{ inputValue, inputEvents }">
+						<div class="flex justify-center items-center">
+						<input :value="inputValue.start" v-on="inputEvents.start"
+							class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+						<ChevronsRightIcon class="w-8 h-8 m-1" />
+						<input :value="inputValue.end" v-on="inputEvents.end" disabled
+							class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+						</div>
+					</template>
+				</v-date-picker>
+			</div>
+		</div>
+
+		<div class="mt-5 p-0 col-span-12 z-0">
 		<PaymentForm class="col-span-12" />
 		<!-- <div class="mt-5 p-0 col-span-12 z-0 lg:pl-5 2xl:pl-5">
 			<span class="text-2xl font-medium leading-none mb-3">{{ productPageTitle }}</span>
@@ -84,6 +111,7 @@
 			<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="saveCampaign">
 				Next
 			</button>
+		</div>
 		</div>
 	</div>
 </template>  

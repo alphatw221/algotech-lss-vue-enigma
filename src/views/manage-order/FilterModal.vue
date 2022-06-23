@@ -8,7 +8,7 @@
                 <h2 class="font-medium text-base mr-auto text-xl">
                         Filter
                 </h2>
-                <button id="tabulator-html-filter-go" type="button" class="flex-none text-xl btn btn-primary w-fit mr-3"
+                <button id="tabulator-html-filter-go" type="button" class="flex-none text-[18px] btn btn-primary w-fit mr-3"
                     >
                     Apply Filter
                 </button>
@@ -25,9 +25,34 @@
                     </div>
                 </template>
             </div>
-            <div class="flex text-[16px] mt-8">
+            <div class="flex text-[16px] my-6">
                 <div class="grid grid-cols-12 gap-2">
-                    <div class="col-span-12 text-[20px] font-medium">Payment</div>
+<<<<<<< HEAD
+                    <div class="col-span-12">Payment</div>
+                    <div class="col-span-2">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" v-model="store.filterTagArray.payment['Direct Payment']" @click="updateTag('Direct Payment')">Direct Payment
+                    </div>
+                    <div class="col-span-2">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" v-model="store.filterTagArray.payment['Stripe']" @click="updateTag('Stripe')">Stripe
+                    </div>
+                    <div class="col-span-12">Delivery Status</div>
+                    <div class="col-span-2">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" v-model="store.filterTagArray.delivery['Shipping out']" @click="updateTag('Shipping out')">Shipping out
+                    </div>
+                    <div class="col-span-2">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" v-model="store.filterTagArray.delivery['To be shipping']" @click="updateTag('To be shipping')">To be shipping
+                    </div>
+                    <div class="col-span-12">Platform</div>
+                    <div class="col-span-2">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" v-model="store.filterTagArray.platform['Facebook']" @click="updateTag('Facebook')">Facebook
+                    </div>
+                    <div class="col-span-2">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" v-model="store.filterTagArray.platform['Youtube']" @click="updateTag('Youtube')">Youtube
+                    </div>
+                    <div class="col-span-2">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" v-model="store.filterTagArray.platform['Instagrame']" @click="updateTag('Instagrame')">Instagrame
+=======
+                    <div class="col-span-12 text-[20px] font-medium my-2">Payment</div>
                     <div class="col-span-3 my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                                 v-model="store.filterTagArray['Direct Payment']" 
@@ -39,7 +64,7 @@
                             v-model="store.filterTagArray['Stripe']" 
                                 @click="updateTag('Stripe')"> <span class="ml-1"> Stripe </span> 
                     </div>
-                    <div class="col-span-12 text-[20px] font-medium"> Delivery Status</div>
+                    <div class="col-span-12 text-[20px] font-medium my-2"> Delivery Status</div>
                     <div class="col-span-3 my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray['Shipping out']" 
@@ -52,7 +77,7 @@
                                 @click="updateTag('To be shipping')"> 
                                     <span class="ml-1"> To be shipping </span> 
                     </div>
-                    <div class="col-span-12  text-[20px] font-medium"> Platform</div>
+                    <div class="col-span-12  text-[20px] font-medium my-2"> Platform</div>
                     <div class="col-span-3 my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray['Facebook']" 
@@ -70,6 +95,7 @@
                             v-model="store.filterTagArray['Instagram']" 
                                 @click="updateTag('Instagram')"> 
                                 <span class="ml-1"> Instagram </span> 
+>>>>>>> 95dd97ca26889fbbf2d2bb0d4c8f58285b229d42
                     </div>
                 </div>
                 

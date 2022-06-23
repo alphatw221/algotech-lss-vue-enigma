@@ -234,6 +234,9 @@ export default {
         },
         get_all_comments() {
             console.log("get_all_comments")
+            if (!this.campaignId) {
+                return false
+            }
             get_comments(this.campaign_id).then(res => {
                 console.log(res.data)
                 this.comment_results = res.data
