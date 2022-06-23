@@ -67,10 +67,10 @@ const recaptchaCallBack = token=>{
                     res()
                 })
                 set_cookie.then(() => {
-                    // router.push(`/buyer/cart/${response.data.pre_order_oid}`)
+                    router.push(`/buyer/cart/${response.data.pre_order_oid}`)
                 })
             } else{
-                // router.push(`/buyer/cart/${response.data.pre_order_oid}`)
+                router.push(`/buyer/cart/${response.data.pre_order_oid}`)
             }
         })
     }
