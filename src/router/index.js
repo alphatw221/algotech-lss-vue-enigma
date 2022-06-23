@@ -66,9 +66,6 @@ import Slider from "../views/slider/Main.vue";
 import ImageZoom from "../views/image-zoom/Main.vue";
 
 
-import CreateCampaign from "../views/create-campaign/Main.vue";
-import DetailsConfirm from "../views/create-campaign/DetailsConfirm.vue";
-
 import AutoReply from "../views/autoReply/Main.vue";  
 
 // import ShoppingCart from "../views/shoppingcart/Main.vue";
@@ -85,6 +82,10 @@ import Localization from "../views/settings/Localization.vue";
 import ConnectPlatform from "../views/settings/ConnectPlatform.vue";  
 
 import Profile from "../views/profile/Main.vue";
+
+import MktPlugin from "../views/mkt-plugin/Main.vue";
+import LuckyDraw from "../views/mkt-plugin/LuckyDraw.vue";
+import QuizGame from "../views/mkt-plugin/QuizGame.vue";
 // import Test3 from "../views/test/test3.vue";
 // import Test2 from "../views/test/test2.vue"; 
 // import Test4 from "../views/test/test4.vue"; 
@@ -156,16 +157,31 @@ const routes = [
       //   name: "OrderHistoryDetails",
       //   component: OrderDetails,
       // },
+      {
+        path: "mkt-plugin",
+        name: "mkt-plugin",
+        component: MktPlugin,
+      },
+      {
+        path: "mkt-plugin/lucky-draw",
+        name: "lucky-draw",
+        component: LuckyDraw,
+      },
+      {
+        path: "mkt-plugin/quiz-game",
+        name: "quiz-game",
+        component: QuizGame,
+      },
 /*                CREATE CAMPAIGN                        */      
       {
         path: "campaign/create",
         name: "side-menu-createCam-productselect",
-        component: CreateCampaign,
+        component: () => import('@/views/create-campaign/Main.vue'),
       },  
       {
         path: "campaign/create/confirm",
         name: "side-menu-createCam-detailsconfirm",
-        component: DetailsConfirm,
+        component: () => import('@/views/create-campaign/AssignProductPage.vue'),
       },  
 
 /*                     SETTINGS                           */

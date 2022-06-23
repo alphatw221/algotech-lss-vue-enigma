@@ -1,152 +1,188 @@
 <template class="grid grid-cols-12 gap-5 w-full">
-        <div class="col-start-1 text-sm col-span-12 lg:text-[15px] 2xl:text-[16px]">
-      <div class="relative">
-        <u class="text-lg"> Delivery</u>
-        <a class="absolute top-0 right-0 text-[15px]" @click="editDelivery = true"> Edit</a>
-        <div class="flex mt-2">
-          <span class="w-52"> Delivery Charge</span>
-          <span> USD $20</span>
-        </div>
-        <div class="flex">
-          <span class="w-52"> Free Delivery Charge Above</span>
-          <span> USD $200</span>
-        </div>
-        <div class="flex">
-          <span class="w-52"> Free Delivery for Minimum</span>
-          <span> 10 Items</span>
-        </div>
-        <div class="flex flex-wrap">
-          <span class="w-52">Delivery Charge Option</span>
-          <div class="grid grid-cols-2">
-            <span class="col-start-1 mr-3">Express Delivery </span>
-            <span class="col-start-2"> ---------- USD $35</span>
+	<div class="box px-5 lg:p-5 2xl:p-5 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50">
+		<span class="col-start-1 col-span-12 text-lg mt-10"> 
+			<strong>Delivery Details</strong>
+		</span>
+		<label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Delivery Charge</label>
+		<input 
+			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4 text-base"
+			type="text" 
 
-            <span class="col-start-1 mr-3">Overseas </span>
-            <span class="col-start-2"> ---------- USD $35</span>
-          </div>
-        </div>
-      </div>
-      <div class="grid grid-cols-12 gap-1 relative">
-        <u class="col-start-1 col-span-12 text-lg mt-5 mb-2"> Collect In Store</u>
-        <a class="absolute top-0 right-0 text-[15px]" @click="editPickup = true"> Edit</a>
-        <span class="col-start-1 col-span-12 lg:col-span-4 2xl:col-span-4"> Pickup Store/Pickup Address</span>
-        <span class="col-start-1 col-span-2 lg:col-start-5  lg:col-span-1 2xl:col-start-5 2xl:col-span-1">Store 1</span>
-        <span class="col-start-1 col-span-12 lg:col-start-6 lg:col-span-6 2xl:col-start-6 2xl:col-span-6">2401
-          Utah Avenue South Seattle, Washington, U.S.</span>
-        <span class="col-start-1 col-span-2 lg:col-start-5 lg:col-span-1 2xl:col-start-5 2xl:col-span-1">Store 2</span>
-        <span class="col-start-1 col-span-12 lg:col-start-6 lg:col-span-6 2xl:col-start-6 2xl:col-span-6">2401
-          Utah Avenue South Seattle, Washington, U.S.</span>
-        <span class="col-start-1 col-span-2 lg:col-start-5  lg:col-span-1 2xl:col-start-5 2xl:col-span-1">Store 3</span>
-        <span class="col-start-1 col-span-12 lg:col-start-6 lg:col-span-6 2xl:col-start-6 2xl:col-span-6">2401
-          Utah Avenue South Seattle, Washington, U.S.</span>
-      </div>
-      <label for="regular-form-2" class="form-label col-start-1 col-span-1 mt-5"> Choose pickup start & end date
-      </label>
-      <v-date-picker class="mb-5" v-model="pickupPeriod" :timezone="timezone" mode="dateTime"
-        :model-config="pickupConfig" is-range is-required>
-        <template v-slot="{ inputValue, inputEvents }">
-          <div class="flex justify-start ml-10 items-center">
-            <input :value="inputValue.start" v-on="inputEvents.start"
-              class="form-control border h-10 px-2 py-1 rounded focus:outline-none focus:border-indigo-300" />
-            <ChevronsRightIcon class="w-8 h-8 m-1" />
-            <input :value="inputValue.end" disabled
-              class="form-control border h-10 px-2 py-1 rounded focus:outline-none focus:border-indigo-300" />
-          </div>
-        </template>
-      </v-date-picker>
-      <div class="relative">
-        <u class="text-lg mt-5"> Delivery Note</u>
-        <a class="absolute top-0 right-0 text-[15px]" @click="editNotes = false"> Edit</a>
-        <textarea class="form-control flex w-[90%] h-48 m-5 " :readonly="editNotes ? true : null">
-                Delivery NoteDelivery NoteDelivery NoteDelivery NoteDelivery NoteDelivery Note
-                Delivery NoteDelivery NoteDelivery NoteDelivery NoteDelivery NoteDelivery Note
-            </textarea>
-        <button v-show="!editNotes" class="btn btn-rounded absolute bottom-0 right-2" @click="editNotes = true">
-          Submit </button>
-      </div>
-    </div>
-      <!-- Modals-->
-  <Modal :show="editDelivery">
-    <ModalHeader>
-      <h2 class="font-medium text-base mr-auto">Create New Category</h2>
-      <a @click="editDelivery = false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
-        <XIcon class="w-8 h-8 text-slate-400" />
-      </a>
-    </ModalHeader>
-    <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
-      <div class="col-span-12">
-        <label for="modal-form-1" class="form-label">Name</label>
-        <input id="modal-form-1" type="text" class="form-control" placeholder="" />
-      </div>
-      <div class="col-span-12">
-        <label for="modal-form-1" class="form-label">Name</label>
-        <input id="modal-form-1" type="text" class="form-control" placeholder="" />
-      </div>
-      <div class="col-span-12">
-        <label for="modal-form-1" class="form-label">Name</label>
-        <input id="modal-form-1" type="text" class="form-control" placeholder="" />
-      </div>
-    </ModalBody>
-    <ModalFooter>
-      <button type="button" @click="editDelivery = false" class="btn btn-outline-secondary w-20 mr-1">
-        Cancel
-      </button>
-      <button type="button" class="btn btn-primary w-20">Save</button>
-    </ModalFooter>
-  </Modal>
+			:class="{ 'border-danger': charge_validate.delivery_charge.$error }"
+			v-model.trim="charge_validate.delivery_charge.$model"
+			@blur="charge_validate.delivery_charge.$touch" 
+		/>
+		<template v-if="charge_validate.delivery_charge.$error">
+			<label class="text-danger 2xl:col-start-4 xl:col-start-2 col-span-12 2xl:col-span-4 xl:col-span-4 mt-2 mb-3">
+				Please enter correctly delivery charge
+			</label>
+		</template>
+		<div class="2xl:col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2">
+			<input 
+				class="form-check-input" 
+				type="checkbox" 
+				v-model="deliverySettings.is_free_delivery_for_order_above_price"
+			/>
+			<label class="col-span-2 ml-5 text-base">Free delivery for order above USD</label>
+		</div> 
+		<input 
+			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4" 
+			type="text" 
+			v-model="deliverySettings.free_delivery_for_order_above_price"
+		/>
+		<div class="2xl:col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2">
+			<input 
+				class="form-check-input text-base" 
+				type="checkbox"
+				v-model="deliverySettings.is_free_delivery_for_how_many_order_minimum"
+			/>
+			<label class="col-span-2 ml-5 text-base">Free delivery for minimum order Qty</label>
+		</div> 
+		<input 
+			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4"
+			type="text"
+			v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
+		/>       
+		
+		<label class="form-label col-start-1 col-span-12 font-bold mt-2 text-base">Delivery Charge Option</label>
+		<div v-for="(value, index) in additional_delivery" class="col-span-12" :key="index">
+			<div class="grid grid-cols-12 gap-3 mt-3">
+				<input  
+					class="form-control-rounded col-start-1 col-span-12 lg:col-span-3 2xl:col-span-3 text-base"
+					type="text" 
+					placeholder="express service name"
+					v-model="additional_delivery[index].title"
+				/>
+				<select 
+					class="form-select col-span-12 lg:col-span-3 2xl:col-span-3"
+					v-model="additional_delivery[index].type"
+				>
+					<option value="+">On top of delivery charge</option>
+					<option value="=">Replace delivery charge</option>
+				</select>
+				<input  
+					class="form-control-rounded col-span-12 lg:col-span-3 2xl:col-span-3 text-base"
+					type="text" 
+					placeholder="express charge"
+					v-model="additional_delivery[index].price"
+				/>
+				<button 
+					class="btn btn-danger w-24 inline-block text-base ml-5" 
+					@click="modifyDelivery('delete', index)"
+				> Delete </button>
+			</div>
+		</div>
+		<button 
+			class="btn btn-primary col-start-5 w-24 inline-block text-base mb-5 mt-3"
+			@click="modifyDelivery('add', index)"
+		> Add </button>
 
-    <Modal :show="editPickup">
-    <ModalHeader>
-      <h2 class="font-medium text-base mr-auto">Create New Category</h2>
-      <a @click="editPickup = false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
-        <XIcon class="w-8 h-8 text-slate-400" />
-      </a>
-    </ModalHeader>
-    <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
-      <div class="col-span-12">
-        <label for="modal-form-1" class="form-label">Name</label>
-        <input id="modal-form-1" type="text" class="form-control" placeholder="" />
-      </div>
-      <div class="col-span-12">
-        <label for="modal-form-1" class="form-label">Name</label>
-        <input id="modal-form-1" type="text" class="form-control" placeholder="" />
-      </div>
-      <div class="col-span-12">
-        <label for="modal-form-1" class="form-label">Name</label>
-        <input id="modal-form-1" type="text" class="form-control" placeholder="" />
-      </div>
-    </ModalBody>
-    <ModalFooter>
-      <button type="button" @click="editPickup = false" class="btn btn-outline-secondary w-20 mr-1">
-        Cancel
-      </button>
-      <button type="button" class="btn btn-primary w-20">Save</button>
-    </ModalFooter>
-  </Modal>
+		<label class="form-label col-start-1 col-span-12 font-bold mt-2 text-base">Collect In Store</label>
+		<div v-for="(value, index) in branch" class="col-span-12" :key="index">
+			<div class="grid grid-cols-12 gap-3">
+				<label class="col-start-1 col-span-12 lg:col-span-3 2xl:col-span-3 2xl:col-start-1 mt-2 text-base">Pickup Store</label>
+				<input 
+					class="form-control-rounded col-span-12 lg:col-span-6 2xl:col-span-4 text-base"
+					type="text"
+					v-model="branch[index].name" 
+				/>
+				<label class="col-start-1 col-span-12 lg:col-span-3 lg:col-start-1 2xl:col-span-3 2xl:col-start-1 mt-2 text-base">Pickup Address</label>
+				<input 
+					class="form-control-rounded col-span-12 lg:col-span-6 2xl:col-span-6 text-base"
+					type="text" 
+					v-model="branch[index].address"
+				/>
+				<button 
+					class="btn btn-danger w-24 inline-block text-base ml-5 " 
+					@click="modifyBranch('delete', index)"
+				> Delete </button>
+			</div>
+		</div>
+		<button 
+			class="btn btn-primary col-start-5 w-24 inline-block text-base mt-3 mb-5"
+			@click="modifyBranch('add', index)"
+		> Add </button>
+	</div>
 </template>
 
-<script>
+<script setup>
+import { ref, reactive, onMounted, watch, computed } from 'vue';
+import { update_delivery_setting, list_delivery_setting } from '@/api_v2/campaign';
+import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
-export default{
-    data() {
-        return {
-            editDelivery: false,
-            editPickup: false,
-            editNotes: true,
-            pickupPeriod: {
-                start: new Date(),
-                end: new Date(),
-            },
-            pickupConfig: {
-                start: {
-                    timeAdjust: "",
-                },
-                end: {
-                    timeAdjust: "",
-                },
-            },
-        };
-    },
+import { required, integer } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
+
+const campaignStore = useCreateCampaignStore()
+const additional_delivery = ref([])
+const branch = ref([])
+const deliverySettings = ref({
+    delivery_charge : 0,
+    is_free_delivery_for_order_above_price : true,
+    free_delivery_for_order_above_price : 0,
+    is_free_delivery_for_how_many_order_minimum : true,
+    free_delivery_for_how_many_order_minimum : 0,
+    is_additional_delivery_charge : true,
+    additional_delivery_option: [],
+    pickup_start_date : '',
+    pickup_end_date : '',
+    pickup_option: [],
+    delivery_note : ''
+})
+
+onMounted(() => {
+    list()
+})
+
+watch(deliverySettings, () => {
+	deliverySettings.value.additional_delivery_option = additional_delivery.value
+    deliverySettings.value.pickup_option = branch.value
+	campaignStore.deliverySettings = deliverySettings.value
+}, { deep: true })
+
+const charge_rules = computed(() => {
+	return { delivery_charge: { required, integer } }
+})
+const charge_validate = useVuelidate(charge_rules, deliverySettings);
+
+const list = () => {
+    list_delivery_setting().then(
+        response => {
+            if (response.data && Object.keys(response.data).length === 0 && Object.getPrototypeOf(response.data) === Object.prototype) {
+                upsertButtonName.value = 'Save'
+                return
+            } else {
+                deliverySettings.value = response.data
+                if (response.data.additional_delivery_option.length > 0) additional_delivery.value = response.data.additional_delivery_option
+                if (response.data.pickup_option.length > 0) branch.value = response.data.pickup_option
+            }
+        }
+    )    
+}
+
+const modifyDelivery = (type, index) => {
+    if (type == 'add') {
+        if (Object.entries(additional_delivery.value).length > 0) {
+            additional_delivery.value[parseInt(Object.keys(additional_delivery.value).at(-1)) + 1] = { title: null, type: null, price: null }
+        } else {
+            additional_delivery.value[Object.entries(additional_delivery.value).length] = { title: null, type: null, price: null }
+        }
+    } else if (type == 'delete') {
+        additional_delivery.value = additional_delivery.value.filter(value => value != additional_delivery.value[index])
+    }
+}
+
+const modifyBranch = (type, index) => {
+    if (type == 'add') {
+        if (Object.entries(branch.value).length > 0) {
+            branch.value[parseInt(Object.keys(branch.value).at(-1)) + 1] = { name: null, address: null }
+        } else {
+            branch.value[Object.entries(branch.value).length] = { name: null, address: null }
+        }
+    } else if (type == 'delete') {
+        branch.value = branch.value.filter(value => value != branch.value[index])
+    }
 }
 
 </script>

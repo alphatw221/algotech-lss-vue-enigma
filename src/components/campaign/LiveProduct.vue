@@ -25,7 +25,7 @@
                 <table class="table table-sm">
                     <thead class="table-dark">
                         <tr>
-                            <th class="whitespace-nowrap" style="" v-for="column in product_columns" :key="column.key">
+                            <th class="whitespace-nowrap table-dark" style="" v-for="column in product_columns" :key="column.key">
                                 {{ column.name }}
                             </th>
                         </tr>
@@ -154,17 +154,15 @@ export default {
 
 .table th {
     /*padding-left: 0 !important;*/
-    padding-right: 5px !important;
-    padding-left: 5px !important;
+    padding: 5px !important;
 }
 
 .table td {
     /*padding-left: 0 !important;*/
-    padding-right: 5px !important;
-    padding-left: 5px !important;
+    padding: 5px !important;
     border-collapse: collapse;
     overflow-wrap: break-word;
-    max-width: 100px;
+    max-width: 95px;
 }
 
 thead th{ 

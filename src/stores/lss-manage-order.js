@@ -23,7 +23,7 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 			'To be shipping':false,
 			'Facebook':false,
 			'Youtube':false,
-			'Instagrame':false
+			'Instagram':false
 		}),
 		orderProductData:ref({})
 	}),

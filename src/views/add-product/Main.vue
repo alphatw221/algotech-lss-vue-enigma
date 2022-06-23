@@ -56,7 +56,7 @@
 					</div>
 					<input
 							type="file"
-							class="w-full h-full top-0 left-0 absolute opacity-0 border-6 bg-primary"
+							class="w-full h-full top-0 left-0 absolute opacity-0 border-6 bg-primary cursor-pointer"
 							accept="image/jpeg" 
 							@change="uploadImage"
 						/>
@@ -185,7 +185,7 @@ const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const product = ref({
 	id: 0,
 	name: '',
-	categories: [],
+	category: [],
 	image: '',
 	type: '',
 	order_code: '',

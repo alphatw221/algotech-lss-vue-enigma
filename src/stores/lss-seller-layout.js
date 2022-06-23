@@ -51,8 +51,13 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       },
       {
         icon: "PackageIcon",
-        pageName: "side-menu-campaign-select",
+        pageName: "",
         title: "Manage Order",
+      },
+      {
+        icon: "PackageIcon",
+        pageName: "mkt-plugin",
+        title: "MKT Plugin",
       },
       // {
       //   icon: "ShoppingCartIcon",
