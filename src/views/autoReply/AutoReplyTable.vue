@@ -124,10 +124,12 @@ onUnmounted(() => {
 
 function changePage(page) {
 	currentPage.value = page;
+	getReplyData()
 }
 
-function changePageSize(pageSize) {
-	pageSize.value = pageSize;
+function changePageSize(page_size) {
+	pageSize.value = page_size;
+	getReplyData()
 }
 
 function updateInfo(id, input, output, description, facebook_page) {
@@ -142,16 +144,16 @@ function updateInfo(id, input, output, description, facebook_page) {
 
 function getReplyData() {
 	createAxiosWithBearer()
-		.get(`${props.requestUrl}`)
-		.then((response) => {
-			console.log(response);
-			totalCount.value = response.data.length;
-			listItems.value = response.data;
-			listItems.value = listItems.value.reverse();
-		})
-		.catch(function (error) {
-			console.log(error);
-		});
+	.get(`${props.requestUrl}?page_size=${pageSize.value}&page=${currentPage.value}`)
+	.then((response) => {
+		console.log(response);
+		totalCount.value = response.data.count
+		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
+		listItems.value = response.data.results
+	})
+	.catch(function (error) {
+		console.log(error);
+	});
 }
 
 function closeWithAlert() {
