@@ -1,6 +1,10 @@
 import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
 
 // -------------guest------------------
+export const guest_retrieve_order_with_user_subscription = (order_oid) => {
+    return axiosInstance.get(`/api/v2/order/guest/retrieve/${order_oid}/subscription/`);
+}
+
 export const guest_retrieve_order = (order_oid) => {
     return axiosInstance.get(`/api/v2/order/guest/retrieve/${order_oid}/`);
 }
@@ -14,6 +18,9 @@ export const guest_retrieve_order_state = (order_oid) => {
 }
 
 // -------------buyer------------------
+export const buyer_retrieve_order_with_user_subscription = (order_oid) => {
+    return createAxiosWithBearer().get(`/api/v2/order/buyer/retrieve/${order_oid}/subscription`);
+}
 export const buyer_retrieve_order = (order_oid) => {
     return createAxiosWithBearer().get(`/api/v2/order/buyer/retrieve/${order_oid}/`);
 }

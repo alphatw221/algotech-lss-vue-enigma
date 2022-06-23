@@ -97,6 +97,7 @@ import isBuyerLoginMiddleware from "@/libs/routerMiddleware/isBuyerLoginMiddlewa
 import sellerAuthMiddleware from "@/libs/routerMiddleware/sellerAuthMiddleware"
 
 import buyerLoginMiddleware from "@/libs/routerMiddleware/buyerLoginMiddleware";
+import buyerRecaptchaMiddleware from "@/libs/routerMiddleware/buyerRecaptchaMiddleware";
 import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
@@ -283,6 +284,16 @@ const routes = [
         component: () => import('@/views/buyer-index/Main.vue'),
       },
       {
+        path: "recaptcha/:type?/:object_id?",
+        name: "buyer-recaptcha-page",
+        component: () => import('@/views/buyer-recaptcha/Main.vue'),
+      },
+      {
+        path: "c",
+        name: "buyer-index",
+        component: () => import('@/views/buyer-index/Main.vue'),
+      },
+      {
         path: "orders",
         name: "buyer-order-history-page",
         beforeEnter:isBuyerLoginMiddleware,
@@ -311,6 +322,7 @@ const routes = [
       },
     ]
   },
+  
   {
     path: "/buyer/login/:type?/:object_id?",
     name: "buyer-login-page",

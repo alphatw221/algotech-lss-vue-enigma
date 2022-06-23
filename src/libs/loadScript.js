@@ -8,3 +8,13 @@ export default async function loadScript(url,callback){
     // };
     document.getElementsByTagName( "head" )[0].appendChild( script );
 }
+
+
+export const loadScriptAsyncDefer = async (url)=>{
+    var script = document.createElement( "script" )
+    script.async=true
+    script.defer=true
+    script.type = "text/javascript";
+    script.src = url;
+    document.getElementsByTagName( "head" )[0].appendChild( script );
+}
