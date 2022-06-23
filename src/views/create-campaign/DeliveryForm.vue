@@ -7,8 +7,16 @@
 		<input 
 			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4 text-base"
 			type="text" 
-			v-model="deliverySettings.delivery_charge"
+
+			:class="{ 'border-danger': charge_validate.delivery_charge.$error }"
+			v-model.trim="charge_validate.delivery_charge.$model"
+			@blur="charge_validate.delivery_charge.$touch" 
 		/>
+		<template v-if="charge_validate.delivery_charge.$error">
+			<label class="text-danger 2xl:col-start-4 xl:col-start-2 col-span-12 2xl:col-span-4 xl:col-span-4 mt-2 mb-3">
+				Please enter correctly delivery charge
+			</label>
+		</template>
 		<div class="2xl:col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2">
 			<input 
 				class="form-check-input" 
@@ -61,18 +69,13 @@
 				<button 
 					class="btn btn-danger w-24 inline-block text-base ml-5" 
 					@click="modifyDelivery('delete', index)"
-				>
-				<!-- delete additional_delivery[index] -->
-					Delete
-				</button>
+				> Delete </button>
 			</div>
 		</div>
 		<button 
 			class="btn btn-primary col-start-5 w-24 inline-block text-base mb-5 mt-3"
 			@click="modifyDelivery('add', index)"
-		>
-			Add
-		</button>
+		> Add </button>
 
 		<label class="form-label col-start-1 col-span-12 font-bold mt-2 text-base">Collect In Store</label>
 		<div v-for="(value, index) in branch" class="col-span-12" :key="index">
@@ -92,25 +95,24 @@
 				<button 
 					class="btn btn-danger w-24 inline-block text-base ml-5 " 
 					@click="modifyBranch('delete', index)"
-				>
-					Delete
-				</button>
+				> Delete </button>
 			</div>
 		</div>
 		<button 
 			class="btn btn-primary col-start-5 w-24 inline-block text-base mt-3 mb-5"
 			@click="modifyBranch('add', index)"
-		>
-			Add
-		</button>
+		> Add </button>
 	</div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, watch } from 'vue';
+import { ref, reactive, onMounted, watch, computed } from 'vue';
 import { update_delivery_setting, list_delivery_setting } from '@/api_v2/campaign';
-import { useCreateCampaignStore } from '@/stores/lss-create-campaign'
+import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
+import { required, integer } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
 
 const campaignStore = useCreateCampaignStore()
 const additional_delivery = ref([])
@@ -137,8 +139,12 @@ watch(deliverySettings, () => {
 	deliverySettings.value.additional_delivery_option = additional_delivery.value
     deliverySettings.value.pickup_option = branch.value
 	campaignStore.deliverySettings = deliverySettings.value
-	console.log(campaignStore)
 }, { deep: true })
+
+const charge_rules = computed(() => {
+	return { delivery_charge: { required, integer } }
+})
+const charge_validate = useVuelidate(charge_rules, deliverySettings);
 
 const list = () => {
     list_delivery_setting().then(

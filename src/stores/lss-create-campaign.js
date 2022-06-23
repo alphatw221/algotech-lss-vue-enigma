@@ -9,7 +9,7 @@ export const useCreateCampaignStore = defineStore("sellerCampaignProducts", {
 		deliverySettings: ref({}),
 		paymentSettings: ref({
 			'directPayment': {
-				activate: true,
+				enabled: true,
 				button_title: 'Direct Payment',
 				accounts: []
 			},

@@ -6,9 +6,9 @@
                     class="form-check-input col-span-1" 
                     style="width: 1.5rem; height:1.5rem;"
                     type="checkbox" 
-                    v-model="campaignStore.paymentSettings['directPayment'].activate"
+                    v-model="campaignStore.paymentSettings['directPayment'].enabled"
                 />
-                <label class="form-label ml-3 text-base mt-1 mr-3">Activate direct payment  /  Button name</label>
+                <label class="form-label ml-3 text-base mt-1 mr-3">Enable direct payment  /  Button name</label>
                 <input 
                     class="form-control-rounded col-span-5"
                     type="text" 
@@ -86,9 +86,9 @@
                     class="form-check-input col-span-1" 
                     style="width: 1.5rem; height:1.5rem;"
                     type="checkbox" 
-                    v-model="campaignStore.paymentSettings[props.paymentName].activate"
+                    v-model="campaignStore.paymentSettings[props.paymentName].enabled"
                 />
-                <label class="form-label ml-3 text-base mt-1 mr-3">Activate direct payment</label>
+                <label class="form-label ml-3 text-base mt-1 mr-3">Enable direct payment</label>
             </div>
             <div v-for="(account, index) in singleAccountSettings" :key="index">
                 <div 
@@ -182,7 +182,7 @@ onMounted(() => {
                 for (let [key, field] of Object.entries(paymentInfo.value.fields)) {
                     paymentObj.value[field.key] = null
                 }
-                paymentObj.value['activate'] = true
+                paymentObj.value['enabled'] = true
                 let accountObj = {}
                 let copyObj = Object.assign(accountObj, paymentObj.value)
                 singleAccountSettings.value.push(accountObj)
@@ -205,9 +205,6 @@ const modifyDirectPayment = (type, index) => {
     if (type == 'add') {
         let accountObj = {}
         let copyObj = Object.assign(accountObj, paymentObj.value)
-
-        console.log(directPaymentSettings.value)
-
         if (Object.entries(directPaymentSettings.value).length > 0) {
             directPaymentSettings.value[parseInt(Object.keys(directPaymentSettings.value).at(-1)) + 1] = accountObj
         } else {
