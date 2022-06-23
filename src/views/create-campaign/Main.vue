@@ -72,19 +72,6 @@
 
 		<div class="mt-5 p-0 col-span-12 z-0">
 		<PaymentForm class="col-span-12" />
-		<!-- <div class="mt-5 p-0 col-span-12 z-0 lg:pl-5 2xl:pl-5">
-			<span class="text-2xl font-medium leading-none mb-3">{{ productPageTitle }}</span>
-			<div>
-				<div class="intro-y col-span-12" >
-					<div v-show="selectProduct">
-						<SearchBar class="-mb-3" />
-						<AssignProductTable />
-					</div>
-					<div v-show="comfirmProduct">
-						<ComfirmProductTable />
-					</div>
-				</div>
-			</div> -->
 
 		<div class="box px-5 lg:p-5 2xl:p-5 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 mt-3">
 			<label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Delivery note</label>
