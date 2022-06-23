@@ -7,7 +7,14 @@
 			<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
 				<div class="flex">
 					<label class="form-label -mb-3 w-32 mt-2 text-base">Title</label>
-					<input type="text" class="form-control form-control-rounded" v-model="campaignTitle" />
+					<input 
+						class="form-control form-control-rounded" 
+						type="text" 
+						:class="{ 'border-danger': title_validate.campaignTitle.$error }"
+						v-model.trim="title_validate.campaignTitle.$model"
+						@blur="title_validate.campaignTitle.$touch" 
+					/>
+					
 				</div>
 			</div>
 			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
@@ -28,6 +35,11 @@
 					</v-date-picker>
 				</div>
 			</div>
+			<template v-if="title_validate.campaignTitle.$error">
+				<label class="text-danger 2xl:col-start-2 xl:col-start-2 col-span-12 2xl:col-span-6 xl:col-span-6 mt-2 mb-3">
+					Please enter Campaign title
+				</label>
+			</template>
 		</div>
 
 		<DeliveryForm class="col-span-12" />
@@ -66,21 +78,30 @@
 		</div>
 
 		<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-			<button class="btn bg-[#969696] mr-5" @click="$router.back()"> Previous</button>
-			<button class="btn bg-[#ED2225]" @click="saveCampaign"> Save</button>
+			<button class="btn btn-rounded-secondary w-24 mr-2 mb-2">
+				Cancel
+			</button>
+			<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="saveCampaign">
+				Next
+			</button>
 		</div>
 	</div>
 </template>  
 
 <script setup>
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed } from 'vue';
 import PaymentForm from './PaymentForm.vue';
 import DeliveryForm from './DeliveryForm.vue';
-import { useCreateCampaignStore } from '@/stores/lss-create-campaign'
+import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { create_campaign } from '@/api_v2/campaign';
-import { get_notes } from '@/api_v2/user_subscription'
+import { get_notes } from '@/api_v2/user_subscription';
+
+import { required, minLength, maxLength } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
 
 
+const layoutStore = useLSSSellerLayoutStore();
 const campaignStore = useCreateCampaignStore()
 const campaignTitle = ref('')
 const campaignPeriod = ref({
@@ -106,8 +127,18 @@ const list = () => {
     })
 }
 
+const title_rules = computed(() => {
+	return { campaignTitle: { required, minLength: minLength(1), maxLength: maxLength(255) } }
+})
+const title_validate = useVuelidate(title_rules, campaignTitle);
+
 const saveCampaign = () => {
-	console.log(campaignStore)
+	title_validate.value.$touch()
+	if (title_validate.value.$invalid) {
+		layoutStore.alert.showMessageToast("Invild campaign title input")
+		return
+	}
+
 	let formData = new FormData()
 	formData.append('campaignTitle', JSON.stringify(campaignStore.campaignTitle))
 	formData.append('campaignPeriod', JSON.stringify(campaignStore.campaignPeriod))
@@ -122,7 +153,6 @@ const saveCampaign = () => {
 	create_campaign(formData).then(response => {
         console.log(response.data)
     })
-
 }
 
 </script>
