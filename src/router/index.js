@@ -159,7 +159,7 @@ const routes = [
         component: () => import('@/views/create-campaign/Main.vue'),
       },  
       {
-        path: "campaign/create/confirm",
+        path: "campaign/assign/product",
         name: "side-menu-createCam-detailsconfirm",
         component: () => import('@/views/create-campaign/AssignProductPage.vue'),
       },  
