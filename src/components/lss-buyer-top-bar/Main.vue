@@ -88,7 +88,7 @@
       <!-- END: Notifications -->
 
       
-      <div class="mr-3 ml-auto  flex">
+      <div class="mr-5 ml-auto  flex md:mr-3">
         <button class="intro-x text-white text-[16px] hover:text-slate-300" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
         <!-- BEGIN: Account Menu -->
         <Dropdown class="intro-x w-8 h-8 " v-else>
