@@ -12,34 +12,29 @@
 
 
       <!-- BEGIN: Hamburger -->
-      <a @click="toggleMobileMenu()" v-if="!isAnonymousUser">
-        <AlignJustifyIcon
-          class="w-7 h-7 text-white transform md:hidden intro-x ml-4 mb-1 hover:text-slate-300"
-        />
-      </a>
-      <a  v-else>
-        <AlignJustifyIcon
-          class="w-7 h-7 text-white transform md:hidden  ml-4 mb-1 hover:text-slate-300"
-        />
-      </a>
-
+        <!-- <a @click="toggleMobileMenu()" >
+          <AlignJustifyIcon
+            class="w-7 h-7 text-white transform md:hidden intro-x ml-4 mb-1 hover:text-slate-300"
+          />
+        </a> -->
       <!-- END: Hamburger -->
 
       <!-- BEGIN: Logo -->
-      <a href="" class="logo -intro-x block
-      mx-auto
-      w-20 
-      sm:w-25 
-      md:flex md:w-30 md:mx-0
-      xl:w-35
-      ">
-        <img
-          alt="Enigma Tailwind HTML Admin Template"
-          class="logo__image mb-1"
-          src="@/assets/images/lss-logo/LSS_logo_words_white.png"
-        />
-        <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
-      </a>
+        <a href="" class="logo -intro-x block
+        flex
+        ml-3
+        w-20 
+        sm:w-25 
+        md:w-30 
+        xl:w-35
+        ">
+          <img
+            alt="Enigma Tailwind HTML Admin Template"
+            class="logo__image mb-1"
+            src="@/assets/images/lss-logo/LSS_logo_words_white.png"
+          />
+          <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
+        </a>
       <!-- END: Logo -->
 
      
@@ -93,10 +88,10 @@
       <!-- END: Notifications -->
 
       
-      <div class="mr-3 md:ml-auto md:mr-0 flex">
-        <button class="intro-x text-white text-[16px] mr-5 hover:text-slate-300" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
+      <div class="mr-3 ml-auto  flex">
+        <button class="intro-x text-white text-[16px] hover:text-slate-300" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
         <!-- BEGIN: Account Menu -->
-        <Dropdown class="intro-x w-8 h-8 pt-0.5" v-else>
+        <Dropdown class="intro-x w-8 h-8 " v-else>
           <DropdownToggle
             tag="div"
             role="button"
@@ -136,17 +131,16 @@
                 <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
               > -->
 
-              <!-- This section will be hidden on mobile device -->
               <DropdownItem class="dropdown-item hover:bg-white/5 " @click="router.push('/buyer/orders');dom('.dropdown-menu').removeClass('show')">
                 <ShoppingBagIcon class="w-4 h-4 mr-2" /> OrderHistory</DropdownItem
               >
               <DropdownDivider class="border-white/[0.08]" />
-              <!-- This section will be hidden on mobile device -->
 
-              <DropdownItem class="dropdown-item hover:bg-white/5">
+              <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
                 <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
               >
-              <DropdownDivider class="border-white/[0.08]" />
+              <DropdownDivider class="border-white/[0.08]" /> -->
+
               <DropdownItem class="dropdown-item hover:bg-white/5" @click="logout()" v-if="!isAnonymousUser">
                 <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout</DropdownItem
               >
@@ -177,9 +171,7 @@ const toggleMobileMenu = ()=>{
   buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
 }
 
-watch(computed(()=>window.wi),
 
-)
 const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
 const userAvatar = computed(() => {
   if(cookies.get('login_with')=='facebook'){

@@ -16,7 +16,7 @@
          lg:w-1/2 lg:px-2 lg:border-secondary lg:border-r-2 lg:border-dotted" style="height:30vh">
             <h1 class="mt-20 mb-12">Continue as a Guest</h1>
             <div class=" w-full">
-              <button class="btn btn-secondary w-[310px] text-[18px]" @click="layoutStore.showLoginModal=false">Continue</button>
+              <button class="btn btn-secondary w-[310px] text-[18px]" @click="continueAsGuest()">Continue</button>
             </div>
             <div class="w-full flex justify-center border-t border-slate-200/60 dark:border-darkmode-400 mt-12 lg:invisible">
               <div class="bg-white px-5 -mt-3 text-slate-500 text-[16px]"> or </div>
@@ -68,6 +68,11 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 const layoutStore = useLSSBuyerLayoutStore();
 const showReminder = ref(false)
 const currentUrl = ref(window.location.href)
+
+const continueAsGuest = ()=>{
+  layoutStore.refuseToLogin = true
+  layoutStore.showLoginModal=false
+}
 
 onMounted(()=>{
     // console.log(navigator.userAgent.toLowerCase())
