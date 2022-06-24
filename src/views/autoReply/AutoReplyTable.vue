@@ -9,8 +9,8 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-for="(reply, key) in listItems" :key="reply.key" class="intro-x">
-					<template v-for="(column, key) in columns" :key="column.key">
+				<tr v-for="(reply, index) in listItems" :key="index" class="intro-x">
+					<template v-for="(column, index) in columns" :key="index">
 						<td v-if="column.key === 'facebook_page'"
 							class="w-24 h-auto imgtd">
 								<div class="w-14 h-14 image-fit zoom-in flex pt-2">
@@ -40,7 +40,7 @@
 		</table>
 	</div>
 	<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-		<Page :total="totalCount" show-sizer @on-change="changePage" @on-page-size-change="changePageSize" />
+		<Page :total="totalCount" @on-change="changePage" @on-page-size-change="changePageSize" />
 	</div>
 	<!-- update Modal-->
 	<Modal :show="updateModal" @hidden="closeWithAlert()">

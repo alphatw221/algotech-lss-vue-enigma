@@ -221,21 +221,28 @@
             </TabPanel>
             <!-- END Pickup Panel -->
           </TabPanels>
+
+
           <div class="col-span-12 mt-10">
             <div class="text-md font-medium">
-              Delivery and Collect Note
+              Delivery and Collection Note
             </div>
             <p id="" class="form-control col-start-1 col-span-12 p-5" placeholder="" v-if="'campaign' in store.order">
               {{store.order.campaign.meta_logistic.delivery_note}}
             </p>
           </div>
-          <div class="col-span-12 mt-10">
-            <div class="text-md font-medium">Remark</div>
-            <textarea id="" class="form-control col-start-1 col-span-12 indent-4" placeholder=""
-              v-model="shipping_info.shipping_remark">
-                Remark remark remark remark</textarea>
-          </div>
+          
+
         </TabGroup>
+
+
+        <div class="col-span-12 mt-10">
+          <div class="text-md font-medium">Remark</div>
+          <textarea id="" class="form-control col-start-1 col-span-12 indent-4" placeholder=""
+            v-model="shipping_info.shipping_remark">
+          </textarea>
+        </div>
+
       </div>
 
       <div class="col-span-12 row-start-1 lg:col-span-4">
@@ -311,6 +318,7 @@ const shipping_info= ref({
       shipping_time: null,
       pickup_address:""
 		})
+    
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 onMounted(()=>{
