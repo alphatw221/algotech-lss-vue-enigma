@@ -229,13 +229,13 @@
               {{store.order.campaign.meta_logistic.delivery_note}}
             </p>
           </div>
-          <div class="col-span-12 mt-10">
+        </TabGroup>
+        <div class="col-span-12 mt-10">
             <div class="text-md font-medium">Remark</div>
             <textarea id="" class="form-control col-start-1 col-span-12 indent-4" placeholder=""
               v-model="shipping_info.shipping_remark">
                 Remark remark remark remark</textarea>
           </div>
-        </TabGroup>
       </div>
 
       <div class="col-span-12 row-start-1 lg:col-span-4">
