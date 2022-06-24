@@ -1,5 +1,5 @@
 <template>
-	<div class=" overflow-y-scroll h-[720px]">
+	<div class=" overflow-y-auto h-[700px]">
 		<table class="table table-report">
 			<thead>
 				<tr>

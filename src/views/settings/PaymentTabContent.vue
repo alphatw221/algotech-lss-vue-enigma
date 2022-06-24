@@ -210,7 +210,7 @@ const updateDirectPayment = () => {
 }
 
 const updateSinglePayment = () => {
-    let data = { 'activated': true }
+    let data = { 'enabled': true }
     for (let [key, value] of Object.entries(singleAccountSettings.value[0])) {
         data[key] = value
     }
