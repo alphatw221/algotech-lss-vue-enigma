@@ -84,8 +84,13 @@ import ConnectPlatform from "../views/settings/ConnectPlatform.vue";
 import Profile from "../views/profile/Main.vue";
 
 import MktPlugin from "../views/mkt-plugin/Main.vue";
-import LuckyDraw from "../views/mkt-plugin/LuckyDraw.vue";
-import QuizGame from "../views/mkt-plugin/QuizGame.vue";
+import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
+import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
+import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
+
+
+
+
 // import Test3 from "../views/test/test3.vue";
 // import Test2 from "../views/test/test2.vue"; 
 // import Test4 from "../views/test/test4.vue"; 
@@ -164,6 +169,11 @@ const routes = [
       },
       {
         path: "mkt-plugin/lucky-draw",
+        name: "lucky-draw-setting",
+        component: LuckyDrawSetting,
+      },
+      {
+        path: "lucky-draw/:campaign_id?",
         name: "lucky-draw",
         component: LuckyDraw,
       },
@@ -179,7 +189,7 @@ const routes = [
         component: () => import('@/views/create-campaign/Main.vue'),
       },  
       {
-        path: "campaign/create/confirm",
+        path: "campaign/assign/product",
         name: "side-menu-createCam-detailsconfirm",
         component: () => import('@/views/create-campaign/AssignProductPage.vue'),
       },  

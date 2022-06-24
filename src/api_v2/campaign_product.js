@@ -17,3 +17,9 @@ export const buyer_list_campapign_product = (pre_order_oid) => {
 export const buyer_cart_list = (pre_order_oid) => {
     return createAxiosWithBearer().get(`/api/v2/campaign-product/buyer/cart/list/?pre_order_oid=${pre_order_oid}`)
 }
+
+// -------------seller------------------
+
+export const seller_create_campaign_product = (campaign_id, data) => {
+    return createAxiosWithBearer().post(`/api/v2/campaign-product/seller/create/?campaign_id=${campaign_id}`, data)
+}

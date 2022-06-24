@@ -20,54 +20,52 @@
             </Dropdown>
         </div>
         <div
-            class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem] mt-1">
-            <div class="sticky top-0 z-50">
-                <table class="table table-sm">
-                    <thead class="table-dark">
-                        <tr>
-                            <th class="whitespace-nowrap table-dark" style="" v-for="column in product_columns" :key="column.key">
-                                {{ column.name }}
-                            </th>
-                        </tr>
-                    </thead>
+            class="overflow-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem] mt-1">
+            <table class="table table-sm">
+                <thead class="table-dark">
+                    <tr>
+                        <th class="whitespace-nowrap table-dark" style="" v-for="column in product_columns" :key="column.key">
+                            {{ column.name }}
+                        </th>
+                    </tr>
+                </thead>
 
-                    <tbody>
-                        <tr v-for="data in product_results" :key="data.id">
-                            <td><img data-action="zoom" :src="imagePath + data.image" class="w-10 zoom-in" /></td>
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.order_code }}</td>
-                            <td>
-                                {{ data.qty_sold }}/{{ data.qty_for_sale - data.qty_sold }}
-                            </td>
-                            <td>{{ data.currency_sign }}{{ data.price }}</td>
-                            <td>
-                                <div v-if="data.status === 1" class="
-                                    form-check form-switch
-                                    w-full
-                                    sm:w-auto sm:ml-auto
-                                    mt-3
-                                    sm:mt-0
-                                ">
-                                    <input
-                                        @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === 1 ? 0 : 1 });"
-                                        class="form-check-input mr-0 ml-0" type="checkbox" checked />
-                                </div>
-                                <div class="
-                                    form-check form-switch
-                                    w-full
-                                    sm:w-auto sm:ml-auto
-                                    mt-3
-                                    sm:mt-0
-                                    " v-else>
-                                    <input
-                                        @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === 1 ? 0 : 1 });"
-                                        class="form-check-input mr-0 ml-0" type="checkbox" />
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+                <tbody>
+                    <tr v-for="data in product_results" :key="data.id">
+                        <td><img data-action="zoom" :src="imagePath + data.image" class="w-10 zoom-in" /></td>
+                        <td>{{ data.name }}</td>
+                        <td>{{ data.order_code }}</td>
+                        <td>
+                            {{ data.qty_sold }}/{{ data.qty_for_sale - data.qty_sold }}
+                        </td>
+                        <td>{{ data.currency_sign }}{{ data.price }}</td>
+                        <td>
+                            <div v-if="data.status === 1" class="
+                                form-check form-switch
+                                w-full
+                                sm:w-auto sm:ml-auto
+                                mt-3
+                                sm:mt-0
+                            ">
+                                <input
+                                    @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === 1 ? 0 : 1 });"
+                                    class="form-check-input mr-0 ml-0" type="checkbox" checked />
+                            </div>
+                            <div class="
+                                form-check form-switch
+                                w-full
+                                sm:w-auto sm:ml-auto
+                                mt-3
+                                sm:mt-0
+                                " v-else>
+                                <input
+                                    @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === 1 ? 0 : 1 });"
+                                    class="form-check-input mr-0 ml-0" type="checkbox" />
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
         </div>
     </div>
 
@@ -155,6 +153,9 @@ export default {
 .table th {
     /*padding-left: 0 !important;*/
     padding: 5px !important;
+    position: sticky !important; 
+    top: 0 !important;
+    z-index: 9999;
 }
 
 .table td {
@@ -168,6 +169,6 @@ export default {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  z-index: 99;
+  z-index: 9999;
 }
 </style>

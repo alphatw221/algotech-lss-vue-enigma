@@ -20,7 +20,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Home",
       // },
       {
-        icon: "BoxIcon",
+        icon: "PackageIcon",
         pageName: "Stock",
         title: "Stock",
       },
@@ -30,7 +30,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Stock1",
       // },
       {
-        icon: "PackageIcon",
+        icon: "CalendarIcon",
         pageName: "side-menu-createCam-productselect",
         title: "Create Campaign",
       },
@@ -39,11 +39,11 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "side-menu-campaign-list",
         title: "Campaign List",
       },
-      {
-        icon: "VideoIcon",
-        pageName: "side-menu-campaign-live",
-        title: "Campaign Live",
-      },
+      // {
+      //   icon: "VideoIcon",
+      //   pageName: "side-menu-campaign-live",
+      //   title: "Campaign Live",
+      // },
       {
         icon: "MessageSquareIcon",
         pageName: "side-menu-auto-reply",
@@ -55,7 +55,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         title: "Manage Order",
       },
       {
-        icon: "PackageIcon",
+        icon: "PlusSquareIcon",
         pageName: "mkt-plugin",
         title: "MKT Plugin",
       },
