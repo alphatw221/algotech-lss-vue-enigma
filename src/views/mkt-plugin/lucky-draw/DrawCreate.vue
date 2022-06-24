@@ -5,8 +5,8 @@
                 <div class="w-[50%] flex flex-col mr-5">
                     <label for="update-profile-form-2" class="form-label"> Prize</label>
                     <select class="w-full form-select-lg" v-model="currentSettings.prize">
-                        <option v-for="(prize, key) in prizeList" :key="key" class="w-40"> 
-                            {{ prize.name }}
+                        <option v-for="(prize, key) in prizeList" :key="key" :value="prize" class="w-40"> 
+                            {{ prize.name }} 
                         </option>
                     </select>
                 </div>
@@ -63,21 +63,25 @@
             <div class="mt-6 flex">
                 <div class="w-[50%] flex flex-col mr-5">
                     <label for="update-profile-form-2" class="form-label"> Draw Type</label>
-                    <select class="w-full form-select-lg" v-model="currentSettings.type">
+                    <select class="w-full form-select" v-model="currentSettings.type">
                         <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ type.name }}</option>
                     </select>
                 </div>
-                <div v-if="currentSettings.type === 'orderCode'" 
+                <div v-if="currentSettings.type === 'product'" 
                     class="w-[50%] flex flex-col ml-5">
-                    <label for="update-profile-form-2" class="form-label "> Order Code</label>
-                    <select class="w-full form-select-lg" v-model="currentSettings.comment">
-                        <option v-for="(code, key) in campaignList" :key="key" :value="code.value"> code</option>
-                    </select>
+                    <label for="update-profile-form-2" class="form-label "> Product</label>
+                     <TomSelect 
+                        v-model="currentSettings.productId" 
+                        class="w-full form-select-lg"
+                        >
+                        <option v-for="(product, key) in productList" :key="key" :value="product.id"
+                            > ({{product.order_code}}) &emsp;   {{product.name}}</option>
+                    </TomSelect>
                 </div>
-                <div v-else class="w-[50%] flex flex-col ml-5">
-                    <label for="update-profile-form-2" class="form-label "> Comment</label>
+                <div v-else-if="currentSettings.type === 'keyword'" class="w-[50%] flex flex-col ml-5">
+                    <label for="update-profile-form-2" class="form-label "> Keyword</label>
                     <textarea class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
-                        v-model="currentSettings.comment" placeholder="Enter your comment...">
+                        v-model="currentSettings.keyword" placeholder="Enter your Keyword">
                     </textarea>
                 </div>
             </div>
@@ -90,73 +94,75 @@
 
 <script setup>
 import { useRoute, useRouter } from "vue-router";
-import { ref, watch, onMounted } from 'vue';
+import { ref, watch, onMounted, computed} from 'vue';
 import { list_campaign_product } from '@/api/campaign_product';
-import { useLSSLuckyDrawStore } from "@/stores/lss-luckydraw"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useVuelidate } from "@vuelidate/core";
+import { required,integer,minLength,maxLength } from "@vuelidate/validators";
+
+const props = defineProps({
+    campaign_id: Object,
+});
 
 const route = useRoute();
 const router = useRouter();
 const layoutStore = useLSSSellerLayoutStore()
-const store = useLSSLuckyDrawStore()
 
 const showModal = ref(false)
 const saved = ref(false)
-
-const campaign = ref({
-    campaign_title: store.campaign_title,
-    campaign_id: store.campaign_id,
-})
+const spinTimes = ref([ { value: 5, name: '5 secs' },{ value: 10, name: '10 secs' },{ value: 20, name: '20 secs' },{ value: 30, name: '30 secs' },{ value: 60, name: '60 secs' }]);
+const drawTypes = ref([ { value: 'like', name: 'Draw by like this post' },{ value: 'purchased', name: 'Draw purchased any product' },{ value: 'product', name: 'Draw by purchased certain product' },{ value: 'keyword', name: 'Draw by keyword' },]);
 const prizeList = ref([])
-
+const productList = ref([])
 const currentSettings = ref({
-    prize: {
-        name: '', 
-        src: ''
-    },
     spinTime: 5,
     winners: 0,
     repeat: false,
-    type: 'like',
-    comment: '',
+    type: 'product',
+    keyword: '',
+    productId: '',
+    prize:[],
 })
 
-const spinTimes = ref([
-    { value: 5, name: '5 secs' },
-    { value: 10, name: '10 secs' },
-    { value: 20, name: '20 secs' },
-    { value: 30, name: '30 secs' },
-    { value: 60, name: '60 secs' },
-]);
+const rules = computed(()=>{
+    return{
+      prize: {required},
+      winners: {required,minLength: minLength(1), maxLength: maxLength(50)} }
+});
 
-const drawTypes = ref([
-    { value: 'like', name: 'Draw Like' },
-    { value: 'purchased', name: 'Draw Purchased' },
-    { value: 'orderCode', name: 'Draw Order Code' },
-    { value: 'comments', name: 'Draw Comments' },
-]);
+const validate = useVuelidate(rules, currentSettings);
 
 const save = () => {
+  validate.value.$touch();
+  if (validate.value.$invalid) {
+    layoutStore.alert.showMessageToast("Invild User Infomation Input")
+    return
+  }else 
+  console.log(currentSettings.value)
+  layoutStore.notification.showMessageToast("Successed")
+};
 
-}
 
 const chooseAnimation = () => {
 
 }
 
+
 onMounted(() => {
-    list_campaign_product(campaign.value.campaign_id).then(res => {
+    list_campaign_product(props.campaign_id).then(res => {
         console.log(res.data)
         for (var i =0; i < res.data.length; i++){
             if(res.data[i].type === "lucky_draw"){
-                prizeList[i] = res.data[i]
+                prizeList.value.push(res.data[i])
+            }else{
+                productList.value.push(res.data[i])
             }
         }
-        console.log(prizeList)
     }).catch(error => {
         console.log(error);
     })
 })
+
 
 </script>
 

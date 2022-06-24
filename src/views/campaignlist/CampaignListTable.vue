@@ -117,8 +117,6 @@
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { useLSSLuckyDrawStore } from "@/stores/lss-luckydraw"
-import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue'
 
 
 export default {
@@ -144,7 +142,6 @@ export default {
       instagram_platform: "/src/assets/images/lss-img/instagram.png",
       unbound: "/src/assets/images/lss-img/noname.png",
       store: useLSSCampaignListStore(),
-      mktStore:useLSSLuckyDrawStore(), 
       layout: useLSSSellerLayoutStore(),
     };
   },
@@ -232,8 +229,8 @@ export default {
 	    }
     },
     luckyDraw(id, title){
-      this.mktStore.campaign_id = id
-      this.mktStore.campaign_title = title
+      this.store.campaign_id = id
+      this.store.campaign_title = title
       this.$router.push(`/seller/lucky-draw/${id}`)
     }
   },

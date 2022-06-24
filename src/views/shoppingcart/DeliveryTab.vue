@@ -274,13 +274,7 @@
 <script setup>
 import OrderSummary from "./OrderSummary.vue";
 import ShoppingCartTableSimple from "./ShoppingCartTable-simple.vue";
-import {
-  required,
-  minLength,
-  maxLength,
-  email,
-integer,
-} from "@vuelidate/validators";
+import { required, minLength, maxLength, email, integer } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 import { computed, onMounted, ref, watch, reactive, toRefs } from "vue";
