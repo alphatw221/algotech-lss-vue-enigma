@@ -10,8 +10,10 @@ const toggleMobileMenu = () => {
 // Setup mobile menu
 const linkTo = (menu, router) => {
   if (menu.subMenu) {
+    console.log('testtest if')
     menu.activeDropdown = !menu.activeDropdown;
   } else {
+    console.log('testtest else')
     activeMobileMenu.value = false;
     router.push({
       name: menu.pageName,

@@ -30,7 +30,7 @@
 						</div>
 					</td>
 					<td v-else-if="column.key === 'category'" class="w-fit" >
-						<div v-for="tag in product['tag']">
+						<div v-for="(tag,index) in product['tag'] " :key="index">
 							<div >{{ tag }}</div> 
 						</div>
 					</td>
@@ -58,7 +58,6 @@
 	<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
 		<Page 
 			:total="dataCount" 
-			show-sizer
 			@on-change="changePage"
 			@on-page-size-change="changePageSize"
 		/>
