@@ -36,18 +36,35 @@
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import  FilterModal  from "./FilterModal.vue";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { useRoute, useRouter } from "vue-router";
+import {order_export} from "@/api/manage_order";
 
+const route = useRoute();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const searchValue = ref('')
 const store = useManageOrderStore()
 
 function search(){
+    let data = {}
+    for(const type in store.filterTagArray){
+        data[type] = []
+        for(const tag in store.filterTagArray[type]){
+            if(store.filterTagArray[type][tag]){
+                data[type].push(tag)
+            }
+        }
+    }
     console.log(searchValue.value)
-    eventBus.emit('search',{'value':searchValue.value})
+    eventBus.emit('search',{'value':searchValue.value,'filter_data':data})
 }
 function test(){
     store.filterModal = true
+}
+function onExportXlsx(){
+    order_export(route.params.campaign_id).then(
+        res => res.blob()
+    ).then()
 }
 
 </script>
