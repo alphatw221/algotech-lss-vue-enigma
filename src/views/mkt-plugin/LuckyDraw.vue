@@ -7,7 +7,7 @@
         <form class="flex flex-col">
             <div class="mt-3">
                 <label for="update-profile-form-2" class="form-label">Campaign Title</label>
-                <TomSelect id="update-profile-form-2" v-model="currentSettings.campaign">
+                <TomSelect id="update-profile-form-2" v-model="currentSettings.campaign_id">
                     <!-- Show Ongoing/Scheduled Campaign List -->
                     <option v-for="(campaign, key) in campaignList" :key="key" value="campaign_id">campaign.name
                     </option>
@@ -72,7 +72,14 @@
                         <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ type.name }}</option>
                     </select>
                 </div>
-                <div class="w-[50%] flex flex-col ml-5">
+                <div v-if="currentSettings.type === 'orderCode'" 
+                    class="w-[50%] flex flex-col ml-5">
+                    <label for="update-profile-form-2" class="form-label "> Order Code</label>
+                    <select class="w-full form-select-lg" v-model="currentSettings.comment">
+                        <option v-for="(code, key) in campaignList" :key="key" :value="code.value"> code</option>
+                    </select>
+                </div>
+                <div v-else class="w-[50%] flex flex-col ml-5">
                     <label for="update-profile-form-2" class="form-label "> Comment</label>
                     <textarea class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
                         v-model="currentSettings.comment" placeholder="Enter your comment...">
@@ -88,7 +95,7 @@
         <!-- Display Assigned Lucky Draw with For Loop -->
         <div class="box bg-secondary my-5 relative hover:border-2 border-slate-500/50">
             <div class="flex content-evenly h-fit">
-                <img class="h-40 m-3 self-center" :src="currentSettings.animation.src" />
+                <img class="h-40 m-3 self-center" :src="currentSettings.prize.src" />
                 <span class="mr-10 ml-5 inline-block align-middle self-center"> Prize_name</span>
                 <div class="m-8 flex w-full justify-evenly">
                     <div class="text-left border-r-2 border-slate-700 flex flex-col w-60">
@@ -99,7 +106,7 @@
                         <span class="my-1"> {{ currentSettings.winners }} </span>
                         <div class="text-lg text-slate-500 mr-5"> winner</div>
                     </div>
-                    <div class="text-left border-r-2 flex flex-col w-40">
+                    <div class="text-left flex flex-col w-40">
                         <span v-if="currentSettings.repeat === true" class="my-1"> Yes </span>
                         <span v-else class="my-1"> No </span>
                         <span class="text-lg text-slate-500 mr-5"> Winner Repeat</span>
@@ -173,20 +180,24 @@ const previewTitle = ref(null)
 const formData = new FormData()
 
 const currentSettings = ref({
-    campaign: '',
-    prize: '',
+    campaign_id: '',
+    prize: {
+        name: '', 
+        src: ''
+    },
     spinTime: 5,
     winners: 0,
-    animation: {
-        src: null,
-        name: ''
-    },
     repeat: false,
     type: 'like',
     comment: '',
 })
+
+const newAnimation = ref({
+    src: null,
+    name: ''
+})
+
 const animationStyle = ref([]);
-const prizeList = ref([]);
 const campaignList = ref([]);
 const spinTimes = ref([
     { value: 5, name: '5 secs' },
@@ -237,8 +248,8 @@ const uploadImage = e =>{
 }
 
 const submit = ()=>{
-    currentSettings.value.animation.name = previewTitle.value
-	currentSettings.value.animation.src = previewImage.value
+    newAnimation.value.name = previewTitle.value
+	newAnimation.value.src = previewImage.value
     saved.value = true
     showModal.value = false
 }

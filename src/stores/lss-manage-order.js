@@ -17,13 +17,19 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 		orderProductModal:ref(false),
 		filterModal:ref(false),
 		filterTagArray:ref({
-			'Direct Payment':false,
-			'Stripe':false,
-			'Shipping out':false,
-			'To be shipping':false,
-			'Facebook':false,
-			'Youtube':false,
-			'Instagram':false
+			'payment':{
+				'Direct Payment':false,
+				'Stripe':false,
+			},
+			'delivery':{
+				'Shipping out':false,
+				'To be shipping':false,
+			},
+			'platform':{
+				'facebook':false,
+				'youtube':false,
+				'instagram':false
+			}
 		}),
 		orderProductData:ref({})
 	}),

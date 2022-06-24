@@ -122,12 +122,17 @@ onMounted(()=>{
         search()
 	})
     eventBus.on("search", (payload) => {
-        search(payload.value)
+        search(payload.value,payload.filter_data)
+	})
+    eventBus.on("filter", (payload) => {
+        search('',payload.data)
 	})
 })
 onUnmounted(()=>{
     eventBus.off("changePage")
     eventBus.off("changePageSize")
+    eventBus.off("search")
+    eventBus.off("filter")
 })
 function classification(){
     store.manageReviewOrder = []
@@ -140,14 +145,14 @@ function classification(){
         }
     }
 }
-function search(searchValue){
-    manage_order_list(route.params.campaign_id,searchValue,page,page_size).then(
+function search(searchValue,data){
+    manage_order_list(route.params.campaign_id,searchValue,page,page_size,data).then(
         res => {
-			store.manageAllOrder = res.data
+			store.manageAllOrder = res.data.data
             console.log(res.data)
             if (res.data.length != 0) {
-                dataCount = res.data.length;
-                let totalPage = parseInt(res.data.length / page_size);
+                dataCount = res.data.count;
+                let totalPage = parseInt(res.data.count / page_size);
                 totalPage = totalPage == 0 ? 1 : totalPage;
             }
             classification()
