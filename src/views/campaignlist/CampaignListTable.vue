@@ -99,7 +99,7 @@
                   <DropdownContent class="w-40 text-center">
                     <DropdownItem class="w-full whitespace-nowrap text-center"> Edit </DropdownItem>
                     <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
-                    <DropdownItem class="w-full whitespace-nowrap"> MKT Tools</DropdownItem>
+                    <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
@@ -108,7 +108,7 @@
       </tbody>
     </table>
     <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-      <Page :total="dataCount" show-sizer @on-change="changePage" @on-page-size-change="changePageSize" />
+      <Page :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
   </div>
 </template>
@@ -117,7 +117,6 @@
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue'
 
 
 export default {
@@ -215,7 +214,7 @@ export default {
     },
     copyURL(campaign_id) {
       var dummy = document.createElement('input'),
-      text = `${this.baseURL}/buyer/login/create/${campaign_id}`;
+      text = `${this.baseURL}/buyer/recaptcha/blank/${campaign_id}`;
       document.body.appendChild(dummy);
       dummy.value = text;
       dummy.select();
@@ -228,6 +227,11 @@ export default {
       if (this.$route.query.type && this.$route.query.type == 'startCampaign') {
 		    console.log('Wait for info')
 	    }
+    },
+    luckyDraw(id, title){
+      this.store.campaign_id = id
+      this.store.campaign_title = title
+      this.$router.push(`/seller/lucky-draw/${id}`)
     }
   },
 };

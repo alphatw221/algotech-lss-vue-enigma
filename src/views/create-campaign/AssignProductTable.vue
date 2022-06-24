@@ -154,7 +154,6 @@
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
             <Page 
                 :total="dataCount" 
-                show-sizer 
                 @on-change="changePage" 
                 @on-page-size-change="changePageSize" 
             />
@@ -215,7 +214,7 @@ const search = () => {
         productsList.value = response.data.results
 
         productsList.value.forEach((item) => {
-            item.qty_campaign = 1
+            item.qty_campaign = item.qty
             item.selected = false
             item.editable = true
             item.deletable = true

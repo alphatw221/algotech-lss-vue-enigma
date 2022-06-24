@@ -10,7 +10,7 @@
 			</thead>
 			<tbody>
 				<tr
-					class="intro-x"
+					class="intro-x" style="line-height:30px"
 					v-for="(order,index) in orders"
 					:key="index"
 				>
@@ -19,9 +19,15 @@
 						v-for="column in tableColumns" 
 						:key="column.key"
 					>
-                        <template v-if="column.key === 'action'">
-                            <EyeIcon @click="routeToDetail(order.id)" class="hover:cursor-pointer "/>
-                        </template>
+
+            <template v-if="column.key === 'action'">
+                <!-- <EyeIcon @click="routeToDetail(order.id)" class="hover:cursor-pointer "/> -->
+                <a @click="routeToDetail(order.id)">
+                  <u class="md:hidden">View Details</u>
+                  <u class="hidden md:inline">View</u>
+                </a>
+            </template>
+
 						<template v-else-if="column.type=='dateTime'">
 							{{ new Date(order[column.key]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
 						</template>
@@ -39,8 +45,8 @@
 	</div>
   <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
     <Page
+      class="mx-auto my-3"
       :total="dataCount"
-      show-sizer
       @on-change="changePage"
       @on-page-size-change="changePageSize"
     />
@@ -116,10 +122,10 @@ onMounted(()=>{
   td,
   tr {
     display: block;
-	padding: 0px !important;
-	font-size: 15px;
+    padding: 0px !important;
+    font-size: 15px;
   }
-
+  
   thead tr {
     position: absolute;
     top: -9999px;
@@ -128,7 +134,7 @@ onMounted(()=>{
 
   tr {
     border-bottom: 1px solid black;
-	padding-top: 10px;
+	  padding-top: 10px;
   }
 
   td {
@@ -155,6 +161,7 @@ onMounted(()=>{
   }
   td:nth-of-type(2):before {
     content: "Date";
+    height: 100px;
     /* color: #0e9893; */
   }
   td:nth-of-type(3):before {

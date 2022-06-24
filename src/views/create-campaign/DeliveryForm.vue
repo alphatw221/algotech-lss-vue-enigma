@@ -150,7 +150,6 @@ const list = () => {
     list_delivery_setting().then(
         response => {
             if (response.data && Object.keys(response.data).length === 0 && Object.getPrototypeOf(response.data) === Object.prototype) {
-                upsertButtonName.value = 'Save'
                 return
             } else {
                 deliverySettings.value = response.data

@@ -130,7 +130,7 @@ const tableColumns =ref( [
 const showRemindEnterPostIDModal = ref(false)
 const showEnterPostIDModal = ref(false)
 
-const handleShowRemindModal = payload=>{
+const handleShowRemindModal = (payload)=>{
   targetCampaign.value = payload
   // targetCampaign.value = campaign
   console.log(payload)

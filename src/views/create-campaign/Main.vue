@@ -10,9 +10,9 @@
 					<input 
 						class="form-control form-control-rounded" 
 						type="text" 
-						:class="{ 'border-danger': title_validate.campaignTitle.$error }"
-						v-model.trim="title_validate.campaignTitle.$model"
-						@blur="title_validate.campaignTitle.$touch" 
+						:class="{ 'border-danger': title_validate.title.$error }"
+						v-model.trim="title_validate.title.$model"
+						@blur="title_validate.title.$touch" 
 					/>
 					
 				</div>
@@ -20,9 +20,7 @@
 			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
 				<div class="flex">
 					<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2 text-base">Period</label>
-					<v-date-picker class=" z-49" v-model="campaignPeriod" :timezone="timezone" mode="dateTime"
-						:model-config="campaignConfig" is-range is-required
-					>
+					<v-date-picker class=" z-49" v-model="campaignPeriod" :timezone="timezone" mode="dateTime" is-range is-required>
 						<template v-slot="{ inputValue, inputEvents }">
 							<div class="flex justify-center items-center">
 							<input :value="inputValue.start" v-on="inputEvents.start"
@@ -35,7 +33,7 @@
 					</v-date-picker>
 				</div>
 			</div>
-			<template v-if="title_validate.campaignTitle.$error">
+			<template v-if="title_validate.title.$error">
 				<label class="text-danger 2xl:col-start-2 xl:col-start-2 col-span-12 2xl:col-span-6 xl:col-span-6 mt-2 mb-3">
 					Please enter Campaign title
 				</label>
@@ -43,62 +41,36 @@
 		</div>
 
 		<DeliveryForm class="col-span-12" />
-		
-		<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
-			<div class="flex">
-				<label for="form-2" class="form-label -mb-3 mr-5 w-32 mt-2">Campaign Title</label>
-				<input id="form-2" type="text" class="form-control form-control-rounded" v-model="campaignTitle" />
-			</div>
-		</div>
 
-		<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
-			<div class="flex">
-				<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2">Period</label>
-				<v-date-picker class=" z-49" v-model="campaignPeriod" :timezone="timezone" mode="dateTime"
-					:model-config="campaignConfig" is-range is-required
-				>
-					<template v-slot="{ inputValue, inputEvents }">
-						<div class="flex justify-center items-center">
-						<input :value="inputValue.start" v-on="inputEvents.start"
-							class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-						<ChevronsRightIcon class="w-8 h-8 m-1" />
-						<input :value="inputValue.end" v-on="inputEvents.end" disabled
-							class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-						</div>
-					</template>
-				</v-date-picker>
-			</div>
-		</div>
-
-		<div class="mt-5 p-0 col-span-12 z-0">
 		<PaymentForm class="col-span-12" />
 
-		<div class="box px-5 lg:p-5 2xl:p-5 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 mt-3">
-			<label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Delivery note</label>
-			<textarea 
-				class="col-span-9 p-1" 
-				v-model="campaignStore.notes.delivery_note"
-			/>
-			<label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Special note</label>
-			<textarea 
-				class="col-span-9 p-1" 
-				v-model="campaignStore.notes.special_note"
-			/>
-			<label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Confirmation note</label>
-			<textarea 
-				class="col-span-9 p-1" 
-				v-model="campaignStore.notes.confirmation_note"
-			/>
-		</div>
+		<div class="mt-5 p-0 col-span-12 z-0">
+			<div class="box px-5 lg:p-5 2xl:p-5 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 mt-3">
+				<label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Delivery note</label>
+				<textarea 
+					class="col-span-9 p-1" 
+					v-model="campaignStore.notes.delivery_note"
+				/>
+				<label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Special note</label>
+				<textarea 
+					class="col-span-9 p-1" 
+					v-model="campaignStore.notes.special_note"
+				/>
+				<label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Confirmation note</label>
+				<textarea 
+					class="col-span-9 p-1" 
+					v-model="campaignStore.notes.confirmation_note"
+				/>
+			</div>
 
-		<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-			<button class="btn btn-rounded-secondary w-24 mr-2 mb-2">
-				Cancel
-			</button>
-			<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="saveCampaign">
-				Next
-			</button>
-		</div>
+			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
+				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="this.$router.push({ name: 'side-menu-campaign-list' })">
+					Cancel
+				</button>
+				<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="saveCampaign">
+					Next
+				</button>
+			</div>
 		</div>
 	</div>
 </template>  
@@ -114,24 +86,23 @@ import { get_notes } from '@/api_v2/user_subscription';
 
 import { required, minLength, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import { useRoute, useRouter } from "vue-router";
 
 
+const router = useRouter();
 const layoutStore = useLSSSellerLayoutStore();
 const campaignStore = useCreateCampaignStore()
-const campaignTitle = ref('')
+const campaignTitle = ref({ title: '' })
 const campaignPeriod = ref({
 	start: new Date(),
 	end: new Date(),
 })
-const deliveryNote = ref('')
-const specialNote = ref('')
-const confirmationNote = ref('')
 
 onMounted(() => {
 	list()
 })
 
-watch(campaignTitle, () => { campaignStore.campaignTitle = campaignTitle.value })
+watch(campaignTitle, () => { campaignStore.campaignTitle = campaignTitle.value.title }, { deep: true})
 watch(campaignPeriod, () => { campaignStore.campaignPeriod = campaignPeriod.value }, { deep: true})
 
 const list = () => {
@@ -143,14 +114,14 @@ const list = () => {
 }
 
 const title_rules = computed(() => {
-	return { campaignTitle: { required, minLength: minLength(1), maxLength: maxLength(255) } }
+	return { title: { required, minLength: minLength(1), maxLength: maxLength(255) } }
 })
 const title_validate = useVuelidate(title_rules, campaignTitle);
 
 const saveCampaign = () => {
 	title_validate.value.$touch()
 	if (title_validate.value.$invalid) {
-		layoutStore.alert.showMessageToast("Invild campaign title input")
+		layoutStore.alert.showMessageToast("Invalid campaign title input")
 		return
 	}
 
@@ -166,9 +137,13 @@ const saveCampaign = () => {
 	}
 
 	create_campaign(formData).then(response => {
-        console.log(response.data)
-    })
+        let campaign_id = response.data
+		router.push(`assign/product?campaign_id=${campaign_id}`)
+    }).catch(err => {
+		console.log('api error')
+	})
 }
 
 </script>
 
+``

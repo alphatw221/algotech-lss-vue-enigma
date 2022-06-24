@@ -8,22 +8,24 @@
       <!-- <ModalHeader class="bg-primary h-10 rounded-t-md">
         <div></div>
       </ModalHeader> -->
-      <ModalBody class="px-1 flex flex-wrap lg:flex-nowrap">
-
+      <ModalBody class="px-1 flex flex-wrap relative lg:flex-nowrap h-fit">
+        <a @click="layoutStore.showLoginModal=false" class="absolute right-0 top-0 mt-3 mr-3">
+            <XIcon class="w-10 h-10 text-slate-400" />
+        </a>
         <div class=" w-full flex flex-col items-center text-center
          lg:w-1/2 lg:px-2 lg:border-secondary lg:border-r-2 lg:border-dotted" style="height:30vh">
             <h1 class="mt-20 mb-12">Continue as a Guest</h1>
             <div class=" w-full">
-              <button class="btn btn-secondary w-[60%] text-[18px]" @click="layoutStore.showLoginModal=false">Continue</button>
+              <button class="btn btn-secondary w-[310px] text-[18px]" @click="continueAsGuest()">Continue</button>
             </div>
             <div class="w-full flex justify-center border-t border-slate-200/60 dark:border-darkmode-400 mt-12 lg:invisible">
               <div class="bg-white px-5 -mt-3 text-slate-500 text-[16px]"> or </div>
             </div>
         </div>
 
-        <div class=" w-full -mt-20 flex flex-col items-center text-center
-        lg:mt-0 lg:w-1/2 lg:px-2 lg:border-none" style="height:30vh">
-          <h1 class="mt-20 mb-10"> Social Login</h1>
+        <div class=" w-full flex flex-col items-center text-center
+        lg:mt-20 lg:w-1/2 lg:px-2 lg:border-none" style="height:30vh">
+          <h1 class=" mb-10"> Social Login</h1>
           <div class="flex flex-col items-center" v-if="!showReminder">
               <FacebookLoginButton block role='buyer'/>
               <GoogleLoginButton block role='buyer'/>
@@ -66,6 +68,11 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 const layoutStore = useLSSBuyerLayoutStore();
 const showReminder = ref(false)
 const currentUrl = ref(window.location.href)
+
+const continueAsGuest = ()=>{
+  layoutStore.refuseToLogin = true
+  layoutStore.showLoginModal=false
+}
 
 onMounted(()=>{
     // console.log(navigator.userAgent.toLowerCase())

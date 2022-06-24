@@ -27,7 +27,7 @@
 								</div>
 							</div>
 						</template>
-						<template v-else-if="column.key === 'category'" v-for="tag in product['tag']">
+						<template v-else-if="column.key === 'category'" v-for="(tag,index) in product['tag']" :key="index">
 							<div>{{ tag }}</div> 
 						</template>
 						<template v-else-if="column.key === 'qty' || column.key === 'price' || column.key === 'type'">
@@ -53,7 +53,6 @@
 		<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
 			<Page 
 				:total="dataCount" 
-				show-sizer
 				@on-change="changePage"
 				@on-page-size-change="changePageSize"
 			/>

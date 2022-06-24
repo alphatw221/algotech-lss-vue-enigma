@@ -2,7 +2,7 @@
   <div>
     <ThemeModeSwitcher />
     <LSSBuyerTopBar />
-    <LSSBuyerMobileMenu />
+    <!-- <LSSBuyerMobileMenu /> -->
     <Notification refKey="buyerMessageNotification" :options="{duration: 3000,}" class="flex flex-col sm:flex-row">
       <div id="message" class="font-medium">Message</div>
     </Notification>
@@ -17,7 +17,7 @@
 
     <div class="flex overflow-hidden">
       
-      <LSSBuyerMenu />
+      <!-- <LSSBuyerMenu /> -->
       <!-- BEGIN: Content -->
       <div class="lss-content">
         <router-view />
@@ -30,12 +30,17 @@
 <script setup>
 import ThemeModeSwitcher from "@/components/theme-mode-switcher/Main.vue"
 import LSSBuyerTopBar from "@/components/lss-buyer-top-bar/Main.vue";
-import LSSBuyerMobileMenu from "@/components/lss-buyer-mobile-menu2/Main.vue";
-import LSSBuyerMenu from "@/components/lss-buyer-menu/Main.vue";
+// import LSSBuyerMobileMenu from "@/components/lss-buyer-mobile-menu2/Main.vue";
+// import LSSBuyerMenu from "@/components/lss-buyer-menu/Main.vue";
 import LSSBuyerLoginModal from "@/components/lss-buyer-login-modal/Main.vue";
 import { provide } from "vue"
 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
+import { useCookies } from "vue3-cookies";
+
+const { cookies } = useCookies()
+
+const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
 const store = useLSSBuyerLayoutStore();
 
 provide("bind[buyerMessageNotification]", (el) => {

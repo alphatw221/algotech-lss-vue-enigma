@@ -12,28 +12,29 @@
 
 
       <!-- BEGIN: Hamburger -->
-      <a @click="toggleMobileMenu()">
-        <AlignJustifyIcon
-          class="w-7 h-7 text-white transform md:hidden intro-x ml-4 mb-1 hover:text-slate-300"
-        />
-      </a>
+        <!-- <a @click="toggleMobileMenu()" >
+          <AlignJustifyIcon
+            class="w-7 h-7 text-white transform md:hidden intro-x ml-4 mb-1 hover:text-slate-300"
+          />
+        </a> -->
       <!-- END: Hamburger -->
 
       <!-- BEGIN: Logo -->
-      <a href="" class="logo -intro-x block
-      mx-auto
-      w-20 
-      sm:w-25 
-      md:flex md:w-30 md:mx-0
-      xl:w-35
-      ">
-        <img
-          alt="Enigma Tailwind HTML Admin Template"
-          class="logo__image mb-1"
-          src="@/assets/images/lss-logo/LSS_logo_words_white.png"
-        />
-        <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
-      </a>
+        <a href="" class="logo -intro-x block
+        flex
+        ml-3
+        w-20 
+        sm:w-25 
+        md:w-30 
+        xl:w-35
+        ">
+          <img
+            alt="Enigma Tailwind HTML Admin Template"
+            class="logo__image mb-1"
+            src="@/assets/images/lss-logo/LSS_logo_words_white.png"
+          />
+          <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
+        </a>
       <!-- END: Logo -->
 
      
@@ -87,10 +88,10 @@
       <!-- END: Notifications -->
 
       
-      <div class="mr-3 md:ml-auto md:mr-0 flex">
-        <button class="intro-x text-white text-[16px] mx-5" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
+      <div class="mr-5 ml-auto  flex md:mr-3">
+        <button class="intro-x text-white text-[16px] hover:text-slate-300" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
         <!-- BEGIN: Account Menu -->
-        <Dropdown class="intro-x w-8 h-8 pt-0.5">
+        <Dropdown class="intro-x w-8 h-8 " v-else>
           <DropdownToggle
             tag="div"
             role="button"
@@ -110,15 +111,8 @@
             <DropdownContent
               class="bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white"
             >
-              <DropdownHeader tag="div" class="!font-normal" v-if="isAnonymousUser">
-                <div class="font-medium">
-                  Guest
-                </div>
-                <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                  you are not login
-                </div>
-              </DropdownHeader>
-              <DropdownHeader tag="div" class="!font-normal" v-else>
+              
+              <DropdownHeader tag="div" class="!font-normal" >
                 <div class="font-medium">
                   {{ buyerLayoutStore.userInfo.name }}
                 </div>
@@ -136,10 +130,17 @@
               <DropdownItem class="dropdown-item hover:bg-white/5">
                 <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
               > -->
-              <DropdownItem class="dropdown-item hover:bg-white/5">
-                <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
+
+              <DropdownItem class="dropdown-item hover:bg-white/5 " @click="router.push('/buyer/orders');dom('.dropdown-menu').removeClass('show')">
+                <ShoppingBagIcon class="w-4 h-4 mr-2" /> OrderHistory</DropdownItem
               >
               <DropdownDivider class="border-white/[0.08]" />
+
+              <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
+                <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
+              >
+              <DropdownDivider class="border-white/[0.08]" /> -->
+
               <DropdownItem class="dropdown-item hover:bg-white/5" @click="logout()" v-if="!isAnonymousUser">
                 <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout</DropdownItem
               >
@@ -155,7 +156,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, computed } from "vue";
+import { ref, defineEmits, computed , watch} from "vue";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
@@ -169,6 +170,7 @@ const buyerLayoutStore = useLSSBuyerLayoutStore();
 const toggleMobileMenu = ()=>{
   buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
 }
+
 
 const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
 const userAvatar = computed(() => {
@@ -204,3 +206,4 @@ const toggleSideNav = ()=>{
   emit('toggleSideNav')
 }
 </script>
+

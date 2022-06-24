@@ -7,7 +7,7 @@
       @hidden="cancel()"
     >
       <ModalHeader>
-        <h2 class="font-medium text-base mr-auto">Select Live Stream or Enter Post ID</h2>
+        <h2 class="font-medium text-base mr-auto">Select Live Stream</h2>
         <a
           @click="cancel()"
           class="absolute right-0 top-0 mt-3 mr-3"
@@ -20,7 +20,7 @@
         <div class="col-span-12 items-end" style="display: inline-flex">
           
         </div>
-        <div class="col-span-4 mr-5">
+        <div class="col-span-12 mr-5 sm:col-span-4">
           <div class="items-end h-10" style="display: inline-flex">
             <label for="modal-form-1" class="text-lg font-medium mr-5"
               >Facebook</label
@@ -36,7 +36,7 @@
             type="button"
             href="javascript:;"
             @click="selectPlatformPage('facebook')"
-            class="btn w-40 btn-primary mt-3 mr-3"
+            class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
           >
             Select Page
           </button>
@@ -44,7 +44,7 @@
             Post ID: <br>{{ campaignPlatformData.facebook.post_id }}
           </div>
         </div>
-        <div class="col-span-4">
+        <div class="col-span-12 sm:col-span-4 mr-5">
           <div class="items-end h-10" style="display: inline-flex">
             <label for="modal-form-1" class="text-lg font-medium mr-5"
               >Instagram</label
@@ -60,7 +60,7 @@
             type="button"
             href="javascript:;"
             @click="selectPlatformPage('instagram')"
-            class="btn w-40 btn-primary mt-3 mr-3"
+            class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
           >
             Select Page
           </button>
@@ -76,7 +76,7 @@
             Post ID:<br>{{  campaignPlatformData.instagram.live_media_id }}
           </div>
         </div>
-        <div class="col-span-4">
+        <div class="col-span-12 sm:col-span-4 mr-5">
           <div class="items-end h-10" style="display: inline-flex">
             <label for="modal-form-1" class="text-lg font-medium mr-5"
               >YouTube</label
@@ -92,7 +92,7 @@
             type="button"
             href="javascript:;"
             @click="selectPlatformPage('youtube')"
-            class="btn w-40 btn-primary mt-3 mr-3"
+            class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
           >
             Select Page
           </button>
@@ -209,7 +209,8 @@ const campaignPlatformData =ref( {
 
 const enterLive = ()=>{
   clearData()
-  router.push(`seller/campaign-live/${props.targetCampaign.id}`)
+  emits('hide')
+  router.push(`/seller/campaign-live/${props.targetCampaign.campaign.id}`)
 }
 
 const cancel = ()=>{

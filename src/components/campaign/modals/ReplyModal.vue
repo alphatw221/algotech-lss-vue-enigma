@@ -94,26 +94,30 @@ export default {
             message: '',
             campaignId: this.$route.params.campaign_id,
             nestComment: [],
+            dummy: 0,
         }
     },
     mounted() {
         if (this.openChat === true) {
             this.show = true
         }
-        setInterval(this.getNestComment(), 50000)
+        setInterval(this.getNestComment(), 5000)
     },
-    watch(){
-        if(this.show === true){
-            setInterval(this.getNestComment(), 50000)
-        }else{
-            this.show = false
-            clearInterval(setInterval(this.getNestComment(), 50000))
-        }
+    watch:{
+        show: function(){
+            if(this.show === true){
+                this.loopNestComment()
+            }else{
+                console.log('off')
+                this.show = false
+                clearInterval(this.dummy)
+            }
+        }   
     },
     methods: {
         closeChat() {
             this.show = false,
-            clearInterval(setInterval(this.getNestComment(), 50000))
+            clearInterval(this.dummy)
             this.eventBus.emit("hide")
         },
         getNestComment(){
@@ -121,6 +125,15 @@ export default {
                 this.nestComment = response.data[1].data
             })
             console.log('run')
+        },
+        loopNestComment(){
+            clearInterval(this.dummy)
+            this.dummy = setInterval(()=>{
+                console.log('tick...')
+                nest_comment(this.campaignId,this.replyTo.id).then((response)=>{
+                this.nestComment = response.data[1].data
+                })
+            }, 5000)
         },
         send(comment_id) {
             comment_on_comment(this.campaignId, comment_id, this.message).then((response) => {
