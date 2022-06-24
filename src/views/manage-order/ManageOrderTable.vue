@@ -31,7 +31,7 @@
                                             </div>
                                         </div>
                                         <div v-else class="w-10 h-10 image-fit">
-                                            <img src='/src/assets/images/lss-img/noname.png' />
+                                            
                                         </div>
                                     </div>
                                 </template>

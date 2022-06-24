@@ -38,6 +38,7 @@ import  FilterModal  from "./FilterModal.vue";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
 import {order_export} from "@/api/manage_order";
+import { url } from "@vuelidate/validators";
 
 const route = useRoute();
 const internalInstance = getCurrentInstance()
@@ -63,8 +64,18 @@ function test(){
 }
 function onExportXlsx(){
     order_export(route.params.campaign_id).then(
-        res => res.blob()
-    ).then()
+        res => {console.log(res)
+            if (window.navigator.msSaveOrOpenBlob) {
+                window.navigator.msSaveBlob(res.data);
+            } else {
+                var link = document.createElement("a");
+                link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
+                link.download = 'export';
+                document.body.appendChild(link); // Required for FF
+                link.click();
+            }
+            }
+    )
 }
 
 </script>
