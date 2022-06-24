@@ -215,7 +215,7 @@ export default {
     },
     copyURL(campaign_id) {
       var dummy = document.createElement('input'),
-      text = `${this.baseURL}/buyer/login/create/${campaign_id}`;
+      text = `${this.baseURL}/buyer/recaptcha/blank/${campaign_id}`;
       document.body.appendChild(dummy);
       dummy.value = text;
       dummy.select();

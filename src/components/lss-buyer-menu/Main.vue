@@ -120,7 +120,7 @@
         </ul>
       <div v-else 
         @click="showLoginModal()"> 
-        <u class="text-neutral-500 text-[16px] top-20 relative underline-offset-2 leading-6 cursor-pointer hover:text-neutral-800 hover:font-medium "> Login to save or retrive <br/>your order history </u>
+        <u class="invisible text-neutral-500 text-[16px] top-20 relative underline-offset-2 leading-6 cursor-pointer hover:text-neutral-800 hover:font-medium xl:visible"> Login to save or retrive <br/>your order history </u>
       </div>
       </nav>
       <!-- END: Side Menu -->

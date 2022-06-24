@@ -119,13 +119,12 @@
       </ul>
     <!-- </transition> -->
   </div>
+  <div v-if="isAnonymousUser" class="flex items-center align-center w-full h-full" 
+    @click="buyerLayoutStore.showLoginModal=true"> 
+    <u class="text-center text-neutral-200 text-[18px] underline-offset-2 leading-6 w-full cursor-pointer -mt-60"> Login to save or retrive <br/>your order history </u>
+  </div>
   <!-- END: Mobile Menu -->
-
-
-
-
-
-      </div>
+</div>
 </template>
 
 <script setup>

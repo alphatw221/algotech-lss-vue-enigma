@@ -7,7 +7,7 @@
       @hidden="cancel()"
     >
       <ModalHeader>
-        <h2 class="font-medium text-base mr-auto">Select Live Stream or Enter Post ID</h2>
+        <h2 class="font-medium text-base mr-auto">Select Live Stream</h2>
         <a
           @click="cancel()"
           class="absolute right-0 top-0 mt-3 mr-3"
@@ -209,7 +209,8 @@ const campaignPlatformData =ref( {
 
 const enterLive = ()=>{
   clearData()
-  router.push(`seller/campaign-live/${props.targetCampaign.id}`)
+  emits('hide')
+  router.push(`/seller/campaign-live/${props.targetCampaign.campaign.id}`)
 }
 
 const cancel = ()=>{
