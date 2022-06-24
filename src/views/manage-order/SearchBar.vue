@@ -62,7 +62,9 @@ function test(){
     store.filterModal = true
 }
 function onExportXlsx(){
-    order_export()
+    order_export(route.params.campaign_id).then(
+        res => res.blob()
+    ).then()
 }
 
 </script>

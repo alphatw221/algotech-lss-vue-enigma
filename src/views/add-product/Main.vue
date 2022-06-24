@@ -56,7 +56,7 @@
 					</div>
 					<input
 							type="file"
-							class="w-full h-full top-0 left-0 absolute opacity-0 border-6 bg-primary"
+							class="w-full h-full top-0 left-0 absolute opacity-0 border-6 bg-primary cursor-pointer"
 							accept="image/jpeg" 
 							@change="uploadImage"
 						/>

@@ -1,68 +1,38 @@
 <template>
-    <AccordionGroup class="mb-10" :selectedIndex="selectIndex"> 
-
-
-        <!-- BEGIN Direct Payment -->
-                <DirectPayment />
-        <!-- END Direct Payment -->
-<!-- 
-        <AccordionItem v-if="payment.handle.type=='gateway'">
-            <Accordion class="bg-primary rounded-t-lg ">
-                <div class="text-white mx-3"> {{ payment.name }} </div>
-            </Accordion>
-            <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary p-5">
-                When you place an order, you will be taken to PayPal to complete your service.
-            </AccordionPanel>
-        </AccordionItem> -->
-
-
-<!--             
-    <AccordionItem>
-        <Accordion class="bg-primary rounded-t-lg">
-            <div class="text-white mx-3"> HitPay </div>
-        </Accordion>
-        <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary p-5">
-            Lorem Ipsum is simply dummy text of the printing and
-            typesetting industry. Lorem Ipsum has been the industry's
-            standard dummy text ever since the 1500s, when an unknown
-            printer took a galley of type and scrambled it to make a
-            type specimen book. It has survived not only five centuries,
-            but also the leap into electronic typesetting, remaining
-            essentially unchanged.
-        </AccordionPanel>
-    </AccordionItem>
-
-
-    <AccordionItem>
-        <Accordion class="bg-primary rounded-t-lg ">
-            <div class="text-white mx-3"> First Data IPG </div>
-        </Accordion>
-        <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary p-5">
-            When you place an order, you will be taken to PayPal to complete your service. 
-        </AccordionPanel>
-    </AccordionItem>
-
-
-    <AccordionItem>
-        <Accordion class="bg-primary rounded-t-lg ">
-            <div class="text-white mx-3"> PayPal </div>
-        </Accordion>
-        <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary p-5">
-            When you place an order, you will be taken to PayPal to complete your service.
-        </AccordionPanel>
-    </AccordionItem> -->
-
-
-    
-
-
+    <AccordionGroup class="mb-10" :selectedIndex="selectIndex" > 
+        <DirectPayment />
+        <div class="mt-5" v-for="(payment, index) in payments" :key="index">
+            <DirectPayment v-if="payment.key=='direct_payment'"/>
+            <PaymentMethod class="mt-1" v-else :payment="payment" />
+        </div>
     </AccordionGroup>
-    <!-- <div>123123</div> -->
 </template>
 
 
 <script setup>
 import DirectPayment from "./DirectPayment.vue";
+import PaymentMethod from "./PaymentMethod.vue"
+
+import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+const store = useLSSBuyerOrderStore(); 
+const paymentMetaStore = useLSSPaymentMetaStore()
+import {onMounted, computed, watch} from "vue"
 import {ref} from "vue"
 const selectIndex = ref(0)
+const payments = ref([])
+
+watch(computed(()=>store.order),()=>{
+    if(!store.order.campaign)return
+    if(!store.order.campaign.user_subscription)return
+    const meta_payment = store.order.campaign.meta_payment
+    const meta_country = store.order.campaign.user_subscription.meta_country
+    const paymentKeySet = new Set()
+    meta_country.activated_country.forEach(country=>{paymentMetaStore[country].forEach(key=>paymentKeySet.add(key))})
+    paymentKeySet.forEach(key => {
+        if(meta_payment[key] && meta_payment[key].enable)payments.value.push(paymentMetaStore[key])
+    });
+})
+
+
 </script>
