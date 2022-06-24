@@ -12,11 +12,17 @@
 
 
       <!-- BEGIN: Hamburger -->
-      <a @click="toggleMobileMenu()">
+      <a @click="toggleMobileMenu()" v-if="!isAnonymousUser">
         <AlignJustifyIcon
           class="w-7 h-7 text-white transform md:hidden intro-x ml-4 mb-1 hover:text-slate-300"
         />
       </a>
+      <a  v-else>
+        <AlignJustifyIcon
+          class="w-7 h-7 text-white transform md:hidden  ml-4 mb-1 hover:text-slate-300"
+        />
+      </a>
+
       <!-- END: Hamburger -->
 
       <!-- BEGIN: Logo -->
@@ -88,9 +94,9 @@
 
       
       <div class="mr-3 md:ml-auto md:mr-0 flex">
-        <button class="intro-x text-white text-[16px] mx-5" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
+        <button class="intro-x text-white text-[16px] mr-5 hover:text-slate-300" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
         <!-- BEGIN: Account Menu -->
-        <Dropdown class="intro-x w-8 h-8 pt-0.5">
+        <Dropdown class="intro-x w-8 h-8 pt-0.5" v-else>
           <DropdownToggle
             tag="div"
             role="button"
@@ -110,15 +116,8 @@
             <DropdownContent
               class="bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white"
             >
-              <DropdownHeader tag="div" class="!font-normal" v-if="isAnonymousUser">
-                <div class="font-medium">
-                  Guest
-                </div>
-                <div class="text-xs text-white/60 mt-0.5 dark:text-slate-500">
-                  you are not login
-                </div>
-              </DropdownHeader>
-              <DropdownHeader tag="div" class="!font-normal" v-else>
+              
+              <DropdownHeader tag="div" class="!font-normal" >
                 <div class="font-medium">
                   {{ buyerLayoutStore.userInfo.name }}
                 </div>
@@ -136,6 +135,14 @@
               <DropdownItem class="dropdown-item hover:bg-white/5">
                 <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
               > -->
+
+              <!-- This section will be hidden on mobile device -->
+              <DropdownItem class="dropdown-item hover:bg-white/5 " @click="router.push('/buyer/orders');dom('.dropdown-menu').removeClass('show')">
+                <ShoppingBagIcon class="w-4 h-4 mr-2" /> OrderHistory</DropdownItem
+              >
+              <DropdownDivider class="border-white/[0.08]" />
+              <!-- This section will be hidden on mobile device -->
+
               <DropdownItem class="dropdown-item hover:bg-white/5">
                 <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
               >
@@ -155,7 +162,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, computed } from "vue";
+import { ref, defineEmits, computed , watch} from "vue";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
@@ -170,6 +177,9 @@ const toggleMobileMenu = ()=>{
   buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
 }
 
+watch(computed(()=>window.wi),
+
+)
 const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
 const userAvatar = computed(() => {
   if(cookies.get('login_with')=='facebook'){
@@ -204,3 +214,4 @@ const toggleSideNav = ()=>{
   emit('toggleSideNav')
 }
 </script>
+

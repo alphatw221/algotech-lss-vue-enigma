@@ -136,7 +136,7 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import {
   activeMobileMenu,
   toggleMobileMenu,
-  linkTo,
+  // linkTo,
   enter,
   leave,
 } from "./index";
@@ -150,6 +150,19 @@ const buyerLayoutStore = useLSSBuyerLayoutStore();
 const mobileMenu = computed(() => nestedMenu(buyerLayoutStore.menu, route));
 
 const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
+
+const linkTo = (menu, router) => {
+  if (menu.subMenu) {
+    menu.activeDropdown = !menu.activeDropdown;
+  } else {
+    activeMobileMenu.value = false;
+    buyerLayoutStore.showMobileMenu=false   //only add this line
+    router.push({
+      name: menu.pageName,
+    });
+  }
+};
+
 watch(
   computed(() => route.path),
   () => {
