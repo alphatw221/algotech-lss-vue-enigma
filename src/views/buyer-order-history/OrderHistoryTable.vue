@@ -10,7 +10,7 @@
 			</thead>
 			<tbody>
 				<tr
-					class="intro-x"
+					class="intro-x" style="line-height:30px"
 					v-for="(order,index) in orders"
 					:key="index"
 				>
@@ -40,7 +40,6 @@
   <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
     <Page
       :total="dataCount"
-      show-sizer
       @on-change="changePage"
       @on-page-size-change="changePageSize"
     />
@@ -155,6 +154,7 @@ onMounted(()=>{
   }
   td:nth-of-type(2):before {
     content: "Date";
+    height: 100px;
     /* color: #0e9893; */
   }
   td:nth-of-type(3):before {
