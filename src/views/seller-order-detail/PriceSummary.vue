@@ -7,16 +7,16 @@
 	  
       <div class="flex">
         <div class="mr-auto">Subtotal</div>
-        <div class="font-medium">{{parseFloat(store.orderDetail.subtotal).toFixed(2)}}</div>
+        <div class="font-medium">$ {{parseFloat(store.orderDetail.subtotal).toFixed(2)}}</div>
       </div>
       <div class="flex">
         <div class="mr-auto">Shipping</div>
-        <div class="font-medium">{{parseFloat(store.orderDetail.shipping_cost).toFixed(2)}}</div>
+        <div class="font-medium">$ {{parseFloat(store.orderDetail.shipping_cost).toFixed(2)}}</div>
       </div>
       <template v-if="store.orderDetail.adjust_title !== null">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
-            <div class="font-medium">{{store.orderDetail.adjust_price ?? ''}}</div>
+            <div class="font-medium">$ {{store.orderDetail.adjust_price ?? ''}}</div>
         </div>
       </template>
       <template v-if="props.order_type !== 'order'">

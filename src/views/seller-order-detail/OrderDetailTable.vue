@@ -27,8 +27,8 @@
 						</div>
 					</div>
 				</td>
-				<td class="text-center ">
-					{{ product.name }}
+				<td class="text-center">
+					<div class="w-40 whitespace-normal break-words">{{ product.name }} </div>
 				</td>
 				<td class="text-center ">
 					<template v-if="props.order_type === 'order'">

@@ -108,7 +108,7 @@
       </tbody>
     </table>
     <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-      <Page :total="dataCount" show-sizer @on-change="changePage" @on-page-size-change="changePageSize" />
+      <Page :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
   </div>
 </template>
@@ -215,7 +215,7 @@ export default {
     },
     copyURL(campaign_id) {
       var dummy = document.createElement('input'),
-      text = `${this.baseURL}/buyer/login/create/${campaign_id}`;
+      text = `${this.baseURL}/buyer/recaptcha/blank/${campaign_id}`;
       document.body.appendChild(dummy);
       dummy.value = text;
       dummy.select();
