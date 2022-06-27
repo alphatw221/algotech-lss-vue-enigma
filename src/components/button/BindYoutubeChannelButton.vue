@@ -1,20 +1,5 @@
 <template>
-    <div class="google-login-btn ma-5">
-        <!-- <a
-            v-bind:href="googleLoginHyperReference" role="button" >
-            <img 
-            class="ml-2"
-            width="24" 
-            theme="white"
-            alt="Google sign-in" 
-            src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/512px-Google_%22G%22_Logo.svg.png" 
-            />
-            <strong> Log in With Google </strong>
-        </a> -->
-        <a href='javascript:void(0);' @click="handleAuthClick();">
-            <img class="responsive-img" style="width:200px;height:42px;" src="${GS.app_url}/new/images/lss-img/btn_google_signin.png" alt="Google Sign in">
-        </a>
-    </div>
+    <Button type="button" @click="handleAuthClick">Connect with YouTube</Button>
     
     
 </template>
@@ -103,15 +88,7 @@ const handleAuthClick = () => {
         // User is not signed in. Start Google auth flow.
         // GoogleAuth.signIn();
         GoogleAuth.grantOfflineAccess().then(function(resp) {
-            console.log(resp)
-            // var auth_code = resp.code;
-            // console.log(auth_code)
-            // let data = {
-            //     "code": auth_code,
-            //     "redirect_uri": GS.app_url
-            // }
             eventBus.emit('addYoutubeChannels',resp)
-            
         });
     }
 }
