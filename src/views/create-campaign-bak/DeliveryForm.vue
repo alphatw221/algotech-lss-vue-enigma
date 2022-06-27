@@ -7,41 +7,41 @@
 		<input 
 			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4 text-base"
 			type="text" 
-			v-model="campaignStore.deliverySettings.delivery_charge"
-		/>
-			<!-- :class="{ 'border-danger': charge_validate.delivery_charge.$error }"
+
+			:class="{ 'border-danger': charge_validate.delivery_charge.$error }"
 			v-model.trim="charge_validate.delivery_charge.$model"
 			@blur="charge_validate.delivery_charge.$touch" 
+		/>
 		<template v-if="charge_validate.delivery_charge.$error">
 			<label class="text-danger 2xl:col-start-4 xl:col-start-2 col-span-12 2xl:col-span-4 xl:col-span-4 mt-2 mb-3">
 				Please enter correctly delivery charge
 			</label>
-		</template> -->
+		</template>
 		<div class="2xl:col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2">
 			<input 
 				class="form-check-input" 
 				type="checkbox" 
-				v-model="campaignStore.deliverySettings.is_free_delivery_for_order_above_price"
+				v-model="deliverySettings.is_free_delivery_for_order_above_price"
 			/>
 			<label class="col-span-2 ml-5 text-base">Free delivery for order above USD</label>
 		</div> 
 		<input 
 			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4" 
 			type="text" 
-			v-model="campaignStore.deliverySettings.free_delivery_for_order_above_price"
+			v-model="deliverySettings.free_delivery_for_order_above_price"
 		/>
 		<div class="2xl:col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2">
 			<input 
 				class="form-check-input text-base" 
 				type="checkbox"
-				v-model="campaignStore.deliverySettings.is_free_delivery_for_how_many_order_minimum"
+				v-model="deliverySettings.is_free_delivery_for_how_many_order_minimum"
 			/>
 			<label class="col-span-2 ml-5 text-base">Free delivery for minimum order Qty</label>
 		</div> 
 		<input 
 			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4"
 			type="text"
-			v-model="campaignStore.deliverySettings.free_delivery_for_how_many_order_minimum"
+			v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
 		/>       
 		
 		<label class="form-label col-start-1 col-span-12 font-bold mt-2 text-base">Delivery Charge Option</label>
@@ -106,36 +106,59 @@
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, watch, computed, watchEffect } from 'vue';
-import { list_delivery_setting } from '@/api_v2/campaign';
+import { ref, reactive, onMounted, watch, computed } from 'vue';
+import { update_delivery_setting, list_delivery_setting } from '@/api_v2/campaign';
 import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
-import { required } from "@vuelidate/validators";
+import { required, integer } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 const campaignStore = useCreateCampaignStore()
 const additional_delivery = ref([])
 const branch = ref([])
+const deliverySettings = ref({
+    delivery_charge : 0,
+    is_free_delivery_for_order_above_price : true,
+    free_delivery_for_order_above_price : 0,
+    is_free_delivery_for_how_many_order_minimum : true,
+    free_delivery_for_how_many_order_minimum : 0,
+    is_additional_delivery_charge : true,
+    additional_delivery_option: [],
+    pickup_start_date : '',
+    pickup_end_date : '',
+    pickup_option: [],
+    delivery_note : ''
+})
 
+onMounted(() => {
+    list()
+})
 
-watchEffect(() => {
-    if (campaignStore.deliverySettings.additional_delivery_option.length > 0) additional_delivery.value = campaignStore.deliverySettings.additional_delivery_option
-	if (campaignStore.deliverySettings.pickup_option.length > 0) branch.value = campaignStore.deliverySettings.pickup_option
-});
-
-watch(additional_delivery, () => {
-	campaignStore.deliverySettings.additional_delivery_option = additional_delivery.value
-}, { deep: true })
-
-watch(branch, () => {
-	campaignStore.deliverySettings.pickup_option = branch.value
+watch(deliverySettings, () => {
+	deliverySettings.value.additional_delivery_option = additional_delivery.value
+    deliverySettings.value.pickup_option = branch.value
+	campaignStore.deliverySettings = deliverySettings.value
 }, { deep: true })
 
 const charge_rules = computed(() => {
-	return { delivery_charge: { required } }
+	return { delivery_charge: { required, integer } }
 })
-const charge_validate = useVuelidate(charge_rules, campaignStore.deliverySettings);
+const charge_validate = useVuelidate(charge_rules, deliverySettings);
+
+const list = () => {
+    list_delivery_setting().then(
+        response => {
+            if (response.data && Object.keys(response.data).length === 0 && Object.getPrototypeOf(response.data) === Object.prototype) {
+                return
+            } else {
+                deliverySettings.value = response.data
+                if (response.data.additional_delivery_option.length > 0) additional_delivery.value = response.data.additional_delivery_option
+                if (response.data.pickup_option.length > 0) branch.value = response.data.pickup_option
+            }
+        }
+    )    
+}
 
 const modifyDelivery = (type, index) => {
     if (type == 'add') {

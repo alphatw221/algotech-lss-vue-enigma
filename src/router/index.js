@@ -108,9 +108,9 @@ import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
   // {
-  //   path: "/test4",
-  //   name: "side-menu-test4",
-  //   component: Test4,
+  //   path: "/test6",
+  //   name: "side-menu-test6",
+  //   component: Test6,
   // },
   {
     path: "/seller",
@@ -184,7 +184,7 @@ const routes = [
       },
 /*                CREATE CAMPAIGN                        */      
       {
-        path: "campaign/create",
+        path: "campaign/:type?",
         name: "side-menu-createCam-productselect",
         component: () => import('@/views/create-campaign/Main.vue'),
       },  
