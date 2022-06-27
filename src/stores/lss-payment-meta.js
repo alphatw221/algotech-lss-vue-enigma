@@ -90,6 +90,12 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
     AU : ['direct_payment', 'stripe'],
 
     HK : ['direct_payment', 'stripe'],
+
+	paymentMap: {
+		direct_payment: 'Direct Payment',
+		stripe: 'Stripe',
+		first_data: 'First Data'
+	}
     
   }),
 });

@@ -1,18 +1,18 @@
 <template>
     <div>
-        <template v-if="props.paymentName === 'directPayment'">
+        <template v-if="props.paymentName === 'direct_payment'">
             <div class="ml-3 mt-3 ">
                 <input 
                     class="form-check-input col-span-1" 
                     style="width: 1.5rem; height:1.5rem;"
                     type="checkbox" 
-                    v-model="campaignStore.paymentSettings['directPayment'].enabled"
+                    v-model="campaignStore.paymentSettings['direct_payment'].enabled"
                 />
                 <label class="form-label ml-3 text-base mt-1 mr-3">Enable direct payment  /  Button name</label>
                 <input 
                     class="form-control-rounded col-span-5"
                     type="text" 
-                    v-model="campaignStore.paymentSettings['directPayment'].button_title"
+                    v-model="campaignStore.paymentSettings['direct_payment'].button_title"
                 />
             </div>
             
@@ -80,7 +80,7 @@
             > Add </button>
         </template>
 
-        <template v-else-if="props.paymentName != 'directPayment' && paymentInfo.multiple === false">
+        <template v-else-if="props.paymentName != 'direct_payment' && paymentInfo.multiple === false">
             <div class="ml-3 mt-3 ">
                 <input 
                     class="form-check-input col-span-1" 
@@ -145,7 +145,7 @@ watchEffect(() => {
 });
 
 watch(directPaymentSettings, () => {
-    campaignStore.paymentSettings['directPayment'].accounts = directPaymentSettings.value
+    campaignStore.paymentSettings['direct_payment'].accounts = directPaymentSettings.value
 }, { deep: true })
 
 watch(singleAccountSettings, () => {
@@ -153,7 +153,7 @@ watch(singleAccountSettings, () => {
 }, { deep: true })
 
 onMounted(() => {
-    if (props.paymentName === 'directPayment') {
+    if (props.paymentName === 'direct_payment') {
         createAxiosWithBearer().get(paymentInfo.value.request_url)
         .then(response => {
             if (response.data.accounts) {
@@ -173,7 +173,7 @@ onMounted(() => {
         }
         paymentObj.value['previewImage'] = null
         paymentObj.value['formData'] = new FormData()
-    } else if (props.paymentName != 'directPayment' && paymentInfo.value.multiple === false) {
+    } else if (props.paymentName != 'direct_payment' && paymentInfo.value.multiple === false) {
         createAxiosWithBearer().get(paymentInfo.value.request_url)
         .then(response => {
             if (Object.keys(response.data).length > 0) {
