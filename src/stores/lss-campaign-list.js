@@ -8,7 +8,8 @@ export const useLSSCampaignListStore = defineStore("CampaignList", {
     showEnterPostIDModal:ref(false),
     showInstantlyAddProductModal: ref(false), 
     showAddProductFromStockModal: ref(false), 
-    campaign_id:ref(null),     
+    campaign_id: ref(),
+    campaign_title:ref(),
     
     searchScheduledCampaign:ref({
       campaigns:[]

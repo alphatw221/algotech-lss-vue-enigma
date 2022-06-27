@@ -11,8 +11,7 @@
             </thead>
             <tbody>
                 <tr v-for="(product, index) in campaignStore.assignedProducts" :key="index" class="intro-x">
-                    <template v-for="column in tableColumns" :key="column.key"
-                        class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                    <template v-for="column in tableColumns" :key="column.key" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
 
                         <td v-if="column.key === 'image'"
                             class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center imgtd"> 
@@ -190,25 +189,18 @@ onMounted(() => {
     });
 
     eventBus.on('confirmProducts', () => {
-        let campaignTitle = campaignStore.campaignTitle
         let orderCodeList = []
         campaignStore.assignedProducts.forEach((item) => {
             orderCodeList.push(item.order_code)
         })
 
-        emptyTitle.value = false
         duplicateOrderCode.value = false
-        if (campaignTitle == undefined || campaignTitle == '') {
-            emptyTitle.value = true
-            warningModalPreview.value = true
-            return
-        } else if (new Set(orderCodeList).size !== orderCodeList.length) {
+        if (new Set(orderCodeList).size !== orderCodeList.length) {
             duplicateOrderCode.value = true
             warningModalPreview.value = true
             return
         }
-        router.push('campaign/create/confirm')
-        console.log(campaignStore.assignedProducts)
+        // router.push('campaign/create/confirm')
     })
 })
 
@@ -234,12 +226,12 @@ const changeInput = (event, index, type) => {
                 campaignStore.assignedProducts[index].max_order_amount = event.target.value
             }
         } else {
-            alert('input number is over product max quantity')
+            alert('Input number is over product max quantity')
             event.target.value = campaignStore.assignedProducts[index].qty
             return
         }
     }
-    console.log(campaignStore.assignedProducts[index])
+    // console.log(campaignStore.assignedProducts[index])
 }
 
 const isOrderCodeDuplicate = (index) => {

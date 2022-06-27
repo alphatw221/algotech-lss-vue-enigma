@@ -26,7 +26,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			shipping_option:"",
 			shipping_method: "delivery",
 		})
-
+		
 
 	}),
 });

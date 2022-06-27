@@ -99,7 +99,7 @@
                   <DropdownContent class="w-40 text-center">
                     <DropdownItem class="w-full whitespace-nowrap text-center"> Edit </DropdownItem>
                     <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
-                    <DropdownItem class="w-full whitespace-nowrap"> MKT Tools</DropdownItem>
+                    <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
@@ -117,7 +117,6 @@
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { ref, onMounted, onUnmounted, defineProps, defineEmits } from 'vue'
 
 
 export default {
@@ -228,6 +227,11 @@ export default {
       if (this.$route.query.type && this.$route.query.type == 'startCampaign') {
 		    console.log('Wait for info')
 	    }
+    },
+    luckyDraw(id, title){
+      this.store.campaign_id = id
+      this.store.campaign_title = title
+      this.$router.push(`/seller/lucky-draw/${id}`)
     }
   },
 };

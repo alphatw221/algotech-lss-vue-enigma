@@ -88,7 +88,7 @@
                     type="checkbox" 
                     v-model="campaignStore.paymentSettings[props.paymentName].enabled"
                 />
-                <label class="form-label ml-3 text-base mt-1 mr-3">Enable direct payment</label>
+                <label class="form-label ml-3 text-base mt-1 mr-3">Enable stripe</label>
             </div>
             <div v-for="(account, index) in singleAccountSettings" :key="index">
                 <div 

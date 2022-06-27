@@ -48,7 +48,7 @@
       >
         + Add more items
       </button>
-      <button class="btn btn-primary w-32 shadow-md ml-auto" @click="checkout()">Checkout</button>
+      <button class="btn btn-primary w-32 shadow-md ml-auto" @click="toNext()">Next</button>
     </div>
   </div>
     
@@ -141,11 +141,11 @@ watch(
   }
 );
 
-const checkout=()=>{
+const toNext=()=>{
   store.openTab=2
-  router.push({query:{tab:2}})
-  if(cookies.get('login_with')=='anonymousUser')
-  buyerLayoutStore.showLoginModal=true
+  // router.push({query:{tab:2}})
+  // if(cookies.get('login_with')=='anonymousUser')
+  // buyerLayoutStore.showLoginModal=true
 }
 //  this.eventBus.emit("addPoint");
 </script>
