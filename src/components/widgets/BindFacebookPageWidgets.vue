@@ -7,7 +7,7 @@
             <div v-for="page in facebookPages" :key="page.id">
                 <div class="relative mt-3">
                     <img :src="page.image" alt="">
-                    <Tippy tag="a" href="javascript:;" class="tooltip" content="Unbind page" :options="{
+                    <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Unbind page" :options="{
                         theme: 'light',
                     }"><XCircleIcon class="absolute right-0 top-0 click-icon" @click="unbindPage(page)"/></Tippy>
                     
@@ -82,6 +82,9 @@ const unbindPage = (page) => {
 <style scoped>
 .click-icon:hover {
   cursor: pointer;
-  margin: -10px -11px 0px 0px;
+  
+}
+.click-icon {
+    margin: -10px -11px 0px 0px;
 }
 </style>

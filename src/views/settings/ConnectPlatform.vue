@@ -26,7 +26,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
-import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import BindFacebookPageWidgets from "@/components/widgets/BindFacebookPageWidgets.vue"
 import BindInstagramProfileWidgets from "@/components/widgets/BindInstagramProfileWidgets.vue"
 import BindYoutubeChannelWidgets from "@/components/widgets/BindYoutubeChannelWidgets.vue"
@@ -74,6 +74,14 @@ onMounted(() => {
             activatedPlatformNumber.value = 3
         }
     }
+
+    eventBus.on("eventBus", (payload) => {
+        currentPage.value = 1
+        category.value = payload.filterColumn
+        search()
+    })
+
+onUnmounted()
     
 });
 const plural = (number) => {
