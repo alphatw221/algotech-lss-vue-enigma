@@ -1,49 +1,50 @@
 <template>
     <!-- BEGIN: Comments -->
-    <TabGroup class="col-span-12 col-start-1 row-start-1 row-span-6 lg:col-span-5 xl:col-span-5 2xl:col-span-4 h-[100%]"
-        :selectedIndex="0">
-        <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-2 p-5 h-fit">
-            <div class="col-start-1 col-span-5 -mt-4 h-10">
-                <h2 class="text-lg font-medium sm:text-m">
+    <div 
+        class="box col-span-12 col-start-1 row-start-1 row-span-2 h-screen
+        lg:col-span-5 lg:mt-2 lg:h-fit
+        2xl:col-span-4 "> 
+        <TabGroup :selectedIndex="0">
+        <div class="flex flex-col grow">
+            <div class="flex">
+                <h2 class="text-lg font-medium mr-auto ml-5 my-5">
                     Comments
-                    <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
+                    <!-- <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
                         <FolderIcon />
-                    </button>
+                    </button> -->
                 </h2>
+                <div class="my-4 mr-5">
+                    <TabList class="nav-pills">
+                        <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                            @click="this.open_fb_video = true; this.open_ig_video = false; this.open_yt_video = false;">
+                            <FacebookIcon class="m-1 -mt-1" />
+                        </Tab>
+                        <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                            @click="this.open_fb_video = false; this.open_ig_video = true; this.open_yt_video = false;">
+                            <InstagramIcon class="m-1 -mt-1" />
+                        </Tab>
+                        <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                            @click="this.open_fb_video = false; this.open_ig_video = false; this.open_yt_video = true;">
+                            <YoutubeIcon class="m-1 -mt-1" />
+                        </Tab>
+                    </TabList>
+                </div>
             </div>
-            <div class="col-end-10 -mt-2 sm:col-end-11">
-                <TabList class="nav-pills">
-                    <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                        @click="this.open_fb_video = true; this.open_ig_video = false; this.open_yt_video = false;">
-                        <FacebookIcon class="m-1 -mt-1" />
-                    </Tab>
-                    <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                        @click="this.open_fb_video = false; this.open_ig_video = true; this.open_yt_video = false;">
-                        <InstagramIcon class="m-1 -mt-1" />
-                    </Tab>
-                    <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                        @click="this.open_fb_video = false; this.open_ig_video = false; this.open_yt_video = true;">
-                        <YoutubeIcon class="m-1 -mt-1" />
-                    </Tab>
-                </TabList>
-            </div>
-            <div class="col-start-1 col-span-12 -mt-2">
-                <AccordionGroup class="accordion-boxed">
-                    <AccordionItem class="mt-0">
-                        <Accordion class="bg-primary rounded-lg">
-                            <div class="w-full flex justify-end"> <PlusIcon class="text-white mx-5 -mt-2" /> </div>
-                        </Accordion>
-                        <AccordionPanel
-                            class="box text-slate-600 dark:text-slate-500 leading-relaxed mt-0 -mb-5">
-                            <div v-html="fb_video" class="-mt-2" v-show="open_fb_video" />
-                            <div v-html="ig_video" class="-mt-2" v-show="open_ig_video" />
-                            <div v-html="yt_video" class="-mt-2" v-show="open_yt_video" />
-                        </AccordionPanel>
-                    </AccordionItem>
-                </AccordionGroup>
-            </div>
+            <AccordionGroup class="accordion-boxed">
+                <AccordionItem class="mt-0">
+                    <Accordion class="bg-primary rounded-lg">
+                        <div class="w-full flex justify-end"> <PlusIcon class="text-white mx-5 -mt-2" /> </div>
+                    </Accordion>
+                    <AccordionPanel
+                        class="box text-slate-600 dark:text-slate-500 leading-relaxed mt-0 -mb-5">
+                        <div v-html="fb_video" class="-mt-2" v-show="open_fb_video" />
+                        <div v-html="ig_video" class="-mt-2" v-show="open_ig_video" />
+                        <div v-html="yt_video" class="-mt-2" v-show="open_yt_video" />
+                    </AccordionPanel>
+                </AccordionItem>
+            </AccordionGroup>
             <div v-show="trigger"></div>
-            <div v-show="tagBox" class="col-start-1 col-span-12 -mt-3 -mb-6 flex-wrap">
+            <!-- <div v-show="tagBox" class="col-start-1 col-span-12 -mt-3 -mb-6 flex-wrap">
                 <button class="btn btn-rounded-danger w-fit m-1" @click="status_change('Shipping')">
                     <HashIcon class="w-4 h-4 mr-2" /> Shipping
                 </button>
@@ -61,12 +62,11 @@
                     <XIcon class="w-4 h-4 mr-2" /> Close
                 </button>
                 <h2 class="p-2">{{ tags }}</h2>
-            </div>
-
-            <TabPanels class="col-span-12">
+            </div> -->
+            <TabPanels class="h-fit">
                 <template v-for="(platform_data, index) in comment_results" :key="index">
-                    <TabPanel>
-                        <div class="h-full box overflow-y-auto scrollbar-hidden mt-1 max-h-[28rem]" :class="index">
+                    <TabPanel class="h-fit">
+                        <div class="h-[575px] overflow-y-auto scrollbar-hidden mt-1" :class="index">
                             <template v-if="platform_data.comments">
                                 <div v-for="(reply, key) in platform_data.comments" :key="key"
                                     class="intro-x cursor-pointer relative flex items-center p-3"
@@ -90,7 +90,6 @@
                                     </Tippy>
                                 </div>
                             </template>
-                           
                         </div>
                     </TabPanel>
                 </template>
@@ -98,34 +97,11 @@
                 <template v-if="showModal">
                     <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" :pageId="page_id"/>
                 </template>
-                <!-- <TabPanel>
-                <div class="chat__chat-list box overflow-y-auto scrollbar-hidden pr-1 pt-1 mt-4">
-                    <CampaignLiveTable
-                        :requestUrl="'/api/campaign-comment/' + campaignId"
-                        :columns="tableColumns"
-                        :routerParam="comment_status"
-                    >
-                    </CampaignLiveTable>
-                </div>
-            </TabPanel> -->
-                <!-- <div v-show="replyBar"
-                class="pt-4 pb-10 sm:py-4 flex items-center border-t border-slate-200/60 dark:border-darkmode-400">
-                <textarea
-                    class="chat__box__input form-control dark:bg-darkmode-600 h-16 resize-none border-transparent px-5 py-3 shadow-none focus:border-transparent focus:ring-0"
-                    rows="1" placeholder="Type your message..."></textarea>
-                <div class="flex absolute sm:static left-0 bottom-0 ml-5 sm:ml-0 mb-5 sm:mb-0">
-                    <a href="javascript:;"
-                        class="w-8 h-8 sm:w-10 sm:h-10 block bg-primary text-white rounded-full flex-none flex items-center justify-center mx-2">
-                        <SendIcon class="w-4 h-4" />
-                    </a>
-                </div>
-            </div> -->
-
             </TabPanels>
         </div>
-
     </TabGroup>
     <!-- END: comments -->
+    </div>
 </template>
 
 <script>

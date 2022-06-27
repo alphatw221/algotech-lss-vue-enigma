@@ -4,11 +4,23 @@
             <div class="mt-6 flex">
                 <div class="w-[50%] flex flex-col mr-5">
                     <label for="update-profile-form-2" class="form-label"> Prize</label>
-                    <select class="w-full form-select-lg" v-model="currentSettings.prize">
+                    <select class="w-full form-select-lg" 
+                        :class="{ 'border-danger text-danger border-2': !currentSettings.prize.id}" 
+                        v-model="currentSettings.prize">
+                    <template v-if="!prizeList.length">
+                        <option class="w-40"   disabled> 
+                            Please Assign Lucky Draw Items into your Campaign
+                        </option>
+                    </template>
+                    <template v-else> 
                         <option v-for="(prize, key) in prizeList" :key="key" :value="prize" class="w-40"> 
                             {{ prize.name }} 
                         </option>
+                    </template>    
                     </select>
+                    <template v-if="!prizeList.length">
+                        <button class="btn btn-outline-danger self-left w-fit mt-2 "> Edit Campaign</button>
+                    </template>
                 </div>
                 <div class="w-[50%] flex flex-col ml-5">
                     <label for="update-profile-form-2" class="form-label "> Spin Time(sec)</label>
@@ -21,7 +33,15 @@
             <div class="mt-6 flex">
                 <div class="w-[50%] flex flex-col mr-5">
                     <label for="update-profile-form-2" class="form-label"> No. of Winners</label>
-                    <input id="form-2" type="text" class="form-control" v-model="currentSettings.winners" />
+                    <input id="form-2" type="text" class="form-control" v-model.trim="validate.winners.$model" 
+                        :class="{ 'border-danger text-danger border-2': validate.winners.$error }" />
+                    <template v-if="validate.winners.$error">
+                          <label
+                            class="text-danger"
+                          >
+                            Winner numbers must be between 1 to prize stock {{currentSettings.prize.qty_for_sale}}
+                          </label>
+                    </template>
                 </div>
                 <div class="w-[50%] flex flex-col ml-5">
                     <div class="w-full flex">
@@ -63,7 +83,7 @@
             <div class="mt-6 flex">
                 <div class="w-[50%] flex flex-col mr-5">
                     <label for="update-profile-form-2" class="form-label"> Draw Type</label>
-                    <select class="w-full form-select" v-model="currentSettings.type">
+                    <select class="w-full form-select-lg" v-model="currentSettings.type">
                         <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ type.name }}</option>
                     </select>
                 </div>
@@ -72,7 +92,7 @@
                     <label for="update-profile-form-2" class="form-label "> Product</label>
                      <TomSelect 
                         v-model="currentSettings.productId" 
-                        class="w-full form-select-lg"
+                        class="w-full form-select-lg -mt-1.5"
                         >
                         <option v-for="(product, key) in productList" :key="key" :value="product.id"
                             > ({{product.order_code}}) &emsp;   {{product.name}}</option>
@@ -81,13 +101,21 @@
                 <div v-else-if="currentSettings.type === 'keyword'" class="w-[50%] flex flex-col ml-5">
                     <label for="update-profile-form-2" class="form-label "> Keyword</label>
                     <textarea class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
-                        v-model="currentSettings.keyword" placeholder="Enter your Keyword">
+                        v-model="validate.keyword.$model" placeholder="Enter your Keyword"
+                        :class="{ 'border-danger text-danger border-2': validate.keyword.$error }">
                     </textarea>
+                    <template v-if="validate.keyword.$error">
+                          <label
+                            class="text-danger"
+                          >
+                            Please enter a keyword to use for lucky draw with minimum 3 digits
+                          </label>
+                    </template>
                 </div>
             </div>
         </form>
         <div class="flex justify-end my-8">
-            <button class="btn btn-secondary mr-5" @click="router.back()"> Cancel</button>
+            <button class="btn btn-secondary mr-5" @click="router.push('/seller/campaign-list')"> Cancel</button>
             <button class="btn btn-primary" @click="save"> Save</button>
         </div>
 </template>
@@ -98,7 +126,7 @@ import { ref, watch, onMounted, computed} from 'vue';
 import { list_campaign_product } from '@/api/campaign_product';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
-import { required,integer,minLength,maxLength } from "@vuelidate/validators";
+import { required,minValue, maxValue, minLength,integer } from "@vuelidate/validators";
 
 const props = defineProps({
     campaign_id: Object,
@@ -119,23 +147,23 @@ const currentSettings = ref({
     winners: 0,
     repeat: false,
     type: 'product',
-    keyword: '',
+    keyword: 'keyword',
     productId: '',
-    prize:[],
+    prize:'Please Assign Lucky Draw Items into your Campaign',
 })
 
 const rules = computed(()=>{
     return{
-      prize: {required},
-      winners: {required,minLength: minLength(1), maxLength: maxLength(50)} }
+    keyword:{required, minLength: minLength(3)},
+    winners: {required, integer, minValue: minValue(1), maxValue: maxValue(currentSettings.value.prize.qty_for_sale)} }
 });
 
 const validate = useVuelidate(rules, currentSettings);
 
 const save = () => {
   validate.value.$touch();
-  if (validate.value.$invalid) {
-    layoutStore.alert.showMessageToast("Invild User Infomation Input")
+  if (validate.value.$invalid || typeof currentSettings.value.prize === 'string') {
+    layoutStore.alert.showMessageToast("Invild Data Inputed")
     return
   }else 
   console.log(currentSettings.value)
@@ -147,6 +175,15 @@ const chooseAnimation = () => {
 
 }
 
+watch(computed(() => currentSettings.value.type),
+    ()=>{
+         if(currentSettings.value.type === 'keyword'){
+            currentSettings.value.keyword = ''
+        }else{
+            currentSettings.value.keyword = 'keyword'
+        }
+    }   
+),
 
 onMounted(() => {
     list_campaign_product(props.campaign_id).then(res => {

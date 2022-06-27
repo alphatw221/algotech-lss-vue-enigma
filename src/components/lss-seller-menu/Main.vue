@@ -1,5 +1,5 @@
 <template>
-<div class="flex overflow-auto bg-secondary h-screen">
+<div class="flex overflow-auto bg-secondary h-full lg:h-screen">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
         <div class="flex cursor-pointer m-3 " @click="router.push('/seller/campaign/create')"> 

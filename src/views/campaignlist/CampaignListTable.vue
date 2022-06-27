@@ -203,7 +203,7 @@ export default {
       console.log(campaign.facebook_campaign.post_id)
       console.log(campaign.instagram_campaign.live_media_id)
       console.log(campaign.youtube_campaign.live_video_id)
-      if (campaign.facebook_campaign.post_id !== '' && campaign.instagram_campaign.live_media_id !== '' && campaign.youtube_campaign.live_video_id !== '') {
+      if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
         this.$router.push(`/seller/campaign-live/${campaign.id}`)
         return
       }

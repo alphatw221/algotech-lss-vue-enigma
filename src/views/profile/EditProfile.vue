@@ -30,7 +30,7 @@
                           <label
                             class="text-danger mt-2"
                           >
-                            Please enter State
+                            Please enter Password
                           </label>
                   </template>
             </div>
