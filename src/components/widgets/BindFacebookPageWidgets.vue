@@ -1,18 +1,17 @@
 <template>
     <div v-show="showPages" class="border-2 rounded-md">
         <div class="grid grid-cols-12">
-            <div class="col-span-6">
-                <h4 class="ma-5">Facebook Fan Page</h4>
-            </div>
-            <div class="col-span-6">
-                <button type="button" class="border-2">edit</button>
-            </div>
+            <h4 class="ma-5 col-span-12">Facebook Fan Page</h4>
         </div>
         <div class="grid grid-cols-12">
-            <div class="col-span-6" v-for="page in facebookPages" :key="page.id">
-                <v-avatar class="ml-5">
+            <div v-for="page in facebookPages" :key="page.id">
+                <div class="relative mt-3">
                     <img :src="page.image" alt="">
-                </v-avatar>
+                    <Tippy tag="a" href="javascript:;" class="tooltip" content="Unbind page" :options="{
+                        theme: 'light',
+                    }"><XCircleIcon class="absolute right-0 top-0 click-icon" @click="unbindPage(page)"/></Tippy>
+                    
+                </div>
                 <span>{{ page.name }}</span>
             </div>
         </div>
@@ -74,8 +73,15 @@ const bind_facebook_pages = (payload) => {
         console.log(error)
     })
 }
+
+const unbindPage = (page) => {
+    eventBus.emit("unbindPage", page)
+}
 </script>
 
 <style scoped>
-
+.click-icon:hover {
+  cursor: pointer;
+  margin: -10px -11px 0px 0px;
+}
 </style>
