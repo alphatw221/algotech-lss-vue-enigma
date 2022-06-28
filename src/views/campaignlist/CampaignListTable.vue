@@ -6,6 +6,7 @@
           <th class="text-center " v-for="column in tableColumns" :key="column.key">
             {{ column.name }}
           </th>
+          <th v-if="status === 'ongoing' || status === 'scheduled'" ></th>
         </tr>
       </thead>
       <tbody>
@@ -81,16 +82,30 @@
             </a>
           </td>
           <td class="checkout items-center w-fit">
-            <div class="flex form-check form-switch justify-center">
-              <input @click="toggle" class="form-check-input center" type="checkbox" />
+            <div  v-if="status === 'history'" 
+              class="flex form-check form-switch justify-center">
+              <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
+            </div>
+            <div v-else
+              class="flex form-check form-switch justify-center">
+               <input @click="stop_checkout(campaign.id,$event.target.checked)" class="form-check-input mr-0 ml-3" type="checkbox" v-model="campaign.meta.allow_checkout"/>
             </div>
           </td>
           <td class="entry text-center w-fit">
-            <button class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
+            <button 
+              v-if="status === 'history'"
+              class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
+              Enter
+            </button>
+            <button 
+              v-else
+              class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
               Live On
             </button>
           </td>
-          <td class="edit table-report__action w-fit">
+          <td
+            v-if="status === 'ongoing' || status === 'scheduled'" 
+            class="edit table-report__action w-fit">
               <Dropdown placement="bottom-start">
                 <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
                   <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
@@ -117,7 +132,7 @@
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-
+import { allow_checkout } from "@/api_v2/manage_order"
 
 export default {
   props: {
@@ -136,6 +151,7 @@ export default {
       searchCcolumn: '',
       keyword: '',
       status: this.campaignStatus,
+      checkout: true,
       order_by: "created_at",
       youtube_platform: "/src/assets/images/lss-img/youtube.png",
       facebook_platform: "/src/assets/images/lss-img/facebook.png",
@@ -185,6 +201,10 @@ export default {
             this.totalPage = totalPage == 0 ? 1 : totalPage;
           }
           this.store[this.tableName].campaigns = response.data.results
+          console.log(this.store[this.tableName].campaigns)
+          for(let i = 0; i < this.store[this.tableName].campaigns.length; i++){
+            this.store[this.tableName].campaigns[i].meta.allow_checkout = this.store[this.tableName].campaigns[i].meta.allow_checkout == 1 ? false : true 
+          }
           // this.campaigns = response.data.results;
         })
     },
@@ -208,6 +228,10 @@ export default {
         return
       }
       this.$emit('showRemindModal', { 'tableName': this.tableName, 'campaign': campaign, 'index': index })
+    },
+    stop_checkout(campaign_id,status){
+      allow_checkout(campaign_id,status)
+      this.layout.notification.showMessageToast('Update Successed');
     },
     manageOrder(campaign_id,status) {
       this.$router.push(`/seller/manage-order/${campaign_id}?checkout=${status}`)

@@ -1,5 +1,5 @@
 <template>
-    <div v-show="sellerLayoutStore.editProfile"  class="grid grid-cols-12 px-5 justify-center justify-items-center">
+    <div v-show="layout.editProfile"  class="grid grid-cols-12 px-5 justify-center justify-items-center">
         <div
             class="col-span-12 lg:col-span-3 2xl:col-span-3 w-32 h-32 flex-none image-fit relative m-8 lg:m-10 2xl:m-10">
             <img class="rounded-full" :src="userAvatar" />
@@ -15,11 +15,11 @@
         <div class="col-span-12 lg:col-span-9 2xl:col-span-9 w-full mt-0 p-0 lg:px-10 2xl:px-10">
             <div>
                 <label class="form-label">User Name</label>
-                <input type="text" v-model="sellerLayoutStore.userInfo.name" class="form-control" disabled />
+                <input type="text" v-model="layout.userInfo.name" class="form-control" disabled />
             </div>
             <div class="mt-3">
                 <label class="form-label">Email</label>
-                <input type="text" v-model="sellerLayoutStore.userInfo.email" class="form-control" />
+                <input type="text" v-model="layout.userInfo.email" class="form-control" />
             </div>
             <div class="mt-3">
                 <label class="form-label">Old Password</label>
@@ -58,7 +58,7 @@
                 </template>
             </div>
             <div class="flex justify-center lg:justify-end 2xl:justify-end mt-5">
-                <button class="btn btn-outline-primary mr-auto lg:mr-10 2xl:mr-10" @click="sellerLayoutStore.editProfile = false">
+                <button class="btn btn-outline-primary mr-auto lg:mr-10 2xl:mr-10" @click="layout.editProfile = false">
                     Cancel</button>
                 <button class="btn btn-outline-primary" @click="save">
                     Save</button>
@@ -80,18 +80,18 @@ import {
 } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
-const sellerLayoutStore = useLSSSellerLayoutStore()
+const layout = useLSSSellerLayoutStore()
 
 const userAvatar = computed(() => {
-    if (sellerLayoutStore.loginWith == 'facebook') {
-        return sellerLayoutStore.userInfo.facebook_info.picture
-    } else if (sellerLayoutStore.loginWith == 'google') {
-        return sellerLayoutStore.userInfo.google_info.picture
+    if (layout.loginWith == 'facebook') {
+        return layout.userInfo.facebook_info.picture
+    } else if (layout.loginWith == 'google') {
+        return layout.userInfo.google_info.picture
     }
-    if (sellerLayoutStore.userInfo.facebook_info.picture) {
-        return sellerLayoutStore.userInfo.facebook_info.picture
+    if (layout.userInfo.facebook_info.picture) {
+        return layout.userInfo.facebook_info.picture
     }
-    return sellerLayoutStore.userInfo.google_info.picture
+    return layout.userInfo.google_info.picture
 });
 
 
@@ -128,9 +128,9 @@ const validate = useVuelidate(rules, toRefs(newData));
 const save = () => {
   validate.value.$touch();
   if (validate.value.$invalid) {
-    sellerLayoutStore.alert.showMessageToast('Input Error');
+    layout.alert.showMessageToast('Input Error');
   } else {
-    sellerLayoutStore.notification.showMessageToast('Update Successed');
+    layout.notification.showMessageToast('Update Successed');
   }
 };
 </script>
