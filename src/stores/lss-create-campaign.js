@@ -35,7 +35,9 @@ export const useCreateCampaignStore = defineStore("sellerCampaignProducts", {
 			},
 			'first_data': {
 				enabled: true
-			}
+			},
+			confirmation_note: '',
+			special_note: ''
 		}),
 		imageDirectPayment: ref({}),
 		notes: ref({
