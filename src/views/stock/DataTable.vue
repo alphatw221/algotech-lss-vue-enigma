@@ -1,5 +1,5 @@
 <template>
-	<div class="mt-5 overflow-y-scroll overflow-x-scroll h-[600px]">
+	<div class="mt-3 overflow-y-scroll overflow-x-scroll h-[600px]">
 		<table class="box table table-report table-auto -mt-3 ">
 			<thead>
 				<tr>
@@ -197,6 +197,7 @@ thead th{
 		box-shadow: none !important;
 		margin-top: 10px;
 		height: auto;
+		min-height: 15px;
 	}
 
 	.productName {
@@ -212,6 +213,7 @@ thead th{
 		font-weight: bold;
 		box-shadow: none !important;
 		background-color: white !important;
+		height: auto;
 	}
 
 	td:nth-of-type(1):before {

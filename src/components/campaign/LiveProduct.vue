@@ -1,8 +1,8 @@
 <template>
     <div
-        class="box col-span-12 col-start-1 row-start-5 row-span-2 h-screen mt-0 
-            lg:col-span-7 lg:row-start-2 lg:row-span-1 lg:mt-2
-            2xl:col-span-4 2xl:row-start-1
+        class="box col-span-12 col-start-1 row-start-5 row-span-2 h-screen
+            lg:col-start-6 lg:col-span-7 lg:row-start-4 lg:row-span-3 lg:h-[100%]
+            2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-5 
             ">
         <div class="h-full flex flex-col"> 
             <div class="flex w-full m-3">
@@ -25,10 +25,10 @@
             </div>
             <div
                 class="overflow-auto scrollbar-hidden box h-full mt-1">
-                <table class="table table-sm">
+                <table class="table">
                     <thead class="text-white">
                         <tr>
-                            <th class="whitespace-nowrap bg-dark" style="" v-for="column in product_columns" :key="column.key">
+                            <th class="whitespace-nowrap truncate bg-dark hover:text-clip" v-for="column in product_columns" :key="column.key">
                                 {{ column.name }}
                             </th>
                         </tr>
@@ -45,26 +45,18 @@
                             <td>{{ data.currency_sign }}{{ data.price }}</td>
                             <td>
                                 <div v-if="data.status === true" class="
-                                    form-check form-switch
-                                    w-full
-                                    sm:w-auto sm:ml-auto
-                                    mt-3
-                                    sm:mt-0
+                                    form-check form-switch w-fit m-auto
                                 ">
                                     <input
                                         @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === true ? false : true });"
-                                        class="form-check-input mr-0 ml-0" type="checkbox" checked />
+                                        class="form-check-input" type="checkbox" checked />
                                 </div>
                                 <div class="
-                                    form-check form-switch
-                                    w-full
-                                    sm:w-auto sm:ml-auto
-                                    mt-3
-                                    sm:mt-0
+                                    form-check form-switch w-fit m-auto
                                     " v-else>
                                     <input
                                         @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === true ? false : true });"
-                                        class="form-check-input mr-0 ml-0" type="checkbox" />
+                                        class="form-check-input" type="checkbox" />
                                 </div>
                             </td>
                         </tr>
@@ -99,7 +91,7 @@ export default {
             store: useLSSCampaignListStore(),
             imagePath: import.meta.env.VITE_APP_IMG_URL,
             product_columns: [
-                { name: "Image", key: "image" },
+                { name: "", key: "image" },
                 { name: "Name", key: "name" },
                 { name: "Order Code", key: "order_code" },
                 { name: "Sold/Left", key: "Sold_Left" },

@@ -1,13 +1,12 @@
 <template>
     <!-- BEGIN: Comments -->
-    <div 
-        class="box col-span-12 col-start-1 row-start-1 row-span-2 h-screen
-        lg:col-span-5 lg:mt-2 lg:h-fit
-        2xl:col-span-4 "> 
-        <TabGroup :selectedIndex="0">
-        <div class="flex flex-col grow">
-            <div class="flex">
-                <h2 class="text-lg font-medium mr-auto ml-5 my-5">
+        <TabGroup :selectedIndex="0"
+            class="box col-span-12 col-start-1 row-start-1 row-span-2 mt-2 h-screen
+            lg:col-span-5 lg:row-span-6 lg:mt-0 lg:h-[100%]
+            2xl:col-span-4 ">
+        <div class="flex flex-col h-full">
+            <div class="flex-none flex h-18">
+                <h2 class="text-lg font-medium mr-auto ml-5 my-auto">
                     Comments
                     <!-- <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
                         <FolderIcon />
@@ -30,20 +29,20 @@
                     </TabList>
                 </div>
             </div>
-            <AccordionGroup class="accordion-boxed">
-                <AccordionItem class="mt-0">
+            <AccordionGroup class="accordion-boxed flex-none h-fit">
+                <AccordionItem class="h-auto">
                     <Accordion class="bg-primary rounded-lg">
                         <div class="w-full flex justify-end"> <PlusIcon class="text-white mx-5 -mt-2" /> </div>
                     </Accordion>
                     <AccordionPanel
-                        class="box text-slate-600 dark:text-slate-500 leading-relaxed mt-0 -mb-5">
-                        <div v-html="fb_video" class="-mt-2" v-show="open_fb_video" />
+                        class="text-slate-600 dark:text-slate-500 leading-relaxed">
+                        <div v-html="fb_video" class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0" v-show="open_fb_video" />
                         <div v-html="ig_video" class="-mt-2" v-show="open_ig_video" />
                         <div v-html="yt_video" class="-mt-2" v-show="open_yt_video" />
                     </AccordionPanel>
                 </AccordionItem>
             </AccordionGroup>
-            <div v-show="trigger"></div>
+            <div v-show="trigger" class="flex-none"></div>
             <!-- <div v-show="tagBox" class="col-start-1 col-span-12 -mt-3 -mb-6 flex-wrap">
                 <button class="btn btn-rounded-danger w-fit m-1" @click="status_change('Shipping')">
                     <HashIcon class="w-4 h-4 mr-2" /> Shipping
@@ -63,45 +62,46 @@
                 </button>
                 <h2 class="p-2">{{ tags }}</h2>
             </div> -->
-            <TabPanels class="h-fit">
-                <template v-for="(platform_data, index) in comment_results" :key="index">
-                    <TabPanel class="h-fit">
-                        <div class="h-[575px] overflow-y-auto scrollbar-hidden mt-1" :class="index">
-                            <template v-if="platform_data.comments">
-                                <div v-for="(reply, key) in platform_data.comments" :key="key"
-                                    class="intro-x cursor-pointer relative flex items-center p-3"
-                                    @click="showReplyBar(reply)">
-                                    <Tippy class="rounded-full " content="Reply" theme='light'>
-                                        <div class="relative flex items-center w-full">
-                                            <div class="w-12 h-12 flex-none image-fit mr-1">
-                                            <img alt="" class="rounded-full zoom-in" :src="reply.image" />
-                                            </div>
-                                        
-                                            <div class="ml-2 overflow-hidden w-full">
-                                                <div class="flex items-center">
-                                                    <a class="font-medium">{{ reply.customer_name }}</a>
-                                                    <div class="text-xs text-slate-400 ml-auto"></div>
+            <div class="grow h-fit m-3 overflow-y-auto scrollbar-hidden">
+                <TabPanels>
+                    <template v-for="(platform_data, index) in comment_results" :key="index">
+                        <TabPanel>
+                            <div class="h-fit mt-1" :class="index">
+                                <template v-if="platform_data.comments">
+                                    <div v-for="(reply, key) in platform_data.comments" :key="key"
+                                        class="intro-x cursor-pointer relative flex items-center m-1 p-2 box rounded-l-full"
+                                        @click="showReplyBar(reply)">
+                                        <Tippy class="rounded-full " content="Reply" theme='light'>
+                                            <div class="relative flex items-center w-full">
+                                                <div class="w-14 h-14 flex-none image-fit mr-1">
+                                                <img alt="" class="rounded-full zoom-in" :src="reply.image" />
                                                 </div>
-                                                <div class="text-slate-500 mt-0.5">
-                                                    {{ reply.message }}
+                                            
+                                                <div class="ml-2 overflow-hidden w-full">
+                                                    <div class="flex items-center">
+                                                        <a class="font-medium">{{ reply.customer_name }}</a>
+                                                        <div class="text-xs text-slate-400 ml-auto"></div>
+                                                    </div>
+                                                    <div class="text-slate-500 mt-0.5">
+                                                        {{ reply.message }}
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    </Tippy>
-                                </div>
-                            </template>
-                        </div>
-                    </TabPanel>
-                </template>
-                
+                                        </Tippy>
+                                    </div>
+                                </template>
+                            </div>
+                        </TabPanel>
+                    </template>
                 <template v-if="showModal">
                     <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" :pageId="page_id"/>
                 </template>
-            </TabPanels>
+                </TabPanels>
+            </div>
         </div>
+            
     </TabGroup>
     <!-- END: comments -->
-    </div>
 </template>
 
 <script>

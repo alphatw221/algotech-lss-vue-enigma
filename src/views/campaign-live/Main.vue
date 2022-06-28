@@ -1,4 +1,4 @@
-<template class=" h-full">
+<template>
     <!-- OUTTER BOX -->
     <div class="grid grid-cols-12 grid-rows-6 gap-3 h-full">
         <!-- BEGIN: Comments -->

@@ -23,7 +23,7 @@
                     </template>
 
                     <label class="mt-5 mb-2">Category</label>
-                    <select v-model="addPorduct.category" class="w-full rounded-lg">
+                    <select v-model="addProduct.category" class="w-full rounded-lg">
                         <option value="">Uncategorized</option>
                         <template v-for="(category, key) in categoryList" :key="key"> 
                             <option :value="category">{{category}}</option>
@@ -88,7 +88,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const categoryList = ref([])
 const campaign_id = route.params.campaign_id
 // const campaign_product = ref(productList.value)
-const addPorduct = ref({
+const addProduct = ref({
     name: '', 
     category: '',
     code: '', 
@@ -106,7 +106,7 @@ const list = () => {
 }
 
 const addtoCampaign =()=>{
-    fast_add_product(campaign_id,addPorduct.value.code,addPorduct.value.price,addPorduct.value.qty ).then(
+    fast_add_product(campaign_id,addProduct.value.code,addProduct.value.price,addProduct.value.qty ).then(
         response =>{
             console.log(response.data);
             eventBus.emit("addInstantProduct", response.data);
@@ -140,6 +140,6 @@ const rules = computed(()=>{
     }
 });
 
-const validate = useVuelidate(rules, addPorduct);
+const validate = useVuelidate(rules, addProduct);
 
 </script>
