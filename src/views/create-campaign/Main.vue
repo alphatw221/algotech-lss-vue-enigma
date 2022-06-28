@@ -42,9 +42,12 @@
 
 		<DeliveryForm class="col-span-12" />
 
-		<PaymentForm class="col-span-12" />
+		<PaymentForm 
+			class="col-span-12" 
+			:pageType="route.params.type"
+		/>
 
-		<NotesForm />
+		<NotesForm :pageType="route.params.type" />
 
 		<div class="mt-5 p-0 col-span-12 z-0">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
@@ -60,7 +63,7 @@
 </template>  
 
 <script setup>
-import { ref, watch, onMounted, computed } from 'vue';
+import { ref, watch, onMounted, computed, watchEffect } from 'vue';
 import PaymentForm from './PaymentForm.vue';
 import DeliveryForm from './DeliveryForm.vue';
 import NotesForm from './NotesForm.vue';
@@ -68,26 +71,40 @@ import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
 import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
-import { create_campaign } from '@/api_v2/campaign';
+import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 import { list_delivery_setting } from '@/api_v2/campaign';
 
 import { required, minLength, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
+
 const route = useRoute()
 const router = useRouter()
 const campaignStore = useCreateCampaignStore()
 const sellerStore = useLSSSellerLayoutStore()
-const pageType = ref(route.params.type)
-
+const campaignPeriod = ref({
+	start: new Date(),
+	end: new Date()
+})
 const pageTitle = computed(() => {
-	if (pageType.value === 'create') return 'Create Campaign'
-	else if (pageType.value === 'edit') return 'Edit Campaign'
+	if (route.params.type === 'create') return 'Create Campaign'
+	else if (route.params.type === 'edit') return 'Edit Campaign'
 })
 
+watch((campaignPeriod), () => {
+	campaignStore.campaignPeriod = campaignPeriod.value
+}, {deep: true})
+
 onMounted(() => {
-	if (pageType.value === 'create') {
-		list_delivery()
+	if (route.params.type === 'create') list_delivery()
+	else if (route.params.type === 'edit') {
+		retrieve_campaign(route.params.campaign_id).then(response => {
+			campaignStore.paymentSettings = response.data.meta_payment
+			campaignStore.deliverySettings = response.data.meta_logistic
+			campaignStore.campaignTitle.title = response.data.title
+			campaignPeriod.value.start = new Date(response.data.start_at)
+			campaignPeriod.value.end = new Date(response.data.end_at)
+		})
 	}
 })
 
@@ -113,24 +130,27 @@ const saveCampaign = () => {
 	}
 
 	let formData = new FormData()
-	campaignStore.deliverySettings.delivery_note = campaignStore.notes.delivery_note
-	campaignStore.paymentSettings.confirmation_note = campaignStore.notes.confirmation_note
-	campaignStore.paymentSettings.special_note = campaignStore.notes.special_note
 	formData.append('campaignTitle', JSON.stringify(campaignStore.campaignTitle.title))
 	formData.append('campaignPeriod', JSON.stringify(campaignStore.campaignPeriod))
 	formData.append('deliverySettings', JSON.stringify(campaignStore.deliverySettings))
 	formData.append('paymentSettings', JSON.stringify(campaignStore.paymentSettings))
-
 	for (let [key, value] of Object.entries(campaignStore.imageDirectPayment)) {
 		formData.append(key, value)
 	}
 
-	create_campaign(formData).then(response => {
-        let campaign_id = response.data
-		router.push(`assign/product?campaign_id=${campaign_id}`)
-    }).catch(err => {
-		console.log('api error')
-	})
+	if (route.params.type === 'create') {
+		create_campaign(formData).then(response => {
+			let campaign_id = response.data
+			router.push(`assign/product?campaign_id=${campaign_id}`)
+		}).catch(err => {
+			console.log('api error')
+		})
+	} else if (route.params.type === 'edit') {
+		update_campaign(route.params.campaign_id, formData).then(response => {
+			console.log('poooooooooooooooooop')
+		})
+	}
+	
 }
 
 </script>

@@ -112,7 +112,7 @@
                 </DropdownToggle>
                 <DropdownMenu class="pt-2 w-40">
                   <DropdownContent class="w-40 text-center">
-                    <DropdownItem class="w-full whitespace-nowrap text-center"> Edit </DropdownItem>
+                    <DropdownItem class="w-full whitespace-nowrap text-center" @click="this.$router.push(`/seller/campaign/edit/${campaign.id}`)"> Edit </DropdownItem>
                     <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
                     <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem>
                   </DropdownContent>
