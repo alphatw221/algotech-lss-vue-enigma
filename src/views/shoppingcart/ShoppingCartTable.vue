@@ -24,11 +24,19 @@
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x mt-5">
 				<td class="imgtd">
 					<div class="flex">
-						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in">
+						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
 						<Tippy
 							tag="img"
 							class="rounded-lg"
 							:src="storageUrl + product.image"
+							:content="product.name"
+						/>
+						</div>
+						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-else>
+						<Tippy
+							tag="img"
+							class="rounded-lg"
+							:src="storageUrl + `no_image.jpeg`"
 							:content="product.name"
 						/>
 						</div>
