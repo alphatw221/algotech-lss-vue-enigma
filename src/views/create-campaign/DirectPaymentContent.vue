@@ -87,6 +87,9 @@ import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
 import { createAxiosWithBearer } from '@/libs/axiosClient';
 
+const props = defineProps({
+    pageType: String,
+})
 const paymentStore = useLSSPaymentMetaStore()
 const campaignStore = useCreateCampaignStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
@@ -100,18 +103,30 @@ watch(directPaymentSettings, () => {
     campaignStore.paymentSettings['direct_payment'].accounts = directPaymentSettings.value
 }, { deep: true })
 
+watchEffect(() => {
+    // edit campaign 進入時觸發
+    if (campaignStore.paymentSettings['direct_payment'].accounts.length > 0 && Object.entries(directPaymentSettings.value).length == 0) {
+        directPaymentSettings.value = campaignStore.paymentSettings['direct_payment'].accounts
+        for (let i = 0; i < directPaymentSettings.value.length; i ++) {
+            directPaymentSettings.value[i]['previewImage'] = storageUrl + directPaymentSettings.value[i].image.substring(1)
+        }
+    }
+})
+
 onMounted(() => {
-    createAxiosWithBearer().get(paymentInfo.value.request_url)
-    .then(response => {
-        if (response.data.accounts) {
-            directPaymentSettings.value = response.data.accounts
-            if (directPaymentSettings.value.length > 0) {
-                for (let i = 0; i < directPaymentSettings.value.length; i ++) {
-                    directPaymentSettings.value[i]['previewImage'] = storageUrl + directPaymentSettings.value[i].image.substring(1)
+    if (props.pageType === 'create') {
+        createAxiosWithBearer().get(paymentInfo.value.request_url)
+        .then(response => {
+            if (response.data.accounts) {
+                directPaymentSettings.value = response.data.accounts
+                if (directPaymentSettings.value.length > 0) {
+                    for (let i = 0; i < directPaymentSettings.value.length; i ++) {
+                        directPaymentSettings.value[i]['previewImage'] = storageUrl + directPaymentSettings.value[i].image.substring(1)
+                    }
                 }
             }
-        }
-    })
+        })
+    } 
 
     // 創建樣板 directPayment Object 
     for (let [key, field] of Object.entries(paymentInfo.value.fields)) {
@@ -120,7 +135,6 @@ onMounted(() => {
     }
     paymentObj.value['previewImage'] = null
     paymentObj.value['formData'] = new FormData()
-    
 })
 
 const uploadImage = (event, index) =>{

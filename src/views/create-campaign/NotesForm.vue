@@ -4,17 +4,17 @@
             <label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Delivery note</label>
             <textarea 
                 class="col-span-9 p-1" 
-                v-model="campaignStore.notes.delivery_note"
+                v-model="campaignStore.deliverySettings.delivery_note"
             />
             <label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Special note</label>
             <textarea 
                 class="col-span-9 p-1" 
-                v-model="campaignStore.notes.special_note"
+                v-model="campaignStore.paymentSettings.special_note"
             />
             <label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Confirmation note</label>
             <textarea 
                 class="col-span-9 p-1" 
-                v-model="campaignStore.notes.confirmation_note"
+                v-model="campaignStore.paymentSettings.confirmation_note"
             />
         </div>
     </div>
@@ -27,16 +27,20 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { get_notes } from '@/api_v2/user_subscription';
 
 const campaignStore = useCreateCampaignStore()
+const props = defineProps({
+    pageType: String,
+})
+
 
 onMounted(() => {
-	list()
+    if (props.pageType === 'create') list()
 })
 
 const list = () => {
     get_notes().then(response => {
-		campaignStore.notes.delivery_note = response.data.delivery_note
-		campaignStore.notes.special_note = response.data.special_note
-		campaignStore.notes.confirmation_note = response.data.confirmation_note
+        campaignStore.deliverySettings.delivery_note = response.data.delivery_note
+        campaignStore.paymentSettings.confirmation_note = response.data.confirmation_note
+        campaignStore.paymentSettings.special_note = response.data.special_note
     })
 }
 

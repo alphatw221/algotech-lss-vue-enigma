@@ -12,10 +12,15 @@
 					</Accordion>
 					<AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary">
 						<template v-if="payment === 'direct_payment'">
-							<DirectPaymentContent />
+							<DirectPaymentContent 
+								:pageType="props.pageType"
+							/>
 						</template>
 						<template v-else>
-							<PaymentContent :paymentName="payment" />
+							<PaymentContent 
+								:paymentName="payment" 
+								:pageType="props.pageType"
+							/>
 						</template>
 					</AccordionPanel>
 				</AccordionItem>
@@ -34,6 +39,9 @@ import DirectPaymentContent from './DirectPaymentContent.vue';
 
 const paymentStore = useLSSPaymentMetaStore()
 const sellerStore = useLSSSellerLayoutStore()
+const props = defineProps({
+    pageType: String,
+})
 const activePayment = ref([])
 
 
