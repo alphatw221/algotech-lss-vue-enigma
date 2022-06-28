@@ -123,7 +123,7 @@ const routes = [
         component: Profile,
       },
       {
-        path: "campaign-list",
+        path: "campaigns",
         name: "side-menu-campaign-list",
         component: CampaignList,
       },
@@ -196,17 +196,17 @@ const routes = [
 
 /*                     SETTINGS                           */
       {  
-        path: "campaign-global-setting",
+        path: "settings/campaign-global",
         name: "side-menu-campaign-global-setting",
         component: () => import('@/views/settings/Main.vue'),
       },  
       {  
-        path: "localization-setting",
+        path: "settings/localization",
         name: "side-menu-localization",
         component: Localization,
       },  
       {  
-        path: "platform-setting",
+        path: "settings/platform",
         name: "side-menu-connect-platform",
         component: ConnectPlatform,
       },

@@ -13,6 +13,10 @@ export const get_buyer_account = () =>{
 }
 
 
+export const seller_general_login = data =>{
+    return axiosInstance.post(`/api/v2/user/seller/login/general/`,data);
+}
+
 export const seller_login_with_facebook = data =>{
     return axiosInstance.post(`/api/v2/user/seller/login/facebook/`,data);
 }

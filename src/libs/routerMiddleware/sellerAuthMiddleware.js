@@ -8,7 +8,6 @@ export default async (to, from)=>{
     const sellerStore = useLSSSellerLayoutStore();
 
     if (sellerStore.isAuthenticated) {
-        console.log('isAuth')
         return true
     }
 
