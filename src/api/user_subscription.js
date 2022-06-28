@@ -41,3 +41,7 @@ export const unbind_instagram_profile = (data) => {
 export const unbind_youtube_channel = (data) => {
     return createAxiosWithBearer().put(`/api/user-subscription/unbind_youtube_channel/`, data)
 }
+
+export const check_activated_platform = (data) => {
+    return createAxiosWithBearer().get("/api/user-subscription/check_activated_platform/")
+}

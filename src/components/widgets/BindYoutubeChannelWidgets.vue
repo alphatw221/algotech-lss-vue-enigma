@@ -17,7 +17,7 @@
         </div>
     </div>
     <div v-show="showConnectButton">
-        <BindYoutubeChannelButton />
+        <BindYoutubeChannelButton :busName="'addYoutubeChannels'"/>
     </div>
 </template>
 
@@ -46,7 +46,6 @@ onUnmounted(() => {
 
 const get_youtube_channels = () => {
     get_user_subscription_youtube_channels().then(response=>{
-        console.log(response)
         if (!response.data.length) {
             showConnectButton.value = true;
             return false
@@ -69,6 +68,8 @@ const bind_youtube_channels = (payload) => {
         showConnectButton.value = false;
         showPages.value = true;
         youtubeChannels.value = response.data
+    }).then(response=>{
+        eventBus.emit("check_activated_platform")
     }).catch(error=>{
         console.log(error)
     })
@@ -82,6 +83,7 @@ const removeYoutubeChannels = (payload) => {
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
+            eventBus.emit("check_activated_platform")
             return false
         }
         youtubeChannels.value = response.data

@@ -46,7 +46,6 @@ onUnmounted(()=>{
    
 const get_instagram_profiles = () => {
     get_user_subscription_instagram_profiles().then(response=>{
-        console.log(response)
         if (!response.data.length) {
             showConnectButton.value = true;
             return false
@@ -60,14 +59,14 @@ const get_instagram_profiles = () => {
 
 const bind_instagram_profiles = (payload) => {
     bind_user_instagram_profiles(payload).then(response=>{
-        console.log("bind instagram profiles")
-        console.log(response.data)
         if (!response.data.length) {
             return false
         }
         showConnectButton.value = false;
         showPages.value = true;
         InstagramProfiles.value = response.data
+    }).then(response=>{
+        eventBus.emit("check_activated_platform")
     }).catch(error=>{
         console.log(error)
     })
@@ -81,6 +80,7 @@ const removeInstagramProfiles = (payload) => {
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
+            eventBus.emit("check_activated_platform")
             return false
         }
         InstagramProfiles.value = response.data

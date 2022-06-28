@@ -29,6 +29,7 @@ import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, compu
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
+
 const showConnectButton = ref(false)
 const showPages = ref(false)
 const facebookPages = ref([])
@@ -47,7 +48,6 @@ onUnmounted(()=>{
 
 const get_facebook_pages = () => {
     get_user_subscription_facebook_pages().then(response=>{
-        console.log(response)
         if (!response.data.length) {
             showConnectButton.value = true;
             return false
@@ -69,6 +69,8 @@ const bind_facebook_pages = (payload) => {
         showConnectButton.value = false;
         showPages.value = true;
         facebookPages.value = response.data
+    }).then(response=>{
+        eventBus.emit("check_activated_platform")
     }).catch(error=>{
         console.log(error)
     })
@@ -82,6 +84,7 @@ const removeFacebookPages = (payload) => {
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
+            eventBus.emit("check_activated_platform")
             return false
         }
         facebookPages.value = response.data

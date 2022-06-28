@@ -12,6 +12,9 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const props = defineProps({
   busName: String
 });
+
+const is_activated_platform = ref(false)
+
 onMounted(()=>{
     //facebook SDK use eval() at backend
     loadScript("https://connect.facebook.net/en_US/sdk.js",()=>{
@@ -25,6 +28,11 @@ onMounted(()=>{
             });
         }
     });
+    eventBus.on("activate_instagram", (payload) => {
+        is_activated_platform.value = payload
+        console.log("activate_instagram")
+        console.log(is_activated_platform.value)
+    })
 })
 
 onUnmounted(()=>{
@@ -44,16 +52,21 @@ const login = () => {
 
 const checkLoginState = () => {
     console.log('checkloginstate')
-    window.FB.getLoginStatus(response=>{
-        if (response.status === 'connected') {
-            window.FB.logout(response=> {
-                console.log("logout")
+    if (is_activated_platform.value) {
+        window.FB.getLoginStatus(response=>{
+            if (response.status === 'connected') {
+                window.FB.logout(response=> {
+                    console.log("logout")
+                    login();
+                });
+            } else {
                 login();
-            });
-        } else {
-            login();
-        }
-    });
+            }
+        });
+    } else {
+        eventBus.emit("showUpgradeModal", true)
+    }
+    
 }
 
 </script>

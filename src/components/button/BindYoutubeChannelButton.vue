@@ -4,53 +4,19 @@
     
 </template>
 
-<!-- <script>
-export default {
-    data(){
-        return {
-            scopes:[
-                "https://www.googleapis.com/auth/youtube"+"%20",
-                "https://www.googleapis.com/auth/userinfo.email"+"%20",
-                "https://www.googleapis.com/auth/userinfo.profile"
-            ],
-            callback_uri:"http://localhost:8000/api/user-subscription/bind_youtube_channels_callback",
-            redirect_uri:"https://localhost:8080/",
-            redirect_route:"test_page1",
-            response_type:"code",
-            client_id:"536277208137-okgj3vg6tskek5eg6r62jis5didrhfc3.apps.googleusercontent.com",
-            access_type:"offline",
-        }
-    },
-    computed:{
-        googleLoginHyperReference(){
-            let href=`https://accounts.google.com/o/oauth2/v2/auth?`
-            href+=`redirect_uri=${this.callback_uri}&`
-            href+=`response_type=${this.response_type}&`
-            href+=`client_id=${this.client_id}&`
-            href+=`access_type=${this.access_type}&`
-            href+=`state=${JSON.stringify({
-                redirect_uri:this.redirect_uri,
-                redirect_route:this.redirect_route,
-                callback_uri:this.callback_uri,
-                user_subscription_id:1,
-                })}&`
-
-            href+=`scope=`
-            this.scopes.forEach(value=>{
-                href+=value
-            })
-            return href
-        }
-    },
-}
-
-</script> -->
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
  
 import {loadScriptAsyncDefer} from '@/libs/loadScript.js';
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+
+const props = defineProps({
+  busName: String,
+});
+
+const is_activated_platform = ref(false)
+
 var GoogleAuth;
 var SCOPE = 'https://www.googleapis.com/auth/youtube';
 
@@ -72,6 +38,11 @@ onMounted(()=>{
             GoogleAuth = gapi.auth2.getAuthInstance();
         });
     }
+    eventBus.on("activate_youtube", (payload) => {
+        is_activated_platform.value = payload
+        console.log("activate_youtube")
+        console.log(is_activated_platform.value)
+    })
 })
 
 
@@ -79,18 +50,22 @@ onMounted(()=>{
 
 
 const handleAuthClick = () => {
-    
-    if (GoogleAuth.isSignedIn.get()) {
-        // User is authorized and has clicked "Sign out" button.
-        GoogleAuth.signOut();
+    if (is_activated_platform.value) {
+        if (GoogleAuth.isSignedIn.get()) {
+            // User is authorized and has clicked "Sign out" button.
+            GoogleAuth.signOut();
 
+        } else {
+            // User is not signed in. Start Google auth flow.
+            // GoogleAuth.signIn();
+            GoogleAuth.grantOfflineAccess().then(function(resp) {
+                eventBus.emit(props.busName ,resp)
+            });
+        }
     } else {
-        // User is not signed in. Start Google auth flow.
-        // GoogleAuth.signIn();
-        GoogleAuth.grantOfflineAccess().then(function(resp) {
-            eventBus.emit('addYoutubeChannels',resp)
-        });
+        eventBus.emit("showUpgradeModal", true)
     }
+    
 }
 </script>
 
