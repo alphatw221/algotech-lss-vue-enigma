@@ -196,17 +196,17 @@ const routes = [
 
 /*                     SETTINGS                           */
       {  
-        path: "setting/campaign-global",
+        path: "settings/campaign-global",
         name: "side-menu-campaign-global-setting",
         component: () => import('@/views/settings/Main.vue'),
       },  
       {  
-        path: "setting/localization",
+        path: "settings/localization",
         name: "side-menu-localization",
         component: Localization,
       },  
       {  
-        path: "setting/platform",
+        path: "settings/platform",
         name: "side-menu-connect-platform",
         component: ConnectPlatform,
       },
