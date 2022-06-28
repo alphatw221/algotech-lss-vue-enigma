@@ -74,16 +74,8 @@ onMounted(() => {
             activatedPlatformNumber.value = 3
         }
     }
-
-    eventBus.on("eventBus", (payload) => {
-        currentPage.value = 1
-        category.value = payload.filterColumn
-        search()
-    })
-
-onUnmounted()
-    
 });
+
 const plural = (number) => {
     return number > 1 ? "s" : ""
 }

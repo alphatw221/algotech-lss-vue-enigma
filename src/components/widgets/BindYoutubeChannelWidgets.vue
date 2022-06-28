@@ -1,18 +1,17 @@
 <template>
     <div v-show="showPages" class="border-2 rounded-md">
         <div class="grid grid-cols-12">
-            <div class="col-span-6">
-                <h4 class="ma-5">Youtube Fan Page</h4>
-            </div>
-            <div class="col-span-6">
-                <button type="button" class="border-2">edit</button>
-            </div>
+            <h4 class="ma-5 col-span-12">Youtube Fan Page</h4>
         </div>
         <div class="grid grid-cols-12">
-            <div class="col-span-6" v-for="channel in youtubeChannels" :key="channel.id">
-                <v-avatar class="ml-5">
+            <div v-for="channel in youtubeChannels" :key="channel.id">
+                <div class="relative mt-3">
                     <img :src="channel.image" alt="">
-                </v-avatar>
+                    <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Unbind page" :options="{
+                        theme: 'light',
+                    }"><XCircleIcon class="absolute right-0 top-0 click-icon" @click="removeYoutubeChannels(channel)"/></Tippy>
+                    
+                </div>
                 <span>{{ channel.name }}</span>
             </div>
         </div>
@@ -25,7 +24,7 @@
 <script setup>
 
 import BindYoutubeChannelButton from '@/components/button/BindYoutubeChannelButton.vue'
-import { get_user_subscription_youtube_channels, bind_user_youtube_channels } from '@/api/user_subscription'
+import { get_user_subscription_youtube_channels, bind_user_youtube_channels, unbind_youtube_channel } from '@/api/user_subscription'
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -74,8 +73,30 @@ const bind_youtube_channels = (payload) => {
         console.log(error)
     })
 }
+
+const removeYoutubeChannels = (payload) => {
+    if (!payload) {
+        return false
+    }
+    unbind_youtube_channel(payload).then(response=> {
+        if (!response.data.length) {
+            showConnectButton.value = true;
+            showPages.value = false;
+            return false
+        }
+        youtubeChannels.value = response.data
+    }).catch(error=>{
+        console.log(error)
+    })
+}
 </script>
 
 <style scoped>
-
+.click-icon:hover {
+  cursor: pointer;
+  
+}
+.click-icon {
+    margin: -10px -11px 0px 0px;
+}
 </style>

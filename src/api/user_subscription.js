@@ -28,3 +28,16 @@ export const bind_user_instagram_profiles = (data) => {
 export const bind_user_youtube_channels = (data) => {
     return createAxiosWithBearer().post(`/api/user-subscription/bind_youtube_channels/`, data)
 }
+
+
+export const unbind_facebook_page = (data) => {
+    return createAxiosWithBearer().put(`/api/user-subscription/unbind_facebook_page/`, data)
+}
+
+export const unbind_instagram_profile = (data) => {
+    return createAxiosWithBearer().put(`/api/user-subscription/unbind_instagram_profile/`, data)
+}
+
+export const unbind_youtube_channel = (data) => {
+    return createAxiosWithBearer().put(`/api/user-subscription/unbind_youtube_channel/`, data)
+}

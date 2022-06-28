@@ -9,7 +9,7 @@
                     <img :src="page.image" alt="">
                     <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Unbind page" :options="{
                         theme: 'light',
-                    }"><XCircleIcon class="absolute right-0 top-0 click-icon" @click="unbindPage(page)"/></Tippy>
+                    }"><XCircleIcon class="absolute right-0 top-0 click-icon" @click="removeFacebookPages(page)"/></Tippy>
                     
                 </div>
                 <span>{{ page.name }}</span>
@@ -24,7 +24,7 @@
 <script setup>
 
 import BindFacebookPageButton from '@/components/button/BindFacebookPageButton.vue'
-import { get_user_subscription_facebook_pages, bind_user_facebook_pages } from '@/api/user_subscription'
+import { get_user_subscription_facebook_pages, bind_user_facebook_pages, unbind_facebook_page } from '@/api/user_subscription'
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -74,8 +74,20 @@ const bind_facebook_pages = (payload) => {
     })
 }
 
-const unbindPage = (page) => {
-    eventBus.emit("unbindPage", page)
+const removeFacebookPages = (payload) => {
+    if (!payload) {
+        return false
+    }
+    unbind_facebook_page(payload).then(response=> {
+        if (!response.data.length) {
+            showConnectButton.value = true;
+            showPages.value = false;
+            return false
+        }
+        facebookPages.value = response.data
+    }).catch(error=>{
+        console.log(error)
+    })
 }
 </script>
 

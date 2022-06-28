@@ -38,8 +38,6 @@ const login = () => {
         if (response.status === 'connected') {
             const payload = {'accessToken':response.authResponse.accessToken}
             eventBus.emit(props.busName, payload)
-        } else {
-            alert('Login Fail')
         }
     },{scope: 'public_profile,email,pages_read_engagement,pages_read_user_content,pages_manage_engagement,pages_messaging'});
 }
