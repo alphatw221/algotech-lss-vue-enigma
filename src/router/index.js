@@ -108,9 +108,9 @@ import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
   // {
-  //   path: "/test4",
-  //   name: "side-menu-test4",
-  //   component: Test4,
+  //   path: "/test6",
+  //   name: "side-menu-test6",
+  //   component: Test6,
   // },
   {
     path: "/seller",
@@ -123,7 +123,7 @@ const routes = [
         component: Profile,
       },
       {
-        path: "campaign-list",
+        path: "campaigns",
         name: "side-menu-campaign-list",
         component: CampaignList,
       },
@@ -184,7 +184,7 @@ const routes = [
       },
 /*                CREATE CAMPAIGN                        */      
       {
-        path: "campaign/create",
+        path: "campaign/:type?",
         name: "side-menu-createCam-productselect",
         component: () => import('@/views/create-campaign/Main.vue'),
       },  
@@ -196,17 +196,17 @@ const routes = [
 
 /*                     SETTINGS                           */
       {  
-        path: "campaign-global-setting",
+        path: "setting/campaign-global",
         name: "side-menu-campaign-global-setting",
         component: () => import('@/views/settings/Main.vue'),
       },  
       {  
-        path: "localization-setting",
+        path: "setting/localization",
         name: "side-menu-localization",
         component: Localization,
       },  
       {  
-        path: "platform-setting",
+        path: "setting/platform",
         name: "side-menu-connect-platform",
         component: ConnectPlatform,
       },

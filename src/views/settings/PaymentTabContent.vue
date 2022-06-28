@@ -1,6 +1,6 @@
 <template>
     <div>
-        <template v-if="props.paymentName === 'directPayment'">
+        <template v-if="props.paymentName === 'direct_payment'">
             <div v-for="(account, index) in directPaymentSettings" :key="index">
                 <div 
                     class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-3 lg:gap-5 2xl:my-3 2xl:gap-5" 
@@ -69,7 +69,7 @@
             </div>
         </template>
 
-        <template v-else-if="props.paymentName != 'directPayment' && paymentInfo.multiple === false">
+        <template v-else-if="props.paymentName != 'direct_payment' && paymentInfo.multiple === false">
             <div v-for="(account, index) in singleAccountSettings" :key="index">
                 <div 
                     class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5" 
@@ -128,11 +128,13 @@ const paymentObj = ref({})
 
 
 watchEffect(() => {
+    console.log('props.paymentName')
+    console.log(props.paymentName)
     paymentInfo.value = paymentStore[props.paymentName]
 });
 
 onMounted(() => {
-    if (props.paymentName === 'directPayment') {
+    if (props.paymentName === 'direct_payment') {
         createAxiosWithBearer().get(paymentInfo.value.request_url)
         .then(response => {
             if (response.data.accounts) {
@@ -150,7 +152,7 @@ onMounted(() => {
         }
         paymentObj.value['previewImage'] = null
         paymentObj.value['formData'] = new FormData()
-    } else if (props.paymentName != 'directPayment' && paymentInfo.value.multiple === false) {
+    } else if (props.paymentName != 'direct_payment' && paymentInfo.value.multiple === false) {
         createAxiosWithBearer().get(paymentInfo.value.request_url)
         .then(response => {
             if (Object.keys(response.data).length > 0) {

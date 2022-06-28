@@ -2,7 +2,7 @@
     <div class="box py-5 lg:p-10 2xl:p-10">
 		<div class="box intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 ml-3">
 			<span class="col-start-1 col-span-12 text-2xl font-medium leading-none mb-2 mt-3">
-				{{ pageTitle }}
+				Create Campaign
 			</span>
 			<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
 				<div class="flex">
@@ -65,40 +65,25 @@ import PaymentForm from './PaymentForm.vue';
 import DeliveryForm from './DeliveryForm.vue';
 import NotesForm from './NotesForm.vue';
 import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
-import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
 import { create_campaign } from '@/api_v2/campaign';
-import { list_delivery_setting } from '@/api_v2/campaign';
 
 import { required, minLength, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
-const route = useRoute()
+
 const router = useRouter()
+const layoutStore = useLSSSellerLayoutStore()
 const campaignStore = useCreateCampaignStore()
-const sellerStore = useLSSSellerLayoutStore()
-const pageType = ref(route.params.type)
-
-const pageTitle = computed(() => {
-	if (pageType.value === 'create') return 'Create Campaign'
-	else if (pageType.value === 'edit') return 'Edit Campaign'
+const campaignTitle = ref({ title: '' })
+const campaignPeriod = ref({
+	start: new Date(),
+	end: new Date(),
 })
 
-onMounted(() => {
-	if (pageType.value === 'create') {
-		list_delivery()
-	}
-})
-
-const list_delivery = () => {
-    list_delivery_setting().then(
-        response => {
-            if (response.data && Object.keys(response.data).length === 0 && Object.getPrototypeOf(response.data) === Object.prototype) return
-			else campaignStore.deliverySettings = response.data 
-        }
-    )    
-}
+// watch(campaignTitle, () => { campaignStore.campaignTitle = campaignTitle.value.title }, { deep: true})
+// watch(campaignPeriod, () => { campaignStore.campaignPeriod = campaignPeriod.value }, { deep: true})
 
 const title_rules = computed(() => {
 	return { title: { required, minLength: minLength(1), maxLength: maxLength(255) } }
@@ -108,7 +93,7 @@ const title_validate = useVuelidate(title_rules, campaignStore.campaignTitle);
 const saveCampaign = () => {
 	title_validate.value.$touch()
 	if (title_validate.value.$invalid) {
-		sellerStore.alert.showMessageToast("Invalid campaign title input")
+		layoutStore.alert.showMessageToast("Invalid campaign title input")
 		return
 	}
 
@@ -134,3 +119,4 @@ const saveCampaign = () => {
 }
 
 </script>
+

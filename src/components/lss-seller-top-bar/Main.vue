@@ -265,7 +265,7 @@ const logout = () => {
   cookies.remove('access_token')
   cookies.remove('login_with')
   dom('.dropdown-menu').removeClass('show')
-  router.replace('/seller/login')
+  router.go()
   
 }
 
