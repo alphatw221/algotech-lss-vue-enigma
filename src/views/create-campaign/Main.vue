@@ -140,14 +140,13 @@ const saveCampaign = () => {
 
 	if (route.params.type === 'create') {
 		create_campaign(formData).then(response => {
-			let campaign_id = response.data
-			router.push(`assign/product?campaign_id=${campaign_id}`)
+			router.push(`/seller/campaign/assign/product?campaign_id=${response.data.id}&type=create`)
 		}).catch(err => {
 			console.log('api error')
 		})
 	} else if (route.params.type === 'edit') {
 		update_campaign(route.params.campaign_id, formData).then(response => {
-			console.log('poooooooooooooooooop')
+			router.push(`/seller/campaign/assign/product?campaign_id=${route.params.campaign_id}&type=edit`)
 		})
 	}
 	
