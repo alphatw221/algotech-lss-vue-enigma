@@ -122,6 +122,16 @@
 import { ref, provide, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { campaign_manage_order } from "@/api/manage_order";
 const route = useRoute();
 const store = useManageOrderStore()
+
+onMounted(()=>{
+    campaign_manage_order(route.params.campaign_id).then(
+        res =>{
+            store.manageOrder = res.data
+            // console.log(res.data)
+        }
+    )
+})
 </script>

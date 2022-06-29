@@ -45,7 +45,7 @@
 					</template>
 					<template v-else>
 						<div class="form-check self-center place-content-left">
-                            <input id="qty" type="number" class="form-control w-16" aria-label="default input" :value="product.qty"
+                            <input id="qty" type="number" class="form-control w-16" aria-label="default input" :value="store.orderDetail.products[index].qty"
                                  @input="update_qty(index,product.order_product_id,$event.target.value)"/>
                         </div>
 					</template>
@@ -70,12 +70,12 @@
 <script setup>
 import { computed, onMounted, ref, watch,getCurrentInstance } from "vue";
 
-import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useRoute, useRouter } from "vue-router";
 import { seller_delete_product, seller_update_product } from "@/api_v2/order_product"
 const route = useRoute();
 const router = useRouter();
-const store = useManageOrderStore();
+const store = useSellerOrderStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;

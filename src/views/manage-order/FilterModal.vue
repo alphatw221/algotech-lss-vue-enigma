@@ -86,6 +86,10 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const store = useManageOrderStore()
 
+const props = defineProps({
+    tableFilter: String,
+});
+
 function updateTag(type,tag){
     store.filterTagArray[type][tag] = !store.filterTagArray[type][tag]
 }
@@ -99,8 +103,9 @@ function filter(){
             }
         }
     }
-    eventBus.emit('filter',{'data':data})
+    eventBus.emit(props.tableFilter,{'data':data})
     console.log(data)
+    store.filterModal = false
 }
 
 </script>
