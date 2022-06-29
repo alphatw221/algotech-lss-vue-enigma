@@ -93,7 +93,7 @@
     </div>
 </template>
 <script setup>
-import { manage_order_list } from "@/api_v2/manage_order"
+import { manage_order_list } from "@/api_v2/order"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
@@ -156,7 +156,7 @@ function search(searchValue,data,tableStatus){
 
 function to_order_detail(order_id,type){
     store.order_type = type
-    router.push({name:'sellerOrder',query:{type:type}})
+    router.push({name:'sellerOrder',params:{'order_id':order_id},query:{'type':type}})
 }
 function changePage(p) {
     page = p
