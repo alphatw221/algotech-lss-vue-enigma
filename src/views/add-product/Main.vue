@@ -278,7 +278,7 @@ const submit = ()=>{
 				// console.log('image upload response > ', response)
 				// layoutStore.alert.showMessageToast("Invalid Quantity")
 				layoutStore.notification.showMessageToast("Update Success")
-				router.push('/seller/stock')
+				router.push({name:'stock'})
 			},
 		)
 	} else {
@@ -288,7 +288,7 @@ const submit = ()=>{
 		.then(
 			response => {
 				layoutStore.notification.showMessageToast("Create Success"),
-				router.push('/seller/stock')
+				router.push({name:'stock'})
 			}
 		)
 	}
@@ -306,7 +306,7 @@ const uploadImage = e =>{
 }
 
 const cancelButton = () =>{
-	router.push('/seller/stock');
+	router.push({name:'stock'});
 	layoutStore.alert.showMessageToast("Change Not Saved");
 }
 

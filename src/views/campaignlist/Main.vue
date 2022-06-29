@@ -4,7 +4,7 @@
     <!-- BEGIN: commit box -->
     <div class="col-span-12 flex flex-col grow">
       <div class="flex flex-row mt-4 p-2 flex-wrap">
-        <div class="switch-toggle switch-3 switch-candy mx-2 flex-none">
+        <div class="switch-toggle switch-3 switch-candy mx-2 flex-none mb-2">
           <input id="off" name="state-d" type="radio" />
           <label for="off" @click="show_campaign('ongoing')" style="width: 100px; font-size:14px;">Ongoing</label>
           <input id="on" name="state-d" type="radio" checked="checked"/>
@@ -14,7 +14,7 @@
         </div>
         <button 
           class="btn btn-warning btn-rounded w-24 h-10 text-white mx-2 ml-auto"
-                @click="router.push('/seller/campaign/create')" > 
+                @click="router.push({name:'create-campaign'})" > 
           <span class="font-bold mr-1 text-lg">+</span> Create
         </button>
       </div>

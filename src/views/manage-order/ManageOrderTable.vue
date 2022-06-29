@@ -1,5 +1,4 @@
 <template>
-<div >
     <table id="orderTable" class="table table-report mt-3 text-lg">
         <thead>
             <tr>
@@ -46,7 +45,7 @@
                     <template v-else-if="column.key === 'delivery'">
                         <div class="flex place-content-center">
                             <div class="w-10 h-10 image-fit">
-                                <TruckIcon/>
+                                <TruckIcon v-show="order.status === 'complete'"/>
                             </div>
                         </div>
                     </template>
@@ -90,13 +89,12 @@
         </tbody>
     </table>
     <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-        <Page :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
+        <Page :total="store.data_count[tableStatus]" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
-</div>
-    
 </template>
 <script setup>
-import { ref, provide, onMounted, getCurrentInstance } from "vue";
+import { manage_order_list } from "@/api_v2/manage_order"
+import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 const route = useRoute();
@@ -105,7 +103,7 @@ const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
-    { name: 'Order Number', key: 'id' },
+    { name: 'Order#', key: 'id' },
     { name: 'Platform', key: 'platform' },
     { name: 'Name', key: 'customer_name' },
     { name: 'Amount', key: 'subtotal' },
@@ -119,20 +117,54 @@ const columns = ref([
 let page = 1;
 let page_size = 10;
 
+
 const props = defineProps({
     tableStatus: String,
-    dataCount: Number,
+    tableSearch: String,
+    tableFilter:String,
 });
+
+onMounted(()=>{
+    search('','',props.tableStatus)
+    eventBus.on(props.tableSearch, (payload) => {
+        search(payload.value,payload.filter_data,props.tableStatus)
+	})
+    eventBus.on(props.tableFilter, (payload) => {
+        search('',payload.data,props.tableStatus)
+	})
+    
+})
+
+onUnmounted(()=>{
+    eventBus.off(props.tableSearch)
+    eventBus.off(props.tableFilter)
+})
+
+function search(searchValue,data,tableStatus){
+    manage_order_list(route.params.campaign_id,searchValue,page,page_size,tableStatus,data).then(
+        res => {
+			store[tableStatus] = res.data.data
+            console.log( res.data)
+            if (res.data.count != 0) {
+                store.data_count[tableStatus] = res.data.count;
+                let totalPage = parseInt(res.data.count / page_size);
+                totalPage = totalPage == 0 ? 1 : totalPage;
+            }
+		}
+    )
+}
 
 function to_order_detail(order_id,type){
     store.order_type = type
-    router.push(`/seller/campaigns/manage-order/order/${order_id}?type=${type}`)
+    router.push({name:'sellerOrder',query:{type:type}})
 }
-function changePage(page) {
-    eventBus.emit('changePage',{'page':page})
+function changePage(p) {
+    page = p
+    search('','',props.tableStatus)
     }
-function changePageSize(pageSize) {
-    eventBus.emit('changePageSize',{'page_size':page_size})
+function changePageSize(p) {
+    page_size = p
+    search('','',props.tableStatus)
     }
 function orderProductModal(id,type){
     eventBus.emit('getProductData',{'id':id,'type':type})
@@ -210,7 +242,6 @@ thead th{
 		font-weight: bold;
 		box-shadow: none !important;
 		background-color: white !important;
-		padding-top: 5px !important;
 	}
 
 	td:nth-of-type(1):before {

@@ -13,7 +13,7 @@
 				<button id="tabulator-html-filter-go" 
 					type="button" 
 					class="btn btn-primary shadow-md w-48 lg:w-36 2xl:w-48" 
-					@click="this.$router.push({ path: '/seller/category/management'})">
+					@click="this.$router.push({name:'category-management'})">
 					Category Management
 				</button>
 			</div>

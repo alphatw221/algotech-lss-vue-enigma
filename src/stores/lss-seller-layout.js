@@ -21,7 +21,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       // },
       {
         icon: "PackageIcon",
-        pageName: "Stock",
+        pageName: "stock",
         title: "Stock",
       },
       // {
@@ -31,7 +31,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       // },
       {
         icon: "CalendarIcon",
-        pageName: "side-menu-createCam-productselect",
+        pageName: "create-campaign",
         title: "Create Campaign",
       },
       {

@@ -72,12 +72,12 @@
     
 </template>
 <script setup>
-import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { seller_adjust_price } from "@/api_v2/pre_order"
 import { useRoute, useRouter } from "vue-router";
 import {ref, watch, computed, getCurrentInstance} from "vue";
 
-const store = useManageOrderStore();
+const store = useSellerOrderStore();
 const route = useRoute();
 const router = useRouter();
 const internalInstance = getCurrentInstance()

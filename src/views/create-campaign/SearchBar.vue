@@ -28,18 +28,10 @@ export default {
             categorySelection: []
         }
     },
-    watch: {
-        searchField() {
-            this.search();
-        },
-    },
     mounted() {
-        list_product_category().then(
-            response => {
-                console.log()
-                this.categorySelection = response.data
-            }
-        )
+        list_product_category().then(response => {
+            this.categorySelection = response.data
+        })
     },
     methods: {
         search() {
