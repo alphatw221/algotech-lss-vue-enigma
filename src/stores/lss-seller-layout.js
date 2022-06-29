@@ -49,16 +49,16 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "side-menu-auto-reply",
         title: "Auto Reply",
       },
-      {
-        icon: "PackageIcon",
-        pageName: "",
-        title: "Manage Order",
-      },
-      {
-        icon: "PlusSquareIcon",
-        pageName: "mkt-plugin",
-        title: "MKT Plugin",
-      },
+      // {
+      //   icon: "PackageIcon",
+      //   pageName: "",
+      //   title: "Manage Order",
+      // },
+      // {
+      //   icon: "PlusSquareIcon",
+      //   pageName: "mkt-plugin",
+      //   title: "MKT Plugin",
+      // },
       // {
       //   icon: "ShoppingCartIcon",
       //   pageName: "side-menu-shopping-cart",

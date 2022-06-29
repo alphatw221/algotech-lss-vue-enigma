@@ -220,7 +220,7 @@ onMounted(()=>{
 		.then(
 			res => {
 				product.value = res.data
-				previewImage.value = storageUrl + res.data.image
+				previewImage.value = res.data.image?storageUrl + res.data.image:null
 			}
 		)
 	}

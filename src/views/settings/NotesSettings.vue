@@ -88,6 +88,8 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 
 const layoutStore = useLSSSellerLayoutStore();
+
+//之後這邊改成 綁layoutStore裡面的userInfo.user_subscription
 const deliveryNote = ref('')
 const specialNote = ref('')
 const confirmationNote = ref('')
