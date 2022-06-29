@@ -1,6 +1,6 @@
 <template>
 
-    <Modal :show="show" @hidden="closeChat()">
+    <Modal :show="show" @hidden="closeChat" backdrop="static">
         <ModalHeader>
             <img alt="" class="rounded-full zoom-in w-8 h-8" :src="replyTo.image" />
             <h2 class="font-medium text-base mr-auto ml-5">Reply to {{ replyTo.customer_name }} </h2>
@@ -108,16 +108,16 @@ export default {
             if(this.show === true){
                 this.loopNestComment()
             }else{
+                clearInterval(this.dummy)
                 console.log('off')
                 this.show = false
-                clearInterval(this.dummy)
             }
         }   
     },
     methods: {
         closeChat() {
-            this.show = false,
             clearInterval(this.dummy)
+            this.show = false,
             this.eventBus.emit("hide")
         },
         getNestComment(){

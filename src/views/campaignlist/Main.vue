@@ -1,12 +1,10 @@
 <template>
   <!-- BEGIN OUTTER BOX -->
-  <div class="intro-y chat grid grid-cols-12 gap-5">
-
-
+  <div class="intro-y chat grid grid-cols-12 gap-5 box">
     <!-- BEGIN: commit box -->
     <div class="col-span-12">
-      <div class="box p-2 intro-y grid grid-cols-12 gap-2 mt-5 p-2">
-        <div class="switch-toggle switch-3 switch-candy col-start-1 col-span-12 m-2 lg:col-span-8 2xl:col-span-8">
+      <div class="flex flex-row mt-4 p-2 flex-wrap">
+        <div class="switch-toggle switch-3 switch-candy m-2 flex-none">
           <input id="off" name="state-d" type="radio" />
           <label for="off" @click="show_campaign('ongoing')" style="width: 100px; font-size:14px;">Ongoing</label>
           <input id="on" name="state-d" type="radio" checked="checked"/>
@@ -15,14 +13,13 @@
           <label for="na" @click="show_campaign('history')" style="width: 100px; font-size:14px;">History</label>
         </div>
         <button 
-          class="col-start-1 btn btn-warning btn-rounded w-24 h-10 text-white
-            lg:col-start-11 lg:m-2 
-              2xl:col-start-11 2xl:m-2"
+          class="btn btn-warning btn-rounded w-24 h-10 text-white m-2 ml-auto"
                 @click="router.push('/seller/campaign/create')" > 
-          <span class="font-bold mr-1 text-lg">+</span> Create</button>
+          <span class="font-bold mr-1 text-lg">+</span> Create
+        </button>
       </div>
 
-      <div class="box mt-3" v-show="campaignStatus=='scheduled'">
+      <div class="mt-3" v-show="campaignStatus=='scheduled'">
           <SearchBar 
             :searchColumns="searchColumns" 
             :eventBusName="'searchScheduledCampaign'"
@@ -37,7 +34,7 @@
           />
       </div>
 
-      <div class="box mt-3" v-show="campaignStatus=='history'">
+      <div class="mt-3" v-show="campaignStatus=='history'">
           <SearchBar 
             :searchColumns="searchColumns" 
             :eventBusName="'searchHistoryCampaign'"
@@ -51,7 +48,7 @@
           />
       </div>
 
-      <div class="box mt-3" v-show="campaignStatus=='ongoing'">
+      <div class="mt-3" v-show="campaignStatus=='ongoing'">
           <SearchBar 
             :searchColumns="searchColumns" 
             :eventBusName="'searchOngoingCampaign'"
@@ -124,7 +121,6 @@ const tableColumns =ref( [
   { name: "Stop Checkout", key: "stop" },
   // { name: "Order Link", key:"link" },
   { name: " ", key: "entry" },
-  { name: " ", key: "edit" },
 ])
 
 const showRemindEnterPostIDModal = ref(false)
