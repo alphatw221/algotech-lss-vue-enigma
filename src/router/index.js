@@ -95,7 +95,7 @@ import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 // import Test2 from "../views/test/test2.vue"; 
 // import Test4 from "../views/test/test4.vue"; 
 // import Test5 from "../views/test/test5.vue"; 
-// import Test6 from "../views/test/test6.vue"; 
+import Test7 from "../views/test/test7.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
@@ -107,11 +107,11 @@ import buyerRecaptchaMiddleware from "@/libs/routerMiddleware/buyerRecaptchaMidd
 import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
-  // {
-  //   path: "/test6",
-  //   name: "side-menu-test6",
-  //   component: Test6,
-  // },
+  {
+    path: "/test7",
+    name: "side-menu-test7",
+    component: Test7,
+  },
   {
     path: "/seller",
     component: LssSellerLayout,
