@@ -18,11 +18,20 @@
 				<template v-for="column in columns" :key="column.key"> 
 					<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm imgtd">
 						<div class="flex">
-							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
+							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12" v-if="product.image">
 								<Tippy 
 									tag="img"
 									class="rounded-lg w-full"
 									:src= "`${publicPath}` + product.image"
+									:content="product.name"
+									data-action="zoom"
+								/>
+							</div>
+							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12" v-else>
+								<Tippy 
+									tag="img"
+									class="rounded-lg w-full"
+									:src= "`${storageUrl}` + `no_image.jpeg`"
 									:content="product.name"
 									data-action="zoom"
 								/>
@@ -84,7 +93,8 @@ export default {
             keyword: undefined,
             listItems: [],
 			publicPath: import.meta.env.VITE_APP_IMG_URL,
-			category: undefined
+			category: undefined,
+			storageUrl: import.meta.env.VITE_GOOGLE_STORAGEL_URL
 		}
 	},
 	mounted() {

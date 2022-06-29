@@ -49,15 +49,27 @@
                                         </div>
                                     </div>
                                 </template>
-                                <template v-else-if="column.key === 'name'">
+                                <template v-else-if="column.key === 'customer'">
                                         <div class="flex flex-col items-left">
-                                            <div class="w-10 h-10 image-fit zoom-in">
+                                            <div class="w-10 h-10 image-fit zoom-in" v-if="order.customer_img">
                                                 <Tippy tag="img" class="rounded-full" 
                                                     :src="order.customer_img"
                                                     />
                                             </div>
-                                            {{ order.customer_name }}
+                                            <div class="w-10 h-10 image-fit zoom-in" v-else>
+                                                <Tippy tag="img" class="rounded-full" 
+                                                    :src="'/src/assets/images/lss-img/noname.png'"
+                                                    />
+                                            </div>
                                         </div>
+                                </template>
+                                <template v-else-if="column.key === 'customer_name'">
+                                    <template v-if="order.customer_name">
+                                        {{order.customer_name}}
+                                    </template>
+                                    <template v-else>
+                                        Guess
+                                    </template>        
                                 </template>
                                 <template v-else-if="column.key === 'order_product'">
                                     <div class="flex place-content-center">
@@ -92,7 +104,8 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
     { name: 'Order Number', key: 'id' },
     { name: 'Platform', key: 'platform' },
-    { name: 'Customer', key: 'name' },
+    { name: 'Customer', key: 'customer' },
+    { name: '', key: 'customer_name' },
     { name: 'Amount', key: 'subtotal' },
     { name: 'Payment', key: 'payment_method' },
     { name: 'Status', key: 'status' },
