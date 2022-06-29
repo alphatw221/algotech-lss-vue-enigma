@@ -1,4 +1,5 @@
 <template>
+<div >
     <table id="orderTable" class="table table-report mt-3 text-lg">
         <thead>
             <tr>
@@ -91,6 +92,8 @@
     <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
         <Page :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
+</div>
+    
 </template>
 <script setup>
 import { ref, provide, onMounted, getCurrentInstance } from "vue";
@@ -104,8 +107,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
     { name: 'Order Number', key: 'id' },
     { name: 'Platform', key: 'platform' },
-    { name: 'Customer', key: 'customer' },
-    { name: '', key: 'customer_name' },
+    { name: 'Name', key: 'customer_name' },
     { name: 'Amount', key: 'subtotal' },
     { name: 'Payment', key: 'payment_method' },
     { name: 'Status', key: 'status' },

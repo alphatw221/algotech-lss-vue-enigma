@@ -18,7 +18,7 @@
                     </div>
                     <div class="flex-initial w-auto items-center sm:mr-4">
                         <label class="w-14 xl:w-auto mr-2">
-                            Field
+                            Search by
                         </label>
                         <select id="tabulator-html-filter-field"
                             class="form-select w-auto mr-4 h-10 mt-2 " v-model="searchField">
@@ -29,9 +29,6 @@
                         </select>
                     </div>
                     <div class="flex-initial w-auto items-center">
-                        <label class="w-14 mt-2 flex-none 2xl:w-auto mr-2 2xl:mt-0">
-                            Value
-                        </label>
                         <input id="tabulator-html-filter-value" type="text"
                             class="form-control mt-2 w-auto" placeholder="Search..."
                             v-model="keyword" @keydown.enter.prevent="search" />
@@ -104,6 +101,7 @@ export default {
 		reset() {
 			this.searchField = this.searchColumn[this.page_type];
 			this.keyword = '';
+            this.search();
 		}
 	}
 }

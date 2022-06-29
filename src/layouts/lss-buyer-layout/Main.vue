@@ -55,3 +55,11 @@ provide("bind[buyerMessageAlert]", (el) => {
 });
 
 </script>
+
+<style scoped>
+
+.lss-content{
+  padding-right: 5%;
+  padding-left: 5%;
+}
+</style>

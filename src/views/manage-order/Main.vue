@@ -2,12 +2,12 @@
     <!-- OUTTER BOX -->
     <div class="intro-y grid grid-cols-12 gap-5">
         <!-- BEGIN: campaign Info -->
-        <div class="col-span-12">
+        <div class="col-span-12 flex flex-col">
             <!-- BEGIN: campaign Status -->
             <CampaignStatus/>
             <!-- END: campaign Status -->
 
-            <div class="col-span-12 mt-8 ">
+            <div class="w-full mt-8">
                 <div class="flex align-baseline text-xl -mb-5">
                     <div class="relative mr-3 ml-2 w-14"> 
                         <a class="mr-0.5" @click="show_order('manageAllOrder')">All </a>
@@ -44,12 +44,12 @@
             </div>
 
             <!-- Table -->
-            <div class="form-check form-switch w-full sm:w-auto sm:ml-auto sm:mt-0">
+            <div class="form-check form-switch w-full">
                 <label class="form-check-label ml-0" for="show-example-3"> Stop Checkout</label>
                 <input @click="stop_checkout($event.target.checked)" class="form-check-input mr-0 ml-3" type="checkbox" v-model="checkout_status"/>
             </div>
 
-            <div class=" mt-3">
+            <div class=" mt-3 w-full overflow-auto">
                 <ManageOrderTable 
                     v-if="tableStatus === 'manageAllOrder'"
                     :tableStatus="tableStatus"
