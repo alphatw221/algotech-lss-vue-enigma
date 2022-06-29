@@ -41,9 +41,9 @@
 				</div>
 			</div>
 
-			<template v-if="route.query.type === 'create'">
+			<template v-if="route.name === 'assign-product'">
 				<div v-show="selectProduct" class="flex justify-end mt-5 -mb-5">
-					<button class="btn btn-outline-primary mr-5" @click="router.push({ path: `/seller/campaign/edit/${route.query.campaign_id}` })">
+					<button class="btn btn-outline-primary mr-5" @click="router.push({ name: 'edit-campaign', params: {campaign_id: route.params.campaign_id} })">
 						Previous
 					</button>
 					<button class="btn btn-outline-primary" @click="toConfirmPage"> 
@@ -59,9 +59,9 @@
 					</button>
 				</div>
 			</template>
-			<template v-if="route.query.type === 'edit'">
+			<template v-if="route.name === 'edit-campaign-product'">
 				<div class="flex justify-end mt-5 -mb-5">
-					<button class="btn btn-outline-primary" @click="router.push({ name: 'side-menu-campaign-list' })">
+					<button class="btn btn-outline-primary" @click="router.push({ name: 'campaigns' })">
 						Save
 					</button>
 				</div>
@@ -85,15 +85,9 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 const campaignStore = useCreateCampaignStore(); 
 const selectProduct = ref(true);
 const comfirmProduct = ref(false);
-
-
-onMounted(() => {
-
-})
-
 const productPageTitle = computed(() => {
-	if (route.query.type === 'edit') return 'Edit Products'
-	else if (route.query.type === 'create') {
+	if (route.name === 'edit-campaign-product') return 'Edit Products'
+	else if (route.name === 'assign-product') {
 		if (selectProduct.value == true) return 'Assign Products'
 		if (comfirmProduct.value == true) return 'Confirm Products'
 	}
@@ -118,7 +112,7 @@ const assignProduct = () => {
 		assignedProducts[i]['customer_removable'] = assignedProducts[i]['deletable']
 	}
 	
-	seller_create_campaign_products(route.query.campaign_id, assignedProducts)
+	seller_create_campaign_products(route.params.campaign_id, assignedProducts)
 	.then(response => {
 		router.push({ name: 'campaigns' })
 	})
