@@ -46,3 +46,7 @@ export const comment_on_comment = (campaign_id,comment_id,message_text) => {
 export const nest_comment = (campaign_id,comment_id) => {
     return createAxiosWithBearer().get(`/api/v2/campaign/facebook/comment-reply/?campaign_id=${campaign_id}&comment_id=${comment_id}`)
 }
+
+export const allow_checkout = (campaign_id,status) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign/edit_allow_checkout/?campaign_id=${campaign_id}&status=${status ? 0 : 1}`)
+}

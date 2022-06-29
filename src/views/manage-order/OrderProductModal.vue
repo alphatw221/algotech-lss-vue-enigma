@@ -25,11 +25,19 @@
                 <tbody>
                     <tr v-for="(product, index) in store.orderProductData.products" :key="index" class="intro-x text-[16px]">
                         <td class="imgtd">
-                            <div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex">
+                            <div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-if="product.image">
                                 <Tippy
                                     tag="img"
                                     class="rounded-lg"
                                     :src="storageUrl + product.image"
+                                    :content="product.name"
+                                />
+                            </div>
+                            <div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-else>
+                                <Tippy
+                                    tag="img"
+                                    class="rounded-lg"
+                                    :src="storageUrl + 'no_image.jpeg'"
                                     :content="product.name"
                                 />
                             </div>

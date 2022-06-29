@@ -2,9 +2,9 @@
   <!-- BEGIN OUTTER BOX -->
   <div class="intro-y chat grid grid-cols-12 gap-5 box">
     <!-- BEGIN: commit box -->
-    <div class="col-span-12">
+    <div class="col-span-12 flex flex-col grow">
       <div class="flex flex-row mt-4 p-2 flex-wrap">
-        <div class="switch-toggle switch-3 switch-candy m-2 flex-none">
+        <div class="switch-toggle switch-3 switch-candy mx-2 flex-none">
           <input id="off" name="state-d" type="radio" />
           <label for="off" @click="show_campaign('ongoing')" style="width: 100px; font-size:14px;">Ongoing</label>
           <input id="on" name="state-d" type="radio" checked="checked"/>
@@ -13,13 +13,13 @@
           <label for="na" @click="show_campaign('history')" style="width: 100px; font-size:14px;">History</label>
         </div>
         <button 
-          class="btn btn-warning btn-rounded w-24 h-10 text-white m-2 ml-auto"
-                @click="router.push('/seller/campaign/create')" > 
+          class="btn btn-warning btn-rounded w-24 h-10 text-white mx-2 ml-auto"
+                @click="router.push({name:'create-campaign'})" > 
           <span class="font-bold mr-1 text-lg">+</span> Create
         </button>
       </div>
 
-      <div class="mt-3" v-show="campaignStatus=='scheduled'">
+      <div class="mt-3 flex-auto h-fit" v-show="campaignStatus=='scheduled'">
           <SearchBar 
             :searchColumns="searchColumns" 
             :eventBusName="'searchScheduledCampaign'"
@@ -34,7 +34,7 @@
           />
       </div>
 
-      <div class="mt-3" v-show="campaignStatus=='history'">
+      <div class="mt-3 flex-auto h-fit" v-show="campaignStatus=='history'">
           <SearchBar 
             :searchColumns="searchColumns" 
             :eventBusName="'searchHistoryCampaign'"
@@ -48,7 +48,7 @@
           />
       </div>
 
-      <div class="mt-3" v-show="campaignStatus=='ongoing'">
+      <div class="mt-3 flex-auto h-fit" v-show="campaignStatus=='ongoing'">
           <SearchBar 
             :searchColumns="searchColumns" 
             :eventBusName="'searchOngoingCampaign'"

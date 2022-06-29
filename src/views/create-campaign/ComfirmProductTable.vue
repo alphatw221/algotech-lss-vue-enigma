@@ -39,11 +39,11 @@
                                     @input="changeInput($event, index, 'order_code')" />
                             </div>
                         </td>
-                        <td v-else-if="column.key === 'qty_campaign'">
+                        <td v-else-if="column.key === 'qty'">
                             <div class="form-check self-center place-content-center">
                                 <input type="text" class="form-control" aria-label="default input" :value="product.qty"
                                     style="width: 4rem; height: 2rem; margin-top: 5px;"
-                                    @input="changeInput($event, index, 'qty_campaign')" />
+                                    @input="changeInput($event, index, 'qty')" />
                             </div>
                         </td>
 
@@ -172,7 +172,7 @@ const tableColumns = ref([
     { name: "Image", key: "image" },
     { name: "Product Name", key: "name" },
     { name: "Order Code", key: "order_code" },
-    { name: "Qty for Campaign", key: "qty_campaign" },
+    { name: "Qty for Campaign", key: "qty" },
     { name: "Max Qty / Order", key: "max_order" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
@@ -220,8 +220,8 @@ const changeInput = (event, index, type) => {
         if (event.target.value == '') event.target.value = 1
 
         if (event.target.value <= campaignStore.assignedProducts[index].qty) {
-            if (type == 'qty_campaign') {
-                campaignStore.assignedProducts[index].qty_campaign = event.target.value
+            if (type == 'qty') {
+                campaignStore.assignedProducts[index].qty = event.target.value
             } else if (type == 'max_order') {
                 campaignStore.assignedProducts[index].max_order_amount = event.target.value
             }
@@ -281,12 +281,7 @@ thead th{
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
 
-	table,
-	thead,
-	tbody,
-	th,
-	td,
-	tr {
+	table, thead, tbody, th, td, tr {
 		display: block;
 		font-size: 16px;
 		padding: 0px !important;

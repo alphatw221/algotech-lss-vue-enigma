@@ -72,7 +72,7 @@
 													</button>
 												</div>
 											</form>
-											<button class="btn btn-primary shadow-md mr-2" @click="this.$router.push('add_product')">Add New Product</button>
+											<button class="btn btn-primary shadow-md mr-2" @click="this.$router.push({name:'add-product'})">Add New Product</button>
 										</div>
 									</div>
 									

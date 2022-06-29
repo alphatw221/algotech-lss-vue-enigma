@@ -210,7 +210,7 @@ const campaignPlatformData =ref( {
 const enterLive = ()=>{
   clearData()
   emits('hide')
-  router.push(`/seller/campaign-live/${props.targetCampaign.campaign.id}`)
+router.push({name:'campaign-live',params:{'campaign_id':campaign.id}})
 }
 
 const cancel = ()=>{

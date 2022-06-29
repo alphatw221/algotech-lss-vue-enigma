@@ -17,35 +17,33 @@
 				<td class=" ">
 					<div class="flex">
 						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-if="product.image">
-						<Tippy
+						<img
 							tag="img"
 							data-action="zoom"
 							class="rounded-lg"
 							:src="storageUrl+product.image"
-							:content="product.name"
 						/>
 						</div>
 						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-else>
-						<Tippy
+						<img
 							tag="img"
 							data-action="zoom"
 							class="rounded-lg"
 							:src="storageUrl+`no_image.jpeg`"
-							:content="product.name"
 						/>
 						</div>
 					</div>
 				</td>
 				<td class="text-center">
-					<div class="w-40 whitespace-normal break-words">{{ product.name }} </div>
+					<div class="whitespace-normal break-words">{{ product.name }} </div>
 				</td>
-				<td class="text-center ">
+				<td class="text-center">
 					<template v-if="props.order_type === 'order'">
 						{{ product.qty }}
 					</template>
 					<template v-else>
 						<div class="form-check self-center place-content-left">
-                            <input id="qty" type="number" class="form-control w-16" aria-label="default input" :value="product.qty"
+                            <input id="qty" type="number" class="form-control w-16" aria-label="default input" :value="store.orderDetail.products[index].qty"
                                  @input="update_qty(index,product.order_product_id,$event.target.value)"/>
                         </div>
 					</template>
@@ -70,12 +68,12 @@
 <script setup>
 import { computed, onMounted, ref, watch,getCurrentInstance } from "vue";
 
-import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useRoute, useRouter } from "vue-router";
 import { seller_delete_product, seller_update_product } from "@/api_v2/order_product"
 const route = useRoute();
 const router = useRouter();
-const store = useManageOrderStore();
+const store = useSellerOrderStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -120,6 +118,8 @@ const props = defineProps({
 td {
   min-height: 40px;
   border-collapse: collapse;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 thead th{ 
@@ -127,6 +127,8 @@ thead th{
   top: 0 !important;
   z-index: 99;
   background-color: theme("colors.secondary");
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 .longMessage{

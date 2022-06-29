@@ -54,7 +54,7 @@
 						<div class="flex justify-center items-center">
 							<a 
 								class="flex items-center mr-3" 
-								@click="this.$router.push({ path: `/seller/product/edit/${product.id}`})"
+								@click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"
 							>
 								<CheckSquareIcon class="w-4 h-4 mr-1"/> Edit
 							</a>

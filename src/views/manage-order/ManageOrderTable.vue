@@ -1,99 +1,100 @@
 <template>
-    <table id="orderTable" class="table table-report mt-3 text-lg">
-        <thead>
-            <tr>
-                <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
-                    {{ column.name }}
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr v-for="(order, key) in store[tableStatus]" :key="key" class="intro-x">
-                <td v-for="column in columns" :key="column.key">
-                    <template v-if="column.key === 'platform'">
-                        <div class="flex items-left">
-                            <div v-if="order[column.key] === 'facebook'"
-                                class="w-10 h-10 image-fit">
-                                <div class="w-10 h-10 image-fit">
-                                    <img src='/src/assets/images/lss-img/facebook.png' >
-                                </div>
-                            </div>
-                            <div v-else-if="order[column.key] === 'instagram'"
-                                class="w-10 h-10 image-fit">
-                                <div class="w-10 h-10 image-fit">
-                                    <img src='/src/assets/images/lss-img/instagram.png' />
-                                </div>
-                            </div>
-                            <div v-else-if="order[column.key] === 'youtube'"
-                                class="w-10 h-10 image-fit">
-                                <div class="w-10 h-10 image-fit">
-                                    <img src='/src/assets/images/lss-img/youtube.png' />
-                                </div>
-                            </div>
-                            <div v-else class="w-10 h-10 image-fit">
-                                
-                            </div>
-                        </div>
-                    </template>
-                    <template v-else-if="column.key === 'view'">
-                        <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit">
-                                <EyeIcon @click="to_order_detail(order.id,order.type)"/>
-                            </div>
-                        </div>
-                    </template>
-                    <template v-else-if="column.key === 'delivery'">
-                        <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit">
-                                <TruckIcon/>
-                            </div>
-                        </div>
-                    </template>
-                    <template v-else-if="column.key === 'customer'">
-                            <div class="flex flex-col items-left">
-                                <div class="w-10 h-10 image-fit zoom-in" v-if="order.customer_img">
-                                    <Tippy tag="img" class="rounded-full" 
-                                        :src="order.customer_img"
-                                        />
-                                </div>
-                                <div class="w-10 h-10 image-fit zoom-in" v-else>
-                                    <Tippy tag="img" class="rounded-full" 
-                                        :src="'/src/assets/images/lss-img/noname.png'"
-                                        />
-                                </div>
-                            </div>
-                    </template>
-                    <template v-else-if="column.key === 'customer_name'">
-                        <template v-if="order.customer_name">
-                            {{order.customer_name}}
-                        </template>
-                        <template v-else>
-                            Guess
-                        </template>        
-                    </template>
-                    <template v-else-if="column.key === 'order_product'">
-                        <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit">
-                                <ChevronDownIcon @click="orderProductModal(order.id,order.type)"/>
-                            </div>
-                        </div>
-                    </template>
-                    <template v-else-if="column.key === 'subtotal'">
-                        ${{ (order.subtotal).toFixed(2) }}
-                    </template>
-                    <template v-else class="w-30">
-                        {{ order[column.key] }}
-                    </template>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-    <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-        <Page :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
-    </div>
+                <table id="orderTable" class="table table-report mt-3 text-lg">
+                    <thead>
+                        <tr>
+                            <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
+                                {{ column.name }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(order, key) in store[tableStatus]" :key="key" class="intro-x">
+                            <td v-for="column in columns" :key="column.key">
+                                <template v-if="column.key === 'platform'">
+                                    <div class="flex items-left">
+                                        <div v-if="order[column.key] === 'facebook'"
+                                            class="w-10 h-10 image-fit">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src='/src/assets/images/lss-img/facebook.png' >
+                                            </div>
+                                        </div>
+                                        <div v-else-if="order[column.key] === 'instagram'"
+                                            class="w-10 h-10 image-fit">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src='/src/assets/images/lss-img/instagram.png' />
+                                            </div>
+                                        </div>
+                                        <div v-else-if="order[column.key] === 'youtube'"
+                                            class="w-10 h-10 image-fit">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src='/src/assets/images/lss-img/youtube.png' />
+                                            </div>
+                                        </div>
+                                        <div v-else class="w-10 h-10 image-fit">
+                                            
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-else-if="column.key === 'view'">
+                                    <div class="flex place-content-center">
+                                        <div class="w-10 h-10 image-fit">
+                                            <EyeIcon @click="to_order_detail(order.id,order.type)"/>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-else-if="column.key === 'delivery'">
+                                    <div class="flex place-content-center">
+                                        <div class="w-10 h-10 image-fit">
+                                            <TruckIcon v-show="order.status === 'complete'"/>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-else-if="column.key === 'customer'">
+                                        <div class="flex flex-col items-left">
+                                            <div class="w-10 h-10 image-fit zoom-in" v-if="order.customer_img">
+                                                <Tippy tag="img" class="rounded-full" 
+                                                    :src="order.customer_img"
+                                                    />
+                                            </div>
+                                            <div class="w-10 h-10 image-fit zoom-in" v-else>
+                                                <Tippy tag="img" class="rounded-full" 
+                                                    :src="'/src/assets/images/lss-img/noname.png'"
+                                                    />
+                                            </div>
+                                        </div>
+                                </template>
+                                <template v-else-if="column.key === 'customer_name'">
+                                    <template v-if="order.customer_name">
+                                        {{order.customer_name}}
+                                    </template>
+                                    <template v-else>
+                                        Guess
+                                    </template>        
+                                </template>
+                                <template v-else-if="column.key === 'order_product'">
+                                    <div class="flex place-content-center">
+                                        <div class="w-10 h-10 image-fit">
+                                            <ChevronDownIcon @click="orderProductModal(order.id,order.type)"/>
+                                        </div>
+                                    </div>
+                                </template>
+                                <template v-else-if="column.key === 'subtotal'">
+                                    ${{ (order.subtotal).toFixed(2) }}
+                                </template>
+                                <template v-else class="w-30">
+                                    {{ order[column.key] }}
+                                </template>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+                    <Page :total="store.data_count[tableStatus]" @on-change="changePage" @on-page-size-change="changePageSize" />
+                </div>
 </template>
 <script setup>
-import { ref, provide, onMounted, getCurrentInstance } from "vue";
+import { manage_order_list } from "@/api_v2/order"
+import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 const route = useRoute();
@@ -102,10 +103,10 @@ const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
-    { name: 'Order Number', key: 'id' },
+    { name: 'Order#', key: 'id' },
     { name: 'Platform', key: 'platform' },
-    { name: 'Customer', key: 'customer' },
-    { name: '', key: 'customer_name' },
+    { name: '', key: 'customer' },
+    { name: 'Customer', key: 'customer_name' },
     { name: 'Amount', key: 'subtotal' },
     { name: 'Payment', key: 'payment_method' },
     { name: 'Status', key: 'status' },
@@ -117,20 +118,54 @@ const columns = ref([
 let page = 1;
 let page_size = 10;
 
+
 const props = defineProps({
     tableStatus: String,
-    dataCount: Number,
+    tableSearch: String,
+    tableFilter:String,
 });
+
+onMounted(()=>{
+    search('','',props.tableStatus)
+    eventBus.on(props.tableSearch, (payload) => {
+        search(payload.value,payload.filter_data,props.tableStatus)
+	})
+    eventBus.on(props.tableFilter, (payload) => {
+        search('',payload.data,props.tableStatus)
+	})
+    
+})
+
+onUnmounted(()=>{
+    eventBus.off(props.tableSearch)
+    eventBus.off(props.tableFilter)
+})
+
+function search(searchValue,data,tableStatus){
+    manage_order_list(route.params.campaign_id,searchValue,page,page_size,tableStatus,data).then(
+        res => {
+			store[tableStatus] = res.data.data
+            console.log( res.data)
+            if (res.data.count != 0) {
+                store.data_count[tableStatus] = res.data.count;
+                let totalPage = parseInt(res.data.count / page_size);
+                totalPage = totalPage == 0 ? 1 : totalPage;
+            }
+		}
+    )
+}
 
 function to_order_detail(order_id,type){
     store.order_type = type
-    router.push(`/seller/order/${order_id}?type=${type}`)
+    router.push({name:'sellerOrder',params:{'order_id':order_id},query:{'type':type}})
 }
-function changePage(page) {
-    eventBus.emit('changePage',{'page':page})
+function changePage(p) {
+    page = p
+    search('','',props.tableStatus)
     }
-function changePageSize(pageSize) {
-    eventBus.emit('changePageSize',{'page_size':page_size})
+function changePageSize(p) {
+    page_size = p
+    search('','',props.tableStatus)
     }
 function orderProductModal(id,type){
     eventBus.emit('getProductData',{'id':id,'type':type})
