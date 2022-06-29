@@ -18,8 +18,12 @@ export default async (to, from)=>{
             return true
         }).catch(err=>{
             cookies.remove("access_token")
-            return '/seller/login'
+            return false
         })
+
+        if (res) {
+            return true
+        }
     }
     return '/seller/login'
 }
