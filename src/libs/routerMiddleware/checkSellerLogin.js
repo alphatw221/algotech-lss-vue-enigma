@@ -8,7 +8,7 @@ export default async (to, from) => {
 
     const sellerStore = useLSSSellerLayoutStore();
 
-    if (sellerStore.isAuthenticated ) return '/seller/campaigns'
+    if (sellerStore.isAuthenticated ) return '/seller/campaign-list'
 
     if (cookies.get('access_token')) {
         const res = await get_seller_account()
@@ -16,7 +16,7 @@ export default async (to, from) => {
         if (res.status==200) {
             sellerStore.isAuthenticated = true;
             sellerStore.userInfo = res.data;
-            return '/seller/campaigns'
+            return '/seller/campaign-list'
         }
 
         cookies.remove('access_token')

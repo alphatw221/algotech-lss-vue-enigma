@@ -185,7 +185,7 @@
               </div>
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5" @click="this.$router.push('/seller/profile')">
+            <DropdownItem class="dropdown-item hover:bg-white/5" @click="this.$router.push({name:'seller-profile'})">
               <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
             >
             <DropdownItem class="dropdown-item hover:bg-white/5">

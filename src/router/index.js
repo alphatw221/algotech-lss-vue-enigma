@@ -118,30 +118,45 @@ const routes = [
     beforeEnter: sellerAuthMiddleware,
     children: [
       {
+        path: "",
+        name: "index",
+        component: CampaignList,
+      },
+      {
         path: "profile",
         name: "seller-profile",
         component: Profile,
       },
       {
-        path: "campaigns",
+        path: "campaign-list",
         name: "campaigns",
         component: CampaignList,
       },
       {
-        path: "campaigns/campaign-live/:campaign_id?",
+        path: "campaign-live/:campaign_id?",
         name: "campaign-live",
         component: CampaignLive,
       },
       {
-        path: "campaigns/manage-order/:campaign_id?",
+        path: "campaign-detail/:campaign_id?/manage-order",
         name: "manage-order",
         component: ManageOrder,
       },
       {
-        path: "campaigns/manage-order/order/:order_id?",
+        path: "campaign-detail/:campaign_id?/manage-order/order-detail/:order_id?",    
         name: "sellerOrder",
         component: () => import('@/views/seller-order-detail/Main.vue'),
       },
+      {
+        path: "campaign-detail/:campaign_id?/lucky-draw",
+        name: "lucky-draw",
+        component: LuckyDraw,
+      },
+      // {
+      //   path: "order-detail/:order_id?",
+      //   name: "sellerOrder",
+      //   component: () => import('@/views/seller-order-detail/Main.vue'),
+      // },
       {
         path: "campaign-select",
         name: "side-menu-campaign-select",
@@ -172,11 +187,7 @@ const routes = [
         name: "lucky-draw-setting",
         component: LuckyDrawSetting,
       },
-      {
-        path: "campaigns/lucky-draw/:campaign_id?",
-        name: "lucky-draw",
-        component: LuckyDraw,
-      },
+      
       {
         path: "mkt-plugin/quiz-game",
         name: "quiz-game",
@@ -184,13 +195,18 @@ const routes = [
       },
 /*                CREATE CAMPAIGN                        */      
       {
-        path: "campaign/:type?/:campaign_id?",
-        name: "side-menu-createCam-productselect",
+        path: "create-campaign/:campaign_id?",
+        name: "create-campaign",
         component: () => import('@/views/create-campaign/Main.vue'),
       },  
       {
-        path: "campaign/assign/product",
-        name: "side-menu-createCam-detailsconfirm",
+        path: "campaign-detail/:campaign_id/edit-campaign",
+        name: "edit-campaign",
+        component: () => import('@/views/create-campaign/Main.vue'),
+      },  
+      {
+        path: "campaign-detail/:campaign_id?/assign-product",
+        name: "assign-product",
         component: () => import('@/views/create-campaign/AssignProductPage.vue'),
       },  
 
@@ -258,21 +274,21 @@ const routes = [
       },
       {
         path: "stock",
-        name: "Stock",
+        name: "stock",
         component: () => import('@/views/stock/Main.vue'),
       },
       {
-        path: "product/add",
+        path: "stock/add-product",
         name: "add-product",
         component: () => import('@/views/add-product/Main.vue'),
       },
       {
-        path: "product/edit/:product_id?",
+        path: "stock/product-detail/:product_id?/edit",
         name: "edit-product",
         component: () => import('@/views/add-product/Main.vue'),
       },
       {
-        path: "category/management",
+        path: "stock/category-management",
         name: "category-management",
         component: () => import('@/views/category-management/Main.vue')
       }

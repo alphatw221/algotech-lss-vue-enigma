@@ -202,7 +202,7 @@ export default {
         },
         closeJump() {
             this.enterIDModalPreview = false;
-            this.$router.push("campaign-live");
+            this.$router.push({name:"campaign-live"});
         },
         showReplyBar(e) {
             this.reply = e;

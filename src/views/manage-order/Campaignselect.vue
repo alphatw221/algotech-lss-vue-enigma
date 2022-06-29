@@ -58,10 +58,10 @@ export default {
   mounted() {
     
     this.eventBus.on("entryPoint", (payload) => {
-      this.$router.push("manage-order");
+      this.$router.push({name:'manage-order'});
     }) 
     this.eventBus.on("manageOrder", (payload) => {
-      this.$router.push("manage-order");
+      this.$router.push({name:'manage-order'});
     })
   },
   unmounted() {
