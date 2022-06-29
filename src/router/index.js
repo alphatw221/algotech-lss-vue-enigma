@@ -108,20 +108,15 @@ import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
   {
-    path: "/test7",
-    name: "side-menu-test7",
-    component: Test7,
-  },
-  {
     path: "/seller",
     component: LssSellerLayout,
     beforeEnter: sellerAuthMiddleware,
     children: [
-      {
-        path: "",
-        name: "index",
-        component: CampaignList,
-      },
+      // {
+      //   path: "",
+      //   name: "index",
+      //   component: CampaignList,
+      // },
       {
         path: "profile",
         name: "seller-profile",

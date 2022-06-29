@@ -85,11 +85,10 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
 import { createAxiosWithBearer } from "@/libs/axiosClient";
-import { delete_auto_response, update_auto_response } from "@/api/auto_reply";
+import { delete_auto_response, update_auto_response,list_auto_response } from "@/api_v2/auto_response"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 
 const props = defineProps({
-	requestUrl: String,
 	columns: Array,
 });
 
@@ -143,15 +142,13 @@ function updateInfo(id, input, output, description, facebook_page) {
 }
 
 function getReplyData() {
-	createAxiosWithBearer()
-	.get(`${props.requestUrl}?page_size=${pageSize.value}&page=${currentPage.value}`)
+	list_auto_response(pageSize.value, currentPage.value)
 	.then((response) => {
 
-		listItems.value = response.data
-		// console.log(response);
-		// totalCount.value = response.data.count
-		// totalPage.value = Math.ceil(totalCount.value / pageSize.value)
-		// listItems.value = response.data.results
+		console.log(response);
+		totalCount.value = response.data.count
+		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
+		listItems.value = response.data.results
 	})
 	.catch(function (error) {
 		console.log(error);
