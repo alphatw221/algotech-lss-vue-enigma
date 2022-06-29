@@ -23,7 +23,7 @@
 
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x mt-5">
 				<td class="imgtd">
-					<div class="flex">
+					<div class="flex flex-col items-center">
 						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
 						<Tippy
 							tag="img"
@@ -40,14 +40,12 @@
 							:content="product.name"
 						/>
 						</div>
+						<div class="productName">{{ product.name }} </div>
 					</div>
-				</td>
-				<td class="text-center h-20 font-bold">
-					<div class="productName">{{ product.name }} </div>
 				</td>
 				<td class="text-center h-20">
 					<template v-if="checkProductEdit(index) && product.type ==='product'">
-					<div class="flex 2xl:ml-10">
+					<div class="flex w-full justify-center">
 						<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
 							<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 						</button>
@@ -114,9 +112,8 @@ const { cookies } = useCookies()
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 const tableColumns = ref([
-	{ key: "image", name: " ",  },
 	{ key: "product", name: "Product",  },
-	{ key: "qty", name: "Quantity",  },
+	{ key: "qty", name: "Q'ty",  },
 	{ key: "price", name: "Price",  },
 	{ key: "subtotal", name: "Subtotal",  },
 	{ key: "remove", name: " ",  },
@@ -205,12 +202,10 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
   td {
     border: none;
     padding-left: 50% !important;
-    text-align: left !important;
+    text-align: center !important;
 	height: auto !important;
   }
   .productName{
-	padding-left: 20px;
-	padding-right: 20px;
 	height: auto !important;
 	padding-top:5px;
   }
@@ -225,8 +220,10 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
     left: 6px;
     width: 45%;
     padding-right: 10px;
+	padding-top:10px;
     white-space: nowrap;
     font-weight: bold;
+	text-align: left !important;
   }
 
   td:nth-of-type(1):before {
@@ -234,21 +231,29 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
     /* color: #0e9893; */
   }
   td:nth-of-type(2):before {
-    content: "";
-    /* color: #0e9893; */
-  }
-  td:nth-of-type(3):before {
-    content: "Qty";
+    content: "Q'ty";
 	display: flex;
 	align-self: flex-end !important;
     /* color: #0e9893; */
   }
-  td:nth-of-type(4):before {
+  td:nth-of-type(3):before {
     content: "Price";
     /* color: #0e9893; */
   }
-  td:nth-of-type(5):before {
+  td:nth-of-type(4):before {
     content: "Subtotal";
+    /* color: #0e9893; */
+  }
+  td:nth-of-type(5):before {
+    display:none; 
+    /* color: #0e9893; */
+  }
+  td:nth-of-type(5) {
+    display:inline-block; 
+	width: 50%;
+	padding-left: 50% !important;
+	margin-bottom: 15px;
+	margin-top:10px;
     /* color: #0e9893; */
   }
 }

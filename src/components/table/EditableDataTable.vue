@@ -70,7 +70,7 @@
 
 <script setup>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
-import { seller_create_campaign_product } from "@/api_v2/campaign_product";
+import { seller_create_campaign_products } from "@/api_v2/campaign_product"
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -114,6 +114,7 @@ const updateSelected = (product) => {
 const currentPage = ref(1)
 const totalPage = ref(1)
 const pageSize = ref(10)
+const changePageSize = ref(10)
 const dataCount = ref(0)
 const searchColumn = ref(undefined)
 const listItems = ref([])
@@ -176,7 +177,7 @@ const removeDash = (word) =>{
 }
 
 const submitData = () => {
-	seller_create_campaign_product(route.query.campaign_id, assignedProducts)
+	seller_create_campaign_products(route.query.campaign_id, assignedProducts)
 	.then(response => {
 		router.push({ name: 'side-menu-campaign-list' })
 	})

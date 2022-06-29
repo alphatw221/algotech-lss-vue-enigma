@@ -1,8 +1,8 @@
 <template>
-    <div class="box p-10">
-        <h1 class="text-lg"> Connect social media platform </h1>
-        <div v-for="(conponet, key) in platform_conponets" :key="key">
-            <component :is="conponet"></component>
+    <div class="box flex flex-col">
+        <h1 class="text-lg mx-5 pt-5"> Connect social media platform </h1>
+        <div v-for="(component, key) in platform_components" :key="key">
+            <component :is="component"></component>
         </div>
     </div>
     <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
@@ -36,7 +36,7 @@ const subscriptionPlan = ref(null)
 const activatedPlatformNumber = ref(0)
 
 const activated_platform = ref([])
-const platform_conponets = ref({
+const platform_components = ref({
     "facebook": BindFacebookPageWidgets,
     "instagram": BindInstagramProfileWidgets,
     "youtube": BindYoutubeChannelWidgets

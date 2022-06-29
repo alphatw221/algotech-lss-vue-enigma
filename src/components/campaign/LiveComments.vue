@@ -58,7 +58,7 @@
                 </button>
                 <button class="btn btn-outline-none w-18" style="border: 0px; box-shadow: 0px"
                     @click="this.tagBox = !this.tagBox">
-                    <XIcon class="w-4 h-4 mr-2" /> Close
+                    <XIcon class="w-4 h-4 mr-2" /> Clear 
                 </button>
                 <h2 class="p-2">{{ tags }}</h2>
             </div> -->
