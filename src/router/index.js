@@ -124,22 +124,22 @@ const routes = [
       },
       {
         path: "campaigns",
-        name: "side-menu-campaign-list",
+        name: "campaigns",
         component: CampaignList,
       },
       {
-        path: "campaign-live/:campaign_id?",
-        name: "side-menu-campaign-live",
+        path: "campaigns/campaign-live/:campaign_id?",
+        name: "campaign-live",
         component: CampaignLive,
       },
       {
-        path: "manage-order/:campaign_id?",
-        name: "side-menu-manage-order",
+        path: "campaigns/manage-order/:campaign_id?",
+        name: "manage-order",
         component: ManageOrder,
       },
       {
-        path: "order/:order_id?",
-        name: "SellerOrderDetail",
+        path: "campaigns/manage-order/order/:order_id?",
+        name: "sellerOrder",
         component: () => import('@/views/seller-order-detail/Main.vue'),
       },
       {
@@ -173,7 +173,7 @@ const routes = [
         component: LuckyDrawSetting,
       },
       {
-        path: "lucky-draw/:campaign_id?",
+        path: "campaigns/lucky-draw/:campaign_id?",
         name: "lucky-draw",
         component: LuckyDraw,
       },
@@ -196,18 +196,18 @@ const routes = [
 
 /*                     SETTINGS                           */
       {  
-        path: "settings/campaign-global",
-        name: "side-menu-campaign-global-setting",
+        path: "campaign-global",
+        name: "campaign-global-setting",
         component: () => import('@/views/settings/Main.vue'),
       },  
       {  
-        path: "settings/localization",
-        name: "side-menu-localization",
+        path: "localization",
+        name: "localization",
         component: Localization,
       },  
       {  
-        path: "settings/platform",
-        name: "side-menu-connect-platform",
+        path: "platform",
+        name: "platform",
         component: ConnectPlatform,
       },
 /*                     AUTOREPLY                           */

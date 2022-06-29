@@ -1,5 +1,5 @@
-<template >
-  <div class="overflow-x-auto overflow-y-auto h-[670px]">
+<template>
+  <div class="overflow-x-auto overflow-y-auto h-[650px]">
     <table class="table table-report -mt-2">
       <thead>
         <tr>
@@ -95,7 +95,7 @@
             <button 
               v-if="status === 'history'"
               class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
-              Enter
+              Histroy
             </button>
             <button 
               v-else
@@ -224,7 +224,7 @@ export default {
       console.log(campaign.instagram_campaign.live_media_id)
       console.log(campaign.youtube_campaign.live_video_id)
       if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
-        this.$router.push(`/seller/campaign-live/${campaign.id}`)
+        this.$router.push(`/seller/campaigns/campaign-live/${campaign.id}`)
         return
       }
       this.$emit('showRemindModal', { 'tableName': this.tableName, 'campaign': campaign, 'index': index })
@@ -234,7 +234,7 @@ export default {
       this.layout.notification.showMessageToast('Update Successed');
     },
     manageOrder(campaign_id,status) {
-      this.$router.push(`/seller/manage-order/${campaign_id}?checkout=${status}`)
+      this.$router.push(`/seller/campaigns/manage-order/${campaign_id}?checkout=${status}`)
     },
     copyURL(campaign_id) {
       var dummy = document.createElement('input'),
@@ -255,7 +255,7 @@ export default {
     luckyDraw(id, title){
       this.store.campaign_id = id
       this.store.campaign_title = title
-      this.$router.push(`/seller/lucky-draw/${id}`)
+      this.$router.push(`/seller/campaigns/lucky-draw/${id}`)
     }
   },
 };

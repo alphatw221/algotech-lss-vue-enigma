@@ -1,5 +1,5 @@
 <template>
-    <div class="box m-5 p-10">
+    <div class="box p-10">
         <div class="flex my-3 text-lg">
             <div class="mr-5"> Country: </div>
             <div v-if="layoutStore.userInfo.user_subscription "> {{  countries[layoutStore.userInfo.user_subscription.country]||'' }}</div>

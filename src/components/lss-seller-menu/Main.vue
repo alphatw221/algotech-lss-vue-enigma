@@ -133,11 +133,13 @@
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
       <div class="content">
-        <nav aria-label="breadcrumb" class="h-[28px] text-lg mr-auto">
+        <nav aria-label="breadcrumb" class="h-[24px] text-lg mr-auto">
           <ol class="breadcrumb breadcrumb-dark">
-            <template v-for="crumb in breadCrumb.slice(0, -1)" :key="crumb">
-              <li class="breadcrumb-item"><a @click="router.path({name: crumb })">{{crumb}}</a></li>
+            <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
+              <li class="breadcrumb-item"><a @click="router.push({name:`${crumb}`})">{{crumb.replace("-", " ")}}</a></li>
             </template>
+            <li v-if=" breadCrumb[breadCrumb.length - 2] " 
+              class="breadcrumb-item"><a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a></li>
               <li class="breadcrumb-item">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
           </ol>
         </nav>
@@ -176,23 +178,26 @@ watch(
   () => {
     delete route.forceActiveMenu;
     formattedMenu.value = $h.toRaw(sideMenu.value);
-    rawPath.value = route.path
-    rawPath.value = rawPath.value.replace(/[0-9]/g, '')
-    rawPath.value = rawPath.value.replace(/\s/g, '')
-    console.log(rawPath.value)
-    breadCrumb.value = rawPath.value.substr(8).replace("-", " ").split('/')
-    console.log(breadCrumb.value)
+    sortPath()
   },
 );
 
 onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
   formattedMenu.value = $h.toRaw(sideMenu.value);
-  rawPath.value = route.path
-  rawPath.value = rawPath.value.replace(/[0-9]/g, '');
-  rawPath.value = rawPath.value.replace(/\s/g, '');
-  breadCrumb.value = rawPath.value.substr(8).replace("-", " ").split('/')
+  sortPath()
 });
+
+const sortPath=()=>{
+  rawPath.value = route.path
+  rawPath.value = rawPath.value.replace(/[0-9]/g, '')
+  rawPath.value = rawPath.value.replace(/\s/g, '')
+  console.log(rawPath.value)
+  breadCrumb.value = rawPath.value.substr(8).replace("-", " ").split('/')
+  if(breadCrumb.value[breadCrumb.value.length-1] === ''){
+    breadCrumb.value.splice(-1,1)
+  }
+}
 </script>
 
 

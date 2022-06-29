@@ -124,7 +124,7 @@ const props = defineProps({
 
 function to_order_detail(order_id,type){
     store.order_type = type
-    router.push(`/seller/order/${order_id}?type=${type}`)
+    router.push(`/seller/campaigns/manage-order/order/${order_id}?type=${type}`)
 }
 function changePage(page) {
     eventBus.emit('changePage',{'page':page})
