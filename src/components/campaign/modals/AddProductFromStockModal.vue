@@ -14,93 +14,74 @@
                 <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
                     <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto sm:flex items-center">
                         <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2">Category</label>
-                        <select id="tabulator-html-filter-field" class="
-                            form-select
-                            w-full
-                            sm:w-32
-                            2xl:w-full
-                            mt-2
-                            sm:mt-0 sm:w-auto
-                            ">
-                            <option value="name">Name</option>
-                            <option value="category">Category</option>
-                            <option value="remaining_stock">Remaining Stock</option>
+                        <select 
+                            id="tabulator-html-filter-field"
+                            class="form-select w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto"
+                            v-model="selectedCategory"
+                            @change="search"
+                        >
+                            <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
                         </select>
                     </form>
                 </div>
-<!-- 
-                <table class="table table-report mt-3">
-                    <thead>
-                        <tr>
-                            <th class="whitespace-nowrap" v-for="column in add_product_columns" :key="column.key">
-                                <template v-if="column.key == 'select'">
-                                    <div class="form-check mt-2">
-                                        <input id="checkbox-switch-1" class="form-check-input" type="checkbox"
-                                            value="" />
-                                    </div>
-                                </template>
-                                <template v-if="
-                                    column.key === 'qty_for_campaign' ||
-                                    column.key === 'max_qty'
-                                " style="width: 80px">
-                                    {{ column.name }}
-                                </template>
-                                <template v-else>
-                                    {{ column.name }}
-                                </template>
-                            </th>
-                            <th class="text-center whitespace-nowrap">Edit</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr v-for="(product, key) in add_product_results" :key="key" class="intro-x">
-                            <td v-for="column in add_product_columns" :key="column.key">
-                                <template v-if="
-                                    column.key === 'select' ||
-                                    column.key == 'editable' ||
-                                    column.key == 'deletable'
-                                ">
-                                    <div class="form-check mt-2">
-                                        <input id="checkbox-switch-1" class="form-check-input" type="checkbox"
-                                            value="" />
-                                    </div>
-                                </template>
-                                <template v-if="column.key === 'image'" class="w-40">
-                                    <div class="flex">
-                                        <div class="w-10 h-10 image-fit zoom-in">
-                                            <Tippy tag="img" class="rounded-lg" :src="product.image"
-                                                :content="`product`" />
-                                        </div>
-                                    </div>
-                                </template>
-                                <template v-else-if="
-                                    column.key === 'qty_for_campaign' ||
-                                    column.key === 'max_qty'
-                                ">
-                                    <input id="regular-form-1" type="text" class="form-control" placeholder=""
-                                        style="width: 100px" />
-                                </template>
-                                <template v-else class="w-30">
-                                    {{ product[column.key] }}
-                                </template>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table> -->
+                <EditableDataTable
+                    class="overflow-x-auto"
+                    :requestUrl="'/api/v2/product/search'"
+                    :columns="tableColumns"
+                    :status="'enabled'"
+                >
+                </EditableDataTable>
             </div>
         </ModalBody>
     </Modal>
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onMounted, getCurrentInstance, onUnmounted } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
-
+import { list_product_category } from '@/api_v2/product';
+import EditableDataTable from "@/components/table/EditableDataTable.vue";
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const store = useLSSCampaignListStore(); 
 const props = defineProps({
     currentProductList: Object, 
 });
+const tableColumns = ref([
+    { name: "Product", key: "image" },
+    { name: "", key: "name" },
+	{ name: "QTY for Campaign", key: "qty" },
+	{ name: "Max QTY/Order", key: "max_order_amount" },
+    { name: "Price", key: "price" },
+	{ name: "Editable", key: "customer_editable" },
+	{ name: "Deletable", key: "customer_removable" },
+	{ name: "Category", key: "category" },
+	{ name: "Type", key: "type" },
+])
+const selectedCategory = ref('')
+const productCategories= ref([{text:"All", value:''}])
+onMounted(() => {
+	list_product_category().then(
+		response => { 
+			response.data.forEach(category => {
+				productCategories.value.push({text:category,value:category})
+			});
+
+		}
+	)
+    eventBus.on("passCampaignProduct", (payload) => {
+        eventBus.emit("passCampaignProduct", payload)
+    });
+})
+
+onUnmounted(() => {
+    eventBus.off("passCampaignProduct");
+})
+const search = () => {
+    console.log(selectedCategory.value)
+    eventBus.emit("searchTable", {filterColumn: selectedCategory.value})
+}
 
 </script>

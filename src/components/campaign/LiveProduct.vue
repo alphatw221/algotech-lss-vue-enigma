@@ -108,6 +108,7 @@ export default {
                 console.log(res.data)
                 this.product_results = res.data
                 this.eventBus.emit("startReceivingProductData");
+                this.eventBus.emit("passCampaignProduct", res.data);
             }).catch(error => {
                 console.log(error);
             })
