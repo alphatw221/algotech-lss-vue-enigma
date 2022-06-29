@@ -115,7 +115,7 @@
             </div>
         </form>
         <div class="flex justify-end my-8">
-            <button class="btn btn-secondary mr-5" @click="router.push('/seller/campaign-list')"> Cancel</button>
+            <button class="btn btn-secondary mr-5" @click="router.back()"> Cancel</button>
             <button class="btn btn-primary" @click="save"> Save</button>
         </div>
 </template>

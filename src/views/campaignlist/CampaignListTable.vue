@@ -78,7 +78,7 @@
           </td>
           <td class="manage_order items-center w-fit">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
-              <ListIcon class="w-6 h-6 self-center" />
+              <font-awesome-icon icon="fa-solid fa-list-check" class="w-8 h-6 self-center"/>
             </a>
           </td>
           <td class="checkout items-center w-fit">
@@ -114,7 +114,7 @@
                   <DropdownContent class="w-40 text-center">
                     <DropdownItem class="w-full whitespace-nowrap text-center" @click="this.$router.push(`/seller/campaign/edit/${campaign.id}`)"> Edit </DropdownItem>
                     <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
-                    <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem>
+                    <!-- <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem> -->
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
