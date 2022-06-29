@@ -97,15 +97,11 @@ const copyLink = ()=>{
 const signIn = ()=>{
     // console.log('signIn')
     seller_general_login(loginData.value).then(response=>{
-                var set_cookie = new Promise((res) => {
-                    cookies.set("access_token", response.data.access)
-                    res()
-                })
-                set_cookie.then(()=>{
-                    router.go()
-                })
-            })
-
+        cookies.set("access_token", response.data.access)
+        router.push(`/seller/campaigns`)
+    }).catch(err=>{
+        console.log(err)
+    })
 }
 </script>
 
