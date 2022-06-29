@@ -228,7 +228,7 @@ onUnmounted(() => {
 })
 
 const search = () => {
-    if (route.query.type === 'create') {
+    if (route.name === 'assign-product') {
         list_product(pageSize.value, currentPage.value, undefined, undefined, 'enabled', category.value)
         .then(response => {
             dataCount.value = response.data.count
@@ -259,8 +259,8 @@ const search = () => {
         }).catch(function (error) {
             console.log(error);
         })
-    } else if (route.query.type === 'edit') {
-        seller_retrieve_campaign_product(route.query.campaign_id, category.value, currentPage.value, pageSize.value)
+    } else if (route.name === 'edit-campaign-product') {
+        seller_retrieve_campaign_product(route.params.campaign_id, category.value, currentPage.value, pageSize.value)
         .then(response => {
             dataCount.value = response.data.count
             productsList.value = response.data.results
@@ -345,7 +345,7 @@ const updateProduct = (index) => {
     console.log(productsList.value[index])
 
     if (productsList.value[index].selected == false) {
-        seller_delete_campaign_product(route.query.campaign_id, productsList.value[index].id)
+        seller_delete_campaign_product(route.params.campaign_id, productsList.value[index].id)
         .then(response => {
             console.log(response.data)
             search()
@@ -356,7 +356,7 @@ const updateProduct = (index) => {
 		productsList.value[index]['customer_editable'] = productsList.value[index]['editable']
 		productsList.value[index]['customer_removable'] = productsList.value[index]['deletable']
 
-        seller_update_campaign_product(route.query.campaign_id, productsList.value[index].id, productsList.value[index])
+        seller_update_campaign_product(route.params.campaign_id, productsList.value[index].id, productsList.value[index])
         .then(response => {
             console.log(response.data)
             search()

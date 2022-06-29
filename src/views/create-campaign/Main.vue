@@ -44,10 +44,10 @@
 
 		<PaymentForm 
 			class="col-span-12" 
-			:pageType="route.params.type"
+			:pageType="pageType"
 		/>
 
-		<NotesForm :pageType="route.params.type" />
+		<NotesForm :pageType="pageType" />
 
 		<div class="mt-5 p-0 col-span-12 z-0">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
@@ -87,8 +87,12 @@ const campaignPeriod = ref({
 	end: new Date()
 })
 const pageTitle = computed(() => {
-	if (route.params.type === 'create') return 'Create Campaign'
-	else if (route.params.type === 'edit') return 'Edit Campaign'
+	if (route.name === 'create-campaign') return 'Create Campaign'
+	else if (route.name === 'edit-campaign') return 'Edit Campaign'
+})
+const pageType = computed(() => {
+	if (route.name === 'create-campaign') return 'create'
+	else if (route.name === 'edit-campaign') return 'edit'
 })
 
 watch((campaignPeriod), () => {
@@ -96,8 +100,9 @@ watch((campaignPeriod), () => {
 }, {deep: true})
 
 onMounted(() => {
-	if (route.params.type === 'create') list_delivery()
-	else if (route.params.type === 'edit') {
+	console.log(route.name)
+	if (route.name === 'create-campaign') list_delivery()
+	else if (route.name === 'edit-campaign') {
 		retrieve_campaign(route.params.campaign_id).then(response => {
 			campaignStore.paymentSettings = response.data.meta_payment
 			campaignStore.deliverySettings = response.data.meta_logistic
@@ -138,16 +143,16 @@ const saveCampaign = () => {
 		formData.append(key, value)
 	}
 
-	if (route.params.type === 'create') {
+	if (route.name === 'create-campaign') {
 		create_campaign(formData).then(response => {
 			let campaign_id = response.data
-			router.push({name:'assign-product',params:{'campaign_id':response.data.id}})
+			router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
 		}).catch(err => {
 			console.log('api error')
 		})
-	} else if (route.params.type === 'edit') {
+	} else if (route.name === 'edit-campaign') {
 		update_campaign(route.params.campaign_id, formData).then(response => {
-			router.push({name:'edit-campaign-product',params:{'campaign_id':response.data.id}})
+			router.push({name:'edit-campaign-product', params: {'campaign_id': route.params.campaign_id}})
 			// router.push(`/seller/campaign/assign/product?campaign_id=${route.params.campaign_id}&type=edit`)
 		})
 	}
