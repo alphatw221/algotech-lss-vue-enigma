@@ -18,7 +18,7 @@
             <div class="mr-5"> Seller</div>
         </div> 
         <div class="flex my-3">
-            <TomSelect v-model="data.seller_language" :options="{
+            <TomSelect v-model="data.lang" :options="{
                         placeholder: 'Choose Language',
                         }" class="w-full">
                 <option :value="option.value" v-for="(option,index) in languages" :key="index">{{option.text}}</option>
@@ -28,7 +28,7 @@
             <div class="mr-5"> Buyer</div>
         </div>
         <div class="flex my-3">
-            <TomSelect v-model="data.buyer_language" :options="{
+            <TomSelect v-model="data.buyer_lang" :options="{
                         placeholder: 'Choose Language',
                         }" class="w-full">
                 <option :value="option.value" v-for="(option,index) in languages" :key="index">{{option.text}}</option>
@@ -44,33 +44,18 @@
         </div>
         <div class="flex justify-end"> 
             <!-- <button class="btn btn-rounded-secondary mr-5"> Cancel</button> -->
-            <button class="btn btn-rounded-primary"> Save</button>
+            <button class="btn btn-rounded-primary" @click="save()"> Save</button>
         </div>
     </div>
 
 </template>
 
 <script setup>
-import { ref, defineEmits, computed } from "vue";
+import { ref, defineEmits, computed, onMounted } from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import { seller_update_subscription } from '@/api_v2/user_subscription'
 
 const layoutStore = useLSSSellerLayoutStore();
-
-
-// userInfo
-
-// <option value="USD"> $ </option>
-// <option value="TWD">NT $</option>
-// <option value="SGD">SGD $</option>
-// <option value="IDR">Rp</option>
-// <option value="PHP">PH ₱</option>
-// <option value="MYR">RM</option>
-// <option value="VND">VN ₫</option>
-// <option value="RMB">RMB ¥</option>
-// <option value="KHR">KHR ៛</option>
-// <option value="AUD">AUD $</option>
-// <option value="HKD">HKD $</option>
-
 
 const countries = ref({'PH':'Philippines','SG':'Singapore','ID':'Indonesia','IN':'India','TW':'Taiwan'})
 
@@ -101,6 +86,21 @@ const decimalOptions = ref([
     {value:-2,text:'100'},
     {value:-3,text:'1000'}])
 
+const data = ref({currency:'USD', lang:'en', buyer_lang:'en', decimal_places:2})
+onMounted(()=>{
+    if(!layoutStore.userInfo.user_subscription) return
+    data.value.currency = layoutStore.userInfo.user_subscription.currency
+    data.value.lang = layoutStore.userInfo.user_subscription.lang
+    data.value.buyer_lang = layoutStore.userInfo.user_subscription.buyer_lang
+    data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places
+})
 
-const data = ref({currency:'USD', seller_language:'us', buyer_language:'us', decimal_places:2})
+
+const save = ()=>{
+    seller_update_subscription(data.value).then(res=>{
+
+        layoutStore.userInfo = res.data
+        layoutStore.notification.showMessageToast("Update Successfully")
+    })
+}
 </script>
