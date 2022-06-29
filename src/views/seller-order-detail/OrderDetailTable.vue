@@ -1,5 +1,5 @@
 <template>
-<div class="overflow-y-auto overflow-x-auto w-full">
+<div class="flex-auto overflow-auto w-full h-[390px]">
 	    <table class="table table-report">
 		<thead>
 			<tr>
@@ -16,12 +16,21 @@
 			<tr v-for="(product, index) in store.orderDetail.products" :key="index" class="intro-x">
 				<td class=" ">
 					<div class="flex">
-						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex">
+						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-if="product.image">
 						<Tippy
 							tag="img"
 							data-action="zoom"
 							class="rounded-lg"
 							:src="storageUrl+product.image"
+							:content="product.name"
+						/>
+						</div>
+						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-else>
+						<Tippy
+							tag="img"
+							data-action="zoom"
+							class="rounded-lg"
+							:src="storageUrl+`no_image.jpeg`"
 							:content="product.name"
 						/>
 						</div>

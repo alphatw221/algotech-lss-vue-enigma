@@ -16,8 +16,11 @@
 		<div class="p-5" v-for="(product, key) in store.order.products" :key="key">
 
 			<div class="relative flex items-center">
-			<div class="w-12 h-12 flex-none image-fit">
+			<div class="w-12 h-12 flex-none image-fit" v-if="product.image">
 				<img alt="" class="rounded-md" :src="storageUrl+product.image" />
+			</div>
+			<div class="w-12 h-12 flex-none image-fit" v-else>
+				<img alt="" class="rounded-md" :src="storageUrl+`no_image.jpeg`" />
 			</div>
 			<div class="ml-4 mr-auto w-[50%]">
 				<div class="font-medium text-cyan-900 whitespace-normal break-normal">{{product.name}}</div>

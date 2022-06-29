@@ -14,23 +14,23 @@
         <Card class="center flex flex-col items-center text-center">
             <h3>Login</h3>
 
-            <Form ref="loginForm" :model="loginForm" :rules="ruleInline" style="margin-top:50px;">
+            <Form  style="margin-top:50px;">
                 <FormItem prop="email" class="login_form">
-                    <Input type="text" v-model="loginForm.email" placeholder="E-mail" class="formLabel">
+                    <Input type="text" v-model="loginData.email" placeholder="E-mail" class="formLabel">
                         <template #prepend>
                         <Icon type="ios-person-outline"></Icon>
                         </template>
                     </Input>
                 </FormItem>
                 <FormItem prop="password" class="login_form">
-                    <Input type="password" v-model="loginForm.password" placeholder="Password" class="formLabel">
+                    <Input type="password" v-model="loginData.password" placeholder="Password" class="formLabel">
                         <template #prepend>
                         <Icon type="ios-lock-outline"></Icon>
                         </template>
                     </Input>
                 </FormItem>
                 <FormItem class="login_form">
-                    <button class="btn bg-emerald-600 text-lg w-full h-10 text-white" @click="_general_login" >Sign in</button>
+                    <button type="button" class="btn bg-emerald-600 text-lg w-full h-10 text-white" @click="signIn()" >Sign in</button>
                 </FormItem>
             </Form>
 
@@ -46,54 +46,62 @@
     </div>
 </template>
 
-<script>
-import { general_login } from '@/api/user';
+<script setup>
+import { seller_general_login } from '@/api_v2/user';
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
+import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
+import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'
 
-export default {
-    components:{
-        FacebookLoginButton,
-        GoogleLoginButton
-    },
-    data() {
-        return {
-            carousel_items: [
-                { src: "/src/assets/images/login-page/new-lss-carousel-1.jpeg" },
-                { src: "/src/assets/images/login-page/new-lss-carousel-2.jpeg" }
-            ],
-            loginForm: {
-                email: '',
-                password: ''
-            },
-            ruleInline: {
-                email: [
-                    { required: true, message: 'Please fill in the email', trigger: 'blur' }
-                ],
-                password: [
-                    { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-                    { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
-                ]
-            }
-        }
-    },
-    methods:{
-        _general_login() {
-            general_login(this.loginForm).then(response=>{
-                var set_cookie = new Promise((res) => {
-                    this.$cookies.set("access_token", response.data.access)
-                    // store.$patch((state) => {
-                    //     state.accessToken = response.data.access;
-                    // })
-                    res()
-                })
-                set_cookie.then(()=>{
-                    this.$router.push(`/seller/campaign-list`)
-                })
-            })
-        }
+import {ref, onMounted} from 'vue'
+import {useRoute, useRouter} from 'vue-router'
+
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
+
+onMounted(()=>{
+    // console.log(navigator.userAgent.toLowerCase())
+    if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
+        showReminder.value=true
     }
+})
+
+const route = useRoute()
+const router = useRouter()
+const currentUrl = ref(window.location.href)
+const showReminder = ref(false)
+const loginData = ref(
+    {email:'',password:''})
+// const ruleInline = ref( {
+//                         email: [
+//                             { required: true, message: 'Please fill in the email', trigger: 'blur' }
+//                         ],
+//                         password: [
+//                             { required: true, message: 'Please fill in the password.', trigger: 'blur' },
+//                             { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
+//                         ]
+//                     })
+
+const carousel_items = ref([
+                { src: img1 },
+                { src: img2 },
+            ])
+
+const copyLink = ()=>{
+    navigator.clipboard.writeText(currentUrl.value).then(()=>{
+        alert('copied!')
+    })
+}
+
+const signIn = ()=>{
+    // console.log('signIn')
+    seller_general_login(loginData.value).then(response=>{
+        cookies.set("access_token", response.data.access)
+        router.push(`/seller/campaigns`)
+    }).catch(err=>{
+        console.log(err)
+    })
 }
 </script>
 

@@ -8,20 +8,18 @@ export default async (to, from)=>{
     const sellerStore = useLSSSellerLayoutStore();
 
     if (sellerStore.isAuthenticated) {
-        console.log('isAuth')
         return true
     }
 
     if (cookies.get('access_token')) {
-        const res = await get_seller_account()
-        
-        sellerStore.isAuthenticated = true;
-        sellerStore.userInfo = res.data;
-
-        if (res.status!=200) {
+        const res = await get_seller_account().then(res=>{
+            sellerStore.isAuthenticated = true;
+            sellerStore.userInfo = res.data;
+            return true
+        }).catch(err=>{
+            cookies.remove("access_token")
             return '/seller/login'
-        }
-        return true
+        })
     }
     return '/seller/login'
 }

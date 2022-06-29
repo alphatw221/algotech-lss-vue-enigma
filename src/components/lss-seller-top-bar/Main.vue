@@ -35,12 +35,12 @@
       </a>
       <!-- END: Logo -->
       <!-- BEGIN: Breadcrumb -->
-      <nav aria-label="breadcrumb" class="-intro-x h-[45px] mr-auto">
+      <!-- <nav aria-label="breadcrumb" class="-intro-x h-[45px] mr-auto">
         <ol class="breadcrumb breadcrumb-light">
           <li class="breadcrumb-item"><a @click="router.back()">Application</a></li>
           <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
         </ol>
-      </nav>
+      </nav> -->
       <!-- END: Breadcrumb -->
       <!-- BEGIN: Search
       <div class="intro-x relative mr-3 sm:mr-6">
@@ -135,7 +135,7 @@
       </div> -->
       <!-- END: Search -->
       <!-- BEGIN: Notifications -->
-      <Dropdown class="intro-x mr-4 sm:mr-6">
+      <!-- <Dropdown class="intro-x mr-4 sm:mr-6">
         <DropdownToggle
           tag="div"
           role="button"
@@ -178,10 +178,10 @@
             </div>
           </DropdownContent>
         </DropdownMenu>
-      </Dropdown>
+      </Dropdown> -->
       <!-- END: Notifications -->
       <!-- BEGIN: Account Menu -->
-      <Dropdown class="intro-x w-8 h-8">
+      <Dropdown class="intro-x w-8 h-8 ml-auto mr-4 my-auto">
         <DropdownToggle
           tag="div"
           role="button"
@@ -265,7 +265,7 @@ const logout = () => {
   cookies.remove('access_token')
   cookies.remove('login_with')
   dom('.dropdown-menu').removeClass('show')
-  router.replace('/seller/login')
+  router.go()
   
 }
 

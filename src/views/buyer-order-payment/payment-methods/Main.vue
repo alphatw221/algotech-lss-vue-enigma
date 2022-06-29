@@ -23,16 +23,16 @@ const selectIndex = ref(0)
 const payments = ref([])
 
 watch(computed(()=>store.order),()=>{
-    if(!store.order.campaign)return
-    if(!store.order.campaign.user_subscription)return
+    if (!store.order.campaign) return
+    if (!store.order.campaign.user_subscription) return
     const meta_payment = store.order.campaign.meta_payment
-    if(!meta_payment)return
+    if (!meta_payment) return
     const meta_country = store.order.campaign.user_subscription.meta_country
-    if(!meta_country)return
+    if (!meta_country) return
     const paymentKeySet = new Set()
-    meta_country.activated_country.forEach(country=>{paymentMetaStore[country].forEach(key=>paymentKeySet.add(key))})
+    meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => paymentKeySet.add(key) ) } )
     paymentKeySet.forEach(key => {
-        if(meta_payment[key] && meta_payment[key].enable)payments.value.push(paymentMetaStore[key])
+        if (meta_payment[key] && meta_payment[key].enable) payments.value.push(paymentMetaStore[key])
     });
 })
 

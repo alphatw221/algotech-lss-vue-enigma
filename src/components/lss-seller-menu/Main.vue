@@ -1,8 +1,8 @@
 <template>
-<div class="flex overflow-auto bg-secondary h-screen">
+<div class="flex overflow-hidden bg-secondary h-full lg:h-screen">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
-        <div class="flex cursor-pointer m-3 " @click="router.push('/seller/campaign/create')"> 
+        <div class="flex cursor-pointer m-3" @click="router.push('/seller/campaign/create')"> 
           <button class="btn btn-rounded-primary mr-3 w-10 h-10"
           ><span class="text-2xl">+</span></button>
           <span class="font-bold hidden xl:block 2xl:block">Create <br> New Campaign</span> 
@@ -133,6 +133,14 @@
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
       <div class="content">
+        <nav aria-label="breadcrumb" class="h-[28px] text-lg mr-auto">
+          <ol class="breadcrumb breadcrumb-dark">
+            <template v-for="crumb in breadCrumb.slice(0, -1)" :key="crumb">
+              <li class="breadcrumb-item"><a @click="router.path({name: crumb })">{{crumb}}</a></li>
+            </template>
+              <li class="breadcrumb-item">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
+          </ol>
+        </nav>
         <router-view />
       </div>
       <!-- END: Content -->
@@ -152,8 +160,10 @@ const route = useRoute();
 const router = useRouter();
 const formattedMenu = ref([]);
 const layoutStore = useLSSSellerLayoutStore();
-
 const sideMenu = computed(() => nestedMenu(layoutStore.menu, route));
+const rawPath = ref()
+const dummy = ref()
+const breadCrumb = ref([])
 
 provide("forceActiveMenu", (pageName) => {
   
@@ -166,12 +176,22 @@ watch(
   () => {
     delete route.forceActiveMenu;
     formattedMenu.value = $h.toRaw(sideMenu.value);
+    rawPath.value = route.path
+    rawPath.value = rawPath.value.replace(/[0-9]/g, '')
+    rawPath.value = rawPath.value.replace(/\s/g, '')
+    console.log(rawPath.value)
+    breadCrumb.value = rawPath.value.substr(8).replace("-", " ").split('/')
+    console.log(breadCrumb.value)
   },
 );
 
 onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
   formattedMenu.value = $h.toRaw(sideMenu.value);
+  rawPath.value = route.path
+  rawPath.value = rawPath.value.replace(/[0-9]/g, '');
+  rawPath.value = rawPath.value.replace(/\s/g, '');
+  breadCrumb.value = rawPath.value.substr(8).replace("-", " ").split('/')
 });
 </script>
 
