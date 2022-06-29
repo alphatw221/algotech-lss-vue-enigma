@@ -36,12 +36,12 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       },
       {
         icon: "ListIcon",
-        pageName: "side-menu-campaign-list",
+        pageName: "campaigns",
         title: "Campaign List",
       },
       // {
       //   icon: "VideoIcon",
-      //   pageName: "side-menu-campaign-live",
+      //   pageName: "campaign-live",
       //   title: "Campaign Live",
       // },
       {
@@ -49,16 +49,16 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "side-menu-auto-reply",
         title: "Auto Reply",
       },
-      {
-        icon: "PackageIcon",
-        pageName: "",
-        title: "Manage Order",
-      },
-      {
-        icon: "PlusSquareIcon",
-        pageName: "mkt-plugin",
-        title: "MKT Plugin",
-      },
+      // {
+      //   icon: "PackageIcon",
+      //   pageName: "",
+      //   title: "Manage Order",
+      // },
+      // {
+      //   icon: "PlusSquareIcon",
+      //   pageName: "mkt-plugin",
+      //   title: "MKT Plugin",
+      // },
       // {
       //   icon: "ShoppingCartIcon",
       //   pageName: "side-menu-shopping-cart",
@@ -66,19 +66,19 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       // },
       {
         icon: "SettingsIcon",
-        pageName: "side-menu-campaign-global-setting",
+        pageName: "campaign-global-setting",
         title: "Settings",
         subMenu: [
           {
-            pageName: "side-menu-campaign-global-setting",
+            pageName: "campaign-global-setting",
             title: "Campaign Global Setting",
           },
           {
-            pageName: "side-menu-localization",
+            pageName: "localization",
             title: "Localization",
           },
           {
-            pageName: "side-menu-connect-platform",
+            pageName: "platform",
             title: "Connect Platform",
           },
         ],

@@ -83,17 +83,20 @@ import { campaign_manage_order } from "@/api/manage_order";
 import { allow_checkout, manage_order_list } from "@/api_v2/manage_order"
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+
 const route = useRoute();
 const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const layout = useLSSSellerLayoutStore()
 
 let page = 1;
 let totalPage = 1;
 let page_size = 10;
 let dataCount = 0;
 const deliveryStatus = ref(false);
-const checkout_status = route.query.checkout == 1 ? false : true ;
+const checkout_status = route.query.checkout;
 const tableStatus = ref('manageAllOrder')
 const show_order = status=>{
   tableStatus.value=status
@@ -102,6 +105,7 @@ const show_order = status=>{
 
 function stop_checkout(status){
     allow_checkout(route.params.campaign_id,status)
+    layout.notification.showMessageToast('Update Successed');
 }
 
 onMounted(()=>{

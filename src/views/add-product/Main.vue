@@ -1,12 +1,11 @@
 <template>
-	<div>
-		<div class="intro-y flex items-center mt-8" v-if="route.params.product_id">
-			<h2 class="text-lg font-medium mr-auto">Update Product</h2>
+	<div class="h-[100%] overflow-auto">
+		<div class="intro-y flex items-center mt-3" v-if="route.params.product_id">
+			<h2 class="text-lg font-medium">Update Product</h2>
 		</div>
-		<div class="intro-y flex items-center mt-8" v-else>
-			<h2 class="text-lg font-medium mr-auto">Add New Product</h2>
+		<div class="intro-y flex items-center mt-3" v-else>
+			<h2 class="text-lg font-medium">Add New Product</h2>
 		</div>
-		
 		<div class="intro-y grid grid-cols-12 gap-4 box p-5 mt-5">
 			<div class="col-span-6 col-start-1">
 				<label for="crud-form-1" class="form-label">Product Name</label>
@@ -15,17 +14,24 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input text"
-					v-model="product.name"
+					v-model="validate.name.$model"
+					:class="{ 'border-danger text-danger border-2': validate.name.$error }" 
 				/>
+				<template v-if="validate.name.$error">
+						<label class="text-danger ml-2" >
+						Enter product name with no more than 50 digits
+						</label>
+				</template>
 			</div>
 			<div class="col-span-6">
 				<label for="crud-form-2" class="form-label">Category</label>
 
 				<TomSelect
 					id="crud-form-2"
-					v-model="product.tag"
+					v-model="validate.tag.$model"
 					class="w-full"
 					multiple
+					:class="{ 'border-danger text-danger border-2': validate.tag.$error }" 
 					v-if="route.params.product_id"
 				>
 					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
@@ -33,14 +39,19 @@
 
 				<TomSelect
 					id="crud-form-2"
-					v-model="product.tag"
+					v-model="validate.tag.$model"
 					class="w-full"
 					multiple
+					:class="{ 'border-danger text-danger border-2': validate.tag.$error }" 
 					v-else
 				>
 					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
 				</TomSelect>
-				
+				<template v-if="validate.tag.$error">
+						<label class="text-danger ml-2" >
+						Select at least one tag 
+						</label>
+				</template>
 			</div>
 
 			<div class="mt-3 col-span-12 col-start-1">
@@ -91,18 +102,30 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input Order Code"
-					v-model="product.order_code"
+					v-model="validate.order_code.$model"
 				/>
+				<template v-if="validate.order_code.$error">
+						<label class="text-danger ml-2" >
+						Enter order code with no more than 10 digits
+						</label>
+				</template>
 			</div>
-			<div class=" mt-3 col-span-6">
+			<div class="mt-3 col-span-6">
 				<label for="crud-form-1" class="form-label">Description</label>
 				<input
 					id="crud-form-1"
 					type="text"
 					class="form-control w-full"
 					placeholder="Input Description"
-					v-model="product.description"
+					v-model="validate.description.$model"
+					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
 				/>
+				<template v-if="validate.description.$error">
+						<label class="text-danger ml-2" >
+						discription cannot be more than 100 digits
+						</label>
+				</template>
+				
 			</div>
 
 			<div class="mt-3 col-span-6 col-start-1">
@@ -112,8 +135,14 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input Quantity"
-					v-model="product.qty"
+					v-model="validate.qty.$model"
+					:class="{ 'border-danger text-danger border-2': validate.qty.$error }" 
 				/>
+				<template v-if="validate.qty.$error">
+						<label class="text-danger ml-2" >
+						Quantity has to be numbers 
+						</label>
+				</template>
 			</div>
 			<div class=" mt-3 col-span-6">
 				<label for="crud-form-1" class="form-label">Price</label>
@@ -122,8 +151,14 @@
 					type="text"
 					class="form-control w-full"
 					placeholder="Input Price"
-					v-model="product.price"
+					v-model="validate.price.$model"
+					:class="{ 'border-danger text-danger border-2': validate.price.$error }" 
 				/>
+				<template v-if="validate.price.$error">
+						<label class="text-danger ml-2" >
+						Price has to be numbers 
+						</label>
+				</template>
 			</div>
 
 			<div class="mt-3 col-span-12 col-start-1">
@@ -165,7 +200,6 @@
 					</button>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </template>
@@ -173,9 +207,11 @@
 <script setup>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
 import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useVuelidate } from "@vuelidate/core";
+import { required,minValue, integer, minLength, maxLength } from "@vuelidate/validators";
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
@@ -193,7 +229,7 @@ const product = ref({
 	qty: '',
 	price: '',
 	status: '',
-	tag: []
+	tag: [],
 })
 
 const typeRadio = ref([
@@ -220,14 +256,19 @@ onMounted(()=>{
 		.then(
 			res => {
 				product.value = res.data
-				previewImage.value = storageUrl + res.data.image
+				previewImage.value = res.data.image?storageUrl + res.data.image:null
 			}
 		)
 	}
 })
 
-
 const submit = ()=>{
+	validate.value.$touch();
+	console.log(product.value)
+    if (validate.value.$invalid) {
+        layoutStore.alert.showMessageToast("Invild Data Inputed")
+        return
+    }else
 	if (route.params.product_id) {
 		formData.append('data', JSON.stringify(product.value))
 		update_product(route.params.product_id, formData)
@@ -235,9 +276,9 @@ const submit = ()=>{
 			response => {
 				// console.log('image upload response > ', response)
 				// layoutStore.alert.showMessageToast("Invalid Quantity")
+				layoutStore.notification.showMessageToast("Update Success")
 				router.push('/seller/stock')
 			},
-			layoutStore.notification.showMessageToast("Update Success")
 		)
 	} else {
 		formData.append('data', JSON.stringify(product.value))
@@ -264,7 +305,23 @@ const uploadImage = e =>{
 }
 
 const cancelButton = () =>{
-	layoutStore.alert.showMessageToast("Change Not Saved");
 	router.push('/seller/stock');
+	layoutStore.alert.showMessageToast("Change Not Saved");
 }
+
+const rules = computed(()=>{
+    return{
+		name:{required,maxLength:maxLength(40)},
+		order_code: {required, maxLength:maxLength(10),minLength:minLength(3)},
+		description: {maxLength: maxLength(100)},
+		qty: {integer},
+		price: {integer},
+		tag: {required},  
+    }
+});
+
+const validate = useVuelidate(rules, product);
+
 </script>
+
+<!-- test product name with maximum length to -->

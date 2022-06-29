@@ -15,11 +15,20 @@
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
 				<td class=" h-20 imgTd self-center">
 					<div class="flex items-center self-center justify-center">
-						<div class="w-10 h-10 image-fit zoom-in">
+						<div class="w-10 h-10 image-fit zoom-in" v-if="product.image">
 						<Tippy
 							tag="img"
 							class="rounded-lg"
 							:src="storageUrl+product.image"
+							:content="product.name"
+              data-action="zoom"
+						/>
+						</div>
+            <div class="w-10 h-10 image-fit zoom-in" v-else>
+						<Tippy
+							tag="img"
+							class="rounded-lg"
+							:src="storageUrl+`no_image.jpeg`"
 							:content="product.name"
               data-action="zoom"
 						/>

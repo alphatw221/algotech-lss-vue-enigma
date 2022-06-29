@@ -6,14 +6,13 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:true,
 		name: "Direct Payment",
 		key:"direct_payment",
-		request_url: "api/v2/user-subscription/direct_payment/",
 		fields:[
-			{key:"mode", name:"Name of Bank / Payment Mode", type:"text", r:0, c:0, w:4},
-			{key:"name", name:"Account Name", type:"text", r:0, c:1, w:4},
-			{key:"number", name:"Account Number", type:"text", r:0, c:2, w:4},
-			{key:"note", name:"Note", type:"textarea", r:1, c:0, w:6},
-			{key:"require_customer_return", name:"Require Customer Return", type:"checkbox", r:1, c:1, w:6},
-			{key:"image", name:null, type:"file", r:2, c:0, w:11}
+			{key:"mode", name:"Name of Bank / Payment Mode", type:"text", dataType:"string", default:''},
+			{key:"name", name:"Account Name", type:"text", dataType:"string", default:''},
+			{key:"number", name:"Account Number", type:"text", dataType:"string", default:''},
+			{key:"note", name:"Note", type:"textarea", dataType:"string", default:''},
+			{key:"require_customer_return", name:"Require Customer Return", type:"checkbox", dataType:"boolean", default:true},
+			{key:"image", name:null, type:"file", dataType:"string", default:null}
 		],
 		// handle:{
 		// 	type:'upload',
@@ -29,9 +28,8 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"Stripe",
 		key:"stripe",
-		request_url: "api/v2/user-subscription/stripe/",
 		fields:[
-			{key:"secret", type:"password", name: "Secret Key"},
+			{key:"secret", type:"password", name: "Secret Key",dataType:"string", default:''},
 			{key:"currency", type:"select", name: "Currency", options:[
 			'USD', 'AED', 'AFN', 'ALL', 'AMD', 'ANG', 'AOA', 'ARS', 'AUD', 'AWG', 'AZN', 'BAM', 'BBD',
 			'BDT', 'BGN', 'BIF', 'BMD', 'BND', 'BOB', 'BRL', 'BSD', 'BWP', 'BYN', 'BZD', 'CAD', 'CDF',
@@ -43,7 +41,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			'NZD', 'PAB', 'PEN', 'PGK', 'PHP', 'PKR', 'PLN', 'PYG', 'QAR', 'RON', 'RSD', 'RUB', 'RWF',
 			'SAR', 'SBD', 'SCR', 'SEK', 'SGD', 'SHP', 'SLL', 'SOS', 'SRD', 'STD', 'SZL', 'THB', 'TJS',
 			'TOP', 'TRY', 'TTD', 'TWD', 'TZS', 'UAH', 'UGX', 'UYU', 'UZS', 'VND', 'VUV', 'WST', 'XAF',
-			'XCD', 'XOF', 'XPF', 'YER', 'ZAR', 'ZMW']
+			'XCD', 'XOF', 'XPF', 'YER', 'ZAR', 'ZMW'], dataType:"string", default:'USD'
 			},
 		],
 		handle:{
@@ -55,12 +53,11 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"First Data IPG (Credit Card)",
 		key:"first_data",
-		request_url: "api/user-subscription/first_data/",
 		fields:[
-			{key:"storeId", name:"storeId", type:"text"},
-			{key:"sharedSecret", name:"sharedSecret", type:"password"},
-			{key:"currency", name:"currency", type:"select", options:['702', '703']},
-			{key:"timezone", name:"timezone", type:"select", options:['Asia/Singapore']}
+			{key:"store_id", name:"storeId", type:"text", dataType:"string", default:''},
+			{key:"shared_secret", name:"sharedSecret", type:"password", dataType:"string", default:''},
+			{key:"currency", name:"currency", type:"select", options:['702', '703'], dataType:"string", default:'702'},
+			{key:"timezone", name:"timezone", type:"select", options:['Asia/Singapore'], dataType:"string", default:'Asia/Singapore'}
 		],
 		handle:{
 			type:'submitForm',
@@ -69,7 +66,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 	},
 
 
-    SG : ['direct_payment', 'stripe', 'first_data'],
+    SG : ['direct_payment', 'stripe','first_data'],
     
     ID : ['direct_payment', 'stripe'],
 

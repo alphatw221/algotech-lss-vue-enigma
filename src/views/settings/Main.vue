@@ -30,7 +30,7 @@
 
 <script>
 import NotesSettings from './NotesSettings.vue';
-import PaymentSettings from './PaymentSettings.vue';
+import PaymentSettings from './payment-settings/Main.vue';
 import DeliverySettings from './DeliverySettings.vue';
 
 export default {
