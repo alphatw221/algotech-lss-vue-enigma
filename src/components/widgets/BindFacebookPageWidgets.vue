@@ -1,18 +1,14 @@
 <template>
-    <div v-show="showPages" class="border-2 rounded-md">
-        <div class="grid grid-cols-12">
-            <h4 class="ma-5 col-span-12">Facebook Fan Page</h4>
-        </div>
-        <div class="grid grid-cols-12">
-            <div v-for="page in facebookPages" :key="page.id">
-                <div class="relative mt-3">
-                    <img :src="page.image" alt="">
-                    <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Unbind page" :options="{
-                        theme: 'light',
-                    }"><XCircleIcon class="absolute right-0 top-0 click-icon" @click="removeFacebookPages(page)"/></Tippy>
-                    
-                </div>
-                <span>{{ page.name }}</span>
+    <div v-show="showPages" class="border-2 rounded-lg p-5 mx-4 lg:mx-8 mb-8 flex flex-col">
+        <h4 class="text-lg">Facebook Fan Page</h4>
+        <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5">
+            <div v-for="page in facebookPages" :key="page.id" class="flex-col flex text-center relative my-3 w-16 h-auto lg:w-28">
+                <img :src="page.image" class="rounded-full w-16 h-16 mx-auto lg:w-20 lg:h-20">
+                <span class="whitespace-auto text-center w-16 lg:w-28">{{ page.name.substring(0,24)}}</span>
+                <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Unbind page" :options="{
+                    theme: 'light',
+                }">
+                <XCircleIcon class="absolute right-0 top-0 z-50 click-icon text-danger" @click="removeFacebookPages(page)"/></Tippy>
             </div>
         </div>
     </div>
@@ -97,7 +93,6 @@ const removeFacebookPages = (payload) => {
 <style scoped>
 .click-icon:hover {
   cursor: pointer;
-  
 }
 .click-icon {
     margin: -10px -11px 0px 0px;

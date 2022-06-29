@@ -163,7 +163,7 @@ const validate = useVuelidate(rules, currentSettings);
 const save = () => {
   validate.value.$touch();
   if (validate.value.$invalid || typeof currentSettings.value.prize === 'string') {
-    layoutStore.alert.showMessageToast("Invild Data Inputed")
+    layoutStore.alert.showMessageToast("Invalid Data Inputed")
     return
   }else 
   console.log(currentSettings.value)

@@ -43,7 +43,7 @@
             </TomSelect>
         </div>
         <div class="flex justify-end"> 
-            <!-- <button class="btn btn-rounded-secondary mr-5"> Cancel</button> -->
+            <button class="btn btn-rounded-secondary mr-5" @click="clean()"> Clean</button>
             <button class="btn btn-rounded-primary" @click="save()"> Save</button>
         </div>
     </div>
@@ -95,6 +95,12 @@ onMounted(()=>{
     data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places
 })
 
+const clean =() =>{
+    data.value.currency = layoutStore.userInfo.user_subscription.currency
+    data.value.lang = layoutStore.userInfo.user_subscription.lang
+    data.value.buyer_lang = layoutStore.userInfo.user_subscription.buyer_lang
+    data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places
+}
 
 const save = ()=>{
     seller_update_subscription(data.value).then(res=>{

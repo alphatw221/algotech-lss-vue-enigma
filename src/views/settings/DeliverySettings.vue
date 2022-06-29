@@ -1,8 +1,8 @@
 <template>
-    <div class="box py-5 lg:p-10 2xl:p-10">
+    <div class="py-5 lg:p-10 2xl:p-10">
 
         <span class="text-2xl font-medium leading-none m-10">Delivery Settings</span>
-        <div class="box px-5 lg:p-10 2xl:p-10 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50">
+        <div class="px-5 lg:p-10 2xl:p-10 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50">
             <label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Delivery Charge</label>
             <input 
                 class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4 text-base"
