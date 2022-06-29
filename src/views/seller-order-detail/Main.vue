@@ -91,15 +91,15 @@ import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_order } from "@/api_v2/order";
-import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
-const store = useManageOrderStore();
+const store = useSellerOrderStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-let refreshKey = 0
+let refreshKey = true
 
 
 onMounted(()=>{
@@ -107,7 +107,7 @@ onMounted(()=>{
     get_order()
     eventBus.on("getNewPrice", (payload) => {
 		get_order()
-        refreshKey+=1
+        refreshKey = !refreshKey
 	})
 })
 onUnmounted(()=>{

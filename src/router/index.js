@@ -76,7 +76,7 @@ import AutoReply from "../views/autoReply/Main.vue";
 import CampaignList from "../views/campaignlist/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
 import ManageOrder from "../views/manage-order/Main.vue";  
-import CampaignSelect from "../views/manage-order/Campaignselect.vue";
+// import CampaignSelect from "../views/manage-order/Campaignselect.vue";
 
 import Localization from "../views/settings/Localization.vue";  
 import ConnectPlatform from "../views/settings/ConnectPlatform.vue";  
@@ -157,11 +157,11 @@ const routes = [
       //   name: "sellerOrder",
       //   component: () => import('@/views/seller-order-detail/Main.vue'),
       // },
-      {
-        path: "campaign-select",
-        name: "side-menu-campaign-select",
-        component: CampaignSelect,
-      },
+      // {
+      //   path: "campaign-select",
+      //   name: "side-menu-campaign-select",
+      //   component: CampaignSelect,
+      // },
       // {  
       //   path: "shopping-cart",
       //   name: "side-menu-shopping-cart",
