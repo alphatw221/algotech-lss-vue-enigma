@@ -124,7 +124,7 @@ const formData = new FormData()
 
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
-
+    console.log(sellerStore.userInfo.user_subscription.meta_payment)
 
     if(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]){
         paymentData.value = sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]

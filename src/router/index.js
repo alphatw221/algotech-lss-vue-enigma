@@ -195,7 +195,7 @@ const routes = [
       },
 /*                CREATE CAMPAIGN                        */      
       {
-        path: "create-campaign/:campaign_id?",
+        path: "create-campaign",
         name: "create-campaign",
         component: () => import('@/views/create-campaign/Main.vue'),
       },  
@@ -209,6 +209,11 @@ const routes = [
         name: "assign-product",
         component: () => import('@/views/create-campaign/AssignProductPage.vue'),
       },  
+      {
+        path: "campaign-detail/:campaign_id?/edit-product",
+        name: "edit-campaign-product",
+        component: () => import('@/views/create-campaign/AssignProductPage.vue'),
+      }, 
 
 /*                     SETTINGS                           */
       {  
