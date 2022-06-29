@@ -13,7 +13,7 @@
         </div>
         
 
-        <div v-for="(account, index_i) in paymentData.accounts" :key="index_i">
+        <div v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i">
 
             <div 
                 class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-3 lg:gap-5 2xl:my-3 2xl:gap-5" 
@@ -115,7 +115,7 @@ const paymentData = ref(
     {
         enable:false,
         title:'',
-        accounts:[]
+        v2_accounts:[]
     }
 )
 const previewImages = ref([])
@@ -131,17 +131,17 @@ onMounted(() => {
     }
 
 
-    if(typeof paymentData.value.enabled != 'boolean')paymentData.value['enabled']=false
-    if(!Array.isArray(paymentData.value.accounts))paymentData.value['accounts']=[]
+    if(typeof paymentData.value['enabled'] != 'boolean')paymentData.value['enabled']=false
+    if(!Array.isArray(paymentData.value['v2_accounts']))paymentData.value['v2_accounts']=[]
 
-    paymentData.value.accounts.forEach(account => {
+    paymentData.value.v2_accounts.forEach(account => {
         previewImages.value.push(storageUrl+account.image)
     });
 })
 
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
-    formData.append('_'+paymentData.value.accounts[index].name,image)
+    formData.append('_'+paymentData.value.v2_accounts[index].name,image)
 	let reader = new FileReader();
 	reader.readAsDataURL(image);
 	reader.onload = event =>{ previewImages.value[index] = event.target.result };
@@ -149,12 +149,12 @@ const uploadImage = (event, index) =>{
 
 
 const deleteDirectPayment = index=>{
-    paymentData.value.accounts.splice(index,1)
+    paymentData.value.v2_accounts.splice(index,1)
     previewImages.value.splice(index,1)
 
 }
 const addDirectPayment = ()=>{
-    paymentData.value.accounts.push({mode:'',name:'',number:'',note:'',require_customer_return:true})
+    paymentData.value.v2_accounts.push({mode:'',name:'',number:'',note:'',require_customer_return:true})
     previewImages.value.push('')
 }
 
