@@ -80,7 +80,7 @@ const checkCampaignTime = (data) =>{
 }
 
 const forPath = () =>{
-  router.push({ path: '/seller/campaign-list', query: { type: 'startCampaign' }})
+  router.push({ name: 'campaign-list', query: { type: 'startCampaign' }})
 }
 // const toast = () =>{
 //   store.floatingVideo.videoToast("Faceebook video streaming!!")

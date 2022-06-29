@@ -1,16 +1,15 @@
 <template>
-    <div class="box col-span-12 col-start-1 row-span-5 lg:row-span-2 h-fit mt-0 lg:col-span-7 lg:row-start-1 lg:mt-2 2xl:col-span-4 2xl:row-start-1 2xl:mt-2" >
-        <div class="box p-2 intro-y grid grid-cols-12 gap-5 mt-5 p-5">
-            <div class="col-start-1 col-span-5 -mt-3 p-2">
-                <h2 class="text-lg font-medium">Incoming Order</h2>
-            </div>
-        </div>
-        <div class="overflow-x-auto overflow-y-auto scrollbar-hidden box max-h-[42rem] lg:max-h-[18rem] 2xl:max-h-[42rem]">
-            <div class="sticky top-0 z-50">
+    <div class="box col-span-12 col-start-1 row-start-3 row-span-2 h-screen mt-0
+        lg:row-start-1 lg:row-span-3 lg:col-start-6 lg:col-span-7  lg:h-[100%]
+        2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-9 
+        ">
+        <div class="h-full flex flex-col">
+            <h2 class="text-lg font-medium m-3 ml-5">Incoming Order</h2>
+            <div class="overflow-auto scrollbar-hidden">
                 <table class="table table-sm">
                     <thead class="table-dark">
                         <tr>
-                            <th class="whitespace-nowrap" style="" v-for="column in incoming_order_columns"
+                            <th class="whitespace-nowrap bg-dark" v-for="column in incoming_order_columns"
                                 :key="column.key">
                                 {{ column.name }}
                             </th>
@@ -40,7 +39,7 @@
                             <td>{{ data.customer_name }}</td>
                             <td>{{ data.currency_sign }}{{ parseFloat(data.subtotal).toFixed(2) }}</td> 
                             <td>
-                                <EyeIcon class="click-icon" @click="this.$router.push(`/seller/order/${data.id}`);seller_order_detail"/>
+                                <EyeIcon class="click-icon" @click="this.$router.push({name:'sellerOrder',params:{'order_id':data.id}});seller_order_detail"/>
                             </td>
                         </tr>
                     </tbody>
@@ -105,15 +104,21 @@ export default {
 .form-check-input {
     border-color: black !important;
 }
-
 .table th {
     /*padding-left: 0 !important;*/
-    padding-right: 0 !important;
+    padding: 5px !important;
+    position: sticky !important; 
+    top: 0 !important;
+    z-index: 9999;
 }
 
 .table td {
     /*padding-left: 0 !important;*/
-    padding-right: 0 !important;
+    padding: 5px !important;
+    border-collapse: collapse;
+    overflow-wrap: break-word;
+    max-width: 95px;
+    height: 42px;
 }
 .click-icon:hover {
 	cursor: pointer;

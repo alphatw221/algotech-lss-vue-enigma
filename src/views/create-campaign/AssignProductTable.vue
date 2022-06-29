@@ -20,7 +20,7 @@
                                     <Tippy 
                                         tag="img" 
                                         class="rounded-lg cursor-auto" 
-                                        :src="`${publicPath}` + product.image"
+                                        :src="`${storageUrl}` + product.image"
                                         :content="product.name"
                                     />
                                 </div>
@@ -37,11 +37,12 @@
                                     :value="product.order_code"
                                     @input="changeInput($event, index, 'order_code')"
                                     style="width: 4rem; height: 2rem; margin-top: 5px;"
+                                    :disabled="product.disabledEdit"
                                 />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'qty_campaign'"
+                        <td v-else-if="column.key === 'qty'"
                             class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="form-check self-center place-content-center">
                                 <input 
@@ -49,8 +50,9 @@
                                     class="form-control" 
                                     aria-label="default input" 
                                     :value="product.qty"
-                                    @input="changeInput($event, index, 'qty_campaign')"
+                                    @input="changeInput($event, index, 'qty')"
                                     style="width: 4rem; height: 2rem; margin-top: 5px;"
+                                    :disabled="product.disabledEdit"
                                 />
                             </div>
                         </td>
@@ -65,6 +67,7 @@
                                     :value="product.max_order_amount"
                                     @input="changeInput($event, index, 'max_order')"
                                     style="width: 4rem; height: 2rem; margin-top: 5px;" 
+                                    :disabled="product.disabledEdit"
                                 />
                             </div>
                         </td>
@@ -92,6 +95,7 @@
                                     class="form-check-input" 
                                     type="checkbox" 
                                     v-model="product[column.key]"
+                                    :disabled="product.disabledEdit"
                                 />
                                 <span class="checkboxWord ml-3"> Select</span>
                             </div>
@@ -102,11 +106,11 @@
                             <div class="form-check mt-2 self-center place-content-center">
                                 <div v-if="product.type === 'lucky_draw'">
                                     <input
-                                    id="selectCheckbox" 
-                                    class="form-check-input" 
-                                    type="checkbox" 
-                                    disabled
-                                    v-model="product[column.key]"
+                                        id="selectCheckbox" 
+                                        class="form-check-input" 
+                                        type="checkbox" 
+                                        disabled
+                                        v-model="product[column.key]"
                                     />
                                 </div>
                                 <input
@@ -116,8 +120,9 @@
                                     type="checkbox" 
                                     v-model="product[column.key]"
                                     @click="product.deletable = false"
-                                    />
-                                    <span class="checkboxWord ml-3"> Editable</span>
+                                    :disabled="product.disabledEdit"
+                                />
+                                <span class="checkboxWord ml-3"> Editable</span>
                             </div>
                         </td>
 
@@ -138,6 +143,7 @@
                                     class="form-check-input" 
                                     type="checkbox" 
                                     v-model="product[column.key]"
+                                    :disabled="product.disabledEdit"
                                 />
                                 <span class="checkboxWord ml-3"> Deletable</span>
                             </div>
@@ -147,8 +153,21 @@
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div class="form-check mt-2 self-center place-content-center"> {{ product[column.key] }} </div>
                         </td>
+
+                        <td v-else-if="column.key === 'edit'">
+                            <button class="btn btn-sm btn-secondary w-16 mr-1" v-show="product.disabledEdit" @click="product.disabledEdit = !product.disabledEdit">
+                                Edit
+                            </button>
+                            <button class="btn btn-sm btn-danger w-16 mr-1" v-show="product.disabledEdit == false" @click="product.disabledEdit = !product.disabledEdit">
+                                Cancel
+                            </button>
+                            <button class="btn btn-sm btn-success w-16 mr-1" v-show="product.disabledEdit == false" @click="updateProduct(index)">
+                                Update
+                            </button>
+                        </td>
                     </template>
                 </tr>
+                
             </tbody>
         </table>
         <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
@@ -165,29 +184,31 @@
 import { ref, onMounted, onUnmounted, getCurrentInstance, watch} from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { list_product } from '@/api_v2/product';
+import { seller_retrieve_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
+import { useRoute } from 'vue-router';
 
 const campaignStore = useCreateCampaignStore(); 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
+const storageUrl = ref(import.meta.env.VITE_APP_IMG_URL)
+const route = useRoute()
 
 const dataCount = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)
 const productsList = ref([])
 const category = ref(undefined)
-
 const tableColumns = ref([
 	{ name: "Selected", key: "selected" },
 	{ name: "Image", key: "image" },
 	{ name: "Product Name", key: "name" },
 	{ name: "Order Code", key: "order_code" },
-	{ name: "Qty for Campaign", key: "qty_campaign" },
+	{ name: "Qty for Campaign", key: "qty" },
 	{ name: "Max Qty / Order", key: "max_order" },
 	{ name: "Category", key: "tag" },
 	{ name: "Price", key: "price" },
 	{ name: "Editable", key: "editable" },
 	{ name: "Deletable", key: "deletable" },
-	{ name: "Type", key: "type" }
+	{ name: "Type", key: "type" },
 ])
 
 onMounted(() => {
@@ -198,7 +219,6 @@ onMounted(() => {
         category.value = payload.filterColumn
         search()
     })
-
     eventBus.on("addProducts", () => { addProdcuts() })
 })
 
@@ -208,38 +228,64 @@ onUnmounted(() => {
 })
 
 const search = () => {
-    list_product(pageSize.value, currentPage.value, undefined, undefined, 'enabled', category.value)
-    .then(response => {
-        dataCount.value = response.data.count
-        productsList.value = response.data.results
+    if (route.query.type === 'create') {
+        list_product(pageSize.value, currentPage.value, undefined, undefined, 'enabled', category.value)
+        .then(response => {
+            dataCount.value = response.data.count
+            productsList.value = response.data.results
 
-        productsList.value.forEach((item) => {
-            item.qty_campaign = item.qty
-            item.selected = false
-            item.editable = true
-            item.deletable = true
-            item.max_order_amount = 1
-            if (item.type === 'lucky_draw') {
-                item.editable = false
-                item.deletable = false
-            }
-            if (item.editable === false) {
-                item.deletable = false
-            }
-        })
-        // 跳頁時選取記憶 selected, editable, deletable 欄位
-        if (campaignStore.assignedProducts.length > 0) {
-            for (let i = 0; i < campaignStore.assignedProducts.length; i ++) {
-                for (let j = 0; j < productsList.value.length; j ++) {
-                    if (campaignStore.assignedProducts[i].id == productsList.value[j].id) {
-                        productsList.value[j] = campaignStore.assignedProducts[i]
+            productsList.value.forEach((item) => {
+                item.qty_campaign = item.qty
+                item.selected = false
+                item.editable = true
+                item.deletable = true
+                item.max_order_amount = 1
+                if (item.type === 'lucky_draw') {
+                    item.editable = false
+                    item.deletable = false
+                }
+                if (item.editable === false) item.deletable = false
+            })
+            // 換頁時選取記憶在store中 selected, editable, deletable 欄位
+            if (campaignStore.assignedProducts.length > 0) {
+                for (let i = 0; i < campaignStore.assignedProducts.length; i ++) {
+                    for (let j = 0; j < productsList.value.length; j ++) {
+                        if (campaignStore.assignedProducts[i].id == productsList.value[j].id) {
+                            productsList.value[j] = campaignStore.assignedProducts[i]
+                        }
                     }
                 }
             }
-        }
-    }).catch(function (error) {
-        console.log(error);
-    })
+        }).catch(function (error) {
+            console.log(error);
+        })
+    } else if (route.query.type === 'edit') {
+        seller_retrieve_campaign_product(route.query.campaign_id, category.value, currentPage.value, pageSize.value)
+        .then(response => {
+            dataCount.value = response.data.count
+            productsList.value = response.data.results
+
+            productsList.value.forEach((item) => {
+                item.qty_campaign = item.qty_for_sale
+                item.qty = item.qty_for_sale
+                item.selected = true
+                item.editable = item.customer_editable
+                item.deletable = item.customer_removable
+                item.disabledEdit = true
+                if (item.type === 'lucky_draw') {
+                    item.editable = false
+                    item.deletable = false
+                }
+                if (item.editable === false) item.deletable = false
+            })
+            
+            let editExists = false
+            tableColumns.value.forEach((item) => { if (item.name === 'Edit') editExists = true })
+            if (editExists == false) tableColumns.value.push({ name: "Edit", key: "edit" })
+        }).catch(function (error) {
+            console.log(error);
+        })
+    }
 }
 
 const changePage = (page) => {
@@ -258,10 +304,10 @@ const changeInput = (event, index, type) => {
         productsList.value[index].order_code = event.target.value
     } else {
         if (event.target.value == '') event.target.value = 1 
-
-        if (event.target.value <= productsList.value[index].qty) {
-            if (type == 'qty_campaign') {
-                productsList.value[index].qty_campaign = event.target.value
+        console.log(parseInt(event.target.value))
+        if (parseInt(event.target.value) <= productsList.value[index].qty_campaign) {
+            if (type == 'qty') {
+                productsList.value[index].qty = event.target.value
             } else if (type == 'max_order') {
                 productsList.value[index].max_order_amount = event.target.value
             }
@@ -293,9 +339,32 @@ const addProdcuts = () => {
             })
         }
     })
-
-    console.log(campaignStore.assignedProducts)
 }
+
+const updateProduct = (index) => {
+    console.log(productsList.value[index])
+
+    if (productsList.value[index].selected == false) {
+        seller_delete_campaign_product(route.query.campaign_id, productsList.value[index].id)
+        .then(response => {
+            console.log(response.data)
+            search()
+        })
+    } else {
+		productsList.value[index]['qty_for_sale'] = parseInt(productsList.value[index]['qty'])
+		productsList.value[index]['max_order_amount'] = parseInt(productsList.value[index]['max_order_amount'])
+		productsList.value[index]['customer_editable'] = productsList.value[index]['editable']
+		productsList.value[index]['customer_removable'] = productsList.value[index]['deletable']
+
+        seller_update_campaign_product(route.query.campaign_id, productsList.value[index].id, productsList.value[index])
+        .then(response => {
+            console.log(response.data)
+            search()
+        })
+    }
+}
+
+
 </script>
 
 <style scoped>

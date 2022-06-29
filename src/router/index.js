@@ -95,7 +95,7 @@ import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 // import Test2 from "../views/test/test2.vue"; 
 // import Test4 from "../views/test/test4.vue"; 
 // import Test5 from "../views/test/test5.vue"; 
-// import Test6 from "../views/test/test6.vue"; 
+import Test7 from "../views/test/test7.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
@@ -107,41 +107,56 @@ import buyerRecaptchaMiddleware from "@/libs/routerMiddleware/buyerRecaptchaMidd
 import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
-  // {
-  //   path: "/test6",
-  //   name: "side-menu-test6",
-  //   component: Test6,
-  // },
+  {
+    path: "/test7",
+    name: "side-menu-test7",
+    component: Test7,
+  },
   {
     path: "/seller",
     component: LssSellerLayout,
     beforeEnter: sellerAuthMiddleware,
     children: [
       {
+        path: "",
+        name: "index",
+        component: CampaignList,
+      },
+      {
         path: "profile",
         name: "seller-profile",
         component: Profile,
       },
       {
-        path: "campaigns",
-        name: "side-menu-campaign-list",
+        path: "campaign-list",
+        name: "campaigns",
         component: CampaignList,
       },
       {
         path: "campaign-live/:campaign_id?",
-        name: "side-menu-campaign-live",
+        name: "campaign-live",
         component: CampaignLive,
       },
       {
-        path: "manage-order/:campaign_id?",
-        name: "side-menu-manage-order",
+        path: "campaign-detail/:campaign_id?/manage-order",
+        name: "manage-order",
         component: ManageOrder,
       },
       {
-        path: "order/:order_id?",
-        name: "SellerOrderDetail",
+        path: "campaign-detail/:campaign_id?/manage-order/order-detail/:order_id?",    
+        name: "sellerOrder",
         component: () => import('@/views/seller-order-detail/Main.vue'),
       },
+      {
+        path: "campaign-detail/:campaign_id?/lucky-draw",
+        name: "lucky-draw",
+        component: LuckyDraw,
+      },
+      // {
+      //   path: "order-detail/:order_id?",
+      //   name: "sellerOrder",
+      //   component: () => import('@/views/seller-order-detail/Main.vue'),
+      // },
       {
         path: "campaign-select",
         name: "side-menu-campaign-select",
@@ -172,11 +187,7 @@ const routes = [
         name: "lucky-draw-setting",
         component: LuckyDrawSetting,
       },
-      {
-        path: "lucky-draw/:campaign_id?",
-        name: "lucky-draw",
-        component: LuckyDraw,
-      },
+      
       {
         path: "mkt-plugin/quiz-game",
         name: "quiz-game",
@@ -184,30 +195,40 @@ const routes = [
       },
 /*                CREATE CAMPAIGN                        */      
       {
-        path: "campaign/:type?/:campaign_id?",
-        name: "side-menu-createCam-productselect",
+        path: "create-campaign",
+        name: "create-campaign",
         component: () => import('@/views/create-campaign/Main.vue'),
       },  
       {
-        path: "campaign/assign/product",
-        name: "side-menu-createCam-detailsconfirm",
+        path: "campaign-detail/:campaign_id/edit-campaign",
+        name: "edit-campaign",
+        component: () => import('@/views/create-campaign/Main.vue'),
+      },  
+      {
+        path: "campaign-detail/:campaign_id?/assign-product",
+        name: "assign-product",
         component: () => import('@/views/create-campaign/AssignProductPage.vue'),
       },  
+      {
+        path: "campaign-detail/:campaign_id?/edit-product",
+        name: "edit-campaign-product",
+        component: () => import('@/views/create-campaign/AssignProductPage.vue'),
+      }, 
 
 /*                     SETTINGS                           */
       {  
-        path: "settings/campaign-global",
-        name: "side-menu-campaign-global-setting",
+        path: "campaign-global",
+        name: "campaign-global-setting",
         component: () => import('@/views/settings/Main.vue'),
       },  
       {  
-        path: "settings/localization",
-        name: "side-menu-localization",
+        path: "localization",
+        name: "localization",
         component: Localization,
       },  
       {  
-        path: "settings/platform",
-        name: "side-menu-connect-platform",
+        path: "platform",
+        name: "platform",
         component: ConnectPlatform,
       },
 /*                     AUTOREPLY                           */
@@ -258,21 +279,21 @@ const routes = [
       },
       {
         path: "stock",
-        name: "Stock",
+        name: "stock",
         component: () => import('@/views/stock/Main.vue'),
       },
       {
-        path: "product/add",
+        path: "stock/add-product",
         name: "add-product",
         component: () => import('@/views/add-product/Main.vue'),
       },
       {
-        path: "product/edit/:product_id?",
+        path: "stock/product-detail/:product_id?/edit",
         name: "edit-product",
         component: () => import('@/views/add-product/Main.vue'),
       },
       {
-        path: "category/management",
+        path: "stock/category-management",
         name: "category-management",
         component: () => import('@/views/category-management/Main.vue')
       }

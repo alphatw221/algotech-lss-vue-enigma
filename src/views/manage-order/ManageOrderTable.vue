@@ -157,7 +157,7 @@ function search(searchValue,data,tableStatus){
 
 function to_order_detail(order_id,type){
     store.order_type = type
-    router.push(`/seller/order/${order_id}?type=${type}`)
+    router.push({name:'sellerOrder',query:{type:type}})
 }
 function changePage(p) {
     page = p

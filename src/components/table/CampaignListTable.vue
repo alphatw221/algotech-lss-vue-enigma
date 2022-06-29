@@ -288,7 +288,7 @@ export default {
       console.log(ig_live_media_id)
       console.log(yt_live_video_id)
       if (fb_post_id && ig_live_media_id && yt_live_video_id) {
-        this.$router.push(`/seller/campaign-live/${data.id}`)
+        this.$router.push({name:'campaign-live',params:{'campaign_id':data.id}})
         return false
       }
       this.eventBus.emit("entryPoint", data);

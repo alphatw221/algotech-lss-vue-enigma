@@ -118,7 +118,7 @@ const assignProduct = () => {
 	
 	seller_create_campaign_product(route.query.campaign_id, assignedProducts)
 	.then(response => {
-		router.push({ name: 'side-menu-campaign-list' })
+		router.push({ name: 'campaigns' })
 	})
 	console.log(campaignStore.assignedProducts)
 }

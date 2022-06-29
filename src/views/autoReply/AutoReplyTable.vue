@@ -13,20 +13,20 @@
 					<template v-for="(column, index) in columns" :key="index">
 						<td v-if="column.key === 'facebook_page'"
 							class="w-24 h-auto imgtd">
-								<div class="w-14 h-14 image-fit zoom-in flex pt-2">
-									<Tippy tag="img" class="rounded-full w-12 h-12" :src="reply.facebook_page.image"
-										:content="`facebook`" />
-								</div>
+							<div class="w-14 h-14 image-fit zoom-in flex m-auto">
+								<Tippy tag="img" class="rounded-full w-12 h-12 " :src="reply.facebook_page.image"
+									:content="`facebook`" />
+							</div>
 						</td>
 						<td v-else-if="column.key === 'edit'"
-							class="w-24 h-auto">
-							<EditIcon class="click-icon" @click="
+							class="w-20 h-auto">
+							<EditIcon class="click-icon m-auto" @click="
 								updateInfo(reply.id, reply.input_msg, reply.output_msg, reply.description)
 							" />
 						</td>
 						<td v-else-if="column.key === 'delete'"
-							class="w-24 h-auto">
-							<Trash2Icon class="click-icon" @click="deleteAutoReply(reply.id)" />
+							class="w-20 h-auto">
+							<Trash2Icon class="click-icon m-auto" @click="deleteAutoReply(reply.id)" />
 						</td>
 						<td v-else-if="column.key === 'id'" class="w-20 text-[12px] lg:text-sm 2xl:text-sm">
 							{{ reply[column.key] }}
@@ -146,10 +146,12 @@ function getReplyData() {
 	createAxiosWithBearer()
 	.get(`${props.requestUrl}?page_size=${pageSize.value}&page=${currentPage.value}`)
 	.then((response) => {
-		console.log(response);
-		totalCount.value = response.data.count
-		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
-		listItems.value = response.data.results
+
+		listItems.value = response.data
+		// console.log(response);
+		// totalCount.value = response.data.count
+		// totalPage.value = Math.ceil(totalCount.value / pageSize.value)
+		// listItems.value = response.data.results
 	})
 	.catch(function (error) {
 		console.log(error);
@@ -198,6 +200,8 @@ function deleteAutoReply(id) {
 td {
   min-height: 50px;
   border-collapse: collapse;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 thead th{ 
@@ -205,6 +209,8 @@ thead th{
   top: 0 !important;
   z-index: 99;
   background-color: theme("colors.secondary");
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 .longMessage{

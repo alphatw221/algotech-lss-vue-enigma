@@ -25,7 +25,7 @@
                                 </template>
                             </div>
                             <div class="text-3xl font-medium leading-8 mt-6">{{parseInt(store.manageOrder.close_rate).toFixed(2)}}%</div>
-                            <div class="text-base text-slate-500 mt-1">Colsed Rate</div>
+                            <div class="text-base text-slate-500 mt-1">Closed Rate</div>
                         </div>
                     </div>
                 </div>

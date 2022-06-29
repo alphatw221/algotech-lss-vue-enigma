@@ -51,7 +51,7 @@
 
 		<div class="mt-5 p-0 col-span-12 z-0">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="this.$router.push({ name: 'side-menu-campaign-list' })">
+				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="this.$router.push({ name: 'campaigns' })">
 					Cancel
 				</button>
 				<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="saveCampaign">
@@ -141,13 +141,14 @@ const saveCampaign = () => {
 	if (route.params.type === 'create') {
 		create_campaign(formData).then(response => {
 			let campaign_id = response.data
-			router.push(`assign/product?campaign_id=${campaign_id}`)
+			router.push({name:'assign-product',params:{'campaign_id':response.data.id}})
 		}).catch(err => {
 			console.log('api error')
 		})
 	} else if (route.params.type === 'edit') {
 		update_campaign(route.params.campaign_id, formData).then(response => {
-			console.log('poooooooooooooooooop')
+			router.push({name:'edit-campaign-product',params:{'campaign_id':response.data.id}})
+			// router.push(`/seller/campaign/assign/product?campaign_id=${route.params.campaign_id}&type=edit`)
 		})
 	}
 	
