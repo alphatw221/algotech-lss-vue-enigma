@@ -23,8 +23,12 @@
 					<div class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
 
 						<a class="w-4/5 file__icon file__icon--image">
-							<div class="file__icon--image__preview image-fit" >
+							<div class="file__icon--image__preview image-fit" v-if="product.image">
 								<img :src="storageUrl + product.image"
+								/>
+							</div>
+							<div class="file__icon--image__preview image-fit" v-else>
+								<img :src="storageUrl + `no_image.jpeg`"
 								/>
 							</div>
 						</a>

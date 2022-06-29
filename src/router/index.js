@@ -184,7 +184,7 @@ const routes = [
       },
 /*                CREATE CAMPAIGN                        */      
       {
-        path: "campaign/:type?",
+        path: "campaign/:type?/:campaign_id?",
         name: "side-menu-createCam-productselect",
         component: () => import('@/views/create-campaign/Main.vue'),
       },  

@@ -146,10 +146,12 @@ function getReplyData() {
 	createAxiosWithBearer()
 	.get(`${props.requestUrl}?page_size=${pageSize.value}&page=${currentPage.value}`)
 	.then((response) => {
-		console.log(response);
-		totalCount.value = response.data.count
-		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
-		listItems.value = response.data.results
+
+		listItems.value = response.data
+		// console.log(response);
+		// totalCount.value = response.data.count
+		// totalPage.value = Math.ceil(totalCount.value / pageSize.value)
+		// listItems.value = response.data.results
 	})
 	.catch(function (error) {
 		console.log(error);

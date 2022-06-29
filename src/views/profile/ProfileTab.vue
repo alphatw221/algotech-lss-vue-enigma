@@ -14,7 +14,7 @@
                         <CameraIcon class="w-4 h-4 text-white" />
                     </div> -->
                 </div>
-                <button class="btn btn-outlined m-3 lg:m-5 2xl:m-5" @click="sellerLayoutStore.editProfile=true"> Edit Profile </button>
+                <!-- <button class="btn btn-outlined m-3 lg:m-5 2xl:m-5" @click="sellerLayoutStore.editProfile=true"> Edit Profile </button> -->
             </div>
             <div class="mt-6 lg:mt-0 flex-1 px-5 border-l border-slate-200/60 dark:border-darkmode-400 border-t lg:border-t-0 pt-5 lg:pt-0 ">
                 <div class="flex flex-col justify-center items-center lg:items-start mt-0 lg:mt-4 2xl:mt-4">

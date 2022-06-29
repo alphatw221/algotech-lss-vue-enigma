@@ -52,14 +52,15 @@ const paymentStore = useLSSPaymentMetaStore()
 const campaignStore = useCreateCampaignStore()
 const props = defineProps({
     paymentName: String,
+    pageType: String
 })
 const singleAccountSettings = ref([])
 const paymentInfo = ref({})
 const paymentObj = ref({})
-const imageDirectPayment = ref({})
 
 watchEffect(() => {
     paymentInfo.value = paymentStore[props.paymentName]
+    if (props.pageType === 'edit') singleAccountSettings.value[0] = campaignStore.paymentSettings[props.paymentName]
 });
 
 watch(singleAccountSettings, () => {
@@ -67,21 +68,31 @@ watch(singleAccountSettings, () => {
 }, { deep: true })
 
 onMounted(() => {
-    if (paymentInfo.value.multiple === false) {
-        createAxiosWithBearer().get(paymentInfo.value.request_url)
-        .then(response => {
-            if (Object.keys(response.data).length > 0) {
-                singleAccountSettings.value.push(response.data)
-            } else {
-                for (let [key, field] of Object.entries(paymentInfo.value.fields)) {
-                    paymentObj.value[field.key] = null
+    if (props.pageType === 'create') {
+        if (paymentInfo.value.multiple === false) {
+            createAxiosWithBearer().get(paymentInfo.value.request_url)
+            .then(response => {
+                if (Object.keys(response.data).length > 0) {
+                    singleAccountSettings.value.push(response.data)
+                } else {
+                    for (let [key, field] of Object.entries(paymentInfo.value.fields)) {
+                        paymentObj.value[field.key] = null
+                    }
+                    paymentObj.value['enabled'] = true
+                    let accountObj = {}
+                    let copyObj = Object.assign(accountObj, paymentObj.value)
+                    singleAccountSettings.value.push(accountObj)
                 }
-                paymentObj.value['enabled'] = true
-                let accountObj = {}
-                let copyObj = Object.assign(accountObj, paymentObj.value)
-                singleAccountSettings.value.push(accountObj)
-            }
-        })
+            })
+        }
+    } else if (props.pageType === 'edit' && singleAccountSettings.value.length === 0) {
+        for (let [key, field] of Object.entries(paymentInfo.value.fields)) {
+            paymentObj.value[field.key] = null
+        }
+        paymentObj.value['enabled'] = true
+        let accountObj = {}
+        let copyObj = Object.assign(accountObj, paymentObj.value)
+        singleAccountSettings.value.push(accountObj)
     }
 })
 

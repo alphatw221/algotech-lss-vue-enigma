@@ -93,8 +93,14 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+import { useRoute, useRouter } from "vue-router";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
 
+
 const store = useLSSCampaignListStore(); 
+const props = defineProps({
+    currentProductList: Object, 
+});
 
 </script>

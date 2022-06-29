@@ -31,6 +31,14 @@ export const create_campaign = (data) => {
     return createAxiosWithBearer().post('api/v2/campaign/create/', data)
 }
 
+export const update_campaign = (campaign_id, formData) => {
+    return createAxiosWithBearer().put(`api/v2/campaign/${campaign_id}/update/`, formData)
+}
+
+export const retrieve_campaign = (campaign_id) => {
+    return createAxiosWithBearer().get(`api/v2/campaign/retrieve/?campaign_id=${campaign_id}`)
+}
+
 export const comment_on_comment = (campaign_id,comment_id,message_text) => {
     return createAxiosWithBearer().get(`/api/v2/campaign/facebook/comment-on-comment/?campaign_id=${campaign_id}&comment_id=${comment_id}&message=${message_text}`)
 }
