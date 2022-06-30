@@ -133,20 +133,48 @@ const routes = [
         component: CampaignLive,
       },
       {
-        path: "campaign-detail/:campaign_id?/manage-order",
+        path: "campaign-list/create-campaign",
+        name: "create-campaign",
+        component: () => import('@/views/create-campaign/Main.vue'),
+      },  
+      {
+        path: "campaign-list/campaign-detail/:campaign_id?",
+        name: "campaign-detail",
+        component: CampaignLive,
+      },
+      {
+        path: "campaign-list/campaign-detail/:campaign_id?/lucky-draw",
+        name: "lucky-draw",
+        component: LuckyDraw,
+      },
+      {
+        path: "campaign-list/campaign-detail/:campaign_id/edit-campaign",
+        name: "edit-campaign",
+        component: () => import('@/views/edit-campaign/Main.vue'),
+      },  
+      {
+        path: "campaign-list/campaign-detail/:campaign_id?/assign-product",
+        name: "assign-product",
+        component: () => import('@/views/assign-product/Main.vue'),
+      },  
+      {
+        path: "campaign-list/campaign-detail/:campaign_id?/edit-product",
+        name: "edit-campaign-product",
+        component: () => import('@/views/assign-product/Main.vue'),
+      }, 
+      {
+        path: "campaign-list/campaign-detail/:campaign_id?/manage-order",
         name: "manage-order",
         component: ManageOrder,
       },
       {
-        path: "campaign-detail/:campaign_id?/manage-order/order-detail/:order_id?",    
+        path: "campaign-list/campaign-detail/:campaign_id?/manage-order/order-detail/:order_id?",    
         name: "sellerOrder",
         component: () => import('@/views/seller-order-detail/Main.vue'),
       },
-      {
-        path: "campaign-detail/:campaign_id?/lucky-draw",
-        name: "lucky-draw",
-        component: LuckyDraw,
-      },
+      
+      
+      
       // {
       //   path: "order-detail/:order_id?",
       //   name: "sellerOrder",
@@ -188,28 +216,6 @@ const routes = [
         name: "quiz-game",
         component: QuizGame,
       },
-/*                CREATE CAMPAIGN                        */      
-      {
-        path: "create-campaign",
-        name: "create-campaign",
-        component: () => import('@/views/create-campaign/Main.vue'),
-      },  
-      {
-        path: "campaign-detail/:campaign_id/edit-campaign",
-        name: "edit-campaign",
-        component: () => import('@/views/create-campaign/Main.vue'),
-      },  
-      {
-        path: "campaign-detail/:campaign_id?/assign-product",
-        name: "assign-product",
-        component: () => import('@/views/create-campaign/AssignProductPage.vue'),
-      },  
-      {
-        path: "campaign-detail/:campaign_id?/edit-product",
-        name: "edit-campaign-product",
-        component: () => import('@/views/create-campaign/AssignProductPage.vue'),
-      }, 
-
 /*                     SETTINGS                           */
       {  
         path: "campaign-global",

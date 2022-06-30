@@ -20,7 +20,7 @@
                                     <Tippy 
                                         tag="img" 
                                         class="rounded-lg cursor-auto" 
-                                        :src="`${storageUrl}` + product.image"
+                                        :src="product.image?storageUrl + product.image:storageUrl+'no_image.jpeg'"
                                         :content="product.name"
                                     />
                                 </div>
@@ -189,7 +189,8 @@ import { useRoute } from 'vue-router';
 
 const campaignStore = useCreateCampaignStore(); 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const storageUrl = ref(import.meta.env.VITE_APP_IMG_URL)
+const storageUrl = import.meta.env.VITE_APP_IMG_URL
+
 const route = useRoute()
 
 const dataCount = ref(0)
