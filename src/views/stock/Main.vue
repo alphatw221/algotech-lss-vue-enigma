@@ -1,73 +1,64 @@
 <template>
-	<div class="grid grid-cols-12 gap-4 box">
-		<div class="col-start-1 col-span-12 mx-8 mt-5 flex">
-			<div class="switch-toggle align-middle mr-auto">
+	<div class="box p-5 flex flex-col gap-5">
+		<div class="flex mt-4 mx-0 sm:mx-8 gap-5 flex-wrap justify-between"> 
+			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
 				<label for="on"> For Sale</label>
 				<input id="off" name="state-d" type="radio" @click="toggleTabs(2)" />
 				<label for="off"> Delisted</label>
 			</div>
-			<button id="tabulator-html-filter-go" 
-				type="button" 
-				class="btn btn-primary shadow-md w-48 lg:w-36 2xl:w-48 h-[42px]" 
-				@click="this.$router.push({name:'category-management'})">
-				Category Management
-			</button>
+			<button 
+            type="button"
+            class="btn btn-primary h-10 self-end" 
+            @click="this.$router.push({name: 'add-product'})"
+            >
+                Add Product
+            </button>
 		</div>
-		<div class="p-1 col-span-12 lg:p-5">
-			<div class="mt-0 lg:mt-5">
-				<!-- BEGIN For Sale Tab -->
-				<div class="leading-relaxed "
-					:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
-					<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-						<SearchBar
-							:searchColumns="searchColumns"
-							:productCategories="productCategories"
-							:eventBusName="'searchForSaleTable'"
-							:showAddProductBtn="true"
-							:showCategoryFilter="true"
-							
-						>
-						</SearchBar>	
-						<DataTable
-							class="overflow-x-auto"
-							:requestUrl="'/api/v2/product/search'"
-							:columns="tableColumns"
-							:product_status="'enabled'"
-							:eventBusName="'searchForSaleTable'"
-						>
-						</DataTable>
-					</div>
-				</div>
-				<!-- END For Sale Tab -->
-
-				<!-- BEGIN Delisted Tab -->
-				<div class="leading-relaxed"
-					:class="{ hidden: openTab !== 2, block: openTab === 2 }"> 
-					<div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-						<SearchBar
-							:searchColumns="searchColumns"
-							:eventBusName="'searchDelistedTable'"
-							:showAddProductBtn="false"
-							:showCategoryFilter="false"
-							
-						>
-						</SearchBar>	
-						<DataTable
-							:requestUrl="'/api/v2/product/search'"
-							:columns="tableColumns"
-							:product_status="'disabled'"
-							:eventBusName="'searchDelistedTable'"
-						>
-						</DataTable>
-					</div>
-				</div>
-				<!-- END Delisted Tab -->
-
-				<!-- <TabPanel class="leading-relaxed"> Sold. </TabPanel>
-				<TabPanel class="leading-relaxed"> Delete. </TabPanel> -->
-			</div>
+		<!-- BEGIN For Sale Tab -->
+		<div class="leading-relaxed flex flex-col gap-5"
+			:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
+			<SearchBar
+				:searchColumns="searchColumns"
+				:productCategories="productCategories"
+				:eventBusName="'searchForSaleTable'"
+				:showCategoryFilter="true"
+				
+			>
+			</SearchBar>	
+			<DataTable
+				class="overflow-x-auto"
+				:requestUrl="'/api/v2/product/search'"
+				:columns="tableColumns"
+				:product_status="'enabled'"
+				:eventBusName="'searchForSaleTable'"
+			>
+			</DataTable>
 		</div>
+		<!-- END For Sale Tab -->
+
+		<!-- BEGIN Delisted Tab -->
+		<div class="leading-relaxed flex flex-col gap-5"
+			:class="{ hidden: openTab !== 2, block: openTab === 2 }"> 
+			<SearchBar
+				:searchColumns="searchColumns"
+				:eventBusName="'searchDelistedTable'"
+				:showCategoryFilter="false"
+				
+			>
+			</SearchBar>	
+			<DataTable
+				:requestUrl="'/api/v2/product/search'"
+				:columns="tableColumns"
+				:product_status="'disabled'"
+				:eventBusName="'searchDelistedTable'"
+			>
+			</DataTable>
+		</div>
+			<!-- END Delisted Tab -->
+
+			<!-- <TabPanel class="leading-relaxed"> Sold. </TabPanel>
+			<TabPanel class="leading-relaxed"> Delete. </TabPanel> -->
 	</div>
 </template>
 
@@ -107,9 +98,8 @@ onMounted(() => {
 	list_product_category().then(
 		response => { 
 			response.data.forEach(category => {
-				productCategories.value.push({text:category,value:category})
+				productCategories.value.push({text: category, value: category})
 			});
-
 		}
 	)
 })

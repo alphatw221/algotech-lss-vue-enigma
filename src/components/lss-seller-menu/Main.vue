@@ -132,15 +132,15 @@
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="content">
-        <nav aria-label="breadcrumb" class="h-[24px] text-lg mr-auto">
+      <div class="content" >
+        <nav aria-label="breadcrumb" class="h-[24px] text-lg m-2">
           <ol class="breadcrumb breadcrumb-dark">
             <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
               <li v-if="crumb !== ''" class="breadcrumb-item"><a @click="pathName(crumb)">{{crumb}}</a></li>
             </template>
             <li v-if=" breadCrumb[breadCrumb.length - 2] " 
               class="breadcrumb-item"><a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a></li>
-            <li class="breadcrumb-item">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
+            <li class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
           </ol>
         </nav>
         <router-view />
@@ -210,6 +210,10 @@ const pathName=(value)=>{
 <style scoped>
 .dark .side-nav{ 
   background-color: theme("colors.dark"); 
+}
+
+.content {
+  height: max-content;
 }
 
 </style>

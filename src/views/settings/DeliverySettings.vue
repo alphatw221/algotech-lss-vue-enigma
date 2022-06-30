@@ -1,6 +1,5 @@
 <template>
-    <div class="py-5 lg:p-10 ">
-
+    <div class="py-5 lg:p-8">
         <span class="text-2xl font-medium leading-none m-10">Delivery Settings</span>
         <div class="px-5 lg:p-10  intro-y grid grid-cols-12 gap-1 lg:gap-5 -z-50">
             <label class="col-start-1 col-span-12 lg:col-sapn-3 mt-2 text-base">Delivery Charge</label>

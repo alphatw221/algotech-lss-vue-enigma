@@ -158,10 +158,10 @@ td {
 }
 
 thead th{ 
-  position: sticky !important; 
-  top: 0 !important;
-  z-index: 99;
-  background-color: theme("colors.secondary");
+	position: sticky !important; 
+	top: 0 !important;
+	z-index: 99;
+	background-color: theme("colors.secondary");
   	padding-right:10px;
 	padding-left:10px;
 }
