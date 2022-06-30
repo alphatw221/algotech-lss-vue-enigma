@@ -4,33 +4,33 @@
         <div class="px-5 lg:p-10  intro-y grid grid-cols-12 gap-1 lg:gap-5 -z-50">
             <label class="col-start-1 col-span-12 lg:col-sapn-3 mt-2 text-base">Delivery Charge</label>
             <input 
-                class="form-control-rounded col-span-12 lg:col-span-4 text-base"
+                class="form-control form-control-rounded col-span-12 lg:col-span-4 text-base"
                 type="text" 
                 v-model="deliverySettings.delivery_charge"
             />
-            <div class="2xl:col-start-1 col-span-12 lg:col-span-3 mt-2">
+            <div class="2xl:col-start-1 col-span-12 lg:col-span-3 mt-2 flex">
                 <input 
-                    class="form-check-input" 
+                    class="form-control form-check-input w-[1.5rem] h-[1.5rem]" 
                     type="checkbox" 
                     v-model="deliverySettings.is_free_delivery_for_order_above_price"
                 />
-                <label class="col-span-2 ml-5 text-base">Free delivery for order above USD</label>
+                <label class="ml-5 text-base">Free delivery for order above $</label>
             </div> 
             <input 
-                class="form-control-rounded col-span-12 lg:col-span-4" 
+                class="form-control form-control-rounded col-span-12 lg:col-span-4 h-10" 
                 type="text" 
                 v-model="deliverySettings.free_delivery_for_order_above_price"
             />
             <div class="2xl:col-start-1 col-span-12 lg:col-span-3 mt-2">
                 <input 
-                    class="form-check-input text-base" 
+                    class="form-control form-check-input text-base w-[1.5rem] h-[1.5rem]" 
                     type="checkbox"
                     v-model="deliverySettings.is_free_delivery_for_how_many_order_minimum"
                 />
                 <label class="col-span-2 ml-5 text-base">Free delivery for minimum order Qty</label>
             </div> 
             <input 
-                class="form-control-rounded col-span-12 lg:col-span-4"
+                class="form-control form-control-rounded col-span-12 lg:col-span-4 h-10"
                 type="text"
                 v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
             />       
@@ -39,20 +39,20 @@
             <div v-for="(option, index) in deliverySettings.additional_delivery_options" class="col-span-12" :key="index">
                 <div class="grid grid-cols-12 gap-3 mt-3">
                     <input  
-                        class="form-control-rounded col-start-1 col-span-12 lg:col-span-3 text-base"
+                        class="form-control form-control-rounded col-start-1 col-span-12 lg:col-span-3 text-base"
                         type="text" 
                         placeholder="express service name"
                         v-model="option.title"
                     />
                     <select 
-                        class="form-select rounded-full col-span-12 lg:col-span-3 "
+                        class="form-select form-select-lg rounded-full col-span-12 lg:col-span-3 "
                         v-model="option.type"
                     >
                         <option value="+">On top of delivery charge</option>
                         <option value="=">Replace delivery charge</option>
                     </select>
                     <input  
-                        class="form-control-rounded col-span-12 lg:col-span-3 text-base"
+                        class="form-control form-control-rounded col-span-12 lg:col-span-3 text-base"
                         type="text" 
                         placeholder="express charge"
                         v-model="option.price"
@@ -80,13 +80,13 @@
                 <div class="grid grid-cols-12 gap-3">
                     <label class="col-start-1 col-span-12 lg:col-span-3 mt-2 text-base">Pickup Store</label>
                     <input 
-                        class="form-control-rounded col-span-12 lg:col-span-6 2xl:col-span-4 text-base"
+                        class="form-control form-control-rounded col-span-12 lg:col-span-6 2xl:col-span-4 text-base"
                         type="text"
                         v-model="option.name" 
                     />
                     <label class="col-start-1 col-span-12 lg:col-span-3 lg:col-start-1 mt-2 text-base">Pickup Address</label>
                     <input 
-                        class="form-control-rounded col-span-12 lg:col-span-6 text-base"
+                        class="form-control form-control-rounded col-span-12 lg:col-span-6 text-base"
                         type="text" 
                         v-model="option.address"
                     />

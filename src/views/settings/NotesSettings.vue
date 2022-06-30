@@ -1,6 +1,5 @@
 <template>
-    <div class="p-20">
-
+    <div class="p-5 px-0 lg:p-10 lg:px-20">
         <AccordionGroup class="accordion-boxed">
             <AccordionItem>
                 <Accordion>
@@ -12,13 +11,13 @@
                             </span>
                         </div>
                         <div>
-                            <Edit2Icon />
+                            <font-awesome-icon icon="fa-solid fa-pen-to-square" class="h-6" />
                         </div>
                     </div>
                 </Accordion>
                 <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed">
                     <textarea 
-                        class="form-control h-48 mr-5 indent-4"
+                        class="form-control h-48 mr-5 p-2 indent-4"
                         placeholder="delivery note ..."
                         v-model="deliveryNote"
                     >
@@ -35,13 +34,13 @@
                             </span>
                         </div>
                         <div>
-                            <Edit2Icon />
+                            <font-awesome-icon icon="fa-solid fa-pen-to-square" class="h-6" />
                         </div>
                     </div>
                 </Accordion>
                 <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed">
                     <textarea 
-                        class="form-control h-48 mr-5 indent-4" 
+                        class="form-control h-48 mr-5 p-2 indent-4" 
                         placeholder="special note ..."
                         v-model="specialNote"
                     >
@@ -58,13 +57,13 @@
                             </span>
                         </div>
                         <div>
-                            <Edit2Icon />
+                            <font-awesome-icon icon="fa-solid fa-pen-to-square" class="h-6" />
                         </div>
                     </div>
                 </Accordion>
                 <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed">
                     <textarea 
-                        class="form-control h-48 mr-5 indent-4"
+                        class="form-control h-48 mr-5 p-2 indent-4"
                         placeholder="confirmation note ..."
                         v-model="confirmationNote"
                     >
@@ -73,9 +72,9 @@
             </AccordionItem>
         </AccordionGroup>
         
-        <div class="mt-5 float-right">
-            <button class="btn btn-rounded-secondary mr-5" @click="discard"> Discard</button>
-            <button class="btn btn-rounded-primary" @click="update"> Save </button>
+        <div class="mt-5 float-right text-[14px]">
+            <button class="btn btn-rounded-secondary mr-5 w-[100px]" @click="discard"> Discard</button>
+            <button class="btn btn-rounded-primary w-[100px]" @click="update"> Save </button>
         </div>
         
     </div>
