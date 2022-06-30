@@ -50,7 +50,7 @@ const store = useManageOrderStore()
 const props = defineProps({
     tableStatus: String,
     tableSearch: String,
-    tableFilter:String,
+    tableFilter: String,
 });
 
 function search(){
