@@ -49,24 +49,24 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			endpoint:'getStripeGateway',
 		}
 	},
-	first_data : {
-		multiple:false,
-		name:"First Data IPG (Credit Card)",
-		key:"first_data",
-		fields:[
-			{key:"store_id", name:"Store ID", type:"text", dataType:"string", default:''},
-			{key:"shared_secret", name:"Shared Secret", type:"password", dataType:"string", default:''},
-			{key:"currency", name:"Currency", type:"select", options:['702', '703'], dataType:"string", default:'702'},
-			{key:"timezone", name:"Time Zone", type:"select", options:['Asia/Singapore'], dataType:"string", default:'Asia/Singapore'}
-		],
-		handle:{
-			type:'submitForm',
-			endpoint:'getFirstDataCredential',
-		}
-	},
+	// first_data : {
+	// 	multiple:false,
+	// 	name:"First Data IPG (Credit Card)",
+	// 	key:"first_data",
+	// 	fields:[
+	// 		{key:"store_id", name:"Store ID", type:"text", dataType:"string", default:''},
+	// 		{key:"shared_secret", name:"Shared Secret", type:"password", dataType:"string", default:''},
+	// 		{key:"currency", name:"Currency", type:"select", options:['702', '703'], dataType:"string", default:'702'},
+	// 		{key:"timezone", name:"Time Zone", type:"select", options:['Asia/Singapore'], dataType:"string", default:'Asia/Singapore'}
+	// 	],
+	// 	handle:{
+	// 		type:'submitForm',
+	// 		endpoint:'getFirstDataCredential',
+	// 	}
+	// },
 
 
-    SG : ['direct_payment', 'stripe','first_data'],
+    SG : ['direct_payment', 'stripe'],
     
     ID : ['direct_payment', 'stripe'],
 

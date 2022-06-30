@@ -1,5 +1,5 @@
 <template class="grid grid-cols-12 gap-5 w-full">
-	<div class="box px-5 lg:p-5 2xl:p-5 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50">
+	<div class="box px-5 lg:p-5 2xl:p-5 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50" v-if="ready">
 		<span class="col-start-1 col-span-12 text-lg mt-10"> 
 			<strong>Delivery Details</strong>
 		</span>
@@ -7,55 +7,48 @@
 		<input 
 			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4 text-base"
 			type="text" 
-			v-model="campaignStore.deliverySettings.delivery_charge"
+			v-model="props.campaign.meta_logistic.delivery_charge"
 		/>
-			<!-- :class="{ 'border-danger': charge_validate.delivery_charge.$error }"
-			v-model.trim="charge_validate.delivery_charge.$model"
-			@blur="charge_validate.delivery_charge.$touch" 
-		<template v-if="charge_validate.delivery_charge.$error">
-			<label class="text-danger 2xl:col-start-4 xl:col-start-2 col-span-12 2xl:col-span-4 xl:col-span-4 mt-2 mb-3">
-				Please enter correctly delivery charge
-			</label>
-		</template> -->
+			
 		<div class="2xl:col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2">
 			<input 
 				class="form-check-input" 
 				type="checkbox" 
-				v-model="campaignStore.deliverySettings.is_free_delivery_for_order_above_price"
+				v-model="props.campaign.meta_logistic.is_free_delivery_for_order_above_price"
 			/>
 			<label class="col-span-2 ml-5 text-base">Free delivery for order above USD</label>
 		</div> 
 		<input 
 			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4" 
 			type="text" 
-			v-model="campaignStore.deliverySettings.free_delivery_for_order_above_price"
+			v-model="props.campaign.meta_logistic.free_delivery_for_order_above_price"
 		/>
 		<div class="2xl:col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2">
 			<input 
 				class="form-check-input text-base" 
 				type="checkbox"
-				v-model="campaignStore.deliverySettings.is_free_delivery_for_how_many_order_minimum"
+				v-model="props.campaign.meta_logistic.is_free_delivery_for_how_many_order_minimum"
 			/>
 			<label class="col-span-2 ml-5 text-base">Free delivery for minimum order Qty</label>
 		</div> 
 		<input 
 			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4"
 			type="text"
-			v-model="campaignStore.deliverySettings.free_delivery_for_how_many_order_minimum"
+			v-model="props.campaign.meta_logistic.free_delivery_for_how_many_order_minimum"
 		/>       
 		
 		<label class="form-label col-start-1 col-span-12 font-bold mt-2 text-base">Delivery Charge Option</label>
-		<div v-for="(value, index) in additional_delivery" class="col-span-12" :key="index">
+		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
 			<div class="grid grid-cols-12 gap-3 mt-3">
 				<input  
 					class="form-control-rounded col-start-1 col-span-12 lg:col-span-3 2xl:col-span-3 text-base"
 					type="text" 
 					placeholder="express service name"
-					v-model="additional_delivery[index].title"
+					v-model="option.title"
 				/>
 				<select 
 					class="form-select col-span-12 lg:col-span-3 2xl:col-span-3"
-					v-model="additional_delivery[index].type"
+					v-model="option.type"
 				>
 					<option value="+">On top of delivery charge</option>
 					<option value="=">Replace delivery charge</option>
@@ -64,101 +57,81 @@
 					class="form-control-rounded col-span-12 lg:col-span-3 2xl:col-span-3 text-base"
 					type="text" 
 					placeholder="express charge"
-					v-model="additional_delivery[index].price"
+					v-model="option.price"
 				/>
 				<button 
 					class="btn btn-danger w-24 inline-block text-base ml-5" 
-					@click="modifyDelivery('delete', index)"
+					@click="deleteDelivery(index)"
 				> Delete </button>
 			</div>
 		</div>
 		<button 
 			class="btn btn-primary col-start-5 w-24 inline-block text-base mb-5 mt-3"
-			@click="modifyDelivery('add', index)"
+			@click="addDelivery"
 		> Add </button>
 
 		<label class="form-label col-start-1 col-span-12 font-bold mt-2 text-base">Collect In Store</label>
-		<div v-for="(value, index) in branch" class="col-span-12" :key="index">
+		<div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12" :key="index">
 			<div class="grid grid-cols-12 gap-3">
 				<label class="col-start-1 col-span-12 lg:col-span-3 2xl:col-span-3 2xl:col-start-1 mt-2 text-base">Pickup Store</label>
 				<input 
 					class="form-control-rounded col-span-12 lg:col-span-6 2xl:col-span-4 text-base"
 					type="text"
-					v-model="branch[index].name" 
+					v-model="option.name" 
 				/>
 				<label class="col-start-1 col-span-12 lg:col-span-3 lg:col-start-1 2xl:col-span-3 2xl:col-start-1 mt-2 text-base">Pickup Address</label>
 				<input 
 					class="form-control-rounded col-span-12 lg:col-span-6 2xl:col-span-6 text-base"
 					type="text" 
-					v-model="branch[index].address"
+					v-model="option.address"
 				/>
 				<button 
 					class="btn btn-danger w-24 inline-block text-base ml-5 " 
-					@click="modifyBranch('delete', index)"
+					@click="deleteBranch(index)"
 				> Delete </button>
 			</div>
 		</div>
 		<button 
 			class="btn btn-primary col-start-5 w-24 inline-block text-base mt-3 mb-5"
-			@click="modifyBranch('add', index)"
+			@click="addBranch()"
 		> Add </button>
 	</div>
 </template>
 
 <script setup>
-import { ref, reactive, onMounted, watch, computed, watchEffect } from 'vue';
-import { list_delivery_setting } from '@/api_v2/campaign';
-import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
+import { ref, reactive, onMounted, watch, computed, watchEffect, defineProps } from 'vue';
+
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 import { required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
-const campaignStore = useCreateCampaignStore()
-const additional_delivery = ref([])
-const branch = ref([])
 
-
-watchEffect(() => {
-    if (campaignStore.deliverySettings.additional_delivery_option.length > 0) additional_delivery.value = campaignStore.deliverySettings.additional_delivery_option
-	if (campaignStore.deliverySettings.pickup_option.length > 0) branch.value = campaignStore.deliverySettings.pickup_option
+const additional_delivery_option = { title: null, type: null, price: null }
+const branch_option = { name: null, address: null }
+const ready = ref(false)
+onMounted(()=>{
+	console.log(props.campaign)
+	ready.value=true
+})
+const props = defineProps({
+    campaign: Object,
 });
 
-watch(additional_delivery, () => {
-	campaignStore.deliverySettings.additional_delivery_option = additional_delivery.value
-}, { deep: true })
-
-watch(branch, () => {
-	campaignStore.deliverySettings.pickup_option = branch.value
-}, { deep: true })
-
-const charge_rules = computed(() => {
-	return { delivery_charge: { required } }
-})
-const charge_validate = useVuelidate(charge_rules, campaignStore.deliverySettings);
-
-const modifyDelivery = (type, index) => {
-    if (type == 'add') {
-        if (Object.entries(additional_delivery.value).length > 0) {
-            additional_delivery.value[parseInt(Object.keys(additional_delivery.value).at(-1)) + 1] = { title: null, type: null, price: null }
-        } else {
-            additional_delivery.value[Object.entries(additional_delivery.value).length] = { title: null, type: null, price: null }
-        }
-    } else if (type == 'delete') {
-        additional_delivery.value = additional_delivery.value.filter(value => value != additional_delivery.value[index])
-    }
+const addDelivery = () =>{
+    props.campaign.meta_logistic.additional_delivery_options.push(additional_delivery_option)
 }
 
-const modifyBranch = (type, index) => {
-    if (type == 'add') {
-        if (Object.entries(branch.value).length > 0) {
-            branch.value[parseInt(Object.keys(branch.value).at(-1)) + 1] = { name: null, address: null }
-        } else {
-            branch.value[Object.entries(branch.value).length] = { name: null, address: null }
-        }
-    } else if (type == 'delete') {
-        branch.value = branch.value.filter(value => value != branch.value[index])
-    }
+const deleteDelivery = index=>{ 
+    props.campaign.meta_logistic.additional_delivery_options.splice(index,1)
 }
+
+const addBranch = ()=>{
+    props.campaign.meta_logistic.pickup_options.push(branch_option)
+}
+const deleteBranch = index=>{
+    props.campaign.meta_logistic.pickup_options.splice(index,1)
+}
+
 
 </script>

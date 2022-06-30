@@ -201,7 +201,7 @@ export default {
             this.totalPage = totalPage == 0 ? 1 : totalPage;
           }
           this.store[this.tableName].campaigns = response.data.results
-          console.log(this.store[this.tableName].campaigns)
+          // console.log(this.store[this.tableName].campaigns)
           for(let i = 0; i < this.store[this.tableName].campaigns.length; i++){
             this.store[this.tableName].campaigns[i].meta.allow_checkout = this.store[this.tableName].campaigns[i].meta.allow_checkout == 1 ? false : true 
           }
