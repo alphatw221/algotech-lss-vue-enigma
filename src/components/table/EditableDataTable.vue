@@ -36,7 +36,8 @@
 							<div>{{ tag }}</div> 
 						</template>
 						<template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
-							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" min="1" :max="maxValue(product, column.key)" type="number" v-model="product[column.key]" />
+							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" min="1" :max="maxValue(product, column.key)" type="number" v-model="product[column.key]" :class="{ error: checkValue(product, column.key) }"/>
+							<p class="error_message" v-if="checkValue(product, column.key)">exceed stock amount</p>
 						</template>
 						<template v-else-if="column.key === 'type'">
 							<select 
@@ -229,7 +230,13 @@ const checkOrderCode = (order_code) => {
 	duplicatedOrderCodeList.value = duplicatedOrderCodeList.value.filter(el=> el != order_code)
 	return false
 }
-
+const checkValue = (product, key) => {
+	let max_value = maxValue(product, key)
+	if (product[key] > max_value) {
+		return true
+	}
+	return false
+}
 const maxValue = (product, key) => {
 	let index = stockProducts.value.findIndex(el => el.id === product.id)
 	return stockProducts.value[index][key]
