@@ -68,79 +68,72 @@
 
     <!-- Modals -->
     <InstantlyAddProduct /> 
-    <AddProductFromStock :currentProductList="product_results" /> 
+    <AddProductFromStock :currentProductList="product_results" :key="product_results"/> 
 
 </template>
-<script>
+<script setup>
 import { list_campaign_product, update_campaign_product } from '@/api/campaign_product';
 import InstantlyAddProduct from './modals/InstantlyAddProductModal.vue';
 import AddProductFromStock from './modals/AddProductFromStockModal.vue';
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
+import { useRoute, useRouter } from "vue-router";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 
-export default {
-    components:{
-        InstantlyAddProduct,
-        AddProductFromStock
-    },
-    props: {
-        campaignId: Number,
-    },
+const route = useRoute();
+const router = useRouter();
+const store = useLSSCampaignListStore()
+const internalInstance = getCurrentInstance();
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-    data() {
-        return {
-            store: useLSSCampaignListStore(),
-            imagePath: import.meta.env.VITE_APP_IMG_URL,
-            product_columns: [
-                { name: "", key: "image" },
-                { name: "Name", key: "name" },
-                { name: "Order Code", key: "order_code" },
-                { name: "Sold/Left", key: "Sold_Left" },
-                { name: "Price", key: "price" },
-                { name: "Activate", key: "activate" },
-            ],
-            product_results: [],
-            campaign_id: this.$route.params.campaign_id,
-        };
-    },
-    mounted() {
-        if (this.campaign_id) {
-            list_campaign_product(this.campaign_id).then(res => {
-                console.log(res.data)
-                this.product_results = res.data
-                this.eventBus.emit("startReceivingProductData");
-                this.eventBus.emit("passCampaignProduct", res.data);
-            }).catch(error => {
-                console.log(error);
-            })
-        }
-        this.eventBus.on("changeProductData", (payload) => {
-            const index = this.product_results.findIndex(item => item.id === payload.id)
-            this.product_results[index]["qty_sold"] = payload["qty_sold"]
+const props = defineProps({
+	campaignId: Number
+});
+
+const imagePath = ref(import.meta.env.VITE_APP_IMG_URL)
+const product_columns = ref([
+    { name: "", key: "image" },
+    { name: "Name", key: "name" },
+    { name: "Order Code", key: "order_code" },
+    { name: "Sold/Left", key: "Sold_Left" },
+    { name: "Price", key: "price" },
+    { name: "Activate", key: "activate" }
+])
+const product_results = ref([])
+const campaign_id = route.params.campaign_id
+
+onMounted(() => {
+    if (campaign_id) {
+        list_campaign_product(campaign_id).then(res => {
+            product_results.value = res.data
+            eventBus.emit("startReceivingProductData");
+        }).catch(error => {
+            console.log(error);
         })
-        this.eventBus.on("addInstantProduct", (payload) => {
-            const index = this.product_results.push(payload)
-        })
-    },
-    methods: {
-        item_status_switch(id, campaign_id, data) {
-            update_campaign_product(id, campaign_id, data).then(res => {
-                if (!res.ok) throw res
-                res.json().then(json => this.update_item(json))
-            }).catch(error => {
-                switch (error.status) {
-                    case 500:
-                        alert('Oops! Something went wrong when switch campaign product status. Please contact tech support. [info: campaign product switch]')
-                        break
-                    case 404:
-                        error.json().then(e => alert(e.detail))
-                        break
-                    case 401:
-                        alert('You have no permission to access this campaign product asset.')
-                        break
-                }
-            })
-        }
     }
+    eventBus.on("changeProductData", (payload) => {
+        const index = product_results.value.findIndex(item => item.id === payload.id)
+        product_results.value[index]["qty_sold"] = payload["qty_sold"]
+    })
+    eventBus.on("addInstantProduct", (payload) => {
+        product_results.value.push(payload)
+    })
+    eventBus.on("addProductFromStock", (payload) => {
+        product_results.value = product_results.value.concat(payload)
+    })
+})
+
+onUnmounted(() => {
+    eventBus.off("changeProductData")
+    eventBus.off("addInstantProduct")
+    eventBus.off("addProductFromStock")
+})
+
+const item_status_switch = (id, campaign_id, data) => {
+    update_campaign_product(id, campaign_id, data).then(() => {
+        return
+    }).catch(error => {
+        console.log(error)
+    })
 }
 </script>
 

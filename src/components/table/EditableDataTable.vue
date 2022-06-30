@@ -29,11 +29,14 @@
 								</div>
 							</div>
 						</template>
+						<template v-else-if="column.key === 'order_code'">
+							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" type="text" v-model="product[column.key]" :class="{ error: checkOrderCode(product[column.key]) }"/>
+						</template>
 						<template v-else-if="column.key === 'category'" v-for="(tag,index) in product['tag']" :key="index">
 							<div>{{ tag }}</div> 
 						</template>
 						<template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
-							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" min="1" :max="product[column.key]" type="number" :value="product[column.key]"/>
+							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" min="1" :max="maxValue(product, column.key)" type="number" v-model="product[column.key]" />
 						</template>
 						<template v-else-if="column.key === 'type'">
 							<select 
@@ -63,7 +66,11 @@
 			@on-change="changePage"
 			@on-page-size-change="changePageSize"
 		/>
-		<button type="button" class="btn btn-primary right-0" @click="submitData">Apply</button>
+		<div>
+			<button type="button" class="btn bg-white hover:bg-gray-100 mr-1" @click="resetData">reset</button>
+			<button type="button" class="btn btn-primary mr-1" @click="submitData">Apply</button>
+		</div>
+		
 	</div> 
 	
 </template>
@@ -71,16 +78,25 @@
 <script setup>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
 import { seller_create_campaign_products } from "@/api_v2/campaign_product"
+import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
-const internalInstance = getCurrentInstance()
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
+import { useVuelidate } from "@vuelidate/core";
+import { required,minValue, decimal, integer, maxLength } from "@vuelidate/validators";
+
+const layoutStore = useLSSSellerLayoutStore();
+const campaignListStore = useLSSCampaignListStore()
+const internalInstance = getCurrentInstance();
+const route = useRoute();
+const router = useRouter();
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const props = defineProps({
 	requestUrl: String,
 	columns: Array,
-	routerPath: String,
-	routerParam: String,
-	status: String
+	status: String,
+	campaignProducts: Array
 });
 
 const assignedProducts = ref([])
@@ -91,9 +107,11 @@ const selectAll = () => {
 	if (checkboxAll.value) {
 		listItems.value.forEach(el => {
 			selected.value.push(el.id)
+			assignedProducts.value.push(el)
 		})
 		// collect data
-		assignedProducts.value = listItems.value
+	} else {
+		assignedProducts.value = []
 	}
 }
 const updateSelected = (product) => {
@@ -121,12 +139,13 @@ const listItems = ref([])
 const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
 const category = ref(undefined)
 const product_type = ref(["product", "lucky_draw"])
+const stockProducts = ref([])
+const duplicatedOrderCodeList = ref([])
 
 onMounted(() => {
 	search();
 	eventBus.on("searchTable", (payload) => {
 		currentPage.value = 1
-		pageSize.value = pageSize
 		category.value = payload.filterColumn
 		search()
 	});
@@ -138,29 +157,28 @@ onUnmounted(() => {
 	eventBus.off("searchTable");
 	eventBus.off("passCampaignProduct");
 })
-	
+
+const getCampaingProductsIdList = () => {
+	let list = []
+	for (let i = 0; i < props.campaignProducts.length; i++) {
+		let product_id = props.campaignProducts[i].product
+		list.push(product_id)
+	}
+	return list
+}
+
 const search = () => {
-	
 	createAxiosWithBearer()
-	.get(props.requestUrl + `?page_size=${pageSize.value}&page=${currentPage.value}&search_column=${searchColumn.value}&product_status=${props.status}&category=${category.value}`)
+	.get(props.requestUrl + `?page_size=${pageSize.value}&page=${currentPage.value}&search_column=&keyword=&product_status=${props.status}&category=${category.value}&exclude=${getCampaingProductsIdList()}`)
 	.then(response => {
-		console.log(response.data.count === undefined)
 		if(response.data.count === undefined) {
 			return false
 		}
+		stockProducts.value = JSON.parse(JSON.stringify(response.data.results))
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
-		console.log("444444")
-		eventBus.on("passCampaignProduct", (payload) => {
-			console.log("2222")
-			let stock = response.data
-			payload.forEach(value=> {
-				let index = stock.findIndex(el=> el.id == value.product)
-				stock.splice(index, 1)
-			})
-			listItems.value = stock
-		});
-		
+		listItems.value = response.data.results
+
 	}).catch(error => {
 		console.log(error)
 	})
@@ -177,10 +195,61 @@ const removeDash = (word) =>{
 }
 
 const submitData = () => {
-	seller_create_campaign_products(route.query.campaign_id, assignedProducts)
+	if (duplicatedOrderCodeList.value.length) {
+		layoutStore.alert.showMessageToast("Duplicated Order Code Exists");
+		return false
+	}
+	let new_products = []
+	for (let i = 0; i < assignedProducts.value.length; i ++) {
+		assignedProducts.value[i]['product_id'] = assignedProducts.value[i]['id']
+		delete assignedProducts.value[i]['id']; 
+		assignedProducts.value[i]['qty_for_sale'] = parseInt(assignedProducts.value[i]['qty'])
+		assignedProducts.value[i]['status'] = true
+	}
+	seller_create_campaign_products(route.params.campaign_id, assignedProducts.value)
 	.then(response => {
-		router.push({ name: 'side-menu-campaign-list' })
+		eventBus.emit("addProductFromStock", response.data)
+		campaignListStore.showAddProductFromStockModal = false;
+		layoutStore.notification.showMessageToast("Successed")
 	})
 }
+const resetData = () => {
+	listItems.value = JSON.parse(JSON.stringify(stockProducts.value))
+}
+
+
+const checkOrderCode = (order_code) => {
+	let list = listItems.value.filter(el=> el.order_code === order_code)
+	if (list.length > 1) {
+		if (!duplicatedOrderCodeList.value.includes(order_code)) {
+			duplicatedOrderCodeList.value.push(order_code)
+		}
+		return true
+	}
+	duplicatedOrderCodeList.value = duplicatedOrderCodeList.value.filter(el=> el != order_code)
+	return false
+}
+
+const maxValue = (product, key) => {
+	let index = stockProducts.value.findIndex(el => el.id === product.id)
+	return stockProducts.value[index][key]
+}
+
+const rules = computed(()=>{
+    return{
+        code:{required, maxLength: maxLength(10)},
+        price:{required, decimal},
+        max_order_amount: { minValue: minValue(1), integer}  
+    }
+});
+
+const validate = useVuelidate(rules, listItems);
 
 </script>
+
+<style scoped>
+
+.error {
+	border-color: red;
+}
+</style>

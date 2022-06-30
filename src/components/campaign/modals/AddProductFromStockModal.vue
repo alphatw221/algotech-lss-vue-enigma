@@ -29,6 +29,7 @@
                     :requestUrl="'/api/v2/product/search'"
                     :columns="tableColumns"
                     :status="'enabled'"
+                    :campaignProducts="props.currentProductList"
                 >
                 </EditableDataTable>
             </div>
@@ -47,11 +48,12 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const store = useLSSCampaignListStore(); 
 const props = defineProps({
-    currentProductList: Object, 
+    currentProductList: Array, 
 });
 const tableColumns = ref([
     { name: "Product", key: "image" },
     { name: "", key: "name" },
+    { name: "Order Code", key: "order_code" },
 	{ name: "QTY for Campaign", key: "qty" },
 	{ name: "Max QTY/Order", key: "max_order_amount" },
     { name: "Price", key: "price" },
@@ -62,6 +64,7 @@ const tableColumns = ref([
 ])
 const selectedCategory = ref('')
 const productCategories= ref([{text:"All", value:''}])
+
 onMounted(() => {
 	list_product_category().then(
 		response => { 
@@ -71,14 +74,8 @@ onMounted(() => {
 
 		}
 	)
-    eventBus.on("passCampaignProduct", (payload) => {
-        eventBus.emit("passCampaignProduct", payload)
-    });
 })
 
-onUnmounted(() => {
-    eventBus.off("passCampaignProduct");
-})
 const search = () => {
     console.log(selectedCategory.value)
     eventBus.emit("searchTable", {filterColumn: selectedCategory.value})
