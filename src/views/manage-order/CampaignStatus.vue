@@ -53,7 +53,7 @@
                                     </div>
                                 </template>
                             </div>
-                            <div class="text-3xl font-medium leading-8 mt-6">$ {{parseFloat(store.manageOrder.complete_sales).toFixed(2)}}</div>
+                            <div class="text-3xl font-medium leading-8 mt-6">$ {{parseFloat(store.manageOrder.complete_sales).toFixed(2) ?? 0}}</div>
                             <div class="text-base text-slate-500 mt-1">Sales</div>
                         </div>
                     </div>
@@ -129,7 +129,7 @@ const store = useManageOrderStore()
 onMounted(()=>{
     campaign_manage_order(route.params.campaign_id).then(
         res =>{
-            store.manageOrder = res.data
+            store.manageOrderStatus = res.data
             // console.log(res.data)
         }
     )
