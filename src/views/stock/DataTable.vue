@@ -54,7 +54,7 @@
 						<div class="flex justify-center items-center">
 							<a 
 								class="flex items-center mr-3" 
-								@click="this.$router.push({ path: `/seller/product/edit/${product.id}`})"
+								@click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"
 							>
 								<CheckSquareIcon class="w-4 h-4 mr-1"/> Edit
 							</a>
@@ -158,10 +158,10 @@ td {
 }
 
 thead th{ 
-  position: sticky !important; 
-  top: 0 !important;
-  z-index: 99;
-  background-color: theme("colors.secondary");
+	position: sticky !important; 
+	top: 0 !important;
+	z-index: 99;
+	background-color: theme("colors.secondary");
   	padding-right:10px;
 	padding-left:10px;
 }

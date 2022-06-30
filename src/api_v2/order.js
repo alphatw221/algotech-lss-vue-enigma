@@ -44,3 +44,7 @@ export const buyer_retrieve_order_oid = (order_id) => {
 export const seller_retrieve_order = (order_id) => {
     return createAxiosWithBearer().get(`/api/v2/order/${order_id}/seller/retrieve/`);
 }
+
+export const manage_order_list = (campaign_id,searchValue,page,page_size,status,data) => {
+    return createAxiosWithBearer().post(`/api/v2/order/seller/order_list/?campaign_id=${campaign_id}&search=${searchValue}&page=${page}&page_size=${page_size}&status=${status}`,data)
+}

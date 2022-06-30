@@ -56,18 +56,19 @@
 
 			<div class="mt-3 col-span-12 col-start-1">
 				<label class="form-label">Upload Image</label>
-				<div class="border-2 border-dashed dark:border-darkmode-400 rounded-md pt-4 relative align-baseline cursor-pointer">
-					<div class="flex flex-wrap px-4">
-						<img :src="previewImage" class="uploading-image h-48 lg:h-64 2xl:h-96 object-cover" />
+				<div class="border-2 border-dashed dark:border-darkmode-400 rounded-lg mt-5 relative">
+					<div class="px-4 items-center justify-center flex">
+						<img :src="previewImage" class="uploading-image h-48 object-cover" />
 					</div>
-					<div class="px-4 pb-4 flex text-end text-[16px] align-baseline">
-						<ImageIcon class="w-8 h-8 mr-2 " />
-						<span class="text-primary mr-1">Upload a file</span> or
-						drag and drop
+					<div class="px-4 pb-4 text-[16px] absolute top-16 text-center w-full flex flex-col items-center justify-center"
+                		v-if="previewImage === null">
+						<div class="flex"> <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> <strong class="text-slate-600">Upload a file or drag and drop</strong> </div>
+						<div class="mt-2 text-slate-500">accepted File types: jpeg, png, jpg</div>
+						<div class="text-slate-500">Max file size : 2MB</div>  
 					</div>
 					<input
 							type="file"
-							class="w-full h-full top-0 left-0 absolute opacity-0 border-6 bg-primary cursor-pointer"
+							class="w-full h-full top-0 left-0 absolute opacity-0 border-6 cursor-pointer"
 							accept="image/jpeg" 
 							@change="uploadImage"
 						/>
@@ -211,7 +212,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
-import { required,minValue, integer, minLength, maxLength } from "@vuelidate/validators";
+import { required,minValue, integer, minLength, maxLength, decimal } from "@vuelidate/validators";
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
@@ -226,8 +227,8 @@ const product = ref({
 	type: '',
 	order_code: '',
 	description: '',
-	qty: '',
-	price: '',
+	qty: 0,
+	price: 0,
 	status: '',
 	tag: [],
 })
@@ -256,7 +257,7 @@ onMounted(()=>{
 		.then(
 			res => {
 				product.value = res.data
-				previewImage.value = storageUrl + res.data.image
+				previewImage.value = res.data.image?storageUrl + res.data.image:null
 			}
 		)
 	}
@@ -266,7 +267,7 @@ const submit = ()=>{
 	validate.value.$touch();
 	console.log(product.value)
     if (validate.value.$invalid) {
-        layoutStore.alert.showMessageToast("Invild Data Inputed")
+        layoutStore.alert.showMessageToast("Invalid Data Inputed")
         return
     }else
 	if (route.params.product_id) {
@@ -277,7 +278,7 @@ const submit = ()=>{
 				// console.log('image upload response > ', response)
 				// layoutStore.alert.showMessageToast("Invalid Quantity")
 				layoutStore.notification.showMessageToast("Update Success")
-				router.push('/seller/stock')
+				router.push({name:'stock'})
 			},
 		)
 	} else {
@@ -287,7 +288,7 @@ const submit = ()=>{
 		.then(
 			response => {
 				layoutStore.notification.showMessageToast("Create Success"),
-				router.push('/seller/stock')
+				router.push({name:'stock'})
 			}
 		)
 	}
@@ -305,7 +306,7 @@ const uploadImage = e =>{
 }
 
 const cancelButton = () =>{
-	router.push('/seller/stock');
+	router.push({name:'stock'});
 	layoutStore.alert.showMessageToast("Change Not Saved");
 }
 
@@ -315,7 +316,7 @@ const rules = computed(()=>{
 		order_code: {required, maxLength:maxLength(10),minLength:minLength(3)},
 		description: {maxLength: maxLength(100)},
 		qty: {integer},
-		price: {integer},
+		price: {decimal},
 		tag: {required},  
     }
 });

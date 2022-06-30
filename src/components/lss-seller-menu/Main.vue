@@ -1,8 +1,8 @@
 <template>
-<div class="flex overflow-hidden bg-secondary h-full lg:h-screen">
+<div class="flex overflow-auto bg-secondary h-full ">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
-        <div class="flex cursor-pointer m-3" @click="router.push('/seller/campaign/create')"> 
+        <div class="flex cursor-pointer m-3" @click="router.push({name:'create-campaign'})"> 
           <button class="btn btn-rounded-primary mr-3 w-10 h-10"
           ><span class="text-2xl">+</span></button>
           <span class="font-bold hidden xl:block 2xl:block">Create <br> New Campaign</span> 
@@ -132,12 +132,14 @@
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="content">
-        <nav aria-label="breadcrumb" class="h-[28px] text-lg mr-auto">
+      <div class="content" >
+        <nav aria-label="breadcrumb" class="h-[24px] text-lg mt-5 ml-5 mb-5">
           <ol class="breadcrumb breadcrumb-dark">
-            <template v-for="crumb in breadCrumb.slice(0, -1)" :key="crumb">
-              <li class="breadcrumb-item"><a @click="router.path({name: crumb })">{{crumb}}</a></li>
+            <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
+              <li class="breadcrumb-item"><a @click="router.push({name:`${crumb}`})">{{crumb.replace("-", " ")}}</a></li>
             </template>
+            <li v-if=" breadCrumb[breadCrumb.length - 2] " 
+              class="breadcrumb-item"><a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a></li>
               <li class="breadcrumb-item">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
           </ol>
         </nav>
@@ -176,29 +178,36 @@ watch(
   () => {
     delete route.forceActiveMenu;
     formattedMenu.value = $h.toRaw(sideMenu.value);
-    rawPath.value = route.path
-    rawPath.value = rawPath.value.replace(/[0-9]/g, '')
-    rawPath.value = rawPath.value.replace(/\s/g, '')
-    console.log(rawPath.value)
-    breadCrumb.value = rawPath.value.substr(8).replace("-", " ").split('/')
-    console.log(breadCrumb.value)
+    sortPath(route.path)
   },
 );
 
 onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
   formattedMenu.value = $h.toRaw(sideMenu.value);
-  rawPath.value = route.path
-  rawPath.value = rawPath.value.replace(/[0-9]/g, '');
-  rawPath.value = rawPath.value.replace(/\s/g, '');
-  breadCrumb.value = rawPath.value.substr(8).replace("-", " ").split('/')
+  sortPath(route.path)
 });
+
+const sortPath=(path)=>{
+  rawPath.value = path
+  rawPath.value = rawPath.value.replace(/[0-9]/g, '')
+  rawPath.value = rawPath.value.replace(/\s/g, '')
+  console.log(rawPath.value)
+  breadCrumb.value = rawPath.value.substr(8).replace("-", " ").split('/')
+  if(breadCrumb.value[breadCrumb.value.length-1] === ''){
+    breadCrumb.value.splice(-1,1)
+  }
+}
 </script>
 
 
 <style scoped>
 .dark .side-nav{ 
   background-color: theme("colors.dark"); 
+}
+
+.content {
+  height: max-content;
 }
 
 </style>

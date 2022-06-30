@@ -1,8 +1,8 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="w-full h-full">
+    <div class="w-full h-full box">
         <!-- BEGIN: commit box -->
-        <div class="box p-2 intro-y grid grid-cols-12 gap-5 p-2">
+        <div class="p-2 intro-y grid grid-cols-12 gap-5 p-2">
             <span class="text-lg col-start-1 col-span-12"> Default Settings</span>
             <div class="switch-toggle switch-3 switch-candy col-start-1 m-2 align-middle">
                 <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
@@ -30,7 +30,7 @@
 
 <script>
 import NotesSettings from './NotesSettings.vue';
-import PaymentSettings from './PaymentSettings.vue';
+import PaymentSettings from './payment-settings/Main.vue';
 import DeliverySettings from './DeliverySettings.vue';
 
 export default {

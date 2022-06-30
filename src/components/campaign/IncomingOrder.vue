@@ -39,7 +39,7 @@
                             <td>{{ data.customer_name }}</td>
                             <td>{{ data.currency_sign }}{{ parseFloat(data.subtotal).toFixed(2) }}</td> 
                             <td>
-                                <EyeIcon class="click-icon" @click="this.$router.push(`/seller/order/${data.id}`);seller_order_detail"/>
+                                <EyeIcon class="click-icon" @click="this.$router.push({name:'sellerOrder',params:{'order_id':data.id}});seller_order_detail"/>
                             </td>
                         </tr>
                     </tbody>
@@ -109,7 +109,7 @@ export default {
     padding: 5px !important;
     position: sticky !important; 
     top: 0 !important;
-    z-index: 9999;
+    z-index: 9;
 }
 
 .table td {

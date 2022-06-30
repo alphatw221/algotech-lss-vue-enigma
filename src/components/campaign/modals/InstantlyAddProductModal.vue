@@ -18,7 +18,7 @@
                         :class="{ 'border-danger text-danger border-2': validate.name.$error }" />
                     <template v-if="validate.name.$error">
                           <label class="text-danger" >
-                            Please enter product name with atleast 3 digits
+                            Please enter product name with no more than 40 digits
                           </label>
                     </template>
 
@@ -36,7 +36,7 @@
                         :class="{ 'border-danger text-danger border-2': validate.code.$error }" />
                     <template v-if="validate.code.$error">
                           <label class="text-danger" >
-                            Please enter order code with atleast 3 digits
+                            Please enter order code
                           </label>
                     </template>
 
@@ -76,7 +76,7 @@ import { list_product_category} from '@/api_v2/product';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
 import { useVuelidate } from "@vuelidate/core";
-import { required,minValue, integer, minLength } from "@vuelidate/validators";
+import { required,minValue, decimal, integer, maxLength } from "@vuelidate/validators";
 
 
 const router = useRouter();
@@ -119,7 +119,7 @@ const addtoCampaign =()=>{
 const apply = ()=>{
     validate.value.$touch();
     if (validate.value.$invalid) {
-        layoutStore.alert.showMessageToast("Invild Data Inputed")
+        layoutStore.alert.showMessageToast("Invalid Data Inputed")
         return
     }else 
     addtoCampaign()
@@ -133,9 +133,9 @@ onMounted(() => {
 
 const rules = computed(()=>{
     return{
-        name:{required, minLength: minLength(3)},
-        code:{required, minLength: minLength(3)},
-        price: {required, integer},
+        name:{required, maxLength: maxLength(40)},
+        code:{required, maxLength: maxLength(10)},
+        price:{required, decimal},
         qty: {required, minValue: minValue(1), integer}  
     }
 });

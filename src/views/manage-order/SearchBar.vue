@@ -27,7 +27,8 @@
                                 @click="test()">
                             Filter
                             </button>
-                            <FilterModal/>
+                            <FilterModal
+                                :tableFilter="tableFilter"/>
                        </div>
                     </div>
                 </div>
@@ -46,6 +47,12 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const searchValue = ref('')
 const store = useManageOrderStore()
 
+const props = defineProps({
+    tableStatus: String,
+    tableSearch: String,
+    tableFilter: String,
+});
+
 function search(){
     let data = {}
     for(const type in store.filterTagArray){
@@ -57,7 +64,7 @@ function search(){
         }
     }
     console.log(searchValue.value)
-    eventBus.emit('search',{'value':searchValue.value,'filter_data':data})
+    eventBus.emit(props.tableSearch,{'value':searchValue.value,'filter_data':data})
 }
 function test(){
     store.filterModal = true

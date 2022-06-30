@@ -34,7 +34,7 @@
                 </FormItem>
             </Form>
 
-            <a class="m-auto p-0 item-center text-[16px]" @click="this.$router.push({ path: '/password/forgot' })">forgot password ?</a>
+            <a class="m-auto p-0 item-center text-[16px]" @click="this.$router.push({ name: 'PasswordForgot' })">forgot password ?</a>
             <div class="SeparatorRow">or</div>
 
             <div class="mt-5 flex flex-col items-center">
@@ -97,15 +97,11 @@ const copyLink = ()=>{
 const signIn = ()=>{
     // console.log('signIn')
     seller_general_login(loginData.value).then(response=>{
-                var set_cookie = new Promise((res) => {
-                    cookies.set("access_token", response.data.access)
-                    res()
-                })
-                set_cookie.then(()=>{
-                    router.go()
-                })
-            })
-
+        cookies.set("access_token", response.data.access)
+        router.push({name:'campaigns'})
+    }).catch(err=>{
+        console.log(err)
+    })
 }
 </script>
 

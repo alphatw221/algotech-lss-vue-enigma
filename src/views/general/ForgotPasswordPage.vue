@@ -25,7 +25,7 @@
             <Button class="resend_btn" long @click="sendResetLink">Send Password Reset Link</Button>
             
             <h6 style="text-align: center; font-size: 18px; margin-top: 20px;">
-                <a style="margin: auto; color: darkslategray;"  @click=" this.$router.push('/seller/login');" >Back to Login Page</a>
+                <a style="margin: auto; color: darkslategray;"  @click=" this.$router.push({name:'LoginPage'});" >Back to Login Page</a>
             </h6>
         </Card>
     </div>

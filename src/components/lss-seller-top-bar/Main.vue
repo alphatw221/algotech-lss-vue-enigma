@@ -181,15 +181,15 @@
       </Dropdown> -->
       <!-- END: Notifications -->
       <!-- BEGIN: Account Menu -->
-      <Dropdown class="intro-x w-8 h-8 ml-auto mr-4 my-auto">
+      <Dropdown class="intro-x w-10 h-10 ml-auto mr-4 my-auto">
         <DropdownToggle
           tag="div"
           role="button"
-          class="w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
-        >
-          <img
-            alt="Enigma Tailwind HTML Admin Template"
+          class="w-10 h-10 rounded-full border-2 border-slate-200 overflow-hidden shadow-lg image-fit zoom-in scale-110"
+        > 
+            <img
             :src="userAvatar"
+            class="rounded-full"
           />
         </DropdownToggle>
         <DropdownMenu class="w-56">
@@ -205,20 +205,20 @@
               </div>
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5" @click="sellerLayoutStore.profileTab = 0; router.replace('/seller/profile')">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="sellerLayoutStore.profileTab = 0; router.replace('/seller/profile')">
               <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5"  @click="sellerLayoutStore.profileTab = 1;router.replace('/seller/profile')"> 
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]"  @click="sellerLayoutStore.profileTab = 1;router.replace('/seller/profile')"> 
               <AwardIcon class="w-4 h-4 mr-2" /> Subscription</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5" @click="router.replace('/password/forgot')">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="router.replace('/password/forgot')">
               <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5">
+            <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
               <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
-            >
+            > -->
             <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5" @click="logout()">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="logout()">
               <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout</DropdownItem
             >
           </DropdownContent>

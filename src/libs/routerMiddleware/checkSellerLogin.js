@@ -5,24 +5,26 @@ const { cookies } = useCookies();
 
 export default async (to, from) => {
 
-
     const sellerStore = useLSSSellerLayoutStore();
 
-    if (sellerStore.isAuthenticated ) return '/seller/campaigns'
+    if (sellerStore.isAuthenticated ) return '/seller/campaign-list'
 
     if (cookies.get('access_token')) {
-        const res = await get_seller_account()
-        
-        if (res.status==200) {
+        const res = await get_seller_account().then(res=>{
+            console.log(res)
             sellerStore.isAuthenticated = true;
             sellerStore.userInfo = res.data;
-            return '/seller/campaigns'
+            return true
+        }).catch(err=>{
+            cookies.remove('access_token')
+            cookies.remove('login_with')
+            return false
+        })
+
+        if (res) {
+            return '/seller/campaign-list'
         }
 
-        cookies.remove('access_token')
-        cookies.remove('login_with')
     }
-
     return true
-
 }

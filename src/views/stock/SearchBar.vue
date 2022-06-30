@@ -1,7 +1,7 @@
 <template>
     <div class="intro-y box p-5 -mt-5">
         <form id="tabulator-html-filter-form" class="grid grid-cols-12 grid-warp">
-            <div class="col-span-12 2xl:col-span-8 xl:col-span-8">
+            <div class="col-span-12 2xl:col-span-6 xl:col-span-6">
                 <div class="flex flex-wrap justify-start justify-items-stretch content-end mt-2 lg:-mt-3">
                     <div class="flex-initial w-auto mr-4 items-center sm:mr-4" v-if="showCategoryFilter">
                         <label class="w-14 mr-2">
@@ -38,13 +38,16 @@
                     </div>
                 </div>
             </div>
-            <div class="col-start-1 2xl:col-start-9 xl:col-start-9">
+            <div class="col-start-1 2xl:col-start-7 xl:col-start-7">
                 <div class="flex mt-3 self-end items-end 2xl:mt-0 xl:mt-0">
-                    <button id="tabulator-html-filter-go" type="button" class="flex-none btn btn-primary w-16 mr-3"
+                    <button 
+                        type="button" 
+                        class="flex-none btn btn-primary w-16 mr-3"
                         @click="search">
                         Go
                     </button>
-                    <button id="tabulator-html-filter-reset" type="button"
+                    <button 
+                        type="button"
                         class="flex-none btn btn-secondary w-16 sm:w-16 sm:mt-0 sm:ml-1" @click="reset">
                         Reset
                     </button>
@@ -55,8 +58,8 @@
             <button 
                 v-if="showAddProductBtn"
                 type="button"
-                class="btn btn-primary shadow-md mt-3 col-start-1 col-span-12 xl:w-36 xl:mt-0 lg:col-start-11 xl:col-start-11 2xl:w-48 2xl:col-start-11 2xl:mt-0" 
-                @click="this.$router.push({ path: '/seller/product/add'})"
+                class="btn btn-primary col-start-1 col-span-12 xl:w-36 lg:col-start-11 xl:col-start-11 2xl:col-start-11" 
+                @click="this.$router.push({name: 'add-product'})"
             >
                 Add Product
             </button>
@@ -74,7 +77,7 @@ export default {
         productCategories: Array,
         showAddProductBtn: Boolean,
         showCategoryFilter: Boolean,
-        eventBusName:String
+        eventBusName: String
 	},
 	data() {
 		return {
