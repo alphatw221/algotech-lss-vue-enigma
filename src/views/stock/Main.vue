@@ -3,24 +3,21 @@
 		<TabGroup class="grid grid-cols-12 gap-4">
 			<div class="col-start-1 ml-5">
 				<TabList class="nav-boxed-tabs flex w-full">
-					<Tab class="w-full py-2 flex-1 w-24" tag="button">For Sale</Tab>
-					<Tab class="w-full py-2 flex-1 w-24" tag="button">Delisted</Tab>
-					<!-- <Tab class="w-full py-2 flex-1 w-24" tag="button">Sold out</Tab>
-					<Tab class="w-full py-2 flex-1 w-24" tag="button">Delete</Tab> -->
+					<Tab class="py-2 flex-1 w-24" tag="button">For Sale</Tab>
+					<Tab class="py-2 flex-1 w-24 ml-3" tag="button">Delisted</Tab>
 				</TabList>
 			</div>
-			<div class="col-start-1 w-full lg:col-start-10 lg:ml-5 2xl:col-start-10 2xl:ml-5">
+			<div class="col-start-1 lg:col-start-11 2xl:col-start-11">
 				<button id="tabulator-html-filter-go" 
 					type="button" 
-					class="btn btn-primary shadow-md w-48 lg:w-36 2xl:w-48" 
+					class="btn btn-primary shadow-md w-48 lg:w-36 2xl:w-48 ml-5" 
 					@click="this.$router.push({name:'category-management'})">
 					Category Management
 				</button>
 			</div>
-			<div class="p-1 col-span-12 lg:p-5 2xl:p-5">
+			<div class="p-1 col-span-12 ">
 				<div>
 					<TabPanels class="mt-0 lg:mt-5 2xl:mt-5">
-
 
 						<!-- BEGIN For Sale Tab -->
 						<TabPanel class="leading-relaxed"> 
@@ -31,7 +28,6 @@
 									:eventBusName="'searchForSaleTable'"
 									:showAddProductBtn="true"
 									:showCategoryFilter="true"
-									
 								>
 								</SearchBar>	
 								<DataTable
@@ -54,7 +50,6 @@
 									:eventBusName="'searchDelistedTable'"
 									:showAddProductBtn="false"
 									:showCategoryFilter="false"
-									
 								>
 								</SearchBar>	
 								<DataTable
@@ -67,9 +62,7 @@
 							</div>
 						</TabPanel>
 						<!-- END Delisted Tab -->
-
-						<!-- <TabPanel class="leading-relaxed"> Sold. </TabPanel>
-						<TabPanel class="leading-relaxed"> Delete. </TabPanel> -->
+				
 					</TabPanels>
 				</div>
 			</div>
@@ -102,15 +95,14 @@ const tableColumns = ref([
 	{ name: "Price", key: "price" },
 ])
 
-const productCategories= ref([{text:"All", value:''}])
+const productCategories= ref([{text: "All", value: ''}])
 
 onMounted(() => {
 	list_product_category().then(
 		response => { 
 			response.data.forEach(category => {
-				productCategories.value.push({text:category,value:category})
+				productCategories.value.push({text: category, value: category})
 			});
-
 		}
 	)
 })
