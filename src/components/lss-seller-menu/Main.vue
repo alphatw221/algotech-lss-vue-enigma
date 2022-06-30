@@ -132,8 +132,8 @@
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="content">
-        <nav aria-label="breadcrumb" class="h-[24px] text-lg mr-auto">
+      <div class="content" >
+        <nav aria-label="breadcrumb" class="h-[24px] text-lg mt-5 ml-5 mb-5">
           <ol class="breadcrumb breadcrumb-dark">
             <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
               <li class="breadcrumb-item"><a @click="router.push({name:`${crumb}`})">{{crumb.replace("-", " ")}}</a></li>
@@ -204,6 +204,10 @@ const sortPath=(path)=>{
 <style scoped>
 .dark .side-nav{ 
   background-color: theme("colors.dark"); 
+}
+
+.content {
+  height: max-content;
 }
 
 </style>

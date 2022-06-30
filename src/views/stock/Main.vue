@@ -9,10 +9,10 @@
 					<label for="off" style="width: 100px; font-size:14px;" class="align-middle">Delisted</label>
 				</div>
 			</div>
-			<div class="col-start-1 w-full lg:col-start-10 lg:ml-5 2xl:col-start-10 2xl:ml-5">
+			<div class="col-start-1 lg:col-start-11 2xl:col-start-11">
 				<button id="tabulator-html-filter-go" 
 					type="button" 
-					class="btn btn-primary shadow-md w-48 lg:w-36 2xl:w-48" 
+					class="btn btn-primary shadow-md w-48 lg:w-36 2xl:w-48 ml-5" 
 					@click="this.$router.push({name:'category-management'})">
 					Category Management
 				</button>
@@ -111,9 +111,8 @@ onMounted(() => {
 	list_product_category().then(
 		response => { 
 			response.data.forEach(category => {
-				productCategories.value.push({text:category,value:category})
+				productCategories.value.push({text: category, value: category})
 			});
-
 		}
 	)
 })
