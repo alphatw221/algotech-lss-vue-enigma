@@ -1,5 +1,5 @@
 <template>
-	<div class="mt-3 overflow-y-scroll overflow-x-scroll h-[600px]">
+	<div class="mt-3 overflow-scroll h-[600px]">
 		<table class="box table table-report table-auto -mt-3 ">
 			<thead>
 				<tr>

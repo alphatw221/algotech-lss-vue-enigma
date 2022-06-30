@@ -1,17 +1,19 @@
 <template>
-    <div >
+    <div v-if="ready">
+
+    
         <div >
             <input 
                 class="form-check-input ml-3 " 
                 style="width: 1.5rem; height:1.5rem;"
                 type="checkbox" 
-                v-model="paymentData.enabled"
+                v-model=" props.campaign.meta_payment.direct_payment.enabled"
             />
             <label class="form-label ml-3">Enabled</label>
         </div>
         
 
-        <div v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i">
+        <div v-for="(account, index_i) in props.campaign.meta_payment.direct_payment.v2_accounts" :key="index_i">
 
             <div 
                 class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-3 lg:gap-5 2xl:my-3 2xl:gap-5" 
@@ -84,14 +86,6 @@
             Add 
         </button>
 
-        <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5" >
-            <button 
-                class="btn btn-elevated-rounded-success text-base w-48 col-start-5 mt-2"
-                @click="updateDirectPayment"
-            > 
-                Update 
-            </button>
-        </div>
     </div>
 </template>
 
@@ -101,45 +95,39 @@ import { computed, onMounted, ref, watch, provide, reactive, toRefs ,defineProps
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_payment } from '@/api_v2/user_subscription'
+
+const ready = ref(false)
 const sellerStore = useLSSSellerLayoutStore();
 const props = defineProps({
     payment: Object,
+    campaign: Object,
+    directPaymentImages: Array,
 });
 
 const route = useRoute();
 const router = useRouter();
 
-const paymentData = ref(
-    {
-        enable:false,
-        title:'',
-        v2_accounts:[]
-    }
-)
-const previewImages = ref([])
+
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
-const formData = new FormData()
+const previewImages = ref([])
 
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
-    console.log(sellerStore.userInfo.user_subscription.meta_payment)
 
-    if(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]){
-        paymentData.value = sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]
-    }
+    if(typeof props.campaign.meta_payment.direct_payment['enabled'] != 'boolean')props.campaign.meta_payment.direct_payment['enabled']=false
+    if(!Array.isArray(props.campaign.meta_payment.direct_payment['v2_accounts']))props.campaign.meta_payment.direct_payment['v2_accounts']=[]
 
 
-    if(typeof paymentData.value['enabled'] != 'boolean')paymentData.value['enabled']=false
-    if(!Array.isArray(paymentData.value['v2_accounts']))paymentData.value['v2_accounts']=[]
-
-    paymentData.value.v2_accounts.forEach(account => {
+    props.campaign.meta_payment.direct_payment.v2_accounts.forEach(account => {
         previewImages.value.push(storageUrl+account.image)
+        props.directPaymentImages.push(null)
     });
+    ready.value = true
 })
 
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
-    formData.append('_'+paymentData.value.v2_accounts[index].name,image)
+    props.directPaymentImages[index]=image
 	let reader = new FileReader();
 	reader.readAsDataURL(image);
 	reader.onload = event =>{ previewImages.value[index] = event.target.result };
@@ -147,22 +135,15 @@ const uploadImage = (event, index) =>{
 
 
 const deleteDirectPayment = index=>{
-    paymentData.value.v2_accounts.splice(index,1)
+    props.campaign.meta_payment.direct_payment.v2_accounts.splice(index,1)
     previewImages.value.splice(index,1)
-
+    props.directPaymentImages.splice(index,1)
 }
+
 const addDirectPayment = ()=>{
-    paymentData.value.v2_accounts.push({mode:'',name:'',number:'',note:'',require_customer_return:true})
-    previewImages.value.push('')
-}
-
-const updateDirectPayment = () => {
-    formData.append('data', JSON.stringify(paymentData.value))
-
-    seller_update_payment(props.payment.key,formData).then(res=>{
-        sellerStore.userInfo = res.data
-        sellerStore.notification.showMessageToast("Update Success")
-    })
+    props.campaign.meta_payment.direct_payment.v2_accounts.push({mode:'',name:'',number:'',note:'',require_customer_return:true})
+    props.directPaymentImages.push(null)
+    previewImages.value.push(null)
 }
 
 

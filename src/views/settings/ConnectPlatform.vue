@@ -6,13 +6,14 @@
         </div>
     </div>
     <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
-        <ModalBody class="p-10 text-center">
-            <h4 class="text-center">Your subscription is {{ subscriptionPlan }}</h4>
-            <p class="text-center">You have only {{ activatedPlatformNumber }} session{{ plural(activatedPlatformNumber) }} or <a @click="UpgradeModal = false; router.replace('/seller/profile')">click here to upgrade</a></p>
+        <ModalBody class="p-10 text-center text-lg text-danger">
+            <h4 class="text-center">Your subscription plan is <strong class="text-primary"> {{ subscriptionPlan }} </strong></h4>
+            <p class="text-center">You have only {{ activatedPlatformNumber }} session{{ plural(activatedPlatformNumber) }} or <br/> 
+            <a @click="UpgradeModal = false; router.replace('/seller/profile')" class="font-bold">Upgrade your plan Now</a></p>
         </ModalBody>
-        <ModalFooter class="flex">
-            <button type="button" @click="UpgradeModal = false" class="btn btn-outline-secondary w-20 mr-auto">
-                Cancel
+        <ModalFooter class="flex justify-end">
+            <button type="button" @click="UpgradeModal = false" class="btn btn-outline-secondary w-30 mr-5">
+                maybe next time
             </button>
         </ModalFooter>
     </Modal>

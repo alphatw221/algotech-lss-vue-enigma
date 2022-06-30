@@ -1,8 +1,8 @@
 <template>
-    <div class="box py-5 lg:p-10 2xl:p-10">
+    <div class="box py-5 lg:p-10 2xl:p-10" v-if="ready">
 		<div class="box intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 ml-3">
 			<span class="col-start-1 col-span-12 text-2xl font-medium leading-none mb-2 mt-3">
-				Create Campaign
+				Edit Campaign
 			</span>
 			<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
 				<div class="flex">
@@ -58,8 +58,8 @@
 				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="this.$router.push({ name: 'campaigns' })">
 					Cancel
 				</button>
-				<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="createCampaign()">
-					Next
+				<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="updateCampaign()">
+					Update
 				</button>
 			</div>
 		</div>
@@ -69,12 +69,13 @@
 <script setup>
 import { ref, watch, onMounted, computed, watchEffect } from 'vue';
 
-import PaymentForm from './payment-form/Main.vue'
-import DeliveryForm from './DeliveryForm.vue';
-import NotesForm from './NotesForm.vue';
+import PaymentForm from '@/views/create-campaign/payment-form/Main.vue'
+import DeliveryForm from '@/views/create-campaign/DeliveryForm.vue';
+import NotesForm from '@/views/create-campaign/NotesForm.vue';
+
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
-import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/campaign';
+import { retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 
 import { required, minLength, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
@@ -83,30 +84,19 @@ import { useVuelidate } from "@vuelidate/core";
 const route = useRoute()
 const router = useRouter()
 const directPaymentImages = ref([])
-const campaignData = ref({
-			title:'',
-			start:new Date(),
-			end:new Date(),
-			meta_logistic:{
-				delivery_charge : 9999,
-				is_free_delivery_for_order_above_price : false,
-				free_delivery_for_order_above_price : 9999,
-				is_free_delivery_for_how_many_order_minimum : false,
-				free_delivery_for_how_many_order_minimum : 99,
-				is_additional_delivery_charge : true,
-				additional_delivery_options: [],
-				pickup_options: [],
-				delivery_note : 'example...'
-			},
-			meta_payment:{}
-		})
+const campaignData = ref({})
 
 const sellerStore = useLSSSellerLayoutStore()
+const ready = ref(false)
 onMounted(() => {
-	if(!sellerStore.userInfo.user_subscription)return
-	campaignData.value.meta_logistic = sellerStore.userInfo.user_subscription.meta_logistic
-	campaignData.value.meta_payment = sellerStore.userInfo.user_subscription.meta_payment
-    
+	retrieve_campaign(route.params.campaign_id).then(res=>{
+		console.log(res.data)
+		campaignData.value = res.data
+		campaignData.value.start = new Date(res.data.start_at)   // temp
+		campaignData.value.end = new Date(res.data.end_at) 	
+
+		ready.value=true
+	})
 })
 
 const title_rules = computed(() => {
@@ -114,7 +104,7 @@ const title_rules = computed(() => {
 })
 const title_validate = useVuelidate(title_rules, campaignData);
 
-const createCampaign = ()=>{
+const updateCampaign = ()=>{
 	title_validate.value.$touch()
 	if (title_validate.value.$invalid) {
 		sellerStore.alert.showMessageToast("Invalid campaign title input")
@@ -131,8 +121,9 @@ const createCampaign = ()=>{
 	});
 
 
-	create_campaign(formData).then(response => {
-		router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
+	update_campaign(route.params.campaign_id,formData).then(response => {
+
+		router.push({name:'edit-campaign-product', params:{'campaign_id': response.data.id}})
 	})
 
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="box p-2 2xl:p-10">
+    <div class="p-2 2xl:p-10">
         <TabGroup v-if="paymentReady">
             <TabList class="nav-boxed-tabs flex flex-wrap content-around justify-around items-stretch self-auto ">
 

@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-x-auto overflow-y-auto h-[650px]">
-    <table class="table table-report -mt-2">
+    <table class="table table-report">
       <thead>
         <tr>
           <th class="text-center " v-for="column in tableColumns" :key="column.key">
@@ -201,7 +201,7 @@ export default {
             this.totalPage = totalPage == 0 ? 1 : totalPage;
           }
           this.store[this.tableName].campaigns = response.data.results
-          console.log(this.store[this.tableName].campaigns)
+          // console.log(this.store[this.tableName].campaigns)
           for(let i = 0; i < this.store[this.tableName].campaigns.length; i++){
             this.store[this.tableName].campaigns[i].meta.allow_checkout = this.store[this.tableName].campaigns[i].meta.allow_checkout == 1 ? false : true 
           }
@@ -268,8 +268,10 @@ export default {
 }
 
 td {
-  height: 50px;
+  min-height: 50px;
   border-collapse: collapse;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 thead th{ 
@@ -277,6 +279,8 @@ thead th{
   top: 0 !important;
   z-index: 99;
   background-color: theme("colors.secondary");
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 @media only screen and (max-width: 760px),
