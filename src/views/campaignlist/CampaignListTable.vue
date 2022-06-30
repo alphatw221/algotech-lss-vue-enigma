@@ -132,7 +132,7 @@
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { allow_checkout } from "@/api_v2/manage_order"
+import { allow_checkout } from "@/api_v2/campaign"
 
 export default {
   props: {

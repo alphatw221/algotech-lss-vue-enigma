@@ -19,9 +19,18 @@ export default async (to, from)=>{
 
         if (res.status!=200) {
             cookies.remove("access_token")
+<<<<<<< HEAD
             return '/seller/login'
         }
         return true
+=======
+            return false
+        })
+
+        if (res) {
+            return true
+        }
+>>>>>>> 0345b6bb4716f1e5d8c14b19175ccd9caea77326
     }
     return '/seller/login'
 }

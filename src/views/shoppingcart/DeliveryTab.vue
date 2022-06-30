@@ -75,14 +75,14 @@
         </div>
 
         <TabGroup >
-          <TabList class="nav-boxed-tabs mx-0 lg:mx-10 2xl:mx-10 flex items-center w-full">
-            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
+          <TabList class="nav-boxed-tabs flex grow items-center w-full justify-around items-center">
+            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('delivery')">
               <div class="grow inline-flex items-center place-content-center">
                 <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg ">Home Delivery</span>
               </div>
             </Tab>
-            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 2xl:w-64" tag="button"
+            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('pickup')">
               <div class="grow inline-flex items-center place-content-center">
                 <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Self Pickup</span>
@@ -377,13 +377,13 @@ const proceed_to_payment = () =>{
 
   reciever_validate.value.$touch();
   if (reciever_validate.value.$invalid) {
-    layoutStore.alert.showMessageToast("Invild User Infomation Input")
+    layoutStore.alert.showMessageToast("Invalid User Infomation Input")
     return
   }
   if(shipping_info.value.shipping_method==='delivery'){
     delivery_validate.value.$touch();
     if(delivery_validate.value.$invalid){
-      layoutStore.alert.showMessageToast("Invild Delivery Infomation Input")
+      layoutStore.alert.showMessageToast("invalid delivery infomation input")
       return
     }
   }
@@ -404,5 +404,10 @@ const proceed_to_payment = () =>{
 <style scoped>
 .homeTab {
   border-radius: 0px !important;
+}
+
+.nav-item{
+  justify-content: center;
+  display: flex !important;
 }
 </style>

@@ -109,7 +109,7 @@ export default {
     padding: 5px !important;
     position: sticky !important; 
     top: 0 !important;
-    z-index: 9999;
+    z-index: 9;
 }
 
 .table td {

@@ -45,7 +45,7 @@
 	<!-- update Modal-->
 	<Modal :show="updateModal" @hidden="closeWithAlert()">
 		<ModalHeader>
-			<h2 class="font-medium text-base mr-auto">Update Auto Response</h2>
+			<h2 class="font-medium text-base mr-auto">Edit #{{currentInfo.id}}</h2>
 			<a @click="updateModal = false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
 				<XIcon class="w-8 h-8 text-slate-400" />
 			</a>

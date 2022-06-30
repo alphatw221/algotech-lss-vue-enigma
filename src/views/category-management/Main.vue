@@ -1,12 +1,12 @@
 <template>
-    <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5">
+    <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5 overflow-auto p-5 h-[95%]">
         <!-- TODO category選單初始畫面 請van拉圖 -->
         <!-- <div>
             
         </div> -->
         <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2" v-for="item in listItems"
             :key="item">
-            <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-4 relative zoom-in">
+            <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-4 relative">
                 <div class="w-1/2 file__icon file__icon--empty-directory mx-auto"></div>
                 <div class="block font-medium mt-4 text-center truncate">
                     {{ item }}
