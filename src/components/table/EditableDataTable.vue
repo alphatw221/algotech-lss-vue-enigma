@@ -31,13 +31,16 @@
 						</template>
 						<template v-else-if="column.key === 'order_code'">
 							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" type="text" v-model="product[column.key]" :class="{ error: checkOrderCode(product[column.key]) }"/>
+							<label class="error_message" v-if="checkOrderCodeRequired(product[column.key])">Required</label>
+							<label class="error_message" v-else-if="checkOrderCodeDuplicated(product[column.key])">Duplicate Order Code</label>
+							<label class="error_message" v-else-if="checkOrderCodeMaxLength(product[column.key])">Enter order code with no more than 10 digits</label>
 						</template>
 						<template v-else-if="column.key === 'category'" v-for="(tag,index) in product['tag']" :key="index">
 							<div>{{ tag }}</div> 
 						</template>
 						<template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
 							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" min="1" :max="maxValue(product, column.key)" type="number" v-model="product[column.key]" :class="{ error: checkValue(product, column.key) }"/>
-							<p class="error_message" v-if="checkValue(product, column.key)">exceed stock amount</p>
+							<label class="error_message" v-if="checkValue(product, column.key)">exceed stock amount</label>
 						</template>
 						<template v-else-if="column.key === 'type'">
 							<select 
@@ -142,6 +145,8 @@ const category = ref(undefined)
 const product_type = ref(["product", "lucky_draw"])
 const stockProducts = ref([])
 const duplicatedOrderCodeList = ref([])
+const OrderCodeMaxLengthList = ref([])
+const OrderCodeRequiredList = ref([])
 
 onMounted(() => {
 	search();
@@ -195,32 +200,13 @@ const removeDash = (word) =>{
 	return word.replace("_", " ")
 }
 
-const submitData = () => {
-	if (duplicatedOrderCodeList.value.length) {
-		layoutStore.alert.showMessageToast("Duplicated Order Code Exists");
-		return false
-	}
-	let new_products = []
-	for (let i = 0; i < assignedProducts.value.length; i ++) {
-		assignedProducts.value[i]['product_id'] = assignedProducts.value[i]['id']
-		delete assignedProducts.value[i]['id']; 
-		assignedProducts.value[i]['qty_for_sale'] = parseInt(assignedProducts.value[i]['qty'])
-		assignedProducts.value[i]['status'] = true
-	}
-	seller_create_campaign_products(route.params.campaign_id, assignedProducts.value)
-	.then(response => {
-		eventBus.emit("addProductFromStock", response.data)
-		campaignListStore.showAddProductFromStockModal = false;
-		layoutStore.notification.showMessageToast("Successed")
-	})
-}
-const resetData = () => {
-	listItems.value = JSON.parse(JSON.stringify(stockProducts.value))
-}
-
-
 const checkOrderCode = (order_code) => {
-	let list = listItems.value.filter(el=> el.order_code === order_code)
+	console.log(checkOrderCodeRequired(order_code))
+	return checkOrderCodeDuplicated(order_code) || checkOrderCodeMaxLength(order_code) || checkOrderCodeRequired(order_code)
+}
+
+const checkOrderCodeDuplicated = (order_code) => {
+	let list = listItems.value.filter(el=> el.order_code === order_code && order_code != "")
 	if (list.length > 1) {
 		if (!duplicatedOrderCodeList.value.includes(order_code)) {
 			duplicatedOrderCodeList.value.push(order_code)
@@ -228,7 +214,28 @@ const checkOrderCode = (order_code) => {
 		return true
 	}
 	duplicatedOrderCodeList.value = duplicatedOrderCodeList.value.filter(el=> el != order_code)
+	
 	return false
+}
+
+const checkOrderCodeMaxLength = (order_code) => {
+	if (order_code.length > 10) {
+		OrderCodeMaxLengthList.value.push(order_code)
+		return true
+	}
+	OrderCodeMaxLengthList.value = OrderCodeMaxLengthList.value.filter(el=> el != order_code)
+	return false
+	
+}
+
+const checkOrderCodeRequired = (order_code) => {
+	if (["", null, undefined].includes(order_code)) {
+		OrderCodeRequiredList.value.push(order_code)
+		return true
+	}
+	OrderCodeRequiredList.value = OrderCodeRequiredList.value.filter(el=> el != order_code)
+	return false
+	
 }
 const checkValue = (product, key) => {
 	let max_value = maxValue(product, key)
@@ -245,12 +252,46 @@ const maxValue = (product, key) => {
 const rules = computed(()=>{
     return{
         code:{required, maxLength: maxLength(10)},
-        price:{required, decimal},
-        max_order_amount: { minValue: minValue(1), integer}  
     }
 });
 
 const validate = useVuelidate(rules, listItems);
+
+const submitData = () => {
+	if (!selected.value.length) {
+		layoutStore.alert.showMessageToast("No Items Selected");
+		return false
+	}
+	if (duplicatedOrderCodeList.value.length) {
+		layoutStore.alert.showMessageToast("Duplicated Order Code Exists");
+		return false
+	}
+	if (OrderCodeMaxLengthList.value.length) {
+		layoutStore.alert.showMessageToast("Order Code Exceed 10 digits");
+		return false
+	}
+	if (OrderCodeRequiredList.value.length) {
+		layoutStore.alert.showMessageToast("Order Code Is Required");
+		return false
+	}
+	let new_products = []
+	for (let i = 0; i < assignedProducts.value.length; i ++) {
+		assignedProducts.value[i]['product_id'] = assignedProducts.value[i]['id']
+		delete assignedProducts.value[i]['id']; 
+		assignedProducts.value[i]['qty_for_sale'] = parseInt(assignedProducts.value[i]['qty'])
+		assignedProducts.value[i]['status'] = true
+	}
+	seller_create_campaign_products(route.params.campaign_id, assignedProducts.value)
+	.then(response => {
+		eventBus.emit("addProductFromStock", response.data)
+		campaignListStore.showAddProductFromStockModal = false;
+		layoutStore.notification.showMessageToast("Successed")
+	})
+}
+
+const resetData = () => {
+	listItems.value = JSON.parse(JSON.stringify(stockProducts.value))
+}
 
 </script>
 
