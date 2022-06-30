@@ -1,6 +1,6 @@
 <template>
   <div class="overflow-x-auto overflow-y-auto h-[650px]">
-    <table class="table table-report -mt-2">
+    <table class="table table-report">
       <thead>
         <tr>
           <th class="text-center " v-for="column in tableColumns" :key="column.key">
@@ -268,8 +268,10 @@ export default {
 }
 
 td {
-  height: 50px;
+  min-height: 50px;
   border-collapse: collapse;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 thead th{ 
@@ -277,6 +279,8 @@ thead th{
   top: 0 !important;
   z-index: 99;
   background-color: theme("colors.secondary");
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 @media only screen and (max-width: 760px),

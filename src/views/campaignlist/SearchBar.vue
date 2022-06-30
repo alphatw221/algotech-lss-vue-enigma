@@ -1,5 +1,5 @@
 <template>
-    <div class="intro-y p-5 -mt-5">
+    <div class="intro-y px-5">
         <form id="tabulator-html-filter-form" class="flex flex-col sm:flex-row">
             <div class="flex flex-row justify-start justify-items-stretch content-end -mt-3 sm:mt-0 mr-auto">
                 <div class="flex-initial w-auto items-center sm:mr-4">
