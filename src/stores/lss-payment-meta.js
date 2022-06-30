@@ -54,10 +54,10 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		name:"First Data IPG (Credit Card)",
 		key:"first_data",
 		fields:[
-			{key:"store_id", name:"storeId", type:"text", dataType:"string", default:''},
-			{key:"shared_secret", name:"sharedSecret", type:"password", dataType:"string", default:''},
-			{key:"currency", name:"currency", type:"select", options:['702', '703'], dataType:"string", default:'702'},
-			{key:"timezone", name:"timezone", type:"select", options:['Asia/Singapore'], dataType:"string", default:'Asia/Singapore'}
+			{key:"store_id", name:"Store ID", type:"text", dataType:"string", default:''},
+			{key:"shared_secret", name:"Shared Secret", type:"password", dataType:"string", default:''},
+			{key:"currency", name:"Currency", type:"select", options:['702', '703'], dataType:"string", default:'702'},
+			{key:"timezone", name:"Time Zone", type:"select", options:['Asia/Singapore'], dataType:"string", default:'Asia/Singapore'}
 		],
 		handle:{
 			type:'submitForm',
