@@ -1,5 +1,5 @@
 <template>
-<div class="flex overflow-auto bg-secondary h-full ">
+<div class="flex overflow-auto scrollbar-hidden bg-secondary h-full">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
         <div class="flex cursor-pointer m-3" @click="router.push({name:'create-campaign'})"> 
@@ -132,15 +132,15 @@
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="content">
-        <nav aria-label="breadcrumb" class="h-[24px] text-lg mr-auto">
+      <div class="content" >
+        <nav aria-label="breadcrumb" class="h-[24px] text-lg m-2">
           <ol class="breadcrumb breadcrumb-dark">
             <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
-              <li class="breadcrumb-item"><a @click="router.push({name:`${crumb}`})">{{crumb.replace("-", " ")}}</a></li>
+              <li v-if="crumb !== ''" class="breadcrumb-item"><a @click="pathName(crumb)">{{crumb}}</a></li>
             </template>
             <li v-if=" breadCrumb[breadCrumb.length - 2] " 
               class="breadcrumb-item"><a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a></li>
-              <li class="breadcrumb-item">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
+            <li class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
           </ol>
         </nav>
         <router-view />
@@ -192,18 +192,28 @@ const sortPath=(path)=>{
   rawPath.value = path
   rawPath.value = rawPath.value.replace(/[0-9]/g, '')
   rawPath.value = rawPath.value.replace(/\s/g, '')
-  console.log(rawPath.value)
-  breadCrumb.value = rawPath.value.substr(8).replace("-", " ").split('/')
+  breadCrumb.value = rawPath.value.substr(8).replace(/-/g, " ")
+  breadCrumb.value = breadCrumb.value.split('/')
   if(breadCrumb.value[breadCrumb.value.length-1] === ''){
     breadCrumb.value.splice(-1,1)
   }
 }
+
+const pathName=(value)=>{
+  const crumb = ref(value)
+  router.push({name: crumb.value.replace(" ", "-")})
+}
+
 </script>
 
 
 <style scoped>
 .dark .side-nav{ 
   background-color: theme("colors.dark"); 
+}
+
+.content {
+  height: max-content;
 }
 
 </style>

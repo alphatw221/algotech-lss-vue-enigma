@@ -1,14 +1,14 @@
 <template>
 
-    <div >
+    <div class="flex flex-col justify-center">
         <div >
-                <input 
-                    class="form-check-input ml-3 " 
-                    style="width: 1.5rem; height:1.5rem;"
-                    type="checkbox" 
-                    v-model="paymentData.enabled"
-                />
-                <label class="form-label ml-3">Enabled</label>
+            <input 
+                class="form-check-input ml-3 " 
+                style="width: 1.5rem; height:1.5rem;"
+                type="checkbox" 
+                v-model="paymentData.enabled"
+            />
+            <label class="form-label ml-3">Enabled</label>
         </div>
 
 
@@ -38,14 +38,12 @@
             </template>
         </div>
 
-        <div class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-10 lg:gap-5 2xl:my-10 2xl:gap-5" >
             <button 
-                class="btn btn-elevated-rounded-success text-base w-48 col-start-5 mt-2"
+                class="btn btn-elevated-rounded-success text-base w-48 mt-2"
                 @click="updatePayment()"
             > 
                 Update
             </button>
-        </div>
     </div>
 </template>
 

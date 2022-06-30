@@ -3,7 +3,7 @@
 	
 
 
-	<table class="table overflow-x-auto">
+	<table class="table">
 
 
 		<thead>

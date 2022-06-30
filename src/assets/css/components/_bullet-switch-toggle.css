@@ -1,0 +1,52 @@
+.switch-toggle {
+    overflow: visible;
+    float: left;
+    height: 42px;
+    width: max-content;
+    background: theme("colors.secondary");
+    border-radius: 42px 42px;
+    letter-spacing: 0.7px;
+    box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.185),
+        inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+} .dark {
+    .switch-toggle{
+        box-shadow: inset -4px -4px 8px rgba(22, 22, 22, 0.596),
+        inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+    --color-secondary: theme("colors.rgb.blueGray.800");
+    }
+}
+
+.switch-toggle input {
+    position: absolute;
+    opacity: 0;
+}
+
+.switch-toggle label{
+    width: 100px;
+    font-size: 14px;
+    align-self: center;
+}
+
+.switch-toggle input+label {
+    padding-top: 12px;
+    padding-bottom: 12px;
+    padding-left: 15px;
+    padding-right: 15px;
+    float: left;
+    text-align: center;
+    color: rgb(56, 56, 56);
+    cursor: pointer;
+}
+
+.dark .switch-toggle input+label {
+    color: rgb(255, 255, 255);
+}
+
+.switch-toggle input:checked+label {
+    background: theme("colors.primary");
+    height: 42px;
+    width: 100px;
+    border-radius: 42px 42px;
+    font-weight: 500;
+    color: aliceblue;
+}

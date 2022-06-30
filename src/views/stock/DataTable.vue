@@ -1,5 +1,5 @@
 <template>
-	<div class="mt-3 overflow-y-scroll overflow-x-scroll h-[600px]">
+	<div class="mt-3 overflow-scroll h-[600px]">
 		<table class="box table table-report table-auto -mt-3 ">
 			<thead>
 				<tr>
@@ -158,10 +158,10 @@ td {
 }
 
 thead th{ 
-  position: sticky !important; 
-  top: 0 !important;
-  z-index: 99;
-  background-color: theme("colors.secondary");
+	position: sticky !important; 
+	top: 0 !important;
+	z-index: 99;
+	background-color: theme("colors.secondary");
   	padding-right:10px;
 	padding-left:10px;
 }

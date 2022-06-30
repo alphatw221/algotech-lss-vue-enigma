@@ -1,7 +1,5 @@
 <template>
     <div >
-
-    
         <div >
             <input 
                 class="form-check-input ml-3 " 

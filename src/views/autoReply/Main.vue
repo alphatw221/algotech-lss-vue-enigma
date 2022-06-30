@@ -1,14 +1,14 @@
 <template>
-    <div class="intro-y chat grid grid-cols-12 gap-5 w-full box">
-        <label class="text-lg col-start-1 col-span-8 lg:col-span-4 2xl:col-span-4 m-5"> Setup Auto Reply</label>
-        <button class="col-start-9 btn btn-warning btn-rounded w-24 h-10 mt-5 text-white lg:col-start-11 2xl:col-start-11 "
-            @click="createModal = true; saved=false">
-            <span class="font-bold mr-1 text-lg">+</span> Create
-        </button>
-        <div class="col-start-1 col-span-12">
-            <div class="overflow-x-auto">
-                <AutoReplyTable class="overflow-x-auto" :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
-            </div>
+    <div class="box p-5 flex flex-col gap-5">
+        <div class="flex justify-between">
+            <label class="text-lg mt-5"> Setup Auto Reply</label>
+            <button class="btn btn-warning btn-rounded w-24 h-10 mt-5 text-white "
+                @click="createModal = true; saved=false">
+                <span class="font-bold mr-1 text-lg">+</span> Create
+            </button>
+        </div>
+        <div class="overflow-x-auto">
+            <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
     </div>
 

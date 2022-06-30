@@ -1,5 +1,5 @@
 <template>
-    <div class="box p-20">
+    <div class="p-20">
 
         <AccordionGroup class="accordion-boxed">
             <AccordionItem>

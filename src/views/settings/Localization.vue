@@ -43,8 +43,8 @@
             </TomSelect>
         </div>
         <div class="flex justify-end"> 
-            <button class="btn btn-rounded-secondary mr-5" @click="clean()"> Clean</button>
-            <button class="btn btn-rounded-primary" @click="save()"> Save</button>
+            <button class="btn btn-rounded-secondary mr-5 w-20" @click="clean()"> Discard</button>
+            <button class="btn btn-rounded-primary w-20" @click="save()"> Save</button>
         </div>
     </div>
 
