@@ -113,6 +113,11 @@ const previewImages = ref([])
 
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
+
+    if(typeof props.campaign.meta_payment.direct_payment['enabled'] != 'boolean')props.campaign.meta_payment.direct_payment['enabled']=false
+    if(!Array.isArray(props.campaign.meta_payment.direct_payment['v2_accounts']))props.campaign.meta_payment.direct_payment['v2_accounts']=[]
+
+
     props.campaign.meta_payment.direct_payment.v2_accounts.forEach(account => {
         previewImages.value.push(storageUrl+account.image)
         props.directPaymentImages.push(null)
