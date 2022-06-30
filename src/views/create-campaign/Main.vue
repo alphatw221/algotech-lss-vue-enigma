@@ -20,7 +20,7 @@
 			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
 				<div class="flex">
 					<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2 text-base">Period</label>
-					<v-date-picker class=" z-49" v-model="campaignData" :timezone="timezone" mode="dateTime" is-range is-required>
+					<v-date-picker class=" z-49" v-model="dateTimePicker" :timezone="timezone" mode="dateTime" is-range is-required>
 						<template v-slot="{ inputValue, inputEvents }">
 							<div class="flex justify-center items-center">
 							<input :value="inputValue.start" v-on="inputEvents.start"
@@ -83,10 +83,14 @@ import { useVuelidate } from "@vuelidate/core";
 const route = useRoute()
 const router = useRouter()
 const directPaymentImages = ref([])
+const dateTimePicker = ref({
+	start:new Date(),
+	end:new Date()
+})
 const campaignData = ref({
 			title:'',
-			start:new Date(),
-			end:new Date(),
+			start_at:new Date(),
+			end_at:new Date(),
 			meta_logistic:{
 				delivery_charge : 9999,
 				is_free_delivery_for_order_above_price : false,
@@ -100,6 +104,11 @@ const campaignData = ref({
 			},
 			meta_payment:{}
 		})
+
+watch(computed(()=>dateTimePicker.value),()=>{
+	campaignData.value.start_at = dateTimePicker.value.start
+	campaignData.value.end_at = dateTimePicker.value.end
+},{deep:true})
 
 const sellerStore = useLSSSellerLayoutStore()
 onMounted(() => {
@@ -120,8 +129,6 @@ const createCampaign = ()=>{
 		sellerStore.alert.showMessageToast("Invalid campaign title input")
 		return
 	}
-	campaignData.value.start_at = campaignData.value.start   // temp
-	campaignData.value.end_at = campaignData.value.end 		// temp
 
 	let formData = new FormData()
 	formData.append('data', JSON.stringify(campaignData.value))
@@ -132,6 +139,7 @@ const createCampaign = ()=>{
 
 
 	create_campaign(formData).then(response => {
+		// console.log(response.data)
 		router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
 	})
 

@@ -20,14 +20,14 @@
 			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
 				<div class="flex">
 					<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2 text-base">Period</label>
-					<v-date-picker class=" z-49" v-model="campaignData" :timezone="timezone" mode="dateTime" is-range is-required>
+					<v-date-picker class=" z-49" v-model="dateTimePicker" :timezone="''" mode="dateTime" is-range is-required>
 						<template v-slot="{ inputValue, inputEvents }">
 							<div class="flex justify-center items-center">
-							<input :value="inputValue.start" v-on="inputEvents.start"
-								class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-							<ChevronsRightIcon class="w-8 h-8 m-1" />
-							<input :value="inputValue.end" v-on="inputEvents.end" disabled
-								class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<input :value="inputValue.start" v-on="inputEvents.start"
+									class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<ChevronsRightIcon class="w-8 h-8 m-1" />
+								<input :value="inputValue.end" v-on="inputEvents.end" disabled
+									class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
 							</div>
 						</template>
 					</v-date-picker>
@@ -85,6 +85,11 @@ const route = useRoute()
 const router = useRouter()
 const directPaymentImages = ref([])
 const campaignData = ref({})
+const dateTimePicker = ref({
+	start:new Date(),
+	end:new Date()
+})
+
 
 const sellerStore = useLSSSellerLayoutStore()
 const ready = ref(false)
@@ -92,12 +97,22 @@ onMounted(() => {
 	retrieve_campaign(route.params.campaign_id).then(res=>{
 		console.log(res.data)
 		campaignData.value = res.data
-		campaignData.value.start = new Date(res.data.start_at)   // temp
-		campaignData.value.end = new Date(res.data.end_at) 	
+
+		dateTimePicker.value.start=res.data.start_at
+		dateTimePicker.value.end=res.data.end_at
 
 		ready.value=true
 	})
 })
+watch(computed(()=>{return dateTimePicker.value}),()=>{
+	campaignData.value.start_at = dateTimePicker.value.start
+	campaignData.value.end_at = dateTimePicker.value.end
+},{deep:true})
+
+// new Date(campaign.end_at).toLocaleTimeString('en-us', {
+//                 year: "numeric", month: "short",
+//                 day: "numeric", hour: '2-digit', minute: '2-digit'
+//               }
 
 const title_rules = computed(() => {
 	return { title: { required, minLength: minLength(1), maxLength: maxLength(255) } }
@@ -105,13 +120,14 @@ const title_rules = computed(() => {
 const title_validate = useVuelidate(title_rules, campaignData);
 
 const updateCampaign = ()=>{
+
+
 	title_validate.value.$touch()
 	if (title_validate.value.$invalid) {
 		sellerStore.alert.showMessageToast("Invalid campaign title input")
 		return
 	}
-	campaignData.value.start_at = campaignData.value.start   // temp
-	campaignData.value.end_at = campaignData.value.end 		// temp
+
 
 	let formData = new FormData()
 	formData.append('data', JSON.stringify(campaignData.value))
