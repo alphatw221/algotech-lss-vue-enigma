@@ -1,6 +1,6 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="w-full h-full box">
+    <div class="box">
         <!-- BEGIN: commit box -->
         <div class="p-2 intro-y grid grid-cols-12 gap-5 p-2">
             <span class="text-lg col-start-1 col-span-12"> Default Settings</span>

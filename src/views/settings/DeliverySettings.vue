@@ -76,7 +76,7 @@
         </div>
 
         <span class="text-2xl font-medium leading-none m-10 ">Store Collection</span>
-        <div class="box px-5 lg:p-10 2xl:p-10 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50">
+        <div class="px-5 lg:p-10 2xl:p-10 intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50">
             <div v-for="(option, index) in deliverySettings.pickup_options" class="col-span-12" :key="index">
                 <div class="grid grid-cols-12 gap-3">
                     <label class="col-start-1 col-span-12 lg:col-span-3 2xl:col-span-3 2xl:col-start-1 mt-2 text-base">Pickup Store</label>

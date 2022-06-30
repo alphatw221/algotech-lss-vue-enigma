@@ -1,5 +1,5 @@
 <template>
-<div class="flex overflow-auto bg-secondary h-full ">
+<div class="flex overflow-auto scrollbar-hidden bg-secondary h-full ">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
         <div class="flex cursor-pointer m-3" @click="router.push({name:'create-campaign'})"> 
