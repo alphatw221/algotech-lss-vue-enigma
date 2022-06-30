@@ -68,7 +68,7 @@
                             {{order.customer_name}}
                         </template>
                         <template v-else>
-                            Guess
+                            Guest
                         </template>        
                     </template>
                     <template v-else-if="column.key === 'order_product'">
