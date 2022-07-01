@@ -179,6 +179,7 @@ const removeDash = (word) =>{
 
 //for validation function
 const campaignProductsOrderCodeList = ref([])
+const usedInCampaignOrderCodeList = ref([])
 const duplicatedOrderCodeMap = ref({})
 const OrderCodeMaxLengthList = ref([])
 const OrderCodeRequiredList = ref([])
@@ -262,9 +263,15 @@ const checkOrderCodeDuplicated = (index, key, validator, order_code) => {
 const checkOrderCodeUsedInCampaignProduct = (index, key, validator, order_code) => {
 	if (campaignProductsOrderCodeList.value.includes(order_code)) {
 		validateList.value[index][key][validator] = true
+		if (!usedInCampaignOrderCodeList.value.includes(index)) {
+			usedInCampaignOrderCodeList.value.push(index)
+		}
+		return true
 	} else {
 		validateList.value[index][key][validator] = false
+		usedInCampaignOrderCodeList.value = usedInCampaignOrderCodeList.value.filter(e => e != index)
 	}
+	return false
 }
 
 const checkOrderCodeMaxLength = (index, key, validator, order_code) => {
@@ -278,7 +285,6 @@ const checkOrderCodeMaxLength = (index, key, validator, order_code) => {
 	validateList.value[index][key][validator] = false
 	OrderCodeMaxLengthList.value = OrderCodeMaxLengthList.value.filter(e => e != index)
 	return false
-	
 }
 
 const checkOrderCodeRequired = (index, key, validator, order_code) => {
@@ -287,13 +293,11 @@ const checkOrderCodeRequired = (index, key, validator, order_code) => {
 		if (!OrderCodeRequiredList.value.includes(index)) {
 			OrderCodeRequiredList.value.push(index)
 		}
-		
 		return true
 	}
 	validateList.value[index][key][validator] = false
 	OrderCodeRequiredList.value = OrderCodeRequiredList.value.filter(e => e != index)
 	return false
-	
 }
 
 const checkMaxValue = (index, key, validator, current_value, max_value) => {
@@ -356,6 +360,11 @@ const submitData = () => {
 		layoutStore.alert.showMessageToast("Order Code Is Required");
 		return false
 	}
+	if (usedInCampaignOrderCodeList.value.length) {
+		layoutStore.alert.showMessageToast("Already Used In Campaign Products");
+		return false
+	}
+	
 	for (let i = 0; i < assignedProducts.value.length; i ++) {
 		assignedProducts.value[i]['product_id'] = assignedProducts.value[i]['id']
 		delete assignedProducts.value[i]['id']; 
