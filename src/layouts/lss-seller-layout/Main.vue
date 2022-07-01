@@ -82,9 +82,10 @@ const checkCampaignTime = (data) =>{
 const forPath = () =>{
   router.push({ name: 'campaigns', query: { type: 'startCampaign' }})
 }
-// const toast = () =>{
-//   store.floatingVideo.videoToast("Faceebook video streaming!!")
-// }
+const toast = () =>{
+  // store.floatingVideo.videoToast("Faceebook video streaming!!")
+  // store.campaignAlert.buttonToast("You have a upcoming Campaign starts in an hour","Join now!!","Remind me Later",forPath)
+}
 
 const websocketInit =()=> {
   const campaignSocket = new WebSocket(

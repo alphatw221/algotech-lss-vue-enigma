@@ -167,7 +167,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 	update_order_product(order_product_id, route.params.pre_order_oid, qty).then(
 		res => {
 			store.order = res.data
-			layoutStore.notification.showMessageToast("Update Success")
+			layoutStore.notification.showMessageToast("Update Successfully")
 		}
 	)
 }

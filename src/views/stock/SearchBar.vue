@@ -81,6 +81,7 @@ export default {
 			this.searchField = 'name';
 			this.keyword = '';
             this.selectedCategory=''
+            this.search();
 		}
 	}
 }

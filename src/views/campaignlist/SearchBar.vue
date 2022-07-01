@@ -1,6 +1,6 @@
 <template>
     <form class="flex flex-warp justify-start gap-5 sm:flex-row">
-        <div class="flex flex-row justify-start justify-items-stretch content-end -mt-3 sm:mt-0 mr-auto">
+        <div class="flex flex-wrap justify-start justify-items-stretch content-end -mt-3 sm:mt-0 mr-auto gap-3">
             <div class="flex-initial w-auto items-center sm:mr-4">
                 <label class="w-14 xl:w-auto mr-2">
                     Search by

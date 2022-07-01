@@ -10,7 +10,7 @@
 			<button 
             type="button"
             class="btn btn-primary h-10 self-end" 
-            @click="this.$router.push({name: 'add-product'})"
+            @click="router.push({name: 'add-product'})"
             >
                 Add Product
             </button>
@@ -67,9 +67,13 @@ import { ref, onMounted } from 'vue'
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import SearchBar from "./SearchBar.vue";
 import DataTable from "./DataTable.vue";
+import { useRoute, useRouter } from "vue-router"
 import { list_product_category } from '@/api_v2/product';
 
 const openTab = ref(1)
+
+const route = useRoute()
+const router = useRouter()
 
 const searchColumns = ref([
 	{ text: "Name", value: "name" },

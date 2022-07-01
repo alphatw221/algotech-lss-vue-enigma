@@ -277,7 +277,7 @@ const submit = ()=>{
 			response => {
 				// console.log('image upload response > ', response)
 				// layoutStore.alert.showMessageToast("Invalid Quantity")
-				layoutStore.notification.showMessageToast("Update Success")
+				layoutStore.notification.showMessageToast("Update Successfully")
 				router.push({name:'stock'})
 			},
 		)
@@ -287,7 +287,7 @@ const submit = ()=>{
 		create_product(formData)
 		.then(
 			response => {
-				layoutStore.notification.showMessageToast("Create Success"),
+				layoutStore.notification.showMessageToast("Create Successfully"),
 				router.push({name:'stock'})
 			}
 		)
