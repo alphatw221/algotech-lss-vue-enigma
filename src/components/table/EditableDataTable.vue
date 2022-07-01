@@ -11,8 +11,8 @@
 			</thead>
 			<tbody>
 				<tr
-					v-for="(product, key) in listItems"
-					:key="key"
+					v-for="(product, product_index) in listItems"
+					:key="product_index"
 					class="intro-x"
 				>	
 					<td><input class="form-check-input" type="checkbox" :value="product.id" v-model="selected" @change="updateSelected(product)"/></td>
@@ -30,17 +30,17 @@
 							</div>
 						</template>
 						<template v-else-if="column.key === 'order_code'">
-							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" type="text" v-model="product[column.key]" :class="{ error: checkOrderCode(product[column.key]) }"/>
-							<label class="error_message" v-if="checkOrderCodeRequired(product[column.key])">Required</label>
-							<label class="error_message" v-else-if="checkOrderCodeDuplicated(product[column.key])">Duplicate Order Code</label>
-							<label class="error_message" v-else-if="checkOrderCodeMaxLength(product[column.key])">Enter order code with no more than 10 digits</label>
+							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" type="text" v-model="product[column.key]" @change="checkOrderCode(product_index, column.key, product[column.key])" :class="{ error: validateList[product_index][column.key]['required'] || validateList[product_index][column.key]['duplicate_code'] || validateList[product_index][column.key]['max_length_10']}"/>
+							<label class="error_message" v-if="validateList[product_index][column.key]['required']">Required</label>
+							<label class="error_message" v-else-if="validateList[product_index][column.key]['duplicate_code']">Duplicate Order Code</label>
+							<label class="error_message" v-else-if="validateList[product_index][column.key]['max_length_10']">Enter order code with no more than 10 digits</label>
 						</template>
-						<template v-else-if="column.key === 'category'" v-for="(tag,index) in product['tag']" :key="index">
+						<template v-else-if="column.key === 'category'" v-for="(tag,tag_index) in product['tag']" :key="tag_index">
 							<div>{{ tag }}</div> 
 						</template>
 						<template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
-							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" min="1" :max="maxValue(product, column.key)" type="number" v-model="product[column.key]" :class="{ error: checkValue(product, column.key) }"/>
-							<label class="error_message" v-if="checkValue(product, column.key)">exceed stock amount</label>
+							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" min="1" :max="stockProducts[product_index]['qty']" type="number" v-model="product[column.key]" :class="{ error: checkMaxValue(product_index, column.key, 'max_value', product[column.key], stockProducts[product_index]['qty']) }"/>
+							<label class="error_message" v-if="validateList[product_index][column.key]['max_value']">exceed stock amount</label>
 						</template>
 						<template v-else-if="column.key === 'type'">
 							<select 
@@ -48,7 +48,7 @@
 								class="form-select sm:w-30 2xl:e-full mt-2 sm:mt-0 sm:w-auto"
 								v-model="product[column.key]"
 							>
-								<option v-for="(type, key) in product_type" :key="key" :value="type">{{ removeDash(type) }}</option>
+								<option v-for="(type, type_key) in product_type" :key="type_key" :value="type">{{ removeDash(type) }}</option>
 							</select> 
 						</template>
 						<template v-else-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
@@ -144,9 +144,15 @@ const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
 const category = ref(undefined)
 const product_type = ref(["product", "lucky_draw"])
 const stockProducts = ref([])
-const duplicatedOrderCodeList = ref([])
+const duplicatedOrderCodeMap = ref({})
 const OrderCodeMaxLengthList = ref([])
 const OrderCodeRequiredList = ref([])
+const validateList = ref([])
+const validator = ref({
+	'order_code': ['required', 'duplicate_code', 'max_length_10'],
+	'qty': ['max_value'],
+	'max_order_amount': ['max_value']
+})
 
 onMounted(() => {
 	search();
@@ -184,7 +190,10 @@ const search = () => {
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		listItems.value = response.data.results
-
+		
+		validateList.value = JSON.parse(JSON.stringify(response.data.results))
+		createValidationList()
+		
 	}).catch(error => {
 		console.log(error)
 	})
@@ -200,69 +209,110 @@ const removeDash = (word) =>{
 	return word.replace("_", " ")
 }
 
-const checkOrderCode = (order_code) => {
-	console.log(checkOrderCodeRequired(order_code))
-	return checkOrderCodeDuplicated(order_code) || checkOrderCodeMaxLength(order_code) || checkOrderCodeRequired(order_code)
+const createValidationList = () => {
+	validateList.value.forEach(el => {
+		Object.keys(validator.value).forEach(key => {
+			let new_obj = {}
+			validator.value[key].forEach(arr_el => new_obj[arr_el] = false)
+			el[key] = new_obj
+		})
+	})
+
+}
+const checkOrderCode = (index, key, order_code) => {
+	return  checkOrderCodeRequired(index, key, validator.value[key][0], order_code) || checkOrderCodeDuplicated(index, key, validator.value[key][1], order_code) || checkOrderCodeMaxLength(index, key, validator.value[key][2], order_code)
 }
 
-const checkOrderCodeDuplicated = (order_code) => {
-	let list = listItems.value.filter(el=> el.order_code === order_code && order_code != "")
+const checkOrderCodeDuplicated = (index, key, validator, order_code) => {
+	let list = listItems.value.filter(el => el['order_code'] === order_code && order_code != "")
+	console.log(list)
 	if (list.length > 1) {
-		if (!duplicatedOrderCodeList.value.includes(order_code)) {
-			duplicatedOrderCodeList.value.push(order_code)
+		duplicatedOrderCodeMap.value[order_code] = []
+		listItems.value.forEach((item, idx) => {
+			if (item['order_code'] === order_code) {
+				validateList.value[idx][key][validator] = true
+				duplicatedOrderCodeMap.value[order_code].push(idx)
+			}
+		})
+		Object.keys(duplicatedOrderCodeMap.value).forEach(k=>{
+			if (k != order_code) {
+				if (duplicatedOrderCodeMap.value[k].includes(index)) {
+					let list2 = duplicatedOrderCodeMap.value[k].filter(e => e != index)
+					if (list2.length === 1) {
+						list2.forEach(i => {
+							validateList.value[i][key][validator] = false
+						})
+						delete duplicatedOrderCodeMap.value[k]
+					}
+				}
+			}
+		})
+	} else {
+		Object.keys(duplicatedOrderCodeMap.value).forEach(k=>{
+			if (duplicatedOrderCodeMap.value[k].includes(index)) {
+				if (duplicatedOrderCodeMap.value[k].length <= 2) {
+					duplicatedOrderCodeMap.value[k].forEach(e => {
+						validateList.value[e][key][validator] = false
+					})
+					delete duplicatedOrderCodeMap.value[k]
+				} else {
+					validateList.value[index]['order_code'][validator] = false
+					duplicatedOrderCodeMap.value[k] = duplicatedOrderCodeMap.value[k].filter(e => e != index)
+				}
+			}
+		})
+	}
+	console.log(duplicatedOrderCodeMap.value)
+	if (list.length > 1) {
+		return true
+	} 
+	return false
+}
+
+const checkOrderCodeMaxLength = (index, key, validator, order_code) => {
+	if (order_code.length > 10) {
+		validateList.value[index][key][validator] = true
+		if (!OrderCodeMaxLengthList.value.includes(index)) {
+			OrderCodeMaxLengthList.value.push(index)
 		}
 		return true
 	}
-	duplicatedOrderCodeList.value = duplicatedOrderCodeList.value.filter(el=> el != order_code)
-	
-	return false
-}
-
-const checkOrderCodeMaxLength = (order_code) => {
-	if (order_code.length > 10) {
-		OrderCodeMaxLengthList.value.push(order_code)
-		return true
-	}
-	OrderCodeMaxLengthList.value = OrderCodeMaxLengthList.value.filter(el=> el != order_code)
+	validateList.value[index][key][validator] = false
+	OrderCodeMaxLengthList.value = OrderCodeMaxLengthList.value.filter(e => e != index)
 	return false
 	
 }
 
-const checkOrderCodeRequired = (order_code) => {
+const checkOrderCodeRequired = (index, key, validator, order_code) => {
 	if (["", null, undefined].includes(order_code)) {
-		OrderCodeRequiredList.value.push(order_code)
+		validateList.value[index][key][validator] = true
+		if (!OrderCodeRequiredList.value.includes(index)) {
+			OrderCodeRequiredList.value.push(index)
+		}
+		
 		return true
 	}
-	OrderCodeRequiredList.value = OrderCodeRequiredList.value.filter(el=> el != order_code)
+	validateList.value[index][key][validator] = false
+	OrderCodeRequiredList.value = OrderCodeRequiredList.value.filter(e => e != index)
 	return false
 	
 }
-const checkValue = (product, key) => {
-	let max_value = maxValue(product, key)
-	if (product[key] > max_value) {
+const checkMaxValue = (index, key, validator, current_value, max_value) => {
+	if (current_value > max_value) {
+		validateList.value[index][key][validator] = true
 		return true
 	}
+	validateList.value[index][key][validator] = false
 	return false
 }
-const maxValue = (product, key) => {
-	let index = stockProducts.value.findIndex(el => el.id === product.id)
-	return stockProducts.value[index][key]
-}
 
-const rules = computed(()=>{
-    return{
-        code:{required, maxLength: maxLength(10)},
-    }
-});
-
-const validate = useVuelidate(rules, listItems);
 
 const submitData = () => {
 	if (!selected.value.length) {
 		layoutStore.alert.showMessageToast("No Items Selected");
 		return false
 	}
-	if (duplicatedOrderCodeList.value.length) {
+	if (Object.keys(duplicatedOrderCodeMap.value).length) {
 		layoutStore.alert.showMessageToast("Duplicated Order Code Exists");
 		return false
 	}
@@ -274,7 +324,6 @@ const submitData = () => {
 		layoutStore.alert.showMessageToast("Order Code Is Required");
 		return false
 	}
-	let new_products = []
 	for (let i = 0; i < assignedProducts.value.length; i ++) {
 		assignedProducts.value[i]['product_id'] = assignedProducts.value[i]['id']
 		delete assignedProducts.value[i]['id']; 
@@ -291,6 +340,7 @@ const submitData = () => {
 
 const resetData = () => {
 	listItems.value = JSON.parse(JSON.stringify(stockProducts.value))
+	createValidationList()
 }
 
 </script>
