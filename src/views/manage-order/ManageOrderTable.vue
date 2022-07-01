@@ -44,8 +44,11 @@
                     </template>
                     <template v-else-if="column.key === 'delivery'">
                         <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit">
-                                <TruckIcon v-show="order.status === 'complete'"/>
+                            <div class="w-10 h-10 image-fit" v-show="order.status === 'complete'" @click="shipping_out(order.id,key)">
+                                <TruckIcon />
+                            </div>
+                            <div class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
+                                <TruckIcon style="color:#919191"/>
                             </div>
                         </div>
                     </template>
@@ -93,7 +96,7 @@
     </div>
 </template>
 <script setup>
-import { manage_order_list } from "@/api_v2/order"
+import { manage_order_list, seller_shipping_out } from "@/api_v2/order"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
@@ -169,6 +172,16 @@ function changePageSize(p) {
 function orderProductModal(id,type){
     eventBus.emit('getProductData',{'id':id,'type':type})
     store.orderProductModal = !store.orderProductModal
+}
+function shipping_out(order_id,index){
+    seller_shipping_out(order_id).then(
+        res=>{
+            console.log(res)
+            store[props.tableStatus][index].status = 'shipping out'
+            console.log(store[props.tableStatus][index].status)
+        }
+    
+    )
 }
 </script>
 
