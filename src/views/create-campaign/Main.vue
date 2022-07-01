@@ -134,7 +134,8 @@ const createCampaign = ()=>{
 	formData.append('data', JSON.stringify(campaignData.value))
 	
 	directPaymentImages.value.forEach( (image,index) => {
-		const name = '_'+campaignData.value.meta_payment.direct_payment.v2_accounts[index].name   //add index to name
+		const key = campaignData.value.meta_payment.direct_payment.v2_accounts[index].name+'_'+index   
+		formData.append(key,image)
 	});
 
 
