@@ -8,9 +8,9 @@
 				<label for="off"> Delisted</label>
 			</div>
 			<button 
-            type="button"
-            class="btn btn-primary h-10 self-end" 
-            @click="this.$router.push({name: 'add-product'})"
+				type="button"
+				class="btn btn-primary h-10 self-end" 
+				@click="this.$router.push({name: 'add-product'})"
             >
                 Add Product
             </button>
