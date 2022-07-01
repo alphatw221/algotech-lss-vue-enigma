@@ -42,14 +42,17 @@
                 <div class="w-full border-t border-slate-800/60 dark:border-darkmode-400 mt-5"></div>
                 <SearchBar 
                     v-show="tableType === 'All'"
+                    :tableStatus="'All'"
                     :tableSearch="'searchAll'"
                     :tableFilter="'filterAll'"/>
                 <SearchBar 
                     v-show="tableType === 'Review'"
+                    :tableStatus="'Review'"
                     :tableSearch="'searchReview'"
                     :tableFilter="'filterReview'"/>
                 <SearchBar 
                     v-show="tableType === 'Complete'"
+                    :tableStatus="'Complete'"
                     :tableSearch="'searchComplete'"
                     :tableFilter="'filterComplete'"/>
             </div>
@@ -67,14 +70,14 @@
                     :tableFilter="'filterAll'"
                 />
             </div>
-            <div class=" mt-3" v-show="tableType === 'Review'">
+            <div class=" mt-3 w-full overflow-auto h-fit xl:h-[450px]" v-show="tableType === 'Review'">
                 <ManageOrderTable
                     :tableStatus="'Review'"
                     :tableSearch="'searchReview'"
                     :tableFilter="'filterReview'"
                 />
             </div>
-            <div class=" mt-3" v-show="tableType === 'Complete'">
+            <div class=" mt-3 w-full overflow-auto h-fit xl:h-[450px]" v-show="tableType === 'Complete'">
                 <ManageOrderTable
                     :tableStatus="'Complete'"
                     :tableSearch="'searchComplete'"

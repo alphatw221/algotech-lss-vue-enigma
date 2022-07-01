@@ -48,7 +48,7 @@
                                 <TruckIcon />
                             </div>
                             <div class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
-                                <TruckIcon style="color:#919191"/>
+                                <TruckIcon style="color:#BABABA"/>
                             </div>
                         </div>
                     </template>
@@ -130,17 +130,12 @@ const props = defineProps({
 onMounted(()=>{
     search('','',props.tableStatus)
     eventBus.on(props.tableSearch, (payload) => {
-        search(payload.value,payload.filter_data,props.tableStatus)
+        search(payload.keyword,payload.filter_data,props.tableStatus)
 	})
-    eventBus.on(props.tableFilter, (payload) => {
-        search('',payload.data,props.tableStatus)
-	})
-    
 })
 
 onUnmounted(()=>{
     eventBus.off(props.tableSearch)
-    eventBus.off(props.tableFilter)
 })
 
 function search(searchValue,data,tableStatus){
@@ -148,8 +143,8 @@ function search(searchValue,data,tableStatus){
         res => {
 			store[tableStatus] = res.data.data
             console.log( res.data)
+            store.data_count[tableStatus] = res.data.count;
             if (res.data.count != 0) {
-                store.data_count[tableStatus] = res.data.count;
                 let totalPage = parseInt(res.data.count / page_size);
                 totalPage = totalPage == 0 ? 1 : totalPage;
             }
