@@ -76,7 +76,7 @@ const cartTotal = ref(0)
 
 const updateOrderSummary = ()=>{
 
-    console.log('update')
+    console.log('update order summary')
     if (store.shipping_info.shipping_method=='pickup'){
       shippingCost.value = 0
       cartTotal.value = parseFloat(store.order.subtotal + store.order.adjust_price ).toFixed(2)

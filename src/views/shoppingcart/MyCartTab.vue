@@ -1,6 +1,6 @@
 <template>
-<div :class="{ hidden: store.openTab !== 1, block: store.openTab === 1 }">
-     <h2 class="text-base font-medium">My Cart</h2>
+    <div :class="{ hidden: store.openTab !== 1, block: store.openTab === 1 }">
+        <h2 class="text-base font-medium">My Cart</h2>
     <div class="grid grid-cols-12 gap-4">
     <div class="overflow-x-auto col-span-12 2xl:col-span-7 2xl:block lg:block sm:block lg:col-span-7">
         <ShoppingCartTable />
