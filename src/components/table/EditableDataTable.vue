@@ -30,9 +30,10 @@
 							</div>
 						</template>
 						<template v-else-if="column.key === 'order_code'">
-							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" type="text" v-model="product[column.key]" @change="checkOrderCode(product_index, column.key, product[column.key])" :class="{ error: validateList[product_index][column.key]['required'] || validateList[product_index][column.key]['duplicate_code'] || validateList[product_index][column.key]['max_length_10']}"/>
+							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" type="text" v-model="product[column.key]" @change="checkOrderCode(product_index, column.key, product[column.key])" :class="{ error: highlightOrderCodeError(product_index, column.key) }"/>
 							<label class="error_message" v-if="validateList[product_index][column.key]['required']">Required</label>
 							<label class="error_message" v-else-if="validateList[product_index][column.key]['duplicate_code']">Duplicate Order Code</label>
+							<label class="error_message" v-else-if="validateList[product_index][column.key]['used_in_campaign_products']">Already Used In Campaign Products</label>
 							<label class="error_message" v-else-if="validateList[product_index][column.key]['max_length_10']">Enter order code with no more than 10 digits</label>
 						</template>
 						<template v-else-if="column.key === 'category'" v-for="(tag,tag_index) in product['tag']" :key="tag_index">
@@ -103,35 +104,6 @@ const props = defineProps({
 	campaignProducts: Array
 });
 
-const assignedProducts = ref([])
-const checkboxAll = ref(false)
-const selected = ref([])
-const selectAll = () => {
-	selected.value = []
-	if (checkboxAll.value) {
-		listItems.value.forEach(el => {
-			selected.value.push(el.id)
-			assignedProducts.value.push(el)
-		})
-		// collect data
-	} else {
-		assignedProducts.value = []
-	}
-}
-const updateSelected = (product) => {
-	checkboxAll.value = false
-	if (selected.value.length === listItems.value.length) {
-		checkboxAll.value = true
-	}
-	// collect data
-	if (selected.value.includes(product.id)) {
-		assignedProducts.value.push(product)
-	} else {
-		let index = listItems.value.findIndex(el=> el.id == product.id)
-		assignedProducts.value.splice(index, 1)
-	}
-	
-}
 
 const currentPage = ref(1)
 const totalPage = ref(1)
@@ -144,15 +116,6 @@ const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
 const category = ref(undefined)
 const product_type = ref(["product", "lucky_draw"])
 const stockProducts = ref([])
-const duplicatedOrderCodeMap = ref({})
-const OrderCodeMaxLengthList = ref([])
-const OrderCodeRequiredList = ref([])
-const validateList = ref([])
-const validator = ref({
-	'order_code': ['required', 'duplicate_code', 'max_length_10'],
-	'qty': ['max_value'],
-	'max_order_amount': ['max_value']
-})
 
 onMounted(() => {
 	search();
@@ -161,6 +124,7 @@ onMounted(() => {
 		category.value = payload.filterColumn
 		search()
 	});
+	getCampaignProductsOrderCodeList()
 	
 	
 })
@@ -179,6 +143,13 @@ const getCampaingProductsIdList = () => {
 	return list
 }
 
+const getCampaignProductsOrderCodeList = () => {
+	for (let i = 0; i < props.campaignProducts.length; i++) {
+		let order_code = props.campaignProducts[i].order_code
+		campaignProductsOrderCodeList.value.push(order_code)
+	}
+}
+
 const search = () => {
 	createAxiosWithBearer()
 	.get(props.requestUrl + `?page_size=${pageSize.value}&page=${currentPage.value}&search_column=&keyword=&product_status=${props.status}&category=${category.value}&exclude=${getCampaingProductsIdList()}`)
@@ -190,8 +161,6 @@ const search = () => {
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		listItems.value = response.data.results
-		
-		validateList.value = JSON.parse(JSON.stringify(response.data.results))
 		createValidationList()
 		
 	}).catch(error => {
@@ -204,12 +173,23 @@ const changePage = (page) => {
 	search()
 }
 
-
 const removeDash = (word) =>{
 	return word.replace("_", " ")
 }
 
+//for validation function
+const campaignProductsOrderCodeList = ref([])
+const duplicatedOrderCodeMap = ref({})
+const OrderCodeMaxLengthList = ref([])
+const OrderCodeRequiredList = ref([])
+const validateList = ref([])
+const validator = ref({
+	'order_code': ['required', 'duplicate_code', 'used_in_campaign_products', 'max_length_10'],
+	'qty': ['max_value'],
+	'max_order_amount': ['max_value']
+})
 const createValidationList = () => {
+	validateList.value = JSON.parse(JSON.stringify(stockProducts.value))
 	validateList.value.forEach(el => {
 		Object.keys(validator.value).forEach(key => {
 			let new_obj = {}
@@ -219,54 +199,72 @@ const createValidationList = () => {
 	})
 
 }
+
+const highlightOrderCodeError = (index, key) => {
+	let show = false;
+	validator.value['order_code'].forEach(rule => show = show || validateList.value[index][key][rule])
+	return show
+}
+
 const checkOrderCode = (index, key, order_code) => {
-	return  checkOrderCodeRequired(index, key, validator.value[key][0], order_code) || checkOrderCodeDuplicated(index, key, validator.value[key][1], order_code) || checkOrderCodeMaxLength(index, key, validator.value[key][2], order_code)
+	checkOrderCodeRequired(index, key, 'required', order_code)
+	checkOrderCodeDuplicated(index, key, 'duplicate_code', order_code)
+	checkOrderCodeUsedInCampaignProduct(index, key, 'used_in_campaign_products', order_code)
+	checkOrderCodeMaxLength(index, key, 'max_length_10', order_code)
 }
 
 const checkOrderCodeDuplicated = (index, key, validator, order_code) => {
 	let list = listItems.value.filter(el => el['order_code'] === order_code && order_code != "")
-	console.log(list)
 	if (list.length > 1) {
 		duplicatedOrderCodeMap.value[order_code] = []
 		listItems.value.forEach((item, idx) => {
-			if (item['order_code'] === order_code) {
-				validateList.value[idx][key][validator] = true
-				duplicatedOrderCodeMap.value[order_code].push(idx)
+			if (item['order_code'] != order_code) {
+				return
 			}
+			validateList.value[idx][key][validator] = true
+			duplicatedOrderCodeMap.value[order_code].push(idx)
 		})
 		Object.keys(duplicatedOrderCodeMap.value).forEach(k=>{
-			if (k != order_code) {
-				if (duplicatedOrderCodeMap.value[k].includes(index)) {
-					let list2 = duplicatedOrderCodeMap.value[k].filter(e => e != index)
-					if (list2.length === 1) {
-						list2.forEach(i => {
-							validateList.value[i][key][validator] = false
-						})
-						delete duplicatedOrderCodeMap.value[k]
-					}
-				}
+			if (k === order_code) {
+				return
+			}
+			if (!duplicatedOrderCodeMap.value[k].includes(index)) {
+				return
+			}
+			let list2 = duplicatedOrderCodeMap.value[k].filter(e => e != index)
+			if (list2.length === 1) {
+				list2.forEach(i => {
+					validateList.value[i][key][validator] = false
+				})
+				delete duplicatedOrderCodeMap.value[k]
 			}
 		})
 	} else {
 		Object.keys(duplicatedOrderCodeMap.value).forEach(k=>{
-			if (duplicatedOrderCodeMap.value[k].includes(index)) {
-				if (duplicatedOrderCodeMap.value[k].length <= 2) {
-					duplicatedOrderCodeMap.value[k].forEach(e => {
-						validateList.value[e][key][validator] = false
-					})
-					delete duplicatedOrderCodeMap.value[k]
-				} else {
-					validateList.value[index]['order_code'][validator] = false
-					duplicatedOrderCodeMap.value[k] = duplicatedOrderCodeMap.value[k].filter(e => e != index)
-				}
+			if (!duplicatedOrderCodeMap.value[k].includes(index)) {
+				return
+			}
+			if (duplicatedOrderCodeMap.value[k].length <= 2) {
+				duplicatedOrderCodeMap.value[k].forEach(e => {
+					validateList.value[e][key][validator] = false
+				})
+				delete duplicatedOrderCodeMap.value[k]
+			} else {
+				validateList.value[index]['order_code'][validator] = false
+				duplicatedOrderCodeMap.value[k] = duplicatedOrderCodeMap.value[k].filter(e => e != index)
 			}
 		})
 	}
+	
 	console.log(duplicatedOrderCodeMap.value)
-	if (list.length > 1) {
-		return true
-	} 
-	return false
+}
+
+const checkOrderCodeUsedInCampaignProduct = (index, key, validator, order_code) => {
+	if (campaignProductsOrderCodeList.value.includes(order_code)) {
+		validateList.value[index][key][validator] = true
+	} else {
+		validateList.value[index][key][validator] = false
+	}
 }
 
 const checkOrderCodeMaxLength = (index, key, validator, order_code) => {
@@ -297,6 +295,7 @@ const checkOrderCodeRequired = (index, key, validator, order_code) => {
 	return false
 	
 }
+
 const checkMaxValue = (index, key, validator, current_value, max_value) => {
 	if (current_value > max_value) {
 		validateList.value[index][key][validator] = true
@@ -306,6 +305,39 @@ const checkMaxValue = (index, key, validator, current_value, max_value) => {
 	return false
 }
 
+// for checkbox click function
+const assignedProducts = ref([])
+const checkboxAll = ref(false)
+const selected = ref([])
+
+const selectAll = () => {
+	selected.value = []
+	if (checkboxAll.value) {
+		listItems.value.forEach(el => {
+			selected.value.push(el.id)
+			assignedProducts.value.push(el)
+		})
+		// collect data
+	} else {
+		assignedProducts.value = []
+	}
+}
+const updateSelected = (product) => {
+	checkboxAll.value = false
+	if (selected.value.length === listItems.value.length) {
+		checkboxAll.value = true
+	}
+	// collect data
+	if (selected.value.includes(product.id)) {
+		assignedProducts.value.push(product)
+	} else {
+		let index = listItems.value.findIndex(el=> el.id == product.id)
+		assignedProducts.value.splice(index, 1)
+	}
+	
+}
+
+// button click function
 
 const submitData = () => {
 	if (!selected.value.length) {
