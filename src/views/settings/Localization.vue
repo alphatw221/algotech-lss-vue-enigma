@@ -1,48 +1,48 @@
 <template>
-    <div class="box p-10">
+    <div class="box p-5 px-10 lg:p-10 lg:px-20">
         <div class="flex my-3 text-lg">
             <div class="mr-5"> Country: </div>
             <div v-if="layoutStore.userInfo.user_subscription "> {{  countries[layoutStore.userInfo.user_subscription.country]||'' }}</div>
         </div>
-        <div class="flex my-3 text-m">
+        <div class="flex my-3 mt-5 text-m">
             <div> Currency Symbol: </div>
         </div>
-        <div class="flex my-3">
+        <div class="flex my-1">
             <TomSelect v-model="data.currency" :options="{
                         placeholder: 'Choose Currency Symbol',
-                        }" class="w-full">
+                        }" class="w-5/6">
                 <option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
             </TomSelect>
         </div>
-        <div class="flex my-3 text-lg">
+        <div class="flex my-3 mt-5 text-lg">
             <div class="mr-5"> Seller</div>
         </div> 
-        <div class="flex my-3">
+        <div class="flex my-1">
             <TomSelect v-model="data.lang" :options="{
                         placeholder: 'Choose Language',
-                        }" class="w-full">
+                        }" class="w-5/6">
                 <option :value="option.value" v-for="(option,index) in languages" :key="index">{{option.text}}</option>
             </TomSelect>
         </div>
-        <div class="flex my-3 text-lg">
+        <div class="flex my-3 mt-5 text-lg">
             <div class="mr-5"> Buyer</div>
         </div>
-        <div class="flex my-3">
+        <div class="flex my-1">
             <TomSelect v-model="data.buyer_lang" :options="{
                         placeholder: 'Choose Language',
-                        }" class="w-full">
+                        }" class="w-5/6">
                 <option :value="option.value" v-for="(option,index) in languages" :key="index">{{option.text}}</option>
             </TomSelect>
         </div>
-        <div class="flex my-3 text-lg">
+        <div class="flex my-3 mt-5 text-lg">
             <div class="mr-5"> Decimal Places</div>
         </div>
-        <div class="flex my-3">
-            <TomSelect v-model="data.decimal_places" :options="{placeholder: 'Select your Decimal Places'}" class="w-full">
+        <div class="flex my-1">
+            <TomSelect v-model="data.decimal_places" :options="{placeholder: 'Select your Decimal Places'}" class="w-5/6">
                 <option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
             </TomSelect>
         </div>
-        <div class="flex justify-end"> 
+        <div class="flex justify-end mt-10 w-5/6"> 
             <button class="btn btn-rounded-secondary mr-5 w-20" @click="clean()"> Discard</button>
             <button class="btn btn-rounded-primary w-20" @click="save()"> Save</button>
         </div>
