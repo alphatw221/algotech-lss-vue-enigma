@@ -1,31 +1,29 @@
 <template>
     <div class="box p-5 flex flex-col gap-5 text-[16px]">
-		<div class="intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 ml-3">
-			<span class="col-start-1 col-span-12 text-xl leading-none mb-2 mt-3">
-				Create Campaign
-			</span>
-			<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
-				<div class="flex">
-					<label class="form-label -mb-3 w-32 mt-2 text-base">Title</label>
-					<div>
+		<span class="text-xl mt-5"> Create Campaign </span>
+		<div class="intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 ml-3">
+			<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6">
+				<div class="flex flex-col">
+					<div class="flex">
+						<label class="form-label w-20 text-base my-auto">Title</label>
 						<input 
-							class="form-control form-control-rounded" 
+							class="form-control form-control-rounded h-10 w-full sm:w-[50%]" 
 							type="text" 
 							:class="{ 'border-danger': title_validate.title.$error }"
 							v-model.trim="title_validate.title.$model"
 							@blur="title_validate.title.$touch" 
 							/>
-						<template v-if="title_validate.title.$error">
-							<label class="text-danger mr-2">
-								Please enter Campaign title
-							</label>
-						</template>
 					</div>
+					<template v-if="title_validate.title.$error">
+						<label class="text-danger text-[14px] ml-20">
+							Field is required
+						</label>
+					</template>
 				</div>
 			</div>
 			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
-				<div class="flex">
-					<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2 text-base">Period</label>
+				<div class="flex flex-col sm:flex-row">
+					<label for="regular-form-2" class="form-label w-16 text-base my-auto">Period</label>
 					<v-date-picker class=" z-49" v-model="dateTimePicker" :timezone="timezone" mode="dateTime" is-range is-required>
 						<template v-slot="{ inputValue, inputEvents }">
 							<div class="flex justify-center items-center">

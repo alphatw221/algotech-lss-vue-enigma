@@ -65,6 +65,7 @@ const init = (el, props) => {
       position: "right",
       stopOnFocus: true,
       ...props.options,
+      borderLeft: 'solid 5px #000',
       node: clonedEl,
     }).showToast();
 

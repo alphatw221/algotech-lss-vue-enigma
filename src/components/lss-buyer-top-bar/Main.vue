@@ -1,13 +1,13 @@
 <template>
   <!-- BEGIN: Top Bar -->
   <div
-    class="lss-buyer-top-bar-boxed relative border-b border-white/[0.08]
-    h-[70px] z-[51] px-3 -mx-3 pt-4
+    class="lss-buyer-top-bar-boxed sticky top-0 border-b border-white/[0.08]
+    h-[70px] z-[51] px-6 -mx-3 pt-4
     sm:-mx-8 sm:px-8
     md:h-[65px] md:-mx-0 md:border-b-0 md:fixed md:inset-x-0 md:px-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent
     dark:md:from-darkmode-700"
   >
-    <div class="h-full flex items-center">
+    <div class="h-full w-full flex justify-between items-center">
 
 
 
@@ -21,12 +21,11 @@
 
       <!-- BEGIN: Logo -->
         <a href="" class="logo -intro-x block
-        flex
-        ml-3
-        w-20 
-        sm:w-25 
-        md:w-30 
-        xl:w-35
+        w-20
+        sm:w-24
+        md:mr-auto
+        md:flex md:w-1/10 md:mx-0
+        xl:ml-5
         ">
           <img
             alt="Enigma Tailwind HTML Admin Template"
@@ -91,19 +90,18 @@
       <div class="mr-5 ml-auto  flex md:mr-3">
         <button class="intro-x text-white text-[16px] hover:text-slate-300" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
         <!-- BEGIN: Account Menu -->
-        <Dropdown class="intro-x w-8 h-8 " v-else>
+        <Dropdown class="intro-x w-10 h-10" v-else>
           <DropdownToggle
-            tag="div"
-            role="button"
-            class="w-8 h-8 rounded-full overflow-hidden shadow-lg image-fit zoom-in scale-110"
-          >
+          tag="div"
+          role="button"
+          class="w-10 h-10 rounded-full border-2 border-slate-200 overflow-hidden shadow-lg image-fit zoom-in scale-110"
+        > 
             <!-- <img
               alt="Enigma Tailwind HTML Admin Template"
               :src="$f()[9].photos[0]"
             /> -->
             <img
               class="opacity-80"
-              alt="Enigma Tailwind HTML Admin Template"
               :src="userAvatar"
             />
           </DropdownToggle>

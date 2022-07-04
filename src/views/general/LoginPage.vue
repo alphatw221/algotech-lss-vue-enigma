@@ -69,6 +69,7 @@ const route = useRoute()
 const router = useRouter()
 const currentUrl = ref(window.location.href)
 const showReminder = ref(false)
+const tempCookie = ref('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NTIzMzA4LCJpYXQiOjE2NTY5MTg1MDgsImp0aSI6ImJlOTlmZGNjZGM0MzQyNTY5ZDAwYjM1NjhiOGU2OGFhIiwidXNlcl9pZCI6MzI4LCJkYXRhIjp7ImF1dGhfdXNlcl9pZCI6MzI4LCJzZWxsZXJfaWQiOjM2MCwiY3VzdG9tZXJfaWQiOjM3MywibmFtZSI6IkNlY2lsaWEgVyIsImVtYWlsIjoibWJydzE5QGdtYWlsLmNvbSJ9fQ.jICtdm6HqBQ2w4-o9TeTlBm5-ckAc7ELMAnPUp4ZEiU')
 const loginData = ref(
     {email:'',password:''})
 // const ruleInline = ref( {
@@ -92,8 +93,8 @@ const copyLink = ()=>{
     })
 }
 
-const signIn = ()=>{
-    // console.log('signIn') eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NTIzMzA4LCJpYXQiOjE2NTY5MTg1MDgsImp0aSI6ImJlOTlmZGNjZGM0MzQyNTY5ZDAwYjM1NjhiOGU2OGFhIiwidXNlcl9pZCI6MzI4LCJkYXRhIjp7ImF1dGhfdXNlcl9pZCI6MzI4LCJzZWxsZXJfaWQiOjM2MCwiY3VzdG9tZXJfaWQiOjM3MywibmFtZSI6IkNlY2lsaWEgVyIsImVtYWlsIjoibWJydzE5QGdtYWlsLmNvbSJ9fQ.jICtdm6HqBQ2w4-o9TeTlBm5-ckAc7ELMAnPUp4ZEiU
+const signIn = ()=>{ 
+    // console.log('signIn')  response.data.access
     seller_general_login(loginData.value).then(response=>{
         cookies.set("access_token", response.data.access)
         router.push({name:'campaigns'})

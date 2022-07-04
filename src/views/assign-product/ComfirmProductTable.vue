@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-x-auto overflow-y-auto h-[550px]">
+    <div class="overflow-x-auto overflow-y-auto h-[67vh] sm:h-[62vh]">
         <table class="table table-report ">
             <thead>
                 <tr>
@@ -28,7 +28,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'name'" class="w-20 longMessage">
-                            <div class="w-fit"> {{ product[column.key] }} </div>
+                            <div class="w-full"> {{ product[column.key] }} </div>
                         </td>
 
                         <td v-else-if="column.key === 'order_code'">
@@ -319,6 +319,7 @@ thead th{
 		left: 6px;
 		width: 45%;
 		padding-right: 10px;
+        margin-top:10px;
 		white-space: nowrap;
 		font-weight: bold;
 		box-shadow: none !important;
@@ -326,13 +327,27 @@ thead th{
 	}
 
 	td:nth-of-type(1):before {
-		content: "";
+		display:none; 
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(1){
+		display: inline-block;
+		width: 100% !important;
+		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(2):before {
-		content: "Product Name";
-        text-align: left !important;
+        display:none; 
+		/* content: "Product Name";
+        text-align: left !important; */
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(2){
+		display: inline-block;
+        text-align: center !important;
+		width: 100% !important;
+		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
 
@@ -359,6 +374,7 @@ thead th{
 		/* color: #0e9893; */
 	}
 	td:nth-of-type(7):before {
+        margin-top:0px !important;
 		content: "Price";
         text-align: left !important;
 		/* color: #0e9893; */

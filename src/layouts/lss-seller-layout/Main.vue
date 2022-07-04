@@ -16,34 +16,38 @@
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
-<!-- store.campaignAlert.buttonToast("You have a upcoming Campaign starts in an hour","Join now!!","Remind me Later",forPath) -->
-    <Notification refKey="sellerCampaignAlert" class="flex">
-        <AlertCircleIcon />
+<!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
+    <Notification refKey="sellerCampaignAlert">
+      <div  class="flex border-l-4 border-primary pl-5">
+        <div class="border-[1px] border-primary w-8 h-8 rounded-full relative top-5">
+          <font-awesome-icon icon="fa-regular fa-bell" class="h-6 absolute top-0.5 left-1"/>
+        </div>
         <div class="ml-4 mr-4">
             <div class="font-medium">Upcoming Campaign!!</div>
             <div id="message" class="text-slate-500 mt-1">
                 Message1
             </div>
-            <div class="font-medium flex mt-2">
+            <div class="font-medium flex justify-between mt-2">
                 <button id="leftBTN" class="text-primary dark:text-slate-400 mr-3" data-dismiss="function">Message2 and Function</button>
                 <a id="rightBTN" class="text-primary dark:text-slate-400" data-dismiss="notification">Message3</a>
             </div>
         </div>
+      </div>
     </Notification>
 
-    <Notification refKey="floatingVideoToast" class="flex flex-col">
+    <!-- <Notification refKey="floatingVideoToast" class="flex flex-col">
         <div class="ml-4 mr-4">
             <div class="font-medium">Video Streaming...</div>
             <div class="text-slate-500 mt-1">
                 <video class="w-[450px]" controls>
-                  <!-- <source src="movie.mp4" type="video/mp4"> npm can't build with this line-->
+                  <source src="movie.mp4" type="video/mp4"> npm can't build with this line
                   <source src="" type="video/mp4">
                   Your browser does not support the video tag.
                 </video>
             </div>
             <span id="message"> Message</span>
         </div>
-    </Notification>
+    </Notification> -->
 <!-- END: Notification Content  -->
 <!-- BEGIN: Notification Toggle -->
     <LSSSellerMenu /> 
@@ -84,7 +88,7 @@ const forPath = () =>{
 }
 const toast = () =>{
   // store.floatingVideo.videoToast("Faceebook video streaming!!")
-  // store.campaignAlert.buttonToast("You have a upcoming Campaign starts in an hour","Join now!!","Remind me Later",forPath)
+  store.campaignAlert.buttonToast("I have an upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
 }
 
 const websocketInit =()=> {
@@ -133,3 +137,10 @@ provide("bind[floatingVideoToast]", (el) => {
   // el.showMessageToast('test alert')
 });
 </script>
+
+
+<style scoped>
+.Notification{
+  border-left: solid 5px black !important;
+}
+</style>

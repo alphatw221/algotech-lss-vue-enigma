@@ -6,7 +6,7 @@
     sm:-mx-8 sm:px-8
     md:h-[65px] md:-mx-0 md:border-b-0 md:fixed md:inset-x-0 md:px-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent
     dark:md:from-darkmode-700"
-  >
+  > 
     <div class="h-full w-full flex justify-between items-center">
 
       <!-- BEGIN: Hamburger -->
@@ -23,7 +23,7 @@
       sm:w-24
       md:mr-auto
       md:flex md:w-1/10 md:mx-0
-      xl:w-32 xl:ml-2
+      xl:ml-5
 
       ">
         <img

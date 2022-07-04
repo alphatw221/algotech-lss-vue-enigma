@@ -1,5 +1,5 @@
 <template>
-	<div class="grid grid-cols-12 box p-2 mt-5 gap-5 lg:p-5 2xl:p-5 h-full">
+	<div class="grid grid-cols-12 box p-2 gap-5 lg:p-5 h-full">
 		
 		<!-- <div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
 			<div class="flex">
@@ -27,7 +27,7 @@
 			</div>
 		</div> -->
 
-		<div class="p-0 col-span-12 z-0 lg:p-5 2xl:p-5">
+		<div class="p-0 col-span-12 z-0 lg:p-5">
 			<span class="text-2xl font-medium leading-none">{{ productPageTitle }}</span>
 			<div>
 				<div class="intro-y col-span-12" >
@@ -46,7 +46,7 @@
 					<button class="btn btn-outline-primary mr-5" @click="router.push({ name: 'edit-campaign', params: {campaign_id: route.params.campaign_id} })">
 						Previous
 					</button>
-					<button class="btn btn-outline-primary" @click="toConfirmPage"> 
+					<button class="btn btn-primary" @click="toConfirmPage"> 
 						Next
 					</button>
 				</div>
@@ -54,7 +54,7 @@
 					<button class="btn btn-outline-primary mr-5" @click="comfirmProduct=false, selectProduct=true">
 						Edit
 					</button>
-					<button class="btn btn-outline-primary" @click="assignProduct">
+					<button class="btn btn-primary" @click="assignProduct">
 						Assign
 					</button>
 				</div>
