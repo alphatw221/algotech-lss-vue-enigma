@@ -16,7 +16,7 @@
       <template v-if="store.orderDetail.adjust_title !== null">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
-            <div class="font-medium">$ {{store.orderDetail.adjust_price ?? ''}}</div>
+            <div class="font-medium">$ {{store.modify_status == '-' ? -store.orderDetail.adjust_price : store.orderDetail.adjust_price}}</div>
         </div>
       </template>
       <template v-if="props.order_type !== 'order'">
@@ -87,8 +87,6 @@ const props = defineProps({
   order_type: String
 })
 
-const adjust_price = ref(store.orderDetail.adjust_price)
-const adjust_title = ref(store.orderDetail.adjust_title)
 
 function update_modify_price(){
   store.modify_price.adjust_title = store.orderDetail.adjust_title
@@ -106,11 +104,5 @@ function update_modify_price(){
     }
   )
 }
-function update_price_summary(){
-
-}
-// watch(
-//   computed(() => store.orderDetail),
-// );
 
 </script>
