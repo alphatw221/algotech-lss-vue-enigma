@@ -55,7 +55,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
         subMenu: [
           {
             pageName: "campaign-global-setting",
-            title: "Campaign Global Setting",
+            title: "Campaign Default Setting",
           },
           {
             pageName: "localization",
