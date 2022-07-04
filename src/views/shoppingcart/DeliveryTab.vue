@@ -154,7 +154,7 @@
                 <!-- BEGIN Delivery Option -->
                 <label class="text-md font-medium col-span-12">Delivery Option</label>
                 <div class="intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
-                  <div v-if="'campaign' in store.order">
+                  <div v-if="store.order.campaign">
                     <div class="flex form-check my-4 border-2 px-10 py-6 rounded-lg">
                       <input :id="'radio-switch-'" class="form-check-input" type="radio"
                         name="vertical_radio_button" value="" v-model="shipping_info.shipping_option" />
@@ -201,7 +201,7 @@
               <div class="grid grid-cols-12">
                 <label class="text-md font-medium col-span-12">Pickup Option</label>
                 <div class="intro-y col-span-12 gap-5 lg:mx-20 2xl:mx-20">
-                  <div v-if="'campaign' in store.order">
+                  <div v-if="store.order.campaign">
                     <div class="flex form-check my-4 border-2 px-10 py-6 rounded-lg"
                       v-for="(branch_name, index) in store.order.campaign.meta_logistic.branch_name" :key="index">
 
@@ -227,7 +227,7 @@
             <div class="text-md font-medium">
               Delivery and Collection Note
             </div>
-            <p id="" class="form-control col-start-1 col-span-12 p-5" placeholder="" v-if="'campaign' in store.order">
+            <p id="" class="form-control col-start-1 col-span-12 p-5" placeholder="" v-if="store.order.campaign">
               {{store.order.campaign.meta_logistic.delivery_note}}
             </p>
           </div>
@@ -394,6 +394,10 @@ const proceed_to_payment = () =>{
     update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
     .then(res=>{
       router.push(`/buyer/order/${res.data.oid}/payment`)
+    }).catch(error=>{
+      layoutStore.alert.showMessageToast("Product Out Of Stock, Please Confirm Your Shopping Cart And Checkout Again")
+      if (error.response.data)store.order = error.response.data
+      
     })
   }
 }
