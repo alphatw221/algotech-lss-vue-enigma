@@ -11,23 +11,19 @@
             </CarouselItem>
         </Carousel>
 
-        <Card class="center">
-            <Row><h3>Reset Password</h3></Row>
+        <div class="center flex flex-col rounded-lg p-10">
+            <h3>Reset Password</h3>
 
             <div class="mt-10">
                 <input id="regular-form-1" type="text" class="form-control email_input" v-model="email" placeholder="Please Enter your E-mail" />
             </div>
             
-            <div class="mt-10">
-                <input id="regular-form-1" type="text" class="form-control email_input" v-model="email" placeholder="Please Enter your E-mail" />
-            </div>
-
             <Button class="resend_btn" long @click="sendResetLink">Send Password Reset Link</Button>
             
-            <h6 style="text-align: center; font-size: 18px; margin-top: 20px;">
+            <h6 class="align-center text-center text-[18px] mt-5">
                 <a style="margin: auto; color: darkslategray;"  @click=" this.$router.push({name:'LoginPage'});" >Back to Login Page</a>
             </h6>
-        </Card>
+        </div>
     </div>
 </template>
 
@@ -88,9 +84,7 @@ h3 {
 
 .center {
     width:400px; 
-    height: 350px; 
     background-color: rgba(255, 255, 255, 0.815);
-    margin: 0;
     position: absolute;
     top: 50%;
     left: 50%;

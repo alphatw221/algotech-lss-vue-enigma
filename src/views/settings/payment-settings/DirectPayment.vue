@@ -66,7 +66,7 @@
             </div>
 
             <button 
-                class="btn btn-danger w-24 inline-block text-base mt-5" 
+                class="btn btn-danger w-24 inline-block text-base mt-5 " 
                 @click="deleteDirectPayment(index_i)"
             > 
                 Delete 
@@ -156,7 +156,7 @@ const updateDirectPayment = () => {
 
     seller_update_payment(props.payment.key,formData).then(res=>{
         sellerStore.userInfo = res.data
-        sellerStore.notification.showMessageToast("Update Success")
+        sellerStore.notification.showMessageToast("Update Successfully")
     })
 }
 

@@ -133,15 +133,24 @@ function get_order(){
     if (route.query.type === 'pre_order'){
         seller_retrieve_pre_order(route.params.order_id)
         .then(
-            res => { store.orderDetail = res.data 
-                console.log(store.orderDetail)}
+            res => { store.orderDetail = res.data
+                     console.log(store.orderDetail) 
+                     show_adjust_price() }
         )
     }else{
         seller_retrieve_order(route.params.order_id)
         .then(
-            res => { store.orderDetail = res.data 
-            console.log(store.orderDetail)}
+            res => { store.orderDetail = res.data }
         )
+    }
+}
+
+function show_adjust_price(){
+    if( store.orderDetail.adjust_price < 0 ){
+        store.modify_status = '-'
+        store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
+    }else{
+        store.modify_status = '+'
     }
 }
 </script>

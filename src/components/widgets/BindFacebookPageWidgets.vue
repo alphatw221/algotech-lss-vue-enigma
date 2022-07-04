@@ -8,7 +8,7 @@
                 <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Unbind page" :options="{
                     theme: 'light',
                 }">
-                <XCircleIcon class="absolute right-0 top-0 z-50 click-icon text-danger" @click="removeFacebookPages(page)"/></Tippy>
+                <XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeFacebookPages(page)"/></Tippy>
             </div>
         </div>
     </div>

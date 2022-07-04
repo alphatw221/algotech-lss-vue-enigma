@@ -52,7 +52,7 @@
                             </div>
                         </div>
                     </template>
-                    <template v-else-if="column.key === 'customer'">
+                    <template v-else-if="column.key === 'customer_img'">
                             <div class="flex flex-col items-left">
                                 <div class="w-10 h-10 image-fit zoom-in" v-if="order.customer_img">
                                     <Tippy tag="img" class="rounded-full" 
@@ -111,6 +111,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
     { name: 'Order#', key: 'id' },
     { name: 'Platform', key: 'platform' },
+    { name: '', key: 'customer_img' },
     { name: 'Name', key: 'customer_name' },
     { name: 'Amount', key: 'subtotal' },
     { name: 'Payment', key: 'payment_method' },
