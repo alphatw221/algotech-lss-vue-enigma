@@ -12,50 +12,27 @@
       <tbody>
         <tr v-for="(campaign, index) in store[tableName].campaigns" :key="index" class="intro-x">
           <td class="fan_page items-center w-12">
-            <div class="flex w-fit">
-              <div class="w-10 h-10 image-fit zoom-in border-0 lg:w-15" v-if="campaign.facebook_page !== null">
-                <Tippy tag="img" class="rounded-full ml-3 border-0" :src="campaign.facebook_page.image"
+            <div class="flex w-full justify-around">
+              <div class="flex-0 w-12 h-12  zoom-in border-0" v-if="campaign.facebook_page !== null">
+                <Tippy tag="img" class="rounded-full border-0" :src="campaign.facebook_page.image"
                   :content="campaign.facebook_page.name" />
+                  <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                      <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/facebook.png' >
+                  </div>
               </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy tag="img" class="rounded-full ml-3" :src="unbound" :content="`Unbound`" />
-              </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.instagram_profile !== null">
-                <Tippy tag="img" class="rounded-full ml-0" :src="campaign.instagram_profile.image"
+              <div class="flex-0 w-12 h-12 zoom-in" v-if="campaign.instagram_profile !== null">
+                <Tippy tag="img" class="rounded-full " :src="campaign.instagram_profile.image"
                   :content="campaign.instagram_profile.name" />
+                <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                      <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/instagram.png' >
+                  </div>
               </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy tag="img" class="rounded-full ml-0" :src="unbound" :content="`Unbound`" />
-              </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.youtube_channel !== null">
-                <Tippy tag="img" class="rounded-full -ml-3" :src="campaign.youtube_channel.image"
+              <div class="flex-0 w-12 h-12 zoom-in" v-if="campaign.youtube_channel !== null">
+                <Tippy tag="img" class="rounded-full" :src="campaign.youtube_channel.image"
                   :content="campaign.youtube_channel.name" />
-              </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy tag="img" class="rounded-full -ml-3" :src="unbound" :content="`Unbound`" />
-              </div>
-            </div>
-          </td>
-
-          <td class="platform text-center w-12">
-            <div class="flex ">
-              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.facebook_page !== null">
-                <Tippy tag="img" class="rounded-full ml-3 2xl:ml-3" :src="facebook_platform" :content="`Facebook`" />
-              </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy tag="img" class="rounded-full ml-3 2xl:ml-3" :src="unbound" :content="`Unbound`" />
-              </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.instagram_profile !== null">
-                <Tippy tag="img" class="rounded-full ml-0 2xl:ml-0" :src="instagram_platform" :content="`Instagram`" />
-              </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy tag="img" class="rounded-full ml-0 2xl:ml-0" :src="unbound" :content="`Unbound`" />
-              </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-if="campaign.youtube_channel !== null">
-                <Tippy tag="img" class="rounded-full -ml-3 2xl:-ml-3" :src="youtube_platform" :content="`Youtube`" />
-              </div>
-              <div class="w-10 h-10 image-fit zoom-in" v-else>
-                <Tippy tag="img" class="rounded-full -ml-3 2xl:-ml-3" :src="unbound" :content="`Unbound`" />
+                  <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                      <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/youtube.png' >
+                  </div>
               </div>
             </div>
           </td>

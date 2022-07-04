@@ -81,20 +81,6 @@
                             </div>
                         </div>
                     </template>
-                    <template v-else-if="column.key === 'customer_img'">
-                            <div class="flex flex-col items-left">
-                                <div class="w-12 h-12 flex-none image-fit mr-1" v-if="order.customer_img">
-                                    <img class="rounded-full" :src="order.customer_img"/>
-                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/facebook.png' >
-                                    </div>
-                                </div>
-                                <div class="w-12 h-12 flex-none image-fit mr-1" v-else>
-                                    <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
-                                </div>
-                            </div>
-
-                    </template>
                     <template v-else-if="column.key === 'customer_name'">
                         <template v-if="order.customer_name">
                             {{order.customer_name}}
