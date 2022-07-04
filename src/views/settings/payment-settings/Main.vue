@@ -1,15 +1,16 @@
 <template>
     <div class="p-2 2xl:p-10">
         <TabGroup v-if="paymentReady">
-            <TabList class="nav-boxed-tabs flex flex-wrap content-around justify-around items-stretch self-auto ">
-
+            <TabList class="nav-boxed-tabs flex flex-wrap gap-3 w-full justify-around items-center sm:px-10">
                 <Tab
-                    class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
+                    class="h-20 border-[#131c34] w-fit flex self-center" 
                     tag="button"
                     v-for="payment,index in payments" :key="index"
                 >
-                    <font-awesome-icon icon="fa-regular fa-credit-card" class="block mr-1 h-8" />
-                    <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">{{payment.name}}</span>
+                    <div class="grow inline-flex items-center place-content-center my-auto">
+                        <font-awesome-icon icon="fa-regular fa-credit-card" class="block mr-1 h-6" />
+                        <span class="text-sm w-24 lg:text-lg lg:w-32 ">{{payment.name}}</span>
+                    </div>
                 </Tab>
             </TabList>
 

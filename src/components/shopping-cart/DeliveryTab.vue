@@ -4,26 +4,26 @@
                 <div class="intro-y col-span-12 row-start-2 lg:row-start-1 2xl:row-start-1 lg:col-span-8">
                   <h2 class="text-xl font-medium mr-auto w-full">Contact Information</h2>
                   <div class=" p-0 mt-3 intro-y grid grid-cols-12 gap-5 my-10 lg:p-10 2xl:p-10">
-                    <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">First
+                    <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2">First
                       Name</label>
                     <input id="regular-form-2" type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
+                      class="form-control form-control-rounded col-span-8 lg:col-span-4"
                       placeholder="" 
                       v-model="store.contact_info.shipping_first_name"/>
-                    <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Last
+                    <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2">Last
                       Name</label>
                     <input id="regular-form-2" type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
+                      class="form-control form-control-rounded col-span-8 lg:col-span-4"
                       placeholder=""
                       v-model="store.contact_info.shipping_last_name" />
-                    <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Email</label>
+                    <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2">Email</label>
                     <input id="regular-form-2" type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
+                      class="form-control form-control-rounded col-span-8 lg:col-span-4"
                       placeholder=""
                       v-model="store.contact_info.shipping_email" />
-                    <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
+                    <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2">Phone</label>
                     <input id="regular-form-2" type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4"
+                      class="form-control form-control-rounded col-span-8 lg:col-span-4"
                       placeholder=""
                       v-model="store.contact_info.shipping_phone" />
                   </div>
@@ -38,11 +38,11 @@
                     <TabList class="nav-boxed-tabs mx-0 lg:mx-10 2xl:mx-10 flex">
                       <Tab class="flex-1 shrink inline-flex w-max-44 py-3 lg:w-60 2xl:w-60 xl:py-10 2xl:py-5 border-[#131c34]"
                         tag="button" @click="select_shipping_method('delivery')">
-                        <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Delivery</span>
+                        <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg">Delivery</span>
                       </Tab>
                       <Tab class="flex-1 shrink inline-flex w-max-44 py-3 lg:w-60 lg:py-3 2xl:w-60 xl:py-5 2xl:py-5 border-[#131c34]"
                         tag="button" @click="select_shipping_method('pickup')">
-                        <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Collect In Store</span>
+                        <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg">Collect In Store</span>
                       </Tab>
                     </TabList>
 
@@ -68,7 +68,7 @@
                           </div>
                           <!-- BEGIN Delivery Option -->
                           <label class="text-md font-medium col-span-12">Delivery Option</label>
-                          <div class="box p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
+                          <div class="box p-8 intro-y col-span-12 gap-5 mx-0 lg:mx-20">
                             <div v-if="'campaign' in store.order">
                                 <div class="flex form-check my-5" v-for="(title,index) in store.order.campaign.meta_logistic.additional_delivery_charge_title" :key="index">
                                   <input :id="'radio-switch-'+index" class="form-check-input" type="radio"
@@ -90,7 +90,7 @@
                       <TabPanel class="leading-relaxed">
                         <div class="grid grid-cols-12">
                           <label class="text-md font-medium col-span-12">Pickup Option</label>
-                          <div class="box p-2 intro-y col-span-12 gap-5 mx-0 lg:mx-20 lg:p-8 2xl:mx-20 2xl:p-8">
+                          <div class="box p-2 intro-y col-span-12 gap-5 mx-0 lg:mx-20 lg:p-8">
                             <div v-if="'campaign' in store.order">
                               <div class="flex form-check my-5" v-for="(branch_name,index) in store.order.campaign.meta_logistic.branch_name" :key="index">
 

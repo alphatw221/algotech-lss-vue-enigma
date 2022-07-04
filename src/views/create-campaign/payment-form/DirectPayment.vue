@@ -1,69 +1,70 @@
 <template>
-    <div v-if="ready">
+    <div v-if="ready" class="flex-col flex text-[16px] p-5 lg:p-10">
 
-    
-        <div >
+        <div class="flex mt-5 lg:mt-0">
             <input 
-                class="form-check-input ml-3 " 
-                style="width: 1.5rem; height:1.5rem;"
+                class="form-control form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
                 type="checkbox" 
                 v-model=" props.campaign.meta_payment.direct_payment.enabled"
             />
             <label class="form-label ml-3">Enabled</label>
         </div>
-        
 
-        <div v-for="(account, index_i) in props.campaign.meta_payment.direct_payment.v2_accounts" :key="index_i">
+        <div v-for="(account, index_i) in props.campaign.meta_payment.direct_payment.v2_accounts" :key="index_i" class="my-10 lg:my-0 lg:mx-5">
 
             <div 
-                class="mt-3 intro-y grid grid-cols-12 gap-2 my-0 lg:my-3 lg:gap-5 2xl:my-3 2xl:gap-5" 
+                class="intro-y grid grid-cols-12 gap-2 lg:gap-5"
                 v-for="(field, index_j) in payment.fields" 
                 :key="index_j"
             >
                 <template v-if="field.type === 'text'">
-                    <label class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">{{ field.name }}</label>
+                    <label class="form-label col-start-1 col-span-12 lg:col-span-2 mt-5 lg:my-5">{{ field.name }}</label>
                     <input 
-                        class="form-control-rounded col-span-9 "
+                        class="form-control form-control-rounded col-span-12 lg:col-span-9 lg:w-5/6 -mt-3 lg:my-5 lg:h-12"
                         type="text" 
                         v-model="account[field.key]"
                     />
                 </template>
 
                 <template v-else-if="field.type === 'textarea'">
-                    <label class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">{{ field.name }}</label>
+                    <label class="form-label col-start-1 col-span-12 lg:col-span-2 mt-5 lg:my-5">{{ field.name }}</label>
                     <textarea 
-                        class="col-span-9" 
+                        class="form-control rounded-lg col-span-12 lg:col-span-9 lg:w-5/6 lg:my-5 p-2 -mt-3"
                         v-model="account[field.key]"
                     />
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                    <label class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">{{ field.name }}</label>
+                    <label class="form-label col-start-1 col-span-9 lg:col-span-3 my-5">{{ field.name }}</label>
                     <input 
-                        class="form-check-input col-span-9 " 
-                        style="width: 1.5rem; height:1.5rem;"
+                        class="form-control form-check-input col-span-1 lg:col-span-9 w-5/6 w-[1.5rem] h-[1.5rem]  my-5"
                         type="checkbox" 
                         v-model="account[field.key]"
                     />
                 </template>
 
                 <template v-else-if="field.type === 'file'">
-                    <div class="col-span-12 col-start-1">
+                    <div class="lg:my-5 col-span-12 lg:w-5/6 col-start-1">
                         <label class="form-label">Upload Image</label>
-                        <div class="border-2 border-dashed rounded-md">
-                            <div class="flex flex-wrap px-4">
-                                <img :src="previewImages[index_i]" class="uploading-image h-16 lg:h-48 2xl:h-64 object-cover" />
+                        <div class="border-2 border-dashed dark:border-darkmode-400 rounded-lg relative">
+                            <div class="px-4 items-center justify-center flex">
+                                <img :src="previewImages[index_i]" class="uploading-image h-60 object-cover" />
                             </div>
-                            <div class="px-4 pb-4 flex items-center cursor-pointer relative">
-                                <ImageIcon class="w-4 h-4 mr-2" />
-                                <span class="text-primary mr-1">Upload a file</span> or drag and drop
+                            <div class="px-4 text-[1rem] sm:text-[16px] absolute top-20 text-center w-full flex flex-col items-center justify-center"
+                                v-if="previewImages[index_i] === null">
+                                <div class="flex flex-col sm:flex-row items-center justify-center"> 
+                                    <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> 
+                                    <strong class="text-slate-600">Upload a file or drag and drop</strong> 
+                                </div>
+                                <div class="mt-2 text-slate-500">accepted File types: jpeg, png, jpg</div>
+                                <div class="text-slate-500">Max file size : 2MB</div>  
+                            </div>
                                 <input
                                     type="file"
                                     class="w-full h-full top-0 left-0 absolute opacity-0"
                                     accept="image/jpeg" 
                                     @change="uploadImage($event, index_i)"
                                 />
-                            </div>
                         </div>
                     </div>
                 </template>

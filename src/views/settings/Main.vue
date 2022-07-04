@@ -2,7 +2,7 @@
     <!-- OUTTER BOX -->
     <div class="box p-5 flex flex-col gap-5">
         <!-- BEGIN: commit box -->
-        <span class="text-lg mt-5"> Default Settings</span>
+        <span class="text-xl mt-5"> Default Settings</span>
         <div class="switch-toggle">
             <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
             <label for="on">Notes</label>

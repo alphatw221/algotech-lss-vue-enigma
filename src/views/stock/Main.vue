@@ -44,7 +44,6 @@
 				:searchColumns="searchColumns"
 				:eventBusName="'searchDelistedTable'"
 				:showCategoryFilter="false"
-				
 			>
 			</SearchBar>	
 			<DataTable
