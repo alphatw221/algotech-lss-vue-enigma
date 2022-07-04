@@ -44,12 +44,15 @@
                     </template>
                     <template v-else-if="column.key === 'delivery'">
                         <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit">
-                                <TruckIcon v-show="order.status === 'complete'"/>
+                            <div class="w-10 h-10 image-fit" v-show="order.status === 'complete'" @click="shipping_out(order.id,key)">
+                                <TruckIcon />
+                            </div>
+                            <div class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
+                                <TruckIcon style="color:#BABABA"/>
                             </div>
                         </div>
                     </template>
-                    <template v-else-if="column.key === 'customer'">
+                    <template v-else-if="column.key === 'customer_img'">
                             <div class="flex flex-col items-left">
                                 <div class="w-10 h-10 image-fit zoom-in" v-if="order.customer_img">
                                     <Tippy tag="img" class="rounded-full" 
@@ -81,6 +84,9 @@
                     <template v-else-if="column.key === 'subtotal'">
                         ${{ (order.subtotal).toFixed(2) }}
                     </template>
+                    <template v-else-if="column.key === 'payment_method'">
+                        {{ order[column.key] == 'Direct Payment' ? `Direct Payment - ${order.meta.account_mode}` : order[column.key] }}
+                    </template>
                     <template v-else class="w-30">
                         {{ order[column.key] }}
                     </template>
@@ -93,7 +99,7 @@
     </div>
 </template>
 <script setup>
-import { manage_order_list } from "@/api_v2/order"
+import { manage_order_list, seller_shipping_out } from "@/api_v2/order"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
@@ -105,6 +111,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
     { name: 'Order#', key: 'id' },
     { name: 'Platform', key: 'platform' },
+    { name: '', key: 'customer_img' },
     { name: 'Name', key: 'customer_name' },
     { name: 'Amount', key: 'subtotal' },
     { name: 'Payment', key: 'payment_method' },
@@ -127,17 +134,12 @@ const props = defineProps({
 onMounted(()=>{
     search('','',props.tableStatus)
     eventBus.on(props.tableSearch, (payload) => {
-        search(payload.value,payload.filter_data,props.tableStatus)
+        search(payload.keyword,payload.filter_data,props.tableStatus)
 	})
-    eventBus.on(props.tableFilter, (payload) => {
-        search('',payload.data,props.tableStatus)
-	})
-    
 })
 
 onUnmounted(()=>{
     eventBus.off(props.tableSearch)
-    eventBus.off(props.tableFilter)
 })
 
 function search(searchValue,data,tableStatus){
@@ -145,8 +147,8 @@ function search(searchValue,data,tableStatus){
         res => {
 			store[tableStatus] = res.data.data
             console.log( res.data)
+            store.data_count[tableStatus] = res.data.count;
             if (res.data.count != 0) {
-                store.data_count[tableStatus] = res.data.count;
                 let totalPage = parseInt(res.data.count / page_size);
                 totalPage = totalPage == 0 ? 1 : totalPage;
             }
@@ -169,6 +171,16 @@ function changePageSize(p) {
 function orderProductModal(id,type){
     eventBus.emit('getProductData',{'id':id,'type':type})
     store.orderProductModal = !store.orderProductModal
+}
+function shipping_out(order_id,index){
+    seller_shipping_out(order_id).then(
+        res=>{
+            console.log(res)
+            store[props.tableStatus][index].status = 'shipping out'
+            console.log(store[props.tableStatus][index].status)
+        }
+    
+    )
 }
 </script>
 

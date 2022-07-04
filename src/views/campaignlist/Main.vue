@@ -2,8 +2,8 @@
   <!-- BEGIN OUTTER BOX -->
   <div class="box p-5 flex flex-col gap-5">
     <!-- BEGIN: commit box -->
-    <div class="flex flex-row mt-4 p-2 flex-wrap">
-      <div class="switch-toggle mx-2 flex-none mb-2">
+    <div class="flex flex-row mt-4 sm:p-2 flex-wrap justify-between">
+      <div class="switch-toggle sm:mx-2 flex-none mb-2">
         <input id="off" name="state-d" type="radio" />
         <label for="off" @click="show_campaign('ongoing')">Ongoing</label>
         <input id="on" name="state-d" type="radio" checked="checked"/>
@@ -12,7 +12,7 @@
         <label for="na" @click="show_campaign('history')">History</label>
       </div>
       <button 
-        class="btn btn-warning btn-rounded w-24 h-10 text-white mx-2 ml-auto"
+        class="btn btn-warning btn-rounded w-24 h-10 text-white sm:mx-2 flex ml-auto"
               @click="router.push({name:'create-campaign'})" > 
         <span class="font-bold mr-1 text-lg">+</span> Create
       </button>
@@ -21,7 +21,6 @@
         <SearchBar 
           :searchColumns="searchColumns" 
           :eventBusName="'searchScheduledCampaign'"
-          
         /> 
         <CampaignListTable
           :tableColumns="tableColumns"

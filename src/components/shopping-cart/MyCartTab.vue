@@ -12,7 +12,7 @@
     </div>
     <div class="box grid grid-cols-12 gap-4 ml-4 mr-4">
     <div class="overflow-x-auto col-start-1 col-span-7">
-        <div><span class="text-lg">Special Note:</span></div>
+        <div><span class="text-[16px]">Special Note:</span></div>
         <div class="flex">
         <div class="mr-auto">Special Note!!!!!!!!!!!!!!!!!!!!</div>
         </div>

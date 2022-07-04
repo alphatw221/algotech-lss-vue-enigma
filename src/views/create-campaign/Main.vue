@@ -1,20 +1,26 @@
 <template>
-    <div class="box py-5 lg:p-10 2xl:p-10">
-		<div class="box intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 ml-3">
-			<span class="col-start-1 col-span-12 text-2xl font-medium leading-none mb-2 mt-3">
+    <div class="box p-5 flex flex-col gap-5 text-[16px]">
+		<div class="intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 ml-3">
+			<span class="col-start-1 col-span-12 text-xl leading-none mb-2 mt-3">
 				Create Campaign
 			</span>
 			<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
 				<div class="flex">
 					<label class="form-label -mb-3 w-32 mt-2 text-base">Title</label>
-					<input 
-						class="form-control form-control-rounded" 
-						type="text" 
-						:class="{ 'border-danger': title_validate.title.$error }"
-						v-model.trim="title_validate.title.$model"
-						@blur="title_validate.title.$touch" 
-					/>
-					
+					<div>
+						<input 
+							class="form-control form-control-rounded" 
+							type="text" 
+							:class="{ 'border-danger': title_validate.title.$error }"
+							v-model.trim="title_validate.title.$model"
+							@blur="title_validate.title.$touch" 
+							/>
+						<template v-if="title_validate.title.$error">
+							<label class="text-danger mr-2">
+								Please enter Campaign title
+							</label>
+						</template>
+					</div>
 				</div>
 			</div>
 			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
@@ -33,20 +39,14 @@
 					</v-date-picker>
 				</div>
 			</div>
-			<template v-if="title_validate.title.$error">
-				<label class="text-danger 2xl:col-start-2 xl:col-start-2 col-span-12 2xl:col-span-6 xl:col-span-6 mt-2 mb-3">
-					Please enter Campaign title
-				</label>
-			</template>
 		</div>
 
 		<DeliveryForm 
-			class="col-span-12" 
 			:campaign="campaignData"
 		/>
 
 		<PaymentForm 
-			class="col-span-12" 
+
 			:campaign="campaignData"
 			:directPaymentImages="directPaymentImages"
 		/>
@@ -88,22 +88,22 @@ const dateTimePicker = ref({
 	end:new Date()
 })
 const campaignData = ref({
-			title:'',
-			start_at:new Date(),
-			end_at:new Date(),
-			meta_logistic:{
-				delivery_charge : 9999,
-				is_free_delivery_for_order_above_price : false,
-				free_delivery_for_order_above_price : 9999,
-				is_free_delivery_for_how_many_order_minimum : false,
-				free_delivery_for_how_many_order_minimum : 99,
-				is_additional_delivery_charge : true,
-				additional_delivery_options: [],
-				pickup_options: [],
-				delivery_note : 'example...'
-			},
-			meta_payment:{}
-		})
+	title:'',
+	start_at:new Date(),
+	end_at:new Date(),
+	meta_logistic:{
+		delivery_charge : 9999,
+		is_free_delivery_for_order_above_price : false,
+		free_delivery_for_order_above_price : 9999,
+		is_free_delivery_for_how_many_order_minimum : false,
+		free_delivery_for_how_many_order_minimum : 99,
+		is_additional_delivery_charge : true,
+		additional_delivery_options: [],
+		pickup_options: [],
+		delivery_note : 'example...'
+	},
+	meta_payment:{}
+})
 
 watch(computed(()=>dateTimePicker.value),()=>{
 	campaignData.value.start_at = dateTimePicker.value.start

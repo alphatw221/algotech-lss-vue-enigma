@@ -1,8 +1,8 @@
 <template>
     <Modal
         size="modal-xl"
-        :show="store.filterModal"
-		@hidden="store.filterModal = false"
+        :show="store.filterModal[tableStatus]"
+		@hidden="store.filterModal[tableStatus] = false"
     >
             <ModalHeader >
                 <h2 class="font-medium text-base mr-auto text-xl">
@@ -12,10 +12,10 @@
                     @click="filter()">
                     Apply Filter
                 </button>
-                <XIcon class="w-8 h-8 ml-2" @click="store.filterModal = false"/>
+                <XIcon class="w-8 h-8 ml-2" @click="store.filterModal[tableStatus] = false"/>
             </ModalHeader>
-        <ModalBody>
-            <div class="flex flex-row grow flex-wrap">
+        <ModalBody class="w-full h-full">
+            <div class="flex flex-row grow flex-wrap ">
                 <template v-for="(type, index) in store.filterTagArray" :key="index">
                     <template v-for="(tag,_index) in type" :key="_index">
                     <div class="" v-if="tag">
@@ -44,14 +44,14 @@
                     <div class="col-span-12 text-[20px] font-medium my-2"> Delivery Status</div>
                     <div class="col-span-3 my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                            v-model="store.filterTagArray.delivery['Shipping out']" 
-                                @click="updateTag('delivery','Shipping out')"> 
+                            v-model="store.filterTagArray.delivery['shipping out']" 
+                                @click="updateTag('delivery','shipping out')"> 
                                     <span class="ml-1"> Shipping out </span> 
                     </div>
                     <div class="col-span-3 my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                            v-model="store.filterTagArray.delivery['To be shipping']" 
-                                @click="updateTag('delivery','To be shipping')"> 
+                            v-model="store.filterTagArray.delivery['to be shipping']" 
+                                @click="updateTag('delivery','to be shipping')"> 
                                     <span class="ml-1"> To be shipping </span> 
                     </div>
                     <div class="col-span-12  text-[20px] font-medium my-2"> Platform</div>
@@ -88,6 +88,7 @@ const store = useManageOrderStore()
 
 const props = defineProps({
     tableFilter: String,
+    tableStatus: String
 });
 
 function updateTag(type,tag){
@@ -99,13 +100,14 @@ function filter(){
         data[type] = []
         for(const tag in store.filterTagArray[type]){
             if(store.filterTagArray[type][tag]){
-                data[type].push(tag)
+                if(tag === 'to be shipping') data[type].push('complete')
+                else data[type].push(tag)
             }
         }
     }
-    eventBus.emit(props.tableFilter,{'data':data})
+    eventBus.emit(props.tableFilter,{'filter_data':data})
     console.log(data)
-    store.filterModal = false
+    store.filterModal[props.tableStatus] = false
 }
 
 </script>

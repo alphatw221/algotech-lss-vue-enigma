@@ -18,7 +18,7 @@
 					:class="{ 'border-danger text-danger border-2': validate.name.$error }" 
 				/>
 				<template v-if="validate.name.$error">
-						<label class="text-danger ml-2" >
+						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
 						Enter product name with no more than 50 digits
 						</label>
 				</template>
@@ -48,7 +48,7 @@
 					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
 				</TomSelect>
 				<template v-if="validate.tag.$error">
-						<label class="text-danger ml-2" >
+						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
 						Select at least one tag 
 						</label>
 				</template>
@@ -106,7 +106,7 @@
 					v-model="validate.order_code.$model"
 				/>
 				<template v-if="validate.order_code.$error">
-						<label class="text-danger ml-2" >
+						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
 						Enter order code with no more than 10 digits
 						</label>
 				</template>
@@ -122,7 +122,7 @@
 					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
 				/>
 				<template v-if="validate.description.$error">
-						<label class="text-danger ml-2" >
+						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
 						discription cannot be more than 100 digits
 						</label>
 				</template>
@@ -140,8 +140,8 @@
 					:class="{ 'border-danger text-danger border-2': validate.qty.$error }" 
 				/>
 				<template v-if="validate.qty.$error">
-						<label class="text-danger ml-2" >
-						Quantity has to be numbers 
+						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
+						Quantity has to be a number
 						</label>
 				</template>
 			</div>
@@ -156,8 +156,8 @@
 					:class="{ 'border-danger text-danger border-2': validate.price.$error }" 
 				/>
 				<template v-if="validate.price.$error">
-						<label class="text-danger ml-2" >
-						Price has to be numbers 
+						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
+						Price has to be a number 
 						</label>
 				</template>
 			</div>
@@ -277,7 +277,7 @@ const submit = ()=>{
 			response => {
 				// console.log('image upload response > ', response)
 				// layoutStore.alert.showMessageToast("Invalid Quantity")
-				layoutStore.notification.showMessageToast("Update Success")
+				layoutStore.notification.showMessageToast("Update Successfully")
 				router.push({name:'stock'})
 			},
 		)
@@ -287,7 +287,7 @@ const submit = ()=>{
 		create_product(formData)
 		.then(
 			response => {
-				layoutStore.notification.showMessageToast("Create Success"),
+				layoutStore.notification.showMessageToast("Create Successfully"),
 				router.push({name:'stock'})
 			}
 		)

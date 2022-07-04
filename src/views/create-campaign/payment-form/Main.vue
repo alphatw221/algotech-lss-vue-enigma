@@ -1,16 +1,14 @@
 <template>
-	<div class="grid grid-cols-12 gap-5 w-full" v-if="ready">
-		<span class="col-span-12 text-lg my-4 ml-5">
+	<div class="flex flex-col gap-5" v-if="ready">
+		<span class="text-lg my-4 ml-5">
 			<strong>Payment Details</strong> 
 		</span>
-		<div id="paymentDetails" class="col-span-12">
-			<AccordionGroup class="accordion-boxed">
-				<div v-for="(payment,key,index) in props.campaign.meta_payment" :key="index">
+		<div id="paymentDetails">
+			<AccordionGroup>
+				<div v-for="(payment,key,index) in props.campaign.meta_payment" :key="index" class="mx-3">
 
-
-
-					<AccordionItem v-if="paymentStore[key] && key=='direct_payment'">
-						<Accordion class="bg-primary rounded-t-lg ">
+					<AccordionItem v-if="paymentStore[key] && key=='direct_payment'" class="items">
+						<Accordion class="bg-primary rounded-t-lg">
 							<div class="text-white mx-3"> {{ paymentStore[key].name }} </div>
 						</Accordion>
 						<AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary">
@@ -18,10 +16,8 @@
 						</AccordionPanel>
 					</AccordionItem>
 
-
-
-					<AccordionItem v-else-if="paymentStore[key] && key!='direct_payment'">
-						<Accordion class="bg-primary rounded-t-lg ">
+					<AccordionItem v-else-if="paymentStore[key] && key!='direct_payment'" class="items">
+						<Accordion class="bg-primary rounded-t-lg">
 							<div class="text-white mx-3"> {{ paymentStore[key].name }} </div>
 						</Accordion>
 						<AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary">
@@ -30,8 +26,6 @@
 
 						</AccordionPanel>
 					</AccordionItem>
-
-
 				</div>
 			</AccordionGroup>
 		</div>
@@ -65,3 +59,12 @@ onMounted(() => {
 })
 
 </script>
+
+
+<style scoped>
+
+.items{
+	margin-top: 10px !important;
+	margin-bottom: 10px !important;
+}
+</style>

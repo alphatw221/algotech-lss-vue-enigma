@@ -3,12 +3,7 @@
                     <div class="flex w-full absolute mr-auto m-1 right-0 sm:mt-1 sm:w-auto ">
                         <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-slate-700 " />
                         <input type="text" class="form-control rounded-full mr-2 w-full sm:w-64 box px-10"
-                            placeholder="Search files" v-model="searchValue"/>
-                        <button id="tabulator-html-filter-go" type="button" class="flex-none btn btn-primary w-16 mr-3"
-                                @click="search()">
-                        Go
-                        </button>
-
+                            placeholder="Search files" v-model="searchValue" @keydown.enter.prevent="search()"/>
                         <div class="export">
                              <Dropdown class="relative p-2 mr-1 flex rounded-full items-center btn border-[#131C34] "
                             placement="bottom-start"> Export
@@ -28,6 +23,7 @@
                             Filter
                             </button>
                             <FilterModal
+                                :tableStatus="tableStatus"
                                 :tableFilter="tableFilter"/>
                        </div>
                     </div>
@@ -53,21 +49,21 @@ const props = defineProps({
     tableFilter: String,
 });
 
-function search(){
-    let data = {}
-    for(const type in store.filterTagArray){
-        data[type] = []
-        for(const tag in store.filterTagArray[type]){
-            if(store.filterTagArray[type][tag]){
-                data[type].push(tag)
-            }
-        }
-    }
+onMounted(()=>{
+    eventBus.on(props.tableFilter, (payload) => {
+        search(payload.filter_data)
+	})
+})
+onUnmounted(()=>{
+    eventBus.off(props.tableFilter)
+})
+
+function search(filter_data){
     console.log(searchValue.value)
-    eventBus.emit(props.tableSearch,{'value':searchValue.value,'filter_data':data})
+    eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
 }
 function test(){
-    store.filterModal = true
+    store.filterModal[props.tableStatus] = true
 }
 function onExportXlsx(){
     order_export(route.params.campaign_id).then(

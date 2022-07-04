@@ -20,15 +20,15 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 			'uncheckout_rate_raise':0,
 		}),
 		orderProductModal:ref(false),
-		filterModal:ref(false),
+		filterModal:ref({'All':false,'Review':false,'Complete':false}),
 		filterTagArray:ref({
 			'payment':{
 				'Direct Payment':false,
 				'Stripe':false,
 			},
 			'delivery':{
-				'Shipping out':false,
-				'To be shipping':false,
+				'shipping out':false,
+				'to be shipping':false,
 			},
 			'platform':{
 				'facebook':false,

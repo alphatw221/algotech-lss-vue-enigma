@@ -11,9 +11,10 @@
             </CarouselItem>
         </Carousel>
         
-        <div class="center flex flex-col items-center text-center p-10">
-            <h3 class="text-[2rem] mx-auto mb-8" >Login</h3>
-            <Form class="w-full">
+        <Card class="center flex flex-col items-center text-center">
+            <h3>Login</h3>
+
+            <Form style="margin-top:50px;">
                 <FormItem prop="email" class="login_form">
                     <Input type="text" v-model="loginData.email" placeholder="E-mail" class="formLabel"
                         @keydown.enter.prevent="signIn()">
@@ -33,21 +34,23 @@
                 <FormItem class="login_form">
                     <button type="button" class="btn bg-emerald-600 text-lg w-full h-10 text-white" @click="signIn()" >Sign in</button>
                 </FormItem>
+
+                <div>
+                    
+                </div>
             </Form>
-
-            <a class="mx-auto item-center text-[16px]" @click="this.$router.push({ name: 'PasswordForgot' })">forgot password ?</a>
-
-            <div class="mt-5 flex flex-col items-center">
-                <div class="text-[16px]">No Account ? <a href="lss/#/registration/SG">Create one !</a></div>
+            <div class="my-5 flex flex-col items-center">
+                <FacebookLoginButton />
+                <GoogleLoginButton /> 
             </div>
-        </div>
+        </Card>
     </div>
 </template>
 
 <script setup>
 import { seller_general_login } from '@/api_v2/user';
-// import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
-// import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
+import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
+import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
 import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
 import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'
@@ -93,7 +96,7 @@ const copyLink = ()=>{
 }
 
 const signIn = ()=>{
-    // console.log('signIn') eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NTIzMzA4LCJpYXQiOjE2NTY5MTg1MDgsImp0aSI6ImJlOTlmZGNjZGM0MzQyNTY5ZDAwYjM1NjhiOGU2OGFhIiwidXNlcl9pZCI6MzI4LCJkYXRhIjp7ImF1dGhfdXNlcl9pZCI6MzI4LCJzZWxsZXJfaWQiOjM2MCwiY3VzdG9tZXJfaWQiOjM3MywibmFtZSI6IkNlY2lsaWEgVyIsImVtYWlsIjoibWJydzE5QGdtYWlsLmNvbSJ9fQ.jICtdm6HqBQ2w4-o9TeTlBm5-ckAc7ELMAnPUp4ZEiU
+    // console.log('signIn')
     seller_general_login(loginData.value).then(response=>{
         cookies.set("access_token", response.data.access)
         router.push({name:'campaigns'})
@@ -107,7 +110,6 @@ const signIn = ()=>{
 
 .carousel {
     width: 100vw !important;
-    height: 100vh !important;
     background-size: cover !important;
     overflow: hidden;
 }
@@ -124,7 +126,7 @@ const signIn = ()=>{
 
 .center {
     margin: 0;
-    width:375px;
+    width:400px;
     position: absolute;
     top: 50%;
     left: 50%;
@@ -134,12 +136,19 @@ const signIn = ()=>{
 }
 
 .login_form {
-    width: 100%;
+    width: 80%;
     text-align: center;
     margin-left: auto;
     margin-right: auto;
 }
 
+
+h3 {
+    font-size: 2rem;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 2rem;
+}
 
 .login_btn {
     margin: 20px 0 0 30px;

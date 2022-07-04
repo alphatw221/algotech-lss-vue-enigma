@@ -1,5 +1,5 @@
 <template>
-    <div class="box col-span-12 col-start-1 row-start-3 row-span-2 h-screen mt-0
+    <div class="box col-span-12 col-start-1 row-start-3 row-span-2 max-h-screen mt-0
         lg:row-start-1 lg:row-span-3 lg:col-start-6 lg:col-span-7  lg:h-[100%]
         2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-9 
         ">

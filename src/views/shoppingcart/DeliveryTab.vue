@@ -74,7 +74,7 @@
           </h2>
         </div>
 
-        <TabGroup >
+        <TabGroup>
           <TabList class="nav-boxed-tabs flex grow items-center w-full justify-around items-center">
             <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('delivery')">

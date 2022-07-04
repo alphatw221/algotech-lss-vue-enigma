@@ -7,7 +7,7 @@
                 <span class="whitespace-auto text-center w-16 lg:w-28">{{ page.name.substring(0,24) }}</span>
                 <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Unbind page" :options="{
                     theme: 'light',
-                }"><XCircleIcon class="absolute right-0 top-0 z-50 click-icon text-danger" @click="removeInstagramProfiles(page)"/></Tippy>
+                }"><XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeInstagramProfiles(page)"/></Tippy>
             </div>
         </div>
     </div>
