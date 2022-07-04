@@ -1,5 +1,6 @@
 <template>
 	<div class="box p-5 flex flex-col gap-5">
+		{{ $t('test1') }}
 		<div class="flex mt-4 mx-0 sm:mx-8 gap-5 flex-wrap justify-between"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
