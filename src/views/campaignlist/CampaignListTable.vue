@@ -10,7 +10,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-for="(campaign, index) in store[tableName].campaigns" :key="index" class="intro-x">
+        <tr v-for="(campaign, index) in campaigns" :key="index" class="intro-x">
           <td class="fan_page items-center w-12">
             <div class="flex w-fit">
               <div class="w-10 h-10 image-fit zoom-in border-0 lg:w-15" v-if="campaign.facebook_page !== null">
@@ -94,12 +94,12 @@
           <td class="entry text-center w-fit">
             <button 
               v-if="status === 'history'"
-              class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
+              class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(index)">
               Histroy
             </button>
             <button 
               v-else
-              class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(campaign, index)">
+              class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(index)">
               Live On
             </button>
           </td>
@@ -112,7 +112,7 @@
                 </DropdownToggle>
                 <DropdownMenu class="pt-2 w-40">
                   <DropdownContent class="w-40 text-center">
-                    <DropdownItem class="w-full whitespace-nowrap text-center" @click="this.$router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})"> Edit </DropdownItem>
+                    <DropdownItem class="w-full whitespace-nowrap text-center" @click="router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})"> Edit </DropdownItem>
                     <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
                     <!-- <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem> -->
                   </DropdownContent>
@@ -122,143 +122,135 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- BEGIN Empty Cart Text -->
+			<div class=" text-center mt-5 md:mt-10" v-if="numOfCampaigns==0">
+				<h1 class="text-slate-500 text-sm md:text-lg">
+					Your Have No {{props.tableName}} Campaign
+				</h1>
+			</div>
+	<!-- END Empty Cart Text -->
+
     <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-      <Page :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
+      <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
   </div>
 </template>
 
-<script>
-import { createAxiosWithBearer } from "@/libs/axiosClient";
-import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
+<script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { allow_checkout } from "@/api_v2/campaign"
+import { allow_checkout, list_campaign } from "@/api_v2/campaign"
+import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 
-export default {
-  props: {
-    requestUrl: String,
+import { useRoute, useRouter } from "vue-router";
+
+import youtube_platform from "/src/assets/images/lss-img/youtube.png"
+import facebook_platform from "/src/assets/images/lss-img/facebook.png"
+import instagram_platform from "/src/assets/images/lss-img/instagram.png"
+import unbound from "/src/assets/images/lss-img/noname.png"
+
+const route = useRoute();
+const router = useRouter();
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+
+const emits = defineEmits(['showRemindModal',])
+
+const props = defineProps({
     tableColumns: Array,
     tableName: String,
     campaignStatus: String
-  },
-  data() {
-    return {
-      baseURL: import.meta.env.VITE_APP_ROOT_API,
-      page: 1,
-      totalPage: 1,
-      page_size: 10,
-      dataCount: 0,
-      searchCcolumn: '',
-      keyword: '',
-      status: this.campaignStatus,
-      checkout: true,
-      order_by: "created_at",
-      youtube_platform: "/src/assets/images/lss-img/youtube.png",
-      facebook_platform: "/src/assets/images/lss-img/facebook.png",
-      instagram_platform: "/src/assets/images/lss-img/instagram.png",
-      unbound: "/src/assets/images/lss-img/noname.png",
-      store: useLSSCampaignListStore(),
-      layout: useLSSSellerLayoutStore(),
-    };
-  },
-  mounted() {
-    this.search();
+});
 
-    this.eventBus.on(this.tableName, (payload) => {
-      this.page = 1;
-      this.searchColumn = payload.searchColumn;
-      this.keyword = payload.keyword;
-      this.page_size = payload.pageSize;
-      this.search();
-    }),
-    this.startFromToast();
-  },
-  unmounted() {
-    this.eventBus.off(this.tableName);
-  },
-  methods: {
-    get_url_param() {
-      let param = "";
-      [
-        "page_size",
-        "page",
-        "searchColumn",
-        "keyword",
-        "status",
-        "order_by",
-      ].forEach((v) => {
-        if (this[v]) param += `&${v}=${this[v]}`;
-      });
-      return param.substr(1, param.length);
-    },
-    search() {
-      createAxiosWithBearer()
-        .get(`${this.requestUrl}?${this.get_url_param()}`)
-        .then((response) => {
+const baseURL = import.meta.env.VITE_APP_ROOT_API
+const page= ref(1)
+const totalPage= ref(1)
+const page_size= ref(10)
+const dataCount= ref(0)
+const searchColumn= ref('')
+const keyword= ref('')
+const order_by= ref("created_at")
+
+const layoutStore = useLSSSellerLayoutStore()
+
+const campaigns=ref([])
+const numOfCampaigns = computed(()=>Object.keys(campaigns.value).length)
+onMounted(()=>{
+  search();
+
+  eventBus.on(props.tableName, (payload) => {
+    page.value = 1;
+    searchColumn.value = payload.searchColumn;
+    keyword.value = payload.keyword;
+    page_size.value = payload.pageSize;
+    // order_by.value = payload.order_by;
+    search();
+  }),
+  startFromToast();
+})
+
+onUnmounted(()=>{
+  eventBus.off(props.tableName);
+})
+
+
+const search =()=>{
+      list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,page.value,page_size.value)
+      .then((response) => {
           if (response.data.count != undefined) {
-            this.dataCount = response.data.count;
-            const totalPage = parseInt(response.data.count / this.pageSize);
-            this.totalPage = totalPage == 0 ? 1 : totalPage;
+            dataCount.value = response.data.count;
+            const _totalPage = parseInt(response.data.count / page_size.value);
+            totalPage.value = _totalPage == 0 ? 1 : _totalPage;
           }
-          this.store[this.tableName].campaigns = response.data.results
-          // console.log(this.store[this.tableName].campaigns)
-          for(let i = 0; i < this.store[this.tableName].campaigns.length; i++){
-            this.store[this.tableName].campaigns[i].meta.allow_checkout = this.store[this.tableName].campaigns[i].meta.allow_checkout == 1 ? false : true 
-          }
-          // this.campaigns = response.data.results;
+          campaigns.value = response.data.results
         })
-    },
-    changePage(page) {
-      this.page = page;
-      this.search();
-    },
-    changePageSize(pageSize) {
-      this.page_size = pageSize;
-      this.search();
-    },
+    }
 
-    clickEntry(campaign, index) {
-      // this.$emit('showRemindModal',{'tableName':this.tableName,'campaign':campaign,'index':index})
-      //   return
-      console.log(campaign.facebook_campaign.post_id)
-      console.log(campaign.instagram_campaign.live_media_id)
-      console.log(campaign.youtube_campaign.live_video_id)
+const changePage = (page)=>{
+      page.value = page;
+      search();
+    }
+
+const changePageSize = (pageSize)=>{
+      page_size.value = pageSize;
+      search();
+    }
+
+const clickEntry = (index)=>{
+      const campaign = campaigns.value[index]
       if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
-        this.$router.push({name:'campaign-live',params:{'campaign_id':campaign.id}})
+        router.push({name:'campaign-live',params:{'campaign_id':campaign.id}})
         return
       }
-      this.$emit('showRemindModal', { 'tableName': this.tableName, 'campaign': campaign, 'index': index })
-    },
-    stop_checkout(campaign_id,status){
+      eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign_index': index , 'campaignsRef': campaigns})
+    }
+
+const stop_checkout = (campaign_id,status)=>{
       allow_checkout(campaign_id,status)
-      this.layout.notification.showMessageToast('Update Successed');
-    },
-    manageOrder(campaign_id,status) {
-      this.$router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
-    },
-    copyURL(campaign_id) {
-      var dummy = document.createElement('input'),
-      text = `${this.baseURL}/buyer/recaptcha/blank/${campaign_id}`;
-      document.body.appendChild(dummy);
-      dummy.value = text;
-      dummy.select();
-      document.execCommand('copy');
-      this.layout.notification.showMessageToast("copyed!")
-      document.body.removeChild(dummy);
-      console.log(this.store.searchScheduledCampaign.campaigns)
-    },
-    startFromToast(){
-      if (this.$route.query.type && this.$route.query.type == 'startCampaign') {
+      layoutStore.notification.showMessageToast('Update Successed');
+    }
+
+const manageOrder = (campaign_id,status)=>{
+      router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
+    }
+
+const copyURL = (campaign_id)=>{
+      text = `${baseURL}/buyer/recaptcha/blank/${campaign_id}`;
+      navigator.clipboard.writeText(text).then(()=>{
+          alert('copied!')
+      })
+    }
+
+const startFromToast=()=>{
+      if (route.query.type && route.query.type == 'startCampaign') {
 		    console.log('Wait for info')
 	    }
-    },
-    luckyDraw(id, title){
-      this.store.campaign_id = id
-      this.store.campaign_title = title
-      this.$router.push({name:'lucky-draw',params:{'campaign_id':id}})
     }
-  },
-};
+
+const luckyDraw=(campaign_id)=>{
+      router.push({name:'lucky-draw',params:{'campaign_id':campaign_id}})
+    }
+
 </script>
 
 

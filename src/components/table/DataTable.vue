@@ -52,6 +52,7 @@
 		</table> 
 		<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
 			<Page 
+				class="mx-auto my-3"
 				:total="dataCount" 
 				@on-change="changePage"
 				@on-page-size-change="changePageSize"

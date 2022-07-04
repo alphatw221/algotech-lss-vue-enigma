@@ -89,7 +89,7 @@
         </tbody>
     </table>
     <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
-        <Page :total="store.data_count[tableStatus]" @on-change="changePage" @on-page-size-change="changePageSize" />
+        <Page class="mx-auto my-3" :total="store.data_count[tableStatus]" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>
 <script setup>

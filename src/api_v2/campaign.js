@@ -50,3 +50,10 @@ export const nest_comment = (campaign_id,comment_id) => {
 export const allow_checkout = (campaign_id,status) => {
     return createAxiosWithBearer().get(`/api/v2/campaign/edit_allow_checkout/?campaign_id=${campaign_id}&status=${status ? 0 : 1}`)
 }
+
+
+export const list_campaign = (status,searchColumn,keyword,order_by,page,page_size) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign/list/?status=${status}&searchColumn=${searchColumn}&keyword=${keyword}&order_by=${order_by}&page=${page}&page_size=${page_size}`)
+}
+
+

@@ -1,11 +1,11 @@
 <template>
-    <Modal :show="props.show"
-        @hidden="emits('hide')">
+    <Modal :show="show"
+        @hidden="hide()">
         <ModalBody class="text-left content-center">
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
-            <template v-for="page in props.pages" :key="page.page_id">
+            <template v-for="page,index in pages" :key="index">
               <div
-                @click="selectFacebookPage(page)"
+                @click="selectPage(index)"
                 class="
                   w-14
                   h-14
@@ -22,7 +22,7 @@
                 />
               </div>
               <span
-                @click="selectFacebookPage(page)"
+                @click="selectPage(index)"
                 class="col-span-6 text-lg content-center"
               >
                 {{ page.name }}
@@ -35,73 +35,63 @@
 
 <script setup>
 
-import { ref, onMounted, onUnmounted, defineProps, defineEmits} from 'vue'
+import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
+import { check_facebook_page_token_valid } from "@/api/facebook"
+import { check_instagram_profile_token_valid } from "@/api/instagram"
+import { check_youtube_channel_token_valid } from "@/api/youtube"
+import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
 
-const props = defineProps({
-    show:Boolean,
-    pages: Array,
-    currentPlatform:String
-});
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const pages = ref([])
+const show = ref(false)
+// let campaign_index = null
+// let campaignsRef = null
+let payloadBuffer = null
+onMounted(()=>{
+    eventBus.on('showSelectPlatformModal', (payload) => {
+      // show.value = ture
+      payloadBuffer = payload
+      let apiRequest =null
+      if(payload.platform=='facebook'){
+        apiRequest = get_user_subscription_facebook_pages
+      }else if(payload.platform=='youtube'){
+        apiRequest = get_user_subscription_youtube_channels
+      }else if(payload.platform=='instagram'){
+        apiRequest = get_user_subscription_instagram_profiles
+      }
+      apiRequest().then((res)=>{
+        show.value = true
+        pages.value = res.data
+      })
 
-const emits = defineEmits(['hide','selectPage'])
+  })
+})
 
-const selectFacebookPage = page => {
-    emits('selectPage', {'page':page,'platform':props.currentPlatform})
+onUnmounted(()=>{
+  eventBus.off('showSelectPlatformModal')
+})
+
+const selectPage = index => {
+  payloadBuffer.page=pages.value[index]
+  let apiRequest=null
+  if(payloadBuffer.platform=='facebook'){
+    apiRequest = check_facebook_page_token_valid
+  }else if(payloadBuffer.platform=='youtube'){
+    apiRequest = check_youtube_channel_token_valid
+  }else if(payloadBuffer.platform=='instagram'){
+    apiRequest = check_instagram_profile_token_valid
+  }
+  apiRequest(pages.value[index].id).then(res=>{
+    payloadBuffer.platformInstance = res.data
+    eventBus.emit('showSelectLiveModal',payloadBuffer)
+    hide()
+  })
+
 }
 
-// import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
-// import { get_fb_page_live_media } from "@/api/facebook"
-// import { get_ig_live_media } from "@/api/instagram"
-// import { get_yt_live_media } from "@/api/youtube"
-
-// facebookSelectPage() {
-//       get_user_subscription_facebook_pages()
-//       .then((response) => {
-//           console.log(response);
-//           console.log(response.data);
-//           this.campaignEntrydata.facebook.ownPageItems = response.data
-//           this.facebookOverlappingModalPreview = true
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//     },
-//     facebookAccountClick(img, official_page_id, token) {
-//       this.fb_page_id = official_page_id
-//       this.fb_page_token = token
-//       console.log(this.campaignEntrydata.facebook.chosenPageInfo)
-//       this.facebookOverlappingModalPreview = false;
-//       this.facebookPageSelected = true;
-//       this.fbAvatar = img;
-//     },
-//     facebookSelectCurrentLive() {
-//       get_fb_page_live_media(this.fb_page_id, this.fb_page_token)
-//       .then((response) => {
-//           console.log(response);
-//           console.log(response.data);
-//           // const sort = response.data.data.filter(v => v.status === "LIVE")
-//           const live_campaign = response.data.data.filter(v => v.status === "LIVE")
-//           if (!live_campaign.length) {
-//               alert('You have no Facebook live posts now.')
-//           } else {
-//               let currentLiveItems = []
-//               live_campaign.forEach(v => {
-
-//                 currentLiveItems.push({
-//                   id: v.video.id,
-//                   title: v.title?v.title:"Current Live",
-//                   image: null,
-//                   video_url: null,
-//                   embed_html: v.embed_html,
-//                 })
-//               });
-//               this.currentLiveItems = currentLiveItems
-//               this.currentLiveListPlatform = "facebook"
-//               this.CurrentLiveOverlappingModalPreview = true
-//           }
-//       })
-//       .catch((error) => {
-//         console.log(error);
-//       });
-//     },
+const hide=()=>{
+  show.value=false
+  pages.value=[]
+}
 </script>

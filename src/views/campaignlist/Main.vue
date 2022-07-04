@@ -24,11 +24,9 @@
           
         /> 
         <CampaignListTable
-          :requestUrl="'/api/v2/campaign/list/'"
           :tableColumns="tableColumns"
-          :tableName="'searchScheduledCampaign'"
+          :tableName="'Scheduled'"
           :campaignStatus="'scheduled'"
-          @showRemindModal="handleShowRemindModal"
         />
     </div>
 
@@ -38,11 +36,9 @@
           :eventBusName="'searchHistoryCampaign'"
         /> 
         <CampaignListTable
-          :requestUrl="'/api/v2/campaign/list/'"
           :tableColumns="tableColumns"
-          :tableName="'searchHistoryCampaign'"
+          :tableName="'History'"
           :campaignStatus="'history'"
-          @showRemindModal="handleShowRemindModal"
         />
     </div>
 
@@ -52,11 +48,9 @@
           :eventBusName="'searchOngoingCampaign'"
         /> 
         <CampaignListTable
-          :requestUrl="'/api/v2/campaign/list/'"
           :tableColumns="tableColumns"
-          :tableName="'searchOngoingCampaign'"
+          :tableName="'Ongoing'"
           :campaignStatus="'ongoing'"
-          @showRemindModal="handleShowRemindModal"
         />
     </div>
     
@@ -65,13 +59,13 @@
 
 
     <!-- BEGIN Remind Enter Post ID Modal -->
-      <RemindEnterPostIDModal :show="showRemindEnterPostIDModal" @hide="showRemindEnterPostIDModal=false" @comfirm="()=>{showRemindEnterPostIDModal=false;showEnterPostIDModal=true}"/>
+      <RemindEnterPostIDModal />
     <!-- END Remind Enter Post ID Modal -->
 
 
 
     <!-- BEGIN Enter Post ID Modal -->
-      <EnterPostIDModal :show="showEnterPostIDModal" @hide="showEnterPostIDModal=false" :targetCampaign="targetCampaign"/>
+      <EnterPostIDModal />
     <!-- END Enter Post ID Modal -->
 
   </div>
@@ -90,8 +84,6 @@ import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 
 
 
-
-
 const store = useLSSCampaignListStore()
 
 
@@ -103,7 +95,6 @@ const show_campaign = status=>{
   campaignStatus.value=status
 }
 
-const targetCampaign = ref({})
 
 const searchColumns = ref([
   { text: "Title", value: "title" },
@@ -121,14 +112,7 @@ const tableColumns =ref( [
   { name: " ", key: "entry" },
 ])
 
-const showRemindEnterPostIDModal = ref(false)
-const showEnterPostIDModal = ref(false)
 
-const handleShowRemindModal = (payload)=>{
-  targetCampaign.value = payload
-  // targetCampaign.value = campaign
-  console.log(payload)
-  showRemindEnterPostIDModal.value = true
-}
+
 
 </script>

@@ -161,3 +161,36 @@ export function youtubeAxios(accessToken){
 // );
 
 export { axiosInstance }
+
+
+export class Paginator{
+    options = {headers:{ 'Authorization': `Bearer ${cookies.get("access_token")}` }} 
+    constructor(url){
+        this._next = null
+        this._previous = null
+        this.url = url
+    }
+
+    getData(){
+        return axios.get(this.url,this.options).then(res=>this.updatePaginator(res))
+    }
+    nextPage(){
+        return axios.get(this._next,this.options).then(res=>this.updatePaginator(res))
+    }
+
+    previousPage(){
+        return axios.get(this._previous,this.options).then(rres=>this.updatePaginator(res))
+    }
+    get gotNext() {
+        return this._next!=null
+    }
+
+    get gotPrevious() {
+        return this._previous!=null
+    }
+    updatePaginator(res){
+        this._next = res.data.next
+        this._previous = res.data.previous
+        return res
+    }
+}

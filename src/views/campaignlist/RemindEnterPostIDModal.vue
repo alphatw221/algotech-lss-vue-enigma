@@ -1,7 +1,7 @@
 <template>
-    <Modal :show="props.show" @hidden="emits('hide')">
+    <Modal :show="show" @hidden="show=false">
       <a
-        @click="emits('hide')"
+        @click="show=false"
         class="absolute right-0 top-0 mt-3 mr-3"
         href="javascript:;"
       >
@@ -14,7 +14,7 @@
           </div>
         </div>
         <div class="px-5 pb-8 text-center">
-          <button type="button" @click="emits('comfirm')" class="btn btn-primary w-24">
+          <button type="button" @click="confirm()" class="btn btn-primary w-24">
             Comfirm
           </button>
         </div>
@@ -26,16 +26,29 @@
 import { useRoute, useRouter } from "vue-router"
 
 
-import { ref, onMounted, onUnmounted, defineProps, defineEmits} from 'vue'
+import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-const props = defineProps({
-    show:Boolean,
-});
-const emits = defineEmits(['hide','comfirm'])
+let payloadBuffer = null
+const show = ref(false)
+onMounted(()=>{
+    eventBus.on('showRemindEnterPostIDModal', (payload) => {
+      show.value = true
+      payloadBuffer = payload
+  })
+})
 
+onUnmounted(()=>{
+  eventBus.off('showRemindEnterPostIDModal')
+})
 
-import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
-const store = useLSSCampaignListStore()
+const confirm =()=>{
+  eventBus.emit('showEnterPostIDModal',payloadBuffer)
+  show.value = false
+}
+// import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
+// const store = useLSSCampaignListStore()
 
 
 </script>
