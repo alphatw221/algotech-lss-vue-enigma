@@ -88,22 +88,22 @@ const dateTimePicker = ref({
 	end:new Date()
 })
 const campaignData = ref({
-			title:'',
-			start_at:new Date(),
-			end_at:new Date(),
-			meta_logistic:{
-				delivery_charge : 9999,
-				is_free_delivery_for_order_above_price : false,
-				free_delivery_for_order_above_price : 9999,
-				is_free_delivery_for_how_many_order_minimum : false,
-				free_delivery_for_how_many_order_minimum : 99,
-				is_additional_delivery_charge : true,
-				additional_delivery_options: [],
-				pickup_options: [],
-				delivery_note : 'example...'
-			},
-			meta_payment:{}
-		})
+	title:'',
+	start_at:new Date(),
+	end_at:new Date(),
+	meta_logistic:{
+		delivery_charge : 9999,
+		is_free_delivery_for_order_above_price : false,
+		free_delivery_for_order_above_price : 9999,
+		is_free_delivery_for_how_many_order_minimum : false,
+		free_delivery_for_how_many_order_minimum : 99,
+		is_additional_delivery_charge : true,
+		additional_delivery_options: [],
+		pickup_options: [],
+		delivery_note : 'example...'
+	},
+	meta_payment:{}
+})
 
 watch(computed(()=>dateTimePicker.value),()=>{
 	campaignData.value.start_at = dateTimePicker.value.start
@@ -134,7 +134,8 @@ const createCampaign = ()=>{
 	formData.append('data', JSON.stringify(campaignData.value))
 	
 	directPaymentImages.value.forEach( (image,index) => {
-		const name = '_'+campaignData.value.meta_payment.direct_payment.v2_accounts[index].name   //add index to name
+		const key = campaignData.value.meta_payment.direct_payment.v2_accounts[index].name+'_'+index   
+		formData.append(key,image)
 	});
 
 

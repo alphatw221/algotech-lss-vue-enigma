@@ -3,6 +3,7 @@
 		<table class="table table-report mt-5 overflow-y-scroll table-auto">
 			<thead>
 				<tr >
+				<th><input class="form-check-input" type="checkbox" /></th>
 					<th class="whitespace-normal truncate hover:text-clip" v-for="column in columns" :key="column.key">
 						{{ column.name }}
 					</th>

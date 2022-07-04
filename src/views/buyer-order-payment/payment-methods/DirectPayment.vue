@@ -19,7 +19,7 @@
                                 'text-white bg-primary': openTab === index,
                             }" class="w-18 h-8 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
                                 <div v-if="account.direct_payment_mode === ''"> Account {{index+1}} </div>
-                                <div v-else> {{account.direct_payment_mode}} </div>
+                                <div v-else> {{ account.direct_payment_mode }} </div>
                             </button>
                         </div>
                     </li>
@@ -170,6 +170,7 @@ const uploadReceipt = () => {
     formData.append('last_five_digit', data.fiveDigits)
     formData.append('image', receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0] || '')
     formData.append('account_name', account.direct_payment_name)
+    formData.append('account_mode', account.direct_payment_mode)
 
     const upload_receipt = isAnonymousUser?guest_upload_receipt:buyer_upload_receipt
     upload_receipt(route.params.order_oid, formData)

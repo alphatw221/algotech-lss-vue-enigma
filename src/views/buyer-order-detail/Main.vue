@@ -53,7 +53,7 @@
                     </div>
                     <div class="grid grid-cols-6 gap-2">
                         <div class="col-start-1 col-span-2 py-2">Payment Method</div>
-                        <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method }}</div>
+                        <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method == 'Direct Payment' ? 'Direct Payment - ' + store.order.meta.account_mode : store.order.payment_method }}</div>
                         <template v-if="store.order.payment_method">
                             <div class="col-start-1 col-span-2 py-3">Last Five Digit</div>
                             <div class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
@@ -80,7 +80,7 @@
                         </template>
                         <template v-else-if="store.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
-                            <div class="col-start-3 col-span-3 py-3">Delivery</div>
+                            <div class="col-start-3 col-span-3 py-3">{{ store.order.shipping_option == '' ? 'Default' : store.order.shipping_option }}</div>
 
                             <div class="col-start-1 col-span-2 py-3">Delivery Address</div>
                             <div class="col-start-3 col-span-3 py-3">
