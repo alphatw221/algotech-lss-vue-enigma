@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="text-2xl text-base text-center my-5"> Order Details </div>
 
     <div class="grid grid-cols-12 gap-4 h-fit">
@@ -63,7 +64,7 @@
                 <div class="grid grid-cols-6 gap-2" v-if="store.orderDetail.payment_method">
                     <template v-if="store.orderDetail.payment_method">
                         <div class="col-start-1 col-span-2 py-2">Payment Method</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.payment_method}}</div>
+                        <div class="col-start-3 col-span-3 py-2">{{ store.orderDetail.payment_method == 'Direct Payment' ? `Direct Payment - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</div>
                     </template>
 
                     <template v-if="store.orderDetail.meta.last_five_digit">
@@ -71,18 +72,32 @@
                         <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</div>
                     </template>
 
+                    <template v-if="store.orderDetail.shipping_method">
+                        <div class="col-start-1 col-span-2 py-2">Delivery Method</div>
+                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_method == 'delivery' ? `delivery - ${store.orderDetail.shipping_option}` : store.orderDetail.shipping_method}}</div>
+
+                        <template v-if="store.orderDetail.shipping_method == 'pickup'">
+                            <div class="col-start-1 col-span-2 py-2">Pickup Store / Address</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_option + ' - ' + store.orderDetail.pickup_address}}</div>
+                        </template>
+                        <template v-if="store.orderDetail.shipping_method == 'delivery'">
+                            <div class="col-start-1 col-span-2 py-2">Address</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_address_1}}</div>
+                        </template>
+                        
+                    </template>
+
                     <template v-if="store.orderDetail.meta.receipt_image">
                         <div class="col-start-1 col-span-2 py-2">Record</div>
                         <div class="col-start-3 col-span-3 py-2">
                                 <Tippy tag="img" :src="store.orderDetail.meta.receipt_image" />
-                            
                         </div>
                     </template>
                 </div>
             </div>
         </div>
     </div>    
-    
+</div>
 </template>
 <script setup>
 import OrderDetailTable from "./OrderDetailTable.vue";

@@ -84,6 +84,9 @@
                     <template v-else-if="column.key === 'subtotal'">
                         ${{ (order.subtotal).toFixed(2) }}
                     </template>
+                    <template v-else-if="column.key === 'payment_method'">
+                        {{ order[column.key] == 'Direct Payment' ? `Direct Payment - ${order.meta.account_mode}` : order[column.key] }}
+                    </template>
                     <template v-else class="w-30">
                         {{ order[column.key] }}
                     </template>
