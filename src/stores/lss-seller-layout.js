@@ -71,7 +71,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         subMenu: [
           {
             pageName: "campaign-global-setting",
-            title: "Campaign Global Setting",
+            title: "Campaign Default Setting",
           },
           {
             pageName: "localization",
