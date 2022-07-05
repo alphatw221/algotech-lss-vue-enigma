@@ -63,6 +63,9 @@ onMounted(()=>{
     eventBus.on("changeCommentData", (payload) => {
         updateComments()
     });
+    eventBus.on("getbackNormalComments", (payload) => {
+        updateComments()
+    });
     eventBus.on(`${props.platformName}_commentSummurizerTrigger`, (payload) => {
         get_campaign_summerize_comments(payload.status);
     });
