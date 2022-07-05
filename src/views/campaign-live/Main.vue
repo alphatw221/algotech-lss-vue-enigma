@@ -2,10 +2,9 @@
     <!-- OUTTER BOX -->
     <div class="grid grid-cols-12 grid-rows-6 gap-3 h-fit lg:h-[90vh]">
         <!-- BEGIN: Comments -->
-        <!-- <LiveComments :campaignId="campaignId"/> -->
+        <LiveComments :campaignId="campaignId"/>
         <!-- END: Comments -->
-
-        <CommentListView :platformName="'facebook'"/>
+        <!-- <CommentListView :platformName="'facebook'"/> -->
         <!-- BEGIN: Product -->
         <LiveProduct :campaignId="campaignId"/>
         <!-- END: Product -->
@@ -21,7 +20,7 @@
 // import {campaign_comment_summarize} from '@/api/user';
 import CampaignLiveTable from "@/components/table/CampaignLiveTable.vue";
 import LiveComments from '@/components/campaign/LiveComments.vue';
-import CommentListView from '@/components/campaign/CommentListView.vue';
+// import CommentListView from '@/components/campaign/CommentListView.vue';
 import LiveProduct from '@/components/campaign/LiveProduct.vue';
 import IncomingOrder from '@/components/campaign/IncomingOrder.vue';
 
@@ -32,7 +31,7 @@ export default {
         LiveComments,
         LiveProduct,
         IncomingOrder,
-        CommentListView
+        // CommentListView
 	},
     data() {
         return {

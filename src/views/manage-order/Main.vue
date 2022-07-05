@@ -96,7 +96,7 @@ import CampaignStatus from "./CampaignStatus.vue";
 import SearchBar from "./SearchBar.vue";
 import OrderProductModal from "./OrderProductModal.vue"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
-import xlsx from "xlsx";
+// import xlsx from "xlsx";
 import { campaign_manage_order } from "@/api/manage_order";
 import { allow_checkout } from "@/api_v2/campaign"
 import { useRoute, useRouter } from "vue-router";

@@ -134,7 +134,7 @@
 
 <script setup>
 import { ref, reactive, onMounted } from "vue";
-import xlsx from "xlsx";
+// import xlsx from "xlsx";
 import { createIcons, icons } from "lucide";
 import Tabulator from "tabulator-tables";
 import dom from "@left4code/tw-starter/dist/js/dom";
@@ -389,10 +389,10 @@ const onExportJson = () => {
 
 const onExportXlsx = () => {
   const win = window;
-  win.XLSX = xlsx;
-  tabulator.value.download("xlsx", "data.xlsx", {
-    sheetName: "Products",
-  });
+  // win.XLSX = xlsx;
+  // tabulator.value.download("xlsx", "data.xlsx", {
+  //   sheetName: "Products",
+  // });
 };
 
 const onExportHtml = () => {

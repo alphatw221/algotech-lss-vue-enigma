@@ -101,7 +101,7 @@ const searchColumns = ref([
 
 const tableColumns =ref( [
   { name: "Fan Page", key: "page" },
-  { name: "Platform", key: "platform" },
+  // { name: "Platform", key: "platform" },
   { name: "Title", key: "title" },
   { name: "Start Time", key: "start_at" },
   { name: "End Time", key: "end_at" },

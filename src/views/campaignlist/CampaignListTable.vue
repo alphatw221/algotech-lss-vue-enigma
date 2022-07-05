@@ -6,7 +6,7 @@
           <th class="text-center " v-for="column in tableColumns" :key="column.key">
             {{ column.name }}
           </th>
-          <th v-if="status === 'ongoing' || status === 'scheduled'" ></th>
+          <th v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" ></th>
         </tr>
       </thead>
       <tbody>
@@ -70,7 +70,7 @@
           </td>
           <td class="entry text-center w-fit">
             <button 
-              v-if="status === 'history'"
+              v-if="campaignStatus === 'history'"
               class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(index)">
               Histroy
             </button>
@@ -81,7 +81,7 @@
             </button>
           </td>
           <td
-            v-if="status === 'ongoing' || status === 'scheduled'" 
+            v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" 
             class="edit table-report__action w-fit">
               <Dropdown placement="bottom-start">
                 <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
@@ -91,7 +91,7 @@
                   <DropdownContent class="w-40 text-center">
                     <DropdownItem class="w-full whitespace-nowrap text-center" @click="router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})"> Edit </DropdownItem>
                     <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
-                    <!-- <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem> -->
+                    <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
