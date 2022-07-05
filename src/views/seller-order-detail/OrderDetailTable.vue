@@ -90,18 +90,21 @@ const tableColumns = ref([
 function update_qty(id,order_product_id,qty){
 	store.orderDetail.products[id].qty = qty
 	seller_update_product(route.params.order_id,order_product_id,qty).then(
-		eventBus.emit('getNewPrice')
-		
+		res =>{
+			store.orderDetail = res.data
+		}
 	)
 	console.log(qty)
 }
 function delete_product(order_product_id){
 	seller_delete_product(route.params.order_id,order_product_id).then(
 		res=>{
-			alert(res.data.message)
+			console.log(res.data)
+			
+			alert('deleted')
+			store.orderDetail = res.data
 		}
 	)
-	eventBus.emit('getNewPrice')
 }
 const props = defineProps({
   order_type: String

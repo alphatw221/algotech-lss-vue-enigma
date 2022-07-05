@@ -40,6 +40,6 @@ export const seller_retrieve_pre_order = (pre_order_id) => {
 }
 
 export const seller_adjust_price = (pre_order_id,data) => {
-    return createAxiosWithBearer().put(`/api/v2/pre_order/${pre_order_id}/seller/adjust`,data)
+    return createAxiosWithBearer().put(`/api/v2/pre_order/${pre_order_id}/seller/adjust/`,data)
 }
 
