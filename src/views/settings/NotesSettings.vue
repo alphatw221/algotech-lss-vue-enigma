@@ -108,7 +108,7 @@ const list = () => {
 const update = () => {
     console.log(deliveryNote.value)
     update_notes(deliveryNote.value, specialNote.value, confirmationNote.value).then(response => {
-        layoutStore.notification.showMessageToast("Update Success")
+        layoutStore.notification.showMessageToast("Update Successfully")
     }).catch(error =>
         layoutStore.alert.showMessageToast("Update Failed")
     )

@@ -1,10 +1,10 @@
 <template>
     <div class="box p-5 flex flex-col gap-5">
         <div class="flex justify-between">
-            <label class="text-lg mt-5"> Setup Auto Reply</label>
+            <label class="text-xl mt-5"> Setup Auto Reply</label>
             <button class="btn btn-warning btn-rounded w-24 h-10 mt-5 text-white "
                 @click="createModal = true; saved=false">
-                <span class="font-bold mr-1 text-lg">+</span> Create
+                <span class="font-bold mr-1 text-[16px]">+</span> Create
             </button>
         </div>
         <div class="overflow-x-auto">

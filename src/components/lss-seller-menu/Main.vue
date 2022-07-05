@@ -133,7 +133,7 @@
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
       <div class="content" >
-        <nav aria-label="breadcrumb" class="h-[24px] text-lg m-2">
+        <nav aria-label="breadcrumb" class="h-[24px] text-[15px] m-2">
           <ol class="breadcrumb breadcrumb-dark">
             <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
               <li v-if="crumb !== ''" class="breadcrumb-item"><a @click="pathName(crumb)">{{crumb}}</a></li>

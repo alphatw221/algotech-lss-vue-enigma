@@ -1,5 +1,6 @@
 <template>
 	<div class="box p-5 flex flex-col gap-5">
+		{{ $t('test1') }}
 		<div class="flex mt-4 mx-0 sm:mx-8 gap-5 flex-wrap justify-between"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
@@ -8,9 +9,9 @@
 				<label for="off"> Delisted</label>
 			</div>
 			<button 
-				type="button"
-				class="btn btn-primary h-10 self-end" 
-				@click="this.$router.push({name: 'add-product'})"
+            type="button"
+            class="btn btn-primary h-10 self-end" 
+            @click="router.push({name: 'add-product'})"
             >
                 Add Product
             </button>
@@ -44,7 +45,6 @@
 				:searchColumns="searchColumns"
 				:eventBusName="'searchDelistedTable'"
 				:showCategoryFilter="false"
-				
 			>
 			</SearchBar>	
 			<DataTable
@@ -67,9 +67,13 @@ import { ref, onMounted } from 'vue'
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import SearchBar from "./SearchBar.vue";
 import DataTable from "./DataTable.vue";
+import { useRoute, useRouter } from "vue-router"
 import { list_product_category } from '@/api_v2/product';
 
 const openTab = ref(1)
+
+const route = useRoute()
+const router = useRouter()
 
 const searchColumns = ref([
 	{ text: "Name", value: "name" },

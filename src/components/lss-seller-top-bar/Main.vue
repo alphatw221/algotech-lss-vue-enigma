@@ -1,34 +1,34 @@
 <template>
   <!-- BEGIN: Top Bar -->
   <div
-    class="lss-buyer-top-bar-boxed relative border-b border-white/[0.08]
-    h-[70px] z-[51] px-3 -mx-3 pt-4
+    class="lss-buyer-top-bar-boxed sticky top-0 border-b border-white/[0.08]
+    h-[70px] z-[51] px-6 -mx-3 pt-4
     sm:-mx-8 sm:px-8
     md:h-[65px] md:-mx-0 md:border-b-0 md:fixed md:inset-x-0 md:px-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent
     dark:md:from-darkmode-700"
   >
-    <div class="h-full flex items-center">
-
-
+    <div class="h-full w-full flex justify-between items-center">
 
       <!-- BEGIN: Hamburger -->
       <a @click="toggleMobileMenu()">
         <AlignJustifyIcon
-          class="w-7 h-7 text-white transform md:hidden intro-x ml-4 mb-1 hover:text-slate-300"
+          class="w-7 h-7 text-white transform md:hidden intro-x mb-1 hover:text-slate-300"
         />
       </a>
       <!-- END: Hamburger -->
 
       <!-- BEGIN: Logo -->
       <a href="" class="logo -intro-x block
-      w-20 mx-auto
-      sm:w-25 sm:mx-auto
-      md:flex md:w-30 md:mx-0
-      xl:w-35
+      w-20
+      sm:w-24
+      md:mr-auto
+      md:flex md:w-1/10 md:mx-0
+      xl:w-32 xl:ml-2
+
       ">
         <img
           alt="Enigma Tailwind HTML Admin Template"
-          class="logo__image mb-1"
+          class="logo__image mb-1 self-center"
           src="@/assets/images/lss-logo/LSS_logo_words_white.png"
         />
         <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
@@ -181,7 +181,7 @@
       </Dropdown> -->
       <!-- END: Notifications -->
       <!-- BEGIN: Account Menu -->
-      <Dropdown class="intro-x w-10 h-10 ml-auto mr-4 my-auto">
+      <Dropdown class="intro-x w-10 h-10">
         <DropdownToggle
           tag="div"
           role="button"

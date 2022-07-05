@@ -1,7 +1,7 @@
-<template>
-    <div  class="intro-y box p-10 m-5 text-sm lg:text-xl 2xl:text-xl" >
-        <div class="grid grid-cols-12 gap-5">
-            <div class="col-span-12 lg:col-span-8 2xl:col-span-8">
+<template> 
+    <div  class="intro-y box p-10 sm:p-12 text-sm lg:text-[16px]">
+        <div class="grid grid-cols-12 gap-5 w-[100%]">
+            <div class="col-span-12 sm:col-span-8 2xl:col-span-8">
                 <table class="w-full">
                     <thead>
                         <tr class="p-4">
@@ -9,10 +9,13 @@
                                 <span class="current_plan mr-2">{{ sellerLayoutStore.userInfo.user_subscription.type }}</span>
                                 <AwardIcon />
                             </th>
-                            <th> Joined : 
-                                <span class="align-right">
-                                    {{ new Date(sellerLayoutStore.userInfo.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
-                                </span>
+                            <th> 
+                                <div class="pl-4 flex flex-col lg:flex-row justify-start items-start " >
+                                    <div class="mr-1 " >Joined: </div>
+                                    <div>
+                                        {{ new Date(sellerLayoutStore.userInfo.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
+                                    </div>
+                                </div>
                             </th>
                         </tr>
                     </thead>
@@ -36,7 +39,7 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-span-12 lg:col-span-4 2xl:col-span-4 pa-10 mt-5 justify-self-center">
+            <div class="col-span-12 sm:col-span-4 2xl:col-span-4 pa-10 mt-5 justify-self-center">
                 <button class="btn btn-elevated-success capitalize text-white" @click="router.replace('lss/#/changeplan/payment')">
                     Change Plan</button>
             </div>

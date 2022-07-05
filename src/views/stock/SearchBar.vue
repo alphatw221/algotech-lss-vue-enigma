@@ -15,7 +15,7 @@
                 </select>
             </div>
             <div class="flex-initial w-fit items-center flex" >
-                <label class="mr-2 shrink whitespace-wrap lg:whitespace-nowrap">
+                <label class="mr-2 shrink whitespace-wrap sm:whitespace-nowrap">
                     Search by
                 </label>
                 <select
@@ -81,6 +81,7 @@ export default {
 			this.searchField = 'name';
 			this.keyword = '';
             this.selectedCategory=''
+            this.search();
 		}
 	}
 }

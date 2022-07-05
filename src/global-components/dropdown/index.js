@@ -14,11 +14,16 @@ const init = (el, { props, emit }) => {
   const dropdown = tailwind.Dropdown.getOrCreateInstance(el);
   setTimeout(() => {
     const isDropdownShowed = dom(el).find("[data-dropdown-replacer]").length;
+    // if(window.onblur){
+    //   dropdown.hide();
+    // }else if(window.onbeforeunload){
+    //   dropdown.hide();
+    // } else 
     if (props.show && !isDropdownShowed) {
       dropdown.show();
     } else if (!props.show && isDropdownShowed) {
       dropdown.hide();
-    }
+    } 
   });
 
   if (el["__initiated"] === undefined) {
@@ -38,6 +43,9 @@ const init = (el, { props, emit }) => {
 
     el.addEventListener("hidden.tw.dropdown", () => {
       emit("hidden");
+    });
+    el.addEventListener('onbeforeunload', () => {
+      emit("hide");
     });
   }
 };

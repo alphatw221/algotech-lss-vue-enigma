@@ -81,7 +81,7 @@ const updatePayment = () => {
     seller_update_payment(props.payment.key,paymentData.value).then(res=>{
         console.log(res.data)
         sellerStore.userInfo = res.data
-        sellerStore.notification.showMessageToast("Update Success")
+        sellerStore.notification.showMessageToast("Update Successfully")
     })
 }
 
