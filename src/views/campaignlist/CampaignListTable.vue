@@ -80,6 +80,7 @@
               Live On
             </button>
           </td>
+          {{ status }}
           <td
             v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" 
             class="edit table-report__action w-fit">
