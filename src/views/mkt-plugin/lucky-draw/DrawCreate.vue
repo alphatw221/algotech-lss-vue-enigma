@@ -1,4 +1,5 @@
 <template>
+    <div>
         <!-- BEGIN: commit box -->
         <form class="flex flex-col">
             <div class="mt-6 flex">
@@ -118,6 +119,7 @@
             <button class="btn btn-secondary mr-5" @click="router.back()"> Cancel</button>
             <button class="btn btn-primary" @click="save"> Save</button>
         </div>
+    </div>
 </template>
 
 <script setup>
@@ -175,18 +177,16 @@ const chooseAnimation = () => {
 
 }
 
-watch(computed(() => currentSettings.value.type),
-    ()=>{
-         if(currentSettings.value.type === 'keyword'){
-            currentSettings.value.keyword = ''
-        }else{
-            currentSettings.value.keyword = 'keyword'
-        }
-    }   
-),
+watch(computed(() => currentSettings.value.type), ()=>{
+    if (currentSettings.value.type === 'keyword'){
+        currentSettings.value.keyword = ''
+    } else {
+        currentSettings.value.keyword = 'keyword'
+    }
+}),
 
 onMounted(() => {
-    list_campaign_product(props.campaign_id).then(res => {
+    list_campaign_product(route.params.campaign_id).then(res => {
         console.log(res.data)
         for (var i =0; i < res.data.length; i++){
             if(res.data[i].type === "lucky_draw"){

@@ -29,11 +29,11 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   pageName: "Stock1",
       //   title: "Stock1",
       // },
-      {
-        icon: "CalendarIcon",
-        pageName: "create-campaign",
-        title: "Create Campaign",
-      },
+      // {
+      //   icon: "CalendarIcon",
+      //   pageName: "create-campaign",
+      //   title: "Create Campaign",
+      // },
       {
         icon: "ListIcon",
         pageName: "campaigns",

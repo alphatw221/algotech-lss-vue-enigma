@@ -39,10 +39,10 @@
 			</label>
 
 			<input 
-			class="form-control form-control-rounded w-fit flex-1 h-10"
-			type="text"
-			v-model="props.campaign.meta_logistic.free_delivery_for_how_many_order_minimum"
-		/>       
+				class="form-control form-control-rounded w-fit flex-1 h-10"
+				type="text"
+				v-model="props.campaign.meta_logistic.free_delivery_for_how_many_order_minimum"
+			/>       
 		</div> 
 		
 
