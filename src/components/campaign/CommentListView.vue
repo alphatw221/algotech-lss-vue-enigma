@@ -39,6 +39,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance, watch, computed} from 'vue'
 import { createCommentPaginator } from '@/api_v2/campaign_comment'
+import { get_summerize_comments } from "@/api/campaign_comment"
 import { useRoute, useRouter } from "vue-router"
 import ReplyModal from './modals/ReplyModal.vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -62,9 +63,13 @@ onMounted(()=>{
     eventBus.on("changeCommentData", (payload) => {
         updateComments()
     });
+    eventBus.on(`${props.platformName}_commentSummurizerTrigger`, (payload) => {
+        get_campaign_summerize_comments(payload.status);
+    });
 })
 
 onUnmounted(()=>{
+    eventBus.off(`${props.platformName}_commentSummurizerTrigger`)
 })
 
 const updateComments= () =>{
@@ -94,6 +99,17 @@ const showReplyBar =(e)=> {
     }else{
         layoutStore.alert.showMessageToast("This function is under developing...");
     }
+}
+
+const get_campaign_summerize_comments = (status) => {
+    get_summerize_comments(route.params.campaign_id, status)
+    .then((response) => {
+        console.log(response);
+        comments.value = response.data
+    })
+    .catch((error) => {
+        console.log(error);
+    });
 }
 
 </script>

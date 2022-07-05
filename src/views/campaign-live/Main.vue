@@ -17,7 +17,8 @@
 
 <script>
 
-import CampaignLiveTable from "@/components/table/CampaignLiveTable.vue";
+// import {campaign_comment_summarize} from '@/api/user';
+// import CampaignLiveTable from "@/components/table/CampaignLiveTable.vue";
 import LiveComments from '@/components/campaign/LiveComments.vue';
 import LiveProduct from '@/components/campaign/LiveProduct.vue';
 import IncomingOrder from '@/components/campaign/IncomingOrder.vue';
@@ -25,7 +26,7 @@ import IncomingOrder from '@/components/campaign/IncomingOrder.vue';
 
 export default {
     components: { 
-		CampaignLiveTable,
+		// CampaignLiveTable,
         LiveComments,
         LiveProduct,
         IncomingOrder,

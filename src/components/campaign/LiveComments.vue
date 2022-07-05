@@ -48,16 +48,16 @@
             </AccordionGroup>
             <div v-show="trigger" class="flex-none"></div>
             <div v-show="tagBox" class="col-start-1 col-span-12 -mt-3 -mb-6 flex-wrap">
-                <button class="btn btn-rounded-danger w-fit m-1" @click="status_change('Shipping')">
+                <button class="btn btn-rounded-danger w-fit m-1" @click="commentSummurizer('Shipping')">
                     <HashIcon class="w-4 h-4 mr-2" /> Shipping
                 </button>
-                <button class="btn btn-rounded-pending w-fit m-1" @click="status_change('Return')">
+                <button class="btn btn-rounded-pending w-fit m-1" @click="commentSummurizer('Return')">
                     <HashIcon class="w-4 h-4 mr-2" /> Return
                 </button>
-                <button class="btn btn-rounded-warning w-fit m-1" @click="status_change('Size')">
+                <button class="btn btn-rounded-warning w-fit m-1" @click="commentSummurizer('Size')">
                     <HashIcon class="w-4 h-4 mr-2" /> Size
                 </button>
-                <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="status_change('Undefined')">
+                <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="commentSummurizer('Undefined')">
                     <HashIcon class="w-4 h-4 mr-2" /> Undefined
                 </button>
                 <button class="btn btn-outline-none w-18" style="border: 0px; box-shadow: 0px"
@@ -145,7 +145,12 @@ export default {
             ],
             comment_results: {},
             campaign_id: this.$route.params.campaign_id,
-            comment_status: "Shipping",
+            comments: [
+                { name: "Image", key: "image" },
+                { name: "Name", key: "name" },
+                { name: "Comment id", key: "_id" },
+                { name: "message", key: "message" }
+            ],
             accessToken: this.$cookies.get('access_token'),
             webSocket: null,
             fb_video: '<video width="600" controls></video>',
@@ -165,9 +170,8 @@ export default {
         });
     },
     methods: {
-        status_change(status) {
-            this.comment_status = status;
-            this.eventBus.emit("commentStatus", { status: this.comment_status })
+        commentSummurizer(status) {
+            this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
         },
         get_all_comments() {
             console.log("get_all_comments")
