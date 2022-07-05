@@ -65,7 +65,12 @@
             <div class="grow h-fit m-3 overflow-y-auto scrollbar-hidden">
                 <TabPanels>
                     <template v-for="(platform_data, index) in comment_results" :key="index">
-                        <TabPanel>
+                        <div class="h-fit mt-1" :class="index">
+                            <TabPanel v-if="platform_data.comments">
+                                <CommentListView :platformName="index"/>
+                            </TabPanel>
+                        </div>
+                        <!-- <TabPanel v-else>
                             <div class="h-fit mt-1" :class="index">
                                 <template v-if="platform_data.comments">
                                     <div v-for="(reply, key) in platform_data.comments" :key="key"
@@ -91,7 +96,7 @@
                                     </div>
                                 </template>
                             </div>
-                        </TabPanel>
+                        </TabPanel> -->
                     </template>
                 <template v-if="showModal">
                     <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" :pageId="page_id"/>
@@ -106,12 +111,14 @@
 
 <script>
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
+import CommentListView from './CommentListView.vue';
 import ReplyModal from './modals/ReplyModal.vue';
 
 
 export default {
     components: {
-        ReplyModal
+        ReplyModal,
+        CommentListView,
     },
     props: {
         campaignId: Number

@@ -1,6 +1,6 @@
 <template>
     <div class="h-96 w-96 mt-1 overflow-y-scroll" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)">
-        <button @click="testing()">testing</button>
+        
         <div v-for="(comment, index) in comments" :key="index"
             class="intro-x cursor-pointer relative flex items-center m-1 p-2 box rounded-l-full"
             @click="showReplyModal(comment)">
@@ -69,3 +69,4 @@ const showReplyModal = comment=>{
 }
 
 </script>
+ 
