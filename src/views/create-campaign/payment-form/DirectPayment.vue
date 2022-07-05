@@ -35,12 +35,13 @@
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                    <label class="form-label col-start-1 col-span-9 lg:col-span-3 my-5">{{ field.name }}</label>
+                    <label class="form-label col-start-1 col-span-12 my-auto">{{ field.name }}
                     <input 
-                        class="form-control form-check-input col-span-1 lg:col-span-9 w-5/6 w-[1.5rem] h-[1.5rem]  my-5"
+                        class="form-control form-check-input col-span-1 w-[1.5rem] h-[1.5rem]  my-auto ml-2"
                         type="checkbox" 
                         v-model="account[field.key]"
                     />
+                    </label>
                 </template>
 
                 <template v-else-if="field.type === 'file'">
@@ -81,10 +82,10 @@
         </div>
 
         <button 
-            class="btn btn-primary col-start-5 w-24 inline-block text-base mb-5 mt-3"
+            class="btn btn-primary w-32 inline-block text-base mb-5 lg:mt-3 lg:mr-32 self-end"
             @click="addDirectPayment()"
         > 
-            Add 
+            + add more
         </button>
 
     </div>

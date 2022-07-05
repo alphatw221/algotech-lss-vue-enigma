@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-x-auto overflow-y-auto h-[500px]">
+    <div class="overflow-x-auto overflow-y-auto h-[67vh] sm:h-[62vh]">
         <table class="table table-report">
             <thead>
                 <tr>
@@ -10,18 +10,17 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(product, index) in productsList" :key="index" class="intro-x">
+                <tr v-for="(product, index) in productsList" :key="index" class="intro-x align-middle">
                     <template v-for="column in tableColumns" :key="column.key"> 
 
                         <td v-if="column.key === 'image'"
                             class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center imgtd"> 
                             <div class="flex items-center justify-center">
                                 <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12 place-items-center">
-                                    <Tippy 
-                                        tag="img" 
-                                        class="rounded-lg cursor-auto" 
+                                    <img 
+                                        class="rounded-lg cursor-auto"
+                                        data-action="zoom" 
                                         :src="product.image?storageUrl + product.image:storageUrl+'no_image.jpeg'"
-                                        :content="product.name"
                                     />
                                 </div>
                             </div>
@@ -78,13 +77,13 @@
                         </td>
 
                         <td v-else-if="column.key === 'price'"
-                            class="w-24 text-[12px] lg:w-24 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
+                            class="w-24 text-[12px] lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
                             <div>{{ product.currency_sign }} {{ product[column.key] }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'name'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center longMessage"> 
-                            <div class="w-fit">{{ product[column.key] }}</div>
+                            <div class="w-full">{{ product[column.key] }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'selected'"
@@ -439,6 +438,7 @@ thead th{
 		text-align: center !important;
 		box-shadow: none !important;
         font-size: 14px; 
+        vertical-align: middle;
 	}
 
 	td:before {
@@ -447,6 +447,7 @@ thead th{
 		width: 45%;
 		padding-right: 10px;
 		white-space: nowrap;
+        margin-top:10px;
 		font-weight: bold;
 		box-shadow: none !important;
 		background-color: white !important;
@@ -464,14 +465,28 @@ thead th{
 		/* color: #0e9893; */
 	}
 
-	td:nth-of-type(2):before {
-		content: "";
+    td:nth-of-type(2):before {
+		display:none; 
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(2){
+		display: inline-block;
+		width: 100% !important;
+		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(3):before {
-		content: "Product Name";
-        text-align: left !important;
+        display:none; 
+		/* content: "Product Name";
+        text-align: left !important; */
+		/* color: #0e9893; */
+	}
+    td:nth-of-type(3){
+		display: inline-block;
+        text-align: center !important;
+		width: 100% !important;
+		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
 
@@ -499,6 +514,7 @@ thead th{
 	}
 	td:nth-of-type(8):before {
 		content: "Price";
+        margin-top:0px !important;
         text-align: left !important;
 		/* color: #0e9893; */
 	}

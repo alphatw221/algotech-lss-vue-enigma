@@ -119,20 +119,20 @@
                 10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore
             </textarea>
 
-        <div class="col-span-12 flex justify-evenly">
-            <button 
-                class="btn btn-elevated-rounded-secondary text-base w-28 col-start-4 mt-5"
-                @click="discardDelivery"
-            >
-                Discard
-            </button>
-            <button 
-                class="btn btn-elevated-rounded-primary text-base w-28 col-start-6 mt-5"
-                @click="updateDelivery"
-            >
-                {{ upsertButtonName }}
-            </button>
-        </div>
+            <div class="col-span-12 flex justify-evenly">
+                <button 
+                    class="btn btn-elevated-rounded-secondary text-base w-28 col-start-4 mt-5"
+                    @click="discardDelivery"
+                >
+                    Discard
+                </button>
+                <button 
+                    class="btn btn-elevated-rounded-primary text-base w-28 col-start-6 mt-5"
+                    @click="updateDelivery"
+                >
+                    {{ upsertButtonName }}
+                </button>
+            </div>
         </div>        
     </div>
 </template>

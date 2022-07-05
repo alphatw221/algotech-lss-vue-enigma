@@ -14,24 +14,53 @@
                         <div class="flex items-left">
                             <div v-if="order[column.key] === 'facebook'"
                                 class="w-10 h-10 image-fit">
-                                <div class="w-10 h-10 image-fit">
-                                    <img src='/src/assets/images/lss-img/facebook.png' >
+                                <div class="w-12 h-12 flex-none image-fit mr-1" v-if="order.customer_img">
+                                    <img class="rounded-full" :src="order.customer_img"/>
+                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/facebook.png' >
+                                    </div>
+                                </div>
+                                <div class="w-12 h-12 flex-none image-fit mr-1" v-else>
+                                    <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/facebook.png' >
+                                    </div>
                                 </div>
                             </div>
                             <div v-else-if="order[column.key] === 'instagram'"
                                 class="w-10 h-10 image-fit">
-                                <div class="w-10 h-10 image-fit">
-                                    <img src='/src/assets/images/lss-img/instagram.png' />
+                                <div class="w-12 h-12 flex-none image-fit mr-1" v-if="order.customer_img">
+                                    <img class="rounded-full" :src="order.customer_img"/>
+                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/instagram.png' >
+                                    </div>
+                                </div>
+                                <div class="w-12 h-12 flex-none image-fit mr-1" v-else>
+                                    <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/instagram.png' >
+                                    </div>
                                 </div>
                             </div>
                             <div v-else-if="order[column.key] === 'youtube'"
                                 class="w-10 h-10 image-fit">
-                                <div class="w-10 h-10 image-fit">
-                                    <img src='/src/assets/images/lss-img/youtube.png' />
+                                <div class="w-12 h-12 flex-none image-fit mr-1" v-if="order.customer_img">
+                                    <img class="rounded-full" :src="order.customer_img"/>
+                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/youtube.png' >
+                                    </div>
+                                </div>
+                                <div class="w-12 h-12 flex-none image-fit mr-1" v-else>
+                                    <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/youtube.png' >
+                                    </div>
                                 </div>
                             </div>
                             <div v-else class="w-10 h-10 image-fit">
-                                
+                                <div class="w-12 h-12 flex-none image-fit mr-1">
+                                    <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                </div>
                             </div>
                         </div>
                     </template>
@@ -51,20 +80,6 @@
                                 <TruckIcon style="color:#BABABA"/>
                             </div>
                         </div>
-                    </template>
-                    <template v-else-if="column.key === 'customer_img'">
-                            <div class="flex flex-col items-left">
-                                <div class="w-10 h-10 image-fit zoom-in" v-if="order.customer_img">
-                                    <Tippy tag="img" class="rounded-full" 
-                                        :src="order.customer_img"
-                                        />
-                                </div>
-                                <div class="w-10 h-10 image-fit zoom-in" v-else>
-                                    <Tippy tag="img" class="rounded-full" 
-                                        :src="'/src/assets/images/lss-img/noname.png'"
-                                        />
-                                </div>
-                            </div>
                     </template>
                     <template v-else-if="column.key === 'customer_name'">
                         <template v-if="order.customer_name">
@@ -110,9 +125,8 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const columns = ref([
     { name: 'Order#', key: 'id' },
-    { name: 'Platform', key: 'platform' },
-    { name: '', key: 'customer_img' },
-    { name: 'Name', key: 'customer_name' },
+    { name: '', key: 'platform' },
+    { name: 'Customer', key: 'customer_name' },
     { name: 'Amount', key: 'subtotal' },
     { name: 'Payment', key: 'payment_method' },
     { name: 'Status', key: 'status' },

@@ -1,11 +1,11 @@
 <template>
-	<div class="flex flex-col gap-5" v-if="ready">
+	<div class="flex flex-col" v-if="ready">
 		<span class="text-lg my-4 ml-5">
 			<strong>Payment Details</strong> 
 		</span>
 		<div id="paymentDetails">
 			<AccordionGroup>
-				<div v-for="(payment,key,index) in props.campaign.meta_payment" :key="index" class="mx-3">
+				<div v-for="(payment,key,index) in props.campaign.meta_payment" :key="index" class="sm:mx-3">
 
 					<AccordionItem v-if="paymentStore[key] && key=='direct_payment'" class="items">
 						<Accordion class="bg-primary rounded-t-lg">
