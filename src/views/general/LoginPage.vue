@@ -40,14 +40,18 @@
             <div class="mt-5 flex flex-col items-center">
                 <div class="text-[16px]">No Account ? <a href="lss/#/registration/SG">Create one !</a></div>
             </div>
+            <!-- <div class="my-5 flex flex-col items-center">
+                <FacebookLoginButton />
+                <GoogleLoginButton /> 
+            </div> -->
         </div>
     </div>
 </template>
 
 <script setup>
 import { seller_general_login } from '@/api_v2/user';
-// import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
-// import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
+import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
+import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
 import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
 import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'

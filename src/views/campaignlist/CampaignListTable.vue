@@ -103,7 +103,7 @@
     <!-- BEGIN Empty Cart Text -->
 			<div class=" text-center mt-5 md:mt-10" v-if="numOfCampaigns==0">
 				<h1 class="text-slate-500 text-sm md:text-lg">
-					Your Have No {{props.tableName}} Campaign
+					You Have No {{props.tableName}} Campaign
 				</h1>
 			</div>
 	<!-- END Empty Cart Text -->
