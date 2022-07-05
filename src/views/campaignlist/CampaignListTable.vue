@@ -140,7 +140,7 @@ const props = defineProps({
 });
 
 const baseURL = import.meta.env.VITE_APP_ROOT_API
-const page= ref(1)
+const currentPage= ref(1)
 const totalPage= ref(1)
 const page_size= ref(10)
 const dataCount= ref(0)
@@ -156,7 +156,7 @@ onMounted(()=>{
   search();
 
   eventBus.on(props.tableName, (payload) => {
-    page.value = 1;
+    currentPage.value = 1;
     searchColumn.value = payload.searchColumn;
     keyword.value = payload.keyword;
     page_size.value = payload.pageSize;
@@ -172,7 +172,7 @@ onUnmounted(()=>{
 
 
 const search =()=>{
-      list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,page.value,page_size.value)
+      list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,page_size.value)
       .then((response) => {
           if (response.data.count != undefined) {
             dataCount.value = response.data.count;
@@ -184,7 +184,7 @@ const search =()=>{
     }
 
 const changePage = (page)=>{
-      page.value = page;
+      currentPage.value = page;
       search();
     }
 
