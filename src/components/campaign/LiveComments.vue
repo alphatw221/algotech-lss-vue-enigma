@@ -65,12 +65,15 @@
             <div class="grow h-fit m-3 overflow-y-auto scrollbar-hidden">
                 <TabPanels>
                     <template v-for="(platform_data, index) in comment_results" :key="index">
-                        <div class="h-fit mt-1" :class="index">
-                            <TabPanel v-if="platform_data.comments">
+                        <!-- <TabPanel v-if="fbTab === true" >
+                            <CommentListView :platformName="platform_data"/>
+                        </TabPanel> -->
+                        <TabPanel :class="index">
+                            <div class="h-fit mt-1" >
                                 <CommentListView :platformName="index"/>
-                            </TabPanel>
-                        </div>
-                        <!-- <TabPanel v-else>
+                            </div>
+                        </TabPanel>
+                        <!-- <TabPanel>
                             <div class="h-fit mt-1" :class="index">
                                 <template v-if="platform_data.comments">
                                     <div v-for="(reply, key) in platform_data.comments" :key="key"
