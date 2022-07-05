@@ -17,21 +17,21 @@
                 <Tippy tag="img" class="rounded-full border-0" :src="campaign.facebook_page.image"
                   :content="campaign.facebook_page.name" />
                   <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                      <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/facebook.png' >
+                      <img class="rounded-full bg-cover" :src="facebook_platform" >
                   </div>
               </div>
               <div class="flex-0 w-12 h-12 zoom-in" v-if="campaign.instagram_profile !== null">
                 <Tippy tag="img" class="rounded-full " :src="campaign.instagram_profile.image"
                   :content="campaign.instagram_profile.name" />
                 <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                      <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/instagram.png' >
+                      <img class="rounded-full bg-cover" :src="instagram_platform" >
                   </div>
               </div>
               <div class="flex-0 w-12 h-12 zoom-in" v-if="campaign.youtube_channel !== null">
                 <Tippy tag="img" class="rounded-full" :src="campaign.youtube_channel.image"
                   :content="campaign.youtube_channel.name" />
                   <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                      <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/youtube.png' >
+                      <img class="rounded-full bg-cover" :src="youtube_platform" >
                   </div>
               </div>
             </div>
