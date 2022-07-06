@@ -96,9 +96,9 @@ function update_modify_price(){
   modify_price.adjust_title = store.orderDetail.adjust_title
   modify_price.free_delivery = store.orderDetail.free_delivery
   if(store.modify_status === '-'){
-    modify_price.adjust_price = -(store.orderDetail.adjust_price)
+    modify_price.adjust_price = -parseFloat(store.orderDetail.adjust_price)
   }else{
-    modify_price.adjust_price = store.orderDetail.adjust_price
+    modify_price.adjust_price = parseFloat(store.orderDetail.adjust_price)
   }
 
   seller_adjust_price(route.params.order_id,modify_price).then(
