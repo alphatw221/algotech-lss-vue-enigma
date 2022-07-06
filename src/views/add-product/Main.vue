@@ -18,9 +18,9 @@
 					:class="{ 'border-danger text-danger border-2': validate.name.$error }" 
 				/>
 				<template v-if="validate.name.$error">
-						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
+					<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
 						Enter product name with no more than 50 digits
-						</label>
+					</label>
 				</template>
 			</div>
 			<div class="col-span-6">
@@ -67,11 +67,11 @@
 						<div class="text-slate-500">Max file size : 2MB</div>  
 					</div>
 					<input
-							type="file"
-							class="w-full h-full top-0 left-0 absolute opacity-0 border-6 cursor-pointer"
-							accept="image/jpeg" 
-							@change="uploadImage"
-						/>
+						type="file"
+						class="w-full h-full top-0 left-0 absolute opacity-0 border-6 cursor-pointer"
+						accept="image/jpeg" 
+						@change="uploadImage"
+					/>
 				</div>
 			</div>
 
@@ -212,7 +212,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
-import { required,minValue, integer, minLength, maxLength, decimal } from "@vuelidate/validators";
+import { required,minValue, integer, maxLength, decimal } from "@vuelidate/validators";
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
@@ -313,7 +313,7 @@ const cancelButton = () =>{
 const rules = computed(()=>{
     return{
 		name:{required,maxLength:maxLength(40)},
-		order_code: {required, maxLength:maxLength(10),minLength:minLength(3)},
+		order_code: {required, maxLength:maxLength(10)},
 		description: {maxLength: maxLength(100)},
 		qty: {integer},
 		price: {decimal},

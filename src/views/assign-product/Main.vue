@@ -43,25 +43,25 @@
 
 			<template v-if="route.name === 'assign-product'">
 				<div v-show="selectProduct" class="flex justify-end mt-5 -mb-5">
-					<button class="btn btn-outline-primary mr-5" @click="router.push({ name: 'edit-campaign', params: {campaign_id: route.params.campaign_id} })">
+					<button class="btn w-32 dark:border-darkmode-400" @click="router.push({ name: 'edit-campaign', params: {campaign_id: route.params.campaign_id} })">
 						Previous
 					</button>
-					<button class="btn btn-primary" @click="toConfirmPage"> 
+					<button class="btn btn-primary w-32 shadow-md ml-5" @click="toConfirmPage"> 
 						Next
 					</button>
 				</div>
 				<div v-show="comfirmProduct" class="flex justify-end mt-5 -mb-5">
-					<button class="btn btn-outline-primary mr-5" @click="comfirmProduct=false, selectProduct=true">
+					<button class="btn w-32 dark:border-darkmode-400" @click="comfirmProduct=false, selectProduct=true">
 						Edit
 					</button>
-					<button class="btn btn-primary" @click="assignProduct">
+					<button class="btn btn-primary w-32 shadow-md ml-5" @click="assignProduct">
 						Assign
 					</button>
 				</div>
 			</template>
 			<template v-if="route.name === 'edit-campaign-product'">
 				<div class="flex justify-end mt-5 -mb-5">
-					<button class="btn btn-outline-primary" @click="router.push({ name: 'campaigns' })">
+					<button class="btn btn-primary w-32 shadow-md ml-5" @click="router.push({ name: 'campaigns' })">
 						Save
 					</button>
 				</div>

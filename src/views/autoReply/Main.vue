@@ -52,10 +52,10 @@
         </ModalBody>
         <ModalFooter class="w-full flex">
             <button type="button" @click="createModal=false"
-                class="btn btn-outline-secondary w-20 mr-auto">
+                class="btn w-32 dark:border-darkmode-400">
                 Cancel
             </button>
-            <button type="button" @click="createAutoReply()" class="btn btn-primary w-20">Save</button>
+            <button type="button" @click="createAutoReply()" class="btn btn-primary w-32 shadow-md ml-5">Save</button>
         </ModalFooter>
     </Modal>
 </template>

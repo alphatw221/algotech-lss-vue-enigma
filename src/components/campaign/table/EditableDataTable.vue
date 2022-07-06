@@ -80,8 +80,8 @@
 			@on-page-size-change="changePageSize"
 		/>
 		<div>
-			<button type="button" class="btn bg-white hover:bg-gray-100 mr-1" @click="resetData">reset</button>
-			<button type="button" class="btn btn-primary mr-1" @click="submitData">Apply</button>
+			<button type="button" class="btn w-32 dark:border-darkmode-400" @click="resetData">reset</button>
+			<button type="button" class="btn btn-primary w-32 shadow-md ml-5" @click="submitData">Apply</button>
 		</div>
 		
 	</div> 

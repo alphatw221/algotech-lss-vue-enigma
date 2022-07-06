@@ -17,21 +17,21 @@
                 <Tippy tag="img" class="rounded-full border-0" :src="campaign.facebook_page.image"
                   :content="campaign.facebook_page.name" />
                   <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                      <img class="rounded-full bg-cover" :src="facebook_platform" >
+                      <img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
                   </div>
               </div>
               <div class="flex-0 w-12 h-12 zoom-in" v-if="campaign.instagram_profile !== null">
                 <Tippy tag="img" class="rounded-full " :src="campaign.instagram_profile.image"
                   :content="campaign.instagram_profile.name" />
                 <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                      <img class="rounded-full bg-cover" :src="instagram_platform" >
+                      <img class="rounded-full bg-[#d63376]" :src="instagram_platform" >
                   </div>
               </div>
               <div class="flex-0 w-12 h-12 zoom-in" v-if="campaign.youtube_channel !== null">
                 <Tippy tag="img" class="rounded-full" :src="campaign.youtube_channel.image"
                   :content="campaign.youtube_channel.name" />
                   <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                      <img class="rounded-full bg-cover" :src="youtube_platform" >
+                      <img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
                   </div>
               </div>
             </div>
@@ -59,7 +59,7 @@
             </a>
           </td>
           <td class="checkout items-center w-fit">
-            <div  v-if="status === 'history'" 
+            <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col form-check form-switch justify-center">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
               <div class="text-[14px] mt-2 sm:hidden"> Stop Checkout</div>
@@ -82,7 +82,6 @@
               Live On
             </button>
           </td>
-          {{ status }}
           <td
             v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" 
             class="edit table-report__action w-fit text-center">
@@ -150,7 +149,7 @@ const dataCount= ref(0)
 const searchColumn= ref('')
 const keyword= ref('')
 const order_by= ref("created_at")
-
+const checkout= ref(true)
 const layoutStore = useLSSSellerLayoutStore()
 
 const campaigns=ref([])

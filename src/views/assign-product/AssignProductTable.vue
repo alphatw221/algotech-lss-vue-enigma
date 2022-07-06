@@ -16,7 +16,7 @@
                         <td v-if="column.key === 'image'"
                             class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center imgtd"> 
                             <div class="flex items-center justify-center">
-                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12 place-items-center">
+                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <img 
                                         class="rounded-lg cursor-auto"
                                         data-action="zoom" 

@@ -258,7 +258,7 @@
           <a
             href="javascript:;"
             @click="this.addProductFromStock = !this.addProductFromStock"
-            class="btn btn-primary right-0"
+            class="btn btn-primary shadow-md right-0"
             >Add Product From Stock</a
           >
         </row>
