@@ -40,9 +40,15 @@
                     </Accordion>
                     <AccordionPanel
                         class="text-slate-600 dark:text-slate-500 leading-relaxed">
-                        <div v-html="fb_video" class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0" v-show="open_fb_video" />
-                        <div v-html="ig_video" class="-mt-2" v-show="open_ig_video" />
-                        <div v-html="yt_video" class="-mt-2" v-show="open_yt_video" />
+                        <div v-show="open_fb_video" class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0 border-0 overflow-hidden" >
+                            <video width="600" controls>
+                                <iframe :src="`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F&width=100%`" 
+                                scrolling="no" frameborder="0" allowfullscreen="true" 
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                            </video>
+                        </div>
+                        <div v-show="open_ig_video" v-html="ig_video" class="-mt-2" ></div>
+                        <div v-show="open_yt_video" v-html="yt_video" class="-mt-2"></div>
                     </AccordionPanel>
                 </AccordionItem>
             </AccordionGroup>
@@ -74,33 +80,6 @@
                                 <CommentListView :platformName="type"/>
                             </div>
                         </TabPanel>
-                        <!-- <TabPanel>
-                            <div class="h-fit mt-1" :class="index">
-                                <template v-if="platform_data.comments">
-                                    <div v-for="(reply, key) in platform_data.comments" :key="key"
-                                        class="intro-x cursor-pointer relative flex items-center m-1 p-2 box rounded-l-full"
-                                        @click="showReplyBar(reply)">
-                                        <Tippy class="rounded-full " content="Reply" theme='light'>
-                                            <div class="relative flex items-center w-full">
-                                                <div class="w-14 h-14 flex-none image-fit mr-1">
-                                                <img alt="" class="rounded-full zoom-in" :src="reply.image" />
-                                                </div>
-                                            
-                                                <div class="ml-2 overflow-hidden w-full">
-                                                    <div class="flex items-center">
-                                                        <a class="font-medium">{{ reply.customer_name }}</a>
-                                                        <div class="text-xs text-slate-400 ml-auto"></div>
-                                                    </div>
-                                                    <div class="text-slate-500 mt-0.5">
-                                                        {{ reply.message }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Tippy>
-                                    </div>
-                                </template>
-                            </div>
-                        </TabPanel> -->
                     </template>
                 </TabPanels>
             </div>
@@ -155,6 +134,7 @@ export default {
             open_ig_video: false,
             open_yt_video: false,
             page_id: '',
+            post_id: '', 
         };
     },
     mounted() {
@@ -181,9 +161,10 @@ export default {
                 Object.keys(res).forEach(v => {
                     if ((v === 'facebook' && res[v]['fully_setup'] === true)) {
                         this.fbTab = true
-                        this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 260)
+                        // this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 260)
                         this.platform.push('facebook')
                         this.page_id = res[v]['page_id']
+                        this.post_id = res[v]['post_id']
                     } else if ((v === 'instagram' && res[v]['fully_setup'] === true)) {
                         this.igTab = true
                         if (res[v]['media_url']) {
