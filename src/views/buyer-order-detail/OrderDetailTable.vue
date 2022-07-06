@@ -72,7 +72,7 @@ const tableColumns = ref([
 <style scoped>
   td{
     height: 28px !important;
-	padding-left: 20px !important;
+	  padding-left: 20px !important;
   }
 
   @media only screen and (max-width: 760px),

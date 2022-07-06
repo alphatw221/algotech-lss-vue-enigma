@@ -1,6 +1,6 @@
 <template>
-    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-10 h-10 body-middle" :class="{ hidden: showCommentLoding}"/>
-    <div class="overflow-y-auto" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)">
+    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" :class="{ hidden: showCommentLoding}"/>
+    <div class="h-fit overflow-y-auto" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)">
         
         <!-- <template> </template> -->
         <div v-for="(comment, index) in comments" :key="index"
@@ -16,7 +16,8 @@
             <Tippy class="rounded-full " content="Reply" theme='light'>
                 <div class="relative flex items-center w-full ">
                     <div class="w-14 h-14 flex-none image-fit mr-1">
-                    <img alt="" class="rounded-full zoom-in" :src="comment.image" />
+                    <img v-if="props.platformName !== 'instagram'" class="rounded-full zoom-in" :src="comment.image" />
+                    <img v-else class="rounded-full zoom-in" :src="igAvatar" />
                     </div>
                 
                     <div class="ml-2 overflow-hidden w-full">
@@ -44,6 +45,7 @@ import { get_summerize_comments } from "@/api/campaign_comment"
 import { useRoute, useRouter } from "vue-router"
 import ReplyModal from './modals/ReplyModal.vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
 
 const router = useRouter()
 const route = useRoute()
@@ -94,7 +96,6 @@ const handleScroll = event=>{
             comments.value = comments.value.concat(res.data.results)
             fetchingData = false
         })
-
     }
 }
 
@@ -127,8 +128,8 @@ const get_campaign_summerize_comments = (status) => {
 </script>
 <style scoped>
 .body-middle {
-    left: calc(50% - 50px);
-    top:50%;
+    left: calc(50% - 30px);
+    top:60%;
     z-index: 999;
 }
 </style>

@@ -9,8 +9,8 @@
             </h2>
         </ModalHeader>
         <ModalBody class="text-[16px]">
-            <div class="text-left">
-                <form class="flex flex-col p-2">
+            <div class="text-right">
+                <form class="flex flex-col p-2 text-left">
                     <div> <input type="checkbox" v-model="addProduct.save_to_stock"/> <span class="ml-2"> Save to Stock </span></div>
                     <label class="mt-5 mb-2">Product Name</label>
                     <input type="text" class="rounded-lg" 
@@ -18,7 +18,7 @@
                         :class="{ 'border-danger text-danger border-2': validate.name.$error }" />
                     <template v-if="validate.name.$error">
                           <label class="text-danger" >
-                            Please enter product name with no more than 40 digits
+                            product name required, with no more than 40 digits
                           </label>
                     </template>
 
@@ -36,7 +36,7 @@
                         :class="{ 'border-danger text-danger border-2': validate.order_code.$error }" />
                     <template v-if="validate.order_code.$error">
                           <label class="text-danger" >
-                            Please enter order code
+                            order code required
                           </label>
                     </template>
 
@@ -46,7 +46,7 @@
                         :class="{ 'border-danger text-danger border-2': validate.price.$error }" />
                     <template v-if="validate.price.$error">
                           <label class="text-danger" >
-                            Please enter product price
+                            price required
                           </label>
                     </template>
 
@@ -56,11 +56,11 @@
                         :class="{ 'border-danger text-danger border-2': validate.qty.$error }" />
                     <template v-if="validate.qty.$error">
                           <label class="text-danger" >
-                            Please enter product quantity above value of one 
+                            qty must be above 1 
                           </label>
                     </template>
                 </form>
-                <button class="btn btn-primary mt-10 ml-auto"
+                <button class="btn btn-primary mt-10 w-32 shadow-md"
                     @click="apply()" > Apply</button>
             </div>
         </ModalBody>
