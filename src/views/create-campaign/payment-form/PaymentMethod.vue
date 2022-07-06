@@ -17,7 +17,7 @@
             <template v-if="field.type === 'text' || field.type === 'password'">
                 <label  class="form-label col-start-1 col-span-12 lg:col-span-2 mt-5 lg:mt-0">{{ field.name }}</label>
                 <input 
-                    class="form-control form-control-rounded col-span-12 -mt-3 
+                    class="form-control  col-span-12 -mt-3 
                     lg:mt-0 lg:col-span-9 lg:w-5/6"
                     type="text" 
                     v-model="props.campaign.meta_payment[props.payment.key][field.key]"

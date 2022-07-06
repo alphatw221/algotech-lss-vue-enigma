@@ -5,7 +5,7 @@
 		</span>
 		<label class="col-start-1 col-span-12 lg:col-sapn-3 2xl:col-span-3 mt-2 text-base">Delivery Charge</label>
 		<input 
-			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4 text-base"
+			class="form-control col-span-12 lg:col-span-4 2xl:col-span-4 text-base"
 			type="text" 
 
 			:class="{ 'border-danger': charge_validate.delivery_charge.$error }"
@@ -26,7 +26,7 @@
 			<label class="col-span-2 ml-5 text-base">Free delivery for order above USD</label>
 		</div> 
 		<input 
-			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4" 
+			class="form-control col-span-12 lg:col-span-4 2xl:col-span-4" 
 			type="text" 
 			v-model="deliverySettings.free_delivery_for_order_above_price"
 		/>
@@ -39,7 +39,7 @@
 			<label class="col-span-2 ml-5 text-base">Free delivery for minimum order Qty</label>
 		</div> 
 		<input 
-			class="form-control-rounded col-span-12 lg:col-span-4 2xl:col-span-4"
+			class="form-control col-span-12 lg:col-span-4 2xl:col-span-4"
 			type="text"
 			v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
 		/>       
@@ -48,7 +48,7 @@
 		<div v-for="(value, index) in additional_delivery" class="col-span-12" :key="index">
 			<div class="grid grid-cols-12 gap-3 mt-3">
 				<input  
-					class="form-control-rounded col-start-1 col-span-12 lg:col-span-3 2xl:col-span-3 text-base"
+					class="form-control col-start-1 col-span-12 lg:col-span-3 2xl:col-span-3 text-base"
 					type="text" 
 					placeholder="express service name"
 					v-model="additional_delivery[index].title"
@@ -61,7 +61,7 @@
 					<option value="=">Replace delivery charge</option>
 				</select>
 				<input  
-					class="form-control-rounded col-span-12 lg:col-span-3 2xl:col-span-3 text-base"
+					class="form-control col-span-12 lg:col-span-3 2xl:col-span-3 text-base"
 					type="text" 
 					placeholder="express charge"
 					v-model="additional_delivery[index].price"
@@ -82,13 +82,13 @@
 			<div class="grid grid-cols-12 gap-3">
 				<label class="col-start-1 col-span-12 lg:col-span-3 2xl:col-span-3 2xl:col-start-1 mt-2 text-base">Pickup Store</label>
 				<input 
-					class="form-control-rounded col-span-12 lg:col-span-6 2xl:col-span-4 text-base"
+					class="form-control col-span-12 lg:col-span-6 2xl:col-span-4 text-base"
 					type="text"
 					v-model="branch[index].name" 
 				/>
 				<label class="col-start-1 col-span-12 lg:col-span-3 lg:col-start-1 2xl:col-span-3 2xl:col-start-1 mt-2 text-base">Pickup Address</label>
 				<input 
-					class="form-control-rounded col-span-12 lg:col-span-6 2xl:col-span-6 text-base"
+					class="form-control col-span-12 lg:col-span-6 2xl:col-span-6 text-base"
 					type="text" 
 					v-model="branch[index].address"
 				/>

@@ -8,26 +8,23 @@
             <div class="flex-none flex h-18">
                 <h2 class="text-lg font-medium mr-auto ml-5 my-auto">
                     Comments
-                    <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
-                        <FolderIcon />
-                    </button>
                 </h2>
                 <div class="my-4 mr-5">
                     <TabList class="nav-pills">
-                        <Tab v-show="allTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                        <Tab class=" w-8 h-8 pr-1 pl-0 mt-1" tag="button"
                             @click="allVideo()">
                             <font-awesome-icon icon="fa-regular fa-comments" class="m-1 -mt-1 h-5" />
                         </Tab>
-                        <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="this.open_fb_video = true; this.open_ig_video = false; this.open_yt_video = false;">
+                        <Tab v-show="fbTab" class=" w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                            @click="toggleTabs(1)" >
                             <FacebookIcon class="m-1 -mt-1" />
                         </Tab>
-                        <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="this.open_fb_video = false; this.open_ig_video = true; this.open_yt_video = false;">
+                        <Tab v-show="igTab" class=" w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                            @click="toggleTabs(2)">
                             <InstagramIcon class="m-1 -mt-1" />
                         </Tab>
-                        <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="this.open_fb_video = false; this.open_ig_video = false; this.open_yt_video = true;">
+                        <Tab v-show="ytTab" class=" w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                            @click="toggleTabs(3)">
                             <YoutubeIcon class="m-1 -mt-1" />
                         </Tab>
                     </TabList>
@@ -40,67 +37,59 @@
                     </Accordion>
                     <AccordionPanel
                         class="text-slate-600 dark:text-slate-500 leading-relaxed">
-                        <div v-html="fb_video" class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0" v-show="open_fb_video" />
-                        <div v-html="ig_video" class="-mt-2" v-show="open_ig_video" />
-                        <div v-html="yt_video" class="-mt-2" v-show="open_yt_video" />
+                        <!-- <div v-show="open_fb_video" class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0 border-0 overflow-hidden" >
+                            <video width="600" controls>
+                                <iframe :src="`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F&width=100%`" 
+                                scrolling="no" frameborder="0" allowfullscreen="true" 
+                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                            </video>
+                        </div> -->
+                        <div :class="{ hidden: openTab !== 1, block: openTab === 1 }" 
+                            v-html="fb_video" class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0"></div>
+                        <div :class="{ hidden: openTab !== 2, block: openTab === 2 }"
+                            v-html="ig_video" class="-mt-2" >
+                            </div>
+                        <div :class="{ hidden: openTab !== 3, block: openTab === 3 }"
+                            v-html="yt_video" class="-mt-2">
+                            </div>
                     </AccordionPanel>
                 </AccordionItem>
             </AccordionGroup>
             <div v-show="trigger" class="flex-none"></div>
-            <div v-show="tagBox" class="col-start-1 col-span-12 -mt-3 -mb-6 flex-wrap">
-                <button class="btn btn-rounded-danger w-fit m-1" @click="commentSummurizer('Shipping')">
-                    <HashIcon class="w-4 h-4 mr-2" /> Shipping
-                </button>
-                <button class="btn btn-rounded-pending w-fit m-1" @click="commentSummurizer('Return')">
-                    <HashIcon class="w-4 h-4 mr-2" /> Return
-                </button>
-                <button class="btn btn-rounded-warning w-fit m-1" @click="commentSummurizer('Size')">
-                    <HashIcon class="w-4 h-4 mr-2" /> Size
-                </button>
-                <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="commentSummurizer('Undefined')">
-                    <HashIcon class="w-4 h-4 mr-2" /> Undefined
-                </button>
-                <button class="btn btn-outline-none w-18" style="border: 0px; box-shadow: 0px"
-                    @click="this.tagBox = !this.tagBox">
-                    <XIcon class="w-4 h-4 mr-2" /> Clear 
-                </button>
-                <h2 class="p-2">{{ tags }}</h2>
-            </div>
-            <div class="grow h-fit m-3 overflow-y-auto scrollbar-hidden">
+            <div class="grow h-fit m-3 overflow-y-auto scrollbar-hidden bg-white">
                 <TabPanels>
                     <template v-for="(type, index) in platform" :key="index">
-                        <TabPanel :class="type">
+                        <TabPanel v-if="type === 'all'" :class="type" class="relative">
+                            <div class="flex-wrap justify-start z-50 sticky top-0 bg-white h-fit">
+                                <button class="btn btn-rounded-danger w-fit m-1" @click="commentSummurizer('Shipping')">
+                                    <HashIcon class="w-4 h-4 mr-2" /> Shipping
+                                </button>
+                                <button class="btn btn-rounded-pending w-fit m-1" @click="commentSummurizer('Return')">
+                                    <HashIcon class="w-4 h-4 mr-2" /> Return
+                                </button>
+                                <button class="btn btn-rounded-warning w-fit m-1" @click="commentSummurizer('Size')">
+                                    <HashIcon class="w-4 h-4 mr-2" /> Size
+                                </button>
+                                <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="commentSummurizer('Undefined')">
+                                    <HashIcon class="w-4 h-4 mr-2" /> Undefined
+                                </button>
+                                <div class="flex"> 
+                                    <h2 v-if="tags !== ''" class="p-1">Selected tag: {{ tags }}</h2>
+                                    <button class="w-18 flex text-slate-900 p-1 ml-auto"
+                                        @click="commentSummurizer('')">
+                                        <XIcon class="w-4 h-4" /> Clear 
+                                    </button> 
+                                </div>
+                            </div>
                             <div class="h-fit mt-1" >
                                 <CommentListView :platformName="type"/>
                             </div>
                         </TabPanel>
-                        <!-- <TabPanel>
-                            <div class="h-fit mt-1" :class="index">
-                                <template v-if="platform_data.comments">
-                                    <div v-for="(reply, key) in platform_data.comments" :key="key"
-                                        class="intro-x cursor-pointer relative flex items-center m-1 p-2 box rounded-l-full"
-                                        @click="showReplyBar(reply)">
-                                        <Tippy class="rounded-full " content="Reply" theme='light'>
-                                            <div class="relative flex items-center w-full">
-                                                <div class="w-14 h-14 flex-none image-fit mr-1">
-                                                <img alt="" class="rounded-full zoom-in" :src="reply.image" />
-                                                </div>
-                                            
-                                                <div class="ml-2 overflow-hidden w-full">
-                                                    <div class="flex items-center">
-                                                        <a class="font-medium">{{ reply.customer_name }}</a>
-                                                        <div class="text-xs text-slate-400 ml-auto"></div>
-                                                    </div>
-                                                    <div class="text-slate-500 mt-0.5">
-                                                        {{ reply.message }}
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </Tippy>
-                                    </div>
-                                </template>
+                        <TabPanel v-else :class="type">
+                            <div class="h-fit mt-1" >
+                                <CommentListView :platformName="type"/>
                             </div>
-                        </TabPanel> -->
+                        </TabPanel>
                     </template>
                 </TabPanels>
             </div>
@@ -126,15 +115,12 @@ export default {
     data() {
         return {
             platform: [],
-            fbTab: false,
-            igTab: false,
-            ytTab: false,
-            allTab: false,
             imagePath: import.meta.env.VITE_APP_IMG_URL,
             tags: "",
+            fbTab:false,
+            igTab:false,
+            ytTab:false,
             trigger: true,
-            tagBox: false,
-            currentTab: '',
             product_columns: [
                 { name: "Image", key: "image" },
                 { name: "Name", key: "name" },
@@ -143,35 +129,40 @@ export default {
                 { name: "Price", key: "price" },
                 { name: "Activate", key: "activate" },
             ],
-            comment_results: {},
-            campaign_id: this.$route.params.campaign_id,
             comments: [
                 { name: "Image", key: "image" },
                 { name: "Name", key: "name" },
                 { name: "Comment id", key: "_id" },
                 { name: "message", key: "message" }
             ],
+            campaign_id: this.$route.params.campaign_id,
             accessToken: this.$cookies.get('access_token'),
-            webSocket: null,
+            // webSocket: null,
             fb_video: '<video width="600" controls></video>',
             ig_video: '<video width="600" controls></video>',
             yt_video: '<video width="600" controls></video>',
-            open_fb_video: false,
-            open_ig_video: false,
-            open_yt_video: false,
             page_id: '',
+            post_id: '', 
+            openTab: 1,
         };
     },
     mounted() {
         this.get_all_comments()
         this.eventBus.on("changeCommentData", (payload) => {
             this.get_all_comments()
-            // this.comment_results[payload.platform]['comments'].unshift(payload)
         });
     },
     methods: {
+        toggleTabs(tabNumber){
+            this.openTab = tabNumber
+        },
         commentSummurizer(status) {
-            this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
+            this.tags = status
+            if(status === ''){
+                this.eventBus.emit("getbackNormalComments")
+            }else{
+                this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
+            }
         },
         get_all_comments() {
             console.log("get_all_comments")
@@ -179,15 +170,17 @@ export default {
                 return false
             }
             get_comments(this.campaign_id).then(res => {
-                this.comment_results = res.data
                 return res.data
             }).then(res => {
                 Object.keys(res).forEach(v => {
                     if ((v === 'facebook' && res[v]['fully_setup'] === true)) {
                         this.fbTab = true
+
                         this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 260)
+
                         this.platform.push('facebook')
                         this.page_id = res[v]['page_id']
+                        this.post_id = res[v]['post_id']
                     } else if ((v === 'instagram' && res[v]['fully_setup'] === true)) {
                         this.igTab = true
                         if (res[v]['media_url']) {
@@ -225,14 +218,14 @@ export default {
         allVideo(){
             for(const tab in this.platform){
                 if(tab === 'facebook'){
-                    this.open_fb_video = true; this.open_ig_video = false; this.open_yt_video = false;
+                    this.openTab = 1;
                     return
                 }else if(tab === 'instagram'){
-                    this.open_fb_video = false; this.open_ig_video = true; this.open_yt_video = false;
+                    this.openTab = 2;
                     return
                 }
                 else if(tab === 'youtube'){
-                    this.open_fb_video = false; this.open_ig_video = false; this.open_yt_video = true;
+                    this.openTab = 3;
                     return
                 }
             }

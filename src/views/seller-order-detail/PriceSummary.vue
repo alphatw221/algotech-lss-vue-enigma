@@ -35,10 +35,10 @@
             </div>
                 <div class="mt-3 grid grid-cols-12 gap-4 xl:m-5 2xl:m-5">
                         <div class="col-span-4">
-                            <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder="Display Name" v-model="store.orderDetail.adjust_title" />
+                            <input id="regular-form-2" type="text" class="form-control " placeholder="Display Name" v-model="store.orderDetail.adjust_title" />
                         </div>
                         <div class="col-span-4">
-                            <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder="Amount" v-model="store.orderDetail.adjust_price" />
+                            <input id="regular-form-2" type="text" class="form-control " placeholder="Amount" v-model="store.orderDetail.adjust_price" />
                         </div>
                         <div class="flex flex-row-reverse col-span-4">
                             <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">Update</button>
@@ -75,34 +75,48 @@
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { seller_adjust_price } from "@/api_v2/pre_order"
 import { useRoute, useRouter } from "vue-router";
-import {ref, watch, computed, getCurrentInstance} from "vue";
+import {ref, watch, computed} from "vue";
 
 const store = useSellerOrderStore();
 const route = useRoute();
 const router = useRouter();
-const internalInstance = getCurrentInstance()
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const props = defineProps({
   order_type: String
 })
 
+const modify_price = {
+  'adjust_title':'',
+  'adjust_price':0,
+  'free_delivery':false
+}
+
 
 function update_modify_price(){
-  store.modify_price.adjust_title = store.orderDetail.adjust_title
-  store.modify_price.free_delivery = store.orderDetail.free_delivery
+  modify_price.adjust_title = store.orderDetail.adjust_title
+  modify_price.free_delivery = store.orderDetail.free_delivery
   if(store.modify_status === '-'){
-    store.modify_price.adjust_price = -(store.orderDetail.adjust_price)
+    modify_price.adjust_price = -(store.orderDetail.adjust_price)
   }else{
-    store.modify_price.adjust_price = store.orderDetail.adjust_price
+    modify_price.adjust_price = store.orderDetail.adjust_price
   }
 
-  seller_adjust_price(route.params.order_id,store.modify_price).then(
+  seller_adjust_price(route.params.order_id,modify_price).then(
     res => {
       alert('Update')
-      eventBus.emit('getNewPrice')
+      store.orderDetail = res.data
+      show_adjust_price()
     }
   )
+}
+
+function show_adjust_price(){
+    if( store.orderDetail.adjust_price < 0 ){
+        store.modify_status = '-'
+        store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
+    }else{
+        store.modify_status = '+'
+    }
 }
 
 </script>

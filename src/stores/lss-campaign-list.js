@@ -4,22 +4,9 @@ import { ref } from "vue"
 export const useLSSCampaignListStore = defineStore("CampaignList", {
   state: () => ({
     campaignStatus:ref('scheduled'),
-    showRemindEnterPostIDModal:ref(false),
-    showEnterPostIDModal:ref(false),
     showInstantlyAddProductModal: ref(false), 
     showAddProductFromStockModal: ref(false), 
     campaign_id: ref(),
     campaign_title:ref(),
-    
-    searchScheduledCampaign:ref({
-      campaigns:[]
-    }),
-    searchHistoryCampaign:ref({
-      campaigns:[]
-    }),
-    searchOngoingCampaign:ref({
-      campaigns:[]
-    })
-
   }),
 });

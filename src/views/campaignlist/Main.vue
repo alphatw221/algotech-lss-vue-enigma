@@ -20,7 +20,7 @@
     <div class="flex-auto" v-show="campaignStatus=='scheduled'">
         <SearchBar 
           :searchColumns="searchColumns" 
-          :eventBusName="'searchScheduledCampaign'"
+          :eventBusName="'Scheduled'"
         /> 
         <CampaignListTable
           :tableColumns="tableColumns"
@@ -32,7 +32,7 @@
     <div class="flex-auto" v-show="campaignStatus=='history'">
         <SearchBar 
           :searchColumns="searchColumns" 
-          :eventBusName="'searchHistoryCampaign'"
+          :eventBusName="'History'"
         /> 
         <CampaignListTable
           :tableColumns="tableColumns"
@@ -44,7 +44,7 @@
     <div class="flex-auto" v-show="campaignStatus=='ongoing'">
         <SearchBar 
           :searchColumns="searchColumns" 
-          :eventBusName="'searchOngoingCampaign'"
+          :eventBusName="'Ongoing'"
         /> 
         <CampaignListTable
           :tableColumns="tableColumns"

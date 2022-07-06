@@ -105,18 +105,18 @@ onMounted(()=>{
   const list_campapign_product = isAnonymousUser?guest_list_campapign_product:buyer_list_campapign_product
 	list_campapign_product(route.params.pre_order_oid).then(
 		res => {
-			store.campaignProducts = res.data
-      console.log(res.data)
+			store.campaignProducts = res.data     
+      });
 		}
 	)
 
   const cart_list = isAnonymousUser?guest_cart_list:buyer_cart_list
 	cart_list(route.params.pre_order_oid).then(
 		res => {
-			store.cartProducts = res.data
-      console.log(res.data)
-		}
-	)
+      res.data.forEach(element => {
+        store.cartProducts[element.id] = element
+		  })
+      console.log(store.cartProducts)
 })
 
 watch(computed(()=>store.openTab),()=>{

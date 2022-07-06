@@ -5,7 +5,7 @@
 		<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
 			<div class="flex">
 				<label for="form-2" class="form-label -mb-3 mr-5 w-32 mt-2">Campaign Title</label>
-				<input id="form-2" type="text" class="form-control form-control-rounded" v-model="campaignTitle" />
+				<input id="form-2" type="text" class="form-control " v-model="campaignTitle" />
 			</div>
 		</div>
 

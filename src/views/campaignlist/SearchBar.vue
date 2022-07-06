@@ -22,10 +22,10 @@
                     Reset
                 </button>
 
-                <button id="tabulator-html-filter-reset" type="button"
-                    class="flex-none btn btn-primary w-16 h-10 sm:w-16 ml-2" @click="search">
+                <!-- <button id="tabulator-html-filter-reset" type="button"
+                    class="flex-none btn btn-primary w-16 h-10 sm:w-16 ml-2" @click="search()">
                     Go
-                </button>
+                </button> -->
 
             </div>
         </div>
