@@ -16,16 +16,16 @@
             <div class="w-auto items-center input-group">
                 <input id="tabulator-html-filter-value" type="text"
                     class=" w-auto h-10 rounded-md" placeholder="Search..."
-                    v-model="keyword" @keydown.enter.prevent="search" />
+                    v-model="keyword" @keydown.enter.prevent="search()" />
                 <button id="tabulator-html-filter-reset" type="button"
                     class="flex-none btn btn-secondary w-16 h-10 sm:w-16 ml-2" @click="reset">
                     Reset
                 </button>
 
-                <button id="tabulator-html-filter-reset" type="button"
-                    class="flex-none btn btn-primary w-16 h-10 sm:w-16 ml-2" @click="search">
+                <!-- <button id="tabulator-html-filter-reset" type="button"
+                    class="flex-none btn btn-primary w-16 h-10 sm:w-16 ml-2" @click="search()">
                     Go
-                </button>
+                </button> -->
 
             </div>
         </div>
