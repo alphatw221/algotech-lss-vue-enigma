@@ -36,6 +36,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue';
+
 const currentSettings = ref({
     campaign_id: '',
     prize: {
