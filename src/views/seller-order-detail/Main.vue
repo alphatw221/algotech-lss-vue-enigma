@@ -120,13 +120,6 @@ let refreshKey = true
 onMounted(()=>{
     // console.log(route.query.type)
     get_order()
-    eventBus.on("getNewPrice", (payload) => {
-		get_order()
-        refreshKey = !refreshKey
-	})
-})
-onUnmounted(()=>{
-    eventBus.off("getNewPrice")
 })
 
 function get_order(){
@@ -140,7 +133,9 @@ function get_order(){
     }else{
         seller_retrieve_order(route.params.order_id)
         .then(
-            res => { store.orderDetail = res.data }
+            res => { store.orderDetail = res.data
+                    store.modify_status = '+'
+            }
         )
     }
 }
