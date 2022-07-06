@@ -1,9 +1,11 @@
 <template>
-	<div class="overflow-x-auto overflow-y-auto h-[670px]">
-		<table class="table table-report mt-5 table-auto">
+<div class="relative"> 
+	<div class="overflow-auto h-[670px] text-[14px] mt-10">
+		<table class="table table-report h-[100%] w-[100%]">
 			<thead>
-				<tr >
-				<th><input class="form-check-input" type="checkbox" v-model="checkboxAll" @change="selectAll"/></th>
+				<tr>
+					<th class="w-10">
+						<input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="checkboxAll" @change="selectAll"/></th>
 					<th class="whitespace-normal truncate hover:text-clip" v-for="column in columns" :key="column.key">
 						{{ column.name }}
 					</th>
@@ -13,50 +15,55 @@
 				<tr
 					v-for="(product, product_index) in listItems"
 					:key="product_index"
-					class="intro-x"
-				>	
-					<td><input class="form-check-input" type="checkbox" :value="product.id" v-model="selected" @change="updateSelected(product)"/></td>
-					<td v-for="column in columns" :key="column.key" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm">
+					class="intro-x align-middle"
+				>
+					<td class="w-10">
+						<input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" :value="product.id" v-model="selected" @change="updateSelected(product)"/></td>
+					<td v-for="column in columns" :key="column.key" class="text-[14px]">
 						<template v-if="column.key === 'image'" >
 							<div class="flex">
-								<div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12">
-									<Tippy 
-										tag="img"
-										class="rounded-lg"
+								<div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12">
+									<img 
+										class="rounded-lg zoom-in"
 										:src= "`${publicPath}` + product.image"
-										:content="`Uploaded at`"
 									/>
 								</div>
 							</div>
 						</template>
 						<template v-else-if="column.key === 'order_code'">
-							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" type="text" v-model="product[column.key]" @change="checkOrderCode(product_index, column.key, product[column.key])" :class="{ error: highlightOrderCodeError(product_index, column.key) }"/>
+						<div class="flex flex-col">
+							<input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" @change="checkOrderCode(product_index, column.key, product[column.key])" :class="{ error: highlightOrderCodeError(product_index, column.key) }"/>
 							<label class="error_message" v-if="validateList[product_index][column.key]['required']">Required</label>
 							<label class="error_message" v-else-if="validateList[product_index][column.key]['duplicate_code']">Duplicate Order Code</label>
 							<label class="error_message" v-else-if="validateList[product_index][column.key]['used_in_campaign_products']">Already Used In Campaign Products</label>
 							<label class="error_message" v-else-if="validateList[product_index][column.key]['max_length_10']">Enter order code with no more than 10 digits</label>
+						</div>
 						</template>
 						<template v-else-if="column.key === 'category'" v-for="(tag,tag_index) in product['tag']" :key="tag_index">
 							<div>{{ tag }}</div> 
 						</template>
 						<template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
-							<input class="form-check-input w-full sm:w-32 2xl:e-full mt-2 sm:mt-0 sm:w-auto" min="1" :max="stockProducts[product_index]['qty']" type="number" v-model="product[column.key]" :class="{ error: checkMaxValue(product_index, column.key, 'max_value', product[column.key], stockProducts[product_index]['qty']) }"/>
+						<div class="flex flex-col">
+							<input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" :max="stockProducts[product_index]['qty']" type="number" v-model="product[column.key]" :class="{ error: checkMaxValue(product_index, column.key, 'max_value', product[column.key], stockProducts[product_index]['qty']) }"/>
 							<label class="error_message" v-if="validateList[product_index][column.key]['max_value']">exceed stock amount</label>
+						</div>
 						</template>
 						<template v-else-if="column.key === 'type'">
 							<select 
-								id="tabulator-html-filter-field"
-								class="form-select sm:w-30 2xl:e-full mt-2 sm:mt-0 sm:w-auto"
+								class="form-select w-auto mt-2 sm:mt-0"
 								v-model="product[column.key]"
 							>
 								<option v-for="(type, type_key) in product_type" :key="type_key" :value="type">{{ removeDash(type) }}</option>
 							</select> 
 						</template>
 						<template v-else-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
-							<input class="form-check-input" type="checkbox" v-model="product[column.key]"/>
+							<input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]"/>
+						</template>
+						<template v-else-if="column.key === 'price'">
+							<div class="truncate hover:text-clip z-10 w-20"> ${{product[column.key]}} </div>
 						</template>
 						<template v-else>
-							<div class="truncate hover:text-clip sm:w-25 lg:w-25 2xl:w-30"> {{product[column.key]}} </div>
+							<div class="break-word  w-24"> {{product[column.key]}} </div>
 						</template>
 					</td>
 				</tr>
@@ -78,7 +85,7 @@
 		</div>
 		
 	</div> 
-	
+</div>
 </template>
 
 <script setup>
@@ -199,7 +206,6 @@ const createValidationList = () => {
 			el[key] = new_obj
 		})
 	})
-
 }
 
 const highlightOrderCodeError = (index, key) => {
@@ -391,5 +397,28 @@ const resetData = () => {
 
 .error {
 	border-color: red;
+}
+.error_message{
+	background-color: white;
+	color: red;
+	position: absolute;
+	top:75%;
+}
+td {
+	height: auto !important;
+	width: max-content !important;
+    min-height: 50px;
+    border-collapse: collapse;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+}
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
+  background-color: theme("colors.secondary");
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 </style>

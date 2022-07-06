@@ -19,7 +19,7 @@
                 <template v-if="field.type === 'text'">
                     <label class="form-label col-start-1 col-span-12 lg:col-span-2 mt-5 lg:my-5">{{ field.name }}</label>
                     <input 
-                        class="form-control form-control-rounded col-span-12 lg:col-span-9 lg:w-5/6 -mt-3 lg:my-5 lg:h-12"
+                        class="form-control  col-span-12 lg:col-span-9 lg:w-5/6 -mt-3 lg:my-5 lg:h-12"
                         type="text" 
                         v-model="account[field.key]"
                     />

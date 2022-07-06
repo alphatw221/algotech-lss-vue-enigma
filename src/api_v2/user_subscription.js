@@ -20,3 +20,7 @@ export const seller_update_payment = (paymentKey,data) => {
 export const seller_update_delivery = (data) => {
     return createAxiosWithBearer().put(`/api/v2/user-subscription/delivery/`,data)
 }
+
+export const unbind_platform_instance = (platform_name, data) => {
+    return createAxiosWithBearer().put(`/api/user-subscription/platform/${platform_name}/unbind/`, data)
+}

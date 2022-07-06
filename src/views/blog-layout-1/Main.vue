@@ -165,7 +165,7 @@
           <div class="flex-1 relative text-slate-600">
             <input
               type="text"
-              class="form-control form-control-rounded border-transparent bg-slate-100 pr-10"
+              class="form-control  border-transparent bg-slate-100 pr-10"
               placeholder="Post a comment..."
             />
             <SmileIcon

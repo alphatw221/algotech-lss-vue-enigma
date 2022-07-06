@@ -1,4 +1,5 @@
 .lss-buyer-top-bar-boxed {
+    background-color: white;
     &.top-bar-boxed--simple-menu {
         .logo {
             @apply w-auto;

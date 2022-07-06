@@ -1,5 +1,5 @@
 <template>
-    <Button type="button" @click="checkLoginState">Connect with Facebook</Button>
+    <Button type="button" @click="checkLoginState">{{ props.buttonName }}</Button>
     
 </template>
 
@@ -12,6 +12,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const props = defineProps({
   busName: String,
+  buttonName: String
 });
 
 const is_activated_platform = ref(false)

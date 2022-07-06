@@ -8,7 +8,7 @@
             <div class="flex w-full m-3">
                 <h2 class="text-lg font-medium w-48 ml-5 mr-auto">Product</h2>
                 <Dropdown class="inline-block">
-                    <DropdownToggle class="btn btn-primary mr-6 w-40">
+                    <DropdownToggle class="btn btn-primary shadow-md mr-6 w-40">
                         Add Product
                     </DropdownToggle>
                     <DropdownMenu class="w-48">
@@ -23,12 +23,12 @@
                     </DropdownMenu>
                 </Dropdown>
             </div>
-            <div
-                class="overflow-auto scrollbar-hidden box h-full mt-1">
-                <table class="table">
-                    <thead class="text-white">
+            <div class="overflow-auto scrollbar-hidden">
+                <table class="table table-sm">
+                    <thead class="table-dark">
                         <tr>
-                            <th class="whitespace-nowrap truncate bg-dark hover:text-clip" v-for="column in product_columns" :key="column.key">
+                            <th class="whitespace-nowrap bg-dark" v-for="column in product_columns"
+                                :key="column.key">
                                 {{ column.name }}
                             </th>
                         </tr>

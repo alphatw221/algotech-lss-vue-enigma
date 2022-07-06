@@ -35,10 +35,10 @@
             </div>
                 <div class="mt-3 grid grid-cols-12 gap-4 xl:m-5 2xl:m-5">
                         <div class="col-span-4">
-                            <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder="Display Name" v-model="store.orderDetail.adjust_title" />
+                            <input id="regular-form-2" type="text" class="form-control " placeholder="Display Name" v-model="store.orderDetail.adjust_title" />
                         </div>
                         <div class="col-span-4">
-                            <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder="Amount" v-model="store.orderDetail.adjust_price" />
+                            <input id="regular-form-2" type="text" class="form-control " placeholder="Amount" v-model="store.orderDetail.adjust_price" />
                         </div>
                         <div class="flex flex-row-reverse col-span-4">
                             <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">Update</button>

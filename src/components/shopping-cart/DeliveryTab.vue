@@ -7,23 +7,23 @@
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2">First
                       Name</label>
                     <input id="regular-form-2" type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4"
+                      class="form-control   col-span-8 lg:col-span-4"
                       placeholder="" 
                       v-model="store.contact_info.shipping_first_name"/>
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2">Last
                       Name</label>
                     <input id="regular-form-2" type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4"
+                      class="form-control   col-span-8 lg:col-span-4"
                       placeholder=""
                       v-model="store.contact_info.shipping_last_name" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2">Email</label>
                     <input id="regular-form-2" type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4"
+                      class="form-control   col-span-8 lg:col-span-4"
                       placeholder=""
                       v-model="store.contact_info.shipping_email" />
                     <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2">Phone</label>
                     <input id="regular-form-2" type="text"
-                      class="form-control form-control-rounded col-span-8 lg:col-span-4"
+                      class="form-control   col-span-8 lg:col-span-4"
                       placeholder=""
                       v-model="store.contact_info.shipping_phone" />
                   </div>
@@ -54,16 +54,16 @@
                         <div class="grid grid-cols-12">
                           <div class="box p-8 intro-y col-span-12 gap-5">
                             <label for="regular-form-2" class="form-label my-2">Address</label>
-                            <input id="regular-form-2" type="text" class="form-control form-control-rounded"
+                            <input id="regular-form-2" type="text" class="form-control"
                               placeholder=""  v-model="store.shipping_info.delivery_info.shipping_address_1" />
                             <label for="regular-form-2" class="form-label my-2">City</label>
-                            <input id="regular-form-2" type="text" class="form-control form-control-rounded"
+                            <input id="regular-form-2" type="text" class="form-control"
                               placeholder=""  v-model="store.shipping_info.delivery_info.shipping_location" />
                             <label for="regular-form-2" class="form-label my-2">State</label>
-                            <input id="regular-form-2" type="text" class="form-control form-control-rounded"
+                            <input id="regular-form-2" type="text" class="form-control"
                               placeholder="" v-model="store.shipping_info.delivery_info.shipping_region" />
                             <label for="regular-form-2" class="form-label my-2">Postal Code</label>
-                            <input id="regular-form-2" type="text" class="form-control form-control-rounded"
+                            <input id="regular-form-2" type="text" class="form-control"
                               placeholder="" v-model="store.shipping_info.delivery_info.shipping_postcode" />
                           </div>
                           <!-- BEGIN Delivery Option -->

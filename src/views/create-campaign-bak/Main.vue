@@ -8,7 +8,7 @@
 				<div class="flex">
 					<label class="form-label -mb-3 w-32 mt-2 text-base">Title</label>
 					<input 
-						class="form-control form-control-rounded" 
+						class="form-control " 
 						type="text" 
 						:class="{ 'border-danger': title_validate.title.$error }"
 						v-model.trim="title_validate.title.$model"

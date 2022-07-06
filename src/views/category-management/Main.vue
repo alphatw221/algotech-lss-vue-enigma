@@ -45,9 +45,9 @@
                 <div class="mt-1">
                     <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{modalTitle}}</label>
                     <input v-if="editType == 'update'" id="regular-form-2" type="text"
-                        class="form-control form-control-rounded mt-3" placeholder="Category Name" disabled
+                        class="form-control mt-3" placeholder="Category Name" disabled
                         v-model="oldCategory" />
-                    <input id="regular-form-2" type="text" class="form-control form-control-rounded mt-3"
+                    <input id="regular-form-2" type="text" class="form-control mt-3"
                         placeholder="Category Name" v-model="categoryName" />
                 </div>
                 <button class="btn btn-secondary w-24 mr-1 mt-7" @click="showModal =false">Cancel</button>

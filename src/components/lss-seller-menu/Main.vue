@@ -216,4 +216,8 @@ const pathName=(value)=>{
   height: max-content;
 }
 
+.breadcrumb-item a{
+  color: #7c7c7c;
+}
+
 </style>

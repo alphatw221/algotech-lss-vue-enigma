@@ -5,7 +5,7 @@
 		<div class="col-start-1 col-span-12 mt-2 flex flex-wrap"> 
 			<label class="text-base whitespace-nowrap my-auto w-[19rem]">Delivery Charge</label>
 			<input 
-				class="form-control form-control-rounded h-10 w-fit flex-1"
+				class="form-control h-10 w-fit flex-1"
 				type="text" 
 				v-model="props.campaign.meta_logistic.delivery_charge"
 			/>
@@ -21,7 +21,7 @@
 				Free delivery for order above $
 			</label>
 			<input 
-				class="form-control form-control-rounded w-fit flex-1 h-10" 
+				class="form-control w-fit flex-1 h-10" 
 				type="text" 
 				v-model="props.campaign.meta_logistic.free_delivery_for_order_above_price"
 		/>
@@ -39,7 +39,7 @@
 			</label>
 
 			<input 
-				class="form-control form-control-rounded w-fit flex-1 h-10"
+				class="form-control w-fit flex-1 h-10"
 				type="text"
 				v-model="props.campaign.meta_logistic.free_delivery_for_how_many_order_minimum"
 			/>       
@@ -50,7 +50,7 @@
 		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
 			<div class="flex flex-col flex-wrap sm:flex-row gap-3 mt-5 sm:mt-0">
 				<input  
-					class="form-control form-control-rounded text-base w-full flex-1 sm:w-fit h-10"
+					class="form-control text-base w-full flex-1 sm:w-fit h-10"
 					type="text" 
 					placeholder="express service name"
 					v-model="option.title"
@@ -63,7 +63,7 @@
 					<option value="=">Replace delivery charge</option>
 				</select>
 				<input  
-					class="form-control form-control-rounded w-full flex-2 sm:w-fit h-10"
+					class="form-control w-full flex-2 sm:w-fit h-10"
 					type="text" 
 					placeholder="express charge"
 					v-model="option.price"
@@ -87,7 +87,7 @@
                     <div class="flex flex-col sm:flex-row gap-3">
                          <label class="text-base w-[8rem] lg:w-[12rem] my-auto">Pickup Store</label>
                         <input 
-                            class="form-control form-control-rounded text-base w-full sm:w-[12rem] h-10 -mt-2 sm:mt-0"
+                            class="form-control text-base w-full sm:w-[12rem] h-10 -mt-2 sm:mt-0"
                             type="text"
                             v-model="option.name" 
                         />
@@ -95,7 +95,7 @@
                     <div class="flex flex-col sm:flex-row flex-wrap gap-3">
                         <label class="text-base w-[8rem] lg:w-[12rem] my-auto">Pickup Address</label>
                         <input 
-                            class="form-control form-control-rounded text-base h-10 w-full flex-1 sm:max-w-[28rem] mr-5 -mt-2 sm:mt-0"
+                            class="form-control text-base h-10 w-full flex-1 sm:max-w-[28rem] mr-5 -mt-2 sm:mt-0"
                             type="text" 
                             v-model="option.address"
                         />
@@ -140,7 +140,7 @@ const props = defineProps({
 });
 
 const addDelivery = () =>{
-    props.campaign.meta_logistic.additional_delivery_options.push(additional_delivery_option)
+    props.campaign.meta_logistic.additional_delivery_options.push(Object.assign({},additional_delivery_option))
 }
 
 const deleteDelivery = index=>{ 
@@ -148,7 +148,7 @@ const deleteDelivery = index=>{
 }
 
 const addBranch = ()=>{
-    props.campaign.meta_logistic.pickup_options.push(branch_option)
+    props.campaign.meta_logistic.pickup_options.push(Object.assign({},branch_option))
 }
 const deleteBranch = index=>{
     props.campaign.meta_logistic.pickup_options.splice(index,1)
