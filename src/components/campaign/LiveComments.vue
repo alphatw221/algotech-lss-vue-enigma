@@ -8,26 +8,26 @@
             <div class="flex-none flex h-18">
                 <h2 class="text-lg font-medium mr-auto ml-5 my-auto">
                     Comments
-                    <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
+                    <!-- <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
                         <FolderIcon />
-                    </button>
+                    </button> -->
                 </h2>
                 <div class="my-4 mr-5">
                     <TabList class="nav-pills">
                         <Tab v-show="allTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="allVideo()">
+                            @click="allVideo(); this.tagBox = true;">
                             <font-awesome-icon icon="fa-regular fa-comments" class="m-1 -mt-1 h-5" />
                         </Tab>
                         <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="this.open_fb_video = true; this.open_ig_video = false; this.open_yt_video = false;">
+                            @click="this.open_fb_video = true; this.open_ig_video = false; this.open_yt_video = false;this.tagBox = false;">
                             <FacebookIcon class="m-1 -mt-1" />
                         </Tab>
                         <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="this.open_fb_video = false; this.open_ig_video = true; this.open_yt_video = false;">
+                            @click="this.open_fb_video = false; this.open_ig_video = true; this.open_yt_video = false;this.tagBox = false;">
                             <InstagramIcon class="m-1 -mt-1" />
                         </Tab>
                         <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="this.open_fb_video = false; this.open_ig_video = false; this.open_yt_video = true;">
+                            @click="this.open_fb_video = false; this.open_ig_video = false; this.open_yt_video = true;this.tagBox = false;">
                             <YoutubeIcon class="m-1 -mt-1" />
                         </Tab>
                     </TabList>
@@ -54,20 +54,20 @@
             </AccordionGroup>
             <div v-show="trigger" class="flex-none"></div>
             <div v-show="tagBox" class="col-start-1 col-span-12 -mt-3 -mb-6 flex-wrap">
-                <button class="btn btn-rounded-danger w-fit m-1" @click="status_change('Shipping')">
+                <button class="btn btn-rounded-danger w-fit m-1" @click="commentSummurizer('Shipping')">
                     <HashIcon class="w-4 h-4 mr-2" /> Shipping
                 </button>
-                <button class="btn btn-rounded-pending w-fit m-1" @click="status_change('Return')">
+                <button class="btn btn-rounded-pending w-fit m-1" @click="commentSummurizer('Return')">
                     <HashIcon class="w-4 h-4 mr-2" /> Return
                 </button>
-                <button class="btn btn-rounded-warning w-fit m-1" @click="status_change('Size')">
+                <button class="btn btn-rounded-warning w-fit m-1" @click="commentSummurizer('Size')">
                     <HashIcon class="w-4 h-4 mr-2" /> Size
                 </button>
-                <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="status_change('Undefined')">
+                <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="commentSummurizer('Undefined')">
                     <HashIcon class="w-4 h-4 mr-2" /> Undefined
                 </button>
                 <button class="btn btn-outline-none w-18" style="border: 0px; box-shadow: 0px"
-                    @click="this.tagBox = !this.tagBox">
+                    @click="getbackNormalComments()">
                     <XIcon class="w-4 h-4 mr-2" /> Clear 
                 </button>
                 <h2 class="p-2">{{ tags }}</h2>
@@ -124,7 +124,12 @@ export default {
             ],
             comment_results: {},
             campaign_id: this.$route.params.campaign_id,
-            comment_status: "Shipping",
+            comments: [
+                { name: "Image", key: "image" },
+                { name: "Name", key: "name" },
+                { name: "Comment id", key: "_id" },
+                { name: "message", key: "message" }
+            ],
             accessToken: this.$cookies.get('access_token'),
             webSocket: null,
             fb_video: '<video width="600" controls></video>',
@@ -145,9 +150,8 @@ export default {
         });
     },
     methods: {
-        status_change(status) {
-            this.comment_status = status;
-            this.eventBus.emit("commentStatus", { status: this.comment_status })
+        commentSummurizer(status) {
+            this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
         },
         get_all_comments() {
             console.log("get_all_comments")
@@ -177,6 +181,7 @@ export default {
                         this.platform.push('youtube')
                     } else {
                         this.allTab = true
+                        this.tagBox = true
                         this.platform.push('all')
                     }
                 })
@@ -213,6 +218,9 @@ export default {
                     return
                 }
             }
+        },
+        getbackNormalComments() {
+             this.eventBus.emit("getbackNormalComments")
         }
     }
 }
