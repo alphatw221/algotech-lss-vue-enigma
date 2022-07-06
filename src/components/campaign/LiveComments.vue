@@ -56,26 +56,26 @@
                 </AccordionItem>
             </AccordionGroup>
             <div v-show="trigger" class="flex-none"></div>
-            <div class="grow h-fit m-3 overflow-y-auto scrollbar-hidden">
+            <div class="grow h-fit m-3 overflow-y-auto scrollbar-hidden bg-white">
                 <TabPanels>
                     <template v-for="(type, index) in platform" :key="index">
                         <TabPanel v-if="type === 'all'" :class="type" class="relative">
-                            <div class="flex-wrap z-50 relative">
-                                <button class="btn btn-rounded-danger w-fit m-1 z-40 sticky top-0" @click="commentSummurizer('Shipping')">
+                            <div class="flex-wrap justify-start z-50 sticky top-0 bg-white h-fit">
+                                <button class="btn btn-rounded-danger w-fit m-1" @click="commentSummurizer('Shipping')">
                                     <HashIcon class="w-4 h-4 mr-2" /> Shipping
                                 </button>
-                                <button class="btn btn-rounded-pending w-fit m-1 sticky top-0" @click="commentSummurizer('Return')">
+                                <button class="btn btn-rounded-pending w-fit m-1" @click="commentSummurizer('Return')">
                                     <HashIcon class="w-4 h-4 mr-2" /> Return
                                 </button>
-                                <button class="btn btn-rounded-warning w-fit m-1 sticky top-0" @click="commentSummurizer('Size')">
+                                <button class="btn btn-rounded-warning w-fit m-1" @click="commentSummurizer('Size')">
                                     <HashIcon class="w-4 h-4 mr-2" /> Size
                                 </button>
-                                <button class="btn btn-rounded-dark w-fit h-10 m-1 sticky top-0" @click="commentSummurizer('Undefined')">
+                                <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="commentSummurizer('Undefined')">
                                     <HashIcon class="w-4 h-4 mr-2" /> Undefined
                                 </button>
-                                <div class="flex sticky top-0"> 
-                                    <h2 class="p-1 mr-auto">Selected tag: {{ tags }}</h2>
-                                    <button class="w-18 flex text-slate-900 p-1"
+                                <div class="flex"> 
+                                    <h2 v-if="tags !== ''" class="p-1">Selected tag: {{ tags }}</h2>
+                                    <button class="w-18 flex text-slate-900 p-1 ml-auto"
                                         @click="commentSummurizer('')">
                                         <XIcon class="w-4 h-4" /> Clear 
                                     </button> 
