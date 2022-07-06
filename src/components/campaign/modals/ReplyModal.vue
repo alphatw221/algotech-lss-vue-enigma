@@ -109,7 +109,7 @@ export default {
                 this.loopNestComment()
             }else{
                 clearInterval(this.dummy)
-                console.log('off')
+                // console.log('off')
                 this.show = false
             }
         }   
@@ -124,12 +124,12 @@ export default {
             nest_comment(this.campaignId,this.replyTo.id).then((response)=>{
                 this.nestComment = response.data[1].data
             })
-            console.log('run')
+            // console.log('run')
         },
         loopNestComment(){
             clearInterval(this.dummy)
             this.dummy = setInterval(()=>{
-                console.log('tick...')
+                // console.log('tick...')
                 nest_comment(this.campaignId,this.replyTo.id).then((response)=>{
                 this.nestComment = response.data[1].data
                 })
@@ -137,7 +137,7 @@ export default {
         },
         send(comment_id) {
             comment_on_comment(this.campaignId, comment_id, this.message).then((response) => {
-                console.log(response.data);
+                // console.log(response.data);
                 this.message=''
                 this.getNestComment()
             }).catch(error => {

@@ -21,7 +21,7 @@
                 
                     <div class="ml-2 overflow-hidden w-full">
                         <div class="flex items-center">
-                            <a class="font-medium text-sky-900 font-bold">{{ comment.customer_name }}</a>
+                            <a class="font-medium text-sky-900">{{ comment.customer_name }}</a>
                             <div class="text-xs text-slate-400 ml-auto"></div>
                         </div>
                         <div class="text-slate-900 mt-0.5">
