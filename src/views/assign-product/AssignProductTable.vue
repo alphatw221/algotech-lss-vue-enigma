@@ -220,7 +220,9 @@ onMounted(() => {
         category.value = payload.filterColumn
         search()
     })
-    eventBus.on("addProducts", () => { addProdcuts() })
+    eventBus.on("addProducts", () => { 
+        addProdcuts() 
+    })
 })
 
 onUnmounted(() => {

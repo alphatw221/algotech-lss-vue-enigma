@@ -1,21 +1,30 @@
 <template>
+    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-10 h-10 body-middle" :class="{ hidden: showCommentLoding}"/>
     <div class="overflow-y-auto" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)">
         
+        <!-- <template> </template> -->
         <div v-for="(comment, index) in comments" :key="index"
             class="intro-x cursor-pointer relative flex items-center m-1 p-2 box rounded-l-full"
-            @click="showReplyModal(comment)">
+            
+            :class="{
+                  'border-r-8 border-[#3c599b]': comment.platform === 'facebook',
+                  'border-r-8 border-[#d63376]': comment.platform === 'instagram',
+                  'border-r-8 border-[#f70000]': comment.platform === 'youtube',
+                }"
+            
+            @click="showReplyBar(comment)">
             <Tippy class="rounded-full " content="Reply" theme='light'>
-                <div class="relative flex items-center w-full">
+                <div class="relative flex items-center w-full ">
                     <div class="w-14 h-14 flex-none image-fit mr-1">
                     <img alt="" class="rounded-full zoom-in" :src="comment.image" />
                     </div>
                 
                     <div class="ml-2 overflow-hidden w-full">
                         <div class="flex items-center">
-                            <a class="font-medium">{{ comment.customer_name }}</a>
+                            <a class="font-medium text-sky-900 font-bold">{{ comment.customer_name }}</a>
                             <div class="text-xs text-slate-400 ml-auto"></div>
                         </div>
-                        <div class="text-slate-500 mt-0.5">
+                        <div class="text-slate-900 mt-0.5">
                             {{ comment.message }}
                         </div>
                     </div>
@@ -23,12 +32,18 @@
             </Tippy>
         </div>
     </div>
+    <template v-if="showModal">
+        <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" :pageId="page_id"/>
+    </template>
 </template>
 
 <script setup>
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance, watch, computed} from 'vue'
 import { createCommentPaginator } from '@/api_v2/campaign_comment'
+import { get_summerize_comments } from "@/api/campaign_comment"
 import { useRoute, useRouter } from "vue-router"
+import ReplyModal from './modals/ReplyModal.vue';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 const router = useRouter()
 const route = useRoute()
@@ -42,16 +57,35 @@ const props = defineProps({
 
 const commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName)
 const comments = ref([])
+const showCommentLoding = ref(true)
 
 let fetchingData = false
 onMounted(()=>{
-    commentPaginator.getData().then(res=>{
-        comments.value = res.data.results
-    })
+    updateComments()
+    eventBus.on("changeCommentData", (payload) => {
+        updateComments()
+    });
+    eventBus.on("getbackNormalComments", (payload) => {
+        updateComments()
+    });
+    eventBus.on(`${props.platformName}_commentSummurizerTrigger`, (payload) => {
+        get_campaign_summerize_comments(payload.status);
+    });
 })
 
 onUnmounted(()=>{
+    eventBus.off(`${props.platformName}_commentSummurizerTrigger`)
 })
+
+const updateComments= () =>{
+    showCommentLoding.value = false
+    commentPaginator.getData().then(res=>{
+        comments.value = res.data.results
+        showCommentLoding.value = true
+    }).catch(err=>{
+        showCommentLoding.value = true
+    })
+}
 
 const handleScroll = event=>{
     if(!fetchingData && event.target.scrollTop > ((event.target.scrollHeight*3)/4) && commentPaginator.gotNext){
@@ -64,9 +98,38 @@ const handleScroll = event=>{
     }
 }
 
-const showReplyModal = comment=>{
+const reply= ref([])
+const showModal= ref(false)
+const layoutStore = useLSSSellerLayoutStore();
+const showReplyBar =(e)=> {
+    reply.value = e;
+    if(reply.value.platform === 'facebook'){
+        showModal.value = true;
+    }else{
+        layoutStore.alert.showMessageToast("This function is under developing...");
+    }
+}
 
+const get_campaign_summerize_comments = (status) => {
+    showCommentLoding.value = false
+    get_summerize_comments(route.params.campaign_id, status)
+    .then((response) => {
+        console.log(response);
+        comments.value = response.data
+        showCommentLoding.value = true
+    })
+    .catch((error) => {
+        console.log(error);
+        showCommentLoding.value = true
+    });
 }
 
 </script>
+<style scoped>
+.body-middle {
+    left: calc(50% - 50px);
+    top:50%;
+    z-index: 999;
+}
+</style>
  

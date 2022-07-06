@@ -35,6 +35,7 @@ export default {
     },
     methods: {
         search() {
+            this.eventBus.emit("addProducts")
             this.eventBus.emit("assignTable", { filterColumn: this.filterColumn })
         },
     }

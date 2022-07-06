@@ -100,6 +100,7 @@ const toConfirmPage = () => {
 }
 
 const assignProduct = () => {
+	
 	eventBus.emit('confirmProducts')
 	
 	// 處理批次建立campaign product需要欄位

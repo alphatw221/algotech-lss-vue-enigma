@@ -13,7 +13,7 @@ export const campaign_list = () => {
 }
 
 export const get_summerize_comments = (campaign_id, status) => {
-    return createAxiosWithBearer().get(`/api/campaign-comment/summerize_comment/${campaign_id}/?tag=${status}`)
+    return createAxiosWithBearer().get(`/api/campaign-comment/${campaign_id}/summarize/?tag=${status}`)
 }
 export const get_comments = (campaign_id) => {
     return createAxiosWithBearer().get(`/api/campaign-comment/${campaign_id}/`)
