@@ -60,30 +60,32 @@
           </td>
           <td class="checkout items-center w-fit">
             <div  v-if="status === 'history'" 
-              class="flex form-check form-switch justify-center">
+              class="flex flex-col form-check form-switch justify-center">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
+              <div class="text-[14px] mt-2 sm:hidden"> Stop Checkout</div>
             </div>
             <div v-else
-              class="flex form-check form-switch justify-center">
+              class="flex flex-col form-check form-switch justify-center">
                <input @click="stop_checkout(campaign.id,$event.target.checked)" class="form-check-input mr-0 ml-3" type="checkbox" v-model="campaign.meta.allow_checkout"/>
+               <div class="text-[14px] mt-2 sm:hidden"> Stop Checkout</div>
             </div>
           </td>
-          <td class="entry text-center w-fit">
+          <td class="entry text-center w-fit entry">
             <button 
               v-if="campaignStatus === 'history'"
-              class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(index)">
+              class="btn btn-elevated-rounded-pending w-24 mr-1 sm:mb-2" @click="clickEntry(index)">
               Histroy
             </button>
             <button 
               v-else
-              class="btn btn-elevated-rounded-pending w-24 mr-1 mb-2" @click="clickEntry(index)">
+              class="btn btn-elevated-rounded-pending w-24 mr-1 sm:mb-2" @click="clickEntry(index)">
               Live On
             </button>
           </td>
           {{ status }}
           <td
             v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" 
-            class="edit table-report__action w-fit">
+            class="edit table-report__action w-fit text-center">
               <Dropdown placement="bottom-start">
                 <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
                   <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
@@ -314,12 +316,15 @@ thead th{
     box-shadow: none !important;
     background-color: white !important;
     text-align: left !important;
-
   }
 
   .fan_page:before {
-    content: "Fan Page";
+    display:none;
     /* color: #0e9893; */
+  }
+  .fan_page{
+    display: block;
+    padding-left: 0% !important;
   }
 
   .platform:before {
@@ -328,7 +333,12 @@ thead th{
   }
 
   .title:before {
-    content: "Title";
+    display:none;
+    /* color: #0e9893; */
+  }
+  .title {
+    display: block;
+    padding-left: 0% !important;
     /* color: #0e9893; */
   }
 
@@ -336,6 +346,7 @@ thead th{
     content: "Start Time";
     /* color: #0e9893; */
   }
+  
   .endDate:before {
     content: "End Time";
     /* color: #0e9893; */
@@ -347,12 +358,24 @@ thead th{
   }
 
   .checkout:before {
-    content: "Stop Checkout";
+    display: none;
     /* color: #0e9893; */
   }
-
-  .copyLink:before {
-    content: "Order Link";
+  .checkout{
+    display: inline-block;
+    padding-left: 0% !important;
+    width: 50%;
   }
+  .entry:before {
+		display: none;
+		/* Live on*/
+	}
+  .entry{
+		display: inline-block;
+    padding-left: 0% !important;
+    width: 50%;
+		/* color: #0e9893; */
+	}
+
 }
 </style>
