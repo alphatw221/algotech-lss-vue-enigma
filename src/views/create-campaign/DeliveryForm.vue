@@ -140,7 +140,7 @@ const props = defineProps({
 });
 
 const addDelivery = () =>{
-    props.campaign.meta_logistic.additional_delivery_options.push(additional_delivery_option)
+    props.campaign.meta_logistic.additional_delivery_options.push(Object.assign({},additional_delivery_option))
 }
 
 const deleteDelivery = index=>{ 
@@ -148,7 +148,7 @@ const deleteDelivery = index=>{
 }
 
 const addBranch = ()=>{
-    props.campaign.meta_logistic.pickup_options.push(branch_option)
+    props.campaign.meta_logistic.pickup_options.push(Object.assign({},branch_option))
 }
 const deleteBranch = index=>{
     props.campaign.meta_logistic.pickup_options.splice(index,1)

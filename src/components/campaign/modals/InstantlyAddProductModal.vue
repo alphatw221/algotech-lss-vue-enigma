@@ -11,7 +11,7 @@
         <ModalBody class="text-[16px]">
             <div class="text-right">
                 <form class="flex flex-col p-2 text-left">
-                    <div> <input type="checkbox" /> <span class="ml-2"> Save to Stock </span></div>
+                    <div> <input type="checkbox" v-model="addProduct.save_to_stock"/> <span class="ml-2"> Save to Stock </span></div>
                     <label class="mt-5 mb-2">Product Name</label>
                     <input type="text" class="rounded-lg" 
                         v-model="validate.name.$model"
@@ -32,9 +32,9 @@
 
                     <label class="mt-5 mb-2">order Code</label>
                     <input type="text" class="rounded-lg" 
-                        v-model="validate.code.$model"
-                        :class="{ 'border-danger text-danger border-2': validate.code.$error }" />
-                    <template v-if="validate.code.$error">
+                        v-model="validate.order_code.$model"
+                        :class="{ 'border-danger text-danger border-2': validate.order_code.$error }" />
+                    <template v-if="validate.order_code.$error">
                           <label class="text-danger" >
                             order code required
                           </label>
@@ -71,7 +71,7 @@
 
 import { ref, onMounted, computed,getCurrentInstance} from 'vue';
 import { useRoute, useRouter } from "vue-router";
-import { fast_add_product } from '@/api/campaign_product';
+import { fast_add_product } from '@/api_v2/campaign';
 import { list_product_category} from '@/api_v2/product';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
@@ -89,9 +89,10 @@ const categoryList = ref([])
 const campaign_id = route.params.campaign_id
 // const campaign_product = ref(productList.value)
 const addProduct = ref({
+    save_to_stock:false,
     name: '', 
     category: '',
-    code: '', 
+    order_code: '', 
     price: '', 
     qty: '',
     status: true, 
@@ -106,10 +107,11 @@ const list = () => {
 }
 
 const addtoCampaign =()=>{
-    fast_add_product(campaign_id,addProduct.value.code,addProduct.value.price,addProduct.value.qty ).then(
+    fast_add_product(campaign_id,addProduct.value ).then(
         response =>{
             console.log(response.data);
             eventBus.emit("addInstantProduct", response.data);
+            layoutStore.notification.showMessageToast("Successed")
         }
     ).catch(function (error) {
 		console.log(error);
@@ -123,7 +125,6 @@ const apply = ()=>{
         return
     }else 
     addtoCampaign()
-    layoutStore.notification.showMessageToast("Successed")
     store.showInstantlyAddProductModal = false
 }
 
@@ -134,7 +135,7 @@ onMounted(() => {
 const rules = computed(()=>{
     return{
         name:{required, maxLength: maxLength(40)},
-        code:{required, maxLength: maxLength(10)},
+        order_code:{required, maxLength: maxLength(10)},
         price:{required, decimal},
         qty: {required, minValue: minValue(1), integer}  
     }
