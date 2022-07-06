@@ -1,6 +1,9 @@
 <template>
-    <div v-show="showPages" class="border-2 rounded-lg p-5 mx-4 lg:mx-8 mb-8 flex flex-col">
-        <h4 class="text-lg">Youtube Fan Page</h4>
+    <div v-if="showPages" class="border-2 rounded-lg p-5 mx-4 lg:mx-8 mb-8 flex flex-col">
+        <div class="flex justify-between">
+            <h4 class="text-lg">Youtube Fan Page</h4>
+            <BindYoutubeChannelButton :busName="'addYoutubeChannels'" :buttonName="'Edit'"/>
+        </div>
         <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5">
             <div v-for="channel in youtubeChannels" :key="channel.id" class="flex-col flex text-center relative my-3 w-16 h-auto lg:w-28">
                 <img :src="channel.image"  class="rounded-full w-16 h-16 mx-auto lg:w-20 lg:h-20">
@@ -11,8 +14,8 @@
             </div>
         </div>
     </div>
-    <div v-show="showConnectButton">
-        <BindYoutubeChannelButton :busName="'addYoutubeChannels'"/>
+    <div v-if="showConnectButton">
+        <BindYoutubeChannelButton :busName="'addYoutubeChannels'" :buttonName="'Connect with YouTube'"/>
     </div>
 </template>
 <script setup>
