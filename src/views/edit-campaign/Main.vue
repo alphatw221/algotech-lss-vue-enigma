@@ -1,25 +1,29 @@
 <template>
-    <div class="box py-5 lg:p-10 2xl:p-10" v-if="ready">
-		<div class="box intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 ml-3">
-			<span class="col-start-1 col-span-12 text-2xl font-medium leading-none mb-2 mt-3">
-				Edit Campaign
-			</span>
-			<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
+    <div class="box p-5 flex flex-col gap-5 text-[16px]" v-if="ready">
+		<span class="text-xl mt-5"> Edit Campaign </span>
+		<div class="intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 ml-3">
+		<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6">
+			<div class="flex flex-col">
 				<div class="flex">
-					<label class="form-label -mb-3 w-32 mt-2 text-base">Title</label>
+					<label class="form-label w-20 text-base my-auto">Title</label>
 					<input 
-						class="form-control form-control-rounded" 
+						class="form-control h-10 w-full sm:w-[50%]"
 						type="text" 
 						:class="{ 'border-danger': title_validate.title.$error }"
 						v-model.trim="title_validate.title.$model"
 						@blur="title_validate.title.$touch" 
-					/>
-					
-				</div>
+						/>
+				</div> 
+				<template v-if="title_validate.title.$error">
+					<label class="text-danger text-[14px] ml-20">
+						Field is required
+					</label>
+				</template> 
 			</div>
+		</div>
 			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
-				<div class="flex">
-					<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2 text-base">Period</label>
+				<div class="flex flex-col sm:flex-row">
+					<label for="regular-form-2" class="form-label w-16 text-base my-auto">Period</label>
 					<v-date-picker class=" z-49" v-model="dateTimePicker" :timezone="''" mode="dateTime" is-range is-required>
 						<template v-slot="{ inputValue, inputEvents }">
 							<div class="flex justify-center items-center">
@@ -33,20 +37,13 @@
 					</v-date-picker>
 				</div>
 			</div>
-			<template v-if="title_validate.title.$error">
-				<label class="text-danger 2xl:col-start-2 xl:col-start-2 col-span-12 2xl:col-span-6 xl:col-span-6 mt-2 mb-3">
-					Please enter Campaign title
-				</label>
-			</template>
 		</div>
 
 		<DeliveryForm 
-			class="col-span-12" 
 			:campaign="campaignData"
 		/>
 
 		<PaymentForm 
-			class="col-span-12" 
 			:campaign="campaignData"
 			:directPaymentImages="directPaymentImages"
 		/>
@@ -55,7 +52,7 @@
 
 		<div class="mt-5 p-0 col-span-12 z-0">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="this.$router.push({ name: 'campaigns' })">
+				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="$router.push({ name: 'campaigns' })">
 					Cancel
 				</button>
 				<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="updateCampaign()">

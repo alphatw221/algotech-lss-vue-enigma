@@ -8,7 +8,7 @@
             Name</label>
             <div class="col-span-8 lg:col-span-4 2xl:col-span-4">
               <input id="regular-form-2" type="text"
-                class="form-control form-control-rounded col-span-8 lg:col-span-4 2xl:col-span-4" placeholder=""
+                class="form-control  col-span-8 lg:col-span-4 2xl:col-span-4" placeholder=""
                 :class="{ 'border-danger': reciever_validate.shipping_first_name.$error }"
                 v-model.trim="reciever_validate.shipping_first_name.$model" @blur="reciever_validate.shipping_first_name.$touch"/>
                 <template v-if="reciever_validate.shipping_first_name.$error">
@@ -23,7 +23,7 @@
             Name</label>
             <div class="col-span-8 lg:col-span-4 2xl:col-span-4">
               <input id="regular-form-2" type="text"
-                class="form-control form-control-rounded " placeholder=""
+                class="form-control  " placeholder=""
                 :class="{ 'border-danger': reciever_validate.shipping_last_name.$error }"
                 v-model.trim="reciever_validate.shipping_last_name.$model" />
                 <template v-if="reciever_validate.shipping_last_name.$error">
@@ -38,7 +38,7 @@
           <div class="col-span-8 lg:col-span-4 2xl:col-span-4">
               <input id="regular-form-2" type="email"
                 placeholder="example@gmail.com"
-                class="form-control form-control-rounded"
+                class="form-control "
                 :class="{ 'border-danger': reciever_validate.shipping_email.$error }"
                 v-model.trim="reciever_validate.shipping_email.$model" />
               <template v-if="reciever_validate.shipping_email.$error">
@@ -55,7 +55,7 @@
           <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
           <div class="col-span-8 lg:col-span-4 2xl:col-span-4">
           <input id="regular-form-2" type="tel"
-            class="form-control form-control-rounded " placeholder=""
+            class="form-control  " placeholder=""
             :class="{ 'border-danger': reciever_validate.shipping_phone.$error }"
             v-model.trim="reciever_validate.shipping_phone.$model" />
             <template v-if="reciever_validate.shipping_phone.$error">
@@ -99,7 +99,7 @@
                 <div class="p-8 intro-y col-span-12 gap-5">
                   <label for="regular-form-2" class="form-label my-2">Address</label>
                   <div>
-                  <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder=""
+                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
                     v-model.trim="delivery_validate.shipping_address_1.$model" />
                     <template v-if="delivery_validate.shipping_address_1.$error">
@@ -112,7 +112,7 @@
                   </div>
                   <label for="regular-form-2" class="form-label my-2">City</label>
                   <div>
-                  <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder=""
+                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_location.$error }"
                     v-model.trim="delivery_validate.shipping_location.$model" />
                   <template v-if="delivery_validate.shipping_location.$error">
@@ -125,7 +125,7 @@
                   </div>
                   <label for="regular-form-2" class="form-label my-2">State</label>
                   <div>
-                  <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder=""
+                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_region.$error }"
                     v-model.trim="delivery_validate.shipping_region.$model" />
                     <template v-if="delivery_validate.shipping_region.$error">
@@ -138,7 +138,7 @@
                   </div>
                   <label for="regular-form-2" class="form-label my-2">Postal Code</label>
                   <div>
-                  <input id="regular-form-2" type="text" class="form-control form-control-rounded" placeholder=""
+                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
                     v-model.trim="delivery_validate.shipping_postcode.$model" />
                     <template v-if="delivery_validate.shipping_postcode.$error">
