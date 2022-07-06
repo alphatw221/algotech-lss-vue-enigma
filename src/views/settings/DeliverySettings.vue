@@ -189,7 +189,7 @@ onMounted(() => {
 
 
 const addDelivery = () =>{
-    deliverySettings.value.additional_delivery_options.push(additional_delivery_option)
+    deliverySettings.value.additional_delivery_options.push( Object.assign({},additional_delivery_option) )
 }
 
 const deleteDelivery = index=>{ 
@@ -197,7 +197,7 @@ const deleteDelivery = index=>{
 }
 
 const addBranch = ()=>{
-    deliverySettings.value.pickup_options.push(branch_option)
+    deliverySettings.value.pickup_options.push( Object.assign({},branch_option) )
 }
 const deleteBranch = index=>{
     deliverySettings.value.pickup_options.splice(index,1)
