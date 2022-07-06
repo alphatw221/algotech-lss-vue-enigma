@@ -6,7 +6,8 @@
         <h2> {{store.campaign_title}}</h2>
     </div>
     <div v-if="drawlist='null'"> 
-    <DrawCreate :campaign_id="store.campaign_id" />
+        <DrawCreate :campaign_id="store.campaign_id" />
+        <DrawList /> 
     </div>
 
     <div v-else>
