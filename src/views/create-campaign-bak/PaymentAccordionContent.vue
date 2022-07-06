@@ -10,7 +10,7 @@
                 />
                 <label class="form-label ml-3 text-base mt-1 mr-3">Enable direct payment  /  Button name</label>
                 <input 
-                    class="form-control-rounded col-span-5"
+                    class="form-control col-span-5"
                     type="text" 
                     v-model="campaignStore.paymentSettings['direct_payment'].button_title"
                 />
@@ -25,7 +25,7 @@
                     <template v-if="field.type === 'text'">
                         <label class="form-label col-start-1 col-span-12 lg:col-span-3 2xl:col-span-3">{{ field.name }}</label>
                         <input 
-                            class="form-control-rounded col-span-7"
+                            class="form-control col-span-7"
                             type="text" 
                             v-model="account[field.key]"
                         />
@@ -99,7 +99,7 @@
                     <template v-if="field.type === 'text' || field.type === 'password'">
                         <label class="form-label col-start-1 col-span-12 lg:col-span-2 2xl:col-span-2">{{ field.name }}</label>
                         <input 
-                            class="form-control-rounded col-span-9 "
+                            class="form-control col-span-9 "
                             type="text" 
                             v-model="account[field.key]"
                         />

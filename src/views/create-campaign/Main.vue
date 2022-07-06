@@ -7,7 +7,7 @@
 					<div class="flex">
 						<label class="form-label w-20 text-base my-auto">Title</label>
 						<input 
-							class="form-control form-control-rounded h-10 w-full sm:w-[50%]" 
+							class="form-control  h-10 w-full sm:w-[50%]" 
 							type="text" 
 							:class="{ 'border-danger': title_validate.title.$error }"
 							v-model.trim="title_validate.title.$model"
@@ -53,7 +53,7 @@
 
 		<div class="mt-5 p-0 col-span-12 z-0">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="this.$router.push({ name: 'campaigns' })">
+				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="$router.push({ name: 'campaigns' })">
 					Cancel
 				</button>
 				<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="createCampaign()">
