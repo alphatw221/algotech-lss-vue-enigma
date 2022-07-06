@@ -8,26 +8,26 @@
             <div class="flex-none flex h-18">
                 <h2 class="text-lg font-medium mr-auto ml-5 my-auto">
                     Comments
-                    <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
+                    <!-- <button class="p-3" @click="this.tagBox = !this.tagBox; this.tags = '';">
                         <FolderIcon />
-                    </button>
+                    </button> -->
                 </h2>
                 <div class="my-4 mr-5">
                     <TabList class="nav-pills">
                         <Tab v-show="allTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="allVideo()">
+                            @click="allVideo(); this.tagBox = true;">
                             <font-awesome-icon icon="fa-regular fa-comments" class="m-1 -mt-1 h-5" />
                         </Tab>
                         <Tab v-show="fbTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="this.open_fb_video = true; this.open_ig_video = false; this.open_yt_video = false;">
+                            @click="this.open_fb_video = true; this.open_ig_video = false; this.open_yt_video = false;this.tagBox = false;">
                             <FacebookIcon class="m-1 -mt-1" />
                         </Tab>
                         <Tab v-show="igTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="this.open_fb_video = false; this.open_ig_video = true; this.open_yt_video = false;">
+                            @click="this.open_fb_video = false; this.open_ig_video = true; this.open_yt_video = false;this.tagBox = false;">
                             <InstagramIcon class="m-1 -mt-1" />
                         </Tab>
                         <Tab v-show="ytTab" class="tabSelect w-8 h-8 pr-1 pl-0 mt-1" tag="button"
-                            @click="this.open_fb_video = false; this.open_ig_video = false; this.open_yt_video = true;">
+                            @click="this.open_fb_video = false; this.open_ig_video = false; this.open_yt_video = true;this.tagBox = false;">
                             <YoutubeIcon class="m-1 -mt-1" />
                         </Tab>
                     </TabList>
@@ -200,6 +200,7 @@ export default {
                         this.platform.push('youtube')
                     } else {
                         this.allTab = true
+                        this.tagBox = true
                         this.platform.push('all')
                     }
                 })
