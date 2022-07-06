@@ -1,6 +1,5 @@
 <template>
-    <Button type="button" @click="handleAuthClick">Connect with YouTube</Button>
-    
+    <Button type="button" @click="handleAuthClick">{{ props.buttonName }}</Button>
     
 </template>
 
@@ -13,6 +12,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const props = defineProps({
   busName: String,
+  buttonName: String
 });
 
 const is_activated_platform = ref(false)
@@ -32,7 +32,7 @@ onMounted(()=>{
         // Get API key and client ID from API Console.
         // 'scope' field specifies space-delimited list of access scopes.
         gapi.auth2.init({
-            'clientId':import.meta.env.VITE_GOOGLE_OAUTH_CLIENT_ID,
+            'clientId':import.meta.env.VITE_GOOGLE_CLIENT_ID,
             'scope': SCOPE
         }).then(function () {
             GoogleAuth = gapi.auth2.getAuthInstance();
