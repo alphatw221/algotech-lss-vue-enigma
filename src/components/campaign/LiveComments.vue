@@ -7,7 +7,7 @@
         <div class="flex flex-col h-full">
             <div class="flex-none flex h-18">
                 <h2 class="text-lg font-medium mr-auto ml-5 my-auto">
-                    Comments
+                    Comments {{fbTab}}
                 </h2>
                 <div class="my-4 mr-5">
                     <TabList class="nav-pills">
@@ -37,21 +37,20 @@
                     </Accordion>
                     <AccordionPanel
                         class="text-slate-600 dark:text-slate-500 leading-relaxed">
-                        <!-- <div v-show="open_fb_video" class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0 border-0 overflow-hidden" >
+                        <!-- <div class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0 border-0 overflow-hidden"
+                            :class="{ hidden: openTab !== 1, block: openTab === 1 }" >
                             <video width="600" controls>
-                                <iframe :src="`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F&width=100%`" 
-                                scrolling="no" frameborder="0" allowfullscreen="true" 
-                                allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></iframe>
+                                <div :data-href="`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F`" 
+                                    scrolling="no" frameborder="0" allowfullscreen="true" height="720" width="1024"
+                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></div>
                             </video>
                         </div> -->
                         <div :class="{ hidden: openTab !== 1, block: openTab === 1 }" 
-                            v-html="fb_video" class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0"></div>
+                            v-html="fb_video" class="-mt-2 -mb-20 sm:-mb-5"></div>
                         <div :class="{ hidden: openTab !== 2, block: openTab === 2 }"
-                            v-html="ig_video" class="-mt-2" >
-                            </div>
+                            v-html="ig_video" class="-mt-2"></div>
                         <div :class="{ hidden: openTab !== 3, block: openTab === 3 }"
-                            v-html="yt_video" class="-mt-2">
-                            </div>
+                            v-html="yt_video" class="-mt-2"></div>
                     </AccordionPanel>
                 </AccordionItem>
             </AccordionGroup>
@@ -59,8 +58,8 @@
             <div class="grow h-fit m-3 overflow-y-auto scrollbar-hidden bg-white">
                 <TabPanels>
                     <template v-for="(type, index) in platform" :key="index">
-                        <TabPanel v-if="type === 'all'" :class="type" class="relative">
-                            <div class="flex-wrap justify-start z-50 sticky top-0 bg-white h-fit">
+                        <TabPanel v-if="type === 'all'" :class="type" class="relative bg-white">
+                            <div class="flex-wrap justify-start z-50 sticky -top-1 bg-white h-fit">
                                 <button class="btn btn-rounded-danger w-fit m-1" @click="commentSummurizer('Shipping')">
                                     <HashIcon class="w-4 h-4 mr-2" /> Shipping
                                 </button>
@@ -138,7 +137,7 @@ export default {
             campaign_id: this.$route.params.campaign_id,
             accessToken: this.$cookies.get('access_token'),
             // webSocket: null,
-            fb_video: '<video width="600" controls></video>',
+            fb_video: '<video width="600" height="400" controls></video>',
             ig_video: '<video width="600" controls></video>',
             yt_video: '<video width="600" controls></video>',
             page_id: '',
@@ -175,9 +174,8 @@ export default {
                 Object.keys(res).forEach(v => {
                     if ((v === 'facebook' && res[v]['fully_setup'] === true)) {
                         this.fbTab = true
-
+                        // window.FB.XFBML.parse();
                         this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 260)
-
                         this.platform.push('facebook')
                         this.page_id = res[v]['page_id']
                         this.post_id = res[v]['post_id']
@@ -192,7 +190,6 @@ export default {
                         this.yt_video = this.generate_yt_embed_url(res[v]['live_video_id'], '100%', 260)
                         this.platform.push('youtube')
                     } else {
-                        this.allTab = true
                         this.platform.push('all')
                     }
                 })

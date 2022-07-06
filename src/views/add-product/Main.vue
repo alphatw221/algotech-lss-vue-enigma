@@ -212,7 +212,7 @@ import { ref, onMounted, computed } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
-import { required,minValue, integer, minLength, maxLength, decimal } from "@vuelidate/validators";
+import { required,minValue, integer, maxLength, decimal } from "@vuelidate/validators";
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
@@ -313,7 +313,7 @@ const cancelButton = () =>{
 const rules = computed(()=>{
     return{
 		name:{required,maxLength:maxLength(40)},
-		order_code: {required, maxLength:maxLength(10),minLength:minLength(3)},
+		order_code: {required, maxLength:maxLength(10)},
 		description: {maxLength: maxLength(100)},
 		qty: {integer},
 		price: {decimal},

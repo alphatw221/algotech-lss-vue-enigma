@@ -58,8 +58,8 @@
             </div>
         </form>
         <div class="flex justify-end my-8">
-            <button class="btn btn-secondary mr-5" @click="$router.back()"> Cancel</button>
-            <button class="btn btn-primary" @click="save"> Save</button>
+            <button class="btn w-32 dark:border-darkmode-400" @click="$router.back()"> Cancel</button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="save"> Save</button>
         </div>
 
         <!-- Display Assigned Lucky Draw with For Loop -->

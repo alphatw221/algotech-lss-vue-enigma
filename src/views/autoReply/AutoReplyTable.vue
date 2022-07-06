@@ -72,10 +72,10 @@
 			</div> -->
 		</ModalBody>
 		<ModalFooter>
-			<button type="button" @click="updateModal = false" class="btn btn-outline-secondary w-20 mr-1">
+			<button type="button" @click="updateModal = false" class="btn w-32 dark:border-darkmode-400">
 				Cancel
 			</button>
-			<button type="button" @click="updateAutoReply(currentInfo.id, currentInfo)" class="btn btn-primary w-20">
+			<button type="button" @click="updateAutoReply(currentInfo.id, currentInfo)" class="btn btn-primary w-32 shadow-md ml-5">
 				Save
 			</button>
 		</ModalFooter>

@@ -10,7 +10,7 @@
 			</div>
 			<button 
             type="button"
-            class="btn btn-primary h-10 self-end" 
+            class="btn btn-primary shadow-md h-10 self-end" 
             @click="router.push({name: 'add-product'})"
             >
                 Add Product

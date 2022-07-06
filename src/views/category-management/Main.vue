@@ -50,8 +50,8 @@
                     <input id="regular-form-2" type="text" class="form-control mt-3"
                         placeholder="Category Name" v-model="categoryName" />
                 </div>
-                <button class="btn btn-secondary w-24 mr-1 mt-7" @click="showModal =false">Cancel</button>
-                <button class="btn btn-primary w-24 ml-7 mr-1 mt-7" @click="update()">Save</button>
+                <button class="btn w-32 dark:border-darkmode-400 mt-7" @click="showModal =false">Cancel</button>
+                <button class="btn btn-primary w-32 shadow-md ml-5 mt-7" @click="update()">Save</button>
             </ModalBody>
         </Modal>
     </div>
