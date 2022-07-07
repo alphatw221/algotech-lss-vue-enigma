@@ -1,13 +1,13 @@
 <template>
     <div v-if="ready" class="flex-col flex text-[16px] p-5 sm:p-10">
 
-        <div class="flex mt-5 sm:mt-0 ml-2">
+        <div class="flex mt-5 ml-2 sm:mt-0">
             <input 
                 class="form-control form-check-input ml-3 w-[1.2rem] h-[1.2rem]" 
                 type="checkbox" 
                 v-model=" props.campaign.meta_payment.direct_payment.enabled"
             />
-            <label class="form-label ml-3">Enabled</label>
+            <label class="ml-3 form-label">Enabled</label>
         </div>
 
         <div 
@@ -15,14 +15,14 @@
             v-for="(account, index_i) in props.campaign.meta_payment.direct_payment.v2_accounts" :key="index_i"
         >
             <div 
-                class="intro-y flex flex-col"
+                class="flex flex-col intro-y"
                 v-for="(field, index_j) in payment.fields" 
                 :key="index_j"
             >
                 <template v-if="field.type === 'text'">
                     <label class="mt-2 text-base">{{ field.name }}</label>
                     <input 
-                        class="form-control w-full"
+                        class="w-full form-control"
                         type="text" 
                         v-model="account[field.key]"
                     />
@@ -31,13 +31,13 @@
                 <template v-else-if="field.type === 'textarea'">
                     <label class="mt-2 text-base">{{ field.name }}</label>
                     <textarea 
-                        class="form-control p-2"
+                        class="p-2 form-control"
                         v-model="account[field.key]"
                     />
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                    <label class="form-label mt-2 text-base">{{ field.name }}
+                    <label class="mt-2 text-base form-label">{{ field.name }}
                     <input 
                         class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto ml-2"
                         type="checkbox" 
@@ -48,13 +48,13 @@
 
                 <template v-else-if="field.type === 'file'">
                     <label>Upload Image</label>
-                    <div class="border-2 border-dashed dark:border-darkmode-400 relative">
-                        <div class="px-4 items-center justify-center flex">
-                            <img :src="previewImages[index_i]" class="uploading-image h-60 object-cover" />
+                    <div class="relative border-2 border-dashed dark:border-darkmode-400">
+                        <div class="flex items-center justify-center px-4">
+                            <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
                         </div>
                         <div class="px-4 text-[1rem] sm:text-[16px] absolute top-20 text-center w-full flex flex-col items-center justify-center"
                             v-if="previewImages[index_i] === null">
-                            <div class="flex flex-col sm:flex-row items-center justify-center"> 
+                            <div class="flex flex-col items-center justify-center sm:flex-row"> 
                                 <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> 
                                 <strong class="text-slate-600">Upload a file or drag and drop</strong> 
                             </div>
@@ -63,7 +63,7 @@
                         </div>
                             <input
                                 type="file"
-                                class="w-full h-full top-0 left-0 absolute opacity-0"
+                                class="absolute top-0 left-0 w-full h-full opacity-0"
                                 accept="image/jpeg" 
                                 @change="uploadImage($event, index_i)"
                             />
@@ -73,7 +73,7 @@
             </div>
 
             <button 
-                class="btn btn-danger w-24 inline-block text-base my-5" 
+                class="inline-block w-24 my-5 text-base btn btn-danger" 
                 @click="deleteDirectPayment(index_i)"
             > 
                 Delete 
@@ -82,7 +82,7 @@
         </div>
 
         <button 
-            class="btn btn-primary w-32 inline-block text-base mb-5  sm:mt-3  sm:mr-32 self-end"
+            class="self-end inline-block w-32 mb-5 text-base btn btn-primary sm:mt-3 sm:mr-32"
             @click="addDirectPayment()"
         > 
             + add more
@@ -115,10 +115,8 @@ const previewImages = ref([])
 
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
-
     if(typeof props.campaign.meta_payment.direct_payment['enabled'] != 'boolean')props.campaign.meta_payment.direct_payment['enabled']=false
     if(!Array.isArray(props.campaign.meta_payment.direct_payment['v2_accounts']))props.campaign.meta_payment.direct_payment['v2_accounts']=[]
-
 
     props.campaign.meta_payment.direct_payment.v2_accounts.forEach(account => {
         previewImages.value.push(storageUrl+account.image)
@@ -134,7 +132,6 @@ const uploadImage = (event, index) =>{
 	reader.readAsDataURL(image);
 	reader.onload = event =>{ previewImages.value[index] = event.target.result };
 }
-
 
 const deleteDirectPayment = index=>{
     props.campaign.meta_payment.direct_payment.v2_accounts.splice(index,1)

@@ -5,87 +5,91 @@
             lg:col-span-5 lg:row-span-6 lg:mt-0 lg:h-[100%]
             2xl:col-span-4 ">
         <div class="flex flex-col h-full">
-            <div class="flex-none flex h-18">
-                <h2 class="text-lg font-medium mr-auto ml-5 my-auto">
+            <div class="flex flex-none h-18">
+                <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
                     Comments
                 </h2>
                 <div class="my-4 mr-5">
                     <TabList class="nav-pills">
-                        <Tab class=" w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                        <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
                             @click="allVideo()">
-                            <font-awesome-icon icon="fa-regular fa-comments" class="m-1 -mt-1 h-5" />
+                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" />
                         </Tab>
-                        <Tab v-show="fbTab" class=" w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                        <Tab v-show="fbTab" class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
                             @click="toggleTabs(1)" >
                             <FacebookIcon class="m-1 -mt-1" />
                         </Tab>
-                        <Tab v-show="igTab" class=" w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                        <Tab v-show="igTab" class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
                             @click="toggleTabs(2)">
                             <InstagramIcon class="m-1 -mt-1" />
                         </Tab>
-                        <Tab v-show="ytTab" class=" w-8 h-8 pr-1 pl-0 mt-1" tag="button"
+                        <Tab v-show="ytTab" class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
                             @click="toggleTabs(3)">
                             <YoutubeIcon class="m-1 -mt-1" />
                         </Tab>
                     </TabList>
                 </div>
             </div>
-            <AccordionGroup class="accordion-boxed flex-none h-fit">
+            <AccordionGroup v-if="ready" class="flex-none accordion-boxed h-fit">
                 <AccordionItem class="h-auto">
-                    <Accordion class="bg-primary rounded-lg">
-                        <div class="w-full flex justify-end"> <PlusIcon class="text-white mx-5 -mt-2" /> </div>
+                    <Accordion class="rounded-lg bg-primary">
+                        <div class="flex justify-end w-full"> <PlusIcon class="mx-5 -mt-2 text-white" /> </div>
                     </Accordion>
                     <AccordionPanel
-                        class="text-slate-600 dark:text-slate-500 leading-relaxed">
-                        <!-- <div class="-mt-2 -mb-20 sm:-mb-10 2xl:mb-0 border-0 overflow-hidden"
-                            :class="{ hidden: openTab !== 1, block: openTab === 1 }" >
-                            <video width="600" controls>
-                                <div :data-href="`https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F`" 
-                                    scrolling="no" frameborder="0" allowfullscreen="true" height="720" width="1024"
-                                    allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share"></div>
-                            </video>
-                        </div> -->
-                        <div :class="{ hidden: openTab !== 1, block: openTab === 1 }" 
-                            v-html="fb_video" class="-mt-2 -mb-20 sm:-mb-5"></div>
-                        <div :class="{ hidden: openTab !== 2, block: openTab === 2 }"
-                            v-html="ig_video" class="-mt-2"></div>
-                        <div :class="{ hidden: openTab !== 3, block: openTab === 3 }"
-                            v-html="yt_video" class="-mt-2"></div>
+                        class="w-full leading-relaxed text-slate-600 dark:text-slate-500">
+                        <iframe
+                            :class="{ hidden: openTab !== 1, block: openTab === 1 }"
+                            :src="`https://www.facebook.com/plugins/video.php?allowfullscreen=true&autoplay=true&href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F&width=auto`" 
+                                scrolling="no" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                        </iframe> 
+                        <!-- <div :class="{ hidden: openTab !== 2, block: openTab === 2 }"
+                            v-html="ig_video" class="-mt-2"></div> -->
+                        <iframe 
+                            :class="{ hidden: openTab !== 2, block: openTab === 2 }"
+                            v-if="igMedia !== '' && igMedia !== null" data-platform="yt" :src="igMedia" scrolling="no" frameborder="0" allow="accelerometer;
+                            autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+                        <video :class="{ hidden: openTab !== 2, block: openTab === 2 }"
+                            v-else width="600" class="-mt-1" controls></video>
+                        <iframe 
+                            :class="{ hidden: openTab !== 3, block: openTab === 3 }"
+                            data-platform="yt" :src="`https://www.youtube.com/embed/${live_video_id}`"
+                            width="auto" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
+                            autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                        </iframe>
                     </AccordionPanel>
                 </AccordionItem>
             </AccordionGroup>
-            <div v-show="trigger" class="flex-none"></div>
-            <div class="grow h-fit m-3 overflow-y-auto scrollbar-hidden bg-white">
+            <div class="m-3 overflow-y-auto bg-white grow h-fit scrollbar-hidden">
                 <TabPanels>
                     <template v-for="(type, index) in platform" :key="index">
                         <TabPanel v-if="type === 'all'" :class="type" class="relative bg-white">
-                            <div class="flex-wrap justify-start z-50 sticky -top-1 bg-white h-fit">
-                                <button class="btn btn-rounded-danger w-fit m-1" @click="commentSummurizer('Shipping')">
+                            <div class="sticky z-50 flex-wrap justify-start bg-white -top-1 h-fit">
+                                <button class="m-1 shadow-sm btn btn-danger w-fit tags" @click="commentSummurizer('Shipping')">
                                     <HashIcon class="w-4 h-4 mr-2" /> Shipping
                                 </button>
-                                <button class="btn btn-rounded-pending w-fit m-1" @click="commentSummurizer('Return')">
+                                <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummurizer('Return')">
                                     <HashIcon class="w-4 h-4 mr-2" /> Return
                                 </button>
-                                <button class="btn btn-rounded-warning w-fit m-1" @click="commentSummurizer('Size')">
+                                <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummurizer('Size')">
                                     <HashIcon class="w-4 h-4 mr-2" /> Size
                                 </button>
-                                <button class="btn btn-rounded-dark w-fit h-10 m-1" @click="commentSummurizer('Undefined')">
+                                <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummurizer('Undefined')">
                                     <HashIcon class="w-4 h-4 mr-2" /> Undefined
                                 </button>
                                 <div class="flex"> 
                                     <h2 v-if="tags !== ''" class="p-1">Selected tag: {{ tags }}</h2>
-                                    <button class="w-18 flex text-slate-900 p-1 ml-auto"
+                                    <button class="flex p-1 ml-auto w-18 text-slate-900"
                                         @click="commentSummurizer('')">
                                         <XIcon class="w-4 h-4" /> Clear 
                                     </button> 
                                 </div>
                             </div>
-                            <div class="h-fit mt-1" >
-                                <CommentListView :platformName="type"/>
+                            <div class="mt-1 h-fit" >
+                                <CommentListView :platformName="type" :pageId="page_id" />
                             </div>
                         </TabPanel>
                         <TabPanel v-else :class="type">
-                            <div class="h-fit mt-1" >
+                            <div class="mt-1 h-fit" >
                                 <CommentListView :platformName="type"/>
                             </div>
                         </TabPanel>
@@ -116,10 +120,10 @@ export default {
             platform: [],
             imagePath: import.meta.env.VITE_APP_IMG_URL,
             tags: "",
+            ready:false,
             fbTab:false,
             igTab:false,
             ytTab:false,
-            trigger: true,
             product_columns: [
                 { name: "Image", key: "image" },
                 { name: "Name", key: "name" },
@@ -136,12 +140,11 @@ export default {
             ],
             campaign_id: this.$route.params.campaign_id,
             accessToken: this.$cookies.get('access_token'),
-            // webSocket: null,
-            fb_video: '<video width="600" height="400" controls></video>',
             ig_video: '<video width="600" controls></video>',
-            yt_video: '<video width="600" controls></video>',
+            yt_live: '',
             page_id: '',
-            post_id: '', 
+            post_id: '',
+            igMedia: '', 
             openTab: 1,
         };
     },
@@ -164,48 +167,44 @@ export default {
             }
         },
         get_all_comments() {
-            console.log("get_all_comments")
             if (!this.campaignId) {
                 return false
             }
             get_comments(this.campaign_id).then(res => {
                 return res.data
             }).then(res => {
-                Object.keys(res).forEach(v => {
+                this.platform = []
+                Object.keys(res).forEach(v => { 
                     if ((v === 'facebook' && res[v]['fully_setup'] === true)) {
                         this.fbTab = true
-                        // window.FB.XFBML.parse();
-                        this.fb_video = this.generate_fb_embed_url(res[v]['page_id'], res[v]['post_id'], '100%', 260)
                         this.platform.push('facebook')
                         this.page_id = res[v]['page_id']
                         this.post_id = res[v]['post_id']
                     } else if ((v === 'instagram' && res[v]['fully_setup'] === true)) {
                         this.igTab = true
-                        if (res[v]['media_url']) {
-                            this.ig_video = this.generate_ig_embed_url(res[v]['media_url'], '100%', 260)
-                        }
+                        this.igMedia = res[v]['media_url']
+                        // console.log(this.igMedia)
+                        // if (res[v]['media_url']) {
+                        //     this.ig_video = this.generate_ig_embed_url(res[v]['media_url'], '100%', 260)
+                        // }
                         this.platform.push('instagram')
                     } else if ((v === 'youtube' && res[v]['fully_setup'] === true)) {
                         this.ytTab = true
-                        this.yt_video = this.generate_yt_embed_url(res[v]['live_video_id'], '100%', 260)
+                        this.yt_live = res[v]['live_video_id']
+                        // this.yt_video = this.generate_yt_embed_url(res[v]['live_video_id'], '100%', 260)
                         this.platform.push('youtube')
-                    } else {
+                    } else if ((v === 'all' && res[v]['fully_setup'] === true)){
                         this.platform.push('all')
                     }
                 })
-                this.trigger = false
+                this.allVideo()
+                this.ready = true
             }).then(res => {
                 this[`open_${this.platform[0]}_video`] = true
                 this.eventBus.emit("startReceivingCommentData");
-            })
-        },
-        generate_fb_embed_url: function (page_id, post_id, width = 1280, height = 720) {
-            return `<iframe src="https://www.facebook.com/plugins/video.php?href=https%3A%2F%2Fwww.facebook.com%2F${page_id}%2Fvideos%2F${post_id}%2F&width=${width}" width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowfullscreen="true" allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share" allowFullScreen="true"></iframe>`;
-        },
-        generate_yt_embed_url: function (live_video_id, width = 1280, height = 720) {
-            return `<iframe data-platform="yt" src="https://www.youtube.com/embed/${live_video_id}"
-                width="${width}" height="${height}" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
-                autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+            }).catch(err=>{
+                console.log(err)
+        })
         },
         generate_ig_embed_url: function (media_url, width = 1280, height = 720) {
             return `<iframe data-platform="yt" src="${media_url}"
@@ -213,15 +212,16 @@ export default {
                 autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
         },
         allVideo(){
-            for(const tab in this.platform){
-                if(tab === 'facebook'){
+            console.log(this.platform)
+            for (let tab = 0; tab < this.platform.length; tab++){
+                if(this.platform[tab] === 'facebook'){
                     this.openTab = 1;
                     return
-                }else if(tab === 'instagram'){
+                }else if(this.platform[tab] === 'instagram'){
                     this.openTab = 2;
                     return
                 }
-                else if(tab === 'youtube'){
+                else if(this.platform[tab] === 'youtube'){
                     this.openTab = 3;
                     return
                 }
@@ -233,10 +233,20 @@ export default {
 <style scoped>
 
 iframe {
-    max-width: 50% !important;
+    margin-top: -7px;
+    width: 100% !important;
+    height: 200px !important;
+    border: none;
+    overflow: hidden;
 }
 
 .accordion-item{
     border: none;
+}
+
+.tags{
+    border-radius: 35px 10px 10px 35px;
+    padding-left: 8px !important;
+    height: 35px !important;
 }
 </style>
