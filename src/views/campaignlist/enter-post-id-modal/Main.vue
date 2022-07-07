@@ -155,17 +155,12 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const ready = ref(false)
-// const campaign_index = ref(null)
-// const campaignsRef = ref(null)
 const campaign = ref(null)
 onMounted(()=>{
     eventBus.on('showEnterPostIDModal', (payload) => {
 
       show.value = true
-      // campaign_index.value = payload.campaign_index
-      // campaignsRef.value = payload.campaignsRef
       campaign.value = payload.campaign
-      campaign.value.title='123'
       ready.value=true
     })
 })
@@ -190,15 +185,11 @@ const hide = ()=>{
   show.value = false
   ready.value = false
   campaign.value = null
-  // campaign_index.value = null
-  // campaignsRef.value = null
 }
 
 
 const selectPlatformPage = (platform)=>{
-  eventBus.emit('showSelectPlatformModal',{'platform':platform, 
-  // 'campaignsRef':campaignsRef.value, 'campaign_index':campaign_index.value, 
-  'campaign':campaign.value})
+  eventBus.emit('showSelectPlatformModal',{'platform':platform, 'campaign':campaign.value})
 }
 
 </script>
