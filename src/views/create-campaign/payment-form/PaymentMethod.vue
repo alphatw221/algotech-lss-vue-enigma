@@ -1,43 +1,40 @@
 <template>
 
-    <div class="flex flex-col justify-center text-[16px] p-5 lg:p-10"> 
-        <div class="flex mt-5 lg:mt-0">
+    <div class="justify-center flex-col flex text-[16px] p-5 sm:p-10"> 
+
+        <div class="flex mt-5 ml-2 sm:mt-0">
             <input 
-                class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                class="form-control form-check-input ml-3 w-[1.2rem] h-[1.2rem]" 
                 type="checkbox" 
                 v-model="props.campaign.meta_payment[props.payment.key].enabled"
             />
-            <label class="form-label ml-3">Enabled</label>
+            <label class="ml-3 form-label">Enabled</label>
         </div>
 
         <div 
-            class="intro-y grid grid-cols-12 gap-2 my-5 lg:my-0 lg:mx-5 lg:p-5" 
+            class="flex flex-col sm:mx-5" 
             v-for="(field, index) in props.payment.fields" :key="index"
         >
             <template v-if="field.type === 'text' || field.type === 'password'">
-                <label  class="form-label col-start-1 col-span-12 lg:col-span-2 mt-5 lg:mt-0">{{ field.name }}</label>
+                <label class="mt-2 text-base">{{ field.name }}</label>
                 <input 
-                    class="form-control  col-span-12 -mt-3 
-                    lg:mt-0 lg:col-span-9 lg:w-5/6"
+                    class="w-full form-control"
                     type="text" 
                     v-model="props.campaign.meta_payment[props.payment.key][field.key]"
                 />
             </template>
             <template v-else-if="field.type === 'select'">
                 <label  
-                    class="form-label col-start-1 col-span-12  mt-5
-                    lg:col-span-2 lg:mt-0">{{ field.name }}</label>
+                    class="mt-2 text-base">
+                    {{ field.name }}</label>
                 <TomSelect 
-                    id="tabulator-html-filter-field"
-                    class="col-span-12 -mt-3 
-                    lg:mt-0 lg:col-span-9 w-[200px]"
+                    class="w-full sm:w-[300px]"
                     v-model="props.campaign.meta_payment[props.payment.key][field.key]"
                 >
                     <option v-for="option in field.options" :key="option">{{ option }}</option>
                 </TomSelect>
             </template>
         </div>
-
     </div>
 </template>
 

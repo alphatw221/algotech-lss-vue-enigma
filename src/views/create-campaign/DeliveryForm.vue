@@ -69,7 +69,7 @@
 					v-model="option.price"
 				/>
 				<button 
-					class="btn btn-danger inline-block text-base w-full rounded-full sm:rounded-lg  sm:w-24 ml-auto h-[42px]" 
+					class="btn btn-danger inline-block text-base w-full rounded-lg  sm:w-24 ml-auto h-[42px]" 
 					@click="deleteDelivery(index)"
 				> Delete </button>
 			</div>
@@ -84,23 +84,23 @@
 		<div class=" intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 text-base col-span-12">
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">
 				<div class="flex flex-col">
-						<label class="text-base w-[8rem] lg:w-[12rem]">Pickup Store</label>
+						<label class="text-base">Pickup Store</label>
 					<input 
-						class="form-control text-base w-full sm:w-[12rem]"
+						class="form-control text-base w-full sm:w-[20rem]"
 						type="text"
 						v-model="option.name" 
 					/>
 				</div>
 				<div class="flex flex-col flex-wrap mt-2">
-					<label class="text-base w-[8rem] lg:w-[12rem]">Pickup Address</label>
+					<label class="text-base w-[8rem]">Pickup Address</label>
 					<div class="flex flex-wrap"> 
 						<input 
-						class="form-control text-base w-full sm:max-w-[28rem] sm:mt-0 sm:mr-5"
+						class="form-control text-base w-full sm:max-w-[32rem] sm:mt-0 sm:mr-5"
 						type="text" 
 						v-model="option.address"
 					/>
 					<button 
-						class="btn btn-danger inline-block sm:ml-auto w-full rounded-full sm:rounded-lg sm:w-24 h-[42px] mt-2 sm:mt-0" 
+						class="btn btn-danger inline-block sm:ml-auto w-full rounded-lg sm:w-24 h-[42px] mt-2 sm:mt-0" 
 						@click="deleteBranch(index)"
 						>
 						Delete
