@@ -2,36 +2,40 @@
     <div class="box p-5 flex flex-col gap-5 text-[16px]">
 		<span class="text-xl mt-5"> Create Campaign </span>
 		<div class="intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 ml-3">
-			<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6">
-				<div class="flex flex-col">
-					<div class="flex">
-						<label class="form-label w-20 text-base my-auto">Title</label>
-						<input 
-							class="form-control  h-10 w-full sm:w-[50%]" 
-							type="text" 
-							:class="{ 'border-danger': title_validate.title.$error }"
-							v-model.trim="title_validate.title.$model"
-							@blur="title_validate.title.$touch" 
-							/>
-					</div>
-					<template v-if="title_validate.title.$error">
-						<label class="text-danger text-[14px] ml-20">
-							Field is required
-						</label>
-					</template>
+			<div class="col-start-1 col-span-12 sm:col-span-6">
+				<div class="flex-col flex">
+					<label class="form-label w-20 text-base my-auto">Title</label>
+					<input 
+						class="form-control w-full sm:w-[70%] lg:w-[50%]" 
+						type="text" 
+						:class="{ 'border-danger': title_validate.title.$error }"
+						v-model.trim="title_validate.title.$model"
+						@blur="title_validate.title.$touch" 
+						/>
 				</div>
+				<template v-if="title_validate.title.$error">
+					<label class="text-danger text-[14px] ml-2">
+						Field is required
+					</label>
+				</template>
 			</div>
-			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
-				<div class="flex flex-col sm:flex-row">
+			<div class="col-span-12 -mb-5 sm:col-span-6">
+				<div class="flex flex-col">
 					<label for="regular-form-2" class="form-label w-16 text-base my-auto">Period</label>
-					<v-date-picker class=" z-49" v-model="dateTimePicker" :timezone="timezone" mode="dateTime" is-range is-required>
+					<v-date-picker class="z-49" 
+						v-model="dateTimePicker" 
+						:timezone="timezone" 
+						:columns="$screens({ default: 1, sm: 2 })" 
+						mode="dateTime" is-range is-required
+						:min-date='new Date()'
+						>
 						<template v-slot="{ inputValue, inputEvents }">
 							<div class="flex justify-center items-center">
 							<input :value="inputValue.start" v-on="inputEvents.start"
-								class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
 							<ChevronsRightIcon class="w-8 h-8 m-1" />
 							<input :value="inputValue.end" v-on="inputEvents.end" disabled
-								class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
 							</div>
 						</template>
 					</v-date-picker>
@@ -53,10 +57,10 @@
 
 		<div class="mt-5 p-0 col-span-12 z-0">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="$router.push({ name: 'campaigns' })">
+				<button class="btn w-32 dark:border-darkmode-400" @click="$router.push({ name: 'campaigns' })">
 					Cancel
 				</button>
-				<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="createCampaign()">
+				<button class="btn btn-primary w-32 shadow-md ml-5" @click="createCampaign()">
 					Next
 				</button>
 			</div>

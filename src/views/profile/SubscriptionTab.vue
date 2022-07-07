@@ -40,7 +40,7 @@
                 </table>
             </div>
             <div class="col-span-12 sm:col-span-4 2xl:col-span-4 pa-10 mt-5 justify-self-center">
-                <button class="btn btn-elevated-success capitalize text-white" @click="router.replace('lss/#/changeplan/payment')">
+                <button class="btn btn-elevated-success capitalize text-white" @click="router.replace('/lss/#/changeplan/payment')">
                     Change Plan</button>
             </div>
         </div>
