@@ -201,7 +201,7 @@ const clickEntry = (index)=>{
         router.push({name:'campaign-live',params:{'campaign_id':campaign.id}})
         return
       }
-      eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign_index': index , 'campaignsRef': campaigns})
+      eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign_index': index , 'campaignsRef': campaigns, 'campaign':campaign})
     }
 
 const stop_checkout = (campaign_id,status)=>{
