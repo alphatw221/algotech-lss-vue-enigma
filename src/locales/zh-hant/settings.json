@@ -1,0 +1,11 @@
+{
+    "settings" : "專頁設定",
+    "client_id" : "Client ID",
+    "secret" : "Secret",
+    "currency_code" : "幣別代碼",
+    "store_id" : "Store ID",
+    "share_secret" : "Shared Secret",
+    "time_zone" : "時區",
+    "confirmation_note" : "訂單確認訊息",
+    "default_active" : "預設啟用"
+}

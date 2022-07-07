@@ -1,23 +1,23 @@
 <template>
     <AccordionItem  class="mx-5 show">
-        <Accordion class="bg-primary rounded-t-lg" >
-            <div class="text-white mx-5" v-if="store.order.campaign"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
+        <Accordion class="rounded-t-lg bg-primary" >
+            <div class="mx-5 text-white" v-if="store.order.campaign"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
         </Accordion>
 
         <!-- BEGIN Direct Payment -->
-        <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary" >
+        <AccordionPanel class="leading-relaxed border-2 text-slate-600 dark:text-slate-500 border-secondary" >
 
             <!-- BEGIN Direct Payment Select -->
             <div v-if="store.order.campaign">
 
             
-                <ul class="flex list-none flex-wrap pt-3 pb-4 flex-row items-center justify-around self-center" >
-                    <li class="last:mr-0 flex" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
-                        <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10 self-center w-fit">
+                <ul class="flex flex-row flex-wrap items-center self-center justify-around pt-3 pb-4 list-none" >
+                    <li class="flex last:mr-0" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
+                        <div class="z-10 flex items-center self-center flex-1 intro-x lg:text-center lg:mt-0 lg:block w-fit">
                             <button @click="select_account(index)" :class="{
                                 'text-neutral-600 bg-white': openTab !== index,
                                 'text-white bg-primary': openTab === index,
-                            }" class="w-18 h-8 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
+                            }" class="h-8 rounded-full shadow-lg w-18 btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
                                 <div v-if="account.mode === ''"> Account {{index+1}} </div>
                                 <div v-else> {{ account.mode }} </div>
                             </button>
@@ -25,7 +25,7 @@
                     </li>
                 </ul>
 
-                <div class="flex flex-col place-content-center items-center" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index"
+                <div class="flex flex-col items-center place-content-center" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index"
                     :class="{ hidden: openTab !== index, block: openTab === index }"
                     v-show="openTab===index"
                     >
@@ -43,7 +43,7 @@
                             <td>Other Note ( Press enter to add new line )</td><td></td>
                         </tr> -->
                     </table>
-                    <img class="w-36 h-36 mt-5 " :src="storageUrl+account.image" alt="" />
+                    <img class="mt-5 w-36 h-36 " :src="storageUrl+account.image" alt="" />
                 </div>
             </div>
             <!-- direct_payment_mode: "22"
@@ -65,7 +65,7 @@
                 url: 'url',
                 uploadMultiple: false,
                 thumbnailWidth: 150,
-                maxFilesize: 256,
+                maxFilesize: 2,
                 addRemoveLinks: true,
                 autoProcessQueue: false,
                 clickable: true,
@@ -76,12 +76,11 @@
                     Drop files here or click to upload.
                 </div>
                 <div class="text-gray-600">
-                    <!-- This is just a demo dropzone. Selected files are
-                <span class="font-medium">not</span> actually uploaded. -->
                     <br>accepted File types: jpeg, png, jpg
                 </div>
+                <div class="text-gray-600">Max file size : 2MB</div>  
             </Dropzone>
-            <div class="m-3 flex flex-col">
+            <div class="flex flex-col m-3">
                 <label for="regular-form-2" class="form-label">Last Five Digits</label>
                 <input id="regular-form-2" type="text" class="form-control"
                     :class="{ 'border-danger': uploadValidate.fiveDigits.$error }"
@@ -92,7 +91,7 @@
                     </div>
                 </template>
                 <button type="button"
-                    class="mt-5 mx-3 w-fit btn btn-rounded-primary self-center lg:self-end 2xl:self-end"
+                    class="self-center mx-3 mt-5 w-fit btn btn-rounded-primary lg:self-end 2xl:self-end"
                     @click="uploadReceipt()">Upload & Complete Order</button>
             </div>
         </AccordionPanel>
