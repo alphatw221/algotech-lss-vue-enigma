@@ -1,0 +1,29 @@
+{
+    "process" : {
+        "create" : "Create",
+        "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",
+        "connect" : "Connect",
+        "connect_description" : "Click \"Edit\" button to connect camapign to your FB Post.",
+        "complete" : "Complete",
+        "complete_description" : "Click \"Enter\" to join the live campaign."
+    },
+    "campaigns" : "Campaigns",
+
+    "scheduled" : "Scheduled",
+    "history" : "History",
+
+    "title" : "Title",
+    "start_date" : "Start Date",
+    "end_date" : "End Date",
+    "manage" : "Manage",
+    "product" : "Product",
+    "order" : "Order",
+    "action" : "Action",
+    "enter" : "Enter",
+    "detail" : "Detail",
+    "settings" : "Settings",
+    "delivery" : "Delivery",
+    "payment" : "Payment",
+    "show" : "Show"
+
+}

@@ -1,3 +1,49 @@
 {
-    "add_product": "Add Product"
+    "type" : {
+        "product" : "Product",
+        "lucky_draw" : "Lucky Draw"
+    },
+
+    "status" : {
+        "for_sale" : "For Sale",
+        "disable" : "Disable",
+        "archive" : "Archive"
+    },
+
+    "status_operation" : {
+        "for_sale" : "For Sale",
+        "disable" : "Disable",
+        "restore" : "Restore"
+    },
+
+    "title" : {
+        "index" : "Inventory",
+        "add" : "Add Product",
+        "edit" : "Edit Product"
+    },
+
+    "column" : {
+        "name" : "Name",
+        "image" : "Image",
+        "order_code" : "Order Code",
+        "description" : "Description",
+        "price" : "Price",
+        "qty" : "Quantity",
+        "type" : "Type",
+        "status" : "Default Status",
+        "remark" : "Tag"
+    },
+
+
+    "create_edit" : {
+        "disable_tip" : "Disabled items can\"t be assigned to campaigns for sale and lucky draw.",
+        "image_tip" : "supported image formats include JPG, JPEG and PNG",
+        "file_tip" : "Drag and drop a file here or click"
+    },
+
+    "add" : {
+        "for_sale" : "For Sale",
+        "disable" : "Disable",
+        "add_product" : "Add Product"
+    }
 }

@@ -1,0 +1,26 @@
+{
+    "title" : "直播商品管理",
+    "edit_item" : "允許顧客修改",
+    "delete_item" : "允許顧客刪除",
+    "assign" : "新增",
+
+    "operation" : "操作",
+    "description" : "說明",
+
+    "udpate_note" : "* 此處修改內容僅供本次直播使用。",
+    "allow_customer" : "顧客權限",
+    "edit_assign_product" : "編輯商品",
+
+    "index" : {
+        "edit_item" : "允許顧客修改",
+        "delete_item" : "允許顧客刪除"
+    },
+    "column" : {
+        "max_order_qty" : "單次限購數量",
+        "price" : "價格",
+        "campaign_qty" : "直播庫存",
+        "type" : "類別",
+        "code" : "商品代碼",
+        "name" : "商品"
+    }
+}

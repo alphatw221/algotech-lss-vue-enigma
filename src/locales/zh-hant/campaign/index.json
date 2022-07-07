@@ -1,0 +1,29 @@
+{
+    "process" : {
+        "create" : "建立",
+        "create_description" : "點擊「新增」建立直播，點擊「管理」從庫存管理新增直播商品",
+        "connect" : "連接",
+        "connect_description" : "點擊「編輯」並輸入 Facebook 直播貼文 ID",
+        "complete" : "完成",
+        "complete_description" : "點擊「進入」查看並管理直播"
+    },
+    "campaigns" : "直播管理",
+
+    "scheduled" : "預定排程",
+    "history" : "歷史紀錄",
+
+    "title" : "標題",
+    "start_date" : "開賣日期/時間",
+    "end_date" : "結單日期/時間",
+    "manage" : "管理",
+    "product" : "商品",
+    "order" : "訂單",
+    "action" : "進入直播",
+    "enter" : "進入",
+    "detail" : "直播設定",
+    "settings" : "設定",
+    "delivery" : "運送",
+    "payment" : "付款",
+    "show" : "顯示",
+    "entries" : "entries"
+}

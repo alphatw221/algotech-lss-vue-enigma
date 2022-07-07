@@ -28,7 +28,7 @@ app.use(VueCookies);
 app.use(VueAxios, axios)
 library.add(fas, far, fab)
 
-import i18n from './i18n'
+import i18n from './locales/i18n'
 app.use(i18n)
 
 //mitt (eventBus)
