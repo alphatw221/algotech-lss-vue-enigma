@@ -73,7 +73,7 @@
                     </template>
                     <template v-else-if="column.key === 'delivery'">
                         <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit" v-show="order.status === 'complete'" @click="shipping_out(order.id,key)">
+                            <div class="w-10 h-10 image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
                                 <TruckIcon />
                             </div>
                             <div class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
