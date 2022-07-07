@@ -7,7 +7,7 @@
         <div class="flex flex-col h-full">
             <div class="flex-none flex h-18">
                 <h2 class="text-lg font-medium mr-auto ml-5 my-auto">
-                    Comments {{fbTab}}
+                    Comments
                 </h2>
                 <div class="my-4 mr-5">
                     <TabList class="nav-pills">
