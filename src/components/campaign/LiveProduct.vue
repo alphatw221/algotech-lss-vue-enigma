@@ -4,11 +4,11 @@
             lg:col-start-6 lg:col-span-7 lg:row-start-4 lg:row-span-3 lg:h-[100%]
             2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-5 
             ">
-        <div class="h-full flex flex-col"> 
+        <div class="flex flex-col h-full"> 
             <div class="flex w-full m-3">
-                <h2 class="text-lg font-medium w-48 ml-5 mr-auto">Product</h2>
+                <h2 class="w-48 ml-5 mr-auto text-lg font-medium">Product</h2>
                 <Dropdown class="inline-block">
-                    <DropdownToggle class="btn btn-primary shadow-md mr-6 w-40">
+                    <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                         Add Product
                     </DropdownToggle>
                     <DropdownMenu class="w-48">
@@ -44,16 +44,12 @@
                             </td>
                             <td>{{ data.currency_sign }}{{ data.price }}</td>
                             <td>
-                                <div v-if="data.status === true" class="
-                                    form-check form-switch w-fit m-auto
-                                ">
+                                <div v-if="data.status === true" class="m-auto form-check form-switch w-fit">
                                     <input
                                         @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === true ? false : true });"
                                         class="form-check-input" type="checkbox" checked />
                                 </div>
-                                <div class="
-                                    form-check form-switch w-fit m-auto
-                                    " v-else>
+                                <div class="m-auto form-check form-switch w-fit" v-else>
                                     <input
                                         @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === true ? false : true });"
                                         class="form-check-input" type="checkbox" />

@@ -142,7 +142,7 @@
 				/>
 				<template v-if="validate.qty.$error">
 						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
-						Quantity has to be a number
+						Qty has to be a number
 						</label>
 				</template>
 			</div>
