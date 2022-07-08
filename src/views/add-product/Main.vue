@@ -1,5 +1,6 @@
 <template>
 	<div class="h-[100%] overflow-auto">
+		{{ $t('test1') }}
 		<div class="intro-y flex items-center mt-3" v-if="route.params.product_id">
 			<h2 class="text-lg font-medium">Update Product</h2>
 		</div>

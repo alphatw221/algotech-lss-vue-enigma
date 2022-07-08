@@ -35,7 +35,7 @@
                 </div>
                 <div class="lg:w-[50%] 2xl:w-[50%] flex-col">
                     <label for="update-profile-form-2" class="form-label "> Spin Time(sec)</label>
-                    <select class="w-full form-select-lg" v-model="currentSettings.spinTime">
+                    <select class="w-full form-select-lg" v-model="currentSettings.spin_time">
                         <option v-for="(spinTime, key) in spinTimes" :key="key" :value="spinTime.value">
                             {{ spinTime.name }}
                         </option>
@@ -45,9 +45,9 @@
             <div class="mt-6 lg:flex 2xl:flex">
                 <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5">
                     <label for="update-profile-form-2" class="form-label"> No. of Winners</label>
-                    <input id="form-2" type="text" class="form-control" v-model.trim="validate.winners.$model" 
-                        :class="{ 'border-danger text-danger border-2': validate.winners.$error }" />
-                    <template v-if="validate.winners.$error">
+                    <input id="form-2" type="text" class="form-control" v-model.trim="validate.num_of_winner.$model" 
+                        :class="{ 'border-danger text-danger border-2': validate.num_of_winner.$error }" />
+                    <template v-if="validate.num_of_winner.$error">
                         <label class="text-danger">
                             Winner numbers must be between 1 to prize stock {{currentSettings.prize.qty_for_sale}}
                         </label>
@@ -60,17 +60,16 @@
                         <label for="upload" id="create_animation">+ Create New Animation</label>
                     </div>
                     <div class="flex">
-						<img :src="previewImage" class="uploading-image h-48 object-cover" />
+						<img :src="previewImage" class="uploading-image h-20 object-cover" />
 					</div>
-                    <!-- <div class="flex flex-wrap items-center justify-around">
-                        <template v-for="(animates, key) in animationStyle" :key="key">
+                    <div class="flex flex-wrap items-center justify-around">
+                        <template v-for="(animates, key) in animationList" :key="key">
                             <div class="w-20 h-20 image-fit relative ">
-                                <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50"
-                                    @click="chooseAnimation(animates.value)" />
-                                <Tippy tag="img" class="rounded-full" :src="animates.image" :content="`animation`" />
+                                <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = animates.path" />
+                                <Tippy tag="img" class="rounded-full" :src="storageUrl + animates.path" :content="`animation`" />
                             </div>
                         </template>
-                    </div> -->
+                    </div>
                 </div>
             </div>
             <div class="mt-3">
@@ -151,7 +150,7 @@
 import { ref, watch, onMounted, computed} from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { list_campaign_product } from '@/api/campaign_product';
-import { create_campapign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
+import { create_campapign_lucky_draw, list_campapign_lucky_draw_animation } from '@/api_v2/campaign_lucky_draw';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required, minValue, maxValue, minLength, integer } from "@vuelidate/validators";
@@ -159,30 +158,34 @@ import { required, minValue, maxValue, minLength, integer } from "@vuelidate/val
 const route = useRoute();
 const router = useRouter();
 const layoutStore = useLSSSellerLayoutStore()
+const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const spinTimes = ref([ { value: 5, name: '5 secs' }, { value: 10, name: '10 secs' }, { value: 20, name: '20 secs' }, { value: 30, name: '30 secs' }, { value: 60, name: '60 secs' }]);
 const drawTypes = ref([ { value: 'like', name: 'Draw by like this post' }, { value: 'purchase', name: 'Draw purchased any product' }, { value: 'product', name: 'Draw by purchased certain product' }, { value: 'keyword', name: 'Draw by keyword' },]);
 const prizeList = ref([])
 const productList = ref([])
 const currentSettings = ref({
-    spinTime: 5,
-    winners: 0,
+    spin_time: 5,
+    num_of_winner: 0,
     repeatable: false,
     type: 'product',
     comment: 'keyword',
     campaign_product: '',
     prize:'Please Assign Lucky Draw Items into your Campaign',
     title: '',
-    animation: ''
+    animation: '',
+    path: ''
 })
-const previewImage =ref(null)
+const previewImage = ref(null)
 const formData = new FormData()
+const animationList = ref([])
+const existAnimation = ref(false)
 
 const rules = computed(()=> {
     return {
         comment: { required, minLength: minLength(3) },
         title: { required, minLength: minLength(1) },
-        winners: { required, integer, minValue: minValue(1), maxValue: maxValue(currentSettings.value.prize.qty_for_sale) } 
+        num_of_winner: { required, integer, minValue: minValue(1), maxValue: maxValue(currentSettings.value.prize.qty_for_sale) } 
     }
 });
 const validate = useVuelidate(rules, currentSettings);
@@ -203,7 +206,6 @@ const create = () => {
     })
 };
 
-
 const uploadAnimation = e => {
     const animation = e.target.files[0];
 	formData.append('animation', animation)
@@ -213,6 +215,7 @@ const uploadAnimation = e => {
 	reader.onload = e =>{
 		previewImage.value = e.target.result;
 	};
+    currentSettings.value.path = '';
 }
 
 watch(computed(() => currentSettings.value.type), ()=>{
@@ -226,13 +229,19 @@ watch(computed(() => currentSettings.value.type), ()=>{
 onMounted(() => {
     list_campaign_product(route.params.campaign_id).then(res => {
         console.log(res.data)
-        for (var i =0; i < res.data.length; i++){
+        for (var i =0; i < res.data.length; i++) {
             if (res.data[i].type === "lucky_draw") {
                 prizeList.value.push(res.data[i])
             } else{
                 productList.value.push(res.data[i])
             }
         }
+    }).catch(error => {
+        console.log(error);
+    })
+
+    list_campapign_lucky_draw_animation().then(res => {
+        animationList.value = res.data
     }).catch(error => {
         console.log(error);
     })
