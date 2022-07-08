@@ -27,10 +27,10 @@
               >Facebook</label
             >
             <div
-              v-if="campaignsRef.value[campaign_index].facebook_page"
+              v-if="campaign.facebook_page"
               class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
             >
-              <img alt="Midone Tailwind HTML Admin Template" :src="campaignsRef.value[campaign_index].facebook_page.image" />
+              <img alt="Midone Tailwind HTML Admin Template" :src="campaign.facebook_page.image" />
             </div>
           </div>
           <button
@@ -43,7 +43,7 @@
           </button>
           <div>
             Post ID: <br>
-            <p v-if="campaignsRef.value[campaign_index].facebook_page">{{ campaignsRef.value[campaign_index].facebook_campaign.post_id }}</p>
+            <p v-if="campaign.facebook_page">{{ campaign.facebook_campaign.post_id }}</p>
           </div>
         </div>
         <div class="col-span-12 sm:col-span-4 mr-5">
@@ -52,10 +52,10 @@
               >Instagram</label
             >
             <div
-              v-if="campaignsRef.value[campaign_index].instagram_profile"
+              v-if="campaign.instagram_profile"
               class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
             >
-              <img alt="Midone Tailwind HTML Admin Template" :src="campaignsRef.value[campaign_index].instagram_profile.image" />
+              <img alt="Midone Tailwind HTML Admin Template" :src="campaign.instagram_profile.image" />
             </div>
           </div>
           <button
@@ -76,7 +76,7 @@
           /> -->
           <div>
             Post ID:<br>
-             <p v-if="campaignsRef.value[campaign_index].instagram_campaign">{{ campaignsRef.value[campaign_index].instagram_campaign.live_media_id }}</p>
+             <p v-if="campaign.instagram_campaign">{{ campaign.instagram_campaign.live_media_id }}</p>
           </div>
         </div>
         <div class="col-span-12 sm:col-span-4 mr-5">
@@ -85,10 +85,10 @@
               >YouTube</label
             >
             <div
-              v-if="campaignsRef.value[campaign_index].youtube_channel"
+              v-if="campaign.youtube_channel"
               class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
             >
-              <img alt="Midone Tailwind HTML Admin Template" :src="campaignsRef.value[campaign_index].youtube_channel.image" />
+              <img alt="Midone Tailwind HTML Admin Template" :src="campaign.youtube_channel.image" />
             </div>
           </div>
           <button
@@ -109,7 +109,7 @@
           /> -->
           <div>
             Post ID:<br>
-            <p v-if="campaignsRef.value[campaign_index].youtube_campaign">{{ campaignsRef.value[campaign_index].youtube_campaign.live_video_id }}</p>
+            <p v-if="campaign.youtube_campaign">{{ campaign.youtube_campaign.live_video_id }}</p>
           </div>
         </div>
       </ModalBody>
@@ -133,7 +133,7 @@
           Cancel
         </button>
         <button type="button" class="btn btn-primary w-20" @click="enterLive()" 
-          v-show="campaignsRef.value[campaign_index].facebook_page || campaignsRef.value[campaign_index].youtube_channel || campaignsRef.value[campaign_index].instagram_profile">
+          v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile">
 
           Continue
         </button>
@@ -155,14 +155,12 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const ready = ref(false)
-const campaign_index = ref(null)
-const campaignsRef = ref(null)
-
+const campaign = ref(null)
 onMounted(()=>{
     eventBus.on('showEnterPostIDModal', (payload) => {
+
       show.value = true
-      campaign_index.value = payload.campaign_index
-      campaignsRef.value = payload.campaignsRef
+      campaign.value = payload.campaign
       ready.value=true
     })
 })
@@ -179,20 +177,19 @@ const show = ref(false)
 
 
 const enterLive = ()=>{
-  router.push({name:'campaign-live',params:{'campaign_id':campaignsRef.value.value[campaign_index.value].id}})
+  router.push({name:'campaign-live',params:{'campaign_id':campaign.value.id}})
   hide()
 }
 
 const hide = ()=>{
   show.value = false
   ready.value = false
-  campaign_index.value = null
-  campaignsRef.value = null
+  campaign.value = null
 }
 
 
 const selectPlatformPage = (platform)=>{
-  eventBus.emit('showSelectPlatformModal',{'platform':platform, 'campaignsRef':campaignsRef.value, 'campaign_index':campaign_index.value})
+  eventBus.emit('showSelectPlatformModal',{'platform':platform, 'campaign':campaign.value})
 }
 
 </script>

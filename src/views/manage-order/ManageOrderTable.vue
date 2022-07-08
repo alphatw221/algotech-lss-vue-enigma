@@ -66,22 +66,23 @@
                     </template>
                     <template v-else-if="column.key === 'view'">
                         <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit">
+                            <a class="text-black w-10 h-10 image-fit">
                                 <EyeIcon @click="to_order_detail(order.id,order.type)"/>
-                            </div>
-                            <div class="w-10 h-10 image-fit">
-                                <Share2Icon class="block mx-auto"  @click="copyURL(order.id,order.type)" />
-                            </div>
+                            </a>
+                            
+                            <a class="w-10 h-10 image-fit">
+                                <Share2Icon class="block mx-auto text-black"  @click="copyURL(order.id,order.type)" />
+                            </a>
                         </div>
                     </template>
                     <template v-else-if="column.key === 'delivery'">
                         <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
+                            <a class="w-10 h-10 image-fit text-black" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
                                 <TruckIcon />
-                            </div>
-                            <div class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
+                            </a>
+                            <a class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
                                 <TruckIcon style="color:#BABABA"/>
-                            </div>
+                            </a>
                         </div>
                     </template>
                     <template v-else-if="column.key === 'customer_name'">
@@ -94,9 +95,9 @@
                     </template>
                     <template v-else-if="column.key === 'order_product'">
                         <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit">
+                            <a class="w-10 h-10 image-fit text-black">
                                 <ChevronDownIcon @click="orderProductModal(order.id,order.type)"/>
-                            </div>
+                            </a>
                         </div>
                     </template>
                     <template v-else-if="column.key === 'subtotal'">

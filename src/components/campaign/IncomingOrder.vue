@@ -17,29 +17,29 @@
                     </thead>
                 
                     <tbody>
-                        <tr v-for="data in incoming_order_results" :key="data.id">
-                            <td>#{{ data.id }}</td>
+                        <tr v-for="order, index in store.incomingOrders" :key="index">
+                            <td>#{{ order.id }}</td>
                             <td>
-                                <div v-if="data.platform === 'facebook'" class="w-10 h-10 image-fit">
+                                <div v-if="order.platform === 'facebook'" class="w-10 h-10 image-fit">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/facebook.png" />
                                     </div>
                                 </div>
-                                <div v-else-if="data.platform === 'instagram'" class="w-10 h-10 image-fit">
+                                <div v-else-if="order.platform === 'instagram'" class="w-10 h-10 image-fit">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/instagram.png" />
                                     </div>
                                 </div>
-                                <div v-else-if="data.platform === 'youtube'" class="w-10 h-10 image-fit">
+                                <div v-else-if="order.platform === 'youtube'" class="w-10 h-10 image-fit">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/youtube.png" />
                                     </div>
                                 </div>
                             </td>
-                            <td>{{ data.customer_name }}</td>
-                            <td>{{ data.currency_sign }}{{ parseFloat(data.subtotal).toFixed(2) }}</td> 
+                            <td>{{ order.customer_name }}</td>
+                            <td>{{ order.currency_sign }}{{ parseFloat(order.subtotal).toFixed(2) }}</td> 
                             <td>
-                                <EyeIcon class="click-icon" @click="this.$router.push({name:'sellerOrder',params:{'order_id':data.id},query:{'type':'pre_order'}});seller_order_detail"/>
+                                <EyeIcon class="click-icon" @click="routeToDetailPage(order.id)"/>
                             </td>
                         </tr>
                     </tbody>
@@ -49,50 +49,48 @@
     </div>        
 </template>
 
-<script>
+<script setup>
 import {list_campaign_pre_order} from '@/api/campaign_pre_order';
-import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
-export default {
-    setup(){
-        const store = useShoppingCartStore();
-    },
-    props: {
-        campaignId: Number
-    },
-    data() {
-        return {
-            imagePath: import.meta.env.VITE_APP_IMG_URL,
-            incoming_order_columns: [
-                { name: "Order No", key: "order_no" },
-                { name: "Platform", key: "platform" },
-                { name: "Name", key: "name" },
-                { name: "Amount", key: "amount" },
-                { name: "Detail", key: "detail" },
-            ],
-            incoming_order_results: [],
-            campaign_id: this.$route.params.campaign_id,
-        };
-    },
-    mounted() {
-        if (this.campaign_id) {
-            list_campaign_pre_order(this.campaign_id).then(res => {
-                this.incoming_order_results = res.data
-                this.eventBus.emit("startReceivingOrderData");
-            }).catch(error => {
-                console.log(error);
-            })
-        }
-        this.eventBus.on("changeOrderData", (payload) => {
-            this.incoming_order_results.unshift(payload)
-        });
-    },
-    methods: {
-        seller_order_detail(){
-            store.order_type = 'pre_order'
-        }
-    },
+import { onMounted, onUnmounted, ref, getCurrentInstance } from "vue";
+
+const router = useRouter()
+const route = useRoute()
+
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+
+const store = useCampaignDetailStore();
+const imagePath=import.meta.env.VITE_APP_IMG_URL
+const incoming_order_columns= [
+    { name: "Order No", key: "order_no" },
+    { name: "Platform", key: "platform" },
+    { name: "Name", key: "name" },
+    { name: "Amount", key: "amount" },
+    { name: "Detail", key: "detail" },
+]
+
+
+// route.params.campaign_id
+
+onMounted(()=>{
+        list_campaign_pre_order(route.params.campaign_id).then(res => {
+            store.incomingOrders = res.data
+        })
+        
+})
+
+
+
+
+const routeToDetailPage = (order_id)=>{
+    router.push({name:'sellerOrder',params:{'order_id':order_id},query:{'type':'pre_order'}})
 }
+
+
+
+
 </script>
 
 <style scoped>

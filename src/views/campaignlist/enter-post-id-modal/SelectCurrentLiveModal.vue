@@ -51,18 +51,12 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const show = ref(false)
 let payloadBuffer = null
-let campaign = null
 const liveItems = ref([])
-
+const campaign = ref({})
 onMounted(()=>{
     eventBus.on('showSelectLiveModal', (payload) => {
+      campaign.value = payload.campaign
       payloadBuffer = payload
-      campaign = payloadBuffer.campaignsRef.value[payloadBuffer.campaign_index]
-      console.log(payloadBuffer.campaignsRef.value)
-      console.log(payloadBuffer.campaignsRef.value.value)
-      console.log(payloadBuffer.campaign_index)
-      console.log(payloadBuffer.campaign_index.value)
-      console.log(campaign)
       if(payload.platform=='facebook'){
         get_fb_page_live_media(payloadBuffer.platformInstance.page_id, payloadBuffer.platformInstance.token)
         .then((response) => {
@@ -148,14 +142,16 @@ onUnmounted(()=>{
 const selectLive = live_id => {
   let apiRequest = null
   if(payloadBuffer.platform=='facebook'){
-    apiRequest =update_platform_live_id(campaign.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
+    apiRequest =update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
   }else if(payloadBuffer.platform=='youtube'){
-    apiRequest =update_platform_live_id(campaign.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
+    apiRequest =update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
   }else if(payloadBuffer.platform=='instagram'){
-    apiRequest =update_platform_live_id(campaign.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
+    apiRequest =update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
   }
   apiRequest.then(res=>{
-    payloadBuffer.campaignsRef.value[payloadBuffer.campaign_index] = res.data
+    Object.entries(res.data).forEach(([key,value]) => {
+      campaign.value[key]=value                       //proxy object only got setter
+    });
     show.value=false
   })
     
