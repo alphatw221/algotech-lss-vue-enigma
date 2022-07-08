@@ -105,8 +105,11 @@
                     <template v-else-if="column.key === 'payment_method'">
                         {{ order[column.key] == 'Direct Payment' ? `Direct Payment - ${order.meta.account_mode}` : order[column.key] }}
                     </template>
+                    <template v-else-if="column.key === 'id'">
+                        {{ order.id }}
+                    </template>
                     <template v-else class="w-30">
-                        {{ order[column.key] }}
+                        {{ $t(`manage_order.${order[column.key]}`) }}
                     </template>
                 </td>
             </tr>
