@@ -69,10 +69,6 @@
                             <div class="w-10 h-10 image-fit">
                                 <EyeIcon @click="to_order_detail(order.id,order.type)"/>
                             </div>
-                        </div>
-                    </template>
-                    <template v-else-if="column.key === 'link'">
-                        <div class="flex place-content-center">
                             <div class="w-10 h-10 image-fit">
                                 <Share2Icon class="block mx-auto"  @click="copyURL(order.id,order.type)" />
                             </div>
@@ -139,9 +135,8 @@ const columns = ref([
     { name: 'Amount', key: 'subtotal' },
     { name: 'Payment', key: 'payment_method' },
     { name: 'Status', key: 'status' },
-    { name: 'View', key: 'view' },
-    { name: '', key: 'link' },
     { name: 'Delivery Status', key: 'delivery' },
+    { name: 'Action', key: 'view' },
     { name: '', key: 'order_product'}
 ]);
 
@@ -332,25 +327,19 @@ thead th{
 	}
 	td:nth-of-type(7){
 		display: inline-block;
-		width: 25%;
+		width: 33%;
 		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
     td:nth-of-type(8){
 		display: inline-block;
-		width: 25%;
+		width: 33%;
 		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
     td:nth-of-type(9){
 		display: inline-block;
-		width: 25%;
-		padding-left: 0% !important;
-		/* color: #0e9893; */
-	}
-	td:nth-of-type(10){
-		display: inline-block;
-		width: 25%;
+		width: 34%;
 		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
@@ -362,9 +351,6 @@ thead th{
 		display: none;
 	}
     td:nth-of-type(9):before {
-		display: none;
-	}
-    td:nth-of-type(10):before {
 		display: none;
 	}
 }
