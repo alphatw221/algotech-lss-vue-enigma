@@ -9,33 +9,25 @@
 
             <div class="w-full mt-8">
                 <div class="flex align-baseline text-xl -mb-5">
-                    <div class="relative mr-3 ml-2 w-14"> 
-                        <a class="mr-0.5" @click="show_order('All')">All </a>
-                        <div 
-                            v-show="store.data_count['All'] > 0"
-                            class="absolute report-box__indicator p-0.5 px-1.5 text-xs rounded-full bg-danger text-white text-center top-0 left-6">
+                    <div class="relative mr-3 ml-2">
+                            <a class="mr-0.5" @click="show_order('All')">{{$t('manage_order.all')}} </a>
+                    </div>
+                    <div class="w-5 h-5 report-box__indicator rounded-full bg-danger text-white text-center text-xs p-0.5 px-1.5" v-show="store.data_count['All'] > 0"> 
                             <span>{{store.data_count['All']}}</span>
-                        </div>
                     </div>
-                    
-                    <div class=" relative ml-2 w-[105px]">
-                        <a class="mr-0.5" @click="show_order('Review')">Review </a>
-                        
-                        <div 
-                            v-show="store.data_count['Review'] > 0"
-                            class="absolute report-box__indicator p-0.5 px-1.5 text-xs rounded-full bg-danger text-white text-center top-0 left-16">
-                            <span> {{store.data_count['Review']}} </span>
-                        </div>
+
+                    <div class="relative mr-3 ml-2">
+                            <a class="mr-0.5" @click="show_order('Review')">{{$t('manage_order.review')}} </a>
                     </div>
-                    <!--  <a class="mr-2 ml-5">Pending Payment </a> -->
-                    <!-- <span class="text-xs p-1 h-5 rounded-full bg-danger text-white mr- align-top">2</span> -->
-                    <div class=" relative mr-3 ml-2 w-28">
-                        <a class="mr-0.5" @click="show_order('Complete')">Complete </a>
-                        <div 
-                            v-show="store.data_count['Complete'] > 0" 
-                            class="absolute report-box__indicator p-0.5 px-1.5 text-xs rounded-full bg-danger text-white text-center top-0 left-[90px]">
-                            <span>{{store.data_count['Complete']}} </span>
-                        </div>
+                    <div class="w-5 h-5 report-box__indicator rounded-full bg-danger text-white text-center text-xs p-0.5 px-1.5" v-show="store.data_count['Review'] > 0"> 
+                            <span>{{store.data_count['Review']}}</span>
+                    </div>
+
+                    <div class="relative mr-3 ml-2">
+                            <a class="mr-0.5" @click="show_order('Complete')">{{$t('manage_order.complete')}} </a>
+                    </div>
+                    <div class="w-5 h-5 report-box__indicator rounded-full bg-danger text-white text-center text-xs p-0.5 px-1.5" v-show="store.data_count['Complete'] > 0"> 
+                            <span>{{store.data_count['Complete']}}</span>
                     </div>
                 </div>
                 <!--分隔線-->
@@ -59,7 +51,7 @@
 
             <!-- Table -->
             <div class="form-check form-switch w-full">
-                <label class="form-check-label ml-0" for="show-example-3"> Stop Checkout</label>
+                <label class="form-check-label ml-0" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
                 <input @click="stop_checkout($event.target.checked)" class="form-check-input mr-0 ml-3" type="checkbox" v-model="checkout_status"/>
             </div>
 

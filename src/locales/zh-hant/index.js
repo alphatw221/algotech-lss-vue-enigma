@@ -7,6 +7,7 @@ import assign_product from './campaign/assign_product.json'
 import create_edit from './campaign/create_edit.json'
 import liveshow from './campaign/liveshow.json'
 import campaign from './campaign/index.json'
+import manage_order from './manage_order.json'
 export default {
     stock,
     global,
@@ -16,5 +17,6 @@ export default {
     assign_product,
     create_edit,
     liveshow,
-    campaign
+    campaign,
+    manage_order
 }
