@@ -69,10 +69,10 @@
                             <a class="text-black w-10 h-10 image-fit">
                                 <EyeIcon @click="to_order_detail(order.id,order.type)"/>
                             </a>
-                            </div>
-                            <div class="w-10 h-10 image-fit">
-                                <Share2Icon class="block mx-auto"  @click="copyURL(order.id,order.type)" />
-                            </div>
+                            
+                            <a class="w-10 h-10 image-fit">
+                                <Share2Icon class="block mx-auto text-black"  @click="copyURL(order.id,order.type)" />
+                            </a>
                         </div>
                     </template>
                     <template v-else-if="column.key === 'delivery'">
