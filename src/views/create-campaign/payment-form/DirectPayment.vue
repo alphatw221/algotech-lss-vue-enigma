@@ -1,13 +1,18 @@
 <template>
-    <div v-if="ready" class="flex-col flex text-[16px] p-5 sm:p-10">
-
-        <div class="flex mt-5 sm:mt-0 ml-2">
+    <div v-if="ready" class="gap-5 flex-col flex text-[16px] p-5">
+        <a 
+			class="col-end text-right w-full inline-block text-base whitespace-nowrap"
+            @click="addDirectPayment()"
+        > 
+           <u> + Add More Option </u>
+        </a>
+        <div class="flex flex-wrap sm:mx-5">
             <input 
-                class="form-control form-check-input ml-3 w-[1.2rem] h-[1.2rem]" 
+                class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2" 
                 type="checkbox" 
                 v-model=" props.campaign.meta_payment.direct_payment.enabled"
             />
-            <label class="form-label ml-3">Enabled</label>
+            <label class="flex flex-wrap font-medium my-3">Enabled</label>
         </div>
 
         <div 
@@ -20,34 +25,36 @@
                 :key="index_j"
             >
                 <template v-if="field.type === 'text'">
-                    <label class="mt-2 text-base">{{ field.name }}</label>
+                    <label class="form-label text-base">{{ field.name }}</label>
                     <input 
-                        class="form-control w-full"
+                        class="form-control form-label w-full"
                         type="text" 
                         v-model="account[field.key]"
                     />
                 </template>
 
                 <template v-else-if="field.type === 'textarea'">
-                    <label class="mt-2 text-base">{{ field.name }}</label>
+                    <label class="form-label text-base">{{ field.name }}</label>
                     <textarea 
-                        class="form-control p-2"
+                        class="form-control form-label p-2"
                         v-model="account[field.key]"
                     />
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                    <label class="form-label mt-2 text-base">{{ field.name }}
+                <div class="flex flex-wrap my-3">
                     <input 
-                        class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto ml-2"
+                        class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2"
                         type="checkbox" 
                         v-model="account[field.key]"
                     />
+                    <label class="form-label text-base my-3">{{ field.name }}
                     </label>
+                </div>
                 </template>
 
                 <template v-else-if="field.type === 'file'">
-                    <label>Upload Image</label>
+                    <label class="form-label text-base">Upload Image</label>
                     <div class="border-2 border-dashed dark:border-darkmode-400 relative">
                         <div class="px-4 items-center justify-center flex">
                             <img :src="previewImages[index_i]" class="uploading-image h-60 object-cover" />
@@ -55,11 +62,11 @@
                         <div class="px-4 text-[1rem] sm:text-[16px] absolute top-20 text-center w-full flex flex-col items-center justify-center"
                             v-if="previewImages[index_i] === null">
                             <div class="flex flex-col sm:flex-row items-center justify-center"> 
-                                <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> 
+                                <ImageIcon class="w-8 h-8 mr-2 text-slate-600" /> 
                                 <strong class="text-slate-600">Upload a file or drag and drop</strong> 
                             </div>
-                            <div class="mt-2 text-slate-500">accepted File types: jpeg, png, jpg</div>
-                            <div class="text-slate-500">Max file size : 2MB</div>  
+                            <div class="mt-2 text-slate-500">Accepted File Types: jpeg, png, jpg</div>
+                            <div class="text-slate-500">Max File Size : 2MB</div>  
                         </div>
                             <input
                                 type="file"
@@ -73,22 +80,14 @@
             </div>
 
             <button 
-                class="btn btn-danger w-24 inline-block text-base my-5" 
+                class="btn btn-danger w-24 inline-block text-base my-5 float-right" 
                 @click="deleteDirectPayment(index_i)"
             > 
                 Delete 
             </button>
-
-        </div>
-
-        <button 
-            class="btn btn-primary w-32 inline-block text-base mb-5  sm:mt-3  sm:mr-32 self-end"
-            @click="addDirectPayment()"
-        > 
-            + add more
-        </button>
-
+        </div> 
     </div>
+  
 </template>
 
 <script setup>

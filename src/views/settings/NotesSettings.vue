@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 px-0 lg:p-10 lg:px-20">
+    <div class="p-5">
         <AccordionGroup class="accordion-boxed">
             <AccordionItem>
                 <Accordion>
@@ -11,7 +11,7 @@
                             </span>
                         </div>
                         <div>
-                            <font-awesome-icon icon="fa-solid fa-pen-to-square" class="h-6" />
+                            <EditIcon class="click-icon m-auto h-6"></EditIcon>
                         </div>
                     </div>
                 </Accordion>
@@ -34,7 +34,7 @@
                             </span>
                         </div>
                         <div>
-                            <font-awesome-icon icon="fa-solid fa-pen-to-square" class="h-6" />
+                            <EditIcon class="click-icon m-auto h-6"></EditIcon>
                         </div>
                     </div>
                 </Accordion>
@@ -57,7 +57,7 @@
                             </span>
                         </div>
                         <div>
-                            <font-awesome-icon icon="fa-solid fa-pen-to-square" class="h-6" />
+                            <EditIcon class="click-icon m-auto h-6"></EditIcon>
                         </div>
                     </div>
                 </Accordion>

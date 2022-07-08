@@ -1,29 +1,29 @@
 <template>
-    <div class="box p-5 flex flex-col gap-5 text-[16px]" v-if="ready">
-		<span class="text-xl mt-5"> Edit Campaign </span>
-		<div class="intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 ml-3">
-		<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6">
-			<div class="flex flex-col">
-				<div class="flex">
-					<label class="form-label w-20 text-base my-auto">Title</label>
-					<input 
-						class="form-control h-10 w-full sm:w-[50%]"
-						type="text" 
-						:class="{ 'border-danger': title_validate.title.$error }"
-						v-model.trim="title_validate.title.$model"
-						@blur="title_validate.title.$touch" 
-						/>
-				</div> 
-				<template v-if="title_validate.title.$error">
-					<label class="text-danger text-[14px] ml-20">
-						Field is required
-					</label>
-				</template> 
+    <div class="flex flex-col" v-if="ready">
+		<h2 class="text-xl font-medium mt-5 mb-3 mx-2"> Edit Campaign </h2>
+		<div class="box py-5 px-10 flex flex-col gap-5 intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50">
+			<div class="col-start-1 col-span-12 sm:col-span-6">
+				<div class="flex-col flex">
+					<div class="flex-col flex">
+						<label class="form-label text-base">Title</label>
+						<input 
+							class="form-control w-full sm:w-[70%] lg:w-[90%]"
+							type="text" 
+							:class="{ 'border-danger': title_validate.title.$error }"
+							v-model.trim="title_validate.title.$model"
+							@blur="title_validate.title.$touch" 
+							/>
+					</div> 
+					<template v-if="title_validate.title.$error">
+						<label class="text-danger text-[14px] ml-20">
+							Field is required
+						</label>
+					</template> 
+				</div>
 			</div>
-		</div>
-			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
-				<div class="flex flex-col sm:flex-row">
-					<label for="regular-form-2" class="form-label w-16 text-base my-auto">Period</label>
+			<div class="col-span-12 mb-3 sm:col-span-6">
+				<div class="flex flex-col">
+					<label for="regular-form-2" class="form-label text-base">Period</label>
 					<v-date-picker class=" z-49" v-model="dateTimePicker" :timezone="''" mode="dateTime" is-range is-required>
 						<template v-slot="{ inputValue, inputEvents }">
 							<div class="flex justify-center items-center">
@@ -51,11 +51,11 @@
 		<NotesForm :campaign="campaignData"/>
 
 		<div class="mt-5 p-0 col-span-12 z-0">
-			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="$router.push({ name: 'campaigns' })">
+			<div class="col-span-12 flex justify-end mt-5">
+				<button class="btn w-32 dark:border-darkmode-400 bg-white" @click="$router.push({ name: 'campaigns' })">
 					Cancel
 				</button>
-				<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="updateCampaign()">
+				<button class="btn btn-primary w-32 shadow-md ml-5" @click="updateCampaign()">
 					Update
 				</button>
 			</div>

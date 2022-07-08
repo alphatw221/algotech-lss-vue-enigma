@@ -1,8 +1,8 @@
 <template>
     <!-- OUTTER BOX -->
+    <h2 class="text-xl font-medium mt-5 mb-3 mx-2"> Default Settings</h2>
     <div class="box p-5 flex flex-col gap-5">
         <!-- BEGIN: commit box -->
-        <span class="text-xl mt-5"> Default Settings</span>
         <div class="switch-toggle">
             <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
             <label for="on">Notes</label>

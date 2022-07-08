@@ -1,12 +1,12 @@
 <template>
-    <div class="box p-5 flex flex-col gap-5 text-[16px]">
-		<span class="text-xl mt-5"> Create Campaign </span>
-		<div class="intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 ml-3">
+	<h2 class="text-xl font-medium mt-5 mb-3 mx-2">Create Campaign</h2>
+    <div class="">
+		<div class="box py-5 px-10 flex flex-col gap-5 intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50">
 			<div class="col-start-1 col-span-12 sm:col-span-6">
 				<div class="flex-col flex">
-					<label class="form-label w-20 text-base my-auto">Title</label>
+					<label class="form-label text-base">Title</label>
 					<input 
-						class="form-control w-full sm:w-[70%] lg:w-[50%]" 
+						class="form-control w-full sm:w-[70%] lg:w-[90%]" 
 						type="text" 
 						:class="{ 'border-danger': title_validate.title.$error }"
 						v-model.trim="title_validate.title.$model"
@@ -19,9 +19,9 @@
 					</label>
 				</template>
 			</div>
-			<div class="col-span-12 -mb-5 sm:col-span-6">
+			<div class="col-span-12 mb-3 sm:col-span-6">
 				<div class="flex flex-col">
-					<label for="regular-form-2" class="form-label w-16 text-base my-auto">Period</label>
+					<label for="regular-form-2" class="form-label text-base">Period</label>
 					<v-date-picker class="z-49" 
 						v-model="dateTimePicker" 
 						:timezone="timezone" 
@@ -42,6 +42,7 @@
 				</div>
 			</div>
 		</div>
+		
 
 		<DeliveryForm 
 			:campaign="campaignData"
@@ -56,8 +57,8 @@
 		<NotesForm :campaign="campaignData"/>
 
 		<div class="mt-5 p-0 col-span-12 z-0">
-			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="btn w-32 dark:border-darkmode-400" @click="$router.push({ name: 'campaigns' })">
+			<div class="col-span-12 flex justify-end mt-5">
+				<button class="btn w-32 dark:border-darkmode-400 bg-white" @click="$router.push({ name: 'campaigns' })">
 					Cancel
 				</button>
 				<button class="btn btn-primary w-32 shadow-md ml-5" @click="createCampaign()">

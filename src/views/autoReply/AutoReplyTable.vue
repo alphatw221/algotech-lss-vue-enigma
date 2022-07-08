@@ -53,17 +53,17 @@
 		<ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Keywords to Detect</label>
-				<input id="modal-form-1" type="text" class="form-control rounded-full longMessage" placeholder=""
+				<input id="modal-form-1" type="text" class="form-control longMessage" placeholder=""
 					v-model="currentInfo.input_msg" />
 			</div>
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Set Automated Response</label>
-				<input id="modal-form-1" type="text" class="form-control rounded-full longMessage" placeholder=""
+				<input id="modal-form-1" type="text" class="form-control longMessage" placeholder=""
 					v-model="currentInfo.output_msg" />
 			</div>
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Remark</label>
-				<input id="modal-form-1" type="text" class="form-control rounded-full" placeholder=""
+				<input id="modal-form-1" type="text" class="form-control" placeholder=""
 					v-model="currentInfo.description" />
 			</div>
 			<!-- <div class="col-span-12">

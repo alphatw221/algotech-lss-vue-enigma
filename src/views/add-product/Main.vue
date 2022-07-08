@@ -1,10 +1,10 @@
 <template>
 	<div class="h-[100%] overflow-auto">
-		<div class="intro-y flex items-center mt-3" v-if="route.params.product_id">
-			<h2 class="text-lg font-medium">Update Product</h2>
+		<div class="intro-y flex items-center mt-5 mb-3" v-if="route.params.product_id">
+			<h2 class="ttext-xl font-medium mt-5 mb-3 mx-2">Update Product</h2>
 		</div>
-		<div class="intro-y flex items-center mt-3" v-else>
-			<h2 class="text-lg font-medium">Add New Product</h2>
+		<div class="intro-y flex items-center mt-5 mb-3" v-else>
+			<h2 class="text-xl font-medium mt-5 mb-3 mx-2">Add New Product</h2>
 		</div>
 		<div class="intro-y grid grid-cols-12 gap-4 box p-5 mt-5">
 			<div class="col-span-6 col-start-1">
@@ -63,8 +63,8 @@
 					<div class="px-4 pb-4 text-[16px] absolute top-16 text-center w-full flex flex-col items-center justify-center"
                 		v-if="previewImage === null">
 						<div class="flex"> <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> <strong class="text-slate-600">Upload a file or drag and drop</strong> </div>
-						<div class="mt-2 text-slate-500">accepted File types: jpeg, png, jpg</div>
-						<div class="text-slate-500">Max file size : 2MB</div>  
+						<div class="mt-2 text-slate-500">Accepted File Types: jpeg, png, jpg</div>
+						<div class="text-slate-500">Max File Size : 2MB</div>  
 					</div>
 					<input
 						type="file"

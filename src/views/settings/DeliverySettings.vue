@@ -1,11 +1,11 @@
 <template>
-    <div class="py-5 sm:p-8">
-        <span class="text-2xl font-medium leading-none mx-5 mb-3 sm:m-10">Delivery Settings</span>
-        <div class="px-5 sm:p-10  intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 text-base">
-            <div class="col-start-1 col-span-12 mt-2 flex flex-wrap"> 
-                <label class="text-base whitespace-nowrap my-auto w-[18.2rem] mr-1">Delivery Charge</label>
+    <div class="py-5 pt-0">
+        <!-- <span class="text-2xl font-medium leading-none mx-5 mb-3 sm:m-10">Delivery Settings</span> -->
+        <div class="intro-y px-10 grid grid-cols-12 gap-1 sm:gap-5 -z-50 text-base">
+            <div class="col-start-1 col-span-12 mt-2 flex flex-col"> 
+                <label class="col-start-1 col-span-12 form-label flex flex-col">Delivery Charge</label>
                 <input 
-                    class="form-control  h-10 w-fit flex-1"
+                    class="form-control h-10 w-full flex-1"
                     type="text" 
                     v-model="deliverySettings.delivery_charge"
                 />
@@ -38,7 +38,12 @@
             />       
             </div> 
             
-            <label for="regular-form-2" class="form-label col-start-1 col-span-12 font-bold mt-5 text-base">Delivery Option(s)</label>
+            <label for="regular-form-2" class="flex justify-between form-label col-start-1 col-span-6 font-medium mt-8 text-base">Delivery Charge Option</label>
+            <a 
+                class="col-end text-right col-span-6 mt-8 w-full inline-block text-base my-3 col-end-auto whitespace-nowrap"
+                @click="addDelivery"
+            > <u> + Add More Option  </u> 
+            </a>
             <div v-for="(option, index) in deliverySettings.additional_delivery_options" class="col-span-12" :key="index">
                 <div class="flex flex-col flex-wrap sm:flex-row gap-3 mt-5 sm:mt-0">
                     <input  
@@ -48,7 +53,7 @@
                         v-model="option.title"
                     />
                     <select 
-                        class="form-select form-select-lg rounded-full w-full flex-1 sm:w-fit h-10"
+                        class="form-select form-select-lg w-full flex-1 sm:w-fit h-10"
                         v-model="option.type"
                     >
                         <option value="+">On top of delivery charge</option>
@@ -69,28 +74,29 @@
                     </button>
                 </div>
             </div>
-            <a 
-                class=" w-full inline-block text-base my-3 col-end-9 sm:col-end-11 whitespace-nowrap"
-                @click="addDelivery()"
-            >
-               <u> + Add more option  </u> 
-            </a>
-        </div>
+            
 
-        <span class="text-2xl font-medium leading-none mx-5 sm:m-10">Store Collection</span>
+        </div>
         <div class="px-5 mt-5 sm:mt-0 sm:p-10 intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 text-base">
+            <label class="flex justify-between form-label col-start-1 col-span-6 font-medium mt-8 text-base">Store Collection</label>
+            <a 
+                class="col-end text-right col-span-6 mt-8 w-full inline-block text-base my-3 col-end-auto whitespace-nowrap"
+                @click="addBranch()"
+            >
+            <u> + Add more option  </u> 
+            </a>
             <div v-for="(option, index) in deliverySettings.pickup_options" class="col-span-12" :key="index">
-                <div class="flex flex-col gap-3">
-                    <div class="flex flex-col sm:flex-row gap-3">
-                         <label class="text-base w-[8rem] lg:w-[12rem] my-auto">Pickup Store</label>
+                <div class="flex flex-col flex-wrap sm:flex-row gap-3 mt-5 sm:mt-0">
+                    <div class="flex flex-col sm:col-span-12 md:col-span-4">
+                        <label class="col-start-1 col-span-12 form-label flex flex-col">Pickup Store</label>
                         <input 
                             class="form-control  text-base w-full sm:w-[12rem] h-10 -mt-2 sm:mt-0"
                             type="text"
                             v-model="option.name" 
                         />
                     </div>
-                    <div class="flex flex-col sm:flex-row flex-wrap gap-3">
-                        <label class="text-base w-[8rem] lg:w-[12rem] my-auto">Pickup Address</label>
+                    <div class="flex flex-col sm:col-span-12 md:col-span-8">
+                        <label class="text-base w-[8rem] lg:w-[12rem]">Pickup Address</label>
                         <input 
                             class="form-control  text-base h-10 w-full flex-1 sm:max-w-[28rem] mr-5 -mt-2 sm:mt-0"
                             type="text" 
@@ -106,12 +112,7 @@
                     
                 </div>
             </div>
-            <a 
-                class="w-full inline-block text-base my-3 col-end-9 sm:col-end-11 whitespace-nowrap"
-                @click="addBranch()"
-            >
-               <u> + Add more option  </u> 
-            </a>
+            
 
             <label class="form-label col-start-1 col-span-12 text-xl">Delivery
                 Note</label>
@@ -133,7 +134,8 @@
                     {{ upsertButtonName }}
                 </button>
             </div>
-        </div>        
+        </div> 
+               
     </div>
 </template>
 

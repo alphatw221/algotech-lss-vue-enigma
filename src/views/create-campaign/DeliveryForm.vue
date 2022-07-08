@@ -1,9 +1,9 @@
 <template >
-	<div class="py-5 sm:p-10  intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 text-base" v-if="ready">
-		<span class="text-lg font-medium leading-none mb-3 col-span-12">Delivery Details</span>
-		
+	<div class="box mt-3 p-10 flex flex-col gap-5 intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 text-base" v-if="ready">
+		<span class="text-lg font-medium leading-none col-span-12">Delivery Details</span>
+		<hr class="col-span-12">
 		<div class="col-start-1 col-span-12 flex flex-col"> 
-			<label class="text-base whitespace-nowrap">Delivery Charge</label>
+			<label class="form-label">Delivery Charge</label>
 			<input 
 				class="form-control w-full"
 				type="text" 
@@ -11,8 +11,8 @@
 			/>
 		</div>
 			
-		<div class="sm:col-start-1 col-span-12 mt-2 flex flex-col flex-wrap">
-			<label class="text-base">
+		<div class="sm:col-start-1 col-span-12 flex flex-wrap">
+			<label class="form-label my-auto w-[19rem]">
 				<input 
 					class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-1" 
 					type="checkbox" 
@@ -21,15 +21,15 @@
 				Free delivery for order above $
 			</label>
 			<input 
-				class="form-control w-full" 
+				class="form-control w-fit flex-1" 
 				type="text" 
 				v-model="props.campaign.meta_logistic.free_delivery_for_order_above_price"
 		/>
 		</div> 
 
-		<div class="sm:col-start-1 col-span-12 mt-2 flex flex-col flex-wrap">
+		<div class="sm:col-start-1 col-span-12 flex flex-wrap">
 			
-			<label class="w-[19rem] text-base">
+			<label class="form-label my-auto w-[19rem]">
 				<input 
 					class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-1" 
 					type="checkbox"
@@ -39,14 +39,19 @@
 			</label>
 
 			<input 
-				class="form-control w-full "
+				class="form-control w-fit flex-1"
 				type="text"
 				v-model="props.campaign.meta_logistic.free_delivery_for_how_many_order_minimum"
 			/>       
 		</div> 
 		
-
-		<label for="regular-form-2" class="form-label col-start-1 col-span-12 font-bold mt-5 text-base">Delivery Charge Option</label>
+		<label for="regular-form-2" class="flex justify-between form-label col-start-1 col-span-6 font-medium mt-8 text-base">Delivery Charge Option</label>
+		<a 
+			class="col-end text-right col-span-6 mt-8 w-full inline-block text-base my-3 col-end-auto whitespace-nowrap"
+			@click="addDelivery"
+		> <u> + Add More Option  </u> 
+		</a>
+		
 		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
 			<div class="flex flex-col flex-wrap sm:flex-row gap-3 mt-5 sm:mt-0">
 				<input  
@@ -69,36 +74,45 @@
 					v-model="option.price"
 				/>
 				<button 
-					class="btn btn-danger inline-block text-base w-full rounded-lg  sm:w-24 ml-auto h-[42px]" 
+					class="btn btn-danger inline-block text-base w-full rounded-lg sm:w-24 ml-auto h-[42px]" 
 					@click="deleteDelivery(index)"
 				> Delete </button>
 			</div>
 		</div>
-		<a 
-			class=" w-full inline-block text-base my-3 col-end-9 sm:col-end-11 whitespace-nowrap"
-			@click="addDelivery"
-		> <u> + Add more option  </u> 
-		</a>
+		
 
-		<label class="form-label col-start-1 col-span-12 font-bold mt-2 text-base">Store Collection</label>
-		<div class=" intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 text-base col-span-12">
+		<label class="flex justify-between form-label col-start-1 col-span-6 font-medium mt-8 text-base">Store Collection</label>
+			<a 
+			class="col-end text-right col-span-6 mt-8 w-full inline-block text-base my-3 col-end-auto whitespace-nowrap"
+			@click="addBranch()"
+			>
+			<u> + Add More Option  </u> 
+			</a>
+		
+		<div class="col-span-12">
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">
-				<div class="flex flex-col">
-						<label class="text-base">Pickup Store</label>
+				
+				<div class="flex flex-col flex-wrap sm:flex-row gap-3 mt-5 sm:mt-0">
+					<div class="flex flex-col sm:col-span-12 md:col-span-4">
+						<label class="form-label">Pickup Store</label>
 					<input 
 						class="form-control text-base w-full sm:w-[20rem]"
 						type="text"
 						v-model="option.name" 
 					/>
+					</div>
+					<div class="flex flex-col sm:col-span-12 md:col-span-8">
+						<label class="form-label">Pickup Address</label>
+							<div class="flex flex-wrap"> 
+								<input 
+								class="form-control text-base w-full"
+								type="text" 
+								v-model="option.address"
+							/>
+					</div>
 				</div>
-				<div class="flex flex-col flex-wrap mt-2">
-					<label class="text-base w-[8rem]">Pickup Address</label>
-					<div class="flex flex-wrap"> 
-						<input 
-						class="form-control text-base w-full sm:max-w-[32rem] sm:mt-0 sm:mr-5"
-						type="text" 
-						v-model="option.address"
-					/>
+				<div class="flex flex-col mt-8">
+					
 					<button 
 						class="btn btn-danger inline-block sm:ml-auto w-full rounded-lg sm:w-24 h-[42px] mt-2 sm:mt-0" 
 						@click="deleteBranch(index)"
@@ -108,12 +122,6 @@
 					</div>
 				</div>
             </div>
-            <a 
-                class="w-full inline-block text-base my-3 col-end-9 sm:col-end-11 whitespace-nowrap"
-                @click="addBranch()"
-            >
-               <u> + Add more option  </u> 
-            </a>
         </div>      
 	</div>
 </template>
