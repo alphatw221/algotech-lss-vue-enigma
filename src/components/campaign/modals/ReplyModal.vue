@@ -1,9 +1,9 @@
 <template>
 
-    <Modal :show="show" @hidden="closeChat" backdrop="static">
+    <Modal :show="show" @hidden="hide()" backdrop="static">
         <ModalHeader>
-            <img alt="" class="w-8 h-8 rounded-full zoom-in" :src="replyTo.image" />
-            <h2 class="ml-5 mr-auto text-base font-medium">Reply to {{ replyTo.customer_name }} </h2>
+            <img alt="" class="w-8 h-8 rounded-full zoom-in" :src="comment.image" />
+            <h2 class="ml-5 mr-auto text-base font-medium">Reply to {{ comment.customer_name }} </h2>
             <a @click="show = false" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
                 <XIcon class="w-12 h-12 text-slate-400" />
             </a>
@@ -12,19 +12,19 @@
             <div class="overflow-y-auto max-h-[500px]"> 
                 <div class="flex w-fit h-fit">
                     <div class="flex-none w-12 h-12 mr-1 image-fit">
-                        <img alt="" class="rounded-full zoom-in" :src="replyTo.image" />
+                        <img alt="" class="rounded-full zoom-in" :src="comment.image" />
                     </div>
                     <div class="flex flex-col p-2 m-3 box bg-secondary w-fit">
                         <div class="flex items-center">
-                            <span class="font-medium text-sky-900">{{ replyTo.customer_name }}</span>
+                            <span class="font-medium text-sky-900">{{ comment.customer_name }}</span>
                             <div class="ml-auto text-xs text-slate-400"></div>
                         </div>
                         <div class="w-fit items-left text-slate-700 mt-0.5 p-0.5 space-wrap">
-                            {{ replyTo.message }}
+                            {{ comment.message }}
                         </div>
                     </div>
                 </div>
-                <template v-for="(comment,key) in nestComment" :key="key">
+                <template v-for="(comment,index) in nestComments" :key="index">
                 <div v-if="comment.from.id === pageId"
                     class="flex justify-end w-full h-fit">
                     <div class="flex flex-col p-2 m-3 box bg-secondary w-fit">
@@ -55,7 +55,7 @@
                 <textarea v-model="message"
                     class="px-5 py-3 shadow-none resize-none chat__box__input form-control dark:bg-darkmode-600 h-14 border-inherit focus:border-inherit focus:ring-0"
                     rows="1" placeholder="Type your message..."></textarea>
-                <a @click="send(replyTo.id, message)"
+                <a @click="send()"
                     class="flex items-center justify-center flex-none w-10 h-10 mx-3 text-white rounded-full bg-primary">
                     <SendIcon class="w-6 h-6" />
                 </a>
@@ -70,81 +70,76 @@
 
 </template>
 
-<script>
+<script setup>
+import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance, watch, computed} from 'vue';
 import { comment_on_comment, nest_comment } from '@/api_v2/campaign';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { useRoute, useRouter } from "vue-router";
 
-export default {
-    props: {
-        replyTo: {
-            required: true,
-            type: Object,
-        },
-        openChat: {
-            default: false,
-            required: false,
-            type: Boolean,
-        },
-        pageId: {
-            type: String, 
+const layoutStore = useLSSSellerLayoutStore();
+
+const internalInstance = getCurrentInstance()
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+
+const router = useRouter()
+const route = useRoute()
+
+
+const show=ref(false)
+const message = ref('')
+const nestComments=ref([])
+const comment = ref({})
+let pollingInterval = null
+
+onMounted(()=>{
+     eventBus.on("showReplyModal", (payload) => {
+        console.log(payload)
+        if(payload.comment.platform=='facebook'){
+            
+            show.value = true
+            comment.value = payload.comment
+            loopNestComment()
+        }else{
+            layoutStore.alert.showMessageToast("This function is under developing...");
         }
-    },
-    data() {
-        return {
-            show: false,
-            message: '',
-            campaignId: this.$route.params.campaign_id,
-            nestComment: [],
-            dummy: 0,
-        }
-    },
-    mounted() {
-        if (this.openChat === true) {
-            this.show = true
-        }
-        setInterval(this.getNestComment(), 5000)
-    },
-    watch:{
-        show: function(){
-            if(this.show === true){
-                this.loopNestComment()
-            }else{
-                clearInterval(this.dummy)
-                // console.log('off')
-                this.show = false
-            }
-        }   
-    },
-    methods: {
-        closeChat() {
-            clearInterval(this.dummy)
-            this.show = false,
-            this.eventBus.emit("hide")
-        },
-        getNestComment(){
-            nest_comment(this.campaignId,this.replyTo.id).then((response)=>{
-                this.nestComment = response.data[1].data
-            })
-            // console.log('run')
-        },
-        loopNestComment(){
-            clearInterval(this.dummy)
-            this.dummy = setInterval(()=>{
-                // console.log('tick...')
-                nest_comment(this.campaignId,this.replyTo.id).then((response)=>{
-                this.nestComment = response.data[1].data
-                })
-            }, 5000)
-        },
-        send(comment_id) {
-            comment_on_comment(this.campaignId, comment_id, this.message).then((response) => {
-                // console.log(response.data);
-                this.message=''
-                this.getNestComment()
-            }).catch(error => {
-                console.log(error);
-            })
-        },
-    }
+        
+    });
+})
+
+onUnmounted(()=>{
+    eventBus.off("showReplyModal")
+})
+    
+    
+
+const getNestComment = ()=>{
+    nest_comment(route.params.campaign_id, comment.value.id).then((response)=>{
+        nestComments.value = response.data[1].data   //facebook_api
+        console.log(response.data)
+    })
 }
+
+const loopNestComment = ()=>{
+    clearInterval(pollingInterval)
+    getNestComment()
+    pollingInterval = setInterval(getNestComment, 5000)
+}
+
+const send = ()=>{
+    comment_on_comment(route.params.campaign_id, comment.value.id, message.value).then((res) => {
+        message.value=''
+        loopNestComment()
+    })
+}
+
+const hide = ()=>{
+    clearInterval(pollingInterval)
+    show.value=false
+    message.value = ''
+    nestComments.value=[]
+    comment.value = {}
+    pollingInterval = null
+}
+
 
 </script>

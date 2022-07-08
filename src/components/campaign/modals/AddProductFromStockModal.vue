@@ -1,7 +1,7 @@
 <template>
-        <Modal size="modal-xl" class="text-center" :slideOver="true" :show="store.showAddProductFromStockModal"
+    <Modal size="modal-xl" class="text-center" :slideOver="true" :show="store.showAddProductFromStockModal"
         @hidden="store.showAddProductFromStockModal = false">
-        <a @click="store.showAddProductFromStockModal = !store.showAddProductFromStockModal" class="absolute right-0 top-0 mt-3 mr-3">
+        <a @click="store.showAddProductFromStockModal = false" class="absolute right-0 top-0 mt-3 mr-3">
             <XIcon class="w-8 h-8 text-slate-400" />
         </a>
         <ModalHeader class="text-center text-base p-5">
@@ -24,14 +24,10 @@
                         </select>
                     </form>
                 </div>
-                <EditableDataTable
+                <!-- <EditableDataTable
                     class="overflow-x-auto"
-                    :requestUrl="'/api/v2/product/search'"
-                    :columns="tableColumns"
-                    :status="'enabled'"
-                    :campaignProducts="props.currentProductList"
                 >
-                </EditableDataTable>
+                </EditableDataTable> -->
             </div>
         </ModalBody>
     </Modal>
@@ -40,32 +36,20 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance, onUnmounted } from 'vue';
 import { useRoute, useRouter } from "vue-router";
-import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { list_product_category } from '@/api_v2/product';
 import EditableDataTable from "../table/EditableDataTable.vue";
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-const store = useLSSCampaignListStore(); 
-const props = defineProps({
-    currentProductList: Array, 
-});
-const tableColumns = ref([
-    { name: "Product", key: "image" },
-    { name: "", key: "name" },
-    { name: "Order Code", key: "order_code" },
-	{ name: "QTY for Campaign", key: "qty" },
-	{ name: "Max QTY/Order", key: "max_order_amount" },
-    { name: "Price", key: "price" },
-	{ name: "Editable", key: "customer_editable" },
-	{ name: "Deletable", key: "customer_removable" },
-	{ name: "Category", key: "category" },
-	{ name: "Type", key: "type" },
-])
+const store = useCampaignDetailStore(); 
+
+
 const selectedCategory = ref('')
 const productCategories= ref([{text:"All", value:''}])
 
 onMounted(() => {
+    console.log('modal mounted')
 	list_product_category().then(
 		response => { 
 			response.data.forEach(category => {

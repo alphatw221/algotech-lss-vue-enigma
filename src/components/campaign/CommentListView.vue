@@ -1,5 +1,29 @@
 <template>
-    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" :class="{ hidden: showCommentLoding}"/>
+
+    <div class="sticky z-50 flex-wrap justify-start bg-white -top-1 h-fit" v-show="props.platformName=='commentSummarize'">
+        <button class="m-1 shadow-sm btn btn-danger w-fit tags" @click="commentSummarizer('Shipping')">
+            <HashIcon class="w-4 h-4 mr-2" /> Shipping
+        </button>
+        <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummarizer('Return')">
+            <HashIcon class="w-4 h-4 mr-2" /> Return
+        </button>
+        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('Size')">
+            <HashIcon class="w-4 h-4 mr-2" /> Size
+        </button>
+        <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummarizer('Undefined')">
+            <HashIcon class="w-4 h-4 mr-2" /> Undefined
+        </button>
+        <div class="flex"> 
+            <h2 v-if="tags !== ''" class="p-1">Selected tag: {{ tags }}</h2>
+            <button class="flex p-1 ml-auto w-18 text-slate-900"
+                @click="commentSummarizer('')">
+                <XIcon class="w-4 h-4" /> Clear 
+            </button> 
+        </div>
+    </div>
+
+
+    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="showCommentLoding"/>
     <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)">
         
         <!-- <template> </template> -->
@@ -46,9 +70,6 @@
             </Tippy>
         </div>
     </div>
-    <template v-if="showModal">
-        <ReplyModal :replyTo="reply" :openChat="showModal" v-on:hide="showModal = false" :pageId="props.pageId"/>
-    </template>
 </template>
 
 <script setup>
@@ -56,7 +77,7 @@ import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstan
 import { createCommentPaginator } from '@/api_v2/campaign_comment'
 import { get_summerize_comments } from "@/api/campaign_comment"
 import { useRoute, useRouter } from "vue-router"
-import ReplyModal from './modals/ReplyModal.vue';
+// import ReplyModal from './modals/ReplyModal.vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
 
@@ -67,39 +88,32 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const props = defineProps({
-    platformName: Object,
-    pageId: String,
+    platformName: String,
 });
 
-const commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName)
+let commentPaginator = null 
 const comments = ref([])
 const showCommentLoding = ref(true)
 
 let fetchingData = false
 onMounted(()=>{
-    updateComments()
-    eventBus.on("changeCommentData", (payload) => {
-        updateComments()
-    });
-    eventBus.on("getbackNormalComments", (payload) => {
-        updateComments()
-    });
-    eventBus.on(`${props.platformName}_commentSummurizerTrigger`, (payload) => {
-        get_campaign_summerize_comments(payload.status);
-    });
+    getHistoryComments()
 })
 
 onUnmounted(()=>{
-    eventBus.off(`${props.platformName}_commentSummurizerTrigger`)
+    eventBus.off(`insert_${props.platformName}_comment`)
 })
 
-const updateComments= () =>{
-    showCommentLoding.value = false
+const getHistoryComments= () =>{
+    commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName, '')
+    showCommentLoding.value = true
     commentPaginator.getData().then(res=>{
+        showCommentLoding.value = false
         comments.value = res.data.results
-        showCommentLoding.value = true
+        if(props.platformName!='commentSummarize')readyToUpdateByWebsocket()
     }).catch(err=>{
-        showCommentLoding.value = true
+        showCommentLoding.value = false
+        return err
     })
 }
 
@@ -107,44 +121,44 @@ const handleScroll = event=>{
     if(!fetchingData && event.target.scrollTop > ((event.target.scrollHeight*3)/4) && commentPaginator.gotNext){
         fetchingData = true
         commentPaginator.nextPage().then(res=>{
-            comments.value = comments.value.concat(res.data.results)
+            comments.value = comments.value.concat(res.data.results)   //maybe for loop render more smoothly
             fetchingData = false
         })
     }
 }
 
-const reply= ref([])
-const showModal= ref(false)
-const layoutStore = useLSSSellerLayoutStore();
-const showReplyBar =(e)=> {
-    reply.value = e;
-    if(reply.value.platform === 'facebook'){
-        showModal.value = true;
-    }else{
-        layoutStore.alert.showMessageToast("This function is under developing...");
-    }
+const readyToUpdateByWebsocket = ()=>{
+    eventBus.on(`insert_${props.platformName}_comment`, payload => {
+        comments.value.unshift(payload)
+    })
 }
 
-const get_campaign_summerize_comments = (status) => {
-    showCommentLoding.value = false
-    get_summerize_comments(route.params.campaign_id, status)
-    .then((response) => {
-        console.log(response);
-        comments.value = response.data
-        showCommentLoding.value = true
+const commentSummarizer = category=>{
+    commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName, category)
+    commentPaginator.getData().then(res=>{
+        showCommentLoding.value = false
+        comments.value = res.data.results
+    }).catch(err=>{
+        showCommentLoding.value = false
+        return err
     })
-    .catch((error) => {
-        console.log(error);
-        showCommentLoding.value = true
-    });
 }
+
+const showReplyBar = comment=>{
+    eventBus.emit('showReplyModal',{'comment':comment})
+}
+
+const layoutStore = useLSSSellerLayoutStore();
+
+
 
 </script>
+
 <style scoped>
-.body-middle {
-    left: calc(50% - 30px);
-    top:60%;
-    z-index: 999;
-}
+    .body-middle {
+        left: calc(50% - 30px);
+        top:60%;
+        z-index: 999;
+    }
 </style>
  
