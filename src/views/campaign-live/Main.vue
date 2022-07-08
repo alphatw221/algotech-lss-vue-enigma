@@ -92,11 +92,7 @@ const handleSocketMessage = message=>{
 
         console.log(store.campaignProducts)
 
-        if(index){
-
-            console.log(store.campaignProducts[index])
-            console.log(message.data)
-            console.log(index)
+        if(store.campaignProducts[index]){
             store.campaignProducts[index]["qty_sold"] = message.data.qty_sold
             store.campaignProducts[index]["qty_add_to_cart"] = message.data.qty_add_to_cart
         }
