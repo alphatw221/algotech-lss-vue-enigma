@@ -71,6 +71,13 @@
                             </div>
                         </div>
                     </template>
+                    <template v-else-if="column.key === 'link'">
+                        <div class="flex place-content-center">
+                            <div class="w-10 h-10 image-fit">
+                                <Share2Icon class="block mx-auto"  @click="copyURL(order.id,order.type)" />
+                            </div>
+                        </div>
+                    </template>
                     <template v-else-if="column.key === 'delivery'">
                         <div class="flex place-content-center">
                             <div class="w-10 h-10 image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
@@ -114,7 +121,8 @@
     </div>
 </template>
 <script setup>
-import { manage_order_list, seller_shipping_out } from "@/api_v2/order"
+import { manage_order_list, seller_shipping_out, get_order_oid } from "@/api_v2/order"
+import { get_pre_order_oid } from "@/api_v2/pre_order"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
@@ -123,6 +131,7 @@ const router = useRouter();
 const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const baseURL = import.meta.env.VITE_APP_ROOT_API
 const columns = ref([
     { name: 'Order#', key: 'id' },
     { name: '', key: 'platform' },
@@ -131,6 +140,7 @@ const columns = ref([
     { name: 'Payment', key: 'payment_method' },
     { name: 'Status', key: 'status' },
     { name: 'View', key: 'view' },
+    { name: '', key: 'link' },
     { name: 'Delivery Status', key: 'delivery' },
     { name: '', key: 'order_product'}
 ]);
@@ -196,6 +206,26 @@ function shipping_out(order_id,index){
     
     )
 }
+function copyURL(order_id,type){
+    if(type === 'order'){
+        get_order_oid(order_id).then(
+            res =>{
+            text = `${baseURL}/buyer/order/${res.data}`;
+            navigator.clipboard.writeText(text).then(()=>{
+                alert('copied!')
+            })
+        }
+        )
+    }else{ 
+        get_pre_order_oid(order_id).then(
+            res =>{
+            text = `${baseURL}/buyer/cart/${res.data}`;
+            navigator.clipboard.writeText(text).then(()=>{
+                alert('copied!')
+            })
+        })
+        }
+    }
 </script>
 
 <style scoped>
@@ -302,19 +332,25 @@ thead th{
 	}
 	td:nth-of-type(7){
 		display: inline-block;
-		width: 33%;
+		width: 25%;
 		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
     td:nth-of-type(8){
 		display: inline-block;
-		width: 33%;
+		width: 25%;
 		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
-	td:nth-of-type(9){
+    td:nth-of-type(9){
 		display: inline-block;
-		width: 34%;
+		width: 25%;
+		padding-left: 0% !important;
+		/* color: #0e9893; */
+	}
+	td:nth-of-type(10){
+		display: inline-block;
+		width: 25%;
 		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
@@ -326,6 +362,9 @@ thead th{
 		display: none;
 	}
     td:nth-of-type(9):before {
+		display: none;
+	}
+    td:nth-of-type(10):before {
 		display: none;
 	}
 }
