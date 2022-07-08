@@ -7,7 +7,8 @@
         "default_setting":"Campaign Default Setting",
         "localization":"Localization",
         "connect_platform":"Connect Platform",
-        "auto_reply" : "自動回覆"
+        "auto_reply" : "自動回覆",
+        "upgrade":"Upgrade"
     },
 
     "nav" : {
