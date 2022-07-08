@@ -87,7 +87,7 @@ const handleSocketMessage = message=>{
     if(message.type=='comment_data'){
         eventBus.emit("insert_all_comment", message.data)
         eventBus.emit(`insert_${message.data.platform}_comment`, message.data)
-    }else if (message.type = 'product_data'){
+    }else if (message.type == 'product_data'){
         const index = store.campaignProducts.findIndex(product => product.id === message.data.id)
 
         console.log(store.campaignProducts)
@@ -96,11 +96,12 @@ const handleSocketMessage = message=>{
 
             console.log(store.campaignProducts[index])
             console.log(message.data)
+            console.log(index)
             store.campaignProducts[index]["qty_sold"] = message.data.qty_sold
             store.campaignProducts[index]["qty_add_to_cart"] = message.data.qty_add_to_cart
         }
         
-    }else if (message.type = 'order_data'){
+    }else if (message.type == 'order_data'){
         store.incomingOrders.unshift(message.data)
     }
 
