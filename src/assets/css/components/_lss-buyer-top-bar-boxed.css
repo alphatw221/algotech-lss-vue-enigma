@@ -1,5 +1,5 @@
 .lss-buyer-top-bar-boxed {
-    background-color: white;
+    @apply bg-gradient-to-b from-white;
     &.top-bar-boxed--simple-menu {
         .logo {
             @apply w-auto;

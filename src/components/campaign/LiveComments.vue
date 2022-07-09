@@ -209,14 +209,14 @@ onMounted(()=>{
 
 const toggleTabs = tabName => openTab.value=tabName
 
-const commentSummurizer = status => {
-        tags = status
-        if(status === ''){
-            this.eventBus.emit("getbackNormalComments")
-        }else{
-            this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
-        }
-    }
+// const commentSummurizer = status => {
+//         tags = status
+//         if(status === ''){
+//             this.eventBus.emit("getbackNormalComments")
+//         }else{
+//             this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
+//         }
+//     }
 
 
 

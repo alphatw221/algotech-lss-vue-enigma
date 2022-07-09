@@ -1,37 +1,30 @@
 <template>
   <!-- BEGIN: Top Bar -->
   <div
-    class="lss-buyer-top-bar-boxed sticky top-0 border-b border-white/[0.08]
+    class="lss-buyer-top-bar-boxed sticky top-0 
     h-[70px] z-[51] px-6 -mx-3 pt-4
     sm:-mx-8 sm:px-8
     md:h-[65px] md:-mx-0 md:border-b-0 md:fixed md:inset-x-0 md:px-10 md:bg-gradient-to-b md:from-slate-100 md:to-transparent
     dark:md:from-darkmode-700"
   > 
-    <div class="h-full w-full flex justify-between items-center">
+    <div class="flex items-center justify-between w-full h-full">
 
       <!-- BEGIN: Hamburger -->
       <a @click="toggleMobileMenu()">
         <AlignJustifyIcon
-          class="w-7 h-7 text-white transform md:hidden intro-x mb-1 hover:text-slate-300"
+          class="mb-1 text-white transform w-7 h-7 md:hidden intro-x hover:text-slate-300"
         />
       </a>
       <!-- END: Hamburger -->
 
       <!-- BEGIN: Logo -->
-      <a href="" class="logo -intro-x block
-      w-20
-      sm:w-24
-      md:mr-auto
-      md:flex md:w-1/10 md:mx-0
-      xl:ml-5
-
-      ">
+      <a href="" class="block w-20 logo -intro-x sm:w-24 md:mr-auto md:flex md:w-1/10 md:mx-0 xl:ml-5 ">
         <img
           alt="Enigma Tailwind HTML Admin Template"
-          class="logo__image mb-1 self-center"
+          class="self-center mb-1 logo__image"
           src="@/assets/images/lss-logo/LSS_logo_words_white.png"
         />
-        <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
+        <!-- <span class="mt-2 ml-3 text-lg text-white logo__text"> LiveShowSeller </span> -->
       </a>
       <!-- END: Logo -->
       <!-- BEGIN: Breadcrumb -->
@@ -43,11 +36,11 @@
       </nav> -->
       <!-- END: Breadcrumb -->
       <!-- BEGIN: Search
-      <div class="intro-x relative mr-3 sm:mr-6">
-        <div class="search hidden sm:block">
+      <div class="relative mr-3 intro-x sm:mr-6">
+        <div class="hidden search sm:block">
           <input
             type="text"
-            class="search__input form-control border-transparent"
+            class="border-transparent search__input form-control"
             placeholder="Search..."
             @focus="showSearchDropdown"
             @blur="hideSearchDropdown"
@@ -63,7 +56,7 @@
             <div class="mb-5">
               <a href="" class="flex items-center">
                 <div
-                  class="w-8 h-8 bg-success/20 dark:bg-success/10 text-success flex items-center justify-center rounded-full"
+                  class="flex items-center justify-center w-8 h-8 rounded-full bg-success/20 dark:bg-success/10 text-success"
                 >
                   <InboxIcon class="w-4 h-4" />
                 </div>
@@ -71,7 +64,7 @@
               </a>
               <a href="" class="flex items-center mt-2">
                 <div
-                  class="w-8 h-8 bg-pending/10 text-pending flex items-center justify-center rounded-full"
+                  class="flex items-center justify-center w-8 h-8 rounded-full bg-pending/10 text-pending"
                 >
                   <UsersIcon class="w-4 h-4" />
                 </div>
@@ -79,7 +72,7 @@
               </a>
               <a href="" class="flex items-center mt-2">
                 <div
-                  class="w-8 h-8 bg-primary/10 dark:bg-primary/20 text-primary/80 flex items-center justify-center rounded-full"
+                  class="flex items-center justify-center w-8 h-8 rounded-full bg-primary/10 dark:bg-primary/20 text-primary/80"
                 >
                   <CreditCardIcon class="w-4 h-4" />
                 </div>
@@ -103,7 +96,7 @@
                 </div>
                 <div class="ml-3">{{ faker.users[0].name }}</div>
                 <div
-                  class="ml-auto w-48 truncate text-slate-500 text-xs text-right"
+                  class="w-48 ml-auto text-xs text-right truncate text-slate-500"
                 >
                   {{ faker.users[0].email }}
                 </div>
@@ -125,7 +118,7 @@
               </div>
               <div class="ml-3">{{ faker.products[0].name }}</div>
               <div
-                class="ml-auto w-48 truncate text-slate-500 text-xs text-right"
+                class="w-48 ml-auto text-xs text-right truncate text-slate-500"
               >
                 {{ faker.products[0].category }}
               </div>
@@ -135,39 +128,39 @@
       </div> -->
       <!-- END: Search -->
       <!-- BEGIN: Notifications -->
-      <!-- <Dropdown class="intro-x mr-4 sm:mr-6">
+      <!-- <Dropdown class="mr-4 intro-x sm:mr-6">
         <DropdownToggle
           tag="div"
           role="button"
-          class="notification notification--bullet cursor-pointer"
+          class="cursor-pointer notification notification--bullet"
         >
           <BellIcon class="notification__icon dark:text-slate-500" />
         </DropdownToggle>
-        <DropdownMenu class="notification-content pt-2">
+        <DropdownMenu class="pt-2 notification-content">
           <DropdownContent tag="div" class="notification-content__box">
             <div class="notification-content__title">Notifications</div>
             <div
               v-for="(faker, fakerKey) in $_.take($f(), 5)"
               :key="fakerKey"
-              class="cursor-pointer relative flex items-center"
+              class="relative flex items-center cursor-pointer"
               :class="{ 'mt-5': fakerKey }"
             >
-              <div class="w-12 h-12 flex-none image-fit mr-1">
+              <div class="flex-none w-12 h-12 mr-1 image-fit">
                 <img
                   alt="Enigma Tailwind HTML Admin Template"
                   class="rounded-full"
                   :src="faker.photos[0]"
                 />
                 <div
-                  class="w-3 h-3 bg-success absolute right-0 bottom-0 rounded-full border-2 border-white"
+                  class="absolute bottom-0 right-0 w-3 h-3 border-2 border-white rounded-full bg-success"
                 ></div>
               </div>
               <div class="ml-2 overflow-hidden">
                 <div class="flex items-center">
-                  <a href="javascript:;" class="font-medium truncate mr-5">{{
+                  <a href="javascript:;" class="mr-5 font-medium truncate">{{
                     faker.users[0].name
                   }}</a>
-                  <div class="text-xs text-slate-400 ml-auto whitespace-nowrap">
+                  <div class="ml-auto text-xs text-slate-400 whitespace-nowrap">
                     {{ faker.times[0] }}
                   </div>
                 </div>
@@ -181,11 +174,11 @@
       </Dropdown> -->
       <!-- END: Notifications -->
       <!-- BEGIN: Account Menu -->
-      <Dropdown class="intro-x w-10 h-10">
+      <Dropdown class="w-10 h-10 intro-x">
         <DropdownToggle
           tag="div"
           role="button"
-          class="w-10 h-10 rounded-full border-2 border-slate-200 overflow-hidden shadow-lg image-fit zoom-in scale-110"
+          class="w-10 h-10 overflow-hidden scale-110 border-2 rounded-full shadow-lg border-slate-200 image-fit zoom-in"
         > 
             <img
             :src="userAvatar"
