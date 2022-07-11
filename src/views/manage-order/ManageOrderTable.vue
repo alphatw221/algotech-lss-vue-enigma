@@ -66,19 +66,23 @@
                     </template>
                     <template v-else-if="column.key === 'view'">
                         <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit">
+                            <a class="text-black w-10 h-10 image-fit">
                                 <EyeIcon @click="to_order_detail(order.id,order.type)"/>
-                            </div>
+                            </a>
+                            
+                            <a class="w-10 h-10 image-fit">
+                                <Share2Icon class="block mx-auto text-black"  @click="copyURL(order.id,order.type)" />
+                            </a>
                         </div>
                     </template>
                     <template v-else-if="column.key === 'delivery'">
                         <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit" v-show="order.status === 'complete'" @click="shipping_out(order.id,key)">
+                            <a class="w-10 h-10 image-fit text-black" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
                                 <TruckIcon />
-                            </div>
-                            <div class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
+                            </a>
+                            <a class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
                                 <TruckIcon style="color:#BABABA"/>
-                            </div>
+                            </a>
                         </div>
                     </template>
                     <template v-else-if="column.key === 'customer_name'">
@@ -91,9 +95,9 @@
                     </template>
                     <template v-else-if="column.key === 'order_product'">
                         <div class="flex place-content-center">
-                            <div class="w-10 h-10 image-fit">
+                            <a class="w-10 h-10 image-fit text-black">
                                 <ChevronDownIcon @click="orderProductModal(order.id,order.type)"/>
-                            </div>
+                            </a>
                         </div>
                     </template>
                     <template v-else-if="column.key === 'subtotal'">
@@ -102,8 +106,11 @@
                     <template v-else-if="column.key === 'payment_method'">
                         {{ order[column.key] == 'Direct Payment' ? `Direct Payment - ${order.meta.account_mode}` : order[column.key] }}
                     </template>
+                    <template v-else-if="column.key === 'id'">
+                        {{ order.id }}
+                    </template>
                     <template v-else class="w-30">
-                        {{ order[column.key] }}
+                        {{ $t(`manage_order.${order[column.key]}`) }}
                     </template>
                 </td>
             </tr>
@@ -114,7 +121,8 @@
     </div>
 </template>
 <script setup>
-import { manage_order_list, seller_shipping_out } from "@/api_v2/order"
+import { manage_order_list, seller_shipping_out, get_order_oid } from "@/api_v2/order"
+import { get_pre_order_oid } from "@/api_v2/pre_order"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
@@ -123,6 +131,7 @@ const router = useRouter();
 const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const baseURL = import.meta.env.VITE_APP_ROOT_API
 const columns = ref([
     { name: 'Order#', key: 'id' },
     { name: '', key: 'platform' },
@@ -130,8 +139,8 @@ const columns = ref([
     { name: 'Amount', key: 'subtotal' },
     { name: 'Payment', key: 'payment_method' },
     { name: 'Status', key: 'status' },
-    { name: 'View', key: 'view' },
     { name: 'Delivery Status', key: 'delivery' },
+    { name: 'Action', key: 'view' },
     { name: '', key: 'order_product'}
 ]);
 
@@ -196,6 +205,26 @@ function shipping_out(order_id,index){
     
     )
 }
+function copyURL(order_id,type){
+    if(type === 'order'){
+        get_order_oid(order_id).then(
+            res =>{
+            text = `${baseURL}/buyer/order/${res.data}`;
+            navigator.clipboard.writeText(text).then(()=>{
+                alert('copied!')
+            })
+        }
+        )
+    }else{ 
+        get_pre_order_oid(order_id).then(
+            res =>{
+            text = `${baseURL}/buyer/cart/${res.data}`;
+            navigator.clipboard.writeText(text).then(()=>{
+                alert('copied!')
+            })
+        })
+        }
+    }
 </script>
 
 <style scoped>
@@ -312,7 +341,7 @@ thead th{
 		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
-	td:nth-of-type(9){
+    td:nth-of-type(9){
 		display: inline-block;
 		width: 34%;
 		padding-left: 0% !important;

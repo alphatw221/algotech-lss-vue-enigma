@@ -6,13 +6,14 @@
         > 
            <u> + Add More Option </u>
         </a>
-        <div class="flex flex-wrap sm:mx-5">
+
+        <div class="flex mt-5 ml-5">
             <input 
                 class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2" 
                 type="checkbox" 
                 v-model=" props.campaign.meta_payment.direct_payment.enabled"
             />
-            <label class="flex flex-wrap font-medium my-3">Enabled</label>
+            <label class="form-label text-base my-3">Enabled</label>
         </div>
 
         <div 
@@ -20,7 +21,7 @@
             v-for="(account, index_i) in props.campaign.meta_payment.direct_payment.v2_accounts" :key="index_i"
         >
             <div 
-                class="intro-y flex flex-col"
+                class="flex flex-col intro-y"
                 v-for="(field, index_j) in payment.fields" 
                 :key="index_j"
             >
@@ -42,15 +43,15 @@
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                <div class="flex flex-wrap my-3">
-                    <input 
-                        class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2"
-                        type="checkbox" 
-                        v-model="account[field.key]"
-                    />
-                    <label class="form-label text-base my-3">{{ field.name }}
-                    </label>
-                </div>
+                    <div class="flex flex-wrap my-3">
+                        <input 
+                            class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2"
+                            type="checkbox" 
+                            v-model="account[field.key]"
+                        />
+                        <label class="form-label text-base my-3">{{ field.name }}
+                        </label>
+                    </div>
                 </template>
 
                 <template v-else-if="field.type === 'file'">
@@ -70,7 +71,7 @@
                         </div>
                             <input
                                 type="file"
-                                class="w-full h-full top-0 left-0 absolute opacity-0"
+                                class="absolute top-0 left-0 w-full h-full opacity-0"
                                 accept="image/jpeg" 
                                 @change="uploadImage($event, index_i)"
                             />
@@ -114,10 +115,8 @@ const previewImages = ref([])
 
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
-
     if(typeof props.campaign.meta_payment.direct_payment['enabled'] != 'boolean')props.campaign.meta_payment.direct_payment['enabled']=false
     if(!Array.isArray(props.campaign.meta_payment.direct_payment['v2_accounts']))props.campaign.meta_payment.direct_payment['v2_accounts']=[]
-
 
     props.campaign.meta_payment.direct_payment.v2_accounts.forEach(account => {
         previewImages.value.push(storageUrl+account.image)
@@ -133,7 +132,6 @@ const uploadImage = (event, index) =>{
 	reader.readAsDataURL(image);
 	reader.onload = event =>{ previewImages.value[index] = event.target.result };
 }
-
 
 const deleteDirectPayment = index=>{
     props.campaign.meta_payment.direct_payment.v2_accounts.splice(index,1)

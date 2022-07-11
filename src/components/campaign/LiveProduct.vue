@@ -4,11 +4,11 @@
             lg:col-start-6 lg:col-span-7 lg:row-start-4 lg:row-span-3 lg:h-[100%]
             2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-5 
             ">
-        <div class="h-full flex flex-col"> 
+        <div class="flex flex-col h-full"> 
             <div class="flex w-full m-3">
-                <h2 class="text-lg font-medium w-48 ml-5 mr-auto">Product</h2>
+                <h2 class="w-48 ml-5 mr-auto text-lg font-medium">Product</h2>
                 <Dropdown class="inline-block">
-                    <DropdownToggle class="btn btn-primary shadow-md mr-6 w-40">
+                    <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                         Add Product
                     </DropdownToggle>
                     <DropdownMenu class="w-48">
@@ -16,9 +16,9 @@
                             <DropdownItem @click="store.showInstantlyAddProductModal = true">
                                 Instantly Add Product
                             </DropdownItem>
-                            <DropdownItem @click="store.showAddProductFromStockModal = true">
+                            <!-- <DropdownItem @click="store.showAddProductFromStockModal = true">
                                 Add Product From Stock
-                            </DropdownItem>
+                            </DropdownItem> -->
                         </DropdownContent>
                     </DropdownMenu>
                 </Dropdown>
@@ -35,28 +35,22 @@
                     </thead>
 
                     <tbody>
-                        <tr v-for="data in product_results" :key="data.id">
-                            <td><img data-action="zoom" :src="imagePath + data.image" class="w-10 zoom-in" /></td>
-                            <td>{{ data.name }}</td>
-                            <td>{{ data.order_code }}</td>
+                        <tr v-for="product,index in store.campaignProducts" :key="index">
+                            <td><img data-action="zoom" :src="imagePath + product.image" class="w-10 zoom-in" /></td>
+                            <td>{{ product.name }}</td>
+                            <td>{{ product.order_code }}</td>
                             <td>
-                                {{ data.qty_sold }}/{{ data.qty_for_sale - data.qty_sold }}
+                                {{ product.qty_add_to_cart }}/{{ product.qty_sold }}/{{ product.qty_for_sale - product.qty_sold }}
                             </td>
-                            <td>{{ data.currency_sign }}{{ data.price }}</td>
+                            <!-- currency_sign reference from user_subscription -->
+                            <td>{{ product.currency_sign }}{{ product.price }}</td>  
                             <td>
-                                <div v-if="data.status === true" class="
-                                    form-check form-switch w-fit m-auto
-                                ">
+                                <div class="m-auto form-check form-switch w-fit">
                                     <input
-                                        @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === true ? false : true });"
-                                        class="form-check-input" type="checkbox" checked />
-                                </div>
-                                <div class="
-                                    form-check form-switch w-fit m-auto
-                                    " v-else>
-                                    <input
-                                        @click="toggle; item_status_switch(data.id, data.campaign, { 'status': data.status === true ? false : true });"
-                                        class="form-check-input" type="checkbox" />
+                                        @click="toggle_campaign_product_status(product)"
+                                        class="form-check-input" type="checkbox" 
+                                        v-model="product.status"
+                                    />
                                 </div>
                             </td>
                         </tr>
@@ -67,74 +61,57 @@
     </div>
 
     <!-- Modals -->
-    <InstantlyAddProduct /> 
-    <AddProductFromStock :currentProductList="product_results" :key="product_results"/> 
+    <!-- <InstantlyAddProduct /> 
+    <AddProductFromStock :currentProductList="product_results" :key="product_results"/>  -->
 
 </template>
 <script setup>
 import { list_campaign_product, update_campaign_product } from '@/api/campaign_product';
-import InstantlyAddProduct from './modals/InstantlyAddProductModal.vue';
-import AddProductFromStock from './modals/AddProductFromStockModal.vue';
-import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
+
+// import AddProductFromStock from './modals/AddProductFromStockModal.vue';
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 
+
 const route = useRoute();
 const router = useRouter();
-const store = useLSSCampaignListStore()
-const internalInstance = getCurrentInstance();
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-const props = defineProps({
-	campaignId: Number
-});
+const store = useCampaignDetailStore()
+// const internalInstance = getCurrentInstance();
+// const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-const imagePath = ref(import.meta.env.VITE_APP_IMG_URL)
-const product_columns = ref([
+const imagePath = import.meta.env.VITE_APP_IMG_URL
+const product_columns = [
     { name: "", key: "image" },
     { name: "Name", key: "name" },
     { name: "Order Code", key: "order_code" },
-    { name: "Sold/Left", key: "Sold_Left" },
+    { name: "Cart/Sold/Left", key: "Sold_Left" },
     { name: "Price", key: "price" },
     { name: "Activate", key: "activate" }
-])
-const product_results = ref([])
-const campaign_id = route.params.campaign_id
+]
+
+
 
 onMounted(() => {
-    if (campaign_id) {
-        list_campaign_product(campaign_id).then(res => {
-            product_results.value = res.data
-            eventBus.emit("startReceivingProductData");
-        }).catch(error => {
-            console.log(error);
+        list_campaign_product(route.params.campaign_id).then(res => {
+            store.campaignProducts = res.data
+
         })
     }
-    eventBus.on("changeProductData", (payload) => {
-        const index = product_results.value.findIndex(item => item.id === payload.id)
-        product_results.value[index]["qty_sold"] = payload["qty_sold"]
-    })
-    eventBus.on("addInstantProduct", (payload) => {
-        product_results.value.push(payload)
-    })
-    eventBus.on("addProductFromStock", (payload) => {
-        product_results.value = product_results.value.concat(payload)
-    })
-})
+)
 
-onUnmounted(() => {
-    eventBus.off("changeProductData")
-    eventBus.off("addInstantProduct")
-    eventBus.off("addProductFromStock")
-})
 
-const item_status_switch = (id, campaign_id, data) => {
-    update_campaign_product(id, campaign_id, data).then(() => {
-        return
-    }).catch(error => {
-        console.log(error)
+const toggle_campaign_product_status = (product) => {
+    update_campaign_product(product.id, route.params.campaign_id, {'status':product.status?false:true}).then(res => {
+        console.log(res.data)
+        Object.entries(res.data).forEach(([key,value]) => {
+            product[key]=value                       //proxy object only got setter
+        });
     })
 }
+
+
 </script>
 
 <style scoped>

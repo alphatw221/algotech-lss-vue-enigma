@@ -1,0 +1,44 @@
+{
+    "first_name" : "名",
+    "last_name" : "姓",
+    "name" : "暱稱",
+    "phone" : "電話",
+    "email" : "電子信箱",
+    "remark" : "備註",
+    "post_code" : "郵遞區號",
+    "address" : "地址",
+
+    "status" : "Status",
+    "date" : "Date",
+    "delivery" : "Delivery",
+    "remarks" : "Remarks",
+    "confirm" : "Confirm",
+    "detail" : "Detail",
+    "close" : "Close",
+    "description" : "Description",
+    "add" : "Add",
+    "upload" : "Upload",
+    "submit" : "Submit",
+    "select" : "Select",
+    "selected" : "Selected",
+    "charge" : "Charge",
+    "apply" : "Apply",
+
+
+
+    "qty" : "Qty",
+    "product" : "Product",
+    "price" : "Price",
+    "credit_card" : "Credit Card",
+    "payment" : "Payment",
+    "method" : "Method",
+    "record" : "Record",
+    "option" : "Option",
+    "summary" : "Summary",
+
+    "footer": {
+        "home" : "首頁",
+        "terms" : "條款", 
+        "private_policy" : "隱私權政策" 
+    }
+}

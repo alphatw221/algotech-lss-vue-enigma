@@ -14,7 +14,7 @@
                     </div>
                 </div>
             <div class="w-full">
-                <OrderDetailTable :order_type="route.query.type" :key="refreshKey"/>
+                <OrderDetailTable :order_type="route.query.type"/>
             </div>
             <div class="box p-5 border-2 border-secondary mt-5"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
@@ -22,19 +22,16 @@
                 </div>
                 <div class="grid grid-cols-6 gap-2" v-show="store.orderDetail.shipping_method">
 
-                    <template v-if="store.orderDetail.shipping_method === 'in_store'">
+                    <template v-if="store.orderDetail.shipping_method === 'pickup'">
                         <div class="col-start-1 col-span-2 py-2">Delivery Information</div>
-                        <div class="col-start-3 col-span-3 py-2">In-store pickup</div>
+                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_method}}</div>
 
-                        <div class="col-start-1 col-span-2 py-2">Pickup Store</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store}}</div>
-
-                        <div class="col-start-1 col-span-2 py-2">Pickup Address</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.pick_up_store_address}}</div>
+                        <div class="col-start-1 col-span-2 py-2">Pickup Store/Address</div>
+                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_option + ' - ' + store.orderDetail.pickup_address}}</div>
                     </template>
                     <template v-if="store.orderDetail.shipping_method === 'delivery'">
                         <div class="col-start-1 col-span-2 py-3">Delivery Information</div>
-                        <div class="col-start-3 col-span-3 py-3">Delivery</div>
+                        <div class="col-start-3 col-span-3 py-3">delivery {{store.orderDetail.shipping_option}}</div>
 
                         <div class="col-start-1 col-span-2 py-3">Delivery Address</div>
                         <div class="col-start-3 col-span-3 py-3">
@@ -55,7 +52,7 @@
         </div>
         <div class="col-span-12 lg:col-span-6">
             <div>
-                <PriceSummary :order_type="route.query.type" :key="refreshKey"/>
+                <PriceSummary :order_type="route.query.type"/>
             </div>
             <div class="box p-5 border-2 border-secondary mt-5"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
@@ -70,21 +67,6 @@
                     <template v-if="store.orderDetail.meta.last_five_digit">
                         <div class="col-start-1 col-span-2 py-2">Last Five Digits</div>
                         <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</div>
-                    </template>
-
-                    <template v-if="store.orderDetail.shipping_method">
-                        <div class="col-start-1 col-span-2 py-2">Delivery Method</div>
-                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_method == 'delivery' ? `delivery - ${store.orderDetail.shipping_option}` : store.orderDetail.shipping_method}}</div>
-
-                        <template v-if="store.orderDetail.shipping_method == 'pickup'">
-                            <div class="col-start-1 col-span-2 py-2">Pickup Store / Address</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_option + ' - ' + store.orderDetail.pickup_address}}</div>
-                        </template>
-                        <template v-if="store.orderDetail.shipping_method == 'delivery'">
-                            <div class="col-start-1 col-span-2 py-2">Address</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_address_1}}</div>
-                        </template>
-                        
                     </template>
 
                     <template v-if="store.orderDetail.meta.receipt_image">
@@ -114,7 +96,6 @@ const store = useSellerOrderStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-let refreshKey = true
 
 
 onMounted(()=>{

@@ -158,7 +158,7 @@ onMounted(()=>{
   search();
 
   eventBus.on(props.tableName, (payload) => {
-    currentPage.value = 1;
+    currentPage.value = 1; 
     searchColumn.value = payload.searchColumn;
     keyword.value = payload.keyword;
     page_size.value = payload.pageSize;
@@ -201,7 +201,7 @@ const clickEntry = (index)=>{
         router.push({name:'campaign-live',params:{'campaign_id':campaign.id}})
         return
       }
-      eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign_index': index , 'campaignsRef': campaigns})
+      eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
     }
 
 const stop_checkout = (campaign_id,status)=>{
@@ -210,7 +210,12 @@ const stop_checkout = (campaign_id,status)=>{
     }
 
 const manageOrder = (campaign_id,status)=>{
-      router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
+
+      window.open(router.resolve({ 
+        name: 'manage-order',
+        params:{'campaign_id':campaign_id},query:{'checkout':status},
+      }).href)
+      // router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
     }
 
 const copyURL = (campaign_id)=>{

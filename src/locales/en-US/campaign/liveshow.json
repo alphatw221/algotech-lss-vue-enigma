@@ -1,0 +1,137 @@
+{
+    "comment" : "Comment",
+    "live" : "Campaign Live",
+    "lucky_draw" : {
+        "lucky_draw" : "Lucky Draw",
+        "settings" : "Lucky Draw Settings",
+        "prize" : "Prize (select from product list)",
+        "number_of_winner" : "Number of Winner",
+        "winner_repeat" : "Winner Repeat",
+        "spin_time" : "Spin Time (sec)",
+        "style" : {
+            "animation_style" : "Animation Style",
+            "default_1" : "default-spin-1",
+            "default_2" : "default-spin-2"
+        },
+        "draw_type" : {
+            "draw_type" : "Draw Type",
+            "like" : "Draw Like",
+            "purchased" : "Draw Purchased",
+            "order_code" : "Draw Order Code",
+            "comment" : "Draw Comment",
+            "accept" : "Accept characters: '0-9' or 'A-Z'."
+        },
+        "order_code" : "Order Code",
+        "draw_order_code" : "Draw Order Code",
+        "comment_include" : "Comment Include",
+        "draw_keyword" : "Draw Keyword",
+        "error_outline" : "error_outline",
+        "no_winners" : "No Winner! There's no comment with this keyword.",
+        "got_it" : "Got it !",
+        "lucky_draw_result" : "Lucky Draw Result",
+        "winner" : "Winner",
+        "keyword" : "keyword",
+        "apply" : "Apply"
+
+
+    },
+    "products" : {
+        "products" : "Products",
+        "instantly_add_product" : "Instantly Add Product",
+        "manage" : "Manage Product",
+        "instantly_add_product_note" : "IMPORTANT: For those products added instantly are not allowed to be edited/deleted in shopping cart.",
+        "activate" : "Activate",
+        "deactivate" : "Deactivate",
+        "left" : "left",
+        "left_tw" : "",
+        "sold" : "Sold"
+    },
+    "incoming_orders" : {
+        "incoming_orders" : "Incoming Orders",
+        "refresh" : "Refresh in every 60 seconds.",
+        
+        "Excel" : "Excel",
+        "manage_orders" : "Manage Orders",
+        
+        "order_no" : "Order No",
+        "FB_image" : "FB Image",
+        "FB_name" : "FB Name",
+        "phone" : "Phone",
+        "total" : "Total",
+        "payment_method" : "Mode of Payment",
+        "order_status" : "Order Status",
+        "shoppping_cart" : "Shopping Cart",
+
+        "view_shopping_cart" : "Shopping Cart",
+        "manage" : "Manage",
+        "view" : "View",
+        "platform" : "Platform",
+        "photo" : "Photo",
+        "name" : "Name"
+    },
+
+    "manage_order" : {
+        "manage_order" : "Manage Order",
+        "customer_orders" : "Customer Orders",
+        "refresh_orders" : "Refresh Orders",
+        "FB_user_name" : "FB User Name",
+        "platform" : "Platform",
+        "name" : "Name",
+        "total_items" : "Total Items",
+        "amount" : "Amount",
+        "payment" : "Payment",
+        "status" : "Status",
+        "view" : "View",
+        "stop_checkout" : "Stop Checkout",
+        "export_orders" : "Export Orders",
+        "closed_rate" : "Closed Rate",
+        "sales" : "Sales",
+        "uncheckout" : "Uncheckout rate",
+        "comments" : "Comments",
+        "complete_orders" : "Complete Orders",
+        "review" : "Review / Proceed",
+        "refresh" : "Refresh"
+    },
+
+    "view_order" : {
+        "order" : "Order",
+        "order_no" : "Order No",
+        "order_status" : "Order Status",
+        "payment_method" : "Mode of Payment",
+        
+        "delivery_information" : "Delivery Information",
+        "name" : "Name",
+        "phone" : "Phone",
+        "email" : "Email",
+        "delivery_option" : "Delivery Option",
+        "delivery_date" : "Delivery Date",
+        "post_code" : "Post Code",
+        "location" : "Location",
+        "address" : "Address",
+        "remarks" : "Remarks",
+        "save_remarks" : "Save Remarks",
+        "additional_delivery_charge" : "Selected Delivery Charge Option",
+
+        
+        "products" : "Products",
+        "price" : "Price",
+        "qty" : "Qty",
+        "sub_total" : "Sub Total",
+        "delivery_charge" : "Delivery Charge",
+        "total" : "Total",
+        
+        "price_adjustment" : "Price Adjustment",
+        "price_adjustment_note" : "To make a discount, enter -(price).To apply extra fee, enter the price directly.",
+        "title" : "Title",
+        "update_price" : "Update Price",
+        
+        "apply_free_delivery" : "Apply Free Delivery",
+        "save_order" : "Save Order",
+
+        "price_summary": "Price Summary",
+        "shopping_cart" : "Shopping Cart",
+        "modify_price": "Modify Price",
+        "payment_information": "Payment Information"
+
+    }
+}

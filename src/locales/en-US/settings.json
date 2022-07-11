@@ -1,0 +1,14 @@
+{
+    "setting" : "Setting",
+    "settings" : "Settings",
+    "client_id" : "Client ID",
+    "secret" : "Secret",
+    "currency_code" : "Currency Code",
+    "store_id" : "Store ID",
+    "share_secret" : "Shared Secret",
+    "time_zone" : "Time Zone",
+    "confirmation_note" : "Confirmation Note",
+    "default_active" : "Default Active",
+    "api_key" : "Api Key",
+    "salt" : "Salt"
+}

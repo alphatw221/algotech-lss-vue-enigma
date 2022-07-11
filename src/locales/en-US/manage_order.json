@@ -1,0 +1,25 @@
+{
+        "manage_order" : "Manage Order",
+        "order" : "Order",
+        "refresh_orders" : "Refresh Orders",
+        "costumer" : "Costumer",
+        "platform" : "Platform",
+        "name" : "Name",
+        "total_items" : "Total Items",
+        "amount" : "Amount",
+        "payment" : "Payment",
+        "status" : "Status",
+        "view" : "View",
+        "stop_checkout" : "Stop Checkout",
+        "export" : "Export",
+        "closed_rate" : "Closed Rate",
+        "sales" : "Sales",
+        "uncheckout" : "Uncheckout rate",
+        "comments" : "Comments",
+        "complete" : "Complete",
+        "review" : "Review",
+        "all":"All",
+        "refresh" : "Refresh",
+        "filter":"Filter"
+        
+}

@@ -1,12 +1,13 @@
 <template>
 	<div class="h-[100%] overflow-auto">
+		{{ $t('test1') }}
 		<div class="intro-y flex items-center mt-5 mb-3" v-if="route.params.product_id">
-			<h2 class="ttext-xl font-medium mt-5 mb-3 mx-2">Update Product</h2>
+			<h2 class="text-xl font-medium">Update Product</h2>
 		</div>
 		<div class="intro-y flex items-center mt-5 mb-3" v-else>
-			<h2 class="text-xl font-medium mt-5 mb-3 mx-2">Add New Product</h2>
+			<h2 class="text-xl font-medium">Add New Product</h2>
 		</div>
-		<div class="intro-y grid grid-cols-12 gap-4 box p-5 mt-5">
+		<div class="intro-y grid grid-cols-12 gap-4 box p-5">
 			<div class="col-span-6 col-start-1">
 				<label for="crud-form-1" class="form-label">Product Name</label>
 				<input
