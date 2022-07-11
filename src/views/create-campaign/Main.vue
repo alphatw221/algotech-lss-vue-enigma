@@ -1,12 +1,12 @@
 <template>
-    <div class="box p-5 flex flex-col gap-5 text-[16px]">
-		<span class="mt-5 text-xl"> Create Campaign </span>
-		<div class="grid grid-cols-12 gap-1 ml-3 intro-y sm:gap-5 -z-50">
+    <div class="box py-5 px-3 sm:p-12 flex flex-col gap-5 text-[16px]">
+		<span class="text-xl"> Create Campaign </span>
+		<div class="grid grid-cols-12 gap-1 intro-y sm:gap-5 -z-50">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
 				<div class="flex flex-col">
 					<label class="w-20 my-auto text-base form-label">Title</label>
 					<input 
-						class="form-control w-full sm:w-[70%] lg:w-[50%]" 
+						class="w-full form-control" 
 						type="text" 
 						:class="{ 'border-danger': title_validate.title.$error }"
 						v-model.trim="title_validate.title.$model"

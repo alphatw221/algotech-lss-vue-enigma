@@ -23,7 +23,7 @@
         <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
             <div class="col-span-12">
                 <label for="modal-form-1" >Keywords to Detect</label>
-                <input id="modal-form-1" type="text" class="rounded-full form-control" placeholder=""
+                <input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
                     v-model="validate.input_msg.$model" 
                     :class="{ 'border-danger text-danger border-2': validate.input_msg.$error }" 
 				/>
@@ -35,7 +35,7 @@
             </div>
             <div class="col-span-12">
                 <label for="modal-form-1">Set Automated Response</label>
-                <input id="modal-form-1" type="text" class="rounded-full form-control" placeholder="" 
+                <input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder="" 
                     v-model="validate.output_msg.$model" 
                     :class="{ 'border-danger text-danger border-2': validate.output_msg.$error }" 
 				/>
@@ -47,7 +47,7 @@
             </div>
             <div class="col-span-12">
                 <label for="modal-form-1">Remark</label>
-                <input id="modal-form-1" type="text" class="rounded-full form-control" placeholder=""
+                <input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
                     v-model="validate.description.$model" 
                     :class="{ 'border-danger text-danger border-2': validate.description.$error }" 
 				/>
@@ -63,7 +63,7 @@
             <div class="flex flex-wrap items-center justify-around col-span-12">
                 <template v-for="(data, key) in facebookPagesData" :key="key">
                     <div class="relative w-20 h-20 image-fit">
-                        <input name="fb_page" type="radio" class="absolute top-0 left-0 z-50 rounded-full vertical-center" :value="data" v-model="validate.chosenPage.$model" />
+                        <input name="fb_page" type="radio" class="absolute top-0 left-0 z-50 rounded-lg vertical-center" :value="data" v-model="validate.chosenPage.$model" />
                         <img class="rounded-full" :src="data.image" />
                     </div>
                 </template>

@@ -40,20 +40,23 @@
             {{ campaign.title }}
           </td>
           <td class="w-5 text-center startDate">
-            <div class="sm:hidden text-[14px] text-left text-[#616161]">Start Time:</div>
-            <div class="my-2 sm:my-0 sm:w-28">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
+            <div class="sm:hidden text-[14px] text-left ml-[14px] text-[#616161]">Start Time:</div>
+            <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
           <td class="w-5 text-center endDate">
-            <div class="sm:hidden text-[14px] text-left text-[#616161]">End Time:</div>
-            <div class="my-2 sm:my-0 sm:w-28">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
+            <div class="sm:hidden text-[14px] text-left ml-[14px] text-[#616161]">End Time:</div>
+            <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
+          </td>
+          <td class="sm:hidden actions">
+            Actions
           </td>
           <td class="items-center manage_order w-fit">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
@@ -296,7 +299,7 @@ thead th{
   td {
     position: relative;
     display: flex;
-    text-align: center !important;
+    text-align: center;
     box-shadow: none !important;
     align-items: center;
     justify-content: center;
@@ -323,23 +326,27 @@ thead th{
     display: inline-block;
     width:50%;
   }
+
+  .actions{
+    text-align: left !important;
+    min-height: 35px !important;
+    padding-left: 14px !important;
+    justify-content: start;
+  }
   .manage_order{
     display: inline-block;
     padding-left: 0% !important;
     width: 33%;
-    margin-top: 10px;
   }
   .checkout{
     display: inline-block;
     padding-left: 0% !important;
     width: 33%;
-    margin-top: 10px;
   }
   .entry{
 		display: inline-block;
     padding-left: 0% !important;
     width: 33%;
-    margin-top: 10px;
 	}
   .moreTools{
     display: inline-block;

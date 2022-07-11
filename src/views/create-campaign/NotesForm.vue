@@ -1,6 +1,10 @@
 <template>
+    <span class="text-lg">
+			<strong>Customer Note Settings</strong>  
+		</span>
+		<hr class="w-full"/>
     <div class="z-0 col-span-12 p-0" v-if="ready">
-        <div class="grid grid-cols-12 gap-1 px-5 mt-3 sm:p-5 sm:px-10 intro-y lg:gap-3 -z-50">
+        <div class="grid grid-cols-12 gap-1 intro-y lg:gap-3 -z-50">
             <label class="col-span-12 col-start-1 mt-2 text-base">Delivery note</label>
             <textarea 
                 class="col-span-12 sm:col-span-12 p-2 rounded-lg sm:min-h-[10rem]" 

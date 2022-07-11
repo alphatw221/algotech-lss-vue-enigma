@@ -4,8 +4,13 @@
 		<table class="table table-report">
 			<thead>
 				<tr>
-					<th v-for="column in columns" :key="column.key" class="w-fit">
-						{{ column.name }}
+					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap">
+						<template v-if=" column.key === 'edit' || column.key === 'delete' || column.key === 'facebook_page'"> 
+							<span class="flex justify-center" > {{ column.name }} </span>
+						</template>
+						<template v-else> 
+							{{ column.name }}
+						</template>
 					</th>
 				</tr>
 			</thead>
@@ -29,7 +34,7 @@
 						<td v-if="column.key === 'facebook_page'"
 							class="w-24 imgtd">
 							<div class="flex m-auto w-14 h-14 image-fit zoom-in">
-								<Tippy tag="img" class="w-12 h-12 rounded-full " :src="reply.facebook_page.image"
+								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image"
 									:content="`facebook`" />
 							</div>
 						</td>
@@ -68,17 +73,17 @@
 		<ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Keywords to Detect</label>
-				<input id="modal-form-1" type="text" class="rounded-full form-control longMessage" placeholder=""
+				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
 					v-model="currentInfo.input_msg" />
 			</div>
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Set Automated Response</label>
-				<input id="modal-form-1" type="text" class="rounded-full form-control longMessage" placeholder=""
+				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
 					v-model="currentInfo.output_msg" />
 			</div>
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Remark</label>
-				<input id="modal-form-1" type="text" class="rounded-full form-control" placeholder=""
+				<input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
 					v-model="currentInfo.description" />
 			</div>
 			<!-- <div class="col-span-12">
@@ -211,6 +216,7 @@ function deleteAutoReply(id) {
 .click-icon:hover {
 	cursor: pointer;
 }
+
 
 td {
   min-height: 50px;

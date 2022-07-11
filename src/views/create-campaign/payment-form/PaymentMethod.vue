@@ -2,13 +2,14 @@
 
     <div class="justify-center flex-col flex text-[16px] p-5 sm:p-10"> 
 
-        <div class="flex mt-5 ml-2 sm:mt-0">
+        <div class="flex mt-5 sm:mt-0">
             <input 
-                class="form-control form-check-input ml-3 w-[1.2rem] h-[1.2rem]" 
+                class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
                 type="checkbox" 
                 v-model="props.campaign.meta_payment[props.payment.key].enabled"
             />
             <label class="ml-3 form-label">Enabled</label>
+
         </div>
 
         <div 

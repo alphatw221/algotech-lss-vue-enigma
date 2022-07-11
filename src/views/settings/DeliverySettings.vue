@@ -6,7 +6,7 @@
             <div class="flex flex-col col-span-12 col-start-1 mt-2 text-[16px]"> 
                 <label class="w-full mr-1 text-base whitespace-nowrap">Delivery Charge</label>
                 <input 
-                    class="sm:w-5/6 form-control h-[42px]"
+                    class="w-full form-control h-[42px]"
                     type="text" 
                     v-model="deliverySettings.delivery_charge"
                 />
@@ -20,7 +20,7 @@
                     <label class="w-full text-base">Free delivery for order above $</label>
                 </div> 
                 <input 
-                class="sm:w-5/6 form-control" 
+                class="w-full form-control" 
                 type="text" 
                 v-model="deliverySettings.free_delivery_for_order_above_price"
                 />
@@ -34,13 +34,19 @@
                     <label class="w-full text-base ">Free delivery for minimum order Qty</label>
                 </div> 
                 <input 
-                class="sm:w-5/6 form-control"
+                class="w-full form-control"
                 type="text"
                 v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
                 />       
             </div>
-            
-            <label for="regular-form-2" class="col-span-12 col-start-1 mt-5 text-base font-bold form-label">Delivery Option(s)</label>
+            <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
+                <label for="regular-form-2" class="text-base font-bold form-label">Delivery Option(s)</label>
+                <a 
+                    class="whitespace-nowrap"
+                    @click="addDelivery()"
+                > <u> + Add more option  </u> 
+                </a>
+		    </div>
             <div v-for="(option, index) in deliverySettings.additional_delivery_options" class="col-span-12" :key="index">
                 <div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0">
                     <input  
@@ -63,7 +69,7 @@
                         v-model="option.price"
                     />
                     <button 
-                        class="inline-block w-full h-10 ml-auto text-base rounded-full btn btn-danger sm:rounded-lg sm:w-24" 
+                        class="inline-block w-full h-[42px] ml-auto text-base rounded-full btn btn-danger sm:rounded-lg sm:w-24" 
                         @click="deleteDelivery(index)"
                     >
                     <!-- delete additional_delivery[index] -->
@@ -71,22 +77,22 @@
                     </button>
                 </div>
             </div>
-            <a 
-                class="inline-block w-full col-end-9 my-3 text-base sm:col-end-11 whitespace-nowrap"
-                @click="addDelivery()"
-            >
-               <u> + Add more option  </u> 
-            </a>
         </div>
-
-        <span class="mx-5 text-2xl font-medium leading-none sm:m-10">Store Pickup</span>
-        <div class="grid grid-cols-12 gap-1 px-5 mt-5 text-base sm:mt-0 sm:p-10 intro-y sm:gap-5 -z-50">
+        <div class="grid grid-cols-12 gap-1 px-5 text-base sm:px-10 intro-y sm:gap-5 -z-50">
+             <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
+                <label for="regular-form-2" class="text-base font-bold form-label">Store Pickup</label>
+                <a 
+                    class="whitespace-nowrap"
+                    @click="addBranch()"
+                > <u> + Add more option  </u> 
+                </a>
+            </div>
             <div v-for="(option, index) in deliverySettings.pickup_options" class="col-span-12" :key="index">
                 <div class="flex flex-col gap-3 sm:flex-row">
                     <div class="flex flex-col flex-1 gap-3">
                          <label class="text-base ">Pickup Store</label>
                         <input 
-                            class="w-full h-10 -mt-2 text-base form-control sm:mt-0"
+                            class="w-full h-[42px] text-base form-control sm:mt-0"
                             type="text"
                             v-model="option.name" 
                         />
@@ -94,7 +100,7 @@
                     <div class="flex flex-col flex-wrap gap-3 flex-grow-2">
                         <label class="text-base ">Pickup Address</label>
                         <input 
-                            class="w-full h-10 mr-5 -mt-2 text-base form-control sm:mt-0"
+                            class="w-full h-[42px] mr-5 text-base form-control sm:mt-0"
                             type="text" 
                             v-model="option.address"
                         />
@@ -105,15 +111,8 @@
                         >
                         Delete
                     </button>
-                    
                 </div>
             </div>
-            <a 
-                class="inline-block w-full col-end-9 my-3 text-base sm:col-end-11 whitespace-nowrap"
-                @click="addBranch()"
-            >
-               <u> + Add more option  </u> 
-            </a>
 
             <label class="col-span-12 col-start-1 text-xl form-label">Delivery
                 Note</label>
@@ -191,7 +190,7 @@ onMounted(() => {
 
 
 const addDelivery = () =>{
-    deliverySettings.value.additional_delivery_options.push( Object.assign({},additional_delivery_option) )
+    deliverySettings.value.additional_delivery_options.unshift( Object.assign({},additional_delivery_option) )
 }
 
 const deleteDelivery = index=>{ 
@@ -199,7 +198,7 @@ const deleteDelivery = index=>{
 }
 
 const addBranch = ()=>{
-    deliverySettings.value.pickup_options.push( Object.assign({},branch_option) )
+    deliverySettings.value.pickup_options.unshift( Object.assign({},branch_option) )
 }
 const deleteBranch = index=>{
     deliverySettings.value.pickup_options.splice(index,1)

@@ -1,26 +1,29 @@
 <template>
 	<div class="flex flex-col" v-if="ready">
-		<span class="text-lg my-4 ml-5">
-			<strong>Payment Details</strong> 
+		<span class="my-4 text-lg">
+			<strong>Payment Details</strong>  
 		</span>
+		<hr class="w-full mb-3"/>
 		<div id="paymentDetails">
 			<AccordionGroup>
-				<div v-for="(payment,key,index) in props.campaign.meta_payment" :key="index" class="sm:mx-3">
+				<div v-for="(payment,key,index) in props.campaign.meta_payment" :key="index">
 
 					<AccordionItem v-if="paymentStore[key] && key=='direct_payment'" class="items">
-						<Accordion class="bg-primary rounded-t-lg">
-							<div class="text-white mx-3"> {{ paymentStore[key].name }} </div>
+						<Accordion class="rounded-t-lg bg-primary">
+							<span class="mx-3 text-white w-fit"> {{ paymentStore[key].name }} </span>  
+							<font-awesome-icon icon="fa-solid fa-angle-down" class="inline-block float-right h-6 mr-3 text-white" />
 						</Accordion>
-						<AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary">
+						<AccordionPanel class="leading-relaxed border-2 text-slate-600 dark:text-slate-500 border-secondary">
 							<DirectPayment :campaign="props.campaign" :payment="paymentStore[key]" :directPaymentImages="props.directPaymentImages"/>
 						</AccordionPanel>
 					</AccordionItem>
 
 					<AccordionItem v-else-if="paymentStore[key] && key!='direct_payment'" class="items">
-						<Accordion class="bg-primary rounded-t-lg">
-							<div class="text-white mx-3"> {{ paymentStore[key].name }} </div>
+						<Accordion class="rounded-t-lg bg-primary">
+							<span class="mx-3 text-white w-fit"> {{ paymentStore[key].name }} </span>  
+							<font-awesome-icon icon="fa-solid fa-angle-down" class="inline-block float-right h-6 mr-3 text-white" />
 						</Accordion>
-						<AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary">
+						<AccordionPanel class="leading-relaxed border-2 text-slate-600 dark:text-slate-500 border-secondary">
 
 							<PaymentMethod :campaign="props.campaign" :payment="paymentStore[key]"/>
 
