@@ -116,17 +116,17 @@ onMounted(() => {
   websocketInit()
  })
 
-watch(computed(()=>route.path),
-()=>{
-  const element = document.getElementsByClassName('modal')
-  for (let i=0; i<element.length; i++){
-    if(element[i])element[i].remove()
-  }
-  console.log(document.getElementsByClassName('modal'))
-  // const dropdownElement = document.getElementsByClassName('dropdown-menu')[0]
-  // if(dropdownElement)dropdownElement.style.visibility = 'hidden'
-  ,{deep:true}}
-) 
+// watch(computed(()=>route.path),
+// ()=>{
+//   const element = document.getElementsByClassName('modal')
+//   for (let i=0; i<element.length; i++){
+//     if(element[i])element[i].remove()
+//   }
+//   console.log(document.getElementsByClassName('modal'))
+//   // const dropdownElement = document.getElementsByClassName('dropdown-menu')[0]
+//   // if(dropdownElement)dropdownElement.style.visibility = 'hidden'
+//   ,{deep:true}}
+// ) 
 
 provide("bind[sellerMessageNotification]", (el) => {
   store.notification = el;

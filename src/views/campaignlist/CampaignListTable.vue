@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr v-for="(campaign, index) in campaigns" :key="index" class="intro-x">
-          <td class="items-center w-12 fan_page">
+          <td class="items-center min-w-12 fan_page">
             <div class="flex justify-center w-full">
               <div class="border-0 w-14 h-14 flex-0 zoom-in" v-if="campaign.facebook_page !== null">
                 <Tippy tag="img" class="border-0 rounded-full" :src="campaign.facebook_page.image"
