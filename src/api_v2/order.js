@@ -51,3 +51,7 @@ export const manage_order_list = (campaign_id,searchValue,page,page_size,status,
 export const seller_shipping_out = (order_id) => {
     return createAxiosWithBearer().post(`/api/v2/order/${order_id}/seller/delivery_status/`);
 }
+
+export const get_order_oid = (order_id) => {
+    return createAxiosWithBearer().get(`/api/v2/order/${order_id}/seller/retrieve/oid/`);
+}

@@ -14,7 +14,7 @@
                     </div>
                 </div>
             <div class="w-full">
-                <OrderDetailTable :order_type="route.query.type" :key="refreshKey"/>
+                <OrderDetailTable :order_type="route.query.type"/>
             </div>
             <div class="box p-5 border-2 border-secondary mt-5"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
@@ -52,7 +52,7 @@
         </div>
         <div class="col-span-12 lg:col-span-6">
             <div>
-                <PriceSummary :order_type="route.query.type" :key="refreshKey"/>
+                <PriceSummary :order_type="route.query.type"/>
             </div>
             <div class="box p-5 border-2 border-secondary mt-5"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
@@ -96,7 +96,6 @@ const store = useSellerOrderStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-let refreshKey = true
 
 
 onMounted(()=>{

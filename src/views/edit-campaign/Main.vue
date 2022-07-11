@@ -1,6 +1,7 @@
 <template>
     <div class="box p-5 flex flex-col gap-5 text-[16px]" v-if="ready">
 		<span class="mt-5 text-xl"> Edit Campaign </span>
+
 		<div class="grid grid-cols-12 gap-1 ml-3 intro-y sm:gap-5 -z-50">
 		<div class="col-span-12 col-start-1 2xl:col-span-6 xl:col-span-6">
 			<div class="flex flex-col">
@@ -39,6 +40,43 @@
 			</div>
 		</div>
 
+		<div class="flex items-center justify-between py-3 mx-1 mt-5 leading-5 border-2 rounded-md border-slate-200 md:mx-3 ">
+			<h3 class="inline-flex my-auto ml-2 leading-5 align-middle md:ml-3 "
+			
+			>
+				Platform Connected</h3>
+			
+
+			<div class="inline-flex justify-around w-20 ml-auto mr-3 align-middle md:mr-5 ">
+              <div class="w-8 h-8 border-0 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.facebook_page !== null">
+                <Tippy tag="img" class="border-0 rounded-full" :src="campaignData.facebook_page.image"
+                  :content="campaignData.facebook_page.name" />
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
+                  </div>
+              </div>
+              <div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.instagram_profile !== null">
+                <Tippy tag="img" class="rounded-full " :src="campaignData.instagram_profile.image"
+                  :content="campaignData.instagram_profile.name" />
+                <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#d63376]" :src="instagram_platform" >
+                  </div>
+              </div>
+              <div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.youtube_channel !== null">
+                <Tippy tag="img" class="rounded-full" :src="campaignData.youtube_channel.image"
+                  :content="campaignData.youtube_channel.name" />
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
+                  </div>
+              </div>
+            </div>
+
+			<a @click="editplatform()" class="inline-flex mr-2 align-middle md:mr-5">
+				Edit
+			</a>
+		</div>
+
+
 		<DeliveryForm 
 			:campaign="campaignData"
 		/>
@@ -60,11 +98,15 @@
 				</button>
 			</div>
 		</div>
+
+		<!-- BEGIN Enter Post ID Modal -->
+			<EnterPostIDModal />
+		<!-- END Enter Post ID Modal -->
 	</div>
 </template>  
 
 <script setup>
-import { ref, watch, onMounted, computed, watchEffect } from 'vue';
+import { ref, watch, onMounted, computed, watchEffect, getCurrentInstance } from 'vue';
 
 import PaymentForm from '@/views/create-campaign/payment-form/Main.vue'
 import DeliveryForm from '@/views/create-campaign/DeliveryForm.vue';
@@ -74,10 +116,16 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 
+import EnterPostIDModal from "@/views/campaignlist/enter-post-id-modal/Main.vue"
 import { required, minLength, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
+import youtube_platform from "/src/assets/images/lss-img/youtube.png"
+import facebook_platform from "/src/assets/images/lss-img/facebook.png"
+import instagram_platform from "/src/assets/images/lss-img/instagram.png"
+import unbound from "/src/assets/images/lss-img/noname.png"
 
+const internalInstance = getCurrentInstance()
 const route = useRoute()
 const router = useRouter()
 const directPaymentImages = ref([])
@@ -87,7 +135,7 @@ const dateTimePicker = ref({
 	end:new Date()
 })
 
-
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const sellerStore = useLSSSellerLayoutStore()
 const ready = ref(false)
 onMounted(() => {
@@ -106,10 +154,6 @@ watch(computed(()=>{return dateTimePicker.value}),()=>{
 	campaignData.value.end_at = dateTimePicker.value.end
 },{deep:true})
 
-// new Date(campaign.end_at).toLocaleTimeString('en-us', {
-//                 year: "numeric", month: "short",
-//                 day: "numeric", hour: '2-digit', minute: '2-digit'
-//               }
 
 const title_rules = computed(() => {
 	return { title: { required, minLength: minLength(1), maxLength: maxLength(255) } }
@@ -142,37 +186,9 @@ const updateCampaign = ()=>{
 
 }
 
-
-// const saveCampaign = () => {
-// 	title_validate.value.$touch()
-// 	if (title_validate.value.$invalid) {
-// 		sellerStore.alert.showMessageToast("Invalid campaign title input")
-// 		return
-// 	}
-
-// 	let formData = new FormData()
-// 	formData.append('campaignTitle', JSON.stringify(campaignStore.campaignTitle.title))
-// 	formData.append('campaignPeriod', JSON.stringify(campaignStore.campaignPeriod))
-// 	formData.append('deliverySettings', JSON.stringify(campaignStore.deliverySettings))
-// 	formData.append('paymentSettings', JSON.stringify(campaignStore.paymentSettings))
-// 	for (let [key, value] of Object.entries(campaignStore.imageDirectPayment)) {
-// 		formData.append(key, value)
-// 	}
-
-// 	if (route.name === 'create-campaign') {
-// 		create_campaign(formData).then(response => {
-// 			let campaign_id = response.data
-// 			router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
-// 		}).catch(err => {
-// 			console.log('api error')
-// 		})
-// 	} else if (route.name === 'edit-campaign') {
-// 		update_campaign(route.params.campaign_id, formData).then(response => {
-// 			router.push({name:'edit-campaign-product', params: {'campaign_id': route.params.campaign_id}})
-// 			// router.push(`/seller/campaign/assign/product?campaign_id=${route.params.campaign_id}&type=edit`)
-// 		})
-// 	}
-	
-// }
+const editplatform = ()=>{
+	eventBus.emit('showEnterPostIDModal',{'campaign':campaignData.value})
+}
 
 </script>
+

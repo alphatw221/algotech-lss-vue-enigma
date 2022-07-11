@@ -45,13 +45,11 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const pages = ref([])
 const show = ref(false)
-// let campaign_index = null
-// let campaignsRef = null
-let payloadBuffer = null
+
+const payloadBuffer = ref({})
 onMounted(()=>{
     eventBus.on('showSelectPlatformModal', (payload) => {
-      // show.value = ture
-      payloadBuffer = payload
+      payloadBuffer.value = payload
       let apiRequest =null
       if(payload.platform=='facebook'){
         apiRequest = get_user_subscription_facebook_pages
@@ -73,18 +71,18 @@ onUnmounted(()=>{
 })
 
 const selectPage = index => {
-  payloadBuffer.page=pages.value[index]
+  payloadBuffer.value.page=pages.value[index]
   let apiRequest=null
-  if(payloadBuffer.platform=='facebook'){
+  if(payloadBuffer.value.platform=='facebook'){
     apiRequest = check_facebook_page_token_valid
-  }else if(payloadBuffer.platform=='youtube'){
+  }else if(payloadBuffer.value.platform=='youtube'){
     apiRequest = check_youtube_channel_token_valid
-  }else if(payloadBuffer.platform=='instagram'){
+  }else if(payloadBuffer.value.platform=='instagram'){
     apiRequest = check_instagram_profile_token_valid
   }
   apiRequest(pages.value[index].id).then(res=>{
-    payloadBuffer.platformInstance = res.data
-    eventBus.emit('showSelectLiveModal',payloadBuffer)
+    payloadBuffer.value.platformInstance = res.data
+    eventBus.emit('showSelectLiveModal',payloadBuffer.value)
     hide()
   })
 

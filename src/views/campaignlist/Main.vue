@@ -1,9 +1,9 @@
 <template>
   <!-- BEGIN OUTTER BOX -->
-  <div class="box p-5 flex flex-col gap-5">
+  <div class="flex flex-col gap-5 p-3 box sm:p-5">
     <!-- BEGIN: commit box -->
-    <div class="flex flex-row mt-4 sm:p-2 flex-wrap justify-between">
-      <div class="switch-toggle sm:mx-2 flex-none mb-2">
+    <div class="flex flex-row flex-wrap justify-between mt-4 sm:p-2">
+      <div class="flex-none mb-2 switch-toggle sm:mx-2">
         <input id="off" name="state-d" type="radio" />
         <label for="off" @click="show_campaign('ongoing')">Ongoing</label>
         <input id="on" name="state-d" type="radio" checked="checked"/>
@@ -12,9 +12,9 @@
         <label for="na" @click="show_campaign('history')">History</label>
       </div>
       <button 
-        class="btn btn-warning btn-rounded w-24 h-10 text-white sm:mx-2 flex ml-auto"
+        class="flex w-24 h-10 ml-auto text-white btn btn-warning btn-rounded sm:mx-2"
               @click="router.push({name:'create-campaign'})" > 
-        <span class="font-bold mr-1 text-lg">+</span> Create
+        <span class="mr-1 text-lg font-bold">+</span> Create
       </button>
     </div>
     <div class="flex-auto" v-show="campaignStatus=='scheduled'">
@@ -105,7 +105,7 @@ const tableColumns =ref( [
   { name: "Title", key: "title" },
   { name: "Start Time", key: "start_at" },
   { name: "End Time", key: "end_at" },
-  { name: "Manage Order", key: "manager_order" },
+  { name: "Manage Orders", key: "manager_order" },
   { name: "Stop Checkout", key: "stop" },
   // { name: "Order Link", key:"link" },
   { name: " ", key: "entry" },

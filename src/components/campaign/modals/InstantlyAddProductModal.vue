@@ -1,6 +1,6 @@
 <template>
         <Modal class="text-center" :slideOver="true"  backdrop="static" :show="store.showInstantlyAddProductModal" @hidden="store.showInstantlyAddProductModal = false">
-        <a @click="store.showInstantlyAddProductModal = !store.showInstantlyAddProductModal" class="absolute right-0 top-0 mt-3 mr-3">
+        <a @click="store.showInstantlyAddProductModal = false" class="absolute right-0 top-0 mt-3 mr-3">
             <XIcon class="w-8 h-8 text-slate-400" />
         </a>
         <ModalHeader class="text-center p-5">
@@ -74,17 +74,17 @@ import { useRoute, useRouter } from "vue-router";
 import { fast_add_product } from '@/api_v2/campaign';
 import { list_product_category} from '@/api_v2/product';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useVuelidate } from "@vuelidate/core";
 import { required,minValue, decimal, integer, maxLength } from "@vuelidate/validators";
 
 
 const router = useRouter();
 const route = useRoute();
-const store = useLSSCampaignListStore(); 
+const store = useCampaignDetailStore(); 
 const layoutStore = useLSSSellerLayoutStore(); 
-const internalInstance = getCurrentInstance()
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+// const internalInstance = getCurrentInstance()
+// const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const categoryList = ref([])
 const campaign_id = route.params.campaign_id
 // const campaign_product = ref(productList.value)
@@ -110,12 +110,10 @@ const addtoCampaign =()=>{
     fast_add_product(campaign_id,addProduct.value ).then(
         response =>{
             console.log(response.data);
-            eventBus.emit("addInstantProduct", response.data);
+            store.campaignProducts.push(response.data)
             layoutStore.notification.showMessageToast("Successed")
         }
-    ).catch(function (error) {
-		console.log(error);
-	});
+    )
 } 
 
 const apply = ()=>{

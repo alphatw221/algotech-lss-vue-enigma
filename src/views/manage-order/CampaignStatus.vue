@@ -25,7 +25,7 @@
                                 </template>
                             </div>
                             <div class="text-3xl font-medium leading-8 mt-6">{{parseInt(store.manageOrderStatus.close_rate).toFixed(2)}}%</div>
-                            <div class="text-base text-slate-500 mt-1">Closed Rate</div>
+                            <div class="text-base text-slate-500 mt-1">{{$t('manage_order.closed_rate')}}</div>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                                 </template>
                             </div>
                             <div class="text-3xl font-medium leading-8 mt-6">$ {{parseFloat(store.manageOrderStatus.complete_sales).toFixed(2) ?? 0}}</div>
-                            <div class="text-base text-slate-500 mt-1">Sales</div>
+                            <div class="text-base text-slate-500 mt-1">{{$t('manage_order.sales')}}</div>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                                 </template>
                             </div>
                             <div class="text-3xl font-medium leading-8 mt-6">{{parseFloat(store.manageOrderStatus.uncheckout_rate).toFixed(2)}}%</div>
-                            <div class="text-base text-slate-500 mt-1">Uncheckout Rate</div>
+                            <div class="text-base text-slate-500 mt-1">{{$t('manage_order.uncheckout')}}</div>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                                 </template>
                             </div>
                             <div class="text-3xl font-medium leading-8 mt-6">{{store.manageOrderStatus.comment_count}}</div>
-                            <div class="text-base text-slate-500 mt-1">Comments</div>
+                            <div class="text-base text-slate-500 mt-1">{{$t('manage_order.comments')}}</div>
                         </div>
                     </div>
                 </div>

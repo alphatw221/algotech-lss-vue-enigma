@@ -27,27 +27,27 @@
 				<tr v-for="(reply, index) in listItems" :key="index" class="intro-x">
 					<template v-for="(column, index) in columns" :key="index">
 						<td v-if="column.key === 'facebook_page'"
-							class="w-24 h-auto imgtd">
+							class="w-24 imgtd">
 							<div class="flex m-auto w-14 h-14 image-fit zoom-in">
 								<Tippy tag="img" class="w-12 h-12 rounded-full " :src="reply.facebook_page.image"
 									:content="`facebook`" />
 							</div>
 						</td>
 						<td v-else-if="column.key === 'edit'"
-							class="w-20 h-auto">
+							class="w-20 h-auto edit">
 							<EditIcon class="m-auto click-icon" @click="
 								updateInfo(reply.id, reply.input_msg, reply.output_msg, reply.description)
 							" />
 						</td>
 						<td v-else-if="column.key === 'delete'"
-							class="w-20 h-auto">
+							class="w-20 h-auto delete">
 							<Trash2Icon class="m-auto click-icon" @click="deleteAutoReply(reply.id)" />
 						</td>
-						<td v-else-if="column.key === 'id'" class="w-20 text-[12px] lg:text-sm 2xl:text-sm">
-							{{ reply[column.key] }}
+						<td v-else-if="column.key === 'id'" class="id w-20 text-[12px] lg:text-sm">
+							<span class="sm:hidden"># </span>{{ reply[column.key] }}
 						</td>
-						<td v-else class="w-auto text-[12px] lg:max-w-30 lg:text-sm xl:max-w-30 2xl:max-w-30 2xl:text-sm longMessage">
-							{{ reply[column.key] }}
+						<td v-else class="info w-auto text-[12px] lg:max-w-30 lg:text-sm longMessage">
+							<span class="title sm:hidden">{{column.name}}</span> {{ reply[column.key] }}
 						</td>
 					</template>
 				</tr>
@@ -222,7 +222,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  z-index: 99;
+  z-index: 50;
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;
@@ -230,6 +230,7 @@ thead th{
 
 .longMessage{
 	overflow-wrap: break-word;
+	white-space: normal;
 }	
 
 @media only screen and (max-width: 760px),
@@ -246,10 +247,6 @@ thead th{
 		padding: 0px !important;
 	}
 
-	.imgtd {
-		height: 80px !important;
-	}
-
 	thead tr {
 		position: absolute;
 		top: -9999px;
@@ -257,81 +254,61 @@ thead th{
 	}
 
 	tr {
-		border-bottom: 1px solid black;
-		margin-top: 20px;
+		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		margin-top: 10px;
 	}
 
 	td {
 		border: none;
 		position: relative;
-		padding-left: 50% !important;
 		text-align: left !important;
 		box-shadow: none !important;
-		padding-top: 10px !important;
+		min-height:30px;
+		padding-left: 20px !important;
+		top:50%;
 	}
 
-	.productName {
-		padding-left: 15px;
+	.id{
+		display:inline-block;
+		width:100%;
+		font-weight: 500;
+		color: theme("colors.primary");
+		height:60px; 
 	}
 
-	td:before {
+	.imgtd {
+		display: inline-block;
 		position: absolute;
-		left: 6px;
-		width: 45%;
-		padding-right: 10px;
-		font-weight: bold;
-		box-shadow: none !important;
-		background-color: white !important;
-		padding-top: 5px !important;
-	}
-
-	td:nth-of-type(1):before {
-		content: "#";
-		/* color: #0e9893; */
-	}
-
-	td:nth-of-type(2):before {
-		content: "Keywords to Detect";
-		overflow-wrap: break-word;
-		/* color: #0e9893; */
-	}
-
-	td:nth-of-type(3):before {
-		content: "Automated Response";
-		overflow-wrap: break-word !important;
-		/* color: #0e9893; */
-	}
-
-	td:nth-of-type(4):before {
-		content: "Remark";
-		/* color: #0e9893; */
-	}
-
-	td:nth-of-type(5):before {
-		content: "Following";
-		/* color: #0e9893; */
+		width: 100px;
+		top:0;
+		right:0;
+		margin-right: 20px;
 	}
 	
-	td:nth-of-type(6){
+	.title{
+		display:inline-block;
+		width:100%;
+		font-weight: 500;
+		color: theme("colors.primary");
+	}
+	.edit{
 		display: inline-block;
 		width: 50%;
-		padding-left: 25% !important;
+		margin-top:10px;
+		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
-	td:nth-of-type(7){
+	.delete{
 		display: inline-block;
 		width: 50%;
-		padding-left: 15% !important;
+		margin-top:10px;
+		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
 
-	td:nth-of-type(6):before {
-		display: none;
-		/* color: #0e9893; */
-	}
-	td:nth-of-type(7):before {
-		display: none;
-		/* color: #0e9893; */
+	.info{
+		margin-top: 10px;
+		margin-bottom: 10px;
 	}
 }
 </style>

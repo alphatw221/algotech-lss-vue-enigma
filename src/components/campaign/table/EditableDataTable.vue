@@ -53,7 +53,7 @@
 								class="w-auto mt-2 form-select sm:mt-0"
 								v-model="product[column.key]"
 							>
-								<option v-for="(type, type_key) in product_type" :key="type_key" :value="type">{{ removeDash(type) }}</option>
+								<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
 							</select> 
 						</template>
 						<template v-else-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
@@ -98,6 +98,28 @@ import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
 import { useVuelidate } from "@vuelidate/core";
 import { required,minValue, decimal, integer, maxLength } from "@vuelidate/validators";
 
+
+
+
+
+
+status="'enabled'"
+requestUrl="'/api/v2/product/search'"
+const tableColumns = ref([
+    { name: "Product", key: "image" },
+    { name: "", key: "name" },
+    { name: "Order Code", key: "order_code" },
+	{ name: "QTY for Campaign", key: "qty" },
+	{ name: "Max QTY/Order", key: "max_order_amount" },
+    { name: "Price", key: "price" },
+	{ name: "Editable", key: "customer_editable" },
+	{ name: "Deletable", key: "customer_removable" },
+	{ name: "Category", key: "category" },
+	{ name: "Type", key: "type" },
+])
+
+
+
 const layoutStore = useLSSSellerLayoutStore();
 const campaignListStore = useLSSCampaignListStore()
 const internalInstance = getCurrentInstance();
@@ -122,7 +144,7 @@ const searchColumn = ref(undefined)
 const listItems = ref([])
 const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
 const category = ref(undefined)
-const product_type = ref(["product", "lucky_draw"])
+const product_type = ref([{value:'product',name:'Product'},{value:'lucky_draw',name:'Lucky Draw'}])
 const stockProducts = ref([])
 
 onMounted(() => {
@@ -159,8 +181,7 @@ const getCampaignProductsOrderCodeList = () => {
 }
 
 const search = () => {
-	createAxiosWithBearer()
-	.get(props.requestUrl + `?page_size=${pageSize.value}&page=${currentPage.value}&search_column=&keyword=&product_status=${props.status}&category=${category.value}&exclude=${getCampaingProductsIdList()}`)
+	test()
 	.then(response => {
 		if(response.data.count === undefined) {
 			return false
@@ -176,8 +197,6 @@ const search = () => {
 		}
 		createValidationList()
 		
-	}).catch(error => {
-		console.log(error)
 	})
 }
 
@@ -186,9 +205,6 @@ const changePage = (page) => {
 	search()
 }
 
-const removeDash = (word) =>{
-	return word.replace("_", " ")
-}
 
 //for validation function
 const campaignProductsOrderCodeList = ref([])
@@ -202,6 +218,7 @@ const validator = ref({
 	'qty': ['max_value'],
 	'max_order_amount': ['max_value']
 })
+
 const createValidationList = () => {
 	validateList.value = JSON.parse(JSON.stringify(stockProducts.value))
 	validateList.value.forEach(el => {
@@ -396,6 +413,13 @@ const resetData = () => {
 	createValidationList()
 }
 
+
+
+
+
+
+
+
 </script>
 
 <style scoped>
@@ -421,7 +445,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  z-index: 99;
+  z-index: 50;
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;

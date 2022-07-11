@@ -43,8 +43,31 @@
 					</template>
 					<template v-else>
 						<div class="form-check self-center place-content-left">
-                            <input id="qty" type="number" class="form-control w-16" aria-label="default input" :value="store.orderDetail.products[index].qty"
-                                 @input="update_qty(index,product.order_product_id,$event.target.value)"/>
+
+							<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
+								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
+							</button>
+							
+							<input 
+								type="text" 
+								class="form-control" 
+								placeholder="Input inline 1" 
+								aria-label="default input" 
+								:value="product.qty"
+								style="width: 2.7rem;"
+								@input="changeQuantity($event, index, product.qty, 'input', product.order_product_id)"
+							/>
+							<button type="button" @click="changeQuantity($event, index, product.qty, 'add', product.order_product_id)" >
+								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
+							</button>
+
+
+
+
+
+
+                            <!-- <input id="qty" type="number" class="form-control w-16" aria-label="default input" :value="store.orderDetail.products[index].qty"
+                                 @input="update_qty(index,product.order_product_id,$event.target.value)"/> -->
                         </div>
 					</template>
 				</td>
@@ -55,9 +78,9 @@
 					$ {{ product.qty * product.price }}
 				</td>
                 <td class="">
-					<div v-show="props.order_type !== 'order'">
+					<a  class="text-danger" v-show="props.order_type !== 'order'">
 						<Trash2Icon @click="delete_product(product.order_product_id)"/>
-					</div>
+					</a>
 				</td>
 			</tr>
 		</tbody>
@@ -71,9 +94,13 @@ import { computed, onMounted, ref, watch,getCurrentInstance } from "vue";
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useRoute, useRouter } from "vue-router";
 import { seller_delete_product, seller_update_product } from "@/api_v2/order_product"
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+
+
 const route = useRoute();
 const router = useRouter();
 const store = useSellerOrderStore();
+const sellerStore = useLSSSellerLayoutStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -87,22 +114,46 @@ const tableColumns = ref([
     { key: "remove", name: " ",  }
 ])
 
-function update_qty(id,order_product_id,qty){
-	store.orderDetail.products[id].qty = qty
+
+const changeQuantity = (event, index, qty, operation, order_product_id) => {
+	if (operation == 'add' && qty < 99) {
+		qty += 1
+	} else if (operation == 'minus' && qty > 1) {
+		qty -= 1
+	} else if (operation == 'input' && event.target.value >= 1 && event.target.value <= 99) {
+		qty = event.target.value
+	} else if (event.target.value == '') {
+		event.target.value = 1
+		return
+	} else {
+		sellerStore.alert.showMessageToast("Invalid Quantity")
+		event.target.value = store.order.products[index].qty
+		return
+	}
+
 	seller_update_product(route.params.order_id,order_product_id,qty).then(
 		res =>{
 			store.orderDetail = res.data
+			sellerStore.notification.showMessageToast("Update Successfully")
 		}
 	)
-	console.log(qty)
 }
+
+
+// function update_qty(id,order_product_id,qty){
+// 	// store.orderDetail.products[id].qty = qty
+// 	seller_update_product(route.params.order_id,order_product_id,qty).then(
+// 		res =>{
+// 			store.orderDetail = res.data
+// 			sellerStore.notification.showMessageToast("Update Successfully")
+// 		}
+// 	)
+// }
 function delete_product(order_product_id){
 	seller_delete_product(route.params.order_id,order_product_id).then(
 		res=>{
-			console.log(res.data)
-			
-			alert('deleted')
 			store.orderDetail = res.data
+			sellerStore.notification.showMessageToast("Delete Successfully")
 		}
 	)
 }
@@ -128,7 +179,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  z-index: 99;
+  
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;

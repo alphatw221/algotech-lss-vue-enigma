@@ -108,6 +108,11 @@ import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
   {
+    path: "/lucky-draw/draw/:lucky_draw_id?",
+    name: "lucky-draw-flow",
+    component: () => import('@/views/mkt-plugin/lucky-draw/DrawFlow.vue'),
+  },
+  {
     path: "/seller",
     component: LssSellerLayout,
     beforeEnter: sellerAuthMiddleware,
