@@ -6,7 +6,7 @@
             <div class="flex flex-col col-span-12 col-start-1 mt-2 text-[16px]"> 
                 <label class="w-full mr-1 text-base whitespace-nowrap">Delivery Charge</label>
                 <input 
-                    class="w-5/6 form-control h-[42px]"
+                    class="sm:w-5/6 form-control h-[42px]"
                     type="text" 
                     v-model="deliverySettings.delivery_charge"
                 />
@@ -20,7 +20,7 @@
                     <label class="w-full text-base">Free delivery for order above $</label>
                 </div> 
                 <input 
-                class="w-5/6 form-control" 
+                class="sm:w-5/6 form-control" 
                 type="text" 
                 v-model="deliverySettings.free_delivery_for_order_above_price"
                 />
@@ -34,7 +34,7 @@
                     <label class="w-full text-base ">Free delivery for minimum order Qty</label>
                 </div> 
                 <input 
-                class="w-5/6 form-control"
+                class="sm:w-5/6 form-control"
                 type="text"
                 v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
                 />       

@@ -46,14 +46,12 @@
 						<div class=" w-fit">{{product[column.key]}}</div> 
 					</td>
 					<td v-else-if="column.key === 'edit'"  class="w-12 table-report__action edit">
-						<div class="justify-center">
-							<a 
-								class="flex items-center mr-3" 
-								@click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"
-							>
-								<CheckSquareIcon class="w-4 h-4 mr-1"/> Edit
-							</a>
-						</div>
+						<a 
+							class="flex items-center text-[14px]" 
+							@click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"
+						>
+							<CheckSquareIcon class="w-[20px] h-[20px] mx-1"/> Edit
+						</a>
 					</td>
 					<td v-else class="max-w-30 longMessage">
 						<div class="max-w-30"> {{product[column.key]}} </div>
@@ -212,7 +210,7 @@ thead th{
 	td:before {
 		position: absolute;
 		left: 6px;
-		width: 45%;
+		width: 45%; 
 		padding-right: 10px;
 		white-space: nowrap;
 		font-weight: bold;
@@ -238,11 +236,12 @@ thead th{
 	td:nth-of-type(2) {
 		display:inline-flex;
 		justify-content: center;
-		min-height: 30px !important;
+		min-height: 35px !important;
 		width: 100%;
 		padding-left: 0px !important;
 		color: theme("colors.primary");
-		font-weight: 500;
+		font-weight: 600;
+		font-size: 16px !important;
 	}
 
 	td:nth-of-type(3):before {
@@ -274,10 +273,11 @@ thead th{
 		/* color: #0e9893; */
 	}
 	.edit{
-		display: inline-block;
-		position:absolute;
-		top:0;
-		right: 0;
+		position: absolute !important;
+        top:0;
+        right:0;
+        width:80px !important;
+        padding-left: 5px !important;
 	}
 	.edit:before{
 		display: none;

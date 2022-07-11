@@ -51,7 +51,7 @@
 					</button>
 				</div>
 				<div v-show="comfirmProduct" class="flex justify-end mt-5 -mb-5">
-					<button class="w-32 btn dark:border-darkmode-400" @click="comfirmProduct=false, selectProduct=true">
+					<button class="w-32 bg-white btn dark:border-darkmode-400" @click="comfirmProduct=false, selectProduct=true">
 						Edit
 					</button>
 					<button class="w-32 ml-5 shadow-md btn btn-primary" @click="assignProduct">
@@ -61,7 +61,7 @@
 			</template>
 			<template v-if="route.name === 'edit-campaign-product'">
 				<div class="flex justify-end mt-5 -mb-5">
-					<button class="w-32 ml-5 shadow-md btn btn-primary" @click="router.push({ name: 'campaigns' })">
+					<button class="w-32 ml-5 shadow-md btn btn-primary" @click="router.push({ name: 'campaign-list' })">
 						Save
 					</button>
 				</div>
@@ -115,7 +115,7 @@ const assignProduct = () => {
 	
 	seller_create_campaign_products(route.params.campaign_id, assignedProducts)
 	.then(response => {
-		router.push({ name: 'campaigns' })
+		router.push({ name: 'campaign-list' })
 	})
 }
 

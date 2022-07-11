@@ -14,7 +14,7 @@
                     <template v-for="column in tableColumns" :key="column.key">
 
                         <td v-if="column.key === 'image'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center imgtd">
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 content-center imgtd">
                             <div class="flex items-center justify-center">
                                 <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <img class="rounded-lg cursor-auto" data-action="zoom"
@@ -66,22 +66,23 @@
                         </td>
 
                         <td v-else-if="column.key === 'selected'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  ">
-                            <div class="self-center mt-2 form-check place-content-center">
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 selected">
+                            <div class="sm:self-center form-check sm:place-content-center">
                                 <input id="selectCheckbox"
                                     class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" v-model="product[column.key]" :disabled="product.disabledEdit" />
+                                <span class="ml-3 sm:hidden">Select</span>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'editable'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
-                            <div class="self-center mt-2 form-check place-content-center">
+                            <div class="self-center form-check place-content-center">
                                 <div v-if="product.type === 'lucky_draw'">
-                                    <input id="selectCheckbox" class="form-check-input" type="checkbox" disabled
+                                    <input id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox" disabled
                                         v-model="product[column.key]" />
                                 </div>
-                                <input v-else id="selectCheckbox" class="form-check-input" type="checkbox"
+                                <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
                                     v-model="product[column.key]" @click="product.deletable = false"
                                     :disabled="product.disabledEdit" />
                                 <span class="ml-3 checkboxWord"> Editable</span>
@@ -90,7 +91,7 @@
 
                         <td v-else-if="column.key === 'deletable'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
-                            <div class="self-center mt-2 form-check place-content-center">
+                            <div class="self-center form-check place-content-center">
                                 <input v-if="product.editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" disabled v-model="product[column.key]" />
                                 <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
@@ -101,20 +102,20 @@
 
                         <td v-else-if="column.key === 'type'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
-                            <div class="self-center mt-2 form-check place-content-center"> {{ product[column.key] }}
+                            <div class="self-center form-check place-content-center"> {{ product[column.key] }}
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'edit'">
-                            <button class="w-16 mr-1 btn btn-sm btn-secondary" v-show="product.disabledEdit"
+                            <button class="w-32 bg-white btn dark:border-darkmode-400" v-show="product.disabledEdit"
                                 @click="product.disabledEdit = !product.disabledEdit">
                                 Edit
                             </button>
-                            <button class="w-16 mr-1 btn btn-sm btn-danger" v-show="product.disabledEdit == false"
+                            <button class="w-32 bg-white btn dark:border-darkmode-400" v-show="product.disabledEdit == false"
                                 @click="product.disabledEdit = !product.disabledEdit">
                                 Cancel
                             </button>
-                            <button class="w-16 mr-1 btn btn-sm btn-success" v-show="product.disabledEdit == false"
+                            <button class="w-32 ml-5 shadow-md btn btn-primary" v-show="product.disabledEdit == false"
                                 @click="updateProduct(index)">
                                 Update
                             </button>
@@ -158,9 +159,10 @@ const tableColumns = ref([
     { name: "Max Qty / Order", key: "max_order" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
+    { name: "Type", key: "type" },
     { name: "Editable", key: "editable" },
     { name: "Deletable", key: "deletable" },
-    { name: "Type", key: "type" },
+
 ])
 
 onMounted(() => {
@@ -390,9 +392,9 @@ thead th {
     }
 
     tr {
-        border-bottom: 1px solid black;
-        margin-top: 20px;
-    }
+		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		margin-top: 20px;
+	}
 
     td {
         min-height: 35px;
@@ -419,38 +421,31 @@ thead th {
         background-color: white !important;
     }
 
-    td:nth-of-type(1):before {
+    .selected:before {
         display: none;
-        text-align: left !important;
-        /* color: #0e9893; */
     }
 
-    td:nth-of-type(1) {
+    .selected {
         display: inline-block;
-        width: 30% !important;
+        width: 100% !important;
         padding-left: 0% !important;
-        /* color: #0e9893; */
+        left:6px;
     }
 
     .imgtd:before {
         display: none;
-        /* color: #0e9893; */
     }
 
     .imgtd {
         display: inline-block;
-        width: 70% !important;
+        width: 100% !important;
         padding-left: 0% !important;
         text-align: left !important;
         justify-items: left !important;
-        /* color: #0e9893; */
     }
 
     td:nth-of-type(3):before {
         display: none;
-        /* content: "Product Name";
-        text-align: left !important; */
-        /* color: #0e9893; */
     }
 
     td:nth-of-type(3) {
@@ -458,84 +453,73 @@ thead th {
         text-align: center !important;
         width: 100% !important;
         padding-left: 0% !important;
-        margin-top: 10px;
-        /* color: #0e9893; */
+		font-weight: 500;
+		color: theme("colors.primary");
+        font-size: 16px !important;
     }
 
     td:nth-of-type(4):before {
         content: "Order Code";
         text-align: left !important;
-        /* color: #0e9893; */
     }
 
     td:nth-of-type(5):before {
         content: "Qty for Campaign";
         text-align: left !important;
-        /* color: #0e9893; */
     }
 
     td:nth-of-type(6):before {
         content: "Max Qty / Order";
         text-align: left !important;
-        /* color: #0e9893; */
     }
 
     td:nth-of-type(7):before {
         top: -3px;
         content: "Category";
         text-align: left !important;
-        /* color: #0e9893; */
     }
     td:nth-of-type(7){
         display: flex;
         flex-direction:column; 
         justify-content: center;
         vertical-align:baseline !important;
-        /* color: #0e9893; */
     }
 
     td:nth-of-type(8):before {
         content: "Price";
         margin-top: 0px !important;
         text-align: left !important;
-        /* color: #0e9893; */
     }
 
-    td:nth-of-type(9):before {
+    td:nth-of-type(11):before {
         display: none;
         text-align: left !important;
-        /* color: #0e9893; */
     }
 
     td:nth-of-type(10):before {
         display: none;
         text-align: left !important;
-        /* color: #0e9893; */
     }
 
-    td:nth-of-type(9) {
+    td:nth-of-type(11) {
         display: inline-block;
         width: 50% !important;
         padding-left: 0% !important;
-        /* color: #0e9893; */
     }
 
     td:nth-of-type(10) {
         display: inline-block;
         width: 50% !important;
         padding-left: 0% !important;
-        /* color: #0e9893; */
     }
 
-    td:nth-of-type(11):before {
+    td:nth-of-type(9):before {
         content: "Type";
         text-align: left !important;
         margin-top: 0 !important;
-
-        /* color: #0e9893; */
     }
 
-    td:nth-of-type(11){
+    td:nth-of-type(9){
         vertical-align: middle !important;
         height: auto;
         padding: auto;

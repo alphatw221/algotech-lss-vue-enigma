@@ -256,6 +256,7 @@ thead th{
 	tr {
 		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
 		margin-top: 10px;
+		margin-bottom: 10px;
 	}
 
 	td {
@@ -265,21 +266,21 @@ thead th{
 		box-shadow: none !important;
 		min-height:30px;
 		padding-left: 20px !important;
-		top:50%;
 	}
 
 	.id{
 		display:inline-block;
-		width:100%;
+		width:50%;
 		font-weight: 500;
 		color: theme("colors.primary");
-		height:60px; 
+		height:60px;
+		padding-top: 20px !important;
 	}
 
 	.imgtd {
 		display: inline-block;
 		position: absolute;
-		width: 100px;
+		width:50%;
 		top:0;
 		right:0;
 		margin-right: 20px;
@@ -288,7 +289,7 @@ thead th{
 	.title{
 		display:inline-block;
 		width:100%;
-		font-weight: 500;
+		font-weight: 600;
 		color: theme("colors.primary");
 	}
 	.edit{
@@ -296,6 +297,7 @@ thead th{
 		width: 50%;
 		margin-top:10px;
 		padding-left: 0% !important;
+		margin-bottom: 10px;
 		/* color: #0e9893; */
 	}
 	.delete{
@@ -303,12 +305,13 @@ thead th{
 		width: 50%;
 		margin-top:10px;
 		padding-left: 0% !important;
-		/* color: #0e9893; */
+		margin-bottom: 10px;
 	}
 
 	.info{
 		margin-top: 10px;
 		margin-bottom: 10px;
+		font-size: 14px !important;
 	}
 }
 </style>
