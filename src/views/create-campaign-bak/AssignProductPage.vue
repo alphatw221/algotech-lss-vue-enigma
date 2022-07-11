@@ -1,37 +1,37 @@
 <template>
-	<div class="grid grid-cols-12 box p-2 mt-5 gap-5 lg:p-5 2xl:p-5 h-full">
-		<!-- <span class="col-start-1 col-span-12 text-2xl font-medium leading-none mb-2 mt-3">Create Campaign</span>
+	<div class="grid h-full grid-cols-12 gap-5 p-2 mt-5 box lg:p-5 2xl:p-5">
+		<!-- <span class="col-span-12 col-start-1 mt-3 mb-2 text-2xl font-medium leading-none">Create Campaign</span>
 		
-		<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
+		<div class="col-span-12 col-start-1 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
 			<div class="flex">
-				<label for="form-2" class="form-label -mb-3 mr-5 w-32 mt-2">Campaign Title</label>
+				<label for="form-2" class="w-32 mt-2 mr-5 -mb-3 form-label">Campaign Title</label>
 				<input id="form-2" type="text" class="form-control " v-model="campaignTitle" />
 			</div>
 		</div>
 
 		<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
 			<div class="flex">
-				<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2">Period</label>
+				<label for="regular-form-2" class="w-16 mt-2 -mb-2 form-label">Period</label>
 				<v-date-picker class=" z-49" v-model="campaignPeriod" :timezone="timezone" mode="dateTime"
 					:model-config="campaignConfig" is-range is-required
 				>
 					<template v-slot="{ inputValue, inputEvents }">
-						<div class="flex justify-center items-center">
+						<div class="flex items-center justify-center">
 						<input :value="inputValue.start" v-on="inputEvents.start"
-							class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+							class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
 						<ChevronsRightIcon class="w-8 h-8 m-1" />
 						<input :value="inputValue.end" v-on="inputEvents.end" disabled
-							class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+							class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
 						</div>
 					</template>
 				</v-date-picker>
 			</div>
 		</div> -->
 
-		<div class="p-0 col-span-12 z-0 lg:p-5 2xl:p-5">
+		<div class="z-0 col-span-12 p-0 lg:p-5 2xl:p-5">
 			<span class="text-2xl font-medium leading-none">{{ productPageTitle }}</span>
 			<div>
-				<div class="intro-y col-span-12" >
+				<div class="col-span-12 intro-y" >
 					<div v-show="selectProduct">
 						<SearchBar class="-mb-8" />
 						<AssignProductTable />
@@ -43,7 +43,7 @@
 			</div>
 
 			<div v-show="selectProduct" class="flex justify-end mt-5 -mb-5">
-				<!-- <button class="btn btn-outline-primary mr-5" @click="this.$router.back()">
+				<!-- <button class="mr-5 btn btn-outline-primary" @click="this.$router.back()">
 					Previous
 				</button> -->
 				<button class="btn btn-outline-primary" @click="toConfirmPage"> 
@@ -52,7 +52,7 @@
 			</div>
 
 			<div v-show="comfirmProduct" class="flex justify-end mt-5 -mb-5">
-				<button class="btn btn-outline-primary mr-5" @click="comfirmProduct = false, selectProduct = true">
+				<button class="mr-5 btn btn-outline-primary" @click="comfirmProduct = false, selectProduct = true">
 					Edit
 				</button>
 				<button class="btn btn-outline-primary" @click="assignProduct">
@@ -118,7 +118,7 @@ const assignProduct = () => {
 	
 	seller_create_campaign_product(route.query.campaign_id, assignedProducts)
 	.then(response => {
-		router.push({ name: 'campaigns' })
+		router.push({ name: 'campaign-list' })
 	})
 	console.log(campaignStore.assignedProducts)
 }

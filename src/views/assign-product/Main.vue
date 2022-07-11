@@ -1,36 +1,36 @@
 <template>
-	<div class="grid grid-cols-12 box p-2 gap-5 lg:p-5 h-full">
+	<div class="grid h-full grid-cols-12 gap-5 p-2 box lg:p-5">
 		
-		<!-- <div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6  2xl:-mb-5 xl:-mb-5">
+		<!-- <div class="col-span-12 col-start-1 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
 			<div class="flex">
-				<label for="form-2" class="form-label -mb-3 mr-5 w-32 mt-2">Campaign Title</label>
+				<label for="form-2" class="w-32 mt-2 mr-5 -mb-3 form-label">Campaign Title</label>
 				<input id="form-2" type="text" class="form-control " v-model="campaignStore.campaignTitle.title" disabled/>
 			</div>
 		</div>
 
 		<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
 			<div class="flex">
-				<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2">Period</label>
+				<label for="regular-form-2" class="w-16 mt-2 -mb-2 form-label">Period</label>
 				<v-date-picker class=" z-49" v-model="campaignStore.campaignPeriod" :timezone="timezone" mode="dateTime"
 					:model-config="campaignConfig" is-range is-required
 				>
 					<template v-slot="{ inputValue, inputEvents }">
-						<div class="flex justify-center items-center">
+						<div class="flex items-center justify-center">
 						<input :value="inputValue.start" v-on="inputEvents.start" disabled
-							class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+							class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
 						<ChevronsRightIcon class="w-8 h-8 m-1" />
 						<input :value="inputValue.end" v-on="inputEvents.end" disabled
-							class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+							class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
 						</div>
 					</template>
 				</v-date-picker>
 			</div>
 		</div> -->
 
-		<div class="p-0 col-span-12 z-0 lg:p-5">
+		<div class="z-0 col-span-12 p-0 lg:p-5">
 			<span class="text-2xl font-medium leading-none">{{ productPageTitle }}</span>
 			<div>
-				<div class="intro-y col-span-12" >
+				<div class="col-span-12 intro-y" >
 					<div v-show="selectProduct">
 						<SearchBar class="-mb-8" />
 						<AssignProductTable />
@@ -43,25 +43,25 @@
 
 			<template v-if="route.name === 'assign-product'">
 				<div v-show="selectProduct" class="flex justify-end mt-5 -mb-5">
-					<button class="btn w-32 dark:border-darkmode-400" @click="router.push({ name: 'edit-campaign', params: {campaign_id: route.params.campaign_id} })">
+					<button class="w-32 bg-white btn dark:border-darkmode-400" @click="router.push({ name: 'edit-campaign', params: {campaign_id: route.params.campaign_id} })">
 						Previous
 					</button>
-					<button class="btn btn-primary w-32 shadow-md ml-5" @click="toConfirmPage"> 
+					<button class="w-32 ml-5 shadow-md btn btn-primary" @click="toConfirmPage"> 
 						Next
 					</button>
 				</div>
 				<div v-show="comfirmProduct" class="flex justify-end mt-5 -mb-5">
-					<button class="btn w-32 dark:border-darkmode-400" @click="comfirmProduct=false, selectProduct=true">
+					<button class="w-32 btn dark:border-darkmode-400" @click="comfirmProduct=false, selectProduct=true">
 						Edit
 					</button>
-					<button class="btn btn-primary w-32 shadow-md ml-5" @click="assignProduct">
+					<button class="w-32 ml-5 shadow-md btn btn-primary" @click="assignProduct">
 						Assign
 					</button>
 				</div>
 			</template>
 			<template v-if="route.name === 'edit-campaign-product'">
 				<div class="flex justify-end mt-5 -mb-5">
-					<button class="btn btn-primary w-32 shadow-md ml-5" @click="router.push({ name: 'campaigns' })">
+					<button class="w-32 ml-5 shadow-md btn btn-primary" @click="router.push({ name: 'campaigns' })">
 						Save
 					</button>
 				</div>

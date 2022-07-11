@@ -1,5 +1,5 @@
 <template>
-    <table id="orderTable" class="table table-report mt-3 text-lg">
+    <table id="orderTable" class="table mt-3 text-lg table-report">
         <thead>
             <tr>
                 <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
@@ -14,51 +14,51 @@
                         <div class="flex items-left">
                             <div v-if="order[column.key] === 'facebook'"
                                 class="w-10 h-10 image-fit">
-                                <div class="w-12 h-12 flex-none image-fit mr-1" v-if="order.customer_img">
+                                <div class="flex-none w-12 h-12 mr-1 image-fit" v-if="order.customer_img">
                                     <img class="rounded-full" :src="order.customer_img"/>
-                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/facebook.png' >
+                                    <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                                        <img class="rounded-full bg-cover bg-[#3c599b]" src='/src/assets/images/lss-img/facebook.png' >
                                     </div>
                                 </div>
-                                <div class="w-12 h-12 flex-none image-fit mr-1" v-else>
+                                <div class="flex-none w-12 h-12 mr-1 image-fit" v-else>
                                     <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
-                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/facebook.png' >
+                                    <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                                        <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/facebook.png' >
                                     </div>
                                 </div>
                             </div>
                             <div v-else-if="order[column.key] === 'instagram'"
                                 class="w-10 h-10 image-fit">
-                                <div class="w-12 h-12 flex-none image-fit mr-1" v-if="order.customer_img">
+                                <div class="flex-none w-12 h-12 mr-1 image-fit" v-if="order.customer_img">
                                     <img class="rounded-full" :src="order.customer_img"/>
-                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/instagram.png' >
+                                    <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                                        <img class="rounded-full bg-cover bg-[#d63376]" src='/src/assets/images/lss-img/instagram.png' >
                                     </div>
                                 </div>
-                                <div class="w-12 h-12 flex-none image-fit mr-1" v-else>
+                                <div class="flex-none w-12 h-12 mr-1 image-fit" v-else>
                                     <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
-                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/instagram.png' >
+                                    <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                                        <img class="rounded-full bg-cover bg-[#f70000]" src='/src/assets/images/lss-img/instagram.png' >
                                     </div>
                                 </div>
                             </div>
                             <div v-else-if="order[column.key] === 'youtube'"
                                 class="w-10 h-10 image-fit">
-                                <div class="w-12 h-12 flex-none image-fit mr-1" v-if="order.customer_img">
+                                <div class="flex-none w-12 h-12 mr-1 image-fit" v-if="order.customer_img">
                                     <img class="rounded-full" :src="order.customer_img"/>
-                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/youtube.png' >
+                                    <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                                        <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/youtube.png' >
                                     </div>
                                 </div>
-                                <div class="w-12 h-12 flex-none image-fit mr-1" v-else>
+                                <div class="flex-none w-12 h-12 mr-1 image-fit" v-else>
                                     <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
-                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                        <img class="rounded-full bg-cover" src='/src/assets/images/lss-img/youtube.png' >
+                                    <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                                        <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/youtube.png' >
                                     </div>
                                 </div>
                             </div>
                             <div v-else class="w-10 h-10 image-fit">
-                                <div class="w-12 h-12 flex-none image-fit mr-1">
+                                <div class="flex-none w-12 h-12 mr-1 image-fit">
                                     <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
                                 </div>
                             </div>
@@ -109,7 +109,7 @@
             </tr>
         </tbody>
     </table>
-    <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+    <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
         <Page class="mx-auto my-3" :total="store.data_count[tableStatus]" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>

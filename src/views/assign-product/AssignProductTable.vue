@@ -1,9 +1,9 @@
 <template>
     <div class="overflow-x-auto overflow-y-auto h-[67vh] sm:h-[62vh]">
-        <table class="table table-report">
+        <table class="table text-center table-report">
             <thead>
                 <tr>
-                    <th class="items-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
+                    <th class="items-center text-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
                         :key="column.key">
                         {{ column.name }}
                     </th>
@@ -14,7 +14,7 @@
                     <template v-for="column in tableColumns" :key="column.key">
 
                         <td v-if="column.key === 'image'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center imgtd">
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center imgtd">
                             <div class="flex items-center justify-center">
                                 <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <img class="rounded-lg cursor-auto" data-action="zoom"
@@ -24,61 +24,58 @@
                         </td>
 
                         <td v-else-if="column.key === 'order_code'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                            class="w-24 text-[12px] lg:text-sm  content-center items-center">
                             <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control" aria-label="default input"
+                                <input type="text" class="form-control w-24 h-[42px] mt-1" aria-label="default input"
                                     :value="product.order_code" @input="changeInput($event, index, 'order_code')"
-                                    style="width: 4rem; height: 2rem; margin-top: 5px;"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'qty'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                            class="w-24 text-[12px] lg:text-sm content-center items-center">
                             <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control" aria-label="default input" :value="product.qty"
+                                <input type="text" class="form-control w-24 h-[42px] mt-1" aria-label="default input" :value="product.qty"
                                     @input="changeInput($event, index, 'qty')"
-                                    style="width: 4rem; height: 2rem; margin-top: 5px;"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'max_order'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                            class="w-24 text-[12px] lg:text-sm content-center items-center">
                             <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control" aria-label="default input"
+                                <input type="text" class="form-control w-24 h-[42px] mt-1" aria-label="default input"
                                     :value="product.max_order_amount" @input="changeInput($event, index, 'max_order')"
-                                    style="width: 4rem; height: 2rem; margin-top: 5px;"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'tag'"
-                            class="my-2 w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                            class="my-2 w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
                             <div v-for="tag in product[column.key]" :key="tag">{{ tag }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'price'"
-                            class="w-24 text-[12px] lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                            class="w-24 text-[12px] lg:text-sm whitespace-nowrap">
                             <div>{{ product.currency_sign }} {{ product[column.key] }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'name'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center longMessage">
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center longMessage">
                             <div class="w-full">{{ product[column.key] }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'selected'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm ">
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  ">
                             <div class="self-center mt-2 form-check place-content-center">
                                 <input id="selectCheckbox"
-                                    class="form-check-input w-[1.5rem] h-[1.5rem] sm:w-[1.2rem] sm:h-[1.2rem]"
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" v-model="product[column.key]" :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'editable'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
                             <div class="self-center mt-2 form-check place-content-center">
                                 <div v-if="product.type === 'lucky_draw'">
                                     <input id="selectCheckbox" class="form-check-input" type="checkbox" disabled
@@ -92,18 +89,18 @@
                         </td>
 
                         <td v-else-if="column.key === 'deletable'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
                             <div class="self-center mt-2 form-check place-content-center">
-                                <input v-if="product.editable == false" id="selectCheckbox" class="form-check-input"
+                                <input v-if="product.editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" disabled v-model="product[column.key]" />
-                                <input v-else id="selectCheckbox" class="form-check-input" type="checkbox"
+                                <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
                                     v-model="product[column.key]" :disabled="product.disabledEdit" />
                                 <span class="ml-3 checkboxWord"> Deletable</span>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'type'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
                             <div class="self-center mt-2 form-check place-content-center"> {{ product[column.key] }}
                             </div>
                         </td>
@@ -196,7 +193,7 @@ const search = () => {
                     item.selected = false
                     item.editable = true
                     item.deletable = true
-                    item.max_order_amount = 1
+                    item.max_order_amount = item.qty
                     if (item.type === 'lucky_draw') {
                         item.editable = false
                         item.deletable = false
@@ -369,6 +366,15 @@ thead th {
         padding: 0px !important;
     }
 
+    input {
+        height: 35px !important;
+    }
+
+    .form-check-input{
+        width: 1.2rem !important;
+        height: 1.2rem !important;
+    }
+
     .imgtd {
         height: 90px !important;
     }
@@ -389,7 +395,7 @@ thead th {
     }
 
     td {
-        min-height: 42px;
+        min-height: 35px;
         height: auto;
         border: none;
         position: relative;
@@ -402,6 +408,7 @@ thead th {
 
     td:before {
         position: absolute;
+        min-height: 35px;
         left: 6px;
         width: 45%;
         padding-right: 10px;
@@ -451,6 +458,7 @@ thead th {
         text-align: center !important;
         width: 100% !important;
         padding-left: 0% !important;
+        margin-top: 10px;
         /* color: #0e9893; */
     }
 
@@ -473,20 +481,22 @@ thead th {
     }
 
     td:nth-of-type(7):before {
+        top: -3px;
         content: "Category";
         text-align: left !important;
+        /* color: #0e9893; */
+    }
+    td:nth-of-type(7){
+        display: flex;
+        flex-direction:column; 
+        justify-content: center;
+        vertical-align:baseline !important;
         /* color: #0e9893; */
     }
 
     td:nth-of-type(8):before {
         content: "Price";
         margin-top: 0px !important;
-        text-align: left !important;
-        /* color: #0e9893; */
-    }
-
-    td:nth-of-type(11):before {
-        content: "Type";
         text-align: left !important;
         /* color: #0e9893; */
     }
@@ -515,6 +525,21 @@ thead th {
         width: 50% !important;
         padding-left: 0% !important;
         /* color: #0e9893; */
+    }
+
+    td:nth-of-type(11):before {
+        content: "Type";
+        text-align: left !important;
+        margin-top: 0 !important;
+
+        /* color: #0e9893; */
+    }
+
+    td:nth-of-type(11){
+        vertical-align: middle !important;
+        height: auto;
+        padding: auto;
+        margin: auto;
     }
 
 }

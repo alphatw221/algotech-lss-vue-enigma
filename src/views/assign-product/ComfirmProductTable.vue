@@ -3,7 +3,7 @@
         <table class="table table-report ">
             <thead>
                 <tr>
-                    <th class="whitespace-normal truncate hover:text-clip items-center" v-for="column in tableColumns"
+                    <th class="items-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
                         :key="column.key">
                         {{ column.name }}
                     </th>
@@ -16,7 +16,7 @@
                         <td v-if="column.key === 'image'"
                             class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center imgtd"> 
                             <div class="flex items-center justify-center">
-                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12 place-items-center">
+                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <Tippy 
                                         tag="img" 
                                         class="rounded-lg cursor-auto" 
@@ -32,7 +32,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'order_code'">
-                            <div class="form-check self-center place-content-center">
+                            <div class="self-center form-check place-content-center">
                                 <input type="text" class="form-control" :class="{ red: isOrderCodeDuplicate(index) }"
                                     aria-label="default input" :value="product.order_code"
                                     style="width: 4rem; height: 2rem; margin-top: 5px;"
@@ -40,7 +40,7 @@
                             </div>
                         </td>
                         <td v-else-if="column.key === 'qty'">
-                            <div class="form-check self-center place-content-center">
+                            <div class="self-center form-check place-content-center">
                                 <input type="text" class="form-control" aria-label="default input" :value="product.qty"
                                     style="width: 4rem; height: 2rem; margin-top: 5px;"
                                     @input="changeInput($event, index, 'qty')" />
@@ -48,7 +48,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'max_order'">
-                            <div class="form-check self-center place-content-center">
+                            <div class="self-center form-check place-content-center">
                                 <input type="text" class="form-control" aria-label="default input"
                                     :value="product.max_order_amount"
                                     style="width: 4rem; height: 2rem; margin-top: 5px;"
@@ -66,14 +66,14 @@
                             {{ product.currency_sign }} {{ product[column.key] }}
                         </td>
                         <td v-else-if="column.key === 'selected'">
-                            <div class="form-check mt-2 self-center place-content-center">
+                            <div class="self-center mt-2 form-check place-content-center">
                                 <input id="selectCheckbox" class="form-check-input" type="checkbox"
                                     v-model="product[column.key]" />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'editable'">
-                            <div class="form-check mt-2 self-center place-content-center">
+                            <div class="self-center mt-2 form-check place-content-center">
                                 <input v-if="product.type === 'lucky_draw'"
                                     id="selectCheckbox" 
                                     class="form-check-input" 
@@ -88,12 +88,12 @@
                                     v-model="product[column.key]"
                                     @click="product.deletable = false" 
                                 />
-                                <span class="checkboxWord ml-3"> Editable</span>
+                                <span class="ml-3 checkboxWord"> Editable</span>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'deletable'">
-                            <div class="form-check mt-2 self-center place-content-center">
+                            <div class="self-center mt-2 form-check place-content-center">
                                 <input 
                                     v-if="product.editable === true" 
                                     id="selectCheckbox" 
@@ -109,10 +109,10 @@
                                     disabled
                                     v-model="product[column.key]"
                                 />
-                                <span class="checkboxWord ml-3"> Deletable</span>
+                                <span class="ml-3 checkboxWord"> Deletable</span>
                             </div>
                         </td>
-                        <td v-else-if="column.key === 'status'" class="form-switch mt-2">
+                        <td v-else-if="column.key === 'status'" class="mt-2 form-switch">
                             <input 
                                 type="checkbox" 
                                 class="form-check-input" 
@@ -131,12 +131,12 @@
         <Modal :show="warningModalPreview" @hidden="warningModalPreview = false">
             <ModalBody class="p-0">
                 <div class="p-5 text-center">
-                    <XCircleIcon class="w-16 h-16 text-warning mx-auto mt-3" />
-                    <div class="text-3xl mt-5">Oops...</div>
-                    <div class="text-slate-500 text-lg mt-2">{{ warningModalText }}</div>
+                    <XCircleIcon class="w-16 h-16 mx-auto mt-3 text-warning" />
+                    <div class="mt-5 text-3xl">Oops...</div>
+                    <div class="mt-2 text-lg text-slate-500">{{ warningModalText }}</div>
                 </div>
                 <div class="px-5 pb-8 text-center">
-                    <button type="button" @click="warningModalPreview = false" class="btn w-24 btn-primary">
+                    <button type="button" @click="warningModalPreview = false" class="w-24 btn btn-primary">
                         Ok
                     </button>
                 </div>

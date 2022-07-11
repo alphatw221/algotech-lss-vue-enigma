@@ -6,7 +6,7 @@
 				<tr>
 					<th class="w-10">
 						<input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="checkboxAll" @change="selectAll"/></th>
-					<th class="whitespace-normal truncate hover:text-clip" v-for="column in columns" :key="column.key">
+					<th class="truncate whitespace-normal hover:text-clip" v-for="column in columns" :key="column.key">
 						{{ column.name }}
 					</th>
 				</tr>
@@ -15,7 +15,7 @@
 				<tr
 					v-for="(product, product_index) in listItems"
 					:key="product_index"
-					class="intro-x align-middle"
+					class="align-middle intro-x"
 				>
 					<td class="w-10">
 						<input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" :value="product.id" v-model="selected" @change="updateSelected(product)"/></td>
@@ -32,7 +32,7 @@
 						</template>
 						<template v-else-if="column.key === 'order_code'">
 						<div class="flex flex-col">
-							<input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" @change="checkOrderCode(product_index, column.key, product[column.key])" :class="{ error: highlightOrderCodeError(product_index, column.key) }"/>
+							<input class="w-full mt-2 form-control sm:w-20 sm:mt-0" type="text" v-model="product[column.key]" @change="checkOrderCode(product_index, column.key, product[column.key])" :class="{ error: highlightOrderCodeError(product_index, column.key) }"/>
 							<label class="error_message" v-if="validateList[product_index][column.key]['required']">Required</label>
 							<label class="error_message" v-else-if="validateList[product_index][column.key]['duplicate_code']">Duplicate Order Code</label>
 							<label class="error_message" v-else-if="validateList[product_index][column.key]['used_in_campaign_products']">Already Used In Campaign Products</label>
@@ -44,13 +44,13 @@
 						</template>
 						<template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
 						<div class="flex flex-col">
-							<input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" :max="stockProducts[product_index]['qty']" type="number" v-model="product[column.key]" :class="{ error: checkMaxValue(product_index, column.key, 'max_value', product[column.key], stockProducts[product_index]['qty']) }"/>
+							<input class="w-full mt-2 form-control sm:w-20 sm:mt-0" min="1" :max="stockProducts[product_index]['qty']" type="number" v-model="product[column.key]" :class="{ error: checkMaxValue(product_index, column.key, 'max_value', product[column.key], stockProducts[product_index]['qty']) }"/>
 							<label class="error_message" v-if="validateList[product_index][column.key]['max_value']">exceed stock amount</label>
 						</div>
 						</template>
 						<template v-else-if="column.key === 'type'">
 							<select 
-								class="form-select w-auto mt-2 sm:mt-0"
+								class="w-auto mt-2 form-select sm:mt-0"
 								v-model="product[column.key]"
 							>
 								<option v-for="(type, type_key) in product_type" :key="type_key" :value="type">{{ removeDash(type) }}</option>
@@ -60,10 +60,10 @@
 							<input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]"/>
 						</template>
 						<template v-else-if="column.key === 'price'">
-							<div class="truncate hover:text-clip z-10 w-20"> ${{product[column.key]}} </div>
+							<div class="z-10 w-20 truncate hover:text-clip"> ${{product[column.key]}} </div>
 						</template>
 						<template v-else>
-							<div class="break-word  w-24"> {{product[column.key]}} </div>
+							<div class="w-24 break-word"> {{product[column.key]}} </div>
 						</template>
 					</td>
 				</tr>
@@ -72,7 +72,7 @@
 		
 		
 	</div>
-	<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center justify-between">
+	<div class="flex flex-wrap items-center justify-between col-span-12 intro-y sm:flex-row sm:flex-nowrap">
 		<Page 
 			class="mx-auto my-3"
 			:total="dataCount" 
@@ -80,8 +80,8 @@
 			@on-page-size-change="changePageSize"
 		/>
 		<div>
-			<button type="button" class="btn w-32 dark:border-darkmode-400" @click="resetData">reset</button>
-			<button type="button" class="btn btn-primary w-32 shadow-md ml-5" @click="submitData">Apply</button>
+			<button type="button" class="w-32 btn dark:border-darkmode-400" @click="resetData">reset</button>
+			<button type="button" class="w-32 ml-5 shadow-md btn btn-primary" @click="submitData">Apply</button>
 		</div>
 		
 	</div> 
@@ -169,6 +169,11 @@ const search = () => {
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		listItems.value = response.data.results
+		for(let i=0; i<listItems.value.length; i++ ){
+			listItems.value[i].max_order_amount = listItems.value[i].qty
+			listItems.value[i].customer_editable = true
+			listItems.value[i].customer_removable = true
+		}
 		createValidationList()
 		
 	}).catch(error => {

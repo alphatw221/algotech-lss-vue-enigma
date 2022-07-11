@@ -6,29 +6,29 @@
     <LSSSellerMobileMenu />
     <LSSSellerTopBar />
 
-    <Notification refKey="sellerMessageNotification" :options="{duration: 3000,}" class="flex sm:flex-row text-green-600">
+    <Notification refKey="sellerMessageNotification" :options="{duration: 3000,}" class="flex text-green-600 sm:flex-row">
       <CheckCircleIcon class="w-6 h-6 mr-2" /> 
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
-    <Notification refKey="sellerMessageAlert" :options="{duration: 3000,}" class="flex sm:flex-row text-red-600">
+    <Notification refKey="sellerMessageAlert" :options="{duration: 3000,}" class="flex text-red-600 sm:flex-row">
       <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
 <!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
     <Notification refKey="sellerCampaignAlert">
-      <div  class="flex border-l-4 border-primary pl-5">
+      <div  class="flex pl-5 border-l-4 border-primary">
         <div class="border-[1px] border-primary w-8 h-8 rounded-full relative top-5">
           <font-awesome-icon icon="fa-regular fa-bell" class="h-6 absolute top-0.5 left-1"/>
         </div>
         <div class="ml-4 mr-4">
             <div class="font-medium">Upcoming Campaign!!</div>
-            <div id="message" class="text-slate-500 mt-1">
+            <div id="message" class="mt-1 text-slate-500">
                 Message1
             </div>
-            <div class="font-medium flex justify-between mt-2">
-                <button id="leftBTN" class="text-primary dark:text-slate-400 mr-3" data-dismiss="function">Message2 and Function</button>
+            <div class="flex justify-between mt-2 font-medium">
+                <button id="leftBTN" class="mr-3 text-primary dark:text-slate-400" data-dismiss="function">Message2 and Function</button>
                 <a id="rightBTN" class="text-primary dark:text-slate-400" data-dismiss="notification">Message3</a>
             </div>
         </div>
@@ -38,7 +38,7 @@
     <!-- <Notification refKey="floatingVideoToast" class="flex flex-col">
         <div class="ml-4 mr-4">
             <div class="font-medium">Video Streaming...</div>
-            <div class="text-slate-500 mt-1">
+            <div class="mt-1 text-slate-500">
                 <video class="w-[450px]" controls>
                   <source src="movie.mp4" type="video/mp4"> npm can't build with this line
                   <source src="" type="video/mp4">
@@ -62,11 +62,11 @@ import LSSSellerMobileMenu from "@/components/lss-seller-mobile-menu/Main.vue";
 import LSSSellerMenu from "@/components/lss-seller-menu/Main.vue";
 import ThemeModeSwitcher from "@/components/theme-mode-switcher/Main.vue";
 import { useCookies } from "vue3-cookies";
-import { provide, watch, onMounted,ref } from "vue"
-import { useRouter } from "vue-router";
+import { provide, onMounted,ref, computed,watch } from "vue"
+import { useRouter ,useRoute} from "vue-router";
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-
+const route = useRoute();
 const router = useRouter();
 const store = useLSSSellerLayoutStore();
 const { cookies } = useCookies()
@@ -116,10 +116,20 @@ onMounted(() => {
   websocketInit()
  })
 
+watch(computed(()=>route.path),
+()=>{
+  const element = document.getElementsByClassName('modal')
+  for (let i=0; i<element.length; i++){
+    if(element[i])element[i].remove()
+  }
+  console.log(document.getElementsByClassName('modal'))
+  // const dropdownElement = document.getElementsByClassName('dropdown-menu')[0]
+  // if(dropdownElement)dropdownElement.style.visibility = 'hidden'
+  ,{deep:true}}
+) 
 
 provide("bind[sellerMessageNotification]", (el) => {
   store.notification = el;
-
   // el.showMessageToast('test notification')
 });
 provide("bind[sellerMessageAlert]", (el) => {

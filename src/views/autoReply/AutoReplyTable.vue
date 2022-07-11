@@ -1,5 +1,6 @@
 <template>
-	<div class=" overflow-y-auto h-[700px]">
+	<div class=" overflow-y-auto max-h-[700px]">
+	
 		<table class="table table-report">
 			<thead>
 				<tr>
@@ -9,24 +10,38 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<td v-if="showCommentLoding"
+						class="h-[300px] items-center relative"
+						:colspan="columns.length" >
+						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%]"/>
+					</td>
+					<td v-else-if="listItems.length === 0" :colspan="columns.length">
+						<div class="mt-5 text-center md:mt-10" >
+							<h1 class="text-slate-500 text-sm md:text-lg h-[300px]">
+								Assign your first auto-reply by click (+ Create) button
+							</h1>
+						</div>
+					</td> 
+				</tr>
 				<tr v-for="(reply, index) in listItems" :key="index" class="intro-x">
 					<template v-for="(column, index) in columns" :key="index">
 						<td v-if="column.key === 'facebook_page'"
 							class="w-24 h-auto imgtd">
-							<div class="w-14 h-14 image-fit zoom-in flex m-auto">
-								<Tippy tag="img" class="rounded-full w-12 h-12 " :src="reply.facebook_page.image"
+							<div class="flex m-auto w-14 h-14 image-fit zoom-in">
+								<Tippy tag="img" class="w-12 h-12 rounded-full " :src="reply.facebook_page.image"
 									:content="`facebook`" />
 							</div>
 						</td>
 						<td v-else-if="column.key === 'edit'"
 							class="w-20 h-auto">
-							<EditIcon class="click-icon m-auto" @click="
+							<EditIcon class="m-auto click-icon" @click="
 								updateInfo(reply.id, reply.input_msg, reply.output_msg, reply.description)
 							" />
 						</td>
 						<td v-else-if="column.key === 'delete'"
 							class="w-20 h-auto">
-							<Trash2Icon class="click-icon m-auto" @click="deleteAutoReply(reply.id)" />
+							<Trash2Icon class="m-auto click-icon" @click="deleteAutoReply(reply.id)" />
 						</td>
 						<td v-else-if="column.key === 'id'" class="w-20 text-[12px] lg:text-sm 2xl:text-sm">
 							{{ reply[column.key] }}
@@ -39,31 +54,31 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
 		<Page class="mx-auto my-3" :total="totalCount" @on-change="changePage" @on-page-size-change="changePageSize" />
 	</div>
 	<!-- update Modal-->
 	<Modal :show="updateModal" @hidden="closeWithAlert()">
 		<ModalHeader>
-			<h2 class="font-medium text-base mr-auto">Edit #{{currentInfo.id}}</h2>
-			<a @click="updateModal = false" class="absolute right-0 top-0 mt-3 mr-3" href="javascript:;">
+			<h2 class="mr-auto text-base font-medium">Edit #{{currentInfo.id}}</h2>
+			<a @click="updateModal = false" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
 				<XIcon class="w-8 h-8 text-slate-400" />
 			</a>
 		</ModalHeader>
 		<ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Keywords to Detect</label>
-				<input id="modal-form-1" type="text" class="form-control rounded-full longMessage" placeholder=""
+				<input id="modal-form-1" type="text" class="rounded-full form-control longMessage" placeholder=""
 					v-model="currentInfo.input_msg" />
 			</div>
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Set Automated Response</label>
-				<input id="modal-form-1" type="text" class="form-control rounded-full longMessage" placeholder=""
+				<input id="modal-form-1" type="text" class="rounded-full form-control longMessage" placeholder=""
 					v-model="currentInfo.output_msg" />
 			</div>
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Remark</label>
-				<input id="modal-form-1" type="text" class="form-control rounded-full" placeholder=""
+				<input id="modal-form-1" type="text" class="rounded-full form-control" placeholder=""
 					v-model="currentInfo.description" />
 			</div>
 			<!-- <div class="col-span-12">
@@ -72,10 +87,10 @@
 			</div> -->
 		</ModalBody>
 		<ModalFooter>
-			<button type="button" @click="updateModal = false" class="btn w-32 dark:border-darkmode-400">
+			<button type="button" @click="updateModal = false" class="w-32 btn dark:border-darkmode-400">
 				Cancel
 			</button>
-			<button type="button" @click="updateAutoReply(currentInfo.id, currentInfo)" class="btn btn-primary w-32 shadow-md ml-5">
+			<button type="button" @click="updateAutoReply(currentInfo.id, currentInfo)" class="w-32 ml-5 shadow-md btn btn-primary">
 				Save
 			</button>
 		</ModalFooter>
@@ -103,6 +118,8 @@ const totalCount = ref(0);
 const updateModal = ref(false);
 const saved = ref(false);
 const listItems = ref([]);
+const showCommentLoding = ref(true)
+
 const currentInfo = ref({
 	id: "",
 	input_msg: "",
@@ -112,6 +129,7 @@ const currentInfo = ref({
 });
 
 onMounted(() => {
+	showCommentLoding.value = true
 	getReplyData();
 	eventBus.on("getReplyData", (payload) => {
 		getReplyData();
@@ -144,11 +162,11 @@ function updateInfo(id, input, output, description, facebook_page) {
 function getReplyData() {
 	list_auto_response(pageSize.value, currentPage.value)
 	.then((response) => {
-
 		console.log(response);
 		totalCount.value = response.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		listItems.value = response.data.results
+		showCommentLoding.value = false
 	})
 	.catch(function (error) {
 		console.log(error);

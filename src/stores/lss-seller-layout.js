@@ -36,7 +36,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       // },
       {
         icon: "ListIcon",
-        pageName: "campaigns",
+        pageName: "campaign-list",
         title: "Campaign List",
       },
       // {

@@ -11,7 +11,7 @@
             </CarouselItem>
         </Carousel>
         
-        <div class="center flex flex-col items-center text-center p-10">
+        <div class="flex flex-col items-center p-10 text-center center">
             <h3 class="text-[2rem] mx-auto mb-8" >Login</h3>
             <Form class="w-full">
                 <FormItem prop="email" class="login_form">
@@ -31,16 +31,16 @@
                     </Input>
                 </FormItem>
                 <FormItem class="login_form">
-                    <button type="button" class="btn bg-emerald-600 text-lg w-full h-10 text-white" @click="signIn()" >Sign in</button>
+                    <button type="button" class="w-full h-10 text-lg text-white btn bg-emerald-600" @click="signIn()" >Sign in</button>
                 </FormItem>
             </Form>
 
             <a class="mx-auto item-center text-[16px]" @click="this.$router.push({ name: 'PasswordForgot' })">forgot password ?</a>
 
-            <div class="mt-5 flex flex-col items-center">
+            <div class="flex flex-col items-center mt-5">
                 <div class="text-[16px]">No Account ? <a href="lss/#/registration/SG">Create one !</a></div>
             </div>
-            <!-- <div class="my-5 flex flex-col items-center">
+            <!-- <div class="flex flex-col items-center my-5">
                 <FacebookLoginButton />
                 <GoogleLoginButton /> 
             </div> -->
@@ -101,7 +101,7 @@ const signIn = ()=>{
     // console.log('signIn')  response.data.access
     seller_general_login(loginData.value).then(response=>{
         cookies.set("access_token", response.data.access)
-        router.push({name:'campaigns'})
+        router.push({name:'campaign-list'})
     }).catch(err=>{
         console.log(err)
     })
