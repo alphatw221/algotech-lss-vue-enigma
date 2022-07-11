@@ -1,11 +1,11 @@
 <template>
-<div class="flex overflow-auto scrollbar-hidden bg-secondary h-full">
+<div class="flex h-full overflow-auto scrollbar-hidden bg-secondary">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
-        <div class="flex cursor-pointer m-3" @click="router.push({name:'create-campaign'})"> 
-          <button class="btn btn-rounded-primary mr-3 w-10 h-10"
+        <div class="flex m-3 cursor-pointer" @click="router.push({name:'create-campaign'})"> 
+          <button class="w-10 h-10 mr-3 btn btn-rounded-primary"
           ><span class="text-2xl">+</span></button>
-          <span class="font-bold hidden xl:block 2xl:block">Create <br> New Campaign</span> 
+          <span class="hidden font-bold xl:block 2xl:block">Create <br> New Campaign</span> 
         </div>
         
         <ul>
@@ -14,7 +14,7 @@
             <li
               v-if="menu == 'devider'"
               :key="menu + menuKey"
-              class="side-nav__devider my-6"
+              class="my-6 side-nav__devider"
             ></li>
             <li v-else :key="menu + menuKey"> 
               <SideMenuTooltip
@@ -125,14 +125,14 @@
           </template>
           <!-- END: First Child -->
         </ul> 
-          <button class="btn btn-danger text-white rounded-lg m-0 xl:m-5 2xl:m-5 absolute bottom-5"
+          <button class="absolute m-0 text-white rounded-lg btn btn-danger xl:m-5 2xl:m-5 bottom-5"
               @click="layoutStore.profileTab = 1; router.replace('/seller/profile')"
           ><ZapIcon class="mr-0 xl:mr-2 2xl:mr-2" /><span class="hidden text-lg xl:block 2xl:block">Upgrade </span>  </button>
       </nav>
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="content">
+      <div class="content ">
         <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
           <ol class="breadcrumb breadcrumb-dark">
             <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">

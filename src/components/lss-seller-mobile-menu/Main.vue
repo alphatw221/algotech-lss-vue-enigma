@@ -1,10 +1,10 @@
 <template>
   <div id="lss-mobil-side-nav"
-    class=" lss-mobil-side-nav-close ml-3 mr-5 absolute z-50 top-14 h-full dark:bg-darkmode-500 bg-primary overflow-hidden md:hidden">
+    class="absolute z-50 h-full ml-3 mr-5 overflow-hidden lss-mobil-side-nav-close top-14 dark:bg-darkmode-500 bg-primary md:hidden">
 
     <!-- BEGIN: Mobile Menu -->
     <div class="mobile-menu">
-      <!-- <div class="mobile-menu-bar py-2">
+      <!-- <div class="py-2 mobile-menu-bar">
       <a href="" class="flex mr-auto">
         <img
           alt="Enigma Tailwind HTML Admin Template"
@@ -21,7 +21,7 @@
       <ul class="border-t border-white/[0.08] py-5 pt-7 mt-5">
         <!-- BEGIN: First Child -->
         <template v-for="(menu, menuKey) in formattedMenu">
-          <li v-if="menu == 'devider'" :key="menu + menuKey" class="menu__devider my-6"></li>
+          <li v-if="menu == 'devider'" :key="menu + menuKey" class="my-6 menu__devider"></li>
           <li v-else :key="menu + menuKey" class="my-2">
             <a href="javascript:;" class="menu" :class="{
               'menu--active': menu.active,
@@ -79,7 +79,7 @@
               </ul>
             </transition>
             <!-- END: Second Child -->
-            <!-- <div class="w-full border-t border-slate-200/60 border-dashed"></div> -->
+            <!-- <div class="w-full border-t border-dashed border-slate-200/60"></div> -->
           </li>
         </template>
         <!-- END: First Child -->
@@ -149,7 +149,7 @@ watch(
 
 #lss-mobil-side-nav {
   left: 0%;
-  width: calc(100vw - 24px);
+  width: calc(100vw - 26px);
   border-radius: 0px 0px 30px 30px;
 }
 </style>

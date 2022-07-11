@@ -15,8 +15,8 @@
     <!--Modal Create -->
     <Modal :show="createModal" @hidden="closeWithAlert()">
         <ModalHeader>
-            <h2 class="font-medium text-base mr-auto">Create New Response</h2>
-            <a @click="createModal=false" class="absolute right-0 top-0 mt-3 mr-3">
+            <h2 class="mr-auto text-base font-medium">Create New Response</h2>
+            <a @click="createModal=false" class="absolute top-0 right-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             </a>
         </ModalHeader>
@@ -39,10 +39,10 @@
             <div class="col-span-12">
                 <label for="modal-form-1" class="form-label">Following</label>
             </div>
-            <row class="col-span-12 flex flex-wrap items-center justify-around">
+            <row class="flex flex-wrap items-center justify-around col-span-12">
                 <template v-for="(data, key) in facebookPagesData" :key="key">
-                    <div class="w-20 h-20 image-fit relative ">
-                        <input name="fb_page" type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" @click="choosePage(data)" />
+                    <div class="relative w-20 h-20 image-fit ">
+                        <input name="fb_page" type="radio" class="absolute top-0 left-0 z-50 rounded-full vertical-center" @click="choosePage(data)" />
                         <Tippy tag="img" class="rounded-full" :src="data.image"
 										:content="`facebook`" />
                     </div>
@@ -52,10 +52,10 @@
         </ModalBody>
         <ModalFooter>
             <button type="button" @click="createModal=false"
-                class="btn w-32 dark:border-darkmode-400">
+                class="w-32 btn dark:border-darkmode-400">
                 Cancel
             </button>
-            <button type="button" @click="createAutoReply()" class="btn btn-primary w-32 shadow-md ml-5">Save</button>
+            <button type="button" @click="createAutoReply()" class="w-32 ml-5 shadow-md btn btn-primary">Save</button>
         </ModalFooter>
     </Modal>
 </template>

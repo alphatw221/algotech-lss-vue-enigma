@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-x-auto overflow-y-auto h-[650px]">
+  <div class="overflow-auto h-[650px]">
     <table class="table table-report">
       <thead>
         <tr>
@@ -11,87 +11,90 @@
       </thead>
       <tbody>
         <tr v-for="(campaign, index) in campaigns" :key="index" class="intro-x">
-          <td class="fan_page items-center w-12">
-            <div class="flex w-full justify-around">
-              <div class="flex-0 w-12 h-12  zoom-in border-0" v-if="campaign.facebook_page !== null">
-                <Tippy tag="img" class="rounded-full border-0" :src="campaign.facebook_page.image"
+          <td class="items-center w-12 fan_page">
+            <div class="flex justify-center w-full">
+              <div class="border-0 w-14 h-14 flex-0 zoom-in" v-if="campaign.facebook_page !== null">
+                <Tippy tag="img" class="border-0 rounded-full" :src="campaign.facebook_page.image"
                   :content="campaign.facebook_page.name" />
-                  <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
                   </div>
               </div>
-              <div class="flex-0 w-12 h-12 zoom-in" v-if="campaign.instagram_profile !== null">
+              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.instagram_profile !== null">
                 <Tippy tag="img" class="rounded-full " :src="campaign.instagram_profile.image"
                   :content="campaign.instagram_profile.name" />
-                <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#d63376]" :src="instagram_platform" >
                   </div>
               </div>
-              <div class="flex-0 w-12 h-12 zoom-in" v-if="campaign.youtube_channel !== null">
+              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.youtube_channel !== null">
                 <Tippy tag="img" class="rounded-full" :src="campaign.youtube_channel.image"
                   :content="campaign.youtube_channel.name" />
-                  <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
                   </div>
               </div>
             </div>
           </td>
-          <td class="title text-center w-fit">
+          <td class="text-center title w-fit">
             {{ campaign.title }}
           </td>
-          <td class="startDate w-5 text-center">
-            <div class="w-28">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
+          <td class="w-5 text-center startDate">
+            <div class="sm:hidden text-[14px] text-left text-[#616161]">Start Time:</div>
+            <div class="sm:w-28">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
-          <td class="endDate w-5 text-center">
-            <div class="w-28">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
+          <td class="w-5 text-center endDate">
+            <div class="sm:hidden text-[14px] text-left text-[#616161]">End Time:</div>
+            <div class="sm:w-28">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
-          <td class="manage_order items-center w-fit">
+          <td class="items-center manage_order w-fit">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
-              <font-awesome-icon icon="fa-solid fa-list-check" class="w-8 h-6 self-center"/>
+              <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-6"/>
             </a>
+            <div class="text-[12px] sm:hidden"> Manage Orders</div>
           </td>
-          <td class="checkout items-center w-fit">
+          <td class="items-center checkout w-fit">
             <div  v-if="campaignStatus === 'history'" 
-              class="flex flex-col form-check form-switch justify-center">
-              <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
-              <div class="text-[14px] mt-2 sm:hidden"> Stop Checkout</div>
+              class="flex flex-col justify-center form-check form-switch">
+              <input  id="selectCheckbox" class="mt-[3px] form-check-input center" type="checkbox" disabled v-model="checkout" />
+              <div class="text-[12px] sm:hidden"> Stop Checkout</div>
             </div>
             <div v-else
-              class="flex flex-col form-check form-switch justify-center">
-               <input @click="stop_checkout(campaign.id,$event.target.checked)" class="form-check-input mr-0 ml-3" type="checkbox" v-model="campaign.meta.allow_checkout"/>
-               <div class="text-[14px] mt-2 sm:hidden"> Stop Checkout</div>
+              class="flex flex-col justify-center form-check form-switch">
+               <input @click="stop_checkout(campaign.id,$event.target.checked)" class="mt-[3px] mr-0 form-check-input" type="checkbox" v-model="campaign.meta.allow_checkout"/>
+               <div class="text-[12px] sm:hidden"> Stop Checkout</div>
             </div>
           </td>
-          <td class="entry text-center w-fit entry">
+          <td class="justify-center text-center entry w-fit">
             <button 
               v-if="campaignStatus === 'history'"
-              class="btn btn-elevated-rounded-pending w-24 mr-1 sm:mb-2" @click="clickEntry(index)">
+              class="w-24 mr-1 btn btn-elevated-rounded-pending" @click="clickEntry(index)">
               Histroy
             </button>
             <button 
               v-else
-              class="btn btn-elevated-rounded-pending w-24 mr-1 sm:mb-2" @click="clickEntry(index)">
+              class="w-24 mr-1 btn btn-elevated-rounded-pending" @click="clickEntry(index)">
               Live On
             </button>
           </td>
           <td
             v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" 
-            class="edit table-report__action w-fit text-center">
+            class="text-center moreTools w-fit">
               <Dropdown placement="bottom-start">
-                <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
+                <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                   <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
                 </DropdownToggle>
-                <DropdownMenu class="pt-2 w-40">
+                <DropdownMenu class="w-40 pt-2">
                   <DropdownContent class="w-40 text-center">
-                    <DropdownItem class="w-full whitespace-nowrap text-center" @click="router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})"> Edit </DropdownItem>
+                    <DropdownItem class="w-full text-center whitespace-nowrap" @click="router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})"> Edit </DropdownItem>
                     <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
                     <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem>
                   </DropdownContent>
@@ -103,14 +106,14 @@
     </table>
 
     <!-- BEGIN Empty Cart Text -->
-			<div class=" text-center mt-5 md:mt-10" v-if="numOfCampaigns==0">
-				<h1 class="text-slate-500 text-sm md:text-lg">
+			<div class="mt-5 text-center md:mt-10" v-if="numOfCampaigns==0">
+				<h1 class="text-sm text-slate-500 md:text-lg">
 					You Have No {{props.tableName}} Campaign
 				</h1>
 			</div>
 	<!-- END Empty Cart Text -->
 
-    <div class="intro-y flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+    <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
       <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
   </div>
@@ -269,16 +272,12 @@ thead th{
   td,
   tr {
     display: block;
-    font-size: 16px;
+    font-size: 14px;
     padding: 0px !important;
   }
 
   .fan_page {
-    height: 60px !important;
-  }
-
-  .platform {
-    height: 60px !important;
+    height: 65px !important;
   }
 
   thead tr {
@@ -288,16 +287,15 @@ thead th{
   }
 
   tr {
-    border-bottom: 1px solid black;
+    border-bottom: 3px solid rgba(61, 61, 61, 0.7);
     margin-top: 20px;
+    padding-bottom: 10px !important;
+    position: relative;
   }
 
   td {
-    border: none;
-    border-bottom: 1px solid #eee;
     position: relative;
     display: flex;
-    padding-left: 40% !important;
     text-align: center !important;
     box-shadow: none !important;
     align-items: center;
@@ -305,81 +303,50 @@ thead th{
     background-color: white !important;
     width: 100%;
   }
-
-  .productName {
-    padding-left: 15px;
-  }
-
-  td:before {
-    position: absolute;
-    left: 6px;
-    width: 35%;
-    white-space: nowrap;
-    top: 25%;
-    font-weight: bold;
-    box-shadow: none !important;
-    background-color: white !important;
-    text-align: left !important;
-  }
-
-  .fan_page:before {
-    display:none;
-    /* color: #0e9893; */
-  }
   .fan_page{
-    display: block;
-    padding-left: 0% !important;
-  }
-
-  .platform:before {
-    content: "Platform";
-    /* color: #0e9893; */
-  }
-
-  .title:before {
-    display:none;
-    /* color: #0e9893; */
+    display: inline-block;
   }
   .title {
-    display: block;
-    padding-left: 0% !important;
-    /* color: #0e9893; */
+    width:100%;
+    display: inline-block;
+    font-weight:600;
+    color:theme("colors.primary");
   }
-
-  .startDate:before {
-    content: "Start Time";
-    /* color: #0e9893; */
+  .startDate {
+    display: inline-block;
+    width:50%;
+    height:60px;
   }
   
-  .endDate:before {
-    content: "End Time";
-    /* color: #0e9893; */
+  .endDate {
+    display: inline-block;
+    width:50%;
+    height:60px;
   }
-
-  .manage_order:before {
-    content: "Manage Order";
-    /* color: #0e9893; */
-  }
-
-  .checkout:before {
-    display: none;
-    /* color: #0e9893; */
+  .manage_order{
+    display: inline-block;
+    padding-left: 0% !important;
+    width: 33%;
+    height:60px;
   }
   .checkout{
     display: inline-block;
     padding-left: 0% !important;
-    width: 50%;
+    width: 33%;
+    height:60px;
   }
-  .entry:before {
-		display: none;
-		/* Live on*/
-	}
   .entry{
 		display: inline-block;
     padding-left: 0% !important;
-    width: 50%;
-		/* color: #0e9893; */
+    width: 33%;
+    height:60px;
 	}
-
+  .moreTools{
+    display: inline-block;
+    position: absolute !important;
+    top:0;
+    right:0;
+    width:30px !important;
+  }
 }
 </style>
