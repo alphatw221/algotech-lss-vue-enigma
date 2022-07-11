@@ -234,7 +234,7 @@ const startFromToast=()=>{
 	    }
     }
 
-const luckyDraw=(campaign_id)=>{
+const luckyDraw = (campaign_id) => {
       router.push({name:'lucky-draw',params:{'campaign_id':campaign_id}})
     }
 
