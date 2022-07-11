@@ -3,7 +3,7 @@
         <table class="table table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-normal truncate hover:text-clip items-center" v-for="column in tableColumns"
+                    <th class="items-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
                         :key="column.key">
                         {{ column.name }}
                     </th>
@@ -16,7 +16,7 @@
                         <td v-if="column.key === 'image'"
                             class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center imgtd"> 
                             <div class="flex items-center justify-center">
-                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12 place-items-center">
+                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <Tippy 
                                         tag="img" 
                                         class="rounded-lg cursor-auto" 
@@ -29,7 +29,7 @@
                         
                         <td v-else-if="column.key === 'order_code'"
                             class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="form-check self-center place-content-center">
+                            <div class="self-center form-check place-content-center">
                                 <input 
                                     type="text" 
                                     class="form-control" 
@@ -43,7 +43,7 @@
 
                         <td v-else-if="column.key === 'qty_campaign'"
                             class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="form-check self-center place-content-center">
+                            <div class="self-center form-check place-content-center">
                                 <input 
                                     type="text" 
                                     class="form-control" 
@@ -57,7 +57,7 @@
 
                         <td v-else-if="column.key === 'max_order'"
                             class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="form-check self-center place-content-center">
+                            <div class="self-center form-check place-content-center">
                                 <input 
                                     type="text" 
                                     class="form-control" 
@@ -86,20 +86,20 @@
 
                         <td v-else-if="column.key === 'selected'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm "> 
-                            <div class="form-check mt-2 self-center place-content-center">
+                            <div class="self-center mt-2 form-check place-content-center">
                                <input 
                                     id="selectCheckbox" 
                                     class="form-check-input" 
                                     type="checkbox" 
                                     v-model="product[column.key]"
                                 />
-                                <span class="checkboxWord ml-3"> Select</span>
+                                <span class="ml-3 checkboxWord"> Select</span>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'editable'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="form-check mt-2 self-center place-content-center">
+                            <div class="self-center mt-2 form-check place-content-center">
                                 <div v-if="product.type === 'lucky_draw'">
                                     <input
                                     id="selectCheckbox" 
@@ -117,13 +117,13 @@
                                     v-model="product[column.key]"
                                     @click="product.deletable = false"
                                     />
-                                    <span class="checkboxWord ml-3"> Editable</span>
+                                    <span class="ml-3 checkboxWord"> Editable</span>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'deletable'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="form-check mt-2 self-center place-content-center">
+                            <div class="self-center mt-2 form-check place-content-center">
                                <input 
                                     v-if="product.editable == false" 
                                     id="selectCheckbox" 
@@ -139,19 +139,19 @@
                                     type="checkbox" 
                                     v-model="product[column.key]"
                                 />
-                                <span class="checkboxWord ml-3"> Deletable</span>
+                                <span class="ml-3 checkboxWord"> Deletable</span>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'type'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center"> 
-                            <div class="form-check mt-2 self-center place-content-center"> {{ product[column.key] }} </div>
+                            <div class="self-center mt-2 form-check place-content-center"> {{ product[column.key] }} </div>
                         </td>
                     </template>
                 </tr>
             </tbody>
         </table>
-        <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+        <div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
             <Page 
                 class="mx-auto my-3"
                 :total="dataCount" 
@@ -319,7 +319,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  z-index: 99;
+  z-index: 50;
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;
