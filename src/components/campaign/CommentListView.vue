@@ -23,10 +23,11 @@
     </div>
 
 
-    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="showCommentLoding"/>
-    <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)">
-        
-        <!-- <template> </template> -->
+    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
+    <!-- <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)"> -->
+        <!-- temporary solution -->
+    <div class="overflow-y-scroll h-[40rem] scrollbar-hidden"  @scroll="handleScroll($event)">
+
         <div v-for="(comment, index) in comments" :key="index"
             class="relative flex items-center p-2 m-1 rounded-l-full cursor-pointer intro-x box"
             
@@ -93,9 +94,8 @@ const props = defineProps({
 
 let commentPaginator = null 
 const comments = ref([])
-const showCommentLoding = ref(true)
+const fetchingData = ref(true)
 
-let fetchingData = false
 onMounted(()=>{
     getHistoryComments()
 })
@@ -106,23 +106,27 @@ onUnmounted(()=>{
 
 const getHistoryComments= () =>{
     commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName, '')
-    showCommentLoding.value = true
+    fetchingData.value = true
     commentPaginator.getData().then(res=>{
-        showCommentLoding.value = false
+        fetchingData.value = false
         comments.value = res.data.results
         if(props.platformName!='commentSummarize')readyToUpdateByWebsocket()
     }).catch(err=>{
-        showCommentLoding.value = false
+        fetchingData.value = false
         return err
     })
 }
 
 const handleScroll = event=>{
-    if(!fetchingData && event.target.scrollTop > ((event.target.scrollHeight*3)/4) && commentPaginator.gotNext){
-        fetchingData = true
+    if(!fetchingData.value && (event.target.scrollTop+event.target.offsetHeight) >= (2*event.target.scrollHeight)/3 && commentPaginator.gotNext){
+        fetchingData.value = true
         commentPaginator.nextPage().then(res=>{
-            comments.value = comments.value.concat(res.data.results)   //maybe for loop render more smoothly
-            fetchingData = false
+            // comments.value = comments.value.concat(res.data.results)   //maybe for loop render more smoothly
+
+            res.data.results.forEach(comment => {
+                comments.value.push(comment)
+            });
+            fetchingData.value = false
         })
     }
 }
@@ -136,10 +140,10 @@ const readyToUpdateByWebsocket = ()=>{
 const commentSummarizer = category=>{
     commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName, category)
     commentPaginator.getData().then(res=>{
-        showCommentLoding.value = false
+        fetchingData.value = false
         comments.value = res.data.results
     }).catch(err=>{
-        showCommentLoding.value = false
+        fetchingData.value = false
         return err
     })
 }
