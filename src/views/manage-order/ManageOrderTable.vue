@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
-                    {{ column.name }}
+                    {{ $t(`manage_order.`+column.name) }}
                 </th>
             </tr>
         </thead>
@@ -133,15 +133,15 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_ROOT_API
 const columns = ref([
-    { name: 'Order#', key: 'id' },
-    { name: '', key: 'platform' },
-    { name: 'Customer', key: 'customer_name' },
-    { name: 'Amount', key: 'subtotal' },
-    { name: 'Payment', key: 'payment_method' },
-    { name: 'Status', key: 'status' },
-    { name: 'Delivery Status', key: 'delivery' },
-    { name: 'Action', key: 'view' },
-    { name: '', key: 'order_product'}
+    { name: 'order', key: 'id' },
+    { name: 'null', key: 'platform' },
+    { name: 'customer', key: 'customer_name' },
+    { name: 'amount', key: 'subtotal' },
+    { name: 'payment', key: 'payment_method' },
+    { name: 'status', key: 'status' },
+    { name: 'delivery_status', key: 'delivery' },
+    { name: 'action', key: 'view' },
+    { name: 'null', key: 'order_product'}
 ]);
 
 let page = 1;
@@ -225,6 +225,8 @@ function copyURL(order_id,type){
         })
         }
     }
+
+
 </script>
 
 <style scoped>
@@ -240,6 +242,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
+  z-index: 50 !important;
   
   background-color: theme("colors.secondary");
 }
@@ -300,7 +303,7 @@ thead th{
 	}
 
 	td:nth-of-type(1):before {
-		content: "Order Number";
+		content: "Order";
 		/* color: #0e9893; */
 	}
 

@@ -1,6 +1,8 @@
 {
         "manage_order" : "管理訂單",
         "order" : "訂單",
+        "action":"Action",
+        "delivery_status":"出貨",
         "refresh_orders" : "重新載入",
         "customer" : "顧客",
         "platform" : "平台",
@@ -18,7 +20,9 @@
         "comments" : "留言數",
         "complete" : "已完成",
         "review" : "處理中",
+        "shipping out":"已出貨",
         "all" : "所有訂單",
         "refresh" : "更新",
-        "filter":"篩選"
+        "filter":"篩選",
+        "null":" "
 }

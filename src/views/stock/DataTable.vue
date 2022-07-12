@@ -46,7 +46,7 @@
 						<div class="">{{product[column.key]}}</div> 
 					</td>
 					<td v-else-if="column.key === 'price'" class="w-full sm:w-fit qtyPrice">
-						<div class="">{{layoutStore.userInfo.user_subscription.currency}} {{product[column.key].toFixed(0)}}</div> 
+						<div class="">{{layoutStore.userInfo.user_subscription.currency}} {{product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div> 
 					</td>
 					<td v-else-if="column.key === 'edit'"  class="w-12 table-report__action edit">
 						<Dropdown placement="bottom-start">
@@ -102,12 +102,10 @@ export default {
 			category: undefined,
 			storageUrl: import.meta.env.VITE_GOOGLE_STORAGEL_URL,
 			layoutStore: useLSSSellerLayoutStore(),
-			// decimal: layoutStore.userInfo.user_subscription.decimal_places,
 		}
 	},
 	mounted() {
 		this.search();
-        console.log(this.layoutStore.userInfo)
 		this.eventBus.on(this.eventBusName, (payload) => {
 			this.currentPage = 1
 			this.searchColumn = payload.searchColumn
