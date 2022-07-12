@@ -57,7 +57,7 @@
 
                         <td v-else-if="column.key === 'price'"
                             class="w-full text-[12px] lg:w-fit lg:text-sm whitespace-nowrap">
-                            <div>{{ product.currency_sign }} {{ product[column.key] }}</div>
+                            <div>{{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                         </td>
 
                         <td v-else-if="column.key === 'name'"
@@ -135,13 +135,14 @@ import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { list_product } from '@/api_v2/product';
 import { seller_retrieve_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 const campaignStore = useCreateCampaignStore();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const storageUrl = import.meta.env.VITE_APP_IMG_URL
 
 const route = useRoute()
-
+const layoutStore = useLSSSellerLayoutStore()
 const dataCount = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)

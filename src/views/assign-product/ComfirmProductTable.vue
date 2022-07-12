@@ -61,7 +61,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'price'" class="w-18">
-                            {{ product.currency_sign }} {{ product[column.key] }}
+                            {{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}
                         </td>
 
                         <td v-else-if="column.key === 'editable'" class="editable">
@@ -140,6 +140,7 @@
 import { ref, onMounted, onUnmounted, getCurrentInstance, computed } from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { useRoute, useRouter } from "vue-router";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 
 const campaignStore = useCreateCampaignStore();
@@ -147,7 +148,7 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
 const route = useRoute();
 const router = useRouter();
-
+const layoutStore = useLSSSellerLayoutStore()
 const dataCount = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)

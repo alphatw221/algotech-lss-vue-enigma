@@ -1,88 +1,90 @@
 <template>
     <div class="flex-col flex text-[16px]">
-        <div class="flex mt-5 lg:mt-0">
-            <input 
-                class="form-control form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+        <div class="flex justify-between mt-5 sm:mt-0">
+            <div class="flex"> 
+                <input 
+                class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
                 type="checkbox" 
                 v-model="paymentData.enable"
-            />
-            <label class="ml-3 ">Enabled</label>
+                />
+                <label class="ml-3 form-label">Enabled</label>
+            </div>
+            <a 
+                class="whitespace-nowrap"
+                @click="addDirectPayment()"
+            > <u> + Add more option  </u> 
+            </a>
         </div>
-        
-        <div v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i" class="my-10 lg:my-0 lg:mx-5 lg:p-5">
 
+        <div 
+            v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i"
+        >
             <div 
-                class="grid grid-cols-12 gap-2 intro-y lg:gap-3"
+                class="flex flex-col intro-y"
                 v-for="(field, index_j) in payment.fields" 
                 :key="index_j"
             >
                 <template v-if="field.type === 'text'">
-                    <label class="col-span-12 col-start-1 mt-5 ">{{ field.name }}</label>
+                    <label class="mt-2 text-base">{{ field.name }}</label>
                     <input 
-                        class="col-span-12 -mt-3 form-control lg:w-5/6 "
+                        class="w-full form-control"
                         type="text" 
                         v-model="account[field.key]"
                     />
                 </template>
 
                 <template v-else-if="field.type === 'textarea'">
-                    <label class="col-span-12 col-start-1 mt-5 ">{{ field.name }}</label>
+                    <label class="mt-2 text-base">{{ field.name }}</label>
                     <textarea 
-                        class="col-span-12 p-2 -mt-3 rounded-lg form-control lg:w-5/6 "
+                        class="p-2 form-control"
                         v-model="account[field.key]"
                     />
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                    <label class="col-span-12 col-start-1 my-auto mt-5 ">{{ field.name }}
+                    <label class="mt-2 text-base form-label">{{ field.name }}
                     <input 
-                        class="form-control form-check-input col-span-1 w-[1.5rem] h-[1.5rem]  my-auto ml-2"
+                        class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto ml-2"
                         type="checkbox" 
                         v-model="account[field.key]"
                     />
                     </label>
                 </template>
 
-
                 <template v-else-if="field.type === 'file'">
-                    <div class="col-span-12 col-start-1 mt-5 lg:w-5/6">
-                        <label class="">Upload Image</label>
-                        <div class="relative border-2 border-dashed rounded-lg dark:border-darkmode-400">
-                            <div class="flex items-center justify-center px-4">
-                                <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
-                            </div>
-                            <div class="px-4 pb-4 text-[16px] absolute top-16 text-center w-full flex flex-col items-center justify-center"
-                                v-if="previewImages[index_i] === ''">
-                                <div class="flex"> <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> <strong class="text-slate-600">Upload a file or drag and drop</strong> </div>
-                                <div class="mt-2 text-slate-500">accepted File types: jpeg, png, jpg</div>
-                                <div class="text-slate-500">Max file size : 2MB</div>  
-                            </div>
-                            <input
-                                    type="file"
-                                    class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer border-6"
-                                    accept="image/jpeg" 
-                                    @change="uploadImage($event, index_i)"
-                                />
+                    <label>Upload Image</label>
+                    <div class="relative border-2 border-dashed dark:border-darkmode-400">
+                        <div class="flex items-center justify-center px-4">
+                            <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
                         </div>
+                        <div class="px-4 text-[1rem] sm:text-[16px] absolute top-20 text-center w-full flex flex-col items-center justify-center"
+                            v-if="previewImages[index_i] === null">
+                            <div class="flex flex-col items-center justify-center sm:flex-row"> 
+                                <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> 
+                                <strong class="text-slate-600">Upload a file or drag and drop</strong> 
+                            </div>
+                            <div class="mt-2 text-slate-500">accepted File types: jpeg, png, jpg</div>
+                            <div class="text-slate-500">Max file size : 2MB</div>  
+                        </div>
+                            <input
+                                type="file"
+                                class="absolute top-0 left-0 w-full h-full opacity-0"
+                                accept="image/jpeg" 
+                                @change="uploadImage($event, index_i)"
+                            />
                     </div>
                 </template>
+
             </div>
-
-            <button 
-                class="inline-block w-24 mt-5 text-base btn btn-danger " 
+            <div class="flex w-full"> 
+                <button 
+                class="inline-block w-24 my-5 ml-auto text-base btn btn-danger" 
                 @click="deleteDirectPayment(index_i)"
-            > 
-                Delete 
-            </button>
-
+                > 
+                    Delete 
+                </button>
+            </div>
         </div>
-
-        <button 
-            class="self-end inline-block w-32 mb-5 text-base btn btn-primary lg:mt-3 lg:mr-32"
-            @click="addDirectPayment()"
-        > 
-            + add more
-        </button>
 
         <button 
                 class="w-48 mt-2 text-base btn btn-elevated-rounded-primary"
@@ -150,8 +152,8 @@ const deleteDirectPayment = index=>{
 
 }
 const addDirectPayment = ()=>{
-    paymentData.value.v2_accounts.push({mode:'',name:'',number:'',note:'',require_customer_return:true})
-    previewImages.value.push('')
+    paymentData.value.v2_accounts.unshift({mode:'',name:'',number:'',note:'',require_customer_return:true})
+    previewImages.value.unshift('')
 }
 
 const updateDirectPayment = () => {
