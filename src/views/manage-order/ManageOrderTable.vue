@@ -66,7 +66,7 @@
                     </template>
                     <template v-else-if="column.key === 'view'">
                         <div class="flex place-content-center">
-                            <a class="text-black w-10 h-10 image-fit">
+                            <a class="w-10 h-10 text-black image-fit">
                                 <EyeIcon @click="to_order_detail(order.id,order.type)"/>
                             </a>
                             
@@ -77,11 +77,11 @@
                     </template>
                     <template v-else-if="column.key === 'delivery'">
                         <div class="flex place-content-center">
-                            <a class="w-10 h-10 image-fit text-black" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
+                            <a class="w-10 h-10 text-black image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
                                 <TruckIcon />
                             </a>
                             <a class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
-                                <TruckIcon style="color:#BABABA"/>
+                                <TruckIcon style="color:#BABABA" class="cursor-not-allowed"/>
                             </a>
                         </div>
                     </template>
@@ -95,13 +95,13 @@
                     </template>
                     <template v-else-if="column.key === 'order_product'">
                         <div class="flex place-content-center">
-                            <a class="w-10 h-10 image-fit text-black">
+                            <a class="w-10 h-10 text-black image-fit">
                                 <ChevronDownIcon @click="orderProductModal(order.id,order.type)"/>
                             </a>
                         </div>
                     </template>
                     <template v-else-if="column.key === 'subtotal'">
-                        ${{ (order.subtotal).toFixed(2) }}
+                        ${{ (order.subtotal).toFixed(layoutStore.userInfo.user_subscription.decimal_places) }}
                     </template>
                     <template v-else-if="column.key === 'payment_method'">
                         {{ order[column.key] == 'Direct Payment' ? `Direct Payment - ${order.meta.account_mode}` : order[column.key] }}
@@ -126,10 +126,12 @@ import { get_pre_order_oid } from "@/api_v2/pre_order"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 const route = useRoute();
 const router = useRouter();
 const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
+const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_ROOT_API
 const columns = ref([

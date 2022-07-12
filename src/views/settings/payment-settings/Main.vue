@@ -18,7 +18,7 @@
                 </Tab>
             </TabList>
 
-            <TabPanels class="px-2 mt-0 lg:mt-5 2xl:mt-5 lg:px-10 2xl:px-10" >
+            <TabPanels class="px-2 mt-0 lg:mt-5 lg:px-10" >
                 <TabPanel class="leading-relaxed" v-for="payment, index in payments" :key="index">
 
                         <DirectPayment :payment ="payment" v-if="payment.key=='direct_payment'"/>

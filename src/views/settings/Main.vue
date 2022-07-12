@@ -8,7 +8,7 @@
             <div class="switch-toggle">
                 <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
                 <label for="on">Notes</label>
-                <input id="na" name="state-d" type="radio" class="my-0" @click="toggleTabs(2)" />
+                <input id="na" name="state-d" type="radio" class="" @click="toggleTabs(2)" />
                 <label for="na">Payment</label>
                 <input id="off" name="state-d" type="radio" @click="toggleTabs(3)" />
                 <label for="off">Delivery</label>

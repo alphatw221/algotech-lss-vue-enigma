@@ -123,9 +123,8 @@ const tableColumns = ref([
     { name: "Keywords to Detect", key: "input_msg" },
     { name: "Set Automated Response", key: "output_msg" },
     { name: "Remark", key: "description" },
-    { name: "Following", key: "facebook_page" },
-    { name: "Edit", key: "edit" },
-    { name: "Delete", key: "delete" },
+    { name: "Assign To", key: "facebook_page" },
+    { name: "", key: "edit" },
 ])
 
 let facebookPagesData = ref([])

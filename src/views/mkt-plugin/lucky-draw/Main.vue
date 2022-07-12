@@ -1,18 +1,6 @@
 <template>
     <div class="flex flex-col h-full box text-lg overflow-y-auto p-10" v-if="ready">
         <h1 class="text-center"> Lucky Draw </h1>
-        <!-- <div class="mt-3 flex justify-between">
-            <label for="update-profile-form-2" class="form-label mr-10">Campaign Title</label>
-            <h2> {{store.campaign_title}}</h2>
-            <div>
-                <button class="btn btn-primary w-32 mt-auto mr-3" @click="listWinners()" v-if="showDrawlist == true">
-                    All Winners
-                </button>
-                <button class="btn btn-primary w-32 mt-auto" @click="showDrawlist = false">
-                    Create
-                </button>
-            </div>
-        </div> -->
         <div v-show="!showDrawlist"> 
             <DrawCreate 
                 :campaignTitle="campaignTitle"
@@ -57,8 +45,8 @@ onMounted(() => {
         if (Object.entries(res.data).length > 0) {
             showDrawlist.value = true
             luckydrawList.value = res.data
-            ready.value = true
         }
+        ready.value = true
     }).catch(err => {
         console.log(err);
     })
