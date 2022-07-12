@@ -40,10 +40,10 @@
             <div class="flex flex-col items-center mt-5">
                 <div class="text-[16px]">No Account ? <a href="lss/#/registration/SG">Create one !</a></div>
             </div>
-            <div class="flex flex-col items-center my-5">
+            <!-- <div class="flex flex-col items-center my-5">
                 <FacebookLoginButton />
                 <GoogleLoginButton /> 
-            </div>
+            </div> -->
         </div>
     </div>
 </template>
