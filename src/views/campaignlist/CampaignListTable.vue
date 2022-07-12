@@ -90,9 +90,18 @@
                 </DropdownToggle>
                 <DropdownMenu class="w-40 pt-2">
                   <DropdownContent class="w-40 text-center">
-                    <DropdownItem class="w-full text-center whitespace-nowrap" @click="router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})"> Edit </DropdownItem>
-                    <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
-                    <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem>
+                    <DropdownItem class="w-full text-center whitespace-nowrap" 
+                      @click="router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})"> 
+                      <EditIcon class="h-[20px] w-[20px] mr-1" />
+                      Edit </DropdownItem>
+                    <DropdownItem 
+                      @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> 
+                      <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
+                      Blank Cart </DropdownItem>
+                    <DropdownItem 
+                      @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> 
+                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      Lucky Draw</DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 

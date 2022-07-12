@@ -2,7 +2,7 @@
 	<div class="h-[100%] overflow-auto box">
 		<!-- {{ $t('test1') }} -->
 		<div class="flex items-center p-5 intro-y" v-if="route.params.product_id">
-			<h2 class="text-lg font-medium mx-">Update Product</h2>
+			<h2 class="text-lg font-medium mx-">Edit Product</h2>
 		</div>
 		<div class="flex items-center p-5 intro-y" v-else>
 			<h2 class="text-lg font-medium">Add New Product</h2>

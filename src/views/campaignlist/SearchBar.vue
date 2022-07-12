@@ -6,7 +6,7 @@
                     Search by
                 </label>
                 <select id="tabulator-html-filter-field"
-                    class="w-auto h-10 mr-4 form-select" v-model="searchField">
+                    class="w-auto h-[35px] sm:h-[42px] mr-4 form-select" v-model="searchField">
                     <option v-for="searchColumn in searchColumns" :key="searchColumn.value" @change="search"
                         :value="searchColumn.value">
                         {{ searchColumn.text }}
@@ -16,10 +16,10 @@
             <div class="items-center w-auto input-group">
                 <div class="input-group"> 
                     <input type="text"
-                    class="w-40 form-control input-group shrink" placeholder="Search..."
+                    class="h-[35px] sm:h-[42px] w-40 form-control input-group shrink" placeholder="Search..."
                     v-model="keyword" @keydown.enter.prevent="search" />
                     <button
-                        class="flex-none w-16 h-10 rounded-l-none btn btn-secondary" @click="reset">
+                        class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary" @click="reset">
                         Reset
                     </button>
                 </div>
