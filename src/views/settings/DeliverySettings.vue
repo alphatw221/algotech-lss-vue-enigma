@@ -7,7 +7,7 @@
                 <label class="w-full mr-1 text-base whitespace-nowrap">Delivery Charge</label>
                 <input 
                     class="w-full form-control h-[42px]"
-                    type="text" 
+                    type="number" 
                     v-model="deliverySettings.delivery_charge"
                 />
     
@@ -21,7 +21,7 @@
                 </div> 
                 <input 
                 class="w-full form-control" 
-                type="text" 
+                type="number" 
                 v-model="deliverySettings.free_delivery_for_order_above_price"
                 />
                 
@@ -35,7 +35,7 @@
                 </div> 
                 <input 
                 class="w-full form-control"
-                type="text"
+                type="number"
                 v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
                 />       
             </div>
@@ -182,6 +182,7 @@ onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return
     deliverySettings.value = layoutStore.userInfo.user_subscription.meta_logistic
     fields.forEach(field => {
+        console.log(typeof deliverySettings.value[field.key],deliverySettings.value[field.key],field.dataType)
         if(typeof deliverySettings.value[field.key]!=field.dataType) deliverySettings.value[field.key]=field.default
     });
 
