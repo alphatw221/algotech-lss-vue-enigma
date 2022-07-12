@@ -1,13 +1,13 @@
 <template>
 <div>
-    <div class="text-2xl text-base text-center my-5"> Order Details </div>
+    <div class="text-2xl text-base text-center my-5"> {{$t('order_detail.order')}} </div>
 
     <div class="grid grid-cols-12 gap-4 h-fit">
         <div class="col-span-12 lg:col-span-6 2xl:col-span-6 h-fit">
                 <div class="w-full mx-2 ">
                     <div class="flex mb-2">
-                        <h2 class="font-medium"> Order No. #{{store.orderDetail.id}} <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
-                                {{store.orderDetail.status }}</span> </h2>
+                        <h2 class="font-medium"> {{$t('order_detail.order_no')}} #{{store.orderDetail.id}} <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
+                                {{$t(`manage_order.${store.orderDetail.status}`) }}</span> </h2>
                     </div>
                     <div class="flex mb-2">
                         <span class="font-medium mr-5"> Order Date : {{new Date(store.orderDetail.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
