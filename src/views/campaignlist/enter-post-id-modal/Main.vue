@@ -3,15 +3,14 @@
     <!--Modal Enter Post ID -->
     <Modal
       size="modal-lg"
-      :show="show"
-      @hidden="hide()"
+      :show="showModal"
+      @hidden="hideModal()"
     >
       <ModalHeader>
-        <h2 class="font-medium text-base mr-auto">Select Live Stream</h2>
+        <h2 class="mr-auto text-base font-medium">Select Live Stream</h2>
         <a
-          @click="hide()"
-          class="absolute right-0 top-0 mt-3 mr-3"
-          href="javascript:;"
+          @click="hideModal()"
+          class="absolute top-0 right-0 mt-3 mr-3"
         >
           <XIcon class="w-8 h-8 text-slate-400" />
         </a>
@@ -137,8 +136,8 @@
       <ModalFooter>
         <button
           type="button"
-          class="btn btn-outline-secondary w-20 mr-1"
-          @click="hide()"
+          class="w-20 mr-1 btn btn-outline-secondary"
+          @click="hideModal()"
         >
           Cancel
         </button>
@@ -169,7 +168,7 @@ const campaign = ref(null)
 onMounted(()=>{
     eventBus.on('showEnterPostIDModal', (payload) => {
 
-      show.value = true
+      showModal.value = true
       campaign.value = payload.campaign
       ready.value=true
     })
@@ -183,18 +182,18 @@ const router = useRouter()
 const route = useRoute()
 
 
-const show = ref(false)
+const showModal = ref(false)
 
 
 const enterLive = ()=>{
   router.push({name:'campaign-live',params:{'campaign_id':campaign.value.id}})
-  hide()
+  hideModal()
 }
 
-const hide = ()=>{
+const hideModal = ()=>{
   ready.value = false
   campaign.value = null
-  show.value = false
+  showModal.value = false
 }
 
 

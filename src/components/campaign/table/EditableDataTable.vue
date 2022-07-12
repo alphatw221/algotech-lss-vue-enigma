@@ -615,7 +615,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  z-index: 99;
+  z-index: 50;
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;

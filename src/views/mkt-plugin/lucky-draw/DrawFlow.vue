@@ -50,9 +50,29 @@
                 <div style="margin-top: 5rem;" v-else-if="ready === true && beforeDraw === false">
                     <img class="m-3 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px;"/>
                     <div class="text-center mt-7" style="font-size: 1.5rem;">{{ luckyDrawData.prize.name }}</div>
-                    <div class="mt-9 flex" style="width: 350px;">
-                        <!-- <img class="m-3 self-center" :src="winnerList[0]['customer_image']" style="width: 300px;"/> -->
-                        {{ winnerList }}
+                    <div class="mt-9 flex flex-wrap" style="width: 350px;">
+                        <div v-for="(winner, index) in winnerList" :key="index" class="ml-5 mb-3">
+                            <!-- <img class="m-3 self-center" :src="winner.customer_image" style="width: 30px;"/> -->
+                            
+                            <div class="flex w-full justify-around">
+                                <div class="flex-0 w-14 h-14  zoom-in border-0">
+                                    <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" class="rounded-full border-0" :src="`${storageUrl}fake_head.jpeg`"
+                                        />
+                                    <Tippy v-else tag="img" class="rounded-full border-0" :src="winner.customer_image"
+                                        />
+                                    <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                        <img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
+                                        <img v-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
+                                        <img v-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
+                                        <img v-if="winner.platform == null" class="rounded-full bg-[#9D9D9D]" :src="unbound" >
+                                    </div>
+                                </div>
+                            </div>
+                            <label> {{ winner.customer_name }} </label>
+                            
+                        </div>
+
+                        <!-- {{ winnerList }} -->
                     </div>
                 </div>
             </div>
@@ -74,6 +94,10 @@
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign_lucky_draw, draw_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
+import youtube_platform from '/src/assets/images/lss-img/youtube.png';
+import facebook_platform from '/src/assets/images/lss-img/facebook.png';
+import instagram_platform from '/src/assets/images/lss-img/instagram.png';
+import unbound from '/src/assets/images/lss-img/noname.png';
 
 const props = defineProps({
     luckydrawList: Object
@@ -92,6 +116,7 @@ const ready = ref(false)
 const showAnimation = ref(false)
 const beforeDraw = ref(true)
 const winnerList = ref([])
+
 
 
 onMounted(() => {

@@ -1,12 +1,12 @@
 <template>
-    <div class="box p-5 flex flex-col gap-5 text-[16px]">
-		<span class="text-xl mt-5"> Create Campaign </span>
-		<div class="intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50 ml-3">
-			<div class="col-start-1 col-span-12 sm:col-span-6">
-				<div class="flex-col flex">
-					<label class="form-label w-20 text-base my-auto">Title</label>
+    <div class="box py-5 px-3 sm:p-12 flex flex-col gap-5 text-[16px]">
+		<span class="text-xl"> Create Campaign </span>
+		<div class="grid grid-cols-12 gap-1 intro-y sm:gap-5 -z-50">
+			<div class="col-span-12 col-start-1 sm:col-span-6">
+				<div class="flex flex-col">
+					<label class="w-20 my-auto text-base form-label">Title</label>
 					<input 
-						class="form-control w-full sm:w-[70%] lg:w-[50%]" 
+						class="w-full form-control" 
 						type="text" 
 						:class="{ 'border-danger': title_validate.title.$error }"
 						v-model.trim="title_validate.title.$model"
@@ -21,7 +21,7 @@
 			</div>
 			<div class="col-span-12 -mb-5 sm:col-span-6">
 				<div class="flex flex-col">
-					<label for="regular-form-2" class="form-label w-16 text-base my-auto">Period</label>
+					<label for="regular-form-2" class="w-16 my-auto text-base form-label">Period</label>
 					<v-date-picker class="z-49" 
 						v-model="dateTimePicker" 
 						:timezone="timezone" 
@@ -30,7 +30,7 @@
 						:min-date='new Date()'
 						>
 						<template v-slot="{ inputValue, inputEvents }">
-							<div class="flex justify-center items-center">
+							<div class="flex items-center justify-center">
 							<input :value="inputValue.start" v-on="inputEvents.start"
 								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
 							<ChevronsRightIcon class="w-8 h-8 m-1" />
@@ -55,12 +55,12 @@
 
 		<NotesForm :campaign="campaignData"/>
 
-		<div class="mt-5 p-0 col-span-12 z-0">
+		<div class="z-0 col-span-12 p-0 mt-5">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="btn w-32 dark:border-darkmode-400" @click="$router.push({ name: 'campaigns' })">
+				<button class="w-32 btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
 					Cancel
 				</button>
-				<button class="btn btn-primary w-32 shadow-md ml-5" @click="createCampaign()">
+				<button class="w-32 ml-5 shadow-md btn btn-primary" @click="createCampaign()">
 					Next
 				</button>
 			</div>

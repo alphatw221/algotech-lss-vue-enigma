@@ -4,7 +4,7 @@
             autoplay
             autoplay-speed="5000" 
             loop
-            class="carousel h-screen"
+            class="h-screen carousel"
         >
             <CarouselItem v-for="carousel in carousel_items" :key="carousel.src" class="carousel-item">
                 <img :src="carousel.src" class="carousel-item" />
@@ -14,16 +14,16 @@
         <Card class="center">
             <Row><h3>Login</h3></Row>
 
-            <div class="mt-10 flex flex-col items-center" v-if="!showReminder">
+            <div class="flex flex-col items-center mt-10" v-if="!showReminder">
                 <FacebookLoginButton block role='buyer'/>
                 <GoogleLoginButton block role='buyer'/>
                 <ContinueWithoutLoginButton block/>
             </div>
-            <Row v-if="showReminder"><p class="text-danger text-center mt-10 text-lg mr-4 ml-4">Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p></Row>
-            <div v-if="showReminder" class="text-center items-center shopping-cart-link-block mt-4" >
+            <Row v-if="showReminder"><p class="mt-10 ml-4 mr-4 text-lg text-center text-danger">Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p></Row>
+            <div v-if="showReminder" class="items-center mt-4 text-center shopping-cart-link-block" >
                 <a class="inline-block shopping-cart-link-item" @click="copyLink()">{{currentUrl}}</a>
-                <a class="text-black inline-block shopping-cart-link-item"  @click="copyLink()">
-                    <div class="text-center items-center  ml-2">
+                <a class="inline-block text-black shopping-cart-link-item"  @click="copyLink()">
+                    <div class="items-center ml-2 text-center">
                         <CopyIcon class="inline w-4 h-4"/>
                         <p class="text-xs">copy</p>
                     </div>
@@ -91,7 +91,7 @@ const copyLink = ()=>{
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    z-index: 99;
+    z-index: 50;
     width:400px; 
     height: 300px;
     opacity: .9;
