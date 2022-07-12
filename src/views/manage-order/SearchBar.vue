@@ -2,7 +2,7 @@
     <div class="relative w-full h-16">
                     <div class="flex w-full absolute mr-auto m-1 right-0 sm:mt-1 sm:w-auto ">
                         <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-slate-700 " />
-                        <input type="text" class="form-control rounded-full mr-2 w-full sm:w-64 box px-10"
+                        <input type="text" class="form-control rounded-full mr-2 w-44 lg:w-60 box px-10"
                             placeholder="Search..." v-model="searchValue" @keydown.enter.prevent="search()"/>
                         <div class="export">
                              <Dropdown class="relative p-2 mr-1 flex rounded-full items-center btn border-[#131C34] "
