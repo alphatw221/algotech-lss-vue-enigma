@@ -1,20 +1,40 @@
 <template>
-	<div class=" overflow-y-auto h-[700px]">
+	<div class=" overflow-y-auto max-h-[700px]">
+	
 		<table class="table table-report">
 			<thead>
 				<tr>
-					<th v-for="column in columns" :key="column.key" class="w-fit">
-						{{ column.name }}
+					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap">
+						<template v-if=" column.key === 'edit' || column.key === 'delete' || column.key === 'facebook_page'"> 
+							<span class="flex justify-center" > {{ column.name }} </span>
+						</template>
+						<template v-else> 
+							{{ column.name }}
+						</template>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
+				<tr>
+					<td v-if="showCommentLoding"
+						class="h-[300px] items-center relative"
+						:colspan="columns.length" >
+						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%]"/>
+					</td>
+					<td v-else-if="listItems.length === 0" :colspan="columns.length">
+						<div class="mt-5 text-center md:mt-10" >
+							<h1 class="text-slate-500 text-sm md:text-lg h-[300px]">
+								Assign your first auto-reply by click (+ Create) button
+							</h1>
+						</div>
+					</td> 
+				</tr>
 				<tr v-for="(reply, index) in listItems" :key="index" class="intro-x">
 					<template v-for="(column, index) in columns" :key="index">
 						<td v-if="column.key === 'facebook_page'"
 							class="w-24 imgtd">
 							<div class="flex m-auto w-14 h-14 image-fit zoom-in">
-								<Tippy tag="img" class="w-12 h-12 rounded-full " :src="reply.facebook_page.image"
+								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image"
 									:content="`facebook`" />
 							</div>
 						</td>
@@ -53,17 +73,17 @@
 		<ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Keywords to Detect</label>
-				<input id="modal-form-1" type="text" class="rounded-full form-control longMessage" placeholder=""
+				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
 					v-model="currentInfo.input_msg" />
 			</div>
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Set Automated Response</label>
-				<input id="modal-form-1" type="text" class="rounded-full form-control longMessage" placeholder=""
+				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
 					v-model="currentInfo.output_msg" />
 			</div>
 			<div class="col-span-12">
 				<label for="modal-form-1" class="form-label">Remark</label>
-				<input id="modal-form-1" type="text" class="rounded-full form-control" placeholder=""
+				<input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
 					v-model="currentInfo.description" />
 			</div>
 			<!-- <div class="col-span-12">
@@ -103,6 +123,8 @@ const totalCount = ref(0);
 const updateModal = ref(false);
 const saved = ref(false);
 const listItems = ref([]);
+const showCommentLoding = ref(true)
+
 const currentInfo = ref({
 	id: "",
 	input_msg: "",
@@ -112,6 +134,7 @@ const currentInfo = ref({
 });
 
 onMounted(() => {
+	showCommentLoding.value = true
 	getReplyData();
 	eventBus.on("getReplyData", (payload) => {
 		getReplyData();
@@ -144,11 +167,11 @@ function updateInfo(id, input, output, description, facebook_page) {
 function getReplyData() {
 	list_auto_response(pageSize.value, currentPage.value)
 	.then((response) => {
-
 		console.log(response);
 		totalCount.value = response.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		listItems.value = response.data.results
+		showCommentLoding.value = false
 	})
 	.catch(function (error) {
 		console.log(error);
@@ -194,6 +217,7 @@ function deleteAutoReply(id) {
 	cursor: pointer;
 }
 
+
 td {
   min-height: 50px;
   border-collapse: collapse;
@@ -204,7 +228,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  z-index: 99;
+  z-index: 50;
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;
@@ -238,6 +262,7 @@ thead th{
 	tr {
 		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
 		margin-top: 10px;
+		margin-bottom: 10px;
 	}
 
 	td {
@@ -247,31 +272,30 @@ thead th{
 		box-shadow: none !important;
 		min-height:30px;
 		padding-left: 20px !important;
-		top:50%;
-	}
-
-	.productName {
-		padding-left: 15px;
 	}
 
 	.id{
 		display:inline-block;
-		width:100%;
+		width:50%;
 		font-weight: 500;
 		color: theme("colors.primary");
+		height:60px;
+		padding-top: 20px !important;
 	}
 
 	.imgtd {
 		display: inline-block;
-		width: 100%;
-		padding-left: 0% !important;
-		height: 80px !important;
+		position: absolute;
+		width:50%;
+		top:0;
+		right:0;
+		margin-right: 20px;
 	}
 	
 	.title{
 		display:inline-block;
 		width:100%;
-		font-weight: 500;
+		font-weight: 600;
 		color: theme("colors.primary");
 	}
 	.edit{
@@ -279,6 +303,7 @@ thead th{
 		width: 50%;
 		margin-top:10px;
 		padding-left: 0% !important;
+		margin-bottom: 10px;
 		/* color: #0e9893; */
 	}
 	.delete{
@@ -286,12 +311,13 @@ thead th{
 		width: 50%;
 		margin-top:10px;
 		padding-left: 0% !important;
-		/* color: #0e9893; */
+		margin-bottom: 10px;
 	}
 
 	.info{
 		margin-top: 10px;
 		margin-bottom: 10px;
+		font-size: 14px !important;
 	}
 }
 </style>

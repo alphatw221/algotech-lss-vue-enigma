@@ -11,7 +11,7 @@
       </thead>
       <tbody>
         <tr v-for="(campaign, index) in campaigns" :key="index" class="intro-x">
-          <td class="items-center w-12 fan_page">
+          <td class="items-center min-w-12 fan_page">
             <div class="flex justify-center w-full">
               <div class="border-0 w-14 h-14 flex-0 zoom-in" v-if="campaign.facebook_page !== null">
                 <Tippy tag="img" class="border-0 rounded-full" :src="campaign.facebook_page.image"
@@ -40,48 +40,51 @@
             {{ campaign.title }}
           </td>
           <td class="w-5 text-center startDate">
-            <div class="sm:hidden text-[14px] text-left text-[#616161]">Start Time:</div>
-            <div class="sm:w-28">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
+            <div class="sm:hidden text-[14px] text-left ml-[14px] text-[#616161]">Start Time:</div>
+            <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
           <td class="w-5 text-center endDate">
-            <div class="sm:hidden text-[14px] text-left text-[#616161]">End Time:</div>
-            <div class="sm:w-28">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
+            <div class="sm:hidden text-[14px] text-left ml-[14px] text-[#616161]">End Time:</div>
+            <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
+          <td class="sm:hidden actions">
+            Actions
+          </td>
           <td class="items-center manage_order w-fit">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
-              <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-6"/>
+              <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>
             </a>
             <div class="text-[12px] sm:hidden"> Manage Orders</div>
           </td>
           <td class="items-center checkout w-fit">
             <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col justify-center form-check form-switch">
-              <input  id="selectCheckbox" class="mt-[3px] form-check-input center" type="checkbox" disabled v-model="checkout" />
+              <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
               <div class="text-[12px] sm:hidden"> Stop Checkout</div>
             </div>
             <div v-else
               class="flex flex-col justify-center form-check form-switch">
-               <input @click="stop_checkout(campaign.id,$event.target.checked)" class="mt-[3px] mr-0 form-check-input" type="checkbox" v-model="campaign.meta.allow_checkout"/>
+               <input @click="stop_checkout(campaign.id,$event.target.checked)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.meta.allow_checkout"/>
                <div class="text-[12px] sm:hidden"> Stop Checkout</div>
             </div>
           </td>
           <td class="justify-center text-center entry w-fit">
             <button 
               v-if="campaignStatus === 'history'"
-              class="w-24 mr-1 btn btn-elevated-rounded-pending" @click="clickEntry(index)">
+              class="w-24 mr-1 btn btn-elevated-rounded-pending h-[44px]" @click="clickEntry(index)">
               Histroy
             </button>
             <button 
               v-else
-              class="w-24 mr-1 btn btn-elevated-rounded-pending" @click="clickEntry(index)">
+              class="w-24 mr-1 btn btn-elevated-rounded-pending h-[44px]" @click="clickEntry(index)">
               Live On
             </button>
           </td>
@@ -234,7 +237,7 @@ const startFromToast=()=>{
 	    }
     }
 
-const luckyDraw=(campaign_id)=>{
+const luckyDraw = (campaign_id) => {
       router.push({name:'lucky-draw',params:{'campaign_id':campaign_id}})
     }
 
@@ -256,7 +259,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  z-index: 99;
+  z-index: 50;
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;
@@ -288,7 +291,7 @@ thead th{
 
   tr {
     border-bottom: 3px solid rgba(61, 61, 61, 0.7);
-    margin-top: 20px;
+    margin-top: 25px;
     padding-bottom: 10px !important;
     position: relative;
   }
@@ -296,12 +299,13 @@ thead th{
   td {
     position: relative;
     display: flex;
-    text-align: center !important;
+    text-align: center;
     box-shadow: none !important;
     align-items: center;
     justify-content: center;
     background-color: white !important;
     width: 100%;
+    min-height: 60px;
   }
   .fan_page{
     display: inline-block;
@@ -311,35 +315,38 @@ thead th{
     display: inline-block;
     font-weight:600;
     color:theme("colors.primary");
+    min-height: 35px !important;
   }
   .startDate {
     display: inline-block;
     width:50%;
-    height:60px;
   }
   
   .endDate {
     display: inline-block;
     width:50%;
-    height:60px;
+  }
+
+  .actions{
+    text-align: left !important;
+    min-height: 35px !important;
+    padding-left: 14px !important;
+    justify-content: start;
   }
   .manage_order{
     display: inline-block;
     padding-left: 0% !important;
     width: 33%;
-    height:60px;
   }
   .checkout{
     display: inline-block;
     padding-left: 0% !important;
     width: 33%;
-    height:60px;
   }
   .entry{
 		display: inline-block;
     padding-left: 0% !important;
     width: 33%;
-    height:60px;
 	}
   .moreTools{
     display: inline-block;

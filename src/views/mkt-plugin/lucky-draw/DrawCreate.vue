@@ -1,6 +1,12 @@
 <template>
     <div>
         <!-- BEGIN: commit box -->
+        <div class="mt-3 flex justify-between">
+            <div>
+                <label for="update-profile-form-2" class="form-label mr-10">Campaign Title</label>
+                <h2 style="display: inline-block;"> {{ props.campaignTitle }} </h2>
+            </div>
+        </div>
         <form class="flex flex-col">
             <div class="mt-6 lg:flex 2xl:flex">
                 <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5">
@@ -59,8 +65,11 @@
                         <input type="file" id="upload" @change="uploadAnimation" hidden/>
                         <label for="upload" id="create_animation">+ Create New Animation</label>
                     </div>
-                    <div class="flex">
+                    <div class="flex mb-3" v-if="currentSettings.path == ''">
 						<img :src="previewImage" class="uploading-image h-20 object-cover" />
+					</div>
+                    <div class="flex mb-3" v-else-if="currentSettings.path != ''">
+						<img :src="storageUrl + currentSettings.path" class="uploading-image h-20 object-cover" />
 					</div>
                     <div class="flex flex-wrap items-center justify-around">
                         <template v-for="(animates, key) in animationList" :key="key">
@@ -141,29 +150,33 @@
         </form>
         <div class="flex justify-end my-8">
             <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> Cancel</button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="create"> Save</button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> Save</button>
         </div>
     </div>
 </template>
 
 <script setup>
-import { ref, watch, onMounted, computed} from 'vue';
+import { ref, watch, onMounted, onUnmounted, computed, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { list_campaign_product } from '@/api/campaign_product';
-import { create_campapign_lucky_draw, list_campapign_lucky_draw_animation } from '@/api_v2/campaign_lucky_draw';
+import { create_campapign_lucky_draw, list_campapign_lucky_draw_animation, retrieve_campaign_lucky_draw, update_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required, minValue, maxValue, minLength, integer } from "@vuelidate/validators";
 
+const props = defineProps({
+    campaignTitle: String
+})
 const route = useRoute();
 const router = useRouter();
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
-
 const spinTimes = ref([ { value: 5, name: '5 secs' }, { value: 10, name: '10 secs' }, { value: 20, name: '20 secs' }, { value: 30, name: '30 secs' }, { value: 60, name: '60 secs' }]);
 const drawTypes = ref([ { value: 'like', name: 'Draw by like this post' }, { value: 'purchase', name: 'Draw purchased any product' }, { value: 'product', name: 'Draw by purchased certain product' }, { value: 'keyword', name: 'Draw by keyword' },]);
 const prizeList = ref([])
 const productList = ref([])
+const animationList = ref([])
 const currentSettings = ref({
     spin_time: 5,
     num_of_winner: 0,
@@ -178,8 +191,8 @@ const currentSettings = ref({
 })
 const previewImage = ref(null)
 const formData = new FormData()
-const animationList = ref([])
-const existAnimation = ref(false)
+const type = ref('create')
+const luckyDrawId = ref(0)
 
 const rules = computed(()=> {
     return {
@@ -190,7 +203,8 @@ const rules = computed(()=> {
 });
 const validate = useVuelidate(rules, currentSettings);
 
-const create = () => {
+
+const upsert = () => {
     validate.value.$touch();
     if (validate.value.$invalid || typeof currentSettings.value.prize === 'string') {
         layoutStore.alert.showMessageToast("Invalid Data Inputed")
@@ -198,12 +212,23 @@ const create = () => {
     } 
     formData.append('data', JSON.stringify(currentSettings.value))
 
-    create_campapign_lucky_draw(route.params.campaign_id, formData).then(response => {
-        console.log(response.data)
-        layoutStore.notification.showMessageToast("Successed")
-    }).catch(error => {
-        console.log(error);
-    })
+    if (type.value == 'create') {
+        create_campapign_lucky_draw(route.params.campaign_id, formData).then(res => {
+            console.log(res.data)
+            layoutStore.notification.showMessageToast("Create Successed")
+            router.go()
+        }).catch(err => {
+            console.log(err);
+        })
+    } else if (type.value == 'edit') {
+        update_campaign_lucky_draw(luckyDrawId.value, formData).then(res => {
+            console.log(res.data)
+            layoutStore.notification.showMessageToast("Update Successed")
+            router.go()
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 };
 
 const uploadAnimation = e => {
@@ -218,18 +243,18 @@ const uploadAnimation = e => {
     currentSettings.value.path = '';
 }
 
-watch(computed(() => currentSettings.value.type), ()=>{
-    if (currentSettings.value.type === 'keyword'){
-        currentSettings.value.comment = ''
-    } else {
-        currentSettings.value.comment = 'keyword'
-    }
-}),
+// watch(computed(() => currentSettings.value.type), ()=>{
+//     if (currentSettings.value.type === 'keyword'){
+//         currentSettings.value.comment = ''
+//     } else {
+//         currentSettings.value.comment = 'keyword'
+//     }
+// }),
 
 onMounted(() => {
     list_campaign_product(route.params.campaign_id).then(res => {
         console.log(res.data)
-        for (var i =0; i < res.data.length; i++) {
+        for (let i =0; i < res.data.length; i++) {
             if (res.data[i].type === "lucky_draw") {
                 prizeList.value.push(res.data[i])
             } else{
@@ -245,8 +270,20 @@ onMounted(() => {
     }).catch(error => {
         console.log(error);
     })
+
+    eventBus.on('editDraw', (payload) => {
+        type.value = 'edit'
+        luckyDrawId.value = payload.lucky_draw_id
+        retrieve_campaign_lucky_draw(luckyDrawId.value).then(res => {
+            currentSettings.value = res.data
+            currentSettings.value.path = res.data.animation
+        })
+    })
 })
 
+onUnmounted(() => {
+    eventBus.off('editDraw')
+})
 
 </script>
 

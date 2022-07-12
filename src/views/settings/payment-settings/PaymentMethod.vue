@@ -12,20 +12,20 @@
 
         <div class="my-5 lg:my-0 lg:mx-5 lg:p-5">
             <div 
-                class="grid grid-cols-12 gap-2 my-0 intro-y lg:my-10 lg:gap-5" 
+                class="grid grid-cols-12 gap-2 my-2 intro-y" 
                 v-for="(field, index) in props.payment.fields" 
                 :key="index"
             >
                 <template v-if="field.type === 'text' || field.type === 'password'">
-                    <label class="col-span-12 col-start-1 mt-5 form-label lg:col-span-2 lg:mt-0">{{ field.name }}</label>
+                    <label class="col-span-12 col-start-1 mt-5 lg:mt-0">{{ field.name }}</label>
                     <input 
-                        class="col-span-12 -mt-3 form-control lg:mt-0 lg:col-span-9 lg:w-5/6" 
+                        class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
                         type="text" 
                         v-model="paymentData[field.key]"
                     />
                 </template>
                 <template v-else-if="field.type === 'select'">
-                    <label class="col-span-12 col-start-1 mt-5 form-label lg:col-span-2 lg:mt-0">{{ field.name }}</label>
+                    <label class="col-span-12 col-start-1 mt-5 lg:mt-0">{{ field.name }}</label>
                     <TomSelect 
                         class="w-full sm:w-[300px]"
                         v-model="paymentData[field.key]"
