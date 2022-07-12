@@ -1,12 +1,11 @@
 <template>
 	<div class="mt-3 overflow-auto h-[600px]">
-		<table class="box table table-report table-auto -mt-3 ">
+		<table class="table -mt-3 table-auto box table-report ">
 			<thead>
 				<tr>
 					<th class="whitespace-normal xl:whitespace-nowrap" v-for="column in columns" :key="column.key">
 						{{ column.name }}
 					</th>
-					<th> </th>
 				</tr>
 			</thead>
 			<tbody>
@@ -18,19 +17,19 @@
 				<template v-for="column in columns" :key="column.key"> 
 					<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm imgtd">
 						<div class="flex">
-							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12" v-if="product.image">
+							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 " v-if="product.image">
 								<Tippy 
 									tag="img"
-									class="rounded-lg w-full"
+									class="w-full rounded-lg"
 									:src= "`${publicPath}` + product.image"
 									:content="product.name"
 									data-action="zoom"
 								/>
 							</div>
-							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12" v-else>
+							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 " v-else>
 								<Tippy 
 									tag="img"
-									class="rounded-lg w-full"
+									class="w-full rounded-lg"
 									:src= "`${storageUrl}` + `no_image.jpeg`"
 									:content="product.name"
 									data-action="zoom"
@@ -38,33 +37,31 @@
 							</div>
 						</div>
 					</td>
-					<td v-else-if="column.key === 'category'" class="w-fit" >
+					<td v-else-if="column.key === 'category'" class="w-fit category" >
 						<div v-for="(tag,index) in product['tag'] " :key="index">
 							<div >{{ tag }}</div> 
 						</div>
 					</td>
-					<td v-else-if="column.key === 'qty' || column.key === 'price' || column.key === 'type'" class="w-fit">
+					<td v-else-if="column.key === 'qty' || column.key === 'price' || column.key === 'type'" class="w-fit qtyPrice">
 						<div class=" w-fit">{{product[column.key]}}</div> 
 					</td>
+					<td v-else-if="column.key === 'edit'"  class="w-12 table-report__action edit">
+						<a 
+							class="flex items-center text-[14px]" 
+							@click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"
+						>
+							<CheckSquareIcon class="w-[20px] h-[20px] mx-1"/> Edit
+						</a>
+					</td>
 					<td v-else class="max-w-30 longMessage">
-						<div class="max-w-30 longMessage"> {{product[column.key]}} </div>
+						<div class="max-w-30"> {{product[column.key]}} </div>
 					</td>
 				</template>
-					<td class="table-report__action w-12">
-						<div class="flex justify-center items-center">
-							<a 
-								class="flex items-center mr-3" 
-								@click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"
-							>
-								 <EditIcon class="w-4 h-4 mr-1" /> Edit
-							</a>
-						</div>
-					</td>
 				</tr>
 			</tbody>
 		</table> 
 	</div>
-	<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center">
+	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
 		<Page 
 			class="mx-auto my-3"
 			:total="dataCount" 
@@ -144,6 +141,8 @@ export default {
 		}
 	},
 }
+
+
 </script>
 
 
@@ -156,12 +155,14 @@ td {
 	height: auto !important;
 	padding-right:10px;
 	padding-left:10px;
+	font-size: 16px;
 }
 
 thead th{ 
 	position: sticky !important; 
 	top: 0 !important;
-	z-index: 99;
+	font-size: 16px;
+	z-index: 50;
 	background-color: theme("colors.secondary");
   	padding-right:10px;
 	padding-left:10px;
@@ -181,13 +182,8 @@ thead th{
 	td,
 	tr {
 		display: block;
-		font-size: 16px;
+		font-size: 14px;
 		padding: 0px !important;
-		padding-top: 5px !important;
-	}
-
-	.imgtd {
-		height: 90px !important;
 	}
 
 	thead tr {
@@ -197,7 +193,8 @@ thead th{
 	}
 
 	tr {
-		border-bottom: 1px solid black;
+		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		margin-top: 10px;
 	}
 
 	td {
@@ -206,19 +203,14 @@ thead th{
 		padding-left: 50% !important;
 		text-align: left !important;
 		box-shadow: none !important;
-		margin-top: 10px;
 		height: auto;
-		min-height: 15px;
-	}
-
-	.productName {
-		padding-left: 15px;
+		min-height: 30px;
 	}
 
 	td:before {
 		position: absolute;
 		left: 6px;
-		width: 45%;
+		width: 45%; 
 		padding-right: 10px;
 		white-space: nowrap;
 		font-weight: bold;
@@ -227,14 +219,29 @@ thead th{
 		height: auto;
 	}
 
-	td:nth-of-type(1):before {
-		content: "";
-		/* color: #0e9893; */
+	.imgtd:before {
+		display:none; 
+	}
+	.imgtd {
+		display:inline-flex;
+		justify-content: center;
+		height: 90px !important;
+		width: 100%;
+		padding-left: 0px !important;
 	}
 
 	td:nth-of-type(2):before {
-		content: "Product Name";
-		/* color: #0e9893; */
+		display:none;
+	}
+	td:nth-of-type(2) {
+		display:inline-flex;
+		justify-content: center;
+		min-height: 35px !important;
+		width: 100%;
+		padding-left: 0px !important;
+		color: theme("colors.primary");
+		font-weight: 600;
+		font-size: 16px !important;
 	}
 
 	td:nth-of-type(3):before {
@@ -264,6 +271,16 @@ thead th{
 	td:nth-of-type(8):before {
 		content: "Price";
 		/* color: #0e9893; */
+	}
+	.edit{
+		position: absolute !important;
+        top:0;
+        right:0;
+        width:80px !important;
+        padding-left: 5px !important;
+	}
+	.edit:before{
+		display: none;
 	}
 }
 </style>

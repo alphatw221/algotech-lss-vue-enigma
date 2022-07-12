@@ -1,3 +1,26 @@
 .dropzone {
-    @apply border-slate-200/60 border-dashed dark:bg-darkmode-600;
+    @apply flex justify-center p-0 border-dashed border-slate-200/60 h-fit dark:bg-darkmode-600;
+
+}
+
+.dz-progress{
+    @apply invisible;
+}
+
+.dz-preview{
+    @apply w-32 h-32;
+}
+
+.dz-image{
+    @apply w-full h-full bg-cover;
+}
+.dz-image img{
+    @apply absolute bg-cover;
+}
+.dz-details{
+    @apply invisible;
+}
+
+.dz-error-message{
+    @apply mt-5;
 }

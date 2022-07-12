@@ -3,7 +3,7 @@
         <table class="table table-report ">
             <thead>
                 <tr>
-                    <th class="whitespace-normal truncate hover:text-clip items-center" v-for="column in tableColumns"
+                    <th class="items-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
                         :key="column.key">
                         {{ column.name }}
                     </th>
@@ -14,9 +14,9 @@
                     <template v-for="column in tableColumns" :key="column.key" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
 
                         <td v-if="column.key === 'image'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center imgtd"> 
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 content-center imgtd"> 
                             <div class="flex items-center justify-center">
-                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 lg:h-12 place-items-center">
+                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <Tippy 
                                         tag="img" 
                                         class="rounded-lg cursor-auto" 
@@ -27,36 +27,34 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'name'" class="w-20 longMessage">
+                        <td v-else-if="column.key === 'name'" class="w-20 name">
                             <div class="w-full"> {{ product[column.key] }} </div>
                         </td>
 
                         <td v-else-if="column.key === 'order_code'">
-                            <div class="form-check self-center place-content-center">
-                                <input type="text" class="form-control" :class="{ red: isOrderCodeDuplicate(index) }"
+                            <div class="self-center form-check place-content-center">
+                                <input type="text" class="form-control w-24 h-[42px] mt-1 inputInfo" :class="{ red: isOrderCodeDuplicate(index) }"
                                     aria-label="default input" :value="product.order_code"
-                                    style="width: 4rem; height: 2rem; margin-top: 5px;"
                                     @input="changeInput($event, index, 'order_code')" />
                             </div>
                         </td>
                         <td v-else-if="column.key === 'qty'">
-                            <div class="form-check self-center place-content-center">
-                                <input type="text" class="form-control" aria-label="default input" :value="product.qty"
-                                    style="width: 4rem; height: 2rem; margin-top: 5px;"
+                            <div class="self-center form-check place-content-center">
+                                <input type="text" class="form-control w-24 h-[42px] mt-1 inputInfo" aria-label="default input" :value="product.qty"
                                     @input="changeInput($event, index, 'qty')" />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'max_order'">
-                            <div class="form-check self-center place-content-center">
-                                <input type="text" class="form-control" aria-label="default input"
+                            <div class="self-center form-check place-content-center">
+                                <input type="text" class="form-control w-24 h-[42px] mt-1 inputInfo" aria-label="default input"
                                     :value="product.max_order_amount"
-                                    style="width: 4rem; height: 2rem; margin-top: 5px;"
                                     @input="changeInput($event, index, 'max_order')" />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'tag'">
+                        <td v-else-if="column.key === 'tag'"
+                            class="my-2 w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
                             <div v-for="(tag,index) in product[column.key]" :key="index">
                                 {{ tag }}
                             </div>
@@ -65,61 +63,56 @@
                         <td v-else-if="column.key === 'price'" class="w-18">
                             {{ product.currency_sign }} {{ product[column.key] }}
                         </td>
-                        <td v-else-if="column.key === 'selected'">
-                            <div class="form-check mt-2 self-center place-content-center">
-                                <input id="selectCheckbox" class="form-check-input" type="checkbox"
-                                    v-model="product[column.key]" />
-                            </div>
-                        </td>
 
-                        <td v-else-if="column.key === 'editable'">
-                            <div class="form-check mt-2 self-center place-content-center">
+                        <td v-else-if="column.key === 'editable'" class="editable">
+                            <div class="self-center form-check place-content-center">
                                 <input v-if="product.type === 'lucky_draw'"
                                     id="selectCheckbox" 
-                                    class="form-check-input" 
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                     type="checkbox" 
                                     disabled
                                     v-model="product[column.key]"
                                 />
                                 <input v-else
                                     id="selectCheckbox" 
-                                    class="form-check-input" 
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                     type="checkbox"
                                     v-model="product[column.key]"
                                     @click="product.deletable = false" 
                                 />
-                                <span class="checkboxWord ml-3"> Editable</span>
+                                <span class="ml-3 checkboxWord"> Editable</span>
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'deletable'">
-                            <div class="form-check mt-2 self-center place-content-center">
+                        <td v-else-if="column.key === 'deletable'" class="editable">
+                            <div class="self-center form-check place-content-center">
                                 <input 
                                     v-if="product.editable === true" 
                                     id="selectCheckbox" 
-                                    class="form-check-input" 
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                     type="checkbox" 
                                     v-model="product[column.key]"
                                 />
                                 <input 
                                     v-else
                                     id="selectCheckbox" 
-                                    class="form-check-input" 
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                     type="checkbox" 
                                     disabled
                                     v-model="product[column.key]"
                                 />
-                                <span class="checkboxWord ml-3"> Deletable</span>
+                                <span class="ml-3 checkboxWord"> Deletable</span>
                             </div>
                         </td>
-                        <td v-else-if="column.key === 'status'" class="form-switch mt-2">
+                        <td v-else-if="column.key === 'status'" class="mt-2 form-switch status">
                             <input 
                                 type="checkbox" 
                                 class="form-check-input" 
                                 v-model="product[column.key]" 
                                 />
+                            <span class="ml-1 sm:hidden"> Activate</span>
                         </td>
-                        <td v-else-if="column.key === 'type'" >
+                        <td v-else-if="column.key === 'type'" class="type">
                                 {{ product[column.key] }}
                         </td>
                     </template>
@@ -131,12 +124,12 @@
         <Modal :show="warningModalPreview" @hidden="warningModalPreview = false">
             <ModalBody class="p-0">
                 <div class="p-5 text-center">
-                    <XCircleIcon class="w-16 h-16 text-warning mx-auto mt-3" />
-                    <div class="text-3xl mt-5">Oops...</div>
-                    <div class="text-slate-500 text-lg mt-2">{{ warningModalText }}</div>
+                    <XCircleIcon class="w-16 h-16 mx-auto mt-3 text-warning" />
+                    <div class="mt-5 text-3xl">Oops...</div>
+                    <div class="mt-2 text-lg text-slate-500">{{ warningModalText }}</div>
                 </div>
                 <div class="px-5 pb-8 text-center">
-                    <button type="button" @click="warningModalPreview = false" class="btn w-24 btn-primary">
+                    <button type="button" @click="warningModalPreview = false" class="w-24 btn btn-primary">
                         Ok
                     </button>
                 </div>
@@ -176,9 +169,9 @@ const tableColumns = ref([
     { name: "Max Qty / Order", key: "max_order" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
+    { name: "Type", key: "type" },
     { name: "Editable", key: "editable" },
     { name: "Deletable", key: "deletable" },
-    { name: "Type", key: "type" },
     { name: "Activate", key: "status" }
 ])
 
@@ -253,7 +246,7 @@ const isOrderCodeDuplicate = (index) => {
 	cursor: pointer;
 }
 
-.longMessage{
+.name{
 	overflow-wrap: break-word;
 }
 
@@ -269,7 +262,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  z-index: 99;
+  z-index: 50;
   background-color: theme("colors.secondary");
     padding-right: 10px !important;
     padding-left: 10px !important;
@@ -289,7 +282,12 @@ thead th{
 
 	.imgtd {
 		height: 90px !important;
+        margin-top: 35px;;
 	}
+    .inputInfo {
+        height: 35px !important;
+    }
+
     .checkboxWord{
         display: block;
     }
@@ -301,30 +299,34 @@ thead th{
 	}
 
 	tr {
-		border-bottom: 1px solid black;
+		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
 		margin-top: 20px;
 	}
 
 	td {
-		border: none;
-		position: relative;
-		padding-left: 50% !important;
-		text-align: center !important;
-		box-shadow: none !important;
-        font-size: 14px; 
-	}
+        min-height: 35px;
+        height: auto;
+        border: none;
+        position: relative;
+        padding-left: 50% !important;
+        text-align: center !important;
+        box-shadow: none !important;
+        font-size: 14px;
+    }
 
-	td:before {
-		position: absolute;
-		left: 6px;
-		width: 45%;
-		padding-right: 10px;
-        margin-top:10px;
-		white-space: nowrap;
-		font-weight: bold;
-		box-shadow: none !important;
-		background-color: white !important;
-	}
+    td:before {
+        position: absolute;
+        min-height: 35px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        margin-top: 10px;
+        text-align: left !important;
+        box-shadow: none !important;
+        background-color: white !important;
+    }
 
 	td:nth-of-type(1):before {
 		display:none; 
@@ -337,80 +339,79 @@ thead th{
 		/* color: #0e9893; */
 	}
 
-	td:nth-of-type(2):before {
+	.name:before {
         display:none; 
-		/* content: "Product Name";
-        text-align: left !important; */
-		/* color: #0e9893; */
 	}
-    td:nth-of-type(2){
+    .name{
 		display: inline-block;
         text-align: center !important;
-		width: 100% !important;
-		padding-left: 0% !important;
-		/* color: #0e9893; */
+        width: 100% !important;
+        padding-left: 0% !important;
+		font-weight: 500;
+		color: theme("colors.primary");
+        font-size: 16px !important;
 	}
 
 	td:nth-of-type(3):before {
 		content: "Order Code";
-        text-align: left !important;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(4):before {
 		content: "Qty for Campaign";
-        text-align: left !important;
 		/* color: #0e9893; */
 	}
 	td:nth-of-type(5):before {
 		content: "Max Qty / Order";
-        text-align: left !important;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(6):before {
-		content: "Category";
+        top: -3px;
+        content: "Category";
         text-align: left !important;
-		/* color: #0e9893; */
 	}
+    td:nth-of-type(6){
+        display: flex;
+        flex-direction:column; 
+        justify-content: center;
+        vertical-align:baseline !important;
+    }
 	td:nth-of-type(7):before {
         margin-top:0px !important;
 		content: "Price";
-        text-align: left !important;
 		/* color: #0e9893; */
 	}
-    td:nth-of-type(8):before {
+    .editable:before {
 		display: none;
-        text-align: left !important;
-		/* color: #0e9893; */
 	}
-    td:nth-of-type(9):before {
-		display: none;
-        text-align: left !important;
-		/* color: #0e9893; */
-	}
-    td:nth-of-type(8){
-		display: inline-block;
-		width: 50% !important;
-		padding-left: 0% !important;
-		/* color: #0e9893; */
-	}
-	td:nth-of-type(9){
+    .editable{
 		display: inline-block;
 		width: 50% !important;
 		padding-left: 0% !important;
 		/* color: #0e9893; */
 	}
 
-    td:nth-of-type(10):before {
+    .type:before {
 		content: "Type";
         text-align: left !important;
-		/* color: #0e9893; */
+        margin-top: 0 !important;
 	}
-    td:nth-of-type(11):before {
-		content: "Activite";
-        text-align: left !important;
-		/* color: #0e9893; */
+    .type{
+        vertical-align: middle !important;
+        height: auto;
+        padding: auto;
+        margin: auto;
+    }
+    .status:before {
+		display:none; 
+	}
+    .status{
+        position: absolute !important;
+        top:0;
+        left:0;
+        width:auto !important;
+        padding-left: 5px !important;
 	}
 }
 </style>

@@ -1,21 +1,23 @@
 <template>
-    <div class="box mt-3 p-0 col-span-12 z-0 p-10 flex flex-col gap-5 intro-y" v-if="ready">
-        <span class="text-lg font-medium leading-none col-span-12">Customer Note Settings</span>
-		<hr class="col-span-12">
-        <div class="intro-y grid grid-cols-12 gap-1 lg:gap-1 -z-50">
-            <label class="col-start-1 col-span-12 form-label text-base mt-3">Delivery note</label>
+    <span class="text-lg">
+			<strong>Customer Note Settings</strong>  
+		</span>
+		<hr class="w-full"/>
+    <div class="z-0 col-span-12 p-0" v-if="ready">
+        <div class="grid grid-cols-12 gap-1 intro-y lg:gap-3 -z-50">
+            <label class="col-span-12 col-start-1 mt-2 text-base">Delivery note</label>
             <textarea 
-                class="form-control col-span-12 form-label p-2" rows="4" cols="50"
+                class="col-span-12 sm:col-span-12 p-2 rounded-lg sm:min-h-[10rem]" 
                 v-model="props.campaign.meta_logistic.delivery_note"
             />
-            <label class="col-start-1 col-span-12 form-label text-base mt-3">Special note</label>
+            <label class="col-span-12 col-start-1 mt-2 text-base">Special note</label>
             <textarea 
-                class="form-control col-span-12 form-label p-2" 
-                v-model="props.campaign.meta_payment.special_note" rows="4" cols="50"
+                class="col-span-12 sm:col-span-12 p-2 rounded-lg sm:min-h-[10rem]" 
+                v-model="props.campaign.meta_payment.special_note"
             />
-            <label class="col-start-1 col-span-12 form-label text-base mt-3">Confirmation note</label>
+            <label class="col-span-12 col-start-1 mt-2 text-base">Confirmation note</label>
             <textarea 
-                class="form-control col-span-12 form-label p-2" rows="4" cols="50"
+                class="col-span-12 sm:col-span-12 rounded-lg p-2 sm:min-h-[10rem]" 
                 v-model="props.campaign.meta_payment.confirmation_note"
             /> 
         </div>

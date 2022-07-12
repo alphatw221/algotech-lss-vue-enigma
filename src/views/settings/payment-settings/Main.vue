@@ -1,20 +1,24 @@
 <template>
     <div class="p-2 2xl:p-10">
         <TabGroup v-if="paymentReady">
-            <TabList class="nav-boxed-tabs flex flex-wrap gap-3 w-full justify-around items-center sm:px-10">
+            <TabList class="flex flex-wrap items-center justify-around w-full gap-3 nav-boxed-tabs sm:px-10">
                 <Tab
                     class="h-20 border-[#131c34] w-fit flex self-center" 
                     tag="button"
                     v-for="payment,index in payments" :key="index"
-                >
-                    <div class="grow inline-flex items-center place-content-center my-auto">
-                        <font-awesome-icon icon="fa-regular fa-credit-card" class="block mr-1 h-6" />
-                        <span class="text-sm w-24 lg:text-lg lg:w-32 ">{{payment.name}}</span>
+                >   
+                    <div v-if="payment.name === 'Direct Payment'" class="inline-flex items-center my-auto grow place-content-center">
+                        <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="block h-6 mr-1"/>
+                        <span class="w-24 text-sm lg:text-lg lg:w-32 ">{{payment.name}}</span>
+                    </div>
+                    <div v-else class="inline-flex items-center my-auto grow place-content-center">
+                        <font-awesome-icon icon="fa-regular fa-credit-card" class="block h-6 mr-1" />
+                        <span class="w-24 text-sm lg:text-lg lg:w-32 ">{{payment.name}}</span>
                     </div>
                 </Tab>
             </TabList>
 
-            <TabPanels class="mt-0 lg:mt-5 2xl:mt-5 px-2 lg:px-10 2xl:px-10" >
+            <TabPanels class="px-2 mt-0 lg:mt-5 2xl:mt-5 lg:px-10 2xl:px-10" >
                 <TabPanel class="leading-relaxed" v-for="payment, index in payments" :key="index">
 
                         <DirectPayment :payment ="payment" v-if="payment.key=='direct_payment'"/>

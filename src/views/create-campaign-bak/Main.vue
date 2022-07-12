@@ -1,12 +1,12 @@
 <template>
-    <div class="box py-5 lg:p-10 2xl:p-10">
-		<div class="box intro-y grid grid-cols-12 gap-1 lg:gap-5 2xl:gap-5 -z-50 ml-3">
-			<span class="col-start-1 col-span-12 text-2xl font-medium leading-none mb-2 mt-3">
+    <div class="py-5 box lg:p-10 2xl:p-10">
+		<div class="grid grid-cols-12 gap-1 ml-3 box intro-y lg:gap-5 2xl:gap-5 -z-50">
+			<span class="col-span-12 col-start-1 mt-3 mb-2 text-2xl font-medium leading-none">
 				Create Campaign
 			</span>
-			<div class="col-start-1 col-span-12 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
+			<div class="col-span-12 col-start-1 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
 				<div class="flex">
-					<label class="form-label -mb-3 w-32 mt-2 text-base">Title</label>
+					<label class="w-32 mt-2 -mb-3 text-base form-label">Title</label>
 					<input 
 						class="form-control " 
 						type="text" 
@@ -19,22 +19,22 @@
 			</div>
 			<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
 				<div class="flex">
-					<label for="regular-form-2" class="form-label -mb-2 w-16 mt-2 text-base">Period</label>
+					<label for="regular-form-2" class="w-16 mt-2 -mb-2 text-base form-label">Period</label>
 					<v-date-picker class=" z-49" v-model="campaignStore.campaignPeriod" :timezone="timezone" mode="dateTime" is-range is-required>
 						<template v-slot="{ inputValue, inputEvents }">
-							<div class="flex justify-center items-center">
+							<div class="flex items-center justify-center">
 							<input :value="inputValue.start" v-on="inputEvents.start"
-								class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
 							<ChevronsRightIcon class="w-8 h-8 m-1" />
 							<input :value="inputValue.end" v-on="inputEvents.end" disabled
-								class="form-control border h-10 px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
 							</div>
 						</template>
 					</v-date-picker>
 				</div>
 			</div>
 			<template v-if="title_validate.title.$error">
-				<label class="text-danger 2xl:col-start-2 xl:col-start-2 col-span-12 2xl:col-span-6 xl:col-span-6 mt-2 mb-3">
+				<label class="col-span-12 mt-2 mb-3 text-danger 2xl:col-start-2 xl:col-start-2 2xl:col-span-6 xl:col-span-6">
 					Please enter Campaign title
 				</label>
 			</template>
@@ -46,12 +46,12 @@
 
 		<NotesForm />
 
-		<div class="mt-5 p-0 col-span-12 z-0">
+		<div class="z-0 col-span-12 p-0 mt-5">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="btn btn-rounded-secondary w-24 mr-2 mb-2" @click="this.$router.push({ name: 'campaigns' })">
+				<button class="w-24 mb-2 mr-2 btn btn-rounded-secondary" @click="this.$router.push({ name: 'campaign-list' })">
 					Cancel
 				</button>
-				<button class="btn btn-rounded-primary w-24 mr-1 mb-2" @click="saveCampaign">
+				<button class="w-24 mb-2 mr-1 btn btn-rounded-primary" @click="saveCampaign">
 					Next
 				</button>
 			</div>

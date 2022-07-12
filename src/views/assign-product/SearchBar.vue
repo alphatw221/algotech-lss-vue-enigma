@@ -1,11 +1,11 @@
 <template>
-    <div class="intro-y p-5">
-        <form id="tabulator-html-filter-form" class="flex flex-wrap justify-start justify-items-stretch content-end">
-            <div class="flex-initial w-auto items-center mb-3">
-                <label class="w-14 mr-2">
+    <div class="p-5 intro-y">
+        <form id="tabulator-html-filter-form" class="flex flex-wrap content-end justify-start justify-items-stretch">
+            <div class="items-center flex-initial w-auto mb-3">
+                <label class="mr-2 w-14">
                     Category
                 </label>
-                <select id="tabulator-html-filter-field" class="form-select mr-4 h-10 w-auto"
+                <select class="form-select mr-4 h-[42px] w-auto"
                     v-model="filterColumn" @change="search">
                     <option value=''> All </option>
                     <option v-for="category in categorySelection" :key="category">{{ category }}</option>

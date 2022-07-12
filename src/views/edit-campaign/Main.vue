@@ -1,38 +1,41 @@
 <template>
-   	<div class="flex flex-col text-[16px]" v-if="ready">
- 		<h2 class="text-xl font-medium mt-5 mb-3 sm:text-center">Edit Campaign</h2>
-
-		<div class="box px-10 py-5 grid grid-cols-12 gap-1 intro-y sm:gap-5 -z-50">
-			<div class="col-span-12 col-start-1 2xl:col-span-6 xl:col-span-6">
+    <div class="overflow-y-auto box py-5 px-3 sm:p-12 flex flex-col gap-5 text-[16px]" v-if="ready">
+		<span class="mt-5 text-xl"> Edit Campaign </span>
+		<div class="grid grid-cols-12 gap-1 intro-y sm:gap-5 -z-50">
+			<div class="col-span-12 col-start-1 sm:col-span-6">
 				<div class="flex flex-col">
-					<div class="flex flex-col">
-						<label class="w-20 my-auto text-base form-label">Title</label>
-							<input 
-							class="form-control h-10 w-full sm:w-[90%]"
-							type="text" 
-							:class="{ 'border-danger': title_validate.title.$error}"
-							v-model.trim="title_validate.title.$model"
-							@blur="title_validate.title.$touch" 
-							/> 
-					</div> 
-					<template v-if="title_validate.title.$error">
-						<label class="text-danger text-[14px] ml-20">
-							Field is required
-						</label>
-					</template> 
-				</div>
+					<label class="w-20 my-auto text-base form-label">Title</label>
+					<input 
+						class="w-full form-control" 
+						type="text" 
+						:class="{ 'border-danger': title_validate.title.$error }"
+						v-model.trim="title_validate.title.$model"
+						@blur="title_validate.title.$touch" 
+						/> 
+				</div> 
+				<template v-if="title_validate.title.$error">
+					<label class="text-danger text-[14px] ml-20">
+						Field is required
+					</label>
+				</template> 
 			</div>
-			<div class="flex flex-col col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
-				<div class="">
-					<label for="regular-form-2" class="w-16 my-auto text-base form-label flex flex-col">Period</label>
-					<v-date-picker class=" z-49" v-model="dateTimePicker" :timezone="''" mode="dateTime" :columns="$screens({ default: 1, sm: 2 })" is-range is-required :min-date='new Date()'>
+			<div class="col-span-12 -mb-5 sm:col-span-6">
+				<div class="flex flex-col">
+					<label for="regular-form-2" class="w-16 my-auto text-base form-label">Period</label>
+					<v-date-picker class="z-49" 
+						v-model="dateTimePicker" 
+						:timezone="timezone" 
+						:columns="$screens({ default: 1, sm: 2 })" 
+						mode="dateTime" is-range is-required
+						:min-date='new Date()'
+						>
 						<template v-slot="{ inputValue, inputEvents }">
 							<div class="flex items-center justify-center">
-								<input :value="inputValue.start" v-on="inputEvents.start"
-								class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
-								<ChevronsRightIcon class="w-8 h-8 m-1" />
-								<input :value="inputValue.end" v-on="inputEvents.end" disabled
-								class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
+							<input :value="inputValue.start" v-on="inputEvents.start"
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+							<ChevronsRightIcon class="w-8 h-8 m-1" />
+							<input :value="inputValue.end" v-on="inputEvents.end" disabled
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
 							</div>
 						</template>
 					</v-date-picker>
@@ -75,7 +78,39 @@
 			</div>
 		</div>
 
-		
+		<div class="flex items-center justify-between py-3 mt-5 leading-5 border-2 rounded-md border-slate-200 ">
+			<h3 class="inline-flex my-auto ml-2 leading-5 align-middle md:ml-3 "
+			>
+				Platform Connected</h3>
+			<div class="inline-flex justify-around ml-auto mr-3 align-middle w-fit md:mr-5 ">
+              <div class="w-8 h-8 border-0 flex-0 md:w-14 md:h-14 zoom-in" v-if="campaignData.facebook_page !== null">
+                <Tippy tag="img" class="border-0 rounded-full md:w-14 md:h-14" :src="campaignData.facebook_page.image"
+                  :content="campaignData.facebook_page.name" />
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
+                  </div>
+              </div>
+              <div class="w-8 h-8 flex-0 md:w-14 md:h-14 zoom-in" v-if="campaignData.instagram_profile !== null">
+                <Tippy tag="img" class="rounded-full md:w-14 md:h-14 " :src="campaignData.instagram_profile.image"
+                  :content="campaignData.instagram_profile.name" />
+                <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#d63376]" :src="instagram_platform" >
+                  </div>
+              </div>
+              <div class="w-8 h-8 flex-0 md:w-14 md:h-14 zoom-in" v-if="campaignData.youtube_channel !== null">
+                <Tippy tag="img" class="rounded-full md:w-14 md:h-14" :src="campaignData.youtube_channel.image"
+                  :content="campaignData.youtube_channel.name" />
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
+                  </div>
+              </div>
+            </div>
+
+			<a @click="editplatform()" class="inline-flex mr-2 align-middle md:mr-5">
+				Edit
+			</a>
+		</div>
+
 
 		<DeliveryForm 
 			:campaign="campaignData"
@@ -88,21 +123,22 @@
 
 		<NotesForm :campaign="campaignData"/>
 
-		<div class="mt-5 p-0 col-span-12 z-0">
-			<div class="col-span-12 flex justify-end mt-5">
-				<button class="btn w-32 dark:border-darkmode-400 bg-white" @click="$router.push({ name: 'campaigns' })">
+		<div class="z-0 col-span-12 p-0 mt-5">
+			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
+				<button class="w-24 mb-2 mr-2 btn btn-rounded-secondary" @click="$router.push({ name: 'campaign-list' })">
 					Cancel
 				</button>
-				<button class="btn btn-primary w-32 shadow-md ml-5" @click="updateCampaign()">
+				<button class="w-24 mb-2 mr-1 btn btn-rounded-primary" @click="updateCampaign()">
 					Update
 				</button>
 			</div>
 		</div>
 
 		<!-- BEGIN Enter Post ID Modal -->
-			<EnterPostIDModal />
+			
 		<!-- END Enter Post ID Modal -->
 	</div>
+	<EnterPostIDModal />
 </template>  
 
 <script setup>

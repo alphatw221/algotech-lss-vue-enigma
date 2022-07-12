@@ -7,13 +7,20 @@
            <u> + Add More Option </u>
         </a>
 
-        <div class="flex ml-5">
-            <input 
-                class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2" 
+        <div class="flex justify-between mt-5 sm:mx-5 sm:mt-0">
+            <div class="flex"> 
+                <input 
+                class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
                 type="checkbox" 
                 v-model=" props.campaign.meta_payment.direct_payment.enabled"
-            />
-            <label class="form-label text-base my-3">Enabled</label>
+                />
+                <label class="ml-3 form-label">Enabled</label>
+            </div>
+            <a 
+                class="whitespace-nowrap"
+                @click="addDirectPayment()"
+            > <u> + Add more option  </u> 
+            </a>
         </div>
 
         <div 
@@ -80,13 +87,16 @@
 
             </div>
 
-            <button 
-                class="btn btn-danger w-24 inline-block text-base my-5 float-right" 
+            <div class="flex w-full"> 
+                <button 
+                class="inline-block w-24 my-5 ml-auto text-base btn btn-danger" 
                 @click="deleteDirectPayment(index_i)"
-            > 
-                Delete 
-            </button>
-        </div> 
+                > 
+                    Delete 
+                </button>
+            </div>
+        </div>
+
     </div>
   
 </template>
@@ -140,9 +150,9 @@ const deleteDirectPayment = index=>{
 }
 
 const addDirectPayment = ()=>{
-    props.campaign.meta_payment.direct_payment.v2_accounts.push({mode:'',name:'',number:'',note:'',require_customer_return:true})
-    props.directPaymentImages.push(null)
-    previewImages.value.push(null)
+    props.campaign.meta_payment.direct_payment.v2_accounts.unshift({mode:'',name:'',number:'',note:'',require_customer_return:true})
+    props.directPaymentImages.unshift(null)
+    previewImages.value.unshift(null)
 }
 
 

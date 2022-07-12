@@ -101,7 +101,7 @@ const signIn = ()=>{
     // console.log('signIn')  response.data.access
     seller_general_login(loginData.value).then(response=>{
         cookies.set("access_token", response.data.access)
-        router.push({name:'campaigns'})
+        router.push({name:'campaign-list'})
     }).catch(err=>{
         console.log(err)
     })
@@ -135,7 +135,7 @@ const signIn = ()=>{
     left: 50%;
     transform: translate(-50%, -50%);
     background:rgba(255, 255, 255, 0.9);
-    z-index: 99;
+    
 }
 
 .login_form {
