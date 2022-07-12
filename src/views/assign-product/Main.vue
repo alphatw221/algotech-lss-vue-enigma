@@ -27,12 +27,12 @@
 			</div>
 		</div> -->
 
-		<div class="z-0 col-span-12 p-0 lg:p-5">
+		<div class="z-0 col-span-12 p-0">
 			<span class="text-2xl font-medium leading-none">{{ productPageTitle }}</span>
 			<div>
 				<div class="col-span-12 intro-y" >
 					<div v-show="selectProduct">
-						<SearchBar class="-mb-8" />
+						<SearchBar class="-mb-2" />
 						<AssignProductTable />
 					</div>
 					<div v-show="comfirmProduct" class="mt-3">

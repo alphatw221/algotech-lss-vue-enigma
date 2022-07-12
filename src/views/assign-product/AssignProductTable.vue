@@ -14,9 +14,9 @@
                     <template v-for="column in tableColumns" :key="column.key">
 
                         <td v-if="column.key === 'image'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 content-center imgtd">
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd">
                             <div class="flex items-center justify-center">
-                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
+                                <div class="w-[120px] h-[120px] image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <img class="rounded-lg cursor-auto" data-action="zoom"
                                         :src="product.image ? storageUrl + product.image : storageUrl + 'no_image.jpeg'" />
                                 </div>
@@ -24,39 +24,39 @@
                         </td>
 
                         <td v-else-if="column.key === 'order_code'"
-                            class="w-24 text-[12px] lg:text-sm  content-center items-center">
-                            <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control w-24 h-[42px] mt-1" aria-label="default input"
+                            class="w-24 text-[12px] lg:text-sm">
+                            <div class="form-check place-content-center">
+                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1" aria-label="default input"
                                     :value="product.order_code" @input="changeInput($event, index, 'order_code')"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'qty'"
-                            class="w-24 text-[12px] lg:text-sm content-center items-center">
-                            <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control w-24 h-[42px] mt-1" aria-label="default input" :value="product.qty"
+                            class="w-24 text-[12px] lg:text-sm">
+                            <div class="form-check place-content-center">
+                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1" aria-label="default input" :value="product.qty"
                                     @input="changeInput($event, index, 'qty')"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'max_order'"
-                            class="w-24 text-[12px] lg:text-sm content-center items-center">
-                            <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control w-24 h-[42px] mt-1" aria-label="default input"
+                            class="w-24 text-[12px] lg:text-sm">
+                            <div class="form-check place-content-center">
+                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1" aria-label="default input"
                                     :value="product.max_order_amount" @input="changeInput($event, index, 'max_order')"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'tag'"
-                            class="my-2 w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                            class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
                             <div v-for="tag in product[column.key]" :key="tag">{{ tag }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'price'"
-                            class="w-24 text-[12px] lg:text-sm whitespace-nowrap">
+                            class="w-full text-[12px] lg:w-fit lg:text-sm whitespace-nowrap">
                             <div>{{ product.currency_sign }} {{ product[column.key] }}</div>
                         </td>
 
@@ -66,18 +66,17 @@
                         </td>
 
                         <td v-else-if="column.key === 'selected'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 selected">
-                            <div class="sm:self-center form-check sm:place-content-center">
+                            class="text-[12px] lg:w-18 lg:text-sm 2xl:w-32 selected">
+                            <div class="sm: form-check sm:place-content-center">
                                 <input id="selectCheckbox"
                                     class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" v-model="product[column.key]" :disabled="product.disabledEdit" />
-                                <span class="ml-3 sm:hidden">Select</span>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'editable'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
-                            <div class="self-center form-check place-content-center">
+                            <div class=" form-check place-content-end sm:place-content-center">
                                 <div v-if="product.type === 'lucky_draw'">
                                     <input id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox" disabled
                                         v-model="product[column.key]" />
@@ -85,24 +84,22 @@
                                 <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
                                     v-model="product[column.key]" @click="product.deletable = false"
                                     :disabled="product.disabledEdit" />
-                                <span class="ml-3 checkboxWord"> Editable</span>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'deletable'"
                             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
-                            <div class="self-center form-check place-content-center">
+                            <div class=" form-check place-content-end sm:place-content-center">
                                 <input v-if="product.editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" disabled v-model="product[column.key]" />
                                 <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
                                     v-model="product[column.key]" :disabled="product.disabledEdit" />
-                                <span class="ml-3 checkboxWord"> Deletable</span>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'type'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
-                            <div class="self-center form-check place-content-center"> {{ product[column.key] }}
+                            class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
+                            <div class=" form-check place-content-end sm:place-content-center"> {{ product[column.key] }}
                             </div>
                         </td>
 
@@ -353,6 +350,9 @@ thead th {
 .checkboxWord {
     display: none;
 }
+.form-check-input {
+    border-color: rgb(128, 128, 128) !important;
+}
 
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
@@ -377,10 +377,6 @@ thead th {
         height: 1.2rem !important;
     }
 
-    .imgtd {
-        height: 90px !important;
-    }
-
     .checkboxWord {
         display: block;
     }
@@ -402,35 +398,36 @@ thead th {
         border: none;
         position: relative;
         padding-left: 50% !important;
-        text-align: center !important;
+        text-align: right !important;
         box-shadow: none !important;
         font-size: 14px;
-        vertical-align: middle;
+        vertical-align: middle !important;
+        padding-right: 15px !important;
     }
 
     td:before {
         position: absolute;
-        min-height: 35px;
+        min-height: 20px;
         left: 6px;
         width: 45%;
         padding-right: 10px;
         white-space: nowrap;
-        margin-top: 10px;
         font-weight: bold;
         box-shadow: none !important;
         background-color: white !important;
+        text-align: left;
     }
 
     .selected:before {
         display: none;
     }
 
-    .selected {
-        display: inline-block;
-        width: 100% !important;
-        padding-left: 0% !important;
-        left:6px;
-    }
+    .selected{
+        display: block;
+        float:right;
+        width:40px !important;
+        padding-left: 0px !important;
+	}
 
     .imgtd:before {
         display: none;
@@ -438,10 +435,9 @@ thead th {
 
     .imgtd {
         display: inline-block;
-        width: 100% !important;
-        padding-left: 0% !important;
-        text-align: left !important;
-        justify-items: left !important;
+        width: 80% !important;
+        padding-left: 20% !important;
+        height: 125px !important;
     }
 
     td:nth-of-type(3):before {
@@ -461,22 +457,23 @@ thead th {
     td:nth-of-type(4):before {
         content: "Order Code";
         text-align: left !important;
+        top:25% !important;
     }
 
     td:nth-of-type(5):before {
         content: "Qty for Campaign";
-        text-align: left !important;
+        top:25% !important;
     }
 
     td:nth-of-type(6):before {
         content: "Max Qty / Order";
-        text-align: left !important;
+        top:25% !important;
     }
 
     td:nth-of-type(7):before {
         top: -3px;
         content: "Category";
-        text-align: left !important;
+        top:25% !important;
     }
     td:nth-of-type(7){
         display: flex;
@@ -488,29 +485,14 @@ thead th {
     td:nth-of-type(8):before {
         content: "Price";
         margin-top: 0px !important;
-        text-align: left !important;
     }
 
     td:nth-of-type(11):before {
-        display: none;
-        text-align: left !important;
+        content: "Editable";
     }
 
     td:nth-of-type(10):before {
-        display: none;
-        text-align: left !important;
-    }
-
-    td:nth-of-type(11) {
-        display: inline-block;
-        width: 50% !important;
-        padding-left: 0% !important;
-    }
-
-    td:nth-of-type(10) {
-        display: inline-block;
-        width: 50% !important;
-        padding-left: 0% !important;
+        content: "Deletable";
     }
 
     td:nth-of-type(9):before {
@@ -518,13 +500,5 @@ thead th {
         text-align: left !important;
         margin-top: 0 !important;
     }
-
-    td:nth-of-type(9){
-        vertical-align: middle !important;
-        height: auto;
-        padding: auto;
-        margin: auto;
-    }
-
 }
 </style>

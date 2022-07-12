@@ -1,27 +1,30 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="box p-5 flex flex-col gap-5">
+    <div class="flex flex-col p-2 text-xl font-medium">
         <!-- BEGIN: commit box -->
-        <span class="text-xl mt-5"> Default Settings</span>
-        <div class="switch-toggle">
-            <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
-            <label for="on">Notes</label>
-            <input id="na" name="state-d" type="radio" class="my-0" @click="toggleTabs(2)" />
-            <label for="na">Payment</label>
-            <input id="off" name="state-d" type="radio" @click="toggleTabs(3)" />
-            <label for="off">Delivery</label>
-        </div>
+        <span class="mt-5 text-xl"> Default Settings</span>
 
-        <div id="notes" :class="{ hidden: openTab !== 1, block: openTab === 1 }">
-            <NotesSettings />
-        </div>
+        <div class="flex flex-col gap-5 p-5 box">
+            <div class="switch-toggle">
+                <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
+                <label for="on">Notes</label>
+                <input id="na" name="state-d" type="radio" class="my-0" @click="toggleTabs(2)" />
+                <label for="na">Payment</label>
+                <input id="off" name="state-d" type="radio" @click="toggleTabs(3)" />
+                <label for="off">Delivery</label>
+            </div>
 
-        <div id="payment" :class="{ hidden: openTab !== 2, block: openTab === 2 }">
-            <PaymentSettings />
-        </div>
+            <div id="notes" :class="{ hidden: openTab !== 1, block: openTab === 1 }">
+                <NotesSettings />
+            </div>
 
-        <div id="delivery" :class="{ hidden: openTab !== 3, block: openTab === 3 }">
-            <DeliverySettings />
+            <div id="payment" :class="{ hidden: openTab !== 2, block: openTab === 2 }">
+                <PaymentSettings />
+            </div>
+
+            <div id="delivery" :class="{ hidden: openTab !== 3, block: openTab === 3 }">
+                <DeliverySettings />
+            </div>
         </div>
     </div>
 </template>

@@ -3,7 +3,7 @@
     class="absolute z-50 h-full ml-3 mr-5 overflow-hidden lss-mobil-side-nav-close top-14 dark:bg-darkmode-500 bg-primary md:hidden">
 
     <!-- BEGIN: Mobile Menu -->
-    <div class="mobile-menu">
+    <div class="sticky mobile-menu">
       <!-- <div class="py-2 mobile-menu-bar">
       <a href="" class="flex mr-auto">
         <img

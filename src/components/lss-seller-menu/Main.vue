@@ -132,7 +132,7 @@
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="content ">
+      <div class="content">
         <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
           <ol class="breadcrumb breadcrumb-dark">
             <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">

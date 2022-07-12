@@ -12,7 +12,7 @@ html {
         }
     }
     body {
-        @apply antialiased overflow-x-hidden font-roboto text-sm text-slate-800;
+        @apply overflow-x-hidden text-sm antialiased font-roboto text-slate-800;
         @include media-breakpoint-down(md) {
             @apply px-8;
         }
@@ -21,6 +21,6 @@ html {
         }
     }
     input{
-        @apply h-[42px]
+        @apply h-[35px] sm:h-[42px];
     }
 }

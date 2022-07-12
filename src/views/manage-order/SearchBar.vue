@@ -1,13 +1,13 @@
 <template>
     <div class="relative w-full h-16">
-                    <div class="flex w-full absolute mr-auto m-1 right-0 sm:mt-1 sm:w-auto ">
-                        <SearchIcon class="w-4 h-4 absolute my-auto inset-y-0 ml-3 left-0 z-10 text-slate-700 " />
-                        <input type="text" class="form-control rounded-full mr-2 w-full sm:w-64 box px-10"
+                    <div class="absolute right-0 flex w-full m-1 mr-auto sm:mt-1 sm:w-auto ">
+                        <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 " />
+                        <input type="text" class="w-full px-10 mr-2 rounded-full form-control sm:w-64 box"
                             placeholder="Search..." v-model="searchValue" @keydown.enter.prevent="search()"/>
                         <div class="export">
                              <Dropdown class="relative p-2 mr-1 flex rounded-full items-center btn border-[#131C34] "
                             placement="bottom-start"> {{$t('manage_order.export')}}
-                            <DropdownToggle role="button" class="w-5 h-5 block" href="javascript:;">
+                            <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                                 <ChevronDownIcon class="w-5 h-5 text-slate-700" />
                             </DropdownToggle>
                             <DropdownMenu class="pt-2">
@@ -18,7 +18,7 @@
                         </Dropdown>
                         </div>
                        <div class="export">
-                           <button id="tabulator-html-filter-go" type="button" class="flex-none btn btn-primary w-16 mr-3"
+                           <button id="tabulator-html-filter-go" type="button" class="flex-none w-16 mr-3 btn btn-primary"
                                 @click="test()">
                             {{$t('manage_order.filter')}}
                             </button>
