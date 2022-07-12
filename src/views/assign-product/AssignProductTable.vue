@@ -259,19 +259,21 @@ const changeInput = (event, index, type) => {
     if (type == 'order_code') {
         productsList.value[index].order_code = event.target.value
     } else {
-        if (event.target.value == '') event.target.value = 1
-        console.log(parseInt(event.target.value))
+        if (event.target.value[0] == '0' && event.target.value.length > 1) event.target.value = event.target.value.substring(1)
+        console.log(event.target.value)
         if (parseInt(event.target.value) <= productsList.value[index].qty_campaign) {
             if (type == 'qty') {
                 productsList.value[index].qty = event.target.value
             } else if (type == 'max_order') {
                 productsList.value[index].max_order_amount = event.target.value
             }
-        } else {
+        } else if(parseInt(event.target.value) > productsList.value[index].qty_campaign) {
             alert('input number is over product max quantity')
             event.target.value = productsList.value[index].qty
             return
-        }
+        } else {
+            productsList.value[index].max_order_amount = 0
+        } 
     }
 }
 
