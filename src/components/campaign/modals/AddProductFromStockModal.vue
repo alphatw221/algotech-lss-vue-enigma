@@ -1,7 +1,7 @@
 <template>
-    <Modal size="modal-xl" class="text-center" :slideOver="true" :show="store.showAddProductFromStockModal"
-        @hidden="store.showAddProductFromStockModal = false">
-        <a @click="store.showAddProductFromStockModal = false" class="absolute right-0 top-0 mt-3 mr-3">
+    <Modal size="modal-xl" class="text-center" :slideOver="true" :show="campaignDetailStore.showAddProductFromStockModal"
+        @hidden="hideModal()" @show="search()">
+        <a @click="hideModal()" class="absolute right-0 top-0 mt-3 mr-3">
             <XIcon class="w-8 h-8 text-slate-400" />
         </a>
         <ModalHeader class="text-center text-base p-5">
@@ -10,59 +10,445 @@
             </h2>
         </ModalHeader>
         <ModalBody>
-            <div class="intro-y col-span-12 overflow-auto lg:overflow-visible">
-                <div class="flex flex-col sm:items-end xl:items-start">
-                    <form id="tabulator-html-filter-form" class="mr-auto">
-                        <label class="w-14 flex-none mr-2">Category</label>
+            
+            <!-- BEGIN SearchPage -->
+            <div v-show="openTab=='select'">
+
+
+                <!-- BEGIN SearchBar -->
+                <div class="flex flex-wrap items-start w-full sm:flex-row">
+                    <div class="flex-initial w-fit items-center ml-2 mt-2" >
+                        <label class="w-14 mr-2">
+                            Category
+                        </label>
                         <select 
                             id="tabulator-html-filter-field"
-                            class="form-select w-32"
+                            class="form-select h-10 w-auto"
                             v-model="selectedCategory"
-                            @change="search"
+                            @change="search()"
                         >
-                            <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
+                            <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.name }}</option>
                         </select>
-                    </form>
+                    </div>
+                    <div class="flex-initial w-fit items-center flex ml-2 mt-2" >
+                        <label class="mr-2 shrink whitespace-wrap sm:whitespace-nowrap">
+                            Search by
+                        </label>
+                        <select
+                            class="form-select mr-0 sm:mr-2 h-10 shrink" v-model="searchField">
+                            <option v-for="searchColumn in searchColumns" :key="searchColumn.value"
+                                :value="searchColumn.value">
+                                {{ searchColumn.text }}
+                            </option>
+                        </select>
+                    </div>
+                    <div class="flex-initial w-fit items-center flex ml-2 mt-2">
+                        <div class="input-group">
+                            <input type="text"
+                                class="form-control input-group shrink w-40 sm:40" placeholder="Search..."
+                                v-model="searchKeyword" @keydown.enter.prevent="search()" />
+                            <button 
+                                type="button"
+                                class="flex-none btn btn-secondary w-16 h-10 rounded-l-none" @click="resetSearchBar">
+                                Reset
+                            </button>
+                        </div>
+                    </div>
+                </div>   
+                <!-- END SearchBar -->
+
+
+                <!-- BEGIN ProductTable -->
+                <div class="relative"> 
+                    <div class="overflow-auto h-[670px] text-[14px] mt-10">
+                        <table class="table table-report h-[100%] w-[100%]">
+                            <thead>
+                                <tr>
+                                    <th class="w-10">
+                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" @change="selectAll($event)"/></th>
+                                    <th class="whitespace-normal truncate hover:text-clip" v-for="column in tableColumns" :key="column.key">
+                                        {{ column.name }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    v-for="(product, product_index) in stockProducts"
+                                    :key="product_index"
+                                    class="intro-x align-middle"
+                                >
+                                    <td class="w-10">
+                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" @click="selectProduct(product_index, $event)"/>
+                                    </td>
+
+                                    <td v-for="column in tableColumns" :key="column.key" class="text-[14px]">
+
+                                        <template v-if="column.key === 'image'" >
+                                            <div class="flex">
+                                                <div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12">
+                                                    <img 
+                                                        class="rounded-lg zoom-in"
+                                                        :src="imageUrl+product.image"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'order_code'">
+                                            <div class="flex flex-col">
+                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+                                            </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'category'" v-for="(tag,tag_index) in product['tag']" :key="tag_index">
+                                            <div>{{ tag }}</div> 
+                                        </template>
+
+                                        <template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
+                                        <div class="flex flex-col">
+                                            <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+                                        </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'type'">
+                                            <select 
+                                                class="form-select w-auto mt-2 sm:mt-0"
+                                                v-model="product[column.key]"
+                                            >
+                                                <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
+                                            </select> 
+                                        </template>
+
+                                        <template v-else-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]"/>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'price'">
+                                            <div class="truncate hover:text-clip z-10 w-20"> ${{product[column.key]}} </div>
+                                        </template>
+
+                                        <template v-else>
+                                            <div class="break-word  w-24"> {{product[column.key]}} </div>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                        
+                        
+                    </div>
+                    <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center justify-between">
+                        <Page 
+                            class="mx-auto my-3"
+                            :total="dataCount" 
+                            @on-change="changePage"
+                            @on-page-size-change="changePageSize"
+                        />
+                        
+                    </div> 
+                    <div class=" flex items-center justify-between">
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">Next</button>
+                    </div> 
                 </div>
-                <!-- <EditableDataTable
-                    class="overflow-x-auto"
-                >
-                </EditableDataTable> -->
+                <!-- END ProductTable -->
+
             </div>
+            <!-- END SearchPage -->
+
+        <!-- BEGIN ConfirmPage -->
+            <div v-show="openTab=='confirm'">
+                <div class="relative"> 
+                    <div class="overflow-auto h-[670px] text-[14px] mt-10">
+                        <table class="table table-report h-[100%] w-[100%]">
+                            <thead>
+                                <tr>
+                                    <th class="w-10">
+
+                                    </th>
+                                    <th class="whitespace-normal truncate hover:text-clip" v-for="column in tableColumns" :key="column.key">
+                                        {{ column.name }}
+                                    </th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr
+                                    v-for="(product, product_index) in selectedProducts"
+                                    :key="product_index"
+                                    class="intro-x align-middle"
+                                >
+
+                                    <td class="w-10">
+                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" checked @click="unSelectProduct(product_index, $event)"/>
+                                    </td>
+
+                                    <td v-for="column in tableColumns" :key="column.key" class="text-[14px]">
+
+                                        <template v-if="column.key === 'image'" >
+                                            <div class="flex">
+                                                <div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12">
+                                                    <img 
+                                                        class="rounded-lg zoom-in"
+                                                        :src="imageUrl+product.image"
+                                                    />
+                                                </div>
+                                            </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'order_code'">
+                                            <div class="flex flex-col">
+                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+                                                <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'category'" v-for="(tag,tag_index) in product['tag']" :key="tag_index">
+                                            <div>{{ tag }}</div> 
+                                        </template>
+
+                                        <template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
+                                            <div class="flex flex-col">
+                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+                                                <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'type'">
+                                            <select 
+                                                class="form-select w-auto mt-2 sm:mt-0"
+                                                v-model="product[column.key]"
+                                            >
+                                                <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
+                                            </select> 
+                                        </template>
+
+                                        <template v-else-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]"/>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'price'">
+                                            <div class="truncate hover:text-clip z-10 w-20"> ${{product[column.key]}} </div>
+                                        </template>
+
+                                        <template v-else>
+                                            <div class="break-word  w-24"> {{product[column.key]}} </div>
+                                            <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                        </template>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+                    <div class=" flex items-center justify-between">
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5" @click="openTab='select'">Previous</button>
+                        <button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">Reset</button>
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">Apply</button>
+                    </div> 
+                </div>
+            </div>
+            <!-- END ConfirmPage -->
+
         </ModalBody>
     </Modal>
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance, onUnmounted } from 'vue';
+import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
+import { list_product_category, list_product } from '@/api_v2/product';
 import { useRoute, useRouter } from "vue-router";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
-import { list_product_category } from '@/api_v2/product';
-import EditableDataTable from "../table/EditableDataTable.vue";
-const internalInstance = getCurrentInstance()
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-const store = useCampaignDetailStore(); 
+const tableColumns = ref([
+    { name: "Product", key: "image" },
+    { name: "", key: "name" },
+    { name: "Order Code", key: "order_code" },
+	{ name: "QTY for Campaign", key: "qty" },
+	{ name: "Max QTY/Order", key: "max_order_amount" },
+    { name: "Price", key: "price" },
+	{ name: "Editable", key: "customer_editable" },
+	{ name: "Deletable", key: "customer_removable" },
+	{ name: "Category", key: "category" },
+	{ name: "Type", key: "type" },
+])
 
+const layoutStore = useLSSSellerLayoutStore();
+const campaignDetailStore = useCampaignDetailStore()
 
+const route = useRoute();
+const router = useRouter();
+
+const openTab = ref('select')
+const currentPage = ref(1)
+const totalPage = ref(1)
+const pageSize = ref(10)
+const dataCount = ref(0)
+
+const imageUrl = import.meta.env.VITE_APP_IMG_URL
 const selectedCategory = ref('')
-const productCategories= ref([{text:"All", value:''}])
+const searchField = ref('name')
+const searchKeyword = ref('')
+const productCategories = ref([{value:'', name:'All'}])
+const product_type = [{value:'product',name:'Product'},{value:'lucky_draw',name:'Lucky Draw'}]
+
+const searchColumns = [
+	{ text: "Name", value: "name" },
+	{ text: "Order Code", value: "order_code" },
+	{ text: "Description", value: "description" }
+]
+
+const stockProducts = ref([])
+const selectedProducts = ref([])
+const errorMessages = ref([])
+const productDict = ref({})
+
 
 onMounted(() => {
-    console.log('modal mounted')
 	list_product_category().then(
-		response => { 
-			response.data.forEach(category => {
-				productCategories.value.push({text:category,value:category})
+		res => { 
+			res.data.forEach(category => {
+				productCategories.value.push({value:category, name:category})
 			});
-
+			
 		}
 	)
 })
+	
+watch(computed(()=>selectedProducts.value),()=>{
+	updateStockProducts()
+}, {deep:true})
+
+watch(computed(()=>stockProducts.value),()=>{
+	updateStockProducts()
+}, {deep:true})
+
+const updateStockProducts = ()=>{
+	let temp = []
+	stockProducts.value.forEach((product, index) => {
+		if(!(product.id.toString() in productDict.value)){
+			temp.push(product)
+		}
+	});
+	stockProducts.value = temp
+}
+
+
+
+const selectProduct = (productIndex, event) =>{
+	event.target.checked=false
+	productDict.value[stockProducts.value[productIndex].id.toString()]=true
+	selectedProducts.value.push(Object.assign({},stockProducts.value[productIndex]))
+	errorMessages.value.push(null)
+
+}
+const unSelectProduct = (selectedProductIndex, event) =>{
+	event.target.checked=true
+	delete productDict[selectedProducts.value[selectedProductIndex].id.toString()]
+	selectedProducts.value.splice(selectedProductIndex,1)
+	errorMessages.value.splice(selectedProductIndex,1)
+	search()
+}
+
+const resetSelectedProduct = ()=>{
+
+	selectedProducts.value.forEach(product => {
+		delete productDict.value[product.id.toString()]
+	});
+	selectedProducts.value = []
+	errorMessages.value = []
+	search()
+
+}
+
+const selectAll = (event)=>{
+	event.target.checked=false
+	stockProducts.value.forEach(product => {
+		productDict.value[product.id.toString()]=true
+		selectedProducts.value.push(Object.assign({},product))
+		errorMessages.value.push(null)
+	});
+	search()
+}
 
 const search = () => {
-    console.log(selectedCategory.value)
-    eventBus.emit("searchTable", {filterColumn: selectedCategory.value})
+
+	campaignDetailStore.campaignProducts.forEach(campaignProduct => {
+		if(campaignProduct.product)productDict.value[campaignProduct.product.toString()]=true
+	});
+	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', selectedCategory.value, Object.keys(productDict.value).join(','))
+	.then(response => {
+		stockProducts.value = response.data.results
+		dataCount.value = response.data.count
+		totalPage.value = Math.ceil(response.data.count / pageSize.value)
+		stockProducts.value = response.data.results
+		
+	})
+}
+
+const resetSearchBar = ()=>{
+    selectedCategory.value=''
+    searchField.value='name'
+    searchKeyword.value = ''
+    search()
+}
+
+const changePage = (page) => {
+	currentPage.value = page
+	search()
+}
+
+
+const changePageSize = (pageSize)=>{
+	pageSize = pageSize;
+	search();
+}
+
+const submitData = ()=>{
+
+	errorMessages.value = []
+	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
+		campaignDetailStore.campaignProducts = res.data
+        hideModal()
+	}).catch(err=>{
+		if (err.response){
+			errorMessages.value = err.response.data.errors
+		}
+	})
+}
+
+const hideModal = ()=>{
+    selectedCategory.value=''
+    selectedProducts.value=[]
+    errorMessages.value=[]
+    stockProducts.value=[]
+    productDict.value = {}
+    openTab.value = 'select'
+    currentPage.value = 1
+    totalPage.value = 1
+    pageSize.value=10
+    dataCount.value =0
+    campaignDetailStore.showAddProductFromStockModal = false
 }
 
 </script>
+
+
+<style scoped>
+td {
+	height: auto !important;
+	width: max-content !important;
+    min-height: 50px;
+    border-collapse: collapse;
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+}
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 99;
+  background-color: theme("colors.secondary");
+  padding-right: 10px !important;
+  padding-left: 10px !important;
+}
+</style>

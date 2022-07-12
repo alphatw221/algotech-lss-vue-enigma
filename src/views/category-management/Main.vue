@@ -4,6 +4,16 @@
         <!-- <div>
             
         </div> -->
+        <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2"
+            @click="showModal = true; editType = 'create'; modalTitle='Create New Category'">
+            <div class="file box rounded-md px-5 pt-6 pb-5 px-3 sm:px-5 relative zoom-in">
+                <PlusSquareIcon style="margin: auto; width: 7rem; height: 7rem;" />
+                <div class="block font-medium mt-4 text-center truncate">
+                    Create New Category
+                </div>
+            </div>
+        </div>
+
         <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2" v-for="item in listItems"
             :key="item">
             <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-4 relative">
@@ -27,16 +37,6 @@
                         </DropdownContent>
                     </DropdownMenu>
                 </Dropdown>
-            </div>
-        </div>
-
-        <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2"
-            @click="showModal = true; editType = 'create'; modalTitle='Create New Category'">
-            <div class="file box rounded-md px-5 pt-6 pb-5 px-3 sm:px-5 relative zoom-in">
-                <PlusSquareIcon style="margin: auto; width: 7rem; height: 7rem;" />
-                <div class="block font-medium mt-4 text-center truncate">
-                    Create New Category
-                </div>
             </div>
         </div>
 

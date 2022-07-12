@@ -16,10 +16,11 @@ import PaymentMethod from "./PaymentMethod.vue"
 
 import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
-const store = useLSSBuyerOrderStore(); 
-const paymentMetaStore = useLSSPaymentMetaStore()
 import {onMounted, computed, watch} from "vue"
 import {ref} from "vue"
+const store = useLSSBuyerOrderStore(); 
+const paymentMetaStore = useLSSPaymentMetaStore()
+
 const selectIndex = ref(0)
 const payments = ref([])
 

@@ -1,6 +1,8 @@
 {
         "manage_order" : "Manage Order",
         "order" : "Order",
+        "action":"Action",
+        "delivery_status":"Delivery Status",
         "refresh_orders" : "Refresh Orders",
         "costumer" : "Costumer",
         "platform" : "Platform",
@@ -18,8 +20,10 @@
         "comments" : "Comments",
         "complete" : "Complete",
         "review" : "Review",
+        "shipping out":"Shipping Out",
         "all":"All",
         "refresh" : "Refresh",
-        "filter":"Filter"
+        "filter":"Filter",
+        "null":""
         
 }

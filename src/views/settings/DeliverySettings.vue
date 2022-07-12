@@ -6,7 +6,7 @@
             <div class="flex flex-col col-span-12 col-start-1 mt-2 text-[16px]"> 
                 <label class="w-full mr-1 text-base whitespace-nowrap">Delivery Charge</label>
                 <input 
-                    class="w-full form-control h-[42px]"
+                    class="w-full form-control h-[35px] sm:h-[42px]"
                     type="text" 
                     v-model="deliverySettings.delivery_charge"
                 />

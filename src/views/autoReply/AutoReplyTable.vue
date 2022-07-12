@@ -32,26 +32,34 @@
 				<tr v-for="(reply, index) in listItems" :key="index" class="intro-x">
 					<template v-for="(column, index) in columns" :key="index">
 						<td v-if="column.key === 'facebook_page'"
-							class="w-24 imgtd">
-							<div class="flex m-auto w-14 h-14 image-fit zoom-in">
+							class="flex w-24 imgtd">
+							<span class="mt-4 title sm:hidden">{{column.name}}</span>
+							<div class="flex w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
 								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image"
 									:content="`facebook`" />
 							</div>
 						</td>
-						<td v-else-if="column.key === 'edit'"
-							class="w-20 h-auto edit">
-							<EditIcon class="m-auto click-icon" @click="
-								updateInfo(reply.id, reply.input_msg, reply.output_msg, reply.description)
-							" />
+						<td v-else-if="column.key === 'edit'"  class="w-14 edit">
+							<Dropdown placement="bottom-start">
+								<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
+								<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
+								</DropdownToggle>
+								<DropdownMenu class="w-24 pt-2 ">
+								<DropdownContent class="w-24 text-center">
+									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
+										@click="updateInfo(reply.id, reply.input_msg, reply.output_msg, reply.description)"> 
+											<EditIcon class="w-[20px] h-[20px] mx-1"/> Edit </DropdownItem>
+									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
+										@click="deleteAutoReply(reply.id)"> 
+											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> Delete </DropdownItem>
+								</DropdownContent>
+								</DropdownMenu>
+							</Dropdown> 
 						</td>
-						<td v-else-if="column.key === 'delete'"
-							class="w-20 h-auto delete">
-							<Trash2Icon class="m-auto click-icon" @click="deleteAutoReply(reply.id)" />
-						</td>
-						<td v-else-if="column.key === 'id'" class="id w-20 text-[12px] lg:text-sm">
+						<td v-else-if="column.key === 'id'" class="w-20 id lg:text-sm">
 							<span class="sm:hidden"># </span>{{ reply[column.key] }}
 						</td>
-						<td v-else class="info w-auto text-[12px] lg:max-w-30 lg:text-sm longMessage">
+						<td v-else class="w-auto info lg:max-w-30 lg:text-sm longMessage">
 							<span class="title sm:hidden">{{column.name}}</span> {{ reply[column.key] }}
 						</td>
 					</template>
@@ -262,7 +270,6 @@ thead th{
 	tr {
 		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
 		margin-top: 10px;
-		margin-bottom: 10px;
 	}
 
 	td {
@@ -279,32 +286,28 @@ thead th{
 		width:50%;
 		font-weight: 500;
 		color: theme("colors.primary");
-		height:60px;
-		padding-top: 20px !important;
+		height:40px;
+		padding-top: 10px !important;
 	}
-
 	.imgtd {
 		display: inline-block;
-		position: absolute;
 		width:50%;
-		top:0;
-		right:0;
 		margin-right: 20px;
 	}
 	
 	.title{
 		display:inline-block;
+		font-size: 14px;
 		width:100%;
 		font-weight: 600;
 		color: theme("colors.primary");
 	}
 	.edit{
 		display: inline-block;
-		width: 50%;
-		margin-top:10px;
-		padding-left: 0% !important;
-		margin-bottom: 10px;
-		/* color: #0e9893; */
+		position: absolute;
+		width:50px;
+		top:0;
+		right:0;
 	}
 	.delete{
 		display: inline-block;

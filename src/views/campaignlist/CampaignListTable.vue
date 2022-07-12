@@ -40,7 +40,6 @@
             {{ campaign.title }}
           </td>
           <td class="w-5 text-center startDate">
-            <div class="sm:hidden text-[14px] text-left ml-[14px] text-[#616161]">Start Time:</div>
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
@@ -48,43 +47,37 @@
             }}</div>
           </td>
           <td class="w-5 text-center endDate">
-            <div class="sm:hidden text-[14px] text-left ml-[14px] text-[#616161]">End Time:</div>
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
-          <td class="sm:hidden actions">
-            Actions
-          </td>
           <td class="items-center manage_order w-fit">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
+              <span class="mr-3 sm:hidden"> Manage Orders</span>
               <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>
             </a>
-            <div class="text-[12px] sm:hidden"> Manage Orders</div>
           </td>
           <td class="items-center checkout w-fit">
             <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col justify-center form-check form-switch">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
-              <div class="text-[12px] sm:hidden"> Stop Checkout</div>
             </div>
             <div v-else
               class="flex flex-col justify-center form-check form-switch">
                <input @click="stop_checkout(campaign.id,$event.target.checked)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.meta.allow_checkout"/>
-               <div class="text-[12px] sm:hidden"> Stop Checkout</div>
             </div>
           </td>
           <td class="justify-center text-center entry w-fit">
             <button 
               v-if="campaignStatus === 'history'"
-              class="w-24 mr-1 btn btn-elevated-rounded-pending h-[44px]" @click="clickEntry(index)">
+              class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
               Histroy
             </button>
             <button 
               v-else
-              class="w-24 mr-1 btn btn-elevated-rounded-pending h-[44px]" @click="clickEntry(index)">
+              class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
               Live On
             </button>
           </td>
@@ -302,13 +295,38 @@ thead th{
     text-align: center;
     box-shadow: none !important;
     align-items: center;
-    justify-content: center;
+    justify-content:flex-end;
     background-color: white !important;
+    min-height: 35px;
+    border: none;
+		padding-left: 50% !important;
     width: 100%;
-    min-height: 60px;
+    padding-right: 10px; 
   }
+
+	td:before {
+		position: absolute;
+		left: 6px;
+		width: 45%;
+    padding-right: 10px;
+		white-space: nowrap;
+		font-weight: bold;
+		box-shadow: none !important;
+		background-color: white !important;
+    text-align:left;
+	}
+
   .fan_page{
     display: inline-block;
+    padding-left: 0px !important;
+
+  }
+  .fan_page:before{
+    display:none;
+  }
+
+  .title:before{
+    display:none;
   }
   .title {
     width:100%;
@@ -316,44 +334,39 @@ thead th{
     font-weight:600;
     color:theme("colors.primary");
     min-height: 35px !important;
+    padding-left: 0px !important;
   }
-  .startDate {
-    display: inline-block;
-    width:50%;
+  .startDate:before {
+    content:"Start Date"; 
   }
   
-  .endDate {
-    display: inline-block;
-    width:50%;
+  .endDate:before {
+    content:"Start Date"; 
   }
 
-  .actions{
-    text-align: left !important;
-    min-height: 35px !important;
-    padding-left: 14px !important;
-    justify-content: start;
+  .manage_order:before{
+    content:"Action"; 
   }
-  .manage_order{
-    display: inline-block;
-    padding-left: 0% !important;
-    width: 33%;
+  .checkout:before{
+    content:"Stop Checkout"; 
   }
-  .checkout{
-    display: inline-block;
-    padding-left: 0% !important;
-    width: 33%;
-  }
+  .entry:before{
+		display: none;
+	}
   .entry{
 		display: inline-block;
-    padding-left: 0% !important;
-    width: 33%;
+    padding-left: 0px !important;
 	}
   .moreTools{
     display: inline-block;
     position: absolute !important;
+    padding-left: 0px !important;
     top:0;
     right:0;
     width:30px !important;
+  }
+  .moreTools:before{
+    display:none;
   }
 }
 </style>

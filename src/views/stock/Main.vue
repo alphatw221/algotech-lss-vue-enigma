@@ -24,7 +24,6 @@
 				:productCategories="productCategories"
 				:eventBusName="'searchForSaleTable'"
 				:showCategoryFilter="true"
-				
 			>
 			</SearchBar>	
 			<DataTable
@@ -56,7 +55,6 @@
 			</DataTable>
 		</div>
 			<!-- END Delisted Tab -->
-
 			<!-- <TabPanel class="leading-relaxed"> Sold. </TabPanel>
 			<TabPanel class="leading-relaxed"> Delete. </TabPanel> -->
 	</div>

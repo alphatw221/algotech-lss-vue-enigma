@@ -153,4 +153,7 @@ provide("bind[floatingVideoToast]", (el) => {
 .Notification{
   border-left: solid 5px black !important;
 }
+
+/* .toastify */
 </style>
+

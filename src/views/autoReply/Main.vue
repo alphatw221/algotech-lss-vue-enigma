@@ -1,13 +1,13 @@
 <template>
-    <div class="flex flex-col gap-5 p-3 box sm:p-5">
-        <div class="flex justify-between">
-            <label class="mt-5 text-xl"> Setup Auto Reply</label>
-            <button class="w-24 h-10 mt-5 text-white btn btn-warning btn-rounded "
+    <div class="flex flex-col gap-5 p-3 sm:p-5">
+        <div class="flex justify-between mt-5">
+            <label class="my-auto text-xl font-medium"> Setup Auto Reply</label>
+            <button class="w-40 h-[42px] text-white btn btn-warning btn-rounded "
                 @click="createModal = true; saved=false">
                 <span class="font-bold mr-1 text-[16px]">+</span> Create
             </button>
         </div>
-        <div class="overflow-x-auto">
+        <div class="flex flex-col gap-5 p-5 overflow-x-auto box">
             <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
     </div>
@@ -123,9 +123,8 @@ const tableColumns = ref([
     { name: "Keywords to Detect", key: "input_msg" },
     { name: "Set Automated Response", key: "output_msg" },
     { name: "Remark", key: "description" },
-    { name: "Following", key: "facebook_page" },
-    { name: "Edit", key: "edit" },
-    { name: "Delete", key: "delete" },
+    { name: "Assign To", key: "facebook_page" },
+    { name: "", key: "edit" },
 ])
 
 let facebookPagesData = ref([])
