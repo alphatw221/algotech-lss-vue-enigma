@@ -85,7 +85,7 @@
         </button>
 
         <button 
-                class="btn btn-elevated-rounded-primary text-base w-48 mt-2"
+                class="btn btn-primary w-32 shadow-md float-right self-end"
                 @click="updateDirectPayment"
             > 
             Update 

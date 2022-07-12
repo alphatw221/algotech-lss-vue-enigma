@@ -1,6 +1,6 @@
 <template>
         <div class="flex justify-between mt-5 mb-3">
-            <h2 class="text-xl font-medium my-3 mx-2">Setup Auto Reply</h2>
+            <h2 class="text-xl font-medium my-3">Setup Auto Reply</h2>
             <button class="btn btn-warning btn-rounded w-40 h-10 text-white mt-3"
                 @click="createModal = true; saved=false">
                 <span class="font-bold mr-1 text-[16px]">+</span> Create

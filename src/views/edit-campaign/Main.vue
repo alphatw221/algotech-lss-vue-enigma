@@ -1,6 +1,6 @@
 <template>
-   	<div class="p-5 flex flex-col gap-5 text-[16px]" v-if="ready">
- 		<h2 class="text-xl font-medium mt-5 mb-3 mx-2">Edit Campaign</h2>
+   	<div class="flex flex-col text-[16px]" v-if="ready">
+ 		<h2 class="text-xl font-medium mt-5 mb-3 sm:text-center">Edit Campaign</h2>
 
 		<div class="box px-10 py-5 grid grid-cols-12 gap-1 intro-y sm:gap-5 -z-50">
 			<div class="col-span-12 col-start-1 2xl:col-span-6 xl:col-span-6">

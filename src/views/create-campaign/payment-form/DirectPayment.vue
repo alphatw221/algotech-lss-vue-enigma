@@ -7,7 +7,7 @@
            <u> + Add More Option </u>
         </a>
 
-        <div class="flex mt-5 ml-5">
+        <div class="flex ml-5">
             <input 
                 class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2" 
                 type="checkbox" 

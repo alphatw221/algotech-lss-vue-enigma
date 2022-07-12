@@ -1,5 +1,5 @@
 <template>
-	<h2 class="text-xl font-medium mt-5 mb-3 mx-2">Create Campaign</h2>
+	<h2 class="text-xl font-medium mt-5 mb-3">Create Campaign</h2>
     <div class="">
 		<div class="box py-5 px-10 flex flex-col gap-5 intro-y grid grid-cols-12 gap-1 sm:gap-5 -z-50">
 			<div class="col-start-1 col-span-12 sm:col-span-6">

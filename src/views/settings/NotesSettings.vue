@@ -73,8 +73,8 @@
         </AccordionGroup>
         
         <div class="mt-5 float-right text-[14px]">
-            <button class="btn btn-rounded-secondary mr-5 w-[100px]" @click="discard"> Discard</button>
-            <button class="btn btn-rounded-primary w-[100px]" @click="update"> Save </button>
+            <button class="btn w-32 dark:border-darkmode-400 mt-7" @click="discard"> Discard</button>
+            <button class="btn btn-primary w-32 shadow-md ml-5 mt-7" @click="update"> Save </button>
         </div>
         
     </div>

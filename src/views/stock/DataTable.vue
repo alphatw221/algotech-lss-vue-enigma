@@ -56,7 +56,7 @@
 								class="flex items-center mr-3" 
 								@click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"
 							>
-								<CheckSquareIcon class="w-4 h-4 mr-1"/> Edit
+								 <EditIcon class="w-4 h-4 mr-1" /> Edit
 							</a>
 						</div>
 					</td>

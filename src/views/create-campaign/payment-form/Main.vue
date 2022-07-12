@@ -1,5 +1,5 @@
 <template>
-	<div class="box mt-3 p-10 mt-5 flex flex-col p-5 gap-5 intro-y gap-1 sm:gap-5 -z-50 text-base" v-if="ready">
+	<div class="box mt-3 p-10 mt-3 flex flex-col p-5 gap-5 intro-y gap-1 sm:gap-5 -z-50 text-base" v-if="ready">
 		<span class="text-lg font-medium leading-none col-span-12">Payment Details</span>
 		<hr class="col-span-12">
 		<div id="paymentDetails">

@@ -15,10 +15,10 @@
             </div>
             <div class="w-auto items-center input-group">
                 <input id="tabulator-html-filter-value" type="text"
-                    class=" w-auto h-10 rounded-md" placeholder="Search..."
+                    class=" w-auto h-10 rounded-md form-control input-group w-40 sm:40" placeholder="Search..."
                     v-model="keyword" @keydown.enter.prevent="search" />
                 <button id="tabulator-html-filter-reset" type="button"
-                    class="flex-none btn btn-secondary w-16 h-10 sm:w-16 ml-2" @click="reset">
+                    class="flex-none btn btn-secondary w-20 h-10 sm:w-16 rounded-l-none" @click="reset">
                     Reset
                 </button>
 
