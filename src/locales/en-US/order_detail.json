@@ -1,0 +1,40 @@
+{
+    "order" : "Order Details",
+    "order_no" : "Order No",
+    "order_status" : "Order Status",
+    "payment_method" : "Mode of Payment",
+    
+    "delivery_information" : "Delivery Information",
+    "name" : "Name",
+    "phone" : "Phone",
+    "email" : "Email",
+    "delivery_option" : "Delivery Option",
+    "delivery_date" : "Delivery Date",
+    "post_code" : "Post Code",
+    "location" : "Location",
+    "address" : "Address",
+    "remarks" : "Remarks",
+    "save_remarks" : "Save Remarks",
+    "additional_delivery_charge" : "Selected Delivery Charge Option",
+
+    
+    "products" : "Products",
+    "price" : "Price",
+    "qty" : "Qty",
+    "sub_total" : "Sub Total",
+    "delivery_charge" : "Delivery Charge",
+    "total" : "Total",
+    
+    "price_adjustment" : "Price Adjustment",
+    "price_adjustment_note" : "To make a discount, enter -(price).To apply extra fee, enter the price directly.",
+    "title" : "Title",
+    "update_price" : "Update Price",
+    
+    "apply_free_delivery" : "Apply Free Delivery",
+    "save_order" : "Save Order",
+
+    "price_summary": "Price Summary",
+    "shopping_cart" : "Shopping Cart",
+    "modify_price": "Modify Price",
+    "payment_information": "Payment Information"
+}
