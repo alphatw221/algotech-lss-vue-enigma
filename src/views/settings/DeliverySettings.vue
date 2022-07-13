@@ -7,7 +7,7 @@
                 <label class="w-full mr-1 text-base whitespace-nowrap">Delivery Charge</label>
                 <input 
                     class="w-full form-control h-[35px] sm:h-[42px]"
-                    type="text" 
+                    type="number" 
                     v-model="deliverySettings.delivery_charge"
                 />
     
@@ -21,7 +21,7 @@
                 </div> 
                 <input 
                 class="w-full form-control" 
-                type="text" 
+                type="number" 
                 v-model="deliverySettings.free_delivery_for_order_above_price"
                 />
                 
@@ -35,7 +35,7 @@
                 </div> 
                 <input 
                 class="w-full form-control"
-                type="text"
+                type="number"
                 v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
                 />       
             </div>
@@ -180,7 +180,10 @@ const branch_option = { name: null, address: null }
 
 onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return
-    deliverySettings.value = layoutStore.userInfo.user_subscription.meta_logistic
+    console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+
+    
+    deliverySettings.value = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
     fields.forEach(field => {
         if(typeof deliverySettings.value[field.key]!=field.dataType) deliverySettings.value[field.key]=field.default
     });
@@ -213,8 +216,14 @@ const updateDelivery = () => {
 }
 
 const discardDelivery = () =>{
-    if(!layoutStore.userInfo.user_subscription)return
-    deliverySettings.value = layoutStore.userInfo.user_subscription.meta_logistic
+
+    // console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+    // return
+    if(!layoutStore.userInfo.user_subscription) return
+
+    console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+    deliverySettings.value = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
+    
     fields.forEach(field => {
         if(typeof deliverySettings.value[field.key]!=field.dataType) deliverySettings.value[field.key]=field.default
     });

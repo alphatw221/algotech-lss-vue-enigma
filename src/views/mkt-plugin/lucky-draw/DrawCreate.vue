@@ -1,24 +1,26 @@
 <template>
     <div>
         <!-- BEGIN: commit box -->
-        <div class="mt-3 flex justify-between">
-            <div>
-                <label for="update-profile-form-2" class="form-label mr-10">Campaign Title</label>
-                <h2 style="display: inline-block;"> {{ props.campaignTitle }} </h2>
-            </div>
+        <div class="mt-5 flex justify-self-start">
+            <label class="form-label mr-10">Campaign Title : </label>
+            <h2 style="display: inline-block;"> {{ props.campaignTitle }} </h2>
         </div>
-        <form class="flex flex-col">
+        <div class="flex flex-col">
             <div class="mt-6 lg:flex 2xl:flex">
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5">
-                    <label for="update-profile-form-2" class="form-label"> Lucky draw title</label>
-                    <input id="form-2" type="text" class="form-control" v-model.trim="validate.title.$model" 
-                        :class="{ 'border-danger text-danger border-2': validate.title.$error }" />
+                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5 mt-3">
+                    <label class="form-label"> Lucky Draw Title</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        :class="{ 'border-danger text-danger border-2': validate.title.$error }" 
+                        v-model.trim="validate.title.$model" 
+                    />
                     <template v-if="validate.title.$error">
                         <label class="text-danger">Please enter lucky draw title</label>
                     </template>
                 </div>
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5">
-                    <label for="update-profile-form-2" class="form-label"> Prize</label>
+                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5 mt-3">
+                    <label class="form-label"> Prize</label>
                     <select 
                         class="w-full form-select-lg" 
                         :class="{ 'border-danger text-danger border-2': !currentSettings.prize.id }" 
@@ -35,13 +37,14 @@
                             </option>
                         </template>    
                     </select>
-                    <template v-if="!prizeList.length">
-                        <button class="btn btn-outline-danger self-left w-fit mt-2 "> Edit Campaign</button>
-                    </template>
+                    <button v-if="!prizeList.length" class="btn btn-outline-danger self-left w-fit mt-2" @click="router.push({ name: 'edit-campaign', params: { 'campaign_id': route.params.campaign_id }})"> Edit Campaign </button>
                 </div>
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col">
-                    <label for="update-profile-form-2" class="form-label "> Spin Time(sec)</label>
-                    <select class="w-full form-select-lg" v-model="currentSettings.spin_time">
+                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mt-3">
+                    <label class="form-label ">Spin Time(sec)</label>
+                    <select 
+                        class="w-full form-select-lg" 
+                        v-model="currentSettings.spin_time"
+                    >
                         <option v-for="(spinTime, key) in spinTimes" :key="key" :value="spinTime.value">
                             {{ spinTime.name }}
                         </option>
@@ -50,9 +53,13 @@
             </div>
             <div class="mt-6 lg:flex 2xl:flex">
                 <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5">
-                    <label for="update-profile-form-2" class="form-label"> No. of Winners</label>
-                    <input id="form-2" type="text" class="form-control" v-model.trim="validate.num_of_winner.$model" 
-                        :class="{ 'border-danger text-danger border-2': validate.num_of_winner.$error }" />
+                    <label class="form-label"> No. of Winners</label>
+                    <input 
+                        type="text" 
+                        class="form-control" 
+                        :class="{ 'border-danger text-danger border-2': validate.num_of_winner.$error }"
+                        v-model.trim="validate.num_of_winner.$model" 
+                    />
                     <template v-if="validate.num_of_winner.$error">
                         <label class="text-danger">
                             Winner numbers must be between 1 to prize stock {{currentSettings.prize.qty_for_sale}}
@@ -61,9 +68,9 @@
                 </div>
                 <div class="lg:w-[50%] 2xl:w-[50%] flex-col mt-3">
                     <div class="w-full flex">
-                        <label for="update-profile-form-2" class="form-label mr-auto"> Animation Style</label>
+                        <label class="form-label mr-auto"> Animation Style</label>
                         <input type="file" id="upload" @change="uploadAnimation" hidden/>
-                        <label for="upload" id="create_animation">+ Create New Animation</label>
+                        <label for="upload" id="create_animation">+ Upload Animation</label>
                     </div>
                     <div class="flex mb-3" v-if="currentSettings.path == ''">
 						<img :src="previewImage" class="uploading-image h-20 object-cover" />
@@ -82,7 +89,8 @@
                 </div>
             </div>
             <div class="mt-3">
-                <div class="flex"> <label for="update-profile-form-2" class="form-label "> Winner Repeat </label> 
+                <div class="flex"> 
+                    <label class="form-label "> Winner Repeat </label> 
                     <Tippy 
                         class="rounded-full w-30 whitespace-wrap" 
                         data-tippy-allowHTML="true" 
@@ -92,29 +100,30 @@
                     > 
                         <HelpCircleIcon class="w-8 ml-2" />
                     </Tippy> 
-                    </div>
+                </div>
                 <div class="flex sm:flex-row mt-2">
                     <div class="form-check mr-5">
-                        <input id="radio-switch-yes" class="form-check-input" type="radio"
-                            v-model="currentSettings.repeatable" :value="true" />
+                        <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="true" />
                         <label class="form-check-label" for="radio-switch-yes">Yes</label>
                     </div>
                     <div class="form-check mr-5 mt-2 sm:mt-0">
-                        <input id="radio-switch-no" class="form-check-input" type="radio"
-                            v-model="currentSettings.repeatable" :value="false" />
+                        <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="false" />
                         <label class="form-check-label" for="radio-switch-no">No</label>
                     </div>
                 </div>
             </div>
             <div class="mt-6 mt-6 lg:flex 2xl:flex">
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5">
-                    <label for="update-profile-form-2" class="form-label"> Draw Type</label>
+                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5 mt-3">
+                    <label class="form-label"> Draw Type</label>
                     <select class="w-full form-select-lg" v-model="currentSettings.type">
                         <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ type.name }}</option>
                     </select>
                 </div>
-                <div v-if="currentSettings.type === 'product'" class="lg:w-[50%] 2xl:w-[50%] flex-col">
-                    <label for="update-profile-form-2" class="form-label "> Product</label>
+                <div 
+                    v-if="currentSettings.type === 'product'" 
+                    class="lg:w-[50%] 2xl:w-[50%] flex-col mt-3"
+                >
+                    <label class="form-label ">Product</label>
                     <select
                         :class="{ 'border-danger text-danger border-2': currentSettings.campaign_product == '' }" 
                         class="w-full form-select-lg" 
@@ -134,8 +143,11 @@
                         </option>
                     </TomSelect> -->
                 </div>
-                <div v-else-if="currentSettings.type === 'keyword'" class="lg:w-[50%] 2xl:w-[50%] flex-col ml-5">
-                    <label for="update-profile-form-2" class="form-label "> Keyword</label>
+                <div 
+                    v-else-if="currentSettings.type === 'keyword'" 
+                    class="lg:w-[50%] 2xl:w-[50%] flex-col ml-5"
+                >
+                    <label class="form-label "> Keyword</label>
                     <textarea class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
                         v-model="validate.comment.$model" placeholder="Enter your Keyword"
                         :class="{ 'border-danger text-danger border-2': validate.comment.$error }">
@@ -147,10 +159,10 @@
                     </template>
                 </div>
             </div>
-        </form>
+        </div>
         <div class="flex justify-end my-8">
-            <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> Cancel</button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> Save</button>
+            <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> Cancel </button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> Save </button>
         </div>
     </div>
 </template>
@@ -204,6 +216,40 @@ const rules = computed(()=> {
 const validate = useVuelidate(rules, currentSettings);
 
 
+onMounted(() => {
+    list_campaign_product(route.params.campaign_id).then(res => {
+        for (let i =0; i < res.data.length; i++) {
+            if (res.data[i].type === "lucky_draw") {
+                prizeList.value.push(res.data[i])
+            } else{
+                productList.value.push(res.data[i])
+            }
+        }
+    }).catch(err => {
+        console.log(err);
+    })
+
+    list_campapign_lucky_draw_animation().then(res => {
+        animationList.value = res.data
+    }).catch(err => {
+        console.log(err);
+    })
+
+    eventBus.on('editDraw', (payload) => {
+        type.value = 'edit'
+        luckyDrawId.value = payload.lucky_draw_id
+        retrieve_campaign_lucky_draw(luckyDrawId.value).then(res => {
+            currentSettings.value = res.data
+            currentSettings.value.campaign_product = res.data.campaign_product.id
+            currentSettings.value.path = res.data.animation
+        })
+    })
+})
+
+onUnmounted(() => {
+    eventBus.off('editDraw')
+})
+
 const upsert = () => {
     validate.value.$touch();
     if (validate.value.$invalid || typeof currentSettings.value.prize === 'string') {
@@ -243,58 +289,19 @@ const uploadAnimation = e => {
     currentSettings.value.path = '';
 }
 
-// watch(computed(() => currentSettings.value.type), ()=>{
-//     if (currentSettings.value.type === 'keyword'){
-//         currentSettings.value.comment = ''
-//     } else {
-//         currentSettings.value.comment = 'keyword'
-//     }
-// }),
-
-onMounted(() => {
-    list_campaign_product(route.params.campaign_id).then(res => {
-        console.log(res.data)
-        for (let i =0; i < res.data.length; i++) {
-            if (res.data[i].type === "lucky_draw") {
-                prizeList.value.push(res.data[i])
-            } else{
-                productList.value.push(res.data[i])
-            }
-        }
-    }).catch(error => {
-        console.log(error);
-    })
-
-    list_campapign_lucky_draw_animation().then(res => {
-        animationList.value = res.data
-    }).catch(error => {
-        console.log(error);
-    })
-
-    eventBus.on('editDraw', (payload) => {
-        type.value = 'edit'
-        luckyDrawId.value = payload.lucky_draw_id
-        retrieve_campaign_lucky_draw(luckyDrawId.value).then(res => {
-            currentSettings.value = res.data
-            currentSettings.value.path = res.data.animation
-        })
-    })
-})
-
-onUnmounted(() => {
-    eventBus.off('editDraw')
-})
-
 </script>
 
 <style scoped>
+
 #create_animation {
     display: inline-block;
-    background-color: indigo;
+    background-color: rgb(10, 1, 78);
     color: white;
     padding: 0.5rem;
     font-family: sans-serif;
     border-radius: 0.3rem;
     cursor: pointer;
+    text-align: center;
 }
+
 </style> 

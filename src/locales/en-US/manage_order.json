@@ -4,7 +4,7 @@
         "action":"Action",
         "delivery_status":"Delivery Status",
         "refresh_orders" : "Refresh Orders",
-        "costumer" : "Costumer",
+        "customer" : "Customer",
         "platform" : "Platform",
         "name" : "Name",
         "total_items" : "Total Items",
