@@ -8,7 +8,7 @@
 					v-for="column in tableColumns"
 					:key="column.key"
 				>
-				{{ column.name }}
+				{{ $t(`order_detail.${column.name}`) }}
 				</th>
 			</tr>
 			</thead>
@@ -106,12 +106,12 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const tableColumns = ref([
-	{ key: "image", name: " ",  },
-	{ key: "product", name: "Product",  },
-	{ key: "qty", name: "Quantity",  },
-	{ key: "price", name: "Price",  },
-	{ key: "subtotal", name: "Subtotal",  },
-    { key: "remove", name: " ",  }
+	{ key: "image", name: "null",  },
+	{ key: "product", name: "product",  },
+	{ key: "qty", name: "qty",  },
+	{ key: "price", name: "price",  },
+	{ key: "subtotal", name: "sub_total",  },
+    { key: "remove", name: "null",  }
 ])
 
 

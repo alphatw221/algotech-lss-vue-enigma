@@ -2,15 +2,15 @@
   <div class="box p-5 border-2 border-secondary">
     <div>
       <div class="flex mb-4 dark:border-darkmode-400">
-        <span class="text-lg">Price Summary</span>
+        <span class="text-lg">{{$t('order_detail.price_summary')}}</span>
       </div>
 	  
       <div class="flex">
-        <div class="mr-auto">Subtotal</div>
+        <div class="mr-auto">{{$t('order_detail.sub_total')}}</div>
         <div class="font-medium">$ {{parseFloat(store.orderDetail.subtotal).toFixed(2)}}</div>
       </div>
       <div class="flex">
-        <div class="mr-auto">Shipping</div>
+        <div class="mr-auto">{{$t('order_detail.shipping')}}</div>
         <div class="font-medium">$ {{parseFloat(store.orderDetail.shipping_cost).toFixed(2)}}</div>
       </div>
       <template v-if="store.orderDetail.adjust_title !== null">
@@ -22,15 +22,15 @@
       <template v-if="props.order_type !== 'order'">
       <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">
-        <div class="mr-auto">Modify Price
+        <div class="mr-auto">{{$t('order_detail.modify_price')}}
             <div class="grid grid-cols-12 gap-4">
                 <div class="start-col-1 col-span-4">
                     <input :id="'radio-switch-p'" class="form-check-input" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'+'" />
-                    <span> Add +</span>
+                    <span> {{$t('order_detail.add')}} +</span>
                 </div>
                 <div class="start-col-5 col-span-4">
                     <input :id="'radio-switch-m'" class="form-check-input" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'-'" />
-                    <span> Subtract -</span>
+                    <span> {{$t('order_detail.subtract')}} -</span>
                 </div>
             </div>
                 <div class="mt-3 grid grid-cols-12 gap-4 xl:m-5 2xl:m-5">
@@ -41,7 +41,7 @@
                             <input id="regular-form-2" type="text" class="form-control " placeholder="Amount" v-model="store.orderDetail.adjust_price" />
                         </div>
                         <div class="flex flex-row-reverse col-span-4">
-                            <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">Update</button>
+                            <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">{{$t('components.word.update')}}</button>
                         </div> 
                 </div>
             <div class="m-3">
@@ -50,7 +50,7 @@
                     type="checkbox"
                     v-model="store.orderDetail.free_delivery"
                     />
-                <span class="ml-2">Free Delivery</span>
+                <span class="ml-2">{{$t('order_detail.apply_free_delivery')}}</span>
             </div>            
         </div>
       </div>
@@ -64,7 +64,7 @@
           dark:border-darkmode-400
         "
       >
-        <div class="mr-auto font-medium text-base">Total Charge</div>
+        <div class="mr-auto font-medium text-base">{{$t('order_detail.total')}}</div>
         <div class="font-medium text-base">$ {{parseFloat(store.orderDetail.total).toFixed(2)}}</div>
       </div>
     </div>
