@@ -29,10 +29,8 @@
 
 				<TomSelect
 					id="crud-form-2"
-					v-model="validate.tag.$model"
 					class="w-full"
 					multiple
-					:class="{ 'border-danger text-danger border-2': validate.tag.$error }" 
 					v-if="route.params.product_id"
 				>
 					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
@@ -40,19 +38,17 @@
 
 				<TomSelect
 					id="crud-form-2"
-					v-model="validate.tag.$model"
 					class="w-full"
 					multiple
-					:class="{ 'border-danger text-danger border-2': validate.tag.$error }" 
 					v-else
 				>
 					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
 				</TomSelect>
-				<template v-if="validate.tag.$error">
+				<!-- <template v-if="validate.tag.$error">
 						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
 						Select at least one tag 
 						</label>
-				</template>
+				</template> -->
 			</div>
 
 			<div class="col-span-12 col-start-1 mt-3">
@@ -339,8 +335,7 @@ const rules = computed(()=>{
 		order_code: {required, maxLength:maxLength(10)},
 		description: {maxLength: maxLength(100)},
 		qty: {integer},
-		price: {decimal},
-		tag: {required},  
+		price: {decimal},  
     }
 });
 
