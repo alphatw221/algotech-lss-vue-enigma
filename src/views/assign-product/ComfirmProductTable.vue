@@ -33,23 +33,35 @@
 
                         <td v-else-if="column.key === 'order_code'">
                             <div class=" form-check place-content-end sm:place-content-center">
-                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" :class="{ red: isOrderCodeDuplicate(index) }"
-                                    aria-label="default input" :value="product.order_code"
-                                    @input="changeInput($event, index, 'order_code')" />
+                                <input 
+                                    type="text" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" 
+                                    :class="{ red: isOrderCodeDuplicate(index) }"
+                                    v-model="product.order_code"
+                                />
+                            </div>
+                            <div v-if="isOrderCodeDuplicate(index)" class="text-red-600 text-center">
+                                duplicate
                             </div>
                         </td>
                         <td v-else-if="column.key === 'qty'">
                             <div class=" form-check place-content-end sm:place-content-center">
-                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" aria-label="default input" :value="product.qty"
-                                    @input="changeInput($event, index, 'qty')" />
+                                <input 
+                                    type="number" min="1" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" 
+                                    v-model="product.qty"
+                                />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'max_order'">
+                        <td v-else-if="column.key === 'max_order_amount'">
                             <div class=" form-check place-content-end sm:place-content-center">
-                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" aria-label="default input"
-                                    :value="product.max_order_amount"
-                                    @input="changeInput($event, index, 'max_order')" />
+                                <input 
+                                    type="number" min="1"  
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" 
+                                    v-model="product.max_order_amount"
+                                    @input="changeInput($event, index)"
+                                />
                             </div>
                         </td>
 
@@ -64,7 +76,7 @@
                             {{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}
                         </td>
 
-                        <td v-else-if="column.key === 'editable'" class="editable">
+                        <td v-else-if="column.key === 'customer_editable'" class="editable">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <input v-if="product.type === 'lucky_draw'"
                                     id="selectCheckbox" 
@@ -78,15 +90,15 @@
                                     class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                     type="checkbox"
                                     v-model="product[column.key]"
-                                    @click="product.deletable = false" 
+                                    @click="product.customer_deletable = false" 
                                 />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'deletable'" class="deletable">
+                        <td v-else-if="column.key === 'customer_deletable'" class="deletable">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <input 
-                                    v-if="product.editable === true" 
+                                    v-if="product.customer_editable === true" 
                                     id="selectCheckbox" 
                                     class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                     type="checkbox" 
@@ -140,7 +152,8 @@
 import { ref, onMounted, onUnmounted, getCurrentInstance, computed } from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { useRoute, useRouter } from "vue-router";
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { seller_create_campaign_products } from "@/api_v2/campaign_product";
 
 
 const campaignStore = useCreateCampaignStore();
@@ -164,12 +177,12 @@ const tableColumns = ref([
     { name: "Product Name", key: "name" },
     { name: "Order Code", key: "order_code" },
     { name: "Qty for Campaign", key: "qty" },
-    { name: "Max Qty / Order", key: "max_order" },
+    { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
     { name: "Type", key: "type" },
-    { name: "Editable", key: "editable" },
-    { name: "Deletable", key: "deletable" },
+    { name: "Editable", key: "customer_editable" },
+    { name: "Deletable", key: "customer_deletable" },
     { name: "Activate", key: "status" }
 ])
 
@@ -191,7 +204,18 @@ onMounted(() => {
             warningModalPreview.value = true
             return
         }
-        // router.push('campaign/create/confirm')
+
+        let assignedProducts = campaignStore.assignedProducts
+        for (let i = 0; i < assignedProducts.length; i ++) {
+            assignedProducts[i]['product_id'] = assignedProducts[i]['id']
+            assignedProducts[i]['qty_for_sale'] = parseInt(assignedProducts[i]['qty'])
+            assignedProducts[i]['max_order_amount'] = parseInt(assignedProducts[i]['max_order_amount'])
+        }
+        
+        seller_create_campaign_products(route.params.campaign_id, assignedProducts)
+        .then(response => {
+            router.push({ name: 'campaign-list' })
+        })
     })
 })
 
@@ -200,37 +224,21 @@ onUnmounted(() => {
 })
 
 const warningModalText = computed(() => {
-    if (emptyTitle.value == true) return 'Please enter campaign title !'
-    else if (duplicateOrderCode.value == true) return 'There are duplicated order code, please rename it.'
+    if (emptyTitle.value) return 'Please enter campaign title !'
+    else if (duplicateOrderCode.value) return 'There are duplicated order code, please rename it.'
 })
 
-const changeInput = (event, index, type) => {
-    if (type == 'order_code') {
-        campaignStore.assignedProducts[index].order_code = event.target.value
-    } else {
-        if (event.target.value == '') event.target.value = 1
-
-        if (event.target.value <= campaignStore.assignedProducts[index].qty) {
-            if (type == 'qty') {
-                campaignStore.assignedProducts[index].qty = event.target.value
-            } else if (type == 'max_order') {
-                campaignStore.assignedProducts[index].max_order_amount = event.target.value
-            }
-        } else {
-            alert('Input number is over product max quantity')
-            event.target.value = campaignStore.assignedProducts[index].qty
-            return
-        }
-    }
-    // console.log(campaignStore.assignedProducts[index])
+const changeInput = (event, index) => {
+    if (parseInt(event.target.value) > campaignStore.assignedProducts[index].qty) {
+        alert('Input number is over product max quantity')
+        campaignStore.assignedProducts[index].max_order_amount = campaignStore.assignedProducts[index].qty
+    } 
 }
 
 const isOrderCodeDuplicate = (index) => {
     let this_order_code = campaignStore.assignedProducts[index].order_code
     for (let i = 0; i < campaignStore.assignedProducts.length; i++) {
-        if (i != index && campaignStore.assignedProducts[i].order_code == this_order_code) {
-            return true
-        }
+        if (i != index && campaignStore.assignedProducts[i].order_code == this_order_code) return true
     }
 }
 
