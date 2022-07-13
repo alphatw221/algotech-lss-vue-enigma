@@ -65,7 +65,7 @@
                             <thead>
                                 <tr>
                                     <th class="w-10">
-                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" @change="selectAll($event)"/></th>
+                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" @change="selectAllStockProduct($event)"/></th>
                                     <th class="whitespace-normal truncate hover:text-clip" v-for="column in tableColumns" :key="column.key">
                                         {{ column.name }}
                                     </th>
@@ -78,7 +78,7 @@
                                     class="intro-x align-middle"
                                 >
                                     <td class="w-10">
-                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" @click="selectProduct(product_index, $event)"/>
+                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product.check" @click="selectStockProduct(product, $event)"/>
                                     </td>
 
                                     <td v-for="column in tableColumns" :key="column.key" class="text-[14px]">
@@ -178,7 +178,7 @@
                                 >
 
                                     <td class="w-10">
-                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" checked @click="unSelectProduct(product_index, $event)"/>
+                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" checked @click="unSelectProduct(product, product_index, $event)"/>
                                     </td>
 
                                     <td v-for="column in tableColumns" :key="column.key" class="text-[14px]">
@@ -300,8 +300,10 @@ const searchColumns = [
 const stockProducts = ref([])
 const selectedProducts = ref([])
 const errorMessages = ref([])
-const productDict = ref({})
+const selectedProductDict = ref({})
 
+let isSelectedProductsValid=false
+let campaignProductCache = null
 
 onMounted(() => {
 	list_product_category().then(
@@ -314,68 +316,116 @@ onMounted(() => {
 	)
 })
 	
-watch(computed(()=>selectedProducts.value),()=>{
-	updateStockProducts()
-}, {deep:true})
 
-watch(computed(()=>stockProducts.value),()=>{
-	updateStockProducts()
-}, {deep:true})
 
-const updateStockProducts = ()=>{
-	let temp = []
-	stockProducts.value.forEach((product, index) => {
-		if(!(product.id.toString() in productDict.value)){
-			temp.push(product)
-		}
+const updateStockProductsCheckBox = ()=>{
+    stockProducts.value.forEach(product => {
+        
+        if(product.id in selectedProductDict.value){ 
+            product.check=true
+        }else{
+            product.check=false
+        }
+    });
+}
+
+const getProductCache = ()=>{
+    if(campaignProductCache==null)createProductCache()
+    return JSON.parse(JSON.stringify(campaignProductCache))
+}
+
+const createProductCache = ()=>{
+
+    const stockProductIdDict={}
+    const orderCodeDict={}
+
+    campaignDetailStore.campaignProducts.forEach(campaignProduct => {
+        stockProductIdDict[campaignProduct.id.toString()]=true
+        orderCodeDict[campaignProduct.order_code]=true
 	});
-	stockProducts.value = temp
+
+    campaignProductCache = {
+        'stockProductIdDict':stockProductIdDict, 
+        'orderCodeDict':orderCodeDict
+    }
 }
 
+const checkIfValid = ()=>{
+    isSelectedProductsValid = true
+    const productCache = getProductCache()
+    selectedProducts.value.forEach((selectedProduct,index) => {
+        console.log( productCache.orderCodeDict)
+        errorMessages.value[index]={}
+        if(selectedProduct.order_code in productCache.orderCodeDict) {errorMessages.value[index]['order_code']='duplicate';isSelectedProductsValid=false;}
+        if(!selectedProduct.order_code) {errorMessages.value[index]['order_code']='invalid';isSelectedProductsValid=false;}
+        // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
+        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid';isSelectedProductsValid=false}
+        else if(selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false}
+        
+        productCache.orderCodeDict[selectedProduct.order_code]=true
+    });
 
-
-const selectProduct = (productIndex, event) =>{
-	event.target.checked=false
-	productDict.value[stockProducts.value[productIndex].id.toString()]=true
-	selectedProducts.value.push(Object.assign({},stockProducts.value[productIndex]))
-	errorMessages.value.push(null)
-
+    console.log(isSelectedProductsValid)
+    console.log(errorMessages.value)
 }
-const unSelectProduct = (selectedProductIndex, event) =>{
+
+watch(computed(()=>campaignDetailStore.campaignProducts),createProductCache)
+
+watch(computed(()=>stockProducts.value),updateStockProductsCheckBox)
+
+watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
+
+const selectStockProduct = (stockProduct, event) =>{
+
+    if(event.target.checked){
+        errorMessages.value.push({})
+        selectedProducts.value.push( JSON.parse(JSON.stringify(stockProduct)) )
+        selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
+        
+    }else{
+        const _index = selectedProductDict[stockProduct.id.toString()]
+        selectedProducts.value.splice(_index,1)
+        errorMessages.value.splice(_index,1)
+        delete selectedProductDict[stockProduct.id.toString()]
+    }
+}
+
+const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
 	event.target.checked=true
-	delete productDict[selectedProducts.value[selectedProductIndex].id.toString()]
+	delete selectedProductDict.value[selectedProduct.id.toString()]
 	selectedProducts.value.splice(selectedProductIndex,1)
 	errorMessages.value.splice(selectedProductIndex,1)
-	search()
+
+    updateStockProducts()
 }
 
 const resetSelectedProduct = ()=>{
 
 	selectedProducts.value.forEach(product => {
-		delete productDict.value[product.id.toString()]
+		delete selectedProductDict.value[product.id.toString()]
 	});
 	selectedProducts.value = []
 	errorMessages.value = []
-	search()
+    updateStockProducts()
 
 }
 
-const selectAll = (event)=>{
+const selectAllStockProduct = (event)=>{
 	event.target.checked=false
 	stockProducts.value.forEach(product => {
-		productDict.value[product.id.toString()]=true
-		selectedProducts.value.push(Object.assign({},product))
-		errorMessages.value.push(null)
+        product.check=true
+        selectedProducts.value.push(JSON.parse(JSON.stringify(product)))
+		selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
+		errorMessages.value.push({})
 	});
-	search()
 }
 
 const search = () => {
-
-	campaignDetailStore.campaignProducts.forEach(campaignProduct => {
-		if(campaignProduct.product)productDict.value[campaignProduct.product.toString()]=true
-	});
-	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', selectedCategory.value, Object.keys(productDict.value).join(','))
+    // const exclude = []
+	// campaignDetailStore.campaignProducts.forEach(campaignProduct => {
+    //     exclude.push(campaignProduct.product.toString())
+	// });
+	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', selectedCategory.value)
 	.then(response => {
 		stockProducts.value = response.data.results
 		dataCount.value = response.data.count
@@ -406,6 +456,10 @@ const changePageSize = (pageSize)=>{
 const submitData = ()=>{
     console.log(selectedProducts.value)
     return 
+    if(!isSelectedProductsValid){
+        layoutStore.alert.showMessageToast("Invalid")
+        return
+    }
 	errorMessages.value = []
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
 		campaignDetailStore.campaignProducts = res.data
@@ -422,7 +476,7 @@ const hideModal = ()=>{
     selectedProducts.value=[]
     errorMessages.value=[]
     stockProducts.value=[]
-    productDict.value = {}
+    selectedProductDict.value = {}
     openTab.value = 'select'
     currentPage.value = 1
     totalPage.value = 1
