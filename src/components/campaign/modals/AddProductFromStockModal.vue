@@ -404,7 +404,8 @@ const changePageSize = (pageSize)=>{
 }
 
 const submitData = ()=>{
-
+    console.log(selectedProducts.value)
+    return 
 	errorMessages.value = []
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
 		campaignDetailStore.campaignProducts = res.data
