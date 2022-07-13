@@ -8,9 +8,9 @@
         <ModalBody>
             <ModalHeader>
                     <h2 class="font-medium text-base mr-auto">
-                        Order No. {{store.orderProductData.id}}
+                        {{$t('manage_order.order')}} No. {{store.orderProductData.id}}
                         <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
-                            {{store.orderProductData.status }}
+                            {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
                     </h2>
             </ModalHeader>
@@ -18,7 +18,7 @@
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
-                            {{ column.name }}
+                            {{ $t(`order_detail.${column.name}`) }}
                         </th>
                     </tr>
                 </thead>
@@ -61,19 +61,19 @@
                 <div class="box col-start-1 col-span-12 lg:col-start-8 2xl:col-start-8">
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">Total</div>
+                            <div class="mr-auto font-bold">{{$t('order_detail.total')}}</div>
                             <div class="mr-10">$ {{parseFloat(store.orderProductData.subtotal).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">Delivery Charge</div>
+                            <div class="mr-auto font-bold">{{$t('order_detail.delivery_charge')}}</div>
                             <div class="mr-10">$ {{parseFloat(store.orderProductData.shipping_cost).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">Discount {{store.orderProductData.adjust_title ?? ''}}</div>
+                            <div class="mr-auto font-bold">{{store.orderProductData.adjust_title ?? $t('order_detail.discount')}}</div>
                             <div class="mr-10">$ {{parseFloat(store.orderProductData.adjust_price).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">Grand Total</div>
+                            <div class="mr-auto font-bold">{{$t('order_detail.total')}}</div>
                             <div class="mr-10">$ {{parseFloat(store.orderProductData.total).toFixed(2)}}</div>
                         </div>
                     </div>
@@ -95,11 +95,11 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const columns = ref([
-    { key: "image", name: "Image",  },
-	{ key: "product", name: "Product",  },
-	{ key: "qty", name: "Qty",  },
-	{ key: "price", name: "Price",  },
-	{ key: "subtotal", name: "Subtotal",  },
+    { key: "image", name: "null",  },
+	{ key: "product", name: "product",  },
+	{ key: "qty", name: "qty",  },
+	{ key: "price", name: "price",  },
+	{ key: "subtotal", name: "sub_total",  },
 ]);
 
 onMounted(()=>{

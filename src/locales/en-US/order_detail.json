@@ -32,6 +32,9 @@
     "sub_total" : "Sub Total",
     "total" : "Total",
     "shipping":"Shipping",
+    "delivery_charge":"Delivery Charge",
+    "discount":"Discount",
+
     "add": "Add",
     "subtract": "Subtract",
     
