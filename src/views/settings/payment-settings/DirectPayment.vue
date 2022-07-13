@@ -5,7 +5,7 @@
                 <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
                 type="checkbox" 
-                v-model="paymentData.enable"
+                v-model="paymentData.enabled"
                 />
                 <label class="ml-3 form-label">Enabled</label>
             </div>
@@ -111,7 +111,7 @@ const router = useRouter();
 
 const paymentData = ref(
     {
-        enable:false,
+        enabled:false,
         title:'',
         v2_accounts:[]
     }
@@ -125,7 +125,7 @@ onMounted(() => {
     console.log(sellerStore.userInfo.user_subscription.meta_payment)
 
     if(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]){
-        paymentData.value = sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]
+        paymentData.value = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]))  
     }
 
 
