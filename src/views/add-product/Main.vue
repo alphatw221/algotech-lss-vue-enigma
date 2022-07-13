@@ -29,6 +29,7 @@
 
 				<TomSelect
 					id="crud-form-2"
+					v-model="product.tag"
 					class="w-full"
 					multiple
 					v-if="route.params.product_id"
@@ -38,6 +39,7 @@
 
 				<TomSelect
 					id="crud-form-2"
+					v-model="product.tag"
 					class="w-full"
 					multiple
 					v-else
