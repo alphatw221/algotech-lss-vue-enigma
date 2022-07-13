@@ -1,6 +1,6 @@
 <template>
 	<div class="mt-3 overflow-auto h-[600px]">
-		<table class="table -mt-3 table-auto box table-report ">
+		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
 					<th class="whitespace-normal xl:whitespace-nowrap" v-for="column in columns" :key="column.key">

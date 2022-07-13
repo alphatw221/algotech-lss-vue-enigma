@@ -1,41 +1,41 @@
 <template>
   <div :class="{ hidden: store.openTab !== 2, block: store.openTab === 2 }">
-    <div class="intro-y grid grid-cols-12 gap-5">
-      <div class="intro-y col-span-12 row-start-2 lg:row-start-1 2xl:row-start-1 lg:col-span-8">
-        <h2 class="text-xl font-medium mr-auto w-full">Contact Information</h2>
-        <div class=" p-0 mt-3 intro-y grid grid-cols-12 gap-5 my-10 lg:p-10 2xl:p-10">
-          <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">First
+    <div class="grid grid-cols-12 gap-5 intro-y">
+      <div class="col-span-12 row-start-2 intro-y lg:row-start-1 lg:col-span-8">
+        <h2 class="w-full mr-auto text-xl font-medium">Contact Information</h2>
+        <div class="grid grid-cols-12 gap-5 p-0 my-10 mt-3 intro-y lg:p-10">
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">First
             Name</label>
-            <div class="col-span-8 lg:col-span-4 2xl:col-span-4">
+            <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
-                class="form-control  col-span-8 lg:col-span-4 2xl:col-span-4" placeholder=""
+                class="col-span-8 form-control lg:col-span-4" placeholder=""
                 :class="{ 'border-danger': reciever_validate.shipping_first_name.$error }"
                 v-model.trim="reciever_validate.shipping_first_name.$model" @blur="reciever_validate.shipping_first_name.$touch"/>
                 <template v-if="reciever_validate.shipping_first_name.$error">
                       <label
-                        class="text-danger mt-2"
+                        class="mt-2 text-danger"
                       >
                         Please enter First Name
                       </label>
                   </template>
               </div>
-          <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Last
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">Last
             Name</label>
-            <div class="col-span-8 lg:col-span-4 2xl:col-span-4">
+            <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
-                class="form-control  " placeholder=""
+                class="form-control " placeholder=""
                 :class="{ 'border-danger': reciever_validate.shipping_last_name.$error }"
                 v-model.trim="reciever_validate.shipping_last_name.$model" />
                 <template v-if="reciever_validate.shipping_last_name.$error">
                           <label
-                            class="text-danger mt-2"
+                            class="mt-2 text-danger"
                           >
                             Please enter Last Name
                           </label>
                   </template>
             </div>
-          <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Email</label>
-          <div class="col-span-8 lg:col-span-4 2xl:col-span-4">
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">Email</label>
+          <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="email"
                 placeholder="example@gmail.com"
                 class="form-control "
@@ -45,22 +45,22 @@
                   <label
                     v-for="(error, index) in reciever_validate.shipping_email.$errors"
                   :key="index"
-                    class="text-danger mt-2"
+                    class="mt-2 text-danger"
                   >
                     {{ error.$message }}
                   </label>
               </template>
           </div>
           
-          <label for="regular-form-2" class="form-label col-span-4 lg:col-span-2 2xl:col-span-2">Phone</label>
-          <div class="col-span-8 lg:col-span-4 2xl:col-span-4">
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">Phone</label>
+          <div class="col-span-8 lg:col-span-4">
           <input id="regular-form-2" type="tel"
-            class="form-control  " placeholder=""
+            class="form-control " placeholder=""
             :class="{ 'border-danger': reciever_validate.shipping_phone.$error }"
             v-model.trim="reciever_validate.shipping_phone.$model" />
             <template v-if="reciever_validate.shipping_phone.$error">
                   <label
-                    class="text-danger mt-2"
+                    class="mt-2 text-danger"
                   >
                     Phone number is required
                   </label>
@@ -68,82 +68,84 @@
           </div>
         </div>
 
-        <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-          <h2 class="text-xl font-medium mr-auto mb-5">
+        <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
+          <h2 class="mb-5 mr-auto text-xl font-medium">
             Shipping Information
           </h2>
         </div>
 
         <TabGroup>
-          <TabList class="nav-boxed-tabs flex grow items-center w-full justify-around items-center">
+          <TabList class="flex items-center justify-around w-full nav-boxed-tabs grow">
             <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('delivery')">
-              <div class="grow inline-flex items-center place-content-center">
-                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg ">Home Delivery</span>
+              <div class="inline-flex items-center grow place-content-center">
+                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg">Home Delivery</span>
               </div>
             </Tab>
-            <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
+            <template v-if="store.order.campaign"> 
+               <Tab v-if="store.order.campaign.meta_logistic.additional_delivery_charge_title.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('pickup')">
-              <div class="grow inline-flex items-center place-content-center">
-                <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg 2xl:text-lg">Self Pickup</span>
+              <div class="inline-flex items-center grow place-content-center">
+                <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg">Self Pickup</span>
               </div>
             </Tab>
+            </template>
           </TabList>
 
 
           <TabPanels class="mt-5">
             <!-- BEGIN Delivery Panel -->
             <TabPanel class="leading-relaxed">
-              <label class="text-md font-medium col-span-12">Delivery Information</label>
+              <label class="col-span-12 font-medium text-md">Delivery Information</label>
               <div class="grid grid-cols-12">
-                <div class="p-8 intro-y col-span-12 gap-5">
-                  <label for="regular-form-2" class="form-label my-2">Address</label>
+                <div class="col-span-12 gap-5 p-8 intro-y">
+                  <label for="regular-form-2" class="my-2 form-label">Address</label>
                   <div>
-                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                    :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
-                    v-model.trim="delivery_validate.shipping_address_1.$model" />
+                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                      :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
+                      v-model.trim="delivery_validate.shipping_address_1.$model" />
                     <template v-if="delivery_validate.shipping_address_1.$error">
                           <label
-                            class="text-danger mt-2"
+                            class="mt-2 text-danger"
                           >
                             Please enter Address
                           </label>
-                  </template>
+                    </template>
                   </div>
-                  <label for="regular-form-2" class="form-label my-2">City</label>
+                  <label for="regular-form-2" class="my-2 form-label">City</label>
                   <div>
                   <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_location.$error }"
                     v-model.trim="delivery_validate.shipping_location.$model" />
                   <template v-if="delivery_validate.shipping_location.$error">
                           <label
-                            class="text-danger mt-2"
+                            class="mt-2 text-danger"
                           >
                             Please enter City
                           </label>
                   </template>
                   </div>
-                  <label for="regular-form-2" class="form-label my-2">State</label>
+                  <label for="regular-form-2" class="my-2 form-label">State</label>
                   <div>
                   <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_region.$error }"
                     v-model.trim="delivery_validate.shipping_region.$model" />
                     <template v-if="delivery_validate.shipping_region.$error">
                           <label
-                            class="text-danger mt-2"
+                            class="mt-2 text-danger"
                           >
                             Please enter State
                           </label>
                   </template>
                   </div>
-                  <label for="regular-form-2" class="form-label my-2">Postal Code</label>
+                  <label for="regular-form-2" class="my-2 form-label">Postal Code</label>
                   <div>
                   <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
                     v-model.trim="delivery_validate.shipping_postcode.$model" />
                     <template v-if="delivery_validate.shipping_postcode.$error">
                           <label
-                            class="text-danger mt-2"
+                            class="mt-2 text-danger"
                           >
                             Please enter Postal Code
                           </label>
@@ -152,13 +154,13 @@
                   
                 </div>
                 <!-- BEGIN Delivery Option -->
-                <label class="text-md font-medium col-span-12">Delivery Option</label>
-                <div class="intro-y col-span-12 gap-5 mx-0 lg:mx-20 2xl:mx-20">
+                <label class="col-span-12 font-medium text-md">Delivery Option</label>
+                <div class="col-span-12 gap-5 mx-0 intro-y lg:mx-20 2xl:mx-20">
                   <div v-if="store.order.campaign">
-                    <div class="flex form-check my-4 border-2 px-10 py-6 rounded-lg">
+                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
                       <input :id="'radio-switch-'" class="form-check-input" type="radio"
                         name="vertical_radio_button" value="" v-model="shipping_info.shipping_option" />
-                      <label class="form-check-label mr-auto" :for="'radio-switch-'">default</label>
+                      <label class="mr-auto form-check-label" :for="'radio-switch-'">default</label>
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
@@ -166,12 +168,12 @@
                         }}
                       </div>
                     </div>
-                    <div class="flex form-check my-4 border-2 px-10 py-6 rounded-lg"
+                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
                       v-for="(title, index) in store.order.campaign.meta_logistic.additional_delivery_charge_title"
                       :key="index">
                       <input :id="'radio-switch-' + index" class="form-check-input" type="radio"
                         name="vertical_radio_button" :value="title" v-model="shipping_info.shipping_option" />
-                      <label class="form-check-label mr-auto" :for="'radio-switch-' + index">{{ title }}</label>
+                      <label class="mr-auto form-check-label" :for="'radio-switch-' + index">{{ title }}</label>
 
                       <div v-if="store.order.campaign.meta_logistic.additional_delivery_charge_type[index] === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
@@ -199,16 +201,16 @@
             <!-- BEGIN Pickup Panel -->
             <TabPanel class="leading-relaxed">
               <div class="grid grid-cols-12">
-                <label class="text-md font-medium col-span-12">Pickup Option</label>
-                <div class="intro-y col-span-12 gap-5 lg:mx-20 2xl:mx-20">
+                <label class="col-span-12 font-medium text-md">Pickup Option</label>
+                <div class="col-span-12 gap-5 intro-y lg:mx-20 2xl:mx-20">
                   <div v-if="store.order.campaign">
-                    <div class="flex form-check my-4 border-2 px-10 py-6 rounded-lg"
+                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
                       v-for="(branch_name, index) in store.order.campaign.meta_logistic.branch_name" :key="index">
 
                       <input :id="'pickup-switch-' + index" class="form-check-input" type="radio"
                         name="vertical_radio_button" :value="branch_name"
                         v-model="shipping_info.shipping_option" />
-                      <label class="form-check-label mr-auto" :for="'pickup-switch-' + index">{{ branch_name }}</label>
+                      <label class="mr-auto form-check-label" :for="'pickup-switch-' + index">{{ branch_name }}</label>
 
 
                       <label class="form-check-label" :for="'pickup-switch-' + index">{{
@@ -224,10 +226,10 @@
 
 
           <div class="col-span-12 mt-10">
-            <div class="text-md font-medium">
+            <div class="font-medium text-md">
               Delivery and Collection Note
             </div>
-            <p id="" class="form-control col-start-1 col-span-12 p-5" placeholder="" v-if="store.order.campaign">
+            <p id="" class="col-span-12 col-start-1 p-5 form-control" placeholder="" v-if="store.order.campaign">
               {{store.order.campaign.meta_logistic.delivery_note}}
             </p>
           </div>
@@ -237,8 +239,8 @@
 
 
         <div class="col-span-12 mt-10">
-          <div class="text-md font-medium">Remark</div>
-          <textarea id="" class="form-control col-start-1 col-span-12 indent-4" placeholder=""
+          <div class="font-medium text-md">Remark</div>
+          <textarea id="" class="col-span-12 col-start-1 form-control indent-4" placeholder=""
             v-model="shipping_info.shipping_remark">
           </textarea>
         </div>
@@ -250,7 +252,7 @@
           <OrderSummary class="m-0 2xl:m-5" />
         </div>
 
-        <div class="intro-y box col-span-12 lg:col-span-6 mt-5">
+        <div class="col-span-12 mt-5 intro-y box lg:col-span-6">
           <ShoppingCartTableSimple />
         </div>
 
@@ -259,8 +261,8 @@
       </div>
     </div>
     
-    <div class="my-5 flex">
-      <button class="w-fit btn btn-outline-primary mr-auto rounded-full" @click="store.openTab= 1">
+    <div class="flex my-5">
+      <button class="mr-auto rounded-full w-fit btn btn-outline-primary" @click="store.openTab= 1">
         Previous
       </button>
       <button class="w-fit btn btn-rounded-primary" @click="proceed_to_payment">

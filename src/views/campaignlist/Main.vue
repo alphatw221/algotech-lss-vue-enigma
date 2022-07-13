@@ -1,9 +1,9 @@
 <template>
   <!-- BEGIN OUTTER BOX -->
-  <div class="flex flex-col gap-5 p-3 box sm:p-5">
+  <div class="flex flex-col gap-5 p-3 box sm:p-8">
     <!-- BEGIN: commit box -->
-    <div class="flex flex-row flex-wrap justify-between mt-4 sm:p-2">
-      <div class="flex-none mb-2 switch-toggle sm:mx-2">
+    <div class="flex flex-row flex-wrap justify-between mt-4 sm:px-2">
+      <div class="flex-none mx-auto mb-2 switch-toggle sm:mx-2">
         <input id="off" name="state-d" type="radio" />
         <label for="off" @click="show_campaign('ongoing')">Ongoing</label>
         <input id="on" name="state-d" type="radio" checked="checked"/>

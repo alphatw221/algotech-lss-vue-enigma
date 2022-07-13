@@ -1,7 +1,7 @@
 <template>
     <div class="py-5 sm:p-8">
-        <span class="mx-5 mb-3 text-2xl font-medium leading-none sm:m-10">Delivery Settings</span>
-        <div class="grid grid-cols-12 gap-1 mx-5 text-base sm:m-10 intro-y sm:gap-3 -z-50">
+        <span class="mx-2 mb-3 text-2xl font-medium leading-none sm:m-5">Delivery Settings</span>
+        <div class="grid grid-cols-12 gap-1 mx-2 text-base sm:m-5 intro-y sm:gap-3 -z-50">
 
             <div class="flex flex-col col-span-12 col-start-1 mt-2 text-[16px]"> 
                 <label class="w-full mr-1 text-base whitespace-nowrap">Delivery Charge</label>

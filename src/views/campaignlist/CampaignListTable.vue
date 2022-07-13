@@ -1,6 +1,6 @@
 <template>
-  <div class="overflow-auto h-[650px]">
-    <table class="table table-report">
+  <div class="overflow-auto max-h-[62vh] mt-4">
+    <table class="table -mt-3 table-report">
       <thead>
         <tr>
           <th class="text-center " v-for="column in tableColumns" :key="column.key">

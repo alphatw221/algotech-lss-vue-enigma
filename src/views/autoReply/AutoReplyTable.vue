@@ -1,16 +1,14 @@
 <template>
-	<div class=" overflow-y-auto max-h-[700px]">
+	<div class=" overflow-y-auto max-h-[62vh]">
 	
-		<table class="table table-report">
+		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
 					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap">
-						<template v-if=" column.key === 'edit' || column.key === 'delete' || column.key === 'facebook_page'"> 
-							<span class="flex justify-center" > {{ column.name }} </span>
+						<template v-if="column.name === '#'">
+							<span class="px-6"> {{ column.name }}</span> 
 						</template>
-						<template v-else> 
-							{{ column.name }}
-						</template>
+						<template v-else> {{ column.name }} </template>
 					</th>
 				</tr>
 			</thead>
@@ -30,16 +28,16 @@
 					</td> 
 				</tr>
 				<tr v-for="(reply, index) in listItems" :key="index" class="intro-x">
-					<template v-for="(column, index) in columns" :key="index">
+					<template v-for="(column, cindex) in columns" :key="cindex">
 						<td v-if="column.key === 'facebook_page'"
-							class="flex w-24 imgtd">
+							class="w-32 imgtd">
 							<span class="mt-4 title sm:hidden">{{column.name}}</span>
-							<div class="flex w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
+							<div class="w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
 								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image"
 									:content="`facebook`" />
 							</div>
 						</td>
-						<td v-else-if="column.key === 'edit'"  class="w-14 edit">
+						<td v-else-if="column.key === 'edit'"  class="w-20 edit">
 							<Dropdown placement="bottom-start">
 								<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
 								<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
@@ -49,15 +47,15 @@
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
 										@click="updateInfo(reply.id, reply.input_msg, reply.output_msg, reply.description)"> 
 											<EditIcon class="w-[20px] h-[20px] mx-1"/> Edit </DropdownItem>
-									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
+									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
 										@click="deleteAutoReply(reply.id)"> 
 											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> Delete </DropdownItem>
 								</DropdownContent>
 								</DropdownMenu>
 							</Dropdown> 
 						</td>
-						<td v-else-if="column.key === 'id'" class="w-20 id lg:text-sm">
-							<span class="sm:hidden"># </span>{{ reply[column.key] }}
+						<td v-else-if="column.key === 'id'" class="w-20 text-center id lg:text-sm">
+							<span class="sm:hidden"># </span>{{index+1}}
 						</td>
 						<td v-else class="w-auto info lg:max-w-30 lg:text-sm longMessage">
 							<span class="title sm:hidden">{{column.name}}</span> {{ reply[column.key] }}

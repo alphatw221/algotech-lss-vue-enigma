@@ -11,7 +11,7 @@
                             </span>
                         </div>
                         <div>
-                            <font-awesome-icon icon="fa-solid fa-pen-to-square" class="h-6" />
+                            <EditIcon class="h-6" />
                         </div>
                     </div>
                 </Accordion>
@@ -34,7 +34,7 @@
                             </span>
                         </div>
                         <div>
-                            <font-awesome-icon icon="fa-solid fa-pen-to-square" class="h-6" />
+                            <EditIcon class="h-6" />
                         </div>
                     </div>
                 </Accordion>
@@ -57,7 +57,7 @@
                             </span>
                         </div>
                         <div>
-                            <font-awesome-icon icon="fa-solid fa-pen-to-square" class="h-6" />
+                            <EditIcon class="h-6" />
                         </div>
                     </div>
                 </Accordion>

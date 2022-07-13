@@ -1,6 +1,7 @@
 <template>
-    <div class="overflow-x-auto overflow-y-auto h-[67vh] sm:h-[62vh]">
-        <table class="table table-report ">
+    <div class="p-2 mt-5 box sm:p-5 sm:pb-0">
+        <div class="overflow-auto h-[62vh] sm:h-[62vh]">
+            <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
                     <th class="items-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
@@ -36,6 +37,10 @@
                                 <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" :class="{ red: isOrderCodeDuplicate(index) }"
                                     aria-label="default input" :value="product.order_code"
                                     @input="changeInput($event, index, 'order_code')" />
+                                <span v-if="isOrderCodeDuplicate(index)"
+                                    class="absolute text-danger -bottom-2"> 
+                                    Duplicate order code, please change another one
+                                </span>
                             </div>
                         </td>
                         <td v-else-if="column.key === 'qty'">
@@ -132,7 +137,7 @@
                 </div>
             </ModalBody>
         </Modal>
-
+    </div>
     </div>
 </template>
 
