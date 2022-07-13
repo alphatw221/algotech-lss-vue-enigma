@@ -13,8 +13,7 @@
                 <tr v-for="(product, index) in productsList" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
 
-                        <td v-if="column.key === 'image'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd">
+                        <td v-if="column.key === 'image'" class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd">
                             <div class="flex items-center justify-center">
                                 <div class="w-[120px] h-[120px] image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <img class="rounded-lg cursor-auto" data-action="zoom"
@@ -23,50 +22,50 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'order_code'"
-                            class="w-24 text-[12px] lg:text-sm">
+                        <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm">
                             <div class="form-check place-content-center">
-                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1" aria-label="default input"
-                                    :value="product.order_code" @input="changeInput($event, index, 'order_code')"
+                                <input 
+                                    type="text" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1"
+                                    v-model="product[column.key]"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'qty'"
-                            class="w-24 text-[12px] lg:text-sm">
+                        <td v-else-if="column.key === 'qty'" class="w-24 text-[12px] lg:text-sm">
                             <div class="form-check place-content-center">
-                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1" aria-label="default input" :value="product.qty"
-                                    @input="changeInput($event, index, 'qty')"
+                                <input 
+                                    type="number" min="1" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1" 
+                                    v-model="product[column.key]"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'max_order'"
-                            class="w-24 text-[12px] lg:text-sm">
+                        <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm">
                             <div class="form-check place-content-center">
-                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1" aria-label="default input"
-                                    :value="product.max_order_amount" @input="changeInput($event, index, 'max_order')"
+                                <input 
+                                    type="number" min="1" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1"
+                                    v-model="product[column.key]" 
+                                    @input="changeInput($event, index)"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'tag'"
-                            class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
+                        <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
                             <div v-for="tag in product[column.key]" :key="tag">{{ tag }}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'price'"
-                            class="w-full text-[12px] lg:w-fit lg:text-sm whitespace-nowrap">
+                        <td v-else-if="column.key === 'price'" class="w-full text-[12px] lg:w-fit lg:text-sm whitespace-nowrap">
                             <div>{{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'name'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center longMessage">
+                        <td v-else-if="column.key === 'name'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center longMessage">
                             <div class="w-full">{{ product[column.key] }}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'selected'"
-                            class="text-[12px] lg:w-18 lg:text-sm 2xl:w-32 selected">
+                        <td v-else-if="column.key === 'selected'" class="text-[12px] lg:w-18 lg:text-sm 2xl:w-32 selected">
                             <div class="sm: form-check sm:place-content-center">
                                 <input id="selectCheckbox"
                                     class="form-check-input w-[1.2rem] h-[1.2rem]"
@@ -74,8 +73,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'editable'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                        <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <div v-if="product.type === 'lucky_draw'">
                                     <input id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox" disabled
@@ -87,18 +85,16 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'deletable'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                        <td v-else-if="column.key === 'customer_deletable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
                             <div class=" form-check place-content-end sm:place-content-center">
-                                <input v-if="product.editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
+                                <input v-if="product.customer_editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" disabled v-model="product[column.key]" />
                                 <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
                                     v-model="product[column.key]" :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'type'"
-                            class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
+                        <td v-else-if="column.key === 'type'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
                             <div class=" form-check place-content-end sm:place-content-center"> {{ product[column.key] }}
                             </div>
                         </td>
@@ -123,8 +119,7 @@
             </tbody>
         </table>
         <div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
-            <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage"
-                @on-page-size-change="changePageSize" />
+            <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
         </div>
     </div>
 </template>
@@ -154,16 +149,17 @@ const tableColumns = ref([
     { name: "Product Name", key: "name" },
     { name: "Order Code", key: "order_code" },
     { name: "Qty for Campaign", key: "qty" },
-    { name: "Max Qty / Order", key: "max_order" },
+    { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
     { name: "Type", key: "type" },
-    { name: "Editable", key: "editable" },
-    { name: "Deletable", key: "deletable" },
+    { name: "Editable", key: "customer_editable" },
+    { name: "Deletable", key: "customer_deletable" },
 
 ])
 
 onMounted(() => {
+    campaignStore.assignedProducts = []
     search()
 
     eventBus.on("assignTable", (payload) => {
@@ -187,58 +183,51 @@ const search = () => {
             .then(response => {
                 dataCount.value = response.data.count
                 productsList.value = response.data.results
-
                 productsList.value.forEach((item) => {
-                    item.qty_campaign = item.qty
                     item.selected = false
-                    item.editable = true
-                    item.deletable = true
                     item.max_order_amount = item.qty
-                    if (item.type === 'lucky_draw') {
-                        item.editable = false
-                        item.deletable = false
+                    if (item.type === 'product') {
+                        item.customer_editable = true
+                        item.customer_deletable = true
                     }
-                    if (item.editable === false) item.deletable = false
+                    if (item.custmer_editable === false) item.customer_deletable = false
                 })
+
                 // 換頁時選取記憶在store中 selected, editable, deletable 欄位
                 if (campaignStore.assignedProducts.length > 0) {
-                    for (let i = 0; i < campaignStore.assignedProducts.length; i++) {
-                        for (let j = 0; j < productsList.value.length; j++) {
-                            if (campaignStore.assignedProducts[i].id == productsList.value[j].id) {
-                                productsList.value[j] = campaignStore.assignedProducts[i]
-                            }
-                        }
-                    }
+                    campaignStore.assignedProducts.forEach((storeItem) => {
+                        productsList.value.forEach((productItem, pIndex) => {
+                            if (storeItem.id == productItem.id) { productsList.value[pIndex] = storeItem }
+                        })
+                    })
                 }
-            }).catch(function (error) {
+            }).catch(error => {
                 console.log(error);
             })
     } else if (route.name === 'edit-campaign-product') {
         seller_retrieve_campaign_product(route.params.campaign_id, category.value, currentPage.value, pageSize.value)
-            .then(response => {
-                dataCount.value = response.data.count
-                productsList.value = response.data.results
+        .then(response => {
+            dataCount.value = response.data.count
+            productsList.value = response.data.results
 
-                productsList.value.forEach((item) => {
-                    item.qty_campaign = item.qty_for_sale
-                    item.qty = item.qty_for_sale
-                    item.selected = true
-                    item.editable = item.customer_editable
-                    item.deletable = item.customer_removable
-                    item.disabledEdit = true
-                    if (item.type === 'lucky_draw') {
-                        item.editable = false
-                        item.deletable = false
-                    }
-                    if (item.editable === false) item.deletable = false
-                })
-
-                let editExists = false
-                tableColumns.value.forEach((item) => { if (item.name === 'Edit') editExists = true })
-                if (editExists == false) tableColumns.value.push({ name: "Edit", key: "edit" })
-            }).catch(function (error) {
-                console.log(error);
+            productsList.value.forEach((item) => {
+                // item.qty_campaign = item.qty_for_sale
+                item.qty = item.qty_for_sale
+                item.selected = true
+                item.disabledEdit = true
+                if (item.type === 'lucky_draw') {
+                    item.customer_editable = true
+                    item.customer_editable = true
+                }
+                if (item.customer_editable === false) item.customer_editable = false
             })
+
+            let editExists = false
+            tableColumns.value.forEach((item) => { if (item.name === 'Edit') editExists = true })
+            if (editExists == false) tableColumns.value.push({ name: "Edit", key: "edit" })
+        }).catch(error => {
+            console.log(error);
+        })
     }
 }
 
@@ -253,70 +242,39 @@ const changePageSize = (page_size) => {
     search()
 }
 
-const changeInput = (event, index, type) => {
-    if (type == 'order_code') {
-        productsList.value[index].order_code = event.target.value
-    } else {
-        if (event.target.value[0] == '0' && event.target.value.length > 1) event.target.value = event.target.value.substring(1)
-        console.log(event.target.value)
-        if (parseInt(event.target.value) <= productsList.value[index].qty_campaign) {
-            if (type == 'qty') {
-                productsList.value[index].qty = event.target.value
-            } else if (type == 'max_order') {
-                productsList.value[index].max_order_amount = event.target.value
-            }
-        } else if(parseInt(event.target.value) > productsList.value[index].qty_campaign) {
-            alert('input number is over product max quantity')
-            event.target.value = productsList.value[index].qty
-            return
-        } else {
-            productsList.value[index].max_order_amount = 0
-        } 
-    }
+const changeInput = (event, index) => {
+    if (parseInt(event.target.value) > productsList.value[index].qty) {
+        alert('Input number is over product max quantity')
+        productsList.value[index].max_order_amount = productsList.value[index].qty
+    } 
 }
 
 // 把選取且無重複的product加入store
 const addProdcuts = () => {
     let assignProductIdList = []
-    if (campaignStore.assignedProducts.length > 0) {
-        campaignStore.assignedProducts.forEach((item) => {
-            assignProductIdList.push(item.id)
-        })
-    }
-
+    if (campaignStore.assignedProducts.length > 0) campaignStore.assignedProducts.forEach((item) => { assignProductIdList.push(item.id) })
     productsList.value.forEach((item) => {
-        if (item.selected == true && !assignProductIdList.includes(item.id)) {
-            campaignStore.$patch((state) => {
-                state.assignedProducts.push(item)
-            })
-        } else if (item.selected == false && assignProductIdList.includes(item.id)) {
-            campaignStore.$patch((state) => {
-                state.assignedProducts.splice(state.assignedProducts.indexOf(item), 1);
-            })
-        }
+        if (item.selected == true && !assignProductIdList.includes(item.id)) campaignStore.assignedProducts.push(item)
+        else if (item.selected == false && assignProductIdList.includes(item.id)) campaignStore.assignedProducts.splice(campaignStore.assignedProducts.indexOf(item), 1)
     })
 }
 
 const updateProduct = (index) => {
-    console.log(productsList.value[index])
-
     if (productsList.value[index].selected == false) {
         seller_delete_campaign_product(route.params.campaign_id, productsList.value[index].id)
-            .then(response => {
-                console.log(response.data)
-                search()
-            })
+        .then(response => {
+            console.log(response.data)
+            search()
+        })
     } else {
         productsList.value[index]['qty_for_sale'] = parseInt(productsList.value[index]['qty'])
         productsList.value[index]['max_order_amount'] = parseInt(productsList.value[index]['max_order_amount'])
-        productsList.value[index]['customer_editable'] = productsList.value[index]['editable']
-        productsList.value[index]['customer_removable'] = productsList.value[index]['deletable']
 
         seller_update_campaign_product(route.params.campaign_id, productsList.value[index].id, productsList.value[index])
-            .then(response => {
-                console.log(response.data)
-                search()
-            })
+        .then(response => {
+            console.log(response.data)
+            search()
+        })
     }
 }
 
