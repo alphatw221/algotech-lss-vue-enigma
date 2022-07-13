@@ -180,9 +180,11 @@ const branch_option = { name: null, address: null }
 
 onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return
-    deliverySettings.value = layoutStore.userInfo.user_subscription.meta_logistic
+    console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+
+    
+    deliverySettings.value = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
     fields.forEach(field => {
-        console.log(typeof deliverySettings.value[field.key],deliverySettings.value[field.key],field.dataType)
         if(typeof deliverySettings.value[field.key]!=field.dataType) deliverySettings.value[field.key]=field.default
     });
 
@@ -214,8 +216,14 @@ const updateDelivery = () => {
 }
 
 const discardDelivery = () =>{
-    if(!layoutStore.userInfo.user_subscription)return
-    deliverySettings.value = layoutStore.userInfo.user_subscription.meta_logistic
+
+    // console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+    // return
+    if(!layoutStore.userInfo.user_subscription) return
+
+    console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+    deliverySettings.value = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
+    
     fields.forEach(field => {
         if(typeof deliverySettings.value[field.key]!=field.dataType) deliverySettings.value[field.key]=field.default
     });
