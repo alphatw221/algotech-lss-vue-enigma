@@ -70,29 +70,6 @@
         "name" : "Name"
     },
 
-    "manage_order" : {
-        "manage_order" : "Manage Order",
-        "customer_orders" : "Customer Orders",
-        "refresh_orders" : "Refresh Orders",
-        "FB_user_name" : "FB User Name",
-        "platform" : "Platform",
-        "name" : "Name",
-        "total_items" : "Total Items",
-        "amount" : "Amount",
-        "payment" : "Payment",
-        "status" : "Status",
-        "view" : "View",
-        "stop_checkout" : "Stop Checkout",
-        "export_orders" : "Export Orders",
-        "closed_rate" : "Closed Rate",
-        "sales" : "Sales",
-        "uncheckout" : "Uncheckout rate",
-        "comments" : "Comments",
-        "complete_orders" : "Complete Orders",
-        "review" : "Review / Proceed",
-        "refresh" : "Refresh"
-    },
-
     "view_order" : {
         "order" : "Order",
         "order_no" : "Order No",

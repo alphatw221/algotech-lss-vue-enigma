@@ -7,7 +7,7 @@
       @hidden="hideModal()"
     >
       <ModalHeader>
-        <h2 class="mr-auto text-base font-medium">Select Live Stream</h2>
+        <h2 class="mr-auto text-base font-medium">{{$t('campaign.enter_post_id.select_stream')}}</h2>
         <a
           @click="hideModal()"
           class="absolute top-0 right-0 mt-3 mr-3"
@@ -38,7 +38,7 @@
               @click="selectPlatformPage('facebook')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              Select Page
+              {{$t('campaign.enter_post_id.select_page')}}
             </button>
             <div>
               Post ID: <br>
@@ -63,7 +63,7 @@
               @click="selectPlatformPage('instagram')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              Select Page
+              {{$t('campaign.enter_post_id.select_page')}}
             </button>
             <!-- <input
               id="modal-form-1"
@@ -96,7 +96,7 @@
               @click="selectPlatformPage('youtube')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              Select Page
+              {{$t('campaign.enter_post_id.select_page')}}
             </button>
             <!-- <input
               id="modal-form-1"
@@ -139,7 +139,7 @@
           class="w-20 mr-1 btn btn-outline-secondary"
           @click="hideModal()"
         >
-          Cancel
+          {{$t('components.word.cancel')}}
         </button>
         <button type="button" class="btn btn-primary w-20" @click="enterLive()" v-if="ready" 
           v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile">

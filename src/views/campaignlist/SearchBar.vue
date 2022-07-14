@@ -3,13 +3,13 @@
         <div class="flex flex-wrap content-end justify-start gap-3 mr-auto -mt-3 justify-items-stretch sm:mt-0">
             <div class="items-center flex-initial w-auto sm:mr-4">
                 <label class="mr-2 w-14 xl:w-auto">
-                    Search by
+                    {{$t('campaign.search')}}
                 </label>
                 <select id="tabulator-html-filter-field"
                     class="w-auto h-[35px] sm:h-[42px] mr-4 form-select" v-model="searchField">
                     <option v-for="searchColumn in searchColumns" :key="searchColumn.value" @change="search"
                         :value="searchColumn.value">
-                        {{ searchColumn.text }}
+                        {{ $t(`campaign.`+searchColumn.text) }}
                     </option>
                 </select>
             </div>
@@ -20,7 +20,7 @@
                     v-model="keyword" @keydown.enter.prevent="search" />
                     <button
                         class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary" @click="reset">
-                        Reset
+                        {{$t('campaign.reset')}}
                     </button>
                 </div>
                 

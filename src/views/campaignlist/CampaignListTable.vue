@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th class="text-center " v-for="column in tableColumns" :key="column.key">
-            {{ column.name }}
+            {{ $t(`campaign.`+column.name) }}
           </th>
           <th v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" ></th>
         </tr>
@@ -39,27 +39,27 @@
           <td class="text-center title w-fit">
             {{ campaign.title }}
           </td>
-          <td class="w-5 text-center startDate">
+          <td class="w-5 text-center startDate" :data-content="$t('campaign.start_at')">
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
-          <td class="w-5 text-center endDate">
+          <td class="w-5 text-center endDate" :data-content="$t('campaign.end_at')">
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
-          <td class="items-center manage_order w-fit">
+          <td class="items-center manage_order w-fit" :data-content="$t('campaign.action')">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
-              <span class="mr-3 sm:hidden"> Manage Orders</span>
+              <span class="mr-3 sm:hidden"> {{$t('campaign.manage_order')}}</span>
               <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>
             </a>
           </td>
-          <td class="items-center checkout w-fit">
+          <td class="items-center checkout w-fit" :data-content="$t('campaign.stop')">
             <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col justify-center form-check form-switch">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
@@ -73,12 +73,12 @@
             <button 
               v-if="campaignStatus === 'history'"
               class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
-              Histroy
+              {{$t('campaign.history')}}
             </button>
             <button 
               v-else
               class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
-              Live On
+              {{$t('campaign.live_on')}}
             </button>
           </td>
           <td
@@ -361,18 +361,18 @@ thead th{
     padding-left: 0px !important;
   }
   .startDate:before {
-    content:"Start Date"; 
+    content: attr(data-content); 
   }
   
   .endDate:before {
-    content:"Start Date"; 
+    content: attr(data-content); 
   }
 
   .manage_order:before{
     content:"Action"; 
   }
   .checkout:before{
-    content:"Stop Checkout"; 
+    content: attr(data-content); 
   }
   .entry:before{
 		display: none;
