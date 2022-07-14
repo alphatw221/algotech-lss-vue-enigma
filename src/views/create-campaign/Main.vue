@@ -116,10 +116,10 @@ const sellerStore = useLSSSellerLayoutStore()
 onMounted(() => {
 	if(!sellerStore.userInfo.user_subscription) return
 	
-	if (sellerStore.userInfo.user_subscription.meta_payment.length) {
+	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
 		campaignData.value.meta_logistic = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic))
 	}
-	if (sellerStore.userInfo.user_subscription.meta_payment.length) {
+	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
 		campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
 	}
 })
