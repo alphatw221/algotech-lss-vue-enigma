@@ -1,6 +1,6 @@
 <template>
-	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-5">
-		<div class="flex flex-wrap justify-between gap-5 mx-0 mt-4 sm:mx-8"> 
+	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-8">
+		<div class="flex flex-wrap justify-between gap-5 mx-0 mt-4"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
 				<label for="on"> For Sale</label>
@@ -80,12 +80,12 @@ const searchColumns = ref([
 
 const tableColumns = ref([
     { name: "Image", key: "image" },
-	{ name: "Product Name", key: "name" },
+	{ name: "Name", key: "name" },
 	{ name: "Order Code", key: "order_code" },
 	{ name: "Type", key: "type" },
 	{ name: "Category", key: "category" },
 	{ name: "Description", key: "description" },
-	{ name: "Quantity", key: "qty" },
+	{ name: "Qty", key: "qty" },
 	{ name: "Price", key: "price" },
 	{ name: "", key: "edit" },
 ])

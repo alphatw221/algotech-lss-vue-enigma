@@ -2,7 +2,7 @@
     <form class="flex justify-start gap-5 flex-warp sm:flex-row">
         <div class="flex flex-wrap content-end justify-start gap-3 mr-auto -mt-3 justify-items-stretch sm:mt-0">
             <div class="items-center flex-initial w-auto sm:mr-4">
-                <label class="mr-2 w-14 xl:w-auto">
+                <label class="mr-2 shrink whitespace-nowrap">
                     Search by
                 </label>
                 <select id="tabulator-html-filter-field"

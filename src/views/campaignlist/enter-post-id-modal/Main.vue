@@ -63,7 +63,7 @@
               @click="selectPlatformPage('instagram')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              Select Page
+              Select Profile
             </button>
             <!-- <input
               id="modal-form-1"
@@ -96,7 +96,7 @@
               @click="selectPlatformPage('youtube')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              Select Page
+              Select Channel
             </button>
             <!-- <input
               id="modal-form-1"
@@ -136,15 +136,15 @@
       <ModalFooter>
         <button
           type="button"
-          class="w-20 mr-1 btn btn-outline-secondary"
+          class="w-32 bg-white btn dark:border-darkmode-400"
           @click="hideModal()"
         >
           Cancel
         </button>
-        <button type="button" class="btn btn-primary w-20" @click="enterLive()" v-if="ready" 
+        <button type="button" class="w-32 ml-5 shadow-md btn btn-primary" @click="enterLive()" v-if="ready" 
           v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile">
 
-          Continue
+          Save
         </button>
       </ModalFooter>
     </Modal>

@@ -28,7 +28,7 @@
         "order_code" : "Order Code",
         "description" : "Description",
         "price" : "Price",
-        "qty" : "Quantity",
+        "qty" : "Qty",
         "type" : "Type",
         "status" : "Default Status",
         "remark" : "Tag"

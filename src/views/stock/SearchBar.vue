@@ -1,5 +1,5 @@
 <template>
-    <form class="text-[13px] sm:text-[16px] flex justify-between gap-2 sm:gap-5 flex-warp sm:flex-row">
+    <form class="flex justify-between gap-2 sm:gap-5 flex-warp sm:flex-row">
         <div class="flex flex-wrap justify-between w-full gap-2 sm:flex-row">
             <div class="flex items-center flex-initial w-fit" v-if="showCategoryFilter">
                 <label class="mr-2 w-fit">

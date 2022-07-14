@@ -2,8 +2,8 @@
   <!-- BEGIN OUTTER BOX -->
   <div class="flex flex-col gap-5 p-3 box sm:p-8">
     <!-- BEGIN: commit box -->
-    <div class="flex flex-row flex-wrap justify-between mt-4 sm:px-2">
-      <div class="flex-none mx-auto mb-2 switch-toggle sm:mx-2">
+    <div class="flex flex-row flex-wrap justify-between mt-4 mx-0">
+      <div class="flex-none mb-2 switch-toggle">
         <input id="off" name="state-d" type="radio" />
         <label for="off" @click="show_campaign('ongoing')">Ongoing</label>
         <input id="on" name="state-d" type="radio" checked="checked"/>
@@ -12,7 +12,7 @@
         <label for="na" @click="show_campaign('history')">History</label>
       </div>
       <button 
-        class="flex w-40 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded sm:mx-2"
+        class="flex w-40 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded"
               @click="router.push({name:'create-campaign'})" > 
         <span class="mr-1 text-lg font-bold">+</span> Create
       </button>
@@ -100,7 +100,7 @@ const searchColumns = ref([
 ])
 
 const tableColumns =ref( [
-  { name: "Fan Page", key: "page" },
+  { name: "Platform", key: "page" },
   // { name: "Platform", key: "platform" },
   { name: "Title", key: "title" },
   { name: "Start Time", key: "start_at" },
