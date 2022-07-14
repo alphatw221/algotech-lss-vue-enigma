@@ -1,6 +1,6 @@
 <template>
-  <div class="overflow-auto h-[650px]">
-    <table class="table table-report">
+  <div class="overflow-auto max-h-[62vh] mt-4">
+    <table class="table -mt-3 table-report">
       <thead>
         <tr>
           <th class="text-center " v-for="column in tableColumns" :key="column.key">
@@ -40,7 +40,6 @@
             {{ campaign.title }}
           </td>
           <td class="w-5 text-center startDate">
-            <div class="sm:hidden text-[14px] text-left ml-[14px] text-[#616161]">Start Time:</div>
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
@@ -48,43 +47,37 @@
             }}</div>
           </td>
           <td class="w-5 text-center endDate">
-            <div class="sm:hidden text-[14px] text-left ml-[14px] text-[#616161]">End Time:</div>
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short",
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
-          <td class="sm:hidden actions">
-            Actions
-          </td>
           <td class="items-center manage_order w-fit">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
+              <span class="mr-3 sm:hidden"> Manage Orders</span>
               <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>
             </a>
-            <div class="text-[12px] sm:hidden"> Manage Orders</div>
           </td>
           <td class="items-center checkout w-fit">
             <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col justify-center form-check form-switch">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
-              <div class="text-[12px] sm:hidden"> Stop Checkout</div>
             </div>
             <div v-else
               class="flex flex-col justify-center form-check form-switch">
                <input @click="stop_checkout(campaign.id,$event.target.checked)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.meta.allow_checkout"/>
-               <div class="text-[12px] sm:hidden"> Stop Checkout</div>
             </div>
           </td>
           <td class="justify-center text-center entry w-fit">
             <button 
               v-if="campaignStatus === 'history'"
-              class="w-24 mr-1 btn btn-elevated-rounded-pending h-[44px]" @click="clickEntry(index)">
+              class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
               Histroy
             </button>
             <button 
               v-else
-              class="w-24 mr-1 btn btn-elevated-rounded-pending h-[44px]" @click="clickEntry(index)">
+              class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
               Live On
             </button>
           </td>
@@ -97,9 +90,18 @@
                 </DropdownToggle>
                 <DropdownMenu class="w-40 pt-2">
                   <DropdownContent class="w-40 text-center">
-                    <DropdownItem class="w-full text-center whitespace-nowrap" @click="router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})"> <EditIcon class="w-4 h-4 mr-2" />Edit </DropdownItem>
-                    <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"><shopping-cartIcon class="w-4 h-4 mr-2" />Blank Cart </DropdownItem>
-                    <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"><giftIcon class="w-4 h-4 mr-2" />Lucky Draw</DropdownItem>
+                    <DropdownItem class="w-full text-center whitespace-nowrap" 
+                      @click="editCampaign(campaign)"> 
+                      <EditIcon class="h-[20px] w-[20px] mr-1" />
+                      Edit </DropdownItem>
+                    <DropdownItem 
+                      @click="copyURL(campaign)" class="w-full whitespace-nowrap"> 
+                      <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
+                      Blank Cart </DropdownItem>
+                    <DropdownItem 
+                      @click="editluckyDraw(campaign)" class="w-full whitespace-nowrap"> 
+                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      Lucky Draw</DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
@@ -133,6 +135,7 @@ import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
+import dom from "@left4code/tw-starter/dist/js/dom";
 
 const route = useRoute();
 const router = useRouter();
@@ -224,12 +227,7 @@ const manageOrder = (campaign_id,status)=>{
       // router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
     }
 
-const copyURL = (campaign_id)=>{
-      text = `${baseURL}/buyer/recaptcha/blank/${campaign_id}`;
-      navigator.clipboard.writeText(text).then(()=>{
-          alert('copied!')
-      })
-    }
+
 
 const startFromToast=()=>{
       if (route.query.type && route.query.type == 'startCampaign') {
@@ -237,9 +235,28 @@ const startFromToast=()=>{
 	    }
     }
 
-const luckyDraw = (campaign_id) => {
-      router.push({name:'lucky-draw',params:{'campaign_id':campaign_id}})
-    }
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
+
+const editCampaign = (campaign)=>{
+  router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})
+  hideDropDown()
+}
+
+const copyURL = (campaign)=>{
+  text = `${baseURL}/buyer/recaptcha/blank/${campaign.id}`;
+  navigator.clipboard.writeText(text).then(()=>{
+      alert('copied!')
+  })
+  hideDropDown()
+}
+
+const editLuckyDraw = (campaign) => {
+  router.push({name:'lucky-draw',params:{'campaign_id':campaign.id}})
+  hideDropDown()
+}
+
 
 </script>
 
@@ -302,13 +319,38 @@ thead th{
     text-align: center;
     box-shadow: none !important;
     align-items: center;
-    justify-content: center;
+    justify-content:flex-end;
     background-color: white !important;
+    min-height: 35px;
+    border: none;
+		padding-left: 50% !important;
     width: 100%;
-    min-height: 60px;
+    padding-right: 10px; 
   }
+
+	td:before {
+		position: absolute;
+		left: 6px;
+		width: 45%;
+    padding-right: 10px;
+		white-space: nowrap;
+		font-weight: bold;
+		box-shadow: none !important;
+		background-color: white !important;
+    text-align:left;
+	}
+
   .fan_page{
     display: inline-block;
+    padding-left: 0px !important;
+
+  }
+  .fan_page:before{
+    display:none;
+  }
+
+  .title:before{
+    display:none;
   }
   .title {
     width:100%;
@@ -316,44 +358,39 @@ thead th{
     font-weight:600;
     color:theme("colors.primary");
     min-height: 35px !important;
+    padding-left: 0px !important;
   }
-  .startDate {
-    display: inline-block;
-    width:50%;
+  .startDate:before {
+    content:"Start Date"; 
   }
   
-  .endDate {
-    display: inline-block;
-    width:50%;
+  .endDate:before {
+    content:"Start Date"; 
   }
 
-  .actions{
-    text-align: left !important;
-    min-height: 35px !important;
-    padding-left: 14px !important;
-    justify-content: start;
+  .manage_order:before{
+    content:"Action"; 
   }
-  .manage_order{
-    display: inline-block;
-    padding-left: 0% !important;
-    width: 33%;
+  .checkout:before{
+    content:"Stop Checkout"; 
   }
-  .checkout{
-    display: inline-block;
-    padding-left: 0% !important;
-    width: 33%;
-  }
+  .entry:before{
+		display: none;
+	}
   .entry{
 		display: inline-block;
-    padding-left: 0% !important;
-    width: 33%;
+    padding-left: 0px !important;
 	}
   .moreTools{
     display: inline-block;
     position: absolute !important;
+    padding-left: 0px !important;
     top:0;
     right:0;
     width:30px !important;
+  }
+  .moreTools:before{
+    display:none;
   }
 }
 </style>

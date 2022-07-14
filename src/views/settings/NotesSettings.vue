@@ -6,12 +6,12 @@
                     <div class="flex">
                         <div class="mr-auto"> 
                             Delivery Note: <br> 
-                            <span class="text-slate-400">
+                            <span class="text-slate-400 break-all">
                                 {{ deliveryNote }}
                             </span>
                         </div>
                         <div>
-                            <EditIcon class="click-icon m-auto h-6"></EditIcon>
+                            <EditIcon class="h-6" />
                         </div>
                     </div>
                 </Accordion>
@@ -29,12 +29,12 @@
                     <div class="flex">
                         <div class="mr-auto"> 
                             Special Note: <br> 
-                            <span class="whitespace-normal text-slate-400">
+                            <span class="whitespace-normal text-slate-400  break-all">
                                 {{ specialNote }}
                             </span>
                         </div>
                         <div>
-                            <EditIcon class="click-icon m-auto h-6"></EditIcon>
+                            <EditIcon class="h-6" />
                         </div>
                     </div>
                 </Accordion>
@@ -52,12 +52,12 @@
                     <div class="flex">
                         <div class="mr-auto"> 
                             Confirmation Note: <br> 
-                            <span class="text-slate-400">
+                            <span class="text-slate-400  break-all">
                                 {{ confirmationNote }}
                             </span>
                         </div>
                         <div>
-                            <EditIcon class="click-icon m-auto h-6"></EditIcon>
+                            <EditIcon class="h-6" />
                         </div>
                     </div>
                 </Accordion>

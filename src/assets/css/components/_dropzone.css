@@ -15,7 +15,7 @@
     @apply w-full h-full bg-cover;
 }
 .dz-image img{
-    @apply absolute bg-cover;
+    @apply absolute w-[120px] h-[120px] bg-cover;
 }
 .dz-details{
     @apply invisible;

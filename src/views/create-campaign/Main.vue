@@ -1,7 +1,7 @@
 <template>
-    <div class="box py-5 px-3 sm:p-12 flex flex-col gap-5 text-[16px]">
-		<span class="text-xl"> Create Campaign </span>
-		<div class="grid grid-cols-12 gap-1 intro-y sm:gap-5 -z-50">
+    <div class="flex flex-col gap-5 text-[16px] overflow-auto sm:overflow-hidden h-screen sm:h-[100%]">
+		<span class="mt-3 ml-5 text-xl sm:ml-0 sm:mt-5"> Create Campaign </span>
+		<div class="grid grid-cols-12 gap-1 px-5 py-5 sm:p-8 intro-y box sm:gap-5 -z-50">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
 				<div class="flex flex-col">
 					<label class="w-20 my-auto text-base form-label">Title</label>
@@ -19,7 +19,7 @@
 					</label>
 				</template>
 			</div>
-			<div class="col-span-12 mb-3 sm:col-span-6">
+			<div class="col-span-12 sm:col-span-6">
 				<div class="flex flex-col">
 					<label for="regular-form-2" class="w-16 my-auto text-base form-label">Period</label>
 					<v-date-picker class="z-49" 
@@ -56,12 +56,9 @@
 
 		<NotesForm :campaign="campaignData"/>
 
-		<div class="mt-5 p-0 col-span-12 z-0">
-			<div class="col-span-12 flex justify-end mt-5">
-				<button class="btn w-32 dark:border-darkmode-400 bg-white" @click="$router.push({ name: 'campaigns' })">
-		<!-- <div class="z-0 col-span-12 p-0 mt-5">
+		<div class="z-50 col-span-12 mr-8 -mt-12 sm:-mt-20">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="w-32 btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })"> -->
+				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
 					Cancel
 				</button>
 				<button class="w-32 ml-5 shadow-md btn btn-primary" @click="createCampaign()">
@@ -118,10 +115,14 @@ watch(computed(()=>dateTimePicker.value),()=>{
 
 const sellerStore = useLSSSellerLayoutStore()
 onMounted(() => {
-	if(!sellerStore.userInfo.user_subscription)return
-	campaignData.value.meta_logistic = sellerStore.userInfo.user_subscription.meta_logistic
-	campaignData.value.meta_payment = sellerStore.userInfo.user_subscription.meta_payment
-    
+	if(!sellerStore.userInfo.user_subscription) return
+	
+	if (sellerStore.userInfo.user_subscription.meta_payment.length) {
+		campaignData.value.meta_logistic = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic))
+	}
+	if (sellerStore.userInfo.user_subscription.meta_payment.length) {
+		campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
+	}
 })
 
 const title_rules = computed(() => {
@@ -130,6 +131,8 @@ const title_rules = computed(() => {
 const title_validate = useVuelidate(title_rules, campaignData);
 
 const createCampaign = ()=>{
+	// console.log(campaignData.value)
+	// return
 	title_validate.value.$touch()
 	if (title_validate.value.$invalid) {
 		sellerStore.alert.showMessageToast("Invalid campaign title input")

@@ -4,7 +4,7 @@
             <div class="h-screen flex justify-center rounded overflow-hidden shadow-lg">
                 <div style="margin-top: 5rem;" v-if="ready === true && beforeDraw === true">
                     <img class="m-3 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px;"/>
-                    <div class="text-center mt-7" style="font-size: 1.5rem;">{{ luckyDrawData.prize.name }}</div>
+                    <div class="text-center mt-7 text-2xl">{{ luckyDrawData.prize.name }}</div>
                     <div class="mt-9 flex">
                         <div class="w-[50%] flex-col mr-5">
                             <label class="form-label text-lg text-slate-500">{{ drawTitleMap[luckyDrawData.type] }}</label>
@@ -41,7 +41,7 @@
                             <label class="form-label float-right text-lg" v-else>No</label>
                         </div>
                     </div>
-                    <div class="text-center mt-9" style="font-size: 1.5rem;">
+                    <div class="text-center mt-9 text-2xl">
                         <button class="btn btn-primary w-48 h-16 mt-auto" @click="goDraw(luckyDrawData.id)">
                             Draw Now
                         </button>
@@ -49,11 +49,9 @@
                 </div>
                 <div style="margin-top: 5rem;" v-else-if="ready === true && beforeDraw === false">
                     <img class="m-3 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px;"/>
-                    <div class="text-center mt-7" style="font-size: 1.5rem;">{{ luckyDrawData.prize.name }}</div>
+                    <div class="text-center mt-7 text-2xl">{{ luckyDrawData.prize.name }}</div>
                     <div class="mt-9 flex flex-wrap" style="width: 350px;">
                         <div v-for="(winner, index) in winnerList" :key="index" class="ml-5 mb-3">
-                            <!-- <img class="m-3 self-center" :src="winner.customer_image" style="width: 30px;"/> -->
-                            
                             <div class="flex w-full justify-around">
                                 <div class="flex-0 w-14 h-14  zoom-in border-0">
                                     <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" class="rounded-full border-0" :src="`${storageUrl}fake_head.jpeg`"
@@ -69,10 +67,7 @@
                                 </div>
                             </div>
                             <label> {{ winner.customer_name }} </label>
-                            
                         </div>
-
-                        <!-- {{ winnerList }} -->
                     </div>
                 </div>
             </div>
@@ -116,7 +111,6 @@ const ready = ref(false)
 const showAnimation = ref(false)
 const beforeDraw = ref(true)
 const winnerList = ref([])
-
 
 
 onMounted(() => {

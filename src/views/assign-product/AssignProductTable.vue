@@ -1,6 +1,7 @@
 <template>
-    <div class="overflow-x-auto overflow-y-auto h-[67vh] sm:h-[62vh]">
-        <table class="table text-center table-report">
+    <div class="p-2 mt-5 box sm:p-5 sm:pb-0">
+        <div class="overflow-auto h-[62vh] sm:h-[62vh]">
+            <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
                     <th class="items-center text-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
@@ -9,75 +10,72 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <tr v-for="(product, index) in productsList" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
 
-                        <td v-if="column.key === 'image'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 content-center imgtd">
+                        <td v-if="column.key === 'image'" class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd">
                             <div class="flex items-center justify-center">
-                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
+                                <div class="w-[120px] h-[120px] image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <img class="rounded-lg cursor-auto" data-action="zoom"
                                         :src="product.image ? storageUrl + product.image : storageUrl + 'no_image.jpeg'" />
                                 </div>
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'order_code'"
-                            class="w-24 text-[12px] lg:text-sm  content-center items-center">
-                            <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control w-24 h-[42px] mt-1" aria-label="default input"
-                                    :value="product.order_code" @input="changeInput($event, index, 'order_code')"
+                        <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm">
+                            <div class="form-check place-content-center">
+                                <input 
+                                    type="text" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1"
+                                    v-model="product[column.key]"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'qty'"
-                            class="w-24 text-[12px] lg:text-sm content-center items-center">
-                            <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control w-24 h-[42px] mt-1" aria-label="default input" :value="product.qty"
-                                    @input="changeInput($event, index, 'qty')"
+                        <td v-else-if="column.key === 'qty'" class="w-24 text-[12px] lg:text-sm">
+                            <div class="form-check place-content-center">
+                                <input 
+                                    type="number" min="1" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1" 
+                                    v-model="product[column.key]"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'max_order'"
-                            class="w-24 text-[12px] lg:text-sm content-center items-center">
-                            <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control w-24 h-[42px] mt-1" aria-label="default input"
-                                    :value="product.max_order_amount" @input="changeInput($event, index, 'max_order')"
+                        <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm">
+                            <div class="form-check place-content-center">
+                                <input 
+                                    type="number" min="1" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1"
+                                    v-model="product[column.key]" 
+                                    @input="changeInput($event, index)"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'tag'"
-                            class="my-2 w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                        <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
                             <div v-for="tag in product[column.key]" :key="tag">{{ tag }}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'price'"
-                            class="w-24 text-[12px] lg:text-sm whitespace-nowrap">
-                            <div>{{ product.currency_sign }} {{ product[column.key] }}</div>
+                        <td v-else-if="column.key === 'price'" class="w-full text-[12px] lg:w-fit lg:text-sm whitespace-nowrap">
+                            <div>{{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'name'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center longMessage">
+                        <td v-else-if="column.key === 'name'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center longMessage">
                             <div class="w-full">{{ product[column.key] }}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'selected'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 selected">
-                            <div class="sm:self-center form-check sm:place-content-center">
+                        <td v-else-if="column.key === 'selected'" class="text-[12px] lg:w-18 lg:text-sm 2xl:w-32 selected">
+                            <div class="sm: form-check sm:place-content-center">
                                 <input id="selectCheckbox"
                                     class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" v-model="product[column.key]" :disabled="product.disabledEdit" />
-                                <span class="ml-3 sm:hidden">Select</span>
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'editable'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
-                            <div class="self-center form-check place-content-center">
+                        <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                            <div class=" form-check place-content-end sm:place-content-center">
                                 <div v-if="product.type === 'lucky_draw'">
                                     <input id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox" disabled
                                         v-model="product[column.key]" />
@@ -85,24 +83,20 @@
                                 <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
                                     v-model="product[column.key]" @click="product.deletable = false"
                                     :disabled="product.disabledEdit" />
-                                <span class="ml-3 checkboxWord"> Editable</span>
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'deletable'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
-                            <div class="self-center form-check place-content-center">
-                                <input v-if="product.editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
+                        <td v-else-if="column.key === 'customer_deletable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                            <div class=" form-check place-content-end sm:place-content-center">
+                                <input v-if="product.customer_editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" disabled v-model="product[column.key]" />
                                 <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
                                     v-model="product[column.key]" :disabled="product.disabledEdit" />
-                                <span class="ml-3 checkboxWord"> Deletable</span>
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'type'"
-                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
-                            <div class="self-center form-check place-content-center"> {{ product[column.key] }}
+                        <td v-else-if="column.key === 'type'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
+                            <div class=" form-check place-content-end sm:place-content-center"> {{ product[column.key] }}
                             </div>
                         </td>
 
@@ -120,14 +114,13 @@
                                 Update
                             </button>
                         </td>
-                    </template>
-                </tr>
-
-            </tbody>
-        </table>
+                        </template>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
         <div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
-            <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage"
-                @on-page-size-change="changePageSize" />
+            <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
         </div>
     </div>
 </template>
@@ -138,13 +131,14 @@ import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { list_product } from '@/api_v2/product';
 import { seller_retrieve_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 const campaignStore = useCreateCampaignStore();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const storageUrl = import.meta.env.VITE_APP_IMG_URL
 
 const route = useRoute()
-
+const layoutStore = useLSSSellerLayoutStore()
 const dataCount = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)
@@ -156,16 +150,17 @@ const tableColumns = ref([
     { name: "Product Name", key: "name" },
     { name: "Order Code", key: "order_code" },
     { name: "Qty for Campaign", key: "qty" },
-    { name: "Max Qty / Order", key: "max_order" },
+    { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
     { name: "Type", key: "type" },
-    { name: "Editable", key: "editable" },
-    { name: "Deletable", key: "deletable" },
+    { name: "Editable", key: "customer_editable" },
+    { name: "Deletable", key: "customer_deletable" },
 
 ])
 
 onMounted(() => {
+    campaignStore.assignedProducts = []
     search()
 
     eventBus.on("assignTable", (payload) => {
@@ -189,58 +184,51 @@ const search = () => {
             .then(response => {
                 dataCount.value = response.data.count
                 productsList.value = response.data.results
-
                 productsList.value.forEach((item) => {
-                    item.qty_campaign = item.qty
                     item.selected = false
-                    item.editable = true
-                    item.deletable = true
                     item.max_order_amount = item.qty
-                    if (item.type === 'lucky_draw') {
-                        item.editable = false
-                        item.deletable = false
+                    if (item.type === 'product') {
+                        item.customer_editable = true
+                        item.customer_deletable = true
                     }
-                    if (item.editable === false) item.deletable = false
+                    if (item.custmer_editable === false) item.customer_deletable = false
                 })
+
                 // 換頁時選取記憶在store中 selected, editable, deletable 欄位
                 if (campaignStore.assignedProducts.length > 0) {
-                    for (let i = 0; i < campaignStore.assignedProducts.length; i++) {
-                        for (let j = 0; j < productsList.value.length; j++) {
-                            if (campaignStore.assignedProducts[i].id == productsList.value[j].id) {
-                                productsList.value[j] = campaignStore.assignedProducts[i]
-                            }
-                        }
-                    }
+                    campaignStore.assignedProducts.forEach((storeItem) => {
+                        productsList.value.forEach((productItem, pIndex) => {
+                            if (storeItem.id == productItem.id) { productsList.value[pIndex] = storeItem }
+                        })
+                    })
                 }
-            }).catch(function (error) {
+            }).catch(error => {
                 console.log(error);
             })
     } else if (route.name === 'edit-campaign-product') {
         seller_retrieve_campaign_product(route.params.campaign_id, category.value, currentPage.value, pageSize.value)
-            .then(response => {
-                dataCount.value = response.data.count
-                productsList.value = response.data.results
+        .then(response => {
+            dataCount.value = response.data.count
+            productsList.value = response.data.results
 
-                productsList.value.forEach((item) => {
-                    item.qty_campaign = item.qty_for_sale
-                    item.qty = item.qty_for_sale
-                    item.selected = true
-                    item.editable = item.customer_editable
-                    item.deletable = item.customer_removable
-                    item.disabledEdit = true
-                    if (item.type === 'lucky_draw') {
-                        item.editable = false
-                        item.deletable = false
-                    }
-                    if (item.editable === false) item.deletable = false
-                })
-
-                let editExists = false
-                tableColumns.value.forEach((item) => { if (item.name === 'Edit') editExists = true })
-                if (editExists == false) tableColumns.value.push({ name: "Edit", key: "edit" })
-            }).catch(function (error) {
-                console.log(error);
+            productsList.value.forEach((item) => {
+                // item.qty_campaign = item.qty_for_sale
+                item.qty = item.qty_for_sale
+                item.selected = true
+                item.disabledEdit = true
+                if (item.type === 'lucky_draw') {
+                    item.customer_editable = true
+                    item.customer_editable = true
+                }
+                if (item.customer_editable === false) item.customer_editable = false
             })
+
+            let editExists = false
+            tableColumns.value.forEach((item) => { if (item.name === 'Edit') editExists = true })
+            if (editExists == false) tableColumns.value.push({ name: "Edit", key: "edit" })
+        }).catch(error => {
+            console.log(error);
+        })
     }
 }
 
@@ -255,68 +243,39 @@ const changePageSize = (page_size) => {
     search()
 }
 
-const changeInput = (event, index, type) => {
-    if (type == 'order_code') {
-        productsList.value[index].order_code = event.target.value
-    } else {
-        if (event.target.value == '') event.target.value = 1
-        console.log(parseInt(event.target.value))
-        if (parseInt(event.target.value) <= productsList.value[index].qty_campaign) {
-            if (type == 'qty') {
-                productsList.value[index].qty = event.target.value
-            } else if (type == 'max_order') {
-                productsList.value[index].max_order_amount = event.target.value
-            }
-        } else {
-            alert('input number is over product max quantity')
-            event.target.value = productsList.value[index].qty
-            return
-        }
-    }
+const changeInput = (event, index) => {
+    if (parseInt(event.target.value) > productsList.value[index].qty) {
+        alert('Input number is over product max quantity')
+        productsList.value[index].max_order_amount = productsList.value[index].qty
+    } 
 }
 
 // 把選取且無重複的product加入store
 const addProdcuts = () => {
     let assignProductIdList = []
-    if (campaignStore.assignedProducts.length > 0) {
-        campaignStore.assignedProducts.forEach((item) => {
-            assignProductIdList.push(item.id)
-        })
-    }
-
+    if (campaignStore.assignedProducts.length > 0) campaignStore.assignedProducts.forEach((item) => { assignProductIdList.push(item.id) })
     productsList.value.forEach((item) => {
-        if (item.selected == true && !assignProductIdList.includes(item.id)) {
-            campaignStore.$patch((state) => {
-                state.assignedProducts.push(item)
-            })
-        } else if (item.selected == false && assignProductIdList.includes(item.id)) {
-            campaignStore.$patch((state) => {
-                state.assignedProducts.splice(state.assignedProducts.indexOf(item), 1);
-            })
-        }
+        if (item.selected == true && !assignProductIdList.includes(item.id)) campaignStore.assignedProducts.push(item)
+        else if (item.selected == false && assignProductIdList.includes(item.id)) campaignStore.assignedProducts.splice(campaignStore.assignedProducts.indexOf(item), 1)
     })
 }
 
 const updateProduct = (index) => {
-    console.log(productsList.value[index])
-
     if (productsList.value[index].selected == false) {
         seller_delete_campaign_product(route.params.campaign_id, productsList.value[index].id)
-            .then(response => {
-                console.log(response.data)
-                search()
-            })
+        .then(response => {
+            console.log(response.data)
+            search()
+        })
     } else {
         productsList.value[index]['qty_for_sale'] = parseInt(productsList.value[index]['qty'])
         productsList.value[index]['max_order_amount'] = parseInt(productsList.value[index]['max_order_amount'])
-        productsList.value[index]['customer_editable'] = productsList.value[index]['editable']
-        productsList.value[index]['customer_removable'] = productsList.value[index]['deletable']
 
         seller_update_campaign_product(route.params.campaign_id, productsList.value[index].id, productsList.value[index])
-            .then(response => {
-                console.log(response.data)
-                search()
-            })
+        .then(response => {
+            console.log(response.data)
+            search()
+        })
     }
 }
 
@@ -353,6 +312,9 @@ thead th {
 .checkboxWord {
     display: none;
 }
+.form-check-input {
+    border-color: rgb(128, 128, 128) !important;
+}
 
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
@@ -377,10 +339,6 @@ thead th {
         height: 1.2rem !important;
     }
 
-    .imgtd {
-        height: 90px !important;
-    }
-
     .checkboxWord {
         display: block;
     }
@@ -402,35 +360,36 @@ thead th {
         border: none;
         position: relative;
         padding-left: 50% !important;
-        text-align: center !important;
+        text-align: right !important;
         box-shadow: none !important;
         font-size: 14px;
-        vertical-align: middle;
+        vertical-align: middle !important;
+        padding-right: 15px !important;
     }
 
     td:before {
         position: absolute;
-        min-height: 35px;
+        min-height: 20px;
         left: 6px;
         width: 45%;
         padding-right: 10px;
         white-space: nowrap;
-        margin-top: 10px;
         font-weight: bold;
         box-shadow: none !important;
         background-color: white !important;
+        text-align: left;
     }
 
     .selected:before {
         display: none;
     }
 
-    .selected {
-        display: inline-block;
-        width: 100% !important;
-        padding-left: 0% !important;
-        left:6px;
-    }
+    .selected{
+        display: block;
+        float:right;
+        width:40px !important;
+        padding-left: 0px !important;
+	}
 
     .imgtd:before {
         display: none;
@@ -438,10 +397,9 @@ thead th {
 
     .imgtd {
         display: inline-block;
-        width: 100% !important;
-        padding-left: 0% !important;
-        text-align: left !important;
-        justify-items: left !important;
+        width: 80% !important;
+        padding-left: 20% !important;
+        height: 125px !important;
     }
 
     td:nth-of-type(3):before {
@@ -461,22 +419,23 @@ thead th {
     td:nth-of-type(4):before {
         content: "Order Code";
         text-align: left !important;
+        top:25% !important;
     }
 
     td:nth-of-type(5):before {
         content: "Qty for Campaign";
-        text-align: left !important;
+        top:25% !important;
     }
 
     td:nth-of-type(6):before {
         content: "Max Qty / Order";
-        text-align: left !important;
+        top:25% !important;
     }
 
     td:nth-of-type(7):before {
         top: -3px;
         content: "Category";
-        text-align: left !important;
+        top:25% !important;
     }
     td:nth-of-type(7){
         display: flex;
@@ -488,29 +447,14 @@ thead th {
     td:nth-of-type(8):before {
         content: "Price";
         margin-top: 0px !important;
-        text-align: left !important;
     }
 
     td:nth-of-type(11):before {
-        display: none;
-        text-align: left !important;
+        content: "Editable";
     }
 
     td:nth-of-type(10):before {
-        display: none;
-        text-align: left !important;
-    }
-
-    td:nth-of-type(11) {
-        display: inline-block;
-        width: 50% !important;
-        padding-left: 0% !important;
-    }
-
-    td:nth-of-type(10) {
-        display: inline-block;
-        width: 50% !important;
-        padding-left: 0% !important;
+        content: "Deletable";
     }
 
     td:nth-of-type(9):before {
@@ -518,13 +462,5 @@ thead th {
         text-align: left !important;
         margin-top: 0 !important;
     }
-
-    td:nth-of-type(9){
-        vertical-align: middle !important;
-        height: auto;
-        padding: auto;
-        margin: auto;
-    }
-
 }
 </style>

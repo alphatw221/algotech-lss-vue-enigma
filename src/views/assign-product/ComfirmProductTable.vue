@@ -1,6 +1,7 @@
 <template>
-    <div class="overflow-x-auto overflow-y-auto h-[67vh] sm:h-[62vh]">
-        <table class="table table-report ">
+    <div class="p-2 mt-5 box sm:p-5 sm:pb-0">
+        <div class="overflow-auto h-[62vh] sm:h-[62vh]">
+            <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
                     <th class="items-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
@@ -14,9 +15,9 @@
                     <template v-for="column in tableColumns" :key="column.key" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm content-center items-center">
 
                         <td v-if="column.key === 'image'"
-                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 content-center imgtd"> 
+                            class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd"> 
                             <div class="flex items-center justify-center">
-                                <div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
+                                <div class="w-[120px] h-[120px] image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <Tippy 
                                         tag="img" 
                                         class="rounded-lg cursor-auto" 
@@ -32,40 +33,52 @@
                         </td>
 
                         <td v-else-if="column.key === 'order_code'">
-                            <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control w-24 h-[42px] mt-1 inputInfo" :class="{ red: isOrderCodeDuplicate(index) }"
-                                    aria-label="default input" :value="product.order_code"
-                                    @input="changeInput($event, index, 'order_code')" />
+                            <div class=" form-check place-content-end sm:place-content-center">
+                                <input 
+                                    type="text" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" 
+                                    :class="{ red: isOrderCodeDuplicate(index) }"
+                                    v-model="product.order_code"
+                                />
+                            </div>
+                            <div v-if="isOrderCodeDuplicate(index)" class="text-red-600 text-center">
+                                duplicate
                             </div>
                         </td>
                         <td v-else-if="column.key === 'qty'">
-                            <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control w-24 h-[42px] mt-1 inputInfo" aria-label="default input" :value="product.qty"
-                                    @input="changeInput($event, index, 'qty')" />
+                            <div class=" form-check place-content-end sm:place-content-center">
+                                <input 
+                                    type="number" min="1" 
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" 
+                                    v-model="product.qty"
+                                />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'max_order'">
-                            <div class="self-center form-check place-content-center">
-                                <input type="text" class="form-control w-24 h-[42px] mt-1 inputInfo" aria-label="default input"
-                                    :value="product.max_order_amount"
-                                    @input="changeInput($event, index, 'max_order')" />
+                        <td v-else-if="column.key === 'max_order_amount'">
+                            <div class=" form-check place-content-end sm:place-content-center">
+                                <input 
+                                    type="number" min="1"  
+                                    class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" 
+                                    v-model="product.max_order_amount"
+                                    @input="changeInput($event, index)"
+                                />
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'tag'"
-                            class="my-2 w-20 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                            class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
                             <div v-for="(tag,index) in product[column.key]" :key="index">
                                 {{ tag }}
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'price'" class="w-18">
-                            {{ product.currency_sign }} {{ product[column.key] }}
+                            {{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}
                         </td>
 
-                        <td v-else-if="column.key === 'editable'" class="editable">
-                            <div class="self-center form-check place-content-center">
+                        <td v-else-if="column.key === 'customer_editable'" class="editable">
+                            <div class=" form-check place-content-end sm:place-content-center">
                                 <input v-if="product.type === 'lucky_draw'"
                                     id="selectCheckbox" 
                                     class="form-check-input w-[1.2rem] h-[1.2rem]" 
@@ -78,16 +91,15 @@
                                     class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                     type="checkbox"
                                     v-model="product[column.key]"
-                                    @click="product.deletable = false" 
+                                    @click="product.customer_deletable = false" 
                                 />
-                                <span class="ml-3 checkboxWord"> Editable</span>
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'deletable'" class="editable">
-                            <div class="self-center form-check place-content-center">
+                        <td v-else-if="column.key === 'customer_deletable'" class="deletable">
+                            <div class=" form-check place-content-end sm:place-content-center">
                                 <input 
-                                    v-if="product.editable === true" 
+                                    v-if="product.customer_editable === true" 
                                     id="selectCheckbox" 
                                     class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                     type="checkbox" 
@@ -101,16 +113,14 @@
                                     disabled
                                     v-model="product[column.key]"
                                 />
-                                <span class="ml-3 checkboxWord"> Deletable</span>
                             </div>
                         </td>
-                        <td v-else-if="column.key === 'status'" class="mt-2 form-switch status">
+                        <td v-else-if="column.key === 'status'" class="form-switch status">
                             <input 
                                 type="checkbox" 
                                 class="form-check-input" 
                                 v-model="product[column.key]" 
                                 />
-                            <span class="ml-1 sm:hidden"> Activate</span>
                         </td>
                         <td v-else-if="column.key === 'type'" class="type">
                                 {{ product[column.key] }}
@@ -135,7 +145,7 @@
                 </div>
             </ModalBody>
         </Modal>
-
+    </div>
     </div>
 </template>
 
@@ -143,6 +153,8 @@
 import { ref, onMounted, onUnmounted, getCurrentInstance, computed } from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { useRoute, useRouter } from "vue-router";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { seller_create_campaign_products } from "@/api_v2/campaign_product";
 
 
 const campaignStore = useCreateCampaignStore();
@@ -150,7 +162,7 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
 const route = useRoute();
 const router = useRouter();
-
+const layoutStore = useLSSSellerLayoutStore()
 const dataCount = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)
@@ -166,12 +178,12 @@ const tableColumns = ref([
     { name: "Product Name", key: "name" },
     { name: "Order Code", key: "order_code" },
     { name: "Qty for Campaign", key: "qty" },
-    { name: "Max Qty / Order", key: "max_order" },
+    { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
     { name: "Type", key: "type" },
-    { name: "Editable", key: "editable" },
-    { name: "Deletable", key: "deletable" },
+    { name: "Editable", key: "customer_editable" },
+    { name: "Deletable", key: "customer_deletable" },
     { name: "Activate", key: "status" }
 ])
 
@@ -193,7 +205,18 @@ onMounted(() => {
             warningModalPreview.value = true
             return
         }
-        // router.push('campaign/create/confirm')
+
+        let assignedProducts = campaignStore.assignedProducts
+        for (let i = 0; i < assignedProducts.length; i ++) {
+            assignedProducts[i]['product_id'] = assignedProducts[i]['id']
+            assignedProducts[i]['qty_for_sale'] = parseInt(assignedProducts[i]['qty'])
+            assignedProducts[i]['max_order_amount'] = parseInt(assignedProducts[i]['max_order_amount'])
+        }
+        
+        seller_create_campaign_products(route.params.campaign_id, assignedProducts)
+        .then(response => {
+            router.push({ name: 'campaign-list' })
+        })
     })
 })
 
@@ -202,37 +225,21 @@ onUnmounted(() => {
 })
 
 const warningModalText = computed(() => {
-    if (emptyTitle.value == true) return 'Please enter campaign title !'
-    else if (duplicateOrderCode.value == true) return 'There are duplicated order code, please rename it.'
+    if (emptyTitle.value) return 'Please enter campaign title !'
+    else if (duplicateOrderCode.value) return 'There are duplicated order code, please rename it.'
 })
 
-const changeInput = (event, index, type) => {
-    if (type == 'order_code') {
-        campaignStore.assignedProducts[index].order_code = event.target.value
-    } else {
-        if (event.target.value == '') event.target.value = 1
-
-        if (event.target.value <= campaignStore.assignedProducts[index].qty) {
-            if (type == 'qty') {
-                campaignStore.assignedProducts[index].qty = event.target.value
-            } else if (type == 'max_order') {
-                campaignStore.assignedProducts[index].max_order_amount = event.target.value
-            }
-        } else {
-            alert('Input number is over product max quantity')
-            event.target.value = campaignStore.assignedProducts[index].qty
-            return
-        }
-    }
-    // console.log(campaignStore.assignedProducts[index])
+const changeInput = (event, index) => {
+    if (parseInt(event.target.value) > campaignStore.assignedProducts[index].qty) {
+        alert('Input number is over product max quantity')
+        campaignStore.assignedProducts[index].max_order_amount = campaignStore.assignedProducts[index].qty
+    } 
 }
 
 const isOrderCodeDuplicate = (index) => {
     let this_order_code = campaignStore.assignedProducts[index].order_code
     for (let i = 0; i < campaignStore.assignedProducts.length; i++) {
-        if (i != index && campaignStore.assignedProducts[i].order_code == this_order_code) {
-            return true
-        }
+        if (i != index && campaignStore.assignedProducts[i].order_code == this_order_code) return true
     }
 }
 
@@ -281,10 +288,13 @@ thead th{
 	}
 
 	.imgtd {
-		height: 90px !important;
-        margin-top: 35px;;
-	}
-    .inputInfo {
+        display: inline-block;
+        width: 80% !important;
+        padding-left: 20% !important;
+        height: 125px !important;
+    }
+    
+    .inputBox{
         height: 35px !important;
     }
 
@@ -309,23 +319,24 @@ thead th{
         border: none;
         position: relative;
         padding-left: 50% !important;
-        text-align: center !important;
+        text-align: right !important;
         box-shadow: none !important;
         font-size: 14px;
+        vertical-align: middle !important;
+        padding-right: 15px !important;
     }
 
     td:before {
         position: absolute;
-        min-height: 35px;
+        min-height: 20px;
         left: 6px;
         width: 45%;
         padding-right: 10px;
         white-space: nowrap;
         font-weight: bold;
-        margin-top: 10px;
-        text-align: left !important;
         box-shadow: none !important;
         background-color: white !important;
+        text-align: left;
     }
 
 	td:nth-of-type(1):before {
@@ -354,22 +365,23 @@ thead th{
 
 	td:nth-of-type(3):before {
 		content: "Order Code";
+        top:25%;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(4):before {
 		content: "Qty for Campaign";
+        top:25%;
 		/* color: #0e9893; */
 	}
 	td:nth-of-type(5):before {
 		content: "Max Qty / Order";
+        top:25%;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(6):before {
-        top: -3px;
         content: "Category";
-        text-align: left !important;
 	}
     td:nth-of-type(6){
         display: flex;
@@ -383,13 +395,10 @@ thead th{
 		/* color: #0e9893; */
 	}
     .editable:before {
-		display: none;
+		content: "Editable";
 	}
-    .editable{
-		display: inline-block;
-		width: 50% !important;
-		padding-left: 0% !important;
-		/* color: #0e9893; */
+    .deletable:before {
+		content: "Deletable";
 	}
 
     .type:before {
@@ -397,21 +406,11 @@ thead th{
         text-align: left !important;
         margin-top: 0 !important;
 	}
-    .type{
-        vertical-align: middle !important;
-        height: auto;
-        padding: auto;
-        margin: auto;
-    }
     .status:before {
-		display:none; 
+		content: "Active";
 	}
     .status{
-        position: absolute !important;
-        top:0;
-        left:0;
-        width:auto !important;
-        padding-left: 5px !important;
-	}
+        padding-right: 5px !important;
+    }
 }
 </style>

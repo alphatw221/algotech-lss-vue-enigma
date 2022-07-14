@@ -4,19 +4,19 @@
 		<thead>
 			<tr>
 				<th
-					class="whitespace-nowrap text-center"
+					class="text-center whitespace-nowrap"
 					v-for="column in tableColumns"
 					:key="column.key"
 				>
-				{{ column.name }}
+				{{ $t(`order_detail.${column.name}`) }}
 				</th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr v-for="(product, index) in store.orderDetail.products" :key="index" class="intro-x">
-				<td class=" ">
+				<td class="">
 					<div class="flex">
-						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-if="product.image">
+						<div class="flex w-24 h-24 lg:w-12 lg:h-12 2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
 						<img
 							tag="img"
 							data-action="zoom"
@@ -24,7 +24,7 @@
 							:src="storageUrl+product.image"
 						/>
 						</div>
-						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-else>
+						<div class="flex w-24 h-24 lg:w-12 lg:h-12 2xl:x-12 2xl:h-12 image-fit zoom-in" v-else>
 						<img
 							tag="img"
 							data-action="zoom"
@@ -35,14 +35,14 @@
 					</div>
 				</td>
 				<td class="text-center">
-					<div class="whitespace-normal break-words">{{ product.name }} </div>
+					<div class="break-words whitespace-normal">{{ product.name }} </div>
 				</td>
 				<td class="text-center">
 					<template v-if="props.order_type === 'order'">
 						{{ product.qty }}
 					</template>
 					<template v-else>
-						<div class="form-check self-center place-content-left">
+						<div class="self-center form-check place-content-left">
 
 							<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
 								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
@@ -61,12 +61,7 @@
 								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 							</button>
 
-
-
-
-
-
-                            <!-- <input id="qty" type="number" class="form-control w-16" aria-label="default input" :value="store.orderDetail.products[index].qty"
+                            <!-- <input id="qty" type="number" class="w-16 form-control" aria-label="default input" :value="store.orderDetail.products[index].qty"
                                  @input="update_qty(index,product.order_product_id,$event.target.value)"/> -->
                         </div>
 					</template>
@@ -77,9 +72,11 @@
 				<td class="text-center">
 					$ {{ product.qty * product.price }}
 				</td>
-                <td class="">
-					<a  class="text-danger" v-show="props.order_type !== 'order'">
-						<Trash2Icon @click="delete_product(product.order_product_id)"/>
+				<td>
+					<a  class="flex items-center justify-center text-danger" 
+						v-show="props.order_type !== 'order'"
+						@click="delete_product(product.order_product_id)" >
+						<Trash2Icon class="w-4 h-4 mr-1" /> Delete
 					</a>
 				</td>
 			</tr>
@@ -96,7 +93,6 @@ import { useRoute, useRouter } from "vue-router";
 import { seller_delete_product, seller_update_product } from "@/api_v2/order_product"
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
-
 const route = useRoute();
 const router = useRouter();
 const store = useSellerOrderStore();
@@ -106,12 +102,12 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const tableColumns = ref([
-	{ key: "image", name: " ",  },
-	{ key: "product", name: "Product",  },
-	{ key: "qty", name: "Quantity",  },
-	{ key: "price", name: "Price",  },
-	{ key: "subtotal", name: "Subtotal",  },
-    { key: "remove", name: " ",  }
+	{ key: "image", name: "null",  },
+	{ key: "product", name: "product",  },
+	{ key: "qty", name: "qty",  },
+	{ key: "price", name: "price",  },
+	{ key: "subtotal", name: "sub_total",  },
+    { key: "remove", name: "null",  }
 ])
 
 

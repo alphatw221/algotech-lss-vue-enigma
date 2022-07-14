@@ -1,8 +1,10 @@
 {
         "manage_order" : "Manage Order",
-        "order" : "Order",
+        "order_number" : "Order Number",
+        "action":"Action",
+        "delivery_notification":"Delivery Notification",
         "refresh_orders" : "Refresh Orders",
-        "costumer" : "Costumer",
+        "customer" : "Customer",
         "platform" : "Platform",
         "name" : "Name",
         "total_items" : "Total Items",
@@ -18,8 +20,10 @@
         "comments" : "Comments",
         "complete" : "Complete",
         "review" : "Review",
+        "shipping out":"Shipping Out",
         "all":"All",
         "refresh" : "Refresh",
-        "filter":"Filter"
+        "filter":"Filter",
+        "null":""
         
 }

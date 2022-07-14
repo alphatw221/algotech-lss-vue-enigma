@@ -16,9 +16,9 @@
                             <DropdownItem @click="store.showInstantlyAddProductModal = true">
                                 Instantly Add Product
                             </DropdownItem>
-                            <!-- <DropdownItem @click="store.showAddProductFromStockModal = true">
+                            <DropdownItem @click="store.showAddProductFromStockModal = true">
                                 Add Product From Stock
-                            </DropdownItem> -->
+                            </DropdownItem>
                         </DropdownContent>
                     </DropdownMenu>
                 </Dropdown>

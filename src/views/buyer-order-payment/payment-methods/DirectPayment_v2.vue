@@ -64,16 +64,16 @@
                 method: 'put',
                 url: 'url',
                 uploadMultiple: false,
-                thumbnailWidth: 150,
-                maxFilesize: 2,
+                maxFilesize: 1,
                 addRemoveLinks: true,
                 autoProcessQueue: false,
+                resizeQuality: 0.5,
                 clickable: true,
                 acceptedFiles: 'image/*',
-            }" class="dropzone">
+            }" class="dropzone h-fit">
 
                 <div class="text-lg font-medium">
-                    Drop files here or click to upload.
+                    Drop files here or click to upload
                 </div>
                 <div class="text-gray-600">
                     <br>accepted File types: jpeg, png, jpg

@@ -1,8 +1,7 @@
-<template >
-	<div class="grid grid-cols-12 gap-1 py-5 text-base sm:py-10 intro-y sm:gap-5 -z-50" v-if="ready">
-		<span class="col-span-12 my-4 text-lg font-medium leading-none">Delivery Details</span>
+<template>
+	<div class="grid grid-cols-12 gap-1 p-5 text-base sm:p-8 intro-y sm:gap-5 -z-50 box" v-if="ready">
+		<span class="col-span-12 text-lg font-medium leading-none">Delivery Details</span>
 		<hr class="col-span-12 mb-3" />
-
 		<div class="flex flex-col col-span-12 col-start-1"> 
 			<label class="text-base whitespace-nowrap">Delivery Charge</label>
 			<input 
@@ -134,7 +133,6 @@ const additional_delivery_option = { title: null, type: null, price: null }
 const branch_option = { name: null, address: null }
 const ready = ref(false)
 onMounted(()=>{
-	console.log(props.campaign)
 	ready.value=true
 })
 const props = defineProps({

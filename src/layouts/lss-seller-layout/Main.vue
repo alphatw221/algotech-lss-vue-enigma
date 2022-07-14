@@ -50,7 +50,7 @@
     </Notification> -->
 <!-- END: Notification Content  -->
 <!-- BEGIN: Notification Toggle -->
-    <LSSSellerMenu /> 
+      <LSSSellerMenu /> 
 <!-- <button class="text-lg w-30 h-14" @click="toast">Here</button> -->
   
   </div>
@@ -153,4 +153,7 @@ provide("bind[floatingVideoToast]", (el) => {
 .Notification{
   border-left: solid 5px black !important;
 }
+
+/* .toastify */
 </style>
+

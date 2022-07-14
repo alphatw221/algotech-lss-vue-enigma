@@ -62,10 +62,14 @@
                 </template>
 
                 <template v-else-if="field.type === 'file'">
-                    <label class="form-label text-base">Upload Image</label>
-                    <div class="border-2 border-dashed dark:border-darkmode-400 relative">
-                        <div class="px-4 items-center justify-center flex">
-                            <img :src="previewImages[index_i]" class="uploading-image h-60 object-cover" />
+                    <label>Upload Image</label>
+                    <div class="relative border-2 border-dashed dark:border-darkmode-400">
+                        <div class="flex items-center justify-center px-4">
+                            <!-- temp -->
+                            <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
+                            <Tippy tag="a" href="javascript:;" class="absolute right-3 top-3 tooltip" content="Remove Image" :options="{theme: 'light',}">
+                                <XCircleIcon class="absolute right-3 top-3 z-10 click-icon text-danger" @click="removeImage(index_i)"/>
+                            </Tippy>
                         </div>
                         <div class="px-4 text-[1rem] sm:text-[16px] absolute top-20 text-center w-full flex flex-col items-center justify-center"
                             v-if="previewImages[index_i] === null">
@@ -143,6 +147,11 @@ const uploadImage = (event, index) =>{
 	reader.onload = event =>{ previewImages.value[index] = event.target.result };
 }
 
+const removeImage = (index) =>{
+    previewImages.value[index] = null
+    props.directPaymentImages[index] = '._no_image'
+}
+
 const deleteDirectPayment = index=>{
     props.campaign.meta_payment.direct_payment.v2_accounts.splice(index,1)
     previewImages.value.splice(index,1)
@@ -151,7 +160,7 @@ const deleteDirectPayment = index=>{
 
 const addDirectPayment = ()=>{
     props.campaign.meta_payment.direct_payment.v2_accounts.unshift({mode:'',name:'',number:'',note:'',require_customer_return:true})
-    props.directPaymentImages.unshift(null)
+    props.directPaymentImages.unshift('._no_image')
     previewImages.value.unshift(null)
 }
 

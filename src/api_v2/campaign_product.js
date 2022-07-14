@@ -24,6 +24,10 @@ export const seller_create_campaign_products = (campaign_id, data) => {
     return createAxiosWithBearer().post(`/api/v2/campaign-product/seller/create/?campaign_id=${campaign_id}`, data)
 }
 
+export const seller_bulk_create_campaign_products = (campaign_id, data) => {
+    return createAxiosWithBearer().post(`/api/v2/campaign-product/seller/create/bulk/?campaign_id=${campaign_id}`, data)
+}
+
 export const seller_retrieve_campaign_product = (campaign_id, category, page, page_size) => {
     return createAxiosWithBearer().get(`/api/v2/campaign-product/seller/retrieve/?campaign_id=${campaign_id}&category=${category}&page=${page}&page_size=${page_size}`)
 }

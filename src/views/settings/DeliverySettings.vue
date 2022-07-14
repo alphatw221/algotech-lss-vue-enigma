@@ -1,13 +1,13 @@
 <template>
     <div class="py-5 sm:p-8">
-        <span class="mx-5 mb-3 text-2xl font-medium leading-none sm:m-10">Delivery Settings</span>
-        <div class="grid grid-cols-12 gap-1 mx-5 text-base sm:m-10 intro-y sm:gap-3 -z-50">
+        <span class="mx-2 mb-3 text-2xl font-medium leading-none sm:m-5">Delivery Settings</span>
+        <div class="grid grid-cols-12 gap-1 mx-2 text-base sm:m-5 intro-y sm:gap-3 -z-50">
 
             <div class="flex flex-col col-span-12 col-start-1 mt-2 text-[16px]"> 
                 <label class="w-full mr-1 text-base whitespace-nowrap">Delivery Charge</label>
                 <input 
-                    class="w-full form-control h-[42px]"
-                    type="text" 
+                    class="w-full form-control h-[35px] sm:h-[42px]"
+                    type="number" 
                     v-model="deliverySettings.delivery_charge"
                 />
     
@@ -21,7 +21,7 @@
                 </div> 
                 <input 
                 class="w-full form-control" 
-                type="text" 
+                type="number" 
                 v-model="deliverySettings.free_delivery_for_order_above_price"
                 />
                 
@@ -35,7 +35,7 @@
                 </div> 
                 <input 
                 class="w-full form-control"
-                type="text"
+                type="number"
                 v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
                 />       
             </div>
@@ -181,7 +181,10 @@ const branch_option = { name: null, address: null }
 
 onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return
-    deliverySettings.value = layoutStore.userInfo.user_subscription.meta_logistic
+    console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+
+    
+    deliverySettings.value = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
     fields.forEach(field => {
         if(typeof deliverySettings.value[field.key]!=field.dataType) deliverySettings.value[field.key]=field.default
     });
@@ -214,8 +217,14 @@ const updateDelivery = () => {
 }
 
 const discardDelivery = () =>{
-    if(!layoutStore.userInfo.user_subscription)return
-    deliverySettings.value = layoutStore.userInfo.user_subscription.meta_logistic
+
+    // console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+    // return
+    if(!layoutStore.userInfo.user_subscription) return
+
+    console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+    deliverySettings.value = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
+    
     fields.forEach(field => {
         if(typeof deliverySettings.value[field.key]!=field.dataType) deliverySettings.value[field.key]=field.default
     });
