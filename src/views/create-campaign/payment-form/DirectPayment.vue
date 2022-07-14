@@ -1,11 +1,11 @@
 <template>
-    <div v-if="ready" class="gap-5 flex-col flex text-[16px] p-5">
-        <a 
+    <div v-if="ready" class="gap-5 flex-col flex p-5">
+        <!-- <a 
 			class="col-end text-right w-full inline-block text-base whitespace-nowrap"
             @click="addDirectPayment()"
         > 
            <u> + Add More Option </u>
-        </a>
+        </a> -->
 
         <div class="flex justify-between mt-5 sm:mx-5 sm:mt-0">
             <div class="flex"> 
@@ -14,12 +14,12 @@
                 type="checkbox" 
                 v-model=" props.campaign.meta_payment.direct_payment.enabled"
                 />
-                <label class="ml-3 form-label">Enabled</label>
+                <label class="ml-3 form-label text-base font-medium">Enabled</label>
             </div>
             <a 
-                class="whitespace-nowrap"
+                class="whitespace-nowrap font-medium"
                 @click="addDirectPayment()"
-            > <u> + Add more option  </u> 
+            > <u> + Add More Option  </u> 
             </a>
         </div>
 
@@ -33,7 +33,7 @@
                 :key="index_j"
             >
                 <template v-if="field.type === 'text'">
-                    <label class="form-label text-base">{{ field.name }}</label>
+                    <label class="form-label text-base font-medium mt-2">{{ field.name }}</label>
                     <input 
                         class="form-control form-label w-full"
                         type="text" 
@@ -42,7 +42,7 @@
                 </template>
 
                 <template v-else-if="field.type === 'textarea'">
-                    <label class="form-label text-base">{{ field.name }}</label>
+                    <label class="form-label text-base font-medium mt-2">{{ field.name }}</label>
                     <textarea 
                         class="form-control form-label p-2"
                         v-model="account[field.key]"
@@ -56,13 +56,13 @@
                             type="checkbox" 
                             v-model="account[field.key]"
                         />
-                        <label class="form-label text-base my-3">{{ field.name }}
+                        <label class="form-label text-base font-medium mt-2">{{ field.name }}
                         </label>
                     </div>
                 </template>
 
                 <template v-else-if="field.type === 'file'">
-                    <label>Upload Image</label>
+                    <label class="form-label text-base font-medium mt-2">Upload Image</label>
                     <div class="relative border-2 border-dashed dark:border-darkmode-400">
                         <div class="flex items-center justify-center px-4">
                             <!-- temp -->

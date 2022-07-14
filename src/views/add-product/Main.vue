@@ -1,20 +1,20 @@
 <template>
 	<div class="h-screen sm:h-[100%] overflow-auto">
 		<!-- {{ $t('test1') }} -->
-		<div class="flex items-center p-5 intro-y " v-if="route.params.product_id">
-			<h2 class="text-lg font-medium mx-">Edit Product</h2>
+		<div class="flex items-center px-20 pt-5 pb-4 intro-y " v-if="route.params.product_id">
+			<h2 class="text-2xl font-medium">Edit Product</h2>
 		</div>
-		<div class="flex items-center p-5 intro-y" v-else>
-			<h2 class="text-lg font-medium">Add New Product</h2>
+		<div class="flex items-center px-20 pt-5 pb-4 intro-y" v-else>
+			<h2 class="text-2xl font-medium">Add New Product</h2>
 		</div>
-		<div class="grid grid-cols-12 gap-4 p-5 box intro-y">
-			<div class="col-span-6 col-start-1">
-				<label for="crud-form-1" class="form-label">Product Name</label>
+		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10">
+			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">Product Name</label>
 				<input
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control h-[40px]"
-					placeholder="Input text"
+					placeholder=""
 					v-model="validate.name.$model"
 					:class="{ 'border-danger text-danger border-2': validate.name.$error }" 
 				/>
@@ -24,8 +24,8 @@
 					</label>
 				</template>
 			</div>
-			<div class="col-span-6">
-				<label for="crud-form-2" class="form-label">Category</label>
+			<div class="col-span-12 lg:col-span-6">
+				<label for="crud-form-2" class="form-label text-base mt-2 font-medium">Category</label>
 
 				<TomSelect
 					id="crud-form-2"
@@ -53,8 +53,8 @@
 				</template> -->
 			</div>
 
-			<div class="col-span-12 col-start-1 mt-3">
-				<label class="form-label">Upload Image</label>
+			<div class="col-span-12 col-start-1">
+				<label class="form-label text-base mt-2 font-medium">Upload Image</label>
 				<!-- <div class="relative mt-5 border-2 border-dashed rounded-lg dark:border-darkmode-400">
 					<div class="flex items-center justify-center px-4">
 						<img :src="previewImage" class="object-cover h-48 uploading-image" />
@@ -95,8 +95,8 @@
 				</Dropzone>
 			</div> 
 
-			<div class="col-span-12 col-start-1 mt-3">
-				<label>Type</label>
+			<div class="col-span-12 col-start-1 mt-2">
+				<label class="text-base font-medium">Type</label>
 				<div class="flex flex-col mt-2 sm:flex-row" v-for="type in typeRadio" :key="type.id">
 					<div class="mt-2 ml-2 mr-2 form-check sm:mt-0">
 						<input 
@@ -116,13 +116,13 @@
 				</div>
 			</div>
 
-			<div class="col-span-6 col-start-1 mt-3">
-				<label for="crud-form-1" class="form-label">Order Code</label>
+			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">Order Code</label>
 				<input
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Input Order Code"
+					placeholder=""
 					v-model="validate.order_code.$model"
 				/>
 				<template v-if="validate.order_code.$error">
@@ -131,13 +131,13 @@
 						</label>
 				</template>
 			</div>
-			<div class="col-span-6 mt-3">
-				<label for="crud-form-1" class="form-label">Description</label>
+			<div class="col-span-12 lg:col-span-6 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">Description</label>
 				<input
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Input Description"
+					placeholder=""
 					v-model="validate.description.$model"
 					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
 				/>
@@ -149,8 +149,8 @@
 				
 			</div>
 
-			<div class="col-span-6 col-start-1 mt-3">
-				<label for="crud-form-1" class="form-label">Quantity</label>
+			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">Quantity</label>
 				<input
 					id="crud-form-1"
 					type="text"
@@ -165,8 +165,8 @@
 						</label>
 				</template>
 			</div>
-			<div class="col-span-6 mt-3 ">
-				<label for="crud-form-1" class="form-label">Price</label>
+			<div class="col-span-12 lg:col-span-6 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">Price</label>
 				<input
 					id="crud-form-1"
 					type="text"
@@ -182,8 +182,8 @@
 				</template>
 			</div>
 
-			<div class="col-span-12 col-start-1 mt-3">
-				<label>Status</label>
+			<div class="col-span-12 col-start-1 mt-2">
+				<label class="text-base font-medium">Status</label>
 				<div class="flex flex-col mt-2 sm:flex-row" v-for="status in statusRadio" :key="status.id">
 					<div class="mt-2 ml-2 mr-2 form-check sm:mt-0">
 						<input 
@@ -202,14 +202,14 @@
 					</div>
 				</div>
 			</div>
-		</div>
-		<div class="z-50 flex float-right mr-3 -mt-5">
-			<button class="z-50 w-32 bg-white btn dark:border-darkmode-400 " @click="cancelButton">
-				Cancel
-			</button>
-			<button class="z-50 w-32 ml-5 shadow-md btn btn-primary" @click="submit">
-				Save
-			</button>
+			<div class="z-50 col-span-12 flex justify-end sm:mt-3">
+				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="cancelButton">
+					Cancel
+				</button>
+				<button class="w-32 ml-5 shadow-md btn btn-primary" @click="submit">
+					Save
+				</button>
+			</div>
 		</div>
 	</div>
 </template>

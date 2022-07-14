@@ -1,10 +1,12 @@
 <template>
-    <div class="overflow-y-auto h-screen flex flex-col gap-4 sm:gap-5 text-[16px] sm:h-full" v-if="ready">
-		<span class="mt-5 text-xl text-center sm:text-left"> Edit Campaign </span>
-		<div class="grid grid-cols-12 gap-1 p-3 intro-y sm:gap-5 -z-50 box sm:p-8">
+    <div class="overflow-y-auto h-screen flex flex-col sm:h-full" v-if="ready">
+		<div class="flex items-center px-20 pt-5 pb-4 intro-y">
+			<h2 class="text-2xl font-medium">Edit Campaign</h2>
+		</div>
+		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
 				<div class="flex flex-col">
-					<label class="w-20 my-auto text-base form-label">Title</label>
+					<label class="w-20 my-auto text-base form-label font-medium">Title</label>
 					<input 
 						class="w-full form-control" 
 						type="text" 
@@ -21,7 +23,7 @@
 			</div>
 			<div class="col-span-12 sm:col-span-6">
 				<div class="flex flex-col">
-					<label for="regular-form-2" class="w-16 my-auto text-base form-label">Period</label>
+					<label for="regular-form-2" class="w-16 my-auto text-base form-label font-medium">Period</label>
 					<v-date-picker class="z-49" 
 						v-model="dateTimePicker" 
 						:timezone="timezone" 
@@ -78,7 +80,7 @@
 			</div>
 		</div>
 
-		<div class="flex items-center justify-between p-3 leading-5 border-2 rounded-md sm:p-8 box border-slate-200 ">
+		<!-- <div class="flex items-center justify-between p-3 leading-5 border-2 rounded-md sm:p-8 box border-slate-200 ">
 			<h3 class="inline-flex my-auto leading-5 align-middle md:ml-3"
 			>
 				Platform Connected</h3>
@@ -109,7 +111,7 @@
 			<a @click="editplatform()" class="inline-flex align-middle">
 				Edit
 			</a>
-		</div>
+		</div> -->
 
 
 		<DeliveryForm 
@@ -123,11 +125,11 @@
 
 		<NotesForm :campaign="campaignData"/>
 
-		<div class="col-span-12 flex justify-end p-0 -mt-3 text-[#060607]">
+		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 px-10 py-10">
 			<button class="z-50 w-32 bg-white btn dark:border-darkmode-400 " @click="$router.push({ name: 'campaign-list' })">
 				Cancel
 			</button>
-			<button class="z-50 w-32 ml-5 shadow-md btn btn-primary" @click="updateCampaign()">
+			<button class="w-32 ml-5 mr-4 shadow-md btn btn-primary" @click="updateCampaign()">
 				Update
 			</button>
 		</div>
