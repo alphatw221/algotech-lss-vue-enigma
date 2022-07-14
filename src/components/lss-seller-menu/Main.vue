@@ -1,7 +1,7 @@
 <template>
 <div class="flex max-h-none overflow-auto bg-secondary">
       <!-- BEGIN: Side Menu -->
-      <div class="top-[80px] z-[51] left-[12px] flex fixed my-3 ml-2 px-4 py-1 w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp " 
+      <div class="top-[80px] z-[51] left-[12px] flex fixed my-3 ml-2 px-4 py-1 w-[70px] xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp " 
         :class="{
                   'bg-slate-100': breadCrumb[breadCrumb.length-1] == 'create campaign',
                 }"
