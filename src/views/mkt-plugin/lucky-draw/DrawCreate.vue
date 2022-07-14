@@ -37,7 +37,11 @@
                             </option>
                         </template>    
                     </select>
-                    <button v-if="!prizeList.length" class="btn btn-outline-danger self-left w-fit mt-2" @click="router.push({ name: 'edit-campaign', params: { 'campaign_id': route.params.campaign_id }})"> Edit Campaign </button>
+                    <button 
+                        v-if="!prizeList.length" 
+                        class="btn btn-outline-danger self-left w-fit mt-2" 
+                        @click="detailStore.showAddProductFromStockModal = true"
+                    > Assign Prize </button>
                 </div>
                 <div class="lg:w-[50%] 2xl:w-[50%] flex-col mt-3">
                     <label class="form-label ">Spin Time(sec)</label>
@@ -164,6 +168,8 @@
             <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> Cancel </button>
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> Save </button>
         </div>
+
+        <AddProductFromStockModal :productType="'lucky_draw'"/>
     </div>
 </template>
 
@@ -172,9 +178,11 @@ import { ref, watch, onMounted, onUnmounted, computed, getCurrentInstance } from
 import { useRoute, useRouter } from "vue-router";
 import { list_campaign_product } from '@/api/campaign_product';
 import { create_campapign_lucky_draw, list_campapign_lucky_draw_animation, retrieve_campaign_lucky_draw, update_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useVuelidate } from "@vuelidate/core";
 import { required, minValue, maxValue, minLength, integer } from "@vuelidate/validators";
+import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal.vue';
 
 const props = defineProps({
     campaignTitle: String
@@ -183,6 +191,7 @@ const route = useRoute();
 const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore()
+const detailStore= useCampaignDetailStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const spinTimes = ref([ { value: 5, name: '5 secs' }, { value: 10, name: '10 secs' }, { value: 20, name: '20 secs' }, { value: 30, name: '30 secs' }, { value: 60, name: '60 secs' }]);
 const drawTypes = ref([ { value: 'like', name: 'Draw by like this post' }, { value: 'purchase', name: 'Draw purchased any product' }, { value: 'product', name: 'Draw by purchased certain product' }, { value: 'keyword', name: 'Draw by keyword' },]);
@@ -196,7 +205,7 @@ const currentSettings = ref({
     type: 'product',
     comment: 'keyword',
     campaign_product: '',
-    prize:'Please Assign Lucky Draw Items into your Campaign',
+    prize: 'Please Assign Lucky Draw Items into your Campaign',
     title: '',
     animation: '',
     path: ''
@@ -217,22 +226,10 @@ const validate = useVuelidate(rules, currentSettings);
 
 
 onMounted(() => {
-    list_campaign_product(route.params.campaign_id).then(res => {
-        for (let i =0; i < res.data.length; i++) {
-            if (res.data[i].type === "lucky_draw") {
-                prizeList.value.push(res.data[i])
-            } else{
-                productList.value.push(res.data[i])
-            }
-        }
-    }).catch(err => {
-        console.log(err);
-    })
+    list_product_prize()
 
     list_campapign_lucky_draw_animation().then(res => {
         animationList.value = res.data
-    }).catch(err => {
-        console.log(err);
     })
 
     eventBus.on('editDraw', (payload) => {
@@ -250,6 +247,17 @@ onUnmounted(() => {
     eventBus.off('editDraw')
 })
 
+watch(computed(()=>detailStore.campaignProducts), () => { list_product_prize() })
+
+const list_product_prize = () => {
+    list_campaign_product(route.params.campaign_id).then(res => {
+        for (let i =0; i < res.data.length; i++) {
+            if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
+            else productList.value.push(res.data[i])
+        }
+    })
+}
+
 const upsert = () => {
     validate.value.$touch();
     if (validate.value.$invalid || typeof currentSettings.value.prize === 'string') {
@@ -260,19 +268,13 @@ const upsert = () => {
 
     if (type.value == 'create') {
         create_campapign_lucky_draw(route.params.campaign_id, formData).then(res => {
-            console.log(res.data)
             layoutStore.notification.showMessageToast("Create Successed")
             router.go()
-        }).catch(err => {
-            console.log(err);
         })
     } else if (type.value == 'edit') {
         update_campaign_lucky_draw(luckyDrawId.value, formData).then(res => {
-            console.log(res.data)
             layoutStore.notification.showMessageToast("Update Successed")
             router.go()
-        }).catch(err => {
-            console.log(err)
         })
     }
 };
@@ -283,9 +285,7 @@ const uploadAnimation = e => {
 
 	const reader = new FileReader();
 	reader.readAsDataURL(animation);
-	reader.onload = e =>{
-		previewImage.value = e.target.result;
-	};
+	reader.onload = e =>{ previewImage.value = e.target.result; };
     currentSettings.value.path = '';
 }
 

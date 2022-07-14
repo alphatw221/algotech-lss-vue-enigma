@@ -133,7 +133,7 @@ const routes = [
         component: CampaignList,
       },
       {
-        path: "campaign-live/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?",
         name: "campaign-live",
         component: CampaignLive,
       },
