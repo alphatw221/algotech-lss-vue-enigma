@@ -8,7 +8,7 @@
         <ModalBody>
             <ModalHeader>
                     <h2 class="font-medium text-base mr-auto">
-                        {{$t('manage_order.order')}} No. {{store.orderProductData.id}}
+                        {{$t('manage_order.order_number')}} {{store.orderProductData.id}} 
                         <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
@@ -58,7 +58,7 @@
                 </tbody>
             </table>
             <div class="grid grid-cols-12 gap-2 text-[16px]">
-                <div class="box col-start-1 col-span-12 lg:col-start-8 2xl:col-start-8">
+                <div class="box col-start-1 col-span-12 lg:col-start-8">
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('order_detail.total')}}</div>

@@ -1,13 +1,21 @@
 <template>
 <div class="flex max-h-none overflow-auto bg-secondary">
       <!-- BEGIN: Side Menu -->
-      <nav class="side-nav">
-        <div class="flex m-3 cursor-pointer" @click="router.push({name:'create-campaign'})"> 
-          <button class="w-10 h-10 mr-3 btn btn-rounded-primary"
+      <div class="top-[80px] z-[51] left-[12px] flex fixed my-3 ml-2 px-4 py-1 w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp " 
+        :class="{
+                  'bg-slate-100': breadCrumb[breadCrumb.length-1] == 'create campaign',
+                }"
+        @click="router.push({name:'create-campaign'})"> 
+        <button class="w-10 h-10 mr-3 btn btn-rounded-primary"
           ><span class="text-2xl">+</span></button> 
-          <span class="hidden font-bold xl:block 2xl:block">Create <br> New Campaign</span> 
-        </div>
-        
+        <span class="hidden font-medium xl:block"
+          :class="{
+            'font-bold': breadCrumb[breadCrumb.length-1] == 'create campaign',
+          }"
+          >Create <br> New Campaign</span> 
+      </div>
+
+      <nav class="side-nav">
         <ul>
           <!-- BEGIN: First Child -->
           <template v-for="(menu, menuKey) in formattedMenu">
@@ -125,10 +133,10 @@
           </template>
           <!-- END: First Child -->
         </ul> 
-          <button class="absolute m-0 text-white rounded-lg btn btn-danger xl:m-5 2xl:m-5 bottom-5"
+          <button class="fixed mx-3 text-white rounded-lg btn btn-danger xl:m-5 bottom-5"
               @click="layoutStore.profileTab = 1; router.replace('/seller/profile')"
-          ><ZapIcon class="mr-0 xl:mr-2 2xl:mr-2" /><span class="hidden text-lg xl:block 2xl:block">Upgrade </span>  </button>
-      </nav>
+              ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/><span class="hidden text-lg xl:block 2xl:block">Upgrade </span>  </button>
+          </nav>
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
@@ -224,6 +232,14 @@ const pathName=(value)=>{
 .mobileBack{
   position:absolute;
   top:10px;
-  z-index: 9999;
+  z-index: 50;
 }
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+  .creatCamp{
+    display: none;
+  }
+}
+
 </style>
