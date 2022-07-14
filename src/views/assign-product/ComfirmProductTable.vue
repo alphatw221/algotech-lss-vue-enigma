@@ -225,19 +225,12 @@ onMounted(() => {
 
         seller_bulk_create_campaign_products(route.params.campaign_id, assignedProducts)
         .then(response => {
-            console.log(response.data)
             router.push({ name: 'campaign-list' })
         }).catch(error => {
             if (error.response) {
                 errorMessages.value = error.response.data.errors
             }
         })
-        
-        // seller_create_campaign_products(route.params.campaign_id, assignedProducts)
-        // .then(response => {
-        //     console.log(response.data)
-        //     // router.push({ name: 'campaign-list' })
-        // })
     })
 })
 
