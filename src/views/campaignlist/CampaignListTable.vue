@@ -10,6 +10,20 @@
         </tr>
       </thead>
       <tbody>
+        <tr>
+					<td v-if="showCommentLoding"
+						class="h-[300px] items-center relative"
+						:colspan="tableColumns.length +1" >
+						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
+					</td>
+					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1">
+						<div class="mt-5 text-center md:mt-10" >
+							<h1 class="text-slate-500 text-sm md:text-lg h-[300px]">
+								You Have No {{props.tableName}} Campaign
+							</h1>
+						</div>
+					</td> 
+				</tr>
         <tr v-for="(campaign, index) in campaigns" :key="index" class="intro-x">
           <td class="items-center min-w-12 fan_page">
             <div class="flex justify-center w-full">
@@ -109,19 +123,11 @@
         </tr>
       </tbody>
     </table>
-
-    <!-- BEGIN Empty Cart Text -->
-			<div class="mt-5 text-center md:mt-10" v-if="numOfCampaigns==0">
-				<h1 class="text-sm text-slate-500 md:text-lg">
-					You Have No {{props.tableName}} Campaign
-				</h1>
-			</div>
-	<!-- END Empty Cart Text -->
-
-    <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
+    
+  </div>
+  <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
       <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
-  </div>
 </template>
 
 <script setup>
@@ -160,12 +166,13 @@ const keyword= ref('')
 const order_by= ref("created_at")
 const checkout= ref(true)
 const layoutStore = useLSSSellerLayoutStore()
+const showCommentLoding = ref(true)
 
 const campaigns=ref([])
 const numOfCampaigns = computed(()=>Object.keys(campaigns.value).length)
 onMounted(()=>{
   search();
-
+  showCommentLoding.value = true
   eventBus.on(props.tableName, (payload) => {
     currentPage.value = 1; 
     searchColumn.value = payload.searchColumn;
@@ -183,16 +190,19 @@ onUnmounted(()=>{
 
 
 const search =()=>{
-      list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,page_size.value)
-      .then((response) => {
-          if (response.data.count != undefined) {
-            dataCount.value = response.data.count;
-            const _totalPage = parseInt(response.data.count / page_size.value);
-            totalPage.value = _totalPage == 0 ? 1 : _totalPage;
-          }
-          campaigns.value = response.data.results
-        })
-    }
+    showCommentLoding.value = true
+    campaigns.value = []
+    list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,page_size.value)
+    .then((response) => {
+        if (response.data.count != undefined) {
+          dataCount.value = response.data.count;
+          const _totalPage = parseInt(response.data.count / page_size.value);
+          totalPage.value = _totalPage == 0 ? 1 : _totalPage;
+        }
+        campaigns.value = response.data.results
+        showCommentLoding.value = false
+      })
+  }
 
 const changePage = (page)=>{
       currentPage.value = page;
