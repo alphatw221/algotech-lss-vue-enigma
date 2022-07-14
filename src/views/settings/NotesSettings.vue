@@ -1,11 +1,11 @@
 <template>
-    <div class="p-5 px-0 lg:p-10">
+    <div class="p-5 px-0 lg:p-10 text-sm sm:text-lg">
         <AccordionGroup class="accordion-boxed">
             <AccordionItem>
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            Delivery Note: <br> 
+                            <span class="text-lg sm:text-xl"> Delivery Note: </span> <br> 
                             <span class="text-slate-400 break-all">
                                 {{ deliveryNote }}
                             </span>
@@ -28,7 +28,7 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            Special Note: <br> 
+                            <span class="text-lg sm:text-xl"> Special Note:</span> <br> 
                             <span class="whitespace-normal text-slate-400  break-all">
                                 {{ specialNote }}
                             </span>
@@ -51,8 +51,8 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            Confirmation Note: <br> 
-                            <span class="text-slate-400  break-all">
+                            <span class="text-lg sm:text-xl"> Confirmation Note:</span> <br> 
+                            <span class="text-slate-400  break-all"> 
                                 {{ confirmationNote }}
                             </span>
                         </div>

@@ -19,7 +19,6 @@
 
         <template v-if="ready">
 
-
           <div class="col-span-12 mr-5 sm:col-span-4">
             <div class="items-end h-10" style="display: inline-flex">
               <label for="modal-form-1" class="text-lg font-medium mr-5"
@@ -63,6 +62,7 @@
               @click="selectPlatformPage('instagram')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
+              Select Profile
               {{$t('campaign.enter_post_id.select_page')}}
             </button>
             <!-- <input
@@ -112,10 +112,6 @@
             </div>
           </div>
 
-
-
-
-
         </template>
         <div class="col-span-12 items-end" style="display: inline-flex">
           
@@ -136,15 +132,15 @@
       <ModalFooter>
         <button
           type="button"
-          class="w-20 mr-1 btn btn-outline-secondary"
+          class="w-32 bg-white btn dark:border-darkmode-400"
           @click="hideModal()"
         >
           {{$t('components.word.cancel')}}
         </button>
-        <button type="button" class="btn btn-primary w-20" @click="enterLive()" v-if="ready" 
+        <button type="button" class="w-32 ml-5 shadow-md btn btn-primary" @click="enterLive()" v-if="ready" 
           v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile">
 
-          Continue
+          Save
         </button>
       </ModalFooter>
     </Modal>

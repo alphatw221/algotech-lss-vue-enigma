@@ -1,11 +1,11 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="flex flex-col p-2 text-xl font-medium">
+    <div class="flex flex-col p-2 font-medium text-sm sm:text-xl">
         <!-- BEGIN: commit box -->
-        <span class="mt-5 text-xl"> Default Settings</span>
+        <span class="mt-2 mb-1 sm:mt-5 mx-auto sm:mx-0 text-xl sm:text-2xl"> Default Settings</span>
 
         <div class="flex flex-col gap-5 p-5 box">
-            <div class="switch-toggle">
+            <div class="switch-toggle mx-auto sm:mx-0">
                 <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
                 <label for="on">Notes</label>
                 <input id="na" name="state-d" type="radio" class="" @click="toggleTabs(2)" />

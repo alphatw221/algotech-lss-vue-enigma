@@ -36,12 +36,15 @@
             </div>
         </div>
     
-        <button 
-            class="w-48 mt-2 text-base btn btn-elevated-rounded-primary"
-            @click="updatePayment()"
-        > 
-            Update
-        </button>
+        <div class="float-right">
+             <button 
+                class="btn btn-primary w-32 shadow-md ml-5 mt-7"
+                @click="updatePayment()"
+            > 
+                Update
+            </button>
+        </div>
+       
     </div>
 </template>
 
