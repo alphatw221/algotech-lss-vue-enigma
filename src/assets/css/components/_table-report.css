@@ -1,6 +1,6 @@
 .table-report {
     &:not(.table-report--bordered):not(.table-report--tabulator) {
-        border-spacing: 0 10px;
+        border-spacing: 0 10px; 
         @apply border-separate;
         th {
             @apply border-b-0;
@@ -15,7 +15,7 @@
                 @apply rounded-r-md;
             }
             &.table-report__action {
-                @apply py-0 relative before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400;
+                @apply relative py-0 before:block before:w-px before:h-8 before:bg-slate-200 before:absolute before:left-0 before:inset-y-0 before:my-auto before:dark:bg-darkmode-400;
             }
         }
     }

@@ -56,14 +56,17 @@ import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
 import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'
 
-import {ref, onMounted} from 'vue'
+import {ref, onMounted, onBeforeMount } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
+onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} )
+  
 onMounted(()=>{
     // console.log(navigator.userAgent.toLowerCase())
+    
     if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
         showReminder.value=true
     }
@@ -73,7 +76,6 @@ const route = useRoute()
 const router = useRouter()
 const currentUrl = ref(window.location.href)
 const showReminder = ref(false)
-const tempCookie = ref('eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjU3NTIzMzA4LCJpYXQiOjE2NTY5MTg1MDgsImp0aSI6ImJlOTlmZGNjZGM0MzQyNTY5ZDAwYjM1NjhiOGU2OGFhIiwidXNlcl9pZCI6MzI4LCJkYXRhIjp7ImF1dGhfdXNlcl9pZCI6MzI4LCJzZWxsZXJfaWQiOjM2MCwiY3VzdG9tZXJfaWQiOjM3MywibmFtZSI6IkNlY2lsaWEgVyIsImVtYWlsIjoibWJydzE5QGdtYWlsLmNvbSJ9fQ.jICtdm6HqBQ2w4-o9TeTlBm5-ckAc7ELMAnPUp4ZEiU')
 const loginData = ref(
     {email:'',password:''})
 // const ruleInline = ref( {

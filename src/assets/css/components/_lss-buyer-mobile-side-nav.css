@@ -1,6 +1,6 @@
 .lss-buyer-mobile-side-nav {
   width: 260px;
-  @apply px-5 pb-16 overflow-x-hidden z-50 pt-32 -mt-4;
+  @apply z-50 px-5 pt-32 pb-16 -mt-4 overflow-x-hidden;
 
   @apply md:hidden;
   &.side-nav--simple {
@@ -23,9 +23,9 @@
   .side-menu {
     @apply h-[50px] flex items-center pl-5 text-slate-600 mb-1 relative rounded-xl dark:text-slate-300;
     .side-menu__title {
-      @apply w-full ml-3 flex items-center;
+      @apply flex items-center w-full ml-3;
       .side-menu__sub-icon {
-        @apply transition ease-in duration-100 ml-auto mr-5;
+        @apply ml-auto mr-5 transition duration-100 ease-in;
         svg {
           @apply w-4 h-4;
         }
@@ -94,7 +94,7 @@
             @apply text-slate-700 dark:text-slate-300;
           }
           .side-menu__title {
-            @apply text-slate-700 font-medium dark:text-slate-300;
+            @apply font-medium text-slate-700 dark:text-slate-300;
           }
         }
       }
@@ -124,13 +124,13 @@
             animation-fill-mode: forwards;
             animation-delay: 1s;
             background-image: url("data:image/svg+xml;charset=utf-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='20' height='80' viewBox='0 0 20 122.1'%3E%3Cpath data-name='Union 1' d='M16.038 122H16v-2.213a95.805 95.805 0 00-2.886-20.735 94.894 94.894 0 00-7.783-20.434A39.039 39.039 0 010 61.051a39.035 39.035 0 015.331-17.567 94.9 94.9 0 007.783-20.435A95.746 95.746 0 0016 2.314V0h4v122h-3.961v.1l-.001-.1z' fill='%23f1f5f8'/%3E%3C/svg%3E");
-            @apply bg-no-repeat bg-cover absolute top-0 bottom-0 right-0 my-auto opacity-0;
+            @apply absolute top-0 bottom-0 right-0 my-auto bg-no-repeat bg-cover opacity-0;
           } */
           .side-menu__icon {
-            @apply text-primary z-10 dark:text-slate-300;
+            @apply z-10 text-primary dark:text-slate-300;
           }
           .side-menu__title {
-            @apply text-primary font-medium z-10 dark:text-slate-300;
+            @apply z-10 font-medium text-primary dark:text-slate-300;
           }
         }
         .side-menu__icon {

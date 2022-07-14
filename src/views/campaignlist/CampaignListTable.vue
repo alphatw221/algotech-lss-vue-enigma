@@ -1,6 +1,6 @@
 <template>
-  <div class="overflow-auto h-[650px]">
-    <table class="table table-report">
+  <div class="overflow-auto max-h-[62vh] mt-4">
+    <table class="table -mt-3 table-report">
       <thead>
         <tr>
           <th class="text-center " v-for="column in tableColumns" :key="column.key">
@@ -90,9 +90,18 @@
                 </DropdownToggle>
                 <DropdownMenu class="w-40 pt-2">
                   <DropdownContent class="w-40 text-center">
-                    <DropdownItem class="w-full text-center whitespace-nowrap" @click="router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})"> Edit </DropdownItem>
-                    <DropdownItem @click="copyURL(campaign.id)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
-                    <DropdownItem @click="luckyDraw(campaign.id,campaign.title)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem>
+                    <DropdownItem class="w-full text-center whitespace-nowrap" 
+                      @click="editCampaign(campaign)"> 
+                      <EditIcon class="h-[20px] w-[20px] mr-1" />
+                      Edit </DropdownItem>
+                    <DropdownItem 
+                      @click="copyURL(campaign)" class="w-full whitespace-nowrap"> 
+                      <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
+                      Blank Cart </DropdownItem>
+                    <DropdownItem 
+                      @click="editluckyDraw(campaign)" class="w-full whitespace-nowrap"> 
+                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      Lucky Draw</DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
@@ -126,6 +135,7 @@ import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
+import dom from "@left4code/tw-starter/dist/js/dom";
 
 const route = useRoute();
 const router = useRouter();
@@ -217,12 +227,7 @@ const manageOrder = (campaign_id,status)=>{
       // router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
     }
 
-const copyURL = (campaign_id)=>{
-      text = `${baseURL}/buyer/recaptcha/blank/${campaign_id}`;
-      navigator.clipboard.writeText(text).then(()=>{
-          alert('copied!')
-      })
-    }
+
 
 const startFromToast=()=>{
       if (route.query.type && route.query.type == 'startCampaign') {
@@ -230,9 +235,28 @@ const startFromToast=()=>{
 	    }
     }
 
-const luckyDraw = (campaign_id) => {
-      router.push({name:'lucky-draw',params:{'campaign_id':campaign_id}})
-    }
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
+
+const editCampaign = (campaign)=>{
+  router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})
+  hideDropDown()
+}
+
+const copyURL = (campaign)=>{
+  text = `${baseURL}/buyer/recaptcha/blank/${campaign.id}`;
+  navigator.clipboard.writeText(text).then(()=>{
+      alert('copied!')
+  })
+  hideDropDown()
+}
+
+const editLuckyDraw = (campaign) => {
+  router.push({name:'lucky-draw',params:{'campaign_id':campaign.id}})
+  hideDropDown()
+}
+
 
 </script>
 

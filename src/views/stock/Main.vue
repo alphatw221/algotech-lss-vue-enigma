@@ -1,6 +1,5 @@
 <template>
-	<div class="flex flex-col gap-5 p-2 box sm:p-5">
-		<!-- {{ $t('test1') }} -->
+	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-5">
 		<div class="flex flex-wrap justify-between gap-5 mx-0 mt-4 sm:mx-8"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
@@ -10,14 +9,14 @@
 			</div>
 			<button 
             type="button"
-            class="self-end h-[42px] shadow-md btn btn-primary" 
+            class="self-end h-[35px] sm:h-[42px] shadow-md btn btn-primary" 
             @click="router.push({name: 'add-product'})"
             >
                 Add Product
             </button>
 		</div>
 		<!-- BEGIN For Sale Tab -->
-		<div class="flex flex-col gap-5 leading-relaxed"
+		<div class="flex flex-col gap-3 leading-relaxed sm:gap-5"
 			:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
 			<SearchBar
 				:searchColumns="searchColumns"
@@ -38,7 +37,7 @@
 		<!-- END For Sale Tab -->
 
 		<!-- BEGIN Delisted Tab -->
-		<div class="flex flex-col gap-5 leading-relaxed"
+		<div class="flex flex-col gap-3 leading-relaxed sm:gap-5"
 			:class="{ hidden: openTab !== 2, block: openTab === 2 }"> 
 			<SearchBar
 				:searchColumns="searchColumns"

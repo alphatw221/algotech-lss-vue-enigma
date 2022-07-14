@@ -1,39 +1,38 @@
 <template>
-    <form class="flex flex-warp justify-between gap-5 sm:flex-row">
-        <div class="flex flex-wrap gap-2 justify-between w-full sm:flex-row">
-            <div class="flex-initial w-fit items-center" v-if="showCategoryFilter">
-                <label class="w-14 mr-2">
+    <form class="text-[13px] sm:text-[16px] flex justify-between gap-2 sm:gap-5 flex-warp sm:flex-row">
+        <div class="flex flex-wrap justify-between w-full gap-2 sm:flex-row">
+            <div class="flex items-center flex-initial w-fit" v-if="showCategoryFilter">
+                <label class="mr-2 w-fit">
                     Category
                 </label>
                 <select 
-                    id="tabulator-html-filter-field"
-                    class="form-select h-10 w-auto"
+                    class="w-auto h-[35px] sm:h-[42px] rounded-lg form-select-sm sm:form-select"
                     v-model="selectedCategory"
                     @change="search"
                 >
                     <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
                 </select>
             </div>
-            <div class="flex-initial w-fit items-center flex" >
-                <label class="mr-2 shrink whitespace-wrap sm:whitespace-nowrap">
+            <div class="flex items-center flex-initial w-fit" >
+                <label class="mr-2 shrink whitespace-nowrap">
                     Search by
                 </label>
                 <select
-                    class="form-select mr-0 sm:mr-2 h-10 shrink" v-model="searchField">
+                    class="h-[35px] sm:h-[42px] mr-0 form-select sm:mr-2 shrink rounded-lg form-select-sm sm:form-select" v-model="searchField">
                     <option v-for="searchColumn in searchColumns" :key="searchColumn.value"
                         :value="searchColumn.value">
                         {{ searchColumn.text }}
                     </option>
                 </select>
             </div>
-            <div class="flex-initial w-fit items-center flex">
+            <div class="flex items-center flex-initial w-fit">
                 <div class="input-group">
                     <input type="text"
-                        class="form-control input-group shrink w-40 sm:40" placeholder="Search..."
+                        class="w-40 form-control input-group shrink sm:40" placeholder="Search..."
                         v-model="keyword" @keydown.enter.prevent="search" />
                     <button 
                         type="button"
-                        class="flex-none btn btn-secondary w-16 h-10 rounded-l-none" @click="reset">
+                        class="flex-none btn btn-secondary w-16 h-[35px] sm:h-[42px] rounded-l-none" @click="reset">
                         Reset
                     </button>
                 </div>

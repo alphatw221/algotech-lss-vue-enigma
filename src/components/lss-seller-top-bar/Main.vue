@@ -26,15 +26,6 @@
         />
         <!-- <span class="mt-2 ml-3 text-lg text-white logo__text"> LiveShowSeller </span> -->
       </a>
-      <!-- END: Logo -->
-      <!-- BEGIN: Breadcrumb -->
-      <!-- <nav aria-label="breadcrumb" class="-intro-x h-[45px] mr-auto">
-        <ol class="breadcrumb breadcrumb-light">
-          <li class="breadcrumb-item"><a @click="router.back()">Application</a></li>
-          <li class="breadcrumb-item active" aria-current="page">Dashboard</li>
-        </ol>
-      </nav> -->
-      <!-- END: Breadcrumb -->
       <!-- BEGIN: Search
       <div class="relative mr-3 intro-x sm:mr-6">
         <div class="hidden search sm:block">
@@ -198,13 +189,13 @@
               </div>
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="sellerLayoutStore.profileTab = 0; router.replace('/seller/profile')">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="viewProfile()">
               <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]"  @click="sellerLayoutStore.profileTab = 1;router.replace('/seller/profile')"> 
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]"  @click="viewSubscrition()"> 
               <AwardIcon class="w-4 h-4 mr-2" /> Subscription</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="router.replace('/password/forgot')">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="resetPassword()">
               <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
             >
             <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
@@ -254,12 +245,36 @@ const userAvatar = computed(() => {
   }
   return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
 });
+
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
+
+
 const logout = () => {
   cookies.remove('access_token')
   cookies.remove('login_with')
-  dom('.dropdown-menu').removeClass('show')
+  hideDropDown()
   router.go()
   
+}
+
+
+const resetPassword = ()=>{
+  router.push({name:'PasswordForgot'})
+  hideDropDown()
+}
+
+const viewProfile = ()=>{
+  sellerLayoutStore.profileTab = 1;
+  router.push({name:'seller-profile'})
+  hideDropDown()
+}
+
+const viewSubscrition = ()=>{
+  sellerLayoutStore.profileTab = 0; 
+  router.push({name:'seller-profile'})
+  hideDropDown()
 }
 
 const searchDropdown = ref(false);

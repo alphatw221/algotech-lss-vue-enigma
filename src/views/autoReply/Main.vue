@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-5 p-3 sm:p-5">
+    <div class="flex flex-col gap-5 p-3 sm:px-5">
         <div class="flex justify-between mt-5">
             <label class="my-auto text-xl font-medium"> Setup Auto Reply</label>
             <button class="w-40 h-[42px] text-white btn btn-warning btn-rounded "
@@ -7,7 +7,7 @@
                 <span class="font-bold mr-1 text-[16px]">+</span> Create
             </button>
         </div>
-        <div class="flex flex-col gap-5 p-5 overflow-x-auto box">
+        <div class="flex flex-col gap-5 p-3 overflow-x-auto sm:p-8 box">
             <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
     </div>
