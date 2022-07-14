@@ -26,6 +26,9 @@
     <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
         You don't have any {{tags}} related comment yet
     </div>
+    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="props.platformName=='all' && !fetchingData && comments.length==0">
+        You don't have any comment yet
+    </div>
     <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="!fetchingData && comments.length==0">
         You don't have any {{props.platformName}} comment yet
     </div>

@@ -1,20 +1,21 @@
 <template>
     <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
         <ol class="breadcrumb breadcrumb-dark">
-            <template v-for="crumb, index in breadCrumb" :key="index">
+            <template v-for="crumb, index in breadCrumb.slice(0, -1)" :key="index">
                 <li  class="breadcrumb-item"><a @click="router.push(crumb.path)">{{crumb.name}}</a></li>
             </template>
+            <li v-if="breadCrumb != ''" class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ].name}}</li>
             <!-- <li v-if=" breadCrumb[breadCrumb.length - 2] " class="breadcrumb-item">
                 <a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a>
             </li>
-            <li class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ]}}</li> -->
+             -->
         </ol>
     </nav>
-    <!-- <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
+    <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
         <ol class="breadcrumb breadcrumb-dark">
             <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
         </ol>
-    </nav> -->
+    </nav>
 </template>
 <script setup>
 import { computed, onMounted, provide, ref, watch } from "vue";
