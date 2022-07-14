@@ -127,6 +127,8 @@ const title_rules = computed(() => {
 const title_validate = useVuelidate(title_rules, campaignData);
 
 const createCampaign = ()=>{
+	// console.log(campaignData.value)
+	// return
 	title_validate.value.$touch()
 	if (title_validate.value.$invalid) {
 		sellerStore.alert.showMessageToast("Invalid campaign title input")

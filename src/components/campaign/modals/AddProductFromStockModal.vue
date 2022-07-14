@@ -454,8 +454,8 @@ const changePageSize = (pageSize)=>{
 }
 
 const submitData = ()=>{
-    console.log(selectedProducts.value)
-    return 
+    // console.log(selectedProducts.value)
+    // return 
     if(!isSelectedProductsValid){
         layoutStore.alert.showMessageToast("Invalid")
         return
