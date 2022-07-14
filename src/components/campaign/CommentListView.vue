@@ -1,18 +1,18 @@
 <template>
 
     <div class="sticky z-50 flex-wrap justify-start bg-white -top-1 h-fit" v-show="props.platformName=='commentSummarize'">
-        <button class="m-1 shadow-sm btn btn-danger w-fit tags" @click="commentSummarizer('Shipping')">
-            <HashIcon class="w-4 h-4 mr-2" /> Shipping
+        <button class="m-1 shadow-sm btn btn-danger w-fit tags" @click="commentSummarizer('delivery')">
+            <HashIcon class="w-4 h-4 mr-2" /> Delivery
         </button>
-        <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummarizer('Return')">
-            <HashIcon class="w-4 h-4 mr-2" /> Return
+        <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummarizer('payment')">
+            <HashIcon class="w-4 h-4 mr-2" /> Payment
         </button>
-        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('Size')">
-            <HashIcon class="w-4 h-4 mr-2" /> Size
+        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('neutro')">
+            <HashIcon class="w-4 h-4 mr-2" /> Other
         </button>
-        <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummarizer('Undefined')">
+        <!-- <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummarizer('Undefined')">
             <HashIcon class="w-4 h-4 mr-2" /> Undefined
-        </button>
+        </button> -->
         <div class="flex"> 
             <h2 v-if="tags !== ''" class="p-1">Selected tag: {{ tags }}</h2>
             <button class="flex p-1 ml-auto w-18 text-slate-900"
