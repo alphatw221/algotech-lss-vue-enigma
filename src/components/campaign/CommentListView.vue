@@ -14,7 +14,7 @@
             <HashIcon class="w-4 h-4 mr-2" /> Undefined
         </button> -->
         <div class="flex"> 
-            <h2 v-if="tags !== ''" class="p-1">Selected tag: {{ tags }}</h2>
+            <h2 v-if="tags !== ''" class="p-1 mb-2">Selected tag: {{ tags }}</h2>
             <button class="flex p-1 ml-auto w-18 text-slate-900"
                 @click="commentSummarizer('')">
                 <XIcon class="w-4 h-4" /> Clear 
@@ -23,6 +23,12 @@
     </div>
 
     <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
+    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
+        You don't have any {{tags}} related comment yet
+    </div>
+    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="!fetchingData && comments.length==0">
+        You don't have any {{props.platformName}} comment yet
+    </div>
     <!-- <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)"> -->
         <!-- temporary solution -->
     <div class="overflow-y-scroll h-fit scrollbar-hidden"  @scroll="handleScroll($event)">
@@ -84,7 +90,7 @@ import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
 
 const router = useRouter()
 const route = useRoute()
-
+const tags = ref('')
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
@@ -138,6 +144,9 @@ const readyToUpdateByWebsocket = ()=>{
 }
 
 const commentSummarizer = category=>{
+    if(category == 'neutro'){
+        tags.value = 'other'
+    }else tags.value = category
     commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName, category)
     commentPaginator.getData().then(res=>{
         fetchingData.value = false

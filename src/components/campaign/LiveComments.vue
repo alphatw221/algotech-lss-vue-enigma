@@ -13,8 +13,8 @@
                     <TabList class="nav-pills">
                         <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
                              @click="toggleTabs('commentSummarize')"
-                        >
-                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" />
+                        >   
+                        <font-awesome-icon icon="fa-regular fa-comment-dots" class="h-6 m-1 -mt-2" />
                         </Tab>
 
                         <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
@@ -47,10 +47,18 @@
                     </Accordion>
                     <AccordionPanel
                         class="w-full leading-relaxed text-slate-600 dark:text-slate-500">
-
-                        <img :src="facebook_platform" alt="" v-if="(!platformData.fb.ready && openTab=='facebook')">
-                        <img :src="youtube_platform" alt="" v-else-if="(!platformData.yt.ready && openTab=='youtube')">
-                        <img :src="instagram_platform" alt="" v-else-if="(!platformData.ig.ready && openTab=='instagram')">
+                        <div v-if="(!platformData.fb.ready && openTab=='facebook')" class="relative"> 
+                            <video width="600" class="-mt-1" controls />
+                            <img :src="facebook_platform" class="z-10 absolute top-[10%] right-[50%] w-[30%] translate-x-1/2"/>
+                        </div>
+                        <div v-else-if="(!platformData.yt.ready && openTab=='youtube')" class="relative"> 
+                            <video width="600" class="-mt-1" controls />
+                            <img :src="youtube_platform" class="z-10 absolute top-0 right-[50%] w-[40%] translate-x-1/2"/>
+                        </div>
+                        <div v-else-if="(!platformData.ig.ready && openTab=='instagram')" class="relative"> 
+                            <video width="600" class="-mt-1" controls />
+                            <img :src="instagram_platform" class="z-10 absolute top-[10%] right-[50%] w-[30%] translate-x-1/2"/>
+                        </div>
 
 
                         <!-- BEGIN FACEBOOK IFRAME -->
