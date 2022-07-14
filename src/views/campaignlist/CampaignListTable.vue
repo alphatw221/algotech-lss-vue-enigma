@@ -1,6 +1,6 @@
 <template>
-  <div class="overflow-auto h-[650px]">
-    <table class="table table-report">
+  <div class="overflow-auto max-h-[62vh] mt-4">
+    <table class="table -mt-3 table-report">
       <thead>
         <tr>
           <th class="text-center " v-for="column in tableColumns" :key="column.key">
@@ -90,9 +90,18 @@
                 </DropdownToggle>
                 <DropdownMenu class="w-40 pt-2">
                   <DropdownContent class="w-40 text-center">
-                    <DropdownItem class="w-full text-center whitespace-nowrap" @click="editCampaign(campaign)"> Edit </DropdownItem>
-                    <DropdownItem @click="copyURL(campaign)" class="w-full whitespace-nowrap"> Blank Cart </DropdownItem>
-                    <DropdownItem @click="editluckyDraw(campaign)" class="w-full whitespace-nowrap"> Lucky Draw</DropdownItem>
+                    <DropdownItem class="w-full text-center whitespace-nowrap" 
+                      @click="editCampaign(campaign)"> 
+                      <EditIcon class="h-[20px] w-[20px] mr-1" />
+                      Edit </DropdownItem>
+                    <DropdownItem 
+                      @click="copyURL(campaign)" class="w-full whitespace-nowrap"> 
+                      <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
+                      Blank Cart </DropdownItem>
+                    <DropdownItem 
+                      @click="editluckyDraw(campaign)" class="w-full whitespace-nowrap"> 
+                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      Lucky Draw</DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 

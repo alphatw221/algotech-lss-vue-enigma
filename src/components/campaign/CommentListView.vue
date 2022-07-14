@@ -29,7 +29,7 @@
     <div class="overflow-y-scroll h-[40rem] scrollbar-hidden"  @scroll="handleScroll($event)">
 
         <div v-for="(comment, index) in comments" :key="index"
-            class="relative flex items-center p-2 m-1 rounded-l-full cursor-pointer intro-x box"
+            class="relative flex items-center p-2 m-1 rounded-l-full cursor-pointer intro-x box comments"
             
             :class="{
                   'border-r-8 border-[#3c599b]': comment.platform === 'facebook',
@@ -54,7 +54,7 @@
                 </div>
             </div>
             <Tippy v-else class="rounded-full " content="Reply" theme='light'>
-                <div class="relative flex items-center w-full ">
+                <div class="relative flex items-center w-full">
                     <div class="flex-none mr-1 w-14 h-14 image-fit">
                         <img class="rounded-full zoom-in" :src="comment.image" />
                     </div>
@@ -69,6 +69,7 @@
                     </div>
                 </div>
             </Tippy>
+            <MoreHorizontalIcon  class="hide w-6 h-6 ml-auto z-50" />
         </div>
     </div>
 </template>
@@ -164,5 +165,12 @@ const layoutStore = useLSSSellerLayoutStore();
         top:60%;
         z-index: 999;
     }
+    .hide {
+        display: none;
+    }
+    .comments:hover .hide {
+        display: block !important;
+    }
+
 </style>
  

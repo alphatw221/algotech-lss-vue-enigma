@@ -1,5 +1,5 @@
 <template>
-    <div class="p-5 intro-y">
+    <div class="p-2 sm:p-5 box intro-y">
         <form id="tabulator-html-filter-form" class="flex-col flex-wrap content-end justify-start justify-items-stretch">
             <label class="mr-2 w-14">
                 Category

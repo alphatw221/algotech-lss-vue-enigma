@@ -21,6 +21,6 @@ html {
         }
     }
     input{
-        @apply h-[35px] sm:h-[42px];
+        @apply h-[35px] sm:h-[42px]
     }
 }

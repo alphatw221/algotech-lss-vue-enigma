@@ -1,6 +1,7 @@
 <template>
-    <div class="overflow-x-auto overflow-y-auto h-[67vh] sm:h-[62vh]">
-        <table class="table table-report ">
+    <div class="p-2 mt-5 box sm:p-5 sm:pb-0">
+        <div class="overflow-auto h-[62vh] sm:h-[62vh]">
+            <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
                     <th class="items-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
@@ -144,7 +145,7 @@
                 </div>
             </ModalBody>
         </Modal>
-
+    </div>
     </div>
 </template>
 

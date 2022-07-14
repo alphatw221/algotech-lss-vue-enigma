@@ -1,6 +1,6 @@
 <template>
-	<div class="flex flex-col" v-if="ready">
-		<span class="my-4 text-lg">
+	<div class="flex flex-col p-5 sm:p-8 box" v-if="ready">
+		<span class="text-lg">
 			<strong>Payment Details</strong>  
 		</span>
 		<hr class="w-full mb-3"/>

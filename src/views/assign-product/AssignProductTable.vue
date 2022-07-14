@@ -1,6 +1,7 @@
 <template>
-    <div class="overflow-x-auto overflow-y-auto h-[67vh] sm:h-[62vh]">
-        <table class="table text-center table-report">
+    <div class="p-2 mt-5 box sm:p-5 sm:pb-0">
+        <div class="overflow-auto h-[62vh] sm:h-[62vh]">
+            <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
                     <th class="items-center text-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
@@ -9,7 +10,7 @@
                     </th>
                 </tr>
             </thead>
-            <tbody>
+            <tbody >
                 <tr v-for="(product, index) in productsList" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
 
@@ -113,11 +114,11 @@
                                 Update
                             </button>
                         </td>
-                    </template>
-                </tr>
-
-            </tbody>
-        </table>
+                        </template>
+                    </tr>
+                </tbody>
+            </table>
+        </div> 
         <div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
             <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
         </div>
