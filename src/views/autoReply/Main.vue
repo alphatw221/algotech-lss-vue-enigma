@@ -1,8 +1,11 @@
 <template>
-    <div class="flex flex-col gap-5 p-3 sm:px-5">
-        <div class="flex justify-between mt-5">
-            <label class="my-auto text-xl font-medium"> Setup Auto Reply</label>
-            <button class="w-40 h-[42px] text-white btn btn-warning btn-rounded "
+    <div class="flex flex-col gap-3 p-3 sm:px-5">
+        <!-- <div class="flex items-center px-20 pt-5 pb-4 intro-y">
+			<h2 class="text-2xl font-medium">Create Campaign</h2>
+		</div> -->
+        <div class="flex justify-between mt-5 grid grid-cols-12">
+            <label class="text-2xl font-medium col-span-12 sm:col-span-6"> Setup Auto Reply</label>
+            <button class="w-40 h-[42px] text-white btn btn-warning btn-rounded col-span-12 sm:col-span-6"
                 @click="createModal = true; saved=false">
                 <span class="font-bold mr-1 text-[16px]">+</span> Create
             </button>
@@ -22,7 +25,7 @@
         </ModalHeader>
         <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
             <div class="col-span-12">
-                <label for="modal-form-1" >Keywords to Detect</label>
+                <label for="modal-form-1 text-base font-medium" >Keywords to Detect</label>
                 <input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
                     v-model="validate.input_msg.$model" 
                     :class="{ 'border-danger text-danger border-2': validate.input_msg.$error }" 
@@ -58,7 +61,7 @@
 				</template>
             </div>
             <div class="col-span-12">
-                <label for="modal-form-1" class="form-label">Following</label>
+                <label for="modal-form-1" class="form-label">Assign To</label>
             </div>
             <div class="flex flex-wrap items-center justify-around col-span-12">
                 <template v-for="(data, key) in facebookPagesData" :key="key">
@@ -77,10 +80,10 @@
         </ModalBody>
         <ModalFooter>
             <button type="button" @click="createModal=false"
-                class="w-32 btn dark:border-darkmode-400">
+                class="w-32 bg-white btn dark:border-darkmode-400">
                 Cancel
             </button>
-            <button type="button" @click="createAutoReply()" class="w-32 ml-auto shadow-md btn btn-primary">Save</button>
+            <button type="button" @click="createAutoReply()" class="w-32 ml-5 shadow-md btn btn-primary">Save</button>
         </ModalFooter>
     </Modal>
 </template>
