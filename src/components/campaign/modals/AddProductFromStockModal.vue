@@ -119,8 +119,12 @@
                                             </select> 
                                         </template>
 
-                                        <template v-else-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]"/>
+                                        <template v-else-if="column.key === 'customer_editable' ">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
+                                        </template>
+
+                                        <template v-else-if=" column.key === 'customer_removable'">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
@@ -221,8 +225,12 @@
                                             </select> 
                                         </template>
 
-                                        <template v-else-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]"/>
+                                        <template v-else-if="column.key === 'customer_editable' ">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)"/>
+                                        </template>
+
+                                        <template v-else-if=" column.key === 'customer_removable'">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
@@ -324,10 +332,20 @@ onMounted(() => {
 
 
 const updateStockProductsCheckBox = ()=>{
-    stockProducts.value.forEach(product => {
+    stockProducts.value.forEach((product,stockProductIndex) => {
         
         if(product.id in selectedProductDict.value){ 
-            product.check=true
+            // console.log(selectedProductDict.value)
+            // console.log(product.id.toString())
+            const index = selectedProductDict.value[product.id.toString()]
+            stockProducts.value[stockProductIndex] = selectedProducts.value[index]
+            // product = selectedProducts.value[index]
+            // console.log()
+            // console.log(selectedProducts.value[index])
+            // Object.entries(selectedProducts.value[index]).forEach(([key,value]) => {
+            //     product[key]=value                       //proxy object only got setter
+            // });
+            // selectedProducts.value[index] = product
         }else{
             product.check=false
         }
@@ -378,11 +396,26 @@ watch(computed(()=>stockProducts.value),updateStockProductsCheckBox)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
 
+
+const stockProductRemovable = (product_index, event)=>{
+    if(event.target.checked)stockProducts.value[product_index].customer_editable=true
+}
+const selectedProductRemovable = (product_index, event)=>{
+    if(event.target.checked)selectedProducts.value[product_index].customer_editable=true
+}
+const stockProductEditable = (product_index, event)=>{
+    if(!event.target.checked)stockProducts.value[product_index].customer_removable=false
+}
+const selectedProductEditable = (product_index, event)=>{
+    if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false
+}
+
+
 const selectStockProduct = (stockProduct, event) =>{
 
     if(event.target.checked){
         errorMessages.value.push({})
-        selectedProducts.value.push( JSON.parse(JSON.stringify(stockProduct)) )
+        selectedProducts.value.push( stockProduct )
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
         
     }else{
@@ -417,20 +450,16 @@ const selectAllStockProduct = (event)=>{
 	event.target.checked=false
 	stockProducts.value.forEach(product => {
         product.check=true
-        selectedProducts.value.push(JSON.parse(JSON.stringify(product)))
+        selectedProducts.value.push(product)
 		selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
 		errorMessages.value.push({})
 	});
 }
 
 const search = () => {
-    // const exclude = []
-	// campaignDetailStore.campaignProducts.forEach(campaignProduct => {
-    //     exclude.push(campaignProduct.product.toString())
-	// });
 	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value)
 	.then(response => {
-		stockProducts.value = response.data.results
+		// stockProducts.value = response.data.results
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
