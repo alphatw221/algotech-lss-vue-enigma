@@ -1,8 +1,8 @@
 {
         "manage_order" : "管理訂單",
-        "order" : "訂單",
+        "order_number" : "訂單",
         "action":"Action",
-        "delivery_status":"出貨",
+        "delivery_notification":"出貨",
         "refresh_orders" : "重新載入",
         "customer" : "顧客",
         "platform" : "平台",

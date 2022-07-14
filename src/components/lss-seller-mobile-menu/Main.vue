@@ -1,9 +1,10 @@
 <template>
-  <div id="lss-mobil-side-nav"
-    class="absolute z-50 h-full ml-3 mr-5 overflow-hidden lss-mobil-side-nav-close top-14 dark:bg-darkmode-500 bg-primary md:hidden">
+<div class="relative">
+   <div id="lss-mobil-side-nav"
+    class="absolute z-50  mr-5 overflow-hidden lss-mobil-side-nav-close top-14 dark:bg-darkmode-500 bg-primary md:hidden">
 
     <!-- BEGIN: Mobile Menu -->
-    <div class="sticky mobile-menu">
+    <div class="mobile-menu">
       <!-- <div class="py-2 mobile-menu-bar">
       <a href="" class="flex mr-auto">
         <img
@@ -88,6 +89,8 @@
     </div>
     <!-- END: Mobile Menu -->
   </div>
+</div>
+ 
 </template>
 
 <script setup>
@@ -136,7 +139,7 @@ watch(
 
 <style scoped>
 .lss-mobil-side-nav-show {
-  /* left:11px; */
+  left:13px;
   height: 100vh;
   transition: 1s;
 }
@@ -148,8 +151,12 @@ watch(
 }
 
 #lss-mobil-side-nav {
-  left: 0%;
+  /* left: 14px; */
   width: calc(100vw - 26px);
   border-radius: 0px 0px 30px 30px;
+  /* top: 0; */
+  z-index: 51;
+  position: fixed;
 }
+
 </style>

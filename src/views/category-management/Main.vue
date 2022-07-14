@@ -1,29 +1,29 @@
 <template>
-    <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5 overflow-auto p-5 h-[95%]">
+    <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5 overflow-auto p-5 h-screen sm:h-[95%]">
         <!-- TODO category選單初始畫面 請van拉圖 -->
         <!-- <div>
             
         </div> -->
-        <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2"
+        <div class="col-span-6 intro-y sm:col-span-4 md:col-span-3 2xl:col-span-2"
             @click="showModal = true; editType = 'create'; modalTitle='Create New Category'">
-            <div class="file box rounded-md px-5 pt-6 pb-5 px-3 sm:px-5 relative zoom-in">
+            <div class="relative px-3 px-5 pt-6 pb-5 rounded-md file box sm:px-5 zoom-in">
                 <PlusSquareIcon style="margin: auto; width: 7rem; height: 7rem;" />
-                <div class="block font-medium mt-4 text-center truncate">
+                <div class="block mt-4 font-medium text-center truncate">
                     Create New Category
                 </div>
             </div>
         </div>
 
-        <div class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-2" v-for="item in listItems"
+        <div class="col-span-6 intro-y sm:col-span-4 md:col-span-3 2xl:col-span-2" v-for="item in listItems"
             :key="item">
-            <div class="file box rounded-md px-5 pt-8 pb-5 px-3 sm:px-4 relative">
-                <div class="w-1/2 file__icon file__icon--empty-directory mx-auto"></div>
-                <div class="block font-medium mt-4 text-center truncate">
+            <div class="relative px-3 px-5 pt-8 pb-5 rounded-md file box sm:px-4">
+                <div class="w-1/2 mx-auto file__icon file__icon--empty-directory"></div>
+                <div class="block mt-4 font-medium text-center truncate">
                     {{ item }}
                 </div>
 
-                <Dropdown class="absolute top-0 right-0 mr-2 mt-3 ml-auto">
-                    <DropdownToggle tag="a" class="w-5 h-5 block" href="javascript:;">
+                <Dropdown class="absolute top-0 right-0 mt-3 ml-auto mr-2">
+                    <DropdownToggle tag="a" class="block w-5 h-5" href="javascript:;">
                         <MoreVerticalIcon class="w-5 h-5 text-slate-500" />
                     </DropdownToggle>
                     <DropdownMenu class="w-40">
@@ -45,13 +45,13 @@
                 <div class="mt-1">
                     <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{modalTitle}}</label>
                     <input v-if="editType == 'update'" id="regular-form-2" type="text"
-                        class="form-control mt-3" placeholder="Category Name" disabled
+                        class="mt-3 form-control" placeholder="Category Name" disabled
                         v-model="oldCategory" />
-                    <input id="regular-form-2" type="text" class="form-control mt-3"
+                    <input id="regular-form-2" type="text" class="mt-3 form-control"
                         placeholder="Category Name" v-model="categoryName" />
                 </div>
-                <button class="btn w-32 dark:border-darkmode-400 mt-7" @click="showModal =false">Cancel</button>
-                <button class="btn btn-primary w-32 shadow-md ml-5 mt-7" @click="update()">Save</button>
+                <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false">Cancel</button>
+                <button class="w-32 ml-5 shadow-md btn btn-primary mt-7" @click="update()">Save</button>
             </ModalBody>
         </Modal>
     </div>

@@ -92,25 +92,27 @@ const updateOrderSummary = ()=>{
     let delivery_charge = meta_logistic.delivery_charge || 0
     delivery_charge = Number(delivery_charge)
 
-    const delivery_titles = meta_logistic.additional_delivery_charge_title || null
-    const delivery_types = meta_logistic.additional_delivery_charge_type || null
-    const delivery_prices = meta_logistic.additional_delivery_charge_price || null
+    // const delivery_titles = meta_logistic.additional_delivery_charge_title || null
+    // const delivery_types = meta_logistic.additional_delivery_charge_type || null
+    // const delivery_prices = meta_logistic.additional_delivery_charge_price || null
 
 
-    const free_delivery_for_order_above_price = meta_logistic.is_free_delivery_for_order_above_price == 1 ? meta_logistic.free_delivery_for_order_above_price : 0
-    const free_delivery_for_how_many_order_minimum = meta_logistic.is_free_delivery_for_how_many_order_minimum == 1 ? meta_logistic.free_delivery_for_how_many_order_minimum : 0
+    // const free_delivery_for_order_above_price = meta_logistic.is_free_delivery_for_order_above_price == 1 ? meta_logistic.free_delivery_for_order_above_price : 0
+    // const free_delivery_for_how_many_order_minimum = meta_logistic.is_free_delivery_for_how_many_order_minimum == 1 ? meta_logistic.free_delivery_for_how_many_order_minimum : 0
 
-    const is_subtotal_over_free_delivery_threshold = free_delivery_for_order_above_price?store.order.subtotal >= free_delivery_for_order_above_price:false
-    const is_items_over_free_delivery_threshold = free_delivery_for_how_many_order_minimum?store.order.products.length >= free_delivery_for_how_many_order_minimum:false
+    const is_subtotal_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_order_above_price ? store.order.subtotal >= meta_logistic.free_delivery_for_order_above_price : false
+    const is_items_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_how_many_order_minimum ? store.order.products.length >= meta_logistic.free_delivery_for_how_many_order_minimum : false
 
-    if ( !['',null,undefined].includes(store.shipping_info.shipping_option) && delivery_titles && delivery_types && delivery_prices ){      
-      const index = delivery_titles.indexOf(store.shipping_info.shipping_option)
+    // let index = meta_logistic.additional_delivery_options.findIndex(option=> option.title == store.shipping_info.shipping_option)
+    if ( !['',null,undefined].includes(store.shipping_info.shipping_option_index) && meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index] ){      
+      const option = meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index]
+      // const index = delivery_titles.indexOf(store.shipping_info.shipping_option)
 
-      if (delivery_types[index] == '+'){
-        delivery_charge += Number(delivery_prices[index])
+      if (option.type== '+'){
+        delivery_charge += Number(option.price)
       }
-      else if(delivery_types[index] == '='){
-        delivery_charge =  Number(delivery_prices[index])
+      else if(option.type == '='){
+        delivery_charge =  Number(option.price)
       }
     }
 
@@ -119,6 +121,7 @@ const updateOrderSummary = ()=>{
     shippingCost.value = delivery_charge
     cartTotal.value = store.order.subtotal + store.order.adjust_price + delivery_charge
 }
+
 watch(
   computed(() => store.order),
   updateOrderSummary
@@ -126,20 +129,11 @@ watch(
 
 
 watch(
-  computed(() => {return store.shipping_info.shipping_method}),
-  ()=>{
-    // console.log(store.shipping_info)
-    updateOrderSummary()
-  }
+  computed(() => {return store.shipping_info}),
+  updateOrderSummary,{deep:true}
 );
 
-watch(
-  computed(() => {return store.shipping_info.shipping_option}),
-  ()=>{
-    // console.log(store.shipping_info)
-    updateOrderSummary()
-  }
-);
+
 
 const toNext=()=>{
   store.openTab=2

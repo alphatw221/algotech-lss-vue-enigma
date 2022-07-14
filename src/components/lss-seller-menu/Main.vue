@@ -1,10 +1,10 @@
 <template>
-<div class="flex h-full overflow-auto scrollbar-hidden bg-secondary">
+<div class="flex max-h-none overflow-auto bg-secondary">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
         <div class="flex m-3 cursor-pointer" @click="router.push({name:'create-campaign'})"> 
           <button class="w-10 h-10 mr-3 btn btn-rounded-primary"
-          ><span class="text-2xl">+</span></button>
+          ><span class="text-2xl">+</span></button> 
           <span class="hidden font-bold xl:block 2xl:block">Create <br> New Campaign</span> 
         </div>
         
@@ -132,7 +132,7 @@
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="content">
+      <div class="lss-content">
         <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
           <ol class="breadcrumb breadcrumb-dark">
             <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
@@ -141,6 +141,11 @@
             <li v-if=" breadCrumb[breadCrumb.length - 2] " 
               class="breadcrumb-item"><a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a></li>
             <li class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
+          </ol>
+        </nav>
+        <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
+          <ol class="breadcrumb breadcrumb-dark">
+            <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
           </ol>
         </nav>
         <router-view />
@@ -212,12 +217,13 @@ const pathName=(value)=>{
   background-color: theme("colors.dark"); 
 }
 
-.content {
-  height: max-content;
-}
-
 .breadcrumb-item a{
   color: #7c7c7c;
 }
 
+.mobileBack{
+  position:absolute;
+  top:10px;
+  z-index: 9999;
+}
 </style>

@@ -1,19 +1,19 @@
 <template>
-	<div class="h-[100%] overflow-auto box">
+	<div class="h-screen sm:h-[100%] overflow-auto">
 		<!-- {{ $t('test1') }} -->
-		<div class="flex items-center p-5 intro-y" v-if="route.params.product_id">
-			<h2 class="text-lg font-medium mx-">Update Product</h2>
+		<div class="flex items-center p-5 intro-y " v-if="route.params.product_id">
+			<h2 class="text-lg font-medium mx-">Edit Product</h2>
 		</div>
 		<div class="flex items-center p-5 intro-y" v-else>
 			<h2 class="text-lg font-medium">Add New Product</h2>
 		</div>
-		<div class="grid grid-cols-12 gap-4 p-5 mt-5 intro-y">
+		<div class="grid grid-cols-12 gap-4 p-5 box intro-y">
 			<div class="col-span-6 col-start-1">
 				<label for="crud-form-1" class="form-label">Product Name</label>
 				<input
 					id="crud-form-1"
 					type="text"
-					class="w-full form-control"
+					class="w-full form-control h-[40px]"
 					placeholder="Input text"
 					v-model="validate.name.$model"
 					:class="{ 'border-danger text-danger border-2': validate.name.$error }" 
@@ -202,17 +202,14 @@
 					</div>
 				</div>
 			</div>
-
-			<div class="col-span-12 mt-3 ">
-				<div class="flex float-right mt-5">
-					<button class="w-32 btn dark:border-darkmode-400 " @click="cancelButton">
-						Cancel
-					</button>
-					<button class="w-32 ml-5 shadow-md btn btn-primary" @click="submit">
-						Save
-					</button>
-				</div>
-			</div>
+		</div>
+		<div class="z-50 flex float-right mr-3 -mt-5">
+			<button class="z-50 w-32 bg-white btn dark:border-darkmode-400 " @click="cancelButton">
+				Cancel
+			</button>
+			<button class="z-50 w-32 ml-5 shadow-md btn btn-primary" @click="submit">
+				Save
+			</button>
 		</div>
 	</div>
 </template>

@@ -1,7 +1,7 @@
 <template>
-    <div class="overflow-y-auto box py-5 px-3 sm:p-12 flex flex-col gap-5 text-[16px]" v-if="ready">
-		<span class="mt-5 text-xl"> Edit Campaign </span>
-		<div class="grid grid-cols-12 gap-1 intro-y sm:gap-5 -z-50">
+    <div class="overflow-y-auto h-screen flex flex-col gap-4 sm:gap-5 text-[16px] sm:h-full" v-if="ready">
+		<span class="mt-5 text-xl text-center sm:text-left"> Edit Campaign </span>
+		<div class="grid grid-cols-12 gap-1 p-3 intro-y sm:gap-5 -z-50 box sm:p-8">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
 				<div class="flex flex-col">
 					<label class="w-20 my-auto text-base form-label">Title</label>
@@ -19,7 +19,7 @@
 					</label>
 				</template> 
 			</div>
-			<div class="col-span-12 -mb-5 sm:col-span-6">
+			<div class="col-span-12 sm:col-span-6">
 				<div class="flex flex-col">
 					<label for="regular-form-2" class="w-16 my-auto text-base form-label">Period</label>
 					<v-date-picker class="z-49" 
@@ -32,10 +32,10 @@
 						<template v-slot="{ inputValue, inputEvents }">
 							<div class="flex items-center justify-center">
 							<input :value="inputValue.start" v-on="inputEvents.start"
-								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								class="form-control border h-[35px] sm:h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
 							<ChevronsRightIcon class="w-8 h-8 m-1" />
 							<input :value="inputValue.end" v-on="inputEvents.end" disabled
-								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								class="form-control border h-[35px] sm:h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
 							</div>
 						</template>
 					</v-date-picker>
@@ -43,11 +43,11 @@
 			</div>
 		</div>
 
-		<div class="flex items-center justify-between py-3 mt-5 leading-5 border-2 rounded-md border-slate-200 ">
-			<h3 class="inline-flex my-auto ml-2 leading-5 align-middle md:ml-3 "
+		<div class="flex items-center justify-between p-3 leading-5 border-2 rounded-md sm:p-8 box border-slate-200 ">
+			<h3 class="inline-flex my-auto leading-5 align-middle md:ml-3"
 			>
 				Platform Connected</h3>
-			<div class="inline-flex justify-around ml-auto mr-3 align-middle w-fit md:mr-5 ">
+			<div class="inline-flex justify-around ml-auto mr-3 align-middle w-fit">
               <div class="w-8 h-8 border-0 flex-0 md:w-14 md:h-14 zoom-in" v-if="campaignData.facebook_page !== null">
                 <Tippy tag="img" class="border-0 rounded-full md:w-14 md:h-14" :src="campaignData.facebook_page.image"
                   :content="campaignData.facebook_page.name" />
@@ -71,7 +71,7 @@
               </div>
             </div>
 
-			<a @click="editplatform()" class="inline-flex mr-2 align-middle md:mr-5">
+			<a @click="editplatform()" class="inline-flex align-middle">
 				Edit
 			</a>
 		</div>
@@ -88,15 +88,13 @@
 
 		<NotesForm :campaign="campaignData"/>
 
-		<div class="z-0 col-span-12 p-0 mt-5">
-			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
-				<button class="w-24 mb-2 mr-2 btn btn-rounded-secondary" @click="$router.push({ name: 'campaign-list' })">
-					Cancel
-				</button>
-				<button class="w-24 mb-2 mr-1 btn btn-rounded-primary" @click="updateCampaign()">
-					Update
-				</button>
-			</div>
+		<div class="col-span-12 flex justify-end p-0 -mt-3 text-[#060607]">
+			<button class="z-50 w-32 bg-white btn dark:border-darkmode-400 " @click="$router.push({ name: 'campaign-list' })">
+				Cancel
+			</button>
+			<button class="z-50 w-32 ml-5 shadow-md btn btn-primary" @click="updateCampaign()">
+				Update
+			</button>
 		</div>
 
 		<!-- BEGIN Enter Post ID Modal -->
