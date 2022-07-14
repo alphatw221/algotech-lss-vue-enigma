@@ -1,5 +1,5 @@
 <template>
-	<div class="mt-3 overflow-auto h-[600px]">
+	<div class="mt-3 overflow-auto h-[53vh] sm:h-[61vh]">
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>

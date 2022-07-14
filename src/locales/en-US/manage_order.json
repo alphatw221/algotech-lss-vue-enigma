@@ -1,8 +1,8 @@
 {
         "manage_order" : "Manage Order",
-        "order" : "Order",
+        "order_number" : "Order Number",
         "action":"Action",
-        "delivery_status":"Delivery Status",
+        "delivery_notification":"Delivery Notification",
         "refresh_orders" : "Refresh Orders",
         "customer" : "Customer",
         "platform" : "Platform",

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-5 text-[16px]">
+    <div class="flex flex-col gap-5 text-[16px] overflow-auto sm:overflow-hidden h-screen sm:h-[100%]">
 		<span class="mt-3 ml-5 text-xl sm:ml-0 sm:mt-5"> Create Campaign </span>
 		<div class="grid grid-cols-12 gap-1 px-5 py-5 sm:p-8 intro-y box sm:gap-5 -z-50">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
@@ -55,7 +55,7 @@
 
 		<NotesForm :campaign="campaignData"/>
 
-		<div class="z-50 col-span-12 mr-8 -mt-20">
+		<div class="z-50 col-span-12 mr-8 -mt-12 sm:-mt-20">
 			<div class="col-span-12 flex justify-end mt-5 text-[#060607]">
 				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
 					Cancel

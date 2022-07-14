@@ -1,13 +1,18 @@
 .lss-content {
     padding: 0px 22px;
-    @apply min-w-0 min-h-screen bg-slate-100 flex-1 pt-20 pb-10 mt-1 relative dark:bg-darkmode-700;
+    @apply relative flex-1 min-w-0 min-h-screen pt-20 pb-10 mt-1 bg-slate-100 dark:bg-darkmode-700;
     @include media-breakpoint-down(md) {
         border-radius: 0px 0px 30px 30px;
-        @apply px-4 max-w-full pt-0 mt-1;
+        @apply max-w-full px-4 pt-0 mt-1;
+    }
+    @include media-breakpoint-down(sm) {
+        border-radius: 0px 0px 30px 30px;
+        height: 95vh; 
+        @apply max-w-full p-0 mt-1;
     }
     &:before {
         content: "";
-        @apply w-full h-px block;
+        @apply block w-full h-px;
     }
     &.content--top-nav {
         border-radius: 35px 35px 0 0;

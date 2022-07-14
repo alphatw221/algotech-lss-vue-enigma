@@ -1,5 +1,5 @@
 <template>
-<div class="flex h-full overflow-auto scrollbar-hidden bg-secondary">
+<div class="flex h-full overflow-auto bg-secondary">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
         <div class="flex m-3 cursor-pointer" @click="router.push({name:'create-campaign'})"> 
@@ -132,7 +132,7 @@
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="content">
+      <div class="lss-content">
         <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
           <ol class="breadcrumb breadcrumb-dark">
             <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
@@ -212,12 +212,11 @@ const pathName=(value)=>{
   background-color: theme("colors.dark"); 
 }
 
-.content {
-  height: max-content;
-}
-
 .breadcrumb-item a{
   color: #7c7c7c;
 }
 
+.lss-content{
+  height: calc(100vh - 70px) !important;
+}
 </style>

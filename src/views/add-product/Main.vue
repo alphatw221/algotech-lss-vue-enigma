@@ -1,5 +1,5 @@
 <template>
-	<div class="h-[100%] overflow-auto">
+	<div class="h-screen sm:h-[100%] overflow-auto">
 		<!-- {{ $t('test1') }} -->
 		<div class="flex items-center p-5 intro-y " v-if="route.params.product_id">
 			<h2 class="text-lg font-medium mx-">Edit Product</h2>
@@ -13,7 +13,7 @@
 				<input
 					id="crud-form-1"
 					type="text"
-					class="w-full form-control"
+					class="w-full form-control h-[40px]"
 					placeholder="Input text"
 					v-model="validate.name.$model"
 					:class="{ 'border-danger text-danger border-2': validate.name.$error }" 

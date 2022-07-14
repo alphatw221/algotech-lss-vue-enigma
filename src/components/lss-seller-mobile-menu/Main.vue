@@ -3,7 +3,7 @@
     class="absolute z-50 h-full ml-3 mr-5 overflow-hidden lss-mobil-side-nav-close top-14 dark:bg-darkmode-500 bg-primary md:hidden">
 
     <!-- BEGIN: Mobile Menu -->
-    <div class="sticky mobile-menu">
+    <div class="mobile-menu">
       <!-- <div class="py-2 mobile-menu-bar">
       <a href="" class="flex mr-auto">
         <img
@@ -138,18 +138,26 @@ watch(
 .lss-mobil-side-nav-show {
   /* left:11px; */
   height: 100vh;
-  transition: 1s;
+  /* transition: 1s; */
 }
 
 .lss-mobil-side-nav-close {
   /* left: -100%; */
   height: 0%;
-  transition: 1s;
+  /* transition: 1s; */
 }
 
 #lss-mobil-side-nav {
   left: 0%;
   width: calc(100vw - 26px);
   border-radius: 0px 0px 30px 30px;
+  /* top: 0; */
+  z-index: 51;
+  /* position: sticky; */
 }
+
+/* .mobile-menu{
+  position: ab;
+  background: #000;
+} */
 </style>

@@ -12,7 +12,7 @@
         <label for="na" @click="show_campaign('history')">History</label>
       </div>
       <button 
-        class="flex w-40 h-10 ml-auto text-white btn btn-warning btn-rounded sm:mx-2"
+        class="flex w-40 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded sm:mx-2"
               @click="router.push({name:'create-campaign'})" > 
         <span class="mr-1 text-lg font-bold">+</span> Create
       </button>
