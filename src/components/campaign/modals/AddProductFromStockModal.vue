@@ -396,7 +396,7 @@ const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
 	selectedProducts.value.splice(selectedProductIndex,1)
 	errorMessages.value.splice(selectedProductIndex,1)
 
-    updateStockProducts()
+    updateStockProductsCheckBox()
 }
 
 const resetSelectedProduct = ()=>{
@@ -406,7 +406,7 @@ const resetSelectedProduct = ()=>{
 	});
 	selectedProducts.value = []
 	errorMessages.value = []
-    updateStockProducts()
+    updateStockProductsCheckBox()
 
 }
 
