@@ -1,20 +1,20 @@
 <template>
 
     <div class="sticky z-50 flex-wrap justify-start bg-white -top-1 h-fit" v-show="props.platformName=='commentSummarize'">
-        <button class="m-1 shadow-sm btn btn-danger w-fit tags" @click="commentSummarizer('Shipping')">
-            <HashIcon class="w-4 h-4 mr-2" /> Shipping
+        <button class="m-1 shadow-sm btn btn-danger w-fit tags" @click="commentSummarizer('delivery')">
+            <HashIcon class="w-4 h-4 mr-2" /> Delivery
         </button>
-        <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummarizer('Return')">
-            <HashIcon class="w-4 h-4 mr-2" /> Return
+        <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummarizer('payment')">
+            <HashIcon class="w-4 h-4 mr-2" /> Payment
         </button>
-        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('Size')">
-            <HashIcon class="w-4 h-4 mr-2" /> Size
+        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('neutro')">
+            <HashIcon class="w-4 h-4 mr-2" /> Other
         </button>
-        <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummarizer('Undefined')">
+        <!-- <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummarizer('Undefined')">
             <HashIcon class="w-4 h-4 mr-2" /> Undefined
-        </button>
+        </button> -->
         <div class="flex"> 
-            <h2 v-if="tags !== ''" class="p-1">Selected tag: {{ tags }}</h2>
+            <h2 v-if="tags !== ''" class="p-1 mb-2">Selected tag: {{ tags }}</h2>
             <button class="flex p-1 ml-auto w-18 text-slate-900"
                 @click="commentSummarizer('')">
                 <XIcon class="w-4 h-4" /> Clear 
@@ -22,11 +22,16 @@
         </div>
     </div>
 
-
     <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
+    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
+        You don't have any {{tags}} related comment yet
+    </div>
+    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="!fetchingData && comments.length==0">
+        You don't have any {{props.platformName}} comment yet
+    </div>
     <!-- <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)"> -->
         <!-- temporary solution -->
-    <div class="overflow-y-scroll h-[40rem] scrollbar-hidden"  @scroll="handleScroll($event)">
+    <div class="overflow-y-scroll h-fit scrollbar-hidden"  @scroll="handleScroll($event)">
 
         <div v-for="(comment, index) in comments" :key="index"
             class="relative flex items-center p-2 m-1 rounded-l-full cursor-pointer intro-x box comments"
@@ -85,7 +90,7 @@ import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
 
 const router = useRouter()
 const route = useRoute()
-
+const tags = ref('')
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
@@ -139,6 +144,9 @@ const readyToUpdateByWebsocket = ()=>{
 }
 
 const commentSummarizer = category=>{
+    if(category == 'neutro'){
+        tags.value = 'other'
+    }else tags.value = category
     commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName, category)
     commentPaginator.getData().then(res=>{
         fetchingData.value = false

@@ -255,9 +255,13 @@
 import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
 import { list_product_category, list_product } from '@/api_v2/product';
 import { useRoute, useRouter } from "vue-router";
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+
+const props = defineProps({
+    productType: String,
+})
 
 const tableColumns = ref([
     { name: "Product", key: "image" },
@@ -284,6 +288,7 @@ const totalPage = ref(1)
 const pageSize = ref(10)
 const dataCount = ref(0)
 
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const imageUrl = import.meta.env.VITE_APP_IMG_URL
 const selectedCategory = ref('')
 const searchField = ref('name')
@@ -305,13 +310,13 @@ const selectedProductDict = ref({})
 let isSelectedProductsValid=false
 let campaignProductCache = null
 
+
 onMounted(() => {
 	list_product_category().then(
 		res => { 
 			res.data.forEach(category => {
 				productCategories.value.push({value:category, name:category})
 			});
-			
 		}
 	)
 })
@@ -365,8 +370,6 @@ const checkIfValid = ()=>{
         productCache.orderCodeDict[selectedProduct.order_code]=true
     });
 
-    console.log(isSelectedProductsValid)
-    console.log(errorMessages.value)
 }
 
 watch(computed(()=>campaignDetailStore.campaignProducts),createProductCache)
@@ -396,7 +399,7 @@ const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
 	selectedProducts.value.splice(selectedProductIndex,1)
 	errorMessages.value.splice(selectedProductIndex,1)
 
-    updateStockProducts()
+    updateStockProductsCheckBox()
 }
 
 const resetSelectedProduct = ()=>{
@@ -406,7 +409,7 @@ const resetSelectedProduct = ()=>{
 	});
 	selectedProducts.value = []
 	errorMessages.value = []
-    updateStockProducts()
+    updateStockProductsCheckBox()
 
 }
 
@@ -425,7 +428,7 @@ const search = () => {
 	// campaignDetailStore.campaignProducts.forEach(campaignProduct => {
     //     exclude.push(campaignProduct.product.toString())
 	// });
-	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', selectedCategory.value)
+	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value)
 	.then(response => {
 		stockProducts.value = response.data.results
 		dataCount.value = response.data.count

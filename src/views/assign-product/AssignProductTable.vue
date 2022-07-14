@@ -180,7 +180,7 @@ onUnmounted(() => {
 
 const search = () => {
     if (route.name === 'assign-product') {
-        list_product(pageSize.value, currentPage.value, undefined, undefined, 'enabled', category.value)
+        list_product(pageSize.value, currentPage.value, undefined, undefined, 'enabled', undefined,  category.value)
             .then(response => {
                 dataCount.value = response.data.count
                 productsList.value = response.data.results

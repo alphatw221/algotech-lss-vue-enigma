@@ -58,7 +58,7 @@
                 </tbody>
             </table>
             <div class="grid grid-cols-12 gap-2 text-[16px]">
-                <div class="box col-start-1 col-span-12 lg:col-start-8 2xl:col-start-8">
+                <div class="box col-start-1 col-span-12 lg:col-start-8">
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('order_detail.total')}}</div>

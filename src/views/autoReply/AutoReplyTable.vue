@@ -5,7 +5,7 @@
 			<thead>
 				<tr>
 					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap">
-						<template v-if="column.name === '#'">
+						<template v-if="column.name === '#' || column.key === 'facebook_page'">
 							<span class="px-6"> {{ column.name }}</span> 
 						</template>
 						<template v-else> {{ column.name }} </template>
@@ -17,7 +17,7 @@
 					<td v-if="showCommentLoding"
 						class="h-[300px] items-center relative"
 						:colspan="columns.length" >
-						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%]"/>
+						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
 					<td v-else-if="listItems.length === 0" :colspan="columns.length">
 						<div class="mt-5 text-center md:mt-10" >
@@ -161,7 +161,6 @@ function changePageSize(page_size) {
 }
 
 function updateInfo(id, input, output, description, facebook_page) {
-	console.log(id);
 	updateModal.value = true;
 	currentInfo.value.id = id;
 	currentInfo.value.input_msg = input;
@@ -171,9 +170,10 @@ function updateInfo(id, input, output, description, facebook_page) {
 }
 
 function getReplyData() {
+	listItems.value =[]
+	showCommentLoding.value = true
 	list_auto_response(pageSize.value, currentPage.value)
 	.then((response) => {
-		console.log(response);
 		totalCount.value = response.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		listItems.value = response.data.results
