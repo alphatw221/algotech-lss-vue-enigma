@@ -7,8 +7,8 @@ import zh from './zh-hant/index.js'
 
 const i18n = createI18n({
   legacy: false,
-  // locale:'zh-TW',
-  locale:'en-US',
+  locale:'zh-TW',
+  // locale:'en-US',
   fallbackLocale: 'en-US',
   globalInjection: true,
   messages:{

@@ -2,19 +2,19 @@
   <!-- BEGIN OUTTER BOX -->
   <div class="flex flex-col gap-5 p-3 box sm:p-8">
     <!-- BEGIN: commit box -->
-    <div class="flex flex-row flex-wrap justify-between mt-4 mx-0">
-      <div class="flex-none mb-2 switch-toggle">
+    <div class="flex flex-row flex-wrap justify-between mt-4 mx-0 gap-3">
+      <div class="flex-none switch-toggle mx-auto sm:mx-0">
         <input id="off" name="state-d" type="radio" />
-        <label for="off" @click="show_campaign('ongoing')">Ongoing</label>
+        <label for="off" @click="show_campaign('ongoing')">{{$t('campaign.ongoing')}}</label>
         <input id="on" name="state-d" type="radio" checked="checked"/>
-        <label for="on" @click="show_campaign('scheduled')">Scheduled</label>
+        <label for="on" @click="show_campaign('scheduled')">{{$t('campaign.scheduled')}}</label>
         <input id="na" name="state-d" type="radio" class="my-0" />
-        <label for="na" @click="show_campaign('history')">History</label>
+        <label for="na" @click="show_campaign('history')">{{$t('campaign.history')}}</label>
       </div>
       <button 
-        class="flex w-40 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded"
+        class="flex w-32 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded"
               @click="router.push({name:'create-campaign'})" > 
-        <span class="mr-1 text-lg font-bold">+</span> Create
+        <span class="mr-1 text-lg font-bold">+</span> {{$t('components.word.create')}}
       </button>
     </div>
     <div class="flex-auto" v-show="campaignStatus=='scheduled'">
@@ -96,19 +96,19 @@ const show_campaign = status=>{
 
 
 const searchColumns = ref([
-  { text: "Title", value: "title" },
+  { text: "title", value: "title" },
 ])
 
 const tableColumns =ref( [
-  { name: "Platform", key: "page" },
+  { name: "fan_page", key: "page" },
   // { name: "Platform", key: "platform" },
-  { name: "Title", key: "title" },
-  { name: "Start Time", key: "start_at" },
-  { name: "End Time", key: "end_at" },
-  { name: "Manage Orders", key: "manager_order" },
-  { name: "Stop Checkout", key: "stop" },
+  { name: "title", key: "title" },
+  { name: "start_at", key: "start_at" },
+  { name: "end_at", key: "end_at" },
+  { name: "manage_order", key: "manage_order" },
+  { name: "stop", key: "stop" },
   // { name: "Order Link", key:"link" },
-  { name: " ", key: "entry" },
+  { name: "null", key: "entry" },
 ])
 
 

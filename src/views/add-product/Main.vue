@@ -1,11 +1,11 @@
 <template>
-	<div class="h-screen sm:h-[100%] overflow-auto">
+	<div class="h-fit">
 		<!-- {{ $t('test1') }} -->
-		<div class="flex items-center px-20 pt-5 pb-4 intro-y " v-if="route.params.product_id">
-			<h2 class="text-2xl font-medium">Edit Product</h2>
+		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y " v-if="route.params.product_id">
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">Edit Product</h2>
 		</div>
-		<div class="flex items-center px-20 pt-5 pb-4 intro-y" v-else>
-			<h2 class="text-2xl font-medium">Add New Product</h2>
+		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y" v-else>
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">Add New Product</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10">
 			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
@@ -19,7 +19,7 @@
 					:class="{ 'border-danger text-danger border-2': validate.name.$error }" 
 				/>
 				<template v-if="validate.name.$error">
-					<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
+					<label class="text-danger ml-2 text-[13px]" >
 						Enter product name with no more than 50 digits
 					</label>
 				</template>
@@ -55,23 +55,6 @@
 
 			<div class="col-span-12 col-start-1">
 				<label class="form-label text-base mt-2 font-medium">Upload Image</label>
-				<!-- <div class="relative mt-5 border-2 border-dashed rounded-lg dark:border-darkmode-400">
-					<div class="flex items-center justify-center px-4">
-						<img :src="previewImage" class="object-cover h-48 uploading-image" />
-					</div>
-					<div class="px-4 pb-4 text-[16px] absolute top-16 text-center w-full flex flex-col items-center justify-center"
-                		v-if="previewImage === ''">
-						<div class="flex"> <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> <strong class="text-slate-600">Upload a file or drag and drop</strong> </div>
-						<div class="mt-2 text-slate-500">Accepted File Types: jpeg, png, jpg</div>
-						<div class="text-slate-500">Max File Size : 2MB</div>  
-					</div>
-					<input
-						type="file"
-						class="absolute top-0 left-0 w-full h-full opacity-0 cursor-pointer border-6"
-						accept="image/jpeg" 
-						@change="uploadImage"
-					/>
-				</div> -->
 				<Dropzone ref-key="dropzoneSingleRef" :options="{
 						method: 'put',
 						url: 'url',
@@ -126,7 +109,7 @@
 					v-model="validate.order_code.$model"
 				/>
 				<template v-if="validate.order_code.$error">
-						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
+						<label class="text-danger ml-2 text-[13px]" >
 						Enter order code with no more than 10 digits
 						</label>
 				</template>
@@ -142,7 +125,7 @@
 					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
 				/>
 				<template v-if="validate.description.$error">
-						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
+						<label class="text-danger ml-2 text-[13px]" >
 						discription cannot be more than 100 digits
 						</label>
 				</template>
@@ -160,7 +143,7 @@
 					:class="{ 'border-danger text-danger border-2': validate.qty.$error }" 
 				/>
 				<template v-if="validate.qty.$error">
-						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
+						<label class="text-danger ml-2 text-[13px]" >
 						Qty has to be a number
 						</label>
 				</template>
@@ -176,7 +159,7 @@
 					:class="{ 'border-danger text-danger border-2': validate.price.$error }" 
 				/>
 				<template v-if="validate.price.$error">
-						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
+						<label class="text-danger ml-2 text-[13px]" >
 						Price has to be a number 
 						</label>
 				</template>

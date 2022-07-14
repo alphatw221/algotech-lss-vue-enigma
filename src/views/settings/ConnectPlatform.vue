@@ -1,6 +1,6 @@
 <template>
     <div class="box flex flex-col">
-        <h1 class="text-xl mx-5 pt-5"> Connect social media platform </h1>
+        <h1 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-10 pt-5"> Connect social media platform </h1>
         <div v-for="(component, key) in platform_components" :key="key">
             <component :is="component"></component>
         </div>

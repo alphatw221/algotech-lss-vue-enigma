@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col overflow-auto sm:overflow-hidden h-screen sm:h-[100%] text-[16px] h-fit">
 		<div class="flex items-center px-20 pt-5 pb-4 intro-y">
-			<h2 class="text-2xl font-medium">Create Campaign</h2>
+			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">Create Campaign</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10">
     <!-- <div class="flex flex-col gap-5 text-[16px] h-fit">

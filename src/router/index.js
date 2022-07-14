@@ -167,6 +167,7 @@ const routes = [
         name: "edit-campaign-product",
         component: () => import('@/views/assign-product/Main.vue'),
       }, 
+      
       {
         path: "campaign-list/campaign-detail/:campaign_id?/manage-order",
         name: "manage-order",
@@ -298,6 +299,11 @@ const routes = [
         name: "edit-product",
         component: () => import('@/views/add-product/Main.vue'),
       },
+      {                                                               //temp
+        path: "stock/product-detail/:product_id?",                    //temp
+        name: "product-detail",                                       //temp
+        component: () => import('@/views/add-product/Main.vue'),      //temp
+      },                                                              //temp
       {
         path: "stock/category-management",
         name: "category-management",

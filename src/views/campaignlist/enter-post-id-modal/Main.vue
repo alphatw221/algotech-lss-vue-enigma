@@ -7,7 +7,7 @@
       @hidden="hideModal()"
     >
       <ModalHeader>
-        <h2 class="mr-auto text-base font-medium">Select Live Stream</h2>
+        <h2 class="mr-auto text-base font-medium">{{$t('campaign.enter_post_id.select_stream')}}</h2>
         <a
           @click="hideModal()"
           class="absolute top-0 right-0 mt-3 mr-3"
@@ -18,7 +18,6 @@
       <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
 
         <template v-if="ready">
-
 
           <div class="col-span-12 mr-5 sm:col-span-4">
             <div class="items-end h-10" style="display: inline-flex">
@@ -38,7 +37,7 @@
               @click="selectPlatformPage('facebook')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              Select Page
+              {{$t('campaign.enter_post_id.select_page')}}
             </button>
             <div>
               Post ID: <br>
@@ -63,7 +62,7 @@
               @click="selectPlatformPage('instagram')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              Select Profile
+              {{$t('campaign.enter_post_id.select_page')}}
             </button>
             <!-- <input
               id="modal-form-1"
@@ -96,7 +95,7 @@
               @click="selectPlatformPage('youtube')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              Select Channel
+              {{$t('campaign.enter_post_id.select_page')}}
             </button>
             <!-- <input
               id="modal-form-1"
@@ -111,10 +110,6 @@
               <p v-if="campaign.youtube_campaign">{{ campaign.youtube_campaign.live_video_id }}</p>
             </div>
           </div>
-
-
-
-
 
         </template>
         <div class="col-span-12 items-end" style="display: inline-flex">
@@ -139,7 +134,7 @@
           class="w-32 bg-white btn dark:border-darkmode-400"
           @click="hideModal()"
         >
-          Cancel
+          {{$t('components.word.cancel')}}
         </button>
         <button type="button" class="w-32 ml-5 shadow-md btn btn-primary" @click="enterLive()" v-if="ready" 
           v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile">

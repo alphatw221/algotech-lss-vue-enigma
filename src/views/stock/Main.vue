@@ -1,6 +1,6 @@
 <template>
 	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-8">
-		<div class="flex flex-wrap justify-between gap-5 mx-0 mt-4"> 
+		<div class="flex flex-wrap justify-between gap-5 mx-0 mt-10 sm:mt-0"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
 				<label for="on"> For Sale</label>
