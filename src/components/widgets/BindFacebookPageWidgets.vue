@@ -1,7 +1,7 @@
 <template>
-    <div v-if="showPages" class="border-2 rounded-lg p-5 mx-4 lg:mx-8 mb-8 flex flex-col">
+    <div v-if="showPages" class="box border-2 rounded-lg p-5 mx-4 lg:mx-20 px-10 mb-3 flex flex-col">
         <div class="flex justify-between">
-            <h4 class="text-lg">Facebook Fan Page</h4>
+            <h4 class="text-xl font-medium leading-none mb-8">Facebook Fan Page</h4>
             <BindFacebookPageButton :busName="'addFacebookPages'" :buttonName="'Edit'"/>
         </div>
         <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5">

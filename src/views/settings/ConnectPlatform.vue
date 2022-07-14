@@ -1,6 +1,9 @@
 <template>
-    <div class="box flex flex-col">
-        <h1 class="text-xl mx-5 pt-5"> Connect social media platform </h1>
+    <div class="flex flex-col">
+        <div class="flex items-center px-20 pt-5 pb-4 intro-y">
+			<h2 class="sm:text-2xl text-xl font-medium">Connect Social Media Platform</h2>
+		</div>
+        <!-- <h1 class="text-xl mx-5 pt-5"> Connect social media platform </h1> -->
         <div v-for="(component, key) in platform_components" :key="key">
             <component :is="component"></component>
         </div>
@@ -11,10 +14,10 @@
             <h4 class="text-center">Your subscription plan is {{ subscriptionPlan }}. </h4>
             <p class="text-center">You can only bind {{ activatedPlatformNumber }} social media platform{{ plural(activatedPlatformNumber) }}.</p>
             <div class="flex justify-center h-10 mt-5">
-            <button type="button" @click="UpgradeModal = false" class="btn btn-outline-primary rounded-full w-40 mr-5 ">
+            <button type="button" @click="UpgradeModal = false" class="btn btn-outline-primary rounded-full w-32 mr-5 ">
                 Cancel
             </button>
-            <button type="button" @click="UpgradeModal = false; router.replace('/seller/profile')" class="btn btn-rounded-primary w-40 mr-5">
+            <button type="button" @click="UpgradeModal = false; router.replace('/seller/profile')" class="btn btn-rounded-primary w-32 mr-5">
                 Upgrade
             </button>
         </div>
