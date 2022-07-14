@@ -238,7 +238,6 @@ onMounted(() => {
 
     list_campapign_lucky_draw_animation().then(res => {
         animationList.value = res.data
-        console.log(animationList.value)
     })
 
     eventBus.on('editDraw', (payload) => {
