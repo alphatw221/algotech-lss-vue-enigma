@@ -10,7 +10,7 @@
             </thead>
             <tbody>
                 <tr v-for="(order, key) in store[tableStatus]" :key="key" class="intro-x">
-                    <td v-for="column in columns" :key="column.key">
+                    <td v-for="column in columns" :key="column.key" :data-content="$t(`manage_order.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
                                 <div v-if="order[column.key] === 'facebook'"
@@ -68,12 +68,12 @@
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
                                 <a class="flex sm:mr-auto image-fit">
-                                    <span class="text-[13px] mr-1 sm:hidden"> Copy Cart Link</span>
+                                    <span class="text-[13px] mr-3 sm:hidden"> Order Details  </span>
                                     <EyeIcon @click="to_order_detail(order.id,order.type)"/>
                                 </a>
                                 
                                 <a class="flex image-fit">
-                                    <span class="text-[13px] mr-3 sm:hidden"> Order Details</span>
+                                    <span class="text-[13px] mr-1 sm:hidden"> Copy Cart Link </span>
                                     <Share2Icon class="block sm:mx-auto"  @click="copyURL(order.id,order.type)" />
                                 </a>
                             </div>
@@ -354,7 +354,7 @@ thead th{
 	}
 
 	td:nth-of-type(4):before {
-		content: "Amount";
+		content: attr(data-content);
 		
 	}
     td:nth-of-type(4){
@@ -364,23 +364,23 @@ thead th{
 	}
 
 	td:nth-of-type(5):before {
-		content: "Payment";
+		content: attr(data-content);
 		
 	}
 	
 	td:nth-of-type(6):before{
-		content: "Status";
+		content: attr(data-content);
 	}
 
     td:nth-of-type(7):before {
-		content: "Delivery Status";
+		content: attr(data-content);
 	}
      td:nth-of-type(7){
 		place-content: right !important;
 	}
 
     td:nth-of-type(8):before {
-		content: "Action";
+		content: attr(data-content);
 	}
 
     td:nth-of-type(9){
