@@ -99,7 +99,7 @@
                       <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
                       Blank Cart </DropdownItem>
                     <DropdownItem 
-                      @click="editluckyDraw(campaign)" class="w-full whitespace-nowrap"> 
+                      @click="goLuckyDraw(campaign)" class="w-full whitespace-nowrap"> 
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
                       Lucky Draw</DropdownItem>
                   </DropdownContent>
@@ -252,7 +252,7 @@ const copyURL = (campaign)=>{
   hideDropDown()
 }
 
-const editLuckyDraw = (campaign) => {
+const goLuckyDraw = (campaign) => {
   router.push({name:'lucky-draw',params:{'campaign_id':campaign.id}})
   hideDropDown()
 }
