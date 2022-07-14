@@ -34,15 +34,6 @@
 
                         <td v-else-if="column.key === 'order_code'">
                             <div class=" form-check place-content-end sm:place-content-center">
-<<<<<<< HEAD
-                                <input type="text" class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" :class="{ red: isOrderCodeDuplicate(index) }"
-                                    aria-label="default input" :value="product.order_code"
-                                    @input="changeInput($event, index, 'order_code')" />
-                                <span v-if="isOrderCodeDuplicate(index)"
-                                    class="absolute text-danger -bottom-2"> 
-                                    Duplicate order code, please change another one
-                                </span>
-=======
                                 <input 
                                     type="text" 
                                     class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" 
@@ -52,7 +43,6 @@
                             </div>
                             <div v-if="isOrderCodeDuplicate(index)" class="text-red-600 text-center">
                                 duplicate
->>>>>>> d053747c732e66b4b8612b6b39c49c1ff14c61a6
                             </div>
                         </td>
                         <td v-else-if="column.key === 'qty'">

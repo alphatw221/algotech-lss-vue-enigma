@@ -1,6 +1,6 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="intro-y grid grid-cols-12 gap-5 h-screen overflow-auto sm:h-[100%]">
+    <div class="intro-y grid grid-cols-12 gap-5">
         <!-- BEGIN: campaign Info -->
         <div class="flex flex-col col-span-12 h-fit">
             <!-- BEGIN: campaign Status -->

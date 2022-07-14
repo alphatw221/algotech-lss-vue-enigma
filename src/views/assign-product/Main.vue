@@ -1,35 +1,5 @@
 <template>
-<<<<<<< HEAD
 	<div class="grid h-full grid-cols-12 gap-5 mt-5">
-		
-		<!-- <div class="col-span-12 col-start-1 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
-			<div class="flex">
-				<label for="form-2" class="w-32 mt-2 mr-5 -mb-3 form-label">Campaign Title</label>
-				<input id="form-2" type="text" class="form-control " v-model="campaignStore.campaignTitle.title" disabled/>
-			</div>
-		</div>
-
-		<div class="col-span-12 -mb-5 2xl:col-span-6 xl:col-span-6">
-			<div class="flex">
-				<label for="regular-form-2" class="w-16 mt-2 -mb-2 form-label">Period</label>
-				<v-date-picker class=" z-49" v-model="campaignStore.campaignPeriod" :timezone="timezone" mode="dateTime"
-					:model-config="campaignConfig" is-range is-required
-				>
-					<template v-slot="{ inputValue, inputEvents }">
-						<div class="flex items-center justify-center">
-						<input :value="inputValue.start" v-on="inputEvents.start" disabled
-							class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
-						<ChevronsRightIcon class="w-8 h-8 m-1" />
-						<input :value="inputValue.end" v-on="inputEvents.end" disabled
-							class="h-10 px-2 py-1 border rounded form-control w-42 focus:outline-none focus:border-indigo-300" />
-						</div>
-					</template>
-				</v-date-picker>
-			</div>
-		</div> -->
-=======
-	<div class="grid h-full grid-cols-12 gap-5 p-2 box lg:p-5">
->>>>>>> d053747c732e66b4b8612b6b39c49c1ff14c61a6
 
 		<div class="col-span-12 p-0">
 			<span class="z-0 text-2xl font-medium leading-none">{{ productPageTitle }}</span>
@@ -58,11 +28,7 @@
 					<button class="z-50 w-32 bg-white btn dark:border-darkmode-400" @click="comfirmProduct=false, selectProduct=true">
 						Edit
 					</button>
-<<<<<<< HEAD
-					<button class="z-50 w-32 mx-5 shadow-md btn btn-primary" @click="assignProduct">
-=======
-					<button class="w-32 ml-5 shadow-md btn btn-primary" @click="eventBus.emit('confirmProducts')">
->>>>>>> d053747c732e66b4b8612b6b39c49c1ff14c61a6
+					<button class="z-50 w-32 mx-5 shadow-md btn btn-primary" @click="eventBus.emit('confirmProducts')">
 						Assign
 					</button>
 				</div>

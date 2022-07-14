@@ -10,11 +10,7 @@
                                 {{$t(`manage_order.${store.orderDetail.status}`) }}</span> </h2>
                     </div>
                     <div class="flex mb-2">
-<<<<<<< HEAD
-                        <span class="mr-5 font-medium"> Order Date : {{new Date(store.orderDetail.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
-=======
                         <span class="font-medium mr-5"> {{$t('order_detail.order_date')}} : {{new Date(store.orderDetail.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
->>>>>>> d053747c732e66b4b8612b6b39c49c1ff14c61a6
                     </div>
                 </div>
             <div class="w-full">
@@ -27,20 +23,6 @@
                 <div class="grid grid-cols-6 gap-2" v-show="store.orderDetail.shipping_method">
 
                     <template v-if="store.orderDetail.shipping_method === 'pickup'">
-<<<<<<< HEAD
-                        <div class="col-span-2 col-start-1 py-2">Delivery Information</div>
-                        <div class="col-span-3 col-start-3 py-2">{{store.orderDetail.shipping_method}}</div>
-
-                        <div class="col-span-2 col-start-1 py-2">Pickup Store/Address</div>
-                        <div class="col-span-3 col-start-3 py-2">{{store.orderDetail.shipping_option + ' - ' + store.orderDetail.pickup_address}}</div>
-                    </template>
-                    <template v-if="store.orderDetail.shipping_method === 'delivery'">
-                        <div class="col-span-2 col-start-1 py-3">Delivery Information</div>
-                        <div class="col-span-3 col-start-3 py-3">delivery {{store.orderDetail.shipping_option}}</div>
-
-                        <div class="col-span-2 col-start-1 py-3">Delivery Address</div>
-                        <div class="col-span-3 col-start-3 py-3">
-=======
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery_method')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{$t(`order_detail.${store.orderDetail.shipping_method}`)}}</div>
 
@@ -53,7 +35,6 @@
 
                         <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery_address')}}</div>
                         <div class="col-start-3 col-span-3 py-3">
->>>>>>> d053747c732e66b4b8612b6b39c49c1ff14c61a6
                             {{store.orderDetail.shipping_location}} ,
                             {{store.orderDetail.shipping_region}} ,
                             {{store.orderDetail.shipping_postcode}} ,
@@ -62,13 +43,8 @@
                     </template>
                 </div>
             </div>
-<<<<<<< HEAD
-            <div class="p-5 border-2 box border-secondary" v-show="store.orderDetail.shipping_remark">
-                <span class="text-lg">Remark</span>
-=======
             <div class="box p-5 border-2 border-secondary" v-show="store.orderDetail.shipping_remark">
                 <span class="text-lg">{{$t('order_detail.remarks')}}</span>
->>>>>>> d053747c732e66b4b8612b6b39c49c1ff14c61a6
                 <div>
                     {{store.orderDetail.shipping_remark}}
                 </div>
@@ -84,20 +60,6 @@
                 </div>
                 <div class="grid grid-cols-6 gap-2" v-if="store.orderDetail.payment_method">
                     <template v-if="store.orderDetail.payment_method">
-<<<<<<< HEAD
-                        <div class="col-span-2 col-start-1 py-2">Payment Method</div>
-                        <div class="col-span-3 col-start-3 py-2">{{ store.orderDetail.payment_method == 'Direct Payment' ? `Direct Payment - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</div>
-                    </template>
-
-                    <template v-if="store.orderDetail.meta.last_five_digit">
-                        <div class="col-span-2 col-start-1 py-2">Last Five Digits</div>
-                        <div class="col-span-3 col-start-3 py-2">{{store.orderDetail.meta.last_five_digit}}</div>
-                    </template>
-
-                    <template v-if="store.orderDetail.meta.receipt_image">
-                        <div class="col-span-2 col-start-1 py-2">Record</div>
-                        <div class="col-span-3 col-start-3 py-2">
-=======
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment_method')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{ store.orderDetail.payment_method == 'Direct Payment' ? `Direct Payment - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</div>
                     </template>
@@ -110,7 +72,6 @@
                     <template v-if="store.orderDetail.meta.receipt_image">
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.record')}}</div>
                         <div class="col-start-3 col-span-3 py-2">
->>>>>>> d053747c732e66b4b8612b6b39c49c1ff14c61a6
                                 <Tippy tag="img" :src="store.orderDetail.meta.receipt_image" />
                         </div>
                     </template>
