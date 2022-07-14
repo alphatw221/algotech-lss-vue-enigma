@@ -55,27 +55,24 @@
                 <input @click="stop_checkout($event.target.checked)" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="checkout_status"/>
             </div>
 
-            <template v-if="tableType === 'All'">
                 <ManageOrderTable
+                    v-show="tableType === 'All'"
                     :tableStatus="'All'"
                     :tableSearch="'searchAll'"
                     :tableFilter="'filterAll'"
                 />
-            </template>
-            <template v-if="tableType === 'Review'">
                 <ManageOrderTable
+                    v-show="tableType === 'Review'"
                     :tableStatus="'Review'"
                     :tableSearch="'searchReview'"
                     :tableFilter="'filterReview'"
                 />
-            </template>
-            <template v-if="tableType === 'Complete'">
                 <ManageOrderTable
+                    v-show="tableType === 'Complete'"
                     :tableStatus="'Complete'"
                     :tableSearch="'searchComplete'"
                     :tableFilter="'filterComplete'"
                 />
-            </template>
             <OrderProductModal />
         </div>
     </div>
