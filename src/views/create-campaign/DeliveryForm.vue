@@ -93,7 +93,7 @@
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">
 				<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 px-6">
                     <div class="flex flex-col flex-1">
-                         <label class="orm-label text-base text-lg font-medium">Pickup Store</label>
+                         <label class="text-base text-lg font-medium whitespace-nowrap">Pickup Store</label>
                         <input 
                             class="w-full h-[42px] text-base form-control sm:mt-0"
                             type="text"
@@ -101,7 +101,7 @@
                         />
                     </div>
                     <div class="flex flex-col flex-wrap  flex-grow-2">
-                        <label class="orm-label text-base text-lg font-medium">Pickup Address</label>
+                        <label class="text-base text-lg font-medium whitespace-nowrap">Pickup Address</label>
                         <input 
                             class="w-full h-[42px] mr-5 text-base form-control sm:mt-0"
                             type="text" 
