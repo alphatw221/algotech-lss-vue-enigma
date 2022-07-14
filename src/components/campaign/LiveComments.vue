@@ -23,15 +23,18 @@
                             <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" />
                         </Tab>
                         <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                            @click="toggleTabs('facebook')" >
+                            @click="toggleTabs('facebook')" 
+                        >
                             <FacebookIcon class="m-1 -mt-1" />
                         </Tab>
                         <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                            @click="toggleTabs('instagram')">
+                            @click="toggleTabs('instagram')"
+                        >
                             <InstagramIcon class="m-1 -mt-1" />
                         </Tab>
                         <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                            @click="toggleTabs('youtube')">
+                            @click="toggleTabs('youtube')"
+                        >
                             <YoutubeIcon class="m-1 -mt-1" />
                         </Tab>
                     </TabList>

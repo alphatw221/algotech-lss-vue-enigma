@@ -22,11 +22,10 @@
         </div>
     </div>
 
-
     <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
     <!-- <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)"> -->
         <!-- temporary solution -->
-    <div class="overflow-y-scroll h-[40rem] scrollbar-hidden"  @scroll="handleScroll($event)">
+    <div class="overflow-y-scroll h-fit scrollbar-hidden"  @scroll="handleScroll($event)">
 
         <div v-for="(comment, index) in comments" :key="index"
             class="relative flex items-center p-2 m-1 rounded-l-full cursor-pointer intro-x box comments"
