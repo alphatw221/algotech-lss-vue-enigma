@@ -143,6 +143,11 @@
             <li class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
           </ol>
         </nav>
+        <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
+          <ol class="breadcrumb breadcrumb-dark">
+            <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
+          </ol>
+        </nav>
         <router-view />
       </div>
       <!-- END: Content -->
@@ -214,5 +219,11 @@ const pathName=(value)=>{
 
 .breadcrumb-item a{
   color: #7c7c7c;
+}
+
+.mobileBack{
+  position:absolute;
+  top:10px;
+  z-index: 9999;
 }
 </style>
