@@ -114,11 +114,14 @@ watch(computed(()=>dateTimePicker.value),()=>{
 
 const sellerStore = useLSSSellerLayoutStore()
 onMounted(() => {
-	if(!sellerStore.userInfo.user_subscription)return
+	if(!sellerStore.userInfo.user_subscription) return
 	
-	campaignData.value.meta_logistic = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic))
-	campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
-    
+	if (sellerStore.userInfo.user_subscription.meta_payment.length) {
+		campaignData.value.meta_logistic = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic))
+	}
+	if (sellerStore.userInfo.user_subscription.meta_payment.length) {
+		campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
+	}
 })
 
 const title_rules = computed(() => {

@@ -1,4 +1,5 @@
 <template>
+<<<<<<< HEAD
 	<div class="grid h-full grid-cols-12 gap-5 mt-5">
 		
 		<!-- <div class="col-span-12 col-start-1 2xl:col-span-6 xl:col-span-6 2xl:-mb-5 xl:-mb-5">
@@ -26,6 +27,9 @@
 				</v-date-picker>
 			</div>
 		</div> -->
+=======
+	<div class="grid h-full grid-cols-12 gap-5 p-2 box lg:p-5">
+>>>>>>> d053747c732e66b4b8612b6b39c49c1ff14c61a6
 
 		<div class="col-span-12 p-0">
 			<span class="z-0 text-2xl font-medium leading-none">{{ productPageTitle }}</span>
@@ -54,7 +58,11 @@
 					<button class="z-50 w-32 bg-white btn dark:border-darkmode-400" @click="comfirmProduct=false, selectProduct=true">
 						Edit
 					</button>
+<<<<<<< HEAD
 					<button class="z-50 w-32 mx-5 shadow-md btn btn-primary" @click="assignProduct">
+=======
+					<button class="w-32 ml-5 shadow-md btn btn-primary" @click="eventBus.emit('confirmProducts')">
+>>>>>>> d053747c732e66b4b8612b6b39c49c1ff14c61a6
 						Assign
 					</button>
 				</div>
@@ -97,26 +105,6 @@ const toConfirmPage = () => {
 	selectProduct.value = false
 	comfirmProduct.value = true
 	eventBus.emit('addProducts')
-}
-
-const assignProduct = () => {
-	
-	eventBus.emit('confirmProducts')
-	
-	// 處理批次建立campaign product需要欄位
-	let assignedProducts = campaignStore.assignedProducts
-	for (let i = 0; i < assignedProducts.length; i ++) {
-		assignedProducts[i]['product_id'] = assignedProducts[i]['id']
-		assignedProducts[i]['qty_for_sale'] = parseInt(assignedProducts[i]['qty'])
-		assignedProducts[i]['max_order_amount'] = parseInt(assignedProducts[i]['max_order_amount'])
-		assignedProducts[i]['customer_editable'] = assignedProducts[i]['editable']
-		assignedProducts[i]['customer_removable'] = assignedProducts[i]['deletable']
-	}
-	
-	seller_create_campaign_products(route.params.campaign_id, assignedProducts)
-	.then(response => {
-		router.push({ name: 'campaign-list' })
-	})
 }
 
 </script>

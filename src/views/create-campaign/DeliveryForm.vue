@@ -133,7 +133,6 @@ const additional_delivery_option = { title: null, type: null, price: null }
 const branch_option = { name: null, address: null }
 const ready = ref(false)
 onMounted(()=>{
-	console.log(props.campaign)
 	ready.value=true
 })
 const props = defineProps({
