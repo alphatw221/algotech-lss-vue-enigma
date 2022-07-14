@@ -10,12 +10,12 @@
       <ModalBody class="p-0">
         <div class="p-5 text-center">
           <div class="text-xl mt-5">
-            Please enter post ID to start live selling.
+            {{$t('campaign.enter_post_id.message')}}
           </div>
         </div>
         <div class="px-5 pb-8 text-center">
           <button type="button" @click="confirm()" class="btn btn-primary w-24">
-            Comfirm
+            {{$t('global.confirm')}}
           </button>
         </div>
       </ModalBody>
