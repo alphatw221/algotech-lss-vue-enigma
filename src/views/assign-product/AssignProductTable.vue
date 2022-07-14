@@ -85,7 +85,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'customer_deletable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                        <td v-else-if="column.key === 'customer_removable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <input v-if="product.customer_editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" disabled v-model="product[column.key]" />
@@ -154,7 +154,7 @@ const tableColumns = ref([
     { name: "Price", key: "price" },
     { name: "Type", key: "type" },
     { name: "Editable", key: "customer_editable" },
-    { name: "Deletable", key: "customer_deletable" },
+    { name: "Deletable", key: "customer_removable" },
 
 ])
 
@@ -188,9 +188,9 @@ const search = () => {
                     item.max_order_amount = item.qty
                     if (item.type === 'product') {
                         item.customer_editable = true
-                        item.customer_deletable = true
+                        item.customer_removable = true
                     }
-                    if (item.custmer_editable === false) item.customer_deletable = false
+                    if (item.custmer_editable === false) item.customer_removable = false
                 })
 
                 // 換頁時選取記憶在store中 selected, editable, deletable 欄位
@@ -212,14 +212,15 @@ const search = () => {
 
             productsList.value.forEach((item) => {
                 // item.qty_campaign = item.qty_for_sale
+                console.log(item)
                 item.qty = item.qty_for_sale
                 item.selected = true
                 item.disabledEdit = true
                 if (item.type === 'lucky_draw') {
                     item.customer_editable = true
-                    item.customer_editable = true
+                    item.customer_removable = true
                 }
-                if (item.customer_editable === false) item.customer_editable = false
+                if (item.customer_editable === false) item.customer_removable = false
             })
 
             let editExists = false
