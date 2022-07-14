@@ -35,7 +35,7 @@
                 </FormItem>
             </Form>
 
-            <a class="mx-auto item-center text-[16px]" @click="this.$router.push({ name: 'PasswordForgot' })">forgot password ?</a>
+            <a class="mx-auto item-center text-[16px]" @click="router.push({ name: 'PasswordForgot' })">forgot password ?</a>
 
             <div class="flex flex-col items-center mt-5">
                 <div class="text-[16px]">No Account ? <a href="/lss/#/registration/SG">Create one !</a></div>
