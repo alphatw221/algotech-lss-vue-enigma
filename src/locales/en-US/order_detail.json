@@ -24,12 +24,12 @@
     "pickup_address":"Pickup Store/Address",
 
     
-    "product" : "Products",
+    "product" : "Product",
     "price" : "Price",
     "qty" : "Quantity",
     "null" : "",
 
-    "sub_total" : "Sub Total",
+    "sub_total" : "Subtotal",
     "total" : "Total",
     "shipping":"Shipping",
     "delivery_charge":"Delivery Charge",

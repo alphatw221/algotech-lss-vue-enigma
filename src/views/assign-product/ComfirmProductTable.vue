@@ -44,6 +44,9 @@
                             <div v-if="isOrderCodeDuplicate(index)" class="text-red-600 text-center">
                                 duplicate
                             </div>
+                            <div v-if="errorMessages[index]" class="text-red-600 text-center">
+                                {{ errorMessages[index].order_code }}
+                            </div>
                         </td>
                         <td v-else-if="column.key === 'qty'">
                             <div class=" form-check place-content-end sm:place-content-center">
@@ -52,6 +55,9 @@
                                     class="form-control w-full sm:w-24 h-[42px] mt-1 inputBox" 
                                     v-model="product.qty"
                                 />
+                            </div>
+                            <div v-if="errorMessages[index]" class="text-red-600 text-center">
+                                {{ errorMessages[index].qty }}
                             </div>
                         </td>
 
@@ -63,6 +69,9 @@
                                     v-model="product.max_order_amount"
                                     @input="changeInput($event, index)"
                                 />
+                            </div>
+                            <div v-if="errorMessages[index]" class="text-red-600 text-center">
+                                {{ errorMessages[index].max_order_amount }}
                             </div>
                         </td>
 
@@ -91,12 +100,12 @@
                                     class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                     type="checkbox"
                                     v-model="product[column.key]"
-                                    @click="product.customer_deletable = false" 
+                                    @click="product.customer_removable = false" 
                                 />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'customer_deletable'" class="deletable">
+                        <td v-else-if="column.key === 'customer_removable'" class="deletable">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <input 
                                     v-if="product.customer_editable === true" 
@@ -154,7 +163,7 @@ import { ref, onMounted, onUnmounted, getCurrentInstance, computed } from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
-import { seller_create_campaign_products } from "@/api_v2/campaign_product";
+import { seller_create_campaign_products, seller_bulk_create_campaign_products } from "@/api_v2/campaign_product";
 
 
 const campaignStore = useCreateCampaignStore();
@@ -183,9 +192,10 @@ const tableColumns = ref([
     { name: "Price", key: "price" },
     { name: "Type", key: "type" },
     { name: "Editable", key: "customer_editable" },
-    { name: "Deletable", key: "customer_deletable" },
+    { name: "Deletable", key: "customer_removable" },
     { name: "Activate", key: "status" }
 ])
+const errorMessages = ref([])
 
 onMounted(() => {
     campaignStore.assignedProducts.forEach((item) => {
@@ -212,10 +222,14 @@ onMounted(() => {
             assignedProducts[i]['qty_for_sale'] = parseInt(assignedProducts[i]['qty'])
             assignedProducts[i]['max_order_amount'] = parseInt(assignedProducts[i]['max_order_amount'])
         }
-        
-        seller_create_campaign_products(route.params.campaign_id, assignedProducts)
+
+        seller_bulk_create_campaign_products(route.params.campaign_id, assignedProducts)
         .then(response => {
             router.push({ name: 'campaign-list' })
+        }).catch(error => {
+            if (error.response) {
+                errorMessages.value = error.response.data.errors
+            }
         })
     })
 })
