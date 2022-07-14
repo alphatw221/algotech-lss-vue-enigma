@@ -288,6 +288,7 @@ const totalPage = ref(1)
 const pageSize = ref(10)
 const dataCount = ref(0)
 
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const imageUrl = import.meta.env.VITE_APP_IMG_URL
 const selectedCategory = ref('')
 const searchField = ref('name')
@@ -309,13 +310,13 @@ const selectedProductDict = ref({})
 let isSelectedProductsValid=false
 let campaignProductCache = null
 
+
 onMounted(() => {
 	list_product_category().then(
 		res => { 
 			res.data.forEach(category => {
 				productCategories.value.push({value:category, name:category})
 			});
-			
 		}
 	)
 })
