@@ -141,7 +141,8 @@
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
       <div class="lss-content">
-        <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
+        <SellerBreadCrumb/>
+        <!-- <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
           <ol class="breadcrumb breadcrumb-dark">
             <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
               <li v-if="crumb !== ''" class="breadcrumb-item"><a @click="pathName(crumb)">{{crumb}}</a></li>
@@ -155,7 +156,8 @@
           <ol class="breadcrumb breadcrumb-dark">
             <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
           </ol>
-        </nav>
+        </nav> -->
+
         <router-view />
       </div>
       <!-- END: Content -->
@@ -163,6 +165,7 @@
 </template>
 
 <script setup>
+import SellerBreadCrumb from "./SellerBreadCrumb.vue"
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { helper as $h } from "@/utils/helper";

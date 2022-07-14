@@ -1,0 +1,76 @@
+<template>
+    <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
+        <ol class="breadcrumb breadcrumb-dark">
+            <template v-for="crumb, index in breadCrumb" :key="index">
+                <li  class="breadcrumb-item"><a @click="router.push(crumb.path)">{{crumb.name}}</a></li>
+            </template>
+            <!-- <li v-if=" breadCrumb[breadCrumb.length - 2] " class="breadcrumb-item">
+                <a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a>
+            </li>
+            <li class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ]}}</li> -->
+        </ol>
+    </nav>
+    <!-- <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
+        <ol class="breadcrumb breadcrumb-dark">
+            <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
+        </ol>
+    </nav> -->
+</template>
+<script setup>
+import { computed, onMounted, provide, ref, watch } from "vue";
+import { useRoute, useRouter } from "vue-router";
+// import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+// import dom from "@left4code/tw-starter/dist/js/dom";
+
+const route = useRoute();
+const router = useRouter();
+// const layoutStore = useLSSSellerLayoutStore();
+
+const breadCrumb = ref([])
+
+
+onMounted(()=>{resolvePath()})
+
+watch(computed(()=>route.path),()=>{resolvePath()})
+
+const resolvePath = ()=>{
+    breadCrumb.value=[]
+    const paramsDict = getParamsDict()
+    const routerPath = route.path.split('/')
+    const crumb = []
+    let isParams = false
+    
+    for(let i=routerPath.length-1;i>=2;i--){
+        console.log(i)
+        if(routerPath[i] in paramsDict){
+            isParams=true
+            // console.log('is Params')
+            // console.log(routerPath[i])
+            continue
+        }
+        crumb.push({
+            name:routerPath[i],
+            path:isParams?routerPath.slice(0,i+2).join('/') : routerPath.slice(0,i+1).join('/')
+        })
+        isParams = false
+    }
+    breadCrumb.value = crumb.reverse()
+}
+
+const getParamsDict = ()=>{
+    const ret={}
+    Object.values(route.params).forEach(value => {
+        ret[value]=true
+    });
+    return ret
+}
+
+
+
+</script>
+
+<style scoped>
+    .breadcrumb-item a{
+    color: #7c7c7c;
+    }
+</style>
