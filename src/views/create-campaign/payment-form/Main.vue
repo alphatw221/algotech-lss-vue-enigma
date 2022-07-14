@@ -1,8 +1,6 @@
 <template>
-	<div class="flex flex-col p-5 sm:p-8 box" v-if="ready">
-		<span class="text-lg">
-			<strong>Payment Details</strong>  
-		</span>
+	<div class="box flex flex-col p-5 sm:p-8 gap-4 lg:mx-20 lg:px-40 px-10 py-10 mt-3" v-if="ready">
+		<span class="col-span-12 text-xl font-medium leading-none">Payment Details</span>
 		<hr class="w-full mb-3"/>
 		<div id="paymentDetails">
 			<AccordionGroup>

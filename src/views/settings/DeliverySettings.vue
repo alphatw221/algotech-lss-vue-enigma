@@ -1,6 +1,6 @@
 <template>
-    <div class="py-5 sm:p-8">
-        <span class="mx-2 mb-3 text-2xl font-medium leading-none sm:m-5">Delivery Settings</span>
+    <div class="py-5 sm:p-8 sm:py-5">
+        <span class="mx-2 mb-3 text-lg sm:text-xl font-medium leading-none sm:m-5">Delivery Settings</span>
         <div class="grid grid-cols-12 gap-1 mx-2 text-base sm:m-5 intro-y sm:gap-3 -z-50">
 
             <div class="flex flex-col col-span-12 col-start-1 mt-2 text-[16px]"> 
@@ -78,7 +78,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-12 gap-1 px-5 text-base sm:px-10 intro-y sm:gap-5 -z-50">
+        <div class="grid grid-cols-12 gap-1 px-5 text-base intro-y sm:gap-5 -z-50">
              <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
                 <label for="regular-form-2" class="text-base font-bold form-label">Store Pickup</label>
                 <a 
@@ -88,9 +88,9 @@
                 </a>
             </div>
             <div v-for="(option, index) in deliverySettings.pickup_options" class="col-span-12" :key="index">
-                <div class="flex flex-col gap-3 sm:flex-row">
+                <div class="flex flex-col flex-wrap gap-3 sm:flex-row">
                     <div class="flex flex-col flex-1 gap-3">
-                         <label class="text-base ">Pickup Store</label>
+                         <label class="text-base whitespace-nowrap">Pickup Store</label>
                         <input 
                             class="w-full h-[42px] text-base form-control sm:mt-0"
                             type="text"
@@ -134,7 +134,8 @@
                     {{ upsertButtonName }}
                 </button>
             </div>
-        </div>        
+        </div> 
+               
     </div>
 </template>
 

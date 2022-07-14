@@ -11,7 +11,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			{key:"name", name:"Account Name", type:"text", dataType:"string", default:''},
 			{key:"number", name:"Account Number", type:"text", dataType:"string", default:''},
 			{key:"note", name:"Note", type:"textarea", dataType:"string", default:''},
-			{key:"require_customer_return", name:"Customer Payment Page Upload", type:"checkbox", dataType:"boolean", default:true},
+			{key:"require_customer_return", name:"Require Customer’s Payment Record", type:"checkbox", dataType:"boolean", default:true},
 			{key:"image", name:null, type:"file", dataType:"string", default:null}
 		],
 		// handle:{

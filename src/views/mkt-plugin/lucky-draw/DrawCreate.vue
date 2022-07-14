@@ -83,6 +83,14 @@
 						<img :src="storageUrl + currentSettings.path" class="uploading-image h-20 object-cover" />
 					</div>
                     <div class="flex flex-wrap items-center justify-around">
+                        <div class="w-20 h-20 image-fit relative ">
+                            <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
+                            <Tippy tag="img" class="rounded-full" :src="storageUrl + 'static/lucky_draw1.svg'" :content="`animation`" />
+                        </div>
+                        <div class="w-20 h-20 image-fit relative ">
+                            <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw2.svg'" />
+                            <Tippy tag="img" class="rounded-full" :src="storageUrl + 'static/lucky_draw2.svg'" :content="`animation`" />
+                        </div>
                         <template v-for="(animates, key) in animationList" :key="key">
                             <div class="w-20 h-20 image-fit relative ">
                                 <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = animates.path" />

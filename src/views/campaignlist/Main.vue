@@ -2,8 +2,8 @@
   <!-- BEGIN OUTTER BOX -->
   <div class="flex flex-col gap-5 p-3 box sm:p-8">
     <!-- BEGIN: commit box -->
-    <div class="flex flex-row flex-wrap justify-between mt-4 sm:px-2">
-      <div class="flex-none mx-auto mb-2 switch-toggle sm:mx-2">
+    <div class="flex flex-row flex-wrap justify-between mt-8 sm:mt-0 mx-0 gap-3">
+      <div class="flex-none switch-toggle mx-auto sm:mx-0">
         <input id="off" name="state-d" type="radio" />
         <label for="off" @click="show_campaign('ongoing')">{{$t('campaign.ongoing')}}</label>
         <input id="on" name="state-d" type="radio" checked="checked"/>
@@ -12,7 +12,7 @@
         <label for="na" @click="show_campaign('history')">{{$t('campaign.history')}}</label>
       </div>
       <button 
-        class="flex w-40 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded sm:mx-2"
+        class="flex w-32 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded"
               @click="router.push({name:'create-campaign'})" > 
         <span class="mr-1 text-lg font-bold">+</span> {{$t('components.word.create')}}
       </button>
