@@ -4,8 +4,8 @@ export const retrieve_product = (id) => {
     return createAxiosWithBearer().get(`/api/v2/product/${id}/retrieve/`)
 }
 
-export const list_product = (pageSize, currentPage, searchColumn, keyword, product_status, category, exclude='') => {
-    return createAxiosWithBearer().get(`/api/v2/product/search/?page_size=${pageSize}&page=${currentPage}&search_column=${searchColumn}&keyword=${keyword}&product_status=${product_status}&category=${category}&exclude=${exclude}`)
+export const list_product = (pageSize, currentPage, searchColumn, keyword, product_status, product_type, category, exclude='') => {
+    return createAxiosWithBearer().get(`/api/v2/product/search/?page_size=${pageSize}&page=${currentPage}&search_column=${searchColumn}&keyword=${keyword}&product_status=${product_status}&product_type=${product_type}&category=${category}&exclude=${exclude}`)
 }
 
 export const create_product = (data) => {
