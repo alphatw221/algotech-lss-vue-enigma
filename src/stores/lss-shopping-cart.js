@@ -24,6 +24,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 
 		shipping_info: ref({
 			shipping_option:"",
+			shipping_option_index:null,
 			shipping_method: "delivery",
 		})
 		

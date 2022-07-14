@@ -33,7 +33,7 @@
 							class="w-32 imgtd">
 							<span class="mt-4 title sm:hidden">{{column.name}}</span>
 							<div class="w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
-								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image"
+								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image" v-if="reply.facebook_page"
 									:content="`facebook`" />
 							</div>
 						</td>

@@ -157,9 +157,10 @@
                 <label class="col-span-12 font-medium text-md">Delivery Option</label>
                 <div class="col-span-12 gap-5 mx-0 intro-y lg:mx-20 2xl:mx-20">
                   <div v-if="store.order.campaign">
+
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
                       <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                        name="vertical_radio_button" value="" v-model="shipping_info.shipping_option" />
+                        name="vertical_radio_button" :value="null" v-model="shipping_option_index_computed" />
                       <label class="mr-auto form-check-label" :for="'radio-switch-'">default</label>
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
@@ -168,23 +169,24 @@
                         }}
                       </div>
                     </div>
+
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
-                      v-for="(title, index) in store.order.campaign.meta_logistic.additional_delivery_charge_title"
+                      v-for="(option, index) in store.order.campaign.meta_logistic.additional_delivery_options"
                       :key="index">
                       <input :id="'radio-switch-' + index" class="form-check-input" type="radio"
-                        name="vertical_radio_button" :value="title" v-model="shipping_info.shipping_option" />
-                      <label class="mr-auto form-check-label" :for="'radio-switch-' + index">{{ title }}</label>
+                        name="vertical_radio_button" :value="index" v-model="shipping_option_index_computed" />
+                      <label class="mr-auto form-check-label" :for="'radio-switch-' + index">{{ option.title }}</label>
 
-                      <div v-if="store.order.campaign.meta_logistic.additional_delivery_charge_type[index] === '+'">
+                      <div v-if="option.type === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{ (parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]) +
+                        {{ (parseFloat(option.price) +
                             parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(2)
                         }}
                       </div>
                       <div v-else>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(store.order.campaign.meta_logistic.additional_delivery_charge_price[index]).toFixed(2)
+                            parseFloat(option.price).toFixed(2)
                         }}
                       </div>
 
@@ -205,16 +207,16 @@
                 <div class="col-span-12 gap-5 intro-y lg:mx-20 2xl:mx-20">
                   <div v-if="store.order.campaign">
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
-                      v-for="(branch_name, index) in store.order.campaign.meta_logistic.branch_name" :key="index">
+                      v-for="(option, index) in store.order.campaign.meta_logistic.pickup_options" :key="index">
 
                       <input :id="'pickup-switch-' + index" class="form-check-input" type="radio"
-                        name="vertical_radio_button" :value="branch_name"
+                        name="vertical_radio_button" :value="option.name"
                         v-model="shipping_info.shipping_option" />
-                      <label class="mr-auto form-check-label" :for="'pickup-switch-' + index">{{ branch_name }}</label>
+                      <label class="mr-auto form-check-label" :for="'pickup-switch-' + index">{{ option.name }}</label>
 
 
                       <label class="form-check-label" :for="'pickup-switch-' + index">{{
-                          store.order.campaign.meta_logistic.branch_address[index]
+                          option.address
                       }}</label>
                     </div>
                   </div>
@@ -295,6 +297,7 @@ const layoutStore = useLSSBuyerLayoutStore();
 
 const shipping_info= ref({
 			shipping_option:"",
+      shipping_option_index:null,
       shipping_method: "delivery",
       shipping_first_name: "",
       shipping_last_name: "",
@@ -314,7 +317,27 @@ const shipping_info= ref({
       shipping_time: null,
       pickup_address:""
 		})
-    
+
+const shipping_option_index_computed = computed({
+  get:()=>{
+    return shipping_info.value.shipping_option_index
+  },set:index=>{
+    shipping_info.value.shipping_option_index=index
+    store.shipping_info.shipping_option_index=index
+    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].address : ''
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
+
+    console.log(shipping_info.value)
+  }})
+
+const shipping_method_computed = computed({
+  get:()=>{
+    return shipping_info.value.shipping_method
+  },set:method=>{
+    shipping_info.value.shipping_method=method
+    store.shipping_info.shipping_method=method
+  }})
+
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 onMounted(()=>{
@@ -329,27 +352,9 @@ onMounted(()=>{
 })
 
 const select_shipping_method = method => {
-  shipping_info.value.shipping_method = method
+  shipping_method_computed.value=method
 }
 
-watch(computed(()=>{return shipping_info.value.shipping_method}),(()=>{
-  store.shipping_info.shipping_method = shipping_info.value.shipping_method
-}))
-
-watch(computed(()=>{return shipping_info.value.shipping_option}),(()=>{     //this will be removed after seller v2 is ready
-  store.shipping_info.shipping_option = shipping_info.value.shipping_option
-  if(shipping_info.value.shipping_method=='pickup'){
-    const campaign = store.order.campaign||null
-    if (!campaign) return
-    const meta_logistic = campaign.meta_logistic || null
-    if (!meta_logistic) return
-    const index = meta_logistic.branch_name.indexOf(store.shipping_info.shipping_option)
-    shipping_info.value.pickup_address=meta_logistic.branch_address[index]
-  }else{
-    shipping_info.value.pickup_address=""
-  }
-  
-}))
 
 
 const reciever_rules = computed(()=>{
