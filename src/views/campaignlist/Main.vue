@@ -2,7 +2,7 @@
   <!-- BEGIN OUTTER BOX -->
   <div class="flex flex-col gap-5 p-3 box sm:p-8">
     <!-- BEGIN: commit box -->
-    <div class="flex flex-row flex-wrap justify-between mt-4 mx-0 gap-3">
+    <div class="flex flex-row flex-wrap justify-between mt-8 sm:mt-0 mx-0 gap-3">
       <div class="flex-none switch-toggle mx-auto sm:mx-0">
         <input id="off" name="state-d" type="radio" />
         <label for="off" @click="show_campaign('ongoing')">{{$t('campaign.ongoing')}}</label>
