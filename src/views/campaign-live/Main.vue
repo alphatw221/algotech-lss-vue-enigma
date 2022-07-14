@@ -59,7 +59,7 @@ onUnmounted(()=>{
 
 const initWebSocketConnection=()=>{
     webSocket = new WebSocket(
-        `wss://gipassl.algotech.app/ws/campaign/${route.params.campaign_id}/?token=${cookies.get('access_token')}`
+        `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/campaign/${route.params.campaign_id}/?token=${cookies.get('access_token')}`
     );
     webSocket.onmessage = e => {
         const message = JSON.parse(e.data);

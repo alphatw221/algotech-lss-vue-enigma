@@ -71,7 +71,17 @@ const getParamsDict = ()=>{
 </script>
 
 <style scoped>
-    .breadcrumb-item a{
-    color: #7c7c7c;
-    }
+.dark .side-nav{ 
+  background-color: theme("colors.dark"); 
+}
+
+.breadcrumb-item a{
+  color: #7c7c7c;
+}
+
+.mobileBack{
+  position:absolute;
+  top:10px;
+  z-index: 50;
+}
 </style>

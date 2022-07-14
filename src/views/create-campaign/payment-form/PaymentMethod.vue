@@ -1,14 +1,14 @@
 <template>
 
-    <div class="justify-center flex-col flex text-[16px] p-5 sm:p-10"> 
+    <div class="gap-5 justify-center flex-col flex p-5"> 
 
-        <div class="flex mt-5 sm:mt-0">
+        <div class="flex mt-5 sm:mt-0 mt-5 sm:mx-5 sm:mt-0">
             <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
                 type="checkbox" 
                 v-model="props.campaign.meta_payment[props.payment.key].enabled"
             />
-            <label class="ml-3 form-label">Enabled</label>
+            <label class="ml-3 form-label text-base font-medium">Enabled</label>
 
         </div>
 
@@ -17,7 +17,7 @@
             v-for="(field, index) in props.payment.fields" :key="index"
         >
             <template v-if="field.type === 'text' || field.type === 'password'">
-                <label class="mt-2 text-base">{{ field.name }}</label>
+                <label class="form-label text-base font-medium">{{ field.name }}</label>
                 <input 
                     class="w-full form-control"
                     type="text" 
@@ -26,7 +26,7 @@
             </template>
             <template v-else-if="field.type === 'select'">
                 <label  
-                    class="mt-2 text-base">
+                    class="form-label text-base mt-2 font-medium">
                     {{ field.name }}</label>
                 <TomSelect 
                     class="w-full sm:w-[300px]"

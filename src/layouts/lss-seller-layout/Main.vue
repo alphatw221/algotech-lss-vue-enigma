@@ -93,7 +93,7 @@ const toast = () =>{
 
 const websocketInit =()=> {
   const campaignSocket = new WebSocket(
-      `wss://gipassl.algotech.app/ws/login/?token=${accessToken}`
+      `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/login/?token=${accessToken}`
   );
   campaignSocket.onmessage = e => {
       const data = JSON.parse(e.data);

@@ -114,8 +114,8 @@ onUnmounted(()=>{
 })
 
 const getHistoryComments= () =>{
-    commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName, '')
     fetchingData.value = true
+    commentPaginator = createCommentPaginator(route.params.campaign_id, props.platformName, '')
     commentPaginator.getData().then(res=>{
         fetchingData.value = false
         comments.value = res.data.results
@@ -147,6 +147,8 @@ const readyToUpdateByWebsocket = ()=>{
 }
 
 const commentSummarizer = category=>{
+    comments.value = []
+    fetchingData.value = true
     if(category == 'neutro'){
         tags.value = 'other'
     }else tags.value = category

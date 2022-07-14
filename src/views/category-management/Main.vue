@@ -32,7 +32,7 @@
                                 <EditIcon class="w-4 h-4 mr-2" /> Edit
                             </DropdownItem>
                             <DropdownItem @click="deleteCategory(item)">
-                                <TrashIcon class="w-4 h-4 mr-2" /> Delete
+                                <Trash2Icon class="w-4 h-4 mr-2 text-[#B91D1D]" /> <span class="text-[#B91D1D]">Delete</span>
                             </DropdownItem>
                         </DropdownContent>
                     </DropdownMenu>
