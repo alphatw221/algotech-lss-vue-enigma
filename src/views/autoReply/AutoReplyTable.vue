@@ -5,7 +5,7 @@
 			<thead>
 				<tr>
 					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap">
-						<template v-if="column.name === '#'">
+						<template v-if="column.name === '#' || column.key === 'facebook_page'">
 							<span class="px-6"> {{ column.name }}</span> 
 						</template>
 						<template v-else> {{ column.name }} </template>

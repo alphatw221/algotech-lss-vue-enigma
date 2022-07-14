@@ -8,7 +8,7 @@
         <ModalBody>
             <ModalHeader>
                     <h2 class="font-medium text-base mr-auto">
-                        {{$t('manage_order.order')}} No. {{store.orderProductData.id}}
+                        {{$t('order_detail.order_no')}} No. {{store.orderProductData.id}}
                         <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
@@ -42,23 +42,23 @@
                                 />
                             </div>
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" :data-content="$t('order_detail.product')">
                             {{product.name}}
                         </td>
-				        <td class="text-center">
+				        <td class="text-center" :data-content="$t('order_detail.qty')">
                             {{product.qty}}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" :data-content="$t('order_detail.price')">
                            $ {{(product.price).toFixed(2)}}
                         </td>
-                        <td class="text-center">
+                        <td class="text-center" :data-content="$t('order_detail.sub_total')">
                            $ {{(product.qty * product.price).toFixed(2)}}
                         </td>                        
                     </tr>
                 </tbody>
             </table>
             <div class="grid grid-cols-12 gap-2 text-[16px]">
-                <div class="box col-start-1 col-span-12 lg:col-start-8 2xl:col-start-8">
+                <div class="box col-start-1 col-span-12 lg:col-start-8">
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('order_detail.total')}}</div>
@@ -204,24 +204,24 @@ thead th{
 	}
 
 	td:nth-of-type(2):before {
-		content: "Product";
+		content: attr(data-content);
 		overflow-wrap: break-word;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(3):before {
-		content: "Quantity";
+		content: attr(data-content);
 		overflow-wrap: break-word !important;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(4):before {
-		content: "Price";
+		content: attr(data-content);
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(5):before {
-		content: "Subtotal";
+		content: attr(data-content);
 		/* color: #0e9893; */
 	}
 }

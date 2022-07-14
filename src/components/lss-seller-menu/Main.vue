@@ -1,13 +1,21 @@
 <template>
-<div class="flex h-full overflow-auto bg-secondary">
+<div class="flex max-h-none overflow-auto bg-secondary">
       <!-- BEGIN: Side Menu -->
+      <div class="top-[80px] z-[51] left-[12px] flex fixed my-3 ml-2 px-4 py-1 w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp " 
+        :class="{
+                  'bg-slate-100': breadCrumb[breadCrumb.length-1] == 'create campaign',
+                }"
+        @click="router.push({name:'create-campaign'})"> 
+        <button class="w-10 h-10 mr-3 btn btn-rounded-primary"
+          ><span class="text-2xl">+</span></button> 
+        <span class="hidden font-medium xl:block"
+          :class="{
+            'font-bold': breadCrumb[breadCrumb.length-1] == 'create campaign',
+          }"
+          >Create <br> New Campaign</span> 
+      </div>
+
       <nav class="side-nav">
-        <div class="flex m-3 cursor-pointer" @click="router.push({name:'create-campaign'})"> 
-          <button class="w-10 h-10 mr-3 btn btn-rounded-primary"
-          ><span class="text-2xl">+</span></button>
-          <span class="hidden font-bold xl:block 2xl:block">Create <br> New Campaign</span> 
-        </div>
-        
         <ul>
           <!-- BEGIN: First Child -->
           <template v-for="(menu, menuKey) in formattedMenu">
@@ -125,10 +133,10 @@
           </template>
           <!-- END: First Child -->
         </ul> 
-          <button class="absolute m-0 text-white rounded-lg btn btn-danger xl:m-5 2xl:m-5 bottom-5"
+          <button class="fixed mx-3 text-white rounded-lg btn btn-danger xl:m-5 bottom-5"
               @click="layoutStore.profileTab = 1; router.replace('/seller/profile')"
-          ><ZapIcon class="mr-0 xl:mr-2 2xl:mr-2" /><span class="hidden text-lg xl:block 2xl:block">Upgrade </span>  </button>
-      </nav>
+              ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/><span class="hidden text-lg xl:block 2xl:block">Upgrade </span>  </button>
+          </nav>
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
@@ -141,6 +149,11 @@
             <li v-if=" breadCrumb[breadCrumb.length - 2] " 
               class="breadcrumb-item"><a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a></li>
             <li class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
+          </ol>
+        </nav>
+        <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
+          <ol class="breadcrumb breadcrumb-dark">
+            <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
           </ol>
         </nav>
         <router-view />
@@ -216,7 +229,17 @@ const pathName=(value)=>{
   color: #7c7c7c;
 }
 
-.lss-content{
-  height: calc(100vh - 70px) !important;
+.mobileBack{
+  position:absolute;
+  top:10px;
+  z-index: 50;
 }
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+  .creatCamp{
+    display: none;
+  }
+}
+
 </style>
