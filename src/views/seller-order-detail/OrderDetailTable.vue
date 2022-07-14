@@ -14,7 +14,7 @@
 			</thead>
 			<tbody>
 			<tr v-for="(product, index) in store.orderDetail.products" :key="index" class="intro-x">
-				<td class=" ">
+				<td class=" " :data-content="$t('order_detail.null')">
 					<div class="flex">
 						<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-if="product.image">
 						<img
@@ -34,10 +34,10 @@
 						</div>
 					</div>
 				</td>
-				<td class="text-center">
+				<td class="text-center" :data-content="$t('order_detail.product')">
 					<div class="whitespace-normal break-words">{{ product.name }} </div>
 				</td>
-				<td class="text-center">
+				<td class="text-center" :data-content="$t('order_detail.qty')">
 					<template v-if="props.order_type === 'order'">
 						{{ product.qty }}
 					</template>
@@ -71,10 +71,10 @@
                         </div>
 					</template>
 				</td>
-				<td class="text-center ">
+				<td class="text-center " :data-content="$t('order_detail.price')">
 					$ {{ product.price }}
 				</td>
-				<td class="text-center">
+				<td class="text-center" :data-content="$t('order_detail.sub_total')">
 					$ {{ product.qty * product.price }}
 				</td>
                 <td class="">
@@ -239,22 +239,22 @@ thead th{
 	}
 
 	td:nth-of-type(2):before {
-		content: "Product";
+		content: attr(data-content);
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(3):before {
-		content: "Quantity";
+		content: attr(data-content);
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(4):before {
-		content: "Price";
+		content: attr(data-content);
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(5):before {
-		content: "Subtotal";
+		content: attr(data-content);
 		/* color: #0e9893; */
 	}
 	td:nth-of-type(6):before {
