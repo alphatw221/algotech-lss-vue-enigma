@@ -81,7 +81,7 @@
                                         v-model="product[column.key]" />
                                 </div>
                                 <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
-                                    v-model="product[column.key]" @click="product.deletable = false"
+                                    v-model="product[column.key]" @click="product.customer_removable = false"
                                     :disabled="product.disabledEdit" />
                             </div>
                         </td>
@@ -450,11 +450,11 @@ thead th {
         margin-top: 0px !important;
     }
 
-    td:nth-of-type(11):before {
+    td:nth-of-type(10):before {
         content: "Editable";
     }
 
-    td:nth-of-type(10):before {
+    td:nth-of-type(11):before {
         content: "Deletable";
     }
 
