@@ -8,6 +8,9 @@
     letter-spacing: 0.7px;
     box-shadow: inset -4px -4px 8px rgba(255, 255, 255, 0.185),
         inset 8px 8px 16px rgba(0, 0, 0, 0.1);
+    @include media-breakpoint-down(sm) {
+        @apply h-[35px];
+    }
 } .dark {
     .switch-toggle{
         box-shadow: inset -4px -4px 8px rgba(22, 22, 22, 0.596),
@@ -29,14 +32,15 @@
 }
 
 .switch-toggle input+label {
-    padding-top: 10px;
-    padding-bottom: 12px;
-    padding-left: 15px;
-    padding-right: 15px;
     float: left;
     text-align: center;
+    vertical-align: middle;
     color: rgb(56, 56, 56);
     cursor: pointer;
+    @apply px-[15px] py-[8px]; 
+    @include media-breakpoint-down(sm) {
+        @apply h-[35px] py-[5px];
+    }
 }
 
 .dark .switch-toggle input+label {
@@ -50,4 +54,7 @@
     border-radius: 42px 42px;
     font-weight: 500;
     color: aliceblue;
+    @include media-breakpoint-down(sm) {
+        @apply h-[35px];
+    }
 }

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-5 text-[16px] overflow-auto sm:overflow-hidden h-screen sm:h-[100%]">
+    <div class="flex flex-col gap-5 text-[16px] h-fit">
 		<span class="mt-3 ml-5 text-xl sm:ml-0 sm:mt-5"> Create Campaign </span>
 		<div class="grid grid-cols-12 gap-1 px-5 py-5 sm:p-8 intro-y box sm:gap-5 -z-50">
 			<div class="col-span-12 col-start-1 sm:col-span-6">

@@ -1,10 +1,10 @@
 <template>
-<div class="flex h-full overflow-auto bg-secondary">
+<div class="flex max-h-none overflow-auto bg-secondary">
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav">
         <div class="flex m-3 cursor-pointer" @click="router.push({name:'create-campaign'})"> 
           <button class="w-10 h-10 mr-3 btn btn-rounded-primary"
-          ><span class="text-2xl">+</span></button>
+          ><span class="text-2xl">+</span></button> 
           <span class="hidden font-bold xl:block 2xl:block">Create <br> New Campaign</span> 
         </div>
         
@@ -214,9 +214,5 @@ const pathName=(value)=>{
 
 .breadcrumb-item a{
   color: #7c7c7c;
-}
-
-.lss-content{
-  height: calc(100vh - 70px) !important;
 }
 </style>
