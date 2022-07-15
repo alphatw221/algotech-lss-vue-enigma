@@ -59,7 +59,7 @@
 						method: 'put',
 						url: 'url',
 						uploadMultiple: false,
-						maxFilesize: 1,
+						maxFilesize: 2,
 						addRemoveLinks: true,
 						autoProcessQueue: false,
 						resizeQuality: 0.5,

@@ -63,7 +63,7 @@
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
               Select Profile
-              {{$t('campaign.enter_post_id.select_page')}}
+              <!-- {{$t('campaign.enter_post_id.select_page')}} -->
             </button>
             <!-- <input
               id="modal-form-1"
