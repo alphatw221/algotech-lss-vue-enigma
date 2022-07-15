@@ -104,7 +104,7 @@
                             </div>
                         </template>
                         <template v-else-if="column.key === 'subtotal'">
-                            ${{ (order.subtotal).toFixed(layoutStore.userInfo.user_subscription.decimal_places) }}
+                            ${{ (order.total).toFixed(layoutStore.userInfo.user_subscription.decimal_places) }}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             {{ order[column.key] == 'Direct Payment' ? `Direct Payment - ${order.meta.account_mode}` : order[column.key] }}
