@@ -13,30 +13,36 @@
     "salt" : "Salt",
 
     "delivery":{
-        "charge":"Delivery Charge",
-        "charge_option":"Delivery Charge Option",
-        "replace_charge" : "Replace delivery charge",
-        "on_top_of_charge" : "On top of delivery charge",
-        "title" : "Display Name",
-        "order_above":"Free delivery for order above",
-        "minimum":"Free delivery for minimum order Qty",
+        "delivery":"Vận chuyển",
+        "charge":"Chi phí vận chuyển",
+        "charge_option":"Tùy chọn phí giao hàng",
+        "replace_charge" : "Thay thế phí giao hàng",
+        "on_top_of_charge" : "Vượt phí giao hàng",
+        "order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
+        "minimum":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
         "store":{
-                "collection":"Store Collection",
-                "pickup_store":"Pickup Store",
-                "pickup_address":"Pickup Address"
+                "collection":"Nhận tại cửa hàng",
+                "pickup_store":"Tên cửa hàng",
+                "pickup_address":"Địa chỉ cửa hàng"
         }
         
     },
     "payment":{
-        "Direct Payment":"Direct Payment",
-        "enabled":"Enabled",
-        "mode":"Name of Bank / Payment Mode",
-        "account_name":"Account Name",
-        "account_number":"Account Number"
+        "payment":"Thanh toán",
+        "Direct Payment":"Thanh toán trực tiếp",
+        "enabled":"Đã bật",
+        "mode":"Tên ngân hàng / Phương thức thanh toán",
+        "account_name":"Tên tài khoản",
+        "account_number":"Số tài khoản",
+        "stripe":{
+            "secret_key":"Mã bảo mật",
+            "currency":"Đơn vị tiền tệ"
+        }
     },
     "notes":{
-        "delivery":"Delivery Note",
-        "special":"Special Note",
-        "confirmation":"Confirmation Note"
+        "notes":"Các lưu ý",
+        "delivery":"Lưu ý khi giao hàng",
+        "special":"Ghi chú đặc biệt",
+        "confirmation":"Ghi chú xác nhận"
     }
 }

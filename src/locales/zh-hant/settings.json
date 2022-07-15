@@ -29,7 +29,11 @@
         "enabled":"Enabled",
         "mode":"付款方式",
         "account_name":"帳戶名稱",
-        "account_number":"帳戶號碼"
+        "account_number":"帳戶號碼",
+        "stripe":{
+            "secret_key":"Secret Key",
+            "currency":"幣別"
+        }
     },
     "notes":{
         "delivery":"運送說明",

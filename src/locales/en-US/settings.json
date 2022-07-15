@@ -32,7 +32,11 @@
         "enabled":"Enabled",
         "mode":"Name of Bank / Payment Mode",
         "account_name":"Account Name",
-        "account_number":"Account Number"
+        "account_number":"Account Number",
+        "stripe":{
+            "secret_key":"Secret Key",
+            "currency":"Currency"
+        }
     },
     "notes":{
         "delivery":"Delivery Note",
