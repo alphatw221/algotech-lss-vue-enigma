@@ -46,8 +46,9 @@ const handlePayment=()=>{
     if(props.payment.handle.type=='gateway'){
         const getUrl = paymentEndPoints[props.payment.handle.endpoint]
         getUrl(route.params.order_oid).then(res=>{
-            window.open(res.data)
-            console.log(res.data)
+            window.location.href = res.data
+            // window.open(res.data)
+            // console.log(res.data)
         })
     }else if(props.payment.handle.type=='submitForm'){
         const getCredential = paymentEndPoints[props.payment.handle.endpoint]
