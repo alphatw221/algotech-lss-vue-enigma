@@ -96,8 +96,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'type'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
-                            <div class=" form-check place-content-end sm:place-content-center"> {{ product[column.key] }}
-                            </div>
+                            <div class=" form-check place-content-end sm:place-content-center"> {{ typeMap[product[column.key]] }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'edit'">
@@ -158,6 +157,10 @@ const tableColumns = ref([
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
 ])
+const typeMap = ref({
+    lucky_draw: 'Lucky Draw',
+    product: 'Product'
+})
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 
 

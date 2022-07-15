@@ -114,6 +114,7 @@
                                             <select 
                                                 class="form-select w-auto mt-2 sm:mt-0"
                                                 v-model="product[column.key]"
+                                                :disabled="props.productType === 'lucky_draw'"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
@@ -220,6 +221,7 @@
                                             <select 
                                                 class="form-select w-auto mt-2 sm:mt-0"
                                                 v-model="product[column.key]"
+                                                :disabled="props.productType === 'lucky_draw'"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
