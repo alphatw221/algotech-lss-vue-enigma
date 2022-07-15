@@ -14,7 +14,6 @@
             <!-- BEGIN SearchPage -->
             <div v-show="openTab=='select'">
 
-
                 <!-- BEGIN SearchBar -->
                 <div class="flex flex-wrap items-start w-full sm:flex-row">
                     <div class="flex-initial w-fit items-center ml-2 mt-2" >
@@ -114,6 +113,7 @@
                                             <select 
                                                 class="form-select w-auto mt-2 sm:mt-0"
                                                 v-model="product[column.key]"
+                                                :disabled="props.productType === 'lucky_draw'"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
@@ -220,6 +220,7 @@
                                             <select 
                                                 class="form-select w-auto mt-2 sm:mt-0"
                                                 v-model="product[column.key]"
+                                                :disabled="props.productType === 'lucky_draw'"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
@@ -238,7 +239,7 @@
                                         </template>
 
                                         <template v-else>
-                                            <div class="break-word  w-24"> {{product[column.key]}} </div>
+                                            <div class="break-all w-24"> {{product[column.key]}} </div>
                                             <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                         </template>
                                     </td>
@@ -525,21 +526,180 @@ const hideModal = ()=>{
 
 
 <style scoped>
+.click-icon:hover {
+    cursor: pointer;
+}
+
 td {
-	height: auto !important;
-	width: max-content !important;
+    height: auto !important;
     min-height: 50px;
     border-collapse: collapse;
+    width: auto !important;
     padding-right: 10px !important;
     padding-left: 10px !important;
 }
 
-thead th{ 
-  position: sticky !important; 
-  top: 0 !important;
-  z-index: 99;
-  background-color: theme("colors.secondary");
-  padding-right: 10px !important;
-  padding-left: 10px !important;
+thead th {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50;
+    background-color: theme("colors.secondary");
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+}
+
+.checkboxWord {
+    display: none;
+}
+.form-check-input {
+    border-color: rgb(128, 128, 128) !important;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+        font-size: 16px;
+        padding: 0px !important;
+    }
+
+    input {
+        height: 35px !important;
+    }
+
+    .form-check-input{
+        width: 1.2rem !important;
+        height: 1.2rem !important;
+    }
+
+    .checkboxWord {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		margin-top: 20px;
+	}
+
+    td {
+        min-height: 35px;
+        height: auto;
+        border: none;
+        position: relative;
+        padding-left: 50% !important;
+        text-align: right !important;
+        box-shadow: none !important;
+        font-size: 14px;
+        vertical-align: middle !important;
+        padding-right: 15px !important;
+    }
+
+    td:before {
+        position: absolute;
+        min-height: 20px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        box-shadow: none !important;
+        background-color: white !important;
+        text-align: left;
+    }
+
+    .selected:before {
+        display: none;
+    }
+
+    .selected{
+        display: block;
+        float:right;
+        width:40px !important;
+        padding-left: 0px !important;
+	}
+
+    .imgtd:before {
+        display: none;
+    }
+
+    .imgtd {
+        display: inline-block;
+        width: 80% !important;
+        padding-left: 20% !important;
+        height: 125px !important;
+    }
+
+    td:nth-of-type(3):before {
+        display: none;
+    }
+
+    td:nth-of-type(3) {
+        display: inline-block;
+        text-align: center !important;
+        width: 100% !important;
+        padding-left: 0% !important;
+		font-weight: 500;
+		color: theme("colors.primary");
+        font-size: 16px !important;
+    }
+
+    td:nth-of-type(4):before {
+        content: "Order Code";
+        text-align: left !important;
+        top:25% !important;
+    }
+
+    td:nth-of-type(5):before {
+        content: "Qty for Campaign";
+        top:25% !important;
+    }
+
+    td:nth-of-type(6):before {
+        content: "Max Qty / Order";
+        top:25% !important;
+    }
+
+    td:nth-of-type(7):before {
+        top: -3px;
+        content: "Category";
+        top:25% !important;
+    }
+    td:nth-of-type(7){
+        display: flex;
+        flex-direction:column; 
+        justify-content: center;
+        vertical-align:baseline !important;
+    }
+
+    td:nth-of-type(8):before {
+        content: "Price";
+        margin-top: 0px !important;
+    }
+
+    td:nth-of-type(10):before {
+        content: "Editable";
+    }
+
+    td:nth-of-type(11):before {
+        content: "Deletable";
+    }
+
+    td:nth-of-type(9):before {
+        content: "Type";
+        text-align: left !important;
+        margin-top: 0 !important;
+    }
 }
 </style>

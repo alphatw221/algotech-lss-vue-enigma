@@ -191,11 +191,8 @@ const changeQuantity = ( index, operation, product) => {
 		qty = product.qty-1
 	} else if (operation == 'input' && cacheQty.value >= 1 ) {
 		qty = cacheQty.value
-
-		console.log('here')
 	} else {
 		layoutStore.alert.showMessageToast("Invalid Quantity")
-		// alert('Invalid Quantity')
 		cacheQty.value = product.qty
 		return
 	}

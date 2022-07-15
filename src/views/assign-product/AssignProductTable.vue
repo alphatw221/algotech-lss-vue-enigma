@@ -54,7 +54,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
+                        <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end">
                             <div v-for="tag in product[column.key]" :key="tag">{{ tag }}</div>
                         </td>
 
@@ -62,11 +62,11 @@
                             <div>{{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'name'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center longMessage">
+                        <td v-else-if="column.key === 'name'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center longMessage">
                             <div class="w-full">{{ product[column.key] }}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'selected'" class="text-[12px] lg:w-18 lg:text-sm 2xl:w-32 selected">
+                        <td v-else-if="column.key === 'selected'" class="text-[12px] lg:w-18 lg:text-sm 2xl:w-28 selected">
                             <div class="sm: form-check sm:place-content-center">
                                 <input id="selectCheckbox"
                                     class="form-check-input w-[1.2rem] h-[1.2rem]"
@@ -74,7 +74,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                        <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <div v-if="product.type === 'lucky_draw'">
                                     <input id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox" disabled
@@ -86,7 +86,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'customer_removable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32  content-center items-center">
+                        <td v-else-if="column.key === 'customer_removable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <input v-if="product.customer_editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" disabled v-model="product[column.key]" />
@@ -95,9 +95,8 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'type'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
-                            <div class=" form-check place-content-end sm:place-content-center"> {{ product[column.key] }}
-                            </div>
+                        <td v-else-if="column.key === 'type'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end">
+                            <div class=" form-check place-content-end sm:place-content-center"> {{ typeMap[product[column.key]] }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'edit'">
@@ -158,6 +157,10 @@ const tableColumns = ref([
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
 ])
+const typeMap = ref({
+    lucky_draw: 'Lucky Draw',
+    product: 'Product'
+})
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 
 

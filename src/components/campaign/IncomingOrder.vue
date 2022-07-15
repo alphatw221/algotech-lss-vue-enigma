@@ -4,7 +4,7 @@
         2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-9 
         ">
         <div class="h-full flex flex-col">
-            <div class="flex w-full m-3"> 
+            <!-- <div class="flex w-full m-3"> 
                 <h2 class="text-lg font-medium ml-5 mr-auto">Incoming Order</h2>
 
                 <button type='button' class="w-36 mr-3 shadow-md btn btn-primary" @click="routeTOLuckyDraw()">
@@ -13,16 +13,23 @@
                 <button type='button' class="w-36 mr-6 shadow-md btn btn-primary" @click="routeTOManageOrder()">
                             Manage Order
                 </button >
-            </div>
+            </div> -->
             
 
+            <div class="flex justify-between mb-3">
+                <h2 class="text-lg font-medium m-3 ml-5">Incoming Order</h2>
+                <button class="btn btn-primary w-32 mt-auto mr-3" @click="routeTOLuckyDraw()">
+                    Go Lucky Draw 
+                </button>
+            </div>
+            
             <div class="overflow-auto scrollbar-hidden">
                 <table class="table table-sm">
                     <thead class="table-dark">
                         <tr>
                             <th class="whitespace-nowrap bg-dark" v-for="column in incoming_order_columns"
                                 :key="column.key">
-                                {{ column.name }}
+                                {{ $t(`manage_order.`+column.name) }}
                             </th>
                         </tr>
                     </thead>
@@ -75,11 +82,11 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const store = useCampaignDetailStore();
 const imagePath=import.meta.env.VITE_APP_IMG_URL
 const incoming_order_columns= [
-    { name: "Order No", key: "order_no" },
-    { name: "Platform", key: "platform" },
-    { name: "Name", key: "name" },
-    { name: "Amount", key: "amount" },
-    { name: "Detail", key: "detail" },
+    { name: "order_number", key: "order_number" },
+    { name: "platform", key: "platform" },
+    { name: "name", key: "name" },
+    { name: "amount", key: "amount" },
+    { name: "null", key: "detail" },
 ]
 
 
@@ -104,7 +111,7 @@ const routeTOManageOrder = ()=>{
 }
 
 const routeTOLuckyDraw = ()=>{
-    router.push({name:'lucky-draw',params:{'campaign_id':route.params.campaign_id}})
+    router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
 }
 
 </script>

@@ -1,16 +1,19 @@
 <template>
-    <div class="flex flex-col h-full box text-lg overflow-y-auto p-10" v-if="ready">
-        <h1 class="text-center"> Lucky Draw </h1>
-        <div v-show="!showDrawlist"> 
+    <div class="flex flex-col h-full text-lg p-3 sm:px-5" v-if="ready">
+        <h1 class="text-center sm:text-left text-xl sm:text-2xl font-medium"> Lucky Draw </h1>
+
+        <div class="box p-3 sm:p-10 sm:m-5">
+            <div v-show="!showDrawlist"> 
             <DrawCreate 
                 :campaignTitle="campaignTitle"
             />
-        </div>
-        <div v-show="showDrawlist">
-            <DrawList 
-                :luckydrawList="luckydrawList" 
-                :campaignTitle="campaignTitle"
-            /> 
+            </div>
+            <div v-show="showDrawlist">
+                <DrawList 
+                    :luckydrawList="luckydrawList" 
+                    :campaignTitle="campaignTitle"
+                /> 
+            </div>
         </div>
     </div>
 </template>
@@ -37,19 +40,17 @@ const campaignTitle = ref('')
 onMounted(() => {
     retrieve_campaign(route.params.campaign_id).then(res => {
         campaignTitle.value = res.data.title
-    }).catch(err => {
-        console.log(err);
     })
 
-    list_campaign_lucky_draw(route.params.campaign_id).then(res => {
-        if (Object.entries(res.data).length > 0) {
-            showDrawlist.value = true
-            luckydrawList.value = res.data
-        }
-        ready.value = true
-    }).catch(err => {
-        console.log(err);
-    })
+    if (route.query.behavior != 'drawInstantly') {
+        list_campaign_lucky_draw(route.params.campaign_id).then(res => {
+            if (Object.entries(res.data).length > 0) {
+                showDrawlist.value = true
+                luckydrawList.value = res.data
+            }
+            ready.value = true
+        })
+    } else ready.value = true
 
     eventBus.on('changeDrawPage', () => { 
         showDrawlist.value = !showDrawlist.value 

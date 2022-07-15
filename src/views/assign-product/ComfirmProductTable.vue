@@ -132,7 +132,7 @@
                                 />
                         </td>
                         <td v-else-if="column.key === 'type'" class="type">
-                                {{ product[column.key] }}
+                            {{ typeMap[product[column.key]] }}
                         </td>
                     </template>
 
@@ -196,6 +196,10 @@ const tableColumns = ref([
     { name: "Activate", key: "status" }
 ])
 const errorMessages = ref([])
+const typeMap = ref({
+    lucky_draw: 'Lucky Draw',
+    product: 'Product'
+})
 
 onMounted(() => {
     campaignStore.assignedProducts.forEach((item) => {

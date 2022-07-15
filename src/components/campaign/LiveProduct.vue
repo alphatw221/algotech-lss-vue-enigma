@@ -37,8 +37,14 @@
                     <tbody>
                         <tr v-for="product,index in store.campaignProducts" :key="index">
                             <td><img data-action="zoom" :src="imagePath + product.image" class="w-10 zoom-in" /></td>
+                            
                             <td>{{ product.name }}</td>
-                            <td>{{ product.order_code }}</td>
+                            <template v-if="product.type === 'lucky_draw'">
+                                <td></td>
+                            </template>
+                            <template v-else>
+                                <td>{{ product.order_code }}</td>
+                            </template>
                             <td>
                                 {{ product.qty_add_to_cart }}/{{ product.qty_sold }}/{{ product.qty_for_sale - product.qty_sold }}
                             </td>
