@@ -107,6 +107,7 @@
 					class="w-full form-control"
 					placeholder=""
 					v-model="validate.order_code.$model"
+					:disabled="product.type === 'lucky_draw'"
 				/>
 				<template v-if="validate.order_code.$error">
 						<label class="text-danger ml-2 text-[13px]" >
@@ -126,7 +127,7 @@
 				/>
 				<template v-if="validate.description.$error">
 						<label class="text-danger ml-2 text-[13px]" >
-						discription cannot be more than 100 digits
+						description cannot be more than 100 digits
 						</label>
 				</template>
 				
