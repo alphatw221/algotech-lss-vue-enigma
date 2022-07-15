@@ -7,7 +7,7 @@
         </div>
         <div class="flex flex-col">
             <div class="mt-6 lg:flex ">
-                <div class="lg:w-[50%]  flex-col mr-5 mt-3">
+                <!-- <div class="lg:w-[50%]  flex-col mr-5 mt-3">
                     <label class="form-label"> Lucky Draw Title</label>
                     <input 
                         type="text" 
@@ -18,7 +18,7 @@
                     <template v-if="validate.title.$error">
                         <label class="text-danger">Enter lucky draw title</label>
                     </template>
-                </div>
+                </div> -->
                 <div class="lg:w-[50%]  flex flex-col mr-5 mt-3">
                     <label class="form-label"> Prize</label>
                     <select 
@@ -43,7 +43,7 @@
                         @click="productType = 'lucky_draw'; detailStore.showAddProductFromStockModal = true;"
                     > Assign More Prize </button>
                 </div>
-                <div class="lg:w-[50%]  flex-col mt-3">
+                <div class="lg:w-[50%]  flex-col mr-5 mt-3">
                     <label class="form-label ">Spin Time(sec)</label>
                     <select 
                         class="w-full form-select-lg rounded-lg rounded-lg" 
@@ -125,7 +125,7 @@
                 </div>
             </div>
             <div class="mt-3 mt-6 lg:flex">
-                <div class="lg:w-[50%]  flex-col mr-5 mt-6">
+                <div class="lg:w-[50%] flex-col mr-5 mt-6">
                     <label class="form-label"> Draw Type</label>
                     <select class="w-full form-select-lg rounded-lg" v-model="currentSettings.type">
                         <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ type.name }}</option>
@@ -133,7 +133,7 @@
                 </div>
                 <div 
                     v-if="currentSettings.type === 'product'" 
-                    class="lg:w-[50%]  flex flex-col mt-3"
+                    class="lg:w-[50%] flex flex-col mt-3 mr-5"
                 >   
                     <div class="flex">
                         <label class="form-label mt-3">Product</label>
@@ -143,13 +143,12 @@
                             @click="productType = 'product'; detailStore.showAddProductFromStockModal = true;"
                         > Assign Product </button>
                     </div>
-
                     <select
                         :class="{ 'border-danger text-danger border-2': currentSettings.campaign_product == '' }" 
                         class="w-full form-select-lg rounded-lg" 
                         v-model="currentSettings.campaign_product"
                     >   
-                        <template v-if="currentSettings.campaign_product == ''">
+                        <template v-if="productList.length == 0">
                             <option class="w-40" disabled> 
                                 Assign Product into your Campaign
                             </option>
@@ -191,11 +190,11 @@
                 </div>
             </div>  
         </div>
-        <div class="flex justify-end my-8" v-if="route.query.behavior === 'drawInstantly'">
+        <div class="flex justify-end my-8 mr-5" v-if="route.query.behavior === 'drawInstantly'">
             <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> Back </button>
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="goDraw"> Go Draw </button>
         </div>
-        <div class="flex justify-end my-8" v-else>
+        <div class="flex justify-end my-8 mr-5" v-else>
             <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> Cancel </button>
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> Save </button>
         </div>
@@ -249,8 +248,8 @@ const productType = ref('')
 
 const rules = computed(()=> {
     return {
-        comment: { required, minLength: minLength(3) },
-        title: { required, minLength: minLength(1) },
+        comment: { required },
+        // title: { required, minLength: minLength(1) },
         num_of_winner: { required, integer, minValue: minValue(1), maxValue: maxValue(currentSettings.value.prize.qty_for_sale) } 
     }
 });

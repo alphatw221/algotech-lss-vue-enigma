@@ -51,11 +51,12 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, computed, onMounted } from "vue";
+import { ref, defineEmits, computed, onMounted, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_subscription } from '@/api_v2/user_subscription'
 
 const layoutStore = useLSSSellerLayoutStore();
+import i18n from '@/locales/i18n';
 
 const countries = ref({'PH':'Philippines','SG':'Singapore','ID':'Indonesia','IN':'India','TW':'Taiwan'})
 
@@ -107,6 +108,7 @@ const save = ()=>{
 
         layoutStore.userInfo = res.data
         layoutStore.notification.showMessageToast("Update Successfully")
+        i18n.global.locale = layoutStore.userInfo.user_subscription.lang
     })
 }
 </script>
