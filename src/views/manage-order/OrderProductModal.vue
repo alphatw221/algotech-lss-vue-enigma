@@ -61,7 +61,7 @@
                 <div class="box col-start-1 col-span-12 lg:col-start-8">
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">{{$t('order_detail.total')}}</div>
+                            <div class="mr-auto font-bold">{{$t('order_detail.sub_total')}}</div>
                             <div class="mr-10">$ {{parseFloat(store.orderProductData.subtotal).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">

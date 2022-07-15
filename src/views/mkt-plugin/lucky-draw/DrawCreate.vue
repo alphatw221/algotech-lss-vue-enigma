@@ -40,7 +40,7 @@
                     <button 
                         class="btn btn-danger ml-auto w-fit mt-2"
                         :class="{'btn-danger': !prizeList.length}" 
-                        @click="detailStore.showAddProductFromStockModal = true"
+                        @click="productType = 'lucky_draw'; detailStore.showAddProductFromStockModal = true;"
                     > Assign More Prize </button>
                 </div>
                 <div class="lg:w-[50%]  flex-col mt-3">
@@ -85,16 +85,16 @@
                     <div class="flex flex-wrap items-center justify-around">
                         <div class="w-20 h-20 image-fit relative ">
                             <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
-                            <Tippy tag="img" class="rounded-full" :src="storageUrl + 'static/lucky_draw1.svg'" :content="`animation`" />
+                            <Tippy tag="img" class="rounded-full" :src="storageUrl + 'static/lucky_draw1.svg'" />
                         </div>
                         <div class="w-20 h-20 image-fit relative ">
                             <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw2.svg'" />
-                            <Tippy tag="img" class="rounded-full" :src="storageUrl + 'static/lucky_draw2.svg'" :content="`animation`" />
+                            <Tippy tag="img" class="rounded-full" :src="storageUrl + 'static/lucky_draw2.svg'" />
                         </div>
                         <template v-for="(animates, key) in animationList" :key="key">
                             <div class="w-20 h-20 image-fit relative ">
                                 <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = animates.path" />
-                                <Tippy tag="img" class="rounded-full" :src="storageUrl + animates.path" :content="`animation`" />
+                                <Tippy tag="img" class="rounded-full" :src="storageUrl + animates.path" />
                             </div>
                         </template>
                     </div>
@@ -140,7 +140,7 @@
                         <button 
                             class="btn btn-danger h-[35px] sm:h-[42px] w-fit ml-auto mb-1"
                             :class="{'btn-danger': currentSettings.campaign_product == ''}" 
-                            @click="detailStore.showAddProductFromStockModal = true"
+                            @click="productType = 'product'; detailStore.showAddProductFromStockModal = true;"
                         > Assign Product </button>
                     </div>
 
@@ -191,12 +191,16 @@
                 </div>
             </div>  
         </div>
-        <div class="flex justify-end my-8">
+        <div class="flex justify-end my-8" v-if="route.query.behavior === 'drawInstantly'">
+            <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> Back </button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="goDraw"> Go Draw </button>
+        </div>
+        <div class="flex justify-end my-8" v-else>
             <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> Cancel </button>
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> Save </button>
         </div>
 
-        <AddProductFromStockModal :productType="'lucky_draw'"/>
+        <AddProductFromStockModal :productType="productType"/>
     </div>
 </template>
 
@@ -241,6 +245,7 @@ const previewImage = ref(null)
 const formData = new FormData()
 const type = ref('create')
 const luckyDrawId = ref(0)
+const productType = ref('')
 
 const rules = computed(()=> {
     return {
@@ -305,6 +310,15 @@ const upsert = () => {
         })
     }
 };
+
+const goDraw = () => {
+    formData.append('data', JSON.stringify(currentSettings.value))
+    create_campapign_lucky_draw(route.params.campaign_id, formData).then(res => {
+        layoutStore.notification.showMessageToast("Create Successed")
+        let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: res.data.id} })
+        window.open(routeData.href, '_blank')
+    })
+}
 
 const uploadAnimation = e => {
     const animation = e.target.files[0];
