@@ -16,14 +16,14 @@
             <div class="mt-6 flex">
                 <div class="w-[50%] flex flex-col mr-5">
                     <label for="update-profile-form-2" class="form-label"> Prize</label>
-                    <select class="w-full form-select-lg" v-model="currentSettings.prize">
+                    <select class="w-full form-select-lg rounded-lg" v-model="currentSettings.prize">
                         <option v-for="(prize, key) in prizeList" :key="key" :value="prize.value"> {{ prize.name }}
                         </option>
                     </select>
                 </div>
                 <div class="w-[50%] flex flex-col ml-5">
                     <label for="update-profile-form-2" class="form-label "> Spin Time(sec)</label>
-                    <select class="w-full form-select-lg" v-model="currentSettings.spinTime">
+                    <select class="w-full form-select-lg rounded-lg" v-model="currentSettings.spinTime">
                         <option v-for="(spinTime, key) in spinTimes" :key="key" :value="spinTime.value">
                             {{ spinTime.name }}</option>
                     </select>

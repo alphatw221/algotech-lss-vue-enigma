@@ -9,6 +9,20 @@
 				</tr>
 			</thead>
 			<tbody>
+				<tr class="dotTr">
+					<td v-if="showCommentLoding"
+						class="h-[300px] items-center relative border-0"
+						:colspan="columns.length +2" >
+						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
+					</td>
+					<td v-else-if="listItems==0" :colspan="columns.length +2">
+						<div class="mt-5 text-center md:mt-10" >
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg h-[300px]">
+								You Have No {{product_status}} Products
+							</h1>
+						</div>
+					</td> 
+				</tr>
 				<tr
 					v-for="(product, key) in listItems"
 					:key="key"
@@ -48,7 +62,7 @@
 					<td v-else-if="column.key === 'price'" class="w-full sm:w-fit qtyPrice">
 						<div class="">{{layoutStore.userInfo.user_subscription.currency}} {{product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div> 
 					</td>
-					<td v-else-if="column.key === 'edit'"  class="w-12 table-report__action edit">
+					<td v-else-if="column.key === 'edit'"  class="w-20 table-report__action edit">
 						<Dropdown placement="bottom-start">
 							<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
 							<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
@@ -102,6 +116,7 @@ export default {
 			category: undefined,
 			storageUrl: import.meta.env.VITE_GOOGLE_STORAGEL_URL,
 			layoutStore: useLSSSellerLayoutStore(),
+			showCommentLoding: true, 
 		}
 	},
 	mounted() {
@@ -121,6 +136,8 @@ export default {
 	},
 	methods: {
 		search() {
+			this.showCommentLoding = true
+			this.listItems = []
 			createAxiosWithBearer()
 			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.product_status}&category=${this.category}`)
 			.then(
@@ -131,6 +148,7 @@ export default {
                         this.totalPage = totalPage == 0 ? 1 : totalPage
                     }
                     this.listItems = response.data.results
+					this.showCommentLoding = false
 				}
 			).catch(
                 error => {
@@ -159,11 +177,15 @@ export default {
 }
 
 td {
-	height: auto !important;
+	height: auto;
 	padding-right:10px;
 	padding-left:10px;
 	font-size: 16px;
 }
+.dotTr{
+		border:none !important;
+		margin-top: 0 !important;
+	}
 
 thead th{ 
 	position: sticky !important; 
@@ -202,6 +224,11 @@ thead th{
 	tr {
 		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
 		margin-top: 10px;
+	}
+
+	.dotTr{
+		border:none !important;
+		margin-top: 0 !important;
 	}
 
 	td {

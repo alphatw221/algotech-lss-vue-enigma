@@ -14,7 +14,6 @@
             <!-- BEGIN SearchPage -->
             <div v-show="openTab=='select'">
 
-
                 <!-- BEGIN SearchBar -->
                 <div class="flex flex-wrap items-start w-full sm:flex-row">
                     <div class="flex-initial w-fit items-center ml-2 mt-2" >
@@ -230,7 +229,7 @@
                                         </template>
 
                                         <template v-else>
-                                            <div class="break-word  w-24"> {{product[column.key]}} </div>
+                                            <div class="break-all w-24"> {{product[column.key]}} </div>
                                             <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                         </template>
                                     </td>
