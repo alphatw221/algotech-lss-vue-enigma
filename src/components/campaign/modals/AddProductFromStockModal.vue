@@ -14,7 +14,6 @@
             <!-- BEGIN SearchPage -->
             <div v-show="openTab=='select'">
 
-
                 <!-- BEGIN SearchBar -->
                 <div class="flex flex-wrap items-start w-full sm:flex-row">
                     <div class="flex-initial w-fit items-center ml-2 mt-2" >
@@ -114,13 +113,18 @@
                                             <select 
                                                 class="form-select w-auto mt-2 sm:mt-0"
                                                 v-model="product[column.key]"
+                                                :disabled="props.productType === 'lucky_draw'"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
                                         </template>
 
-                                        <template v-else-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]"/>
+                                        <template v-else-if="column.key === 'customer_editable' ">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
+                                        </template>
+
+                                        <template v-else-if=" column.key === 'customer_removable'">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
@@ -216,13 +220,18 @@
                                             <select 
                                                 class="form-select w-auto mt-2 sm:mt-0"
                                                 v-model="product[column.key]"
+                                                :disabled="props.productType === 'lucky_draw'"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
                                         </template>
 
-                                        <template v-else-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]"/>
+                                        <template v-else-if="column.key === 'customer_editable' ">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)"/>
+                                        </template>
+
+                                        <template v-else-if=" column.key === 'customer_removable'">
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
@@ -230,7 +239,7 @@
                                         </template>
 
                                         <template v-else>
-                                            <div class="break-word  w-24"> {{product[column.key]}} </div>
+                                            <div class="break-all w-24"> {{product[column.key]}} </div>
                                             <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                         </template>
                                     </td>
@@ -324,10 +333,20 @@ onMounted(() => {
 
 
 const updateStockProductsCheckBox = ()=>{
-    stockProducts.value.forEach(product => {
+    stockProducts.value.forEach((product,stockProductIndex) => {
         
         if(product.id in selectedProductDict.value){ 
-            product.check=true
+            // console.log(selectedProductDict.value)
+            // console.log(product.id.toString())
+            const index = selectedProductDict.value[product.id.toString()]
+            stockProducts.value[stockProductIndex] = selectedProducts.value[index]
+            // product = selectedProducts.value[index]
+            // console.log()
+            // console.log(selectedProducts.value[index])
+            // Object.entries(selectedProducts.value[index]).forEach(([key,value]) => {
+            //     product[key]=value                       //proxy object only got setter
+            // });
+            // selectedProducts.value[index] = product
         }else{
             product.check=false
         }
@@ -378,11 +397,26 @@ watch(computed(()=>stockProducts.value),updateStockProductsCheckBox)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
 
+
+const stockProductRemovable = (product_index, event)=>{
+    if(event.target.checked)stockProducts.value[product_index].customer_editable=true
+}
+const selectedProductRemovable = (product_index, event)=>{
+    if(event.target.checked)selectedProducts.value[product_index].customer_editable=true
+}
+const stockProductEditable = (product_index, event)=>{
+    if(!event.target.checked)stockProducts.value[product_index].customer_removable=false
+}
+const selectedProductEditable = (product_index, event)=>{
+    if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false
+}
+
+
 const selectStockProduct = (stockProduct, event) =>{
 
     if(event.target.checked){
         errorMessages.value.push({})
-        selectedProducts.value.push( JSON.parse(JSON.stringify(stockProduct)) )
+        selectedProducts.value.push( stockProduct )
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
         
     }else{
@@ -417,20 +451,16 @@ const selectAllStockProduct = (event)=>{
 	event.target.checked=false
 	stockProducts.value.forEach(product => {
         product.check=true
-        selectedProducts.value.push(JSON.parse(JSON.stringify(product)))
+        selectedProducts.value.push(product)
 		selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
 		errorMessages.value.push({})
 	});
 }
 
 const search = () => {
-    // const exclude = []
-	// campaignDetailStore.campaignProducts.forEach(campaignProduct => {
-    //     exclude.push(campaignProduct.product.toString())
-	// });
 	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value)
 	.then(response => {
-		stockProducts.value = response.data.results
+		// stockProducts.value = response.data.results
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
@@ -492,21 +522,180 @@ const hideModal = ()=>{
 
 
 <style scoped>
+.click-icon:hover {
+    cursor: pointer;
+}
+
 td {
-	height: auto !important;
-	width: max-content !important;
+    height: auto !important;
     min-height: 50px;
     border-collapse: collapse;
+    width: auto !important;
     padding-right: 10px !important;
     padding-left: 10px !important;
 }
 
-thead th{ 
-  position: sticky !important; 
-  top: 0 !important;
-  z-index: 99;
-  background-color: theme("colors.secondary");
-  padding-right: 10px !important;
-  padding-left: 10px !important;
+thead th {
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 50;
+    background-color: theme("colors.secondary");
+    padding-right: 10px !important;
+    padding-left: 10px !important;
+}
+
+.checkboxWord {
+    display: none;
+}
+.form-check-input {
+    border-color: rgb(128, 128, 128) !important;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+        font-size: 16px;
+        padding: 0px !important;
+    }
+
+    input {
+        height: 35px !important;
+    }
+
+    .form-check-input{
+        width: 1.2rem !important;
+        height: 1.2rem !important;
+    }
+
+    .checkboxWord {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		margin-top: 20px;
+	}
+
+    td {
+        min-height: 35px;
+        height: auto;
+        border: none;
+        position: relative;
+        padding-left: 50% !important;
+        text-align: right !important;
+        box-shadow: none !important;
+        font-size: 14px;
+        vertical-align: middle !important;
+        padding-right: 15px !important;
+    }
+
+    td:before {
+        position: absolute;
+        min-height: 20px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        box-shadow: none !important;
+        background-color: white !important;
+        text-align: left;
+    }
+
+    .selected:before {
+        display: none;
+    }
+
+    .selected{
+        display: block;
+        float:right;
+        width:40px !important;
+        padding-left: 0px !important;
+	}
+
+    .imgtd:before {
+        display: none;
+    }
+
+    .imgtd {
+        display: inline-block;
+        width: 80% !important;
+        padding-left: 20% !important;
+        height: 125px !important;
+    }
+
+    td:nth-of-type(3):before {
+        display: none;
+    }
+
+    td:nth-of-type(3) {
+        display: inline-block;
+        text-align: center !important;
+        width: 100% !important;
+        padding-left: 0% !important;
+		font-weight: 500;
+		color: theme("colors.primary");
+        font-size: 16px !important;
+    }
+
+    td:nth-of-type(4):before {
+        content: "Order Code";
+        text-align: left !important;
+        top:25% !important;
+    }
+
+    td:nth-of-type(5):before {
+        content: "Qty for Campaign";
+        top:25% !important;
+    }
+
+    td:nth-of-type(6):before {
+        content: "Max Qty / Order";
+        top:25% !important;
+    }
+
+    td:nth-of-type(7):before {
+        top: -3px;
+        content: "Category";
+        top:25% !important;
+    }
+    td:nth-of-type(7){
+        display: flex;
+        flex-direction:column; 
+        justify-content: center;
+        vertical-align:baseline !important;
+    }
+
+    td:nth-of-type(8):before {
+        content: "Price";
+        margin-top: 0px !important;
+    }
+
+    td:nth-of-type(10):before {
+        content: "Editable";
+    }
+
+    td:nth-of-type(11):before {
+        content: "Deletable";
+    }
+
+    td:nth-of-type(9):before {
+        content: "Type";
+        text-align: left !important;
+        margin-top: 0 !important;
+    }
 }
 </style>

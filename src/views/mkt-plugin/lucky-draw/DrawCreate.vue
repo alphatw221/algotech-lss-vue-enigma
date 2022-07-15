@@ -6,8 +6,8 @@
             <h2 style="display: inline-block;"> {{ props.campaignTitle }} </h2>
         </div>
         <div class="flex flex-col">
-            <div class="mt-6 lg:flex 2xl:flex">
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5 mt-3">
+            <div class="mt-6 lg:flex ">
+                <div class="lg:w-[50%]  flex-col mr-5 mt-3">
                     <label class="form-label"> Lucky Draw Title</label>
                     <input 
                         type="text" 
@@ -16,19 +16,19 @@
                         v-model.trim="validate.title.$model" 
                     />
                     <template v-if="validate.title.$error">
-                        <label class="text-danger">Please enter lucky draw title</label>
+                        <label class="text-danger">Enter lucky draw title</label>
                     </template>
                 </div>
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5 mt-3">
+                <div class="lg:w-[50%]  flex flex-col mr-5 mt-3">
                     <label class="form-label"> Prize</label>
                     <select 
-                        class="w-full form-select-lg" 
+                        class="w-full form-select-lg rounded-lg rounded-lg" 
                         :class="{ 'border-danger text-danger border-2': !currentSettings.prize.id }" 
                         v-model="currentSettings.prize"
                     >
                         <template v-if="!prizeList.length">
                             <option class="w-40" disabled> 
-                                Please Assign Lucky Draw Items into your Campaign
+                                Assign Prize into your Campaign
                             </option>
                         </template>
                         <template v-else> 
@@ -38,15 +38,15 @@
                         </template>    
                     </select>
                     <button 
-                        v-if="!prizeList.length" 
-                        class="btn btn-outline-danger self-left w-fit mt-2" 
+                        class="btn btn-danger ml-auto w-fit mt-2"
+                        :class="{'btn-danger': !prizeList.length}" 
                         @click="detailStore.showAddProductFromStockModal = true"
-                    > Assign Prize </button>
+                    > Assign More Prize </button>
                 </div>
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mt-3">
+                <div class="lg:w-[50%]  flex-col mt-3">
                     <label class="form-label ">Spin Time(sec)</label>
                     <select 
-                        class="w-full form-select-lg" 
+                        class="w-full form-select-lg rounded-lg rounded-lg" 
                         v-model="currentSettings.spin_time"
                     >
                         <option v-for="(spinTime, key) in spinTimes" :key="key" :value="spinTime.value">
@@ -55,8 +55,8 @@
                     </select>
                 </div>
             </div>
-            <div class="mt-6 lg:flex 2xl:flex">
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5">
+            <div class="mt-6 lg:flex ">
+                <div class="lg:w-[50%]  flex-col mr-5">
                     <label class="form-label"> No. of Winners</label>
                     <input 
                         type="text" 
@@ -70,7 +70,7 @@
                         </label>
                     </template>
                 </div>
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mt-3">
+                <div class="lg:w-[50%]  flex-col mt-3">
                     <div class="w-full flex">
                         <label class="form-label mr-auto"> Animation Style</label>
                         <input type="file" id="upload" @change="uploadAnimation" hidden/>
@@ -100,9 +100,9 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-3">
+            <div class="mt-3 w-fit sm:w-[50%]">
                 <div class="flex"> 
-                    <label class="form-label "> Winner Repeat </label> 
+                    <label class="form-label"> Winner Repeat </label> 
                     <Tippy 
                         class="rounded-full w-30 whitespace-wrap" 
                         data-tippy-allowHTML="true" 
@@ -124,40 +124,46 @@
                     </div>
                 </div>
             </div>
-            <div class="mt-6 mt-6 lg:flex 2xl:flex">
-                <div class="lg:w-[50%] 2xl:w-[50%] flex-col mr-5 mt-3">
+            <div class="mt-3 mt-6 lg:flex">
+                <div class="lg:w-[50%]  flex-col mr-5 mt-6">
                     <label class="form-label"> Draw Type</label>
-                    <select class="w-full form-select-lg" v-model="currentSettings.type">
+                    <select class="w-full form-select-lg rounded-lg" v-model="currentSettings.type">
                         <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ type.name }}</option>
                     </select>
                 </div>
                 <div 
                     v-if="currentSettings.type === 'product'" 
-                    class="lg:w-[50%] 2xl:w-[50%] flex-col mt-3"
-                >
-                    <label class="form-label ">Product</label>
+                    class="lg:w-[50%]  flex flex-col mt-3"
+                >   
+                    <div class="flex">
+                        <label class="form-label mt-3">Product</label>
+                        <button 
+                            class="btn btn-danger h-[35px] sm:h-[42px] w-fit ml-auto mb-1"
+                            :class="{'btn-danger': currentSettings.campaign_product == ''}" 
+                            @click="detailStore.showAddProductFromStockModal = true"
+                        > Assign Product </button>
+                    </div>
+
                     <select
                         :class="{ 'border-danger text-danger border-2': currentSettings.campaign_product == '' }" 
-                        class="w-full form-select-lg" 
+                        class="w-full form-select-lg rounded-lg" 
                         v-model="currentSettings.campaign_product"
-                    >
-                        <option v-for="(product, key) in productList" :key="key" :value="product.id"> 
-                            {{ `(${product.order_code})   ${product.name}` }}
-                        </option>
+                    >   
+                        <template v-if="currentSettings.campaign_product == ''">
+                            <option class="w-40" disabled> 
+                                Assign Product into your Campaign
+                            </option>
+                        </template>
+                        <template v-else> 
+                            <option v-for="(product, key) in productList" :key="key" :value="product.id"> 
+                                {{ `(${product.order_code})   ${product.name}` }}
+                            </option>   
+                        </template>
                     </select>
-                     <!-- <TomSelect 
-                        v-model="currentSettings.campaign_product" 
-                        class="w-full form-select-lg -mt-1.5"
-                        :class="{ 'border-danger text-danger border-2': currentSettings.campaign_product == '' }" 
-                    >
-                        <option v-for="(product, key) in productList" :key="key" :value="product.id"> 
-                            {{ `(${product.order_code})   ${product.name}` }}
-                        </option>
-                    </TomSelect> -->
                 </div>
                 <div 
                     v-else-if="currentSettings.type === 'keyword'" 
-                    class="lg:w-[50%] 2xl:w-[50%] flex-col ml-5"
+                    class="lg:w-[50%]  flex-col ml-5"
                 >
                     <label class="form-label "> Keyword</label>
                     <textarea class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
@@ -165,12 +171,25 @@
                         :class="{ 'border-danger text-danger border-2': validate.comment.$error }">
                     </textarea>
                     <template v-if="validate.comment.$error">
-                          <label class="text-danger">
-                            Please enter a comment to use for lucky draw with minimum 3 digits
-                          </label>
+                        <label class="text-danger">
+                            Enter a keyword with minimum 3 digits
+                        </label>
                     </template>
                 </div>
-            </div>
+                <div 
+                    v-else-if="currentSettings.type === 'purchase'" 
+                    class="lg:w-[50%] flex flex-col ml-5 mt-3"
+                >   
+                    <button 
+                        class="btn btn-danger ml-auto w-fit h-[35px] sm:h-[42px]"
+                        :class="{'btn-danger': currentSettings.campaign_product == ''}" 
+                        @click="detailStore.showAddProductFromStockModal = true"
+                    > Assign Product </button>
+                    <template v-if="currentSettings.campaign_product == ''"> 
+                        <label class="form-label text-danger mt-3"> Havent Assigned Any Product Into This Campaign</label>
+                    </template>
+                </div>
+            </div>  
         </div>
         <div class="flex justify-end my-8">
             <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> Cancel </button>
@@ -202,7 +221,7 @@ const layoutStore = useLSSSellerLayoutStore()
 const detailStore= useCampaignDetailStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const spinTimes = ref([ { value: 5, name: '5 secs' }, { value: 10, name: '10 secs' }, { value: 20, name: '20 secs' }, { value: 30, name: '30 secs' }, { value: 60, name: '60 secs' }]);
-const drawTypes = ref([ { value: 'like', name: 'Draw by like this post' }, { value: 'purchase', name: 'Draw purchased any product' }, { value: 'product', name: 'Draw by purchased certain product' }, { value: 'keyword', name: 'Draw by keyword' },]);
+const drawTypes = ref([ { value: 'like', name: 'by like this post' }, { value: 'purchase', name: 'by purchased any product' }, { value: 'product', name: 'by purchased certain product' }, { value: 'keyword', name: 'by keyword' },]);
 const prizeList = ref([])
 const productList = ref([])
 const animationList = ref([])
@@ -238,7 +257,6 @@ onMounted(() => {
 
     list_campapign_lucky_draw_animation().then(res => {
         animationList.value = res.data
-        console.log(animationList.value)
     })
 
     eventBus.on('editDraw', (payload) => {
@@ -304,7 +322,7 @@ const uploadAnimation = e => {
 
 #create_animation {
     display: inline-block;
-    background-color: rgb(10, 1, 78);
+    background-color: rgb(7, 0, 56);
     color: white;
     padding: 0.5rem;
     font-family: sans-serif;

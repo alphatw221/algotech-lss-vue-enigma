@@ -108,7 +108,7 @@ import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 
 const routes = [
   {
-    path: "/lucky-draw/draw/:lucky_draw_id?",
+    path: "/seller/lucky-draw/draw/:lucky_draw_id?",
     name: "lucky-draw-flow",
     component: () => import('@/views/mkt-plugin/lucky-draw/DrawFlow.vue'),
   },
@@ -324,7 +324,7 @@ const routes = [
   //   component: () => import('@/views/general/DevLogin.vue')
   // },
   {
-    path: "/password/forgot",
+    path: "/seller/password/forgot",
     name: "PasswordForgot",
     component: () => import('@/views/general/ForgotPasswordPage.vue')
   },

@@ -3,7 +3,7 @@
 		<div class="flex items-center px-20 pt-5 pb-4 intro-y">
 			<h2 class="text-2xl font-medium">Edit Campaign</h2>
 		</div>
-		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10">
+		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
 				<div class="flex flex-col">
 					<label class="w-20 my-auto text-base form-label font-medium">Title</label>
