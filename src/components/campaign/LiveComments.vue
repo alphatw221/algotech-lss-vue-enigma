@@ -7,7 +7,7 @@
         <div class="flex flex-col h-full">
             <div class="flex flex-none h-18">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
-                    Comments
+                    {{$t('campaign_live.comment.comments')}}
                 </h2>
                 <div class="my-4 mr-5">
                     <TabList class="nav-pills">
@@ -115,16 +115,16 @@
                             <CommentListView :platformName="'facebook'"/>
                         </div>
                     </TabPanel>
-
-                    <TabPanel :class="'youtube'" >
-                        <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'youtube'"/>
-                        </div>
-                    </TabPanel>
                     
                     <TabPanel :class="'instagram'" >
                         <div class="mt-1 h-fit" >
                             <CommentListView :platformName="'instagram'"/>
+                        </div>
+                    </TabPanel>
+
+                    <TabPanel :class="'youtube'" >
+                        <div class="mt-1 h-fit" >
+                            <CommentListView :platformName="'youtube'"/>
                         </div>
                     </TabPanel>
 

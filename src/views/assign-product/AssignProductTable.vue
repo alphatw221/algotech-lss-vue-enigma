@@ -96,8 +96,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'type'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
-                            <div class=" form-check place-content-end sm:place-content-center"> {{ product[column.key] }}
-                            </div>
+                            <div class=" form-check place-content-end sm:place-content-center"> {{ typeMap[product[column.key]] }}</div>
                         </td>
 
                         <td v-else-if="column.key === 'edit'">
@@ -126,7 +125,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, getCurrentInstance, watch } from 'vue';
+import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed } from 'vue';
 import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { list_product } from '@/api_v2/product';
 import { seller_retrieve_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
@@ -134,6 +133,7 @@ import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 const campaignStore = useCreateCampaignStore();
+const detailStore = useCampaignDetailStore()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const storageUrl = import.meta.env.VITE_APP_IMG_URL
 
@@ -156,8 +156,13 @@ const tableColumns = ref([
     { name: "Type", key: "type" },
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
-
 ])
+const typeMap = ref({
+    lucky_draw: 'Lucky Draw',
+    product: 'Product'
+})
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+
 
 onMounted(() => {
     campaignStore.assignedProducts = []
@@ -177,6 +182,8 @@ onUnmounted(() => {
     eventBus.off("assignTable");
     eventBus.off("addProducts");
 })
+
+watch(computed(()=>detailStore.campaignProducts), () => { search() })
 
 const search = () => {
     if (route.name === 'assign-product') {
@@ -212,8 +219,6 @@ const search = () => {
             productsList.value = response.data.results
 
             productsList.value.forEach((item) => {
-                // item.qty_campaign = item.qty_for_sale
-                console.log(item)
                 item.qty = item.qty_for_sale
                 item.selected = true
                 item.disabledEdit = true

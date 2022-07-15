@@ -2,35 +2,35 @@
 
     <div class="sticky z-50 flex-wrap justify-start bg-white -top-1 h-fit" v-show="props.platformName=='commentSummarize'">
         <button class="m-1 shadow-sm btn btn-danger w-fit tags" @click="commentSummarizer('delivery')">
-            <HashIcon class="w-4 h-4 mr-2" /> Delivery
+            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.delivery')}}
         </button>
         <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummarizer('payment')">
-            <HashIcon class="w-4 h-4 mr-2" /> Payment
+            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.payment')}}
         </button>
         <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('neutro')">
-            <HashIcon class="w-4 h-4 mr-2" /> Other
+            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.other')}}
         </button>
         <!-- <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummarizer('Undefined')">
             <HashIcon class="w-4 h-4 mr-2" /> Undefined
         </button> -->
         <div class="flex"> 
-            <h2 v-if="tags !== ''" class="p-1 mb-2">Selected tag: {{ tags }}</h2>
+            <h2 v-if="tags !== ''" class="p-1 mb-2">{{$t('campaign_live.comment.select_tag')}}: {{ $t(`campaign_live.comment.`+tags) }}</h2>
             <button class="flex p-1 ml-auto w-18 text-slate-900"
                 @click="commentSummarizer('')">
-                <XIcon class="w-4 h-4" /> Clear 
+                <XIcon class="w-4 h-4" /> {{$t('campaign_live.comment.clear')}}
             </button> 
         </div>
     </div>
 
     <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
     <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
-        You don't have any {{tags}} related comment yet
+        {{ $t('campaign_live.comment.comment_message_1',{ tag : tags!==''?$t(`campaign_live.comment.`+tags):'' }) }}
     </div>
     <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="props.platformName=='all' && !fetchingData && comments.length==0">
-        You don't have any comment yet
+        {{ $t('campaign_live.comment.comment_message_2',{ platformName : '' }) }}
     </div>
     <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="!fetchingData && comments.length==0">
-        You don't have any {{props.platformName}} comment yet
+        {{ $t('campaign_live.comment.comment_message_2',{ platformName : platformName }) }}
     </div>
     <!-- <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)"> -->
         <!-- temporary solution -->
