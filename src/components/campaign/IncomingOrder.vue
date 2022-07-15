@@ -4,7 +4,13 @@
         2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-9 
         ">
         <div class="h-full flex flex-col">
-            <h2 class="text-lg font-medium m-3 ml-5">Incoming Order</h2>
+            <div class="flex justify-between mb-3">
+                <h2 class="text-lg font-medium m-3 ml-5">Incoming Order</h2>
+                <button class="btn btn-primary w-32 mt-auto mr-3" @click="router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })">
+                    Go Lucky Draw 
+                </button>
+            </div>
+            
             <div class="overflow-auto scrollbar-hidden">
                 <table class="table table-sm">
                     <thead class="table-dark">
