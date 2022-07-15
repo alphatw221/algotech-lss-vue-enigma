@@ -1,16 +1,16 @@
 <template>
     <div class="p-5 sm:p-8 box intro-y">
-        <div id="tabulator-html-filter-form" class="flex-col flex-wrap content-end justify-start justify-items-stretch">
-            <label class="mr-2 w-14">
+        <div class="flex-col flex sm:flex-row content-end justify-start gap-3">
+            <label class="mr-2 w-14 my-auto">
                 Category
             </label>
-            <select class="form-select mr-4 h-[42px] flex-1 sm:flex-none sm:w-40"
+            <select class="form-select sm:mr-4 h-[42px] flex-1 sm:flex-none sm:w-40"
                 v-model="filterColumn" @change="search">
                 <option value=''> All </option>
                 <option v-for="category in categorySelection" :key="category">{{ category }}</option>
             </select>
             <button 
-                class="w-32 ml-5 shadow-md btn btn-primary" 
+                class="w-32 ml-auto shadow-md btn btn-primary" 
                 v-show="route.name === 'edit-campaign-product'"
                 @click="store.showAddProductFromStockModal = true"
             >

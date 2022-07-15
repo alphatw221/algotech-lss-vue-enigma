@@ -51,14 +51,8 @@
             <div class="col-span-12">
                 <label for="modal-form-1">Remark</label>
                 <input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
-                    v-model="validate.description.$model" 
-                    :class="{ 'border-danger text-danger border-2': validate.description.$error }" 
+                    v-model="createData.description" 
 				/>
-				<template v-if="validate.description.$error">
-					<label class="text-danger ml-2 text-[13px]" >
-						Field is required 
-					</label>
-				</template>
             </div>
             <div class="col-span-12">
                 <label for="modal-form-1" class="form-label">Assign To</label>
@@ -114,7 +108,6 @@ const rules = computed(()=>{
     return{
 		input_msg:{required},
 		output_msg: {required},
-		description: {required},
         chosenPage: {required},
     }
 });
@@ -172,6 +165,8 @@ const emptyForm =()=>{
     createData.value.input_msg = ""
     createData.value.output_msg = ""
     createData.value.description = ""
+    createData.value.chosenPage = []
 }
+
 </script>
 

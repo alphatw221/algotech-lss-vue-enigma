@@ -13,42 +13,40 @@
             
             <!-- BEGIN SearchPage -->
             <div v-show="openTab=='select'">
-
                 <!-- BEGIN SearchBar -->
-                <div class="flex flex-wrap items-start w-full sm:flex-row">
-                    <div class="flex-initial w-fit items-center ml-2 mt-2" >
-                        <label class="w-14 mr-2">
+                <div class="flex flex-wrap justify-end w-full sm:flex-row text-sm sm:text-md mx-5">
+                    <div class="flex-2 w-fit flex items-center sm:ml-2 mt-2" >
+                        <label class="w-14 mr-1 sm:mr-2 text-sm sm:text-md">
                             Category
                         </label>
                         <select 
-                            id="tabulator-html-filter-field"
-                            class="form-select h-10 w-auto"
+                            class="form-select min-w-fit h-[35px] sm:h-[42px] lg:max-w-xl"
                             v-model="selectedCategory"
                             @change="search()"
                         >
                             <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.name }}</option>
                         </select>
                     </div>
-                    <div class="flex-initial w-fit items-center flex ml-2 mt-2" >
+                    <div class="flex-2 w-fit items-center flex ml-2 mt-2" >
                         <label class="mr-2 shrink whitespace-wrap sm:whitespace-nowrap">
                             Search by
                         </label>
                         <select
-                            class="form-select mr-0 sm:mr-2 h-10 shrink" v-model="searchField">
+                            class="form-select min-w-fit mr-0 sm:mr-2 h-[35px] sm:h-[42px] shrink lg:max-w-xl" v-model="searchField">
                             <option v-for="searchColumn in searchColumns" :key="searchColumn.value"
                                 :value="searchColumn.value">
                                 {{ searchColumn.text }}
                             </option>
                         </select>
                     </div>
-                    <div class="flex-initial w-fit items-center flex ml-2 mt-2">
+                    <div class="flex-1 w-fit items-center flex ml-2 mt-2">
                         <div class="input-group">
                             <input type="text"
-                                class="form-control input-group shrink w-40 sm:40" placeholder="Search..."
+                                class="form-control input-group shrink min-w-fit h-[35px] sm:h-[42px]" placeholder="Search..."
                                 v-model="searchKeyword" @keydown.enter.prevent="search()" />
                             <button 
                                 type="button"
-                                class="flex-none btn btn-secondary w-16 h-10 rounded-l-none" @click="resetSearchBar">
+                                class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary" @click="resetSearchBar">
                                 Reset
                             </button>
                         </div>
@@ -59,7 +57,7 @@
 
                 <!-- BEGIN ProductTable -->
                 <div class="relative"> 
-                    <div class="overflow-auto h-[670px] text-[14px] mt-10">
+                    <div class="overflow-auto h-[670px] text-[14px] mt-5">
                         <table class="table table-report h-[100%] w-[100%]">
                             <thead>
                                 <tr>
@@ -535,6 +533,10 @@ td {
     padding-left: 10px !important;
 }
 
+.longMessage {
+    overflow-wrap: break-word;
+}
+
 thead th {
     position: sticky !important;
     top: 0 !important;
@@ -600,6 +602,7 @@ thead th {
         font-size: 14px;
         vertical-align: middle !important;
         padding-right: 15px !important;
+        place-content: right !important;
     }
 
     td:before {
@@ -614,7 +617,6 @@ thead th {
         background-color: white !important;
         text-align: left;
     }
-
     .selected:before {
         display: none;
     }
@@ -683,6 +685,11 @@ thead th {
         content: "Price";
         margin-top: 0px !important;
     }
+    td:nth-of-type(9):before {
+        content: "Type";
+        text-align: left !important;
+        margin-top: 0 !important;
+    }
 
     td:nth-of-type(10):before {
         content: "Editable";
@@ -690,12 +697,6 @@ thead th {
 
     td:nth-of-type(11):before {
         content: "Deletable";
-    }
-
-    td:nth-of-type(9):before {
-        content: "Type";
-        text-align: left !important;
-        margin-top: 0 !important;
     }
 }
 </style>

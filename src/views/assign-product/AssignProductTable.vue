@@ -14,9 +14,9 @@
                 <tr v-for="(product, index) in productsList" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
 
-                        <td v-if="column.key === 'image'" class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd">
+                        <td v-if="column.key === 'image'" class="w-18 text-[12px] sm:w-18 lg:text-sm 2xl:w-32 imgtd">
                             <div class="flex items-center justify-center">
-                                <div class="w-[120px] h-[120px] image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
+                                <div class="w-[120px] h-[120px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
                                     <img class="rounded-lg cursor-auto" data-action="zoom"
                                         :src="product.image ? storageUrl + product.image : storageUrl + 'no_image.jpeg'" />
                                 </div>
@@ -27,7 +27,7 @@
                             <div class="form-check place-content-center">
                                 <input 
                                     type="text" 
-                                    class="form-control w-full sm:w-24 h-[42px] mt-1"
+                                    class="form-control w-full lg:w-24 h-[42px] mt-1"
                                     v-model="product[column.key]"
                                     :disabled="product.disabledEdit" />
                             </div>
@@ -37,7 +37,7 @@
                             <div class="form-check place-content-center">
                                 <input 
                                     type="number" min="1" 
-                                    class="form-control w-full sm:w-24 h-[42px] mt-1" 
+                                    class="form-control w-full lg:w-24 h-[42px] mt-1" 
                                     v-model="product[column.key]"
                                     :disabled="product.disabledEdit" />
                             </div>
@@ -47,7 +47,7 @@
                             <div class="form-check place-content-center">
                                 <input 
                                     type="number" min="1" 
-                                    class="form-control w-full sm:w-24 h-[42px] mt-1"
+                                    class="form-control w-full lg:w-24 h-[42px] mt-1"
                                     v-model="product[column.key]" 
                                     @input="changeInput($event, index)"
                                     :disabled="product.disabledEdit" />
@@ -75,7 +75,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center">
-                            <div class=" form-check place-content-end sm:place-content-center">
+                            <div class=" form-check place-content-end lg:place-content-center">
                                 <div v-if="product.type === 'lucky_draw'">
                                     <input id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox" disabled
                                         v-model="product[column.key]" />
@@ -87,7 +87,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'customer_removable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center">
-                            <div class=" form-check place-content-end sm:place-content-center">
+                            <div class=" form-check place-content-end lg:place-content-center">
                                 <input v-if="product.customer_editable == false" id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" disabled v-model="product[column.key]" />
                                 <input v-else id="selectCheckbox" class="form-check-input w-[1.2rem] h-[1.2rem]" type="checkbox"
@@ -96,22 +96,24 @@
                         </td>
 
                         <td v-else-if="column.key === 'type'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end">
-                            <div class=" form-check place-content-end sm:place-content-center"> {{ typeMap[product[column.key]] }}</div>
+                            <div class=" form-check place-content-end lg:place-content-center"> {{ typeMap[product[column.key]] }}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'edit'">
-                            <button class="w-32 bg-white btn dark:border-darkmode-400" v-show="product.disabledEdit"
-                                @click="product.disabledEdit = !product.disabledEdit">
-                                Edit
-                            </button>
-                            <button class="w-32 bg-white btn dark:border-darkmode-400" v-show="product.disabledEdit == false"
-                                @click="product.disabledEdit = !product.disabledEdit">
-                                Cancel
-                            </button>
-                            <button class="w-32 ml-5 shadow-md btn btn-primary" v-show="product.disabledEdit == false"
-                                @click="updateProduct(index)">
-                                Update
-                            </button>
+                        <td v-else-if="column.key === 'edit'" class="edit">
+                            <div class="flex flex-row sm:flex-col justify-between gap-2 mb-2 sm:mb-0"> 
+                                <button class="ml-auto w-32 bg-white btn dark:border-darkmode-400" v-show="product.disabledEdit"
+                                    @click="product.disabledEdit = !product.disabledEdit">
+                                    Edit
+                                </button>
+                                <button class="w-32 shadow-md btn btn-primary h-[35px]" v-show="product.disabledEdit == false"
+                                    @click="updateProduct(index)">
+                                    Update
+                                </button>
+                                <button class="w-32 bg-white btn dark:border-darkmode-400 h-[35px]" v-show="product.disabledEdit == false"
+                                    @click="product.disabledEdit = !product.disabledEdit; search()">
+                                    Cancel
+                                </button>
+                            </div>
                         </td>
                         </template>
                     </tr>
@@ -198,7 +200,7 @@ const search = () => {
                         item.customer_editable = true
                         item.customer_removable = true
                     }
-                    if (item.custmer_editable === false) item.customer_removable = false
+                    if (item.customer_editable === false) item.customer_removable = false
                 })
 
                 // 換頁時選取記憶在store中 selected, editable, deletable 欄位
@@ -223,8 +225,8 @@ const search = () => {
                 item.selected = true
                 item.disabledEdit = true
                 if (item.type === 'lucky_draw') {
-                    item.customer_editable = true
-                    item.customer_removable = true
+                    item.customer_editable = false
+                    item.customer_removable = false
                 }
                 if (item.customer_editable === false) item.customer_removable = false
             })
@@ -251,7 +253,7 @@ const changePageSize = (page_size) => {
 
 const changeInput = (event, index) => {
     if (parseInt(event.target.value) > productsList.value[index].qty) {
-        alert('Input number is over product max quantity')
+        alert('Input number is over product max qty')
         productsList.value[index].max_order_amount = productsList.value[index].qty
     } 
 }
@@ -371,6 +373,7 @@ thead th {
         font-size: 14px;
         vertical-align: middle !important;
         padding-right: 15px !important;
+        place-content: right !important;
     }
 
     td:before {
@@ -385,7 +388,6 @@ thead th {
         background-color: white !important;
         text-align: left;
     }
-
     .selected:before {
         display: none;
     }
@@ -454,6 +456,11 @@ thead th {
         content: "Price";
         margin-top: 0px !important;
     }
+    td:nth-of-type(9):before {
+        content: "Type";
+        text-align: left !important;
+        margin-top: 0 !important;
+    }
 
     td:nth-of-type(10):before {
         content: "Editable";
@@ -463,10 +470,14 @@ thead th {
         content: "Deletable";
     }
 
-    td:nth-of-type(9):before {
-        content: "Type";
-        text-align: left !important;
-        margin-top: 0 !important;
+    
+    .edit:before{
+        display:none; 
+    }
+    .edit{
+        display:block;
+        padding-left: 0px !important;
+        padding-right: 0px;
     }
 }
 </style>
