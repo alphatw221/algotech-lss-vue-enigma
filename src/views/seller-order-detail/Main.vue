@@ -52,7 +52,9 @@
         </div>
         <div class="col-span-12 lg:col-span-6">
             <div>
-                <PriceSummary :order_type="route.query.type"/>
+                <PriceSummary 
+                    :order_type="route.query.type" 
+                    :decimal_places="user_store.userInfo.user_subscription.decimal_places" />
             </div>
             <div class="p-5 mt-5 border-2 box border-secondary"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
@@ -89,18 +91,21 @@ import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_order } from "@/api_v2/order";
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
 
-const route = useRoute();
-const store = useSellerOrderStore();
+const route = useRoute()
+const store = useSellerOrderStore()
+const user_store = useLSSSellerLayoutStore()
 const internalInstance = getCurrentInstance()
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus
 
 
 
 onMounted(()=>{
     // console.log(route.query.type)
     get_order()
+    console.log(user_store.userInfo)
 })
 
 function get_order(){
