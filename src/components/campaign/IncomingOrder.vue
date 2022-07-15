@@ -17,7 +17,7 @@
                         <tr>
                             <th class="whitespace-nowrap bg-dark" v-for="column in incoming_order_columns"
                                 :key="column.key">
-                                {{ column.name }}
+                                {{ $t(`manage_order.`+column.name) }}
                             </th>
                         </tr>
                     </thead>
@@ -70,11 +70,11 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const store = useCampaignDetailStore();
 const imagePath=import.meta.env.VITE_APP_IMG_URL
 const incoming_order_columns= [
-    { name: "Order No", key: "order_no" },
-    { name: "Platform", key: "platform" },
-    { name: "Name", key: "name" },
-    { name: "Amount", key: "amount" },
-    { name: "Detail", key: "detail" },
+    { name: "order_number", key: "order_number" },
+    { name: "platform", key: "platform" },
+    { name: "name", key: "name" },
+    { name: "amount", key: "amount" },
+    { name: "null", key: "detail" },
 ]
 
 

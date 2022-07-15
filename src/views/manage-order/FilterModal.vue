@@ -30,44 +30,44 @@
             <div class="flex text-[16px] my-6">
                 <div class="grid grid-cols-12 gap-2">
                     <div class="col-span-12 text-[20px] font-medium my-2">Payment</div>
-                    <div class="col-span-3 my-1">
+                    <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                                 v-model="store.filterTagArray.payment['Direct Payment']" 
                                     @click="updateTag('payment','Direct Payment')"> 
                                     <span class="ml-1"> Direct Payment </span> 
                     </div>
-                    <div class="col-span-3 my-1">
+                    <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.payment['Stripe']" 
                                 @click="updateTag('payment','Stripe')"> <span class="ml-1"> Stripe </span> 
                     </div>
                     <div class="col-span-12 text-[20px] font-medium my-2"> Delivery Status</div>
-                    <div class="col-span-3 my-1">
+                    <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.delivery['shipping out']" 
                                 @click="updateTag('delivery','shipping out')"> 
                                     <span class="ml-1"> Shipping out </span> 
                     </div>
-                    <div class="col-span-3 my-1">
+                    <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.delivery['to be shipping']" 
                                 @click="updateTag('delivery','to be shipping')"> 
                                     <span class="ml-1"> To be shipping </span> 
                     </div>
                     <div class="col-span-12  text-[20px] font-medium my-2"> Platform</div>
-                    <div class="col-span-3 my-1">
+                    <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.platform['facebook']" 
                                 @click="updateTag('platform','facebook')"> 
                                 <span class="ml-1"> Facebook </span> 
                     </div>
-                    <div class="col-span-3 my-1">
+                    <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.platform['youtube']" 
                                 @click="updateTag('platform','youtube')"> 
                                 <span class="ml-1"> Youtube </span> 
                     </div>
-                    <div class="col-span-3 my-1">
+                    <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.platform['instagram']" 
                                 @click="updateTag('platform','instagram')"> 

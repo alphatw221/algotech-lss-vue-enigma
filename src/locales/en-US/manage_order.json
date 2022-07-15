@@ -1,6 +1,6 @@
 {
         "manage_order" : "Manage Order",
-        "order_number" : "Order Number",
+        "order_number" : "Order No",
         "action":"Action",
         "delivery_notification":"Delivery Notification",
         "refresh_orders" : "Refresh Orders",
