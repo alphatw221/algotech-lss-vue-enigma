@@ -1,0 +1,44 @@
+{
+    "first_name" : "First Name",
+    "last_name" : "Last Name",
+    "name" : "Name",
+    "phone" : "Phone",
+    "email" : "Email",
+    "remark" : "Remark",
+    "post_code" : "Post Code",
+    "address" : "Address",
+
+    "status" : "Status",
+    "date" : "Date",
+    "delivery" : "Delivery",
+    "remarks" : "Remarks",
+    "confirm" : "Confirm",
+    "detail" : "Detail",
+    "close" : "Close",
+    "description" : "Description",
+    "add" : "Add",
+    "upload" : "Upload",
+    "submit" : "Submit",
+    "select" : "Select",
+    "selected" : "Selected",
+    "charge" : "Charge",
+    "apply" : "Apply",
+
+
+
+    "qty" : "Qty",
+    "product" : "Product",
+    "price" : "Price",
+    "credit_card" : "Credit Card",
+    "payment" : "Payment",
+    "method" : "Method",
+    "record" : "Record",
+    "option" : "Option",
+    "summary" : "Summary",
+
+    "footer": {
+        "home" : "HOME",
+        "terms" : "Terms", 
+        "private_policy" : "Private Policy" 
+    }
+}

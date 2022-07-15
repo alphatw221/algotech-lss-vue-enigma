@@ -2,6 +2,8 @@ import { createI18n } from 'vue-i18n'
 
 import en from './en-US/index.js'
 import zh from './zh-hant/index.js'
+import vi from './vi/index.js'
+
 // import hans from './locales/zh-hans.json'
 // import id from './locales/id.json'
 
@@ -14,7 +16,8 @@ const i18n = createI18n({
   messages:{
       //語言包
       "zh-TW": zh,
-      "en-US": en
+      "en-US": en,
+      "vi":vi
   }
 })
 
