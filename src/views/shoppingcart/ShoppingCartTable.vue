@@ -49,10 +49,15 @@
 					<td class="text-center h-20">
 						<template v-if="store.cartProducts[index].customer_editable && product.type ==='product'">
 						<div class="flex w-full justify-center">
-							<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
+							<!-- <div class="absolute -bottom-8 border-slate border-2 rounded-bl-md rounded-r-md p-3 bg-white">
+								<input type="text" class="w-10" :value="product.qty">
+								<button class="btn btn-primary">
+									Update
+								</button>
+							</div> -->
+							<button type="button" @click="changeQuantity( index, 'minus', product)" v-show="hideUpdateSignIndex!=index">
 								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 							</button>
-							
 							<input 
 								type="text" 
 								class="form-control" 
@@ -60,11 +65,26 @@
 								aria-label="default input" 
 								:value="product.qty"
 								style="width: 2.7rem;"
-								@input="changeQuantity($event, index, product.qty, 'input', product.order_product_id)"
+
+								@focus="focusQtyInput(index, product)"
+								v-show="hideQtyInputIndex!=index"
 							/>
-							<button type="button" @click="changeQuantity($event, index, product.qty, 'add', product.order_product_id)" >
+							<button type="button" @click="changeQuantity( index, 'add', product)" v-show="hideUpdateSignIndex!=index">
 								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 							</button>
+							<div class="flex inline-flex leading-5 items-center">
+								<input type="text" class="w-10 form-control mr-1 leading-5 align-middle" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
+								<div class="leading-5 allign-middle">
+									<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
+										Update
+									</button>
+									<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
+											Cancel
+									</button>
+								</div>
+							</div>
+							
+							
 						</div>
 						</template>
 						<template v-else>
@@ -114,12 +134,17 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useRoute } from "vue-router";
 import { useCookies } from "vue3-cookies"
+
 const route = useRoute();
 const store = useShoppingCartStore(); 
 const layoutStore = useLSSBuyerLayoutStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const { cookies } = useCookies()
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
+const hideUpdateSignIndex = ref(null)
+const hideQtyInputIndex = ref(null)
+const showUpdateButtonIndex = ref(null)
+const cacheQty = ref(0)
 
 const tableColumns = ref([
 	{ key: "product", name: "Product",  },
@@ -128,10 +153,12 @@ const tableColumns = ref([
 	{ key: "subtotal", name: "Subtotal",  },
 	{ key: "remove", name: " ",  },
 ])
+
 const numOfItems = computed(()=>{
 	if(store.order.products)return Object.keys(store.order.products).length
 	return 0
 })
+
 const deleteOrderProduct = (order_product_id, index) =>{
 	const delete_order_product = isAnonymousUser?guest_delete_order_product:buyer_delete_order_product
 	delete_order_product(order_product_id, route.params.pre_order_oid).then(res=>{
@@ -140,30 +167,55 @@ const deleteOrderProduct = (order_product_id, index) =>{
 	})
 }
 
-const changeQuantity = (event, index, qty, operation, order_product_id) => {
-	if (operation == 'add' && qty < 99) {
-		qty += 1
-	} else if (operation == 'minus' && qty > 1) {
-		qty -= 1
-	} else if (operation == 'input' && event.target.value >= 1 && event.target.value <= 99) {
-		qty = event.target.value
-	} else if (event.target.value == '') {
-		event.target.value = 1
-		return
+const showUpdateButton = index =>{showUpdateButtonIndex.value = index}
+const hideUpdateButton = () =>{showUpdateButtonIndex.value = null}
+
+const showUpdateSign = ()=>{hideUpdateSignIndex.value = null}
+const hideUpdateSign = index=>{hideUpdateSignIndex.value = index}
+
+const showQtyInput = ()=>{hideQtyInputIndex.value = null}
+const hideQtyInput = index=>{hideQtyInputIndex.value = index}
+
+const focusQtyInput = (index,product)=>{
+	cacheQty.value = product.qty
+	hideQtyInput(index)
+	hideUpdateSign(index)
+	showUpdateButton(index)
+
+}
+const changeQuantity = ( index, operation, product) => {
+	let qty=1
+	if (operation == 'add' ) {
+		qty = product.qty+1
+	} else if (operation == 'minus' ) {
+		qty = product.qty-1
+	} else if (operation == 'input' && cacheQty.value >= 1 ) {
+		qty = cacheQty.value
+
+		console.log('here')
 	} else {
 		layoutStore.alert.showMessageToast("Invalid Quantity")
 		// alert('Invalid Quantity')
-		event.target.value = store.order.products[index].qty
+		cacheQty.value = product.qty
 		return
 	}
-
+	hideUpdateSign(index)
+	hideUpdateButton()
+	showQtyInput()
 	const update_order_product = isAnonymousUser?guest_update_order_product:buyer_update_order_product
-	update_order_product(order_product_id, route.params.pre_order_oid, qty).then(
+	update_order_product(product.order_product_id, route.params.pre_order_oid, qty).then(
 		res => {
 			store.order = res.data
 			layoutStore.notification.showMessageToast("Update Successfully")
+			showUpdateSign()
+			showQtyInput()
+			hideUpdateButton()
 		}
-	)
+	).catch(()=>{
+		showUpdateSign()
+		showQtyInput()
+		hideUpdateButton()
+	})
 }
 </script>
 
