@@ -230,11 +230,11 @@ const stop_checkout = (campaign_id,status)=>{
 
 const manageOrder = (campaign_id,status)=>{
 
-      window.open(router.resolve({ 
-        name: 'manage-order',
-        params:{'campaign_id':campaign_id},query:{'checkout':status},
-      }).href)
-      // router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
+      // window.open(router.resolve({ 
+      //   name: 'manage-order',
+      //   params:{'campaign_id':campaign_id},query:{'checkout':status},
+      // }).href)
+      router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
     }
 
 

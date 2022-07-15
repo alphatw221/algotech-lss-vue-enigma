@@ -4,9 +4,21 @@
         2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-9 
         ">
         <div class="h-full flex flex-col">
+            <!-- <div class="flex w-full m-3"> 
+                <h2 class="text-lg font-medium ml-5 mr-auto">Incoming Order</h2>
+
+                <button type='button' class="w-36 mr-3 shadow-md btn btn-primary" @click="routeTOLuckyDraw()">
+                            Lucky Draw
+                </button >
+                <button type='button' class="w-36 mr-6 shadow-md btn btn-primary" @click="routeTOManageOrder()">
+                            Manage Order
+                </button >
+            </div> -->
+            
+
             <div class="flex justify-between mb-3">
                 <h2 class="text-lg font-medium m-3 ml-5">Incoming Order</h2>
-                <button class="btn btn-primary w-32 mt-auto mr-3" @click="router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })">
+                <button class="btn btn-primary w-32 mt-auto mr-3" @click="routeTOLuckyDraw()">
                     Go Lucky Draw 
                 </button>
             </div>
@@ -94,8 +106,13 @@ const routeToDetailPage = (order_id)=>{
     router.push({name:'sellerOrder',params:{'order_id':order_id},query:{'type':'pre_order'}})
 }
 
+const routeTOManageOrder = ()=>{
+    router.push({name:'manage-order',params:{'campaign_id':route.params.campaign_id}})
+}
 
-
+const routeTOLuckyDraw = ()=>{
+    router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
+}
 
 </script>
 

@@ -332,7 +332,7 @@ onMounted(() => {
 	
 
 
-const updateStockProductsCheckBox = ()=>{
+const updateStockProducts = ()=>{
     stockProducts.value.forEach((product,stockProductIndex) => {
         
         if(product.id in selectedProductDict.value){ 
@@ -378,22 +378,26 @@ const checkIfValid = ()=>{
     isSelectedProductsValid = true
     const productCache = getProductCache()
     selectedProducts.value.forEach((selectedProduct,index) => {
-        console.log( productCache.orderCodeDict)
+        // console.log( productCache.orderCodeDict)
         errorMessages.value[index]={}
-        if(selectedProduct.order_code in productCache.orderCodeDict) {errorMessages.value[index]['order_code']='duplicate';isSelectedProductsValid=false;}
+        if(selectedProduct.order_code in productCache.orderCodeDict) {
+                if(typeof productCache.orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[productCache.orderCodeDict[selectedProduct.order_code]]['order_code']='duplicate'
+                errorMessages.value[index]['order_code']='duplicate';
+                isSelectedProductsValid=false;
+            }
         if(!selectedProduct.order_code) {errorMessages.value[index]['order_code']='invalid';isSelectedProductsValid=false;}
         // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
         if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid';isSelectedProductsValid=false}
         else if(selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false}
         
-        productCache.orderCodeDict[selectedProduct.order_code]=true
+        productCache.orderCodeDict[selectedProduct.order_code]=index
     });
 
 }
 
 watch(computed(()=>campaignDetailStore.campaignProducts),createProductCache)
 
-watch(computed(()=>stockProducts.value),updateStockProductsCheckBox)
+watch(computed(()=>stockProducts.value),updateStockProducts)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
 
@@ -433,7 +437,7 @@ const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
 	selectedProducts.value.splice(selectedProductIndex,1)
 	errorMessages.value.splice(selectedProductIndex,1)
 
-    updateStockProductsCheckBox()
+    updateStockProducts()
 }
 
 const resetSelectedProduct = ()=>{
@@ -443,7 +447,7 @@ const resetSelectedProduct = ()=>{
 	});
 	selectedProducts.value = []
 	errorMessages.value = []
-    updateStockProductsCheckBox()
+    updateStockProducts()
 
 }
 
