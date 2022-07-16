@@ -1,0 +1,48 @@
+{
+    "setting" : "Setting",
+    "settings" : "Settings",
+    "client_id" : "Client ID",
+    "secret" : "Secret",
+    "currency_code" : "Currency Code",
+    "store_id" : "Store ID",
+    "share_secret" : "Shared Secret",
+    "time_zone" : "Time Zone",
+    "confirmation_note" : "Confirmation Note",
+    "default_active" : "Default Active",
+    "api_key" : "Api Key",
+    "salt" : "Salt",
+
+    "delivery":{
+        "delivery":"Vận chuyển",
+        "charge":"Chi phí vận chuyển",
+        "charge_option":"Tùy chọn phí giao hàng",
+        "replace_charge" : "Thay thế phí giao hàng",
+        "on_top_of_charge" : "Vượt phí giao hàng",
+        "order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
+        "minimum":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
+        "store":{
+                "collection":"Nhận tại cửa hàng",
+                "pickup_store":"Tên cửa hàng",
+                "pickup_address":"Địa chỉ cửa hàng"
+        }
+        
+    },
+    "payment":{
+        "payment":"Thanh toán",
+        "Direct Payment":"Thanh toán trực tiếp",
+        "enabled":"Đã bật",
+        "mode":"Tên ngân hàng / Phương thức thanh toán",
+        "account_name":"Tên tài khoản",
+        "account_number":"Số tài khoản",
+        "stripe":{
+            "secret_key":"Mã bảo mật",
+            "currency":"Đơn vị tiền tệ"
+        }
+    },
+    "notes":{
+        "notes":"Các lưu ý",
+        "delivery":"Lưu ý khi giao hàng",
+        "special":"Ghi chú đặc biệt",
+        "confirmation":"Ghi chú xác nhận"
+    }
+}

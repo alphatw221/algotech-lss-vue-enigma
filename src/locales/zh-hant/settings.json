@@ -7,5 +7,37 @@
     "share_secret" : "Shared Secret",
     "time_zone" : "時區",
     "confirmation_note" : "訂單確認訊息",
-    "default_active" : "預設啟用"
+    "default_active" : "預設啟用",
+
+    "delivery":{
+        "charge":"運費",
+        "charge_option":"運送方式",
+        "replace_charge" : "取代基本運費",
+        "on_top_of_charge" : "增加額外運費",
+        "title" : "Display Name",
+        "order_above":"免運門檻: 訂單金額達(含)以上",
+        "minimum ":"免運門檻: 商品數量達(含)以上",
+        "store":{
+                "collection":"門市取貨",
+                "pickup_store":"取貨門市",
+                "pickup_address":"取貨地址"
+        }
+        
+    },
+    "payment":{
+        "Direct Payment":"Direct Payment",
+        "enabled":"Enabled",
+        "mode":"付款方式",
+        "account_name":"帳戶名稱",
+        "account_number":"帳戶號碼",
+        "stripe":{
+            "secret_key":"Secret Key",
+            "currency":"幣別"
+        }
+    },
+    "notes":{
+        "delivery":"運送說明",
+        "special":"購物說明",
+        "confirmation":"訂單說明"
+    }
 }
