@@ -86,6 +86,7 @@ const handleSocketMessage = message=>{
 
     if(message.type=='comment_data'){
         eventBus.emit("insert_all_comment", message.data)
+        eventBus.emit(`insert_commentSummarize_comment`, message.data)
         eventBus.emit(`insert_${message.data.platform}_comment`, message.data)
     }else if (message.type == 'product_data'){
         const index = store.campaignProducts.findIndex(product => product.id === message.data.id)

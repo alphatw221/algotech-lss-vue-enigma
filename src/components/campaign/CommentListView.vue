@@ -23,15 +23,17 @@
     </div>
 
     <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
-    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
+
+    <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
         {{ $t('campaign_live.comment.comment_message_1',{ tag : tags!==''?$t(`campaign_live.comment.`+tags):'' }) }}
     </div>
-    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="props.platformName=='all' && !fetchingData && comments.length==0">
+    <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-else-if="props.platformName=='all' && !fetchingData && comments.length==0">
         {{ $t('campaign_live.comment.comment_message_2',{ platformName : '' }) }}
     </div>
-    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="!fetchingData && comments.length==0">
+    <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-else-if="!fetchingData && comments.length==0">
         {{ $t('campaign_live.comment.comment_message_2',{ platformName : platformName }) }}
     </div>
+
     <!-- <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)"> -->
         <!-- temporary solution -->
     <div class="overflow-y-scroll h-fit scrollbar-hidden"  @scroll="handleScroll($event)">
@@ -119,7 +121,7 @@ const getHistoryComments= () =>{
     commentPaginator.getData().then(res=>{
         fetchingData.value = false
         comments.value = res.data.results
-        if(props.platformName!='commentSummarize')readyToUpdateByWebsocket()
+        readyToUpdateByWebsocket()
     }).catch(err=>{
         fetchingData.value = false
         return err
@@ -141,11 +143,21 @@ const handleScroll = event=>{
 }
 
 const readyToUpdateByWebsocket = ()=>{
-    eventBus.on(`insert_${props.platformName}_comment`, payload => {
-        comments.value.unshift(payload)
-    })
-}
 
+    if(props.platformName=='commentSummarize'){
+        eventBus.on(`insert_${props.platformName}_comment`, payload => {
+            if(tags.value in payload.categories){
+                comments.value.unshift(payload)
+            }
+        })
+    }else{
+        eventBus.on(`insert_${props.platformName}_comment`, payload => {
+            comments.value.unshift(payload)
+        
+        })
+
+    }
+}
 const commentSummarizer = category=>{
     comments.value = []
     fetchingData.value = true
