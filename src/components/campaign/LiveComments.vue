@@ -8,7 +8,6 @@
             <div class="flex flex-none h-14">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
                     Live Stream
-                    <!-- {{$t('campaign_live.comment.comments')}} -->
                 </h2>
                 <div class="my-auto mr-5">
                     <div class="nav-pills">
@@ -89,7 +88,7 @@
 
             <div class="flex flex-none h-10">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
-                    {{$t('campaign_live.comment.comments')}}
+                    {{$t('campaign.live.comment.comments')}}
                 </h2>
                 <div class="my-auto mr-5">
                     <TabList class="nav-pills">

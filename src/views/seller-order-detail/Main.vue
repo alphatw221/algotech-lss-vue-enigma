@@ -10,12 +10,16 @@
                                 {{$t(`manage_order.${store.orderDetail.status}`) }}</span> </h2>
                     </div>
                     <div class="flex mb-2">
+                        <span class="font-medium mr-5"> {{ store.orderDetail.customer_name }} {{store.orderDetail.platform ? `/ `+store.orderDetail.platform : ''}}</span>
+                    </div>
+                    <div class="flex mb-2">
                         <span class="font-medium mr-5"> {{$t('order_detail.order_date')}} : {{new Date(store.orderDetail.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
                     </div>
                 </div>
             <div class="w-full">
                 <OrderDetailTable :order_type="route.query.type"/>
             </div>
+            <!-- Delivery Information -->
             <div class="p-5 mt-5 border-2 box border-secondary"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
                     <span class="text-lg">{{$t('order_detail.delivery_information')}}</span>   
@@ -35,27 +39,34 @@
 
                         <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery_address')}}</div>
                         <div class="col-start-3 col-span-3 py-3">
+                            {{store.orderDetail.shipping_address_1}} ,
                             {{store.orderDetail.shipping_location}} ,
                             {{store.orderDetail.shipping_region}} ,
-                            {{store.orderDetail.shipping_postcode}} ,
-                            {{store.orderDetail.shipping_address_1}}
+                            {{store.orderDetail.shipping_postcode}}
+                            
                         </div>
                     </template>
                 </div>
             </div>
+            <!-- Delivery Information End -->
+            <!-- Remark -->
             <div class="box p-5 border-2 border-secondary" v-show="store.orderDetail.shipping_remark">
                 <span class="text-lg">{{$t('order_detail.remarks')}}</span>
                 <div>
                     {{store.orderDetail.shipping_remark}}
                 </div>
             </div>
+            <!-- Remark End -->
         </div>
         <div class="col-span-12 lg:col-span-6">
+            <!-- Price Summary -->
             <div>
                 <PriceSummary 
                     :order_type="route.query.type" 
                     :decimal_places="user_store.userInfo.user_subscription.decimal_places" />
             </div>
+            <!-- Price Summary End -->
+            <!-- Payment Information -->
             <div class="p-5 mt-5 border-2 box border-secondary"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
                     <span class="text-lg"> {{$t('order_detail.payment_information')}}</span>   
@@ -79,6 +90,7 @@
                     </template>
                 </div>
             </div>
+            <!-- Payment Information End -->
         </div>
     </div>    
 </div>
@@ -105,7 +117,6 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus
 onMounted(()=>{
     // console.log(route.query.type)
     get_order()
-    console.log(user_store.userInfo)
 })
 
 function get_order(){
@@ -120,6 +131,7 @@ function get_order(){
         seller_retrieve_order(route.params.order_id)
         .then(
             res => { store.orderDetail = res.data
+                    console.log(store.orderDetail)
                     store.modify_status = '+'
             }
         )
