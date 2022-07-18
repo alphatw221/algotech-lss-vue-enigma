@@ -55,6 +55,9 @@
 
 			<div class="col-span-12 col-start-1">
 				<label class="form-label text-base mt-2 font-medium">Upload Image</label>
+				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="clear">
+					Clear
+				</button>
 				<Dropzone ref-key="dropzoneSingleRef" :options="{
 						method: 'put',
 						url: 'url',
@@ -271,7 +274,7 @@ const submit = ()=>{
         return
     }else
 	if (route.params.product_id) {
-		formData.append('image', dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] || '')
+		formData.append('image', previewImage.value !== '' ?dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] : '._no_image')
 		formData.append('data', JSON.stringify(product.value))
 		update_product(route.params.product_id, formData)
 		.then(
@@ -310,6 +313,11 @@ const submit = ()=>{
 const cancelButton = () =>{
 	router.push({name:'stock'});
 	layoutStore.alert.showMessageToast("Change Not Saved");
+}
+
+const clear = () =>{
+	previewImage.value = ''
+	console.log(previewImage.value)
 }
 
 const rules = computed(()=>{
