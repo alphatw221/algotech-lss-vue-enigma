@@ -23,7 +23,7 @@
               </div>
               <span
                 @click="selectPage(index)"
-                class="col-span-6 text-lg content-center"
+                class="col-start-4 col-span-8 text-lg content-center"
               >
                 {{ page.name }}
               </span>
