@@ -7,7 +7,7 @@
         <div class="flex flex-col h-full">
             <div class="flex flex-none h-18">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
-                    {{$t('campaign_live.comment.comments')}}
+                    {{$t('campaign.live.comment.comments')}}
                 </h2>
                 <div class="my-4 mr-5">
                     <TabList class="nav-pills">
