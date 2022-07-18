@@ -95,7 +95,7 @@
 
                                         <template v-else-if="column.key === 'order_code'">
                                             <div class="flex flex-col">
-                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" v-if="product.type=='product'"/>
                                             </div>
                                         </template>
 
@@ -103,9 +103,15 @@
                                             <div>{{ tag }}</div> 
                                         </template>
 
-                                        <template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
+                                        <template v-else-if="column.key === 'qty' ">
                                         <div class="flex flex-col">
                                             <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+                                        </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'max_order_amount'">
+                                        <div class="flex flex-col">
+                                            <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" v-if="product.type=='product'"/>
                                         </div>
                                         </template>
 
@@ -120,11 +126,11 @@
                                         </template>
 
                                         <template v-else-if="column.key === 'customer_editable' ">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)" v-if="product.type=='product'"/>
                                         </template>
 
                                         <template v-else-if=" column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
@@ -200,7 +206,7 @@
 
                                         <template v-else-if="column.key === 'order_code'">
                                             <div class="flex flex-col">
-                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" v-if="product.type=='product'"/>
                                                 <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </template>
@@ -209,10 +215,16 @@
                                             <div>{{ tag }}</div> 
                                         </template>
 
-                                        <template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
+                                        <template v-else-if="column.key === 'qty' ">
                                             <div class="flex flex-col">
                                                 <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
                                                 <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'max_order_amount'">
+                                            <div class="flex flex-col">
+                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" v-if="product.type=='product'"/>
                                             </div>
                                         </template>
 
@@ -224,14 +236,15 @@
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
+                                            <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                         </template>
 
                                         <template v-else-if="column.key === 'customer_editable' ">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)"/>
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" v-if="product.type=='product'"/>
                                         </template>
 
                                         <template v-else-if=" column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
@@ -370,16 +383,16 @@ const checkIfValid = ()=>{
     const productCache = getProductCache()
     selectedProducts.value.forEach((selectedProduct,index) => {
         errorMessages.value[index]={}
-        if(selectedProduct.order_code in productCache.orderCodeDict) {
+        if(selectedProduct.type=='product' && selectedProduct.order_code in productCache.orderCodeDict) {
                 if(typeof productCache.orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[productCache.orderCodeDict[selectedProduct.order_code]]['order_code']='duplicate'
                 errorMessages.value[index]['order_code']='duplicate';
                 isSelectedProductsValid=false;
             }
-        if(!selectedProduct.order_code) {errorMessages.value[index]['order_code']='invalid';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && !selectedProduct.order_code) {errorMessages.value[index]['order_code']='invalid order code';isSelectedProductsValid=false;}
         // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
-        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid';isSelectedProductsValid=false}
-        else if(selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false}
-        
+        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid qty';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false;}
+        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='please select type';isSelectedProductsValid=false;}
         productCache.orderCodeDict[selectedProduct.order_code]=index
     });
 
