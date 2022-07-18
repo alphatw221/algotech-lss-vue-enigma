@@ -83,7 +83,7 @@
                             <input
                                 type="file"
                                 class="absolute top-0 left-0 w-full h-full opacity-0"
-                                accept="image/jpeg" 
+                                accept="image/jpeg,image/pen,image/jpg" 
                                 @change="uploadImage($event, index_i)"
                             />
                     </div>
@@ -141,6 +141,10 @@ onMounted(() => {
 
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
+    if(image.size/1024/1024>2){
+        sellerStore.alert.showMessageToast('image size exceed 2 MB')
+        return
+    }
     props.directPaymentImages[index]=image
 	let reader = new FileReader();
 	reader.readAsDataURL(image);

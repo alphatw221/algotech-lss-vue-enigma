@@ -95,7 +95,7 @@
 
                                         <template v-else-if="column.key === 'order_code'">
                                             <div class="flex flex-col">
-                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" v-if="product.type=='product'"/>
                                             </div>
                                         </template>
 
@@ -103,9 +103,15 @@
                                             <div>{{ tag }}</div> 
                                         </template>
 
-                                        <template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
+                                        <template v-else-if="column.key === 'qty' ">
                                         <div class="flex flex-col">
                                             <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+                                        </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'max_order_amount'">
+                                        <div class="flex flex-col">
+                                            <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" v-if="product.type=='product'"/>
                                         </div>
                                         </template>
 
@@ -120,11 +126,11 @@
                                         </template>
 
                                         <template v-else-if="column.key === 'customer_editable' ">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)" v-if="product.type=='product'"/>
                                         </template>
 
                                         <template v-else-if=" column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
@@ -200,7 +206,7 @@
 
                                         <template v-else-if="column.key === 'order_code'">
                                             <div class="flex flex-col">
-                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" v-if="product.type=='product'"/>
                                                 <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </template>
@@ -209,10 +215,16 @@
                                             <div>{{ tag }}</div> 
                                         </template>
 
-                                        <template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
+                                        <template v-else-if="column.key === 'qty' ">
                                             <div class="flex flex-col">
                                                 <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
                                                 <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            </div>
+                                        </template>
+
+                                        <template v-else-if="column.key === 'max_order_amount'">
+                                            <div class="flex flex-col">
+                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" v-if="product.type=='product'"/>
                                             </div>
                                         </template>
 
@@ -224,14 +236,15 @@
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
+                                            <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                         </template>
 
                                         <template v-else-if="column.key === 'customer_editable' ">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)"/>
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" v-if="product.type=='product'"/>
                                         </template>
 
                                         <template v-else-if=" column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
+                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
@@ -275,6 +288,7 @@ const props = defineProps({
 const tableColumns = ref([
     { name: "Product", key: "image" },
     { name: "", key: "name" },
+    { name: "Type", key: "type" },
     { name: "Order Code", key: "order_code" },
 	{ name: "QTY for Campaign", key: "qty" },
 	{ name: "Max QTY/Order", key: "max_order_amount" },
@@ -282,7 +296,7 @@ const tableColumns = ref([
 	{ name: "Editable", key: "customer_editable" },
 	{ name: "Deletable", key: "customer_removable" },
 	{ name: "Category", key: "category" },
-	{ name: "Type", key: "type" },
+	
 ])
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -333,24 +347,30 @@ onMounted(() => {
 
 
 const updateStockProducts = ()=>{
+    const relations = []
     stockProducts.value.forEach((product,stockProductIndex) => {
         
-        if(product.id in selectedProductDict.value){ 
-            // console.log(selectedProductDict.value)
-            // console.log(product.id.toString())
+        if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
+            // console.log(stockProductIndex)
+            // console.log('before update stock')
+            // relations.push([stockProductIndex,index])
             stockProducts.value[stockProductIndex] = selectedProducts.value[index]
-            // product = selectedProducts.value[index]
-            // console.log()
-            // console.log(selectedProducts.value[index])
-            // Object.entries(selectedProducts.value[index]).forEach(([key,value]) => {
-            //     product[key]=value                       //proxy object only got setter
-            // });
-            // selectedProducts.value[index] = product
+            // console.log('after update stock')
+            // console.log(product.id)
         }else{
+            // console.log(stockProductIndex)
+            // console.log(product.id)
             product.check=false
         }
     });
+    // console.log(relations)
+    // console.log(stockProducts.value)
+    // relations.forEach(relation=>{
+    //     console.log(selectedProducts.value[relation[1]].id)
+    //     stockProducts.value[relation[0]] = selectedProducts.value[relation[1]]
+
+    // })
 }
 
 const getProductCache = ()=>{
@@ -378,18 +398,17 @@ const checkIfValid = ()=>{
     isSelectedProductsValid = true
     const productCache = getProductCache()
     selectedProducts.value.forEach((selectedProduct,index) => {
-        // console.log( productCache.orderCodeDict)
         errorMessages.value[index]={}
-        if(selectedProduct.order_code in productCache.orderCodeDict) {
+        if(selectedProduct.type=='product' && selectedProduct.order_code in productCache.orderCodeDict) {
                 if(typeof productCache.orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[productCache.orderCodeDict[selectedProduct.order_code]]['order_code']='duplicate'
                 errorMessages.value[index]['order_code']='duplicate';
                 isSelectedProductsValid=false;
             }
-        if(!selectedProduct.order_code) {errorMessages.value[index]['order_code']='invalid';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && !selectedProduct.order_code) {errorMessages.value[index]['order_code']='invalid order code';isSelectedProductsValid=false;}
         // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
-        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid';isSelectedProductsValid=false}
-        else if(selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false}
-        
+        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid qty';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false;}
+        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='please select type';isSelectedProductsValid=false;}
         productCache.orderCodeDict[selectedProduct.order_code]=index
     });
 
@@ -402,19 +421,15 @@ watch(computed(()=>stockProducts.value),updateStockProducts)
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
 
 
-const stockProductRemovable = (product_index, event)=>{
-    if(event.target.checked)stockProducts.value[product_index].customer_editable=true
-}
-const selectedProductRemovable = (product_index, event)=>{
-    if(event.target.checked)selectedProducts.value[product_index].customer_editable=true
-}
-const stockProductEditable = (product_index, event)=>{
-    if(!event.target.checked)stockProducts.value[product_index].customer_removable=false
-}
-const selectedProductEditable = (product_index, event)=>{
-    if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false
-}
+const stockProductRemovable = (product_index, event)=>{if(event.target.checked)stockProducts.value[product_index].customer_editable=true}
+const selectedProductRemovable = (product_index, event)=>{if(event.target.checked)selectedProducts.value[product_index].customer_editable=true}
+const stockProductEditable = (product_index, event)=>{if(!event.target.checked)stockProducts.value[product_index].customer_removable=false}
+const selectedProductEditable = (product_index, event)=>{if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false}
 
+const updateSelectedProductDict = ()=>{
+    selectedProductDict.value = {}
+    selectedProducts.value.forEach((selectedProduct,index)=>{selectedProductDict.value[selectedProduct.id.toString()]=index})
+    }
 
 const selectStockProduct = (stockProduct, event) =>{
 
@@ -424,19 +439,20 @@ const selectStockProduct = (stockProduct, event) =>{
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
         
     }else{
-        const _index = selectedProductDict[stockProduct.id.toString()]
+        const _index = selectedProductDict.value[stockProduct.id.toString()]
+        console.log(_index)
         selectedProducts.value.splice(_index,1)
         errorMessages.value.splice(_index,1)
-        delete selectedProductDict[stockProduct.id.toString()]
+        updateSelectedProductDict()
     }
 }
 
 const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
 	event.target.checked=true
-	delete selectedProductDict.value[selectedProduct.id.toString()]
 	selectedProducts.value.splice(selectedProductIndex,1)
 	errorMessages.value.splice(selectedProductIndex,1)
 
+    updateSelectedProductDict()
     updateStockProducts()
 }
 
@@ -454,17 +470,18 @@ const resetSelectedProduct = ()=>{
 const selectAllStockProduct = (event)=>{
 	event.target.checked=false
 	stockProducts.value.forEach(product => {
-        product.check=true
-        selectedProducts.value.push(product)
-		selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
-		errorMessages.value.push({})
+        if(!(product.id.toString() in selectedProductDict.value)) {
+            product.check=true
+            selectedProducts.value.push(product)
+            selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
+            errorMessages.value.push({})
+        }
 	});
 }
 
 const search = () => {
 	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value)
 	.then(response => {
-		// stockProducts.value = response.data.results
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
@@ -491,8 +508,6 @@ const changePageSize = (pageSize)=>{
 }
 
 const submitData = ()=>{
-    // console.log(selectedProducts.value)
-    // return 
     if(!isSelectedProductsValid){
         layoutStore.alert.showMessageToast("Invalid")
         return
