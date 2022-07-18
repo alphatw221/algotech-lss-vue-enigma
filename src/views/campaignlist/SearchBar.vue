@@ -10,7 +10,7 @@
                     class="w-auto h-[35px] sm:h-[42px] mr-4 form-select" v-model="searchField">
                     <option v-for="searchColumn in searchColumns" :key="searchColumn.value" @change="search"
                         :value="searchColumn.value">
-                        {{ $t(`campaign.`+searchColumn.text) }}
+                        {{ $t(`campaign.list.`+searchColumn.text) }}
                     </option>
                 </select>
             </div>
