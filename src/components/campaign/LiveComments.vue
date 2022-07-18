@@ -5,57 +5,46 @@
             lg:col-span-5 lg:row-span-6 lg:mt-0 lg:h-[100%]
             2xl:col-span-4 ">
         <div class="flex flex-col h-full">
-            <div class="flex flex-none h-18">
+            <div class="flex flex-none h-14">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
-                    {{$t('campaign_live.comment.comments')}}
+                    Live Stream
                 </h2>
-                <div class="my-4 mr-5">
-                    <TabList class="nav-pills">
-                        <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                             @click="toggleTabs('commentSummarize')"
-                        >   
-                        <font-awesome-icon icon="fa-regular fa-comment-dots" class="h-6 m-1 -mt-2" />
-                        </Tab>
-
-                        <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                             @click="toggleTabs('all')"
+                <div class="my-auto mr-5">
+                    <div class="nav-pills">
+                        <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
+                            @click="selectVideoTabs('facebook')" 
                         >
-                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" />
-                        </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                            @click="toggleTabs('facebook')" 
+                            <FacebookIcon class="m-1 " />
+                        </button>
+                        <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
+                            @click="selectVideoTabs('instagram')"
                         >
-                            <FacebookIcon class="m-1 -mt-1" />
-                        </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                            @click="toggleTabs('instagram')"
+                            <InstagramIcon class="m-1 " />
+                        </button>
+                        <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
+                            @click="selectVideoTabs('youtube')"
                         >
-                            <InstagramIcon class="m-1 -mt-1" />
-                        </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                            @click="toggleTabs('youtube')"
-                        >
-                            <YoutubeIcon class="m-1 -mt-1" />
-                        </Tab>
-                    </TabList>
+                            <YoutubeIcon class="m-1 " />
+                        </button>
+                    </div>
                 </div>
             </div>
-            <AccordionGroup v-if="openTab=='facebook' || openTab=='youtube' || openTab=='instagram'" class="flex-none accordion-boxed h-fit">
+            <AccordionGroup class="flex-none accordion-boxed h-fit">
                 <AccordionItem class="h-auto">
                     <Accordion class="rounded-lg bg-primary">
                         <div class="flex justify-end w-full"> <PlusIcon class="mx-5 -mt-2 text-white" /> </div>
                     </Accordion>
                     <AccordionPanel
                         class="w-full leading-relaxed text-slate-600 dark:text-slate-500">
-                        <div v-if="(!platformData.fb.ready && openTab=='facebook')" class="relative"> 
+                        <div v-if="(!platformData.fb.ready && openVideoTab=='facebook')" class="relative"> 
                             <video width="600" class="-mt-1" controls />
                             <img :src="facebook_platform" class="z-10 absolute top-[10%] right-[50%] w-[30%] translate-x-1/2"/>
                         </div>
-                        <div v-else-if="(!platformData.yt.ready && openTab=='youtube')" class="relative"> 
+                        <div v-else-if="(!platformData.yt.ready && openVideoTab=='youtube')" class="relative"> 
                             <video width="600" class="-mt-1" controls />
                             <img :src="youtube_platform" class="z-10 absolute top-0 right-[50%] w-[40%] translate-x-1/2"/>
                         </div>
-                        <div v-else-if="(!platformData.ig.ready && openTab=='instagram')" class="relative"> 
+                        <div v-else-if="(!platformData.ig.ready && openVideoTab=='instagram')" class="relative"> 
                             <video width="600" class="-mt-1" controls />
                             <img :src="instagram_platform" class="z-10 absolute top-[10%] right-[50%] w-[30%] translate-x-1/2"/>
                         </div>
@@ -63,7 +52,7 @@
 
                         <!-- BEGIN FACEBOOK IFRAME -->
                         <iframe
-                            v-else-if="platformData.fb.ready && openTab=='facebook'"
+                            v-else-if="platformData.fb.ready && openVideoTab=='facebook'"
                             :src="`https://www.facebook.com/plugins/video.php?allowfullscreen=true&autoplay=true&href=https%3A%2F%2Fwww.facebook.com%2F${platformData.fb.page_id}%2Fvideos%2F${platformData.fb.post_id}%2F&width=auto`" 
                                 scrolling="no" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
                         </iframe> 
@@ -71,21 +60,21 @@
                         
                         <!-- END FACEBOOK IFRAME -->
 
-                        <!-- <div :class="{ hidden: openTab !== 2, block: openTab === 2 }"
+                        <!-- <div :class="{ hidden: openVideoTab !== 2, block: openVideoTab === 2 }"
                             v-html="ig_video" class="-mt-2"></div> -->
 
                         <!-- BEGIN INSTAGRAM IFRAME -->
                         <iframe 
-                            v-else-if="platformData.ig.ready && openTab=='instagram'"
+                            v-else-if="platformData.ig.ready && openVideoTab=='instagram'"
                             data-platform="yt" :src="platformData.ig.igMedia" scrolling="no" frameborder="0" allow="accelerometer;
                             autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <!-- <video v-show="openTab=='instagram'"
+                        <!-- <video v-show="openVideoTab=='instagram'"
                             v-else width="600" class="-mt-1" controls></video> -->
                         <!-- BEGIN INSTAGRAM IFRAME -->
 
                         <!-- BEGIN YOUTUBE IFRAME -->
                         <iframe 
-                            v-else-if="platformData.yt.ready && openTab=='youtube'"
+                            v-else-if="platformData.yt.ready && openVideoTab=='youtube'"
                             data-platform="yt" :src="`https://www.youtube.com/embed/${platformData.yt.yt_live}`"
                             width="auto" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
                             autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
@@ -95,7 +84,41 @@
                     </AccordionPanel>
                 </AccordionItem>
             </AccordionGroup>
-            <div class="m-3 overflow-y-auto bg-white grow h-fit scrollbar-hidden">
+
+
+            <div class="flex flex-none h-10">
+                <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
+                    {{$t('campaign.live.comment.comments')}}
+                </h2>
+                <div class="my-auto mr-5">
+                    <TabList class="nav-pills">
+                        <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
+                        >   
+                        <font-awesome-icon icon="fa-regular fa-comment-dots" class="h-6 m-1 -mt-2" />
+                        </Tab>
+
+                        <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
+                        >
+                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" />
+                        </Tab>
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"
+                        >
+                            <FacebookIcon class="m-1 -mt-1" />
+                        </Tab>
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"
+                        >
+                            <InstagramIcon class="m-1 -mt-1" />
+                        </Tab>
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"
+                        >
+                            <YoutubeIcon class="m-1 -mt-1" />
+                        </Tab>
+                    </TabList>
+                </div>
+            </div>
+            
+
+            <div class="mx-3 mb-3 overflow-y-auto bg-white grow h-fit scrollbar-hidden">
                 <TabPanels>
                     <TabPanel  :class="'all'" class="relative bg-white">
                         <div class="mt-1 h-fit" >
@@ -110,19 +133,19 @@
                     </TabPanel>
 
 
-                    <TabPanel :class="'facebook'" >
+                    <TabPanel :class="'facebook'" v-if="route.query.status=='history'">
                         <div class="mt-1 h-fit" >
                             <CommentListView :platformName="'facebook'"/>
                         </div>
                     </TabPanel>
                     
-                    <TabPanel :class="'instagram'" >
+                    <TabPanel :class="'instagram'" v-if="route.query.status=='history'">
                         <div class="mt-1 h-fit" >
                             <CommentListView :platformName="'instagram'"/>
                         </div>
                     </TabPanel>
 
-                    <TabPanel :class="'youtube'" >
+                    <TabPanel :class="'youtube'" v-if="route.query.status=='history'">
                         <div class="mt-1 h-fit" >
                             <CommentListView :platformName="'youtube'"/>
                         </div>
@@ -190,13 +213,13 @@ const comments= [
 
 
 
-const openTab =ref('all')
+const openVideoTab =ref('facebook')
 
 onMounted(()=>{
     get_comments(route.params.campaign_id).then(res => {
         return res.data
     }).then(data => {
-        console.log(data)
+        // console.log(data)
         Object.keys(data).forEach(key => { 
             if ((key === 'facebook' && data[key]['fully_setup'] === true)) {
                 platformData.value.fb.page_id = data[key]['page_id']
@@ -210,7 +233,7 @@ onMounted(()=>{
                 platformData.value.yt.ready=true
             } 
         })
-        console.log(platformData)
+        // console.log(platformData)
         ready.value=true
     })
 })
@@ -218,8 +241,8 @@ onMounted(()=>{
 
 
 
-const toggleTabs = tabName => openTab.value=tabName
 
+const selectVideoTabs = tabName => openVideoTab.value=tabName
 // const commentSummurizer = status => {
 //         tags = status
 //         if(status === ''){

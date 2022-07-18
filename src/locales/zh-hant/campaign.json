@@ -1,0 +1,69 @@
+{
+    "create-edit":{
+        "delivery_details":"Delivery Details",   
+        "payment_details":"Payment Details",
+        "more_option":"Add more option",
+        "customer_payment" : "Customer Payment Page Upload",
+        "create_campaign" : "新增直播",
+        "period":"直播時間",
+        "edit_campaign" : "編輯直播",
+        "campaign_detail" : "直播設定",
+        "campaign_title" : "標題",
+        "max_delivery_order" : "Max Delivery Order Per Day"
+    },
+    "list":{
+        "process" : {
+            "create" : "建立",
+            "create_description" : "點擊「新增」建立直播，點擊「管理」從庫存管理新增直播商品",
+            "connect" : "連接",
+            "connect_description" : "點擊「編輯」並輸入 Facebook 直播貼文 ID",
+            "complete" : "完成",
+            "complete_description" : "點擊「進入」查看並管理直播"
+        },
+        "campaigns" : "直播管理",
+        "live_on" : "Live On",
+    
+        "scheduled" : "預定排程",
+        "history" : "歷史紀錄",
+        "ongoing" : "進行中",
+    
+        "search" : "搜尋",
+        "reset" : "清空",
+    
+        "enter_post_id":{
+            "message":"Please enter post ID to start live selling.",
+            "select_stream":"選擇直播",
+            "select_page":"選擇專頁",
+            "post_id":"直播 ID"
+        },
+    
+        "title" : "標題",
+        "fan_page" : "平台",
+        "start_at" : "開賣日期/時間",
+        "end_at" : "結單日期/時間",
+        "manage" : "管理",
+        "manage_product" : "管理商品",
+        "manage_order" : "管理訂單",
+        "stop" : "停止結帳",
+        "action" : "Action",
+        "enter" : "進入",
+        "detail" : "直播設定",
+        "settings" : "設定",
+        "delivery" : "運送",
+        "payment" : "付款",
+        "show" : "顯示",
+        "null" : ""
+    },
+    "live":{
+        "comment" :{
+            "comments":"直播留言",
+            "delivery":"運送",
+            "payment":"付款",
+            "other":"其他",
+            "select_tag":"選擇標籤",
+            "clear":"清空",
+            "comment_message_1":"尚未有%{tag}相關訊息",
+            "comment_message_2":"尚未有 %{platformName} 訊息"
+        }
+    }
+}
