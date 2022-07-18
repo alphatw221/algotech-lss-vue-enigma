@@ -18,18 +18,23 @@
 
     "title" : {
         "index" : "Inventory",
-        "add" : "Add Product",
-        "edit" : "Edit Product"
+        "add" : "Chọn sản phẩm bán",
+        "edit" : "Edit Product",
+        "category":"Loại"
     },
 
     "column" : {
         "name" : "Name",
-        "image" : "Image",
-        "order_code" : "Order Code",
+        "image" : "Hình ảnh",
+        "order_code" : "Mã sản phẩm",
+        "qty_for_campaign":"Số lượng bán trong chiến dịch",
+        "max_qty":"Số lượng/Đơn hàng tối đa",
+        "editable":"Có thể chỉnh sửa",
+        "deletable":"Có thể xóa",
         "description" : "Description",
-        "price" : "Price",
+        "price" : "Giá bán",
         "qty" : "Qty",
-        "type" : "Type",
+        "type" : "Loại",
         "status" : "Default Status",
         "remark" : "Tag"
     },

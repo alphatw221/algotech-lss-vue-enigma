@@ -20,13 +20,18 @@
     "title" : {
         "index" : "庫存管理",
         "add" : "新增商品",
-        "edit" : "編輯"
+        "edit" : "編輯",
+        "category":"類別"
     },
 
     "column" : {
         "name" : "商品",
         "image" : "圖片",
         "order_code" : "下單代碼",
+        "qty_for_campaign":"直播庫存",
+        "max_qty":"最大購買量",
+        "editable":"可修改",
+        "deletable":"可刪除",
         "description" : "說明",
         "price" : "價格",
         "qty" : "庫存",

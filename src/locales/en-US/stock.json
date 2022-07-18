@@ -19,13 +19,18 @@
     "title" : {
         "index" : "Inventory",
         "add" : "Add Product",
-        "edit" : "Edit Product"
+        "edit" : "Edit Product",
+        "category":"Category"
     },
 
     "column" : {
         "name" : "Name",
         "image" : "Image",
         "order_code" : "Order Code",
+        "qty_for_campaign":"Qty For Campaign",
+        "max_qty":"Max Qty / Order",
+        "editable":"Editable",
+        "deletable":"Deletable",
         "description" : "Description",
         "price" : "Price",
         "qty" : "Qty",
