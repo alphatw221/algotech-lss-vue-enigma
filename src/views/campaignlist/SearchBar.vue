@@ -4,7 +4,7 @@
             <div class="items-center flex-initial w-auto sm:mr-4">
                 <!-- <label class="mr-2 w-14 xl:w-auto"> -->
                 <label class="mr-2 shrink whitespace-nowrap">
-                    {{$t('campaign.search')}}
+                    {{$t('campaign.list.search')}}
                 </label>
                 <select id="tabulator-html-filter-field"
                     class="w-auto h-[35px] sm:h-[42px] mr-4 form-select" v-model="searchField">
@@ -21,7 +21,7 @@
                     v-model="keyword" @keydown.enter.prevent="search" />
                     <button
                         class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary" @click="reset">
-                        {{$t('campaign.reset')}}
+                        {{$t('campaign.list.reset')}}
                     </button>
                 </div>
                 
