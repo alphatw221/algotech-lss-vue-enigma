@@ -83,7 +83,7 @@
                             <input
                                 type="file"
                                 class="absolute top-0 left-0 w-full h-full opacity-0"
-                                accept="image/jpeg" 
+                                accept="image/jpeg,image/pen,image/jpg" 
                                 @change="uploadImage($event, index_i)"
                             />
                     </div>
