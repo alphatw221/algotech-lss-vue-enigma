@@ -29,6 +29,13 @@ app.use(VueAxios, axios)
 library.add(fas, far, fab)
 
 import i18n from './locales/i18n'
+import { get_seller_account } from '@/api_v2/user';
+import { useCookies } from "vue3-cookies";
+const { cookies } = useCookies();
+if (cookies.get('access_token')) {
+    const res = await get_seller_account()
+    i18n.global.locale.value = res.data.user_subscription.lang
+}
 app.use(i18n)
 
 //mitt (eventBus)

@@ -105,10 +105,9 @@ const clean =() =>{
 
 const save = ()=>{
     seller_update_subscription(data.value).then(res=>{
-
         layoutStore.userInfo = res.data
         layoutStore.notification.showMessageToast("Update Successfully")
-        i18n.global.locale = layoutStore.userInfo.user_subscription.lang
+        i18n.global.locale.value = layoutStore.userInfo.user_subscription.lang
     })
 }
 </script>
