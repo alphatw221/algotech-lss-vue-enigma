@@ -132,7 +132,16 @@
                                 />
                         </td>
                         <td v-else-if="column.key === 'type'" class="type">
-                            {{ typeMap[product[column.key]] }}
+                            <select 
+                                :class="{ red: checkProductType(index) }"
+                                class="form-select w-auto mt-2 sm:mt-0"
+                                v-model="product[column.key]"
+                            >
+                                <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">{{ type.name }}</option>
+                            </select> 
+                            <div v-if="checkProductType(index)" class="text-red-600 text-center">
+                                please select type
+                            </div>
                         </td>
                     </template>
 
@@ -179,7 +188,6 @@ const productsList = ref([])
 const category = ref(undefined)
 
 const warningModalPreview = ref(false)
-const emptyTitle = ref(false)
 const duplicateOrderCode = ref(false)
 
 const tableColumns = ref([
@@ -196,10 +204,11 @@ const tableColumns = ref([
     { name: "Activate", key: "status" }
 ])
 const errorMessages = ref([])
-const typeMap = ref({
-    lucky_draw: 'Lucky Draw',
-    product: 'Product'
-})
+const typeSelection = ref([
+    { name: 'Product', value: 'product' },
+    { name: 'Lucky Draw', value: 'lucky_draw' }
+])
+const blankArray = ref([null, '', undefined])
 
 onMounted(() => {
     campaignStore.assignedProducts.forEach((item) => {
@@ -219,6 +228,13 @@ onMounted(() => {
             warningModalPreview.value = true
             return
         }
+        orderCodeList.forEach((value) => {
+            if (blankArray.value.includes(value)) {
+                duplicateOrderCode.value = true
+                warningModalPreview.value = true
+                return
+            }
+        })
 
         let assignedProducts = campaignStore.assignedProducts
         for (let i = 0; i < assignedProducts.length; i ++) {
@@ -243,8 +259,7 @@ onUnmounted(() => {
 })
 
 const warningModalText = computed(() => {
-    if (emptyTitle.value) return 'Please enter campaign title !'
-    else if (duplicateOrderCode.value) return 'There are duplicated order code, please rename it.'
+    if (duplicateOrderCode.value) return 'There are duplicated or blank order code, please rename it.'
 })
 
 const changeInput = (event, index) => {
@@ -259,6 +274,10 @@ const isOrderCodeDuplicate = (index) => {
     for (let i = 0; i < campaignStore.assignedProducts.length; i++) {
         if (i != index && campaignStore.assignedProducts[i].order_code == this_order_code) return true
     }
+}
+
+const checkProductType = (index) => {
+    if (blankArray.value.includes(campaignStore.assignedProducts[index].type)) return true
 }
 
 </script>

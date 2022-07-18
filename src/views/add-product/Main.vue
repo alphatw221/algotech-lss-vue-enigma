@@ -78,7 +78,7 @@
 				</Dropzone>
 			</div> 
 
-			<div class="col-span-12 col-start-1 mt-2">
+			<!-- <div class="col-span-12 col-start-1 mt-2">
 				<label class="text-base font-medium">Type</label>
 				<div class="flex flex-col mt-2 sm:flex-row" v-for="type in typeRadio" :key="type.id">
 					<div class="mt-2 ml-2 mr-2 form-check sm:mt-0">
@@ -97,9 +97,9 @@
 						</label>
 					</div>
 				</div>
-			</div>
+			</div> -->
 
-			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
+			<!-- <div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
 				<label for="crud-form-1" class="form-label text-base font-medium">Order Code</label>
 				<input
 					id="crud-form-1"
@@ -110,28 +110,11 @@
 					:disabled="product.type === 'lucky_draw'"
 				/>
 				<template v-if="validate.order_code.$error">
-						<label class="text-danger ml-2 text-[13px]" >
-						Enter order code with no more than 10 digits
-						</label>
+					<label class="text-danger ml-2 text-[13px]" >
+					Enter order code with no more than 10 digits
+					</label>
 				</template>
-			</div>
-			<div class="col-span-12 lg:col-span-6 mt-2">
-				<label for="crud-form-1" class="form-label text-base font-medium">Description</label>
-				<input
-					id="crud-form-1"
-					type="text"
-					class="w-full form-control"
-					placeholder=""
-					v-model="validate.description.$model"
-					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
-				/>
-				<template v-if="validate.description.$error">
-						<label class="text-danger ml-2 text-[13px]" >
-						description cannot be more than 100 digits
-						</label>
-				</template>
-				
-			</div>
+			</div> -->
 
 			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
 				<label for="crud-form-1" class="form-label text-base font-medium">Quantity</label>
@@ -186,6 +169,24 @@
 					</div>
 				</div>
 			</div>
+
+			<div class="col-span-12 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">Description</label>
+				<textarea 
+					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
+					class="h-36 p-2 mr-5 form-control indent-4"
+					placeholder="product description ..."
+					v-model="validate.description.$model"
+				>
+				</textarea>
+				<template v-if="validate.description.$error">
+						<label class="text-danger ml-2 text-[13px]" >
+						description cannot be more than 100 digits
+						</label>
+				</template>
+			</div>
+
+			
 			<div class="z-50 col-span-12 flex justify-end sm:mt-3">
 				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="cancelButton">
 					Cancel
@@ -217,8 +218,8 @@ const product = ref({
 	name: '',
 	category: [],
 	image: '',
-	type: '',
-	order_code: '',
+	type: null,
+	order_code: null,
 	description: '',
 	qty: 0,
 	price: 0,
@@ -226,10 +227,10 @@ const product = ref({
 	tag: [],
 })
 
-const typeRadio = ref([
-	{text: 'Product', id: 'product'},
-	{text: 'Lucky Draw', id: 'lucky_draw'},
-])
+// const typeRadio = ref([
+// 	{text: 'Product', id: 'product'},
+// 	{text: 'Lucky Draw', id: 'lucky_draw'},
+// ])
 
 const statusRadio = ref([
 	{text: 'For Sale', id: 'enabled'},
@@ -296,17 +297,6 @@ const submit = ()=>{
 	}
 }
 
-// const uploadImage = e =>{
-// 	const image = e.target.files[0];
-// 	formData.append('image', image)
-
-// 	const reader = new FileReader();
-// 	reader.readAsDataURL(image);
-// 	reader.onload = e =>{
-// 		previewImage.value = e.target.result;
-// 	};
-// }
-
 const cancelButton = () =>{
 	router.push({name:'stock'});
 	layoutStore.alert.showMessageToast("Change Not Saved");
@@ -315,7 +305,7 @@ const cancelButton = () =>{
 const rules = computed(()=>{
     return{
 		name:{required,maxLength:maxLength(40)},
-		order_code: {required, maxLength:maxLength(10)},
+		// order_code: {required, maxLength:maxLength(10)},
 		description: {maxLength: maxLength(100)},
 		qty: {integer},
 		price: {decimal},  
