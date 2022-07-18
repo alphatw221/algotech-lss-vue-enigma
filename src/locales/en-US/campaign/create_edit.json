@@ -10,15 +10,6 @@
         "customer_payment" : "Customer Payment Page Upload",
         "special_note"  : "Special Note",
         "confirmation_note" : "Confirmation Note",
-        "max_delivery_order" : "Max Delivery Order Per Day",
-        
-        "edit" : {
-            "fb_post_id" :"Facebook Post ID *",
-            "fb_pages" :"Facebook Pages",
-            "ig_video_id" :"Instagram Video ID *",
-            "choose_one_post" :"Choose one post",
-            "youtube_channels" :"Youtube Channels",
-            "platform" :"Live Streaming Platform"
-        }
+        "max_delivery_order" : "Max Delivery Order Per Day"
 
 }

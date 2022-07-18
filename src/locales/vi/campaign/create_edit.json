@@ -7,15 +7,7 @@
         "edit_campaign" : "Edit Campaign",
         "campaign_title" : "Tiêu đề",
         "customer_payment" : "Tải lên trang thanh toán của khách hàng",
-        "max_delivery_order" : "Max Delivery Order Per Day",
+        "max_delivery_order" : "Max Delivery Order Per Day"
         
-        "edit" : {
-            "fb_post_id" :"Facebook Post ID *",
-            "fb_pages" :"Facebook Pages",
-            "ig_video_id" :"Instagram Video ID *",
-            "choose_one_post" :"Choose one post",
-            "youtube_channels" :"Youtube Channels",
-            "platform" :"Live Streaming Platform"
-        }
 
 }
