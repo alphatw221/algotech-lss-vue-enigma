@@ -50,8 +50,10 @@
                     <input id="regular-form-2" type="text" class="mt-3 form-control"
                         placeholder="Category Name" v-model="categoryName" />
                 </div>
-                <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false">Cancel</button>
-                <button class="w-32 ml-5 shadow-md btn btn-primary mt-7" @click="update()">Save</button>
+                <div class="flex justify-between">
+                    <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false">Cancel</button>
+                    <button class="w-32 shadow-md btn btn-primary mt-7" @click="update()">Save</button>
+                </div>
             </ModalBody>
         </Modal>
     </div>
