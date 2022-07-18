@@ -267,6 +267,7 @@ iframe {
 
 .accordion-item{
     border: none;
+    padding-bottom: 0px !important ;
 }
 
 .tags{

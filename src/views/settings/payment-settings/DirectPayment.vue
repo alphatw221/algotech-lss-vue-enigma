@@ -58,7 +58,7 @@
                             <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
                         </div>
                         <div class="px-4 text-[1rem] sm:text-[16px] absolute top-20 text-center w-full flex flex-col items-center justify-center"
-                            v-if="previewImages[index_i] === null">
+                            v-if="[undefined, null, ''].includes(previewImages[index_i])">
                             <div class="flex flex-col items-center justify-center sm:flex-row"> 
                                 <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> 
                                 <strong class="text-slate-600">Upload a file or drag and drop</strong> 
@@ -69,7 +69,7 @@
                             <input
                                 type="file"
                                 class="absolute top-0 left-0 w-full h-full opacity-0"
-                                accept="image/jpeg" 
+                                accept="image/jpeg,image/png,image/jpg" 
                                 @change="uploadImage($event, index_i)"
                             />
                     </div>
@@ -139,6 +139,10 @@ onMounted(() => {
 
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
+    if(image.size/1024/1024>2){
+        sellerStore.alert.showMessageToast('image size exceed 2 MB')
+        return
+    }
     formData.append('_'+paymentData.value.v2_accounts[index].name,image)
 	let reader = new FileReader();
 	reader.readAsDataURL(image);

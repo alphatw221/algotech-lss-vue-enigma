@@ -16,7 +16,7 @@
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
 					<td v-else-if="listItems==0" :colspan="columns.length +2">
-						<div class="mt-5 text-center md:mt-10" >
+						<div class="mt-5 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg h-[300px]">
 								You Have No {{product_status}} Products
 							</h1>
@@ -321,6 +321,19 @@ thead th{
 	}
 	.edit:before{
 		display: none;
+	}
+
+	.dotTr:before{
+		display: none;
+	}
+	.dotTr{
+		display: inline-block;
+		position: absolute;
+		top:50%; 
+		right:25%; 
+		width: 100% !important;
+		padding-left: 0 !important;
+		z-index: 99999;
 	}
 }
 </style>

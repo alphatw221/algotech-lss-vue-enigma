@@ -16,39 +16,36 @@
         </div>
         <div v-for="(luckydraw, index) in props.luckydrawList" :key="index"
             class="box bg-secondary relative hover:border-2 border-slate-500/50 text-left" >     
-            <div class="flex flex-col xl:flex-row justify-between m-[0.7rem] p-5 lg:p-8 lucky-set">
-                <div class="shrink flex w-fit flex-row justify-start"> 
-                    <img class="shrink w-[75px] sm:w-[120px] object-cover mr-5" :src="storageUrl + luckydraw.animation" />
-                    <div class="flex flex-col justify-start"> 
-                        <span class="my-auto h-auto break-all">{{ luckydraw.prize.name }}</span>
-                        <div class="text-slate-500 lg:hidden text-sm lg:text-lg"> 
-                            {{ drawTitleMap[luckydraw.type] }} 
-                            <span class="ml-3 text-slate-800" v-if="luckydraw.type == 'product'"> {{ luckydraw.campaign_product.name }} </span>
-                            <span class="ml-3 text-slate-800" v-else-if="luckydraw.type == 'keyword'"> {{ luckydraw.comment }} </span>
-                        </div>
-                    </div>
+            <div class="flex flex-row flex-wrap justify-start lg:justify-between m-[0.7rem] p-5 px-3 lg:p-8 lucky-set">
+                <div class="flex flex-col xl:flex-row justify-start w-[75px] xl:w-[120px] mr-5 my-auto"> 
+                    <img class="h-[100px] object-cover lg:mr-5" :src="storageUrl + luckydraw.animation" />
+                    <span class="m-auto h-auto hidden lg:block">{{ luckydraw.prize.name }}</span>
                 </div>
-                <div class="flex flex-row flex-wrap justify-start mt-5">  
-                    <div class="border-r-2 border-slate-700 lg:flex flex-col justify-start lg:w-36 hidden pr-5">
-                        <span class="my-1" v-if="luckydraw.type == 'product'"> {{ luckydraw.campaign_product.name }} </span>
-                        <span class="my-1" v-else-if="luckydraw.type == 'keyword'"> {{ luckydraw.comment }} </span>
-                        <span class="h-[28px] my-1" v-else> </span>
-                        <span class="text-slate-500"> {{ drawTitleMap[luckydraw.type] }} </span>
+                <div class="flex flex-col lg:flex-row flex-wrap justify-start md:mt-5 w-[55%] lg:w-auto lg:ml-auto">  
+                    <span class="my-auto lg:hidden">{{ luckydraw.prize.name }}</span>
+
+                    <div class="lg:border-r-2 border-slate-700 flex flex-row lg:flex-col w-full lg:pr-5 lg:w-36 xl:w-44 text-sm lg:text-lg justify-between lg:justify-center">
+                        <span class="lg:my-1 order-2 lg:order-1 text-[#E75F34]" v-if="luckydraw.type == 'product'"> ({{ luckydraw.campaign_product.order_code }}) {{ luckydraw.campaign_product.name }} </span>
+                        <span class="lg:my-1 order-2 lg:order-1 text-[#E75F34]" v-else-if="luckydraw.type == 'keyword'"> {{ luckydraw.comment }} </span>
+                        <span class="h-[22px] lg:h-[28px] lg:my-1" v-else> </span>
+                        <span v-if="drawTitleMap[luckydraw.type] == 'Draw Like'" class="text-slate-500 order-1 lg:order-2 whitespace-nowrap mr-auto lg:mr-0"> {{ drawTitleMap[luckydraw.type] }} </span>
+                        <span v-else-if="drawTitleMap[luckydraw.type] == 'Draw Purchased'" class="text-slate-500 order-1 lg:order-2 whitespace-nowrap mr-auto lg:mr-0"> {{ drawTitleMap[luckydraw.type] }} </span>
+                        <span v-else class="text-slate-500 order-1 lg:order-2 whitespace-nowrap mr-auto lg:mr-0 hidden"> {{ drawTitleMap[luckydraw.type] }} </span>
                     </div>
-                    <div class="shrink lg:border-r-2 border-slate-700 flex flex-row lg:flex-col w-[75px] sm:px-5 lg:w-36 text-sm lg:text-lg">
+                    <div class="lg:border-r-2 border-slate-700 flex flex-row lg:flex-col w-full lg:px-5 lg:w-36 text-sm lg:text-lg justify-between lg:justify-center">
                         <span class="order-2 lg:order-1 lg:my-1"> {{ luckydraw.num_of_winner }} </span>
                         <div class="text-slate-500 mr-3 order-1 lg:order-2"> Winner(s) </div>
                     </div>
-                    <div class="flex flex-row lg:flex-col flex-row lg:flex-col px-5 lg:w-44 text-sm lg:text-lg">
-                        <span v-if="luckydraw.repeatable === true" class="order-2 lg:order-1 sm:my-1"> Yes </span> 
-                        <span v-if="luckydraw.repeatable === false" class="order-2 lg:order-1 sm:my-1 "> No </span>
-                        <span class="text-slate-500 mr-3 order-1 lg:order-2 whitespace-nowrap"> Winner Repeat</span>
+                    <div class="flex flex-row lg:flex-col w-full lg:w-44 lg:px-5 text-sm lg:text-lg justify-between lg:justify-center">
+                        <span v-if="luckydraw.repeatable === true" class="order-2 lg:order-1 lg:my-1"> Yes </span> 
+                        <span v-if="luckydraw.repeatable === false" class="order-2 lg:order-1 lg:my-1 "> No </span>
+                        <span class="text-slate-500 mr-auto lg:mr-3 order-1 lg:order-2 whitespace-nowrap"> Winner Repeat</span>
                     </div>
-                    <div class="mt-5 mx-auto">
-                        <button class="btn btn-primary w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" @click="goDraw(luckydraw.id)">
-                            Start
-                        </button>
-                    </div>
+                </div>
+                <div class="mt-5 flex w-[100%] xl:w-fit">
+                    <button class="btn btn-primary w-full lg:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" @click="goDraw(luckydraw.id)">
+                        Start
+                    </button>
                 </div>
             </div>
             <Dropdown class="absolute top-2 right-2 w-8 h-8 rounded-full hover:bg-white p-1">
@@ -115,29 +112,5 @@ const deleteDraw = (lucky_draw_id) => {
     })
 }
 
+
 </script>
-
-<style scoped>
-
-@media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
-
-    /* .lucky-set {
-        display: table !important;
-        margin: 0.7rem !important;
-    } */
-
-    /* .lucky-td {
-        border-right-width: 0px !important;
-        width: 100%;
-        display: inline-block;
-        white-space: nowrap; 
-    } */
-
-    .lucky-button {
-        margin: auto;
-        margin-top: 5px;
-    }
-}
-
-</style>

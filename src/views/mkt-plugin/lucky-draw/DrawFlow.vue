@@ -48,8 +48,9 @@
                     </div>
                 </div>
                 <div style="margin-top: 5rem;" v-else-if="ready === true && beforeDraw === false">
-                    <img class="m-3 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px;"/>
-                    <div class="text-center mt-7 text-2xl">{{ luckyDrawData.prize.name }}</div>
+                    <div class="text-2xl text-center"> Congratulations!</div>
+                    <img class="mx-auto my-8 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px;"/>
+                    <div class="text-center text-2xl">{{ luckyDrawData.prize.name }}</div>
                     <div class="mt-9 flex flex-wrap" style="width: 350px;">
                         <div v-for="(winner, index) in winnerList" :key="index" class="ml-5 mb-3">
                             <div class="flex w-full justify-around">

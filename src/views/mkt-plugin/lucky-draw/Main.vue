@@ -40,18 +40,18 @@ const campaignTitle = ref('')
 onMounted(() => {
     retrieve_campaign(route.params.campaign_id).then(res => {
         campaignTitle.value = res.data.title
+        console.log(res.data)
     })
-
     if (route.query.behavior != 'drawInstantly') {
         list_campaign_lucky_draw(route.params.campaign_id).then(res => {
             if (Object.entries(res.data).length > 0) {
                 showDrawlist.value = true
                 luckydrawList.value = res.data
+                console.log(luckydrawList.value)
             }
             ready.value = true
         })
     } else ready.value = true
-
     eventBus.on('changeDrawPage', () => { 
         showDrawlist.value = !showDrawlist.value 
     })

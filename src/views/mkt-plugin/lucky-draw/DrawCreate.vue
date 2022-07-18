@@ -38,7 +38,7 @@
                         </template>    
                     </select>
                     <button 
-                        class="btn btn-danger ml-auto w-fit mt-2"
+                        class="btn btn-primary ml-auto w-fit mt-2"
                         :class="{'btn-danger': !prizeList.length}" 
                         @click="productType = 'lucky_draw'; detailStore.showAddProductFromStockModal = true;"
                     > Assign More Prize </button>
@@ -65,8 +65,8 @@
                         v-model.trim="validate.num_of_winner.$model" 
                     />
                     <template v-if="validate.num_of_winner.$error">
-                        <label class="text-danger">
-                            Winner numbers must be between 1 to prize stock {{currentSettings.prize.qty_for_sale}}
+                        <label class="text-danger text-[14px] leading-tight">
+                            must be between 1 to prize stock {{currentSettings.prize.qty_for_sale}}
                         </label>
                     </template>
                 </div>
@@ -74,12 +74,12 @@
                     <div class="w-full flex">
                         <label class="form-label mr-auto"> Animation Style</label>
                         <input type="file" id="upload" @change="uploadAnimation" hidden/>
-                        <label for="upload" id="create_animation">+ Upload Animation</label>
+                        <label for="upload" id="create_animation" class="text-sm lg:text-lg">+ Upload Animation</label>
                     </div>
-                    <div class="flex mb-3" v-if="currentSettings.path == ''">
+                    <div class="flex my-3 justify-center" v-if="currentSettings.path == ''">
 						<img :src="previewImage" class="uploading-image h-20 object-cover" />
 					</div>
-                    <div class="flex mb-3" v-else-if="currentSettings.path != ''">
+                    <div class="flex my-3 justify-center" v-else-if="currentSettings.path != ''">
 						<img :src="storageUrl + currentSettings.path" class="uploading-image h-20 object-cover" />
 					</div>
                     <div class="flex flex-wrap items-center justify-around">
@@ -92,7 +92,7 @@
                             <Tippy tag="img" class="rounded-full" :src="storageUrl + 'static/lucky_draw2.svg'" />
                         </div>
                         <template v-for="(animates, key) in animationList" :key="key">
-                            <div class="w-20 h-20 image-fit relative ">
+                            <div class="w-20 h-20 image-fit relative">
                                 <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = animates.path" />
                                 <Tippy tag="img" class="rounded-full" :src="storageUrl + animates.path" />
                             </div>
@@ -107,7 +107,7 @@
                         class="rounded-full w-30 whitespace-wrap" 
                         data-tippy-allowHTML="true" 
                         data-tippy-placement="right" 
-                        content="this is the description <br/> of Winner Repeat" 
+                        content="Allow same person <br/> to win multiple prizes?" 
                         theme='light'
                     > 
                         <HelpCircleIcon class="w-8 ml-2" />
@@ -138,8 +138,8 @@
                     <div class="flex">
                         <label class="form-label mt-3">Product</label>
                         <button 
-                            class="btn btn-danger h-[35px] sm:h-[42px] w-fit ml-auto mb-1"
-                            :class="{'btn-danger': currentSettings.campaign_product == ''}" 
+                            class="btn btn-primary h-[35px] sm:h-[42px] w-fit ml-auto mb-1"
+                            :class="{'btn-danger': productList.length == 0}" 
                             @click="productType = 'product'; detailStore.showAddProductFromStockModal = true;"
                         > Assign Product </button>
                     </div>
@@ -170,8 +170,8 @@
                         :class="{ 'border-danger text-danger border-2': validate.comment.$error }">
                     </textarea>
                     <template v-if="validate.comment.$error">
-                        <label class="text-danger">
-                            Enter a keyword with minimum 3 digits
+                        <label class="text-danger text-[14px]">
+                            minimum 3 digits
                         </label>
                     </template>
                 </div>
@@ -180,12 +180,12 @@
                     class="lg:w-[50%] flex flex-col ml-5 mt-3"
                 >   
                     <button 
-                        class="btn btn-danger ml-auto w-fit h-[35px] sm:h-[42px]"
-                        :class="{'btn-danger': currentSettings.campaign_product == ''}" 
+                        class="btn btn-primary ml-auto w-fit h-[35px] sm:h-[42px]"
+                        :class="{'btn-danger': productList.length == 0}" 
                         @click="detailStore.showAddProductFromStockModal = true"
                     > Assign Product </button>
-                    <template v-if="currentSettings.campaign_product == ''"> 
-                        <label class="form-label text-danger mt-3"> Havent Assigned Any Product Into This Campaign</label>
+                    <template v-if="productList.length == 0"> 
+                        <label class="form-label text-danger mt-3 text-[14px]"> Havent Assigned Any Product Into This Campaign</label>
                     </template>
                 </div>
             </div>  
@@ -327,6 +327,7 @@ const uploadAnimation = e => {
 	reader.readAsDataURL(animation);
 	reader.onload = e =>{ previewImage.value = e.target.result; };
     currentSettings.value.path = '';
+    console.log(formData.value)
 }
 
 </script>
