@@ -46,25 +46,24 @@
                     <img class="mt-5 w-36 h-36 " :src="storageUrl+account.image" alt="" />
                 </div>
             </div>
-            <!-- direct_payment_mode: "22"
-        direct_payment_name: "123"
-        direct_payment_note: "555555555"
-        direct_payment_number: "112"
-        direct_payment_require_customer_return: 1
-        image: "/1/payment/direct_payment/prize 2022-02-15 150845.png" -->
 
-
-
-
-            <!-- END Direct Payment Select -->
-
-            <!-- acceptedFiles: 'image/jpeg|image/png|image/jpg', -->
+            <!-- BEGIN Direct Payment Radio -->
+            <div class="flex flex-col m-5">
+                <label for="regular-form-2" class="form-label">Beneficiary Bank</label>
+                <div class="inline-flex" >
+                    <div  class="m-2" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
+                        <input type="radio" class="mx-1 hover:cursor-pointer" :value="index" v-model="selectAccountIndex"/>
+                        {{account.mode}}
+                    </div>
+                </div>
+            </div>
+            <!-- END Direct Payment Radio -->
 
             <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
                 method: 'put',
                 url: 'url',
                 uploadMultiple: false,
-                maxFilesize: 1,
+                maxFilesize: 2,
                 addRemoveLinks: true,
                 autoProcessQueue: false,
                 resizeQuality: 0.5,
@@ -81,28 +80,6 @@
                 <div class="text-gray-600">Max file size : 2MB</div>  
             </Dropzone>
             <div class="flex flex-col m-3">
-
-                <!-- <label class="form-label"> Prize</label>
-                <select 
-                    class="w-full form-select-lg rounded-lg rounded-lg" 
-                    :class="{ 'border-danger text-danger border-2': !currentSettings.prize.id }" 
-                    v-model="currentSettings.prize"
-                >
-                    <template v-if="!prizeList.length">
-                        <option class="w-40" disabled> 
-                            Assign Prize into your Campaign
-                        </option>
-                    </template>
-                    <template v-else> 
-                        <option v-for="(prize, key) in prizeList" :key="key" :value="prize" class="w-40"> 
-                            {{ prize.name }} 
-                        </option>
-                    </template>    
-                </select> -->
-                <label for="regular-form-2" class="form-label">Beneficiary Bank</label>
-                <select v-model="selectAccountIndex">
-                    <option :value="index" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">{{account.mode +' '+account.name}}</option>
-                </select>
 
                 <label for="regular-form-2" class="form-label">Last Five Digits</label>
                 <input id="regular-form-2" type="text" class="form-control"

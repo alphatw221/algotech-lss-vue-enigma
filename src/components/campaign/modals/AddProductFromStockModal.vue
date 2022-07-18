@@ -288,6 +288,7 @@ const props = defineProps({
 const tableColumns = ref([
     { name: "Product", key: "image" },
     { name: "", key: "name" },
+    { name: "Type", key: "type" },
     { name: "Order Code", key: "order_code" },
 	{ name: "QTY for Campaign", key: "qty" },
 	{ name: "Max QTY/Order", key: "max_order_amount" },
@@ -295,7 +296,7 @@ const tableColumns = ref([
 	{ name: "Editable", key: "customer_editable" },
 	{ name: "Deletable", key: "customer_removable" },
 	{ name: "Category", key: "category" },
-	{ name: "Type", key: "type" },
+	
 ])
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -346,15 +347,30 @@ onMounted(() => {
 
 
 const updateStockProducts = ()=>{
+    const relations = []
     stockProducts.value.forEach((product,stockProductIndex) => {
         
-        if(product.id in selectedProductDict.value){ 
+        if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
+            // console.log(stockProductIndex)
+            // console.log('before update stock')
+            // relations.push([stockProductIndex,index])
             stockProducts.value[stockProductIndex] = selectedProducts.value[index]
+            // console.log('after update stock')
+            // console.log(product.id)
         }else{
+            // console.log(stockProductIndex)
+            // console.log(product.id)
             product.check=false
         }
     });
+    // console.log(relations)
+    // console.log(stockProducts.value)
+    // relations.forEach(relation=>{
+    //     console.log(selectedProducts.value[relation[1]].id)
+    //     stockProducts.value[relation[0]] = selectedProducts.value[relation[1]]
+
+    // })
 }
 
 const getProductCache = ()=>{
@@ -410,6 +426,10 @@ const selectedProductRemovable = (product_index, event)=>{if(event.target.checke
 const stockProductEditable = (product_index, event)=>{if(!event.target.checked)stockProducts.value[product_index].customer_removable=false}
 const selectedProductEditable = (product_index, event)=>{if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false}
 
+const updateSelectedProductDict = ()=>{
+    selectedProductDict.value = {}
+    selectedProducts.value.forEach((selectedProduct,index)=>{selectedProductDict.value[selectedProduct.id.toString()]=index})
+    }
 
 const selectStockProduct = (stockProduct, event) =>{
 
@@ -419,19 +439,20 @@ const selectStockProduct = (stockProduct, event) =>{
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
         
     }else{
-        const _index = selectedProductDict[stockProduct.id.toString()]
+        const _index = selectedProductDict.value[stockProduct.id.toString()]
+        console.log(_index)
         selectedProducts.value.splice(_index,1)
         errorMessages.value.splice(_index,1)
-        delete selectedProductDict[stockProduct.id.toString()]
+        updateSelectedProductDict()
     }
 }
 
 const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
 	event.target.checked=true
-	delete selectedProductDict.value[selectedProduct.id.toString()]
 	selectedProducts.value.splice(selectedProductIndex,1)
 	errorMessages.value.splice(selectedProductIndex,1)
 
+    updateSelectedProductDict()
     updateStockProducts()
 }
 
