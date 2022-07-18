@@ -14,7 +14,7 @@
                 <ul class="flex flex-row flex-wrap items-center self-center justify-around pt-3 pb-4 list-none" >
                     <li class="flex last:mr-0" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
                         <div class="z-10 flex items-center self-center flex-1 intro-x lg:text-center lg:mt-0 lg:block w-fit">
-                            <button @click="select_account(index)" :class="{
+                            <button @click="show_account_info(index)" :class="{
                                 'text-neutral-600 bg-white': openTab !== index,
                                 'text-white bg-primary': openTab === index,
                             }" class="h-8 rounded-full shadow-lg w-18 btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
@@ -81,6 +81,29 @@
                 <div class="text-gray-600">Max file size : 2MB</div>  
             </Dropzone>
             <div class="flex flex-col m-3">
+
+                <!-- <label class="form-label"> Prize</label>
+                <select 
+                    class="w-full form-select-lg rounded-lg rounded-lg" 
+                    :class="{ 'border-danger text-danger border-2': !currentSettings.prize.id }" 
+                    v-model="currentSettings.prize"
+                >
+                    <template v-if="!prizeList.length">
+                        <option class="w-40" disabled> 
+                            Assign Prize into your Campaign
+                        </option>
+                    </template>
+                    <template v-else> 
+                        <option v-for="(prize, key) in prizeList" :key="key" :value="prize" class="w-40"> 
+                            {{ prize.name }} 
+                        </option>
+                    </template>    
+                </select> -->
+                <label for="regular-form-2" class="form-label">Beneficiary Bank</label>
+                <select v-model="selectAccountIndex">
+                    <option :value="index" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">{{account.mode +' '+account.name}}</option>
+                </select>
+
                 <label for="regular-form-2" class="form-label">Last Five Digits</label>
                 <input id="regular-form-2" type="text" class="form-control"
                     :class="{ 'border-danger': uploadValidate.fiveDigits.$error }"
@@ -127,9 +150,10 @@ const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
 const receiptUploadDropzoneRef = ref();
 const openTab = ref(0);
-const select_account = index => {
-    openTab.value = index
-}
+const selectAccountIndex = ref(0);
+
+const show_account_info = index => {openTab.value = index}
+const select_account = index =>{ selectAccountIndex.value= index}
 
 const data = reactive({ fiveDigits: "" });
 const dataRules = {
@@ -160,7 +184,7 @@ const uploadReceipt = () => {
     if(!campaign) return
     const meta_payment = campaign.meta_payment
     if(!meta_payment) return
-    const account = Object.values(meta_payment.direct_payment.v2_accounts)[openTab.value]
+    const account = Object.values(meta_payment.direct_payment.v2_accounts)[selectAccountIndex.value]
     if(account.require_customer_return){
         uploadValidate.value.$touch();
         if (uploadValidate.value.$invalid) {
