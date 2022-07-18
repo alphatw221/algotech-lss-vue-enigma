@@ -369,21 +369,12 @@ onMounted(() => {
 	)
 })
 
-const updateStockProductsCheckBox = ()=>{
+const updateStockProducts = ()=>{
     stockProducts.value.forEach((product,stockProductIndex) => {
         
         if(product.id in selectedProductDict.value){ 
-            // console.log(selectedProductDict.value)
-            // console.log(product.id.toString())
             const index = selectedProductDict.value[product.id.toString()]
             stockProducts.value[stockProductIndex] = selectedProducts.value[index]
-            // product = selectedProducts.value[index]
-            // console.log()
-            // console.log(selectedProducts.value[index])
-            // Object.entries(selectedProducts.value[index]).forEach(([key,value]) => {
-            //     product[key]=value                       //proxy object only got setter
-            // });
-            // selectedProducts.value[index] = product
         }else{
             product.check=false
         }
@@ -415,15 +406,18 @@ const checkIfValid = ()=>{
     isSelectedProductsValid = true
     const productCache = getProductCache()
     selectedProducts.value.forEach((selectedProduct,index) => {
-        console.log( productCache.orderCodeDict)
         errorMessages.value[index]={}
-        if(selectedProduct.order_code in productCache.orderCodeDict && props.productType !== 'lucky_draw') {errorMessages.value[index]['order_code']='duplicate';isSelectedProductsValid=false;}
-        if(!selectedProduct.order_code && props.productType !== 'lucky_draw') {errorMessages.value[index]['order_code']='invalid';isSelectedProductsValid=false;}
+        if(selectedProduct.order_code in productCache.orderCodeDict) {
+                if(typeof productCache.orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[productCache.orderCodeDict[selectedProduct.order_code]]['order_code']='duplicate'
+                errorMessages.value[index]['order_code']='duplicate';
+                isSelectedProductsValid=false;
+            }
+        if(!selectedProduct.order_code) {errorMessages.value[index]['order_code']='invalid';isSelectedProductsValid=false;}
         // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
         if(selectedProduct.qty<=0 && props.productType != 'lucky_draw') {errorMessages.value[index]['qty']='invalid';isSelectedProductsValid=false}
         else if(selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false}
         
-        productCache.orderCodeDict[selectedProduct.order_code]=true
+        productCache.orderCodeDict[selectedProduct.order_code]=index
     });
 
 }
@@ -438,23 +432,15 @@ watch(computed(()=>props.productType), () => {
 
 watch(computed(()=>campaignDetailStore.campaignProducts),createProductCache)
 
-watch(computed(()=>stockProducts.value),updateStockProductsCheckBox)
+watch(computed(()=>stockProducts.value),updateStockProducts)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
 
 
-const stockProductRemovable = (product_index, event)=>{
-    if(event.target.checked)stockProducts.value[product_index].customer_editable=true
-}
-const selectedProductRemovable = (product_index, event)=>{
-    if(event.target.checked)selectedProducts.value[product_index].customer_editable=true
-}
-const stockProductEditable = (product_index, event)=>{
-    if(!event.target.checked)stockProducts.value[product_index].customer_removable=false
-}
-const selectedProductEditable = (product_index, event)=>{
-    if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false
-}
+const stockProductRemovable = (product_index, event)=>{if(event.target.checked)stockProducts.value[product_index].customer_editable=true}
+const selectedProductRemovable = (product_index, event)=>{if(event.target.checked)selectedProducts.value[product_index].customer_editable=true}
+const stockProductEditable = (product_index, event)=>{if(!event.target.checked)stockProducts.value[product_index].customer_removable=false}
+const selectedProductEditable = (product_index, event)=>{if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false}
 
 
 const selectStockProduct = (stockProduct, event) =>{
@@ -478,7 +464,7 @@ const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
 	selectedProducts.value.splice(selectedProductIndex,1)
 	errorMessages.value.splice(selectedProductIndex,1)
 
-    updateStockProductsCheckBox()
+    updateStockProducts()
 }
 
 const resetSelectedProduct = ()=>{
@@ -487,16 +473,19 @@ const resetSelectedProduct = ()=>{
 	});
 	selectedProducts.value = []
 	errorMessages.value = []
-    updateStockProductsCheckBox()
+    updateStockProducts()
+
 }
 
 const selectAllStockProduct = (event)=>{
 	event.target.checked=false
 	stockProducts.value.forEach(product => {
-        product.check= !product.check
-        selectedProducts.value.push(product)
-		selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
-		errorMessages.value.push({})
+        if(!(product.id.toString() in selectedProductDict.value)) {
+            product.check=true
+            selectedProducts.value.push(product)
+            selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
+            errorMessages.value.push({})
+        }
 	});
     openTab='select'
 }
@@ -504,7 +493,6 @@ const selectAllStockProduct = (event)=>{
 const search = () => {
 	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value)
 	.then(response => {
-		// stockProducts.value = response.data.results
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
@@ -531,8 +519,6 @@ const changePageSize = (pageSize)=>{
 }
 
 const submitData = ()=>{
-    // console.log(selectedProducts.value)
-    // return 
     if(!isSelectedProductsValid){
         layoutStore.alert.showMessageToast("Invalid")
         return

@@ -95,25 +95,32 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'type'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end">
-                            <div class=" form-check place-content-end lg:place-content-center"> {{ typeMap[product[column.key]] }}</div>
+                        <td v-else-if="column.key === 'type'" class="w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end">
+                            <!-- <div class=" form-check place-content-end sm:place-content-center"> {{ typeMap[product[column.key]] }}</div> -->
+                            <select 
+                                class="form-select w-auto mb-2 sm:mb-0"
+                                v-model="product[column.key]"
+                                :disabled="product.disabledEdit"
+                            >
+                                <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">{{type.name}}</option>
+                            </select> 
                         </td>
 
                         <td v-else-if="column.key === 'edit'" class="edit">
-                            <div class="flex flex-row sm:flex-col justify-between gap-2 mb-2 sm:mb-0"> 
-                                <button class="ml-auto w-32 bg-white btn dark:border-darkmode-400" v-show="product.disabledEdit"
-                                    @click="product.disabledEdit = !product.disabledEdit">
-                                    Edit
-                                </button>
-                                <button class="w-32 shadow-md btn btn-primary h-[35px]" v-show="product.disabledEdit == false"
-                                    @click="updateProduct(index)">
-                                    Update
-                                </button>
-                                <button class="w-32 bg-white btn dark:border-darkmode-400 h-[35px]" v-show="product.disabledEdit == false"
-                                    @click="product.disabledEdit = !product.disabledEdit; search()">
-                                    Cancel
-                                </button>
-                            </div>
+                        <div class="flex flex-row sm:flex-col justify-between gap-2 mb-2 sm:mb-0"> 
+                            <button class="ml-auto w-32 bg-white btn dark:border-darkmode-400" v-show="product.disabledEdit"
+                                @click="product.disabledEdit = !product.disabledEdit">
+                                Edit
+                            </button>
+                            <button class="w-32 bg-white btn dark:border-darkmode-400 h-[35px]" v-show="product.disabledEdit == false"
+                                @click="product.disabledEdit = !product.disabledEdit">
+                                Cancel
+                            </button>
+                            <button class="w-32 shadow-md btn btn-primary h-[35px]" v-show="product.disabledEdit == false"
+                                @click="updateProduct(index)">
+                                Update
+                            </button>
+                        </div>
                         </td>
                         </template>
                     </tr>
@@ -132,7 +139,8 @@ import { useCreateCampaignStore } from "@/stores/lss-create-campaign";
 import { list_product } from '@/api_v2/product';
 import { seller_retrieve_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 
 const campaignStore = useCreateCampaignStore();
 const detailStore = useCampaignDetailStore()
@@ -159,11 +167,10 @@ const tableColumns = ref([
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
 ])
-const typeMap = ref({
-    lucky_draw: 'Lucky Draw',
-    product: 'Product'
-})
-import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+const typeSelection = ref([
+    { name: 'Product', value: 'product' },
+    { name: 'Lucky Draw', value: 'lucky_draw' }
+])
 
 
 onMounted(() => {

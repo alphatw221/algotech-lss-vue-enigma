@@ -13,6 +13,7 @@
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
                     </h2>
+                    <XIcon class="w-4 h-4 ml-2" @click="store.orderProductModal = false"/>
             </ModalHeader>
             <table id="orderTable" class="table table-report mt-3 text-[16px]">
                 <thead>
@@ -62,19 +63,19 @@
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('order_detail.sub_total')}}</div>
-                            <div class="mr-10">$ {{parseFloat(store.orderProductData.subtotal).toFixed(2)}}</div>
+                            <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.subtotal).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('order_detail.delivery_charge')}}</div>
-                            <div class="mr-10">$ {{parseFloat(store.orderProductData.shipping_cost).toFixed(2)}}</div>
+                            <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.shipping_cost).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{store.orderProductData.adjust_title ?? $t('order_detail.discount')}}</div>
-                            <div class="mr-10">$ {{parseFloat(store.orderProductData.adjust_price).toFixed(2)}}</div>
+                            <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.adjust_price).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('order_detail.total')}}</div>
-                            <div class="mr-10">$ {{parseFloat(store.orderProductData.total).toFixed(2)}}</div>
+                            <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.total).toFixed(2)}}</div>
                         </div>
                     </div>
                 </div>
@@ -178,7 +179,7 @@ thead th{
 		border: none;
 		position: relative;
 		padding-left: 50% !important;
-		text-align: left !important;
+		text-align: right !important;
 		box-shadow: none !important;
 		padding-top: 10px !important;
 	}
@@ -206,22 +207,26 @@ thead th{
 	td:nth-of-type(2):before {
 		content: attr(data-content);
 		overflow-wrap: break-word;
+        text-align: left;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(3):before {
 		content: attr(data-content);
 		overflow-wrap: break-word !important;
+        text-align: left;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(4):before {
 		content: attr(data-content);
+        text-align: left;
 		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(5):before {
 		content: attr(data-content);
+        text-align: left;
 		/* color: #0e9893; */
 	}
 }

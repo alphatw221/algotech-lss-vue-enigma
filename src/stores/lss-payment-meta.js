@@ -6,6 +6,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:true,
 		name: "Direct Payment",
 		key:"direct_payment",
+		icon:"static/payment/stripe/icon.png",
 		fields:[
 			{key:"mode", name:"Name of Bank / Payment Mode", type:"text", dataType:"string", default:''},
 			{key:"name", name:"Account Name", type:"text", dataType:"string", default:''},
@@ -28,6 +29,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"Stripe",
 		key:"stripe",
+		icon:"static/payment/stripe/icon.png",
 		fields:[
 			{key:"secret", type:"password", name: "Secret Key",dataType:"string", default:''},
 			{key:"currency", type:"select", name: "Currency", options:[

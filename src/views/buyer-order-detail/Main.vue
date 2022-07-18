@@ -84,10 +84,11 @@
 
                             <div class="col-start-1 col-span-2 py-3">Delivery Address</div>
                             <div class="col-start-3 col-span-3 py-3">
+                                {{store.order.shipping_address_1}} ,
                                 {{store.order.shipping_location}} ,
                                 {{store.order.shipping_region}} ,
-                                {{store.order.shipping_postcode}} ,
-                                {{store.order.shipping_address_1}}
+                                {{store.order.shipping_postcode}} 
+                                
                             </div>
                         </template>
                     </div>

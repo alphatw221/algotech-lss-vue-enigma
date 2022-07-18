@@ -2,36 +2,38 @@
 
     <div class="sticky z-50 flex-wrap justify-start bg-white -top-1 h-fit" v-show="props.platformName=='commentSummarize'">
         <button class="m-1 shadow-sm btn btn-danger w-fit tags" @click="commentSummarizer('delivery')">
-            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.delivery')}}
+            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign.live.comment.delivery')}}
         </button>
         <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummarizer('payment')">
-            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.payment')}}
+            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign.live.comment.payment')}}
         </button>
         <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('neutro')">
-            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.other')}}
+            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign.live.comment.other')}}
         </button>
         <!-- <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummarizer('Undefined')">
             <HashIcon class="w-4 h-4 mr-2" /> Undefined
         </button> -->
         <div class="flex"> 
-            <h2 v-if="tags !== ''" class="p-1 mb-2">{{$t('campaign_live.comment.select_tag')}}: {{ $t(`campaign_live.comment.`+tags) }}</h2>
+            <h2 v-if="tags !== ''" class="p-1 mb-2">{{$t('campaign.live.comment.select_tag')}}: {{ $t(`campaign.live.comment.`+tags) }}</h2>
             <button class="flex p-1 ml-auto w-18 text-slate-900"
                 @click="commentSummarizer('')">
-                <XIcon class="w-4 h-4" /> {{$t('campaign_live.comment.clear')}}
+                <XIcon class="w-4 h-4" /> {{$t('campaign.live.comment.clear')}}
             </button> 
         </div>
     </div>
 
     <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
-    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
+
+    <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
         {{ $t('campaign_live.comment.comment_message_1',{ tag : tags!==''?$t(`campaign_live.comment.`+tags):'' }) }}
     </div>
-    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="props.platformName=='all' && !fetchingData && comments.length==0">
+    <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-else-if="props.platformName=='all' && !fetchingData && comments.length==0">
         {{ $t('campaign_live.comment.comment_message_2',{ platformName : '' }) }}
     </div>
-    <div class="absolute top-[50%] right-[50%] text-slate-500 text-sm md:text-lg translate-x-1/2 w-fit" v-else-if="!fetchingData && comments.length==0">
+    <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-else-if="!fetchingData && comments.length==0">
         {{ $t('campaign_live.comment.comment_message_2',{ platformName : platformName }) }}
     </div>
+
     <!-- <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)"> -->
         <!-- temporary solution -->
     <div class="overflow-y-scroll h-fit scrollbar-hidden"  @scroll="handleScroll($event)">
@@ -119,7 +121,7 @@ const getHistoryComments= () =>{
     commentPaginator.getData().then(res=>{
         fetchingData.value = false
         comments.value = res.data.results
-        if(props.platformName!='commentSummarize')readyToUpdateByWebsocket()
+        readyToUpdateByWebsocket()
     }).catch(err=>{
         fetchingData.value = false
         return err
@@ -141,11 +143,21 @@ const handleScroll = event=>{
 }
 
 const readyToUpdateByWebsocket = ()=>{
-    eventBus.on(`insert_${props.platformName}_comment`, payload => {
-        comments.value.unshift(payload)
-    })
-}
 
+    if(props.platformName=='commentSummarize'){
+        eventBus.on(`insert_${props.platformName}_comment`, payload => {
+            if(tags.value in payload.categories){
+                comments.value.unshift(payload)
+            }
+        })
+    }else{
+        eventBus.on(`insert_${props.platformName}_comment`, payload => {
+            comments.value.unshift(payload)
+        
+        })
+
+    }
+}
 const commentSummarizer = category=>{
     comments.value = []
     fetchingData.value = true

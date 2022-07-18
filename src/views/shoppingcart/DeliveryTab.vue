@@ -83,7 +83,7 @@
               </div>
             </Tab>
             <template v-if="store.order.campaign"> 
-               <Tab v-if="store.order.campaign.meta_logistic.additional_delivery_charge_title.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
+               <Tab v-if="store.order.campaign.meta_logistic.additional_delivery_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('pickup')">
               <div class="inline-flex items-center grow place-content-center">
                 <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg">Self Pickup</span>
