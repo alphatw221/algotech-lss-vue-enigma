@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col h-full text-lg p-3 sm:px-5" v-if="ready">
+    <div class="flex flex-col h-[100%] text-lg p-3 sm:px-5" v-if="ready">
         <h1 class="text-center sm:text-left text-xl sm:text-2xl font-medium"> Lucky Draw </h1>
 
         <div class="box p-3 sm:p-10 sm:m-5">

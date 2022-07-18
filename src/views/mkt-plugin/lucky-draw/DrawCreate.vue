@@ -165,7 +165,7 @@
                     v-else-if="currentSettings.type === 'keyword'" 
                     class="lg:w-[50%]  flex-col ml-5"
                 >
-                    <label class="form-label "> Keyword</label>
+                    <label class="form-label mt-6"> Keyword</label>
                     <textarea class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
                         v-model="validate.comment.$model" placeholder="Enter your Keyword"
                         :class="{ 'border-danger text-danger border-2': validate.comment.$error }">

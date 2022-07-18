@@ -1,6 +1,6 @@
 <template>
     <Modal size="modal-xl" class="text-center" :slideOver="true" :show="campaignDetailStore.showAddProductFromStockModal"
-        @hidden="hideModal()" @show="search()">
+        @hidden="hideModal()" @show="search()"> 
         <a @click="hideModal()" class="absolute right-0 top-0 mt-3 mr-3">
             <XIcon class="w-8 h-8 text-slate-400" />
         </a>
@@ -14,9 +14,9 @@
             <!-- BEGIN SearchPage -->
             <div v-show="openTab=='select'">
                 <!-- BEGIN SearchBar -->
-                <div class="flex flex-wrap justify-end w-full sm:flex-row text-sm sm:text-md mx-5">
-                    <div class="flex-2 w-fit flex items-center sm:ml-2 mt-2" >
-                        <label class="w-14 mr-1 sm:mr-2 text-sm sm:text-md">
+                <div class="flex flex-wrap justify-around gap-3 w-[100%] text-[13px] sm:text-[16px]">
+                    <div class="flex-1 flex flex-wrap items-center" >
+                        <label class="w-14 mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
                             Category
                         </label>
                         <select 
@@ -27,29 +27,27 @@
                             <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.name }}</option>
                         </select>
                     </div>
-                    <div class="flex-2 w-fit items-center flex ml-2 mt-2" >
-                        <label class="mr-2 shrink whitespace-wrap sm:whitespace-nowrap">
+                    <div class="flex-1 flex-wrap items-center flex" >
+                        <label class="mr-2 whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
                             Search by
                         </label>
                         <select
-                            class="form-select min-w-fit mr-0 sm:mr-2 h-[35px] sm:h-[42px] shrink lg:max-w-xl" v-model="searchField">
+                            class="form-select min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
                             <option v-for="searchColumn in searchColumns" :key="searchColumn.value"
                                 :value="searchColumn.value">
                                 {{ searchColumn.text }}
                             </option>
                         </select>
                     </div>
-                    <div class="flex-1 w-fit items-center flex ml-2 mt-2">
-                        <div class="input-group">
-                            <input type="text"
-                                class="form-control input-group shrink min-w-fit h-[35px] sm:h-[42px]" placeholder="Search..."
-                                v-model="searchKeyword" @keydown.enter.prevent="search()" />
-                            <button 
-                                type="button"
-                                class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary" @click="resetSearchBar">
-                                Reset
-                            </button>
-                        </div>
+                    <div class="flex-0 items-center input-group ml-auto">
+                        <input type="text"
+                            class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" placeholder="Search..."
+                            v-model="searchKeyword" @keydown.enter.prevent="search()" />
+                        <button 
+                            type="button"
+                            class="flex-none w-14 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary mt-auto" @click="resetSearchBar">
+                            Reset
+                        </button>
                     </div>
                 </div>   
                 <!-- END SearchBar -->
@@ -57,13 +55,15 @@
 
                 <!-- BEGIN ProductTable -->
                 <div class="relative"> 
-                    <div class="overflow-auto h-[670px] text-[14px] mt-5">
+                    <div class="overflow-auto h-[62vh] text-[14px] mt-5">
                         <table class="table table-report h-[100%] w-[100%]">
                             <thead>
                                 <tr>
                                     <th class="w-10">
-                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" @change="selectAllStockProduct($event)"/></th>
-                                    <th class="whitespace-normal truncate hover:text-clip" v-for="column in tableColumns" :key="column.key">
+                                        <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" @change="selectAllStockProduct($event)"/></th>
+                                    <th 
+                                        class="whitespace-normal truncate hover:text-clip" 
+                                        v-for="column in tableColumns" :key="column.key">
                                         {{ column.name }}
                                     </th>
                                 </tr>
@@ -75,64 +75,77 @@
                                     class="intro-x align-middle"
                                 >
                                     <td class="w-10">
-                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product.check" @click="selectStockProduct(product, $event)"/>
+                                        <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
+                                            type="checkbox" v-model="product.check" @click="selectStockProduct(product, $event)"/>
                                     </td>
 
-                                    <td v-for="column in tableColumns" :key="column.key" class="text-[14px]">
+                                    <template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
 
-                                        <template v-if="column.key === 'image'" >
-                                            <div class="flex">
-                                                <div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12">
-                                                    <img 
-                                                        class="rounded-lg zoom-in"
-                                                        :src="imageUrl+product.image"
-                                                    />
+                                        <td v-if="column.key === 'image'" >
+                                            <div class="flex items-center justify-center imgtd">
+                                                <div class="w-[120px] h-[120px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
+                                                    <img class="rounded-lg cursor-auto" 
+                                                        :src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
                                                 </div>
                                             </div>
-                                        </template>
+                                        </td>
 
-                                        <template v-else-if="column.key === 'order_code'">
-                                            <div class="flex flex-col">
-                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+                                        <td 
+                                            v-else-if="column.key === 'order_code'" class="orderCode" 
+                                            >
+                                            <div class="place-content-end w-full md:w-24 lg:place-content-center">
+                                                <input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]" />
                                             </div>
-                                        </template>
+                                        </td>
 
-                                        <template v-else-if="column.key === 'category'" v-for="(tag,tag_index) in product['tag']" :key="tag_index">
-                                            <div>{{ tag }}</div> 
-                                        </template>
+                                        <td v-else-if="column.key === 'category'" 
+                                            class="category"
+                                            >
+                                            <div v-for="(tag,tag_index) in product['tag']" :key="tag_index"
+                                            class="flex flex-col justify-center content-center"
+                                            >{{ tag }}</div> 
+                                        </td>
 
-                                        <template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
-                                        <div class="flex flex-col">
-                                            <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
-                                        </div>
-                                        </template>
+                                        <td v-else-if="column.key === 'qty'"
+                                            class="qty">
+                                            <div class="flex flex-col place-content-end w-full md:w-24">
+                                                <input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                            </div>
+                                        </td>
+                                        <td v-else-if="column.key === 'max_order_amount'"
+                                            class="maxqty">
+                                            <div class="flex flex-col place-content-end w-full md:w-24">
+                                                <input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                            </div>
+                                        </td>
 
-                                        <template v-else-if="column.key === 'type'">
-                                            <select 
-                                                class="form-select w-auto mt-2 sm:mt-0"
+                                        <td v-else-if="column.key === 'type'" class="type"> 
+                                            <div v-if="props.productType === 'lucky_draw'">{{product[column.key]}}  </div>
+                                            <select v-else
+                                                class="form-select w-auto mt-2 sm:mt-2"
                                                 v-model="product[column.key]"
-                                                :disabled="props.productType === 'lucky_draw'"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
-                                        </template>
+                                        </td>
 
-                                        <template v-else-if="column.key === 'customer_editable' ">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
-                                        </template>
+                                        <td v-else-if="column.key === 'customer_editable'" class="editable">
+                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
+                                        </td>
 
-                                        <template v-else-if=" column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
-                                        </template>
+                                        <td v-else-if=" column.key === 'customer_removable'" class="removable">
+                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
+                                        </td>
 
-                                        <template v-else-if="column.key === 'price'">
-                                            <div class="truncate hover:text-clip z-10 w-20"> ${{product[column.key]}} </div>
-                                        </template>
+                                        <td v-else-if="column.key === 'price'"  class="price">
+                                            <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div>
+                                        </td>
 
-                                        <template v-else>
-                                            <div class="break-word  w-24"> {{product[column.key]}} </div>
-                                        </template>
-                                    </td>
+                                        <td v-else-if="column.key === 'name'" class="name text-[16px] w-full h-fit lg:w-24 lg:text-sm content-center items-center longMessage">
+                                            {{product[column.key]}}
+                                        </td>
+                                        <td v-else class="hidden"> </td>
+                                    </template>
                                 </tr>
                             </tbody>
                         </table> 
@@ -153,21 +166,23 @@
                     </div> 
                 </div>
                 <!-- END ProductTable -->
-
             </div>
             <!-- END SearchPage -->
 
         <!-- BEGIN ConfirmPage -->
             <div v-show="openTab=='confirm'">
+                <div class="text-left text-[16px]"> 
+                    Comfirm Selected Product
+                </div>
                 <div class="relative"> 
-                    <div class="overflow-auto h-[670px] text-[14px] mt-10">
+                    <div class="overflow-auto h-[72vh] text-[14px] mt-5">
                         <table class="table table-report h-[100%] w-[100%]">
                             <thead>
                                 <tr>
-                                    <th class="w-10">
-
-                                    </th>
-                                    <th class="whitespace-normal truncate hover:text-clip" v-for="column in tableColumns" :key="column.key">
+                                    <th class="w-10"></th>
+                                    <th 
+                                        class="whitespace-normal truncate hover:text-clip" 
+                                        v-for="column in tableColumns" :key="column.key">
                                         {{ column.name }}
                                     </th>
                                 </tr>
@@ -178,74 +193,79 @@
                                     :key="product_index"
                                     class="intro-x align-middle"
                                 >
-
                                     <td class="w-10">
-                                        <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" checked @click="unSelectProduct(product, product_index, $event)"/>
+                                        <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" checked @click="unSelectProduct(product, product_index, $event)"/>
                                     </td>
+                                    <template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
 
-                                    <td v-for="column in tableColumns" :key="column.key" class="text-[14px]">
-
-                                        <template v-if="column.key === 'image'" >
-                                            <div class="flex">
-                                                <div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12">
-                                                    <img 
-                                                        class="rounded-lg zoom-in"
-                                                        :src="imageUrl+product.image"
-                                                    />
+                                        <td v-if="column.key === 'image'">
+                                            <div class="flex items-center justify-center">
+                                                <div class="w-[120px] h-[120px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
+                                                    <img class="rounded-lg cursor-auto"
+                                                        :src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
                                                 </div>
                                             </div>
-                                        </template>
+                                        </td>
 
-                                        <template v-else-if="column.key === 'order_code'">
-                                            <div class="flex flex-col">
-                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
-                                                <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                        <td v-else-if="column.key === 'order_code'" class="orderCode">
+                                            <div class="relative place-content-end w-full md:w-24 lg:place-content-center">
+                                                <input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]" />
+                                                <label class="text-danger absolute -bottom-5 left-1" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
-                                        </template>
+                                        </td>
 
-                                        <template v-else-if="column.key === 'category'" v-for="(tag,tag_index) in product['tag']" :key="tag_index">
-                                            <div>{{ tag }}</div> 
-                                        </template>
-
-                                        <template v-else-if="column.key === 'qty' || column.key === 'max_order_amount'">
-                                            <div class="flex flex-col">
-                                                <input class="form-control w-full sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
-                                                <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
-                                            </div>
-                                        </template>
-
-                                        <template v-else-if="column.key === 'type'">
-                                            <select 
-                                                class="form-select w-auto mt-2 sm:mt-0"
-                                                v-model="product[column.key]"
-                                                :disabled="props.productType === 'lucky_draw'"
+                                        <td v-else-if="column.key === 'category'" 
+                                            class="category"
                                             >
-                                                <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
+                                            <div v-for="(tag,tag_index) in product['tag']" :key="tag_index">{{ tag }}</div> 
+                                        </td>
+
+                                        <td v-else-if="column.key === 'qty'" class="qty">
+                                            <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
+                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                                <label class="text-danger absolute -bottom-5 left-1 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            </div>
+                                        </td>
+
+                                        <td v-else-if="column.key === 'max_order_amount'" class="maxqty">
+                                            <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
+                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                                <label class="text-danger absolute -bottom-5 left-1 whitespace-nowrap" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            </div>
+                                        </td>
+
+                                        <td v-else-if="column.key === 'type'" class="type">
+                                            <div v-if="props.productType == 'lucky_draw'"> {{product[column.key]}}</div>
+                                            <select  v-else
+                                                class="form-select w-auto mt-2 sm:mt-2"
+                                                v-model="product[column.key]"
+                                            >
+                                                <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}} ascsc</option>
                                             </select> 
-                                        </template>
+                                        </td>
 
-                                        <template v-else-if="column.key === 'customer_editable' ">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)"/>
-                                        </template>
+                                        <td v-else-if="column.key === 'customer_editable'" class="editable">
+                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)"/>
+                                        </td>
 
-                                        <template v-else-if=" column.key === 'customer_removable'">
-                                            <input class="form-control form-check-input w-[1rem] h-[1rem] mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
-                                        </template>
+                                        <td v-else-if=" column.key === 'customer_removable'" class="removable">
+                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
+                                        </td>
 
-                                        <template v-else-if="column.key === 'price'">
-                                            <div class="truncate hover:text-clip z-10 w-20"> ${{product[column.key]}} </div>
-                                        </template>
+                                        <td v-else-if="column.key === 'price'" class="price">
+                                            <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div>
+                                        </td>
 
-                                        <template v-else>
-                                            <div class="break-all w-24"> {{product[column.key]}} </div>
-                                            <label class="text-danger flex" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
-                                        </template>
-                                    </td>
+                                        <td v-else-if="column.key === 'name'" class="name">
+                                            <div class="relative text-[16px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage"> {{product[column.key]}} </div>
+                                            <label class="text-danger text-danger absolute -bottom-5 left-1" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                        </td>
+                                    </template>
                                 </tr>
                             </tbody>
                         </table> 
                     </div>
-                    <div class=" flex items-center justify-between">
+                    <div class=" flex items-center justify-between mt-10">
                         <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5" @click="openTab='select'">Previous</button>
                         <button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">Reset</button>
                         <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">Apply</button>
@@ -279,6 +299,28 @@ const tableColumns = ref([
     { name: "Price", key: "price" },
 	{ name: "Editable", key: "customer_editable" },
 	{ name: "Deletable", key: "customer_removable" },
+	{ name: "Category", key: "category" },
+	{ name: "Type", key: "type" },
+])
+
+const productColumns = ref([
+    { name: "Product", key: "image" },
+    { name: "", key: "name" },
+    { name: "Order Code", key: "order_code" },
+	{ name: "QTY for Campaign", key: "qty" },
+	{ name: "Max QTY/Order", key: "max_order_amount" },
+    { name: "Price", key: "price" },
+	{ name: "Editable", key: "customer_editable" },
+	{ name: "Deletable", key: "customer_removable" },
+	{ name: "Category", key: "category" },
+	{ name: "Type", key: "type" },
+])
+
+const luckyColumns = ref([
+    { name: "Product", key: "image" },
+    { name: "", key: "name" },
+	{ name: "QTY for Campaign", key: "qty" },
+    { name: "Price", key: "price" },
 	{ name: "Category", key: "category" },
 	{ name: "Type", key: "type" },
 ])
@@ -317,7 +359,6 @@ const selectedProductDict = ref({})
 let isSelectedProductsValid=false
 let campaignProductCache = null
 
-
 onMounted(() => {
 	list_product_category().then(
 		res => { 
@@ -327,8 +368,6 @@ onMounted(() => {
 		}
 	)
 })
-	
-
 
 const updateStockProductsCheckBox = ()=>{
     stockProducts.value.forEach((product,stockProductIndex) => {
@@ -378,16 +417,24 @@ const checkIfValid = ()=>{
     selectedProducts.value.forEach((selectedProduct,index) => {
         console.log( productCache.orderCodeDict)
         errorMessages.value[index]={}
-        if(selectedProduct.order_code in productCache.orderCodeDict) {errorMessages.value[index]['order_code']='duplicate';isSelectedProductsValid=false;}
-        if(!selectedProduct.order_code) {errorMessages.value[index]['order_code']='invalid';isSelectedProductsValid=false;}
+        if(selectedProduct.order_code in productCache.orderCodeDict && props.productType !== 'lucky_draw') {errorMessages.value[index]['order_code']='duplicate';isSelectedProductsValid=false;}
+        if(!selectedProduct.order_code && props.productType !== 'lucky_draw') {errorMessages.value[index]['order_code']='invalid';isSelectedProductsValid=false;}
         // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
-        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid';isSelectedProductsValid=false}
+        if(selectedProduct.qty<=0 && props.productType != 'lucky_draw') {errorMessages.value[index]['qty']='invalid';isSelectedProductsValid=false}
         else if(selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false}
         
         productCache.orderCodeDict[selectedProduct.order_code]=true
     });
 
 }
+
+watch(computed(()=>props.productType), () => {
+    if(props.productType == 'lucky_draw'){
+        tableColumns.value = luckyColumns.value
+    }else{
+        tableColumns.value = productColumns.value
+    }
+})
 
 watch(computed(()=>campaignDetailStore.campaignProducts),createProductCache)
 
@@ -435,24 +482,23 @@ const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
 }
 
 const resetSelectedProduct = ()=>{
-
 	selectedProducts.value.forEach(product => {
 		delete selectedProductDict.value[product.id.toString()]
 	});
 	selectedProducts.value = []
 	errorMessages.value = []
     updateStockProductsCheckBox()
-
 }
 
 const selectAllStockProduct = (event)=>{
 	event.target.checked=false
 	stockProducts.value.forEach(product => {
-        product.check=true
+        product.check= !product.check
         selectedProducts.value.push(product)
 		selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
 		errorMessages.value.push({})
 	});
+    openTab='select'
 }
 
 const search = () => {
@@ -567,10 +613,6 @@ thead th {
         padding: 0px !important;
     }
 
-    input {
-        height: 35px !important;
-    }
-
     .form-check-input{
         width: 1.2rem !important;
         height: 1.2rem !important;
@@ -589,10 +631,11 @@ thead th {
     tr {
 		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
 		margin-top: 20px;
+        padding-bottom: 10px !important;
 	}
 
     td {
-        min-height: 35px;
+        min-height: 42px;
         height: auto;
         border: none;
         position: relative;
@@ -607,7 +650,7 @@ thead th {
 
     td:before {
         position: absolute;
-        min-height: 20px;
+        min-height: 42px;
         left: 6px;
         width: 45%;
         padding-right: 10px;
@@ -617,33 +660,35 @@ thead th {
         background-color: white !important;
         text-align: left;
     }
-    .selected:before {
+
+    td:nth-of-type(1):before {
         display: none;
     }
-
-    .selected{
-        display: block;
-        float:right;
-        width:40px !important;
-        padding-left: 0px !important;
-	}
-
-    .imgtd:before {
-        display: none;
-    }
-
-    .imgtd {
+    td:nth-of-type(1){
         display: inline-block;
-        width: 80% !important;
-        padding-left: 20% !important;
+        position: absolute;
+        z-index: 10;
+        right: 0;
+        width: 40px !important;
+        padding-left: 0 !important;
+        min-height: 25px !important;
+    }
+    td:nth-of-type(2):before {
+        display: none;
+    }
+
+    td:nth-of-type(2){
+        display: inline-block;
+        width: 100% !important;
+        padding-left: 0 !important;
         height: 125px !important;
     }
 
-    td:nth-of-type(3):before {
+    .name:before {
         display: none;
     }
 
-    td:nth-of-type(3) {
+    .name{
         display: inline-block;
         text-align: center !important;
         width: 100% !important;
@@ -653,50 +698,52 @@ thead th {
         font-size: 16px !important;
     }
 
-    td:nth-of-type(4):before {
+    .orderCode:before {
         content: "Order Code";
         text-align: left !important;
         top:25% !important;
     }
 
-    td:nth-of-type(5):before {
+    .qty:before {
         content: "Qty for Campaign";
         top:25% !important;
     }
 
-    td:nth-of-type(6):before {
+    .maxqty:before {
         content: "Max Qty / Order";
         top:25% !important;
     }
 
-    td:nth-of-type(7):before {
-        top: -3px;
-        content: "Category";
-        top:25% !important;
+    .price:before {
+        content: "Price";
     }
-    td:nth-of-type(7){
+    .price{
+        top: 10px;
+    }
+    /* .price{
         display: flex;
         flex-direction:column; 
         justify-content: center;
         vertical-align:baseline !important;
-    }
+    } */
 
-    td:nth-of-type(8):before {
-        content: "Price";
+    .editable:before {
+        content: "Editable";
         margin-top: 0px !important;
     }
-    td:nth-of-type(9):before {
+    .removable:before {
+        content: "Deletable";
+        text-align: left !important;
+        margin-top: 0px !important;
+    }
+
+    .category:before {
+        content: "Category";
+    }
+
+    .type:before {
         content: "Type";
         text-align: left !important;
-        margin-top: 0 !important;
-    }
-
-    td:nth-of-type(10):before {
-        content: "Editable";
-    }
-
-    td:nth-of-type(11):before {
-        content: "Deletable";
     }
 }
 </style>
