@@ -1,7 +1,7 @@
 <template>
     <div class="my-5 text-base text-xl sm:text-2xl text-center"> {{$t('order_detail.order')}} </div>
 
-    <div class="grid grid-cols-12 grid-rows-6 lg:grid-rows-4 gap-4 h-fit">
+    <div class="grid grid-cols-12 grid-rows-6 lg:grid-rows-4 h-fit">
         <!-- Left col orderTable-->
         <div class="col-span-12 row-start-1 row-span-2 lg:col-span-6 mx-2 lg:row-start-1 lg:row-span-2"> 
             <div class="w-full mx-2 ">

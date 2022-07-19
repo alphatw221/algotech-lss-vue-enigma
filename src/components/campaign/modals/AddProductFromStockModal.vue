@@ -119,15 +119,17 @@
                                             </div>
                                         </td>
 
-                                        <td v-else-if="column.key === 'type'" class="type"> 
-                                            <div v-if="props.productType === 'lucky_draw'">{{product[column.key]}}  </div>
-                                            <select v-else
-                                                class="form-select w-auto mt-0 sm:mt-2"
+                                        <td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
+                                            <span>{{product[column.key]}}</span>
+                                        </td>
+                                        <td v-else-if="column.key === 'type'" class="type">
+                                            <select
+                                                class="form-select w-auto mt-0 "
                                                 v-model="product[column.key]"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
-                                        </td>
+                                        </td> 
 
                                         <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable">
                                             <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
@@ -213,40 +215,40 @@
 
                                         <td v-else-if="column.key === 'order_code' && product.type=='product'" class="orderCode">
                                             <div class="relative place-content-end w-full md:w-24 lg:place-content-center">
-                                                <input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]" />
-                                                <label class="text-danger absolute -bottom-5 right-0 z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
                                             </div>
                                         </td>
-                                        
+
                                         <td v-else-if="column.key === 'category'" class="category">
                                             <div v-for="(tag,tag_index) in product['tag']" :key="tag_index">{{ tag }}</div> 
                                         </td>
 
                                         <td v-else-if="column.key === 'qty'" class="qty">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
-                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
                                                 <label class="text-danger absolute -bottom-5 right-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </td>
 
                                         <td v-else-if="column.key === 'max_order_amount' && product.type=='product'" class="maxqty">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
-                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
                                                 <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </td>
-
+                                        <td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
+                                            <span>{{product[column.key]}}</span>
+                                        </td>
                                         <td v-else-if="column.key === 'type'" class="type">
-                                            <div v-if="props.productType == 'lucky_draw'"> {{product[column.key]}}</div>
-                                            <select  v-else
-                                                class="form-select w-auto mt-0 sm:mt-2"
+                                            <select
+                                                class="form-select w-auto mt-0 "
                                                 v-model="product[column.key]"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
                                             <label class="text-danger absolute -bottom-5 right-0 whitespace-nowrap" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
-                                        </td>
-
+                                        </td> 
+                                        
                                         <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable">
                                             <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" />
                                         </td>
@@ -258,8 +260,8 @@
                                         <td v-else-if="column.key === 'price'" class="price">
                                             <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
                                             <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
-                                                <span class="mt-auto mr-1">$</span> 
-                                                <input class="form-control w-[100%] mt-0 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                                <span class="my-auto mr-1 text-[16px]">$</span> 
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
                                             </div>
                                         </td>
 
@@ -757,7 +759,14 @@ thead th{
     .category:before {
         content: "Category";
     }
-
+    .luckyType:before{
+        content: "Type";
+        text-align: left !important;
+        min-height: 35px !important;
+    }
+    .luckyType{
+        min-height: 35px !important;
+    }
     .type:before {
         content: "Type";
         text-align: left !important;
@@ -774,5 +783,6 @@ thead th{
         display:none; 
         min-height: 0 !important;
     }
+    
 }
 </style>
