@@ -1,0 +1,14 @@
+{
+    "comment" :{
+        "comments":"Comments",
+        "delivery":"Delivery",
+        "payment":"Payment",
+        "other":"Other",
+        "select_tag":"Selected tag",
+        "clear":"Clear",
+        "comment_message_1":"You don't have any %{tag} related comment yet",
+        "comment_message_2":"You don't have any %{platformName} comment yet"
+    },
+    "cart_sold_left":"Giỏ hàng / Đã bán / Còn lại",
+    "incoming_order":"Đơn hàng đến"
+}

@@ -1,0 +1,11 @@
+{
+    "create_campaign" : "Tạo chiến dịch",
+        "period":"Thời gian",
+        "delivery_details":"Thông tin vận chuyển",   
+        "payment_details":"Thông tin thanh toán",
+        "more_option":"Thêm lựa chọn khác",
+        "edit_campaign" : "Edit Campaign",
+        "campaign_title" : "Tiêu đề",
+        "customer_payment" : "Tải lên trang thanh toán của khách hàng",
+        "max_delivery_order" : "Max Delivery Order Per Day"
+}

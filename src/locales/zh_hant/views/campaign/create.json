@@ -1,0 +1,12 @@
+{
+    "delivery_details":"Delivery Details",   
+    "payment_details":"Payment Details",
+    "more_option":"Add more option",
+    "customer_payment" : "Customer Payment Page Upload",
+    "create_campaign" : "新增直播",
+    "period":"直播時間",
+    "edit_campaign" : "編輯直播",
+    "campaign_detail" : "直播設定",
+    "campaign_title" : "標題",
+    "max_delivery_order" : "Max Delivery Order Per Day"
+}
