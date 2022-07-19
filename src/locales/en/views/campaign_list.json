@@ -40,7 +40,8 @@
         "null":"",
         "history":"History",
         "live_on":"Live On",
-        "edit":"Edit",
+        "edit_campaign":"Edit Campaign",
+        "edit_campaign_product":"Edit Campaign Product",
         "blank_cart":"Copy Blank Cart Link",
         "lucky_draw":"Lucky Draw"
     },
