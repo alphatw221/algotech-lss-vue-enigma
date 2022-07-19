@@ -6,7 +6,7 @@
         </a>
         <ModalHeader class="text-center text-base p-5">
             <h2 class="font-medium w-full">
-                Add Product From Stock
+                Confirm To Add Following Product
             </h2>
         </ModalHeader>
         <ModalBody>
@@ -134,7 +134,10 @@
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
-                                            <div class="truncate hover:text-clip z-10 w-20"> ${{product[column.key]}} </div>
+                                            <div class="inline-flex"> 
+                                                <label class="my-auto mr-1">$</label>
+                                                <input class="form-control sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+                                            </div>
                                         </template>
 
                                         <template v-else>
@@ -157,7 +160,7 @@
                         
                     </div> 
                     <div class=" flex items-center justify-between">
-                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">Next</button>
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">Add</button>
                     </div> 
                 </div>
                 <!-- END ProductTable -->
@@ -248,7 +251,10 @@
                                         </template>
 
                                         <template v-else-if="column.key === 'price'">
-                                            <div class="truncate hover:text-clip z-10 w-20"> ${{product[column.key]}} </div>
+                                            <div class="inline-flex"> 
+                                                <label class="my-auto mr-1">$</label>
+                                                <input class="form-control sm:w-20 mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+                                            </div>
                                         </template>
 
                                         <template v-else>
@@ -261,9 +267,9 @@
                         </table> 
                     </div>
                     <div class=" flex items-center justify-between">
-                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5" @click="openTab='select'">Previous</button>
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5" @click="openTab='select'">Add More Product</button>
                         <button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">Reset</button>
-                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">Apply</button>
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">Confirm</button>
                     </div> 
                 </div>
             </div>
@@ -352,25 +358,11 @@ const updateStockProducts = ()=>{
         
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
-            // console.log(stockProductIndex)
-            // console.log('before update stock')
-            // relations.push([stockProductIndex,index])
             stockProducts.value[stockProductIndex] = selectedProducts.value[index]
-            // console.log('after update stock')
-            // console.log(product.id)
         }else{
-            // console.log(stockProductIndex)
-            // console.log(product.id)
             product.check=false
         }
     });
-    // console.log(relations)
-    // console.log(stockProducts.value)
-    // relations.forEach(relation=>{
-    //     console.log(selectedProducts.value[relation[1]].id)
-    //     stockProducts.value[relation[0]] = selectedProducts.value[relation[1]]
-
-    // })
 }
 
 const getProductCache = ()=>{
@@ -464,7 +456,7 @@ const resetSelectedProduct = ()=>{
 	selectedProducts.value = []
 	errorMessages.value = []
     updateStockProducts()
-
+    openTab.value='select'
 }
 
 const selectAllStockProduct = (event)=>{
@@ -517,7 +509,9 @@ const submitData = ()=>{
 		campaignDetailStore.campaignProducts = res.data
         hideModal()
 	}).catch(err=>{
+        console.log(err.response.data)
 		if (err.response){
+
 			errorMessages.value = err.response.data.errors
 		}
 	})

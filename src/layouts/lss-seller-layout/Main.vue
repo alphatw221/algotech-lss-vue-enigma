@@ -62,15 +62,17 @@ import LSSSellerMobileMenu from "@/components/lss-seller-mobile-menu/Main.vue";
 import LSSSellerMenu from "@/components/lss-seller-menu/Main.vue";
 import ThemeModeSwitcher from "@/components/theme-mode-switcher/Main.vue";
 import { useCookies } from "vue3-cookies";
-import { provide, onMounted,ref, computed, watch } from "vue"
+import { provide, onMounted,ref, computed, watch, getCurrentInstance } from "vue"
 import { useRouter ,useRoute} from "vue-router";
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+
 const route = useRoute();
 const router = useRouter();
 const store = useLSSSellerLayoutStore();
 const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
+const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
 const checkCampaignTime = (data) =>{
   for (let i =0; i < data.data.length; i++){
@@ -91,41 +93,48 @@ const toast = () =>{
   store.campaignAlert.buttonToast("I have an upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
 }
 
-const websocketInit =()=> {
-  const campaignSocket = new WebSocket(
+const initWebSocketConnection =()=> {
+  const websocket = new WebSocket(
       `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/login/?token=${accessToken}`
   );
-  campaignSocket.onmessage = e => {
+  websocket.onmessage = e => {
       const data = JSON.parse(e.data);
       checkCampaignTime(data)
   };
-  campaignSocket.onopen = e => {
+  websocket.onopen = e => {
       console.log('connected')
   };
-  campaignSocket.onclose = e => {
-      console.error('Campaign socket closed unexpectedly');
-      websocketInit()
+  websocket.onclose = e => {
+      if(e.code!=1000){
+            initWebSocketConnection()
+        }
+        console.error('Chat socket closed unexpectedly');
   };
-  campaignSocket.onerror = function(err) {
+  websocket.onerror = function(err) {
       console.error('Socket encountered error: ', err.message, 'Closing socket');
-      campaignSocket.close();
+      websocket.close(1000);
   };
 }
 
-import i18n from '@/locales/i18n';
-import { get_seller_account } from '@/api_v2/user';
-// import { useCookies } from "vue3-cookies";
-// const { cookies } = useCookies();
 
 
-onMounted(() => {
-  websocketInit()
-  if (cookies.get('access_token')) {
-      get_seller_account().then(res => {
-        i18n.global.locale.value = res.data.user_subscription.lang
-      })
+const setLanguage = ()=>{
+  if(store.userInfo.user_subscription){
+    i18n.locale=store.userInfo.user_subscription.lang
   }
- })
+}
+
+watch(
+  computed(()=>store.userInfo),
+  ()=>{setLanguage()}
+  ,{deep:true}
+)
+  
+onMounted(() => {
+  setLanguage();
+  initWebSocketConnection();
+})
+
 
 // watch(computed(()=>route.path),
 // ()=>{
