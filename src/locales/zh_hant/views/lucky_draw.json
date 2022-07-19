@@ -1,0 +1,32 @@
+{
+    "lucky_draw" : "抽獎工具",
+    "settings" : "抽獎設定",
+    "prize" : "獎品",
+    "number_of_winner" : "得獎人數",
+    "winner_repeat" : "重複得獎",
+    "spin_time" : "動畫時間",
+    "style" : {
+        "animation_style" : "動畫風格",
+        "default_1" : "default-spin-1",
+        "default_2" : "default-spin-2"
+    },
+    "draw_type" : {
+        "draw_type" : "抽獎類型",
+        "like" : "按讚者",
+        "purchased" : "購買者",
+        "order_code" : "輸入訂購代碼者",
+        "comment" : "留言者",
+        "accept" : "可輸入: '0-9' 或 'A-Z'."
+    },
+    "order_code" : "抽獎條件：下單此商品",
+    "draw_order_code" : "開始下單抽獎",
+    "comment_include" : "抽獎條件：留言包含",
+    "draw_keyword" : "開始留言抽獎",
+    "error_outline" : "error_outline",
+    "no_winners" : "No Winner! There's no comment with this keyword.",
+    "got_it" : "Got it !",
+    "lucky_draw_result" : "抽獎結果",
+    "winner" : "得獎者",
+    "keyword" : "關鍵字",
+    "apply" : "確認"
+}

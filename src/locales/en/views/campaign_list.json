@@ -1,0 +1,44 @@
+{
+    "process" : {
+            "create" : "Create",
+            "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",
+            "connect" : "Connect",
+            "connect_description" : "Click \"Edit\" button to connect camapign to your FB Post.",
+            "complete" : "Complete",
+            "complete_description" : "Click \"Enter\" to join the live campaign."
+        },
+    "create_campaign": "Create",
+    "campaigns" : "Campaigns",
+    "live_on" : "Live On",
+
+    "scheduled" : "Scheduled",
+    "history" : "History",
+    "ongoing" : "Ongoing",
+
+    "search" : "Search",
+    "reset" : "Reset",
+
+    "enter_post_id":{
+            "message":"Please enter post ID to start live selling.",
+            "select_stream":"Select Stream",
+            "select_page":"Select Page",
+            "id":"Post ID"
+        },
+
+    "title" : "Title",
+    "fan_page" : "Platform",
+    "start_at" : "Start Date",
+    "end_at" : "End Date",
+    "manage" : "Manage",
+    "manage_product" : "Manage Product",
+    "manage_order" : "Manage Order",
+    "stop" : "Stop Checkout",
+    "action" : "Action",
+    "enter" : "Enter",
+    "detail" : "Detail",
+    "settings" : "Settings",
+    "delivery" : "Delivery",
+    "payment" : "Payment",
+    "show" : "Show",
+    "null" : ""
+}

@@ -1,11 +1,11 @@
 <template>
     <div class="box p-5 px-10 lg:p-10 lg:px-20">
         <div class="flex my-3 text-lg">
-            <div class="mr-5"> Country: </div>
+            <div class="mr-5"> {{$t("settings.localization.country")}}: </div>
             <div v-if="layoutStore.userInfo.user_subscription "> {{  countries[layoutStore.userInfo.user_subscription.country]||'' }}</div>
         </div>
         <div class="flex my-3 mt-5 text-m">
-            <div> Currency Symbol: </div>
+            <div> {{$t("settings.localization.currency_symbol")}}: </div>
         </div>
         <div class="flex my-1">
             <TomSelect v-model="data.currency" :options="{
@@ -15,7 +15,7 @@
             </TomSelect>
         </div>
         <div class="flex my-3 mt-5 text-lg">
-            <div class="mr-5"> Seller</div>
+            <div class="mr-5"> {{$t("settings.localization.seller_language")}}</div>
         </div> 
         <div class="flex my-1">
             <TomSelect v-model="data.lang" :options="{
@@ -25,7 +25,7 @@
             </TomSelect>
         </div>
         <div class="flex my-3 mt-5 text-lg">
-            <div class="mr-5"> Buyer</div>
+            <div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
         </div>
         <div class="flex my-1">
             <TomSelect v-model="data.buyer_lang" :options="{
@@ -35,7 +35,7 @@
             </TomSelect>
         </div>
         <div class="flex my-3 mt-5 text-lg">
-            <div class="mr-5"> Decimal Places</div>
+            <div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
         </div>
         <div class="flex my-1">
             <TomSelect v-model="data.decimal_places" :options="{placeholder: 'Select your Decimal Places'}" class="w-5/6">
@@ -43,8 +43,8 @@
             </TomSelect>
         </div>
         <div class="flex justify-end mt-10 w-5/6"> 
-            <button class="btn btn-rounded-secondary mr-5 w-20" @click="clean()"> Discard</button>
-            <button class="btn btn-rounded-primary w-20" @click="save()"> Save</button>
+            <button class="btn btn-rounded-secondary mr-5 w-20" @click="clean()"> {{$t("settings.localization.discard")}}</button>
+            <button class="btn btn-rounded-primary w-20" @click="save()"> {{$t("settings.localization.save")}}</button>
         </div>
     </div>
 

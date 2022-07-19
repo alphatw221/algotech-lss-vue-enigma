@@ -152,7 +152,7 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 
-import EnterPostIDModal from "@/views/campaignlist/enter-post-id-modal/Main.vue"
+import EnterPostIDModal from "@/views/campaign-list/enter-post-id-modal/Main.vue"
 import { required, minLength, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 

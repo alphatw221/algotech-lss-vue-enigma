@@ -1,5 +1,4 @@
 {
-    "setting" : "Setting",
     "settings" : "Settings",
     "client_id" : "Client ID",
     "secret" : "Secret",
@@ -9,10 +8,10 @@
     "time_zone" : "Time Zone",
     "confirmation_note" : "Confirmation Note",
     "default_active" : "Default Active",
-    "api_key" : "Api Key",
-    "salt" : "Salt",
+    "default_settings":"Campaign Default Settings",
 
     "delivery":{
+        "delivery":"Delivery",
         "charge":"Delivery Charge",
         "charge_option":"Delivery Charge Option",
         "replace_charge" : "Replace delivery charge",
@@ -28,6 +27,7 @@
         
     },
     "payment":{
+        "payment":"Payment",
         "Direct Payment":"Direct Payment",
         "enabled":"Enabled",
         "mode":"Name of Bank / Payment Mode",
@@ -39,8 +39,31 @@
         }
     },
     "notes":{
-        "delivery":"Delivery Note",
-        "special":"Special Note",
-        "confirmation":"Confirmation Note"
+        "notes":"Notes",
+        "delivery_note":"Delivery Note",
+        "special_note":"Special Note",
+        "confirmation_note":"Confirmation Note",
+        "discard":"Discard",
+        "save":"Save"
+    },
+    "localization":{
+        "country":"Country",
+        "currency_symbol":"Currency Symbol",
+        "seller_language":"Seller Language",
+        "buyer_language":"Buyer Language",
+        "decimal_places":"Decimal Places",
+        "discard":"Discard",
+        "save":"Save"
+    },
+    "platform":{
+        "connected_platform":"Connect Social Media Platform",
+        "facebook_fan_page":"Facebook Fan Page",
+        "instagram_profile":"Instagram Profile",
+        "youtube_channel":"Youtube Channel",
+        "edit":"Edit",
+        "cancel":"",
+        "upgrade":"",
+        "you_can_only_bind":"",
+        "your_subscription_plan_is":""
     }
 }
