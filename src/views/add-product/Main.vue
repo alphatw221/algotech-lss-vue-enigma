@@ -53,30 +53,32 @@
 				</template> -->
 			</div>
 
-			<div class="col-span-12 col-start-1 relative">
+			<div class="col-span-12 col-start-1 ">
 				<label class="form-label text-base mt-2 font-medium">Upload Image</label>
-				<XIcon class="absolute top-4 right-0 w-4 h-4 ml-2" @click="clear"/>
-				<Dropzone ref-key="dropzoneSingleRef" :options="{
-						method: 'put',
-						url: 'url',
-						uploadMultiple: false,
-						maxFilesize: 2,
-						addRemoveLinks: true,
-						autoProcessQueue: false,
-						resizeQuality: 0.5,
-						acceptedFiles: 'image/*',
-					}" class="dropzone">
-					<div v-if="!previewImage" > 
-						<div class="text-lg font-medium">
-						Drop files here or click to upload.
+				<div class="relative">
+					<XCircleIcon class="absolute top-1 right-1 w-4 h-4 ml-2 z-index-99" style="color:red" @click="clear"/>
+					<Dropzone ref-key="dropzoneSingleRef" :options="{
+							method: 'put',
+							url: 'url',
+							uploadMultiple: false,
+							maxFilesize: 2,
+							addRemoveLinks: true,
+							autoProcessQueue: false,
+							resizeQuality: 0.5,
+							acceptedFiles: 'image/*',
+						}" class="dropzone">
+						<div v-if="!previewImage" > 
+							<div class="text-lg font-medium">
+							Drop files here or click to upload.
+							</div>
+							<div class="text-gray-600">
+								<br>accepted File types: jpeg, png, jpg
+							</div>
+							<div class="text-gray-600">Max file size : 2MB</div>  
 						</div>
-						<div class="text-gray-600">
-							<br>accepted File types: jpeg, png, jpg
-						</div>
-						<div class="text-gray-600">Max file size : 2MB</div>  
-					</div>
-					<img class="w-40 h-40 rounded-lg" v-else data-dz-thumbnail :src="previewImage" />
-				</Dropzone>
+						<img class="w-40 h-40 rounded-lg" v-else data-dz-thumbnail :src="previewImage" />
+					</Dropzone>
+				</div>
 			</div> 
 
 			<!-- <div class="col-span-12 col-start-1 mt-2">

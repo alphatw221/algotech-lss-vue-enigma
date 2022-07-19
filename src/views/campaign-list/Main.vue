@@ -14,7 +14,7 @@
       <button 
         class="flex w-32 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded"
               @click="router.push({name:'create-campaign'})" > 
-        <span class="mr-1 text-lg font-bold">+</span> {{$t('components.word.create')}}
+        <span class="mr-1 text-lg font-bold">+</span> {{$t('campaign_list.create_campaign')}}
       </button>
     </div>
     <div class="flex-auto" v-show="campaignStatus=='scheduled'">

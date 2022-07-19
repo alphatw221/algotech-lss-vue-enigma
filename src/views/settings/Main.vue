@@ -2,16 +2,16 @@
     <!-- OUTTER BOX -->
     <div class="flex flex-col p-2 font-medium text-sm sm:text-xl">
         <!-- BEGIN: commit box -->
-        <span class="mt-2 mb-1 sm:mt-5 mx-auto sm:mx-0 text-xl sm:text-2xl"> Default Settings</span>
+        <span class="mt-2 mb-1 sm:mt-5 mx-auto sm:mx-0 text-xl sm:text-2xl"> {{$t('settings.default_settings')}}</span>
 
         <div class="flex flex-col gap-5 p-5 box">
             <div class="switch-toggle mx-auto sm:mx-0">
                 <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
-                <label for="on">Notes</label>
+                <label for="on">{{$t('settings.notes.notes')}}</label>
                 <input id="na" name="state-d" type="radio" class="" @click="toggleTabs(2)" />
-                <label for="na">Payment</label>
+                <label for="na">{{$t('settings.payment.payment')}}</label>
                 <input id="off" name="state-d" type="radio" @click="toggleTabs(3)" />
-                <label for="off">Delivery</label>
+                <label for="off">{{$t('settings.delivery.delivery')}}</label>
             </div>
 
             <div id="notes" :class="{ hidden: openTab !== 1, block: openTab === 1 }">
