@@ -22,22 +22,22 @@
             <!-- Delivery Information -->
             <div class="p-5 mt-5 border-2 box border-secondary"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
-                    <span class="text-lg">{{$t('order_detail.delivery_information')}}</span>   
+                    <span class="text-lg">{{$t('order_detail.delivery.information')}}</span>   
                 </div>
                 <div class="grid grid-cols-6 gap-2" v-show="store.orderDetail.shipping_method">
 
                     <template v-if="store.orderDetail.shipping_method === 'pickup'">
-                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery_method')}}</div>
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{$t(`order_detail.${store.orderDetail.shipping_method}`)}}</div>
 
-                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.pickup_address')}}</div>
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_option + ' - ' + store.orderDetail.pickup_address}}</div>
                     </template>
                     <template v-if="store.orderDetail.shipping_method === 'delivery'">
-                        <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery_method')}}</div>
+                        <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.method')}}</div>
                         <div class="col-start-3 col-span-3 py-3">{{$t(`order_detail.${store.orderDetail.shipping_method}`)}} {{store.orderDetail.shipping_option}}</div>
 
-                        <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery_address')}}</div>
+                        <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.address')}}</div>
                         <div class="col-start-3 col-span-3 py-3">
                             {{store.orderDetail.shipping_address_1}} ,
                             {{store.orderDetail.shipping_location}} ,
@@ -69,21 +69,21 @@
             <!-- Payment Information -->
             <div class="p-5 mt-5 border-2 box border-secondary"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
-                    <span class="text-lg"> {{$t('order_detail.payment_information')}}</span>   
+                    <span class="text-lg"> {{$t('order_detail.payment.information')}}</span>   
                 </div>
                 <div class="grid grid-cols-6 gap-2" v-if="store.orderDetail.payment_method">
                     <template v-if="store.orderDetail.payment_method">
-                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment_method')}}</div>
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{ store.orderDetail.payment_method == 'Direct Payment' ? `Direct Payment - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</div>
                     </template>
 
                     <template v-if="store.orderDetail.meta.last_five_digit">
-                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.last_five_digits')}}</div>
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.last_five_digits')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</div>
                     </template>
 
                     <template v-if="store.orderDetail.meta.receipt_image">
-                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.record')}}</div>
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.record')}}</div>
                         <div class="col-start-3 col-span-3 py-2">
                                 <Tippy tag="img" :src="store.orderDetail.meta.receipt_image" />
                         </div>
