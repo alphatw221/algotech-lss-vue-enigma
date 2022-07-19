@@ -1,6 +1,6 @@
 .content {
     padding: 0px 20px;
-    @apply relative flex-1 min-w-0 min-h-screen pt-20 pb-2 mt-1 bg-slate-100 dark:bg-darkmode-700;
+    @apply relative flex-1 min-w-0 pt-20 pb-2 mt-1 bg-slate-100 dark:bg-darkmode-700;
     @include media-breakpoint-down(md) {
         @apply max-w-full px-0 pt-0 mt-0;
     }

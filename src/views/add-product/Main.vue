@@ -1,6 +1,5 @@
 <template>
 	<div class="h-fit">
-		<!-- {{ $t('test1') }} -->
 		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y " v-if="route.params.product_id">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">Edit Product</h2>
 		</div>

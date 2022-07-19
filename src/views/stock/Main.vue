@@ -1,6 +1,6 @@
 <template>
-	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-8">
-		<div class="flex flex-wrap justify-between gap-5 mx-0 mt-10 sm:mt-0"> 
+	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-8 h-[100%]">
+		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-10 sm:mt-0"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
 				<label for="on"> For Sale</label>
@@ -16,7 +16,7 @@
             </button>
 		</div>
 		<!-- BEGIN For Sale Tab -->
-		<div class="flex flex-col gap-3 leading-relaxed sm:gap-5"
+		<div class="flex flex-col gap-3 leading-relaxed sm:gap-3"
 			:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
 			<SearchBar
 				:searchColumns="searchColumns"
