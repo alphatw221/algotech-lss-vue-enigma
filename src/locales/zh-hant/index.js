@@ -3,7 +3,9 @@ import global from './global.json'
 import settings from './settings.json'
 import shopping_cart from './shopping_cart.json'
 import components from './components.json'
-import campaign from './campaign.json'
+import campaign_create from './campaign/create.json'
+import campaign_list from './campaign/list.json'
+import campaign_live from './campaign/live.json'
 import manage_order from './manage_order.json'
 import order_detail from './order_detail.json'
 export default {
@@ -12,7 +14,9 @@ export default {
     settings,
     shopping_cart,
     components,
-    campaign,
+    campaign_create,
+    campaign_list,
+    campaign_live,
     manage_order,
     order_detail
 }

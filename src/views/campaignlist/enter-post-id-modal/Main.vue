@@ -7,7 +7,7 @@
       @hidden="hideModal()"
     >
       <ModalHeader>
-        <h2 class="mr-auto text-base font-medium">{{$t('campaign.list.enter_post_id.select_stream')}}</h2>
+        <h2 class="mr-auto text-base font-medium">{{$t('campaign_list.enter_post_id.select_stream')}}</h2>
         <a
           @click="hideModal()"
           class="absolute top-0 right-0 mt-3 mr-3"
@@ -37,7 +37,7 @@
               @click="selectPlatformPage('facebook')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              {{$t('campaign.list.enter_post_id.select_page')}}
+              {{$t('campaign_list.enter_post_id.select_page')}}
             </button>
             <div>
               Post ID: <br>
@@ -63,7 +63,7 @@
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
               <!-- Select Profile -->
-              {{$t('campaign.enter_post_id.select_page')}}
+              {{$t('campaign_list.enter_post_id.select_page')}}
             </button>
             <!-- <input
               id="modal-form-1"
@@ -96,7 +96,7 @@
               @click="selectPlatformPage('youtube')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              {{$t('campaign.list.enter_post_id.select_page')}}
+              {{$t('campaign_list.enter_post_id.select_page')}}
             </button>
             <!-- <input
               id="modal-form-1"
