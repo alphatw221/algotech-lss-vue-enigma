@@ -14,7 +14,7 @@
                 <tr v-for="(product, index) in productsList" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
 
-                        <td v-if="column.key === 'image'" class="w-18 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd">
+                        <td v-if="column.key === 'image'" class="w-18 text-[12px] sm:w-18 lg:text-sm 2xl:w-32 imgtd">
                             <div class="flex items-center justify-center">
                                 <div class="w-[120px] h-[120px] image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
                                     <img 
@@ -26,7 +26,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm">
+                        <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm orderCode">
                             <div class="form-check place-content-center">
                                 <template v-if="route.name === 'edit-campaign-product'">
                                     {{ product[column.key] }}        
@@ -41,7 +41,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'qty'" class="w-24 text-[12px] lg:text-sm">
+                        <td v-else-if="column.key === 'qty'" class="w-24 text-[12px] lg:text-sm qty">
                             <div class="form-check place-content-center">
                                 <template v-if="route.name === 'edit-campaign-product'">
                                     {{ product[column.key] }}        
@@ -56,7 +56,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm">
+                        <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty">
                             <div class="form-check place-content-center">
                                 <template v-if="route.name === 'edit-campaign-product'">
                                     {{ product[column.key] }}        
@@ -72,28 +72,30 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end">
+                        <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end category">
                             <div v-for="tag in product[column.key]" :key="tag">
                                 {{ tag }}
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'price'" class="w-full text-[12px] lg:w-fit lg:text-sm whitespace-nowrap">
-                            <template v-if="route.name === 'edit-campaign-product'">
+                        <td v-else-if="column.key === 'price'" class="price">
+                            <template v-if="route.name === 'edit-campaign-product'" class="whitespace-nowrap">
                                 <div>{{ layoutStore.userInfo.user_subscription.currency }} {{ parseFloat(product[column.key]).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                             </template>
                             <template v-else>
-                                {{ layoutStore.userInfo.user_subscription.currency }}
+                                <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+                                    <span class="my-auto mr-1"> {{ layoutStore.userInfo.user_subscription.currency }} </span>
                                 <input 
                                     type="number" 
                                     min="1" 
-                                    class="form-control w-full sm:w-24 h-[42px] mt-1"
+                                    class="form-control w-[100%] sm:w-20"
                                     v-model="product[column.key]"                             
                                 />
+                                </div>
                             </template>
                         </td>
 
-                        <td v-else-if="column.key === 'name'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center longMessage">
+                        <td v-else-if="column.key === 'name'" class="text-[12px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage">
                             <div class="w-full">{{ product[column.key] }}</div>
                         </td>
 
@@ -108,7 +110,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center">
+                        <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center editable">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <template v-if="route.name === 'edit-campaign-product'">
                                     <input 
@@ -137,7 +139,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'customer_removable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center">
+                        <td v-else-if="column.key === 'customer_removable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center removable">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <template v-if="route.name === 'edit-campaign-product'">
                                     <input 
@@ -165,12 +167,12 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'type'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end">
+                        <td v-else-if="column.key === 'type'" class="w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end type">
                             <template v-if="route.name === 'edit-campaign-product'">
                                 {{ product[column.key] }}        
                             </template>        
                             <template v-else>
-                                <select class="form-select w-auto mt-2 sm:mt-0" v-model="product[column.key]">
+                                <select class="form-select w-auto" v-model="product[column.key]">
                                     <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
                                         {{type.name}}
                                     </option>
@@ -178,7 +180,7 @@
                             </template>              
                         </td>
 
-                        <td v-else-if="column.key === 'edit'">
+                        <td v-else-if="column.key === 'edit'" class="edit">
                             <!-- <button 
                                 class="w-24 bg-white btn dark:border-darkmode-400" 
                                 v-show="true"
@@ -304,7 +306,7 @@ const search = () => {
                         item.customer_editable = true
                         item.customer_removable = true
                     }
-                    if (item.custmer_editable === false) item.customer_removable = false
+                    if (item.customer_editable === false) item.customer_removable = false
                 })
 
                 // 換頁時選取記憶在store中 selected, editable, deletable 欄位
@@ -346,7 +348,7 @@ const changePageSize = (page_size) => {
 
 const changeInput = (event, index) => {
     if (parseInt(event.target.value) > productsList.value[index].qty) {
-        alert('Input number is over product max quantity')
+        alert('Input number is over product max qty')
         productsList.value[index].max_order_amount = productsList.value[index].qty
     } 
 }
@@ -465,6 +467,7 @@ thead th {
         font-size: 14px;
         vertical-align: middle !important;
         padding-right: 15px !important;
+        place-content: right !important;
     }
 
     td:before {
@@ -479,7 +482,6 @@ thead th {
         background-color: white !important;
         text-align: left;
     }
-
     .selected:before {
         display: none;
     }
@@ -516,51 +518,76 @@ thead th {
         font-size: 16px !important;
     }
 
-    td:nth-of-type(4):before {
+    .orderCode:before {
         content: "Order Code";
         text-align: left !important;
         top:25% !important;
     }
+    .orderCode input{
+        text-align:right
+    }
 
-    td:nth-of-type(5):before {
+    .qty:before {
         content: "Qty for Campaign";
         top:25% !important;
     }
+    .qty input{
+        text-align:right
+    }
 
-    td:nth-of-type(6):before {
+    .maxQty:before {
         content: "Max Qty / Order";
         top:25% !important;
     }
+    .maxQty input{
+        text-align:right
+    }
 
-    td:nth-of-type(7):before {
+    .category:before {
         top: -3px;
         content: "Category";
         top:25% !important;
     }
-    td:nth-of-type(7){
+    .category{
         display: flex;
         flex-direction:column; 
         justify-content: center;
         vertical-align:baseline !important;
     }
 
-    td:nth-of-type(8):before {
+    .price:before {
         content: "Price";
-        margin-top: 0px !important;
+        top:20% !important;
+    }
+    .price{
+        min-height: 45px;
+    }
+    .price input{
+        text-align:right
+    }
+    
+    .type:before {
+        content: "Type";
+        text-align: left !important;
+        top:25% !important;
+        margin-top: 0 !important;
     }
 
-    td:nth-of-type(10):before {
+    .editable:before {
         content: "Editable";
     }
-
-    td:nth-of-type(11):before {
+    .removable:before {
         content: "Deletable";
     }
 
-    td:nth-of-type(9):before {
-        content: "Type";
-        text-align: left !important;
-        margin-top: 0 !important;
+    
+    .edit:before{
+        display:none; 
+    }
+    .edit{
+        display:block;
+        padding-left: 0px !important;
+        padding-right: 0px;
     }
 }
 </style>

@@ -1,5 +1,5 @@
 <template>
-	<div class=" overflow-y-auto max-h-[62vh]">
+	<div class=" overflow-y-auto h-fit">
 	
 		<table class="table -mt-3 table-report">
 			<thead>
@@ -187,11 +187,14 @@ function getReplyData() {
 function closeWithAlert() {
 	if (saved.value === true) {
 		updateModal.value = false;
+		hideDropDown()
 		layoutStore.notification.showMessageToast("Saved the Change");
 	} else {
 		updateModal.value = false;
+		hideDropDown()
 		layoutStore.alert.showMessageToast("Change Not Saved");
 	}
+	hideDropDown()
 	saved.value = false;
 }
 
@@ -207,14 +210,18 @@ function updateAutoReply(id, currentInfo) {
 }
 
 function deleteAutoReply(id) {
+	hideDropDown()
 	delete_auto_response(id)
-		.then((response) => {
-			alert(response.data.message);
+		.then((response) =>{
+			layoutStore.notification.showMessageToast("Deleted");
 			getReplyData();
 		})
 		.catch((err) => {
 			alert(err);
 		});
+}
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
 }
 </script>
 

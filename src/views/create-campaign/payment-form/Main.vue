@@ -1,7 +1,7 @@
 <template>
-	<div class="box flex flex-col p-5 sm:p-8 gap-4 lg:mx-20 lg:px-40 px-10 py-10 mt-3" v-if="ready">
-		<span class="col-span-12 text-xl font-medium leading-none">{{$t('create_campaign.payment_form.payment_details')}}</span>
-		<hr class="w-full mb-3"/>
+	<div class="box flex flex-col p-5 sm:p-8 gap-4 lg:mx-20 lg:px-40 px-5 py-10 mt-3" v-if="ready">
+		<span class="col-span-12 text-xl font-medium leading-none -mx-6">{{$t('create_campaign.payment_form.payment_details')}}</span>
+		<hr class="-mx-6 mb-3"/>
 		<div id="paymentDetails">
 			<AccordionGroup>
 				<div v-for="(payment,key,index) in props.campaign.meta_payment" :key="index">

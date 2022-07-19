@@ -32,7 +32,7 @@
                             <div class="w-full"> {{ product[column.key] }} </div>
                         </td>
 
-                        <td v-else-if="column.key === 'order_code'">
+                        <td v-else-if="column.key === 'order_code'" class="orderCode">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <input 
                                     type="text" 
@@ -48,7 +48,7 @@
                                 {{ errorMessages[index].order_code }}
                             </div>
                         </td>
-                        <td v-else-if="column.key === 'qty'">
+                        <td v-else-if="column.key === 'qty'" class="qty">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <input 
                                     type="number" min="1" 
@@ -61,7 +61,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'max_order_amount'">
+                        <td v-else-if="column.key === 'max_order_amount'" class="maxQty">
                             <div class=" form-check place-content-end sm:place-content-center">
                                 <input 
                                     type="number" min="1"  
@@ -76,20 +76,22 @@
                         </td>
 
                         <td v-else-if="column.key === 'tag'"
-                            class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end">
+                            class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-32 items-end category">
                             <div v-for="(tag,index) in product[column.key]" :key="index">
                                 {{ tag }}
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'price'" class="w-18">
-                            {{ layoutStore.userInfo.user_subscription.currency }}
-                            <input 
-                                type="number" 
-                                min="1" 
-                                class="form-control w-full sm:w-24 h-[42px] mt-1"
-                                v-model="product[column.key]"                             
-                            />
+                        <td v-else-if="column.key === 'price'" class="price">
+                            <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+                                    <span class="my-auto mr-1"> {{ layoutStore.userInfo.user_subscription.currency }} </span>
+                                <input 
+                                    type="number" 
+                                    min="1" 
+                                    class="form-control w-[100%] sm:w-20"
+                                    v-model="product[column.key]"                             
+                                />
+                                </div>
                             <!-- {{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}} -->
                         </td>
 
@@ -330,7 +332,6 @@ thead th{
 		font-size: 16px;
 		padding: 0px !important;
 	}
-
 	.imgtd {
         display: inline-block;
         width: 80% !important;
@@ -407,37 +408,49 @@ thead th{
         font-size: 16px !important;
 	}
 
-	td:nth-of-type(3):before {
+	.orderCode:before {
 		content: "Order Code";
         top:25%;
 		/* color: #0e9893; */
 	}
-
-	td:nth-of-type(4):before {
+    .orderCode input{
+        text-align:right
+    }
+	.qty:before {
 		content: "Qty for Campaign";
         top:25%;
 		/* color: #0e9893; */
 	}
-	td:nth-of-type(5):before {
+    .qty input{
+        text-align:right
+    }
+	.maxQty:before {
 		content: "Max Qty / Order";
         top:25%;
 		/* color: #0e9893; */
 	}
-
-	td:nth-of-type(6):before {
+    .maxQty input{
+        text-align:right
+    }
+	.category:before {
         content: "Category";
 	}
-    td:nth-of-type(6){
+    .category{
         display: flex;
         flex-direction:column; 
         justify-content: center;
         vertical-align:baseline !important;
     }
-	td:nth-of-type(7):before {
-        margin-top:0px !important;
-		content: "Price";
-		/* color: #0e9893; */
-	}
+    .price:before {
+        content: "Price";
+        top:20% !important;
+    }
+    .price{
+        min-height: 45px;
+    }
+    .price input{
+        text-align:right
+    }
     .editable:before {
 		content: "Editable";
 	}

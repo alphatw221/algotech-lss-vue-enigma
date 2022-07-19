@@ -1,29 +1,62 @@
 {
-        "manage_order" : "Manage Order",
-        "order_number" : "Order No",
-        "action":"Action",
-        "delivery_notification":"Delivery Notification",
-        "refresh_orders" : "Refresh Orders",
-        "customer" : "Customer",
-        "platform" : "Platform",
-        "name" : "Name",
-        "total_items" : "Total Items",
-        "amount" : "Amount",
-        "payment" : "Payment",
-        "status" : "Status",
-        "view" : "View",
-        "stop_checkout" : "Stop Checkout",
-        "export" : "Export",
-        "closed_rate" : "Closed Rate",
-        "sales" : "Sales",
-        "uncheckout" : "Uncheckout rate",
-        "comments" : "Comments",
+        "campaign_status":{
+                "closed_rate" : "Closed Rate",
+                "sales" : "Sales",
+                "uncheckout" : "Uncheckout rate",
+                "comments" : "Comments"    
+        },
+        "search_bar":{
+                "filter":"Filter",
+                "export" : "Export"
+        },
+        "table":{
+                "amount" : "Amount",
+                "payment" : "Payment",
+                "status" : "Status",
+                "view" : "View",
+                "customer" : "Customer",
+                "platform" : "Platform",
+                "name" : "Name",
+                "order_number" : "Order No",
+                "action":"Action",
+                "delivery_notification":"Delivery Notification",
+                "null":""
+        },
+        "product_modal":{
+                "order_no":"Order No",
+                "price":"Price",
+                "qty":"Qty",
+                "product":"Product",
+                "sub_total":"Subtotal",
+                "delivery_charge":"Delivery Charge",
+                "discount":"Discount",
+                "total":"Total"
+        },
+        "filter_modal":{
+                "payment":{
+                        "payment":"Payment",
+                        "Direct Payment":"Direct Payment",
+                        "Stripe":"Stripe"
+                },
+                "delivery":{
+                        "status":"Delivery Status",
+                        "shipping out":"Shipping out",
+                        "to be shipping":"To be shipping"
+                },
+                "platform":{
+                        "platform":"Platform",
+                        "youtube":"Youtube",
+                        "facebook":"Facebook",
+                        "instagram":"Instagram"
+                },
+                "apply":"Apply Filter",
+                "filter":"Filter"
+        },
         "complete" : "Complete",
         "review" : "Review",
         "shipping out":"Shipping Out",
         "all":"All",
-        "refresh" : "Refresh",
-        "filter":"Filter",
-        "null":""
+        "stop_checkout" : "Stop Checkout"
+        
         
 }

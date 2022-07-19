@@ -1,8 +1,8 @@
 <template>
-	<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10 mt-3" v-if="ready">
-		<span class="col-span-12 text-xl font-medium leading-none">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
-		<hr class="col-span-12 mb-3" />
-		<div class="flex flex-col col-span-12 col-start-1 px-6"> 
+	<div class="box grid grid-cols-12 gap-4 intro-y lg:mx-20 lg:px-40 px-5 py-10 mt-3" v-if="ready">
+		<span class="col-span-12 text-xl font-medium leading-none -mx-6">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
+		<hr class="col-span-12 mb-3 -mx-6" />
+		<div class="flex flex-col col-span-12 col-start-1"> 
 			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
 			<input 
 				class="w-full form-control"
@@ -11,7 +11,7 @@
 			/>
 		</div>
 			
-		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 px-6">
+		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
 			<label class="form-label text-base text-lg font-medium">
 				<input 
 					class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-1" 
@@ -27,7 +27,7 @@
 		/>
 		</div> 
 
-		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 px-6">
+		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
 			
 			<label class="form-label text-base my-auto w-[19rem] text-lg font-medium">
 				<input 
@@ -45,7 +45,7 @@
 			/>       
 		</div> 
 		
-		<div class="flex justify-between col-span-12 col-start-1 mt-5 px-6"> 
+		<div class="flex justify-between col-span-12 col-start-1 mt-5 "> 
 			<label for="regular-form-2" class="text-base font-bold form-label">{{$t('create_campaign.delivery_form.options')}}</label>
 			<a 
 				class="whitespace-nowrap font-medium"
@@ -54,7 +54,7 @@
 			</a>
 		</div>
 		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
-			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 px-6">
+			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
 				<input  
 					class="flex-1 w-full text-base form-control sm:w-fit"
 					type="text" 
@@ -81,7 +81,7 @@
 			</div>
 		</div>
 		
-		<div class="flex justify-between col-span-12 col-start-1 mt-5 px-6"> 
+		<div class="flex justify-between col-span-12 col-start-1 mt-5 "> 
 			<label for="regular-form-2" class="text-base font-bold form-label">{{$t('create_campaign.delivery_form.store_collection')}}</label>
 			<a 
 				class="whitespace-nowrap font-medium"
@@ -91,7 +91,7 @@
 		</div>
 		<div class="grid grid-cols-12 col-span-12 gap-1 text-base intro-y sm:gap-5 -z-50">
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">
-				<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 px-6">
+				<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
                     <div class="flex flex-col flex-1">
                          <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_store')}}</label>
                         <input 

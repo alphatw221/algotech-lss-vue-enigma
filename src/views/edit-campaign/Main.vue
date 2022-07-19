@@ -80,40 +80,6 @@
 			</div>
 		</div>
 
-		<!-- <div class="flex items-center justify-between p-3 leading-5 border-2 rounded-md sm:p-8 box border-slate-200 ">
-			<h3 class="inline-flex my-auto leading-5 align-middle md:ml-3"
-			>
-				Platform Connected</h3>
-			<div class="inline-flex justify-around ml-auto mr-3 align-middle w-fit">
-              <div class="w-8 h-8 border-0 flex-0 md:w-14 md:h-14 zoom-in" v-if="campaignData.facebook_page !== null">
-                <Tippy tag="img" class="border-0 rounded-full md:w-14 md:h-14" :src="campaignData.facebook_page.image"
-                  :content="campaignData.facebook_page.name" />
-                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
-                      <img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
-                  </div>
-              </div>
-              <div class="w-8 h-8 flex-0 md:w-14 md:h-14 zoom-in" v-if="campaignData.instagram_profile !== null">
-                <Tippy tag="img" class="rounded-full md:w-14 md:h-14 " :src="campaignData.instagram_profile.image"
-                  :content="campaignData.instagram_profile.name" />
-                <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
-                      <img class="rounded-full bg-[#d63376]" :src="instagram_platform" >
-                  </div>
-              </div>
-              <div class="w-8 h-8 flex-0 md:w-14 md:h-14 zoom-in" v-if="campaignData.youtube_channel !== null">
-                <Tippy tag="img" class="rounded-full md:w-14 md:h-14" :src="campaignData.youtube_channel.image"
-                  :content="campaignData.youtube_channel.name" />
-                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
-                      <img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
-                  </div>
-              </div>
-            </div>
-
-			<a @click="editplatform()" class="inline-flex align-middle">
-				Edit
-			</a>
-		</div> -->
-
-
 		<DeliveryForm 
 			:campaign="campaignData"
 		/>
@@ -133,10 +99,6 @@
 				{{$t('edit_campaign.update')}}
 			</button>
 		</div>
-
-		<!-- BEGIN Enter Post ID Modal -->
-			
-		<!-- END Enter Post ID Modal -->
 	</div>
 	<EnterPostIDModal />
 </template>  

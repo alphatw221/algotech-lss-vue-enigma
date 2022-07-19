@@ -61,15 +61,13 @@
 
 		<NotesForm :campaign="campaignData"/>
 
-		<div class="ox z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 px-10 py-10">
-			<div class="col-span-12 flex justify-end mt-5">
-				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
-					{{$t('create_campaign.cancel')}}
-				</button>
-				<button class="w-32 ml-5 mr-4 shadow-md btn btn-primary" @click="createCampaign()">
-					{{$t('create_campaign.create')}}
-				</button>
-			</div>
+		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 py-10">
+			<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
+				{{$t('create_campaign.cancel')}}
+			</button>
+			<button class="w-32 ml-5 mr-4 shadow-md btn btn-primary" @click="createCampaign()">
+				{{$t('create_campaign.create')}}
+			</button>
 		</div>
 	</div>
 </template>  
