@@ -6,11 +6,11 @@
     >
             <ModalHeader >
                 <h2 class="font-medium text-base mr-auto text-xl">
-                        Filter
+                        {{$t('manage_order.filter_modal.filter')}}
                 </h2>
                 <button id="tabulator-html-filter-go" type="button" class="flex-none text-[18px] btn btn-primary w-fit mr-3"
                     @click="filter()">
-                    Apply Filter
+                    {{$t('manage_order.filter_modal.apply')}}
                 </button>
                 <XIcon class="w-8 h-8 ml-2" @click="store.filterModal[tableStatus] = false"/>
             </ModalHeader>
@@ -20,7 +20,7 @@
                     <template v-for="(tag,_index) in type" :key="_index">
                     <div class="" v-if="tag">
                         <button class="btn btn-rounded-dark w-fit h-10 m-1 text-[15px]" >
-                            <HashIcon class="w-4 h-4 mr-2" /> {{_index}}
+                            <HashIcon class="w-4 h-4 mr-2" /> {{$t(`manage_order.filter_modal.`+index+`.`+_index)}}
                             <XIcon class="w-4 h-4 ml-2" @click="updateTag(index,_index)"/>
                         </button>
                     </div>
@@ -29,7 +29,7 @@
             </div>
             <div class="flex text-[16px] my-6">
                 <div class="grid grid-cols-12 gap-2">
-                    <div class="col-span-12 text-[20px] font-medium my-2">Payment</div>
+                    <div class="col-span-12 text-[20px] font-medium my-2">{{$t('manage_order.filter_modal.payment.payment')}}</div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                                 v-model="store.filterTagArray.payment['Direct Payment']" 
@@ -41,20 +41,20 @@
                             v-model="store.filterTagArray.payment['Stripe']" 
                                 @click="updateTag('payment','Stripe')"> <span class="ml-1"> Stripe </span> 
                     </div>
-                    <div class="col-span-12 text-[20px] font-medium my-2"> Delivery Status</div>
+                    <div class="col-span-12 text-[20px] font-medium my-2">{{$t('manage_order.filter_modal.delivery.status')}}</div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.delivery['shipping out']" 
                                 @click="updateTag('delivery','shipping out')"> 
-                                    <span class="ml-1"> Shipping out </span> 
+                                    <span class="ml-1"> {{$t('manage_order.filter_modal.delivery.shipping out')}} </span> 
                     </div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.delivery['to be shipping']" 
                                 @click="updateTag('delivery','to be shipping')"> 
-                                    <span class="ml-1"> To be shipping </span> 
+                                    <span class="ml-1"> {{$t('manage_order.filter_modal.delivery.to be shipping')}} </span> 
                     </div>
-                    <div class="col-span-12  text-[20px] font-medium my-2"> Platform</div>
+                    <div class="col-span-12  text-[20px] font-medium my-2"> {{$t('manage_order.filter_modal.platform.platform')}}</div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.platform['facebook']" 

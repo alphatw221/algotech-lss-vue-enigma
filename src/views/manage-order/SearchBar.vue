@@ -6,7 +6,7 @@
                 placeholder="Search..." v-model="searchValue" @keydown.enter.prevent="search()"/>
             <div class="export">
                     <Dropdown class="relative p-2 mr-1 flex rounded-full items-center btn border-[#131C34] "
-                placement="bottom-start"> {{$t('manage_order.export')}}
+                placement="bottom-start"> {{$t('manage_order.search_bar.export')}}
                 <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                     <ChevronDownIcon class="w-5 h-5 text-slate-700" />
                 </DropdownToggle>
@@ -20,7 +20,7 @@
             <div class="export">
                 <button id="tabulator-html-filter-go" type="button" class="flex-none w-16 mr-3 btn btn-primary"
                     @click="test()">
-                {{$t('manage_order.filter')}}
+                {{$t('manage_order.search_bar.filter')}}
                 </button>
                 <FilterModal
                     :tableStatus="tableStatus"

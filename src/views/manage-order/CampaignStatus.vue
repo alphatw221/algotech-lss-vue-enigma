@@ -25,7 +25,7 @@
                                 </template>
                             </div>
                             <div class="mt-6 text-3xl font-medium leading-8">{{parseInt(store.manageOrderStatus.close_rate).toFixed(2)}}%</div>
-                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.closed_rate')}}</div>
+                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.closed_rate')}}</div>
                         </div>
                     </div>
                 </div>
@@ -54,7 +54,7 @@
                                 </template>
                             </div>
                             <div class="mt-6 text-3xl font-medium leading-8">$ {{parseFloat(store.manageOrderStatus.complete_sales).toFixed(2) ?? 0}}</div>
-                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.sales')}}</div>
+                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.sales')}}</div>
                         </div>
                     </div>
                 </div>
@@ -83,7 +83,7 @@
                                 </template>
                             </div>
                             <div class="mt-6 text-3xl font-medium leading-8">{{parseFloat(store.manageOrderStatus.uncheckout_rate).toFixed(2)}}%</div>
-                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.uncheckout')}}</div>
+                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.uncheckout')}}</div>
                         </div>
                     </div>
                 </div>
@@ -112,7 +112,7 @@
                                 </template>
                             </div>
                             <div class="mt-6 text-3xl font-medium leading-8">{{store.manageOrderStatus.comment_count}}</div>
-                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.comments')}}</div>
+                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.comments')}}</div>
                         </div>
                     </div>
                 </div>

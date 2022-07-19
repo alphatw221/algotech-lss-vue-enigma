@@ -4,13 +4,13 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
-                        {{ $t(`manage_order.`+column.name) }}
+                        {{ $t(`manage_order.table.`+column.name) }}
                     </th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="(order, key) in store[tableStatus]" :key="key" class="intro-x">
-                    <td v-for="column in columns" :key="column.key" :data-content="$t(`manage_order.`+column.name)">
+                    <td v-for="column in columns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
                                 <div v-if="order[column.key] === 'facebook'"
