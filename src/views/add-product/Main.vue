@@ -53,11 +53,9 @@
 				</template> -->
 			</div>
 
-			<div class="col-span-12 col-start-1">
+			<div class="col-span-12 col-start-1 relative">
 				<label class="form-label text-base mt-2 font-medium">Upload Image</label>
-				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="clear">
-					Clear
-				</button>
+				<XIcon class="absolute top-4 right-0 w-4 h-4 ml-2" @click="clear"/>
 				<Dropzone ref-key="dropzoneSingleRef" :options="{
 						method: 'put',
 						url: 'url',
