@@ -5,11 +5,11 @@
     <div class="flex flex-row flex-wrap justify-between mt-8 sm:mt-0 mx-0 gap-3">
       <div class="flex-none switch-toggle mx-auto sm:mx-0">
         <input id="off" name="state-d" type="radio" />
-        <label for="off" @click="show_campaign('ongoing')">{{$t('campaign_list.ongoing')}}</label>
+        <label for="off" @click="show_campaign('ongoing')">{{$t('campaign_list.tabs.ongoing')}}</label>
         <input id="on" name="state-d" type="radio" checked="checked"/>
-        <label for="on" @click="show_campaign('scheduled')">{{$t('campaign_list.scheduled')}}</label>
+        <label for="on" @click="show_campaign('scheduled')">{{$t('campaign_list.tabs.scheduled')}}</label>
         <input id="na" name="state-d" type="radio" class="my-0" />
-        <label for="na" @click="show_campaign('history')">{{$t('campaign_list.history')}}</label>
+        <label for="na" @click="show_campaign('history')">{{$t('campaign_list.tabs.history')}}</label>
       </div>
       <button 
         class="flex w-32 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded"
