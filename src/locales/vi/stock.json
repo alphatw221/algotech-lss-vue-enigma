@@ -24,7 +24,7 @@
     },
 
     "column" : {
-        "name" : "Name",
+        "name" : "Tên",
         "image" : "Hình ảnh",
         "order_code" : "Mã sản phẩm",
         "qty_for_campaign":"Số lượng bán trong chiến dịch",
