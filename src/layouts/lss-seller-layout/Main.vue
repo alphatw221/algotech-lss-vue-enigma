@@ -62,10 +62,11 @@ import LSSSellerMobileMenu from "@/components/lss-seller-mobile-menu/Main.vue";
 import LSSSellerMenu from "@/components/lss-seller-menu/Main.vue";
 import ThemeModeSwitcher from "@/components/theme-mode-switcher/Main.vue";
 import { useCookies } from "vue3-cookies";
-import { provide, onMounted,ref, computed,watch } from "vue"
+import { provide, onMounted,ref, computed, watch, getCurrentInstance } from "vue"
 import { useRouter ,useRoute} from "vue-router";
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+
 const route = useRoute();
 const router = useRouter();
 const store = useLSSSellerLayoutStore();
@@ -112,9 +113,18 @@ const websocketInit =()=> {
   };
 }
 
-onMounted(() => {
-  websocketInit()
- })
+const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
+watch(
+  computed(
+    ()=>store.userInfo),()=>{
+      if(store.userInfo.user_subscription){
+        i18n.locale=store.userInfo.user_subscription.lang
+      }
+    }
+    ,{deep:true}
+)
+  
+onMounted(() => {websocketInit()})
 
 // watch(computed(()=>route.path),
 // ()=>{
