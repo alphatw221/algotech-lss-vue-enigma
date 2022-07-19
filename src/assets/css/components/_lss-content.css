@@ -1,14 +1,15 @@
 .lss-content {
     padding: 0px 22px;
-    @apply relative flex-1 min-w-0 min-h-screen pt-20 pb-10 mt-1 bg-slate-100 dark:bg-darkmode-700;
+    padding-top: 75px;
+    @apply relative overflow-x-hidden flex-1 min-w-0 bg-slate-100 dark:bg-darkmode-700;
     @include media-breakpoint-down(md) {
         border-radius: 0px 0px 30px 30px;
-        @apply max-w-full px-4 pt-0 mt-1;
+        height: calc(100vh - 75px); 
+        @apply max-w-full px-3 pt-0 mt-1;
     }
     @include media-breakpoint-down(sm) {
         border-radius: 0px 0px 30px 30px;
-        height: 95vh; 
-        @apply max-w-full p-0 mt-1;
+        @apply max-w-full py-0;
     }
     &:before {
         content: "";
@@ -16,6 +17,6 @@
     }
     &.content--top-nav {
         border-radius: 35px 35px 0 0;
-        @apply pt-0 mt-5;
+        @apply pt-0 mt-0;
     }
 }

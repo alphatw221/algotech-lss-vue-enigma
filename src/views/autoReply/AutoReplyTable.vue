@@ -1,5 +1,5 @@
 <template>
-	<div class=" overflow-y-auto max-h-[62vh]">
+	<div class=" overflow-y-auto h-fit">
 	
 		<table class="table -mt-3 table-report">
 			<thead>

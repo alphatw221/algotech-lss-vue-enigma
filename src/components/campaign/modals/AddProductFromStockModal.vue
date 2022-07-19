@@ -497,7 +497,7 @@ const resetSelectedProduct = ()=>{
 }
 
 const selectAllStockProduct = (event)=>{
-	event.target.checked=false
+	event.target.checked =false
 	stockProducts.value.forEach(product => {
         if(!(product.id.toString() in selectedProductDict.value)) {
             product.check=true

@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-3 p-3 sm:px-5">
+    <div class="flex flex-col gap-3 p-2 sm:px-5 h-[100%]">
         <!-- <div class="flex items-center px-20 pt-5 pb-4 intro-y">
 			<h2 class="text-2xl font-medium">Create Campaign</h2>
 		</div> -->

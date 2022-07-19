@@ -1,5 +1,5 @@
 <template>
-	<div class="mt-3 overflow-auto h-[53vh] sm:h-[61vh]">
+	<div class="overflow-auto h-[50vh] sm:h-[61vh]">
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
@@ -9,16 +9,16 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="dotTr">
+				<tr class="dotTr h-[300px]" v-if="showCommentLoding || listItems==0">
 					<td v-if="showCommentLoding"
-						class="h-[300px] items-center relative border-0"
+						class="h-[300px] items-center relative border-0 dotTd"
 						:colspan="columns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="listItems==0" :colspan="columns.length +2">
+					<td v-else-if="listItems==0" :colspan="columns.length +2" class="wordTd">
 						<div class="mt-5 text-center md:mt-10">
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg h-[300px]">
-								You Have No {{product_status}} Products
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+								You Don't Have Product in this Category
 							</h1>
 						</div>
 					</td> 
@@ -329,11 +329,21 @@ thead th{
 	.dotTr{
 		display: inline-block;
 		position: absolute;
-		top:50%; 
-		right:25%; 
-		width: 100% !important;
+		width: 100%;
+		top:50%;
 		padding-left: 0 !important;
-		z-index: 99999;
+	}
+	.dotTd{
+		background-color: transparent !important;
+	}
+	.wordTd:before{
+		display: none;
+	}
+	.wordTd{
+		display: inline-block;
+		padding-left: 0 !important;
+		width: 100% !important;
+		background-color: transparent !important;
 	}
 }
 </style>
