@@ -148,7 +148,7 @@ watch(
 
 <style scoped>
 .lss-mobil-side-nav-show {
-  left:13px;
+  left:12px;
   height: 100vh;
   transition: 1s;
 }
@@ -161,7 +161,7 @@ watch(
 
 #lss-mobil-side-nav {
   /* left: 14px; */
-  width: calc(100vw - 26px);
+  width: calc(100vw - 25px);
   border-radius: 0px 0px 30px 30px;
   /* top: 0; */
   z-index: 51;

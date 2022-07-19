@@ -1,6 +1,6 @@
 <template>
   <!-- BEGIN OUTTER BOX -->
-  <div class="flex flex-col gap-5 p-3 box sm:p-8">
+  <div class="flex flex-col gap-5 p-3 box sm:p-8 h-[95%]">
     <!-- BEGIN: commit box -->
     <div class="flex flex-row flex-wrap justify-between mt-8 sm:mt-0 mx-0 gap-3">
       <div class="flex-none switch-toggle mx-auto sm:mx-0">

@@ -1,7 +1,7 @@
 <template>
     <form class="flex justify-between gap-2 sm:gap-5 flex-warp sm:flex-row">
         <div class="flex flex-wrap justify-between w-full gap-2 sm:flex-row">
-            <div class="flex items-center flex-initial w-fit" v-if="showCategoryFilter">
+            <div class="flex shirnk items-center w-fit" v-if="showCategoryFilter">
                 <label class="mr-2 w-fit">
                     {{ $t('stock.search_bar.category') }}
                 </label>
@@ -13,7 +13,7 @@
                     <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
                 </select>
             </div>
-            <div class="flex items-center flex-initial w-fit" >
+            <!-- <div class="flex items-center flex-initial w-fit" >
                 <label class="mr-2 shrink whitespace-nowrap">
                     {{ $t('stock.search_bar.search_by') }}
                 </label>
@@ -24,11 +24,11 @@
                         {{ $t(`stock.search_bar.${searchColumn.text}`) }}
                     </option>
                 </select>
-            </div>
-            <div class="flex items-center flex-initial w-fit">
+            </div> -->
+            <div class="flex items-center shirnk w-fit">
                 <div class="input-group">
                     <input type="text"
-                        class="w-40 form-control input-group shrink sm:40" placeholder="Search..."
+                        class="w-36 form-control input-group shrink sm:40" placeholder="Search Name..."
                         v-model="keyword" @keydown.enter.prevent="search" />
                     <button 
                         type="button"

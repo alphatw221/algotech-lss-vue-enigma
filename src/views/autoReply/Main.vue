@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-3 p-3 sm:px-5">
+    <div class="flex flex-col gap-3 p-2 sm:px-5 h-[100%]">
         <!-- <div class="flex items-center px-20 pt-5 pb-4 intro-y">
 			<h2 class="text-2xl font-medium">Create Campaign</h2>
 		</div> -->
@@ -51,14 +51,8 @@
             <div class="col-span-12">
                 <label for="modal-form-1">{{$t('auto_reply.table_column.remark')}}</label>
                 <input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
-                    v-model="validate.description.$model" 
-                    :class="{ 'border-danger text-danger border-2': validate.description.$error }" 
+                    v-model="createData.description" 
 				/>
-				<template v-if="validate.description.$error">
-					<label class="text-danger ml-2 text-[13px]" >
-						Field is required 
-					</label>
-				</template>
             </div>
             <div class="col-span-12">
                 <label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.assign_to')}}</label>
@@ -114,7 +108,6 @@ const rules = computed(()=>{
     return{
 		input_msg:{required},
 		output_msg: {required},
-		description: {required},
         chosenPage: {required},
     }
 });
@@ -172,6 +165,8 @@ const emptyForm =()=>{
     createData.value.input_msg = ""
     createData.value.output_msg = ""
     createData.value.description = ""
+    createData.value.chosenPage = []
 }
+
 </script>
 

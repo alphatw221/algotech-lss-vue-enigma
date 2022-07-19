@@ -1,5 +1,5 @@
 <template>
-<div class="flex max-h-none overflow-auto bg-secondary">
+<div class="flex outterContainer overflow-auto bg-secondary">
       <!-- BEGIN: Side Menu -->
       <div class="top-[80px] z-[51] left-[12px] flex fixed my-3 ml-2 px-4 py-1 w-[70px] xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp " 
         :class="{
@@ -238,11 +238,18 @@ const pathName=(value)=>{
   z-index: 50;
 }
 
+.outterContainer{
+  height: 100vh;
+}
+
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
   .creatCamp{
     display: none;
   }
+  .outterContainer{
+  height: calc(100vh - 70px);
+}
 }
 
 </style>
