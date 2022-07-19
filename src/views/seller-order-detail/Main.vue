@@ -1,9 +1,9 @@
 <template>
     <div class="my-5 text-base text-xl sm:text-2xl text-center"> {{$t('order_detail.order')}} </div>
 
-    <div class="grid grid-cols-12 grid-rows-6 lg:grid-rows-4 h-fit">
+    <div class="grid grid-cols-12 grid-rows-6 lg:grid-rows-2 h-fit">
         <!-- Left col orderTable-->
-        <div class="col-span-12 row-start-1 row-span-2 lg:col-span-6 mx-2 lg:row-start-1 lg:row-span-2"> 
+        <div class="col-span-12 row-start-1 row-span-2 lg:col-span-6 mx-2 lg:row-start-1 lg:row-span-1"> 
             <div class="w-full mx-2 ">
                 <div class="flex mb-2">
                     <h2 class="font-medium"> {{$t('order_detail.order_no')}} #{{store.orderDetail.id}} <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending">
@@ -21,7 +21,7 @@
             </div>
         </div>
         <!-- Left col Delivery-->
-        <div class="col-span-12 row-start-4 row-span-2 lg:col-span-6 mx-2 lg:row-start-3 lg:row-span-2 h-fit"> 
+        <div class="col-span-12 row-start-4 row-span-2 lg:col-span-6 mx-2 lg:row-start-2 lg:row-span-1 h-fit"> 
             <!-- Delivery Information -->
             <div class="p-5 my-5 border-2 box border-secondary"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
