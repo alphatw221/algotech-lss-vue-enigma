@@ -1,23 +1,45 @@
 {
-    "type" : {
-        "product" : "商品",
-        "lucky_draw" : "抽獎"
+    "for_sale": "銷售中",
+    "delisted": "下架",
+    "add_product": "新增產品",
+
+    "search_bar": {
+        "category": "類別",
+        "search_by": "搜尋",
+        "search_holder": "搜尋...",
+        "reset": "清空",
+        "category_manage": "類別管理",
+        "name": "名稱",
+        "order_code": "商品代碼",
+        "description": "說明"
+    },
+
+    "table_column": {
+        "image": "圖片",
+        "name": "名稱",
+        "order_code": "商品代碼",
+        "type": "屬性",
+        "category": "類別",
+        "description": "說明",
+        "qty": "數量",
+        "price": "價格"
+    },
+
+    "category_manage": {
+        "create_new_category": "建立新類別",
+        "edit_title": "編輯類別",
+        "edit": "編輯",
+        "delete": "刪除",
+        "modal": {
+            "cancel": "取消",
+            "save": "儲存"
+        }
     },
 
 
-    "status" : {
-        "for_sale" : "可銷售",
-        "disable" : "未上架",
-        "archive" : "垃圾桶",
-        "delisted":"Delisted"
-    },
 
-    "title" : {
-        "index" : "庫存管理",
-        "add" : "新增商品",
-        "edit" : "編輯",
-        "category":"類別"
-    },
+
+
 
     "column" : {
         "name" : "商品",

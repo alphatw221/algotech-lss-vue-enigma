@@ -6,9 +6,11 @@
 				<tr>
 					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap">
 						<template v-if="column.name === '#' || column.key === 'facebook_page'">
-							<span class="px-6"> {{ column.name }}</span> 
+							<span class="px-6"> {{ $t('auto_reply.table_column.' + column.name) }}</span> 
 						</template>
-						<template v-else> {{ column.name }} </template>
+						<template v-else-if="column.name === ''">
+						</template>
+						<template v-else> {{ $t('auto_reply.table_column.' + column.name) }} </template>
 					</th>
 				</tr>
 			</thead>
@@ -46,10 +48,10 @@
 								<DropdownContent class="w-24 text-center">
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
 										@click="updateInfo(reply.id, reply.input_msg, reply.output_msg, reply.description)"> 
-											<EditIcon class="w-[20px] h-[20px] mx-1"/> Edit </DropdownItem>
+											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{$t('auto_reply.manipulate.edit')}} </DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
 										@click="deleteAutoReply(reply.id)"> 
-											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> Delete </DropdownItem>
+											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{$t('auto_reply.manipulate.delete')}} </DropdownItem>
 								</DropdownContent>
 								</DropdownMenu>
 							</Dropdown> 
@@ -78,17 +80,17 @@
 		</ModalHeader>
 		<ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
 			<div class="col-span-12">
-				<label for="modal-form-1" class="form-label">Keywords to Detect</label>
+				<label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.keyword_detect')}}</label>
 				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
 					v-model="currentInfo.input_msg" />
 			</div>
 			<div class="col-span-12">
-				<label for="modal-form-1" class="form-label">Set Automated Response</label>
+				<label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.set_auto_reply')}}</label>
 				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
 					v-model="currentInfo.output_msg" />
 			</div>
 			<div class="col-span-12">
-				<label for="modal-form-1" class="form-label">Remark</label>
+				<label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.remark')}}</label>
 				<input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
 					v-model="currentInfo.description" />
 			</div>

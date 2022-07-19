@@ -1,0 +1,19 @@
+{
+    "title": "設定自動回覆",
+    "create": "創建",
+
+    "table_column": {
+        "keyword_detect": "偵測關鍵字",
+        "set_auto_reply": "自動回覆內容",
+        "remark": "註記",
+        "assign_to": "設置粉絲專頁",
+        "#": "#"
+    },
+
+    "manipulate": {
+        "edit": "編輯",
+        "delete": "刪除"
+    },
+
+    "modal_title": "創建新回覆"
+}

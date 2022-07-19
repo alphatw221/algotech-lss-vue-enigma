@@ -4,10 +4,10 @@
 			<h2 class="text-2xl font-medium">Create Campaign</h2>
 		</div> -->
         <div class="flex-col flex gap-3 flex-wrap sm:flex-row sm:justify-between">
-            <label class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0 sm:mt-3"> Setup Auto Reply</label>
+            <label class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0 sm:mt-3"> {{ $t('auto_reply.title') }}</label>
             <button class="w-32 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded ml-auto sm:ml-0"
                 @click="createModal = true; saved=false">
-                <span class="font-bold mr-1 text-[16px]">+</span> Create
+                <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('auto_reply.create') }}
             </button>
         </div>
         <div class="flex flex-col gap-5 p-3 overflow-x-auto sm:p-8 box">
@@ -18,14 +18,14 @@
     <!--Modal Create -->
     <Modal :show="createModal" @hidden="closeWithAlert()">
         <ModalHeader>
-            <h2 class="mr-auto text-base font-medium text-[16px]">Create New Response</h2>
+            <h2 class="mr-auto text-base font-medium text-[16px]">{{$t('auto_reply.modal_title')}}</h2>
             <a @click="createModal=false" class="absolute top-0 right-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             </a>
         </ModalHeader>
         <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
             <div class="col-span-12">
-                <label for="modal-form-1 text-base font-medium" >Keywords to Detect</label>
+                <label for="modal-form-1 text-base font-medium" >{{$t('auto_reply.table_column.keyword_detect')}}</label>
                 <input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
                     v-model="validate.input_msg.$model" 
                     :class="{ 'border-danger text-danger border-2': validate.input_msg.$error }" 
@@ -37,7 +37,7 @@
 				</template>
             </div>
             <div class="col-span-12">
-                <label for="modal-form-1">Set Automated Response</label>
+                <label for="modal-form-1">{{$t('auto_reply.table_column.set_auto_reply')}}</label>
                 <input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder="" 
                     v-model="validate.output_msg.$model" 
                     :class="{ 'border-danger text-danger border-2': validate.output_msg.$error }" 
@@ -49,7 +49,7 @@
 				</template>
             </div>
             <div class="col-span-12">
-                <label for="modal-form-1">Remark</label>
+                <label for="modal-form-1">{{$t('auto_reply.table_column.remark')}}</label>
                 <input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
                     v-model="validate.description.$model" 
                     :class="{ 'border-danger text-danger border-2': validate.description.$error }" 
@@ -61,7 +61,7 @@
 				</template>
             </div>
             <div class="col-span-12">
-                <label for="modal-form-1" class="form-label">Assign To</label>
+                <label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.assign_to')}}</label>
             </div>
             <div class="flex flex-wrap items-center justify-around col-span-12">
                 <template v-for="(data, key) in facebookPagesData" :key="key">
@@ -123,10 +123,10 @@ const validate = useVuelidate(rules, createData);
 
 const tableColumns = ref([
     { name: "#", key: 'id' },
-    { name: "Keywords to Detect", key: "input_msg" },
-    { name: "Set Automated Response", key: "output_msg" },
-    { name: "Remark", key: "description" },
-    { name: "Assign To", key: "facebook_page" },
+    { name: "keyword_detect", key: "input_msg" },
+    { name: "set_auto_reply", key: "output_msg" },
+    { name: "remark", key: "description" },
+    { name: "assign_to", key: "facebook_page" },
     { name: "", key: "edit" },
 ])
 

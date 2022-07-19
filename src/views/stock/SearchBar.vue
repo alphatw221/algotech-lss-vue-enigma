@@ -3,7 +3,7 @@
         <div class="flex flex-wrap justify-between w-full gap-2 sm:flex-row">
             <div class="flex items-center flex-initial w-fit" v-if="showCategoryFilter">
                 <label class="mr-2 w-fit">
-                    Category
+                    {{ $t('stock.search_bar.category') }}
                 </label>
                 <select 
                     class="w-auto h-[35px] sm:h-[42px] rounded-lg form-select-sm sm:form-select"
@@ -15,13 +15,13 @@
             </div>
             <div class="flex items-center flex-initial w-fit" >
                 <label class="mr-2 shrink whitespace-nowrap">
-                    Search by
+                    {{ $t('stock.search_bar.search_by') }}
                 </label>
                 <select
                     class="h-[35px] sm:h-[42px] mr-0 form-select sm:mr-2 shrink rounded-lg form-select-sm sm:form-select" v-model="searchField">
                     <option v-for="searchColumn in searchColumns" :key="searchColumn.value"
                         :value="searchColumn.value">
-                        {{ searchColumn.text }}
+                        {{ $t(`stock.search_bar.${searchColumn.text}`) }}
                     </option>
                 </select>
             </div>
@@ -33,7 +33,7 @@
                     <button 
                         type="button"
                         class="flex-none btn btn-secondary w-16 h-[35px] sm:h-[42px] rounded-l-none" @click="reset">
-                        Reset
+                        {{ $t('stock.search_bar.reset') }}
                     </button>
                 </div>
             </div>
@@ -41,7 +41,7 @@
                 type="button" 
                 class="btn btn-primary shadow-md w-48 h-auto lg:h-[42px] self-end flex-none items-end flex ml-auto" 
                 @click="this.$router.push({name:'category-management'})">
-                Category Management
+                {{ $t('stock.search_bar.category_manage') }}
             </button>
         </div>
     </form>        

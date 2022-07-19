@@ -1,0 +1,19 @@
+{
+    "title": "Setup Auto Reply",
+    "create": "Create",
+
+    "table_column": {
+        "keyword_detect": "Keywords to Detect",
+        "set_auto_reply": "Set Automated Response",
+        "remark": "Remark",
+        "assign_to": "Assign To",
+        "#": "#"
+    },
+
+    "manipulate": {
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+
+    "modal_title": "Create New Response"
+}
