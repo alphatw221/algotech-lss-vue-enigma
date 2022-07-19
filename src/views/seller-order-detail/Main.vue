@@ -1,26 +1,29 @@
 <template>
-<div>
-    <div class="my-5 text-base text-2xl text-center"> {{$t('order_detail.order')}} </div>
+    <div class="my-5 text-base text-xl sm:text-2xl text-center"> {{$t('order_detail.order')}} </div>
 
-    <div class="grid grid-cols-12 gap-4 h-fit">
-        <div class="col-span-12 lg:col-span-6 h-fit">
-                <div class="w-full mx-2 ">
-                    <div class="flex mb-2">
-                        <h2 class="font-medium"> {{$t('order_detail.order_no')}} #{{store.orderDetail.id}} <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending">
-                                {{$t(`manage_order.${store.orderDetail.status}`) }}</span> </h2>
-                    </div>
-                    <div class="flex mb-2">
-                        <span class="font-medium mr-5"> {{ store.orderDetail.customer_name }} {{store.orderDetail.platform ? `/ `+store.orderDetail.platform : ''}}</span>
-                    </div>
-                    <div class="flex mb-2">
-                        <span class="font-medium mr-5"> {{$t('order_detail.order_date')}} : {{new Date(store.orderDetail.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
-                    </div>
+    <div class="grid grid-cols-12 grid-rows-6 lg:grid-rows-4 gap-4 h-fit">
+        <!-- Left col orderTable-->
+        <div class="col-span-12 row-start-1 row-span-2 lg:col-span-6 mx-2 lg:row-start-1 lg:row-span-2"> 
+            <div class="w-full mx-2 ">
+                <div class="flex mb-2">
+                    <h2 class="font-medium"> {{$t('order_detail.order_no')}} #{{store.orderDetail.id}} <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending">
+                            {{$t(`manage_order.${store.orderDetail.status}`) }}</span> </h2>
                 </div>
+                <div class="flex mb-2">
+                    <span class="font-medium mr-5"> {{ store.orderDetail.customer_name }} {{store.orderDetail.platform ? `/ `+store.orderDetail.platform : ''}}</span>
+                </div>
+                <div class="flex mb-2">
+                    <span class="font-medium mr-5"> {{$t('order_detail.order_date')}} : {{new Date(store.orderDetail.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
+                </div>
+            </div>
             <div class="w-full">
                 <OrderDetailTable :order_type="route.query.type"/>
             </div>
+        </div>
+        <!-- Left col Delivery-->
+        <div class="col-span-12 row-start-4 row-span-2 lg:col-span-6 mx-2 lg:row-start-3 lg:row-span-2 h-fit"> 
             <!-- Delivery Information -->
-            <div class="p-5 mt-5 border-2 box border-secondary"> 
+            <div class="p-5 my-5 border-2 box border-secondary"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
                     <span class="text-lg">{{$t('order_detail.delivery_information')}}</span>   
                 </div>
@@ -58,7 +61,9 @@
             </div>
             <!-- Remark End -->
         </div>
-        <div class="col-span-12 lg:col-span-6">
+        <!-- right col price Sum-->
+
+        <div class="col-span-12 row-start-3 row-span-1 lg:col-span-6 lg:col-start-7 mx-2 lg:row-start-1 lg:row-span-1 h-fit">
             <!-- Price Summary -->
             <div>
                 <PriceSummary 
@@ -66,8 +71,11 @@
                     :decimal_places="user_store.userInfo.user_subscription.decimal_places" />
             </div>
             <!-- Price Summary End -->
+        </div>
+
+        <div class="col-span-12 row-start-6 row-span-1 lg:row-start-2 lg:col-span-6 lg:col-start-7 mx-2 h-fit">
             <!-- Payment Information -->
-            <div class="p-5 mt-5 border-2 box border-secondary"> 
+            <div class="p-5 my-5 border-2 box border-secondary"> 
                 <div class="flex mb-4 dark:border-darkmode-400">
                     <span class="text-lg"> {{$t('order_detail.payment_information')}}</span>   
                 </div>
@@ -93,7 +101,6 @@
             <!-- Payment Information End -->
         </div>
     </div>    
-</div>
 </template>
 <script setup>
 import OrderDetailTable from "./OrderDetailTable.vue";

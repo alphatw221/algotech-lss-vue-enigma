@@ -1,6 +1,6 @@
 <template>
 <div class="flex-auto overflow-auto w-full h-[390px]">
-	    <table class="table table-report">
+	    <table class="table table-report -mt-3">
 		<thead>
 			<tr>
 				<th
@@ -175,7 +175,7 @@ td {
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  
+  z-index: 50;
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;
@@ -197,16 +197,13 @@ thead th{
 		display: block;
 		font-size: 16px;
 		padding: 0px !important;
+		border-bottom: 1px solid black;
 	}
 
 	thead tr {
 		position: absolute;
 		top: -9999px;
 		left: -9999px;
-	}
-
-	tr {
-		border-bottom: 1px solid black;
 	}
 
 	td {
@@ -256,6 +253,9 @@ thead th{
 	td:nth-of-type(6):before {
 		display: none;
 		/* color: #0e9893; */
+	}
+	td:nth-of-type(6){
+		min-height: 10px;
 	}
 }
 </style>

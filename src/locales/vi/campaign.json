@@ -37,7 +37,7 @@
         },
     
         "title" : "Tiêu đề",
-        "fan_page" : "Platform",
+        "fan_page" : "Nền tảng",
         "start_at" : "Thời gian bắt đầu",
         "end_at" : "Thời gian kết thúc",
         "manage" : "Manage",
@@ -63,6 +63,8 @@
             "clear":"Clear",
             "comment_message_1":"You don't have any %{tag} related comment yet",
             "comment_message_2":"You don't have any %{platformName} comment yet"
-        }
+        },
+        "cart_sold_left":"Giỏ hàng / Đã bán / Còn lại",
+        "incoming_order":"Đơn hàng đến"
     }
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="mt-3 w-full overflow-auto h-fit sm:h-[50vh]"> 
-        <table id="orderTable" class="table -mt-3 text-lg table-report">
+        <table id="orderTable" class="table -mt-3 text-[13px] table-report">
             <thead>
                 <tr>
                     <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
@@ -291,9 +291,10 @@ thead th{
 		border: none;
 		position: relative;
 		padding-left: 50% !important;
+        padding-right: 10px !important;
 		text-align: right !important;
 		box-shadow: none !important;
-        min-height: 35px;
+        min-height: 35px !important;
         margin-top: 5px;
         display: flex;
         text-align: center;
@@ -310,6 +311,7 @@ thead th{
 		left: 6px;
 		width: 45%;
 		padding-right: 10px;
+        padding-left: 10px;
 		font-weight: bold;
         text-align: left !important;
 		box-shadow: none !important;
@@ -322,7 +324,8 @@ thead th{
 	}
     td:nth-of-type(1){
         width: 100%;
-        padding-left: 6px !important;
+        min-height: 30px !important;
+        padding-left: 10px !important;
 		font-weight: bold;
         justify-content:flex-start;
 	}
@@ -373,15 +376,17 @@ thead th{
 	}
 
     td:nth-of-type(7):before {
-		content: attr(data-content);
+		content: attr(data-content); 
 	}
      td:nth-of-type(7){
 		place-content: right !important;
+        min-height: 45px !important;
 	}
 
     td:nth-of-type(8):before {
 		content: attr(data-content);
 	}
+
 
     td:nth-of-type(9){
 		display: inline-block;

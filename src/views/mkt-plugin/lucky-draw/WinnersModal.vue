@@ -1,14 +1,17 @@
 <template>
     <Modal size="modal-lg" :slideOver="true" :show="winnerListPreview" @hidden="winnerListPreview = false">
         <ModalHeader class="p-5">
-            <h2 class="font-medium text-base mr-auto">All Winners</h2>
+            <h2 class="font-medium text-center text-xl w-full">All Winners</h2>
+			<a @click="winnerListPreview = false" class="absolute right-0 top-0 mt-3 mr-3">
+            	<XIcon class="w-8 h-8 text-slate-400" />
+        	</a>
         </ModalHeader>
         
         <ModalBody>
             <table class="box table table-report table-auto -mt-3" style="text-align: inherit;">
                 <thead>
                     <tr>
-                        <th class="whitespace-normal xl:whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
+                        <th class="whitespace-nowrap text-left" v-for="column in tableColumns" :key="column.key">
                             {{ column.name }}
                         </th>
                     </tr>
@@ -16,14 +19,15 @@
                 <tbody>
                     <tr v-for="winner in winnerList" :key="winner">
                         <template v-for="column in tableColumns" :key="column.key">
-                            <td v-if="column.key == 'platform'" class="imgtd">
+                            <td v-if="column.key == 'platform'" class="imgtd w-20">
                                 <div class="flex w-full justify-around">
-                                    <div class="flex-0 w-12 h-12 zoom-in border-0">
-                                        <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" class="rounded-full border-0" :src="`${storageUrl}fake_head.jpeg`"
+                                    <div class="flex-0 w-20 h-20 sm:w-12 sm:h-12 zoom-in border-0">
+                                        <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" 
+											class="rounded-full border-0 w-20 h-20" :src="`${storageUrl}fake_head.jpeg`"
                                             />
-                                        <Tippy v-else tag="img" class="rounded-full border-0" :src="winner.customer_image"
+                                        <Tippy v-else tag="img" class="rounded-full border-0 w-20 h-20 sm:w-12 sm:h-12" :src="winner.customer_image"
                                             />
-                                        <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                        <div class="w-6 h-6 sm:w-5 sm:h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                             <img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
                                             <img v-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
                                             <img v-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
@@ -32,7 +36,10 @@
                                     </div>
                                 </div>
                             </td>
-                            <td v-else>
+							<td v-else-if="column.key == 'draw_type'"  class="whitespace-nowrap w-fit">
+                                {{ winner[column.key] }}
+                            </td>
+                            <td v-else class="break-all w-fit">
                                 {{ winner[column.key] }}
                             </td>
                         </template>

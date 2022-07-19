@@ -48,7 +48,7 @@
                     </div>
                 </div>
                 <div style="margin-top: 5rem;" v-else-if="ready === true && beforeDraw === false">
-                    <div v-if="winner.length != 0" 
+                    <div v-if="winnerList.length != 0" 
                         class="text-2xl text-center"> Congratulations!</div>
                     <img class="mx-auto my-8 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px;"/>
                     <div class="text-center text-2xl">{{ luckyDrawData.prize.name }}</div>
@@ -71,9 +71,10 @@
                             <label> {{ winner.customer_name }} </label>
                         </div>
                     </div>
+                    <div v-if="winnerList.length == 0" class="text-2xl text-center">  
+                        No Winner this run </div>
                 </div>
             </div>
-
         </div>
         
         <!-- BEGIN: Modal Content -->

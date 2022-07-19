@@ -10,7 +10,7 @@
 				<ComfirmProductTable />
 			</div>
 			<template v-if="route.name === 'assign-product'">
-				<div v-show="selectProduct" class="z-10 flex justify-end mt-5">
+				<div v-show="selectProduct" class="z-10 flex justify-end box pb-5">
 					<button class="z-50 w-32 bg-white btn dark:border-darkmode-400" @click="router.push({ name: 'edit-campaign', params: {campaign_id: route.params.campaign_id} })">
 						Previous
 					</button>
@@ -18,7 +18,7 @@
 						Next
 					</button>
 				</div>
-				<div v-show="comfirmProduct" class="z-10 flex justify-end mt-5">
+				<div v-show="comfirmProduct" class="z-10 flex justify-end box py-5">
 					<button class="z-50 w-32 bg-white btn dark:border-darkmode-400" @click="comfirmProduct=false, selectProduct=true">
 						Edit
 					</button>
@@ -28,7 +28,7 @@
 				</div>
 			</template>
 			<template v-if="route.name === 'edit-campaign-product'">
-				<div class="z-10 flex justify-end -mt-3">
+				<div class="z-10 flex justify-end -mt-3 box">
 					<button class="z-50 w-32 mx-5 shadow-md btn btn-primary" @click="router.push({ name: 'campaign-list' })">
 						Save
 					</button>

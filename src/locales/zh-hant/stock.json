@@ -8,13 +8,8 @@
     "status" : {
         "for_sale" : "可銷售",
         "disable" : "未上架",
-        "archive" : "垃圾桶"
-    },
-
-    "status_operation" : {
-        "for_sale" : "上架",
-        "disable" : "下架",
-        "restore" : "復原"
+        "archive" : "垃圾桶",
+        "delisted":"Delisted"
     },
 
     "title" : {

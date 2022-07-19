@@ -235,7 +235,7 @@ const currentSettings = ref({
     type: 'product',
     comment: 'keyword',
     campaign_product: '',
-    prize: 'Please Assign Lucky Draw Items into your Campaign',
+    prize: 'Assign Lucky Draw Items into your Campaign',
     title: '',
     animation: '',
     path: ''
@@ -281,6 +281,8 @@ onUnmounted(() => {
 watch(computed(()=>detailStore.campaignProducts), () => { list_product_prize() })
 
 const list_product_prize = () => {
+    prizeList.value = []
+    productList.value = []
     list_campaign_product(route.params.campaign_id).then(res => {
         for (let i =0; i < res.data.length; i++) {
             if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
@@ -329,7 +331,6 @@ const uploadAnimation = e => {
     currentSettings.value.path = '';
     console.log(formData.value)
 }
-
 </script>
 
 <style scoped>

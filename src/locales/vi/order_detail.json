@@ -6,7 +6,7 @@
     "payment_method" : "Mode of Payment",
     
     "delivery_information" : "Delivery Information",
-    "name" : "Name",
+    "name" : "Tên",
     "phone" : "Phone",
     "email" : "Email",
     "delivery_method" : "Delivery Method",
@@ -24,7 +24,7 @@
     "pickup_address":"Pickup Store/Address",
 
     
-    "product" : "Product",
+    "product" : "Sản phẩm",
     "price" : "Price",
     "qty" : "Quantity",
     "null" : "",
@@ -35,7 +35,7 @@
     "delivery_charge":"Delivery Charge",
     "discount":"Discount",
 
-    "add": "Add",
+    "add": "Thêm sản phẩm",
     "subtract": "Subtract",
     
     "price_adjustment" : "Price Adjustment",

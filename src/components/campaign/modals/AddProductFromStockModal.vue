@@ -6,7 +6,7 @@
         </a>
         <ModalHeader class="text-center text-base p-5">
             <h2 class="font-medium w-full">
-                Add Product From Stock
+                Confirm To Add Following Product
             </h2>
         </ModalHeader>
         <ModalBody>
@@ -55,7 +55,7 @@
 
                 <!-- BEGIN ProductTable -->
                 <div class="relative"> 
-                    <div class="overflow-auto h-[62vh] text-[14px] mt-5">
+                    <div class="overflow-x-none overflow-y-auto sm:overflow-auto h-[62vh] text-[14px] mt-5">
                         <table class="table table-report h-[100%] w-[100%]">
                             <thead>
                                 <tr>
@@ -91,10 +91,10 @@
                                         </td>
 
                                         <td 
-                                            v-else-if="column.key === 'order_code'" class="orderCode" 
+                                            v-else-if="column.key === 'order_code' && product.type=='product'" class="orderCode" 
                                             >
                                             <div class="place-content-end w-full md:w-24 lg:place-content-center">
-                                                <input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]" v-if="product.type=='product'"/>
+                                                <input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]"/>
                                             </div>
                                         </td>
 
@@ -112,39 +112,43 @@
                                                 <input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
                                             </div>
                                         </td>
-                                        <td v-else-if="column.key === 'max_order_amount'"
+                                        <td v-else-if="column.key === 'max_order_amount' && product.type=='product'"
                                             class="maxqty">
                                             <div class="flex flex-col place-content-end w-full md:w-24">
-                                                <input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" v-if="product.type=='product'" />
+                                                <input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]"/>
                                             </div>
                                         </td>
 
                                         <td v-else-if="column.key === 'type'" class="type"> 
                                             <div v-if="props.productType === 'lucky_draw'">{{product[column.key]}}  </div>
                                             <select v-else
-                                                class="form-select w-auto mt-2 sm:mt-2"
+                                                class="form-select w-auto mt-0 sm:mt-2"
                                                 v-model="product[column.key]"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
                                         </td>
 
-                                        <td v-else-if="column.key === 'customer_editable'" class="editable">
-                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)" v-if="product.type=='product'"/>
+                                        <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable">
+                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
                                         </td>
 
-                                        <td v-else-if=" column.key === 'customer_removable'" class="removable">
-                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
+                                        <td v-else-if=" column.key === 'customer_removable' && product.type=='product'" class="removable">
+                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
                                         </td>
 
-                                        <td v-else-if="column.key === 'price'"  class="price">
-                                            <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div>
+                                        <td v-else-if="column.key === 'price'" class="price">
+                                            <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
+                                            <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+                                                <span class="my-auto mr-1">$</span> 
+                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                            </div>
                                         </td>
 
                                         <td v-else-if="column.key === 'name'" class="name text-[16px] w-full h-fit lg:w-24 lg:text-sm content-center items-center longMessage">
                                             {{product[column.key]}}
                                         </td>
-                                        <td v-else class="hidden"> </td>
+                                        <td v-else class="noTd"> </td>
                                     </template>
                                 </tr>
                             </tbody>
@@ -162,7 +166,7 @@
                         
                     </div> 
                     <div class=" flex items-center justify-between">
-                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">Next</button>
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">Add</button>
                     </div> 
                 </div>
                 <!-- END ProductTable -->
@@ -175,8 +179,8 @@
                     Comfirm Selected Product
                 </div>
                 <div class="relative"> 
-                    <div class="overflow-auto h-[72vh] text-[14px] mt-5">
-                        <table class="table table-report h-[100%] w-[100%]">
+                    <div class="overflow-x-none overflow-y-auto sm:overflow-auto h-[72vh] text-[14px] mt-5">
+                        <table class="table table-report">
                             <thead>
                                 <tr>
                                     <th class="w-10"></th>
@@ -207,10 +211,10 @@
                                             </div>
                                         </td>
 
-                                        <td v-else-if="column.key === 'order_code'" class="orderCode">
+                                        <td v-else-if="column.key === 'order_code' && product.type=='product'" class="orderCode">
                                             <div class="relative place-content-end w-full md:w-24 lg:place-content-center">
-                                                <input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]" v-if="product.type=='product'"/>
-                                                <label class="text-danger absolute -bottom-5 left-1" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                                <input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]" />
+                                                <label class="text-danger absolute -bottom-5 right-0 z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </td>
                                         
@@ -221,52 +225,58 @@
                                         <td v-else-if="column.key === 'qty'" class="qty">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
-                                                <label class="text-danger absolute -bottom-5 left-1 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                                <label class="text-danger absolute -bottom-5 right-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </td>
 
-                                        <td v-else-if="column.key === 'max_order_amount'" class="maxqty">
+                                        <td v-else-if="column.key === 'max_order_amount' && product.type=='product'" class="maxqty">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
-                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" v-if="product.type=='product'" />
+                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                                <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </td>
 
                                         <td v-else-if="column.key === 'type'" class="type">
                                             <div v-if="props.productType == 'lucky_draw'"> {{product[column.key]}}</div>
                                             <select  v-else
-                                                class="form-select w-auto mt-2 sm:mt-2"
+                                                class="form-select w-auto mt-0 sm:mt-2"
                                                 v-model="product[column.key]"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
                                             </select> 
-                                            <label class="text-danger absolute -bottom-5 left-1 whitespace-nowrap" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            <label class="text-danger absolute -bottom-5 right-0 whitespace-nowrap" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                         </td>
 
-                                        <td v-else-if="column.key === 'customer_editable'" class="editable">
-                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" v-if="product.type=='product'"/>
+                                        <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable">
+                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" />
                                         </td>
 
-                                        <td v-else-if=" column.key === 'customer_removable'" class="removable">
-                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
+                                        <td v-else-if=" column.key === 'customer_removable'  && product.type=='product'" class="removable">
+                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
                                         </td>
 
                                         <td v-else-if="column.key === 'price'" class="price">
-                                            <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div>
+                                            <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
+                                            <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+                                                <span class="my-auto mr-1">$</span> 
+                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                            </div>
                                         </td>
 
                                         <td v-else-if="column.key === 'name'" class="name">
                                             <div class="relative text-[16px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage"> {{product[column.key]}} </div>
-                                            <label class="text-danger text-danger absolute -bottom-5 left-1" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            <label class="text-danger text-danger absolute -bottom-5 right-0" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                         </td>
+                                        <td v-else class="noTd"> </td>
                                     </template>
                                 </tr>
                             </tbody>
                         </table> 
                     </div>
-                    <div class=" flex items-center justify-between mt-10">
-                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5" @click="openTab='select'">Previous</button>
+                    <div class=" flex items-center justify-between">
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="openTab='select'">Add More</button>
                         <button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">Reset</button>
-                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">Apply</button>
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">Confirm</button>
                     </div> 
                 </div>
             </div>
@@ -374,25 +384,11 @@ const updateStockProducts = ()=>{
         
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
-            // console.log(stockProductIndex)
-            // console.log('before update stock')
-            // relations.push([stockProductIndex,index])
             stockProducts.value[stockProductIndex] = selectedProducts.value[index]
-            // console.log('after update stock')
-            // console.log(product.id)
         }else{
-            // console.log(stockProductIndex)
-            // console.log(product.id)
             product.check=false
         }
     });
-    // console.log(relations)
-    // console.log(stockProducts.value)
-    // relations.forEach(relation=>{
-    //     console.log(selectedProducts.value[relation[1]].id)
-    //     stockProducts.value[relation[0]] = selectedProducts.value[relation[1]]
-
-    // })
 }
 
 const getProductCache = ()=>{
@@ -426,11 +422,11 @@ const checkIfValid = ()=>{
                 errorMessages.value[index]['order_code']='duplicate';
                 isSelectedProductsValid=false;
             }
-        if(selectedProduct.type=='product' && !selectedProduct.order_code) {errorMessages.value[index]['order_code']='invalid order code';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && !selectedProduct.order_code) {errorMessages.value[index]['order_code']='required';isSelectedProductsValid=false;}
         // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
         if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid qty';isSelectedProductsValid=false;}
         if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false;}
-        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='please select type';isSelectedProductsValid=false;}
+        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='required';isSelectedProductsValid=false;}
         productCache.orderCodeDict[selectedProduct.order_code]=index
     });
 
@@ -493,7 +489,7 @@ const resetSelectedProduct = ()=>{
 	selectedProducts.value = []
 	errorMessages.value = []
     updateStockProducts()
-
+    openTab.value='select'
 }
 
 const selectAllStockProduct = (event)=>{
@@ -515,7 +511,6 @@ const search = () => {
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
-		
 	})
 }
 
@@ -547,7 +542,9 @@ const submitData = ()=>{
 		campaignDetailStore.campaignProducts = res.data
         hideModal()
 	}).catch(err=>{
+        console.log(err.response.data)
 		if (err.response){
+
 			errorMessages.value = err.response.data.errors
 		}
 	})
@@ -576,25 +573,23 @@ const hideModal = ()=>{
 }
 
 td {
-    height: auto !important;
-    min-height: 50px;
-    border-collapse: collapse;
-    width: auto !important;
-    padding-right: 10px !important;
-    padding-left: 10px !important;
+  min-height: 50px;
+  border-collapse: collapse;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
+}
+
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 50;
+  background-color: theme("colors.secondary");
+  padding-right: 10px !important;
+  padding-left: 10px !important;
 }
 
 .longMessage {
     overflow-wrap: break-word;
-}
-
-thead th {
-    position: sticky !important;
-    top: 0 !important;
-    z-index: 50;
-    background-color: theme("colors.secondary");
-    padding-right: 10px !important;
-    padding-left: 10px !important;
 }
 
 .checkboxWord {
@@ -640,7 +635,7 @@ thead th {
 	}
 
     td {
-        min-height: 42px;
+        min-height: 50px;
         height: auto;
         border: none;
         position: relative;
@@ -655,7 +650,7 @@ thead th {
 
     td:before {
         position: absolute;
-        min-height: 42px;
+        min-height: 50px;
         left: 6px;
         width: 45%;
         padding-right: 10px;
@@ -701,6 +696,7 @@ thead th {
 		font-weight: 500;
 		color: theme("colors.primary");
         font-size: 16px !important;
+        min-height: 25px !important;
     }
 
     .orderCode:before {
@@ -721,9 +717,7 @@ thead th {
 
     .price:before {
         content: "Price";
-    }
-    .price{
-        top: 10px;
+        top:10px;
     }
     /* .price{
         display: flex;
@@ -736,10 +730,16 @@ thead th {
         content: "Editable";
         margin-top: 0px !important;
     }
+    .editable{
+        min-height: 35px !important;
+    }
     .removable:before {
         content: "Deletable";
         text-align: left !important;
         margin-top: 0px !important;
+    }
+    .removable{
+        min-height: 35px !important;
     }
 
     .category:before {
@@ -749,6 +749,18 @@ thead th {
     .type:before {
         content: "Type";
         text-align: left !important;
+        min-height: 35px !important;
+        top:10px;
+    }
+    .type{
+        min-height: 35px !important;
+    }
+    .noTd:before{
+        display:none; 
+    }
+    .noTd{
+        display:none; 
+        min-height: 0 !important;
     }
 }
 </style>

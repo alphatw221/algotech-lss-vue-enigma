@@ -17,20 +17,20 @@
         <div v-for="(luckydraw, index) in props.luckydrawList" :key="index"
             class="box bg-secondary relative hover:border-2 border-slate-500/50 text-left" >     
             <div class="flex flex-row flex-wrap justify-start lg:justify-between m-[0.7rem] p-5 px-3 lg:p-5 lucky-set">
-                <div class="flex flex-col xl:flex-row justify-start w-[75px] xl:w-[120px] mr-5 my-auto"> 
+                <div class="flex flex-col xl:flex-row justify-start w-[75px] lg:w-[120px] mr-5 my-auto"> 
                     <img class="h-[120px] object-cover lg:mr-5" :src="storageUrl + luckydraw.animation" />
                     <span class="m-auto h-auto w-40 break-words text-[16px] hidden lg:block">{{ luckydraw.prize.name }}</span>
                 </div>
                 <div class="flex flex-col lg:flex-row flex-wrap justify-start md:mt-5 w-[55%] lg:w-auto lg:ml-auto">  
-                    <span class="my-auto lg:hidden">{{ luckydraw.prize.name }}</span>
+                    <span class="my-auto lg:hidden break-words w-full">{{ luckydraw.prize.name }}</span>
 
-                    <div class="lg:border-r-2 border-slate-700 flex flex-row lg:flex-col w-full lg:pr-5 lg:w-36 xl:w-44 text-sm lg:text-lg justify-between lg:justify-center">
+                    <div class="lg:border-r-2 border-slate-700 flex flex-row lg:flex-col w-full lg:pr-5 lg:w-36 xl:w-44 text-sm lg:text-lg justify-between lg:justify-center text-right">
                         <span class="lg:my-1 order-2 lg:order-1 text-[#E75F34]" v-if="luckydraw.type == 'product'"> ({{ luckydraw.campaign_product.order_code }}) {{ luckydraw.campaign_product.name }} </span>
                         <span class="lg:my-1 order-2 lg:order-1 text-[#E75F34]" v-else-if="luckydraw.type == 'keyword'"> {{ luckydraw.comment }} </span>
                         <span class="h-[22px] lg:h-[28px] lg:my-1" v-else> </span>
                         <span v-if="drawTitleMap[luckydraw.type] == 'Draw Like'" class="text-slate-500 order-1 lg:order-2 whitespace-nowrap mr-auto lg:mr-0"> {{ drawTitleMap[luckydraw.type] }} </span>
                         <span v-else-if="drawTitleMap[luckydraw.type] == 'Draw Purchased'" class="text-slate-500 order-1 lg:order-2 whitespace-nowrap mr-auto lg:mr-0"> {{ drawTitleMap[luckydraw.type] }} </span>
-                        <span v-else class="text-slate-500 order-1 lg:order-2 whitespace-nowrap mr-auto lg:mr-0 hidden"> {{ drawTitleMap[luckydraw.type] }} </span>
+                        <span v-else class="text-slate-500 order-1 lg:order-2 whitespace-nowrap mr-auto lg:mr-0 hidden md:block"> {{ drawTitleMap[luckydraw.type] }} </span>
                     </div>
                     <div class="lg:border-r-2 border-slate-700 flex flex-row lg:flex-col w-full lg:px-5 lg:w-36 text-sm lg:text-lg justify-between lg:justify-center">
                         <span class="order-2 lg:order-1 lg:my-1"> {{ luckydraw.num_of_winner }} </span>
@@ -42,7 +42,7 @@
                         <span class="text-slate-500 mr-auto lg:mr-3 order-1 lg:order-2 whitespace-nowrap"> Winner Repeat</span>
                     </div>
                 </div>
-                <div class="mt-5 flex w-[100%] xl:w-fit">
+                <div class="mt-5 xl:m-0 flex w-[100%] 2xl:w-fit justify-end">
                     <button class="btn btn-primary w-full lg:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" @click="goDraw(luckydraw.id)">
                         Start
                     </button>
@@ -100,17 +100,21 @@ const goDraw = (lucky_draw_id) => {
 }
 
 const editDraw = (lucky_draw_id) => {
+    hideDropDown()
     eventBus.emit('editDraw', { lucky_draw_id: lucky_draw_id })
     eventBus.emit('changeDrawPage')
 }
 
 const deleteDraw = (lucky_draw_id) => {
+    hideDropDown()
     delete_campaign_lucky_draw(lucky_draw_id).then(res => {
         router.go()
     }).catch(err => {
         console.log(err)
     })
 }
-
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
 
 </script>
