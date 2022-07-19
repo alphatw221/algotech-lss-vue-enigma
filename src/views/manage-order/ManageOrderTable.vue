@@ -4,7 +4,7 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
-                        {{ $t(`manage_order.`+column.name) }}
+                        {{ $t(`manage_order.table.`+column.name) }}
                     </th>
                 </tr>
             </thead>
