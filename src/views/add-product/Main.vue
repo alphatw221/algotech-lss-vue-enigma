@@ -275,7 +275,11 @@ const submit = ()=>{
         return
     }else
 	if (route.params.product_id) {
-		formData.append('image', previewImage.value !== '' ?dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] : '._no_image')
+		if(previewImage.value === '' && (product.value.image === '' || dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] === undefined))
+			formData.append('image', '._no_image')
+		else
+			formData.append('image', dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0])
+		
 		formData.append('data', JSON.stringify(product.value))
 		update_product(route.params.product_id, formData)
 		.then(
@@ -307,7 +311,7 @@ const cancelButton = () =>{
 
 const clear = () =>{
 	previewImage.value = ''
-	console.log(previewImage.value)
+	console.log(dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0])
 }
 
 const rules = computed(()=>{
