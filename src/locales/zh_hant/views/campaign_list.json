@@ -42,7 +42,8 @@
         "null":"",
         "history":"回顧",
         "live_on":"進入直撥",
-        "edit":"編輯",
+        "edit_campaign":"編輯直撥",
+        "edit_campaign_product":"編輯直撥商品",
         "blank_cart":"複製購物車連結",
         "lucky_draw":"抽獎設定"
     },

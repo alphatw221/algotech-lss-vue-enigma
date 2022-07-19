@@ -107,15 +107,23 @@
                     <DropdownItem class="w-full text-center whitespace-nowrap" 
                       @click="editCampaign(campaign)"> 
                       <EditIcon class="h-[20px] w-[20px] mr-1" />
-                      {{$t("campaign_list.campaign_list_table.edit")}} </DropdownItem>
+                      {{$t("campaign_list.campaign_list_table.edit_campaign")}} 
+                    </DropdownItem>
+                    <DropdownItem class="w-full text-center whitespace-nowrap" 
+                      @click="editCampaignProduct(campaign)"> 
+                      <EditIcon class="h-[20px] w-[20px] mr-1" />
+                      {{$t("campaign_list.campaign_list_table.edit_campaign_product")}}  
+                    </DropdownItem>
                     <DropdownItem 
                       @click="copyURL(campaign)" class="w-full whitespace-nowrap"> 
                       <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
-                      {{$t("campaign_list.campaign_list_table.blank_cart")}} </DropdownItem>
+                      {{$t("campaign_list.campaign_list_table.blank_cart")}} 
+                    </DropdownItem>
                     <DropdownItem 
                       @click="goLuckyDraw(campaign)" class="w-full whitespace-nowrap"> 
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
-                      {{$t("campaign_list.campaign_list_table.lucky_draw")}}</DropdownItem>
+                      {{$t("campaign_list.campaign_list_table.lucky_draw")}}
+                    </DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
@@ -253,7 +261,11 @@ const editCampaign = (campaign)=>{
   router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})
   hideDropDown()
 }
+const editCampaignProduct = campaign=>{
+  router.push({name:'edit-campaign-product', params: {'campaign_id':campaign.id}})
+  hideDropDown()
 
+}
 const copyURL = (campaign)=>{
   text = `${baseURL}/buyer/recaptcha/blank/${campaign.id}`;
   navigator.clipboard.writeText(text).then(()=>{
