@@ -108,6 +108,10 @@
                       @click="editCampaign(campaign)"> 
                       <EditIcon class="h-[20px] w-[20px] mr-1" />
                       Edit </DropdownItem>
+                    <DropdownItem class="w-full text-center whitespace-nowrap" 
+                      @click="router.push({name:'edit-campaign-product', params:{'campaign_id': campaign.id}})"> 
+                      <EditIcon class="h-[20px] w-[20px] mr-1" />
+                      Edit Product </DropdownItem>
                     <DropdownItem 
                       @click="copyURL(campaign)" class="w-full whitespace-nowrap"> 
                       <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />

@@ -28,7 +28,7 @@
 				</div>
 			</template>
 			<template v-if="route.name === 'edit-campaign-product'">
-				<div class="z-10 flex justify-end -mt-3">
+				<div class="z-10 flex justify-end mt-5">
 					<button class="z-50 w-32 mx-5 shadow-md btn btn-primary" @click="router.push({ name: 'campaign-list' })">
 						Save
 					</button>
