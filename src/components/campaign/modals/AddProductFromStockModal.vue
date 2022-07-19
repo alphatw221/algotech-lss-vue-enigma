@@ -258,8 +258,8 @@
                                         <td v-else-if="column.key === 'price'" class="price">
                                             <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
                                             <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
-                                                <span class="my-auto mr-1">$</span> 
-                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                                <span class="mt-auto mr-1">$</span> 
+                                                <input class="form-control w-[100%] mt-0 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
                                             </div>
                                         </td>
 
@@ -704,20 +704,32 @@ thead th{
         text-align: left !important;
         top:25% !important;
     }
+    .orderCode input{
+        text-align:right
+    }
 
     .qty:before {
         content: "Qty for Campaign";
         top:25% !important;
+    }
+    .qty input{
+        text-align:right
     }
 
     .maxqty:before {
         content: "Max Qty / Order";
         top:25% !important;
     }
+    .maxqty input{
+        text-align:right
+    }
 
     .price:before {
         content: "Price";
         top:10px;
+    }
+    .price input{
+        text-align:right
     }
     /* .price{
         display: flex;

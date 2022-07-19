@@ -1,0 +1,43 @@
+{
+    "process" : {
+        "create" : "Tạo sản phẩm",
+        "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",
+        "connect" : "Connect",
+        "connect_description" : "Click \"Edit\" button to connect camapign to your FB Post.",
+        "complete" : "Complete",
+        "complete_description" : "Click \"Enter\" to join the live campaign."
+    },
+    "campaigns" : "Campaigns",
+    "live_on" : "Kích hoạt",
+
+    "scheduled" : "Đã lên lịch",
+    "history" : "Lịch sử",
+    "ongoing" : "Đang diễn ra",
+
+    "search" : "Tìm kiếm",
+    "reset" : "Reset",
+
+    "enter_post_id":{
+        "message":"Please enter post ID to start live selling.",
+        "select_stream":"Select Stream",
+        "select_page":"Select Page",
+        "id":"Post ID"
+    },
+
+    "title" : "Tiêu đề",
+    "fan_page" : "Nền tảng",
+    "start_at" : "Thời gian bắt đầu",
+    "end_at" : "Thời gian kết thúc",
+    "manage" : "Manage",
+    "manage_product" : "Manage Product",
+    "manage_order" : "Quản lý bán hàng",
+    "stop" : "Dừng thanh toán",
+    "action" : "Action",
+    "enter" : "Enter",
+    "detail" : "Detail",
+    "settings" : "Settings",
+    "delivery" : "Delivery",
+    "payment" : "Payment",
+    "show" : "Show",
+    "null" : ""
+}
