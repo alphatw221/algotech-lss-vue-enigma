@@ -16,11 +16,23 @@
             </div> -->
             
 
-            <div class="flex justify-between mb-3">
-                <h2 class="text-lg font-medium m-3 ml-5">Incoming Order</h2>
-                <button class="btn btn-primary w-32 mt-auto mr-3" @click="routeTOLuckyDraw()">
-                    Go Lucky Draw 
-                </button>
+            <div class="flex justify-between flex w-full m-3">
+                <h2 class="text-lg font-medium ml-5">Incoming Order</h2>
+                <Dropdown class="inline-block">
+                    <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
+                        Plug In
+                    </DropdownToggle>
+                    <DropdownMenu class="w-48">
+                        <DropdownContent>
+                            <DropdownItem @click="routeTOLuckyDraw()">
+                                Instantly Lucky Draw Spin
+                            </DropdownItem>
+                            <DropdownItem @click="toDrawList()">
+                                Lucky Draw List
+                            </DropdownItem>
+                        </DropdownContent>
+                    </DropdownMenu>
+                </Dropdown>
             </div>
             
             <div class="overflow-auto scrollbar-hidden">
@@ -99,7 +111,9 @@ onMounted(()=>{
         
 })
 
-
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
 
 
 const routeToDetailPage = (order_id)=>{
@@ -112,8 +126,12 @@ const routeTOManageOrder = ()=>{
 
 const routeTOLuckyDraw = ()=>{
     router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
+    hideDropDown()
 }
-
+const toDrawList = ()=>{
+    router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
+    hideDropDown()
+}
 </script>
 
 <style scoped>
