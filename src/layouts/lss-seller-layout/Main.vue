@@ -62,7 +62,7 @@ import LSSSellerMobileMenu from "@/components/lss-seller-mobile-menu/Main.vue";
 import LSSSellerMenu from "@/components/lss-seller-menu/Main.vue";
 import ThemeModeSwitcher from "@/components/theme-mode-switcher/Main.vue";
 import { useCookies } from "vue3-cookies";
-import { provide, onMounted,ref, computed,watch } from "vue"
+import { provide, onMounted,ref, computed, watch } from "vue"
 import { useRouter ,useRoute} from "vue-router";
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -112,8 +112,19 @@ const websocketInit =()=> {
   };
 }
 
+import i18n from '@/locales/i18n';
+import { get_seller_account } from '@/api_v2/user';
+// import { useCookies } from "vue3-cookies";
+// const { cookies } = useCookies();
+
+
 onMounted(() => {
   websocketInit()
+  if (cookies.get('access_token')) {
+      get_seller_account().then(res => {
+        i18n.global.locale.value = res.data.user_subscription.lang
+      })
+  }
  })
 
 // watch(computed(()=>route.path),
