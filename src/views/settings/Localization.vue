@@ -80,27 +80,27 @@ const languages = ref([
     {value:'id',text:'Indonesian'}])
 
 const decimalOptions = ref([
-    {value:2,text:'0.01'},
-    {value:1,text:'0.1'},
-    {value:0,text:'1'},
-    {value:-1,text:'10'},
-    {value:-2,text:'100'},
-    {value:-3,text:'1000'}])
+    {value:'2',text:'0.01'},
+    {value:'1',text:'0.1'},
+    {value:'0',text:'1'},
+    {value:'-1',text:'10'},
+    {value:'-2',text:'100'},
+    {value:'-3',text:'1000'}])
 
-const data = ref({currency:'USD', lang:'en', buyer_lang:'en', decimal_places:2})
+const data = ref({currency:'USD', lang:'en', buyer_lang:'en', decimal_places:'2'})
 onMounted(()=>{
     if(!layoutStore.userInfo.user_subscription) return
     data.value.currency = layoutStore.userInfo.user_subscription.currency
     data.value.lang = layoutStore.userInfo.user_subscription.lang
     data.value.buyer_lang = layoutStore.userInfo.user_subscription.buyer_lang
-    data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places
+    data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places.toString()
 })
 
 const clean =() =>{
     data.value.currency = layoutStore.userInfo.user_subscription.currency
     data.value.lang = layoutStore.userInfo.user_subscription.lang
     data.value.buyer_lang = layoutStore.userInfo.user_subscription.buyer_lang
-    data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places
+    data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places.toString()
 }
 
 const save = ()=>{
