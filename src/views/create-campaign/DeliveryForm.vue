@@ -1,9 +1,9 @@
 <template>
 	<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10 mt-3" v-if="ready">
-		<span class="col-span-12 text-xl font-medium leading-none">Delivery Details</span>
+		<span class="col-span-12 text-xl font-medium leading-none">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
 		<hr class="col-span-12 mb-3" />
 		<div class="flex flex-col col-span-12 col-start-1 px-6"> 
-			<label class="text-base whitespace-nowrap text-lg font-medium">Delivery Charge</label>
+			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
 			<input 
 				class="w-full form-control"
 				type="text" 
@@ -18,7 +18,7 @@
 					type="checkbox" 
 					v-model="props.campaign.meta_logistic.is_free_delivery_for_order_above_price"
 				/>
-				Free delivery for order above $
+				{{$t('create_campaign.delivery_form.free_delivery_for_order_above')}} $
 			</label>
 			<input 
 				class="w-full form-control" 
@@ -35,7 +35,7 @@
 					type="checkbox"
 					v-model="props.campaign.meta_logistic.is_free_delivery_for_how_many_order_minimum"
 					/>
-				Free delivery for minimum order Qty
+				{{$t('create_campaign.delivery_form.free_delivery_for_minimum_order')}}
 			</label>
 
 			<input 
@@ -46,11 +46,11 @@
 		</div> 
 		
 		<div class="flex justify-between col-span-12 col-start-1 mt-5 px-6"> 
-			<label for="regular-form-2" class="text-base font-bold form-label">Delivery Option(s)</label>
+			<label for="regular-form-2" class="text-base font-bold form-label">{{$t('create_campaign.delivery_form.options')}}</label>
 			<a 
 				class="whitespace-nowrap font-medium"
 				@click="addDelivery"
-			> <u> + Add More Option  </u> 
+			> <u> + {{$t('create_campaign.delivery_form.add_more_delivery_option')}} </u> 
 			</a>
 		</div>
 		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
@@ -65,8 +65,8 @@
 					class="flex-1 w-full form-select form-select-md sm:w-fit"
 					v-model="option.type"
 				>
-					<option value="+">On top of delivery charge</option>
-					<option value="=">Replace delivery charge</option>
+					<option value="+">{{$t('create_campaign.delivery_form.on_top_of_delivery_charge')}}</option>
+					<option value="=">{{$t('create_campaign.delivery_form.replace_delivery_charge')}}</option>
 				</select>
 				<input  
 					class="w-full form-control flex-2 sm:w-fit"
@@ -77,23 +77,23 @@
 				<button 
 					class="btn btn-danger inline-block text-base w-full sm:w-24 ml-auto h-[42px]" 
 					@click="deleteDelivery(index)"
-				> Delete </button>
+				> {{$t('create_campaign.delivery_form.delete')}} </button>
 			</div>
 		</div>
 		
 		<div class="flex justify-between col-span-12 col-start-1 mt-5 px-6"> 
-			<label for="regular-form-2" class="text-base font-bold form-label">Store Collection</label>
+			<label for="regular-form-2" class="text-base font-bold form-label">{{$t('create_campaign.delivery_form.store_collection')}}</label>
 			<a 
 				class="whitespace-nowrap font-medium"
 				@click="addBranch()"
-			> <u> + Add More Option  </u> 
+			> <u> + {{$t('create_campaign.delivery_form.add_more_pickup_option')}}  </u> 
 			</a>
 		</div>
 		<div class="grid grid-cols-12 col-span-12 gap-1 text-base intro-y sm:gap-5 -z-50">
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">
 				<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 px-6">
                     <div class="flex flex-col flex-1">
-                         <label class="text-base text-lg font-medium whitespace-nowrap">Pickup Store</label>
+                         <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_store')}}</label>
                         <input 
                             class="w-full h-[42px] text-base form-control sm:mt-0"
                             type="text"
@@ -101,7 +101,7 @@
                         />
                     </div>
                     <div class="flex flex-col flex-wrap  flex-grow-2">
-                        <label class="text-base text-lg font-medium whitespace-nowrap">Pickup Address</label>
+                        <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_address')}}</label>
                         <input 
                             class="w-full h-[42px] mr-5 text-base form-control sm:mt-0"
                             type="text" 
@@ -112,7 +112,7 @@
                         class="inline-block w-full rounded-lg btn btn-danger sm:ml-auto sm:w-24 h-[42px] sm:mt-auto" 
                         @click="deleteBranch(index)"
                         >
-                        Delete
+                        {{$t('create_campaign.delivery_form.delete')}}
                     </button>
                 </div>
             </div>

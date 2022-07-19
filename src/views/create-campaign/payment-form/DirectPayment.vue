@@ -14,12 +14,12 @@
                 type="checkbox" 
                 v-model=" props.campaign.meta_payment.direct_payment.enabled"
                 />
-                <label class="ml-3 form-label text-base font-medium">Enabled</label>
+                <label class="ml-3 form-label text-base font-medium">{{$t('create_campaign.payment_form.enabled')}}</label>
             </div>
             <a 
                 class="whitespace-nowrap font-medium"
                 @click="addDirectPayment()"
-            > <u> + Add More Option  </u> 
+            > <u> + {{$t('create_campaign.payment_form.add_more_direct_payment')}} </u> 
             </a>
         </div>
 
@@ -33,7 +33,7 @@
                 :key="index_j"
             >
                 <template v-if="field.type === 'text'">
-                    <label class="form-label text-base font-medium mt-2">{{ field.name }}</label>
+                    <label class="form-label text-base font-medium mt-2">{{$t(`create_campaign.payment_form.direct_payment.${field.key}`)}}</label>
                     <input 
                         class="form-control form-label w-full"
                         type="text" 
@@ -42,7 +42,7 @@
                 </template>
 
                 <template v-else-if="field.type === 'textarea'">
-                    <label class="form-label text-base font-medium mt-2">{{ field.name }}</label>
+                    <label class="form-label text-base font-medium mt-2">{{$t(`create_campaign.payment_form.direct_payment.${field.key}`)}}</label>
                     <textarea 
                         class="form-control form-label p-2"
                         v-model="account[field.key]"
@@ -56,13 +56,13 @@
                             type="checkbox" 
                             v-model="account[field.key]"
                         />
-                        <label class="form-label text-base font-medium mt-2">{{ field.name }}
+                        <label class="form-label text-base font-medium mt-2">{{$t(`create_campaign.payment_form.direct_payment.${field.key}`)}}
                         </label>
                     </div>
                 </template>
 
                 <template v-else-if="field.type === 'file'">
-                    <label class="form-label text-base font-medium mt-2">Upload Image</label>
+                    <label class="form-label text-base font-medium mt-2">{{$t('create_campaign.payment_form.upload_image')}}</label>
                     <div class="relative border-2 border-dashed dark:border-darkmode-400">
                         <div class="flex items-center justify-center px-4">
                             <!-- temp -->
@@ -75,10 +75,10 @@
                             v-if="previewImages[index_i] === null">
                             <div class="flex flex-col sm:flex-row items-center justify-center"> 
                                 <ImageIcon class="w-8 h-8 mr-2 text-slate-600" /> 
-                                <strong class="text-slate-600">Upload a file or drag and drop</strong> 
+                                <strong class="text-slate-600">{{$t('create_campaign.payment_form.upload_a_file_or_drag_and_drop')}}</strong> 
                             </div>
-                            <div class="mt-2 text-slate-500">Accepted File Types: jpeg, png, jpg</div>
-                            <div class="text-slate-500">Max File Size : 2MB</div>  
+                            <div class="mt-2 text-slate-500">{{$t('create_campaign.payment_form.accepted_file_types')}}: jpeg, png, jpg</div>
+                            <div class="text-slate-500">{{$t('create_campaign.payment_form.max_file_size')}}: 2MB</div>  
                         </div>
                             <input
                                 type="file"
@@ -96,7 +96,7 @@
                 class="inline-block w-24 my-5 ml-auto text-base btn btn-danger" 
                 @click="deleteDirectPayment(index_i)"
                 > 
-                    Delete 
+                    {{$t('create_campaign.payment_form.delete')}}
                 </button>
             </div>
         </div>
