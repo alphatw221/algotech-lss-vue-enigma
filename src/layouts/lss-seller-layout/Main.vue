@@ -74,15 +74,8 @@ const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
-const checkCampaignTime = (data) =>{
-  for (let i =0; i < data.data.length; i++){
-    if(data.data[i].campaignTime === true){
-      store.campaignAlert.buttonToast("You have a upcoming Campaign starts in an hour","Join now!!","Remind me Later",forPath)
-    }
-    else{
-      console.log(data.data[i].campaignTime)
-    }
-  } 
+const checkCampaignTime = (message) =>{
+  store.campaignAlert.buttonToast(`You have a upcoming Campaign: ${message.title} starts in ${message.remind_time}`,"Join now!!","Remind me Later",forPath)
 }
 
 const forPath = () =>{
@@ -99,7 +92,10 @@ const initWebSocketConnection =()=> {
   );
   websocket.onmessage = e => {
       const data = JSON.parse(e.data);
-      checkCampaignTime(data)
+      if (data.type === "notification_message") {
+        checkCampaignTime(data.data.message)
+      }
+      
   };
   websocket.onopen = e => {
       console.log('connected')
