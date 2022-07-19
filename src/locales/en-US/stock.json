@@ -7,13 +7,8 @@
     "status" : {
         "for_sale" : "For Sale",
         "disable" : "Disable",
-        "archive" : "Archive"
-    },
-
-    "status_operation" : {
-        "for_sale" : "For Sale",
-        "disable" : "Disable",
-        "restore" : "Restore"
+        "archive" : "Archive",
+        "delisted":"Delisted"
     },
 
     "title" : {
