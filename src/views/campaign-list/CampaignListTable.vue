@@ -4,7 +4,7 @@
       <thead>
         <tr>
           <th class="text-center " v-for="column in tableColumns" :key="column.key">
-            {{ $t(`campaign_list.`+column.name) }}
+            {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
           </th>
           <th v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" ></th>
         </tr>
@@ -87,12 +87,12 @@
             <button 
               v-if="campaignStatus === 'history'"
               class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
-              {{$t('campaign_list.history')}}
+              {{$t('campaign_list.campaign_list_table.history')}}
             </button>
             <button 
               v-else
               class="w-full sm:w-24 mr-1 btn btn-elevated-rounded-pending h-[42px]" @click="clickEntry(index)">
-              {{$t('campaign_list.live_on')}}
+              {{$t('campaign_list.campaign_list_table.live_on')}}
             </button>
           </td>
           <td
@@ -107,15 +107,23 @@
                     <DropdownItem class="w-full text-center whitespace-nowrap" 
                       @click="editCampaign(campaign)"> 
                       <EditIcon class="h-[20px] w-[20px] mr-1" />
-                      Edit </DropdownItem>
+                      {{$t("campaign_list.campaign_list_table.edit_campaign")}} 
+                    </DropdownItem>
+                    <DropdownItem class="w-full text-center whitespace-nowrap" 
+                      @click="editCampaignProduct(campaign)"> 
+                      <EditIcon class="h-[20px] w-[20px] mr-1" />
+                      {{$t("campaign_list.campaign_list_table.edit_campaign_product")}}  
+                    </DropdownItem>
                     <DropdownItem 
                       @click="copyURL(campaign)" class="w-full whitespace-nowrap"> 
                       <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
-                      Blank Cart </DropdownItem>
+                      {{$t("campaign_list.campaign_list_table.blank_cart")}} 
+                    </DropdownItem>
                     <DropdownItem 
                       @click="goLuckyDraw(campaign)" class="w-full whitespace-nowrap"> 
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
-                      Lucky Draw</DropdownItem>
+                      {{$t("campaign_list.campaign_list_table.lucky_draw")}}
+                    </DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
@@ -253,7 +261,11 @@ const editCampaign = (campaign)=>{
   router.push({name:'edit-campaign', params: {'campaign_id':campaign.id}})
   hideDropDown()
 }
+const editCampaignProduct = campaign=>{
+  router.push({name:'edit-campaign-product', params: {'campaign_id':campaign.id}})
+  hideDropDown()
 
+}
 const copyURL = (campaign)=>{
   text = `${baseURL}/buyer/recaptcha/blank/${campaign.id}`;
   navigator.clipboard.writeText(text).then(()=>{

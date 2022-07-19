@@ -7,7 +7,7 @@
       @hidden="hideModal()"
     >
       <ModalHeader>
-        <h2 class="mr-auto text-base font-medium">{{$t('campaign_list.enter_post_id.select_stream')}}</h2>
+        <h2 class="mr-auto text-base font-medium">{{$t('campaign_list.enter_post_id_modal.edit_channel')}}</h2>
         <a
           @click="hideModal()"
           class="absolute top-0 right-0 mt-3 mr-3"
@@ -22,7 +22,7 @@
           <div class="col-span-12 mr-5 sm:col-span-4">
             <div class="items-end h-10" style="display: inline-flex">
               <label for="modal-form-1" class="text-lg font-medium mr-5"
-                >Facebook</label
+                >{{$t('campaign_list.enter_post_id_modal.facebook')}}</label
               >
               <div
                 v-if="campaign.facebook_page"
@@ -37,17 +37,17 @@
               @click="selectPlatformPage('facebook')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              {{$t('campaign_list.enter_post_id.select_page')}}
+              {{$t('campaign_list.enter_post_id_modal.select_page')}}
             </button>
             <div>
-              Post ID: <br>
+              {{$t('campaign_list.enter_post_id_modal.post_id')}}: <br>
               <p v-if="campaign.facebook_page">{{ campaign.facebook_campaign.post_id }}</p>
             </div>
           </div>
           <div class="col-span-12 sm:col-span-4 mr-5">
             <div class="items-end h-10" style="display: inline-flex">
               <label for="modal-form-1" class="text-lg font-medium mr-5"
-                >Instagram</label
+                >{{$t('campaign_list.enter_post_id_modal.instagram')}}</label
               >
               <div
                 v-if="campaign.instagram_profile"
@@ -63,7 +63,7 @@
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
               <!-- Select Profile -->
-              {{$t('campaign_list.enter_post_id.select_page')}}
+              {{$t('campaign_list.enter_post_id_modal.select_media')}}
             </button>
             <!-- <input
               id="modal-form-1"
@@ -74,14 +74,14 @@
               @click="instagramSelectCurrentLive()"
             /> -->
             <div>
-              Post ID:<br>
+              {{$t('campaign_list.enter_post_id_modal.media_id')}}:<br>
               <p v-if="campaign.instagram_campaign">{{ campaign.instagram_campaign.live_media_id }}</p>
             </div>
           </div>
           <div class="col-span-12 sm:col-span-4 mr-5">
             <div class="items-end h-10" style="display: inline-flex">
               <label for="modal-form-1" class="text-lg font-medium mr-5"
-                >YouTube</label
+                >{{$t('campaign_list.enter_post_id_modal.youtube')}}</label
               >
               <div
                 v-if="campaign.youtube_channel"
@@ -96,7 +96,7 @@
               @click="selectPlatformPage('youtube')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              {{$t('campaign_list.enter_post_id.select_page')}}
+              {{$t('campaign_list.enter_post_id_modal.select_live_chat')}}
             </button>
             <!-- <input
               id="modal-form-1"
@@ -107,7 +107,7 @@
               @click="youtubeSelectCurrentLive()"
             /> -->
             <div>
-              Post ID:<br>
+              {{$t('campaign_list.enter_post_id_modal.live_chat_id')}}:<br>
               <p v-if="campaign.youtube_campaign">{{ campaign.youtube_campaign.live_video_id }}</p>
             </div>
           </div>
@@ -135,7 +135,7 @@
           class="w-32 bg-white btn dark:border-darkmode-400"
           @click="hideModal()"
         >
-          {{$t('components.word.cancel')}}
+          {{$t('campaign_list.enter_post_id_modal.cancel')}}
         </button>
         <button type="button" class="w-32 ml-5 shadow-md btn btn-primary" @click="enterLive()" v-if="ready" 
           v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile">

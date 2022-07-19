@@ -83,7 +83,14 @@
                         </td>
 
                         <td v-else-if="column.key === 'price'" class="w-18">
-                            {{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}
+                            {{ layoutStore.userInfo.user_subscription.currency }}
+                            <input 
+                                type="number" 
+                                min="1" 
+                                class="form-control w-full sm:w-24 h-[42px] mt-1"
+                                v-model="product[column.key]"                             
+                            />
+                            <!-- {{ layoutStore.userInfo.user_subscription.currency }} {{ product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}} -->
                         </td>
 
                         <td v-else-if="column.key === 'customer_editable'" class="editable">
@@ -193,12 +200,12 @@ const duplicateOrderCode = ref(false)
 const tableColumns = ref([
     { name: "Image", key: "image" },
     { name: "Product Name", key: "name" },
+    { name: "Type", key: "type" },
     { name: "Order Code", key: "order_code" },
     { name: "Qty for Campaign", key: "qty" },
     { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
-    { name: "Type", key: "type" },
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
     { name: "Activate", key: "status" }
