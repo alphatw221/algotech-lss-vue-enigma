@@ -53,11 +53,9 @@
 				</template> -->
 			</div>
 
-			<div class="col-span-12 col-start-1">
+			<div class="col-span-12 col-start-1 relative">
 				<label class="form-label text-base mt-2 font-medium">Upload Image</label>
-				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="clear">
-					Clear
-				</button>
+				<XIcon class="absolute top-4 right-0 w-4 h-4 ml-2" @click="clear"/>
 				<Dropzone ref-key="dropzoneSingleRef" :options="{
 						method: 'put',
 						url: 'url',
@@ -275,7 +273,11 @@ const submit = ()=>{
         return
     }else
 	if (route.params.product_id) {
-		formData.append('image', previewImage.value !== '' ?dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] : '._no_image')
+		if(previewImage.value === '' && (product.value.image === '' || dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] === undefined))
+			formData.append('image', '._no_image')
+		else
+			formData.append('image', dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0])
+		
 		formData.append('data', JSON.stringify(product.value))
 		update_product(route.params.product_id, formData)
 		.then(
@@ -307,7 +309,7 @@ const cancelButton = () =>{
 
 const clear = () =>{
 	previewImage.value = ''
-	console.log(previewImage.value)
+	console.log(dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0])
 }
 
 const rules = computed(()=>{
