@@ -3,7 +3,7 @@
     <Modal :show="show" @hidden="hide()" backdrop="static">
         <ModalHeader>
             <img alt="" class="w-8 h-8 rounded-full zoom-in" :src="comment.image" />
-            <h2 class="ml-5 mr-auto text-base font-medium">Reply to {{ comment.customer_name }} </h2>
+            <h2 class="ml-5 mr-auto text-base font-medium">{{('campaign_live.reply.reply_to')}} {{ comment.customer_name }} </h2>
             <a @click="show = false" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
                 <XIcon class="w-12 h-12 text-slate-400" />
             </a>
