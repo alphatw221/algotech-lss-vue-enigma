@@ -7,15 +7,14 @@
             <CampaignStatus/>
             <!-- END: campaign Status -->
 
-            <div class="w-full mt-8">
-                <div class="flex -mb-5 text-xl align-baseline">
+            <div class="w-full mt-8 flex flex-col">
+                <div class="flex -mb-5 text-xl align-baseline mr-auto">
                     <div class="relative ml-2 mr-3">
                             <a class="mr-0.5" @click="show_order('All')">{{$t('manage_order.all')}} </a>
                     </div>
                     <div class="w-fit h-5 report-box__indicator rounded-full bg-danger text-white text-center text-xs p-0.5 px-1.5" v-show="store.data_count['All'] > 0"> 
                             <span>{{store.data_count['All']}}</span>
                     </div>
-
                     <div class="relative ml-2 mr-3">
                             <a class="mr-0.5" @click="show_order('Review')">{{$t('manage_order.review')}} </a>
                     </div>

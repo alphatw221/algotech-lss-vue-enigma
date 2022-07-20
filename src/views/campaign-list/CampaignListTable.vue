@@ -224,7 +224,11 @@ const changePageSize = (pageSize)=>{
 
 const clickEntry = (index)=>{
       const campaign = campaigns.value[index]
-      if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
+      if(props.campaignStatus === 'history'){
+        router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+        return
+      }
+      else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
         router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
         return
       }

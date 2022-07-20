@@ -22,11 +22,13 @@
                     <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                         Plug In
                     </DropdownToggle>
-                    <DropdownMenu class="w-48">
+                    <DropdownMenu class="w-fit">
                         <DropdownContent>
-                            <DropdownItem @click="routeTOLuckyDraw()">
-                                Instantly Lucky Draw Spin
-                            </DropdownItem>
+                            <template v-if="route.query.status !='history'"> 
+                                <DropdownItem @click="routeTOLuckyDraw()">
+                                    Instantly Lucky Draw Spin
+                                </DropdownItem>
+                            </template>
                             <DropdownItem @click="toDrawList()">
                                 Lucky Draw List
                             </DropdownItem>

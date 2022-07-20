@@ -7,21 +7,23 @@
         <div class="flex flex-col h-full"> 
             <div class="flex w-full m-3">
                 <h2 class="w-48 ml-5 mr-auto text-lg font-medium">Product</h2>
-                <Dropdown class="inline-block">
-                    <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
-                        Add Product
-                    </DropdownToggle>
-                    <DropdownMenu class="w-48">
-                        <DropdownContent>
-                            <DropdownItem @click="store.showInstantlyAddProductModal = true">
-                                Instantly Add Product
-                            </DropdownItem>
-                            <DropdownItem @click="store.showAddProductFromStockModal = true">
-                                Add Product From Stock
-                            </DropdownItem>
-                        </DropdownContent>
-                    </DropdownMenu>
-                </Dropdown>
+                <template v-if="route.query.status !='history'">
+                    <Dropdown class="inline-block">
+                        <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
+                            Add Product
+                        </DropdownToggle>
+                        <DropdownMenu class="w-48">
+                            <DropdownContent>
+                                <DropdownItem @click="store.showInstantlyAddProductModal = true">
+                                    Instantly Add Product
+                                </DropdownItem>
+                                <DropdownItem @click="store.showAddProductFromStockModal = true">
+                                    Add Product From Stock
+                                </DropdownItem>
+                            </DropdownContent>
+                        </DropdownMenu>
+                    </Dropdown>
+                </template>
             </div>
             <div class="overflow-auto scrollbar-hidden">
                 <table class="table table-sm">
@@ -96,7 +98,6 @@ const product_columns = [
     { name: "Price", key: "price" },
     { name: "Activate", key: "activate" }
 ]
-
 
 
 onMounted(() => {
