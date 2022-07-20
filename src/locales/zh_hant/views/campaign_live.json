@@ -9,6 +9,10 @@
         "comment_message_1":"尚未有%{tag}相關訊息",
         "comment_message_2":"尚未有 %{platformName} 訊息"
     },
+    "reply":{
+        "reply_to":"回覆"
+
+    },
     "product":{
         "product":"直播商品",
         "modal_column":{
@@ -43,7 +47,17 @@
         "comfirm_selected":"確認選擇的商品"
     },
     "incoming":{
-        "incoming_order":"Incoming Order",
-        "table":{}
+        "incoming_order":"即時訂單",
+        "plug_in":"Plug In",
+        "instantly":"Instantly Lucky Draw Spin",
+        "list":"Lucky Draw List",
+        "table":{
+            "order_number" : "訂單",
+            "name" : "顧客",
+            "platform" : "平台",
+            "amount" : "金額",
+            "view" : "詳情",
+            "null":""
+        }
     }
 }

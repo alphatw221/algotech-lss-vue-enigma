@@ -9,6 +9,9 @@
         "comment_message_1":"You don't have any %{tag} related comment yet",
         "comment_message_2":"You don't have any %{platformName} comment yet"
     },
+    "reply":{
+        "reply_to":"Reply to"
+    },
     "product":{
         "product":"Product",
         "modal_column":{
@@ -43,6 +46,18 @@
         "comfirm_selected":"Comfirm Selected Product"
     },
     "incoming":{
-        "incoming_order":"Incoming Order"
+        "incoming_order":"Incoming Order",
+        "plug_in":"Plug In",
+        "instantly":"Instantly Lucky Draw Spin",
+        "list":"Lucky Draw List",
+        "table":{
+            "amount" : "Amount",
+            "payment" : "Payment",
+            "view" : "View",
+            "name" : "Customer",
+            "platform" : "Platform",
+            "order_number" : "Order No",
+            "null":""
+        }
     }
 }

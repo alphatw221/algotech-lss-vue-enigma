@@ -43,7 +43,7 @@
                         <tr>
                             <th class="whitespace-nowrap bg-dark" v-for="column in incoming_order_columns"
                                 :key="column.key">
-                                {{ $t(`manage_order.`+column.name) }}
+                                {{ $t(`campaign_live.incoming.table.`+column.name) }}
                             </th>
                         </tr>
                     </thead>
