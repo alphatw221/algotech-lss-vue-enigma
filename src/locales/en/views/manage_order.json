@@ -30,7 +30,8 @@
                 "sub_total":"Subtotal",
                 "delivery_charge":"Delivery Charge",
                 "discount":"Discount",
-                "total":"Total"
+                "total":"Total",
+                "null":""
         },
         "filter_modal":{
                 "payment":{

@@ -8,7 +8,7 @@
         <ModalBody>
             <ModalHeader>
                     <h2 class="font-medium text-base mr-auto">
-                        {{$t('manage_order.product_modal.order_no')}} No. {{store.orderProductData.id}}
+                        {{$t('manage_order.product_modal.order_no')}} {{store.orderProductData.id}}
                         <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
@@ -19,7 +19,7 @@
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
-                            {{ $t(`order_detail.${column.name}`) }}
+                            {{ $t(`manage_order.product_modal.${column.name}`) }}
                         </th>
                     </tr>
                 </thead>

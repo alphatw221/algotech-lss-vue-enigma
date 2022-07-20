@@ -3,12 +3,16 @@
     "order_no" : "Order No",
     "order_status" : "Order Status",
     "order_date" : "Order Date",
+    "pay":"Proceed to pay",
+    "complete" : "Complete",
+    "review" : "Review",
+    "shipping out":"Shipping Out",
     "table":{
         "product" : "Product",
         "price" : "Price",
         "qty" : "Quantity",
-        
         "delete":"Delete",
+        "sub_total" : "Subtotal",
         "null" : ""
     },
     "price_summary":{
@@ -39,16 +43,17 @@
         "post_code" : "Post Code",
         "location" : "Location",
         "pickup" : "Pickup",
-        "pickup_address":"Pickup Store/Address",
+        "pickup_address":"Pickup Address",
+        "pickup_store":"Pickup Store",
         "additional_delivery_charge" : "Selected Delivery Charge Option"
     },
     "payment":{
-        "method" : "Mode of Payment",
+        "method" : "Method of Payment",
         "information": "Payment Information",
         "record" : "Record",
         "last_five_digits":"Last Five Digits"
     },
-    "remarks" : "Remarks",
+    "remarks" : "Remark",
     "save_remarks" : "Save Remarks",
     "save_order" : "Save Order",
     "shopping_cart" : "Shopping Cart"

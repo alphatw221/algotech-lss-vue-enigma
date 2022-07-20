@@ -294,7 +294,7 @@ thead th{
         padding-right: 10px !important;
 		text-align: right !important;
 		box-shadow: none !important;
-        min-height: 35px !important;
+        min-height: 30px !important;
         margin-top: 5px;
         display: flex;
         text-align: center;
@@ -324,8 +324,8 @@ thead th{
 	}
     td:nth-of-type(1){
         width: 100%;
-        min-height: 30px !important;
-        padding-left: 10px !important;
+        min-height: 28px !important;
+        padding-left: 14px !important;
 		font-weight: bold;
         justify-content:flex-start;
 	}
@@ -336,10 +336,11 @@ thead th{
     td:nth-of-type(2){
         display:inline-block; 
         position:absolute !important;
-        top:10px;
-        right:50%;
+        top:8px;
+        left:50%;
         width: 0%;
         padding-left: 0 !important;
+        padding-right: 0 !important;
 	}
 
 	td:nth-of-type(3):before {
@@ -348,12 +349,13 @@ thead th{
     td:nth-of-type(3){
         display:inline-block; 
         position:absolute !important;
-        top:110px;
+        top:108px;
         left: 50%;
         transform: translate(-50%, -50%);
         width: auto;
         padding-left: 0 !important;
         background: none !important;
+        padding-right: 0 !important;
 	}
 
 	td:nth-of-type(4):before {
@@ -368,7 +370,6 @@ thead th{
 
 	td:nth-of-type(5):before {
 		content: attr(data-content);
-		
 	}
 	
 	td:nth-of-type(6):before{
@@ -380,25 +381,25 @@ thead th{
 	}
      td:nth-of-type(7){
 		place-content: right !important;
-        min-height: 45px !important;
+        min-height: 28px !important;
 	}
 
     td:nth-of-type(8):before {
 		content: attr(data-content);
 	}
-
+    td:nth-of-type(8){
+        padding-bottom: 10px !important;
+    }
 
     td:nth-of-type(9){
 		display: inline-block;
         position:absolute;
-        top: 125px;
+        top: 122px;
         right:0;
 		width: auto;
 		padding-left: 0% !important;
-		
 	}
 
-	
     td:nth-of-type(9):before {
 		display: none;
 	}
