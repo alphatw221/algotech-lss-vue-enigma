@@ -15,5 +15,9 @@
         "delete": "刪除"
     },
 
-    "modal_title": "創建新回覆"
+    "modal_title": "創建新回覆",
+    "modal_cancel": "取消",
+    "modal_save": "儲存",
+    "modal_field_require": "必填欄位",
+    "modal_select_page": "請選擇一個專頁"
 }

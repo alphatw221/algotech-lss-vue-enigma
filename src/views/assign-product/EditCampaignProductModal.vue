@@ -2,13 +2,13 @@
     <Modal :show="editCampaignProduct" @hidden="editCampaignProduct = false">
         <ModalHeader>
             <h2 class="font-medium text-base m-auto ">
-                Edit Campaign Product
+                {{ $t('assign_product.modal.edit_title') }}
             </h2>
         </ModalHeader>
         <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
             <template v-for="(column, index) in tableColumns" :key="index">
                 <div class="col-span-12">
-                    <label for="modal-form-1" class="form-label">{{ column.name }}</label>
+                    <label for="modal-form-1" class="form-label">{{ $t(`assign_product.table_column.${column.key}`)  }}</label>
                     
                     <template v-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
                         <input 
@@ -35,12 +35,12 @@
                 class="btn btn-outline-secondary w-20 mr-1"
                 type="button" 
                 @click="editCampaignProduct = false; eventBus.emit('search');" 
-            > Cancel </button>
+            > {{ $t('assign_product.modal.cancel') }} </button>
             <button 
                 class="btn btn-primary w-20"
                 type="button" 
                 @click="updateProduct(campaignProduct['id'])"
-            > Update </button>
+            > {{ $t('assign_product.modal.update') }} </button>
         </ModalFooter>
     </Modal>
 </template>

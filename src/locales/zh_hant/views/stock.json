@@ -30,41 +30,33 @@
         "edit_title": "編輯類別",
         "edit": "編輯",
         "delete": "刪除",
+        "input_holder": "類別名稱",
         "modal": {
             "cancel": "取消",
             "save": "儲存"
         }
     },
 
-
-
-
-
-
-    "column" : {
-        "name" : "商品",
-        "image" : "圖片",
-        "order_code" : "下單代碼",
-        "qty_for_campaign":"直播庫存",
-        "max_qty":"最大購買量",
-        "editable":"可修改",
-        "deletable":"可刪除",
-        "description" : "說明",
-        "price" : "價格",
-        "qty" : "庫存",
-        "type" : "類別",
-        "status" : "預設狀態",
-        "remark" : "標籤"
-    },
-    "add" : {
-        "for_sale" : "上架",
-        "disable" : "下架",
-        "add_product" : "新增商品"
-    },
-
-    "create_edit" : {
-        "disable_tip" : "未上架商品將無法用於直播銷售商品及抽獎獎品。",
-        "image_tip" : "支援的檔案格式: JPG, JPEG, PNG",
-        "file_tip" : "將檔案拖曳到此處或點擊"
+    "add_product_page": {
+        "edit_title": "編輯商品",
+        "add_title": "新增商品",
+        "product_name": "商品名稱",
+        "name_warning": "請輸入商品名稱，少於50個字",
+        "category": "類別",
+        "upload_image": "上傳圖片",
+        "drop_file_text": "將檔案拖曳到此處或點擊.",
+        "accept_file_text": "支援的檔案格式: jpeg, png, jpg",
+        "max_size_text": "檔案大小上限",
+        "quantity": "數量",
+        "qty_warning": "數量需填數字",
+        "price": "價格",
+        "pricr_warning": "價格需填數字",
+        "status": "預設狀態",
+        "description": "說明",
+        "product_description": "商品說明...",
+        "description_warning": "說明須填不超過100字",
+        "cancel": "取消",
+        "save": "儲存"
     }
+    
 }

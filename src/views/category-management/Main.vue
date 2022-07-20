@@ -48,7 +48,7 @@
                         class="mt-3 form-control" placeholder="Category Name" disabled
                         v-model="oldCategory" />
                     <input id="regular-form-2" type="text" class="mt-3 form-control"
-                        placeholder="Category Name" v-model="categoryName" />
+                        :placeholder="$t('stock.category_manage.input_holder')" v-model="categoryName" />
                 </div>
                 <div class="flex justify-between">
                     <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false">{{ $t('stock.category_manage.modal.cancel') }}</button>
