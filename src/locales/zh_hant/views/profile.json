@@ -1,0 +1,17 @@
+{
+    "profile":{
+        "title":"會員資訊"
+    },
+    "subscription":{
+        "title":"訂閱",
+        "id":"ID",
+        "joined":"啟用日期",
+        "vaild":"帳號狀態",
+        "change_plan":"改變方案"
+    },
+    "plan":{
+        "lite":"精簡版",
+        "standard":"標準版",
+        "premium":"進階版"
+    }
+}

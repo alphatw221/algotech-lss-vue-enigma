@@ -31,7 +31,8 @@
                 "sub_total":"小計",
                 "delivery_charge":"運費",
                 "discount":"折扣",
-                "total":"總計"
+                "total":"總計",
+                "null":""
         },
         "filter_modal":{
                 "payment":{
