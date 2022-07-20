@@ -4,7 +4,12 @@
 			<thead>
 				<tr>
 					<th class="whitespace-normal xl:whitespace-nowrap" v-for="column in columns" :key="column.key">
-						{{ column.name }}
+						<template v-if="column.name === ''">
+							{{ column.name }}
+						</template>
+						<template v-else>
+							{{ $t(`stock.table_column.${column.name}`) }}
+						</template>
 					</th>
 				</tr>
 			</thead>

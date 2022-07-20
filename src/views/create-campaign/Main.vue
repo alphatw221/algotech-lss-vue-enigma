@@ -1,7 +1,7 @@
 <template>
     <div class="flex flex-col h-[100%] text-[16px]">
 		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y">
-			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">Create Campaign</h2>
+			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
     <!-- <div class="flex flex-col gap-5 text-[16px] h-fit">
@@ -9,7 +9,7 @@
 		<div class="grid grid-cols-12 gap-1 px-5 py-5 sm:p-8 intro-y box sm:gap-5 -z-50"> -->
 			<div class="col-span-12 col-start-1 sm:col-span-6">
 				<div class="flex flex-col">
-					<label class="w-20 my-auto text-base form-label font-medium">Title</label>
+					<label class="w-20 my-auto text-base form-label font-medium">{{$t('create_campaign.title')}}</label>
 					<input 
 						class="w-full form-control" 
 						type="text" 
@@ -20,13 +20,13 @@
 				</div>
 				<template v-if="title_validate.title.$error">
 					<label class="text-danger text-[14px] ml-2">
-						Field is required
+						{{$t('create_campaign.title_required')}}
 					</label>
 				</template>
 			</div>
 			<div class="col-span-12 sm:col-span-6">
 				<div class="flex flex-col">
-					<label for="regular-form-2" class="w-16 my-auto text-base form-label font-medium">Period</label>
+					<label for="regular-form-2" class="w-16 my-auto text-base form-label font-medium">{{$t('create_campaign.period')}}</label>
 					<v-date-picker class="z-49" 
 						v-model="dateTimePicker" 
 						:timezone="timezone" 
@@ -63,10 +63,10 @@
 
 		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 py-10">
 			<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
-				Cancel
+				{{$t('create_campaign.cancel')}}
 			</button>
 			<button class="w-32 ml-5 mr-4 shadow-md btn btn-primary" @click="createCampaign()">
-				Next
+				{{$t('create_campaign.create')}}
 			</button>
 		</div>
 	</div>

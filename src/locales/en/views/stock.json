@@ -1,49 +1,39 @@
 {
-    "type" : {
-        "product" : "Product",
-        "lucky_draw" : "Lucky Draw"
+    "for_sale": "For Sale",
+    "delisted": "Delisted",
+    "add_product": "Add Product",
+
+    "search_bar": {
+        "category": "Category",
+        "search_by": "Search By",
+        "search_holder": "Search...",
+        "reset": "Reset",
+        "category_manage": "Category Management",
+        "name": "Name",
+        "order_code": "Order Code",
+        "description": "Description"
     },
 
-    "status" : {
-        "for_sale" : "For Sale",
-        "disable" : "Disable",
-        "archive" : "Archive",
-        "delisted":"Delisted"
+    "table_column": {
+        "image": "Image",
+        "name": "Name",
+        "order_code": "Order Code",
+        "type": "Type",
+        "category": "Category",
+        "description": "Description",
+        "qty": "Qty",
+        "price": "Price"
     },
 
-    "title" : {
-        "index" : "Inventory",
-        "add" : "Add Product",
-        "edit" : "Edit Product",
-        "category":"Category"
-    },
-
-    "column" : {
-        "name" : "Name",
-        "image" : "Image",
-        "order_code" : "Order Code",
-        "qty_for_campaign":"Qty For Campaign",
-        "max_qty":"Max Qty / Order",
-        "editable":"Editable",
-        "deletable":"Deletable",
-        "description" : "Description",
-        "price" : "Price",
-        "qty" : "Qty",
-        "type" : "Type",
-        "status" : "Default Status",
-        "remark" : "Tag"
-    },
-
-
-    "create_edit" : {
-        "disable_tip" : "Disabled items can\"t be assigned to campaigns for sale and lucky draw.",
-        "image_tip" : "supported image formats include JPG, JPEG and PNG",
-        "file_tip" : "Drag and drop a file here or click"
-    },
-
-    "add" : {
-        "for_sale" : "For Sale",
-        "disable" : "Disable",
-        "add_product" : "Add Product"
+    "category_manage": {
+        "create_new_category": "Create New Category",
+        "edit_title": "Edit Category",
+        "edit": "Edit",
+        "delete": "Delete",
+        "modal": {
+            "cancel": "Cancel",
+            "save": "Save"
+        }
     }
+    
 }

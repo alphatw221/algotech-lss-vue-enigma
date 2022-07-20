@@ -8,7 +8,7 @@
                 type="checkbox" 
                 v-model="props.campaign.meta_payment[props.payment.key].enabled"
             />
-            <label class="ml-3 form-label text-base font-medium">Enabled</label>
+            <label class="ml-3 form-label text-base font-medium">{{$t(`create_campaign.payment_form.enabled`)}}</label>
 
         </div>
 
@@ -17,7 +17,7 @@
             v-for="(field, index) in props.payment.fields" :key="index"
         >
             <template v-if="field.type === 'text' || field.type === 'password'">
-                <label class="form-label text-base font-medium">{{ field.name }}</label>
+                <label class="form-label text-base font-medium">{{$t(`create_campaign.payment_form.${props.payment.key}.${field.key}`)}}</label>
                 <input 
                     class="w-full form-control"
                     type="text" 
@@ -27,7 +27,7 @@
             <template v-else-if="field.type === 'select'">
                 <label  
                     class="form-label text-base mt-2 font-medium">
-                    {{ field.name }}</label>
+                    {{$t(`create_campaign.payment_form.${props.payment.key}.${field.key}`)}}</label>
                 <TomSelect 
                     class="w-full sm:w-[300px]"
                     v-model="props.campaign.meta_payment[props.payment.key][field.key]"

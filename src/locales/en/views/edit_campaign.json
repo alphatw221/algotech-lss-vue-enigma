@@ -1,14 +1,12 @@
 {
-    "create_campaign" : "Create Campaign",
+    "edit_campaign":"Edit Campaign",
+    "title":"Title",
+    "title_required":"Title Is Required",
     "period":"Period",
-    "delivery_details":"Delivery Details",   
-    "payment_details":"Payment Details",
-    "more_option":"Add more option",
-    "edit_campaign" : "Edit Campaign",
-    "campaign_detail" : "Campaign Detail",
-    "campaign_title" : "Campaign Title",
-    "customer_payment" : "Customer Payment Page Upload",
-    "special_note"  : "Special Note",
-    "confirmation_note" : "Confirmation Note",
-    "max_delivery_order" : "Max Delivery Order Per Day"
+    "connected_platform":"Connected Platform",
+    "edit_connected_platform":"Edit",
+
+    "cancel":"Cancel",
+    "update":"Update"
+
 }

@@ -34,20 +34,20 @@
         <!-- Delivery Information -->
         <div class="flex-col w-full"> 
             <div class="p-8 my-5 border-2 box border-secondary flex-col flex gap-4"> 
-                <span class="text-lg dark:border-darkmode-400">{{$t('order_detail.delivery_information')}}</span>   
+                <span class="text-lg dark:border-darkmode-400">{{$t('order_detail.delivery.information')}}</span>   
                 <div class="grid grid-cols-6" v-show="store.orderDetail.shipping_method">
                     <template v-if="store.orderDetail.shipping_method === 'pickup'">
-                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery_method')}}</span>
-                        <span class="col-start-3 col-span-3 py-2">{{$t(`order_detail.${store.orderDetail.shipping_method}`)}}</span>
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</div>
+                        <div class="col-start-3 col-span-3 py-2">{{$t(`order_detail.${store.orderDetail.shipping_method}`)}}</div>
 
-                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.pickup_address')}}</span>
-                        <span class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_option + ' - ' + store.orderDetail.pickup_address}}</span>
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
+                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_option + ' - ' + store.orderDetail.pickup_address}}</div>
                     </template>
                     <template v-if="store.orderDetail.shipping_method === 'delivery'">
-                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery_method')}}</span>
+                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</span>
                         <span class="col-start-3 col-span-3 py-2">{{$t(`order_detail.${store.orderDetail.shipping_method}`)}} {{store.orderDetail.shipping_option}}</span>
 
-                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery_address')}}</span>
+                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.address')}}</span>
                         <span class="col-start-3 col-span-3 py-2">
                             {{store.orderDetail.shipping_address_1}} ,
                             {{store.orderDetail.shipping_location}} ,
@@ -66,21 +66,21 @@
         <!-- Payment Information -->
         <div class="flex-col w-full"> 
             <div class="p-8 my-5 border-2 box border-secondary flex-col flex gap-4"> 
-                <span class="text-lg"> {{$t('order_detail.payment_information')}}</span>   
+                <span class="text-lg"> {{$t('order_detail.payment.information')}}</span>   
                 <div class="grid grid-cols-6" v-if="store.orderDetail.payment_method">
                     <template v-if="store.orderDetail.payment_method">
-                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment_method')}}</span>
+                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</span>
                         <span class="col-start-3 col-span-3 py-2">
                             {{ store.orderDetail.payment_method == 'Direct Payment' ? `Direct Payment - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</span>
                     </template>
 
                     <template v-if="store.orderDetail.meta.last_five_digit">
-                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.last_five_digits')}}</span>
+                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.last_five_digits')}}</span>
                         <span class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</span>
                     </template>
 
                     <template v-if="store.orderDetail.meta.receipt_image">
-                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.record')}}</span>
+                        <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.record')}}</span>
                         <span class="col-start-3 col-span-3 py-2">
                                 <Tippy tag="img" :src="store.orderDetail.meta.receipt_image" />
                         </span>
@@ -90,10 +90,6 @@
         </div>
     </div>
 </template>
-
-
-
-
 
 <script setup>
 import OrderDetailTable from "./OrderDetailTable.vue";

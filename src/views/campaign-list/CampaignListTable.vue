@@ -55,14 +55,14 @@
           </td>
           <td class="w-5 text-center startDate" :data-content="$t('campaign_list.start_at')">
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
-                year: "numeric", month: "short",
+                year: "numeric", month: "short", hour12: false,
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
           <td class="w-5 text-center endDate" :data-content="$t('campaign_list.end_at')">
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
-                year: "numeric", month: "short",
+                year: "numeric", month: "short", hour12: false,
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>

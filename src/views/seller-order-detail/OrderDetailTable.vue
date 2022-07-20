@@ -8,13 +8,13 @@
 					v-for="column in tableColumns"
 					:key="column.key"
 				>
-				{{ $t(`order_detail.${column.name}`) }}
+				{{ $t(`order_detail.table.${column.name}`) }}
 				</th>
 			</tr>
 			</thead>
 			<tbody>
 			<tr v-for="(product, index) in store.orderDetail.products" :key="index" class="intro-x">
-				<td class=" " :data-content="$t('order_detail.null')">
+				<td class=" " :data-content="$t('order_detail.table.null')">
 					<div class="flex">
 						<div class="flex w-24 h-24 lg:w-12 lg:h-12 2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
 						<img
@@ -34,10 +34,10 @@
 						</div>
 					</div>
 				</td>
-				<td class="text-center" :data-content="$t('order_detail.product')">
+				<td class="text-center" :data-content="$t('order_detail.table.product')">
 					<div class="break-words whitespace-normal">{{ product.name }} </div>
 				</td>
-				<td class="text-center" :data-content="$t('order_detail.qty')">
+				<td class="text-center" :data-content="$t('order_detail.table.qty')">
 					<template v-if="props.order_type === 'order'">
 						{{ product.qty }}
 					</template>
@@ -66,10 +66,10 @@
                         </div>
 					</template>
 				</td>
-				<td class="text-center " :data-content="$t('order_detail.price')">
+				<td class="text-center " :data-content="$t('order_detail.table.price')">
 					$ {{ product.price }}
 				</td>
-				<td class="text-center" :data-content="$t('order_detail.sub_total')">
+				<td class="text-center" :data-content="$t('order_detail.table.sub_total')">
 					$ {{ product.qty * product.price }}
 				</td>
 				<td>

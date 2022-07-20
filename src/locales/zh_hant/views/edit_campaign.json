@@ -1,12 +1,16 @@
 {
-    "delivery_details":"Delivery Details",   
-    "payment_details":"Payment Details",
-    "more_option":"Add more option",
-    "customer_payment" : "Customer Payment Page Upload",
-    "create_campaign" : "新增直播",
+
+    "edit_campaign":"編輯直撥",
+    "title":"標題",
+    "title_required":"請填寫標題",
     "period":"直播時間",
-    "edit_campaign" : "編輯直播",
-    "campaign_detail" : "直播設定",
-    "campaign_title" : "標題",
-    "max_delivery_order" : "Max Delivery Order Per Day"
+    "connected_platform":"已綁定的平台",
+    "edit_connected_platform":"編輯",
+
+    "cancel":"取消",
+    "update":"更新"
+
+
+    
+
 }

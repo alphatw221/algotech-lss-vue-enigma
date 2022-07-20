@@ -7,7 +7,7 @@
         "complete" : "完成",
         "complete_description" : "點擊「進入」查看並管理直播"
     },
-    "create_campaign": "建立直撥",
+    "create_campaign": "建立直播",
 
     "tabs":{
         "scheduled" : "預定排程",
