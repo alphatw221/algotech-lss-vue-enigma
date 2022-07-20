@@ -7,25 +7,23 @@
                 type="checkbox" 
                 v-model="paymentData.enabled"
                 />
-                <label class="ml-3 form-label">Enabled</label>
+                <label class="ml-3 form-label">{{ $t('settings.payment_form.enabled') }}</label>
             </div>
             <a 
                 class="whitespace-nowrap"
                 @click="addDirectPayment()"
-            > <u> + Add more option  </u> 
+            > <u> + {{ $t('settings.payment_form.add_more_direct_payment') }}  </u> 
             </a>
         </div>
 
-        <div 
-            v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i"
-        >
+        <div v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i">
             <div 
                 class="flex flex-col intro-y"
                 v-for="(field, index_j) in payment.fields" 
                 :key="index_j"
             >
                 <template v-if="field.type === 'text'">
-                    <label class="mt-2 text-base">{{ field.name }}</label>
+                    <label class="mt-2 text-base">{{ $t(`settings.payment_form.direct_payment.${field.key}`)  }}</label>
                     <input 
                         class="w-full form-control"
                         type="text" 
@@ -34,7 +32,7 @@
                 </template>
 
                 <template v-else-if="field.type === 'textarea'">
-                    <label class="mt-2 text-base">{{ field.name }}</label>
+                    <label class="mt-2 text-base">{{ $t(`settings.payment_form.direct_payment.${field.key}`)  }}</label>
                     <textarea 
                         class="p-2 form-control"
                         v-model="account[field.key]"
@@ -42,7 +40,7 @@
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                    <label class="mt-2 text-base form-label">{{ field.name }}
+                    <label class="mt-2 text-base form-label">{{ $t(`settings.payment_form.direct_payment.${field.key}`)  }}
                     <input 
                         class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto ml-2"
                         type="checkbox" 
@@ -52,7 +50,7 @@
                 </template>
 
                 <template v-else-if="field.type === 'file'">
-                    <label>Upload Image</label>
+                    <label>{{ $t('settings.payment_form.upload_image') }}</label>
                     <div class="relative border-2 border-dashed dark:border-darkmode-400">
                         <div class="flex items-center justify-center px-4">
                             <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
@@ -61,10 +59,10 @@
                             v-if="[undefined, null, ''].includes(previewImages[index_i])">
                             <div class="flex flex-col items-center justify-center sm:flex-row"> 
                                 <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> 
-                                <strong class="text-slate-600">Upload a file or drag and drop</strong> 
+                                <strong class="text-slate-600">{{ $t('settings.payment_form.upload_a_file_or_drag_and_drop') }}</strong> 
                             </div>
-                            <div class="mt-2 text-slate-500">accepted File types: jpeg, png, jpg</div>
-                            <div class="text-slate-500">Max file size : 2MB</div>  
+                            <div class="mt-2 text-slate-500">{{ $t('settings.payment_form.accepted_file_types') }}</div>
+                            <div class="text-slate-500">{{ $t('settings.payment_form.max_file_size') }} : 2MB</div>  
                         </div>
                             <input
                                 type="file"
@@ -81,7 +79,7 @@
                 class="inline-block w-24 my-5 ml-auto text-base btn btn-danger" 
                 @click="deleteDirectPayment(index_i)"
                 > 
-                    Delete 
+                    {{ $t('settings.payment_form.delete') }} 
                 </button>
             </div>
         </div>
@@ -90,7 +88,7 @@
                 class="w-48 mt-2 text-base btn btn-elevated-rounded-primary"
                 @click="updateDirectPayment"
             > 
-            Update 
+            {{ $t('settings.payment_form.update') }} 
         </button>
     </div>
 </template>
