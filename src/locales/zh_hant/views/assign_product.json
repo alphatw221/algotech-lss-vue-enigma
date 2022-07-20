@@ -1,0 +1,39 @@
+{
+    "edit_title": "編輯直播商品",
+    "assign_title": "設置直播商品",
+    "confirm_title": "確認直播商品",
+    "previous": "上一步",
+    "next": "下一步",
+    "edit": "修改商品",
+    "assign": "指定商品",
+    "save": "儲存",
+
+    "search_bar": {
+        "category": "類別",
+        "add_product": "增加直播商品"
+    },
+
+    "table_column": {
+        "selected": "勾選",
+        "image": "圖片",
+        "name": "商品名稱",
+        "type": "種類",
+        "order_code": "商品代碼",
+        "qty": "直播商品數量",
+        "max_order_amount": "最高下單數量",
+        "tag": "類別",
+        "price": "價格",
+        "customer_editable": "可否編輯",
+        "customer_removable": "可否刪除",
+        "status": "狀態",
+        "edit": "修改商品"
+    },
+
+    "modal": {
+        "edit": "編輯",
+        "delete": "刪除",
+        "edit_title": "編輯直播商品",
+        "cancel": "取消",
+        "update": "更新"
+    }
+}

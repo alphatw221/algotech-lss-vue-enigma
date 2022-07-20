@@ -2,7 +2,7 @@
     <form class="flex justify-between gap-2 sm:gap-5 flex-warp sm:flex-row">
         <div class="flex flex-wrap justify-between w-full gap-2 sm:flex-row">
             <div class="flex shirnk items-center w-fit" v-if="showCategoryFilter">
-                <label class="mr-2 w-fit">
+                <label class="mr-2 shrink whitespace-nowrap">
                     {{ $t('stock.search_bar.category') }}
                 </label>
                 <select 
@@ -28,7 +28,7 @@
             <div class="flex items-center shirnk w-fit">
                 <div class="input-group">
                     <input type="text"
-                        class="w-36 form-control input-group shrink sm:40" placeholder="Search Name..."
+                        class="w-36 form-control input-group shrink sm:40" :placeholder="$t('stock.search_bar.search_holder')"
                         v-model="keyword" @keydown.enter.prevent="search" />
                     <button 
                         type="button"

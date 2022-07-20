@@ -2,7 +2,7 @@
     <div class="p-5 sm:p-5 box intro-y">
         <div class="flex-col flex sm:flex-row content-end justify-start gap-3">
             <label class="mr-2 w-14 my-auto">
-                Category
+                {{ $t('assign_product.search_bar.category') }}
             </label>
             <select class="form-select sm:mr-4 h-[42px] flex-1 sm:flex-none sm:w-40"
                 v-model="filterColumn" @change="search">
@@ -14,7 +14,7 @@
                 v-show="route.name === 'edit-campaign-product'"
                 @click="store.showAddProductFromStockModal = true"
             >
-                Add Product
+                {{ $t('assign_product.search_bar.add_product') }}
             </button>
         </div>
 

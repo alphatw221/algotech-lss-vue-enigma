@@ -1,0 +1,41 @@
+{
+    "edit_title": "Edit Products",
+    "assign_title": "Assign Products",
+    "confirm_title": "Confirm Products",
+    "previous": "Previous",
+    "next": "Next",
+    "edit": "Edit",
+    "assign": "Assign",
+    "save": "Save",
+
+    "search_bar": {
+        "category": "Category",
+        "add_product": "Add Product"
+    },
+
+    "table_column": {
+        "selected": "Selected",
+        "image": "Image",
+        "name": "Product Name",
+        "type": "Type",
+        "order_code": "Order Code",
+        "qty": "Qty for Campaign",
+        "max_order_amount": "Max Qty / Order",
+        "tag": "Category",
+        "price": "Price",
+        "customer_editable": "Editable",
+        "customer_removable": "Deletable",
+        "status": "Status",
+        "edit": "Edit"
+    },
+
+    "modal": {
+        "edit": "Edit",
+        "delete": "Delete",
+        "edit_title": "Edit Campaign Product",
+        "cancel": "Cancel",
+        "update": "Update"
+    }
+    
+}
+
