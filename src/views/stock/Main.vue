@@ -1,22 +1,22 @@
 <template>
-	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-8">
-		<div class="flex flex-wrap justify-between gap-5 mx-0 mt-10 sm:mt-0"> 
+	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-8 h-[100%]">
+		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-10 sm:mt-0"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
-				<label for="on"> For Sale</label>
+				<label for="on">{{ $t('stock.for_sale') }}</label>
 				<input id="off" name="state-d" type="radio" @click="toggleTabs(2)" />
-				<label for="off"> Delisted</label>
+				<label for="off">{{ $t('stock.delisted') }}</label>
 			</div>
 			<button 
             type="button"
             class="self-end h-[35px] sm:h-[42px] shadow-md btn btn-primary" 
             @click="router.push({name: 'add-product'})"
             >
-                Add Product
+                {{ $t('stock.add_product') }}
             </button>
 		</div>
 		<!-- BEGIN For Sale Tab -->
-		<div class="flex flex-col gap-3 leading-relaxed sm:gap-5"
+		<div class="flex flex-col gap-3 leading-relaxed sm:gap-3"
 			:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
 			<SearchBar
 				:searchColumns="searchColumns"
@@ -73,20 +73,20 @@ const route = useRoute()
 const router = useRouter()
 
 const searchColumns = ref([
-	{ text: "Name", value: "name" },
-	{ text: "Order Code", value: "order_code" },
-	{ text: "Description", value: "description" }
+	{ text: "name", value: "name" },
+	{ text: "order_code", value: "order_code" },
+	{ text: "description", value: "description" }
 ])
 
 const tableColumns = ref([
-    { name: "Image", key: "image" },
-	{ name: "Name", key: "name" },
-	{ name: "Order Code", key: "order_code" },
-	{ name: "Type", key: "type" },
-	{ name: "Category", key: "category" },
-	{ name: "Description", key: "description" },
-	{ name: "Qty", key: "qty" },
-	{ name: "Price", key: "price" },
+    { name: "image", key: "image" },
+	{ name: "name", key: "name" },
+	{ name: "order_code", key: "order_code" },
+	{ name: "type", key: "type" },
+	{ name: "category", key: "category" },
+	{ name: "description", key: "description" },
+	{ name: "qty", key: "qty" },
+	{ name: "price", key: "price" },
 	{ name: "", key: "edit" },
 ])
 

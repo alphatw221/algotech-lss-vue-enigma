@@ -5,7 +5,7 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="text-lg sm:text-xl"> Delivery Note: </span> <br> 
+                            <span class="text-lg sm:text-xl"> {{$t('settings.notes.delivery_note')}}: </span> <br> 
                             <span class="text-slate-400 break-all">
                                 {{ deliveryNote }}
                             </span>
@@ -28,7 +28,7 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="text-lg sm:text-xl"> Special Note:</span> <br> 
+                            <span class="text-lg sm:text-xl"> {{$t('settings.notes.special_note')}}:</span> <br> 
                             <span class="whitespace-normal text-slate-400  break-all">
                                 {{ specialNote }}
                             </span>
@@ -51,7 +51,7 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="text-lg sm:text-xl"> Confirmation Note:</span> <br> 
+                            <span class="text-lg sm:text-xl"> {{$t('settings.notes.confirmation_note')}}:</span> <br> 
                             <span class="text-slate-400  break-all"> 
                                 {{ confirmationNote }}
                             </span>
@@ -73,8 +73,8 @@
         </AccordionGroup>
         
         <div class="mt-5 float-right text-[14px]">
-            <button class="w-32 btn dark:border-darkmode-400" @click="discard"> Discard</button>
-            <button class="w-32 ml-5 shadow-md btn btn-primary" @click="update"> Save </button>
+            <button class="w-32 btn dark:border-darkmode-400" @click="discard"> {{$t('settings.notes.discard')}}</button>
+            <button class="w-32 ml-5 shadow-md btn btn-primary" @click="update"> {{$t('settings.notes.save')}} </button>
         </div>
         
     </div>

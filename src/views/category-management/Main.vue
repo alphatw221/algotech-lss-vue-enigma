@@ -5,11 +5,11 @@
             
         </div> -->
         <div class="col-span-6 intro-y sm:col-span-4 md:col-span-3 2xl:col-span-2"
-            @click="showModal = true; editType = 'create'; modalTitle='Create New Category'">
+            @click="showModal = true; editType = 'create'; modalTitle='create_new_category'">
             <div class="relative px-3 px-5 pt-6 pb-5 rounded-md file box sm:px-5 zoom-in">
                 <PlusSquareIcon style="margin: auto; width: 7rem; height: 7rem;" />
                 <div class="block mt-4 font-medium text-center truncate">
-                    Create New Category
+                    {{ $t('stock.category_manage.create_new_category') }}
                 </div>
             </div>
         </div>
@@ -28,11 +28,11 @@
                     </DropdownToggle>
                     <DropdownMenu class="w-40">
                         <DropdownContent>
-                            <DropdownItem @click="showModal = true; editType = 'update'; oldCategory = item; modalTitle='Edit Category'">
-                                <EditIcon class="w-4 h-4 mr-2" /> Edit
+                            <DropdownItem @click="showModal = true; editType = 'update'; oldCategory = item; modalTitle='edit_title'">
+                                <EditIcon class="w-4 h-4 mr-2" /> {{ $t('stock.category_manage.edit') }}
                             </DropdownItem>
                             <DropdownItem @click="deleteCategory(item)">
-                                <Trash2Icon class="w-4 h-4 mr-2 text-[#B91D1D]" /> <span class="text-[#B91D1D]">Delete</span>
+                                <Trash2Icon class="w-4 h-4 mr-2 text-[#B91D1D]" /> <span class="text-[#B91D1D]">{{ $t('stock.category_manage.delete') }}</span>
                             </DropdownItem>
                         </DropdownContent>
                     </DropdownMenu>
@@ -43,16 +43,16 @@
         <Modal :show="showModal" @hidden="closeAlert()" backdrop="static">
             <ModalBody class="p-10 text-center">
                 <div class="mt-1">
-                    <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{modalTitle}}</label>
+                    <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{ $t(`stock.category_manage.${modalTitle}`) }}</label>
                     <input v-if="editType == 'update'" id="regular-form-2" type="text"
                         class="mt-3 form-control" placeholder="Category Name" disabled
                         v-model="oldCategory" />
                     <input id="regular-form-2" type="text" class="mt-3 form-control"
-                        placeholder="Category Name" v-model="categoryName" />
+                        :placeholder="$t('stock.category_manage.input_holder')" v-model="categoryName" />
                 </div>
                 <div class="flex justify-between">
-                    <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false">Cancel</button>
-                    <button class="w-32 shadow-md btn btn-primary mt-7" @click="update()">Save</button>
+                    <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false">{{ $t('stock.category_manage.modal.cancel') }}</button>
+                    <button class="w-32 shadow-md btn btn-primary mt-7" @click="update()">{{ $t('stock.category_manage.modal.save') }}</button>
                 </div>
             </ModalBody>
         </Modal>

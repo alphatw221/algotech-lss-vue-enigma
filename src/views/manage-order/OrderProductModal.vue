@@ -8,7 +8,7 @@
         <ModalBody>
             <ModalHeader>
                     <h2 class="font-medium text-base mr-auto">
-                        {{$t('order_detail.order_no')}} No. {{store.orderProductData.id}}
+                        {{$t('manage_order.product_modal.order_no')}} {{store.orderProductData.id}}
                         <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
@@ -19,7 +19,7 @@
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
-                            {{ $t(`order_detail.${column.name}`) }}
+                            {{ $t(`manage_order.product_modal.${column.name}`) }}
                         </th>
                     </tr>
                 </thead>
@@ -43,16 +43,16 @@
                                 />
                             </div>
                         </td>
-                        <td class="text-center" :data-content="$t('order_detail.product')">
+                        <td class="text-center" :data-content="$t('manage_order.product_modal.product')">
                             {{product.name}}
                         </td>
-				        <td class="text-center" :data-content="$t('order_detail.qty')">
+				        <td class="text-center" :data-content="$t('manage_order.product_modal.qty')">
                             {{product.qty}}
                         </td>
-                        <td class="text-center" :data-content="$t('order_detail.price')">
+                        <td class="text-center" :data-content="$t('manage_order.product_modal.price')">
                            $ {{(product.price).toFixed(2)}}
                         </td>
-                        <td class="text-center" :data-content="$t('order_detail.sub_total')">
+                        <td class="text-center" :data-content="$t('manage_order.product_modal.sub_total')">
                            $ {{(product.qty * product.price).toFixed(2)}}
                         </td>                        
                     </tr>
@@ -62,19 +62,19 @@
                 <div class="box col-start-1 col-span-12 lg:col-start-8">
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">{{$t('order_detail.sub_total')}}</div>
+                            <div class="mr-auto font-bold">{{$t('manage_order.product_modal.sub_total')}}</div>
                             <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.subtotal).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">{{$t('order_detail.delivery_charge')}}</div>
+                            <div class="mr-auto font-bold">{{$t('manage_order.product_modal.delivery_charge')}}</div>
                             <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.shipping_cost).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">{{store.orderProductData.adjust_title ?? $t('order_detail.discount')}}</div>
+                            <div class="mr-auto font-bold">{{store.orderProductData.adjust_title ?? $t('manage_order.product_modal.discount')}}</div>
                             <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.adjust_price).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">{{$t('order_detail.total')}}</div>
+                            <div class="mr-auto font-bold">{{$t('manage_order.product_modal.total')}}</div>
                             <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.total).toFixed(2)}}</div>
                         </div>
                     </div>

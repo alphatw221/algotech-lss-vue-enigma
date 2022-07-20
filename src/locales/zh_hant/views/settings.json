@@ -1,0 +1,65 @@
+{
+    "settings" : "專頁設定",
+    "client_id" : "Client ID",
+    "secret" : "Secret",
+    "currency_code" : "幣別代碼",
+    "store_id" : "Store ID",
+    "share_secret" : "Shared Secret",
+    "time_zone" : "時區",
+    "confirmation_note" : "訂單確認訊息",
+    "default_active" : "預設啟用",
+    "default_settings":"直撥預設",
+
+    "delivery":{
+        "delivery":"物流",
+        "charge":"運費",
+        "charge_option":"運送方式",
+        "replace_charge" : "取代基本運費",
+        "on_top_of_charge" : "增加額外運費",
+        "title" : "Display Name",
+        "order_above":"免運門檻: 訂單金額達(含)以上",
+        "minimum ":"免運門檻: 商品數量達(含)以上",
+        "store":{
+                "collection":"門市取貨",
+                "pickup_store":"取貨門市",
+                "pickup_address":"取貨地址"
+        }
+        
+    },
+    "payment":{
+        "payment":"金流",
+        "direct_payment":"轉帳",
+        "enabled":"啟用",
+        "mode":"付款方式",
+        "account_name":"帳戶名稱",
+        "account_number":"帳戶號碼",
+        "stripe":{
+            "secret_key":"Secret Key",
+            "currency":"幣別"
+        }
+    },
+    "notes":{
+        "notes":"備註",
+        "delivery_note":"運送說明",
+        "special_note":"購物說明",
+        "confirmation_note":"訂單說明",
+        "discard":"取消",
+        "save":"儲存"
+    },
+    "localization":{
+        "country":"國家",
+        "currency_symbol":"貨幣符號",
+        "seller_language":"賣家語言",
+        "buyer_language":"買家語言",
+        "decimal_places":"小數位數",
+        "discard":"取消",
+        "save":"儲存"
+    },
+    "platform":{
+        "connected_platform":"已綁定的社交平台",
+        "facebook_fan_page":"Facebook 粉絲專頁",
+        "instagram_profile":"Instagram 商業檔案",
+        "youtube_channel":"Youtube 頻道",
+        "edit":"編輯"
+    }
+}

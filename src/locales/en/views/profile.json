@@ -1,0 +1,18 @@
+{
+    "profile":{
+        "title":"Profile"
+    },
+    "subscription":{
+        "title":"Subscription",
+        "id":"ID",
+        "joined":"Joined",
+        "vaild":"Vaild till",
+        "change_plan":"Change Plan"
+    },
+    "plan":{
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium"
+    }
+    
+}

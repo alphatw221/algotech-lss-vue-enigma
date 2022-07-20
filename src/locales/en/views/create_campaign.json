@@ -1,0 +1,76 @@
+{
+    "create_campaign":"Create Campaign",
+    "title":"Title",
+    "title_required":"Title Is Required",
+    "period":"Period",
+
+    "cancel":"Cancel",
+    "create":"Create",
+
+
+    "delivery_form":{
+        "delivery_detail":"Delivery Details",
+        "delivery_charge":"Delivery Charge",
+        "free_delivery_for_order_above":"Free delivery for order above",
+        "free_delivery_for_minimum_order":"Free delivery for minimum order Qty",
+        "add_more_delivery_option":"Add More Option",
+        "add_more_pickup_option":"Add More Option",
+        "options":"Shipping Options",
+        "on_top_of_delivery_charge":"On top of delivery charge",
+        "replace_delivery_charge":"Replace delivery charge",
+
+        "delete":"Delete",
+
+        "store_collection":"Store Collection",
+
+        "pickup_store":"Pickup Store",
+        "pickup_address":"Pickup Address"
+
+    },
+
+
+    "payment_form":{
+
+        "payment_titles":{
+            "direct_payment":"Direct Payment",
+            "stripe":"Stripe"
+        },
+
+        "direct_payment":{
+            "mode":"Name of Bank / Payment Mode",
+            "name":"Account Name",
+            "number":"Account Number",
+            "note":"Note",
+            "require_customer_return":"Require Customer’s Payment Record"
+        },
+        "stripe":{
+            "secret":"Secret Key",
+            "currency":"Currency"
+        },
+
+
+
+
+        "payment_details":"Payment Details",
+        "enabled":"Enabled",
+        "add_more_direct_payment":"Add More Option",
+        "upload_image":"Upload Image",
+        "upload_a_file_or_drag_and_drop":"Upload a file",
+        "accepted_file_types":"Accepted File Types",
+        "max_file_size":"Max File Size",
+
+        "delete":"Delete"
+
+
+
+
+    },
+
+    "notes_form":{
+        "notes_form":"Customer Note Settings",
+        "delivery_note":"Delivery Note",
+        "special_note":"Special Note",
+        "confirmation_note":"Confirmation Note"
+    }
+
+}

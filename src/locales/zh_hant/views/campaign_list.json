@@ -1,0 +1,74 @@
+{
+    "process" : {
+        "create" : "建立",
+        "create_description" : "點擊「新增」建立直播，點擊「管理」從庫存管理新增直播商品",
+        "connect" : "連接",
+        "connect_description" : "點擊「編輯」並輸入 Facebook 直播貼文 ID",
+        "complete" : "完成",
+        "complete_description" : "點擊「進入」查看並管理直播"
+    },
+    "create_campaign": "建立直播",
+
+    "tabs":{
+        "scheduled" : "預定排程",
+        "history" : "歷史紀錄",
+        "ongoing" : "進行中"
+    },
+    
+
+    "search_bar":{
+        "title": "標題",
+        "search" : "搜尋",
+        "reset" : "清空"
+    },
+    "enter_post_id":{
+        "message":"Please enter post ID to start live selling.",
+        "select_stream":"選擇直播",
+        "select_page":"選擇專頁",
+        "post_id":"直播 ID"
+    },
+
+    
+
+    "campaign_list_table":{
+        "title" : "標題",
+        "fan_page" : "平台",
+        "start_at" : "開賣日期/時間",
+        "end_at" : "結單日期/時間",
+        "manage" : "管理",
+        "manage_product" : "管理商品",
+        "manage_order" : "管理訂單",
+        "stop" : "停止結帳",
+        "null":"",
+        "history":"回顧",
+        "live_on":"進入直撥",
+        "edit_campaign":"編輯直撥",
+        "edit_campaign_product":"編輯直撥商品",
+        "blank_cart":"複製購物車連結",
+        "lucky_draw":"抽獎設定"
+    },
+
+    "remind_enter_post_id_modal":{
+        "confirm":"確定",
+        "message":"請設定貼文ID已開始直撥"
+    },
+
+    "enter_post_id_modal":{
+        "edit_channel":"設定平台",
+        "facebook":"Facebook",
+        
+        "post_id":"貼文ID",
+        "select_page":"選擇粉絲專業",
+
+        "instagram":"Instagram",
+        "media_id":"貼文ID",
+        "select_media":"選擇商業檔案",
+
+        "youtube":"Youtube",
+        "live_chat_id":"聊天室ID",
+        "select_live_chat":"選擇聊天室",
+
+        "cancel":"取消"
+    }
+
+}

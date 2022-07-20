@@ -1,15 +1,14 @@
 <template>
 	<div class="h-fit">
-		<!-- {{ $t('test1') }} -->
 		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y " v-if="route.params.product_id">
-			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">Edit Product</h2>
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('stock.add_product_page.edit_title') }}</h2>
 		</div>
 		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y" v-else>
-			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">Add New Product</h2>
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('stock.add_product_page.add_title') }}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10">
 			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
-				<label for="crud-form-1" class="form-label text-base font-medium">Product Name</label>
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.product_name') }}</label>
 				<input
 					id="crud-form-1"
 					type="text"
@@ -20,12 +19,12 @@
 				/>
 				<template v-if="validate.name.$error">
 					<label class="text-danger ml-2 text-[13px]" >
-						Enter product name with no more than 50 digits
+						{{ $t('stock.add_product_page.name_warning') }}
 					</label>
 				</template>
 			</div>
 			<div class="col-span-12 lg:col-span-6">
-				<label for="crud-form-2" class="form-label text-base mt-2 font-medium">Category</label>
+				<label for="crud-form-2" class="form-label text-base mt-2 font-medium">{{ $t('stock.add_product_page.category') }}</label>
 
 				<TomSelect
 					id="crud-form-2"
@@ -53,30 +52,32 @@
 				</template> -->
 			</div>
 
-			<div class="col-span-12 col-start-1 relative">
-				<label class="form-label text-base mt-2 font-medium">Upload Image</label>
-				<XIcon class="absolute top-4 right-0 w-4 h-4 ml-2" @click="clear"/>
-				<Dropzone ref-key="dropzoneSingleRef" :options="{
-						method: 'put',
-						url: 'url',
-						uploadMultiple: false,
-						maxFilesize: 2,
-						addRemoveLinks: true,
-						autoProcessQueue: false,
-						resizeQuality: 0.5,
-						acceptedFiles: 'image/*',
-					}" class="dropzone">
-					<div v-if="!previewImage" > 
-						<div class="text-lg font-medium">
-						Drop files here or click to upload.
+			<div class="col-span-12 col-start-1 ">
+				<label class="form-label text-base mt-2 font-medium">{{ $t('stock.add_product_page.upload_image') }}</label>
+				<div class="relative">
+					<XCircleIcon class="absolute top-1 right-1 w-4 h-4 ml-2 z-index-99" style="color:red" @click="clear"/>
+					<Dropzone ref-key="dropzoneSingleRef" :options="{
+							method: 'put',
+							url: 'url',
+							uploadMultiple: false,
+							maxFilesize: 2,
+							addRemoveLinks: true,
+							autoProcessQueue: false,
+							resizeQuality: 0.5,
+							acceptedFiles: 'image/*',
+						}" class="dropzone">
+						<div v-if="!previewImage" > 
+							<div class="text-lg font-medium">
+							{{ $t('stock.add_product_page.drop_file_text') }}
+							</div>
+							<div class="text-gray-600">
+								<br>{{ $t('stock.add_product_page.accept_file_text') }}
+							</div>
+							<div class="text-gray-600">{{ $t('stock.add_product_page.max_size_text') }} : 2MB</div>  
 						</div>
-						<div class="text-gray-600">
-							<br>accepted File types: jpeg, png, jpg
-						</div>
-						<div class="text-gray-600">Max file size : 2MB</div>  
-					</div>
-					<img class="w-40 h-40 rounded-lg" v-else data-dz-thumbnail :src="previewImage" />
-				</Dropzone>
+						<img class="w-40 h-40 rounded-lg" v-else data-dz-thumbnail :src="previewImage" />
+					</Dropzone>
+				</div>
 			</div> 
 
 			<!-- <div class="col-span-12 col-start-1 mt-2">
@@ -118,7 +119,7 @@
 			</div> -->
 
 			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
-				<label for="crud-form-1" class="form-label text-base font-medium">Quantity</label>
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.quantity') }}</label>
 				<input
 					id="crud-form-1"
 					type="text"
@@ -129,12 +130,12 @@
 				/>
 				<template v-if="validate.qty.$error">
 						<label class="text-danger ml-2 text-[13px]" >
-						Qty has to be a number
+						{{ $t('stock.add_product_page.qty_warning') }}
 						</label>
 				</template>
 			</div>
 			<div class="col-span-12 lg:col-span-6 mt-2">
-				<label for="crud-form-1" class="form-label text-base font-medium">Price</label>
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.price') }}</label>
 				<input
 					id="crud-form-1"
 					type="text"
@@ -145,13 +146,13 @@
 				/>
 				<template v-if="validate.price.$error">
 						<label class="text-danger ml-2 text-[13px]" >
-						Price has to be a number 
+						{{ $t('stock.add_product_page.price_warning') }}
 						</label>
 				</template>
 			</div>
 
 			<div class="col-span-12 col-start-1 mt-2">
-				<label class="text-base font-medium">Status</label>
+				<label class="text-base font-medium">{{ $t('stock.add_product_page.status') }}</label>
 				<div class="flex flex-col mt-2 sm:flex-row" v-for="status in statusRadio" :key="status.id">
 					<div class="mt-2 ml-2 mr-2 form-check sm:mt-0">
 						<input 
@@ -165,24 +166,24 @@
 							class="form-check-label" 
 							:for="status.id"
 						>
-							{{ status.text }}
+							{{ $t(`stock.${status.text}`) }}
 						</label>
 					</div>
 				</div>
 			</div>
 
 			<div class="col-span-12 mt-2">
-				<label for="crud-form-1" class="form-label text-base font-medium">Description</label>
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.description') }}</label>
 				<textarea 
 					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
 					class="h-36 p-2 mr-5 form-control indent-4"
-					placeholder="product description ..."
+					:placeholder="$t('stock.add_product_page.product_description')"
 					v-model="validate.description.$model"
 				>
 				</textarea>
 				<template v-if="validate.description.$error">
 						<label class="text-danger ml-2 text-[13px]" >
-						description cannot be more than 100 digits
+						{{ $t('stock.add_product_page.description_warning') }}
 						</label>
 				</template>
 			</div>
@@ -190,10 +191,10 @@
 			
 			<div class="z-50 col-span-12 flex justify-end sm:mt-3">
 				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="cancelButton">
-					Cancel
+					{{ $t('stock.add_product_page.cancel') }}
 				</button>
 				<button class="w-32 ml-5 shadow-md btn btn-primary" @click="submit">
-					Save
+					{{ $t('stock.add_product_page.save') }}
 				</button>
 			</div>
 		</div>
@@ -234,8 +235,8 @@ const product = ref({
 // ])
 
 const statusRadio = ref([
-	{text: 'For Sale', id: 'enabled'},
-	{text: 'Delisted', id: 'disabled'},
+	{text: 'for_sale', id: 'enabled'},
+	{text: 'delisted', id: 'disabled'},
 ])
 
 const previewImage =ref('')

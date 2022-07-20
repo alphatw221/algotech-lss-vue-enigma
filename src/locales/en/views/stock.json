@@ -1,0 +1,62 @@
+{
+    "for_sale": "For Sale",
+    "delisted": "Delisted",
+    "add_product": "Add Product",
+
+    "search_bar": {
+        "category": "Category",
+        "search_by": "Search By",
+        "search_holder": "Search...",
+        "reset": "Reset",
+        "category_manage": "Category Management",
+        "name": "Name",
+        "order_code": "Order Code",
+        "description": "Description"
+    },
+
+    "table_column": {
+        "image": "Image",
+        "name": "Name",
+        "order_code": "Order Code",
+        "type": "Type",
+        "category": "Category",
+        "description": "Description",
+        "qty": "Qty",
+        "price": "Price"
+    },
+
+    "category_manage": {
+        "create_new_category": "Create New Category",
+        "edit_title": "Edit Category",
+        "edit": "Edit",
+        "delete": "Delete",
+        "input_holder": "Category Name",
+        "modal": {
+            "cancel": "Cancel",
+            "save": "Save"
+        }
+    },
+
+    "add_product_page": {
+        "edit_title": "Edit Product",
+        "add_title": "Add New Product",
+        "product_name": "Product Name",
+        "name_warning": "Enter product name with no more than 50 digits",
+        "category": "Category",
+        "upload_image": "Upload Image",
+        "drop_file_text": "Drop files here or click to upload.",
+        "accept_file_text": "accepted File types: jpeg, png, jpg",
+        "max_size_text": "Max file size",
+        "quantity": "Quantity",
+        "qty_warning": "Qty has to be a number",
+        "price": "Price",
+        "pricr_warning": "Price has to be a number",
+        "status": "Status",
+        "description": "Description",
+        "product_description": "product description...",
+        "description_warning": "description cannot be more than 100 digits",
+        "cancel": "Cancel",
+        "save": "Save"
+    }
+    
+}

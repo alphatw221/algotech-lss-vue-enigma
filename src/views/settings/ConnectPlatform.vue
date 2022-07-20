@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-        <h1 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-10 lg:mx-20 pt-5"> Connect Social Media Platform </h1>
+        <h1 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-10 lg:mx-20 pt-5"> {{$t('settings.platform.connected_platform')}} </h1>
         <div v-for="(component, key) in platform_components" :key="key">
             <component :is="component"></component>
         </div>

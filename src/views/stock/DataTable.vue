@@ -1,24 +1,29 @@
 <template>
-	<div class="mt-3 overflow-auto h-[53vh] sm:h-[61vh]">
+	<div class="overflow-auto h-[50vh] sm:h-[61vh]">
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
 					<th class="whitespace-normal xl:whitespace-nowrap" v-for="column in columns" :key="column.key">
-						{{ column.name }}
+						<template v-if="column.name === ''">
+							{{ column.name }}
+						</template>
+						<template v-else>
+							{{ $t(`stock.table_column.${column.name}`) }}
+						</template>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="dotTr">
+				<tr class="dotTr h-[300px]" v-if="showCommentLoding || listItems==0">
 					<td v-if="showCommentLoding"
-						class="h-[300px] items-center relative border-0"
+						class="h-[300px] items-center relative border-0 dotTd"
 						:colspan="columns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="listItems==0" :colspan="columns.length +2">
-						<div class="mt-5 text-center md:mt-10" >
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg h-[300px]">
-								You Have No {{product_status}} Products
+					<td v-else-if="listItems==0" :colspan="columns.length +2" class="wordTd">
+						<div class="mt-5 text-center md:mt-10">
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+								You Don't Have Product in this Category
 							</h1>
 						</div>
 					</td> 
@@ -69,7 +74,9 @@
 							</DropdownToggle>
 							<DropdownMenu class="w-20 pt-2 ">
 							<DropdownContent class="w-20 text-center ">
-								<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"> <EditIcon class="w-[20px] h-[20px] mx-1"/> Edit </DropdownItem>
+								<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"> 
+									<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.edit')}}
+								</DropdownItem>
 							</DropdownContent>
 							</DropdownMenu>
 						</Dropdown> 
@@ -321,6 +328,29 @@ thead th{
 	}
 	.edit:before{
 		display: none;
+	}
+
+	.dotTr:before{
+		display: none;
+	}
+	.dotTr{
+		display: inline-block;
+		position: absolute;
+		width: 100%;
+		top:50%;
+		padding-left: 0 !important;
+	}
+	.dotTd{
+		background-color: transparent !important;
+	}
+	.wordTd:before{
+		display: none;
+	}
+	.wordTd{
+		display: inline-block;
+		padding-left: 0 !important;
+		width: 100% !important;
+		background-color: transparent !important;
 	}
 }
 </style>

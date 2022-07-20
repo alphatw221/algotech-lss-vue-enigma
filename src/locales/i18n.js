@@ -1,8 +1,8 @@
 import { createI18n } from 'vue-i18n';
 
-import en from './en-US/index.js'
-import zh from './zh-hant/index.js'
-import vi from './vi/index.js'
+import en from './en/index.js'
+import zh_hant from './zh_hant/index.js'
+// import vi from './vi/index.js'
 
 // import hans from './locales/zh-hans.json'
 // import id from './locales/id.json'
@@ -14,9 +14,9 @@ const i18n = createI18n({
   globalInjection: true,
   messages:{
       //語言包
-      "zh_hant": zh,
+      "zh_hant": zh_hant,
       "en": en,
-      "vi": vi
+      // "vi": vi
   }
 })
 

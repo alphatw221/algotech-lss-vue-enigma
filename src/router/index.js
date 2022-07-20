@@ -73,7 +73,7 @@ import AutoReply from "../views/autoReply/Main.vue";
 // import OrderDetails from "../views/shoppingcart/OrderDetails.vue";
 // import ShoppingPayment from "../views/shoppingcart/Payment.vue";
 
-import CampaignList from "../views/campaignlist/Main.vue";
+import CampaignList from "../views/campaign-list/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
 import ManageOrder from "../views/manage-order/Main.vue";  
 // import CampaignSelect from "../views/manage-order/Campaignselect.vue";
