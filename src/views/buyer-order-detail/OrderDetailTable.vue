@@ -7,7 +7,7 @@
 					v-for="column in tableColumns"
 					:key="column.key"
 				>
-				{{ column.name }}
+				{{ $t(`order_detail.table.`+column.name) }}
 				</th>
 			</tr>
 			</thead>
@@ -61,11 +61,11 @@ const store = useLSSBuyerOrderStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 
 const tableColumns = ref([
-	{ key: "image", name: " ",  },
-	{ key: "product", name: "Product",  },
-	{ key: "qty", name: "Quantity",  },
-	{ key: "price", name: "Price",  },
-	{ key: "subtotal", name: "Subtotal",  }
+	{ key: "image", name: "null",  },
+	{ key: "product", name: "product",  },
+	{ key: "qty", name: "qty",  },
+	{ key: "price", name: "price",  },
+	{ key: "subtotal", name: "sub_total",  }
 ])
 </script>
 
