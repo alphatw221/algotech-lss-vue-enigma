@@ -9,6 +9,41 @@
         "comment_message_1":"尚未有%{tag}相關訊息",
         "comment_message_2":"尚未有 %{platformName} 訊息"
     },
-    "cart_sold_left":"Cart/Sold/Left",
-    "incoming_order":"即時訂單"
+    "product":{
+        "product":"直播商品",
+        "modal_column":{
+            "null":"",
+            "cart_sold_left":"下單/售出/剩餘",
+            "name":"商品",
+            "description":"說明",
+            "Product":"商品",
+            "order_code":"商品代碼",
+            "price":"價格",
+            "activate":"Activate",
+            "qty":"庫存",
+            "category":"分類",
+            "type":"類別",
+            "Lucky Draw":"獎品",
+            "qty_for_campaign":"直播庫存",
+            "max_qty":"限購數量",
+            "editable":"可修改",
+            "deletable":"可刪除",
+            "search":"搜尋"
+        },
+        "add":"加入",
+        "add_product":"加入商品",
+        "instantly":"快速新增商品",
+        "from_stock":"從庫存加入商品",
+        "confirm_product":"確認要新增的商品",
+        "save_to_stock":"同時存入庫存",
+        "apply":"新增",
+        "reset":"清空",
+        "add_more":"新增更多",
+        "confirm":"確認",
+        "comfirm_selected":"確認選擇的商品"
+    },
+    "incoming":{
+        "incoming_order":"Incoming Order",
+        "table":{}
+    }
 }

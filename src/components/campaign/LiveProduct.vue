@@ -6,19 +6,19 @@
             ">
         <div class="flex flex-col h-full"> 
             <div class="flex w-full m-3">
-                <h2 class="w-48 ml-5 mr-auto text-lg font-medium">Product</h2>
+                <h2 class="w-48 ml-5 mr-auto text-lg font-medium">{{$t('campaign_live.product.product')}}</h2>
                 <template v-if="route.query.status !='history'">
                     <Dropdown class="inline-block">
                         <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
-                            Add Product
+                            {{$t('campaign_live.product.add_product')}}
                         </DropdownToggle>
                         <DropdownMenu class="w-48">
                             <DropdownContent>
                                 <DropdownItem @click="store.showInstantlyAddProductModal = true">
-                                    Instantly Add Product
+                                    {{$t('campaign_live.product.instantly')}}
                                 </DropdownItem>
                                 <DropdownItem @click="store.showAddProductFromStockModal = true">
-                                    Add Product From Stock
+                                    {{$t('campaign_live.product.from_stock')}}
                                 </DropdownItem>
                             </DropdownContent>
                         </DropdownMenu>
@@ -31,7 +31,7 @@
                         <tr>
                             <th class="whitespace-nowrap bg-dark" v-for="column in product_columns"
                                 :key="column.key">
-                                {{ column.name }}
+                                {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                             </th>
                         </tr>
                     </thead>
@@ -91,12 +91,12 @@ const store = useCampaignDetailStore()
 
 const imagePath = import.meta.env.VITE_APP_IMG_URL
 const product_columns = [
-    { name: "", key: "image" },
-    { name: "Name", key: "name" },
-    { name: "Order Code", key: "order_code" },
-    { name: "Cart/Sold/Left", key: "Sold_Left" },
-    { name: "Price", key: "price" },
-    { name: "Activate", key: "activate" }
+    { name: "null", key: "image" },
+    { name: "name", key: "name" },
+    { name: "order_code", key: "order_code" },
+    { name: "cart_sold_left", key: "Sold_Left" },
+    { name: "price", key: "price" },
+    { name: "activate", key: "activate" }
 ]
 
 

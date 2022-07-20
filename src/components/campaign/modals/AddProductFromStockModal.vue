@@ -6,7 +6,7 @@
         </a>
         <ModalHeader class="text-center text-base p-5">
             <h2 class="font-medium w-full">
-                Confirm To Add Following Product
+                {{$t('campaign_live.product.confirm_product')}}
             </h2>
         </ModalHeader>
         <ModalBody>
@@ -17,7 +17,7 @@
                 <div class="flex flex-wrap justify-around gap-3 w-[100%] text-[13px] sm:text-[16px]">
                     <div class="flex-1 flex flex-wrap items-center" >
                         <label class="w-14 mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
-                            Category
+                            {{$t('campaign_live.product.modal_column.category')}}
                         </label>
                         <select 
                             class="form-select min-w-fit h-[35px] sm:h-[42px] lg:max-w-xl"
@@ -29,13 +29,13 @@
                     </div>
                     <div class="flex-1 flex-wrap items-center flex" >
                         <label class="mr-2 whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
-                            Search by
+                            {{$t('campaign_live.product.modal_column.search')}}
                         </label>
                         <select
                             class="form-select min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
                             <option v-for="searchColumn in searchColumns" :key="searchColumn.value"
                                 :value="searchColumn.value">
-                                {{ searchColumn.text }}
+                                {{ $t(`campaign_live.product.modal_column.`+searchColumn.value) }}
                             </option>
                         </select>
                     </div>
@@ -46,7 +46,7 @@
                         <button 
                             type="button"
                             class="flex-none w-14 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary mt-auto" @click="resetSearchBar">
-                            Reset
+                            {{$t('campaign_live.product.reset')}}
                         </button>
                     </div>
                 </div>   
@@ -64,7 +64,7 @@
                                     <th 
                                         class="whitespace-normal truncate hover:text-clip" 
                                         v-for="column in tableColumns" :key="column.key">
-                                        {{ column.name }}
+                                        {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                     </th>
                                 </tr>
                             </thead>
@@ -91,7 +91,8 @@
                                         </td>
 
                                         <td 
-                                            v-else-if="column.key === 'order_code' && product.type=='product'" class="orderCode" 
+                                            v-else-if="column.key === 'order_code' && product.type=='product'" class="orderCode"
+                                            :data-content="$t('campaign_live.product.modal_column.order_code')" 
                                             >
                                             <div class="place-content-end w-full md:w-24 lg:place-content-center">
                                                 <input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]"/>
@@ -100,6 +101,7 @@
 
                                         <td v-else-if="column.key === 'category'" 
                                             class="category"
+                                            :data-content="$t('campaign_live.product.modal_column.category')" 
                                             >
                                             <div v-for="(tag,tag_index) in product['tag']" :key="tag_index"
                                             class="flex flex-col justify-center content-center"
@@ -107,13 +109,14 @@
                                         </td>
 
                                         <td v-else-if="column.key === 'qty'"
+                                            :data-content="$t('campaign_live.product.modal_column.qty_for_campaign')"
                                             class="qty">
                                             <div class="flex flex-col place-content-end w-full md:w-24">
                                                 <input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
                                             </div>
                                         </td>
                                         <td v-else-if="column.key === 'max_order_amount' && product.type=='product'"
-                                            class="maxqty">
+                                            class="maxqty" :data-content="$t('campaign_live.product.modal_column.max_qty')">
                                             <div class="flex flex-col place-content-end w-full md:w-24">
                                                 <input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]"/>
                                             </div>
@@ -122,24 +125,28 @@
                                         <td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
                                             <span>{{product[column.key]}}</span>
                                         </td>
-                                        <td v-else-if="column.key === 'type'" class="type">
+                                        <td v-else-if="column.key === 'type'" class="type" 
+                                        :data-content="$t('campaign_live.product.modal_column.type')">
                                             <select
                                                 class="form-select w-auto mt-0 "
                                                 v-model="product[column.key]"
                                             >
-                                                <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
+                                                <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`campaign_live.product.modal_column.`+type.name)}}</option>
                                             </select> 
                                         </td> 
 
-                                        <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable">
+                                        <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable"
+                                        :data-content="$t('campaign_live.product.modal_column.editable')">
                                             <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
                                         </td>
 
-                                        <td v-else-if=" column.key === 'customer_removable' && product.type=='product'" class="removable">
+                                        <td v-else-if=" column.key === 'customer_removable' && product.type=='product'" class="removable"
+                                        :data-content="$t('campaign_live.product.modal_column.deletable')">
                                             <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
                                         </td>
 
-                                        <td v-else-if="column.key === 'price'" class="price">
+                                        <td v-else-if="column.key === 'price'" class="price"
+                                        :data-content="$t('campaign_live.product.modal_column.price')">
                                             <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
                                             <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <span class="my-auto mr-1">$</span> 
@@ -178,7 +185,7 @@
         <!-- BEGIN ConfirmPage -->
             <div v-show="openTab=='confirm'">
                 <div class="text-left text-[16px]"> 
-                    Comfirm Selected Product
+                    {{$t('campaign_live.product.comfirm_selected')}}
                 </div>
                 <div class="relative"> 
                     <div class="overflow-x-none overflow-y-auto sm:overflow-auto h-[72vh] text-[14px] mt-5">
@@ -189,7 +196,7 @@
                                     <th 
                                         class="whitespace-normal truncate hover:text-clip" 
                                         v-for="column in tableColumns" :key="column.key">
-                                        {{ column.name }}
+                                        {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                     </th>
                                 </tr>
                             </thead>
@@ -213,24 +220,28 @@
                                             </div>
                                         </td>
 
-                                        <td v-else-if="column.key === 'order_code' && product.type=='product'" class="orderCode">
+                                        <td v-else-if="column.key === 'order_code' && product.type=='product'" class="orderCode"
+                                        :data-content="$t('campaign_live.product.modal_column.order_code')">
                                             <div class="relative place-content-end w-full md:w-24 lg:place-content-center">
                                                 <input class="form-control w-[100%] mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
                                             </div>
                                         </td>
 
-                                        <td v-else-if="column.key === 'category'" class="category">
+                                        <td v-else-if="column.key === 'category'" class="category"
+                                        :data-content="$t('campaign_live.product.modal_column.category')">
                                             <div v-for="(tag,tag_index) in product['tag']" :key="tag_index">{{ tag }}</div> 
                                         </td>
 
-                                        <td v-else-if="column.key === 'qty'" class="qty">
+                                        <td v-else-if="column.key === 'qty'" class="qty"
+                                        :data-content="$t('campaign_live.product.modal_column.qty_for_campaign')">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
                                                 <label class="text-danger absolute -bottom-5 right-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </td>
 
-                                        <td v-else-if="column.key === 'max_order_amount' && product.type=='product'" class="maxqty">
+                                        <td v-else-if="column.key === 'max_order_amount' && product.type=='product'" class="maxqty"
+                                        :data-content="$t('campaign_live.product.modal_column.max_qty')">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
                                                 <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
@@ -239,25 +250,28 @@
                                         <td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
                                             <span>{{product[column.key]}}</span>
                                         </td>
-                                        <td v-else-if="column.key === 'type'" class="type">
+                                        <td v-else-if="column.key === 'type'" class="type"
+                                        :data-content="$t('campaign_live.product.modal_column.type')">
                                             <select
                                                 class="form-select w-auto mt-0 "
                                                 v-model="product[column.key]"
                                             >
-                                                <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
+                                                <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`campaign_live.product.modal_column.`+type.name)}}</option>
                                             </select> 
                                             <label class="text-danger absolute -bottom-5 right-0 whitespace-nowrap" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                         </td> 
                                         
-                                        <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable">
+                                        <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable"
+                                        :data-content="$t('campaign_live.product.modal_column.editable')">
                                             <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" />
                                         </td>
 
-                                        <td v-else-if=" column.key === 'customer_removable'  && product.type=='product'" class="removable">
+                                        <td v-else-if=" column.key === 'customer_removable'  && product.type=='product'" class="removable"
+                                        :data-content="$t('campaign_live.product.modal_column.removable')">
                                             <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
                                         </td>
 
-                                        <td v-else-if="column.key === 'price'" class="price">
+                                        <td v-else-if="column.key === 'price'" class="price" :data-content="$t('campaign_live.product.modal_column.price')">
                                             <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
                                             <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <span class="my-auto mr-1 text-[16px]">$</span> 
@@ -276,9 +290,9 @@
                         </table> 
                     </div>
                     <div class=" flex items-center justify-between">
-                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="openTab='select'">Add More</button>
-                        <button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">Reset</button>
-                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">Confirm</button>
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="openTab='select'">{{$t('campaign_live.product.add_more')}}</button>
+                        <button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">{{$t('campaign_live.product.reset')}}</button>
+                        <button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">{{$t('campaign_live.product.confirm')}}</button>
                     </div> 
                 </div>
             </div>
@@ -301,30 +315,30 @@ const props = defineProps({
 })
 
 const tableColumns = ref([
-    { name: "Product", key: "image" },
-    { name: "", key: "name" },
-    { name: "Type", key: "type" },
-    { name: "Order Code", key: "order_code" },
-	{ name: "QTY for Campaign", key: "qty" },
-	{ name: "Max QTY/Order", key: "max_order_amount" },
-    { name: "Price", key: "price" },
-	{ name: "Editable", key: "customer_editable" },
-	{ name: "Deletable", key: "customer_removable" },
-	{ name: "Category", key: "category" },
+    { name: "name", key: "image" },
+    { name: "null", key: "name" },
+    { name: "type", key: "type" },
+    { name: "order_code", key: "order_code" },
+	{ name: "qty_for_campaign", key: "qty" },
+	{ name: "max_qty", key: "max_order_amount" },
+    { name: "price", key: "price" },
+	{ name: "editable", key: "customer_editable" },
+	{ name: "deletable", key: "customer_removable" },
+	{ name: "category", key: "category" },
 	
 ])
 
 const productColumns = ref([
-    { name: "Product", key: "image" },
-    { name: "", key: "name" },
-    { name: "Order Code", key: "order_code" },
-	{ name: "QTY for Campaign", key: "qty" },
-	{ name: "Max QTY/Order", key: "max_order_amount" },
-    { name: "Price", key: "price" },
-	{ name: "Editable", key: "customer_editable" },
-	{ name: "Deletable", key: "customer_removable" },
-	{ name: "Category", key: "category" },
-	{ name: "Type", key: "type" },
+    { name: "name", key: "image" },
+    { name: "null", key: "name" },
+    { name: "order_code", key: "order_code" },
+	{ name: "qty_for_campaign", key: "qty" },
+	{ name: "max_qty", key: "max_order_amount" },
+    { name: "price", key: "price" },
+	{ name: "editable", key: "customer_editable" },
+	{ name: "deletable", key: "customer_removable" },
+	{ name: "category", key: "category" },
+	{ name: "type", key: "type" },
 ])
 
 const luckyColumns = ref([
@@ -702,7 +716,7 @@ thead th{
     }
 
     .orderCode:before {
-        content: "Order Code";
+        content: attr(data-content);
         text-align: left !important;
         top:25% !important;
     }
@@ -711,7 +725,7 @@ thead th{
     }
 
     .qty:before {
-        content: "Qty for Campaign";
+        content: attr(data-content);
         top:25% !important;
     }
     .qty input{
@@ -719,7 +733,7 @@ thead th{
     }
 
     .maxqty:before {
-        content: "Max Qty / Order";
+        content: attr(data-content);
         top:25% !important;
     }
     .maxqty input{
@@ -727,7 +741,7 @@ thead th{
     }
 
     .price:before {
-        content: "Price";
+        content: attr(data-content);
         top:10px;
     }
     .price input{
@@ -741,14 +755,14 @@ thead th{
     } */
 
     .editable:before {
-        content: "Editable";
+        content: attr(data-content);
         margin-top: 0px !important;
     }
     .editable{
         min-height: 35px !important;
     }
     .removable:before {
-        content: "Deletable";
+        content: attr(data-content);
         text-align: left !important;
         margin-top: 0px !important;
     }
@@ -757,7 +771,7 @@ thead th{
     }
 
     .category:before {
-        content: "Category";
+        content: attr(data-content);
     }
     .luckyType:before{
         content: "Type";
@@ -768,7 +782,7 @@ thead th{
         min-height: 35px !important;
     }
     .type:before {
-        content: "Type";
+        content: attr(data-content);
         text-align: left !important;
         min-height: 35px !important;
         top:10px;
