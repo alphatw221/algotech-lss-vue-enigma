@@ -38,13 +38,13 @@
 				<td class="text-center h-20">
 					{{ product.name }}
 				</td>
-				<td class="text-center h-20">
+				<td class="text-center h-20" :data-content="$t('order_detail.table.qty')">
 					{{ product.qty }}
 				</td>
-				<td class="text-center h-20">
+				<td class="text-center h-20" :data-content="$t('order_detail.table.price')">
 					$ {{ parseFloat(product.price).toFixed(2) }}
 				</td>
-				<td class="text-center h-20">
+				<td class="text-center h-20" :data-content="$t('order_detail.table.sub_total')">
 					$ {{ parseFloat(product.qty * product.price).toFixed(2) }}
 				</td>
 			</tr>
@@ -126,19 +126,19 @@ const tableColumns = ref([
     /* color: #0e9893; */
   }
   td:nth-of-type(2):before {
-    content: "Product";
+    content: attr(data-content);
     /* color: #0e9893; */
   }
   td:nth-of-type(3):before {
-    content: "Quantity";
+    content: attr(data-content);
     /* color: #0e9893; */
   }
   td:nth-of-type(4):before {
-    content: "Price";
+    content: attr(data-content);
     /* color: #0e9893; */
   }
   td:nth-of-type(5):before {
-    content: "Subtotal";
+    content: attr(data-content);
     /* color: #0e9893; */
   }
 }
