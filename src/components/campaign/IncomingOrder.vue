@@ -17,7 +17,7 @@
             
 
             <div class="flex justify-between flex w-full m-3">
-                <h2 class="text-lg font-medium ml-5">Incoming Order</h2>
+                <h2 class="text-lg font-medium ml-5">{{$t('campaign_live.incoming.incoming_order')}}</h2>
                 <Dropdown class="inline-block">
                     <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                         Plug In
@@ -43,7 +43,7 @@
                         <tr>
                             <th class="whitespace-nowrap bg-dark" v-for="column in incoming_order_columns"
                                 :key="column.key">
-                                {{ $t(`manage_order.`+column.name) }}
+                                {{ $t(`campaign_live.incoming.table.`+column.name) }}
                             </th>
                         </tr>
                     </thead>

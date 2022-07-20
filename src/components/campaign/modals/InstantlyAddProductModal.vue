@@ -5,14 +5,14 @@
         </a>
         <ModalHeader class="text-center p-5">
             <h2 class="font-medium text-base text-center w-full">
-                Instantly Add Product
+                {{$t('campaign_live.product.instantly')}}
             </h2>
         </ModalHeader>
         <ModalBody class="text-[16px]">
             <div class="text-right">
                 <form class="flex flex-col p-2 text-left">
-                    <div> <input type="checkbox" v-model="addProduct.save_to_stock"/> <span class="ml-2"> Save to Stock </span></div>
-                    <label class="mt-5 mb-2">Product Name</label>
+                    <div> <input type="checkbox" v-model="addProduct.save_to_stock"/> <span class="ml-2"> {{$t('campaign_live.product.save_to_stock')}} </span></div>
+                    <label class="mt-5 mb-2">{{$t('campaign_live.product.modal_column.name')}}</label>
                     <input type="text" class="rounded-lg" 
                         v-model="validate.name.$model"
                         :class="{ 'border-danger text-danger border-2': validate.name.$error }" />
@@ -22,7 +22,7 @@
                           </label>
                     </template>
 
-                    <label class="mt-5 mb-2">Category</label>
+                    <label class="mt-5 mb-2">{{$t('campaign_live.product.modal_column.category')}}</label>
                     <select v-model="addProduct.category" class="w-full rounded-lg">
                         <option value="">Uncategorized</option>
                         <template v-for="(category, key) in categoryList" :key="key"> 
@@ -30,7 +30,7 @@
                         </template>
                     </select>
 
-                    <label class="mt-5 mb-2">order Code</label>
+                    <label class="mt-5 mb-2">{{$t('campaign_live.product.modal_column.order_code')}}</label>
                     <input type="text" class="rounded-lg" 
                         v-model="validate.order_code.$model"
                         :class="{ 'border-danger text-danger border-2': validate.order_code.$error }" />
@@ -40,7 +40,7 @@
                           </label>
                     </template>
 
-                    <label class="mt-5 mb-2">Price</label>
+                    <label class="mt-5 mb-2">{{$t('campaign_live.product.modal_column.price')}}</label>
                     <input type="text" class="rounded-lg" 
                         v-model="validate.price.$model"
                         :class="{ 'border-danger text-danger border-2': validate.price.$error }" />
@@ -50,7 +50,7 @@
                           </label>
                     </template>
 
-                    <label class="mt-5 mb-2">Q’TY</label>
+                    <label class="mt-5 mb-2">{{$t('campaign_live.product.modal_column.qty')}}</label>
                     <input type="text" class="rounded-lg" 
                         v-model="validate.qty.$model"
                         :class="{ 'border-danger text-danger border-2': validate.qty.$error }" />
@@ -61,7 +61,7 @@
                     </template>
                 </form>
                 <button class="btn btn-primary mt-10 w-32 shadow-md"
-                    @click="apply()" > Apply</button>
+                    @click="apply()" > {{$t('campaign_live.product.apply')}}</button>
             </div>
         </ModalBody>
     </Modal>
