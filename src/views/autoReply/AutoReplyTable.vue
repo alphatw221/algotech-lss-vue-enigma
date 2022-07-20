@@ -73,7 +73,7 @@
 	<!-- update Modal-->
 	<Modal :show="updateModal" @hidden="closeWithAlert()">
 		<ModalHeader>
-			<h2 class="mr-auto text-base font-medium">Edit #{{currentInfo.id}}</h2>
+			<h2 class="mr-auto text-base font-medium">{{ $t('auto_reply.manipulate.edit') }} #{{currentInfo.id}}</h2>
 			<a @click="updateModal = false" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
 				<XIcon class="w-8 h-8 text-slate-400" />
 			</a>
@@ -101,10 +101,10 @@
 		</ModalBody>
 		<ModalFooter>
 			<button type="button" @click="updateModal = false" class="w-32 btn dark:border-darkmode-400">
-				Cancel
+				{{ $t('auto_reply.modal_cancel') }}
 			</button>
 			<button type="button" @click="updateAutoReply(currentInfo.id, currentInfo)" class="w-32 ml-5 shadow-md btn btn-primary">
-				Save
+				{{ $t('auto_reply.modal_save') }}
 			</button>
 		</ModalFooter>
 	</Modal>

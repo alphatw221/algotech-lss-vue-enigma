@@ -9,6 +9,55 @@
         "comment_message_1":"You don't have any %{tag} related comment yet",
         "comment_message_2":"You don't have any %{platformName} comment yet"
     },
-    "cart_sold_left":"Cart/Sold/Left",
-    "incoming_order":"Incoming Order"
+    "reply":{
+        "reply_to":"Reply to"
+    },
+    "product":{
+        "product":"Product",
+        "modal_column":{
+            "null":"",
+            "cart_sold_left":"Cart/Sold/Left",
+            "name":"Name",
+            "description":"Description",
+            "Product":"Product",
+            "order_code":"Order Code",
+            "price":"Price",
+            "activate":"Activate",
+            "qty":"Qty",
+            "category":"Category",
+            "type":"Type",
+            "Lucky Draw":"Lucky Draw",
+            "qty_for_campaign":"QTY for Campaign",
+            "max_qty":"Max QTY/Order",
+            "editable":"Editable",
+            "deletable":"Deletable",
+            "search":"Search by"
+        },
+        "add":"Add",
+        "add_product":"Add Product",
+        "instantly":"Instantly Add Product",
+        "from_stock":"Add Product From Stock",
+        "confirm_product":"Confirm To Add Following Product",
+        "save_to_stock":"Save to Stock",
+        "apply":"Apply",
+        "reset":"Reset",
+        "add_more":"Add More",
+        "confirm":"Confirm",
+        "comfirm_selected":"Comfirm Selected Product"
+    },
+    "incoming":{
+        "incoming_order":"Incoming Order",
+        "plug_in":"Plug In",
+        "instantly":"Instantly Lucky Draw Spin",
+        "list":"Lucky Draw List",
+        "table":{
+            "amount" : "Amount",
+            "payment" : "Payment",
+            "view" : "View",
+            "name" : "Customer",
+            "platform" : "Platform",
+            "order_number" : "Order No",
+            "null":""
+        }
+    }
 }

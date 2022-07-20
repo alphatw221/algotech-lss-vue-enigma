@@ -32,7 +32,7 @@
 				/>
 				<template v-if="validate.input_msg.$error">
 					<label class="text-danger ml-2 text-[13px]" >
-						Field is required 
+						{{ $t('auto_reply.modal_field_require') }}
 					</label>
 				</template>
             </div>
@@ -44,7 +44,7 @@
 				/>
 				<template v-if="validate.output_msg.$error">
 					<label class="text-danger ml-2 text-[13px]" >
-						Field is required 
+						{{ $t('auto_reply.modal_field_require') }}
 					</label>
 				</template>
             </div>
@@ -67,7 +67,7 @@
             </div>
             <template v-if="validate.chosenPage.$error">
                 <label class="text-danger ml-2 text-[13px] col-span-12" >
-                   Select one page 
+                   {{ $t('auto_reply.modal_select_page') }} 
                 </label>
             </template>
             
@@ -75,9 +75,9 @@
         <ModalFooter>
             <button type="button" @click="createModal=false"
                 class="w-32 bg-white btn dark:border-darkmode-400">
-                Cancel
+                {{ $t('auto_reply.modal_cancel') }}
             </button>
-            <button type="button" @click="createAutoReply()" class="w-32 ml-5 shadow-md btn btn-primary">Save</button>
+            <button type="button" @click="createAutoReply()" class="w-32 ml-5 shadow-md btn btn-primary">{{ $t('auto_reply.modal_save') }}</button>
         </ModalFooter>
     </Modal>
 </template>
