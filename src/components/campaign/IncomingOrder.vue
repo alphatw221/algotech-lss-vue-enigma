@@ -17,7 +17,7 @@
             
 
             <div class="flex justify-between flex w-full m-3">
-                <h2 class="text-lg font-medium ml-5">Incoming Order</h2>
+                <h2 class="text-lg font-medium ml-5">{{$t('campaign_live.incoming.incoming_order')}}</h2>
                 <Dropdown class="inline-block">
                     <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                         Plug In

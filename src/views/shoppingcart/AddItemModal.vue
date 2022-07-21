@@ -11,7 +11,7 @@
             	</a>
 			<ModalHeader>
 				<h2 class="font-medium text-base mr-auto">
-					{{ addOnTitle }}
+					{{ $t(`shopping_cart.add_item.`+addOnTitle) }}
 				</h2>
 			</ModalHeader>
 
@@ -60,7 +60,7 @@
 								class="btn btn-sm btn-primary w-24 mt-3"
 								@click="buyer_add_item(product.id, index)"
 							>
-								Add
+								{{$t('shopping_cart.add_item.add')}}
 							</button>
 						</div>
 					</div>
@@ -86,14 +86,14 @@ const store = useShoppingCartStore();
 const storageUrl =  import.meta.env.VITE_GOOGLE_STORAGEL_URL;
 
 const addOnProducts = ref([])
-const addOnTitle = ref('Select add-ons')
+const addOnTitle = ref('select_add_ons')
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 onMounted(()=> {
 	if (route.query.tag && route.query.tag == 'openAddOn') {
 		store.showAddItemModal = true
-		addOnTitle.value = 'Select Products'
+		addOnTitle.value = 'select_products'
 	}
 })
 

@@ -1,10 +1,10 @@
 <template>
-	<div class=" overflow-y-auto h-fit">
+	<div class="overflow-y-auto h-full sm:h-fit">
 	
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
-					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap">
+					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap text-center">
 						<template v-if="column.name === '#' || column.key === 'facebook_page'">
 							<span class="px-6"> {{ $t('auto_reply.table_column.' + column.name) }}</span> 
 						</template>

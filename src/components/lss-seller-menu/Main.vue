@@ -1,5 +1,5 @@
 <template>
-<div class="flex outterContainer overflow-auto bg-secondary">
+<div class="flex outterContainer overflow-auto bg-secondary relative">
       <!-- BEGIN: Side Menu -->
       <div class="top-[80px] z-[51] left-[12px] flex fixed my-3 ml-2 px-4 py-1 w-[70px] xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp " 
         :class="{
@@ -141,25 +141,11 @@
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
       <div class="lss-content">
+        <div class="absolute -z-50 top-0 invisible" id="topPoint"></div>
         <SellerBreadCrumb/>
-        <!-- <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
-          <ol class="breadcrumb breadcrumb-dark">
-            <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
-              <li v-if="crumb !== ''" class="breadcrumb-item"><a @click="pathName(crumb)">{{crumb}}</a></li>
-            </template>
-            <li v-if=" breadCrumb[breadCrumb.length - 2] " 
-              class="breadcrumb-item"><a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a></li>
-            <li class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
-          </ol>
-        </nav>
-        <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
-          <ol class="breadcrumb breadcrumb-dark">
-            <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
-          </ol>
-        </nav> -->
-
         <router-view />
       </div>
+      
       <!-- END: Content -->
     </div>
 </template>
@@ -214,11 +200,12 @@ const sortPath=(path)=>{
     breadCrumb.value.splice(-1,1)
   }
 }
-
 const pathName=(value)=>{
   const crumb = ref(value)
   router.push({name: crumb.value.replace(" ", "-")})
 }
+
+
 
 </script>
 

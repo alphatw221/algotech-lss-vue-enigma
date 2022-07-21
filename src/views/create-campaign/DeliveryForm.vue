@@ -1,6 +1,6 @@
 <template>
 	<div class="box grid grid-cols-12 gap-4 intro-y lg:mx-20 lg:px-40 px-5 py-10 mt-3" v-if="ready">
-		<span class="col-span-12 text-xl font-medium leading-none -mx-6">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
+		<span class="col-span-12 text-xl font-medium leading-none sm:-mx-6">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
 		<hr class="col-span-12 mb-3 -mx-6" />
 		<div class="flex flex-col col-span-12 col-start-1"> 
 			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>

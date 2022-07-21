@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-3 p-2 sm:px-5 h-[100%]">
+    <div class="flex flex-col gap-3 p-2 sm:px-5 sm:h-[100%]">
         <!-- <div class="flex items-center px-20 pt-5 pb-4 intro-y">
 			<h2 class="text-2xl font-medium">Create Campaign</h2>
 		</div> -->
@@ -10,11 +10,10 @@
                 <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('auto_reply.create') }}
             </button>
         </div>
-        <div class="flex flex-col gap-5 p-3 overflow-x-auto sm:p-8 box">
+        <div class="flex flex-col gap-5 p-3 overflow-x-hidden sm:overflow-x-auto sm:p-8 box">
             <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
     </div>
-
     <!--Modal Create -->
     <Modal :show="createModal" @hidden="closeWithAlert()">
         <ModalHeader>

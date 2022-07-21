@@ -1,60 +1,73 @@
 {
-    "order_id":"Order ID",
-    "fb_name":"FB Name",
-    "product":"Product",
-    "unit_price":"Unit Price",
-    "qty":"Qty",
-    "apply_btn":"Apply",
-    "sub_total":"Sub Total",
-    "delivery_charge":"Delivery Charge",
-    "total":"Total",
-    "item":"Item(s)",
-    "refresh":"Refresh",
-    "delivery_information":"Delivery Information",
-    "first_name":"First Name",
-    "last_name":"Last Name",
-    "phone":"Phone",
-    "email_address":"Email Address",
-    "in_store_pickup":"In-store pickup",
-    "location":"Location",
-    "pickup_date":"Date",
+    "shopping_cart":"Shopping Cart",
     "delivery":"Delivery",
-    "post_code":"Post Code",
-    "address":"Address",
-    "arrival_date":"Date",
-    "remarks":"Remarks",
-    "confirm":"Confirm",
-    "special_note":"Special Note",
-    "free_delivery":"Free Delivery",
+    "my_cart_tab":{
+        "special_note":"Special Note",
+        "my_cart":"My Cart"
+    },
+    "delivery_tab":{
+        "contact_info":"Contact Information",
+        "first_name":"First Name",
+        "last_name":"Last Name",
+        "phone":"Phone",
+        "email":"Email",
+        "first_err":"Please enter First Name",
+        "last_err":"Please enter Last Name",
+        "phone_err":"Phone number is required",
+        "Value is not a valid email address":"Value is not a valid email address",
+        "Value is required":"Value is required",
 
-    "add_product":{
-        "add_product":"Add Product",
+        "shipping_info":"Shipping Information",
+        "home_delivery":"Home Delivery",
+        "self_pickup":"Self Pickup",
+
+        "delivery_info":"Delivery Information",
+        "address":"Address",
+        "city":"City",
+        "state":"State",
+        "postal_code":"Postal Code",
+        "city_err":"Please enter City",
+        "address_err":"Please enter Address",
+        "state_err":"Please enter State",
+        "postal_code_err":"Please enter Postal Code",
+
+        "option":{
+            "delivery":"Delivery Option",
+            "default":"default",
+            "pickup":"Pickup Option"
+        },
+        "note":"Delivery and Collection Note",
+        "remark":"Remark",
+        "previous":"Previous",
+        "proceed_to_payment":"Proceed to Payment"
+    },
+    "table":{
+        "update":"Update",
+        "cancel":"Cancel",
+        "missing_remind":"Many people are reviewing this item, you might be missing it.",
+        "delete":"Delete",
+        "empty_message":"Your Shopping Cart Is Empty",
         "product":"Product",
-        "description":"Description",
-        "price":"Price",
         "qty":"Qty",
-        "add":"Add",
-        "close":"Close"
+        "price":"Price",
+        "subtotal":"Subtotal",
+        "null":"",
+        "cart":"My Cart",
+        "items":"Items",
+        "edit":"Edit"
     },
-
-    "history":{
-        "order_history":"Order History",
-        "order_id":"Order ID",
-        "campaign":"Campaign",
-        "order_time":"Order Time",
-        "status":"Status",
-        "total":"Total",
-        "more":"More",
-        "detail":"Detail"
+    "order_summary":{
+        "order_summary":"Order Summary",
+        "subtotal":"Subtotal",
+        "price_adjustment":"Price Adjustment",
+        "shipping":"Shipping",
+        "total_charge":"Total Charge",
+        "add_item":"Add more items",
+        "next":"Next"
     },
-
-    "credit_card":"Credit Card",
-    "bank_transfer":"PayNow\/Bank Transfer",
-    "PayPal":"PayPal",
-
-    "PayNow":{
-        "upload_payment_record":"Upload Payment Record",
-        "submit":"Submit"
-    },
-    "modify_price":"Modify Price"
+    "add_item":{
+        "select_add_ons":"Select add-ons",
+        "select_products":"Select Products",
+        "add":"Add"
+    }
 }
