@@ -69,5 +69,25 @@
         "select_add_ons":"Select add-ons",
         "select_products":"Select Products",
         "add":"Add"
+    },
+    "payment":{
+        "shipping_summary":"Shipping Summary",
+        "pickup":"In-store pickup",
+        "delivery":"Delivery",
+        "address":"Delivery Address",
+        "pay_with":"Pay With",
+        "direct":{
+            "account":"Account",
+            "account_number":"Account Number",
+            "account_name":"Account Name",
+            "note":"Note",
+            "beneficiary":"Beneficiary Bank",
+            "upload_img":" Drop files here or click to upload",
+            "accepted_types":"accepted File types",
+            "max_size":"Max file size",
+            "last_five_digits":"Last Five Digits",
+            "digits_message":"Please Enter Exactly 5 Digits",
+            "complete_order":"Upload & Complete Order"
+        }
     }
 }

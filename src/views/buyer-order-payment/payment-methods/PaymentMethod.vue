@@ -8,12 +8,12 @@
 
             <div v-if="props.payment.handle.type=='gateway'" class="text-center">
                 <img :src="imageUrl+props.payment.icon" alt="" class="w-20 mx-auto mt-5">
-                <button class="btn btn-primary mt-1 mb-5" @click="handlePayment()">Pay With {{props.payment.name}} </button>
+                <button class="btn btn-primary mt-1 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.pay_with')}} {{props.payment.name}} </button>
             </div>
 
             <div v-else-if="props.payment.handle.type=='submitForm'" class="text-center">
                 <img :src="imageUrl+props.payment.icon" alt="" class="w-20 mx-auto mt-5">
-                <button class="btn btn-primary mt-2 mb-5" @click="handlePayment()">Pay With {{props.payment.name}} </button>
+                <button class="btn btn-primary mt-2 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.pay_with')}} {{props.payment.name}} </button>
                 <form method="post" action="https://test.ipg-online.com/connect/gateway/processing" :id="props.payment.key" class="hidden">
                     <input type="submit" value="" class="hidden">
                 </form>
