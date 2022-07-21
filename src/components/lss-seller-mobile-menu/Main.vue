@@ -24,7 +24,7 @@
         <div class="flex m-3 cursor-pointer text-white" @click="router.push({name:'create-campaign'})"> 
           <button class="w-10 h-10 mr-1"
           ><span class="text-2xl">+</span></button> 
-          <span class="">Create <br> New Campaign</span> 
+          <span class="">{{$t(`layout.menu.create`)}} <br> {{$t(`layout.menu.new_campaign`)}}</span> 
         </div>
 
         <template v-for="(menu, menuKey) in formattedMenu">
@@ -38,7 +38,7 @@
                 <component :is="menu.icon" />
               </div>
               <div class="menu__title">
-                {{ menu.title }}
+                {{ $t(`layout.menu.${menu.title}`) }}
                 <div v-if="menu.subMenu" class="menu__sub-icon"
                   :class="{ 'transform rotate-180': menu.activeDropdown }">
                   <ChevronDownIcon />
@@ -55,7 +55,7 @@
                       <ActivityIcon />
                     </div>
                     <div class="menu__title">
-                      {{ subMenu.title }}
+                      {{ $t(`layout.menu.${subMenu.title}`)}}
                       <div v-if="subMenu.subMenu" class="menu__sub-icon" :class="{
                         'transform rotate-180': subMenu.activeDropdown,
                       }">
@@ -73,7 +73,7 @@
                             <ZapIcon />
                           </div>
                           <div class="menu__title">
-                            {{ lastSubMenu.title }}
+                            {{ $t(`layout.menu.${lastSubMenu.title}`)}}
                           </div>
                         </a>
 

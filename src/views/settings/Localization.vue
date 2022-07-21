@@ -2,7 +2,7 @@
     <div class="box p-5 px-10 lg:p-10 lg:px-20">
         <div class="flex my-3 text-lg">
             <div class="mr-5"> {{$t("settings.localization.country")}}: </div>
-            <div v-if="layoutStore.userInfo.user_subscription "> {{  countries[layoutStore.userInfo.user_subscription.country]||'' }}</div>
+            <div v-if="layoutStore.userInfo.user_subscription "> {{  $t(`settings.localization.countries.${layoutStore.userInfo.user_subscription.country}`)||'' }}</div>
         </div>
         <div class="flex my-3 mt-5 text-m">
             <div> {{$t("settings.localization.currency_symbol")}}: </div>
@@ -21,7 +21,7 @@
             <TomSelect v-model="data.lang" :options="{
                         placeholder: 'Choose Language',
                         }" class="w-5/6">
-                <option :value="option.value" v-for="(option,index) in languages" :key="index">{{option.text}}</option>
+                <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
             </TomSelect>
         </div>
         <div class="flex my-3 mt-5 text-lg">
@@ -31,7 +31,7 @@
             <TomSelect v-model="data.buyer_lang" :options="{
                         placeholder: 'Choose Language',
                         }" class="w-5/6">
-                <option :value="option.value" v-for="(option,index) in languages" :key="index">{{option.text}}</option>
+                <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
             </TomSelect>
         </div>
         <div class="flex my-3 mt-5 text-lg">
@@ -83,9 +83,10 @@ const decimalOptions = ref([
     {value:'2',text:'0.01'},
     {value:'1',text:'0.1'},
     {value:'0',text:'1'},
-    {value:'-1',text:'10'},
-    {value:'-2',text:'100'},
-    {value:'-3',text:'1000'}])
+    // {value:'-1',text:'10'},
+    // {value:'-2',text:'100'},
+    // {value:'-3',text:'1000'}
+    ])
 
 const data = ref({currency:'USD', lang:'en', buyer_lang:'en', decimal_places:'2'})
 onMounted(()=>{
