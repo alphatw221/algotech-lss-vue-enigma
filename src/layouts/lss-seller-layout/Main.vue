@@ -4,7 +4,7 @@
     <!-- <MainColorSwitcher /> -->
     <ThemeModeSwitcher />
     <LSSSellerMobileMenu />
-    <LSSSellerTopBar />
+    <LSSSellerTopBar/>
 
     <Notification refKey="sellerMessageNotification" :options="{duration: 3000,}" class="flex text-green-600 sm:flex-row">
       <CheckCircleIcon class="w-6 h-6 mr-2" /> 
@@ -17,8 +17,8 @@
     </Notification>
 
 <!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
-    <Notification refKey="sellerCampaignAlert">
-      <div  class="flex pl-5 border-l-4 border-primary">
+      <Notification refKey="sellerCampaignAlert">
+      <div  class="flex pl-5">
         <div class="border-[1px] border-primary w-8 h-8 rounded-full relative top-5">
           <font-awesome-icon icon="fa-regular fa-bell" class="h-6 absolute top-0.5 left-1"/>
         </div>
@@ -29,11 +29,12 @@
             </div>
             <div class="flex justify-between mt-2 font-medium">
                 <button id="leftBTN" class="mr-3 text-primary dark:text-slate-400" data-dismiss="function">Message2 and Function</button>
-                <a id="rightBTN" class="text-primary dark:text-slate-400" data-dismiss="notification">Message3</a>
+                <a id="rightBTN" class="text-primary dark:text-slate-400 underline " data-dismiss="notification">Message3</a>
             </div>
         </div>
       </div>
     </Notification>
+    
 
     <!-- <Notification refKey="floatingVideoToast" class="flex flex-col">
         <div class="ml-4 mr-4">
@@ -52,6 +53,7 @@
 <!-- BEGIN: Notification Toggle -->
       <LSSSellerMenu /> 
 <!-- <button class="text-lg w-30 h-14" @click="toast">Here</button> -->
+<ChevronUpIcon class="h-10 w-10 fixed bottom-2 right-[5%] z-50" @click="toTop()"/>
   
   </div>
 </template>
@@ -74,15 +76,8 @@ const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
-const checkCampaignTime = (data) =>{
-  for (let i =0; i < data.data.length; i++){
-    if(data.data[i].campaignTime === true){
-      store.campaignAlert.buttonToast("You have a upcoming Campaign starts in an hour","Join now!!","Remind me Later",forPath)
-    }
-    else{
-      console.log(data.data[i].campaignTime)
-    }
-  } 
+const checkCampaignTime = (message) =>{
+  store.campaignAlert.buttonToast(`You have a upcoming Campaign: ${message.title} starts in ${message.remind_time}`,"Join now!!","Remind me Later",forPath)
 }
 
 const forPath = () =>{
@@ -90,7 +85,7 @@ const forPath = () =>{
 }
 const toast = () =>{
   // store.floatingVideo.videoToast("Faceebook video streaming!!")
-  store.campaignAlert.buttonToast("I have an upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
+  store.campaignAlert.buttonToast("I have a upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
 }
 
 const initWebSocketConnection =()=> {
@@ -99,7 +94,10 @@ const initWebSocketConnection =()=> {
   );
   websocket.onmessage = e => {
       const data = JSON.parse(e.data);
-      checkCampaignTime(data)
+      if (data.type === "notification_message") {
+        checkCampaignTime(data.data.message)
+      }
+      
   };
   websocket.onopen = e => {
       console.log('connected')
@@ -134,6 +132,11 @@ onMounted(() => {
   setLanguage();
   initWebSocketConnection();
 })
+
+const toTop=()=>{
+  document.getElementById('topPoint').scrollIntoView({behavior: "smooth"});
+}
+
 
 
 // watch(computed(()=>route.path),
@@ -170,10 +173,10 @@ provide("bind[floatingVideoToast]", (el) => {
 
 
 <style scoped>
-.Notification{
-  border-left: solid 5px black !important;
-}
 
+.notifyCamp {
+  border-left: 10px solid theme("colors.primary");
+}
 /* .toastify */
 </style>
 

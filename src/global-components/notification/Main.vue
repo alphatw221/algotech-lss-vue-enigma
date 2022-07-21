@@ -2,7 +2,7 @@
   <div
     ref="toastifyRef"
     v-toastify-directive="{ props, emit }"
-    class="toastify-content hidden"
+    class="toastify-content hidden notifyCamp"
   >
     <slot></slot>
   </div>
