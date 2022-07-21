@@ -70,7 +70,9 @@
         "delete":"Delete",
         "store_collection":"Store Collection",
         "pickup_store":"Pickup Store",
-        "pickup_address":"Pickup Address"
+        "pickup_address":"Pickup Address",
+        "express_service_name": "exprss service name",
+        "express_charge": "express charge"
     },
 
     "payment":{
