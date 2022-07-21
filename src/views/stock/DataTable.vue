@@ -1,6 +1,6 @@
 <template>
-	<div class="overflow-x-hidden sm:overflow-auto sm:h-[61vh]">
-		<table class="table -mt-3 table-report">
+	<div class="overflow-x-hidden sm:overflow-auto h-fit md:h-[61vh]">
+		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
 					<th class="whitespace-normal xl:whitespace-nowrap" v-for="column in columns" :key="column.key">
@@ -14,13 +14,14 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr class="dotTr h-[300px]" v-if="showCommentLoding || listItems==0">
+				<tr class="h-[300px]"
+					v-if="showCommentLoding || listItems==0">
 					<td v-if="showCommentLoding"
-						class="h-[300px] items-center relative border-0 dotTd"
+						class="items-center relative tdDot"
 						:colspan="columns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="listItems==0" :colspan="columns.length +2" class="wordTd">
+					<td v-else-if="listItems==0" :colspan="columns.length +2">
 						<div class="mt-5 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
 								You Don't Have Product in this Category
@@ -32,6 +33,7 @@
 					v-for="(product, key) in listItems"
 					:key="key"
 					class="intro-x"
+					:class="{'trBorder' : listItems != 0}"
 				>	
 				<template v-for="column in columns" :key="column.key"> 
 					<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm imgtd">
@@ -229,8 +231,11 @@ thead th{
 	}
 
 	tr {
-		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
 		margin-top: 10px;
+	}
+
+	.trBorder{
+		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
 	}
 
 	.dotTr{
@@ -241,10 +246,9 @@ thead th{
 	td {
 		border: none;
 		position: relative;
-		padding-left: 50% !important;
+		padding-left: 50%;
 		text-align: right !important;
 		box-shadow: none !important;
-		height: auto;
 		min-height: 30px;
 		padding-right: 15px !important;
 		width: 100% !important;
@@ -329,28 +333,8 @@ thead th{
 	.edit:before{
 		display: none;
 	}
-
-	.dotTr:before{
-		display: none;
-	}
-	.dotTr{
-		display: inline-block;
-		position: absolute;
-		width: 100%;
-		top:50%;
-		padding-left: 0 !important;
-	}
-	.dotTd{
-		background-color: transparent !important;
-	}
-	.wordTd:before{
-		display: none;
-	}
-	.wordTd{
-		display: inline-block;
-		padding-left: 0 !important;
-		width: 100% !important;
-		background-color: transparent !important;
+	.tdDot{
+		height: 300px;
 	}
 }
 </style>

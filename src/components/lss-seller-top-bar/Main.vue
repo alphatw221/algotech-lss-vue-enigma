@@ -190,20 +190,20 @@
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="viewProfile()">
-              <UserIcon class="w-4 h-4 mr-2" /> Profile</DropdownItem
+              <UserIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.profile`)}}</DropdownItem
             >
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]"  @click="viewSubscrition()"> 
-              <AwardIcon class="w-4 h-4 mr-2" /> Subscription</DropdownItem
+              <AwardIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.subscription`)}}</DropdownItem
             >
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="resetPassword()">
-              <LockIcon class="w-4 h-4 mr-2" /> Reset Password</DropdownItem
+              <LockIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.reset_password`)}}</DropdownItem
             >
             <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
               <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
             > -->
             <DropdownDivider class="border-white/[0.08]" />
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="logout()">
-              <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout</DropdownItem
+              <ToggleRightIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.logout`)}}</DropdownItem
             >
           </DropdownContent>
         </DropdownMenu>

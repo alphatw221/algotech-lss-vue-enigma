@@ -1,4 +1,5 @@
 {
+    "upgrade":"升級方案",
     "menu":{
         "create":"建立",
         "new_campaign":"直播",
@@ -31,5 +32,11 @@
         "add-product":"創建商品",
         "product-detail":"商品內容",
         "edit-product":"編輯商品"
+    },
+    "top_bar":{
+        "profile":"個人檔案",
+        "subscription":"訂閱方案",
+        "reset_password":"重設密碼",
+        "logout":"登出"
     }
 }

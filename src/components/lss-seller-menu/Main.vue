@@ -135,7 +135,7 @@
         </ul> 
           <button class="fixed mx-3 text-white rounded-lg btn btn-danger xl:m-5 bottom-5"
               @click="layoutStore.profileTab = 1; router.replace('/seller/profile')"
-              ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/><span class="hidden text-lg xl:block 2xl:block">Upgrade </span>  </button>
+              ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/><span class="hidden text-lg xl:block 2xl:block">{{$t('layout.upgrade')}}  </span>  </button>
           </nav>
       
       <!-- END: Side Menu -->
