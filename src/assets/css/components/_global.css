@@ -12,7 +12,7 @@ html {
         }
     }
     body {
-        @apply overflow-x-hidden text-sm antialiased font-roboto text-slate-800;
+        @apply overflow-x-hidden text-sm antialiased font-roboto text-slate-800 h-full;
         @include media-breakpoint-down(md) {
             @apply px-8;
         }

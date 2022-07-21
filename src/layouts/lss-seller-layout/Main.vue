@@ -4,7 +4,7 @@
     <!-- <MainColorSwitcher /> -->
     <ThemeModeSwitcher />
     <LSSSellerMobileMenu />
-    <LSSSellerTopBar />
+    <LSSSellerTopBar/>
 
     <Notification refKey="sellerMessageNotification" :options="{duration: 3000,}" class="flex text-green-600 sm:flex-row">
       <CheckCircleIcon class="w-6 h-6 mr-2" /> 
@@ -52,6 +52,7 @@
 <!-- BEGIN: Notification Toggle -->
       <LSSSellerMenu /> 
 <!-- <button class="text-lg w-30 h-14" @click="toast">Here</button> -->
+<ChevronUpIcon class="h-10 w-10 fixed bottom-2 right-[5%] z-50" @click="toTop()"/>
   
   </div>
 </template>
@@ -134,6 +135,13 @@ onMounted(() => {
   setLanguage();
   initWebSocketConnection();
 })
+
+const toTop=()=>{
+  console.log('here')
+  document.getElementById('topPoint').scrollIntoView({behavior: "smooth"});
+  console.log('here212')
+}
+
 
 
 // watch(computed(()=>route.path),
