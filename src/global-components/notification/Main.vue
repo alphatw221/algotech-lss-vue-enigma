@@ -58,6 +58,6 @@ onMounted(() => {
 .notifyCamp{
   border-left: 10px solid;
   padding-left: 5px;
-  border-color: rgb(239 68 68);
+  border-left-color: rgb(239 68 68);
 }
 </style>
