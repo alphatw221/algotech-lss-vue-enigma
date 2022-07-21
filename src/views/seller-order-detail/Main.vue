@@ -1,7 +1,7 @@
 <template>
     <div class="my-5 text-base text-xl sm:text-2xl text-center"> {{$t('order_detail.order')}} </div>
 
-    <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:h-[40vh]"> 
+    <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:min-h-[40vh]"> 
         <div class="w-[100%] flex-col"> 
             <div class="w-[100%] mx-2 flex-col flex gap-1">
                 <div class="">
