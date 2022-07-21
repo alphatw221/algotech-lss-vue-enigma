@@ -12,31 +12,69 @@
 
     "delivery":{
         "delivery":"Delivery",
+        "delivery_setting": "Delivery Settings",
         "charge":"Delivery Charge",
         "charge_option":"Delivery Charge Option",
+        "add_more_delivery_option":"Add More Option",
         "replace_charge" : "Replace delivery charge",
         "on_top_of_charge" : "On top of delivery charge",
         "title" : "Display Name",
         "order_above":"Free delivery for order above",
         "minimum":"Free delivery for minimum order Qty",
         "store":{
-                "collection":"Store Collection",
+                "collection":"Store Pickup",
                 "pickup_store":"Pickup Store",
                 "pickup_address":"Pickup Address"
         }
         
     },
-    "payment":{
-        "payment":"Payment",
-        "Direct Payment":"Direct Payment",
-        "enabled":"Enabled",
-        "mode":"Name of Bank / Payment Mode",
-        "account_name":"Account Name",
-        "account_number":"Account Number",
+
+    "payment_form":{
+        "payment_titles":{
+            "direct_payment":"Direct Payment",
+            "stripe":"Stripe"
+        },
+        "direct_payment":{
+            "mode":"Name of Bank / Payment Mode",
+            "name":"Account Name",
+            "number":"Account Number",
+            "note":"Note",
+            "require_customer_return":"Require Customer’s Payment Record"
+        },
         "stripe":{
-            "secret_key":"Secret Key",
+            "secret":"Secret Key",
             "currency":"Currency"
-        }
+        },
+
+        "payment_details": "Payment Details",
+        "enabled": "Enabled",
+        "add_more_direct_payment": "Add More Option",
+        "upload_image": "Upload Image",
+        "upload_a_file_or_drag_and_drop": "Upload a file",
+        "accepted_file_types": "Accepted File Types",
+        "max_file_size": "Max File Size",
+        "delete": "Delete",
+        "update": "Update"
+    },
+
+    "delivery_form":{
+        "delivery_detail":"Delivery Details",
+        "delivery_charge":"Delivery Charge",
+        "free_delivery_for_order_above":"Free delivery for order above",
+        "free_delivery_for_minimum_order":"Free delivery for minimum order Qty",
+        "add_more_delivery_option":"Add More Option",
+        "add_more_pickup_option":"Add More Option",
+        "options":"Shipping Options",
+        "on_top_of_delivery_charge":"On top of delivery charge",
+        "replace_delivery_charge":"Replace delivery charge",
+        "delete":"Delete",
+        "store_collection":"Store Collection",
+        "pickup_store":"Pickup Store",
+        "pickup_address":"Pickup Address"
+    },
+
+    "payment":{
+        "payment":"Payment"
     },
     "notes":{
         "notes":"Notes",
@@ -44,7 +82,8 @@
         "special_note":"Special Note",
         "confirmation_note":"Confirmation Note",
         "discard":"Discard",
-        "save":"Save"
+        "save":"Save",
+        "update": "Update"
     },
     "localization":{
         "country":"Country",

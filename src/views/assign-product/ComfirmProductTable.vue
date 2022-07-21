@@ -6,7 +6,7 @@
                 <tr>
                     <th class="items-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
                         :key="column.key">
-                        {{ column.name }}
+                        {{ $t(`assign_product.table_column.${column.key}`) }}
                     </th>
                 </tr>
             </thead>

@@ -53,27 +53,27 @@
           <td class="text-left title w-fit">
             {{ campaign.title }}
           </td>
-          <td class="w-5 text-right startDate" :data-content="$t('campaign_list.start_at')">
+          <td class="w-5 text-center startDate" :data-content="$t('campaign_list.campaign_list_table.start_at')">
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short", hour12: false,
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
-          <td class="w-5 text-right endDate" :data-content="$t('campaign_list.end_at')">
+          <td class="w-5 text-center endDate" :data-content="$t('campaign_list.campaign_list_table.end_at')">
             <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short", hour12: false,
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
-          <td class="items-center manage_order w-fit" :data-content="$t('campaign_list.action')">
+          <td class="items-center manage_order w-fit" :data-content="$t('campaign_list.campaign_list_table.action')">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
-              <span class="mr-3 sm:hidden"> {{$t('campaign_list.manage_order')}}</span>
+              <span class="mr-3 sm:hidden"> {{$t('campaign_list.campaign_list_table.manage_order')}}</span>
               <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>
             </a>
           </td>
-          <td class="items-center checkout w-fit" :data-content="$t('campaign_list.stop')">
+          <td class="items-center checkout w-fit" :data-content="$t('campaign_list.campaign_list_table.stop')">
             <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col justify-center form-check form-switch">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />

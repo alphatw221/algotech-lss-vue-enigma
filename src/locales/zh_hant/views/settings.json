@@ -12,13 +12,15 @@
 
     "delivery":{
         "delivery":"物流",
+        "delivery_setting": "物流設定",
         "charge":"運費",
         "charge_option":"運送方式",
+        "add_more_delivery_option":"增加運送方式",
         "replace_charge" : "取代基本運費",
         "on_top_of_charge" : "增加額外運費",
         "title" : "Display Name",
         "order_above":"免運門檻: 訂單金額達(含)以上",
-        "minimum ":"免運門檻: 商品數量達(含)以上",
+        "minimum":"免運門檻: 商品數量達(含)以上",
         "store":{
                 "collection":"門市取貨",
                 "pickup_store":"取貨門市",
@@ -26,17 +28,55 @@
         }
         
     },
-    "payment":{
-        "payment":"金流",
-        "direct_payment":"轉帳",
-        "enabled":"啟用",
-        "mode":"付款方式",
-        "account_name":"帳戶名稱",
-        "account_number":"帳戶號碼",
+
+    "payment_form":{
+        "payment_titles":{
+            "direct_payment":"轉帳付款",
+            "stripe":"Stripe付款"
+        },
+
+        "direct_payment":{
+            "mode":"銀行名稱",
+            "name":"帳戶名稱",
+            "number":"帳號",
+            "note":"備註",
+            "require_customer_return":"要求買家上傳付款證明"
+        },
         "stripe":{
-            "secret_key":"Secret Key",
-            "currency":"幣別"
-        }
+            "secret":"密鑰",
+            "currency":"貨幣"
+        },
+
+        "payment_details":"金流設定",
+        "enabled":"啟用",
+        "add_more_direct_payment":"新增轉帳選項",
+        "upload_image":"上傳圖片",
+        "upload_a_file_or_drag_and_drop":"點擊上傳圖片",
+        "accepted_file_types":"接受檔案類型",
+        "max_file_size":"檔案容量上限",
+        "delete":"刪除",
+        "update": "更新"
+    },
+
+    "delivery_form":{
+        "delivery_detail":"物流設定",
+        "delivery_charge":"運費",
+        "free_delivery_for_order_above":"滿額免運",
+        "free_delivery_for_minimum_order":"滿件免運",
+        "add_more_delivery_option":"增加運送方式",
+        "add_more_pickup_option":"增加自取方式",
+        "options":"運送方式",
+        "on_top_of_delivery_charge":"額外收費",
+        "replace_delivery_charge":"取代基本運費",
+        "delete":"刪除",
+        "store_collection":"到店自取",
+        "pickup_store":"自取地點",
+        "pickup_address":"自取地址"
+    },
+
+
+    "payment":{
+        "payment":"金流"
     },
     "notes":{
         "notes":"備註",
@@ -44,7 +84,8 @@
         "special_note":"購物說明",
         "confirmation_note":"訂單說明",
         "discard":"取消",
-        "save":"儲存"
+        "save":"儲存",
+        "update": "更新"
     },
     "localization":{
         "country":"國家",

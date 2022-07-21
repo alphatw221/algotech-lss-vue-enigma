@@ -4,9 +4,11 @@
             <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
-                    <th class="items-center text-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
+                    <th 
+                        class="items-center text-center truncate whitespace-normal hover:text-clip" 
+                        v-for="column in tableColumns"
                         :key="column.key">
-                        {{ column.name }}
+                        {{ $t(`assign_product.table_column.${column.key}`) }}
                     </th>
                 </tr>
             </thead>
@@ -198,13 +200,13 @@
                                             class="w-full text-center whitespace-nowrap" 
                                             @click="eventBus.emit('editCampaignProduct', { editCampaignProduct: true, product: product })"
                                         > 
-                                            <EditIcon class="h-[20px] w-[20px] mr-1" /> Edit 
+                                            <EditIcon class="h-[20px] w-[20px] mr-1" /> {{ $t('assign_product.modal.edit') }} 
                                         </DropdownItem>
                                         <DropdownItem 
                                             class="w-full whitespace-nowrap"
                                             @click="deleteProduct(index)"
                                         > 
-                                            <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />Delete 
+                                            <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />{{ $t('assign_product.modal.delete') }} 
                                         </DropdownItem>
                                     </DropdownContent>
                                 </DropdownMenu>
@@ -588,6 +590,10 @@ thead th {
         display:block;
         padding-left: 0px !important;
         padding-right: 0px;
+    }
+
+    svg {
+        margin: auto;
     }
 }
 </style>

@@ -11,6 +11,7 @@ import create_campaign from './views/create_campaign.json'
 import edit_campaign from './views/edit_campaign.json'
 import lucky_draw from './views/lucky_draw.json'
 import auto_reply from './views/auto_reply.json'
+import assign_product from './views/assign_product.json'
 
 export default {
     global,
@@ -26,5 +27,6 @@ export default {
     settings,
     shopping_cart,
     stock,
-    auto_reply
+    auto_reply,
+    assign_product
 }
