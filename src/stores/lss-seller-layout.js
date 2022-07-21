@@ -22,7 +22,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       {
         icon: "PackageIcon",
         pageName: "stock",
-        title: "Stock",
+        title: "stock",
       },
       // {
       //   icon: "BoxIcon",
@@ -37,7 +37,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       {
         icon: "ListIcon",
         pageName: "campaign-list",
-        title: "Campaign List",
+        title: "campaign_list",
       },
       // {
       //   icon: "VideoIcon",
@@ -47,7 +47,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       {
         icon: "MessageSquareIcon",
         pageName: "side-menu-auto-reply",
-        title: "Auto Reply",
+        title: "auto_reply",
       },
       // {
       //   icon: "PackageIcon",
@@ -67,19 +67,19 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       {
         icon: "SettingsIcon",
         pageName: "campaign-global-setting",
-        title: "Settings",
+        title: "settings",
         subMenu: [
           {
             pageName: "campaign-global-setting",
-            title: "Campaign Default Setting",
+            title: "campaign_default_setting",
           },
           {
             pageName: "localization",
-            title: "Localization",
+            title: "localization",
           },
           {
             pageName: "platform",
-            title: "Connect Platform",
+            title: "connect_platform",
           },
         ],
       },

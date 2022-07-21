@@ -12,7 +12,7 @@
           :class="{
             'font-bold': breadCrumb[breadCrumb.length-1] == 'create campaign',
           }"
-          >Create <br> New Campaign</span> 
+          > {{$t(`layout.menu.create`)}}<br> {{$t(`layout.menu.new_campaign`)}}</span> 
       </div>
 
       <nav class="side-nav">
@@ -27,7 +27,7 @@
             <li v-else :key="menu + menuKey"> 
               <SideMenuTooltip
                 tag="a"
-                :content="menu.title"
+                :content="$t(`layout.menu.${menu.title}`)"
                 :href="
                   menu.subMenu
                     ? 'javascript:;'
@@ -44,7 +44,7 @@
                   <component :is="menu.icon" />
                 </div>
                 <div class="side-menu__title">
-                  {{ menu.title }}
+                  {{ $t(`layout.menu.${menu.title}`) }}
                   <div
                     v-if="menu.subMenu"
                     class="side-menu__sub-icon"
@@ -63,7 +63,7 @@
                   >
                     <SideMenuTooltip
                       tag="a"
-                      :content="subMenu.title"
+                      :content="$t(`layout.menu.${subMenu.title}`)"
                       :href="
                         subMenu.subMenu
                           ? 'javascript:;'
@@ -77,7 +77,7 @@
                         <ActivityIcon />
                       </div>
                       <div class="side-menu__title">
-                        {{ subMenu.title }}
+                        {{ $t(`layout.menu.${subMenu.title}`) }}
                         <div
                           v-if="subMenu.subMenu"
                           class="side-menu__sub-icon"
@@ -100,7 +100,7 @@
                         >
                           <SideMenuTooltip
                             tag="a"
-                            :content="lastSubMenu.title"
+                            :content="$t(`layout.menu.${lastSubMenu.title}`)"
                             :href="
                               lastSubMenu.subMenu
                                 ? 'javascript:;'
@@ -118,7 +118,7 @@
                               <ZapIcon />
                             </div>
                             <div class="side-menu__title">
-                              {{ lastSubMenu.title }}
+                              {{ $t(`layout.menu.${lastSubMenu.title}`) }}
                             </div>
                           </SideMenuTooltip >
                         </li>
@@ -180,30 +180,30 @@ watch(
   () => {
     delete route.forceActiveMenu;
     formattedMenu.value = $h.toRaw(sideMenu.value);
-    sortPath(route.path)
+    // sortPath(route.path)
   },
 );
 
 onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
   formattedMenu.value = $h.toRaw(sideMenu.value);
-  sortPath(route.path)
+  // sortPath(route.path)
 });
 
-const sortPath=(path)=>{
-  rawPath.value = path
-  rawPath.value = rawPath.value.replace(/[0-9]/g, '')
-  rawPath.value = rawPath.value.replace(/\s/g, '')
-  breadCrumb.value = rawPath.value.substr(8).replace(/-/g, " ")
-  breadCrumb.value = breadCrumb.value.split('/')
-  if(breadCrumb.value[breadCrumb.value.length-1] === ''){
-    breadCrumb.value.splice(-1,1)
-  }
-}
-const pathName=(value)=>{
-  const crumb = ref(value)
-  router.push({name: crumb.value.replace(" ", "-")})
-}
+// const sortPath=(path)=>{
+//   rawPath.value = path
+//   rawPath.value = rawPath.value.replace(/[0-9]/g, '')
+//   rawPath.value = rawPath.value.replace(/\s/g, '')
+//   breadCrumb.value = rawPath.value.substr(8).replace(/-/g, " ")
+//   breadCrumb.value = breadCrumb.value.split('/')
+//   if(breadCrumb.value[breadCrumb.value.length-1] === ''){
+//     breadCrumb.value.splice(-1,1)
+//   }
+// }
+// const pathName=(value)=>{
+//   const crumb = ref(value)
+//   router.push({name: crumb.value.replace(" ", "-")})
+// }
 
 
 
