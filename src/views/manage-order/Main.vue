@@ -76,6 +76,7 @@
             </div>
             <OrderProductModal />
         </div>
+        <!-- <button class="btn z-50 btn-primary rounded-full" @click.native="scrollToTop()"> Back to Top </button> -->
     </div>
 </template>
 
@@ -99,6 +100,9 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const layout = useLSSSellerLayoutStore()
 
+function scrollToTop(){ 
+    window.scrollTo(0,0)
+}
 
 const deliveryStatus = ref(false);
 const checkout_status = route.query.checkout == 1 ? false : true ;

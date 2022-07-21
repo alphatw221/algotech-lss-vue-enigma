@@ -1,6 +1,6 @@
 <template>
     <div class="p-2 mt-5 box sm:p-5 sm:pb-0">
-        <div class="overflow-auto h-[62vh] sm:h-[62vh]">
+        <div class="overflow-auto sm:h-[62vh]">
             <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
@@ -459,10 +459,11 @@ thead th{
 	}
 
     .type:before {
-		content: "Type";
+        content: "Type";
         text-align: left !important;
+        top:25% !important;
         margin-top: 0 !important;
-	}
+    }
     .status:before {
 		content: "Active";
 	}

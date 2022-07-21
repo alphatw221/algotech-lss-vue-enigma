@@ -2,7 +2,7 @@
     <form class="flex justify-between gap-2 sm:gap-5 flex-warp sm:flex-row">
         <div class="flex flex-wrap justify-between w-full gap-2 sm:flex-row">
             <div class="flex shirnk items-center w-fit" v-if="showCategoryFilter">
-                <label class="mr-2 w-fit">
+                <label class="mr-2 w-fit whitespace-nowrap">
                     {{ $t('stock.search_bar.category') }}
                 </label>
                 <select 

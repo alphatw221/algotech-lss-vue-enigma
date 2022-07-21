@@ -136,17 +136,20 @@ thead th{
 		border: none;
 		position: relative;
 		padding-left: 50% !important;
-		text-align: left !important;
+		text-align: right;
 		box-shadow: none !important;
 		height: auto;
 		min-height: 30px;
+		width: 100%;
+		right: 10px; 
 	}
 
 	td:before {
 		position: absolute;
-		left: 6px;
+		left: 10px;
 		width: 45%; 
 		padding-right: 10px;
+		text-align: left;
 		white-space: nowrap;
 		font-weight: bold;
 		box-shadow: none !important;
