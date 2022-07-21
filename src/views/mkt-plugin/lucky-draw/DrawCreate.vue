@@ -122,7 +122,7 @@
                         v-if="currentSettings.path == ''" />
                     <img :src="storageUrl + currentSettings.path" class="max-h-28 mx-auto object-cover" 
                         v-else-if="currentSettings.path != ''" />
-                    <button class="btn btn-primary bg-[#070130] w-full sm:w-fit shadow-md mt-3 sm:mt-auto" @change="uploadAnimation">
+                    <button class="btn btn-primary bg-[#070130] w-full sm:w-fit shadow-md mt-3 sm:mt-auto" @change="uploadAnimation()">
                         + Upload Animation
                     </button>
                 </div>
