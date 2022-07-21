@@ -2,7 +2,8 @@
   <div
     ref="toastifyRef"
     v-toastify-directive="{ props, emit }"
-    class="toastify-content hidden notifyCamp"
+    class="toastify-content hidden"
+    :class=" {'notifyCamp' : borderColor=='notifyCamp' }"
   >
     <slot></slot>
   </div>
@@ -30,6 +31,10 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  borderColor:{
+    type: String,
+    default: null,
+  }
 });
 
 const emit = defineEmits();
@@ -48,3 +53,10 @@ onMounted(() => {
   bindInstance();
 });
 </script>
+
+<style scoped>
+.notifyCamp{
+  border-left: 10px solid theme("colors.primary");
+  padding-left: 5px;
+}
+</style>
