@@ -92,7 +92,7 @@
         <!-- END: First Child -->
         <button class="absolute m-0 text-white rounded-lg btn btn-danger top-[40px] right-[12px]"
             @click="sellerLayoutStore.profileTab = 1; router.replace('/seller/profile')"
-        ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-2 h-5"/><span class="text-[16px]">Upgrade </span>  </button>
+        ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-2 h-5"/><span class="text-[16px]">{{$t('layout.upgrade')}} </span>  </button>
       </ul>
       <!-- </transition> -->
     </div>

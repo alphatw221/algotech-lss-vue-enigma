@@ -1,4 +1,5 @@
 {
+    "upgrade":"Upgrade",
     "menu":{
         "create":"Create",
         "new_campaign":"New Campaign",
@@ -31,5 +32,11 @@
         "add-product":"Create Product",
         "product-detail":"Product Detail",
         "edit-product":"Edit Product"
+    },
+    "top_bar":{
+        "profile":"Profile",
+        "subscription":"Subscription",
+        "reset_password":"Reset Password",
+        "logout":"Logout"
     }
 }
