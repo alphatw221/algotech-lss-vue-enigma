@@ -50,8 +50,8 @@
 <!-- END: Notification Content  -->
 <!-- BEGIN: Notification Toggle -->
       <LSSSellerMenu /> 
-<button class="text-lg w-30 h-14" @click="toast">Here</button>
-<ChevronUpIcon class="h-10 w-10 fixed bottom-2 right-[5%] z-50" @click="toTop()"/>
+<!-- <button class="text-lg w-30 h-14" @click="toast">Here</button> -->
+<ChevronUpIcon class="h-10 w-10 fixed bottom-2 right-[5%] z-50 md:hidden" @click="toTop()"/>
   
   </div>
 </template>
