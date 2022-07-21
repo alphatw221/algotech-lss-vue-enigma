@@ -1,5 +1,5 @@
 <template>
-<div class="flex outterContainer overflow-auto bg-secondary">
+<div class="flex outterContainer overflow-auto bg-secondary relative">
       <!-- BEGIN: Side Menu -->
       <div class="top-[80px] z-[51] left-[12px] flex fixed my-3 ml-2 px-4 py-1 w-[70px] xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp " 
         :class="{
@@ -136,34 +136,13 @@
           <button class="fixed mx-3 text-white rounded-lg btn btn-danger xl:m-5 bottom-5"
               @click="layoutStore.profileTab = 1; router.replace('/seller/profile')"
               ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/><span class="hidden text-lg xl:block 2xl:block">Upgrade </span>  </button>
-          <!-- <div id="pagetop" class="fixed right-0 bottom-0" v-show="scY > 300" @click="toTop()">
-            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
-                stroke="#4a5568"
-                stroke-width="1" stroke-linecap="square" stroke-linejoin="arcs">
-              <path d="M18 15l-6-6-6 6"/>
-            </svg>
-          </div> -->
           </nav>
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
       <div class="lss-content">
+        <div class="absolute -z-50 top-0 invisible" id="topPoint"></div>
         <SellerBreadCrumb/>
-        <!-- <nav aria-label="breadcrumb" class="h-[24px] text-[15px] mx-2 hidden sm:block">
-          <ol class="breadcrumb breadcrumb-dark">
-            <template v-for="crumb in breadCrumb.slice(0, -2)" :key="crumb">
-              <li v-if="crumb !== ''" class="breadcrumb-item"><a @click="pathName(crumb)">{{crumb}}</a></li>
-            </template>
-            <li v-if=" breadCrumb[breadCrumb.length - 2] " 
-              class="breadcrumb-item"><a @click="router.back()">{{breadCrumb[breadCrumb.length - 2 ]}}</a></li>
-            <li class="breadcrumb-item ">{{breadCrumb[breadCrumb.length - 1 ]}}</li>
-          </ol>
-        </nav>
-        <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
-          <ol class="breadcrumb breadcrumb-dark">
-            <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
-          </ol>
-        </nav> -->
         <router-view />
       </div>
       
@@ -201,50 +180,32 @@ watch(
   () => {
     delete route.forceActiveMenu;
     formattedMenu.value = $h.toRaw(sideMenu.value);
-    //sortPath(route.path)
+    sortPath(route.path)
   },
 );
 
 onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
   formattedMenu.value = $h.toRaw(sideMenu.value);
-  window.addEventListener('scroll', handleScroll) // scroll
-  //sortPath(route.path)
+  sortPath(route.path)
 });
 
-// const sortPath=(path)=>{
-//   rawPath.value = path
-//   rawPath.value = rawPath.value.replace(/[0-9]/g, '')
-//   rawPath.value = rawPath.value.replace(/\s/g, '')
-//   breadCrumb.value = rawPath.value.substr(8).replace(/-/g, " ")
-//   breadCrumb.value = breadCrumb.value.split('/')
-//   if(breadCrumb.value[breadCrumb.value.length-1] === ''){
-//     breadCrumb.value.splice(-1,1)
-//   }
-// }
-
+const sortPath=(path)=>{
+  rawPath.value = path
+  rawPath.value = rawPath.value.replace(/[0-9]/g, '')
+  rawPath.value = rawPath.value.replace(/\s/g, '')
+  breadCrumb.value = rawPath.value.substr(8).replace(/-/g, " ")
+  breadCrumb.value = breadCrumb.value.split('/')
+  if(breadCrumb.value[breadCrumb.value.length-1] === ''){
+    breadCrumb.value.splice(-1,1)
+  }
+}
 const pathName=(value)=>{
   const crumb = ref(value)
   router.push({name: crumb.value.replace(" ", "-")})
 }
 
-const scTimer=  ref(0)
-const scY = ref(0)
 
-const handleScroll=()=>{
-  if (scTimer.value) return;
-  scTimer.value = setTimeout(() => {
-    scY.value = window.scrollY;
-    clearTimeout(scTimer);
-    scTimer.value = 0;
-  }, 100);
-}
-const toTop=()=>{
-    window.scrollTo({
-      top: 0,
-      behavior: "smooth"
-    });
-  }
 
 </script>
 

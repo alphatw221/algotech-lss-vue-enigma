@@ -1,5 +1,5 @@
 <template>
-<div class="wrapper">
+<div class="wrapper hidden sm:block">
 <div id="theme_picker" class="items-center justify-center box border shadow-md flex">
     <div class="mr-4 sm:block text-slate-600 dark:text-slate-200">
       Color Scheme

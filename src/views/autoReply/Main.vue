@@ -14,7 +14,6 @@
             <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
     </div>
-
     <!--Modal Create -->
     <Modal :show="createModal" @hidden="closeWithAlert()">
         <ModalHeader>
