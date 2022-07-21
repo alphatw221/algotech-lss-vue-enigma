@@ -1,5 +1,58 @@
 {
     "lucky_draw" : "Lucky Draw",
+
+    "draw_list": {
+        "campaign_title": "Campaign Title",
+        "all_winner": "All Winners",
+        "create": "Create",
+        "like": "Draw Like",
+        "purchase": "Draw Purchased",
+        "product": "Draw Product",
+        "keyword": "Draw Keyword",
+        "winners" : "Winner(s)",
+        "winner_repeat": "Winner Repeat",
+        "yes": "Yes",
+        "no": "No",
+        "start": "Start",
+        "edit": "Edit",
+        "delete": "Delete"
+    },
+
+    "winner_modal": {
+        "all_winner": "All Winners",
+        "platform": "Platform",
+        "customer_name": "Customer Name",
+        "draw_type": "Draw Type",
+        "prize": "Prize"
+    },
+
+    "draw_create": {
+        "campaign_title": "Campaign Title",
+        "prize" : "Prize (select from product list)",
+        "spin_time" : "Spin Time (sec)",
+        "number_of_winner" : "Number of Winner",
+        "animation_style" : "Animation Style",
+        "winner_repeat" : "Winner Repeat",
+        "yes": "Yes",
+        "no": "No",
+        "upload_animation": "Upload Animation",
+        "draw_type" : "Draw Type",
+        "cancel": "Cancel",
+        "save": "Save",
+        "back": "Back",
+        "go_draw": "Go Draw",
+        "number_winner_warning": "must be between 1 to prize stock",
+        "keyword_warning": "minimum 3 digits",
+        "product": "Product",
+        "keyword": "Keyword"
+    },
+    
+
+
+
+
+
+
     "settings" : "Lucky Draw Settings",
     "prize" : "Prize (select from product list)",
     "number_of_winner" : "Number of Winner",

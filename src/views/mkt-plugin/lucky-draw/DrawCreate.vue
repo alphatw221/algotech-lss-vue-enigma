@@ -2,7 +2,7 @@
     <div>
         <!-- BEGIN: commit box -->
         <div class="mt-5 flex justify-self-start">
-            <label class="form-label mr-10">Campaign Title : </label>
+            <label class="form-label mr-10">{{ $t('lucky_draw.draw_create.campaign_title') }} : </label>
             <h2 style="display: inline-block;"> {{ props.campaignTitle }} </h2>
         </div>
         <div class="flex flex-col">
@@ -20,7 +20,7 @@
                     </template>
                 </div> -->
                 <div class="lg:w-[50%]  flex flex-col mr-5 mt-6">
-                    <label class="form-label"> Prize</label>
+                    <label class="form-label"> {{ $t('lucky_draw.draw_create.prize') }}</label>
                     <select 
                         id="prizeSelect"
                         class="w-full form-select sm:form-select-lg rounded-lg" 
@@ -45,7 +45,7 @@
                     > Assign More Prize </button> -->
                 </div>
                 <div class="lg:w-[50%]  flex-col mr-5 mt-6">
-                    <label class="form-label ">Spin Time(sec)</label>
+                    <label class="form-label ">{{ $t('lucky_draw.draw_create.spin_time') }}</label>
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg" 
                         v-model="currentSettings.spin_time"
@@ -58,7 +58,7 @@
             </div>
             <div class="lg:flex">
                 <div class="lg:w-[50%]  flex-col mr-5 mt-6">
-                    <label class="form-label"> No. of Winners</label>
+                    <label class="form-label"> {{ $t('lucky_draw.draw_create.number_of_winner') }}</label>
                     <input 
                         type="text" 
                         class="form-control mr-5" 
@@ -67,12 +67,12 @@
                     />
                     <template v-if="validate.num_of_winner.$error">
                         <label class="text-danger text-[14px] leading-tight">
-                            must be between 1 to prize stock {{currentSettings.prize.qty_for_sale}}
+                            {{ $t('lucky_draw.draw_create.number_winner_warning') }} {{currentSettings.prize.qty_for_sale}}
                         </label>
                     </template>
                 </div>
                 <div class="lg:w-[50%] flex-col mt-6 mr-5">
-                    <label class="form-label mr-auto"> Animation Style </label>
+                    <label class="form-label mr-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
                     <div class="flex flex-wrap items-center justify-around">
                         <div class="w-20 h-20 image-fit relative ">
                             <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
@@ -94,7 +94,7 @@
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex-col mt-6 mr-5">  
                     <div class="flex"> 
-                        <label class="form-label"> Winner Repeat </label> 
+                        <label class="form-label"> {{ $t('lucky_draw.draw_create.winner_repeat') }} </label> 
                         <Tippy 
                             class="rounded-full w-30 whitespace-wrap" 
                             data-tippy-allowHTML="true" 
@@ -108,11 +108,11 @@
                     <div class="flex sm:flex-row mt-2 ">
                         <div class="form-check mr-5">
                             <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="true" />
-                            <label class="form-check-label" for="radio-switch-yes">Yes</label>
+                            <label class="form-check-label" for="radio-switch-yes">{{ $t('lucky_draw.draw_create.yes') }}</label>
                         </div>
                         <div class="form-check mr-5">
                             <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="false" />
-                            <label class="form-check-label" for="radio-switch-no">No</label>
+                            <label class="form-check-label" for="radio-switch-no">{{ $t('lucky_draw.draw_create.no') }}</label>
                         </div>
                     </div>
                 </div>
@@ -123,13 +123,13 @@
                     <img :src="storageUrl + currentSettings.path" class="max-h-28 mx-auto object-cover" 
                         v-else-if="currentSettings.path != ''" />
                     <button class="btn btn-primary bg-[#070130] w-full sm:w-fit shadow-md mt-3 sm:mt-auto" @change="uploadAnimation()">
-                        + Upload Animation
+                        + {{ $t('lucky_draw.draw_create.upload_animation') }}
                     </button>
                 </div>
             </div>
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex-col mt-6 mr-5">
-                    <label class="form-label"> Draw Type</label>
+                    <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }} </label>
                     <select class="w-full form-select sm:form-select-lg rounded-lg mr-5" v-model="currentSettings.type">
                         <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ type.name }}</option>
                     </select>
@@ -139,7 +139,7 @@
                     class="lg:w-[50%] flex flex-col mt-6 mr-5"
                 >   
                     <div class="flex">
-                        <label class="form-label">Product</label>
+                        <label class="form-label">{{ $t('lucky_draw.draw_create.product') }}</label>
                         <!-- <button 
                             class="btn btn-primary h-[35px] sm:h-[42px] w-fit ml-auto mb-1"
                             :class="{'btn-danger': productList.length == 0}" 
@@ -167,14 +167,14 @@
                     v-else-if="currentSettings.type === 'keyword'" 
                     class="lg:w-[50%]  flex-col mr-5 mt-3"
                 >
-                    <label class="form-label mt-3"> Keyword</label>
+                    <label class="form-label mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
                     <textarea class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
                         v-model="validate.comment.$model" placeholder="Enter your Keyword"
                         :class="{ 'border-danger text-danger border-2': validate.comment.$error }">
                     </textarea>
                     <template v-if="validate.comment.$error">
                         <label class="text-danger text-[14px]">
-                            minimum 3 digits
+                            {{ $t('lucky_draw.draw_create.keyword_warning') }}
                         </label>
                     </template>
                 </div>
@@ -197,12 +197,12 @@
             </div>  
         </div>
         <div class="flex justify-end my-10 mr-5" v-if="route.query.behavior === 'drawInstantly'">
-            <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> Back </button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="goDraw"> Go Draw </button>
+            <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> {{ $t('lucky_draw.draw_create.back') }} </button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="goDraw"> {{ $t('lucky_draw.draw_create.go_draw') }} </button>
         </div>
         <div class="flex justify-end my-10 mr-5" v-else>
-            <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> Cancel </button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> Save </button>
+            <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> {{ $t('lucky_draw.draw_create.cancel') }} </button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> {{ $t('lucky_draw.draw_create.save') }} </button>
         </div>
 
         <AddProductFromStockModal :productType="productType"/>

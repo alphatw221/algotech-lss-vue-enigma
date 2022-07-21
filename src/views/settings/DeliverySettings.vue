@@ -52,7 +52,7 @@
                     <input  
                         class="flex-1 w-full text-base form-control sm:w-fit"
                         type="text" 
-                        placeholder="express service name"
+                        :placeholder="$t('settings.delivery_form.express_service_name')"
                         v-model="option.title"
                     />
                     <select 
@@ -65,7 +65,7 @@
                     <input  
                         class="flex-1 w-full form-control flex-2 sm:w-fit"
                         type="text" 
-                        placeholder="express charge"
+                        :placeholder="$t('settings.delivery_form.express_charge')"
                         v-model="option.price"
                     />
                     <button 

@@ -71,7 +71,9 @@
         "delete":"刪除",
         "store_collection":"到店自取",
         "pickup_store":"自取地點",
-        "pickup_address":"自取地址"
+        "pickup_address":"自取地址",
+        "express_service_name": "快遞服務名稱",
+        "express_charge": "快遞費用"
     },
 
 
