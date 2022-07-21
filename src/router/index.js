@@ -157,16 +157,26 @@ const routes = [
         name: "edit-campaign",
         component: () => import('@/views/edit-campaign/Main.vue'),
       },  
+      // {
+      //   path: "campaign-list/campaign-live/:campaign_id?/assign-product",
+      //   name: "assign-product",
+      //   component: () => import('@/views/assign-product/Main.vue'),
+      // },
       {
         path: "campaign-list/campaign-live/:campaign_id?/assign-product",
         name: "assign-product",
-        component: () => import('@/views/assign-product/Main.vue'),
-      },  
+        component: () => import('@/views/assign-campaign-product/Main.vue'),
+      },   
       {
-        path: "campaign-list/campaign-live/:campaign_id?/edit-product",
+        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign-product",
         name: "edit-campaign-product",
-        component: () => import('@/views/assign-product/Main.vue'),
-      }, 
+        component: () => import('@/views/edit-campaign-product/Main.vue'),
+      },   
+      // {
+      //   path: "campaign-list/campaign-live/:campaign_id?/edit-product",
+      //   name: "edit-campaign-product",
+      //   component: () => import('@/views/assign-product/Main.vue'),
+      // }, 
       
       {
         path: "campaign-list/campaign-live/:campaign_id?/manage-order",

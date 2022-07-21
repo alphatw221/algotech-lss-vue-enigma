@@ -1,6 +1,6 @@
 <template>
     <div :class="{ hidden: store.openTab !== 1, block: store.openTab === 1 }">
-        <h2 class="text-base font-medium">My Cart</h2>
+        <h2 class="text-base font-medium">{{$t('shopping_cart.my_cart_tab.my_cart')}}</h2>
     <div class="grid grid-cols-12 gap-4">
     <div class="overflow-x-auto col-span-12 2xl:col-span-7 2xl:block lg:block sm:block lg:col-span-7">
         <ShoppingCartTable />
@@ -15,7 +15,7 @@
     </div>
     <div class="grid grid-cols-12 gap-4 ml-4 mr-4" v-if="store.order.campaign">
         <div class="overflow-x-auto col-start-1 col-span-7" v-if="store.order.campaign.meta_payment.shopping_note">
-            <div><span class="text-lg">Special Note:</span></div>
+            <div><span class="text-lg">{{$t('shopping_cart.my_cart_tab.special_note')}}:</span></div>
             <div class="flex">
             <div class="mr-auto">{{store.order.campaign.meta_payment.shopping_note}}</div>
             </div>

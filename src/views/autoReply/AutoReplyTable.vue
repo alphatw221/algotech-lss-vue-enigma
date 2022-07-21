@@ -6,11 +6,11 @@
 				<tr>
 					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap text-center">
 						<template v-if="column.name === '#' || column.key === 'facebook_page'">
-							<span class="px-6"> {{ $t('auto_reply.table_column.' + column.name) }}</span> 
+							<span class="px-6"> {{ $t(`auto_reply.table_column.${column.name}`) }} </span> 
 						</template>
 						<template v-else-if="column.name === ''">
 						</template>
-						<template v-else> {{ $t('auto_reply.table_column.' + column.name) }} </template>
+						<template v-else> {{ $t(`auto_reply.table_column.${column.name}`) }} </template>
 					</th>
 				</tr>
 			</thead>
@@ -33,7 +33,7 @@
 					<template v-for="(column, cindex) in columns" :key="cindex">
 						<td v-if="column.key === 'facebook_page'"
 							class="w-32 imgtd">
-							<span class="mt-4 title sm:hidden">{{column.name}}</span>
+							<span class="mt-4 title sm:hidden">{{ $t(`auto_reply.table_column.${column.name}`) }}</span>
 							<div class="w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
 								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image" v-if="reply.facebook_page"
 									:content="`facebook`" />
@@ -60,7 +60,7 @@
 							<span class="sm:hidden"># </span>{{index+1}}
 						</td>
 						<td v-else class="w-auto info lg:max-w-30 lg:text-sm longMessage">
-							<span class="title sm:hidden">{{column.name}}</span> {{ reply[column.key] }}
+							<span class="title sm:hidden">{{ $t(`auto_reply.table_column.${column.name}`) }}</span> {{ reply[column.key] }}
 						</td>
 					</template>
 				</tr>

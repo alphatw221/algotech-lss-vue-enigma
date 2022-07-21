@@ -14,7 +14,7 @@
                             </span> 
                             <button 
                                 class="btn btn-rounded-pending h-8 ml-3"
-                                v-if="store.order.status !== 'complete'"
+                                v-if="store.order.status === 'review'"
                                 @click="router.push(`/buyer/order/${route.params.order_oid}/payment`)"
                             >
                                 {{$t('order_detail.pay')}}

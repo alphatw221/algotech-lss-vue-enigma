@@ -2,10 +2,10 @@
   <div :class="{ hidden: store.openTab !== 2, block: store.openTab === 2 }">
     <div class="grid grid-cols-12 gap-5 intro-y">
       <div class="col-span-12 row-start-2 intro-y lg:row-start-1 lg:col-span-8">
-        <h2 class="w-full mr-auto text-xl font-medium">Contact Information</h2>
+        <h2 class="w-full mr-auto text-xl font-medium">{{$t('shopping_cart.delivery_tab.contact_info')}}</h2>
         <div class="grid grid-cols-12 gap-5 p-0 my-10 mt-3 intro-y lg:p-10">
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">First
-            Name</label>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">
+            {{$t('shopping_cart.delivery_tab.first_name')}}</label>
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
                 class="col-span-8 form-control lg:col-span-4" placeholder=""
@@ -15,12 +15,12 @@
                       <label
                         class="mt-2 text-danger"
                       >
-                        Please enter First Name
+                        {{$t('shopping_cart.delivery_tab.first_err')}}
                       </label>
                   </template>
               </div>
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">Last
-            Name</label>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">
+            {{$t('shopping_cart.delivery_tab.last_name')}}</label>
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
                 class="form-control " placeholder=""
@@ -30,11 +30,11 @@
                           <label
                             class="mt-2 text-danger"
                           >
-                            Please enter Last Name
+                            {{$t('shopping_cart.delivery_tab.last_err')}}
                           </label>
                   </template>
             </div>
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">Email</label>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">{{$t('shopping_cart.delivery_tab.email')}}</label>
           <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="email"
                 placeholder="example@gmail.com"
@@ -47,12 +47,12 @@
                   :key="index"
                     class="mt-2 text-danger"
                   >
-                    {{ error.$message }}
+                    {{$t(`shopping_cart.delivery_tab.`+error.$message)}}
                   </label>
               </template>
           </div>
           
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">Phone</label>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">{{$t('shopping_cart.delivery_tab.phone')}}</label>
           <div class="col-span-8 lg:col-span-4">
           <input id="regular-form-2" type="tel"
             class="form-control " placeholder=""
@@ -62,7 +62,7 @@
                   <label
                     class="mt-2 text-danger"
                   >
-                    Phone number is required
+                    {{$t('shopping_cart.delivery_tab.phone_err')}}
                   </label>
               </template>
           </div>
@@ -70,7 +70,7 @@
 
         <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
           <h2 class="mb-5 mr-auto text-xl font-medium">
-            Shipping Information
+            {{$t('shopping_cart.delivery_tab.shipping_info')}}
           </h2>
         </div>
 
@@ -79,14 +79,14 @@
             <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('delivery')">
               <div class="inline-flex items-center grow place-content-center">
-                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg">Home Delivery</span>
+                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
               </div>
             </Tab>
             <template v-if="store.order.campaign && store.order.campaign.meta_logistic.additional_delivery_options">
                 <Tab v-if="store.order.campaign.meta_logistic.additional_delivery_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
                 @click="select_shipping_method('pickup')">
                 <div class="inline-flex items-center grow place-content-center">
-                  <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg">Self Pickup</span>
+                  <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
                 </div>
               </Tab>
             </template>
@@ -96,10 +96,10 @@
           <TabPanels class="mt-5">
             <!-- BEGIN Delivery Panel -->
             <TabPanel class="leading-relaxed">
-              <label class="col-span-12 font-medium text-md">Delivery Information</label>
+              <label class="col-span-12 font-medium text-md">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
               <div class="grid grid-cols-12">
                 <div class="col-span-12 gap-5 p-8 intro-y">
-                  <label for="regular-form-2" class="my-2 form-label">Address</label>
+                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.address')}}</label>
                   <div>
                     <input id="regular-form-2" type="text" class="form-control " placeholder=""
                       :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
@@ -108,11 +108,11 @@
                           <label
                             class="mt-2 text-danger"
                           >
-                            Please enter Address
+                            {{$t('shopping_cart.delivery_tab.address_err')}}
                           </label>
                     </template>
                   </div>
-                  <label for="regular-form-2" class="my-2 form-label">City</label>
+                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.city')}}</label>
                   <div>
                   <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_location.$error }"
@@ -121,11 +121,11 @@
                           <label
                             class="mt-2 text-danger"
                           >
-                            Please enter City
+                            {{$t('shopping_cart.delivery_tab.city_err')}}
                           </label>
                   </template>
                   </div>
-                  <label for="regular-form-2" class="my-2 form-label">State</label>
+                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.state')}}</label>
                   <div>
                   <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_region.$error }"
@@ -134,11 +134,11 @@
                           <label
                             class="mt-2 text-danger"
                           >
-                            Please enter State
+                            {{$t('shopping_cart.delivery_tab.state_err')}}
                           </label>
                   </template>
                   </div>
-                  <label for="regular-form-2" class="my-2 form-label">Postal Code</label>
+                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.postal_code')}}</label>
                   <div>
                   <input id="regular-form-2" type="text" class="form-control " placeholder=""
                     :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
@@ -147,21 +147,21 @@
                           <label
                             class="mt-2 text-danger"
                           >
-                            Please enter Postal Code
+                            {{$t('shopping_cart.delivery_tab.postal_code_err')}}
                           </label>
                   </template>
                   </div>
                   
                 </div>
                 <!-- BEGIN Delivery Option -->
-                <label class="col-span-12 font-medium text-md">Delivery Option</label>
+                <label class="col-span-12 font-medium text-md">{{$t('shopping_cart.delivery_tab.option.delivery')}}</label>
                 <div class="col-span-12 gap-5 mx-0 intro-y lg:mx-20 2xl:mx-20">
                   <div v-if="store.order.campaign">
 
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
                       <input :id="'radio-switch-'" class="form-check-input" type="radio"
                         name="vertical_radio_button" :value="null" v-model="shipping_option_index_computed" />
-                      <label class="mr-auto form-check-label" :for="'radio-switch-'">default</label>
+                      <label class="mr-auto form-check-label" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.default')}}</label>
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
@@ -203,7 +203,7 @@
             <!-- BEGIN Pickup Panel -->
             <TabPanel class="leading-relaxed">
               <div class="grid grid-cols-12">
-                <label class="col-span-12 font-medium text-md">Pickup Option</label>
+                <label class="col-span-12 font-medium text-md">{{$t('shopping_cart.delivery_tab.option.pickup')}}</label>
                 <div class="col-span-12 gap-5 intro-y lg:mx-20 2xl:mx-20">
                   <div v-if="store.order.campaign">
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
@@ -229,7 +229,7 @@
 
           <div class="col-span-12 mt-10">
             <div class="font-medium text-md">
-              Delivery and Collection Note
+              {{$t('shopping_cart.delivery_tab.note')}}
             </div>
             <p id="" class="col-span-12 col-start-1 p-5 form-control" placeholder="" v-if="store.order.campaign">
               {{store.order.campaign.meta_logistic.delivery_note}}
@@ -241,7 +241,7 @@
 
 
         <div class="col-span-12 mt-10">
-          <div class="font-medium text-md">Remark</div>
+          <div class="font-medium text-md">{{$t('shopping_cart.delivery_tab.remark')}}</div>
           <textarea id="" class="col-span-12 col-start-1 form-control indent-4" placeholder=""
             v-model="shipping_info.shipping_remark">
           </textarea>
@@ -265,10 +265,10 @@
     
     <div class="flex my-5">
       <button class="mr-auto rounded-full w-fit btn btn-outline-primary" @click="store.openTab= 1">
-        Previous
+        {{$t('shopping_cart.delivery_tab.previous')}}
       </button>
       <button class="w-fit btn btn-rounded-primary" @click="proceed_to_payment">
-        Proceed to Payment
+        {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
     </div>
   </div>

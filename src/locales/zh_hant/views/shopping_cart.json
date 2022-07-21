@@ -1,60 +1,73 @@
 {
-    "order_id":"訂單編號",
-    "fb_name":"FB 使用者名稱",
-    "product":"商品明細",
-    "unit_price":"單價",
-    "qty":"數量",
-    "apply_btn":"更新",
-    "sub_total":"小計",
-    "delivery_charge":"運費",
-    "total":"總計",
-    "item":"件",
-    "refresh":"重新載入",
-    "delivery_information":"運送資訊",
-    "first_name":"名字",
-    "last_name":"姓氏",
-    "phone":"連絡電話",
-    "email_address":"信箱",
-    "in_store_pickup":"門市取貨",
-    "location":"取貨門市",
-    "pickup_date":"取貨日期",
-    "delivery":"宅配",
-    "post_code":"郵遞區號",
-    "address":"地址",
-    "arrival_date":"到貨日期",
-    "remarks":"備註",
-    "confirm":"下一步",
-    "special_note":"購物說明",
-    "free_delivery":"免運費",
+    "shopping_cart":"購物車",
+    "delivery":"運送",
+    "my_cart_tab":{
+        "special_note":"購物說明",
+        "my_cart":"我的購物車"
+    },
+    "delivery_tab":{
+        "contact_info":"基本資訊",
+        "first_name":"名",
+        "last_name":"姓",
+        "phone":"電話",
+        "email":"電子信箱",
+        "first_err":"必填",
+        "last_err":"必填",
+        "phone_err":"必填",
+        "Value is not a valid email address":"Email格式不符",
+        "Value is required":"必填",
 
-    "add_product":{
-        "add_product":"加購商品",
-        "product":"品名",
-        "description":"說明",
+        "shipping_info":"運送資訊",
+        "home_delivery":"宅配",
+        "self_pickup":"取貨",
+
+        "delivery_info":"宅配資訊",
+        "address":"地址",
+        "city":"城市",
+        "state":"區",
+        "postal_code":"郵遞區號",
+        "city_err":"必填",
+        "address_err":"必填",
+        "state_err":"必填",
+        "postal_code_err":"必填",
+
+        "option":{
+            "delivery":"選擇運送方式",
+            "default":"基本",
+            "pickup":"選擇取貨方式"
+        },
+        "note":"宅配 & 取貨須知",
+        "remark":"備註",
+        "previous":"上一步",
+        "proceed_to_payment":"前往付款"
+    },
+    "table":{
+        "update":"更新",
+        "cancel":"取消",
+        "missing_remind":"熱銷商品，你可能會錯過!",
+        "delete":"刪除",
+        "empty_message":"還沒有任何商品",
+        "product":"商品",
+        "qty":"適量",
         "price":"價格",
-        "qty":"數量",
-        "add":"新增",
-        "close":"關閉"
+        "subtotal":"小計",
+        "null":"",
+        "cart":"購物車",
+        "items":"件商品",
+        "edit":"修改"
     },
-
-    "history":{
-        "order_history":"購買紀錄",
-        "order_id":"訂單編號",
-        "campaign":"直播標題",
-        "order_time":"下單時間",
-        "status":"訂單狀態",
-        "total":"訂單金額",
-        "more":"明細",
-        "detail":"查看"
+    "order_summary":{
+        "order_summary":"訂單總結",
+        "subtotal":"小計",
+        "price_adjustment":"價格調整",
+        "shipping":"運費",
+        "total_charge":"總金額",
+        "add_item":"加入更多商品",
+        "next":"下一步"
     },
-
-    "credit_card":"信用卡",
-    "bank_transfer":"PayNow\/銀行轉帳",
-    "PayPal":"PayPal",
-
-    "PayNow":{
-        "upload_payment_record":"上傳付款證明",
-        "submit":"送出"
-    },
-    "modify_price":"修改價格"
+    "add_item":{
+        "select_add_ons":"加購",
+        "select_products":"加購商品",
+        "add":"加入"
+    }
 }

@@ -13,7 +13,7 @@
 					v-for="column in tableColumns"
 					:key="column.key"
 				>
-				{{ column.name }}
+				{{ $t(`shopping_cart.table.`+column.name) }}
 				</th>
 			</tr>
 			</thead>
@@ -76,10 +76,10 @@
 								<input type="text" class="w-10 form-control mr-1 leading-5 align-middle" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
 								<div class="leading-5 allign-middle">
 									<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
-										Update
+										{{$t('shopping_cart.table.update')}}
 									</button>
 									<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
-											Cancel
+										{{$t('shopping_cart.table.cancel')}}
 									</button>
 								</div>
 							</div>
@@ -95,7 +95,7 @@
 						<div class="absolute hidden md:block" v-show="store.cartProducts[index].qty_add_to_cart >= store.cartProducts[index].qty_for_sale" style="color:#FF4500"> Many people are reviewing this item, you might be missing it.</div>
 					</td>
 					<td class="sm:hidden" >
-						<div style="color:#FF4500"> Many people are reviewing this item, you might be missing it.</div>
+						<div style="color:#FF4500"> {{$t('shopping_cart.table.missing_message')}}</div>
 					</td>
 					<td class="text-center h-20 ">
 						<div class="price whitespace-nowrap"> $ {{ product.price }} </div>
@@ -106,7 +106,7 @@
 					<td class="table-report__action w-30 h-20">
 					<div class="flex justify-center items-center" v-show="store.cartProducts[index].customer_removable && product.type === 'product'">
 						<a class="flex items-center text-danger" @click="deleteOrderProduct(product.order_product_id, index)">
-						<Trash2Icon class="w-4 h-4 mr-1" /> Delete
+						<Trash2Icon class="w-4 h-4 mr-1" /> {{$t('shopping_cart.table.delete')}}
 						</a>
 					</div>
 					</td>
@@ -120,7 +120,7 @@
 	<!-- BEGIN Empty Cart Text -->
 			<div class=" text-center mt-5 md:mt-10" v-if="numOfItems==0">
 				<h1 class="text-slate-500 text-sm md:text-lg">
-					Your Shopping Cart Is Empty
+					{{$t('shopping_cart.table.empty_message')}}
 				</h1>
 			</div>
 	<!-- END Empty Cart Text -->
@@ -147,11 +147,11 @@ const showUpdateButtonIndex = ref(null)
 const cacheQty = ref(0)
 
 const tableColumns = ref([
-	{ key: "product", name: "Product",  },
-	{ key: "qty", name: "Q'ty",  },
-	{ key: "price", name: "Price",  },
-	{ key: "subtotal", name: "Subtotal",  },
-	{ key: "remove", name: " ",  },
+	{ key: "product", name: "product",  },
+	{ key: "qty", name: "qty",  },
+	{ key: "price", name: "price",  },
+	{ key: "subtotal", name: "subtotal",  },
+	{ key: "remove", name: "null",  },
 ])
 
 const numOfItems = computed(()=>{

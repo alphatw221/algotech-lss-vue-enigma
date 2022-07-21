@@ -3,10 +3,10 @@
 	<div
 		class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400">
 		<h2 class="font-medium text-base mr-auto">
-		My Cart ({{numOfItems}} Items)
+		{{$t('shopping_cart.table.cart')}} ({{numOfItems}} {{$t('shopping_cart.table.items')}})
 		</h2>
 		<button class="border-none sm:flex underline" @click="switchToMyCartTab()">
-		Edit
+		{{$t('shopping_cart.table.edit')}}
 		</button>
 	</div>
 	<!-- END title -->
@@ -25,7 +25,7 @@
 			<div class="ml-4 mr-auto w-[50%]">
 				<div class="font-medium text-cyan-900 whitespace-normal break-normal">{{product.name}}</div>
 				<div class="text-slate-500 mr-5 sm:mr-5">
-				Q'ty : {{product.qty}}
+				{{$t('shopping_cart.table.qty')}} : {{product.qty}}
 				</div>
 			</div>
 			<div class="font-medium text-slate-600 dark:text-slate-500 whitespace-nowrap w-fit ml-5">
