@@ -107,6 +107,9 @@
             "id":"印尼文"
         },
         "buyer_language":"買家語言",
+        "choose_language":"選擇語言",
+        "choose_decimal_places":"選擇小數點位數",
+        "choose_currency_symbol":"選擇貨幣",
         "decimal_places":"小數位數",
         "discard":"取消",
         "save":"儲存"
