@@ -1,5 +1,5 @@
 <template>
-    <table class="table table-report mt-5 overflow-y-scroll overflow-x-auto">
+    <table class="table table-report mt-5">
 		<thead>
 			<tr>
 				<th
@@ -15,7 +15,7 @@
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
 				<td class=" h-20 imgTd self-center">
 					<div class="flex items-center self-center justify-center">
-						<div class="w-10 h-10 image-fit zoom-in" v-if="product.image">
+						<div class="flex w-24 h-24 lg:w-12 lg:h-12 2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
 						<Tippy
 							tag="img"
 							class="rounded-lg"
@@ -24,7 +24,7 @@
               data-action="zoom"
 						/>
 						</div>
-            <div class="w-10 h-10 image-fit zoom-in" v-else>
+            <div class="flex w-24 h-24 lg:w-12 lg:h-12 2xl:x-12 2xl:h-12 image-fit zoom-in" v-else>
 						<Tippy
 							tag="img"
 							class="rounded-lg"
@@ -103,9 +103,10 @@ const tableColumns = ref([
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
-	  width: auto;
     padding-left: 50% !important;
     text-align: left !important;
+    box-shadow: none !important;
+    min-height: 28px;
   }
   .imgTd{
 	  padding-top: 10px !important;
@@ -119,14 +120,23 @@ const tableColumns = ref([
     padding-right: 10px;
     white-space: nowrap;
     font-weight: bold;
+    box-shadow: none !important;
   }
-
-  td:nth-of-type(1):before {
-    content: "";
+  td:nth-of-type(1):before{
+    display: none;
+    /* color: #0e9893; */
+  }
+  td:nth-of-type(1){
+    padding-left: 0 !important;
+    min-height: 110px !important;
     /* color: #0e9893; */
   }
   td:nth-of-type(2):before {
     content: attr(data-content);
+    /* color: #0e9893; */
+  }
+  td:nth-of-type(1):before {
+    display: none;
     /* color: #0e9893; */
   }
   td:nth-of-type(3):before {
