@@ -72,7 +72,7 @@
                         </div>
                     </div>
                     <div v-if="winnerList.length == 0" class="text-2xl text-center">  
-                        No Winner this run </div>
+                        No winner this run </div>
                 </div>
             </div>
         </div>

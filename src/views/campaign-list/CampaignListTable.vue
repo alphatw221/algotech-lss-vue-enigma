@@ -1,5 +1,5 @@
 <template>
-  <div class="overflow-auto h-[62vh] mt-4">
+  <div class="overflow-x-hidden sm:overflow-auto sm:h-[62vh] mt-4">
     <table class="table -mt-3 table-report">
       <thead>
         <tr>
@@ -50,7 +50,7 @@
               </div>
             </div>
           </td>
-          <td class="text-center title w-fit">
+          <td class="text-left title w-fit">
             {{ campaign.title }}
           </td>
           <td class="w-5 text-center startDate" :data-content="$t('campaign_list.campaign_list_table.start_at')">
@@ -131,7 +131,6 @@
         </tr>
       </tbody>
     </table>
-    
   </div>
   <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
       <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />

@@ -2,11 +2,11 @@
     <div>
         <!-- BEGIN: commit box -->
         <div class="mt-5 flex justify-self-start">
-            <label class="form-label mr-10">Campaign Title : </label>
+            <label class="form-label mr-10">{{ $t('lucky_draw.draw_create.campaign_title') }} : </label>
             <h2 style="display: inline-block;"> {{ props.campaignTitle }} </h2>
         </div>
         <div class="flex flex-col">
-            <div class="mt-6 lg:flex ">
+            <div class="lg:flex">
                 <!-- <div class="lg:w-[50%]  flex-col mr-5 mt-3">
                     <label class="form-label"> Lucky Draw Title</label>
                     <input 
@@ -19,10 +19,11 @@
                         <label class="text-danger">Enter lucky draw title</label>
                     </template>
                 </div> -->
-                <div class="lg:w-[50%]  flex flex-col mr-5 mt-3">
-                    <label class="form-label"> Prize</label>
+                <div class="lg:w-[50%]  flex flex-col mr-5 mt-6">
+                    <label class="form-label"> {{ $t('lucky_draw.draw_create.prize') }}</label>
                     <select 
-                        class="w-full form-select-lg rounded-lg rounded-lg" 
+                        id="prizeSelect"
+                        class="w-full form-select sm:form-select-lg rounded-lg" 
                         :class="{ 'border-danger text-danger border-2': !currentSettings.prize.id }" 
                         v-model="currentSettings.prize"
                     >
@@ -37,16 +38,16 @@
                             </option>
                         </template>    
                     </select>
-                    <button 
+                    <!-- <button 
                         class="btn btn-primary ml-auto w-fit mt-2"
                         :class="{'btn-danger': !prizeList.length}" 
                         @click="productType = 'lucky_draw'; detailStore.showAddProductFromStockModal = true;"
-                    > Assign More Prize </button>
+                    > Assign More Prize </button> -->
                 </div>
-                <div class="lg:w-[50%]  flex-col mr-5 mt-3">
-                    <label class="form-label ">Spin Time(sec)</label>
+                <div class="lg:w-[50%]  flex-col mr-5 mt-6">
+                    <label class="form-label ">{{ $t('lucky_draw.draw_create.spin_time') }}</label>
                     <select 
-                        class="w-full form-select-lg rounded-lg rounded-lg" 
+                        class="w-full form-select sm:form-select-lg rounded-lg" 
                         v-model="currentSettings.spin_time"
                     >
                         <option v-for="(spinTime, key) in spinTimes" :key="key" :value="spinTime.value">
@@ -55,101 +56,103 @@
                     </select>
                 </div>
             </div>
-            <div class="mt-6 lg:flex ">
-                <div class="lg:w-[50%]  flex-col mr-5">
-                    <label class="form-label"> No. of Winners</label>
+            <div class="lg:flex">
+                <div class="lg:w-[50%]  flex-col mr-5 mt-6">
+                    <label class="form-label"> {{ $t('lucky_draw.draw_create.number_of_winner') }}</label>
                     <input 
                         type="text" 
-                        class="form-control" 
+                        class="form-control mr-5" 
                         :class="{ 'border-danger text-danger border-2': validate.num_of_winner.$error }"
                         v-model.trim="validate.num_of_winner.$model" 
                     />
                     <template v-if="validate.num_of_winner.$error">
                         <label class="text-danger text-[14px] leading-tight">
-                            must be between 1 to prize stock {{currentSettings.prize.qty_for_sale}}
+                            {{ $t('lucky_draw.draw_create.number_winner_warning') }} {{currentSettings.prize.qty_for_sale}}
                         </label>
                     </template>
                 </div>
-                <div class="lg:w-[50%]  flex-col mt-3">
-                    <div class="w-full flex">
-                        <label class="form-label mr-auto"> Animation Style</label>
-                        <input type="file" id="upload" @change="uploadAnimation" hidden/>
-                        <label for="upload" id="create_animation" class="text-sm lg:text-lg">+ Upload Animation</label>
-                    </div>
-                    <div class="flex my-3 justify-center" v-if="currentSettings.path == ''">
-						<img :src="previewImage" class="uploading-image h-20 object-cover" />
-					</div>
-                    <div class="flex my-3 justify-center" v-else-if="currentSettings.path != ''">
-						<img :src="storageUrl + currentSettings.path" class="uploading-image h-20 object-cover" />
-					</div>
+                <div class="lg:w-[50%] flex-col mt-6 mr-5">
+                    <label class="form-label mr-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
                     <div class="flex flex-wrap items-center justify-around">
                         <div class="w-20 h-20 image-fit relative ">
                             <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
-                            <Tippy tag="img" class="rounded-full" :src="storageUrl + 'static/lucky_draw1.svg'" />
+                            <img class="rounded-full" :src="storageUrl + 'static/lucky_draw1.svg'" />
                         </div>
                         <div class="w-20 h-20 image-fit relative ">
                             <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw2.svg'" />
-                            <Tippy tag="img" class="rounded-full" :src="storageUrl + 'static/lucky_draw2.svg'" />
+                            <img class="rounded-full" :src="storageUrl + 'static/lucky_draw2.svg'" />
                         </div>
                         <template v-for="(animates, key) in animationList" :key="key">
                             <div class="w-20 h-20 image-fit relative">
                                 <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = animates.path" />
-                                <Tippy tag="img" class="rounded-full" :src="storageUrl + animates.path" />
+                                <img class="rounded-full" :src="storageUrl + animates.path" />
                             </div>
                         </template>
                     </div>
                 </div>
             </div>
-            <div class="mt-3 w-fit sm:w-[50%]">
-                <div class="flex"> 
-                    <label class="form-label"> Winner Repeat </label> 
-                    <Tippy 
-                        class="rounded-full w-30 whitespace-wrap" 
-                        data-tippy-allowHTML="true" 
-                        data-tippy-placement="right" 
-                        content="Allow same person <br/> to win multiple prizes?" 
-                        theme='light'
-                    > 
-                        <HelpCircleIcon class="w-8 ml-2" />
-                    </Tippy> 
+            <div class="lg:flex">
+                <div class="lg:w-[50%] flex-col mt-6 mr-5">  
+                    <div class="flex"> 
+                        <label class="form-label"> {{ $t('lucky_draw.draw_create.winner_repeat') }} </label> 
+                        <Tippy 
+                            class="rounded-full w-30 whitespace-wrap" 
+                            data-tippy-allowHTML="true" 
+                            data-tippy-placement="right" 
+                            content="Allow same person <br/> to win multiple prizes?" 
+                            theme='light'
+                        > 
+                            <HelpCircleIcon class="w-8 ml-2" />
+                        </Tippy> 
+                    </div>
+                    <div class="flex sm:flex-row mt-2 ">
+                        <div class="form-check mr-5">
+                            <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="true" />
+                            <label class="form-check-label" for="radio-switch-yes">{{ $t('lucky_draw.draw_create.yes') }}</label>
+                        </div>
+                        <div class="form-check mr-5">
+                            <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="false" />
+                            <label class="form-check-label" for="radio-switch-no">{{ $t('lucky_draw.draw_create.no') }}</label>
+                        </div>
+                    </div>
                 </div>
-                <div class="flex sm:flex-row mt-2">
-                    <div class="form-check mr-5">
-                        <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="true" />
-                        <label class="form-check-label" for="radio-switch-yes">Yes</label>
-                    </div>
-                    <div class="form-check mr-5 mt-2 sm:mt-0">
-                        <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="false" />
-                        <label class="form-check-label" for="radio-switch-no">No</label>
-                    </div>
+                <div class="lg:w-[50%] flex-col flex sm:flex-row mt-3 mr-5 justify-center sm:justify-between"> 
+
+                    <img :src="previewImage" class="max-h-28 mx-auto object-cover" 
+                        v-if="currentSettings.path == ''" />
+                    <img :src="storageUrl + currentSettings.path" class="max-h-28 mx-auto object-cover" 
+                        v-else-if="currentSettings.path != ''" />
+                    <button class="btn btn-primary bg-[#070130] w-full sm:w-fit shadow-md mt-3 sm:mt-auto" @change="uploadAnimation()">
+                        + {{ $t('lucky_draw.draw_create.upload_animation') }}
+                    </button>
                 </div>
             </div>
-            <div class="mt-3 mt-6 lg:flex">
-                <div class="lg:w-[50%] flex-col mr-5 mt-6">
-                    <label class="form-label"> Draw Type</label>
-                    <select class="w-full form-select-lg rounded-lg" v-model="currentSettings.type">
+            <div class="lg:flex">
+                <div class="lg:w-[50%] flex-col mt-6 mr-5">
+                    <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }} </label>
+                    <select class="w-full form-select sm:form-select-lg rounded-lg mr-5" v-model="currentSettings.type">
                         <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ type.name }}</option>
                     </select>
                 </div>
                 <div 
                     v-if="currentSettings.type === 'product'" 
-                    class="lg:w-[50%] flex flex-col mt-3 mr-5"
+                    class="lg:w-[50%] flex flex-col mt-6 mr-5"
                 >   
                     <div class="flex">
-                        <label class="form-label mt-3">Product</label>
-                        <button 
+                        <label class="form-label">{{ $t('lucky_draw.draw_create.product') }}</label>
+                        <!-- <button 
                             class="btn btn-primary h-[35px] sm:h-[42px] w-fit ml-auto mb-1"
                             :class="{'btn-danger': productList.length == 0}" 
                             @click="productType = 'product'; detailStore.showAddProductFromStockModal = true;"
-                        > Assign Product </button>
+                        > Assign Product </button> -->
                     </div>
                     <select
                         :class="{ 'border-danger text-danger border-2': currentSettings.campaign_product == '' }" 
-                        class="w-full form-select-lg rounded-lg" 
+                        class="w-full form-select sm:form-select-lg rounded-lg mr-5" 
                         v-model="currentSettings.campaign_product"
                     >   
                         <template v-if="productList.length == 0">
-                            <option class="w-40" disabled> 
+                            <option class="w-40 " disabled> 
                                 Assign Product into your Campaign
                             </option>
                         </template>
@@ -162,41 +165,44 @@
                 </div>
                 <div 
                     v-else-if="currentSettings.type === 'keyword'" 
-                    class="lg:w-[50%]  flex-col ml-5"
+                    class="lg:w-[50%]  flex-col mr-5 mt-3"
                 >
-                    <label class="form-label mt-6"> Keyword</label>
+                    <label class="form-label mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
                     <textarea class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
                         v-model="validate.comment.$model" placeholder="Enter your Keyword"
                         :class="{ 'border-danger text-danger border-2': validate.comment.$error }">
                     </textarea>
                     <template v-if="validate.comment.$error">
                         <label class="text-danger text-[14px]">
-                            minimum 3 digits
+                            {{ $t('lucky_draw.draw_create.keyword_warning') }}
                         </label>
                     </template>
                 </div>
                 <div 
                     v-else-if="currentSettings.type === 'purchase'" 
-                    class="lg:w-[50%] flex flex-col ml-5 mt-3"
+                    class="lg:w-[50%] flex flex-col mt-3 mr-5"
                 >   
-                    <button 
+                    <!-- <button 
                         class="btn btn-primary ml-auto w-fit h-[35px] sm:h-[42px]"
                         :class="{'btn-danger': productList.length == 0}" 
                         @click="detailStore.showAddProductFromStockModal = true"
-                    > Assign Product </button>
+                    > Assign Product </button> -->
                     <template v-if="productList.length == 0"> 
                         <label class="form-label text-danger mt-3 text-[14px]"> Havent Assigned Any Product Into This Campaign</label>
                     </template>
                 </div>
+                <div
+                    v-else 
+                    class="lg:w-[50%] flex flex-col mt-3 mr-5">  </div>
             </div>  
         </div>
-        <div class="flex justify-end my-8 mr-5" v-if="route.query.behavior === 'drawInstantly'">
-            <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> Back </button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="goDraw"> Go Draw </button>
+        <div class="flex justify-end my-10 mr-5" v-if="route.query.behavior === 'drawInstantly'">
+            <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> {{ $t('lucky_draw.draw_create.back') }} </button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="goDraw"> {{ $t('lucky_draw.draw_create.go_draw') }} </button>
         </div>
-        <div class="flex justify-end my-8 mr-5" v-else>
-            <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> Cancel </button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> Save </button>
+        <div class="flex justify-end my-10 mr-5" v-else>
+            <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> {{ $t('lucky_draw.draw_create.cancel') }} </button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> {{ $t('lucky_draw.draw_create.save') }} </button>
         </div>
 
         <AddProductFromStockModal :productType="productType"/>
@@ -232,7 +238,7 @@ const currentSettings = ref({
     spin_time: 5,
     num_of_winner: 0,
     repeatable: false,
-    type: 'product',
+    type: 'like',
     comment: 'keyword',
     campaign_product: '',
     prize: 'Assign Lucky Draw Items into your Campaign',
@@ -331,19 +337,5 @@ const uploadAnimation = e => {
     currentSettings.value.path = '';
     console.log(formData.value)
 }
+
 </script>
-
-<style scoped>
-
-#create_animation {
-    display: inline-block;
-    background-color: rgb(7, 0, 56);
-    color: white;
-    padding: 0.5rem;
-    font-family: sans-serif;
-    border-radius: 0.3rem;
-    cursor: pointer;
-    text-align: center;
-}
-
-</style> 

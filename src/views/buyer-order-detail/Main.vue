@@ -1,5 +1,5 @@
 <template>
-    <div class="w-full h-full">
+    <div class="h-full">
         <div class="text-2xl text-base text-center my-5"> {{$t('order_detail.order')}} </div>
 
         <div class="grid grid-cols-12 gap-4">
@@ -95,7 +95,7 @@
                 </div>
             </div>
         </div>   
-        <div class="w-full overflow-x-auto">
+        <div class="w-full h-fit overflow-x-hidden sm:overflow-x-auto">
             <OrderDetailTable />
         </div>
         <div class="grid grid-cols-12 gap-2">

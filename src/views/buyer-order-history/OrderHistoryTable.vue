@@ -135,15 +135,17 @@ onMounted(()=>{
   tr {
     border-bottom: 1px solid black;
 	  padding-top: 10px;
+    background: white;
   }
 
   td {
     border: none;
-    border-bottom: 1px solid #eee;
+    border-bottom: 0 !important;
     position: relative;
-	width: auto;
+	  width: auto;
     padding-left: 50% !important;
     text-align: left !important;
+    box-shadow: none !important;
   }
 
   td:before {
@@ -153,6 +155,7 @@ onMounted(()=>{
     padding-right: 10px;
     white-space: nowrap;
     font-weight: bold;
+    box-shadow: none !important;
   }
 
   td:nth-of-type(1):before {
