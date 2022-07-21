@@ -133,9 +133,7 @@ onMounted(() => {
 })
 
 const toTop=()=>{
-  console.log('here')
   document.getElementById('topPoint').scrollIntoView({behavior: "smooth"});
-  console.log('here212')
 }
 
 
