@@ -20,7 +20,7 @@
                 'text-neutral-600': store.openTab !== 1,
                 'font-bold': store.openTab === 1,
               }">
-              Shopping Cart
+              {{$t('shopping_cart.shopping_cart')}}
             </div>
           </div>
         </li>
@@ -41,7 +41,7 @@
                 'text-neutral-600': store.openTab !== 2,
                 'font-bold': store.openTab === 2,
               }">
-              Delivery
+              {{$t('shopping_cart.delivery')}}
             </div>
           </div>
         </li>
