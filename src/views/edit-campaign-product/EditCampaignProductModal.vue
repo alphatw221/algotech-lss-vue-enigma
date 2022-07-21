@@ -1,5 +1,5 @@
 <template>
-    <Modal :show="editCampaignProduct" @hidden="editCampaignProduct = false">
+    <Modal :show="campaignDetailStore.showEditCampaignProductModal" @hidden="hideModal()">
         <ModalHeader>
             <h2 class="font-medium text-base m-auto ">
                 Edit Campaign Product
@@ -34,13 +34,15 @@
             <button 
                 class="btn btn-outline-secondary w-20 mr-1"
                 type="button" 
-                @click="editCampaignProduct = false; eventBus.emit('search');" 
-            > Cancel </button>
+                @click="hideModal()" > 
+                Cancel 
+            </button>
             <button 
                 class="btn btn-primary w-20"
                 type="button" 
-                @click="updateProduct(campaignProduct['id'])"
-            > Update </button>
+                @click="updateProduct()">
+                 Update 
+            </button>
         </ModalFooter>
     </Modal>
 </template>
@@ -49,31 +51,36 @@
 import { ref, onMounted, onUnmounted, getCurrentInstance } from 'vue';
 import { seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
+import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
-
+const layoutStore = useLSSSellerLayoutStore()
+const campaignDetailStore = useCampaignDetailStore()
 const route = useRoute()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const editCampaignProduct = ref(false)
+
 const campaignProduct = ref({})
-const tableColumns = ref([
+
+const tableColumns = [
     { name: "Order Code", key: "order_code" },
-    { name: "Qty for Campaign", key: "qty" },
+    { name: "Qty for Campaign", key: "qty_for_sale" },
     { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Price", key: "price" },
     { name: "Type", key: "type" },
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
-])
-const typeSelection = ref([
+]
+
+const typeSelection = [
     { name: 'Product', value: 'product' },
     { name: 'Lucky Draw', value: 'lucky_draw' }
-])
+]
 
-
+const payloadBuffer = ref({})
 onMounted(() => {
     eventBus.on('editCampaignProduct', (payload) => {
-        editCampaignProduct.value = payload.editCampaignProduct
-        campaignProduct.value = payload.product
+        payloadBuffer.value = payload
+        campaignProduct.value = payload.campaignProduct
     })
 })
 
@@ -81,13 +88,19 @@ onUnmounted(() => {
     eventBus.off('editCampaignProduct')
 })
 
-const updateProduct = (id) => {
-    seller_update_campaign_product(route.params.campaign_id, id, campaignProduct.value)
-    .then(response => {
-        console.log(response.data)
-        editCampaignProduct.value = false;
-        eventBus.emit('search')
+const updateProduct = () => {
+    seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
+    .then(res => {
+        console.log(res.data)
+        campaignDetailStore.campaignProducts[payloadBuffer.value.index] = res.data
+        layoutStore.notification.showMessageToast("Update Successfully")
+        hideModal()
     })
 }
 
+const hideModal = ()=>{
+    campaignProduct.value = {}
+    payloadBuffer.value = {}
+    campaignDetailStore.showEditCampaignProductModal = false
+}
 </script>

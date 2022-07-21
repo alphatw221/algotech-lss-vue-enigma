@@ -231,7 +231,7 @@
 import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed } from 'vue';
 import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
 import { list_product } from '@/api_v2/product';
-import { seller_retrieve_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
+import { seller_list_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
@@ -323,7 +323,7 @@ const search = () => {
                 console.log(error);
             })
     } else if (route.name === 'edit-campaign-product') {
-        seller_retrieve_campaign_product(route.params.campaign_id, category.value, currentPage.value, pageSize.value)
+        seller_list_campaign_product(route.params.campaign_id, category.value, currentPage.value, pageSize.value)
         .then(response => {
             dataCount.value = response.data.count
             productsList.value = response.data.results

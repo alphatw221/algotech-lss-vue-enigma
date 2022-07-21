@@ -6,7 +6,7 @@ export const useCampaignDetailStore = defineStore("CampaignDetail", {
 		campaignProducts:ref([]),
 		showInstantlyAddProductModal:ref(false),
 		showAddProductFromStockModal:ref(false),
-		
+		showEditCampaignProductModal:ref(false),
 		incomingOrders:ref([]),
 
 		campaign:ref({})

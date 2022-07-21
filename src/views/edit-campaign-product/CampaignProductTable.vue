@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody >
-                <tr v-for="(product, index) in productsList" :key="index" class="align-middle intro-x">
+                <tr v-for="(campaign_product, index) in campaignDetailStore.campaignProducts" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
 
                         <td v-if="column.key === 'image'" class="w-18 text-[12px] sm:w-18 lg:text-sm 2xl:w-32 imgtd">
@@ -20,7 +20,7 @@
                                     <img 
                                         class="rounded-lg cursor-auto" 
                                         data-action="zoom"
-                                        :src="product.image ? storageUrl + product.image : storageUrl + 'no_image.jpeg'" 
+                                        :src="campaign_product.image ? storageUrl + campaign_product.image : storageUrl + 'no_image.jpeg'" 
                                     />
                                 </div>
                             </div>
@@ -29,28 +29,28 @@
                         <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm orderCode">
                             <div class="form-check place-content-center">
                                 <template v-if="route.name === 'edit-campaign-product'">
-                                    {{ product[column.key] }}        
+                                    {{ campaign_product[column.key] }}        
                                 </template>
                                 <template v-else>
                                     <input 
                                         type="text" 
                                         class="form-control w-full sm:w-24 h-[42px] mt-1"
-                                        v-model="product[column.key]"
+                                        v-model="campaign_product[column.key]"
                                     />
                                 </template>
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'qty'" class="w-24 text-[12px] lg:text-sm qty">
+                        <td v-else-if="column.key === 'qty_for_sale'" class="w-24 text-[12px] lg:text-sm qty">
                             <div class="form-check place-content-center">
                                 <template v-if="route.name === 'edit-campaign-product'">
-                                    {{ product[column.key] }}        
+                                    {{ campaign_product[column.key] }}        
                                 </template>
                                 <template v-else>
                                     <input 
                                         type="number" min="1" 
                                         class="form-control w-full sm:w-24 h-[42px] mt-1" 
-                                        v-model="product[column.key]"
+                                        v-model="campaign_product[column.key]"
                                     />
                                 </template>
                             </div>
@@ -59,28 +59,27 @@
                         <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty">
                             <div class="form-check place-content-center">
                                 <template v-if="route.name === 'edit-campaign-product'">
-                                    {{ product[column.key] }}        
+                                    {{ campaign_product[column.key] }}        
                                 </template>
                                 <template v-else>
                                     <input 
                                         type="number" min="1" 
                                         class="form-control w-full sm:w-24 h-[42px] mt-1"
-                                        v-model="product[column.key]" 
-                                        @input="changeInput($event, index)"
+                                        v-model="campaign_product[column.key]" 
                                     />
                                 </template>
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end category">
-                            <div v-for="tag in product[column.key]" :key="tag">
+                            <div v-for="tag in campaign_product[column.key]" :key="tag">
                                 {{ tag }}
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'price'" class="price">
                             <template v-if="route.name === 'edit-campaign-product'" class="whitespace-nowrap">
-                                <div>{{ layoutStore.userInfo.user_subscription.currency }} {{ parseFloat(product[column.key]).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
+                                <div>{{ layoutStore.userInfo.user_subscription.currency }} {{ parseFloat(campaign_product[column.key]).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                             </template>
                             <template v-else>
                                 <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
@@ -89,26 +88,26 @@
                                     type="number" 
                                     min="1" 
                                     class="form-control w-[100%] sm:w-20"
-                                    v-model="product[column.key]"                             
+                                    v-model="campaign_product[column.key]"                             
                                 />
                                 </div>
                             </template>
                         </td>
 
                         <td v-else-if="column.key === 'name'" class="text-[12px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage">
-                            <div class="w-full">{{ product[column.key] }}</div>
+                            <div class="w-full">{{ campaign_product[column.key] }}</div>
                         </td>
 
-                        <td v-else-if="column.key === 'selected'" class="text-[12px] lg:w-18 lg:text-sm 2xl:w-28 selected">
+                        <!-- <td v-else-if="column.key === 'selected'" class="text-[12px] lg:w-18 lg:text-sm 2xl:w-28 selected">
                             <div class="sm: form-check sm:place-content-center">
                                 <input 
                                     id="selectCheckbox"
                                     class="form-check-input w-[1.2rem] h-[1.2rem]"
                                     type="checkbox" 
-                                    v-model="product[column.key]" 
+                                    v-model="campaign_product[column.key]" 
                                 />
                             </div>
-                        </td>
+                        </td> -->
 
                         <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center editable">
                             <div class=" form-check place-content-end sm:place-content-center">
@@ -117,23 +116,23 @@
                                         class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                         type="checkbox" 
                                         disabled
-                                        v-model="product[column.key]" 
+                                        v-model="campaign_product[column.key]" 
                                     />
                                 </template>
                                 <template v-else>
                                     <input 
-                                        v-if="product.type === 'lucky_draw'" 
+                                        v-if="campaign_product.type === 'lucky_draw'" 
                                         class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                         type="checkbox" 
                                         disabled
-                                        v-model="product[column.key]" 
+                                        v-model="campaign_product[column.key]" 
                                     />
                                     <input 
                                         v-else 
                                         class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                         type="checkbox"
-                                        v-model="product[column.key]" 
-                                        @click="product.customer_removable = false"
+                                        v-model="campaign_product[column.key]" 
+                                        @click="campaign_product.customer_removable = false"
                                     />
                                 </template>
                             </div>
@@ -146,22 +145,22 @@
                                         class="form-check-input w-[1.2rem] h-[1.2rem]"
                                         type="checkbox" 
                                         disabled 
-                                        v-model="product[column.key]" 
+                                        v-model="campaign_product[column.key]" 
                                     />
                                 </template>
                                 <template v-else>
                                     <input 
-                                        v-if="product.customer_editable == false"
+                                        v-if="campaign_product.customer_editable == false"
                                         class="form-check-input w-[1.2rem] h-[1.2rem]"
                                         type="checkbox" 
                                         disabled 
-                                        v-model="product[column.key]" 
+                                        v-model="campaign_product[column.key]" 
                                     />
                                     <input 
                                         v-else 
                                         class="form-check-input w-[1.2rem] h-[1.2rem]" 
                                         type="checkbox"
-                                        v-model="product[column.key]" 
+                                        v-model="campaign_product[column.key]" 
                                     />
                                 </template>
                             </div>
@@ -169,10 +168,10 @@
 
                         <td v-else-if="column.key === 'type'" class="w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end type">
                             <template v-if="route.name === 'edit-campaign-product'">
-                                {{ product[column.key] }}        
+                                {{ campaign_product[column.key] }}        
                             </template>        
                             <template v-else>
-                                <select class="form-select w-auto" v-model="product[column.key]">
+                                <select class="form-select w-auto" v-model="campaign_product[column.key]">
                                     <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
                                         {{type.name}}
                                     </option>
@@ -180,35 +179,31 @@
                             </template>              
                         </td>
 
-                        <td v-else-if="column.key === 'edit'" class="edit">
-                            <!-- <button 
-                                class="w-24 bg-white btn dark:border-darkmode-400" 
-                                v-show="true"
-                                @click="eventBus.emit('editCampaignProduct', { editCampaignProduct: true, product: product })"
-                            >
-                                Edit
-                            </button> -->
-                            <Dropdown placement="bottom-start" v-show="true">
-                                <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
-                                    <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
-                                </DropdownToggle>
-                                <DropdownMenu class="w-40 pt-2">
-                                    <DropdownContent class="w-40 text-center">
-                                        <DropdownItem 
-                                            class="w-full text-center whitespace-nowrap" 
-                                            @click="eventBus.emit('editCampaignProduct', { editCampaignProduct: true, product: product })"
-                                        > 
-                                            <EditIcon class="h-[20px] w-[20px] mr-1" /> Edit 
-                                        </DropdownItem>
-                                        <DropdownItem 
-                                            class="w-full whitespace-nowrap"
-                                            @click="deleteProduct(index)"
-                                        > 
-                                            <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />Delete 
-                                        </DropdownItem>
-                                    </DropdownContent>
-                                </DropdownMenu>
-                            </Dropdown> 
+                        <td v-else-if="column.key === 'edit'" class="edit ">
+                            <div class="place-content-end sm:place-content-center">
+                                 <Dropdown placement="bottom-start" v-show="true">
+                                    <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
+                                        <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
+                                    </DropdownToggle>
+                                    <DropdownMenu class="w-40 pt-2">
+                                        <DropdownContent class="w-40 text-center">
+                                            <DropdownItem 
+                                                class="w-full text-center whitespace-nowrap" 
+                                                @click="showEditCampaignProductModal(campaign_product, index)"
+                                            > 
+                                                <EditIcon class="h-[20px] w-[20px] mr-1" /> Edit 
+                                            </DropdownItem>
+                                            <DropdownItem 
+                                                class="w-full whitespace-nowrap"
+                                                @click="deleteProduct(campaign_product, index)"
+                                            > 
+                                                <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />Delete 
+                                            </DropdownItem>
+                                        </DropdownContent>
+                                    </DropdownMenu>
+                                </Dropdown> 
+                            </div>
+                           
                         </td>
                         </template>
                     </tr>
@@ -220,124 +215,84 @@
         </div>
 
         <!-- BEGIN: Modal Content -->
-        <EditCampaignProductModal />
+            <EditCampaignProductModal />
         <!-- END: Modal Content -->
     </div>
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed } from 'vue';
-import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
-import { list_product } from '@/api_v2/product';
-import { seller_retrieve_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
+import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed, defineProps } from 'vue';
+import { seller_list_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
 import EditCampaignProductModal from './EditCampaignProductModal.vue';
 
-const campaignStore = useCreateCampaignStore();
-const detailStore = useCampaignDetailStore()
+const props = defineProps({
+    eventBusName:String
+})
+
+const layoutStore = useLSSSellerLayoutStore()
+const campaignDetailStore = useCampaignDetailStore()
+
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const storageUrl = import.meta.env.VITE_APP_IMG_URL
 
 const route = useRoute()
-const layoutStore = useLSSSellerLayoutStore()
+
 const dataCount = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)
-const productsList = ref([])
-const category = ref(undefined)
+
+
 const tableColumns = ref([
-    { name: "Selected", key: "selected" },
     { name: "Image", key: "image" },
     { name: "Product Name", key: "name" },
     { name: "Type", key: "type" },
     { name: "Order Code", key: "order_code" },
-    { name: "Qty for Campaign", key: "qty" },
+    { name: "Qty for Sale", key: "qty_for_sale" },
     { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
+    { name: "", key: "edit" },
 ])
 const typeSelection = ref([
     { name: 'Product', value: 'product' },
     { name: 'Lucky Draw', value: 'lucky_draw' }
 ])
 
+const payloadBuffer = ref({})
 
 onMounted(() => {
-    campaignStore.assignedProducts = []
+
     search()
-
-    if (route.name === 'edit-campaign-product') tableColumns.value = tableColumns.value.filter(obj => obj.name != 'Selected')
-
-    eventBus.on("assignTable", (payload) => {
+    eventBus.on(props.eventBusName, (payload) => {
+        payloadBuffer.value=payload
         currentPage.value = 1
-        category.value = payload.filterColumn
-        search()
-    })
-    eventBus.on("addProducts", () => {
-        addProdcuts()
-    })
-    eventBus.on("search", () => {
         search()
     })
 })
 
 onUnmounted(() => {
-    eventBus.off("assignTable");
-    eventBus.off("addProducts");
-    eventBus.off("search");
+    eventBus.off(props.eventBusName);
 })
 
-watch(computed(()=>detailStore.campaignProducts), () => { search() })
+
 
 const search = () => {
-    if (route.name === 'assign-product') {
-        list_product(pageSize.value, currentPage.value, undefined, undefined, 'enabled', undefined,  category.value)
-            .then(response => {
-                dataCount.value = response.data.count
-                productsList.value = response.data.results
-                productsList.value.forEach((item) => {
-                    item.selected = false
-                    item.max_order_amount = item.qty
-                    if (item.type === 'product') {
-                        item.customer_editable = true
-                        item.customer_removable = true
-                    }
-                    if (item.customer_editable === false) item.customer_removable = false
-                })
-
-                // 換頁時選取記憶在store中 selected, editable, deletable 欄位
-                if (campaignStore.assignedProducts.length > 0) {
-                    campaignStore.assignedProducts.forEach((storeItem) => {
-                        productsList.value.forEach((productItem, pIndex) => {
-                            if (storeItem.id == productItem.id) { productsList.value[pIndex] = storeItem }
-                        })
-                    })
-                }
-            }).catch(error => {
-                console.log(error);
-            })
-    } else if (route.name === 'edit-campaign-product') {
-        seller_retrieve_campaign_product(route.params.campaign_id, category.value, currentPage.value, pageSize.value)
+        seller_list_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value)
         .then(response => {
             dataCount.value = response.data.count
-            productsList.value = response.data.results
-            productsList.value.forEach((item) => { item.qty = item.qty_for_sale })
-            let editExists = false
-            tableColumns.value.forEach((item) => { if (item.name === 'Edit') editExists = true })
-            if (editExists == false) tableColumns.value.push({ name: "Edit", key: "edit" })
+            campaignDetailStore.campaignProducts = response.data.results
         }).catch(error => {
             console.log(error);
         })
-    }
 }
 
 const changePage = (page) => {
     currentPage.value = page
-    addProdcuts()
     search()
 }
 
@@ -346,38 +301,17 @@ const changePageSize = (page_size) => {
     search()
 }
 
-const changeInput = (event, index) => {
-    if (parseInt(event.target.value) > productsList.value[index].qty) {
-        alert('Input number is over product max qty')
-        productsList.value[index].max_order_amount = productsList.value[index].qty
-    } 
+
+const showEditCampaignProductModal = (campaign_product, index)=>{
+    
+    eventBus.emit('editCampaignProduct',{'campaignProduct':JSON.parse(JSON.stringify(campaign_product)),'index':index})
+    campaignDetailStore.showEditCampaignProductModal = true
 }
 
-// 把選取且無重複的product加入store
-const addProdcuts = () => {
-    let assignProductIdList = []
-    if (campaignStore.assignedProducts.length > 0) campaignStore.assignedProducts.forEach((item) => { assignProductIdList.push(item.id) })
-    productsList.value.forEach((item) => {
-        if (item.selected == true && !assignProductIdList.includes(item.id)) campaignStore.assignedProducts.push(item)
-        else if (item.selected == false && assignProductIdList.includes(item.id)) campaignStore.assignedProducts.splice(campaignStore.assignedProducts.indexOf(item), 1)
-    })
-}
-
-const updateProduct = (index) => {
-    productsList.value[index]['qty_for_sale'] = parseInt(productsList.value[index]['qty'])
-    productsList.value[index]['max_order_amount'] = parseInt(productsList.value[index]['max_order_amount'])
-
-    seller_update_campaign_product(route.params.campaign_id, productsList.value[index].id, productsList.value[index])
+const deleteProduct = (campaign_product, index) => {
+    seller_delete_campaign_product(campaign_product.id)
     .then(response => {
-        console.log(response.data)
-        search()
-    })
-}
-
-const deleteProduct = (index) => {
-    seller_delete_campaign_product(route.params.campaign_id, productsList.value[index].id)
-    .then(response => {
-        search()
+        camapignDetailStore.campaignProducts.splice(index,1)
     })
 }
 
@@ -582,12 +516,13 @@ thead th {
 
     
     .edit:before{
-        display:none; 
+        content: "More";
     }
-    .edit{
+    /* .edit{
         display:block;
-        padding-left: 0px !important;
-        padding-right: 0px;
-    }
+        text-align:left !important;
+       top:25% !important;
+        margin-top: 0 !important;
+    } */
 }
 </style>

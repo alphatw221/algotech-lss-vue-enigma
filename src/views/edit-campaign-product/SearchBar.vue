@@ -1,55 +1,41 @@
 <template>
-    <div class="p-5 sm:p-5 box intro-y">
-        <div class="flex-col flex sm:flex-row content-end justify-start gap-3">
-            <label class="mr-2 w-14 my-auto">
-                Category
-            </label>
-            <select class="form-select sm:mr-4 h-[42px] flex-1 sm:flex-none sm:w-40"
-                v-model="filterColumn" @change="search">
-                <option value=''> All </option>
-                <option v-for="category in categorySelection" :key="category">{{ category }}</option>
-            </select>
-            <button 
-                class="w-32 ml-auto shadow-md btn btn-primary" 
-                v-show="route.name === 'edit-campaign-product'"
-                @click="store.showAddProductFromStockModal = true"
-            >
-                Add Product
-            </button>
-        </div>
-
-        <AddProductFromStockModal />
-        
-    </div>
+    <label class="mr-2 w-14 my-auto">
+        Category
+    </label>
+    <select class="form-select sm:mr-4 h-[42px] flex-1 sm:flex-none sm:w-40 my-auto"
+        v-model="selectedCategory" @change="search()">
+        <option value=''> All </option>
+        <option v-for="category, index in categories" :key="index">{{ category }}</option>
+    </select>
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue';
+import { ref, onMounted, getCurrentInstance, defineProps } from 'vue';
 import { list_product_category } from '@/api_v2/product';
 import { useRoute, useRouter } from "vue-router";
-import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 
+const props = defineProps({
+    eventBusName:String
+})
 
 const route = useRoute();
 const router = useRouter();
+
 const store = useCampaignDetailStore()
-const page = ref(1)
-const pageSize = ref(10)
-const searchColumn = ref('name')
-const filterColumn = ref(undefined)
-const categorySelection = ref([])
+
+const selectedCategory = ref('')
+const categories = ref([])
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 onMounted(() => {
    list_product_category().then(response => {
-        categorySelection.value = response.data
+        categories.value = response.data
     }) 
 })
 
 const search = () => {
-    eventBus.emit("addProducts")
-    eventBus.emit("assignTable", { filterColumn: filterColumn.value })
+    eventBus.emit(props.eventBusName,{'category':selectedCategory.value})
 }
 
 
