@@ -27,7 +27,7 @@
         <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
         <div class="font-medium">$ {{ shippingCost }}</div>
       </div>
-      <div v-if="shippingCost === 0 && store.shipping_info.shipping_method !== 'pickup'" class="text-red-600 text-sm">Order is eligible for free delivery</div>
+      <div v-if="shippingCost === 0 && store.shipping_info.shipping_method !== 'pickup'" class="text-red-600 text-sm">{{$t('shopping_cart.order_summary.free_delivery')}}</div>
       <div
         class="
           flex

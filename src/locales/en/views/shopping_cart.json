@@ -62,6 +62,7 @@
         "price_adjustment":"Price Adjustment",
         "shipping":"Shipping",
         "total_charge":"Total Charge",
+        "free_delivery":"Order is eligible for free delivery",
         "add_item":"Add more items",
         "next":"Next"
     },
