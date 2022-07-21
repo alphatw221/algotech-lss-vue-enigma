@@ -1,0 +1,35 @@
+{
+    "menu":{
+        "create":"Create",
+        "new_campaign":"New Campaign",
+        "stock":"Stock",
+        "campaign_list":"Campaign List",
+        "auto_reply":"Auto Reply",
+        "settings":"Settings",
+        "campaign_default_setting":"Campaign Default Setting",
+        "localization":"Localization",
+        "connect_platform":"Connect Platform"
+
+    },
+    "bread_crumb":{
+        "stock":"Stock",
+        "campaign-list":"Campaign List",
+        "campaign-live":"Campaign Live",
+        "manage-order":"Manage Order",
+        "order-detail":"Order Detail",
+        "settings":"Settings",
+        "localization":"Localization",
+        "campaign-global":"Campaign Global Settings",
+        "platform":"Connected Platform",
+        "edit-campaign":"Edit Campaign",
+        "create-campaign":"Create Campaign",
+        "assign-product":"Assign Product",
+        "edit-campaign-product":"Edit Campaign Product",
+        "lucky-draw":"Lucky Draw",
+        "autoreply":"Auto Reply2",
+        "category-management":"Category Management",
+        "add-product":"Create Product",
+        "product-detail":"Product Detail",
+        "edit-product":"Edit Product"
+    }
+}

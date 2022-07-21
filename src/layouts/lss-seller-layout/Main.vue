@@ -17,7 +17,7 @@
     </Notification>
 
 <!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
-      <Notification refKey="sellerCampaignAlert">
+      <Notification refKey="sellerCampaignAlert" class="notifyCamp-test">
       <div  class="flex pl-5">
         <div class="border-[1px] border-primary w-8 h-8 rounded-full relative top-5">
           <font-awesome-icon icon="fa-regular fa-bell" class="h-6 absolute top-0.5 left-1"/>
@@ -52,7 +52,7 @@
 <!-- END: Notification Content  -->
 <!-- BEGIN: Notification Toggle -->
       <LSSSellerMenu /> 
-<!-- <button class="text-lg w-30 h-14" @click="toast">Here</button> -->
+<button class="text-lg w-30 h-14" @click="toast">Here</button>
 <ChevronUpIcon class="h-10 w-10 fixed bottom-2 right-[5%] z-50" @click="toTop()"/>
   
   </div>
@@ -174,8 +174,12 @@ provide("bind[floatingVideoToast]", (el) => {
 
 <style scoped>
 
-.notifyCamp {
+/* .notifyCamp {
   border-left: 10px solid theme("colors.primary");
+} */
+
+.notifyCamp-test {
+  border-left: 10px solid theme("colors.primary") !important;
 }
 /* .toastify */
 </style>
