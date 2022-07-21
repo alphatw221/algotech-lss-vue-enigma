@@ -17,25 +17,23 @@
     </Notification>
 
 <!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
-      <Notification refKey="sellerCampaignAlert" class="notifyCamp-test">
-      <div  class="flex pl-5">
-        <div class="border-[1px] border-primary w-8 h-8 rounded-full relative top-5">
-          <font-awesome-icon icon="fa-regular fa-bell" class="h-6 absolute top-0.5 left-1"/>
+      <Notification refKey="sellerCampaignAlert" borderColor="notifyCamp">
+        <div  class="flex notifyCamp">
+          <div class="relative px-3 top-5 w-12">
+            <font-awesome-icon icon="fa-regular fa-bell" class="w-6 h-6 border-[2px] p-0.5 border-slate-500 rounded-full absolute"/>
+          </div>
+          <div class="ml-1 mr-1">
+              <div class="font-medium">Upcoming Campaign!!</div>
+              <div id="message" class="mt-1 text-slate-500">
+                  Message1
+              </div>
+              <div class="flex justify-between mt-2 font-medium">
+                  <button id="leftBTN" class="mr-3 text-primary dark:text-slate-400" data-dismiss="function">Message2 and Function</button>
+                  <a id="rightBTN" class="text-primary dark:text-slate-400 underline " data-dismiss="notification">Message3</a>
+              </div>
+          </div>
         </div>
-        <div class="ml-4 mr-4">
-            <div class="font-medium">Upcoming Campaign!!</div>
-            <div id="message" class="mt-1 text-slate-500">
-                Message1
-            </div>
-            <div class="flex justify-between mt-2 font-medium">
-                <button id="leftBTN" class="mr-3 text-primary dark:text-slate-400" data-dismiss="function">Message2 and Function</button>
-                <a id="rightBTN" class="text-primary dark:text-slate-400 underline " data-dismiss="notification">Message3</a>
-            </div>
-        </div>
-      </div>
-    </Notification>
-    
-
+      </Notification>
     <!-- <Notification refKey="floatingVideoToast" class="flex flex-col">
         <div class="ml-4 mr-4">
             <div class="font-medium">Video Streaming...</div>
@@ -52,8 +50,8 @@
 <!-- END: Notification Content  -->
 <!-- BEGIN: Notification Toggle -->
       <LSSSellerMenu /> 
-<button class="text-lg w-30 h-14" @click="toast">Here</button>
-<ChevronUpIcon class="h-10 w-10 fixed bottom-2 right-[5%] z-50" @click="toTop()"/>
+<!-- <button class="text-lg w-30 h-14" @click="toast">Here</button> -->
+<ChevronUpIcon class="h-10 w-10 fixed bottom-2 right-[5%] z-50 md:hidden" @click="toTop()"/>
   
   </div>
 </template>
@@ -77,7 +75,11 @@ const accessToken = cookies.get('access_token')
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
 const checkCampaignTime = (message) =>{
-  store.campaignAlert.buttonToast(`You have a upcoming Campaign: ${message.title} starts in ${message.remind_time}`,"Join now!!","Remind me Later",forPath)
+  if(message.remind_time === '15 mins'){ 
+    store.campaignAlert.buttonToast(`You have a upcoming Campaign: ${message.title} starts in ${message.remind_time}`,"Join now!!","Dismiss",forPath)
+  }else{ 
+    store.campaignAlert.buttonToast(`You have a upcoming Campaign: ${message.title} starts in ${message.remind_time}`,"Join now!!","Remind me Later",forPath)
+    }
 }
 
 const forPath = () =>{
@@ -97,7 +99,6 @@ const initWebSocketConnection =()=> {
       if (data.type === "notification_message") {
         checkCampaignTime(data.data.message)
       }
-      
   };
   websocket.onopen = e => {
       console.log('connected')
@@ -173,14 +174,12 @@ provide("bind[floatingVideoToast]", (el) => {
 
 
 <style scoped>
-
-/* .notifyCamp {
+/* .toastify-content:has(.notifyCamp){
+  border-left: 10px solid theme("colors.primary");
+} This Method is not working on Chrome yet */
+/* .toastify-content{
   border-left: 10px solid theme("colors.primary");
 } */
-
-.notifyCamp-test {
-  border-left: 10px solid theme("colors.primary") !important;
-}
 /* .toastify */
 </style>
 
