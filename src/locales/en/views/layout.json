@@ -31,7 +31,8 @@
         "category-management":"Category Management",
         "add-product":"Create Product",
         "product-detail":"Product Detail",
-        "edit-product":"Edit Product"
+        "edit-product":"Edit Product",
+        "profile":"Profile"
     },
     "top_bar":{
         "profile":"Profile",

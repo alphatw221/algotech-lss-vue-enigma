@@ -13,6 +13,7 @@ import lucky_draw from './views/lucky_draw.json'
 import auto_reply from './views/auto_reply.json'
 import assign_product from './views/assign_product.json'
 import layout from './views/layout.json'
+import edit_campaign_product from './views/edit_campaign_product.json'
 export default {
     global,
 
@@ -29,5 +30,6 @@ export default {
     stock,
     auto_reply,
     assign_product,
-    layout
+    layout,
+    edit_campaign_product
 }

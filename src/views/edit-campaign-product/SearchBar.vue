@@ -1,10 +1,10 @@
 <template>
     <label class="mr-2 w-14 my-auto">
-        Category
+        {{$t('edit_campaign_product.search_bar.category')}}
     </label>
     <select class="form-select sm:mr-4 h-[42px] flex-1 sm:flex-none sm:w-40 my-auto"
         v-model="selectedCategory" @change="search()">
-        <option value=''> All </option>
+        <option value=''> {{$t('edit_campaign_product.search_bar.all')}} </option>
         <option v-for="category, index in categories" :key="index">{{ category }}</option>
     </select>
 </template>
