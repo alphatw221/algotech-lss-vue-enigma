@@ -98,10 +98,10 @@
 						<div style="color:#FF4500"> {{$t('shopping_cart.table.missing_message')}}</div>
 					</td>
 					<td class="text-center h-20 ">
-						<div class="price whitespace-nowrap"> $ {{ product.price }} </div>
+						<div class="price whitespace-nowrap"> {{store.order.campaign.currency}} {{ product.price }} </div>
 					</td>
 					<td class="text-center h-20">
-						<div class="price whitespace-nowrap"> $ {{ product.qty * product.price }} </div>
+						<div class="price whitespace-nowrap"> {{store.order.campaign.currency}} {{ product.qty * product.price }} </div>
 					</td>
 					<td class="table-report__action w-30 h-20">
 					<div class="flex justify-center items-center" v-show="store.cartProducts[index].customer_removable && product.type === 'product'">
