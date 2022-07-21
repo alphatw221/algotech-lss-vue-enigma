@@ -1,41 +1,53 @@
 {
-    "edit_title": "Edit Products",
-    "assign_title": "Assign Products",
-    "confirm_title": "Confirm Products",
-    "previous": "Previous",
-    "next": "Next",
-    "edit": "Edit",
-    "assign": "Assign",
-    "save": "Save",
-
-    "search_bar": {
-        "category": "Category",
-        "add_product": "Add Product"
+    "assign_product": "Assign Products",
+    "confirm_select_product":"Confirm Assign Products",
+    "search_bar":{
+        "category":"Category",
+        "all":"All",
+        "search_by":"Search By",
+        "search_options":{
+            "name":"Name",
+            "order_code":"Order Code",
+            "description":"Description"
+        },
+        "search_bar_place_holder":"Search...",
+        "reset":"Reset"
     },
 
-    "table_column": {
-        "selected": "Selected",
-        "image": "Image",
-        "name": "Product Name",
-        "type": "Type",
-        "order_code": "Order Code",
-        "qty": "Qty for Campaign",
-        "max_order_amount": "Max Qty / Order",
-        "tag": "Category",
-        "price": "Price",
-        "customer_editable": "Editable",
-        "customer_removable": "Deletable",
-        "status": "Status",
-        "edit": "Edit"
-    },
+    "product_table":{
+        "image":"Image",
+        "name":"Name",
+        "type":"Type",
+        "order_code":"Order Code",
+        "qty":"Qty",
+        "max_order_amount":"Max Order Qty",
+        "category":"Category",
+        "price":"Price",
+        "customer_editable":"Editable",
+        "customer_removable":"Removable",
+        "types":{
+            "product":"Product",
+            "product-fast":"Product",
+            "lucky_draw-fast":"Lucky Draw",
+            "lucky_draw":"Lucky Draw",
+            "null":"",
+            "undefined":""
+        },
 
-    "modal": {
-        "edit": "Edit",
-        "delete": "Delete",
-        "edit_title": "Edit Campaign Product",
-        "cancel": "Cancel",
-        "update": "Update"
-    }
-    
+
+        "errors":{
+            "type_required":"required",
+            "order_code_required":"required",
+            "order_code_duplicate":"duplicate",
+            "qty_invalid":"invalid",
+            "max_order_amount_grater_than_qty":"geater than Qty"
+        }
+    },
+    "add":"Add",
+    "add_more":"Add More",
+    "reset":"Reset",
+    "confirm":"Confirm"
+
+
+   
 }
-

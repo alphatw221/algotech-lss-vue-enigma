@@ -94,7 +94,6 @@
 
                         <td v-else-if="column.key === 'type'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end type">
                             <div class=" form-check place-content-end sm:place-content-center">
-
                                     {{$t(`edit_campaign_product.campaign_product_table.types.${campaign_product[column.key] }`)}}    
                             </div>                
                         </td>

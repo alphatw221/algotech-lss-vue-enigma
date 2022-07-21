@@ -1,7 +1,7 @@
 <template>
 	<!-- BEGIN Container -->
-	<div class="pt-4 px-2">
-		<h1 class="my-2 text-xl sm:text-2xl mx-auto sm:mx-0 font-medium leading-none"> Assign Product</h1>
+	<div class="py-4 px-2">
+		<h1 class="my-2 text-xl sm:text-2xl mx-auto sm:mx-0 font-medium leading-none">{{$t('assign_product.assign_product')}}</h1>
 	
 	
 		<!-- BEGIN SearchPage -->
@@ -9,37 +9,39 @@
 			<!-- BEGIN SearchBar -->
 			<div class="flex flex-wrap justify-around gap-3 w-[100%] text-[13px] sm:text-[16px]">
 				<div class="flex-1 flex flex-wrap items-center" >
-					<label class="w-14 mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
-						Category
+					<label class="w-18 mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
+						{{$t('assign_product.search_bar.category')}}
 					</label>
 					<select 
 						class="form-select min-w-fit h-[35px] sm:h-[42px] lg:max-w-xl"
 						v-model="selectedCategory"
 						@change="search()"
 					>
-						<option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.name }}</option>
+						<option :value="''">{{$t(`assign_product.search_bar.all`)}}</option>
+						<option v-for="category,index in productCategories" :key="index" :value="category.value">{{ category }}</option>
 					</select>
 				</div>
 				<div class="flex-1 flex-wrap items-center flex" >
 					<label class="mr-2 whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
-						Search by
+						{{$t('assign_product.search_bar.search_by')}}
 					</label>
 					<select
 						class="form-select min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
 						<option v-for="searchColumn in searchColumns" :key="searchColumn.value"
 							:value="searchColumn.value">
-							{{ searchColumn.text }}
+							{{$t(`assign_product.search_bar.search_options.${searchColumn.value}`)}}
 						</option>
 					</select>
 				</div>
 				<div class="flex-0 items-center input-group ml-auto">
 					<input type="text"
-						class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" placeholder="Search..."
+						class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
 						v-model="searchKeyword" @keydown.enter.prevent="search()" />
 					<button 
 						type="button"
-						class="flex-none w-14 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary mt-auto" @click="resetSearchBar">
-						Reset
+						class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary mt-auto" @click="resetSearchBar()">
+						{{$t('assign_product.search_bar.reset')}}
+						
 					</button>
 				</div>
 			</div>   
@@ -57,7 +59,8 @@
 								<th 
 									class="whitespace-normal truncate hover:text-clip" 
 									v-for="column in tableColumns" :key="column.key">
-									{{ column.name }}
+
+									{{$t(`assign_product.product_table.${column.key}`)}}
 								</th>
 							</tr>
 						</thead>
@@ -116,14 +119,14 @@
 									</td>
 
 									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
-										<span>{{product[column.key]}}</span>
+										<span>{{$t(`assign_product.product_table.types.${product[column.key]}`)}}</span>
 									</td>
 									<td v-else-if="column.key === 'type'" class="type">
 										<select
 											class="form-select w-auto mt-0 "
 											v-model="product[column.key]"
 										>
-											<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
+											<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`assign_product.product_table.types.${type.value}`)}}</option>
 										</select> 
 									</td> 
 
@@ -166,7 +169,7 @@
 					
 				</div> 
 				<div class=" flex items-center justify-between">
-					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">Add</button>
+					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">{{$t('assign_product.add')}}</button>
 				</div> 
 			</div>
 			<!-- END ProductTable -->
@@ -176,7 +179,7 @@
 	<!-- BEGIN ConfirmPage -->
 		<div v-show="openTab=='confirm'">
 			<div class="text-left text-[16px]"> 
-				Comfirm Selected Product
+				{{$t('assign_product.confirm_select_product')}}
 			</div>
 			<div class="relative"> 
 				<div class="overflow-x-none overflow-y-auto sm:overflow-auto h-[72vh] text-[14px] mt-5">
@@ -187,7 +190,7 @@
 								<th 
 									class="whitespace-normal truncate hover:text-clip" 
 									v-for="column in tableColumns" :key="column.key">
-									{{ column.name }}
+									{{$t(`assign_product.product_table.${column.key}`)}}
 								</th>
 							</tr>
 						</thead>
@@ -214,6 +217,7 @@
 									<td v-else-if="column.key === 'order_code' " class="orderCode">
 										<div class="relative place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
 											<input class="form-control w-[100%] mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+											<div class="text-danger absolute -bottom-5  whitespace-nowrap " v-if="errorMessages[product_index] && errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 										<div v-else class="text-center">-</div>
 									</td>
@@ -227,20 +231,20 @@
 
 											
 											<input class="form-control w-full mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
-											<div class="text-danger absolute -bottom-5  whitespace-nowrap " v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</div>
+											<div class="text-danger absolute -bottom-5  whitespace-nowrap " v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td>
 
 									<td v-else-if="column.key === 'max_order_amount'" class="maxqty">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
 											<input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
-											<div class="text-danger absolute -bottom-5  sm:right-auto sm:left-0 whitespace-nowrap z-10 " v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</div>
+											<div class="text-danger absolute -bottom-5  sm:right-auto sm:left-0 whitespace-nowrap z-10 " v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 										<div v-else class="text-center">-</div>
 									</td>
 
 									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
-										<span>{{product[column.key]}}</span>
+										<span>{{$t(`assign_product.product_table.types.${product[column.key]}`)}}</span>
 									</td>
 
 									<td v-else-if="column.key === 'type'" class="type">
@@ -249,9 +253,9 @@
 												class="form-select w-full mt-0 "
 												v-model="product[column.key]"
 											>
-												<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{type.name}}</option>
+												<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`assign_product.product_table.types.${type.value}`)}}</option>
 											</select> 
-											<div class="text-danger absolute -bottom-5  whitespace-nowrap" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</div>
+											<div class="text-danger absolute -bottom-5  whitespace-nowrap" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td> 
 									
@@ -275,7 +279,7 @@
 
 									<td v-else-if="column.key === 'name'" class="name">
 										<div class="relative text-[16px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage"> {{product[column.key]}} </div>
-										<div class="text-danger text-danger absolute -bottom-5" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</div>
+										<div class="text-danger text-danger absolute -bottom-5" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 									</td>
 									<!-- <td v-else class="noTd"> </td> -->
 								</template>
@@ -284,9 +288,9 @@
 					</table> 
 				</div>
 				<div class=" flex items-center justify-between">
-					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="openTab='select'">Add More</button>
-					<button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">Reset</button>
-					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">Confirm</button>
+					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="openTab='select'">{{$t(`assign_product.add_more`)}}</button>
+					<button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">{{$t(`assign_product.reset`)}}</button>
+					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">{{$t(`assign_product.confirm`)}}</button>
 				</div> 
 			</div>
 		</div>
@@ -322,27 +326,6 @@ const tableColumns = ref([
 	
 ])
 
-// const productColumns = ref([
-//     { name: "Product", key: "image" },
-//     { name: "", key: "name" },
-//     { name: "Order Code", key: "order_code" },
-// 	{ name: "QTY for Campaign", key: "qty" },
-// 	{ name: "Max QTY/Order", key: "max_order_amount" },
-//     { name: "Price", key: "price" },
-// 	{ name: "Editable", key: "customer_editable" },
-// 	{ name: "Deletable", key: "customer_removable" },
-// 	{ name: "Category", key: "category" },
-// 	{ name: "Type", key: "type" },
-// ])
-
-// const luckyColumns = ref([
-//     { name: "Product", key: "image" },
-//     { name: "", key: "name" },
-// 	{ name: "QTY for Campaign", key: "qty" },
-//     { name: "Price", key: "price" },
-// 	{ name: "Category", key: "category" },
-// 	{ name: "Type", key: "type" },
-// ])
 
 const layoutStore = useLSSSellerLayoutStore();
 const campaignDetailStore = useCampaignDetailStore()
@@ -374,6 +357,7 @@ const stockProducts = ref([])
 const selectedProducts = ref([])
 const errorMessages = ref([])
 const selectedProductDict = ref({})
+const orderCodeDict = ref({})
 
 let isSelectedProductsValid=false
 let campaignProductCache = null
@@ -381,9 +365,7 @@ let campaignProductCache = null
 onMounted(() => {
 	list_product_category().then(
 		res => { 
-			res.data.forEach(category => {
-				productCategories.value.push({value:category, name:category})
-			});
+			productCategories.value = res.data
 		}
 	)
 	search()
@@ -402,56 +384,26 @@ const updateStockProducts = ()=>{
     });
 }
 
-const getProductCache = ()=>{
-    if(campaignProductCache==null)createProductCache()
-    return JSON.parse(JSON.stringify(campaignProductCache))
-}
-
-const createProductCache = ()=>{
-
-    const stockProductIdDict={}
-    const orderCodeDict={}
-
-    campaignDetailStore.campaignProducts.forEach(campaignProduct => {
-        stockProductIdDict[campaignProduct.id.toString()]=true
-        orderCodeDict[campaignProduct.order_code]=true
-	});
-
-    campaignProductCache = {
-        'stockProductIdDict':stockProductIdDict, 
-        'orderCodeDict':orderCodeDict
-    }
-}
 
 const checkIfValid = ()=>{
     isSelectedProductsValid = true
-    const productCache = getProductCache()
+	const orderCodeDict = {}
     selectedProducts.value.forEach((selectedProduct,index) => {
         errorMessages.value[index]={}
-        if(selectedProduct.type=='product' && selectedProduct.order_code in productCache.orderCodeDict) {
-                if(typeof productCache.orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[productCache.orderCodeDict[selectedProduct.order_code]]['order_code']='duplicate'
-                errorMessages.value[index]['order_code']='duplicate';
+        if(selectedProduct.type=='product' && selectedProduct.order_code in orderCodeDict) {
+                if(typeof orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[orderCodeDict[selectedProduct.order_code]]['order_code']='order_code_duplicate'
+                errorMessages.value[index]['order_code']='order_code_duplicate';
                 isSelectedProductsValid=false;
             }
-        if(selectedProduct.type=='product' && !selectedProduct.order_code) {errorMessages.value[index]['order_code']='required';isSelectedProductsValid=false;}
-        // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
-        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid qty';isSelectedProductsValid=false;}
-        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='greater than total qty';isSelectedProductsValid=false;}
-        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='required';isSelectedProductsValid=false;}
-        productCache.orderCodeDict[selectedProduct.order_code]=index
+        if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code) ) {errorMessages.value[index]['order_code']='order_code_required';isSelectedProductsValid=false;}
+        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='qty_invalid';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
+        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
+        orderCodeDict[selectedProduct.order_code]=index
     });
 
 }
 
-// watch(computed(()=>props.productType), () => {
-//     if(props.productType == 'lucky_draw'){
-//         tableColumns.value = luckyColumns.value
-//     }else{
-//         tableColumns.value = productColumns.value
-//     }
-// })
-
-watch(computed(()=>campaignDetailStore.campaignProducts),createProductCache)
 
 watch(computed(()=>stockProducts.value),updateStockProducts)
 
@@ -465,7 +417,9 @@ const selectedProductEditable = (product_index, event)=>{if(!event.target.checke
 
 const updateSelectedProductDict = ()=>{
     selectedProductDict.value = {}
-    selectedProducts.value.forEach((selectedProduct,index)=>{selectedProductDict.value[selectedProduct.id.toString()]=index})
+    selectedProducts.value.forEach((selectedProduct,index)=>{
+		selectedProductDict.value[selectedProduct.id.toString()]=index
+		})
     }
 
 const selectStockProduct = (stockProduct, event) =>{
@@ -550,8 +504,7 @@ const submitData = ()=>{
     }
 	errorMessages.value = []
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
-		campaignDetailStore.campaignProducts = res.data
-        hideModal()
+		
 	}).catch(err=>{
         console.log(err.response.data)
 		if (err.response){
@@ -561,19 +514,6 @@ const submitData = ()=>{
 	})
 }
 
-const hideModal = ()=>{
-    selectedCategory.value=''
-    selectedProducts.value=[]
-    errorMessages.value=[]
-    stockProducts.value=[]
-    selectedProductDict.value = {}
-    openTab.value = 'select'
-    currentPage.value = 1
-    totalPage.value = 1
-    pageSize.value=10
-    dataCount.value =0
-    campaignDetailStore.showAddProductFromStockModal = false
-}
 
 </script>
 
