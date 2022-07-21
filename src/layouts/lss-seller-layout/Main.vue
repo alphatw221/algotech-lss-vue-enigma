@@ -17,8 +17,8 @@
     </Notification>
 
 <!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
-    <Notification refKey="sellerCampaignAlert">
-      <div  class="flex pl-5 border-l-4 border-primary">
+      <Notification refKey="sellerCampaignAlert">
+      <div  class="flex pl-5">
         <div class="border-[1px] border-primary w-8 h-8 rounded-full relative top-5">
           <font-awesome-icon icon="fa-regular fa-bell" class="h-6 absolute top-0.5 left-1"/>
         </div>
@@ -29,11 +29,12 @@
             </div>
             <div class="flex justify-between mt-2 font-medium">
                 <button id="leftBTN" class="mr-3 text-primary dark:text-slate-400" data-dismiss="function">Message2 and Function</button>
-                <a id="rightBTN" class="text-primary dark:text-slate-400" data-dismiss="notification">Message3</a>
+                <a id="rightBTN" class="text-primary dark:text-slate-400 underline " data-dismiss="notification">Message3</a>
             </div>
         </div>
       </div>
     </Notification>
+    
 
     <!-- <Notification refKey="floatingVideoToast" class="flex flex-col">
         <div class="ml-4 mr-4">
@@ -84,7 +85,7 @@ const forPath = () =>{
 }
 const toast = () =>{
   // store.floatingVideo.videoToast("Faceebook video streaming!!")
-  store.campaignAlert.buttonToast("I have an upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
+  store.campaignAlert.buttonToast("I have a upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
 }
 
 const initWebSocketConnection =()=> {
@@ -172,10 +173,10 @@ provide("bind[floatingVideoToast]", (el) => {
 
 
 <style scoped>
-.Notification{
-  border-left: solid 5px black !important;
-}
 
+.notifyCamp {
+  border-left: 10px solid theme("colors.primary");
+}
 /* .toastify */
 </style>
 
