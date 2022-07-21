@@ -44,7 +44,15 @@
         "number_winner_warning": "must be between 1 to prize stock",
         "keyword_warning": "minimum 3 digits",
         "product": "Product",
-        "keyword": "Keyword"
+        "keyword": "Keyword",
+        "by_like": "by like this post",
+        "by_product": "by purchased any product",
+        "by_purchased": "by purchased certain product",
+        "by_keyword": "by keyword",
+        "no_product_err":"Haven't Assigned Product Into This Campaign",
+        "assign_product_err":"Assign Product into your Campaign",
+        "assign_prize_err":"Assign Prize into your Campaign",
+        "secs":"secs"
     },
     
 

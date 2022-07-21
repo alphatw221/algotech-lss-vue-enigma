@@ -1,5 +1,5 @@
 <template>
-    <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5 overflow-auto p-5 h-screen sm:h-[95%]">
+    <div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5 overflow-auto p-5 h-fit">
         <!-- TODO category選單初始畫面 請van拉圖 -->
         <!-- <div>
             

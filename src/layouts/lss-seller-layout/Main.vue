@@ -28,8 +28,8 @@
                   Message1
               </div>
               <div class="flex justify-between mt-2 font-medium">
-                  <button id="leftBTN" class="mr-3 text-primary dark:text-slate-400" data-dismiss="function">Message2 and Function</button>
-                  <a id="rightBTN" class="text-primary dark:text-slate-400 underline " data-dismiss="notification">Message3</a>
+                  <button id="leftBTN" class="mr-3 text-primary text-red-500 dark:text-slate-400 font-medium" data-dismiss="function">Message2 and Function</button>
+                  <a id="rightBTN" class="text-primary dark:text-slate-400 text-blue-500" data-dismiss="notification">Message3</a>
               </div>
           </div>
         </div>
@@ -51,8 +51,7 @@
 <!-- BEGIN: Notification Toggle -->
       <LSSSellerMenu /> 
 <!-- <button class="text-lg w-30 h-14" @click="toast">Here</button> -->
-<ChevronUpIcon class="h-10 w-10 fixed bottom-2 right-[5%] z-50 md:hidden" @click="toTop()"/>
-  
+<ChevronUpIcon class="h-10 w-10 fixed text-white bottom-2 bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50 md:hidden" @click="toTop()"/>
   </div>
 </template>
 

@@ -29,7 +29,7 @@
                     >
                         <template v-if="!prizeList.length">
                             <option class="w-40" disabled> 
-                                Assign Prize into your Campaign
+                                {{ $t('lucky_draw.draw_create.assign_prize_err') }}
                             </option>
                         </template>
                         <template v-else> 
@@ -51,7 +51,7 @@
                         v-model="currentSettings.spin_time"
                     >
                         <option v-for="(spinTime, key) in spinTimes" :key="key" :value="spinTime.value">
-                            {{ spinTime.name }}
+                            {{ spinTime.value }} {{ $t('lucky_draw.draw_create.secs') }}
                         </option>
                     </select>
                 </div>
@@ -122,20 +122,21 @@
                         v-if="currentSettings.path == ''" />
                     <img :src="storageUrl + currentSettings.path" class="max-h-28 mx-auto object-cover" 
                         v-else-if="currentSettings.path != ''" />
-                    <button class="btn btn-primary bg-[#070130] w-full sm:w-fit shadow-md mt-3 sm:mt-auto" @change="uploadAnimation()">
-                        + {{ $t('lucky_draw.draw_create.upload_animation') }}
-                    </button>
+                    <div class="btn btn-primary bg-[#070130] w-full sm:w-fit shadow-md mt-3 sm:mt-auto">
+                        <input type="file" id="upload" @change="uploadAnimation" hidden/>
+                        <label for="upload" id="create_animation">+ {{ $t('lucky_draw.draw_create.upload_animation') }}</label>
+                    </div>
                 </div>
             </div>
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex-col mt-6 mr-5">
                     <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }} </label>
                     <select class="w-full form-select sm:form-select-lg rounded-lg mr-5" v-model="currentSettings.type">
-                        <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ type.name }}</option>
+                        <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ $t(`lucky_draw.draw_create.`+type.value) }}</option>
                     </select>
                 </div>
                 <div 
-                    v-if="currentSettings.type === 'product'" 
+                    v-if="currentSettings.type === 'by_product'" 
                     class="lg:w-[50%] flex flex-col mt-6 mr-5"
                 >   
                     <div class="flex">
@@ -153,7 +154,7 @@
                     >   
                         <template v-if="productList.length == 0">
                             <option class="w-40 " disabled> 
-                                Assign Product into your Campaign
+                                {{ $t('lucky_draw.draw_create.assign_product_err') }}
                             </option>
                         </template>
                         <template v-else> 
@@ -164,7 +165,7 @@
                     </select>
                 </div>
                 <div 
-                    v-else-if="currentSettings.type === 'keyword'" 
+                    v-else-if="currentSettings.type === 'by_keyword'" 
                     class="lg:w-[50%]  flex-col mr-5 mt-3"
                 >
                     <label class="form-label mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
@@ -179,8 +180,8 @@
                     </template>
                 </div>
                 <div 
-                    v-else-if="currentSettings.type === 'purchase'" 
-                    class="lg:w-[50%] flex flex-col mt-3 mr-5"
+                    v-else-if="currentSettings.type === 'by_purchased'" 
+                    class="lg:w-[50%] flex mt-3 mr-5 justify-center"
                 >   
                     <!-- <button 
                         class="btn btn-primary ml-auto w-fit h-[35px] sm:h-[42px]"
@@ -188,7 +189,7 @@
                         @click="detailStore.showAddProductFromStockModal = true"
                     > Assign Product </button> -->
                     <template v-if="productList.length == 0"> 
-                        <label class="form-label text-danger mt-3 text-[14px]"> Havent Assigned Any Product Into This Campaign</label>
+                        <label class="form-label text-danger mt-auto text-[14px] md:text-[16px]"> {{ $t('lucky_draw.draw_create.no_product_err')}}</label>
                     </template>
                 </div>
                 <div
@@ -230,8 +231,8 @@ const layoutStore = useLSSSellerLayoutStore()
 const detailStore= useCampaignDetailStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const spinTimes = ref([ { value: 5, name: '5 secs' }, { value: 10, name: '10 secs' }, { value: 20, name: '20 secs' }, { value: 30, name: '30 secs' }, { value: 60, name: '60 secs' }]);
-const drawTypes = ref([ { value: 'like', name: 'by like this post' }, { value: 'purchase', name: 'by purchased any product' }, { value: 'product', name: 'by purchased certain product' }, { value: 'keyword', name: 'by keyword' },]);
-const prizeList = ref([])
+const drawTypes = ref([ { value: 'by_like', name: 'by like this post' }, { value: 'by_purchased', name: 'by purchased any product' }, { value: 'by_product', name: 'by purchased certain product' }, { value: 'by_keyword', name: 'by keyword' },]);
+const prizeList = ref([])  
 const productList = ref([])
 const animationList = ref([])
 const currentSettings = ref({
@@ -241,7 +242,7 @@ const currentSettings = ref({
     type: 'like',
     comment: 'keyword',
     campaign_product: '',
-    prize: 'Assign Lucky Draw Items into your Campaign',
+    prize: '',
     title: '',
     animation: '',
     path: ''

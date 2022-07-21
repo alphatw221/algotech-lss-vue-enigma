@@ -141,7 +141,7 @@
                                         </td>
 
                                         <td v-else-if=" column.key === 'customer_removable' && product.type=='product'" class="removable"
-                                        :data-content="$t('campaign_live.product.modal_column.deletable')">
+                                        :data-content="$t('campaign_live.product.modal_column.removable')">
                                             <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
                                         </td>
 

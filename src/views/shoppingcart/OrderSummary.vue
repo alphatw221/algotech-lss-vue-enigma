@@ -7,7 +7,7 @@
 	  
       <div class="flex">
         <div class="mr-auto">{{$t('shopping_cart.order_summary.subtotal')}}</div>
-        <div class="font-medium">$ {{ parseFloat(store.order.subtotal).toFixed(2) }}</div>
+        <div class="font-medium" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ parseFloat(store.order.subtotal).toFixed(2) }}</div>
       </div>
       <div class="flex mt-4">
 
@@ -18,16 +18,16 @@
         </div>
         <div class="mr-auto" v-else>{{$t('shopping_cart.order_summary.price_adjustment')}}</div>
 
-        <div class="font-medium text-danger">$  {{ parseFloat(store.order.adjust_price).toFixed(2) }}</div>
+        <div class="font-medium text-danger" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ parseFloat(store.order.adjust_price).toFixed(2) }}</div>
       </div>
       
       <div v-if="store.shipping_info.shipping_method !== 'pickup'"
         class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">
         <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
-        <div class="font-medium">$ {{ shippingCost }}</div>
+        <div class="font-medium" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ shippingCost }}</div>
       </div>
-      <div v-if="shippingCost === 0 && store.shipping_info.shipping_method !== 'pickup'" class="text-red-600 text-sm">Order is eligible for free delivery</div>
+      <div v-if="shippingCost === 0 && store.shipping_info.shipping_method !== 'pickup'" class="text-red-600 text-sm">{{$t('shopping_cart.order_summary.free_delivery')}}</div>
       <div
         class="
           flex

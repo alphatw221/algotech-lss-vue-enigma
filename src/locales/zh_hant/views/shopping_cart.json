@@ -62,6 +62,7 @@
         "price_adjustment":"價格調整",
         "shipping":"運費",
         "total_charge":"總金額",
+        "free_delivery":"運費已減免",
         "add_item":"加入更多商品",
         "next":"下一步"
     },
