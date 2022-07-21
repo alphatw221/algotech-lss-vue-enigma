@@ -1,7 +1,7 @@
 <template>
     <Modal size="modal-lg" :slideOver="true" :show="winnerListPreview" @hidden="winnerListPreview = false">
         <ModalHeader class="p-5">
-            <h2 class="font-medium text-center text-xl w-full">All Winners</h2>
+            <h2 class="font-medium text-center text-xl w-full">{{ $t('lucky_draw.winner_modal.all_winner') }}</h2>
 			<a @click="winnerListPreview = false" class="absolute right-0 top-0 mt-3 mr-3">
             	<XIcon class="w-8 h-8 text-slate-400" />
         	</a>
@@ -12,7 +12,7 @@
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap text-left" v-for="column in tableColumns" :key="column.key">
-                            {{ column.name }}
+                            {{ $t(`lucky_draw.winner_modal.${column.key}`) }}
                         </th>
                     </tr>
                 </thead>

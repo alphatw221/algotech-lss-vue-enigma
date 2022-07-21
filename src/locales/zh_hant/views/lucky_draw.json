@@ -1,5 +1,59 @@
 {
     "lucky_draw" : "抽獎工具",
+
+    "draw_list": {
+        "campaign_title": "直播名稱",
+        "all_winner": "得獎者列表",
+        "create": "建立抽獎",
+        "like": "按讚者",
+        "purchase": "購買者",
+        "product": "購買特定商品者",
+        "keyword": "輸入特定關鍵字者",
+        "winners" : "得獎人數量",
+        "winner_repeat": "重複得獎",
+        "yes": "是",
+        "no": "否",
+        "start": "開始",
+        "edit": "編輯",
+        "delete": "刪除"
+    },
+
+    "winner_modal": {
+        "all_winner": "得獎者名單",
+        "platform": "平台",
+        "customer_name": "中獎名單",
+        "draw_type": "抽獎方式",
+        "prize": "獎品"
+    },
+
+    "draw_create": {
+        "campaign_title": "直播名稱",
+        "prize" : "獎品",
+        "spin_time" : "動畫時間(秒)",
+        "number_of_winner" : "得獎人數",
+        "animation_style" : "動畫風格",
+        "winner_repeat" : "重複得獎",
+        "yes": "是",
+        "no": "否",
+        "upload_animation": "上傳抽獎動畫",
+        "draw_type" : "抽獎類型",
+        "cancel": "取消",
+        "save": "儲存",
+        "back": "上一頁",
+        "go_draw": "前往抽獎",
+        "number_winner_warning": "需填入介於1與獎品數量",
+        "keyword_warning": "至少3個字元",
+        "product": "商品",
+        "keyword": "關鍵字"
+    },
+
+
+
+
+
+
+
+
     "settings" : "抽獎設定",
     "prize" : "獎品",
     "number_of_winner" : "得獎人數",
