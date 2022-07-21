@@ -122,9 +122,10 @@
                         v-if="currentSettings.path == ''" />
                     <img :src="storageUrl + currentSettings.path" class="max-h-28 mx-auto object-cover" 
                         v-else-if="currentSettings.path != ''" />
-                    <button class="btn btn-primary bg-[#070130] w-full sm:w-fit shadow-md mt-3 sm:mt-auto" @change="uploadAnimation()">
-                        + {{ $t('lucky_draw.draw_create.upload_animation') }}
-                    </button>
+                    <div class="btn btn-primary bg-[#070130] w-full sm:w-fit shadow-md mt-3 sm:mt-auto">
+                        <input type="file" id="upload" @change="uploadAnimation" hidden/>
+                        <label for="upload" id="create_animation">+ {{ $t('lucky_draw.draw_create.upload_animation') }}</label>
+                    </div>
                 </div>
             </div>
             <div class="lg:flex">
@@ -180,7 +181,7 @@
                 </div>
                 <div 
                     v-else-if="currentSettings.type === 'purchase'" 
-                    class="lg:w-[50%] flex flex-col mt-3 mr-5"
+                    class="lg:w-[50%] flex mt-3 mr-5 justify-center"
                 >   
                     <!-- <button 
                         class="btn btn-primary ml-auto w-fit h-[35px] sm:h-[42px]"
@@ -188,7 +189,7 @@
                         @click="detailStore.showAddProductFromStockModal = true"
                     > Assign Product </button> -->
                     <template v-if="productList.length == 0"> 
-                        <label class="form-label text-danger mt-3 text-[14px]"> Havent Assigned Any Product Into This Campaign</label>
+                        <label class="form-label text-danger mt-auto text-[14px]"> Havent Assigned Product Into This Campaign</label>
                     </template>
                 </div>
                 <div

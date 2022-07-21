@@ -1,5 +1,5 @@
 <template>
-	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-8 sm:h-[100%]">
+	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-8 h-fit ">
 		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-10 sm:mt-0"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
