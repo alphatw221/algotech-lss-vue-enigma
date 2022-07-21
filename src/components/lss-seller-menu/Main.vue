@@ -136,6 +136,13 @@
           <button class="fixed mx-3 text-white rounded-lg btn btn-danger xl:m-5 bottom-5"
               @click="layoutStore.profileTab = 1; router.replace('/seller/profile')"
               ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/><span class="hidden text-lg xl:block 2xl:block">Upgrade </span>  </button>
+          <!-- <div id="pagetop" class="fixed right-0 bottom-0" v-show="scY > 300" @click="toTop()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="none"
+                stroke="#4a5568"
+                stroke-width="1" stroke-linecap="square" stroke-linejoin="arcs">
+              <path d="M18 15l-6-6-6 6"/>
+            </svg>
+          </div> -->
           </nav>
       
       <!-- END: Side Menu -->
@@ -157,9 +164,9 @@
             <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
           </ol>
         </nav> -->
-
         <router-view />
       </div>
+      
       <!-- END: Content -->
     </div>
 </template>
@@ -194,31 +201,50 @@ watch(
   () => {
     delete route.forceActiveMenu;
     formattedMenu.value = $h.toRaw(sideMenu.value);
-    sortPath(route.path)
+    //sortPath(route.path)
   },
 );
 
 onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
   formattedMenu.value = $h.toRaw(sideMenu.value);
-  sortPath(route.path)
+  window.addEventListener('scroll', handleScroll) // scroll
+  //sortPath(route.path)
 });
 
-const sortPath=(path)=>{
-  rawPath.value = path
-  rawPath.value = rawPath.value.replace(/[0-9]/g, '')
-  rawPath.value = rawPath.value.replace(/\s/g, '')
-  breadCrumb.value = rawPath.value.substr(8).replace(/-/g, " ")
-  breadCrumb.value = breadCrumb.value.split('/')
-  if(breadCrumb.value[breadCrumb.value.length-1] === ''){
-    breadCrumb.value.splice(-1,1)
-  }
-}
+// const sortPath=(path)=>{
+//   rawPath.value = path
+//   rawPath.value = rawPath.value.replace(/[0-9]/g, '')
+//   rawPath.value = rawPath.value.replace(/\s/g, '')
+//   breadCrumb.value = rawPath.value.substr(8).replace(/-/g, " ")
+//   breadCrumb.value = breadCrumb.value.split('/')
+//   if(breadCrumb.value[breadCrumb.value.length-1] === ''){
+//     breadCrumb.value.splice(-1,1)
+//   }
+// }
 
 const pathName=(value)=>{
   const crumb = ref(value)
   router.push({name: crumb.value.replace(" ", "-")})
 }
+
+const scTimer=  ref(0)
+const scY = ref(0)
+
+const handleScroll=()=>{
+  if (scTimer.value) return;
+  scTimer.value = setTimeout(() => {
+    scY.value = window.scrollY;
+    clearTimeout(scTimer);
+    scTimer.value = 0;
+  }, 100);
+}
+const toTop=()=>{
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    });
+  }
 
 </script>
 

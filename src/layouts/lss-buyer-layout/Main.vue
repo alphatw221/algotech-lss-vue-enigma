@@ -61,5 +61,7 @@ provide("bind[buyerMessageAlert]", (el) => {
 .lss-content{
   padding-right: 5%;
   padding-left: 5%;
+  padding-bottom: 70px;
+  height: 100% !important;
 }
 </style>

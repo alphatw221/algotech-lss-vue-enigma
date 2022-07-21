@@ -9,11 +9,11 @@
                 >   
                     <div v-if="payment.name === 'Direct Payment'" class="inline-flex items-center my-auto grow place-content-center">
                         <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="block h-6 mr-1"/>
-                        <span class="w-24 text-sm lg:text-lg lg:w-32 ">{{payment.name}}</span>
+                        <span class="w-24 text-sm lg:text-lg lg:w-32 ">{{ $t(`settings.payment_form.payment_titles.${payment.key}`) }}</span>
                     </div>
                     <div v-else class="inline-flex items-center my-auto grow place-content-center">
                         <font-awesome-icon icon="fa-regular fa-credit-card" class="block h-6 mr-1" />
-                        <span class="w-24 text-sm lg:text-lg lg:w-32 ">{{payment.name}}</span>
+                        <span class="w-24 text-sm lg:text-lg lg:w-32 ">{{ $t(`settings.payment_form.payment_titles.${payment.key}`) }}</span>
                     </div>
                 </Tab>
             </TabList>

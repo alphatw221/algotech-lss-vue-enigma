@@ -39,7 +39,7 @@
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                         <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="rounded-full bg-cover bg-[#f70000]" src='/src/assets/images/lss-img/instagram.png' >
+                                            <img class="rounded-full bg-cover bg-[#f70000]" src='/src/assets/images/lss-img/instagram.png' />
                                         </div>
                                     </div>
                                 </div>
@@ -233,6 +233,7 @@ function copyURL(order_id,type){
     }
 
 
+
 </script>
 
 <style scoped>
@@ -375,13 +376,16 @@ thead th{
 	td:nth-of-type(6):before{
 		content: attr(data-content);
 	}
+    td:nth-of-type(6){
+        min-height: 25px !important;
+    }
 
     td:nth-of-type(7):before {
 		content: attr(data-content); 
 	}
      td:nth-of-type(7){
 		place-content: right !important;
-        min-height: 28px !important;
+        min-height: 30px !important;
 	}
 
     td:nth-of-type(8):before {
@@ -389,6 +393,7 @@ thead th{
 	}
     td:nth-of-type(8){
         padding-bottom: 10px !important;
+        padding-top: 10px !important;
     }
 
     td:nth-of-type(9){
