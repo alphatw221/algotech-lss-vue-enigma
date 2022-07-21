@@ -269,31 +269,31 @@ const routes = [
       //   name: "side-menu-test6",
       //   component: Test6,
       // },
-      {
-        path: "dashboard-overview-1",
-        name: "side-menu-dashboard-overview-1",
-        component: DashboardOverview1,
-      },
-      {
-        path: "dashboard-overview-2",
-        name: "side-menu-dashboard-overview-2",
-        component: DashboardOverview2,
-      },
-      {
-        path: "dashboard-overview-3",
-        name: "side-menu-dashboard-overview-3",
-        component: DashboardOverview3,
-      },
-      {
-        path: "/",
-        name: "side-menu-dashboard-overview-4",
-        component: DashboardOverview4,
-      },
-      {
-        path: "inbox",
-        name: "side-menu-inbox",
-        component: Inbox,
-      },
+      // {
+      //   path: "dashboard-overview-1",
+      //   name: "side-menu-dashboard-overview-1",
+      //   component: DashboardOverview1,
+      // },
+      // {
+      //   path: "dashboard-overview-2",
+      //   name: "side-menu-dashboard-overview-2",
+      //   component: DashboardOverview2,
+      // },
+      // {
+      //   path: "dashboard-overview-3",
+      //   name: "side-menu-dashboard-overview-3",
+      //   component: DashboardOverview3,
+      // },
+      // {
+      //   path: "/",
+      //   name: "side-menu-dashboard-overview-4",
+      //   component: DashboardOverview4,
+      // },
+      // {
+      //   path: "inbox",
+      //   name: "side-menu-inbox",
+      //   component: Inbox,
+      // },
       {
         path: "stock",
         name: "stock",
@@ -305,7 +305,7 @@ const routes = [
         component: () => import('@/views/add-product/Main.vue'),
       },
       {
-        path: "stock/product-detail/:product_id?/edit",
+        path: "stock/product-detail/:product_id?/edit-product",
         name: "edit-product",
         component: () => import('@/views/add-product/Main.vue'),
       },

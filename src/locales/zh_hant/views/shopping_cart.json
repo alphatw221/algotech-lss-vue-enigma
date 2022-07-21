@@ -69,5 +69,25 @@
         "select_add_ons":"加購",
         "select_products":"加購商品",
         "add":"加入"
+    },
+    "payment":{
+        "shipping_summary":"寄送資訊",
+        "pickup":"到店取貨",
+        "delivery":"宅配",
+        "address":"宅配地址",
+        "pay_with":"付款方式",
+        "direct":{
+            "account":"帳號",
+            "account_number":"帳戶號碼",
+            "account_name":"帳戶名稱",
+            "note":"提醒",
+            "beneficiary":"Beneficiary Bank",
+            "upload_img":"拖動檔案或點擊上傳",
+            "accepted_types":"檔案格式",
+            "max_size":"檔案最大限制",
+            "last_five_digits":"後五碼",
+            "digits_message":"請輸入後五碼",
+            "complete_order":"完成訂單"
+        }
     }
 }

@@ -89,8 +89,21 @@
     },
     "localization":{
         "country":"Country",
+        "countries":{
+            "PH":"Philippines",
+            "SG":"Singapore",
+            "ID":"Indonesia",
+            "IN":"India",
+            "TW":"Taiwan"
+        },
         "currency_symbol":"Currency Symbol",
         "seller_language":"Seller Language",
+        "languages":{
+            "en":"English",
+            "zh_hant":"Chinese-tranditional",
+            "zh_hans":"Chinese-simplify",
+            "id":"indonesian"
+        },
         "buyer_language":"Buyer Language",
         "decimal_places":"Decimal Places",
         "discard":"Discard",
