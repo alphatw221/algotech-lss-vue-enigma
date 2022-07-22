@@ -14,7 +14,7 @@
             <!-- BEGIN SearchPage -->
             <div v-show="openTab=='select'">
                 <!-- BEGIN SearchBar -->
-                <div class="flex flex-wrap justify-around gap-3 w-[100%] text-[13px] sm:text-[16px]">
+                <div class="flex flex-wrap justify-around gap-3 text-[13px] sm:text-[16px]">
                     <div class="flex-1 flex flex-wrap items-center" >
                         <label class="w-14 mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
                             {{$t('campaign_live.product.modal_column.category')}}
@@ -55,14 +55,14 @@
 
                 <!-- BEGIN ProductTable -->
                 <div class="relative"> 
-                    <div class="overflow-x-none overflow-y-auto sm:overflow-auto h-[62vh] text-[14px] mt-5">
-                        <table class="table table-report h-[100%] w-[100%]">
+                    <div class="overflow-auto w-[100%] h-[62vh] text-[14px] mt-5">
+                        <table class="table table-report">
                             <thead>
                                 <tr>
                                     <th class="w-10">
                                         <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" @change="selectAllStockProduct($event)"/></th>
                                     <th 
-                                        class="whitespace-normal truncate hover:text-clip" 
+                                        class="whitespace-normal truncate hover:text-clip text-center" 
                                         v-for="column in tableColumns" :key="column.key">
                                         {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                     </th>
@@ -95,7 +95,7 @@
                                             :data-content="$t('campaign_live.product.modal_column.order_code')" 
                                             >
                                             <div class="place-content-end w-full md:w-24 lg:place-content-center">
-                                                <input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]"/>
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0" type="text" v-model="product[column.key]"/>
                                             </div>
                                         </td>
 
@@ -106,19 +106,23 @@
                                             <div v-for="(tag,tag_index) in product['tag']" :key="tag_index"
                                             class="flex flex-col justify-center content-center"
                                             >{{ tag }}</div> 
+                                        </td> 
+                                        <td v-else-if="column.key === 'qty' && column.name=='stock_qty' "
+                                            :data-content="$t('campaign_live.product.modal_column.qty')"
+                                            class="stockQtySelect w-full sm:w-fit">
+                                            <span class="w-24 text-right">{{product[column.key]}}</span>
                                         </td>
-
-                                        <td v-else-if="column.key === 'qty'"
+                                        <td v-else-if="column.key === 'assign_qty'"
                                             :data-content="$t('campaign_live.product.modal_column.qty_for_campaign')"
                                             class="qty">
                                             <div class="flex flex-col place-content-end w-full md:w-24">
-                                                <input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                                <input class="form-control w-full mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" :placeholder="product.qty" />
                                             </div>
                                         </td>
                                         <td v-else-if="column.key === 'max_order_amount' && product.type=='product'"
                                             class="maxqty" :data-content="$t('campaign_live.product.modal_column.max_qty')">
                                             <div class="flex flex-col place-content-end w-full md:w-24">
-                                                <input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]"/>
+                                                <input class="form-control w-full mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]"/>
                                             </div>
                                         </td>
 
@@ -128,7 +132,7 @@
                                         <td v-else-if="column.key === 'type'" class="type" 
                                         :data-content="$t('campaign_live.product.modal_column.type')">
                                             <select
-                                                class="form-select w-auto mt-0 "
+                                                class="form-select w-auto mt-2 sm:mt-0 h-[35px] sm:h-[42px] "
                                                 v-model="product[column.key]"
                                             >
                                                 <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`campaign_live.product.modal_column.`+type.name)}}</option>
@@ -150,19 +154,19 @@
                                             <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
                                             <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <span class="my-auto mr-1">$</span> 
-                                                <input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" />
                                             </div>
                                         </td>
 
                                         <td v-else-if="column.key === 'name'" class="name text-[16px] w-full h-fit lg:w-24 lg:text-sm content-center items-center longMessage">
                                             {{product[column.key]}}
                                         </td>
+                                        
                                         <td v-else class="noTd"> </td>
                                     </template>
                                 </tr>
                             </tbody>
                         </table> 
-                        
                         
                     </div>
                     <div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center justify-between">
@@ -188,7 +192,7 @@
                     {{$t('campaign_live.product.comfirm_selected')}}
                 </div>
                 <div class="relative"> 
-                    <div class="overflow-x-none overflow-y-auto sm:overflow-auto h-[72vh] text-[14px] mt-5">
+                    <div class="overflow-auto w-[100%] h-[72vh] text-[14px] mt-5">
                         <table class="table table-report">
                             <thead>
                                 <tr>
@@ -232,18 +236,24 @@
                                             <div v-for="(tag,tag_index) in product['tag']" :key="tag_index">{{ tag }}</div> 
                                         </td>
 
-                                        <td v-else-if="column.key === 'qty'" class="qty"
+                                        <td v-else-if="column.key === 'qty' && column.name=='stock_qty' "
+                                            :data-content="$t('campaign_live.product.modal_column.qty')"
+                                            class="stockQty w-full sm:w-fit">
+                                            <span class="w-24 text-right">{{product[column.key]}}</span>
+                                        </td>
+
+                                        <td v-else-if="column.key === 'assign_qty'" class="qty"
                                         :data-content="$t('campaign_live.product.modal_column.qty_for_campaign')">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
-                                                <input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
-                                                <label class="text-danger absolute -bottom-5 right-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" />
+                                                <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </td>
 
                                         <td v-else-if="column.key === 'max_order_amount' && product.type=='product'" class="maxqty"
                                         :data-content="$t('campaign_live.product.modal_column.max_qty')">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
-                                                <input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" />
                                                 <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </td>
@@ -252,13 +262,15 @@
                                         </td>
                                         <td v-else-if="column.key === 'type'" class="type"
                                         :data-content="$t('campaign_live.product.modal_column.type')">
-                                            <select
-                                                class="form-select w-auto mt-0 "
-                                                v-model="product[column.key]"
-                                            >
-                                                <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`campaign_live.product.modal_column.`+type.name)}}</option>
-                                            </select> 
-                                            <label class="text-danger absolute -bottom-5 right-0 whitespace-nowrap" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
+                                                <select
+                                                    class="form-control w-[100%] mt-2 sm:mt-0"
+                                                    v-model="product[column.key]"
+                                                >
+                                                    <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`campaign_live.product.modal_column.`+type.name)}}</option>
+                                                </select> 
+                                                <label class="text-danger absolute -bottom-4 right-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            </div>
                                         </td> 
                                         
                                         <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable"
@@ -267,7 +279,7 @@
                                         </td>
 
                                         <td v-else-if=" column.key === 'customer_removable'  && product.type=='product'" class="removable"
-                                        :data-content="$t('campaign_live.product.modal_column.removable')">
+                                        :data-content="$t('campaign_live.product.modal_column.deletable')">
                                             <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
                                         </td>
 
@@ -275,7 +287,7 @@
                                             <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
                                             <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <span class="my-auto mr-1 text-[16px]">$</span> 
-                                                <input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" />
                                             </div>
                                         </td>
 
@@ -319,7 +331,8 @@ const tableColumns = ref([
     { name: "null", key: "name" },
     { name: "type", key: "type" },
     { name: "order_code", key: "order_code" },
-	{ name: "qty_for_campaign", key: "qty" },
+    { name: "stock_qty", key: "qty"},
+	{ name: "qty_for_campaign", key: "assign_qty" },
 	{ name: "max_qty", key: "max_order_amount" },
     { name: "price", key: "price" },
 	{ name: "editable", key: "customer_editable" },
@@ -332,7 +345,8 @@ const productColumns = ref([
     { name: "name", key: "image" },
     { name: "null", key: "name" },
     { name: "order_code", key: "order_code" },
-	{ name: "qty_for_campaign", key: "qty" },
+    { name: "stock_qty", key: "qty"},
+	{ name: "qty_for_campaign", key: "assign_qty" },
 	{ name: "max_qty", key: "max_order_amount" },
     { name: "price", key: "price" },
 	{ name: "editable", key: "customer_editable" },
@@ -344,10 +358,11 @@ const productColumns = ref([
 const luckyColumns = ref([
     { name: "Product", key: "image" },
     { name: "", key: "name" },
-	{ name: "QTY for Campaign", key: "qty" },
-    { name: "Price", key: "price" },
-	{ name: "Category", key: "category" },
-	{ name: "Type", key: "type" },
+    { name: "stock_qty", key: "qty"},
+	{ name: "qty_for_campaign", key: "assign_qty" },
+    { name: "price", key: "price" },
+	{ name: "category", key: "category" },
+	{ name: "type", key: "type" },
 ])
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -527,6 +542,7 @@ const search = () => {
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
+        console.log(response.data.results)
 	})
 }
 
@@ -724,6 +740,26 @@ thead th{
         text-align:right
     }
 
+    .stockQtySelect:before {
+        content: attr(data-content);
+        min-height: 25px !important;
+    }
+    .stockQtySelect{
+        text-align:right;
+        min-height: 25px !important;
+        top:5px;
+        padding-right: 29px !important;
+    }
+    .stockQty:before {
+        content: attr(data-content);
+        min-height: 25px !important;
+    }
+    .stockQty{
+        text-align:right;
+        min-height: 35px !important;
+        top:15px;
+        padding-right: 29px !important;
+    }
     .qty:before {
         content: attr(data-content);
         top:25% !important;
@@ -747,12 +783,6 @@ thead th{
     .price input{
         text-align:right
     }
-    /* .price{
-        display: flex;
-        flex-direction:column; 
-        justify-content: center;
-        vertical-align:baseline !important;
-    } */
 
     .editable:before {
         content: attr(data-content);
@@ -760,6 +790,7 @@ thead th{
     }
     .editable{
         min-height: 35px !important;
+        padding-right: 20px !important;
     }
     .removable:before {
         content: attr(data-content);
@@ -768,10 +799,14 @@ thead th{
     }
     .removable{
         min-height: 35px !important;
+        padding-right: 20px !important;
     }
 
     .category:before {
         content: attr(data-content);
+    }
+    .category{
+        padding-right: 29px !important;
     }
     .luckyType:before{
         content: "Type";
@@ -797,6 +832,5 @@ thead th{
         display:none; 
         min-height: 0 !important;
     }
-    
 }
 </style>

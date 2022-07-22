@@ -24,6 +24,7 @@
             "price":"Price",
             "activate":"Activate",
             "qty":"Qty",
+            "stock_qty":"Stock Qty",
             "category":"Category",
             "type":"Type",
             "Lucky Draw":"Lucky Draw",
