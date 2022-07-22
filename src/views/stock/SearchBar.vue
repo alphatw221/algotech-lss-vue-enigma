@@ -1,20 +1,22 @@
 <template>
-    <form class="flex justify-start gap-2 sm:gap-5 flex-warp sm:flex-row">
+    <form>
         <div class="flex flex-wrap justify-start w-full gap-2 sm:flex-row">
-            <div class="flex shirnk items-center w-fit" v-if="showCategoryFilter">
-                <label class="mr-2 shrink whitespace-nowrap">
-                    {{ $t('stock.search_bar.category') }}
-                </label>
-                <select 
-                    class="w-auto h-[35px] sm:h-[42px] rounded-lg form-select-sm sm:form-select"
-                    v-model="selectedCategory"
-                    @change="search"
-                >
-                    <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
-                </select>
+            <div class="flex w-full sm:w-fit justify-between sm:justify-start" v-if="showCategoryFilter">
+                <div class="flex"> 
+                    <label class="mr-2 my-auto whitespace-nowrap">
+                        {{ $t('stock.search_bar.category') }}
+                    </label>
+                    <select 
+                        class="w-auto h-[35px] sm:h-[42px] rounded-lg form-select-sm sm:form-select"
+                        v-model="selectedCategory"
+                        @change="search"
+                    >
+                        <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
+                    </select>
+                </div>
                 <button id="tabulator-html-filter-go" 
                     type="button" 
-                    class="btn btn-primary shadow-md w-24 h-auto lg:h-[42px] self-end flex-none items-end flex ml-3" 
+                    class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-3" 
                     @click="this.$router.push({name:'category-management'})">
                     {{ $t('stock.search_bar.category_manage') }}
                 </button>
@@ -31,24 +33,16 @@
                     </option>
                 </select>
             </div> -->
-            <div class="flex items-center shirnk w-fit">
-                <div class="input-group">
-                    <input type="text"
-                        class="w-36 form-control input-group shrink sm:40" :placeholder="$t('stock.search_bar.search_holder')"
-                        v-model="keyword" @keydown.enter.prevent="search" />
-                    <button 
-                        type="button"
-                        class="flex-none btn btn-primary w-16 h-[35px] sm:h-[42px] rounded-l-none" @click="reset">
-                        {{ $t('stock.search_bar.search') }}
-                    </button>
-                    <button 
-                        type="button"
-                        class="flex-none btn btn-secondary w-16 h-[35px] sm:h-[42px] rounded-l-none" @click="reset">
-                        {{ $t('stock.search_bar.reset') }}
-                    </button>
+            <div class="flex"> 
+                <div class="relative"> 
+                    <input type="text" class=" mr-2 form-control w-40 lg:w-60 rounded-lg"
+                    :placeholder="$t('stock.search_bar.search_holder')" v-model="keyword" @keydown.enter.prevent="search" />
+                    <SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="search()"/>
                 </div>
+                <XIcon 
+                    v-if="keyword"
+                    class="flex-none w-7 h-7 mt-2 text-slate-600" @click="reset"/>
             </div>
-            
         </div>
     </form>        
 </template>

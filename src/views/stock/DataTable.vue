@@ -21,10 +21,17 @@
 						:colspan="columns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="listItems==0" :colspan="columns.length +2">
-						<div class="mt-5 text-center md:mt-10">
+					<td v-else-if="listItems==0 && keyword == ''" :colspan="columns.length +2">
+						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
 								You Don't Have Product in this Category
+							</h1>
+						</div>
+					</td> 
+					<td v-else-if="listItems==0" :colspan="columns.length +2">
+						<div class="mt-40 text-center md:mt-10">
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+								No result
 							</h1>
 						</div>
 					</td> 
