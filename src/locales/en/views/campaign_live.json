@@ -6,7 +6,7 @@
         "payment":"Payment",
         "other":"Other",
         "select_tag":"Selected tag",
-        "clear":"Clear",
+        "clear":"Reset",
         "comment_message_1":"You don't have any %{tag} related comment yet",
         "comment_message_2":"You don't have any %{platformName} comment yet"
     },
@@ -50,9 +50,9 @@
     },
     "incoming":{
         "incoming_order":"Incoming Order",
-        "plug_in":"Plug In",
+        "plug_in":"Games",
         "instantly":"Instantly Lucky Draw Spin",
-        "list":"Lucky Draw List",
+        "list":"Lucky Draw",
         "table":{
             "amount" : "Amount",
             "payment" : "Payment",

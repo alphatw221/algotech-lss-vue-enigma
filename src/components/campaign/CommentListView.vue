@@ -17,23 +17,25 @@
             <h2 v-if="tags !== ''" class="p-1 mb-2">{{$t('campaign_live.comment.select_tag')}}: {{ $t(`campaign_live.comment.`+tags) }}</h2>
             <button class="flex p-1 ml-auto w-18 text-slate-900"
                 @click="commentSummarizer('')">
-                <XIcon class="w-4 h-4" /> {{$t('campaign_live.comment.clear')}}
+                <RefreshCcwIcon class="w-4 h-4 mr-1" /> {{$t('campaign_live.comment.clear')}}
             </button> 
         </div>
     </div>
+    <div class="h-36" v-if="fetchingData || !fetchingData && comments.length==0"> 
+        <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
 
-    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
 
-    <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
-        {{ $t('campaign_live.comment.comment_message_1',{ tag : tags!==''?$t(`campaign_live.comment.`+tags):'' }) }}
+        <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-if="props.platformName=='commentSummarize' && !fetchingData && comments.length==0">
+            {{ $t('campaign_live.comment.comment_message_1',{ tag : tags!==''?$t(`campaign_live.comment.`+tags):'' }) }}
+        </div>
+        <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-else-if="props.platformName=='all' && !fetchingData && comments.length==0">
+            {{ $t('campaign_live.comment.comment_message_2',{ platformName : '' }) }}
+        </div>
+        <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-else-if="!fetchingData && comments.length==0">
+            {{ $t('campaign_live.comment.comment_message_2',{ platformName : platformName }) }}
+        </div>
     </div>
-    <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-else-if="props.platformName=='all' && !fetchingData && comments.length==0">
-        {{ $t('campaign_live.comment.comment_message_2',{ platformName : '' }) }}
-    </div>
-    <div class="mt-10 mx-auto flex text-slate-500 text-sm md:text-lg  w-fit" v-else-if="!fetchingData && comments.length==0">
-        {{ $t('campaign_live.comment.comment_message_2',{ platformName : platformName }) }}
-    </div>
-
+    
     <!-- <div class="overflow-y-auto h-fit" :id="props.platformName+'-comment-listview'" @scroll="handleScroll($event)"> -->
         <!-- temporary solution -->
     <div class="overflow-y-scroll h-fit scrollbar-hidden"  @scroll="handleScroll($event)">
@@ -187,7 +189,6 @@ const layoutStore = useLSSSellerLayoutStore();
 <style scoped>
     .body-middle {
         left: calc(50% - 30px);
-        top:60%;
         z-index: 999;
     }
     .hide {

@@ -14,21 +14,22 @@
                     </option>
                 </select>
             </div>
-            <div class="items-center w-auto input-group">
+            <div class="items-center w-auto">
                 <div class="input-group"> 
                     <input type="text"
                     class="h-[35px] sm:h-[42px] w-40 form-control input-group shrink" :placeholder="$t('campaign_list.search_bar.search')+'...'"
                     v-model="keyword" @keydown.enter.prevent="search" />
-                    <button
-                        class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary" @click="reset">
-                        {{$t('campaign_list.search_bar.reset')}}
-                    </button>
                 </div>
-                
-                <!-- <button id="tabulator-html-filter-reset" type="button"
+                <button id="tabulator-html-filter-reset" type="button"
                     class="flex-none w-16 h-10 ml-2 btn btn-primary sm:w-16" @click="search()">
                     Go
-                </button> -->
+                </button>
+                <button
+                    class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary" @click="reset">
+                    {{$t('campaign_list.search_bar.reset')}}
+                </button>
+                
+                
 
             </div>
         </div>

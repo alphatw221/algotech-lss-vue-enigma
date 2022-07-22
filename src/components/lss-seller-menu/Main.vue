@@ -6,8 +6,8 @@
                   'bg-slate-100': breadCrumb[breadCrumb.length-1] == 'create campaign',
                 }"
         @click="router.push({name:'create-campaign'})"> 
-        <button class="w-10 h-10 mr-3 btn btn-rounded-primary"
-          ><span class="text-2xl">+</span></button> 
+        <button class="w-10 h-10 mr-3 btn btn-rounded-warning"
+          ><span class="text-2xl text-white">+</span></button> 
         <span class="hidden font-medium xl:block"
           :class="{
             'font-bold': breadCrumb[breadCrumb.length-1] == 'create campaign',
