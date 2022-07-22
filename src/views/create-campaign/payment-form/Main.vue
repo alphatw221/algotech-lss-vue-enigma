@@ -9,7 +9,15 @@
 					<AccordionItem v-if="paymentStore[key] && key=='direct_payment'" class="items">
 						<Accordion class="rounded-t-lg bg-primary">
 							<span class="mx-3 text-white w-fit"> {{$t(`create_campaign.payment_form.payment_titles.${key}`)}}</span>  
-							<font-awesome-icon icon="fa-solid fa-angle-down" class="inline-block float-right h-6 mr-3 text-white" />
+							<div class="float-right">
+								<input 
+									class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
+									type="checkbox" 
+									v-model=" props.campaign.meta_payment.direct_payment.enabled"
+								/>
+								<label class="ml-3 form-label text-base font-medium text-white mr-2">{{$t('create_campaign.payment_form.enabled')}}</label>
+								<font-awesome-icon icon="fa-solid fa-angle-down" class="inline-block float-right h-6 mr-3 text-white" />
+							</div>
 						</Accordion>
 						<AccordionPanel class="leading-relaxed border-2 text-slate-600 dark:text-slate-500 border-secondary">
 							<DirectPayment :campaign="props.campaign" :payment="paymentStore[key]" :directPaymentImages="props.directPaymentImages"/>
@@ -18,8 +26,16 @@
 
 					<AccordionItem v-else-if="paymentStore[key] && key!='direct_payment'" class="items">
 						<Accordion class="rounded-t-lg bg-primary">
-							<span class="mx-3 text-white w-fit"> {{$t(`create_campaign.payment_form.payment_titles.${key}`)}}</span>  
-							<font-awesome-icon icon="fa-solid fa-angle-down" class="inline-block float-right h-6 mr-3 text-white" />
+							<span class="mx-3 text-white w-fit"> {{$t(`create_campaign.payment_form.payment_titles.${key}`)}}</span> 
+							<div class="float-right">
+								<input 
+									class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
+									type="checkbox" 
+									v-model="props.campaign.meta_payment[paymentStore[key].key].enabled"
+								/>
+								<label class="ml-3 form-label text-base font-medium text-white mr-2">{{$t(`create_campaign.payment_form.enabled`)}}</label>	
+								<font-awesome-icon icon="fa-solid fa-angle-down" class="inline-block float-right h-6 mr-3 text-white" />
+							</div> 
 						</Accordion>
 						<AccordionPanel class="leading-relaxed border-2 text-slate-600 dark:text-slate-500 border-secondary">
 

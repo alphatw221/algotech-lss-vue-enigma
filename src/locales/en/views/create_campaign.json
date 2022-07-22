@@ -67,7 +67,7 @@
     },
 
     "notes_form":{
-        "notes_form":"Customer Note Settings",
+        "notes_form":"Custom Note Settings",
         "delivery_note":"Delivery Note",
         "special_note":"Special Note",
         "confirmation_note":"Confirmation Note"
