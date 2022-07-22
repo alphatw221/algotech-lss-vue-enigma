@@ -105,6 +105,9 @@
             "id":"indonesian"
         },
         "buyer_language":"Buyer Language",
+        "choose_language":"Choose Language",
+        "choose_decimal_places":"Select your Decimal Places",
+        "choose_currency_symbol":"Choose Currency Symbol",
         "decimal_places":"Decimal Places",
         "discard":"Discard",
         "save":"Save"

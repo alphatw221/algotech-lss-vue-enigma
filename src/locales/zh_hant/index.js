@@ -4,7 +4,7 @@ import settings from './views/settings.json'
 import shopping_cart from './views/shopping_cart.json'
 import manage_order from './views/manage_order.json'
 import order_detail from './views/order_detail.json'
-
+import order_history from './views/order_history.json'
 import campaign_list from './views/campaign_list.json'
 import campaign_live from './views/campaign_live.json'
 import create_campaign from './views/create_campaign.json'
@@ -13,6 +13,7 @@ import lucky_draw from './views/lucky_draw.json'
 import auto_reply from './views/auto_reply.json'
 import assign_product from './views/assign_product.json'
 import layout from './views/layout.json'
+import edit_campaign_product from './views/edit_campaign_product.json'
 export default {
     global,
 
@@ -24,10 +25,12 @@ export default {
 
     manage_order,
     order_detail,
+    order_history,
     settings,
     shopping_cart,
     stock,
     auto_reply,
     assign_product,
-    layout
+    layout,
+    edit_campaign_product
 }

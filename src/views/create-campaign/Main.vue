@@ -155,7 +155,7 @@ const createCampaign = ()=>{
 
 	create_campaign(formData).then(response => {
 		// console.log(response.data)
-		router.push({name:'assign-campaign-product', params:{'campaign_id': response.data.id}})
+		router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
 	})
 
 }

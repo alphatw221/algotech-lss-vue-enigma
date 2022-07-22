@@ -29,6 +29,7 @@
         "price_adjustment" : "調整金額",
         "price_adjustment_note" : "想要使用折扣，請輸入「- 金額」。想要收取額外費用，請直接輸入「金額」。",
         "title" : "折扣名稱/額外費用名稱",
+        "price_exceed":"Price exceed subtotal",
         "update" : "更新"
     },
     "delivery":{

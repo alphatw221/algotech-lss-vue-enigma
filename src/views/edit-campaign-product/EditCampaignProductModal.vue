@@ -2,13 +2,13 @@
     <Modal :show="campaignDetailStore.showEditCampaignProductModal" @hidden="hideModal()">
         <ModalHeader>
             <h2 class="font-medium text-base m-auto ">
-                Edit Campaign Product
+                {{$t('edit_campaign_product.edit_product_modal.edit_campaign_product')}}
             </h2>
         </ModalHeader>
         <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
             <template v-for="(column, index) in tableColumns" :key="index">
                 <div class="col-span-12">
-                    <label for="modal-form-1" class="form-label">{{ column.name }}</label>
+                    <label for="modal-form-1" class="form-label">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                     
                     <template v-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
                         <input 
@@ -20,7 +20,7 @@
                     <template v-else-if="column.key === 'type'">
                         <select class="form-select" v-model="campaignProduct[column.key]">
                             <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
-                                {{ type.name }}
+                                {{$t(`edit_campaign_product.edit_product_modal.types.${type.value}`)}}
                             </option>
                         </select> 
                     </template> 
@@ -35,13 +35,13 @@
                 class="btn btn-outline-secondary w-20 mr-1"
                 type="button" 
                 @click="hideModal()" > 
-                Cancel 
+                {{$t(`edit_campaign_product.edit_product_modal.cancel`)}}
             </button>
             <button 
                 class="btn btn-primary w-20"
                 type="button" 
                 @click="updateProduct()">
-                 Update 
+                {{$t(`edit_campaign_product.edit_product_modal.update`)}}
             </button>
         </ModalFooter>
     </Modal>

@@ -1,0 +1,12 @@
+{
+    "order_history":"歷史訂單",
+    "table":{
+        "order_no":"訂單編號",
+        "date":"日期",
+        "payment_method":"付款方式",
+        "amount":"金額",
+        "status":"訂單狀態",
+        "action":"",
+        "view":"詳細"
+    }
+}

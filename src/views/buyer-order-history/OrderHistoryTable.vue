@@ -4,7 +4,7 @@
 			<thead>
 				<tr >
 					<th class="whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
-						{{ column.name }}
+						{{ $t(`order_history.table.`+column.name) }}
 					</th>
 				</tr>
 			</thead>
@@ -18,13 +18,14 @@
 						class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm"
 						v-for="column in tableColumns" 
 						:key="column.key"
+            :data-content="$t(`order_history.table.`+column.name)"
 					>
 
             <template v-if="column.key === 'action'">
                 <!-- <EyeIcon @click="routeToDetail(order.id)" class="hover:cursor-pointer "/> -->
                 <a @click="routeToDetail(order.id)">
-                  <u class="md:hidden">View Details</u>
-                  <u class="hidden md:inline">View</u>
+                  <u class="md:hidden">{{$t('order_history.table.view')}}</u>
+                  <u class="hidden md:inline">{{$t('order_history.table.view')}}</u>
                 </a>
             </template>
 
@@ -69,12 +70,12 @@ const pageSize = ref(10)
 const dataCount = ref(0)
 const orders = ref([])
 const tableColumns = ref([
-                { name: "Order NO.", key: 'id', type:'int'},
-                { name: "Date", key: "created_at", type:'dateTime' },
-                { name: "Payment Method", key: "payment_method", type:'string'},
-                { name: "Amount", key: "total", type:'float'},
-                { name: "Status", key: "status", type:'string'},
-                { name: "Action", key: "action", type:'link' },
+                { name: "order_no", key: 'id', type:'int'},
+                { name: "date", key: "created_at", type:'dateTime' },
+                { name: "payment_method", key: "payment_method", type:'string'},
+                { name: "amount", key: "total", type:'float'},
+                { name: "status", key: "status", type:'string'},
+                { name: "action", key: "action", type:'link' },
             ])
 
 const routeToDetail =(order_id)=>{
@@ -159,28 +160,28 @@ onMounted(()=>{
   }
 
   td:nth-of-type(1):before {
-    content: "Order NO.";
+    content: attr(data-content);
     /* color: #0e9893; */
   }
   td:nth-of-type(2):before {
-    content: "Date";
+    content: attr(data-content);
     height: 100px;
     /* color: #0e9893; */
   }
   td:nth-of-type(3):before {
-    content: "Payment Method";
+    content: attr(data-content);
     /* color: #0e9893; */
   }
   td:nth-of-type(4):before {
-    content: "Amount";
+    content: attr(data-content);
     /* color: #0e9893; */
   }
   td:nth-of-type(5):before {
-    content: "Status";
+    content: attr(data-content);
     /* color: #0e9893; */
   }
   td:nth-of-type(6):before {
-    content: "Details";
+    content: attr(data-content);
     /* color: #0e9893; */
   }
 }

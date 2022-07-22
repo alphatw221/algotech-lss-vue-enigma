@@ -9,7 +9,7 @@
         </div>
         <div class="flex my-1">
             <TomSelect v-model="data.currency" :options="{
-                        placeholder: 'Choose Currency Symbol',
+                        placeholder: $t('settings.localization.choose_currency_symbol'),
                         }" class="w-5/6">
                 <option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
             </TomSelect>
@@ -19,7 +19,7 @@
         </div> 
         <div class="flex my-1">
             <TomSelect v-model="data.lang" :options="{
-                        placeholder: 'Choose Language',
+                        placeholder: $t('settings.localization.choose_language'),
                         }" class="w-5/6">
                 <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
             </TomSelect>
@@ -29,7 +29,7 @@
         </div>
         <div class="flex my-1">
             <TomSelect v-model="data.buyer_lang" :options="{
-                        placeholder: 'Choose Language',
+                        placeholder: $t('settings.localization.choose_language'),
                         }" class="w-5/6">
                 <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
             </TomSelect>
@@ -38,7 +38,7 @@
             <div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
         </div>
         <div class="flex my-1">
-            <TomSelect v-model="data.decimal_places" :options="{placeholder: 'Select your Decimal Places'}" class="w-5/6">
+            <TomSelect v-model="data.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-5/6">
                 <option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
             </TomSelect>
         </div>

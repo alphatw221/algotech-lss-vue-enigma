@@ -1,39 +1,53 @@
 {
-    "edit_title": "編輯直播商品",
-    "assign_title": "設置直播商品",
-    "confirm_title": "確認直播商品",
-    "previous": "上一步",
-    "next": "下一步",
-    "edit": "修改商品",
-    "assign": "指定商品",
-    "save": "儲存",
-
-    "search_bar": {
-        "category": "類別",
-        "add_product": "增加直播商品"
+    "assign_product": "新增直播商品",
+    "confirm_select_product":"確認新增商品",
+    "search_bar":{
+        "category":"商品類別",
+        "all":"全部類別",
+        "search_by":"搜尋欄位",
+        "search_options":{
+            "name":"名稱",
+            "order_code":"關鍵字",
+            "description":"備註"
+        },
+        "search_bar_place_holder":"搜尋...",
+        "reset":"重設"
     },
 
-    "table_column": {
-        "selected": "勾選",
-        "image": "圖片",
-        "name": "商品名稱",
-        "type": "種類",
-        "order_code": "商品代碼",
-        "qty": "直播商品數量",
-        "max_order_amount": "最高下單數量",
-        "tag": "類別",
-        "price": "價格",
-        "customer_editable": "可否編輯",
-        "customer_removable": "可否刪除",
-        "status": "狀態",
-        "edit": "修改商品"
-    },
+    "product_table":{
+        "image":"圖片",
+        "name":"名稱",
+        "type":"商品型態",
+        "order_code":"關鍵字",
+        "qty":"數量",
+        "max_order_amount":"購買上限",
+        "category":"類別",
+        "price":"價錢",
+        "customer_editable":"允許編輯",
+        "customer_removable":"允許刪除",
+        "types":{
+            "product":"商品",
+            "product-fast":"商品",
+            "lucky_draw-fast":"獎品",
+            "lucky_draw":"獎品",
+            "null":"",
+            "undefined":""
+        },
 
-    "modal": {
-        "edit": "編輯",
-        "delete": "刪除",
-        "edit_title": "編輯直播商品",
-        "cancel": "取消",
-        "update": "更新"
-    }
+
+        "errors":{
+            "type_required":"型態必填",
+            "order_code_required":"關鍵字必填",
+            "order_code_duplicate":"關鍵字重複",
+            "qty_invalid":"數量無效",
+            "max_order_amount_grater_than_qty":"不得大於商品數量"
+        }
+    },
+    "add":"加入",
+    "add_more":"加入更多商品",
+    "reset":"重設",
+    "confirm":"確認"
+
+
+   
 }

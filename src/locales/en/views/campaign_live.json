@@ -31,7 +31,7 @@
             "qty_for_campaign":"QTY for Campaign",
             "max_qty":"Max QTY/Order",
             "editable":"Editable",
-            "deletable":"Deletable",
+            "removable":"Removable",
             "search":"Search by"
         },
         "add":"Add",
