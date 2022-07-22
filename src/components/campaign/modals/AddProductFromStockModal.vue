@@ -139,14 +139,22 @@
                                             </select> 
                                         </td> 
 
-                                        <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable"
+                                        <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable "
                                         :data-content="$t('campaign_live.product.modal_column.editable')">
-                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)"/>
+                                            <div class="form-check place-content-end sm:place-content-center">
+                                                <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] " type="checkbox" 
+                                                    v-model="product[column.key]" 
+                                                    @click="stockProductEditable(product_index, $event)"/>
+                                            </div>
                                         </td>
 
                                         <td v-else-if=" column.key === 'customer_removable' && product.type=='product'" class="removable"
                                         :data-content="$t('campaign_live.product.modal_column.removable')">
-                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)"/>
+                                            <div class="form-check place-content-end sm:place-content-center">
+                                                <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] " type="checkbox" 
+                                                    v-model="product[column.key]" 
+                                                    @click="stockProductRemovable(product_index, $event)"/>
+                                            </div>
                                         </td>
 
                                         <td v-else-if="column.key === 'price'" class="price"
@@ -274,13 +282,17 @@
                                         </td> 
                                         
                                         <td v-else-if="column.key === 'customer_editable' && product.type=='product'" class="editable"
-                                        :data-content="$t('campaign_live.product.modal_column.editable')">
-                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" />
+                                            :data-content="$t('campaign_live.product.modal_column.editable')">
+                                            <div class="form-check place-content-end sm:place-content-center"> 
+                                                <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" />
+                                            </div>
                                         </td>
 
                                         <td v-else-if=" column.key === 'customer_removable'  && product.type=='product'" class="removable"
-                                        :data-content="$t('campaign_live.product.modal_column.deletable')">
-                                            <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
+                                            :data-content="$t('campaign_live.product.modal_column.removable')">
+                                            <div class="form-check place-content-end sm:place-content-center">
+                                                <input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)"/>
+                                            </div>
                                         </td>
 
                                         <td v-else-if="column.key === 'price'" class="price" :data-content="$t('campaign_live.product.modal_column.price')">

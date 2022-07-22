@@ -32,6 +32,7 @@
             "max_qty":"Max QTY/Order",
             "editable":"Editable",
             "removable":"Removable",
+            "deletable":"Removable",
             "search":"Search by"
         },
         "add":"Add",
