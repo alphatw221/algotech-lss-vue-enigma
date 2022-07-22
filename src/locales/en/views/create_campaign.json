@@ -41,7 +41,7 @@
             "name":"Account Name",
             "number":"Account Number",
             "note":"Note",
-            "require_customer_return":"Require Customer’s Payment Record"
+            "require_customer_return":"Require Buyer’s Payment Record"
         },
         "stripe":{
             "secret":"Secret Key",
