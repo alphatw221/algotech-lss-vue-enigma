@@ -2,13 +2,13 @@
     <div v-if="showPages" class="box border-2 rounded-lg p-5 mx-4 lg:mx-20 px-10 mb-3 flex flex-col">
         <div class="flex justify-between">
             <h4 class="text-lg sm:text-xl font-medium leading-none mb-8">{{$t('settings.platform.instagram_profile')}}</h4>
-            <BindInstagramProfileButton :busName="'addInstagramProfiles'" :buttonName="'Edit'"/>
+            <BindInstagramProfileButton :busName="'addInstagramProfiles'" :buttonName="$t('settings.platform.edit')"/>
         </div>
         <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5">
             <div v-for="page in InstagramProfiles" :key="page.id" class="flex-col flex justify-center text-center relative my-3 w-24 h-auto lg:w-32">
                 <img :src="page.image" class="rounded-full w-16 h-16 mx-auto lg:w-20 lg:h-20">
                 <span class="leading-tight text-[13px] sm:text-[15px] w-20 lg:w-32 mx-auto">{{ page.name.substring(0,24) }}</span>
-                <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Unbind page" :options="{
+                <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('settings.platform.unbind_page')" :options="{
                     theme: 'light',
                 }"><XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeInstagramProfiles(page)"/></Tippy>
             </div>
