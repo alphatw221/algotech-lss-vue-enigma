@@ -3,6 +3,7 @@
     "order_no" : "訂單編號",
     "order_status" : "訂單狀態",
     "order_date" : "訂單日期",
+    "order_info":"訂單資訊",
     "pay":"前往付款",
     "complete" : "已完成",
     "review" : "處理中",
