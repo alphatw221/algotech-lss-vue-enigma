@@ -1,4 +1,5 @@
 {
+        "title":"Manage Order",
         "campaign_status":{
                 "closed_rate" : "Closed Rate",
                 "sales" : "Sales",
@@ -10,6 +11,8 @@
                 "export" : "Export"
         },
         "table":{
+                "details":"Order Details",
+                "copy_link":"Copy Cart Link",
                 "amount" : "Amount",
                 "payment" : "Payment",
                 "status" : "Status",
@@ -19,7 +22,7 @@
                 "name" : "Name",
                 "order_number" : "Order No",
                 "action":"Action",
-                "delivery_notification":"Delivery Notification",
+                "delivery_notification":"Notification",
                 "null":""
         },
         "product_modal":{

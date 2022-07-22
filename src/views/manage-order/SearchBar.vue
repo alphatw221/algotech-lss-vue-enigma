@@ -1,10 +1,5 @@
 <template>
-    <div class="relative right-0 flex w-full m-1 justify-end sm:mt-1 sm:w-auto">
-        <div class="relative"> 
-            <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 " />
-            <input type="text" class="px-10 mr-2 rounded-full form-control w-48 lg:w-60 box"
-                placeholder="Search Customer..." v-model="searchValue" @keydown.enter.prevent="search()"/>
-        </div>
+    <div class="relative right-0 flex w-full m-1 sm:mt-1 sm:w-auto">
         <div class="export hidden sm:block">
             <button id="tabulator-html-filter-go" type="button" class="flex-none w-16 mr-3 btn btn-primary"
                 @click="test()">
@@ -32,6 +27,11 @@
         </div>
         <div class="sm:hidden w-12">
             <DownloadIcon class="w-8 h-8" @click="onExportXlsx"/>
+        </div>
+        <div class="relative"> 
+            <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 " />
+            <input type="text" class="px-10 mr-2 rounded-full form-control w-48 lg:w-60 box"
+                placeholder="Search Customer..." v-model="searchValue" @keydown.enter.prevent="search()"/>
         </div>
     </div>
 </template>
