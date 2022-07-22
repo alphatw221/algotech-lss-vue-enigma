@@ -1,5 +1,9 @@
 <template>
-    <Button type="button" @click="handleAuthClick">{{ props.buttonName }}</Button>
+    <Button v-if="props.buttonName == 'edit'" 
+        type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
+
+    <Button v-else 
+        type="button" class="google-login-btn" @click="checkLoginState">{{ props.buttonName }}</Button>
     
 </template>
 
@@ -70,15 +74,17 @@ const handleAuthClick = () => {
 </script>
 
 <style scoped>
-.google-login-btn {
-    font-family: sans-serif;
-    background-color: rgb(255, 255, 255);
-    width:228px;
-    height:40px;
-    font-weight: 500; 
-    font-size: 18px;
-    border-radius: 5px;
-    border: 1px solid rgb(95, 95, 95);
+.google-login-btn { 
+    border: 1px solid rgb(119, 0, 0);
+    background-color: #c90000;
+    padding: auto;
+    width: 300px;
+    height: 42px;
+    border-radius: 42px 42px; 
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
 }
 
 a{

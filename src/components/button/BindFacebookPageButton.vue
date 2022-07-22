@@ -1,5 +1,9 @@
 <template>
-    <Button type="button" @click="checkLoginState">{{ props.buttonName }}</Button>
+    <Button v-if="props.buttonName == 'edit'" 
+        type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
+
+    <Button v-else 
+        type="button" class="fbBtn" @click="checkLoginState">{{ props.buttonName }}</Button>
     
 </template>
 
@@ -71,3 +75,19 @@ const checkLoginState = () => {
     
 }
 </script>
+
+
+<style scoped>
+
+.fbBtn{
+    background-color: #3c599b;
+    padding: auto;
+    width: 300px;
+    height: 42px;
+    border-radius: 42px 42px; 
+    color: white;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+}
+</style>

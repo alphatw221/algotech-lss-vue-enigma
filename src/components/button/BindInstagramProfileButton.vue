@@ -1,5 +1,9 @@
 <template>
-    <Button type="button" @click="checkLoginState">{{ props.buttonName }}</Button>
+    <Button v-if="props.buttonName == 'edit'" 
+        type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
+
+    <Button v-else 
+        type="button" class="insta-default" @click="checkLoginState">{{ props.buttonName }}</Button>
     
 </template>
 
@@ -75,18 +79,18 @@ const checkLoginState = () => {
 <style scoped>
 
 .insta-default {
-    width:228px;
-    height:40px;
+    width:300px;
+    height:42px;
     font-size: 17px;
     background-color: #E33E5C;
     border: 1px solid #832f3fea;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
     color: #FFF;
-    border-radius: 4px;
+    border-radius: 42px 42px;
     font-weight: 500;
     text-decoration: none;
     transition: all 0.3s;
-    margin-left:10%; 
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 .insta-default:hover {
