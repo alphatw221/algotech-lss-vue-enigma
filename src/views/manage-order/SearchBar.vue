@@ -30,10 +30,14 @@
         </div>
         <div class="flex"> 
             <!-- <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 col-span-2" /> -->
-            <input type="text" class=" mr-2 form-control w-40  box col-start-1 col-span-8 lg:w-60"
-                placeholder=" Search " v-model="searchValue" @keydown.enter.prevent="search()"/>
-            <SearchIcon class="flex-none w-7 h-7 sm:h-7 rounded-l-none mt-2" @click="search()"/>
-            <XIcon class="flex-none w-7 h-7 sm:h-7 rounded-l-none mt-2" @click="reset"/>
+            <div class="input-group relative"> 
+                <input type="text" class=" mr-2 form-control w-40  box col-start-1 col-span-8 lg:w-60"
+                placeholder=" Search" v-model="searchValue" @keydown.enter.prevent="search()"/>
+                <SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="search()"/>
+            </div>
+            <XIcon 
+                v-if="searchValue"
+                class="flex-none w-7 h-7 mt-2 text-slate-600" @click="reset"/>
         </div>
     </div>
 </template>

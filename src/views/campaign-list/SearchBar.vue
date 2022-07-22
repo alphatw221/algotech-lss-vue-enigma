@@ -14,7 +14,7 @@
                     </option>
                 </select>
             </div>
-            <div class="items-center w-auto input-group">
+            <div class="items-center w-auto">
                 <div class="input-group"> 
                     <input type="text"
                     class="h-[35px] sm:h-[42px] w-40 form-control input-group shrink" :placeholder="$t('campaign_list.search_bar.search')+'...'"
