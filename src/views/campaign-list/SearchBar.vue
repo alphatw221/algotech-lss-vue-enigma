@@ -96,7 +96,7 @@ export default {
 	data() {
 		return {
 			page: 1,
-			pageSize: 10,
+			pageSize: 100,
 			keyword: '',
             searchField: 'title',
 		}

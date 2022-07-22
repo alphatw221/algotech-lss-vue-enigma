@@ -82,12 +82,18 @@
 		</div>
 		
 		<div class="flex justify-between col-span-12 col-start-1 mt-5 "> 
-			<label for="regular-form-2" class="text-base font-bold form-label">{{$t('create_campaign.delivery_form.store_collection')}}</label>
-			<a 
+			<label for="regular-form-2" class="text-base font-bold form-label item-center">{{$t('create_campaign.delivery_form.store_collection')}}</label>
+			<button 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 h-[42px] sm:mt-auto" 
+				@click="addBranch()"
+			>
+				{{$t('create_campaign.delivery_form.add_more_pickup_option')}}
+			</button>
+			<!-- <a 
 				class="whitespace-nowrap font-medium"
 				@click="addBranch()"
 			> <u> + {{$t('create_campaign.delivery_form.add_more_pickup_option')}}  </u> 
-			</a>
+			</a> -->
 		</div>
 		<div class="grid grid-cols-12 col-span-12 gap-1 text-base intro-y sm:gap-5 -z-50">
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">

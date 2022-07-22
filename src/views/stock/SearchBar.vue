@@ -1,6 +1,6 @@
 <template>
-    <form class="flex justify-between gap-2 sm:gap-5 flex-warp sm:flex-row">
-        <div class="flex flex-wrap justify-between w-full gap-2 sm:flex-row">
+    <form class="flex justify-start gap-2 sm:gap-5 flex-warp sm:flex-row">
+        <div class="flex flex-wrap justify-start w-full gap-2 sm:flex-row">
             <div class="flex shirnk items-center w-fit" v-if="showCategoryFilter">
                 <label class="mr-2 shrink whitespace-nowrap">
                     {{ $t('stock.search_bar.category') }}
@@ -12,6 +12,12 @@
                 >
                     <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
                 </select>
+                <button id="tabulator-html-filter-go" 
+                    type="button" 
+                    class="btn btn-primary shadow-md w-24 h-auto lg:h-[42px] self-end flex-none items-end flex ml-3" 
+                    @click="this.$router.push({name:'category-management'})">
+                    {{ $t('stock.search_bar.category_manage') }}
+                </button>
             </div>
             <!-- <div class="flex items-center flex-initial w-fit" >
                 <label class="mr-2 shrink whitespace-nowrap">
@@ -32,17 +38,17 @@
                         v-model="keyword" @keydown.enter.prevent="search" />
                     <button 
                         type="button"
+                        class="flex-none btn btn-primary w-16 h-[35px] sm:h-[42px] rounded-l-none" @click="reset">
+                        {{ $t('stock.search_bar.search') }}
+                    </button>
+                    <button 
+                        type="button"
                         class="flex-none btn btn-secondary w-16 h-[35px] sm:h-[42px] rounded-l-none" @click="reset">
                         {{ $t('stock.search_bar.reset') }}
                     </button>
                 </div>
             </div>
-            <button id="tabulator-html-filter-go" 
-                type="button" 
-                class="btn btn-primary shadow-md w-48 h-auto lg:h-[42px] self-end flex-none items-end flex ml-auto" 
-                @click="this.$router.push({name:'category-management'})">
-                {{ $t('stock.search_bar.category_manage') }}
-            </button>
+            
         </div>
     </form>        
 </template>
