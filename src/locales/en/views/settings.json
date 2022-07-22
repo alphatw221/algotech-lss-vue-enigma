@@ -22,7 +22,7 @@
         "order_above":"Free delivery for order above",
         "minimum":"Free delivery for minimum order Qty",
         "store":{
-                "collection":"Store Pickup",
+                "collection":"Self Pickup",
                 "pickup_store":"Pickup Store",
                 "pickup_address":"Pickup Address"
         }
@@ -48,7 +48,7 @@
 
         "payment_details": "Payment Details",
         "enabled": "Enabled",
-        "add_more_direct_payment": "Add More Option",
+        "add_more_direct_payment": "Add New Direct Payment",
         "upload_image": "Upload Image",
         "upload_a_file_or_drag_and_drop": "Upload a file",
         "accepted_file_types": "Accepted File Types",
@@ -63,12 +63,12 @@
         "free_delivery_for_order_above":"Free delivery for order above",
         "free_delivery_for_minimum_order":"Free delivery for minimum order Qty",
         "add_more_delivery_option":"Add More Option",
-        "add_more_pickup_option":"Add More Option",
+        "add_more_pickup_option":"Add More Location",
         "options":"Shipping Options",
         "on_top_of_delivery_charge":"On top of delivery charge",
         "replace_delivery_charge":"Replace delivery charge",
         "delete":"Delete",
-        "store_collection":"Store Collection",
+        "store_collection":"Self Pickup",
         "pickup_store":"Pickup Store",
         "pickup_address":"Pickup Address",
         "express_service_name": "exprss service name",

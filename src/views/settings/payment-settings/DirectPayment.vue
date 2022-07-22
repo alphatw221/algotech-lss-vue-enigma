@@ -3,17 +3,23 @@
         <div class="flex justify-between mt-5 sm:mt-0">
             <div class="flex"> 
                 <input 
-                class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
+                class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
                 type="checkbox" 
                 v-model="paymentData.enabled"
                 />
-                <label class="ml-3 form-label">{{ $t('settings.payment_form.enabled') }}</label>
+                <label class="ml-3 form-label my-auto">{{ $t('settings.payment_form.enabled') }}</label>
             </div>
-            <a 
+            <button 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-60 2xl:w-60 h-[42px] sm:mt-auto" 
+				@click="addDirectPayment()"
+			>
+				{{ $t('settings.payment_form.add_more_direct_payment') }}
+			</button>
+            <!-- <a 
                 class="whitespace-nowrap"
                 @click="addDirectPayment()"
             > <u> + {{ $t('settings.payment_form.add_more_direct_payment') }}  </u> 
-            </a>
+            </a> -->
         </div>
 
         <div v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i">
