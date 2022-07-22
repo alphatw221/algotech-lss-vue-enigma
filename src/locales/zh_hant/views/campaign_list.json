@@ -41,16 +41,16 @@
         "stop" : "停止結帳",
         "null":"",
         "history":"回顧",
-        "live_on":"進入直撥",
-        "edit_campaign":"編輯直撥",
-        "edit_campaign_product":"編輯直撥商品",
+        "live_on":"進入直播",
+        "edit_campaign":"編輯直播",
+        "edit_campaign_product":"編輯直播商品",
         "blank_cart":"複製購物車連結",
         "lucky_draw":"抽獎設定"
     },
 
     "remind_enter_post_id_modal":{
         "confirm":"確定",
-        "message":"請設定貼文ID已開始直撥"
+        "message":"請設定貼文ID已開始直播"
     },
 
     "enter_post_id_modal":{

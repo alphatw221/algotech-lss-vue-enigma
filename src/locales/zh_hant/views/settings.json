@@ -8,7 +8,7 @@
     "time_zone" : "時區",
     "confirmation_note" : "訂單確認訊息",
     "default_active" : "預設啟用",
-    "default_settings":"直撥預設",
+    "default_settings":"直播預設",
 
     "delivery":{
         "delivery":"物流",
@@ -90,6 +90,7 @@
         "update": "更新"
     },
     "localization":{
+        "title": "本地化",
         "country":"國家",
         "countries":{
             "PH":"菲律賓",
