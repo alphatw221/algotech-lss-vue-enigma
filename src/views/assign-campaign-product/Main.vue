@@ -504,7 +504,7 @@ const submitData = ()=>{
     }
 	errorMessages.value = []
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
-		
+		router.push({name:"campaign-list",})
 	}).catch(err=>{
         console.log(err.response.data)
 		if (err.response){
