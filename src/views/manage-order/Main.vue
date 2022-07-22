@@ -9,7 +9,7 @@
             <!-- END: campaign Status -->
 
             <div class="w-full mt-8 flex flex-col">
-                <div class="flex -mb-5 text-lg align-baseline justify-end lg:text-xl">
+                <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
                     <div class="relative ml-2 mr-3">
                             <a class="mr-0.5" style="color:#1e40af;" @click="show_order('All')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{store.data_count['All']}}</span>)</a>
                     </div>

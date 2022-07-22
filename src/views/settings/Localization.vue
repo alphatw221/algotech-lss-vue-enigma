@@ -1,53 +1,56 @@
 <template>
-    <div class="box p-5 px-10 lg:p-10 lg:px-20">
-        <div class="flex my-3 text-lg">
-            <div class="mr-5"> {{$t("settings.localization.country")}}: </div>
-            <div v-if="layoutStore.userInfo.user_subscription "> {{  $t(`settings.localization.countries.${layoutStore.userInfo.user_subscription.country}`)||'' }}</div>
-        </div>
-        <div class="flex my-3 mt-5 text-m">
-            <div> {{$t("settings.localization.currency_symbol")}}: </div>
-        </div>
-        <div class="flex my-1">
-            <TomSelect v-model="data.currency" :options="{
-                        placeholder: $t('settings.localization.choose_currency_symbol'),
-                        }" class="w-5/6">
-                <option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
-            </TomSelect>
-        </div>
-        <div class="flex my-3 mt-5 text-lg">
-            <div class="mr-5"> {{$t("settings.localization.seller_language")}}</div>
-        </div> 
-        <div class="flex my-1">
-            <TomSelect v-model="data.lang" :options="{
-                        placeholder: $t('settings.localization.choose_language'),
-                        }" class="w-5/6">
-                <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
-            </TomSelect>
-        </div>
-        <div class="flex my-3 mt-5 text-lg">
-            <div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
-        </div>
-        <div class="flex my-1">
-            <TomSelect v-model="data.buyer_lang" :options="{
-                        placeholder: $t('settings.localization.choose_language'),
-                        }" class="w-5/6">
-                <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
-            </TomSelect>
-        </div>
-        <div class="flex my-3 mt-5 text-lg">
-            <div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
-        </div>
-        <div class="flex my-1">
-            <TomSelect v-model="data.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-5/6">
-                <option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
-            </TomSelect>
-        </div>
-        <div class="flex justify-end mt-10 w-5/6"> 
-            <button class="btn btn-rounded-secondary mr-5 w-20" @click="clean()"> {{$t("settings.localization.discard")}}</button>
-            <button class="btn btn-rounded-primary w-20" @click="save()"> {{$t("settings.localization.save")}}</button>
+    <div class="flex flex-col p-2 font-medium text-sm sm:text-xl">
+        <span class="mt-2 mb-1 sm:mt-5 mx-auto sm:mx-0 text-xl sm:text-2xl"> {{ $t('settings.localization.title') }} </span>
+        <div class="box p-5 px-10 lg:p-10 lg:px-20">
+            
+            <div class="flex my-3 text-lg">
+                <div class="mr-5"> {{$t("settings.localization.country")}}: </div>
+                <div v-if="layoutStore.userInfo.user_subscription "> {{  $t(`settings.localization.countries.${layoutStore.userInfo.user_subscription.country}`)||'' }}</div>
+            </div>
+            <div class="flex my-3 mt-5 text-m">
+                <div> {{$t("settings.localization.currency_symbol")}}: </div>
+            </div>
+            <div class="flex my-1">
+                <TomSelect v-model="data.currency" :options="{
+                            placeholder: $t('settings.localization.choose_currency_symbol'),
+                            }" class="w-5/6">
+                    <option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
+                </TomSelect>
+            </div>
+            <div class="flex my-3 mt-5 text-lg">
+                <div class="mr-5"> {{$t("settings.localization.seller_language")}}</div>
+            </div> 
+            <div class="flex my-1">
+                <TomSelect v-model="data.lang" :options="{
+                            placeholder: $t('settings.localization.choose_language'),
+                            }" class="w-5/6">
+                    <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
+                </TomSelect>
+            </div>
+            <div class="flex my-3 mt-5 text-lg">
+                <div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
+            </div>
+            <div class="flex my-1">
+                <TomSelect v-model="data.buyer_lang" :options="{
+                            placeholder: $t('settings.localization.choose_language'),
+                            }" class="w-5/6">
+                    <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
+                </TomSelect>
+            </div>
+            <div class="flex my-3 mt-5 text-lg">
+                <div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
+            </div>
+            <div class="flex my-1">
+                <TomSelect v-model="data.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-5/6">
+                    <option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
+                </TomSelect>
+            </div>
+            <div class="flex justify-end mt-10 w-5/6"> 
+                <button class="btn btn-rounded-secondary mr-5 w-20" @click="clean()"> {{$t("settings.localization.discard")}}</button>
+                <button class="btn btn-rounded-primary w-20" @click="save()"> {{$t("settings.localization.save")}}</button>
+            </div>
         </div>
     </div>
-
 </template>
 
 <script setup>

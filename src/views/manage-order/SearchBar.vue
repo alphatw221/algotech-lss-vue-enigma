@@ -13,7 +13,7 @@
             <FilterIcon class="w-8 h-8" @click="test()"/>
         </div>
         <div class="export hidden sm:block">
-            <Dropdown class="relative p-2 mr-1 flex rounded-full items-center btn border-[#131C34] "
+            <Dropdown class="relative p-2 mr-1 flex rounded-full items-center btn border-[#131C34] w-24"
                 placement="bottom-start"> {{$t('manage_order.search_bar.export')}}
                 <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                     <ChevronDownIcon class="w-5 h-5 text-slate-700" />
