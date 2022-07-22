@@ -24,11 +24,11 @@
                     </DropdownToggle>
                     <DropdownMenu class="w-fit">
                         <DropdownContent>
-                            <template v-if="route.query.status !='history'"> 
+                            <!-- <template v-if="route.query.status !='history'"> 
                                 <DropdownItem @click="routeTOLuckyDraw()">
                                     Instantly Lucky Draw Spin
                                 </DropdownItem>
-                            </template>
+                            </template> -->
                             <DropdownItem @click="toDrawList()">
                                 Lucky Draw List
                             </DropdownItem>

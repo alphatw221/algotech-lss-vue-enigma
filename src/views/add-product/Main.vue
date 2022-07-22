@@ -60,7 +60,7 @@
 							method: 'put',
 							url: 'url',
 							uploadMultiple: false,
-							maxFilesize: 2,
+							maxFilesize: 10,
 							addRemoveLinks: true,
 							autoProcessQueue: false,
 							resizeQuality: 0.5,
@@ -73,7 +73,7 @@
 							<div class="text-gray-600">
 								<br>{{ $t('stock.add_product_page.accept_file_text') }}
 							</div>
-							<div class="text-gray-600">{{ $t('stock.add_product_page.max_size_text') }} : 2MB</div>  
+							<div class="text-gray-600">{{ $t('stock.add_product_page.max_size_text') }} : 10MB</div>  
 						</div>
 						<img class="w-40 h-40 rounded-lg" v-else data-dz-thumbnail :src="previewImage" />
 					</Dropzone>
