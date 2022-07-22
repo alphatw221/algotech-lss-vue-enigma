@@ -10,15 +10,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr>
+        <tr v-if="showCommentLoding || numOfCampaigns==0" >
 					<td v-if="showCommentLoding"
 						class="h-[300px] items-center relative"
 						:colspan="tableColumns.length +1" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1">
-						<div class="mt-5 text-center md:mt-10" >
-							<h1 class="text-slate-500 text-sm md:text-lg h-[300px]">
+					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0"> 
+						<div class="mt-5 text-center md:mt-10 w-full" >
+							<h1 class="text-slate-500 text-center text-sm md:text-lg h-[300px]">
 								You Have No {{props.tableName}} Campaign
 							</h1>
 						</div>
@@ -199,7 +199,7 @@ onUnmounted(()=>{
 const search =()=>{
     showCommentLoding.value = true
     campaigns.value = []
-    list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,page_size.value)
+    list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,'100')
     .then((response) => {
         if (response.data.count != undefined) {
           dataCount.value = response.data.count;
@@ -305,6 +305,10 @@ thead th{
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;
+}
+
+.alert{
+  box-shadow: none !important;
 }
 
 @media only screen and (max-width: 760px),
@@ -416,6 +420,18 @@ thead th{
   }
   .moreTools:before{
     display:none;
+  }
+
+  .dotTr{
+    border: none;
+  }
+  .alert:before{
+    display: none;
+  }
+  .alert{
+    width: 100%;
+    padding-left: 0px !important;
+    box-shadow: none;
   }
 }
 </style>

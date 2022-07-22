@@ -88,6 +88,7 @@
         "update": "Update"
     },
     "localization":{
+        "title": "Localization",
         "country":"Country",
         "countries":{
             "PH":"Philippines",

@@ -1,7 +1,7 @@
 {
-    "edit_campaign_product":"編輯直撥商品",
-    "add_product":"新增直撥商品",
-    "continue":"前往直撥",
+    "edit_campaign_product":"編輯直播商品",
+    "add_product":"新增直播商品",
+    "continue":"前往直播",
     "search_bar":{
         "category":"類別",
         "all":"所有類別"
@@ -28,7 +28,7 @@
     },
    
     "edit_product_modal":{
-        "edit_campaign_product":"編輯直撥商品",
+        "edit_campaign_product":"編輯直播商品",
 
         "image":"圖片",
         "name":"名稱",
