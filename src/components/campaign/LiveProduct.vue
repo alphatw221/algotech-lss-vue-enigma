@@ -25,7 +25,7 @@
                     </Dropdown>
                 </template>
             </div>
-            <div class="overflow-auto scrollbar-hidden">
+            <div class="overflow-auto">
                 <table class="table table-sm">
                     <thead class="table-dark">
                         <tr>
