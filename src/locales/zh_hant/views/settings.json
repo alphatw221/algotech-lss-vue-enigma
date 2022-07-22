@@ -119,6 +119,7 @@
         "facebook_fan_page":"Facebook 粉絲專頁",
         "instagram_profile":"Instagram 商業檔案",
         "youtube_channel":"Youtube 頻道",
-        "edit":"編輯"
+        "edit":"編輯",
+        "unbind_page":"取消綁定"
     }
 }
