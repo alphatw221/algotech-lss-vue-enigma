@@ -92,7 +92,9 @@
 								{{ product.qty }}
 							</div>
 						</template>
-						<div class="absolute hidden md:block" v-show="store.cartProducts[index].qty_add_to_cart >= store.cartProducts[index].qty_for_sale" style="color:#FF4500"> Many people are reviewing this item, you might be missing it.</div>
+						<div class="absolute hidden md:block" v-show="store.cartProducts[index].qty_add_to_cart >= store.cartProducts[index].qty_for_sale && store.cartProducts[index].type === 'product'" style="color:#FF4500">
+							 {{$t('shopping_cart.table.missing_remind')}}
+						</div>
 					</td>
 					<td class="sm:hidden" >
 						<div style="color:#FF4500"> {{$t('shopping_cart.table.missing_message')}}</div>

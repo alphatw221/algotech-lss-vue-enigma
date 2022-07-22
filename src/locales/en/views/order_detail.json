@@ -3,6 +3,7 @@
     "order_no" : "Order No",
     "order_status" : "Order Status",
     "order_date" : "Order Date",
+    "order_info":"Order Information",
     "pay":"Proceed to pay",
     "complete" : "Complete",
     "review" : "Review",
