@@ -18,7 +18,7 @@
                                 'text-neutral-600 bg-white': openTab !== index,
                                 'text-white bg-primary': openTab === index,
                             }" class="h-8 rounded-full shadow-lg w-18 btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
-                                <div v-if="account.mode === ''"> {{$t('shpooing_cart.payment.direct.account')}} {{index+1}} </div>
+                                <div v-if="account.mode === ''"> {{$t('shopping_cart.payment.direct.account')}} {{index+1}} </div>
                                 <div v-else> {{ account.mode }} </div>
                             </button>
                         </div>
@@ -31,13 +31,13 @@
                     >
                     <table>
                         <tr>
-                            <td class="w-36">{{$t('shpooing_cart.payment.direct.account_number')}}: </td><td>{{account.number}}</td>
+                            <td class="w-36">{{$t('shopping_cart.payment.direct.account_number')}}: </td><td>{{account.number}}</td>
                         </tr>
                         <tr>
-                            <td>{{$t('shpooing_cart.payment.direct.account_name')}}: </td><td>{{account.name}}</td>
+                            <td>{{$t('shopping_cart.payment.direct.account_name')}}: </td><td>{{account.name}}</td>
                         </tr>
                         <tr>
-                            <td>{{$t('shpooing_cart.payment.direct.note')}}: </td><td>{{account.note}}</td>
+                            <td>{{$t('shopping_cart.payment.direct.note')}}: </td><td>{{account.note}}</td>
                         </tr>
                         <!-- <tr>
                             <td>Other Note ( Press enter to add new line )</td><td></td>
@@ -49,7 +49,7 @@
 
             <!-- BEGIN Direct Payment Radio -->
             <div class="flex flex-col m-5">
-                <label for="regular-form-2" class="form-label">{{$t('shpooing_cart.payment.direct.beneficiary')}}</label>
+                <label for="regular-form-2" class="form-label">{{$t('shopping_cart.payment.direct.beneficiary')}}</label>
                 <div class="inline-flex" >
                     <div  class="m-2" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
                         <input type="radio" class="mx-1 hover:cursor-pointer" :value="index" v-model="selectAccountIndex"/>
@@ -72,27 +72,27 @@
             }" class="dropzone h-fit">
 
                 <div class="text-lg font-medium">
-                   {{$t('shpooing_cart.payment.direct.upload_img')}}
+                   {{$t('shopping_cart.payment.direct.upload_img')}}
                 </div>
                 <div class="text-gray-600">
-                    <br>{{$t('shpooing_cart.payment.direct.accepted_types')}}: jpeg, png, jpg
+                    <br>{{$t('shopping_cart.payment.direct.accepted_types')}}: jpeg, png, jpg
                 </div>
-                <div class="text-gray-600">{{$t('shpooing_cart.payment.direct.max_size')}} : 2MB</div>  
+                <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}} : 2MB</div>  
             </Dropzone>
             <div class="flex flex-col m-3">
 
-                <label for="regular-form-2" class="form-label">{{$t('shpooing_cart.payment.direct.last_five_digits')}}Last Five Digits</label>
+                <label for="regular-form-2" class="form-label">{{$t('shopping_cart.payment.direct.last_five_digits')}}</label>
                 <input id="regular-form-2" type="text" class="form-control"
                     :class="{ 'border-danger': uploadValidate.fiveDigits.$error }"
                     v-model.trim="uploadValidate.fiveDigits.$model" />
                 <template v-if="uploadValidate.fiveDigits.$error">
                     <div class="form-help" :class="{ 'text-danger': uploadValidate.fiveDigits.$error }">
-                        {{$t('shpooing_cart.payment.direct.digits_message')}}
+                        {{$t('shopping_cart.payment.direct.digits_message')}}
                     </div>
                 </template>
                 <button type="button"
                     class="self-center mx-3 mt-5 w-fit btn btn-rounded-primary lg:self-end 2xl:self-end"
-                    @click="uploadReceipt()">{{$t('shpooing_cart.payment.direct.complete_order')}}</button>
+                    @click="uploadReceipt()">{{$t('shopping_cart.payment.direct.complete_order')}}</button>
             </div>
         </AccordionPanel>
 

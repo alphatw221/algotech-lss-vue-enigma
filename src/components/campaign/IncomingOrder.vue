@@ -20,17 +20,17 @@
                 <h2 class="text-lg font-medium ml-5">{{$t('campaign_live.incoming.incoming_order')}}</h2>
                 <Dropdown class="inline-block">
                     <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
-                        Plug In
+                        {{$t('campaign_live.incoming.plug_in')}}
                     </DropdownToggle>
                     <DropdownMenu class="w-fit">
                         <DropdownContent>
                             <!-- <template v-if="route.query.status !='history'"> 
                                 <DropdownItem @click="routeTOLuckyDraw()">
-                                    Instantly Lucky Draw Spin
+                                    {{$t('campaign_live.incoming.instantly')}}
                                 </DropdownItem>
                             </template> -->
                             <DropdownItem @click="toDrawList()">
-                                Lucky Draw List
+                                {{$t('campaign_live.incoming.list')}}
                             </DropdownItem>
                         </DropdownContent>
                     </DropdownMenu>

@@ -1,4 +1,5 @@
 {
+    "live_stream":"Live Stream",
     "comment" :{
         "comments":"Comments",
         "delivery":"Delivery",
@@ -24,6 +25,7 @@
             "price":"Price",
             "activate":"Activate",
             "qty":"Qty",
+            "stock_qty":"Stock Qty",
             "category":"Category",
             "type":"Type",
             "Lucky Draw":"Lucky Draw",
@@ -31,6 +33,7 @@
             "max_qty":"Max QTY/Order",
             "editable":"Editable",
             "removable":"Removable",
+            "deletable":"Removable",
             "search":"Search by"
         },
         "add":"Add",

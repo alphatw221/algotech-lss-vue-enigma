@@ -28,9 +28,9 @@
                         <div> 
                             <span v-if="drawTitleMap[luckydraw.type] == 'Draw Like'" class="text-slate-500 whitespace-nowrap mr-auto lg:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                             <span v-else-if="drawTitleMap[luckydraw.type] == 'Draw Purchased'" class="text-slate-500 whitespace-nowrap mr-auto lg:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
-                            <span v-else class="text-slate-500 order-1 whitespace-nowrap mr-auto lg:mr-0 hidden md:block"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
+                            <span v-else class="text-slate-500 order-1 whitespace-nowrap mr-0 hidden md:block"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                         </div>
-                        <div class="h-[22px] lg:h-[28px] lg:my-1"> 
+                        <div class="h-[22px] lg:h-[28px] mr-auto lg:my-1"> 
                             <span class="text-[#E75F34]" v-if="luckydraw.type == 'product'"> ({{ luckydraw.campaign_product.order_code }}) {{ luckydraw.campaign_product.name }} </span>
                             <span class="text-[#E75F34]" v-else-if="luckydraw.type == 'keyword'"> {{ luckydraw.comment }} </span>
                         </div>
@@ -45,13 +45,13 @@
                         <span v-if="luckydraw.repeatable === false" class="lg:my-1 "> {{ $t('lucky_draw.draw_list.no') }} </span>
                     </div>
                 </div>
-                <div class="mt-5 xl:m-0 flex w-[100%] 2xl:w-fit justify-end">
+                <div class="mt-5 lg:m-0 flex w-[100%] 2xl:w-fit justify-end">
                     <button class="btn btn-primary w-full lg:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" @click="goDraw(luckydraw.id)">
                         {{ $t('lucky_draw.draw_list.start') }}
                     </button>
                 </div>
             </div>
-            <Dropdown class="absolute top-2 right-2 w-8 h-8 rounded-full hover:bg-white p-1">
+            <Dropdown class="absolute top-2 right-2 w-8 h-8 rounded-full whitespace-nowrap hover:bg-white p-1">
                 <DropdownToggle>
                     <MoreHorizontalIcon class="w-6 h-6" />
                 </DropdownToggle>

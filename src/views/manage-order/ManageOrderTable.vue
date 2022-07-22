@@ -3,7 +3,7 @@
         <table id="orderTable" class="table -mt-3 text-[13px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
+                    <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
                         {{ $t(`manage_order.table.`+column.name) }}
                     </th>
                 </tr>
@@ -103,7 +103,7 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal'">
+                        <template v-else-if="column.key === 'subtotal'" class="text-right">
                             ${{ (order.total).toFixed(layoutStore.userInfo.user_subscription.decimal_places) }}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">

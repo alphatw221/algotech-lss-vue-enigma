@@ -124,7 +124,7 @@
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Input Quantity"
+					placeholder="Input Qty"
 					v-model="validate.qty.$model"
 					:class="{ 'border-danger text-danger border-2': validate.qty.$error }" 
 				/>
