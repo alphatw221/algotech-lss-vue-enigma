@@ -40,12 +40,18 @@
                 />       
             </div>
             <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
-                <label for="regular-form-2" class="text-base font-bold form-label">{{ $t('settings.delivery.charge_option') }}</label>
-                <a 
+                <label for="regular-form-2" class="text-base font-bold form-label my-auto">{{ $t('settings.delivery.charge_option') }}</label>
+                <!-- <a 
                     class="whitespace-nowrap"
                     @click="addDelivery()"
                 > <u> + {{ $t('settings.delivery.add_more_delivery_option') }}  </u> 
-                </a>
+                </a> -->
+                <button 
+                    class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-48 2xl:w-48 sm:mt-auto" 
+                    @click="addDelivery()"
+                >
+                    {{ $t('settings.delivery.add_more_delivery_option') }}
+                </button>
 		    </div>
             <div v-for="(option, index) in deliverySettings.additional_delivery_options" class="col-span-12" :key="index">
                 <div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0">
@@ -80,12 +86,18 @@
         </div>
         <div class="grid grid-cols-12 gap-1 px-5 text-base intro-y sm:gap-5 -z-50">
              <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
-                <label for="regular-form-2" class="text-base font-bold form-label">{{ $t('settings.delivery.store.collection') }}</label>
-                <a 
+                <label for="regular-form-2" class="text-base font-bold form-label my-auto">{{ $t('settings.delivery.store.collection') }}</label>
+                <!-- <a 
                     class="whitespace-nowrap"
                     @click="addBranch()"
                 > <u> + {{ $t('settings.delivery_form.add_more_pickup_option') }}  </u> 
-                </a>
+                </a> -->
+                <button 
+                    class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-48 2xl:w-48 sm:mt-auto" 
+                    @click="addBranch()"
+                >
+                    {{ $t('settings.delivery_form.add_more_pickup_option') }}
+                </button>
             </div>
             <div v-for="(option, index) in deliverySettings.pickup_options" class="col-span-12" :key="index">
                 <div class="flex flex-col flex-wrap gap-3 sm:flex-row">

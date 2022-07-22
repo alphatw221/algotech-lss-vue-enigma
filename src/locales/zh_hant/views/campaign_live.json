@@ -43,16 +43,16 @@
         "confirm_product":"確認要新增的商品",
         "save_to_stock":"同時存入庫存",
         "apply":"新增",
-        "reset":"清空",
+        "reset":"重置",
         "add_more":"新增更多",
         "confirm":"確認",
         "comfirm_selected":"確認選擇的商品"
     },
     "incoming":{
         "incoming_order":"即時訂單",
-        "plug_in":"抽獎",
+        "plug_in":"小遊戲",
         "instantly":"立刻抽獎",
-        "list":"抽獎清單",
+        "list":"抽獎",
         "table":{
             "order_number" : "訂單",
             "name" : "顧客",
