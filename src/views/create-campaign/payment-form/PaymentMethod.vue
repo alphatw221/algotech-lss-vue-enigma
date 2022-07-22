@@ -2,7 +2,7 @@
 
     <div class="gap-5 justify-center flex-col flex p-5"> 
 
-        <div class="flex mt-5 sm:mt-0 mt-5 sm:mx-5 sm:mt-0">
+        <!-- <div class="flex mt-5 sm:mt-0 mt-5 sm:mx-5 sm:mt-0">
             <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
                 type="checkbox" 
@@ -10,7 +10,7 @@
             />
             <label class="ml-3 form-label text-base font-medium">{{$t(`create_campaign.payment_form.enabled`)}}</label>
 
-        </div>
+        </div> -->
 
         <div 
             class="flex flex-col sm:mx-5" 

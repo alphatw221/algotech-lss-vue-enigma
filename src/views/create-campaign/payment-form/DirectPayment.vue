@@ -7,20 +7,26 @@
            <u> + Add More Option </u>
         </a> -->
 
-        <div class="flex justify-between mt-5 sm:mx-5 sm:mt-0">
-            <div class="flex"> 
+        <div class="flex mt-5 sm:mx-5 sm:mt-0">
+            <!-- <div class="flex"> 
                 <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
                 type="checkbox" 
                 v-model=" props.campaign.meta_payment.direct_payment.enabled"
                 />
                 <label class="ml-3 form-label text-base font-medium">{{$t('create_campaign.payment_form.enabled')}}</label>
-            </div>
-            <a 
+            </div> -->
+            <button 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-60 2xl:w-60 h-[42px] sm:mt-auto mx-auto" 
+				@click="addDirectPayment()"
+			>
+				{{$t('create_campaign.payment_form.add_more_direct_payment')}}
+			</button>
+            <!-- <a 
                 class="whitespace-nowrap font-medium"
                 @click="addDirectPayment()"
             > <u> + {{$t('create_campaign.payment_form.add_more_direct_payment')}} </u> 
-            </a>
+            </a> -->
         </div>
 
         <div 
