@@ -54,7 +54,7 @@ const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const tableColumns = ref([
 	{ key: "image", name: " ",  },
 	{ key: "product", name: "Product",  },
-	{ key: "qty", name: "Quantity",  },
+	{ key: "qty", name: "Qty",  },
 	{ key: "price", name: "Price",  },
 	{ key: "subtotal", name: "Subtotal",  }
 ])

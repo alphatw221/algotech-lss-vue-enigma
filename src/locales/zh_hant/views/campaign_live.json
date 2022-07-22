@@ -32,6 +32,7 @@
             "max_qty":"限購數量",
             "editable":"可修改",
             "removable":"可刪除",
+            "deletable":"可刪除",
             "search":"搜尋"
         },
         "add":"加入",

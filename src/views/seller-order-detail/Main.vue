@@ -1,7 +1,7 @@
 <template>
     <div class="my-5 text-base text-xl sm:text-2xl text-center"> {{$t('order_detail.order')}} </div>
 
-    <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:min-h-[40vh]"> 
+    <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:max-h-[40vh]"> 
         <div class="w-[100%] flex-col"> 
             <div class="w-[100%] mx-2 flex-col flex gap-1">
                 <div class="">
@@ -30,10 +30,10 @@
     </div>
 
     <!-- Second -->
-    <div class="flex flex-col sm:flex-row gap-3 h-fit"> 
+    <div class="flex flex-col sm:flex-row gap-3 h-fit mt-3 sm:-mt-3 "> 
         <!-- Delivery Information -->
         <div class="flex-col w-full"> 
-            <div class="p-8 my-5 border-2 box border-secondary flex-col flex gap-4"> 
+            <div class="p-8 sm:my-5 border-2 box border-secondary flex-col flex gap-4"> 
                 <span class="text-lg dark:border-darkmode-400">{{$t('order_detail.delivery.information')}}</span>   
                 <div class="grid grid-cols-6" v-show="store.orderDetail.shipping_method">
                     <template v-if="store.orderDetail.shipping_method === 'pickup'">
@@ -65,7 +65,7 @@
         </div>
         <!-- Payment Information -->
         <div class="flex-col w-full"> 
-            <div class="p-8 my-5 border-2 box border-secondary flex-col flex gap-4"> 
+            <div class="p-8 sm:my-5 border-2 box border-secondary flex-col flex gap-4"> 
                 <span class="text-lg"> {{$t('order_detail.payment.information')}}</span>   
                 <div class="grid grid-cols-6" v-if="store.orderDetail.payment_method">
                     <template v-if="store.orderDetail.payment_method">
