@@ -28,10 +28,12 @@
         <div class="sm:hidden w-12">
             <DownloadIcon class="w-8 h-8" @click="onExportXlsx"/>
         </div>
-        <div class="relative"> 
-            <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 " />
-            <input type="text" class="px-10 mr-2 rounded-full form-control w-48 lg:w-60 box"
-                placeholder="Search Customer..." v-model="searchValue" @keydown.enter.prevent="search()"/>
+        <div class="flex"> 
+            <!-- <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 col-span-2" /> -->
+            <input type="text" class=" mr-2 form-control w-40  box col-start-1 col-span-8 lg:w-60"
+                placeholder=" Search " v-model="searchValue" @keydown.enter.prevent="search()"/>
+            <SearchIcon class="flex-none w-7 h-7 sm:h-7 rounded-l-none mt-2" @click="search()"/>
+            <XIcon class="flex-none w-7 h-7 sm:h-7 rounded-l-none mt-2" @click="reset"/>
         </div>
     </div>
 </template>
@@ -65,11 +67,15 @@ onUnmounted(()=>{
 })
 
 function search(filter_data){
-    console.log(searchValue.value)
+    // console.log(searchValue.value)
     eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
 }
 function test(){
     store.filterModal[props.tableStatus] = true
+}
+function reset(filter_data){
+    searchValue.value = ''
+    eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
 }
 function onExportXlsx(){
     order_export(route.params.campaign_id).then(
