@@ -22,27 +22,29 @@
                 </div>
                 <!--分隔線-->
                 <div class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
-                <div class="relative right-0 flex w-full m-1 sm:mt-1 sm:w-auto">
-                    <SearchBar 
-                        v-show="tableType === 'All'"
-                        :tableStatus="'All'"
-                        :tableSearch="'searchAll'"
-                        :tableFilter="'filterAll'"/>
-                    <SearchBar 
-                        v-show="tableType === 'Review'"
-                        :tableStatus="'Review'"
-                        :tableSearch="'searchReview'"
-                        :tableFilter="'filterReview'"/>
-                    <SearchBar 
-                        v-show="tableType === 'Complete'"
-                        :tableStatus="'Complete'"
-                        :tableSearch="'searchComplete'"
-                        :tableFilter="'filterComplete'"/>
+                <div class="flex flex-col sm:flex-row">
+                    <div class="relative right-0 flex-auto m-1 sm:mt-1">
+                        <SearchBar 
+                            v-show="tableType === 'All'"
+                            :tableStatus="'All'"
+                            :tableSearch="'searchAll'"
+                            :tableFilter="'filterAll'"/>
+                        <SearchBar 
+                            v-show="tableType === 'Review'"
+                            :tableStatus="'Review'"
+                            :tableSearch="'searchReview'"
+                            :tableFilter="'filterReview'"/>
+                        <SearchBar 
+                            v-show="tableType === 'Complete'"
+                            :tableStatus="'Complete'"
+                            :tableSearch="'searchComplete'"
+                            :tableFilter="'filterComplete'"/>
+                    </div>
                 
-                <div class="w-full form-check form-switch justify-end">
-                    <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
-                    <input @click="stop_checkout($event.target.checked)" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="checkout_status"/>
-                </div>
+                    <div class="form-check form-switch justify-end mt-2">
+                        <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
+                        <input @click="stop_checkout($event.target.checked)" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="checkout_status"/>
+                    </div>
                 </div>
             </div>
 
