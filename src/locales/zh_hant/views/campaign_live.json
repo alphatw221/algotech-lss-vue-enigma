@@ -24,6 +24,7 @@
             "price":"價格",
             "activate":"Activate",
             "qty":"庫存",
+            "stock_qty":"庫存",
             "category":"分類",
             "type":"類別",
             "Lucky Draw":"獎品",
