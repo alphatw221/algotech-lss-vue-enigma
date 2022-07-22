@@ -46,13 +46,16 @@
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                    <label class="mt-2 text-base form-label">{{ $t(`settings.payment_form.direct_payment.${field.key}`)  }}
+                <div class="flex flex-wrap my-3">
                     <input 
-                        class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto ml-2"
-                        type="checkbox" 
-                        v-model="account[field.key]"
-                    />
+                            class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2"
+                            type="checkbox" 
+                            v-model="account[field.key]"
+                        />
+                    <label class="mt-2 text-base form-label">{{ $t(`settings.payment_form.direct_payment.${field.key}`)  }}
                     </label>
+                </div>
+                    
                 </template>
 
                 <template v-else-if="field.type === 'file'">
@@ -90,12 +93,15 @@
             </div>
         </div>
 
-        <button 
-                class="w-48 mt-2 text-base btn btn-elevated-rounded-primary"
-                @click="updateDirectPayment"
-            > 
-            {{ $t('settings.payment_form.update') }} 
-        </button>
+        <div class="self-end text-[14px] ">
+            <button 
+                    class="w-32 ml-5 shadow-md btn btn-primary"
+                    @click="updateDirectPayment"
+                > 
+                {{ $t('settings.payment_form.update') }} 
+            </button>
+        </div>
+        
     </div>
 </template>
 

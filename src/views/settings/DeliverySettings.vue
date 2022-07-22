@@ -1,7 +1,7 @@
 <template>
     <div class="py-5 sm:p-8 sm:py-5">
         <span class="mx-2 mb-3 text-lg sm:text-xl font-medium leading-none sm:m-5">{{ $t('settings.delivery.delivery_setting') }}</span>
-        <div class="grid grid-cols-12 gap-1 mx-2 text-base sm:m-5 intro-y sm:gap-3 -z-50">
+        <div class="grid grid-cols-12 gap-1 lg:mx-2 text-base sm:m-5 intro-y sm:gap-3 -z-50">
 
             <div class="flex flex-col col-span-12 col-start-1 mt-2 text-[16px]"> 
                 <label class="w-full mr-1 text-base whitespace-nowrap">{{ $t('settings.delivery.charge') }}</label>
@@ -75,7 +75,7 @@
                         v-model="option.price"
                     />
                     <button 
-                        class="inline-block w-full h-[42px] ml-auto text-base rounded-full btn btn-danger sm:rounded-lg sm:w-24" 
+                        class="inline-block w-full h-[42px] ml-auto text-base btn btn-danger sm:rounded-lg sm:w-24" 
                         @click="deleteDelivery(index)"
                     >
                     <!-- delete additional_delivery[index] -->
@@ -84,7 +84,7 @@
                 </div>
             </div>
         </div>
-        <div class="grid grid-cols-12 gap-1 px-5 text-base intro-y sm:gap-5 -z-50">
+        <div class="grid grid-cols-12 gap-1 lg:mx-2 text-base intro-y sm:gap-5 -z-50">
              <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
                 <label for="regular-form-2" class="text-base font-bold form-label my-auto">{{ $t('settings.delivery.store.collection') }}</label>
                 <!-- <a 
@@ -118,7 +118,7 @@
                         />
                     </div>
                     <button 
-                        class="inline-block w-full rounded-full btn btn-danger sm:ml-auto sm:rounded-lg sm:w-24 h-[42px] sm:mt-auto" 
+                        class="inline-block w-full btn btn-danger sm:ml-auto sm:rounded-lg sm:w-24 h-[42px] sm:mt-auto" 
                         @click="deleteBranch(index)"
                         >
                         {{ $t('settings.delivery_form.delete') }}
@@ -130,22 +130,21 @@
             <textarea class="h-32 col-span-12 col-start-1 p-3 form-control" placeholder="Address" v-model="deliverySettings.delivery_note">
                 10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore
             </textarea>
-
-            <div class="flex col-span-12 mt-5 justify-evenly">
+        </div> 
+        <div class="flex col-span-12 mt-5 float-right text-[14px] lg:mr-2">
                 <button 
-                    class="w-32 btn dark:border-darkmode-400"
+                    class="w-32 btn dark:border-darkmode-400 float-right"
                     @click="discardDelivery"
                 >
                     {{ $t('settings.notes.discard') }}
                 </button>
                 <button 
-                    class="w-32 ml-5 shadow-md btn btn-primary"
+                    class="w-32 ml-5 shadow-md btn btn-primary float-right"
                     @click="updateDelivery"
                 >
                     {{ $t('settings.notes.update') }}
                 </button>
             </div>
-        </div> 
                
     </div>
 </template>

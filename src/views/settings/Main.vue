@@ -2,9 +2,11 @@
     <!-- OUTTER BOX -->
     <div class="flex flex-col p-2 font-medium text-sm sm:text-xl">
         <!-- BEGIN: commit box -->
-        <span class="mt-2 mb-1 sm:mt-5 mx-auto sm:mx-0 text-xl sm:text-2xl"> {{$t('settings.default_settings')}}</span>
-
-        <div class="flex flex-col gap-5 p-5 box">
+ 
+        <div class="flex items-center sm:px-20 pt-5 pb-4 intro-y">
+            <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium"> {{$t('settings.default_settings')}}</h2>
+        </div>
+        <div class="flex flex-col gap-5 p-5 box lg:mx-20 px-10 py-10">
             <div class="switch-toggle mx-auto sm:mx-0">
                 <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
                 <label for="on">{{$t('settings.notes.notes')}}</label>

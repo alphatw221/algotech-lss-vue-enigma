@@ -1,11 +1,11 @@
 <template>
-    <div class="p-5 px-0 lg:p-10 text-sm sm:text-lg">
+    <div class="py-5 sm:p-8 sm:py-5 lg:px-10 text-sm sm:text-lg ">
         <AccordionGroup class="accordion-boxed">
             <AccordionItem>
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="text-lg sm:text-xl"> {{$t('settings.notes.delivery_note')}}: </span> <br> 
+                            <span class="form-label text-base font-medium"> {{$t('settings.notes.delivery_note')}}: </span> <br> 
                             <span class="text-slate-400 break-all">
                                 {{ deliveryNote }}
                             </span>
@@ -28,7 +28,7 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="text-lg sm:text-xl"> {{$t('settings.notes.special_note')}}:</span> <br> 
+                            <span class="form-label text-base font-medium"> {{$t('settings.notes.special_note')}}:</span> <br> 
                             <span class="whitespace-normal text-slate-400  break-all">
                                 {{ specialNote }}
                             </span>
@@ -51,7 +51,7 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="text-lg sm:text-xl"> {{$t('settings.notes.confirmation_note')}}:</span> <br> 
+                            <span class="form-label text-base font-medium"> {{$t('settings.notes.confirmation_note')}}:</span> <br> 
                             <span class="text-slate-400  break-all"> 
                                 {{ confirmationNote }}
                             </span>
