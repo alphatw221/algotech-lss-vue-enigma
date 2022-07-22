@@ -22,6 +22,11 @@
                     </DropdownToggle>
                     <DropdownMenu class="w-fit">
                         <DropdownContent>
+                            <!-- <template v-if="route.query.status !='history'"> 
+                                <DropdownItem @click="routeTOLuckyDraw()">
+                                    {{$t('campaign_live.incoming.instantly')}}
+                                </DropdownItem>
+                            </template> -->
                             <DropdownItem @click="toDrawList()">
                                 {{$t('campaign_live.incoming.list')}}
                             </DropdownItem>

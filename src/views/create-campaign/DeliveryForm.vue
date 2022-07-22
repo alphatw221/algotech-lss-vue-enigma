@@ -46,12 +46,18 @@
 		</div> 
 		
 		<div class="flex justify-between col-span-12 col-start-1 mt-5 "> 
-			<label for="regular-form-2" class="text-base font-bold form-label">{{$t('create_campaign.delivery_form.options')}}</label>
-			<a 
+			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.options')}}</label>
+			<button 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-48 2xl:w-48 h-[42px] sm:mt-auto" 
+				@click="addDelivery()"
+			>
+				{{$t('create_campaign.delivery_form.add_more_delivery_option')}}
+			</button>
+			<!-- <a 
 				class="whitespace-nowrap font-medium"
 				@click="addDelivery"
 			> <u> + {{$t('create_campaign.delivery_form.add_more_delivery_option')}} </u> 
-			</a>
+			</a> -->
 		</div>
 		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
 			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
@@ -81,13 +87,19 @@
 			</div>
 		</div>
 		
-		<div class="flex justify-between col-span-12 col-start-1 mt-5 "> 
-			<label for="regular-form-2" class="text-base font-bold form-label">{{$t('create_campaign.delivery_form.store_collection')}}</label>
-			<a 
+		<div class="flex justify-between col-span-12 col-start-1 mt-5"> 
+			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.store_collection')}}</label>
+			<button 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-48 2xl:w-48 h-[42px] sm:mt-auto" 
+				@click="addBranch()"
+			>
+				{{$t('create_campaign.delivery_form.add_more_pickup_option')}}
+			</button>
+			<!-- <a 
 				class="whitespace-nowrap font-medium"
 				@click="addBranch()"
 			> <u> + {{$t('create_campaign.delivery_form.add_more_pickup_option')}}  </u> 
-			</a>
+			</a> -->
 		</div>
 		<div class="grid grid-cols-12 col-span-12 gap-1 text-base intro-y sm:gap-5 -z-50">
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">

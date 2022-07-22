@@ -133,7 +133,7 @@
     </table>
   </div>
   <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-      <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
+      <Page class="mx-auto my-3" :total="totalPage" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>
 
@@ -166,7 +166,7 @@ const props = defineProps({
 const baseURL = import.meta.env.VITE_APP_ROOT_API
 const currentPage= ref(1)
 const totalPage= ref(1)
-const page_size= ref(10)
+const page_size= ref(100)
 const dataCount= ref(0)
 const searchColumn= ref('')
 const keyword= ref('')

@@ -3,30 +3,21 @@
     <div class="intro-y grid grid-cols-12 gap-5 mt-5 sm:mt-0">
         <!-- BEGIN: campaign Info -->
         <div class="flex flex-col col-span-12 h-fit">
+            <h1 class="mt-8 lg:mt-1">{{$t('manage_order.title')}}</h1>
             <!-- BEGIN: campaign Status -->
             <CampaignStatus/>
             <!-- END: campaign Status -->
 
             <div class="w-full mt-8 flex flex-col">
-                <div class="flex -mb-5 text-xl align-baseline mr-auto">
+                <div class="flex -mb-5 text-xl align-baseline justify-end">
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" @click="show_order('All')">{{$t('manage_order.all')}} </a>
-                    </div>
-                    <div class="w-fit h-5 report-box__indicator rounded-full bg-danger text-white text-center text-xs p-0.5 px-1.5" v-show="store.data_count['All'] > 0"> 
-                            <span>{{store.data_count['All']}}</span>
+                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('All')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{store.data_count['All']}}</span>)</a>
                     </div>
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" @click="show_order('Review')">{{$t('manage_order.review')}} </a>
+                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('Review')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{store.data_count['Review']}}</span>)</a>
                     </div>
-                    <div class="w-fit h-5 report-box__indicator rounded-full bg-danger text-white text-center text-xs p-0.5 px-1.5" v-show="store.data_count['Review'] > 0"> 
-                            <span>{{store.data_count['Review']}}</span>
-                    </div>
-
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" @click="show_order('Complete')">{{$t('manage_order.complete')}} </a>
-                    </div>
-                    <div class="w-fit h-5 report-box__indicator rounded-full bg-danger text-white text-center text-xs p-0.5 px-1.5" v-show="store.data_count['Complete'] > 0"> 
-                            <span>{{store.data_count['Complete']}}</span>
+                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('Complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{store.data_count['Complete']}}</span>) </a>
                     </div>
                 </div>
                 <!--分隔線-->
@@ -49,7 +40,7 @@
             </div>
 
             <!-- Table -->
-            <div class="w-full form-check form-switch">
+            <div class="w-full form-check form-switch justify-end">
                 <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
                 <input @click="stop_checkout($event.target.checked)" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="checkout_status"/>
             </div>
