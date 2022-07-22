@@ -13,51 +13,53 @@
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
                     </h2>
-                    <XIcon class="w-4 h-4 ml-2" @click="store.orderProductModal = false"/>
+                    <XIcon class="w-4 h-4" @click="store.orderProductModal = false"/>
             </ModalHeader>
-            <table id="orderTable" class="table table-report mt-3 text-[16px]">
-                <thead>
-                    <tr>
-                        <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
-                            {{ $t(`manage_order.product_modal.${column.name}`) }}
-                        </th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr v-for="(product, index) in store.orderProductData.products" :key="index" class="intro-x text-[16px]">
-                        <td class="imgtd">
-                            <div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-if="product.image">
-                                <Tippy
-                                    tag="img"
-                                    class="rounded-lg"
-                                    :src="storageUrl + product.image"
-                                    :content="product.name"
-                                />
-                            </div>
-                            <div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in flex" v-else>
-                                <Tippy
-                                    tag="img"
-                                    class="rounded-lg"
-                                    :src="storageUrl + 'no_image.jpeg'"
-                                    :content="product.name"
-                                />
-                            </div>
-                        </td>
-                        <td class="text-center" :data-content="$t('manage_order.product_modal.product')">
-                            {{product.name}}
-                        </td>
-				        <td class="text-center" :data-content="$t('manage_order.product_modal.qty')">
-                            {{product.qty}}
-                        </td>
-                        <td class="text-center" :data-content="$t('manage_order.product_modal.price')">
-                           $ {{(product.price).toFixed(2)}}
-                        </td>
-                        <td class="text-center" :data-content="$t('manage_order.product_modal.sub_total')">
-                           $ {{(product.qty * product.price).toFixed(2)}}
-                        </td>                        
-                    </tr>
-                </tbody>
-            </table>
+            <div class="w-full overflow-auto"> 
+                <table id="orderTable" class="table table-report mt-3 text-[13px] sm:text-[16px]">
+                    <thead>
+                        <tr>
+                            <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
+                                {{ $t(`manage_order.product_modal.${column.name}`) }}
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(product, index) in store.orderProductData.products" :key="index" class="intro-x text-[13px] sm:text-[16px]">
+                            <td class="imgtd">
+                                <div class="w-14 sm:w-20 flex" v-if="product.image">
+                                    <Tippy
+                                        tag="img"
+                                        class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
+                                        :src="storageUrl + product.image"
+                                        :content="product.name"
+                                    />
+                                </div>
+                                <div class="w-14 sm:w-20 flex" v-else>
+                                    <Tippy
+                                        tag="img"
+                                        class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
+                                        :src="storageUrl + 'no_image.jpeg'"
+                                        :content="product.name"
+                                    />
+                                </div>
+                            </td>
+                            <td class="text-left" :data-content="$t('manage_order.product_modal.product')">
+                                <span class="break-words whitespace-normal"> {{product.name}} </span>
+                            </td>
+                            <td class="text-right w-fit" :data-content="$t('manage_order.product_modal.qty')" >
+                                <span class="w-fit"> {{product.qty}} </span> 
+                            </td>
+                            <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.price')">
+                            $ {{(product.price).toFixed(2)}}
+                            </td>
+                            <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.sub_total')">
+                            $ {{(product.qty * product.price).toFixed(2)}}
+                            </td>                        
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <div class="grid grid-cols-12 gap-2 text-[16px]">
                 <div class="box col-start-1 col-span-12 lg:col-start-8">
                     <div class="grid grid-cols-3 gap-2">
@@ -132,14 +134,16 @@ function get_data(id,type){
 }
 
 td {
-  min-height: 40px;
   border-collapse: collapse;
+  padding-right: 5px; 
+  padding-left: 5px; 
 }
 
 thead th{ 
   position: sticky !important; 
   top: 0 !important;
-  
+  padding-right: 5px; 
+  padding-left: 5px; 
   background-color: theme("colors.secondary");
 }
 
@@ -147,7 +151,7 @@ thead th{
 	overflow-wrap: break-word;
 }	
 
-@media only screen and (max-width: 760px),
+/* @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
 
 	table,
@@ -201,33 +205,28 @@ thead th{
 
 	td:nth-of-type(1):before {
 		content: "";
-		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(2):before {
 		content: attr(data-content);
 		overflow-wrap: break-word;
         text-align: left;
-		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(3):before {
 		content: attr(data-content);
 		overflow-wrap: break-word !important;
         text-align: left;
-		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(4):before {
 		content: attr(data-content);
         text-align: left;
-		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(5):before {
 		content: attr(data-content);
         text-align: left;
-		/* color: #0e9893; */
 	}
-}
+} */
 </style>

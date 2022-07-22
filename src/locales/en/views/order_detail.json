@@ -11,7 +11,7 @@
     "table":{
         "product" : "Product",
         "price" : "Price",
-        "qty" : "Quantity",
+        "qty" : "Qty",
         "delete":"Delete",
         "sub_total" : "Subtotal",
         "null" : ""

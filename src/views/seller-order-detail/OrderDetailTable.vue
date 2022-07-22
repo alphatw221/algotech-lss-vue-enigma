@@ -15,29 +15,27 @@
 			<tbody>
 			<tr v-for="(product, index) in store.orderDetail.products" :key="index" class="intro-x">
 				<td class=" " :data-content="$t('order_detail.table.null')">
-					<div class="flex">
-						<div class="flex w-24 h-24 lg:w-12 lg:h-12 2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
-						<img
-							tag="img"
-							data-action="zoom"
-							class="rounded-lg"
-							:src="storageUrl+product.image"
-						/>
-						</div>
-						<div class="flex w-24 h-24 lg:w-12 lg:h-12 2xl:x-12 2xl:h-12 image-fit zoom-in" v-else>
-						<img
-							tag="img"
-							data-action="zoom"
-							class="rounded-lg"
-							:src="storageUrl+`no_image.jpeg`"
-						/>
-						</div>
+					<div class="w-14 sm:w-20 flex" v-if="product.image">
+					<img
+						tag="img"
+						data-action="zoom"
+						class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
+						:src="storageUrl+product.image"
+					/>
+					</div>
+					<div class="w-14 sm:w-20 flex" v-else>
+					<img
+						tag="img"
+						data-action="zoom"
+						class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
+						:src="storageUrl+`no_image.jpeg`"
+					/>
 					</div>
 				</td>
-				<td class="text-center" :data-content="$t('order_detail.table.product')">
+				<td class="text-left" :data-content="$t('order_detail.table.product')">
 					<div class="break-words whitespace-normal">{{ product.name }} </div>
 				</td>
-				<td class="text-center" :data-content="$t('order_detail.table.qty')">
+				<td class="text-right w-fit" :data-content="$t('order_detail.table.qty')">
 					<template v-if="props.order_type === 'order'">
 						{{ product.qty }}
 					</template>
@@ -66,11 +64,11 @@
                         </div>
 					</template>
 				</td>
-				<td class="text-center " :data-content="$t('order_detail.table.price')">
-					$ {{ product.price }}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')">
+					$ {{ (product.price).toFixed(2) }}
 				</td>
-				<td class="text-center" :data-content="$t('order_detail.table.sub_total')">
-					$ {{ product.qty * product.price }}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')">
+					$ {{ (product.qty * product.price).toFixed(2) }}
 				</td>
 				<td>
 					<a  class="flex items-center justify-center text-danger" 
@@ -185,7 +183,7 @@ thead th{
 	overflow-wrap: break-word;
 }	
 
-@media only screen and (max-width: 760px),
+/* @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
 
 	table,
@@ -228,34 +226,28 @@ thead th{
 
 	td:nth-of-type(1):before {
 		content: "";
-		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(2):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(3):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(4):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(5):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
 	}
 	td:nth-of-type(6):before {
 		display: none;
-		/* color: #0e9893; */
 	}
 	td:nth-of-type(6){
 		min-height: 10px;
 	}
-}
+} */
 </style>

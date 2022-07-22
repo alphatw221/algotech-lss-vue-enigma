@@ -47,7 +47,7 @@
         "drop_file_text": "Drop files here or click to upload.",
         "accept_file_text": "accepted File types: jpeg, png, jpg",
         "max_size_text": "Max file size",
-        "quantity": "Quantity",
+        "quantity": "Qty",
         "qty_warning": "Qty has to be a number",
         "price": "Price",
         "pricr_warning": "Price has to be a number",
