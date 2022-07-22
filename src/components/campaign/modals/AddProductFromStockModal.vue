@@ -45,6 +45,11 @@
                             v-model="searchKeyword" @keydown.enter.prevent="search()" />
                         <button 
                             type="button"
+                            class="flex-none w-14 h-[35px] sm:h-[42px] rounded-l-none btn btn-primary mt-auto" @click="search()">
+                            {{$t('campaign_live.product.search')}}
+                        </button>
+                        <button 
+                            type="button"
                             class="flex-none w-14 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary mt-auto" @click="resetSearchBar">
                             {{$t('campaign_live.product.reset')}}
                         </button>
