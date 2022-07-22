@@ -38,14 +38,14 @@
                 <div class="grid grid-cols-6" v-show="store.orderDetail.shipping_method">
                     <template v-if="store.orderDetail.shipping_method === 'pickup'">
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</div>
-                        <div class="col-start-3 col-span-3 py-2">{{$t(`order_detail.${store.orderDetail.shipping_method}`)}}</div>
+                        <div class="col-start-3 col-span-3 py-2">{{$t(`order_detail.delivery.${store.orderDetail.shipping_method}`)}}</div>
 
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_option + ' - ' + store.orderDetail.pickup_address}}</div>
                     </template>
                     <template v-if="store.orderDetail.shipping_method === 'delivery'">
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</span>
-                        <span class="col-start-3 col-span-3 py-2">{{$t(`order_detail.${store.orderDetail.shipping_method}`)}} {{store.orderDetail.shipping_option}}</span>
+                        <span class="col-start-3 col-span-3 py-2">{{$t(`order_detail.delivery.${store.orderDetail.shipping_method}`)}} {{store.orderDetail.shipping_option}}</span>
 
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.address')}}</span>
                         <span class="col-start-3 col-span-3 py-2">

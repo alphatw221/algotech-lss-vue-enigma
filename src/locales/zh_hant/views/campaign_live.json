@@ -1,4 +1,5 @@
 {
+    "live_stream":"直播管理",
     "comment" :{
         "comments":"直播留言",
         "delivery":"運送",
@@ -49,9 +50,9 @@
     },
     "incoming":{
         "incoming_order":"即時訂單",
-        "plug_in":"Plug In",
-        "instantly":"Instantly Lucky Draw Spin",
-        "list":"Lucky Draw List",
+        "plug_in":"抽獎",
+        "instantly":"立刻抽獎",
+        "list":"抽獎清單",
         "table":{
             "order_number" : "訂單",
             "name" : "顧客",

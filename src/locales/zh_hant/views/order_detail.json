@@ -3,6 +3,7 @@
     "order_no" : "訂單編號",
     "order_status" : "訂單狀態",
     "order_date" : "訂單日期",
+    "order_info":"訂單資訊",
     "pay":"前往付款",
     "complete" : "已完成",
     "review" : "處理中",
@@ -16,7 +17,7 @@
         "null" : ""
     },
     "price_summary":{
-        "price_summary": "Price Summary",
+        "price_summary": "價格總計",
         "sub_total" : "小計",
         "total" : "總計",
         "shipping":"運費",
@@ -29,7 +30,7 @@
         "price_adjustment" : "調整金額",
         "price_adjustment_note" : "想要使用折扣，請輸入「- 金額」。想要收取額外費用，請直接輸入「金額」。",
         "title" : "折扣名稱/額外費用名稱",
-        "price_exceed":"Price exceed subtotal",
+        "price_exceed":"金額不可超過小計",
         "update" : "更新"
     },
     "delivery":{
