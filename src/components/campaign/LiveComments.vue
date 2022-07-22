@@ -1,9 +1,9 @@
 <template>
     <!-- BEGIN: Comments -->
         <TabGroup :selectedIndex="0" v-if="ready"
-            class="box col-span-12 col-start-1 row-start-1 row-span-2 mt-2 h-screen
-            lg:col-span-5 lg:row-span-6 lg:mt-0 lg:h-[100%]
-            2xl:col-span-4 ">
+            class="box mt-2 max-h-screen w-full 
+                md:w-1/2 
+                2xl:w-1/3">
         <div class="flex flex-col h-full">
             <div class="flex flex-none h-14">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
@@ -131,7 +131,6 @@
                             <CommentListView :platformName="'all'"  />
                         </div>
                     </TabPanel>
-
 
                     <TabPanel :class="'facebook'" v-if="route.query.status=='history'">
                         <div class="mt-1 h-fit" >

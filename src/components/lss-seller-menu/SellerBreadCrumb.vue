@@ -13,7 +13,7 @@
     </nav>
     <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
         <ol class="breadcrumb breadcrumb-dark">
-            <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px]  font-bold rounded-full" /></li>
+            <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px] font-bold rounded-full" /></li>
         </ol>
     </nav>
 </template>
@@ -81,7 +81,7 @@ const getParamsDict = ()=>{
 
 .mobileBack{
   position:absolute;
-  top:10px;
+  top:6px;
   z-index: 50;
 }
 </style>

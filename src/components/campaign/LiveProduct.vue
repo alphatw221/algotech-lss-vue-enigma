@@ -1,14 +1,14 @@
 <template>
     <div
-        class="box col-span-12 col-start-1 row-start-5 row-span-2 h-screen
-            lg:col-start-6 lg:col-span-7 lg:row-start-4 lg:row-span-3 lg:h-[100%]
-            2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-5 
-            ">
+        class="box mt-2 min-h-[30%] w-full max-h-screen
+            md:min-h-[40%] md:h-[45vh] 
+            2xl:h-full">
         <div class="flex flex-col h-full"> 
-            <div class="flex w-full m-3">
-                <h2 class="w-48 ml-5 mr-auto text-lg font-medium">{{$t('campaign_live.product.product')}}</h2>
+
+            <div class="flex justify-between flex w-full h-16">
+                <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.product.product')}}</h2>
                 <template v-if="route.query.status !='history'">
-                    <Dropdown class="inline-block">
+                    <Dropdown class="inline-block my-auto">
                         <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                             {{$t('campaign_live.product.add_product')}}
                         </DropdownToggle>
@@ -25,22 +25,44 @@
                     </Dropdown>
                 </template>
             </div>
-            <div class="overflow-auto">
+
+            <div class="overflow-auto max-h-[90%]">
                 <table class="table table-sm">
                     <thead class="table-dark">
-                        <tr>
-                            <th class="whitespace-nowrap bg-dark" v-for="column in product_columns"
-                                :key="column.key">
-                                {{ $t(`campaign_live.product.modal_column.`+column.name) }}
+                        <tr class="relative">
+                            <th class="whitespace-nowrap bg-dark md:hidden">
+                                {{ $t('campaign_live.product.modal_column.activate') }}
+                            </th>
+                            <template v-for="column in product_columns.slice(0, -1)" :key="column.key">
+                                <th
+                                    class="whitespace-nowrap bg-dark">
+                                    {{ $t(`campaign_live.product.modal_column.`+column.name) }}
+                                </th>
+                            </template>
+                            <th class="whitespace-nowrap bg-dark lgAct">
+                                {{ $t('campaign_live.product.modal_column.activate') }}
                             </th>
                         </tr>
                     </thead>
 
                     <tbody>
                         <tr v-for="product,index in store.campaignProducts" :key="index">
-                            <td><img data-action="zoom" :src="imagePath + product.image" class="w-10 zoom-in" /></td>
+
+                            <td class="md:hidden">
+                                <div class="m-auto form-check form-switch w-fit">
+                                    <input
+                                        @click="toggle_campaign_product_status(product)"
+                                        class="form-check-input" type="checkbox" 
+                                        v-model="product.status"
+                                    />
+                                </div>
+                            </td>
+
+                            <td><img data-action="zoom" :src="imagePath + product.image" class="w-10 h-10 image-fit" /></td>
                             
-                            <td>{{ product.name }}</td>
+                            <td>
+                                <span class="mr-0.5"> {{[index+1].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}} </span>  
+                                {{ product.name }}</td>
                             <template v-if="product.type === 'lucky_draw'">
                                 <td></td>
                             </template>
@@ -48,11 +70,11 @@
                                 <td>{{ product.order_code }}</td>
                             </template>
                             <td>
-                                {{ product.qty_add_to_cart }}/{{ product.qty_sold }}/{{ product.qty_for_sale - product.qty_sold }}
+                                <b>{{ product.qty_add_to_cart }}</b> / <b>{{ product.qty_sold }}</b> / <b>{{ product.qty_for_sale - product.qty_sold }}</b>
                             </td>
                             <!-- currency_sign reference from user_subscription -->
                             <td>{{ product.currency_sign }}{{ product.price }}</td>  
-                            <td>
+                            <td class="hidden md:block">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
                                         @click="toggle_campaign_product_status(product)"
@@ -122,7 +144,6 @@ const toggle_campaign_product_status = (product) => {
 </script>
 
 <style scoped>
-
 .form-check-input {
     border-color: black !important;
 }
@@ -143,9 +164,17 @@ const toggle_campaign_product_status = (product) => {
     max-width: 95px;
 }
 
-thead th{ 
-  position: sticky !important; 
-  top: 0 !important;
-  z-index: 9;
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+
+.lgAct{
+    display: none;
 }
+
+}
+/* thead th{ 
+  position: sticky !important; 
+  top: 10px !important;
+  z-index: 9;
+} */
 </style>
