@@ -68,7 +68,7 @@
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
                                 <a class="flex sm:mr-auto image-fit">
-                                    <span class="text-[13px] mr-3 sm:hidden"> {{$t('manage_order.table.details')}}  </span>
+                                    <span class="text-[13px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
                                     <EyeIcon @click="to_order_detail(order.id,order.type)"/>
                                 </a>
                                 
@@ -392,8 +392,8 @@ thead th{
 		content: attr(data-content);
 	}
     td:nth-of-type(8){
-        min-height: 100px !important;
         padding-bottom: 10px !important;
+        padding-top: 10px !important;
     }
 
     td:nth-of-type(9){
