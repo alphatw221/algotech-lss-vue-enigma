@@ -103,6 +103,7 @@ const signIn = ()=>{
     // console.log('signIn')  response.data.access
     seller_general_login(loginData.value).then(response=>{
         cookies.set("access_token", response.data.access)
+        cookies.set("login_with", 'general')
         router.push({name:'campaign-list'})
     }).catch(err=>{
         console.log(err)
