@@ -1,8 +1,7 @@
 <template>
-    <div class="box col-span-12 col-start-1 row-start-3 row-span-2 max-h-screen mt-0
-        lg:row-start-1 lg:row-span-3 lg:col-start-6 lg:col-span-7  lg:h-[100%]
-        2xl:row-start-1 2xl:row-span-6 2xl:col-span-4 2xl:col-start-9 
-        ">
+    <div class="box mt-2 min-h-[30%] w-full max-h-screen
+            md:min-h-[40%] md:h-[42vh] 
+            2xl:h-full">
         <div class="h-full flex flex-col">
             <!-- <div class="flex w-full m-3"> 
                 <h2 class="text-lg font-medium ml-5 mr-auto">Incoming Order</h2>
@@ -14,21 +13,20 @@
                             Manage Order
                 </button >
             </div> -->
-            
 
-            <div class="flex justify-between flex w-full m-3">
-                <h2 class="text-lg font-medium ml-5">{{$t('campaign_live.incoming.incoming_order')}}</h2>
-                <Dropdown class="inline-block">
+            <div class="flex justify-between flex w-full h-16">
+                <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.incoming.incoming_order')}}</h2>
+                <Dropdown class="inline-block my-auto">
                     <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                         {{$t('campaign_live.incoming.plug_in')}}
                     </DropdownToggle>
                     <DropdownMenu class="w-fit">
                         <DropdownContent>
-                            <template v-if="route.query.status !='history'"> 
+                            <!-- <template v-if="route.query.status !='history'"> 
                                 <DropdownItem @click="routeTOLuckyDraw()">
                                     {{$t('campaign_live.incoming.instantly')}}
                                 </DropdownItem>
-                            </template>
+                            </template> -->
                             <DropdownItem @click="toDrawList()">
                                 {{$t('campaign_live.incoming.list')}}
                             </DropdownItem>
@@ -37,8 +35,8 @@
                 </Dropdown>
             </div>
             
-            <div class="overflow-auto scrollbar-hidden">
-                <table class="table table-sm">
+            <div class="overflow-auto max-h-[90%]">
+                <table class="table table-sm h-full">
                     <thead class="table-dark">
                         <tr>
                             <th class="whitespace-nowrap bg-dark" v-for="column in incoming_order_columns"

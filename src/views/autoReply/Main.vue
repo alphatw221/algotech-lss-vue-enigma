@@ -3,9 +3,9 @@
         <!-- <div class="flex items-center px-20 pt-5 pb-4 intro-y">
 			<h2 class="text-2xl font-medium">Create Campaign</h2>
 		</div> -->
-        <div class="flex-col flex gap-3 flex-wrap sm:flex-row sm:justify-between">
+        <div class="flex-col flex gap-3 flex-wrap sm:flex-row justify-center sm:justify-between">
             <label class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0 sm:mt-3"> {{ $t('auto_reply.title') }}</label>
-            <button class="w-32 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded ml-auto sm:ml-0"
+            <button class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mx-0"
                 @click="createModal = true; saved=false">
                 <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('auto_reply.create') }}
             </button>

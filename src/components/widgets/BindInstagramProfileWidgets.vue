@@ -1,8 +1,11 @@
 <template>
-    <div v-if="showPages" class="box border-2 rounded-lg p-5 mx-4 lg:mx-20 px-10 mb-3 flex flex-col">
+    <div v-if="showConnectButton" class="box border-2 rounded-lg p-5 min-h-[200px] mx-4 lg:mx-20 px-10 mb-3 flex flex-col justify-center">
+        <BindInstagramProfileButton :busName="'addInstagramProfiles'" :buttonName="'Connect with Instagram'" class="w-60 mx-auto"/>
+    </div>
+    <div v-else-if="showPages" class="box border-2 rounded-lg p-5 mx-4 lg:mx-20 px-10 mb-3 flex flex-col">
         <div class="flex justify-between">
             <h4 class="text-lg sm:text-xl font-medium leading-none mb-8">{{$t('settings.platform.instagram_profile')}}</h4>
-            <BindInstagramProfileButton :busName="'addInstagramProfiles'" :buttonName="$t('settings.platform.edit')"/>
+            <BindInstagramProfileButton :busName="'addInstagramProfiles'" :buttonName="'edit'"/>
         </div>
         <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5">
             <div v-for="page in InstagramProfiles" :key="page.id" class="flex-col flex justify-center text-center relative my-3 w-24 h-auto lg:w-32">
@@ -13,9 +16,6 @@
                 }"><XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeInstagramProfiles(page)"/></Tippy>
             </div>
         </div>
-    </div>
-    <div v-if="showConnectButton">
-        <BindInstagramProfileButton :busName="'addInstagramProfiles'" :buttonName="'Connect with Instagram'"/>
     </div>
 </template>
 

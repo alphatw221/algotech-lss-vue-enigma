@@ -1,23 +1,23 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="flex flex-col md:flex-row gap-3 h-full lg:h-[90vh] mt-10 md:mt-0">
+    <div class="grid grid-cols-12 grid-rows-6 gap-3 h-fit lg:h-[90vh]">
 
         <!-- BEGIN: Comments -->
         <LiveComments/>
         <!-- END: Comments -->
 
-        <div class="flex flex-col 2xl:flex-row gap-3 w-full md:w-1/2 2xl:w-2/3 h-fit md:h-full"> 
-            <!-- BEGIN: Product -->
-            <LiveProduct  />
-            <!-- END: Product -->
+        <!-- BEGIN: Product -->
+        <LiveProduct  />
+        <!-- END: Product -->
 
-            <!-- BEGIN: Incoming Order -->
-            <IncomingOrder />
-            <!-- END: Incoming Order -->
-        </div>
+        <!-- BEGIN: Incoming Order -->
+        <IncomingOrder />
+        <!-- END: Incoming Order -->
+        
         <ReplyModal/>
         <InstantlyAddProductModal /> 
         <AddProductFromStockModal />
+
 
     </div>
 </template>
@@ -103,10 +103,3 @@ const handleSocketMessage = message=>{
 }
 
 </script>
-
-<style scoped>
-
-.lss-content{
-    padding-right: 0px !important;    
-}
-</style>

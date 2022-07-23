@@ -3,7 +3,7 @@
         <table id="orderTable" class="table -mt-3 text-[13px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap" v-for="column in columns" :key="column.key">
+                    <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
                         {{ $t(`manage_order.table.`+column.name) }}
                     </th>
                 </tr>
@@ -68,12 +68,12 @@
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
                                 <a class="flex sm:mr-auto image-fit">
-                                    <span class="text-[13px] mr-3 sm:hidden"> Order Details  </span>
+                                    <span class="text-[13px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
                                     <EyeIcon @click="to_order_detail(order.id,order.type)"/>
                                 </a>
                                 
                                 <a class="flex image-fit">
-                                    <span class="text-[13px] mr-1 sm:hidden"> Copy Cart Link </span>
+                                    <span class="text-[13px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
                                     <Share2Icon class="block sm:mx-auto"  @click="copyURL(order.id,order.type)" />
                                 </a>
                             </div>
@@ -103,7 +103,7 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal'">
+                        <template v-else-if="column.key === 'subtotal'" class="text-right">
                             ${{ (order.total).toFixed(layoutStore.userInfo.user_subscription.decimal_places) }}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">

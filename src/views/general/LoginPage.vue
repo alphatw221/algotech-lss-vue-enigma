@@ -7,7 +7,7 @@
             class="carousel"
         >
             <CarouselItem v-for="carousel in carousel_items" :key="carousel.src" class="carousel-item">
-                <img :src="carousel.src" class="carousel-item" />
+                <img :src="carousel.src" class="carousel-item object-cover" />
             </CarouselItem>
         </Carousel>
         

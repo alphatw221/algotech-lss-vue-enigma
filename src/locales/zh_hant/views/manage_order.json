@@ -1,4 +1,5 @@
 {
+        "title":"訂單管理",
         "campaign_status":{
                 "closed_rate" : "成交率",
                 "sales" : "銷售金額",
@@ -10,6 +11,8 @@
                 "export" : "匯出訂單"
         },
         "table":{
+                "details":"訂單詳細",
+                "copy_link":"複製訂單連結",
                 "order_number" : "訂單",
                 "action":"Action",
                 "delivery_notification":"出貨",

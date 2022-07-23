@@ -3,7 +3,7 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
-					<th class="whitespace-normal xl:whitespace-nowrap" v-for="column in columns" :key="column.key">
+					<th class="whitespace-normal xl:whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
 						<template v-if="column.name === ''">
 							{{ column.name }}
 						</template>
@@ -21,10 +21,17 @@
 						:colspan="columns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="listItems==0" :colspan="columns.length +2">
-						<div class="mt-5 text-center md:mt-10">
+					<td v-else-if="listItems==0 && keyword == ''" :colspan="columns.length +2">
+						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
 								You Don't Have Product in this Category
+							</h1>
+						</div>
+					</td> 
+					<td v-else-if="listItems==0" :colspan="columns.length +2">
+						<div class="mt-40 text-center md:mt-10">
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+								No result
 							</h1>
 						</div>
 					</td> 
@@ -37,7 +44,7 @@
 				>	
 				<template v-for="column in columns" :key="column.key"> 
 					<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm imgtd">
-						<div class="flex">
+						<div class="flex justify-center">
 							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 " v-if="product.image">
 								<Tippy 
 									tag="img"
@@ -63,25 +70,30 @@
 							<div >{{ tag }}</div> 
 						</div>
 					</td>
-					<td v-else-if="column.key === 'qty' || column.key === 'type'" class="w-full sm:w-fit qtyPrice">
+					<td v-else-if="column.key === 'type'" class="w-full sm:w-fit qtyPrice">
 						<div class="">{{product[column.key]}}</div> 
 					</td>
-					<td v-else-if="column.key === 'price'" class="w-full sm:w-fit qtyPrice">
-						<div class="">{{layoutStore.userInfo.user_subscription.currency}} {{product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div> 
+					<td v-else-if="column.key === 'qty'" class="w-full sm:w-fit qtyPrice">
+						<div class="text-right">{{product[column.key]}}</div> 
 					</td>
-					<td v-else-if="column.key === 'edit'"  class="w-20 table-report__action edit">
+					<td v-else-if="column.key === 'price'" class="w-full sm:w-fit qtyPrice">
+						<div class="text-right">{{layoutStore.userInfo.user_subscription.currency}} {{product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div> 
+					</td>
+					<td v-else-if="column.key === 'edit'"  class="w-24 table-report__action edit">
+					<div class="place-content-center flex"> 
 						<Dropdown placement="bottom-start">
 							<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
 							<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
 							</DropdownToggle>
-							<DropdownMenu class="w-20 pt-2 ">
-							<DropdownContent class="w-20 text-center ">
+							<DropdownMenu class="w-20 pt-2">
+							<DropdownContent class="w-20 text-center">
 								<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"> 
 									<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.edit')}}
 								</DropdownItem>
 							</DropdownContent>
 							</DropdownMenu>
 						</Dropdown> 
+					</div>
 					</td>
 					<td v-else class="sm:w-fit">
 						<div class="sm:w-fit"> {{product[column.key]}} </div>
@@ -316,7 +328,7 @@ thead th{
 	}
 
 	td:nth-of-type(7):before {
-		content: "Quantity";
+		content: "Qty";
 		/* color: #0e9893; */
 	}
 	td:nth-of-type(8):before {

@@ -3,17 +3,23 @@
         <div class="flex justify-between mt-5 sm:mt-0">
             <div class="flex"> 
                 <input 
-                class="form-control form-check-input w-[1.2rem] h-[1.2rem]" 
+                class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
                 type="checkbox" 
                 v-model="paymentData.enabled"
                 />
-                <label class="ml-3 form-label">{{ $t('settings.payment_form.enabled') }}</label>
+                <label class="ml-3 form-label my-auto">{{ $t('settings.payment_form.enabled') }}</label>
             </div>
-            <a 
+            <button 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-60 2xl:w-60 h-[42px] sm:mt-auto" 
+				@click="addDirectPayment()"
+			>
+				{{ $t('settings.payment_form.add_more_direct_payment') }}
+			</button>
+            <!-- <a 
                 class="whitespace-nowrap"
                 @click="addDirectPayment()"
             > <u> + {{ $t('settings.payment_form.add_more_direct_payment') }}  </u> 
-            </a>
+            </a> -->
         </div>
 
         <div v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i">
@@ -40,13 +46,16 @@
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                    <label class="mt-2 text-base form-label">{{ $t(`settings.payment_form.direct_payment.${field.key}`)  }}
+                <div class="flex flex-wrap my-3">
                     <input 
-                        class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto ml-2"
-                        type="checkbox" 
-                        v-model="account[field.key]"
-                    />
+                            class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2"
+                            type="checkbox" 
+                            v-model="account[field.key]"
+                        />
+                    <label class="mt-2 text-base form-label">{{ $t(`settings.payment_form.direct_payment.${field.key}`)  }}
                     </label>
+                </div>
+                    
                 </template>
 
                 <template v-else-if="field.type === 'file'">
@@ -84,12 +93,15 @@
             </div>
         </div>
 
-        <button 
-                class="w-48 mt-2 text-base btn btn-elevated-rounded-primary"
-                @click="updateDirectPayment"
-            > 
-            {{ $t('settings.payment_form.update') }} 
-        </button>
+        <div class="self-end text-[14px] ">
+            <button 
+                    class="w-32 ml-5 shadow-md btn btn-primary"
+                    @click="updateDirectPayment"
+                > 
+                {{ $t('settings.payment_form.update') }} 
+            </button>
+        </div>
+        
     </div>
 </template>
 
