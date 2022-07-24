@@ -55,25 +55,46 @@
 		    </div>
             <div v-for="(option, index) in deliverySettings.additional_delivery_options" class="col-span-12" :key="index">
                 <div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0">
-                    <input  
+                    <div>
+                        <input  
                         class="flex-1 w-full text-base form-control sm:w-fit"
                         type="text" 
                         :placeholder="$t('settings.delivery_form.express_service_name')"
                         v-model="option.title"
-                    />
-                    <select 
-                        class="flex-1 w-full rounded-lg form-select form-select-lg sm:w-fit"
-                        v-model="option.type"
-                    >
-                        <option value="+">{{ $t('settings.delivery.on_top_of_charge') }}</option>
-                        <option value="=">{{ $t('settings.delivery.replace_charge') }}</option>
-                    </select>
-                    <input  
-                        class="flex-1 w-full form-control flex-2 sm:w-fit"
-                        type="text" 
-                        :placeholder="$t('settings.delivery_form.express_charge')"
-                        v-model="option.price"
-                    />
+                        />
+                        <label class="block text-danger font-[8px] font-light" 
+                            v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].title"
+                            :key="index"
+                            >{{error.$message}}</label>
+                        <!-- <label class="block text-danger font-[8px] font-light" v-if="v.additional_delivery_options.$each.$response.$errors[index].title.length">required</label> -->
+                    </div>
+                    <div>
+                         <select 
+                            class="flex-1 w-full rounded-lg form-select form-select-lg sm:w-fit"
+                            v-model="option.type"
+                        >
+                            <option value="+">{{ $t('settings.delivery.on_top_of_charge') }}</option>
+                            <option value="=">{{ $t('settings.delivery.replace_charge') }}</option>
+                        </select>
+                        <label class="block text-danger font-[8px] font-light" 
+                            v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].type"
+                            :key="index"
+                            >{{error.$message}}</label>
+                    </div>
+                   
+                    <div>
+                        <input  
+                            class="flex-1 w-full form-control flex-2 sm:w-fit"
+                            type="text" 
+                            :placeholder="$t('settings.delivery_form.express_charge')"
+                            v-model="option.price"
+                        />
+                        <label class="block text-danger font-[8px] font-light" 
+                            v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].price"
+                            :key="index"
+                            >{{error.$message}}</label>                    
+                    </div>
+                    
                     <button 
                         class="inline-block w-full h-[42px] ml-auto text-base btn btn-danger sm:rounded-lg sm:w-24" 
                         @click="deleteDelivery(index)"
@@ -101,21 +122,29 @@
             </div>
             <div v-for="(option, index) in deliverySettings.pickup_options" class="col-span-12" :key="index">
                 <div class="flex flex-col flex-wrap gap-3 sm:flex-row">
-                    <div class="flex flex-col flex-1 gap-3">
+                    <div class="flex flex-col flex-1 ">
                          <label class="text-base whitespace-nowrap">{{ $t('settings.delivery.store.collection') }}</label>
                         <input 
                             class="w-full h-[42px] text-base form-control sm:mt-0"
                             type="text"
                             v-model="option.name" 
                         />
+                        <label class="block text-danger font-[8px] font-light" 
+                            v-for="error, index in v.pickup_options.$each.$response.$errors[index].name"
+                            :key="index"
+                            >{{error.$message}}</label>
                     </div>
-                    <div class="flex flex-col flex-wrap gap-3 flex-grow-2">
+                    <div class="flex flex-col flex-wrap flex-grow-2">
                         <label class="text-base ">{{ $t('settings.delivery.store.pickup_address') }}</label>
                         <input 
                             class="w-full h-[42px] mr-5 text-base form-control sm:mt-0"
                             type="text" 
                             v-model="option.address"
                         />
+                        <label class="block text-danger font-[8px] font-light" 
+                            v-for="error, index in v.pickup_options.$each.$response.$errors[index].address"
+                            :key="index"
+                            >{{error.$message}}</label>
                     </div>
                     <button 
                         class="inline-block w-full btn btn-danger sm:ml-auto sm:rounded-lg sm:w-24 h-[42px] sm:mt-auto" 
@@ -154,9 +183,12 @@ import { ref, reactive, onMounted } from 'vue';
 import { seller_update_delivery } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
+import { helpers, required, numeric } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
+
 const layoutStore = useLSSSellerLayoutStore();
 
-const deliverySettings = ref({
+const deliverySettings = reactive({
     delivery_charge : 0,
     is_free_delivery_for_order_above_price : true,
     free_delivery_for_order_above_price : 0,
@@ -169,6 +201,26 @@ const deliverySettings = ref({
     pickup_options: [],
     delivery_note : ''
 })
+
+
+
+const deliverySettingsRules = {
+      additional_delivery_options: {
+        $each: helpers.forEach({
+            title:{required},
+            type: {required},
+            price:{required, numeric}
+        })
+      },
+      pickup_options: {
+        $each: helpers.forEach({
+            name:{required},
+            address: {required},
+        })
+      },
+    }
+
+const v = useVuelidate(deliverySettingsRules, deliverySettings)
 
 const fields = [
     {key:"delivery_charge",dataType:"number", default:999999},
@@ -193,10 +245,10 @@ onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return
     console.log(layoutStore.userInfo.user_subscription.meta_logistic)
 
-    
-    deliverySettings.value = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
+    Object.assign(deliverySettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
+    // deliverySettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
     fields.forEach(field => {
-        if(typeof deliverySettings.value[field.key]!=field.dataType) deliverySettings.value[field.key]=field.default
+        if(typeof deliverySettings[field.key]!=field.dataType) deliverySettings[field.key]=field.default
     });
 
 })
@@ -204,23 +256,27 @@ onMounted(() => {
 
 
 const addDelivery = () =>{
-    deliverySettings.value.additional_delivery_options.unshift( Object.assign({},additional_delivery_option) )
+    deliverySettings.additional_delivery_options.unshift( Object.assign({},additional_delivery_option) )
 }
 
 const deleteDelivery = index=>{ 
-    deliverySettings.value.additional_delivery_options.splice(index,1)
+    deliverySettings.additional_delivery_options.splice(index,1)
 }
 
 const addBranch = ()=>{
-    deliverySettings.value.pickup_options.unshift( Object.assign({},branch_option) )
+    deliverySettings.pickup_options.unshift( Object.assign({},branch_option) )
 }
 const deleteBranch = index=>{
-    deliverySettings.value.pickup_options.splice(index,1)
+    deliverySettings.pickup_options.splice(index,1)
 }
 
 
 const updateDelivery = () => {
-    seller_update_delivery(deliverySettings.value).then(res=>{
+    if(v.value.$invalid){
+        layoutStore.alert.showMessageToast("Invalid data")
+        return
+    }
+    seller_update_delivery(deliverySettings).then(res=>{
         layoutStore.userInfo = res.data
         layoutStore.notification.showMessageToast("Update Successfully")
     })
@@ -233,10 +289,10 @@ const discardDelivery = () =>{
     if(!layoutStore.userInfo.user_subscription) return
 
     console.log(layoutStore.userInfo.user_subscription.meta_logistic)
-    deliverySettings.value = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
+    deliverySettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
     
     fields.forEach(field => {
-        if(typeof deliverySettings.value[field.key]!=field.dataType) deliverySettings.value[field.key]=field.default
+        if(typeof deliverySettings[field.key]!=field.dataType) deliverySettings[field.key]=field.default
     });
 }
 </script>

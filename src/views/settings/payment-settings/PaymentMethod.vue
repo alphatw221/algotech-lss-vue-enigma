@@ -10,7 +10,7 @@
             <label class="ml-3 form-label">{{ $t('settings.payment_form.enabled') }}</label>
         </div>
 
-        <div class="my-5 lg:my-0 lg:mx-5 lg:p-5">
+        <div class="my-5 lg:my-0 lg:mx-5 lg:p-5 rounded-md border-2 border-slate">
             <div 
                 class="grid grid-cols-12 gap-2 my-2 intro-y" 
                 v-for="(field, index) in props.payment.fields" 

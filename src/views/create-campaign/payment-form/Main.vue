@@ -20,7 +20,7 @@
 							</div>
 						</Accordion>
 						<AccordionPanel class="leading-relaxed border-2 text-slate-600 dark:text-slate-500 border-secondary">
-							<DirectPayment :campaign="props.campaign" :payment="paymentStore[key]" :directPaymentImages="props.directPaymentImages"/>
+							<DirectPayment :campaign="props.campaign" :payment="paymentStore[key]" :directPaymentImages="props.directPaymentImages" :v="props.v"/>
 						</AccordionPanel>
 					</AccordionItem>
 
@@ -63,7 +63,8 @@ const sellerStore = useLSSSellerLayoutStore()
 
 const props = defineProps({
     campaign: Object,
-	directPaymentImages:Array
+	directPaymentImages:Array,
+	v:Object
 })
 // const activePayment = ref([])
 const ready = ref(false)

@@ -45,6 +45,11 @@
                         type="text" 
                         v-model="account[field.key]"
                     />
+                    <label class="text-danger font-[8px] font-light" 
+                        v-for="error,index in props.v.meta_payment.direct_payment.v2_accounts.$each.$response.$errors[index_i][field.key]"
+                        :key="index"
+                        >{{error.$message}}
+                    </label>
                 </template>
 
                 <template v-else-if="field.type === 'textarea'">
@@ -124,6 +129,7 @@ const props = defineProps({
     payment: Object,
     campaign: Object,
     directPaymentImages: Array,
+    v:Object
 });
 
 const route = useRoute();

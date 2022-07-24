@@ -1,6 +1,6 @@
 <template>
     <div class="flex-col flex text-[16px]">
-        <div class="flex justify-between mt-5 sm:mt-0">
+        <div class="flex justify-between mt-5 sm:mt-2">
             <div class="flex"> 
                 <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
@@ -9,12 +9,12 @@
                 />
                 <label class="ml-3 form-label my-auto">{{ $t('settings.payment_form.enabled') }}</label>
             </div>
-            <button 
+            <!-- <button 
 				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-60 2xl:w-60 h-[42px] sm:mt-auto" 
 				@click="addDirectPayment()"
 			>
 				{{ $t('settings.payment_form.add_more_direct_payment') }}
-			</button>
+			</button> -->
             <!-- <a 
                 class="whitespace-nowrap"
                 @click="addDirectPayment()"
@@ -22,7 +22,24 @@
             </a> -->
         </div>
 
-        <div v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i">
+        <div class="flex justify-between mt-5 sm:mt-0">
+            <!-- <div class="flex"> 
+                <input 
+                class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
+                type="checkbox" 
+                v-model="paymentData.enabled"
+                />
+                <label class="ml-3 form-label my-auto">{{ $t('settings.payment_form.enabled') }}</label>
+            </div> -->
+            <button 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-60 2xl:w-60 h-[42px] sm:mt-auto" 
+				@click="addDirectPayment()"
+			>
+				{{ $t('settings.payment_form.add_more_direct_payment') }}
+			</button>
+        </div>
+
+        <div v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i" class="border-slate rounded-md border-2 p-3 my-3">
             <div 
                 class="flex flex-col intro-y"
                 v-for="(field, index_j) in payment.fields" 
@@ -35,6 +52,8 @@
                         type="text" 
                         v-model="account[field.key]"
                     />
+                    <label class="text-danger font-[8px] font-light" v-if="v.v2_accounts.$each.$response.$errors[index_i][field.key].length">required</label>
+
                 </template>
 
                 <template v-else-if="field.type === 'textarea'">
@@ -111,6 +130,12 @@ import { computed, onMounted, ref, watch, provide, reactive, toRefs ,defineProps
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_payment } from '@/api_v2/user_subscription'
+
+import { helpers, required } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
+
+
+
 const sellerStore = useLSSSellerLayoutStore();
 const props = defineProps({
     payment: Object,
@@ -119,7 +144,7 @@ const props = defineProps({
 const route = useRoute();
 const router = useRouter();
 
-const paymentData = ref(
+const paymentData = reactive(
     {
         enabled:false,
         title:'',
@@ -130,19 +155,32 @@ const previewImages = ref([])
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
 const formData = new FormData()
 
+ const paymentDataRules = {
+      v2_accounts: {
+        $each: helpers.forEach({
+            mode:{required},
+            name: {required},
+            number:{required}
+        })
+      }
+    }
+
+const v = useVuelidate(paymentDataRules, paymentData)
+
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
     console.log(sellerStore.userInfo.user_subscription.meta_payment)
 
     if(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]){
-        paymentData.value = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]))  
+        Object.assign(paymentData,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key])))
+        // paymentData = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]))  
     }
 
 
-    if(typeof paymentData.value['enabled'] != 'boolean')paymentData.value['enabled']=false
-    if(!Array.isArray(paymentData.value['v2_accounts']))paymentData.value['v2_accounts']=[]
+    if(typeof paymentData['enabled'] != 'boolean')paymentData['enabled']=false
+    if(!Array.isArray(paymentData['v2_accounts']))paymentData['v2_accounts']=[]
 
-    paymentData.value.v2_accounts.forEach(account => {
+    paymentData.v2_accounts.forEach(account => {
         previewImages.value.push(storageUrl+account.image)
     });
 })
@@ -153,7 +191,7 @@ const uploadImage = (event, index) =>{
         sellerStore.alert.showMessageToast('image size exceed 2 MB')
         return
     }
-    formData.append('_'+paymentData.value.v2_accounts[index].name,image)
+    formData.append('_'+paymentData.v2_accounts[index].name,image)
 	let reader = new FileReader();
 	reader.readAsDataURL(image);
 	reader.onload = event =>{ previewImages.value[index] = event.target.result };
@@ -161,17 +199,22 @@ const uploadImage = (event, index) =>{
 
 
 const deleteDirectPayment = index=>{
-    paymentData.value.v2_accounts.splice(index,1)
+    paymentData.v2_accounts.splice(index,1)
     previewImages.value.splice(index,1)
 
 }
 const addDirectPayment = ()=>{
-    paymentData.value.v2_accounts.unshift({mode:'',name:'',number:'',note:'',require_customer_return:true})
+    paymentData.v2_accounts.unshift({mode:'',name:'',number:'',note:'',require_customer_return:true})
     previewImages.value.unshift('')
 }
 
 const updateDirectPayment = () => {
-    formData.append('data', JSON.stringify(paymentData.value))
+
+    if(v.value.$invalid){
+        sellerStore.alert.showMessageToast("Invalid data")
+        return
+    }
+    formData.append('data', JSON.stringify(paymentData))
 
     seller_update_payment(props.payment.key,formData).then(res=>{
         sellerStore.userInfo = res.data

@@ -61,25 +61,52 @@
 		</div>
 		<div v-for="(option, index) in props.campaign.meta_logistic.additional_delivery_options" class="col-span-12" :key="index">
 			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
-				<input  
-					class="flex-1 w-full text-base form-control sm:w-fit"
-					type="text" 
-					placeholder="eg : Express Service"
-					v-model="option.title"
-				/>
-				<select 
-					class="flex-1 w-full form-select form-select-md sm:w-fit"
-					v-model="option.type"
-				>
-					<option value="+">{{$t('create_campaign.delivery_form.on_top_of_delivery_charge')}}</option>
-					<option value="=">{{$t('create_campaign.delivery_form.replace_delivery_charge')}}</option>
-				</select>
-				<input  
-					class="w-full form-control flex-2 sm:w-fit"
-					type="text" 
-					placeholder="eg : Express Charge"
-					v-model="option.price"
-				/>
+
+				<div>
+					<input  
+						class="flex-1 w-full text-base form-control sm:w-fit"
+						type="text" 
+						placeholder="eg : Express Service"
+						v-model="option.title"
+					/>
+					<label class="text-danger font-[8px] font-light block" 
+						v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].title"
+						:key="index"
+						>{{error.$message}}
+					</label>
+				</div>
+
+				<div>
+					<select 
+						class="flex-1 w-full form-select form-select-md sm:w-fit"
+						v-model="option.type"
+					>
+						<option value="+">{{$t('create_campaign.delivery_form.on_top_of_delivery_charge')}}</option>
+						<option value="=">{{$t('create_campaign.delivery_form.replace_delivery_charge')}}</option>
+					</select>
+					<label class="text-danger font-[8px] font-light block" 
+						v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].type"
+						:key="index"
+						>{{error.$message}}
+					</label>
+				</div>
+				
+
+				<div>
+					<input  
+						class="w-full form-control flex-2 sm:w-fit"
+						type="text" 
+						placeholder="eg : Express Charge"
+						v-model="option.price"
+					/>
+					<label class="text-danger font-[8px] font-light block" 
+						v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].price"
+						:key="index"
+						>{{error.$message}}
+					</label>
+				</div>
+				
+
 				<button 
 					class="btn btn-danger inline-block text-base w-full sm:w-24 ml-auto h-[42px]" 
 					@click="deleteDelivery(index)"
@@ -105,12 +132,19 @@
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">
 				<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
                     <div class="flex flex-col flex-1">
-                         <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_store')}}</label>
+						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_store')}}</label>
                         <input 
                             class="w-full h-[42px] text-base form-control sm:mt-0"
                             type="text"
                             v-model="option.name" 
                         />
+
+						<label class="text-danger font-[8px] font-light" 
+							v-for="error,index in props.v.meta_logistic.pickup_options.$each.$response.$errors[index].name"
+							:key="index"
+							>{{error.$message}}
+						</label>
+
                     </div>
                     <div class="flex flex-col flex-wrap  flex-grow-2">
                         <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_address')}}</label>
@@ -119,6 +153,12 @@
                             type="text" 
                             v-model="option.address"
                         />
+						<label class="text-danger font-[8px] font-light" 
+							v-for="error,index in props.v.meta_logistic.pickup_options.$each.$response.$errors[index].address"
+							:key="index"
+							>{{error.$message}}
+						</label>
+						
                     </div>
                     <button 
                         class="inline-block w-full rounded-lg btn btn-danger sm:ml-auto sm:w-24 h-[42px] sm:mt-auto" 
@@ -150,6 +190,7 @@ onMounted(()=>{
 })
 const props = defineProps({
     campaign: Object,
+	v:Object
 });
 
 const addDelivery = () =>{

@@ -10,12 +10,12 @@
 					<input 
 						class="w-full form-control" 
 						type="text" 
-						:class="{ 'border-danger': title_validate.title.$error }"
-						v-model.trim="title_validate.title.$model"
-						@blur="title_validate.title.$touch" 
+						:class="{ 'border-danger': v.title.$error }"
+						v-model.trim="v.title.$model"
+						@blur="v.title.$touch" 
 						/> 
 				</div> 
-				<template v-if="title_validate.title.$error">
+				<template v-if="v.title.$error">
 					<label class="text-danger text-[14px] ml-20">
 						{{$t('edit_campaign.title_required')}}
 					</label>
@@ -82,11 +82,13 @@
 
 		<DeliveryForm 
 			:campaign="campaignData"
+			:v="v"
 		/>
 
 		<PaymentForm 
 			:campaign="campaignData"
 			:directPaymentImages="directPaymentImages"
+			:v="v"
 		/>
 
 		<NotesForm :campaign="campaignData"/>
@@ -115,7 +117,7 @@ import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 
 import EnterPostIDModal from "@/views/campaign-list/enter-post-id-modal/Main.vue"
-import { required, minLength, maxLength } from "@vuelidate/validators";
+import { required, minLength, maxLength, helpers, numeric } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
@@ -153,17 +155,44 @@ watch(computed(()=>{return dateTimePicker.value}),()=>{
 },{deep:true})
 
 
-const title_rules = computed(() => {
-	return { title: { required, minLength: minLength(1), maxLength: maxLength(255) } }
+const campaignDataRules = computed(() => {
+	return { 	
+				title: { required, minLength: minLength(1), maxLength: maxLength(255) },
+				meta_logistic:{
+					additional_delivery_options: {
+					$each: helpers.forEach({
+						title:{required},
+						type: {required},
+						price:{required, numeric}
+					})
+				},
+				pickup_options: {
+					$each: helpers.forEach({
+						name:{required},
+						address: {required},
+					})
+				},
+				},
+				meta_payment:{
+					direct_payment:{
+						v2_accounts: {
+							$each: helpers.forEach({
+								mode:{required},
+								name: {required},
+								number:{required}
+							})
+						}
+					}
+				} }
 })
-const title_validate = useVuelidate(title_rules, campaignData);
+const v = useVuelidate(campaignDataRules, campaignData);
 
 const updateCampaign = ()=>{
 
 
-	title_validate.value.$touch()
-	if (title_validate.value.$invalid) {
-		sellerStore.alert.showMessageToast("Invalid campaign title input")
+	v.value.$touch()
+	if (v.value.$invalid) {
+		sellerStore.alert.showMessageToast("Invalid Data")
 		return
 	}
 
