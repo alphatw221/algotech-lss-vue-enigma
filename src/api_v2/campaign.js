@@ -60,3 +60,7 @@ export const list_campaign = (status,searchColumn,keyword,order_by,page,page_siz
 export const fast_add_product = (campaign_id, data) => {
     return createAxiosWithBearer().post(`/api/v2/campaign/${campaign_id}/product/add/fast/`, data)
 }
+
+export const get_campaign_order_report = (campaign_id) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign/${campaign_id}/report/`,{responseType : 'blob'})
+}

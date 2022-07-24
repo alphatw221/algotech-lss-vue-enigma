@@ -46,7 +46,7 @@ import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import  FilterModal  from "./FilterModal.vue";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
-import {order_export} from "@/api/manage_order";
+import { get_campaign_order_report } from "@/api_v2/campaign"
 import { url } from "@vuelidate/validators";
 
 const route = useRoute();
@@ -82,8 +82,10 @@ function reset(filter_data){
     eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
 }
 function onExportXlsx(){
-    order_export(route.params.campaign_id).then(
+    get_campaign_order_report(route.params.campaign_id).then(
+    // order_export(route.params.campaign_id).then(
         res => {console.log(res)
+        
             if (window.navigator.msSaveOrOpenBlob) {
                 window.navigator.msSaveBlob(res.data);
             } else {
