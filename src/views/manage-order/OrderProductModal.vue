@@ -13,7 +13,7 @@
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
                     </h2>
-                    <XIcon class="w-4 h-4" @click="store.orderProductModal = false"/>
+                    <XIcon class="w-8 h-8 text-slate-400" @click="store.orderProductModal = false"/>
             </ModalHeader>
             <div class="w-full overflow-auto"> 
                 <table id="orderTable" class="table table-report mt-3 text-[13px] sm:text-[16px]">
@@ -26,8 +26,8 @@
                     </thead>
                     <tbody>
                         <tr v-for="(product, index) in store.orderProductData.products" :key="index" class="intro-x text-[13px] sm:text-[16px]">
-                            <td class="imgtd">
-                                <div class="w-14 sm:w-20 flex" v-if="product.image">
+                            <td class="imgtd flex justify-center">
+                                <div class="w-14 sm:w-fit" v-if="product.image">
                                     <Tippy
                                         tag="img"
                                         class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
@@ -35,7 +35,7 @@
                                         :content="product.name"
                                     />
                                 </div>
-                                <div class="w-14 sm:w-20 flex" v-else>
+                                <div class="w-14 sm:w-fit flex" v-else>
                                     <Tippy
                                         tag="img"
                                         class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
@@ -61,23 +61,23 @@
                 </table>
             </div>
             <div class="grid grid-cols-12 gap-2 text-[16px]">
-                <div class="box col-start-1 col-span-12 lg:col-start-8">
+                <div class="box col-start-1 col-span-12 lg:col-start-9">
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.sub_total')}}</div>
-                            <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.subtotal).toFixed(2)}}</div>
+                            <div class="lg:mr-0">$ {{parseFloat(store.orderProductData.subtotal).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.delivery_charge')}}</div>
-                            <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.shipping_cost).toFixed(2)}}</div>
+                            <div class="lg:mr-0">$ {{parseFloat(store.orderProductData.shipping_cost).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{store.orderProductData.adjust_title ?? $t('manage_order.product_modal.discount')}}</div>
-                            <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.adjust_price).toFixed(2)}}</div>
+                            <div class="lg:mr-0">$ {{parseFloat(store.orderProductData.adjust_price).toFixed(2)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.total')}}</div>
-                            <div class="lg:mr-10">$ {{parseFloat(store.orderProductData.total).toFixed(2)}}</div>
+                            <div class="lg:mr-0">$ {{parseFloat(store.orderProductData.total).toFixed(2)}}</div>
                         </div>
                     </div>
                 </div>

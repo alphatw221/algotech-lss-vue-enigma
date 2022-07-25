@@ -1,6 +1,6 @@
 <template>
-    <div class="mt-3 w-full overflow-auto h-fit sm:h-[50vh]"> 
-        <table id="orderTable" class="table -mt-3 text-[13px] table-report">
+    <div class="mt-2 w-full overflow-auto h-fit sm:h-[50vh]"> 
+        <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
                     <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
@@ -68,12 +68,12 @@
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
                                 <a class="flex sm:mr-auto image-fit">
-                                    <span class="text-[13px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
+                                    <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
                                     <EyeIcon @click="to_order_detail(order.id,order.type)"/>
                                 </a>
                                 
                                 <a class="flex image-fit">
-                                    <span class="text-[13px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
+                                    <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
                                     <Share2Icon class="block sm:mx-auto"  @click="copyURL(order.id,order.type)" />
                                 </a>
                             </div>
@@ -83,7 +83,7 @@
                                 <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
                                     <TruckIcon />
                                 </a>
-                                <a class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
+                                <a class="w-fit h-fit image-fit" v-show="order.status === 'shipping out'">
                                     <TruckIcon style="color:#BABABA" class="cursor-not-allowed"/>
                                 </a>
                             </div>
