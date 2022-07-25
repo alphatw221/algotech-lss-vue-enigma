@@ -208,7 +208,7 @@ import { ref, onMounted, computed, provide } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
-import { required, integer, maxLength, decimal} from "@vuelidate/validators";
+import { required, integer, maxLength, decimal, minValue} from "@vuelidate/validators";
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
@@ -319,7 +319,7 @@ const rules = computed(()=>{
 		name:{required,maxLength:maxLength(40)},
 		// order_code: {required, maxLength:maxLength(10)},
 		description: {maxLength: maxLength(100)},
-		qty: {integer},
+		qty: {integer, minValue:minValue(1)},
 		price: {decimal},  
     }
 });
