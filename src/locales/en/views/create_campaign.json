@@ -23,7 +23,7 @@
 
         "store_collection":"Self Pickup",
 
-        "pickup_store":"Pickup Store",
+        "pickup_store":"Pickup Location",
         "pickup_address":"Pickup Address"
 
     },
@@ -56,8 +56,8 @@
         "add_more_direct_payment":"Add More Direct Payment",
         "upload_image":"Upload Image",
         "upload_a_file_or_drag_and_drop":"Upload a file",
-        "accepted_file_types":"Accepted File Types",
-        "max_file_size":"Max File Size",
+        "accepted_file_types":"File types",
+        "max_file_size":"Max file size",
 
         "delete":"Delete"
 

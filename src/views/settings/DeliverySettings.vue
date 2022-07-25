@@ -123,7 +123,7 @@
             <div v-for="(option, index) in deliverySettings.pickup_options" class="col-span-12" :key="index">
                 <div class="flex flex-col flex-wrap gap-3 sm:flex-row">
                     <div class="flex flex-col flex-1 ">
-                         <label class="text-base whitespace-nowrap">{{ $t('settings.delivery.store.collection') }}</label>
+                         <label class="text-base whitespace-nowrap">{{ $t('settings.delivery.store.pickup_store') }}</label> 
                         <input 
                             class="w-full h-[42px] text-base form-control sm:mt-0"
                             type="text"

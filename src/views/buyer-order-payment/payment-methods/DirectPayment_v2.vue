@@ -63,7 +63,7 @@
                 method: 'put',
                 url: 'url',
                 uploadMultiple: false,
-                maxFilesize: 2,
+                maxFilesize: 10,
                 addRemoveLinks: true,
                 autoProcessQueue: false,
                 resizeQuality: 0.5,
@@ -77,7 +77,7 @@
                 <div class="text-gray-600">
                     <br>{{$t('shopping_cart.payment.direct.accepted_types')}}: jpeg, png, jpg
                 </div>
-                <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}} : 2MB</div>  
+                <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}} : 10MB</div>  
             </Dropzone>
             <div class="flex flex-col m-3">
 

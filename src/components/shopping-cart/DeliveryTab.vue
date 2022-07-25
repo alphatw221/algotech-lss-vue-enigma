@@ -89,7 +89,7 @@
                       <!-- BEGIN Pickup Panel -->
                       <TabPanel class="leading-relaxed">
                         <div class="grid grid-cols-12">
-                          <label class="text-md font-medium col-span-12">Pickup Option</label>
+                          <label class="text-md font-medium col-span-12">Pickup Location</label>
                           <div class="box p-2 intro-y col-span-12 gap-5 mx-0 lg:mx-20 lg:p-8">
                             <div v-if="'campaign' in store.order">
                               <div class="flex form-check my-5" v-for="(branch_name,index) in store.order.campaign.meta_logistic.branch_name" :key="index">
