@@ -241,6 +241,7 @@
                                         :data-content="$t('campaign_live.product.modal_column.order_code')">
                                             <div class="relative place-content-end w-full md:w-24 lg:place-content-center">
                                                 <input class="form-control w-[100%] mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+                                                <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
                                             </div>
                                         </td>
 
@@ -475,7 +476,7 @@ const checkIfValid = ()=>{
         if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='invalid qty';isSelectedProductsValid=false;}
         else if(!selectedProduct.assign_qty) {errorMessages.value[index]['assign_qty']='required';isSelectedProductsValid=false;}
 
-        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.assign_qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false;}
         if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='required';isSelectedProductsValid=false;}
         productCache.orderCodeDict[selectedProduct.order_code]=index
     });
