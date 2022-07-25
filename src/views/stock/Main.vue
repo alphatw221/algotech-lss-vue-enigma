@@ -75,15 +75,15 @@ const router = useRouter()
 
 const searchColumns = ref([
 	{ text: "name", value: "name" },
-	{ text: "order_code", value: "order_code" },
+	// { text: "order_code", value: "order_code" },
 	{ text: "description", value: "description" }
 ])
 
 const tableColumns = ref([
     { name: "image", key: "image" },
 	{ name: "name", key: "name" },
-	{ name: "order_code", key: "order_code" },
-	{ name: "type", key: "type" },
+	// { name: "order_code", key: "order_code" },
+	// { name: "type", key: "type" },
 	{ name: "category", key: "category" },
 	{ name: "description", key: "description" },
 	{ name: "qty", key: "qty" },
