@@ -1,16 +1,15 @@
 <template>
-    <div class="flex flex-col gap-3 p-2 sm:px-5 sm:h-[100%]">
-        <!-- <div class="flex items-center px-20 pt-5 pb-4 intro-y">
-			<h2 class="text-2xl font-medium">Create Campaign</h2>
-		</div> -->
+    <div class="flex flex-col sm:px-5 sm:h-[100%]">
         <div class="flex-col flex gap-3 flex-wrap sm:flex-row justify-center sm:justify-between">
-            <label class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0 sm:mt-3"> {{ $t('auto_reply.title') }}</label>
-            <button class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mx-0"
+            <div class="flex items-center sm:px-20 lg:pt-5 mt-3 lg:pb-4 intro-y lg:pt-5 mt-3">
+                <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('auto_reply.title') }}</h2>
+            </div>
+            <button class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mx-0 lg:mx-20 lg:mt-5 sm:mt-0 lg:mb-0 mb-3"
                 @click="createModal = true; saved=false">
                 <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('auto_reply.create') }}
             </button>
         </div>
-        <div class="flex flex-col gap-5 p-3 overflow-x-hidden sm:overflow-x-auto sm:p-8 box">
+        <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
             <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
     </div>

@@ -1,5 +1,5 @@
 <template>
-	<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y">
+	<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 		<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('stock.stock') }}</h2>
 	</div>
 	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
