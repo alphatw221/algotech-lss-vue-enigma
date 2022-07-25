@@ -74,7 +74,7 @@
                             </td>
                             <!-- currency_sign reference from user_subscription -->
                             <td>{{ product.currency_sign }}{{ product.price }}</td>  
-                            <td class="hidden md:block">
+                            <td class="status_active">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
                                         @click="toggle_campaign_product_status(product)"
@@ -168,6 +168,10 @@ const toggle_campaign_product_status = (product) => {
 (min-device-width: 768px) and (max-device-width: 768px) {
 
 .lgAct{
+    display: none;
+}
+
+.status_active {
     display: none;
 }
 
