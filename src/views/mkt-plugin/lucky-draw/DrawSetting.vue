@@ -139,8 +139,8 @@
 					<div class="px-4 pb-4 text-[16px] absolute top-16 text-center w-full flex flex-col items-center justify-center"
                         v-if="previewImage === null">
 						<div class="flex"> <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> <strong class="text-slate-600">Upload a file or drag and drop</strong> </div>
-                        <div class="mt-2 text-slate-500">Supported file types : gif</div>
-                        <div class="text-slate-500">Max file size : 2MB</div>  
+                        <div class="mt-2 text-slate-500">File Types : gif</div>
+                        <div class="text-slate-500">Max File Size : 10MB</div>  
 					</div>
 					<input
                         type="file"
