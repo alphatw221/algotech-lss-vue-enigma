@@ -161,8 +161,11 @@ const uploadReceipt = () => {
     if(!campaign) return
     const meta_payment = campaign.meta_payment
     if(!meta_payment) return
+    
+    let isUploadImg = receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]
+    
     const account = Object.values(meta_payment.direct_payment.v2_accounts)[selectAccountIndex.value]
-    if(account.require_customer_return){
+    if(isUploadImg === undefined && account.require_customer_return) {
         uploadValidate.value.$touch();
         if (uploadValidate.value.$invalid) {
             layoutStore.alert.showMessageToast("Invalid data")
