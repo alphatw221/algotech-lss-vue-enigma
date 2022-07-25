@@ -322,7 +322,7 @@ thead th{
 	}
 
 	td:nth-of-type(2):before {
-		content: attr(data-content);
+		content: '';
 	}
 	td:nth-of-type(2) {
 		display:inline-flex;
