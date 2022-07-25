@@ -1,6 +1,6 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="intro-y grid grid-cols-12 gap-5 mt-5 sm:mt-0">
+    <div class="intro-y grid grid-cols-12 gap-5 mt-4 sm:mt-0">
         <!-- BEGIN: campaign Info -->
         <div class="flex flex-col col-span-12 h-fit">
             <h1 class="mt-8 lg:mt-1">{{$t('manage_order.title')}}</h1>

@@ -1,7 +1,7 @@
 <template>
     <div class="relative right-0 flex w-full m-1 sm:mt-1 sm:w-auto">
         <div class="export hidden sm:block">
-            <button id="tabulator-html-filter-go" type="button" class="flex-none w-16 mr-3 btn btn-primary"
+            <button id="tabulator-html-filter-go" type="button" class="flex-none w-16 mr-3 h-[35px] sm:h-[42px] btn btn-primary"
                 @click="test()">
             {{$t('manage_order.search_bar.filter')}}
             </button>
@@ -13,7 +13,7 @@
             <FilterIcon class="w-8 h-8" @click="test()"/>
         </div>
         <div class="export hidden sm:block">
-            <Dropdown class="relative p-2 mr-1 flex rounded-full items-center btn border-[#131C34] w-24"
+            <Dropdown class="relative p-2 mr-1 flex rounded-full items-center btn border-[#131C34] w-24 h-[35px] sm:h-[42px]"
                 placement="bottom-start"> {{$t('manage_order.search_bar.export')}}
                 <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                     <ChevronDownIcon class="w-5 h-5 text-slate-700" />
@@ -28,16 +28,16 @@
         <div class="sm:hidden w-12">
             <DownloadIcon class="w-8 h-8" @click="onExportXlsx"/>
         </div>
-        <div class="flex"> 
+        <div class="flex ml-auto sm:ml-1"> 
             <!-- <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 col-span-2" /> -->
             <div class="relative"> 
-                <input type="text" class=" mr-2 form-control w-40 lg:w-60 rounded-lg"
+                <input type="text" class="form-control w-40 lg:w-60 rounded-lg h-[35px] sm:h-[42px] pr-10"
                 placeholder=" Search" v-model="searchValue" @keydown.enter.prevent="search()"/>
-                <SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="search()"/>
+                <SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-2 z-10 text-slate-600" @click="search()"/>
             </div>
             <XIcon 
                 v-if="searchValue"
-                class="flex-none w-7 h-7 mt-2 text-slate-600" @click="reset"/>
+                class="flex-none w-7 h-7 mt-2 text-slate-600 ml-2 " @click="reset"/>
         </div>
     </div>
 </template>

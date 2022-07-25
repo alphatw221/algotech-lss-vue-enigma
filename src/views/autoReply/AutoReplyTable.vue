@@ -5,7 +5,7 @@
 			<thead>
 				<tr>
 					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap text-center">
-						<template v-if="column.name === '#' || column.key === 'facebook_page'">
+						<template v-if="column.name === '#' || column.key === 'page'">
 							<span class="px-6"> {{ $t(`auto_reply.table_column.${column.name}`) }} </span> 
 						</template>
 						<template v-else-if="column.name === ''">
@@ -31,12 +31,14 @@
 				</tr>
 				<tr v-for="(reply, index) in listItems" :key="index" class="intro-x">
 					<template v-for="(column, cindex) in columns" :key="cindex">
-						<td v-if="column.key === 'facebook_page'"
+						<td v-if="column.key === 'page'"
 							class="w-32 imgtd">
 							<span class="mt-4 title sm:hidden">{{ $t(`auto_reply.table_column.${column.name}`) }}</span>
 							<div class="w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
 								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image" v-if="reply.facebook_page"
 									:content="`facebook`" />
+								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.instagram_profile.image" v-else-if="reply.instagram_profile"
+								:content="`instagram`" />
 							</div>
 						</td>
 						<td v-else-if="column.key === 'edit'"  class="w-20 edit">
