@@ -15,7 +15,6 @@
                 <input id="off" name="state-d" type="radio" @click="toggleTabs(3)" />
                 <label for="off">{{$t('settings.delivery.delivery')}}</label>
             </div>
-
             <div class="pb-10 px-3">
                 <div id="notes" :class="{ hidden: openTab !== 1, block: openTab === 1 }">
                     <NotesSettings />

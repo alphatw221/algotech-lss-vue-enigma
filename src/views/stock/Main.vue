@@ -1,6 +1,9 @@
 <template>
-	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-8 h-fit">
-		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-10 sm:mt-0"> 
+	<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y">
+		<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('stock.stock') }}</h2>
+	</div>
+	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
+		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-5"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
 				<label for="on">{{ $t('stock.for_sale') }}</label>
@@ -12,7 +15,7 @@
 				class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-md btn btn-warning rounded-full" 
 				@click="router.push({name: 'add-product'})"
 				>
-				<template class="hidden sm:block"> {{ $t('stock.add_product') }} </template>
+				<template class="hidden sm:block"><span class="mr-1 text-lg font-bold">+</span> {{ $t('stock.add_product') }} </template>
 				<template class="block sm:hidden"> <PlusIcon class="w-8 h-8" /> </template>
             </button>
 		</div>
