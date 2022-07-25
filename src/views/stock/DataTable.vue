@@ -87,7 +87,7 @@
 							</DropdownToggle>
 							<DropdownMenu class="w-20 pt-2">
 							<DropdownContent class="w-20 text-center">
-								<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="router.push({name:'edit-product',params:{product_id:product.id}})"> 
+								<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="routeToEditProduct(product)"> 
 									<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.edit')}}
 								</DropdownItem>
 							</DropdownContent>
@@ -120,6 +120,7 @@ import { list_product } from '@/api_v2/product'
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from "vue-router"
+import dom from "@left4code/tw-starter/dist/js/dom";
 
 const route = useRoute()
 const router = useRouter()
@@ -191,6 +192,14 @@ const changePageSize = pageSize => {
 	search();
 }
 
+const routeToEditProduct = (product)=>{
+	router.push({name:'edit-product',params:{'product_id':product.id}})
+	hideDropDown()
+}
+
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
 </script>
 
 
