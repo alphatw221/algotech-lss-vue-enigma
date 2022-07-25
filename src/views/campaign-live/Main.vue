@@ -15,7 +15,7 @@
             <IncomingOrder />
             <!-- END: Incoming Order -->
         </div>
-        <ReplyModal/>
+        <ReplyModal :key="campaignDetailStore.campaign"/>
         <InstantlyAddProductModal /> 
         <AddProductFromStockModal />
 
@@ -36,8 +36,9 @@ import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+import { retrieve_campaign } from '@/api_v2/campaign';
 
-const store = useCampaignDetailStore()
+const campaignDetailStore = useCampaignDetailStore()
 const { cookies } = useCookies();
 const router = useRouter();
 const route = useRoute()
@@ -49,6 +50,10 @@ let webSocket = null
 
 onMounted(()=>{
     initWebSocketConnection()
+    retrieve_campaign(route.params.campaign_id).then(res=>{
+		campaignDetailStore.campaign = res.data
+	})
+    
 })
 
 onUnmounted(()=>{
@@ -87,17 +92,17 @@ const handleSocketMessage = message=>{
         eventBus.emit(`insert_commentSummarize_comment`, message.data)
         eventBus.emit(`insert_${message.data.platform}_comment`, message.data)
     }else if (message.type == 'product_data'){
-        const index = store.campaignProducts.findIndex(product => product.id === message.data.id)
+        const index = campaignDetailStore.campaignProducts.findIndex(product => product.id === message.data.id)
 
-        console.log(store.campaignProducts)
+        console.log(campaignDetailStore.campaignProducts)
 
-        if(store.campaignProducts[index]){
-            store.campaignProducts[index]["qty_sold"] = message.data.qty_sold
-            store.campaignProducts[index]["qty_add_to_cart"] = message.data.qty_add_to_cart
+        if(campaignDetailStore.campaignProducts[index]){
+            campaignDetailStore.campaignProducts[index]["qty_sold"] = message.data.qty_sold
+            campaignDetailStore.campaignProducts[index]["qty_add_to_cart"] = message.data.qty_add_to_cart
         }
         
     }else if (message.type == 'order_data'){
-        store.incomingOrders.unshift(message.data)
+        campaignDetailStore.incomingOrders.unshift(message.data)
     }
 
 }
