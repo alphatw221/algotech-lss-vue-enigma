@@ -72,7 +72,8 @@
 					<label class="text-danger font-[8px] font-light block" 
 						v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].title"
 						:key="index"
-						>{{error.$message}}
+						>
+						{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
 					</label>
 				</div>
 
@@ -87,7 +88,8 @@
 					<label class="text-danger font-[8px] font-light block" 
 						v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].type"
 						:key="index"
-						>{{error.$message}}
+						>
+						{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
 					</label>
 				</div>
 				
@@ -102,7 +104,8 @@
 					<label class="text-danger font-[8px] font-light block" 
 						v-for="error,index in props.v.meta_logistic.additional_delivery_options.$each.$response.$errors[index].price"
 						:key="index"
-						>{{error.$message}}
+						>
+						{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
 					</label>
 				</div>
 				
@@ -142,7 +145,8 @@
 						<label class="text-danger font-[8px] font-light" 
 							v-for="error,index in props.v.meta_logistic.pickup_options.$each.$response.$errors[index].name"
 							:key="index"
-							>{{error.$message}}
+							>
+							{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
 						</label>
 
                     </div>
@@ -156,7 +160,8 @@
 						<label class="text-danger font-[8px] font-light" 
 							v-for="error,index in props.v.meta_logistic.pickup_options.$each.$response.$errors[index].address"
 							:key="index"
-							>{{error.$message}}
+							>
+							{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
 						</label>
 						
                     </div>

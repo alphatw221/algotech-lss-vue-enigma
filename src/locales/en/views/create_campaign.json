@@ -24,8 +24,11 @@
         "store_collection":"Self Pickup",
 
         "pickup_store":"Pickup Location",
-        "pickup_address":"Pickup Address"
-
+        "pickup_address":"Pickup Address",
+        "errors":{
+            "Value_is_required":"Value is required",
+            "Value_must_be_numeric":"Value must be numeric"
+        }
     },
 
 
@@ -59,8 +62,10 @@
         "accepted_file_types":"File types",
         "max_file_size":"Max file size",
 
-        "delete":"Delete"
-
+        "delete":"Delete",
+        "errors":{
+            "Value_is_required":"Value is required"
+        }
 
 
 
