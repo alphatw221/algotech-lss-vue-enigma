@@ -283,9 +283,10 @@ thead th{
 	}
 
 	tr {
-		border-bottom: 1px solid black;
-        padding-top: 125px !important;
+        padding-top: 110px !important;
         background: white;
+        margin-top: 20px;
+        border-radius: 40px 40px;
 	}
 
 	td {
@@ -293,9 +294,10 @@ thead th{
 		position: relative;
 		padding-left: 50% !important;
         padding-right: 10px !important;
+        padding-top: 5px !important;
 		text-align: right !important;
 		box-shadow: none !important;
-        min-height: 30px !important;
+        min-height: 25px !important;
         margin-top: 5px;
         display: flex;
         text-align: center;
@@ -325,7 +327,7 @@ thead th{
 	}
     td:nth-of-type(1){
         width: 100%;
-        min-height: 28px !important;
+        min-height: 20px !important;
         padding-left: 14px !important;
 		font-weight: bold;
         justify-content:flex-start;
@@ -364,28 +366,28 @@ thead th{
 		
 	}
     td:nth-of-type(4){
-		border-top: 1px solid #E2E2E2;
-        padding-top: 5px !important;
+		border-top: 3px solid #e2e2e25b;
+        padding-top: 8px !important;
         z-index: 1;
 	}
 
 	td:nth-of-type(5):before {
 		content: attr(data-content);
 	}
+    td:nth-of-type(5) {
+		padding-top: 5px !important;
+	}
+
 	
 	td:nth-of-type(6):before{
 		content: attr(data-content);
 	}
-    td:nth-of-type(6){
-        min-height: 25px !important;
-    }
 
     td:nth-of-type(7):before {
 		content: attr(data-content); 
 	}
      td:nth-of-type(7){
 		place-content: right !important;
-        min-height: 30px !important;
 	}
 
     td:nth-of-type(8):before {
@@ -393,13 +395,13 @@ thead th{
 	}
     td:nth-of-type(8){
         padding-bottom: 10px !important;
-        padding-top: 10px !important;
+        border-radius: 40px 40px;
     }
 
     td:nth-of-type(9){
 		display: inline-block;
         position:absolute;
-        top: 122px;
+        top: 106px;
         right:0;
 		width: auto;
 		padding-left: 0% !important;
