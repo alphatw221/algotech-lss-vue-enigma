@@ -116,7 +116,7 @@
 <script>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-
+import { list_product } from '@/api_v2/product'
 export default {
 	props: {
 		requestUrl: String,
@@ -159,8 +159,9 @@ export default {
 		search() {
 			this.showCommentLoding = true
 			this.listItems = []
-			createAxiosWithBearer()
-			.get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.product_status}&category=${this.category}`)
+			list_product(this.pageSize, this.currentPage, this.searchColumn, this.keyword, this.product_status, '',this.category )
+			// createAxiosWithBearer()
+			// .get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.product_status}&category=${this.category}`)
 			.then(
 				response => {
 					if(response.data.count != undefined){
