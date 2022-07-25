@@ -48,7 +48,8 @@
                     <label class="text-danger font-[8px] font-light" 
                         v-for="error,index in props.v.meta_payment.direct_payment.v2_accounts.$each.$response.$errors[index_i][field.key]"
                         :key="index"
-                        >{{error.$message}}
+                        >
+                        {{ $t(`create_campaign.payment_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
                     </label>
                 </template>
 

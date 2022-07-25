@@ -25,8 +25,11 @@
         "store_collection":"到店自取",
 
         "pickup_store":"取貨店家",
-        "pickup_address":"取貨地址"
-
+        "pickup_address":"取貨地址",
+        "errors":{
+            "Value_is_required":"此欄位必填",
+            "Value_must_be_numeric":"輸入必須為數字"
+        }
     },
 
 
@@ -56,9 +59,11 @@
         "accepted_file_types":"接受檔案類型",
         "max_file_size":"檔案容量上限",
 
-        "delete":"刪除"
+        "delete":"刪除",
 
-
+        "errors":{
+            "Value_is_required":"此欄位必填"
+        }
 
 
     },
