@@ -153,7 +153,7 @@ onMounted(() => {
 
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
-    if(image.size/1024/1024 > 10){
+    if(image.size/1024/1024>10){
         sellerStore.alert.showMessageToast('image size exceed 10 MB')
         return
     }

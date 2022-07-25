@@ -44,7 +44,7 @@
         "address":"運送地址",
         "post_code" : "郵遞區號",
         "location" : "地點",
-        "pickup" : "自取",
+        "pickup" : "到店自取",
         "pickup_address":"取貨地點",
         "pickup_store":"取貨店家",
         "additional_delivery_charge" : "Selected Delivery Charge Option"

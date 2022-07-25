@@ -24,8 +24,8 @@
 
         "store_collection":"到店自取",
 
-        "pickup_store":"自取地點",
-        "pickup_address":"自取地址"
+        "pickup_store":"取貨店家",
+        "pickup_address":"取貨地址"
 
     },
 

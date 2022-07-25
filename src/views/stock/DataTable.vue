@@ -3,7 +3,7 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
-					<th class="whitespace-normal xl:whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
+					<th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]" v-for="column in columns" :key="column.key">
 						<template v-if="column.name === ''">
 							{{ column.name }}
 						</template>

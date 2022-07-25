@@ -106,7 +106,15 @@
 									<td v-else-if="column.key === 'qty'"
 										class="qty">
 										<div class="flex flex-col place-content-end w-full md:w-24">
-											<input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+											<label class=" w-full mt-2 sm:mt-2"   >{{product[column.key]}}</label>
+										</div>
+									</td>
+
+									<td v-else-if="column.key === 'assign_qty'" class="qty">
+										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
+
+											
+											<input class="form-control w-full mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
 										</div>
 									</td>
 
@@ -230,6 +238,14 @@
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
+											<label class="w-full mt-2 sm:mt-0" >{{product[column.key]}}</label>
+										</div>
+									</td>
+
+									<td v-else-if="column.key === 'assign_qty'" class="qty">
+										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
+
+											
 											<input class="form-control w-full mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
 											<div class="text-danger absolute -bottom-5  whitespace-nowrap " v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
@@ -317,7 +333,8 @@ const tableColumns = ref([
     { name: "", key: "name" },
     { name: "Type", key: "type" },
     { name: "Order Code", key: "order_code" },
-	{ name: "QTY for Campaign", key: "qty" },
+	{ name: "Stock QTY", key: "qty" },
+	{ name: "QTY for Campaign", key: "assign_qty" },
 	{ name: "Max QTY/Order", key: "max_order_amount" },
     { name: "Price", key: "price" },
 	{ name: "Editable", key: "customer_editable" },
@@ -396,8 +413,11 @@ const checkIfValid = ()=>{
                 isSelectedProductsValid=false;
             }
         if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code) ) {errorMessages.value[index]['order_code']='order_code_required';isSelectedProductsValid=false;}
-        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='qty_invalid';isSelectedProductsValid=false;}
-        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
+        
+		if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false;}
+		else if(!selectedProduct.assign_qty) {errorMessages.value[index]['assign_qty']='assign_qty_required';isSelectedProductsValid=false;}
+
+        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.assign_qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
         if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
         orderCodeDict[selectedProduct.order_code]=index
     });

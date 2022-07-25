@@ -55,7 +55,7 @@
 			<div class="col-span-12 col-start-1 ">
 				<label class="form-label text-base mt-2 font-medium">{{ $t('stock.add_product_page.upload_image') }}</label>
 				<div class="relative">
-					<XCircleIcon class="absolute top-1 right-1 w-4 h-4 ml-2 z-index-99" style="color:red" @click="clear"/>
+					<!-- <XCircleIcon class="absolute top-1 right-1 w-4 h-4 ml-2 z-index-99" style="color:red" @click="clear"/> -->
 					<Dropzone ref-key="dropzoneSingleRef" :options="{
 							method: 'put',
 							url: 'url',
@@ -308,10 +308,11 @@ const cancelButton = () =>{
 	layoutStore.alert.showMessageToast("Change Not Saved");
 }
 
-const clear = () =>{
-	previewImage.value = ''
-	console.log(dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0])
-}
+// const clear = () =>{
+// 	previewImage.value = ''
+// 	dropzoneSingleRef.value.dropzone.previewsContainer = ''
+// 	console.log(dropzoneSingleRef.value.dropzone.previewsContainer)
+// }
 
 const rules = computed(()=>{
     return{

@@ -26,9 +26,12 @@
 
 .switch-toggle label{
     width: 100px;
-    font-size: 15px;
+    font-size: 16px;
     align-self: center;
     text-align: center;
+    @include media-breakpoint-down(sm) {
+        @apply text-[12px];
+    }
 }
 
 .switch-toggle input+label {
@@ -39,7 +42,7 @@
     cursor: pointer;
     @apply px-[15px] py-[8px]; 
     @include media-breakpoint-down(sm) {
-        @apply h-[35px] py-[5px];
+        @apply h-[35px];
     }
 }
 

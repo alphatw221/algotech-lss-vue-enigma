@@ -20,6 +20,7 @@
         "type":"Type",
         "order_code":"Order Code",
         "qty":"Qty",
+        "assign_qty":"Assign QTY",
         "max_order_amount":"Max Order Qty",
         "category":"Category",
         "price":"Price",
@@ -40,7 +41,8 @@
             "order_code_required":"required",
             "order_code_duplicate":"duplicate",
             "qty_invalid":"invalid",
-            "max_order_amount_grater_than_qty":"geater than Qty"
+            "max_order_amount_grater_than_qty":"geater than Qty",
+            "assign_qty_required":"required"
         }
     },
     "add":"Add",
