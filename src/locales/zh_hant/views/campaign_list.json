@@ -58,7 +58,7 @@
         "facebook":"Facebook",
         
         "post_id":"貼文ID",
-        "select_page":"選擇粉絲專業",
+        "select_page":"選擇粉絲專頁",
 
         "instagram":"Instagram",
         "media_id":"貼文ID",
@@ -68,7 +68,8 @@
         "live_chat_id":"聊天室ID",
         "select_live_chat":"選擇頻道",
 
-        "cancel":"取消"
+        "cancel":"取消",
+        "save":"儲存"
     }
 
 }
