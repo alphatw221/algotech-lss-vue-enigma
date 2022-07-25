@@ -61,7 +61,7 @@
 			:v="v"
 		/>
 
-		<NotesForm :campaignNotes="campaignNotes"/>
+		<NotesForm :campaignNotes="campaignNotes" />
 
 		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 py-10">
 			<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
@@ -137,16 +137,11 @@ onMounted(() => {
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
 		campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
 	}
-
-	campaignNotes.value.meta_logistic.delivery_note = campaignData.value.meta_logistic.delivery_note 
-	if (campaignData.value.meta_payment.special_note !== undefined) {
-		campaignNotes.value.meta_payment.special_note = campaignData.value.meta_payment.special_note 
-	}
-	if (campaignNotes.value.meta_payment.confirmation_note !== undefined) {
-		campaignNotes.value.meta_payment.confirmation_note = campaignData.value.meta_payment.confirmation_note
-	}
-
-	console.log('got user_subscription')
+	
+	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
+	campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.special_note  ))
+	campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.confirmation_note  ))
+	
 })
 
 const campaignDataRules = computed(() => {

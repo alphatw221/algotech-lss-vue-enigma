@@ -25,16 +25,18 @@
 </template>
 
 <script setup>
-import { onMounted , ref} from 'vue';
+import { onMounted , ref, defineProps} from 'vue';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 const props = defineProps({
-    campaignNotes: Object
+    campaignNotes:Object,
 })
 
 const ready = ref(false)
 onMounted(() => {
     ready.value=true
+
+    console.log(props)
 })
 
 
