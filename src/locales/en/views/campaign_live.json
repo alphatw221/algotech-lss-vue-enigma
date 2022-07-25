@@ -13,6 +13,9 @@
     "reply":{
         "reply_to":"Reply to"
     },
+    "conversation":{
+        "conversation_with":"Conversation with"
+    },
     "product":{
         "product":"Product",
         "modal_column":{

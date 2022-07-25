@@ -91,7 +91,6 @@ import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstan
 import { createCommentPaginator } from '@/api_v2/campaign_comment'
 import { get_summerize_comments } from "@/api/campaign_comment"
 import { useRoute, useRouter } from "vue-router"
-// import ReplyModal from './modals/ReplyModal.vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
 
@@ -176,8 +175,13 @@ const commentSummarizer = category=>{
     })
 }
 
-const showReplyBar = comment=>{
-    eventBus.emit('showReplyModal',{'comment':comment})
+const showReplyBar = comment =>{
+    if (comment.platform=='instagram') {
+        eventBus.emit('showConversationModal',{'comment':comment})
+    } else {
+        eventBus.emit('showReplyModal',{'comment':comment})
+    }
+   
 }
 
 const layoutStore = useLSSSellerLayoutStore();
