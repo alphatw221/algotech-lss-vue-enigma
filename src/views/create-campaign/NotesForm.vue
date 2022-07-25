@@ -7,17 +7,17 @@
                 <label class="col-span-12 col-start-1 mt-2 text-base form-label font-medium">{{$t('create_campaign.notes_form.delivery_note')}}</label>
                 <textarea 
                     class="col-span-12 sm:col-span-12 p-2 rounded-lg sm:min-h-[10rem]" 
-                    v-model="props.campaign.meta_logistic.delivery_note"
+                    v-model="props.campaignNotes.meta_logistic.delivery_note"
                 />
                 <label class="col-span-12 col-start-1 mt-2 text-base form-label font-medium">{{$t('create_campaign.notes_form.special_note')}}</label>
                 <textarea 
                     class="col-span-12 sm:col-span-12 p-2 rounded-lg sm:min-h-[10rem]" 
-                    v-model="props.campaign.meta_payment.special_note"
+                    v-model="props.campaignNotes.meta_payment.special_note"
                 />
                 <label class="col-span-12 col-start-1 mt-2 text-base form-label font-medium">{{$t('create_campaign.notes_form.confirmation_note')}}</label>
                 <textarea 
                     class="col-span-12 sm:col-span-12 rounded-lg p-2 sm:min-h-[10rem]" 
-                    v-model="props.campaign.meta_payment.confirmation_note"
+                    v-model="props.campaignNotes.meta_payment.confirmation_note"
                 /> 
             </div>
         </div>
@@ -29,7 +29,7 @@ import { onMounted , ref} from 'vue';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 const props = defineProps({
-    campaign:Object
+    campaignNotes: Object
 })
 
 const ready = ref(false)

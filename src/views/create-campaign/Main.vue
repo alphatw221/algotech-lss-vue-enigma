@@ -61,7 +61,7 @@
 			:v="v"
 		/>
 
-		<NotesForm :campaign="campaignData"/>
+		<NotesForm :campaignNotes="campaignNotes"/>
 
 		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 py-10">
 			<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
@@ -112,6 +112,15 @@ const campaignData = ref({
 	},
 	meta_payment:{}
 })
+const campaignNotes = ref({
+	meta_logistic: {
+		delivery_note: ''
+	},
+	meta_payment: {
+		special_note: '',
+		confirmation_note: ''
+	}
+})
 
 watch(computed(()=>dateTimePicker.value),()=>{
 	campaignData.value.start_at = dateTimePicker.value.start
@@ -127,6 +136,14 @@ onMounted(() => {
 	}
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
 		campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
+	}
+
+	campaignNotes.value.meta_logistic.delivery_note = campaignData.value.meta_logistic.delivery_note 
+	if (campaignData.value.meta_payment.special_note !== undefined) {
+		campaignNotes.value.meta_payment.special_note = campaignData.value.meta_payment.special_note 
+	}
+	if (campaignNotes.value.meta_payment.confirmation_note !== undefined) {
+		campaignNotes.value.meta_payment.confirmation_note = campaignData.value.meta_payment.confirmation_note
 	}
 
 	console.log('got user_subscription')
@@ -166,8 +183,6 @@ const v = useVuelidate(campaignDataRules, campaignData);
 
 const createCampaign = ()=>{
 
-
-
 	// console.log(campaignData.value)
 	// return
 	v.value.$touch()
@@ -175,6 +190,10 @@ const createCampaign = ()=>{
 		sellerStore.alert.showMessageToast("Invalid Data")
 		return
 	}
+
+	campaignData.value.meta_logistic.delivery_note = campaignNotes.value.meta_logistic.delivery_note
+	campaignData.value.meta_payment.special_note = campaignNotes.value.meta_payment.special_note
+	campaignData.value.meta_payment.confirmation_note = campaignNotes.value.meta_payment.confirmation_note
 
 	let formData = new FormData()
 	formData.append('data', JSON.stringify(campaignData.value))
