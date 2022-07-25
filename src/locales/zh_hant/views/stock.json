@@ -34,7 +34,8 @@
         "input_holder": "類別名稱",
         "modal": {
             "cancel": "取消",
-            "save": "儲存"
+            "save": "儲存",
+            "warning_duplicate": "重複的類別名稱"
         }
     },
 

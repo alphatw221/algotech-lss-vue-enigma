@@ -10,7 +10,10 @@
         <div class="font-medium">$ {{parseFloat(store.orderDetail.subtotal).toFixed(props.decimal_places)}}</div>
       </div>
       <div class="flex">
-        <div class="mr-auto">{{$t('order_detail.price_summary.shipping')}}</div>
+        <div class="mr-auto">
+          {{$t('order_detail.price_summary.shipping')}}
+          <span class="text-red-500" v-if="store.orderDetail.free_delivery">({{$t('order_detail.price_summary.apply_free_delivery')}})</span>
+        </div>
         <div class="font-medium">$ {{parseFloat(store.orderDetail.shipping_cost).toFixed(props.decimal_places)}}</div>
       </div>
       <template v-if="store.orderDetail.adjust_title !== null">
@@ -23,6 +26,14 @@
       <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">
         <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}}
+          <div class="mt-3 mb-3">
+                <input
+                    class="form-check-input border border-slate-500"
+                    type="checkbox"
+                    v-model="store.orderDetail.free_delivery"
+                    />
+                <span class="ml-2">{{$t('order_detail.price_summary.apply_free_delivery')}}</span>
+            </div>         
             <div class="grid grid-cols-12 gap-4">
                 <div class="start-col-1 col-span-4">
                     <input :id="'radio-switch-p'" class="form-check-input" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'+'" />
@@ -33,7 +44,7 @@
                     <span> {{$t('order_detail.price_summary.subtract')}} -</span>
                 </div>
             </div>
-                <div class="mt-3 grid grid-cols-12 gap-4 xl:m-5 2xl:m-5">
+                <div class="mt-3 grid grid-cols-12 gap-4 xl:mt-5 2xl:mt-5">
                         <div class="col-span-4">
                             <input id="regular-form-2" type="text" class="form-control " placeholder="Display Name" v-model="store.orderDetail.adjust_title" />
                         </div>
@@ -48,14 +59,7 @@
                         </div>
                 </div>
                 
-            <div class="m-3">
-                <input
-                    class="form-check-input border border-slate-500"
-                    type="checkbox"
-                    v-model="store.orderDetail.free_delivery"
-                    />
-                <span class="ml-2">{{$t('order_detail.price_summary.apply_free_delivery')}}</span>
-            </div>            
+               
         </div>
       </div>
       </template>

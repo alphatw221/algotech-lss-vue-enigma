@@ -59,7 +59,7 @@
             </div>
             <!-- Remark -->
             <div class="box p-8 border-2 border-secondary flex flex-col gap-3" v-show="store.orderDetail.shipping_remark">
-                <span class="text-lg">{{$t('order_detail.remarks')}}</span>
+                <span class="text-lg">{{$t('order_detail.remark')}}</span>
                 <span class="py-2"> {{store.orderDetail.shipping_remark}} </span>
             </div>
         </div>

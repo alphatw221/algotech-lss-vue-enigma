@@ -45,10 +45,12 @@
         "keyword_warning": "至少3個字元",
         "product": "商品",
         "keyword": "關鍵字",
-        "by_like": "按讚者",
-        "by_product": "購買任何商品者",
-        "by_purchased": "購買特定商品者",
-        "by_keyword": "輸入特定關鍵字者",
+        "draw_selection": {
+            "like": "按讚者",
+            "product": "購買特定商品者",
+            "purchased": "購買任何商品者",
+            "keyword": "輸入特定關鍵字者"
+        },
         "no_product_err":"尚未將商品加入此直播",
         "assign_product_err":"需加入商品",
         "assign_prize_err":"需加入獎品",

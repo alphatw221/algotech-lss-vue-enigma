@@ -55,7 +55,7 @@
         "record" : "Record",
         "last_five_digits":"Last Five Digits"
     },
-    "remarks" : "Remark",
+    "remark" : "Remark",
     "save_remarks" : "Save Remarks",
     "save_order" : "Save Order",
     "shopping_cart" : "Shopping Cart"
