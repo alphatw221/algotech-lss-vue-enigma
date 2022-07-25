@@ -3,7 +3,7 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
-					<th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]" v-for="column in columns" :key="column.key">
+					<th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]" v-for="column in props.columns" :key="column.key">
 						<template v-if="column.name === ''">
 							{{ column.name }}
 						</template>
@@ -18,17 +18,17 @@
 					v-if="showCommentLoding || listItems==0">
 					<td v-if="showCommentLoding"
 						class="items-center relative tdDot"
-						:colspan="columns.length +2" >
+						:colspan="props.columns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="listItems==0 && keyword == ''" :colspan="columns.length +2">
+					<td v-else-if="listItems==0 && keyword == ''" :colspan="props.columns.length +2">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
 								You Don't Have Product in this Category
 							</h1>
 						</div>
 					</td> 
-					<td v-else-if="listItems==0" :colspan="columns.length +2">
+					<td v-else-if="listItems==0" :colspan="props.columns.length +2">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
 								No result
@@ -42,7 +42,7 @@
 					class="intro-x"
 					:class="{'trBorder' : listItems != 0}"
 				>	
-				<template v-for="column in columns" :key="column.key"> 
+				<template v-for="column in props.columns" :key="column.key"> 
 					<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm imgtd">
 						<div class="flex justify-center">
 							<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 " v-if="product.image">
@@ -113,82 +113,83 @@
 	</div> 
 </template>
 
-<script>
-import { createAxiosWithBearer } from '@/libs/axiosClient'
+<script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { list_product } from '@/api_v2/product'
-export default {
-	props: {
-		requestUrl: String,
-		columns: Array,
-		product_status: String,
-		eventBusName: String
-	},
-	data() {
-		return {
-			currentPage: 1,
-            totalPage: 1,
-            pageSize: 10,
-			dataCount: 0,
-            searchColumn: undefined,
-            keyword: undefined,
-            listItems: [],
-			publicPath: import.meta.env.VITE_APP_IMG_URL,
-			category: undefined,
-			storageUrl: import.meta.env.VITE_GOOGLE_STORAGEL_URL,
-			layoutStore: useLSSSellerLayoutStore(),
-			showCommentLoding: true, 
-		}
-	},
-	mounted() {
-		this.search();
-		this.eventBus.on(this.eventBusName, (payload) => {
-			this.currentPage = 1
-			this.searchColumn = payload.searchColumn
-			this.keyword = payload.keyword
-			this.pageSize = payload.pageSize
-			this.category = payload.filterColumn
-			this.search()
-		});
 
-	},
-	unmounted() {
-		this.eventBus.off(this.eventBusName);
-	},
-	methods: {
-		search() {
-			this.showCommentLoding = true
-			this.listItems = []
-			list_product(this.pageSize, this.currentPage, this.searchColumn, this.keyword, this.product_status, '',this.category )
-			// createAxiosWithBearer()
-			// .get(this.requestUrl + `?page_size=${this.pageSize}&page=${this.currentPage}&search_column=${this.searchColumn}&keyword=${this.keyword}&product_status=${this.product_status}&category=${this.category}`)
+
+import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance } from 'vue'
+import { useRoute, useRouter } from "vue-router"
+
+const route = useRoute()
+const router = useRouter()
+
+const props = defineProps({
+	columns: Array,
+	product_status: String,
+	eventBusName: String
+})
+
+
+const currentPage = ref(1)
+const totalPage = ref(1)
+const pageSize = ref(10)
+const dataCount = ref(0)
+const searchColumn = ref('')
+const keyword = ref('')
+const listItems = ref([])
+const category = ref('')
+
+const publicPath = import.meta.env.VITE_APP_IMG_URL
+const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
+const layoutStore = useLSSSellerLayoutStore()
+const showCommentLoding = ref(true)
+
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
+
+onMounted(()=>{
+	search()
+	eventBus.on(props.eventBusName, (payload) => {
+			currentPage.value = 1
+			searchColumn.value = payload.searchColumn
+			keyword.value = payload.keyword
+			pageSize.value = payload.pageSize
+			category.value = payload.filterColumn
+			search()
+		});
+})
+
+onUnmounted(()=>{
+	eventBus.off(props.eventBusName)
+})
+
+const search = ()=>{
+	showCommentLoding.value = true
+			listItems.value = []
+			list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value )
 			.then(
 				response => {
 					if(response.data.count != undefined){
-						this.dataCount = response.data.count
-                        const totalPage = parseInt(response.data.count / this.pageSize)
-                        this.totalPage = totalPage == 0 ? 1 : totalPage
+						dataCount.value = response.data.count
+                        const _totalPage = parseInt(response.data.count / pageSize.value)
+                        totalPage.value = _totalPage == 0 ? 1 : _totalPage
                     }
-                    this.listItems = response.data.results
-					this.showCommentLoding = false
+                    listItems.value = response.data.results
+					showCommentLoding.value = false
 				}
-			).catch(
-                error => {
-                    console.log(error)
-                }
-            )
-		},
-		changePage(page) {      
-			this.currentPage = page;
-			this.search();
-		},
-		changePageSize(pageSize) {
-			this.pageSize = pageSize;
-			this.search();
-		},
-	},
+			)
 }
 
+const changePage = page=> {      
+	currentPage.value = page;
+	search();
+}
+
+const changePageSize = pageSize => {
+	pageSize.value = pageSize;
+	search();
+}
 
 </script>
 
