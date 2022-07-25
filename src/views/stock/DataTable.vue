@@ -87,7 +87,7 @@
 							</DropdownToggle>
 							<DropdownMenu class="w-20 pt-2">
 							<DropdownContent class="w-20 text-center">
-								<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="this.$router.push({name:'edit-product',params:{product_id:product.id}})"> 
+								<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="router.push({name:'edit-product',params:{product_id:product.id}})"> 
 									<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.edit')}}
 								</DropdownItem>
 							</DropdownContent>
