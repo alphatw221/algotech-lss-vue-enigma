@@ -132,11 +132,11 @@
                 <div class="lg:w-[50%] flex-col mt-6 mr-5">
                     <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }} </label>
                     <select class="w-full form-select sm:form-select-lg rounded-lg mr-5" v-model="currentSettings.type">
-                        <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ $t(`lucky_draw.draw_create.`+type.value) }}</option>
+                        <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ $t(`lucky_draw.draw_create.draw_selection.${type.value}`) }}</option>
                     </select>
                 </div>
                 <div 
-                    v-if="currentSettings.type === 'by_product'" 
+                    v-if="currentSettings.type === 'product'" 
                     class="lg:w-[50%] flex flex-col mt-6 mr-5"
                 >   
                     <div class="flex">
@@ -165,7 +165,7 @@
                     </select>
                 </div>
                 <div 
-                    v-else-if="currentSettings.type === 'by_keyword'" 
+                    v-else-if="currentSettings.type === 'keyword'" 
                     class="lg:w-[50%]  flex-col mr-5 mt-3"
                 >
                     <label class="form-label mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
@@ -180,7 +180,7 @@
                     </template>
                 </div>
                 <div 
-                    v-else-if="currentSettings.type === 'by_purchased'" 
+                    v-else-if="currentSettings.type === 'purchased'" 
                     class="lg:w-[50%] flex mt-3 mr-5 justify-center"
                 >   
                     <!-- <button 
@@ -231,7 +231,7 @@ const layoutStore = useLSSSellerLayoutStore()
 const detailStore= useCampaignDetailStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const spinTimes = ref([ { value: 5, name: '5 secs' }, { value: 10, name: '10 secs' }, { value: 20, name: '20 secs' }, { value: 30, name: '30 secs' }, { value: 60, name: '60 secs' }]);
-const drawTypes = ref([ { value: 'by_like', name: 'by like this post' }, { value: 'by_purchased', name: 'by purchased any product' }, { value: 'by_product', name: 'by purchased certain product' }, { value: 'by_keyword', name: 'by keyword' },]);
+const drawTypes = ref([ { value: 'like', name: 'by like this post' }, { value: 'purchased', name: 'by purchased any product' }, { value: 'product', name: 'by purchased certain product' }, { value: 'keyword', name: 'by keyword' },]);
 const prizeList = ref([])  
 const productList = ref([])
 const animationList = ref([])
