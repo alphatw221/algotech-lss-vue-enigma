@@ -289,8 +289,9 @@ const discardDelivery = () =>{
     if(!layoutStore.userInfo.user_subscription) return
 
     console.log(layoutStore.userInfo.user_subscription.meta_logistic)
-    deliverySettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
-    
+    // deliverySettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
+    Object.assign(deliverySettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
+
     fields.forEach(field => {
         if(typeof deliverySettings[field.key]!=field.dataType) deliverySettings[field.key]=field.default
     });
