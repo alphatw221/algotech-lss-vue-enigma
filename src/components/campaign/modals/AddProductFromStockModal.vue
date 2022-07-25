@@ -470,15 +470,22 @@ const checkIfValid = ()=>{
                 errorMessages.value[index]['order_code']='duplicate';
                 isSelectedProductsValid=false;
             }
-        if(selectedProduct.type=='product' && !selectedProduct.order_code) {errorMessages.value[index]['order_code']='required';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code)) {errorMessages.value[index]['order_code']='required';isSelectedProductsValid=false;}
         // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
-        if(selectedProduct.qty<=0) {errorMessages.value[index]['qty']='invalid qty';isSelectedProductsValid=false;}
+        if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='invalid qty';isSelectedProductsValid=false;}
+        else if(!selectedProduct.assign_qty) {errorMessages.value[index]['assign_qty']='required';isSelectedProductsValid=false;}
+
         if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false;}
         if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='required';isSelectedProductsValid=false;}
         productCache.orderCodeDict[selectedProduct.order_code]=index
     });
 
 }
+
+
+
+
+
 
 watch(computed(()=>props.productType), () => {
     if(props.productType == 'lucky_draw'){

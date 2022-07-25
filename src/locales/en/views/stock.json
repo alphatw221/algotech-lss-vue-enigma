@@ -47,7 +47,7 @@
         "upload_image": "Upload Image",
         "drop_file_text": "Drop files here or click to upload.",
         "accept_file_text": "File types: jpeg, png, jpg",
-        "max_size_text": "Maximux size",
+        "max_size_text": "Maximum size",
         "quantity": "Quantity",
         "qty_warning": "Qty has to be a number",
         "price": "Price",

@@ -101,9 +101,9 @@
         "seller_language":"Seller Language",
         "languages":{
             "en":"English",
-            "zh_hant":"Chinese-tranditional",
-            "zh_hans":"Chinese-simplify",
-            "id":"indonesian"
+            "zh_hant":"Tranditional Chinese",
+            "zh_hans":"Simplify Chinese",
+            "id":"Indonesian"
         },
         "buyer_language":"Buyer Language",
         "choose_language":"Choose Language",
