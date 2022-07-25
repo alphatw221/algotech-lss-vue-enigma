@@ -22,9 +22,13 @@
         "order_above":"免運門檻: 訂單金額達(含)以上",
         "minimum":"免運門檻: 商品數量達(含)以上",
         "store":{
-                "collection":"門市取貨",
-                "pickup_store":"取貨門市",
+                "collection":"到店自取",
+                "pickup_store":"取貨店家",
                 "pickup_address":"取貨地址"
+        },
+        "errors":{
+            "Value_is_required":"此欄位必填",
+            "Value_must_be_numeric":"輸入必須為數字"
         }
         
     },
@@ -55,7 +59,10 @@
         "accepted_file_types":"接受檔案類型",
         "max_file_size":"檔案容量上限",
         "delete":"刪除",
-        "update": "更新"
+        "update": "更新",
+        "errors":{
+            "Value_is_required":"此欄位必填"
+        }
     },
 
     "delivery_form":{

@@ -52,8 +52,10 @@
                         type="text" 
                         v-model="account[field.key]"
                     />
-                    <label class="text-danger font-[8px] font-light" v-if="v.v2_accounts.$each.$response.$errors[index_i][field.key].length">required</label>
-
+                    <label class="text-danger font-[8px] font-light" 
+                        v-for="error,index in v.v2_accounts.$each.$response.$errors[index_i][field.key]"
+                        :key="index"
+                    >{{ $t(`settings.payment_form.errors.${error.$message.replace(/\s/g, "_")}`)}}</label>
                 </template>
 
                 <template v-else-if="field.type === 'textarea'">
@@ -90,7 +92,7 @@
                                 <strong class="text-slate-600">{{ $t('settings.payment_form.upload_a_file_or_drag_and_drop') }}</strong> 
                             </div>
                             <div class="mt-2 text-slate-500">{{ $t('settings.payment_form.accepted_file_types') }}</div>
-                            <div class="text-slate-500">{{ $t('settings.payment_form.max_file_size') }} : 2MB</div>  
+                            <div class="text-slate-500">{{ $t('settings.payment_form.max_file_size') }} : 10MB</div>  
                         </div>
                             <input
                                 type="file"
@@ -187,8 +189,8 @@ onMounted(() => {
 
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
-    if(image.size/1024/1024>2){
-        sellerStore.alert.showMessageToast('image size exceed 2 MB')
+    if(image.size/1024/1024>10){
+        sellerStore.alert.showMessageToast('image size exceed 10 MB')
         return
     }
     formData.append('_'+paymentData.v2_accounts[index].name,image)

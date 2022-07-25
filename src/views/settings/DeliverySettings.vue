@@ -65,7 +65,7 @@
                         <label class="block text-danger font-[8px] font-light" 
                             v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].title"
                             :key="index"
-                            >{{error.$message}}</label>
+                            >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
                         <!-- <label class="block text-danger font-[8px] font-light" v-if="v.additional_delivery_options.$each.$response.$errors[index].title.length">required</label> -->
                     </div>
                     <div>
@@ -79,7 +79,7 @@
                         <label class="block text-danger font-[8px] font-light" 
                             v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].type"
                             :key="index"
-                            >{{error.$message}}</label>
+                            >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
                     </div>
                    
                     <div>
@@ -92,7 +92,7 @@
                         <label class="block text-danger font-[8px] font-light" 
                             v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].price"
                             :key="index"
-                            >{{error.$message}}</label>                    
+                            >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>                    
                     </div>
                     
                     <button 
@@ -123,7 +123,7 @@
             <div v-for="(option, index) in deliverySettings.pickup_options" class="col-span-12" :key="index">
                 <div class="flex flex-col flex-wrap gap-3 sm:flex-row">
                     <div class="flex flex-col flex-1 ">
-                         <label class="text-base whitespace-nowrap">{{ $t('settings.delivery.store.collection') }}</label>
+                         <label class="text-base whitespace-nowrap">{{ $t('settings.delivery.store.pickup_store') }}</label> 
                         <input 
                             class="w-full h-[42px] text-base form-control sm:mt-0"
                             type="text"
@@ -132,7 +132,7 @@
                         <label class="block text-danger font-[8px] font-light" 
                             v-for="error, index in v.pickup_options.$each.$response.$errors[index].name"
                             :key="index"
-                            >{{error.$message}}</label>
+                            >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
                     </div>
                     <div class="flex flex-col flex-wrap flex-grow-2">
                         <label class="text-base ">{{ $t('settings.delivery.store.pickup_address') }}</label>
@@ -144,7 +144,7 @@
                         <label class="block text-danger font-[8px] font-light" 
                             v-for="error, index in v.pickup_options.$each.$response.$errors[index].address"
                             :key="index"
-                            >{{error.$message}}</label>
+                            >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
                     </div>
                     <button 
                         class="inline-block w-full btn btn-danger sm:ml-auto sm:rounded-lg sm:w-24 h-[42px] sm:mt-auto" 

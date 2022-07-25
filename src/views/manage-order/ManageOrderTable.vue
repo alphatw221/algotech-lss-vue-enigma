@@ -1,6 +1,6 @@
 <template>
-    <div class="mt-3 w-full overflow-auto h-fit sm:h-[50vh]"> 
-        <table id="orderTable" class="table -mt-3 text-[13px] table-report">
+    <div class="mt-2 w-full overflow-auto h-fit sm:h-[50vh]"> 
+        <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
                     <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
@@ -68,12 +68,12 @@
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
                                 <a class="flex sm:mr-auto image-fit">
-                                    <span class="text-[13px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
+                                    <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
                                     <EyeIcon @click="to_order_detail(order.id,order.type)"/>
                                 </a>
                                 
                                 <a class="flex image-fit">
-                                    <span class="text-[13px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
+                                    <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
                                     <Share2Icon class="block sm:mx-auto"  @click="copyURL(order.id,order.type)" />
                                 </a>
                             </div>
@@ -83,7 +83,7 @@
                                 <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
                                     <TruckIcon />
                                 </a>
-                                <a class="w-10 h-10 image-fit" v-show="order.status === 'shipping out'">
+                                <a class="w-fit h-fit image-fit" v-show="order.status === 'shipping out'">
                                     <TruckIcon style="color:#BABABA" class="cursor-not-allowed"/>
                                 </a>
                             </div>
@@ -283,9 +283,10 @@ thead th{
 	}
 
 	tr {
-		border-bottom: 1px solid black;
-        padding-top: 125px !important;
+        padding-top: 110px !important;
         background: white;
+        margin-top: 20px;
+        border-radius: 40px 40px;
 	}
 
 	td {
@@ -293,9 +294,10 @@ thead th{
 		position: relative;
 		padding-left: 50% !important;
         padding-right: 10px !important;
+        padding-top: 5px !important;
 		text-align: right !important;
 		box-shadow: none !important;
-        min-height: 30px !important;
+        min-height: 25px !important;
         margin-top: 5px;
         display: flex;
         text-align: center;
@@ -325,7 +327,7 @@ thead th{
 	}
     td:nth-of-type(1){
         width: 100%;
-        min-height: 28px !important;
+        min-height: 20px !important;
         padding-left: 14px !important;
 		font-weight: bold;
         justify-content:flex-start;
@@ -364,28 +366,28 @@ thead th{
 		
 	}
     td:nth-of-type(4){
-		border-top: 1px solid #E2E2E2;
-        padding-top: 5px !important;
+		border-top: 3px solid #e2e2e25b;
+        padding-top: 8px !important;
         z-index: 1;
 	}
 
 	td:nth-of-type(5):before {
 		content: attr(data-content);
 	}
+    td:nth-of-type(5) {
+		padding-top: 5px !important;
+	}
+
 	
 	td:nth-of-type(6):before{
 		content: attr(data-content);
 	}
-    td:nth-of-type(6){
-        min-height: 25px !important;
-    }
 
     td:nth-of-type(7):before {
 		content: attr(data-content); 
 	}
      td:nth-of-type(7){
 		place-content: right !important;
-        min-height: 30px !important;
 	}
 
     td:nth-of-type(8):before {
@@ -393,13 +395,13 @@ thead th{
 	}
     td:nth-of-type(8){
         padding-bottom: 10px !important;
-        padding-top: 10px !important;
+        border-radius: 40px 40px;
     }
 
     td:nth-of-type(9){
 		display: inline-block;
         position:absolute;
-        top: 122px;
+        top: 106px;
         right:0;
 		width: auto;
 		padding-left: 0% !important;

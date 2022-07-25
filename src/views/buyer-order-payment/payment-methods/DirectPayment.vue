@@ -63,7 +63,7 @@
                 url: 'url',
                 uploadMultiple: false,
                 thumbnailWidth: 150,
-                maxFilesize: 2,
+                maxFilesize: 10,
                 addRemoveLinks: true,
                 autoProcessQueue: false,
                 clickable: true,
@@ -76,9 +76,9 @@
                 <div class="text-gray-600">
                     <!-- This is just a demo dropzone. Selected files are
                 <span class="font-medium">not</span> actually uploaded. -->
-                    <br>accepted File types: jpeg, png, jpg
+                    <br>File types: jpeg, png, jpg
                 </div>
-                <div class="text-gray-600">Max file size : 2MB</div>  
+                <div class="text-gray-600">Max file size : 10MB</div>  
             </Dropzone>
             <div class="flex flex-col m-3">
                 <label for="regular-form-2" class="form-label">Last Five Digits</label>

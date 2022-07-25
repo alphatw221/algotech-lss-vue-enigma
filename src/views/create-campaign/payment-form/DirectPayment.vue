@@ -48,7 +48,8 @@
                     <label class="text-danger font-[8px] font-light" 
                         v-for="error,index in props.v.meta_payment.direct_payment.v2_accounts.$each.$response.$errors[index_i][field.key]"
                         :key="index"
-                        >{{error.$message}}
+                        >
+                        {{ $t(`create_campaign.payment_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
                     </label>
                 </template>
 
@@ -89,7 +90,7 @@
                                 <strong class="text-slate-600">{{$t('create_campaign.payment_form.upload_a_file_or_drag_and_drop')}}</strong> 
                             </div>
                             <div class="mt-2 text-slate-500">{{$t('create_campaign.payment_form.accepted_file_types')}}: jpeg, png, jpg</div>
-                            <div class="text-slate-500">{{$t('create_campaign.payment_form.max_file_size')}}: 2MB</div>  
+                            <div class="text-slate-500">{{$t('create_campaign.payment_form.max_file_size')}}: 10MB</div>  
                         </div>
                             <input
                                 type="file"
@@ -153,8 +154,8 @@ onMounted(() => {
 
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
-    if(image.size/1024/1024>2){
-        sellerStore.alert.showMessageToast('image size exceed 2 MB')
+    if(image.size/1024/1024>10){
+        sellerStore.alert.showMessageToast('image size exceed 10 MB')
         return
     }
     props.directPaymentImages[index]=image

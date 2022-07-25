@@ -102,25 +102,25 @@
                 <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                   <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
                 </DropdownToggle>
-                <DropdownMenu class="w-40 pt-2">
-                  <DropdownContent class="w-40 text-center">
-                    <DropdownItem class="w-full text-center whitespace-nowrap" 
+                <DropdownMenu class="w-44 pt-2">
+                  <DropdownContent class="w-44 text-center">
+                    <DropdownItem class="w-fit text-center whitespace-nowrap" 
                       @click="editCampaign(campaign)"> 
                       <EditIcon class="h-[20px] w-[20px] mr-1" />
                       {{$t("campaign_list.campaign_list_table.edit_campaign")}} 
                     </DropdownItem>
-                    <DropdownItem class="w-full text-center whitespace-nowrap" 
+                    <DropdownItem class="w-fit text-center whitespace-nowrap" 
                       @click="editCampaignProduct(campaign)"> 
                       <EditIcon class="h-[20px] w-[20px] mr-1" />
                       {{$t("campaign_list.campaign_list_table.edit_campaign_product")}}  
                     </DropdownItem>
                     <DropdownItem 
-                      @click="copyURL(campaign)" class="w-full whitespace-nowrap"> 
+                      @click="copyURL(campaign)" class="w-fit whitespace-nowrap"> 
                       <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
                       {{$t("campaign_list.campaign_list_table.blank_cart")}} 
                     </DropdownItem>
                     <DropdownItem 
-                      @click="goLuckyDraw(campaign)" class="w-full whitespace-nowrap"> 
+                      @click="goLuckyDraw(campaign)" class="w-fit whitespace-nowrap"> 
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>

@@ -11,7 +11,7 @@
             
         </ol>
     </nav>
-    <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack mx-2 block sm:hidden">
+    <nav aria-label="breadcrumb" class="h-[35px] text-[15px] mobileBack block sm:hidden">
         <ol class="breadcrumb breadcrumb-dark">
             <li @click="router.back()"><ChevronLeftIcon class="block mx-1 w-[35px] h-[35px] font-bold rounded-full" /></li>
         </ol>

@@ -44,9 +44,9 @@
         "address":"Delivery Address",
         "post_code" : "Post Code",
         "location" : "Location",
-        "pickup" : "Pickup",
+        "pickup" : "Self Pickup",
         "pickup_address":"Pickup Address",
-        "pickup_store":"Pickup Store",
+        "pickup_store":"Pickup Location",
         "additional_delivery_charge" : "Selected Delivery Charge Option"
     },
     "payment":{
