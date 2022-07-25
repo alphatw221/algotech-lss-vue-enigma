@@ -57,7 +57,7 @@
                 <label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.assign_to')}}</label>
             </div>
             <div class="flex flex-wrap items-center justify-around col-span-12">
-                <template v-for="(data, key) in facebookPagesData" :key="key">
+                <template v-for="(data, key) in PagesData" :key="key">
                     <div class="relative w-20 h-20 image-fit">
                         <input name="fb_page" type="radio" class="absolute top-0 left-0 z-50 rounded-lg vertical-center" :value="data" v-model="validate.chosenPage.$model" />
                         <img class="rounded-full" :src="data.image" />
@@ -85,7 +85,7 @@
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import AutoReplyTable from "./AutoReplyTable.vue";
 import { create_auto_response } from "@/api_v2/auto_response";
-import {get_user_subscription_facebook_pages} from "@/api/user_subscription"
+import {get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles} from "@/api/user_subscription"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
@@ -118,15 +118,19 @@ const tableColumns = ref([
     { name: "keyword_detect", key: "input_msg" },
     { name: "set_auto_reply", key: "output_msg" },
     { name: "remark", key: "description" },
-    { name: "assign_to", key: "facebook_page" },
+    { name: "assign_to", key: "page" },
     { name: "", key: "edit" },
 ])
 
-let facebookPagesData = ref([])
+let PagesData = ref([])
 onMounted(() => {
     get_user_subscription_facebook_pages().then(res=>{
-        facebookPagesData.value = res.data
-        console.log(facebookPagesData.value)
+        PagesData.value = res.data
+        return get_user_subscription_instagram_profiles()
+    }).then(res=>{
+        PagesData.value = PagesData.value.concat(res.data);
+    }).catch(err=> {
+        console.log(err)
     })
 })
 
@@ -138,7 +142,8 @@ function createAutoReply() {
         return
     }else{
         let data = createData.value
-        create_auto_response('facebook', createData.value.chosenPage.id, data).then(
+        let plaftfrom = createData.value.chosenPage.page_id? "facebook": "instagram"
+        create_auto_response(plaftfrom, createData.value.chosenPage.id, data).then(
         response => {
             saved.value = true
             createModal.value = false
