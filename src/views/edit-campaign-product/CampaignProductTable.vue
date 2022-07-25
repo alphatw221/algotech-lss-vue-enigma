@@ -99,8 +99,23 @@
                         </td>
 
                         <td v-else-if="column.key === 'edit'" class="edit ">
-                            <div class="place-content-end sm:place-content-center">
-                                 <Dropdown placement="bottom-start" v-show="true">
+                            <div class="place-content-center sm:place-content-center">
+                                <button 
+                                    class="btn btn-outline-secondary mr-1"
+                                    type="button" 
+                                    @click="showEditCampaignProductModal(campaign_product, index)" 
+                                > 
+                                    {{$t(`edit_campaign_product.campaign_product_table.edit`)}}  
+                                </button>
+                                <button 
+                                    class="btn btn-danger"
+                                    type="button" 
+                                    @click="deleteProduct(campaign_product, index)"
+                                >
+                                    {{$t(`edit_campaign_product.campaign_product_table.delete`)}}  
+                                </button>
+
+                                 <!-- <Dropdown placement="bottom-start" v-show="true">
                                     <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                                         <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
                                     </DropdownToggle>
@@ -122,9 +137,8 @@
                                             </DropdownItem>
                                         </DropdownContent>
                                     </DropdownMenu>
-                                </Dropdown> 
+                                </Dropdown>  -->
                             </div>
-                           
                         </td>
                         </template>
                     </tr>
