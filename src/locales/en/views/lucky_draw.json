@@ -57,6 +57,14 @@
         "secs":"secs"
     },
     
+    "draw_flow": {
+        "winner": "Winner",
+        "repeatable": "Repeatable",
+        "congrates": "Congratulations",
+        "no_winner": "No winner this run",
+        "yes": "Yes",
+        "no": "No"
+    },
 
 
 
