@@ -54,7 +54,7 @@
             <div class="flex items-center pt-4 pb-10 border-t sm:py-4 border-slate-200/60 dark:border-darkmode-400">
                 <textarea v-model="message"
                     class="px-5 py-3 shadow-none resize-none chat__box__input form-control dark:bg-darkmode-600 h-14 border-inherit focus:border-inherit focus:ring-0"
-                    rows="1" placeholder="Type your message..."></textarea>
+                    rows="1" :placeholder="$t('campaign_live.reply.type_your_message')+'...'"></textarea>
                 <a @click="send()"
                     class="flex items-center justify-center flex-none w-10 h-10 mx-3 text-white rounded-full bg-primary">
                     <SendIcon class="w-6 h-6" />
