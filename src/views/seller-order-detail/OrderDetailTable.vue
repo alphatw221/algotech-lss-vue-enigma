@@ -64,11 +64,11 @@
                         </div>
 					</template>
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')">
-					$ {{ (product.price).toFixed(2) }}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
+					{{store.orderDetail.campaign.currency}} {{ (product.price).toFixed(2) }}
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')">
-					$ {{ (product.qty * product.price).toFixed(2) }}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
+					{{store.orderDetail.campaign.currency}} {{ (product.qty * product.price).toFixed(2) }}
 				</td>
 				<td>
 					<a  class="flex items-center justify-center text-danger" 

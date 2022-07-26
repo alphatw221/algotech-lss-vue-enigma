@@ -179,7 +179,7 @@ export class Paginator{
     }
 
     previousPage(){
-        return axios.get(this._previous,this.options).then(rres=>this.updatePaginator(res))
+        return axios.get(this._previous,this.options).then(res=>this.updatePaginator(res))
     }
     get gotNext() {
         return this._next!=null

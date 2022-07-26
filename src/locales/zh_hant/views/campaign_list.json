@@ -1,4 +1,6 @@
 {
+    "campaign_list": "直播列表",
+
     "process" : {
         "create" : "建立",
         "create_description" : "點擊「新增」建立直播，點擊「管理」從庫存管理新增直播商品",

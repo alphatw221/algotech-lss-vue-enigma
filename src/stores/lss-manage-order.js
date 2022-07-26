@@ -24,7 +24,7 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 		filterTagArray:ref({
 			'payment':{
 				'Direct Payment':false,
-				'Stripe':false,
+				'stripe':false,
 			},
 			'delivery':{
 				'shipping out':false,
