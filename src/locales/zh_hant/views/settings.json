@@ -28,7 +28,9 @@
         },
         "errors":{
             "Value_is_required":"此欄位必填",
-            "Value_must_be_numeric":"輸入必須為數字"
+            "Value_must_be_numeric":"輸入必須為數字",
+            "minValue":"輸入數字無效",
+            "required":"此欄位必填"
         }
         
     },

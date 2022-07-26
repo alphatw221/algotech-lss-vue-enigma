@@ -27,7 +27,9 @@
         "pickup_address":"Pickup Address",
         "errors":{
             "Value_is_required":"Value is required",
-            "Value_must_be_numeric":"Value must be numeric"
+            "Value_must_be_numeric":"Value must be numeric",
+            "minValue":"Invalid number",
+            "required":"This field is required"
         }
     },
 

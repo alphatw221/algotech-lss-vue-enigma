@@ -9,8 +9,14 @@
                     class="w-full form-control h-[35px] sm:h-[42px]"
                     type="number" 
                     v-model="deliverySettings.delivery_charge"
+                    @blur="v.delivery_charge.$touch()"
                 />
-    
+                <label class="block text-danger font-[8px] font-light" 
+                            v-for="error, index in v.delivery_charge.$errors"
+                            :key="index">
+                            {{ $t(`settings.delivery.errors.${error.$validator}`) }}
+                </label>
+
                 <div class="flex col-span-12 col-start-1 mt-5"> 
                     <input 
                         class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-2" 
@@ -20,11 +26,17 @@
                     <label class="w-full text-base">{{ $t('settings.delivery.order_above') }} $</label>
                 </div> 
                 <input 
-                class="w-full form-control" 
-                type="number" 
-                v-model="deliverySettings.free_delivery_for_order_above_price"
+                    class="w-full form-control" 
+                    type="number" 
+                    v-model="deliverySettings.free_delivery_for_order_above_price"
+                    @blur="v.free_delivery_for_order_above_price.$touch()"
                 />
-                
+                <label class="block text-danger font-[8px] font-light" 
+                            v-for="error, index in v.free_delivery_for_order_above_price.$errors"
+                            :key="index">
+                            {{ $t(`settings.delivery.errors.${error.$validator}`) }}
+                </label>
+
                 <div class="flex col-span-12 col-start-1 mt-5"> 
                     <input 
                         class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-2" 
@@ -34,10 +46,16 @@
                     <label class="w-full text-base ">{{ $t('settings.delivery.minimum') }}</label>
                 </div> 
                 <input 
-                class="w-full form-control"
-                type="number"
-                v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
+                    class="w-full form-control"
+                    type="number"
+                    v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
+                    @blur="v.free_delivery_for_how_many_order_minimum.$touch()"
                 />       
+                <label class="block text-danger font-[8px] font-light" 
+                            v-for="error, index in v.free_delivery_for_how_many_order_minimum.$errors"
+                            :key="index">
+                            {{ $t(`settings.delivery.errors.${error.$validator}`) }}
+                </label>
             </div>
             <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
                 <label for="regular-form-2" class="text-base font-bold form-label my-auto">{{ $t('settings.delivery.charge_option') }}</label>
@@ -183,7 +201,7 @@ import { ref, reactive, onMounted } from 'vue';
 import { seller_update_delivery } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
-import { helpers, required, numeric } from '@vuelidate/validators'
+import { helpers, required, requiredIf, numeric, integer, decimal,minValue } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -205,6 +223,10 @@ const deliverySettings = reactive({
 
 
 const deliverySettingsRules = {
+    delivery_charge:{required, decimal, minValue:minValue(0)},
+    free_delivery_for_order_above_price:{required:requiredIf(()=>{ return deliverySettings.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
+    free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return deliverySettings.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
+
       additional_delivery_options: {
         $each: helpers.forEach({
             title:{required},
@@ -243,7 +265,6 @@ const branch_option = { name: null, address: null }
 
 onMounted(() => {
     if(!layoutStore.userInfo.user_subscription)return
-    console.log(layoutStore.userInfo.user_subscription.meta_logistic)
 
     Object.assign(deliverySettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
     // deliverySettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
@@ -272,6 +293,8 @@ const deleteBranch = index=>{
 
 
 const updateDelivery = () => {
+    v.value.$touch()
+    return
     if(v.value.$invalid){
         layoutStore.alert.showMessageToast("Invalid data")
         return
