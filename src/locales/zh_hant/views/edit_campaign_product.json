@@ -10,7 +10,7 @@
         "image":"圖片",
         "name":"名稱",
         "type":"商品型態",
-        "order_code":"關鍵字",
+        "order_code":"商品代碼",
         "qty_for_sale":"商品數量",
         "max_order_amount":"購買數量上限",
         "tag":"商品類別",
@@ -33,7 +33,7 @@
         "image":"圖片",
         "name":"名稱",
         "type":"商品型態",
-        "order_code":"關鍵字",
+        "order_code":"商品代碼",
         "qty_for_sale":"商品數量",
         "max_order_amount":"購買數量上限",
         "category":"商品類別",
@@ -48,6 +48,13 @@
             "product-fast":"商品",
             "lucky_draw-fast":"獎品",
             "lucky_draw":"獎品"
+        },
+        "errors":{
+            "integer":"輸入必須為數字",
+            "decimal":"輸入必須為數字",
+            "minValue":"輸入數字無效",
+            "maxValue":"輸入數字無效",
+            "required":"此欄位必填"
         }
     }
 }

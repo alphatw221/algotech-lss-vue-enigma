@@ -2,6 +2,8 @@
     "title": "Setup Auto Reply",
     "create": "Create",
 
+    "assign_first_reply": "Assign your first auto-reply by click (+ Create) button",
+
     "table_column": {
         "keyword_detect": "Keywords to Detect",
         "set_auto_reply": "Set Automated Response",

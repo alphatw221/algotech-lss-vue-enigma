@@ -24,7 +24,7 @@
 					<td v-else-if="listItems.length === 0" :colspan="columns.length">
 						<div class="mt-5 text-center md:mt-10" >
 							<h1 class="text-slate-500 text-sm md:text-lg h-[300px]">
-								Assign your first auto-reply by click (+ Create) button
+								{{ $t('auto_reply.assign_first_reply') }}
 							</h1>
 						</div>
 					</td> 

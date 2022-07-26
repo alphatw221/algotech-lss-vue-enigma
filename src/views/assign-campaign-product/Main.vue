@@ -33,16 +33,24 @@
 						</option>
 					</select>
 				</div>
-				<div class="flex-0 items-center input-group ml-auto">
-					<input type="text"
-						class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
-						v-model="searchKeyword" @keydown.enter.prevent="search()" />
-					<button 
+				<div class="flex-0 items-center input-group 2xl:ml-auto lg:ml-auto 2xl:mt-5 lg:mt-5">
+					<div class="relative"> 
+						<input type="text"
+							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
+							v-model="searchKeyword" @keydown.enter.prevent="search()" 
+						/>
+						<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="search()"/>
+					</div>
+					<XIcon 
+						v-if="searchKeyword"
+						class="flex-none w-7 h-7 mt-2 text-slate-600" @click="resetSearchBar()"
+					/>
+					
+					<!-- <button 
 						type="button"
 						class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary mt-auto" @click="resetSearchBar()">
 						{{$t('assign_product.search_bar.reset')}}
-						
-					</button>
+					</button> -->
 				</div>
 			</div>   
 			<!-- END SearchBar -->
@@ -88,6 +96,7 @@
 
 									<td 
 										v-else-if="column.key === 'order_code'" class="orderCode" 
+										:data-content="$t(`assign_product.product_table.${column.key}`)"
 										>
 										<div class="place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
 											<input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]"/>
@@ -97,6 +106,7 @@
 
 									<td v-else-if="column.key === 'category'" 
 										class="category"
+										:data-content="$t(`assign_product.product_table.${column.key}`)"
 										>
 										<div v-for="(tag,tag_index) in product['tag']" :key="tag_index"
 										class="flex flex-col justify-center content-center"
@@ -104,13 +114,14 @@
 									</td>
 
 									<td v-else-if="column.key === 'qty'"
-										class="qty">
+										class="qty"
+										:data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="flex flex-col place-content-end w-full md:w-24">
 											<label class=" w-full mt-2 sm:mt-2"   >{{product[column.key]}}</label>
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'assign_qty'" class="qty">
+									<td v-else-if="column.key === 'assign_qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
@@ -119,17 +130,18 @@
 									</td>
 
 									<td v-else-if="column.key === 'max_order_amount'"
-										class="maxqty">
+										class="maxqty"
+										:data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="flex flex-col place-content-end w-full md:w-24" v-if="product.type=='product'">
 											<input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]"/>
 										</div>
 										<div v-else class="text-center">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
+									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<span>{{$t(`assign_product.product_table.types.${product[column.key]}`)}}</span>
 									</td>
-									<td v-else-if="column.key === 'type'" class="type">
+									<td v-else-if="column.key === 'type'" class="type" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<select
 											class="form-select w-auto mt-0 "
 											v-model="product[column.key]"
@@ -138,17 +150,17 @@
 										</select> 
 									</td> 
 
-									<td v-else-if="column.key === 'customer_editable' " class="editable">
+									<td v-else-if="column.key === 'customer_editable' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)" v-if="product.type=='product'"/>
 										<div v-else class="text-center">-</div>
 									</td>
 
-									<td v-else-if=" column.key === 'customer_removable' " class="removable">
+									<td v-else-if=" column.key === 'customer_removable' " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
 										<div v-else class="text-center">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'price'" class="price">
+									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
 											<span class="my-auto mr-1">$</span> 
@@ -366,7 +378,7 @@ const product_type = [{value:'product',name:'Product'},{value:'lucky_draw',name:
 
 const searchColumns = [
 	{ text: "Name", value: "name" },
-	{ text: "Order Code", value: "order_code" },
+	// { text: "Order Code", value: "order_code" },
 	{ text: "Description", value: "description" }
 ]
 
@@ -496,6 +508,12 @@ const search = () => {
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
+		
+		// proudct type 預設 product
+		let emptyType = ['', null, undefined]
+		Object.entries(stockProducts.value).forEach((product) => {
+			product[1].type = emptyType.includes(product[1].type) ? 'product' : product[1].type
+		})
 	})
 }
 
@@ -671,7 +689,7 @@ thead th{
     }
 
     .orderCode:before {
-        content: "Order Code";
+        content: attr(data-content);
         text-align: left !important;
         top:25% !important;
     }
@@ -680,7 +698,7 @@ thead th{
     }
 
     .qty:before {
-        content: "Qty for Campaign";
+        content: attr(data-content);
         top:25% !important;
     }
     .qty input{
@@ -688,7 +706,7 @@ thead th{
     }
 
     .maxqty:before {
-        content: "Max Qty / Order";
+        content: attr(data-content);
         top:25% !important;
     }
     .maxqty input{
@@ -696,7 +714,7 @@ thead th{
     }
 
     .price:before {
-        content: "Price";
+        content: attr(data-content);
         top:10px;
     }
     .price input{
@@ -710,14 +728,14 @@ thead th{
     } */
 
     .editable:before {
-        content: "Editable";
+        content: attr(data-content);
         margin-top: 0px !important;
     }
     .editable{
         min-height: 35px !important;
     }
     .removable:before {
-        content: "Deletable";
+        content: attr(data-content);
         text-align: left !important;
         margin-top: 0px !important;
     }
@@ -726,10 +744,10 @@ thead th{
     }
 
     .category:before {
-        content: "Category";
+        content: attr(data-content);
     }
     .luckyType:before{
-        content: "Type";
+        content: attr(data-content);
         text-align: left !important;
         min-height: 35px !important;
     }
@@ -737,7 +755,7 @@ thead th{
         min-height: 35px !important;
     }
     .type:before {
-        content: "Type";
+        content: attr(data-content);
         text-align: left !important;
         min-height: 35px !important;
         top:10px;

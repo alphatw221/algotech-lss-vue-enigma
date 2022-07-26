@@ -25,14 +25,14 @@
 					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
-								You Don't Have Product in this Category
+								{{ $t('stock.dont_have_product_notify') }}
 							</h1>
 						</div>
 					</td> 
 					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
-								No result
+								{{ $t('stock.no_result') }}
 							</h1>
 						</div>
 					</td> 

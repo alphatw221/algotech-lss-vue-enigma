@@ -28,7 +28,9 @@
         },
         "errors":{
             "Value_is_required":"Value is required",
-            "Value_must_be_numeric":"Value must be numeric"
+            "Value_must_be_numeric":"Value must be numeric",
+            "minValue":"Invalid number",
+            "required":"This field is Required"
         }
         
     },
@@ -108,8 +110,8 @@
         "seller_language":"Seller Language",
         "languages":{
             "en":"English",
-            "zh_hant":"Tranditional Chinese",
-            "zh_hans":"Simplify Chinese",
+            "zh_hant":"Traditional Chinese",
+            "zh_hans":"Simplified Chinese",
             "id":"Indonesian"
         },
         "buyer_language":"Buyer Language",
@@ -123,12 +125,19 @@
     "platform":{
         "connected_platform":"Connect Social Media Platform",
         "facebook_fan_page":"Facebook Fan Page",
+        "connect_with_facebook": "Connect with Facebook",
         "instagram_profile":"Instagram Profile",
+        "connect_with_instagram": "Connect with Instagram",
         "youtube_channel":"Youtube Channel",
+        "connect_with_youtube": "Connect with YouTube",
         "edit":"Edit",
-        "cancel":"",
-        "upgrade":"",
-        "you_can_only_bind":"",
+        "cancel":"Cancel",
+        "upgrade":"Upgrade",
+        "your_subscription_plan_is": "Your subscription plan is",
+        "you_can_only_bind": "You can only bind",
+        "unit": "",
+        "social_media_platform": "social media platform",
+        "period": ".",
         "unbind_page":"Unbind page"
     }
 }

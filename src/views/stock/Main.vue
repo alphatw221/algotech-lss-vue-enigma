@@ -45,8 +45,9 @@
 			:class="{ hidden: openTab !== 2, block: openTab === 2 }"> 
 			<SearchBar
 				:searchColumns="searchColumns"
+				:productCategories="productCategories"
 				:eventBusName="'searchDelistedTable'"
-				:showCategoryFilter="false"
+				:showCategoryFilter="true"
 			>
 			</SearchBar>	
 			<DataTable
