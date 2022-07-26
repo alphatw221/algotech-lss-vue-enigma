@@ -12,7 +12,7 @@
                         class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400 cursor-auto">
                         <UserIcon />
                     </button>
-                    <div class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+                    <div class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
                         :class="{
                             'text-neutral-600': layout.changePlanTab !== 1,
                             'font-bold': layout.changePlanTab === 1,
@@ -30,7 +30,7 @@
                     }" class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400 cursor-auto">
                         <CreditCardIcon :paymentInfo="paymentInfo"/>
                     </button>
-                    <div class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+                    <div class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
                         :class="{
                             'text-neutral-600': layout.changePlanTab !== 2,
                             'font-bold': layout.changePlanTab === 2,
@@ -47,7 +47,7 @@
                     }" class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400 cursor-auto">
                         <CheckIcon />
                     </button>
-                    <div class="w-0 invisible lg:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+                    <div class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
                         :class="{
                             'text-neutral-600': layout.changePlanTab !== 3,
                             'font-bold': layout.changePlanTab === 3,
