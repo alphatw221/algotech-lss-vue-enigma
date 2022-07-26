@@ -173,10 +173,10 @@
                 </div>
             </div>
 
-            <label class="col-span-12 col-start-1 text-xl form-label">{{ $t('settings.notes.delivery_note') }}</label>
+            <!-- <label class="col-span-12 col-start-1 text-xl form-label">{{ $t('settings.notes.delivery_note') }}</label>
             <textarea class="h-32 col-span-12 col-start-1 p-3 form-control" placeholder="Address" v-model="deliverySettings.delivery_note">
                 10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore
-            </textarea>
+            </textarea> -->
         </div> 
         <div class="flex col-span-12 mt-5 float-right text-[14px] lg:mr-2">
                 <button 
