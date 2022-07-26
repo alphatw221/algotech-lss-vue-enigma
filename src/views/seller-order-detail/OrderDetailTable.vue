@@ -64,10 +64,10 @@
                         </div>
 					</template>
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')">
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
 					{{store.orderDetail.campaign.currency}} {{ (product.price).toFixed(2) }}
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')">
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
 					{{store.orderDetail.campaign.currency}} {{ (product.qty * product.price).toFixed(2) }}
 				</td>
 				<td>
