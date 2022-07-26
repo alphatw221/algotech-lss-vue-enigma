@@ -33,16 +33,24 @@
 						</option>
 					</select>
 				</div>
-				<div class="flex-0 items-center input-group ml-auto">
-					<input type="text"
-						class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
-						v-model="searchKeyword" @keydown.enter.prevent="search()" />
-					<button 
+				<div class="flex-0 items-center input-group 2xl:ml-auto lg:ml-auto 2xl:mt-5 lg:mt-5">
+					<div class="relative"> 
+						<input type="text"
+							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
+							v-model="searchKeyword" @keydown.enter.prevent="search()" 
+						/>
+						<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="search()"/>
+					</div>
+					<XIcon 
+						v-if="searchKeyword"
+						class="flex-none w-7 h-7 mt-2 text-slate-600" @click="resetSearchBar()"
+					/>
+					
+					<!-- <button 
 						type="button"
 						class="flex-none w-16 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary mt-auto" @click="resetSearchBar()">
 						{{$t('assign_product.search_bar.reset')}}
-						
-					</button>
+					</button> -->
 				</div>
 			</div>   
 			<!-- END SearchBar -->
@@ -496,6 +504,12 @@ const search = () => {
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
+		
+		// proudct type 預設 product
+		let emptyType = ['', null, undefined]
+		Object.entries(stockProducts.value).forEach((product) => {
+			product[1].type = emptyType.includes(product[1].type) ? 'product' : product[1].type
+		})
 	})
 }
 

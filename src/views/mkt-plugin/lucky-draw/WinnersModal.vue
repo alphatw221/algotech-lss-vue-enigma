@@ -23,7 +23,7 @@
                                 <div class="flex w-full justify-around">
                                     <div class="flex-0 w-20 h-20 sm:w-12 sm:h-12 zoom-in border-0">
                                         <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" 
-											class="rounded-full border-0 w-20 h-20" :src="`${storageUrl}fake_head.jpeg`"
+											class="rounded-full border-0 w-20" :src="`${storageUrl}fake_head.jpeg`"
                                             />
                                         <Tippy v-else tag="img" class="rounded-full border-0 w-20 h-20 sm:w-12 sm:h-12" :src="winner.customer_image"
                                             />

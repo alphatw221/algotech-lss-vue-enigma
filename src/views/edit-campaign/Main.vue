@@ -91,7 +91,7 @@
 			:v="v"
 		/>
 
-		<NotesForm :campaign="campaignData"/>
+		<NotesForm :campaignNotes="campaignNotes"/>
 
 		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 px-10 py-10">
 			<button class="z-50 w-32 bg-white btn dark:border-darkmode-400 " @click="$router.push({ name: 'campaign-list' })">
@@ -134,6 +134,15 @@ const dateTimePicker = ref({
 	start:new Date(),
 	end:new Date()
 })
+const campaignNotes = ref({
+	meta_logistic: {
+		delivery_note: ''
+	},
+	meta_payment: {
+		special_note: '',
+		confirmation_note: ''
+	}
+})
 
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const sellerStore = useLSSSellerLayoutStore()
@@ -146,6 +155,10 @@ onMounted(() => {
 		dateTimePicker.value.start=res.data.start_at
 		dateTimePicker.value.end=res.data.end_at
 
+		campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
+		campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.special_note  ))
+		campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.confirmation_note  ))
+
 		ready.value=true
 	})
 })
@@ -153,6 +166,7 @@ watch(computed(()=>{return dateTimePicker.value}),()=>{
 	campaignData.value.start_at = dateTimePicker.value.start
 	campaignData.value.end_at = dateTimePicker.value.end
 },{deep:true})
+
 
 
 const campaignDataRules = computed(() => {
