@@ -30,7 +30,7 @@
             "price":"Price",
             "activate":"Activate",
             "qty":"Qty",
-            "stock_qty":"Stock Qty",
+            "stock_qty":"Stock QTY",
             "category":"Category",
             "type":"Type",
             "Lucky Draw":"Lucky Draw",
@@ -60,7 +60,10 @@
             "qty_invalid":"invalid",
             "max_order_amount_grater_than_qty":"Greater than assign QTY",
             "assign_qty_required":"required"
-        }
+        },
+        "invalid":"Invalid",
+        "successed":"Successed",
+        "invalid_data":"Invalid Data Inputed"
     },
     "incoming":{
         "incoming_order":"Incoming Order",

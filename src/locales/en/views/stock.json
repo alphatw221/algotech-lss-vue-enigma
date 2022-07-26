@@ -60,7 +60,12 @@
         "product_description": "product description...",
         "description_warning": "description cannot be more than 100 digits",
         "cancel": "Cancel",
-        "save": "Save"
+        "save": "Save",
+
+        "not_save_message":"Change Not Save",
+        "create_message":"Create Successfully",
+        "update_message":"Update Successfully",
+        "invalid_data":"Invalid Data Inputed"
     }
     
 }
