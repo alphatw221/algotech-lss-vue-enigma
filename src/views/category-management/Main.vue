@@ -28,7 +28,7 @@
                     </DropdownToggle>
                     <DropdownMenu class="w-40">
                         <DropdownContent>
-                            <DropdownItem @click="showModal = true; editType = 'update'; oldCategory = item; modalTitle='edit_title'">
+                            <DropdownItem @click="showEditModal(item); modalTitle='edit_title'">
                                 <EditIcon class="w-4 h-4 mr-2" /> {{ $t('stock.category_manage.edit') }}
                             </DropdownItem>
                             <DropdownItem @click="deleteCategory(item)">
@@ -64,6 +64,7 @@
 import { list_product_category, create_product_category, update_product_category, delete_product_category } from '@/api_v2/product';
 import { onMounted, ref, computed } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import dom from "@left4code/tw-starter/dist/js/dom";
 
 const layoutStore = useLSSSellerLayoutStore()
 const listItems = ref([])
@@ -115,12 +116,25 @@ function update(){
     }
 }
 
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
+
+const showEditModal = item=>{
+    showModal.value = true; 
+    editType.value = 'update'; 
+    oldCategory.value = item ;
+    hideDropDown()
+}
+
+
 function deleteCategory(name) {
     delete_product_category(name).then(
         response => {
             list();
         }
     )
+    hideDropDown()
 }
 
 function closeAlert() {

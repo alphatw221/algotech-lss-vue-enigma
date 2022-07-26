@@ -19,7 +19,7 @@
 					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0"> 
 						<div class="mt-5 text-center md:mt-10 w-full" >
 							<h1 class="text-slate-500 text-center text-sm md:text-lg h-[300px]">
-                {{ $t(`campaign_list.no_campaign_${props.tableName}`) }}
+								{{$t('campaign_list.campaign_list_table.campaign_message',{tab:$t(`campaign_list.campaign_list_table.`+props.tableName)})}}
 							</h1>
 						</div>
 					</td> 

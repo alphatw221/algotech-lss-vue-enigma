@@ -28,7 +28,7 @@
 						v-model="dateTimePicker" 
 						:timezone="timezone" 
 						:columns="$screens({ default: 1, sm: 2 })" 
-						mode="dateTime" is-range is-required
+						mode="dateTime" is-range is-required is24hr
 						:min-date='new Date()'
 						>
 						<template v-slot="{ inputValue, inputEvents }">

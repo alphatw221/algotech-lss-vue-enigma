@@ -7,7 +7,7 @@
         "search_by":"搜尋欄位",
         "search_options":{
             "name":"名稱",
-            "order_code":"關鍵字",
+            "order_code":"商品代碼",
             "description":"備註"
         },
         "search_bar_place_holder":"搜尋...",
@@ -18,7 +18,7 @@
         "image":"圖片",
         "name":"名稱",
         "type":"商品型態",
-        "order_code":"關鍵字",
+        "order_code":"商品代碼",
         "qty":"庫存數量",
         "assign_qty":"直播商品數量",
         "max_order_amount":"購買上限",
@@ -38,8 +38,8 @@
 
         "errors":{
             "type_required":"型態必填",
-            "order_code_required":"關鍵字必填",
-            "order_code_duplicate":"關鍵字重複",
+            "order_code_required":"商品代碼必填",
+            "order_code_duplicate":"商品代碼重複",
             "qty_invalid":"數量無效",
             "max_order_amount_grater_than_qty":"不得大於商品數量",
             "assign_qty_required":"商品數量必填",

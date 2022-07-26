@@ -1,9 +1,9 @@
 <template>
     <Button v-if="props.buttonName == 'edit'" 
-        type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
+        type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="google-login-btn" @click="checkLoginState">{{ props.buttonName }}</Button>
+        type="button" class="google-login-btn" @click="handleAuthClick">{{$t('settings.platform.connect_with_youtube')}}</Button>
     
 </template>
 

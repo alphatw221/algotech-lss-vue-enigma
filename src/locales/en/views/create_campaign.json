@@ -15,7 +15,7 @@
         "free_delivery_for_minimum_order":"Free delivery for minimum order Qty",
         "add_more_delivery_option":"Add More Option",
         "add_more_pickup_option":"Add More Location",
-        "options":"Shipping Options",
+        "options":"Delivery Charge Options",
         "on_top_of_delivery_charge":"On top of delivery charge",
         "replace_delivery_charge":"Replace delivery charge",
 
@@ -27,7 +27,9 @@
         "pickup_address":"Pickup Address",
         "errors":{
             "Value_is_required":"Value is required",
-            "Value_must_be_numeric":"Value must be numeric"
+            "Value_must_be_numeric":"Value must be numeric",
+            "minValue":"Invalid number",
+            "required":"This field is required"
         }
     },
 
