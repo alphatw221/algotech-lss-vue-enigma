@@ -109,8 +109,8 @@ export function instagramAxios(accessToken){
             }
             else if (error.response.data.detail){
                 alert(error.response.data.detail)
-            }else{
-                alert('error')
+            }else if (error.response.data.error) {
+                alert(error.response.data.error.message)
             }
             return Promise.reject(error);
         }
