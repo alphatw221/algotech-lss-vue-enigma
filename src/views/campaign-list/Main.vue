@@ -1,8 +1,11 @@
 <template>
   <!-- BEGIN OUTTER BOX -->
-  <div class="flex flex-col gap-5 p-3 box sm:p-8 sm:h-[95%]">
+  <div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('campaign_list.campaign_list') }}</h2>
+		</div>
+  <div class="flex flex-col p-3 box sm:h-[95%] p-2 lg:gap-3 box sm:px-8 h-fit lg:mx-20">
     <!-- BEGIN: commit box -->
-    <div class="flex flex-row flex-wrap justify-center sm:justify-between mt-8 sm:mt-0 mx-0 gap-6">
+    <div class="flex flex-row flex-wrap justify-center sm:justify-between mt-5 mx-0 gap-3 sm:gap-5">
       <div class="flex-none switch-toggle mx-auto sm:mx-0">
         <input id="off" name="state-d" type="radio" />
         <label for="off" @click="show_campaign('ongoing')">{{$t('campaign_list.tabs.ongoing')}}</label>
@@ -12,7 +15,7 @@
         <label for="na" @click="show_campaign('history')">{{$t('campaign_list.tabs.history')}}</label>
       </div>
       <button 
-        class="flex w-32 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded mx-auto mb-4 sm:mx-0"
+        class="flex w-32 h-[35px] sm:h-[42px] ml-auto text-white btn btn-warning btn-rounded mx-auto mb-5 sm:mx-0"
               @click="router.push({name:'create-campaign'})" > 
         <span class="mr-1 text-lg font-bold">+</span> {{$t('campaign_list.create_campaign')}}
       </button>
