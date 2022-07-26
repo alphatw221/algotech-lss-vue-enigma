@@ -48,7 +48,7 @@
         "draw_selection": {
             "like": "by like this post",
             "product": "by purchased certain product",
-            "purchased": "by purchased any product",
+            "purchase": "by purchased any product",
             "keyword": "by keyword"
         },
         "no_product_err":"Haven't Assigned Product Into This Campaign",
