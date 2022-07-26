@@ -204,11 +204,12 @@
 <script setup>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
 import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
-import { ref, onMounted, computed, provide } from 'vue'
+import { ref, onMounted, computed, provide, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required, integer, maxLength, decimal, minValue} from "@vuelidate/validators";
+import i18n from "@/locales/i18n"
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
@@ -270,7 +271,7 @@ provide("bind[dropzoneSingleRef]", (el) => {
 const submit = ()=>{
 	validate.value.$touch();
     if (validate.value.$invalid) {
-        layoutStore.alert.showMessageToast("Invalid Data Inputed")
+        layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.invalid_data'))
         return
     }else
 	if (route.params.product_id) {
@@ -286,7 +287,7 @@ const submit = ()=>{
 				// console.log('image upload response > ', response)
 				// layoutStore.alert.showMessageToast("Invalid Quantity")
 				router.push({name:'stock'})
-				layoutStore.notification.showMessageToast("Update Successfully")
+				layoutStore.notification.showMessageToast(i18n.global.t('stock.add_product_page.update_message'))
 			},
 		)
 	} else {
@@ -296,7 +297,7 @@ const submit = ()=>{
 		create_product(formData)
 		.then(
 			response => {
-				layoutStore.notification.showMessageToast("Create Successfully"),
+				layoutStore.notification.showMessageToast(i18n.global.t('stock.add_product_page.create_message')),
 				router.push({name:'stock'})
 			}
 		)
@@ -305,7 +306,7 @@ const submit = ()=>{
 
 const cancelButton = () =>{
 	router.push({name:'stock'});
-	layoutStore.alert.showMessageToast("Change Not Saved");
+	layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.not_save_message'));
 }
 
 // const clear = () =>{
