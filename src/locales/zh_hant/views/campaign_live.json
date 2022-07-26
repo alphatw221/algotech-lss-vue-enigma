@@ -11,7 +11,12 @@
         "comment_message_2":"尚未有 %{platformName} 訊息"
     },
     "reply":{
-        "reply_to":"回覆"
+        "reply_to":"回覆",
+        "type_your_message": "輸入你的訊息"
+    },
+    "conversation":{
+        "conversation_with":"對話與",
+        "type_your_message": "輸入你的訊息"
     },
     "product":{
         "product":"直播商品",
