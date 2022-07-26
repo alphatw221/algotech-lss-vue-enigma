@@ -77,7 +77,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useVuelidate } from "@vuelidate/core";
 import { required,minValue, decimal, integer, maxLength } from "@vuelidate/validators";
-
+import i18n from "@/locales/i18n"
 
 const router = useRouter();
 const route = useRoute();
@@ -111,7 +111,7 @@ const addtoCampaign =()=>{
         response =>{
             console.log(response.data);
             store.campaignProducts.push(response.data)
-            layoutStore.notification.showMessageToast("Successed")
+            layoutStore.notification.showMessageToast(i18n.golbal.t('campaign_live.product.successed'))
         }
     )
 } 
@@ -119,7 +119,7 @@ const addtoCampaign =()=>{
 const apply = ()=>{
     validate.value.$touch();
     if (validate.value.$invalid) {
-        layoutStore.alert.showMessageToast("Invalid Data Inputed")
+        layoutStore.alert.showMessageToast(i18n.golbal.t('campaign_live.product.invalid_data'))
         return
     }else 
     addtoCampaign()

@@ -18,7 +18,8 @@
             class="box bg-[#f1f1f1] relative text-left" >     
             <div class="flex flex-row flex-wrap justify-start lg:justify-between m-[0.7rem] p-5 px-3 lg:p-5 lucky-set">
                 <div class="flex flex-col xl:flex-row justify-start w-[70px] lg:w-[120px] mr-5 my-auto"> 
-                    <img class="h-[120px] object-cover lg:mr-5" :src="storageUrl + luckydraw.animation" />
+                    <img class="h-[120px] object-cover lg:mr-5" :src="storageUrl + luckydraw.prize.image" />
+                    <span class="h-auto w-40 break-words text-[16px] hidden lg:block">{{ luckydraw.prize.name }}</span>
                 </div>
                 <div class="flex flex-col lg:flex-row flex-wrap justify-start md:mt-5 w-[55%] lg:w-auto lg:ml-auto">  
                     <span class="my-auto lg:hidden break-words w-full">{{ luckydraw.prize.name }}</span>

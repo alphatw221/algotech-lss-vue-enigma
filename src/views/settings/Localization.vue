@@ -1,14 +1,16 @@
 <template>
-    <div class="flex flex-col p-2 font-medium text-sm sm:text-xl">
-        <span class="mt-2 mb-1 sm:mt-5 mx-auto sm:mx-0 text-xl sm:text-2xl"> {{ $t('settings.localization.title') }} </span>
-        <div class="box p-5 px-10 lg:p-10 lg:px-20">
-            
-            <div class="flex my-3 text-lg">
-                <div class="mr-5"> {{$t("settings.localization.country")}}: </div>
-                <div v-if="layoutStore.userInfo.user_subscription "> {{  $t(`settings.localization.countries.${layoutStore.userInfo.user_subscription.country}`)||'' }}</div>
+    <div class="flex flex-col">
+        <div class="flex items-center sm:px-20 pt-5 pb-4 intro-y ">
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('settings.localization.title') }} </h2>
+		</div>
+        
+        <div class="box lg:mx-20 lg:pl-40 pl-16 py-10 gap-4 p-5 intro-y"> 
+            <div class="flex mb-3">
+                <div class="mr-3 text-lg sm:text-xl font-medium"> {{$t("settings.localization.country")}}  : </div>
+                <div class="flex" v-if="layoutStore.userInfo.user_subscription "> {{  $t(`settings.localization.countries.${layoutStore.userInfo.user_subscription.country}`)||'' }}</div>
             </div>
-            <div class="flex my-3 mt-5 text-m">
-                <div> {{$t("settings.localization.currency_symbol")}}: </div>
+            <div class="flex my-3 mt-5 form-label text-base font-medium">
+                <div> {{$t("settings.localization.currency_symbol")}} </div>
             </div>
             <div class="flex my-1">
                 <TomSelect v-model="data.currency" :options="{
@@ -17,7 +19,7 @@
                     <option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
                 </TomSelect>
             </div>
-            <div class="flex my-3 mt-5 text-lg">
+            <div class="flex my-3 mt-5 form-label text-base font-medium">
                 <div class="mr-5"> {{$t("settings.localization.seller_language")}}</div>
             </div> 
             <div class="flex my-1">
@@ -27,7 +29,7 @@
                     <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
                 </TomSelect>
             </div>
-            <div class="flex my-3 mt-5 text-lg">
+            <div class="flex my-3 mt-5 form-label text-base font-medium">
                 <div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
             </div>
             <div class="flex my-1">
@@ -37,7 +39,7 @@
                     <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
                 </TomSelect>
             </div>
-            <div class="flex my-3 mt-5 text-lg">
+            <div class="flex my-3 mt-5 form-label text-base font-medium">
                 <div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
             </div>
             <div class="flex my-1">
@@ -46,8 +48,8 @@
                 </TomSelect>
             </div>
             <div class="flex justify-end mt-10 w-5/6"> 
-                <button class="btn btn-rounded-secondary mr-5 w-20" @click="clean()"> {{$t("settings.localization.discard")}}</button>
-                <button class="btn btn-rounded-primary w-20" @click="save()"> {{$t("settings.localization.save")}}</button>
+                <button class="w-32 bg-white btn dark:border-darkmode-400" @click="clean()"> {{$t("settings.localization.discard")}}</button>
+                <button class="w-32 ml-5 shadow-md btn btn-primary" @click="save()"> {{$t("settings.localization.save")}}</button>
             </div>
         </div>
     </div>
@@ -57,9 +59,9 @@
 import { ref, defineEmits, computed, onMounted, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_subscription } from '@/api_v2/user_subscription'
-
-const layoutStore = useLSSSellerLayoutStore();
 import i18n from '@/locales/i18n';
+const layoutStore = useLSSSellerLayoutStore();
+
 
 const countries = ref({'PH':'Philippines','SG':'Singapore','ID':'Indonesia','IN':'India','TW':'Taiwan'})
 

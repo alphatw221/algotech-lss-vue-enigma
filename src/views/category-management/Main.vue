@@ -28,7 +28,7 @@
                     </DropdownToggle>
                     <DropdownMenu class="w-40">
                         <DropdownContent>
-                            <DropdownItem @click="showModal = true; editType = 'update'; oldCategory = item; modalTitle='edit_title'">
+                            <DropdownItem @click="showEditModal(item); modalTitle='edit_title'">
                                 <EditIcon class="w-4 h-4 mr-2" /> {{ $t('stock.category_manage.edit') }}
                             </DropdownItem>
                             <DropdownItem @click="deleteCategory(item)">
@@ -49,6 +49,7 @@
                         v-model="oldCategory" />
                     <input id="regular-form-2" type="text" class="mt-3 form-control"
                         :placeholder="$t('stock.category_manage.input_holder')" v-model="categoryName" />
+                    <div class="text-danger whitespace-nowrap " v-if="duplicateName">{{ $t('stock.category_manage.modal.warning_duplicate') }}</div>
                 </div>
                 <div class="flex justify-between">
                     <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false">{{ $t('stock.category_manage.modal.cancel') }}</button>
@@ -61,8 +62,9 @@
 
 <script setup>
 import { list_product_category, create_product_category, update_product_category, delete_product_category } from '@/api_v2/product';
-import { onMounted, ref } from "vue";
+import { onMounted, ref, computed } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import dom from "@left4code/tw-starter/dist/js/dom";
 
 const layoutStore = useLSSSellerLayoutStore()
 const listItems = ref([])
@@ -72,6 +74,7 @@ const oldCategory = ref('')
 const editType = ref('create')
 const saved = ref(false)
 const modalTitle = ref('')
+const duplicateName = ref(false)
 
 onMounted(() => {
     list();
@@ -86,26 +89,44 @@ const list = () => {
 }
 
 function update(){
-    if (editType.value == 'create') {
-        let data = { 'category_name': categoryName.value }
-        create_product_category(data).then(
-            response => {
-                showModal.value = false;
-                saved.value = true;
-                list();
-            }
-        )
-    } else if (editType.value == 'update') {
-        let data = { 'category_name': categoryName.value }
-        update_product_category(oldCategory.value, data).then(
-            response => {
-                showModal.value = false;
-                saved.value = true;
-                list();
-            }
-        )
+    duplicateName.value = listItems.value.some(category => {
+        return category == categoryName.value
+    })
+    
+    if (duplicateName.value === false) {
+        if (editType.value == 'create') {
+            let data = { 'category_name': categoryName.value }
+            create_product_category(data).then(
+                response => {
+                    showModal.value = false;
+                    saved.value = true;
+                    list();
+                }
+            )
+        } else if (editType.value == 'update') {
+            let data = { 'category_name': categoryName.value }
+            update_product_category(oldCategory.value, data).then(
+                response => {
+                    showModal.value = false;
+                    saved.value = true;
+                    list();
+                }
+            )
+        }
     }
 }
+
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
+
+const showEditModal = item=>{
+    showModal.value = true; 
+    editType.value = 'update'; 
+    oldCategory.value = item ;
+    hideDropDown()
+}
+
 
 function deleteCategory(name) {
     delete_product_category(name).then(
@@ -113,6 +134,7 @@ function deleteCategory(name) {
             list();
         }
     )
+    hideDropDown()
 }
 
 function closeAlert() {

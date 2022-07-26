@@ -1,9 +1,9 @@
 <template>
 	<div class="h-fit">
-		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y " v-if="route.params.product_id">
+		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y " v-if="route.params.product_id">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('stock.add_product_page.edit_title') }}</h2>
 		</div>
-		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y" v-else>
+		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y" v-else>
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('stock.add_product_page.add_title') }}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10">
@@ -204,11 +204,12 @@
 <script setup>
 import { createAxiosWithBearer } from '@/libs/axiosClient'
 import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
-import { ref, onMounted, computed, provide } from 'vue'
+import { ref, onMounted, computed, provide, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
-import { required, integer, maxLength, decimal} from "@vuelidate/validators";
+import { required, integer, maxLength, decimal, minValue} from "@vuelidate/validators";
+import i18n from "@/locales/i18n"
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
@@ -233,6 +234,15 @@ const product = ref({
 // 	{text: 'Product', id: 'product'},
 // 	{text: 'Lucky Draw', id: 'lucky_draw'},
 // ])
+const rules = computed(()=>{
+    return{
+		name:{required,maxLength:maxLength(40)},
+		// order_code: {required, maxLength:maxLength(10)},
+		description: {maxLength: maxLength(100)},
+		qty: {integer, minValue:minValue(1)},
+		price: {decimal, minValue:minValue(0)},  
+    }
+});
 
 const statusRadio = ref([
 	{text: 'for_sale', id: 'enabled'},
@@ -242,6 +252,8 @@ const statusRadio = ref([
 const previewImage =ref('')
 const categorySelection = ref([])
 const formData = new FormData()
+
+const validate = useVuelidate(rules, product);
 
 onMounted(()=>{
 	list_product_category().then(
@@ -270,7 +282,7 @@ provide("bind[dropzoneSingleRef]", (el) => {
 const submit = ()=>{
 	validate.value.$touch();
     if (validate.value.$invalid) {
-        layoutStore.alert.showMessageToast("Invalid Data Inputed")
+        layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.invalid_data'))
         return
     }else
 	if (route.params.product_id) {
@@ -286,7 +298,7 @@ const submit = ()=>{
 				// console.log('image upload response > ', response)
 				// layoutStore.alert.showMessageToast("Invalid Quantity")
 				router.push({name:'stock'})
-				layoutStore.notification.showMessageToast("Update Successfully")
+				layoutStore.notification.showMessageToast(i18n.global.t('stock.add_product_page.update_message'))
 			},
 		)
 	} else {
@@ -296,7 +308,7 @@ const submit = ()=>{
 		create_product(formData)
 		.then(
 			response => {
-				layoutStore.notification.showMessageToast("Create Successfully"),
+				layoutStore.notification.showMessageToast(i18n.global.t('stock.add_product_page.create_message')),
 				router.push({name:'stock'})
 			}
 		)
@@ -305,7 +317,7 @@ const submit = ()=>{
 
 const cancelButton = () =>{
 	router.push({name:'stock'});
-	layoutStore.alert.showMessageToast("Change Not Saved");
+	layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.not_save_message'));
 }
 
 // const clear = () =>{
@@ -314,17 +326,9 @@ const cancelButton = () =>{
 // 	console.log(dropzoneSingleRef.value.dropzone.previewsContainer)
 // }
 
-const rules = computed(()=>{
-    return{
-		name:{required,maxLength:maxLength(40)},
-		// order_code: {required, maxLength:maxLength(10)},
-		description: {maxLength: maxLength(100)},
-		qty: {integer},
-		price: {decimal},  
-    }
-});
 
-const validate = useVuelidate(rules, product);
+
+
 
 </script>
 

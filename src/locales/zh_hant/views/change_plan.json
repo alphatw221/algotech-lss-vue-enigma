@@ -1,8 +1,8 @@
 {   
     "tab":{
-        "select_plan":"Select Plan",
-        "payment":"Payment",
-        "confirm":"Confirmation"
+        "select_plan":"選擇方案",
+        "payment":"付款",
+        "confirm":"確認"
     },
     "plan":{
         "trial":"Trial",

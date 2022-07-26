@@ -1,4 +1,6 @@
 {
+    "stock": "庫存商品",
+
     "for_sale": "銷售中",
     "delisted": "下架",
     "add_product": "新增產品",
@@ -34,7 +36,8 @@
         "input_holder": "類別名稱",
         "modal": {
             "cancel": "取消",
-            "save": "儲存"
+            "save": "儲存",
+            "warning_duplicate": "重複的類別名稱"
         }
     },
 
@@ -51,13 +54,18 @@
         "quantity": "數量",
         "qty_warning": "數量需填數字",
         "price": "價格",
-        "pricr_warning": "價格需填數字",
+        "price_warning": "價格需填數字",
         "status": "預設狀態",
         "description": "說明",
         "product_description": "商品說明...",
         "description_warning": "說明須填不超過100字",
         "cancel": "取消",
-        "save": "儲存"
+        "save": "儲存",
+
+        "not_save_message":"取消儲存",
+        "create_message":"新增成功",
+        "update_message":"更新成功",
+        "invalid_data":"無效資料"
     }
     
 }

@@ -24,8 +24,18 @@
                             </option>
                         </select> 
                     </template> 
+
                     <template v-else>
                         <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
+                        <template v-if="v[column.key]">
+                            <label class="text-danger font-[8px] font-light block" 
+                                v-for="error,index in v[column.key].$errors"
+                                :key="index"
+                                >
+                                {{ $t(`edit_campaign_product.edit_product_modal.errors.${error.$validator}`) }}
+                            </label>
+                        </template>
+                        
                     </template>
                 </div>
             </template>
@@ -48,18 +58,45 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, getCurrentInstance } from 'vue';
+import { ref, onMounted, onUnmounted, getCurrentInstance, computed } from 'vue';
 import { seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+
+import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue, maxValue } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
+
 
 const layoutStore = useLSSSellerLayoutStore()
 const campaignDetailStore = useCampaignDetailStore()
 const route = useRoute()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
-const campaignProduct = ref({})
+const campaignProduct = ref({
+    order_code:"",
+    qty_for_sale:null,
+    max_order_amount:null,
+    price:null,
+    type:null,
+
+})
+
+
+
+const campaignProductRules = computed(() => {
+	return { 	
+        order_code:{required},
+        qty_for_sale:{required , integer, minValue:minValue(1)},
+        max_order_amount:{integer, minValue:minValue(0), maxValue:maxValue(campaignProduct.value.qty_for_sale)},
+        price:{required, decimal, minValue:minValue(0) },
+    }
+})
+
+const v = useVuelidate(campaignProductRules, campaignProduct);
+
+
+
 
 const tableColumns = [
     { name: "Order Code", key: "order_code" },
@@ -79,16 +116,30 @@ const typeSelection = [
 const payloadBuffer = ref({})
 onMounted(() => {
     eventBus.on('editCampaignProduct', (payload) => {
+        console.log(payload)
         payloadBuffer.value = payload
         campaignProduct.value = payload.campaignProduct
     })
 })
+
+
+
+
+
+
 
 onUnmounted(() => {
     eventBus.off('editCampaignProduct')
 })
 
 const updateProduct = () => {
+
+    v.value.$touch()
+    if(v.value.$invalid){
+        layoutStore.alert.showMessageToast("Invalid Data")
+        return
+    }
+    return
     seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
     .then(res => {
         console.log(res.data)

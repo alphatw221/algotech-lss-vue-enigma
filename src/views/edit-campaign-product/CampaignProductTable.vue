@@ -26,31 +26,31 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm orderCode">
+                        <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm orderCode" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div class="form-check place-content-center">
                                 {{ campaign_product[column.key] }}        
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'qty_for_sale'" class="w-24 text-[12px] lg:text-sm qty">
+                        <td v-else-if="column.key === 'qty_for_sale'" class="w-24 text-[12px] lg:text-sm qty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div class="form-check place-content-center">
                                 {{ campaign_product[column.key] }}      
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty">
+                        <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div class="form-check place-content-center">
                                 {{ campaign_product[column.key] }}   
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end category">
+                        <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end category" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div v-for="tag in campaign_product[column.key]" :key="tag">
                                 {{ tag }}
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'price'" class="price">
+                        <td v-else-if="column.key === 'price'" class="price" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                                 <div class="whitespace-nowrap">{{ layoutStore.userInfo.user_subscription.currency }} {{ parseFloat(campaign_product[column.key]).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                         </td>
 
@@ -69,7 +69,7 @@
                             </div>
                         </td> -->
 
-                        <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center editable">
+                        <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center editable" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div class=" form-check place-content-end sm:place-content-center">
                                     <input 
                                         class="form-check-input w-[1.2rem] h-[1.2rem]" 
@@ -80,7 +80,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'customer_removable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center removable">
+                        <td v-else-if="column.key === 'customer_removable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center removable" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div class=" form-check place-content-end sm:place-content-center">
 
                                     <input 
@@ -98,9 +98,24 @@
                             </div>                
                         </td>
 
-                        <td v-else-if="column.key === 'edit'" class="edit ">
-                            <div class="place-content-end sm:place-content-center">
-                                 <Dropdown placement="bottom-start" v-show="true">
+                        <td v-else-if="column.key === 'edit'" class="edit " :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div class="place-content-center sm:place-content-center">
+                                <button 
+                                    class="btn btn-outline-secondary mr-1"
+                                    type="button" 
+                                    @click="showEditCampaignProductModal(campaign_product, index)" 
+                                > 
+                                    {{$t(`edit_campaign_product.campaign_product_table.edit`)}}  
+                                </button>
+                                <button 
+                                    class="btn btn-danger"
+                                    type="button" 
+                                    @click="deleteProduct(campaign_product, index)"
+                                >
+                                    {{$t(`edit_campaign_product.campaign_product_table.delete`)}}  
+                                </button>
+
+                                 <!-- <Dropdown placement="bottom-start" v-show="true">
                                     <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                                         <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
                                     </DropdownToggle>
@@ -122,9 +137,8 @@
                                             </DropdownItem>
                                         </DropdownContent>
                                     </DropdownMenu>
-                                </Dropdown> 
+                                </Dropdown>  -->
                             </div>
-                           
                         </td>
                         </template>
                     </tr>
@@ -135,9 +149,6 @@
             <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
         </div>
 
-        <!-- BEGIN: Modal Content -->
-            <EditCampaignProductModal />
-        <!-- END: Modal Content -->
     </div>
 </template>
 
@@ -147,7 +158,6 @@ import { seller_list_campaign_product, seller_delete_campaign_product, seller_up
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
-import EditCampaignProductModal from './EditCampaignProductModal.vue';
 
 const props = defineProps({
     eventBusName:String
@@ -232,7 +242,7 @@ const showEditCampaignProductModal = (campaign_product, index)=>{
 const deleteProduct = (campaign_product, index) => {
     seller_delete_campaign_product(campaign_product.id)
     .then(response => {
-        camapignDetailStore.campaignProducts.splice(index,1)
+        campaignDetailStore.campaignProducts.splice(index,1)
     })
 }
 
@@ -374,7 +384,7 @@ thead th {
     }
 
     .orderCode:before {
-        content: "Order Code";
+        content: attr(data-content);
         text-align: left !important;
         top:25% !important;
     }
@@ -383,7 +393,7 @@ thead th {
     }
 
     .qty:before {
-        content: "Qty for Campaign";
+        content: attr(data-content);
         top:25% !important;
     }
     .qty input{
@@ -391,7 +401,7 @@ thead th {
     }
 
     .maxQty:before {
-        content: "Max Qty / Order";
+        content: attr(data-content);
         top:25% !important;
     }
     .maxQty input{
@@ -400,7 +410,7 @@ thead th {
 
     .category:before {
         top: -3px;
-        content: "Category";
+        content: attr(data-content);
         top:25% !important;
     }
     .category{
@@ -411,7 +421,7 @@ thead th {
     }
 
     .price:before {
-        content: "Price";
+        content: attr(data-content);
         top:20% !important;
     }
     .price{
@@ -422,22 +432,22 @@ thead th {
     }
     
     .type:before {
-        content: "Type";
+        content: attr(data-content);
         text-align: left !important;
         top:25% !important;
         margin-top: 0 !important;
     }
 
     .editable:before {
-        content: "Editable";
+        content: attr(data-content);
     }
     .removable:before {
-        content: "Deletable";
+        content: attr(data-content);
     }
 
     
     .edit:before{
-        content: "More";
+        content: attr(data-content);
     }
     /* .edit{
         display:block;

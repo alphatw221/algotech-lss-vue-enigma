@@ -3,7 +3,7 @@
         <div class="container">
             <div class="h-screen flex justify-center rounded overflow-hidden shadow-lg">
                 <div style="margin-top: 5rem;" v-if="ready === true && beforeDraw === true">
-                    <img class="m-3 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px;"/>
+                    <img class="m-3 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px; height: 300px;"/>
                     <div class="text-center mt-7 text-2xl">{{ luckyDrawData.prize.name }}</div>
                     <div class="mt-9 flex">
                         <div class="w-[50%] flex-col mr-5">
@@ -26,7 +26,7 @@
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-[50%] flex-col mr-5">
-                            <label class="form-label text-lg text-slate-500">Winners</label>
+                            <label class="form-label text-lg text-slate-500">{{ $t('lucky_draw.draw_flow.winner') }}</label>
                         </div>
                         <div class="w-[50%] flex-col">
                             <label class="form-label float-right text-lg"> {{ luckyDrawData.num_of_winner }}</label>
@@ -34,11 +34,11 @@
                     </div>
                     <div class="mt-6 flex">
                         <div class="w-[50%] flex-col mr-5">
-                            <label class="form-label text-lg text-slate-500">Repeatable</label>
+                            <label class="form-label text-lg text-slate-500">{{ $t('lucky_draw.draw_flow.repeatable') }}</label>
                         </div>
                         <div class="w-[50%] flex-col">
-                            <label class="form-label float-right text-lg" v-if="luckyDrawData.repeatable == true">Yes</label>
-                            <label class="form-label float-right text-lg" v-else>No</label>
+                            <label class="form-label float-right text-lg" v-if="luckyDrawData.repeatable == true">{{ $t('lucky_draw.draw_flow.yes') }}</label>
+                            <label class="form-label float-right text-lg" v-else>{{ $t('lucky_draw.draw_flow.no') }}</label>
                         </div>
                     </div>
                     <div class="text-center mt-9 text-2xl">
@@ -49,8 +49,8 @@
                 </div>
                 <div style="margin-top: 5rem;" v-else-if="ready === true && beforeDraw === false">
                     <div v-if="winnerList.length != 0" 
-                        class="text-2xl text-center"> Congratulations!</div>
-                    <img class="mx-auto my-8 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px;"/>
+                        class="text-2xl text-center"> {{ $t('lucky_draw.draw_flow.congrates') }} !</div>
+                    <img class="mx-auto my-8 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px; height:300px;"/>
                     <div class="text-center text-2xl">{{ luckyDrawData.prize.name }}</div>
                     <div class="mt-9 flex flex-wrap" style="width: 350px;">
                         <div v-for="(winner, index) in winnerList" :key="index" class="ml-5 mb-3">
@@ -72,7 +72,8 @@
                         </div>
                     </div>
                     <div v-if="winnerList.length == 0" class="text-2xl text-center">  
-                        No winner this run </div>
+                        {{ $t('lucky_draw.draw_flow.no_winner') }} 
+                    </div>
                 </div>
             </div>
         </div>
@@ -80,7 +81,12 @@
         <!-- BEGIN: Modal Content -->
         <Modal :show="showAnimation">
             <ModalBody class="p-10 text-center">
-                <img class="m-3 self-center" :src="storageUrl + luckyDrawData.animation" />
+                <template v-if="luckyDrawData.animation == ''"> 
+                    <img class="m-3 self-center" :src="`${storageUrl}static/lucky_draw1.svg`" />                        
+                </template>
+                <template v-else>
+                    <img class="m-3 self-center" :src="storageUrl + luckyDrawData.animation" />
+                </template> 
             </ModalBody>
         </Modal>
         <!-- END: Modal Content -->

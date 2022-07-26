@@ -45,16 +45,26 @@
         "keyword_warning": "minimum 3 digits",
         "product": "Product",
         "keyword": "Keyword",
-        "by_like": "by like this post",
-        "by_product": "by purchased any product",
-        "by_purchased": "by purchased certain product",
-        "by_keyword": "by keyword",
+        "draw_selection": {
+            "like": "by like this post",
+            "product": "by purchased certain product",
+            "purchase": "by purchased any product",
+            "keyword": "by keyword"
+        },
         "no_product_err":"Haven't Assigned Product Into This Campaign",
         "assign_product_err":"Assign Product into your Campaign",
         "assign_prize_err":"Assign Prize into your Campaign",
         "secs":"secs"
     },
     
+    "draw_flow": {
+        "winner": "Winner",
+        "repeatable": "Repeatable",
+        "congrates": "Congratulations",
+        "no_winner": "No winner this run",
+        "yes": "Yes",
+        "no": "No"
+    },
 
 
 

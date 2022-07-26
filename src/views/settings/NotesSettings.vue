@@ -1,5 +1,5 @@
 <template>
-    <div class="py-5 sm:p-8 sm:py-5 lg:px-10 text-sm sm:text-lg ">
+    <div class="py-5 sm:p-8 sm:py-5 px-2 lg:px-10 text-sm sm:text-lg ">
         <AccordionGroup class="accordion-boxed">
             <AccordionItem>
                 <Accordion>

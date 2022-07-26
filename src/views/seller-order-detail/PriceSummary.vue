@@ -7,22 +7,33 @@
 	  
       <div class="flex">
         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
-        <div class="font-medium">$ {{parseFloat(store.orderDetail.subtotal).toFixed(props.decimal_places)}}</div>
+        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.subtotal).toFixed(props.decimal_places)}}</div>
       </div>
       <div class="flex">
-        <div class="mr-auto">{{$t('order_detail.price_summary.shipping')}}</div>
-        <div class="font-medium">$ {{parseFloat(store.orderDetail.shipping_cost).toFixed(props.decimal_places)}}</div>
+        <div class="mr-auto">
+          {{$t('order_detail.price_summary.shipping')}}
+          <span class="text-red-500" v-if="store.orderDetail.free_delivery">({{$t('order_detail.price_summary.apply_free_delivery')}})</span>
+        </div>
+        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.shipping_cost).toFixed(props.decimal_places)}}</div>
       </div>
       <template v-if="store.orderDetail.adjust_title !== null">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
-            <div class="font-medium">$ {{store.modify_status == '-' ? -parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places)}}</div>
+            <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{store.modify_status == '-' ? -parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places)}}</div>
         </div>
       </template>
       <template v-if="props.order_type !== 'order'">
       <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">
         <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}}
+          <div class="mt-3 mb-3">
+                <input
+                    class="form-check-input border border-slate-500"
+                    type="checkbox"
+                    v-model="store.orderDetail.free_delivery"
+                    />
+                <span class="ml-2">{{$t('order_detail.price_summary.apply_free_delivery')}}</span>
+            </div>         
             <div class="grid grid-cols-12 gap-4">
                 <div class="start-col-1 col-span-4">
                     <input :id="'radio-switch-p'" class="form-check-input" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'+'" />
@@ -33,7 +44,7 @@
                     <span> {{$t('order_detail.price_summary.subtract')}} -</span>
                 </div>
             </div>
-                <div class="mt-3 grid grid-cols-12 gap-4 xl:m-5 2xl:m-5">
+                <div class="mt-3 grid grid-cols-12 gap-4 xl:mt-5 2xl:mt-5">
                         <div class="col-span-4">
                             <input id="regular-form-2" type="text" class="form-control " placeholder="Display Name" v-model="store.orderDetail.adjust_title" />
                         </div>
@@ -48,14 +59,7 @@
                         </div>
                 </div>
                 
-            <div class="m-3">
-                <input
-                    class="form-check-input border border-slate-500"
-                    type="checkbox"
-                    v-model="store.orderDetail.free_delivery"
-                    />
-                <span class="ml-2">{{$t('order_detail.price_summary.apply_free_delivery')}}</span>
-            </div>            
+               
         </div>
       </div>
       </template>
@@ -69,7 +73,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">{{$t('order_detail.price_summary.total')}}</div>
-        <div class="font-medium text-base">$ {{parseFloat(store.orderDetail.total).toFixed(props.decimal_places)}}</div>
+        <div class="font-medium text-base" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.total).toFixed(props.decimal_places)}}</div>
       </div>
     </div>
   </div>
@@ -95,14 +99,6 @@ const modify_price = {
   'adjust_price':0,
   'free_delivery':false
 }
-
-const decimalOptions = ref([
-    {key:2,value:'0.01'},
-    {key:1,value:'0.1'},
-    {key:0,value:'1'},
-    {key:-1,value:'10'},
-    {key:-2,value:'100'},
-    {key:-3,value:'1000'}])
 
 
 function update_modify_price(){

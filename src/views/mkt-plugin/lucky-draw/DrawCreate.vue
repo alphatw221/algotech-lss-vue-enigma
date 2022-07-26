@@ -130,13 +130,14 @@
             </div>
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex-col mt-6 mr-5">
-                    <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }} </label>
+                    <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }}</label>
                     <select class="w-full form-select sm:form-select-lg rounded-lg mr-5" v-model="currentSettings.type">
-                        <option v-for="(type, key) in drawTypes" :key="key" :value="type.value"> {{ $t(`lucky_draw.draw_create.`+type.value) }}</option>
+                        <option v-for="(drawType, index) in drawTypes" :key="index" :value="drawType.value"> {{ $t(`lucky_draw.draw_create.draw_selection.${drawType.value}`) }}</option>
                     </select>
                 </div>
+
                 <div 
-                    v-if="currentSettings.type === 'by_product'" 
+                    v-if="currentSettings.type === 'product'" 
                     class="lg:w-[50%] flex flex-col mt-6 mr-5"
                 >   
                     <div class="flex">
@@ -164,8 +165,9 @@
                         </template>
                     </select>
                 </div>
+
                 <div 
-                    v-else-if="currentSettings.type === 'by_keyword'" 
+                    v-else-if="currentSettings.type === 'keyword'" 
                     class="lg:w-[50%]  flex-col mr-5 mt-3"
                 >
                     <label class="form-label mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
@@ -179,8 +181,9 @@
                         </label>
                     </template>
                 </div>
+
                 <div 
-                    v-else-if="currentSettings.type === 'by_purchased'" 
+                    v-else-if="currentSettings.type === 'purchased'" 
                     class="lg:w-[50%] flex mt-3 mr-5 justify-center"
                 >   
                     <!-- <button 
@@ -192,15 +195,19 @@
                         <label class="form-label text-danger mt-auto text-[14px] md:text-[16px]"> {{ $t('lucky_draw.draw_create.no_product_err')}}</label>
                     </template>
                 </div>
+
                 <div
                     v-else 
-                    class="lg:w-[50%] flex flex-col mt-3 mr-5">  </div>
+                    class="lg:w-[50%] flex flex-col mt-3 mr-5">  
+                </div>
             </div>  
         </div>
+
         <div class="flex justify-end my-10 mr-5" v-if="route.query.behavior === 'drawInstantly'">
             <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> {{ $t('lucky_draw.draw_create.back') }} </button>
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="goDraw"> {{ $t('lucky_draw.draw_create.go_draw') }} </button>
         </div>
+
         <div class="flex justify-end my-10 mr-5" v-else>
             <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> {{ $t('lucky_draw.draw_create.cancel') }} </button>
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> {{ $t('lucky_draw.draw_create.save') }} </button>
@@ -231,7 +238,7 @@ const layoutStore = useLSSSellerLayoutStore()
 const detailStore= useCampaignDetailStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const spinTimes = ref([ { value: 5, name: '5 secs' }, { value: 10, name: '10 secs' }, { value: 20, name: '20 secs' }, { value: 30, name: '30 secs' }, { value: 60, name: '60 secs' }]);
-const drawTypes = ref([ { value: 'by_like', name: 'by like this post' }, { value: 'by_purchased', name: 'by purchased any product' }, { value: 'by_product', name: 'by purchased certain product' }, { value: 'by_keyword', name: 'by keyword' },]);
+const drawTypes = ref([ { value: 'like', name: 'by like this post' }, { value: 'purchase', name: 'by purchased any product' }, { value: 'product', name: 'by purchased certain product' }, { value: 'keyword', name: 'by keyword' },]);
 const prizeList = ref([])  
 const productList = ref([])
 const animationList = ref([])

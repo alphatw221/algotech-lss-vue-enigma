@@ -61,7 +61,7 @@
 			:v="v"
 		/>
 
-		<NotesForm :campaignNotes="campaignNotes"/>
+		<NotesForm :campaignNotes="campaignNotes" />
 
 		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 py-10">
 			<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
@@ -84,7 +84,7 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
 import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 
-import { required, minLength, maxLength, helpers, numeric } from "@vuelidate/validators";
+import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 
@@ -95,6 +95,7 @@ const dateTimePicker = ref({
 	start:new Date(),
 	end:new Date()
 })
+
 const campaignData = ref({
 	title:'',
 	start_at:new Date(),
@@ -112,6 +113,7 @@ const campaignData = ref({
 	},
 	meta_payment:{}
 })
+
 const campaignNotes = ref({
 	meta_logistic: {
 		delivery_note: ''
@@ -122,37 +124,14 @@ const campaignNotes = ref({
 	}
 })
 
-watch(computed(()=>dateTimePicker.value),()=>{
-	campaignData.value.start_at = dateTimePicker.value.start
-	campaignData.value.end_at = dateTimePicker.value.end
-},{deep:true})
-
-const sellerStore = useLSSSellerLayoutStore()
-onMounted(() => {
-	if(!sellerStore.userInfo.user_subscription) return
-	
-	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
-		campaignData.value.meta_logistic = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic))
-	}
-	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
-		campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
-	}
-
-	campaignNotes.value.meta_logistic.delivery_note = campaignData.value.meta_logistic.delivery_note 
-	if (campaignData.value.meta_payment.special_note !== undefined) {
-		campaignNotes.value.meta_payment.special_note = campaignData.value.meta_payment.special_note 
-	}
-	if (campaignNotes.value.meta_payment.confirmation_note !== undefined) {
-		campaignNotes.value.meta_payment.confirmation_note = campaignData.value.meta_payment.confirmation_note
-	}
-
-	console.log('got user_subscription')
-})
-
 const campaignDataRules = computed(() => {
 	return { 	
 				title: { required, minLength: minLength(1), maxLength: maxLength(255) },
 				meta_logistic:{
+					delivery_charge:{required, decimal, minValue:minValue(0)},
+					free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
+					free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
+
 					additional_delivery_options: {
 					$each: helpers.forEach({
 						title:{required},
@@ -179,12 +158,35 @@ const campaignDataRules = computed(() => {
 					}
 				} }
 })
+
 const v = useVuelidate(campaignDataRules, campaignData);
+
+watch(computed(()=>dateTimePicker.value),()=>{
+	campaignData.value.start_at = dateTimePicker.value.start
+	campaignData.value.end_at = dateTimePicker.value.end
+},{deep:true})
+
+const sellerStore = useLSSSellerLayoutStore()
+onMounted(() => {
+	if(!sellerStore.userInfo.user_subscription) return
+	
+	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
+		campaignData.value.meta_logistic = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic))
+	}
+	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
+		campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
+	}
+	
+	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
+	campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.special_note  ))
+	campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.confirmation_note  ))
+	
+})
+
+
 
 const createCampaign = ()=>{
 
-	// console.log(campaignData.value)
-	// return
 	v.value.$touch()
 	if (v.value.$invalid) {
 		sellerStore.alert.showMessageToast("Invalid Data")
@@ -211,37 +213,5 @@ const createCampaign = ()=>{
 
 }
 
-
-// const saveCampaign = () => {
-// 	v.value.$touch()
-// 	if (v.value.$invalid) {
-// 		sellerStore.alert.showMessageToast("Invalid campaign title input")
-// 		return
-// 	}
-
-// 	let formData = new FormData()
-// 	formData.append('campaignTitle', JSON.stringify(campaignStore.campaignTitle.title))
-// 	formData.append('campaignPeriod', JSON.stringify(campaignStore.campaignPeriod))
-// 	formData.append('deliverySettings', JSON.stringify(campaignStore.deliverySettings))
-// 	formData.append('paymentSettings', JSON.stringify(campaignStore.paymentSettings))
-// 	for (let [key, value] of Object.entries(campaignStore.imageDirectPayment)) {
-// 		formData.append(key, value)
-// 	}
-
-// 	if (route.name === 'create-campaign') {
-// 		create_campaign(formData).then(response => {
-// 			let campaign_id = response.data
-// 			router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
-// 		}).catch(err => {
-// 			console.log('api error')
-// 		})
-// 	} else if (route.name === 'edit-campaign') {
-// 		update_campaign(route.params.campaign_id, formData).then(response => {
-// 			router.push({name:'edit-campaign-product', params: {'campaign_id': route.params.campaign_id}})
-// 			// router.push(`/seller/campaign/assign/product?campaign_id=${route.params.campaign_id}&type=edit`)
-// 		})
-// 	}
-	
-// }
 
 </script>

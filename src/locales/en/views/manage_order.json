@@ -40,7 +40,7 @@
                 "payment":{
                         "payment":"Payment",
                         "Direct Payment":"Direct Payment",
-                        "Stripe":"Stripe"
+                        "stripe":"Stripe"
                 },
                 "delivery":{
                         "status":"Delivery Status",

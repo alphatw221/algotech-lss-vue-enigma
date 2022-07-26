@@ -1,4 +1,6 @@
 {
+    "campaign_list": "Campaign List",
+
     "process" : {
             "create" : "Create",
             "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",
@@ -43,7 +45,12 @@
         "edit_campaign":"Edit Campaign",
         "edit_campaign_product":"Edit Product",
         "blank_cart":"Copy Blank Cart Link",
-        "lucky_draw":"Lucky Draw"
+        "lucky_draw":"Lucky Draw",
+
+        "campaign_message":"You don't have %{tab} campaign",
+        "Scheduled" : "Scheduled",
+        "History" : "History",
+        "Ongoing" : "Ongoing"
     },
 
     "remind_enter_post_id_modal":{
@@ -66,7 +73,8 @@
         "live_chat_id":"Live Chat ID",
         "select_live_chat":"Select Channel",
 
-        "cancel":"Cancel"
+        "cancel":"Cancel",
+        "save":"Save"
     }
 
 }

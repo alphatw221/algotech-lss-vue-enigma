@@ -1,4 +1,6 @@
 {
+    "campaign_list": "直播列表",
+
     "process" : {
         "create" : "建立",
         "create_description" : "點擊「新增」建立直播，點擊「管理」從庫存管理新增直播商品",
@@ -45,7 +47,12 @@
         "edit_campaign":"編輯直播",
         "edit_campaign_product":"編輯直播商品",
         "blank_cart":"複製購物車連結",
-        "lucky_draw":"抽獎設定"
+        "lucky_draw":"抽獎設定",
+
+        "campaign_message":"沒有%{tab}的直播",
+        "Scheduled" : "預定中",
+        "History" : "歷史",
+        "Ongoing" : "進行中"
     },
 
     "remind_enter_post_id_modal":{
@@ -58,7 +65,7 @@
         "facebook":"Facebook",
         
         "post_id":"貼文ID",
-        "select_page":"選擇粉絲專業",
+        "select_page":"選擇粉絲專頁",
 
         "instagram":"Instagram",
         "media_id":"貼文ID",
@@ -68,7 +75,8 @@
         "live_chat_id":"聊天室ID",
         "select_live_chat":"選擇頻道",
 
-        "cancel":"取消"
+        "cancel":"取消",
+        "save":"儲存"
     }
 
 }

@@ -1,4 +1,6 @@
 {
+    "stock": "Stock",
+
     "for_sale": "For Sale",
     "delisted": "Delisted",
     "add_product": "Add Product",
@@ -34,7 +36,8 @@
         "input_holder": "Category Name",
         "modal": {
             "cancel": "Cancel",
-            "save": "Save"
+            "save": "Save",
+            "warning_duplicate": "Duplicate category name"
         }
     },
 
@@ -51,13 +54,18 @@
         "quantity": "Quantity",
         "qty_warning": "Qty has to be a number",
         "price": "Price",
-        "pricr_warning": "Price has to be a number",
+        "price_warning": "Price has to be a number",
         "status": "Status",
         "description": "Description",
         "product_description": "product description...",
         "description_warning": "description cannot be more than 100 digits",
         "cancel": "Cancel",
-        "save": "Save"
+        "save": "Save",
+
+        "not_save_message":"Change Not Save",
+        "create_message":"Create Successfully",
+        "update_message":"Update Successfully",
+        "invalid_data":"Invalid Data Inputed"
     }
     
 }

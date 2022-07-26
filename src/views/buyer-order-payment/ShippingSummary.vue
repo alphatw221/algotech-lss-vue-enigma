@@ -29,10 +29,10 @@
             <div class="">{{ store.order.shipping_option }}</div>
             <div class="flex mt-4">{{$t('shopping_cart.payment.address')}}</div>
             <div class="flex mt-4">
-                {{store.order.shipping_location}} ,
-                {{store.order.shipping_region}} ,
+                {{store.order.shipping_address_1}} ,
                 {{store.order.shipping_postcode}} ,
-                {{store.order.shipping_address_1}}
+                {{store.order.shipping_region}} ,
+                {{store.order.shipping_location}}
             </div>
         </template>
     </div>

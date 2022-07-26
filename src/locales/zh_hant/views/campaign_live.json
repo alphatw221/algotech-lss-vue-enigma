@@ -11,7 +11,12 @@
         "comment_message_2":"尚未有 %{platformName} 訊息"
     },
     "reply":{
-        "reply_to":"回覆"
+        "reply_to":"回覆",
+        "type_your_message": "輸入你的訊息"
+    },
+    "conversation":{
+        "conversation_with":"對話與",
+        "type_your_message": "輸入你的訊息"
     },
     "product":{
         "product":"直播商品",
@@ -47,7 +52,18 @@
         "reset":"重置",
         "add_more":"新增更多",
         "confirm":"確認",
-        "comfirm_selected":"確認選擇的商品"
+        "comfirm_selected":"確認選擇的商品",
+        "errors":{
+            "type_required":"型態必填",
+            "order_code_required":"商品代碼必填",
+            "order_code_duplicate":"商品代碼重複",
+            "qty_invalid":"數量無效",
+            "max_order_amount_grater_than_qty":"不得大於商品數量",
+            "assign_qty_required":"商品數量必填"
+        },
+        "invalid":"無效",
+        "successed":"成功",
+        "invalid_data":"無效資料"
     },
     "incoming":{
         "incoming_order":"即時訂單",

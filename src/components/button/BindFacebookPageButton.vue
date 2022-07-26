@@ -3,7 +3,7 @@
         type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="fbBtn" @click="checkLoginState">{{ props.buttonName }}</Button>
+        type="button" class="fbBtn" @click="checkLoginState">{{$t('settings.platform.connect_with_facebook')}}</Button>
     
 </template>
 
@@ -53,7 +53,7 @@ const login = () => {
             const payload = {'accessToken':response.authResponse.accessToken}
             eventBus.emit(props.busName, payload)
         }
-    },{scope: 'public_profile,email,pages_read_engagement,pages_read_user_content,pages_manage_engagement,pages_messaging'});
+    },{scope: 'public_profile,email,pages_read_engagement,pages_read_user_content,pages_manage_engagement,pages_messaging,pages_manage_metadata'});
 }
 
 const checkLoginState = () => {

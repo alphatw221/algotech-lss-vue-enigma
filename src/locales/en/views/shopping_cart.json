@@ -44,7 +44,7 @@
     "table":{
         "update":"Update",
         "cancel":"Cancel",
-        "missing_remind":"Many people are reviewing this item, you might be missing it.",
+        "missing_message":"Many people are reviewing this item, you might be missing it.",
         "delete":"Delete",
         "empty_message":"Your Shopping Cart Is Empty",
         "product":"Product",
@@ -73,7 +73,7 @@
     },
     "payment":{
         "shipping_summary":"Shipping Summary",
-        "pickup":"In-store pickup",
+        "pickup":"Self pickup",
         "delivery":"Delivery",
         "address":"Delivery Address",
         "pay_with":"Pay With",
@@ -84,7 +84,7 @@
             "note":"Note",
             "beneficiary":"Beneficiary Bank",
             "upload_img":" Drop files here or click to upload",
-            "accepted_types":"accepted File types",
+            "accepted_types":"File types",
             "max_size":"Max file size",
             "last_five_digits":"Last Five Digits",
             "digits_message":"Please Enter Exactly 5 Digits",

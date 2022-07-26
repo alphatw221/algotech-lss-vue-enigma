@@ -41,11 +41,11 @@
 				<td class="text-center h-20" :data-content="$t('order_detail.table.qty')">
 					{{ product.qty }}
 				</td>
-				<td class="text-center h-20" :data-content="$t('order_detail.table.price')">
-					$ {{ parseFloat(product.price).toFixed(2) }}
+				<td class="text-center h-20" :data-content="$t('order_detail.table.price')" v-if="store.order.campaign">
+					{{store.order.campaign.currency}} {{ parseFloat(product.price).toFixed(2) }}
 				</td>
-				<td class="text-center h-20" :data-content="$t('order_detail.table.sub_total')">
-					$ {{ parseFloat(product.qty * product.price).toFixed(2) }}
+				<td class="text-center h-20" :data-content="$t('order_detail.table.sub_total')" v-if="store.order.campaign">
+					{{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(2) }}
 				</td>
 			</tr>
 		</tbody>
@@ -103,7 +103,7 @@ const tableColumns = ref([
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
-    padding-left: 50% !important;
+    padding-left: 80% !important;
     text-align: left !important;
     box-shadow: none !important;
     min-height: 28px;
