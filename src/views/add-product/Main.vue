@@ -1,9 +1,9 @@
 <template>
 	<div class="h-fit">
-		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y " v-if="route.params.product_id">
+		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y " v-if="route.params.product_id">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('stock.add_product_page.edit_title') }}</h2>
 		</div>
-		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y" v-else>
+		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y" v-else>
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('stock.add_product_page.add_title') }}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40 px-10 py-10">
