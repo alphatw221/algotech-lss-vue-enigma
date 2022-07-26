@@ -108,8 +108,8 @@
         "seller_language":"Seller Language",
         "languages":{
             "en":"English",
-            "zh_hant":"Tranditional Chinese",
-            "zh_hans":"Simplify Chinese",
+            "zh_hant":"Traditional Chinese",
+            "zh_hans":"Simplified Chinese",
             "id":"Indonesian"
         },
         "buyer_language":"Buyer Language",
