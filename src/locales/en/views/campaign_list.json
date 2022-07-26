@@ -1,4 +1,6 @@
 {
+    "campaign_list": "Campaign List",
+
     "process" : {
             "create" : "Create",
             "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",
@@ -66,7 +68,8 @@
         "live_chat_id":"Live Chat ID",
         "select_live_chat":"Select Channel",
 
-        "cancel":"Cancel"
+        "cancel":"Cancel",
+        "save":"Save"
     }
 
 }

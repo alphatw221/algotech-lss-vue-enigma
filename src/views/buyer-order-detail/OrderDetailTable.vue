@@ -103,7 +103,7 @@ const tableColumns = ref([
     border: none;
     border-bottom: 1px solid #eee;
     position: relative;
-    padding-left: 50% !important;
+    padding-left: 80% !important;
     text-align: left !important;
     box-shadow: none !important;
     min-height: 28px;

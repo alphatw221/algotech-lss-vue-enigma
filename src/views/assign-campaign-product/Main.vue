@@ -18,7 +18,7 @@
 						@change="search()"
 					>
 						<option :value="''">{{$t(`assign_product.search_bar.all`)}}</option>
-						<option v-for="category,index in productCategories" :key="index" :value="category.value">{{ category }}</option>
+						<option v-for="category,index in productCategories" :key="index" :value="category">{{ category }}</option>
 					</select>
 				</div>
 				<div class="flex-1 flex-wrap items-center flex" >

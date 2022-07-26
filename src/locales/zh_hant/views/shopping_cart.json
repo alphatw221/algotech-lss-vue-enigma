@@ -44,7 +44,7 @@
     "table":{
         "update":"更新",
         "cancel":"取消",
-        "missing_remind":"熱銷商品，你可能會錯過!",
+        "missing_message":"熱銷商品，你可能會錯過!",
         "delete":"刪除",
         "empty_message":"還沒有任何商品",
         "product":"商品",

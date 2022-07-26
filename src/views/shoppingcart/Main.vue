@@ -73,7 +73,7 @@
 
 import MyCartTab from "./MyCartTab.vue";
 import DeliveryTab from "./DeliveryTab.vue";
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { buyer_list_campapign_product, buyer_cart_list, guest_list_campapign_product, guest_cart_list } from "@/api_v2/campaign_product";
@@ -85,6 +85,7 @@ const route = useRoute();
 const router = useRouter();
 const store = useShoppingCartStore()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
+const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
 const { cookies } = useCookies()
 const toggleTabs = tabNumber => {
@@ -98,7 +99,7 @@ onMounted(()=>{
   retrieve_pre_order(route.params.pre_order_oid).then(
       res => { 
         store.order = res.data;
-        console.log(res.data)
+        i18n.locale = res.data.campaign.user_subscription.buyer_lang
       }
   )
 

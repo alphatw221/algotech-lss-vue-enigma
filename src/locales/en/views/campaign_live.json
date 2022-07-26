@@ -13,6 +13,9 @@
     "reply":{
         "reply_to":"Reply to"
     },
+    "conversation":{
+        "conversation_with":"Conversation with"
+    },
     "product":{
         "product":"Product",
         "modal_column":{
@@ -47,7 +50,15 @@
         "reset":"Reset",
         "add_more":"Add More",
         "confirm":"Confirm",
-        "comfirm_selected":"Comfirm Selected Product"
+        "comfirm_selected":"Comfirm Selected Product",
+        "errors":{
+            "type_required":"required",
+            "order_code_required":"required",
+            "order_code_duplicate":"duplicate",
+            "qty_invalid":"invalid",
+            "max_order_amount_grater_than_qty":"Greater than assign QTY",
+            "assign_qty_required":"required"
+        }
     },
     "incoming":{
         "incoming_order":"Incoming Order",

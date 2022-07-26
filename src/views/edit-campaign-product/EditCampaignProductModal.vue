@@ -79,6 +79,7 @@ const typeSelection = [
 const payloadBuffer = ref({})
 onMounted(() => {
     eventBus.on('editCampaignProduct', (payload) => {
+        console.log(payload)
         payloadBuffer.value = payload
         campaignProduct.value = payload.campaignProduct
     })

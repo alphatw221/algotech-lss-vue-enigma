@@ -80,7 +80,12 @@
         <!-- BEGIN: Modal Content -->
         <Modal :show="showAnimation">
             <ModalBody class="p-10 text-center">
-                <img class="m-3 self-center" :src="storageUrl + luckyDrawData.animation" />
+                <template v-if="luckyDrawData.animation == ''"> 
+                    <img class="m-3 self-center" :src="`${storageUrl}static/lucky_draw1.svg`" />                        
+                </template>
+                <template v-else>
+                    <img class="m-3 self-center" :src="storageUrl + luckyDrawData.animation" />
+                </template> 
             </ModalBody>
         </Modal>
         <!-- END: Modal Content -->

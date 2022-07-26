@@ -109,8 +109,8 @@ export function instagramAxios(accessToken){
             }
             else if (error.response.data.detail){
                 alert(error.response.data.detail)
-            }else{
-                alert('error')
+            }else if (error.response.data.error) {
+                alert(error.response.data.error.message)
             }
             return Promise.reject(error);
         }
@@ -179,7 +179,7 @@ export class Paginator{
     }
 
     previousPage(){
-        return axios.get(this._previous,this.options).then(rres=>this.updatePaginator(res))
+        return axios.get(this._previous,this.options).then(res=>this.updatePaginator(res))
     }
     get gotNext() {
         return this._next!=null

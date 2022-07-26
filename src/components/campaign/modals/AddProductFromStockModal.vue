@@ -241,6 +241,10 @@
                                         :data-content="$t('campaign_live.product.modal_column.order_code')">
                                             <div class="relative place-content-end w-full md:w-24 lg:place-content-center">
                                                 <input class="form-control w-[100%] mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
+                                                <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index] && errorMessages[product_index][column.key]">
+
+                                                    {{$t(`campaign_live.product.errors.${errorMessages[product_index][column.key]}`)}}
+                                                </label>
                                             </div>
                                         </td>
 
@@ -259,7 +263,9 @@
                                         :data-content="$t('campaign_live.product.modal_column.qty_for_campaign')">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <input class="form-control w-[100%] mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" />
-                                                <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                                <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index] && errorMessages[product_index][column.key]">
+                                                    {{$t(`campaign_live.product.errors.${errorMessages[product_index][column.key]}`)}}
+                                                </label>
                                             </div>
                                         </td>
 
@@ -267,7 +273,9 @@
                                         :data-content="$t('campaign_live.product.modal_column.max_qty')">
                                             <div class="place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <input class="form-control w-[100%] mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" />
-                                                <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                                <label class="text-danger absolute -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index] && errorMessages[product_index][column.key]">
+                                                    {{$t(`campaign_live.product.errors.${errorMessages[product_index][column.key]}`)}}
+                                                </label>
                                             </div>
                                         </td>
                                         <td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
@@ -282,7 +290,10 @@
                                                 >
                                                     <option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`campaign_live.product.modal_column.`+type.name)}}</option>
                                                 </select> 
-                                                <label class="text-danger absolute -bottom-4 right-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                                <label class="text-danger absolute -bottom-4 right-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">
+
+                                                    {{$t(`campaign_live.product.errors.${errorMessages[product_index][column.key]}`)}}
+                                                </label>
                                             </div>
                                         </td> 
                                         
@@ -310,7 +321,10 @@
 
                                         <td v-else-if="column.key === 'name'" class="name">
                                             <div class="relative text-[16px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage"> {{product[column.key]}} </div>
-                                            <label class="text-danger text-danger absolute -bottom-5 right-0" v-if="errorMessages[product_index]">{{errorMessages[product_index][column.key]}}</label>
+                                            <label class="text-danger text-danger absolute -bottom-5 right-0" v-if="errorMessages[product_index] && errorMessages[product_index][column.key]">
+                                                <!-- {{errorMessages[product_index][column.key]}} -->
+                                                {{$t(`campaign_live.product.errors.${errorMessages[product_index][column.key]}`)}}
+                                            </label>
                                         </td>
                                         <td v-else class="noTd"> </td>
                                     </template>
@@ -466,17 +480,17 @@ const checkIfValid = ()=>{
     selectedProducts.value.forEach((selectedProduct,index) => {
         errorMessages.value[index]={}
         if(selectedProduct.type=='product' && selectedProduct.order_code in productCache.orderCodeDict) {
-                if(typeof productCache.orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[productCache.orderCodeDict[selectedProduct.order_code]]['order_code']='duplicate'
-                errorMessages.value[index]['order_code']='duplicate';
+                if(typeof productCache.orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[productCache.orderCodeDict[selectedProduct.order_code]]['order_code']='order_code_duplicate'
+                errorMessages.value[index]['order_code']='order_code_duplicate';
                 isSelectedProductsValid=false;
             }
-        if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code)) {errorMessages.value[index]['order_code']='required';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code)) {errorMessages.value[index]['order_code']='order_code_required';isSelectedProductsValid=false;}
         // if(selectedProduct.product in productCache.stockProductIdDict) errorMessages.value[index]['name']='product already exists'
-        if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='invalid qty';isSelectedProductsValid=false;}
-        else if(!selectedProduct.assign_qty) {errorMessages.value[index]['assign_qty']='required';isSelectedProductsValid=false;}
+        if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false;}
+        else if(!selectedProduct.assign_qty) {errorMessages.value[index]['assign_qty']='assign_qty_required';isSelectedProductsValid=false;}
 
-        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.qty) {errorMessages.value[index]['max_order_amount']='max amount greater than qty';isSelectedProductsValid=false;}
-        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='required';isSelectedProductsValid=false;}
+        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.assign_qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
+        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
         productCache.orderCodeDict[selectedProduct.order_code]=index
     });
 
