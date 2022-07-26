@@ -149,7 +149,7 @@ const readyToUpdateByWebsocket = ()=>{
 
     if(props.platformName=='commentSummarize'){
         eventBus.on(`insert_${props.platformName}_comment`, payload => {
-            if(tags.value in payload.categories){
+            if(payload.categories.includes(tags.value)){
                 comments.value.unshift(payload)
             }
         })
