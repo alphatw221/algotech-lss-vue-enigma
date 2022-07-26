@@ -44,7 +44,7 @@
     "table":{
         "update":"Update",
         "cancel":"Cancel",
-        "missing_remind":"Many people are reviewing this item, you might be missing it.",
+        "missing_message":"Many people are reviewing this item, you might be missing it.",
         "delete":"Delete",
         "empty_message":"Your Shopping Cart Is Empty",
         "product":"Product",
