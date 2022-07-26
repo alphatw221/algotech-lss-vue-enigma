@@ -8,14 +8,14 @@
     <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
         <ModalBody class="text-center text-lg flex flex-col p-10">
             <AlertCircleIcon class="h-20 w-20 text-danger mx-auto"/>
-            <h4 class="text-center">Your subscription plan is {{ subscriptionPlan }}. </h4>
-            <p class="text-center">You can only bind {{ activatedPlatformNumber }} social media platform{{ plural(activatedPlatformNumber) }}.</p>
+            <h4 class="text-center">{{$t('settings.platform.your_subscription_plan_is')}} {{ subscriptionPlan }}{{$t('settings.platform.period')}} </h4>
+            <p class="text-center">{{$t('settings.platform.you_can_only_bind')}} {{ activatedPlatformNumber }} {{$t('settings.platform.unit')}}{{$t('settings.platform.social_media_platform')}}{{ plural(activatedPlatformNumber) }}{{$t('settings.platform.period')}}</p>
             <div class="flex justify-center h-10 mt-5">
             <button type="button" @click="UpgradeModal = false" class="btn btn-outline-primary rounded-full w-32 mr-5 ">
-                Cancel
+                {{$t('settings.platform.cancel')}}
             </button>
             <button type="button" @click="UpgradeModal = false; router.replace('/seller/profile')" class="btn btn-rounded-primary w-32 mr-5">
-                Upgrade
+                {{$t('settings.platform.upgrade')}}
             </button>
         </div>
         </ModalBody>

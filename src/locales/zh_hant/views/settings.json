@@ -127,9 +127,19 @@
     "platform":{
         "connected_platform":"已綁定的社交平台",
         "facebook_fan_page":"Facebook 粉絲專頁",
+        "connect_with_facebook": "綁定 Facebook",
         "instagram_profile":"Instagram 商業檔案",
+        "connect_with_instagram": "綁定 Instagram",
         "youtube_channel":"Youtube 頻道",
+        "connect_with_youtube": "綁定 YouTube",
         "edit":"編輯",
+        "cancel":"取消",
+        "upgrade":"升級",
+        "your_subscription_plan_is": "您的訂閱方案是",
+        "you_can_only_bind": "您只能綁定",
+        "unit": "個",
+        "social_media_platform": "社交平台",
+        "period": "",
         "unbind_page":"取消綁定"
     }
 }
