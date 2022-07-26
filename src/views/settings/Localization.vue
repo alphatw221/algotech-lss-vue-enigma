@@ -86,7 +86,7 @@ const languages = ref([
 
 const decimalOptions = ref([
     {value:'2',text:'0.01'},
-    {value:'1',text:'0.1'},
+    // {value:'1',text:'0.1'},
     {value:'0',text:'1'},
     // {value:'-1',text:'10'},
     // {value:'-2',text:'100'},
