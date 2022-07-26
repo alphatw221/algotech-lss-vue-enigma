@@ -233,6 +233,15 @@ const product = ref({
 // 	{text: 'Product', id: 'product'},
 // 	{text: 'Lucky Draw', id: 'lucky_draw'},
 // ])
+const rules = computed(()=>{
+    return{
+		name:{required,maxLength:maxLength(40)},
+		// order_code: {required, maxLength:maxLength(10)},
+		description: {maxLength: maxLength(100)},
+		qty: {integer, minValue:minValue(1)},
+		price: {decimal, minValue:minValue(0)},  
+    }
+});
 
 const statusRadio = ref([
 	{text: 'for_sale', id: 'enabled'},
@@ -242,6 +251,8 @@ const statusRadio = ref([
 const previewImage =ref('')
 const categorySelection = ref([])
 const formData = new FormData()
+
+const validate = useVuelidate(rules, product);
 
 onMounted(()=>{
 	list_product_category().then(
@@ -314,17 +325,9 @@ const cancelButton = () =>{
 // 	console.log(dropzoneSingleRef.value.dropzone.previewsContainer)
 // }
 
-const rules = computed(()=>{
-    return{
-		name:{required,maxLength:maxLength(40)},
-		// order_code: {required, maxLength:maxLength(10)},
-		description: {maxLength: maxLength(100)},
-		qty: {integer, minValue:minValue(1)},
-		price: {decimal},  
-    }
-});
 
-const validate = useVuelidate(rules, product);
+
+
 
 </script>
 
