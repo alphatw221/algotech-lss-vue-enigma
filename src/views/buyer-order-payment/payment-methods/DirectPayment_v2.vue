@@ -162,10 +162,10 @@ const uploadReceipt = () => {
     const meta_payment = campaign.meta_payment
     if(!meta_payment) return
     
-    let isUploadImg = receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]
+    let receiptImage = receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]
     
     const account = Object.values(meta_payment.direct_payment.v2_accounts)[selectAccountIndex.value]
-    if(isUploadImg === undefined && account.require_customer_return) {
+    if([undefined,null,''].includes(receiptImage) && account.require_customer_return) {
         uploadValidate.value.$touch();
         if (uploadValidate.value.$invalid) {
             layoutStore.alert.showMessageToast("Invalid data")
@@ -174,7 +174,7 @@ const uploadReceipt = () => {
     }
     let formData = new FormData()
     formData.append('last_five_digit', data.fiveDigits)
-    formData.append('image', receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0] || '')
+    formData.append('image', receiptImage || '')
     formData.append('account_name', account.name)
     formData.append('account_mode', account.mode)
 
