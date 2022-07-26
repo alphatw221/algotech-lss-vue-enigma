@@ -41,7 +41,7 @@
                     </div>
                     <div class="flex-0 items-center input-group ml-auto">
                         <input type="text"
-                            class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" placeholder="Search..."
+                            class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('campaign_live.product.search')+'...'"
                             v-model="searchKeyword" @keydown.enter.prevent="search()" />
                         <button 
                             type="button"

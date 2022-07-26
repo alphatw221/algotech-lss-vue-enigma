@@ -48,6 +48,13 @@
             "product-fast":"Product",
             "lucky_draw-fast":"Lucky Draw",
             "lucky_draw":"Lucky Draw"
+        },
+        "errors":{
+            "integer":"Invalid data",
+            "decimal":"Invalid data",
+            "minValue":"Invalid number",
+            "maxValue":"Invalid number",
+            "required":"This field is Required"
         }
     }
 }
