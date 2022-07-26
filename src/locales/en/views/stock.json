@@ -54,7 +54,7 @@
         "quantity": "Quantity",
         "qty_warning": "Qty has to be a number",
         "price": "Price",
-        "pricr_warning": "Price has to be a number",
+        "price_warning": "Price has to be a number",
         "status": "Status",
         "description": "Description",
         "product_description": "product description...",
