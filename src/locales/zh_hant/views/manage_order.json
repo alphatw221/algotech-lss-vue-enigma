@@ -41,7 +41,7 @@
                 "payment":{
                         "payment":"付款方式",
                         "Direct Payment":"Direct Payment",
-                        "Stripe":"Stripe"
+                        "stripe":"Stripe"
                 },
                 "delivery":{
                         "status":"出貨狀態",
