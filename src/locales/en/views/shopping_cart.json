@@ -73,7 +73,7 @@
     },
     "payment":{
         "shipping_summary":"Shipping Summary",
-        "pickup":"In-store pickup",
+        "pickup":"Self pickup",
         "delivery":"Delivery",
         "address":"Delivery Address",
         "pay_with":"Pay With",

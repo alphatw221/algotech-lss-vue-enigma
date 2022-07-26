@@ -7,19 +7,19 @@
 	  
       <div class="flex">
         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
-        <div class="font-medium">$ {{parseFloat(store.orderDetail.subtotal).toFixed(props.decimal_places)}}</div>
+        <div class="font-medium">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.subtotal).toFixed(props.decimal_places)}}</div>
       </div>
       <div class="flex">
         <div class="mr-auto">
           {{$t('order_detail.price_summary.shipping')}}
           <span class="text-red-500" v-if="store.orderDetail.free_delivery">({{$t('order_detail.price_summary.apply_free_delivery')}})</span>
         </div>
-        <div class="font-medium">$ {{parseFloat(store.orderDetail.shipping_cost).toFixed(props.decimal_places)}}</div>
+        <div class="font-medium">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.shipping_cost).toFixed(props.decimal_places)}}</div>
       </div>
       <template v-if="store.orderDetail.adjust_title !== null">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
-            <div class="font-medium">$ {{store.modify_status == '-' ? -parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places)}}</div>
+            <div class="font-medium">{{store.orderDetail.campaign.currency}} {{store.modify_status == '-' ? -parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places)}}</div>
         </div>
       </template>
       <template v-if="props.order_type !== 'order'">
@@ -73,7 +73,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">{{$t('order_detail.price_summary.total')}}</div>
-        <div class="font-medium text-base">$ {{parseFloat(store.orderDetail.total).toFixed(props.decimal_places)}}</div>
+        <div class="font-medium text-base">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.total).toFixed(props.decimal_places)}}</div>
       </div>
     </div>
   </div>
