@@ -366,7 +366,7 @@ const product_type = [{value:'product',name:'Product'},{value:'lucky_draw',name:
 
 const searchColumns = [
 	{ text: "Name", value: "name" },
-	{ text: "Order Code", value: "order_code" },
+	// { text: "Order Code", value: "order_code" },
 	{ text: "Description", value: "description" }
 ]
 
