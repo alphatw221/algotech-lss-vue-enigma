@@ -3,7 +3,7 @@
         type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="fbBtn" @click="checkLoginState">{{ props.buttonName }}</Button>
+        type="button" class="fbBtn" @click="checkLoginState">{{$t('settings.platform.connect_with_facebook')}}</Button>
     
 </template>
 
