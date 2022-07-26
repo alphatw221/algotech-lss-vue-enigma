@@ -221,9 +221,6 @@
             <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
         </div>
 
-        <!-- BEGIN: Modal Content -->
-        <EditCampaignProductModal />
-        <!-- END: Modal Content -->
     </div>
 </template>
 
@@ -235,7 +232,6 @@ import { seller_list_campaign_product, seller_delete_campaign_product, seller_up
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
-import EditCampaignProductModal from './EditCampaignProductModal.vue';
 
 const campaignStore = useCreateCampaignStore();
 const detailStore = useCampaignDetailStore()
