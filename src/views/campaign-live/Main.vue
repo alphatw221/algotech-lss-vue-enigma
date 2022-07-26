@@ -16,6 +16,7 @@
             <!-- END: Incoming Order -->
         </div>
         <ReplyModal :key="campaignDetailStore.campaign"/>
+        <ConversationModal :key="campaignDetailStore.campaign"/>
         <InstantlyAddProductModal /> 
         <AddProductFromStockModal />
 
@@ -31,6 +32,7 @@ import IncomingOrder from '@/components/campaign/IncomingOrder.vue';
 import InstantlyAddProductModal from '@/components/campaign/modals/InstantlyAddProductModal.vue';
 import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal.vue';
 import ReplyModal from '@/components/campaign/modals/ReplyModal.vue';
+import ConversationModal from '@/components/campaign/modals/ConversationModal.vue';
 
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";

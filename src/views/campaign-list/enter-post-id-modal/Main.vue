@@ -163,7 +163,7 @@ const ready = ref(false)
 const campaign = ref(null)
 onMounted(()=>{
     eventBus.on('showEnterPostIDModal', (payload) => {
-
+      console.log("-------------")
       showModal.value = true
       campaign.value = payload.campaign
       ready.value=true

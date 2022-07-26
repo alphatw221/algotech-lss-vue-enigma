@@ -54,7 +54,7 @@
         "quantity": "數量",
         "qty_warning": "數量需填數字",
         "price": "價格",
-        "pricr_warning": "價格需填數字",
+        "price_warning": "價格需填數字",
         "status": "預設狀態",
         "description": "說明",
         "product_description": "商品說明...",

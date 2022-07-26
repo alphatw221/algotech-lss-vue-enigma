@@ -52,8 +52,9 @@
             @click="showReplyBar(comment)">
             <div v-if="comment.platform === 'instagram' || comment.platform === 'youtube' " class="relative flex items-center w-full cursor-auto">
                 <div class="flex-none mr-1 w-14 h-14 image-fit">
-                <img v-if="comment.platform !== 'instagram'" class="rounded-full" :src="comment.image" />
-                <img v-else class="rounded-full" :src="igAvatar" />
+                <img v-if="comment.image" class="rounded-full" :src="comment.image" />
+                <img v-else-if="comment.platform == 'instagram'" class="rounded-full" :src="igAvatar" />
+                <img v-else-if="comment.platform == 'youtube'" class="rounded-full" :src="ytAvatar" />
                 </div>
                 <div class="w-full ml-2 overflow-hidden">
                     <div class="flex items-center">
@@ -91,9 +92,9 @@ import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstan
 import { createCommentPaginator } from '@/api_v2/campaign_comment'
 import { get_summerize_comments } from "@/api/campaign_comment"
 import { useRoute, useRouter } from "vue-router"
-// import ReplyModal from './modals/ReplyModal.vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
+import ytAvatar from '@/assets/images/lss-icon/icon-user-yt.svg'
 
 const router = useRouter()
 const route = useRoute()
@@ -176,8 +177,13 @@ const commentSummarizer = category=>{
     })
 }
 
-const showReplyBar = comment=>{
-    eventBus.emit('showReplyModal',{'comment':comment})
+const showReplyBar = comment =>{
+    if (comment.platform=='instagram') {
+        eventBus.emit('showConversationModal',{'comment':comment})
+    } else {
+        eventBus.emit('showReplyModal',{'comment':comment})
+    }
+   
 }
 
 const layoutStore = useLSSSellerLayoutStore();

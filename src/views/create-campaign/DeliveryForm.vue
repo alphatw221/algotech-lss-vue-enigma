@@ -8,9 +8,16 @@
 				class="w-full form-control"
 				type="text" 
 				v-model="props.campaign.meta_logistic.delivery_charge"
+				@blur="props.v.meta_logistic.delivery_charge.$touch()"
 			/>
 		</div>
-			
+		<label class="text-danger font-[8px] font-light" 
+			v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
+			:key="index"
+			>
+			{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+		</label>
+
 		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
 			<label class="form-label text-base text-lg font-medium">
 				<input 
@@ -24,7 +31,15 @@
 				class="w-full form-control" 
 				type="text" 
 				v-model="props.campaign.meta_logistic.free_delivery_for_order_above_price"
-		/>
+				@blur="props.v.meta_logistic.free_delivery_for_order_above_price.$touch()"
+			/>
+			<label class="text-danger font-[8px] font-light" 
+				v-for="error,index in props.v.meta_logistic.free_delivery_for_order_above_price.$errors"
+				:key="index"
+				>
+				{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+			</label>
+
 		</div> 
 
 		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
@@ -42,7 +57,14 @@
 				class="w-full form-control "
 				type="text"
 				v-model="props.campaign.meta_logistic.free_delivery_for_how_many_order_minimum"
-			/>       
+				@blur="props.v.meta_logistic.free_delivery_for_how_many_order_minimum.$touch()"
+			/> 
+			<label class="text-danger font-[8px] font-light" 
+				v-for="error,index in props.v.meta_logistic.free_delivery_for_how_many_order_minimum.$errors"
+				:key="index"
+				>
+				{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+			</label>      
 		</div> 
 		
 		<div class="flex justify-between col-span-12 col-start-1 mt-5 "> 
