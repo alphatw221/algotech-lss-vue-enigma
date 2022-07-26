@@ -140,7 +140,7 @@
         <button type="button" class="w-32 ml-5 shadow-md btn btn-primary" @click="enterLive()" v-if="ready" 
           v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile">
 
-          Save
+          {{$t('campaign_list.enter_post_id_modal.save')}}
         </button>
       </ModalFooter>
     </Modal>
