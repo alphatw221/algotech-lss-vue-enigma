@@ -57,7 +57,14 @@
         "secs":"秒"
     },
 
-
+    "draw_flow": {
+        "winner": "得獎者",
+        "repeatable": "重複得獎",
+        "congrates": "恭喜",
+        "no_winner": "沒有贏家",
+        "yes": "是",
+        "no": "否"
+    },
 
 
 

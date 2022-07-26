@@ -129,9 +129,8 @@
                 </div>
             </div>
             <div class="lg:flex">
-
                 <div class="lg:w-[50%] flex-col mt-6 mr-5">
-                    <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }} </label>
+                    <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }}</label>
                     <select class="w-full form-select sm:form-select-lg rounded-lg mr-5" v-model="currentSettings.type">
                         <option v-for="(drawType, index) in drawTypes" :key="index" :value="drawType.value"> {{ $t(`lucky_draw.draw_create.draw_selection.${drawType.value}`) }}</option>
                     </select>
