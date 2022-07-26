@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col h-[100%] text-[16px]">
-		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y">
+		<div class="flex items-center sm:px-20 pt-2 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">

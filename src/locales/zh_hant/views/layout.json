@@ -32,7 +32,8 @@
         "add-product":"創建商品",
         "product-detail":"商品內容",
         "edit-product":"編輯商品",
-        "profile":"個人檔案"
+        "profile":"個人檔案",
+        "change-plan":"更改方案"
     },
     "top_bar":{
         "profile":"個人檔案",

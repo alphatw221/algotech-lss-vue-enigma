@@ -13,5 +13,9 @@
         "lite":"精簡版",
         "standard":"標準版",
         "premium":"進階版"
+    },
+    "change-plan":{
+        "subscription_plan": "Subscription Plan"
+
     }
 }
