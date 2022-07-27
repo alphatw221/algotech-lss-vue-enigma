@@ -1,9 +1,10 @@
 <template>
 	<!-- BEGIN Container -->
 	<div class="py-4 px-2">
-		<h1 class="my-2 text-xl sm:text-2xl mx-auto sm:mx-0 font-medium leading-none">{{$t('assign_product.assign_product')}}</h1>
-	
-	
+		<div class="flex flex-col col-span-12 h-fit lg:mt-3 pb-4">
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
+		</div>
+		
 		<!-- BEGIN SearchPage -->
 		<div v-show="openTab=='select'">
 			<!-- BEGIN SearchBar -->
