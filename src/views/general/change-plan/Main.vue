@@ -1,7 +1,7 @@
 <template>
-    <div class="flex flex-wrap">
+    <div class="flex-col">
         <!-- BEGIN Tab List-->
-        <ul class="flex flex-wrap ml-14 sm:ml-0 py-2 flex-row justify-around w-full">
+        <ul class="flex-none flex flex-wrap ml-14 sm:ml-0 py-2 flex-row justify-around w-full">
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
@@ -59,7 +59,7 @@
         </ul>
         <!-- END Tab List-->
 
-        <div class="flex flex-col box w-full p-8 lg:px-20 lg:py-10 shadow-sm rounded-lg lg:mx-20 text-sm sm:text-lg">
+        <div class="box p-8 sm:px-20 lg:py-10 shadow-sm rounded-lg sm:mx-20 text-sm sm:text-lg">
             <div class="tab-content tab-space">
                 <SelectPlan/>
                 <Payment />
