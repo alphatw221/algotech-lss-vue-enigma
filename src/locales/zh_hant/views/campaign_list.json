@@ -59,8 +59,8 @@
         "History" : "歷史",
         "Ongoing" : "進行中",
 
-        "no_have_campaign": "您還沒有任何直播",
-        "click_create_notify": "點擊 \"+新增\" 建立直播"
+        "no_have_campaign": "目前沒有任何直播",
+        "click_create_notify": "點擊 \"+ 建立直播\" ，開始您的第一場直播活動"
     },
 
     "remind_enter_post_id_modal":{

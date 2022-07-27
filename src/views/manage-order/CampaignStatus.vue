@@ -1,5 +1,5 @@
 <template>
-    <div class="grid grid-cols-12 gap-6 mt-5">
+    <div class="grid grid-cols-12 gap-6 mt-3">
                 <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                     <div class="report-box">
                         <div class="p-5 box">

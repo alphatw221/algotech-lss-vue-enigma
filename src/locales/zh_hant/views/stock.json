@@ -3,10 +3,10 @@
 
     "for_sale": "銷售中",
     "delisted": "下架",
-    "add_product": "新增產品",
-    "dont_have_product_notify": "您並未增加該類別的產品",
+    "add_product": "新增商品",
+    "dont_have_product_notify": "目前沒有任何商品",
     "no_result": "您並未新增商品",
-    "click_to_add":"設置您的第一個商品，點擊 '+新增商品'",
+    "click_to_add":"點擊 \"+ 新增商品\"，新增您的第一個商品",
 
 
     "search_bar": {
