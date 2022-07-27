@@ -12,13 +12,20 @@
       <tbody>
         <tr v-if="showCommentLoding || numOfCampaigns==0" >
 					<td v-if="showCommentLoding"
-						class="h-[300px] items-center relative"
+						class="h-[300px] items-center relative tdDot"
 						:colspan="tableColumns.length +1" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0"> 
+          <td v-else-if="keyword != '' && numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0 "> 
 						<div class="mt-5 text-center md:mt-10 w-full" >
-							<h1 class="text-slate-500 text-center text-sm md:text-lg h-[300px]">
+							<h1 class="text-slate-500 text-center text-sm md:text-lg h-[300px] pt-20">
+								{{$t('campaign_list.campaign_list_table.no_result')}}
+							</h1>
+						</div>
+					</td> 
+					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0 "> 
+						<div class="mt-5 text-center md:mt-10 w-full" >
+							<h1 class="text-slate-500 text-center text-sm md:text-lg h-[300px] pt-20">
 								{{$t('campaign_list.campaign_list_table.campaign_message',{tab:$t(`campaign_list.campaign_list_table.`+props.tableName)})}}
 							</h1>
 						</div>
@@ -306,6 +313,10 @@ thead th{
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;
+}
+
+.tdDot{
+	box-shadow: none !important;
 }
 
 .alert{

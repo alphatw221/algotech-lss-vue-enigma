@@ -17,12 +17,12 @@
 			<tbody>
 				<tr>
 					<td v-if="showCommentLoding"
-						class="h-[300px] items-center relative"
+						class="h-[300px] items-center relative tdDot"
 						:colspan="columns.length" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
 					<td v-else-if="listItems.length === 0" :colspan="columns.length">
-						<div class="mt-5 text-center md:mt-10" >
+						<div class="mt-5 text-center md:mt-10 tdDot" >
 							<h1 class="text-slate-500 text-sm md:text-lg h-[300px]">
 								Assign your first auto-reply by click (+ Create) button
 							</h1>
@@ -241,6 +241,10 @@ td {
   border-collapse: collapse;
   padding-right: 10px !important;
   padding-left: 10px !important;
+}
+
+.tdDot{
+	box-shadow: none !important;
 }
 
 thead th{ 

@@ -58,7 +58,8 @@
 
         "payment_details": "Payment Details",
         "enabled": "Enabled",
-        "add_more_direct_payment": "Add New Direct Payment",
+        "add_more_direct_payment": "Add More Direct Payment",
+        "add_direct_payment": "Add Direct Payment",
         "upload_image": "Upload Image",
         "upload_a_file_or_drag_and_drop": "Upload a file",
         "accepted_file_types": "File types",
