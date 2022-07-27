@@ -59,6 +59,7 @@
         "enabled":"啟用",
         "add_more_direct_payment":"新增轉帳選項",
         "upload_image":"上傳圖片",
+        "remove_image":"移除照片",
         "upload_a_file_or_drag_and_drop":"點擊上傳圖片",
         "accepted_file_types":"接受檔案類型",
         "max_file_size":"檔案容量上限",

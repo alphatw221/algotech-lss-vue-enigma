@@ -79,7 +79,7 @@
                         <div class="flex items-center justify-center px-4">
                             <!-- temp -->
                             <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
-                            <Tippy tag="a" href="javascript:;" class="absolute right-3 top-3 tooltip" content="Remove Image" :options="{theme: 'light',}">
+                            <Tippy tag="a" href="javascript:;" class="absolute right-3 top-3 tooltip" :content="$t('create_campaign.payment_form.remove_image')" :options="{theme: 'light',}">
                                 <XCircleIcon class="absolute right-3 top-3 z-10 click-icon text-danger" @click="removeImage(index_i)"/>
                             </Tippy>
                         </div>
