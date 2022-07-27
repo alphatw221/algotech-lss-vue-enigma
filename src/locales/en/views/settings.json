@@ -9,6 +9,10 @@
     "confirmation_note" : "Confirmation Note",
     "default_active" : "Default Active",
     "default_settings":"Campaign Default Settings",
+    "update_successfully":"Update Successfully",
+    "update_failed":"Update Failed",
+    "img_size_err":"image size exceed 10 MB",
+    "invalid_data":"Invalid data",
 
     "delivery":{
         "delivery":"Delivery",
@@ -125,7 +129,7 @@
     },
     "platform":{
         "connected_platform":"Connect Social Media Platform",
-        "facebook_fan_page":"Facebook Fan Page",
+        "facebook_fan_page":"Facebook Page",
         "connect_with_facebook": "Connect with Facebook",
         "instagram_profile":"Instagram Profile",
         "connect_with_instagram": "Connect with Instagram",

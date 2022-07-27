@@ -90,6 +90,7 @@ import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useRoute, useRouter } from "vue-router";
 import { seller_delete_product, seller_update_product } from "@/api_v2/order_product"
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const router = useRouter();
@@ -120,7 +121,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 		event.target.value = 1
 		return
 	} else {
-		sellerStore.alert.showMessageToast("Invalid Quantity")
+		sellerStore.alert.showMessageToast(i18n.global.t('order_detail.invalid_qty'))
 		event.target.value = store.order.products[index].qty
 		return
 	}
@@ -128,7 +129,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 	seller_update_product(route.params.order_id,order_product_id,qty).then(
 		res =>{
 			store.orderDetail = res.data
-			sellerStore.notification.showMessageToast("Update Successfully")
+			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.update_successfully'))
 		}
 	)
 }
@@ -147,7 +148,7 @@ function delete_product(order_product_id){
 	seller_delete_product(route.params.order_id,order_product_id).then(
 		res=>{
 			store.orderDetail = res.data
-			sellerStore.notification.showMessageToast("Delete Successfully")
+			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.delete_successfully'))
 		}
 	)
 }

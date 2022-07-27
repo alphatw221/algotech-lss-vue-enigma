@@ -1,6 +1,10 @@
 {
     "campaign_list": "直播列表",
 
+    "no_campaign_Ongoing": "沒有任何預定排程的直播",
+    "no_campaign_Scheduled": "沒有任何直播的歷史紀錄",
+    "no_campaign_History": "沒有任何進行中的直播",
+
     "process" : {
         "create" : "建立",
         "create_description" : "點擊「新增」建立直播，點擊「管理」從庫存管理新增直播商品",
@@ -78,6 +82,10 @@
 
         "cancel":"取消",
         "save":"儲存"
-    }
+    },
+    "update_successed":"更新成功",
+    "no_facebook_post":"現在沒有任何Facebook的直播",
+    "no_youtube_post":"現在沒有任何YouTube的直播",
+    "no_instagram_post":"現在沒有任何Instagram的直播"
 
 }

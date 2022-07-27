@@ -2,8 +2,10 @@
     "title": "設定自動回覆",
     "create": "創建",
 
+    "assign_first_reply": "設置您的第一個自動回覆，點擊創建按鈕",
+
     "table_column": {
-        "keyword_detect": "偵測商品代碼",
+        "keyword_detect": "偵測關鍵字",
         "set_auto_reply": "自動回覆內容",
         "remark": "註記",
         "assign_to": "設置粉絲專頁",
@@ -19,5 +21,10 @@
     "modal_cancel": "取消",
     "modal_save": "儲存",
     "modal_field_require": "必填欄位",
-    "modal_select_page": "請選擇一個專頁"
+    "modal_select_page": "請選擇一個專頁",
+    "saved_message":"儲存成功",
+    "not_saved_message":"取消儲存",
+    "deleted_message":"刪除",
+    "invalid_data":"輸入資料無效",
+    "create_success":"新增成功"
 }

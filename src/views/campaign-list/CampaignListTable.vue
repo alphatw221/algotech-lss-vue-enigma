@@ -156,6 +156,7 @@ import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import dom from "@left4code/tw-starter/dist/js/dom";
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const router = useRouter();
@@ -243,7 +244,7 @@ const clickEntry = (index)=>{
 
 const stop_checkout = (campaign_id,status)=>{
       allow_checkout(campaign_id,status)
-      layoutStore.notification.showMessageToast('Update Successed');
+      layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.update_successed'));
     }
 
 const manageOrder = (campaign_id,status)=>{

@@ -1,6 +1,8 @@
 {
-    "title": "Setup Auto Reply",
+    "title": "Auto Reply",
     "create": "Create",
+
+    "assign_first_reply": "Assign your first auto-reply by click (+ Create) button",
 
     "table_column": {
         "keyword_detect": "Keywords to Detect",
@@ -19,5 +21,10 @@
     "modal_cancel": "Cancel",
     "modal_save": "Save",
     "modal_field_require": "Field is required",
-    "modal_select_page": "Select one page"
+    "modal_select_page": "Select one page",
+    "saved_message":"Saved the Change",
+    "not_saved_message":"Change Not Saved",
+    "deleted_message":"Deleted",
+    "invalid_data":"Invalid Data Inputed",
+    "create_success":"Create Success"
 }

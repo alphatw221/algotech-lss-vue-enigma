@@ -48,7 +48,7 @@
                 </TomSelect>
             </div>
             <div class="flex justify-end mt-10 w-5/6"> 
-                <button class="w-32 bg-white btn dark:border-darkmode-400" @click="clean()"> {{$t("settings.localization.discard")}}</button>
+                <!-- <button class="w-32 bg-white btn dark:border-darkmode-400" @click="clean()"> {{$t("settings.localization.discard")}}</button> -->
                 <button class="w-32 ml-5 shadow-md btn btn-primary" @click="save()"> {{$t("settings.localization.save")}}</button>
             </div>
         </div>
@@ -60,6 +60,7 @@ import { ref, defineEmits, computed, onMounted, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_subscription } from '@/api_v2/user_subscription'
 import i18n from '@/locales/i18n';
+
 const layoutStore = useLSSSellerLayoutStore();
 
 
@@ -80,9 +81,10 @@ const currencySymbols = ref([
 
 const languages = ref([
     {value:'en',text:'English'},
-    {value:'zh_hans',text:'Chinese-simplify'},
+    // {value:'zh_hans',text:'Chinese-simplify'},
     {value:'zh_hant',text:'Chinese-tranditional'},
-    {value:'id',text:'Indonesian'}])
+    // {value:'id',text:'Indonesian'}
+])
 
 const decimalOptions = ref([
     {value:'2',text:'0.01'},
@@ -112,7 +114,7 @@ const clean =() =>{
 const save = ()=>{
     seller_update_subscription(data.value).then(res=>{
         layoutStore.userInfo = res.data
-        layoutStore.notification.showMessageToast("Update Successfully")
+        layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
         i18n.global.locale.value = layoutStore.userInfo.user_subscription.lang
     })
 }

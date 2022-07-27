@@ -29,6 +29,10 @@ export const get_seller_account = () =>{
     return createAxiosWithBearer().get(`/api/v2/user/seller/account/`);
 }
 
+export const seller_change_password = (data) => {
+    return createAxiosWithBearer().post(`/api/v2/user/seller/password/change/`, data);
+}
+
 export const seller_changePlan_payment = data =>{
     return createAxiosWithBearer().post(`/api/user-subscription/upgrade/intent/`, data);
 }

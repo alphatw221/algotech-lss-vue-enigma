@@ -18,7 +18,7 @@
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
                         class="h-48 p-2 mr-5 form-control indent-4"
-                        placeholder="delivery note ..."
+                        :placeholder="`${$t('settings.notes.delivery_note')}...`"
                         v-model="deliveryNote"
                     >
                     </textarea>
@@ -41,7 +41,7 @@
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
                         class="h-48 p-2 mr-5 form-control indent-4" 
-                        placeholder="special note ..."
+                        :placeholder="`${$t('settings.notes.special_note')}...`"
                         v-model="specialNote"
                     >
                     </textarea>
@@ -64,7 +64,7 @@
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
                         class="h-48 p-2 mr-5 form-control indent-4"
-                        placeholder="confirmation note ..."
+                        :placeholder="`${$t('settings.notes.confirmation_note')}...`"
                         v-model="confirmationNote"
                     >
                     </textarea>
@@ -83,6 +83,7 @@
 import { ref, onMounted } from 'vue';
 import { get_notes, update_notes } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import i18n from "@/locales/i18n"
 
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -105,11 +106,12 @@ const list = () => {
 }
 
 const update = () => {
-    update_notes(deliveryNote.value, specialNote.value, confirmationNote.value).then(res => {
+    console.log(deliveryNote.value)
+    update_notes(deliveryNote.value, specialNote.value, confirmationNote.value).then(response => {
         layoutStore.userInfo = res.data
-        layoutStore.notification.showMessageToast("Update Successfully")
+        layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     }).catch(error =>
-        layoutStore.alert.showMessageToast("Update Failed")
+        layoutStore.alert.showMessageToast(i18n.global.t('settings.update_failed'))
     )
 }
 

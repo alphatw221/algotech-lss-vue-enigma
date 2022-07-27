@@ -66,6 +66,7 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue, maxValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import i18n from "@/locales/i18n"
 
 
 const layoutStore = useLSSSellerLayoutStore()
@@ -136,7 +137,7 @@ const updateProduct = () => {
 
     v.value.$touch()
     if(v.value.$invalid){
-        layoutStore.alert.showMessageToast("Invalid Data")
+        layoutStore.alert.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.invalid_data'))
         return
     }
     return
@@ -144,7 +145,7 @@ const updateProduct = () => {
     .then(res => {
         console.log(res.data)
         campaignDetailStore.campaignProducts[payloadBuffer.value.index] = res.data
-        layoutStore.notification.showMessageToast("Update Successfully")
+        layoutStore.notification.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.update_successfully'))
         hideModal()
     })
 }

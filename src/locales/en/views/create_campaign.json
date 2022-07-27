@@ -6,6 +6,8 @@
 
     "cancel":"Cancel",
     "create":"Create",
+    "invalid_title":"Invalid campaign title input",
+    
 
 
     "delivery_form":{
@@ -29,7 +31,9 @@
             "Value_is_required":"Value is required",
             "Value_must_be_numeric":"Value must be numeric",
             "minValue":"Invalid number",
-            "required":"This field is required"
+            "required":"This field is required",
+            "integer":"Number must be integer",
+            "decimal":"Number must be decimal"
         }
     },
 
@@ -60,13 +64,15 @@
         "enabled":"Enabled",
         "add_more_direct_payment":"Add More Direct Payment",
         "upload_image":"Upload Image",
+        "remove_image":"Remove Image",
         "upload_a_file_or_drag_and_drop":"Upload a file",
         "accepted_file_types":"File types",
         "max_file_size":"Max file size",
 
         "delete":"Delete",
         "errors":{
-            "Value_is_required":"Value is required"
+            "Value_is_required":"Value is required",
+            "img_size_err":"image size exceed 10 MB"
         }
 
 

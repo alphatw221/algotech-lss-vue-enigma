@@ -80,7 +80,7 @@
                             class="relative items-center p-8 pt-5">
                             <!-- temp -->
                             <img :src="previewImages[index_i]" class="uploading-image max-h-fit sm:max-h-48 mx-auto" />
-                            <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Remove Image" :options="{theme: 'light',}">
+                            <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('create_campaign.payment_form.remove_image')"  :options="{theme: 'light',}">
                                 <XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeImage(index_i)"/>
                             </Tippy>
                         </div>
@@ -124,6 +124,7 @@ import { computed, onMounted, ref, watch, provide, reactive, toRefs ,defineProps
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_payment } from '@/api_v2/user_subscription'
+import i18n from "@/locales/i18n"
 
 const ready = ref(false)
 const sellerStore = useLSSSellerLayoutStore();
@@ -156,7 +157,7 @@ onMounted(() => {
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
     if(image.size/1024/1024>10){
-        sellerStore.alert.showMessageToast('image size exceed 10 MB')
+        sellerStore.alert.showMessageToast(i18n.global.t('create_campaign.payment_form.errors.img_size_err'))
         return
     }
     props.directPaymentImages[index]=image

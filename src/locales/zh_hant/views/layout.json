@@ -40,5 +40,15 @@
         "subscription":"訂閱方案",
         "reset_password":"重設密碼",
         "logout":"登出"
+    },
+    "upcoming_campaign":{
+        "title": "即將開始的直播",
+        "notification_text1": "你有一場直播:",
+        "notification_text2": "即將在",
+        "notification_text3": "開始",
+        "time_15min": "15 分鐘後",
+        "time_1hour": "1 小時後",
+        "join_now": "立即加入",
+        "dismiss": "略過"
     }
 }

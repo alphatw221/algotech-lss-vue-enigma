@@ -24,7 +24,7 @@
 					<td v-else-if="listItems.length === 0" :colspan="columns.length">
 						<div class="mt-5 text-center md:mt-10 tdDot" >
 							<h1 class="text-slate-500 text-sm md:text-lg h-[300px]">
-								Assign your first auto-reply by click (+ Create) button
+								{{ $t('auto_reply.assign_first_reply') }}
 							</h1>
 						</div>
 					</td> 
@@ -117,6 +117,7 @@ import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { delete_auto_response, update_auto_response,list_auto_response } from "@/api_v2/auto_response"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import i18n from "@/locales/i18n"
 
 const props = defineProps({
 	columns: Array,
@@ -192,11 +193,11 @@ function closeWithAlert() {
 	if (saved.value === true) {
 		updateModal.value = false;
 		hideDropDown()
-		layoutStore.notification.showMessageToast("Saved the Change");
+		layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.saved_message'));
 	} else {
 		updateModal.value = false;
 		hideDropDown()
-		layoutStore.alert.showMessageToast("Change Not Saved");
+		layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'));
 	}
 	hideDropDown()
 	saved.value = false;
@@ -217,7 +218,7 @@ function deleteAutoReply(id) {
 	hideDropDown()
 	delete_auto_response(id)
 		.then((response) =>{
-			layoutStore.notification.showMessageToast("Deleted");
+			layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.deleted_message'));
 			getReplyData();
 		})
 		.catch((err) => {

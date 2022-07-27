@@ -11,6 +11,7 @@
                 "export" : "匯出訂單"
         },
         "table":{
+                "Direct Payment":"轉帳付款",
                 "details":"訂單詳細",
                 "copy_link":"複製訂單連結",
                 "order_number" : "訂單",
@@ -40,7 +41,7 @@
         "filter_modal":{
                 "payment":{
                         "payment":"付款方式",
-                        "Direct Payment":"Direct Payment",
+                        "Direct Payment":"轉帳付款",
                         "stripe":"Stripe"
                 },
                 "delivery":{
@@ -61,5 +62,6 @@
         "complete" : "已完成",
         "review" : "處理中",
         "shipping out":"已出貨",
-        "all" : "所有訂單"
+        "all" : "所有訂單",
+        "update_successed":"更新成功"
 }

@@ -4,6 +4,10 @@
     "for_sale": "銷售中",
     "delisted": "下架",
     "add_product": "新增產品",
+    "dont_have_product_notify": "您並未增加該類別的產品",
+    "no_result": "您並未新增商品",
+    "click_to_add":"設置您的第一個商品，點擊 '+新增商品'",
+
 
     "search_bar": {
         "category": "類別",
@@ -38,7 +42,9 @@
             "cancel": "取消",
             "save": "儲存",
             "warning_duplicate": "重複的類別名稱"
-        }
+        },
+        "save_success":"儲存成功",
+        "not_saved":"取消儲存"
     },
 
     "add_product_page": {

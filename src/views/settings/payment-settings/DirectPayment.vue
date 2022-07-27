@@ -91,16 +91,21 @@
                                 <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> 
                                 <strong class="text-slate-600">{{ $t('settings.payment_form.upload_a_file_or_drag_and_drop') }}</strong> 
                             </div>
-                            <div class="mt-2 text-slate-500">{{ $t('settings.payment_form.accepted_file_types') }}</div>
+                            <div class="mt-2 text-slate-500">{{ $t('settings.payment_form.accepted_file_types') }}: jpeg, png, jpg</div>
                             <div class="text-slate-500">{{ $t('settings.payment_form.max_file_size') }} : 10MB</div>  
                         </div>
-                            <input
-                                type="file"
-                                class="absolute top-0 left-0 w-full h-full opacity-0"
-                                accept="image/jpeg,image/png,image/jpg" 
-                                @change="uploadImage($event, index_i)"
-                            />
+                        <input
+                            type="file"
+                            class="absolute top-0 left-0 w-full h-full opacity-0"
+                            accept="image/jpeg,image/png,image/jpg" 
+                            @change="uploadImage($event, index_i)"
+                        />
                     </div>
+                    <div 
+                        class="flex justify-center text-[#0080FF]"
+                        v-if="![undefined, null, ''].includes(previewImages[index_i])"
+                        @click="removeImage(index_i)"
+                    >Remove File</div>
                 </template>
 
             </div>
@@ -134,6 +139,7 @@ import { seller_update_payment } from '@/api_v2/user_subscription'
 
 import { helpers, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
+import i18n from "@/locales/i18n"
 
 
 
@@ -189,7 +195,7 @@ onMounted(() => {
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
     if(image.size/1024/1024>10){
-        sellerStore.alert.showMessageToast('image size exceed 10 MB')
+        sellerStore.alert.showMessageToast(i18n.global.t('settings.img_size_err'))
         return
     }
     formData.append('_'+paymentData.v2_accounts[index].name,image)
@@ -203,6 +209,7 @@ const deleteDirectPayment = index=>{
     paymentData.v2_accounts.splice(index,1)
     previewImages.value.splice(index,1)
 
+    updateDirectPayment()
 }
 const addDirectPayment = ()=>{
     paymentData.v2_accounts.unshift({mode:'',name:'',number:'',note:'',require_customer_return:true})
@@ -212,15 +219,19 @@ const addDirectPayment = ()=>{
 const updateDirectPayment = () => {
 
     if(v.value.$invalid){
-        sellerStore.alert.showMessageToast("Invalid data")
+        sellerStore.alert.showMessageToast(i18n.global.t('settings.invalid_data'))
         return
     }
     formData.append('data', JSON.stringify(paymentData))
 
     seller_update_payment(props.payment.key,formData).then(res=>{
         sellerStore.userInfo = res.data
-        sellerStore.notification.showMessageToast("Update Successfully")
+        sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
+}
+
+const removeImage = (index) => {
+    previewImages.value[index] = ''
 }
 
 
