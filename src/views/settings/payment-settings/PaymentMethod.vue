@@ -58,6 +58,8 @@ import { useRoute, useRouter } from "vue-router";
 import {paymentEndPoints} from "@/api_v2/payment";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_payment } from '@/api_v2/user_subscription'
+import i18n from "@/locales/i18n"
+
 const sellerStore = useLSSSellerLayoutStore()
 const props = defineProps({
     payment: Object,
@@ -86,7 +88,7 @@ const updatePayment = () => {
     seller_update_payment(props.payment.key,paymentData.value).then(res=>{
         console.log(res.data)
         sellerStore.userInfo = res.data
-        sellerStore.notification.showMessageToast("Update Successfully")
+        sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }
 

@@ -9,6 +9,10 @@
     "confirmation_note" : "訂單確認訊息",
     "default_active" : "預設啟用",
     "default_settings":"直播預設",
+    "update_successfully":"更新成功",
+    "update_failed":"更新失敗",
+    "img_size_err":"圖片大小不可超過 10 MB",
+    "invalid_data":"無效",
 
     "delivery":{
         "delivery":"物流",

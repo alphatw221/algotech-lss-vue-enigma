@@ -60,5 +60,8 @@
     "remark" : "備註",
     "save_remarks" : "儲存備註",
     "save_order" : "儲存訂單",
-    "shopping_cart" : "購物車"
+    "shopping_cart" : "購物車",
+    "invalid_qty":"無效數量",
+    "update_successfully":"更新成功",
+    "delete_successfully":"刪除成功"
 }

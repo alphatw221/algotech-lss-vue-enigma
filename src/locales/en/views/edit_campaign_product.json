@@ -2,6 +2,7 @@
     "edit_campaign_product":"Edit Campaign Product",
     "add_product":"Add Product",
     "continue":"Continue",
+    "invalid":"Invalid",
     "search_bar":{
         "category":"Category",
         "all":"All"
@@ -55,6 +56,8 @@
             "minValue":"Invalid number",
             "maxValue":"Invalid number",
             "required":"This field is Required"
-        }
+        },
+        "invalid_data":"Invalid Data",
+        "update_successfully":"Update Successfully"
     }
 }

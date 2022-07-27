@@ -1,5 +1,10 @@
 {
     "lucky_draw" : "Lucky Draw",
+    "invalid_data":"Invalid Data Inputed",
+    "create_successed":"Create Successed",
+    "update_successed":"Update Successed",
+    "save_success":"Save Success",
+    "not_saved":"Change Not Saved",
 
     "draw_list": {
         "campaign_title": "Campaign Title",
