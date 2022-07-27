@@ -14,7 +14,7 @@
         "standard":"Standard",
         "premium":"Premium"
     },
-    "invalid_data":"Invalid Data Inputed",
+    "invalid_data":"Invalid Submission",
     "input_err":"Input Error",
     "update_successed":"Update Successed"
 }

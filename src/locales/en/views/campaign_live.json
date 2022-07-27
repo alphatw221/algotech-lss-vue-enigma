@@ -63,7 +63,7 @@
         },
         "invalid":"Invalid",
         "successed":"Successed",
-        "invalid_data":"Invalid Data Inputed"
+        "invalid_data":"Invalid Submission"
     },
     "incoming":{
         "incoming_order":"Incoming Order",

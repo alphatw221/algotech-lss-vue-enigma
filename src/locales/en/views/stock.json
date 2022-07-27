@@ -70,7 +70,7 @@
         "not_save_message":"Change Not Save",
         "create_message":"Create Successfully",
         "update_message":"Update Successfully",
-        "invalid_data":"Invalid Data Inputed"
+        "invalid_data":"Invalid Submission"
     }
     
 }
