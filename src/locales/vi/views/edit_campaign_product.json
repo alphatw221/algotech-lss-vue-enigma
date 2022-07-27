@@ -1,0 +1,63 @@
+{
+    "edit_campaign_product":"Edit Campaign Product",
+    "add_product":"Add Product",
+    "continue":"Continue",
+    "invalid":"Invalid",
+    "search_bar":{
+        "category":"Category",
+        "all":"All"
+    },
+    "campaign_product_table":{
+        "image":"Image",
+        "name":"Name",
+        "type":"Type",
+        "order_code":"Order Code",
+        "qty_for_sale":"Qty for Campaign",
+        "max_order_amount":"Max Qty/Order",
+        "tag":"Category",
+        "price":"Price",
+        "customer_editable":"Editable",
+        "customer_removable":"Removable",
+        "edit":"Edit",
+        "delete":"Delete",
+        "types":{
+            "product":"Product",
+            "product-fast":"Product",
+            "lucky_draw-fast":"Lucky Draw",
+            "lucky_draw":"Lucky Draw"
+        }
+    },
+   
+    "edit_product_modal":{
+        "edit_campaign_product":"Edit Campaign Product",
+
+        
+        "name":"Name",
+        "type":"Type",
+        "order_code":"Order Code",
+        "qty_for_sale":"Qty For Sale",
+        "max_order_amount":"Max Order Amount",
+        "tag":"Category",
+        "price":"Price",
+        "customer_editable":"Editable",
+        "customer_removable":"Removable",
+
+        "cancel":"Cancel",
+        "update":"Upadate",
+        "types":{
+            "product":"Product",
+            "product-fast":"Product",
+            "lucky_draw-fast":"Lucky Draw",
+            "lucky_draw":"Lucky Draw"
+        },
+        "errors":{
+            "integer":"Invalid data",
+            "decimal":"Invalid data",
+            "minValue":"Invalid number",
+            "maxValue":"Invalid number",
+            "required":"This field is Required"
+        },
+        "invalid_data":"Invalid Data",
+        "update_successfully":"Update Successfully"
+    }
+}

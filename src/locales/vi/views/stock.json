@@ -1,0 +1,76 @@
+{
+    "stock": "Stock",
+
+    "for_sale": "For Sale",
+    "delisted": "Delisted",
+    "add_product": "Add Product",
+    "dont_have_product_notify": "You Don't Have Product in this Category",
+    "no_result": "No result",
+    "click_to_add":"Ｃlick '+Add product' to add your first product",
+
+    "search_bar": {
+        "category": "Category",
+        "search_by": "Search By",
+        "search_holder": "Search...",
+        "search": "Search",
+        "reset": "Reset",
+        "category_manage": "Edit Category",
+        "name": "Name",
+        "order_code": "Order Code",
+        "description": "Description"
+    },
+
+    "table_column": {
+        "image": "Image",
+        "name": "Name",
+        "order_code": "Order Code",
+        "type": "Type",
+        "category": "Category",
+        "description": "Description",
+        "qty": "Qty",
+        "price": "Price"
+    },
+
+    "category_manage": {
+        "create_new_category": "Create New Category",
+        "edit_title": "Edit Category",
+        "edit": "Edit",
+        "delete": "Delete",
+        "input_holder": "New Category Name",
+        "modal": {
+            "cancel": "Cancel",
+            "save": "Save",
+            "warning_duplicate": "Duplicate category name"
+        },
+        "save_success":"Save Success",
+        "not_saved":"Update Canceledd"
+    },
+
+    "add_product_page": {
+        "edit_title": "Edit Product",
+        "add_title": "Add New Product",
+        "product_name": "Product Name",
+        "name_warning": "Enter product name with no more than 50 digits",
+        "category": "Category",
+        "upload_image": "Upload Image",
+        "drop_file_text": "Drop files here or click to upload.",
+        "accept_file_text": "File types: jpeg, png, jpg",
+        "max_size_text": "Max size",
+        "quantity": "Quantity",
+        "qty_warning": "Qty has to be a number",
+        "price": "Price",
+        "price_warning": "Price has to be a number",
+        "status": "Status",
+        "description": "Description",
+        "product_description": "product description...",
+        "description_warning": "description cannot be more than 100 digits",
+        "cancel": "Cancel",
+        "save": "Save",
+
+        "not_save_message":"Update Canceled",
+        "create_message":"Create Successfully",
+        "update_message":"Update Successfully",
+        "invalid_data":"Invalid Submission"
+    }
+    
+}
