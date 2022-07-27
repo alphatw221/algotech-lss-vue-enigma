@@ -81,8 +81,8 @@
         "store_collection":"Self Pickup",
         "pickup_store":"Pickup Location",
         "pickup_address":"Pickup Address",
-        "express_service_name": "exprss service name",
-        "express_charge": "express charge"
+        "express_service_name": "delivery service name",
+        "express_charge": "delivery charge"
     },
 
     "payment":{

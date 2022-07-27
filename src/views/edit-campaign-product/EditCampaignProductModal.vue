@@ -28,7 +28,7 @@
                     <template v-else>
                         <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
                         <template v-if="v[column.key]">
-                            <label class="text-danger font-[8px] font-light block" 
+                            <label class="text-danger text-[12px] block" 
                                 v-for="error,index in v[column.key].$errors"
                                 :key="index"
                                 >

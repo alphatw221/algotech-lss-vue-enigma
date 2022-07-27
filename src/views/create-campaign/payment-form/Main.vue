@@ -88,4 +88,8 @@ const out = () => {
 	margin-top: 10px !important;
 	margin-bottom: 10px !important;
 }
+
+.accordion .accordion-item .accordion-header .accordion-button{
+	padding-bottom: 0px !important;
+}
 </style>

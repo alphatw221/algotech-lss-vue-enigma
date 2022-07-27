@@ -45,7 +45,7 @@
                         type="text" 
                         v-model="account[field.key]"
                     />
-                    <label class="text-danger font-[8px] font-light" 
+                    <label class="text-danger text-[12px]" 
                         v-for="error,index in props.v.meta_payment.direct_payment.v2_accounts.$each.$response.$errors[index_i][field.key]"
                         :key="index"
                         >
@@ -75,16 +75,17 @@
 
                 <template v-else-if="field.type === 'file'">
                     <label class="form-label text-base font-medium mt-2">{{$t('create_campaign.payment_form.upload_image')}}</label>
-                    <div class="relative border-2 border-dashed dark:border-darkmode-400">
-                        <div class="flex items-center justify-center px-4">
+                    <div class="relative border-2 border-dashed dark:border-darkmode-400 p-3 h-60 rounded-lg">
+                        <div v-if="previewImages[index_i] != null" 
+                            class="relative items-center p-8 pt-5">
                             <!-- temp -->
-                            <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
-                            <Tippy tag="a" href="javascript:;" class="absolute right-3 top-3 tooltip" content="Remove Image" :options="{theme: 'light',}">
-                                <XCircleIcon class="absolute right-3 top-3 z-10 click-icon text-danger" @click="removeImage(index_i)"/>
+                            <img :src="previewImages[index_i]" class="uploading-image max-h-fit sm:max-h-48 mx-auto" />
+                            <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" content="Remove Image" :options="{theme: 'light',}">
+                                <XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeImage(index_i)"/>
                             </Tippy>
                         </div>
-                        <div class="px-4 text-[1rem] sm:text-[16px] absolute top-20 text-center w-full flex flex-col items-center justify-center"
-                            v-if="previewImages[index_i] === null">
+                        <div class="px-4 text-[1rem] sm:text-[16px] absolute top-14 right-0 text-center w-full flex flex-col items-center justify-center"
+                            v-else-if="previewImages[index_i] === null">
                             <div class="flex flex-col sm:flex-row items-center justify-center"> 
                                 <ImageIcon class="w-8 h-8 mr-2 text-slate-600" /> 
                                 <strong class="text-slate-600">{{$t('create_campaign.payment_form.upload_a_file_or_drag_and_drop')}}</strong> 
