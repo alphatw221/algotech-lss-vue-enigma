@@ -42,11 +42,8 @@ const resolvePath = ()=>{
     let isParams = false
     
     for(let i=routerPath.length-1;i>=2;i--){
-        console.log(i)
         if(routerPath[i] in paramsDict){
             isParams=true
-            // console.log('is Params')
-            // console.log(routerPath[i])
             continue
         }
         crumb.push({
