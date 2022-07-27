@@ -1,9 +1,13 @@
 {
-    "title": "設定自動回覆",
+    "title": "自動回覆",
     "create": "創建",
 
+    "assign_first_reply": "設置您的第一個自動回覆，點擊創建按鈕",
+    "no_have_autoreply": "您沒有任何自動回復.",
+    "set_up_first": "點擊 \"+ 創建\" 已設置您的第一個自動回復.",
+
     "table_column": {
-        "keyword_detect": "偵測商品代碼",
+        "keyword_detect": "偵測關鍵字",
         "set_auto_reply": "自動回覆內容",
         "remark": "註記",
         "assign_to": "設置粉絲專頁",

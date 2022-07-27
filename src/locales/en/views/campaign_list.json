@@ -51,7 +51,10 @@
         "no_result":"No Result Found",
         "Scheduled" : "Scheduled",
         "History" : "History",
-        "Ongoing" : "Ongoing"
+        "Ongoing" : "Ongoing",
+        
+        "no_have_campaign": "You Dont't Have Campaign Yet",
+        "click_create_notify": "Click \"+ Create\" to create your first live selling campaign"
     },
 
     "remind_enter_post_id_modal":{

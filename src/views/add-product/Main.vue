@@ -256,9 +256,10 @@ const formData = new FormData()
 const validate = useVuelidate(rules, product);
 
 onMounted(()=>{
-	list_product_category().then(
-		res => { categorySelection.value = res.data }
-	)
+	list_product_category().then(res => { 
+		categorySelection.value = res.data
+		categorySelection.value.unshift('uncategory')
+	})
 	if (route.params.product_id) {
 		retrieve_product(route.params.product_id)
 		.then(

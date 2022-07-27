@@ -1,6 +1,10 @@
 {
     "campaign_list": "直播列表",
 
+    "no_campaign_Ongoing": "沒有任何預定排程的直播",
+    "no_campaign_Scheduled": "沒有任何直播的歷史紀錄",
+    "no_campaign_History": "沒有任何進行中的直播",
+
     "process" : {
         "create" : "建立",
         "create_description" : "點擊「新增」建立直播，點擊「管理」從庫存管理新增直播商品",
@@ -53,7 +57,10 @@
         "no_result":"無搜尋結果",
         "Scheduled" : "預定中",
         "History" : "歷史",
-        "Ongoing" : "進行中"
+        "Ongoing" : "進行中",
+
+        "no_have_campaign": "您還沒有任何直播",
+        "click_create_notify": "點擊 \"+新增\" 建立直播"
     },
 
     "remind_enter_post_id_modal":{

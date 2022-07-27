@@ -18,7 +18,7 @@
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
                         class="h-48 p-2 mr-5 form-control indent-4"
-                        placeholder="delivery note ..."
+                        :placeholder="`${$t('settings.notes.delivery_note')}...`"
                         v-model="deliveryNote"
                     >
                     </textarea>
@@ -41,7 +41,7 @@
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
                         class="h-48 p-2 mr-5 form-control indent-4" 
-                        placeholder="special note ..."
+                        :placeholder="`${$t('settings.notes.special_note')}...`"
                         v-model="specialNote"
                     >
                     </textarea>
@@ -64,7 +64,7 @@
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
                         class="h-48 p-2 mr-5 form-control indent-4"
-                        placeholder="confirmation note ..."
+                        :placeholder="`${$t('settings.notes.confirmation_note')}...`"
                         v-model="confirmationNote"
                     >
                     </textarea>
