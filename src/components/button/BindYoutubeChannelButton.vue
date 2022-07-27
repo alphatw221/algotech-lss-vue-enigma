@@ -1,10 +1,11 @@
 <template>
-    <Button v-if="props.buttonName == 'edit'" 
+    <LoadingIcon  v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
+    <Button v-else-if="props.buttonName == 'edit'" 
         type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
         type="button" class="google-login-btn" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_youtube')}}</Button>
-    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
+    
     
 </template>
 
@@ -104,5 +105,7 @@ a:hover {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 999;
+    width: 60px;
+    height: 60px;
 }
 </style>

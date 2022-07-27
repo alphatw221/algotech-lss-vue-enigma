@@ -1,10 +1,11 @@
 <template>
-    <Button v-if="props.buttonName == 'edit'" 
+    <LoadingIcon v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
+    <Button v-else-if="props.buttonName == 'edit'" 
         type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
         type="button" class="insta-default" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_instagram')}}</Button>
-    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
+    
     
 </template>
 
@@ -96,9 +97,6 @@ const check_bindable_or_upgrade = () => {
     text-decoration: none;
     transition: all 0.3s;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0%);
 }
 
 .insta-default:hover {
@@ -114,5 +112,7 @@ const check_bindable_or_upgrade = () => {
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 999;
+    width: 60px;
+    height: 60px;
 }
 </style>
