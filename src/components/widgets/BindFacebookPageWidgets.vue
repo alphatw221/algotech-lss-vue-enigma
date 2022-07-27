@@ -1,11 +1,11 @@
 <template>
     <div v-if="showConnectButton" class="box border-2 rounded-lg p-5 min-h-[200px] mx-4 lg:mx-20 px-10 mb-3 flex flex-col justify-center">
-        <BindFacebookPageButton :busName="'addFacebookPages'" :buttonName="'Connect with Facebook'" class="w-60 mx-auto"/>
+        <BindFacebookPageButton :busName="'addFacebookPages'" :buttonName="'Connect with Facebook'" class="w-52 sm:w-60 mx-auto"/>
     </div>
-    <div v-else-if="showPages" class="box border-2 rounded-lg p-5 mx-4 lg:mx-20 px-10 mb-3 flex flex-col">
-        <div class="flex justify-between">
-            <h4 class="text-lg sm:text-xl font-medium leading-none mb-8">{{$t('settings.platform.facebook_fan_page')}}</h4>
-            <BindFacebookPageButton :busName="'addFacebookPages'" :buttonName="'edit'"/>
+    <div v-else-if="showPages" class="box border-2 rounded-lg p-5 mx-4 lg:p-10 lg:mx-20 mb-3 flex flex-col">
+        <div class="flex flex-wrap justify-between gap-3 mb-5 sm:mb-8">
+            <h4 class="text-lg sm:text-xl font-medium leading-none my-auto">{{$t('settings.platform.facebook_fan_page')}}</h4>
+            <BindFacebookPageButton :busName="'addFacebookPages'" :buttonName="'edit'" class="ml-auto" />
         </div>
         <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5">
             <div v-for="page in facebookPages" :key="page.id" class="flex-col flex justify-center text-center relative my-3 w-24 h-auto lg:w-32">
