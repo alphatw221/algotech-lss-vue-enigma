@@ -288,6 +288,7 @@ import { buyer_update_delivery_info, guest_update_delivery_info } from "@/api_v2
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useCookies } from 'vue3-cookies'
+import i18n from "@/locales/i18n"
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();

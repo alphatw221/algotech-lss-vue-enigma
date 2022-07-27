@@ -136,6 +136,7 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useRoute } from "vue-router";
 import { useCookies } from "vue3-cookies"
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const store = useShoppingCartStore(); 
