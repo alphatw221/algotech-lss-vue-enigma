@@ -81,9 +81,10 @@ const currencySymbols = ref([
 
 const languages = ref([
     {value:'en',text:'English'},
-    {value:'zh_hans',text:'Chinese-simplify'},
+    // {value:'zh_hans',text:'Chinese-simplify'},
     {value:'zh_hant',text:'Chinese-tranditional'},
-    {value:'id',text:'Indonesian'}])
+    // {value:'id',text:'Indonesian'}
+])
 
 const decimalOptions = ref([
     {value:'2',text:'0.01'},
