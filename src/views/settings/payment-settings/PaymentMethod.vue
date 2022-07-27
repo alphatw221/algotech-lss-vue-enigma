@@ -11,6 +11,9 @@
         </div>
 
         <div class="my-5 lg:my-0 p-5 rounded-md border-2 border-slate">
+            <div v-if="props.payment.fields==''"> 
+                Add your stripe account
+            </div>
             <div 
                 class="flex-col flex gap-2 my-2 intro-y w-full" 
                 v-for="(field, index) in props.payment.fields" 
@@ -36,9 +39,9 @@
             </div>
         </div>
     
-        <div class="float-right">
+        <div class="flex">
              <button 
-                class="btn btn-primary w-32 shadow-md ml-5 mt-7"
+                class="btn btn-primary w-32 shadow-md ml-auto mt-7 "
                 @click="updatePayment()"
             > 
                 Update
