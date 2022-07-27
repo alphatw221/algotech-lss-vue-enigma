@@ -108,6 +108,7 @@ import { buyer_upload_receipt, guest_upload_receipt } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+import i18n from "@/locales/i18n"
 
 import {
     minLength,
@@ -168,7 +169,7 @@ const uploadReceipt = () => {
     if([undefined,null,''].includes(receiptImage) && account.require_customer_return) {
         uploadValidate.value.$touch();
         if (uploadValidate.value.$invalid) {
-            layoutStore.alert.showMessageToast("Invalid data")
+            layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
             return
         }
     }

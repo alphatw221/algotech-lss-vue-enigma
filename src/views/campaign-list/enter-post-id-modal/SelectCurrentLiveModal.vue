@@ -45,6 +45,8 @@ import { get_ig_live_media } from "@/api/instagram"
 import { get_yt_live_media } from "@/api/youtube"
 import { update_platform_live_id } from "@/api_v2/campaign"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import i18n from "@/locales/i18n"
+
 const layoutStore = useLSSSellerLayoutStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -63,7 +65,7 @@ onMounted(()=>{
 
           const live_campaign = response.data.data.filter(v => v.status === "LIVE")
           if (!live_campaign.length) {
-              layoutStore.alert.showMessageToast("You have no Facebook live posts now.")
+              layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_facebook_post'))
               return
           } 
 
@@ -87,7 +89,7 @@ onMounted(()=>{
             // const sort = response.data.data.filter(v => v.status === "LIVE")
             const live_campaign = response.data.items
             if (!live_campaign.length) {
-                layoutStore.alert.showMessageToast("You have no YouTube live stream now.")
+                layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_youtube_post'))
                 return
             }
 
@@ -111,7 +113,7 @@ onMounted(()=>{
 
             const live_campaign = response.data.data
             if (!live_campaign.length) {
-                layoutStore.alert.showMessageToast("You have no Instagram live posts now.")
+                layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_instagram_post'))
                 return
             }
 

@@ -90,5 +90,15 @@
             "digits_message":"Please Enter Exactly 5 Digits",
             "complete_order":"Upload & Complete Order"
         }
-    }
+    },
+    "delete_success":"Delete Success",
+    "invalid_qty":"Invalid Quantity",
+    "update_successfully":"Update Successfully",
+    "invalid_data":"Invalid data",
+    "invalid_amount":"Invalid Amount",
+    "add_item_success":"Add Item Success",
+    "invalid_user_info":"Invalid User Infomation Input",
+    "invalid_delivery_info":"Invalid delivery infomation input",
+    "checkout_message":"Are you sure you want to process check out? Your shopping cart will be cleared.",
+    "checkout_again":"Product Out Of Stock, Please Confirm Your Shopping Cart And Checkout Again"
 }

@@ -1,7 +1,7 @@
 <template>
     <div class="p-2 2xl:p-10">
         <TabGroup v-if="paymentReady">
-            <TabList class="flex flex-wrap items-center justify-around w-full gap-3 nav-boxed-tabs sm:px-10">
+            <TabList class="flex flex-wrap items-center justify-around gap-3 nav-boxed-tabs sm:px-10">
                 <Tab
                     class="h-20 border-[#131c34] w-fit flex self-center" 
                     tag="button"
@@ -17,16 +17,17 @@
                     </div>
                 </Tab>
             </TabList>
+            <div class="mt-0 lg:mt-5 lg:px-10 lg:mx-10">  
+                <TabPanels>
+                    <TabPanel class="leading-relaxed" v-for="payment, index in payments" :key="index">
 
-            <TabPanels class="mt-0 lg:mt-5 lg:px-10" >
-                <TabPanel class="leading-relaxed" v-for="payment, index in payments" :key="index">
+                            <DirectPayment :payment ="payment" v-if="payment.key=='direct_payment'"/>
+                        
+                            <PaymentMethod :payment="payment" v-else/>
 
-                        <DirectPayment :payment ="payment" v-if="payment.key=='direct_payment'"/>
-                    
-                        <PaymentMethod :payment="payment" v-else/>
-
-                </TabPanel>  
-            </TabPanels>
+                    </TabPanel>  
+                </TabPanels>
+            </div>
         </TabGroup>
     </div>
 </template>

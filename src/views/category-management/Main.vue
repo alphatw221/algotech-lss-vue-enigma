@@ -65,6 +65,7 @@ import { list_product_category, create_product_category, update_product_category
 import { onMounted, ref, computed } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import dom from "@left4code/tw-starter/dist/js/dom";
+import i18n from "@/locales/i18n"
 
 const layoutStore = useLSSSellerLayoutStore()
 const listItems = ref([])
@@ -140,10 +141,10 @@ function deleteCategory(name) {
 function closeAlert() {
 		if (saved.value === true) {
 			showModal.value = false;
-			layoutStore.notification.showMessageToast("Save Success")
+			layoutStore.notification.showMessageToast(i18n.global.t('stock.category_manage.save_success'))
 		} else {
 			showModal.value = false;
-			layoutStore.alert.showMessageToast("Change Not Saved")
+			layoutStore.alert.showMessageToast(i18n.global.t('stock.category_manage.not_saved'))
 		}
 		saved.value = false
         oldCategory.value = ''
