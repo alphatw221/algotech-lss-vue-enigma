@@ -4,7 +4,7 @@
     "create_successed":"Create Successed",
     "update_successed":"Update Successed",
     "save_success":"Save Success",
-    "not_saved":"Change Not Saved",
+    "not_saved":"Update Canceledd",
 
     "draw_list": {
         "campaign_title": "Campaign Title",
