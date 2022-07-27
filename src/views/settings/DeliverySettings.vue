@@ -11,7 +11,7 @@
                     v-model="deliverySettings.delivery_charge"
                     @blur="v.delivery_charge.$touch()"
                 />
-                <label class="block text-danger text-[8px] font-light" 
+                <label class="block text-danger text-[12px]" 
                             v-for="error, index in v.delivery_charge.$errors"
                             :key="index">
                             {{ $t(`settings.delivery.errors.${error.$validator}`) }}
@@ -31,7 +31,7 @@
                     v-model="deliverySettings.free_delivery_for_order_above_price"
                     @blur="v.free_delivery_for_order_above_price.$touch()"
                 />
-                <label class="block text-danger text-[8px] font-light" 
+                <label class="block text-danger text-[12px]" 
                             v-for="error, index in v.free_delivery_for_order_above_price.$errors"
                             :key="index">
                             {{ $t(`settings.delivery.errors.${error.$validator}`) }}
@@ -51,7 +51,7 @@
                     v-model="deliverySettings.free_delivery_for_how_many_order_minimum"
                     @blur="v.free_delivery_for_how_many_order_minimum.$touch()"
                 />       
-                <label class="block text-danger text-[8px] font-light" 
+                <label class="block text-danger text-[12px]" 
                             v-for="error, index in v.free_delivery_for_how_many_order_minimum.$errors"
                             :key="index">
                             {{ $t(`settings.delivery.errors.${error.$validator}`) }}
@@ -80,11 +80,11 @@
                     :placeholder="$t('settings.delivery_form.express_service_name')"
                     v-model="option.title"
                     />
-                    <label class="block text-danger text-[8px] font-light" 
+                    <label class="block text-danger text-[12px]" 
                         v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].title"
                         :key="index"
                         >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
-                    <!-- <label class="block text-danger text-[8px] font-light" v-if="v.additional_delivery_options.$each.$response.$errors[index].title.length">required</label> -->
+                    <!-- <label class="block text-danger text-[12px]" v-if="v.additional_delivery_options.$each.$response.$errors[index].title.length">required</label> -->
                 </div>
                 <div>
                         <select 
@@ -94,7 +94,7 @@
                         <option value="+">{{ $t('settings.delivery.on_top_of_charge') }}</option>
                         <option value="=">{{ $t('settings.delivery.replace_charge') }}</option>
                     </select>
-                    <label class="block text-danger text-[8px] font-light" 
+                    <label class="block text-danger text-[12px]" 
                         v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].type"
                         :key="index"
                         >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
@@ -107,7 +107,7 @@
                         :placeholder="$t('settings.delivery_form.express_charge')"
                         v-model="option.price"
                     />
-                    <label class="block text-danger text-[8px] font-light" 
+                    <label class="block text-danger text-[12px]" 
                         v-for="error, index in v.additional_delivery_options.$each.$response.$errors[index].price"
                         :key="index"
                         >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>                    
@@ -145,7 +145,7 @@
                             type="text"
                             v-model="option.name" 
                         />
-                        <label class="block text-danger text-[8px] font-light" 
+                        <label class="block text-danger text-[12px]" 
                             v-for="error, index in v.pickup_options.$each.$response.$errors[index].name"
                             :key="index"
                             >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
@@ -157,7 +157,7 @@
                             type="text" 
                             v-model="option.address"
                         />
-                        <label class="block text-danger text-[8px] font-light" 
+                        <label class="block text-danger text-[12px]" 
                             v-for="error, index in v.pickup_options.$each.$response.$errors[index].address"
                             :key="index"
                             >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>

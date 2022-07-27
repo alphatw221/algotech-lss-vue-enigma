@@ -45,7 +45,7 @@
         "add_product":"Add Product",
         "instantly":"Instantly Add Product",
         "from_stock":"Add Product From Stock",
-        "confirm_product":"Confirm To Add Following Product",
+        "confirm_product":"Confirm to Add Following Product",
         "save_to_stock":"Save to Stock",
         "apply":"Apply",
         "search": "Search",
@@ -63,7 +63,7 @@
         },
         "invalid":"Invalid",
         "successed":"Successed",
-        "invalid_data":"Invalid Data Inputed"
+        "invalid_data":"Invalid Submission"
     },
     "incoming":{
         "incoming_order":"Incoming Order",

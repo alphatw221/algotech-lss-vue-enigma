@@ -84,9 +84,9 @@ const check_bindable_or_upgrade = () => {
 <style scoped>
 
 .insta-default {
-    width:300px;
+    max-width:300px;
     height:42px;
-    font-size: 17px;
+    font-size: 16px;
     background-color: #E33E5C;
     border: 1px solid #832f3fea;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
@@ -107,7 +107,7 @@ const check_bindable_or_upgrade = () => {
 }
 .insta-default span i {
     color: #FFF;
-    font-size: 18px;
+    font-size: 16px;
 }
 .body-middle {
     left: 50%;

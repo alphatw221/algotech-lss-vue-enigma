@@ -7,7 +7,7 @@
         <div class="box lg:mx-20 lg:pl-40 pl-16 py-10 gap-4 p-5 intro-y"> 
             <div class="flex mb-3">
                 <div class="mr-3 text-lg sm:text-xl font-medium"> {{$t("settings.localization.country")}}  : </div>
-                <div class="flex" v-if="layoutStore.userInfo.user_subscription "> {{  $t(`settings.localization.countries.${layoutStore.userInfo.user_subscription.country}`)||'' }}</div>
+                <div class="flex my-auto" v-if="layoutStore.userInfo.user_subscription "> {{  $t(`settings.localization.countries.${layoutStore.userInfo.user_subscription.country}`)||'' }}</div>
             </div>
             <div class="flex my-3 mt-5 form-label text-base font-medium">
                 <div> {{$t("settings.localization.currency_symbol")}} </div>

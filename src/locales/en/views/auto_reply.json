@@ -1,5 +1,5 @@
 {
-    "title": "Setup Auto Reply",
+    "title": "Auto Reply",
     "create": "Create",
 
     "assign_first_reply": "Assign your first auto-reply by click (+ Create) button",
@@ -25,6 +25,6 @@
     "saved_message":"Saved the Change",
     "not_saved_message":"Change Not Saved",
     "deleted_message":"Deleted",
-    "invalid_data":"Invalid Data Inputed",
+    "invalid_data":"Invalid Submission",
     "create_success":"Create Success"
 }

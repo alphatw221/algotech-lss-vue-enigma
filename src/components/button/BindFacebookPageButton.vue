@@ -86,7 +86,7 @@ const check_bindable_or_upgrade = () => {
 .fbBtn{
     background-color: #3c599b;
     padding: auto;
-    width: 300px;
+    max-width: 300px;
     height: 42px;
     border-radius: 42px 42px; 
     color: white;
