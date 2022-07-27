@@ -19,11 +19,10 @@
             <div class="flex flex-row flex-wrap justify-start lg:justify-between m-[0.7rem] p-5 px-3 lg:p-5 lucky-set">
                 <div class="flex flex-col xl:flex-row justify-start w-[70px] lg:w-[120px] mr-5 my-auto"> 
                     <img class="h-[120px] object-cover lg:mr-5" :src="storageUrl + luckydraw.prize.image" />
-                    <span class="h-auto w-40 break-words text-[16px] hidden lg:block">{{ luckydraw.prize.name }}</span>
                 </div>
+                <span class="h-auto w-40 break-words text-[16px] hidden lg:block">{{ luckydraw.prize.name }}</span>
                 <div class="flex flex-col lg:flex-row flex-wrap justify-start md:mt-5 w-[55%] lg:w-auto lg:ml-auto">  
                     <span class="my-auto lg:hidden break-words w-full">{{ luckydraw.prize.name }}</span>
-                    <span class="h-auto w-fit break-words text-[16px] hidden lg:block">{{ luckydraw.prize.name }}</span>
 
                     <div class="lg:border-r-2 border-white flex flex-row lg:flex-col w-full lg:pr-5 lg:w-36 xl:w-44 text-sm lg:text-lg justify-between lg:justify-center text-right">
                         <div> 
@@ -31,7 +30,7 @@
                             <span v-else-if="drawTitleMap[luckydraw.type] == 'Draw Purchased'" class="text-slate-500 whitespace-nowrap mr-auto lg:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                             <span v-else class="text-slate-500 order-1 whitespace-nowrap mr-0 hidden md:block"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                         </div>
-                        <div class="h-[22px] lg:h-[28px] mr-auto lg:my-1"> 
+                        <div class="h-[22px] lg:h-[28px] mr-auto lg:mr-0 lg:my-1"> 
                             <span class="text-[#E75F34]" v-if="luckydraw.type == 'product'"> ({{ luckydraw.campaign_product.order_code }}) {{ luckydraw.campaign_product.name }} </span>
                             <span class="text-[#E75F34]" v-else-if="luckydraw.type == 'keyword'"> {{ luckydraw.comment }} </span>
                         </div>
