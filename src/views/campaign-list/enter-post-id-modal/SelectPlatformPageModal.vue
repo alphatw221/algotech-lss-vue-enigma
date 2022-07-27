@@ -39,13 +39,13 @@ import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstan
 import { check_facebook_page_token_valid } from "@/api/facebook"
 import { check_instagram_profile_token_valid } from "@/api/instagram"
 import { check_youtube_channel_token_valid } from "@/api/youtube"
+import { update_platform_live_id } from "@/api_v2/campaign"
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const pages = ref([])
 const show = ref(false)
-
 const payloadBuffer = ref({})
 onMounted(()=>{
     eventBus.on('showSelectPlatformModal', (payload) => {
@@ -81,7 +81,14 @@ const selectPage = index => {
     apiRequest = check_instagram_profile_token_valid
   }
   apiRequest(pages.value[index].id).then(res=>{
-    payloadBuffer.value.platformInstance = res.data
+    payloadBuffer.value.page = res.data
+    return update_platform_live_id(payloadBuffer.value.campaign.id, payloadBuffer.value.platform, res.data.id ,'')
+  }).then(res=>{
+    Object.entries(res.data).forEach(([key,value]) => {
+      payloadBuffer.value.campaign[key]=value                       //proxy object only got setter
+    });
+    return 
+  }).then(res=>{
     eventBus.emit('showSelectLiveModal',payloadBuffer.value)
     hide()
   })
