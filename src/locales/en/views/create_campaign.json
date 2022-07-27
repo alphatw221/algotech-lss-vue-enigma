@@ -6,6 +6,8 @@
 
     "cancel":"Cancel",
     "create":"Create",
+    "invalid_title":"Invalid campaign title input",
+    
 
 
     "delivery_form":{
@@ -69,7 +71,8 @@
 
         "delete":"Delete",
         "errors":{
-            "Value_is_required":"Value is required"
+            "Value_is_required":"Value is required",
+            "img_size_err":"image size exceed 10 MB"
         }
 
 

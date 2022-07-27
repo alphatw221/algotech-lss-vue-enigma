@@ -72,11 +72,10 @@
             </AccordionItem>
         </AccordionGroup>
         
-        <div class="mt-5 float-right text-[14px]">
+        <div class="mt-5 flex text-[14px] justify-end">
             <button class="w-32 btn dark:border-darkmode-400" @click="discard"> {{$t('settings.notes.discard')}}</button>
             <button class="w-32 ml-5 shadow-md btn btn-primary" @click="update"> {{$t('settings.notes.save')}} </button>
         </div>
-        
     </div>
 </template>
 
@@ -84,6 +83,7 @@
 import { ref, onMounted } from 'vue';
 import { get_notes, update_notes } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import i18n from "@/locales/i18n"
 
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -106,11 +106,12 @@ const list = () => {
 }
 
 const update = () => {
-    update_notes(deliveryNote.value, specialNote.value, confirmationNote.value).then(res => {
+    console.log(deliveryNote.value)
+    update_notes(deliveryNote.value, specialNote.value, confirmationNote.value).then(response => {
         layoutStore.userInfo = res.data
-        layoutStore.notification.showMessageToast("Update Successfully")
+        layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     }).catch(error =>
-        layoutStore.alert.showMessageToast("Update Failed")
+        layoutStore.alert.showMessageToast(i18n.global.t('settings.update_failed'))
     )
 }
 

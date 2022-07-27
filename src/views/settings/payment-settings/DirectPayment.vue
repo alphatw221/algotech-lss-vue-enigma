@@ -1,6 +1,5 @@
 <template>
-    <div class="flex-col flex text-[16px]">
-        <div class="flex justify-between mt-5 sm:mt-2">
+        <div class="flex-col text-[16px] flex justify-between mt-5 sm:mt-2">
             <div class="flex"> 
                 <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
@@ -22,7 +21,7 @@
             </a> -->
         </div>
 
-        <div class="flex justify-between mt-5 sm:mt-0">
+        <div class="flex justify-between mt-5 sm:mt-0" v-if="paymentData.v2_accounts != 0" >
             <!-- <div class="flex"> 
                 <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
@@ -32,13 +31,15 @@
                 <label class="ml-3 form-label my-auto">{{ $t('settings.payment_form.enabled') }}</label>
             </div> -->
             <button 
-				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-60 2xl:w-60 h-[42px] sm:mt-auto" 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto w-full lg:w-fit text-sm sm:text-lg " 
 				@click="addDirectPayment()"
 			>
 				{{ $t('settings.payment_form.add_more_direct_payment') }}
 			</button>
         </div>
-
+        <div v-if="paymentData.v2_accounts ==0 " @click="addDirectPayment()" class="border-2 border-dashed border-slate-300 h-36 rounded-xl mt-5 flex justify-center items-center text-slate-400"> 
+           {{ $t('settings.payment_form.add_direct_payment') }}
+        </div>
         <div v-for="(account, index_i) in paymentData.v2_accounts" :key="index_i" class="border-slate rounded-md border-2 p-3 my-3">
             <div 
                 class="flex flex-col intro-y"
@@ -52,7 +53,7 @@
                         type="text" 
                         v-model="account[field.key]"
                     />
-                    <label class="text-danger font-[8px] font-light" 
+                    <label class="text-danger text-[8px] font-light" 
                         v-for="error,index in v.v2_accounts.$each.$response.$errors[index_i][field.key]"
                         :key="index"
                     >{{ $t(`settings.payment_form.errors.${error.$message.replace(/\s/g, "_")}`)}}</label>
@@ -67,16 +68,15 @@
                 </template>
 
                 <template v-else-if="field.type === 'checkbox'">
-                <div class="flex flex-wrap my-3">
-                    <input 
-                            class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2"
-                            type="checkbox" 
-                            v-model="account[field.key]"
-                        />
-                    <label class="mt-2 text-base form-label">{{ $t(`settings.payment_form.direct_payment.${field.key}`)  }}
-                    </label>
-                </div>
-                    
+                    <div class="flex flex-wrap my-3">
+                        <input 
+                                class="form-control form-label form-check-input w-[1.2rem] h-[1.2rem] my-auto mr-2"
+                                type="checkbox" 
+                                v-model="account[field.key]"
+                            />
+                        <label class="mt-2 text-base form-label">{{ $t(`settings.payment_form.direct_payment.${field.key}`)  }}
+                        </label>
+                    </div>
                 </template>
 
                 <template v-else-if="field.type === 'file'">
@@ -114,16 +114,15 @@
             </div>
         </div>
 
-        <div class="self-end text-[14px] ">
+        <div class="text-[14px] mt-10 flex">
             <button 
-                    class="w-32 ml-5 shadow-md btn btn-primary"
+                    class="w-32 shadow-md btn btn-primary ml-auto"
                     @click="updateDirectPayment"
                 > 
                 {{ $t('settings.payment_form.update') }} 
             </button>
         </div>
         
-    </div>
 </template>
 
 <script setup>
@@ -135,6 +134,7 @@ import { seller_update_payment } from '@/api_v2/user_subscription'
 
 import { helpers, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
+import i18n from "@/locales/i18n"
 
 
 
@@ -190,7 +190,7 @@ onMounted(() => {
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
     if(image.size/1024/1024>10){
-        sellerStore.alert.showMessageToast('image size exceed 10 MB')
+        sellerStore.alert.showMessageToast(i18n.global.t('settings.img_size_err'))
         return
     }
     formData.append('_'+paymentData.v2_accounts[index].name,image)
@@ -213,14 +213,14 @@ const addDirectPayment = ()=>{
 const updateDirectPayment = () => {
 
     if(v.value.$invalid){
-        sellerStore.alert.showMessageToast("Invalid data")
+        sellerStore.alert.showMessageToast(i18n.global.t('settings.invalid_data'))
         return
     }
     formData.append('data', JSON.stringify(paymentData))
 
     seller_update_payment(props.payment.key,formData).then(res=>{
         sellerStore.userInfo = res.data
-        sellerStore.notification.showMessageToast("Update Successfully")
+        sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }
 

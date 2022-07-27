@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-2 w-full overflow-auto h-fit sm:h-[50vh]"> 
+    <div class="mt-3 w-full overflow-auto h-fit sm:h-[50vh]"> 
         <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
@@ -107,7 +107,7 @@
                             ${{ (order.total).toFixed(layoutStore.userInfo.user_subscription.decimal_places) }}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
-                            {{ order[column.key] == 'Direct Payment' ? `Direct Payment - ${order.meta.account_mode}` : order[column.key] }}
+                            {{ order[column.key] == 'Direct Payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : order[column.key] }}
                         </template>
                         <template v-else-if="column.key === 'id'">
                             <span class="sm:hidden"> #</span> {{ order.id }}

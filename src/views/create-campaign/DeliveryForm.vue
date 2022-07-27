@@ -59,7 +59,7 @@
 			</label>
 
 			<input 
-				class="w-full form-control "
+				class="w-full form-control mt-2"
 				type="text"
 				v-model="props.campaign.meta_logistic.free_delivery_for_how_many_order_minimum"
 				@blur="props.v.meta_logistic.free_delivery_for_how_many_order_minimum.$touch()"

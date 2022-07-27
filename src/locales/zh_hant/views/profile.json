@@ -16,6 +16,8 @@
     },
     "change-plan":{
         "subscription_plan": "Subscription Plan"
-
-    }
+    },
+    "invalid_data":"輸入資料無效",
+    "input_err":"輸入錯誤",
+    "update_successed":"更新成功"
 }

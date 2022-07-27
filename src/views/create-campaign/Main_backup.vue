@@ -81,6 +81,7 @@ import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/ca
 
 import { required, minLength, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import i18n from "@/locales/i18n"
 
 
 const route = useRoute()
@@ -135,7 +136,7 @@ const createCampaign = ()=>{
 	// return
 	title_validate.value.$touch()
 	if (title_validate.value.$invalid) {
-		sellerStore.alert.showMessageToast("Invalid campaign title input")
+		sellerStore.alert.showMessageToast(i18n.global.t('create_campaign.invalid_title'))
 		return
 	}
 

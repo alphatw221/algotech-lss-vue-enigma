@@ -1,9 +1,8 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="intro-y grid grid-cols-12 gap-5 mt-4 sm:mt-0">
         <!-- BEGIN: campaign Info -->
-        <div class="flex flex-col col-span-12 h-fit">
-            <h1 class="mt-8 lg:mt-1">{{$t('manage_order.title')}}</h1>
+        <div class="flex flex-col h-fit sm:mt-0">
+            <h1 class="mt-3 lg:mt-1 w-full text-center">{{$t('manage_order.title')}}</h1>
             <!-- BEGIN: campaign Status -->
             <CampaignStatus/>
             <!-- END: campaign Status -->
@@ -74,7 +73,6 @@
             <OrderProductModal />
         </div>
         <!-- <button class="btn z-50 btn-primary rounded-full" @click.native="scrollToTop()"> Back to Top </button> -->
-    </div>
 </template>
 
 <script setup>
@@ -90,6 +88,7 @@ import { allow_checkout } from "@/api_v2/campaign"
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const store = useManageOrderStore()
@@ -106,7 +105,7 @@ const show_order = status=>{
 
 function stop_checkout(status){
     allow_checkout(route.params.campaign_id,status)
-    layout.notification.showMessageToast('Update Successed');
+    layout.notification.showMessageToast(i18n.global.t('manage_order.update_successed'));
 }
 </script>
 

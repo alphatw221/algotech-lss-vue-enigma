@@ -7,6 +7,8 @@
 
     "cancel":"取消",
     "create":"建立",
+    "invalid_title":"無效的直播標題",
+    
 
 
     "delivery_form":{
@@ -67,7 +69,8 @@
         "delete":"刪除",
 
         "errors":{
-            "Value_is_required":"此欄位必填"
+            "Value_is_required":"此欄位必填",
+            "img_size_err":"圖片大小不可超過 10 MB"
         }
 
 
