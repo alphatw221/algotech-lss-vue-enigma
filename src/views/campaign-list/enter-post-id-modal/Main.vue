@@ -203,6 +203,8 @@ const selectPlatformPage = (platform)=>{
 const autoUpdatePostId = (platform, page_id, live_id) => {
   update_platform_live_id(campaign.value.id, platform, page_id, live_id).then(res=>{
     console.log(res)
+    // campaign.value.data=res.data    //test 
+    
   })
 }
 
