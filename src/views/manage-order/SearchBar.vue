@@ -32,7 +32,7 @@
             <!-- <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 col-span-2" /> -->
             <div class="relative"> 
                 <input type="text" class="form-control w-40 lg:w-60 rounded-lg h-[35px] sm:h-[42px] pr-10"
-                placeholder=" Search" v-model="searchValue" @keydown.enter.prevent="search()"/>
+                :placeholder="$t('manage_order.search_bar.search')" v-model="searchValue" @keydown.enter.prevent="search()"/>
                 <SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-2 z-10 text-slate-600" @click="search()"/>
             </div>
             <XIcon 
