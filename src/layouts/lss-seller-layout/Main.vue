@@ -17,23 +17,23 @@
     </Notification>
 
 <!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
-      <Notification refKey="sellerCampaignAlert" borderColor="notifyCamp">
-        <div  class="flex notifyCamp">
-          <div class="relative px-3 top-5 w-12">
-            <font-awesome-icon icon="fa-regular fa-bell" class="w-6 h-6 border-[2px] p-0.5 border-slate-500 rounded-full absolute"/>
-          </div>
-          <div class="ml-1 mr-1">
-              <div class="font-medium">Upcoming Campaign!!</div>
-              <div id="message" class="mt-1 text-slate-500">
-                  Message1
-              </div>
-              <div class="flex justify-between mt-2 font-medium">
-                  <button id="leftBTN" class="mr-3 text-primary text-red-500 dark:text-slate-400 font-medium" data-dismiss="function">Message2 and Function</button>
-                  <a id="rightBTN" class="text-primary dark:text-slate-400 text-blue-500" data-dismiss="notification">Message3</a>
-              </div>
-          </div>
+    <Notification refKey="sellerCampaignAlert" borderColor="notifyCamp">
+      <div  class="flex notifyCamp">
+        <div class="relative px-3 top-5 w-12">
+          <font-awesome-icon icon="fa-regular fa-bell" class="w-6 h-6 border-[2px] p-0.5 border-slate-500 rounded-full absolute"/>
         </div>
-      </Notification>
+        <div class="ml-1 mr-1">
+            <div class="font-medium">{{$t('layout.upcoming_campaign.title')}}!!</div>
+            <div id="message" class="mt-1 text-slate-500">
+                Message1
+            </div>
+            <div class="flex justify-between mt-2 font-medium">
+                <button id="leftBTN" class="mr-3 text-primary text-red-500 dark:text-slate-400 font-medium" data-dismiss="function">Message2 and Function</button>
+                <a id="rightBTN" class="text-primary dark:text-slate-400 text-blue-500" data-dismiss="notification">Message3</a>
+            </div>
+        </div>
+      </div>
+    </Notification>
     <!-- <Notification refKey="floatingVideoToast" class="flex flex-col">
         <div class="ml-4 mr-4">
             <div class="font-medium">Video Streaming...</div>
@@ -65,20 +65,21 @@ import { provide, onMounted,ref, computed, watch, getCurrentInstance } from "vue
 import { useRouter ,useRoute} from "vue-router";
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const router = useRouter();
 const store = useLSSSellerLayoutStore();
 const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
-const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
+// const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
 const checkCampaignTime = (message) =>{
   if(message.remind_time === '15 mins'){ 
-    store.campaignAlert.buttonToast(`You have a upcoming Campaign: ${message.title} starts in ${message.remind_time}`,"Join now!!","Dismiss",forPath)
-  }else{ 
-    store.campaignAlert.buttonToast(`You have a upcoming Campaign: ${message.title} starts in ${message.remind_time}`,"Join now!!","Remind me Later",forPath)
-    }
+    store.campaignAlert.buttonToast(`${i18n.global.t('layout.upcoming_campaign.notification_text1')} ${message.title} ${i18n.global.t('layout.upcoming_campaign.notification_text2')} ${i18n.global.t('layout.upcoming_campaign.time_15min')}${i18n.global.t('layout.upcoming_campaign.notification_text3')}`,`${i18n.global.t('layout.upcoming_campaign.join_now')}!!`,`${i18n.global.t('layout.upcoming_campaign.dismiss')}`,forPath)
+  } else { 
+    store.campaignAlert.buttonToast(`${i18n.global.t('layout.upcoming_campaign.notification_text1')} ${message.title} ${i18n.global.t('layout.upcoming_campaign.notification_text2')} ${i18n.global.t('layout.upcoming_campaign.time_1hour')}${i18n.global.t('layout.upcoming_campaign.notification_text3')}`,`${i18n.global.t('layout.upcoming_campaign.join_now')}!!`,`${i18n.global.t('layout.upcoming_campaign.dismiss')}`,forPath)
+  }
 }
 
 const forPath = () =>{
@@ -118,7 +119,8 @@ const initWebSocketConnection =()=> {
 
 const setLanguage = ()=>{
   if(store.userInfo.user_subscription){
-    i18n.locale=store.userInfo.user_subscription.lang
+    // i18n.locale=store.userInfo.user_subscription.lang
+    i18n.global.locale.value = store.userInfo.user_subscription.lang
   }
 }
 
