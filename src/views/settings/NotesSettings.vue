@@ -72,11 +72,10 @@
             </AccordionItem>
         </AccordionGroup>
         
-        <div class="mt-5 float-right text-[14px]">
+        <div class="mt-5 flex text-[14px] justify-end">
             <button class="w-32 btn dark:border-darkmode-400" @click="discard"> {{$t('settings.notes.discard')}}</button>
             <button class="w-32 ml-5 shadow-md btn btn-primary" @click="update"> {{$t('settings.notes.save')}} </button>
         </div>
-        
     </div>
 </template>
 

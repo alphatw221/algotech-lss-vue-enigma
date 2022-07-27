@@ -32,15 +32,15 @@
                     type="checkbox"
                     v-model="store.orderDetail.free_delivery"
                     />
-                <span class="ml-2">{{$t('order_detail.price_summary.apply_free_delivery')}}</span>
+                <span class="ml-3">{{$t('order_detail.price_summary.apply_free_delivery')}}</span>
             </div>         
             <div class="grid grid-cols-12 gap-4">
                 <div class="start-col-1 col-span-4">
-                    <input :id="'radio-switch-p'" class="form-check-input" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'+'" />
+                    <input :id="'radio-switch-p'" class="form-check-input mr-3" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'+'" />
                     <span> {{$t('order_detail.price_summary.add')}} +</span>
                 </div>
                 <div class="start-col-5 col-span-4">
-                    <input :id="'radio-switch-m'" class="form-check-input" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'-'" />
+                    <input :id="'radio-switch-m'" class="form-check-input mr-3" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'-'" />
                     <span> {{$t('order_detail.price_summary.subtract')}} -</span>
                 </div>
             </div>
