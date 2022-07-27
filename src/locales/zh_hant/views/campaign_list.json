@@ -57,7 +57,10 @@
         "no_result":"無搜尋結果",
         "Scheduled" : "預定中",
         "History" : "歷史",
-        "Ongoing" : "進行中"
+        "Ongoing" : "進行中",
+
+        "no_have_campaign": "您還沒有任何直播",
+        "click_create_notify": "點擊 \"+新增\" 建立直播"
     },
 
     "remind_enter_post_id_modal":{
