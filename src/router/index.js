@@ -234,7 +234,7 @@ const routes = [
       },
       
       {
-        path: "mkt-plugin/quiz-game",
+        path: "quiz-game",
         name: "quiz-game",
         component: QuizGame,
       },
