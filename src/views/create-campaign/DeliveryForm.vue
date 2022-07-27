@@ -2,7 +2,10 @@
 	<div class="box grid grid-cols-12 gap-4 intro-y lg:mx-20 lg:px-40 px-5 py-10 mt-3" v-if="ready">
 		<span class="col-span-12 text-xl font-medium leading-none sm:-mx-6">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
 		<hr class="col-span-12 mb-3 -mx-6" />
-		<div class="flex flex-col col-span-12 col-start-1"> 
+
+
+
+		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
 			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
 			<input 
 				class="w-full form-control"
@@ -10,13 +13,15 @@
 				v-model="props.campaign.meta_logistic.delivery_charge"
 				@blur="props.v.meta_logistic.delivery_charge.$touch()"
 			/>
-		</div>
-		<label class="text-danger font-[8px] font-light" 
-			v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
-			:key="index"
-			>
-			{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
-		</label>
+			<label class="text-danger font-[8px] font-light" 
+				v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
+				:key="index"
+				>
+				{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+			</label>
+		</div> 
+
+		
 
 		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
 			<label class="form-label text-base text-lg font-medium">

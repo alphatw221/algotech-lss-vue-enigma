@@ -30,7 +30,9 @@
             "Value_is_required":"此欄位必填",
             "Value_must_be_numeric":"輸入必須為數字",
             "minValue":"輸入數字無效",
-            "required":"此欄位必填"
+            "required":"此欄位必填",
+            "integer":"輸入數字必須為整數",
+            "decimal":"輸入數字必須為數字"
         }
     },
 

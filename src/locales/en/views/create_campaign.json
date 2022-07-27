@@ -29,7 +29,9 @@
             "Value_is_required":"Value is required",
             "Value_must_be_numeric":"Value must be numeric",
             "minValue":"Invalid number",
-            "required":"This field is required"
+            "required":"This field is required",
+            "integer":"Number must be integer",
+            "decimal":"Number must be decimal"
         }
     },
 
