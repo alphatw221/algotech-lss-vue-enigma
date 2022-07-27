@@ -3,7 +3,8 @@
         type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="google-login-btn" @click="handleAuthClick">{{$t('settings.platform.connect_with_youtube')}}</Button>
+        type="button" class="google-login-btn" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_youtube')}}</Button>
+    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
     
 </template>
 
@@ -11,15 +12,16 @@
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
  
 import {loadScriptAsyncDefer} from '@/libs/loadScript.js';
+import { check_activated_platform } from '@/api/user_subscription'
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const fetchingData = ref(false)
 
 const props = defineProps({
   busName: String,
   buttonName: String
 });
 
-const is_activated_platform = ref(false)
 
 var GoogleAuth;
 var SCOPE = 'https://www.googleapis.com/auth/youtube';
@@ -42,34 +44,34 @@ onMounted(()=>{
             GoogleAuth = gapi.auth2.getAuthInstance();
         });
     }
-    eventBus.on("activate_youtube", (payload) => {
-        is_activated_platform.value = payload
-        console.log("activate_youtube")
-        console.log(is_activated_platform.value)
-    })
 })
 
 
-
-
-
 const handleAuthClick = () => {
-    if (is_activated_platform.value) {
-        if (GoogleAuth.isSignedIn.get()) {
-            // User is authorized and has clicked "Sign out" button.
-            GoogleAuth.signOut();
+    if (GoogleAuth.isSignedIn.get()) {
+        // User is authorized and has clicked "Sign out" button.
+        GoogleAuth.signOut();
 
-        } else {
-            // User is not signed in. Start Google auth flow.
-            // GoogleAuth.signIn();
-            GoogleAuth.grantOfflineAccess().then(function(resp) {
-                eventBus.emit(props.busName ,resp)
-            });
-        }
     } else {
-        eventBus.emit("showUpgradeModal", true)
+        // User is not signed in. Start Google auth flow.
+        // GoogleAuth.signIn();
+        GoogleAuth.grantOfflineAccess().then(function(resp) {
+            eventBus.emit(props.busName ,resp)
+        });
     }
-    
+}
+
+const check_bindable_or_upgrade = () => {
+    fetchingData.value = true
+    check_activated_platform().then(res=>res.data).then(res=>{
+        console.log(res)
+        fetchingData.value = false
+        if (res.can_bind) {
+            handleAuthClick()
+        } else {
+            eventBus.emit("showUpgradeModal", {"activated_platform_amount": res.activated_platform_amount})
+        }
+    })
 }
 </script>
 
@@ -87,11 +89,20 @@ const handleAuthClick = () => {
     font-size: 16px;
 }
 
-a{
+a {
     position: absolute;
     margin-top:6px;
-} a:hover{
+} 
+
+a:hover {
     color: black;
     text-decoration:none; 
+}
+
+.body-middle {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
 }
 </style>
