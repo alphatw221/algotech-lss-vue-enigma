@@ -1,9 +1,9 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="intro-y grid grid-cols-12 gap-5 mt-4 sm:mt-0">
+    <div class="intro-y grid grid-cols-12 gap-5">
         <!-- BEGIN: campaign Info -->
-        <div class="flex flex-col col-span-12 h-fit">
-            <h1 class="mt-8 lg:mt-1">{{$t('manage_order.title')}}</h1>
+        <div class="flex flex-col col-span-12 h-fit lg:pt-5 mt-3 pb-4">
+            <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('manage_order.title')}}</h2>
             <!-- BEGIN: campaign Status -->
             <CampaignStatus/>
             <!-- END: campaign Status -->
