@@ -24,15 +24,21 @@
 					</td>
 					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+								{{ $t('stock.dont_have_product_notify') }}
+							</h1>
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
-								You Don't Have Product in this Category
+								{{ $t('stock.click_to_add') }}
 							</h1>
 						</div>
 					</td> 
 					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+								{{ $t('stock.no_result') }}
+							</h1>
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
-								No result
+								{{ $t('stock.click_to_add') }}
 							</h1>
 						</div>
 					</td> 
@@ -93,12 +99,15 @@
 									<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
 									<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
 									</DropdownToggle>
-									<DropdownMenu class="w-20 pt-2">
-									<DropdownContent class="w-20 text-center">
-										<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="routeToEditProduct(product)"> 
-											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.edit')}}
-										</DropdownItem>
-									</DropdownContent>
+									<DropdownMenu class="w-24 pt-2">
+										<DropdownContent class="w-24 text-center">
+											<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="routeToEditProduct(product)"> 
+												<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.edit')}}
+											</DropdownItem>
+											<DropdownItem class="w-20 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product.id)"> 
+												<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.delete')}}
+											</DropdownItem>
+										</DropdownContent>
 									</DropdownMenu>
 								</Dropdown> 
 							</div>
@@ -125,7 +134,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { list_product } from '@/api_v2/product'
+import { list_product, delete_product } from '@/api_v2/product'
 
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed} from 'vue'
@@ -220,6 +229,12 @@ const routeToEditProduct = (product)=>{
 
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
+}
+
+const deleteProduct = (id) => {
+	delete_product(id).then(res => {
+		search()
+	})
 }
 </script>
 

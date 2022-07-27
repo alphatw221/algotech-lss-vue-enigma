@@ -39,3 +39,7 @@ export const seller_delete_campaign_product = (campaign_product_id) => {
 export const seller_update_campaign_product = (campaign_product_id, data) => {
     return createAxiosWithBearer().put(`/api/v2/campaign-product/${campaign_product_id}/seller/update/`, data)
 }
+
+export const seller_toggle_campaign_product_status = (campaign_product_id) => {
+    return createAxiosWithBearer().put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/status/`)
+}

@@ -75,7 +75,7 @@
                     <label class="form-label mr-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
                     <div class="flex flex-wrap items-center justify-around">
                         <div class="w-20 h-20 image-fit relative ">
-                            <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
+                            <input type="radio" checked class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
                             <img class="rounded-full" :src="storageUrl + 'static/lucky_draw1.svg'" />
                         </div>
                         <div class="w-20 h-20 image-fit relative ">
@@ -253,7 +253,7 @@ const currentSettings = ref({
     prize: '',
     title: '',
     animation: '',
-    path: ''
+    path: 'static/lucky_draw1.svg'
 })
 const previewImage = ref(null)
 const formData = new FormData()

@@ -1,7 +1,7 @@
 <template>
     <form>
         <div class="flex flex-wrap justify-start w-full gap-2 sm:flex-row">
-            <div class="flex w-full sm:w-fit justify-between sm:justify-start" v-if="showCategoryFilter">
+            <div class="flex w-full sm:w-fit sm:justify-start" v-if="showCategoryFilter">
                 <div class="flex"> 
                     <label class="mr-2 my-auto whitespace-nowrap">
                         {{ $t('stock.search_bar.category') }}

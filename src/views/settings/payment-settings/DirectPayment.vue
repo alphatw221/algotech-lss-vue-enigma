@@ -53,7 +53,7 @@
                         type="text" 
                         v-model="account[field.key]"
                     />
-                    <label class="text-danger text-[8px] font-light" 
+                    <label class="text-danger text-[12px]" 
                         v-for="error,index in v.v2_accounts.$each.$response.$errors[index_i][field.key]"
                         :key="index"
                     >{{ $t(`settings.payment_form.errors.${error.$message.replace(/\s/g, "_")}`)}}</label>
@@ -91,16 +91,21 @@
                                 <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> 
                                 <strong class="text-slate-600">{{ $t('settings.payment_form.upload_a_file_or_drag_and_drop') }}</strong> 
                             </div>
-                            <div class="mt-2 text-slate-500">{{ $t('settings.payment_form.accepted_file_types') }}</div>
+                            <div class="mt-2 text-slate-500">{{ $t('settings.payment_form.accepted_file_types') }}: jpeg, png, jpg</div>
                             <div class="text-slate-500">{{ $t('settings.payment_form.max_file_size') }} : 10MB</div>  
                         </div>
-                            <input
-                                type="file"
-                                class="absolute top-0 left-0 w-full h-full opacity-0"
-                                accept="image/jpeg,image/png,image/jpg" 
-                                @change="uploadImage($event, index_i)"
-                            />
+                        <input
+                            type="file"
+                            class="absolute top-0 left-0 w-full h-full opacity-0"
+                            accept="image/jpeg,image/png,image/jpg" 
+                            @change="uploadImage($event, index_i)"
+                        />
                     </div>
+                    <div 
+                        class="flex justify-center text-[#0080FF]"
+                        v-if="![undefined, null, ''].includes(previewImages[index_i])"
+                        @click="removeImage(index_i)"
+                    >Remove File</div>
                 </template>
 
             </div>
@@ -204,6 +209,7 @@ const deleteDirectPayment = index=>{
     paymentData.v2_accounts.splice(index,1)
     previewImages.value.splice(index,1)
 
+    updateDirectPayment()
 }
 const addDirectPayment = ()=>{
     paymentData.v2_accounts.unshift({mode:'',name:'',number:'',note:'',require_customer_return:true})
@@ -222,6 +228,10 @@ const updateDirectPayment = () => {
         sellerStore.userInfo = res.data
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
+}
+
+const removeImage = (index) => {
+    previewImages.value[index] = ''
 }
 
 
