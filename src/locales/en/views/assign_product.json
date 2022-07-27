@@ -42,7 +42,8 @@
             "order_code_duplicate":"duplicate",
             "qty_invalid":"invalid",
             "max_order_amount_grater_than_qty":"geater than Qty",
-            "assign_qty_required":"required"
+            "assign_qty_required":"required",
+            "please_enter_integer": "please enter integer"
         }
     },
     "add":"Add",

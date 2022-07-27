@@ -1,7 +1,7 @@
 {
     "live_stream":"Live Stream",
     "comment" :{
-        "comments":"Comments",
+        "comments":"Comments Summarizer",
         "delivery":"Delivery",
         "payment":"Payment",
         "other":"Other",

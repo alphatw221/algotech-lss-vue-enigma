@@ -42,8 +42,8 @@
             "order_code_duplicate":"商品代碼重複",
             "qty_invalid":"數量無效",
             "max_order_amount_grater_than_qty":"不得大於商品數量",
-            "assign_qty_required":"商品數量必填"
-            
+            "assign_qty_required":"商品數量必填",
+            "please_enter_integer": "請輸入整數"
         }
     },
     "add":"加入",

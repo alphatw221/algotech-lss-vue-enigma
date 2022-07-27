@@ -4,6 +4,8 @@
     "for_sale": "銷售中",
     "delisted": "下架",
     "add_product": "新增產品",
+    "dont_have_product_notify": "您並未增加該類別的產品",
+    "no_result": "您並未新增商品",
 
     "search_bar": {
         "category": "類別",

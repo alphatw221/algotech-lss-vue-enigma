@@ -1,6 +1,10 @@
 {
     "campaign_list": "Campaign List",
 
+    "no_campaign_Ongoing": "You Have No Ongoing Campaign",
+    "no_campaign_Scheduled": "You Have No Scheduled Campaign",
+    "no_campaign_History": "You Have No History Campaign",
+
     "process" : {
             "create" : "Create",
             "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",

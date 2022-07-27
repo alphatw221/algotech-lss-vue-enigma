@@ -4,6 +4,8 @@
     "for_sale": "For Sale",
     "delisted": "Delisted",
     "add_product": "Add Product",
+    "dont_have_product_notify": "You Don't Have Product in this Category",
+    "no_result": "No result",
 
     "search_bar": {
         "category": "Category",
@@ -33,7 +35,7 @@
         "edit_title": "Edit Category",
         "edit": "Edit",
         "delete": "Delete",
-        "input_holder": "Category Name",
+        "input_holder": "New Category Name",
         "modal": {
             "cancel": "Cancel",
             "save": "Save",
