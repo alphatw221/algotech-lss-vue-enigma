@@ -11,6 +11,7 @@
                 "export" : "Export"
         },
         "table":{
+                "Direct Payment":"Direct Payment",
                 "details":"Order Details",
                 "copy_link":"Copy Cart Link",
                 "amount" : "Amount",
