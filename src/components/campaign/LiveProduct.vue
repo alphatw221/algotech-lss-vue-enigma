@@ -96,8 +96,8 @@
 
 </template>
 <script setup>
-import { list_campaign_product, update_campaign_product } from '@/api/campaign_product';
-
+import { list_campaign_product } from '@/api/campaign_product';
+import { seller_toggle_campaign_product_status } from '@/api_v2/campaign_product';
 // import AddProductFromStock from './modals/AddProductFromStockModal.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
@@ -132,8 +132,7 @@ onMounted(() => {
 
 
 const toggle_campaign_product_status = (product) => {
-    update_campaign_product(product.id, route.params.campaign_id, {'status':product.status?false:true}).then(res => {
-        console.log(res.data)
+    seller_toggle_campaign_product_status(product.id).then(res => {
         Object.entries(res.data).forEach(([key,value]) => {
             product[key]=value                       //proxy object only got setter
         });
