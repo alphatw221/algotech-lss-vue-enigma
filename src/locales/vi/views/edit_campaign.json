@@ -1,0 +1,13 @@
+{
+    "edit_campaign":"Edit Campaign",
+    "title":"Title",
+    "title_required":"Title Is Required",
+    "period":"Period",
+    "connected_platform":"Connected Platform",
+    "edit_connected_platform":"Edit",
+
+    "cancel":"Cancel",
+    "update":"Update",
+    "invalid_data":"Invalid Data"
+
+}

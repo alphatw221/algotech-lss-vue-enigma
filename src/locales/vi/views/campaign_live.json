@@ -1,0 +1,83 @@
+{
+    "live_stream":"Live Stream",
+    "comment" :{
+        "comments":"Comments Summarizer",
+        "delivery":"Delivery",
+        "payment":"Payment",
+        "other":"Other",
+        "select_tag":"Selected tag",
+        "clear":"Reset",
+        "comment_message_1":"You don't have any %{tag} related comment yet",
+        "comment_message_2":"You don't have any %{platformName} comment yet"
+    },
+    "reply":{
+        "reply_to":"Reply to",
+        "type_your_message": "Type your message"
+    },
+    "conversation":{
+        "conversation_with":"Conversation with",
+        "type_your_message": "Type your message"
+    },
+    "product":{
+        "product":"Product",
+        "modal_column":{
+            "null":"",
+            "cart_sold_left":"Cart/Sold/Left",
+            "name":"Name",
+            "description":"Description",
+            "Product":"Product",
+            "order_code":"Order Code",
+            "price":"Price",
+            "activate":"Activate",
+            "qty":"Qty",
+            "stock_qty":"Stock QTY",
+            "category":"Category",
+            "type":"Type",
+            "Lucky Draw":"Lucky Draw",
+            "qty_for_campaign":"QTY for Campaign",
+            "max_qty":"Max QTY/Order",
+            "editable":"Editable",
+            "removable":"Removable",
+            "deletable":"Removable",
+            "search":"Search by"
+        },
+        "add":"Add",
+        "add_product":"Add Product",
+        "instantly":"Instantly Add Product",
+        "from_stock":"Add Product From Stock",
+        "confirm_product":"Confirm to Add Following Product",
+        "save_to_stock":"Save to Stock",
+        "apply":"Apply",
+        "search": "Search",
+        "reset":"Reset",
+        "add_more":"Add More",
+        "confirm":"Confirm",
+        "comfirm_selected":"Comfirm Selected Product",
+        "errors":{
+            "type_required":"required",
+            "order_code_required":"required",
+            "order_code_duplicate":"duplicate",
+            "qty_invalid":"invalid",
+            "max_order_amount_grater_than_qty":"Greater than assign QTY",
+            "assign_qty_required":"required"
+        },
+        "invalid":"Invalid",
+        "successed":"Successed",
+        "invalid_data":"Invalid Submission"
+    },
+    "incoming":{
+        "incoming_order":"Incoming Order",
+        "plug_in":"Games",
+        "instantly":"Instantly Lucky Draw Spin",
+        "list":"Lucky Draw",
+        "table":{
+            "amount" : "Amount",
+            "payment" : "Payment",
+            "view" : "View",
+            "name" : "Customer",
+            "platform" : "Platform",
+            "order_number" : "Order No",
+            "null":""
+        }
+    }
+}

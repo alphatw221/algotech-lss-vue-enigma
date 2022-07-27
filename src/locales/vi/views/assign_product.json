@@ -1,0 +1,57 @@
+{
+    "assign_product": "Assign Products",
+    "confirm_select_product":"Confirm Assign Products",
+    "search_bar":{
+        "category":"Category",
+        "all":"All",
+        "search_by":"Search By",
+        "search_options":{
+            "name":"Name",
+            "order_code":"Order Code",
+            "description":"Description"
+        },
+        "search_bar_place_holder":"Search...",
+        "reset":"Reset"
+    },
+
+    "product_table":{
+        "image":"Image",
+        "name":"Name",
+        "type":"Type",
+        "order_code":"Order Code",
+        "qty":"Qty",
+        "assign_qty":"Assign QTY",
+        "max_order_amount":"Max Order Qty",
+        "category":"Category",
+        "price":"Price",
+        "customer_editable":"Editable",
+        "customer_removable":"Removable",
+        "types":{
+            "product":"Product",
+            "product-fast":"Product",
+            "lucky_draw-fast":"Lucky Draw",
+            "lucky_draw":"Lucky Draw",
+            "null":"",
+            "undefined":""
+        },
+
+
+        "errors":{
+            "type_required":"required",
+            "order_code_required":"required",
+            "order_code_duplicate":"duplicate",
+            "qty_invalid":"invalid",
+            "max_order_amount_grater_than_qty":"geater than Qty",
+            "assign_qty_required":"required",
+            "please_enter_integer": "please enter integer"
+        }
+    },
+    "add":"Add",
+    "add_more":"Add More",
+    "reset":"Reset",
+    "confirm":"Confirm",
+    "invalid":"Invalid"
+
+
+   
+}
