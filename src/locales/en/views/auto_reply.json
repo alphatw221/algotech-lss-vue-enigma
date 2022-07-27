@@ -25,7 +25,7 @@
     "modal_field_require": "Field is required",
     "modal_select_page": "Select one page",
     "saved_message":"Saved the Change",
-    "not_saved_message":"Update Canceledd",
+    "not_saved_message":"Update Canceled",
     "deleted_message":"Deleted",
     "invalid_data":"Invalid Submission",
     "create_success":"Create Success"
