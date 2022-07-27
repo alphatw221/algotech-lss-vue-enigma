@@ -1,22 +1,39 @@
-import stock from './stock.json'
 import global from './global.json'
-import settings from './settings.json'
-import shopping_cart from './shopping_cart.json'
-import components from './components.json'
-import campaign_create from './campaign/create.json'
-import campaign_list from './campaign/list.json'
-import campaign_live from './campaign/live.json'
-import manage_order from './manage_order.json'
-import order_detail from './order_detail.json'
+import stock from './views/stock.json'
+import settings from './views/settings.json'
+import shopping_cart from './views/shopping_cart.json'
+import manage_order from './views/manage_order.json'
+import order_detail from './views/order_detail.json'
+import order_history from './views/order_history.json'
+import campaign_list from './views/campaign_list.json'
+import campaign_live from './views/campaign_live.json'
+import create_campaign from './views/create_campaign.json'
+import edit_campaign from './views/edit_campaign.json'
+import lucky_draw from './views/lucky_draw.json'
+import auto_reply from './views/auto_reply.json'
+import assign_product from './views/assign_product.json'
+import change_plan from './views/change_plan.json'
+import layout from './views/layout.json'
+import edit_campaign_product from './views/edit_campaign_product'
+
 export default {
-    stock,
     global,
-    settings,
-    shopping_cart,
-    components,
-    campaign_create,
+
     campaign_list,
     campaign_live,
+    create_campaign,
+    edit_campaign,
+    lucky_draw,
+
     manage_order,
-    order_detail
+    order_detail,
+    order_history,
+    settings,
+    shopping_cart,
+    stock,
+    auto_reply,
+    assign_product,
+    layout,
+    edit_campaign_product,
+    change_plan
 }

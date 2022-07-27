@@ -87,7 +87,7 @@ import ChangePlan from "../views/general/change-plan/Main.vue";
 import MktPlugin from "../views/mkt-plugin/Main.vue";
 import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
 import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
-import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
+import QuizGame from "../views/mkt-plugin/quiz-game/Main.vue";
 
 
 
@@ -234,7 +234,7 @@ const routes = [
       },
       
       {
-        path: "mkt-plugin/quiz-game",
+        path: "quiz-game",
         name: "quiz-game",
         component: QuizGame,
       },

@@ -17,13 +17,15 @@
     </Notification>
 
 <!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
-    <!-- <Notification refKey="sellerCampaignAlert" borderColor="notifyCamp">
+    <Notification refKey="sellerCampaignAlert" borderColor="notifyCamp" >
       <div  class="flex notifyCamp">
         <div class="relative px-3 top-5 w-12">
           <font-awesome-icon icon="fa-regular fa-bell" class="w-6 h-6 border-[2px] p-0.5 border-slate-500 rounded-full absolute"/>
         </div>
         <div class="ml-1 mr-1">
-            <div class="font-medium">{{$t('layout.upcoming_campaign.title')}}!!</div>
+            <!-- <div class="font-medium">{{$t('layout.upcoming_campaign.title')}}!!</div> -->
+            <div class="font-medium">Title:</div>
+            <!-- temp: translate language and pass in -->
             <div id="message" class="mt-1 text-slate-500">
                 Message1
             </div>
@@ -33,7 +35,7 @@
             </div>
         </div>
       </div>
-    </Notification> -->
+    </Notification>
     <!-- <Notification refKey="floatingVideoToast" class="flex flex-col">
         <div class="ml-4 mr-4">
             <div class="font-medium">Video Streaming...</div>
@@ -72,7 +74,7 @@ const router = useRouter();
 const store = useLSSSellerLayoutStore();
 const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
-// const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
+const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
 const checkCampaignTime = (message) =>{
   if(message.remind_time === '15 mins'){ 
@@ -119,8 +121,10 @@ const initWebSocketConnection =()=> {
 
 const setLanguage = ()=>{
   if(store.userInfo.user_subscription){
-    // i18n.locale=store.userInfo.user_subscription.lang
-    i18n.global.locale.value = store.userInfo.user_subscription.lang
+    console.log('setlang')
+    app_i18n.locale=store.userInfo.lang
+    // i18n.global.locale = store.userInfo.user_subscription.lang
+
   }
 }
 
