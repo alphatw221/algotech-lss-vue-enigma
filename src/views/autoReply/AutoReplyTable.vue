@@ -22,9 +22,12 @@
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
 					<td v-else-if="listItems.length === 0" :colspan="columns.length">
-						<div class="mt-5 text-center md:mt-10 tdDot" >
-							<h1 class="text-slate-500 text-sm md:text-lg h-[300px]">
-								{{ $t('auto_reply.assign_first_reply') }}
+						<div class="mt-5 text-center md:mt-40 tdDot" >
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+								{{ $t('auto_reply.no_have_autoreply') }}
+							</h1>
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+								{{ $t('auto_reply.set_up_first') }}
 							</h1>
 						</div>
 					</td> 

@@ -4,7 +4,7 @@
         <TabList class="flex flex-wrap items-center nav-link-tabs w-auto intro-y tab_bar" >
             <Tab class="w-36 lg:w-48 2xl:w-48 py-2 text-lg font-[16px] m-0" tag="button">Profile</Tab>
             <Tab class="w-36 lg:w-48 2xl:w-48 py-2 text-lg font-[16px]" tag="button">Subscription</Tab>
-            <!-- <Tab class="w-36 lg:w-48 2xl:w-48 py-2 text-lg font-[16px]" tag="button">Reset Password</Tab> -->
+            <Tab class="w-36 lg:w-48 2xl:w-48 py-2 text-lg font-[16px]" tag="button">Reset Password</Tab>
         </TabList>
         <TabPanels>
             <TabPanel class="leading-relaxed">
@@ -13,9 +13,9 @@
             <TabPanel class="leading-relaxed">
                 <SubscriptionTab />
             </TabPanel>
-            <!-- <TabPanel class="leading-relaxed">
+            <TabPanel class="leading-relaxed">
                 <ResetPasswordTab />
-            </TabPanel> -->
+            </TabPanel>
         </TabPanels>
     </TabGroup>
 </div>
