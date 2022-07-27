@@ -4,8 +4,8 @@
         <!-- BEGIN: campaign Info -->
         <div class="flex flex-col col-span-12 h-fit lg:pt-5 mt-3 pb-4">
             <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('manage_order.title')}}</h2>
-        <!-- BEGIN: campaign Info -->
-        <!-- <div class="flex flex-col h-fit sm:mt-0">
+            <!-- BEGIN: campaign Info -->
+            <!-- <div class="flex flex-col h-fit sm:mt-0">
             <h1 class="mt-3 lg:mt-1 w-full text-center">{{$t('manage_order.title')}}</h1> -->
             <!-- BEGIN: campaign Status -->
             <CampaignStatus/>
@@ -77,6 +77,7 @@
             <OrderProductModal />
         </div>
         <!-- <button class="btn z-50 btn-primary rounded-full" @click.native="scrollToTop()"> Back to Top </button> -->
+    </div>
 </template>
 
 <script setup>
