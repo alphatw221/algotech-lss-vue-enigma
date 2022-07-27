@@ -134,6 +134,11 @@
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>
+                    <DropdownItem 
+                      @click="goQuizGame(campaign)" class="w-fit whitespace-nowrap"> 
+                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      {{$t("campaign_list.campaign_list_table.quiz_game")}}
+                    </DropdownItem>
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
@@ -293,6 +298,10 @@ const goLuckyDraw = (campaign) => {
   hideDropDown()
 }
 
+const goQuizGame = (campaign) => {
+  router.push({name:'quiz-game',params:{'campaign_id':campaign.id}})
+  hideDropDown()
+}
 
 </script>
 

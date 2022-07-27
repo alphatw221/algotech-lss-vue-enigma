@@ -9,17 +9,17 @@
     <div class="flex flex-col items-center p-10 text-center center w-[375px]">
         <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
         <h3 class="text-[2rem] mx-auto my-10" >Login</h3>
-        <form class="w-full flex-col flex gap-5">
+        <form class="w-full flex-col flex gap-5 z-10">
             <input
-                type="text"
-                class="intro-x login__input form-control py-3 px-4 border-slate-500"
+                type="email"
+                class="form-control py-3 px-4 border-slate-500"
                 placeholder="Email"
                 v-model="loginData.email"
                 @keydown.enter.prevent="signIn()"
               />
               <input
                 type="password"
-                class="intro-x login__input form-control py-3 px-4 border-slate-500"
+                class="form-control py-3 px-4 border-slate-500"
                 placeholder="Password"
                 v-model="loginData.password"
                 @keydown.enter.prevent="signIn()"

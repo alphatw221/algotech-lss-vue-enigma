@@ -61,7 +61,7 @@
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
-import { seller_upgrade, seller_changePlan_payment } from '@/api/user'
+import { seller_upgrade, seller_changePlan_payment } from '@/api/user_subscription'
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -87,7 +87,7 @@ onMounted(()=>{
   // console.log(props.payment)
   eventBus.on("paymentInfo", (payload) => {
     paymentInfo.value = payload
-    // console.log(paymentInfo.value)
+    console.log( )
 
     seller_changePlan_payment(paymentInfo.value).then(res=>{
       comfirmInfo.value = res.data

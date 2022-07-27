@@ -2,7 +2,7 @@
     <!-- OUTTER BOX -->
         <!-- BEGIN: campaign Info -->
         <div class="flex flex-col h-fit sm:mt-0">
-            <h1 class="mt-3 lg:mt-1 w-full text-center">{{$t('manage_order.title')}}</h1>
+            <h1 class="mt-3 lg:my-5 w-full text-center sm:text-left">{{$t('manage_order.title')}}</h1>
             <!-- BEGIN: campaign Status -->
             <CampaignStatus/>
             <!-- END: campaign Status -->
