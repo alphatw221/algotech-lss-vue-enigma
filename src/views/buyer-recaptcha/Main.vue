@@ -53,6 +53,7 @@ onMounted(()=>{
         window.recaptchaCallBack=recaptchaCallBack
         loadScriptAsyncDefer('https://www.google.com/recaptcha/api.js?onload=recaptchaOnLoad')
     }
+    console.log(siteKey)
 })
 
 const recaptchaCallBack = token=>{
