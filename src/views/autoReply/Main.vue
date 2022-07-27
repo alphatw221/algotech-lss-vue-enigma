@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col sm:px-5 sm:h-[100%]">
+    <div class="flex flex-col sm:px-5 sm:h-fit">
         <div class="flex-col flex gap-3 flex-wrap sm:flex-row justify-center sm:justify-between">
             <div class="flex items-center sm:px-20 lg:pt-5 mt-3 lg:pb-4 intro-y lg:pt-5 mt-3">
                 <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('auto_reply.title') }}</h2>
@@ -9,7 +9,7 @@
                 <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('auto_reply.create') }}
             </button>
         </div> <!-- why delete overflow-x? -->  
-        <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
+        <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 h-[80vh] lg:mx-20">
             <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
     </div>

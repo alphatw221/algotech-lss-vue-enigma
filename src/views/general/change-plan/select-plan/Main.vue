@@ -161,6 +161,7 @@ const submitBasicInfo=()=>{
         layout.alert.showMessageToast("Invalid Data Inputed")
         return
     }
+    // console.log(selectedPlan.value)
     eventBus.emit("paymentInfo", selectedPlan.value)
 }
 </script>
