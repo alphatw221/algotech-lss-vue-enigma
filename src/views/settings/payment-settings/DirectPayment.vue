@@ -101,11 +101,11 @@
                             @change="uploadImage($event, index_i)"
                         />
                     </div>
-                    <div 
+                    <!-- <div 
                         class="flex justify-center text-[#0080FF]"
                         v-if="![undefined, null, ''].includes(previewImages[index_i])"
                         @click="removeImage(index_i)"
-                    >Remove File</div>
+                    >Remove File</div> -->
                 </template>
 
             </div>
@@ -230,9 +230,9 @@ const updateDirectPayment = () => {
     })
 }
 
-const removeImage = (index) => {
-    previewImages.value[index] = ''
-}
+// const removeImage = (index) => {
+//     previewImages.value[index] = ''
+// }
 
 
 </script>

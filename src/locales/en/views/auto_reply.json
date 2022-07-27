@@ -1,8 +1,10 @@
 {
-    "title": "Setup Auto Reply",
+    "title": "Auto Reply",
     "create": "Create",
 
     "assign_first_reply": "Assign your first auto-reply by click (+ Create) button",
+    "no_have_autoreply": "You Don't Have Auto Reply Yet.",
+    "set_up_first": "Click \"+ Create\" to set up your first auto reply",
 
     "table_column": {
         "keyword_detect": "Keywords to Detect",
