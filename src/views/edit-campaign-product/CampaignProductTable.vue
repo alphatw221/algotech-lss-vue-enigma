@@ -27,19 +27,19 @@
                         </td>
 
                         <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm orderCode" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="form-check place-content-center">
+                            <div class="whitespace-nowrap">
                                 {{ campaign_product[column.key] }}        
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'qty_for_sale'" class="w-24 text-[12px] lg:text-sm qty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="form-check place-content-center">
+                            <div class="whitespace-nowrap">
                                 {{ campaign_product[column.key] }}      
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="form-check place-content-center">
+                            <div class="whitespace-nowrap">
                                 {{ campaign_product[column.key] }}   
                             </div>
                         </td>
