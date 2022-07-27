@@ -78,13 +78,13 @@ const handleAuthClick = () => {
     border: 1px solid rgb(119, 0, 0);
     background-color: #c90000;
     padding: auto;
-    width: 300px;
+    max-width: 300px;
     height: 42px;
     border-radius: 42px 42px; 
     color: white;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    font-size: 16px;
     font-weight: 600;
+    font-size: 16px;
 }
 
 a{

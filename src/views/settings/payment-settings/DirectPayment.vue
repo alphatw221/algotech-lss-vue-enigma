@@ -53,7 +53,7 @@
                         type="text" 
                         v-model="account[field.key]"
                     />
-                    <label class="text-danger text-[8px] font-light" 
+                    <label class="text-danger text-[12px]" 
                         v-for="error,index in v.v2_accounts.$each.$response.$errors[index_i][field.key]"
                         :key="index"
                     >{{ $t(`settings.payment_form.errors.${error.$message.replace(/\s/g, "_")}`)}}</label>
