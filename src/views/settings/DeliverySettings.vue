@@ -294,7 +294,7 @@ const deleteBranch = index=>{
 
 const updateDelivery = () => {
     v.value.$touch()
-    return
+    // return
     if(v.value.$invalid){
         layoutStore.alert.showMessageToast("Invalid data")
         return
