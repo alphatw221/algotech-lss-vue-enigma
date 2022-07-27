@@ -88,6 +88,7 @@ import {get_user_subscription_facebook_pages, get_user_subscription_instagram_pr
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+import i18n from "@/locales/i18n"
 
 const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance();
@@ -137,7 +138,7 @@ function createAutoReply() {
     validate.value.$touch();
     console.log(createData.value)
     if (validate.value.$invalid) {
-        layoutStore.alert.showMessageToast("Invalid Data Inputed")
+        layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.invalid_data'))
         return
     }else{
         let data = createData.value
@@ -147,7 +148,7 @@ function createAutoReply() {
             saved.value = true
             createModal.value = false
             emptyForm()
-            layoutStore.notification.showMessageToast("Create Success")
+            layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.create_success'))
             eventBus.emit('getReplyData')
         })
     }
@@ -159,7 +160,7 @@ function closeWithAlert(){
         emptyForm()
     }else{
         createModal.value = false; 
-        layoutStore.alert.showMessageToast("Change Not Saved")
+        layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'))
         emptyForm()
     }
 }

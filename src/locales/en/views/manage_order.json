@@ -60,7 +60,8 @@
         "review" : "Review",
         "shipping out":"Shipping Out",
         "all":"All",
-        "stop_checkout" : "Stop Checkout"
+        "stop_checkout" : "Stop Checkout",
+        "update_successed":"Update Successed"
         
         
 }

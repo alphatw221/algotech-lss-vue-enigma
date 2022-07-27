@@ -61,5 +61,6 @@
         "complete" : "已完成",
         "review" : "處理中",
         "shipping out":"已出貨",
-        "all" : "所有訂單"
+        "all" : "所有訂單",
+        "update_successed":"更新成功"
 }

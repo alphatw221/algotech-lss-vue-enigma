@@ -9,6 +9,10 @@
     "confirmation_note" : "Confirmation Note",
     "default_active" : "Default Active",
     "default_settings":"Campaign Default Settings",
+    "update_successfully":"Update Successfully",
+    "update_failed":"Update Failed",
+    "img_size_err":"image size exceed 10 MB",
+    "invalid_data":"Invalid data",
 
     "delivery":{
         "delivery":"Delivery",

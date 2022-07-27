@@ -38,7 +38,9 @@
             "cancel": "Cancel",
             "save": "Save",
             "warning_duplicate": "Duplicate category name"
-        }
+        },
+        "save_success":"Save Success",
+        "not_saved":"Change Not Saved"
     },
 
     "add_product_page": {

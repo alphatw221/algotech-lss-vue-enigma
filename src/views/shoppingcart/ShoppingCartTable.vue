@@ -165,7 +165,7 @@ const deleteOrderProduct = (order_product_id, index) =>{
 	const delete_order_product = isAnonymousUser?guest_delete_order_product:buyer_delete_order_product
 	delete_order_product(order_product_id, route.params.pre_order_oid).then(res=>{
 		store.order = res.data
-		layoutStore.notification.showMessageToast("Delete Success")
+		layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.delete_success'))
 	})
 }
 
@@ -194,7 +194,7 @@ const changeQuantity = ( index, operation, product) => {
 	} else if (operation == 'input' && cacheQty.value >= 1 ) {
 		qty = cacheQty.value
 	} else {
-		layoutStore.alert.showMessageToast("Invalid Quantity")
+		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
 		cacheQty.value = product.qty
 		return
 	}
@@ -205,7 +205,7 @@ const changeQuantity = ( index, operation, product) => {
 	update_order_product(product.order_product_id, route.params.pre_order_oid, qty).then(
 		res => {
 			store.order = res.data
-			layoutStore.notification.showMessageToast("Update Successfully")
+			layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.update_successfully'))
 			showUpdateSign()
 			showQtyInput()
 			hideUpdateButton()

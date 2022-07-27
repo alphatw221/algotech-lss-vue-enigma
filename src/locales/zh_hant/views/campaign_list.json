@@ -77,6 +77,10 @@
 
         "cancel":"取消",
         "save":"儲存"
-    }
+    },
+    "update_successed":"更新成功",
+    "no_facebook_post":"現在沒有任何Facebook的直播",
+    "no_youtube_post":"現在沒有任何YouTube的直播",
+    "no_instagram_post":"現在沒有任何Instagram的直播"
 
 }

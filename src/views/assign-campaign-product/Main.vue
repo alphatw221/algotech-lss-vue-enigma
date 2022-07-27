@@ -327,6 +327,7 @@ import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+import i18n from "@/locales/i18n"
 
 const props = defineProps({
     productType: String,
@@ -523,7 +524,7 @@ const changePageSize = (pageSize)=>{
 
 const submitData = ()=>{
     if(!isSelectedProductsValid){
-        layoutStore.alert.showMessageToast("Invalid")
+        layoutStore.alert.showMessageToast(i18n.global.t('assign_product.invalid'))
         return
     }
 	errorMessages.value = []

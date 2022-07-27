@@ -90,6 +90,7 @@ import { allow_checkout } from "@/api_v2/campaign"
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const store = useManageOrderStore()
@@ -106,7 +107,7 @@ const show_order = status=>{
 
 function stop_checkout(status){
     allow_checkout(route.params.campaign_id,status)
-    layout.notification.showMessageToast('Update Successed');
+    layout.notification.showMessageToast(i18n.global.t('manage_order.update_successed'));
 }
 </script>
 

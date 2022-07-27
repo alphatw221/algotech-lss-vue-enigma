@@ -135,6 +135,7 @@ import { seller_update_payment } from '@/api_v2/user_subscription'
 
 import { helpers, required } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
+import i18n from "@/locales/i18n"
 
 
 
@@ -190,7 +191,7 @@ onMounted(() => {
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
     if(image.size/1024/1024>10){
-        sellerStore.alert.showMessageToast('image size exceed 10 MB')
+        sellerStore.alert.showMessageToast(i18n.global.t('settings.img_size_err'))
         return
     }
     formData.append('_'+paymentData.v2_accounts[index].name,image)
@@ -213,14 +214,14 @@ const addDirectPayment = ()=>{
 const updateDirectPayment = () => {
 
     if(v.value.$invalid){
-        sellerStore.alert.showMessageToast("Invalid data")
+        sellerStore.alert.showMessageToast(i18n.global.t('settings.invalid_data'))
         return
     }
     formData.append('data', JSON.stringify(paymentData))
 
     seller_update_payment(props.payment.key,formData).then(res=>{
         sellerStore.userInfo = res.data
-        sellerStore.notification.showMessageToast("Update Successfully")
+        sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }
 

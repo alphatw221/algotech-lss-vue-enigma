@@ -58,5 +58,8 @@
     "remark" : "Remark",
     "save_remarks" : "Save Remarks",
     "save_order" : "Save Order",
-    "shopping_cart" : "Shopping Cart"
+    "shopping_cart" : "Shopping Cart",
+    "invalid_qty":"Invalid Quantity",
+    "update_successfully":"Update Successfully",
+    "delete_successfully":"Delete Successfully"
 }

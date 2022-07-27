@@ -117,6 +117,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import UserInfo from "./UserInfo.vue";
+import i18n from "@/locales/i18n"
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -158,7 +159,7 @@ const validate = useVuelidate(rules, selectedPlan);
 const submitBasicInfo=()=>{
     validate.value.$touch();
     if (validate.value.$invalid) {
-        layout.alert.showMessageToast("Invalid Data Inputed")
+        layout.alert.showMessageToast(i18n.global.t('profile.invalid_data'))
         return
     }
     eventBus.emit("paymentInfo", selectedPlan.value)

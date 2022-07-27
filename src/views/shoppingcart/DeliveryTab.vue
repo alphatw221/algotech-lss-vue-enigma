@@ -384,25 +384,25 @@ const proceed_to_payment = () =>{
 
   reciever_validate.value.$touch();
   if (reciever_validate.value.$invalid) {
-    layoutStore.alert.showMessageToast("Invalid User Infomation Input")
+    layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
   if(shipping_info.value.shipping_method==='delivery'){
     delivery_validate.value.$touch();
     if(delivery_validate.value.$invalid){
-      layoutStore.alert.showMessageToast("invalid delivery infomation input")
+      layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
   }
   
-  if (confirm('Are you sure you want to process check out? Your shopping cart will be cleared.')){
+  if (confirm(i18n.global.t('shopping_cart.checkout_message'))){
 
     const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
     update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
     .then(res=>{
       router.push(`/buyer/order/${res.data.oid}/payment`)
     }).catch(error=>{
-      layoutStore.alert.showMessageToast("Product Out Of Stock, Please Confirm Your Shopping Cart And Checkout Again")
+      layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.checkout_again'))
       if (error.response.data)store.order = error.response.data
       
     })

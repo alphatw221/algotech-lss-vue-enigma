@@ -60,6 +60,7 @@ import { ref, defineEmits, computed, onMounted, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_subscription } from '@/api_v2/user_subscription'
 import i18n from '@/locales/i18n';
+
 const layoutStore = useLSSSellerLayoutStore();
 
 
@@ -112,7 +113,7 @@ const clean =() =>{
 const save = ()=>{
     seller_update_subscription(data.value).then(res=>{
         layoutStore.userInfo = res.data
-        layoutStore.notification.showMessageToast("Update Successfully")
+        layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
         i18n.global.locale.value = layoutStore.userInfo.user_subscription.lang
     })
 }
