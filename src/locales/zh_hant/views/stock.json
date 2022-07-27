@@ -6,6 +6,8 @@
     "add_product": "新增產品",
     "dont_have_product_notify": "您並未增加該類別的產品",
     "no_result": "您並未新增商品",
+    "click_to_add":"設置您的第一個商品，點擊 '+新增商品'",
+
 
     "search_bar": {
         "category": "類別",

@@ -6,6 +6,7 @@
     "add_product": "Add Product",
     "dont_have_product_notify": "You Don't Have Product in this Category",
     "no_result": "No result",
+    "click_to_add":"Ｃlick '+Add product' to add your first product",
 
     "search_bar": {
         "category": "Category",
