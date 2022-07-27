@@ -82,6 +82,7 @@ import Localization from "../views/settings/Localization.vue";
 import ConnectPlatform from "../views/settings/ConnectPlatform.vue";  
 
 import Profile from "../views/profile/Main.vue";
+import ChangePlan from "../views/general/change-plan/Main.vue";
 
 import MktPlugin from "../views/mkt-plugin/Main.vue";
 import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
@@ -126,6 +127,11 @@ const routes = [
         path: "profile",
         name: "seller-profile",
         component: Profile,
+      },
+      {
+        path: "change-plan",
+        name: "change-plan",
+        component: ChangePlan,
       },
       {
         path: "campaign-list",

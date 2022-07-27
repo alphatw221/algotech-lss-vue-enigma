@@ -20,7 +20,7 @@
         "order-detail":"Order Detail",
         "settings":"Settings",
         "localization":"Localization",
-        "campaign-global":"Campaign Global Settings",
+        "campaign-global":"Campaign Default Settings",
         "platform":"Connected Platform",
         "edit-campaign":"Edit Campaign",
         "create-campaign":"Create Campaign",
@@ -32,7 +32,8 @@
         "add-product":"Create Product",
         "product-detail":"Product Detail",
         "edit-product":"Edit Product",
-        "profile":"Profile"
+        "profile":"Profile",
+        "change-plan":"Change Plan"
     },
     "top_bar":{
         "profile":"Profile",

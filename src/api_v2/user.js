@@ -28,3 +28,11 @@ export const seller_login_with_google = data =>{
 export const get_seller_account = () =>{
     return createAxiosWithBearer().get(`/api/v2/user/seller/account/`);
 }
+
+export const seller_changePlan_payment = data =>{
+    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/intent/`, data);
+}
+
+export const seller_upgrade = data =>{
+    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/`, data);
+}

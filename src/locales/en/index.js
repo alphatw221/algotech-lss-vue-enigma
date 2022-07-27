@@ -12,6 +12,7 @@ import edit_campaign from './views/edit_campaign.json'
 import lucky_draw from './views/lucky_draw.json'
 import auto_reply from './views/auto_reply.json'
 import assign_product from './views/assign_product.json'
+import change_plan from './views/change_plan.json'
 import layout from './views/layout.json'
 import edit_campaign_product from './views/edit_campaign_product'
 
@@ -33,5 +34,6 @@ export default {
     auto_reply,
     assign_product,
     layout,
-    edit_campaign_product
+    edit_campaign_product,
+    change_plan
 }

@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col h-[100%] text-[16px]">
-		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y">
+		<div class="flex items-center sm:px-20 pt-2 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
@@ -86,7 +86,9 @@ import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/ca
 
 import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 
+const paymentMetaStore = useLSSPaymentMetaStore()
 
 const route = useRoute()
 const router = useRouter()
@@ -101,17 +103,20 @@ const campaignData = ref({
 	start_at:new Date(),
 	end_at:new Date(),
 	meta_logistic:{
-		delivery_charge : 9999,
+		delivery_charge : 0,
 		is_free_delivery_for_order_above_price : false,
-		free_delivery_for_order_above_price : 9999,
+		free_delivery_for_order_above_price : 0,
 		is_free_delivery_for_how_many_order_minimum : false,
-		free_delivery_for_how_many_order_minimum : 99,
+		free_delivery_for_how_many_order_minimum : 1,
 		is_additional_delivery_charge : true,
 		additional_delivery_options: [],
 		pickup_options: [],
-		delivery_note : 'example...'
+		delivery_note : ''
 	},
-	meta_payment:{}
+	meta_payment:{
+		special_note: '',
+		confirmation_note: ''
+	}
 })
 
 const campaignNotes = ref({
@@ -171,10 +176,12 @@ onMounted(() => {
 	if(!sellerStore.userInfo.user_subscription) return
 	
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
-		campaignData.value.meta_logistic = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic))
+		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
 	}
+	
+	sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => campaignData.value.meta_payment[key]={} ) } )
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
-		campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
+		Object.assign(campaignData.value.meta_payment,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment)))
 	}
 	
 	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
@@ -207,7 +214,7 @@ const createCampaign = ()=>{
 
 
 	create_campaign(formData).then(response => {
-		// console.log(response.data)
+
 		router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
 	})
 
