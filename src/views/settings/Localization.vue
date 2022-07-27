@@ -59,7 +59,7 @@
 import { ref, defineEmits, computed, onMounted, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_subscription } from '@/api_v2/user_subscription'
-import { seller_update_language } from '@/api_v2/user'
+
 import i18n from '@/locales/i18n';
 
 const layoutStore = useLSSSellerLayoutStore();

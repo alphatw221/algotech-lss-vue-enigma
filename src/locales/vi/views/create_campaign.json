@@ -1,0 +1,89 @@
+{
+    "create_campaign":"Create Campaign",
+    "title":"Title",
+    "title_required":"Title Is Required",
+    "period":"Period",
+
+    "cancel":"Cancel",
+    "create":"Create",
+    "invalid_title":"Invalid campaign title input",
+    
+
+
+    "delivery_form":{
+        "delivery_detail":"Delivery Details",
+        "delivery_charge":"Delivery Charge",
+        "free_delivery_for_order_above":"Free delivery for order above",
+        "free_delivery_for_minimum_order":"Free delivery for minimum order Qty",
+        "add_more_delivery_option":"Add More Option",
+        "add_more_pickup_option":"Add More Location",
+        "options":"Delivery Charge Options",
+        "on_top_of_delivery_charge":"On top of delivery charge",
+        "replace_delivery_charge":"Replace delivery charge",
+
+        "delete":"Delete",
+
+        "store_collection":"Self Pickup",
+
+        "pickup_store":"Pickup Location",
+        "pickup_address":"Pickup Address",
+        "errors":{
+            "Value_is_required":"Value is required",
+            "Value_must_be_numeric":"Value must be numeric",
+            "minValue":"Invalid number",
+            "required":"This field is required",
+            "integer":"Number must be integer",
+            "decimal":"Number must be decimal"
+        }
+    },
+
+
+    "payment_form":{
+
+        "payment_titles":{
+            "direct_payment":"Direct Payment",
+            "stripe":"Stripe"
+        },
+
+        "direct_payment":{
+            "mode":"Name of Bank / Payment Mode",
+            "name":"Account Name",
+            "number":"Account Number",
+            "note":"Note",
+            "require_customer_return":"Require Buyer’s Payment Record"
+        },
+        "stripe":{
+            "secret":"Secret Key",
+            "currency":"Currency"
+        },
+
+
+
+
+        "payment_details":"Payment Details",
+        "enabled":"Enabled",
+        "add_more_direct_payment":"Add More Direct Payment",
+        "upload_image":"Upload Image",
+        "remove_image":"Remove Image",
+        "upload_a_file_or_drag_and_drop":"Upload a file",
+        "accepted_file_types":"File types",
+        "max_file_size":"Max file size",
+
+        "delete":"Delete",
+        "errors":{
+            "Value_is_required":"Value is required",
+            "img_size_err":"image size exceed 10 MB"
+        }
+
+
+
+    },
+
+    "notes_form":{
+        "notes_form":"Custom Note Settings",
+        "delivery_note":"Delivery Note",
+        "special_note":"Special Note",
+        "confirmation_note":"Confirmation Note"
+    }
+
+}

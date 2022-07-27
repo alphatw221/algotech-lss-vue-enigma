@@ -77,14 +77,6 @@ export const get_seller_information =()=>{
     return createAxiosWithBearer().get(`/api/user-subscription/me/`);
 }
 
-export const seller_changePlan_payment = data =>{
-    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/intent/`, data);
-}
-
-export const seller_upgrade = data =>{
-    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/`, data);
-}
-
 export const get_user_plan_information = () =>{
     return createAxiosWithBearer().get(`/api/user-subscription/plan/`);
 }
