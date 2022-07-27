@@ -27,7 +27,8 @@ const init = (el, { props, emit }) => {
 
       if (props.selectedIndex === null) {
         accordion.hide();
-      } else if (key === props.selectedIndex) {
+      } else 
+      if (key === props.selectedIndex) {
         accordion.show();
       }
 

@@ -32,7 +32,8 @@
         "add-product":"Create Product",
         "product-detail":"Product Detail",
         "edit-product":"Edit Product",
-        "profile":"Profile"
+        "profile":"Profile",
+        "change-plan":"Change Plan"
     },
     "top_bar":{
         "profile":"Profile",

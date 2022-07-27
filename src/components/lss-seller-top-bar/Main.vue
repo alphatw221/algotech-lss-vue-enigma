@@ -266,13 +266,13 @@ const resetPassword = ()=>{
 }
 
 const viewProfile = ()=>{
-  sellerLayoutStore.profileTab = 1;
+  sellerLayoutStore.profileTab = 0;
   router.push({name:'seller-profile'})
   hideDropDown()
 }
 
 const viewSubscrition = ()=>{
-  sellerLayoutStore.profileTab = 0; 
+  sellerLayoutStore.profileTab = 1; 
   router.push({name:'seller-profile'})
   hideDropDown()
 }

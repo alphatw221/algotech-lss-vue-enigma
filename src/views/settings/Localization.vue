@@ -48,7 +48,7 @@
                 </TomSelect>
             </div>
             <div class="flex justify-end mt-10 w-5/6"> 
-                <button class="w-32 bg-white btn dark:border-darkmode-400" @click="clean()"> {{$t("settings.localization.discard")}}</button>
+                <!-- <button class="w-32 bg-white btn dark:border-darkmode-400" @click="clean()"> {{$t("settings.localization.discard")}}</button> -->
                 <button class="w-32 ml-5 shadow-md btn btn-primary" @click="save()"> {{$t("settings.localization.save")}}</button>
             </div>
         </div>
@@ -86,7 +86,7 @@ const languages = ref([
 
 const decimalOptions = ref([
     {value:'2',text:'0.01'},
-    {value:'1',text:'0.1'},
+    // {value:'1',text:'0.1'},
     {value:'0',text:'1'},
     // {value:'-1',text:'10'},
     // {value:'-2',text:'100'},

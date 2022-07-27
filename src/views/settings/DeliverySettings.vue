@@ -57,6 +57,7 @@
                             {{ $t(`settings.delivery.errors.${error.$validator}`) }}
                 </label>
             </div>
+
             <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
                 <label for="regular-form-2" class="text-base font-bold form-label my-auto">{{ $t('settings.delivery.charge_option') }}</label>
                 <!-- <a 
@@ -123,6 +124,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="grid grid-cols-12 gap-1 lg:mx-2 text-base intro-y sm:gap-5 -z-50">
              <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
                 <label for="regular-form-2" class="text-base font-bold form-label my-auto">{{ $t('settings.delivery.store.collection') }}</label>
@@ -179,19 +181,19 @@
             </textarea> -->
         </div> 
         <div class="flex col-span-12 mt-5 float-right text-[14px] lg:mr-2">
-                <button 
-                    class="w-32 btn dark:border-darkmode-400 float-right"
-                    @click="discardDelivery"
-                >
-                    {{ $t('settings.notes.discard') }}
-                </button>
-                <button 
-                    class="w-32 ml-5 shadow-md btn btn-primary float-right"
-                    @click="updateDelivery"
-                >
-                    {{ $t('settings.notes.update') }}
-                </button>
-            </div>
+            <!-- <button 
+                class="w-32 btn dark:border-darkmode-400 float-right"
+                @click="discardDelivery"
+            >
+                {{ $t('settings.notes.discard') }}
+            </button> -->
+            <button 
+                class="w-32 ml-5 shadow-md btn btn-primary float-right"
+                @click="updateDelivery"
+            >
+                {{ $t('settings.notes.update') }}
+            </button>
+        </div>
                
     </div>
 </template>

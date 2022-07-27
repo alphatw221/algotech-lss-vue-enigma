@@ -71,11 +71,14 @@ const ready = ref(false)
 
 onMounted(() => {
 	ready.value=true
-
+	
     // const activated_country = sellerStore.userInfo.user_subscription.meta_country.activated_country[0]
     // activePayment.value = paymentStore[activated_country]
 })
 
+const out = () => {
+	props.campaign.meta_payment.direct_payment.enabled = !props.campaign.meta_payment.direct_payment.enabled
+}
 </script>
 
 

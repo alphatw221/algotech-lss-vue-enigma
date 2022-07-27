@@ -35,7 +35,7 @@
         "edit_title": "Edit Category",
         "edit": "Edit",
         "delete": "Delete",
-        "input_holder": "Category Name",
+        "input_holder": "New Category Name",
         "modal": {
             "cancel": "Cancel",
             "save": "Save",

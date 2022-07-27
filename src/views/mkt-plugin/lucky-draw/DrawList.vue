@@ -23,6 +23,7 @@
                 </div>
                 <div class="flex flex-col lg:flex-row flex-wrap justify-start md:mt-5 w-[55%] lg:w-auto lg:ml-auto">  
                     <span class="my-auto lg:hidden break-words w-full">{{ luckydraw.prize.name }}</span>
+                    <span class="h-auto w-fit break-words text-[16px] hidden lg:block">{{ luckydraw.prize.name }}</span>
 
                     <div class="lg:border-r-2 border-white flex flex-row lg:flex-col w-full lg:pr-5 lg:w-36 xl:w-44 text-sm lg:text-lg justify-between lg:justify-center text-right">
                         <div> 

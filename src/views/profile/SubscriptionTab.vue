@@ -43,7 +43,7 @@
                 </table>
             </div>
             <div class="col-span-12 mt-5 sm:col-span-4 2xl:col-span-4 pa-10 justify-self-center">
-                <button class="text-white capitalize btn btn-elevated-success" @click="router.replace('/lss/#/changeplan/payment')">
+                <button class="text-white capitalize btn btn-elevated-success" @click="router.push('/seller/change-plan')">
                     Change Plan</button>
             </div>
         </div>

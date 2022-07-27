@@ -1,5 +1,5 @@
 <template>
-<div class="box sm:p-3 lg:m-8">
+<div class="mt-8 sm:p-3 lg:m-8">
     <TabGroup :selectedIndex="sellerLayoutStore.profileTab">
         <TabList class="flex flex-wrap items-center nav-link-tabs w-auto intro-y tab_bar" >
             <Tab class="w-36 lg:w-48 2xl:w-48 py-2 text-lg font-[16px] m-0" tag="button">Profile</Tab>
