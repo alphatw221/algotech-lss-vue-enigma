@@ -7,6 +7,7 @@
                 "comments" : "留言數" 
         },
         "search_bar":{
+                "search":"搜尋",
                 "filter":"篩選",
                 "export" : "匯出訂單"
         },
