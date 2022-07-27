@@ -87,10 +87,12 @@ onMounted(()=>{
   // console.log(props.payment)
   eventBus.on("paymentInfo", (payload) => {
     paymentInfo.value = payload
-    console.log(paymentInfo.value)
+    // console.log(paymentInfo.value)
+
     seller_changePlan_payment(paymentInfo.value).then(res=>{
       comfirmInfo.value = res.data
-      console.log(comfirmInfo.value)
+    //   console.log(comfirmInfo.value)
+
       paymentInfo.value.intentSecret = res.data.client_secret
       renderStripeElement(comfirmInfo.value.client_secret)
         }).catch( err=>{
@@ -101,8 +103,8 @@ onMounted(()=>{
 }) 
 
 const renderStripeElement=(intentSecret)=>{
-    const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
-    // const stripe = window.Stripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
+    // const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
+    const stripe = window.Stripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
     const options = {
         clientSecret: intentSecret,
         // Fully customizable with appearance API.

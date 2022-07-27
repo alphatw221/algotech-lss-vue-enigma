@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-x-hidden sm:overflow-auto h-fit md:h-[61vh]">
+	<div class="overflow-x-hidden sm:overflow-auto h-fit sm:h-[56vh]">
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
@@ -22,14 +22,14 @@
 						:colspan="tableColumns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2">
+					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
 								You Don't Have Product in this Category
 							</h1>
 						</div>
 					</td> 
-					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2">
+					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
 								No result
@@ -234,6 +234,10 @@ td {
 	padding-right:10px;
 	padding-left:10px;
 	font-size: 16px;
+}
+
+.TDshadow{
+	box-shadow:none !important;
 }
 .dotTr{
 		border:none !important;

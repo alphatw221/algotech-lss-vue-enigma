@@ -162,6 +162,7 @@ const submitBasicInfo=()=>{
         layout.alert.showMessageToast(i18n.global.t('profile.invalid_data'))
         return
     }
+    // console.log(selectedPlan.value)
     eventBus.emit("paymentInfo", selectedPlan.value)
 }
 </script>
