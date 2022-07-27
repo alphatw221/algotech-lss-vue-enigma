@@ -1,10 +1,12 @@
 <template>
-    <Button v-if="props.buttonName == 'edit'" 
+    <LoadingIcon icon="three-dots" color="1a202c" class="absolute body-middle" v-if="fetchingData"/>
+
+    <Button v-else-if="props.buttonName == 'edit'" 
         type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="fbBtn" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_facebook')}}</Button>
-    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle" v-show="fetchingData"/>
+        type="button" class="fbBtn " @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_facebook')}}</Button>
+
     
 </template>
 
@@ -93,14 +95,13 @@ const check_bindable_or_upgrade = () => {
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     font-weight: 600;
-    position: absolute;
-    left: 50%;
-    transform: translate(-50%, 0%);
 }
 .body-middle {
     left: 50%;
     top: 50%;
     transform: translate(-50%, -50%);
     z-index: 999;
+    width: 60px;
+    height: 60px;
 }
 </style>

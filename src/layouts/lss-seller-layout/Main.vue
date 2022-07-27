@@ -17,7 +17,7 @@
     </Notification>
 
 <!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
-    <Notification refKey="sellerCampaignAlert" borderColor="notifyCamp">
+    <!-- <Notification refKey="sellerCampaignAlert" borderColor="notifyCamp">
       <div  class="flex notifyCamp">
         <div class="relative px-3 top-5 w-12">
           <font-awesome-icon icon="fa-regular fa-bell" class="w-6 h-6 border-[2px] p-0.5 border-slate-500 rounded-full absolute"/>
@@ -33,7 +33,7 @@
             </div>
         </div>
       </div>
-    </Notification>
+    </Notification> -->
     <!-- <Notification refKey="floatingVideoToast" class="flex flex-col">
         <div class="ml-4 mr-4">
             <div class="font-medium">Video Streaming...</div>
