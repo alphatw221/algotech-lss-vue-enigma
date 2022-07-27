@@ -59,10 +59,11 @@
 import { ref, defineEmits, computed, onMounted, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_subscription } from '@/api_v2/user_subscription'
+import { seller_update_language } from '@/api_v2/user'
 import i18n from '@/locales/i18n';
 
 const layoutStore = useLSSSellerLayoutStore();
-
+const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
 const countries = ref({'PH':'Philippines','SG':'Singapore','ID':'Indonesia','IN':'India','TW':'Taiwan'})
 
@@ -97,26 +98,39 @@ const decimalOptions = ref([
 
 const data = ref({currency:'USD', lang:'en', buyer_lang:'en', decimal_places:'2'})
 onMounted(()=>{
+    console.log(layoutStore.userInfo)
     if(!layoutStore.userInfo.user_subscription) return
     data.value.currency = layoutStore.userInfo.user_subscription.currency
-    data.value.lang = layoutStore.userInfo.user_subscription.lang
+    data.value.lang = layoutStore.userInfo.lang
     data.value.buyer_lang = layoutStore.userInfo.user_subscription.buyer_lang
     data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places.toString()
 })
 
 const clean =() =>{
     data.value.currency = layoutStore.userInfo.user_subscription.currency
-    data.value.lang = layoutStore.userInfo.user_subscription.lang
+    data.value.lang = layoutStore.userInfo.lang
     data.value.buyer_lang = layoutStore.userInfo.user_subscription.buyer_lang
     data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places.toString()
 }
 
 const save = ()=>{
     seller_update_subscription(data.value).then(res=>{
+        console.log(res)
         layoutStore.userInfo = res.data
-        // layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
-        // i18n.global.locale.value = layoutStore.userInfo.user_subscription.lang
+        i18n.global.locale.value = res.data.lang
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
+        
     })
 }
+
+// const updateUserlanguage = ()=>{
+//     seller_update_language(data.value.lang).then(res=>{
+        
+//         layoutStore.userInfo = res.data
+//         i18n.global.locale.value = res.data.lang
+//         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
+        
+//     })
+// }
+
 </script>

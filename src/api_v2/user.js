@@ -40,3 +40,7 @@ export const seller_changePlan_payment = data =>{
 export const seller_upgrade = data =>{
     return createAxiosWithBearer().post(`/api/user-subscription/upgrade/`, data);
 }
+
+export const seller_update_language = (data,language) =>{
+    return createAxiosWithBearer().put(`/api/v2/user/seller/language/${language}`);
+}
