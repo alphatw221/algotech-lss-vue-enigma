@@ -31,7 +31,9 @@
         "price_adjustment_note" : "To make a discount, enter -(price).To apply extra fee, enter the price directly.",
         "title" : "Title",
         "price_exceed":"Price exceed subtotal",
-        "update" : "Update"
+        "update" : "Update",
+        "display_name": "Display Name",
+        "amount": "Amount"
     },
     "delivery":{
         "information" : "Delivery Information",
