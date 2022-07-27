@@ -45,3 +45,11 @@ export const unbind_youtube_channel = (data) => {
 export const check_activated_platform = (data) => {
     return createAxiosWithBearer().get("/api/user-subscription/check_activated_platform/")
 }
+
+export const seller_changePlan_payment = data =>{
+    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/intent/`, data);
+}
+
+export const seller_upgrade = data =>{
+    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/`, data);
+}
