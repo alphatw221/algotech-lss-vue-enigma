@@ -2,6 +2,7 @@
     "edit_campaign_product":"編輯直播商品",
     "add_product":"新增直播商品",
     "continue":"前往直播",
+    "invalid":"無效",
     "search_bar":{
         "category":"類別",
         "all":"所有類別"
@@ -55,6 +56,8 @@
             "minValue":"輸入數字無效",
             "maxValue":"輸入數字無效",
             "required":"此欄位必填"
-        }
+        },
+        "invalid_data":"無效資料",
+        "update_successfully":"更新成功"
     }
 }

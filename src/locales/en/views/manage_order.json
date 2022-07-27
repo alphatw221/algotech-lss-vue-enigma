@@ -11,6 +11,7 @@
                 "export" : "Export"
         },
         "table":{
+                "Direct Payment":"Direct Payment",
                 "details":"Order Details",
                 "copy_link":"Copy Cart Link",
                 "amount" : "Amount",
@@ -60,7 +61,8 @@
         "review" : "Review",
         "shipping out":"Shipping Out",
         "all":"All",
-        "stop_checkout" : "Stop Checkout"
+        "stop_checkout" : "Stop Checkout",
+        "update_successed":"Update Successed"
         
         
 }

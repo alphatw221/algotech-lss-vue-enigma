@@ -13,6 +13,8 @@
         "lite":"Lite",
         "standard":"Standard",
         "premium":"Premium"
-    }
-    
+    },
+    "invalid_data":"Invalid Data Inputed",
+    "input_err":"Input Error",
+    "update_successed":"Update Successed"
 }

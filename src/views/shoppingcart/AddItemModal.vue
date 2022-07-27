@@ -79,6 +79,8 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { buyer_cart_add, guest_cart_add } from "@/api_v2/pre_order";
 import { useRoute } from "vue-router";
 import { useCookies } from 'vue3-cookies'
+import i18n from "@/locales/i18n"
+
 const { cookies } = useCookies()
 const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
@@ -129,7 +131,7 @@ const changeQuantity = (event, index, operation) => {
 	else{
 		if(event)event.target.value=1
 		addOnProducts.value[index].qty = 1
-		layoutStore.alert.showMessageToast("Invalid Amount")
+		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_amount'))
 	}
 }   // minus after input works, plus after input not works
 
@@ -142,7 +144,7 @@ const buyer_add_item = (campaing_product_id, index) => {
 	.then(
 		res => {
 			store.order = res.data
-			layoutStore.notification.showMessageToast("Add Item Success")
+			layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.add_item_success'))
 		}
 	)
 }

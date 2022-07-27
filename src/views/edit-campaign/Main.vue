@@ -124,6 +124,7 @@ import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
+import i18n from "@/locales/i18n"
 
 const internalInstance = getCurrentInstance()
 const route = useRoute()
@@ -206,7 +207,7 @@ const updateCampaign = ()=>{
 
 	v.value.$touch()
 	if (v.value.$invalid) {
-		sellerStore.alert.showMessageToast("Invalid Data")
+		sellerStore.alert.showMessageToast(i18n.global.t('edit_campaign.invalid_data'))
 		return
 	}
 

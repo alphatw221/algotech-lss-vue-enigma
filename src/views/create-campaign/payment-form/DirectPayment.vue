@@ -123,6 +123,7 @@ import { computed, onMounted, ref, watch, provide, reactive, toRefs ,defineProps
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { seller_update_payment } from '@/api_v2/user_subscription'
+import i18n from "@/locales/i18n"
 
 const ready = ref(false)
 const sellerStore = useLSSSellerLayoutStore();
@@ -155,7 +156,7 @@ onMounted(() => {
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
     if(image.size/1024/1024>10){
-        sellerStore.alert.showMessageToast('image size exceed 10 MB')
+        sellerStore.alert.showMessageToast(i18n.global.t('create_campaign.payment_form.errors.img_size_err'))
         return
     }
     props.directPaymentImages[index]=image

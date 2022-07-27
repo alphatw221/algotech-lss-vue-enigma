@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col sm:px-5 sm:h-[100%]">
+    <div class="flex flex-col sm:px-5 sm:h-fit">
         <div class="flex-col flex gap-3 flex-wrap sm:flex-row justify-center sm:justify-between">
             <div class="flex items-center sm:px-20 lg:pt-5 mt-3 lg:pb-4 intro-y lg:pt-5 mt-3">
                 <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('auto_reply.title') }}</h2>
@@ -9,7 +9,7 @@
                 <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('auto_reply.create') }}
             </button>
         </div> <!-- why delete overflow-x? -->  
-        <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
+        <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 h-[80vh] lg:mx-20">
             <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
     </div>
@@ -88,6 +88,7 @@ import {get_user_subscription_facebook_pages, get_user_subscription_instagram_pr
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
+import i18n from "@/locales/i18n"
 
 const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance();
@@ -137,7 +138,7 @@ function createAutoReply() {
     validate.value.$touch();
     console.log(createData.value)
     if (validate.value.$invalid) {
-        layoutStore.alert.showMessageToast("Invalid Data Inputed")
+        layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.invalid_data'))
         return
     }else{
         let data = createData.value
@@ -147,7 +148,7 @@ function createAutoReply() {
             saved.value = true
             createModal.value = false
             emptyForm()
-            layoutStore.notification.showMessageToast("Create Success")
+            layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.create_success'))
             eventBus.emit('getReplyData')
         })
     }
@@ -159,7 +160,7 @@ function closeWithAlert(){
         emptyForm()
     }else{
         createModal.value = false; 
-        layoutStore.alert.showMessageToast("Change Not Saved")
+        layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'))
         emptyForm()
     }
 }

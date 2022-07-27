@@ -40,7 +40,9 @@
             "cancel": "取消",
             "save": "儲存",
             "warning_duplicate": "重複的類別名稱"
-        }
+        },
+        "save_success":"儲存成功",
+        "not_saved":"取消儲存"
     },
 
     "add_product_page": {

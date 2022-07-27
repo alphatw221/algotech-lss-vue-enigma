@@ -227,6 +227,7 @@ import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useVuelidate } from "@vuelidate/core";
 import { required, minValue, maxValue, minLength, integer } from "@vuelidate/validators";
 import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal.vue';
+import i18n from "@/locales/i18n"
 
 const props = defineProps({
     campaignTitle: String
@@ -308,19 +309,19 @@ const list_product_prize = () => {
 const upsert = () => {
     validate.value.$touch();
     if (validate.value.$invalid || typeof currentSettings.value.prize === 'string') {
-        layoutStore.alert.showMessageToast("Invalid Data Inputed")
+        layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.invalid_data'))
         return
     } 
     formData.append('data', JSON.stringify(currentSettings.value))
 
     if (type.value == 'create') {
         create_campapign_lucky_draw(route.params.campaign_id, formData).then(res => {
-            layoutStore.notification.showMessageToast("Create Successed")
+            layoutStore.notification.showMessageToast(i18n.global.t('lucky_draw.create_successed'))
             router.go()
         })
     } else if (type.value == 'edit') {
         update_campaign_lucky_draw(luckyDrawId.value, formData).then(res => {
-            layoutStore.notification.showMessageToast("Update Successed")
+            layoutStore.notification.showMessageToast(i18n.global.t('lucky_draw.update_successed'))
             router.go()
         })
     }
@@ -329,7 +330,7 @@ const upsert = () => {
 const goDraw = () => {
     formData.append('data', JSON.stringify(currentSettings.value))
     create_campapign_lucky_draw(route.params.campaign_id, formData).then(res => {
-        layoutStore.notification.showMessageToast("Create Successed")
+        layoutStore.notification.showMessageToast(i18n.global.t('lucky_draw.create_successed'))
         let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: res.data.id} })
         window.open(routeData.href, '_blank')
     })

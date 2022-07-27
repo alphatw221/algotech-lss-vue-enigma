@@ -63,6 +63,9 @@ onMounted(() => {
 });
 
 const plural = (number) => {
+    if (layoutStore.userInfo.user_subscription.lang === "zh_hant") {
+        return ""
+    }
     return number > 1 ? "s" : ""
 }
 const UpgradeModal = ref(false)
