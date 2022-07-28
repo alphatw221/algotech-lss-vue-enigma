@@ -65,21 +65,28 @@
 
     "enter_post_id_modal":{
         "edit_channel":"Select Live Stream",
+
         "facebook":"Facebook",
+        "page": "Page",
         
         "post_id":"Post ID",
-        "select_page":"Select Page",
+        "select_live_post":"Select Live Post",
+        "enter_post_id": "Enter Post ID",
 
         "instagram":"Instagram",
+        "profile": "Profile",
         "media_id":"Media ID",
         "select_media":"Select Profile",
 
         "youtube":"Youtube",
+        "channel": "Channel",
         "live_chat_id":"Live Chat ID",
         "select_live_chat":"Select Channel",
 
         "cancel":"Cancel",
-        "save":"Save"
+        "save":"Save",
+        "your_current_lives": "Your current lives",
+        "select_this_live": "Select this live"
     },
     "update_successed":"Update Successed",
     "no_facebook_post":"You don't have Facebook live posts now.",

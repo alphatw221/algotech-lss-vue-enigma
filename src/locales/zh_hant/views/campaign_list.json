@@ -72,20 +72,26 @@
     "enter_post_id_modal":{
         "edit_channel":"設定平台",
         "facebook":"Facebook",
+        "page": "粉絲專頁",
         
         "post_id":"貼文ID",
-        "select_page":"選擇粉絲專頁",
+        "select_live_post":"選擇直播貼文",
+        "enter_post_id": "輸入貼文ID",
 
         "instagram":"Instagram",
+        "profile": "商業檔案",
         "media_id":"貼文ID",
         "select_media":"選擇商業檔案",
 
         "youtube":"Youtube",
+        "channel": "頻道",
         "live_chat_id":"聊天室ID",
         "select_live_chat":"選擇頻道",
 
         "cancel":"取消",
-        "save":"儲存"
+        "save":"儲存",
+        "your_current_lives": "你目前正在進行的直播",
+        "select_this_live": "選擇這場直播"
     },
     "update_successed":"更新成功",
     "no_facebook_post":"現在沒有任何Facebook的直播",

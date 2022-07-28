@@ -24,23 +24,27 @@
               <label for="modal-form-1" class="text-lg font-medium mr-5"
                 >{{$t('campaign_list.enter_post_id_modal.facebook')}}</label
               >
-              <div
-                v-if="campaign.facebook_page"
-                class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-              >
-                <img alt="Midone Tailwind HTML Admin Template" :src="campaign.facebook_page.image" />
-              </div>
             </div>
             <button
               type="button"
               href="javascript:;"
+              v-if="!campaign.facebook_page"
               @click="selectPlatformPage('facebook')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              {{$t('campaign_list.enter_post_id_modal.select_page')}}
+              {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
             </button>
-            <div>
-              {{$t('campaign_list.enter_post_id_modal.post_id')}}: <br>
+            <div class="mt-3" v-if="campaign.facebook_page">
+              <p style="text-align:center;" class="my-auto">{{$t('campaign_list.enter_post_id_modal.page')}}</p>
+              <div
+                class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2"
+              >
+                <img alt="Midone Tailwind HTML Admin Template" :src="campaign.facebook_page.image" />
+              </div>
+            </div>
+            
+            <div class="mt-3" v-if="campaign.facebook_page">
+              <p style="text-align:center;">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
               <input class="post_id" v-if="campaign.facebook_page" v-model="campaign.facebook_campaign.post_id" @focusout="autoUpdatePostId('facebook', campaign.facebook_page.id, campaign.facebook_campaign.post_id)">
             </div>
           </div>
@@ -49,33 +53,29 @@
               <label for="modal-form-1" class="text-lg font-medium mr-5"
                 >{{$t('campaign_list.enter_post_id_modal.instagram')}}</label
               >
-              <div
-                v-if="campaign.instagram_profile"
-                class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-              >
-                <img alt="Midone Tailwind HTML Admin Template" :src="campaign.instagram_profile.image" />
-              </div>
             </div>
             <button
               type="button"
+              v-if="!campaign.instagram_profile"
               href="javascript:;"
               @click="selectPlatformPage('instagram')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
               <!-- Select Profile -->
-              {{$t('campaign_list.enter_post_id_modal.select_media')}}
+              {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
             </button>
-            <!-- <input
-              id="modal-form-1"
-              type="text"
-              class="form-control"
-              placeholder=""
-              v-model="ig_live_media_id"
-              @click="instagramSelectCurrentLive()"
-            /> -->
-            <div>
-              {{$t('campaign_list.enter_post_id_modal.media_id')}}:<br>
-              <input class="post_id" v-if="campaign.instagram_profile" v-model="campaign.instagram_campaign.live_media_id" @focusout="autoUpdatePostId('instagram', campaign.instagram_profile.id, campaign.instagram_campaign.live_media_id)">
+            <div class="mt-3" v-if="campaign.instagram_profile">
+              <p style="text-align:center;" class="my-auto">{{$t('campaign_list.enter_post_id_modal.profile')}}</p>
+              <div
+                
+                class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2"
+              >
+                <img alt="Midone Tailwind HTML Admin Template" :src="campaign.instagram_profile.image" />
+              </div>
+            </div>
+            <div class="mt-3" v-if="campaign.instagram_profile">
+              <p style="text-align:center;">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
+              <input class="post_id" v-model="campaign.instagram_profile.live_media_id" @focusout="autoUpdatePostId('instagram', campaign.instagram_profile.id, campaign.instagram_profile.live_media_id)">
             </div>
           </div>
           <div class="col-span-12 sm:col-span-4 mr-5">
@@ -83,32 +83,28 @@
               <label for="modal-form-1" class="text-lg font-medium mr-5"
                 >{{$t('campaign_list.enter_post_id_modal.youtube')}}</label
               >
-              <div
-                v-if="campaign.youtube_channel"
-                class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden"
-              >
-                <img alt="Midone Tailwind HTML Admin Template" :src="campaign.youtube_channel.image" />
-              </div>
             </div>
             <button
               type="button"
+              v-if="!campaign.youtube_channel"
               href="javascript:;"
               @click="selectPlatformPage('youtube')"
               class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
             >
-              {{$t('campaign_list.enter_post_id_modal.select_live_chat')}}
+              {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
             </button>
-            <!-- <input
-              id="modal-form-1"
-              type="text"
-              class="form-control"
-              placeholder=""
-              v-model="yt_live_video_id"
-              @click="youtubeSelectCurrentLive()"
-            /> -->
-            <div>
-              {{$t('campaign_list.enter_post_id_modal.live_chat_id')}}:<br>
-              <input class="post_id" v-if="campaign.youtube_channel" v-model="campaign.youtube_campaign.live_video_id" @focusout="autoUpdatePostId('youtube', campaign.youtube_channel.id, campaign.youtube_campaign.live_video_id)">
+            <div class="mt-3" v-if="campaign.youtube_channel">
+              <p style="text-align:center;" class="my-auto">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
+              <div
+                
+                class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2"
+              >
+                <img alt="Midone Tailwind HTML Admin Template" :src="campaign.youtube_channel.image" />
+              </div>
+            </div>
+            <div class="mt-3" v-if="campaign.youtube_channel">
+              <p style="text-align:center;">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
+              <input class="post_id" v-model="campaign.youtube_channel.live_video_id" @focusout="autoUpdatePostId('youtube', campaign.youtube_channel.id, campaign.youtube_channel.live_video_id)">
             </div>
           </div>
 
