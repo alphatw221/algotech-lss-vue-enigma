@@ -40,6 +40,7 @@
         "winner_repeat" : "Winner Repeat",
         "yes": "Yes",
         "no": "No",
+        "winner_repeat_tip": "Allow same person <br/> to win multiple prizes?",
         "upload_animation": "Upload Animation",
         "draw_type" : "Draw Type",
         "cancel": "Cancel",
@@ -51,7 +52,7 @@
         "product": "Product",
         "keyword": "Keyword",
         "draw_selection": {
-            "like": "by like this post",
+            "like": "by like this Facebook post",
             "product": "by purchased certain product",
             "purchase": "by purchased any product",
             "keyword": "by comment keyword"

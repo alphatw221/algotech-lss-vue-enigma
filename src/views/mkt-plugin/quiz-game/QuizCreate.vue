@@ -1,96 +1,185 @@
 <template>
-    <!-- OUTTER BOX -->
-    <div class="flex flex-col h-full box text-lg p-10 pl-12 pr-20">
-        <!-- BEGIN: commit box -->
-        <h1 class="text-center"> Quiz Game Settings</h1>
-
-        <form class="flex flex-col">
-            <div class="mt-3">
-                <label for="update-profile-form-2" class="form-label">Campaign Title</label>
-                <TomSelect id="update-profile-form-2" v-model="currentSettings.campaign">
-                    <!-- Show Ongoing/Scheduled Campaign List -->
-                    <option v-for="(campaign, key) in campaignList" :key="key" value="campaign_id">campaign_name</option>
-                </TomSelect>
-            </div>
-            
-            <div class="mt-6 flex flex-col">
-                <label for="update-profile-form-2" class="form-label "> Question</label>
-                <input type="text" class="rounded-lg w-full"/>
-            </div>
-            <div class="mt-6 flex flex-col">
-                <label for="update-profile-form-2" class="form-label "> Answer</label>
-                <input type="text" class="rounded-lg w-full"/>
-            </div>
-            
-            <div class="mt-6 w-full flex flex-col mr-5">
-                <label for="update-profile-form-2" class="form-label "> Remark</label>
-                <textarea class="w-full h-32 rounded-lg overflow-hidden whitespace-pre-line p-1"
-                    v-model="currentSettings.comment" placeholder=" Enter your Remark...">
-                </textarea>
-            </div>
-            <div class="mt-6 flex">
-                <div class="w-[50%] flex flex-col">
-                    <label for="update-profile-form-2" class="form-label"> No. of Winners</label>
-                    <input id="form-2" type="text" class="form-control" v-model="currentSettings.winners" />
-                    <div class="w-full flex flex-col mt-6">
-                        <label for="update-profile-form-2" class="form-label"> Prize</label>
-                        <select class="w-full form-select-lg rounded-lg" v-model="currentSettings.prize">
-                            <option v-for="(prize, key) in prizeList" :key="key" :value="prize.value"> {{ prize.name }}
-                            </option>
-                        </select>
-                    </div>
-                </div>
-                <div class="w-[50%] flex flex-col ml-20">
-                    <label for="update-profile-form-2" class="form-label "> Winner Repeat</label>
-                    <div class="flex flex-row mt-2">
-                        <div class="form-check mr-5">
-                            <input id="radio-switch-yes" class="form-check-input" type="radio"
-                                v-model="currentSettings.repeat" :value="true" />
-                            <label class="form-check-label" for="radio-switch-yes">Yes</label>
-                        </div>
-                        <div class="form-check mr-5 mt-2 sm:mt-0">
-                            <input id="radio-switch-no" class="form-check-input" type="radio"
-                                v-model="currentSettings.repeat" :value="false" />
-                            <label class="form-check-label" for="radio-switch-no">No</label>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </form>
-        <div class="flex justify-end my-8">
-            <button class="btn w-32 dark:border-darkmode-400" @click="$router.back()"> Cancel</button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="save"> Save</button>
+    <div>
+        <div class="mt-5 flex justify-self-start">
+            <label class="form-label mr-10">{{ $t('lucky_draw.draw_create.campaign_title') }} : </label>
+            <h2 style="display: inline-block;"> campaign name </h2>
         </div>
+            
+        <div class="flex flex-col">
+            <div class="lg:flex">
+                <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
+                    <label class="form-label"> Question </label>
+                    <textarea 
+                        class="w-full h-20 rounded-lg overflow-hidden p-1"
+                        :class="{ 'border-danger text-danger border-2': v.question.$error }"
+                        placeholder="Enter Quiz Game Question..."
+                        v-model.trim="v.question.$model"
+                    ></textarea>
+                    <template v-if="v.question.$error">
+                        <label class="text-danger text-[14px] leading-tight"> please enter quiz game question. </label>
+                    </template>
+                </div>
+
+                <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
+                    <label class="form-label"> Answer </label>
+                    <textarea 
+                        class="w-full h-20 rounded-lg overflow-hidden p-1"
+                        :class="{ 'border-danger text-danger border-2': v.answer.$error }"
+                        placeholder="Enter Quiz Game Answer..."
+                        v-model.trim="v.answer.$model"
+                    ></textarea>
+                    <template v-if="v.answer.$error">
+                        <label class="text-danger text-[14px] leading-tight"> please enter quiz game answer. </label>
+                    </template>
+                </div>            
+            </div>
+
+            <div class="lg:flex">
+                <div class="lg:w-full flex flex-col lg:mr-5 mt-6">
+                    <label class="form-label "> Remark </label>
+                    <textarea 
+                        class="w-full h-24 rounded-lg overflow-hidden whitespace-pre-line p-1"
+                        placeholder=" Enter your Remark..."
+                        v-model="quizgameSettings.remark"
+                    ></textarea>
+                </div>
+            </div>
+
+            <div class="lg:flex">
+                <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
+                    <label class="form-label"> No. of Winners</label>
+                    <input 
+                        class="form-control" 
+                        :class="{ 'border-danger text-danger border-2': v.num_of_winner.$error }"
+                        type="text" 
+                        v-model.trim="v.num_of_winner.$model" 
+                    />
+                    <template v-if="v.num_of_winner.$error">
+                        <label class="text-danger text-[14px] leading-tight"> please enter between 1 to prizr quantity. </label>
+                    </template>
+                </div>
+
+                <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
+                    <label class="form-label"> Prize </label>
+                    <select 
+                        class="w-full form-select sm:form-select-lg rounded-lg"
+                        :class="{ 'border-danger text-danger border-2': !quizgameSettings.prize.id }"
+                        v-model="quizgameSettings.prize"
+                    >
+                        <template v-if="!prizeList.length">
+                            <option class="w-40" disabled> 
+                                Please assign prize into your campaign
+                            </option>
+                        </template>
+                        <template v-else> 
+                            <option v-for="(prize, key) in prizeList" :key="key" :value="prize" class="w-40"> 
+                                {{ prize.name }} 
+                            </option>
+                        </template>    
+                    </select>
+                </div>
+            </div>
+
+            <div class="lg:flex">
+                <div class="lg:w-[50%] flex-col mt-6 lg:mr-5">  
+                    <div class="flex"> 
+                        <label class="form-label"> {{ $t('lucky_draw.draw_create.winner_repeat') }} </label> 
+                        <Tippy 
+                            class="rounded-full w-30 whitespace-wrap" 
+                            data-tippy-allowHTML="true" 
+                            data-tippy-placement="right" 
+                            content="Allow same person <br/> to win multiple prizes?" 
+                            theme='light'
+                        > 
+                            <HelpCircleIcon class="w-8 ml-2" />
+                        </Tippy> 
+                    </div>
+                    <div class="flex sm:flex-row mt-2">
+                        <div class="form-check mr-5">
+                            <input 
+                                class="form-check-input" 
+                                type="radio" 
+                                v-model="quizgameSettings.repeatable"
+                                :value="true"
+                            />
+                            <label class="form-check-label"> Yes </label>
+                        </div>
+                        <div class="form-check mr-5">
+                            <input 
+                                class="form-check-input" 
+                                type="radio"
+                                v-model="quizgameSettings.repeatable" 
+                                :value="false"
+                            />
+                            <label class="form-check-label" > No </label>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="flex justify-end my-10 mr-5" >
+            <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> Cancel </button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="createQuizGame()"> Save </button>
+        </div>
+
     </div>
 </template>
 
 <script setup>
+import { ref, watch, onMounted, onUnmounted, computed, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
-import { ref, watch, onMounted } from 'vue';
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { list_campaign_product } from '@/api/campaign_product';
+import { create_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
+import { useVuelidate } from "@vuelidate/core";
+import { required, maxValue, minLength, integer, minValue } from "@vuelidate/validators";
+
 
 const route = useRoute();
 const router = useRouter();
 const layoutStore = useLSSSellerLayoutStore()
-
-const currentSettings = ref({
-    campaign: '',
+const prizeList = ref([])
+const quizgameSettings = ref({
     question: '',
     answer: '',
-    Remark: '',
-    winners: 0,
-    follower: false,
+    remark: '',
+    num_of_winner: 0,
     prize: '',
+    repeatable: false
 })
-const prizeList = ref([]);
-const campaignList = ref([]);
+const quizgameRules = computed(() => {
+    return {
+        question: { required },
+        answer: { required },
+        num_of_winner: { required, integer, minValue: minValue(1) },
+    }
+})
+const v = useVuelidate(quizgameRules, quizgameSettings);
 
-const save = () => {
 
+onMounted(() => {
+    list_campaign_product(route.params.campaign_id).then(res => {
+        for (let i = 0; i < res.data.length; i++) {
+            if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
+        }
+    })
+})
+
+const createQuizGame = () => {
+    console.log(quizgameSettings.value)
+
+    v.value.$touch();
+    if (v.value.$invalid || typeof quizgameSettings.value.prize === 'string') {
+        layoutStore.alert.showMessageToast('Invalid Submission')
+        return
+    } 
+
+    create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value).then(res => {
+        console.log(res.data)
+    })
+    
 }
 
-
 </script>
-
-<style scoped>
-</style> 

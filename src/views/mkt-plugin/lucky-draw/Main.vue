@@ -23,7 +23,7 @@ import { ref, watch, onMounted, getCurrentInstance, onUnmounted } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 import { list_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
-import { retrieve_campaign } from '@/api_v2/campaign'
+import { retrieve_campaign } from '@/api_v2/campaign';
 import DrawCreate from "./DrawCreate.vue";
 import DrawList from "./DrawList.vue";
 

@@ -165,7 +165,7 @@
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(2)
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(store.order.campaign.user_subscription.decimal_places)
                         }}
                       </div>
                     </div>
@@ -180,13 +180,13 @@
                       <div v-if="option.type === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{ (parseFloat(option.price) +
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(2)
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(store.order.campaign.user_subscription.decimal_places)
                         }}
                       </div>
                       <div v-else>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(option.price).toFixed(2)
+                            parseFloat(option.price).toFixed(store.order.campaign.user_subscription.decimal_places)
                         }}
                       </div>
 
@@ -210,8 +210,8 @@
                       v-for="(option, index) in store.order.campaign.meta_logistic.pickup_options" :key="index">
 
                       <input :id="'pickup-switch-' + index" class="form-check-input" type="radio"
-                        name="vertical_radio_button" :value="option.name"
-                        v-model="shipping_info.shipping_option" />
+                        name="vertical_radio_button" :value="index"
+                        v-model="shipping_option_index_computed" />
                       <label class="mr-auto form-check-label" :for="'pickup-switch-' + index">{{ option.name }}</label>
 
 
@@ -326,9 +326,10 @@ const shipping_option_index_computed = computed({
     shipping_info.value.shipping_option_index=index
     store.shipping_info.shipping_option_index=index
     shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].address : ''
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
 
-    console.log(shipping_info.value)
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].name 
+    :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
+    
   }})
 
 const shipping_method_computed = computed({
