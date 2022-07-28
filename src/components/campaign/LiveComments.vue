@@ -88,28 +88,28 @@
 
             <div class="flex flex-none h-10">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
-                    {{$t('campaign_live.comment.comments')}}
+                    {{$t(`campaign_live.comment.${listViewTitle}`)}}
                 </h2>
                 <div class="my-auto mr-5">
                     <TabList class="nav-pills">
                         <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
                         >   
-                        <font-awesome-icon icon="fa-regular fa-comment-dots" class="h-6 m-1 -mt-2" />
+                            <font-awesome-icon icon="fa-regular fa-comment-dots" class="h-6 m-1 -mt-2" @click="setListViewTitle('comments_summarizer')"/>
                         </Tab>
 
                         <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
                         >
-                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" />
+                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" @click="setListViewTitle('all_comments')"/>
                         </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('facebook_comments')"
                         >
                             <FacebookIcon class="m-1 -mt-1" />
                         </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('instagram_comments')"
                         >
                             <InstagramIcon class="m-1 -mt-1" />
                         </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('youtube_comments')"
                         >
                             <YoutubeIcon class="m-1 -mt-1" />
                         </Tab>
@@ -214,6 +214,7 @@ const comments= [
 
 const openVideoTab =ref('facebook')
 
+const listViewTitle = ref('comments_summarizer')
 onMounted(()=>{
     get_comments(route.params.campaign_id).then(res => {
         return res.data
@@ -239,8 +240,9 @@ onMounted(()=>{
 
 
 
-
-
+const setListViewTitle = title=>{
+    listViewTitle.value = title
+}
 const selectVideoTabs = tabName => openVideoTab.value=tabName
 // const commentSummurizer = status => {
 //         tags = status
