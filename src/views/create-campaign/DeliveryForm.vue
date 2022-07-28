@@ -13,13 +13,14 @@
 				v-model="props.campaign.meta_logistic.delivery_charge"
 				@blur="props.v.meta_logistic.delivery_charge.$touch()"
 			/>
+			<label class="text-danger text-[12px] " 
+				v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
+				:key="index"
+				>
+				{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+			</label>
 		</div>
-		<label class="text-danger text-[12px] " 
-			v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
-			:key="index"
-			>
-			{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
-		</label>
+		
 
 		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
 			<label class="form-label text-base text-lg font-medium">
