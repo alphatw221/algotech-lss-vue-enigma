@@ -159,6 +159,16 @@ const routes = [
         component: LuckyDraw,
       },
       {
+        path: "campaign-list/campaign-live/:campaign_id?/quiz-game",
+        name: "quiz-game",
+        component: () => import('@/views/mkt-plugin/quiz-game/Main.vue')
+      },
+      {
+        path: "campaign-list/campaign-live/quiz-game1",
+        name: "quiz-game1",
+        component: QuizGame
+      },
+      {
         path: "campaign-list/campaign-live/:campaign_id/edit-campaign",
         name: "edit-campaign",
         component: () => import('@/views/edit-campaign/Main.vue'),
@@ -233,11 +243,11 @@ const routes = [
         component: LuckyDrawSetting,
       },
       
-      {
-        path: "mkt-plugin/quiz-game",
-        name: "quiz-game",
-        component: QuizGame,
-      },
+      // {
+      //   path: "mkt-plugin/quiz-game",
+      //   name: "quiz-game",
+      //   component: QuizGame,
+      // },
 /*                     SETTINGS                           */
       {  
         path: "campaign-global",
