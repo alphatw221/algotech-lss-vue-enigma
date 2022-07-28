@@ -7,17 +7,17 @@
                     <thead>
                         <tr class="p-4">
                             <th class="flex">
-                                <span class="mr-2 capitalize current_plan">{{ layout.userInfo.user_subscription.type }}</span>
+                                <span class="mr-2 current_plan"> {{ $t(`profile.plan.`+ layout.userInfo.user_subscription.type) }}</span>
                                 <span v-if="plan === 'standard'"> <font-awesome-icon icon="fa-solid fa-star" /> </span>
                                 <span v-else-if="plan === 'premium'"> <font-awesome-icon icon="fa-solid fa-crown" /> </span>
                                 <span v-else-if="plan === 'lite'"><font-awesome-icon icon="fa-solid fa-shield" /> </span>
                                 <span v-else> <font-awesome-icon icon="fa-regular fa-star" /></span>
                             </th>
                             <th> 
-                                <div class="flex flex-col items-start justify-start pl-4 lg:flex-row " >
-                                    <div class="mr-1 " >Joined: </div>
+                                <div class="flex flex-col lg:flex-row items-start pl-4" >
+                                    <div class="mr-1 " >{{ $t(`profile.subscription.joined`)}} :</div>
                                     <div>
-                                        {{ new Date(layout.userInfo.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
+                                        {{ new Date(layout.userInfo.created_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"}) }}
                                     </div>
                                 </div>
                             </th>
@@ -25,8 +25,8 @@
                     </thead>
                     <tbody class="mt-10">
                         <tr class="p-4"> 
-                            <td class="p-4">
-                                Subscription ID 
+                            <td class="p-4 whitespace-nowrap">
+                                {{ $t(`profile.subscription.title`)}} {{ $t(`profile.subscription.id`) }}
                             </td>
                             <td class="p-4">
                                 {{ layout.userInfo.user_subscription.id }}
@@ -34,18 +34,19 @@
                         </tr>
                         <tr class="p-4">
                             <td class="p-4">
-                                Vaild till
+                                {{ $t(`profile.subscription.vaild`)}}
                             </td>
                             <td class="p-4">
-                                {{ new Date(layout.userInfo.user_subscription.expired_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
+                                {{ new Date(layout.userInfo.user_subscription.expired_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"}) }}
                             </td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <div class="col-span-12 mt-5 sm:col-span-4 2xl:col-span-4 pa-10 justify-self-center">
+            <div class="col-span-12 mt-5 sm:col-span-4 2xl:col-span-4 p-10 justify-self-center">
                 <button class="text-white capitalize btn btn-elevated-success" @click="router.push('/seller/change-plan')">
-                    Change Plan</button>
+                    {{ $t(`profile.subscription.change_plan`)}}
+                    </button>
             </div>
         </div>
     </div>  

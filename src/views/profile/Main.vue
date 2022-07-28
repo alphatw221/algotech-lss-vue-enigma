@@ -58,7 +58,7 @@
                             'text-neutral-600': layout.profileTab !== 3,
                             'font-bold': layout.profileTab === 3,
                         }">
-                        {{$t('profile.tab.change_password')}}
+                        {{$t('profile.tab.reset_password')}}
                     </div>
                 </div>
             </li>
