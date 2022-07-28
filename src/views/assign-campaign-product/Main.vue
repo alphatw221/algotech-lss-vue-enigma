@@ -423,31 +423,41 @@ const checkIfValid = ()=>{
     isSelectedProductsValid = true
 	const orderCodeDict = {}
     selectedProducts.value.forEach((selectedProduct,index) => {
-        errorMessages.value[index]={}
-        if(selectedProduct.type=='product' && typeof selectedProduct.order_code =='string' &&selectedProduct.order_code.toLowerCase() in orderCodeDict) {
+        errorMessages.value[index]={}	
+		console.log(orderCodeDict)
+		//type
+		if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
 
-				
+		//order_code
+		if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code) ) {errorMessages.value[index]['order_code']='order_code_required';isSelectedProductsValid=false;}
+        else if(selectedProduct.type=='product' && typeof selectedProduct.order_code =='string' && selectedProduct.order_code.toLowerCase() in orderCodeDict) {
 			if(typeof orderCodeDict[selectedProduct.order_code.toLowerCase()] == 'number') {
 				errorMessages.value[orderCodeDict[selectedProduct.order_code.toLowerCase()]]['order_code']='order_code_duplicate'
 			}
 			errorMessages.value[index]['order_code']='order_code_duplicate';
 			isSelectedProductsValid=false;
 		}
-        if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code) ) {errorMessages.value[index]['order_code']='order_code_required';isSelectedProductsValid=false;}
-        
-		if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false;}
-		else if(!selectedProduct.assign_qty) {errorMessages.value[index]['assign_qty']='assign_qty_required';isSelectedProductsValid=false;}
-
-        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.assign_qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
-        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
+		//assign_qty
+		if([null,undefined,''].includes(selectedProduct.assign_qty)){errorMessages.value[index]['assign_qty']='assign_qty_required';isSelectedProductsValid=false; }
+		else if((typeof selectedProduct.assign_qty)!='number'){errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
+		else if(!(Number.isInteger(selectedProduct.assign_qty))){errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
+		else if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
+		
+		//max_order_amount	
+		else if([null,undefined,''].includes(selectedProduct.max_order_amount)){ /*pass*/}	
+		else if((typeof selectedProduct.max_order_amount) != 'number'){errorMessages.value[index]['max_order_amount']='qty_invalid';isSelectedProductsValid=false; }
+		else if(!(Number.isInteger(selectedProduct.max_order_amount))){errorMessages.value[index]['max_order_amount']='qty_invalid';isSelectedProductsValid=false; }
+		else if(selectedProduct.type=='product' && selectedProduct.max_order_amount<0) {errorMessages.value[index]['max_order_amount']='qty_invalid';isSelectedProductsValid=false; }
+        else if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.assign_qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
+		
+		//price
 		if(isNaN(parseFloat(selectedProduct.price)) || selectedProduct.price<0){errorMessages.value[index]['price']='price_invalid';isSelectedProductsValid=false;}
 
+		//update orderCodeDict
 		if(typeof selectedProduct.order_code=='string'){
 			orderCodeDict[selectedProduct.order_code.toLowerCase()]=index
 		}
-		
-		console.log(orderCodeDict)
-        
+        console.log(orderCodeDict)
     });
 
 }
