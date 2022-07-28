@@ -335,14 +335,20 @@
 <script setup>
 import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
 import { list_product_category, list_product } from '@/api_v2/product';
+import { get_campaign_product_order_code_dict } from '@/api_v2/campaign';
+
 import { useRoute, useRouter } from "vue-router";
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps } from "vue";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps, reactive } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import i18n from "@/locales/i18n"
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+
+const campaignDetailStore = useCampaignDetailStore()
+
 
 const props = defineProps({
     productType: String,
+	templateInModal:Boolean,
 })
 
 const tableColumns = ref([
@@ -362,7 +368,7 @@ const tableColumns = ref([
 
 
 const layoutStore = useLSSSellerLayoutStore();
-const campaignDetailStore = useCampaignDetailStore()
+
 
 const route = useRoute();
 const router = useRouter();
@@ -391,24 +397,32 @@ const stockProducts = ref([])
 const selectedProducts = ref([])
 const errorMessages = ref([])
 const selectedProductDict = ref({})
-const orderCodeDict = ref({})
+
+const campaignProductOrderCodeDict = ref({})
 
 let isSelectedProductsValid=false
-let campaignProductCache = null
 
 onMounted(() => {
-	list_product_category().then(
-		res => { 
-			productCategories.value = res.data
-		}
-	)
+	if(props.templateInModal){
+		eventBus.on('show_assign_product_view',()=>{getProductCategory();getCampaignProductDict();search();})
+		eventBus.on('hide_assign_product_view',()=>{clearAllData();})
+		return
+	}
+	getProductCategory()
+	getCampaignProductDict()
 	search()
 })
 
+onUnmounted(()=>{
+	eventBus.off('show_assign_product_view')
+	eventBus.off('hide_assign_product_view')
+})
+
+const getProductCategory=()=>{list_product_category().then(res => { productCategories.value = res.data})}
+const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id).then(res=>{campaignProductOrderCodeDict.value = res.data})}
+
 const updateStockProducts = ()=>{
-    const relations = []
     stockProducts.value.forEach((product,stockProductIndex) => {
-        
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
             stockProducts.value[stockProductIndex] = selectedProducts.value[index]
@@ -421,7 +435,7 @@ const updateStockProducts = ()=>{
 
 const checkIfValid = ()=>{
     isSelectedProductsValid = true
-	const orderCodeDict = {}
+	const orderCodeDict = JSON.parse(JSON.stringify(campaignProductOrderCodeDict.value))
     selectedProducts.value.forEach((selectedProduct,index) => {
         errorMessages.value[index]={}	
 		console.log(orderCodeDict)
@@ -442,7 +456,7 @@ const checkIfValid = ()=>{
 		else if((typeof selectedProduct.assign_qty)!='number'){errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
 		else if(!(Number.isInteger(selectedProduct.assign_qty))){errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
 		else if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
-		
+
 		//max_order_amount	
 		else if([null,undefined,''].includes(selectedProduct.max_order_amount)){ /*pass*/}	
 		else if((typeof selectedProduct.max_order_amount) != 'number'){errorMessages.value[index]['max_order_amount']='qty_invalid';isSelectedProductsValid=false; }
@@ -461,6 +475,8 @@ const checkIfValid = ()=>{
     });
 
 }
+
+
 
 
 watch(computed(()=>stockProducts.value),updateStockProducts)
@@ -568,7 +584,12 @@ const submitData = ()=>{
     }
 	errorMessages.value = []
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
-		router.push({name:"campaign-list",})
+		if(props.templateInModal){
+			campaignDetailStore.campaignProducts = res.data
+			clearAllData()
+		}else{
+			router.push({name:"campaign-list",})
+		}
 	}).catch(err=>{
         console.log(err.response.data)
 		if (err.response){
@@ -578,6 +599,22 @@ const submitData = ()=>{
 	})
 }
 
+
+const clearAllData = ()=>{
+    selectedCategory.value=''
+    selectedProducts.value=[]
+    errorMessages.value=[]
+    stockProducts.value=[]
+    selectedProductDict.value = {}
+    openTab.value = 'select'
+    currentPage.value = 1
+    totalPage.value = 1
+    pageSize.value=10
+    dataCount.value =0
+	campaignProductOrderCodeDict.value = {}
+	isSelectedProductsValid = false
+	campaignDetailStore.showAddProductFromStockModal = false
+}
 
 </script>
 
