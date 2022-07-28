@@ -24,7 +24,7 @@
                     <select 
                         id="prizeSelect"
                         class="w-full form-select sm:form-select-lg rounded-lg" 
-                        :class="{ 'border-danger text-danger border-2': !currentSettings.prize.id }" 
+                        :class="{ 'border-danger text-danger border-2': isPrizeSelect }" 
                         v-model="currentSettings.prize"
                     >
                         <template v-if="!prizeList.length">
@@ -56,8 +56,9 @@
                     </select>
                 </div>
             </div>
+
             <div class="lg:flex">
-                <div class="lg:w-[50%]  flex-col mr-5 mt-6">
+                <div class="lg:w-[50%] flex-col mr-5 mt-6">
                     <label class="form-label"> {{ $t('lucky_draw.draw_create.number_of_winner') }}</label>
                     <input 
                         type="text" 
@@ -71,27 +72,6 @@
                         </label>
                     </template>
                 </div>
-                <div class="lg:w-[50%] flex-col mt-6 mr-5">
-                    <label class="form-label mr-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
-                    <div class="flex flex-wrap items-center justify-around">
-                        <div class="w-20 h-20 image-fit relative ">
-                            <input type="radio" checked class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
-                            <img class="rounded-full" :src="storageUrl + 'static/lucky_draw1.svg'" />
-                        </div>
-                        <div class="w-20 h-20 image-fit relative ">
-                            <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw2.svg'" />
-                            <img class="rounded-full" :src="storageUrl + 'static/lucky_draw2.svg'" />
-                        </div>
-                        <template v-for="(animates, key) in animationList" :key="key">
-                            <div class="w-20 h-20 image-fit relative">
-                                <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = animates.path" />
-                                <img class="rounded-full" :src="storageUrl + animates.path" />
-                            </div>
-                        </template>
-                    </div>
-                </div>
-            </div>
-            <div class="lg:flex">
                 <div class="lg:w-[50%] flex-col mt-6 mr-5">  
                     <div class="flex"> 
                         <label class="form-label"> {{ $t('lucky_draw.draw_create.winner_repeat') }} </label> 
@@ -105,29 +85,27 @@
                             <HelpCircleIcon class="w-8 ml-2" />
                         </Tippy> 
                     </div>
-                    <div class="flex sm:flex-row mt-2 ">
-                        <div class="form-check mr-5">
-                            <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="true" />
-                            <label class="form-check-label" for="radio-switch-yes">{{ $t('lucky_draw.draw_create.yes') }}</label>
-                        </div>
-                        <div class="form-check mr-5">
-                            <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="false" />
-                            <label class="form-check-label" for="radio-switch-no">{{ $t('lucky_draw.draw_create.no') }}</label>
+                    <div class="flex sm:flex-row mt-2 justify-between">
+                        <div class="flex w-36">
+                            <div class="form-check mr-5">
+                                <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="true" />
+                                <label class="form-check-label" for="radio-switch-yes">{{ $t('lucky_draw.draw_create.yes') }}</label>
+                            </div>
+                            <div class="form-check mr-5">
+                                <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="false" />
+                                <label class="form-check-label" for="radio-switch-no">{{ $t('lucky_draw.draw_create.no') }}</label>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <div class="lg:w-[50%] flex-col flex sm:flex-row mt-3 mr-5 justify-center sm:justify-between"> 
-
+                <!-- <div class="lg:w-[50%] flex-col flex sm:flex-row mt-3 mr-5 justify-center sm:justify-between"> 
                     <img :src="previewImage" class="max-h-28 mx-auto object-cover" 
                         v-if="currentSettings.path == ''" />
                     <img :src="storageUrl + currentSettings.path" class="max-h-28 mx-auto object-cover" 
                         v-else-if="currentSettings.path != ''" />
-                    <div class="btn btn-primary bg-[#070130] w-full sm:w-fit shadow-md mt-3 sm:mt-auto">
-                        <input type="file" id="upload" @change="uploadAnimation" hidden/>
-                        <label for="upload" id="create_animation">+ {{ $t('lucky_draw.draw_create.upload_animation') }}</label>
-                    </div>
-                </div>
+                </div> -->
             </div>
+
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex-col mt-6 mr-5">
                     <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }}</label>
@@ -200,15 +178,46 @@
                     v-else 
                     class="lg:w-[50%] flex flex-col mt-3 mr-5">  
                 </div>
-            </div>  
+            </div>
+
+            <div class="lg:flex">
+                <div class="lg:w-[100%] flex-col mt-6 mr-5">
+                    <div class="flex justify-between">
+                        <label class="form-label mr-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
+                        <div class="btn btn-primary bg-[#070130] w-48 sm:w-fit shadow-md sm:mt-auto lg:mr-5">
+                            <input type="file" id="upload" @change="uploadAnimation" hidden/>
+                            <label for="upload" id="create_animation">+ {{ $t('lucky_draw.draw_create.upload_animation') }}</label>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-wrap items-center mt-5">
+                        <div class="w-24 h-24 image-fit relative mr-11">
+                            <input type="radio" checked class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
+                            <img class="rounded-full" :src="storageUrl + 'static/lucky_draw1.svg'" />
+                        </div>
+                        <div class="w-24 h-24 image-fit relative mr-11">
+                            <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw2.svg'" />
+                            <img class="rounded-full" :src="storageUrl + 'static/lucky_draw2.svg'" />
+                        </div>
+                        <template v-for="(animates, key) in animationList" :key="key">
+                            <div class="w-24 h-24 image-fit relative mr-11">
+                                <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = animates.path" />
+                                <img class="rounded-full" :src="storageUrl + animates.path" />
+                            </div>
+                        </template>
+                    </div>
+                </div>
+                
+
+            </div>
         </div>
 
-        <div class="flex justify-end my-10 mr-5" v-if="route.query.behavior === 'drawInstantly'">
+        <div class="flex justify-end my-12 mr-5" v-if="route.query.behavior === 'drawInstantly'">
             <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> {{ $t('lucky_draw.draw_create.back') }} </button>
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="goDraw"> {{ $t('lucky_draw.draw_create.go_draw') }} </button>
         </div>
 
-        <div class="flex justify-end my-10 mr-5" v-else>
+        <div class="flex justify-end my-12 mr-5" v-else>
             <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> {{ $t('lucky_draw.draw_create.cancel') }} </button>
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> {{ $t('lucky_draw.draw_create.save') }} </button>
         </div>
@@ -221,7 +230,7 @@
 import { ref, watch, onMounted, onUnmounted, computed, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { list_campaign_product } from '@/api/campaign_product';
-import { create_campapign_lucky_draw, list_campapign_lucky_draw_animation, retrieve_campaign_lucky_draw, update_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
+import { create_campapign_lucky_draw, list_campapign_lucky_draw_animation, retrieve_campaign_lucky_draw, update_campaign_lucky_draw, upload_animation } from '@/api_v2/campaign_lucky_draw';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useVuelidate } from "@vuelidate/core";
@@ -248,7 +257,7 @@ const currentSettings = ref({
     num_of_winner: 0,
     repeatable: false,
     type: 'like',
-    comment: 'keyword',
+    comment: '',
     campaign_product: '',
     prize: '',
     title: '',
@@ -260,6 +269,8 @@ const formData = new FormData()
 const type = ref('create')
 const luckyDrawId = ref(0)
 const productType = ref('')
+const isPrizeSelect = ref(false)
+
 
 const rules = computed(()=> {
     return {
@@ -272,11 +283,8 @@ const validate = useVuelidate(rules, currentSettings);
 
 
 onMounted(() => {
-    list_product_prize()
-
-    list_campapign_lucky_draw_animation().then(res => {
-        animationList.value = res.data
-    })
+    listProductPrize()
+    listAnimation()
 
     eventBus.on('editDraw', (payload) => {
         type.value = 'edit'
@@ -293,9 +301,15 @@ onUnmounted(() => {
     eventBus.off('editDraw')
 })
 
-watch(computed(()=>detailStore.campaignProducts), () => { list_product_prize() })
+watch(computed(()=>detailStore.campaignProducts), () => { listProductPrize() })
 
-const list_product_prize = () => {
+const listAnimation = () => {
+    list_campapign_lucky_draw_animation().then(res => {
+        animationList.value = res.data
+    })
+}
+
+const listProductPrize = () => {
     prizeList.value = []
     productList.value = []
     list_campaign_product(route.params.campaign_id).then(res => {
@@ -307,6 +321,12 @@ const list_product_prize = () => {
 }
 
 const upsert = () => {
+    if (!currentSettings.value.prize.id) {
+        isPrizeSelect.value = true
+    } else {
+        isPrizeSelect.value = false
+    }
+
     validate.value.$touch();
     if (validate.value.$invalid || typeof currentSettings.value.prize === 'string') {
         layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.invalid_data'))
@@ -343,8 +363,10 @@ const uploadAnimation = e => {
 	const reader = new FileReader();
 	reader.readAsDataURL(animation);
 	reader.onload = e =>{ previewImage.value = e.target.result; };
-    currentSettings.value.path = '';
-    console.log(formData.value)
+    
+    upload_animation(route.params.campaign_id, formData).then(res => {
+        listAnimation()
+    })
 }
 
 </script>

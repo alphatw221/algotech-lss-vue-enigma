@@ -31,6 +31,11 @@
 							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
 								{{ $t('campaign_list.campaign_list_table.click_create_notify') }}
 							</h1>
+              <button 
+                class="flex w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto"
+                      @click="router.push({name:'platform'})" v-if="checkPagePonit"> 
+                {{$t('campaign_list.campaign_list_table.connect_platform')}}
+              </button>
 						</div>
 					</td> 
 				</tr>
@@ -156,8 +161,8 @@
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { allow_checkout, list_campaign } from "@/api_v2/campaign"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
-
 import { useRoute, useRouter } from "vue-router";
+import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
 
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
@@ -190,6 +195,7 @@ const order_by= ref("created_at")
 const checkout= ref(true)
 const layoutStore = useLSSSellerLayoutStore()
 const showCommentLoding = ref(true)
+const checkPagePonit = ref(true)
 
 const campaigns=ref([])
 const numOfCampaigns = computed(()=>Object.keys(campaigns.value).length)
@@ -205,6 +211,7 @@ onMounted(()=>{
     search();
   }),
   startFromToast();
+  checkPage();
 })
 
 onUnmounted(()=>{
@@ -301,6 +308,18 @@ const goLuckyDraw = (campaign) => {
 const goQuizGame = (campaign) => {
   router.push({name:'quiz-game',params:{'campaign_id':campaign.id}})
   hideDropDown()
+}
+
+const checkPage = ()=>{
+  get_user_subscription_facebook_pages().then(res=>{
+    if(res.data.length !== 0) checkPagePonit.value = false
+  })
+  get_user_subscription_instagram_profiles().then(res=>{
+    if(res.data.length !== 0) checkPagePonit.value = false
+  })
+  get_user_subscription_youtube_channels().then(res=>{
+    if(res.data.length !== 0) checkPagePonit.value = false
+  })
 }
 
 </script>
