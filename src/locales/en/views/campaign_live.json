@@ -8,7 +8,14 @@
         "select_tag":"Selected tag",
         "clear":"Reset",
         "comment_message_1":"You don't have any %{tag} related comment yet",
-        "comment_message_2":"You don't have any %{platformName} comment yet"
+        "comment_message_2":"You don't have any %{platformName} comment yet",
+
+        "comments_summarizer":" Comments Summarizer",
+        "all_comments":"All Comments",
+        "facebook_comments":"Facebook Comments",
+        "youtube_comments":"Youtube Comments",
+        "instagram_comments":"Instagram Comments"
+
     },
     "reply":{
         "reply_to":"Reply to",
