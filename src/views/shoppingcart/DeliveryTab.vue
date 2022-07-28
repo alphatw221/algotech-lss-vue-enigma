@@ -165,7 +165,7 @@
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(2)
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(store.order.campaign.user_subscription.decimal_places)
                         }}
                       </div>
                     </div>
@@ -180,13 +180,13 @@
                       <div v-if="option.type === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{ (parseFloat(option.price) +
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(2)
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(store.order.campaign.user_subscription.decimal_places)
                         }}
                       </div>
                       <div v-else>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(option.price).toFixed(2)
+                            parseFloat(option.price).toFixed(store.order.campaign.user_subscription.decimal_places)
                         }}
                       </div>
 
