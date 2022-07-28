@@ -122,7 +122,8 @@
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'assign_qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
+									<td v-else-if="column.key === 'assign_qty'" class="qty" 
+										:data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
@@ -235,7 +236,7 @@
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'order_code' " class="orderCode">
+									<td v-else-if="column.key === 'order_code' " class="orderCode" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="relative place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
 											<input class="form-control w-[100%] mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
 											<div class="text-danger absolute -bottom-5  whitespace-nowrap " v-if="errorMessages[product_index] && errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
@@ -243,11 +244,11 @@
 										<div v-else class="text-center">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'category'" class="category">
+									<td v-else-if="column.key === 'category'" class="category" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div v-for="(tag,tag_index) in product['tag']" :key="tag_index">{{ tag }}</div> 
 									</td>
 
-									<td v-else-if="column.key === 'qty'" class="qty">
+									<td v-else-if="column.key === 'qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
@@ -255,7 +256,7 @@
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'assign_qty'" class="qty">
+									<td v-else-if="column.key === 'assign_qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
@@ -264,7 +265,7 @@
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'max_order_amount'" class="maxqty">
+									<td v-else-if="column.key === 'max_order_amount'" class="maxqty" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
 											<input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
 											<div class="text-danger absolute -bottom-5  sm:right-auto sm:left-0 whitespace-nowrap z-10 " v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
@@ -273,11 +274,11 @@
 										
 									</td>
 
-									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
+									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<span>{{$t(`assign_product.product_table.types.${product[column.key]}`)}}</span>
 									</td>
 
-									<td v-else-if="column.key === 'type'" class="type">
+									<td v-else-if="column.key === 'type'" class="type" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 											<select
 												class="form-select w-full mt-0 "
@@ -289,17 +290,17 @@
 										</div>
 									</td> 
 									
-									<td v-else-if="column.key === 'customer_editable' " class="editable">
+									<td v-else-if="column.key === 'customer_editable' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" v-if="product.type=='product'" />
 										<div v-else class="text-center w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto">-</div>
 									</td>
 
-									<td v-else-if=" column.key === 'customer_removable'  " class="removable">
+									<td v-else-if=" column.key === 'customer_removable'  " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)" v-if="product.type=='product' "/>
 										<div v-else class="text-center w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'price'" class="price">
+									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
 											<span class="my-auto mr-1 text-[16px]">$</span> 

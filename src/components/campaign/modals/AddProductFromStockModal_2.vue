@@ -4,9 +4,9 @@
         <a @click="hideModal()" class="absolute right-0 top-0 mt-3 mr-3">
             <XIcon class="w-8 h-8 text-slate-400" />
         </a>
-        <ModalHeader class="text-center text-base p-5">
+        <!-- <ModalHeader class="text-center text-base p-5">
             <div></div>
-        </ModalHeader>
+        </ModalHeader> -->
         <ModalBody>
             
             <AssignCampaignProductView :templateInModal="true" />
