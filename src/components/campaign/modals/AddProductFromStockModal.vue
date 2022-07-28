@@ -621,7 +621,7 @@ const changePageSize = (pageSize)=>{
 
 const submitData = ()=>{
     if(!isSelectedProductsValid){
-        layoutStore.alert.showMessageToast(i18n.golbal.t('campaign_live.product.invalid'))
+        layoutStore.alert.showMessageToast(i18n.global.t('campaign_live.product.invalid'))
         return
     }
 	errorMessages.value = []

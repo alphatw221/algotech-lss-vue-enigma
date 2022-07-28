@@ -1,7 +1,7 @@
 <template>
-    <div class="intro-y box">
+    <div class="" :class="{ hidden: layout.profileTab !== 1, block: layout.profileTab === 1 }">
         <div 
-            v-show="!sellerLayoutStore.editProfile" 
+            v-show="!layout.editProfile" 
             class="flex flex-col sm:flex-row"
         >
             <div class="flex flex-col px-5 items-center justify-center m-10 sm:m-12">
@@ -14,15 +14,17 @@
                         <CameraIcon class="w-4 h-4 text-white" />
                     </div> -->
                 </div>
-                <!-- <button class="btn btn-outlined m-3 sm:m-5 2xl:m-5" @click="sellerLayoutStore.editProfile=true"> Edit Profile </button> -->
+                <!-- <button class="btn btn-outlined m-3 sm:m-5 2xl:m-5" @click="layout.editProfile=true"> Edit Profile </button> -->
             </div>
-            <div class="flex flex-col items-center sm:mt-0 sm:border-l sm:border-slate-200/60 sm:border-t-0 dark:border-darkmode-400 border-t py-6 sm:pt-0 align-middle justify-center sm:w-[80%] xl:w-[50%]">
-                <div class="w-fit truncate font-medium text-sm mb-5 text-center">
-                    {{ sellerLayoutStore.userInfo.name }}
+            <div class="flex flex-col items-center border-t py-6 align-middle justify-center xl:w-[50%] gap-2
+                sm:mt-0 sm:border-l sm:border-slate-200/60 sm:border-t-0 sm:w-[80%] sm:pt-0
+                dark:border-darkmode-400">
+                <div class="w-fit truncate font-medium">
+                    {{ layout.userInfo.name }}
                 </div>
-                <div class="truncate flex w-fit text-center">
-                    <MailIcon class="w-4 h-4 mr-2" />
-                    {{ sellerLayoutStore.userInfo.email }}
+                <div class="truncate flex w-fit">
+                    <MailIcon class="w-5 h-5 mr-2 my-auto" />
+                    {{ layout.userInfo.email }}
                 </div>
                 <!-- <div class="truncate sm:whitespace-normal flex items-center mt-3">
                     Password:
@@ -30,7 +32,7 @@
                 </div> -->
                 <!-- <div class="truncate sm:whitespace-normal flex items-center mt-3 text-center">
                     <PhoneIcon class="w-4 h-4 mr-2" />
-                    {{ sellerLayoutStore.userInfo.phone }}
+                    {{ layout.userInfo.phone }}
                 </div> -->
             </div>
         </div>
@@ -45,23 +47,23 @@ import EditProfile from "./EditProfile.vue";
 import dom from "@left4code/tw-starter/dist/js/dom"; 
 
 
-const sellerLayoutStore = useLSSSellerLayoutStore();
+const layout = useLSSSellerLayoutStore();
 const editModal = ref(false);
 
 onMounted(() => {
-    console.log(sellerLayoutStore.userInfo)
+    console.log(layout.userInfo)
 });
 
 const userAvatar = computed(() => {
-    if (sellerLayoutStore.loginWith == 'facebook') {
-        return sellerLayoutStore.userInfo.facebook_info.picture
-    } else if (sellerLayoutStore.loginWith == 'google') {
-        return sellerLayoutStore.userInfo.google_info.picture
+    if (layout.loginWith == 'facebook') {
+        return layout.userInfo.facebook_info.picture
+    } else if (layout.loginWith == 'google') {
+        return layout.userInfo.google_info.picture
     }
-    if (sellerLayoutStore.userInfo.facebook_info.picture) {
-        return sellerLayoutStore.userInfo.facebook_info.picture
+    if (layout.userInfo.facebook_info.picture) {
+        return layout.userInfo.facebook_info.picture
     }
-    return sellerLayoutStore.userInfo.google_info.picture
+    return layout.userInfo.google_info.picture
 });
 
 </script>
