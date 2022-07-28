@@ -1,12 +1,13 @@
 <template> 
-    <div  class="intro-y box py-10 px-5 sm:p-12 text-[16px] sm:text-[1.2rem] flex flex-col">
+    <div  class="intro-y py-5 text-[16px] sm:text-[1.2rem] flex flex-col"
+        :class="{ hidden: sellerStore.profileTab !== 3, block: sellerStore.profileTab === 3 }" >
         
-        <div class="flex flex-wrap form-inline">
-            <div class="w-[100%]">
-                <label for="horizontal-form-1" class="form-label w-48">Password</label>
+        <div class="flex flex-col form-inline gap-5">
+            <div class="flex-col w-full">
+                <label for="horizontal-form-1" class="w-48">Current Password</label>
                 <input 
                     id="horizontal-form-1" 
-                    class="form-control input_text w-[70%]" 
+                    class="form-control input_text" 
                     :class="{ 'border-danger': v.password.$error }"
                     type="text" 
                     v-model.trim="v.password.$model"
@@ -18,11 +19,11 @@
                 </label>
             </template>
             
-            <div class="w-[100%] mt-5">
-                <label for="horizontal-form-1" class="form-label w-48">New Password</label>
+            <div class="flex-col w-full">
+                <label for="horizontal-form-1" class="w-48">New Password</label>
                 <input 
                     id="horizontal-form-1" 
-                    class="form-control input_text w-[70%]" 
+                    class="form-control input_text" 
                     :class=" { 'border-danger': v.new_password.$error } "
                     type="text"
                     v-model.trim="v.new_password.$model"
@@ -34,11 +35,11 @@
                 </label>
             </template>
 
-            <div class="w-[100%] mt-5">
-                <label for="horizontal-form-1" class="form-label w-48">Confirm Password</label>
+            <div class="flex-col w-[100%]">
+                <label for="horizontal-form-1" class="w-48">Confirm Password</label>
                 <input 
                     id="horizontal-form-1" 
-                    class="form-control input_text w-[70%]" 
+                    class="form-control input_text" 
                     :class=" { 'border-danger': v.confirm_password.$error } "
                     type="text" 
                     v-model.trim="v.confirm_password.$model"

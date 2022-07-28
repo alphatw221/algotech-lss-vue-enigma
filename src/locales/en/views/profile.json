@@ -1,6 +1,8 @@
 {
-    "profile":{
-        "title":"Profile"
+    "tab":{
+        "profile":"Profile",
+        "plan":"Subscription",
+        "change_password":"Change Password" 
     },
     "subscription":{
         "title":"Subscription",

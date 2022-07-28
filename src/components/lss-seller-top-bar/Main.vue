@@ -189,13 +189,13 @@
               </div>
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
-            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="viewProfile()">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(1)">
               <UserIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.profile`)}}</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]"  @click="viewSubscrition()"> 
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]"  @click="profile(2)"> 
               <AwardIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.subscription`)}}</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="resetPassword()">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(3)">
               <LockIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.reset_password`)}}</DropdownItem
             >
             <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
@@ -259,20 +259,8 @@ const logout = () => {
   
 }
 
-
-const resetPassword = ()=>{
-  router.push({name:'PasswordForgot'})
-  hideDropDown()
-}
-
-const viewProfile = ()=>{
-  sellerLayoutStore.profileTab = 0;
-  router.push({name:'seller-profile'})
-  hideDropDown()
-}
-
-const viewSubscrition = ()=>{
-  sellerLayoutStore.profileTab = 1; 
+const profile =(page)=>{
+  sellerLayoutStore.profileTab = page
   router.push({name:'seller-profile'})
   hideDropDown()
 }
