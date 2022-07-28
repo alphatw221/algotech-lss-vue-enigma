@@ -69,7 +69,7 @@ const countries = ref({'PH':'Philippines','SG':'Singapore','ID':'Indonesia','IN'
 
 const currencySymbols = ref([
     {value:'USD',text:'USD'},
-    {value:'TWD',text:'TWD'},
+    {value:'NTD',text:'NTD'},
     {value:'SGD',text:'SGD'},
     {value:'IDR',text:'IDR'},
     {value:'PHP',text:'PHP'},
