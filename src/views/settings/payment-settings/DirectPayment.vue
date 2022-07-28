@@ -84,6 +84,9 @@
                     <div class="relative border-2 border-dashed dark:border-darkmode-400">
                         <div class="flex items-center justify-center px-4">
                             <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
+                            <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('create_campaign.payment_form.remove_image')"  :options="{theme: 'light',}">
+                                <XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeImage(index_i)"/>
+                            </Tippy>
                         </div>
                         <div class="px-4 text-[1rem] sm:text-[16px] absolute top-20 text-center w-full flex flex-col items-center justify-center"
                             v-if="[undefined, null, ''].includes(previewImages[index_i])">
@@ -96,6 +99,7 @@
                         </div>
                         <input
                             type="file"
+                            :id="`file_input_${index_i}`"
                             class="absolute top-0 left-0 w-full h-full opacity-0"
                             accept="image/jpeg,image/png,image/jpg" 
                             @change="uploadImage($event, index_i)"
@@ -158,6 +162,7 @@ const paymentData = reactive(
         v2_accounts:[]
     }
 )
+const directPaymentImages=reactive([])
 const previewImages = ref([])
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
 const formData = new FormData()
@@ -189,31 +194,43 @@ onMounted(() => {
 
     paymentData.v2_accounts.forEach(account => {
         previewImages.value.push(storageUrl+account.image)
+        directPaymentImages.push(null)
     });
 })
 
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
+    if([null,undefined,''].includes(image))return
     if(image.size/1024/1024>10){
         sellerStore.alert.showMessageToast(i18n.global.t('settings.img_size_err'))
         return
     }
-    formData.append('_'+paymentData.v2_accounts[index].name,image)
+    // formData.append('_'+paymentData.v2_accounts[index].name,image)
+    directPaymentImages[index]=image
 	let reader = new FileReader();
 	reader.readAsDataURL(image);
 	reader.onload = event =>{ previewImages.value[index] = event.target.result };
 }
 
 
+
+const removeImage = (index) =>{
+
+    document.getElementById(`file_input_${index}`).value=null
+    previewImages.value[index] = null
+    directPaymentImages[index] = '._no_image'
+
+}
 const deleteDirectPayment = index=>{
     paymentData.v2_accounts.splice(index,1)
     previewImages.value.splice(index,1)
-
+    directPaymentImages.splice(index,1)
     updateDirectPayment()
 }
 const addDirectPayment = ()=>{
     paymentData.v2_accounts.unshift({mode:'',name:'',number:'',note:'',require_customer_return:true})
     previewImages.value.unshift('')
+    directPaymentImages.unshift('._no_image')
 }
 
 const updateDirectPayment = () => {
@@ -223,6 +240,11 @@ const updateDirectPayment = () => {
         return
     }
     formData.append('data', JSON.stringify(paymentData))
+
+    directPaymentImages.forEach( (image,index) => {
+		const key = paymentData.v2_accounts[index].name+'_'+index   
+		formData.append(key,image)
+	});
 
     seller_update_payment(props.payment.key,formData).then(res=>{
         sellerStore.userInfo = res.data

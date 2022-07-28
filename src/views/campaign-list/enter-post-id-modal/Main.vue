@@ -41,7 +41,7 @@
             </button>
             <div>
               {{$t('campaign_list.enter_post_id_modal.post_id')}}: <br>
-              <p v-if="campaign.facebook_page">{{ campaign.facebook_campaign.post_id }}</p>
+              <input class="post_id" v-if="campaign.facebook_page" v-model="campaign.facebook_campaign.post_id" @focusout="autoUpdatePostId('facebook', campaign.facebook_page.id, campaign.facebook_campaign.post_id)">
             </div>
           </div>
           <div class="col-span-12 sm:col-span-4 mr-5">
@@ -75,7 +75,7 @@
             /> -->
             <div>
               {{$t('campaign_list.enter_post_id_modal.media_id')}}:<br>
-              <p v-if="campaign.instagram_campaign">{{ campaign.instagram_campaign.live_media_id }}</p>
+              <input class="post_id" v-if="campaign.instagram_profile" v-model="campaign.instagram_campaign.live_media_id" @focusout="autoUpdatePostId('instagram', campaign.instagram_profile.id, campaign.instagram_campaign.live_media_id)">
             </div>
           </div>
           <div class="col-span-12 sm:col-span-4 mr-5">
@@ -108,7 +108,7 @@
             /> -->
             <div>
               {{$t('campaign_list.enter_post_id_modal.live_chat_id')}}:<br>
-              <p v-if="campaign.youtube_campaign">{{ campaign.youtube_campaign.live_video_id }}</p>
+              <input class="post_id" v-if="campaign.youtube_channel" v-model="campaign.youtube_campaign.live_video_id" @focusout="autoUpdatePostId('youtube', campaign.youtube_channel.id, campaign.youtube_campaign.live_video_id)">
             </div>
           </div>
 
@@ -152,6 +152,8 @@
 <script setup>
 import SelectPlatformPageModal from "./SelectPlatformPageModal.vue"
 import SelectCurrentLiveModal from "./SelectCurrentLiveModal.vue"
+import { update_platform_live_id } from "@/api_v2/campaign"
+
 
 import { useRoute, useRouter } from "vue-router"
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
@@ -166,6 +168,7 @@ onMounted(()=>{
       console.log("-------------")
       showModal.value = true
       campaign.value = payload.campaign
+      console.log(campaign.value)
       ready.value=true
     })
 })
@@ -197,4 +200,25 @@ const selectPlatformPage = (platform)=>{
   eventBus.emit('showSelectPlatformModal',{'platform':platform, 'campaign':campaign.value})
 }
 
+const autoUpdatePostId = (platform, page_id, live_id) => {
+  update_platform_live_id(campaign.value.id, platform, page_id, live_id).then(res=>{
+    console.log(res)
+    // campaign.value.data=res.data    //test 
+    
+  })
+}
+
 </script>
+<style scoped>
+.post_id {
+  border:0;
+  outline: 0;
+  padding: 4px;
+  height: auto;
+  border-bottom: 1px solid black;
+}
+.post_id:focus {
+  background-color: aliceblue;
+  transition: 0.5s ease;
+}
+</style>

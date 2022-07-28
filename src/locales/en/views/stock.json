@@ -28,7 +28,8 @@
         "category": "Category",
         "description": "Description",
         "qty": "Qty",
-        "price": "Price"
+        "price": "Price",
+        "confirm_delete": "Are you sure delete this product ?"
     },
 
     "category_manage": {
@@ -43,7 +44,8 @@
             "warning_duplicate": "Duplicate category name"
         },
         "save_success":"Save Success",
-        "not_saved":"Change Not Saved"
+        "not_saved":"Update Canceled",
+        "confirm_delete": "Are you sure delete this category ?"
     },
 
     "add_product_page": {
@@ -67,10 +69,10 @@
         "cancel": "Cancel",
         "save": "Save",
 
-        "not_save_message":"Change Not Save",
+        "not_save_message":"Update Canceled",
         "create_message":"Create Successfully",
         "update_message":"Update Successfully",
-        "invalid_data":"Invalid Data Inputed"
+        "invalid_data":"Invalid Submission"
     }
     
 }

@@ -13,13 +13,14 @@
 				v-model="props.campaign.meta_logistic.delivery_charge"
 				@blur="props.v.meta_logistic.delivery_charge.$touch()"
 			/>
+			<label class="text-danger text-[12px] " 
+				v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
+				:key="index"
+				>
+				{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+			</label>
 		</div>
-		<label class="text-danger text-[12px] " 
-			v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
-			:key="index"
-			>
-			{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
-		</label>
+		
 
 		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
 			<label class="form-label text-base text-lg font-medium">
@@ -91,7 +92,7 @@
 					<input  
 						class="flex-1 w-full text-base form-control sm:w-fit"
 						type="text" 
-						placeholder="eg : Express Service"
+						placeholder="eg : Delivery Service"
 						v-model="option.title"
 					/>
 					<label class="text-danger text-[12px]  block" 
@@ -123,7 +124,7 @@
 					<input  
 						class="w-full form-control flex-2 sm:w-fit"
 						type="text" 
-						placeholder="eg : Express Charge"
+						placeholder="eg : 10"
 						v-model="option.price"
 					/>
 					<label class="text-danger text-[12px]  block" 
@@ -191,7 +192,7 @@
 						
                     </div>
                     <button 
-                        class="inline-block w-full rounded-lg btn btn-danger sm:ml-auto sm:w-24" 
+                        class="inline-block w-full rounded-lg btn btn-danger sm:ml-auto sm:w-24 h-[42px] lg:mt-6" 
                         @click="deleteBranch(index)"
                         >
                         {{$t('create_campaign.delivery_form.delete')}}

@@ -3,10 +3,10 @@
 
     "for_sale": "銷售中",
     "delisted": "下架",
-    "add_product": "新增產品",
-    "dont_have_product_notify": "您並未增加該類別的產品",
+    "add_product": "新增商品",
+    "dont_have_product_notify": "目前沒有任何商品",
     "no_result": "您並未新增商品",
-    "click_to_add":"設置您的第一個商品，點擊 '+新增商品'",
+    "click_to_add":"點擊 \"+ 新增商品\"，新增您的第一個商品",
 
 
     "search_bar": {
@@ -29,7 +29,8 @@
         "category": "類別",
         "description": "說明",
         "qty": "數量",
-        "price": "價格"
+        "price": "價格",
+        "confirm_delete": "確定要刪除該商品 ?"
     },
 
     "category_manage": {
@@ -44,7 +45,8 @@
             "warning_duplicate": "重複的類別名稱"
         },
         "save_success":"儲存成功",
-        "not_saved":"取消儲存"
+        "not_saved":"取消儲存",
+        "confirm_delete": "確定要刪除該類別 ?"
     },
 
     "add_product_page": {

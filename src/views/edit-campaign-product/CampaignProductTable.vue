@@ -27,19 +27,19 @@
                         </td>
 
                         <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm orderCode" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="form-check place-content-center">
+                            <div>
                                 {{ campaign_product[column.key] }}        
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'qty_for_sale'" class="w-24 text-[12px] lg:text-sm qty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="form-check place-content-center">
+                            <div>
                                 {{ campaign_product[column.key] }}      
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="form-check place-content-center">
+                            <div>
                                 {{ campaign_product[column.key] }}   
                             </div>
                         </td>
@@ -55,7 +55,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'name'" class="text-[12px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage">
-                            <div class="w-full">{{ campaign_product[column.key] }}</div>
+                            <div>{{ campaign_product[column.key] }}</div>
                         </td>
 
                         <!-- <td v-else-if="column.key === 'selected'" class="text-[12px] lg:w-18 lg:text-sm 2xl:w-28 selected">
@@ -92,7 +92,7 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'type'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end type">
+                        <td v-else-if="column.key === 'type'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end type" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div class=" form-check place-content-end sm:place-content-center">
                                     {{$t(`edit_campaign_product.campaign_product_table.types.${campaign_product[column.key] }`)}}    
                             </div>                
@@ -369,11 +369,11 @@ thead th {
         height: 125px !important;
     }
 
-    td:nth-of-type(3):before {
+    td:nth-of-type(2):before {
         display: none;
     }
 
-    td:nth-of-type(3) {
+    td:nth-of-type(2) {
         display: inline-block;
         text-align: center !important;
         width: 100% !important;

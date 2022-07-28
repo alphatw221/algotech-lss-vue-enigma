@@ -117,7 +117,7 @@ import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 
 import EnterPostIDModal from "@/views/campaign-list/enter-post-id-modal/Main.vue"
-import { required, minLength, maxLength, helpers, numeric } from "@vuelidate/validators";
+import { required, minLength, maxLength, helpers, numeric , decimal, minValue, requiredIf, integer} from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
@@ -174,19 +174,22 @@ const campaignDataRules = computed(() => {
 	return { 	
 				title: { required, minLength: minLength(1), maxLength: maxLength(255) },
 				meta_logistic:{
+					delivery_charge:{required, decimal, minValue:minValue(0)},
+					free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
+					free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
 					additional_delivery_options: {
-					$each: helpers.forEach({
-						title:{required},
-						type: {required},
-						price:{required, numeric}
-					})
-				},
-				pickup_options: {
-					$each: helpers.forEach({
-						name:{required},
-						address: {required},
-					})
-				},
+						$each: helpers.forEach({
+							title:{required},
+							type: {required},
+							price:{required, numeric}
+						})
+					},
+					pickup_options: {
+						$each: helpers.forEach({
+							name:{required},
+							address: {required},
+						})
+					},
 				},
 				meta_payment:{
 					direct_payment:{

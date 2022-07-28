@@ -95,6 +95,7 @@
                         </div>
                             <input
                                 type="file"
+                                :id="`file_input_${index_i}`"
                                 class="absolute top-0 left-0 w-full h-full opacity-0"
                                 accept="image/jpeg,image/pen,image/jpg" 
                                 @change="uploadImage($event, index_i)"
@@ -156,6 +157,8 @@ onMounted(() => {
 
 const uploadImage = (event, index) =>{
 	let image = event.target.files[0];
+    if([null,undefined,''].includes(image))return
+
     if(image.size/1024/1024>10){
         sellerStore.alert.showMessageToast(i18n.global.t('create_campaign.payment_form.errors.img_size_err'))
         return
@@ -167,8 +170,11 @@ const uploadImage = (event, index) =>{
 }
 
 const removeImage = (index) =>{
+
+    document.getElementById(`file_input_${index}`).value=null
     previewImages.value[index] = null
     props.directPaymentImages[index] = '._no_image'
+
 }
 
 const deleteDirectPayment = index=>{

@@ -99,7 +99,7 @@
                             class="rounded-full w-30 whitespace-wrap" 
                             data-tippy-allowHTML="true" 
                             data-tippy-placement="right" 
-                            content="Allow same person <br/> to win multiple prizes?" 
+                            :content="$t('lucky_draw.draw_create.winner_repeat_tip')" 
                             theme='light'
                         > 
                             <HelpCircleIcon class="w-8 ml-2" />

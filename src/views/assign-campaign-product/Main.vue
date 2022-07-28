@@ -1,9 +1,10 @@
 <template>
 	<!-- BEGIN Container -->
 	<div class="py-4 px-2">
-		<h1 class="my-2 text-xl sm:text-2xl mx-auto sm:mx-0 font-medium leading-none">{{$t('assign_product.assign_product')}}</h1>
-	
-	
+		<div class="flex flex-col col-span-12 h-fit lg:mt-3 pb-4">
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
+		</div>
+		
 		<!-- BEGIN SearchPage -->
 		<div v-show="openTab=='select'">
 			<!-- BEGIN SearchBar -->
@@ -269,6 +270,7 @@
 											<div class="text-danger absolute -bottom-5  sm:right-auto sm:left-0 whitespace-nowrap z-10 " v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 										<div v-else class="text-center">-</div>
+										
 									</td>
 
 									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
@@ -302,7 +304,9 @@
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
 											<span class="my-auto mr-1 text-[16px]">$</span> 
 											<input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+											<div class="text-danger absolute -bottom-5  whitespace-nowrap" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
+										
 									</td>
 
 									<td v-else-if="column.key === 'name'" class="name">
@@ -420,11 +424,15 @@ const checkIfValid = ()=>{
 	const orderCodeDict = {}
     selectedProducts.value.forEach((selectedProduct,index) => {
         errorMessages.value[index]={}
-        if(selectedProduct.type=='product' && selectedProduct.order_code in orderCodeDict) {
-                if(typeof orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[orderCodeDict[selectedProduct.order_code]]['order_code']='order_code_duplicate'
-                errorMessages.value[index]['order_code']='order_code_duplicate';
-                isSelectedProductsValid=false;
-            }
+        if(selectedProduct.type=='product' && typeof selectedProduct.order_code =='string' &&selectedProduct.order_code.toLowerCase() in orderCodeDict) {
+
+				
+			if(typeof orderCodeDict[selectedProduct.order_code.toLowerCase()] == 'number') {
+				errorMessages.value[orderCodeDict[selectedProduct.order_code.toLowerCase()]]['order_code']='order_code_duplicate'
+			}
+			errorMessages.value[index]['order_code']='order_code_duplicate';
+			isSelectedProductsValid=false;
+		}
         if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code) ) {errorMessages.value[index]['order_code']='order_code_required';isSelectedProductsValid=false;}
         
 		if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false;}
@@ -432,7 +440,14 @@ const checkIfValid = ()=>{
 
         if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.assign_qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
         if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
-        orderCodeDict[selectedProduct.order_code]=index
+		if(isNaN(parseFloat(selectedProduct.price)) || selectedProduct.price<0){errorMessages.value[index]['price']='price_invalid';isSelectedProductsValid=false;}
+
+		if(typeof selectedProduct.order_code=='string'){
+			orderCodeDict[selectedProduct.order_code.toLowerCase()]=index
+		}
+		
+		console.log(orderCodeDict)
+        
     });
 
 }

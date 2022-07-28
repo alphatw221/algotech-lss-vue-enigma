@@ -3,10 +3,14 @@
         <h1 class="text-center sm:text-left text-xl sm:text-2xl font-medium"> Quiz Game </h1>
 
         <div class="box p-3 sm:p-10 sm:m-5">
-            <div :show="!isQuizList">
-                <QuizGameCreate />
+            <div v-show="!isQuizList">
+                <QuizCreate />
             </div>
-            
+            <div v-show="isQuizList">
+                <QuizList 
+                    :campaignTitle="campaignTitle"
+                />
+            </div>
         </div>
     </div>
 </template>
@@ -14,12 +18,30 @@
 <script setup>
 import { ref, watch, onMounted, getCurrentInstance, onUnmounted } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
-import QuizGameCreate from './QuizGameCreate.vue';
+import QuizCreate from './QuizCreate.vue';
+import QuizList from './QuizList.vue'
+import { list_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
+import { retrieve_campaign } from '@/api_v2/campaign';
 
 
-const ready = ref(true)
+const route = useRoute()
+const router = useRouter()
+const ready = ref(false)
 const isQuizList = ref(false)
+const quizgameList = ref([])
+const campaignTitle = ref('')
 
+onMounted(() => {
+    retrieve_campaign(route.params.campaign_id).then(res => { campaignTitle.value = res.data.title })
+
+    list_campaign_quiz_game(route.params.campaign_id).then(res => {
+        if (Object.entries(res.data).length > 0) {
+            quizgameList.value = res.data
+            isQuizList.value = true
+        }
+        ready.value = true
+    })
+})
 
 </script>
     

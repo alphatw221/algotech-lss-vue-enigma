@@ -60,7 +60,7 @@ onMounted(()=>{
       campaign.value = payload.campaign
       payloadBuffer = payload
       if(payload.platform=='facebook'){
-        get_fb_page_live_media(payloadBuffer.platformInstance.page_id, payloadBuffer.platformInstance.token)
+        get_fb_page_live_media(payloadBuffer.page.page_id, payloadBuffer.page.token)
         .then((response) => {
 
           const live_campaign = response.data.data.filter(v => v.status === "LIVE")
@@ -83,7 +83,7 @@ onMounted(()=>{
           show.value = true
         })
       }else if(payload.platform=='youtube'){
-        get_yt_live_media(payloadBuffer.platformInstance.token)
+        get_yt_live_media(payloadBuffer.page.token)
         .then((response) => {
 
             // const sort = response.data.data.filter(v => v.status === "LIVE")
@@ -108,7 +108,7 @@ onMounted(()=>{
             show.value = true
         })
       }else if(payload.platform=='instagram'){
-        get_ig_live_media(payloadBuffer.platformInstance.business_id,payloadBuffer.platformInstance.token)
+        get_ig_live_media(payloadBuffer.page.business_id,payloadBuffer.page.token)
         .then((response) => {
 
             const live_campaign = response.data.data
@@ -143,13 +143,7 @@ onUnmounted(()=>{
 
 const selectLive = live_id => {
   let apiRequest = null
-  if(payloadBuffer.platform=='facebook'){
-    apiRequest =update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
-  }else if(payloadBuffer.platform=='youtube'){
-    apiRequest =update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
-  }else if(payloadBuffer.platform=='instagram'){
-    apiRequest =update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
-  }
+  apiRequest = update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.page.id ,live_id)
   apiRequest.then(res=>{
     Object.entries(res.data).forEach(([key,value]) => {
       campaign.value[key]=value                       //proxy object only got setter
