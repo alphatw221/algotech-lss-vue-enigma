@@ -413,7 +413,7 @@ thead th {
     display: none;
 }
 .form-check-input {
-    border-color: rgb(128, 128, 128) !important;
+    border-bottom: 2px solid #dddddd; 
 }
 
 @media only screen and (max-width: 760px),
@@ -450,7 +450,7 @@ thead th {
     }
 
     tr {
-		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		border-bottom: 2px solid #DDDDDD;
 		margin-top: 20px;
 	}
 
