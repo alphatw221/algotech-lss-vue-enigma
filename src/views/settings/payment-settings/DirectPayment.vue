@@ -185,7 +185,6 @@ onMounted(() => {
 
     if(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]){
         Object.assign(paymentData,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key])))
-        // paymentData = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]))  
     }
 
 
@@ -205,7 +204,7 @@ const uploadImage = (event, index) =>{
         sellerStore.alert.showMessageToast(i18n.global.t('settings.img_size_err'))
         return
     }
-    // formData.append('_'+paymentData.v2_accounts[index].name,image)
+
     directPaymentImages[index]=image
 	let reader = new FileReader();
 	reader.readAsDataURL(image);
@@ -251,10 +250,6 @@ const updateDirectPayment = () => {
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }
-
-// const removeImage = (index) => {
-//     previewImages.value[index] = ''
-// }
 
 
 </script>

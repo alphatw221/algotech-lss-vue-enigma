@@ -59,7 +59,8 @@
             "order_code_duplicate":"duplicate",
             "qty_invalid":"invalid",
             "max_order_amount_grater_than_qty":"Greater than assign QTY",
-            "assign_qty_required":"required"
+            "assign_qty_required":"required",
+            "price_invalid":"invalid"
         },
         "invalid":"Invalid",
         "successed":"Successed",
