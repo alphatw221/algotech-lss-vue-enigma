@@ -128,7 +128,7 @@ thead th{
 	}
 
 	tr {
-		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		border-bottom: 2px solid #DDDDDD;
 		margin-top: 10px;
 	}
 

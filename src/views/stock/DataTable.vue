@@ -298,7 +298,7 @@ thead th{
 	}
 
 	.trBorder{
-		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		border-bottom: 2px solid #dddddd; 
 	}
 
 	.dotTr{

@@ -1,6 +1,6 @@
 <template>
-	<div class="overflow-x-auto">
-		<table class="table table-report mt-2 overflow-y-scroll table-auto">
+	<div class="overflow-x-auto h-full sm:h-[62vh]">
+		<table class="table table-report mt-2 table-auto">
 			<thead>
 				<tr >
 					<th class="whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
@@ -134,8 +134,7 @@ onMounted(()=>{
   }
 
   tr {
-    border-bottom: 1px solid black;
-	  padding-top: 10px;
+    border-bottom: 2px solid #DDDDDD;
     background: white;
   }
 
@@ -147,6 +146,7 @@ onMounted(()=>{
     padding-left: 50% !important;
     text-align: left !important;
     box-shadow: none !important;
+    min-height: 28px;
   }
 
   td:before {
@@ -161,28 +161,25 @@ onMounted(()=>{
 
   td:nth-of-type(1):before {
     content: attr(data-content);
-    /* color: #0e9893; */
   }
   td:nth-of-type(2):before {
     content: attr(data-content);
     height: 100px;
-    /* color: #0e9893; */
   }
   td:nth-of-type(3):before {
     content: attr(data-content);
-    /* color: #0e9893; */
   }
   td:nth-of-type(4):before {
     content: attr(data-content);
-    /* color: #0e9893; */
   }
   td:nth-of-type(5):before {
     content: attr(data-content);
-    /* color: #0e9893; */
   }
   td:nth-of-type(6):before {
     content: attr(data-content);
-    /* color: #0e9893; */
+  }
+  td:nth-of-type(6){
+    min-height: 35px !important;
   }
 }
 </style>

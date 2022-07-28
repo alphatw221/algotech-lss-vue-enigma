@@ -38,9 +38,9 @@
 							class="w-32 imgtd">
 							<span class="mt-4 title sm:hidden">{{ $t(`auto_reply.table_column.${column.name}`) }}</span>
 							<div class="w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
-								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image" v-if="reply.facebook_page"
+								<Tippy tag="img" class="w-12 h-12 rounded-lg ml-10 sm:ml-0" :src="reply.facebook_page.image" v-if="reply.facebook_page"
 									:content="`facebook`" />
-								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.instagram_profile.image" v-else-if="reply.instagram_profile"
+								<Tippy tag="img" class="w-12 h-12 rounded-lg ml-10 sm:ml-0" :src="reply.instagram_profile.image" v-else-if="reply.instagram_profile"
 								:content="`instagram`" />
 							</div>
 						</td>
@@ -285,7 +285,7 @@ thead th{
 	}
 
 	tr {
-		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		border-bottom: 2px solid #dddddd; 
 		margin-top: 10px;
 	}
 
