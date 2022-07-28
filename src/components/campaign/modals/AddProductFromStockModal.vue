@@ -316,6 +316,10 @@
                                             <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
                                                 <span class="my-auto mr-1 text-[16px]">$</span> 
                                                 <input class="form-control w-[100%] mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" />
+                                                <label class="text-danger absolute -bottom-4 right-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">
+
+                                                    {{$t(`campaign_live.product.errors.${errorMessages[product_index][column.key]}`)}}
+                                                </label>
                                             </div>
                                         </td>
 
@@ -466,7 +470,10 @@ const createProductCache = ()=>{
 
     campaignDetailStore.campaignProducts.forEach(campaignProduct => {
         stockProductIdDict[campaignProduct.id.toString()]=true
-        orderCodeDict[campaignProduct.order_code]=true
+        if(typeof campaignProduct.order_code == 'string'){
+            orderCodeDict[campaignProduct.order_code.toLowerCase()]=true
+        }
+        
 	});
 
     campaignProductCache = {
@@ -480,8 +487,12 @@ const checkIfValid = ()=>{
     const productCache = getProductCache()
     selectedProducts.value.forEach((selectedProduct,index) => {
         errorMessages.value[index]={}
-        if(selectedProduct.type=='product' && selectedProduct.order_code in productCache.orderCodeDict) {
-                if(typeof productCache.orderCodeDict[selectedProduct.order_code] == 'number') errorMessages.value[productCache.orderCodeDict[selectedProduct.order_code]]['order_code']='order_code_duplicate'
+        if(selectedProduct.type=='product' && typeof selectedProduct.order_code == 'string' && selectedProduct.order_code.toLowerCase() in productCache.orderCodeDict) {
+                console.log(productCache.orderCodeDict[selectedProduct.order_code])
+                if(typeof productCache.orderCodeDict[selectedProduct.order_code] == 'number') {
+                    console.log(productCache.orderCodeDict[selectedProduct.order_code])
+                    errorMessages.value[productCache.orderCodeDict[selectedProduct.order_code.toLowerCase()]]['order_code']='order_code_duplicate'
+                    }
                 errorMessages.value[index]['order_code']='order_code_duplicate';
                 isSelectedProductsValid=false;
             }
@@ -492,7 +503,12 @@ const checkIfValid = ()=>{
 
         if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.assign_qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
         if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
-        productCache.orderCodeDict[selectedProduct.order_code]=index
+        if(isNaN(parseFloat(selectedProduct.price)) || selectedProduct.price<0){errorMessages.value[index]['price']='price_invalid';isSelectedProductsValid=false;}
+
+        if(typeof selectedProduct.order_code=='string'){
+			productCache.orderCodeDict[selectedProduct.order_code.toLowerCase()]=index
+		}
+        // console.log(productCache.orderCodeDict)
     });
 
 }
@@ -605,7 +621,7 @@ const changePageSize = (pageSize)=>{
 
 const submitData = ()=>{
     if(!isSelectedProductsValid){
-        layoutStore.alert.showMessageToast(i18n.golbal.t('campaign_live.product.invalid'))
+        layoutStore.alert.showMessageToast(i18n.global.t('campaign_live.product.invalid'))
         return
     }
 	errorMessages.value = []

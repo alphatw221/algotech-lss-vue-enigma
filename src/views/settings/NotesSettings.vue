@@ -107,10 +107,11 @@ const list = () => {
 
 const update = () => {
     console.log(deliveryNote.value)
-    update_notes(deliveryNote.value, specialNote.value, confirmationNote.value).then(response => {
+    update_notes(deliveryNote.value, specialNote.value, confirmationNote.value).then(res => {
         layoutStore.userInfo = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
-    }).catch(error =>
+    })
+    .catch(error =>
         layoutStore.alert.showMessageToast(i18n.global.t('settings.update_failed'))
     )
 }

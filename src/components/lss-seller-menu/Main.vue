@@ -134,7 +134,7 @@
           <!-- END: First Child -->
         </ul> 
           <button class="fixed mx-5 text-white rounded-lg btn btn-danger xl:m-5 bottom-5"
-              @click="layoutStore.profileTab = 1; router.replace('/seller/profile')"
+              @click="router.push('/seller/change-plan')"
               ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/><span class="hidden text-lg xl:block 2xl:block">{{$t('layout.upgrade')}}  </span>  </button>
           </nav>
       
