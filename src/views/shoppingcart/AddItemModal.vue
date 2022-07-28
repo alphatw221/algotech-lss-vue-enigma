@@ -36,7 +36,7 @@
 							{{ product.name }}
 						</div>
 						<div class="text-slate-500 text-sm text-center">
-							$ {{ product.price }}
+							{{store.order.campaign.currency}} {{ parseFloat(product.price).toFixed(store.order.campaign.user_subscription.decimal_places) }}
 						</div>
 						<div class="flex">
 							<button type="button" @click="changeQuantity(null, index, 'minus')">

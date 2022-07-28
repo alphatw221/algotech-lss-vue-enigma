@@ -29,7 +29,7 @@
 				</div>
 			</div>
 			<div class="font-medium text-slate-600 dark:text-slate-500 whitespace-nowrap w-fit ml-5">
-				{{store.order.campaign.currency}} {{ product.qty * product.price }}
+				{{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.order.campaign.user_subscription.decimal_places) }}
 			</div>
 			</div> 
 
