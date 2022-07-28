@@ -23,9 +23,9 @@
         "shipping":"Shipping",
         "delivery_charge":"Delivery Charge",
         "discount":"Discount",
-        "add": "Add",
-        "subtract": "Subtract",
-        "apply_free_delivery" : "Free Delivery",
+        "add": "Addition",
+        "subtract": "Discount",
+        "apply_free_delivery" : "Free Delivery Apply",
         "modify_price": "Modify Price",
         "price_adjustment" : "Price Adjustment",
         "price_adjustment_note" : "To make a discount, enter -(price).To apply extra fee, enter the price directly.",
@@ -52,6 +52,7 @@
         "additional_delivery_charge" : "Selected Delivery Charge Option"
     },
     "payment":{
+        "Direct Payment":"Direct Payment",
         "method" : "Method of Payment",
         "information": "Payment Information",
         "record" : "Record",

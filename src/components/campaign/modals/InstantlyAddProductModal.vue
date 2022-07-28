@@ -111,7 +111,7 @@ const addtoCampaign =()=>{
         response =>{
             console.log(response.data);
             store.campaignProducts.push(response.data)
-            layoutStore.notification.showMessageToast(i18n.golbal.t('campaign_live.product.successed'))
+            layoutStore.notification.showMessageToast(i18n.global.t('campaign_live.product.successed'))
         }
     )
 } 
@@ -119,7 +119,7 @@ const addtoCampaign =()=>{
 const apply = ()=>{
     validate.value.$touch();
     if (validate.value.$invalid) {
-        layoutStore.alert.showMessageToast(i18n.golbal.t('campaign_live.product.invalid_data'))
+        layoutStore.alert.showMessageToast(i18n.global.t('campaign_live.product.invalid_data'))
         return
     }else 
     addtoCampaign()

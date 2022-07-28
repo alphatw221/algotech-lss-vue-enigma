@@ -65,16 +65,16 @@
 					</template>
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}} {{ (product.price).toFixed(2) }}
+					{{store.orderDetail.campaign.currency}} {{ (product.price).toFixed(sellerStore.userInfo.user_subscription.decimal_places) }}
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}} {{ (product.qty * product.price).toFixed(2) }}
+					{{store.orderDetail.campaign.currency}} {{ (product.qty * product.price).toFixed(sellerStore.userInfo.user_subscription.decimal_places) }}
 				</td>
 				<td>
 					<a  class="flex items-center justify-center text-danger" 
 						v-show="props.order_type !== 'order'"
 						@click="delete_product(product.order_product_id)" >
-						<Trash2Icon class="w-4 h-4 mr-1" /> Delete
+						<Trash2Icon class="w-4 h-4 mr-1" />
 					</a>
 				</td>
 			</tr>

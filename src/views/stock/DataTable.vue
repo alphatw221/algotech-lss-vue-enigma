@@ -140,6 +140,7 @@ import { list_product, delete_product } from '@/api_v2/product'
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router"
 import dom from "@left4code/tw-starter/dist/js/dom";
+import i18n from "@/locales/i18n";
 
 const route = useRoute()
 const router = useRouter()
@@ -197,19 +198,19 @@ onUnmounted(()=>{
 
 const search = ()=>{
 	showCommentLoding.value = true
-			stockProducts.value = []
-			list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value )
-			.then(
-				response => {
-					if(response.data.count != undefined){
-						dataCount.value = response.data.count
-                        const _totalPage = parseInt(response.data.count / pageSize.value)
-                        totalPage.value = _totalPage == 0 ? 1 : _totalPage
-                    }
-                    stockProducts.value = response.data.results
-					showCommentLoding.value = false
-				}
-			)
+	stockProducts.value = []
+	list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value )
+	.then(
+		response => {
+			if(response.data.count != undefined){
+				dataCount.value = response.data.count
+				const _totalPage = parseInt(response.data.count / pageSize.value)
+				totalPage.value = _totalPage == 0 ? 1 : _totalPage
+			}
+			stockProducts.value = response.data.results
+			showCommentLoding.value = false
+		}
+	)
 }
 
 const changePage = page=> {      
@@ -232,9 +233,8 @@ const hideDropDown = ()=>{
 }
 
 const deleteProduct = (id) => {
-	delete_product(id).then(res => {
-		search()
-	})
+	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
+	if (yes) delete_product(id).then(res => { search() })
 }
 </script>
 
@@ -298,7 +298,7 @@ thead th{
 	}
 
 	.trBorder{
-		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		border-bottom: 2px solid #dddddd; 
 	}
 
 	.dotTr{

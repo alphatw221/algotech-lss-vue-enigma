@@ -119,7 +119,6 @@ const save = ()=>{
         layoutStore.userInfo = res.data
         i18n.global.locale.value = res.data.lang
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
-        
     })
 }
 

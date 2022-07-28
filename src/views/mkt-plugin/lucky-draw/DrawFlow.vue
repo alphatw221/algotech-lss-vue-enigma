@@ -52,10 +52,10 @@
                         class="text-2xl text-center"> {{ $t('lucky_draw.draw_flow.congrates') }} !</div>
                     <img class="mx-auto my-8 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px; height:300px;"/>
                     <div class="text-center text-2xl">{{ luckyDrawData.prize.name }}</div>
-                    <div class="mt-9 flex flex-wrap" style="width: 350px;">
-                        <div v-for="(winner, index) in winnerList" :key="index" class="ml-5 mb-3">
+                    <div class="mt-9 flex flex-wrap justify-center" style="width: 350px;">
+                        <div v-for="(winner, index) in winnerList" :key="index" class=" mb-3">
                             <div class="flex w-full justify-around">
-                                <div class="flex-0 w-14 h-14  zoom-in border-0">
+                                <div class="flex-0 w-14 h-14 zoom-in border-0">
                                     <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" class="rounded-full border-0" :src="`${storageUrl}fake_head.jpeg`"
                                         />
                                     <Tippy v-else tag="img" class="rounded-full border-0" :src="winner.customer_image"

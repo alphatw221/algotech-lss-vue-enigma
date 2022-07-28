@@ -28,7 +28,8 @@
         "category": "Category",
         "description": "Description",
         "qty": "Qty",
-        "price": "Price"
+        "price": "Price",
+        "confirm_delete": "Are you sure delete this product ?"
     },
 
     "category_manage": {
@@ -43,7 +44,8 @@
             "warning_duplicate": "Duplicate category name"
         },
         "save_success":"Save Success",
-        "not_saved":"Update Canceled"
+        "not_saved":"Update Canceled",
+        "confirm_delete": "Are you sure delete this category ?"
     },
 
     "add_product_page": {
