@@ -33,7 +33,7 @@
 
     "draw_create": {
         "campaign_title": "Campaign Title",
-        "prize" : "Prize (select from product list)",
+        "prize" : "Prize",
         "spin_time" : "Spin Time (sec)",
         "number_of_winner" : "Number of Winner",
         "animation_style" : "Animation Style",

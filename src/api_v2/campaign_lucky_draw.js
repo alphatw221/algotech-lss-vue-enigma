@@ -32,3 +32,7 @@ export const delete_campaign_lucky_draw = (lucky_draw_id) => {
 export const draw_campaign_lucky_draw = (lucky_draw_id) => {
     return createAxiosWithBearer().post(`/api/v2/campaign-luckydraw/${lucky_draw_id}/draw/`)
 }
+
+export const upload_animation = (campaign_id, data) => {
+    return createAxiosWithBearer().post(`/api/v2/campaign-luckydraw/${campaign_id}/upload/animation/`, data)     
+}
