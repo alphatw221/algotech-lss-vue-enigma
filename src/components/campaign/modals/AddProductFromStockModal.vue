@@ -14,49 +14,45 @@
             <!-- BEGIN SearchPage -->
             <div v-show="openTab=='select'">
                 <!-- BEGIN SearchBar -->
-                <div class="flex flex-wrap justify-around gap-3 text-[13px] sm:text-[16px]">
-                    <div class="flex-1 flex flex-wrap items-center" >
-                        <label class="w-14 mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
+                <div class="flex flex-wrap justify-start gap-3 text-[13px] sm:text-[16px]">
+                    <div class="flex-2 flex flex-wrap items-center" >
+                        <label class="min-w-fit mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
                             {{$t('campaign_live.product.modal_column.category')}}
                         </label>
                         <select 
-                            class="form-select min-w-fit h-[35px] sm:h-[42px] lg:max-w-xl"
+                            class="form-select min-w-fit h-[35px] sm:h-[42px]"
                             v-model="selectedCategory"
                             @change="search()"
                         >
                             <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.name }}</option>
                         </select>
                     </div>
-                    <div class="flex-1 flex-wrap items-center flex" >
+                    <div class="flex-2 flex-wrap items-center flex" >
                         <label class="mr-2 whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
                             {{$t('campaign_live.product.modal_column.search')}}
                         </label>
                         <select
-                            class="form-select min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
+                            class="form-select min-w-fit mr-0 h-[35px] sm:h-[42px]" v-model="searchField">
                             <option v-for="searchColumn in searchColumns" :key="searchColumn.value"
                                 :value="searchColumn.value">
                                 {{ $t(`campaign_live.product.modal_column.`+searchColumn.value) }}
                             </option>
                         </select>
                     </div>
-                    <div class="flex-0 items-center input-group ml-auto">
-                        <input type="text"
-                            class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('campaign_live.product.search')+'...'"
-                            v-model="searchKeyword" @keydown.enter.prevent="search()" />
-                        <button 
-                            type="button"
-                            class="flex-none w-14 h-[35px] sm:h-[42px] rounded-l-none btn btn-primary mt-auto" @click="search()">
-                            {{$t('campaign_live.product.search')}}
-                        </button>
-                        <button 
-                            type="button"
-                            class="flex-none w-14 h-[35px] sm:h-[42px] rounded-l-none btn btn-secondary mt-auto" @click="resetSearchBar">
-                            {{$t('campaign_live.product.reset')}}
-                        </button>
+                    <div class="flex-1 flex mt-auto min-w-[20%]"> 
+                        <div class="relative"> 
+                            <input 
+                                type="text"
+                                class="form-control w-full h-[35px] sm:h-[42px] mt-auto" :placeholder="$t('campaign_live.product.search')+'...'"
+                                v-model="searchKeyword" @keydown.enter.prevent="search()" />
+                            <SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="search()"/>
+                        </div>
+                        <XIcon 
+                            v-if="searchKeyword"
+                            class="flex-none w-7 h-7 mt-2 text-slate-600" @click="resetSearchBar"/>
                     </div>
                 </div>   
                 <!-- END SearchBar -->
-
 
                 <!-- BEGIN ProductTable -->
                 <div class="relative"> 
@@ -89,7 +85,8 @@
                                         <td v-if="column.key === 'image'" >
                                             <div class="flex items-center justify-center imgtd">
                                                 <div class="w-[120px] h-[120px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
-                                                    <img class="rounded-lg cursor-auto" 
+                                                    <img class="rounded-lg cursor-auto"
+                                                         :class="{'checked': product.check }" 
                                                         :src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
                                                 </div>
                                             </div>
@@ -683,7 +680,8 @@ thead th{
     display: none;
 }
 .form-check-input {
-    border-color: rgb(128, 128, 128) !important;
+    border-color: theme('colors.primary') !important;
+    border: 1px solid;
 }
 
 @media only screen and (max-width: 760px),
@@ -701,8 +699,10 @@ thead th{
     }
 
     .form-check-input{
-        width: 1.2rem !important;
-        height: 1.2rem !important;
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+        border-color: theme('colors.primary') !important;
+        border: 2px solid;
     }
 
     .checkboxWord {
@@ -755,11 +755,17 @@ thead th{
         display: inline-block;
         position: absolute;
         z-index: 10;
-        right: 0;
+        right: 12%;
         width: 40px !important;
         padding-left: 0 !important;
         min-height: 25px !important;
     }
+
+    .checked{
+        border: 3px solid theme('colors.primary');
+        opacity: .8;
+    }
+
     td:nth-of-type(2):before {
         display: none;
     }
