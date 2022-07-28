@@ -15,10 +15,10 @@
                 />
                 <button v-if="inputSwitch.current" 
                     @click="inputSwitch.current = !inputSwitch.current"
-                    class="btn btn-secondary-soft"> <EyeOffIcon /> </button> 
+                    class="btn btn-secondary-soft rounded-l-none h-[35px] sm:h-[42px]"> <EyeOffIcon /> </button> 
                 <button v-else
                     @click="inputSwitch.current = !inputSwitch.current"
-                    class="btn btn-secondary-soft"> <EyeIcon /> </button> 
+                    class="btn btn-secondary-soft rounded-l-none h-[35px] sm:h-[42px]"> <EyeIcon /> </button> 
                 </div>
                 <template v-if="v.password.$error">
                     <label class="text-danger text-[14px]">
@@ -40,14 +40,14 @@
                     />
                     <button v-if="inputSwitch.new" 
                         @click="inputSwitch.new = !inputSwitch.new"
-                        class="btn btn-secondary-soft"> <EyeOffIcon /> </button> 
+                        class="btn btn-secondary-soft rounded-l-none h-[35px] sm:h-[42px]"> <EyeOffIcon /> </button> 
                     <button v-else
                         @click="inputSwitch.new = !inputSwitch.new"
-                        class="btn btn-secondary-soft"> <EyeIcon /> </button> 
+                        class="btn btn-secondary-soft rounded-l-none h-[35px] sm:h-[42px]"> <EyeIcon /> </button> 
                 </div>
                 <template v-if="v.new_password.$error">
                     <label class="text-danger text-[14px]">
-                        {{$t('profile.input_required')}}
+                        {{$t('profile.password_length')}}
                     </label>
                 </template>
             </div>
@@ -64,10 +64,10 @@
                     />
                     <button v-if="inputSwitch.confirm" 
                         @click="inputSwitch.confirm = !inputSwitch.confirm" 
-                        class="btn btn-secondary-soft"> <EyeOffIcon /> </button> 
+                        class="btn btn-secondary-soft rounded-l-none h-[35px] sm:h-[42px]"> <EyeOffIcon /> </button> 
                     <button v-else 
                         @click="inputSwitch.confirm = !inputSwitch.confirm" 
-                        class="btn btn-secondary-soft"> <EyeIcon /> </button> 
+                        class="btn btn-secondary-soft rounded-l-none h-[35px] sm:h-[42px]"> <EyeIcon /> </button> 
                 </div>
                 <template v-if="v.confirm_password.$error">
                 <label class="text-danger text-[14px]">
@@ -91,6 +91,7 @@ import { useVuelidate } from '@vuelidate/core'
 import { required, minLength, maxLength, sameAs } from "@vuelidate/validators";
 import { computed } from '@vue/runtime-core';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import i18n from "@/locales/i18n";
 
 
 const sellerStore = useLSSSellerLayoutStore()
@@ -122,14 +123,19 @@ const resetForm = () => {
 const submitPassword = () => {
     v.value.$touch()
 	if (v.value.$invalid) {
-		sellerStore.alert.showMessageToast("Invalid Data")
+        sellerStore.alert.showMessageToast(i18n.global.t('profile.input_err'))
 		return
 	}
 
     if (!Object.values(passwordData.value).includes(''))
     seller_change_password(passwordData.value).then(res => {
-        console.log(res.data)
-    })
+        sellerStore.notification.showMessageToast(i18n.global.t('profile.update_successed'))
+        passwordData.value.password=''
+        passwordData.value.new_password=''
+        passwordData.value.confirm_password=''
+    }).catch(err=>{
+        alert(err.response.data)
+	})
 }
 
 const toggle=(v)=>{

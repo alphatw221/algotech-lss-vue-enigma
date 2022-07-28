@@ -28,5 +28,6 @@
     "invalid_data":"Invalid Submission",
     "input_err":"Input Error",
     "input_required":"Input Required",
-    "update_successed":"Update Successed"
+    "update_successed":"Update Successed",
+    "password_length":"Passwords must be between 8 to 20 characters."
 }
