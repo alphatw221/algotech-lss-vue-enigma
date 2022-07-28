@@ -110,7 +110,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import {
   activeMobileMenu,
   toggleMobileMenu,
-  linkTo,
+  // linkTo,
   enter,
   leave,
 } from "./index";
@@ -144,6 +144,20 @@ watch(
     }
   }
 )
+
+const linkTo = (menu, router) => {
+  if (menu.subMenu) {
+    menu.activeDropdown = !menu.activeDropdown;
+  } else {
+    activeMobileMenu.value = false;
+    sellerLayoutStore.showMobileMenu=false
+    router.push({
+      name: menu.pageName,
+    });
+  }
+};
+
+
 </script>
 
 <style scoped>

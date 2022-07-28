@@ -213,7 +213,7 @@
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> {{ $t('lucky_draw.draw_create.save') }} </button>
         </div>
 
-        <AddProductFromStockModal :productType="productType"/>
+        <!-- <AddProductFromStockModal :productType="productType"/> -->
     </div>
 </template>
 
@@ -226,7 +226,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useVuelidate } from "@vuelidate/core";
 import { required, minValue, maxValue, minLength, integer } from "@vuelidate/validators";
-import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal.vue';
+// import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal.vue';
 import i18n from "@/locales/i18n"
 
 const props = defineProps({
