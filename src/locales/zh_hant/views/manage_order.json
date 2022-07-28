@@ -4,7 +4,13 @@
                 "closed_rate" : "成交率",
                 "sales" : "銷售金額",
                 "uncheckout" : "未結帳率",
-                "comments" : "留言數" 
+                "comments" : "留言數",
+                "closed_rate_message":"與之前的直播相比結單率%{status}",    
+                "sales_message":"與之前的直播相比銷售額%{status}",    
+                "uncheckout_message":"與之前的直播相比未結單率%{status}",    
+                "comments_message":"與之前的直播相比留言數%{status}",
+                "decreased":"下降",
+                "increased":"提升"
         },
         "search_bar":{
                 "search":"搜尋",

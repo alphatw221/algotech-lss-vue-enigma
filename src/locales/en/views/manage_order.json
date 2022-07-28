@@ -4,7 +4,13 @@
                 "closed_rate" : "Closed Rate",
                 "sales" : "Sales",
                 "uncheckout" : "Uncheckout rate",
-                "comments" : "Comments"    
+                "comments" : "Comments",
+                "closed_rate_message":"Closed rate is %{status} compare to previous campaign",    
+                "sales_message":"Sales is %{status} compare to previous campaign",    
+                "uncheckout_message":"Uncheckout rate is %{status} compare to previous campaign",    
+                "comments_message":"Comments number is %{status} compare to previous campaign",
+                "decreased":"decreased",
+                "increased":"increased"
         },
         "search_bar":{
                 "search":"Search",
