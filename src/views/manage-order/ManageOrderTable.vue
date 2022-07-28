@@ -67,15 +67,15 @@
                         </template>
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
-                                <a class="flex sm:mr-auto image-fit">
+                                <a class="flex image-fit" @click="copyURL(order.id,order.type)">
+                                    <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
+                                    <Share2Icon class="block sm:mx-auto"/>
+                                </a>
+                                <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_order_detail(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
-                                    <EyeIcon @click="to_order_detail(order.id,order.type)"/>
+                                    <EyeIcon class="block sm:mx-auto"/>
                                 </a>
                                 
-                                <a class="flex image-fit">
-                                    <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
-                                    <Share2Icon class="block sm:mx-auto"  @click="copyURL(order.id,order.type)" />
-                                </a>
                             </div>
                         </template>
                         <template v-else-if="column.key === 'delivery'">

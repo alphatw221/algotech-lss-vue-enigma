@@ -29,7 +29,8 @@
         "category": "類別",
         "description": "說明",
         "qty": "數量",
-        "price": "價格"
+        "price": "價格",
+        "confirm_delete": "確定要刪除該商品 ?"
     },
 
     "category_manage": {
@@ -44,7 +45,8 @@
             "warning_duplicate": "重複的類別名稱"
         },
         "save_success":"儲存成功",
-        "not_saved":"取消儲存"
+        "not_saved":"取消儲存",
+        "confirm_delete": "確定要刪除該類別 ?"
     },
 
     "add_product_page": {

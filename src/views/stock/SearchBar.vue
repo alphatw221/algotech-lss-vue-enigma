@@ -1,7 +1,7 @@
 <template>
     <form>
         <div class="flex flex-wrap justify-start w-full gap-2 sm:flex-row">
-            <div class="flex w-full sm:w-fit sm:justify-start" v-if="showCategoryFilter">
+            <div class="flex w-full sm:w-fit justify-between sm:justify-start" v-if="showCategoryFilter">
                 <div class="flex"> 
                     <label class="mr-2 my-auto whitespace-nowrap">
                         {{ $t('stock.search_bar.category') }}
@@ -14,7 +14,7 @@
                         <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
                     </select>
                 </div>
-                <button id="tabulator-html-filter-go" 
+                <button
                     type="button" 
                     class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-3" 
                     @click="this.$router.push({name:'category-management'})">
