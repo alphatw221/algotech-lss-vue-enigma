@@ -24,8 +24,7 @@
                     <select 
                         id="prizeSelect"
                         class="w-full form-select sm:form-select-lg rounded-lg" 
-                        :class="{ 'border-danger text-danger border-2': isPrizeSelect }" 
-                        v-model="currentSettings.prize"
+                        v-model.trim="validate.prize.$model"
                     >
                         <template v-if="!prizeList.length">
                             <option class="w-40" disabled> 
@@ -38,6 +37,10 @@
                             </option>
                         </template>    
                     </select>
+                    <template v-if="validate.prize.$error">
+                        <label class="text-danger text-[14px] leading-tight">{{ $t('lucky_draw.draw_create.assign_prize_err') }}</label>
+                    </template>
+
                     <!-- <button 
                         class="btn btn-primary ml-auto w-fit mt-2"
                         :class="{'btn-danger': !prizeList.length}" 
@@ -63,7 +66,6 @@
                     <input 
                         type="text" 
                         class="form-control mr-5" 
-                        :class="{ 'border-danger text-danger border-2': validate.num_of_winner.$error }"
                         v-model.trim="validate.num_of_winner.$model" 
                     />
                     <template v-if="validate.num_of_winner.$error">
@@ -127,7 +129,6 @@
                         > Assign Product </button> -->
                     </div>
                     <select
-                        :class="{ 'border-danger text-danger border-2': currentSettings.campaign_product == '' }" 
                         class="w-full form-select sm:form-select-lg rounded-lg mr-5" 
                         v-model="currentSettings.campaign_product"
                     >   
@@ -142,6 +143,11 @@
                             </option>   
                         </template>
                     </select>
+                    <template v-if="drawCondition">
+                        <label class="text-danger text-[14px]">
+                            {{ $t('lucky_draw.draw_create.campaign_product_warning') }}
+                        </label>
+                    </template>
                 </div>
 
                 <div 
@@ -149,11 +155,11 @@
                     class="lg:w-[50%]  flex-col mr-5 mt-3"
                 >
                     <label class="form-label mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
-                    <textarea class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
-                        v-model="validate.comment.$model" placeholder="Enter your Keyword"
-                        :class="{ 'border-danger text-danger border-2': validate.comment.$error }">
-                    </textarea>
-                    <template v-if="validate.comment.$error">
+                    <textarea 
+                        class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
+                        v-model="currentSettings.comment" 
+                    ></textarea>
+                    <template v-if="drawCondition">
                         <label class="text-danger text-[14px]">
                             {{ $t('lucky_draw.draw_create.keyword_warning') }}
                         </label>
@@ -207,7 +213,6 @@
                         </template>
                     </div>
                 </div>
-                
 
             </div>
         </div>
@@ -230,7 +235,8 @@
 import { ref, watch, onMounted, onUnmounted, computed, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { list_campaign_product } from '@/api/campaign_product';
-import { create_campapign_lucky_draw, list_campapign_lucky_draw_animation, retrieve_campaign_lucky_draw, update_campaign_lucky_draw, upload_animation } from '@/api_v2/campaign_lucky_draw';
+import { create_campapign_lucky_draw, list_campapign_lucky_draw_animation, retrieve_campaign_lucky_draw, update_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
+import { upload_animation } from '@/api_v2/user_subscription';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useVuelidate } from "@vuelidate/core";
@@ -269,17 +275,16 @@ const formData = new FormData()
 const type = ref('create')
 const luckyDrawId = ref(0)
 const productType = ref('')
-const isPrizeSelect = ref(false)
+const drawCondition = ref(false)
 
 
-const rules = computed(()=> {
+const luckydrawRules = computed(()=> {
     return {
-        comment: { required },
-        // title: { required, minLength: minLength(1) },
-        num_of_winner: { required, integer, minValue: minValue(1), maxValue: maxValue(currentSettings.value.prize.qty_for_sale) } 
+        prize: { required },
+        num_of_winner: { required, integer, minValue: minValue(1), maxValue: maxValue(currentSettings.value.prize.qty_for_sale) },
     }
 });
-const validate = useVuelidate(rules, currentSettings);
+const validate = useVuelidate(luckydrawRules, currentSettings);
 
 
 onMounted(() => {
@@ -321,14 +326,18 @@ const listProductPrize = () => {
 }
 
 const upsert = () => {
-    if (!currentSettings.value.prize.id) {
-        isPrizeSelect.value = true
+    if (currentSettings.value.type === 'product' && typeof currentSettings.value.campaign_product == 'string') {
+        drawCondition.value = true 
+        return
+    } else if (currentSettings.value.type === 'keyword' && currentSettings.value.comment === '') {
+        drawCondition.value = true 
+        return 
     } else {
-        isPrizeSelect.value = false
+        drawCondition.value = false 
     }
 
     validate.value.$touch();
-    if (validate.value.$invalid || typeof currentSettings.value.prize === 'string') {
+    if (validate.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.invalid_data'))
         return
     } 
@@ -364,7 +373,7 @@ const uploadAnimation = e => {
 	reader.readAsDataURL(animation);
 	reader.onload = e =>{ previewImage.value = e.target.result; };
     
-    upload_animation(route.params.campaign_id, formData).then(res => {
+    upload_animation(formData).then(res => {
         listAnimation()
     })
 }
