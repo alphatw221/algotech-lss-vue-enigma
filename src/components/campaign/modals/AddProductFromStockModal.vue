@@ -86,7 +86,7 @@
                                             <div class="flex items-center justify-center imgtd">
                                                 <div class="w-[120px] h-[120px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
                                                     <img class="rounded-lg cursor-auto"
-                                                         :class="{'checked': product.check }" 
+                                                        :class="{'checked': product.check }"  
                                                         :src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
                                                 </div>
                                             </div>

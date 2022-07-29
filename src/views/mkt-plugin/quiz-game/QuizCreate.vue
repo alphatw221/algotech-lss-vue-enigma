@@ -11,7 +11,6 @@
                     <label class="form-label"> Question </label>
                     <textarea 
                         class="w-full h-20 rounded-lg overflow-hidden p-1"
-                        :class="{ 'border-danger text-danger border-2': v.question.$error }"
                         placeholder="Enter Quiz Game Question..."
                         v-model.trim="v.question.$model"
                     ></textarea>
@@ -24,7 +23,6 @@
                     <label class="form-label"> Answer </label>
                     <textarea 
                         class="w-full h-20 rounded-lg overflow-hidden p-1"
-                        :class="{ 'border-danger text-danger border-2': v.answer.$error }"
                         placeholder="Enter Quiz Game Answer..."
                         v-model.trim="v.answer.$model"
                     ></textarea>
@@ -50,7 +48,6 @@
                     <label class="form-label"> No. of Winners</label>
                     <input 
                         class="form-control" 
-                        :class="{ 'border-danger text-danger border-2': v.num_of_winner.$error }"
                         type="text" 
                         v-model.trim="v.num_of_winner.$model" 
                     />
@@ -63,7 +60,6 @@
                     <label class="form-label"> Prize </label>
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg"
-                        :class="{ 'border-danger text-danger border-2': !quizgameSettings.prize.id }"
                         v-model="quizgameSettings.prize"
                     >
                         <template v-if="!prizeList.length">
@@ -120,8 +116,8 @@
         </div>
 
         <div class="flex justify-end my-10 mr-5" >
-            <button class="btn w-32 dark:border-darkmode-400" @click="router.back()"> Cancel </button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="createQuizGame()"> Save </button>
+            <button class="btn w-32 dark:border-darkmode-400" @click="goCancel()"> Cancel </button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsertQuizGame()"> Save </button>
         </div>
 
     </div>
@@ -132,13 +128,14 @@ import { ref, watch, onMounted, onUnmounted, computed, getCurrentInstance } from
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { list_campaign_product } from '@/api/campaign_product';
-import { create_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
+import { create_campaign_quiz_game, update_campaign_quiz_game, retrieve_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
 import { useVuelidate } from "@vuelidate/core";
 import { required, maxValue, minLength, integer, minValue } from "@vuelidate/validators";
 
 
 const route = useRoute();
 const router = useRouter();
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus
 const layoutStore = useLSSSellerLayoutStore()
 const prizeList = ref([])
 const quizgameSettings = ref({
@@ -157,28 +154,55 @@ const quizgameRules = computed(() => {
     }
 })
 const v = useVuelidate(quizgameRules, quizgameSettings);
-
+const pageType = ref('create')
+const quizgameId = ref(0)
 
 onMounted(() => {
+    listCampaignProduct()
+
+    eventBus.on('editQuiz', (payload) => {
+        retrieve_campaign_quiz_game(payload.quizgame_id).then(res => {
+            quizgameSettings.value = res.data
+        })
+        pageType.value = 'edit'
+        quizgameId.value = payload.quizgame_id
+    })
+})
+
+onUnmounted(() => {
+    eventBus.off('editQuiz')
+})
+
+const listCampaignProduct = () => {
     list_campaign_product(route.params.campaign_id).then(res => {
         for (let i = 0; i < res.data.length; i++) {
             if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
         }
     })
-})
+}
 
-const createQuizGame = () => {
-    console.log(quizgameSettings.value)
-
+const upsertQuizGame = () => {
     v.value.$touch();
     if (v.value.$invalid || typeof quizgameSettings.value.prize === 'string') {
         layoutStore.alert.showMessageToast('Invalid Submission')
         return
     } 
 
-    create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value).then(res => {
-        console.log(res.data)
-    })
+    if (pageType.value === 'create') {
+        create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value).then(res => {
+            eventBus.emit('listQuiz')
+        })
+    } else if (pageType.value === 'edit') {
+        update_campaign_quiz_game(quizgameId.value, quizgameSettings.value).then(res => {
+            eventBus.emit('changePage')
+            eventBus.emit('listQuiz')
+        })
+    }
+}
+
+const goCancel =() => {
+    if (pageType.value === 'create') router.back()
+    else if (pageType.value === 'edit') eventBus.emit('changePage')
     
 }
 

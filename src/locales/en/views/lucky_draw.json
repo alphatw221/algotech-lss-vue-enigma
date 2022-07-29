@@ -48,7 +48,8 @@
         "back": "Back",
         "go_draw": "Go Draw",
         "number_winner_warning": "must be between 1 to prize stock",
-        "keyword_warning": "minimum 3 digits",
+        "keyword_warning": "please enter keyword",
+        "campaign_product_warning": "please select certain product",
         "product": "Product",
         "keyword": "Keyword",
         "draw_selection": {

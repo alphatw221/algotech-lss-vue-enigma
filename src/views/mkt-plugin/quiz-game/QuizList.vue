@@ -10,7 +10,10 @@
                 <button class="btn btn-primary w-32 mr-0 sm:mr-3 h-[35px] sm:h-[42px]">
                     All Winner
                 </button>
-                <button class="btn btn-primary w-32 ml-auto h-[35px] sm:h-[42px]" >
+                <button 
+                    class="btn btn-primary w-32 ml-auto h-[35px] sm:h-[42px]" 
+                    @click="eventBus.emit('changePage')"
+                >
                     Create
                 </button>
             </div>
@@ -46,10 +49,16 @@
                                         </DropdownToggle>
                                         <DropdownMenu class="w-24 pt-2">
                                             <DropdownContent class="w-24 text-center">
-                                                <DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]"> 
+                                                <DropdownItem 
+                                                    class="w-20 text-center whitespace-nowrap text-[14px]"
+                                                    @click="goEdit(quizgame.id)"
+                                                > 
                                                     <EditIcon class="w-[20px] h-[20px] mx-1"/> Edit
                                                 </DropdownItem>
-                                                <DropdownItem class="w-20 text-center text-danger whitespace-nowrap text-[14px]"> 
+                                                <DropdownItem 
+                                                    class="w-20 text-center text-danger whitespace-nowrap text-[14px]"
+                                                    @click="goDelete(quizgame.id)"
+                                                > 
                                                     <Trash2Icon class="w-[20px] h-[20px] mx-1"/> Delete
                                                 </DropdownItem>
                                             </DropdownContent>
@@ -59,11 +68,17 @@
                             </td>
 
                             <td v-else-if="column.key === 'button'">
-                                {{ quizgame.meta }}
                                 <button 
                                     class="btn btn-primary w-full lg:w-24 mt-auto h-[35px] sm:h-[42px] ml-auto" 
                                     @click="quizgameStart(quizgame.id)"
+                                    v-if="emptyArr.includes(quizgame.start_at)"
                                 > Start </button>
+                                <button 
+                                    class="btn btn-seconday w-full lg:w-24 mt-auto h-[35px] sm:h-[42px] ml-auto" 
+                                    @click="quizgameStop(quizgame.id)"
+                                    v-else
+                                > Stop </button>
+                                
                             </td>
                             
                             <td v-else class="w-full sm:w-fit" >
@@ -82,9 +97,14 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
-import { start_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { start_campaign_quiz_game, stop_campaign_quiz_game, delete_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
 
 
+const route = useRoute()
+const router = useRouter()
+const layoutStore = useLSSSellerLayoutStore()
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus
 const props = defineProps({
     campaignTitle: String,
     quizgameList: Object
@@ -99,16 +119,41 @@ const tableColumns = ref([
     { key: 'button' },
     { key: 'edit' }
 ])
+const emptyArr = ref(['', null, undefined])
 
+
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
 
 const quizgameStart = (id) => {
-    
     start_campaign_quiz_game(id).then(res => { 
         Object.values(props.quizgameList).forEach(quizgame => {
-            if (quizgame.id === parseInt(id)) quizgame = res.data
+            if (quizgame.id === parseInt(id)) quizgame.start_at = res.data.start_at
         })
     })
 }
 
+const quizgameStop = (id) => {
+    stop_campaign_quiz_game(id).then(res => { 
+        Object.values(props.quizgameList).forEach(quizgame => {
+            if (quizgame.id === parseInt(id)) quizgame.end_at = res.data.end_at
+        })
+    })
+}
+
+const goEdit = (id) => {
+    eventBus.emit('changePage')
+    eventBus.emit('editQuiz', { 'quizgame_id': id })
+    hideDropDown()
+}
+
+const goDelete = (id) => {
+    delete_campaign_quiz_game(id).then(res => {
+        if (res.data.message === 'delete success') layoutStore.notification.showMessageToast('Delete success');
+        eventBus.emit('listQuiz')
+    })
+    hideDropDown()
+}
 
 </script>
