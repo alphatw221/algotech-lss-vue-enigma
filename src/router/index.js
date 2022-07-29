@@ -355,6 +355,11 @@ const routes = [
     component: () => import('@/views/general/ForgotPasswordPage.vue')
   },
   {
+    path: "/seller/password/reset",
+    name: "password-reset",
+    component: () => import('@/views/password-reset/Main.vue')
+  },
+  {
     path: "/error-page",
     name: "error-page",
     component: ErrorPage,

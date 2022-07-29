@@ -32,3 +32,11 @@ export const get_seller_account = () =>{
 export const seller_change_password = (data) => {
     return createAxiosWithBearer().post(`/api/v2/user/seller/password/change/`, data);
 }
+
+export const seller_reset_password = (data) => {
+    return axiosInstance.post(`/api/v2/user/seller/password/reset/`, data);
+}
+
+export const seller_forgot_password = (data) => {
+    return axiosInstance.post(`/api/v2/user/seller/password/forgot/`, data);
+}
