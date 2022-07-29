@@ -139,6 +139,11 @@
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>
+                    <DropdownItem 
+                      @click="deleteCampaign(campaign)" class="w-fit text-danger whitespace-nowrap ">
+                      <font-awesome-icon icon="fa-solid fa-trash-can" class="h-[20px] w-[20px] mr-1"/>
+                      {{$t("campaign_list.campaign_list_table.delete")}}
+                    </DropdownItem>
                     <!-- <DropdownItem 
                       @click="goQuizGame(campaign)" class="w-fit whitespace-nowrap"> 
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
@@ -159,7 +164,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { allow_checkout, list_campaign } from "@/api_v2/campaign"
+import { allow_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
@@ -210,7 +215,7 @@ onMounted(()=>{
     // order_by.value = payload.order_by;
     search();
   }),
-  startFromToast();
+  // startFromToast();
   checkPage();
 })
 
@@ -245,17 +250,18 @@ const changePageSize = (pageSize)=>{
     }
 
 const clickEntry = (index)=>{
-      const campaign = campaigns.value[index]
-      if(props.campaignStatus === 'history'){
-        router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
-        return
-      }
-      else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
-        router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
-        return
-      }
-      eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
-    }
+  const campaign = campaigns.value[index]
+  console.log(index)
+  if(props.campaignStatus === 'history'){
+    router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+    return
+  }
+  else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
+    router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+    return
+  }
+  eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
+}
 
 const stop_checkout = (campaign_id,status)=>{
       allow_checkout(campaign_id,status)
@@ -269,14 +275,6 @@ const manageOrder = (campaign_id,status)=>{
       //   params:{'campaign_id':campaign_id},query:{'checkout':status},
       // }).href)
       router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
-    }
-
-
-
-const startFromToast=()=>{
-      if (route.query.type && route.query.type == 'startCampaign') {
-		    console.log('Wait for info')
-	    }
     }
 
 const hideDropDown = ()=>{
@@ -320,6 +318,11 @@ const checkPage = ()=>{
   get_user_subscription_youtube_channels().then(res=>{
     if(res.data.length !== 0) checkPagePonit.value = false
   })
+}
+
+const deleteCampaign = (campaign)=>{
+  let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)
+	if(yes) delete_campaign(campaign.id).then(res => { search() })
 }
 
 </script>

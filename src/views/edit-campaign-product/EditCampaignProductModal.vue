@@ -5,10 +5,10 @@
                 {{$t('edit_campaign_product.edit_product_modal.edit_campaign_product')}}
             </h2>
         </ModalHeader>
-        <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
+        <ModalBody class="grid grid-cols-12 gap-3">
             <template v-for="(column, index) in tableColumns" :key="index">
                 <div class="col-span-12">
-                    <label for="modal-form-1" class="form-label">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
+                    <label for="modal-form-1" class="">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                     
                     <template v-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
                         <input 

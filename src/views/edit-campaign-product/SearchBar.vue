@@ -1,12 +1,14 @@
 <template>
-    <label class="mr-2 w-14 my-auto">
+<div class="flex flex-col sm:flex-row"> 
+    <label class="mr-2 w-fit my-auto">
         {{$t('edit_campaign_product.search_bar.category')}}
     </label>
-    <select class="form-select sm:mr-4 h-[42px] flex-1 sm:flex-none sm:w-40 my-auto"
+    <select class="form-select sm:mr-4 h-[35px] sm:h-[42px] flex-1 w-32 sm:w-40 my-auto"
         v-model="selectedCategory" @change="search()">
         <option value=''> {{$t('edit_campaign_product.search_bar.all')}} </option>
         <option v-for="category, index in categories" :key="index">{{ category }}</option>
     </select>
+</div>
 </template>
 
 <script setup>
