@@ -19,100 +19,99 @@
 
         <template v-if="ready">
 
-          <div class="col-span-12 mr-5 sm:col-span-4">
-            <div class="items-end h-10" style="display: inline-flex">
-              <label for="modal-form-1" class="text-lg font-medium mr-5"
-                >{{$t('campaign_list.enter_post_id_modal.facebook')}}</label
-              >
+          <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+            <div class="items-end h-10">
+              <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.facebook')}}</h5>
             </div>
             <button
               type="button"
               href="javascript:;"
               v-if="!campaign.facebook_page"
               @click="selectPlatformPage('facebook')"
-              class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
+              class="btn w-full rounded-full btn-primary lg:mt-10 sm:my-auto sm:w-40"
             >
               {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
             </button>
             <div class="mt-3" v-if="campaign.facebook_page">
-              <p style="text-align:center;" class="my-auto">{{$t('campaign_list.enter_post_id_modal.page')}}</p>
-              <div
-                class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2"
-              >
-                <img alt="Midone Tailwind HTML Admin Template" :src="campaign.facebook_page.image" />
+              <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.page')}}</p>
+              <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
+                <a href="javascript:;" @click="selectPlatformPage('facebook')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.facebook_page.image"/></a>
               </div>
             </div>
             
             <div class="mt-3" v-if="campaign.facebook_page">
-              <p style="text-align:center;">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
-              <input class="post_id" v-if="campaign.facebook_page" v-model="campaign.facebook_campaign.post_id" @focusout="autoUpdatePostId('facebook', campaign.facebook_page.id, campaign.facebook_campaign.post_id)">
+              <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
+              <input class="post_id" v-model="campaign.facebook_campaign.post_id" 
+              :class="{ 'border-danger text-danger border-2': validate.facebook.post_id.error }" @change="autoUpdatePostId('facebook')"/>
+              <template v-if="validate.facebook.post_id.error">
+                <label class="text-danger" >
+                  invalid post id 
+                </label>
+              </template>
             </div>
           </div>
-          <div class="col-span-12 sm:col-span-4 mr-5">
-            <div class="items-end h-10" style="display: inline-flex">
-              <label for="modal-form-1" class="text-lg font-medium mr-5"
-                >{{$t('campaign_list.enter_post_id_modal.instagram')}}</label
-              >
+          <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+            <div class="items-end h-10">
+              <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.instagram')}}</h5>
             </div>
             <button
               type="button"
               v-if="!campaign.instagram_profile"
               href="javascript:;"
               @click="selectPlatformPage('instagram')"
-              class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
+              class="btn w-full rounded-full btn-primary lg:mt-10 sm:my-auto sm:w-40"
             >
               <!-- Select Profile -->
               {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
             </button>
             <div class="mt-3" v-if="campaign.instagram_profile">
-              <p style="text-align:center;" class="my-auto">{{$t('campaign_list.enter_post_id_modal.profile')}}</p>
-              <div
-                
-                class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2"
-              >
-                <img alt="Midone Tailwind HTML Admin Template" :src="campaign.instagram_profile.image" />
+              <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.profile')}}</p>
+              <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
+                <a href="javascript:;" @click="selectPlatformPage('instagram')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.instagram_profile.image" /></a>
               </div>
             </div>
             <div class="mt-3" v-if="campaign.instagram_profile">
-              <p style="text-align:center;">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
-              <input class="post_id" v-model="campaign.instagram_profile.live_media_id" @focusout="autoUpdatePostId('instagram', campaign.instagram_profile.id, campaign.instagram_profile.live_media_id)">
+              <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
+              <input class="post_id" v-model="campaign.instagram_campaign.live_media_id" 
+              :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @change="autoUpdatePostId('instagram')"/>
+              <template v-if="validate.instagram.post_id.error">
+                <label class="text-danger" >
+                  invalid post id 
+                </label>
+              </template>
             </div>
           </div>
-          <div class="col-span-12 sm:col-span-4 mr-5">
-            <div class="items-end h-10" style="display: inline-flex">
-              <label for="modal-form-1" class="text-lg font-medium mr-5"
-                >{{$t('campaign_list.enter_post_id_modal.youtube')}}</label
-              >
+          <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+            <div class="items-end h-10">
+              <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.youtube')}}</h5>
             </div>
             <button
               type="button"
               v-if="!campaign.youtube_channel"
               href="javascript:;"
               @click="selectPlatformPage('youtube')"
-              class="btn w-full btn-primary mt-3 mr-3 sm:w-40"
+              class="btn w-full rounded-full btn-primary lg:mt-10 sm:my-auto sm:w-40"
             >
               {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
             </button>
             <div class="mt-3" v-if="campaign.youtube_channel">
-              <p style="text-align:center;" class="my-auto">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
-              <div
-                
-                class="w-10 h-10 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2"
-              >
-                <img alt="Midone Tailwind HTML Admin Template" :src="campaign.youtube_channel.image" />
+              <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
+              <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
+                <a href="javascript:;" @click="selectPlatformPage('youtube')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.youtube_channel.image" /></a>
               </div>
             </div>
             <div class="mt-3" v-if="campaign.youtube_channel">
-              <p style="text-align:center;">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
-              <input class="post_id" v-model="campaign.youtube_channel.live_video_id" @focusout="autoUpdatePostId('youtube', campaign.youtube_channel.id, campaign.youtube_channel.live_video_id)">
+              <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
+              <input class="post_id" v-model="campaign.youtube_campaign.live_video_id" 
+              :class="{ 'border-danger text-danger border-2': validate.youtube.post_id.error }" @change="autoUpdatePostId('youtube')"/>
+              <template v-if="validate.youtube.post_id.error">
+                <label class="text-danger" >
+                  invalid post id 
+                </label>
+              </template>
             </div>
           </div>
-
         </template>
-        <div class="col-span-12 items-end" style="display: inline-flex">
-          
-        </div>
-        
       </ModalBody>
 
 
@@ -149,16 +148,38 @@
 import SelectPlatformPageModal from "./SelectPlatformPageModal.vue"
 import SelectCurrentLiveModal from "./SelectCurrentLiveModal.vue"
 import { update_platform_live_id } from "@/api_v2/campaign"
+import { check_facebook_page_post_exist } from "@/api/facebook"
+import { check_instagram_profile_post_exist } from "@/api/instagram"
+import { check_youtube_channel_post_exist } from "@/api/youtube"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 
 import { useRoute, useRouter } from "vue-router"
-import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
+import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance, watch, computed} from 'vue'
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
-
+const layoutStore = useLSSSellerLayoutStore();
 const ready = ref(false)
 const campaign = ref(null)
+const invalid = ref(false)
+const validate = ref({
+  "facebook": {
+    "post_id": {
+      "error": false
+    }
+  },
+  "instagram": {
+    "post_id": {
+      "error": false
+    }
+  },
+  "youtube": {
+    "post_id": {
+      "error": false
+    }
+  }
+})
 onMounted(()=>{
     eventBus.on('showEnterPostIDModal', (payload) => {
       console.log("-------------")
@@ -167,10 +188,14 @@ onMounted(()=>{
       console.log(campaign.value)
       ready.value=true
     })
+    eventBus.on('changeValidatStatus', (payload) => {
+      validate.value[payload.platform]["post_id"]["error"] = false
+    })
 })
 
 onUnmounted(()=>{
   eventBus.off('showEnterPostIDModal')
+  eventBus.off('changeValidatStatus')
 })
 
 const router = useRouter()
@@ -181,8 +206,16 @@ const showModal = ref(false)
 
 
 const enterLive = ()=>{
-  router.push({name:'campaign-live',params:{'campaign_id':campaign.value.id}})
-  hideModal()
+  let facebook_valid = campaign.value.facebook_campaign.post_id && !validate.value["facebook"]["post_id"]["error"]
+  let instagram_valid = campaign.value.instagram_campaign.live_media_id && !validate.value["instagram"]["post_id"]["error"]
+  let youtube_valid = campaign.value.youtube_campaign.live_video_id && !validate.value["youtube"]["post_id"]["error"]
+  if (facebook_valid || instagram_valid || youtube_valid) {
+    router.push({name:'campaign-live',params:{'campaign_id':campaign.value.id}})
+    hideModal()
+  } else {
+    layoutStore.alert.showMessageToast("no valid post id.")
+  }
+  
 }
 
 const hideModal = ()=>{
@@ -195,12 +228,40 @@ const hideModal = ()=>{
 const selectPlatformPage = (platform)=>{
   eventBus.emit('showSelectPlatformModal',{'platform':platform, 'campaign':campaign.value})
 }
+let updatePostid = null
 
-const autoUpdatePostId = (platform, page_id, live_id) => {
-  update_platform_live_id(campaign.value.id, platform, page_id, live_id).then(res=>{
+const autoUpdatePostId = (platform) => {
+  let page_id = null
+  let live_id = null
+  let apiRequest = null
+
+  if (platform === "facebook") {
+    page_id = campaign.value.facebook_page.id
+    live_id = campaign.value.facebook_campaign.post_id
+    apiRequest = check_facebook_page_post_exist(page_id, live_id)
+  } else if (platform === "instagram") {
+    page_id = campaign.value.instagram_profile.id
+    live_id = campaign.value.instagram_campaign.live_media_id
+    apiRequest = check_instagram_profile_post_exist(page_id, live_id)
+  } else if (platform === "youtube") {
+    page_id = campaign.value.youtube_channel.id
+    live_id = campaign.value.youtube_campaign.live_video_id
+    apiRequest = check_youtube_channel_post_exist(page_id, live_id)
+  }
+  if ([undefined, ""].includes(live_id)) {
+    validate.value[platform]["post_id"]["error"] = false
+    return
+  }
+  apiRequest.then(res=>{
+    return res.data
+  }).then(res=>{
     console.log(res)
-    // campaign.value.data=res.data    //test 
-    
+    if (res.success_response) {
+      validate.value[platform]["post_id"]["error"] = false
+      return update_platform_live_id(campaign.value.id, platform, page_id, live_id)
+    } else {
+      validate.value[platform]["post_id"]["error"] = true
+    }
   })
 }
 
@@ -216,5 +277,13 @@ const autoUpdatePostId = (platform, page_id, live_id) => {
 .post_id:focus {
   background-color: aliceblue;
   transition: 0.5s ease;
+}
+input {
+  width: 90%;
+  margin: auto;
+  display: block;
+}
+img {
+  cursor: pointer;
 }
 </style>

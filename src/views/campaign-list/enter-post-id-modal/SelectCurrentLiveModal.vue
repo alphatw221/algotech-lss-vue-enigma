@@ -148,6 +148,7 @@ const selectLive = live_id => {
       campaign.value[key]=value                       //proxy object only got setter
     });
     show.value=false
+    eventBus.emit("changeValidatStatus", {"platform": payloadBuffer.platform})
   })
     
 }
