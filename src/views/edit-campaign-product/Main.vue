@@ -37,7 +37,7 @@ import { useRoute, useRouter } from "vue-router";
 import SearchBar from "./SearchBar.vue";
 import CampaignProductTable from "./CampaignProductTable.vue"
 
-import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal.vue';
+import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal_2.vue';
 import EditCampaignProductModal from './EditCampaignProductModal.vue'
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 const route = useRoute();

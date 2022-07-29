@@ -54,7 +54,8 @@
         "Ongoing" : "Ongoing",
         
         "no_have_campaign": "You Dont't Have Campaign Yet",
-        "click_create_notify": "Click \"+ Create\" to create your first live selling campaign"
+        "click_create_notify": "Click \"+ Create\" to create your new live selling campaign",
+        "connect_platform":"Connect Platform"
     },
 
     "remind_enter_post_id_modal":{

@@ -122,7 +122,8 @@
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'assign_qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
+									<td v-else-if="column.key === 'assign_qty'" class="qty" 
+										:data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
@@ -235,7 +236,7 @@
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'order_code' " class="orderCode">
+									<td v-else-if="column.key === 'order_code' " class="orderCode" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="relative place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
 											<input class="form-control w-[100%] mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
 											<div class="text-danger absolute -bottom-5  whitespace-nowrap " v-if="errorMessages[product_index] && errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
@@ -243,11 +244,11 @@
 										<div v-else class="text-center">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'category'" class="category">
+									<td v-else-if="column.key === 'category'" class="category" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div v-for="(tag,tag_index) in product['tag']" :key="tag_index">{{ tag }}</div> 
 									</td>
 
-									<td v-else-if="column.key === 'qty'" class="qty">
+									<td v-else-if="column.key === 'qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
@@ -255,7 +256,7 @@
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'assign_qty'" class="qty">
+									<td v-else-if="column.key === 'assign_qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
@@ -264,7 +265,7 @@
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'max_order_amount'" class="maxqty">
+									<td v-else-if="column.key === 'max_order_amount'" class="maxqty" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
 											<input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
 											<div class="text-danger absolute -bottom-5  sm:right-auto sm:left-0 whitespace-nowrap z-10 " v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
@@ -273,11 +274,11 @@
 										
 									</td>
 
-									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType">
+									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<span>{{$t(`assign_product.product_table.types.${product[column.key]}`)}}</span>
 									</td>
 
-									<td v-else-if="column.key === 'type'" class="type">
+									<td v-else-if="column.key === 'type'" class="type" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 											<select
 												class="form-select w-full mt-0 "
@@ -289,17 +290,17 @@
 										</div>
 									</td> 
 									
-									<td v-else-if="column.key === 'customer_editable' " class="editable">
+									<td v-else-if="column.key === 'customer_editable' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" v-if="product.type=='product'" />
 										<div v-else class="text-center w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto">-</div>
 									</td>
 
-									<td v-else-if=" column.key === 'customer_removable'  " class="removable">
+									<td v-else-if=" column.key === 'customer_removable'  " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)" v-if="product.type=='product' "/>
 										<div v-else class="text-center w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'price'" class="price">
+									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
 											<span class="my-auto mr-1 text-[16px]">$</span> 
@@ -335,14 +336,20 @@
 <script setup>
 import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
 import { list_product_category, list_product } from '@/api_v2/product';
+import { get_campaign_product_order_code_dict } from '@/api_v2/campaign';
+
 import { useRoute, useRouter } from "vue-router";
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps } from "vue";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps, reactive } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import i18n from "@/locales/i18n"
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+
+const campaignDetailStore = useCampaignDetailStore()
+
 
 const props = defineProps({
     productType: String,
+	templateInModal:Boolean,
 })
 
 const tableColumns = ref([
@@ -362,7 +369,7 @@ const tableColumns = ref([
 
 
 const layoutStore = useLSSSellerLayoutStore();
-const campaignDetailStore = useCampaignDetailStore()
+
 
 const route = useRoute();
 const router = useRouter();
@@ -391,24 +398,32 @@ const stockProducts = ref([])
 const selectedProducts = ref([])
 const errorMessages = ref([])
 const selectedProductDict = ref({})
-const orderCodeDict = ref({})
+
+const campaignProductOrderCodeDict = ref({})
 
 let isSelectedProductsValid=false
-let campaignProductCache = null
 
 onMounted(() => {
-	list_product_category().then(
-		res => { 
-			productCategories.value = res.data
-		}
-	)
+	if(props.templateInModal){
+		eventBus.on('show_assign_product_view',()=>{getProductCategory();getCampaignProductDict();search();})
+		eventBus.on('hide_assign_product_view',()=>{clearAllData();})
+		return
+	}
+	getProductCategory()
+	getCampaignProductDict()
 	search()
 })
 
+onUnmounted(()=>{
+	eventBus.off('show_assign_product_view')
+	eventBus.off('hide_assign_product_view')
+})
+
+const getProductCategory=()=>{list_product_category().then(res => { productCategories.value = res.data})}
+const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id).then(res=>{campaignProductOrderCodeDict.value = res.data})}
+
 const updateStockProducts = ()=>{
-    const relations = []
     stockProducts.value.forEach((product,stockProductIndex) => {
-        
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
             stockProducts.value[stockProductIndex] = selectedProducts.value[index]
@@ -421,36 +436,48 @@ const updateStockProducts = ()=>{
 
 const checkIfValid = ()=>{
     isSelectedProductsValid = true
-	const orderCodeDict = {}
+	const orderCodeDict = JSON.parse(JSON.stringify(campaignProductOrderCodeDict.value))
     selectedProducts.value.forEach((selectedProduct,index) => {
-        errorMessages.value[index]={}
-        if(selectedProduct.type=='product' && typeof selectedProduct.order_code =='string' &&selectedProduct.order_code.toLowerCase() in orderCodeDict) {
+        errorMessages.value[index]={}	
+		console.log(orderCodeDict)
+		//type
+		if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
 
-				
+		//order_code
+		if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code) ) {errorMessages.value[index]['order_code']='order_code_required';isSelectedProductsValid=false;}
+        else if(selectedProduct.type=='product' && typeof selectedProduct.order_code =='string' && selectedProduct.order_code.toLowerCase() in orderCodeDict) {
 			if(typeof orderCodeDict[selectedProduct.order_code.toLowerCase()] == 'number') {
 				errorMessages.value[orderCodeDict[selectedProduct.order_code.toLowerCase()]]['order_code']='order_code_duplicate'
 			}
 			errorMessages.value[index]['order_code']='order_code_duplicate';
 			isSelectedProductsValid=false;
 		}
-        if(selectedProduct.type=='product' && ['',null,undefined,' '].includes(selectedProduct.order_code) ) {errorMessages.value[index]['order_code']='order_code_required';isSelectedProductsValid=false;}
-        
-		if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false;}
-		else if(!selectedProduct.assign_qty) {errorMessages.value[index]['assign_qty']='assign_qty_required';isSelectedProductsValid=false;}
+		//assign_qty
+		if([null,undefined,''].includes(selectedProduct.assign_qty)){errorMessages.value[index]['assign_qty']='assign_qty_required';isSelectedProductsValid=false; }
+		else if((typeof selectedProduct.assign_qty)!='number'){errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
+		else if(!(Number.isInteger(selectedProduct.assign_qty))){errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
+		else if(selectedProduct.assign_qty<=0) {errorMessages.value[index]['assign_qty']='qty_invalid';isSelectedProductsValid=false; }
 
-        if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.assign_qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
-        if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
+		//max_order_amount	
+		else if([null,undefined,''].includes(selectedProduct.max_order_amount)){ /*pass*/}	
+		else if((typeof selectedProduct.max_order_amount) != 'number'){errorMessages.value[index]['max_order_amount']='qty_invalid';isSelectedProductsValid=false; }
+		else if(!(Number.isInteger(selectedProduct.max_order_amount))){errorMessages.value[index]['max_order_amount']='qty_invalid';isSelectedProductsValid=false; }
+		else if(selectedProduct.type=='product' && selectedProduct.max_order_amount<0) {errorMessages.value[index]['max_order_amount']='qty_invalid';isSelectedProductsValid=false; }
+        else if(selectedProduct.type=='product' && selectedProduct.max_order_amount>selectedProduct.assign_qty) {errorMessages.value[index]['max_order_amount']='max_order_amount_grater_than_qty';isSelectedProductsValid=false;}
+		
+		//price
 		if(isNaN(parseFloat(selectedProduct.price)) || selectedProduct.price<0){errorMessages.value[index]['price']='price_invalid';isSelectedProductsValid=false;}
 
+		//update orderCodeDict
 		if(typeof selectedProduct.order_code=='string'){
 			orderCodeDict[selectedProduct.order_code.toLowerCase()]=index
 		}
-		
-		console.log(orderCodeDict)
-        
+        console.log(orderCodeDict)
     });
 
 }
+
+
 
 
 watch(computed(()=>stockProducts.value),updateStockProducts)
@@ -558,7 +585,12 @@ const submitData = ()=>{
     }
 	errorMessages.value = []
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
-		router.push({name:"campaign-list",})
+		if(props.templateInModal){
+			campaignDetailStore.campaignProducts = res.data
+			clearAllData()
+		}else{
+			router.push({name:"campaign-list",})
+		}
 	}).catch(err=>{
         console.log(err.response.data)
 		if (err.response){
@@ -568,6 +600,22 @@ const submitData = ()=>{
 	})
 }
 
+
+const clearAllData = ()=>{
+    selectedCategory.value=''
+    selectedProducts.value=[]
+    errorMessages.value=[]
+    stockProducts.value=[]
+    selectedProductDict.value = {}
+    openTab.value = 'select'
+    currentPage.value = 1
+    totalPage.value = 1
+    pageSize.value=10
+    dataCount.value =0
+	campaignProductOrderCodeDict.value = {}
+	isSelectedProductsValid = false
+	campaignDetailStore.showAddProductFromStockModal = false
+}
 
 </script>
 
