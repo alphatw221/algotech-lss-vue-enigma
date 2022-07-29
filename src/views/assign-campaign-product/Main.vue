@@ -1,6 +1,6 @@
 <template>
 	<!-- BEGIN Container -->
-	<div class="py-4">
+	<div class="p-4 box">
 		<div class="flex flex-col col-span-12 h-fit lg:mt-3 pb-4">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
 		</div>
@@ -8,9 +8,9 @@
 		<!-- BEGIN SearchPage -->
 		<div v-show="openTab=='select'">
 			<!-- BEGIN SearchBar -->
-			<div class="flex flex-wrap justify-around gap-3 w-[100%] text-[13px] sm:text-[16px]">
-				<div class="flex-1 flex flex-wrap items-center" >
-					<label class="w-18 mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
+			<div class="flex flex-wrap justify-start gap-3 w-[100%] text-[13px] sm:text-[16px]">
+				<div class="flex-2 flex flex-wrap items-center" >
+					<label class="w-fit mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
 						{{$t('assign_product.search_bar.category')}}
 					</label>
 					<select 
@@ -22,19 +22,19 @@
 						<option v-for="category,index in productCategories" :key="index" :value="category">{{ category }}</option>
 					</select>
 				</div>
-				<div class="flex-1 flex-wrap items-center flex" >
-					<label class="mr-2 whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
+				<div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
+					<label class="mr-auto whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
 						{{$t('assign_product.search_bar.search_by')}}
 					</label>
 					<select
-						class="form-select min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
+						class="form-select w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
 						<option v-for="searchColumn in searchColumns" :key="searchColumn.value"
 							:value="searchColumn.value">
 							{{$t(`assign_product.search_bar.search_options.${searchColumn.value}`)}}
 						</option>
 					</select>
 				</div>
-				<div class="flex-0 items-center input-group mr-auto lg:mt-5">
+				<div class="flex-1 items-center input-group mr-auto min-w-[100px] lg:mt-5">
 					<div class="relative"> 
 						<input type="text"
 							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
@@ -593,7 +593,6 @@ const submitData = ()=>{
         layoutStore.alert.showMessageToast(i18n.global.t('assign_product.invalid'))
         return
     }
-	errorMessages.value = []
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
 		if(props.templateInModal){
 			campaignDetailStore.campaignProducts = res.data
@@ -602,6 +601,7 @@ const submitData = ()=>{
 			router.push({name:"campaign-list",})
 		}
 	}).catch(err=>{
+		errorMessages.value = []
         console.log(err.response.data)
 		if (err.response){
 
