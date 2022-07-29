@@ -96,7 +96,7 @@ let pollingInterval = null
 
 onMounted(()=>{
      eventBus.on("showReplyModal", (payload) => {
-        console.log(payload)
+        // console.log(payload)
         if(payload.comment.platform=='facebook'){
             
             show.value = true
@@ -119,7 +119,7 @@ onUnmounted(()=>{
 const getNestComment = ()=>{
     nest_comment(route.params.campaign_id, comment.value.id).then((response)=>{
         nestComments.value = response.data[1].data   //facebook_api
-        console.log(response.data)
+        // console.log(response.data)
     })
 }
 

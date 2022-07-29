@@ -26,6 +26,7 @@
         "add": "增加",
         "subtract": "減少",
         "apply_free_delivery" : "免運費",
+        "free_delivery" : "免運費",
         "modify_price": "修改價格",
         "price_adjustment" : "調整金額",
         "price_adjustment_note" : "想要使用折扣，請輸入「- 金額」。想要收取額外費用，請直接輸入「金額」。",
