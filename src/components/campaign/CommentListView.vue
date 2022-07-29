@@ -82,7 +82,7 @@
                     </div>
                 </div>
             </Tippy>
-            <MoreHorizontalIcon  class="hide w-6 h-6 ml-auto z-50" />
+            <SendIcon  class="hide w-6 h-6 ml-auto z-50" />
         </div>
     </div>
 </template>

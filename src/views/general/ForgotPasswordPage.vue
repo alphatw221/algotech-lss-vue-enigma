@@ -28,7 +28,8 @@
 </template>
 
 <script>
-import { forgot_password } from '@/api/user'
+// import { forgot_password } from '@/api/user'
+import { seller_forgot_password } from '@/api_v2/user'
 import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
 import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'
 
@@ -47,7 +48,7 @@ export default {
     },
     methods: {
         sendResetLink() {
-            forgot_password({email: this.email})
+            seller_forgot_password({email: this.email})
             .then(res=>{
                 alert(res.data.message)
             })
