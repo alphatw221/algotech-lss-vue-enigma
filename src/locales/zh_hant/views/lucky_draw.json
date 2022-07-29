@@ -48,7 +48,8 @@
         "back": "上一頁",
         "go_draw": "前往抽獎",
         "number_winner_warning": "需填入介於1與獎品數量",
-        "keyword_warning": "至少3個字元",
+        "keyword_warning": "請輸入欲抽獎條件關鍵字",
+        "campaign_product_warning": "請選擇特定商品",
         "product": "商品",
         "keyword": "商品代碼",
         "draw_selection": {
