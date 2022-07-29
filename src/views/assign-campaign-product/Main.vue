@@ -449,7 +449,7 @@ const checkIfValid = ()=>{
 	const orderCodeDict = JSON.parse(JSON.stringify(campaignProductOrderCodeDict.value))
     selectedProducts.value.forEach((selectedProduct,index) => {
         errorMessages.value[index]={}	
-		console.log(orderCodeDict)
+		// console.log(orderCodeDict)
 		//type
 		if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
 
@@ -482,7 +482,7 @@ const checkIfValid = ()=>{
 		if(typeof selectedProduct.order_code=='string'){
 			orderCodeDict[selectedProduct.order_code.toLowerCase()]=index
 		}
-        console.log(orderCodeDict)
+        // console.log(orderCodeDict)
     });
 
 }
@@ -516,7 +516,7 @@ const selectStockProduct = (stockProduct, event) =>{
         
     }else{
         const _index = selectedProductDict.value[stockProduct.id.toString()]
-        console.log(_index)
+        // console.log(_index)
         selectedProducts.value.splice(_index,1)
         errorMessages.value.splice(_index,1)
         updateSelectedProductDict()
@@ -602,7 +602,7 @@ const submitData = ()=>{
 		}
 	}).catch(err=>{
 		errorMessages.value = []
-        console.log(err.response.data)
+        // console.log(err.response.data)
 		if (err.response){
 
 			errorMessages.value = err.response.data.errors

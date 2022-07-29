@@ -69,22 +69,27 @@
                             <div class="flex flex-col sm:flex-row place-content-center">
                                 <a class="flex image-fit" @click="copyURL(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
-                                    <Share2Icon class="block sm:mx-auto"/>
+                                    <Tippy  :content="$t('manage_order.table.copy_link')" :options="{ theme: 'light' }"> 
+                                        <Share2Icon class="block sm:mx-auto"/>
+                                    </Tippy>
                                 </a>
                                 <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_order_detail(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
-                                    <EyeIcon class="block sm:mx-auto"/>
+                                    <Tippy  :content="$t('manage_order.table.details')" :options="{ theme: 'light' }"> 
+                                        <EyeIcon class="block sm:mx-auto"/>
+                                    </Tippy>
                                 </a>
-                                
                             </div>
                         </template>
                         <template v-else-if="column.key === 'delivery'">
                             <div class="flex place-content-center">
                                 <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
-                                    <TruckIcon />
+                                  <Tippy  content="send complete email" :options="{ theme: 'light' }"> <TruckIcon /> </Tippy>  
                                 </a>
                                 <a class="w-fit h-fit image-fit" v-show="order.status === 'shipping out'">
-                                    <TruckIcon style="color:#BABABA" class="cursor-not-allowed"/>
+                                   <Tippy  :content="$t('manage_order.complete')" :options="{ theme: 'light' }">
+                                        <TruckIcon style="color:#BABABA" class="cursor-not-allowed"/>
+                                    </Tippy> 
                                 </a>
                             </div>
                         </template>
@@ -99,7 +104,9 @@
                         <template v-else-if="column.key === 'order_product'">
                             <div class="flex place-content-center">
                                 <a class="text-black w-fit h-fit image-fit">
-                                    <ChevronRightIcon @click="orderProductModal(order.id,order.type)"/>
+                                    <Tippy  content="product details" :options="{ theme: 'light' }">
+                                        <ChevronRightIcon @click="orderProductModal(order.id,order.type)"/>
+                                    </Tippy>
                                 </a>
                             </div>
                         </template>

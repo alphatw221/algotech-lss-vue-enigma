@@ -13,7 +13,6 @@
     "update_failed":"Update Failed",
     "img_size_err":"Image size exceed 10 MB",
     "invalid_data":"Invalid data",
-
     "delivery":{
         "delivery":"Delivery",
         "delivery_setting": "Delivery Settings",
@@ -99,7 +98,8 @@
         "confirmation_note":"Confirmation Note",
         "discard":"Discard",
         "save":"Save",
-        "update": "Update"
+        "update": "Update",
+        "modify":"Modify"
     },
     "localization":{
         "title": "Localization",

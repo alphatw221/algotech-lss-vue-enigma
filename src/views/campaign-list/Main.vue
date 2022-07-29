@@ -47,15 +47,11 @@
       <button
         class="
           flex
-          w-32
-          h-[35px]
-          sm:h-[42px]
-          ml-auto
-          text-white
+          w-32 h-[35px] sm:h-[42px]
+          ml-auto text-white
           btn btn-warning btn-rounded
-          mx-auto
-          mb-5
-          sm:mx-0
+          mx-auto mb-5
+          sm:mx-0 border-[2px] border-slate-100 shadow-lg
         "
         @click="router.push({ name: 'create-campaign' })"
       >

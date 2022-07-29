@@ -85,7 +85,10 @@
           <td class="items-center manage_order w-fit" :data-content="$t('campaign_list.campaign_list_table.action')">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
               <span class="mr-3 sm:hidden"> {{$t('campaign_list.campaign_list_table.manage_order')}}</span>
-              <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>
+              <Tippy  :content="$t('campaign_list.campaign_list_table.manage_order')" :options="{ theme: 'light' }">
+                <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/> 
+              </Tippy> 
+                  
             </a>
           </td>
           <td class="items-center checkout w-fit" :data-content="$t('campaign_list.campaign_list_table.stop')">
@@ -113,6 +116,7 @@
           <td
             v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" 
             class="text-center moreTools w-fit">
+            <Tippy  :content="$t('campaign_list.campaign_list_table.more')" :options="{ theme: 'light' }">
               <Dropdown placement="bottom-start">
                 <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                   <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
@@ -152,6 +156,7 @@
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
+              </Tippy> 
           </td>
         </tr>
       </tbody>
