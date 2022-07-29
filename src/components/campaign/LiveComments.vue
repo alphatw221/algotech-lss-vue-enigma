@@ -93,14 +93,15 @@
                 <div class="my-auto mr-5">
                     <TabList class="nav-pills">
                         <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
+                        >
+                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" @click="setListViewTitle('all_comments')"/>
+                        </Tab>
+
+                        <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
                         >   
                             <font-awesome-icon icon="fa-regular fa-comment-dots" class="h-6 m-1 -mt-2" @click="setListViewTitle('comments_summarizer')"/>
                         </Tab>
 
-                        <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                        >
-                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" @click="setListViewTitle('all_comments')"/>
-                        </Tab>
                         <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('facebook_comments')"
                         >
                             <FacebookIcon class="m-1 -mt-1" />
@@ -122,13 +123,13 @@
                 <TabPanels>
                     <TabPanel  :class="'all'" class="relative bg-white">
                         <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'commentSummarize'"  />
+                            <CommentListView :platformName="'all'"  />
                         </div>
                     </TabPanel>
 
                     <TabPanel  :class="'all'" class="relative bg-white">
                         <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'all'"  />
+                            <CommentListView :platformName="'commentSummarize'"  />
                         </div>
                     </TabPanel>
 
@@ -215,7 +216,7 @@ const comments= [
 
 const openVideoTab =ref('facebook')
 
-const listViewTitle = ref('comments_summarizer')
+const listViewTitle = ref('all_comments')
 onMounted(()=>{
     get_comments(route.params.campaign_id).then(res => {
         return res.data
