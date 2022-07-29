@@ -32,7 +32,7 @@
                     type="checkbox"
                     v-model="store.orderDetail.free_delivery"
                     />
-                <span class="ml-3">{{$t('order_detail.price_summary.apply_free_delivery')}}</span>
+                <span class="ml-3">{{$t('order_detail.price_summary.free_delivery')}}</span>
             </div>         
             <div class="grid grid-cols-12 gap-4">
                 <div class="start-col-1 col-span-4">
