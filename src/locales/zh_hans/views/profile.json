@@ -1,0 +1,32 @@
+{
+    "tab":{
+        "profile":"个人档案",
+        "plan":"订阅方案",
+        "reset_password":"重设密码" 
+    },
+    "subscription":{
+        "title":"订阅",
+        "id":"ID",
+        "joined":"启用日期",
+        "vaild":"帐号期限",
+        "change_plan":"更改方案"
+    },
+    "plan":{
+        "trial":"试用版",
+        "lite":"精简版",
+        "standard":"标准版",
+        "premium":"进阶版",
+        "dealer":"销售版"
+    },
+    "reset_password":{
+        "current_password": "当前密码",
+        "new_password" : "新密碼",
+        "confirm_password" : "確認新密碼", 
+        "submit" : "確認"
+    },
+    "invalid_data":"輸入資料無效",
+    "input_err":"輸入錯誤",
+    "input_required":"此為必填欄位",
+    "password_length":"密碼須為8-20位字元",
+    "update_successed":"更新成功"
+}

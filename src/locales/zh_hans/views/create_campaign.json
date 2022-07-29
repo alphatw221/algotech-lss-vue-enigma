@@ -1,0 +1,86 @@
+{
+
+    "create_campaign":"建立直播",
+    "title":"标题",
+    "title_required":"请输入标题",
+    "period":"直播时间",
+
+    "cancel":"取消",
+    "create":"建立",
+    "invalid_title":"输入标题无效",
+    
+
+
+    "delivery_form":{
+        "delivery_detail":"物流设定",
+        "delivery_charge":"基本运费",
+        "free_delivery_for_order_above":"免运门槛：订单金额达",
+        "free_delivery_for_minimum_order":"免运门槛：商品数量达",
+        "add_more_delivery_option":"增加运送选项",
+        "add_more_pickup_option":"增加自取选项",
+        "options":"运送方式",
+        "on_top_of_delivery_charge":"基本运费外加",
+        "replace_delivery_charge":"取代基本运费",
+
+        "delete":"刪除",
+
+        "store_collection":"到店取货",
+
+        "pickup_store":"取货店家",
+        "pickup_address":"取货地址",
+        "errors":{
+            "Value_is_required":"此栏位必填",
+            "Value_must_be_numeric":"输入内容必须为数字",
+            "minValue":"输入数字无效",
+            "required":"此栏位必填",
+            "integer":"输入内容必须为整数",
+            "decimal":"输入内容必须为数字"
+        }
+    },
+
+
+    "payment_form":{
+        "payment_titles":{
+            "direct_payment":"转帐支付",
+            "stripe":"Stripe付款"
+        },
+
+        "direct_payment":{
+            "mode":"银行名称",
+            "name":"帐户名称",
+            "number":"帐号",
+            "note":"注解",
+            "require_customer_return":"要求买家上传付款证明"
+        },
+        "stripe":{
+            "secret":"密钥",
+            "currency":"货币"
+        },
+
+        "payment_details":"金流设定",
+        "enabled":"启用",
+        "add_more_direct_payment":"增加转帐选项",
+        "upload_image":"上传图片",
+        "remove_image":"移除照片",
+        "upload_a_file_or_drag_and_drop":"点击上传图片",
+        "accepted_file_types":"支援档案类型",
+        "max_file_size":"档案容量上限",
+
+        "delete":"刪除",
+
+        "errors":{
+            "Value_is_required":"此栏位必填",
+            "img_size_err":"图片大小不可超过 10 MB"
+        }
+
+
+    },
+
+    "notes_form":{
+        "notes_form":"备注设定",
+        "delivery_note":"运送备注",
+        "special_note":"特別备注",
+        "confirmation_note":"完成付款备注"
+    }
+
+}

@@ -1,0 +1,150 @@
+{
+    "settings" : "專頁設定",
+    "client_id" : "Client ID",
+    "secret" : "Secret",
+    "currency_code" : "幣別代碼",
+    "store_id" : "Store ID",
+    "share_secret" : "Shared Secret",
+    "time_zone" : "時區",
+    "confirmation_note" : "訂單確認訊息",
+    "default_active" : "預設啟用",
+    "default_settings":"直播預設",
+    "update_successfully":"更新成功",
+    "update_failed":"更新失敗",
+    "img_size_err":"圖片大小不可超過 10 MB",
+    "invalid_data":"無效",
+
+    "delivery":{
+        "delivery":"物流",
+        "delivery_setting": "物流設定",
+        "charge":"運費",
+        "charge_option":"運送方式",
+        "add_more_delivery_option":"增加運送方式",
+        "add_delivery_option":"新增運送方式",
+        "replace_charge" : "取代基本運費",
+        "on_top_of_charge" : "增加額外運費",
+        "title" : "Display Name",
+        "order_above":"免運門檻: 訂單金額達(含)以上",
+        "minimum":"免運門檻: 商品數量達(含)以上",
+        "store":{
+                "collection":"到店自取",
+                "pickup_store":"取貨店家",
+                "pickup_address":"取貨地址"
+        },
+        "errors":{
+            "Value_is_required":"此欄位必填",
+            "Value_must_be_numeric":"輸入必須為數字",
+            "minValue":"輸入數字無效",
+            "required":"此欄位必填"
+        }
+        
+    },
+
+    "payment_form":{
+        "payment_titles":{
+            "direct_payment":"轉帳付款",
+            "stripe":"Stripe付款"
+        },
+
+        "direct_payment":{
+            "mode":"銀行名稱",
+            "name":"帳戶名稱",
+            "number":"帳號",
+            "note":"備註",
+            "require_customer_return":"要求買家上傳付款證明"
+        },
+        "stripe":{
+            "secret":"密鑰",
+            "currency":"貨幣"
+        },
+
+        "payment_details":"金流設定",
+        "enabled":"啟用",
+        "add_more_direct_payment":"新增轉帳選項",
+        "upload_image":"上傳圖片",
+        "upload_a_file_or_drag_and_drop":"點擊上傳圖片",
+        "accepted_file_types":"接受檔案類型",
+        "max_file_size":"檔案容量上限",
+        "delete":"刪除",
+        "update": "更新",
+        "errors":{
+            "Value_is_required":"此欄位必填"
+        }
+    },
+
+    "delivery_form":{
+        "delivery_detail":"物流設定",
+        "delivery_charge":"運費",
+        "free_delivery_for_order_above":"滿額免運",
+        "free_delivery_for_minimum_order":"滿件免運",
+        "add_more_delivery_option":"增加運送方式",
+        "add_more_pickup_option":"增加自取方式",
+        "options":"運送方式",
+        "on_top_of_delivery_charge":"額外收費",
+        "replace_delivery_charge":"取代基本運費",
+        "delete":"刪除",
+        "store_collection":"到店自取",
+        "pickup_store":"自取地點",
+        "pickup_address":"自取地址",
+        "express_service_name": "快遞服務名稱",
+        "express_charge": "快遞費用"
+    },
+
+
+    "payment":{
+        "payment":"金流"
+    },
+    "notes":{
+        "notes":"備註",
+        "delivery_note":"運送說明",
+        "special_note":"購物說明",
+        "confirmation_note":"訂單說明",
+        "discard":"取消",
+        "save":"儲存",
+        "update": "更新"
+    },
+    "localization":{
+        "title": "本地化",
+        "country":"國家",
+        "countries":{
+            "PH":"菲律賓",
+            "SG":"新加坡",
+            "ID":"印尼",
+            "IN":"印度",
+            "TW":"台灣"
+        },
+        "currency_symbol":"貨幣符號",
+        "seller_language":"賣家語言",
+        "languages":{
+            "en":"英語",
+            "zh_hant":"繁體中文",
+            "zh_hans":"簡體中文",
+            "id":"印尼文"
+        },
+        "buyer_language":"買家語言",
+        "choose_language":"選擇語言",
+        "choose_decimal_places":"選擇小數點位數",
+        "choose_currency_symbol":"選擇貨幣",
+        "decimal_places":"小數位數",
+        "discard":"取消",
+        "save":"儲存"
+    },
+    "platform":{
+        "connected_platform":"已綁定的社交平台",
+        "facebook_fan_page":"Facebook 粉絲專頁",
+        "connect_with_facebook": "綁定 Facebook",
+        "instagram_profile":"Instagram 商業檔案",
+        "connect_with_instagram": "綁定 Instagram",
+        "youtube_channel":"Youtube 頻道",
+        "connect_with_youtube": "綁定 YouTube",
+        "edit":"編輯",
+        "cancel":"取消",
+        "upgrade":"升級",
+        "your_subscription_plan_is": "您的訂閱方案是",
+        "you_can_only_bind": "您只能綁定",
+        "unit": "個",
+        "social_media_platform": "社交平台",
+        "period": "",
+        "unbind_page":"取消綁定"
+    }
+}

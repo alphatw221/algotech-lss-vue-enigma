@@ -1,0 +1,12 @@
+{
+    "order_history":"历史订单",
+    "table":{
+        "order_no":"订单编号",
+        "date":"日期",
+        "payment_method":"付款方式",
+        "amount":"金额",
+        "status":"订单状态",
+        "action":"",
+        "view":"详细"
+    }
+}
