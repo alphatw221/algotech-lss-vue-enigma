@@ -139,6 +139,11 @@
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>
+                    <DropdownItem 
+                      @click="deleteCampaign(campaign)" class="w-fit text-danger whitespace-nowrap ">
+                      <font-awesome-icon icon="fa-solid fa-trash-can" class="h-[20px] w-[20px] mr-1"/>
+                      {{$t("campaign_list.campaign_list_table.delete")}}
+                    </DropdownItem>
                     <!-- <DropdownItem 
                       @click="goQuizGame(campaign)" class="w-fit whitespace-nowrap"> 
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
@@ -159,7 +164,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { allow_checkout, list_campaign } from "@/api_v2/campaign"
+import { allow_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
@@ -313,6 +318,11 @@ const checkPage = ()=>{
   get_user_subscription_youtube_channels().then(res=>{
     if(res.data.length !== 0) checkPagePonit.value = false
   })
+}
+
+const deleteCampaign = (campaign)=>{
+  let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)
+	if(yes) delete_campaign(campaign.id).then(res => { search() })
 }
 
 </script>
