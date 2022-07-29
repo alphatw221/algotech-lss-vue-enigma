@@ -26,7 +26,7 @@
                 </template>
             </div>
 
-            <div class="overflow-auto max-h-[80%]">
+            <div class="overflow-auto max-h-[85%]">
                 <table class="table table-sm">
                     <thead class="table-dark">
                         <tr class="relative">
