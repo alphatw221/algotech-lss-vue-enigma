@@ -13,7 +13,6 @@
       sm:h-[95%]
       p-2
       lg:gap-3
-      box
       sm:px-8
       h-fit
       lg:mx-20
@@ -141,7 +140,8 @@ const tableColumns = ref([
 ]);
 
 onMounted(()=>{
-  if (route.query.type == 'startCampaign' && route.query.campaign != '' && route.query.campaign != undefined ) {
+  if(route.query.type){
+    if (route.query.type == 'startCampaign' && route.query.campaign != '' && route.query.campaign != undefined ) {
       retrieve_campaign(route.query.campaign).then((res) => {
         openCampaign.value = res.data
         console.log(openCampaign.value)
@@ -153,10 +153,12 @@ onMounted(()=>{
       })
     
     }
+  } 
 })
 
 watch(computed(()=>route.query.type), () => {
-  if (route.query.type == 'startCampaign') {
+  if(route.query.type){
+    if (route.query.type == 'startCampaign') {
       retrieve_campaign(route.query.campaign).then((res) => {
         openCampaign.value = res.data
         console.log(openCampaign.value)
@@ -166,5 +168,6 @@ watch(computed(()=>route.query.type), () => {
         }
         eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': "schaduled", 'campaign':openCampaign})
       })}
+  }
 })
 </script>

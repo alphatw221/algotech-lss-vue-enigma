@@ -1,6 +1,6 @@
 <template>
 	<!-- BEGIN Container -->
-	<div class="py-4 px-2">
+	<div class="p-4 box">
 		<div class="flex flex-col col-span-12 h-fit lg:mt-3 pb-4">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
 		</div>
@@ -8,9 +8,9 @@
 		<!-- BEGIN SearchPage -->
 		<div v-show="openTab=='select'">
 			<!-- BEGIN SearchBar -->
-			<div class="flex flex-wrap justify-around gap-3 w-[100%] text-[13px] sm:text-[16px]">
-				<div class="flex-1 flex flex-wrap items-center" >
-					<label class="w-18 mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
+			<div class="flex flex-wrap justify-start gap-3 w-[100%] text-[13px] sm:text-[16px]">
+				<div class="flex-2 flex flex-wrap items-center" >
+					<label class="w-fit mr-1 sm:mr-2 text-[13px] sm:text-[16px]">
 						{{$t('assign_product.search_bar.category')}}
 					</label>
 					<select 
@@ -22,19 +22,19 @@
 						<option v-for="category,index in productCategories" :key="index" :value="category">{{ category }}</option>
 					</select>
 				</div>
-				<div class="flex-1 flex-wrap items-center flex" >
-					<label class="mr-2 whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
+				<div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
+					<label class="mr-auto whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
 						{{$t('assign_product.search_bar.search_by')}}
 					</label>
 					<select
-						class="form-select min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
+						class="form-select w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
 						<option v-for="searchColumn in searchColumns" :key="searchColumn.value"
 							:value="searchColumn.value">
 							{{$t(`assign_product.search_bar.search_options.${searchColumn.value}`)}}
 						</option>
 					</select>
 				</div>
-				<div class="flex-0 items-center input-group 2xl:ml-auto lg:ml-auto 2xl:mt-5 lg:mt-5">
+				<div class="flex-1 items-center input-group mr-auto min-w-[100px] lg:mt-5">
 					<div class="relative"> 
 						<input type="text"
 							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
@@ -59,14 +59,14 @@
 
 			<!-- BEGIN ProductTable -->
 			<div class="relative"> 
-				<div class="overflow-x-none overflow-y-auto sm:overflow-auto h-[62vh] text-[14px] mt-5">
-					<table class="table table-report h-[100%] w-[100%]">
+				<div class="sm:overflow-auto sm:h-[65vh] text-[14px] mt-5">
+					<table class="table table-report -mt-3">
 						<thead>
 							<tr>
-								<th class="w-10">
+								<th class="w-10 text-center">
 									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" @change="selectAllStockProduct($event)"/></th>
 								<th 
-									class="whitespace-normal truncate hover:text-clip" 
+									class="whitespace-normal truncate hover:text-clip text-center" 
 									v-for="column in tableColumns" :key="column.key">
 
 									{{$t(`assign_product.product_table.${column.key}`)}}
@@ -88,21 +88,22 @@
 
 									<td v-if="column.key === 'image'" >
 										<div class="flex items-center justify-center imgtd">
-											<div class="w-[120px] h-[120px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
+											<div class="w-[90px] h-[90px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
 												<img class="rounded-lg cursor-auto" 
+													:class="{'checked': product.check }" 
 													:src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
 											</div>
 										</div>
 									</td>
 
 									<td 
-										v-else-if="column.key === 'order_code'" class="orderCode" 
+										v-else-if="column.key === 'order_code'" class="orderCode text-right" 
 										:data-content="$t(`assign_product.product_table.${column.key}`)"
 										>
 										<div class="place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
-											<input class="form-control w-[100%] mt-2 sm:mt-2" type="text" v-model="product[column.key]"/>
+											<input class="form-control w-[100%] text-right " type="text" v-model="product[column.key]"/>
 										</div>
-										<div v-else class="text-center">-</div>
+										<div v-else class="text-center dashInput">-</div>
 									</td>
 
 									<td v-else-if="column.key === 'category'" 
@@ -117,27 +118,27 @@
 									<td v-else-if="column.key === 'qty'"
 										class="qty"
 										:data-content="$t(`assign_product.product_table.${column.key}`)">
-										<div class="flex flex-col place-content-end w-full md:w-24">
-											<label class=" w-full mt-2 sm:mt-2"   >{{product[column.key]}}</label>
+										<div class="flex flex-col place-content-end w-full md:w-16 text-right">
+											<label class=" w-full"   >{{product[column.key]}}</label>
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'assign_qty'" class="qty" 
+									<td v-else-if="column.key === 'assign_qty'" class="assign_qty" 
 										:data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
-											<input class="form-control w-full mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" />
 										</div>
 									</td>
 
 									<td v-else-if="column.key === 'max_order_amount'"
 										class="maxqty"
 										:data-content="$t(`assign_product.product_table.${column.key}`)">
-										<div class="flex flex-col place-content-end w-full md:w-24" v-if="product.type=='product'">
-											<input class="form-control w-full mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]"/>
+										<div class="flex flex-col place-content-end w-full md:w-24 " v-if="product.type=='product'">
+											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]"/>
 										</div>
-										<div v-else class="text-center">-</div>
+										<div v-else class="text-center dashInput">-</div>
 									</td>
 
 									<td v-else-if="column.key === 'type' && props.productType === 'lucky_draw'" class="luckyType" :data-content="$t(`assign_product.product_table.${column.key}`)">
@@ -153,20 +154,24 @@
 									</td> 
 
 									<td v-else-if="column.key === 'customer_editable' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)" v-if="product.type=='product'"/>
-										<div v-else class="text-center">-</div>
+										<div class="md:min-w-[40px] sm:text-center">
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)" v-if="product.type=='product'"/>
+											<div v-else class="text-center dash">-</div>
+										</div>
 									</td>
 
 									<td v-else-if=" column.key === 'customer_removable' " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
-										<div v-else class="text-center">-</div>
+										<div class="md:min-w-[40px] sm:text-center"> 
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
+											<div v-else class="text-center dash">-</div>
+										</div>
 									</td>
 
 									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
-											<span class="my-auto mr-1">$</span> 
-											<input class="form-control w-[100%] mt-2 sm:mt-2" min="1" type="number" v-model="product[column.key]" />
+											<span class="my-auto mr-1 text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span> 
+											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
 										</div>
 									</td>
 
@@ -204,13 +209,13 @@
 				{{$t('assign_product.confirm_select_product')}}
 			</div>
 			<div class="relative"> 
-				<div class="overflow-x-none overflow-y-auto sm:overflow-auto h-[72vh] text-[14px] mt-5">
-					<table class="table table-report">
+				<div class="sm:overflow-auto sm:h-[72vh] text-[14px] mt-5">
+					<table class="table table-report -mt-3">
 						<thead>
 							<tr>
 								<th class="w-10"></th>
 								<th 
-									class="whitespace-normal truncate hover:text-clip" 
+									class="whitespace-normal truncate hover:text-clip text-center" 
 									v-for="column in tableColumns" :key="column.key">
 									{{$t(`assign_product.product_table.${column.key}`)}}
 								</th>
@@ -229,19 +234,20 @@
 
 									<td v-if="column.key === 'image'">
 										<div class="flex items-center justify-center">
-											<div class="w-[120px] h-[120px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
+											<div class="w-[90px] h-[90px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
 												<img class="rounded-lg cursor-auto"
 													:src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
 											</div>
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'order_code' " class="orderCode" :data-content="$t(`assign_product.product_table.${column.key}`)">
+									<td v-else-if="column.key === 'order_code' " class="orderCode" :data-content="$t(`assign_product.product_table.${column.key}`)"
+										:class="{' h-12' : errorMessages[product_index][column.key] }" >
 										<div class="relative place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
-											<input class="form-control w-[100%] mt-2 sm:mt-0" type="text" v-model="product[column.key]" />
-											<div class="text-danger absolute -bottom-5  whitespace-nowrap " v-if="errorMessages[product_index] && errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
+											<input class="form-control w-[100%] text-right" type="text" v-model="product[column.key]" />
+											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index] && errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
-										<div v-else class="text-center">-</div>
+										<div v-else class="text-center dashInput">-</div>
 									</td>
 
 									<td v-else-if="column.key === 'category'" class="category" :data-content="$t(`assign_product.product_table.${column.key}`)">
@@ -249,28 +255,27 @@
 									</td>
 
 									<td v-else-if="column.key === 'qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
-
-											
-											<label class="w-full mt-2 sm:mt-0" >{{product[column.key]}}</label>
+										<div class="place-content-end relative w-full md:w-14 lg:place-content-center text-right">
+											<label class="w-full" >{{product[column.key]}}</label>
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'assign_qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
+									<td v-else-if="column.key === 'assign_qty'" class="assign_qty" :data-content="$t(`assign_product.product_table.${column.key}`)"
+										:class="{' h-12' : errorMessages[product_index][column.key] }">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
-											
-											<input class="form-control w-full mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
-											<div class="text-danger absolute -bottom-5  whitespace-nowrap " v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
+											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" />
+											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td>
 
-									<td v-else-if="column.key === 'max_order_amount'" class="maxqty" :data-content="$t(`assign_product.product_table.${column.key}`)">
+									<td v-else-if="column.key === 'max_order_amount'" class="maxqty" :data-content="$t(`assign_product.product_table.${column.key}`)"
+										:class="{' h-12' : errorMessages[product_index][column.key] }">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
-											<input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
-											<div class="text-danger absolute -bottom-5  sm:right-auto sm:left-0 whitespace-nowrap z-10 " v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
+											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
+											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
-										<div v-else class="text-center">-</div>
+										<div v-else class="text-center dashInput">-</div>
 										
 									</td>
 
@@ -278,36 +283,41 @@
 										<span>{{$t(`assign_product.product_table.types.${product[column.key]}`)}}</span>
 									</td>
 
-									<td v-else-if="column.key === 'type'" class="type" :data-content="$t(`assign_product.product_table.${column.key}`)">
+									<td v-else-if="column.key === 'type'" class="type" :data-content="$t(`assign_product.product_table.${column.key}`)"
+										:class="{' h-12' : errorMessages[product_index][column.key] }" >
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 											<select
-												class="form-select w-full mt-0 "
+												class="form-select w-[100%]"
 												v-model="product[column.key]"
 											>
 												<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`assign_product.product_table.types.${type.value}`)}}</option>
 											</select> 
-											<div class="text-danger absolute -bottom-5  whitespace-nowrap" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
+											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td> 
 									
 									<td v-else-if="column.key === 'customer_editable' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" v-if="product.type=='product'" />
-										<div v-else class="text-center w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto">-</div>
+										<div class="md:min-w-[40px] sm:text-center"> 
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" v-if="product.type=='product'" />
+											<div v-else class="w-[1.2rem] h-[1.2rem] dash mx-auto">-</div>
+										</div>
 									</td>
 
 									<td v-else-if=" column.key === 'customer_removable'  " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)" v-if="product.type=='product' "/>
-										<div v-else class="text-center w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto">-</div>
+										<div class="md:min-w-[40px] sm:text-center"> 
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)" v-if="product.type=='product' "/>
+											<div v-else class="w-[1.2rem] h-[1.2rem] dash sm:mx-auto">-</div>
+										</div>
 									</td>
 
-									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)">
+									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)"
+										:class="{' h-12' : errorMessages[product_index][column.key] }"  >
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
-											<span class="my-auto mr-1 text-[16px]">$</span> 
-											<input class="form-control w-[100%] mt-2 sm:mt-0" min="1" type="number" v-model="product[column.key]" />
-											<div class="text-danger absolute -bottom-5  whitespace-nowrap" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
+											<span class="my-auto mr-1 text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span> 
+											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
+											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
-										
 									</td>
 
 									<td v-else-if="column.key === 'name'" class="name">
@@ -320,8 +330,8 @@
 						</tbody>
 					</table> 
 				</div>
-				<div class=" flex items-center justify-between">
-					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="openTab='select'">{{$t(`assign_product.add_more`)}}</button>
+				<div class=" flex items-center justify-between mt-10">
+					<button type="button" class="btn btn-primary inline-flex w-24 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="openTab='select'">{{$t(`assign_product.add_more`)}}</button>
 					<button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">{{$t(`assign_product.reset`)}}</button>
 					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">{{$t(`assign_product.confirm`)}}</button>
 				</div> 
@@ -583,7 +593,6 @@ const submitData = ()=>{
         layoutStore.alert.showMessageToast(i18n.global.t('assign_product.invalid'))
         return
     }
-	errorMessages.value = []
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
 		if(props.templateInModal){
 			campaignDetailStore.campaignProducts = res.data
@@ -592,6 +601,7 @@ const submitData = ()=>{
 			router.push({name:"campaign-list",})
 		}
 	}).catch(err=>{
+		errorMessages.value = []
         console.log(err.response.data)
 		if (err.response){
 
@@ -669,6 +679,11 @@ thead th{
     .form-check-input{
         width: 1.2rem !important;
         height: 1.2rem !important;
+		border: 2px solid theme("colors.primary") !important;
+    }
+	.checked{
+        border: 3px solid theme('colors.primary');
+        opacity: .8;
     }
 
     .checkboxWord {
@@ -683,13 +698,12 @@ thead th{
 
     tr {
 		border-bottom: 2px solid #DDDDDD;
-		margin-top: 20px;
+		margin-top: 25px;
         padding-bottom: 10px !important;
 	}
 
     td {
-        min-height: 60px !important;
-        height: auto;
+        min-height: 40px !important;
         border: none;
         position: relative;
         padding-left: 50% !important;
@@ -697,31 +711,41 @@ thead th{
         box-shadow: none !important;
         font-size: 14px;
         vertical-align: middle !important;
-        padding-right: 15px !important;
         place-content: right !important;
+		margin-top: 5px;
     }
 
     td:before {
         position: absolute;
-        min-height: 50px;
+        min-height: 40px;
         left: 6px;
         width: 45%;
-        padding-right: 10px;
         white-space: nowrap;
         font-weight: bold;
         box-shadow: none !important;
         background-color: white !important;
-        text-align: left;
+        text-align: left !important;
     }
 
+	.dashInput{
+		position: absolute;
+		right: 10%;
+		top: 25%;
+	}
+	.dash{
+		position: absolute;
+		right: 10%;
+	}
+
     td:nth-of-type(1):before {
+		/* checkbox  */
         display: none;
     }
     td:nth-of-type(1){
         display: inline-block;
         position: absolute;
         z-index: 10;
-        right: 0;
+        right: 15%;
         width: 40px !important;
         padding-left: 0 !important;
         min-height: 25px !important;
@@ -731,10 +755,11 @@ thead th{
     }
 
     td:nth-of-type(2){
+		/* image */
         display: inline-block;
         width: 100% !important;
         padding-left: 0 !important;
-        height: 125px !important;
+        height: 90px !important;
     }
 
     .name:before {
@@ -754,65 +779,69 @@ thead th{
 
     .orderCode:before {
         content: attr(data-content);
-        text-align: left !important;
         top:25% !important;
     }
     .orderCode input{
-        text-align:right
+        text-align:right;
     }
 
     .qty:before {
         content: attr(data-content);
-        top:25% !important;
+		min-height: 25px !important;
     }
-    .qty input{
-        text-align:right
-    }
+	.qty {
+		min-height: 20px !important;
+		padding-right: 15px !important;
+	}
 
+	.assign_qty {
+		min-height: 40px !important;
+	}
+    .assign_qty:before {
+        content: attr(data-content);
+		top:25%;
+    }
     .maxqty:before {
         content: attr(data-content);
         top:25% !important;
     }
     .maxqty input{
-        text-align:right
+        text-align:right;
     }
 
     .price:before {
         content: attr(data-content);
-        top:10px;
+        top:25%;
     }
     .price input{
-        text-align:right
+        text-align:right;
     }
-    /* .price{
-        display: flex;
-        flex-direction:column; 
-        justify-content: center;
-        vertical-align:baseline !important;
-    } */
 
     .editable:before {
         content: attr(data-content);
         margin-top: 0px !important;
     }
     .editable{
-        min-height: 35px !important;
+        min-height: 20px !important;
+		padding-right: 10px !important;
     }
     .removable:before {
         content: attr(data-content);
-        text-align: left !important;
         margin-top: 0px !important;
     }
     .removable{
-        min-height: 35px !important;
+        min-height: 25px !important;
+		padding-right: 10px !important;
     }
 
     .category:before {
         content: attr(data-content);
     }
+	.category {
+        padding-right: 10px !important;
+    }
     .luckyType:before{
         content: attr(data-content);
-        text-align: left !important;
         min-height: 35px !important;
     }
     .luckyType{
@@ -820,20 +849,15 @@ thead th{
     }
     .type:before {
         content: attr(data-content);
-        text-align: left !important;
-        min-height: 35px !important;
-        top:10px;
+        top:25%;
     }
-    .type{
-        min-height: 35px !important;
-    }
-    .noTd:before{
+    /* .noTd:before{
         display:none; 
     }
     .noTd{
         display:none; 
         min-height: 0 !important;
-    }
+    } */
     
 }
 </style>
