@@ -88,7 +88,8 @@
         "cancel":"Cancel",
         "save":"Save",
         "your_current_lives": "Your current lives",
-        "select_this_live": "Select this live"
+        "select_this_live": "Select this live",
+        "valid_post_id_notification": "Please Enter Valid Post ID"
     },
     "update_successed":"Update Successed",
     "no_facebook_post":"You don't have Facebook live posts now.",

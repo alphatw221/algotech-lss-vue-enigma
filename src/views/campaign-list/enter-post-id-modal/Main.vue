@@ -44,7 +44,7 @@
               <input class="post_id" v-model="campaign.facebook_campaign.post_id" 
               :class="{ 'border-danger text-danger border-2': validate.facebook.post_id.error }" @change="autoUpdatePostId('facebook')"/>
               <template v-if="validate.facebook.post_id.error">
-                <label class="text-danger" >
+                <label class="text-danger ml-2" >
                   invalid post id 
                 </label>
               </template>
@@ -75,7 +75,7 @@
               <input class="post_id" v-model="campaign.instagram_campaign.live_media_id" 
               :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @change="autoUpdatePostId('instagram')"/>
               <template v-if="validate.instagram.post_id.error">
-                <label class="text-danger" >
+                <label class="text-danger ml-2" >
                   invalid post id 
                 </label>
               </template>
@@ -105,7 +105,7 @@
               <input class="post_id" v-model="campaign.youtube_campaign.live_video_id" 
               :class="{ 'border-danger text-danger border-2': validate.youtube.post_id.error }" @change="autoUpdatePostId('youtube')"/>
               <template v-if="validate.youtube.post_id.error">
-                <label class="text-danger" >
+                <label class="text-danger ml-2" >
                   invalid post id 
                 </label>
               </template>
@@ -152,6 +152,7 @@ import { check_facebook_page_post_exist } from "@/api/facebook"
 import { check_instagram_profile_post_exist } from "@/api/instagram"
 import { check_youtube_channel_post_exist } from "@/api/youtube"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import i18n from "@/locales/i18n"
 
 
 import { useRoute, useRouter } from "vue-router"
@@ -213,7 +214,7 @@ const enterLive = ()=>{
     router.push({name:'campaign-live',params:{'campaign_id':campaign.value.id}})
     hideModal()
   } else {
-    layoutStore.alert.showMessageToast("no valid post id.")
+    layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.valid_post_id_notification'))
   }
   
 }
