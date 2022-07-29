@@ -215,7 +215,7 @@ onMounted(()=>{
     // order_by.value = payload.order_by;
     search();
   }),
-  startFromToast();
+  // startFromToast();
   checkPage();
 })
 
@@ -250,17 +250,18 @@ const changePageSize = (pageSize)=>{
     }
 
 const clickEntry = (index)=>{
-      const campaign = campaigns.value[index]
-      if(props.campaignStatus === 'history'){
-        router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
-        return
-      }
-      else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
-        router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
-        return
-      }
-      eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
-    }
+  const campaign = campaigns.value[index]
+  console.log(index)
+  if(props.campaignStatus === 'history'){
+    router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+    return
+  }
+  else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
+    router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+    return
+  }
+  eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
+}
 
 const stop_checkout = (campaign_id,status)=>{
       allow_checkout(campaign_id,status)
@@ -274,14 +275,6 @@ const manageOrder = (campaign_id,status)=>{
       //   params:{'campaign_id':campaign_id},query:{'checkout':status},
       // }).href)
       router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
-    }
-
-
-
-const startFromToast=()=>{
-      if (route.query.type && route.query.type == 'startCampaign') {
-		    console.log('Wait for info')
-	    }
     }
 
 const hideDropDown = ()=>{

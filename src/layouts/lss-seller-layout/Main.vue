@@ -52,7 +52,7 @@
 <!-- END: Notification Content  -->
 <!-- BEGIN: Notification Toggle -->
       <LSSSellerMenu /> 
-<!-- <button class="text-lg w-30 h-14" @click="toast">Here</button> -->
+<!-- <button class="text-lg w-30 h-14" @click="toast">Test campaign schedule</button> -->
 <ChevronUpIcon class="h-10 w-10 fixed text-white bottom-2 bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50 md:hidden" @click="toTop()"/>
   </div>
 </template>
@@ -75,6 +75,7 @@ const store = useLSSSellerLayoutStore();
 const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
 const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
+const campaign_id = ref('')
 
 const checkCampaignTime = (message) =>{
   if(message.remind_time === '15 mins'){ 
@@ -85,7 +86,7 @@ const checkCampaignTime = (message) =>{
 }
 
 const forPath = () =>{
-  router.push({ name: 'campaign-list', query: { type: 'startCampaign' }})
+  router.push({ name: 'campaign-list', query: { type: 'startCampaign', campaign: campaign_id.value }})
 }
 const toast = () =>{
   // store.floatingVideo.videoToast("Faceebook video streaming!!")
@@ -99,6 +100,7 @@ const initWebSocketConnection =()=> {
   websocket.onmessage = e => {
       const data = JSON.parse(e.data);
       if (data.type === "notification_message") {
+        campaign_id.value = data.data.message.id
         checkCampaignTime(data.data.message)
       }
   };
