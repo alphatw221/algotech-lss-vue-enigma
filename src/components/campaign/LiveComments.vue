@@ -7,7 +7,7 @@
         <div class="flex flex-col h-full">
             <div class="flex flex-none h-14">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
-                    {{$t('campaign_live.live_stream')}}
+                    {{campaignDetailStore.campaign.title}}
                 </h2>
                 <div class="my-auto mr-5">
                     <div class="nav-pills">
@@ -164,16 +164,17 @@ import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
 import CommentListView from './CommentListView.vue';
-
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute()
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const campaignDetailStore = useCampaignDetailStore()
 
 const platform= ref([])
 const imagePath= import.meta.env.VITE_APP_IMG_URL
@@ -252,7 +253,6 @@ const selectVideoTabs = tabName => openVideoTab.value=tabName
 //             this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
 //         }
 //     }
-
 
 
 </script>
