@@ -20,95 +20,98 @@
         <template v-if="ready">
 
           <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
-            <div class="items-end h-10">
-              <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.facebook')}}</h5>
-            </div>
-            <button
-              type="button"
-              href="javascript:;"
-              v-if="!campaign.facebook_page"
-              @click="selectPlatformPage('facebook')"
-              class="btn w-full rounded-full btn-primary lg:mt-10 sm:my-auto sm:w-40"
-            >
-              {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
-            </button>
-            <div class="mt-3" v-if="campaign.facebook_page">
-              <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.page')}}</p>
-              <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
-                <a href="javascript:;" @click="selectPlatformPage('facebook')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.facebook_page.image"/></a>
+            <div class="content">
+              <div>
+                <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.facebook')}}</h5>
               </div>
-            </div>
-            
-            <div class="mt-3" v-if="campaign.facebook_page">
-              <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
-              <input class="post_id" v-model="campaign.facebook_campaign.post_id" 
-              :class="{ 'border-danger text-danger border-2': validate.facebook.post_id.error }" @change="autoUpdatePostId('facebook')"/>
-              <template v-if="validate.facebook.post_id.error">
-                <label class="text-danger ml-2" >
-                  invalid post id 
-                </label>
-              </template>
+              <button
+                type="button"
+                v-if="!campaign.facebook_page"
+                @click="selectPlatformPage('facebook')"
+                class="select_page btn rounded-full btn-primary lg:mt-10"
+              >
+                {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
+              </button>
+              <div class="mt-3" v-if="campaign.facebook_page">
+                <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.page')}}</p>
+                <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
+                  <a href="javascript:;" @click="selectPlatformPage('facebook')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.facebook_page.image"/></a>
+                </div>
+              </div>
+              
+              <div class="mt-3" v-if="campaign.facebook_page">
+                <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
+                <input class="post_id" v-model="campaign.facebook_campaign.post_id" 
+                :class="{ 'border-danger text-danger border-2': validate.facebook.post_id.error }" @change="autoUpdatePostId('facebook')"/>
+                <template v-if="validate.facebook.post_id.error">
+                  <label class="text-danger ml-2" >
+                    invalid post id 
+                  </label>
+                </template>
+              </div>
             </div>
           </div>
           <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
-            <div class="items-end h-10">
-              <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.instagram')}}</h5>
-            </div>
-            <button
-              type="button"
-              v-if="!campaign.instagram_profile"
-              href="javascript:;"
-              @click="selectPlatformPage('instagram')"
-              class="btn w-full rounded-full btn-primary lg:mt-10 sm:my-auto sm:w-40"
-            >
-              <!-- Select Profile -->
-              {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
-            </button>
-            <div class="mt-3" v-if="campaign.instagram_profile">
-              <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.profile')}}</p>
-              <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
-                <a href="javascript:;" @click="selectPlatformPage('instagram')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.instagram_profile.image" /></a>
+            <div class="content">
+              <div>
+                <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.instagram')}}</h5>
               </div>
-            </div>
-            <div class="mt-3" v-if="campaign.instagram_profile">
-              <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
-              <input class="post_id" v-model="campaign.instagram_campaign.live_media_id" 
-              :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @change="autoUpdatePostId('instagram')"/>
-              <template v-if="validate.instagram.post_id.error">
-                <label class="text-danger ml-2" >
-                  invalid post id 
-                </label>
-              </template>
+              <button
+                type="button"
+                v-if="!campaign.instagram_profile"
+                @click="selectPlatformPage('instagram')"
+                class="select_page btn rounded-full btn-primary lg:mt-10"
+              >
+                <!-- Select Profile -->
+                {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
+              </button>
+              <div class="mt-3" v-if="campaign.instagram_profile">
+                <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.profile')}}</p>
+                <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
+                  <a href="javascript:;" @click="selectPlatformPage('instagram')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.instagram_profile.image" /></a>
+                </div>
+              </div>
+              <div class="mt-3" v-if="campaign.instagram_profile">
+                <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
+                <input class="post_id" v-model="campaign.instagram_campaign.live_media_id" 
+                :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @change="autoUpdatePostId('instagram')"/>
+                <template v-if="validate.instagram.post_id.error">
+                  <label class="text-danger ml-2" >
+                    invalid post id 
+                  </label>
+                </template>
+              </div>
             </div>
           </div>
           <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
-            <div class="items-end h-10">
-              <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.youtube')}}</h5>
-            </div>
-            <button
-              type="button"
-              v-if="!campaign.youtube_channel"
-              href="javascript:;"
-              @click="selectPlatformPage('youtube')"
-              class="btn w-full rounded-full btn-primary lg:mt-10 sm:my-auto sm:w-40"
-            >
-              {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
-            </button>
-            <div class="mt-3" v-if="campaign.youtube_channel">
-              <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
-              <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
-                <a href="javascript:;" @click="selectPlatformPage('youtube')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.youtube_channel.image" /></a>
+            <div class="content">
+              <div>
+                <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.youtube')}}</h5>
               </div>
-            </div>
-            <div class="mt-3" v-if="campaign.youtube_channel">
-              <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
-              <input class="post_id" v-model="campaign.youtube_campaign.live_video_id" 
-              :class="{ 'border-danger text-danger border-2': validate.youtube.post_id.error }" @change="autoUpdatePostId('youtube')"/>
-              <template v-if="validate.youtube.post_id.error">
-                <label class="text-danger ml-2" >
-                  invalid post id 
-                </label>
-              </template>
+              <button
+                type="button"
+                v-if="!campaign.youtube_channel"
+                @click="selectPlatformPage('youtube')"
+                class="select_page btn rounded-full btn-primary lg:mt-10"
+              >
+                {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
+              </button>
+              <div class="mt-3" v-if="campaign.youtube_channel">
+                <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
+                <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
+                  <a href="javascript:;" @click="selectPlatformPage('youtube')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.youtube_channel.image" /></a>
+                </div>
+              </div>
+              <div class="mt-3" v-if="campaign.youtube_channel">
+                <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
+                <input class="post_id" v-model="campaign.youtube_campaign.live_video_id" 
+                :class="{ 'border-danger text-danger border-2': validate.youtube.post_id.error }" @change="autoUpdatePostId('youtube')"/>
+                <template v-if="validate.youtube.post_id.error">
+                  <label class="text-danger ml-2" >
+                    invalid post id 
+                  </label>
+                </template>
+              </div>
             </div>
           </div>
         </template>
@@ -286,5 +289,22 @@ input {
 }
 img {
   cursor: pointer;
+}
+button.select_page {
+  position: absolute;
+  top: 50%;
+  left:50%;
+  transform: translate(-50%, -50%);
+  padding: 5px 5px;
+  margin: 0;
+  width: 85%;
+}
+.content {
+  box-sizing: border-box;
+  padding: 20px;
+  margin:0;
+  border: 2px solid rgb(109, 109, 182);
+  border-radius: 10%;
+  height: 230px;
 }
 </style>
