@@ -1,0 +1,63 @@
+{
+    "edit_campaign_product":"编辑直播商品",
+    "add_product":"新增直播商品",
+    "continue":"前往直播",
+    "invalid":"无效",
+    "search_bar":{
+        "category":"类别",
+        "all":"所有类别"
+    },
+    "campaign_product_table":{
+        "image":"图片",
+        "name":"名称",
+        "type":"商品类型",
+        "order_code":"商品代码",
+        "qty_for_sale":"直播商品数量",
+        "max_order_amount":"单次限购数量",
+        "tag":"商品类别",
+        "price":"价格",
+        "customer_editable":"允许顾客修改",
+        "customer_removable":"允许顾客删除",
+        "edit":"编辑",
+        "delete":"刪除",
+        "types":{
+            "product":"商品",
+            "product-fast":"商品",
+            "lucky_draw-fast":"奖品",
+            "lucky_draw":"奖品"
+        }
+    },
+   
+    "edit_product_modal":{
+        "edit_campaign_product":"编辑直播商品",
+
+        "image":"图片",
+        "name":"名称",
+        "type":"商品类型",
+        "order_code":"商品代码",
+        "qty_for_sale":"直播商品数量",
+        "max_order_amount":"单次限购数量",
+        "category":"商品类别",
+        "price":"价格",
+        "customer_editable":"允许顾客修改",
+        "customer_removable":"允许顾客删除",
+
+        "cancel":"取消",
+        "update":"更新",
+        "types":{
+            "product":"商品",
+            "product-fast":"商品",
+            "lucky_draw-fast":"奖品",
+            "lucky_draw":"奖品"
+        },
+        "errors":{
+            "integer":"输入内容必须为整数",
+            "decimal":"输入内容必须为数字",
+            "minValue":"输入数字無效",
+            "maxValue":"输入数字無效",
+            "required":"此栏位必填"
+        },
+        "invalid_data":"输入無效资料",
+        "update_successfully":"更新成功"
+    }
+}

@@ -1,0 +1,17 @@
+{
+
+    "edit_campaign":"编辑直播",
+    "title":"标题",
+    "title_required":"请填写标题",
+    "period":"直播时间",
+    "connected_platform":"已绑定的平台",
+    "edit_connected_platform":"编辑",
+
+    "cancel":"取消",
+    "update":"更新",
+    "invalid_data":"输入资料無效"
+
+
+    
+
+}

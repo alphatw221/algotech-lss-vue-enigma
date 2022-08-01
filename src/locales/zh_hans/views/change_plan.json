@@ -1,0 +1,67 @@
+{   
+    "tab":{
+        "select_plan":"选择订阅方案",
+        "payment":"付款",
+        "confirm":"确认"
+    },
+    "plan":{
+        "trial":"Trial",
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium",
+        "dealer":"Dealer"
+    },
+
+    "step_1":{
+        "your_info":"个人资料",
+        "current_plan":"当前方案",
+        "expired_date":"方案到期日",
+        "name":"姓名",
+        "number":"电话",
+        "email":"电子邮件",
+        "plan_options":{
+            "lite":"Lite 精简版 (USD$10/月)",
+            "standard":"Standard 标准版 (USD$30/月)",
+            "premium":"Premium 进阶版 (USD$15起/月)"
+        },
+        "period_options":{
+            "year":"年缴（九折优惠）",
+            "quarter":"季缴"
+        },
+        "choose_plan":"订阅方案",
+        "choose_period":"方案期间", 
+        "required_field": "此为必填栏位",
+        "welcome_gift": "首次订阅礼: 95折优惠",
+        "promocode_question":"是否使用优惠代码?",
+        "promocode":"优惠代码",
+        "policy":{
+            "accept": "我同意",
+            "terms": "条款",
+            "&": "与",
+            "conditions":"条件"
+        },
+        "back":"回到上一页",
+        "next":"下一步"
+    },
+    "step_2":{
+        "selected_plan":"所选方案",
+        "proration":"金额调整",
+        "payment_total":"付款总额",
+        "period":"订阅期间",
+        "privious":"上一步",
+        "confirm_payment":"确认付款",
+        "current_plan":"目前方案",
+        "year":"年缴",
+        "quarter":"季缴"
+    },
+    "step_3":{
+        "succeeded":"付款完成",
+        "email":"电子邮件",
+        "your_plan":"您的订阅方案",
+        "sub_period":"订阅期间",
+        "expired_date":"方案到期日",
+        "download":"下载电子收据",
+        "thankyou":"感谢您的注册, 您的订阅方案已变更!"
+    }
+
+}

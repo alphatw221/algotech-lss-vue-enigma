@@ -1,0 +1,74 @@
+{
+        "title":"订单管理",
+        "campaign_status":{
+                "closed_rate" : "成交率",
+                "sales" : "销售额",
+                "uncheckout" : "未结帐率",
+                "comments" : "留言数",
+                "closed_rate_message":"与之前的直播相比成交率%{status}",    
+                "sales_message":"与之前的直播相比销售额%{status}",    
+                "uncheckout_message":"与之前的直播相比未结帐率%{status}",    
+                "comments_message":"与之前的直播相比留言数%{status}",
+                "decreased":"下降",
+                "increased":"上升"
+        },
+        "search_bar":{
+                "search":"搜寻",
+                "filter":"筛选",
+                "export" : "汇出 Excel"
+        },
+        "table":{
+                "Direct Payment":"转帐支付",
+                "details":"订单明细",
+                "copy_link":"复制订单连结",
+                "order_number" : "订单",
+                "action":"Action",
+                "delivery_notification":"出货通知",
+                "customer" : "顾客",
+                "platform" : "平台",
+                "name" : "商品名称",
+                "total_items" : "商品总数",
+                "amount" : "金额",
+                "payment" : "付款方式",
+                "status" : "订单状态",
+                "view" : "商品详情",
+                "null":""
+        },
+        "product_modal":{
+                "order_no":"订单编号",
+                "price":"价格",
+                "qty":"数量",
+                "product":"商品",
+                "sub_total":"小计",
+                "delivery_charge":"运费",
+                "discount":"折扣",
+                "total":"总计",
+                "null":""
+        },
+        "filter_modal":{
+                "payment":{
+                        "payment":"付款方式",
+                        "Direct Payment":"转帐支付",
+                        "stripe":"Stripe"
+                },
+                "delivery":{
+                        "status":"出货状态",
+                        "shipping out":"已出货",
+                        "to be shipping":"未出货"
+                },
+                "platform":{
+                        "platform":"平台",
+                        "youtube":"YouTube",
+                        "facebook":"Facebook",
+                        "instagram":"Instagram"
+                },
+                "apply":"确定",
+                "filter":"筛选"
+        },
+        "stop_checkout" : "停止结帐",
+        "complete" : "已完成",
+        "review" : "处理中",
+        "shipping out":"已出货",
+        "all" : "所有订单",
+        "update_successed":"更新成功"
+}

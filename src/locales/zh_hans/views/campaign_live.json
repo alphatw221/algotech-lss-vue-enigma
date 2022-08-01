@@ -1,0 +1,89 @@
+{
+    "live_stream":"直播管理",
+    "comment" :{
+        "comments":"直播留言",
+        "delivery":"运送",
+        "payment":"付款",
+        "other":"其他",
+        "select_tag":"相关讯息",
+        "clear":"清空",
+        "comment_message_1":"尚未有%{tag}相关讯息",
+        "comment_message_2":"尚未有 %{platformName} 讯息",
+
+        "comments_summarizer":"留言分类",
+        "all_comments":"所有留言",
+        "facebook_comments":"Facebook 留言",
+        "youtube_comments":"YouTube 留言",
+        "instagram_comments":"Instagram 留言"
+    },
+    "reply":{
+        "reply_to":"回覆",
+        "type_your_message": "输入您的讯息"
+    },
+    "conversation":{
+        "conversation_with":"对话与",
+        "type_your_message": "输入您的讯息"
+    },
+    "product":{
+        "product":"直播商品",
+        "modal_column":{
+            "null":"",
+            "cart_sold_left":"下单/售出/剩余",
+            "name":"商品",
+            "description":"说明",
+            "Product":"商品",
+            "order_code":"商品代码",
+            "price":"价格",
+            "activate":"Activate",
+            "qty":"库存",
+            "stock_qty":"库存",
+            "category":"类别",
+            "type":"类型",
+            "Lucky Draw":"奖品",
+            "qty_for_campaign":"直播库存",
+            "max_qty":"单次限购数量",
+            "editable":"允许顾客修改",
+            "removable":"允许顾客删除",
+            "deletable":"允许顾客删除",
+            "search":"搜寻"
+        },
+        "add":"加入",
+        "add_product":"加入商品",
+        "instantly":"快速新增商品",
+        "from_stock":"從库存加入商品",
+        "confirm_product":"确认要新增的商品",
+        "save_to_stock":"存入库存商品",
+        "apply":"新增",
+        "search": "搜寻",
+        "reset":"重置",
+        "add_more":"新增更多",
+        "confirm":"确认",
+        "comfirm_selected":"确认选择的商品",
+        "errors":{
+            "type_required":"类型必填",
+            "order_code_required":"商品代码必填",
+            "order_code_duplicate":"商品代码重复",
+            "qty_invalid":"输入数量无效",
+            "max_order_amount_grater_than_qty":"不得大于商品数量",
+            "assign_qty_required":"商品数量必填",
+            "price_invalid":"输入价格无效"
+        },
+        "invalid":"无效",
+        "successed":"成功",
+        "invalid_data":"输入资料无效"
+    },
+    "incoming":{
+        "incoming_order":"即时订单",
+        "plug_in":"小游戏",
+        "instantly":"立即抽奖",
+        "list":"抽奖",
+        "table":{
+            "order_number" : "订单编号",
+            "name" : "顾客",
+            "platform" : "平台",
+            "amount" : "金额",
+            "view" : "详情",
+            "null":""
+        }
+    }
+}
