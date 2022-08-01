@@ -1,67 +1,67 @@
 {   
     "tab":{
-        "select_plan":"Select Plan",
+        "select_plan":"Chọn gói dịch vụ",
         "payment":"Thanh toán",
-        "confirm":"Confirmation"
+        "confirm":"Xác nhận"
     },
     "plan":{
-        "trial":"Trial",
+        "trial":"Dùng thử",
         "lite":"Lite",
         "standard":"Standard",
         "premium":"Premium",
-        "dealer":"Dealer"
+        "dealer":"Nhà bán hàng"
     },
 
     "step_1":{
-        "your_info":"Your Information",
-        "current_plan":"Current Plan",
-        "expired_date":"Expired Date",
+        "your_info":"Thông tin",
+        "current_plan":"Gói dịch vụ gần đây",
+        "expired_date":"Ngày hết hạn đăng ký",
         "name":"Khách hàng",
-        "number":"Contact Number",
+        "number":"Số liên hệ",
         "email":"Email",
         "plan_options":{
-            "lite":"Lite (USD 10.00/Month)",
-            "standard":"Standard (USD 30.00/Month)",
-            "premium":"Premium (USD 60.00/Month)"
+            "lite":"Lite (USD 10.00/Tháng)",
+            "standard":"Standard (USD 30.00/Tháng)",
+            "premium":"Premium (USD 60.00/Tháng)"
         },
         "period_options":{
-            "year":"Yearly (10% discount)",
-            "quarter":"Quarterly"
+            "year":"Hàng năm (10% giảm giá)",
+            "quarter":"Hàng quý"
         },
-        "choose_plan":"Subscription Plan",
-        "choose_period":"Subscription Period", 
-        "required_field": "field is required",
-        "welcome_gift": "You are eligible for welcome gift (5% discount)",
-        "promocode_question":"Do you have promo code?",
-        "promocode":"Promo Code",
+        "choose_plan":"Gói dịch vụ đăng ký",
+        "choose_period":"Thời gian sử dụng", 
+        "required_field": "Trường này là bắt buộc",
+        "welcome_gift": "Bạn đủ điều kiện để nhận quà chào mừng lần đầu sử dụng (5% giảm giá)",
+        "promocode_question":"Bạn có mã khuyến mãi không?",
+        "promocode":"Mã khuyến mãi",
         "policy":{
-            "accept": "I accpet",
-            "terms": "Terms",
+            "accept": "Tôi chấp nhận",
+            "terms": "Điều khoản",
             "&": "&",
-            "conditions":"Conditions"
+            "conditions":"Điều kiện"
         },
-        "back":"Back",
+        "back":"Trở về",
         "next":"Kế tiếp"
     },
     "step_2":{
-        "selected_plan":"Selected Plan",
-        "proration":"Prorations and Adjustments",
-        "payment_total":"Payment Total",
-        "period":"Subscription Period",
+        "selected_plan":"Gói dịch vụ đã chọn",
+        "proration":"Xác nhận và điều chỉnh",
+        "payment_total":"Tổng phải thanh toán",
+        "period":"Thời gian sử dụng",
         "privious":"Trước",
-        "confirm_payment":"Confirm Payment",
-        "current_plan":"Current Plan",
-        "year":"Yearly",
-        "quarter":"Quarterly"
+        "confirm_payment":"Xác nhận thanh toán",
+        "current_plan":"Gói dịch vụ gần đây",
+        "year":"Hàng năm",
+        "quarter":"Hàng quý"
     },
     "step_3":{
-        "succeeded":"Payment succeeded",
+        "succeeded":"Thanh toán thành công",
         "email":"Email",
-        "your_plan":"Your Plan",
-        "sub_period":"Subscription Period",
-        "expired_date":"Subscription End Date",
-        "download":"Download Receipt",
-        "thankyou":"Thank you for your payment. Your plan has been changed!"
+        "your_plan":"Gói dịch vụ",
+        "sub_period":"Thời gian sử dụng",
+        "expired_date":"Ngày hết hạn sử dụng",
+        "download":"Tải xuống biên lai",
+        "thankyou":"Cảm ơn bạn đã thanh toán. Gói dịch vụ của bạn đã được thay đổi"
     }
 
 }

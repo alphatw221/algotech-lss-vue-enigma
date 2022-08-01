@@ -102,7 +102,7 @@
         "payment":"金流"
     },
     "notes":{
-        "notes":"備註",
+        "notes":"通用",
         "delivery_note":"運送說明",
         "special_note":"購物說明",
         "confirmation_note":"訂單說明",

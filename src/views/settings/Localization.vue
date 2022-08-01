@@ -106,6 +106,7 @@ const countries = ref({'PH':'Philippines','SG':'Singapore','ID':'Indonesia','IN'
 const languages = ref([
     {value:'en',text:'English'},
     {value:'zh_hant',text:'Chinese-tranditional'},
+    // {value:'vi',text:'Vietnamese'}
 ])
 
 // const decimalOptions = ref([

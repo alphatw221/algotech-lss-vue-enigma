@@ -99,7 +99,7 @@
         "payment":"Payment"
     },
     "notes":{
-        "notes":"Notes",
+        "notes":"General",
         "delivery_note":"Delivery Note",
         "special_note":"Special Note",
         "confirmation_note":"Confirmation Note",
