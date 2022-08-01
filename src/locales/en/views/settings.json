@@ -125,7 +125,15 @@
         "choose_currency_symbol":"Choose Currency Symbol",
         "decimal_places":"Decimal Places",
         "discard":"Discard",
-        "save":"Save"
+        "save":"Save",
+        "price_unit":"Price Unit",
+        "choose_price_unit":"Choose Price Unit",
+        "priceOptions":{
+            "1":"None",
+            "1000":"K",
+            "1000000":"M"
+        }
+
     },
     "platform":{
         "connected_platform":"Connect Social Media Platform",

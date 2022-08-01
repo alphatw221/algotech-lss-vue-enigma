@@ -39,6 +39,17 @@
                     <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
                 </TomSelect>
             </div>
+
+            <div class="flex my-3 mt-5 form-label text-base font-medium">
+                <div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+            </div>
+
+            <div class="flex my-1">
+                <TomSelect v-model="data.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-5/6">
+                    <option :value="option.value" v-for="(option,index) in priceUnitOptions" :key="index">{{$t(`settings.localization.priceOptions.${option.key}`)}}</option>
+                </TomSelect>
+            </div>
+
             <div class="flex my-3 mt-5 form-label text-base font-medium">
                 <div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
             </div>
@@ -47,6 +58,9 @@
                     <option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
                 </TomSelect>
             </div>
+
+            
+
             <div class="flex justify-end mt-10 w-5/6"> 
                 <!-- <button class="w-32 bg-white btn dark:border-darkmode-400" @click="clean()"> {{$t("settings.localization.discard")}}</button> -->
                 <button class="w-32 ml-5 shadow-md btn btn-primary" @click="save()"> {{$t("settings.localization.save")}}</button>
@@ -80,6 +94,12 @@ const currencySymbols = ref([
     {value:'AUD',text:'AUD'},
     {value:'HKD',text:'HKD'}])
 
+const priceUnitOptions = ref([
+    {key:'1',value:'1'},
+    {key:'1000',value:'1000'},
+    {key:'1000000',value:'1000000'},
+])
+
 const languages = ref([
     {value:'en',text:'English'},
     // {value:'zh_hans',text:'Chinese-simplify'},
@@ -96,7 +116,7 @@ const decimalOptions = ref([
     // {value:'-3',text:'1000'}
     ])
 
-const data = ref({currency:'USD', lang:'en', buyer_lang:'en', decimal_places:'2'})
+const data = ref({currency:'USD', lang:'en', buyer_lang:'en', decimal_places:'2', price_unit:'1'})
 onMounted(()=>{
     console.log(layoutStore.userInfo)
     if(!layoutStore.userInfo.user_subscription) return
@@ -104,6 +124,7 @@ onMounted(()=>{
     data.value.lang = layoutStore.userInfo.lang
     data.value.buyer_lang = layoutStore.userInfo.user_subscription.buyer_lang
     data.value.decimal_places = layoutStore.userInfo.user_subscription.decimal_places.toString()
+    // data.value.price_unit = layoutStore.userInfo.user_subscription.price_unit
 })
 
 const clean =() =>{
