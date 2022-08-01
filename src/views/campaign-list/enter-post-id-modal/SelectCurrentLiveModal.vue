@@ -3,18 +3,23 @@
         :show="show"
         @hidden="show=false"
       >
+        <ModalHeader>
+          <h2 class="mr-auto text-base font-medium">{{$t('campaign_list.enter_post_id_modal.your_current_lives')}}</h2>
+          <a
+            @click="hideModal()"
+            class="absolute top-0 right-0 mt-3 mr-3"
+          >
+            <XIcon class="w-8 h-8 text-slate-400" />
+          </a>
+        </ModalHeader>
         <ModalBody class="text-left content-center">
-          <div class="intro-y grid grid-cols-12 gap-5 my-5">
+          <div class="intro-y grid grid-cols-12 gap-3 my-0">
             <template v-for="live,index in liveItems" :key="index">
-              <div
-                class="
-                  flex-none
-                  rounded-md
-                  overflow-hidden
-                  col-start-1 col-span-12
-                "
-                @click="selectLive(live.id)"  style="cursor: pointer"
-              >
+              <button type="button" href="javascript:;" class="btn w-full btn-primary mt-3 mr-3 sm:w-40" @click="selectLive(live.id)">{{$t('campaign_list.enter_post_id_modal.select_this_live')}}</button>
+              <div class="select_live flex-none rounded-md overflow-hidden col-start-1 col-span-12">
+                <span class="col-span-6 text-lg content-center">
+                  {{ live.title }}
+                </span>
                 <template v-if="live.embed_html">
                   <div v-html="live.embed_html" style="z-index: 0"></div>
                 </template>
@@ -26,12 +31,6 @@
                   />
                 </template>
               </div>
-              <span
-                class="col-span-6 text-lg content-center"
-                @click="selectLive(live.id)"  style="cursor: pointer"
-              >
-                {{ live.title }}
-              </span>
             </template>
           </div>
         </ModalBody>
@@ -73,7 +72,7 @@ onMounted(()=>{
           live_campaign.forEach(v => {
             currentLiveItems.push({
               id: v.video.id,
-              title: v.title?v.title:"Current Live",
+              title: v.title?v.title:"",
               image: null,
               video_url: null,
               embed_html: v.embed_html,
@@ -149,8 +148,16 @@ const selectLive = live_id => {
       campaign.value[key]=value                       //proxy object only got setter
     });
     show.value=false
+    eventBus.emit("changeValidatStatus", {"platform": payloadBuffer.platform})
   })
     
 }
 
+const hideModal = ()=>{
+  liveItems.value = []
+  show.value = false
+}
+
 </script>
+<style scoped>
+</style>
