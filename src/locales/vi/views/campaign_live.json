@@ -77,7 +77,8 @@
             "name" : "Khách hàng",
             "platform" : "Nền tảng",
             "order_number" : "Mã đơn hàng",
-            "null":""
+            "null":"",
+            "no_order":"You don't have any incoming order"
         }
     }
 }

@@ -85,7 +85,8 @@
             "name" : "Customer",
             "platform" : "Platform",
             "order_number" : "Order No",
-            "null":""
+            "null":"",
+            "no_order":"You don't have any incoming order"
         }
     }
 }

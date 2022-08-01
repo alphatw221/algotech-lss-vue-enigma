@@ -108,7 +108,8 @@
         "confirmation_note":"訂單說明",
         "discard":"取消",
         "save":"儲存",
-        "update": "更新"
+        "update": "更新",
+        "modify":"編輯"
     },
     "localization":{
         "title": "本地化",

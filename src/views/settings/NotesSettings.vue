@@ -53,7 +53,7 @@
                             </span>
                         </div>
                         <div>
-                            <EditIcon class="h-6" />
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
                         </div>
                     </div>
                 </Accordion>
@@ -76,7 +76,7 @@
                             </span>
                         </div>
                         <div>
-                            <EditIcon class="h-6" />
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
                         </div>
                     </div>
                 </Accordion>
@@ -99,7 +99,7 @@
                             </span>
                         </div>
                         <div>
-                            <EditIcon class="h-6" />
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
                         </div>
                     </div>
                 </Accordion>

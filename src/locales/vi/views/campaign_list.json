@@ -48,7 +48,7 @@
         "lucky_draw":"Quà tặng minigame",
         "delete":"Xóa",
         "confirm_delete": "Are you sure delete this campaign ?",
-
+        "more":"more...",
         "campaign_message":"You don't have %{tab} campaign",
         "no_result":"No Result Found",
         "Scheduled" : "Đã lên lịch",

@@ -99,7 +99,8 @@
         "confirmation_note":"Ghi chú xác nhận",
         "discard":"Hủy bỏ",
         "save":"Lưu lại",
-        "update": "Update"
+        "update": "Update",
+        "modify":"Modify"
     },
     "localization":{
         "title": "Ngôn ngữ bản địa hóa",

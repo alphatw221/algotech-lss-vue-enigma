@@ -7,13 +7,13 @@
 	>
         <ModalBody>
             <ModalHeader>
-                    <h2 class="font-medium text-base mr-auto">
+                    <h2 class="font-medium text-base">
                         {{$t('manage_order.product_modal.order_no')}} {{store.orderProductData.id}}
                         <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
                     </h2>
-                    <XIcon class="w-8 h-8 text-slate-400" @click="store.orderProductModal = false"/>
+                    <XIcon class="w-8 h-8 text-slate-400 ml-auto" @click="store.orderProductModal = false"/>
             </ModalHeader>
             <div class="w-full overflow-auto"> 
                 <table id="orderTable" class="table table-report mt-3 text-[13px] sm:text-[16px]">
