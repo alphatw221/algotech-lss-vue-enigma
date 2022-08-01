@@ -28,7 +28,7 @@
         "reset" : "清空"
     },
     "enter_post_id":{
-        "message":"Please enter post ID to start live selling.",
+        "message":"輸入直播貼文ID來開始直播銷售",
         "select_stream":"選擇直播",
         "select_page":"選擇專頁",
         "post_id":"直播 ID"

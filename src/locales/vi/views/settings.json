@@ -1,22 +1,22 @@
 {
     "settings" : "Cài đặt",
     "client_id" : "Client ID",
-    "secret" : "Secret",
-    "currency_code" : "Currency Code",
-    "store_id" : "Store ID",
-    "share_secret" : "Shared Secret",
-    "time_zone" : "Time Zone",
+    "secret" : "Mã bảo mật",
+    "currency_code" : "Mã tiền tệ",
+    "store_id" : "Mã cửa hàng",
+    "share_secret" : "Chìa khóa bí mật",
+    "time_zone" : "Múi giờ",
     "confirmation_note" : "Ghi chú xác nhận",
-    "default_active" : "Default Active",
+    "default_active" : "Hoạt động mặc định",
     "default_settings":"Cài đặt chiến dịch mặc định",
-    "update_successfully":"Update Successfully",
-    "update_failed":"Update Failed",
-    "img_size_err":"image size exceed 10 MB",
-    "invalid_data":"Invalid data",
+    "update_successfully":"Cập nhật thành công",
+    "update_failed":"Tải lên không thành công",
+    "img_size_err":"kích thước hình ảnh vượt quá 10 MB",
+    "invalid_data":"Dữ liệu không hợp lện",
 
     "delivery":{
         "delivery":"Vận chuyển",
-        "delivery_setting": "Delivery Settings",
+        "delivery_setting": "Cài đặt giao hàng",
         "charge":"Chi phí vận chuyển",
         "charge_option":"Tùy chọn phí giao hàng",
         "add_more_delivery_option":"Thêm lựa chọn khác",
@@ -26,15 +26,15 @@
         "order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
         "minimum":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
         "store":{
-                "collection":"Self Pickup",
-                "pickup_store":"Pickup Location",
-                "pickup_address":"Pickup Address"
+                "collection":"Tự nhận hàng",
+                "pickup_store":"Địa điểm nhận hàng",
+                "pickup_address":"Địa chỉ cửa hàng"
         },
         "errors":{
-            "Value_is_required":"Value is required",
-            "Value_must_be_numeric":"Value must be numeric",
-            "minValue":"Invalid number",
-            "required":"This field is Required"
+            "Value_is_required":"Giá trị là bắt buộc",
+            "Value_must_be_numeric":"Giá trị phải là số",
+            "minValue":"Số không hợp lệ",
+            "required":"Trường này là bắt buộc"
         }
         
     },
@@ -49,7 +49,7 @@
             "name":"Tên tài khoản",
             "number":"Số tài khoản",
             "note":"Ghi chú",
-            "require_customer_return":"Require Buyer’s Payment Record"
+            "require_customer_return":"Yêu cầu biên lai thanh toán của người mua"
         },
         "stripe":{
             "secret":"Mã bảo mật",
@@ -61,13 +61,13 @@
         "add_more_direct_payment": "Thêm Thanh toán trực tiếp",
         "add_direct_payment": "Add Thanh toán trực tiếp",
         "upload_image": "Tải hình ảnh",
-        "upload_a_file_or_drag_and_drop": "Upload a file",
-        "accepted_file_types": "File types",
-        "max_file_size": "Max file size",
+        "upload_a_file_or_drag_and_drop": "Tải ảnh lên",
+        "accepted_file_types": "Loại tệp tin",
+        "max_file_size": "Kích thước tệp tối đa",
         "delete": "Xóa",
         "update": "Update",
         "errors":{
-            "Value_is_required":"Value is required"
+            "Value_is_required":"Giá trị là bắt buộc"
         }
     },
 
@@ -77,15 +77,15 @@
         "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
         "free_delivery_for_minimum_order":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
         "add_more_delivery_option":"Thêm lựa chọn khác",
-        "add_more_pickup_option":"Add More Location",
-        "options":"Shipping Options",
+        "add_more_pickup_option":"Thêm địa điểm",
+        "options":"Tùy chọn giao hàng",
         "on_top_of_delivery_charge":"Vượt phí giao hàng",
         "replace_delivery_charge":"Thay thế phí giao hàng",
         "delete":"Xóa",
-        "store_collection":"Self Pickup",
-        "pickup_store":"Pickup Location",
+        "store_collection":"Tự nhận hàng",
+        "pickup_store":"Địa điểm nhận hàng",
         "pickup_address":"Địa chỉ cửa hàng",
-        "express_service_name": "delivery service name",
+        "express_service_name": "tên dịch vụ vận chuyển",
         "express_charge": "Chi phí vận chuyển"
     },
 
@@ -99,50 +99,52 @@
         "confirmation_note":"Ghi chú xác nhận",
         "discard":"Hủy bỏ",
         "save":"Lưu lại",
-        "update": "Update"
+        "update": "Cập nhật"
     },
     "localization":{
         "title": "Ngôn ngữ bản địa hóa",
-        "country":"Country",
+        "country":"Quốc gia",
         "countries":{
             "PH":"Philippines",
             "SG":"Singapore",
             "ID":"Indonesia",
-            "IN":"India",
-            "TW":"Taiwan"
+            "IN":"Ấn Độ",
+            "TW":"Đài Loan",
+            "VI":"Việt Nam"
         },
         "currency_symbol":"Đơn vị tiền tệ",
-        "seller_language":"Seller Language",
+        "seller_language":"Ngôn ngữ nhà bán hàng",
         "languages":{
-            "en":"English",
-            "zh_hant":"Traditional Chinese",
-            "zh_hans":"Simplified Chinese",
-            "id":"Indonesian"
+            "en":"Tiếng Anh",
+            "zh_hant":"Tiếng Trung Phồn Thể",
+            "zh_hans":"Tiếng Trung Giản Thể",
+            "id":"Tiếng Indonesia",
+            "vi":"Tiếng Việt"
         },
-        "buyer_language":"Buyer Language",
-        "choose_language":"Choose Language",
-        "choose_decimal_places":"Select your Decimal Places",
-        "choose_currency_symbol":"Choose Currency Symbol",
-        "decimal_places":"Decimal Places",
-        "discard":"Discard",
+        "buyer_language":"Ngôn ngữ người mua",
+        "choose_language":"Chọn ngôn ngữ",
+        "choose_decimal_places":"Chọn vị trí thập phân của bạn",
+        "choose_currency_symbol":"Chọn đơn vị tiền tệ",
+        "decimal_places":"Vị trí phần thập phân",
+        "discard":"Hủy bỏ",
         "save":"Lưu lại"
     },
     "platform":{
-        "connected_platform":"Connect Social Media Platform",
-        "facebook_fan_page":"Facebook Page",
-        "connect_with_facebook": "Connect with Facebook",
-        "instagram_profile":"Instagram Profile",
-        "connect_with_instagram": "Connect with Instagram",
-        "youtube_channel":"Youtube Channel",
-        "connect_with_youtube": "Connect with YouTube",
+        "connected_platform":"Kết nối nền tảng truyền thông xã hội",
+        "facebook_fan_page":"Trang Facebook",
+        "connect_with_facebook": "Kết nối với Facebook",
+        "instagram_profile":"Hồ sơ Instagram",
+        "connect_with_instagram": "Kết nối với Instagram",
+        "youtube_channel":"Kênh Youtube",
+        "connect_with_youtube": "Kết nối với Youtube",
         "edit":"Chỉnh sửa",
         "cancel":"Hủy bỏ",
         "upgrade":"Nâng cấp gói",
-        "your_subscription_plan_is": "Your subscription plan is",
-        "you_can_only_bind": "You can only bind",
+        "your_subscription_plan_is": "Gói dịch vụ đăng ký của bạn là",
+        "you_can_only_bind": "Bạn chỉ có thể liên kết",
         "unit": "",
-        "social_media_platform": "social media platform",
+        "social_media_platform": "nền tảng mạng xã hội",
         "period": ".",
-        "unbind_page":"Unbind page"
+        "unbind_page":"Hủy liên kết trang"
     }
 }
