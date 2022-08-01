@@ -2,15 +2,15 @@
     "title": "Chatbot tự động",
     "create": "Tạo",
 
-    "assign_first_reply": "Assign your first auto-reply by click (+ Create) button",
-    "no_have_autoreply": "You Don't Have Auto Reply Yet.",
-    "set_up_first": "Click \"+ Create\" to set up your first auto reply",
+    "assign_first_reply": "Chọn kịch bản trả lời tự động đầu tiên bằng cách nhấp chuột vào nút \"+ Tạo\"",
+    "no_have_autoreply": "Bạn không có kịch bản trả lời tự động",
+    "set_up_first": "Nhấp chuột \"+ Tạo\" để thiết lập kịch bản trả lời tự động đầu tiên của bạn",
 
     "table_column": {
         "keyword_detect": "Từ khóa để phát hiện",
         "set_auto_reply": "Thiết lập phản hồi tự động",
         "remark": "Nhận xét",
-        "assign_to": "Assign To",
+        "assign_to": "Giao cho",
         "#": "#"
     },
 
@@ -19,14 +19,14 @@
         "delete": "Xóa"
     },
 
-    "modal_title": "Create New Response",
+    "modal_title": "Tạo phản hồi mới",
     "modal_cancel": "Hủy bỏ",
     "modal_save": "Lưu lại",
-    "modal_field_require": "Field is required",
-    "modal_select_page": "Select one page",
-    "saved_message":"Saved the Change",
-    "not_saved_message":"Update Canceled",
-    "deleted_message":"Deleted",
-    "invalid_data":"Invalid Submission",
-    "create_success":"Create Success"
+    "modal_field_require": "Trường này là bắt buộc",
+    "modal_select_page": "Chọn 1 trang",
+    "saved_message":"Đã lưu thay đổi",
+    "not_saved_message":"Cập nhật Hủy bỏ",
+    "deleted_message":"Đã xóa",
+    "invalid_data":"Bản nộp không hợp lệ",
+    "create_success":"Tạo thành công"
 }

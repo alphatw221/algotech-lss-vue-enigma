@@ -1,6 +1,6 @@
 {
     "assign_product": "Chọn sản phẩm bán",
-    "confirm_select_product":"Confirm Assign Products",
+    "confirm_select_product":"Xác nhận sản phẩm đã chọn",
     "search_bar":{
         "category":"Loại",
         "all":"Tất cả",
@@ -20,8 +20,8 @@
         "type":"Loại sản phẩm",
         "order_code":"Mã sản phẩm",
         "qty":"Số lượng",
-        "assign_qty":"Assign QTY",
-        "max_order_amount":"Max Order Qty",
+        "assign_qty":"Số lượng đã chọn",
+        "max_order_amount":"Số lượng đơn hàng tối đa",
         "category":"Loại",
         "price":"Giá bán",
         "customer_editable":"Có thể chỉnh sửa",
@@ -37,20 +37,20 @@
 
 
         "errors":{
-            "type_required":"required",
-            "order_code_required":"required",
-            "order_code_duplicate":"duplicate",
-            "qty_invalid":"invalid",
-            "max_order_amount_grater_than_qty":"geater than Qty",
-            "assign_qty_required":"required",
-            "please_enter_integer": "please enter integer"
+            "type_required":"được yêu cầu",
+            "order_code_required":"được yêu cầu",
+            "order_code_duplicate":"nhân bản",
+            "qty_invalid":"không hợp lệ",
+            "max_order_amount_grater_than_qty":"lớn hơn số lượng",
+            "assign_qty_required":"được yêu cầu",
+            "please_enter_integer": "vui lòng nhập số nguyên"
         }
     },
-    "add":"Add",
+    "add":"Thêm vào",
     "add_more":"Thêm",
     "reset":"Thiết lập lại",
-    "confirm":"Confirm",
-    "invalid":"Invalid"
+    "confirm":"Xác nhận",
+    "invalid":"không hợp lệ"
 
 
    

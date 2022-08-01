@@ -236,7 +236,7 @@ onMounted(() => {
   }
   .outterContainer{
   /* height: calc(100vh - 70px); */
-  height: auto;
+  height:90vh;
 }
 }
 

@@ -4,9 +4,9 @@
     "for_sale": "Để bán",
     "delisted": "Đã hủy",
     "add_product": "Thêm sản phẩm",
-    "dont_have_product_notify": "You Don't Have Product in this Category",
-    "no_result": "No result",
-    "click_to_add":"Ｃlick '+Add product' to add your first product",
+    "dont_have_product_notify": "Bạn không có sản phẩm trong danh mục này",
+    "no_result": "Không kết quả",
+    "click_to_add":"Nhấp chuột vào \"+Thêm sản phẩm\" để thêm sản phẩm đầu tiên",
 
     "search_bar": {
         "category": "Loại",
@@ -14,7 +14,7 @@
         "search_holder": "Tìm kiếm...",
         "search": "Tìm kiếm",
         "reset": "Thiết lập lại",
-        "category_manage": "Edit Category",
+        "category_manage": "Chỉnh sửa",
         "name": "Tên",
         "order_code": "Mã đơn hàng",
         "description": "Mô tả"
@@ -32,45 +32,45 @@
     },
 
     "category_manage": {
-        "create_new_category": "Create New Category",
-        "edit_title": "Edit Category",
+        "create_new_category": "Tạo loại/nhóm mới",
+        "edit_title": "Chỉnh sửa ",
         "edit": "Chỉnh sửa",
         "delete": "Xóa",
-        "input_holder": "New Category Name",
+        "input_holder": "Tên loại mới",
         "modal": {
             "cancel": "Hủy bỏ",
             "save": "Lưu lại",
-            "warning_duplicate": "Duplicate category name"
+            "warning_duplicate": "Tên danh mục trùng lặp"
         },
-        "save_success":"Save Success",
-        "not_saved":"Update Canceled"
+        "save_success":"Lưu thành công",
+        "not_saved":"Cập nhật Hủy bỏ"
     },
 
     "add_product_page": {
-        "edit_title": "Edit Product",
-        "add_title": "Add New Product",
+        "edit_title": "Chỉnh sửa sản phẩm",
+        "add_title": "Thêm sản phẩm mới",
         "product_name": "Tên sản phẩm",
-        "name_warning": "Enter product name with no more than 50 digits",
+        "name_warning": "Nhập tên sản phẩm không quá 50 kí tự",
         "category": "Loại",
         "upload_image": "Tải hình ảnh",
-        "drop_file_text": "Drop files here or click to upload.",
-        "accept_file_text": "File types: jpeg, png, jpg",
-        "max_size_text": "Max size",
+        "drop_file_text": "Thả tệp vào đây hoặc nhấp để tải lên",
+        "accept_file_text": "Định dạng tệp tin: jpeg, png, jpg",
+        "max_size_text": "Cỡ lớn nhất",
         "quantity": "Số lượng",
-        "qty_warning": "Qty has to be a number",
+        "qty_warning": "Số lượng phải là một con số",
         "price": "Giá bán",
-        "price_warning": "Price has to be a number",
+        "price_warning": "Giá phải là một con số",
         "status": "Trạng thái",
         "description": "Mô tả",
-        "product_description": "product description...",
-        "description_warning": "description cannot be more than 100 digits",
+        "product_description": "mô tả sản phẩm...",
+        "description_warning": "Mô tả không lớn hơn 100 kí tự",
         "cancel": "Hủy bỏ",
         "save": "Lưu lại",
 
-        "not_save_message":"Update Canceled",
-        "create_message":"Create Successfully",
-        "update_message":"Update Successfully",
-        "invalid_data":"Invalid Submission"
+        "not_save_message":"Cập nhật Hủy bỏ",
+        "create_message":"Tạo thành công",
+        "update_message":"Cập nhật thành công",
+        "invalid_data":"Bản nộp không hợp lệ"
     }
     
 }

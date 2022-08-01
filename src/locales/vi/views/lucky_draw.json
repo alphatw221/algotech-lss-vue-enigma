@@ -1,74 +1,74 @@
 {
     "lucky_draw" : "Quà tặng minigame",
-    "invalid_data":"Invalid Submission",
-    "create_successed":"Create Successed",
-    "update_successed":"Update Successed",
-    "save_success":"Save Success",
-    "not_saved":"Update Canceled",
+    "invalid_data":"Bản nộp không hợp lệ",
+    "create_successed":"Tạo thành công",
+    "update_successed":"Cập nhật thành công",
+    "save_success":"Lưu thành công",
+    "not_saved":"Cập nhật Hủy bỏ",
 
     "draw_list": {
-        "campaign_title": "Campaign Title",
-        "all_winner": "All Winners",
+        "campaign_title": "Tiêu đề chiến dịch   ",
+        "all_winner": "Người thắng cuộc",
         "create": "Tạo sản phẩm",
-        "like": "Draw Like",
-        "purchase": "Draw Purchased",
-        "product": "Draw Product",
-        "keyword": "Draw Keyword",
-        "winners" : "Winner(s)",
-        "winner_repeat": "Winner Repeat",
-        "yes": "Yes",
-        "no": "No",
-        "start": "Start",
+        "like": "Tạo theo lượt thích",
+        "purchase": "Tạo theo lượt mua",
+        "product": "Tạo theo sản phẩm",
+        "keyword": "Tạo theo từ khóa",
+        "winners" : "Người thắng cuộc",
+        "winner_repeat": "Lặp lại người thắng cuộc",
+        "yes": "Có",
+        "no": "Không",
+        "start": "Bắt đầu",
         "edit": "Chỉnh sửa",
         "delete": "Xóa"
     },
 
     "winner_modal": {
-        "all_winner": "All Winners",
+        "all_winner": "Người thắng cuộc",
         "platform": "Nền tảng",
         "customer_name": "Khách hàng",
-        "draw_type": "Draw Type",
-        "prize": "Prize"
+        "draw_type": "Loại rút thăm may mắn",
+        "prize": "Giải thưởng"
     },
 
     "draw_create": {
-        "campaign_title": "Campaign Title",
-        "prize" : "Prize (select from product list)",
-        "spin_time" : "Spin Time (sec)",
-        "number_of_winner" : "Number of Winner",
-        "animation_style" : "Animation Style",
-        "winner_repeat" : "Winner Repeat",
-        "yes": "Yes",
-        "no": "No",
-        "upload_animation": "Upload Animation",
-        "draw_type" : "Draw Type",
+        "campaign_title": "Tiêu đề chiến dịch",
+        "prize" : "Giải thưởng (chọn từ danh sách sản phẩm)",
+        "spin_time" : "Thời gian quay (giây)",
+        "number_of_winner" : "Số người chiến thắng",
+        "animation_style" : "Phong cách hoạt hình",
+        "winner_repeat" : "Lặp lại người thắng cuộc",
+        "yes": "Có",
+        "no": "Không",
+        "upload_animation": "Tải lên ảnh hoạt hình",
+        "draw_type" : "Loại rút thăm may mắn",
         "cancel": "Hủy bỏ",
         "save": "Lưu lại",
-        "back": "Back",
-        "go_draw": "Go Draw",
-        "number_winner_warning": "must be between 1 to prize stock",
-        "keyword_warning": "minimum 3 digits",
+        "back": "Trở về",
+        "go_draw": "Bắt đầu quay",
+        "number_winner_warning": "cần thêm ít nhất 1 giải thưởng",
+        "keyword_warning": "tối đa 3 kí tự",
         "product": "Sản phẩm",
-        "keyword": "Keyword",
+        "keyword": "Từ khóa",
         "draw_selection": {
-            "like": "by like this post",
-            "product": "by purchased certain product",
-            "purchase": "by purchased any product",
-            "keyword": "by comment keyword"
+            "like": "bằng cách thích bài đăng này",
+            "product": "bằng cách mua sản phẩm nhất định",
+            "purchase": "bằng cách mua bất kỳ sản phẩm nào",
+            "keyword": "bằng cách bình luận đúng từ khóa"
         },
-        "no_product_err":"Haven't Assigned Product Into This Campaign",
-        "assign_product_err":"Assign Product into your Campaign",
-        "assign_prize_err":"Assign Prize into your Campaign",
-        "secs":"secs"
+        "no_product_err":"Chưa chọn sản phẩm cho chiến dịch này",
+        "assign_product_err":"Chọn sản phẩm cho chiến dịch",
+        "assign_prize_err":"Chọn giải thưởng cho chiến dịch",
+        "secs":"giây"
     },
     
     "draw_flow": {
-        "winner": "Winner",
-        "repeatable": "Repeatable",
-        "congrates": "Congratulations",
-        "no_winner": "No winner this run",
-        "yes": "Yes",
-        "no": "No"
+        "winner": "Người thắng cuộc",
+        "repeatable": "Có thể lặp lại",
+        "congrates": "Xin chúc mừng",
+        "no_winner": "Không có người chiến thắng trong đợt này",
+        "yes": "Có",
+        "no": "Không"
     },
 
 
@@ -76,7 +76,7 @@
 
 
 
-    "settings" : "Lucky Draw Settings",
+    "settings" : "Cài đặt Rút thăm may mắn",
     "prize" : "Prize (select from product list)",
     "number_of_winner" : "Number of Winner",
     "winner_repeat" : "Winner Repeat",
