@@ -343,12 +343,6 @@ const routes = [
     beforeEnter: checkSellerLogin,
     component: () => import('@/views/general/LoginPage.vue')
   },
-  // {
-  //   path: "/dev/login",
-  //   name: "LoginPage",
-  //   beforeEnter: checkSellerLogin,
-  //   component: () => import('@/views/general/DevLogin.vue')
-  // },
   {
     path: "/seller/password/forgot",
     name: "PasswordForgot",

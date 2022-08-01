@@ -1,5 +1,5 @@
 <template>
-    <div class="box mt-2 min-h-[30%] w-full max-h-screen
+    <div class="box mt-2 min-h-[50%] w-full max-h-screen
             md:min-h-[40%] md:h-[42vh] 
             2xl:h-full">
         <div class="h-full flex flex-col">
@@ -47,6 +47,11 @@
                     </thead>
                 
                     <tbody>
+                        <tr v-if="store.incomingOrders.length === 0" class="h-[300px]">
+                            <td class="mt-40 text-center border-none text-sm md:text-lg text-slate-500" :colspan="4" > 
+                                {{ $t(`campaign_live.incoming.table.no_order`) }}
+                            </td> 
+                        </tr> 
                         <tr v-for="order, index in store.incomingOrders" :key="index">
                             <td>#{{ order.id }}</td>
                             <td>
@@ -135,11 +140,6 @@ const toDrawList = ()=>{
 </script>
 
 <style scoped>
-.demo-breadcrumb-separator {
-    color: #ff5500;
-    padding: 0 5px;
-}
-
 .form-check-input {
     border-color: black !important;
 }
@@ -162,4 +162,5 @@ const toDrawList = ()=>{
 .click-icon:hover {
 	cursor: pointer;
 }
+
 </style>

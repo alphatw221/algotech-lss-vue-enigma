@@ -52,9 +52,9 @@
 				>	
 					<template v-for="column,index in tableColumns" :key="index"> 
 
-						<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="flex justify-center">
-								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 " v-if="product.image">
+								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 " v-if="product.image">
 									<Tippy 
 										tag="img"
 										class="w-full rounded-lg"
@@ -63,7 +63,7 @@
 										data-action="zoom"
 									/>
 								</div>
-								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 " v-else>
+								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12" v-else>
 									<Tippy 
 										tag="img"
 										class="w-full rounded-lg"

@@ -57,8 +57,10 @@
                 </DropdownToggle>
                 <DropdownMenu class="w-30">
                     <DropdownContent>
-                        <DropdownItem @click="editDraw(luckydraw.id)">{{ $t('lucky_draw.draw_list.edit') }}</DropdownItem>
-                        <DropdownItem @click="deleteDraw(luckydraw.id)">{{ $t('lucky_draw.draw_list.delete') }}</DropdownItem>
+                        <DropdownItem @click="editDraw(luckydraw.id)" class="w-24 text-center whitespace-nowrap text-[14px]" >
+                            <EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('lucky_draw.draw_list.edit') }}</DropdownItem>
+                        <DropdownItem @click="deleteDraw(luckydraw.id)" class="w-24 text-center text-danger whitespace-nowrap text-[14px]">
+                            <Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('lucky_draw.draw_list.delete') }}</DropdownItem> 
                     </DropdownContent>
                 </DropdownMenu>
             </Dropdown>

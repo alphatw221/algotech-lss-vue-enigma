@@ -5,7 +5,7 @@
         type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="fbBtn " @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_facebook')}}</Button>
+        type="button" class="fbBtn shadow-lg " @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_facebook')}}</Button>
 
     
 </template>

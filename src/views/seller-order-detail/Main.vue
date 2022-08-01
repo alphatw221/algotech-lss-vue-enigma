@@ -30,7 +30,7 @@
     </div>
 
     <!-- Second -->
-    <div class="flex flex-col sm:flex-row gap-3 h-fit mt-3 sm:-mt-3 "> 
+    <div class="flex flex-col sm:flex-row gap-3 h-fit mt-3 z-10"> 
         <!-- Delivery Information -->
         <div class="flex-col w-full"> 
             <div class="p-8 sm:my-5 border-2 box border-secondary flex-col flex gap-4"> 

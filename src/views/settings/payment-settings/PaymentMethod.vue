@@ -44,7 +44,7 @@
                 class="btn btn-primary w-32 shadow-md ml-auto mt-7 "
                 @click="updatePayment()"
             > 
-                Update
+                {{ $t('settings.payment_form.update') }} 
             </button>
         </div>
        
