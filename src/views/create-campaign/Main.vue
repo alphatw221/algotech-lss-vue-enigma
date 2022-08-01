@@ -48,7 +48,7 @@
 			</div>
 		</div>
 		
-		<div class="box py-5 mx-20 mt-3 sm:p-8 sm:py-5 px-2 lg:px-10 text-sm sm:text-lg ">
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg ">
 
 			<div class="flex my-3 mt-5 form-label text-base font-medium">
 				<div> {{$t("settings.localization.currency_symbol")}} </div>
