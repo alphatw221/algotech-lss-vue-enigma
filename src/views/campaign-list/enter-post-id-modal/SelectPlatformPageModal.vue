@@ -4,29 +4,14 @@
         <ModalBody class="text-left content-center">
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
             <template v-for="page,index in pages" :key="index">
-              <div
-                @click="selectPage(index)"
-                class="
-                  w-14
-                  h-14
-                  flex-none
-                  image-fit
-                  rounded-md
-                  overflow-hidden
-                  col-start-1 col-span-2
-                "
-              >
-                <img
-                  alt=""
-                  :src="page.image"
-                />
+              <div class="flex col-start-3 col-span-8 selectPage" @click="selectPage(index)">
+                <div class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden">
+                  <img alt="" :src="page.image"/>
+                </div>
+                <div class="mx-auto my-auto">
+                  <p class="text-lg">{{ page.name }}</p>
+                </div>
               </div>
-              <span
-                @click="selectPage(index)"
-                class="col-start-4 col-span-8 text-lg content-center"
-              >
-                {{ page.name }}
-              </span>
             </template>
           </div>
         </ModalBody>
@@ -100,3 +85,11 @@ const hide=()=>{
   pages.value=[]
 }
 </script>
+<style scoped>
+.selectPage {
+  cursor: pointer;
+}
+.selectPage:hover {
+  background-color: whitesmoke;
+}
+</style>

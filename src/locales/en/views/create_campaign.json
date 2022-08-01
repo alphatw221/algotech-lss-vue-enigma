@@ -42,7 +42,8 @@
 
         "payment_titles":{
             "direct_payment":"Direct Payment",
-            "stripe":"Stripe"
+            "stripe":"Stripe",
+            "hitpay":"Hitpay"
         },
 
         "direct_payment":{
@@ -56,7 +57,12 @@
             "secret":"Secret Key",
             "currency":"Currency"
         },
-
+        "hitpay":{
+            "button_title":"Button Title",
+            "currency":"Currency",
+            "api_key":"API Key",
+            "salt":"Salt"
+        },
 
 
 

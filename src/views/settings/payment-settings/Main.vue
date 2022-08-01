@@ -53,6 +53,7 @@ onMounted(() => {
         payments.value.push(paymentStore[key])
     });
     paymentReady.value=true
+    console.log(payments.value)
 })
 
 </script>

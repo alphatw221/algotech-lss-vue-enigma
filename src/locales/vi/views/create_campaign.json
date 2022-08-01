@@ -1,32 +1,32 @@
 {
-    "create_campaign":"Create Campaign",
-    "title":"Title",
+    "create_campaign":"Tạo chiến dịch",
+    "title":"Tiêu đề",
     "title_required":"Title Is Required",
-    "period":"Period",
+    "period":"Thời gian",
 
-    "cancel":"Cancel",
-    "create":"Create",
+    "cancel":"Hủy bỏ",
+    "create":"Tạo sản phẩm",
     "invalid_title":"Invalid campaign title input",
     
 
 
     "delivery_form":{
-        "delivery_detail":"Delivery Details",
-        "delivery_charge":"Delivery Charge",
-        "free_delivery_for_order_above":"Free delivery for order above",
-        "free_delivery_for_minimum_order":"Free delivery for minimum order Qty",
-        "add_more_delivery_option":"Add More Option",
-        "add_more_pickup_option":"Add More Location",
-        "options":"Delivery Charge Options",
-        "on_top_of_delivery_charge":"On top of delivery charge",
-        "replace_delivery_charge":"Replace delivery charge",
+        "delivery_detail":"Thông tin vận chuyển",
+        "delivery_charge":"Chi phí vận chuyển",
+        "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
+        "free_delivery_for_minimum_order":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
+        "add_more_delivery_option":"Thêm lựa chọn khác",
+        "add_more_pickup_option":"Thêm lựa chọn khác",
+        "options":"Tùy chọn phí giao hàng",
+        "on_top_of_delivery_charge":"Vượt phí giao hàng",
+        "replace_delivery_charge":"Thay thế phí giao hàng",
 
-        "delete":"Delete",
+        "delete":"Xóa",
 
         "store_collection":"Self Pickup",
 
-        "pickup_store":"Pickup Location",
-        "pickup_address":"Pickup Address",
+        "pickup_store":"Tên cửa hàng",
+        "pickup_address":"Địa chỉ cửa hàng",
         "errors":{
             "Value_is_required":"Value is required",
             "Value_must_be_numeric":"Value must be numeric",
@@ -41,35 +41,35 @@
     "payment_form":{
 
         "payment_titles":{
-            "direct_payment":"Direct Payment",
+            "direct_payment":"Thanh toán trực tiếp",
             "stripe":"Stripe"
         },
 
         "direct_payment":{
-            "mode":"Name of Bank / Payment Mode",
-            "name":"Account Name",
-            "number":"Account Number",
-            "note":"Note",
+            "mode":"Tên ngân hàng / Phương thức thanh toán",
+            "name":"Tên tài khoản",
+            "number":"Số tài khoản",
+            "note":"Ghi chú",
             "require_customer_return":"Require Buyer’s Payment Record"
         },
         "stripe":{
-            "secret":"Secret Key",
-            "currency":"Currency"
+            "secret":"Mã bảo mật",
+            "currency":"Đơn vị tiền tệ"
         },
 
 
 
 
-        "payment_details":"Payment Details",
-        "enabled":"Enabled",
-        "add_more_direct_payment":"Add More Direct Payment",
-        "upload_image":"Upload Image",
+        "payment_details":"Thông tin thanh toán",
+        "enabled":"Đã bật",
+        "add_more_direct_payment":"Thêm Thanh toán trực tiếp",
+        "upload_image":"Tải lên hình ảnh",
         "remove_image":"Remove Image",
         "upload_a_file_or_drag_and_drop":"Upload a file",
         "accepted_file_types":"File types",
         "max_file_size":"Max file size",
 
-        "delete":"Delete",
+        "delete":"Xóa",
         "errors":{
             "Value_is_required":"Value is required",
             "img_size_err":"image size exceed 10 MB"
@@ -81,9 +81,9 @@
 
     "notes_form":{
         "notes_form":"Custom Note Settings",
-        "delivery_note":"Delivery Note",
-        "special_note":"Special Note",
-        "confirmation_note":"Confirmation Note"
+        "delivery_note":"Lưu ý khi giao hàng",
+        "special_note":"Ghi chú đặc biệt",
+        "confirmation_note":"Ghi chú xác nhận"
     }
 
 }

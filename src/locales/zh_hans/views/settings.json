@@ -43,8 +43,7 @@
     "payment_form":{
         "payment_titles":{
             "direct_payment":"轉帳付款",
-            "stripe":"Stripe付款",
-            "hitpay":"Hitpay付款"
+            "stripe":"Stripe付款"
         },
 
         "direct_payment":{
@@ -57,12 +56,6 @@
         "stripe":{
             "secret":"密鑰",
             "currency":"貨幣"
-        },
-        "hitpay":{
-            "button_title":"按鈕標題",
-            "currency":"貨幣",
-            "api_key":"API 密鑰",
-            "salt":"密碼"
         },
 
         "payment_details":"金流設定",
@@ -108,8 +101,7 @@
         "confirmation_note":"訂單說明",
         "discard":"取消",
         "save":"儲存",
-        "update": "更新",
-        "modify":"編輯"
+        "update": "更新"
     },
     "localization":{
         "title": "本地化",
@@ -135,17 +127,7 @@
         "choose_currency_symbol":"選擇貨幣",
         "decimal_places":"小數位數",
         "discard":"取消",
-        "save":"儲存",
-        "price_unit":"價錢單位",
-        "choose_price_unit":"選擇價錢單位",
-        "priceOptions":{
-            "1":"無",
-            "1000":"K",
-            "1000000":"M"
-        }
-
-
-
+        "save":"儲存"
     },
     "platform":{
         "connected_platform":"已綁定的社交平台",

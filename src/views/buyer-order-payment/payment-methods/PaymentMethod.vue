@@ -1,5 +1,5 @@
 <template>
-    <AccordionItem  class="mx-5 ">
+    <AccordionItem  class="mx-5 " >
         <Accordion class="bg-primary rounded-t-lg" >
             <div class="text-white mx-5" > {{payment.name}} </div>
         </Accordion>

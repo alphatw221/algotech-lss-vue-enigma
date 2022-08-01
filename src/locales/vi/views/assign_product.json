@@ -1,36 +1,36 @@
 {
-    "assign_product": "Assign Products",
+    "assign_product": "Chọn sản phẩm bán",
     "confirm_select_product":"Confirm Assign Products",
     "search_bar":{
-        "category":"Category",
-        "all":"All",
-        "search_by":"Search By",
+        "category":"Loại",
+        "all":"Tất cả",
+        "search_by":"Tìm kiếm bởi",
         "search_options":{
-            "name":"Name",
-            "order_code":"Order Code",
-            "description":"Description"
+            "name":"Tên",
+            "order_code":"Mã sản phẩm",
+            "description":"Mô tả"
         },
-        "search_bar_place_holder":"Search...",
-        "reset":"Reset"
+        "search_bar_place_holder":"Tìm kiếm...",
+        "reset":"Thiết lập lại"
     },
 
     "product_table":{
-        "image":"Image",
-        "name":"Name",
-        "type":"Type",
-        "order_code":"Order Code",
-        "qty":"Qty",
+        "image":"Hình ảnh",
+        "name":"Tên",
+        "type":"Loại sản phẩm",
+        "order_code":"Mã sản phẩm",
+        "qty":"Số lượng",
         "assign_qty":"Assign QTY",
         "max_order_amount":"Max Order Qty",
-        "category":"Category",
-        "price":"Price",
-        "customer_editable":"Editable",
-        "customer_removable":"Removable",
+        "category":"Loại",
+        "price":"Giá bán",
+        "customer_editable":"Có thể chỉnh sửa",
+        "customer_removable":"Có thể xóa",
         "types":{
-            "product":"Product",
-            "product-fast":"Product",
-            "lucky_draw-fast":"Lucky Draw",
-            "lucky_draw":"Lucky Draw",
+            "product":"Sản phẩm",
+            "product-fast":"Sản phẩm",
+            "lucky_draw-fast":"Quà tặng minigame",
+            "lucky_draw":"Quà tặng minigame",
             "null":"",
             "undefined":""
         },
@@ -47,8 +47,8 @@
         }
     },
     "add":"Add",
-    "add_more":"Add More",
-    "reset":"Reset",
+    "add_more":"Thêm",
+    "reset":"Thiết lập lại",
     "confirm":"Confirm",
     "invalid":"Invalid"
 

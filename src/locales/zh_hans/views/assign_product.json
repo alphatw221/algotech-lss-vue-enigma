@@ -1,0 +1,58 @@
+{
+    "assign_product": "新增直播商品",
+    "confirm_select_product":"确认新增商品",
+    "search_bar":{
+        "category":"商品类别",
+        "all":"全部类别",
+        "search_by":"搜寻栏位",
+        "search_options":{
+            "name":"名称",
+            "order_code":"商品代码",
+            "description":"说明"
+        },
+        "search_bar_place_holder":"搜寻",
+        "reset":"清空"
+    },
+
+    "product_table":{
+        "image":"图片",
+        "name":"名称",
+        "type":"商品类型",
+        "order_code":"商品代码",
+        "qty":"库存数量",
+        "assign_qty":"直播商品数量",
+        "max_order_amount":"单次限购数量",
+        "category":"类别",
+        "price":"价格",
+        "customer_editable":"允许顾客修改",
+        "customer_removable":"允许顾客删除",
+        "types":{
+            "product":"商品",
+            "product-fast":"商品",
+            "lucky_draw-fast":"奖品",
+            "lucky_draw":"奖品",
+            "null":"",
+            "undefined":""
+        },
+
+
+        "errors":{
+            "type_required":"类型必填",
+            "order_code_required":"商品代码必填",
+            "order_code_duplicate":"商品代碼重复",
+            "qty_invalid":"输入数量无效",
+            "max_order_amount_grater_than_qty":"不得大于商品数量",
+            "assign_qty_required":"商品数量必填",
+            "please_enter_integer": "请输入整数",
+            "price_invalid":"输入价格无效"
+        }
+    },
+    "add":"加入",
+    "add_more":"加入更多商品",
+    "reset":"清空",
+    "confirm":"确认",
+    "invalid":"输入无效"
+
+
+   
+}
