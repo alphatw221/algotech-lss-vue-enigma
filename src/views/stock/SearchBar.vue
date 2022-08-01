@@ -14,25 +14,13 @@
                         <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
                     </select>
                 </div>
-                <button id="tabulator-html-filter-go" 
+                <button
                     type="button" 
                     class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-3" 
                     @click="this.$router.push({name:'category-management'})">
                     {{ $t('stock.search_bar.category_manage') }}
                 </button>
-            </div>
-            <!-- <div class="flex items-center flex-initial w-fit" >
-                <label class="mr-2 shrink whitespace-nowrap">
-                    {{ $t('stock.search_bar.search_by') }}
-                </label>
-                <select
-                    class="h-[35px] sm:h-[42px] mr-0 form-select sm:mr-2 shrink rounded-lg form-select-sm sm:form-select" v-model="searchField">
-                    <option v-for="searchColumn in searchColumns" :key="searchColumn.value"
-                        :value="searchColumn.value">
-                        {{ $t(`stock.search_bar.${searchColumn.text}`) }}
-                    </option>
-                </select>
-            </div> -->
+            </div> 
             <div class="flex"> 
                 <div class="relative"> 
                     <input type="text" class=" mr-2 form-control w-40 lg:w-60 rounded-lg"

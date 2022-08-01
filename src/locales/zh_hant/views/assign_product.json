@@ -43,13 +43,15 @@
             "qty_invalid":"數量無效",
             "max_order_amount_grater_than_qty":"不得大於商品數量",
             "assign_qty_required":"商品數量必填",
-            "please_enter_integer": "請輸入整數"
+            "please_enter_integer": "請輸入整數",
+            "price_invalid":"價錢無效"
         }
     },
     "add":"加入",
     "add_more":"加入更多商品",
     "reset":"重設",
-    "confirm":"確認"
+    "confirm":"確認",
+    "invalid":"無效"
 
 
    

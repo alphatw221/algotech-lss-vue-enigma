@@ -8,7 +8,13 @@
         "select_tag":"選擇標籤",
         "clear":"清空",
         "comment_message_1":"尚未有%{tag}相關訊息",
-        "comment_message_2":"尚未有 %{platformName} 訊息"
+        "comment_message_2":"尚未有 %{platformName} 訊息",
+
+        "comments_summarizer":"留言分類",
+        "all_comments":"所有留言",
+        "facebook_comments":"Facebook 留言",
+        "youtube_comments":"Youtube 留言",
+        "instagram_comments":"Instagram 留言"
     },
     "reply":{
         "reply_to":"回覆",
@@ -59,7 +65,8 @@
             "order_code_duplicate":"商品代碼重複",
             "qty_invalid":"數量無效",
             "max_order_amount_grater_than_qty":"不得大於商品數量",
-            "assign_qty_required":"商品數量必填"
+            "assign_qty_required":"商品數量必填",
+            "price_invalid":"價錢無效"
         },
         "invalid":"無效",
         "successed":"成功",

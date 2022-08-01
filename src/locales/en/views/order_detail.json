@@ -23,15 +23,18 @@
         "shipping":"Shipping",
         "delivery_charge":"Delivery Charge",
         "discount":"Discount",
-        "add": "Add",
-        "subtract": "Subtract",
-        "apply_free_delivery" : "Free Delivery",
+        "add": "Addition",
+        "subtract": "Discount",
+        "apply_free_delivery" : "Free Delivery Applied",
+        "free_delivery" : "Free Delivery",
         "modify_price": "Modify Price",
         "price_adjustment" : "Price Adjustment",
         "price_adjustment_note" : "To make a discount, enter -(price).To apply extra fee, enter the price directly.",
         "title" : "Title",
         "price_exceed":"Price exceed subtotal",
-        "update" : "Update"
+        "update" : "Update",
+        "display_name": "Display Name",
+        "amount": "Amount"
     },
     "delivery":{
         "information" : "Delivery Information",
@@ -50,6 +53,7 @@
         "additional_delivery_charge" : "Selected Delivery Charge Option"
     },
     "payment":{
+        "Direct Payment":"Direct Payment",
         "method" : "Method of Payment",
         "information": "Payment Information",
         "record" : "Record",
@@ -58,5 +62,8 @@
     "remark" : "Remark",
     "save_remarks" : "Save Remarks",
     "save_order" : "Save Order",
-    "shopping_cart" : "Shopping Cart"
+    "shopping_cart" : "Shopping Cart",
+    "invalid_qty":"Invalid Quantity",
+    "update_successfully":"Update Successfully",
+    "delete_successfully":"Delete Successfully"
 }

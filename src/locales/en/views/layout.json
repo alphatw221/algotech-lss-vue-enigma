@@ -32,12 +32,23 @@
         "add-product":"Create Product",
         "product-detail":"Product Detail",
         "edit-product":"Edit Product",
-        "profile":"Profile"
+        "profile":"Profile",
+        "change-plan":"Change Plan"
     },
     "top_bar":{
         "profile":"Profile",
         "subscription":"Subscription",
         "reset_password":"Reset Password",
         "logout":"Logout"
+    },
+    "upcoming_campaign":{
+        "title": "Upcoming Campaign",
+        "notification_text1": "You have a upcoming Campaign:",
+        "notification_text2": "starts in",
+        "notification_text3": "",
+        "time_15min": "15 mins",
+        "time_1hour": "an hour",
+        "join_now": "Join now",
+        "dismiss": "Dismiss"
     }
 }

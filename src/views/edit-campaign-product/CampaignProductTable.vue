@@ -1,6 +1,6 @@
 <template>
     <div class="p-2 mt-5 box sm:p-5 sm:pb-0">
-        <div class="overflow-auto h-[62vh] sm:h-[62vh]">
+        <div class="overflow-auto h-fit sm:h-[62vh]">
             <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
@@ -16,35 +16,35 @@
 
                         <td v-if="column.key === 'image'" class="w-18 text-[12px] sm:w-18 lg:text-sm 2xl:w-32 imgtd">
                             <div class="flex items-center justify-center">
-                                <div class="w-[120px] h-[120px] image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 place-items-center">
+                                <div class="w-[90px] h-[90px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
                                     <img 
                                         class="rounded-lg cursor-auto" 
                                         data-action="zoom"
                                         :src="campaign_product.image ? storageUrl + campaign_product.image : storageUrl + 'no_image.jpeg'" 
                                     />
-                                </div>
+                                </div> 
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm orderCode" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="form-check place-content-center">
+                            <div>
                                 {{ campaign_product[column.key] }}        
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'qty_for_sale'" class="w-24 text-[12px] lg:text-sm qty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="form-check place-content-center">
+                            <div>
                                 {{ campaign_product[column.key] }}      
                             </div>
                         </td>
 
                         <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="form-check place-content-center">
+                            <div>
                                 {{ campaign_product[column.key] }}   
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'tag'" class="my-2 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end category" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                        <td v-else-if="column.key === 'tag'" class="my-1 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end category" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div v-for="tag in campaign_product[column.key]" :key="tag">
                                 {{ tag }}
                             </div>
@@ -55,7 +55,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'name'" class="text-[12px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage">
-                            <div class="w-full">{{ campaign_product[column.key] }}</div>
+                            <div>{{ campaign_product[column.key] }}</div>
                         </td>
 
                         <!-- <td v-else-if="column.key === 'selected'" class="text-[12px] lg:w-18 lg:text-sm 2xl:w-28 selected">
@@ -92,23 +92,23 @@
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'type'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end type">
+                        <td v-else-if="column.key === 'type'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end type" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div class=" form-check place-content-end sm:place-content-center">
                                     {{$t(`edit_campaign_product.campaign_product_table.types.${campaign_product[column.key] }`)}}    
                             </div>                
                         </td>
 
                         <td v-else-if="column.key === 'edit'" class="edit " :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="place-content-center sm:place-content-center">
+                            <div class="flex place-content-center sm:place-content-center">
                                 <button 
-                                    class="btn btn-outline-secondary mr-1"
+                                    class="btn btn-outline-secondary mr-auto sm:mr-1 h-[35px] sm:h-[42px]"
                                     type="button" 
                                     @click="showEditCampaignProductModal(campaign_product, index)" 
                                 > 
                                     {{$t(`edit_campaign_product.campaign_product_table.edit`)}}  
                                 </button>
                                 <button 
-                                    class="btn btn-danger"
+                                    class="btn btn-danger h-[35px] sm:h-[42px]"
                                     type="button" 
                                     @click="deleteProduct(campaign_product, index)"
                                 >
@@ -145,10 +145,9 @@
                 </tbody>
             </table>
         </div> 
-        <div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
+        <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
             <Page class="mx-auto my-3" :total="dataCount" @on-change="changePage" @on-page-size-change="changePageSize" />
         </div>
-
     </div>
 </template>
 
@@ -317,13 +316,12 @@ thead th {
     }
 
     tr {
-		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		border-bottom: 2px solid #DDDDDD;
 		margin-top: 20px;
 	}
 
     td {
-        min-height: 35px;
-        height: auto;
+        min-height: 30px !important;
         border: none;
         position: relative;
         padding-left: 50% !important;
@@ -331,32 +329,30 @@ thead th {
         box-shadow: none !important;
         font-size: 14px;
         vertical-align: middle !important;
-        padding-right: 15px !important;
         place-content: right !important;
     }
 
     td:before {
         position: absolute;
-        min-height: 20px;
+        min-height: 30px;
         left: 6px;
         width: 45%;
-        padding-right: 10px;
         white-space: nowrap;
         font-weight: bold;
         box-shadow: none !important;
         background-color: white !important;
-        text-align: left;
+        text-align: left !important;
     }
     .selected:before {
         display: none;
     }
-
+/* 
     .selected{
         display: block;
         float:right;
         width:40px !important;
         padding-left: 0px !important;
-	}
+	} */
 
     .imgtd:before {
         display: none;
@@ -366,14 +362,14 @@ thead th {
         display: inline-block;
         width: 80% !important;
         padding-left: 20% !important;
-        height: 125px !important;
+        height: 95px !important;
     }
 
-    td:nth-of-type(3):before {
+    td:nth-of-type(2):before {
         display: none;
     }
 
-    td:nth-of-type(3) {
+    td:nth-of-type(2) {
         display: inline-block;
         text-align: center !important;
         width: 100% !important;
@@ -381,12 +377,12 @@ thead th {
 		font-weight: 500;
 		color: theme("colors.primary");
         font-size: 16px !important;
+        min-height: 25px !important;
     }
 
     .orderCode:before {
         content: attr(data-content);
         text-align: left !important;
-        top:25% !important;
     }
     .orderCode input{
         text-align:right
@@ -394,7 +390,6 @@ thead th {
 
     .qty:before {
         content: attr(data-content);
-        top:25% !important;
     }
     .qty input{
         text-align:right
@@ -402,7 +397,6 @@ thead th {
 
     .maxQty:before {
         content: attr(data-content);
-        top:25% !important;
     }
     .maxQty input{
         text-align:right
@@ -411,7 +405,6 @@ thead th {
     .category:before {
         top: -3px;
         content: attr(data-content);
-        top:25% !important;
     }
     .category{
         display: flex;
@@ -422,20 +415,10 @@ thead th {
 
     .price:before {
         content: attr(data-content);
-        top:20% !important;
     }
-    .price{
-        min-height: 45px;
-    }
-    .price input{
-        text-align:right
-    }
-    
     .type:before {
         content: attr(data-content);
         text-align: left !important;
-        top:25% !important;
-        margin-top: 0 !important;
     }
 
     .editable:before {
@@ -448,6 +431,10 @@ thead th {
     
     .edit:before{
         content: attr(data-content);
+        top:10%;
+    }
+    .edit{
+        min-height: 40px !important;
     }
     /* .edit{
         display:block;

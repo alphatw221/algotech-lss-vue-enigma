@@ -6,6 +6,7 @@
     "add_product": "Add Product",
     "dont_have_product_notify": "You Don't Have Product in this Category",
     "no_result": "No result",
+    "click_to_add":"Ｃlick '+Add product' to add your first product",
 
     "search_bar": {
         "category": "Category",
@@ -27,7 +28,8 @@
         "category": "Category",
         "description": "Description",
         "qty": "Qty",
-        "price": "Price"
+        "price": "Price",
+        "confirm_delete": "Are you sure delete this product ?"
     },
 
     "category_manage": {
@@ -35,12 +37,15 @@
         "edit_title": "Edit Category",
         "edit": "Edit",
         "delete": "Delete",
-        "input_holder": "Category Name",
+        "input_holder": "New Category Name",
         "modal": {
             "cancel": "Cancel",
             "save": "Save",
             "warning_duplicate": "Duplicate category name"
-        }
+        },
+        "save_success":"Save Success",
+        "not_saved":"Update Canceled",
+        "confirm_delete": "Are you sure delete this category ?"
     },
 
     "add_product_page": {
@@ -64,10 +69,10 @@
         "cancel": "Cancel",
         "save": "Save",
 
-        "not_save_message":"Change Not Save",
+        "not_save_message":"Update Canceled",
         "create_message":"Create Successfully",
         "update_message":"Update Successfully",
-        "invalid_data":"Invalid Data Inputed"
+        "invalid_data":"Invalid Submission"
     }
     
 }

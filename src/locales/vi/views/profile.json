@@ -1,0 +1,20 @@
+{
+    "profile":{
+        "title":"Profile"
+    },
+    "subscription":{
+        "title":"Subscription",
+        "id":"ID",
+        "joined":"Joined",
+        "vaild":"Vaild till",
+        "change_plan":"Change Plan"
+    },
+    "plan":{
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium"
+    },
+    "invalid_data":"Invalid Submission",
+    "input_err":"Input Error",
+    "update_successed":"Update Successed"
+}

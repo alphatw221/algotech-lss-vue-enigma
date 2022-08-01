@@ -1,0 +1,13 @@
+{
+    "edit_campaign":"Edit Campaign",
+    "title":"Tiêu đề",
+    "title_required":"Title Is Required",
+    "period":"Thời gian",
+    "connected_platform":"Kết nối nền tảng",
+    "edit_connected_platform":"Chỉnh sửa",
+
+    "cancel":"Hủy bỏ",
+    "update":"Update",
+    "invalid_data":"Invalid Data"
+
+}

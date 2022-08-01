@@ -1,10 +1,6 @@
 {
     "campaign_list": "Campaign List",
 
-    "no_campaign_Ongoing": "You Have No Ongoing Campaign",
-    "no_campaign_Scheduled": "You Have No Scheduled Campaign",
-    "no_campaign_History": "You Have No History Campaign",
-
     "process" : {
             "create" : "Create",
             "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",
@@ -50,11 +46,18 @@
         "edit_campaign_product":"Edit Product",
         "blank_cart":"Copy Blank Cart Link",
         "lucky_draw":"Lucky Draw",
+        "delete":"Delete",
+        "confirm_delete": "Are you sure delete this campaign ?",
 
         "campaign_message":"You don't have %{tab} campaign",
+        "no_result":"No Result Found",
         "Scheduled" : "Scheduled",
         "History" : "History",
-        "Ongoing" : "Ongoing"
+        "Ongoing" : "Ongoing",
+        
+        "no_have_campaign": "You Dont't Have Campaign Yet",
+        "click_create_notify": "Click \"+ Create\" to create your new live selling campaign",
+        "connect_platform":"Connect Platform"
     },
 
     "remind_enter_post_id_modal":{
@@ -64,21 +67,33 @@
 
     "enter_post_id_modal":{
         "edit_channel":"Select Live Stream",
+
         "facebook":"Facebook",
+        "page": "Page",
         
         "post_id":"Post ID",
-        "select_page":"Select Page",
+        "select_live_post":"Select Live Post",
+        "enter_post_id": "Enter Post ID",
 
         "instagram":"Instagram",
+        "profile": "Profile",
         "media_id":"Media ID",
         "select_media":"Select Profile",
 
         "youtube":"Youtube",
+        "channel": "Channel",
         "live_chat_id":"Live Chat ID",
         "select_live_chat":"Select Channel",
 
         "cancel":"Cancel",
-        "save":"Save"
-    }
+        "save":"Save",
+        "your_current_lives": "Your current lives",
+        "select_this_live": "Select this live",
+        "valid_post_id_notification": "Please Enter Valid Post ID"
+    },
+    "update_successed":"Update Successed",
+    "no_facebook_post":"You don't have Facebook live posts now.",
+    "no_youtube_post":"You don't have YouTube live stream now.",
+    "no_instagram_post":"You don't have Instagram live posts now."
 
 }

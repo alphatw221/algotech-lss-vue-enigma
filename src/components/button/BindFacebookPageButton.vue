@@ -1,25 +1,29 @@
 <template>
-    <Button v-if="props.buttonName == 'edit'" 
+    <LoadingIcon icon="three-dots" color="1a202c" class="absolute body-middle" v-if="fetchingData"/>
+
+    <Button v-else-if="props.buttonName == 'edit'" 
         type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="fbBtn" @click="checkLoginState">{{$t('settings.platform.connect_with_facebook')}}</Button>
+        type="button" class="fbBtn " @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_facebook')}}</Button>
+
     
 </template>
 
 <script setup>
 import loadScript from '@/libs/loadScript.js';
+import { check_activated_platform } from '@/api/user_subscription'
 import { conforms } from 'lodash';
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const fetchingData = ref(false)
 
 const props = defineProps({
   busName: String,
   buttonName: String
 });
 
-const is_activated_platform = ref(false)
 
 onMounted(()=>{
     //facebook SDK use eval() at backend
@@ -34,12 +38,6 @@ onMounted(()=>{
             });
         }
     });
-    eventBus.on("activate_facebook", (payload) => {
-        is_activated_platform.value = payload
-        console.log("activate_facebook")
-        console.log(is_activated_platform.value)
-    })
-    
 })
 
 onUnmounted(()=>{
@@ -58,21 +56,29 @@ const login = () => {
 
 const checkLoginState = () => {
     console.log('checkloginstate')
-    if (is_activated_platform.value) {
-        window.FB.getLoginStatus(response=>{
-            if (response.status === 'connected') {
-                window.FB.logout(response=> {
-                    console.log("logout")
-                    login();
-                });
-            } else {
+    window.FB.getLoginStatus(response=>{
+        if (response.status === 'connected') {
+            window.FB.logout(response=> {
+                console.log("logout")
                 login();
-            }
-        });
-    } else {
-        eventBus.emit("showUpgradeModal", true)
-    }
-    
+            });
+        } else {
+            login();
+        }
+    });
+}
+
+const check_bindable_or_upgrade = () => {
+    fetchingData.value = true
+    check_activated_platform().then(res=>res.data).then(res=>{
+        console.log(res)
+        fetchingData.value = false
+        if (res.can_bind) {
+            checkLoginState()
+        } else {
+            eventBus.emit("showUpgradeModal", {"activated_platform_amount": res.activated_platform_amount})
+        }
+    })
 }
 </script>
 
@@ -82,12 +88,20 @@ const checkLoginState = () => {
 .fbBtn{
     background-color: #3c599b;
     padding: auto;
-    width: 300px;
+    max-width: 300px;
     height: 42px;
     border-radius: 42px 42px; 
     color: white;
     font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
     font-size: 16px;
     font-weight: 600;
+}
+.body-middle {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    width: 60px;
+    height: 60px;
 }
 </style>

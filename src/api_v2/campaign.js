@@ -64,3 +64,11 @@ export const fast_add_product = (campaign_id, data) => {
 export const get_campaign_order_report = (campaign_id) => {
     return createAxiosWithBearer().get(`/api/v2/campaign/${campaign_id}/report/`,{responseType : 'blob'})
 }
+
+export const get_campaign_product_order_code_dict = (campaign_id) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign/${campaign_id}/product/order_code/dict/`)
+}
+
+export const delete_campaign = (campaign_id) => {
+    return createAxiosWithBearer().delete(`/api/v2/campaign/delete/?campaign_id=${campaign_id}`)
+}

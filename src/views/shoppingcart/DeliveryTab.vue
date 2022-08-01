@@ -165,7 +165,7 @@
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(2)
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(store.order.campaign.user_subscription.decimal_places)
                         }}
                       </div>
                     </div>
@@ -180,13 +180,13 @@
                       <div v-if="option.type === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{ (parseFloat(option.price) +
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(2)
+                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(store.order.campaign.user_subscription.decimal_places)
                         }}
                       </div>
                       <div v-else>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(option.price).toFixed(2)
+                            parseFloat(option.price).toFixed(store.order.campaign.user_subscription.decimal_places)
                         }}
                       </div>
 
@@ -210,8 +210,8 @@
                       v-for="(option, index) in store.order.campaign.meta_logistic.pickup_options" :key="index">
 
                       <input :id="'pickup-switch-' + index" class="form-check-input" type="radio"
-                        name="vertical_radio_button" :value="option.name"
-                        v-model="shipping_info.shipping_option" />
+                        name="vertical_radio_button" :value="index"
+                        v-model="shipping_option_index_computed" />
                       <label class="mr-auto form-check-label" :for="'pickup-switch-' + index">{{ option.name }}</label>
 
 
@@ -288,6 +288,7 @@ import { buyer_update_delivery_info, guest_update_delivery_info } from "@/api_v2
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useCookies } from 'vue3-cookies'
+import i18n from "@/locales/i18n"
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
@@ -325,9 +326,10 @@ const shipping_option_index_computed = computed({
     shipping_info.value.shipping_option_index=index
     store.shipping_info.shipping_option_index=index
     shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].address : ''
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
 
-    console.log(shipping_info.value)
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].name 
+    :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
+    
   }})
 
 const shipping_method_computed = computed({
@@ -384,25 +386,25 @@ const proceed_to_payment = () =>{
 
   reciever_validate.value.$touch();
   if (reciever_validate.value.$invalid) {
-    layoutStore.alert.showMessageToast("Invalid User Infomation Input")
+    layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
   if(shipping_info.value.shipping_method==='delivery'){
     delivery_validate.value.$touch();
     if(delivery_validate.value.$invalid){
-      layoutStore.alert.showMessageToast("invalid delivery infomation input")
+      layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
   }
   
-  if (confirm('Are you sure you want to process check out? Your shopping cart will be cleared.')){
+  if (confirm(i18n.global.t('shopping_cart.checkout_message'))){
 
     const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
     update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
     .then(res=>{
       router.push(`/buyer/order/${res.data.oid}/payment`)
     }).catch(error=>{
-      layoutStore.alert.showMessageToast("Product Out Of Stock, Please Confirm Your Shopping Cart And Checkout Again")
+      layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.checkout_again'))
       if (error.response.data)store.order = error.response.data
       
     })

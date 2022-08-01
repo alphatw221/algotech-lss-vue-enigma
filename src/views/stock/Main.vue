@@ -2,7 +2,7 @@
 	<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 		<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('stock.stock') }}</h2>
 	</div>
-	<div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
+	<div class="flex flex-col p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
 		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-5"> 
 			<div class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
@@ -20,7 +20,7 @@
             </button>
 		</div>
 		<!-- BEGIN For Sale Tab -->
-		<div class="flex flex-col gap-3 leading-relaxed sm:gap-3"
+		<div class="flex flex-col gap-3 leading-relaxed"
 			:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
 			<SearchBar
 				:searchColumns="searchColumns"

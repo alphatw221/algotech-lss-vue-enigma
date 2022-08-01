@@ -9,7 +9,8 @@
         <div class="flex flex-col gap-5 box lg:mx-20">
             <div class="switch-toggle mx-auto sm:ml-14 mt-6 sm:mt-10">
                 <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
-                <label for="on">{{$t('settings.notes.notes')}}</label>
+                <!-- <label for="on">{{$t('settings.notes.notes')}}</label> -->
+                <label for="on">General</label>
                 <input id="na" name="state-d" type="radio" class="" @click="toggleTabs(2)" />
                 <label for="na">{{$t('settings.payment.payment')}}</label>
                 <input id="off" name="state-d" type="radio" @click="toggleTabs(3)" />

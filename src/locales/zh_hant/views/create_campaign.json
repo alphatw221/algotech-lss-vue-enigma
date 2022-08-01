@@ -7,6 +7,8 @@
 
     "cancel":"取消",
     "create":"建立",
+    "invalid_title":"無效的直播標題",
+    
 
 
     "delivery_form":{
@@ -30,7 +32,9 @@
             "Value_is_required":"此欄位必填",
             "Value_must_be_numeric":"輸入必須為數字",
             "minValue":"輸入數字無效",
-            "required":"此欄位必填"
+            "required":"此欄位必填",
+            "integer":"輸入數字必須為整數",
+            "decimal":"輸入數字必須為數字"
         }
     },
 
@@ -38,7 +42,8 @@
     "payment_form":{
         "payment_titles":{
             "direct_payment":"轉帳付款",
-            "stripe":"Stripe付款"
+            "stripe":"Stripe付款",
+            "hitpay":"Hitpay付款"
         },
 
         "direct_payment":{
@@ -52,11 +57,18 @@
             "secret":"密鑰",
             "currency":"貨幣"
         },
-
+        "hitpay":{
+            "button_title":"按鈕標題",
+            "currency":"貨幣",
+            "api_key":"API 密鑰",
+            "salt":"密碼"
+        },
+        
         "payment_details":"金流設定",
         "enabled":"啟用",
         "add_more_direct_payment":"新增轉帳選項",
         "upload_image":"上傳圖片",
+        "remove_image":"移除照片",
         "upload_a_file_or_drag_and_drop":"點擊上傳圖片",
         "accepted_file_types":"接受檔案類型",
         "max_file_size":"檔案容量上限",
@@ -64,7 +76,8 @@
         "delete":"刪除",
 
         "errors":{
-            "Value_is_required":"此欄位必填"
+            "Value_is_required":"此欄位必填",
+            "img_size_err":"圖片大小不可超過 10 MB"
         }
 
 

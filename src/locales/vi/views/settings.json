@@ -1,0 +1,148 @@
+{
+    "settings" : "Cài đặt",
+    "client_id" : "Client ID",
+    "secret" : "Secret",
+    "currency_code" : "Currency Code",
+    "store_id" : "Store ID",
+    "share_secret" : "Shared Secret",
+    "time_zone" : "Time Zone",
+    "confirmation_note" : "Ghi chú xác nhận",
+    "default_active" : "Default Active",
+    "default_settings":"Cài đặt chiến dịch mặc định",
+    "update_successfully":"Update Successfully",
+    "update_failed":"Update Failed",
+    "img_size_err":"image size exceed 10 MB",
+    "invalid_data":"Invalid data",
+
+    "delivery":{
+        "delivery":"Vận chuyển",
+        "delivery_setting": "Delivery Settings",
+        "charge":"Chi phí vận chuyển",
+        "charge_option":"Tùy chọn phí giao hàng",
+        "add_more_delivery_option":"Thêm lựa chọn khác",
+        "replace_charge" : "Thay thế phí giao hàng",
+        "on_top_of_charge" : "Vượt phí giao hàng",
+        "title" : "Tiêu đề",
+        "order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
+        "minimum":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
+        "store":{
+                "collection":"Self Pickup",
+                "pickup_store":"Pickup Location",
+                "pickup_address":"Pickup Address"
+        },
+        "errors":{
+            "Value_is_required":"Value is required",
+            "Value_must_be_numeric":"Value must be numeric",
+            "minValue":"Invalid number",
+            "required":"This field is Required"
+        }
+        
+    },
+
+    "payment_form":{
+        "payment_titles":{
+            "direct_payment":"Thanh toán trực tiếp",
+            "stripe":"Stripe"
+        },
+        "direct_payment":{
+            "mode":"Tên ngân hàng / Phương thức thanh toán",
+            "name":"Tên tài khoản",
+            "number":"Số tài khoản",
+            "note":"Ghi chú",
+            "require_customer_return":"Require Buyer’s Payment Record"
+        },
+        "stripe":{
+            "secret":"Mã bảo mật",
+            "currency":"Đơn vị tiền tệ"
+        },
+
+        "payment_details": "Thông tin thanh toán",
+        "enabled": "Đã bật",
+        "add_more_direct_payment": "Thêm Thanh toán trực tiếp",
+        "add_direct_payment": "Add Thanh toán trực tiếp",
+        "upload_image": "Tải hình ảnh",
+        "upload_a_file_or_drag_and_drop": "Upload a file",
+        "accepted_file_types": "File types",
+        "max_file_size": "Max file size",
+        "delete": "Xóa",
+        "update": "Update",
+        "errors":{
+            "Value_is_required":"Value is required"
+        }
+    },
+
+    "delivery_form":{
+        "delivery_detail":"Thông tin vận chuyển",
+        "delivery_charge":"Chi phí vận chuyển",
+        "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
+        "free_delivery_for_minimum_order":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
+        "add_more_delivery_option":"Thêm lựa chọn khác",
+        "add_more_pickup_option":"Add More Location",
+        "options":"Shipping Options",
+        "on_top_of_delivery_charge":"Vượt phí giao hàng",
+        "replace_delivery_charge":"Thay thế phí giao hàng",
+        "delete":"Xóa",
+        "store_collection":"Self Pickup",
+        "pickup_store":"Pickup Location",
+        "pickup_address":"Địa chỉ cửa hàng",
+        "express_service_name": "delivery service name",
+        "express_charge": "Chi phí vận chuyển"
+    },
+
+    "payment":{
+        "payment":"Thanh toán"
+    },
+    "notes":{
+        "notes":"Các lưu ý",
+        "delivery_note":"Lưu ý khi giao hàng",
+        "special_note":"Ghi chú đặc biệt",
+        "confirmation_note":"Ghi chú xác nhận",
+        "discard":"Hủy bỏ",
+        "save":"Lưu lại",
+        "update": "Update"
+    },
+    "localization":{
+        "title": "Ngôn ngữ bản địa hóa",
+        "country":"Country",
+        "countries":{
+            "PH":"Philippines",
+            "SG":"Singapore",
+            "ID":"Indonesia",
+            "IN":"India",
+            "TW":"Taiwan"
+        },
+        "currency_symbol":"Đơn vị tiền tệ",
+        "seller_language":"Seller Language",
+        "languages":{
+            "en":"English",
+            "zh_hant":"Traditional Chinese",
+            "zh_hans":"Simplified Chinese",
+            "id":"Indonesian"
+        },
+        "buyer_language":"Buyer Language",
+        "choose_language":"Choose Language",
+        "choose_decimal_places":"Select your Decimal Places",
+        "choose_currency_symbol":"Choose Currency Symbol",
+        "decimal_places":"Decimal Places",
+        "discard":"Discard",
+        "save":"Lưu lại"
+    },
+    "platform":{
+        "connected_platform":"Connect Social Media Platform",
+        "facebook_fan_page":"Facebook Page",
+        "connect_with_facebook": "Connect with Facebook",
+        "instagram_profile":"Instagram Profile",
+        "connect_with_instagram": "Connect with Instagram",
+        "youtube_channel":"Youtube Channel",
+        "connect_with_youtube": "Connect with YouTube",
+        "edit":"Chỉnh sửa",
+        "cancel":"Hủy bỏ",
+        "upgrade":"Nâng cấp gói",
+        "your_subscription_plan_is": "Your subscription plan is",
+        "you_can_only_bind": "You can only bind",
+        "unit": "",
+        "social_media_platform": "social media platform",
+        "period": ".",
+        "unbind_page":"Unbind page"
+    }
+}

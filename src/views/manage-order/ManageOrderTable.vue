@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-2 w-full overflow-auto h-fit sm:h-[50vh]"> 
+    <div class="mt-3 w-full overflow-auto h-fit sm:h-[50vh]"> 
         <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
@@ -67,15 +67,15 @@
                         </template>
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
-                                <a class="flex sm:mr-auto image-fit">
+                                <a class="flex image-fit" @click="copyURL(order.id,order.type)">
+                                    <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
+                                    <Share2Icon class="block sm:mx-auto"/>
+                                </a>
+                                <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_order_detail(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
-                                    <EyeIcon @click="to_order_detail(order.id,order.type)"/>
+                                    <EyeIcon class="block sm:mx-auto"/>
                                 </a>
                                 
-                                <a class="flex image-fit">
-                                    <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
-                                    <Share2Icon class="block sm:mx-auto"  @click="copyURL(order.id,order.type)" />
-                                </a>
                             </div>
                         </template>
                         <template v-else-if="column.key === 'delivery'">
@@ -107,7 +107,7 @@
                             ${{ (order.total).toFixed(layoutStore.userInfo.user_subscription.decimal_places) }}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
-                            {{ order[column.key] == 'Direct Payment' ? `Direct Payment - ${order.meta.account_mode}` : order[column.key] }}
+                            {{ order[column.key] == 'Direct Payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : order[column.key] }}
                         </template>
                         <template v-else-if="column.key === 'id'">
                             <span class="sm:hidden"> #</span> {{ order.id }}

@@ -1,0 +1,63 @@
+{
+    "edit_campaign_product":"Edit Campaign Product",
+    "add_product":"Thêm sản phẩm",
+    "continue":"Continue",
+    "invalid":"Invalid",
+    "search_bar":{
+        "category":"Loại",
+        "all":"Tất cả"
+    },
+    "campaign_product_table":{
+        "image":"Hình ảnh",
+        "name":"Tên",
+        "type":"Loại sản phẩm",
+        "order_code":"Mã đơn hàng",
+        "qty_for_sale":"Số lượng bán trong chiến dịch",
+        "max_order_amount":"Số lượng/Đơn hàng tối đa",
+        "tag":"Loại",
+        "price":"Giá bán",
+        "customer_editable":"Có thể chỉnh sửa",
+        "customer_removable":"Có thể xóa",
+        "edit":"Chỉnh sửa",
+        "delete":"Xóa",
+        "types":{
+            "product":"Sản phẩm",
+            "product-fast":"Sản phẩm",
+            "lucky_draw-fast":"Quà tặng minigame",
+            "lucky_draw":"Quà tặng minigame"
+        }
+    },
+   
+    "edit_product_modal":{
+        "edit_campaign_product":"Edit Campaign Product",
+
+        
+        "name":"Tên",
+        "type":"Loại sản phẩm",
+        "order_code":"Mã đơn hàng",
+        "qty_for_sale":"Qty For Sale",
+        "max_order_amount":"Max Order Amount",
+        "tag":"Loại",
+        "price":"Giá bán",
+        "customer_editable":"Có thể chỉnh sửa",
+        "customer_removable":"Có thể xóa",
+
+        "cancel":"Hủy bỏ",
+        "update":"Update",
+        "types":{
+            "product":"Sản phẩm",
+            "product-fast":"Sản phẩm",
+            "lucky_draw-fast":"Quà tặng minigame",
+            "lucky_draw":"Quà tặng minigame"
+        },
+        "errors":{
+            "integer":"Invalid data",
+            "decimal":"Invalid data",
+            "minValue":"Invalid number",
+            "maxValue":"Invalid number",
+            "required":"This field is Required"
+        },
+        "invalid_data":"Invalid Data",
+        "update_successfully":"Update Successfully"
+    }
+}

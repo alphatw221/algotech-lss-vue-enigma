@@ -1,0 +1,57 @@
+{
+    "assign_product": "Chọn sản phẩm bán",
+    "confirm_select_product":"Confirm Assign Products",
+    "search_bar":{
+        "category":"Loại",
+        "all":"Tất cả",
+        "search_by":"Tìm kiếm bởi",
+        "search_options":{
+            "name":"Tên",
+            "order_code":"Mã sản phẩm",
+            "description":"Mô tả"
+        },
+        "search_bar_place_holder":"Tìm kiếm...",
+        "reset":"Thiết lập lại"
+    },
+
+    "product_table":{
+        "image":"Hình ảnh",
+        "name":"Tên",
+        "type":"Loại sản phẩm",
+        "order_code":"Mã sản phẩm",
+        "qty":"Số lượng",
+        "assign_qty":"Assign QTY",
+        "max_order_amount":"Max Order Qty",
+        "category":"Loại",
+        "price":"Giá bán",
+        "customer_editable":"Có thể chỉnh sửa",
+        "customer_removable":"Có thể xóa",
+        "types":{
+            "product":"Sản phẩm",
+            "product-fast":"Sản phẩm",
+            "lucky_draw-fast":"Quà tặng minigame",
+            "lucky_draw":"Quà tặng minigame",
+            "null":"",
+            "undefined":""
+        },
+
+
+        "errors":{
+            "type_required":"required",
+            "order_code_required":"required",
+            "order_code_duplicate":"duplicate",
+            "qty_invalid":"invalid",
+            "max_order_amount_grater_than_qty":"geater than Qty",
+            "assign_qty_required":"required",
+            "please_enter_integer": "please enter integer"
+        }
+    },
+    "add":"Add",
+    "add_more":"Thêm",
+    "reset":"Thiết lập lại",
+    "confirm":"Confirm",
+    "invalid":"Invalid"
+
+
+   
+}

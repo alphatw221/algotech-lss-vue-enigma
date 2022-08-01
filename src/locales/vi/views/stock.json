@@ -1,0 +1,76 @@
+{
+    "stock": "Kho hàng",
+
+    "for_sale": "Để bán",
+    "delisted": "Đã hủy",
+    "add_product": "Thêm sản phẩm",
+    "dont_have_product_notify": "You Don't Have Product in this Category",
+    "no_result": "No result",
+    "click_to_add":"Ｃlick '+Add product' to add your first product",
+
+    "search_bar": {
+        "category": "Loại",
+        "search_by": "Tìm kiếm bởi",
+        "search_holder": "Tìm kiếm...",
+        "search": "Tìm kiếm",
+        "reset": "Thiết lập lại",
+        "category_manage": "Edit Category",
+        "name": "Tên",
+        "order_code": "Mã đơn hàng",
+        "description": "Mô tả"
+    },
+
+    "table_column": {
+        "image": "Hình ảnh",
+        "name": "Tên",
+        "order_code": "Mã đơn hàng",
+        "type": "Loại sản phẩm",
+        "category": "Loại",
+        "description": "Mô tả",
+        "qty": "Số lượng",
+        "price": "Giá bán"
+    },
+
+    "category_manage": {
+        "create_new_category": "Create New Category",
+        "edit_title": "Edit Category",
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa",
+        "input_holder": "New Category Name",
+        "modal": {
+            "cancel": "Hủy bỏ",
+            "save": "Lưu lại",
+            "warning_duplicate": "Duplicate category name"
+        },
+        "save_success":"Save Success",
+        "not_saved":"Update Canceled"
+    },
+
+    "add_product_page": {
+        "edit_title": "Edit Product",
+        "add_title": "Add New Product",
+        "product_name": "Tên sản phẩm",
+        "name_warning": "Enter product name with no more than 50 digits",
+        "category": "Loại",
+        "upload_image": "Tải hình ảnh",
+        "drop_file_text": "Drop files here or click to upload.",
+        "accept_file_text": "File types: jpeg, png, jpg",
+        "max_size_text": "Max size",
+        "quantity": "Số lượng",
+        "qty_warning": "Qty has to be a number",
+        "price": "Giá bán",
+        "price_warning": "Price has to be a number",
+        "status": "Trạng thái",
+        "description": "Mô tả",
+        "product_description": "product description...",
+        "description_warning": "description cannot be more than 100 digits",
+        "cancel": "Hủy bỏ",
+        "save": "Lưu lại",
+
+        "not_save_message":"Update Canceled",
+        "create_message":"Create Successfully",
+        "update_message":"Update Successfully",
+        "invalid_data":"Invalid Submission"
+    }
+    
+}

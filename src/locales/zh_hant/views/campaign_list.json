@@ -52,11 +52,18 @@
         "edit_campaign_product":"編輯直播商品",
         "blank_cart":"複製購物車連結",
         "lucky_draw":"抽獎設定",
+        "delete":"刪除",
+        "confirm_delete": "確定要刪除該場直播 ?",
 
         "campaign_message":"沒有%{tab}的直播",
+        "no_result":"無搜尋結果",
         "Scheduled" : "預定中",
         "History" : "歷史",
-        "Ongoing" : "進行中"
+        "Ongoing" : "進行中",
+
+        "no_have_campaign": "目前沒有任何直播",
+        "click_create_notify": "點擊 \"+ 建立直播\" ，開始新的直播活動",
+        "connect_platform":"綁定平台"
     },
 
     "remind_enter_post_id_modal":{
@@ -67,20 +74,31 @@
     "enter_post_id_modal":{
         "edit_channel":"設定平台",
         "facebook":"Facebook",
+        "page": "粉絲專頁",
         
         "post_id":"貼文ID",
-        "select_page":"選擇粉絲專頁",
+        "select_live_post":"選擇直播貼文",
+        "enter_post_id": "輸入貼文ID",
 
         "instagram":"Instagram",
+        "profile": "商業檔案",
         "media_id":"貼文ID",
         "select_media":"選擇商業檔案",
 
         "youtube":"Youtube",
+        "channel": "頻道",
         "live_chat_id":"聊天室ID",
         "select_live_chat":"選擇頻道",
 
         "cancel":"取消",
-        "save":"儲存"
-    }
+        "save":"儲存",
+        "your_current_lives": "你目前正在進行的直播",
+        "select_this_live": "選擇這場直播",
+        "valid_post_id_notification": "請輸入有效的貼文ID"
+    },
+    "update_successed":"更新成功",
+    "no_facebook_post":"現在沒有任何Facebook的直播",
+    "no_youtube_post":"現在沒有任何YouTube的直播",
+    "no_instagram_post":"現在沒有任何Instagram的直播"
 
 }

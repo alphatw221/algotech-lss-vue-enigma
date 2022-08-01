@@ -79,6 +79,7 @@ import {
   integer,
 } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import i18n from "@/locales/i18n"
 
 const layout = useLSSSellerLayoutStore()
 
@@ -128,9 +129,9 @@ const validate = useVuelidate(rules, toRefs(newData));
 const save = () => {
   validate.value.$touch();
   if (validate.value.$invalid) {
-    layout.alert.showMessageToast('Input Error');
+    layout.alert.showMessageToast(i18n.global.t('profile.input_err'));
   } else {
-    layout.notification.showMessageToast('Update Successed');
+    layout.notification.showMessageToast(i18n.global.t('profile.update_successed'));
   }
 };
 </script>

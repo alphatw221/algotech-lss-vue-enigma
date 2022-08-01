@@ -1,24 +1,27 @@
 <template>
-    <Button v-if="props.buttonName == 'edit'" 
+    <LoadingIcon v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
+    <Button v-else-if="props.buttonName == 'edit'" 
         type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="insta-default" @click="checkLoginState">{{$t('settings.platform.connect_with_instagram')}}</Button>
+        type="button" class="insta-default" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_instagram')}}</Button>
+    
     
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed, defineProps } from "vue";
 import loadScript from '@/libs/loadScript.js';
+import { check_activated_platform } from '@/api/user_subscription'
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const fetchingData = ref(false)
 
 const props = defineProps({
   busName: String,
   buttonName: String
 });
 
-const is_activated_platform = ref(false)
 
 onMounted(()=>{
     //facebook SDK use eval() at backend
@@ -33,11 +36,6 @@ onMounted(()=>{
             });
         }
     });
-    eventBus.on("activate_instagram", (payload) => {
-        is_activated_platform.value = payload
-        console.log("activate_instagram")
-        console.log(is_activated_platform.value)
-    })
 })
 
 onUnmounted(()=>{
@@ -57,21 +55,29 @@ const login = () => {
 
 const checkLoginState = () => {
     console.log('checkloginstate')
-    if (is_activated_platform.value) {
-        window.FB.getLoginStatus(response=>{
-            if (response.status === 'connected') {
-                window.FB.logout(response=> {
-                    console.log("logout")
-                    login();
-                });
-            } else {
+    window.FB.getLoginStatus(response=>{
+        if (response.status === 'connected') {
+            window.FB.logout(response=> {
+                console.log("logout")
                 login();
-            }
-        });
-    } else {
-        eventBus.emit("showUpgradeModal", true)
-    }
-    
+            });
+        } else {
+            login();
+        }
+    });
+}
+
+const check_bindable_or_upgrade = () => {
+    fetchingData.value = true
+    check_activated_platform().then(res=>res.data).then(res=>{
+        console.log(res)
+        fetchingData.value = false
+        if (res.can_bind) {
+            checkLoginState()
+        } else {
+            eventBus.emit("showUpgradeModal", {"activated_platform_amount": res.activated_platform_amount})
+        }
+    })
 }
 
 </script>
@@ -79,9 +85,9 @@ const checkLoginState = () => {
 <style scoped>
 
 .insta-default {
-    width:300px;
+    max-width:300px;
     height:42px;
-    font-size: 17px;
+    font-size: 16px;
     background-color: #E33E5C;
     border: 1px solid #832f3fea;
     box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.1);
@@ -99,6 +105,14 @@ const checkLoginState = () => {
 }
 .insta-default span i {
     color: #FFF;
-    font-size: 18px;
+    font-size: 16px;
+}
+.body-middle {
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 999;
+    width: 60px;
+    height: 60px;
 }
 </style>

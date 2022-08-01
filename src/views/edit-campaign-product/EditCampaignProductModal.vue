@@ -5,10 +5,10 @@
                 {{$t('edit_campaign_product.edit_product_modal.edit_campaign_product')}}
             </h2>
         </ModalHeader>
-        <ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
+        <ModalBody class="grid grid-cols-12 gap-3">
             <template v-for="(column, index) in tableColumns" :key="index">
                 <div class="col-span-12">
-                    <label for="modal-form-1" class="form-label">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
+                    <label for="modal-form-1" class="">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                     
                     <template v-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
                         <input 
@@ -28,7 +28,7 @@
                     <template v-else>
                         <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
                         <template v-if="v[column.key]">
-                            <label class="text-danger font-[8px] font-light block" 
+                            <label class="text-danger text-[12px] block" 
                                 v-for="error,index in v[column.key].$errors"
                                 :key="index"
                                 >
@@ -66,6 +66,7 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue, maxValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import i18n from "@/locales/i18n"
 
 
 const layoutStore = useLSSSellerLayoutStore()
@@ -136,15 +137,15 @@ const updateProduct = () => {
 
     v.value.$touch()
     if(v.value.$invalid){
-        layoutStore.alert.showMessageToast("Invalid Data")
+        layoutStore.alert.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.invalid_data'))
         return
     }
-    return
+
     seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
     .then(res => {
         console.log(res.data)
         campaignDetailStore.campaignProducts[payloadBuffer.value.index] = res.data
-        layoutStore.notification.showMessageToast("Update Successfully")
+        layoutStore.notification.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.update_successfully'))
         hideModal()
     })
 }

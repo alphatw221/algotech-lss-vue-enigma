@@ -1,14 +1,15 @@
 <template>
-    <div class="grid grid-cols-12 gap-6 mt-5">
+    <div class="grid grid-cols-12 gap-6 mt-3">
                 <div class="col-span-12 sm:col-span-6 xl:col-span-3 intro-y">
                     <div class="report-box">
                         <div class="p-5 box">
                             <div class="flex">
                                 <ShoppingCartIcon class="report-box__icon text-primary" />
-                                <template v-if="store.manageOrderStatus.close_rate_raise >= 0">
+                                <template v-if="!store.manageOrderStatus.close_rate_raise"/>
+                                <template v-else-if="store.manageOrderStatus.close_rate_raise >= 0">
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            content="Closed rate is increased compare to previous campaign">
+                                            :content="$t('manage_order.campaign_status.closed_rate_message',{status : $t('manage_order.campaign_status.increased') })">
                                             {{parseInt(store.manageOrderStatus.close_rate_raise).toFixed(2)}}%
                                             <ChevronUpIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -17,7 +18,7 @@
                                 <template v-else>
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            content="Closed rate is decreased compare to previous campaign">
+                                            :content="$t('manage_order.campaign_status.closed_rate_message',{status:$t('manage_order.campaign_status.decreased') })">
                                             {{parseInt(store.manageOrderStatus.close_rate_raise).toFixed(2)}}%
                                             <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -34,10 +35,11 @@
                         <div class="p-5 box">
                             <div class="flex">
                                 <CreditCardIcon class="report-box__icon text-pending" />
-                                <template v-if="store.manageOrderStatus.campaign_sales_raise >= 0">                                
+                                <template v-if="!store.manageOrderStatus.campaign_sales_raise"/>
+                                <template v-else-if="store.manageOrderStatus.campaign_sales_raise >= 0">                                
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            content="Sales is increased compare to previous campaign">
+                                            :content="$t('manage_order.campaign_status.sales_message',{status : $t('manage_order.campaign_status.increased') })">
                                             {{parseFloat(store.manageOrderStatus.campaign_sales_raise*100).toFixed(2)}}%
                                             <ChevronUpIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -46,7 +48,7 @@
                                 <template v-else>                                
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            content="Sales is decreased compare to previous campaign">
+                                            :content="$t('manage_order.campaign_status.sales_message',{status:$t('manage_order.campaign_status.decreased') })">
                                             {{parseFloat(store.manageOrderStatus.campaign_sales_raise*100).toFixed(2)}}%
                                             <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -63,10 +65,11 @@
                         <div class="p-5 box">
                             <div class="flex">
                                 <MonitorIcon class="report-box__icon text-warning" />
-                                <template v-if="store.manageOrderStatus.uncheckout_rate_raise >= 0">
+                                <template v-if="!store.manageOrderStatus.uncheckout_rate_raise"/>
+                                <template v-else-if="store.manageOrderStatus.uncheckout_rate_raise >= 0">
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            content="Uncheckout rate is increased compare to previous campaign">
+                                            :content="$t('manage_order.campaign_status.uncheckout_message',{status : $t('manage_order.campaign_status.increased') })">
                                             {{parseFloat(store.manageOrderStatus.uncheckout_rate_raise).toFixed(2)}}%
                                             <ChevronUpIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -75,7 +78,7 @@
                                 <template v-else>
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            content="Uncheckout rate is decreased compare to previous campaign">
+                                            :content="$t('manage_order.campaign_status.uncheckout_message',{status:$t('manage_order.campaign_status.decreased') })">
                                             {{parseFloat(store.manageOrderStatus.uncheckout_rate_raise).toFixed(2)}}%
                                             <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -92,10 +95,11 @@
                         <div class="p-5 box">
                             <div class="flex">
                                 <UserIcon class="report-box__icon text-success" />
-                                <template v-if="store.manageOrderStatus.comment_count_raise >= 0">
+                                <template v-if="!store.manageOrderStatus.comment_count_raise"/>
+                                <template v-else-if="store.manageOrderStatus.comment_count_raise >= 0">
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            content="Comments number is increased compare to previous campaign">
+                                            :content="$t('manage_order.campaign_status.comments_message',{status : $t('manage_order.campaign_status.increased') })">
                                             {{parseFloat(store.manageOrderStatus.comment_count_raise*100).toFixed(2)}}%
                                             <ChevronUpIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>
@@ -104,7 +108,7 @@
                                 <template v-else>
                                     <div class="ml-auto">
                                         <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            content="Comments number is decreased compare to previous campaign">
+                                            :content="$t('manage_order.campaign_status.comments_message',{status:$t('manage_order.campaign_status.decreased') })">
                                             {{parseFloat(store.manageOrderStatus.comment_count_raise*100).toFixed(2)}}%
                                             <ChevronDownIcon class="w-4 h-4 ml-0.5" />
                                         </Tippy>

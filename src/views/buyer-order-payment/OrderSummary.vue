@@ -7,7 +7,7 @@
 	  
       <div class="flex">
         <div class="mr-auto">{{$t('shopping_cart.order_summary.subtotal')}}</div>
-        <div class="font-medium">$ {{parseFloat(store.order.subtotal).toFixed(2)}}</div>
+        <div class="font-medium" v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.subtotal).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
       </div>
       <div class="flex mt-4">
 
@@ -18,13 +18,13 @@
         </div>
         <div class="mr-auto" v-else>{{$t('shopping_cart.order_summary.price_adjustment')}}</div>
 
-        <div class="font-medium text-danger">${{ store.order.adjust_price }}</div>
+        <div class="font-medium text-danger" v-if="store.order.campaign">{{store.order.campaign.currency}}{{ parseFloat(store.order.adjust_price).toFixed(store.order.campaign.user_subscription.decimal_places) }}</div>
       </div>
       
       <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">
         <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
-        <div class="font-medium">${{ store.order.shipping_cost }}</div>
+        <div class="font-medium" v-if="store.order.campaign">{{store.order.campaign.currency}}{{ parseFloat(store.order.shipping_cost).toFixed(store.order.campaign.user_subscription.decimal_places) }}</div>
       </div>
 
       <div
@@ -37,7 +37,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
-        <div class="font-medium text-base">${{ parseFloat(store.order.total).toFixed(2) }}</div>
+        <div class="font-medium text-base" v-if="store.order.campaign">{{store.order.campaign.currency}}{{ parseFloat(store.order.total).toFixed(store.order.campaign.user_subscription.decimal_places) }}</div>
       </div>
     </div>
    

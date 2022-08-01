@@ -80,6 +80,49 @@
 			</div>
 		</div>
 
+		<div class="box py-5 mx-20 mt-3 sm:p-8 sm:py-5 px-2 lg:px-10 text-sm sm:text-lg ">
+
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div> {{$t("settings.localization.currency_symbol")}} </div>
+			</div>
+			<div class="flex my-1 ">
+				<TomSelect v-model="campaignData.currency" :options="{
+							placeholder: $t('settings.localization.choose_currency_symbol'),
+							}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
+				</TomSelect>
+			</div>
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
+			</div>
+			<div class="flex my-1">
+				<TomSelect v-model="campaignData.buyer_lang" :options="{
+							placeholder: $t('settings.localization.choose_language'),
+							}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
+				</TomSelect>
+			</div>
+
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+			</div>
+
+			<div class="flex my-1">
+				<TomSelect v-model="campaignData.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in priceUnitOptions" :key="index">{{$t(`settings.localization.priceOptions.${option.key}`)}}</option>
+				</TomSelect>
+			</div>
+
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
+			</div>
+			<div class="flex my-1">
+				<TomSelect v-model="campaignData.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
+				</TomSelect>
+			</div>
+		</div>
+
 		<DeliveryForm 
 			:campaign="campaignData"
 			:v="v"
@@ -117,17 +160,50 @@ import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 
 import EnterPostIDModal from "@/views/campaign-list/enter-post-id-modal/Main.vue"
-import { required, minLength, maxLength, helpers, numeric } from "@vuelidate/validators";
+import { required, minLength, maxLength, helpers, numeric , decimal, minValue, requiredIf, integer} from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
+import i18n from "@/locales/i18n"
+
 
 const internalInstance = getCurrentInstance()
 const route = useRoute()
 const router = useRouter()
+
+
+const currencySymbols = ref([
+    {value:'USD',text:'USD'},
+    {value:'NTD',text:'NTD'},
+    {value:'SGD',text:'SGD'},
+    {value:'IDR',text:'IDR'},
+    {value:'PHP',text:'PHP'},
+    {value:'MYR',text:'MYR'},
+    {value:'VND',text:'VND'},
+    {value:'RMB',text:'RMB'},
+    {value:'KHR',text:'KHR'},
+    {value:'AUD',text:'AUD'},
+    {value:'HKD',text:'HKD'}])
+
+const priceUnitOptions = ref([
+    {key:'1',value:'1'},
+    {key:'1000',value:'1000'},
+    {key:'1000000',value:'1000000'},
+])
+
+const languages = ref([
+    {value:'en',text:'English'},
+    {value:'zh_hant',text:'Chinese-tranditional'},
+])
+
+const decimalOptions = ref([
+    {value:'2',text:'0.01'},
+    {value:'0',text:'1'},
+])
+
 const directPaymentImages = ref([])
 const campaignData = ref({})
 const dateTimePicker = ref({
@@ -173,19 +249,22 @@ const campaignDataRules = computed(() => {
 	return { 	
 				title: { required, minLength: minLength(1), maxLength: maxLength(255) },
 				meta_logistic:{
+					delivery_charge:{required, decimal, minValue:minValue(0)},
+					free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
+					free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
 					additional_delivery_options: {
-					$each: helpers.forEach({
-						title:{required},
-						type: {required},
-						price:{required, numeric}
-					})
-				},
-				pickup_options: {
-					$each: helpers.forEach({
-						name:{required},
-						address: {required},
-					})
-				},
+						$each: helpers.forEach({
+							title:{required},
+							type: {required},
+							price:{required, numeric}
+						})
+					},
+					pickup_options: {
+						$each: helpers.forEach({
+							name:{required},
+							address: {required},
+						})
+					},
 				},
 				meta_payment:{
 					direct_payment:{
@@ -206,10 +285,13 @@ const updateCampaign = ()=>{
 
 	v.value.$touch()
 	if (v.value.$invalid) {
-		sellerStore.alert.showMessageToast("Invalid Data")
+		sellerStore.alert.showMessageToast(i18n.global.t('edit_campaign.invalid_data'))
 		return
 	}
 
+	campaignData.value.meta_logistic.delivery_note = campaignNotes.value.meta_logistic.delivery_note
+	campaignData.value.meta_payment.special_note = campaignNotes.value.meta_payment.special_note
+	campaignData.value.meta_payment.confirmation_note = campaignNotes.value.meta_payment.confirmation_note
 
 	let formData = new FormData()
 	formData.append('data', JSON.stringify(campaignData.value))
@@ -218,7 +300,6 @@ const updateCampaign = ()=>{
 		const key = campaignData.value.meta_payment.direct_payment.v2_accounts[index].name+'_'+index   
 		formData.append(key,image)
 	});
-
 
 	update_campaign(route.params.campaign_id,formData).then(response => {
 		router.back()

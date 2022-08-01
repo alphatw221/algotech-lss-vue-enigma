@@ -1,5 +1,10 @@
 {
     "lucky_draw" : "Lucky Draw",
+    "invalid_data":"Invalid Submission",
+    "create_successed":"Create Successed",
+    "update_successed":"Update Successed",
+    "save_success":"Save Success",
+    "not_saved":"Update Canceled",
 
     "draw_list": {
         "campaign_title": "Campaign Title",
@@ -28,13 +33,14 @@
 
     "draw_create": {
         "campaign_title": "Campaign Title",
-        "prize" : "Prize (select from product list)",
+        "prize" : "Prize",
         "spin_time" : "Spin Time (sec)",
         "number_of_winner" : "Number of Winner",
         "animation_style" : "Animation Style",
         "winner_repeat" : "Winner Repeat",
         "yes": "Yes",
         "no": "No",
+        "winner_repeat_tip": "Allow same person <br/> to win multiple prizes?",
         "upload_animation": "Upload Animation",
         "draw_type" : "Draw Type",
         "cancel": "Cancel",
@@ -42,14 +48,15 @@
         "back": "Back",
         "go_draw": "Go Draw",
         "number_winner_warning": "must be between 1 to prize stock",
-        "keyword_warning": "minimum 3 digits",
+        "keyword_warning": "please enter keyword",
+        "campaign_product_warning": "please select certain product",
         "product": "Product",
         "keyword": "Keyword",
         "draw_selection": {
-            "like": "by like this post",
+            "like": "by like this Facebook post",
             "product": "by purchased certain product",
             "purchase": "by purchased any product",
-            "keyword": "by keyword"
+            "keyword": "by comment keyword"
         },
         "no_product_err":"Haven't Assigned Product Into This Campaign",
         "assign_product_err":"Assign Product into your Campaign",

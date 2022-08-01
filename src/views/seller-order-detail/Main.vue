@@ -71,7 +71,7 @@
                     <template v-if="store.orderDetail.payment_method">
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</span>
                         <span class="col-start-3 col-span-3 py-2">
-                            {{ store.orderDetail.payment_method == 'Direct Payment' ? `Direct Payment - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</span>
+                            {{ store.orderDetail.payment_method == 'Direct Payment' ? `${$t('order_detail.payment.Direct Payment')} - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</span>
                     </template>
 
                     <template v-if="store.orderDetail.meta.last_five_digit">

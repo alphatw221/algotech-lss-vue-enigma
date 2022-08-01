@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-x-hidden sm:overflow-auto h-fit md:h-[61vh]">
+	<div class="overflow-x-hidden sm:overflow-auto h-fit sm:h-[56vh]">
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
@@ -22,17 +22,23 @@
 						:colspan="tableColumns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2">
+					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
 								{{ $t('stock.dont_have_product_notify') }}
+							</h1>
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+								{{ $t('stock.click_to_add') }}
 							</h1>
 						</div>
 					</td> 
-					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2">
+					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
 								{{ $t('stock.no_result') }}
+							</h1>
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+								{{ $t('stock.click_to_add') }}
 							</h1>
 						</div>
 					</td> 
@@ -93,12 +99,15 @@
 									<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
 									<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
 									</DropdownToggle>
-									<DropdownMenu class="w-20 pt-2">
-									<DropdownContent class="w-20 text-center">
-										<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="routeToEditProduct(product)"> 
-											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.edit')}}
-										</DropdownItem>
-									</DropdownContent>
+									<DropdownMenu class="w-24 pt-2">
+										<DropdownContent class="w-24 text-center">
+											<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="routeToEditProduct(product)"> 
+												<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.edit')}}
+											</DropdownItem>
+											<DropdownItem class="w-20 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product.id)"> 
+												<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.delete')}}
+											</DropdownItem>
+										</DropdownContent>
 									</DropdownMenu>
 								</Dropdown> 
 							</div>
@@ -125,12 +134,13 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { list_product } from '@/api_v2/product'
+import { list_product, delete_product } from '@/api_v2/product'
 
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router"
 import dom from "@left4code/tw-starter/dist/js/dom";
+import i18n from "@/locales/i18n";
 
 const route = useRoute()
 const router = useRouter()
@@ -188,19 +198,19 @@ onUnmounted(()=>{
 
 const search = ()=>{
 	showCommentLoding.value = true
-			stockProducts.value = []
-			list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value )
-			.then(
-				response => {
-					if(response.data.count != undefined){
-						dataCount.value = response.data.count
-                        const _totalPage = parseInt(response.data.count / pageSize.value)
-                        totalPage.value = _totalPage == 0 ? 1 : _totalPage
-                    }
-                    stockProducts.value = response.data.results
-					showCommentLoding.value = false
-				}
-			)
+	stockProducts.value = []
+	list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value )
+	.then(
+		response => {
+			if(response.data.count != undefined){
+				dataCount.value = response.data.count
+				const _totalPage = parseInt(response.data.count / pageSize.value)
+				totalPage.value = _totalPage == 0 ? 1 : _totalPage
+			}
+			stockProducts.value = response.data.results
+			showCommentLoding.value = false
+		}
+	)
 }
 
 const changePage = page=> {      
@@ -221,6 +231,11 @@ const routeToEditProduct = (product)=>{
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
 }
+
+const deleteProduct = (id) => {
+	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
+	if (yes) delete_product(id).then(res => { search() })
+}
 </script>
 
 
@@ -234,6 +249,10 @@ td {
 	padding-right:10px;
 	padding-left:10px;
 	font-size: 16px;
+}
+
+.TDshadow{
+	box-shadow:none !important;
 }
 .dotTr{
 		border:none !important;
@@ -279,7 +298,7 @@ thead th{
 	}
 
 	.trBorder{
-		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		border-bottom: 2px solid #dddddd; 
 	}
 
 	.dotTr{

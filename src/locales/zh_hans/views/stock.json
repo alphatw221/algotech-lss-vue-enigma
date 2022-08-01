@@ -1,0 +1,79 @@
+{
+    "stock": "库存商品",
+
+    "for_sale": "销售中",
+    "delisted": "下架",
+    "add_product": "新增商品",
+    "dont_have_product_notify": "目前没有任何商品",
+    "no_result": "您并未新增商品",
+    "click_to_add":"点击 \"+ 新增商品\"，新增您的第一个商品",
+
+
+    "search_bar": {
+        "category": "类别",
+        "search_by": "搜寻",
+        "search_holder": "搜寻...",
+        "search": "搜寻",
+        "reset": "清空",
+        "category_manage": "类别管理",
+        "name": "名称",
+        "order_code": "商品代码",
+        "description": "说明"
+    },
+
+    "table_column": {
+        "image": "图片",
+        "name": "名称",
+        "order_code": "商品代码",
+        "type": "属性",
+        "category": "类别",
+        "description": "说明",
+        "qty": "数量",
+        "price": "价格",
+        "confirm_delete": "确定要删除该商品 ?"
+    },
+
+    "category_manage": {
+        "create_new_category": "建立新类别",
+        "edit_title": "编辑类别",
+        "edit": "编辑",
+        "delete": "删除",
+        "input_holder": "类别名称",
+        "modal": {
+            "cancel": "取消",
+            "save": "储存",
+            "warning_duplicate": "重复的类别名称"
+        },
+        "save_success":"储存成功",
+        "not_saved":"取消储存",
+        "confirm_delete": "确定要删除该类别 ?"
+    },
+
+    "add_product_page": {
+        "edit_title": "编辑商品",
+        "add_title": "新增商品",
+        "product_name": "商品名称",
+        "name_warning": "请输入商品名称，少于50个字",
+        "category": "类别",
+        "upload_image": "上传图片",
+        "drop_file_text": "将档案拖曳到此处或点击.",
+        "accept_file_text": "支援的档案格式: jpeg, png, jpg",
+        "max_size_text": "档案大小上限",
+        "quantity": "数量",
+        "qty_warning": "数量需填数字",
+        "price": "价格",
+        "price_warning": "价格需填数字",
+        "status": "默认状态",
+        "description": "说明",
+        "product_description": "商品说明...",
+        "description_warning": "说明须填不超过100字",
+        "cancel": "取消",
+        "save": "储存",
+
+        "not_save_message":"取消储存",
+        "create_message":"新增成功",
+        "update_message":"更新成功",
+        "invalid_data":"无效资料"
+    }
+    
+}

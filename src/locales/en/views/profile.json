@@ -1,6 +1,8 @@
 {
-    "profile":{
-        "title":"Profile"
+    "tab":{
+        "profile":"Profile",
+        "plan":"Subscription",
+        "reset_password":"reset Password" 
     },
     "subscription":{
         "title":"Subscription",
@@ -10,9 +12,22 @@
         "change_plan":"Change Plan"
     },
     "plan":{
+        "trial":"Trial",
         "lite":"Lite",
         "standard":"Standard",
-        "premium":"Premium"
-    }
-    
+        "premium":"Premium",
+        "dealer":"Dealer"
+    },
+    "reset_password":{
+        "current_password": "Current Password",
+        "new_password" : "New Password",
+        "confirm_password" : "Confirm Password", 
+        "submit" : "Submit"
+    },
+
+    "invalid_data":"Invalid Submission",
+    "input_err":"Input Error",
+    "input_required":"Input Required",
+    "update_successed":"Update Successed",
+    "password_length":"Passwords must be between 8 to 20 characters"
 }

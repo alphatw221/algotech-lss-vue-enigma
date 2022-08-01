@@ -6,16 +6,18 @@
 
     "cancel":"Cancel",
     "create":"Create",
+    "invalid_title":"Invalid campaign title input",
+    
 
 
     "delivery_form":{
         "delivery_detail":"Delivery Details",
         "delivery_charge":"Delivery Charge",
-        "free_delivery_for_order_above":"Free delivery for order above",
-        "free_delivery_for_minimum_order":"Free delivery for minimum order Qty",
-        "add_more_delivery_option":"Add More Option",
-        "add_more_pickup_option":"Add More Location",
-        "options":"Delivery Charge Options",
+        "free_delivery_for_order_above":"Free Delivery for Order Above",
+        "free_delivery_for_minimum_order":"Free Delivery for Minimum Order Qty",
+        "add_more_delivery_option":"Add New Option",
+        "add_more_pickup_option":"Add New Location",
+        "options":"Delivery Charge Option",
         "on_top_of_delivery_charge":"On top of delivery charge",
         "replace_delivery_charge":"Replace delivery charge",
 
@@ -29,7 +31,9 @@
             "Value_is_required":"Value is required",
             "Value_must_be_numeric":"Value must be numeric",
             "minValue":"Invalid number",
-            "required":"This field is required"
+            "required":"This field is required",
+            "integer":"Number must be integer",
+            "decimal":"Number must be decimal"
         }
     },
 
@@ -38,7 +42,8 @@
 
         "payment_titles":{
             "direct_payment":"Direct Payment",
-            "stripe":"Stripe"
+            "stripe":"Stripe",
+            "hitpay":"Hitpay"
         },
 
         "direct_payment":{
@@ -52,21 +57,28 @@
             "secret":"Secret Key",
             "currency":"Currency"
         },
-
+        "hitpay":{
+            "button_title":"Button Title",
+            "currency":"Currency",
+            "api_key":"API Key",
+            "salt":"Salt"
+        },
 
 
 
         "payment_details":"Payment Details",
-        "enabled":"Enabled",
-        "add_more_direct_payment":"Add More Direct Payment",
+        "enabled":"Enable",
+        "add_more_direct_payment":"Add New Direct Payment",
         "upload_image":"Upload Image",
+        "remove_image":"Remove Image",
         "upload_a_file_or_drag_and_drop":"Upload a file",
         "accepted_file_types":"File types",
         "max_file_size":"Max file size",
 
         "delete":"Delete",
         "errors":{
-            "Value_is_required":"Value is required"
+            "Value_is_required":"Value is required",
+            "img_size_err":"Image size exceed 10 MB"
         }
 
 

@@ -1,5 +1,10 @@
 {
     "lucky_draw" : "抽獎工具",
+    "invalid_data":"輸入資料無效",
+    "create_successed":"新增成功",
+    "update_successed":"更新成功",
+    "save_success":"儲存成功",
+    "not_saved":"取消儲存",
 
     "draw_list": {
         "campaign_title": "直播名稱",
@@ -35,6 +40,7 @@
         "winner_repeat" : "重複得獎",
         "yes": "是",
         "no": "否",
+        "winner_repeat_tip": "參與者可重複獲獎",
         "upload_animation": "上傳抽獎動畫",
         "draw_type" : "抽獎類型",
         "cancel": "取消",
@@ -42,7 +48,8 @@
         "back": "上一頁",
         "go_draw": "前往抽獎",
         "number_winner_warning": "需填入介於1與獎品數量",
-        "keyword_warning": "至少3個字元",
+        "keyword_warning": "請輸入欲抽獎條件關鍵字",
+        "campaign_product_warning": "請選擇特定商品",
         "product": "商品",
         "keyword": "商品代碼",
         "draw_selection": {

@@ -2,18 +2,18 @@
     <div class="h-full">
         <div class="text-2xl text-base text-center my-5"> {{$t('order_detail.order')}} </div>
 
-        <div class="grid grid-cols-12 gap-4">
+        <div class="grid grid-cols-12 gap-5">
 
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
                 <div class="w-full mx-2 ">
                     <div class="flex mb-2">
-                        <h2 class="font-medium mr-5">
-                            {{$t('order_detail.order_no')}} # {{ store.order.id }} 
+                        <h2 class="font-medium mr-5 flex-row flex-wrap flex justify-between gap-3">
+                            <span class="my-auto"> {{$t('order_detail.order_no')}} # {{ store.order.id }}  </span> 
                             <span class="btn rounded-full bg-secondary h-8 ml-3 cursor-auto">
                                 {{ $t(`order_detail.`+store.order.status) }}
                             </span> 
                             <button 
-                                class="btn btn-rounded-pending h-8 ml-3"
+                                class="btn btn-rounded-pending h-8 ml-auto sm:ml-3"
                                 v-if="store.order.status === 'review'"
                                 @click="router.push(`/buyer/order/${route.params.order_oid}/payment`)"
                             >
@@ -27,7 +27,7 @@
                         
                     </div>
                 </div>
-                <div class="box p-6 m-3 border-2 border-secondary ">
+                <div class="box p-6 border-2 border-secondary ">
                     <div class="flex">
                         <div class="mr-10">{{$t('order_detail.delivery.name')}}</div>
                         <div>{{ store.order.shipping_last_name }} {{ store.order.shipping_first_name }}</div>
@@ -47,13 +47,13 @@
                 </div>
             </div>
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
-                <div class="box p-6 m-3 border-2 border-secondary"> 
+                <div class="box p-6 border-2 border-secondary"> 
                     <div class="flex mb-4 dark:border-darkmode-400">
-                        <span class="text-lg"> Order Information</span>   
+                        <span class="text-lg">{{$t('order_detail.order_info')}}</span>   
                     </div>
                     <div class="grid grid-cols-6 gap-2">
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</div>
-                        <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method == 'Direct Payment' ? 'Direct Payment - ' + store.order.meta.account_mode : store.order.payment_method }}</div>
+                        <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method == 'Direct Payment' ? `${$t('order_detail.payment.Direct Payment')} - ${store.order.meta.account_mode}` : store.order.payment_method }}</div>
                         <template v-if="store.order.payment_method">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.payment.last_five_digits')}}</div>
                             <div class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
@@ -98,24 +98,24 @@
         <div class="w-full h-fit overflow-x-hidden sm:overflow-x-auto">
             <OrderDetailTable />
         </div>
-        <div class="grid grid-cols-12 gap-2">
+        <div class="grid grid-cols-12 gap-2 mt-5">
             <div class="box col-start-1 col-span-12 lg:col-start-9 2xl:col-start-9">
-                <div class="grid grid-cols-3 gap-2">
-                    <div class="flex col-start-1 col-span-3 p-2">
+                <div class="grid grid-cols-3 gap-2 p-3 text-right">
+                    <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
-                        <div class="mr-2 md:mr-20" v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.subtotal).toFixed(2)}}</div>
+                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.subtotal).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
                     </div>
-                    <div class="flex col-start-1 col-span-3 p-2">
+                    <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.delivery_charge')}}</div>
-                        <div class="mr-2 md:mr-20" v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.shipping_cost).toFixed(2)}}</div>
+                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.shipping_cost).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
                     </div>
-                    <div class="flex col-start-1 col-span-3 p-2">
+                    <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}} {{store.order.adjust_title ?? ''}}</div>
-                        <div class="mr-2 md:mr-20" v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.adjust_price).toFixed(2)}}</div>
+                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.adjust_price).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
                     </div>
-                    <div class="flex col-start-1 col-span-3 p-2">
+                    <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.total')}}</div>
-                        <div class="mr-2 md:mr-20" v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.total).toFixed(2)}}</div>
+                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.total).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
                     </div>
                 </div>
             </div>
@@ -129,7 +129,7 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_retrieve_order, guest_retrieve_order } from "@/api_v2/order";
+import { buyer_retrieve_order_with_user_subscription, guest_retrieve_order_with_user_subscription } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useCookies } from 'vue3-cookies'
@@ -141,7 +141,7 @@ const store = useLSSBuyerOrderStore();
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 onMounted(() => {
-    const retrieve_order = isAnonymousUser?guest_retrieve_order:buyer_retrieve_order
+    const retrieve_order = isAnonymousUser?guest_retrieve_order_with_user_subscription:buyer_retrieve_order_with_user_subscription
     retrieve_order(route.params.order_oid)
     .then(
         res => { 

@@ -65,16 +65,16 @@
 					</template>
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}} {{ (product.price).toFixed(2) }}
+					{{store.orderDetail.campaign.currency}} {{ (product.price).toFixed(sellerStore.userInfo.user_subscription.decimal_places) }}
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}} {{ (product.qty * product.price).toFixed(2) }}
+					{{store.orderDetail.campaign.currency}} {{ (product.qty * product.price).toFixed(sellerStore.userInfo.user_subscription.decimal_places) }}
 				</td>
 				<td>
 					<a  class="flex items-center justify-center text-danger" 
 						v-show="props.order_type !== 'order'"
 						@click="delete_product(product.order_product_id)" >
-						<Trash2Icon class="w-4 h-4 mr-1" /> Delete
+						<Trash2Icon class="w-4 h-4 mr-1" />
 					</a>
 				</td>
 			</tr>
@@ -90,6 +90,7 @@ import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useRoute, useRouter } from "vue-router";
 import { seller_delete_product, seller_update_product } from "@/api_v2/order_product"
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const router = useRouter();
@@ -120,7 +121,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 		event.target.value = 1
 		return
 	} else {
-		sellerStore.alert.showMessageToast("Invalid Quantity")
+		sellerStore.alert.showMessageToast(i18n.global.t('order_detail.invalid_qty'))
 		event.target.value = store.order.products[index].qty
 		return
 	}
@@ -128,7 +129,7 @@ const changeQuantity = (event, index, qty, operation, order_product_id) => {
 	seller_update_product(route.params.order_id,order_product_id,qty).then(
 		res =>{
 			store.orderDetail = res.data
-			sellerStore.notification.showMessageToast("Update Successfully")
+			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.update_successfully'))
 		}
 	)
 }
@@ -147,7 +148,7 @@ function delete_product(order_product_id){
 	seller_delete_product(route.params.order_id,order_product_id).then(
 		res=>{
 			store.orderDetail = res.data
-			sellerStore.notification.showMessageToast("Delete Successfully")
+			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.delete_successfully'))
 		}
 	)
 }

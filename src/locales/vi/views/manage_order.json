@@ -1,0 +1,75 @@
+{
+        "title":"Quản lý bán hàng",
+        "campaign_status":{
+                "closed_rate" : "Closed Rate",
+                "sales" : "Doanh số",
+                "uncheckout" : "Tỉ lệ bỏ",
+                "comments" : "Bình luận",
+                "closed_rate_message":"Closed rate is %{status} compare to previous campaign",    
+                "sales_message":"Sales is %{status} compare to previous campaign",    
+                "uncheckout_message":"Uncheckout rate is %{status} compare to previous campaign",    
+                "comments_message":"Comments number is %{status} compare to previous campaign",
+                "decreased":"decreased",
+                "increased":"increased"  
+        },
+        "search_bar":{
+                "search":"Tìm kiếm",
+                "filter":"Lọc",
+                "export" : "Xuất"
+        },
+        "table":{
+                "Direct Payment":"Thanh toán trực tiếp",
+                "details":"Order Details",
+                "copy_link":"Copy Cart Link",
+                "amount" : "Số Lượng",
+                "payment" : "Thanh toán",
+                "status" : "Trạng thái",
+                "view" : "View",
+                "customer" : "Khách hàng",
+                "platform" : "Nền tảng",
+                "name" : "Tên",
+                "order_number" : "Mã đơn hàng",
+                "action":"Action",
+                "delivery_notification":"Notification",
+                "null":""
+        },
+        "product_modal":{
+                "order_no":"Mã đơn hàng",
+                "price":"Giá bán",
+                "qty":"Số lượng",
+                "product":"Sản phẩm",
+                "sub_total":"Subtotal",
+                "delivery_charge":"Chi phí vận chuyển",
+                "discount":"Discount",
+                "total":"Total",
+                "null":""
+        },
+        "filter_modal":{
+                "payment":{
+                        "payment":"Thanh toán",
+                        "Direct Payment":"Thanh toán trực tiếp",
+                        "stripe":"Stripe"
+                },
+                "delivery":{
+                        "status":"Trạng thái giao hàng",
+                        "shipping out":"Shipping out",
+                        "to be shipping":"To be shipping"
+                },
+                "platform":{
+                        "platform":"Nền tảng",
+                        "youtube":"Youtube",
+                        "facebook":"Facebook",
+                        "instagram":"Instagram"
+                },
+                "apply":"Apply Filter",
+                "filter":"Filter"
+        },
+        "complete" : "Hoàn thành",
+        "review" : "Đang kiểm tra",
+        "shipping out":"Shipping Out",
+        "all":"Tất cả",
+        "stop_checkout" : "Hành động",
+        "update_successed":"Update Successed"
+        
+        
+}

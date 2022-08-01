@@ -7,19 +7,19 @@
 	  
       <div class="flex">
         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
-        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.subtotal).toFixed(props.decimal_places)}}</div>
+        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.subtotal).toFixed(sellerStore.userInfo.user_subscription.decimal_places)}}</div>
       </div>
       <div class="flex">
         <div class="mr-auto">
           {{$t('order_detail.price_summary.shipping')}}
           <span class="text-red-500" v-if="store.orderDetail.free_delivery">({{$t('order_detail.price_summary.apply_free_delivery')}})</span>
         </div>
-        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.shipping_cost).toFixed(props.decimal_places)}}</div>
+        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.shipping_cost).toFixed(sellerStore.userInfo.user_subscription.decimal_places)}}</div>
       </div>
       <template v-if="store.orderDetail.adjust_title !== null">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
-            <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{store.modify_status == '-' ? -parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(props.decimal_places)}}</div>
+            <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{store.modify_status == '-' ? -parseFloat(store.orderDetail.adjust_price).toFixed(sellerStore.userInfo.user_subscription.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(sellerStore.userInfo.user_subscription.decimal_places)}}</div>
         </div>
       </template>
       <template v-if="props.order_type !== 'order'">
@@ -32,24 +32,24 @@
                     type="checkbox"
                     v-model="store.orderDetail.free_delivery"
                     />
-                <span class="ml-2">{{$t('order_detail.price_summary.apply_free_delivery')}}</span>
+                <span class="ml-3">{{$t('order_detail.price_summary.free_delivery')}}</span>
             </div>         
             <div class="grid grid-cols-12 gap-4">
                 <div class="start-col-1 col-span-4">
-                    <input :id="'radio-switch-p'" class="form-check-input" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'+'" />
+                    <input :id="'radio-switch-p'" class="form-check-input mr-3" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'+'" />
                     <span> {{$t('order_detail.price_summary.add')}} +</span>
                 </div>
                 <div class="start-col-5 col-span-4">
-                    <input :id="'radio-switch-m'" class="form-check-input" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'-'" />
+                    <input :id="'radio-switch-m'" class="form-check-input mr-3" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'-'" />
                     <span> {{$t('order_detail.price_summary.subtract')}} -</span>
                 </div>
             </div>
                 <div class="mt-3 grid grid-cols-12 gap-4 xl:mt-5 2xl:mt-5">
                         <div class="col-span-4">
-                            <input id="regular-form-2" type="text" class="form-control " placeholder="Display Name" v-model="store.orderDetail.adjust_title" />
+                            <input id="regular-form-2" type="text" class="form-control " :placeholder="$t('order_detail.price_summary.display_name')" v-model="store.orderDetail.adjust_title" />
                         </div>
                         <div class="col-span-4">
-                            <input id="regular-form-2" type="number" class="form-control " placeholder="Amount" v-model="store.orderDetail.adjust_price" />
+                            <input id="regular-form-2" type="number" class="form-control " :placeholder="$t('order_detail.price_summary.amount')" v-model="store.orderDetail.adjust_price" />
                         </div>
                         <div class="flex flex-row-reverse col-span-4">
                             <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">{{$t('order_detail.price_summary.update')}}</button>
@@ -73,7 +73,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">{{$t('order_detail.price_summary.total')}}</div>
-        <div class="font-medium text-base" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.total).toFixed(props.decimal_places)}}</div>
+        <div class="font-medium text-base" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.total).toFixed(sellerStore.userInfo.user_subscription.decimal_places)}}</div>
       </div>
     </div>
   </div>
@@ -84,10 +84,12 @@ import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { seller_adjust_price } from "@/api_v2/pre_order"
 import { useRoute, useRouter } from "vue-router";
 import {ref, watch, computed} from "vue";
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 const store = useSellerOrderStore();
 const route = useRoute();
 const router = useRouter();
+const sellerStore = useLSSSellerLayoutStore()
 
 const props = defineProps({
   order_type: String,

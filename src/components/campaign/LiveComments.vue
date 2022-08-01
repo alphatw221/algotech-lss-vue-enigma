@@ -7,7 +7,7 @@
         <div class="flex flex-col h-full">
             <div class="flex flex-none h-14">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
-                    {{$t('campaign_live.live_stream')}}
+                    {{campaignDetailStore.campaign.title}}
                 </h2>
                 <div class="my-auto mr-5">
                     <div class="nav-pills">
@@ -88,28 +88,29 @@
 
             <div class="flex flex-none h-10">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
-                    {{$t('campaign_live.comment.comments')}}
+                    {{$t(`campaign_live.comment.${listViewTitle}`)}}
                 </h2>
                 <div class="my-auto mr-5">
                     <TabList class="nav-pills">
                         <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                        >   
-                        <font-awesome-icon icon="fa-regular fa-comment-dots" class="h-6 m-1 -mt-2" />
+                        >
+                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" @click="setListViewTitle('all_comments')"/>
                         </Tab>
 
                         <Tab class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                        >
-                            <font-awesome-icon icon="fa-regular fa-comments" class="h-5 m-1 -mt-1" />
+                        >   
+                            <font-awesome-icon icon="fa-regular fa-comment-dots" class="h-6 m-1 -mt-2" @click="setListViewTitle('comments_summarizer')"/>
                         </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"
+
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('facebook_comments')"
                         >
                             <FacebookIcon class="m-1 -mt-1" />
                         </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('instagram_comments')"
                         >
                             <InstagramIcon class="m-1 -mt-1" />
                         </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 " tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('youtube_comments')"
                         >
                             <YoutubeIcon class="m-1 -mt-1" />
                         </Tab>
@@ -122,13 +123,13 @@
                 <TabPanels>
                     <TabPanel  :class="'all'" class="relative bg-white">
                         <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'commentSummarize'"  />
+                            <CommentListView :platformName="'all'"  />
                         </div>
                     </TabPanel>
 
                     <TabPanel  :class="'all'" class="relative bg-white">
                         <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'all'"  />
+                            <CommentListView :platformName="'commentSummarize'"  />
                         </div>
                     </TabPanel>
 
@@ -164,16 +165,17 @@ import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
 import CommentListView from './CommentListView.vue';
-
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 const router = useRouter();
 const route = useRoute()
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const campaignDetailStore = useCampaignDetailStore()
 
 const platform= ref([])
 const imagePath= import.meta.env.VITE_APP_IMG_URL
@@ -214,6 +216,7 @@ const comments= [
 
 const openVideoTab =ref('facebook')
 
+const listViewTitle = ref('all_comments')
 onMounted(()=>{
     get_comments(route.params.campaign_id).then(res => {
         return res.data
@@ -239,8 +242,9 @@ onMounted(()=>{
 
 
 
-
-
+const setListViewTitle = title=>{
+    listViewTitle.value = title
+}
 const selectVideoTabs = tabName => openVideoTab.value=tabName
 // const commentSummurizer = status => {
 //         tags = status
@@ -250,7 +254,6 @@ const selectVideoTabs = tabName => openVideoTab.value=tabName
 //             this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
 //         }
 //     }
-
 
 
 </script>

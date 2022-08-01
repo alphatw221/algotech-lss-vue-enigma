@@ -1,0 +1,89 @@
+{
+    "create_campaign":"Tạo chiến dịch",
+    "title":"Tiêu đề",
+    "title_required":"Title Is Required",
+    "period":"Thời gian",
+
+    "cancel":"Hủy bỏ",
+    "create":"Tạo sản phẩm",
+    "invalid_title":"Invalid campaign title input",
+    
+
+
+    "delivery_form":{
+        "delivery_detail":"Thông tin vận chuyển",
+        "delivery_charge":"Chi phí vận chuyển",
+        "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
+        "free_delivery_for_minimum_order":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
+        "add_more_delivery_option":"Thêm lựa chọn khác",
+        "add_more_pickup_option":"Thêm lựa chọn khác",
+        "options":"Tùy chọn phí giao hàng",
+        "on_top_of_delivery_charge":"Vượt phí giao hàng",
+        "replace_delivery_charge":"Thay thế phí giao hàng",
+
+        "delete":"Xóa",
+
+        "store_collection":"Self Pickup",
+
+        "pickup_store":"Tên cửa hàng",
+        "pickup_address":"Địa chỉ cửa hàng",
+        "errors":{
+            "Value_is_required":"Value is required",
+            "Value_must_be_numeric":"Value must be numeric",
+            "minValue":"Invalid number",
+            "required":"This field is required",
+            "integer":"Number must be integer",
+            "decimal":"Number must be decimal"
+        }
+    },
+
+
+    "payment_form":{
+
+        "payment_titles":{
+            "direct_payment":"Thanh toán trực tiếp",
+            "stripe":"Stripe"
+        },
+
+        "direct_payment":{
+            "mode":"Tên ngân hàng / Phương thức thanh toán",
+            "name":"Tên tài khoản",
+            "number":"Số tài khoản",
+            "note":"Ghi chú",
+            "require_customer_return":"Require Buyer’s Payment Record"
+        },
+        "stripe":{
+            "secret":"Mã bảo mật",
+            "currency":"Đơn vị tiền tệ"
+        },
+
+
+
+
+        "payment_details":"Thông tin thanh toán",
+        "enabled":"Đã bật",
+        "add_more_direct_payment":"Thêm Thanh toán trực tiếp",
+        "upload_image":"Tải lên hình ảnh",
+        "remove_image":"Remove Image",
+        "upload_a_file_or_drag_and_drop":"Upload a file",
+        "accepted_file_types":"File types",
+        "max_file_size":"Max file size",
+
+        "delete":"Xóa",
+        "errors":{
+            "Value_is_required":"Value is required",
+            "img_size_err":"image size exceed 10 MB"
+        }
+
+
+
+    },
+
+    "notes_form":{
+        "notes_form":"Custom Note Settings",
+        "delivery_note":"Lưu ý khi giao hàng",
+        "special_note":"Ghi chú đặc biệt",
+        "confirmation_note":"Ghi chú xác nhận"
+    }
+
+}

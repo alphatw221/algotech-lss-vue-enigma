@@ -51,10 +51,10 @@
                                 <span class="w-fit"> {{product.qty}} </span> 
                             </td>
                             <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.price')">
-                            $ {{(product.price).toFixed(2)}}
+                            $ {{(product.price).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}
                             </td>
                             <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.sub_total')">
-                            $ {{(product.qty * product.price).toFixed(2)}}
+                            $ {{(product.qty * product.price).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}
                             </td>                        
                         </tr>
                     </tbody>
@@ -65,19 +65,19 @@
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.sub_total')}}</div>
-                            <div class="lg:mr-0">$ {{parseFloat(store.orderProductData.subtotal).toFixed(2)}}</div>
+                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">{{store.orderProductData.campaign.currency}} {{parseFloat(store.orderProductData.subtotal).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.delivery_charge')}}</div>
-                            <div class="lg:mr-0">$ {{parseFloat(store.orderProductData.shipping_cost).toFixed(2)}}</div>
+                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">{{store.orderProductData.campaign.currency}} {{parseFloat(store.orderProductData.shipping_cost).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{store.orderProductData.adjust_title ?? $t('manage_order.product_modal.discount')}}</div>
-                            <div class="lg:mr-0">$ {{parseFloat(store.orderProductData.adjust_price).toFixed(2)}}</div>
+                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">{{store.orderProductData.campaign.currency}} {{parseFloat(store.orderProductData.adjust_price).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.total')}}</div>
-                            <div class="lg:mr-0">$ {{parseFloat(store.orderProductData.total).toFixed(2)}}</div>
+                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">{{store.orderProductData.campaign.currency}} {{parseFloat(store.orderProductData.total).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
                         </div>
                     </div>
                 </div>
@@ -91,8 +91,10 @@ import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_order } from "@/api_v2/order";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 const route = useRoute();
 const store = useManageOrderStore()
+const layoutStore = useLSSSellerLayoutStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;

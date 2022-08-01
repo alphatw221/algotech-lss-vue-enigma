@@ -3,18 +3,23 @@
         :show="show"
         @hidden="show=false"
       >
+        <ModalHeader>
+          <h2 class="mr-auto text-base font-medium">{{$t('campaign_list.enter_post_id_modal.your_current_lives')}}</h2>
+          <a
+            @click="hideModal()"
+            class="absolute top-0 right-0 mt-3 mr-3"
+          >
+            <XIcon class="w-8 h-8 text-slate-400" />
+          </a>
+        </ModalHeader>
         <ModalBody class="text-left content-center">
-          <div class="intro-y grid grid-cols-12 gap-5 my-5">
+          <div class="intro-y grid grid-cols-12 gap-3 my-0">
             <template v-for="live,index in liveItems" :key="index">
-              <div
-                class="
-                  flex-none
-                  rounded-md
-                  overflow-hidden
-                  col-start-1 col-span-12
-                "
-                @click="selectLive(live.id)"  style="cursor: pointer"
-              >
+              <button type="button" href="javascript:;" class="btn w-full btn-primary mt-3 mr-3 sm:w-40" @click="selectLive(live.id)">{{$t('campaign_list.enter_post_id_modal.select_this_live')}}</button>
+              <div class="select_live flex-none rounded-md overflow-hidden col-start-1 col-span-12">
+                <span class="col-span-6 text-lg content-center">
+                  {{ live.title }}
+                </span>
                 <template v-if="live.embed_html">
                   <div v-html="live.embed_html" style="z-index: 0"></div>
                 </template>
@@ -26,12 +31,6 @@
                   />
                 </template>
               </div>
-              <span
-                class="col-span-6 text-lg content-center"
-                @click="selectLive(live.id)"  style="cursor: pointer"
-              >
-                {{ live.title }}
-              </span>
             </template>
           </div>
         </ModalBody>
@@ -45,6 +44,8 @@ import { get_ig_live_media } from "@/api/instagram"
 import { get_yt_live_media } from "@/api/youtube"
 import { update_platform_live_id } from "@/api_v2/campaign"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import i18n from "@/locales/i18n"
+
 const layoutStore = useLSSSellerLayoutStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -58,12 +59,12 @@ onMounted(()=>{
       campaign.value = payload.campaign
       payloadBuffer = payload
       if(payload.platform=='facebook'){
-        get_fb_page_live_media(payloadBuffer.platformInstance.page_id, payloadBuffer.platformInstance.token)
+        get_fb_page_live_media(payloadBuffer.page.page_id, payloadBuffer.page.token)
         .then((response) => {
 
           const live_campaign = response.data.data.filter(v => v.status === "LIVE")
           if (!live_campaign.length) {
-              layoutStore.alert.showMessageToast("You have no Facebook live posts now.")
+              layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_facebook_post'))
               return
           } 
 
@@ -71,7 +72,7 @@ onMounted(()=>{
           live_campaign.forEach(v => {
             currentLiveItems.push({
               id: v.video.id,
-              title: v.title?v.title:"Current Live",
+              title: v.title?v.title:"",
               image: null,
               video_url: null,
               embed_html: v.embed_html,
@@ -81,13 +82,13 @@ onMounted(()=>{
           show.value = true
         })
       }else if(payload.platform=='youtube'){
-        get_yt_live_media(payloadBuffer.platformInstance.token)
+        get_yt_live_media(payloadBuffer.page.token)
         .then((response) => {
 
             // const sort = response.data.data.filter(v => v.status === "LIVE")
             const live_campaign = response.data.items
             if (!live_campaign.length) {
-                layoutStore.alert.showMessageToast("You have no YouTube live stream now.")
+                layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_youtube_post'))
                 return
             }
 
@@ -106,12 +107,12 @@ onMounted(()=>{
             show.value = true
         })
       }else if(payload.platform=='instagram'){
-        get_ig_live_media(payloadBuffer.platformInstance.business_id,payloadBuffer.platformInstance.token)
+        get_ig_live_media(payloadBuffer.page.business_id,payloadBuffer.page.token)
         .then((response) => {
 
             const live_campaign = response.data.data
             if (!live_campaign.length) {
-                layoutStore.alert.showMessageToast("You have no Instagram live posts now.")
+                layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_instagram_post'))
                 return
             }
 
@@ -141,20 +142,22 @@ onUnmounted(()=>{
 
 const selectLive = live_id => {
   let apiRequest = null
-  if(payloadBuffer.platform=='facebook'){
-    apiRequest =update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
-  }else if(payloadBuffer.platform=='youtube'){
-    apiRequest =update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
-  }else if(payloadBuffer.platform=='instagram'){
-    apiRequest =update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.platformInstance.id ,live_id)
-  }
+  apiRequest = update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.page.id ,live_id)
   apiRequest.then(res=>{
     Object.entries(res.data).forEach(([key,value]) => {
       campaign.value[key]=value                       //proxy object only got setter
     });
     show.value=false
+    eventBus.emit("changeValidatStatus", {"platform": payloadBuffer.platform})
   })
     
 }
 
+const hideModal = ()=>{
+  liveItems.value = []
+  show.value = false
+}
+
 </script>
+<style scoped>
+</style>

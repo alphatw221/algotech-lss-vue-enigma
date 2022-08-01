@@ -2,7 +2,7 @@ import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
 
 // ('user_subscription_id','maximum_usage_count','interval')
 export const create_activate_code = data => {
-    console.log(data)
+    // console.log(data)
     return axiosInstance.post(`/create_activate_code/`,data);
 };
 
@@ -44,4 +44,12 @@ export const unbind_youtube_channel = (data) => {
 
 export const check_activated_platform = (data) => {
     return createAxiosWithBearer().get("/api/user-subscription/check_activated_platform/")
+}
+
+export const seller_changePlan_payment = data =>{
+    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/intent/`, data);
+}
+
+export const seller_upgrade = data =>{
+    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/`, data);
 }

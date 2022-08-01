@@ -12,15 +12,30 @@
       <tbody>
         <tr v-if="showCommentLoding || numOfCampaigns==0" >
 					<td v-if="showCommentLoding"
-						class="h-[300px] items-center relative"
+						class="h-[300px] items-center relative tdDot"
 						:colspan="tableColumns.length +1" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0"> 
+          <td v-else-if="keyword != '' && numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0 "> 
 						<div class="mt-5 text-center md:mt-10 w-full" >
-							<h1 class="text-slate-500 text-center text-sm md:text-lg h-[300px]">
-								{{$t('campaign_list.campaign_list_table.campaign_message',{tab:$t(`campaign_list.campaign_list_table.`+props.tableName)})}}
+							<h1 class="text-slate-500 text-center text-sm md:text-lg h-[300px] pt-20">
+								{{$t('campaign_list.campaign_list_table.no_result')}}
 							</h1>
+						</div>
+					</td> 
+					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0 "> 
+						<div class="mt-5 text-center md:mt-40 w-full" >
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+								{{ $t('campaign_list.campaign_list_table.no_have_campaign') }}
+							</h1>
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+								{{ $t('campaign_list.campaign_list_table.click_create_notify') }}
+							</h1>
+              <button 
+                class="flex w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto"
+                      @click="router.push({name:'platform'})" v-if="checkPagePonit"> 
+                {{$t('campaign_list.campaign_list_table.connect_platform')}}
+              </button>
 						</div>
 					</td> 
 				</tr>
@@ -124,6 +139,16 @@
                       <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>
+                    <DropdownItem 
+                      @click="deleteCampaign(campaign)" class="w-fit text-danger whitespace-nowrap ">
+                      <font-awesome-icon icon="fa-solid fa-trash-can" class="h-[20px] w-[20px] mr-1"/>
+                      {{$t("campaign_list.campaign_list_table.delete")}}
+                    </DropdownItem>
+                    <!-- <DropdownItem 
+                      @click="goQuizGame(campaign)" class="w-fit whitespace-nowrap"> 
+                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      {{$t("campaign_list.campaign_list_table.quiz_game")}}
+                    </DropdownItem> -->
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
@@ -139,16 +164,17 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { allow_checkout, list_campaign } from "@/api_v2/campaign"
+import { allow_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
-
 import { useRoute, useRouter } from "vue-router";
+import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
 
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import dom from "@left4code/tw-starter/dist/js/dom";
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const router = useRouter();
@@ -174,6 +200,7 @@ const order_by= ref("created_at")
 const checkout= ref(true)
 const layoutStore = useLSSSellerLayoutStore()
 const showCommentLoding = ref(true)
+const checkPagePonit = ref(true)
 
 const campaigns=ref([])
 const numOfCampaigns = computed(()=>Object.keys(campaigns.value).length)
@@ -188,7 +215,8 @@ onMounted(()=>{
     // order_by.value = payload.order_by;
     search();
   }),
-  startFromToast();
+  // startFromToast();
+  checkPage();
 })
 
 onUnmounted(()=>{
@@ -222,21 +250,22 @@ const changePageSize = (pageSize)=>{
     }
 
 const clickEntry = (index)=>{
-      const campaign = campaigns.value[index]
-      if(props.campaignStatus === 'history'){
-        router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
-        return
-      }
-      else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
-        router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
-        return
-      }
-      eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
-    }
+  const campaign = campaigns.value[index]
+  console.log(index)
+  if(props.campaignStatus === 'history'){
+    router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+    return
+  }
+  else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
+    router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
+    return
+  }
+  eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
+}
 
 const stop_checkout = (campaign_id,status)=>{
       allow_checkout(campaign_id,status)
-      layoutStore.notification.showMessageToast('Update Successed');
+      layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.update_successed'));
     }
 
 const manageOrder = (campaign_id,status)=>{
@@ -246,14 +275,6 @@ const manageOrder = (campaign_id,status)=>{
       //   params:{'campaign_id':campaign_id},query:{'checkout':status},
       // }).href)
       router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
-    }
-
-
-
-const startFromToast=()=>{
-      if (route.query.type && route.query.type == 'startCampaign') {
-		    console.log('Wait for info')
-	    }
     }
 
 const hideDropDown = ()=>{
@@ -282,6 +303,27 @@ const goLuckyDraw = (campaign) => {
   hideDropDown()
 }
 
+const goQuizGame = (campaign) => {
+  router.push({name:'quiz-game',params:{'campaign_id':campaign.id}})
+  hideDropDown()
+}
+
+const checkPage = ()=>{
+  get_user_subscription_facebook_pages().then(res=>{
+    if(res.data.length !== 0) checkPagePonit.value = false
+  })
+  get_user_subscription_instagram_profiles().then(res=>{
+    if(res.data.length !== 0) checkPagePonit.value = false
+  })
+  get_user_subscription_youtube_channels().then(res=>{
+    if(res.data.length !== 0) checkPagePonit.value = false
+  })
+}
+
+const deleteCampaign = (campaign)=>{
+  let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)
+	if(yes) delete_campaign(campaign.id).then(res => { search() })
+}
 
 </script>
 
@@ -305,6 +347,10 @@ thead th{
   background-color: theme("colors.secondary");
   padding-right: 10px !important;
   padding-left: 10px !important;
+}
+
+.tdDot{
+	box-shadow: none !important;
 }
 
 .alert{
@@ -336,7 +382,7 @@ thead th{
   }
 
   tr {
-    border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+    border-bottom: 2px solid #dddddd; 
     margin-top: 25px;
     padding-bottom: 10px !important;
     position: relative;

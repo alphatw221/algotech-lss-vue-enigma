@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-y-auto h-full sm:h-fit">
+	<div class="overflow-auto h-full sm:h-fit">
 	
 		<table class="table -mt-3 table-report">
 			<thead>
@@ -17,14 +17,17 @@
 			<tbody>
 				<tr>
 					<td v-if="showCommentLoding"
-						class="h-[300px] items-center relative"
+						class="h-[300px] items-center relative tdDot"
 						:colspan="columns.length" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
 					<td v-else-if="listItems.length === 0" :colspan="columns.length">
-						<div class="mt-5 text-center md:mt-10" >
-							<h1 class="text-slate-500 text-sm md:text-lg h-[300px]">
-								{{ $t('auto_reply.assign_first_reply') }}
+						<div class="mt-5 text-center md:mt-40 tdDot" >
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+								{{ $t('auto_reply.no_have_autoreply') }}
+							</h1>
+							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+								{{ $t('auto_reply.set_up_first') }}
 							</h1>
 						</div>
 					</td> 
@@ -35,9 +38,9 @@
 							class="w-32 imgtd">
 							<span class="mt-4 title sm:hidden">{{ $t(`auto_reply.table_column.${column.name}`) }}</span>
 							<div class="w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
-								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.facebook_page.image" v-if="reply.facebook_page"
+								<Tippy tag="img" class="w-12 h-12 rounded-lg ml-10 sm:ml-0" :src="reply.facebook_page.image" v-if="reply.facebook_page"
 									:content="`facebook`" />
-								<Tippy tag="img" class="w-12 h-12 rounded-lg " :src="reply.instagram_profile.image" v-else-if="reply.instagram_profile"
+								<Tippy tag="img" class="w-12 h-12 rounded-lg ml-10 sm:ml-0" :src="reply.instagram_profile.image" v-else-if="reply.instagram_profile"
 								:content="`instagram`" />
 							</div>
 						</td>
@@ -117,6 +120,7 @@ import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { delete_auto_response, update_auto_response,list_auto_response } from "@/api_v2/auto_response"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import i18n from "@/locales/i18n"
 
 const props = defineProps({
 	columns: Array,
@@ -192,11 +196,11 @@ function closeWithAlert() {
 	if (saved.value === true) {
 		updateModal.value = false;
 		hideDropDown()
-		layoutStore.notification.showMessageToast("Saved the Change");
+		layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.saved_message'));
 	} else {
 		updateModal.value = false;
 		hideDropDown()
-		layoutStore.alert.showMessageToast("Change Not Saved");
+		layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'));
 	}
 	hideDropDown()
 	saved.value = false;
@@ -217,7 +221,7 @@ function deleteAutoReply(id) {
 	hideDropDown()
 	delete_auto_response(id)
 		.then((response) =>{
-			layoutStore.notification.showMessageToast("Deleted");
+			layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.deleted_message'));
 			getReplyData();
 		})
 		.catch((err) => {
@@ -240,6 +244,10 @@ td {
   border-collapse: collapse;
   padding-right: 10px !important;
   padding-left: 10px !important;
+}
+
+.tdDot{
+	box-shadow: none !important;
 }
 
 thead th{ 
@@ -277,7 +285,7 @@ thead th{
 	}
 
 	tr {
-		border-bottom: 3px solid rgba(61, 61, 61, 0.7);
+		border-bottom: 2px solid #dddddd; 
 		margin-top: 10px;
 	}
 

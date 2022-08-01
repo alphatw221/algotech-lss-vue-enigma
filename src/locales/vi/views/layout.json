@@ -1,0 +1,54 @@
+{
+    "upgrade":"Nâng cấp gói",
+    "menu":{
+        "create":"Tạo sản phẩm",
+        "new_campaign":"chiến dịch",
+        "stock":"Kho hàng",
+        "campaign_list":"Danh sách chiến dịch",
+        "auto_reply":"Chatbot tự động",
+        "settings":"Cài đặt",
+        "campaign_default_setting":"Cài đặt chiến dịch mặc định",
+        "localization":"Ngôn ngữ bản địa hóa",
+        "connect_platform":"Kết nối nền tảng"
+
+    },
+    "bread_crumb":{
+        "stock":"Kho hàng",
+        "campaign-list":"Danh sách chiến dịch",
+        "campaign-live":"Campaign Live",
+        "manage-order":"Quản lý bán hàng",
+        "order-detail":"Order Detail",
+        "settings":"Cài đặt",
+        "localization":"Ngôn ngữ bản địa hóa",
+        "campaign-global":"Cài đặt chiến dịch mặc định",
+        "platform":"Kết nối nền tảng",
+        "edit-campaign":"Edit Campaign",
+        "create-campaign":"Tạo chiến dịch",
+        "assign-product":"Chọn sản phẩm bán",
+        "edit-campaign-product":"Edit Campaign Product",
+        "lucky-draw":"Quà tặng minigame",
+        "autoreply":"Chatbot tự động",
+        "category-management":"Phân loại",
+        "add-product":"Create Product",
+        "product-detail":"Product Detail",
+        "edit-product":"Edit Product",
+        "profile":"Profile",
+        "change-plan":"Change Plan"
+    },
+    "top_bar":{
+        "profile":"Profile",
+        "subscription":"Subscription",
+        "reset_password":"Reset Password",
+        "logout":"Logout"
+    },
+    "upcoming_campaign":{
+        "title": "Upcoming Campaign",
+        "notification_text1": "You have a upcoming Campaign:",
+        "notification_text2": "starts in",
+        "notification_text3": "",
+        "time_15min": "15 mins",
+        "time_1hour": "an hour",
+        "join_now": "Join now",
+        "dismiss": "Dismiss"
+    }
+}

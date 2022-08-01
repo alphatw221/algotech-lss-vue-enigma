@@ -1,12 +1,13 @@
 import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
 
 
-export const get_notes = () => {
-    return createAxiosWithBearer().get('/api/v2/user-subscription/notes/')
-};
 
-export const update_notes = (delivery_note, special_note, confirmation_note) => {
-    return createAxiosWithBearer().put(`/api/v2/user-subscription/notes/?delivery_note=${delivery_note}&special_note=${special_note}&confirmation_note=${confirmation_note}`)
+export const get_general_info = () => {
+    return createAxiosWithBearer().get(`/api/v2/user-subscription/info/general/`)
+}
+
+export const update_general_info = (data) => {
+    return createAxiosWithBearer().put(`/api/v2/user-subscription/update/info/general/`, data)
 }
 
 export const seller_update_subscription = (data) => {
@@ -23,4 +24,8 @@ export const seller_update_delivery = (data) => {
 
 export const unbind_platform_instance = (platform_name, data) => {
     return createAxiosWithBearer().put(`/api/user-subscription/platform/${platform_name}/unbind/`, data)
+}
+
+export const upload_animation = (data) => {
+    return createAxiosWithBearer().post(`/api/v2/user-subscription/seller/upload/animation/`, data)     
 }

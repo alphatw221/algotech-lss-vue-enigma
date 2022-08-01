@@ -51,6 +51,22 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			endpoint:'getStripeGateway',
 		}
 	},
+	hitpay:{
+		multiple:false,
+		name:"Hitpay",
+		key:"hitpay",
+		icon:"static/payment/hitpay/icon.png",
+		fields:[
+                // {key:"button_title", type:"text", name:"Button Title", dataType:"string", default:''},
+                {key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'USD', 'NTD'], dataType:"string", default:'USD'},
+                {key:"api_key", type:"text", name:"API Key", dataType:"string", default:''},
+                {key:"salt", type:"text", name:"Salt", dataType:"string", default:''}
+            ],
+		handle:{
+			type:'gateway',
+			endpoint:'getHitpayGateway',
+		}
+	},
 	// first_data : {
 	// 	multiple:false,
 	// 	name:"First Data IPG (Credit Card)",
@@ -68,19 +84,19 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 	// },
 
 
-    SG : ['direct_payment', 'stripe'],
+    SG : ['direct_payment', 'stripe', 'hitpay'],
     
-    ID : ['direct_payment', 'stripe'],
+    ID :['direct_payment', 'stripe', 'hitpay'],
 
-    MY : ['direct_payment', 'stripe'],
+    MY : ['direct_payment', 'stripe', 'hitpay'],
     
-    IN : ['direct_payment', 'stripe'],
+    IN : ['direct_payment', 'stripe', 'hitpay'],
     
-    PH : ['direct_payment', 'stripe'],
+    PH : ['direct_payment', 'stripe', 'hitpay'],
 
-    VN : ['direct_payment', 'stripe'],
+    VN : ['direct_payment', 'stripe', 'hitpay'],
 
-    TW : ['direct_payment', 'stripe'],
+    TW : ['direct_payment', 'stripe', 'hitpay'],
 
     CN : ['direct_payment', 'stripe'],
 

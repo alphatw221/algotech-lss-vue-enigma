@@ -1,0 +1,91 @@
+{
+    "campaign_list": "Campaign List",
+
+    "process" : {
+            "create" : "Tạo sản phẩm",
+            "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",
+            "connect" : "Connect",
+            "connect_description" : "Click \"Edit\" button to connect camapign to your FB Post.",
+            "complete" : "Complete",
+            "complete_description" : "Click \"Enter\" to join the live campaign."
+        },
+    "create_campaign": "Tạo sản phẩm",
+
+    "tabs":{
+        "scheduled" : "Đã lên lịch",
+        "history" : "Lịch sử",
+        "ongoing" : "Đang diễn ra"
+    },
+
+    "search_bar":{
+        "title": "Tiêu đề",
+        "search" : "Tìm kiếm",
+        "reset" : "Reset"
+    },
+    "enter_post_id":{
+            "message":"Please enter post ID to start live selling.",
+            "select_stream":"Select Stream",
+            "select_page":"Select Page",
+            "id":"Post ID"
+        },
+
+
+    "campaign_list_table":{
+        "title" : "Tiêu đề",
+        "fan_page" : "Nền tảng",
+        "start_at" : "Thời gian bắt đầu",
+        "end_at" : "Thời gian kết thúc",
+        "manage" : "Manage",
+        "manage_product" : "Manage Product",
+        "manage_order" : "Quản lý bán hàng",
+        "stop" : "Dừng thanh toán",
+        "null":"",
+        "history":"Lịch sử",
+        "live_on":"Kích hoạt",
+        "edit_campaign":"Edit Campaign",
+        "edit_campaign_product":"Edit Product",
+        "blank_cart":"Copy Blank Cart Link",
+        "lucky_draw":"Quà tặng minigame",
+        "delete":"Xóa",
+        "confirm_delete": "Are you sure delete this campaign ?",
+
+        "campaign_message":"You don't have %{tab} campaign",
+        "no_result":"No Result Found",
+        "Scheduled" : "Đã lên lịch",
+        "History" : "Lịch sử",
+        "Ongoing" : "Đang diễn ra",
+        
+        "no_have_campaign": "You Dont't Have Campaign Yet",
+        "click_create_notify": "Click \"+ Create\" to create your new live selling campaign",
+        "connect_platform":"Kết nối nền tảng"
+    },
+
+    "remind_enter_post_id_modal":{
+        "confirm":"Confirm",
+        "message":"Please Enter Post ID To Start Live Selling"
+    },
+
+    "enter_post_id_modal":{
+        "edit_channel":"Select Live Stream",
+        "facebook":"Facebook",
+        
+        "post_id":"Post ID",
+        "select_page":"Select Page",
+
+        "instagram":"Instagram",
+        "media_id":"Media ID",
+        "select_media":"Select Profile",
+
+        "youtube":"Youtube",
+        "live_chat_id":"Live Chat ID",
+        "select_live_chat":"Select Channel",
+
+        "cancel":"Hủy bỏ",
+        "save":"Lưu lại"
+    },
+    "update_successed":"Update Successed",
+    "no_facebook_post":"You don't have Facebook live posts now.",
+    "no_youtube_post":"You don't have YouTube live stream now.",
+    "no_instagram_post":"You don't have Instagram live posts now."
+
+}

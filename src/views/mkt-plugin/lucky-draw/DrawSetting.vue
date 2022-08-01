@@ -168,6 +168,7 @@
 import { useRoute, useRouter } from "vue-router";
 import { ref, watch, onMounted } from 'vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const router = useRouter();
@@ -227,9 +228,9 @@ const chooseAnimation = () => {
 
 const closeModal = () => {
     if (saved.value === true) {
-        layoutStore.notification.showMessageToast("Save Success")
+        layoutStore.notification.showMessageToast(i18n.global.t('lucky_draw.save_success'))
     } else {
-        layoutStore.alert.showMessageToast("Change Not Saved")
+        layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.not_saved'))
     }
     saved.value = false
     previewImage.value = null

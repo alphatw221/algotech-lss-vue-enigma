@@ -26,12 +26,15 @@
         "add": "增加",
         "subtract": "減少",
         "apply_free_delivery" : "免運費",
+        "free_delivery" : "免運費",
         "modify_price": "修改價格",
         "price_adjustment" : "調整金額",
         "price_adjustment_note" : "想要使用折扣，請輸入「- 金額」。想要收取額外費用，請直接輸入「金額」。",
         "title" : "折扣名稱/額外費用名稱",
         "price_exceed":"金額不可超過小計",
-        "update" : "更新"
+        "update" : "更新",
+        "display_name": "顯示名稱",
+        "amount": "金額"
     },
     "delivery":{
         "information" : "運送資訊",
@@ -50,6 +53,7 @@
         "additional_delivery_charge" : "Selected Delivery Charge Option"
     },
     "payment":{
+        "Direct Payment":"轉帳付款",
         "method" : "付款方式",
         "information": "付款資訊",
         "record" : "付款紀錄",
@@ -58,5 +62,8 @@
     "remark" : "備註",
     "save_remarks" : "儲存備註",
     "save_order" : "儲存訂單",
-    "shopping_cart" : "購物車"
+    "shopping_cart" : "購物車",
+    "invalid_qty":"無效數量",
+    "update_successfully":"更新成功",
+    "delete_successfully":"刪除成功"
 }

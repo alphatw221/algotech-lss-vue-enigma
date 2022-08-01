@@ -23,7 +23,6 @@
 </template>
 
 <script setup>
-import { check_activated_platform } from '@/api/user_subscription'
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import BindFacebookPageWidgets from "@/components/widgets/BindFacebookPageWidgets.vue"
@@ -35,11 +34,9 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const router = useRouter();
 
 const layoutStore = useLSSSellerLayoutStore();
-
 const subscriptionPlan = ref(null)
 const activatedPlatformNumber = ref(0)
 
-const activated_platform = ref([])
 const platform_components = ref({
     "facebook": BindFacebookPageWidgets,
     "instagram": BindInstagramProfileWidgets,
@@ -52,19 +49,20 @@ onMounted(() => {
     let subscription_plan = layoutStore.userInfo.user_subscription.type
     subscriptionPlan.value = subscription_plan.charAt(0).toUpperCase() + subscription_plan.slice(1);
     
-    checkActivatedPlatform()
-    eventBus.on("check_activated_platform", (payload) => {
-      checkActivatedPlatform()
-    });
     eventBus.on("showUpgradeModal", (payload) => {
-      UpgradeModal.value = payload
+      UpgradeModal.value = true
+      activatedPlatformNumber.value = payload.activated_platform_amount
     });
 
 });
 
 const plural = (number) => {
+    if (layoutStore.userInfo.user_subscription.lang === "zh_hant") {
+        return ""
+    }
     return number > 1 ? "s" : ""
 }
+
 const UpgradeModal = ref(false)
 
 const closeUpgradeModal = () => {
@@ -72,31 +70,6 @@ const closeUpgradeModal = () => {
     eventBus.emit("hide")
 }
 
-const checkActivatedPlatform = () => {
-    let platform_dict = {
-        "facebook": false,
-        "instagram": false,
-        "youtube": false
-    
-    }
-    console.log("checkActivatedPlatform")
-    check_activated_platform().then(res=> {
-        activated_platform.value = res.data["activated_platform"]
-        console.log(activated_platform.value)
-        activated_platform.value.forEach(v=>{
-            platform_dict[v] = true;
-        })
-        activatedPlatformNumber.value = res.data["activated_platform"].length
-    }).then(res=>{
-        Object.keys(platform_dict).forEach(v=>{
-            console.log(v)
-            console.log(platform_dict[v])
-            eventBus.emit(`activate_${v}`, platform_dict[v])
-        })
-    }).catch(err=> {
-        console.log(err)
-    })
-}
 
 const Capitalize = (word) => {
     let new_word = word.charAt(0).toUpperCase() + word.slice(1);

@@ -1,0 +1,12 @@
+{
+    "order_history":"Order History",
+    "table":{
+        "order_no":"Mã đơn hàng",
+        "date":"Date",
+        "payment_method":"Payment Method",
+        "amount":"Số Lượng",
+        "status":"Trạng thái",
+        "action":"Action",
+        "view":"View"
+    }
+}

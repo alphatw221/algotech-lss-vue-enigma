@@ -1,6 +1,6 @@
 <template>
     <div class="p-5 sm:p-5 box intro-y">
-        <div class="flex-col flex sm:flex-row content-end justify-start gap-3">
+        <div class="flex-col flex-wrap flex sm:flex-row content-end justify-start gap-3">
             <label class="mr-2 w-14 my-auto">
                 {{ $t('assign_product.search_bar.category') }}
             </label>

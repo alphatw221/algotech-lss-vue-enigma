@@ -1,8 +1,10 @@
 {
-    "title": "Setup Auto Reply",
+    "title": "Auto Reply",
     "create": "Create",
 
     "assign_first_reply": "Assign your first auto-reply by click (+ Create) button",
+    "no_have_autoreply": "You Don't Have Auto Reply Yet.",
+    "set_up_first": "Click \"+ Create\" to set up your first auto reply",
 
     "table_column": {
         "keyword_detect": "Keywords to Detect",
@@ -17,9 +19,14 @@
         "delete": "Delete"
     },
 
-    "modal_title": "Create New Response",
+    "modal_title": "Create Auto Reply",
     "modal_cancel": "Cancel",
     "modal_save": "Save",
     "modal_field_require": "Field is required",
-    "modal_select_page": "Select one page"
+    "modal_select_page": "Select one page",
+    "saved_message":"Saved the Change",
+    "not_saved_message":"Update Canceled",
+    "deleted_message":"Deleted",
+    "invalid_data":"Invalid Submission",
+    "create_success":"Create Success"
 }

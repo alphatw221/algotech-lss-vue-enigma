@@ -1,0 +1,67 @@
+{   
+    "tab":{
+        "select_plan":"選擇方案",
+        "payment":"付款",
+        "confirm":"確認"
+    },
+    "plan":{
+        "trial":"Trial",
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium",
+        "dealer":"Dealer"
+    },
+
+    "step_1":{
+        "your_info":"您的個人資料",
+        "current_plan":"目前方案",
+        "expired_date":"方案截止日期",
+        "name":"顧客名稱",
+        "number":"聯絡電話",
+        "email":"電子信箱",
+        "plan_options":{
+            "lite":"Lite 精簡版 (NT$300/月)",
+            "standard":"Standard 標準版 (NT$900/月)",
+            "premium":"Premium 進階版 (NT$450起/月)"
+        },
+        "period_options":{
+            "year":"年繳 (九折優惠)",
+            "quarter":"季繳"
+        },
+        "choose_plan":"訂閱方案",
+        "choose_period":"方案期限", 
+        "required_field": "此為必填欄位",
+        "welcome_gift": "首次訂閱禮: 95折優惠",
+        "promocode_question":"是否使用優惠代碼?",
+        "promocode":"優惠代碼",
+        "policy":{
+            "accept": "我同意",
+            "terms": "使用條款",
+            "&": "與",
+            "conditions":"細則"
+        },
+        "back":"回到上一頁",
+        "next":"下一步"
+    },
+    "step_2":{
+        "selected_plan":"所選方案",
+        "proration":"金額調整",
+        "payment_total":"支付總額",
+        "period":"訂閱期限",
+        "privious":"上一步",
+        "confirm_payment":"確認付款",
+        "current_plan":"目前方案",
+        "year":"年繳",
+        "quarter":"季繳"
+    },
+    "step_3":{
+        "succeeded":"付款完成",
+        "email":"電子信箱",
+        "your_plan":"您的訂閱方案",
+        "sub_period":"訂閱期限",
+        "expired_date":"方案期限",
+        "download":"下載電子收據",
+        "thankyou":"感謝您的註冊, 您的訂閱方案已變更!"
+    }
+
+}

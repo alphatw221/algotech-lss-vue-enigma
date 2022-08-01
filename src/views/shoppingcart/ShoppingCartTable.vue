@@ -93,17 +93,17 @@
 							</div>
 						</template>
 						<div class="absolute hidden md:block" v-show="store.cartProducts[index].qty_add_to_cart >= store.cartProducts[index].qty_for_sale && store.cartProducts[index].type === 'product'" style="color:#FF4500">
-							 {{$t('shopping_cart.table.missing_remind')}}
+							 {{$t('shopping_cart.table.missing_message')}}
 						</div>
 					</td>
-					<td class="sm:hidden" >
-						<div style="color:#FF4500"> {{$t('shopping_cart.table.missing_message')}}</div>
+					<td class="sm:hidden">
+						<div style="color:#FF4500" v-show="store.cartProducts[index].qty_add_to_cart >= store.cartProducts[index].qty_for_sale && store.cartProducts[index].type === 'product'"> {{$t('shopping_cart.table.missing_message')}}</div>
 					</td>
 					<td class="text-center h-20 ">
-						<div class="price whitespace-nowrap"> {{store.order.campaign.currency}} {{ product.price }} </div>
+						<div class="price whitespace-nowrap"> {{store.order.campaign.currency}} {{ parseFloat(product.price).toFixed(store.order.campaign.user_subscription.decimal_places) }} </div>
 					</td>
 					<td class="text-center h-20">
-						<div class="price whitespace-nowrap"> {{store.order.campaign.currency}} {{ product.qty * product.price }} </div>
+						<div class="price whitespace-nowrap"> {{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.order.campaign.user_subscription.decimal_places) }} </div>
 					</td>
 					<td class="table-report__action w-30 h-20">
 					<div class="flex justify-center items-center" v-show="store.cartProducts[index].customer_removable && product.type === 'product'">
@@ -136,6 +136,7 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useRoute } from "vue-router";
 import { useCookies } from "vue3-cookies"
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const store = useShoppingCartStore(); 
@@ -165,7 +166,7 @@ const deleteOrderProduct = (order_product_id, index) =>{
 	const delete_order_product = isAnonymousUser?guest_delete_order_product:buyer_delete_order_product
 	delete_order_product(order_product_id, route.params.pre_order_oid).then(res=>{
 		store.order = res.data
-		layoutStore.notification.showMessageToast("Delete Success")
+		layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.delete_success'))
 	})
 }
 
@@ -194,7 +195,7 @@ const changeQuantity = ( index, operation, product) => {
 	} else if (operation == 'input' && cacheQty.value >= 1 ) {
 		qty = cacheQty.value
 	} else {
-		layoutStore.alert.showMessageToast("Invalid Quantity")
+		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
 		cacheQty.value = product.qty
 		return
 	}
@@ -205,7 +206,7 @@ const changeQuantity = ( index, operation, product) => {
 	update_order_product(product.order_product_id, route.params.pre_order_oid, qty).then(
 		res => {
 			store.order = res.data
-			layoutStore.notification.showMessageToast("Update Successfully")
+			layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.update_successfully'))
 			showUpdateSign()
 			showQtyInput()
 			hideUpdateButton()

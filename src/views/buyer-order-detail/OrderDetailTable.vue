@@ -13,39 +13,33 @@
 			</thead>
 			<tbody>
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
-				<td class=" h-20 imgTd self-center">
-					<div class="flex items-center self-center justify-center">
-						<div class="flex w-24 h-24 lg:w-12 lg:h-12 2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
-						<Tippy
-							tag="img"
-							class="rounded-lg"
-							:src="storageUrl+product.image"
-							:content="product.name"
-              data-action="zoom"
-						/>
-						</div>
-            <div class="flex w-24 h-24 lg:w-12 lg:h-12 2xl:x-12 2xl:h-12 image-fit zoom-in" v-else>
-						<Tippy
-							tag="img"
-							class="rounded-lg"
-							:src="storageUrl+`no_image.jpeg`"
-							:content="product.name"
-              data-action="zoom"
-						/>
-						</div>
+        <td class="imgtd">
+					<div class="w-full flex" v-if="product.image">
+					<img
+						tag="img"
+						data-action="zoom"
+						class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0 "
+						:src="storageUrl+product.image"
+					/>
+					</div>
+					<div class="w-full flex" v-else>
+					<img
+						tag="img"
+						data-action="zoom"
+						class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0"
+						:src="storageUrl+`no_image.jpeg`"
+					/>
 					</div>
 				</td>
-				<td class="text-center h-20">
-					{{ product.name }}
-				</td>
-				<td class="text-center h-20" :data-content="$t('order_detail.table.qty')">
+				<td class="text-left w-fit">{{ product.name }}  </td>
+				<td class="text-right" :data-content="$t('order_detail.table.qty')">
 					{{ product.qty }}
 				</td>
-				<td class="text-center h-20" :data-content="$t('order_detail.table.price')" v-if="store.order.campaign">
-					{{store.order.campaign.currency}} {{ parseFloat(product.price).toFixed(2) }}
+				<td class="text-right" :data-content="$t('order_detail.table.price')" v-if="store.order.campaign">
+					{{store.order.campaign.currency}} {{ parseFloat(product.price).toFixed(store.order.campaign.user_subscription.decimal_places) }}
 				</td>
-				<td class="text-center h-20" :data-content="$t('order_detail.table.sub_total')" v-if="store.order.campaign">
-					{{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(2) }}
+				<td class="text-right" :data-content="$t('order_detail.table.sub_total')" v-if="store.order.campaign">
+					{{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.order.campaign.user_subscription.decimal_places) }}
 				</td>
 			</tr>
 		</tbody>
@@ -70,86 +64,102 @@ const tableColumns = ref([
 </script>
 
 <style scoped>
-  td{
-    height: 28px !important;
-	  padding-left: 20px !important;
-  }
+td {
+  min-height: 40px;
+  border-collapse: collapse;
+  padding-right: 10px !important;
+  padding-left: 10px !important;
+}
 
-  @media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
-  table,
-  thead,
-  tbody,
-  th,
-  td,
+thead th{ 
+  position: sticky !important; 
+  top: 0 !important;
+  z-index: 50;
+  background-color: theme("colors.secondary");
+  padding-right: 10px !important;
+  padding-left: 10px !important;
+}
+
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+
+	table,
+	thead,
+	tbody,
+	th,
+	td,
+	tr {
+		display: block;
+		font-size: 16px;
+	}
+
+	thead tr {
+		position: absolute;
+		top: -9999px;
+		left: -9999px;
+	}
   tr {
-    display: block;
-	padding: 0px !important;
-	font-size: 15px;
-  }
+		border-bottom: 2px solid #dddddd;
+	}
 
-  thead tr {
-    position: absolute;
-    top: -9999px;
-    left: -9999px;
-  }
+	td {
+		border: none;
+		position: relative;
+		padding-left: 50%;
+    padding-right: 20px !important;
+		text-align: right;
+		box-shadow: none !important;
+		padding-top: 0px !important;
+    padding-bottom: 0px !important;
+    min-height: 30px !important;
+    font-size: 14px;
+	}
 
-  tr {
-    border-bottom: 1px solid black;
-	padding-top: 10px;
-  }
-
-  td {
-    border: none;
-    border-bottom: 1px solid #eee;
-    position: relative;
-    padding-left: 80% !important;
-    text-align: left !important;
-    box-shadow: none !important;
-    min-height: 28px;
-  }
-  .imgTd{
-	  padding-top: 10px !important;
-	  height: 50px !important;
-  }
-
-  td:before {
-    position: absolute;
-    left: 6px;
-    width: 45%;
-    padding-right: 10px;
-    white-space: nowrap;
-    font-weight: bold;
-    box-shadow: none !important;
-  }
-  td:nth-of-type(1):before{
+	td:before {
+		position: absolute;
+		left: 20px;
+    text-align: left;
+		width: 45%;
+		padding-right: 10px;
+		font-weight: bold;
+		box-shadow: none !important;
+		background-color: white !important;
+		padding-top: 0px !important;
+	}
+  .imgtd:before {
     display: none;
-    /* color: #0e9893; */
   }
-  td:nth-of-type(1){
-    padding-left: 0 !important;
-    min-height: 110px !important;
-    /* color: #0e9893; */
+
+  .imgtd {
+    display: inline-block;
+    padding-left: 0% !important;
+    min-height: 80px !important;
+    width: 100%;
   }
-  td:nth-of-type(2):before {
-    content: attr(data-content);
-    /* color: #0e9893; */
-  }
-  td:nth-of-type(1):before {
-    display: none;
-    /* color: #0e9893; */
-  }
-  td:nth-of-type(3):before {
-    content: attr(data-content);
-    /* color: #0e9893; */
-  }
-  td:nth-of-type(4):before {
-    content: attr(data-content);
-    /* color: #0e9893; */
-  }
-  td:nth-of-type(5):before {
-    content: attr(data-content);
-    /* color: #0e9893; */
-  }
+
+	td:nth-of-type(2):before {
+		display: none;
+	}
+   td:nth-of-type(2){
+		width:100%;
+    display: inline-block;
+    font-weight:600;
+    color:theme("colors.primary");
+    padding-left: 0px !important;
+    text-align: center;
+	}
+
+	td:nth-of-type(3):before {
+		content: attr(data-content);
+	}
+
+	td:nth-of-type(4):before {
+		content: attr(data-content);
+	}
+
+	td:nth-of-type(5):before {
+		content: attr(data-content);
+	}
 }
 </style>

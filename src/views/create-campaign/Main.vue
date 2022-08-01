@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col h-[100%] text-[16px]">
-		<div class="flex items-center sm:px-20 pt-5 pb-4 intro-y">
+		<div class="flex items-center sm:px-20 pt-2 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
@@ -48,6 +48,52 @@
 			</div>
 		</div>
 		
+		<div class="box py-5 mx-20 mt-3 sm:p-8 sm:py-5 px-2 lg:px-10 text-sm sm:text-lg ">
+
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div> {{$t("settings.localization.currency_symbol")}} </div>
+			</div>
+			<div class="flex my-1 ">
+				<TomSelect v-model="campaignData.currency" :options="{
+							placeholder: $t('settings.localization.choose_currency_symbol'),
+							}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
+				</TomSelect>
+			</div>
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
+			</div>
+			<div class="flex my-1">
+				<TomSelect v-model="campaignData.buyer_lang" :options="{
+							placeholder: $t('settings.localization.choose_language'),
+							}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
+				</TomSelect>
+			</div>
+
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+			</div>
+
+			<div class="flex my-1">
+				<TomSelect v-model="campaignData.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in priceUnitOptions" :key="index">{{$t(`settings.localization.priceOptions.${option.key}`)}}</option>
+				</TomSelect>
+			</div>
+
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
+			</div>
+			<div class="flex my-1">
+				<TomSelect v-model="campaignData.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
+				</TomSelect>
+			</div>
+		</div>
+
+
+
+
 
 		<DeliveryForm 
 			:campaign="campaignData"
@@ -86,7 +132,9 @@ import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/ca
 
 import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 
+const paymentMetaStore = useLSSPaymentMetaStore()
 
 const route = useRoute()
 const router = useRouter()
@@ -96,22 +144,59 @@ const dateTimePicker = ref({
 	end:new Date()
 })
 
+const currencySymbols = ref([
+    {value:'USD',text:'USD'},
+    {value:'NTD',text:'NTD'},
+    {value:'SGD',text:'SGD'},
+    {value:'IDR',text:'IDR'},
+    {value:'PHP',text:'PHP'},
+    {value:'MYR',text:'MYR'},
+    {value:'VND',text:'VND'},
+    {value:'RMB',text:'RMB'},
+    {value:'KHR',text:'KHR'},
+    {value:'AUD',text:'AUD'},
+    {value:'HKD',text:'HKD'}])
+
+const priceUnitOptions = ref([
+    {key:'1',value:'1'},
+    {key:'1000',value:'1000'},
+    {key:'1000000',value:'1000000'},
+])
+
+const languages = ref([
+    {value:'en',text:'English'},
+    {value:'zh_hant',text:'Chinese-tranditional'},
+])
+
+const decimalOptions = ref([
+    {value:'2',text:'0.01'},
+    {value:'0',text:'1'},
+])
+
 const campaignData = ref({
 	title:'',
 	start_at:new Date(),
 	end_at:new Date(),
 	meta_logistic:{
-		delivery_charge : 9999,
+		delivery_charge : 0,
 		is_free_delivery_for_order_above_price : false,
-		free_delivery_for_order_above_price : 9999,
+		free_delivery_for_order_above_price : 0,
 		is_free_delivery_for_how_many_order_minimum : false,
-		free_delivery_for_how_many_order_minimum : 99,
+		free_delivery_for_how_many_order_minimum : 1,
 		is_additional_delivery_charge : true,
 		additional_delivery_options: [],
 		pickup_options: [],
-		delivery_note : 'example...'
+		delivery_note : ''
 	},
-	meta_payment:{}
+	currency:'USD', 
+	lang:'en', 
+	buyer_lang:'en', 
+	decimal_places:2, 
+	price_unit:'1',
+	meta_payment:{
+		special_note: '',
+		confirmation_note: ''
+	}
 })
 
 const campaignNotes = ref({
@@ -170,11 +255,17 @@ const sellerStore = useLSSSellerLayoutStore()
 onMounted(() => {
 	if(!sellerStore.userInfo.user_subscription) return
 	
+	if(sellerStore.userInfo.user_subscription.currency)campaignData.value.currency=sellerStore.userInfo.user_subscription.currency
+	if(sellerStore.userInfo.user_subscription.buyer_lang)campaignData.value.buyer_lang=sellerStore.userInfo.user_subscription.buyer_lang
+	if(sellerStore.userInfo.user_subscription.decimal_places)campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places
+	if(sellerStore.userInfo.user_subscription.price_unit)campaignData.value.price_unit=sellerStore.userInfo.user_subscription.price_unit
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
-		campaignData.value.meta_logistic = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic))
+		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
 	}
+	
+	sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => campaignData.value.meta_payment[key]={} ) } )
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
-		campaignData.value.meta_payment = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment))
+		Object.assign(campaignData.value.meta_payment,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment)))
 	}
 	
 	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
@@ -207,7 +298,7 @@ const createCampaign = ()=>{
 
 
 	create_campaign(formData).then(response => {
-		// console.log(response.data)
+
 		router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
 	})
 
