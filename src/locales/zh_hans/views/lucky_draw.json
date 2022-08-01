@@ -1,0 +1,109 @@
+{
+    "lucky_draw" : "抽奖工具",
+    "invalid_data":"输入资料無效",
+    "create_successed":"新增成功",
+    "update_successed":"更新成功",
+    "save_success":"储存成功",
+    "not_saved":"取消储存",
+
+    "draw_list": {
+        "campaign_title": "直播名称",
+        "all_winner": "得奖者名单",
+        "create": "建立抽奖",
+        "like": "在这则Facebook贴文的按赞者",
+        "purchase": "购买任何商品者",
+        "product": "购买指定商品者",
+        "keyword": "留言內容包含关键字",
+        "winners" : "得奖人数",
+        "winner_repeat": "重复得奖",
+        "yes": "是",
+        "no": "否",
+        "start": "开始",
+        "edit": "编辑",
+        "delete": "刪除"
+    },
+
+    "winner_modal": {
+        "all_winner": "得奖者名单",
+        "platform": "平台",
+        "customer_name": "中奖名单",
+        "draw_type": "抽奖方式",
+        "prize": "奖品"
+    },
+
+    "draw_create": {
+        "campaign_title": "直播名称",
+        "prize" : "奖",
+        "spin_time" : "动画时间(秒)",
+        "number_of_winner" : "得奖人数",
+        "animation_style" : "抽奖动画",
+        "winner_repeat" : "重复得奖",
+        "yes": "是",
+        "no": "否",
+        "winner_repeat_tip": "参与者是否可重复获奖",
+        "upload_animation": "上传抽奖动画",
+        "draw_type" : "抽奖方式",
+        "cancel": "取消",
+        "save": "储存",
+        "back": "上一页",
+        "go_draw": "前往抽奖",
+        "number_winner_warning": "须填入介于1与奖品数量",
+        "keyword_warning": "至少3个字元",
+        "product": "商品",
+        "keyword": "商品代码",
+        "draw_selection": {
+            "like": "按赞者",
+            "product": "购买指定商品者",
+            "purchase": "购买任何商品者",
+            "keyword": "留言內容包含关键字"
+        },
+        "no_product_err":"尚未将商品加入此直播",
+        "assign_product_err":"须加入商品",
+        "assign_prize_err":"须加入奖品",
+        "secs":"秒"
+    },
+
+    "draw_flow": {
+        "winner": "得奖者",
+        "repeatable": "重复得奖",
+        "congrates": "恭喜",
+        "no_winner": "沒有得奖者符合资格",
+        "yes": "是",
+        "no": "否"
+    },
+
+
+
+
+
+
+    "settings" : "抽獎設定",
+    "prize" : "獎品",
+    "number_of_winner" : "得獎人數",
+    "winner_repeat" : "重複得獎",
+    "spin_time" : "動畫時間",
+    "style" : {
+        "animation_style" : "動畫風格",
+        "default_1" : "default-spin-1",
+        "default_2" : "default-spin-2"
+    },
+    "draw_type" : {
+        "draw_type" : "抽獎類型",
+        "like" : "按讚者",
+        "purchased" : "購買者",
+        "order_code" : "輸入訂購代碼者",
+        "comment" : "留言者",
+        "accept" : "可輸入: '0-9' 或 'A-Z'."
+    },
+    "order_code" : "抽獎條件：下單此商品",
+    "draw_order_code" : "開始下單抽獎",
+    "comment_include" : "抽獎條件：留言包含",
+    "draw_keyword" : "開始留言抽獎",
+    "error_outline" : "error_outline",
+    "no_winners" : "No Winner! There's no comment with this keyword.",
+    "got_it" : "Got it !",
+    "lucky_draw_result" : "抽獎結果",
+    "winner" : "得獎者",
+    "keyword" : "商品代碼",
+    "apply" : "確認"
+}

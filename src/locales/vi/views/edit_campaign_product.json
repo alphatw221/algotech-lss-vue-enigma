@@ -1,30 +1,30 @@
 {
     "edit_campaign_product":"Edit Campaign Product",
-    "add_product":"Add Product",
+    "add_product":"Thêm sản phẩm",
     "continue":"Continue",
     "invalid":"Invalid",
     "search_bar":{
-        "category":"Category",
-        "all":"All"
+        "category":"Loại",
+        "all":"Tất cả"
     },
     "campaign_product_table":{
-        "image":"Image",
-        "name":"Name",
-        "type":"Type",
-        "order_code":"Order Code",
-        "qty_for_sale":"Qty for Campaign",
-        "max_order_amount":"Max Qty/Order",
-        "tag":"Category",
-        "price":"Price",
-        "customer_editable":"Editable",
-        "customer_removable":"Removable",
-        "edit":"Edit",
-        "delete":"Delete",
+        "image":"Hình ảnh",
+        "name":"Tên",
+        "type":"Loại sản phẩm",
+        "order_code":"Mã đơn hàng",
+        "qty_for_sale":"Số lượng bán trong chiến dịch",
+        "max_order_amount":"Số lượng/Đơn hàng tối đa",
+        "tag":"Loại",
+        "price":"Giá bán",
+        "customer_editable":"Có thể chỉnh sửa",
+        "customer_removable":"Có thể xóa",
+        "edit":"Chỉnh sửa",
+        "delete":"Xóa",
         "types":{
-            "product":"Product",
-            "product-fast":"Product",
-            "lucky_draw-fast":"Lucky Draw",
-            "lucky_draw":"Lucky Draw"
+            "product":"Sản phẩm",
+            "product-fast":"Sản phẩm",
+            "lucky_draw-fast":"Quà tặng minigame",
+            "lucky_draw":"Quà tặng minigame"
         }
     },
    
@@ -32,23 +32,23 @@
         "edit_campaign_product":"Edit Campaign Product",
 
         
-        "name":"Name",
-        "type":"Type",
-        "order_code":"Order Code",
+        "name":"Tên",
+        "type":"Loại sản phẩm",
+        "order_code":"Mã đơn hàng",
         "qty_for_sale":"Qty For Sale",
         "max_order_amount":"Max Order Amount",
-        "tag":"Category",
-        "price":"Price",
-        "customer_editable":"Editable",
-        "customer_removable":"Removable",
+        "tag":"Loại",
+        "price":"Giá bán",
+        "customer_editable":"Có thể chỉnh sửa",
+        "customer_removable":"Có thể xóa",
 
-        "cancel":"Cancel",
-        "update":"Upadate",
+        "cancel":"Hủy bỏ",
+        "update":"Update",
         "types":{
-            "product":"Product",
-            "product-fast":"Product",
-            "lucky_draw-fast":"Lucky Draw",
-            "lucky_draw":"Lucky Draw"
+            "product":"Sản phẩm",
+            "product-fast":"Sản phẩm",
+            "lucky_draw-fast":"Quà tặng minigame",
+            "lucky_draw":"Quà tặng minigame"
         },
         "errors":{
             "integer":"Invalid data",
