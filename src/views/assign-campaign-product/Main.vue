@@ -1,6 +1,6 @@
 <template>
 	<!-- BEGIN Container -->
-	<div class="p-4 box">
+	<div :class="{'p-4 box': templateInModal !=true}">
 		<div class="flex flex-col col-span-12 h-fit lg:mt-3 pb-4">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
 		</div>
@@ -186,7 +186,7 @@
 					
 					
 				</div>
-				<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center justify-between">
+				<div class="intro-y flex flex-row flex-wrap sm:flex-nowrap items-center justify-between">
 					<Page 
 						class="mx-auto my-3"
 						:total="dataCount" 
@@ -195,7 +195,7 @@
 					/>
 					
 				</div> 
-				<div class=" flex items-center justify-between">
+				<div class=" flex items-center justify-between my-5 mb-14">
 					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">{{$t('assign_product.add')}}</button>
 				</div> 
 			</div>
@@ -330,7 +330,7 @@
 						</tbody>
 					</table> 
 				</div>
-				<div class=" flex items-center justify-between mt-10">
+				<div class="flex flex-wrap items-center justify-between mt-5 mb-20">
 					<button type="button" class="btn btn-primary inline-flex w-24 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="openTab='select'">{{$t(`assign_product.add_more`)}}</button>
 					<button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">{{$t(`assign_product.reset`)}}</button>
 					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">{{$t(`assign_product.confirm`)}}</button>

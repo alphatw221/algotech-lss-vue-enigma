@@ -30,7 +30,7 @@
         .nav-link {
           @apply rounded-md border-0;
           &.active {
-            @apply bg-primary text-white font-medium;
+            @apply bg-primary text-white font-medium fill-white;
           }
         }
       }
@@ -41,7 +41,7 @@
           box-shadow: 0px 3px 20px #0000000b;
           @apply rounded-md;
           &.active {
-            @apply bg-primary text-white font-medium;
+            @apply bg-primary text-white font-medium fill-white;
           }
         }
       }
@@ -60,7 +60,7 @@
   .nav-link {
     @apply block px-5 py-2.5 border border-transparent text-slate-700 dark:text-slate-400;
     &.active {
-      @apply text-slate-800 dark:text-white;
+      @apply text-slate-800 dark:text-white fill-white;
     }
   }
   .tab-content .tab-pane {
