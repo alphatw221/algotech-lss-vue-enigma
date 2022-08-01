@@ -1,8 +1,8 @@
 {
-    "shopping_cart":"Shopping Cart",
-    "delivery":"Delivery",
+    "shopping_cart":"Giỏ hàng",
+    "delivery":"Vận chuyển",
     "my_cart_tab":{
-        "special_note":"Special Note",
+        "special_note":"Lưu ý đặc biêt",
         "my_cart":"My Cart"
     },
     "delivery_tab":{
@@ -37,24 +37,24 @@
             "pickup":"Pickup Option"
         },
         "note":"Delivery and Collection Note",
-        "remark":"Remark",
-        "previous":"Previous",
+        "remark":"Nhận xét",
+        "previous":"Trước",
         "proceed_to_payment":"Proceed to Payment"
     },
     "table":{
         "update":"Update",
-        "cancel":"Cancel",
+        "cancel":"Hủy bỏ",
         "missing_message":"Many people are reviewing this item, you might be missing it.",
-        "delete":"Delete",
+        "delete":"Xóa",
         "empty_message":"Your Shopping Cart Is Empty",
-        "product":"Product",
-        "qty":"Qty",
-        "price":"Price",
+        "product":"Sản phẩm",
+        "qty":"Số lượng",
+        "price":"Giá bán",
         "subtotal":"Subtotal",
         "null":"",
         "cart":"My Cart",
         "items":"Items",
-        "edit":"Edit"
+        "edit":"Chỉnh sửa"
     },
     "order_summary":{
         "order_summary":"Order Summary",
@@ -64,7 +64,7 @@
         "total_charge":"Total Charge",
         "free_delivery":"Order is eligible for free delivery",
         "add_item":"Add more items",
-        "next":"Next"
+        "next":"Kế tiếp"
     },
     "add_item":{
         "select_add_ons":"Select add-ons",
@@ -74,14 +74,14 @@
     "payment":{
         "shipping_summary":"Shipping Summary",
         "pickup":"Self pickup",
-        "delivery":"Delivery",
+        "delivery":"Vận chuyển",
         "address":"Delivery Address",
         "pay_with":"Pay With",
         "direct":{
             "account":"Account",
-            "account_number":"Account Number",
-            "account_name":"Account Name",
-            "note":"Note",
+            "account_number":"Số tài khoản",
+            "account_name":"Tên tài khoản",
+            "note":"Ghi chú",
             "beneficiary":"Beneficiary Bank",
             "upload_img":" Drop files here or click to upload",
             "accepted_types":"File types",

@@ -1,27 +1,27 @@
 {
-    "title": "Auto Reply",
-    "create": "Create",
+    "title": "Chatbot tự động",
+    "create": "Tạo",
 
     "assign_first_reply": "Assign your first auto-reply by click (+ Create) button",
     "no_have_autoreply": "You Don't Have Auto Reply Yet.",
     "set_up_first": "Click \"+ Create\" to set up your first auto reply",
 
     "table_column": {
-        "keyword_detect": "Keywords to Detect",
-        "set_auto_reply": "Set Automated Response",
-        "remark": "Remark",
+        "keyword_detect": "Từ khóa để phát hiện",
+        "set_auto_reply": "Thiết lập phản hồi tự động",
+        "remark": "Nhận xét",
         "assign_to": "Assign To",
         "#": "#"
     },
 
     "manipulate": {
-        "edit": "Edit",
-        "delete": "Delete"
+        "edit": "Chỉnh sửa",
+        "delete": "Xóa"
     },
 
     "modal_title": "Create New Response",
-    "modal_cancel": "Cancel",
-    "modal_save": "Save",
+    "modal_cancel": "Hủy bỏ",
+    "modal_save": "Lưu lại",
     "modal_field_require": "Field is required",
     "modal_select_page": "Select one page",
     "saved_message":"Saved the Change",
