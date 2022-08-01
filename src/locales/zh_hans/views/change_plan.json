@@ -5,11 +5,11 @@
         "confirm":"确认"
     },
     "plan":{
-        "trial":"Trial",
-        "lite":"Lite",
-        "standard":"Standard",
-        "premium":"Premium",
-        "dealer":"Dealer"
+        "trial":"试用版",
+        "lite":"精简版",
+        "standard":"标准版",
+        "premium":"进阶版",
+        "dealer":"销售版"
     },
 
     "step_1":{

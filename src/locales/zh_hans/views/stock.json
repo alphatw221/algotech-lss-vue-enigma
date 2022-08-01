@@ -1,79 +1,79 @@
 {
-    "stock": "庫存商品",
+    "stock": "库存商品",
 
-    "for_sale": "銷售中",
+    "for_sale": "销售中",
     "delisted": "下架",
     "add_product": "新增商品",
-    "dont_have_product_notify": "目前沒有任何商品",
-    "no_result": "您並未新增商品",
-    "click_to_add":"點擊 \"+ 新增商品\"，新增您的第一個商品",
+    "dont_have_product_notify": "目前没有任何商品",
+    "no_result": "您并未新增商品",
+    "click_to_add":"点击 \"+ 新增商品\"，新增您的第一个商品",
 
 
     "search_bar": {
-        "category": "類別",
-        "search_by": "搜尋",
-        "search_holder": "搜尋...",
-        "search": "搜尋",
+        "category": "类别",
+        "search_by": "搜寻",
+        "search_holder": "搜寻...",
+        "search": "搜寻",
         "reset": "清空",
-        "category_manage": "類別管理",
-        "name": "名稱",
-        "order_code": "商品代碼",
-        "description": "說明"
+        "category_manage": "类别管理",
+        "name": "名称",
+        "order_code": "商品代码",
+        "description": "说明"
     },
 
     "table_column": {
-        "image": "圖片",
-        "name": "名稱",
-        "order_code": "商品代碼",
-        "type": "屬性",
-        "category": "類別",
-        "description": "說明",
-        "qty": "數量",
-        "price": "價格",
-        "confirm_delete": "確定要刪除該商品 ?"
+        "image": "图片",
+        "name": "名称",
+        "order_code": "商品代码",
+        "type": "属性",
+        "category": "类别",
+        "description": "说明",
+        "qty": "数量",
+        "price": "价格",
+        "confirm_delete": "确定要删除该商品 ?"
     },
 
     "category_manage": {
-        "create_new_category": "建立新類別",
-        "edit_title": "編輯類別",
-        "edit": "編輯",
-        "delete": "刪除",
-        "input_holder": "類別名稱",
+        "create_new_category": "建立新类别",
+        "edit_title": "编辑类别",
+        "edit": "编辑",
+        "delete": "删除",
+        "input_holder": "类别名称",
         "modal": {
             "cancel": "取消",
-            "save": "儲存",
-            "warning_duplicate": "重複的類別名稱"
+            "save": "储存",
+            "warning_duplicate": "重复的类别名称"
         },
-        "save_success":"儲存成功",
-        "not_saved":"取消儲存",
-        "confirm_delete": "確定要刪除該類別 ?"
+        "save_success":"储存成功",
+        "not_saved":"取消储存",
+        "confirm_delete": "确定要删除该类别 ?"
     },
 
     "add_product_page": {
-        "edit_title": "編輯商品",
+        "edit_title": "编辑商品",
         "add_title": "新增商品",
-        "product_name": "商品名稱",
-        "name_warning": "請輸入商品名稱，少於50個字",
-        "category": "類別",
-        "upload_image": "上傳圖片",
-        "drop_file_text": "將檔案拖曳到此處或點擊.",
-        "accept_file_text": "支援的檔案格式: jpeg, png, jpg",
-        "max_size_text": "檔案大小上限",
-        "quantity": "數量",
-        "qty_warning": "數量需填數字",
-        "price": "價格",
-        "price_warning": "價格需填數字",
-        "status": "預設狀態",
-        "description": "說明",
-        "product_description": "商品說明...",
-        "description_warning": "說明須填不超過100字",
+        "product_name": "商品名称",
+        "name_warning": "请输入商品名称，少于50个字",
+        "category": "类别",
+        "upload_image": "上传图片",
+        "drop_file_text": "将档案拖曳到此处或点击.",
+        "accept_file_text": "支援的档案格式: jpeg, png, jpg",
+        "max_size_text": "档案大小上限",
+        "quantity": "数量",
+        "qty_warning": "数量需填数字",
+        "price": "价格",
+        "price_warning": "价格需填数字",
+        "status": "默认状态",
+        "description": "说明",
+        "product_description": "商品说明...",
+        "description_warning": "说明须填不超过100字",
         "cancel": "取消",
-        "save": "儲存",
+        "save": "储存",
 
-        "not_save_message":"取消儲存",
+        "not_save_message":"取消储存",
         "create_message":"新增成功",
         "update_message":"更新成功",
-        "invalid_data":"無效資料"
+        "invalid_data":"无效资料"
     }
     
 }

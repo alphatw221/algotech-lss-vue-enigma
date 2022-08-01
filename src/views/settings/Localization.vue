@@ -104,7 +104,8 @@ const languages = ref([
     {value:'en',text:'English'},
     // {value:'zh_hans',text:'Chinese-simplify'},
     {value:'zh_hant',text:'Chinese-tranditional'},
-    // {value:'id',text:'Indonesian'}
+    // {value:'id',text:'Indonesian'},
+    // {value:'vi',text:'Vietnamese'}
 ])
 
 const decimalOptions = ref([
