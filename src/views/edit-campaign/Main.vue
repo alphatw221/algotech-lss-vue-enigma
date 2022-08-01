@@ -289,6 +289,9 @@ const updateCampaign = ()=>{
 		return
 	}
 
+	campaignData.value.meta_logistic.delivery_note = campaignNotes.value.meta_logistic.delivery_note
+	campaignData.value.meta_payment.special_note = campaignNotes.value.meta_payment.special_note
+	campaignData.value.meta_payment.confirmation_note = campaignNotes.value.meta_payment.confirmation_note
 
 	let formData = new FormData()
 	formData.append('data', JSON.stringify(campaignData.value))
@@ -297,7 +300,6 @@ const updateCampaign = ()=>{
 		const key = campaignData.value.meta_payment.direct_payment.v2_accounts[index].name+'_'+index   
 		formData.append(key,image)
 	});
-
 
 	update_campaign(route.params.campaign_id,formData).then(response => {
 		router.back()
