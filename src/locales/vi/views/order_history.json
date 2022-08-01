@@ -8,5 +8,9 @@
         "status":"Trạng thái",
         "action":"Hành động",
         "view":"Xem"
-    }
+    },
+    "complete" : "Hoàn thành",
+    "review" : "Đang kiểm tra",
+    "shipping out":"Đã giao hàng",
+    "Direct Payment":"Thanh toán trực tiếp"
 }
