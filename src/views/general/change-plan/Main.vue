@@ -84,8 +84,10 @@ const toggleTabs = tabNumber => {
 }
 
 onMounted(()=>{
+    layout.changePlanTab= 1
     loadScript("https://js.stripe.com/v3/",()=>{
     console.log("stripe SDK loaded")
+    
   })
 })
 </script>
