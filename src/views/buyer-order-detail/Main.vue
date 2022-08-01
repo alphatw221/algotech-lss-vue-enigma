@@ -103,19 +103,19 @@
                 <div class="grid grid-cols-3 gap-2 p-3 text-right">
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
-                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.subtotal).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
+                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.subtotal).toFixed(store.order.campaign.decimal_places)}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.delivery_charge')}}</div>
-                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.shipping_cost).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
+                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.shipping_cost).toFixed(store.order.campaign.decimal_places)}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}} {{store.order.adjust_title ?? ''}}</div>
-                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.adjust_price).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
+                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.adjust_price).toFixed(store.order.campaign.decimal_places)}}</div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.total')}}</div>
-                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.total).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
+                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.total).toFixed(store.order.campaign.decimal_places)}}</div>
                     </div>
                 </div>
             </div>
