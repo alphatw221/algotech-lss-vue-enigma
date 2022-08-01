@@ -36,10 +36,10 @@
 					{{ product.qty }}
 				</td>
 				<td class="text-right" :data-content="$t('order_detail.table.price')" v-if="store.order.campaign">
-					{{store.order.campaign.currency}} {{ parseFloat(product.price).toFixed(2) }}
+					{{store.order.campaign.currency}} {{ parseFloat(product.price).toFixed(store.order.campaign.user_subscription.decimal_places) }}
 				</td>
 				<td class="text-right" :data-content="$t('order_detail.table.sub_total')" v-if="store.order.campaign">
-					{{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(2) }}
+					{{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.order.campaign.user_subscription.decimal_places) }}
 				</td>
 			</tr>
 		</tbody>
