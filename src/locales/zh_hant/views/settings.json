@@ -43,7 +43,8 @@
     "payment_form":{
         "payment_titles":{
             "direct_payment":"轉帳付款",
-            "stripe":"Stripe付款"
+            "stripe":"Stripe付款",
+            "hitpay":"Hitpay付款"
         },
 
         "direct_payment":{
@@ -56,6 +57,12 @@
         "stripe":{
             "secret":"密鑰",
             "currency":"貨幣"
+        },
+        "hitpay":{
+            "button_title":"按鈕標題",
+            "currency":"貨幣",
+            "api_key":"API 密鑰",
+            "salt":"密碼"
         },
 
         "payment_details":"金流設定",

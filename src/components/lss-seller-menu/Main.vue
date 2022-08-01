@@ -235,7 +235,8 @@ onMounted(() => {
     display: none;
   }
   .outterContainer{
-  height: calc(100vh - 70px);
+  /* height: calc(100vh - 70px); */
+  height: auto;
 }
 }
 

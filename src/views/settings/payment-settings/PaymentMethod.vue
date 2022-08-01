@@ -12,7 +12,7 @@
 
         <div class="my-5 lg:my-0 p-5 rounded-md border-2 border-slate">
             <div v-if="props.payment.fields==''"> 
-                Add your stripe account
+                Add your ${props.payment.key} account
             </div>
             <div 
                 class="flex-col flex gap-2 my-2 intro-y w-full" 
@@ -20,7 +20,7 @@
                 :key="index"
             >
                 <template v-if="field.type === 'text' || field.type === 'password'">
-                    <label class="mt-5 lg:mt-0">{{ $t(`settings.payment_form.stripe.${field.key}`)  }}</label>
+                    <label class="mt-5 lg:mt-0">{{ $t(`settings.payment_form.${props.payment.key}.${field.key}`)  }}</label>
                     <input 
                         class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
                         type="text" 
@@ -28,7 +28,7 @@
                     />
                 </template>
                 <template v-else-if="field.type === 'select'">
-                    <label class="mt-5 lg:mt-0">{{ $t(`settings.payment_form.stripe.${field.key}`)  }}</label>
+                    <label class="mt-5 lg:mt-0">{{ $t(`settings.payment_form.${props.payment.key}.${field.key}`)  }}</label>
                     <TomSelect 
                         class="w-full sm:w-[300px]"
                         v-model="paymentData[field.key]"

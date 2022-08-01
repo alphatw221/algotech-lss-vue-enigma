@@ -22,3 +22,7 @@ export const reply_to_direct_message = (page_id, user_id, text, pageToken) => {
     return instagramAxios(pageToken).post(`${page_id}/messages/`, {"recipient": {"id":user_id},"message": {"text": text}})
 }
 
+export const check_instagram_profile_post_exist = (platform_id, media_id) => {
+    return createAxiosWithBearer().get(`/api/v2/instagram-profile/${platform_id}/post/check/?post_id=${media_id}`)
+}
+
