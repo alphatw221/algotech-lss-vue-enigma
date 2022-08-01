@@ -24,3 +24,7 @@ export const seller_update_delivery = (data) => {
 export const unbind_platform_instance = (platform_name, data) => {
     return createAxiosWithBearer().put(`/api/user-subscription/platform/${platform_name}/unbind/`, data)
 }
+
+export const upload_animation = (data) => {
+    return createAxiosWithBearer().post(`/api/v2/user-subscription/seller/upload/animation/`, data)     
+}
