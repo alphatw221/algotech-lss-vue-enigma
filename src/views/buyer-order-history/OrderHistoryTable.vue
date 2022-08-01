@@ -32,8 +32,8 @@
 						<template v-else-if="column.type=='dateTime'">
 							{{ new Date(order[column.key]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
 						</template>
-						<template v-else-if="column.type=='float'">
-							{{parseFloat(order[column.key]).toFixed(2)}}
+						<template v-else-if="column.type=='float' && order.campaign">
+							{{order.campaign.currency}} {{parseFloat(order[column.key]).toFixed(order.campaign.decimal_places)}}
 						</template>
 
 						<template v-else>
@@ -78,6 +78,14 @@ const tableColumns = ref([
                 { name: "action", key: "action", type:'link' },
             ])
 
+const priceUnit = ref([
+    {key:'',value:''},
+    {key:'undefined',value:''},
+    {key:'1',value:''},
+    {key:'1000',value:'K'},
+    {key:'1000000',value:'1000000'},
+])
+
 const routeToDetail =(order_id)=>{
   buyer_retrieve_order_oid(order_id).then(res=>{
     router.push(`/buyer/order/${res.data}`)
@@ -99,6 +107,7 @@ const getOrderHistoryListData = ()=>{
 		const total_page = parseInt(dataCount.value / pageSize.value);
 		totalPage.value = total_page == 0 ? 1 : total_page;
 		orders.value = response.data.results;
+    console.log(orders.value)
 	})
 }
 onMounted(()=>{
