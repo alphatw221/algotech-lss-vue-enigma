@@ -48,6 +48,52 @@
 			</div>
 		</div>
 		
+		<div class="box py-5 mx-20 mt-3 sm:p-8 sm:py-5 px-2 lg:px-10 text-sm sm:text-lg ">
+
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div> {{$t("settings.localization.currency_symbol")}} </div>
+			</div>
+			<div class="flex my-1 ">
+				<TomSelect v-model="campaignData.currency" :options="{
+							placeholder: $t('settings.localization.choose_currency_symbol'),
+							}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
+				</TomSelect>
+			</div>
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
+			</div>
+			<div class="flex my-1">
+				<TomSelect v-model="campaignData.buyer_lang" :options="{
+							placeholder: $t('settings.localization.choose_language'),
+							}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
+				</TomSelect>
+			</div>
+
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+			</div>
+
+			<div class="flex my-1">
+				<TomSelect v-model="campaignData.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in priceUnitOptions" :key="index">{{$t(`settings.localization.priceOptions.${option.key}`)}}</option>
+				</TomSelect>
+			</div>
+
+			<div class="flex my-3 mt-5 form-label text-base font-medium">
+				<div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
+			</div>
+			<div class="flex my-1">
+				<TomSelect v-model="campaignData.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-full">
+					<option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
+				</TomSelect>
+			</div>
+		</div>
+
+
+
+
 
 		<DeliveryForm 
 			:campaign="campaignData"
@@ -98,6 +144,35 @@ const dateTimePicker = ref({
 	end:new Date()
 })
 
+const currencySymbols = ref([
+    {value:'USD',text:'USD'},
+    {value:'NTD',text:'NTD'},
+    {value:'SGD',text:'SGD'},
+    {value:'IDR',text:'IDR'},
+    {value:'PHP',text:'PHP'},
+    {value:'MYR',text:'MYR'},
+    {value:'VND',text:'VND'},
+    {value:'RMB',text:'RMB'},
+    {value:'KHR',text:'KHR'},
+    {value:'AUD',text:'AUD'},
+    {value:'HKD',text:'HKD'}])
+
+const priceUnitOptions = ref([
+    {key:'1',value:'1'},
+    {key:'1000',value:'1000'},
+    {key:'1000000',value:'1000000'},
+])
+
+const languages = ref([
+    {value:'en',text:'English'},
+    {value:'zh_hant',text:'Chinese-tranditional'},
+])
+
+const decimalOptions = ref([
+    {value:'2',text:'0.01'},
+    {value:'0',text:'1'},
+])
+
 const campaignData = ref({
 	title:'',
 	start_at:new Date(),
@@ -113,6 +188,11 @@ const campaignData = ref({
 		pickup_options: [],
 		delivery_note : ''
 	},
+	currency:'USD', 
+	lang:'en', 
+	buyer_lang:'en', 
+	decimal_places:2, 
+	price_unit:'1',
 	meta_payment:{
 		special_note: '',
 		confirmation_note: ''
@@ -175,6 +255,10 @@ const sellerStore = useLSSSellerLayoutStore()
 onMounted(() => {
 	if(!sellerStore.userInfo.user_subscription) return
 	
+	if(sellerStore.userInfo.user_subscription.currency)campaignData.value.currency=sellerStore.userInfo.user_subscription.currency
+	if(sellerStore.userInfo.user_subscription.buyer_lang)campaignData.value.buyer_lang=sellerStore.userInfo.user_subscription.buyer_lang
+	if(sellerStore.userInfo.user_subscription.decimal_places)campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places
+	if(sellerStore.userInfo.user_subscription.price_unit)campaignData.value.price_unit=sellerStore.userInfo.user_subscription.price_unit
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
 	}
