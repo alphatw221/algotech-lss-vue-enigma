@@ -8,5 +8,9 @@
         "status":"Status",
         "action":"Action",
         "view":"View"
-    }
+    },
+    "complete" : "Complete",
+    "review" : "Review",
+    "shipping out":"Shipping Out",
+    "Direct Payment":"Direct Payment"
 }

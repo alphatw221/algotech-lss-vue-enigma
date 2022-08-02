@@ -8,5 +8,9 @@
         "status":"订单状态",
         "action":"",
         "view":"详细"
-    }
+    },
+    "complete" : "已完成",
+    "review" : "处理中",
+    "shipping out":"已出货",
+    "Direct Payment":"转帐支付"
 }

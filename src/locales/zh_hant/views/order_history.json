@@ -8,5 +8,9 @@
         "status":"訂單狀態",
         "action":"",
         "view":"詳細"
-    }
+    },
+    "complete" : "已完成",
+    "review" : "處理中",
+    "shipping out":"已出貨",
+    "Direct Payment":"轉帳付款"
 }
