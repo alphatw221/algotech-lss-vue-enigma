@@ -56,10 +56,10 @@
     },
     "step_3":{
         "succeeded":"Thanh toán thành công",
-        "email":"Email",
-        "your_plan":"Gói dịch vụ",
-        "sub_period":"Thời gian sử dụng",
-        "expired_date":"Ngày hết hạn sử dụng",
+        "Email":"Email",
+        "Your Plan":"Gói dịch vụ",
+        "Subscription Period":"Thời gian sử dụng",
+        "Subscription End Date":"Ngày hết hạn sử dụng",
         "download":"Tải xuống biên lai",
         "thankyou":"Cảm ơn bạn đã thanh toán. Gói dịch vụ của bạn đã được thay đổi"
     }

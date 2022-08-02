@@ -56,10 +56,10 @@
     },
     "step_3":{
         "succeeded":"付款完成",
-        "email":"電子信箱",
-        "your_plan":"您的訂閱方案",
-        "sub_period":"訂閱期限",
-        "expired_date":"方案期限",
+        "Email":"電子信箱",
+        "Your Plan":"您的訂閱方案",
+        "Subscription Period":"訂閱期限",
+        "Subscription End Date":"方案期限",
         "download":"下載電子收據",
         "thankyou":"感謝您的註冊, 您的訂閱方案已變更!"
     }

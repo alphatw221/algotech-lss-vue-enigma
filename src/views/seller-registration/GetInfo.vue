@@ -40,18 +40,18 @@
 
             <div class="flex flex-row gap-8">
                 <div class="flex-col w-1/2">
-                    <label for="firstName">First Name</label><span class="star"> *</span>
+                    <label for="firstName">{{$t('register.basic_info.first_name')}} </label><span class="text-danger"> *</span>
                     <input class="form-control" v-model="validate.firstName.$model" />
                 </div>
                 <div class="flex-col w-1/2">
-                    <label for="lastName">Last Name</label><span class="star"> *</span>
+                    <label for="lastName">{{$t('register.basic_info.last_name')}}</label><span class="text-danger"> *</span>
                     <input class="form-control" v-model="validate.lastName.$model" />
                 </div>
             </div>
 
             <div class="flex flex-row gap-8"> 
                 <div class="flex-col w-1/3">
-                    <label for="" class="subLabel" >Country code</label><span class="text-danger"> *</span>
+                    <label for="" class="subLabel" >{{$t('register.basic_info.country_code')}}</label><span class="text-danger"> *</span>
                         <select 
                             class="w-full form-select sm:form-select-lg rounded-lg" 
                             :class="{ 'border-danger text-danger border-2': validate.countryCode.$error }" 
@@ -68,7 +68,7 @@
                     </template>
                 </div>
                 <div class="flex-col w-2/3">
-                    <label for="" class="subLabel" >Contact Number</label><span class="text-danger"> *</span>
+                    <label for="" class="subLabel" >{{$t('register.basic_info.number')}}</label><span class="text-danger"> *</span>
                     <input class="form-control" v-model="validate.phone.$model"/> 
                     <template v-if="validate.phone.$error">
                         <label class="text-danger text-[16px] leading-tight">
@@ -79,7 +79,7 @@
             </div>
 
             <div class="flex-col">
-                <label class="subLabel" >Email</label><span class="text-danger"> *</span>
+                <label class="subLabel" >{{$t('register.basic_info.email')}}</label><span class="text-danger"> *</span>
                     <div class="relative"> 
                         <MailIcon class="absolute w-6 h-6 top-2.5 left-3 z-10 text-slate-400"/>
                         <input type="email" class="iconInput form-control"
@@ -94,7 +94,7 @@
             </div>
 
             <div class="flex-col">
-                <label for="" class="subLabel" >Password</label><span class="text-danger"> *</span>
+                <label for="" class="subLabel" >{{$t('register.basic_info.password')}}</label><span class="text-danger"> *</span>
                 <div class="relative">  
                     <input class="iconInput form-control"
                         v-model="validate.password.$model"
@@ -109,13 +109,13 @@
                 </div>
                 <template v-if="validate.password.$error">
                     <label class="text-danger text-[16px] leading-tight">
-                        {{$t('register.basic_info.required_field')}}
+                        {{$t('register.password_length')}}
                     </label>
                 </template>
             </div>
             
             <div class="flex-col">
-                <label for="" class="subLabel" >Confirm Password</label><span class="text-danger"> *</span>
+                <label for="" class="subLabel" >{{$t('register.basic_info.confirm_password')}}</label><span class="text-danger"> *</span>
                 <div class="relative">  
                     <input class="iconInput form-control"
                         v-model="validate.confirmPassword.$model"
@@ -136,7 +136,7 @@
             </div>
 
             <div class="flex-col">
-                <label for="" class="subLabel" >Target Country</label><span class="text-danger"> *</span>
+                <label for="" class="subLabel" >{{$t('register.basic_info.target_country')}}</label><span class="text-danger"> *</span>
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg" 
                         :class="{ 'border-danger text-danger border-2': validate.targetCountry.$error }" 
@@ -188,11 +188,11 @@
         </form>
         <div class="flex justify-between my-10">
             <a class="text-center btn btn-secondary" href="https://liveshowseller.com/">
-                Home
+                {{$t('register.basic_info.home')}}
             </a> 
             <button class="btn btn-primary"
                 @click="submitBasicInfo()"
-                > Next
+                > {{$t('register.basic_info.next')}}
             </button>
         </div> 
     </div>
@@ -272,7 +272,6 @@ const submitBasicInfo=()=>{
         return
     }
     console.log(basicInfo.value)
-    layout.notification.showMessageToast(i18n.global.t('profile.invalid_data'))
     eventBus.emit("registerInfo", basicInfo.value)
 }
 </script>

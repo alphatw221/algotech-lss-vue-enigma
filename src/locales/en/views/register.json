@@ -54,7 +54,7 @@
             "US": "United States" , 
             "vietnam": "Vietnam"
         },
-        "required_field": "field is required",
+        "required_field": "Field is required",
         "password_err":"Password dosen't match",
         "welcome_gift": "You are eligible for welcome gift (5% discount)",
         "promocode_question":"Do you have promo code?",
@@ -65,7 +65,7 @@
             "&": "&",
             "conditions":"Conditions"
         },
-        "back":"Back",
+        "home":"Home",
         "next":"Next"
     },
     "payment":{
@@ -81,12 +81,18 @@
     },
     "confirm":{
         "succeeded":"Payment succeeded",
-        "email":"Email",
-        "your_plan":"Your Plan",
-        "sub_period":"Subscription Period",
-        "expired_date":"Subscription End Date",
+        "Email":"Email",
+        "Customer Name":"Customer Name",
+        "Password":"Password",
+        "Your Plan":"Your Plan",
+        "Target Country": "Target Country",
+        "Subscription Period":"Subscription Period",
+        "Subscription End Date":"Subscription End Date",
         "download":"Download Receipt",
-        "thankyou":"Thank you for your payment. Your plan has been changed!"
-    }
-
+        "thankyou":"Thank you for your payment. Your plan has been changed!" 
+    },
+    "invalid_data":"Invalid Submission",
+    "input_err":"Input Error",
+    "input_required":"Input Required",
+    "password_length":"Passwords must be between 8 to 20 characters"
 }
