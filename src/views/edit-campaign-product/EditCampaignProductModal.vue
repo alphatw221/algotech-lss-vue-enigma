@@ -17,6 +17,7 @@
                             v-model="campaignProduct[column.key]" 
                         />
                     </template>
+
                     <template v-else-if="column.key === 'type'">
                         <select class="form-select" v-model="campaignProduct[column.key]">
                             <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
@@ -24,6 +25,10 @@
                             </option>
                         </select> 
                     </template> 
+
+                     <template  v-else-if="column.key === 'price'">
+                        <input type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
+                    </template>
 
                     <template v-else>
                         <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
@@ -35,7 +40,6 @@
                                 {{ $t(`edit_campaign_product.edit_product_modal.errors.${error.$validator}`) }}
                             </label>
                         </template>
-                        
                     </template>
                 </div>
             </template>
@@ -90,7 +94,7 @@ const campaignProductRules = computed(() => {
         order_code:{required},
         qty_for_sale:{required , integer, minValue:minValue(1)},
         max_order_amount:{integer, minValue:minValue(0), maxValue:maxValue(campaignProduct.value.qty_for_sale)},
-        price:{required, decimal, minValue:minValue(0) },
+        // price:{required, decimal, minValue:minValue(0) },
     }
 })
 

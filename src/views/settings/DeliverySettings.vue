@@ -176,12 +176,12 @@
                 10 Anson Road, International Plaza, #10-11, 079903 Singapore, Singapore
             </textarea> -->
         <div class="flex mt-5 float-right text-[14px]">
-            <button 
+            <!-- <button 
                 class="w-32 btn dark:border-darkmode-400 float-right"
                 @click="discardDelivery"
             >
                 {{ $t('settings.notes.discard') }}
-            </button>
+            </button> -->
             <button 
                 class="w-32 ml-5 shadow-md btn btn-primary float-right"
                 @click="updateDelivery"
