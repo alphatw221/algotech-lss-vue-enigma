@@ -354,6 +354,11 @@ const routes = [
     component: () => import('@/views/password-reset/Main.vue')
   },
   {
+    path: "/seller/register",
+    name: "register",
+    component: () => import('@/views/seller-registration/Main.vue')
+  },
+  {
     path: "/error-page",
     name: "error-page",
     component: ErrorPage,
