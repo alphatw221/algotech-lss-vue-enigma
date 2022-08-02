@@ -19,7 +19,8 @@
                     </template>
 
                     <template v-else-if="column.key === 'type'">
-                        <select class="form-select" v-model="campaignProduct[column.key]">
+
+                        <select class="form-select" v-model="campaignProduct[column.key]" disabled>
                             <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
                                 {{$t(`edit_campaign_product.edit_product_modal.types.${type.value}`)}}
                             </option>
@@ -27,6 +28,10 @@
                     </template> 
 
                      <template  v-else-if="column.key === 'price'">
+                        <input type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
+                    </template>
+
+                    <template  v-else-if="column.key === 'order_code'">
                         <input type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
                     </template>
 

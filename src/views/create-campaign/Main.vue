@@ -259,7 +259,7 @@ onMounted(() => {
 	
 	if(sellerStore.userInfo.user_subscription.currency)campaignData.value.currency=sellerStore.userInfo.user_subscription.currency
 	if(sellerStore.userInfo.user_subscription.buyer_lang)campaignData.value.buyer_lang=sellerStore.userInfo.user_subscription.buyer_lang
-	if(sellerStore.userInfo.user_subscription.decimal_places)campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places
+	if(sellerStore.userInfo.user_subscription.decimal_places)campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places.toString()  //temp   TomSelect only work with string value
 	if(sellerStore.userInfo.user_subscription.price_unit)campaignData.value.price_unit=sellerStore.userInfo.user_subscription.price_unit
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))

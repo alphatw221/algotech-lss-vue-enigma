@@ -96,8 +96,7 @@
 										</div>
 									</td>
 
-									<td 
-										v-else-if="column.key === 'order_code'" class="orderCode text-right" 
+									<td v-else-if="column.key === 'order_code'" class="orderCode text-right" 
 										:data-content="$t(`assign_product.product_table.${column.key}`)"
 										>
 										<div class="place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
