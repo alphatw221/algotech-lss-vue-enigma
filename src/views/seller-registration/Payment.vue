@@ -37,12 +37,13 @@
       <div class="flex justify-between mt-10 text-sm lg:text-lg">
         <button
             class="w-32 btn dark:border-darkmode-400"
-            @click="layout.changePlanTab = 1"
+            @click="layout.registerTab = 1"
             >
             {{$t('register.payment.privious')}}
         </button>
 
         <button
+        v-show="comfirmPayment == true"
         class="w-fit ml-5 shadow-md btn btn-primary"
         flat
         @click="signUp"
@@ -59,6 +60,8 @@ import { useRoute, useRouter } from "vue-router";
 import { seller_validate_register } from '@/api/user_subscription'
 import { seller_register } from '@/api_v2/user'
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
+import i18n from "@/locales/i18n"
+
 const layout = useSellerRegistrationStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -67,11 +70,7 @@ const route = useRoute();
 const router = useRouter();
 
 const planSelected = ref(false)
-
-const toggleTabs = tabNumber => {
-  layout.changePlanTab = tabNumber
-  }
-
+const comfirmPayment = ref(false)
 const comfirmInfo = ref({
   user_plan: '', 
   period:'',
@@ -92,17 +91,16 @@ onMounted(()=>{
 
       paymentInfo.value.intentSecret = res.data.client_secret
       renderStripeElement(comfirmInfo.value.client_secret)
-        }).catch( err=>{
-            layout.registerTab = 1
-            alert(err)
-        })
-    layout.registerTab = 2
+        layout.registerTab = 2
+    }).catch( err=>{
+        layout.registerTab = 1
+    })
   })
 }) 
 
 const renderStripeElement=(intentSecret)=>{
-    const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
-    // const stripe = window.Stripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
+    // const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
+    const stripe = window.Stripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
     const options = {
         clientSecret: intentSecret,
         // Fully customizable with appearance API.
@@ -156,6 +154,7 @@ const renderStripeElement=(intentSecret)=>{
                             alert(err)
                         })
                         message.innerText = 'Success! Payment received.';
+                        comfirmPayment.value = true;
                         break;
 
                     case 'processing':

@@ -1,19 +1,19 @@
 <template>
     <div class="confirmation" :class="{ hidden: layout.registerTab !== 3, block: layout.registerTab === 3 }">
 
-      <span class="px-3 text-xl font-medium"> {{$t('change_plan.step_3.succeeded')}} </span> 
+      <span class="px-3 text-xl font-medium"> {{$t('register.confirm.succeeded')}} </span> 
       <div class="p-3 py-5 text-sm lg:text-lg flex-col"> 
         <div class="flex-row"  
             v-for="(value,key) in confirmationInfo" v-bind:key="key">
             <div v-if=" key !== 'Receipt'">
-                <label> {{$t(`change_plan.step_3.` +  key) }} : <span class="ml-3 font-medium text-[#660000]"> {{value}}</span> </label>
+                <label> {{$t(`register.confirm.` +  key) }} : <span class="ml-3 font-medium text-[#660000]"> {{value}}</span> </label>
             </div>
             <div v-if=" key === 'Receipt'" class="mt-10">
-                <button class="btn btn-warning text-white" @click="openReceiptDownloadPage"> {{$t('change_plan.step_3.download')}} </button>
+                <button class="btn btn-warning text-white" @click="openReceiptDownloadPage"> {{$t('register.confirm.download')}} </button>
             </div>
         </div>
         <div class="flex flex-col font-medium text-center mt-10">
-            <div> {{$t('change_plan.step_3.thankyou')}}</div>
+            <div> {{$t('register.confirm.thankyou')}}</div>
             <!-- <div style="color:red; font-style:bold;">Please wait, the page is being redirected...</div> -->
         </div>
       </div>

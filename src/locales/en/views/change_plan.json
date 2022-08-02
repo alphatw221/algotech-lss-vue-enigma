@@ -56,12 +56,15 @@
     },
     "step_3":{
         "succeeded":"Payment succeeded",
-        "email":"Email",
-        "your_plan":"Your Plan",
-        "sub_period":"Subscription Period",
-        "expired_date":"Subscription End Date",
+        "Email":"Email",
+        "Customer Name":"Customer Name",
+        "Password":"Password",
+        "Your Plan":"Your Plan",
+        "Target Country": "Target Country",
+        "Subscription Period":"Subscription Period",
+        "Subscription End Date":"Subscription End Date",
         "download":"Download Receipt",
-        "thankyou":"Thank you for your payment. Your plan has been changed!"
+        "thankyou":"Thank you for your payment. Your plan has been changed!" 
     }
 
 }
