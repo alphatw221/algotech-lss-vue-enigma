@@ -8,7 +8,7 @@
         <div class="flex flex-col items-center p-10 text-center center w-[375px]">
             <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
             <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >Forgot Password</h3>
-            <form class="w-full flex-col flex gap-5 z-10">
+            <div class="w-full flex-col flex gap-5 z-10">
                 <!-- :placeholder="$t('campaign_list.search_bar.search')+'...'" -->
                 <div class="relative"> 
                     <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
@@ -16,11 +16,11 @@
                         placeholder="Enter your e-mail" 
                         v-model="email" />
                 </div>
-                <button class="resend_btn btn rounded-xl" long @click="sendResetLink">Send Password Reset Link</button>
+                <button class="resend_btn btn rounded-xl" @click="sendResetLink()">Send Password Reset Link</button>
                 <h6 class="align-center text-center text-[16px]">
-                    <a class="m-auto font-medium"  @click=" this.$router.push({name:'LoginPage'});" >Back to Login Page</a>
+                    <a class="m-auto font-medium"  @click=" router.push({name:'LoginPage'});" >Back to Login Page</a>
                 </h6>
-            </form>
+            </div>
         </div>
     </div>
 </template>
@@ -28,15 +28,19 @@
 <script setup >
 // import { forgot_password } from '@/api/user'
 import { seller_forgot_password } from '@/api_v2/user'
+import { useRoute, useRouter } from "vue-router";
 import {ref, onMounted, onBeforeMount } from 'vue'
 
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
-
+const route = useRoute()
+const router = useRouter()
 const email = ref('')
 const sendResetLink=()=>{
-    seller_forgot_password({email: this.email})
+    seller_forgot_password({email: email.value})
     .then(res=>{
         alert(res.data.message)
+    }).catch(err=>{
+        console.log(err)
     })
 }
 

@@ -53,3 +53,7 @@ export const seller_changePlan_payment = data =>{
 export const seller_upgrade = data =>{
     return createAxiosWithBearer().post(`/api/user-subscription/upgrade/`, data);
 }
+
+export const seller_validate_register = (countryCode,data) =>{
+    return axiosInstance.post(`/api/user/register/validate/${countryCode}/`,data);
+}

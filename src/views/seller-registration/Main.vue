@@ -5,6 +5,7 @@
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
+                        @click="layout.registerTab === 1 "
                         :class="{
                             'text-neutral-600 bg-white': layout.registerTab !== 1,
                             'text-white bg-primary': layout.registerTab === 1 
@@ -17,13 +18,14 @@
                             'text-neutral-600': layout.registerTab !== 1,
                             'font-bold': layout.registerTab === 1,
                         }">
-                        Basic Info
+                        {{$t('register.tab.basic_info')}}  
                     </div>
                 </div>
             </li>
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
+                        @click="layout.registerTab === 2 "
                         :class="{
                         'text-neutral-600 bg-white': layout.registerTab !== 2,
                         'text-white bg-primary': layout.registerTab === 2,
@@ -35,13 +37,15 @@
                             'text-neutral-600': layout.registerTab !== 2,
                             'font-bold': layout.registerTab === 2,
                         }">
-                        {{$t('change_plan.tab.payment')}}
+                        {{$t('register.tab.payment')}}
                     </div>
                 </div>
             </li>
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
-                    <button :class="{
+                    <button 
+                        @click="layout.registerTab === 3 "
+                        :class="{
                         'text-neutral-600 bg-white': layout.registerTab !== 3,
                         'text-white bg-primary': layout.registerTab === 3,
                     }" class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400 cursor-auto">
@@ -52,7 +56,7 @@
                             'text-neutral-600': layout.registerTab !== 3,
                             'font-bold': layout.registerTab === 3,
                         }">
-                        {{$t('change_plan.tab.confirm')}}
+                        {{$t('register.tab.confirm')}}
                     </div>
                 </div>
             </li>
@@ -67,10 +71,20 @@
             </div>
         </div>
     </div>
+
+    <Notification refKey="registerMessageNotification" :options="{duration: 3000,}" class="flex text-green-600 sm:flex-row">
+      <CheckCircleIcon class="w-6 h-6 mr-2" /> 
+      <div id="message" class="font-medium">Message</div>
+    </Notification>
+
+    <Notification refKey="registerMessageAlert" :options="{duration: 3000,}" class="flex text-red-600 sm:flex-row">
+      <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
+      <div id="message" class="font-medium">Message</div>
+    </Notification>
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, provide } from "vue";
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 import loadScript from '@/libs/loadScript.js';
 import GetInfo from "./GetInfo.vue";
@@ -90,4 +104,13 @@ onMounted(()=>{
     
   })
 })
+
+provide("bind[registerMessageNotification]", (el) => {
+  layout.notification = el;
+  // el.showMessageToast('test notification')
+});
+provide("bind[registerMessageAlert]", (el) => {
+  layout.alert = el;
+  // el.showMessageToast('test alert')
+});
 </script>
