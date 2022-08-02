@@ -15,6 +15,7 @@ import assign_product from './views/assign_product.json'
 import change_plan from './views/change_plan.json'
 import layout from './views/layout.json'
 import edit_campaign_product from './views/edit_campaign_product'
+import register from './views/register.json'
 
 export default {
     global,
@@ -35,5 +36,6 @@ export default {
     assign_product,
     layout,
     edit_campaign_product,
-    change_plan
+    change_plan,
+    register
 }

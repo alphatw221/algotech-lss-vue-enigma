@@ -96,7 +96,7 @@
 				<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
 			</div>
 			<div class="flex my-1">
-				<TomSelect v-model="campaignData.buyer_lang" :options="{
+				<TomSelect v-model="campaignData.lang" :options="{
 							placeholder: $t('settings.localization.choose_language'),
 							}" class="w-full">
 					<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>

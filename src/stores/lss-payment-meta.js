@@ -58,7 +58,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		icon:"static/payment/hitpay/icon.png",
 		fields:[
                 // {key:"button_title", type:"text", name:"Button Title", dataType:"string", default:''},
-                {key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'USD', 'NTD'], dataType:"string", default:'USD'},
+                {key:"currency", type:"select", name: "Currency", options:['SGD'], dataType:"string", default:'SGD'},
                 {key:"api_key", type:"text", name:"API Key", dataType:"string", default:''},
                 {key:"salt", type:"text", name:"Salt", dataType:"string", default:''}
             ],

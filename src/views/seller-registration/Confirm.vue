@@ -51,7 +51,7 @@ onMounted(()=>{
     confirmationInfo.value = payload
     console.log(confirmationInfo.value)
     layout.registerTab = 3
-    // setTimeout(() => (window.location = 'https://liveshowseller.com/thank-you/'), 10000);
+    setTimeout(() => (window.location = 'https://liveshowseller.com/thank-you/'), 10000);
     })
 })
 

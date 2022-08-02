@@ -137,10 +137,10 @@
         "decimal_places":"小數位數",
         "discard":"取消",
         "save":"儲存",
-        "price_unit":"價錢單位",
-        "choose_price_unit":"選擇價錢單位",
+        "price_unit":"貨幣單位",
+        "choose_price_unit":"選擇貨幣單位",
         "priceOptions":{
-            "1":"無",
+            "1":"標準",
             "1000":"K",
             "1000000":"M"
         }
