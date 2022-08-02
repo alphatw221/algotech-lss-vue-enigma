@@ -133,6 +133,7 @@ const submitPassword = () => {
         passwordData.value.password=''
         passwordData.value.new_password=''
         passwordData.value.confirm_password=''
+        sellerStore.profileTab = 1
     }).catch(err=>{
         alert(err.response.data)
 	})
