@@ -47,10 +47,10 @@ const confirmationInfo= ref({
 })
 
 onMounted(()=>{
-  eventBus.on("comfirmInfo", (payload) => {
+  eventBus.on("comfirmRegister", (payload) => {
     confirmationInfo.value = payload
     console.log(confirmationInfo.value)
-    layout.changePlanTab = 3
+    layout.registerTab = 3
     // setTimeout(() => (window.location = 'https://liveshowseller.com/thank-you/'), 10000);
     })
 })

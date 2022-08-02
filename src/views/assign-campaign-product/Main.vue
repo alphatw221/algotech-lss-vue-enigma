@@ -96,8 +96,7 @@
 										</div>
 									</td>
 
-									<td 
-										v-else-if="column.key === 'order_code'" class="orderCode text-right" 
+									<td v-else-if="column.key === 'order_code'" class="orderCode text-right" 
 										:data-content="$t(`assign_product.product_table.${column.key}`)"
 										>
 										<div class="place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
@@ -169,7 +168,7 @@
 
 									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
-										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+										<div class="flex place-content-end relative w-full md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span> 
 											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
 										</div>
@@ -313,7 +312,7 @@
 									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)"
 										:class="{' h-12' : errorMessages[product_index][column.key] }"  >
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
-										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+										<div class="flex place-content-end relative w-full md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span> 
 											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
