@@ -74,6 +74,13 @@ export function createAxiosWithBearer(){
     return axiosInstanceWithBearer
 }
 
+export function createAxiosWithBearerWithoutInterceptor(){
+    return axios.create({
+        baseURL: import.meta.env.VITE_APP_ROOT_API,
+        headers: { 'Authorization': `Bearer ${cookies.get("access_token")}` },
+    })
+}
+
 export function facebookAxios(accessToken){
     const axiosInstance = axios.create({
         baseURL: import.meta.env.VITE_FACEBOOK_API_URL_V13,
