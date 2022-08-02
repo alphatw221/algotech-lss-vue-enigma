@@ -227,6 +227,7 @@ onMounted(() => {
 	retrieve_campaign(route.params.campaign_id).then(res=>{
 		console.log(res.data)
 		campaignData.value = res.data
+		campaignData.value.decimal_places = res.data.decimal_places.toString()  //temp   TomSelect only work with string value
 
 		dateTimePicker.value.start=res.data.start_at
 		dateTimePicker.value.end=res.data.end_at
@@ -302,8 +303,7 @@ const updateCampaign = ()=>{
 	});
 
 	update_campaign(route.params.campaign_id,formData).then(response => {
-		router.back()
-		router.push({name:'edit-campaign-product', params:{'campaign_id': response.data.id}})
+		router.push({name:'campaign-list'})
 	})
 
 }
