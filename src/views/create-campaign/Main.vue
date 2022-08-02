@@ -64,7 +64,7 @@
 				<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
 			</div>
 			<div class="flex my-1">
-				<TomSelect v-model="campaignData.buyer_lang" :options="{
+				<TomSelect v-model="campaignData.lang" :options="{
 							placeholder: $t('settings.localization.choose_language'),
 							}" class="w-full">
 					<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
@@ -192,7 +192,7 @@ const campaignData = ref({
 	},
 	currency:'USD', 
 	lang:'en', 
-	buyer_lang:'en', 
+	lang:'en', 
 	decimal_places:2, 
 	price_unit:'1',
 	meta_payment:{
@@ -258,7 +258,7 @@ onMounted(() => {
 	if(!sellerStore.userInfo.user_subscription) return
 	
 	if(sellerStore.userInfo.user_subscription.currency)campaignData.value.currency=sellerStore.userInfo.user_subscription.currency
-	if(sellerStore.userInfo.user_subscription.buyer_lang)campaignData.value.buyer_lang=sellerStore.userInfo.user_subscription.buyer_lang
+	if(sellerStore.userInfo.user_subscription.buyer_lang)campaignData.value.lang=sellerStore.userInfo.user_subscription.buyer_lang
 	if(!([undefined,null,''].includes(sellerStore.userInfo.user_subscription.decimal_places)))campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places.toString()  //temp   TomSelect only work with string value
 	if(sellerStore.userInfo.user_subscription.price_unit)campaignData.value.price_unit=sellerStore.userInfo.user_subscription.price_unit
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
