@@ -96,7 +96,7 @@
             </div>
         </form>
 
-        <div class="flex justify-between mt-10">
+        <div class="flex justify-between my-10">
             <button class="w-32 btn dark:border-darkmode-400" @click="this.$router.back()">
                 {{$t('change_plan.step_1.back')}}
             </button>
