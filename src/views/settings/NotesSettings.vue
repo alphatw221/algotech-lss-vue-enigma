@@ -162,34 +162,40 @@ const priceUnitOptions = ref([
 
 const languages = ref([
     {value:'en',text:'English'},
-    // {value:'zh_hans',text:'Chinese-simplify'},
+    {value:'zh_hans',text:'Chinese-simplify'},
     {value:'zh_hant',text:'Chinese-tranditional'},
+    {value:'vi',text:'Vietnamese'},
     // {value:'id',text:'Indonesian'}
 ])
 
 const decimalOptions = ref([
     {value:'2',text:'0.01'},
-    // {value:'1',text:'0.1'},
     {value:'0',text:'1'},
-    // {value:'-1',text:'10'},
-    // {value:'-2',text:'100'},
-    // {value:'-3',text:'1000'}
     ])
 
-const generalInfo = ref({currency:'USD', lang:'en', buyer_lang:'en', decimal_places:2, price_unit:'1',confirmation_note:'',delivery_note:'',confirmation_note:''})
+const generalInfo = ref({
+    currency:'USD', 
+    lang:'en', 
+    buyer_lang:'en', 
+    decimal_places:'0', 
+    price_unit:'1',
+    confirmation_note:'',
+    delivery_note:'',
+    confirmation_note:''})
 
 
 onMounted(() => {
     get_general_info().then(response => {
-        console.log(response.data)
+
         generalInfo.value = response.data
+        generalInfo.value.decimal_places = response.data.decimal_places.toString()  //temp   TomSelect only work with string value
     })
+    
 })
 
 
 
 const update = () => {
-
     update_general_info(generalInfo.value).then(res => {
         layoutStore.userInfo = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))

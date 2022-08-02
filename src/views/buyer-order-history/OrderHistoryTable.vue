@@ -33,7 +33,13 @@
 							{{ new Date(order[column.key]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
 						</template>
 						<template v-else-if="column.type=='float' && order.campaign">
-							{{order.campaign.currency}} {{parseFloat(order[column.key]).toFixed(order.campaign.decimal_places)}}
+							{{order.campaign.currency}} {{parseFloat(order[column.key]).toFixed(order.campaign.decimal_places)}}{{order.campaign.price_unit?$t(`global.${order.campaign.price_unit}`):''}}
+						</template>
+            <template v-else-if="column.key=='payment_method' && order[column.key]">
+							{{$t(`order_history.${order[column.key]}`)}}
+						</template>
+            <template v-else-if="column.key=='status'">
+							{{$t(`order_history.${order[column.key]}`)}}
 						</template>
 
 						<template v-else>
@@ -77,14 +83,6 @@ const tableColumns = ref([
                 { name: "status", key: "status", type:'string'},
                 { name: "action", key: "action", type:'link' },
             ])
-
-const priceUnit = ref([
-    {key:'',value:''},
-    {key:'undefined',value:''},
-    {key:'1',value:''},
-    {key:'1000',value:'K'},
-    {key:'1000000',value:'1000000'},
-])
 
 const routeToDetail =(order_id)=>{
   buyer_retrieve_order_oid(order_id).then(res=>{
