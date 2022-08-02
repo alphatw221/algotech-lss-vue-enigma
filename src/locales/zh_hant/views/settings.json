@@ -140,7 +140,7 @@
         "price_unit":"價錢單位",
         "choose_price_unit":"選擇價錢單位",
         "priceOptions":{
-            "1":"無",
+            "1":"標準",
             "1000":"K",
             "1000000":"M"
         }

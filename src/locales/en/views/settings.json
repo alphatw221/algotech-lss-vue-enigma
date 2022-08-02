@@ -137,7 +137,7 @@
         "price_unit":"Price Unit",
         "choose_price_unit":"Choose Price Unit",
         "priceOptions":{
-            "1":"None",
+            "1":"Standard",
             "1000":"K",
             "1000000":"M"
         }
