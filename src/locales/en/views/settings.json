@@ -134,8 +134,8 @@
         "decimal_places":"Decimal Places",
         "discard":"Discard",
         "save":"Save",
-        "price_unit":"Price Unit",
-        "choose_price_unit":"Choose Price Unit",
+        "price_unit":"Currency Unit",
+        "choose_price_unit":"Choose Currency Unit",
         "priceOptions":{
             "1":"Standard",
             "1000":"K",
