@@ -41,8 +41,9 @@
         "terms" : "Terms", 
         "private_policy" : "Private Policy" 
     },
-    "":"",
-    "1":"",
-    "1000":"K",
-    "1000000":"M"
+    "price_unit":{
+        "1":"",
+        "1000":"K",
+        "1000000":"M"
+    }
 }
