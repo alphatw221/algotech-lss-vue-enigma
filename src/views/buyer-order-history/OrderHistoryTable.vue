@@ -33,7 +33,7 @@
 							{{ new Date(order[column.key]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
 						</template>
 						<template v-else-if="column.type=='float' && order.campaign">
-							{{order.campaign.currency}} {{parseFloat(order[column.key]).toFixed(order.campaign.decimal_places)}}{{order.campaign.price_unit?$t(`global.${order.campaign.price_unit}`):''}}
+							{{order.campaign.currency}} {{parseFloat(order[column.key]).toFixed(order.campaign.decimal_places)}}{{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}
 						</template>
             <template v-else-if="column.key=='payment_method' && order[column.key]">
 							{{$t(`order_history.${order[column.key]}`)}}

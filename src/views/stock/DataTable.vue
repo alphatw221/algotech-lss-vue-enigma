@@ -90,7 +90,7 @@
 						</td>
 
 						<td v-else-if="column.key === 'price'" class="w-full sm:w-fit qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div class="text-right">{{layoutStore.userInfo.user_subscription.currency}} {{product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div> 
+							<div class="text-right">{{layoutStore.userInfo.user_subscription.currency}} {{product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}{{layoutStore.userInfo.user_subscription.price_unit?$t(`global.price_unit.${layoutStore.userInfo.user_subscription.price_unit}`):''}}</div> 
 						</td>
 
 						<td v-else-if="column.key === 'edit'"  class="w-24 table-report__action edit" :data-content="$t(`stock.table_column.${column.key}`)" >

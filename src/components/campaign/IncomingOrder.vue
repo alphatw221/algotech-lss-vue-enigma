@@ -72,7 +72,7 @@
                                 </div>
                             </td>
                             <td>{{ order.customer_name }}</td>
-                            <td>{{ order.currency_sign }}{{ parseFloat(order.subtotal).toFixed(2) }}</td> 
+                            <td>{{ order.currency_sign }}{{ parseFloat(order.subtotal).toFixed(order.campaign.decimal_places)}}{{order.campaign.price_unit?$t(`global.price_unit.price_unit.${order.campaign.price_unit}`):''}}</td> 
                             <td>
                                 <EyeIcon class="click-icon" @click="routeToDetailPage(order.id)"/>
                             </td>

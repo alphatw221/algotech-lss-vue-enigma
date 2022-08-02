@@ -7,19 +7,19 @@
 	  
       <div class="flex">
         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
-        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.subtotal).toFixed(sellerStore.userInfo.user_subscription.decimal_places)}}</div>
+        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.subtotal).toFixed(store.orderDetail.campaign.decimal_places)}}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}</div>
       </div>
       <div class="flex">
         <div class="mr-auto">
           {{$t('order_detail.price_summary.shipping')}}
           <span class="text-red-500" v-if="store.orderDetail.free_delivery">({{$t('order_detail.price_summary.apply_free_delivery')}})</span>
         </div>
-        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.shipping_cost).toFixed(sellerStore.userInfo.user_subscription.decimal_places)}}</div>
+        <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.shipping_cost).toFixed(store.orderDetail.campaign.decimal_places)}}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}</div>
       </div>
       <template v-if="store.orderDetail.adjust_title !== null">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
-            <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{store.modify_status == '-' ? -parseFloat(store.orderDetail.adjust_price).toFixed(sellerStore.userInfo.user_subscription.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(sellerStore.userInfo.user_subscription.decimal_places)}}</div>
+            <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{store.modify_status == '-' ? -parseFloat(store.orderDetail.adjust_price).toFixed(store.orderDetail.campaign.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(store.orderDetail.campaign.decimal_places)}}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</div>
         </div>
       </template>
       <template v-if="props.order_type !== 'order'">
@@ -73,7 +73,7 @@
         "
       >
         <div class="mr-auto font-medium text-base">{{$t('order_detail.price_summary.total')}}</div>
-        <div class="font-medium text-base" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.total).toFixed(sellerStore.userInfo.user_subscription.decimal_places)}}</div>
+        <div class="font-medium text-base" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{parseFloat(store.orderDetail.total).toFixed(store.orderDetail.campaign.decimal_places)}}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}</div>
       </div>
     </div>
   </div>
