@@ -162,9 +162,9 @@ const priceUnitOptions = ref([
 
 const languages = ref([
     {value:'en',text:'English'},
-    // {value:'zh_hans',text:'Chinese-simplify'},
+    {value:'zh_hans',text:'Chinese-simplify'},
     {value:'zh_hant',text:'Chinese-tranditional'},
-    // {value:'vi',text:'Vietnamese'},
+    {value:'vi',text:'Vietnamese'},
     // {value:'id',text:'Indonesian'}
 ])
 

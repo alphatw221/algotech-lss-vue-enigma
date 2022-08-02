@@ -119,7 +119,8 @@
             "en":"英語",
             "zh_hant":"繁體中文",
             "zh_hans":"簡體中文",
-            "id":"印尼文"
+            "id":"印尼文",
+            "vi":"越南文"
         },
         "buyer_language":"買家語言",
         "choose_language":"選擇語言",
