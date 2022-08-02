@@ -40,3 +40,6 @@ export const seller_reset_password = (data) => {
 export const seller_forgot_password = (data) => {
     return axiosInstance.post(`/api/v2/user/seller/password/forgot/`, data);
 }
+export const seller_register = (countryCode,data) =>{
+    return axiosInstance.post(`/api/user/register/${countryCode}/`,data);
+}

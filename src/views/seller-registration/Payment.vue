@@ -56,7 +56,8 @@
 <script setup>
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { seller_upgrade, seller_validate_register } from '@/api/user_subscription'
+import { seller_validate_register } from '@/api/user_subscription'
+import { seller_register } from '@/api_v2/user'
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 const layout = useSellerRegistrationStore()
 const internalInstance = getCurrentInstance()
@@ -148,9 +149,9 @@ const renderStripeElement=(intentSecret)=>{
                 // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
                 switch (paymentIntent.status) {
                     case 'succeeded':
-                        seller_upgrade(paymentInfo.value).then(res => {
+                        seller_register(paymentInfo.value.countryCode,paymentInfo.value).then(res => {
                             console.log(res.data)
-                            eventBus.emit("comfirmInfo", res.data)
+                            eventBus.emit("comfirmRegister", res.data)
                         }).catch(err => {
                             alert(err)
                         })
