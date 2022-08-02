@@ -55,7 +55,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
+import { computed, onMounted, onUnmounted, ref, watch, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { seller_validate_register } from '@/api/user_subscription'
 import { seller_register } from '@/api_v2/user'
@@ -90,6 +90,7 @@ onMounted(()=>{
       console.log(comfirmInfo.value)
 
       paymentInfo.value.intentSecret = res.data.client_secret
+
       renderStripeElement(comfirmInfo.value.client_secret)
         layout.registerTab = 2
     }).catch( err=>{
@@ -97,6 +98,12 @@ onMounted(()=>{
     })
   })
 }) 
+
+onUnmounted(()=>{
+    eventBus.off("registerInfo")
+})
+
+
 
 const renderStripeElement=(intentSecret)=>{
     // const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
@@ -115,6 +122,7 @@ const renderStripeElement=(intentSecret)=>{
     paymentElement.mount('#payment-element');
 
     const form = document.getElementById('payment-form');
+    comfirmPayment.value = true;
 
     form.addEventListener('submit', async (event) => {
         event.preventDefault();
@@ -153,22 +161,21 @@ const renderStripeElement=(intentSecret)=>{
                         }).catch(err => {
                             alert(err)
                         })
-                        message.innerText = 'Success! Payment received.';
-                        comfirmPayment.value = true;
+                        message.innerText = i18n.global.t('register.payment.stripe_success') ;
                         break;
 
                     case 'processing':
-                        message.innerText = "Payment processing. Please do not refresh the page and wait while we are processing your payment.";
+                        message.innerText = i18n.global.t('register.payment.stripe_process') ;
                         break;
 
                     case 'requires_payment_method':
-                        message.innerText = 'Payment failed. Please try another payment method.';
+                        message.innerText = i18n.global.t('register.payment.stripe_failed') ;
                         // Redirect your user back to your payment page to attempt collecting
                         // payment again
                         break;
 
                     default:
-                        message.innerText = 'Something went wrong.';
+                        message.innerText = i18n.global.t('register.payment.stripe_err') ;
                         break;
                 }
             })

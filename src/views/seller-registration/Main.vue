@@ -5,7 +5,6 @@
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
-                        @click="layout.registerTab === 1 "
                         :class="{
                             'text-neutral-600 bg-white': layout.registerTab !== 1,
                             'text-white bg-primary': layout.registerTab === 1 
@@ -25,7 +24,6 @@
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
-                        @click="layout.registerTab === 2 "
                         :class="{
                         'text-neutral-600 bg-white': layout.registerTab !== 2,
                         'text-white bg-primary': layout.registerTab === 2,
@@ -44,7 +42,6 @@
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button 
-                        @click="layout.registerTab === 3 "
                         :class="{
                         'text-neutral-600 bg-white': layout.registerTab !== 3,
                         'text-white bg-primary': layout.registerTab === 3,
@@ -84,26 +81,27 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, provide } from "vue";
+import { onBeforeMount, onMounted, ref, provide } from "vue";
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 import loadScript from '@/libs/loadScript.js';
+import { useRoute, useRouter } from "vue-router";
 import GetInfo from "./GetInfo.vue";
 import Payment from "./Payment.vue";
 import Confirm from "./Confirm.vue";
+import useI18n from "@/locales/i18n"
 
 const layout = useSellerRegistrationStore()
+const route = useRoute();
+const router = useRouter();
 
-const toggleTabs = tabNumber => {
-    layout.registerTab = tabNumber
-}
-
+onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
+onBeforeMount (()=>{useI18n.global.locale.value = route.query.language} )     
 onMounted(()=>{
     layout.registerTab= 1
     loadScript("https://js.stripe.com/v3/",()=>{
-    console.log("stripe SDK loaded")
-    
-  })
+    console.log("stripe SDK loaded") })
 })
+
 
 provide("bind[registerMessageNotification]", (el) => {
   layout.notification = el;
