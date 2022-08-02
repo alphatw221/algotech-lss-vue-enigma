@@ -78,6 +78,7 @@
         "plug_in":"Games",
         "instantly":"Instantly Lucky Draw Spin",
         "list":"Lucky Draw",
+        "manage_order":"Manage Order",
         "table":{
             "amount" : "Amount",
             "payment" : "Payment",

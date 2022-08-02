@@ -77,6 +77,7 @@
         "plug_in":"小游戏",
         "instantly":"立即抽奖",
         "list":"抽奖",
+        "manage_order":"订单管理",
         "table":{
             "order_number" : "订单编号",
             "name" : "顾客",

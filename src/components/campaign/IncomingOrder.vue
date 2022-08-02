@@ -16,23 +16,7 @@
 
             <div class="flex justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.incoming.incoming_order')}}</h2>
-                <Dropdown class="inline-block my-auto">
-                    <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
-                        {{$t('campaign_live.incoming.plug_in')}}
-                    </DropdownToggle>
-                    <DropdownMenu class="w-fit">
-                        <DropdownContent>
-                            <!-- <template v-if="route.query.status !='history'"> 
-                                <DropdownItem @click="routeTOLuckyDraw()">
-                                    {{$t('campaign_live.incoming.instantly')}}
-                                </DropdownItem>
-                            </template> -->
-                            <DropdownItem @click="toDrawList()">
-                                {{$t('campaign_live.incoming.list')}}
-                            </DropdownItem>
-                        </DropdownContent>
-                    </DropdownMenu>
-                </Dropdown>
+                <button class="btn btn-primary h-fit my-auto mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
             </div>
             
             <div class="overflow-auto max-h-[90%]">
@@ -129,14 +113,20 @@ const routeTOManageOrder = ()=>{
     router.push({name:'manage-order',params:{'campaign_id':route.params.campaign_id}})
 }
 
-const routeTOLuckyDraw = ()=>{
-    router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
+// const routeTOLuckyDraw = ()=>{
+//     router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
+//     hideDropDown()
+// }
+// const toDrawList = ()=>{
+//     router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
+//     hideDropDown()
+// }
+
+const toManageOrder = ()=>{
+    router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
     hideDropDown()
 }
-const toDrawList = ()=>{
-    router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
-    hideDropDown()
-}
+
 </script>
 
 <style scoped>
