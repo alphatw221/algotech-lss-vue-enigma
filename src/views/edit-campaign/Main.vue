@@ -227,6 +227,7 @@ onMounted(() => {
 	retrieve_campaign(route.params.campaign_id).then(res=>{
 		console.log(res.data)
 		campaignData.value = res.data
+		campaignData.value.decimal_places = res.data.decimal_places.toString()  //temp   TomSelect only work with string value
 
 		dateTimePicker.value.start=res.data.start_at
 		dateTimePicker.value.end=res.data.end_at
