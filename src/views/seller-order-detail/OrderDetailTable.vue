@@ -36,7 +36,7 @@
 					<div class="break-words whitespace-normal">{{ product.name }} </div>
 				</td>
 				<td class="text-right w-fit" :data-content="$t('order_detail.table.qty')">
-					<template v-if="props.order_type === 'order'">
+					<template v-if="props.order_type === 'order' || product.type=='lucky_draw'">
 						{{ product.qty }}
 					</template>
 					<template v-else>
