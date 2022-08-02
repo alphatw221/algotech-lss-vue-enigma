@@ -303,8 +303,7 @@ const updateCampaign = ()=>{
 	});
 
 	update_campaign(route.params.campaign_id,formData).then(response => {
-		router.back()
-		router.push({name:'edit-campaign-product', params:{'campaign_id': response.data.id}})
+		router.push({name:'campaign-list'})
 	})
 
 }
