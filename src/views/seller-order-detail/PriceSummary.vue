@@ -19,7 +19,7 @@
       <template v-if="store.orderDetail.adjust_title !== null">
         <div class="flex">
             <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
-            <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{store.modify_status == '-' ? -parseFloat(store.orderDetail.adjust_price).toFixed(store.orderDetail.campaign.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(store.orderDetail.campaign.decimal_places)}}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</div>
+            <div class="font-medium" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.currency}} {{store.modify_status == '-' ? '-'+parseFloat(store.orderDetail.adjust_price).toFixed(store.orderDetail.campaign.decimal_places) : parseFloat(store.orderDetail.adjust_price).toFixed(store.orderDetail.campaign.decimal_places)}}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}</div>
         </div>
       </template>
       <template v-if="props.order_type !== 'order'">

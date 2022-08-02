@@ -1,5 +1,5 @@
 <template>
-<div class="flex-auto overflow-auto w-full h-fit max-h-72">
+<div class="flex-auto overflow-auto w-full h-fit max-h-full">
 	    <table class="table table-report -mt-3">
 		<thead>
 			<tr>
