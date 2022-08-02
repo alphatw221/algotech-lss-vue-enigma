@@ -235,6 +235,7 @@ const hideDropDown = ()=>{
 const deleteProduct = (id) => {
 	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
 	if (yes) delete_product(id).then(res => { search() })
+	hideDropDown()
 }
 </script>
 

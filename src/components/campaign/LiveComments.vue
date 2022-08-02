@@ -12,6 +12,11 @@
                 <div class="my-auto mr-5">
                     <div class="nav-pills">
                         <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button"
+                            @click="toDrawList()" 
+                        >
+                            <font-awesome-icon icon="fa-solid fa-gamepad" class="mt-1 h-[20px] ml-[3px]"/>
+                        </button>
+                        <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button"
                             @click="selectVideoTabs('facebook')" 
                         >
                             <FacebookIcon class="m-1 " />
@@ -162,15 +167,16 @@
 
             <div class="mx-3 mb-3 overflow-y-auto bg-white grow h-fit scrollbar-hidden">
                 <TabPanels>
+
                     <TabPanel  :class="'all'" class="relative bg-white">
                         <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'all'"  />
+                            <CommentListView :platformName="'commentSummarize'"  />
                         </div>
                     </TabPanel>
 
                     <TabPanel  :class="'all'" class="relative bg-white">
                         <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'commentSummarize'"  />
+                            <CommentListView :platformName="'all'"  />
                         </div>
                     </TabPanel>
 
@@ -295,7 +301,10 @@ const selectVideoTabs = tabName => openVideoTab.value=tabName
 //             this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
 //         }
 //     }
-
+const toDrawList = ()=>{
+    router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
+    hideDropDown()
+}
 
 </script>
 <style scoped>
