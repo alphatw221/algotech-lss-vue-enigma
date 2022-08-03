@@ -99,7 +99,7 @@ const layout = useLSSSellerLayoutStore()
 
 const deliveryStatus = ref(false);
 const checkout_status = route.query.checkout == 1 ? false : true ;
-const tableType = ref('All')
+const tableType = ref('all')
 const show_order = status=>{
   tableType.value=status
 }
