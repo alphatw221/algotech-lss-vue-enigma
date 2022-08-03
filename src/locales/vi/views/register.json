@@ -41,7 +41,7 @@
         "target_country":"Target Country",
         "country_Options":{
             "australia": "Australia",
-            "cambodia": "Cambodia",  
+            "cambodia": "Cambodia",   
             "canada": "Canada" ,
             "hong_kong": "Hong Kong",
             "indonesia": "Indonesia",
@@ -84,15 +84,15 @@
         "stripe_err":"Something went wrong."
     },
     "confirm":{
-        "succeeded":"Payment succeeded",
+        "succeeded":"Thanh toán thành công",
         "Email":"Email",
         "Customer Name":"Customer Name",
         "Password":"Password",
-        "Your Plan":"Your Plan",
+        "Your Plan":"Gói dịch vụ",
         "Target Country": "Target Country",
-        "Subscription Period":"Subscription Period",
-        "Subscription End Date":"Subscription End Date",
-        "download":"Download Receipt",
+        "Subscription Period":"Thời gian sử dụng",
+        "Subscription End Date":"Ngày hết hạn sử dụng",
+        "download":"Tải xuống biên lai",
         "thankyou":"Thank you for your payment. Your plan has been changed!" 
     },
     "invalid_data":"Invalid Submission",

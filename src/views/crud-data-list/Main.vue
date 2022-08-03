@@ -191,7 +191,7 @@
         <div class="text-3xl mt-5">Are you sure?</div>
         <div class="text-slate-500 mt-2">
           Do you really want to delete these records? <br />This process cannot
-          be undone.
+          be retrieve.
         </div>
       </div>
       <div class="px-5 pb-8 text-center">

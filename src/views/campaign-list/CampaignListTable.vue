@@ -328,6 +328,7 @@ const checkPage = ()=>{
 const deleteCampaign = (campaign)=>{
   let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)
 	if(yes) delete_campaign(campaign.id).then(res => { search() })
+  hideDropDown()
 }
 
 </script>
