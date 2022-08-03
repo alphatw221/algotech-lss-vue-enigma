@@ -39,7 +39,8 @@
         "profile":"个人档案",
         "subscription":"订阅方案",
         "reset_password":"重置密码",
-        "logout":"登出"
+        "logout":"登出",
+        "order_history":"历史订单"
     },
     "upcoming_campaign":{
         "title": "即将开始的直播",

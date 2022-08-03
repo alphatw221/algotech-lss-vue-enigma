@@ -48,7 +48,8 @@
                 "payment":{
                         "payment":"Thanh toán",
                         "Direct Payment":"Thanh toán trực tiếp",
-                        "stripe":"Stripe"
+                        "stripe":"Stripe",
+                        "hitpay":"Hitpay"
                 },
                 "delivery":{
                         "status":"Trạng thái giao hàng",

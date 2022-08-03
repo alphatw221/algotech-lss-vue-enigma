@@ -48,7 +48,8 @@
                 "payment":{
                         "payment":"Payment",
                         "Direct Payment":"Direct Payment",
-                        "stripe":"Stripe"
+                        "stripe":"Stripe",
+                        "hitpay":"Hitpay"
                 },
                 "delivery":{
                         "status":"Delivery Status",

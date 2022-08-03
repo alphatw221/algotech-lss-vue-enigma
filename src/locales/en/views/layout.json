@@ -39,7 +39,8 @@
         "profile":"Profile",
         "subscription":"Subscription",
         "reset_password":"Reset Password",
-        "logout":"Logout"
+        "logout":"Logout",
+        "order_history":"Order History"
     },
     "upcoming_campaign":{
         "title": "Upcoming Campaign",
