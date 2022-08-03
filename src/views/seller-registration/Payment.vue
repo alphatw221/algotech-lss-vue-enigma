@@ -2,7 +2,8 @@
     <div 
       :class="{ hidden: layout.registerTab !== 2, block: layout.registerTab === 2 }"
       class="flex-col">
-
+    
+    <!-- Details -->
       <div class="p-3 pt-5 pb-5 text-sm sm:text-lg flex-col"> 
           <div> 
               {{$t('register.payment.selected_plan')}} :
@@ -16,24 +17,51 @@
               {{$t('register.payment.period')}} : <span class="ml-3 font-medium text-[#660000]"> {{ $t(`register.payment.` + paymentInfo.period)}}</span>   
           </div>
       </div>
-      <div class="flex">
         <img src="@/assets/images/lss-img/secured_tag.jpeg" class="flex  w-[100px] lg:w-[200px]" />
-      </div>
-      <div class="my-5 lg:my-10">
-          <form id="payment-form">
-              <div id="payment-element">
-                  <!-- Elements will create form elements here -->
-              </div>
-              <div id="message">
-                  <!-- Display error message to your customers here -->
-              </div>
 
-              <div id="error-message">
-                  <!-- Display error message to your customers here -->
-              </div>
-              <button id="submit" style="display:hidden"></button>       
-          </form>
-      </div>
+        <TabGroup>
+            <TabList class="nav-boxed-tabs mt-5">
+                <Tab class="w-1/2 py-2 mx-auto flex justify-center border-2 border-primary/30" tag="button"> 
+                    <font-awesome-icon icon="fa-regular fa-credit-card" class="h-6 mr-5"/>
+                         Cradit Card</Tab>
+                <Tab class="w-1/2 py-2 mx-auto flex justify-center border-2 border-primary/30" tag="button">
+                    <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="h- mr-5" />
+                    Direct Payment</Tab>
+            </TabList>
+            <TabPanels class="mt-5">
+                <TabPanel class="leading-relaxed">
+                    <div class="my-5 lg:my-10">
+                        <form id="payment-form">
+                            <div id="payment-element">
+                                <!-- Elements will create form elements here -->
+                            </div>
+                            <div id="message">
+                                <!-- Display error message to your customers here -->
+                            </div>
+
+                            <div id="error-message">
+                                <!-- Display error message to your customers here -->
+                            </div>
+                            <button id="submit" style="display:hidden"></button>       
+                        </form>
+                    </div>
+                </TabPanel>
+                <TabPanel class="leading-relaxed">
+                    It is a long established fact that a reader will be
+                    distracted by the readable content of a page when looking at
+                    its layout. The point of using Lorem Ipsum is that it has a
+                    more-or-less normal distribution of letters, as opposed to
+                    using 'Content here, content here', making it look like
+                    readable English. Many desktop publishing packages and web
+                    page editors now use Lorem Ipsum as their default model
+                    text, and a search for 'lorem ipsum' will uncover many web
+                    sites still in their infancy. Various versions have evolved
+                    over the years, sometimes by accident, sometimes on purpose
+                    (injected humour and the like).
+                </TabPanel>
+            </TabPanels>
+        </TabGroup>
+
       <div class="flex justify-between mt-10 text-sm lg:text-lg">
         <button
             class="w-32 btn dark:border-darkmode-400"

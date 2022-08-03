@@ -47,7 +47,7 @@
         "blank_cart":"Copy Blank Cart Link",
         "lucky_draw":"Lucky Draw",
         "delete":"Delete",
-        "confirm_delete": "Are you sure to delete this campaign ?",
+        "confirm_delete": "Are you sure you want to delete this campaign ?",
         "more":"more...",
         "campaign_message":"You don't have %{tab} campaign",
         "no_result":"No Result Found",

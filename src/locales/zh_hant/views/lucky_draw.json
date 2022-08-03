@@ -20,7 +20,8 @@
         "no": "否",
         "start": "開始",
         "edit": "編輯",
-        "delete": "刪除"
+        "delete": "刪除",
+        "confirm_delete": "確定要刪除該場抽獎 ?"
     },
 
     "winner_modal": {

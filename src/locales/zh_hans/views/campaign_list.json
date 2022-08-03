@@ -52,7 +52,7 @@
         "edit_campaign_product":"编辑直播商品",
         "blank_cart":"复制购物车连结",
         "lucky_draw":"抽奖工具",
-
+        "confirm_delete": "确定要删除该场直播 ?",
         "campaign_message":"沒有%{tab}的直播",
         "no_result":"无搜索结果",
         "Scheduled" : "预定中",
