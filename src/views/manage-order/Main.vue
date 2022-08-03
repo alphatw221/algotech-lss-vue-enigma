@@ -11,13 +11,13 @@
             <div class="w-full mt-8 flex flex-col">
                 <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('All')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{store.data_count['All']}}</span>)</a>
+                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('all')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{store.data_count['all']}}</span>)</a>
                     </div>
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('Review')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{store.data_count['Review']}}</span>)</a>
+                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('review')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{store.data_count['review']}}</span>)</a>
                     </div>
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('Complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{store.data_count['Complete']}}</span>) </a>
+                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{store.data_count['complete']}}</span>) </a>
                     </div>
                 </div>
                 <!--分隔線-->
@@ -25,18 +25,18 @@
                 <div class="flex flex-col sm:flex-row">
                     <div class="relative right-0 flex-auto m-1 sm:mt-1">
                         <SearchBar 
-                            v-show="tableType === 'All'"
-                            :tableStatus="'All'"
+                            v-show="tableType === 'all'"
+                            :tableStatus="'all'"
                             :tableSearch="'searchAll'"
                             :tableFilter="'filterAll'"/>
                         <SearchBar 
-                            v-show="tableType === 'Review'"
-                            :tableStatus="'Review'"
+                            v-show="tableType === 'review'"
+                            :tableStatus="'review'"
                             :tableSearch="'searchReview'"
                             :tableFilter="'filterReview'"/>
                         <SearchBar 
-                            v-show="tableType === 'Complete'"
-                            :tableStatus="'Complete'"
+                            v-show="tableType === 'complete'"
+                            :tableStatus="'complete'"
                             :tableSearch="'searchComplete'"
                             :tableFilter="'filterComplete'"/>
                     </div>
@@ -50,23 +50,23 @@
 
             <!-- Table -->
             
-            <div v-show="tableType === 'All'">
+            <div v-show="tableType === 'all'">
                 <ManageOrderTable
-                    :tableStatus="'All'"
+                    :tableStatus="'all'"
                     :tableSearch="'searchAll'"
                     :tableFilter="'filterAll'"
                 />
             </div>
-            <div v-show="tableType === 'Review'">
+            <div v-show="tableType === 'review'">
                 <ManageOrderTable
-                    :tableStatus="'Review'"
+                    :tableStatus="'review'"
                     :tableSearch="'searchReview'"
                     :tableFilter="'filterReview'"
                 />
             </div>
-            <div v-show="tableType === 'Complete'">
+            <div v-show="tableType === 'complete'">
                 <ManageOrderTable
-                    :tableStatus="'Complete'"
+                    :tableStatus="'complete'"
                     :tableSearch="'searchComplete'"
                     :tableFilter="'filterComplete'"
                 />
