@@ -11,7 +11,7 @@
           </div> 
           <div> 
               {{$t('register.payment.payment_total')}} : <span class="ml-3 font-medium text-[#660000]">
-                {{ `${comfirmInfo.currency} ${comfirmInfo.payment_amount}`}} </span>   
+                {{ `${comfirmInfo.currency} ${parseFloat(comfirmInfo.payment_amount).toFixed(2)}`}} </span>   
           </div>
           <div> 
               {{$t('register.payment.period')}} : <span class="ml-3 font-medium text-[#660000]"> {{ $t(`register.payment.` + layout.registerInfo.period)}}</span>   
@@ -19,85 +19,21 @@
       </div>
         <img src="@/assets/images/lss-img/secured_tag.jpeg" class="flex  w-[100px] lg:w-[200px]" />
 
-    <!-- BEGIN Tab List-->
-        <ul class="flex-none flex flex-wrap ml-14 sm:ml-0 py-2 flex-row justify-around w-full">
-            <li class="flex-1 text-center">
-                <button
-                    @click="toggleTabs(0)"
-                    :class="{
-                        'text-neutral-600 bg-white': paymentMethod !== 0,
-                        'text-white bg-primary': paymentMethod === 0 
-                        }" 
-                    class="w-1/2 py-2 mx-auto flex justify-center border-2 border-primary/30 btn" >
-                    <font-awesome-icon icon="fa-regular fa-credit-card" class="h-6 mr-5"/> Credit Card
-                </button>
-            </li>
-            <li class="flex-1 text-center">
-                <button
-                    @click="toggleTabs(1)"
-                    :class="{
-                        'text-neutral-600 bg-white': paymentMethod !== 1,
-                        'text-white bg-primary': paymentMethod === 1 
-                        }" 
-                    class="w-1/2 py-2 mx-auto flex justify-center border-2 border-primary/30 btn" >
-                    <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="h-7 mr-5" /> Direct Payment
-                </button>
-            </li>
-        </ul>
-
-            <div class="tab-content tab-space py-10">
-                <div :class="{ hidden: paymentMethod !== 0, block: paymentMethod === 0 }" 
-                    class="my-5 lg:my-10">
-                    <form id="payment-form">
-                        <div id="payment-element">
-                            <!-- Elements will create form elements here -->
-                        </div>
-                        <div id="message">
-                            <!-- Display error message to your customers here -->
-                        </div>
-
-                        <div id="error-message">
-                            <!-- Display error message to your customers here -->
-                        </div>
-                        <button id="submit" style="display:hidden"></button>       
-                    </form>
+        <div class="my-5 lg:my-10">
+            <form id="payment-form">
+                <div id="payment-element">
+                    <!-- Elements will create form elements here -->
+                </div>
+                <div id="message">
+                    <!-- Display error message to your customers here -->
                 </div>
 
-                <div :class="{ hidden: paymentMethod !== 1, block: paymentMethod === 1 }" > 
-                    <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
-                        method: 'put',
-                        url: 'url',
-                        uploadMultiple: false,
-                        maxFilesize: 10,
-                        addRemoveLinks: true,
-                        autoProcessQueue: false,
-                        resizeQuality: 0.5,
-                        clickable: true,
-                        acceptedFiles: 'image/*',
-                    }" class="dropzone h-fit rounded-xl" :class="{ 'dropzone-border': uploadValidate.fiveDigits.$error }">
-
-                        <div class="text-lg font-medium">
-                        {{$t('shopping_cart.payment.direct.upload_img')}}
-                        </div>
-                        <div class="text-gray-600" :class="{ 'redText': uploadValidate.fiveDigits.$error }">
-                            <br>{{$t('shopping_cart.payment.direct.accepted_types')}}: jpeg, png, jpg
-                        </div>
-                        <div class="text-gray-600" :class="{ 'redText': uploadValidate.fiveDigits.$error }">{{$t('shopping_cart.payment.direct.max_size')}} : 10MB</div>  
-                    </Dropzone>
-                    <div class="flex flex-col my-3">
-
-                        <label for="regular-form-2" class="form-label">{{$t('shopping_cart.payment.direct.last_five_digits')}}</label>
-                        <input id="regular-form-2" type="number" class="form-control"
-                            :class="{ 'border-danger': uploadValidate.fiveDigits.$error }"
-                            v-model.trim="uploadValidate.fiveDigits.$model" />
-                        <template v-if="uploadValidate.fiveDigits.$error">
-                            <div class="form-help" :class="{ 'text-danger': uploadValidate.fiveDigits.$error }">
-                                {{$t('shopping_cart.payment.direct.digits_message')}}
-                            </div>
-                        </template>
-                    </div>
+                <div id="error-message">
+                    <!-- Display error message to your customers here -->
                 </div>
-        </div> 
+                <button id="submit" style="display:hidden"></button>       
+            </form>
+        </div>
 
     <!-- Process Button -->
         <div class="flex justify-between mt-10 text-sm lg:text-lg">
