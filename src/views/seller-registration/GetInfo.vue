@@ -259,7 +259,7 @@ const rules = computed(()=> {
         password: { required },
         confirmPassword: { required, sameAs: sameAs(basicInfo.value.password)  },
         targetCountry: { required },
-        privacyPolicy: { required },
+        privacyPolicy: { required }
     }
 });
 
@@ -273,7 +273,7 @@ const submitBasicInfo=()=>{
     }
     console.log(basicInfo.value)
     layout.registerInfo = basicInfo.value
-    layout.registerTab == 2
+    eventBus.emit("registerInfo", basicInfo.value)
 }
 </script>
 

@@ -4,7 +4,7 @@
       class="flex-col">
     
     <!-- Details -->
-      <div class="p-3 pt-5 pb-5 text-sm sm:text-lg flex-col"> 
+      <div class="p-3 mb-5 text-sm sm:text-lg flex-col"> 
           <div> 
               {{$t('register.payment.selected_plan')}} :
               <span class="ml-3 font-medium text-[#660000]"> {{ $t(`register.plan.` + layout.registerInfo.plan)}}</span> 
@@ -17,7 +17,7 @@
               {{$t('register.payment.period')}} : <span class="ml-3 font-medium text-[#660000]"> {{ $t(`register.payment.` + layout.registerInfo.period)}}</span>   
           </div>
       </div>
-        <img src="@/assets/images/lss-img/secured_tag.jpeg" class="flex  w-[100px] lg:w-[200px]" />
+        <img src="@/assets/images/lss-img/secured_tag.jpeg" class="flex  w-[100px] lg:w-[200px] mb-5" />
 
     <!-- BEGIN Tab List-->
         <ul class="flex-none flex flex-wrap ml-14 sm:ml-0 py-2 flex-row justify-around w-full">
@@ -44,7 +44,7 @@
                 </button>
             </li>
         </ul>
-
+        <!--  Stripe  -->
             <div class="tab-content tab-space py-10">
                 <div :class="{ hidden: paymentMethod !== 0, block: paymentMethod === 0 }" 
                     class="my-5 lg:my-10">
@@ -63,7 +63,16 @@
                     </form>
                 </div>
 
-                <div :class="{ hidden: paymentMethod !== 1, block: paymentMethod === 1 }" > 
+        <!--  Direct  -->
+                <div class="flex flex-col gap-3" 
+                    :class="{ hidden: paymentMethod !== 1, block: paymentMethod === 1 }" > 
+
+                    <span class="mx-auto text-xl font-medium"> Payment Information </span>
+                    <table class="mx-auto w-fit max-w-1/2"> 
+                        <tr> <td class="whitespace-nowrap"> Account Name </td> <td class="text-right pl-5"> ALGOTECH </td> </tr>
+                        <tr> <td class="whitespace-nowrap"> Account No. </td> <td class="text-right pl-10"> 9090999099932122135132</td> </tr>
+                        <tr> <td class="whitespace-nowrap align-top"> Note </td> <td class="text-right pl-10"> Please upload your transfer details and enter last 5 digits of your account info </td> </tr>
+                    </table>
                     <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
                         method: 'put',
                         url: 'url',
@@ -74,15 +83,15 @@
                         resizeQuality: 0.5,
                         clickable: true,
                         acceptedFiles: 'image/*',
-                    }" class="dropzone h-fit rounded-xl" :class="{ 'dropzone-border': uploadValidate.fiveDigits.$error }">
+                    }" class="dropzone h-fit rounded-xl">
 
                         <div class="text-lg font-medium">
                         {{$t('shopping_cart.payment.direct.upload_img')}}
                         </div>
-                        <div class="text-gray-600" :class="{ 'redText': uploadValidate.fiveDigits.$error }">
+                        <div class="text-gray-600">
                             <br>{{$t('shopping_cart.payment.direct.accepted_types')}}: jpeg, png, jpg
                         </div>
-                        <div class="text-gray-600" :class="{ 'redText': uploadValidate.fiveDigits.$error }">{{$t('shopping_cart.payment.direct.max_size')}} : 10MB</div>  
+                        <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}} : 10MB</div>  
                     </Dropzone>
                     <div class="flex flex-col my-3">
 
@@ -130,7 +139,7 @@
 import { onMounted, onUnmounted, ref, getCurrentInstance, provide, reactive, toRefs   } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { seller_validate_register } from '@/api/user_subscription'
-import { seller_register } from '@/api_v2/user'
+import { seller_register, user_register_with_bank_transfer } from '@/api_v2/user'
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 import {
     minLength,
@@ -163,7 +172,7 @@ const toggleTabs = tabNumber => {
 
 onMounted(()=>{
   // console.log(props.payment)
-  if(layout.registerTab == 2){
+  eventBus.on("registerInfo", (payload) => {
     seller_validate_register(layout.registerInfo.countryCode,layout.registerInfo).then(res=>{
       comfirmInfo.value = res.data
     //   layout.registerInfo.append(res.data)
@@ -173,11 +182,14 @@ onMounted(()=>{
         console.log(layout.registerInfo)
       renderStripeElement(res.data.client_secret )
     }).catch( err=>{
-        layout.registerTab = 1
-    })
-  }
+        layout.registerTab = 1 })
+    layout.registerTab = 2
+  })
 })
 
+onUnmounted(()=>{
+    eventBus.off("registerInfo")
+})
 
 
 // STRIPE 
@@ -281,54 +293,42 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
     el.dropzone.on('addedfile', file => {
         const files = el.dropzone.getAcceptedFiles()
         if (files.length > 0) el.dropzone.removeFile(files[0])
-
     })
 });
 
 const uploadReceipt = () => {
     
     let receiptImage = receiptUploadDropzoneRef.value.dropzone.getAcceptedFiles()[0]
-    
-    if(receiptImage =='' || receiptImage == undefined ) {
-            layout.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_data')) 
-            return }
 
-    // const account = Object.values(meta_payment.direct_payment.v2_accounts)[selectAccountIndex.value]
-    if([undefined,null,''].includes(receiptImage) && account.require_customer_return) {
+    const account = ref()
+    if([undefined,null,''].includes(receiptImage)) {
         uploadValidate.value.$touch();
         if (uploadValidate.value.$invalid) {
-            layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
+            layout.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
             return
         }
+        layout.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
+        return
     }
     let formData = new FormData()
+
+    for ( var key in layout.registerInfo ) {
+    formData.append(key, layout.registerInfo[key]);
+
+    }
+    
     formData.append('last_five_digit', data.fiveDigits)
     formData.append('image', receiptImage || '')
-    formData.append('account_name', account.name)
-    formData.append('account_mode', account.mode)
+    formData.append('account_name', 'ALGOTECH')
 
-    const upload_receipt = isAnonymousUser?guest_upload_receipt:buyer_upload_receipt
-    upload_receipt(route.params.order_oid, formData)
+    console.log(layout.registerInfo)
+
+    user_register_with_bank_transfer(layout.registerInfo.countryCode, formData)
         .then(
             res => {
-
-                store.order = res.data
-                router.push(`/buyer/order/${route.params.order_oid}/confirmation`)
+                console.log(res.data)
             }
         )
-    
 }
 
 </script>
-
-<style scoped>
-
-.dropzone-border{
-    border-color: theme('colors.danger') !important;
-    color: theme('colors.danger') !important;
-}
-
-.redText{
-    color: theme('colors.danger') !important;
-}
-</style>
