@@ -73,7 +73,7 @@
                                 <b>{{ product.qty_add_to_cart }}</b> / <b>{{ product.qty_sold }}</b> / <b>{{ product.qty_for_sale - product.qty_sold }}</b>
                             </td>
                             <!-- currency_sign reference from user_subscription -->
-                            <td>{{ product.currency_sign }}{{ product.price }}</td>  
+                            <td>{{ product.currency_sign }}{{ parseFloat(product.price).toFixed(store.decimal_places)}}{{store.price_unit?$t(`global.price_unit.${store.price_unit}`):''}}</td>  
                             <td class="status_active">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
