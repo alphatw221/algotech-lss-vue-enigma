@@ -10,8 +10,8 @@
     "shipping out":"已出货",
     "table":{
         "product" : "商品",
-        "price" : "價格",
-        "qty" : "价格",
+        "price" : "价格",
+        "qty" : "数量",
         "sub_total" : "小计",
         "delete":"刪除",
         "null" : ""

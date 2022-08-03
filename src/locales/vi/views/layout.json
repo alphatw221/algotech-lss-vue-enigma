@@ -39,7 +39,8 @@
         "profile":"Hồ Sơ",
         "subscription":"Đăng ký",
         "reset_password":"Thay đổi mật khẩu",
-        "logout":"Đăng xuất"
+        "logout":"Đăng xuất",
+        "order_history":"Lịch sử đặt hàng"
     },
     "upcoming_campaign":{
         "title": "Chiến dịch sắp tới",
