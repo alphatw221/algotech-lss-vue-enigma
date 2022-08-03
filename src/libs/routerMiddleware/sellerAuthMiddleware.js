@@ -12,16 +12,15 @@ export default async (to, from)=>{
     }
 
     if (cookies.get('access_token')) {
-        const res = await get_seller_account()
-        
-        sellerStore.isAuthenticated = true;
-        sellerStore.userInfo = res.data;
-
-        if (res.status!=200) {
+        try{
+            const res = await get_seller_account()
+            sellerStore.userInfo = res.data;
+            return true
+        }catch(error){
             cookies.remove("access_token")
             return '/seller/login'
         }
-        return true
+      
     }
     return '/seller/login'
 }
