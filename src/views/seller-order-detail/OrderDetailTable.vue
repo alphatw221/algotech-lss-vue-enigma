@@ -13,71 +13,76 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="(product, index) in store.orderDetail.products" :key="index" class="intro-x">
-				<td class=" " :data-content="$t('order_detail.table.null')">
-					<div class="w-14 sm:w-20 flex" v-if="product.image">
-					<img
-						tag="img"
-						data-action="zoom"
-						class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
-						:src="storageUrl+product.image"
-					/>
-					</div>
-					<div class="w-14 sm:w-20 flex" v-else>
-					<img
-						tag="img"
-						data-action="zoom"
-						class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
-						:src="storageUrl+`no_image.jpeg`"
-					/>
-					</div>
-				</td>
-				<td class="text-left" :data-content="$t('order_detail.table.product')">
-					<div class="break-words whitespace-normal">{{ product.name }} </div>
-				</td>
-				<td class="text-right w-fit" :data-content="$t('order_detail.table.qty')">
-					<template v-if="props.order_type === 'order' || product.type=='lucky_draw'">
-						{{ product.qty }}
-					</template>
-					<template v-else>
-						<div class="self-center form-check place-content-left">
-
-							<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
-								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
-							</button>
-							
-							<input 
-								type="text" 
-								class="form-control" 
-								placeholder="Input inline 1" 
-								aria-label="default input" 
-								:value="product.qty"
-								style="width: 2.7rem;"
-								@input="changeQuantity($event, index, product.qty, 'input', product.order_product_id)"
+				<template v-for="(product, index) in store.orderDetail.products" :key="index" > 
+					<tr>
+						<td :data-content="$t('order_detail.table.null')">
+							<div class="w-14 sm:w-20 flex" v-if="product.image">
+							<img
+								tag="img"
+								data-action="zoom"
+								class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
+								:src="storageUrl+product.image"
 							/>
-							<button type="button" @click="changeQuantity($event, index, product.qty, 'add', product.order_product_id)" >
-								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
-							</button>
+							</div>
+							<div class="w-14 sm:w-20 flex" v-else>
+							<img
+								tag="img"
+								data-action="zoom"
+								class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
+								:src="storageUrl+`no_image.jpeg`"
+							/>
+							</div>
+						</td>
+						<td class="text-left" :data-content="$t('order_detail.table.product')">
+							<span class="font-bold"  v-if="product.type === 'lucky_draw'"> *Prize*</span>
+							<div class="break-words whitespace-normal">{{ product.name }} </div>
+						</td>
+						<td class="text-right w-fit" :data-content="$t('order_detail.table.qty')" >
+							<template v-if="props.order_type === 'order' || product.type=='lucky_draw'">
+								{{ product.qty }}
+							</template>
+							<template v-else>
+								<div class="self-center form-check place-content-left">
 
-                            <!-- <input id="qty" type="number" class="w-16 form-control" aria-label="default input" :value="store.orderDetail.products[index].qty"
-                                 @input="update_qty(index,product.order_product_id,$event.target.value)"/> -->
-                        </div>
-					</template>
-				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}} {{ parseFloat(product.price).toFixed(store.orderDetail.campaign.decimal_places) }}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
-				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.orderDetail.campaign.decimal_places) }}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
-				</td>
-				<td>
-					<a  class="flex items-center justify-center text-danger" 
-						v-show="props.order_type !== 'order'"
-						@click="delete_product(product.order_product_id)" >
-						<Trash2Icon class="w-4 h-4 mr-1" />
-					</a>
-				</td>
-			</tr>
+									<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
+										<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
+									</button>
+									
+									<input 
+										type="text" 
+										class="form-control" 
+										placeholder="Input inline 1" 
+										aria-label="default input" 
+										:value="product.qty"
+										style="width: 2.7rem;"
+										@input="changeQuantity($event, index, product.qty, 'input', product.order_product_id)"
+									/>
+									<button type="button" @click="changeQuantity($event, index, product.qty, 'add', product.order_product_id)" >
+										<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
+									</button>
+
+									<!-- <input id="qty" type="number" class="w-16 form-control" aria-label="default input" :value="store.orderDetail.products[index].qty"
+										@input="update_qty(index,product.order_product_id,$event.target.value)"/> -->
+								</div>
+							</template>
+						</td>
+						<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
+							{{store.orderDetail.campaign.currency}} {{ parseFloat(product.price).toFixed(store.orderDetail.campaign.decimal_places) }}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+						</td>
+						<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
+							{{store.orderDetail.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.orderDetail.campaign.decimal_places) }}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+						</td>
+						<td>
+							<a  class="flex items-center justify-center text-danger" 
+								v-show="props.order_type !== 'order'"
+								@click="delete_product(product.order_product_id)" >
+								<Trash2Icon class="w-4 h-4 mr-1" />
+							</a>
+						</td>
+					</tr>
+				
+				</template>
+			
 		</tbody>
 	</table>
 </div>
@@ -183,6 +188,12 @@ thead th{
 .longMessage{
 	overflow-wrap: break-word;
 }	
+
+.luckyDraw{
+	border: 2px solid black !important; 
+	background-color: black;
+}
+
 
 /* @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {

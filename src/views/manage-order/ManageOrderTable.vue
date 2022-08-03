@@ -182,7 +182,7 @@ function search(searchValue,data,tableStatus){
     manage_order_list(route.params.campaign_id,searchValue,page,page_size,tableStatus,data).then(
         res => {
 			store[tableStatus] = res.data.data
-            console.log( res.data)
+            console.log(res.data)
             store.data_count[tableStatus] = res.data.count;
             if (res.data.count != 0) {
                 let totalPage = parseInt(res.data.count / page_size);
