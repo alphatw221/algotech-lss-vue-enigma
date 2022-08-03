@@ -51,10 +51,10 @@
                                 <span class="w-fit"> {{product.qty}} </span> 
                             </td>
                             <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.price')">
-                            $ {{(product.price).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}
+                            {{store.orderProductData.campaign.currency}} {{parseFloat(product.price).toFixed(store.orderProductData.campaign.decimal_places)}}{{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </td>
                             <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.sub_total')">
-                            $ {{(product.qty * product.price).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}
+                            {{store.orderProductData.campaign.currency}} {{parseFloat(product.qty * product.price).toFixed(store.orderProductData.campaign.decimal_places)}}{{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </td>                        
                         </tr>
                     </tbody>
