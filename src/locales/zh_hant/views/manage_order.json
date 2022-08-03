@@ -49,7 +49,8 @@
                 "payment":{
                         "payment":"付款方式",
                         "Direct Payment":"轉帳付款",
-                        "stripe":"Stripe"
+                        "stripe":"Stripe",
+                        "hitpay":"Hitpay"
                 },
                 "delivery":{
                         "status":"出貨狀態",

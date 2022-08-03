@@ -110,8 +110,8 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal'" class="text-right">
-                            ${{ (order.total).toFixed(layoutStore.userInfo.user_subscription.decimal_places) }}
+                        <template v-else-if="column.key === 'subtotal' && store.campaign" class="text-right">
+                            {{store.campaign.currency}}{{ parseFloat(order.total).toFixed(store.campaign.decimal_places) }}{{store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             {{ order[column.key] == 'Direct Payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : order[column.key] }}
