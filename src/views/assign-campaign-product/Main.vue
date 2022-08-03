@@ -80,7 +80,7 @@
 								class="intro-x align-middle"
 							>
 								<td class="w-10">
-									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
+									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
 										type="checkbox" v-model="product.check" @click="selectStockProduct(product, $event)"/>
 								</td>
 
@@ -228,7 +228,7 @@
 								class="intro-x align-middle"
 							>
 								<td class="w-10">
-									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" checked @click="unSelectProduct(product, product_index, $event)"/>
+									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" type="checkbox" checked @click="unSelectProduct(product, product_index, $event)"/>
 								</td>
 								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
 
@@ -752,7 +752,7 @@ thead th{
         display: inline-block;
         position: absolute;
         z-index: 10;
-        right: 15%;
+        left: 20%;
         width: 40px !important;
         padding-left: 0 !important;
         min-height: 25px !important;
@@ -858,6 +858,11 @@ thead th{
         content: attr(data-content);
         top:25%;
     }
+	.selectCheck{
+		width: 1.5rem !important;
+		height: 1.5rem !important;
+	}
+
     /* .noTd:before{
         display:none; 
     }

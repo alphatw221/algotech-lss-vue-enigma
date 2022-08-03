@@ -4,6 +4,9 @@
             <h2 class="font-medium text-base m-auto ">
                 {{$t('edit_campaign_product.edit_product_modal.edit_campaign_product')}}
             </h2>
+            <a @click="hideModal()" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
+                <XIcon class="w-8 h-8 text-slate-400" />
+            </a>
         </ModalHeader>
         <ModalBody class="grid grid-cols-12 gap-3">
             <template v-for="(column, index) in tableColumns" :key="index">
