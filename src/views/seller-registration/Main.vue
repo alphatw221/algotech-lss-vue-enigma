@@ -1,5 +1,5 @@
  <template>
-    <div class="flex-col">
+    <div class="flex-col my-10">
         <!-- BEGIN Tab List-->
         <ul class="flex-none flex flex-wrap ml-14 sm:ml-0 py-2 flex-row justify-around w-full">
             <li class="flex-1 text-center">
@@ -24,7 +24,7 @@
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
-                   
+                    @click="toggleTabs(2)"
                         :class="{
                         'text-neutral-600 bg-white': layout.registerTab !== 2,
                         'text-white bg-primary': layout.registerTab === 2,
@@ -105,7 +105,6 @@ onMounted(()=>{
 
 const toggleTabs = tabNumber => {
   layout.registerTab = tabNumber
-  router.push({query:{tab:tabNumber}})
   }
 
 provide("bind[registerMessageNotification]", (el) => {
