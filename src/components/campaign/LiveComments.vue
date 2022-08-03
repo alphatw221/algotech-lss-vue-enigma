@@ -303,7 +303,6 @@ const selectVideoTabs = tabName => openVideoTab.value=tabName
 //     }
 const toDrawList = ()=>{
     router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
-    hideDropDown()
 }
 
 </script>

@@ -84,6 +84,7 @@ import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
 import instagram_platform from '/src/assets/images/lss-img/instagram.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
+import i18n from "@/locales/i18n"
 
 const props = defineProps({
     luckydrawList: Object,
@@ -114,12 +115,17 @@ const editDraw = (lucky_draw_id) => {
 
 const deleteDraw = (lucky_draw_id) => {
     hideDropDown()
-    delete_campaign_lucky_draw(lucky_draw_id).then(res => {
+    let yes = confirm(`${i18n.global.t("lucky_draw.draw_list.confirm_delete")}`)
+    if(yes){
+        delete_campaign_lucky_draw(lucky_draw_id).then(res => {
         router.go()
-    }).catch(err => {
-        console.log(err)
-    })
+        }).catch(err => {
+            console.log(err)
+        })
+    }
 }
+
+
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
 }
