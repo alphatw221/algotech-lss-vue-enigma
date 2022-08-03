@@ -8,7 +8,7 @@
                 @click="createModal = true; saved=false">
                 <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('auto_reply.create') }}
             </button>
-        </div> <!-- why delete overflow-x? -->  
+        </div>
         <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 sm:h-[80vh] lg:mx-20">
             <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
