@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-        <div class="flex items-center sm:px-20 pt-5 pb-4 intro-y ">
+        <div class="flex items-center sm:px-20 pt-2 sm:pt-5 pb-4 intro-y ">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('settings.localization.title') }} </h2>
 		</div>
         

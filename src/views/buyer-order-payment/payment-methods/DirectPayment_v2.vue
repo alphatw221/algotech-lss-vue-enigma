@@ -15,9 +15,10 @@
                     <li class="flex last:mr-0" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
                         <div class="z-10 flex items-center self-center flex-1 intro-x lg:text-center lg:mt-0 lg:block w-fit">
                             <button @click="show_account_info(index)" :class="{
-                                'text-neutral-600 bg-white': openTab !== index,
-                                'text-white bg-primary': openTab === index,
-                            }" class="h-8 rounded-full shadow-lg w-18 btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
+                                'text-neutral-600 bg-white shadow-lg': openTab !== index,
+                                'bg-slate-300 font-semibold': openTab === index,
+                            }" class="h-10 rounded-lg w-30 btn border-slate-300 text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
+                                <CheckIcon v-show="openTab === index" :class="{ 'rounded-full bg-white mr-2': true}" />
                                 <div v-if="account.mode === ''"> {{$t('shopping_cart.payment.direct.account')}} {{index+1}} </div>
                                 <div v-else> {{ account.mode }} </div>
                             </button>
@@ -25,10 +26,11 @@
                     </li>
                 </ul>
 
-                <div class="flex flex-col items-center place-content-center" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index"
+                <div class="flex flex-col items-center place-content-center mt-5" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index"
                     :class="{ hidden: openTab !== index, block: openTab === index }"
                     v-show="openTab===index"
                     >
+                    <h5 class="mx-auto font-bold text-black mb-3">Payment Information</h5>
                     <table>
                         <tr>
                             <td class="w-36">{{$t('shopping_cart.payment.direct.beneficiary')}}: </td><td>{{account.mode}}</td>

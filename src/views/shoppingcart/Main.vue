@@ -99,7 +99,7 @@ onMounted(()=>{
   retrieve_pre_order(route.params.pre_order_oid).then(
       res => { 
         store.order = res.data;
-        i18n.locale = res.data.campaign.user_subscription.buyer_lang
+        i18n.locale = res.data.campaign.lang
       }
   )
 

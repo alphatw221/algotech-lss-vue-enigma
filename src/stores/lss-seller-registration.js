@@ -5,6 +5,7 @@ export const useSellerRegistrationStore = defineStore("sellerOrder", {
 		registerTab: ref(1),
 		notification: ref(false), 
 		alert: ref(false), 
+		registerInfo: ref({})
 
     })
 });

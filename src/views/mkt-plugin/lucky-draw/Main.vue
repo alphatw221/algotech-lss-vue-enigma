@@ -1,8 +1,15 @@
 <template>
-    <div class="flex flex-col h-[100%] text-lg py-3 sm:px-5" v-if="ready">
-        <h1 class="text-center sm:text-left text-xl sm:text-2xl font-medium"> {{ $t('lucky_draw.lucky_draw') }} </h1>
-
-        <div class="box p-3 sm:p-10 sm:m-5">
+    <div class="flex flex-col h-[100%] text-lg p-3 sm:px-10 sm:m-5 gap-3 sm:gap-0" v-if="ready">
+        <div class="flex flex-col sm:flex-row justify-between sm:mx-5 gap-3"> 
+            <h1 class="text-center sm:text-left text-xl sm:text-2xl font-medium my-auto"> {{ $t('lucky_draw.lucky_draw') }} </h1>
+            <button
+                v-show="showDrawlist" 
+                class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mx-0 border-[2px] border-slate-100 shadow-lg"
+                @click="existsDrawlist = eventBus.emit('changeDrawPage')" >
+                <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('lucky_draw.draw_list.create') }}
+            </button>
+        </div>
+        <div class="box sm:mx-5 sm:mt-3">
             <div v-show="!showDrawlist"> 
             <DrawCreate 
                 :campaignTitle="campaignTitle"
