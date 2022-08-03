@@ -42,7 +42,7 @@
 					<template v-else>
 						<div class="self-center form-check place-content-left">
 
-							<button type="button" @click="changeQuantity($event, index, product.qty, 'minus', product.order_product_id)">
+							<button type="button" @click="changeQuantity(index, 'minus', product)" v-show="hideUpdateSignIndex!=index">
 								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 							</button>
 							
@@ -53,14 +53,24 @@
 								aria-label="default input" 
 								:value="product.qty"
 								style="width: 2.7rem;"
-								@input="changeQuantity($event, index, product.qty, 'input', product.order_product_id)"
+								@focus="focusQtyInput(index, product)"
+								v-show="hideQtyInputIndex!=index"
 							/>
-							<button type="button" @click="changeQuantity($event, index, product.qty, 'add', product.order_product_id)" >
+							<button type="button" @click="changeQuantity(index, 'add', product)" v-show="hideUpdateSignIndex!=index">
 								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 							</button>
 
-                            <!-- <input id="qty" type="number" class="w-16 form-control" aria-label="default input" :value="store.orderDetail.products[index].qty"
-                                 @input="update_qty(index,product.order_product_id,$event.target.value)"/> -->
+                            <div class="flex inline-flex leading-5 items-center">
+								<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
+								<div class="leading-5 allign-middle">
+									<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
+										{{$t('shopping_cart.table.update')}}
+									</button>
+									<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
+										{{$t('shopping_cart.table.cancel')}}
+									</button>
+								</div>
+							</div>
                         </div>
 					</template>
 				</td>
@@ -99,6 +109,10 @@ const sellerStore = useLSSSellerLayoutStore()
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const hideUpdateSignIndex = ref(null)
+const hideQtyInputIndex = ref(null)
+const showUpdateButtonIndex = ref(null)
+const cacheQty = ref(0)
 
 const tableColumns = ref([
 	{ key: "image", name: "null",  },
@@ -109,27 +123,45 @@ const tableColumns = ref([
     { key: "remove", name: "null",  }
 ])
 
+const showUpdateButton = index =>{showUpdateButtonIndex.value = index}
+const hideUpdateButton = () =>{showUpdateButtonIndex.value = null}
 
-const changeQuantity = (event, index, qty, operation, order_product_id) => {
-	if (operation == 'add' && qty < 99) {
-		qty += 1
-	} else if (operation == 'minus' && qty > 1) {
-		qty -= 1
-	} else if (operation == 'input' && event.target.value >= 1 && event.target.value <= 99) {
-		qty = event.target.value
-	} else if (event.target.value == '') {
-		event.target.value = 1
-		return
+const showUpdateSign = ()=>{hideUpdateSignIndex.value = null}
+const hideUpdateSign = index=>{hideUpdateSignIndex.value = index}
+
+const showQtyInput = ()=>{hideQtyInputIndex.value = null}
+const hideQtyInput = index=>{hideQtyInputIndex.value = index}
+
+const focusQtyInput = (index,product)=>{
+	cacheQty.value = product.qty
+	hideQtyInput(index)
+	hideUpdateSign(index)
+	showUpdateButton(index)
+
+}
+const changeQuantity = (index, operation, product) => {
+	let qty=1
+	if (operation == 'add' ) {
+		qty = product.qty+1
+	} else if (operation == 'minus' ) {
+		qty = product.qty-1
+	} else if (operation == 'input' && cacheQty.value >= 1 ) {
+		qty = cacheQty.value
 	} else {
 		sellerStore.alert.showMessageToast(i18n.global.t('order_detail.invalid_qty'))
-		event.target.value = store.order.products[index].qty
+		cacheQty.value = product.qty
 		return
 	}
-
-	seller_update_product(route.params.order_id,order_product_id,qty).then(
+	hideUpdateSign(index)
+	// hideUpdateButton()
+	// showQtyInput()
+	seller_update_product(route.params.order_id, product.order_product_id, qty).then(
 		res =>{
 			store.orderDetail = res.data
 			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.update_successfully'))
+			showUpdateSign()
+			showQtyInput()
+			hideUpdateButton()
 		}
 	)
 }
