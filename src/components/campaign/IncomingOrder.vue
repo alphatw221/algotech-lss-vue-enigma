@@ -56,7 +56,7 @@
                                 </div>
                             </td>
                             <td>{{ order.customer_name }}</td>
-                            <td>{{ order.currency_sign }}{{ parseFloat(order.subtotal).toFixed(order.campaign.decimal_places)}}{{order.campaign.price_unit?$t(`global.price_unit.price_unit.${order.campaign.price_unit}`):''}}</td> 
+                            <td>{{ order.currency_sign }}{{ parseFloat(order.subtotal).toFixed(order.campaign.decimal_places)}}{{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}</td> 
                             <td>
                                 <EyeIcon class="click-icon" @click="routeToDetailPage(order.id)"/>
                             </td>
@@ -124,7 +124,6 @@ const routeTOManageOrder = ()=>{
 
 const toManageOrder = ()=>{
     router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
-    hideDropDown()
 }
 
 </script>

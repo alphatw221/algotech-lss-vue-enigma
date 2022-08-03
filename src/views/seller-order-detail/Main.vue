@@ -10,7 +10,7 @@
             <span class="text-base mr-5"> {{ store.orderDetail.customer_name }} {{store.orderDetail.platform ? `/ `+store.orderDetail.platform : ''}}</span>
         </div>
         <div>
-            <span class="text-base mr-5">{{$t('order_detail.delivery.email')}} : {{store.orderDetail.shipping_email}}</span>
+            <span class="text-base mr-5 break-all">{{$t('order_detail.delivery.email')}} : {{store.orderDetail.shipping_email}}</span>
         </div>
         <div>
             <span class="text-base mr-5">{{$t('order_detail.delivery.phone')}} : {{store.orderDetail.shipping_phone}}</span>
@@ -49,7 +49,7 @@
                     <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_phone}}</div>
                 
                     <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.email')}}</div>
-                    <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_email}}</div>
+                    <div class="col-start-3 col-span-3 py-2 break-all">{{store.orderDetail.shipping_email}}</div>
                     
                     <template v-if="store.orderDetail.shipping_method === 'pickup'">
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</div>

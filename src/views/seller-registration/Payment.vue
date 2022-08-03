@@ -87,7 +87,7 @@
 
                         <div class="text-lg font-medium">
                         {{$t('shopping_cart.payment.direct.upload_img')}}
-                        </div>
+                 </div>
                         <div class="text-gray-600">
                             <br>{{$t('shopping_cart.payment.direct.accepted_types')}}: jpeg, png, jpg
                         </div>
@@ -314,7 +314,6 @@ const uploadReceipt = () => {
 
     for ( var key in layout.registerInfo ) {
     formData.append(key, layout.registerInfo[key]);
-
     }
     
     formData.append('last_five_digit', data.fiveDigits)

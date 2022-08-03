@@ -128,11 +128,12 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 // import OrderSummary from "@/components/box/OrderSummary.vue";
 import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { buyer_retrieve_order_with_user_subscription, guest_retrieve_order_with_user_subscription } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useCookies } from 'vue3-cookies'
+const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
@@ -145,7 +146,8 @@ onMounted(() => {
     retrieve_order(route.params.order_oid)
     .then(
         res => { 
-            store.order = res.data 
+            store.order = res.data
+            i18n.locale = res.data.campaign.lang
             console.log(res.data)
         }
     )

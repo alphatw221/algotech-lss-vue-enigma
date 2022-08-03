@@ -73,7 +73,7 @@
 								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 							</button>
 							<div class="flex inline-flex leading-5 items-center">
-								<input type="text" class="w-10 form-control mr-1 leading-5 align-middle" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
+								<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
 								<div class="leading-5 allign-middle">
 									<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
 										{{$t('shopping_cart.table.update')}}

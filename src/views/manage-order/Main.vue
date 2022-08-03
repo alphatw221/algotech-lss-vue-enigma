@@ -85,11 +85,11 @@ import SearchBar from "./SearchBar.vue";
 import OrderProductModal from "./OrderProductModal.vue"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 // import xlsx from "xlsx";
-import { campaign_manage_order } from "@/api/manage_order";
-import { allow_checkout } from "@/api_v2/campaign"
+import { allow_checkout, retrieve_campaign } from "@/api_v2/campaign"
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const store = useManageOrderStore()
@@ -98,15 +98,26 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const layout = useLSSSellerLayoutStore()
 
 const deliveryStatus = ref(false);
-const checkout_status = route.query.checkout == 1 ? false : true ;
+const checkout_status = ref(false)
 const tableType = ref('all')
 const show_order = status=>{
   tableType.value=status
 }
 
+onMounted(()=>{
+    getCampaignInfo()
+})
+
 function stop_checkout(status){
     allow_checkout(route.params.campaign_id,status)
-    layout.notification.showMessageToast('Update Successed');
+    layout.notification.showMessageToast(`${i18n.global.t('manage_order.update_successed')}`);
+}
+
+function getCampaignInfo(){
+    retrieve_campaign(route.params.campaign_id).then(res=>{
+        store.campaign = res.data
+        checkout_status.value = res.data.meta.allow_checkout == 1 ? false : true 
+    })
 }
 </script>
 
