@@ -197,6 +197,8 @@ const priceUnitOptions = ref([
 const languages = ref([
     {value:'en',text:'English'},
     {value:'zh_hant',text:'Chinese-tranditional'},
+	{value:'zh_hans',text:'Chinese-simplify'},
+    {value:'vi',text:'Vietnamese'}
 ])
 
 const decimalOptions = ref([

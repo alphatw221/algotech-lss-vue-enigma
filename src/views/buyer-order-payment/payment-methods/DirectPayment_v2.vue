@@ -8,7 +8,7 @@
         <AccordionPanel class="leading-relaxed border-2 text-slate-600 dark:text-slate-500 border-secondary" >
 
             <!-- BEGIN Direct Payment Select -->
-            <div v-if="store.order.campaign">
+            <div class="mb-5" v-if="store.order.campaign">
 
             
                 <ul class="flex flex-row flex-wrap items-center self-center justify-around pt-3 pb-4 list-none" >
@@ -31,6 +31,9 @@
                     >
                     <table>
                         <tr>
+                            <td class="w-36">{{$t('shopping_cart.payment.direct.beneficiary')}}: </td><td>{{account.mode}}</td>
+                        </tr>
+                        <tr>
                             <td class="w-36">{{$t('shopping_cart.payment.direct.account_number')}}: </td><td>{{account.number}}</td>
                         </tr>
                         <tr>
@@ -48,7 +51,7 @@
             </div>
 
             <!-- BEGIN Direct Payment Radio -->
-            <div class="flex flex-col m-5">
+            <!-- <div class="flex flex-col m-5">
                 <label for="regular-form-2" class="form-label">{{$t('shopping_cart.payment.direct.beneficiary')}}</label>
                 <div class="inline-flex" >
                     <div  class="m-2" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
@@ -56,7 +59,7 @@
                         {{account.mode}}
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- END Direct Payment Radio -->
 
             <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
@@ -130,7 +133,10 @@ const receiptUploadDropzoneRef = ref();
 const openTab = ref(0);
 const selectAccountIndex = ref(0);
 
-const show_account_info = index => {openTab.value = index}
+const show_account_info = index => {
+    openTab.value = index
+    selectAccountIndex.value= index
+}
 const select_account = index =>{ selectAccountIndex.value= index}
 
 const data = reactive({ fiveDigits: "" });

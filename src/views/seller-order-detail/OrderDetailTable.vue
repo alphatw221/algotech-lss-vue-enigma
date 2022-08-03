@@ -1,5 +1,5 @@
 <template>
-<div class="flex-auto overflow-auto w-full h-fit max-h-72">
+<div class="flex-auto overflow-auto w-full h-fit max-h-full">
 	    <table class="table table-report -mt-3">
 		<thead>
 			<tr>
@@ -36,7 +36,7 @@
 					<div class="break-words whitespace-normal">{{ product.name }} </div>
 				</td>
 				<td class="text-right w-fit" :data-content="$t('order_detail.table.qty')">
-					<template v-if="props.order_type === 'order'">
+					<template v-if="props.order_type === 'order' || product.type=='lucky_draw'">
 						{{ product.qty }}
 					</template>
 					<template v-else>
@@ -65,10 +65,10 @@
 					</template>
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}} {{ (product.price).toFixed(sellerStore.userInfo.user_subscription.decimal_places) }}
+					{{store.orderDetail.campaign.currency}} {{ parseFloat(product.price).toFixed(store.orderDetail.campaign.decimal_places) }}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}} {{ (product.qty * product.price).toFixed(sellerStore.userInfo.user_subscription.decimal_places) }}
+					{{store.orderDetail.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.orderDetail.campaign.decimal_places) }}{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
 				</td>
 				<td>
 					<a  class="flex items-center justify-center text-danger" 

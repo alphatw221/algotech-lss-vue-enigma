@@ -74,7 +74,7 @@
               <div class="mt-3" v-if="campaign.instagram_profile">
                 <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
                 <input class="post_id" v-model="campaign.instagram_campaign.live_media_id" 
-                :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @change="autoUpdatePostId('instagram')"/>
+                :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @change="autoUpdatePostId('instagram')" disabled/>
                 <template v-if="validate.instagram.post_id.error">
                   <label class="text-danger ml-2" >
                     invalid post id 
@@ -271,22 +271,25 @@ const autoUpdatePostId = (platform) => {
 
 </script>
 <style scoped>
+input {
+  width: 90%;
+  margin: auto;
+  display: block;
+}
 .post_id {
   border:0;
   outline: 0;
   padding: 4px;
   height: auto;
   border-bottom: 1px solid black;
+  background: rgb(var(--color-slate-100) / var(--tw-bg-opacity));
 }
 .post_id:focus {
-  background-color: aliceblue;
   transition: 0.5s ease;
+  background: white;
 }
-input {
-  width: 90%;
-  margin: auto;
-  display: block;
-}
+
+
 img {
   cursor: pointer;
 }
@@ -304,7 +307,7 @@ button.select_page {
   padding: 20px;
   margin:0;
   border: 2px solid rgb(109, 109, 182);
-  border-radius: 10%;
+  border-radius: 16px;
   height: 230px;
 }
 </style>
