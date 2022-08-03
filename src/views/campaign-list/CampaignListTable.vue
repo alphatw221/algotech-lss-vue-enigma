@@ -32,7 +32,8 @@
 								{{ $t('campaign_list.campaign_list_table.click_create_notify') }}
 							</h1>
               <button 
-                class="flex w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto"
+                class="flex w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-rounded mx-auto mt-5"
+                      style="border: 2px solid #EF4444; color:#EF4444;"
                       @click="router.push({name:'platform'})" v-if="checkPagePonit"> 
                 {{$t('campaign_list.campaign_list_table.connect_platform')}}
               </button>
