@@ -8,7 +8,8 @@ export default async (to, from) => {
 
 
     
-    if (['', undefined, null].includes(cookies.get('login_with'))) {
+    if (['', undefined, null].includes(cookies.get('access_token'))) {
+        console.log('no access token')
         return true
     } 
     
@@ -25,9 +26,17 @@ export default async (to, from) => {
             return '/buyer/login'
         }
         return `/buyer/cart/${response.data.id}?tag=openAddOn`
-    } else if (type === 'enter') {
+    } else if (type === 'cart') {
         return `/buyer/cart/${to.params.object_id}`
+    } else if (type === 'order') {
+        return `/buyer/order/${to.params.object_id}`
     } else {
         return '/buyer/'
     }
 }
+
+
+
+
+
+

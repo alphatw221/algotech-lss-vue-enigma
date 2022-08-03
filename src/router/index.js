@@ -101,6 +101,7 @@ import Test7 from "../views/test/test7.vue";
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
 import isBuyerLoginMiddleware from "@/libs/routerMiddleware/isBuyerLoginMiddleware"
+import youtubeOrderMiddleware from "@/libs/routerMiddleware/youtubeOrderMiddleware"
 import sellerAuthMiddleware from "@/libs/routerMiddleware/sellerAuthMiddleware"
 
 import buyerLoginMiddleware from "@/libs/routerMiddleware/buyerLoginMiddleware";
@@ -384,11 +385,6 @@ const routes = [
         component: () => import('@/views/buyer-recaptcha/Main.vue'),
       },
       {
-        path: "c",
-        name: "buyer-index",
-        component: () => import('@/views/buyer-index/Main.vue'),
-      },
-      {
         path: "orders",
         name: "buyer-order-history-page",
         beforeEnter:isBuyerLoginMiddleware,
@@ -397,22 +393,25 @@ const routes = [
       {  
         path: "order/:order_oid?",
         name: "buyer-order-detail-page",
+        beforeEnter: youtubeOrderMiddleware,
         component: () => import('@/views/buyer-order-detail/Main.vue'),
       },
       {  
         path: "order/:order_oid?/payment",
         name: "buyer-order-payment-page",
-        beforeEnter: isOrderCompleted,
+        beforeEnter: youtubeOrderMiddleware,
         component: () => import('@/views/buyer-order-payment/Main.vue')
       },
       {  
         path: "order/:order_oid?/confirmation",
         name: "buyer-order-confirmation-page",
+        beforeEnter: youtubeOrderMiddleware,
         component: () => import('@/views/buyer-order-confirmation/Main.vue')
       },
       {  
         path: "cart/:pre_order_oid?",
         name: "buyer-shopping-cart-detail-page",
+        beforeEnter: youtubeOrderMiddleware,
         component: () => import('@/views/shoppingcart/Main.vue')
       },
     ]
