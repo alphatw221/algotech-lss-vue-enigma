@@ -124,7 +124,6 @@ const routeTOManageOrder = ()=>{
 
 const toManageOrder = ()=>{
     router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
-    hideDropDown()
 }
 
 </script>

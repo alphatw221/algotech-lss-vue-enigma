@@ -1,22 +1,20 @@
 <template>
     <div class="m-3 sm:m-5">
         <div class="flex justify-between flex-col xl:flex-row gap-5 mb-10">
-            <div class="flex justify-start">
-                <label class="form-label mr-10">{{ $t('lucky_draw.draw_list.campaign_title') }}</label>
-                <h2 class="w-42"> {{ props.campaignTitle }} </h2>
+            <div class="flex justify-start font-medium">
+                <label class="form-label mr-10 my-auto">{{ $t('lucky_draw.draw_list.campaign_title') }}</label>
+                <h2 class="w-42 my-auto"> {{ props.campaignTitle }} </h2>
             </div>
             <div class="flex justify-end">
+                <button class="btn btn-primary h-[35px] sm:h-[42px] my-auto mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
                 <button class="btn btn-primary w-32 mr-0 sm:mr-3 h-[35px] sm:h-[42px]" @click="eventBus.emit('showWinnersList')">
                     {{ $t('lucky_draw.draw_list.all_winner') }}
-                </button>
-                <button class="btn btn-primary w-32 ml-5 h-[35px] sm:h-[42px]" @click="existsDrawlist = eventBus.emit('changeDrawPage')">
-                    {{ $t('lucky_draw.draw_list.create') }}
                 </button>
             </div>
         </div>
         <div v-for="(luckydraw, index) in props.luckydrawList" :key="index"
             class="box bg-[#f1f1f1] relative text-left" >     
-            <div class="flex flex-row flex-wrap justify-start xl:justify-between m-[0.7rem] p-5 px-3 xl:p-5 lucky-set">
+            <div class="flex flex-row flex-wrap justify-start lg:justify-between m-[0.7rem] p-5 px-3 xl:p-5 lucky-set">
                 <div class="flex flex-col xl:flex-row justify-start w-[70px] md:w-[100px] lg:w-[200px] mr-5 md:mr-10 lg:mr-20 xl:mr-5 my-auto"> 
                     <img class="h-[120px] object-cover xl:mr-5" :src="storageUrl + luckydraw.prize.image" />
                 </div>
@@ -47,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="mt-5 xl:m-0 flex w-[100%] 2xl:w-fit justify-end">
+                <div class="mt-5 xl:mt-0 flex w-[100%] xl:w-fit ml-auto">
                     <button class="btn btn-primary w-full xl:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" @click="goDraw(luckydraw.id)">
                         {{ $t('lucky_draw.draw_list.start') }}
                     </button>
@@ -101,6 +99,9 @@ const drawTitleMap = ref({
     keyword: "Draw Keyword" 
 })
 
+const toManageOrder = ()=>{
+    router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
+}
 
 const goDraw = (lucky_draw_id) => {
     let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id} })

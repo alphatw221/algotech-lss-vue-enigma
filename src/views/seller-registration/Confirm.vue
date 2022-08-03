@@ -33,10 +33,6 @@ const layout = useSellerRegistrationStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-const toggleTabs = tabNumber => {
-  layout.changePlanTab = tabNumber
-  router.push({query:{tab:tabNumber}})
-  }
 
 const confirmationInfo= ref({
   "Customer": "",

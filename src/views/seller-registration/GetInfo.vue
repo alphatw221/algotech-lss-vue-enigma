@@ -272,7 +272,8 @@ const submitBasicInfo=()=>{
         return
     }
     console.log(basicInfo.value)
-    eventBus.emit("registerInfo", basicInfo.value)
+    layout.registerInfo = basicInfo.value
+    layout.registerTab == 2
 }
 </script>
 
