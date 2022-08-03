@@ -130,7 +130,7 @@
               > -->
 
               <DropdownItem class="dropdown-item hover:bg-white/5 " @click="router.push('/buyer/orders');dom('.dropdown-menu').removeClass('show')">
-                <ShoppingBagIcon class="w-4 h-4 mr-2" /> OrderHistory</DropdownItem
+                <ShoppingBagIcon class="w-4 h-4 mr-2" /> {{$t('layout.top_bar.order_history')}}</DropdownItem
               >
               <DropdownDivider class="border-white/[0.08]" />
 
@@ -140,7 +140,7 @@
               <DropdownDivider class="border-white/[0.08]" /> -->
 
               <DropdownItem class="dropdown-item hover:bg-white/5" @click="logout()" v-if="!isAnonymousUser">
-                <ToggleRightIcon class="w-4 h-4 mr-2" /> Logout</DropdownItem
+                <ToggleRightIcon class="w-4 h-4 mr-2" /> {{$t('layout.top_bar.logout')}}</DropdownItem
               >
             </DropdownContent>
           </DropdownMenu>
