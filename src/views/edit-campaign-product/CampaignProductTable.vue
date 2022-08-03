@@ -51,7 +51,7 @@
                         </td>
 
                         <td v-else-if="column.key === 'price'" class="price" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                                <div class="whitespace-nowrap">{{ layoutStore.userInfo.user_subscription.currency }} {{ parseFloat(campaign_product[column.key]).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
+                                <div class="whitespace-nowrap" v-if="campaignDetailStore.campaign">{{ campaignDetailStore.campaign.currency }} {{ parseFloat(campaign_product[column.key]).toFixed(campaignDetailStore.campaign.decimal_places)}}{{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}</div>
                         </td>
 
                         <td v-else-if="column.key === 'name'" class="text-[12px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage">
@@ -154,6 +154,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed, defineProps } from 'vue';
 import { seller_list_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
+import { retrieve_campaign } from '@/api_v2/campaign'
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
@@ -198,6 +199,7 @@ const payloadBuffer = ref({})
 onMounted(() => {
 
     search()
+    getCampaignDetail()
     eventBus.on(props.eventBusName, (payload) => {
         payloadBuffer.value=payload
         currentPage.value = 1
@@ -243,6 +245,12 @@ const deleteProduct = (campaign_product, index) => {
     .then(response => {
         campaignDetailStore.campaignProducts.splice(index,1)
     })
+}
+
+const getCampaignDetail = ()=>{
+	retrieve_campaign(route.params.campaign_id).then(res=>{
+		campaignDetailStore.campaign = res.data
+	}) 
 }
 
 

@@ -1,32 +1,32 @@
 {   
     "tab":{
-        "basic_info":"基本資料",
-        "payment":"Payment",
-        "confirm":"Confirmation"
+        "basic_info":"Thông tin cơ bản",
+        "payment":"Thanh toán",
+        "confirm":"Xác nhận"
     },
     "plan":{
-        "trial":"Trial",
+        "trial":"dùng thử",
         "lite":"Lite",
         "standard":"Standard",
         "premium":"Premium",
-        "dealer":"Dealer"
+        "dealer":"Người bán hàng"
     },
 
     "basic_info":{
-        "plan":"Subscription Plan",
+        "plan":"Gói dịch vụ đăng ký",
         "plan_options":{
-            "lite":"Lite (USD 10.00/Month)",
-            "standard":"Standard (USD 30.00/Month)",
-            "premium":"Premium (USD 60.00/Month)"
+            "lite":"Lite (70.000 đồng/tháng)",
+            "standard":"Standard (160.000 đồng/tháng)",
+            "premium":"Premium (Từ 100.000 đồng/tháng)"
         },
-        "period":"Subscription Period",
+        "period":"Thời gian sử dụng",
         "period_options":{
-            "year":"Yearly (10% discount)",
-            "quarter":"Quarterly"
+            "year":"Hàng năm (giảm giá 10%)",
+            "quarter":"Hàng quý"
         },
-        "first_name":"First Name",
-        "last_name":"Last Name",
-        "country_code":"Country Code",
+        "first_name":"Họ",
+        "last_name":"Tên",
+        "country_code":"Mã quốc gia",
         "code_Options":{
             "MY": "(MY) +60" , 
             "ID": "(ID) +62" , 
@@ -34,69 +34,69 @@
             "SG": "(SG) +65" , 
             "TW": "(TW) +886"
         },
-        "number":"Contact Number",
+        "number":"Số điện thoại",
         "email":"Email",
-        "password":"Password",
-        "confirm_password":"Confirm Password",
-        "target_country":"Target Country",
+        "password":"Mật khẩu",
+        "confirm_password":"Xác nhận lại mật khẩu",
+        "target_country":"Quốc gia",
         "country_Options":{
-            "australia": "Australia",
-            "cambodia": "Cambodia",   
+            "australia": "Úc",
+            "cambodia": "Campuchia",   
             "canada": "Canada" ,
-            "hong_kong": "Hong Kong",
+            "hong_kong": "Hồng Kông",
             "indonesia": "Indonesia",
-            "korea": "Korea",
+            "korea": "Hàn Quốc",
             "malaysia": "Malaysia" , 
             "philippines": "Philippines" , 
             "singapore": "Singapore" , 
-            "taiwan": "Taiwan" , 
-            "thai": "Thai" , 
-            "US": "United States" , 
-            "vietnam": "Vietnam"
+            "taiwan": "Đài Loan" , 
+            "thai": "Thái Lan" , 
+            "US": "Hoa Kỳ" , 
+            "vietnam": "Việt Nam"
         },
-        "required_field": "Field is required",
-        "password_err":"Password dosen't match",
-        "welcome_gift": "You are eligible for welcome gift (5% discount)",
-        "promocode_question":"Do you have promo code?",
-        "promocode":"Promo Code",
+        "required_field": "Trường này là bắt buộc",
+        "password_err":"Mật khẩu không trùng khớp",
+        "welcome_gift": "Bạn đủ điều kiện để nhận quà chào mừng (giảm giá 5%)",
+        "promocode_question":"Bạn có mã giảm giá?",
+        "promocode":"Mã giảm giá",
         "policy":{
-            "accept": "I accept",
-            "terms": "Terms",
+            "accept": "Tôi đồng ý",
+            "terms": "Điều khoản",
             "&": "&",
-            "conditions":"Conditions"
+            "conditions":"Điều kiện"
         },
-        "home":"Home",
-        "next":"Next"
+        "home":"Trang chủ",
+        "next":"Tiếp theo"
     },
     "payment":{
-        "selected_plan":"Selected Plan",
-        "proration":"Prorations and Adjustments",
-        "payment_total":"Payment Total",
-        "period":"Subscription Period",
-        "privious":"Previous",
-        "confirm_payment":"Confirm Payment",
-        "current_plan":"Current Plan",
-        "year":"Yearly",
-        "quarter":"Quarterly",
-        "stripe_success":"Success! Payment received.",
-        "stripe_process":"Payment processing. Please do not refresh the page and wait while we are processing your payment.",
-        "stripe_failed":"Payment failed. Please try another payment method.",
-        "stripe_err":"Something went wrong."
+        "selected_plan":"Gói đã chọn",
+        "proration":"Xác nhận và điều chỉnh",
+        "payment_total":"Tổng phải thanh toán",
+        "period":"Thời gian sử dụng",
+        "privious":"Trở về",
+        "confirm_payment":"Xác nhận thanh toán",
+        "current_plan":"Gói dịch vụ gần đây",
+        "year":"Hàng năm",
+        "quarter":"Hàng quý",
+        "stripe_success":"Thành công! Chúng tôi đã nhận được thanh toán",
+        "stripe_process":"Đang xử lý thanh toán. Vui lòng không làm mới trang và đợi trong khi chúng tôi xử lý thanh toán của bạn.",
+        "stripe_failed":"Thanh toán không thành công. Vui lòng thử một phương thức thanh toán khác.",
+        "stripe_err":"Đã xảy ra lỗi."
     },
     "confirm":{
         "succeeded":"Thanh toán thành công",
         "Email":"Email",
-        "Customer Name":"Customer Name",
-        "Password":"Password",
-        "Your Plan":"Gói dịch vụ",
-        "Target Country": "Target Country",
+        "Customer Name":"Tên khách hàng",
+        "Password":"Mật khẩu",
+        "Your Plan":"Gói dịch vụ của bạn",
+        "Target Country": "Quốc gia",
         "Subscription Period":"Thời gian sử dụng",
         "Subscription End Date":"Ngày hết hạn sử dụng",
         "download":"Tải xuống biên lai",
-        "thankyou":"Thank you for your payment. Your plan has been changed!" 
+        "thankyou":"Cảm ơn bạn đã thanh toán. Gói dịch vụ của bạn đã được thay đổi" 
     },
-    "invalid_data":"Invalid Submission",
-    "input_err":"Input Error",
-    "input_required":"Input Required",
-    "password_length":"Passwords must be between 8 to 20 characters"
+    "invalid_data":"Gửi đi không hợp lệ",
+    "input_err":"Lỗi đầu vào",
+    "input_required":"Yêu cầu đầu vào",
+    "password_length":"Mật khẩu có độ dài từ 8 đến 20 kí tự"
 }

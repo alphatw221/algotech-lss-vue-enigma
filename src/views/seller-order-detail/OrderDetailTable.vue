@@ -1,5 +1,5 @@
 <template>
-<div class="flex-auto overflow-auto w-full h-fit max-h-72">
+<div class="flex-auto overflow-auto w-full h-fit max-h-full">
 	    <table class="table table-report -mt-3">
 		<thead>
 			<tr>
@@ -33,10 +33,11 @@
 					</div>
 				</td>
 				<td class="text-left" :data-content="$t('order_detail.table.product')">
+					<span class="font-bold"  v-if="product.type === 'lucky_draw'"> *Prize*</span>
 					<div class="break-words whitespace-normal">{{ product.name }} </div>
 				</td>
 				<td class="text-right w-fit" :data-content="$t('order_detail.table.qty')">
-					<template v-if="props.order_type === 'order'">
+					<template v-if="props.order_type === 'order' || product.type=='lucky_draw'">
 						{{ product.qty }}
 					</template>
 					<template v-else>
@@ -215,6 +216,12 @@ thead th{
 .longMessage{
 	overflow-wrap: break-word;
 }	
+
+.luckyDraw{
+	border: 2px solid black !important; 
+	background-color: black;
+}
+
 
 /* @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
