@@ -82,10 +82,10 @@ import Payment from "./Payment.vue";
 import Confirm from "./Confirm.vue";
 import useI18n from "@/locales/i18n"
 
-import { useSellerRegistrationStore } from "@/stores/lss-seller-registeration"
-import { usePublicLayoutStore } from "@/stores/lss-public-layout"
+import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
+// import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
-const layoutStore = usePublicLayoutStore()
+// const layoutStore = usePublicLayoutStore()
 const registerationStore = useSellerRegistrationStore()
 
 const route = useRoute();

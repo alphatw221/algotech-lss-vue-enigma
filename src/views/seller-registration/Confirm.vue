@@ -28,7 +28,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies"
 
 
-import { useSellerRegistrationStore } from "@/stores/lss-seller-registeration"
+import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
 const layoutStore = usePublicLayoutStore()

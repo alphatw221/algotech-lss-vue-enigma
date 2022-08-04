@@ -208,7 +208,7 @@ import { required,integer, sameAs } from "@vuelidate/validators";
 import { seller_validate_register } from '@/api_v2/user'
 
 import i18n from "@/locales/i18n"
-import { useSellerRegistrationStore } from "@/stores/lss-seller-registeration"
+import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
 const layoutStore = usePublicLayoutStore()
