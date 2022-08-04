@@ -195,8 +195,8 @@ onUnmounted(()=>{
 
 // STRIPE 
 const renderStripeElement=(intentSecret)=>{
-    const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
-    // const stripe = window.Stripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
+    // const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
+    const stripe = window.Stripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
     const options = {
         clientSecret: intentSecret,
         // Fully customizable with appearance API.
@@ -250,21 +250,21 @@ const renderStripeElement=(intentSecret)=>{
                         }).catch(err => {
                             alert(err)
                         })
-                        message.innerText = i18n.global.t('register.payment.stripe_success') ;
+                        message.innerText = i18n.global.t('register.payment.stripe.stripe_success') ;
                         break;
 
                     case 'processing':
-                        message.innerText = i18n.global.t('register.payment.stripe_process') ;
+                        message.innerText = i18n.global.t('register.payment.stripe.stripe_process') ;
                         break;
 
                     case 'requires_payment_method':
-                        message.innerText = i18n.global.t('register.payment.stripe_failed') ;
+                        message.innerText = i18n.global.t('register.payment.stripe.stripe_failed') ;
                         // Redirect your user back to your payment page to attempt collecting
                         // payment again
                         break;
 
                     default:
-                        message.innerText = i18n.global.t('register.payment.stripe_err') ;
+                        message.innerText = i18n.global.t('register.payment.stripe.stripe_err') ;
                         break;
                 }
             })

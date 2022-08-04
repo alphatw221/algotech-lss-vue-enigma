@@ -23,8 +23,8 @@
             "year":"年繳 (九折優惠)",
             "quarter":"季繳"
         },
-        "first_name":"姓氏",
-        "last_name":"名字",
+        "first_name":"名字",
+        "last_name":"姓氏",
         "country_code":"國碼",
         "code_Options":{
             "MY": "(MY) +60" , 
