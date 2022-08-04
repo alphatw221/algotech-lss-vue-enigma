@@ -73,7 +73,7 @@
                             <div class="col-start-3 col-span-3 py-2">{{$t('order_detail.delivery.pickup')}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_store')}}</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.shipping_option}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].name}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
                             <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].address}}</div>
