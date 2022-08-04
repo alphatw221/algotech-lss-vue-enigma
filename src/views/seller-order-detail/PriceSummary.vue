@@ -23,24 +23,37 @@
         </div>
       </template>
       <template v-if="props.order_type !== 'order'">
-      <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
+      <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400
           pt-4">
-        <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}}
+          <div>
+            <div class="flex w-full "> 
+              <span class="my-auto"> {{$t('order_detail.price_summary.price_adjustment')}} </span> 
+              <Tippy 
+                  class="rounded-full w-fit whitespace-wrap" 
+                  data-tippy-allowHTML="true" 
+                  data-tippy-placement="right" 
+                  :content="$t('tooltips.manage_order_details.price_adjustment')" 
+                  theme='light'
+              > 
+                  <HelpCircleIcon class="w-5 ml-1 tippy-icon" />
+              </Tippy> 
+            </div>
+        
           <div class="mt-3 mb-3">
                 <input
                     class="form-check-input border border-slate-500"
                     type="checkbox"
                     v-model="store.orderDetail.free_delivery"
                     />
-                <span class="ml-3">{{$t('order_detail.price_summary.free_delivery')}}</span>
+                <span class="ml-2">{{$t('order_detail.price_summary.free_delivery')}}</span>
             </div>         
-            <div class="grid grid-cols-12 gap-4">
-                <div class="start-col-1 col-span-4">
-                    <input :id="'radio-switch-p'" class="form-check-input mr-3" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'+'" />
+            <div class="flex flex-row w-2/3 gap-4 whitespace-nowrap">
+                <div class="">
+                    <input :id="'radio-switch-p'" class="form-check-input mr-2" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'+'" />
                     <span> {{$t('order_detail.price_summary.add')}} +</span>
                 </div>
-                <div class="start-col-5 col-span-4">
-                    <input :id="'radio-switch-m'" class="form-check-input mr-3" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'-'" />
+                <div class="">
+                    <input :id="'radio-switch-m'" class="form-check-input mr-2" type="radio" name="vertical_radio_button" v-model="store.modify_status" :value="'-'" />
                     <span> {{$t('order_detail.price_summary.subtract')}} -</span>
                 </div>
             </div>

@@ -19,7 +19,7 @@
                         <label class="text-danger">Enter lucky draw title</label>
                     </template>
                 </div> -->
-                <div class="lg:w-[50%]  flex flex-col sm:mr-5 mt-6">
+                <div class="lg:w-[50%]  flex flex-col lg:mr-5 mt-6">
                     <label class="form-label"> {{ $t('lucky_draw.draw_create.prize') }}</label>
                     <select 
                         id="prizeSelect"
@@ -48,7 +48,18 @@
                     > Assign More Prize </button> -->
                 </div>
                 <div class="lg:w-[50%]  flex-col mt-6">
-                    <label class="form-label ">{{ $t('lucky_draw.draw_create.spin_time') }}</label>
+                    <div class="flex"> 
+                        <label class="form-label ">{{ $t('lucky_draw.draw_create.spin_time') }}</label>
+                        <Tippy 
+                            class="rounded-full w-30 whitespace-wrap" 
+                            data-tippy-allowHTML="true" 
+                            data-tippy-placement="right" 
+                            :content="$t('tooltips.lucky_draw.spin_time')" 
+                            theme='light'
+                        > 
+                            <HelpCircleIcon class="w-8 ml-1 mt-0.5 tippy-icon" />
+                        </Tippy> 
+                    </div>
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg" 
                         v-model="currentSettings.spin_time"
@@ -61,11 +72,11 @@
             </div>
 
             <div class="lg:flex">
-                <div class="lg:w-[50%] flex-col sm:mr-5 mt-6">
+                <div class="lg:w-[50%] flex-col lg:mr-5 mt-6">
                     <label class="form-label"> {{ $t('lucky_draw.draw_create.number_of_winner') }}</label>
                     <input 
                         type="text" 
-                        class="form-control sm:mr-5" 
+                        class="form-control lg:mr-5" 
                         v-model.trim="validate.num_of_winner.$model" 
                     />
                     <template v-if="validate.num_of_winner.$error">
@@ -81,10 +92,10 @@
                             class="rounded-full w-30 whitespace-wrap" 
                             data-tippy-allowHTML="true" 
                             data-tippy-placement="right" 
-                            :content="$t('lucky_draw.draw_create.winner_repeat_tip')" 
+                            :content="$t('tooltips.lucky_draw.winner_repeat')" 
                             theme='light'
                         > 
-                            <HelpCircleIcon class="w-8 ml-2" />
+                            <HelpCircleIcon class="w-8 ml-1 mt-0.5 tippy-icon" />
                         </Tippy> 
                     </div>
                     <div class="flex sm:flex-row mt-2 justify-between">

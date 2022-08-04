@@ -1,6 +1,6 @@
 <template>
 	<div class="box grid grid-cols-12 gap-4 intro-y lg:mx-20 lg:px-40 px-5 py-10 mt-3" v-if="ready">
-		<span class="col-span-12 text-xl font-medium leading-none sm:-mx-6">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
+		<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
 		<hr class="col-span-12 mb-3 -mx-6" />
 
 
@@ -74,7 +74,7 @@
 		<div class="flex flex-wrap justify-between col-span-12 col-start-1 mt-5 "> 
 			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.options')}}</label>
 			<button 
-				class="inline-block rounded-lg btn btn-primary ml-auto sm:w-24 lg:w-48 2xl:w-48 h-[42px] sm:mt-auto" 
+				class="inline-block rounded-lg btn btn-primary ml-auto lg:w-48 h-[42px] sm:mt-auto" 
 				@click="addDelivery()"
 			>
 				{{$t('create_campaign.delivery_form.add_more_delivery_option')}}
@@ -146,7 +146,7 @@
 		<div class="flex justify-between col-span-12 col-start-1 mt-5"> 
 			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.store_collection')}}</label>
 			<button 
-				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-48 2xl:w-48 h-[42px] sm:mt-auto" 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto lg:w-48 h-[42px] sm:mt-auto" 
 				@click="addBranch()"
 			>
 				{{$t('create_campaign.delivery_form.add_more_pickup_option')}}
@@ -192,7 +192,7 @@
 						
                     </div>
                     <button 
-                        class="inline-block w-full rounded-lg btn btn-danger sm:ml-auto sm:w-24 h-[42px] lg:mt-6" 
+                        class="inline-block w-full rounded-lg btn btn-danger sm:ml-auto sm:w-24 h-[42px] mt-auto lg:mt-6" 
                         @click="deleteBranch(index)"
                         >
                         {{$t('create_campaign.delivery_form.delete')}}
