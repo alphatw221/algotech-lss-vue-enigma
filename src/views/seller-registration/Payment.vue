@@ -20,7 +20,7 @@
         <img src="@/assets/images/lss-img/secured_tag.jpeg" class="flex  w-[100px] lg:w-[200px] mb-5" />
 
     <!-- BEGIN Tab List-->
-        <ul class="flex-none flex flex-wrap ml-14 sm:ml-0 py-2 flex-row justify-around w-full">
+        <ul class="flex-none flex flex-wrap py-2 flex-row justify-around w-full">
             <li class="flex-1 text-center">
                 <button
                     @click="toggleTabs(0)"
@@ -28,19 +28,20 @@
                         'text-neutral-600 bg-white': paymentMethod !== 0,
                         'text-white bg-primary': paymentMethod === 0 
                         }" 
-                    class="w-1/2 py-2 mx-auto flex justify-center border-2 border-primary/30 btn" >
-                    <font-awesome-icon icon="fa-regular fa-credit-card" class="h-6 mr-5"/> Credit Card
+                    class="sm:w-[300px] py-2 mx-auto flex justify-center border-2 border-primary/30 btn h-full" >
+                    <font-awesome-icon icon="fa-regular fa-credit-card" class="h-6 mr-5"/> {{$t('register.payment.payment_method.card')}}
                 </button>
             </li>
-            <li class="flex-1 text-center">
+            <li v-if="layout.country == 'vi'"
+                class="flex-1 text-center">
                 <button
                     @click="toggleTabs(1)"
                     :class="{
                         'text-neutral-600 bg-white': paymentMethod !== 1,
                         'text-white bg-primary': paymentMethod === 1 
                         }" 
-                    class="w-1/2 py-2 mx-auto flex justify-center border-2 border-primary/30 btn" >
-                    <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="h-7 mr-5" /> Direct Payment
+                    class="sm:w-[300px] py-2 mx-auto flex justify-center border-2 border-primary/30 btn h-full" >
+                    <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="h-7 mr-5" /> {{$t('register.payment.payment_method.direct')}}
                 </button>
             </li>
         </ul>
@@ -67,11 +68,11 @@
                 <div class="flex flex-col gap-3" 
                     :class="{ hidden: paymentMethod !== 1, block: paymentMethod === 1 }" > 
 
-                    <span class="mx-auto text-xl font-medium"> Payment Information </span>
+                    <span class="mx-auto text-xl font-medium"> {{$t('register.payment.direct.payment_info')}} </span>
                     <table class="mx-auto w-fit max-w-1/2"> 
-                        <tr> <td class="whitespace-nowrap"> Account Name </td> <td class="text-right pl-5"> ALGOTECH </td> </tr>
-                        <tr> <td class="whitespace-nowrap"> Account No. </td> <td class="text-right pl-10"> 9090999099932122135132</td> </tr>
-                        <tr> <td class="whitespace-nowrap align-top"> Note </td> <td class="text-right pl-10"> Please upload your transfer details and enter last 5 digits of your account info </td> </tr>
+                        <tr> <td class="whitespace-nowrap"> {{$t('register.payment.direct.account_name')}} </td> <td class="text-right pl-5"> ALGOTECH </td> </tr>
+                        <tr> <td class="whitespace-nowrap"> {{$t('register.payment.direct.account_number')}} </td> <td class="text-right pl-10"> 9090999099932122135132</td> </tr>
+                        <tr> <td class="whitespace-nowrap align-top">{{$t('register.payment.direct.note')}} </td> <td class="text-right pl-10"> Please upload your transfer details and enter last 5 digits of your account info </td> </tr>
                     </table>
                     <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
                         method: 'put',
@@ -86,22 +87,22 @@
                     }" class="dropzone h-fit rounded-xl">
 
                         <div class="text-lg font-medium">
-                        {{$t('shopping_cart.payment.direct.upload_img')}}
+                        {{$t('register.payment.direct.upload_img')}}
                  </div>
                         <div class="text-gray-600">
-                            <br>{{$t('shopping_cart.payment.direct.accepted_types')}}: jpeg, png, jpg
+                            <br>{{$t('register.payment.direct.accepted_types')}}: jpeg, png, jpg
                         </div>
-                        <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}} : 10MB</div>  
+                        <div class="text-gray-600">{{$t('register.payment.direct.max_size')}} : 10MB</div>  
                     </Dropzone>
                     <div class="flex flex-col my-3">
 
-                        <label for="regular-form-2" class="form-label">{{$t('shopping_cart.payment.direct.last_five_digits')}}</label>
+                        <label for="regular-form-2" class="form-label">{{$t('register.payment.direct.last_five_digits')}}</label>
                         <input id="regular-form-2" type="number" class="form-control"
                             :class="{ 'border-danger': uploadValidate.fiveDigits.$error }"
                             v-model.trim="uploadValidate.fiveDigits.$model" />
                         <template v-if="uploadValidate.fiveDigits.$error">
                             <div class="form-help" :class="{ 'text-danger': uploadValidate.fiveDigits.$error }">
-                                {{$t('shopping_cart.payment.direct.digits_message')}}
+                                {{$t('register.payment.direct.digits_message')}}
                             </div>
                         </template>
                     </div>
@@ -130,7 +131,7 @@
                 v-else-if="paymentMethod == 1"
                 type="button"
                 class="w-fit ml-5 shadow-md btn btn-primary"
-                @click="uploadReceipt()">{{$t('shopping_cart.payment.direct.complete_order')}}</button>
+                @click="uploadReceipt()">{{$t('register.payment.direct.complete_order')}}</button>
         </div>
     </div>
 </template>
@@ -139,7 +140,7 @@
 import { onMounted, onUnmounted, ref, getCurrentInstance, provide, reactive, toRefs   } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { seller_validate_register } from '@/api/user_subscription'
-import { seller_register, user_register_with_bank_transfer } from '@/api_v2/user'
+import { seller_register_stripe, user_register_with_bank_transfer } from '@/api_v2/user'
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 import {
     minLength,
@@ -194,8 +195,8 @@ onUnmounted(()=>{
 
 // STRIPE 
 const renderStripeElement=(intentSecret)=>{
-    // const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
-    const stripe = window.Stripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
+    const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
+    // const stripe = window.Stripe(import.meta.env.VITE_APP_STRIPE_PUBLIC_KEY);
     const options = {
         clientSecret: intentSecret,
         // Fully customizable with appearance API.
@@ -243,7 +244,7 @@ const renderStripeElement=(intentSecret)=>{
                 // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
                 switch (paymentIntent.status) {
                     case 'succeeded':
-                        seller_register(paymentInfo.value.countryCode,paymentInfo.value).then(res => {
+                        seller_register_stripe(layout.registerInfo.countryCode,layout.registerInfo).then(res => {
                             console.log(res.data)
                             eventBus.emit("comfirmRegister", res.data)
                         }).catch(err => {
@@ -325,7 +326,8 @@ const uploadReceipt = () => {
     user_register_with_bank_transfer(layout.registerInfo.countryCode, formData)
         .then(
             res => {
-                console.log(res.data)
+                console.log("directpayment", res.data)
+                eventBus.emit("comfirmRegister", res.data)
             }
         )
 }

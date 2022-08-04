@@ -3,9 +3,13 @@ import { ref } from "vue"
 export const useSellerRegistrationStore = defineStore("sellerOrder", {
 	state: () => ({
 		registerTab: ref(1),
+		country: ref(),
+		home:ref('https://liveshowseller.com/'),
+		terms:ref('https://liveshowseller.com/terms-of-service/'),
+		policy:ref('https://liveshowseller.com/privacy-policy/'),
 		notification: ref(false), 
 		alert: ref(false), 
 		registerInfo: ref({})
 
     })
-});
+}); 

@@ -179,15 +179,15 @@
                 <label :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }" > 
                     {{$t('register.basic_info.policy.accept')}} 
                     <a :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }" 
-                        href="https://liveshowseller.com/terms-of-service/">{{$t('register.basic_info.policy.terms')}} 
+                        :href="layout.terms" >{{$t('register.basic_info.policy.terms')}} 
                         </a> {{$t('register.basic_info.policy.&')}}
                     <a :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }"
-                        href="https://liveshowseller.com/privacy-policy/">{{$t('register.basic_info.policy.conditions')}}</a> 
+                        :href="layout.policy" >{{$t('register.basic_info.policy.conditions')}}</a> 
                 </label>
             </div>
         </form>
         <div class="flex justify-between my-10">
-            <a class="text-center btn btn-secondary" href="https://liveshowseller.com/">
+            <a class="text-center btn btn-secondary" :href="layout.home" >
                 {{$t('register.basic_info.home')}}
             </a> 
             <button class="btn btn-primary"
