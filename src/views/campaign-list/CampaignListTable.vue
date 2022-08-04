@@ -220,9 +220,9 @@ onMounted(()=>{
     page_size.value = payload.pageSize;
     // order_by.value = payload.order_by;
     search();
-  }),
+  })
   // startFromToast();
-  checkPage();
+  
 })
 
 onUnmounted(()=>{
@@ -242,6 +242,8 @@ const search =()=>{
         }
         campaigns.value = response.data.results
         showCommentLoding.value = false
+
+        if (!campaigns.value) checkPage();
       })
   }
 
@@ -317,12 +319,12 @@ const goQuizGame = (campaign) => {
 const checkPage = ()=>{
   get_user_subscription_facebook_pages().then(res=>{
     if(res.data.length !== 0) checkPagePonit.value = false
-  })
-  get_user_subscription_instagram_profiles().then(res=>{
-    if(res.data.length !== 0) checkPagePonit.value = false
-  })
-  get_user_subscription_youtube_channels().then(res=>{
-    if(res.data.length !== 0) checkPagePonit.value = false
+    else get_user_subscription_instagram_profiles().then(res=>{
+      if(res.data.length !== 0) checkPagePonit.value = false
+      else get_user_subscription_youtube_channels().then(res=>{
+        if(res.data.length !== 0) checkPagePonit.value = false
+      })
+    })
   })
 }
 
