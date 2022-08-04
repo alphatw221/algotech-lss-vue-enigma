@@ -21,11 +21,11 @@
 
       <!-- BEGIN: Logo -->
         <a href="" class="logo -intro-x block
-        w-20
-        sm:w-24
-        md:mr-auto
-        md:flex md:w-1/10 md:mx-0
-        xl:ml-5
+          w-20
+          sm:w-24
+          md:mr-auto
+          md:flex md:w-1/10 md:mx-0
+          xl:ml-5
         ">
           <img
             alt="Enigma Tailwind HTML Admin Template"

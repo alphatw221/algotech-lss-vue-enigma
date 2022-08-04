@@ -21,7 +21,7 @@
             </div>
 
             <div class="flex-col">
-                <label for="" class="subLabel" >{{$t('register.basic_info.period')}}</label><span class="text-danger"> *</span>
+                <label for="" class="subLabel" >{{$t('register.basic_info.period')}}</label><span class="text-danger"> *</span> 
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg" 
                         :class="{ 'border-danger text-danger border-2': validate.period.$error }" 
@@ -51,16 +51,16 @@
 
             <div class="flex flex-row gap-8"> 
                 <div class="flex-col w-1/3">
-                    <label for="" class="subLabel" >{{$t('register.basic_info.country_code')}}</label><span class="text-danger"> *</span>
+                    <div class="whitespace-nowrap"><label for="" class="subLabel" >{{$t('register.basic_info.country_code')}}</label><span class="text-danger"> *</span></div> 
                         <select 
                             class="w-full form-select sm:form-select-lg rounded-lg" 
                             :class="{ 'border-danger text-danger border-2': validate.countryCode.$error }" 
                             v-model="validate.countryCode.$model"
                         >
-                        <option v-for="(code, key) in countryCodeOptions" :key="key" :value="code.value" class="w-40"> 
-                        {{ $t(`register.basic_info.code_Options.` + code.value) }} 
-                        </option>
-                    </select>
+                            <option v-for="(code, key) in countryCodeOptions" :key="key" :value="code.value" class="w-40"> 
+                                {{ $t(`register.basic_info.code_Options.` + code.value) }} 
+                            </option>
+                        </select>
                     <template v-if="validate.countryCode.$error">
                         <label class="text-danger text-[16px] leading-tight">
                             {{$t('register.basic_info.required_field')}}
@@ -179,15 +179,15 @@
                 <label :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }" > 
                     {{$t('register.basic_info.policy.accept')}} 
                     <a :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }" 
-                        href="https://liveshowseller.com/terms-of-service/">{{$t('register.basic_info.policy.terms')}} 
+                        :href="layout.terms" >{{$t('register.basic_info.policy.terms')}} 
                         </a> {{$t('register.basic_info.policy.&')}}
                     <a :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }"
-                        href="https://liveshowseller.com/privacy-policy/">{{$t('register.basic_info.policy.conditions')}}</a> 
+                        :href="layout.policy" >{{$t('register.basic_info.policy.conditions')}}</a> 
                 </label>
             </div>
         </form>
         <div class="flex justify-between my-10">
-            <a class="text-center btn btn-secondary" href="https://liveshowseller.com/">
+            <a class="text-center btn btn-secondary" :href="layout.home" >
                 {{$t('register.basic_info.home')}}
             </a> 
             <button class="btn btn-primary"
@@ -205,6 +205,8 @@ import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required,integer, sameAs } from "@vuelidate/validators";
+import { seller_validate_register } from '@/api_v2/user'
+
 import i18n from "@/locales/i18n"
 
 const layout = useSellerRegistrationStore()
@@ -218,14 +220,15 @@ onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'paddin
 const route = useRoute()
 const router = useRouter()
 
-const planOptions = ref([{ value: "lite" },{ value: "standard" },{ value: "premium" }])
-const periodOptions = ref([{ value: "quarter" },{ value: "year" }])
-const countryCodeOptions = ref([{ value: "MY" },{ value: "ID" },{ value: "PH" },{ value: "SG" },{ value: "TW" }])
-const countryOptions = ref([{ value: "australia" },{ value: "cambodia" },{ value: "canada" },{ value: "hong_kong" },{ value: "indonesia" },{ value: "korea" }
-,{ value: "malaysia" },{ value: "philippines" },{ value: "singapore" },{ value: "taiwan" },{ value: "thai" },{ value: "US" },{ value: "vietnam" }])
-const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
-const havePromoCode = ref(false)
+const planOptions = [{ value: "lite" },{ value: "standard" },{ value: "premium" }]
+const periodOptions = [{ value: "quarter" },{ value: "year" }]
+const countryCodeOptions = [{ value: "MY" },{ value: "ID" },{ value: "PH" },{ value: "SG" },{ value: "TW" }]
+const countryOptions = [{ value: "australia" },{ value: "cambodia" },{ value: "canada" },{ value: "hong_kong" },{ value: "indonesia" },{ value: "korea" }
+,{ value: "malaysia" },{ value: "philippines" },{ value: "singapore" },{ value: "taiwan" },{ value: "thai" },{ value: "US" },{ value: "vietnam" }]
 
+// const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
+
+const havePromoCode = ref(false)
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
 
@@ -271,10 +274,12 @@ const submitBasicInfo=()=>{
         layout.alert.showMessageToast(i18n.global.t('profile.invalid_data'))
         return
     }
-    console.log(basicInfo.value)
-    layout.registerInfo = basicInfo.value
-    eventBus.emit("registerInfo", basicInfo.value)
+    seller_validate_register(route.query.country, basicInfo.value).then(res=>{
+        eventBus.emit("showPaymentTab", {'basicInfo':basicInfo.value, 'confirmInfo':res.data} )
+    }).catch( err=>{layout.registerTab = 1})
+    
 }
+
 </script>
 
 <style scoped>

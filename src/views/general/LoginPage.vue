@@ -19,6 +19,7 @@
             </div>
             <div class="relative"> 
                 <input class="h-[45px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
+                    placeholder="Password" 
                     v-model="loginData.password"
                     :type="showPassword ? 'text' : 'password'" 
                     @keydown.enter.prevent="signIn()" />

@@ -23,8 +23,8 @@
             "year":"年繳 (九折優惠)",
             "quarter":"季繳"
         },
-        "first_name":"姓氏",
-        "last_name":"名字",
+        "first_name":"名字",
+        "last_name":"姓氏",
         "country_code":"國碼",
         "code_Options":{
             "MY": "(MY) +60" , 
@@ -77,10 +77,31 @@
         "current_plan":"目前方案",
         "year":"年繳",
         "quarter":"季繳",
-        "stripe_success":"付款成功!",
-        "stripe_process":"處理中! 請勿重新整理頁面並耐心等候, 我們正在處理你的付款資訊",
-        "stripe_failed":"付款失敗! 請改用其他付款方式",
-        "stripe_err":"頁面發生錯誤"
+        "payment_method":{
+            "card":"信用卡付款",
+            "direct":"轉帳付款"
+        },
+        "stripe":{
+            "stripe_success":"付款成功!",
+            "stripe_process":"處理中! 請勿重新整理頁面並耐心等候, 我們正在處理你的付款資訊",
+            "stripe_failed":"付款失敗! 請改用其他付款方式",
+            "stripe_err":"頁面發生錯誤"
+        },
+        "direct":{
+            "payment_info":"帳戶資訊", 
+            "account":"帳號",
+            "account_number":"帳戶號碼",
+            "account_name":"帳戶名稱",
+            "note":"提醒",
+            "beneficiary":"Beneficiary Bank",
+            "upload_img":"拖動檔案或點擊上傳",
+            "accepted_types":"檔案格式",
+            "max_size":"檔案最大限制",
+            "last_five_digits":"後五碼",
+            "digits_message":"請輸入後五碼",
+            "complete_order":"完成訂單"
+        }
+        
     },
     "confirm":{
         "succeeded":"付款完成",

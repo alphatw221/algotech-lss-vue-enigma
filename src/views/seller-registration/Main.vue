@@ -1,5 +1,5 @@
  <template>
-    <div class="flex-col my-10">
+    <div class="flex-col my-10 bg-white">
         <!-- BEGIN Tab List-->
         <ul class="flex-none flex flex-wrap ml-14 sm:ml-0 py-2 flex-row justify-around w-full">
             <li class="flex-1 text-center">
@@ -24,7 +24,6 @@
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
-                    @click="toggleTabs(2)"
                         :class="{
                         'text-neutral-600 bg-white': layout.registerTab !== 2,
                         'text-white bg-primary': layout.registerTab === 2,
@@ -96,23 +95,22 @@ const route = useRoute();
 const router = useRouter();
 
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
-onBeforeMount (()=>{useI18n.global.locale.value = route.query.language} )     
+onBeforeMount (()=>{useI18n.global.locale.value = route.query.language || 'en'} )     
 onMounted(()=>{
-    layout.registerTab= 1
-    loadScript("https://js.stripe.com/v3/",()=>{
-    console.log("stripe SDK loaded") })
+    loadScript("https://js.stripe.com/v3/",()=>{console.log("stripe SDK loaded") })
+    // layout.country = route.query.language
 })
 
-const toggleTabs = tabNumber => {
-  layout.registerTab = tabNumber
-  }
+// onMounted(()=>{
+//     if(layout.country === 'zh_hant'){
+//         layout.home = 'https://liveshowseller.com.tw/'
+//         layout.terms = 'https://liveshowseller.com.tw/terms-of-service/'
+//         layout.policy = 'https://liveshowseller.com.tw/privacy-policy/'
+//     }
+// })
 
-provide("bind[registerMessageNotification]", (el) => {
-  layout.notification = el;
-  // el.showMessageToast('test notification')
-});
-provide("bind[registerMessageAlert]", (el) => {
-  layout.alert = el;
-  // el.showMessageToast('test alert')
-});
+const toggleTabs = tabNumber => {layout.registerTab = tabNumber}
+
+provide("bind[registerMessageNotification]", (el) => {layout.notification = el;});
+provide("bind[registerMessageAlert]", (el) => {layout.alert = el;});
 </script>

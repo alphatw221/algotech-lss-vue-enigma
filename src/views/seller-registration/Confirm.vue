@@ -8,8 +8,8 @@
             <div v-if=" key !== 'Receipt'">
                 <label> {{$t(`register.confirm.` +  key) }} : <span class="ml-3 font-medium text-[#660000]"> {{value}}</span> </label>
             </div>
-            <div v-if=" key === 'Receipt'" class="mt-10">
-                <button class="btn btn-warning text-white" @click="openReceiptDownloadPage"> {{$t('register.confirm.download')}} </button>
+            <div v-if=" key === 'Receipt' && confirmationInfo.Receipt" class="mt-10">
+                <button class="btn btn-warning text-white" @click="openReceiptDownloadPage()"> {{$t('register.confirm.download')}} </button>
             </div>
         </div>
         <div class="flex flex-col font-medium text-center mt-10">
@@ -21,7 +21,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
+import { computed, onMounted, ref, watch, getCurrentInstance, onUnmounted } from "vue";
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 
 import { useRoute, useRouter } from "vue-router";
@@ -43,14 +43,16 @@ const confirmationInfo= ref({
 })
 
 onMounted(()=>{
-  eventBus.on("comfirmRegister", (payload) => {
+  eventBus.on("showComfirmRegisterTab", (payload) => {
     confirmationInfo.value = payload
-    console.log(confirmationInfo.value)
     layout.registerTab = 3
     setTimeout(() => (window.location = 'https://liveshowseller.com/thank-you/'), 10000);
     })
 })
 
+onUnmounted(()=>{
+  eventBus.off('showComfirmRegisterTab')
+})
 const openReceiptDownloadPage=()=>{
   window.open(confirmationInfo.value.Receipt)
 }

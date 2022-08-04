@@ -13,7 +13,7 @@
         "like": "按讚者",
         "purchase": "購買者",
         "product": "購買特定商品者",
-        "keyword": "輸入特定商品代碼者",
+        "keyword": "輸入特定關鍵字",
         "winners" : "得獎人數量",
         "winner_repeat": "重複得獎",
         "yes": "是",
@@ -52,12 +52,12 @@
         "keyword_warning": "請輸入欲抽獎條件關鍵字",
         "campaign_product_warning": "請選擇特定商品",
         "product": "商品",
-        "keyword": "商品代碼",
+        "keyword": "關鍵字",
         "draw_selection": {
             "like": "按讚者",
             "product": "購買特定商品者",
             "purchase": "購買任何商品者",
-            "keyword": "輸入特定商品代碼者"
+            "keyword": "輸入特定關鍵字"
         },
         "no_product_err":"尚未將商品加入此直播",
         "assign_product_err":"需加入商品",
