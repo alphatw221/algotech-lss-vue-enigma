@@ -106,7 +106,7 @@ const hideDropDown = ()=>{
 
 
 const routeToDetailPage = (order_id)=>{
-    router.push({name:'sellerOrder',params:{'order_id':order_id},query:{'type':'pre_order'}})
+    router.push({name:'sellerOrder',params:{'campaign_id':route.params.campaign_id,'order_id':order_id},query:{'type':'pre_order'}})
 }
 
 const routeTOManageOrder = ()=>{
@@ -121,10 +121,6 @@ const routeTOManageOrder = ()=>{
 //     router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
 //     hideDropDown()
 // }
-
-const toManageOrder = ()=>{
-    router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
-}
 
 </script>
 
