@@ -23,10 +23,10 @@
 					</td>
 					<td v-else-if="listItems.length === 0" :colspan="columns.length">
 						<div class="mt-5 text-center md:mt-40 tdDot" >
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('auto_reply.no_have_autoreply') }}
 							</h1>
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+							<h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('auto_reply.set_up_first') }}
 							</h1>
 						</div>

@@ -25,10 +25,10 @@
 					</td> 
 					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0 "> 
 						<div class="mt-5 text-center md:mt-40 w-full" >
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('campaign_list.campaign_list_table.no_have_campaign') }}
 							</h1>
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+							<h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('campaign_list.campaign_list_table.click_create_notify') }}
 							</h1>
               <button 

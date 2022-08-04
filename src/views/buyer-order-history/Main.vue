@@ -16,13 +16,14 @@
 </template>
 
 <script setup>
-import { computed, onMounted, provide, ref, watch } from "vue";
+import { computed, onMounted, provide, ref, watch, getCurrentInstance } from "vue";
 import OrderHistoryTable from "@/views/buyer-order-history/OrderHistoryTable.vue"; 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import dom from "@left4code/tw-starter/dist/js/dom";
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
+const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
 const userAvatar = computed(() => {
   if(cookies.get('login_with')=='facebook'){
@@ -33,6 +34,10 @@ const userAvatar = computed(() => {
   }
   return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
 });
+
+onMounted(()=>{
+  i18n.locale = buyerLayoutStore.userInfo.lang
+})
 
 
 </script>
