@@ -14,7 +14,7 @@ export const delete_campaign_quiz_game_bundle = (quizgame_bundle_id) => {
 }
 
 export const delete_campaign_quiz_game = (quizgame_id) => {
-    return createAxiosWithBearer().delete(`/api/v2/campaign-quizgame/${quizgame_id}/delete/quiz-game/`)
+    return createAxiosWithBearer().delete(`/api/v2/campaign-quizgame/${quizgame_id}/delete/`)
 }
 
 export const retrieve_campaign_quiz_game = (quizgame_bundle_id) => {

@@ -1,6 +1,6 @@
 <template>
     <div class="m-3 sm:m-5">
-        <div class="flex flex-col lg:flex-row justify-between mb-10">
+        <div class="flex flex-col md:flex-row justify-between mb-10">
             <div class="flex justify-start">
                 <label class="form-label mr-10"> Campaign Title </label>
                 <h2 class="w-42"> {{ props.campaignTitle }} </h2>
@@ -17,59 +17,77 @@
             :key="index"
         >
             <div class="flex flex-row flex-wrap m-[0.7rem] p-5">
-                <div class="flex flex-col justify-start w-[55%] mr-5 my-auto"> 
-                    <table>
-                        <thead>
-                            <tr>
-                                <th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]">
-                                    question
-                                </th>
-                                <th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]">
-                                </th>
-                            </tr>
-                        </thead>
-                        
-                        <tbody>
-                            <tr
-                                v-for="(quizgame, index_i) in quizgameBundle.quiz_games"
-                                :key="index_i"
-                                class="intro-x"
-                            >
-                                <template v-for="(column, index_j) in tableColumns" :key="index_j"> 
-                                    <td v-if="column.key === 'question'" class="w-full sm:w-fit" >
-                                        <div class="">{{quizgame[column.key]}}</div> 
-                                    </td>
-                                    <td v-else-if="column.key === 'button'">
-                                        <button 
-                                            class="btn btn-primary w-full lg:w-24 h-[35px] ml-3 mt-1" 
-                                            v-if="emptyArr.includes(quizgame.start_at)"
-                                            @click="quizgameStart(quizgame.id)"
-                                        > Start </button>
-                                        <button 
-                                            class="btn btn-seconday w-full lg:w-24 h-[35px] ml-3 mt-1" 
-                                            v-else-if="emptyArr.includes(quizgame.end_at)"
-                                            @click="quizgameStop(quizgame.id)"
-                                        > Stop </button>
-                                        <button 
-                                            class="btn btn-seconday w-full lg:w-24 h-[35px] ml-3 mt-1" 
-                                            v-else 
-                                            disabled
-                                        > Finish </button>
-                                    </td>
-                                </template>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
- 
-                <div class="flex flex-col lg:flex-row md:mt-5 w-[20%] lg:w-auto lg:ml-auto">
-                    <div class="lg:border-r-2 border-white flex flex-row lg:flex-col w-full lg:w-36 ">
-                        <div class="text-slate-500 mr-3"> No. Of Winner </div>
-                        <span class="lg:my-1"> {{ quizgameBundle.num_of_winner }} </span>
-                    </div>
+                
+                <div class="flex flex-col gap-4 w-[55%] ">
+                    <label class="text-center text-[20px] font-bold"> Question </label>
+
+                    <template v-for="(quizgame, index) in quizgameBundle.quiz_games" :key="index">
+                        <div class="flex flex-row items-center justify-between">
+                            <div>
+                                {{ quizgame.question }}
+                            </div>
+                            <div class="">
+                                <button 
+                                    class="btn btn-primary w-full md:w-24 h-[35px]" 
+                                    v-if="emptyArr.includes(quizgame.start_at)"
+                                    @click="quizgameStart(quizgame.id)"
+                                > Start </button>
+                                <button 
+                                    class="btn btn-seconday w-full md:w-24 h-[35px]" 
+                                    v-else-if="emptyArr.includes(quizgame.end_at)"
+                                    @click="quizgameStop(quizgame.id)"
+                                > Stop </button>
+                                <button 
+                                    class="btn btn-seconday w-full md:w-24 h-[35px]" 
+                                    v-else 
+                                    disabled
+                                > Finish </button>
+                            </div>
+                        </div>      
+                    </template>
+                  
                 </div>
 
-                <div 
+                <div class="flex flex-row md:flex-col md:border-x-2 border-white md:ml-auto md:w-36">
+                    <div class="text-slate-500 mr-auto ml-auto"> No. Of Winner </div>
+                    <span class="m-auto md:text-[35px]"> {{ quizgameBundle.num_of_winner }} </span>
+                </div>
+
+                <div class="flex flex-row flex-wrap md:w-auto md:mx-auto md:w-[25%]">
+                    <template v-if="Array.isArray(quizgameBundle.winner_list) && quizgameBundle.winner_list.length == 0">
+                        <button 
+                            class="btn btn-primary md:w-32 md:h-[50px] md:m-auto" 
+                            @click="goResult(quizgameBundle.id)" 
+                        > Result </button>
+                    </template>
+                    <template v-else-if="Array.isArray(quizgameBundle.winner_list) && quizgameBundle.winner_list.length != 0">
+                        <!-- <div class="text-slate-500 md:m-auto"> Winner List </div> -->
+ 
+                        <div v-for="(winner, index) in quizgameBundle.winner_list" :key="index" class="my-1">
+                            
+                            <div class="flex flex-wrap mx-2 w-34">
+                                <div class="flex-0 w-9 h-9 zoom-in border-0">
+                                    <Tippy v-if="[undefined, null, ''].includes(winner.customer_image)" tag="img" class="rounded-full border-0" :src="`${storageUrl}fake_head.jpeg`" />
+                                    <Tippy v-else tag="img" class="rounded-full border-0" :src="winner.customer_image" />
+                                    <div class="w-4 h-4 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+                                        <img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
+                                        <img v-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
+                                        <img v-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
+                                        <img v-if="[undefined, null, ''].includes(winner.platform)" class="rounded-full bg-[#9D9D9D]" :src="unbound" >
+                                    </div>
+                                </div>
+                                <label class="text-base flex items-center ml-2"> {{ winner.customer_name }} </label>
+                            </div>
+
+                        </div>
+
+
+                    </template>
+                </div>
+
+
+
+                <!-- <div 
                     class="flex flex-col lg:flex-row w-[20%] lg:w-auto lg:mx-auto"
                     v-if="Array.isArray(quizgameBundle.winner_list) && quizgameBundle.winner_list.length == 0"
                 >
@@ -108,7 +126,9 @@
 
                         </div>
                     </div>
-                </div>
+                </div> -->
+
+
 
             </div>  
 
