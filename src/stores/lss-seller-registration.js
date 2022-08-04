@@ -1,6 +1,6 @@
 import { defineStore } from "pinia";
 import { ref } from "vue"
-export const useSellerRegistrationStore = defineStore("sellerOrder", {
+export const useSellerRegistrationStore = defineStore("sellerRegistration", {
 	state: () => ({
 		registerTab: ref(1),
 		country: ref(),
