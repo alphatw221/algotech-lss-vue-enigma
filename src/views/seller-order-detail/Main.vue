@@ -20,14 +20,12 @@
         </div>
     </div>
     <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:max-h-[50vh]"> 
-        <div class="w-[100%] flex-col"> 
-            <div class="w-[100%] mt-2">
-                <OrderDetailTable :order_type="route.query.type"/>
-            </div>
+        <div class="flex-col mt-2 w-[100%] sm:w-1/2"> 
+            <OrderDetailTable :order_type="route.query.type"/>
         </div>
         
         <!-- Price Summary -->
-        <div class="w-[100%]">
+        <div class="w-[100%] sm:w-1/2">
             <PriceSummary 
                 :order_type="route.query.type" 
                 :decimal_places="user_store.userInfo.user_subscription.decimal_places" />

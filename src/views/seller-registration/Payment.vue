@@ -46,7 +46,7 @@
             </li>
         </ul>
         <!--  Stripe  -->
-            <div class="tab-content tab-space py-10">
+            <div class="tab-content tab-space py-5 sm:py-10">
                 <div :class="{ hidden: paymentMethod !== 0, block: paymentMethod === 0 }" 
                     class="my-5 lg:my-10">
                     <form id="payment-form">

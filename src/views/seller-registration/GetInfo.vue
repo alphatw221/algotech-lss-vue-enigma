@@ -21,7 +21,7 @@
             </div>
 
             <div class="flex-col">
-                <label for="" class="subLabel" >{{$t('register.basic_info.period')}}</label><span class="text-danger"> *</span>
+                <label for="" class="subLabel" >{{$t('register.basic_info.period')}}</label><span class="text-danger"> *</span> 
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg" 
                         :class="{ 'border-danger text-danger border-2': validate.period.$error }" 
@@ -51,7 +51,7 @@
 
             <div class="flex flex-row gap-8"> 
                 <div class="flex-col w-1/3">
-                    <label for="" class="subLabel" >{{$t('register.basic_info.country_code')}}</label><span class="text-danger"> *</span>
+                    <div class="whitespace-nowrap"><label for="" class="subLabel" >{{$t('register.basic_info.country_code')}}</label><span class="text-danger"> *</span></div> 
                         <select 
                             class="w-full form-select sm:form-select-lg rounded-lg" 
                             :class="{ 'border-danger text-danger border-2': validate.countryCode.$error }" 

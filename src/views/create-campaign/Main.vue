@@ -26,7 +26,17 @@
 			</div>
 			<div class="col-span-12 sm:col-span-6">
 				<div class="flex flex-col">
-					<label for="regular-form-2" class="w-16 my-auto text-base form-label font-medium">{{$t('create_campaign.period')}}</label>
+					<div class="flex whitespace-nowrap align-middle"> 
+						<label for="regular-form-2" class="w-fit my-auto text-base form-label font-medium">{{$t('create_campaign.period')}}</label>
+						<Tippy 
+							class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+							data-tippy-allowHTML="true" 
+							data-tippy-placement="right" 
+							:content="$t('tooltips.create_campaign.campaign_period')" 
+						> 
+							<HelpCircleIcon class="w-5 tippy-icon" />
+						</Tippy> 
+					</div>
 					<v-date-picker class="z-49" 
 						v-model="dateTimePicker" 
 						:timezone="timezone" 
