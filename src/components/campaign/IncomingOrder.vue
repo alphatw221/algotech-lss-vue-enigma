@@ -16,12 +16,12 @@
 
             <div class="flex justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.incoming.incoming_order')}}</h2>
-                <button class="btn btn-primary h-fit my-auto mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
+                <button class="btn btn-primary h-fit my-auto mr-6 w-40" @click="routeTOManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
             </div>
             
             <div class="overflow-auto max-h-[90%]">
                 <table class="table table-sm h-full">
-                    <thead class="table-dark">
+                    <thead class="table-dark text-center">
                         <tr>
                             <th class="whitespace-nowrap bg-dark" v-for="column in incoming_order_columns"
                                 :key="column.key">
@@ -39,17 +39,17 @@
                         <tr v-for="order, index in store.incomingOrders" :key="index">
                             <td>#{{ order.id }}</td>
                             <td>
-                                <div v-if="order.platform === 'facebook'" class="w-10 h-10 image-fit">
+                                <div v-if="order.platform === 'facebook'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/facebook.png" />
                                     </div>
                                 </div>
-                                <div v-else-if="order.platform === 'instagram'" class="w-10 h-10 image-fit">
+                                <div v-else-if="order.platform === 'instagram'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/instagram.png" />
                                     </div>
                                 </div>
-                                <div v-else-if="order.platform === 'youtube'" class="w-10 h-10 image-fit">
+                                <div v-else-if="order.platform === 'youtube'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/youtube.png" />
                                     </div>
@@ -58,7 +58,15 @@
                             <td>{{ order.customer_name }}</td>
                             <td>{{ order.currency_sign }}{{ parseFloat(order.subtotal).toFixed(order.campaign.decimal_places)}}{{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}</td> 
                             <td>
-                                <EyeIcon class="click-icon" @click="routeToDetailPage(order.id)"/>
+                                <Tippy 
+                                    class="rounded-full w-fit" 
+                                    data-tippy-allowHTML="true" 
+                                    data-tippy-placement="right" 
+                                    :options="{ theme: 'light' }"
+                                    :content="$t('tooltips.campaign_live.view_icon')" 
+                                > 
+                                    <EyeIcon class="click-icon" @click="routeToDetailPage(order.id)"/> 
+                                </Tippy> 
                             </td>
                         </tr>
                     </tbody>
@@ -106,7 +114,7 @@ const hideDropDown = ()=>{
 
 
 const routeToDetailPage = (order_id)=>{
-    router.push({name:'sellerOrder',params:{'order_id':order_id},query:{'type':'pre_order'}})
+    router.push({name:'sellerOrder',params:{'campaign_id':route.params.campaign_id,'order_id':order_id},query:{'type':'pre_order'}})
 }
 
 const routeTOManageOrder = ()=>{
@@ -121,10 +129,6 @@ const routeTOManageOrder = ()=>{
 //     router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
 //     hideDropDown()
 // }
-
-const toManageOrder = ()=>{
-    router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
-}
 
 </script>
 
@@ -147,6 +151,7 @@ const toManageOrder = ()=>{
     overflow-wrap: break-word;
     max-width: 95px;
     height: 42px;
+    text-align: center;
 }
 .click-icon:hover {
 	cursor: pointer;

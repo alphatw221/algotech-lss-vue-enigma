@@ -9,7 +9,7 @@
         "contact_info":"基本资讯",
         "first_name":"名",
         "last_name":"姓",
-        "phone":"电话",
+        "phone":"连络电话",
         "email":"电子信箱",
         "first_err":"必填",
         "last_err":"必填",

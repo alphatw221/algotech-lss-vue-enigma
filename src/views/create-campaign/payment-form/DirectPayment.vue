@@ -17,7 +17,7 @@
                 <label class="ml-3 form-label text-base font-medium">{{$t('create_campaign.payment_form.enabled')}}</label>
             </div> -->
             <button 
-				class="inline-block rounded-lg btn btn-primary sm:ml-auto sm:w-24 lg:w-60 2xl:w-60 h-[42px] sm:mt-auto mx-auto" 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto lg:w-60 h-[42px] sm:mt-auto mx-auto" 
 				@click="addDirectPayment()"
 			>
 				{{$t('create_campaign.payment_form.add_more_direct_payment')}}
@@ -68,8 +68,17 @@
                             type="checkbox" 
                             v-model="account[field.key]"
                         />
-                        <label class="form-label text-base font-medium mt-2">{{$t(`create_campaign.payment_form.direct_payment.${field.key}`)}}
-                        </label>
+                        <div class="flex whitespace-nowrap align-middle"> 
+                            <label class="form-label text-base font-medium mt-2">{{$t(`create_campaign.payment_form.direct_payment.${field.key}`)}}</label>
+                            <Tippy 
+                                class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+                                data-tippy-allowHTML="true" 
+                                data-tippy-placement="right" 
+                                :content="$t('tooltips.create_campaign.payment_record')" 
+                            > 
+                                <HelpCircleIcon class="w-5 tippy-icon" />
+                            </Tippy> 
+                        </div>
                     </div>
                 </template>
 

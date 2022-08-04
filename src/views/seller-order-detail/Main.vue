@@ -20,14 +20,12 @@
         </div>
     </div>
     <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:max-h-[50vh]"> 
-        <div class="w-[100%] flex-col"> 
-            <div class="w-[100%] mt-2">
-                <OrderDetailTable :order_type="route.query.type"/>
-            </div>
+        <div class="flex-col mt-2 w-[100%] sm:w-1/2"> 
+            <OrderDetailTable :order_type="route.query.type"/>
         </div>
         
         <!-- Price Summary -->
-        <div class="w-[100%]">
+        <div class="w-[100%] sm:w-1/2">
             <PriceSummary 
                 :order_type="route.query.type" 
                 :decimal_places="user_store.userInfo.user_subscription.decimal_places" />
@@ -56,7 +54,7 @@
                         <div class="col-start-3 col-span-3 py-2">{{$t(`order_detail.delivery.${store.orderDetail.shipping_method}`)}}</div>
 
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
-                        <div class="col-start-3 col-span-3 py-2" v-if="store.orderDetail.campaign">{{store.orderDetail.shipping_option + ' - ' + store.orderDetail.campaign.meta_logistic.pickup_options[store.orderDetail.shipping_option_index].address}}</div>
+                        <div class="col-start-3 col-span-3 py-2" v-if="store.orderDetail.campaign">{{store.orderDetail.campaign.meta_logistic.pickup_options[store.orderDetail.shipping_option_index].name + ' - ' + store.orderDetail.campaign.meta_logistic.pickup_options[store.orderDetail.shipping_option_index].address}}</div>
                     </template>
                     <template v-if="store.orderDetail.shipping_method === 'delivery'">
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</span>

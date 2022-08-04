@@ -78,10 +78,30 @@
         "current_plan":"Current Plan",
         "year":"Yearly",
         "quarter":"Quarterly",
-        "stripe_success":"Success! Payment received.",
-        "stripe_process":"Payment processing. Please do not refresh the page and wait while we are processing your payment.",
-        "stripe_failed":"Payment failed. Please try another payment method.",
-        "stripe_err":"Something went wrong."
+        "payment_method":{
+            "card":"Credit Card",
+            "direct":"Direct Payment"
+        },
+        "stripe":{
+            "stripe_success":"Success! Payment received.",
+            "stripe_process":"Payment processing. Please do not refresh the page and wait while we are processing your payment.",
+            "stripe_failed":"Payment failed. Please try another payment method.",
+            "stripe_err":"Something went wrong."
+        },
+        "direct":{
+            "payment_info":"Payment Information", 
+            "account":"Account",
+            "account_number":"Account Number",
+            "account_name":"Account Name",
+            "note":"Note",
+            "beneficiary":"Beneficiary Bank",
+            "upload_img":" Drop files here or click to upload",
+            "accepted_types":"File types",
+            "max_size":"Max file size",
+            "last_five_digits":"Last Five Digits",
+            "digits_message":"Please Enter Exactly 5 Digits",
+            "complete_order":"Upload & Complete Order"
+        }
     },
     "confirm":{
         "succeeded":"Payment succeeded",

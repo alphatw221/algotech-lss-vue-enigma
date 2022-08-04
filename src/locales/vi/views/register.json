@@ -78,10 +78,31 @@
         "current_plan":"Gói dịch vụ gần đây",
         "year":"Hàng năm",
         "quarter":"Hàng quý",
-        "stripe_success":"Thành công! Chúng tôi đã nhận được thanh toán",
-        "stripe_process":"Đang xử lý thanh toán. Vui lòng không làm mới trang và đợi trong khi chúng tôi xử lý thanh toán của bạn.",
-        "stripe_failed":"Thanh toán không thành công. Vui lòng thử một phương thức thanh toán khác.",
-        "stripe_err":"Đã xảy ra lỗi."
+        "payment_method":{
+            "card":"thẻ tín dụng",
+            "direct":"Thanh toán trực tiếp"
+        },
+        "stripe":{
+            "stripe_success":"Thành công! Chúng tôi đã nhận được thanh toán",
+            "stripe_process":"Đang xử lý thanh toán. Vui lòng không làm mới trang và đợi trong khi chúng tôi xử lý thanh toán của bạn.",
+            "stripe_failed":"Thanh toán không thành công. Vui lòng thử một phương thức thanh toán khác.",
+            "stripe_err":"Đã xảy ra lỗi."
+        }, 
+        "direct":{
+            "payment_info":"Thông tin thanh toán", 
+            "account":"Tài khoản",
+            "account_number":"Số tài khoản",
+            "account_name":"Tên tài khoản",
+            "note":"Ghi chú",
+            "beneficiary":"Ngân hàng thụ hưởng",
+            "upload_img":"Thả tệp vào đây hoặc nhấp để tải lên",
+            "accepted_types":"Loại tệp tin",
+            "max_size":"Kích thước tệp tối đa",
+            "last_five_digits":"5 số cuối thẻ",
+            "digits_message":"Vui lòng nhập chính xác 5 số cuối",
+            "complete_order":"Tải lên & Hoàn thành đơn hàng"
+        }
+        
     },
     "confirm":{
         "succeeded":"Thanh toán thành công",

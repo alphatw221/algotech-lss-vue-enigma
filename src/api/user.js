@@ -5,16 +5,8 @@ export const admin_login = data => {
     return axiosInstance.post(`/token/`,data);
 };
 
-// export const seller_register_free_trail = (countryCode,data) =>{
-//     return axiosInstance.post(`/api/user/register/trial/${countryCode}/`,data);
-// }
-
 export const seller_validate_register = (countryCode,data) =>{
     return axiosInstance.post(`/api/user/register/validate/${countryCode}/`,data);
-}
-
-export const seller_register = (countryCode,data) =>{
-    return axiosInstance.post(`/api/user/register/${countryCode}/`,data);
 }
 
 export const seller_login = data =>{

@@ -1,6 +1,6 @@
 {   
     "tab":{
-        "basic_info":"基本资料",
+        "basic_info":"基本资讯",
         "payment":"支付",
         "confirm":"确认订单"
     },
@@ -23,8 +23,8 @@
             "year":"年缴 (九折优惠)",
             "quarter":"季缴"
         },
-        "first_name":"姓氏",
-        "last_name":"名字",
+        "first_name":"名",
+        "last_name":"姓",
         "country_code":"国码",
         "code_Options":{
             "MY": "(MY) +60" , 
@@ -77,10 +77,30 @@
         "current_plan":"目前方案",
         "year":"年缴",
         "quarter":"季缴",
-        "stripe_success":"付款成功!",
-        "stripe_process":"处理中! 请勿重新整理页面并耐心等候, 我们正在处理你的付款资讯",
-        "stripe_failed":"付款失败! 请改用其他付款方式",
-        "stripe_err":"页面发生错误"
+        "payment_method":{
+            "card":"信用卡支付",
+            "direct":"转帐支付"
+        },
+        "stripe":{
+            "stripe_success":"付款成功!",
+            "stripe_process":"处理中! 请勿重新整理页面并耐心等候, 我们正在处理你的付款资讯",
+            "stripe_failed":"付款失败! 请改用其他付款方式",
+            "stripe_err":"页面发生错误"
+        },
+        "direct":{
+            "payment_info":"账号资讯", 
+            "account":"账号",
+            "account_number":"账户号码",
+            "account_name":"账户名称",
+            "note":"提醒",
+            "beneficiary":"Beneficiary Bank",
+            "upload_img":" 拖动档案或点击上传",
+            "accepted_types":"档案格式",
+            "max_size":"档案最大限制",
+            "last_five_digits":"后五码",
+            "digits_message":"请输入后五码",
+            "complete_order":"完成订单"
+        }
     },
     "confirm":{
         "succeeded":"付款完成",
