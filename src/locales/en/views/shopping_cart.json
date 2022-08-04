@@ -88,7 +88,8 @@
             "max_size":"Max file size",
             "last_five_digits":"Last Five Digits",
             "digits_message":"Please Enter Exactly 5 Digits",
-            "complete_order":"Upload & Complete Order"
+            "complete_order":"Upload & Complete Order",
+            "information": "Payment Information"
         }
     },
     "delete_success":"Delete Success",

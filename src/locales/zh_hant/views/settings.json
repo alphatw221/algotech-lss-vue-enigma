@@ -35,7 +35,8 @@
             "Value_is_required":"此欄位必填",
             "Value_must_be_numeric":"輸入必須為數字",
             "minValue":"輸入數字無效",
-            "required":"此欄位必填"
+            "required":"此欄位必填",
+            "integer":"請輸入整數"
         }
         
     },
@@ -119,7 +120,8 @@
             "SG":"新加坡",
             "ID":"印尼",
             "IN":"印度",
-            "TW":"台灣"
+            "TW":"台灣",
+            "VN":"越南"
         },
         "currency_symbol":"貨幣符號",
         "seller_language":"賣家語言",

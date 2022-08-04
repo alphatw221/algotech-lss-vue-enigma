@@ -88,7 +88,8 @@
             "max_size":"檔案最大限制",
             "last_five_digits":"後五碼",
             "digits_message":"請輸入後五碼",
-            "complete_order":"完成訂單"
+            "complete_order":"完成訂單",
+            "information": "付款資訊"
         }
     },
     "delete_success":"刪除成功",

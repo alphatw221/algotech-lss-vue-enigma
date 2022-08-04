@@ -12,5 +12,7 @@
     "complete" : "Complete",
     "review" : "Review",
     "shipping out":"Shipping Out",
-    "Direct Payment":"Direct Payment"
+    "Direct Payment":"Direct Payment",
+    "stripe":"Stripe",
+    "hitpay":"Hitpay"
 }

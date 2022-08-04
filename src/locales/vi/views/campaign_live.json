@@ -79,7 +79,7 @@
             "platform" : "Nền tảng",
             "order_number" : "Mã đơn hàng",
             "null":"",
-            "no_order":"You don't have any incoming order"
+            "no_order":"Bạn không có bất kỳ đơn hàng nào hiện tại"
         }
     }
 }

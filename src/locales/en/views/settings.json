@@ -33,7 +33,8 @@
             "Value_is_required":"Value is required",
             "Value_must_be_numeric":"Value must be numeric",
             "minValue":"Invalid number",
-            "required":"This field is Required"
+            "required":"This field is Required",
+            "integer":"Number must be integer"
         }
         
     },
@@ -116,7 +117,8 @@
             "SG":"Singapore",
             "ID":"Indonesia",
             "IN":"India",
-            "TW":"Taiwan"
+            "TW":"Taiwan",
+            "VN":"Vietnam"
         },
         "currency_symbol":"Currency Symbol",
         "seller_language":"Seller Language",

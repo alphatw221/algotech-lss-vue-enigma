@@ -48,7 +48,7 @@
         "lucky_draw":"Quà tặng minigame",
         "delete":"Xóa",
         "confirm_delete": "Bạn có chắc chắn sẽ xóa chiến dịch này ?",
-
+        "more":"thêm",
         "campaign_message":"Bạn không có %{tab} chiến dịch",
         "no_result":"chiến dịch",
         "Scheduled" : "Đã lên lịch",
@@ -71,6 +71,7 @@
         
         "post_id":"điền ID",
         "select_page":"Chọn Trang",
+        "enter_post_id": "Nhập ID bài viết",
 
         "instagram":"Instagram",
         "media_id":"ID phương tiện",
@@ -81,7 +82,10 @@
         "select_live_chat":"Chọn kênh",
 
         "cancel":"Hủy bỏ",
-        "save":"Lưu lại"
+        "save":"Lưu lại",
+        "your_current_lives": "Các phiên livestream gần đây",
+        "select_this_live": "Chọn phiên livestream này",
+        "valid_post_id_notification": "Vui lòng nhập ID bài viết hợp lệ"
     },
     "update_successed":"Cập nhật thành công",
     "no_facebook_post":"Bạn không có bài viết livestream trên Facebook ngay bây giờ",
