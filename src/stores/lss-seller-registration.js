@@ -11,5 +11,15 @@ export const useSellerRegistrationStore = defineStore("sellerOrder", {
 		alert: ref(false), 
 		registerInfo: ref({})
 
+
+
+
+
+
+
+		// layout.home = 'https://liveshowseller.com.tw/'
+        // layout.terms = 'https://liveshowseller.com.tw/terms-of-service/'
+        // layout.policy = 'https://liveshowseller.com.tw/privacy-policy/'
+
     })
 }); 

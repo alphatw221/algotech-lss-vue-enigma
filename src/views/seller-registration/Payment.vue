@@ -7,38 +7,38 @@
       <div class="p-3 mb-5 text-sm sm:text-lg flex-col"> 
           <div> 
               {{$t('register.payment.selected_plan')}} :
-              <span class="ml-3 font-medium text-[#660000]"> {{ $t(`register.plan.` + layout.registerInfo.plan)}}</span> 
+              <span class="ml-3 font-medium text-[#660000]"> {{ $t(`register.plan.` + confirmInfo.user_plan)}}</span> 
           </div> 
           <div> 
               {{$t('register.payment.payment_total')}} : <span class="ml-3 font-medium text-[#660000]">
-                {{ `${comfirmInfo.currency} ${comfirmInfo.payment_amount}`}} </span>   
+                {{ `${confirmInfo.currency} ${confirmInfo.payment_amount}`}} </span>   
           </div>
           <div> 
-              {{$t('register.payment.period')}} : <span class="ml-3 font-medium text-[#660000]"> {{ $t(`register.payment.` + layout.registerInfo.period)}}</span>   
+              {{$t('register.payment.period')}} : <span class="ml-3 font-medium text-[#660000]"> {{ $t(`register.payment.` + confirmInfo.period)}}</span>   
           </div>
       </div>
         <img src="@/assets/images/lss-img/secured_tag.jpeg" class="flex  w-[100px] lg:w-[200px] mb-5" />
 
     <!-- BEGIN Tab List-->
-        <ul class="flex-none flex flex-wrap py-2 flex-row justify-around w-full">
+        <ul class="flex-none flex flex-wrap py-2 flex-row justify-around w-full" v-if="route.query.country=='VN'">
             <li class="flex-1 text-center">
                 <button
-                    @click="toggleTabs(0)"
+                    @click="togglePaymentTabs(0)"
                     :class="{
-                        'text-neutral-600 bg-white': paymentMethod !== 0,
-                        'text-white bg-primary': paymentMethod === 0 
+                        'text-neutral-600 bg-white': paymentMethodTabNumber !== 0,
+                        'text-white bg-primary': paymentMethodTabNumber === 0 
                         }" 
                     class="sm:w-[300px] py-2 mx-auto flex justify-center border-2 border-primary/30 btn h-full" >
                     <font-awesome-icon icon="fa-regular fa-credit-card" class="h-6 mr-5"/> {{$t('register.payment.payment_method.card')}}
                 </button>
             </li>
-            <li v-if="layout.country == 'vi'"
+            <li 
                 class="flex-1 text-center">
                 <button
-                    @click="toggleTabs(1)"
+                    @click="togglePaymentTabs(1)"
                     :class="{
-                        'text-neutral-600 bg-white': paymentMethod !== 1,
-                        'text-white bg-primary': paymentMethod === 1 
+                        'text-neutral-600 bg-white': paymentMethodTabNumber !== 1,
+                        'text-white bg-primary': paymentMethodTabNumber === 1 
                         }" 
                     class="sm:w-[300px] py-2 mx-auto flex justify-center border-2 border-primary/30 btn h-full" >
                     <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="h-7 mr-5" /> {{$t('register.payment.payment_method.direct')}}
@@ -47,7 +47,7 @@
         </ul>
         <!--  Stripe  -->
             <div class="tab-content tab-space py-10">
-                <div :class="{ hidden: paymentMethod !== 0, block: paymentMethod === 0 }" 
+                <div :class="{ hidden: paymentMethodTabNumber !== 0, block: paymentMethodTabNumber === 0 }" 
                     class="my-5 lg:my-10">
                     <form id="payment-form">
                         <div id="payment-element">
@@ -66,7 +66,7 @@
 
         <!--  Direct  -->
                 <div class="flex flex-col gap-3" 
-                    :class="{ hidden: paymentMethod !== 1, block: paymentMethod === 1 }" > 
+                    :class="{ hidden: paymentMethodTabNumber !== 1, block: paymentMethodTabNumber === 1 }" > 
 
                     <span class="mx-auto text-xl font-medium"> {{$t('register.payment.direct.payment_info')}} </span>
                     <table class="mx-auto w-fit max-w-1/2"> 
@@ -119,19 +119,20 @@
             </button>
 
             <button
-            v-if="paymentMethod == 0"
+            v-if="paymentMethodTabNumber == 0 && showSubmitButton"
             v-show="comfirmPayment == true"
             class="w-fit ml-5 shadow-md btn btn-primary"
-            @click="signUp"
+            @click="submitCreditCardInfo()"
                 >
                 {{$t('register.payment.confirm_payment')}}
             </button>
 
             <button 
-                v-else-if="paymentMethod == 1"
+                v-else-if="paymentMethodTabNumber == 1 && showSubmitButton"
                 type="button"
                 class="w-fit ml-5 shadow-md btn btn-primary"
-                @click="uploadReceipt()">{{$t('register.payment.direct.complete_order')}}</button>
+                @click="uploadReceipt()">{{$t('register.payment.direct.complete_order')}}
+            </button>
         </div>
     </div>
 </template>
@@ -139,7 +140,7 @@
 <script setup>
 import { onMounted, onUnmounted, ref, getCurrentInstance, provide, reactive, toRefs   } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { seller_validate_register } from '@/api/user_subscription'
+import { seller_validate_register } from '@/api_v2/user'
 import { seller_register_stripe, user_register_with_bank_transfer } from '@/api_v2/user'
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
 import {
@@ -161,37 +162,48 @@ const router = useRouter();
 const planSelected = ref(false)
 const comfirmPayment = ref(false)
 
-const paymentMethod = ref(0)
-const comfirmInfo = ref({
+const paymentMethodTabNumber = ref(0)
+
+const basicInfo = ref({})
+const confirmInfo = ref({
   user_plan: '', 
   period:'',
+  payment_amount:''
 })
 
-const toggleTabs = tabNumber => {
-  paymentMethod.value = tabNumber
+const showSubmitButton = ref(true)
+
+const togglePaymentTabs = tabNumber => {
+  paymentMethodTabNumber.value = tabNumber
 }
 
-onMounted(()=>{
-  // console.log(props.payment)
-  eventBus.on("registerInfo", (payload) => {
-    seller_validate_register(layout.registerInfo.countryCode,layout.registerInfo).then(res=>{
-      comfirmInfo.value = res.data
-    //   layout.registerInfo.append(res.data)
-      console.log(comfirmInfo.value)
 
-      layout.registerInfo.intentSecret = res.data.client_secret
-        console.log(layout.registerInfo)
-      renderStripeElement(res.data.client_secret )
-    }).catch( err=>{
-        layout.registerTab = 1 })
+
+onMounted(()=>{
+
+  eventBus.on("showPaymentTab", (payload) => {
+    basicInfo.value = payload.basicInfo
+    confirmInfo.value = payload.confirmInfo
     layout.registerTab = 2
+    renderStripeElement(confirmInfo.value.client_secret)
   })
+
 })
 
 onUnmounted(()=>{
-    eventBus.off("registerInfo")
+    eventBus.off("showPaymentTab")
 })
 
+const handleStripePaymentSuccess = ()=>{
+    showSubmitButton.value=false
+     seller_register_stripe(route.query.country,basicInfo.value).then(res => {
+        showSubmitButton.value=true
+        eventBus.emit("showComfirmRegisterTab", res.data)
+    }).catch(err => {
+        showSubmitButton.value=true
+        alert(err)
+    })
+}
 
 // STRIPE 
 const renderStripeElement=(intentSecret)=>{
@@ -223,33 +235,15 @@ const renderStripeElement=(intentSecret)=>{
         });
 
         if (error) {
-            // This point will only be reached if there is an immediate error when
-            // confirming the payment. Show error to your customer (for example, payment
-            // details incomplete)
             const messageContainer = document.querySelector('#error-message');
             messageContainer.textContent = error.message;
         } else {
-            // Your customer will be redirected to your `return_url`. For some payment
-            // methods like iDEAL, your customer will be redirected to an intermediate
-            // site first to authorize the payment, then redirected to the `return_url`.
             stripe.retrievePaymentIntent(intentSecret).then(({ paymentIntent }) => {
                 const message = document.querySelector('#message')
                 message.innerText = '';
-                // Inspect the PaymentIntent `status` to indicate the status of the payment
-                // to your customer.
-                //
-                // Some payment methods will [immediately succeed or fail][0] upon
-                // confirmation, while others will first enter a `processing` state.
-                //
-                // [0]: https://stripe.com/docs/payments/payment-methods#payment-notification
                 switch (paymentIntent.status) {
                     case 'succeeded':
-                        seller_register_stripe(layout.registerInfo.countryCode,layout.registerInfo).then(res => {
-                            console.log(res.data)
-                            eventBus.emit("comfirmRegister", res.data)
-                        }).catch(err => {
-                            alert(err)
-                        })
+                        handleStripePaymentSuccess()
                         message.innerText = i18n.global.t('register.payment.stripe.stripe_success') ;
                         break;
 
@@ -259,8 +253,6 @@ const renderStripeElement=(intentSecret)=>{
 
                     case 'requires_payment_method':
                         message.innerText = i18n.global.t('register.payment.stripe.stripe_failed') ;
-                        // Redirect your user back to your payment page to attempt collecting
-                        // payment again
                         break;
 
                     default:
@@ -271,7 +263,7 @@ const renderStripeElement=(intentSecret)=>{
         }
     })
 }
-const signUp=()=>{
+const submitCreditCardInfo=()=>{
   document.getElementById('submit').click()
 }
 
@@ -313,23 +305,19 @@ const uploadReceipt = () => {
     }
     let formData = new FormData()
 
-    for ( var key in layout.registerInfo ) {
-    formData.append(key, layout.registerInfo[key]);
+    for ( var key in basicInfo.value ) {
+        formData.append(key, basicInfo.value[key]);
     }
-    
     formData.append('last_five_digit', data.fiveDigits)
     formData.append('image', receiptImage || '')
     formData.append('account_name', 'ALGOTECH')
 
-    console.log(layout.registerInfo)
-
-    user_register_with_bank_transfer(layout.registerInfo.countryCode, formData)
-        .then(
-            res => {
-                console.log("directpayment", res.data)
-                eventBus.emit("comfirmRegister", res.data)
-            }
-        )
+    showSubmitButton.value=false
+    user_register_with_bank_transfer(route.query.country, formData)
+        .then(res => {
+            showSubmitButton.value=true
+            eventBus.emit("showComfirmRegisterTab", res.data)
+        }).catch(()=>{showSubmitButton.value=true})
 }
 
 </script>

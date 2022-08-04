@@ -95,32 +95,22 @@ const route = useRoute();
 const router = useRouter();
 
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
-onBeforeMount (()=>{useI18n.global.locale.value = route.query.language} )     
+onBeforeMount (()=>{useI18n.global.locale.value = route.query.language || 'en'} )     
 onMounted(()=>{
-    layout.registerTab= 1
-    loadScript("https://js.stripe.com/v3/",()=>{
-    console.log("stripe SDK loaded") })
-    layout.country = route.query.language
+    loadScript("https://js.stripe.com/v3/",()=>{console.log("stripe SDK loaded") })
+    // layout.country = route.query.language
 })
 
-onMounted(()=>{
-    if(layout.country === 'zh_hant'){
-        layout.home = 'https://liveshowseller.com.tw/'
-        layout.terms = 'https://liveshowseller.com.tw/terms-of-service/'
-        layout.policy = 'https://liveshowseller.com.tw/privacy-policy/'
-    }
-})
+// onMounted(()=>{
+//     if(layout.country === 'zh_hant'){
+//         layout.home = 'https://liveshowseller.com.tw/'
+//         layout.terms = 'https://liveshowseller.com.tw/terms-of-service/'
+//         layout.policy = 'https://liveshowseller.com.tw/privacy-policy/'
+//     }
+// })
 
-const toggleTabs = tabNumber => {
-  layout.registerTab = tabNumber
-  }
+const toggleTabs = tabNumber => {layout.registerTab = tabNumber}
 
-provide("bind[registerMessageNotification]", (el) => {
-  layout.notification = el;
-  // el.showMessageToast('test notification')
-});
-provide("bind[registerMessageAlert]", (el) => {
-  layout.alert = el;
-  // el.showMessageToast('test alert')
-});
+provide("bind[registerMessageNotification]", (el) => {layout.notification = el;});
+provide("bind[registerMessageAlert]", (el) => {layout.alert = el;});
 </script>
