@@ -4,6 +4,7 @@ import SimpleMenu from "../layouts/simple-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
 import LssSellerLayout from "../layouts/lss-seller-layout/Main.vue";
 import LSSBuyerLayout from "../layouts/lss-buyer-layout/Main.vue";
+import LSSPublicLayout from "../layouts/lss-public-layout/Main.vue";
 import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
 import DashboardOverview3 from "../views/dashboard-overview-3/Main.vue";
@@ -244,12 +245,6 @@ const routes = [
         component: LuckyDrawSetting,
       },
       
-      // {
-      //   path: "mkt-plugin/quiz-game",
-      //   name: "quiz-game",
-      //   component: QuizGame,
-      // },
-/*                     SETTINGS                           */
       {  
         path: "campaign-global",
         name: "campaign-global-setting",
@@ -265,7 +260,6 @@ const routes = [
         name: "platform",
         component: ConnectPlatform,
       },
-/*                     AUTOREPLY                           */
       {  
         path: "autoreply",
         name: "side-menu-auto-reply",
@@ -344,21 +338,29 @@ const routes = [
     beforeEnter: checkSellerLogin,
     component: () => import('@/views/general/LoginPage.vue')
   },
+
   {
-    path: "/seller/password/forgot",
-    name: "PasswordForgot",
-    component: () => import('@/views/general/ForgotPasswordPage.vue')
+    path: "/seller/public",
+    component: LSSPublicLayout,
+    children: [
+      {
+        path: "password/forgot",
+        name: "PasswordForgot",
+        component: () => import('@/views/general/ForgotPasswordPage.vue')
+      },
+      {
+        path: "password/reset",
+        name: "password-reset",
+        component: () => import('@/views/password-reset/Main.vue')
+      },
+      {
+        path: "register",
+        name: "register",
+        component: () => import('@/views/seller-registration/Main.vue')
+      },
+    ]
   },
-  {
-    path: "/seller/password/reset",
-    name: "password-reset",
-    component: () => import('@/views/password-reset/Main.vue')
-  },
-  {
-    path: "/seller/register",
-    name: "register",
-    component: () => import('@/views/seller-registration/Main.vue')
-  },
+  
   {
     path: "/error-page",
     name: "error-page",

@@ -30,7 +30,9 @@
 import { seller_forgot_password } from '@/api_v2/user'
 import { useRoute, useRouter } from "vue-router";
 import {ref, onMounted, onBeforeMount } from 'vue'
+import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
+const publicLayout = usePublicLayoutStore()
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
 const route = useRoute()
 const router = useRouter()
@@ -38,9 +40,9 @@ const email = ref('')
 const sendResetLink=()=>{
     seller_forgot_password({email: email.value})
     .then(res=>{
-        alert(res.data.message)
+        publicLayout.notification.showMessageToast(res.data.message)
     }).catch(err=>{
-        console.log(err)
+        publicLayout.alert.showMessageToast(err.data.message)
     })
 }
 

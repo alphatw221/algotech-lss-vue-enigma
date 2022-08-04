@@ -1,8 +1,8 @@
 <template>
-    <div class="public_layout">
+    <div >
 
-         <div >
-            <router-view />
+        <div class="public-layout-content">
+            <router-view></router-view >
         </div>
         
         <!-- BEGIN Footer -->
@@ -39,7 +39,8 @@ provide("bind[registerMessageAlert]", (el) => {publicLayout.alert = el;});
 </script>
 
 <style scoped>
-.public_layout{
-    height: 100vh;
+
+.public-layout-content{
+  height: 100% !important;
 }
 </style>
