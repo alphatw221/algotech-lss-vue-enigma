@@ -42,7 +42,6 @@
                     </div>
                 
                     <div class="form-check form-switch justify-end mt-2">
-                        
                         <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
                         <Tippy 
                             class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
