@@ -24,20 +24,20 @@
 					</td>
 					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('stock.dont_have_product_notify') }}
 							</h1>
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+							<h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('stock.click_to_add') }}
 							</h1>
 						</div>
 					</td> 
 					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('stock.no_result') }}
 							</h1>
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+							<h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('stock.click_to_add') }}
 							</h1>
 						</div>
