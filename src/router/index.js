@@ -88,7 +88,7 @@ import ChangePlan from "../views/general/change-plan/Main.vue";
 import MktPlugin from "../views/mkt-plugin/Main.vue";
 import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
 import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
-import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
+// import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 
 
 
@@ -165,11 +165,11 @@ const routes = [
         name: "quiz-game",
         component: () => import('@/views/mkt-plugin/quiz-game/Main.vue')
       },
-      {
-        path: "campaign-list/campaign-live/quiz-game1",
-        name: "quiz-game1",
-        component: QuizGame
-      },
+      // {
+      //   path: "campaign-list/campaign-live/quiz-game1",
+      //   name: "quiz-game1",
+      //   component: QuizGame
+      // },
       {
         path: "campaign-list/campaign-live/:campaign_id/edit-campaign",
         name: "edit-campaign",

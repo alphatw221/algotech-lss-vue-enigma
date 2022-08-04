@@ -34,7 +34,8 @@
             "Value_is_required":"Giá trị là bắt buộc",
             "Value_must_be_numeric":"Giá trị phải là số",
             "minValue":"Số không hợp lệ",
-            "required":"Trường này là bắt buộc"
+            "required":"Trường này là bắt buộc",
+            "integer":"Phải là số nguyên"
         }
         
     },
@@ -54,6 +55,12 @@
         "stripe":{
             "secret":"Mã bảo mật",
             "currency":"Đơn vị tiền tệ"
+        },
+        "hitpay":{
+            "button_title":"Button Title",
+            "currency":"Currency",
+            "api_key":"API Key",
+            "salt":"Salt"
         },
 
         "payment_details": "Thông tin thanh toán",
@@ -111,7 +118,7 @@
             "ID":"Indonesia",
             "IN":"Ấn Độ",
             "TW":"Đài Loan",
-            "VI":"Việt Nam"
+            "VN":"Việt Nam"
         },
         "currency_symbol":"Đơn vị tiền tệ",
         "seller_language":"Ngôn ngữ nhà bán hàng",
@@ -128,7 +135,14 @@
         "choose_currency_symbol":"Chọn đơn vị tiền tệ",
         "decimal_places":"Vị trí phần thập phân",
         "discard":"Hủy bỏ",
-        "save":"Lưu lại"
+        "save":"Lưu lại",
+        "price_unit":"Đơn vị tiền tệ",
+        "choose_price_unit":"Chọn đơn vị tiền tệ",
+        "priceOptions":{
+            "1":"Standard",
+            "1000":"K",
+            "1000000":"M"
+        }
     },
     "platform":{
         "connected_platform":"Kết nối nền tảng truyền thông xã hội",

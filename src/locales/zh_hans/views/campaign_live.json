@@ -84,7 +84,8 @@
             "platform" : "平台",
             "amount" : "金额",
             "view" : "详情",
-            "null":""
+            "null":"",
+            "no_order":"尚未有订单"
         }
     }
 }
