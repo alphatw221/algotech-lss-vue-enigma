@@ -9,7 +9,7 @@
                 <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('auto_reply.create') }}
             </button>
         </div>
-        <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:px-8 sm:h-[80vh] lg:mx-20">
+        <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-10 sm:h-[80vh] lg:mx-20">
             <AutoReplyTable :requestUrl="'/api/auto_response/list'" :columns="tableColumns" />
         </div>
     </div>

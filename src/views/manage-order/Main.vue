@@ -42,8 +42,17 @@
                     </div>
                 
                     <div class="form-check form-switch justify-end mt-2">
+                        
                         <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
-                        <input @click="stop_checkout($event.target.checked)" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="checkout_status"/>
+                        <Tippy 
+                            class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+                            data-tippy-allowHTML="true" 
+                            data-tippy-placement="right" 
+                            :content="$t('tooltips.campaign_list.stop_checkout')" 
+                            > 
+                            <HelpCircleIcon class="w-5 tippy-icon" />
+                        </Tippy> 
+                        <input @click="stop_checkout($event.target.checked)" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="checkout_status"/> 
                     </div>
                 </div>
             </div>

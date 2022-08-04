@@ -12,14 +12,14 @@
     },  
     "campaign_list":{
         "stop_checkout":"Disable shopping cart immediately",
-        "instant_cart":"For seller to take-in orders without livestreaming post on social media"
+        "instant_cart":"Take-in orders without livestreaming post on social media"
     },
     "lucky_draw":{
         "spin_time":"Animation spinning time",
         "winner_repeat":"Allow to repeat prize winner",
     },
     "manage_order":{
-        "delivery_noti":"Email notification when order has been shipped",
+        "delivery_noti":"Email buyer the order has been shipped",
         "view_icon":"Order details",
         "link_icon":"Copy shopping cart link"
     },
@@ -27,7 +27,7 @@
         "price_adjustment":"Adjust price that can add additional fee or give discount to buyer"
     },
     "auto_reply":{
-        "assign_to":"Assign auto reply to specific page"
+        "assign_to":"Assign auto reply to certain page"
     },
     "settings":{
         "note":{

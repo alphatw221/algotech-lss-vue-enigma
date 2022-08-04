@@ -3,8 +3,23 @@
     <table class="table -mt-3 table-report">
       <thead>
         <tr>
-          <th class="text-center " v-for="column in tableColumns" :key="column.key">
-            {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
+          <th class="text-center whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
+            <template v-if="column.key === 'stop'"> 
+              <div class="flex align-middle"> 
+                <span class="my-auto"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </span> 
+                <Tippy 
+                  class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+                  data-tippy-allowHTML="true" 
+                  data-tippy-placement="right" 
+                  :content="$t('tooltips.campaign_list.stop_checkout')" 
+                > 
+                  <HelpCircleIcon class="w-5 tippy-icon" />
+                </Tippy> 
+              </div>
+            </template>
+            <template v-else> 
+              {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
+            </template>
           </th>
           <th v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" ></th>
         </tr>
@@ -93,6 +108,14 @@
             </a>
           </td>
           <td class="items-center checkout w-fit" :data-content="$t('campaign_list.campaign_list_table.stop')">
+            <Tippy 
+              class="rounded-full w-fit whitespace-wrap ml-1 my-auto md:hidden tippy-mobile" 
+              data-tippy-allowHTML="true" 
+              data-tippy-placement="right" 
+              :content="$t('tooltips.campaign_list.stop_checkout')" 
+            > 
+              <HelpCircleIcon class="w-5 tippy-icon md:hidden tippy-mobile" />
+            </Tippy> 
             <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col justify-center form-check form-switch">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
@@ -122,7 +145,7 @@
                 <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                   <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
                 </DropdownToggle>
-                <DropdownMenu class="w-44 pt-2">
+                <DropdownMenu class="max-w-60 pt-2">
                   <DropdownContent class="w-44 text-center">
                     <DropdownItem class="w-fit text-center whitespace-nowrap" 
                       @click="editCampaign(campaign)"> 
@@ -136,8 +159,14 @@
                     </DropdownItem>
                     <DropdownItem 
                       @click="copyURL(campaign)" class="w-fit whitespace-nowrap"> 
-                      <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
-                      {{$t("campaign_list.campaign_list_table.blank_cart")}} 
+                      <Tippy 
+                        class="whitespace-nowrap w-full" 
+                        data-tippy-allowHTML="true" 
+                        data-tippy-placement="right" 
+                        :content="$t('tooltips.campaign_list.instant_cart')" 
+                        > 
+                        <div class="whitespace-nowrap flex"> <ShoppingCartIcon class="h-[20px] w-[18px] mr-1" />  {{$t("campaign_list.campaign_list_table.blank_cart")}}  </div> 
+                      </Tippy> 
                     </DropdownItem>
                     <DropdownItem 
                       @click="goLuckyDraw(campaign)" class="w-fit whitespace-nowrap"> 
@@ -220,9 +249,9 @@ onMounted(()=>{
     page_size.value = payload.pageSize;
     // order_by.value = payload.order_by;
     search();
-  }),
+  })
   // startFromToast();
-  checkPage();
+  
 })
 
 onUnmounted(()=>{
@@ -242,6 +271,8 @@ const search =()=>{
         }
         campaigns.value = response.data.results
         showCommentLoding.value = false
+
+        if (!campaigns.value) checkPage();
       })
   }
 
@@ -317,12 +348,12 @@ const goQuizGame = (campaign) => {
 const checkPage = ()=>{
   get_user_subscription_facebook_pages().then(res=>{
     if(res.data.length !== 0) checkPagePonit.value = false
-  })
-  get_user_subscription_instagram_profiles().then(res=>{
-    if(res.data.length !== 0) checkPagePonit.value = false
-  })
-  get_user_subscription_youtube_channels().then(res=>{
-    if(res.data.length !== 0) checkPagePonit.value = false
+    else get_user_subscription_instagram_profiles().then(res=>{
+      if(res.data.length !== 0) checkPagePonit.value = false
+      else get_user_subscription_youtube_channels().then(res=>{
+        if(res.data.length !== 0) checkPagePonit.value = false
+      })
+    })
   })
 }
 
@@ -486,5 +517,11 @@ thead th{
     padding-left: 0px !important;
     box-shadow: none;
   }
+
+  .tippy-mobile{
+		position: absolute;
+		left:53px; 
+		top:2.5px;
+	}
 }
 </style>

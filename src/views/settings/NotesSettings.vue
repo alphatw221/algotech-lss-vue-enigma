@@ -12,7 +12,16 @@
             </TomSelect>
         </div>
         <div class="flex my-3 mt-5 form-label text-base font-medium">
-            <div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
+            <div class="my-auto"> {{$t("settings.localization.buyer_language")}}</div>
+            <Tippy 
+                class="rounded-full w-30 whitespace-wrap" 
+                data-tippy-allowHTML="true" 
+                data-tippy-placement="right" 
+                :content="$t('tooltips.settings.local.buyer_lang')" 
+                theme='light'
+            > 
+                <HelpCircleIcon class="w-8 ml-1 mt-0.5 tippy-icon" />
+            </Tippy> 
         </div>
         <div class="flex my-1">
             <TomSelect v-model="generalInfo.buyer_lang" :options="{
@@ -24,7 +33,7 @@
 
         <div class="flex my-3 mt-5 form-label text-base font-medium">
             <div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
-        </div>
+        </div> 
 
         <div class="flex my-1">
             <TomSelect v-model="generalInfo.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
@@ -59,8 +68,8 @@
                 </Accordion>
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
-                        class="h-48 p-2 mr-5 form-control indent-4"
-                        :placeholder="`${$t('settings.notes.delivery_note')}...`"
+                        class="h-48 p-2 mr-5 form-control"
+                        :placeholder="$t('tooltips.settings.note.delivery_note')"
                         v-model="generalInfo.delivery_note"
                     >
                     </textarea>
@@ -82,8 +91,8 @@
                 </Accordion>
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
-                        class="h-48 p-2 mr-5 form-control indent-4" 
-                        :placeholder="`${$t('settings.notes.special_note')}...`"
+                        class="h-48 p-2 mr-5 form-control" 
+                        :placeholder="$t('tooltips.settings.note.special_note')"
                         v-model=" generalInfo.special_note"
                     >
                     </textarea>
@@ -105,8 +114,8 @@
                 </Accordion>
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
-                        class="h-48 p-2 mr-5 form-control indent-4"
-                        :placeholder="`${$t('settings.notes.confirmation_note')}...`"
+                        class="h-48 p-2 mr-5 form-control"
+                        :placeholder="$t('tooltips.settings.note.confirm_note')"
                         v-model="generalInfo.confirmation_note"
                     >
                     </textarea>

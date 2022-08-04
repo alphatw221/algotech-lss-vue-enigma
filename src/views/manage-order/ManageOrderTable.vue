@@ -48,16 +48,16 @@
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
                                         <img class="rounded-full" :src="order.customer_img"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/youtube.png' >
+                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                         <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/youtube.png' >
+                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
                                 <div v-else class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
                                         <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
@@ -69,13 +69,13 @@
                             <div class="flex flex-col sm:flex-row place-content-center">
                                 <a class="flex image-fit" @click="copyURL(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
-                                    <Tippy  :content="$t('manage_order.table.copy_link')" :options="{ theme: 'light' }"> 
+                                    <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
                                         <Share2Icon class="block sm:mx-auto"/>
                                     </Tippy>
                                 </a>
                                 <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_order_detail(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
-                                    <Tippy  :content="$t('manage_order.table.details')" :options="{ theme: 'light' }"> 
+                                    <Tippy  :content="$t('tooltips.manage_order.view_icon')" :options="{ theme: 'light' }"> 
                                         <EyeIcon class="block sm:mx-auto"/>
                                     </Tippy>
                                 </a>
@@ -84,7 +84,7 @@
                         <template v-else-if="column.key === 'delivery'">
                             <div class="flex place-content-center">
                                 <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
-                                  <Tippy  content="send complete email" :options="{ theme: 'light' }"> <TruckIcon /> </Tippy>  
+                                  <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> <TruckIcon /> </Tippy>  
                                 </a>
                                 <a class="w-fit h-fit image-fit" v-show="order.status === 'shipping out'">
                                    <Tippy  :content="$t('manage_order.complete')" :options="{ theme: 'light' }">

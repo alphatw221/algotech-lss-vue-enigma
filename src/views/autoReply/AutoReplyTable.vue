@@ -5,10 +5,24 @@
 			<thead>
 				<tr>
 					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap text-center">
-						<template v-if="column.name === '#' || column.key === 'page'">
+						<template v-if="column.name === '#'">
 							<span class="px-6"> {{ $t(`auto_reply.table_column.${column.name}`) }} </span> 
 						</template>
 						<template v-else-if="column.name === ''">
+						</template>
+						<template v-else-if="column.key === 'page'"> 
+							<div class="flex w-full"> 
+								<span class="my-auto"> {{ $t(`auto_reply.table_column.${column.name}`) }} </span> 
+								<Tippy 
+									class="rounded-full w-fit whitespace-wrap" 
+									data-tippy-allowHTML="true" 
+									data-tippy-placement="right" 
+									:content="$t('tooltips.auto_reply.assign_to')" 
+									theme='light'
+								> 
+									<HelpCircleIcon class="w-5 ml-1 tippy-icon" />
+								</Tippy> 
+							</div>
 						</template>
 						<template v-else> {{ $t(`auto_reply.table_column.${column.name}`) }} </template>
 					</th>
@@ -38,9 +52,9 @@
 							class="w-32 imgtd">
 							<span class="mt-4 title sm:hidden">{{ $t(`auto_reply.table_column.${column.name}`) }}</span>
 							<div class="w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
-								<Tippy tag="img" class="w-12 h-12 rounded-lg ml-10 sm:ml-0" :src="reply.facebook_page.image" v-if="reply.facebook_page"
+								<Tippy tag="img" class="w-12 h-12 rounded-lg ml-10 sm:mx-auto" :src="reply.facebook_page.image" v-if="reply.facebook_page"
 									:content="`facebook`" />
-								<Tippy tag="img" class="w-12 h-12 rounded-lg ml-10 sm:ml-0" :src="reply.instagram_profile.image" v-else-if="reply.instagram_profile"
+								<Tippy tag="img" class="w-12 h-12 rounded-lg ml-10 sm:mx-auto" :src="reply.instagram_profile.image" v-else-if="reply.instagram_profile"
 								:content="`instagram`" />
 							</div>
 						</td>
