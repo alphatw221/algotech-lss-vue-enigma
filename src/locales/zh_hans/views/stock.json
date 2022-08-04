@@ -63,7 +63,7 @@
         "qty_warning": "数量需填数字",
         "price": "价格",
         "price_warning": "价格需填数字",
-        "status": "默认状态",
+        "status": "预设状态",
         "description": "说明",
         "product_description": "商品说明...",
         "description_warning": "说明须填不超过100字",

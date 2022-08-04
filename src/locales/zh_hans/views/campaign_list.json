@@ -53,6 +53,8 @@
         "blank_cart":"复制购物车连结",
         "lucky_draw":"抽奖工具",
         "confirm_delete": "确定要删除该场直播 ?",
+        "more":"更多...",
+        "delete": "删除",
         "campaign_message":"沒有%{tab}的直播",
         "no_result":"无搜索结果",
         "Scheduled" : "预定中",
@@ -75,6 +77,8 @@
         
         "post_id":"贴文 ID",
         "select_page":"选择直播视频",
+        "select_live_post":"选择直播贴文",
+        "enter_post_id": "输入贴文ID",
 
         "instagram":"Instagram",
         "media_id":"貼文 ID",
@@ -85,7 +89,10 @@
         "select_live_chat":"选择直播视频",
 
         "cancel":"取消",
-        "save":"储存"
+        "save":"储存",
+        "your_current_lives": "你目前正在进行的直播",
+        "select_this_live": "选择这场直播",
+        "valid_post_id_notification": "请输入有效的贴文ID"
     },
     "update_successed":"更新成功",
     "no_facebook_post":"目前没有任何Facebook的直播",

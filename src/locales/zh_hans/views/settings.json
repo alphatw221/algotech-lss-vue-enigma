@@ -7,8 +7,8 @@
     "share_secret" : "Shared Secret",
     "time_zone" : "时区",
     "confirmation_note" : "订单确认信息",
-    "default_active" : "默认启用",
-    "default_settings":"直播默认",
+    "default_active" : "预设启用",
+    "default_settings":"直播预设",
     "update_successfully":"更新成功",
     "update_failed":"更新失败",
     "img_size_err":"图片大小不可超过 10 MB",
@@ -35,7 +35,8 @@
             "Value_is_required":"此字段必填",
             "Value_must_be_numeric":"输入必须为数字",
             "minValue":"输入数字无效",
-            "required":"此字段必填"
+            "required":"此字段必填",
+            "integer":"输入内容必须为整数"
         }
         
     },
@@ -56,6 +57,12 @@
         "stripe":{
             "secret":"密钥",
             "currency":"货币"
+        },
+        "hitpay":{
+            "button_title":"按钮标题",
+            "currency":"货币",
+            "api_key":"API 密钥",
+            "salt":"密码"
         },
 
         "payment_details":"金流设定",
@@ -111,7 +118,8 @@
             "SG":"新加坡",
             "ID":"印尼",
             "IN":"印度",
-            "TW":"台湾"
+            "TW":"台湾",
+            "VN":"越南"
         },
         "currency_symbol":"货币符号",
         "seller_language":"卖家语言",
@@ -128,7 +136,14 @@
         "choose_currency_symbol":"选择货币",
         "decimal_places":"小数位数",
         "discard":"取消",
-        "save":"储存"
+        "save":"储存",
+        "price_unit":"货币单位",
+        "choose_price_unit":"选择货币单位",
+        "priceOptions":{
+            "1":"标准",
+            "1000":"K",
+            "1000000":"M"
+        }
     },
     "platform":{
         "connected_platform":"已绑定的社交平台",
