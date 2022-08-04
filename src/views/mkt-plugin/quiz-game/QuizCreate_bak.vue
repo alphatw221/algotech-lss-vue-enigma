@@ -5,46 +5,31 @@
             <h2 style="display: inline-block;"> campaign name </h2>
         </div>
             
-        <div class="flex flex-col gap-1 text-base my-5 intro-y sm:gap-3 -z-50">
-            <div class="flex flex-wrap justify-between mt-5"> 
-                <label for="regular-form-2" class="text-base font-bold form-label my-auto"> Quiz Game question</label>
-                <button 
-                    class="inline-block rounded-lg btn btn-primary ml-auto w-fit text-sm sm:text-[16px]" 
-                    @click="addQuestion()"
-                >
-                    add question answer
-                </button>
-            </div>
+        <div class="flex flex-col">
+            <div class="lg:flex">
+                <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
+                    <label class="form-label"> Question </label>
+                    <textarea 
+                        class="w-full h-20 rounded-lg overflow-hidden p-1"
+                        placeholder="Enter Quiz Game Question..."
+                        v-model.trim="v.question.$model"
+                    ></textarea>
+                    <template v-if="v.question.$error">
+                        <label class="text-danger text-[14px] leading-tight"> please enter quiz game question. </label>
+                    </template>
+                </div>
 
-            <div 
-                class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0"
-                v-for="(question, index) in quizgameSettings.quiz_games" 
-                :key="index"
-            >
-                <div class="lg:w-[65%]">
-                    <input  
-                        class="form-control w-full text-base"
-                        type="text" 
-                        placeholder="Question"
-                        v-model="question.question"
-                    />
-                </div>
-                
-                <div class="lg:w-[20%]">
-                    <input  
-                        class="form-control w-full text-base"
-                        type="text" 
-                        placeholder="Answer"
-                        v-model="question.answer"
-                    />
-                </div>
-                
-                <button 
-                    class="inline-block w-full h-[42px] ml-auto text-base btn btn-danger sm:rounded-lg sm:w-24"
-                    @click="deleteQuestion(index, question.id)" 
-                >
-                    delete
-                </button>
+                <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
+                    <label class="form-label"> Answer </label>
+                    <textarea 
+                        class="w-full h-20 rounded-lg overflow-hidden p-1"
+                        placeholder="Enter Quiz Game Answer..."
+                        v-model.trim="v.answer.$model"
+                    ></textarea>
+                    <template v-if="v.answer.$error">
+                        <label class="text-danger text-[14px] leading-tight"> please enter quiz game answer. </label>
+                    </template>
+                </div>            
             </div>
 
             <div class="lg:flex">
@@ -139,49 +124,53 @@
 </template>
 
 <script setup>
-import { ref, watch, onMounted, getCurrentInstance, onUnmounted, computed } from 'vue';
-import { useRoute, useRouter } from 'vue-router';
+import { ref, watch, onMounted, onUnmounted, computed, getCurrentInstance } from 'vue';
+import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { list_campaign_product } from '@/api/campaign_product';
+import { create_campaign_quiz_game, update_campaign_quiz_game, retrieve_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
 import { useVuelidate } from "@vuelidate/core";
 import { required, maxValue, minLength, integer, minValue } from "@vuelidate/validators";
-import { list_campaign_product } from '@/api/campaign_product';
-import { create_campaign_quiz_game, update_campaign_quiz_game, delete_campaign_quiz_game, retrieve_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
 
-const route = useRoute()
-const router = useRouter()
+
+const route = useRoute();
+const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus
-const ready = ref(true)
 const layoutStore = useLSSSellerLayoutStore()
 const prizeList = ref([])
 const quizgameSettings = ref({
-    quiz_games: [{ question: null, answer: null }],
+    question: '',
+    answer: '',
     remark: '',
     num_of_winner: 0,
     prize: '',
     repeatable: false
 })
-const questionObj = ref({ question: null, answer: null })
-const quizgameEmptySettings = ref({ quiz_games: [{ question: null, answer: null }], remark: '', num_of_winner: 0, prize: '', repeatable: false })
 const quizgameRules = computed(() => {
     return {
-        num_of_winner: { required, integer, minValue: minValue(1) }
+        question: { required },
+        answer: { required },
+        num_of_winner: { required, integer, minValue: minValue(1) },
     }
 })
 const v = useVuelidate(quizgameRules, quizgameSettings);
 const pageType = ref('create')
-const quizgameBundleId = ref(0)
-
+const quizgameId = ref(0)
 
 onMounted(() => {
     listCampaignProduct()
 
     eventBus.on('editQuiz', (payload) => {
-        quizgameBundleId.value = payload.quizgameBundleId
-        retrieve_campaign_quiz_game(quizgameBundleId.value).then(res => {
+        retrieve_campaign_quiz_game(payload.quizgame_id).then(res => {
             quizgameSettings.value = res.data
         })
         pageType.value = 'edit'
+        quizgameId.value = payload.quizgame_id
     })
+})
+
+onUnmounted(() => {
+    eventBus.off('editQuiz')
 })
 
 const listCampaignProduct = () => {
@@ -192,20 +181,7 @@ const listCampaignProduct = () => {
     })
 }
 
-const addQuestion = () => {
-    quizgameSettings.value.quiz_games.unshift(Object.assign({}, questionObj.value))
-}
-
-const deleteQuestion = (index, id) => {
-    if (![undefined, null, ''].includes(id)) {
-        delete_campaign_quiz_game(id).then(res => {})
-    }
-
-    quizgameSettings.value.quiz_games.splice(index, 1)
-}
-
 const upsertQuizGame = () => {
-    console.log(quizgameSettings.value)
     v.value.$touch();
     if (v.value.$invalid || typeof quizgameSettings.value.prize === 'string') {
         layoutStore.alert.showMessageToast('Invalid Submission')
@@ -215,25 +191,19 @@ const upsertQuizGame = () => {
     if (pageType.value === 'create') {
         create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value).then(res => {
             eventBus.emit('listQuiz')
-            quizgameSettings.value = quizgameEmptySettings.value
         })
     } else if (pageType.value === 'edit') {
-        update_campaign_quiz_game(quizgameBundleId.value, quizgameSettings.value).then(res => {
+        update_campaign_quiz_game(quizgameId.value, quizgameSettings.value).then(res => {
             eventBus.emit('changePage')
             eventBus.emit('listQuiz')
-            pageType.value = 'create'
-            quizgameSettings.value = quizgameEmptySettings.value
         })
     }
 }
 
-const goCancel = () => {
+const goCancel =() => {
     if (pageType.value === 'create') router.back()
-    else if (pageType.value === 'edit') {
-        eventBus.emit('changePage')
-        pageType.value = 'create'
-        quizgameSettings.value = quizgameEmptySettings.value
-    }
+    else if (pageType.value === 'edit') eventBus.emit('changePage')
+    
 }
 
 </script>
