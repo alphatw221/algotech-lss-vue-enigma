@@ -184,6 +184,7 @@ onMounted(()=>{
   eventBus.on("showPaymentTab", (payload) => {
     basicInfo.value = payload.basicInfo
     confirmInfo.value = payload.confirmInfo
+    basicInfo.value.intentSecret =  confirmInfo.value.client_secret
     layout.registerTab = 2
     renderStripeElement(confirmInfo.value.client_secret)
   })
