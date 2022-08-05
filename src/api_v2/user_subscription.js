@@ -22,8 +22,16 @@ export const seller_update_delivery = (data) => {
     return createAxiosWithBearer().put(`/api/v2/user-subscription/delivery/`,data)
 }
 
-export const unbind_platform_instance = (platform_name, data) => {
-    return createAxiosWithBearer().put(`/api/user-subscription/platform/${platform_name}/unbind/`, data)
+export const unbind_platform_instance = (platform_name, platform_instance_id) => {
+    return createAxiosWithBearer().put(`/api/v2/user-subscription/platform/${platform_name}/unbind/?instance_id=${platform_instance_id}`)
+}
+
+export const bind_platform_instances = (platform_name, data) => {
+    return createAxiosWithBearer().put(`/api/v2/user-subscription/platform/${platform_name}/bind/`,data)
+}
+
+export const get_platform_instances = (platform_name) => {
+    return createAxiosWithBearer().get(`/api/v2/user-subscription/platform/${platform_name}/`)
 }
 
 export const upload_animation = (data) => {

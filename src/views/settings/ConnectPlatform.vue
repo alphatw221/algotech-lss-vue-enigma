@@ -11,9 +11,22 @@
             </Tippy>  
             </h1>
         
-        <div v-for="(component, key) in platform_components" :key="key">
+        <!-- <div v-for="(component, key) in platform_components" :key="key">
             <component :is="component"></component>
+        </div> -->
+
+        <div>
+            <BindFacebookPageWidgets/>
         </div>
+        <div>
+            <BindInstagramProfileWidgets/>
+        </div>
+        <div>
+            <BindYoutubeChannelWidgets/>
+        </div>
+
+
+
     </div>
     <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
         <ModalBody class="text-center text-lg flex flex-col p-10">
@@ -47,11 +60,11 @@ const layoutStore = useLSSSellerLayoutStore();
 const subscriptionPlan = ref(null)
 const activatedPlatformNumber = ref(0)
 
-const platform_components = ref({
-    "facebook": BindFacebookPageWidgets,
-    "instagram": BindInstagramProfileWidgets,
-    "youtube": BindYoutubeChannelWidgets
-})
+// const platform_components = ref({
+//     "facebook": BindFacebookPageWidgets,
+//     "instagram": BindInstagramProfileWidgets,
+//     "youtube": BindYoutubeChannelWidgets
+// })
 
 
 onMounted(() => {
