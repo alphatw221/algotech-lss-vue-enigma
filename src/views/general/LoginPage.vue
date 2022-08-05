@@ -37,7 +37,7 @@
         <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'PasswordForgot' })">forgot password ?</a>
 
         <div class="flex flex-col items-center mt-3 font-medium">
-            <div class="text-[16px]">No Account ? <a @click="router.push({ name: 'register' })" >Create one !</a></div>
+            <div class="text-[16px]">No Account ? <a @click="router.push({ name: 'registration-page' })" >Create one !</a></div>
         </div>
         <!-- <div class="flex flex-col items-center my-5">
             <FacebookLoginButton />
