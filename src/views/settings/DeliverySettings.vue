@@ -196,6 +196,7 @@
 import { ref, reactive, onMounted } from 'vue';
 import { seller_update_delivery } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import i18n from '@/locales/i18n';
 
 import { helpers, required, requiredIf, numeric, integer, decimal,minValue } from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
@@ -297,7 +298,7 @@ const updateDelivery = () => {
     }
     seller_update_delivery(deliverySettings).then(res=>{
         layoutStore.userInfo = res.data
-        layoutStore.notification.showMessageToast("Update Successfully")
+        layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
 }
 
