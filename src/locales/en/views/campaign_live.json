@@ -85,7 +85,7 @@
             "view" : "View",
             "name" : "Customer",
             "platform" : "Platform",
-            "order_number" : "Order No",
+            "order_number" : "Order No.",
             "null":"",
             "no_order":"You don't have any incoming order"
         }
