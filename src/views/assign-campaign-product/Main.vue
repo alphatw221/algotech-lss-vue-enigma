@@ -27,14 +27,14 @@
 						{{$t('assign_product.search_bar.search_by')}}
 					</label>
 					<select
-						class="form-select min-w-1/4 mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
+						class="form-select w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl" v-model="searchField">
 						<option v-for="searchColumn in searchColumns" :key="searchColumn.value"
 							:value="searchColumn.value">
 							{{$t(`assign_product.search_bar.search_options.${searchColumn.value}`)}}
 						</option>
 					</select>
 				</div>
-				<div class="flex-1 items-center input-group mr-auto min-w-[100px] mt-auto lg:mt-5">
+				<div class="flex-1 items-center input-group mr-auto min-w-[100px] lg:mt-5">
 					<div class="relative"> 
 						<input type="text"
 							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
@@ -64,43 +64,15 @@
 						<thead>
 							<tr>
 								<th class="w-10 text-center">
-									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" @change="selectAllStockProduct($event)"/></th>
+									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="selectAll" @change="selectAllStockProduct($event)"/></th>
 								<th 
 									class="whitespace-normal truncate hover:text-clip text-center" 
 									v-for="column in tableColumns" :key="column.key">
-									<template v-if="column.key === 'customer_editable'"> 
-										<div class="flex whitespace-nowrap align-middle"> 
-											<span class="my-auto"> {{$t(`assign_product.product_table.${column.key}`)}} </span> 
-											<Tippy 
-												class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
-												data-tippy-allowHTML="true" 
-												data-tippy-placement="right" 
-												:content="$t('tooltips.assign_product.editable')" 
-											> 
-												<HelpCircleIcon class="w-5 tippy-icon" />
-											</Tippy> 
-										</div>
-									</template>
-									<template v-else-if="column.key === 'customer_removable'"> 
-										<div class="flex whitespace-nowrap align-middle"> 
-											<span class="my-auto"> {{$t(`assign_product.product_table.${column.key}`)}} </span> 
-											<Tippy 
-												class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
-												data-tippy-allowHTML="true" 
-												data-tippy-placement="right" 
-												:content="$t('tooltips.assign_product.removable')" 
-											> 
-												<HelpCircleIcon class="w-5 tippy-icon" />
-											</Tippy> 
-										</div>
-									</template>
-									<template v-else> 
-										{{$t(`assign_product.product_table.${column.key}`)}}
-									</template>
+
+									{{$t(`assign_product.product_table.${column.key}`)}}
 								</th>
 							</tr>
 						</thead>
-						
 						<tbody>
 							<tr
 								v-for="(product, product_index) in stockProducts"
@@ -181,14 +153,6 @@
 									</td> 
 
 									<td v-else-if="column.key === 'customer_editable' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<Tippy 
-											class="rounded-full w-fit whitespace-wrap ml-1 my-auto tippy-mobile-edit sm:hidden" 
-											data-tippy-allowHTML="true" 
-											data-tippy-placement="right" 
-											:content="$t('tooltips.assign_product.editable')" 
-										> 
-											<HelpCircleIcon class="w-5 tippy-icon sm:hidden" />
-										</Tippy> 
 										<div class="md:min-w-[40px] sm:text-center">
 											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)" v-if="product.type=='product'"/>
 											<div v-else class="text-center dash">-</div>
@@ -196,14 +160,6 @@
 									</td>
 
 									<td v-else-if=" column.key === 'customer_removable' " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<Tippy 
-											class="rounded-full w-fit whitespace-wrap ml-1 my-auto tippy-mobile-del sm:hidden" 
-											data-tippy-allowHTML="true" 
-											data-tippy-placement="right" 
-											:content="$t('tooltips.assign_product.removable')" 
-										> 
-											<HelpCircleIcon class="w-5 tippy-icon sm:hidden" />
-										</Tippy> 
 										<div class="md:min-w-[40px] sm:text-center"> 
 											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductRemovable(product_index, $event)" v-if="product.type=='product'"/>
 											<div v-else class="text-center dash">-</div>
@@ -214,8 +170,8 @@
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right p-1" min="1" type="text" v-model="product[column.key]" />
-											<span class="my-auto ml-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
+											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
+											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 										</div>
 									</td>
 
@@ -261,35 +217,7 @@
 								<th 
 									class="whitespace-normal truncate hover:text-clip text-center" 
 									v-for="column in tableColumns" :key="column.key">
-									<template v-if="column.key === 'customer_editable'"> 
-										<div class="flex whitespace-nowrap align-middle"> 
-											<span class="my-auto"> {{$t(`assign_product.product_table.${column.key}`)}} </span> 
-											<Tippy 
-												class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
-												data-tippy-allowHTML="true" 
-												data-tippy-placement="right" 
-												:content="$t('tooltips.assign_product.editable')" 
-											> 
-												<HelpCircleIcon class="w-5 tippy-icon" />
-											</Tippy> 
-										</div>
-									</template>
-									<template v-else-if="column.key === 'customer_removable'"> 
-										<div class="flex whitespace-nowrap align-middle"> 
-											<span class="my-auto"> {{$t(`assign_product.product_table.${column.key}`)}} </span> 
-											<Tippy 
-												class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
-												data-tippy-allowHTML="true" 
-												data-tippy-placement="right" 
-												:content="$t('tooltips.assign_product.removable')" 
-											> 
-												<HelpCircleIcon class="w-5 tippy-icon" />
-											</Tippy> 
-										</div>
-									</template>
-									<template v-else> 
-										{{$t(`assign_product.product_table.${column.key}`)}}
-									</template>
+									{{$t(`assign_product.product_table.${column.key}`)}}
 								</th>
 							</tr>
 						</thead>
@@ -369,14 +297,6 @@
 									</td> 
 									
 									<td v-else-if="column.key === 'customer_editable' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<Tippy 
-											class="rounded-full w-fit whitespace-wrap ml-1 my-auto tippy-mobile-edit sm:hidden" 
-											data-tippy-allowHTML="true" 
-											data-tippy-placement="right" 
-											:content="$t('tooltips.assign_product.editable')" 
-										> 
-											<HelpCircleIcon class="w-5 tippy-icon sm:hidden" />
-										</Tippy> 
 										<div class="md:min-w-[40px] sm:text-center"> 
 											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductEditable(product_index, $event)" v-if="product.type=='product'" />
 											<div v-else class="w-[1.2rem] h-[1.2rem] dash mx-auto">-</div>
@@ -384,14 +304,6 @@
 									</td>
 
 									<td v-else-if=" column.key === 'customer_removable'  " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<Tippy 
-											class="rounded-full w-fit whitespace-wrap ml-1 my-auto tippy-mobile-del sm:hidden" 
-											data-tippy-allowHTML="true" 
-											data-tippy-placement="right" 
-											:content="$t('tooltips.assign_product.removable')" 
-										> 
-											<HelpCircleIcon class="w-5 tippy-icon sm:hidden" />
-										</Tippy> 
 										<div class="md:min-w-[40px] sm:text-center"> 
 											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" @click="selectedProductRemovable(product_index, $event)" v-if="product.type=='product' "/>
 											<div v-else class="w-[1.2rem] h-[1.2rem] dash sm:mx-auto">-</div>
@@ -403,9 +315,9 @@
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right p-1" min="1" type="text" v-model="product[column.key]" />
-											<span class="my-auto ml-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
-											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]"> {{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
+											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
+											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
+											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td>
 
@@ -438,7 +350,7 @@ import { list_product_category, list_product } from '@/api_v2/product';
 import { get_campaign_product_order_code_dict, retrieve_campaign } from '@/api_v2/campaign';
 
 import { useRoute, useRouter } from "vue-router";
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps, reactive } from "vue";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps, reactive} from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
@@ -475,7 +387,6 @@ const router = useRouter();
 
 const openTab = ref('select')
 const currentPage = ref(1)
-const totalPage = ref(1)
 const pageSize = ref(10)
 const dataCount = ref(0)
 
@@ -497,6 +408,7 @@ const stockProducts = ref([])
 const selectedProducts = ref([])
 const errorMessages = ref([])
 const selectedProductDict = ref({})
+const selectAll = ref(false)
 
 const campaignProductOrderCodeDict = ref({})
 
@@ -527,6 +439,7 @@ const updateStockProducts = ()=>{
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
             stockProducts.value[stockProductIndex] = selectedProducts.value[index]
+			product.check=true
         }else{
             product.check=false
         }
@@ -584,6 +497,18 @@ watch(computed(()=>stockProducts.value),updateStockProducts)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
 
+const checkSelectAll = () => {
+	let unchecked_list = stockProducts.value.filter(e=>e.check === false)
+	if (unchecked_list.length) {
+		selectAll.value = false;
+	} else {
+		selectAll.value = true;
+	}
+}
+
+watch(computed(()=>stockProducts.value),checkSelectAll,{deep:true})
+
+
 
 const stockProductRemovable = (product_index, event)=>{if(event.target.checked)stockProducts.value[product_index].customer_editable=true}
 const selectedProductRemovable = (product_index, event)=>{if(event.target.checked)selectedProducts.value[product_index].customer_editable=true}
@@ -633,15 +558,29 @@ const resetSelectedProduct = ()=>{
 }
 
 const selectAllStockProduct = (event)=>{
-	event.target.checked =false
-	stockProducts.value.forEach(product => {
-        if(!(product.id.toString() in selectedProductDict.value)) {
-            product.check=true
-            selectedProducts.value.push(product)
-            selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
-            errorMessages.value.push({})
-        }
-	});
+	
+	if (selectAll.value) {
+		stockProducts.value.forEach(product => {
+			if(!(product.id.toString() in selectedProductDict.value)) {
+				product.check=true
+				selectedProducts.value.push(product)
+				selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
+				errorMessages.value.push({})
+			}
+		});
+	} else {
+		stockProducts.value.forEach(product => {
+			if((product.id.toString() in selectedProductDict.value)) {
+				product.check=false
+				const _index = selectedProductDict.value[product.id.toString()]
+				// console.log(_index)
+				selectedProducts.value.splice(_index,1)
+				errorMessages.value.splice(_index,1)
+				updateSelectedProductDict()
+			}
+		});
+	}
+	
     openTab.value='select'
 }
 
@@ -649,9 +588,7 @@ const search = () => {
 	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value)
 	.then(response => {
 		dataCount.value = response.data.count
-		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
-		
 		// proudct type 預設 product
 		let emptyType = ['', null, undefined]
 		Object.entries(stockProducts.value).forEach((product) => {
@@ -707,6 +644,7 @@ const getCampaignDetail = ()=>{
 
 
 const clearAllData = ()=>{
+	selectAll.value = false
     selectedCategory.value=''
     selectedProducts.value=[]
     errorMessages.value=[]
@@ -714,13 +652,13 @@ const clearAllData = ()=>{
     selectedProductDict.value = {}
     openTab.value = 'select'
     currentPage.value = 1
-    totalPage.value = 1
     pageSize.value=10
     dataCount.value =0
 	campaignProductOrderCodeDict.value = {}
 	isSelectedProductsValid = false
 	campaignDetailStore.showAddProductFromStockModal = false
 }
+
 
 </script>
 
@@ -950,16 +888,7 @@ thead th{
 		width: 1.5rem !important;
 		height: 1.5rem !important;
 	}
-	.tippy-mobile-edit{
-		position: absolute;
-		left:65px; 
-		top:-2px;
-	}
-	.tippy-mobile-del{
-		position: absolute;
-		left:75px; 
-		top:-2px;
-	}
+
     /* .noTd:before{
         display:none; 
     }
