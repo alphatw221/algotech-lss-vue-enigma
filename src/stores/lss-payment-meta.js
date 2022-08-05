@@ -74,7 +74,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		icon:"static/payment/paypal/icon.jpeg",
 		fields:[
 			{key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'NTD'], dataType:"string", default:'SGD'},
-			{key:"cliend_id", type:"text", name:"Client ID", dataType:"string", default:''},
+			{key:"client_id", type:"text", name:"Client ID", dataType:"string", default:''},
 			{key:"secret", type:"text", name:"Secret", dataType:"string", default:''}
 		],
 		handle:{
