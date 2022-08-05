@@ -51,10 +51,14 @@
                                 <span class="w-fit"> {{product.qty}} </span> 
                             </td>
                             <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.price')">
-                            {{store.orderProductData.campaign.currency}} {{parseFloat(product.price).toFixed(store.orderProductData.campaign.decimal_places)}}{{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            {{store.orderProductData.campaign.currency}}
+                            {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.orderProductData.campaign.decimal_places)}}
+                            {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </td>
                             <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.sub_total')">
-                            {{store.orderProductData.campaign.currency}} {{parseFloat(product.qty * product.price).toFixed(store.orderProductData.campaign.decimal_places)}}{{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            {{store.orderProductData.campaign.currency}}
+                            {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)):parseFloat(product.qty * product.price).toFixed(store.orderProductData.campaign.decimal_places)}}
+                            {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </td>                        
                         </tr>
                     </tbody>
@@ -65,19 +69,35 @@
                     <div class="grid grid-cols-3 gap-2">
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.sub_total')}}</div>
-                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">{{store.orderProductData.campaign.currency}} {{parseFloat(store.orderProductData.subtotal).toFixed(store.orderProductData.campaign.decimal_places)}}{{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}</div>
+                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">
+                                {{store.orderProductData.campaign.currency}} 
+                                {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.orderProductData.subtotal)):parseFloat(store.orderProductData.subtotal).toFixed(store.orderProductData.campaign.decimal_places)}}
+                                {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            </div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.delivery_charge')}}</div>
-                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">{{store.orderProductData.campaign.currency}} {{parseFloat(store.orderProductData.shipping_cost).toFixed(store.orderProductData.campaign.decimal_places)}}{{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}</div>
+                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">
+                                {{store.orderProductData.campaign.currency}} 
+                                {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.orderProductData.shipping_cost)):parseFloat(store.orderProductData.shipping_cost).toFixed(store.orderProductData.campaign.decimal_places)}}
+                                {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            </div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{store.orderProductData.adjust_title ?? $t('manage_order.product_modal.discount')}}</div>
-                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">{{store.orderProductData.campaign.currency}} {{parseFloat(store.orderProductData.adjust_price).toFixed(store.orderProductData.campaign.decimal_places)}}{{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}</div>
+                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">
+                                {{store.orderProductData.campaign.currency}} 
+                                {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.orderProductData.adjust_price)):parseFloat(store.orderProductData.adjust_price).toFixed(store.orderProductData.campaign.decimal_places)}}
+                                {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            </div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.total')}}</div>
-                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">{{store.orderProductData.campaign.currency}} {{parseFloat(store.orderProductData.total).toFixed(store.orderProductData.campaign.decimal_places)}}{{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}</div>
+                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">
+                                {{store.orderProductData.campaign.currency}} 
+                                {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.orderProductData.total)):parseFloat(store.orderProductData.total).toFixed(store.orderProductData.campaign.decimal_places)}}
+                                {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            </div>
                         </div>
                     </div>
                 </div>

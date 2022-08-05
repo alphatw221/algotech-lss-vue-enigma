@@ -1,0 +1,43 @@
+{
+    "title": "問答遊戲",
+    "create_btn": "新增遊戲",
+    "invalid_data":"輸入資料無效",
+    "create_succeed": "新增成功",
+    "update_succeed": "更新成功",
+    "delete_succeed": "刪除成功",
+    "not_saved": "取消儲存",
+
+    "quiz_create": {
+        "campaign_title": "直播名稱",
+        "question_title": "問題與答案",
+        "add_question": "新增問題",
+        "question": "請輸入問題...",
+        "answer": "請輸入答案...",
+        "delete": "刪除",
+        "remark": "註記",
+        "enter_remark": "請輸入註記...",
+        "number_of_winner" : "得獎人數",
+        "number_winner_warning": "需填入介於1與獎品數量",
+        "prize": "獎品",
+        "assign_prize_err":"需加入商品",
+        "winner_repeat" : "重複得獎",
+        "winner_repeat_tip": "參與者可重複獲獎",
+        "save": "儲存",
+        "cancel": "取消",
+        "yes": "是",
+        "no": "否"
+    },
+
+    "quiz_list": {
+        "campaign_title": "直播名稱",
+        "question": "題目",
+        "start": "開始",
+        "stop": "停止",
+        "finish": "已結束",
+        "winners": "得獎人數量",
+        "no_winner": "沒有贏家",
+        "result": "計算結果",
+        "edit": "編輯",
+        "delete": "刪除"
+    }
+}
