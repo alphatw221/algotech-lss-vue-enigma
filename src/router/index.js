@@ -293,7 +293,7 @@ const routes = [
   },
 
   {
-    path: "/seller/public",
+    path: "/seller/web",
     component: LSSPublicLayout,
     children: [
       {
@@ -308,7 +308,7 @@ const routes = [
       },
       {
         path: "register",
-        name: "register",
+        name: "registration-page",
         component: () => import('@/views/seller-registration/Main.vue')
       },
     ]
