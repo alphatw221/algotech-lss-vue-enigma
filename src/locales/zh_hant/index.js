@@ -17,6 +17,7 @@ import profile from './views/profile.json'
 import edit_campaign_product from './views/edit_campaign_product.json'
 import change_plan from './views/change_plan.json'
 import register from './views/register.json'
+import quiz_game from './views/quiz_game.json'
 
 export default {
     global,
@@ -39,5 +40,6 @@ export default {
     edit_campaign_product,
     change_plan,
     profile,
-    register
+    register,
+    quiz_game
 }
