@@ -100,7 +100,7 @@
                     </div>
                     <div class="flex sm:flex-row mt-2 justify-between">
                         <div class="flex w-36">
-                            <div class="form-check sm:mr-5">
+                            <div class="form-check mr-5">
                                 <input class="form-check-input" type="radio" v-model="currentSettings.repeatable" :value="true" />
                                 <label class="form-check-label" for="radio-switch-yes">{{ $t('lucky_draw.draw_create.yes') }}</label>
                             </div>
@@ -131,7 +131,7 @@
                     v-if="currentSettings.type === 'product'" 
                     class="lg:w-[50%] flex flex-col mt-6 sm:mr-5"
                 >   
-                    <div class="flex">
+                    <div class="flex"> 
                         <label class="form-label">{{ $t('lucky_draw.draw_create.product') }}</label>
                         <!-- <button 
                             class="btn btn-primary h-[35px] sm:h-[42px] w-fit ml-auto mb-1"
@@ -140,7 +140,7 @@
                         > Assign Product </button> -->
                     </div>
                     <select
-                        class="w-full form-select sm:form-select-lg rounded-lg sm:mr-5" 
+                        class="w-full form-select sm:form-select-lg rounded-lg ml-0 sm:ml-5" 
                         v-model="currentSettings.campaign_product"
                     >   
                         <template v-if="productList.length == 0">

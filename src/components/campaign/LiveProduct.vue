@@ -64,7 +64,7 @@
                                 <span class="mr-0.5"> {{[index+1].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}} </span>  
                                 {{ product.name }}</td>
                             <template v-if="product.type === 'lucky_draw'">
-                                <td></td>
+                                <td class="font-medium"> *Prize*</td>
                             </template>
                             <template v-else>
                                 <td>{{ product.order_code }}</td>

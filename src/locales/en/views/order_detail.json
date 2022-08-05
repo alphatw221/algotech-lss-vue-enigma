@@ -1,6 +1,6 @@
 {
     "order" : "Order Details",
-    "order_no" : "Order No",
+    "order_no" : "Order No.s",
     "order_status" : "Order Status",
     "order_date" : "Order Date",
     "order_info":"Order Information",
