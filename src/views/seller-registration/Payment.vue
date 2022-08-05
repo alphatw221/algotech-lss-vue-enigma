@@ -70,10 +70,10 @@
 
                     <span class="mx-auto text-xl font-medium"> {{$t('register.payment.direct.payment_info')}} </span>
                     <table class="mx-auto w-fit w-1/3 max-w-1/2"> 
-                        <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.bank_name')}} </td> <td class="text-right pl-10"> {{layout.vnBank.bankName}} </td> </tr>
-                        <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_name')}} </td> <td class="text-right pl-5"> {{layout.vnBank.accountName}} </td> </tr>
-                        <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_number')}} </td> <td class="text-right pl-10"> {{layout.vnBank.accountNumber}}  </td> </tr>
-                        <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.note')}} </td> <td class="text-right pl-10"> {{layout.vnBank.note}} </td> </tr>
+                        <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.bank_name')}} </td> <td class="text-right pl-10"> {{registerationStore.vnBank.bankName}} </td> </tr>
+                        <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_name')}} </td> <td class="text-right pl-5"> {{registerationStore.vnBank.accountName}} </td> </tr>
+                        <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_number')}} </td> <td class="text-right pl-10"> {{registerationStore.vnBank.accountNumber}}  </td> </tr>
+                        <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.note')}} </td> <td class="text-right pl-10"> {{registerationStore.vnBank.note}} </td> </tr>
                     </table>
                     <img  data-action="zoom" class="w-60 mx-auto" :src="bank_img" />  
                     <Dropzone ref-key="receiptUploadDropzoneRef" :options="{

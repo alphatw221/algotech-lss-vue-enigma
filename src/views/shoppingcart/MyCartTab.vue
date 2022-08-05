@@ -1,6 +1,7 @@
 <template>
     <div :class="{ hidden: store.openTab !== 1, block: store.openTab === 1 }">
-        <h2 class="text-base font-medium">{{$t('shopping_cart.my_cart_tab.my_cart')}}</h2>
+        <h2 class="text-base font-medium">{{$t('shopping_cart.my_cart_tab.my_cart')}} <span class="ml-2"> #{{store.order.id}}</span>  </h2>
+        
     <div class="grid grid-cols-12 gap-4">
     <div class="overflow-x-auto col-span-12 2xl:col-span-7 2xl:block lg:block sm:block lg:col-span-7">
         <ShoppingCartTable />
@@ -38,7 +39,5 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const store = useShoppingCartStore(); 
-
-
 
 </script>
