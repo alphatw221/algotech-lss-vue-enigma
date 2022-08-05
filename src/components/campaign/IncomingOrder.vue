@@ -56,10 +56,10 @@
                                 </div>
                             </td>
                             <td>{{ order.customer_name }}</td>
-                            <td>
-                                {{ order.campaign.currency }}
-                                {{ order.campaign.decimal_places=='0'?Math.trunc(parseFloat(order.subtotal)):parseFloat(order.subtotal).toFixed(order.campaign.decimal_places)}}
-                                {{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}
+                            <td v-if="store.campaign">
+                                {{ store.campaign.currency }}
+                                {{ store.campaign.decimal_places=='0'?Math.trunc(parseFloat(order.subtotal)):parseFloat(order.subtotal).toFixed(order.campaign.decimal_places)}}
+                                {{ store.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}
                             </td> 
                             <td>
                                 <Tippy 
