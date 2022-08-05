@@ -1,6 +1,6 @@
 <template>
     <!-- BEGIN: Comments -->
-        <TabGroup :selectedIndex="0" v-if="ready"
+        <TabGroup :selectedIndex="1" v-if="ready"
             class="box mt-2 max-h-screen w-full 
                 md:w-1/2 
                 2xl:w-1/3">
