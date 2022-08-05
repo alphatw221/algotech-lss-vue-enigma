@@ -100,10 +100,18 @@
 						<div style="color:#FF4500" v-show="store.cartProducts[index].qty_add_to_cart >= store.cartProducts[index].qty_for_sale && store.cartProducts[index].type === 'product'"> {{$t('shopping_cart.table.missing_message')}}</div>
 					</td>
 					<td class="text-center h-20 ">
-						<div class="price whitespace-nowrap"> {{store.order.campaign.currency}} {{ parseFloat(product.price).toFixed(store.order.campaign.decimal_places) }} {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</div>
+						<div class="price whitespace-nowrap"> 
+							{{store.order.campaign.currency}} 
+							{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.order.campaign.decimal_places) }} 
+							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+						</div>
 					</td>
 					<td class="text-center h-20">
-						<div class="price whitespace-nowrap"> {{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.order.campaign.decimal_places) }} {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</div>
+						<div class="price whitespace-nowrap"> 
+							{{store.order.campaign.currency}} 
+							{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)):parseFloat(product.qty * product.price).toFixed(store.order.campaign.decimal_places) }} 
+							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+						</div>
 					</td>
 					<td class="table-report__action w-30 h-20">
 					<div class="flex justify-center items-center" v-show="store.cartProducts[index].customer_removable && product.type === 'product'">

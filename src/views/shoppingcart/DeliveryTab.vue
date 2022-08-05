@@ -165,7 +165,7 @@
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(store.order.campaign.decimal_places)
+                          store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.campaign.meta_logistic.delivery_charge)):parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(store.order.campaign.decimal_places)
                         }}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
@@ -180,15 +180,15 @@
 
                       <div v-if="option.type === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{ (parseFloat(option.price) +
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(store.order.campaign.decimal_places)
+                        {{ 
+                          store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(option.price+store.order.campaign.meta_logistic.delivery_charge)):(parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(store.order.campaign.decimal_places)
                         }}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
                       <div v-else>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(option.price).toFixed(store.order.campaign.decimal_places)
+                          store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(option.price)):parseFloat(option.price).toFixed(store.order.campaign.decimal_places)
                         }}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
