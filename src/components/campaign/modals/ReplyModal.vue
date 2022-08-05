@@ -19,7 +19,7 @@
                             <span class="font-medium text-sky-900">{{ comment.customer_name }}</span>
                             <div class="ml-auto text-xs text-slate-400"></div>
                         </div>
-                        <div class="w-fit items-left text-slate-700 mt-0.5 p-0.5 whitespace-wrap">
+                        <div class="w-full items-left text-slate-700 mt-0.5 p-0.5 whitespace-wrap break-all">
                             {{ comment.message }}
                         </div>
                     </div>
@@ -29,7 +29,7 @@
                     class="flex justify-end w-full h-fit">
                     <div class="flex flex-col p-2 m-3 box bg-secondary w-fit">
                         <span class="font-medium text-right text-violet-900">{{ comment.from.name }}</span>
-                        <div class="w-fit items-right text-slate-700 mt-0.5 p-0.5 whitespace-wrap text-right">
+                        <div class="w-full items-right text-slate-700 mt-0.5 p-0.5 whitespace-wrap text-right break-all">
                             {{ comment.message }}
                         </div>
                     </div>
@@ -44,7 +44,7 @@
                     </div>
                     <div class="flex flex-col p-2 m-3 box bg-secondary w-fit">
                         <span class="font-medium text-sky-900">{{ comment.from.name }}</span>
-                        <div class="w-fit items-left text-slate-700 mt-0.5 p-0.5 space-wrap">
+                        <div class="w-full items-left text-slate-700 mt-0.5 p-0.5 whitespace-wrap break-all">
                             {{ comment.message }}
                         </div>
                     </div>
