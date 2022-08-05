@@ -1,23 +1,23 @@
 <template>
-    <div>
-        <div class="mt-5 flex justify-self-start">
-            <label class="form-label mr-10">{{ $t('lucky_draw.draw_create.campaign_title') }} : </label>
-            <h2 style="display: inline-block;"> campaign name </h2>
+    <div class="px-5 sm:px-10">
+        <div class="mt-5 flex justify-self-start font-medium">
+            <label class="form-label mr-10">{{ $t('quiz_game.quiz_create.campaign_title') }} : </label>
+            <h2 style="display: inline-block;">  {{ props.campaignTitle }} </h2>
         </div>
             
-        <div class="flex flex-col gap-1 text-base my-5 intro-y sm:gap-3 -z-50">
+        <div class="flex flex-col">
             <div class="flex flex-wrap justify-between mt-5"> 
-                <label for="regular-form-2" class="text-base font-bold form-label my-auto"> Quiz Game question</label>
+                <label for="regular-form-2" class="form-label my-auto"> {{ $t('quiz_game.quiz_create.question_title') }} </label>
                 <button 
-                    class="inline-block rounded-lg btn btn-primary ml-auto w-fit text-sm sm:text-[16px]" 
+                    class="inline-block sm:rounded-lg sm:w-24 btn btn-primary ml-auto w-fit text-base w-full h-[42px]" 
                     @click="addQuestion()"
                 >
-                    add question answer
+                    {{ $t('quiz_game.quiz_create.add_question') }} 
                 </button>
             </div>
 
             <div 
-                class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0"
+                class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-3"
                 v-for="(question, index) in quizgameSettings.quiz_games" 
                 :key="index"
             >
@@ -25,7 +25,7 @@
                     <input  
                         class="form-control w-full text-base"
                         type="text" 
-                        placeholder="Question"
+                        :placeholder="$t('quiz_game.quiz_create.question') "
                         v-model="question.question"
                     />
                 </div>
@@ -34,7 +34,7 @@
                     <input  
                         class="form-control w-full text-base"
                         type="text" 
-                        placeholder="Answer"
+                        :placeholder="$t('quiz_game.quiz_create.answer')"
                         v-model="question.answer"
                     />
                 </div>
@@ -43,16 +43,16 @@
                     class="inline-block w-full h-[42px] ml-auto text-base btn btn-danger sm:rounded-lg sm:w-24"
                     @click="deleteQuestion(index, question.id)" 
                 >
-                    delete
+                    {{ $t('quiz_game.quiz_create.delete') }} 
                 </button>
             </div>
 
             <div class="lg:flex">
                 <div class="lg:w-full flex flex-col lg:mr-5 mt-6">
-                    <label class="form-label "> Remark </label>
+                    <label class="form-label "> {{ $t('quiz_game.quiz_create.remark') }}  </label>
                     <textarea 
                         class="w-full h-24 rounded-lg overflow-hidden whitespace-pre-line p-1"
-                        placeholder=" Enter your Remark..."
+                        :placeholder="$t('quiz_game.quiz_create.enter_remark')"
                         v-model="quizgameSettings.remark"
                     ></textarea>
                 </div>
@@ -60,26 +60,26 @@
 
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
-                    <label class="form-label"> No. of Winners</label>
+                    <label class="form-label"> {{ $t('quiz_game.quiz_create.number_of_winner') }}  </label>
                     <input 
                         class="form-control" 
                         type="text" 
                         v-model.trim="v.num_of_winner.$model" 
                     />
                     <template v-if="v.num_of_winner.$error">
-                        <label class="text-danger text-[14px] leading-tight"> please enter between 1 to prizr quantity. </label>
+                        <label class="text-danger text-[14px] leading-tight"> {{ $t('quiz_game.quiz_create.number_winner_warning') }} </label>
                     </template>
                 </div>
 
                 <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
-                    <label class="form-label"> Prize </label>
+                    <label class="form-label"> {{ $t('quiz_game.quiz_create.prize') }} </label>
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg"
                         v-model="quizgameSettings.prize"
                     >
                         <template v-if="!prizeList.length">
                             <option class="w-40" disabled> 
-                                Please assign prize into your campaign
+                                {{ $t('quiz_game.quiz_create.assign_prize_err') }} 
                             </option>
                         </template>
                         <template v-else> 
@@ -99,7 +99,7 @@
                             class="rounded-full w-30 whitespace-wrap" 
                             data-tippy-allowHTML="true" 
                             data-tippy-placement="right" 
-                            content="Allow same person <br/> to win multiple prizes?" 
+                            :content="$t('lucky_draw.draw_create.winner_repeat_tip')" 
                             theme='light'
                         > 
                             <HelpCircleIcon class="w-8 ml-2" />
@@ -113,7 +113,7 @@
                                 v-model="quizgameSettings.repeatable"
                                 :value="true"
                             />
-                            <label class="form-check-label"> Yes </label>
+                            <label class="form-check-label"> {{ $t('lucky_draw.draw_create.yes') }} </label>
                         </div>
                         <div class="form-check mr-5">
                             <input 
@@ -122,7 +122,7 @@
                                 v-model="quizgameSettings.repeatable" 
                                 :value="false"
                             />
-                            <label class="form-check-label" > No </label>
+                            <label class="form-check-label" > {{ $t('lucky_draw.draw_create.no') }} </label>
                         </div>
                     </div>
                 </div>
@@ -131,8 +131,8 @@
         </div>
 
         <div class="flex justify-end my-10 mr-5" >
-            <button class="btn w-32 dark:border-darkmode-400" @click="goCancel()"> Cancel </button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsertQuizGame()"> Save </button>
+            <button class="btn w-32 dark:border-darkmode-400" @click="goCancel()"> {{ $t('lucky_draw.draw_create.cancel') }} </button>
+            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsertQuizGame()"> {{ $t('lucky_draw.draw_create.save') }} </button>
         </div>
 
     </div>
@@ -146,12 +146,16 @@ import { useVuelidate } from "@vuelidate/core";
 import { required, maxValue, minLength, integer, minValue } from "@vuelidate/validators";
 import { list_campaign_product } from '@/api/campaign_product';
 import { create_campaign_quiz_game, update_campaign_quiz_game, delete_campaign_quiz_game, retrieve_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
+import i18n from "@/locales/i18n"
 
+const props = defineProps({
+    campaignTitle: String
+})
 const route = useRoute()
 const router = useRouter()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus
-const ready = ref(true)
 const layoutStore = useLSSSellerLayoutStore()
+const ready = ref(true)
 const prizeList = ref([])
 const quizgameSettings = ref({
     quiz_games: [{ question: null, answer: null }],
@@ -198,7 +202,9 @@ const addQuestion = () => {
 
 const deleteQuestion = (index, id) => {
     if (![undefined, null, ''].includes(id)) {
-        delete_campaign_quiz_game(id).then(res => {})
+        delete_campaign_quiz_game(id).then(res => {
+            layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.delete_succeed'))
+        })
     }
 
     quizgameSettings.value.quiz_games.splice(index, 1)
@@ -208,17 +214,19 @@ const upsertQuizGame = () => {
     console.log(quizgameSettings.value)
     v.value.$touch();
     if (v.value.$invalid || typeof quizgameSettings.value.prize === 'string') {
-        layoutStore.alert.showMessageToast('Invalid Submission')
+        layoutStore.alert.showMessageToast(i18n.global.t('quiz_game.invalid_data'))
         return
     } 
 
     if (pageType.value === 'create') {
         create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value).then(res => {
+            layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.create_succeed'))
             eventBus.emit('listQuiz')
             quizgameSettings.value = quizgameEmptySettings.value
         })
     } else if (pageType.value === 'edit') {
         update_campaign_quiz_game(quizgameBundleId.value, quizgameSettings.value).then(res => {
+            layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.update_succeed'))
             eventBus.emit('changePage')
             eventBus.emit('listQuiz')
             pageType.value = 'create'
@@ -228,12 +236,13 @@ const upsertQuizGame = () => {
 }
 
 const goCancel = () => {
-    if (pageType.value === 'create') router.back()
-    else if (pageType.value === 'edit') {
-        eventBus.emit('changePage')
+    if (pageType.value === 'edit') {
+        layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.not_saved'))
+        eventBus.emit('listQuiz')
         pageType.value = 'create'
         quizgameSettings.value = quizgameEmptySettings.value
     }
+    eventBus.emit('changePage')
 }
 
 </script>
