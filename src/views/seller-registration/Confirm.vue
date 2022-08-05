@@ -1,5 +1,5 @@
 <template>
-    <div class="confirmation" :class="{ hidden: layout.registerTab !== 3, block: layout.registerTab === 3 }">
+    <div class="confirmation" :class="{ hidden: registerationStore.registerTab !== 3, block: registerationStore.registerTab === 3 }">
 
       <span class="px-3 text-xl font-medium"> {{$t('register.confirm.succeeded')}} </span> 
       <div class="p-3 py-5 text-sm lg:text-lg flex-col"> 
@@ -22,14 +22,21 @@
 
 <script setup>
 import { computed, onMounted, ref, watch, getCurrentInstance, onUnmounted } from "vue";
-import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
+
 
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies"
 
+
+import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
+import { usePublicLayoutStore } from "@/stores/lss-public-layout"
+
+const layoutStore = usePublicLayoutStore()
+const registerationStore = useSellerRegistrationStore()
+
 const route = useRoute();
 const router = useRouter();
-const layout = useSellerRegistrationStore()
+
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
@@ -45,7 +52,7 @@ const confirmationInfo= ref({
 onMounted(()=>{
   eventBus.on("showComfirmRegisterTab", (payload) => {
     confirmationInfo.value = payload
-    layout.registerTab = 3
+    registerationStore.registerTab = 3
     setTimeout(() => (window.location = 'https://liveshowseller.com/thank-you/'), 10000);
     })
 })

@@ -1,6 +1,6 @@
 <template>
     <div 
-      :class="{ hidden: layout.registerTab !== 2, block: layout.registerTab === 2 }"
+      :class="{ hidden: registerationStore.registerTab !== 2, block: registerationStore.registerTab === 2 }"
       class="flex-col">
     
     <!-- Details -->
@@ -46,7 +46,7 @@
             </li>
         </ul>
         <!--  Stripe  -->
-            <div class="tab-content tab-space py-5 sm:py-10">
+            <div class="tab-content tab-space py-10">
                 <div :class="{ hidden: paymentMethodTabNumber !== 0, block: paymentMethodTabNumber === 0 }" 
                     class="my-5 lg:my-10">
                     <form id="payment-form">
@@ -69,11 +69,13 @@
                     :class="{ hidden: paymentMethodTabNumber !== 1, block: paymentMethodTabNumber === 1 }" > 
 
                     <span class="mx-auto text-xl font-medium"> {{$t('register.payment.direct.payment_info')}} </span>
-                    <table class="mx-auto w-fit max-w-1/2"> 
-                        <tr> <td class="whitespace-nowrap"> {{$t('register.payment.direct.account_name')}} </td> <td class="text-right pl-5"> ALGOTECH </td> </tr>
-                        <tr> <td class="whitespace-nowrap"> {{$t('register.payment.direct.account_number')}} </td> <td class="text-right pl-10"> 9090999099932122135132</td> </tr>
-                        <tr> <td class="whitespace-nowrap align-top">{{$t('register.payment.direct.note')}} </td> <td class="text-right pl-10"> Please upload your transfer details and enter last 5 digits of your account info </td> </tr>
+                    <table class="mx-auto w-fit w-1/3 max-w-1/2"> 
+                        <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.bank_name')}} </td> <td class="text-right pl-10"> {{layout.vnBank.bankName}} </td> </tr>
+                        <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_name')}} </td> <td class="text-right pl-5"> {{layout.vnBank.accountName}} </td> </tr>
+                        <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_number')}} </td> <td class="text-right pl-10"> {{layout.vnBank.accountNumber}}  </td> </tr>
+                        <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.note')}} </td> <td class="text-right pl-10"> {{layout.vnBank.note}} </td> </tr>
                     </table>
+                    <img  data-action="zoom" class="w-60 mx-auto" :src="bank_img" />  
                     <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
                         method: 'put',
                         url: 'url',
@@ -113,7 +115,7 @@
         <div class="flex justify-between mt-10 text-sm lg:text-lg">
             <button
                 class="w-32 btn dark:border-darkmode-400"
-                @click="layout.registerTab = 1"
+                @click="registerationStore.registerTab = 1"
                 >
                 {{$t('register.payment.privious')}}
             </button>
@@ -143,6 +145,7 @@ import { useRoute, useRouter } from "vue-router";
 import { seller_validate_register } from '@/api_v2/user'
 import { seller_register_stripe, user_register_with_bank_transfer } from '@/api_v2/user'
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
+import bank_img from "/src/assets/images/lss-bank/vn_bank.png"
 import {
     minLength,
     maxLength,
@@ -152,7 +155,14 @@ import {
 import { useVuelidate } from "@vuelidate/core";
 import i18n from "@/locales/i18n"
 
-const layout = useSellerRegistrationStore()
+
+import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
+import { usePublicLayoutStore } from "@/stores/lss-public-layout"
+
+const layoutStore = usePublicLayoutStore()
+const registerationStore = useSellerRegistrationStore()
+
+
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
@@ -185,7 +195,7 @@ onMounted(()=>{
     basicInfo.value = payload.basicInfo
     confirmInfo.value = payload.confirmInfo
     basicInfo.value.intentSecret =  confirmInfo.value.client_secret
-    layout.registerTab = 2
+    registerationStore.registerTab = 2
     renderStripeElement(confirmInfo.value.client_secret)
   })
 
@@ -298,10 +308,10 @@ const uploadReceipt = () => {
     if([undefined,null,''].includes(receiptImage)) {
         uploadValidate.value.$touch();
         if (uploadValidate.value.$invalid) {
-            layout.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
+            layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
             return
         }
-        layout.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
+        layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
         return
     }
     let formData = new FormData()
@@ -311,7 +321,8 @@ const uploadReceipt = () => {
     }
     formData.append('last_five_digit', data.fiveDigits)
     formData.append('image', receiptImage || '')
-    formData.append('account_name', 'ALGOTECH')
+    formData.append('account_name', layout.accountName)
+    formData.append('bank_name', layout.bankName)
 
     showSubmitButton.value=false
     user_register_with_bank_transfer(route.query.country, formData)

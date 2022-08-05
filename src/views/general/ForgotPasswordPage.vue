@@ -4,7 +4,7 @@
             <img src="/src/assets/images/login-page/forgot_robot.svg"  class="robot hidden sm:block" />    
         </div>
     </div>
-    <div class="container w-[100%] sm:w-[480px] m-0 lg:mr-[10%] float-center lg:float-right"> 
+    <div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] float-center sm:float-right"> 
         <div class="flex flex-col items-center p-10 text-center center w-[375px]">
             <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
             <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >Forgot Password</h3>
@@ -30,7 +30,9 @@
 import { seller_forgot_password } from '@/api_v2/user'
 import { useRoute, useRouter } from "vue-router";
 import {ref, onMounted, onBeforeMount } from 'vue'
+import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
+const publicLayout = usePublicLayoutStore()
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
 const route = useRoute()
 const router = useRouter()
@@ -38,9 +40,9 @@ const email = ref('')
 const sendResetLink=()=>{
     seller_forgot_password({email: email.value})
     .then(res=>{
-        alert(res.data.message)
+        publicLayout.notification.showMessageToast(res.data.message)
     }).catch(err=>{
-        console.log(err)
+        publicLayout.alert.showMessageToast(err.data.message)
     })
 }
 

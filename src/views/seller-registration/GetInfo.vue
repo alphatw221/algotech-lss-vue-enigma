@@ -1,5 +1,5 @@
 <template> 
-    <div :class="{ hidden: layout.registerTab !== 1, block: layout.registerTab === 1 }">
+    <div :class="{ hidden: registerationStore.registerTab !== 1, block: registerationStore.registerTab === 1 }">
         <form class="flex-col flex gap-8" >
         
             <div class="flex-col">
@@ -69,8 +69,8 @@
                 </div>
                 <div class="flex-col w-2/3">
                     <label for="" class="subLabel" >{{$t('register.basic_info.number')}}</label><span class="text-danger"> *</span>
-                    <input class="form-control" v-model="validate.phone.$model"/> 
-                    <template v-if="validate.phone.$error">
+                    <input class="form-control" v-model="validate.contactNumber.$model"/> 
+                    <template v-if="validate.contactNumber.$error">
                         <label class="text-danger text-[16px] leading-tight">
                             {{$t('register.basic_info.required_field')}}
                         </label>
@@ -139,14 +139,14 @@
                 <label for="" class="subLabel" >{{$t('register.basic_info.target_country')}}</label><span class="text-danger"> *</span>
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg" 
-                        :class="{ 'border-danger text-danger border-2': validate.targetCountry.$error }" 
-                        v-model="validate.targetCountry.$model"
+                        :class="{ 'border-danger text-danger border-2': validate.country.$error }" 
+                        v-model="validate.country.$model"
                     >
                     <option v-for="(country, key) in countryOptions" :key="key" :value="country.value" class="w-40"> 
                     {{ $t(`register.basic_info.country_Options.` + country.value) }} 
                     </option>
                 </select>
-                <template v-if="validate.targetCountry.$error">
+                <template v-if="validate.country.$error">
                     <label class="text-danger text-[16px] leading-tight">
                         {{$t('register.basic_info.required_field')}}
                     </label>
@@ -179,15 +179,15 @@
                 <label :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }" > 
                     {{$t('register.basic_info.policy.accept')}} 
                     <a :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }" 
-                        :href="layout.terms" >{{$t('register.basic_info.policy.terms')}} 
+                        :href="registerationStore.terms" >{{$t('register.basic_info.policy.terms')}} 
                         </a> {{$t('register.basic_info.policy.&')}}
                     <a :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }"
-                        :href="layout.policy" >{{$t('register.basic_info.policy.conditions')}}</a> 
+                        :href="registerationStore.policy" >{{$t('register.basic_info.policy.conditions')}}</a> 
                 </label>
             </div>
         </form>
         <div class="flex justify-between my-10">
-            <a class="text-center btn btn-secondary" :href="layout.home" >
+            <a class="text-center btn btn-secondary" :href="registerationStore.home" >
                 {{$t('register.basic_info.home')}}
             </a> 
             <button class="btn btn-primary"
@@ -201,15 +201,19 @@
 
 <script setup>
 import { computed, onMounted, ref, watch, getCurrentInstance, onBeforeMount } from "vue";
-import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
+
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required,integer, sameAs } from "@vuelidate/validators";
 import { seller_validate_register } from '@/api_v2/user'
 
 import i18n from "@/locales/i18n"
+import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
+import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
-const layout = useSellerRegistrationStore()
+const layoutStore = usePublicLayoutStore()
+const registerationStore = useSellerRegistrationStore()
+
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 // const props = defineProps({
@@ -223,8 +227,8 @@ const router = useRouter()
 const planOptions = [{ value: "lite" },{ value: "standard" },{ value: "premium" }]
 const periodOptions = [{ value: "quarter" },{ value: "year" }]
 const countryCodeOptions = [{ value: "MY" },{ value: "ID" },{ value: "PH" },{ value: "SG" },{ value: "TW" }]
-const countryOptions = [{ value: "australia" },{ value: "cambodia" },{ value: "canada" },{ value: "hong_kong" },{ value: "indonesia" },{ value: "korea" }
-,{ value: "malaysia" },{ value: "philippines" },{ value: "singapore" },{ value: "taiwan" },{ value: "thai" },{ value: "US" },{ value: "vietnam" }]
+const countryOptions = [{ value: "Australia" },{ value: "Cambodia" },{ value: "Canada" },{ value: "Hong Kong" },{ value: "Indonesia" },{ value: "Korea" }
+,{ value: "Malaysia" },{ value: "Philippines" },{ value: "Singapore" },{ value: "Taiwan" },{ value: "Thailand" },{ value: "United States" },{ value: "Vietnam" }]
 
 // const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
 
@@ -238,11 +242,11 @@ const basicInfo = ref({
     plan:"", 
     period:"",
     countryCode:"",
-    phone:"",
+    contactNumber:"",
     email: "",
     password:"",
     confirmPassword:"",
-    targetCountry:"",
+    country:"",
     promoCode:"",
     intentSecret:"",
     privacyPolicy:"",
@@ -257,11 +261,11 @@ const rules = computed(()=> {
         plan: { required },
         period: { required },
         countryCode: { required },
-        phone: { required,integer },
+        contactNumber: { required,integer },
         email: { required },
         password: { required },
         confirmPassword: { required, sameAs: sameAs(basicInfo.value.password)  },
-        targetCountry: { required },
+        country: { required },
         privacyPolicy: { required }
     }
 });
@@ -271,12 +275,12 @@ const validate = useVuelidate(rules, basicInfo);
 const submitBasicInfo=()=>{
     validate.value.$touch();
     if (validate.value.$invalid) {
-        layout.alert.showMessageToast(i18n.global.t('profile.invalid_data'))
+        layoutStore.alert.showMessageToast(i18n.global.t('profile.invalid_data'))
         return
     }
     seller_validate_register(route.query.country, basicInfo.value).then(res=>{
         eventBus.emit("showPaymentTab", {'basicInfo':basicInfo.value, 'confirmInfo':res.data} )
-    }).catch( err=>{layout.registerTab = 1})
+    }).catch( err=>{registerationStore.registerTab = 1})
     
 }
 

@@ -9,17 +9,12 @@ export const useSellerRegistrationStore = defineStore("sellerRegistration", {
 		policy:ref('https://liveshowseller.com/privacy-policy/'),
 		notification: ref(false), 
 		alert: ref(false), 
-		registerInfo: ref({})
-
-
-
-
-
-
-
-		// layout.home = 'https://liveshowseller.com.tw/'
-        // layout.terms = 'https://liveshowseller.com.tw/terms-of-service/'
-        // layout.policy = 'https://liveshowseller.com.tw/privacy-policy/'
-
+		registerInfo: ref({}), 
+		vnBank: ref({
+			bankName:'VP Bank',
+			accountName:'Tieu Thuy Tien',
+			accountNumber:'47953',
+			note:'',
+		})
     })
 }); 

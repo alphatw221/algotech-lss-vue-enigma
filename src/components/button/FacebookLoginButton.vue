@@ -1,7 +1,7 @@
 <template>
     <div id="spinner">
         <div class="fb-login-button" 
-            data-width="310px"
+            data-width="300px"
             data-size="large" 
             data-button-type="login_with" 
             data-layout="default" 
