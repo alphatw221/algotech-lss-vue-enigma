@@ -226,7 +226,7 @@ const product = ref({
 	description: '',
 	qty: 0,
 	price: 0,
-	status: '',
+	status: 'enabled',
 	tag: [],
 })
 
