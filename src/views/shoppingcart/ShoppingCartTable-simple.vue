@@ -3,7 +3,7 @@
 	<div
 		class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400">
 		<h2 class="font-medium text-base mr-auto">
-		{{$t('shopping_cart.table.cart')}} ({{numOfItems}} {{$t('shopping_cart.table.items')}})
+		{{$t('shopping_cart.table.cart')}} ({{numOfItems}} {{$t('shopping_cart.table.items')}})  <span class="ml-1"> #{{store.order.id}}</span>
 		</h2>
 		<button class="border-none sm:flex underline" @click="switchToMyCartTab()">
 		{{$t('shopping_cart.table.edit')}}

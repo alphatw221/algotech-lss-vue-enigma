@@ -4,7 +4,7 @@
       <div class="col-span-12 row-start-2 intro-y lg:row-start-1 lg:col-span-8">
         <h2 class="w-full mr-auto text-xl font-medium">{{$t('shopping_cart.delivery_tab.contact_info')}}</h2>
         <div class="grid grid-cols-12 gap-5 p-0 my-10 mt-3 intro-y lg:p-10">
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
             {{$t('shopping_cart.delivery_tab.first_name')}}</label>
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
@@ -19,7 +19,7 @@
                       </label>
                   </template>
               </div>
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
             {{$t('shopping_cart.delivery_tab.last_name')}}</label>
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
@@ -34,7 +34,7 @@
                           </label>
                   </template>
             </div>
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">{{$t('shopping_cart.delivery_tab.email')}}</label>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.email')}}</label>
           <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="email"
                 placeholder="example@gmail.com"
@@ -52,7 +52,7 @@
               </template>
           </div>
           
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">{{$t('shopping_cart.delivery_tab.phone')}}</label>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.phone')}}</label>
           <div class="col-span-8 lg:col-span-4">
           <input id="regular-form-2" type="tel"
             class="form-control " placeholder=""
