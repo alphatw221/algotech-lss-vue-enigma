@@ -35,6 +35,7 @@
         "stop": "停止",
         "finish": "已結束",
         "winners": "得獎人數量",
+        "no_winner": "沒有贏家",
         "result": "計算結果",
         "edit": "編輯",
         "delete": "刪除"

@@ -35,6 +35,7 @@
         "stop": "Stop",
         "finish": "Finished",
         "winners": "Winner(s)",
+        "no_winner": "No Winners",
         "result": "Result",
         "edit": "Edit",
         "delete": "Delete"

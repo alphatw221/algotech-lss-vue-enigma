@@ -114,9 +114,9 @@
                         </td>
 
                         <td v-else-if="column.key === 'edit'" class="edit " :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="flex place-content-center sm:place-content-center">
+                            <div class="flex place-content-end sm:place-content-center">
                                 <button 
-                                    class="btn btn-outline-secondary mr-auto sm:mr-1 h-[35px] sm:h-[42px]"
+                                    class="btn btn-outline-secondary mr-1 h-[35px] sm:h-[42px]"
                                     type="button" 
                                     @click="showEditCampaignProductModal(campaign_product, index)" 
                                 > 
@@ -463,6 +463,7 @@ thead th {
     }
     .edit{
         min-height: 40px !important;
+        z-index: inherit;
     }
     /* .edit{
         display:block;
