@@ -35,6 +35,7 @@
         "stop": "停止",
         "finish": "已結束",
         "winners": "得奖人数量",
+        "no_winner": "No Winners",
         "result": "计算结果",
         "edit": "编辑",
         "delete": "删除"
