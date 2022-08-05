@@ -13,7 +13,7 @@
                 <span class="leading-tight text-[13px] sm:text-[15px] w-20 lg:w-32 mx-auto">{{ channel.name.substring(0,24) }}</span>
                 <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('settings.platform.unbind_page')" :options="{
                     theme: 'light',
-                }"><XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeYoutubeChannels(channel)"/></Tippy>
+                }"><XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeYoutubeChannel(channel)"/></Tippy>
             </div>
         </div>
     </div>
@@ -23,6 +23,9 @@
 
 import BindYoutubeChannelButton from '@/components/button/BindYoutubeChannelButton.vue'
 import { get_user_subscription_youtube_channels, bind_user_youtube_channels, unbind_youtube_channel } from '@/api/user_subscription'
+
+
+import { get_platform_instances, unbind_platform_instance, bind_platform_instances } from '@/api_v2/user_subscription'
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -33,7 +36,7 @@ const youtubeChannels = ref([])
 
 onMounted(() => {
     eventBus.on('addYoutubeChannels',payload=>{
-        bind_youtube_channels(payload)
+        bind_youtube_channels(payload.code)
     })
     get_youtube_channels()
 })
@@ -43,7 +46,7 @@ onUnmounted(() => {
 })
 
 const get_youtube_channels = () => {
-    get_user_subscription_youtube_channels().then(response=>{
+    get_platform_instances('youtube').then(response=>{
         if (!response.data.length) {
             showConnectButton.value = true;
             return false
@@ -51,42 +54,37 @@ const get_youtube_channels = () => {
         showPages.value = true;
         youtubeChannels.value = response.data
 
-    }).catch(error=>{
-        console.log(error)
     })
 }
 
-const bind_youtube_channels = (payload) => {
-    bind_user_youtube_channels(payload).then(response=>{
-        console.log("bind youtube channels")
-        console.log(response.data)
+const bind_youtube_channels = (code) => {
+    bind_platform_instances('youtube',{'code':code}).then(response=>{
         if (!response.data.length) {
             return false
         }
         showConnectButton.value = false;
         showPages.value = true;
         youtubeChannels.value = response.data
-    }).then(response=>{
-        eventBus.emit("check_activated_platform")
-    }).catch(error=>{
-        console.log(error)
     })
+    // .then(response=>{
+    //     eventBus.emit("check_activated_platform")
+    // }).catch(error=>{
+    //     console.log(error)
+    // })
 }
 
-const removeYoutubeChannels = (payload) => {
-    if (!payload) {
+const removeYoutubeChannel = (channel) => {
+    if (!channel) {
         return false
     }
-    unbind_youtube_channel(payload).then(response=> {
+    unbind_platform_instance('youtube',channel.id).then(response=> {
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
-            eventBus.emit("check_activated_platform")
+            // eventBus.emit("check_activated_platform")
             return false
         }
         youtubeChannels.value = response.data
-    }).catch(error=>{
-        console.log(error)
     })
 }
 </script>

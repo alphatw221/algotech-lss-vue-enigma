@@ -106,6 +106,7 @@ const signIn = ()=>{
         cookies.set("login_with", 'general')
         router.push({name:'campaign-list'})
     }).catch(err=>{
+        console.log('123')
         console.log(err)
     })
 }
