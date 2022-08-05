@@ -57,7 +57,7 @@
                             @click="goResult(quizgameBundle.id)" 
                         > {{ $t('quiz_game.quiz_list.result') }} </button>
                     </template>
-                    <template v-else-if="Array.isArray(quizgameBundle.winner_list) && quizgameBundle.winner_list.length != 0">
+                    <template v-else-if="Array.isArray(quizgameBundle.winner_list) && quizgameBundle.winner_list.length != 0 && quizgameBundle.winner_list[0] != 'no winners'">
                         <!-- <div class="text-slate-500 md:m-auto"> Winner List </div> -->
                         <div v-for="(winner, index) in quizgameBundle.winner_list" :key="index" class="my-2">
                             <div class="flex flex-wrap mx-2 w-34">
@@ -74,6 +74,9 @@
                                 <label class="text-base flex items-center ml-2"> {{ winner.customer_name }} </label>
                             </div>
                         </div>
+                    </template>
+                    <template v-else-if="Array.isArray(quizgameBundle.winner_list) && quizgameBundle.winner_list.length != 0 && quizgameBundle.winner_list[0] == 'no winners'">
+                        <div class="m-auto text-[1.5rem]" > {{ $t('quiz_game.quiz_list.no_winner') }} </div>
                     </template>
                 </div>
             </div>  
