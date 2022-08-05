@@ -11,6 +11,18 @@
                 </tr>
             </thead>
             <tbody >
+                <tr v-if="showNoti" class="trDot">
+                    <td :colspan="tableColumns.length" class="trDot">
+						<div class="mt-5 text-center md:mt-40" >
+							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
+								{{ $t('edit_campaign_product.campaign_product_table.no_product') }}
+							</h1>
+							<h1 class="text-slate-500 text-sm md:text-lg">
+								{{ $t('edit_campaign_product.campaign_product_table.set_up_first') }}
+							</h1>
+						</div>
+					</td> 
+                </tr>
                 <tr v-for="(campaign_product, index) in campaignDetailStore.campaignProducts" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
 
@@ -40,7 +52,7 @@
 
                         <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div>
-                                {{ campaign_product[column.key] }}   
+                                {{ campaign_product[column.key] }}    
                             </div>
                         </td>
 
@@ -174,6 +186,7 @@ const route = useRoute()
 const dataCount = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)
+const showNoti = ref(false)
 
 
 const tableColumns = ref([
@@ -218,6 +231,7 @@ const search = () => {
         .then(response => {
             dataCount.value = response.data.count
             campaignDetailStore.campaignProducts = response.data.results
+              if(dataCount.value == 0)showNoti.value=true
         }).catch(error => {
             console.log(error);
         })
@@ -290,6 +304,10 @@ thead th {
     border-color: rgb(128, 128, 128) !important;
 }
 
+.trDot{
+	box-shadow: none !important;
+}
+
 @media only screen and (max-width: 760px),
 (min-device-width: 768px) and (max-device-width: 768px) {
 
@@ -332,7 +350,7 @@ thead th {
         min-height: 30px !important;
         border: none;
         position: relative;
-        padding-left: 50% !important;
+        padding-left: 50%;
         text-align: right !important;
         box-shadow: none !important;
         font-size: 14px;
@@ -450,5 +468,14 @@ thead th {
        top:25% !important;
         margin-top: 0 !important;
     } */
+    .trDot:before{
+        display: none;
+    }
+    .trDot{
+        display: inline-block;
+        padding-left: 0px;
+        padding: 20px !important;
+        height: 30vh;
+    }
 }
 </style>
