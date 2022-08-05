@@ -1,14 +1,23 @@
 <template>
     <div >
 
-        <div class="public-layout-content">
-            <router-view></router-view >
+        <div>
+            <router-view />
         </div>
         
         <!-- BEGIN Footer -->
-        <div>
-            THIS IS FOOTER
-        </div>
+        <div class="flex justify-between flex-wrap mx-5 sm:mx-10 text-[12px] sm:text-[16px] sm:mb-5"> 
+            <span>
+                    © 2021 Algotech Pte Ltd. All rights reserved
+            </span>
+            <div class="flex flex-row gap-3 ml-auto"> 
+                <a href="https://liveshowseller.com/">  {{$t("global.footer.home")}}  </a>
+
+                <a href="https://liveshowseller.com/terms-of-service/">  {{$t("global.footer.terms")}} </a>
+
+                <a href="https://liveshowseller.com/privacy-policy/"> {{$t("global.footer.private_policy")}} </a>
+            </div> 
+        </div> 
         <!-- END Footer -->
 
         <Notification refKey="registerMessageNotification" :options="{duration: 3000,}" class="flex text-green-600 sm:flex-row">

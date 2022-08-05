@@ -71,7 +71,16 @@
 				</TomSelect>
 			</div>
 			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
+				<div class=""> {{$t("settings.localization.buyer_language")}}</div>
+				<Tippy 
+					class="rounded-full whitespace-wrap" 
+					data-tippy-allowHTML="true" 
+					data-tippy-placement="right" 
+					:content="$t('tooltips.settings.local.buyer_lang')" 
+					theme='light'
+				> 
+					<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+				</Tippy> 
 			</div>
 			<div class="flex my-1">
 				<TomSelect v-model="campaignData.lang" :options="{
