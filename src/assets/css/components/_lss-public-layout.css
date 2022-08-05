@@ -1,0 +1,3 @@
+.public_layout{
+    @apply relative overflow-x-hidden min-w-0;
+}

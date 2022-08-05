@@ -1,5 +1,6 @@
 <template>
-    <div id="g_login_button" style="margin: 10px 0 0 0;"></div>
+    <div id="g_login_button" class="w-fit"> </div>
+   
 </template>
 
 <script>
@@ -36,17 +37,20 @@ export default {
             });
             window.google.accounts.id.renderButton(
                 document.getElementById("g_login_button"),
-                { theme: "white", size: "large", width: "310", locale: "en" }  // customization attributes
+                { theme: 'light', size: "large", width: "300" }  // customization attributes
+            );
+            // window.google.accounts.id.renderButton(
+            //     document.getElementById("g_login_button").style.fontSzie = "16px !important"  // customization attributes 
+            // );
+            window.google.accounts.id.renderButton(
+                document.getElementById("g_login_button").style.boxShadow = "0px 0px 0px 0.5px rgba(0, 0, 0, 0.5)"  // customization attributes 
             );
             window.google.accounts.id.renderButton(
-                document.getElementById("g_login_button").style.font = "bold arial,serif"  // customization attributes 
+                document.getElementById("g_login_button").style.borderRadius = "3% 3%"  // customization attributes 
             );
-            window.google.accounts.id.renderButton(
-                document.getElementById("g_login_button").style.boxShadow = "0px 0px 2px 0.5px rgba(0, 0, 0, 1)"  // customization attributes 
-            );
-            window.google.accounts.id.renderButton(
-                document.getElementById("g_login_button").style.borderRadius = "2% 2%"  // customization attributes 
-            );
+            // window.google.accounts.id.renderButton(
+            //     document.getElementById("g_login_button").style.zIndex = "9999"  // customization attributes 
+            // );
         });
     },
 }

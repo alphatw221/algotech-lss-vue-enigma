@@ -4,6 +4,7 @@ import SimpleMenu from "../layouts/simple-menu/Main.vue";
 import TopMenu from "../layouts/top-menu/Main.vue";
 import LssSellerLayout from "../layouts/lss-seller-layout/Main.vue";
 import LSSBuyerLayout from "../layouts/lss-buyer-layout/Main.vue";
+import LSSPublicLayout from "../layouts/lss-public-layout/Main.vue";
 import DashboardOverview1 from "../views/dashboard-overview-1/Main.vue";
 import DashboardOverview2 from "../views/dashboard-overview-2/Main.vue";
 import DashboardOverview3 from "../views/dashboard-overview-3/Main.vue";
@@ -89,13 +90,6 @@ import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
 import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
 // import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 
-
-
-
-// import Test3 from "../views/test/test3.vue";
-// import Test2 from "../views/test/test2.vue"; 
-// import Test4 from "../views/test/test4.vue"; 
-// import Test5 from "../views/test/test5.vue"; 
 import Test7 from "../views/test/test7.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
@@ -271,46 +265,6 @@ const routes = [
         name: "side-menu-auto-reply",
         component: AutoReply,
       },  
-      // {
-      //   path: "test2",
-      //   name: "side-menu-test2",
-      //   component: Test2,
-      // },
-      // {
-      //   path: "test3",
-      //   name: "side-menu-test3",
-      //   component: Test3,
-      // },
-      // {
-      //   path: "test6",
-      //   name: "side-menu-test6",
-      //   component: Test6,
-      // },
-      // {
-      //   path: "dashboard-overview-1",
-      //   name: "side-menu-dashboard-overview-1",
-      //   component: DashboardOverview1,
-      // },
-      // {
-      //   path: "dashboard-overview-2",
-      //   name: "side-menu-dashboard-overview-2",
-      //   component: DashboardOverview2,
-      // },
-      // {
-      //   path: "dashboard-overview-3",
-      //   name: "side-menu-dashboard-overview-3",
-      //   component: DashboardOverview3,
-      // },
-      // {
-      //   path: "/",
-      //   name: "side-menu-dashboard-overview-4",
-      //   component: DashboardOverview4,
-      // },
-      // {
-      //   path: "inbox",
-      //   name: "side-menu-inbox",
-      //   component: Inbox,
-      // },
       {
         path: "stock",
         name: "stock",
@@ -345,19 +299,9 @@ const routes = [
     component: () => import('@/views/general/LoginPage.vue')
   },
   {
-    path: "/seller/password/forgot",
-    name: "PasswordForgot",
-    component: () => import('@/views/general/ForgotPasswordPage.vue')
-  },
-  {
     path: "/seller/password/reset",
     name: "password-reset",
     component: () => import('@/views/password-reset/Main.vue')
-  },
-  {
-    path: "/seller/register",
-    name: "register",
-    component: () => import('@/views/seller-registration/Main.vue')
   },
   {
     path: "/error-page",
@@ -424,6 +368,24 @@ const routes = [
     component: () => import('@/views/general/BuyerLoginPage.vue'),
   },
 
+ // -------------------------------Public Route-----------------------------
+
+  {
+    path: "/public",
+    component: LSSPublicLayout,
+    children: [
+      {
+        path: "/public/password/forgot",
+        name: "PasswordForgot",
+        component: () => import('@/views/general/ForgotPasswordPage.vue')
+      },
+      {
+        path: "/public/register",
+        name: "register",
+        component: () => import('@/views/seller-registration/Main.vue')
+      },
+  ]}
+  
   // --------------------------------------------------------------------------------Enigma Template--------------------------------------------------------------------------------
   // {
   //   path: "/enigma-template/login",
