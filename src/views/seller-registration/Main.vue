@@ -24,6 +24,7 @@
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
+                        @click="toggleTabs(2)"
                         :class="{
                         'text-neutral-600 bg-white': layout.registerTab !== 2,
                         'text-white bg-primary': layout.registerTab === 2,
@@ -100,7 +101,6 @@ onMounted(()=>{
     loadScript("https://js.stripe.com/v3/",()=>{console.log("stripe SDK loaded") })
     // layout.country = route.query.language
 })
-
 // onMounted(()=>{
 //     if(layout.country === 'zh_hant'){
 //         layout.home = 'https://liveshowseller.com.tw/'
