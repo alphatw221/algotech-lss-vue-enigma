@@ -25,7 +25,9 @@
             "product-fast":"商品",
             "lucky_draw-fast":"奖品",
             "lucky_draw":"奖品"
-        }
+        }, 
+        "no_product":"No product in this campaign yet.",
+        "set_up_first":"Click \"+ Add Product\" to assign product into this campaign."
     },
    
     "edit_product_modal":{

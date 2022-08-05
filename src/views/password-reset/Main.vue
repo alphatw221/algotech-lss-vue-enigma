@@ -161,13 +161,15 @@ import { seller_reset_password } from '@/api_v2/user.js';
 import { useVuelidate } from '@vuelidate/core'
 import { required, minLength, maxLength, sameAs } from "@vuelidate/validators";
 import { computed } from '@vue/runtime-core';
-import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+
 import i18n from "@/locales/i18n";
 import { useRoute, useRouter} from "vue-router"
 
 import LSSLogo from "@/assets/images/lss-logo/LSS_logo_words.png"
+import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
-const sellerStore = useLSSSellerLayoutStore()
+const publicLayout = usePublicLayoutStore()
+
 
 const route = useRoute()
 const router = useRouter()
@@ -200,12 +202,12 @@ const routeToLoginPage=()=>{ router.push({name:"LoginPage"}) }
 const submitPassword = () => {
     v.value.$touch()
 	if (v.value.$invalid) {
-        alert('invalid data') //temp TODO: tostify
+        publicLayout.alert.showMessageToast('invalid data')
 		return
 	}
 
     seller_reset_password(passwordData.value).then(res => {
-        alert('password reset successfully') //temp TODO: tostify
+        publicLayout.notification.showMessageToast('password reset successfully')
         confirmData.value = res.data; 
         showTab.value = 2;
         })

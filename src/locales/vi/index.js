@@ -16,6 +16,7 @@ import change_plan from './views/change_plan.json'
 import layout from './views/layout.json'
 import edit_campaign_product from './views/edit_campaign_product'
 import register from './views/register.json'
+import tooltips from './views/tooltips.json'
 
 export default {
     global,
@@ -37,5 +38,6 @@ export default {
     layout,
     edit_campaign_product,
     change_plan,
-    register
+    register,
+    tooltips
 }

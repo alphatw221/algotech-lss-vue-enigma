@@ -9,6 +9,12 @@ export const useSellerRegistrationStore = defineStore("sellerRegistration", {
 		policy:ref('https://liveshowseller.com/privacy-policy/'),
 		notification: ref(false), 
 		alert: ref(false), 
-		registerInfo: ref({})
+		registerInfo: ref({}), 
+		vnBank: ref({
+			bankName:'VP Bank',
+			accountName:'Tieu Thuy Tien',
+			accountNumber:'47953',
+			note:'',
+		})
     })
 }); 

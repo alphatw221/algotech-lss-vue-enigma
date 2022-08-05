@@ -11,9 +11,9 @@
             <h3 class="text-[1.8rem] mx-auto mt-10 font-medium" >Login</h3>
             <div class="w-full flex-col flex gap-5 z-10">
                 <div class="flex flex-col items-center mt-10 gap-3" v-if="!showReminder">
-                    <FacebookLoginButton block role='buyer'/>
+                    <!-- <FacebookLoginButton block role='buyer'/> -->
                     <GoogleLoginButton block role='buyer'/>
-                    <ContinueWithoutLoginButton block/>
+                    <!-- <ContinueWithoutLoginButton block/> -->
                 </div>
                 <Row v-if="showReminder"><p class="mt-10 ml-4 mr-4 text-lg text-center text-danger">Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p></Row>
                 <div v-if="showReminder" class="items-center mt-4 text-center shopping-cart-link-block" >

@@ -40,19 +40,19 @@
         "confirm_password":"Confirm Password",
         "target_country":"Target Country",
         "country_Options":{
-            "australia": "Australia",
-            "cambodia": "Cambodia",  
-            "canada": "Canada" ,
-            "hong_kong": "Hong Kong",
-            "indonesia": "Indonesia",
-            "korea": "Korea",
-            "malaysia": "Malaysia" , 
-            "philippines": "Philippines" , 
-            "singapore": "Singapore" , 
-            "taiwan": "Taiwan" , 
-            "thai": "Thailand" , 
-            "US": "United States" , 
-            "vietnam": "Vietnam"
+            "Australia": "Australia",
+            "Cambodia": "Cambodia",  
+            "Canada": "Canada" ,
+            "Hong Kong": "Hong Kong",
+            "Indonesia": "Indonesia",
+            "Korea": "Korea",
+            "Malaysia": "Malaysia" , 
+            "Philippines": "Philippines" , 
+            "Singapore": "Singapore" , 
+            "Taiwan": "Taiwan" , 
+            "Thailand": "Thailand" , 
+            "United States": "United States" , 
+            "Vietnam": "Vietnam"
         },
         "required_field": "Field is required",
         "password_err":"Password dosen't match",
@@ -79,7 +79,7 @@
         "year":"Yearly",
         "quarter":"Quarterly",
         "payment_method":{
-            "card":"Credit Card",
+            "card":"Credit Card", 
             "direct":"Direct Payment"
         },
         "stripe":{
@@ -90,6 +90,7 @@
         },
         "direct":{
             "payment_info":"Payment Information", 
+            "bank_name":"Bank Name",
             "account":"Account",
             "account_number":"Account Number",
             "account_name":"Account Name",
