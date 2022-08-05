@@ -144,7 +144,7 @@ import { onMounted, onUnmounted, ref, getCurrentInstance, provide, reactive, toR
 import { useRoute, useRouter } from "vue-router";
 import { seller_validate_register } from '@/api_v2/user'
 import { seller_register_stripe, user_register_with_bank_transfer } from '@/api_v2/user'
-import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
+
 import bank_img from "/src/assets/images/lss-bank/vn_bank.png"
 import {
     minLength,

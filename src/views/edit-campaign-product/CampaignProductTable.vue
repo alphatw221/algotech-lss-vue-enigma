@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody >
-                <tr v-if="showNoti" class="trDot">
+                <tr v-if="campaignDetailStore.campaignProducts.length== 0" class="trDot">
                     <td :colspan="tableColumns.length" class="trDot">
 						<div class="mt-5 text-center md:mt-40" >
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
@@ -63,7 +63,10 @@
                         </td>
 
                         <td v-else-if="column.key === 'price'" class="price" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                                <div class="whitespace-nowrap" v-if="campaignDetailStore.campaign">{{ campaignDetailStore.campaign.currency }} {{ parseFloat(campaign_product[column.key]).toFixed(campaignDetailStore.campaign.decimal_places)}}{{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}</div>
+                                <div class="whitespace-nowrap" v-if="campaignDetailStore.campaign">
+                                    {{ campaignDetailStore.campaign.currency }}
+                                    {{ campaignDetailStore.campaign.decimal_places=='0'?Math.trunc(parseFloat(campaign_product[column.key])):parseFloat(campaign_product[column.key]).toFixed(campaignDetailStore.campaign.decimal_places)}}
+                                    {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}</div>
                         </td>
 
                         <td v-else-if="column.key === 'name'" class="text-[12px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage">
@@ -217,6 +220,7 @@ onMounted(() => {
         payloadBuffer.value=payload
         currentPage.value = 1
         search()
+        console.log(dataCount.value)
     })
 })
 
@@ -231,7 +235,6 @@ const search = () => {
         .then(response => {
             dataCount.value = response.data.count
             campaignDetailStore.campaignProducts = response.data.results
-              if(dataCount.value == 0)showNoti.value=true
         }).catch(error => {
             console.log(error);
         })
@@ -266,7 +269,6 @@ const getCampaignDetail = ()=>{
 		campaignDetailStore.campaign = res.data
 	}) 
 }
-
 
 </script>
 

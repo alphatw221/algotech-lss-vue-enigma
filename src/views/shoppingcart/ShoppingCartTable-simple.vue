@@ -29,7 +29,9 @@
 				</div>
 			</div>
 			<div class="font-medium text-slate-600 dark:text-slate-500 whitespace-nowrap w-fit ml-5">
-				{{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.order.campaign.decimal_places) }}{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+				{{store.order.campaign.currency}} 
+				{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)):parseFloat(product.qty * product.price).toFixed(store.order.campaign.decimal_places) }}
+				{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 			</div>
 			</div> 
 
