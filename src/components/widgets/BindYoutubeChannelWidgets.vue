@@ -7,7 +7,8 @@
             <h4 class="text-lg sm:text-xl font-medium leading-none my-auto">{{$t('settings.platform.youtube_channel')}}</h4>
             <BindYoutubeChannelButton :busName="'addYoutubeChannels'" :buttonName="'edit'"/>
         </div>
-        <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5">
+        <LoadingIcon icon="three-dots" color="1a202c" class="flex flex-wrap w-20 h-20 mx-auto" v-if="fetchingData"/>
+        <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5" v-else>
             <div v-for="channel in youtubeChannels" :key="channel.id" class="flex-col flex justify-center text-center relative my-3 w-24 h-auto lg:w-32">
                 <img :src="channel.image"  class="rounded-full w-16 h-16 mx-auto lg:w-20 lg:h-20">
                 <span class="leading-tight text-[13px] sm:text-[15px] w-20 lg:w-32 mx-auto">{{ channel.name.substring(0,24) }}</span>
@@ -33,7 +34,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const showConnectButton = ref(false)
 const showPages = ref(false)
 const youtubeChannels = ref([])
-
+const fetchingData = ref(false)
 onMounted(() => {
     eventBus.on('addYoutubeChannels',payload=>{
         bind_youtube_channels(payload.code)
@@ -46,6 +47,7 @@ onUnmounted(() => {
 })
 
 const get_youtube_channels = () => {
+
     get_platform_instances('youtube').then(response=>{
         if (!response.data.length) {
             showConnectButton.value = true;
@@ -58,6 +60,7 @@ const get_youtube_channels = () => {
 }
 
 const bind_youtube_channels = (code) => {
+    fetchingData.value=true
     bind_platform_instances('youtube',{'code':code}).then(response=>{
         if (!response.data.length) {
             return false
@@ -65,6 +68,7 @@ const bind_youtube_channels = (code) => {
         showConnectButton.value = false;
         showPages.value = true;
         youtubeChannels.value = response.data
+        fetchingData.value=false
     })
     // .then(response=>{
     //     eventBus.emit("check_activated_platform")

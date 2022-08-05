@@ -7,7 +7,8 @@
             <h4 class="text-lg sm:text-xl font-medium leading-none my-auto">{{$t('settings.platform.facebook_fan_page')}}</h4>
             <BindFacebookPageButton :busName="'addFacebookPages'" :buttonName="'edit'" class="ml-auto" />
         </div>
-        <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5">
+        <LoadingIcon icon="three-dots" color="1a202c" class="flex flex-wrap w-20 h-20 mx-auto" v-if="fetchingData"/>
+        <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5" v-else>
             <div v-for="facebookPage, index in facebookPages" :key="index" class="flex-col flex justify-center text-center relative my-3 w-24 h-auto lg:w-32">
                 <img :src="facebookPage.image" class="rounded-full w-16 h-16 mx-auto lg:w-20 lg:h-20">
                 <span class="leading-tight text-[13px] sm:text-[15px] w-20 lg:w-32 mx-auto">{{ facebookPage.name.substring(0,24)}}</span>
@@ -34,7 +35,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const showConnectButton = ref(false)
 const showPages = ref(false)
 const facebookPages = ref([])
-
+const fetchingData = ref(false)
 onMounted(()=>{
     //facebook SDK use eval() at backend
     eventBus.on('addFacebookPages',payload=>{
@@ -69,7 +70,7 @@ const get_facebook_pages = () => {
 }
 
 const bind_facebook_pages = (accessToken) => {
-    
+    fetchingData.value = true
     bind_platform_instances('facebook', {'accessToken': accessToken}).then(res=>{
          if (!res.data.length) {
             return false
@@ -77,6 +78,7 @@ const bind_facebook_pages = (accessToken) => {
         showConnectButton.value = false;
         showPages.value = true;
         facebookPages.value = res.data
+        fetchingData.value = false
     })
 
 

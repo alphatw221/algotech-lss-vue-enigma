@@ -7,7 +7,8 @@
             <h4 class="text-lg sm:text-xl font-medium leading-none my-auto">{{$t('settings.platform.instagram_profile')}}</h4>
             <BindInstagramProfileButton :busName="'addInstagramProfiles'" :buttonName="'edit'"/>
         </div>
-        <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5">
+        <LoadingIcon icon="three-dots" color="1a202c" class="flex flex-wrap w-20 h-20 mx-auto" v-if="fetchingData"/>
+        <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5" v-else>
             <div v-for="instagramProfile,index in InstagramProfiles" :key="index" class="flex-col flex justify-center text-center relative my-3 w-24 h-auto lg:w-32">
                 <img :src="instagramProfile.image" class="rounded-full w-16 h-16 mx-auto lg:w-20 lg:h-20">
                 <span class="leading-tight text-[13px] sm:text-[15px] w-20 lg:w-32 mx-auto">{{ instagramProfile.name.substring(0,24) }}</span>
@@ -32,7 +33,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const showConnectButton = ref(false)
 const showPages = ref(false)
 const InstagramProfiles = ref([])
-
+const fetchingData = ref(false)
 onMounted(()=>{
     eventBus.on('addInstagramProfiles',payload=>{
         bind_instagram_profiles(payload.accessToken)
@@ -66,7 +67,7 @@ const get_instagram_profiles = () => {
 }
 
 const bind_instagram_profiles = (accessToken) => {
-    
+    fetchingData.value=true
     bind_platform_instances('instagram',{'accessToken': accessToken}).then(response=>{
         if (!response.data.length) {
             return false
@@ -74,6 +75,7 @@ const bind_instagram_profiles = (accessToken) => {
         showConnectButton.value = false;
         showPages.value = true;
         InstagramProfiles.value = response.data
+        fetchingData.value=false
     })
 
 
