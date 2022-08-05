@@ -56,7 +56,7 @@
                                 </div>
                             </td>
                             <td>{{ order.customer_name }}</td>
-                            <td>{{ order.currency_sign }}{{ parseFloat(order.subtotal).toFixed(order.campaign.decimal_places)}}{{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}</td> 
+                            <td>{{ order.campaign.currency }}{{ parseFloat(order.subtotal).toFixed(order.campaign.decimal_places)}}{{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}</td> 
                             <td>
                                 <Tippy 
                                     class="rounded-full w-fit" 
