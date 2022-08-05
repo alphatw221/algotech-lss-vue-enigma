@@ -238,12 +238,6 @@ const routes = [
         component: LuckyDrawSetting,
       },
       
-      // {
-      //   path: "mkt-plugin/quiz-game",
-      //   name: "quiz-game",
-      //   component: QuizGame,
-      // },
-/*                     SETTINGS                           */
       {  
         path: "campaign-global",
         name: "campaign-global-setting",
@@ -259,7 +253,6 @@ const routes = [
         name: "platform",
         component: ConnectPlatform,
       },
-/*                     AUTOREPLY                           */
       {  
         path: "autoreply",
         name: "side-menu-auto-reply",
@@ -298,11 +291,29 @@ const routes = [
     beforeEnter: checkSellerLogin,
     component: () => import('@/views/general/LoginPage.vue')
   },
+
   {
-    path: "/seller/password/reset",
-    name: "password-reset",
-    component: () => import('@/views/password-reset/Main.vue')
+    path: "/seller/public",
+    component: LSSPublicLayout,
+    children: [
+      {
+        path: "password/forgot",
+        name: "PasswordForgot",
+        component: () => import('@/views/general/ForgotPasswordPage.vue')
+      },
+      {
+        path: "password/reset",
+        name: "password-reset",
+        component: () => import('@/views/password-reset/Main.vue')
+      },
+      {
+        path: "register",
+        name: "register",
+        component: () => import('@/views/seller-registration/Main.vue')
+      },
+    ]
   },
+  
   {
     path: "/error-page",
     name: "error-page",
