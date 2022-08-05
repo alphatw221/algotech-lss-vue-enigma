@@ -11,7 +11,7 @@
                 </tr>
             </thead>
             <tbody >
-                <tr v-if="showNoti" class="trDot">
+                <tr v-if="campaignDetailStore.campaignProducts.length== 0" class="trDot">
                     <td :colspan="tableColumns.length" class="trDot">
 						<div class="mt-5 text-center md:mt-40" >
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
@@ -217,6 +217,7 @@ onMounted(() => {
         payloadBuffer.value=payload
         currentPage.value = 1
         search()
+        console.log(dataCount.value)
     })
 })
 
@@ -231,7 +232,6 @@ const search = () => {
         .then(response => {
             dataCount.value = response.data.count
             campaignDetailStore.campaignProducts = response.data.results
-              if(dataCount.value == 0)showNoti.value=true
         }).catch(error => {
             console.log(error);
         })
@@ -266,7 +266,6 @@ const getCampaignDetail = ()=>{
 		campaignDetailStore.campaign = res.data
 	}) 
 }
-
 
 </script>
 
