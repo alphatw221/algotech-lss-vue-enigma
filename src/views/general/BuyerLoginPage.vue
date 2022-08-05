@@ -14,10 +14,10 @@
         <Card class="center">
             <Row><h3>Login</h3></Row>
 
-            <div class="flex flex-col items-center mt-10" v-if="!showReminder">
-                <FacebookLoginButton block role='buyer'/>
+            <div class="flex flex-col items-center mt-12" v-if="!showReminder">
+                <!-- <FacebookLoginButton block role='buyer'/> -->
                 <GoogleLoginButton block role='buyer'/>
-                <ContinueWithoutLoginButton block/>
+
             </div>
             <Row v-if="showReminder"><p class="mt-10 ml-4 mr-4 text-lg text-center text-danger">Oops! your browser is not supported, please open the Shopping Cart Link below on Safari or Chrome</p></Row>
             <div v-if="showReminder" class="items-center mt-4 text-center shopping-cart-link-block" >
