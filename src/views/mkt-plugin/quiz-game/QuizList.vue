@@ -5,6 +5,9 @@
                 <label class="form-label mr-10"> {{ $t('quiz_game.quiz_list.campaign_title') }} : </label>
                 <h2 class="w-42"> {{ props.campaignTitle }} </h2>
             </div>
+            <div class="flex md:justify-end manage_btn">
+                <button class="btn btn-primary h-[35px] sm:h-[42px] my-auto mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
+            </div>
         </div>
 
         <div
@@ -131,10 +134,6 @@ const tableColumns = ref([
 ])
 const emptyArr = ref(['', null, undefined])
 
-onMounted(() => {
-    console.log(props.quizgameList)
-})
-
 
 const quizgameStart = (id) => {
     start_campaign_quiz_game(id).then(res => { 
@@ -154,6 +153,10 @@ const quizgameStop = (id) => {
             })
         })
     })
+}
+
+const toManageOrder = ()=>{
+    router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
 }
 
 const hideDropDown = ()=>{
@@ -204,6 +207,11 @@ const goResult = (id) => {
 
     .lil_btn {
         width: 80px;
+    }
+
+    .manage_btn {
+        margin-left: auto;
+        margin-right: auto;
     }
 }
 
