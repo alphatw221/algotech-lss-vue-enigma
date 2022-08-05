@@ -55,8 +55,8 @@
         "keyword": "Keyword",
         "draw_selection": {
             "like": "By liked this FB post",
-            "product": "By any purchase",
-            "purchase": "By purchased specific product",
+            "product": "By purchased specific product",
+            "purchase": "By any purchase",
             "keyword": "By commented keyword"
         },
         "no_product_err":"Haven't Assigned Product Into This Campaign",

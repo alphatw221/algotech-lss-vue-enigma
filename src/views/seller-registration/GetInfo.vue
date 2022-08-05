@@ -69,8 +69,8 @@
                 </div>
                 <div class="flex-col w-2/3">
                     <label for="" class="subLabel" >{{$t('register.basic_info.number')}}</label><span class="text-danger"> *</span>
-                    <input class="form-control" v-model="validate.phone.$model"/> 
-                    <template v-if="validate.phone.$error">
+                    <input class="form-control" v-model="validate.contactNumber.$model"/> 
+                    <template v-if="validate.contactNumber.$error">
                         <label class="text-danger text-[16px] leading-tight">
                             {{$t('register.basic_info.required_field')}}
                         </label>
@@ -139,14 +139,14 @@
                 <label for="" class="subLabel" >{{$t('register.basic_info.target_country')}}</label><span class="text-danger"> *</span>
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg" 
-                        :class="{ 'border-danger text-danger border-2': validate.targetCountry.$error }" 
-                        v-model="validate.targetCountry.$model"
+                        :class="{ 'border-danger text-danger border-2': validate.country.$error }" 
+                        v-model="validate.country.$model"
                     >
                     <option v-for="(country, key) in countryOptions" :key="key" :value="country.value" class="w-40"> 
                     {{ $t(`register.basic_info.country_Options.` + country.value) }} 
                     </option>
                 </select>
-                <template v-if="validate.targetCountry.$error">
+                <template v-if="validate.country.$error">
                     <label class="text-danger text-[16px] leading-tight">
                         {{$t('register.basic_info.required_field')}}
                     </label>
@@ -227,8 +227,8 @@ const router = useRouter()
 const planOptions = [{ value: "lite" },{ value: "standard" },{ value: "premium" }]
 const periodOptions = [{ value: "quarter" },{ value: "year" }]
 const countryCodeOptions = [{ value: "MY" },{ value: "ID" },{ value: "PH" },{ value: "SG" },{ value: "TW" }]
-const countryOptions = [{ value: "australia" },{ value: "cambodia" },{ value: "canada" },{ value: "hong_kong" },{ value: "indonesia" },{ value: "korea" }
-,{ value: "malaysia" },{ value: "philippines" },{ value: "singapore" },{ value: "taiwan" },{ value: "thai" },{ value: "US" },{ value: "vietnam" }]
+const countryOptions = [{ value: "Australia" },{ value: "Cambodia" },{ value: "Canada" },{ value: "Hong Kong" },{ value: "Indonesia" },{ value: "Korea" }
+,{ value: "Malaysia" },{ value: "Philippines" },{ value: "Singapore" },{ value: "Taiwan" },{ value: "Thailand" },{ value: "United States" },{ value: "Vietnam" }]
 
 // const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
 
@@ -242,11 +242,11 @@ const basicInfo = ref({
     plan:"", 
     period:"",
     countryCode:"",
-    phone:"",
+    contactNumber:"",
     email: "",
     password:"",
     confirmPassword:"",
-    targetCountry:"",
+    country:"",
     promoCode:"",
     intentSecret:"",
     privacyPolicy:"",
@@ -261,11 +261,11 @@ const rules = computed(()=> {
         plan: { required },
         period: { required },
         countryCode: { required },
-        phone: { required,integer },
+        contactNumber: { required,integer },
         email: { required },
         password: { required },
         confirmPassword: { required, sameAs: sameAs(basicInfo.value.password)  },
-        targetCountry: { required },
+        country: { required },
         privacyPolicy: { required }
     }
 });

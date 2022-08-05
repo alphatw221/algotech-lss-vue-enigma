@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-            <h1 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-10 lg:mx-20 pt-5 flex"> {{$t('settings.platform.connected_platform')}} <Tippy 
+            <h1 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-10 lg:mx-20 pt-10 sm:pt-5 flex"> {{$t('settings.platform.connected_platform')}} <Tippy 
                 class="rounded-full w-fit mt-auto mb-1" 
                 data-tippy-allowHTML="true" 
                 data-tippy-placement="right" 

@@ -1,0 +1,43 @@
+{
+    "title": "Quiz Game",
+    "create_btn": "Create",
+    "invalid_data":"Invalid Submission",
+    "create_succeed": "Create Successed",
+    "update_succeed": "Update Successed",
+    "delete_succeed": "Delete Successed",
+    "not_saved": "Update Canceled",
+
+    "quiz_create": {
+        "campaign_title": "Campaign Title",
+        "question_title": "Quiz Game Question",
+        "add_question": "Add More Question",
+        "question": "please enter your question...",
+        "answer": "please enter your answer...",
+        "delete": "Delete",
+        "remark": "Remark",
+        "enter_remark": "please enter your remark...",
+        "number_of_winner" : "Number of Winner",
+        "number_winner_warning": "must be between 1 to prize stock",
+        "prize": "Prize",
+        "assign_prize_err":"Assign Prize into your Campaign",
+        "winner_repeat" : "Winner Repeat",
+        "winner_repeat_tip": "Allow same person <br/> to win multiple prizes?",
+        "save": "Save",
+        "cancel": "Cancel",
+        "yes": "Yes",
+        "no": "No"
+    },
+
+    "quiz_list": {
+        "campaign_title": "Campaign Title",
+        "question": "Question",
+        "start": "Start",
+        "stop": "Stop",
+        "finish": "Finished",
+        "winners": "Winner(s)",
+        "result": "Result",
+        "edit": "Edit",
+        "delete": "Delete"
+    }
+
+}
