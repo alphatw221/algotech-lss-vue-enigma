@@ -131,7 +131,7 @@ const layout = useLSSSellerLayoutStore()
 
 const originalPlan = layout.userInfo.user_subscription.type
 const planOptions = ref([{ value: "lite" },{ value: "standard" },{ value: "premium" }])
-const periodOptions = ref([{ value: "quarter" },{ value: "year" }])
+const periodOptions = ref([{ value: "month" },{ value: "year" }])
 const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
 const havePromoCode = ref(false)
 

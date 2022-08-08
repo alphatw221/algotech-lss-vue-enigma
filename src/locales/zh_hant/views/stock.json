@@ -38,6 +38,7 @@
         "edit_title": "編輯類別",
         "edit": "編輯",
         "delete": "刪除",
+        "duplicate": "複製",
         "input_holder": "類別名稱",
         "modal": {
             "cancel": "取消",

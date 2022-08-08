@@ -233,7 +233,7 @@ const changeQuantity = ( index, operation, product) => {
   }
 
   @media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 768px) {
+  (min-device-width: 769px) and (max-device-width: 769px) {
   table, thead, tbody, th, td, tr {
     display: block;
 	font-size: 16px;

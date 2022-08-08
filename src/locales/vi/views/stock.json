@@ -28,7 +28,8 @@
         "category": "Loại",
         "description": "Mô tả",
         "qty": "Số lượng",
-        "price": "Giá bán"
+        "price": "Giá bán",
+        "confirm_delete": "Bạn có chắc chắn xóa sản phẩm này không ?"
     },
 
     "category_manage": {

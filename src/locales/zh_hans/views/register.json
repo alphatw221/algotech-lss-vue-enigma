@@ -14,14 +14,15 @@
     "basic_info":{
         "plan":"订阅方案",
         "plan_options":{
-            "lite":"精简版 (NT$300/月)",
-            "standard":"标准版 (NT$900/月)",
-            "premium":"进阶版 (NT$1800/月)"
+            "lite":"精简版 (%{price}/月)",
+            "standard":"标准版 (%{price}/月)",
+            "premium":"进阶版 (%{price}/月)"
         },
         "period":"订阅期限",
         "period_options":{
             "year":"年缴 (九折优惠)",
-            "quarter":"季缴"
+            "quarter":"季缴",
+            "month":"月缴"
         },
         "first_name":"名",
         "last_name":"姓",
@@ -77,6 +78,7 @@
         "current_plan":"目前方案",
         "year":"年缴",
         "quarter":"季缴",
+        "month":"月缴",
         "payment_method":{
             "card":"信用卡支付",
             "direct":"转帐支付"

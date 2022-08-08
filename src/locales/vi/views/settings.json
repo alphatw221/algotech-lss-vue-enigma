@@ -58,7 +58,7 @@
         },
         "hitpay":{
             "button_title":"Button Title",
-            "currency":"Currency",
+            "currency":"Đơn vị tiền tệ",
             "api_key":"API Key",
             "salt":"Salt"
         },

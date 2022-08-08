@@ -26,7 +26,8 @@
         },
         "period_options":{
             "year":"Hàng năm (10% giảm giá)",
-            "quarter":"Hàng quý"
+            "quarter":"Hàng quý",
+            "month":"Hàng tháng"
         },
         "choose_plan":"Gói dịch vụ đăng ký",
         "choose_period":"Thời gian sử dụng", 
@@ -52,7 +53,8 @@
         "confirm_payment":"Xác nhận thanh toán",
         "current_plan":"Gói dịch vụ gần đây",
         "year":"Hàng năm",
-        "quarter":"Hàng quý"
+        "quarter":"Hàng quý",
+        "month":"Hàng tháng"
     },
     "step_3":{
         "succeeded":"Thanh toán thành công",

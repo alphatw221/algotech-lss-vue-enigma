@@ -1,12 +1,12 @@
 <template>
 <div class="flex outterContainer overflow-auto bg-secondary relative">
       <!-- BEGIN: Side Menu -->
-      <div class="top-[80px] z-[51] left-[12px] flex fixed my-3 ml-2 px-4 py-1 w-[70px] xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
+      <div class="top-[80px] z-[51] left-[16px] px-4 flex fixed my-3 mx-auto py-1 w-fit xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
         :class="{
                   'bg-slate-100': breadCrumb[breadCrumb.length-1] == 'create campaign',
                 }"
         @click="router.push({name:'create-campaign'})"> 
-        <button class="w-10 h-10 mr-3 btn btn-rounded-warning border-[2px] border-slate-100 shadow-lg"
+        <button class="w-10 h-10 xl:mr-3 btn btn-rounded-warning border-[2px] border-slate-100 shadow-lg"
           ><span class="text-2xl text-white">+</span></button> 
         <span class="hidden font-medium xl:block"
           :class="{
@@ -230,7 +230,7 @@ onMounted(() => {
 }
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
   .creatCamp{
     display: none;
   }
