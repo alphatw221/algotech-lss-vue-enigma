@@ -34,7 +34,7 @@
             <button type="button" class="w-full h-[42px] text-lg text-white btn bg-red-500" @click="signIn()" >Sign in</button>
         </form>
 
-        <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'PasswordForgot' })">forgot password ?</a>
+        <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forgot' })">forgot password ?</a>
 
         <div class="flex flex-col items-center mt-3 font-medium">
             <div class="text-[16px]">No Account ? <a @click="router.push({ name: 'registration-page' })" >Create one !</a></div>

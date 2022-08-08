@@ -1,45 +1,45 @@
 {
     "assign_product":{
-        "editable":"Allow buyer to edit product qty in the shopping cart",
-        "removable":"Allow buyer to remove product from the shopping cart"
+        "editable":"Cho phép người mua chỉnh sửa số lượng sản phẩm trong giỏ hàng",
+        "removable":"Cho phép người mua xóa sản phẩm khỏi giỏ hàng"
     },
     "create_campaign":{
-        "campaign_period":"Time period that allows buyers to place an order",
-        "payment_record":"Require buyer to attach payment record"
+        "campaign_period":"Khoảng thời gian cho phép người mua đặt hàng",
+        "payment_record":"Yêu cầu người mua đính kèm hóa đơn thanh toán"
     },
     "campaign_live":{
-        "view_icon":"Order details"
+        "view_icon":"Chi tiết đơn hàng"
     },  
     "campaign_list":{
-        "stop_checkout":"Disable shopping cart immediately",
-        "instant_cart":"Take-in orders without livestreaming post on social media"
+        "stop_checkout":"Tắt giỏ hàng ngay lập tức",
+        "instant_cart":"nhận đơn hàng mà không cần tiếp tục đăng ký phát trực tiếp trên mạng xã hội"
     },
     "lucky_draw":{
-        "spin_time":"Animation spinning time",
-        "winner_repeat":"Allow to repeat prize winner",
+        "spin_time":"Thời gian quay rút thăm may mắn",
+        "winner_repeat":"Cho phép lặp lại người chiến thắng giải thưởng"
     },
     "manage_order":{
-        "delivery_noti":"Email buyer the order has been shipped",
-        "view_icon":"Order details",
-        "link_icon":"Copy shopping cart link"
+        "delivery_noti":"Thông báo email khi đơn hàng đã được giao đến",
+        "view_icon":"Chi tiết đơn hàng",
+        "link_icon":"Sao chép liên kết giỏ hàng"
     },
     "manage_order_details":{
-        "price_adjustment":"Adjust price that can add additional fee or give discount to buyer"
+        "price_adjustment":"Mở chức năng điều chính giá bằng việc thêm phí bổ sung hoặc giảm giá cho người mua"
     },
     "auto_reply":{
-        "assign_to":"Assign auto reply to certain page"
+        "assign_to":"Chọn phản hồi tự động cho trang cụ thể"
     },
     "settings":{
         "note":{
-            "delivery_note":"Additnonal message to inform buyers on certain details, such as store opening timings, delivery time period etc",
-            "special_note":"A custom message to buyer, such as shopping note and T&C",
-            "confirm_note":"Message to inform buyers of their order is confirmed"
+            "delivery_note":"Tin nhắn bổ sung để thông báo cho người mua về một số chi tiết nhất định, chẳng hạn như thời gian mở cửa hàng, khoảng thời gian giao hàng,...",
+            "special_note":"Thông báo tùy chỉnh cho người mua, chẳng hạn như ghi chú mua sắm, điều khoản và điều kiện",
+            "confirm_note":"Tin nhắn thông báo đến người mua về đơn hàng của họ đã được xác nhận"
         },
         "local":{
-            "buyer_lang":"for buyer's shopping cart, and platform message"
+            "buyer_lang":"Thay đổi ngôn ngữ trên giỏ hàng của người mua và gửi tin nhắn thông báo qua mạng xã hội"
         },
         "social":{
-            "connect_social":"Link your social media account to start your live-selling campaign"
+            "connect_social":"Liên kết tài khoản mạng xã hội của bạn để bắt đầu chiến dịch bán hàng livestream của bạn"
         }
     },
 }
