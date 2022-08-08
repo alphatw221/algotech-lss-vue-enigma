@@ -205,6 +205,14 @@ const uploadImage = (event, index) =>{
         return
     }
 
+    let allowedExtension = ['image/jpeg', 'image/jpg', 'image/png'];
+    console.log(image.type)
+    if(allowedExtension.indexOf(image.type) == -1) {
+        sellerStore.alert.showMessageToast(i18n.global.t('settings.img_size_err'))
+        console.log("type is wrong")
+        return
+    }
+
     directPaymentImages[index]=image
 	let reader = new FileReader();
 	reader.readAsDataURL(image);
@@ -244,11 +252,11 @@ const updateDirectPayment = () => {
 		const key = paymentData.v2_accounts[index].name+'_'+index   
 		formData.append(key,image)
 	});
-
-    seller_update_payment(props.payment.key,formData).then(res=>{
-        sellerStore.userInfo = res.data
-        sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
-    })
+    console.log(directPaymentImages)
+    // seller_update_payment(props.payment.key,formData).then(res=>{
+    //     sellerStore.userInfo = res.data
+    //     sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
+    // })
 }
 
 
