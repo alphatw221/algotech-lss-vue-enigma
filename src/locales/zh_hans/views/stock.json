@@ -38,6 +38,7 @@
         "edit_title": "编辑类别",
         "edit": "编辑",
         "delete": "删除",
+        "duplicate": "复制",
         "input_holder": "类别名称",
         "modal": {
             "cancel": "取消",
