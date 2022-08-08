@@ -66,7 +66,7 @@
         },
         "paypal":{
             "currency":"Currency",
-            "cliend_id":"Client ID",
+            "client_id":"Client ID",
             "secret":"Secret"
         },
 
