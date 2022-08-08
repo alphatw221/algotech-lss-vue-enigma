@@ -14,5 +14,6 @@
     "shipping out":"已出貨",
     "Direct Payment":"轉帳付款",
     "stripe":"Stripe",
-    "hitpay":"Hitpay"
+    "hitpay":"Hitpay",
+    "paypal":"Paypal"
 }
