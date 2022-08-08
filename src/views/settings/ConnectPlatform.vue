@@ -1,9 +1,32 @@
 <template>
     <div class="flex flex-col">
-        <h1 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-10 lg:mx-20 pt-5"> {{$t('settings.platform.connected_platform')}} </h1>
-        <div v-for="(component, key) in platform_components" :key="key">
+            <h1 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-10 lg:mx-20 pt-10 sm:pt-5 flex"> {{$t('settings.platform.connected_platform')}} <Tippy 
+                class="rounded-full w-fit mt-auto mb-1" 
+                data-tippy-allowHTML="true" 
+                data-tippy-placement="right" 
+                :content="$t('tooltips.settings.social.connect_social')" 
+                theme='light'
+            > 
+                <HelpCircleIcon class="w-8 ml-1 tippy-icon" />
+            </Tippy>  
+            </h1>
+        
+        <!-- <div v-for="(component, key) in platform_components" :key="key">
             <component :is="component"></component>
+        </div> -->
+
+        <div>
+            <BindFacebookPageWidgets/>
         </div>
+        <div>
+            <BindInstagramProfileWidgets/>
+        </div>
+        <div>
+            <BindYoutubeChannelWidgets/>
+        </div>
+
+
+
     </div>
     <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
         <ModalBody class="text-center text-lg flex flex-col p-10">
@@ -20,7 +43,7 @@
         </div>
         </ModalBody>
     </Modal>
-</template>
+</template> 
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
@@ -37,11 +60,11 @@ const layoutStore = useLSSSellerLayoutStore();
 const subscriptionPlan = ref(null)
 const activatedPlatformNumber = ref(0)
 
-const platform_components = ref({
-    "facebook": BindFacebookPageWidgets,
-    "instagram": BindInstagramProfileWidgets,
-    "youtube": BindYoutubeChannelWidgets
-})
+// const platform_components = ref({
+//     "facebook": BindFacebookPageWidgets,
+//     "instagram": BindInstagramProfileWidgets,
+//     "youtube": BindYoutubeChannelWidgets
+// })
 
 
 onMounted(() => {

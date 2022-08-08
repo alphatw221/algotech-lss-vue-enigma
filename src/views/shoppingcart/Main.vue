@@ -15,7 +15,7 @@
               <ShoppingCartIcon />
             </button>
             <div
-              class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               :class="{
                 'text-neutral-600': store.openTab !== 1,
                 'font-bold': store.openTab === 1,
@@ -36,7 +36,7 @@
               <TruckIcon />
             </button>
             <div
-              class="w-0 invisible lg:visible 2xl:visible lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
+              class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               :class="{
                 'text-neutral-600': store.openTab !== 2,
                 'font-bold': store.openTab === 2,
@@ -99,7 +99,7 @@ onMounted(()=>{
   retrieve_pre_order(route.params.pre_order_oid).then(
       res => { 
         store.order = res.data;
-        i18n.locale = res.data.campaign.user_subscription.buyer_lang
+        i18n.locale = res.data.campaign.lang
       }
   )
 

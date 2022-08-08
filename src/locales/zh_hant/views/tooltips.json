@@ -1,0 +1,45 @@
+{
+    "assign_product":{
+        "editable":"允許買家編輯購物車商品數量",
+        "removable":"允許買家刪除購物車的商品"
+    },
+    "create_campaign":{
+        "campaign_period":"Time period that allows buyers to place an order",
+        "payment_record":"要求買家附上轉帳證明(明細截圖/末五碼)"
+    },
+    "campaign_live":{
+        "view_icon":"Order details"
+    },  
+    "campaign_list":{
+        "stop_checkout":"停止讓買家結帳",
+        "instant_cart":"無須開直播也能透過連結直接購買"
+    },
+    "lucky_draw":{
+        "spin_time":"動畫播放時間",
+        "winner_repeat":"允許重複得獎"
+    },
+    "manage_order":{
+        "delivery_noti":"通知買家訂單已出貨",
+        "view_icon":"訂單詳情",
+        "link_icon":"複製購物車連結"
+    },
+    "manage_order_details":{
+        "price_adjustment":"調整訂單小計金額"
+    },
+    "auto_reply":{
+        "assign_to":"套用在指定粉專頁面"
+    },
+    "settings":{
+        "note":{
+            "delivery_note":"物流相關提示訊息(如開店時間、交貨時間等)",
+            "special_note":"購物車須知的提示訊息(如服務約定條款)",
+            "confirm_note":"訂單完成後的提示訊息"
+        },
+        "local":{
+            "buyer_lang":"切換買家購物車語言 & 社群平台留言通知"
+        },
+        "social":{
+            "connect_social":"直播銷售前，預先綁定社群平台帳號"
+        }
+    },
+}

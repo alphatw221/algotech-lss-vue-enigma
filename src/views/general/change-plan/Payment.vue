@@ -87,17 +87,17 @@ onMounted(()=>{
   // console.log(props.payment)
   eventBus.on("paymentInfo", (payload) => {
     paymentInfo.value = payload
-    console.log( )
 
-    seller_changePlan_payment(paymentInfo.value).then(res=>{
+    seller_changePlan_payment(payload).then(res=>{
       comfirmInfo.value = res.data
     //   console.log(comfirmInfo.value)
 
       paymentInfo.value.intentSecret = res.data.client_secret
       renderStripeElement(comfirmInfo.value.client_secret)
         }).catch( err=>{
+            layout.changePlanTab = 1
             alert(err)
-            layout.changePlanTab = 1 })
+        })
     layout.changePlanTab = 2
   })
 }) 

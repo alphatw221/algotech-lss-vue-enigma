@@ -7,24 +7,15 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 		Review: ref({}),
 		Complete: ref({}),
 		data_count:ref([]),
-		manageOrderStatus:ref({
-			'campaign_sales_raise': 0,
-			'cart_qty': 0,
-			'close_rate': 0,
-			'close_rate_raise': 0,
-			'comment_count': 0,
-			'comment_count_raise': 0,
-			'complete_sales': 0,
-			'order_qty': 0,
-			'uncheckout_rate': 0,
-			'uncheckout_rate_raise':0,
-		}),
+		campaign:ref({}),
 		orderProductModal:ref(false),
 		filterModal:ref({'All':false,'Review':false,'Complete':false}),
 		filterTagArray:ref({
 			'payment':{
 				'Direct Payment':false,
 				'stripe':false,
+				'hitpay':false,
+				'paypal':false
 			},
 			'delivery':{
 				'shipping out':false,

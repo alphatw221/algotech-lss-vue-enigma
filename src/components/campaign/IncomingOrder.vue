@@ -1,5 +1,5 @@
 <template>
-    <div class="box mt-2 min-h-[30%] w-full max-h-screen
+    <div class="box mt-2 min-h-[50%] w-full max-h-screen
             md:min-h-[40%] md:h-[42vh] 
             2xl:h-full">
         <div class="h-full flex flex-col">
@@ -16,28 +16,12 @@
 
             <div class="flex justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.incoming.incoming_order')}}</h2>
-                <Dropdown class="inline-block my-auto">
-                    <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
-                        {{$t('campaign_live.incoming.plug_in')}}
-                    </DropdownToggle>
-                    <DropdownMenu class="w-fit">
-                        <DropdownContent>
-                            <!-- <template v-if="route.query.status !='history'"> 
-                                <DropdownItem @click="routeTOLuckyDraw()">
-                                    {{$t('campaign_live.incoming.instantly')}}
-                                </DropdownItem>
-                            </template> -->
-                            <DropdownItem @click="toDrawList()">
-                                {{$t('campaign_live.incoming.list')}}
-                            </DropdownItem>
-                        </DropdownContent>
-                    </DropdownMenu>
-                </Dropdown>
+                <button class="btn btn-primary h-fit my-auto mr-6 w-40" @click="routeTOManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
             </div>
             
             <div class="overflow-auto max-h-[90%]">
                 <table class="table table-sm h-full">
-                    <thead class="table-dark">
+                    <thead class="table-dark text-center">
                         <tr>
                             <th class="whitespace-nowrap bg-dark" v-for="column in incoming_order_columns"
                                 :key="column.key">
@@ -47,29 +31,46 @@
                     </thead>
                 
                     <tbody>
+                        <tr v-if="store.incomingOrders.length === 0" class="h-[300px]">
+                            <td class="mt-40 text-center border-none text-sm md:text-lg text-slate-500" :colspan="4" > 
+                                {{ $t(`campaign_live.incoming.table.no_order`) }}
+                            </td> 
+                        </tr> 
                         <tr v-for="order, index in store.incomingOrders" :key="index">
                             <td>#{{ order.id }}</td>
                             <td>
-                                <div v-if="order.platform === 'facebook'" class="w-10 h-10 image-fit">
+                                <div v-if="order.platform === 'facebook'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/facebook.png" />
                                     </div>
                                 </div>
-                                <div v-else-if="order.platform === 'instagram'" class="w-10 h-10 image-fit">
+                                <div v-else-if="order.platform === 'instagram'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/instagram.png" />
                                     </div>
                                 </div>
-                                <div v-else-if="order.platform === 'youtube'" class="w-10 h-10 image-fit">
+                                <div v-else-if="order.platform === 'youtube'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/youtube.png" />
                                     </div>
                                 </div>
                             </td>
                             <td>{{ order.customer_name }}</td>
-                            <td>{{ order.currency_sign }}{{ parseFloat(order.subtotal).toFixed(2) }}</td> 
+                            <td v-if="store.campaign">
+                                {{ store.campaign.currency }}
+                                {{ store.campaign.decimal_places=='0'?Math.trunc(parseFloat(order.subtotal)):parseFloat(order.subtotal).toFixed(store.campaign.decimal_places)}}
+                                {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
+                            </td> 
                             <td>
-                                <EyeIcon class="click-icon" @click="routeToDetailPage(order.id)"/>
+                                <Tippy 
+                                    class="rounded-full w-fit" 
+                                    data-tippy-allowHTML="true" 
+                                    data-tippy-placement="right" 
+                                    :options="{ theme: 'light' }"
+                                    :content="$t('tooltips.campaign_live.view_icon')" 
+                                > 
+                                    <EyeIcon class="click-icon" @click="routeToDetailPage(order.id)"/> 
+                                </Tippy> 
                             </td>
                         </tr>
                     </tbody>
@@ -105,9 +106,9 @@ const incoming_order_columns= [
 // route.params.campaign_id
 
 onMounted(()=>{
-        list_campaign_pre_order(route.params.campaign_id).then(res => {
-            store.incomingOrders = res.data
-        })
+    list_campaign_pre_order(route.params.campaign_id).then(res => {
+        store.incomingOrders = res.data
+    })
         
 })
 
@@ -117,29 +118,25 @@ const hideDropDown = ()=>{
 
 
 const routeToDetailPage = (order_id)=>{
-    router.push({name:'sellerOrder',params:{'order_id':order_id},query:{'type':'pre_order'}})
+    router.push({name:'sellerOrder',params:{'campaign_id':route.params.campaign_id,'order_id':order_id},query:{'type':'pre_order'}})
 }
 
 const routeTOManageOrder = ()=>{
     router.push({name:'manage-order',params:{'campaign_id':route.params.campaign_id}})
 }
 
-const routeTOLuckyDraw = ()=>{
-    router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
-    hideDropDown()
-}
-const toDrawList = ()=>{
-    router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
-    hideDropDown()
-}
+// const routeTOLuckyDraw = ()=>{
+//     router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
+//     hideDropDown()
+// }
+// const toDrawList = ()=>{
+//     router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
+//     hideDropDown()
+// }
+
 </script>
 
 <style scoped>
-.demo-breadcrumb-separator {
-    color: #ff5500;
-    padding: 0 5px;
-}
-
 .form-check-input {
     border-color: black !important;
 }
@@ -158,8 +155,10 @@ const toDrawList = ()=>{
     overflow-wrap: break-word;
     max-width: 95px;
     height: 42px;
+    text-align: center;
 }
 .click-icon:hover {
 	cursor: pointer;
 }
+
 </style>

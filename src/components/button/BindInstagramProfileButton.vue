@@ -4,7 +4,7 @@
         type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="insta-default" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_instagram')}}</Button>
+        type="button" class="insta-default shadow-lg" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_instagram')}}</Button>
     
     
 </template>

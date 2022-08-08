@@ -8,7 +8,7 @@
         </ModalHeader>
         
         <ModalBody>
-            <table class="box table table-report table-auto -mt-3" style="text-align: inherit;">
+            <table class="table table-report table-auto -mt-3" style="text-align: inherit;">
                 <thead>
                     <tr>
                         <th class="whitespace-nowrap text-left" v-for="column in tableColumns" :key="column.key">

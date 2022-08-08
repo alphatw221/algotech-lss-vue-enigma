@@ -43,7 +43,8 @@
         "payment_titles":{
             "direct_payment":"轉帳付款",
             "stripe":"Stripe付款",
-            "hitpay":"Hitpay付款"
+            "hitpay":"Hitpay付款",
+            "paypal":"Paypal付款"
         },
 
         "direct_payment":{
@@ -62,6 +63,11 @@
             "currency":"貨幣",
             "api_key":"API 密鑰",
             "salt":"密碼"
+        },
+        "paypal":{
+            "currency":"貨幣",
+            "cliend_id":"客戶ID",
+            "secret":"密鑰"
         },
         
         "payment_details":"金流設定",

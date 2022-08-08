@@ -28,7 +28,7 @@
         "reset" : "清空"
     },
     "enter_post_id":{
-        "message":"Please enter post ID to start live selling.",
+        "message":"輸入直播貼文ID來開始直播銷售",
         "select_stream":"選擇直播",
         "select_page":"選擇專頁",
         "post_id":"直播 ID"
@@ -52,9 +52,10 @@
         "edit_campaign_product":"編輯直播商品",
         "blank_cart":"複製購物車連結",
         "lucky_draw":"抽獎設定",
+        "quiz_game": "問答遊戲",
         "delete":"刪除",
         "confirm_delete": "確定要刪除該場直播 ?",
-
+        "more":"更多...",
         "campaign_message":"沒有%{tab}的直播",
         "no_result":"無搜尋結果",
         "Scheduled" : "預定中",

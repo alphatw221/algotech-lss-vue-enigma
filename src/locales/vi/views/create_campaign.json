@@ -6,7 +6,7 @@
 
     "cancel":"Hủy bỏ",
     "create":"Tạo sản phẩm",
-    "invalid_title":"Invalid campaign title input",
+    "invalid_title":"Tiêu đề chiến dịch được nhập không hợp lệ",
     
 
 
@@ -23,17 +23,17 @@
 
         "delete":"Xóa",
 
-        "store_collection":"Self Pickup",
+        "store_collection":"Tự nhận hàng",
 
         "pickup_store":"Tên cửa hàng",
         "pickup_address":"Địa chỉ cửa hàng",
         "errors":{
-            "Value_is_required":"Value is required",
-            "Value_must_be_numeric":"Value must be numeric",
-            "minValue":"Invalid number",
-            "required":"This field is required",
-            "integer":"Number must be integer",
-            "decimal":"Number must be decimal"
+            "Value_is_required":"Giá trị là bắt buộc",
+            "Value_must_be_numeric":"Giá trị phải là số",
+            "minValue":"Số không hợp lệ",
+            "required":"Trường này là bắt buộc",
+            "integer":"Phải là số nguyên",
+            "decimal":"Phải là số thập phân"
         }
     },
 
@@ -42,7 +42,9 @@
 
         "payment_titles":{
             "direct_payment":"Thanh toán trực tiếp",
-            "stripe":"Stripe"
+            "stripe":"Stripe",
+            "hitpay":"Hitpay",
+            "paypal":"Paypal"
         },
 
         "direct_payment":{
@@ -50,11 +52,22 @@
             "name":"Tên tài khoản",
             "number":"Số tài khoản",
             "note":"Ghi chú",
-            "require_customer_return":"Require Buyer’s Payment Record"
+            "require_customer_return":"Yêu cầu biên lai thanh toán của người mua"
         },
         "stripe":{
             "secret":"Mã bảo mật",
             "currency":"Đơn vị tiền tệ"
+        },
+        "hitpay":{
+            "button_title":"Button Title",
+            "currency":"Đơn vị tiền tệ",
+            "api_key":"API Key",
+            "salt":"Salt"
+        },
+        "paypal":{
+            "currency":"Đơn vị tiền tệ",
+            "cliend_id":"Client ID",
+            "secret":"Mã bảo mật"
         },
 
 
@@ -64,15 +77,15 @@
         "enabled":"Đã bật",
         "add_more_direct_payment":"Thêm Thanh toán trực tiếp",
         "upload_image":"Tải lên hình ảnh",
-        "remove_image":"Remove Image",
-        "upload_a_file_or_drag_and_drop":"Upload a file",
-        "accepted_file_types":"File types",
-        "max_file_size":"Max file size",
+        "remove_image":"Gỡ hình ảnh",
+        "upload_a_file_or_drag_and_drop":"Tải ảnh lên",
+        "accepted_file_types":"Loại tệp tin",
+        "max_file_size":"Kích thước tệp tối đa",
 
         "delete":"Xóa",
         "errors":{
-            "Value_is_required":"Value is required",
-            "img_size_err":"image size exceed 10 MB"
+            "Value_is_required":"Giá trị là bắt buộc",
+            "img_size_err":"kích thước hình ảnh vượt quá 10 MB"
         }
 
 
@@ -80,7 +93,7 @@
     },
 
     "notes_form":{
-        "notes_form":"Custom Note Settings",
+        "notes_form":"Cài đặt ghi chú tùy chỉnh",
         "delivery_note":"Lưu ý khi giao hàng",
         "special_note":"Ghi chú đặc biệt",
         "confirmation_note":"Ghi chú xác nhận"

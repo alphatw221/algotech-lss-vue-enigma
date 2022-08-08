@@ -1,5 +1,5 @@
 <template>
-    <button @click="continueWithoutLogin">Continue Without Login</button>
+    <button @click="continueWithoutLogin" class="m-auto font-medium text-[16px] mt-3">Continue Without Login</button>
 </template>
 
 <script setup>
@@ -9,11 +9,11 @@ const { cookies } = useCookies();
 
 const continueWithoutLogin = ()=>{
     var set_cookie = new Promise((res) => {
-                            cookies.set("login_with", "anonymousUser")
-                            res()
-                        })
-                        set_cookie.then(() => {
-                            this.$router.go()
-                        })
+        cookies.set("login_with", "anonymousUser")
+        res()
+    })
+    set_cookie.then(() => {
+        this.$router.go()
+    })
 }
 </script>

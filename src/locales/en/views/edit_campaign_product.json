@@ -18,14 +18,16 @@
         "price":"Price",
         "customer_editable":"Editable",
         "customer_removable":"Removable",
-        "edit":"Edit",
+        "edit":"Action",
         "delete":"Delete",
         "types":{
             "product":"Product",
             "product-fast":"Product",
             "lucky_draw-fast":"Lucky Draw",
             "lucky_draw":"Lucky Draw"
-        }
+        },
+        "no_product":"No product in this campaign yet.",
+        "set_up_first":"Click \"+ Add Product\" to assign product into this campaign."
     },
    
     "edit_product_modal":{

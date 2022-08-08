@@ -9,34 +9,36 @@
             </a>
         </ModalHeader>
         <ModalBody class="flex flex-col w-full h-full">
-            <div class="overflow-y-auto max-h-[500px]">
+
+            <div class="overflow-y-auto max-h-[500px] whitespace-wrap w-full">
                 <template v-for="(item,index) in messageItems" :key="index">
-                <div v-if="item.from.id === pageId"
-                    class="flex justify-end w-full h-fit">
-                    <div class="flex flex-col p-2 m-3 box bg-secondary w-fit">
-                        <span class="font-medium text-right text-violet-900">{{ item.from.username }}</span>
-                        <div class="w-fit items-right text-slate-700 mt-0.5 p-0.5 space-wrap text-right">
-                            {{ item.message }}
+                    <div v-if="item.from.id === pageId"
+                        class="flex justify-end w-full h-fit">
+                        <div class="flex flex-col p-2 m-3 box bg-secondary">
+                            <span class="font-medium text-right text-violet-900">{{ item.from.username }}</span>
+                            <div class="w-full items-right text-slate-700 mt-0.5 p-0.5 whitespace-wrap break-all text-right">
+                                {{ item.message }}
+                            </div>
+                        </div>
+                        <div class="flex-none w-12 h-12 mr-1 image-fit">
+                            <img alt="" class="rounded-full zoom-in" :src="campaignDetailStore.campaign.instagram_profile.image" />
                         </div>
                     </div>
-                    <div class="flex-none w-12 h-12 mr-1 image-fit">
-                        <img alt="" class="rounded-full zoom-in" :src="campaignDetailStore.campaign.instagram_profile.image" />
-                    </div>
-                </div>
-                <div v-else
-                    class="flex w-fit h-fit">
-                    <div class="flex-none w-12 h-12 mr-1 image-fit">
-                        <img alt="" class="rounded-full zoom-in" :src="comment.image" />
-                    </div>
-                    <div class="flex flex-col p-2 m-3 box bg-secondary w-fit">
-                        <span class="font-medium text-sky-900">{{ item.from.username }}</span>
-                        <div class="w-fit items-left text-slate-700 mt-0.5 p-0.5 space-wrap">
-                            {{ item.message }}
+                    <div v-else
+                        class="flex w-full h-fit">
+                        <div class="w-12 h-12 mr-1 image-fit">
+                            <img alt="" class="rounded-full zoom-in" :src="comment.image" />
+                        </div>
+                        <div class="flex flex-col p-2 m-3 box bg-secondary w-full">
+                            <span class="font-medium text-sky-900">{{ item.from.username }}</span>
+                            <div class="items-left text-slate-700 mt-0.5 p-0.5  break-all">
+                                {{ item.message }}
+                            </div>
                         </div>
                     </div>
-                </div>
                 </template>
             </div>
+            
             <div class="flex items-center pt-4 pb-10 border-t sm:py-4 border-slate-200/60 dark:border-darkmode-400">
                 <textarea v-model="message"
                     class="px-5 py-3 shadow-none resize-none chat__box__input form-control dark:bg-darkmode-600 h-14 border-inherit focus:border-inherit focus:ring-0"

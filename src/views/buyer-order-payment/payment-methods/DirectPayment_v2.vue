@@ -8,16 +8,17 @@
         <AccordionPanel class="leading-relaxed border-2 text-slate-600 dark:text-slate-500 border-secondary" >
 
             <!-- BEGIN Direct Payment Select -->
-            <div v-if="store.order.campaign">
+            <div class="mb-5" v-if="store.order.campaign">
 
             
                 <ul class="flex flex-row flex-wrap items-center self-center justify-around pt-3 pb-4 list-none" >
                     <li class="flex last:mr-0" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
                         <div class="z-10 flex items-center self-center flex-1 intro-x lg:text-center lg:mt-0 lg:block w-fit">
                             <button @click="show_account_info(index)" :class="{
-                                'text-neutral-600 bg-white': openTab !== index,
-                                'text-white bg-primary': openTab === index,
-                            }" class="h-8 rounded-full shadow-lg w-18 btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
+                                'text-neutral-600 bg-white shadow-lg': openTab !== index,
+                                'bg-slate-300 font-semibold': openTab === index,
+                            }" class="h-10 rounded-lg w-30 btn border-slate-300 text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
+                                <CheckIcon v-show="openTab === index" :class="{ 'rounded-full bg-white mr-2': true}" />
                                 <div v-if="account.mode === ''"> {{$t('shopping_cart.payment.direct.account')}} {{index+1}} </div>
                                 <div v-else> {{ account.mode }} </div>
                             </button>
@@ -25,11 +26,15 @@
                     </li>
                 </ul>
 
-                <div class="flex flex-col items-center place-content-center" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index"
+                <div class="flex flex-col items-center place-content-center mt-5" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index"
                     :class="{ hidden: openTab !== index, block: openTab === index }"
                     v-show="openTab===index"
                     >
+                    <h5 class="mx-auto font-bold text-black mb-3">Payment Information</h5>
                     <table>
+                        <tr>
+                            <td class="w-36">{{$t('shopping_cart.payment.direct.beneficiary')}}: </td><td>{{account.mode}}</td>
+                        </tr>
                         <tr>
                             <td class="w-36">{{$t('shopping_cart.payment.direct.account_number')}}: </td><td>{{account.number}}</td>
                         </tr>
@@ -48,7 +53,7 @@
             </div>
 
             <!-- BEGIN Direct Payment Radio -->
-            <div class="flex flex-col m-5">
+            <!-- <div class="flex flex-col m-5">
                 <label for="regular-form-2" class="form-label">{{$t('shopping_cart.payment.direct.beneficiary')}}</label>
                 <div class="inline-flex" >
                     <div  class="m-2" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
@@ -56,7 +61,7 @@
                         {{account.mode}}
                     </div>
                 </div>
-            </div>
+            </div> -->
             <!-- END Direct Payment Radio -->
 
             <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
@@ -108,6 +113,7 @@ import { buyer_upload_receipt, guest_upload_receipt } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+
 import i18n from "@/locales/i18n"
 
 import {
@@ -130,7 +136,10 @@ const receiptUploadDropzoneRef = ref();
 const openTab = ref(0);
 const selectAccountIndex = ref(0);
 
-const show_account_info = index => {openTab.value = index}
+const show_account_info = index => {
+    openTab.value = index
+    selectAccountIndex.value= index
+}
 const select_account = index =>{ selectAccountIndex.value= index}
 
 const data = reactive({ fiveDigits: "" });

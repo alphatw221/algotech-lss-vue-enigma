@@ -78,14 +78,16 @@
         "plug_in":"Games",
         "instantly":"Instantly Lucky Draw Spin",
         "list":"Lucky Draw",
+        "manage_order":"Manage Order",
         "table":{
             "amount" : "Amount",
             "payment" : "Payment",
             "view" : "View",
             "name" : "Customer",
             "platform" : "Platform",
-            "order_number" : "Order No",
-            "null":""
+            "order_number" : "Order No.",
+            "null":"",
+            "no_order":"You don't have any incoming order"
         }
     }
 }

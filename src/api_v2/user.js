@@ -1,4 +1,4 @@
-import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
+import { axiosInstance, createAxiosWithBearer, createAxiosWithBearerWithoutInterceptor } from "@/libs/axiosClient";
 
 
 export const buyer_login_with_facebook = data =>{
@@ -9,7 +9,7 @@ export const buyer_login_with_google = data =>{
     return axiosInstance.post(`/api/v2/user/buyer/login/google/`,data);
 }
 export const get_buyer_account = () =>{
-    return createAxiosWithBearer().get(`/api/v2/user/buyer/account/`);
+    return createAxiosWithBearerWithoutInterceptor().get(`/api/v2/user/buyer/account/`);
 }
 
 
@@ -26,7 +26,7 @@ export const seller_login_with_google = data =>{
 }
 
 export const get_seller_account = () =>{
-    return createAxiosWithBearer().get(`/api/v2/user/seller/account/`);
+    return createAxiosWithBearerWithoutInterceptor().get(`/api/v2/user/seller/account/`);
 }
 
 export const seller_change_password = (data) => {
@@ -39,4 +39,16 @@ export const seller_reset_password = (data) => {
 
 export const seller_forgot_password = (data) => {
     return axiosInstance.post(`/api/v2/user/seller/password/forgot/`, data);
+}
+
+export const seller_validate_register = (countryCode,data) =>{
+    return axiosInstance.post(`/api/v2/user/register/validate/${countryCode}/`,data);
+}
+
+export const seller_register_stripe = (countryCode,data) =>{
+    return axiosInstance.post(`/api/v2/user/register/${countryCode}/stripe/`,data);
+}
+
+export const user_register_with_bank_transfer = (countryCode,data) =>{
+    return axiosInstance.post(`/api/v2/user/register/${countryCode}/transfer/`,data);
 }

@@ -1,0 +1,45 @@
+{
+    "assign_product":{
+        "editable":"允许买家编辑购物车商品数量",
+        "removable":"允许买家删除购物车的商品"
+    },
+    "create_campaign":{
+        "campaign_period":"Time period that allows buyers to place an order",
+        "payment_record":"要求买家附上转帐证明(明细截图/末五码)"
+    },
+    "campaign_live":{
+        "view_icon":"订单详情"
+    },  
+    "campaign_list":{
+        "stop_checkout":"停止让买家结帐",
+        "instant_cart":"无须开直播也能透过连结直接购买"
+    },
+    "lucky_draw":{
+        "spin_time":"动画播放时间",
+        "winner_repeat":"允许重复得奖"
+    },
+    "manage_order":{
+        "delivery_noti":"通知买家订单已出货",
+        "view_icon":"订单详情",
+        "link_icon":"复制购物车连结"
+    },
+    "manage_order_details":{
+        "price_adjustment":"调整订单小计金额"
+    },
+    "auto_reply":{
+        "assign_to":"套用在指定粉专页面"
+    },
+    "settings":{
+        "note":{
+            "delivery_note":"物流相关提示讯息(如开店时间、交货时间等)",
+            "special_note":"购物车须知的提示讯息(如服务条款与条款)",
+            "confirm_note":"订单完成后的提示讯息"
+        },
+        "local":{
+            "buyer_lang":"切换买家购物车语言 & 社群平台留言通知"
+        },
+        "social":{
+            "connect_social":"直播销售前，预先绑定社群平台帐号"
+        }
+    },
+}

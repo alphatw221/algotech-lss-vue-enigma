@@ -77,13 +77,15 @@
         "plug_in":"小游戏",
         "instantly":"立即抽奖",
         "list":"抽奖",
+        "manage_order":"订单管理",
         "table":{
             "order_number" : "订单编号",
             "name" : "顾客",
             "platform" : "平台",
             "amount" : "金额",
             "view" : "详情",
-            "null":""
+            "null":"",
+            "no_order":"尚未有订单"
         }
     }
 }

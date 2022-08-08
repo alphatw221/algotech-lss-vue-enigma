@@ -1,12 +1,19 @@
 {
-    "order_history":"Order History",
+    "order_history":"Lịch sử đặt hàng",
     "table":{
         "order_no":"Mã đơn hàng",
-        "date":"Date",
-        "payment_method":"Payment Method",
+        "date":"Ngày",
+        "payment_method":"Phương thức thanh toán",
         "amount":"Số Lượng",
         "status":"Trạng thái",
-        "action":"Action",
-        "view":"View"
-    }
+        "action":"Hành động",
+        "view":"Xem"
+    },
+    "complete" : "Hoàn thành",
+    "review" : "Đang kiểm tra",
+    "shipping out":"Đã giao hàng",
+    "Direct Payment":"Thanh toán trực tiếp",
+    "stripe":"Stripe",
+    "hitpay":"Hitpay",
+    "paypal":"Paypal"
 }

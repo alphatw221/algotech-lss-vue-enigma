@@ -1,16 +1,16 @@
 {
         "title":"Quản lý bán hàng",
         "campaign_status":{
-                "closed_rate" : "Closed Rate",
+                "closed_rate" : "Tỉ lệ chốt đơn",
                 "sales" : "Doanh số",
                 "uncheckout" : "Tỉ lệ bỏ",
                 "comments" : "Bình luận",
-                "closed_rate_message":"Closed rate is %{status} compare to previous campaign",    
-                "sales_message":"Sales is %{status} compare to previous campaign",    
-                "uncheckout_message":"Uncheckout rate is %{status} compare to previous campaign",    
-                "comments_message":"Comments number is %{status} compare to previous campaign",
-                "decreased":"decreased",
-                "increased":"increased"  
+                "closed_rate_message":"Tỉ lệ chốt đơn hàng %{status} so với chiến dịch trước",    
+                "sales_message":"Doanh số hàng %{status} so với chiến dịch trước",    
+                "uncheckout_message":"Tỉ lệ bỏ rate hàng %{status} so với chiến dịch trước",    
+                "comments_message":"Bình luận hàng %{status} so với chiến dịch trước",
+                "decreased":"giảm",
+                "increased":"tăng"  
         },
         "search_bar":{
                 "search":"Tìm kiếm",
@@ -19,18 +19,18 @@
         },
         "table":{
                 "Direct Payment":"Thanh toán trực tiếp",
-                "details":"Order Details",
-                "copy_link":"Copy Cart Link",
+                "details":"Chi tiết đơn hàng",
+                "copy_link":"Sao chép liên kết đơn hàng",
                 "amount" : "Số Lượng",
                 "payment" : "Thanh toán",
                 "status" : "Trạng thái",
-                "view" : "View",
+                "view" : "Xem",
                 "customer" : "Khách hàng",
                 "platform" : "Nền tảng",
                 "name" : "Tên",
                 "order_number" : "Mã đơn hàng",
-                "action":"Action",
-                "delivery_notification":"Notification",
+                "action":"Hành động",
+                "delivery_notification":"Thông báo",
                 "null":""
         },
         "product_modal":{
@@ -40,20 +40,22 @@
                 "product":"Sản phẩm",
                 "sub_total":"Subtotal",
                 "delivery_charge":"Chi phí vận chuyển",
-                "discount":"Discount",
-                "total":"Total",
+                "discount":"giảm giá",
+                "total":"Tổng cộng",
                 "null":""
         },
         "filter_modal":{
                 "payment":{
                         "payment":"Thanh toán",
                         "Direct Payment":"Thanh toán trực tiếp",
-                        "stripe":"Stripe"
+                        "stripe":"Stripe",
+                        "hitpay":"Hitpay",
+                        "paypal":"Paypal"
                 },
                 "delivery":{
                         "status":"Trạng thái giao hàng",
-                        "shipping out":"Shipping out",
-                        "to be shipping":"To be shipping"
+                        "shipping out":"Đã giao hàng",
+                        "to be shipping":"Đang giao hàng"
                 },
                 "platform":{
                         "platform":"Nền tảng",
@@ -61,15 +63,15 @@
                         "facebook":"Facebook",
                         "instagram":"Instagram"
                 },
-                "apply":"Apply Filter",
-                "filter":"Filter"
+                "apply":"Áp dụng bộ lọc",
+                "filter":"Lọc"
         },
         "complete" : "Hoàn thành",
         "review" : "Đang kiểm tra",
-        "shipping out":"Shipping Out",
+        "shipping out":"Đã giao hàng",
         "all":"Tất cả",
         "stop_checkout" : "Hành động",
-        "update_successed":"Update Successed"
+        "update_successed":"Cập nhật thành công"
         
         
 }

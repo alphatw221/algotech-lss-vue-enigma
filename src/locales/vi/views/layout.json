@@ -15,40 +15,41 @@
     "bread_crumb":{
         "stock":"Kho hàng",
         "campaign-list":"Danh sách chiến dịch",
-        "campaign-live":"Campaign Live",
+        "campaign-live":"Chiến dịch livestream",
         "manage-order":"Quản lý bán hàng",
-        "order-detail":"Order Detail",
+        "order-detail":"Chi tiết đơn hàng",
         "settings":"Cài đặt",
         "localization":"Ngôn ngữ bản địa hóa",
         "campaign-global":"Cài đặt chiến dịch mặc định",
         "platform":"Kết nối nền tảng",
-        "edit-campaign":"Edit Campaign",
+        "edit-campaign":"Chỉnh sửa chiến dịch",
         "create-campaign":"Tạo chiến dịch",
         "assign-product":"Chọn sản phẩm bán",
-        "edit-campaign-product":"Edit Campaign Product",
+        "edit-campaign-product":"Chỉnh sửa sản phẩm trong chiến dịch",
         "lucky-draw":"Quà tặng minigame",
         "autoreply":"Chatbot tự động",
         "category-management":"Phân loại",
-        "add-product":"Create Product",
-        "product-detail":"Product Detail",
-        "edit-product":"Edit Product",
-        "profile":"Profile",
-        "change-plan":"Change Plan"
+        "add-product":"Tạo sản phẩm",
+        "product-detail":"Chi tiết sản phẩm",
+        "edit-product":"Chỉnh sửa sản phẩm",
+        "profile":"Hồ Sơ",
+        "change-plan":"Thay đổi gói dịch vụ"
     },
     "top_bar":{
-        "profile":"Profile",
-        "subscription":"Subscription",
-        "reset_password":"Reset Password",
-        "logout":"Logout"
+        "profile":"Hồ Sơ",
+        "subscription":"Đăng ký",
+        "reset_password":"Thay đổi mật khẩu",
+        "logout":"Đăng xuất",
+        "order_history":"Lịch sử đặt hàng"
     },
     "upcoming_campaign":{
-        "title": "Upcoming Campaign",
-        "notification_text1": "You have a upcoming Campaign:",
-        "notification_text2": "starts in",
+        "title": "Chiến dịch sắp tới",
+        "notification_text1": "Bạn có chiến dịch sắp tới:",
+        "notification_text2": "bắt đầu vào",
         "notification_text3": "",
-        "time_15min": "15 mins",
-        "time_1hour": "an hour",
-        "join_now": "Join now",
-        "dismiss": "Dismiss"
+        "time_15min": "15 phút",
+        "time_1hour": "giờ",
+        "join_now": "Bắt đầu ngay",
+        "dismiss": "Bỏ qua"
     }
 }

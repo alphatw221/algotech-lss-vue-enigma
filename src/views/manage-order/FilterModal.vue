@@ -41,6 +41,16 @@
                             v-model="store.filterTagArray.payment['stripe']" 
                                 @click="updateTag('payment','stripe')"> <span class="ml-1"> Stripe </span> 
                     </div>
+                    <div class="col-span-6 lg:col-span-3 lg:my-1">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" 
+                            v-model="store.filterTagArray.payment['hitpay']" 
+                                @click="updateTag('payment','hitpay')"> <span class="ml-1"> Hitpay </span> 
+                    </div>
+                    <div class="col-span-6 lg:col-span-3 lg:my-1">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" 
+                            v-model="store.filterTagArray.payment['paypal']" 
+                                @click="updateTag('payment','paypal')"> <span class="ml-1"> Paypal </span> 
+                    </div>
                     <div class="col-span-12 text-[20px] font-medium my-2">{{$t('manage_order.filter_modal.delivery.status')}}</div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 

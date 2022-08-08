@@ -8,7 +8,7 @@
         "select_tag":"選擇標籤",
         "clear":"清空",
         "comment_message_1":"尚未有%{tag}相關訊息",
-        "comment_message_2":"尚未有 %{platformName} 訊息",
+        "comment_message_2":"尚未有%{platformName}訊息",
 
         "comments_summarizer":"留言分類",
         "all_comments":"所有留言",
@@ -77,13 +77,15 @@
         "plug_in":"小遊戲",
         "instantly":"立刻抽獎",
         "list":"抽獎",
+        "manage_order":"訂單管理",
         "table":{
             "order_number" : "訂單",
             "name" : "顧客",
             "platform" : "平台",
             "amount" : "金額",
             "view" : "詳情",
-            "null":""
+            "null":"",
+            "no_order":"尚未有訂單"
         }
     }
 }

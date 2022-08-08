@@ -13,7 +13,6 @@
     "update_failed":"Update Failed",
     "img_size_err":"Image size exceed 10 MB",
     "invalid_data":"Invalid data",
-
     "delivery":{
         "delivery":"Delivery",
         "delivery_setting": "Delivery Settings",
@@ -34,7 +33,8 @@
             "Value_is_required":"Value is required",
             "Value_must_be_numeric":"Value must be numeric",
             "minValue":"Invalid number",
-            "required":"This field is Required"
+            "required":"This field is Required",
+            "integer":"Number must be integer"
         }
         
     },
@@ -43,7 +43,8 @@
         "payment_titles":{
             "direct_payment":"Direct Payment",
             "stripe":"Stripe",
-            "hitpay":"Hitpay"
+            "hitpay":"Hitpay",
+            "paypal":"Paypal"
         },
         "direct_payment":{
             "mode":"Name of Bank / Payment Mode",
@@ -61,6 +62,11 @@
             "currency":"Currency",
             "api_key":"API Key",
             "salt":"Salt"
+        },
+        "paypal":{
+            "currency":"Currency",
+            "cliend_id":"Client ID",
+            "secret":"Secret"
         },
 
         "payment_details": "Payment Details",
@@ -100,13 +106,14 @@
         "payment":"Payment"
     },
     "notes":{
-        "notes":"Notes",
+        "notes":"General",
         "delivery_note":"Delivery Note",
         "special_note":"Special Note",
         "confirmation_note":"Confirmation Note",
         "discard":"Discard",
         "save":"Save",
-        "update": "Update"
+        "update": "Update",
+        "modify":"Modify"
     },
     "localization":{
         "title": "Localization",
@@ -116,7 +123,8 @@
             "SG":"Singapore",
             "ID":"Indonesia",
             "IN":"India",
-            "TW":"Taiwan"
+            "TW":"Taiwan",
+            "VN":"Vietnam"
         },
         "currency_symbol":"Currency Symbol",
         "seller_language":"Seller Language",
@@ -124,7 +132,8 @@
             "en":"English",
             "zh_hant":"Traditional Chinese",
             "zh_hans":"Simplified Chinese",
-            "id":"Indonesian"
+            "id":"Indonesian",
+            "vi":"Vietnamese"
         },
         "buyer_language":"Buyer Language",
         "choose_language":"Choose Language",
@@ -133,10 +142,10 @@
         "decimal_places":"Decimal Places",
         "discard":"Discard",
         "save":"Save",
-        "price_unit":"Price Unit",
-        "choose_price_unit":"Choose Price Unit",
+        "price_unit":"Currency Unit",
+        "choose_price_unit":"Choose Currency Unit",
         "priceOptions":{
-            "1":"None",
+            "1":"Standard",
             "1000":"K",
             "1000000":"M"
         }

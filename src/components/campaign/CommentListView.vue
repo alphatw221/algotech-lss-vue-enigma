@@ -41,7 +41,7 @@
     <div class="overflow-y-scroll h-fit scrollbar-hidden"  @scroll="handleScroll($event)">
 
         <div v-for="(comment, index) in comments" :key="index"
-            class="relative flex items-center p-2 m-1 rounded-l-full cursor-pointer intro-x box comments"
+            class="relative flex items-center p-2 m-1 rounded-l-full cursor-pointer intro-x box w-[99%] comments"
             
             :class="{
                   'border-r-8 border-[#3c599b]': comment.platform === 'facebook',
@@ -66,17 +66,17 @@
                     </div>
                 </div>
             </div>
-            <Tippy v-else class="rounded-full " content="Reply" theme='light'>
-                <div class="relative flex items-center w-full">
+            <Tippy v-else class="rounded-full w-[100%]" content="Reply" theme='light'>
+                <div class="flex items-center w-[100%]">
                     <div class="flex-none mr-1 w-14 h-14 image-fit">
                         <img class="rounded-full zoom-in" :src="comment.image" />
                     </div>
-                    <div class="w-full ml-2 overflow-hidden">
+                    <div class="w-2/3 ml-2 overflow-hidden">
                         <div class="flex items-center">
                             <a class="font-medium text-sky-900">{{ comment.customer_name }}</a>
                             <div class="ml-auto text-xs text-slate-400"></div>
                         </div>
-                        <div class="text-slate-900 mt-0.5">
+                        <div class="text-slate-900 mt-0.5 w-[100%] truncate">
                             {{ comment.message }}
                         </div>
                     </div>
@@ -199,6 +199,7 @@ const layoutStore = useLSSSellerLayoutStore();
     }
     .hide {
         display: none;
+        z-index: 9999999999;
     }
     .comments:hover .hide {
         display: block !important;

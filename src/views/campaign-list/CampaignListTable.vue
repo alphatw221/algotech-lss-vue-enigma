@@ -3,8 +3,23 @@
     <table class="table -mt-3 table-report">
       <thead>
         <tr>
-          <th class="text-center " v-for="column in tableColumns" :key="column.key">
-            {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
+          <th class="text-center whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
+            <template v-if="column.key === 'stop'"> 
+              <div class="flex align-middle"> 
+                <span class="my-auto"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </span> 
+                <Tippy 
+                  class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+                  data-tippy-allowHTML="true" 
+                  data-tippy-placement="right" 
+                  :content="$t('tooltips.campaign_list.stop_checkout')" 
+                > 
+                  <HelpCircleIcon class="w-5 tippy-icon" />
+                </Tippy> 
+              </div>
+            </template>
+            <template v-else> 
+              {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
+            </template>
           </th>
           <th v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" ></th>
         </tr>
@@ -25,14 +40,15 @@
 					</td> 
 					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0 "> 
 						<div class="mt-5 text-center md:mt-40 w-full" >
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('campaign_list.campaign_list_table.no_have_campaign') }}
 							</h1>
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+							<h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('campaign_list.campaign_list_table.click_create_notify') }}
 							</h1>
               <button 
-                class="flex w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto"
+                class="flex w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-rounded mx-auto mt-5"
+                      style="border: 2px solid #EF4444; color:#EF4444;"
                       @click="router.push({name:'platform'})" v-if="checkPagePonit"> 
                 {{$t('campaign_list.campaign_list_table.connect_platform')}}
               </button>
@@ -85,10 +101,21 @@
           <td class="items-center manage_order w-fit" :data-content="$t('campaign_list.campaign_list_table.action')">
             <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
               <span class="mr-3 sm:hidden"> {{$t('campaign_list.campaign_list_table.manage_order')}}</span>
-              <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>
+              <Tippy  :content="$t('campaign_list.campaign_list_table.manage_order')" :options="{ theme: 'light' }">
+                <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/> 
+              </Tippy> 
+                  
             </a>
           </td>
           <td class="items-center checkout w-fit" :data-content="$t('campaign_list.campaign_list_table.stop')">
+            <Tippy 
+              class="rounded-full w-fit whitespace-wrap ml-1 my-auto md:hidden tippy-mobile" 
+              data-tippy-allowHTML="true" 
+              data-tippy-placement="right" 
+              :content="$t('tooltips.campaign_list.stop_checkout')" 
+            > 
+              <HelpCircleIcon class="w-5 tippy-icon md:hidden tippy-mobile" />
+            </Tippy> 
             <div  v-if="campaignStatus === 'history'" 
               class="flex flex-col justify-center form-check form-switch">
               <input  id="selectCheckbox" class="form-check-input center" type="checkbox" disabled v-model="checkout" />
@@ -113,11 +140,12 @@
           <td
             v-if="campaignStatus === 'ongoing' || campaignStatus === 'scheduled'" 
             class="text-center moreTools w-fit">
+            <Tippy  :content="$t('campaign_list.campaign_list_table.more')" :options="{ theme: 'light' }">
               <Dropdown placement="bottom-start">
                 <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
                   <MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
                 </DropdownToggle>
-                <DropdownMenu class="w-44 pt-2">
+                <DropdownMenu class="max-w-60 pt-2">
                   <DropdownContent class="w-44 text-center">
                     <DropdownItem class="w-fit text-center whitespace-nowrap" 
                       @click="editCampaign(campaign)"> 
@@ -131,8 +159,14 @@
                     </DropdownItem>
                     <DropdownItem 
                       @click="copyURL(campaign)" class="w-fit whitespace-nowrap"> 
-                      <ShoppingCartIcon class="h-[20px] w-[20px] mr-1" />
-                      {{$t("campaign_list.campaign_list_table.blank_cart")}} 
+                      <Tippy 
+                        class="whitespace-nowrap w-full" 
+                        data-tippy-allowHTML="true" 
+                        data-tippy-placement="right" 
+                        :content="$t('tooltips.campaign_list.instant_cart')" 
+                        > 
+                        <div class="whitespace-nowrap flex"> <ShoppingCartIcon class="h-[20px] w-[18px] mr-1" />  {{$t("campaign_list.campaign_list_table.blank_cart")}}  </div> 
+                      </Tippy> 
                     </DropdownItem>
                     <DropdownItem 
                       @click="goLuckyDraw(campaign)" class="w-fit whitespace-nowrap"> 
@@ -140,24 +174,25 @@
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>
                     <DropdownItem 
+                      @click="goQuizGame(campaign)" class="w-fit whitespace-nowrap"> 
+                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      {{$t("campaign_list.campaign_list_table.quiz_game")}}
+                    </DropdownItem>
+                    <DropdownItem 
                       @click="deleteCampaign(campaign)" class="w-fit text-danger whitespace-nowrap ">
                       <font-awesome-icon icon="fa-solid fa-trash-can" class="h-[20px] w-[20px] mr-1"/>
                       {{$t("campaign_list.campaign_list_table.delete")}}
                     </DropdownItem>
-                    <!-- <DropdownItem 
-                      @click="goQuizGame(campaign)" class="w-fit whitespace-nowrap"> 
-                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
-                      {{$t("campaign_list.campaign_list_table.quiz_game")}}
-                    </DropdownItem> -->
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 
+              </Tippy> 
           </td>
         </tr>
       </tbody>
     </table>
   </div>
-  <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
+  <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10">
       <Page class="mx-auto my-3" :total="totalPage" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>
@@ -214,9 +249,9 @@ onMounted(()=>{
     page_size.value = payload.pageSize;
     // order_by.value = payload.order_by;
     search();
-  }),
+  })
   // startFromToast();
-  checkPage();
+  
 })
 
 onUnmounted(()=>{
@@ -236,6 +271,8 @@ const search =()=>{
         }
         campaigns.value = response.data.results
         showCommentLoding.value = false
+
+        if (!campaigns.value) checkPage();
       })
   }
 
@@ -311,18 +348,19 @@ const goQuizGame = (campaign) => {
 const checkPage = ()=>{
   get_user_subscription_facebook_pages().then(res=>{
     if(res.data.length !== 0) checkPagePonit.value = false
-  })
-  get_user_subscription_instagram_profiles().then(res=>{
-    if(res.data.length !== 0) checkPagePonit.value = false
-  })
-  get_user_subscription_youtube_channels().then(res=>{
-    if(res.data.length !== 0) checkPagePonit.value = false
+    else get_user_subscription_instagram_profiles().then(res=>{
+      if(res.data.length !== 0) checkPagePonit.value = false
+      else get_user_subscription_youtube_channels().then(res=>{
+        if(res.data.length !== 0) checkPagePonit.value = false
+      })
+    })
   })
 }
 
 const deleteCampaign = (campaign)=>{
   let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)
 	if(yes) delete_campaign(campaign.id).then(res => { search() })
+  hideDropDown()
 }
 
 </script>
@@ -479,5 +517,11 @@ thead th{
     padding-left: 0px !important;
     box-shadow: none;
   }
+
+  .tippy-mobile{
+		position: absolute;
+		left:53px; 
+		top:2.5px;
+	}
 }
 </style>

@@ -26,7 +26,17 @@
 			</div>
 			<div class="col-span-12 sm:col-span-6">
 				<div class="flex flex-col">
-					<label for="regular-form-2" class="w-16 my-auto text-base form-label font-medium">{{$t('create_campaign.period')}}</label>
+					<div class="flex whitespace-nowrap align-middle"> 
+						<label for="regular-form-2" class="w-fit my-auto text-base form-label font-medium">{{$t('create_campaign.period')}}</label>
+						<Tippy 
+							class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+							data-tippy-allowHTML="true" 
+							data-tippy-placement="right" 
+							:content="$t('tooltips.create_campaign.campaign_period')" 
+						> 
+							<HelpCircleIcon class="w-5 tippy-icon" />
+						</Tippy> 
+					</div>
 					<v-date-picker class="z-49" 
 						v-model="dateTimePicker" 
 						:timezone="timezone" 
@@ -48,7 +58,7 @@
 			</div>
 		</div>
 		
-		<div class="box py-5 mx-20 mt-3 sm:p-8 sm:py-5 px-2 lg:px-10 text-sm sm:text-lg ">
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg ">
 
 			<div class="flex my-3 mt-5 form-label text-base font-medium">
 				<div> {{$t("settings.localization.currency_symbol")}} </div>
@@ -61,10 +71,19 @@
 				</TomSelect>
 			</div>
 			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
+				<div class=""> {{$t("settings.localization.buyer_language")}}</div>
+				<Tippy 
+					class="rounded-full whitespace-wrap" 
+					data-tippy-allowHTML="true" 
+					data-tippy-placement="right" 
+					:content="$t('tooltips.settings.local.buyer_lang')" 
+					theme='light'
+				> 
+					<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+				</Tippy> 
 			</div>
 			<div class="flex my-1">
-				<TomSelect v-model="campaignData.buyer_lang" :options="{
+				<TomSelect v-model="campaignData.lang" :options="{
 							placeholder: $t('settings.localization.choose_language'),
 							}" class="w-full">
 					<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
@@ -165,7 +184,9 @@ const priceUnitOptions = ref([
 
 const languages = ref([
     {value:'en',text:'English'},
+	{value:'zh_hans',text:'Chinese-simplify'},
     {value:'zh_hant',text:'Chinese-tranditional'},
+	{value:'vi',text:'Vietnamese'},
 ])
 
 const decimalOptions = ref([
@@ -190,7 +211,7 @@ const campaignData = ref({
 	},
 	currency:'USD', 
 	lang:'en', 
-	buyer_lang:'en', 
+	lang:'en', 
 	decimal_places:2, 
 	price_unit:'1',
 	meta_payment:{
@@ -256,8 +277,8 @@ onMounted(() => {
 	if(!sellerStore.userInfo.user_subscription) return
 	
 	if(sellerStore.userInfo.user_subscription.currency)campaignData.value.currency=sellerStore.userInfo.user_subscription.currency
-	if(sellerStore.userInfo.user_subscription.buyer_lang)campaignData.value.buyer_lang=sellerStore.userInfo.user_subscription.buyer_lang
-	if(sellerStore.userInfo.user_subscription.decimal_places)campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places
+	if(sellerStore.userInfo.user_subscription.buyer_lang)campaignData.value.lang=sellerStore.userInfo.user_subscription.buyer_lang
+	if(!([undefined,null,''].includes(sellerStore.userInfo.user_subscription.decimal_places)))campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places.toString()  //temp   TomSelect only work with string value
 	if(sellerStore.userInfo.user_subscription.price_unit)campaignData.value.price_unit=sellerStore.userInfo.user_subscription.price_unit
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))

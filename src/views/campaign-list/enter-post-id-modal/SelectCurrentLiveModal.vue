@@ -15,7 +15,9 @@
         <ModalBody class="text-left content-center">
           <div class="intro-y grid grid-cols-12 gap-3 my-0">
             <template v-for="live,index in liveItems" :key="index">
-              <button type="button" href="javascript:;" class="btn w-full btn-primary mt-3 mr-3 sm:w-40" @click="selectLive(live.id)">{{$t('campaign_list.enter_post_id_modal.select_this_live')}}</button>
+              <div class="col-span-12">
+                <button type="button" href="javascript:;" class="btn btn-primary mr-3" @click="selectLive(live.id)">{{$t('campaign_list.enter_post_id_modal.select_this_live')}}</button>
+              </div>
               <div class="select_live flex-none rounded-md overflow-hidden col-start-1 col-span-12">
                 <span class="col-span-6 text-lg content-center">
                   {{ live.title }}

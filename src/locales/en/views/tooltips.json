@@ -1,0 +1,45 @@
+{
+    "assign_product":{
+        "editable":"Allow buyer to edit product qty in the shopping cart",
+        "removable":"Allow buyer to remove product from the shopping cart"
+    },
+    "create_campaign":{
+        "campaign_period":"Time period that allows buyers to place an order",
+        "payment_record":"Require buyer to attach payment record"
+    },
+    "campaign_live":{
+        "view_icon":"Order details"
+    },  
+    "campaign_list":{
+        "stop_checkout":"Disable shopping cart immediately",
+        "instant_cart":"Take-in orders without livestreaming post on social media"
+    },
+    "lucky_draw":{
+        "spin_time":"Animation spinning time",
+        "winner_repeat":"Allow to repeat prize winner",
+    },
+    "manage_order":{
+        "delivery_noti":"Email buyer the order has been shipped",
+        "view_icon":"Order details",
+        "link_icon":"Copy shopping cart link"
+    },
+    "manage_order_details":{
+        "price_adjustment":"Adjust price that can add additional fee or give discount to buyer"
+    },
+    "auto_reply":{
+        "assign_to":"Assign auto reply to certain page"
+    },
+    "settings":{
+        "note":{
+            "delivery_note":"Additnonal message to inform buyers on certain details, such as store opening timings, delivery time period etc",
+            "special_note":"A custom message to buyer, such as shopping note and T&C",
+            "confirm_note":"Message to inform buyers of their order is confirmed"
+        },
+        "local":{
+            "buyer_lang":"for buyer's shopping cart, and platform message"
+        },
+        "social":{
+            "connect_social":"Link your social media account to start your live-selling campaign"
+        }
+    },
+}

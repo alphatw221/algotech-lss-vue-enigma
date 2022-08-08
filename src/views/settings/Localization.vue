@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col">
-        <div class="flex items-center sm:px-20 pt-5 pb-4 intro-y ">
+        <div class="flex items-center sm:px-20 pt-2 sm:pt-5 pb-4 intro-y ">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('settings.localization.title') }} </h2>
 		</div>
         
@@ -106,7 +106,8 @@ const countries = ref({'PH':'Philippines','SG':'Singapore','ID':'Indonesia','IN'
 const languages = ref([
     {value:'en',text:'English'},
     {value:'zh_hant',text:'Chinese-tranditional'},
-    // {value:'vi',text:'Vietnamese'}
+    {value:'zh_hans',text:'Chinese-simplify'},
+    {value:'vi',text:'Vietnamese'}
 ])
 
 // const decimalOptions = ref([

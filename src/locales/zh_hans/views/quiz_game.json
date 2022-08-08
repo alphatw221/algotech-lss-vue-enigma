@@ -1,0 +1,43 @@
+{
+    "title": "问答游戏",
+    "create_btn": "新增游戏",
+    "invalid_data":"输入资料无效",
+    "create_succeed": "新增成功",
+    "update_succeed": "更新成功",
+    "delete_succeed": "储存成功",
+    "not_saved": "取消储存",
+
+    "quiz_create": {
+        "campaign_title": "直播名称",
+        "question_title": "问题与答案",
+        "add_question": "新增问题",
+        "question": "请输入问题...",
+        "answer": "请输入答案...",
+        "delete": "删除",
+        "remark": "注记",
+        "enter_remark": "请输入注记...",
+        "number_of_winner" : "得奖人数",
+        "number_winner_warning": "需填入介于1与奖品数量",
+        "prize": "奖品",
+        "assign_prize_err":"需加入商品",
+        "winner_repeat" : "重复得奖",
+        "winner_repeat_tip": "参与者可重复获奖",
+        "save": "储存",
+        "cancel": "取消",
+        "yes": "是",
+        "no": "否"
+    },
+
+    "quiz_list": {
+        "campaign_title": "直播名称",
+        "question": "问题",
+        "start": "开始",
+        "stop": "停止",
+        "finish": "已結束",
+        "winners": "得奖人数量",
+        "no_winner": "No Winners",
+        "result": "计算结果",
+        "edit": "编辑",
+        "delete": "删除"
+    }
+}

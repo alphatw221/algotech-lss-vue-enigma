@@ -3,7 +3,7 @@
 	<div
 		class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400">
 		<h2 class="font-medium text-base mr-auto">
-		{{$t('shopping_cart.table.cart')}} ({{numOfItems}} {{$t('shopping_cart.table.items')}})
+		{{$t('shopping_cart.table.cart')}} ({{numOfItems}} {{$t('shopping_cart.table.items')}})  <span class="ml-1"> #{{store.order.id}}</span>
 		</h2>
 		<button class="border-none sm:flex underline" @click="switchToMyCartTab()">
 		{{$t('shopping_cart.table.edit')}}
@@ -29,7 +29,9 @@
 				</div>
 			</div>
 			<div class="font-medium text-slate-600 dark:text-slate-500 whitespace-nowrap w-fit ml-5">
-				{{store.order.campaign.currency}} {{ parseFloat(product.qty * product.price).toFixed(store.order.campaign.user_subscription.decimal_places) }}
+				{{store.order.campaign.currency}} 
+				{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)):parseFloat(product.qty * product.price).toFixed(store.order.campaign.decimal_places) }}
+				{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 			</div>
 			</div> 
 

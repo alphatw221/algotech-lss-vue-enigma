@@ -1,6 +1,6 @@
 <template>
 	<!-- BEGIN Container -->
-	<div class="p-4 box">
+	<div :class="{'p-4 box': templateInModal !=true}">
 		<div class="flex flex-col col-span-12 h-fit lg:mt-3 pb-4">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
 		</div>
@@ -64,7 +64,7 @@
 						<thead>
 							<tr>
 								<th class="w-10 text-center">
-									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" @change="selectAllStockProduct($event)"/></th>
+									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="selectAll" @change="selectAllStockProduct($event)"/></th>
 								<th 
 									class="whitespace-normal truncate hover:text-clip text-center" 
 									v-for="column in tableColumns" :key="column.key">
@@ -80,7 +80,7 @@
 								class="intro-x align-middle"
 							>
 								<td class="w-10">
-									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
+									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
 										type="checkbox" v-model="product.check" @click="selectStockProduct(product, $event)"/>
 								</td>
 
@@ -96,8 +96,7 @@
 										</div>
 									</td>
 
-									<td 
-										v-else-if="column.key === 'order_code'" class="orderCode text-right" 
+									<td v-else-if="column.key === 'order_code'" class="orderCode text-right" 
 										:data-content="$t(`assign_product.product_table.${column.key}`)"
 										>
 										<div class="place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
@@ -170,8 +169,9 @@
 									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
-											<span class="my-auto mr-1 text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span> 
+											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
 											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
+											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 										</div>
 									</td>
 
@@ -186,7 +186,7 @@
 					
 					
 				</div>
-				<div class="intro-y col-span-12 flex flex-wrap sm:flex-row sm:flex-nowrap items-center justify-between">
+				<div class="intro-y flex flex-row flex-wrap sm:flex-nowrap items-center justify-between">
 					<Page 
 						class="mx-auto my-3"
 						:total="dataCount" 
@@ -195,7 +195,7 @@
 					/>
 					
 				</div> 
-				<div class=" flex items-center justify-between">
+				<div class=" flex items-center justify-between my-5 mb-14">
 					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">{{$t('assign_product.add')}}</button>
 				</div> 
 			</div>
@@ -228,7 +228,7 @@
 								class="intro-x align-middle"
 							>
 								<td class="w-10">
-									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" checked @click="unSelectProduct(product, product_index, $event)"/>
+									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" type="checkbox" checked @click="unSelectProduct(product, product_index, $event)"/>
 								</td>
 								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
 
@@ -314,8 +314,9 @@
 										:class="{' h-12' : errorMessages[product_index][column.key] }"  >
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
-											<span class="my-auto mr-1 text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span> 
+											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
 											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
+											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td>
@@ -330,7 +331,7 @@
 						</tbody>
 					</table> 
 				</div>
-				<div class=" flex items-center justify-between mt-10">
+				<div class="flex flex-wrap items-center justify-between mt-5 mb-20">
 					<button type="button" class="btn btn-primary inline-flex w-24 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="openTab='select'">{{$t(`assign_product.add_more`)}}</button>
 					<button type="button" class="btn w-20 md:w-32 inline-flex dark:border-darkmode-400 ml-auto" @click="resetSelectedProduct()">{{$t(`assign_product.reset`)}}</button>
 					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitData()">{{$t(`assign_product.confirm`)}}</button>
@@ -346,10 +347,10 @@
 <script setup>
 import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
 import { list_product_category, list_product } from '@/api_v2/product';
-import { get_campaign_product_order_code_dict } from '@/api_v2/campaign';
+import { get_campaign_product_order_code_dict, retrieve_campaign } from '@/api_v2/campaign';
 
 import { useRoute, useRouter } from "vue-router";
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps, reactive } from "vue";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps, reactive} from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
@@ -386,7 +387,6 @@ const router = useRouter();
 
 const openTab = ref('select')
 const currentPage = ref(1)
-const totalPage = ref(1)
 const pageSize = ref(10)
 const dataCount = ref(0)
 
@@ -408,6 +408,7 @@ const stockProducts = ref([])
 const selectedProducts = ref([])
 const errorMessages = ref([])
 const selectedProductDict = ref({})
+const selectAll = ref(false)
 
 const campaignProductOrderCodeDict = ref({})
 
@@ -421,6 +422,7 @@ onMounted(() => {
 	}
 	getProductCategory()
 	getCampaignProductDict()
+	getCampaignDetail()
 	search()
 })
 
@@ -437,6 +439,7 @@ const updateStockProducts = ()=>{
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
             stockProducts.value[stockProductIndex] = selectedProducts.value[index]
+			product.check=true
         }else{
             product.check=false
         }
@@ -449,7 +452,7 @@ const checkIfValid = ()=>{
 	const orderCodeDict = JSON.parse(JSON.stringify(campaignProductOrderCodeDict.value))
     selectedProducts.value.forEach((selectedProduct,index) => {
         errorMessages.value[index]={}	
-		console.log(orderCodeDict)
+		// console.log(orderCodeDict)
 		//type
 		if(!(['product', 'lucky_draw'].includes(selectedProduct.type))){errorMessages.value[index]['type']='type_required';isSelectedProductsValid=false;}
 
@@ -482,7 +485,7 @@ const checkIfValid = ()=>{
 		if(typeof selectedProduct.order_code=='string'){
 			orderCodeDict[selectedProduct.order_code.toLowerCase()]=index
 		}
-        console.log(orderCodeDict)
+        // console.log(orderCodeDict)
     });
 
 }
@@ -493,6 +496,18 @@ const checkIfValid = ()=>{
 watch(computed(()=>stockProducts.value),updateStockProducts)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
+
+const checkSelectAll = () => {
+	let unchecked_list = stockProducts.value.filter(e=>e.check === false)
+	if (unchecked_list.length) {
+		selectAll.value = false;
+	} else {
+		selectAll.value = true;
+	}
+}
+
+watch(computed(()=>stockProducts.value),checkSelectAll,{deep:true})
+
 
 
 const stockProductRemovable = (product_index, event)=>{if(event.target.checked)stockProducts.value[product_index].customer_editable=true}
@@ -516,7 +531,7 @@ const selectStockProduct = (stockProduct, event) =>{
         
     }else{
         const _index = selectedProductDict.value[stockProduct.id.toString()]
-        console.log(_index)
+        // console.log(_index)
         selectedProducts.value.splice(_index,1)
         errorMessages.value.splice(_index,1)
         updateSelectedProductDict()
@@ -543,15 +558,29 @@ const resetSelectedProduct = ()=>{
 }
 
 const selectAllStockProduct = (event)=>{
-	event.target.checked =false
-	stockProducts.value.forEach(product => {
-        if(!(product.id.toString() in selectedProductDict.value)) {
-            product.check=true
-            selectedProducts.value.push(product)
-            selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
-            errorMessages.value.push({})
-        }
-	});
+	
+	if (selectAll.value) {
+		stockProducts.value.forEach(product => {
+			if(!(product.id.toString() in selectedProductDict.value)) {
+				product.check=true
+				selectedProducts.value.push(product)
+				selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
+				errorMessages.value.push({})
+			}
+		});
+	} else {
+		stockProducts.value.forEach(product => {
+			if((product.id.toString() in selectedProductDict.value)) {
+				product.check=false
+				const _index = selectedProductDict.value[product.id.toString()]
+				// console.log(_index)
+				selectedProducts.value.splice(_index,1)
+				errorMessages.value.splice(_index,1)
+				updateSelectedProductDict()
+			}
+		});
+	}
+	
     openTab.value='select'
 }
 
@@ -559,9 +588,7 @@ const search = () => {
 	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value)
 	.then(response => {
 		dataCount.value = response.data.count
-		totalPage.value = Math.ceil(response.data.count / pageSize.value)
 		stockProducts.value = response.data.results
-		
 		// proudct type 預設 product
 		let emptyType = ['', null, undefined]
 		Object.entries(stockProducts.value).forEach((product) => {
@@ -602,16 +629,22 @@ const submitData = ()=>{
 		}
 	}).catch(err=>{
 		errorMessages.value = []
-        console.log(err.response.data)
+        // console.log(err.response.data)
 		if (err.response){
 
 			errorMessages.value = err.response.data.errors
 		}
 	})
 }
+const getCampaignDetail = ()=>{
+	retrieve_campaign(route.params.campaign_id).then(res=>{
+		campaignDetailStore.campaign = res.data
+	}) 
+}
 
 
 const clearAllData = ()=>{
+	selectAll.value = false
     selectedCategory.value=''
     selectedProducts.value=[]
     errorMessages.value=[]
@@ -619,13 +652,13 @@ const clearAllData = ()=>{
     selectedProductDict.value = {}
     openTab.value = 'select'
     currentPage.value = 1
-    totalPage.value = 1
     pageSize.value=10
     dataCount.value =0
 	campaignProductOrderCodeDict.value = {}
 	isSelectedProductsValid = false
 	campaignDetailStore.showAddProductFromStockModal = false
 }
+
 
 </script>
 
@@ -745,7 +778,7 @@ thead th{
         display: inline-block;
         position: absolute;
         z-index: 10;
-        right: 15%;
+        left: 20%;
         width: 40px !important;
         padding-left: 0 !important;
         min-height: 25px !important;
@@ -851,6 +884,11 @@ thead th{
         content: attr(data-content);
         top:25%;
     }
+	.selectCheck{
+		width: 1.5rem !important;
+		height: 1.5rem !important;
+	}
+
     /* .noTd:before{
         display:none; 
     }

@@ -1,0 +1,124 @@
+{   
+    "tab":{
+        "basic_info":"Thông tin cơ bản",
+        "payment":"Thanh toán",
+        "confirm":"Xác nhận"
+    },
+    "plan":{
+        "trial":"dùng thử",
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium",
+        "dealer":"Người bán hàng"
+    },
+
+    "basic_info":{
+        "plan":"Gói dịch vụ đăng ký",
+        "plan_options":{
+            "lite":"Lite (70.000 đồng/tháng)",
+            "standard":"Standard (160.000 đồng/tháng)",
+            "premium":"Premium (Từ 100.000 đồng/tháng)"
+        },
+        "period":"Thời gian sử dụng",
+        "period_options":{
+            "year":"Hàng năm (giảm giá 10%)",
+            "quarter":"Hàng quý"
+        },
+        "first_name":"Họ",
+        "last_name":"Tên",
+        "country_code":"Mã quốc gia",
+        "code_Options":{
+            "MY": "(MY) +60" , 
+            "ID": "(ID) +62" , 
+            "PH": "(PH) +63" , 
+            "SG": "(SG) +65" , 
+            "TW": "(TW) +886"
+        },
+        "number":"Số điện thoại",
+        "email":"Email",
+        "password":"Mật khẩu",
+        "confirm_password":"Xác nhận lại mật khẩu",
+        "target_country":"Quốc gia",
+        "country_Options":{
+            "Australia": "Úc",
+            "Cambodia": "Campuchia",   
+            "Canada": "Canada" ,
+            "Hong Kong": "Hồng Kông",
+            "Indonesia": "Indonesia",
+            "Korea": "Hàn Quốc",
+            "Malaysia": "Malaysia" , 
+            "Philippines": "Philippines" , 
+            "Singapore": "Singapore" , 
+            "Taiwan": "Đài Loan" , 
+            "Thailand": "Thái Lan" , 
+            "United State": "Hoa Kỳ" , 
+            "Vietnam": "Việt Nam"
+        },
+        "required_field": "Trường này là bắt buộc",
+        "password_err":"Mật khẩu không trùng khớp",
+        "welcome_gift": "Bạn đủ điều kiện để nhận quà chào mừng (giảm giá 5%)",
+        "promocode_question":"Bạn có mã giảm giá?",
+        "promocode":"Mã giảm giá",
+        "policy":{
+            "accept": "Tôi đồng ý",
+            "terms": "Điều khoản",
+            "&": "&",
+            "conditions":"Điều kiện"
+        },
+        "home":"Trang chủ",
+        "next":"Tiếp theo"
+    },
+    "payment":{
+        "selected_plan":"Gói đã chọn",
+        "proration":"Xác nhận và điều chỉnh",
+        "payment_total":"Tổng phải thanh toán",
+        "period":"Thời gian sử dụng",
+        "privious":"Trở về",
+        "confirm_payment":"Xác nhận thanh toán",
+        "current_plan":"Gói dịch vụ gần đây",
+        "year":"Hàng năm",
+        "quarter":"Hàng quý",
+        "payment_method":{
+            "card":"thẻ tín dụng",
+            "direct":"Thanh toán trực tiếp"
+        },
+        "stripe":{
+            "stripe_success":"Thành công! Chúng tôi đã nhận được thanh toán",
+            "stripe_process":"Đang xử lý thanh toán. Vui lòng không làm mới trang và đợi trong khi chúng tôi xử lý thanh toán của bạn.",
+            "stripe_failed":"Thanh toán không thành công. Vui lòng thử một phương thức thanh toán khác.",
+            "stripe_err":"Đã xảy ra lỗi."
+        }, 
+        "direct":{
+            "bank_name":"tên ngân hàng",
+            "payment_info":"Thông tin thanh toán", 
+            "account":"Tài khoản",
+            "account_number":"Số tài khoản",
+            "account_name":"Tên tài khoản",
+            "note":"Ghi chú",
+            "beneficiary":"Ngân hàng thụ hưởng",
+            "upload_img":"Thả tệp vào đây hoặc nhấp để tải lên",
+            "accepted_types":"Loại tệp tin",
+            "max_size":"Kích thước tệp tối đa",
+            "last_five_digits":"5 số cuối thẻ",
+            "digits_message":"Vui lòng nhập chính xác 5 số cuối",
+            "complete_order":"Tải lên & Hoàn thành đơn hàng"
+        }
+        
+    },
+    "confirm":{
+        "succeeded":"Thanh toán thành công",
+        "Email":"Email",
+        "Customer Name":"Tên khách hàng",
+        "Password":"Mật khẩu",
+        "Your Plan":"Gói dịch vụ của bạn",
+        "Target Country": "Quốc gia",
+        "Subscription Period":"Thời gian sử dụng",
+        "Subscription End Date":"Ngày hết hạn sử dụng",
+        "download":"Tải xuống biên lai",
+        "thankyou":"Cảm ơn bạn đã thanh toán. Gói dịch vụ của bạn đã được thay đổi" 
+    },
+    "invalid_data":"Gửi đi không hợp lệ",
+    "input_err":"Lỗi đầu vào",
+    "input_required":"Yêu cầu đầu vào",
+    "password_length":"Mật khẩu có độ dài từ 8 đến 20 kí tự"
+}

@@ -35,7 +35,8 @@
             "Value_is_required":"此欄位必填",
             "Value_must_be_numeric":"輸入必須為數字",
             "minValue":"輸入數字無效",
-            "required":"此欄位必填"
+            "required":"此欄位必填",
+            "integer":"請輸入整數"
         }
         
     },
@@ -44,7 +45,8 @@
         "payment_titles":{
             "direct_payment":"轉帳付款",
             "stripe":"Stripe付款",
-            "hitpay":"Hitpay付款"
+            "hitpay":"Hitpay付款",
+            "paypal":"Paypal付款"
         },
 
         "direct_payment":{
@@ -63,6 +65,11 @@
             "currency":"貨幣",
             "api_key":"API 密鑰",
             "salt":"密碼"
+        },
+        "paypal":{
+            "currency":"貨幣",
+            "cliend_id":"客戶ID",
+            "secret":"密鑰"
         },
 
         "payment_details":"金流設定",
@@ -102,13 +109,14 @@
         "payment":"金流"
     },
     "notes":{
-        "notes":"備註",
+        "notes":"通用",
         "delivery_note":"運送說明",
         "special_note":"購物說明",
         "confirmation_note":"訂單說明",
         "discard":"取消",
         "save":"儲存",
-        "update": "更新"
+        "update": "更新",
+        "modify":"編輯"
     },
     "localization":{
         "title": "本地化",
@@ -118,7 +126,8 @@
             "SG":"新加坡",
             "ID":"印尼",
             "IN":"印度",
-            "TW":"台灣"
+            "TW":"台灣",
+            "VN":"越南"
         },
         "currency_symbol":"貨幣符號",
         "seller_language":"賣家語言",
@@ -126,7 +135,8 @@
             "en":"英語",
             "zh_hant":"繁體中文",
             "zh_hans":"簡體中文",
-            "id":"印尼文"
+            "id":"印尼文",
+            "vi":"越南文"
         },
         "buyer_language":"買家語言",
         "choose_language":"選擇語言",
@@ -135,10 +145,10 @@
         "decimal_places":"小數位數",
         "discard":"取消",
         "save":"儲存",
-        "price_unit":"價錢單位",
-        "choose_price_unit":"選擇價錢單位",
+        "price_unit":"貨幣單位",
+        "choose_price_unit":"選擇貨幣單位",
         "priceOptions":{
-            "1":"無",
+            "1":"標準",
             "1000":"K",
             "1000000":"M"
         }

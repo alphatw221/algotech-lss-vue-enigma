@@ -7,7 +7,11 @@
 	  
       <div class="flex">
         <div class="mr-auto">{{$t('shopping_cart.order_summary.subtotal')}}</div>
-        <div class="font-medium" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ parseFloat(store.order.subtotal).toFixed(store.order.campaign.user_subscription.decimal_places) }}</div>
+        <div class="font-medium" v-if="store.order.campaign||false">
+          {{store.order.campaign.currency}} 
+          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.subtotal)):parseFloat(store.order.subtotal).toFixed(store.order.campaign.decimal_places) }}
+          {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+        </div>
       </div>
       <div class="flex mt-4">
 
@@ -18,14 +22,22 @@
         </div>
         <div class="mr-auto" v-else>{{$t('shopping_cart.order_summary.price_adjustment')}}</div>
 
-        <div class="font-medium text-danger" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ parseFloat(store.order.adjust_price).toFixed(store.order.campaign.user_subscription.decimal_places) }}</div>
+        <div class="font-medium text-danger" v-if="store.order.campaign||false">
+          {{store.order.campaign.currency}} 
+          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.adjust_price)):parseFloat(store.order.adjust_price).toFixed(store.order.campaign.decimal_places) }}
+          {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+        </div>
       </div>
       
       <div v-if="store.shipping_info.shipping_method !== 'pickup'"
         class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">
         <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
-        <div class="font-medium" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ shippingCost }}</div>
+        <div class="font-medium" v-if="store.order.campaign||false">
+          {{store.order.campaign.currency}} 
+          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(shippingCost)):parseFloat(shippingCost).toFixed(store.order.campaign.decimal_places) }}
+          {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+        </div>
       </div>
       <div v-if="shippingCost === 0 && store.shipping_info.shipping_method !== 'pickup'" class="text-red-600 text-sm">{{$t('shopping_cart.order_summary.free_delivery')}}</div>
       <div
@@ -38,7 +50,11 @@
         "
       >
         <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
-        <div class="font-medium text-base" v-if="store.order.campaign||false">{{store.order.campaign.currency}} {{ parseFloat(cartTotal).toFixed(store.order.campaign.user_subscription.decimal_places) }}</div>
+        <div class="font-medium text-base" v-if="store.order.campaign||false">
+          {{store.order.campaign.currency}} 
+          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(cartTotal)):parseFloat(cartTotal).toFixed(store.order.campaign.decimal_places) }}
+          {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+        </div>
       </div>
     </div>
     <div class="flex mt-5" v-if="store.openTab === 1">
@@ -80,7 +96,7 @@ const updateOrderSummary = ()=>{
     console.log('update order summary')
     if (store.shipping_info.shipping_method=='pickup'){
       shippingCost.value = 0
-      cartTotal.value = parseFloat(store.order.subtotal + store.order.adjust_price ).toFixed(store.order.campaign.user_subscription.decimal_places)
+      cartTotal.value = parseFloat(store.order.subtotal + store.order.adjust_price ).toFixed(store.order.campaign.decimal_places)
       return
     }
 

@@ -11,6 +11,18 @@
                 </tr>
             </thead>
             <tbody >
+                <tr v-if="campaignDetailStore.campaignProducts.length== 0" class="trDot">
+                    <td :colspan="tableColumns.length" class="trDot">
+						<div class="mt-5 text-center md:mt-40" >
+							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
+								{{ $t('edit_campaign_product.campaign_product_table.no_product') }}
+							</h1>
+							<h1 class="text-slate-500 text-sm md:text-lg">
+								{{ $t('edit_campaign_product.campaign_product_table.set_up_first') }}
+							</h1>
+						</div>
+					</td> 
+                </tr>
                 <tr v-for="(campaign_product, index) in campaignDetailStore.campaignProducts" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
 
@@ -40,7 +52,7 @@
 
                         <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div>
-                                {{ campaign_product[column.key] }}   
+                                {{ campaign_product[column.key] }}    
                             </div>
                         </td>
 
@@ -51,7 +63,10 @@
                         </td>
 
                         <td v-else-if="column.key === 'price'" class="price" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                                <div class="whitespace-nowrap">{{ layoutStore.userInfo.user_subscription.currency }} {{ parseFloat(campaign_product[column.key]).toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div>
+                                <div class="whitespace-nowrap" v-if="campaignDetailStore.campaign">
+                                    {{ campaignDetailStore.campaign.currency }}
+                                    {{ campaignDetailStore.campaign.decimal_places=='0'?Math.trunc(parseFloat(campaign_product[column.key])):parseFloat(campaign_product[column.key]).toFixed(campaignDetailStore.campaign.decimal_places)}}
+                                    {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}</div>
                         </td>
 
                         <td v-else-if="column.key === 'name'" class="text-[12px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage">
@@ -99,9 +114,9 @@
                         </td>
 
                         <td v-else-if="column.key === 'edit'" class="edit " :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class="flex place-content-center sm:place-content-center">
+                            <div class="flex place-content-end sm:place-content-center">
                                 <button 
-                                    class="btn btn-outline-secondary mr-auto sm:mr-1 h-[35px] sm:h-[42px]"
+                                    class="btn btn-outline-secondary mr-1 h-[35px] sm:h-[42px]"
                                     type="button" 
                                     @click="showEditCampaignProductModal(campaign_product, index)" 
                                 > 
@@ -154,6 +169,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed, defineProps } from 'vue';
 import { seller_list_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
+import { retrieve_campaign } from '@/api_v2/campaign'
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
@@ -173,6 +189,7 @@ const route = useRoute()
 const dataCount = ref(0)
 const currentPage = ref(1)
 const pageSize = ref(10)
+const showNoti = ref(false)
 
 
 const tableColumns = ref([
@@ -198,10 +215,12 @@ const payloadBuffer = ref({})
 onMounted(() => {
 
     search()
+    getCampaignDetail()
     eventBus.on(props.eventBusName, (payload) => {
         payloadBuffer.value=payload
         currentPage.value = 1
         search()
+        console.log(dataCount.value)
     })
 })
 
@@ -245,6 +264,11 @@ const deleteProduct = (campaign_product, index) => {
     })
 }
 
+const getCampaignDetail = ()=>{
+	retrieve_campaign(route.params.campaign_id).then(res=>{
+		campaignDetailStore.campaign = res.data
+	}) 
+}
 
 </script>
 
@@ -280,6 +304,10 @@ thead th {
 }
 .form-check-input {
     border-color: rgb(128, 128, 128) !important;
+}
+
+.trDot{
+	box-shadow: none !important;
 }
 
 @media only screen and (max-width: 760px),
@@ -324,7 +352,7 @@ thead th {
         min-height: 30px !important;
         border: none;
         position: relative;
-        padding-left: 50% !important;
+        padding-left: 50%;
         text-align: right !important;
         box-shadow: none !important;
         font-size: 14px;
@@ -435,6 +463,7 @@ thead th {
     }
     .edit{
         min-height: 40px !important;
+        z-index: inherit;
     }
     /* .edit{
         display:block;
@@ -442,5 +471,14 @@ thead th {
        top:25% !important;
         margin-top: 0 !important;
     } */
+    .trDot:before{
+        display: none;
+    }
+    .trDot{
+        display: inline-block;
+        padding-left: 0px;
+        padding: 20px !important;
+        height: 30vh;
+    }
 }
 </style>

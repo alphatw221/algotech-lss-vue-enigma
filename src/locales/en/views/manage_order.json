@@ -28,13 +28,13 @@
                 "customer" : "Customer",
                 "platform" : "Platform",
                 "name" : "Name",
-                "order_number" : "Order No",
+                "order_number" : "Order No.",
                 "action":"Action",
                 "delivery_notification":"Notification",
                 "null":""
         },
         "product_modal":{
-                "order_no":"Order No",
+                "order_no":"Order No.",
                 "price":"Price",
                 "qty":"Qty",
                 "product":"Product",
@@ -48,7 +48,9 @@
                 "payment":{
                         "payment":"Payment",
                         "Direct Payment":"Direct Payment",
-                        "stripe":"Stripe"
+                        "stripe":"Stripe",
+                        "hitpay":"Hitpay",
+                        "paypal":"Paypal"
                 },
                 "delivery":{
                         "status":"Delivery Status",

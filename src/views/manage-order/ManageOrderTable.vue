@@ -48,16 +48,16 @@
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
                                         <img class="rounded-full" :src="order.customer_img"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/youtube.png' >
+                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                         <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/youtube.png' >
+                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
                                 <div v-else class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
                                         <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
@@ -69,22 +69,27 @@
                             <div class="flex flex-col sm:flex-row place-content-center">
                                 <a class="flex image-fit" @click="copyURL(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
-                                    <Share2Icon class="block sm:mx-auto"/>
+                                    <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
+                                        <Share2Icon class="block sm:mx-auto"/>
+                                    </Tippy>
                                 </a>
                                 <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_order_detail(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
-                                    <EyeIcon class="block sm:mx-auto"/>
+                                    <Tippy  :content="$t('tooltips.manage_order.view_icon')" :options="{ theme: 'light' }"> 
+                                        <EyeIcon class="block sm:mx-auto"/>
+                                    </Tippy>
                                 </a>
-                                
                             </div>
                         </template>
                         <template v-else-if="column.key === 'delivery'">
                             <div class="flex place-content-center">
                                 <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
-                                    <TruckIcon />
+                                  <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> <TruckIcon /> </Tippy>  
                                 </a>
                                 <a class="w-fit h-fit image-fit" v-show="order.status === 'shipping out'">
-                                    <TruckIcon style="color:#BABABA" class="cursor-not-allowed"/>
+                                   <Tippy  :content="$t('manage_order.complete')" :options="{ theme: 'light' }">
+                                        <TruckIcon style="color:#BABABA" class="cursor-not-allowed"/>
+                                    </Tippy> 
                                 </a>
                             </div>
                         </template>
@@ -99,12 +104,16 @@
                         <template v-else-if="column.key === 'order_product'">
                             <div class="flex place-content-center">
                                 <a class="text-black w-fit h-fit image-fit">
-                                    <ChevronRightIcon @click="orderProductModal(order.id,order.type)"/>
+                                    <Tippy  content="product details" :options="{ theme: 'light' }">
+                                        <ChevronRightIcon @click="orderProductModal(order.id,order.type)"/>
+                                    </Tippy>
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal'" class="text-right">
-                            ${{ (order.total).toFixed(layoutStore.userInfo.user_subscription.decimal_places) }}
+                        <template v-else-if="column.key === 'subtotal' && store.campaign" class="text-right">
+                            {{store.campaign.currency}}
+                            {{ store.campaign.decimal_places=='0'?Math.trunc(parseFloat(order.total)):parseFloat(order.total).toFixed(store.campaign.decimal_places) }}
+                            {{store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             {{ order[column.key] == 'Direct Payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : order[column.key] }}
@@ -175,7 +184,7 @@ function search(searchValue,data,tableStatus){
     manage_order_list(route.params.campaign_id,searchValue,page,page_size,tableStatus,data).then(
         res => {
 			store[tableStatus] = res.data.data
-            console.log( res.data)
+            console.log(res.data)
             store.data_count[tableStatus] = res.data.count;
             if (res.data.count != 0) {
                 let totalPage = parseInt(res.data.count / page_size);

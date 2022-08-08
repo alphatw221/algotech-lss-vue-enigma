@@ -4,6 +4,9 @@
             <h2 class="font-medium text-base m-auto ">
                 {{$t('edit_campaign_product.edit_product_modal.edit_campaign_product')}}
             </h2>
+            <a @click="hideModal()" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
+                <XIcon class="w-8 h-8 text-slate-400" />
+            </a>
         </ModalHeader>
         <ModalBody class="grid grid-cols-12 gap-3">
             <template v-for="(column, index) in tableColumns" :key="index">
@@ -17,13 +20,23 @@
                             v-model="campaignProduct[column.key]" 
                         />
                     </template>
+
                     <template v-else-if="column.key === 'type'">
-                        <select class="form-select" v-model="campaignProduct[column.key]">
+
+                        <select class="form-select" v-model="campaignProduct[column.key]" >
                             <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
                                 {{$t(`edit_campaign_product.edit_product_modal.types.${type.value}`)}}
                             </option>
                         </select> 
                     </template> 
+
+                     <template  v-else-if="column.key === 'price'">
+                        <input type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
+                    </template>
+
+                    <template  v-else-if="column.key === 'order_code'">
+                        <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
+                    </template>
 
                     <template v-else>
                         <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
@@ -35,7 +48,6 @@
                                 {{ $t(`edit_campaign_product.edit_product_modal.errors.${error.$validator}`) }}
                             </label>
                         </template>
-                        
                     </template>
                 </div>
             </template>
@@ -90,7 +102,7 @@ const campaignProductRules = computed(() => {
         order_code:{required},
         qty_for_sale:{required , integer, minValue:minValue(1)},
         max_order_amount:{integer, minValue:minValue(0), maxValue:maxValue(campaignProduct.value.qty_for_sale)},
-        price:{required, decimal, minValue:minValue(0) },
+        // price:{required, decimal, minValue:minValue(0) },
     }
 })
 

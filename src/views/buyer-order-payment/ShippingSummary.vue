@@ -19,8 +19,8 @@
         <template v-if="store.order.shipping_method === 'pickup'">
             <div class="flex mt-4 mr-auto">{{$t('shopping_cart.payment.pickup')}}</div>
             <div class="flex mt-4"> 
-                <span class="mr-10">{{ store.order.shipping_option }}</span>
-                <div >{{store.order.pickup_address}}</div>
+                <span class="mr-10">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].name}}</span>
+                <div >{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].address}}</div>
             </div>
             
         </template>

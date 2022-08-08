@@ -12,7 +12,7 @@
 
         <div class="my-5 lg:my-0 p-5 rounded-md border-2 border-slate">
             <div v-if="props.payment.fields==''"> 
-                Add your ${props.payment.key} account
+                Add your {{props.payment.key}} account
             </div>
             <div 
                 class="flex-col flex gap-2 my-2 intro-y w-full" 
@@ -44,7 +44,7 @@
                 class="btn btn-primary w-32 shadow-md ml-auto mt-7 "
                 @click="updatePayment()"
             > 
-                Update
+                {{ $t('settings.payment_form.update') }} 
             </button>
         </div>
        

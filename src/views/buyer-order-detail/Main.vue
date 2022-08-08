@@ -73,10 +73,10 @@
                             <div class="col-start-3 col-span-3 py-2">{{$t('order_detail.delivery.pickup')}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_store')}}</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.shipping_option}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].name}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.pickup_address}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].address}}</div>
                         </template>
                         <template v-else-if="store.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.information')}}</div>
@@ -103,19 +103,35 @@
                 <div class="grid grid-cols-3 gap-2 p-3 text-right">
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
-                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.subtotal).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
+                        <div v-if="store.order.campaign">
+                            {{store.order.campaign.currency}} 
+                            {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.subtotal)):parseFloat(store.order.subtotal).toFixed(store.order.campaign.decimal_places)}}
+                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                        </div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.delivery_charge')}}</div>
-                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.shipping_cost).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
+                        <div v-if="store.order.campaign">
+                            {{store.order.campaign.currency}} 
+                            {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.shipping_cost)):parseFloat(store.order.shipping_cost).toFixed(store.order.campaign.decimal_places)}}
+                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                        </div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}} {{store.order.adjust_title ?? ''}}</div>
-                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.adjust_price).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
+                        <div v-if="store.order.campaign">
+                            {{store.order.campaign.currency}} 
+                            {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.adjust_price)):parseFloat(store.order.adjust_price).toFixed(store.order.campaign.decimal_places)}}
+                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                        </div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.total')}}</div>
-                        <div v-if="store.order.campaign">{{store.order.campaign.currency}} {{parseFloat(store.order.total).toFixed(store.order.campaign.user_subscription.decimal_places)}}</div>
+                        <div v-if="store.order.campaign">
+                            {{store.order.campaign.currency}} 
+                            {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.total)):parseFloat(store.order.total).toFixed(store.order.campaign.decimal_places)}}
+                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                        </div>
                     </div>
                 </div>
             </div>
@@ -128,11 +144,12 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 // import OrderSummary from "@/components/box/OrderSummary.vue";
 import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { buyer_retrieve_order_with_user_subscription, guest_retrieve_order_with_user_subscription } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useCookies } from 'vue3-cookies'
+const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
@@ -145,7 +162,8 @@ onMounted(() => {
     retrieve_order(route.params.order_oid)
     .then(
         res => { 
-            store.order = res.data 
+            store.order = res.data
+            i18n.locale = res.data.campaign.lang
             console.log(res.data)
         }
     )

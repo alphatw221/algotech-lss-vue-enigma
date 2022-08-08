@@ -64,7 +64,7 @@
                                 <span class="mr-0.5"> {{[index+1].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}} </span>  
                                 {{ product.name }}</td>
                             <template v-if="product.type === 'lucky_draw'">
-                                <td></td>
+                                <td class="font-medium"> *Prize*</td>
                             </template>
                             <template v-else>
                                 <td>{{ product.order_code }}</td>
@@ -73,7 +73,11 @@
                                 <b>{{ product.qty_add_to_cart }}</b> / <b>{{ product.qty_sold }}</b> / <b>{{ product.qty_for_sale - product.qty_sold }}</b>
                             </td>
                             <!-- currency_sign reference from user_subscription -->
-                            <td>{{ product.currency_sign }}{{ product.price }}</td>  
+                            <td v-if="store.campaign">
+                                {{ store.campaign.currency }}
+                                {{ store.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.campaign.decimal_places)}}
+                                {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
+                            </td>  
                             <td class="status_active">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input

@@ -12,7 +12,7 @@
 			</div>
 			<button 
 				type="button"
-				class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-md btn btn-warning rounded-full mb-5" 
+				class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
 				@click="router.push({name: 'add-product'})"
 				>
 				<template class="hidden sm:block"><span class="mr-1 text-lg font-bold">+</span> {{ $t('stock.add_product') }} </template>

@@ -1,8 +1,8 @@
 {
-    "edit_campaign_product":"Edit Campaign Product",
+    "edit_campaign_product":"Chỉnh sửa sản phẩm trong chiến dịch",
     "add_product":"Thêm sản phẩm",
-    "continue":"Continue",
-    "invalid":"Invalid",
+    "continue":"Tiếp tục",
+    "invalid":"không hợp lệ",
     "search_bar":{
         "category":"Loại",
         "all":"Tất cả"
@@ -25,25 +25,27 @@
             "product-fast":"Sản phẩm",
             "lucky_draw-fast":"Quà tặng minigame",
             "lucky_draw":"Quà tặng minigame"
-        }
+        },
+        "no_product":"No product in this campaign yet.",
+        "set_up_first":"Click \"+ Add Product\" to assign product into this campaign."
     },
    
     "edit_product_modal":{
-        "edit_campaign_product":"Edit Campaign Product",
+        "edit_campaign_product":"Chỉnh sửa sản phẩm trong chiến dịch",
 
         
         "name":"Tên",
         "type":"Loại sản phẩm",
         "order_code":"Mã đơn hàng",
-        "qty_for_sale":"Qty For Sale",
-        "max_order_amount":"Max Order Amount",
+        "qty_for_sale":"Số lượng bán hàng",
+        "max_order_amount":"Số lượng đơn hàng tối đa",
         "tag":"Loại",
         "price":"Giá bán",
         "customer_editable":"Có thể chỉnh sửa",
         "customer_removable":"Có thể xóa",
 
         "cancel":"Hủy bỏ",
-        "update":"Update",
+        "update":"Cập nhật",
         "types":{
             "product":"Sản phẩm",
             "product-fast":"Sản phẩm",
@@ -51,13 +53,13 @@
             "lucky_draw":"Quà tặng minigame"
         },
         "errors":{
-            "integer":"Invalid data",
-            "decimal":"Invalid data",
-            "minValue":"Invalid number",
-            "maxValue":"Invalid number",
-            "required":"This field is Required"
+            "integer":"Dữ liệu không hợp lện",
+            "decimal":"Dữ liệu không hợp lện",
+            "minValue":"Số không hợp lệ",
+            "maxValue":"Số không hợp lệ",
+            "required":"Trường này là bắt buộc"
         },
-        "invalid_data":"Invalid Data",
-        "update_successfully":"Update Successfully"
+        "invalid_data":"Dữ liệu không hợp lện",
+        "update_successfully":"Cập nhật thành công"
     }
 }

@@ -4,7 +4,7 @@
         type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="google-login-btn" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_youtube')}}</Button>
+        type="button" class="google-login-btn shadow-lg" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_youtube')}}</Button>
     
     
 </template>

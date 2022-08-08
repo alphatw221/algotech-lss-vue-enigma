@@ -58,7 +58,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		icon:"static/payment/hitpay/icon.png",
 		fields:[
                 // {key:"button_title", type:"text", name:"Button Title", dataType:"string", default:''},
-                {key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'USD', 'NTD'], dataType:"string", default:'USD'},
+                {key:"currency", type:"select", name: "Currency", options:['SGD'], dataType:"string", default:'SGD'},
                 {key:"api_key", type:"text", name:"API Key", dataType:"string", default:''},
                 {key:"salt", type:"text", name:"Salt", dataType:"string", default:''}
             ],
@@ -66,6 +66,22 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			type:'gateway',
 			endpoint:'getHitpayGateway',
 		}
+	},
+	paypal:{
+		multiple:false,
+		name:"Paypal",
+		key:"paypal",
+		icon:"static/payment/paypal/icon.jpeg",
+		fields:[
+			{key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'NTD'], dataType:"string", default:'SGD'},
+			{key:"client_id", type:"text", name:"Client ID", dataType:"string", default:''},
+			{key:"secret", type:"text", name:"Secret", dataType:"string", default:''}
+		],
+		handle:{
+			type:'gateway',
+			endpoint:'getPaypayGateway',
+		}
+
 	},
 	// first_data : {
 	// 	multiple:false,
@@ -84,19 +100,19 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 	// },
 
 
-    SG : ['direct_payment', 'stripe', 'hitpay'],
+    SG : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
     
-    ID :['direct_payment', 'stripe', 'hitpay'],
+    ID :['direct_payment', 'stripe', 'hitpay', 'paypal'],
 
-    MY : ['direct_payment', 'stripe', 'hitpay'],
+    MY : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
     
-    IN : ['direct_payment', 'stripe', 'hitpay'],
+    IN : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
     
-    PH : ['direct_payment', 'stripe', 'hitpay'],
+    PH : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
 
-    VN : ['direct_payment', 'stripe', 'hitpay'],
+    VN : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
 
-    TW : ['direct_payment', 'stripe', 'hitpay'],
+    TW : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
 
     CN : ['direct_payment', 'stripe'],
 

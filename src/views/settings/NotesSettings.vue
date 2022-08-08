@@ -12,7 +12,16 @@
             </TomSelect>
         </div>
         <div class="flex my-3 mt-5 form-label text-base font-medium">
-            <div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
+            <div class="my-auto"> {{$t("settings.localization.buyer_language")}}</div>
+            <Tippy 
+                class="rounded-full w-30 whitespace-wrap" 
+                data-tippy-allowHTML="true" 
+                data-tippy-placement="right" 
+                :content="$t('tooltips.settings.local.buyer_lang')" 
+                theme='light'
+            > 
+                <HelpCircleIcon class="w-8 ml-1 mt-0.5 tippy-icon" />
+            </Tippy> 
         </div>
         <div class="flex my-1">
             <TomSelect v-model="generalInfo.buyer_lang" :options="{
@@ -24,7 +33,7 @@
 
         <div class="flex my-3 mt-5 form-label text-base font-medium">
             <div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
-        </div>
+        </div> 
 
         <div class="flex my-1">
             <TomSelect v-model="generalInfo.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
@@ -53,14 +62,14 @@
                             </span>
                         </div>
                         <div>
-                            <EditIcon class="h-6" />
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
                         </div>
                     </div>
                 </Accordion>
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
-                        class="h-48 p-2 mr-5 form-control indent-4"
-                        :placeholder="`${$t('settings.notes.delivery_note')}...`"
+                        class="h-48 p-2 mr-5 form-control"
+                        :placeholder="$t('tooltips.settings.note.delivery_note')"
                         v-model="generalInfo.delivery_note"
                     >
                     </textarea>
@@ -76,14 +85,14 @@
                             </span>
                         </div>
                         <div>
-                            <EditIcon class="h-6" />
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
                         </div>
                     </div>
                 </Accordion>
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
-                        class="h-48 p-2 mr-5 form-control indent-4" 
-                        :placeholder="`${$t('settings.notes.special_note')}...`"
+                        class="h-48 p-2 mr-5 form-control" 
+                        :placeholder="$t('tooltips.settings.note.special_note')"
                         v-model=" generalInfo.special_note"
                     >
                     </textarea>
@@ -99,14 +108,14 @@
                             </span>
                         </div>
                         <div>
-                            <EditIcon class="h-6" />
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
                         </div>
                     </div>
                 </Accordion>
                 <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
                     <textarea 
-                        class="h-48 p-2 mr-5 form-control indent-4"
-                        :placeholder="`${$t('settings.notes.confirmation_note')}...`"
+                        class="h-48 p-2 mr-5 form-control"
+                        :placeholder="$t('tooltips.settings.note.confirm_note')"
                         v-model="generalInfo.confirmation_note"
                     >
                     </textarea>
@@ -162,34 +171,40 @@ const priceUnitOptions = ref([
 
 const languages = ref([
     {value:'en',text:'English'},
-    // {value:'zh_hans',text:'Chinese-simplify'},
+    {value:'zh_hans',text:'Chinese-simplify'},
     {value:'zh_hant',text:'Chinese-tranditional'},
+    {value:'vi',text:'Vietnamese'},
     // {value:'id',text:'Indonesian'}
 ])
 
 const decimalOptions = ref([
     {value:'2',text:'0.01'},
-    // {value:'1',text:'0.1'},
     {value:'0',text:'1'},
-    // {value:'-1',text:'10'},
-    // {value:'-2',text:'100'},
-    // {value:'-3',text:'1000'}
     ])
 
-const generalInfo = ref({currency:'USD', lang:'en', buyer_lang:'en', decimal_places:2, price_unit:'1',confirmation_note:'',delivery_note:'',confirmation_note:''})
+const generalInfo = ref({
+    currency:'USD', 
+    lang:'en', 
+    buyer_lang:'en', 
+    decimal_places:'0', 
+    price_unit:'1',
+    confirmation_note:'',
+    delivery_note:'',
+    confirmation_note:''})
 
 
 onMounted(() => {
     get_general_info().then(response => {
-        console.log(response.data)
+
         generalInfo.value = response.data
+        generalInfo.value.decimal_places = response.data.decimal_places.toString()  //temp   TomSelect only work with string value
     })
+    
 })
 
 
 
 const update = () => {
-
     update_general_info(generalInfo.value).then(res => {
         layoutStore.userInfo = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))

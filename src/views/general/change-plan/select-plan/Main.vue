@@ -96,12 +96,12 @@
             </div>
         </form>
 
-        <div class="flex justify-between mt-10">
-            <button class="w-32 btn dark:border-darkmode-400" @click="this.$router.back()">
+        <div class="flex justify-between my-10">
+            <!-- <button class="w-32 btn dark:border-darkmode-400" @click="this.$router.back()">
                 {{$t('change_plan.step_1.back')}}
-            </button>
+            </button> -->
             <button 
-                class="w-32 ml-5 shadow-md btn btn-primary"
+                class="w-32 ml-auto shadow-md btn btn-primary"
                 @click="submitBasicInfo()">
                 {{$t('change_plan.step_1.next')}}
             </button>

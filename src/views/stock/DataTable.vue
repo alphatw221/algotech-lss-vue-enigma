@@ -24,20 +24,20 @@
 					</td>
 					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('stock.dont_have_product_notify') }}
 							</h1>
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+							<h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('stock.click_to_add') }}
 							</h1>
 						</div>
 					</td> 
 					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg font-bold">
+							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('stock.no_result') }}
 							</h1>
-							<h1 class="text-slate-500 text-sm capitalize md:text-lg">
+							<h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('stock.click_to_add') }}
 							</h1>
 						</div>
@@ -52,9 +52,9 @@
 				>	
 					<template v-for="column,index in tableColumns" :key="index"> 
 
-						<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="flex justify-center">
-								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 " v-if="product.image">
+								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 " v-if="product.image">
 									<Tippy 
 										tag="img"
 										class="w-full rounded-lg"
@@ -63,7 +63,7 @@
 										data-action="zoom"
 									/>
 								</div>
-								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 2xl:w-12 " v-else>
+								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12" v-else>
 									<Tippy 
 										tag="img"
 										class="w-full rounded-lg"
@@ -90,7 +90,10 @@
 						</td>
 
 						<td v-else-if="column.key === 'price'" class="w-full sm:w-fit qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div class="text-right">{{layoutStore.userInfo.user_subscription.currency}} {{product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}</div> 
+							<div class="text-right">
+								{{layoutStore.userInfo.user_subscription.currency}} 
+								{{layoutStore.userInfo.user_subscription.decimal_places=='0'?Math.trunc(product[column.key]):product[column.key].toFixed(layoutStore.userInfo.user_subscription.decimal_places)}}
+								{{layoutStore.userInfo.user_subscription.price_unit?$t(`global.price_unit.${layoutStore.userInfo.user_subscription.price_unit}`):''}}</div> 
 						</td>
 
 						<td v-else-if="column.key === 'edit'"  class="w-24 table-report__action edit" :data-content="$t(`stock.table_column.${column.key}`)" >
@@ -122,7 +125,7 @@
 			</tbody>
 		</table> 
 	</div>
-	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap">
+	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10">
 		<Page 
 			class="mx-auto my-3"
 			:total="dataCount" 
@@ -235,6 +238,7 @@ const hideDropDown = ()=>{
 const deleteProduct = (id) => {
 	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
 	if (yes) delete_product(id).then(res => { search() })
+	hideDropDown()
 }
 </script>
 

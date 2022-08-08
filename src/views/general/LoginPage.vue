@@ -1,6 +1,6 @@
 <template>
 <div class="board bg-white"> 
-    <div class="round "> 
+    <div class="round"> 
         <img src="/src/assets/images/login-page/bg.svg" class="whiteCircle" />
         <img src="/src/assets/images/login-page/robot.svg"  class="robot hidden sm:block" />    
     </div>
@@ -8,31 +8,36 @@
 <div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] float-center sm:float-right"> 
     <div class="flex flex-col items-center p-10 text-center center w-[375px]">
         <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
-        <h3 class="text-[2rem] mx-auto my-10" >Login</h3>
+        <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >Login</h3>
         <form class="w-full flex-col flex gap-5 z-10">
-            <input
-                type="email"
-                class="form-control py-3 px-4 border-slate-500"
-                placeholder="Email"
-                v-model="loginData.email"
-                @keydown.enter.prevent="signIn()"
-              />
-              <input
-                type="password"
-                class="form-control py-3 px-4 border-slate-500"
-                placeholder="Password"
-                v-model="loginData.password"
-                @keydown.enter.prevent="signIn()"
-              />
-            <div class="login_form">
-                <button type="button" class="w-full h-[42px] text-lg text-white btn bg-red-500" @click="signIn()" >Sign in</button>
+            <div class="relative"> 
+                <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
+                <input type="email" class="h-[45px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
+                    placeholder="Email" 
+                    v-model="loginData.email" 
+                    @keydown.enter.prevent="signIn()" />
             </div>
+            <div class="relative"> 
+                <input class="h-[45px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
+                    placeholder="Password" 
+                    v-model="loginData.password"
+                    :type="showPassword ? 'text' : 'password'" 
+                    @keydown.enter.prevent="signIn()" />
+                <EyeOffIcon v-if="showPassword"
+                    @click="showPassword = !showPassword" 
+                    class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400" /> 
+                <EyeIcon v-else
+                    @click="showPassword = !showPassword"
+                    class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"
+                    />
+            </div>
+            <button type="button" class="w-full h-[42px] text-lg text-white btn bg-red-500" @click="signIn()" >Sign in</button>
         </form>
 
-        <a class="mx-auto item-center text-[16px] mt-10 font-medium" @click="router.push({ name: 'PasswordForgot' })">forgot password ?</a>
+        <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forgot' })">forgot password ?</a>
 
         <div class="flex flex-col items-center mt-3 font-medium">
-            <div class="text-[16px]">No Account ? <a href="/lss/#/registration/SG">Create one !</a></div>
+            <div class="text-[16px]">No Account ? <a @click="router.push({ name: 'registration-page' })" >Create one !</a></div>
         </div>
         <!-- <div class="flex flex-col items-center my-5">
             <FacebookLoginButton />
@@ -48,11 +53,11 @@ import { seller_general_login } from '@/api_v2/user';
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
-import img1 from '/src/assets/images/login-page/new-lss-carousel-1.jpeg'
-import img2 from '/src/assets/images/login-page/new-lss-carousel-2.jpeg'
-
-import {ref, onMounted, onBeforeMount } from 'vue'
+import {ref, onMounted, onBeforeMount, computed } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
+
+// import { useVuelidate } from "@vuelidate/core";
+// import { required, email } from "@vuelidate/validators";
 
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
@@ -71,17 +76,9 @@ const route = useRoute()
 const router = useRouter()
 const currentUrl = ref(window.location.href)
 const showReminder = ref(false)
+const showPassword = ref(false)
 const loginData = ref(
     {email:'',password:''})
-// const ruleInline = ref( {
-//                         email: [
-//                             { required: true, message: 'Please fill in the email', trigger: 'blur' }
-//                         ],
-//                         password: [
-//                             { required: true, message: 'Please fill in the password.', trigger: 'blur' },
-//                             { type: 'string', min: 6, message: 'The password length cannot be less than 6 bits', trigger: 'blur' }
-//                         ]
-//                     })
 
 const copyLink = ()=>{
     navigator.clipboard.writeText(currentUrl.value).then(()=>{
@@ -89,16 +86,32 @@ const copyLink = ()=>{
     })
 }
 
+// const rules = computed(()=> {
+//     return {
+//         email: { required, email },
+//         password: { required},
+//     }
+// })
+// const validate = useVuelidate(rules, loginData);
+
 const signIn = ()=>{ 
+    // validate.value.$touch();
+    // if (validate.value.$invalid) {
+    //     alert('Input info is invalid')
+    //     return
+    // } 
     // console.log('signIn')  response.data.access
     seller_general_login(loginData.value).then(response=>{
         cookies.set("access_token", response.data.access)
         cookies.set("login_with", 'general')
         router.push({name:'campaign-list'})
     }).catch(err=>{
+        console.log('123')
         console.log(err)
     })
 }
+
+
 </script>
 
 <style scoped>
@@ -142,29 +155,13 @@ const signIn = ()=>{
     z-index: 0;
     width: 480px;
     top: 50%;
-    left: 40%;
+    left: 50%;
     transform: translate(50%, -50%);
     position: absolute;
 }
 .container{
     height: 100vh;
     position: relative;
-}
-
-.login_form {
-    width: 100%;
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-
-.login_btn {
-    margin: 20px 0 0 30px;
-}
-
-.ivu-input-group {
-    font-size: 18px !important;
 }
 
 </style>

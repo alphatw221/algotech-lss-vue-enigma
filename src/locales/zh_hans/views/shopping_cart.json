@@ -9,7 +9,7 @@
         "contact_info":"基本资讯",
         "first_name":"名",
         "last_name":"姓",
-        "phone":"电话",
+        "phone":"连络电话",
         "email":"电子信箱",
         "first_err":"必填",
         "last_err":"必填",
@@ -88,7 +88,8 @@
             "max_size":"档案最大限制",
             "last_five_digits":"后五码",
             "digits_message":"请输入后五码",
-            "complete_order":"完成订单"
+            "complete_order":"完成订单",
+            "information": "付款资讯"
         }
     },
     "delete_success":"删除成功",

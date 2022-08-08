@@ -1,5 +1,5 @@
 {
-    "campaign_list": "Campaign List",
+    "campaign_list": "Danh sách chiến dịch",
 
     "process" : {
             "create" : "Tạo sản phẩm",
@@ -20,13 +20,13 @@
     "search_bar":{
         "title": "Tiêu đề",
         "search" : "Tìm kiếm",
-        "reset" : "Reset"
+        "reset" : "Thiết lập lại"
     },
     "enter_post_id":{
-            "message":"Please enter post ID to start live selling.",
-            "select_stream":"Select Stream",
-            "select_page":"Select Page",
-            "id":"Post ID"
+            "message":"Vui lòng nhập ID bài viết để bắt đầu bán hàng livestream",
+            "select_stream":"Chọn Livestream",
+            "select_page":"Chọn Trang",
+            "id":"điền ID"
         },
 
 
@@ -42,50 +42,54 @@
         "null":"",
         "history":"Lịch sử",
         "live_on":"Kích hoạt",
-        "edit_campaign":"Edit Campaign",
-        "edit_campaign_product":"Edit Product",
-        "blank_cart":"Copy Blank Cart Link",
+        "edit_campaign":"Chỉnh sửa chiến dịch",
+        "edit_campaign_product":"Chỉnh sửa sản phẩm",
+        "blank_cart":"Sao chép liên kết đơn hàng",
         "lucky_draw":"Quà tặng minigame",
         "delete":"Xóa",
-        "confirm_delete": "Are you sure delete this campaign ?",
-
-        "campaign_message":"You don't have %{tab} campaign",
-        "no_result":"No Result Found",
+        "confirm_delete": "Bạn có chắc chắn sẽ xóa chiến dịch này ?",
+        "more":"thêm",
+        "campaign_message":"Bạn không có %{tab} chiến dịch",
+        "no_result":"chiến dịch",
         "Scheduled" : "Đã lên lịch",
         "History" : "Lịch sử",
         "Ongoing" : "Đang diễn ra",
         
-        "no_have_campaign": "You Dont't Have Campaign Yet",
-        "click_create_notify": "Click \"+ Create\" to create your new live selling campaign",
+        "no_have_campaign": "Bạn chưa tạo chiến dịch trước đó",
+        "click_create_notify": "Nhấp chuột vào \"+ Tạo\" để tạo chiến dịch bán hàng livestream mới",
         "connect_platform":"Kết nối nền tảng"
     },
 
     "remind_enter_post_id_modal":{
-        "confirm":"Confirm",
-        "message":"Please Enter Post ID To Start Live Selling"
+        "confirm":"Xác nhận",
+        "message":"Vui lòng điền ID bài viết mà bạn đang livestream để bắt đầu thực hiện bán hàng livestream"
     },
 
     "enter_post_id_modal":{
-        "edit_channel":"Select Live Stream",
+        "edit_channel":"Chọn Livestream",
         "facebook":"Facebook",
         
-        "post_id":"Post ID",
-        "select_page":"Select Page",
+        "post_id":"điền ID",
+        "select_page":"Chọn Trang",
+        "enter_post_id": "Nhập ID bài viết",
 
         "instagram":"Instagram",
-        "media_id":"Media ID",
-        "select_media":"Select Profile",
+        "media_id":"ID phương tiện",
+        "select_media":"Chọn Hồ Sơ",
 
         "youtube":"Youtube",
-        "live_chat_id":"Live Chat ID",
-        "select_live_chat":"Select Channel",
+        "live_chat_id":"ID cuộc trò chuyện trực tiếp",
+        "select_live_chat":"Chọn kênh",
 
         "cancel":"Hủy bỏ",
-        "save":"Lưu lại"
+        "save":"Lưu lại",
+        "your_current_lives": "Các phiên livestream gần đây",
+        "select_this_live": "Chọn phiên livestream này",
+        "valid_post_id_notification": "Vui lòng nhập ID bài viết hợp lệ"
     },
-    "update_successed":"Update Successed",
-    "no_facebook_post":"You don't have Facebook live posts now.",
-    "no_youtube_post":"You don't have YouTube live stream now.",
-    "no_instagram_post":"You don't have Instagram live posts now."
+    "update_successed":"Cập nhật thành công",
+    "no_facebook_post":"Bạn không có bài viết livestream trên Facebook ngay bây giờ",
+    "no_youtube_post":"Bạn không có bài viết livestream trên Youtube ngay bây giờ",
+    "no_instagram_post":"Bạn không có bài viết livestream trên Instagram ngay bây giờ"
 
 }

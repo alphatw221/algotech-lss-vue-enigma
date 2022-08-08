@@ -96,7 +96,7 @@
 				<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
 			</div>
 			<div class="flex my-1">
-				<TomSelect v-model="campaignData.buyer_lang" :options="{
+				<TomSelect v-model="campaignData.lang" :options="{
 							placeholder: $t('settings.localization.choose_language'),
 							}" class="w-full">
 					<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
@@ -197,6 +197,8 @@ const priceUnitOptions = ref([
 const languages = ref([
     {value:'en',text:'English'},
     {value:'zh_hant',text:'Chinese-tranditional'},
+	{value:'zh_hans',text:'Chinese-simplify'},
+    {value:'vi',text:'Vietnamese'}
 ])
 
 const decimalOptions = ref([
@@ -227,6 +229,7 @@ onMounted(() => {
 	retrieve_campaign(route.params.campaign_id).then(res=>{
 		console.log(res.data)
 		campaignData.value = res.data
+		campaignData.value.decimal_places = res.data.decimal_places.toString()  //temp   TomSelect only work with string value
 
 		dateTimePicker.value.start=res.data.start_at
 		dateTimePicker.value.end=res.data.end_at
@@ -302,8 +305,7 @@ const updateCampaign = ()=>{
 	});
 
 	update_campaign(route.params.campaign_id,formData).then(response => {
-		router.back()
-		router.push({name:'edit-campaign-product', params:{'campaign_id': response.data.id}})
+		router.push({name:'campaign-list'})
 	})
 
 }

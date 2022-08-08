@@ -4,9 +4,9 @@
     "for_sale": "For Sale",
     "delisted": "Delisted",
     "add_product": "Add Product",
-    "dont_have_product_notify": "You Don't Have Product in this Category",
+    "dont_have_product_notify": "No stock yet.",
     "no_result": "No result",
-    "click_to_add":"Ｃlick '+Add product' to add your first product",
+    "click_to_add":"Click \"+ Add product\" to add your first product.",
 
     "search_bar": {
         "category": "Category",
@@ -29,7 +29,7 @@
         "description": "Description",
         "qty": "Qty",
         "price": "Price",
-        "confirm_delete": "Are you sure delete this product ?"
+        "confirm_delete": "Are you sure to delete this product ?"
     },
 
     "category_manage": {
@@ -45,7 +45,7 @@
         },
         "save_success":"Save Success",
         "not_saved":"Update Canceled",
-        "confirm_delete": "Are you sure delete this category ?"
+        "confirm_delete": "Are you sure to delete this category ?"
     },
 
     "add_product_page": {

@@ -46,17 +46,18 @@
         "edit_campaign_product":"Edit Product",
         "blank_cart":"Copy Blank Cart Link",
         "lucky_draw":"Lucky Draw",
+        "quiz_game": "Quiz Game",
         "delete":"Delete",
-        "confirm_delete": "Are you sure delete this campaign ?",
-
+        "confirm_delete": "Are you sure you want to delete this campaign ?",
+        "more":"more...",
         "campaign_message":"You don't have %{tab} campaign",
         "no_result":"No Result Found",
         "Scheduled" : "Scheduled",
         "History" : "History",
         "Ongoing" : "Ongoing",
         
-        "no_have_campaign": "You Dont't Have Campaign Yet",
-        "click_create_notify": "Click \"+ Create\" to create your new live selling campaign",
+        "no_have_campaign": "No campaign yet.",
+        "click_create_notify": "Click \"+ Create\" to create your first live selling campaign.",
         "connect_platform":"Connect Platform"
     },
 

@@ -4,7 +4,7 @@
       <div class="col-span-12 row-start-2 intro-y lg:row-start-1 lg:col-span-8">
         <h2 class="w-full mr-auto text-xl font-medium">{{$t('shopping_cart.delivery_tab.contact_info')}}</h2>
         <div class="grid grid-cols-12 gap-5 p-0 my-10 mt-3 intro-y lg:p-10">
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
             {{$t('shopping_cart.delivery_tab.first_name')}}</label>
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
@@ -19,7 +19,7 @@
                       </label>
                   </template>
               </div>
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
             {{$t('shopping_cart.delivery_tab.last_name')}}</label>
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
@@ -34,7 +34,7 @@
                           </label>
                   </template>
             </div>
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">{{$t('shopping_cart.delivery_tab.email')}}</label>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.email')}}</label>
           <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="email"
                 placeholder="example@gmail.com"
@@ -52,7 +52,7 @@
               </template>
           </div>
           
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2">{{$t('shopping_cart.delivery_tab.phone')}}</label>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.phone')}}</label>
           <div class="col-span-8 lg:col-span-4">
           <input id="regular-form-2" type="tel"
             class="form-control " placeholder=""
@@ -165,8 +165,9 @@
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(store.order.campaign.user_subscription.decimal_places)
+                          store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.campaign.meta_logistic.delivery_charge)):parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(store.order.campaign.decimal_places)
                         }}
+                        <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
                     </div>
 
@@ -179,15 +180,17 @@
 
                       <div v-if="option.type === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{ (parseFloat(option.price) +
-                            parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(store.order.campaign.user_subscription.decimal_places)
+                        {{ 
+                          store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)):(parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(store.order.campaign.decimal_places)
                         }}
+                        <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
                       <div v-else>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
                         {{
-                            parseFloat(option.price).toFixed(store.order.campaign.user_subscription.decimal_places)
+                          store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(option.price)):parseFloat(option.price).toFixed(store.order.campaign.decimal_places)
                         }}
+                        <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
 
                     </div>
@@ -327,8 +330,7 @@ const shipping_option_index_computed = computed({
     store.shipping_info.shipping_option_index=index
     shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].address : ''
 
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].name 
-    :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
     
   }})
 
