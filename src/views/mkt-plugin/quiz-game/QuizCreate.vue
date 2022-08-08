@@ -9,7 +9,7 @@
             <div class="flex flex-wrap justify-between mt-5"> 
                 <label for="regular-form-2" class="form-label my-auto"> {{ $t('quiz_game.quiz_create.question_title') }} </label>
                 <button 
-                    class="inline-block sm:rounded-lg sm:w-24 btn btn-primary ml-auto w-fit text-base w-full h-[42px]" 
+                    class="inline-block sm:rounded-lg sm:w-fit btn btn-primary ml-auto w-fit text-base w-full h-[42px]" 
                     @click="addQuestion()"
                 >
                     {{ $t('quiz_game.quiz_create.add_question') }} 
@@ -246,3 +246,15 @@ const goCancel = () => {
 }
 
 </script>
+
+<style scope>
+
+@media only screen and (max-width: 760px),
+(min-device-width: 768px) and (max-device-width: 768px) {
+    .add_btn {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
+</style>

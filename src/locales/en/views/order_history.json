@@ -1,7 +1,7 @@
 {
     "order_history":"Order History",
     "table":{
-        "order_no":"Order No",
+        "order_no":"Order No.",
         "date":"Date",
         "payment_method":"Payment Method",
         "amount":"Amount",

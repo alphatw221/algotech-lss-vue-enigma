@@ -14,8 +14,7 @@
             </div>
         </div>
 
-        <div class="col-span-6 intro-y sm:col-span-4 md:col-span-3 2xl:col-span-2" v-for="item in listItems"
-            :key="item">
+        <div v-for="item in listItems" :key="item" class="col-span-6 intro-y sm:col-span-4 md:col-span-3 2xl:col-span-2">
             <div class="relative px-3 px-5 pt-8 pb-5 rounded-md file box sm:px-4">
                 <div class="w-1/2 mx-auto file__icon file__icon--empty-directory"></div>
                 <div class="block mt-4 font-medium text-center truncate">

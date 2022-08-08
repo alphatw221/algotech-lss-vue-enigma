@@ -174,15 +174,15 @@
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>
                     <DropdownItem 
+                      @click="goQuizGame(campaign)" class="w-fit whitespace-nowrap"> 
+                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      {{$t("campaign_list.campaign_list_table.quiz_game")}}
+                    </DropdownItem>
+                    <DropdownItem 
                       @click="deleteCampaign(campaign)" class="w-fit text-danger whitespace-nowrap ">
                       <font-awesome-icon icon="fa-solid fa-trash-can" class="h-[20px] w-[20px] mr-1"/>
                       {{$t("campaign_list.campaign_list_table.delete")}}
                     </DropdownItem>
-                    <!-- <DropdownItem 
-                      @click="goQuizGame(campaign)" class="w-fit whitespace-nowrap"> 
-                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
-                      {{$t("campaign_list.campaign_list_table.quiz_game")}}
-                    </DropdownItem> -->
                   </DropdownContent>
                 </DropdownMenu>
               </Dropdown> 

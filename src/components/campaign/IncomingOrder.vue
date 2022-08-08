@@ -106,9 +106,9 @@ const incoming_order_columns= [
 // route.params.campaign_id
 
 onMounted(()=>{
-        list_campaign_pre_order(route.params.campaign_id).then(res => {
-            store.incomingOrders = res.data
-        })
+    list_campaign_pre_order(route.params.campaign_id).then(res => {
+        store.incomingOrders = res.data
+    })
         
 })
 
