@@ -20,6 +20,10 @@ export const delete_product = (id) => {
     return createAxiosWithBearer().delete(`/api/v2/product/${id}/delete/`)
 }
 
+export const copy_product = (id) => {
+    return createAxiosWithBearer().post(`/api/v2/product/${id}/copy/`)
+}
+
 export const list_product_category = () => {
     return createAxiosWithBearer().get('/api/v2/product/categories/')
 }

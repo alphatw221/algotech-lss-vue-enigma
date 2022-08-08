@@ -36,6 +36,7 @@
         "create_new_category": "Create New Category",
         "edit_title": "Edit Category",
         "edit": "Edit",
+        "duplicate": "Duplicate",
         "delete": "Delete",
         "input_holder": "New Category Name",
         "modal": {
