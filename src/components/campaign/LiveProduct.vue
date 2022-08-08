@@ -34,10 +34,19 @@
                                 {{ $t('campaign_live.product.modal_column.activate') }}
                             </th>
                             <template v-for="column in product_columns.slice(0, -1)" :key="column.key">
+                            <template v-if="column.name == 'cart_sold_left'"> 
+                                <th
+                                    class="whitespace-nowrap bg-dark text-[8px]">
+                                    {{ $t(`campaign_live.product.modal_column.`+column.name) }}
+                                </th>
+                            </template>
+                            <template v-else> 
                                 <th
                                     class="whitespace-nowrap bg-dark">
                                     {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                 </th>
+                            </template>
+                                
                             </template>
                             <th class="whitespace-nowrap bg-dark lgAct">
                                 {{ $t('campaign_live.product.modal_column.activate') }}

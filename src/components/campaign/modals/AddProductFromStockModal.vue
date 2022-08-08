@@ -162,9 +162,9 @@
                                         <td v-else-if="column.key === 'price'" class="price"
                                         :data-content="$t('campaign_live.product.modal_column.price')">
                                             <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
-                                            <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+                                            <div class="flex place-content-end relative w-full md:w-32 lg:place-content-center">
                                                 <span class="my-auto mr-1">$</span> 
-                                                <input class="form-control w-[100%] mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" />
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0 text-right p-0" min="1" type="number" v-model="product[column.key]" />
                                             </div>
                                         </td>
 
@@ -310,9 +310,9 @@
 
                                         <td v-else-if="column.key === 'price'" class="price" :data-content="$t('campaign_live.product.modal_column.price')">
                                             <!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
-                                            <div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+                                            <div class="flex place-content-end relative w-full md:w-32 lg:place-content-center">
                                                 <span class="my-auto mr-1 text-[16px]">$</span> 
-                                                <input class="form-control w-[100%] mt-2 sm:mt-0 text-right" min="1" type="number" v-model="product[column.key]" />
+                                                <input class="form-control w-[100%] mt-2 sm:mt-0 text-right p-0" min="1" type="number" v-model="product[column.key]" />
                                                 <label class="text-danger absolute -bottom-4 right-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">
 
                                                     {{$t(`campaign_live.product.errors.${errorMessages[product_index][column.key]}`)}}

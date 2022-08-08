@@ -22,7 +22,7 @@
         "product":"Sản phẩm",
         "modal_column":{
             "null":"",
-            "cart_sold_left":"Giỏ hàng / Đã bán / Còn lại",
+            "cart_sold_left":"Tồn kho / Đã bán / Còn",
             "name":"Tên",
             "description":"Mô tả",
             "Product":"Sản phẩm",
