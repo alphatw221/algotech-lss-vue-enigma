@@ -298,7 +298,7 @@ const routes = [
     children: [
       {
         path: "password/forgot",
-        name: "PasswordForgot",
+        name: "password-forgot",
         component: () => import('@/views/general/ForgotPasswordPage.vue')
       },
       {
