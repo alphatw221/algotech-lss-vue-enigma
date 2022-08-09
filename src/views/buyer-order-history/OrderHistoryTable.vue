@@ -34,7 +34,7 @@
 						</template>
 						<template v-else-if="column.type=='float' && order.campaign">
 							{{order.campaign.currency}} 
-              {{order.campaign.decimal_places=='0'?Math.trunc(parseFloat(order[column.key])):parseFloat(order[column.key]).toFixed(order.campaign.decimal_places)}}
+              {{ Math.floor(order[column.key] * (10 ** order.campaign.decimal_places)) / 10 ** order.campaign.decimal_places}}
               {{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}
 						</template>
             <template v-else-if="column.key=='payment_method' && order[column.key]">

@@ -9,7 +9,7 @@
         <div class="mr-auto">{{$t('shopping_cart.order_summary.subtotal')}}</div>
         <div class="font-medium" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.subtotal)):parseFloat(store.order.subtotal).toFixed(store.order.campaign.decimal_places) }}
+          {{Math.floor(parseFloat(store.order.subtotal) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -24,7 +24,7 @@
 
         <div class="font-medium text-danger" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.adjust_price)):parseFloat(store.order.adjust_price).toFixed(store.order.campaign.decimal_places) }}
+          {{Math.floor(parseFloat(store.order.adjust_price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -35,7 +35,7 @@
         <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
         <div class="font-medium" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(shippingCost)):parseFloat(shippingCost).toFixed(store.order.campaign.decimal_places) }}
+          {{Math.floor(parseFloat(shippingCost) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -52,7 +52,7 @@
         <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
         <div class="font-medium text-base" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(cartTotal)):parseFloat(cartTotal).toFixed(store.order.campaign.decimal_places) }}
+          {{Math.floor(parseFloat(cartTotal) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -96,7 +96,7 @@ const updateOrderSummary = ()=>{
     console.log('update order summary')
     if (store.shipping_info.shipping_method=='pickup'){
       shippingCost.value = 0
-      cartTotal.value = parseFloat(store.order.subtotal + store.order.adjust_price ).toFixed(store.order.campaign.decimal_places)
+      cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.adjust_price ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
       return
     }
 
