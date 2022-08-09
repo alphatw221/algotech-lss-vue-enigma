@@ -224,13 +224,14 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 //     payment: Object, 
 // })
 
+
+
+onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} )
+
 const getPrice = ref({
     plans:"",
     price: ""
 })
-
-onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} )
-
 onBeforeMount(()=>{
     get_subscription_plan(route.query.country).then(res=>{
         getPrice.value = res.data

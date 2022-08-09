@@ -13,19 +13,28 @@
                         :class="{ 'border-danger text-danger border-2': validate.plan.$error }" 
                         v-model="validate.plan.$model"
                     >
-                        <template v-if="originalPlan==='trial' || originalPlan==='lite' || originalPlan==='dealer'" > 
-                            <option v-for="(plan, key) in planOptions" :key="key" :value="plan.value" class="w-40"> 
-                                {{ $t(`change_plan.step_1.plan_options.` + plan.value) }}  </option>
-                        </template>
-                        <template v-else-if="originalPlan==='standard'"> 
-                            <option v-for="(plan, key) in planOptions.slice(1)" :key="key" :value="plan.value" class="w-40"> 
-                                {{ $t(`change_plan.step_1.plan_options.` + plan.value) }}
+                        <template v-if="originalPlan==='standard'" :value="plan.value" class="w-40"> 
+                            <template v-for="(plan, key) in getPrice.plans" :key="key">
+                                <option  v-if="plan.text != 'Free Trial' && plan.value != 'lite'" :value="plan.value" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${plan.price.month}`}) }}
                                 </option>
+                            </template>
                         </template>
-                        <template v-else-if="originalPlan==='premium'"> 
-                            <option v-for="(plan, key) in planOptions.slice(2)" :key="key" :value="plan.value" class="w-40"> 
-                                {{ $t(`change_plan.step_1.plan_options.` + plan.value) }}
+
+                        <template v-if="originalPlan==='premium'" :value="plan.value" class="w-40"> 
+                            <template v-for="(plan, key) in getPrice.plans" :key="key">
+                                <option  v-if="plan.text != 'Free Trial' && plan.value != 'lite' && plan.value != 'standard'" :value="plan.value" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${plan.price.month}`}) }}
                                 </option>
+                            </template>
+                        </template>
+
+                        <template v-if="originalPlan==='trial' || originalPlan==='lite' || originalPlan==='dealer'" :value="plan.value" class="w-40"> 
+                            <template v-for="(plan, key) in getPrice.plans" :key="key">
+                                <option  v-if="plan.text != 'Free Trial'" :value="plan.value" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${plan.price.month}`}) }}
+                                </option>
+                            </template>
                         </template>
                     </select>
                     <template v-if="validate.plan.$error">
@@ -117,6 +126,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import UserInfo from "./UserInfo.vue";
+import { get_subscription_plan } from '@/api_v2/business_policy'
 import i18n from "@/locales/i18n"
 
 const internalInstance = getCurrentInstance()
@@ -134,6 +144,16 @@ const planOptions = ref([{ value: "lite" },{ value: "standard" },{ value: "premi
 const periodOptions = ref([{ value: "month" },{ value: "year" }])
 const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
 const havePromoCode = ref(false)
+
+const getPrice = ref({
+    plans:"",
+    price: ""
+})
+onMounted(()=>{
+    get_subscription_plan(layout.userInfo.user_subscription.country).then(res=>{
+        getPrice.value = res.data
+    })
+})
 
 const selectedPlan = ref({
     plan: "",
@@ -162,7 +182,7 @@ const submitBasicInfo=()=>{
         layout.alert.showMessageToast(i18n.global.t('profile.invalid_data'))
         return
     }
-    // console.log(selectedPlan.value)
+    console.log(selectedPlan.value)
     eventBus.emit("paymentInfo", selectedPlan.value)
 }
 </script>
