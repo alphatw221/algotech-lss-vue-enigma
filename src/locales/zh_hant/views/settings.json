@@ -12,6 +12,7 @@
     "update_successfully":"更新成功",
     "update_failed":"更新失敗",
     "img_size_err":"圖片大小不可超過 10 MB",
+    "img_type_err":"圖片格式不支援",
     "invalid_data":"無效",
 
     "delivery":{

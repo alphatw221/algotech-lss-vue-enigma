@@ -12,6 +12,7 @@
     "update_successfully":"Cập nhật thành công",
     "update_failed":"Tải lên không thành công",
     "img_size_err":"kích thước hình ảnh vượt quá 10 MB",
+    "img_type_err":"Định dạng hình ảnh không được hỗ trợ",
     "invalid_data":"Dữ liệu không hợp lện",
 
     "delivery":{

@@ -12,6 +12,7 @@
     "update_successfully":"Update Successfully",
     "update_failed":"Update Failed",
     "img_size_err":"Image size exceed 10 MB",
+    "img_type_err":"This file type is not supported.",
     "invalid_data":"Invalid data",
     "delivery":{
         "delivery":"Delivery",

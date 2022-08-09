@@ -84,7 +84,7 @@
                     <div class="relative border-2 border-dashed dark:border-darkmode-400">
                         <div class="flex items-center justify-center px-4">
                             <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
-                            <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('create_campaign.payment_form.remove_image')"  :options="{theme: 'light',}">
+                            <Tippy v-show="previewImages[index_i]" tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('create_campaign.payment_form.remove_image')"  :options="{theme: 'light',}">
                                 <XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeImage(index_i)"/>
                             </Tippy>
                         </div>
@@ -206,10 +206,9 @@ const uploadImage = (event, index) =>{
     }
 
     let allowedExtension = ['image/jpeg', 'image/jpg', 'image/png'];
-    console.log(image.type)
     if(allowedExtension.indexOf(image.type) == -1) {
-        sellerStore.alert.showMessageToast(i18n.global.t('settings.img_size_err'))
-        console.log("type is wrong")
+        // document.getElementById(`file_input_${index}`).value=null
+        sellerStore.alert.showMessageToast(i18n.global.t('settings.img_type_err'))
         return
     }
 
@@ -253,10 +252,10 @@ const updateDirectPayment = () => {
 		formData.append(key,image)
 	});
     console.log(directPaymentImages)
-    // seller_update_payment(props.payment.key,formData).then(res=>{
-    //     sellerStore.userInfo = res.data
-    //     sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
-    // })
+    seller_update_payment(props.payment.key,formData).then(res=>{
+        sellerStore.userInfo = res.data
+        sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
+    })
 }
 
 
