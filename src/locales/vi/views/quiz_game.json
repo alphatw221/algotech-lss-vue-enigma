@@ -1,0 +1,43 @@
+{
+    "title": "Trò chơi giải đố",
+    "create_btn": "Tạo",
+    "invalid_data":"Gửi đi không hợp lệ",
+    "create_succeed": "Tạo thành công",
+    "update_succeed": "Cập nhật thành công",
+    "delete_succeed": "Xóa thành công",
+    "not_saved": "Đã hủy cập nhật",
+
+    "quiz_create": {
+        "campaign_title": "Tiêu đề chiến dịch",
+        "question_title": "Câu hỏi trò chơi giải đố",
+        "add_question": "Thêm câu hỏi khác",
+        "question": "vui lòng nhập câu hỏi của bạn...",
+        "answer": "hãy nhập câu trả lời...",
+        "delete": "Đã xóa",
+        "remark": "Nhận xét",
+        "enter_remark": "vui lòng nhập nhận xét của bạn...",
+        "number_of_winner" : "Số người chiến thắng",
+        "number_winner_warning": "cần thêm ít nhất 1 giải thưởng",
+        "prize": "Giải thưởng",
+        "assign_prize_err":"Chọn giải thưởng cho chiến dịch của bạn",
+        "winner_repeat" : "Lặp lại người chiến thắng",
+        "winner_repeat_tip": "Cho phép cùng một người giành được nhiều giải thưởng",
+        "save": "Lưu lại",
+        "cancel": "Hủy bỏ",
+        "yes": "Có",
+        "no": "Không"
+    },
+
+    "quiz_list": {
+        "campaign_title": "Tiêu đề chiến dịch",
+        "question": "Câu hỏi",
+        "start": "Bắt đầu",
+        "stop": "Dừng lại",
+        "finish": "Hoàn thành",
+        "winners": "Người chiến thắng",
+        "no_winner": "No Winners",
+        "result": "Kết quả",
+        "edit": "Chỉnh sửa",
+        "delete": "Đã xóa"
+    }
+}
