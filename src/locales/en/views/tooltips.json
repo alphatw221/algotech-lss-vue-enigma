@@ -36,7 +36,7 @@
             "confirm_note":"Message to inform buyers of their order is confirmed"
         },
         "local":{
-            "buyer_lang":"for buyer's shopping cart, and platform message"
+            "buyer_lang":"Change local language for shopping cart, comments & messages"
         },
         "social":{
             "connect_social":"Link your social media account to start your live-selling campaign"

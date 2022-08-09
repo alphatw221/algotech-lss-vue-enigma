@@ -83,24 +83,35 @@ const comfirmInfo = ref({
 
 const paymentInfo = ref()
 
+// onMounted(()=>{
+//   eventBus.on("paymentInfo", (payload) => {
+//     paymentInfo.value = payload
+
+//     seller_changePlan_payment(payload).then(res=>{
+//       comfirmInfo.value = res.data
+//       console.log(comfirmInfo.value)
+
+//       paymentInfo.value.intentSecret = res.data.client_secret
+//       renderStripeElement(comfirmInfo.value.client_secret)
+//         }).catch( err=>{
+//             layout.changePlanTab = 1
+//             alert(err)
+//         })
+//     layout.changePlanTab = 2
+//   })
+// }) 
+
 onMounted(()=>{
-  // console.log(props.payment)
-  eventBus.on("paymentInfo", (payload) => {
-    paymentInfo.value = payload
 
-    seller_changePlan_payment(payload).then(res=>{
-      comfirmInfo.value = res.data
-    //   console.log(comfirmInfo.value)
-
-      paymentInfo.value.intentSecret = res.data.client_secret
-      renderStripeElement(comfirmInfo.value.client_secret)
-        }).catch( err=>{
-            layout.changePlanTab = 1
-            alert(err)
-        })
+  eventBus.on("PaymentTab", (payload) => {
+    basicInfo.value = payload.basicInfo
+    confirmInfo.value = payload.confirmInfo
+    basicInfo.value.intentSecret =  confirmInfo.value.client_secret
     layout.changePlanTab = 2
+    renderStripeElement(confirmInfo.value.client_secret)
   })
-}) 
+
+})
 
 const renderStripeElement=(intentSecret)=>{
     // const stripe = window.Stripe('pk_test_51J2aFmF3j9D00CA0eWhxHiswrqFUfn5yNKDizVeCNA4cZBoH4TV3kRGoChos2MWNKb6kUs8w8cA2u5SheHGSeWIf00z9xRe0QZ');
