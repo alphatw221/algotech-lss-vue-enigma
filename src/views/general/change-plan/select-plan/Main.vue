@@ -56,8 +56,15 @@
                             :value="periodOptions[0].value" class="w-40"> 
                             {{ $t(`change_plan.step_1.period_options.month`) }} 
                         </option>
-                        <option :value="periodOptions[1].value" class="w-40"> 
-                            {{ $t(`change_plan.step_1.period_options.year`) }} 
+                        <option
+                            v-if="layout.userInfo.user_subscription.country == 'TW'" 
+                            :value="periodOptions[1].value" class="w-40"> 
+                            {{ $t(`register.basic_info.period_options.` + 'year_tw') }} 
+                        </option>
+                        <option
+                            v-else
+                            :value="periodOptions[1].value" class="w-40"> 
+                            {{ $t(`register.basic_info.period_options.year`) }} 
                         </option>
                     </select>
                     <template v-if="validate.period.$error">
