@@ -127,6 +127,7 @@ import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import UserInfo from "./UserInfo.vue";
 import { get_subscription_plan } from '@/api_v2/business_policy'
+import { seller_changePlan_payment } from '@/api/user_subscription'
 import i18n from "@/locales/i18n"
 
 const internalInstance = getCurrentInstance()
@@ -183,6 +184,8 @@ const submitBasicInfo=()=>{
         return
     }
     console.log(selectedPlan.value)
-    eventBus.emit("paymentInfo", selectedPlan.value)
+    seller_changePlan_payment(selectedPlan.value).then(res=>{
+        eventBus.emit("paymentInfo", {'basicInfo':selectedPlan.value, 'confirmInfo':res.data} )
+    }).catch( err=>{layout.registerTab = 1})
 }
 </script>
