@@ -19,7 +19,6 @@
                     <label class="text-danger text-[16px] leading-tight">
                         {{$t('register.basic_info.required_field')}}
                     </label>
-
                 </template>
             </div>
 
@@ -235,7 +234,7 @@ const getPrice = ref({
 onBeforeMount(()=>{
     get_subscription_plan(route.query.country).then(res=>{
         getPrice.value = res.data
-        console.log(getPrice.value)
+        // console.log(getPrice.value)
     })
 })
 
@@ -246,7 +245,7 @@ const planOptions = [{ value: "lite" },{ value: "standard" },{ value: "premium" 
 const periodOptions = [{ value: "month" },{ value: "year" }]
 const countryCodeOptions = [{ value: "MY" },{ value: "ID" },{ value: "PH" },{ value: "SG" },{ value: "TW" }]
 const countryOptions = [{ value: "Australia" },{ value: "Cambodia" },{ value: "Canada" },{ value: "Hong Kong" },{ value: "Indonesia" },{ value: "Korea" }
-,{ value: "Malaysia" },{ value: "Philippines" },{ value: "Singapore" },{ value: "Taiwan" },{ value: "Thailand" },{ value: "United States" },{ value: "Vietnam" }]
+,{ value: "Malaysia" },{ value: "Philippines" },{ value: "Singapore" },{ value: "Taiwan" },{ value: "Thailand" },{ value: "United State" },{ value: "Vietnam" }]
 
 // const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
 
@@ -296,7 +295,7 @@ const submitBasicInfo=()=>{
         layoutStore.alert.showMessageToast(i18n.global.t('profile.invalid_data'))
         return
     }
-    console.log(basicInfo.value)
+    // console.log(basicInfo.value)
     seller_validate_register(route.query.country, basicInfo.value).then(res=>{
         eventBus.emit("showPaymentTab", {'basicInfo':basicInfo.value, 'confirmInfo':res.data} )
     }).catch( err=>{registerationStore.registerTab = 1})

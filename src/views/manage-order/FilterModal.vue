@@ -120,9 +120,9 @@ function filter(){
 
 const closeFilter = () => {
     if(store.filterTagArray){
-        console.log(store.filterTagArray)
         let yes = confirm(`${i18n.global.t('manage_order.filter_modal.close_alert')}`)
 	    if (yes) filter()
+        else store.filterModal[props.tableStatus] = false
     }
     else store.filterModal[props.tableStatus] = false
 }

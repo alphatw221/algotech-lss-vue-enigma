@@ -39,7 +39,8 @@
             "editable":"Có thể chỉnh sửa",
             "removable":"Có thể xóa",
             "deletable":"Có thể xóa",
-            "search":"Tìm kiếm bởi"
+            "search":"Tìm kiếm bởi",
+            "no_product":"Bạn chưa chỉ định bất kỳ sản phẩm nào vào chiến dịch này, hãy nhấp vào Thêm sản phẩm để chỉ định"
         },
         "add":"Thêm",
         "add_product":"Thêm sản phẩm",
