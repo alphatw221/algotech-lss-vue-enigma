@@ -44,7 +44,9 @@
     "payment_form":{
         "payment_titles":{
             "direct_payment":"转账付款",
-            "stripe":"Stripe付款"
+            "stripe":"Stripe付款",
+            "hitpay":"Hitpay付款",
+            "paypal":"Paypal付款"
         },
 
         "direct_payment":{
@@ -63,6 +65,11 @@
             "currency":"货币",
             "api_key":"API 密钥",
             "salt":"密码"
+        },
+        "paypal":{
+            "currency":"货币",
+            "cliend_id":"客户ID",
+            "secret":"密钥"
         },
 
         "payment_details":"金流设定",
