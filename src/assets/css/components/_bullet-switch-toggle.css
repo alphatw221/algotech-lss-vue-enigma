@@ -25,7 +25,8 @@
 }
 
 .switch-toggle label{
-    width: 100px;
+    min-width: 100px;
+    white-space: nowrap;
     font-size: 15px;
     align-self: center;
     text-align: center;
@@ -53,7 +54,7 @@
 .switch-toggle input:checked+label {
     background: theme("colors.primary");
     height: 42px;
-    width: 100px;
+    min-width: 100px;
     border-radius: 42px 42px;
     font-weight: 500;
     color: aliceblue;

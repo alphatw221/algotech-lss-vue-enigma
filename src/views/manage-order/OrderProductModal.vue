@@ -52,12 +52,12 @@
                             </td>
                             <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.price')">
                             {{store.orderProductData.campaign.currency}}
-                            {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.orderProductData.campaign.decimal_places)}}
+                            {{ Math.floor(parseFloat(product.price) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
                             {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </td>
                             <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.sub_total')">
                             {{store.orderProductData.campaign.currency}}
-                            {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)):parseFloat(product.qty * product.price).toFixed(store.orderProductData.campaign.decimal_places)}}
+                            {{ Math.floor(parseFloat(product.price)* product.qty * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
                             {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </td>                        
                         </tr>
@@ -71,7 +71,7 @@
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.sub_total')}}</div>
                             <div class="lg:mr-0" v-if="store.orderProductData.campaign">
                                 {{store.orderProductData.campaign.currency}} 
-                                {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.orderProductData.subtotal)):parseFloat(store.orderProductData.subtotal).toFixed(store.orderProductData.campaign.decimal_places)}}
+                                {{ Math.floor(parseFloat(store.orderProductData.subtotal) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
                                 {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </div>
                         </div>
@@ -79,7 +79,7 @@
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.delivery_charge')}}</div>
                             <div class="lg:mr-0" v-if="store.orderProductData.campaign">
                                 {{store.orderProductData.campaign.currency}} 
-                                {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.orderProductData.shipping_cost)):parseFloat(store.orderProductData.shipping_cost).toFixed(store.orderProductData.campaign.decimal_places)}}
+                                {{ Math.floor(parseFloat(store.orderProductData.shipping_cost) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
                                 {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </div>
                         </div>
@@ -87,7 +87,7 @@
                             <div class="mr-auto font-bold">{{store.orderProductData.adjust_title ?? $t('manage_order.product_modal.discount')}}</div>
                             <div class="lg:mr-0" v-if="store.orderProductData.campaign">
                                 {{store.orderProductData.campaign.currency}} 
-                                {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.orderProductData.adjust_price)):parseFloat(store.orderProductData.adjust_price).toFixed(store.orderProductData.campaign.decimal_places)}}
+                                {{ Math.floor(parseFloat(store.orderProductData.adjust_price) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
                                 {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </div>
                         </div>
@@ -95,7 +95,7 @@
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.total')}}</div>
                             <div class="lg:mr-0" v-if="store.orderProductData.campaign">
                                 {{store.orderProductData.campaign.currency}} 
-                                {{store.orderProductData.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.orderProductData.total)):parseFloat(store.orderProductData.total).toFixed(store.orderProductData.campaign.decimal_places)}}
+                                {{ Math.floor(parseFloat(store.orderProductData.total) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
                                 {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </div>
                         </div>
@@ -174,7 +174,7 @@ thead th{
 }	
 
 /* @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
 	table,
 	thead,

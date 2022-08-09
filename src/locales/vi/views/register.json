@@ -15,14 +15,16 @@
     "basic_info":{
         "plan":"Gói dịch vụ đăng ký",
         "plan_options":{
-            "lite":"Lite (70.000 đồng/tháng)",
-            "standard":"Standard (160.000 đồng/tháng)",
-            "premium":"Premium (Từ 100.000 đồng/tháng)"
+            "lite":"Lite (%{price}/tháng)",
+            "standard":"Standard (%{price}/tháng)",
+            "premium":"Premium (%{price}/tháng)"
         },
         "period":"Thời gian sử dụng",
         "period_options":{
             "year":"Hàng năm (giảm giá 10%)",
-            "quarter":"Hàng quý"
+            "year_tw":"Hàng năm (giảm giá 20%)",
+            "quarter":"Hàng quý",
+            "month":"Hàng tháng"
         },
         "first_name":"Họ",
         "last_name":"Tên",
@@ -78,6 +80,7 @@
         "current_plan":"Gói dịch vụ gần đây",
         "year":"Hàng năm",
         "quarter":"Hàng quý",
+        "month":"Hàng tháng",
         "payment_method":{
             "card":"thẻ tín dụng",
             "direct":"Thanh toán trực tiếp"

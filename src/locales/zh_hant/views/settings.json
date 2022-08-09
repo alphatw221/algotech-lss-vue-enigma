@@ -69,7 +69,7 @@
         },
         "paypal":{
             "currency":"貨幣",
-            "cliend_id":"客戶ID",
+            "client_id":"客戶ID",
             "secret":"密鑰"
         },
 

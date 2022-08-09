@@ -30,7 +30,7 @@
                             }" class="w-5/6">
                     <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
                 </TomSelect>
-            </div>
+            </div> 
 
             <!-- <div class="flex my-3 mt-5 form-label text-base font-medium">
                 <div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>

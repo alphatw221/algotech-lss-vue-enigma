@@ -8,7 +8,7 @@
         "payment_record":"要求買家附上轉帳證明(明細截圖/末五碼)"
     },
     "campaign_live":{
-        "view_icon":"Order details"
+        "view_icon":"訂單詳情"
     },  
     "campaign_list":{
         "stop_checkout":"停止讓買家結帳",
@@ -36,10 +36,10 @@
             "confirm_note":"訂單完成後的提示訊息"
         },
         "local":{
-            "buyer_lang":"切換買家購物車語言 & 社群平台留言通知"
+            "buyer_lang":"切換買家購物車語言&社群平台留言通知"
         },
         "social":{
             "connect_social":"直播銷售前，預先綁定社群平台帳號"
         }
-    },
+    }
 }

@@ -188,7 +188,7 @@ const goResult = (id) => {
 <style scope>
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
     .lil_block {
         margin-top: 20px;
         width: 100%;

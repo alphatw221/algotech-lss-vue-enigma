@@ -44,7 +44,9 @@
     "payment_form":{
         "payment_titles":{
             "direct_payment":"Thanh toán trực tiếp",
-            "stripe":"Stripe"
+            "stripe":"Stripe",
+            "hitpay":"Hitpay",
+            "paypal":"Paypal"
         },
         "direct_payment":{
             "mode":"Tên ngân hàng / Phương thức thanh toán",
@@ -62,6 +64,11 @@
             "currency":"Đơn vị tiền tệ",
             "api_key":"API Key",
             "salt":"Salt"
+        },
+        "paypal":{
+            "currency":"Đơn vị tiền tệ",
+            "cliend_id":"Client ID",
+            "secret":"Mã bảo mật"
         },
 
         "payment_details": "Thông tin thanh toán",

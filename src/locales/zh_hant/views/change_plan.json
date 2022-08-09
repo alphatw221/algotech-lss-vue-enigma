@@ -26,7 +26,8 @@
         },
         "period_options":{
             "year":"年繳 (九折優惠)",
-            "quarter":"季繳"
+            "quarter":"季繳",
+            "month":"月繳"
         },
         "choose_plan":"訂閱方案",
         "choose_period":"方案期限", 
@@ -52,7 +53,8 @@
         "confirm_payment":"確認付款",
         "current_plan":"目前方案",
         "year":"年繳",
-        "quarter":"季繳"
+        "quarter":"季繳",
+        "month":"月繳"
     },
     "step_3":{
         "succeeded":"付款完成",

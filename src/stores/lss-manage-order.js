@@ -15,6 +15,7 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 				'Direct Payment':false,
 				'stripe':false,
 				'hitpay':false,
+				'paypal':false
 			},
 			'delivery':{
 				'shipping out':false,

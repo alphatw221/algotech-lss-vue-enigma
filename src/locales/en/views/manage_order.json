@@ -49,7 +49,8 @@
                         "payment":"Payment",
                         "Direct Payment":"Direct Payment",
                         "stripe":"Stripe",
-                        "hitpay":"Hitpay"
+                        "hitpay":"Hitpay",
+                        "paypal":"Paypal"
                 },
                 "delivery":{
                         "status":"Delivery Status",
@@ -63,7 +64,8 @@
                         "instagram":"Instagram"
                 },
                 "apply":"Apply Filter",
-                "filter":"Filter"
+                "filter":"Filter",
+                "close_alert":"Apply selected tags?"
         },
         "complete" : "Complete",
         "review" : "Review",

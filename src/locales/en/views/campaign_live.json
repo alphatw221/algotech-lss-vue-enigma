@@ -46,7 +46,8 @@
             "editable":"Editable",
             "removable":"Removable",
             "deletable":"Removable",
-            "search":"Search by"
+            "search":"Search by",
+            "no_product":"You haven't assign any product into this campaign, click Add Product to assign"
         },
         "add":"Add",
         "add_product":"Add Product",

@@ -26,7 +26,8 @@
         },
         "period_options":{
             "year":"Yearly (10% discount)",
-            "quarter":"Quarterly"
+            "quarter":"Quarterly",
+            "month":"Monthly"
         },
         "choose_plan":"Subscription Plan",
         "choose_period":"Subscription Period", 
@@ -52,7 +53,8 @@
         "confirm_payment":"Confirm Payment",
         "current_plan":"Current Plan",
         "year":"Yearly",
-        "quarter":"Quarterly"
+        "quarter":"Quarterly",
+        "month":"Monthly"
     },
     "step_3":{
         "succeeded":"Payment succeeded",
