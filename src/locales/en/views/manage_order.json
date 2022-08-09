@@ -64,7 +64,8 @@
                         "instagram":"Instagram"
                 },
                 "apply":"Apply Filter",
-                "filter":"Filter"
+                "filter":"Filter",
+                "close_alert":"Apply selected tags?"
         },
         "complete" : "Complete",
         "review" : "Review",

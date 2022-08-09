@@ -9,8 +9,11 @@
                     :class="{ 'border-danger text-danger border-2': validate.plan.$error }" 
                     v-model="validate.plan.$model"
                 >
-                    <option v-for="(plan, key) in planOptions" :key="key" :value="plan.value" class="w-40"> 
-                            {{ $t(`register.basic_info.plan_options.` + plan.value) }}  </option>
+                <template v-for="(plan, key) in getPrice.plans" :key="key" >
+                    <option v-if="plan.text != 'Free Trial'" :value="plan.value" class="w-40"> 
+                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${plan.price.month}`}) }}
+                    </option>
+                </template>
                 </select>
                 <template v-if="validate.plan.$error">
                     <label class="text-danger text-[16px] leading-tight">
@@ -204,8 +207,9 @@ import { computed, onMounted, ref, watch, getCurrentInstance, onBeforeMount } fr
 
 import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
-import { required,integer, sameAs } from "@vuelidate/validators";
+import { required,integer, sameAs } from "@vuelidate/validators"
 import { seller_validate_register } from '@/api_v2/user'
+import { get_subscription_plan } from '@/api_v2/business_policy'
 
 import i18n from "@/locales/i18n"
 import { useSellerRegistrationStore } from "@/stores/lss-seller-registration"
@@ -220,12 +224,25 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 //     payment: Object, 
 // })
 
+const getPrice = ref({
+    plans:"",
+    price: ""
+})
+
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} )
+
+onBeforeMount(()=>{
+    get_subscription_plan(route.query.country).then(res=>{
+        getPrice.value = res.data
+        console.log(getPrice.value)
+    })
+})
+
 const route = useRoute()
 const router = useRouter()
 
 const planOptions = [{ value: "lite" },{ value: "standard" },{ value: "premium" }]
-const periodOptions = [{ value: "quarter" },{ value: "year" }]
+const periodOptions = [{ value: "month" },{ value: "year" }]
 const countryCodeOptions = [{ value: "MY" },{ value: "ID" },{ value: "PH" },{ value: "SG" },{ value: "TW" }]
 const countryOptions = [{ value: "Australia" },{ value: "Cambodia" },{ value: "Canada" },{ value: "Hong Kong" },{ value: "Indonesia" },{ value: "Korea" }
 ,{ value: "Malaysia" },{ value: "Philippines" },{ value: "Singapore" },{ value: "Taiwan" },{ value: "Thailand" },{ value: "United States" },{ value: "Vietnam" }]
@@ -278,6 +295,7 @@ const submitBasicInfo=()=>{
         layoutStore.alert.showMessageToast(i18n.global.t('profile.invalid_data'))
         return
     }
+    console.log(basicInfo.value)
     seller_validate_register(route.query.country, basicInfo.value).then(res=>{
         eventBus.emit("showPaymentTab", {'basicInfo':basicInfo.value, 'confirmInfo':res.data} )
     }).catch( err=>{registerationStore.registerTab = 1})

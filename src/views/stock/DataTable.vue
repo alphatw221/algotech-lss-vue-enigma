@@ -102,12 +102,15 @@
 									<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
 									<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
 									</DropdownToggle>
-									<DropdownMenu class="w-24 pt-2">
-										<DropdownContent class="w-24 text-center">
-											<DropdownItem class="w-20 text-center whitespace-nowrap text-[14px]" @click="routeToEditProduct(product)"> 
+									<DropdownMenu class="w-28 pt-2">
+										<DropdownContent class="w-28 text-center">
+											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="routeToEditProduct(product)"> 
 												<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.edit')}}
 											</DropdownItem>
-											<DropdownItem class="w-20 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product.id)"> 
+											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product.id)"> 
+												<CopyIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.duplicate')}}
+											</DropdownItem>
+											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product.id)"> 
 												<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.delete')}}
 											</DropdownItem>
 										</DropdownContent>
@@ -137,7 +140,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { list_product, delete_product } from '@/api_v2/product'
+import { list_product, delete_product, copy_product } from '@/api_v2/product'
 
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed} from 'vue'
@@ -186,13 +189,13 @@ const numOfProducts = computed(()=>stockProducts.value.length)
 onMounted(()=>{
 	search()
 	eventBus.on(props.eventBusName, (payload) => {
-			currentPage.value = 1
-			searchColumn.value = payload.searchColumn
-			keyword.value = payload.keyword
-			pageSize.value = payload.pageSize
-			category.value = payload.filterColumn
-			search()
-		});
+		currentPage.value = 1
+		searchColumn.value = payload.searchColumn
+		keyword.value = payload.keyword
+		pageSize.value = payload.pageSize
+		category.value = payload.filterColumn
+		search()
+	});
 })
 
 onUnmounted(()=>{
@@ -240,6 +243,11 @@ const deleteProduct = (id) => {
 	if (yes) delete_product(id).then(res => { search() })
 	hideDropDown()
 }
+
+const copyProduct = (id) => {
+	copy_product(id).then(res => { search() })
+	hideDropDown()
+}
 </script>
 
 
@@ -278,7 +286,7 @@ thead th{
 }
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
 	table,
 	thead,

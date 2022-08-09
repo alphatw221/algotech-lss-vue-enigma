@@ -47,7 +47,7 @@
       <button
         class="
           flex
-          w-32 h-[35px] sm:h-[42px]
+          w-40 h-[35px] sm:h-[42px]
           ml-auto text-white
           btn btn-warning btn-rounded
           mx-auto mb-5

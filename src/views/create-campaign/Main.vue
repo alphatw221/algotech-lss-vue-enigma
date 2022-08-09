@@ -77,7 +77,6 @@
 					data-tippy-allowHTML="true" 
 					data-tippy-placement="right" 
 					:content="$t('tooltips.settings.local.buyer_lang')" 
-					theme='light'
 				> 
 					<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
 				</Tippy> 

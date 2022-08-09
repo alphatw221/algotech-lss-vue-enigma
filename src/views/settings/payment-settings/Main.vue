@@ -1,19 +1,19 @@
 <template>
     <div class="p-2 2xl:p-10">
         <TabGroup v-if="paymentReady">
-            <TabList class="flex flex-wrap items-center justify-around gap-3 nav-boxed-tabs sm:px-10">
+            <TabList class="flex flex-wrap items-center justify-end gap-1 sm:gap-3 nav-boxed-tabs sm:px-10">
                 <Tab
-                    class="h-20 border-[#131c34] w-fit flex self-center" 
+                    class="h-20 mx-auto border-[#131c34] w-[100%] max-w-[180px] text-center" 
                     tag="button"
                     v-for="payment,index in payments" :key="index"
                 >   
-                    <div v-if="payment.name === 'Direct Payment'" class="inline-flex items-center my-auto grow place-content-center">
-                        <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="block h-6 mr-1"/>
-                        <span class="w-24 text-sm lg:text-lg lg:w-32 ">{{ $t(`settings.payment_form.payment_titles.${payment.key}`) }}</span>
+                    <div v-if="payment.name === 'Direct Payment'" class="inline-flex items-center my-auto grow w-full">
+                        <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="hidden sm:block h-6 mr-1"/>
+                        <span class="w-[75px] text-sm lg:text-lg lg:w-32 mx-auto">{{ $t(`settings.payment_form.payment_titles.${payment.key}`) }}</span>
                     </div>
-                    <div v-else class="inline-flex items-center my-auto grow place-content-center">
-                        <font-awesome-icon icon="fa-regular fa-credit-card" class="block h-6 mr-1" />
-                        <span class="w-24 text-sm lg:text-lg lg:w-32 ">{{ $t(`settings.payment_form.payment_titles.${payment.key}`) }}</span>
+                    <div v-else class="inline-flex items-center my-auto grow w-full mx-auto">
+                        <font-awesome-icon icon="fa-regular fa-credit-card" class="hidden sm:block h-6 mr-1" />
+                        <span class="w-[75px] text-sm lg:text-lg lg:w-32 mx-auto">{{ $t(`settings.payment_form.payment_titles.${payment.key}`) }}</span>
                     </div>
                 </Tab>
             </TabList>

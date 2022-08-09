@@ -26,7 +26,8 @@
         },
         "period_options":{
             "year":"年缴（九折优惠）",
-            "quarter":"季缴"
+            "quarter":"季缴",
+            "month":"月缴"
         },
         "choose_plan":"订阅方案",
         "choose_period":"方案期间", 
@@ -52,7 +53,8 @@
         "confirm_payment":"确认付款",
         "current_plan":"目前方案",
         "year":"年缴",
-        "quarter":"季缴"
+        "quarter":"季缴",
+        "month":"月缴"
     },
     "step_3":{
         "succeeded":"付款完成",
