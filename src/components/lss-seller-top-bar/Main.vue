@@ -10,7 +10,7 @@
     <div class="flex items-center justify-between w-full h-full">
 
       <!-- BEGIN: Hamburger -->
-      <a @click="toggleMobileMenu()">
+      <a @click="toggleMobileMenu()" class="w-16">
         <AlignJustifyIcon
           class="mb-1 text-white transform w-7 h-7 md:hidden intro-x hover:text-slate-300"
         />
@@ -18,7 +18,7 @@
       <!-- END: Hamburger -->
 
       <!-- BEGIN: Logo -->
-      <a href="" class="block w-20 logo -intro-x sm:w-24 md:mr-auto md:flex md:w-1/10 md:mx-0 xl:ml-5 ">
+      <a href="" class="block w-20 logo -intro-x sm:w-24 mx-auto md:mr-auto md:flex md:w-1/10 xl:-ml-5 ">
         <img
           alt="Enigma Tailwind HTML Admin Template"
           class="self-center mb-1 logo__image"
@@ -26,6 +26,8 @@
         />
         <!-- <span class="mt-2 ml-3 text-lg text-white logo__text"> LiveShowSeller </span> -->
       </a>
+
+
       <!-- BEGIN: Search
       <div class="relative mr-3 intro-x sm:mr-6">
         <div class="hidden search sm:block">
@@ -164,6 +166,27 @@
         </DropdownMenu>
       </Dropdown> -->
       <!-- END: Notifications -->
+
+    <!-- Language -->
+
+      <Dropdown class="absolute right-[10px] sm:right-[30px] intro-x">
+        <DropdownToggle
+          tag="div"
+          role="button"
+          class="cursor-pointer notification"
+        >
+          <GlobeIcon class=" dark:text-slate-500" />
+        </DropdownToggle>
+        
+          <DropdownMenu class="w-fit whitespace-nowrap">
+            <DropdownContent class="bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white" > 
+              <template  v-for="(option,index) in languages" :key="index"> 
+                <DropdownItem @click="changeLang(option.value)">  {{$t(`settings.localization.languages.${option.value}`)}} </DropdownItem>
+              </template>
+            </DropdownContent>
+          </DropdownMenu>
+      </Dropdown>
+
       <!-- BEGIN: Account Menu -->
       <Dropdown class="w-10 h-10 intro-x">
         <DropdownToggle
@@ -215,11 +238,13 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, computed } from "vue";
+import { ref, defineEmits, computed, onMounted } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { seller_update_subscription } from '@/api_v2/user_subscription'
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
+import i18n from '@/locales/i18n';
 
 const route = useRoute();
 const router = useRouter();
@@ -245,11 +270,30 @@ const userAvatar = computed(() => {
   }
   return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
 });
+const data = ref({currency:'USD', lang:'en'})
 
-const hideDropDown = ()=>{
-  dom('.dropdown-menu').removeClass('show')
+const languages = ref([
+    {value:'en',text:'English'},
+    {value:'zh_hant',text:'Chinese-tranditional'},
+    {value:'zh_hans',text:'Chinese-simplify'},
+    {value:'vi',text:'Vietnamese'}
+])
+
+onMounted(()=>{
+
+    if(!sellerLayoutStore.userInfo.user_subscription) return
+    data.value.lang = sellerLayoutStore.userInfo.lang
+})
+
+const changeLang = (selectLang)=>{
+  data.value.lang = selectLang
+  seller_update_subscription(data.value).then(res=>{
+      console.log(res)
+      sellerLayoutStore.userInfo = res.data
+      i18n.global.locale.value = res.data.lang
+  })
+  hideDropDown()
 }
-
 
 const logout = () => {
   cookies.remove('access_token')
@@ -272,4 +316,9 @@ const showSearchDropdown = () => {
 const hideSearchDropdown = () => {
   searchDropdown.value = false;
 };
+
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
+
 </script>
