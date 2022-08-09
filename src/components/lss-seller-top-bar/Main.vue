@@ -181,7 +181,7 @@
           <DropdownMenu class="w-fit whitespace-nowrap">
             <DropdownContent class="bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white" > 
               <template  v-for="(option,index) in languages" :key="index"> 
-                <DropdownItem @click="changeLang(option.value)">  {{$t(`settings.localization.languages.${option.value}`)}} </DropdownItem>
+                <DropdownItem @click="changeLang(option.value)"> <span class="text-white"> {{$t(`settings.localization.languages.${option.value}`)}} </span> </DropdownItem>
               </template>
             </DropdownContent>
           </DropdownMenu>

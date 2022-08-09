@@ -22,6 +22,7 @@
         "period":"Thời gian sử dụng",
         "period_options":{
             "year":"Hàng năm (giảm giá 10%)",
+            "year_tw":"Hàng năm (giảm giá 20%)",
             "quarter":"Hàng quý",
             "month":"Hàng tháng"
         },

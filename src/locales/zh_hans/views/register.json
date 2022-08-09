@@ -21,6 +21,7 @@
         "period":"订阅期限",
         "period_options":{
             "year":"年缴 (九折优惠)",
+            "year_tw":"年缴 (八折优惠)",
             "quarter":"季缴",
             "month":"月缴"
         },

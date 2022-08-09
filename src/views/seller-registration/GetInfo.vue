@@ -29,9 +29,19 @@
                         :class="{ 'border-danger text-danger border-2': validate.period.$error }" 
                         v-model="validate.period.$model"
                     >
-                    <option v-for="(period, key) in periodOptions" :key="key" :value="period.value" class="w-40"> 
-                    {{ $t(`register.basic_info.period_options.` + period.value) }} 
-                    </option>
+                    <template v-for="(period, key) in periodOptions" :key="key">  
+                        <option
+                            v-if=" period.value == 'year' && route.query.country == 'TW'" 
+                            :value="period.value" class="w-40"> 
+                            {{ $t(`register.basic_info.period_options.` + 'year_tw') }} 
+                        </option>
+                        <option
+                            v-else
+                            :value="period.value" class="w-40"> 
+                            {{ $t(`register.basic_info.period_options.` + period.value) }} 
+                        </option>
+                    </template>
+                    
                 </select>
                 <template v-if="validate.period.$error">
                     <label class="text-danger text-[16px] leading-tight">
