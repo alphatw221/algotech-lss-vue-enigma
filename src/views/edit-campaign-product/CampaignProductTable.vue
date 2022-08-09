@@ -65,7 +65,7 @@
                         <td v-else-if="column.key === 'price'" class="price" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                                 <div class="whitespace-nowrap" v-if="campaignDetailStore.campaign">
                                     {{ campaignDetailStore.campaign.currency }}
-                                    {{ campaignDetailStore.campaign.decimal_places=='0'?Math.trunc(parseFloat(campaign_product[column.key])):parseFloat(campaign_product[column.key]).toFixed(campaignDetailStore.campaign.decimal_places)}}
+                                    {{ Math.floor(parseFloat(campaign_product[column.key]) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places}}
                                     {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}</div>
                         </td>
 

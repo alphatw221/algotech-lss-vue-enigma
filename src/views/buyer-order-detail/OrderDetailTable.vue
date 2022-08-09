@@ -37,12 +37,12 @@
 				</td>
 				<td class="text-right" :data-content="$t('order_detail.table.price')" v-if="store.order.campaign">
 					{{store.order.campaign.currency}} 
-					{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.order.campaign.decimal_places) }}
+					{{ Math.floor(product.price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
 					{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 				</td>
 				<td class="text-right" :data-content="$t('order_detail.table.sub_total')" v-if="store.order.campaign">
-					{{store.order.campaign.currency}} 
-					{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)): parseFloat(product.qty * product.price).toFixed(store.order.campaign.decimal_places) }}
+					{{store.order.campaign.currency}}
+					{{ (Math.floor(product.price * product.qty * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places)}}
 					{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 				</td>
 			</tr>

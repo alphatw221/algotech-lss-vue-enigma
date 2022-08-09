@@ -37,7 +37,7 @@
 						</div>
 						<div class="text-slate-500 text-sm text-center">
 							{{store.order.campaign.currency}} 
-							{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.order.campaign.decimal_places) }}
+							{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
 							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 						</div>
 						<div class="flex">

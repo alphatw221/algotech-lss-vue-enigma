@@ -56,6 +56,17 @@
             "secret":"密钥",
             "currency":"货币"
         },
+        "hitpay":{
+            "button_title":"按钮标题",
+            "currency":"货币",
+            "api_key":"API 密钥",
+            "salt":"密码"
+        },
+        "paypal":{
+            "currency":"货币",
+            "cliend_id":"客户ID",
+            "secret":"密钥"
+        },
 
         "payment_details":"金流设定",
         "enabled":"启用",

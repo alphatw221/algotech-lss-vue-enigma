@@ -14,5 +14,6 @@
     "shipping out":"Shipping Out",
     "Direct Payment":"Direct Payment",
     "stripe":"Stripe",
-    "hitpay":"Hitpay"
+    "hitpay":"Hitpay",
+    "paypal":"Paypal"
 }

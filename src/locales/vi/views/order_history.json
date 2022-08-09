@@ -14,5 +14,6 @@
     "shipping out":"Đã giao hàng",
     "Direct Payment":"Thanh toán trực tiếp",
     "stripe":"Stripe",
-    "hitpay":"Hitpay"
+    "hitpay":"Hitpay",
+    "paypal":"Paypal"
 }

@@ -50,7 +50,8 @@
                         "payment":"付款方式",
                         "Direct Payment":"转帐支付",
                         "stripe":"Stripe",
-                        "hitpay":"Hitpay"
+                        "hitpay":"Hitpay",
+                        "paypal":"Paypal"
                 },
                 "delivery":{
                         "status":"出货状态",
