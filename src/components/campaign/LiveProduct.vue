@@ -55,6 +55,11 @@
                     </thead>
 
                     <tbody>
+                        <tr v-if="store.campaignProducts.length === 0" class="h-[250px]">
+                            <td class="mt-40 text-center border-none text-sm md:text-lg text-slate-500" :colspan="6" > 
+                                {{ $t(`campaign_live.product.modal_column.no_product`) }}
+                            </td> 
+                        </tr> 
                         <tr v-for="product,index in store.campaignProducts" :key="index">
 
                             <td class="md:hidden">

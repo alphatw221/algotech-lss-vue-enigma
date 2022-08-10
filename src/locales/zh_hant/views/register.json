@@ -21,6 +21,7 @@
         "period":"訂閱期限",
         "period_options":{
             "year":"年繳 (九折優惠)",
+            "year_tw":"年繳 (八折優惠)",
             "quarter":"季繳",
             "month":"月繳"
         },

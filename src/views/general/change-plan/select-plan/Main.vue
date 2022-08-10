@@ -43,6 +43,7 @@
                         </label>
                     </template>
                 </div>
+
                 <div class="flex-col">
                     <label for="" class="subLabel" >{{$t('change_plan.step_1.choose_period')}}</label><span class="text-danger"> *</span>
                         <select 
@@ -51,8 +52,19 @@
                             :class="{ 'border-danger text-danger border-2': validate.period.$error }" 
                             v-model="validate.period.$model"
                         >
-                        <option v-for="(period, key) in periodOptions" :key="key" :value="period.value" class="w-40"> 
-                        {{ $t(`change_plan.step_1.period_options.` + period.value) }} 
+                        <option v-if=" dayLeft < 30 " 
+                            :value="periodOptions[0].value" class="w-40"> 
+                            {{ $t(`change_plan.step_1.period_options.month`) }} 
+                        </option>
+                        <option
+                            v-if="layout.userInfo.user_subscription.country == 'TW'" 
+                            :value="periodOptions[1].value" class="w-40"> 
+                            {{ $t(`register.basic_info.period_options.` + 'year_tw') }} 
+                        </option>
+                        <option
+                            v-else
+                            :value="periodOptions[1].value" class="w-40"> 
+                            {{ $t(`register.basic_info.period_options.year`) }} 
                         </option>
                     </select>
                     <template v-if="validate.period.$error">
@@ -146,6 +158,8 @@ const periodOptions = ref([{ value: "month" },{ value: "year" }])
 const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
 const havePromoCode = ref(false)
 
+const dayLeft = ref('')
+const expDate = new Date(layout.userInfo.user_subscription.expired_at)
 const getPrice = ref({
     plans:"",
     price: ""
@@ -154,6 +168,8 @@ onMounted(()=>{
     get_subscription_plan(layout.userInfo.user_subscription.country).then(res=>{
         getPrice.value = res.data
     })
+    const today = new Date();
+    dayLeft.value = Math.round(( expDate.getTime() - today.getTime() )/86400000)
 })
 
 const selectedPlan = ref({

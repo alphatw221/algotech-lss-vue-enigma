@@ -22,6 +22,7 @@
         "period":"Subscription Period",
         "period_options":{
             "year":"Yearly (10% discount)",
+            "year_tw":"Yearly (20% discount)",
             "quarter":"Quarterly",
             "month":"Monthly"
         },

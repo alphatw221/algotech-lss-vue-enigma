@@ -40,6 +40,14 @@
                                 {{ new Date(layout.userInfo.user_subscription.expired_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"}) }}
                             </td>
                         </tr>
+                        <tr class="p-4"> 
+                            <td class="p-4"> 
+                                <div> {{$t("settings.localization.country")}}  : </div>
+                            </td>
+                            <td class="p-4"> 
+                                <div class="flex my-auto" v-if="layout.userInfo.user_subscription "> {{  $t(`settings.localization.countries.${layout.userInfo.user_subscription.country}`)||'' }}</div>
+                            </td>
+                        </tr>
                     </tbody>
                 </table>
             </div>
