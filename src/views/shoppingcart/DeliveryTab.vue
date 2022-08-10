@@ -398,8 +398,11 @@ const proceed_to_payment = () =>{
     }
   }
 
-  const is_confirm = confirm(i18n.global.t('shopping_cart.checkout_message'))
-  if (is_confirm==false)return 
+  try{
+    const is_confirm = confirm(i18n.global.t('shopping_cart.checkout_message'))
+    if (is_confirm==false)return 
+  }catch(err){}
+  
   
 
   const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
