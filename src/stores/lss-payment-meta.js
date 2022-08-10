@@ -102,25 +102,25 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 
     SG : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
     
-    ID :['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    ID :['direct_payment', 'stripe', 'paypal'],
 
-    MY : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    MY : ['direct_payment', 'stripe', 'paypal'],
     
-    IN : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    IN : ['direct_payment', 'stripe', 'paypal'],
     
-    PH : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    PH : ['direct_payment', 'paypal'],
 
-    VN : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    VN : ['direct_payment', 'stripe', 'paypal'],
 
-    TW : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    TW : ['direct_payment', 'stripe', 'paypal'],
 
-    CN : ['direct_payment', 'stripe'],
+    CN : ['direct_payment', 'stripe', 'paypal'],
 
-    KH : ['direct_payment', 'stripe'],
+    KH : ['direct_payment', 'stripe', 'paypal'],
 
-    AU : ['direct_payment', 'stripe'],
+    AU : ['direct_payment', 'stripe', 'paypal'],
 
-    HK : ['direct_payment', 'stripe'],
+    HK : ['direct_payment', 'stripe', 'paypal'],
 
 	paymentMap: {
 		direct_payment: 'Direct Payment',
