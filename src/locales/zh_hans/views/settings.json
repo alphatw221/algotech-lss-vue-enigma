@@ -47,7 +47,8 @@
             "direct_payment":"转账付款",
             "stripe":"Stripe付款",
             "hitpay":"Hitpay付款",
-            "paypal":"Paypal付款"
+            "paypal":"Paypal付款",
+            "cepay":"Cepay付款"
         },
 
         "direct_payment":{
@@ -71,6 +72,11 @@
             "currency":"货币",
             "cliend_id":"客户ID",
             "secret":"密钥"
+        },
+        "cepay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV"
         },
 
         "payment_details":"金流设定",

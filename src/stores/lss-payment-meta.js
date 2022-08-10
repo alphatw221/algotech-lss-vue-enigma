@@ -98,9 +98,25 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 	// 		endpoint:'getFirstDataCredential',
 	// 	}
 	// },
+	cepay:{
+		multiple:false,
+		name:"綠界",
+		key:"cepay",
+		icon:"static/payment/paypal/icon.jpeg",
+		fields:[
+			// {key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'NTD'], dataType:"string", default:'SGD'},
+			{key:"merchant_id", type:"text", name:"Merchant ID", dataType:"string", default:''},
+			{key:"hash_key", type:"text", name:"HashKey", dataType:"string", default:''},
+			{key:"hash_iv", type:"text", name:"HashIV", dataType:"string", default:''}
+		],
+		handle:{
+			type:'gateway',
+			endpoint:'getCepayGateway',
+		}
+	},
 
 
-    SG : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    SG : ['direct_payment', 'stripe', 'hitpay', 'paypal', 'cepay'],
     
     ID :['direct_payment', 'stripe', 'paypal'],
 
@@ -125,7 +141,8 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 	paymentMap: {
 		direct_payment: 'Direct Payment',
 		stripe: 'Stripe',
-		first_data: 'First Data'
+		first_data: 'First Data',
+		cepay:'Cepay'
 	}
     
   }),

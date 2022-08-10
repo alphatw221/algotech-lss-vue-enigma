@@ -2,9 +2,9 @@
     "upgrade":"升級方案",
     "menu":{
         "create":"建立",
-        "new_campaign":"直播",
+        "new_campaign":"直播銷售",
         "stock":"庫存商品",
-        "campaign_list":"直播列表",
+        "campaign_list":"直播銷售",
         "auto_reply":"自動回覆",
         "settings":"設定",
         "campaign_default_setting":"直播預設",
@@ -14,8 +14,8 @@
     },
     "bread_crumb":{
         "stock":"庫存",
-        "campaign-list":"直播列表",
-        "campaign-live":"直播實況",
+        "campaign-list":"直播銷售",
+        "campaign-live":"直播活動",
         "manage-order":"訂單管理",
         "order-detail":"訂單內容",
         "settings":"設定",
@@ -33,7 +33,8 @@
         "product-detail":"商品內容",
         "edit-product":"編輯商品",
         "profile":"個人檔案",
-        "change-plan":"更改方案"
+        "change-plan":"更改方案",
+        "quiz-game":"小遊戲"
     },
     "top_bar":{
         "profile":"個人檔案",

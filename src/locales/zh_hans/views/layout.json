@@ -33,7 +33,8 @@
         "product-detail":"商品资讯",
         "edit-product":"编辑商品",
         "profile":"个人档案",
-        "change-plan":"更改方案"
+        "change-plan":"更改方案",
+        "quiz-game":"小游戏"
     },
     "top_bar":{
         "profile":"个人档案",

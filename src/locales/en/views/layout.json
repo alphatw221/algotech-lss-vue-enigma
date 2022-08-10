@@ -33,7 +33,8 @@
         "product-detail":"Product Detail",
         "edit-product":"Edit Product",
         "profile":"Profile",
-        "change-plan":"Change Plan"
+        "change-plan":"Change Plan",
+        "quiz-game":"Quiz Game"
     },
     "top_bar":{
         "profile":"Profile",

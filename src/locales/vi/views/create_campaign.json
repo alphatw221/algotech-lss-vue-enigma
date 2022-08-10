@@ -69,6 +69,11 @@
             "cliend_id":"Client ID",
             "secret":"Mã bảo mật"
         },
+        "cepay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV"
+        },
 
 
 
