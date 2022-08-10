@@ -379,22 +379,26 @@ const delivery_validate = useVuelidate(delivery_rules, shipping_info);
 
 
 const proceed_to_payment = () =>{
-
+  console.log('a')
   reciever_validate.value.$touch();
+
   if (reciever_validate.value.$invalid) {
+    console.log('b')
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
+  console.log('c')
   if(shipping_info.value.shipping_method==='delivery'){
+    console.log('d')
     delivery_validate.value.$touch();
     if(delivery_validate.value.$invalid){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
   }
-  
+  console.log('e')
   if (confirm(i18n.global.t('shopping_cart.checkout_message'))){
-
+    console.log('f')
     const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
     update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
     .then(res=>{
