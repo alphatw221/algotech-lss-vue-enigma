@@ -42,7 +42,7 @@
               <div class="mt-3" v-if="campaign.facebook_page">
                 <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
                 <input class="post_id" v-model="campaign.facebook_campaign.post_id" 
-                :class="{ 'border-danger text-danger border-2': validate.facebook.post_id.error }" @focusout="autoUpdatePostId('facebook')"/>
+                :class="{ 'border-danger text-danger border-2': validate.facebook.post_id.error }" @keyup="autoUpdatePostId('facebook')"/>
                 <template v-if="validate.facebook.post_id.error">
                   <label class="text-danger ml-2" >
                     invalid post id 
@@ -74,7 +74,7 @@
               <div class="mt-3" v-if="campaign.instagram_profile">
                 <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
                 <input class="post_id" v-model="campaign.instagram_campaign.live_media_id" 
-                :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @focusout="autoUpdatePostId('instagram')" disabled/>
+                :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @keyup="autoUpdatePostId('instagram')" disabled/>
                 <template v-if="validate.instagram.post_id.error">
                   <label class="text-danger ml-2" >
                     invalid post id 
@@ -105,7 +105,7 @@
               <div class="mt-3" v-if="campaign.youtube_channel">
                 <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
                 <input class="post_id" v-model="campaign.youtube_campaign.live_video_id" 
-                :class="{ 'border-danger text-danger border-2': validate.youtube.post_id.error }" @focusout="autoUpdatePostId('youtube')"/>
+                :class="{ 'border-danger text-danger border-2': validate.youtube.post_id.error }" @keyup="autoUpdatePostId('youtube')"/>
                 <template v-if="validate.youtube.post_id.error">
                   <label class="text-danger ml-2" >
                     invalid post id 
@@ -166,12 +166,11 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore();
 const ready = ref(false)
 const campaign = ref(null)
-const invalid = ref(false)
 const validate = ref({
   "facebook": {
     "post_id": {
       "error": false
-    }
+    },
   },
   "instagram": {
     "post_id": {
@@ -186,10 +185,8 @@ const validate = ref({
 })
 onMounted(()=>{
     eventBus.on('showEnterPostIDModal', (payload) => {
-      console.log("-------------")
       showModal.value = true
       campaign.value = payload.campaign
-      console.log(campaign.value)
       ready.value=true
     })
     eventBus.on('changeValidatStatus', (payload) => {
@@ -210,11 +207,11 @@ const showModal = ref(false)
 
 
 const enterLive = ()=>{
-  let facebook_valid = campaign.value.facebook_campaign.post_id && !validate.value["facebook"]["post_id"]["error"]
-  let instagram_valid = campaign.value.instagram_campaign.live_media_id && !validate.value["instagram"]["post_id"]["error"]
-  let youtube_valid = campaign.value.youtube_campaign.live_video_id && !validate.value["youtube"]["post_id"]["error"]
-  console.log(youtube_valid)
-  if (facebook_valid || instagram_valid || youtube_valid) {
+  let facebook_valid = (campaign.value.facebook_campaign.post_id != '' && !validate.value["facebook"]["post_id"]["error"]) || (campaign.value.facebook_campaign.post_id == '')
+  let instagram_valid = campaign.value.instagram_campaign.live_media_id != '' && !validate.value["instagram"]["post_id"]["error"] || (campaign.value.instagram_campaign.live_media_id == '')
+  let youtube_valid = campaign.value.youtube_campaign.live_video_id != '' && !validate.value["youtube"]["post_id"]["error"] || (campaign.value.youtube_campaign.live_video_id == '')
+  
+  if (facebook_valid && instagram_valid && youtube_valid) {
     router.push({name:'campaign-live',params:{'campaign_id':campaign.value.id}})
     hideModal()
   } else {
@@ -233,13 +230,19 @@ const hideModal = ()=>{
 const selectPlatformPage = (platform)=>{
   eventBus.emit('showSelectPlatformModal',{'platform':platform, 'campaign':campaign.value})
 }
-let updatePostid = null
 
+let autosave_timer = null
 const autoUpdatePostId = (platform) => {
+  validate.value[platform]["post_id"]["error"] = true
+  if (autosave_timer) {
+    clearTimeout(autosave_timer);
+  }
+  autosave_timer = setTimeout(() => {updatePostId(platform)}, 500); 
+}
+const updatePostId = (platform) => {
   let page_id = null
   let live_id = null
   let apiRequest = null
-
   if (platform === "facebook") {
     page_id = campaign.value.facebook_page.id
     live_id = campaign.value.facebook_campaign.post_id
@@ -260,7 +263,6 @@ const autoUpdatePostId = (platform) => {
   apiRequest.then(res=>{
     return res.data
   }).then(res=>{
-    console.log(res)
     if (res.success_response) {
       validate.value[platform]["post_id"]["error"] = false
       return update_platform_live_id(campaign.value.id, platform, page_id, live_id)
