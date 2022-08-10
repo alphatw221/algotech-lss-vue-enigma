@@ -77,18 +77,24 @@
                 </div>
             </div>
         </div>
-        
+        <!-- BEGIN: Cover -->
+        <div id="cover" v-if="showAnimation"></div>
+        <!-- END: Cover -->
+
         <!-- BEGIN: Modal Content -->
-        <Modal :show="showAnimation">
-            <ModalBody class="p-10 text-center">
+        <!-- <Modal :show="showAnimation">
+            <ModalBody class="p-10 text-center"> -->
+            <div id="draw_animation" :class="{ show: showAnimation, hide: !showAnimation}">
                 <template v-if="luckyDrawData.animation == ''"> 
                     <img class="m-3 self-center" :src="`${storageUrl}static/lucky_draw1.svg`" />                        
                 </template>
                 <template v-else>
                     <img class="m-3 self-center" :src="storageUrl + luckyDrawData.animation" />
                 </template> 
-            </ModalBody>
-        </Modal>
+            </div>
+                
+            <!-- </ModalBody>
+        </Modal> -->
         <!-- END: Modal Content -->
 
     </div>
@@ -147,3 +153,62 @@ const goDraw = (lucky_draw_id) => {
 }
 
 </script>
+<style scoped>
+#cover {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    z-index: 1;
+}
+#draw_animation.hide {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: -100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        z-index: 2;
+        overflow: hidden;
+        transition: all 1s;
+
+    }
+@media screen and (min-width: 400px){
+    #draw_animation.show {
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        z-index: 2;
+        overflow: hidden;
+        transition: all 1s;
+
+    }
+}
+
+@media screen and (max-width: 400px){
+    #draw_animation.show {
+        width: 100%;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        z-index: 2;
+        overflow: hidden;
+        transition: all 1s;
+    }
+}
+img {
+    width: inherit;
+    height: inherit;
+}
+
+</style>
