@@ -264,6 +264,9 @@
       <button class="mr-auto rounded-full w-fit btn btn-outline-primary" @click="store.openTab= 1">
         {{$t('shopping_cart.delivery_tab.previous')}}
       </button>
+      <div id="debug_log">
+
+      </div>
       <button class="w-fit btn btn-rounded-primary" @click="proceed_to_payment">
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
@@ -379,26 +382,26 @@ const delivery_validate = useVuelidate(delivery_rules, shipping_info);
 
 
 const proceed_to_payment = () =>{
-  alert('a')
+  document.getElementById('debug_log').innerHTML = 'a'
   reciever_validate.value.$touch();
 
   if (reciever_validate.value.$invalid) {
-    alert('b')
+    document.getElementById('debug_log').innerHTML = 'b'
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
-  alert('c')
+  document.getElementById('debug_log').innerHTML = 'c'
   if(shipping_info.value.shipping_method==='delivery'){
-    alert('d')
+    document.getElementById('debug_log').innerHTML = 'd'
     delivery_validate.value.$touch();
     if(delivery_validate.value.$invalid){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
   }
-  alert('e')
+  document.getElementById('debug_log').innerHTML = 'e'
   if (confirm(i18n.global.t('shopping_cart.checkout_message'))){
-    alert('f')
+    document.getElementById('debug_log').innerHTML = 'f'
     const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
     update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
     .then(res=>{
