@@ -398,10 +398,10 @@ const proceed_to_payment = () =>{
     }
   }
 
-  try{
-    const is_confirm = confirm(i18n.global.t('shopping_cart.checkout_message'))
-    if (is_confirm==false)return 
-  }catch(err){}
+
+
+  // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
+
   
   
 
