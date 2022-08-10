@@ -5,6 +5,8 @@
     "update_successed":"Cập nhật thành công",
     "save_success":"Lưu thành công",
     "not_saved":"Cập nhật Hủy bỏ",
+    "animation_size_err": "Kích thước hình ảnh vượt quá 10 MB",
+    "animation_type_err": "Tệp này không được hỗ trợ",
 
     "draw_list": {
         "campaign_title": "Tiêu đề chiến dịch   ",

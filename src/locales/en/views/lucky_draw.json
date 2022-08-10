@@ -5,6 +5,8 @@
     "update_successed":"Update Successed",
     "save_success":"Save Success",
     "not_saved":"Update Canceled",
+    "animation_size_err": "File size can not exceed 10 MB.",
+    "animation_type_err": "This file type is not supported.",
 
     "draw_list": {
         "campaign_title": "Campaign Title",
