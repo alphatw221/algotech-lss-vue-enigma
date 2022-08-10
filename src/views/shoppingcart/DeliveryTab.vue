@@ -398,18 +398,20 @@ const proceed_to_payment = () =>{
     }
   }
 
-  if (confirm(i18n.global.t('shopping_cart.checkout_message'))){
+  const is_confirm = confirm(i18n.global.t('shopping_cart.checkout_message'))
+  if (is_confirm==false)return 
+  
 
-    const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
-    update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
-    .then(res=>{
-      router.push(`/buyer/order/${res.data.oid}/payment`)
-    }).catch(error=>{
-      layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.checkout_again'))
-      if (error.response.data)store.order = error.response.data
-      
-    })
-  }
+  const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
+  update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
+  .then(res=>{
+    router.push(`/buyer/order/${res.data.oid}/payment`)
+  }).catch(error=>{
+    layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.checkout_again'))
+    if (error.response.data)store.order = error.response.data
+    
+  })
+  
 }
 
 
