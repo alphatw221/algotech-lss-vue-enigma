@@ -5,6 +5,8 @@
     "update_successed":"更新成功",
     "save_success":"储存成功",
     "not_saved":"取消储存",
+    "animation_size_err": "上传档案大小不可超过 10 MB",
+    "animation_type_err": "此档案格式不支援",
 
     "draw_list": {
         "campaign_title": "直播名称",

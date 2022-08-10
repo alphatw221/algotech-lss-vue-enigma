@@ -287,6 +287,10 @@ const type = ref('create')
 const luckyDrawId = ref(0)
 const productType = ref('')
 const drawCondition = ref(false)
+const amimation_validate = ref({
+    "maximum_size": 10*1024*1024,
+    "supported_type": "image"
+})
 
 
 const luckydrawRules = computed(()=> {
@@ -378,6 +382,15 @@ const goDraw = () => {
 
 const uploadAnimation = e => {
     const animation = e.target.files[0];
+    if (!animation.type.includes(amimation_validate.value.supported_type)) {
+        layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.animation_type_err'))
+        return 
+    }
+    if (animation.size > amimation_validate.value.maximum_size) {
+        layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.animation_size_err'))
+        return 
+    }
+    
 	formData.append('animation', animation)
 
 	const reader = new FileReader();
