@@ -77,6 +77,9 @@
 						</div>
 						<img class="w-40 h-40 rounded-lg" v-else data-dz-thumbnail :src="previewImage" />
 					</Dropzone>
+					<Tippy v-show="previewImage" tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('create_campaign.payment_form.remove_image')"  :options="{theme: 'light',}">
+						<XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeImage()"/>
+					</Tippy>
 				</div>
 			</div> 
 
@@ -279,18 +282,25 @@ provide("bind[dropzoneSingleRef]", (el) => {
         if (files.length > 0) el.dropzone.removeFile(files[0])
     })
 });
+const removeImage = () =>{
+	const files = dropzoneSingleRef.value.dropzone.getAcceptedFiles()
+	if (files.length > 0) dropzoneSingleRef.value.dropzone.removeFile(files[0])
+    previewImage.value = ''
 
+}
 const submit = ()=>{
 	validate.value.$touch();
     if (validate.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.invalid_data'))
         return
-    }else
-	if (route.params.product_id) {
-		if(previewImage.value === '' && (product.value.image === '' || dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] === undefined))
+	}
+    if (route.params.product_id) {
+		if(previewImage.value === '' && (product.value.image === '' || dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] === undefined)) {
 			formData.append('image', '._no_image')
-		else
+		} else {
 			formData.append('image', dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0])
+		}
+			
 		
 		formData.append('data', JSON.stringify(product.value))
 		update_product(route.params.product_id, formData)
@@ -303,7 +313,7 @@ const submit = ()=>{
 			},
 		)
 	} else {
-		formData.append('image', dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] || '')
+		formData.append('image', dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] || '._no_image')
 		formData.append('data', JSON.stringify(product.value))
 		// formData.append('image', )
 		create_product(formData)
