@@ -98,10 +98,10 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 	// 		endpoint:'getFirstDataCredential',
 	// 	}
 	// },
-	cepay:{
+	ecpay:{
 		multiple:false,
 		name:"綠界",
-		key:"cepay",
+		key:"ecpay",
 		icon:"static/payment/paypal/icon.jpeg",
 		fields:[
 			// {key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'NTD'], dataType:"string", default:'SGD'},
@@ -110,13 +110,13 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			{key:"hash_iv", type:"text", name:"HashIV", dataType:"string", default:''}
 		],
 		handle:{
-			type:'gateway',
-			endpoint:'getCepayGateway',
+			type:'submitForm',
+			endpoint:'getEcpayCredential',
 		}
 	},
 
 
-    SG : ['direct_payment', 'stripe', 'hitpay', 'paypal', 'cepay'],
+    SG : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
     
     ID :['direct_payment', 'stripe', 'hitpay', 'paypal'],
 
@@ -128,7 +128,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 
     VN : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
 
-    TW : ['direct_payment', 'stripe', 'hitpay', 'paypal', 'cepay'],
+    TW : ['direct_payment', 'stripe', 'hitpay', 'paypal', 'ecpay'],
 
     CN : ['direct_payment', 'stripe'],
 
@@ -142,7 +142,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		direct_payment: 'Direct Payment',
 		stripe: 'Stripe',
 		first_data: 'First Data',
-		cepay:'Cepay'
+		ecpay:'ECPay'
 	}
     
   }),

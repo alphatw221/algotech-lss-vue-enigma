@@ -47,7 +47,7 @@
             "stripe":"Stripe付款",
             "hitpay":"Hitpay付款",
             "paypal":"Paypal付款",
-            "cepay":"Cepay付款"
+            "ecpay":"綠界付款"
         },
 
         "direct_payment":{
@@ -72,8 +72,8 @@
             "cliend_id":"客户ID",
             "secret":"密钥"
         },
-        "cepay":{
-            "merchant_id":"Merchant ID",
+        "ecpay":{
+            "merchant_id":"商店代号",
             "hash_key":"Hash Key",
             "hash_iv":"Hash IV"
         },

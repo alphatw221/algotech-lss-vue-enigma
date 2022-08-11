@@ -43,7 +43,7 @@
         "payment_titles":{
             "direct_payment":"转账支付",
             "stripe":"Stripe支付",
-            "cepay":"Cepay"
+            "ecpay":"綠界支付"
         },
 
         "direct_payment":{
@@ -68,8 +68,8 @@
             "cliend_id":"客户ID",
             "secret":"密钥"
         },
-        "cepay":{
-            "merchant_id":"Merchant ID",
+        "ecpay":{
+            "merchant_id":"商店代号",
             "hash_key":"Hash Key",
             "hash_iv":"Hash IV"
         },
