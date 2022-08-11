@@ -45,7 +45,7 @@
             "stripe":"Stripe",
             "hitpay":"Hitpay",
             "paypal":"Paypal",
-            "cepay":"Cepay"
+            "ecpay":"ECPay"
         },
 
         "direct_payment":{
@@ -70,7 +70,7 @@
             "client_id":"Client ID",
             "secret":"Secret"
         },
-        "cepay":{
+        "ecpay":{
             "merchant_id":"Merchant ID",
             "hash_key":"Hash Key",
             "hash_iv":"Hash IV"
