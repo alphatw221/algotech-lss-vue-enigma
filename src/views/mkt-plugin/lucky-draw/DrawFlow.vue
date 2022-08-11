@@ -85,19 +85,14 @@
             <img class="mx-auto" :src="winnerShowupPicture" />
         </div>
         <!-- BEGIN: Modal Content -->
-        <!-- <Modal :show="showAnimation">
-            <ModalBody class="p-10 text-center"> -->
-            <div id="draw_animation" :class="{ show: showAnimation, hide: !showAnimation}">
-                <template v-if="luckyDrawData.animation == ''"> 
-                    <img class="mx-auto" :src="`${storageUrl}static/lucky_draw1.svg`" />                        
-                </template>
-                <template v-else>
-                    <img class="mx-auto" :src="storageUrl + luckyDrawData.animation" />
-                </template> 
-            </div>
-                
-            <!-- </ModalBody>
-        </Modal> -->
+        <div id="draw_animation" :class="{ show: showAnimation, hide: !showAnimation}">
+            <template v-if="luckyDrawData.animation == ''"> 
+                <img class="mx-auto" :src="`${storageUrl}static/lucky_draw1.svg`" />                        
+            </template>
+            <template v-else>
+                <img class="mx-auto" :src="storageUrl + luckyDrawData.animation" />
+            </template> 
+        </div>
         <!-- END: Modal Content -->
 
     </div>
@@ -147,33 +142,7 @@ onMounted(() => {
 const goDraw = (lucky_draw_id) => {
     showAnimation.value = true
     draw_campaign_lucky_draw(lucky_draw_id).then(res => {
-        // winnerList.value = res.data
-        winnerList.value = [
-            {
-                "platform": "facebook",
-                "customer_id": "107413075269884",
-                "customer_name": "Great Code",
-                "customer_image": "https://scontent.ftpe7-1.fna.fbcdn.net/v/t39.30808-1/277761815_107413365269855_5678230468528751291_n.jpg?stp=c143.0.123.123a_dst-jpg&_nc_cat=110&ccb=1-7&_nc_sid=dbb9e7&_nc_ohc=w81CDXko0aEAX9w8PH7&_nc_ht=scontent.ftpe7-1.fna&edm=AHXx_SsEAAAA&oh=00_AT_C9RLzKsojQB5KDCMM34V4_l6wQjHgrz03BcgfGl157A&oe=62F857A3",
-                "draw_type": "like",
-                "prize": "cake 49"
-            }, 
-            {
-                "platform": "facebook",
-                "customer_id": "4684433528315369",
-                "customer_name": "連將成",
-                "customer_image": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=4684433528315369&height=200&width=200&ext=1662689739&hash=AeQocrJl5yqXVtf5Aoc",
-                "draw_type": "like",
-                "prize": "cake 49"
-            }, 
-            {
-                "platform": "facebook",
-                "customer_id": "4684433528315369",
-                "customer_name": "連將成",
-                "customer_image": "https://platform-lookaside.fbsbx.com/platform/profilepic/?asid=4684433528315369&height=200&width=200&ext=1662689739&hash=AeQocrJl5yqXVtf5Aoc",
-                "draw_type": "like",
-                "prize": "cake 49"
-            }
-        ]
+        winnerList.value = res.data
         beforeDraw.value = false
     })
 
