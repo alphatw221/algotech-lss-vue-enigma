@@ -8,7 +8,7 @@
     "time_zone" : "时区",
     "confirmation_note" : "订单确认信息",
     "default_active" : "预设启用",
-    "default_settings":"直播预设",
+    "default_settings":"销售活动预设",
     "update_successfully":"更新成功",
     "update_failed":"更新失败",
     "img_size_err":"图片大小不可超过 10 MB",

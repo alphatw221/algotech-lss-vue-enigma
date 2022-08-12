@@ -12,16 +12,18 @@
     },  
     "campaign_list":{
         "stop_checkout":"Disable shopping cart immediately",
-        "instant_cart":"Take-in orders without livestreaming post on social media"
+        "instant_cart":"Take-in orders without livestreaming post on social media",
+        "price_unit":"Display a price unit on products, ie:  apply unit \"K\" for 10K instead of 10 dollars"
     },
     "lucky_draw":{
         "spin_time":"Animation spinning time",
-        "winner_repeat":"Allow to repeat prize winner",
+        "winner_repeat":"Allow to repeat prize winner"
     },
     "manage_order":{
         "delivery_noti":"Email buyer the order has been shipped",
         "view_icon":"Order details",
-        "link_icon":"Copy shopping cart link"
+        "link_icon":"Copy shopping cart link",
+        "product_details":"View product list"
     },
     "manage_order_details":{
         "price_adjustment":"Adjust price that can add additional fee or give discount to buyer"
@@ -41,5 +43,5 @@
         "social":{
             "connect_social":"Link your social media account to start your live-selling campaign"
         }
-    },
+    }
 }

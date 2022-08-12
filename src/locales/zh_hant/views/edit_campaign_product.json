@@ -1,6 +1,6 @@
 {
-    "edit_campaign_product":"編輯直播商品",
-    "add_product":"新增直播商品",
+    "edit_campaign_product":"編輯活動商品",
+    "add_product":"新增商品",
     "continue":"前往直播",
     "invalid":"無效",
     "search_bar":{
@@ -13,7 +13,7 @@
         "type":"商品型態",
         "order_code":"商品代碼",
         "qty_for_sale":"商品數量",
-        "max_order_amount":"購買數量上限",
+        "max_order_amount":"單次購買上限",
         "tag":"商品類別",
         "price":"價錢",
         "customer_editable":"允許顧客編輯",
@@ -26,19 +26,19 @@
             "lucky_draw-fast":"獎品",
             "lucky_draw":"獎品"
         },
-        "no_product":"No product in this campaign yet.",
-        "set_up_first":"Click \"+ Add Product\" to assign product into this campaign."
+        "no_product":"尚未將商品加入此活動",
+        "set_up_first":"點擊 \"+ 新增商品\" ，新增商品到您的消售活動中"
     },
    
     "edit_product_modal":{
-        "edit_campaign_product":"編輯直播商品",
+        "edit_campaign_product":"編輯活動商品",
 
         "image":"圖片",
         "name":"名稱",
         "type":"商品型態",
         "order_code":"商品代碼",
         "qty_for_sale":"商品數量",
-        "max_order_amount":"購買數量上限",
+        "max_order_amount":"單次購買上限",
         "category":"商品類別",
         "price":"價錢",
         "customer_editable":"允許顧客編輯",

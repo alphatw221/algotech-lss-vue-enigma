@@ -6,13 +6,13 @@
         </div>
             
         <div class="flex flex-col">
-            <div class="flex flex-wrap justify-between mt-5"> 
+            <div class="flex justify-between col-span-12 col-start-1 mt-5"> 
                 <label for="regular-form-2" class="form-label my-auto"> {{ $t('quiz_game.quiz_create.question_title') }} </label>
                 <button 
-                    class="inline-block sm:rounded-lg sm:w-fit btn btn-primary ml-auto w-fit text-base w-full h-[42px]" 
+                    class="inline-block sm:rounded-lg sm:w-fit btn btn-primary ml-auto w-fit text-base h-[42px]" 
                     @click="addQuestion()"
                 >
-                    {{ $t('quiz_game.quiz_create.add_question') }} 
+                    + {{ $t('quiz_game.quiz_create.add_question') }} 
                 </button>
             </div>
 
@@ -48,8 +48,8 @@
             </div>
 
             <div class="lg:flex">
-                <div class="lg:w-full flex flex-col lg:mr-5 mt-6">
-                    <label class="form-label "> {{ $t('quiz_game.quiz_create.remark') }}  </label>
+                <div class="lg:w-full flex flex-col mt-6">
+                    <label class="form-label text-base"> {{ $t('quiz_game.quiz_create.remark') }}  </label>
                     <textarea 
                         class="w-full h-24 rounded-lg overflow-hidden whitespace-pre-line p-1"
                         :placeholder="$t('quiz_game.quiz_create.enter_remark')"
@@ -60,7 +60,7 @@
 
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
-                    <label class="form-label"> {{ $t('quiz_game.quiz_create.number_of_winner') }}  </label>
+                    <label class="form-label text-base"> {{ $t('quiz_game.quiz_create.number_of_winner') }}  </label>
                     <input 
                         class="form-control" 
                         type="text" 
@@ -71,8 +71,8 @@
                     </template>
                 </div>
 
-                <div class="lg:w-[50%] flex flex-col lg:mr-5 mt-6">
-                    <label class="form-label"> {{ $t('quiz_game.quiz_create.prize') }} </label>
+                <div class="lg:w-[50%] flex flex-col mt-6">
+                    <label class="form-label text-base"> {{ $t('quiz_game.quiz_create.prize') }} </label>
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg"
                         v-model="quizgameSettings.prize"
@@ -94,15 +94,15 @@
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex-col mt-6 lg:mr-5">  
                     <div class="flex"> 
-                        <label class="form-label"> {{ $t('lucky_draw.draw_create.winner_repeat') }} </label> 
+                        <label class="form-label text-base"> {{ $t('lucky_draw.draw_create.winner_repeat') }} </label> 
                         <Tippy 
-                            class="rounded-full w-30 whitespace-wrap" 
+                            class="rounded-full w-fit whitespace-wrap ml-1" 
                             data-tippy-allowHTML="true" 
                             data-tippy-placement="right" 
                             :content="$t('lucky_draw.draw_create.winner_repeat_tip')" 
                             theme='light'
                         > 
-                            <HelpCircleIcon class="w-8 ml-2" />
+                            <HelpCircleIcon class="w-5 tippy-icon" />
                         </Tippy> 
                     </div>
                     <div class="flex sm:flex-row mt-2">
@@ -130,9 +130,9 @@
 
         </div>
 
-        <div class="flex justify-end my-10 mr-5" >
-            <button class="btn w-32 dark:border-darkmode-400" @click="goCancel()"> {{ $t('lucky_draw.draw_create.cancel') }} </button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsertQuizGame()"> {{ $t('lucky_draw.draw_create.save') }} </button>
+        <div class="flex justify-end my-10 text-base" >
+            <button class="w-32 bg-white btn dark:border-darkmode-400" @click="goCancel()"> {{ $t('lucky_draw.draw_create.cancel') }} </button>
+            <button class="w-32 ml-5 shadow-md btn btn-primary" @click="upsertQuizGame()"> {{ $t('lucky_draw.draw_create.save') }} </button>
         </div>
 
     </div>

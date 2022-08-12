@@ -1,5 +1,5 @@
 {
-    "lucky_draw" : "抽獎工具",
+    "lucky_draw" : "抽獎設定",
     "invalid_data":"輸入資料無效",
     "create_successed":"新增成功",
     "update_successed":"更新成功",
@@ -9,11 +9,11 @@
     "animation_type_err": "此檔案格式不支援",
 
     "draw_list": {
-        "campaign_title": "直播名稱",
+        "campaign_title": "活動名稱",
         "all_winner": "得獎者列表",
         "create": "建立抽獎",
-        "like": "按讚者",
-        "purchase": "購買者",
+        "like": "有在這則Facebook貼文的按讚者",
+        "purchase": "購買任何商品者",
         "product": "購買特定商品者",
         "keyword": "輸入特定關鍵字",
         "winners" : "得獎人數量",
@@ -35,17 +35,17 @@
     },
 
     "draw_create": {
-        "campaign_title": "直播名稱",
+        "campaign_title": "活動名稱",
         "prize" : "獎品",
         "spin_time" : "動畫時間(秒)",
         "number_of_winner" : "得獎人數",
-        "animation_style" : "動畫風格",
+        "animation_style" : "抽獎動畫",
         "winner_repeat" : "重複得獎",
         "yes": "是",
         "no": "否",
         "winner_repeat_tip": "參與者可重複獲獎",
         "upload_animation": "上傳抽獎動畫",
-        "draw_type" : "抽獎類型",
+        "draw_type" : "抽獎方式",
         "cancel": "取消",
         "save": "儲存",
         "back": "上一頁",
@@ -56,12 +56,12 @@
         "product": "商品",
         "keyword": "關鍵字",
         "draw_selection": {
-            "like": "按讚者",
+            "like": "有在這則Facebook貼文的按讚者",
             "product": "購買特定商品者",
             "purchase": "購買任何商品者",
             "keyword": "輸入特定關鍵字"
         },
-        "no_product_err":"尚未將商品加入此直播",
+        "no_product_err":"尚未將商品加入此活動",
         "assign_product_err":"需加入商品",
         "assign_prize_err":"需加入獎品",
         "secs":"秒"

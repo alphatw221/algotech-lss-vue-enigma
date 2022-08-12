@@ -98,11 +98,11 @@
             "account_name":"账户名称",
             "note":"提醒",
             "beneficiary":"Beneficiary Bank",
-            "upload_img":" 拖动档案或点击上传",
+            "upload_img":" 拖曳档案或点击上传",
             "accepted_types":"档案格式",
             "max_size":"档案最大限制",
-            "last_five_digits":"后五码",
-            "digits_message":"请输入后五码",
+            "last_five_digits":"末五码",
+            "digits_message":"请输入末五码",
             "complete_order":"完成订单"
         }
     },
