@@ -1,19 +1,19 @@
 {
-    "campaign_list": "直播銷售",
+    "campaign_list": "銷售活動列表",
 
-    "no_campaign_Ongoing": "沒有任何預定排程的直播",
-    "no_campaign_Scheduled": "沒有任何直播的歷史紀錄",
-    "no_campaign_History": "沒有任何進行中的直播",
+    "no_campaign_Ongoing": "沒有任何預定排程的活動",
+    "no_campaign_Scheduled": "沒有任何活動的歷史紀錄",
+    "no_campaign_History": "沒有任何進行中的活動",
 
     "process" : {
         "create" : "建立",
-        "create_description" : "點擊「新增」建立直播，點擊「管理」從庫存管理新增直播商品",
+        "create_description" : "點擊「新增」建立銷售活動，點擊「管理」從庫存管理新增活動商品",
         "connect" : "連接",
         "connect_description" : "點擊「編輯」並輸入 Facebook 直播貼文 ID",
         "complete" : "完成",
         "complete_description" : "點擊「進入」查看並管理直播"
     },
-    "create_campaign": "建立直播",
+    "create_campaign": "建立銷售活動",
 
     "tabs":{
         "scheduled" : "預定排程",
@@ -24,11 +24,11 @@
 
     "search_bar":{
         "title": "標題",
-        "search" : "搜尋",
+        "search" : "搜尋標題",
         "reset" : "清空"
     },
     "enter_post_id":{
-        "message":"輸入直播貼文ID來開始直播銷售",
+        "message":"請在開始前輸入直播貼文ID",
         "select_stream":"選擇直播",
         "select_page":"選擇專頁",
         "post_id":"直播 ID"
@@ -48,9 +48,9 @@
         "null":"",
         "history":"回顧",
         "live_on":"進入直播",
-        "edit_campaign":"編輯直播",
-        "edit_campaign_product":"編輯直播商品",
-        "blank_cart":"複製購物車連結",
+        "edit_campaign":"編輯銷售活動",
+        "edit_campaign_product":"編輯活動商品",
+        "blank_cart":"複製直接購買連結",
         "lucky_draw":"抽獎設定",
         "quiz_game": "問答遊戲",
         "delete":"刪除",
@@ -62,14 +62,14 @@
         "History" : "歷史",
         "Ongoing" : "進行中",
 
-        "no_have_campaign": "目前沒有任何直播",
-        "click_create_notify": "點擊 \"+ 建立直播\" ，開始新的直播活動",
+        "no_have_campaign": "目前沒有任何銷售活動",
+        "click_create_notify": "點擊 \"+ 建立銷售活動\" ，開始新的銷售活動",
         "connect_platform":"綁定平台"
     },
 
     "remind_enter_post_id_modal":{
         "confirm":"確定",
-        "message":"請設定貼文ID已開始直播"
+        "message":"請在開始前輸入直播貼文 ID"
     },
 
     "enter_post_id_modal":{
@@ -93,8 +93,8 @@
 
         "cancel":"取消",
         "save":"儲存",
-        "your_current_lives": "你目前正在進行的直播",
-        "select_this_live": "選擇這場直播",
+        "your_current_lives": "你目前正在進行的銷售活動",
+        "select_this_live": "選擇這場活動",
         "valid_post_id_notification": "請輸入有效的貼文ID"
     },
     "update_successed":"更新成功",

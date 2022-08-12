@@ -86,8 +86,8 @@
             "upload_img":"拖動檔案或點擊上傳",
             "accepted_types":"檔案格式",
             "max_size":"檔案最大限制",
-            "last_five_digits":"後五碼",
-            "digits_message":"請輸入後五碼",
+            "last_five_digits":"末五碼",
+            "digits_message":"請輸入末五碼",
             "complete_order":"完成訂單",
             "information": "付款資訊"
         }

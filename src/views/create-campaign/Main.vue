@@ -90,7 +90,7 @@
 			</div>
 
 			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+				<div class=""> {{$t("settings.localization.price_unit")}}</div>
 			</div>
 
 			<div class="flex my-1">

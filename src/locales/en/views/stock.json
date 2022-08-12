@@ -11,7 +11,7 @@
     "search_bar": {
         "category": "Category",
         "search_by": "Search By",
-        "search_holder": "Search...",
+        "search_holder": "Search Name...",
         "search": "Search",
         "reset": "Reset",
         "category_manage": "Edit Category",

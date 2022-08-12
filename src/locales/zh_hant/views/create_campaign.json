@@ -1,13 +1,13 @@
 {
 
-    "create_campaign":"建立直播",
+    "create_campaign":"建立銷售活動",
     "title":"標題",
     "title_required":"請填寫標題",
-    "period":"直播時間",
+    "period":"活動時間",
 
     "cancel":"取消",
     "create":"建立",
-    "invalid_title":"無效的直播標題",
+    "invalid_title":"輸入的活動標題無效",
     
 
 

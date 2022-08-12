@@ -5,24 +5,24 @@
                 "sales" : "销售额",
                 "uncheckout" : "未结帐率",
                 "comments" : "留言数",
-                "closed_rate_message":"与之前的直播相比成交率%{status}",    
-                "sales_message":"与之前的直播相比销售额%{status}",    
-                "uncheckout_message":"与之前的直播相比未结帐率%{status}",    
-                "comments_message":"与之前的直播相比留言数%{status}",
+                "closed_rate_message":"与前一场的直播相比成交率%{status}",    
+                "sales_message":"与前一场的直播相比销售额%{status}",    
+                "uncheckout_message":"与前一场的直播相比未结帐率%{status}",    
+                "comments_message":"与前一场的直播相比留言数%{status}",
                 "decreased":"下降",
                 "increased":"上升"
         },
         "search_bar":{
                 "search":"搜寻",
                 "filter":"筛选",
-                "export" : "汇出 Excel"
+                "export" : "汇出"
         },
         "table":{
                 "Direct Payment":"转帐支付",
                 "details":"订单明细",
                 "copy_link":"复制订单连结",
                 "order_number" : "订单",
-                "action":"Action",
+                "action":"动作",
                 "delivery_notification":"出货通知",
                 "customer" : "顾客",
                 "platform" : "平台",
