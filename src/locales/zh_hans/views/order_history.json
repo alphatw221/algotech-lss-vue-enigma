@@ -15,5 +15,7 @@
     "Direct Payment":"转帐支付",
     "stripe":"Stripe",
     "hitpay":"Hitpay",
-    "paypal":"Paypal"
+    "paypal":"Paypal",
+    "pay_mongo":"PayMongo",
+    "ecpay":"綠界支付"
 }

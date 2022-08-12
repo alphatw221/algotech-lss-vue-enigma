@@ -15,5 +15,7 @@
     "Direct Payment":"轉帳付款",
     "stripe":"Stripe",
     "hitpay":"Hitpay",
-    "paypal":"Paypal"
+    "paypal":"Paypal",
+    "pay_mongo":"PayMongo",
+    "ecpay":"台灣綠界"
 }
