@@ -19,6 +19,11 @@
         },
         "table":{
                 "Direct Payment":"Thanh toán trực tiếp",
+                "stripe":"Stripe",
+                "hitpay":"Hitpay",
+                "paypal":"Paypal",
+                "ecpay":"ECPay",
+                "pay_mongo":"PayMongo",
                 "details":"Chi tiết đơn hàng",
                 "copy_link":"Sao chép liên kết đơn hàng",
                 "amount" : "Số Lượng",

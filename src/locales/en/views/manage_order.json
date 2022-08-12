@@ -19,6 +19,11 @@
         },
         "table":{
                 "Direct Payment":"Direct Payment",
+                "stripe":"Stripe",
+                "hitpay":"Hitpay",
+                "paypal":"Paypal",
+                "ecpay":"ECPay",
+                "pay_mongo":"PayMongo",
                 "details":"Order Details",
                 "copy_link":"Copy Cart Link",
                 "amount" : "Amount",

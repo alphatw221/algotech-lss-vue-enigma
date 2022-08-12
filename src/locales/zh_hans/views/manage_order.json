@@ -19,6 +19,11 @@
         },
         "table":{
                 "Direct Payment":"转帐支付",
+                "stripe":"Stripe支付",
+                "hitpay":"Hitpay支付",
+                "paypal":"Paypal支付",
+                "ecpay":"綠界支付",
+                "pay_mongo":"PayMongo支付",
                 "details":"订单明细",
                 "copy_link":"复制订单连结",
                 "order_number" : "订单",
