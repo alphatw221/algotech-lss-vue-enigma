@@ -1,6 +1,6 @@
 {
-    "edit_campaign_product":"编辑直播商品",
-    "add_product":"新增直播商品",
+    "edit_campaign_product":"编辑活动商品",
+    "add_product":"新增商品",
     "continue":"前往直播",
     "invalid":"无效",
     "search_bar":{
@@ -26,18 +26,18 @@
             "lucky_draw-fast":"奖品",
             "lucky_draw":"奖品"
         }, 
-        "no_product":"No product in this campaign yet.",
-        "set_up_first":"Click \"+ Add Product\" to assign product into this campaign."
+        "no_product":"尚未将商品加入此活动",
+        "set_up_first":"点击 \"+ 新增商品\" ，新增商品到您的销售活动"
     },
    
     "edit_product_modal":{
-        "edit_campaign_product":"编辑直播商品",
+        "edit_campaign_product":"编辑活动商品",
 
         "image":"图片",
         "name":"名称",
         "type":"商品类型",
         "order_code":"商品代码",
-        "qty_for_sale":"直播商品数量",
+        "qty_for_sale":"销售商品数量",
         "max_order_amount":"单次限购数量",
         "category":"商品类别",
         "price":"价格",

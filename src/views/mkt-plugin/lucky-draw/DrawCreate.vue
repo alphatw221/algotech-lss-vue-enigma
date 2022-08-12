@@ -3,7 +3,7 @@
         <!-- BEGIN: commit box -->
         <div class="mt-5 flex justify-self-start">
             <label class="form-label mr-10">{{ $t('lucky_draw.draw_create.campaign_title') }} : </label>
-            <h2 style="display: inline-block;"> {{ props.campaignTitle }} </h2>
+            <h2 style="display: inline-block; font-weight: 700;"> {{ props.campaignTitle }} </h2>
         </div>
         <div class="flex flex-col">
             <div class="lg:flex">
@@ -20,7 +20,7 @@
                     </template>
                 </div> -->
                 <div class="lg:w-[50%]  flex flex-col lg:mr-5 mt-6">
-                    <label class="form-label"> {{ $t('lucky_draw.draw_create.prize') }}</label>
+                    <label class="form-label text-base"> {{ $t('lucky_draw.draw_create.prize') }}</label>
                     <select 
                         id="prizeSelect"
                         class="w-full form-select sm:form-select-lg rounded-lg" 
@@ -49,7 +49,7 @@
                 </div>
                 <div class="lg:w-[50%]  flex-col mt-6">
                     <div class="flex"> 
-                        <label class="form-label ">{{ $t('lucky_draw.draw_create.spin_time') }}</label>
+                        <label class="form-label text-base">{{ $t('lucky_draw.draw_create.spin_time') }}</label>
                         <Tippy 
                             class="rounded-full w-30 whitespace-wrap" 
                             data-tippy-allowHTML="true" 
@@ -73,7 +73,7 @@
 
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex-col lg:mr-5 mt-6">
-                    <label class="form-label"> {{ $t('lucky_draw.draw_create.number_of_winner') }}</label>
+                    <label class="form-label text-base"> {{ $t('lucky_draw.draw_create.number_of_winner') }}</label>
                     <input 
                         type="text" 
                         class="form-control lg:mr-5" 
@@ -87,7 +87,7 @@
                 </div>
                 <div class="lg:w-[50%] flex-col mt-6 ">  
                     <div class="flex"> 
-                        <label class="form-label"> {{ $t('lucky_draw.draw_create.winner_repeat') }} </label> 
+                        <label class="form-label text-base"> {{ $t('lucky_draw.draw_create.winner_repeat') }} </label> 
                         <Tippy 
                             class="rounded-full w-30 whitespace-wrap" 
                             data-tippy-allowHTML="true" 
@@ -121,8 +121,8 @@
 
             <div class="lg:flex">
                 <div class="lg:w-[50%] flex-col mt-6 ">
-                    <label class="form-label"> {{ $t('lucky_draw.draw_create.draw_type') }}</label>
-                    <select class="w-full form-select sm:form-select-lg rounded-lg sm:mr-5" v-model="currentSettings.type">
+                    <label class="form-label text-base"> {{ $t('lucky_draw.draw_create.draw_type') }}</label>
+                    <select class="w-full form-select sm:form-select-lg rounded-lg sm:mr-5 text-base" v-model="currentSettings.type">
                         <option v-for="(drawType, index) in drawTypes" :key="index" :value="drawType.value"> {{ $t(`lucky_draw.draw_create.draw_selection.${drawType.value}`) }}</option>
                     </select>
                 </div>
@@ -132,7 +132,7 @@
                     class="lg:w-[50%] flex flex-col mt-6 sm:mr-5"
                 >   
                     <div class="flex"> 
-                        <label class="form-label">{{ $t('lucky_draw.draw_create.product') }}</label>
+                        <label class="form-label text-base">{{ $t('lucky_draw.draw_create.product') }}</label>
                         <!-- <button 
                             class="btn btn-primary h-[35px] sm:h-[42px] w-fit ml-auto mb-1"
                             :class="{'btn-danger': productList.length == 0}" 
@@ -165,7 +165,7 @@
                     v-else-if="currentSettings.type === 'keyword'" 
                     class="lg:w-[50%]  flex-col sm:mr-5 mt-3"
                 >
-                    <label class="form-label mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
+                    <label class="form-label text-base mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
                     <textarea 
                         class="w-full h-14 overflow-hidden whitespace-pre-line p-1 rounded-lg "
                         v-model="currentSettings.comment" 
@@ -198,10 +198,10 @@
             </div>
 
             <div class="lg:flex">
-                <div class="lg:w-[100%] flex-col mt-6 sm:mr-5">
+                <div class="lg:w-[50%] flex-col mt-6">
                     <div class="flex justify-between">
-                        <label class="form-label mr-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
-                        <div class="btn btn-primary bg-[#070130] w-48 sm:w-fit shadow-md sm:mt-auto lg:sm:mr-5">
+                        <label class="form-label text-base mr-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
+                        <div class="btn btn-primary bg-[#070130] w-48 sm:w-fit shadow-md sm:mt-auto lg:sm:mr-5 text-base">
                             <input type="file" id="upload" @change="uploadAnimation" hidden/>
                             <label for="upload" id="create_animation">+ {{ $t('lucky_draw.draw_create.upload_animation') }}</label>
                         </div>
@@ -233,9 +233,9 @@
             <button class="btn btn-primary w-32 shadow-md ml-5" @click="goDraw"> {{ $t('lucky_draw.draw_create.go_draw') }} </button>
         </div> -->
 
-        <div class="flex justify-end my-12 sm:mr-5">
-            <button class="btn w-32 dark:border-darkmode-400" @click="router.go()"> {{ $t('lucky_draw.draw_create.cancel') }} </button>
-            <button class="btn btn-primary w-32 shadow-md ml-5" @click="upsert"> {{ $t('lucky_draw.draw_create.save') }} </button>
+        <div class="flex justify-end my-12 text-base">
+            <button class="w-32 bg-white btn dark:border-darkmode-400" @click="router.go()"> {{ $t('lucky_draw.draw_create.cancel') }} </button>
+            <button class="w-32 ml-5 shadow-md btn btn-primary" @click="upsert"> {{ $t('lucky_draw.draw_create.save') }} </button>
         </div>
 
         <!-- <AddProductFromStockModal :productType="productType"/> -->

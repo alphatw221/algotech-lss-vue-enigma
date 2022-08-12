@@ -4,7 +4,7 @@
         "removable":"允许买家删除购物车的商品"
     },
     "create_campaign":{
-        "campaign_period":"Time period that allows buyers to place an order",
+        "campaign_period":"允许让买家下单的开始与结束时间",
         "payment_record":"要求买家附上转帐证明(明细截图/末五码)"
     },
     "campaign_live":{
@@ -12,7 +12,8 @@
     },  
     "campaign_list":{
         "stop_checkout":"停止让买家结帐",
-        "instant_cart":"无须开直播也能透过连结直接购买"
+        "instant_cart":"无须开直播也能透过连结直接购买",
+        "price_unit":"显示金额的货币单位，如10K = 10,000"
     },
     "lucky_draw":{
         "spin_time":"动画播放时间",
@@ -21,7 +22,8 @@
     "manage_order":{
         "delivery_noti":"通知买家订单已出货",
         "view_icon":"订单详情",
-        "link_icon":"复制购物车连结"
+        "link_icon":"复制购物车连结",
+        "product_details":"订单商品列表"
     },
     "manage_order_details":{
         "price_adjustment":"调整订单小计金额"

@@ -1,7 +1,7 @@
 <template>
     <div class="overflow-y-auto h-screen flex flex-col sm:h-full" v-if="ready">
-		<div class="flex items-center px-20 pt-5 pb-4 intro-y">
-			<h2 class="text-2xl font-medium">{{$t('edit_campaign.edit_campaign')}}</h2>
+		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
+			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('edit_campaign.edit_campaign')}}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
@@ -80,9 +80,9 @@
 			</div>
 		</div>
 
-		<div class="box py-5 mx-20 mt-3 sm:p-8 sm:py-5 px-2 lg:px-10 text-sm sm:text-lg ">
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
+			<div class="flex mb-3 form-label text-base font-medium">
 				<div> {{$t("settings.localization.currency_symbol")}} </div>
 			</div>
 			<div class="flex my-1 ">

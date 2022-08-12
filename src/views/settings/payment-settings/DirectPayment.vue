@@ -2,7 +2,7 @@
         <div class="flex-col text-[16px] flex justify-between mt-5 sm:mt-2">
             <div class="flex"> 
                 <input 
-                class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
+                class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto ml-3" 
                 type="checkbox" 
                 v-model="paymentData.enabled"
                 />

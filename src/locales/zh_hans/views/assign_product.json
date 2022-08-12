@@ -1,5 +1,5 @@
 {
-    "assign_product": "新增直播商品",
+    "assign_product": "新增活动商品",
     "confirm_select_product":"确认新增商品",
     "search_bar":{
         "category":"商品类别",
@@ -10,7 +10,7 @@
             "order_code":"商品代码",
             "description":"说明"
         },
-        "search_bar_place_holder":"搜寻",
+        "search_bar_place_holder":"搜寻名称",
         "reset":"清空"
     },
 
@@ -20,7 +20,7 @@
         "type":"商品类型",
         "order_code":"商品代码",
         "qty":"库存数量",
-        "assign_qty":"直播商品数量",
+        "assign_qty":"销售商品数量",
         "max_order_amount":"单次限购数量",
         "category":"类别",
         "price":"价格",

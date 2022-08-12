@@ -10,7 +10,7 @@
             "order_code":"Order Code",
             "description":"Description"
         },
-        "search_bar_place_holder":"Search...",
+        "search_bar_place_holder":"Search Name",
         "reset":"Reset"
     },
 
@@ -39,11 +39,11 @@
         "errors":{
             "type_required":"required",
             "order_code_required":"required",
-            "order_code_duplicate":"duplicate",
+            "order_code_duplicate":"repeated",
             "qty_invalid":"invalid",
             "max_order_amount_grater_than_qty":"geater than Qty",
             "assign_qty_required":"required",
-            "please_enter_integer": "please enter integer",
+            "please_enter_integer": "Please enter integer",
             "price_invalid":"invalid"
         }
     },
