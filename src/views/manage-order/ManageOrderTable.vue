@@ -104,7 +104,7 @@
                         <template v-else-if="column.key === 'order_product'">
                             <div class="flex place-content-center">
                                 <a class="text-black w-fit h-fit image-fit">
-                                    <Tippy  content="product details" :options="{ theme: 'light' }">
+                                    <Tippy  :content="$t('tooltips.manage_order.product_details')" :options="{ theme: 'light' }">
                                         <ChevronRightIcon @click="orderProductModal(order.id,order.type)"/>
                                     </Tippy>
                                 </a>
