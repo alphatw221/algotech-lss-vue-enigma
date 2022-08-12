@@ -46,7 +46,8 @@
             "stripe":"Stripe",
             "hitpay":"Hitpay",
             "paypal":"Paypal",
-            "ecpay":"ECPay"
+            "ecpay":"ECPay",
+            "pay_mongo":"PayMongo"
         },
         "direct_payment":{
             "mode":"Name of Bank / Payment Mode",
@@ -74,6 +75,9 @@
             "merchant_id":"Merchant ID",
             "hash_key":"Hash Key",
             "hash_iv":"Hash IV"
+        },
+        "pay_mongo":{
+            "secret":"Secret Key"
         },
 
         "payment_details": "Payment Details",

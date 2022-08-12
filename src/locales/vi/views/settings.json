@@ -47,7 +47,8 @@
             "stripe":"Stripe",
             "hitpay":"Hitpay",
             "paypal":"Paypal",
-            "ecpay":"ECPay"
+            "ecpay":"ECPay",
+            "pay_mongo":"PayMongo"
         },
         "direct_payment":{
             "mode":"Tên ngân hàng / Phương thức thanh toán",
@@ -68,13 +69,16 @@
         },
         "paypal":{
             "currency":"Đơn vị tiền tệ",
-            "cliend_id":"Client ID",
+            "client_id":"Client ID",
             "secret":"Mã bảo mật"
         },
         "ecpay":{
             "merchant_id":"Merchant ID",
             "hash_key":"Hash Key",
             "hash_iv":"Hash IV"
+        },
+        "pay_mongo":{
+            "secret":"Mã bảo mật"
         },
 
         "payment_details": "Thông tin thanh toán",
