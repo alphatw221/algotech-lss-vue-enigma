@@ -4,7 +4,7 @@
         <!-- BEGIN: commit box -->
  
         <div class="flex items-center sm:px-20 pb-4 intro-y">
-            <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium"> {{$t('settings.default_settings')}}</h2>
+            <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium lg:mt-5"> {{$t('settings.default_settings')}}</h2>
         </div>
         <div class="flex flex-col gap-5 box lg:mx-20">
             <div class="switch-toggle mx-auto sm:ml-14 mt-6 sm:mt-10">
