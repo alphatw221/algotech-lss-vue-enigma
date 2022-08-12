@@ -45,7 +45,7 @@ onMounted(()=>{
         const object_id = route.params.object_id
         if(type=='blank'){
             buyer_create_blank_cart(object_id, cookies.get('login_with')).then(res=>{
-                router.push(`/buyer/cart/${res.data.pre_order_oid}?tag=openAddOn`)
+                router.push(`/buyer/cart/${res.data.pre_order_oid}`)
             })
         }
     }else{
@@ -68,10 +68,10 @@ const recaptchaCallBack = token=>{
                     res()
                 })
                 set_cookie.then(() => {
-                    router.push(`/buyer/cart/${response.data.pre_order_oid}?tag=openAddOn`)
+                    router.push(`/buyer/cart/${response.data.pre_order_oid}`)
                 })
             } else{
-                router.push(`/buyer/cart/${response.data.pre_order_oid}?tag=openAddOn`)
+                router.push(`/buyer/cart/${response.data.pre_order_oid}`)
             }
         })
     }

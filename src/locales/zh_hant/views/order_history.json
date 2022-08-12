@@ -16,5 +16,6 @@
     "stripe":"Stripe",
     "hitpay":"Hitpay",
     "paypal":"Paypal",
-    "ecpay":"綠界"
+    "pay_mongo":"PayMongo",
+    "ecpay":"台灣綠界"
 }

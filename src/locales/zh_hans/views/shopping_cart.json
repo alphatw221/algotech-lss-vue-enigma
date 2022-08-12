@@ -78,6 +78,7 @@
         "address":"宅配地址",
         "pay_with":"付款方式",
         "direct":{
+            "title": "转账支付",
             "account":"账号",
             "account_number":"账户号码",
             "account_name":"账户名称",

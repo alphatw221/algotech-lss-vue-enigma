@@ -83,6 +83,20 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		}
 
 	},
+	pay_mongo: {
+		multiple:false,
+		name:"PayMongo",
+		key:"pay_mongo",
+		fields:[
+			{key:"secret", type:"password", name:"Secret Key", dataType:"string", default:''},
+		],
+		icon:"static/payment/pay_mongo/icon.jpeg",
+		handle:{
+			type:'gateway',
+			endpoint:'getPayMongoGateway',
+		}
+		// "request_url": "api/user-subscription/pay_mongo/"
+	},
 	// first_data : {
 	// 	multiple:false,
 	// 	name:"First Data IPG (Credit Card)",
@@ -124,7 +138,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
     
     IN : ['direct_payment', 'stripe', 'paypal'],
     
-    PH : ['direct_payment', 'paypal'],
+    PH : ['direct_payment', 'paypal', 'pay_mongo'],
 
     VN : ['direct_payment', 'stripe', 'paypal'],
 
