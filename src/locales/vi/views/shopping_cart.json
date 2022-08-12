@@ -78,6 +78,7 @@
         "address":"Địa chỉ giao hàng",
         "pay_with":"Thanh toán bằng",
         "direct":{
+            "title":"Thanh toán trực tiếp",
             "account":"Tài khoản",
             "account_number":"Số tài khoản",
             "account_name":"Tên tài khoản",

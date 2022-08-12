@@ -116,7 +116,13 @@
                             {{store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
-                            {{ order[column.key] == 'Direct Payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : order[column.key] }}
+                            <template v-if="order[column.key] == 'direct_payment'">
+                                {{ `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` }}
+                            </template>
+                            <template v-else-if="order[column.key] != ''">
+                                {{ $t(`manage_order.table.${order[column.key]}`) }}
+                            </template>
+                            <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
                         </template>
                         <template v-else-if="column.key === 'id'">
                             <span class="sm:hidden"> #</span> {{ order.id }}
