@@ -78,6 +78,7 @@
         "address":"Delivery Address",
         "pay_with":"Pay With",
         "direct":{
+            "title": "Direct Payment",
             "account":"Account",
             "account_number":"Account Number",
             "account_name":"Account Name",
