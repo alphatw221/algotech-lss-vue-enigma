@@ -7,7 +7,7 @@
         "campaign_list":"銷售活動列表",
         "auto_reply":"自動回覆",
         "settings":"設定",
-        "campaign_default_setting":"直播預設",
+        "campaign_default_setting":"銷售活動預設",
         "localization":"本地化",
         "connect_platform":"社交平台"
 
@@ -26,7 +26,7 @@
         "create-campaign":"建立銷售活動",
         "assign-product":"新增活動商品",
         "edit-campaign-product":"編輯活動商品",
-        "lucky-draw":"抽獎",
+        "lucky-draw":"抽獎設定",
         "autoreply":"自動回覆",
         "category-management":"商品類別管理",
         "add-product":"新增商品",
@@ -45,7 +45,7 @@
     },
     "upcoming_campaign":{
         "title": "即將開始的銷售活動",
-        "notification_text1": "你有一場銷售活動:",
+        "notification_text1": "你有一場活動:",
         "notification_text2": "即將在",
         "notification_text3": "開始",
         "time_15min": "15 分鐘後",

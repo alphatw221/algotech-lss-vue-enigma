@@ -10,7 +10,7 @@
             "order_code":"商品代码",
             "description":"说明"
         },
-        "search_bar_place_holder":"搜寻",
+        "search_bar_place_holder":"搜寻名称",
         "reset":"清空"
     },
 

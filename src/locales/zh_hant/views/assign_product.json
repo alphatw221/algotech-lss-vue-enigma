@@ -10,7 +10,7 @@
             "order_code":"商品代碼",
             "description":"備註"
         },
-        "search_bar_place_holder":"搜尋...",
+        "search_bar_place_holder":"搜尋名稱",
         "reset":"重設"
     },
 
