@@ -28,7 +28,7 @@
         "reset" : "清空"
     },
     "enter_post_id":{
-        "message":"請在開始前輸入直播貼文ID",
+        "message":"請在活動開始前輸入直播貼文 ID",
         "select_stream":"選擇直播",
         "select_page":"選擇專頁",
         "post_id":"直播 ID"

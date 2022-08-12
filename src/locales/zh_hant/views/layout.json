@@ -20,7 +20,7 @@
         "order-detail":"訂單內容",
         "settings":"設定",
         "localization":"本地化",
-        "campaign-global":"直播預設",
+        "campaign-global":"銷售活動預設",
         "platform":"社交平台",
         "edit-campaign":"編輯銷售活動",
         "create-campaign":"建立銷售活動",
@@ -34,7 +34,7 @@
         "edit-product":"編輯活動商品",
         "profile":"個人檔案",
         "change-plan":"更改方案",
-        "quiz-game":"小遊戲"
+        "quiz-game":"問答遊戲"
     },
     "top_bar":{
         "profile":"個人檔案",

@@ -1,6 +1,6 @@
 {
     "edit_campaign_product":"编辑活动商品",
-    "add_product":"新增活动商品",
+    "add_product":"新增商品",
     "continue":"前往直播",
     "invalid":"无效",
     "search_bar":{
@@ -26,8 +26,8 @@
             "lucky_draw-fast":"奖品",
             "lucky_draw":"奖品"
         }, 
-        "no_product":"尚未將商品加入此活動",
-        "set_up_first":"点击 \"+ 加入商品\" ，新增商品到您的销售活动"
+        "no_product":"尚未将商品加入此活动",
+        "set_up_first":"点击 \"+ 新增商品\" ，新增商品到您的销售活动"
     },
    
     "edit_product_modal":{

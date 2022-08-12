@@ -1,6 +1,6 @@
 {
     "edit_campaign_product":"編輯活動商品",
-    "add_product":"新增活動商品",
+    "add_product":"新增商品",
     "continue":"前往直播",
     "invalid":"無效",
     "search_bar":{
@@ -26,8 +26,8 @@
             "lucky_draw-fast":"獎品",
             "lucky_draw":"獎品"
         },
-        "no_product":"目前没有任何商品",
-        "set_up_first":"點擊 \"+ 加入商品\" ，新增商品到您的銷售活动"
+        "no_product":"尚未將商品加入此活動",
+        "set_up_first":"點擊 \"+ 新增商品\" ，新增商品到您的消售活動中"
     },
    
     "edit_product_modal":{

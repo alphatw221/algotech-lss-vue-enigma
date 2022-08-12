@@ -20,7 +20,7 @@
         "order-detail":"订单明细",
         "settings":"设定",
         "localization":"在地化",
-        "campaign-global":"直播预设",
+        "campaign-global":"销售活动预设",
         "platform":"社交平台",
         "edit-campaign":"编辑销售活动",
         "create-campaign":"建立销售活动",
@@ -34,7 +34,7 @@
         "edit-product":"编辑活动商品",
         "profile":"个人档案",
         "change-plan":"更改方案",
-        "quiz-game":"小游戏"
+        "quiz-game":"问答游戏"
     },
     "top_bar":{
         "profile":"个人档案",
