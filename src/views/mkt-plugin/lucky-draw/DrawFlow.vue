@@ -52,13 +52,13 @@
                         class="text-2xl text-center"> {{ $t('lucky_draw.draw_flow.congrates') }} !</div>
                     <img class="mx-auto my-8 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px; height:300px;"/>
                     <div class="text-center text-2xl">{{ luckyDrawData.prize.name }}</div>
-                    <div class="mt-9 flex flex-wrap justify-center" style="width: 350px;">
-                        <div v-for="(winner, index) in winnerList" :key="index" class=" mb-3">
-                            <div class="flex w-full justify-around">
-                                <div class="flex-0 w-14 h-14 zoom-in border-0">
-                                    <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" class="rounded-full border-0" :src="`${storageUrl}fake_head.jpeg`"
+                    <div class="mt-9 flex flex-wrap justify-center mx-auto xl:w-420 w-300">
+                        <div v-for="(winner, index) in winnerList" :key="index" class=" mb-3 mx-3">
+                            <div class="w-full">
+                                <div class="flex-0 xl:w-28 xl:h-28 w-20 h-20 zoom-in border-0">
+                                    <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" class="rounded-full border-0 w-full" :src="`${storageUrl}fake_head.jpeg`"
                                         />
-                                    <Tippy v-else tag="img" class="rounded-full border-0" :src="winner.customer_image"
+                                    <Tippy v-else tag="img" class="rounded-full border-0 w-full" :src="winner.customer_image"
                                         />
                                     <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                         <img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
@@ -68,11 +68,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <label> {{ winner.customer_name }} </label>
+                            <p class="text-center"> {{ winner.customer_name }} </p>
                         </div>
                     </div>
                     <div v-if="winnerList.length == 0" class="text-2xl text-center">  
-                        {{ $t('lucky_draw.draw_flow.no_winner') }} 
+                        {{ $t('lucky_draw.draw_flow.no_winner') }}
+                        <img :src="noWinner">
                     </div>
                 </div>
             </div>
@@ -80,21 +81,18 @@
         <!-- BEGIN: Cover -->
         <div id="cover" v-if="showAnimation"></div>
         <!-- END: Cover -->
-
+        <div v-if="hasWinner" class="winnerShowup" :class="{has_winner:hasWinner}">
+            <img class="mx-auto" :src="winnerShowupPicture" />
+        </div>
         <!-- BEGIN: Modal Content -->
-        <!-- <Modal :show="showAnimation">
-            <ModalBody class="p-10 text-center"> -->
-            <div id="draw_animation" :class="{ show: showAnimation, hide: !showAnimation}">
-                <template v-if="luckyDrawData.animation == ''"> 
-                    <img class="m-3 self-center" :src="`${storageUrl}static/lucky_draw1.svg`" />                        
-                </template>
-                <template v-else>
-                    <img class="m-3 self-center" :src="storageUrl + luckyDrawData.animation" />
-                </template> 
-            </div>
-                
-            <!-- </ModalBody>
-        </Modal> -->
+        <div id="draw_animation" :class="{ show: showAnimation, hide: !showAnimation}">
+            <template v-if="luckyDrawData.animation == ''"> 
+                <img class="mx-auto" :src="`${storageUrl}static/lucky_draw1.svg`" />                        
+            </template>
+            <template v-else>
+                <img class="mx-auto" :src="storageUrl + luckyDrawData.animation" />
+            </template> 
+        </div>
         <!-- END: Modal Content -->
 
     </div>
@@ -108,6 +106,8 @@ import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
 import instagram_platform from '/src/assets/images/lss-img/instagram.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
+import noWinner from '/src/assets/images/lss-img/no winner.svg'
+import winnerShowupPicture from '/src/assets/images/lss-img/winner_showup.svg'
 
 const props = defineProps({
     luckydrawList: Object
@@ -126,6 +126,7 @@ const ready = ref(false)
 const showAnimation = ref(false)
 const beforeDraw = ref(true)
 const winnerList = ref([])
+const hasWinner = ref(false)
 
 
 onMounted(() => {
@@ -143,11 +144,13 @@ const goDraw = (lucky_draw_id) => {
     draw_campaign_lucky_draw(lucky_draw_id).then(res => {
         winnerList.value = res.data
         beforeDraw.value = false
-        console.log(res.data)
     })
 
     setTimeout(() => {
         showAnimation.value = false
+        if (winnerList.value.length) {
+            hasWinner.value = true
+        }
     }, luckyDrawData.value.spin_time * 1000)
 
 }
@@ -165,8 +168,7 @@ const goDraw = (lucky_draw_id) => {
     z-index: 1;
 }
 #draw_animation.hide {
-        width: 100%;
-        height: 100%;
+        width: 75%;
         position: absolute;
         top: -100%;
         left: 50%;
@@ -179,8 +181,7 @@ const goDraw = (lucky_draw_id) => {
     }
 @media screen and (min-width: 400px){
     #draw_animation.show {
-        width: 100%;
-        height: 100%;
+        width: 75%;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -195,7 +196,7 @@ const goDraw = (lucky_draw_id) => {
 
 @media screen and (max-width: 400px){
     #draw_animation.show {
-        width: 100%;
+        width: 75%;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -206,9 +207,39 @@ const goDraw = (lucky_draw_id) => {
         transition: all 1s;
     }
 }
-img {
-    width: inherit;
+
+
+.winnerShowup.has_winner {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: white;
+    animation: winnersShowsUp 2.5s both 1;
+}
+.winnerShowup.has_winner img {
+    width: 60%;
     height: inherit;
 }
 
+@keyframes winnersShowsUp {
+    
+    80%{
+        width: 100%;
+        height: 100%;
+        opacity: 1;
+    }
+    90%{
+        width: 100%;
+        height: 100%;
+        opacity: 0;
+    }
+    100%{
+        width: 0%;
+        height: 0%;
+        opacity: 0;
+    }
+}
 </style>

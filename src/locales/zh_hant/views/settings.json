@@ -48,7 +48,7 @@
             "stripe":"Stripe付款",
             "hitpay":"Hitpay付款",
             "paypal":"Paypal付款",
-            "cepay":"綠界付款"
+            "ecpay":"台灣綠界"
         },
 
         "direct_payment":{
@@ -73,8 +73,8 @@
             "client_id":"客戶ID",
             "secret":"密鑰"
         },
-        "cepay":{
-            "merchant_id":"Merchant ID",
+        "ecpay":{
+            "merchant_id":"商店代號",
             "hash_key":"Hash Key",
             "hash_iv":"Hash IV"
         },
