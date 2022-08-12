@@ -1,7 +1,7 @@
 <template>
     <AccordionItem  class="mx-5 show">
         <Accordion class="rounded-t-lg bg-primary" >
-            <div class="mx-5 text-white" v-if="store.order.campaign"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
+            <div class="mx-5 text-white" v-if="store.order.campaign">{{$t('shopping_cart.payment.direct.title')}}</div>
         </Accordion>
 
         <!-- BEGIN Direct Payment -->
@@ -30,11 +30,8 @@
                     :class="{ hidden: openTab !== index, block: openTab === index }"
                     v-show="openTab===index"
                     >
-                    <h5 class="mx-auto font-bold text-black mb-3">Payment Information</h5>
+                    <h5 class="mx-auto font-bold text-black mb-3">{{$t('shopping_cart.payment.direct.information')}}</h5>
                     <table>
-                        <tr>
-                            <td class="w-36">{{$t('shopping_cart.payment.direct.beneficiary')}}: </td><td>{{account.mode}}</td>
-                        </tr>
                         <tr>
                             <td class="w-36">{{$t('shopping_cart.payment.direct.account_number')}}: </td><td>{{account.number}}</td>
                         </tr>
@@ -163,7 +160,9 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
 
     })
 });
-
+onMounted(() => {
+    console.log(store.order.campaign)
+})
 const uploadReceipt = () => {
     
 

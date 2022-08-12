@@ -78,6 +78,7 @@
         "address":"宅配地址",
         "pay_with":"付款方式",
         "direct":{
+            "title": "轉帳付款",
             "account":"帳號",
             "account_number":"帳戶號碼",
             "account_name":"帳戶名稱",

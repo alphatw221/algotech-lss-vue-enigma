@@ -44,11 +44,12 @@
 
     "payment_form":{
         "payment_titles":{
-            "direct_payment":"转账付款",
-            "stripe":"Stripe付款",
-            "hitpay":"Hitpay付款",
-            "paypal":"Paypal付款",
-            "ecpay":"綠界付款"
+            "direct_payment":"转账支付",
+            "stripe":"Stripe支付",
+            "hitpay":"Hitpay支付",
+            "paypal":"Paypal支付",
+            "ecpay":"綠界支付",
+            "pay_mongo":"PayMongo支付"
         },
 
         "direct_payment":{
@@ -70,13 +71,16 @@
         },
         "paypal":{
             "currency":"货币",
-            "cliend_id":"客户ID",
+            "client_id":"客户ID",
             "secret":"密钥"
         },
         "ecpay":{
             "merchant_id":"商店代号",
             "hash_key":"Hash Key",
             "hash_iv":"Hash IV"
+        },
+        "pay_mongo":{
+            "secret":"密钥"
         },
 
         "payment_details":"金流设定",

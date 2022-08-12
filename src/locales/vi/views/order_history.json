@@ -15,5 +15,7 @@
     "Direct Payment":"Thanh toán trực tiếp",
     "stripe":"Stripe",
     "hitpay":"Hitpay",
-    "paypal":"Paypal"
+    "paypal":"Paypal",
+    "pay_mongo":"PayMongo",
+    "ecpay":"ECPay"
 }

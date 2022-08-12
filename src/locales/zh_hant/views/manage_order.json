@@ -19,6 +19,11 @@
         },
         "table":{
                 "Direct Payment":"轉帳付款",
+                "stripe":"Stripe付款",
+                "hitpay":"Hitpay付款",
+                "paypal":"Paypal付款",
+                "ecpay":"台灣綠界",
+                "pay_mongo":"PayMongo付款",
                 "details":"訂單詳細",
                 "copy_link":"複製訂單連結",
                 "order_number" : "訂單",

@@ -24,7 +24,7 @@ export default async (to, from) => {
             cookies.remove('login_with')
             return '/buyer/login'
         }
-        return `/buyer/cart/${response.data.id}?tag=openAddOn`
+        return `/buyer/cart/${response.data.id}`
     } else if (type === 'enter') {
         return `/buyer/cart/${to.params.object_id}`
     } else {

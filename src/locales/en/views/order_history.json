@@ -15,5 +15,7 @@
     "Direct Payment":"Direct Payment",
     "stripe":"Stripe",
     "hitpay":"Hitpay",
-    "paypal":"Paypal"
+    "paypal":"Paypal",
+    "pay_mongo":"PayMongo",
+    "ecpay":"ECPay"
 }
