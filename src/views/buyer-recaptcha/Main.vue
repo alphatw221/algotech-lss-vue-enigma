@@ -49,14 +49,21 @@ onMounted(()=>{
             buyer_create_blank_cart(object_id, cookies.get('login_with')).then(res=>{
                 router.push(`/buyer/cart/${res.data.pre_order_oid}`)
             })
+        }else{
+            loadRecaptcha()
         }
     }else{
-        window.recaptchaOnLoad=()=>grecaptcha.execute();
-        window.recaptchaCallBack=recaptchaCallBack
-        loadScriptAsyncDefer('https://www.google.com/recaptcha/api.js?onload=recaptchaOnLoad')
+
+        loadRecaptcha()
     }
-    console.log(siteKey)
+
 })
+
+const loadRecaptcha = ()=>{
+    window.recaptchaOnLoad=()=>grecaptcha.execute();
+    window.recaptchaCallBack=recaptchaCallBack
+    loadScriptAsyncDefer('https://www.google.com/recaptcha/api.js?onload=recaptchaOnLoad')
+}
 
 const recaptchaCallBack = token=>{
     const type = route.params.type
