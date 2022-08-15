@@ -99,7 +99,7 @@
             }}</div>
           </td>
           <td class="items-center manage_order w-fit" :data-content="$t('campaign_list.campaign_list_table.action')">
-            <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
+            <a class="flex items-center justify-center" @click="routeToManageOrder(campaign)">
               <span class="mr-3 sm:hidden"> {{$t('campaign_list.campaign_list_table.manage_order')}}</span>
               <Tippy  :content="$t('campaign_list.campaign_list_table.manage_order')" :options="{ theme: 'light' }">
                 <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/> 
@@ -122,7 +122,7 @@
             </div>
             <div v-else
               class="flex flex-col justify-center form-check form-switch">
-               <input @click="stop_checkout(index, campaign,$event.target.checked)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.meta.allow_checkout"/>
+               <input @click="stop_checkout(index, campaign,$event.target.checked)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.stop_checkout"/>
             </div>
           </td>
           <td class="justify-center text-center entry w-fit">
@@ -199,7 +199,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { allow_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
+import { toggle_stop_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
@@ -300,23 +300,15 @@ const clickEntry = (index)=>{
   eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
 }
 
-const stop_checkout = (index, campaign, status)=>{
-      allow_checkout(campaign.id,status).then(res=>{
+const stop_checkout = (index, campaign)=>{
+      toggle_stop_checkout(campaign.id).then(res=>{
         campaigns.value[index] = res.data
-        // campaign.meta.allow_checkout = res.data.allow_checkout
         layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.update_successed'));
       })
       
     }
 
-const manageOrder = (campaign_id,status)=>{
-
-      // window.open(router.resolve({ 
-      //   name: 'manage-order',
-      //   params:{'campaign_id':campaign_id},query:{'checkout':status},
-      // }).href)
-      router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
-    }
+const routeToManageOrder = (campaign)=>{ router.push({name:'manage-order',params:{'campaign_id':campaign.id}})}
 
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
