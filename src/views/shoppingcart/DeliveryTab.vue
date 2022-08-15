@@ -392,7 +392,12 @@ const proceed_to_payment = () =>{
   if(shipping_info.value.shipping_method==='delivery'){
 
     delivery_validate.value.$touch();
-    if(delivery_validate.value.$invalid){
+    
+     if(shipping_info.value.shipping_option_index == ''){
+      layoutStore.alert.showMessageToast('select shipping method')
+      return
+    }
+    else if(delivery_validate.value.$invalid){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }

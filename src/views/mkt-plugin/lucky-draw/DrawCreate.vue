@@ -163,7 +163,7 @@
 
                 <div 
                     v-else-if="currentSettings.type === 'keyword'" 
-                    class="lg:w-[50%]  flex-col sm:mr-5 mt-3"
+                    class="lg:w-[50%]  flex-col sm:ml-5 mt-3"
                 >
                     <label class="form-label text-base mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
                     <textarea 
