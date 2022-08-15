@@ -16,7 +16,7 @@
         "purchase": "購買任何商品者",
         "product": "購買特定商品者",
         "keyword": "輸入特定關鍵字",
-        "winners" : "得獎人數量",
+        "winners" : "得獎人數",
         "winner_repeat": "重複得獎",
         "yes": "是",
         "no": "否",
@@ -56,7 +56,7 @@
         "product": "商品",
         "keyword": "關鍵字",
         "draw_selection": {
-            "like": "有在這則Facebook貼文的按讚者",
+            "like": "對此FB貼文按讚者",
             "product": "購買特定商品者",
             "purchase": "購買任何商品者",
             "keyword": "輸入特定關鍵字"

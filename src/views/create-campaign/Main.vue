@@ -91,6 +91,14 @@
 
 			<div class="flex my-3 mt-5 form-label text-base font-medium">
 				<div class=""> {{$t("settings.localization.price_unit")}}</div>
+				<Tippy 
+					class="rounded-full whitespace-wrap" 
+					data-tippy-allowHTML="true" 
+					data-tippy-placement="right" 
+					:content="$t('tooltips.settings.local.price_unit')" 
+				> 
+					<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+				</Tippy> 
 			</div>
 
 			<div class="flex my-1">

@@ -14,7 +14,9 @@
         "all_comments":"All Comments",
         "facebook_comments":"Facebook Comments",
         "youtube_comments":"Youtube Comments",
-        "instagram_comments":"Instagram Comments"
+        "instagram_comments":"Instagram Comments",
+        "lucky_draw":"Lucky Draw",
+        "quiz_game": "Quiz Game"
 
     },
     "reply":{
