@@ -110,7 +110,7 @@
     "confirm":{
         "succeeded":"Payment succeeded",
         "Email":"Email",
-        "Customer Name":"Customer Name",
+        "Customer":"Customer Name",
         "Password":"Password",
         "Your Plan":"Your Plan",
         "Target Country": "Target Country",
