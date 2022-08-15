@@ -116,7 +116,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"綠界",
 		key:"ecpay",
-		icon:"static/payment/paypal/icon.jpeg",
+		icon:"static/payment/ecpay/icon.jpeg",
 		fields:[
 			// {key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'NTD'], dataType:"string", default:'SGD'},
 			{key:"merchant_id", type:"text", name:"Merchant ID", dataType:"string", default:''},
