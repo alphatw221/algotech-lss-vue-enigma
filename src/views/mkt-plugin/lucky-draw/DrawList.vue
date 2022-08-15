@@ -46,8 +46,19 @@
                     </div>
                 </div>
                 <div class="mt-5 xl:mt-0 flex w-[100%] xl:w-fit ml-auto">
-                    <button class="btn btn-primary w-full xl:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" @click="goDraw(luckydraw.id)">
+                    <button 
+                        class="btn btn-primary w-full xl:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" 
+                        @click="goDraw(luckydraw.id)"
+                        v-if="props.luckyPrizeObj[luckydraw.prize.id] > 0"
+                    >
                         {{ $t('lucky_draw.draw_list.start') }}
+                    </button>
+                    <button 
+                        class="btn btn-secondary w-full xl:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" 
+                        v-else
+                        disabled
+                    >
+                        {{ $t('lucky_draw.draw_list.out_of_stock') }}
                     </button>
                 </div>
             </div>
@@ -86,7 +97,8 @@ import i18n from "@/locales/i18n"
 
 const props = defineProps({
     luckydrawList: Object,
-    campaignTitle: String
+    campaignTitle: String,
+    luckyPrizeObj: Object
 })
 const route = useRoute();
 const router = useRouter();

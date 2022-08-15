@@ -19,6 +19,7 @@
                 <DrawList 
                     :luckydrawList="luckydrawList" 
                     :campaignTitle="campaignTitle"
+                    :luckyPrizeObj="luckyPrizeObj"
                 /> 
             </div>
         </div>
@@ -31,34 +32,39 @@ import { useRoute, useRouter } from "vue-router";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 import { list_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
 import { retrieve_campaign } from '@/api_v2/campaign';
+import { seller_list_campaign_product } from '@/api_v2/campaign_product';
 import DrawCreate from "./DrawCreate.vue";
 import DrawList from "./DrawList.vue";
 
 const route = useRoute()
 const router = useRouter()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const store = useLSSCampaignListStore()
 const showDrawlist = ref(false)
 const luckydrawList = ref([])
 const ready = ref(false)
 const campaignTitle = ref('')
-
+const luckyPrizeObj = ref({})
 
 onMounted(() => {
     retrieve_campaign(route.params.campaign_id).then(res => {
         campaignTitle.value = res.data.title
-        console.log(res.data)
     })
-    if (route.query.behavior != 'drawInstantly') {
-        list_campaign_lucky_draw(route.params.campaign_id).then(res => {
-            if (Object.entries(res.data).length > 0) {
-                showDrawlist.value = true
-                luckydrawList.value = res.data
-                console.log(luckydrawList.value)
+    list_campaign_lucky_draw(route.params.campaign_id).then(res => {
+        if (Object.entries(res.data).length > 0) {
+            showDrawlist.value = true
+            luckydrawList.value = res.data
+            console.log(luckydrawList.value)
+        }
+    })
+    seller_list_campaign_product(route.params.campaign_id, '', 1, 500).then(res => {
+        for (let i = 0; i < res.data.results.length; i ++) {
+            if (res.data.results[i].type === 'lucky_draw') {
+                luckyPrizeObj.value[res.data.results[i].id] = Math.ceil(res.data.results[i].qty_for_sale - res.data.results[i].qty_sold)
             }
-            ready.value = true
-        })
-    } else ready.value = true
+        }
+        ready.value = true
+    })
+
     eventBus.on('changeDrawPage', () => { 
         showDrawlist.value = !showDrawlist.value 
     })
