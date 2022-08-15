@@ -36,8 +36,6 @@
 							/>
 							</div>
 							<div class="productName">{{ product.name }} </div>
-							
-							
 						</div>
 					</td>
 					<td class="text-center h-20">
