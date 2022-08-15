@@ -1,6 +1,6 @@
 <template>
     <div class="flex flex-col h-[100%] text-[16px]">
-		<div class="flex items-center sm:px-20 pt-2 pb-4 intro-y">
+		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
@@ -60,7 +60,7 @@
 		
 		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg ">
 
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
+			<div class="flex mb-3 form-label text-base font-medium">
 				<div> {{$t("settings.localization.currency_symbol")}} </div>
 			</div>
 			<div class="flex my-1 ">
@@ -90,7 +90,7 @@
 			</div>
 
 			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+				<div class=""> {{$t("settings.localization.price_unit")}}</div>
 			</div>
 
 			<div class="flex my-1">

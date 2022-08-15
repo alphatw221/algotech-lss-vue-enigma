@@ -274,7 +274,7 @@ td {
 thead th{ 
 	position: sticky !important; 
 	top: 0 !important;
-	font-size: 16px;
+	font-size: 14px;
 	z-index: 50;
 	background-color: theme("colors.secondary");
   	padding-right:10px;

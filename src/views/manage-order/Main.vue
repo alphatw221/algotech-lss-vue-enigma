@@ -51,7 +51,7 @@
                             > 
                             <HelpCircleIcon class="w-5 tippy-icon" />
                         </Tippy> 
-                        <input @click="stop_checkout($event.target.checked)" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="checkout_status"/> 
+                        <input @click="stop_checkout($event.target.checked)" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="store.campaign.meta.allow_checkout"/> 
                     </div>
                 </div>
             </div>
@@ -98,6 +98,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
+import { watch } from "fs";
 
 const route = useRoute();
 const store = useManageOrderStore()
@@ -116,9 +117,13 @@ onMounted(()=>{
     getCampaignInfo()
 })
 
+
+
 function stop_checkout(status){
-    allow_checkout(route.params.campaign_id,status)
-    layout.notification.showMessageToast(`${i18n.global.t('manage_order.update_successed')}`);
+    allow_checkout(route.params.campaign_id,status).then(res=>{
+        store.campaign = res.data
+        layout.notification.showMessageToast(`${i18n.global.t('manage_order.update_successed')}`);
+    }) 
 }
 
 function getCampaignInfo(){

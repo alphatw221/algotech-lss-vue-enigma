@@ -1,9 +1,9 @@
 {
 
-    "create_campaign":"建立直播",
+    "create_campaign":"建立销售活动",
     "title":"标题",
     "title_required":"请输入标题",
-    "period":"直播时间",
+    "period":"活动时间",
 
     "cancel":"取消",
     "create":"建立",

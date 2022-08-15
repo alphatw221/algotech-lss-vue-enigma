@@ -122,7 +122,7 @@
             </div>
             <div v-else
               class="flex flex-col justify-center form-check form-switch">
-               <input @click="stop_checkout(campaign.id,$event.target.checked)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.meta.allow_checkout"/>
+               <input @click="stop_checkout(index, campaign,$event.target.checked)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.meta.allow_checkout"/>
             </div>
           </td>
           <td class="justify-center text-center entry w-fit">
@@ -300,9 +300,13 @@ const clickEntry = (index)=>{
   eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
 }
 
-const stop_checkout = (campaign_id,status)=>{
-      allow_checkout(campaign_id,status)
-      layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.update_successed'));
+const stop_checkout = (index, campaign, status)=>{
+      allow_checkout(campaign.id,status).then(res=>{
+        campaigns.value[index] = res.data
+        // campaign.meta.allow_checkout = res.data.allow_checkout
+        layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.update_successed'));
+      })
+      
     }
 
 const manageOrder = (campaign_id,status)=>{

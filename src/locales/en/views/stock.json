@@ -11,7 +11,7 @@
     "search_bar": {
         "category": "Category",
         "search_by": "Search By",
-        "search_holder": "Search...",
+        "search_holder": "Search Name...",
         "search": "Search",
         "reset": "Reset",
         "category_manage": "Edit Category",
@@ -51,7 +51,7 @@
 
     "add_product_page": {
         "edit_title": "Edit Product",
-        "add_title": "Add New Product",
+        "add_title": "Add Product",
         "product_name": "Product Name",
         "name_warning": "Enter product name with no more than 50 digits",
         "category": "Category",

@@ -1,6 +1,6 @@
 {
-    "assign_product": "新增直播商品",
-    "confirm_select_product":"確認新增商品",
+    "assign_product": "新增活動商品",
+    "confirm_select_product":"確認商品",
     "search_bar":{
         "category":"商品類別",
         "all":"全部類別",
@@ -10,7 +10,7 @@
             "order_code":"商品代碼",
             "description":"備註"
         },
-        "search_bar_place_holder":"搜尋...",
+        "search_bar_place_holder":"搜尋名稱",
         "reset":"重設"
     },
 
@@ -21,7 +21,7 @@
         "order_code":"商品代碼",
         "qty":"庫存數量",
         "assign_qty":"直播商品數量",
-        "max_order_amount":"購買上限",
+        "max_order_amount":"單次購買上限",
         "category":"類別",
         "price":"價錢",
         "customer_editable":"允許編輯",
@@ -44,7 +44,7 @@
             "max_order_amount_grater_than_qty":"不得大於商品數量",
             "assign_qty_required":"商品數量必填",
             "please_enter_integer": "請輸入整數",
-            "price_invalid":"價錢無效"
+            "price_invalid":"輸入價錢無效"
         }
     },
     "add":"加入",

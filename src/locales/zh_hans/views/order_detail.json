@@ -57,7 +57,7 @@
         "method" : "付款方式",
         "information": "付款资讯",
         "record" : "付款纪录",
-        "last_five_digits":"转帐后五码"
+        "last_five_digits":"末五码"
     },
     "remark" : "备注",
     "save_remarks" : "储存备注",

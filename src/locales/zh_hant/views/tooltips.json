@@ -4,7 +4,7 @@
         "removable":"允許買家刪除購物車的商品"
     },
     "create_campaign":{
-        "campaign_period":"Time period that allows buyers to place an order",
+        "campaign_period":"允許讓買家下單的開始與結束時間",
         "payment_record":"要求買家附上轉帳證明(明細截圖/末五碼)"
     },
     "campaign_live":{
@@ -12,7 +12,8 @@
     },  
     "campaign_list":{
         "stop_checkout":"停止讓買家結帳",
-        "instant_cart":"無須開直播也能透過連結直接購買"
+        "instant_cart":"無須開直播也能透過連結直接購買",
+        "price_unit":"顯示金額的貨幣單位"
     },
     "lucky_draw":{
         "spin_time":"動畫播放時間",
@@ -21,7 +22,8 @@
     "manage_order":{
         "delivery_noti":"通知買家訂單已出貨",
         "view_icon":"訂單詳情",
-        "link_icon":"複製購物車連結"
+        "link_icon":"複製購物車連結",
+        "product_details":"訂單商品列表"
     },
     "manage_order_details":{
         "price_adjustment":"調整訂單小計金額"
