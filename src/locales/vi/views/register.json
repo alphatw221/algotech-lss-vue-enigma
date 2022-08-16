@@ -34,7 +34,8 @@
             "ID": "(ID) +62" , 
             "PH": "(PH) +63" , 
             "SG": "(SG) +65" , 
-            "TW": "(TW) +886"
+            "TW": "(TW) +886",
+            "VN": "(VN) +84"
         },
         "number":"Số điện thoại",
         "email":"Email",
@@ -111,7 +112,7 @@
     "confirm":{
         "succeeded":"Thanh toán thành công",
         "Email":"Email",
-        "Customer Name":"Tên khách hàng",
+        "Customer":"Tên khách hàng",
         "Password":"Mật khẩu",
         "Your Plan":"Gói dịch vụ của bạn",
         "Target Country": "Quốc gia",
