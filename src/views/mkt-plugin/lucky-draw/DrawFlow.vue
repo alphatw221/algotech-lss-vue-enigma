@@ -167,7 +167,9 @@ const goDraw = (lucky_draw_id) => {
     background-color: white;
     z-index: 1;
 }
-#draw_animation.hide {
+
+@media (min-width: 350px){
+    #draw_animation.hide {
         width: 75%;
         position: absolute;
         top: -100%;
@@ -179,7 +181,6 @@ const goDraw = (lucky_draw_id) => {
         transition: all 1s;
 
     }
-@media screen and (min-width: 400px){
     #draw_animation.show {
         width: 75%;
         position: absolute;
@@ -192,11 +193,27 @@ const goDraw = (lucky_draw_id) => {
         transition: all 1s;
 
     }
+    .winnerShowup.has_winner img {
+        width: 75%;
+        height: inherit;
+    }
 }
 
-@media screen and (max-width: 400px){
+@media (min-width: 768px){
+    #draw_animation.hide {
+        width: 40%;
+        position: absolute;
+        top: -100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        z-index: 2;
+        overflow: hidden;
+        transition: all 1s;
+
+    }
     #draw_animation.show {
-        width: 75%;
+        width: 40%;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -205,6 +222,10 @@ const goDraw = (lucky_draw_id) => {
         z-index: 2;
         overflow: hidden;
         transition: all 1s;
+    }
+    .winnerShowup.has_winner img {
+        width: 40%;
+        height: inherit;
     }
 }
 
@@ -219,10 +240,7 @@ const goDraw = (lucky_draw_id) => {
     background-color: white;
     animation: winnersShowsUp 2.5s both 1;
 }
-.winnerShowup.has_winner img {
-    width: 60%;
-    height: inherit;
-}
+
 
 @keyframes winnersShowsUp {
     
