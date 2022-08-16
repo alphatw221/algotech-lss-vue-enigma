@@ -151,9 +151,9 @@
 import SelectPlatformPageModal from "./SelectPlatformPageModal.vue"
 import SelectCurrentLiveModal from "./SelectCurrentLiveModal.vue"
 import { update_platform_live_id } from "@/api_v2/campaign"
-import { check_facebook_page_post_exist } from "@/api/facebook"
-import { check_instagram_profile_post_exist } from "@/api/instagram"
-import { check_youtube_channel_post_exist } from "@/api/youtube"
+import { check_facebook_page_post_exist } from "@/api_v2/facebook"
+import { check_instagram_profile_post_exist } from "@/api_v2/instagram"
+import { check_youtube_channel_post_exist } from "@/api_v2/youtube"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
 

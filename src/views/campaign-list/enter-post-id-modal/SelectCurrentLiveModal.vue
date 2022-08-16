@@ -41,9 +41,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
-import { get_fb_page_live_media } from "@/api/facebook"
-import { get_ig_live_media } from "@/api/instagram"
-import { get_yt_live_media } from "@/api/youtube"
+import { get_fb_page_live_media } from "@/api_v2/facebook"
+import { get_ig_live_media } from "@/api_v2/instagram"
+import { get_yt_live_media } from "@/api_v2/youtube"
 import { update_platform_live_id } from "@/api_v2/campaign"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"

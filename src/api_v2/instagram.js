@@ -15,7 +15,7 @@ export const get_ig_conversation_messages = (page_id, ig_user_id, pageToken) => 
 }
 
 export const retrieve_instagram_profile = (pk) => {
-    return createAxiosWithBearer().get(`/api/instagram_profile/${pk}/`)
+    return createAxiosWithBearer().get(`/api/v2/instagram-profile/${pk}/`)
 }
 
 export const reply_to_direct_message = (page_id, user_id, text, pageToken) => {
