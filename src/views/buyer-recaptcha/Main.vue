@@ -41,7 +41,7 @@ onMounted(()=>{
     loadScript('https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js',()=>{
         showAnimate.value=true
     })
-
+    console.log(siteKey)
     if(cookies.get('login_with')!='anonymousUser'){
         const type = route.params.type
         const object_id = route.params.object_id
@@ -53,7 +53,6 @@ onMounted(()=>{
             loadRecaptcha()
         }
     }else{
-
         loadRecaptcha()
     }
 
@@ -66,6 +65,7 @@ const loadRecaptcha = ()=>{
 }
 
 const recaptchaCallBack = token=>{
+
     const type = route.params.type
     const object_id = route.params.object_id
     if(type=='blank'){
@@ -83,7 +83,8 @@ const recaptchaCallBack = token=>{
                 router.push(`/buyer/cart/${response.data.pre_order_oid}`)
             }
         })
-    }else if (type='easy_store'){
+    }else if(type=='easy_store'){
+
         get_easy_store_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
     }
 }
