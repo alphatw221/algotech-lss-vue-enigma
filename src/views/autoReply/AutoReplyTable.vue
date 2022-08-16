@@ -66,7 +66,7 @@
 								<DropdownMenu class="w-24 pt-2 ">
 								<DropdownContent class="w-24 text-center">
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
-										@click="updateInfo(index+1, reply.input_msg, reply.output_msg, reply.description)"> 
+										@click="updateInfo(index+1, reply.id, reply.input_msg, reply.output_msg, reply.description)"> 
 											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{$t('auto_reply.manipulate.edit')}} </DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
 										@click="deleteAutoReply(reply.id)"> 
@@ -86,7 +86,7 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10">
+	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
 		<Page class="mx-auto my-3" :total="totalCount" @on-change="changePage" @on-page-size-change="changePageSize" />
 	</div>
 	<!-- update Modal-->
@@ -122,7 +122,7 @@
 			<button type="button" @click="updateModal = false" class="w-32 btn dark:border-darkmode-400">
 				{{ $t('auto_reply.modal_cancel') }}
 			</button>
-			<button type="button" @click="updateAutoReply(currentInfo.id, currentInfo)" class="w-32 ml-5 shadow-md btn btn-primary">
+			<button type="button" @click="updateAutoReply(currentInfo.replyId, currentInfo)" class="w-32 ml-5 shadow-md btn btn-primary">
 				{{ $t('auto_reply.modal_save') }}
 			</button>
 		</ModalFooter>
@@ -155,6 +155,7 @@ const showCommentLoding = ref(true)
 
 const currentInfo = ref({
 	id: "",
+	replyId:"",
 	input_msg: "",
 	output_msg: "",
 	description: "",
@@ -182,9 +183,10 @@ function changePageSize(page_size) {
 	getReplyData()
 }
 
-function updateInfo(id, input, output, description, facebook_page) {
+function updateInfo(id, replyId, input, output, description, facebook_page) {
 	updateModal.value = true;
 	currentInfo.value.id = id;
+	currentInfo.value.replyId = replyId;
 	currentInfo.value.input_msg = input;
 	currentInfo.value.output_msg = output;
 	currentInfo.value.description = description;

@@ -56,11 +56,16 @@ const handlePayment=()=>{
         const getCredential = paymentEndPoints[props.payment.handle.endpoint]
         getCredential(route.params.order_oid).then(res=>{
             console.log(res.data)
+            // const params = res.data.data
+            
+            // document.body.innerHTML = params
+            // document.getElementById("data_set").submit();
+
             const form = document.createElement('form');
+            form.setAttribute("id", "data_set");
             form.method = 'post';
             form.action = res.data.action;
             const params = res.data.data
-
             for (const key in params) {
                 if (params.hasOwnProperty(key)) {
                     const hiddenField = document.createElement('input');
@@ -73,7 +78,8 @@ const handlePayment=()=>{
             }
 
             document.body.appendChild(form);
-            // form.submit();
+            form.submit();
+
             // for (const [key, value] of Object.entries(res.credential)) {
             //     $('<input>').attr({
             //         type: 'hidden',

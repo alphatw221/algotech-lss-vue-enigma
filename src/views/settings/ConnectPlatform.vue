@@ -1,6 +1,20 @@
 <template>
     <div class="flex flex-col">
-            <h1 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-10 lg:mx-20 pt-10 sm:pt-5 flex"> {{$t('settings.platform.connected_platform')}} <Tippy 
+            <div class="flex items-center sm:px-20 lg:pt-5 mt-2 pb-4 intro-y">
+                <h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('settings.platform.connected_platform')}}
+                    <Tippy 
+                        class="rounded-full w-fit inline-block" 
+                        data-tippy-allowHTML="true" 
+                        data-tippy-placement="right" 
+                        :content="$t('tooltips.settings.social.connect_social')" 
+                        theme='light'
+                    > 
+                        <HelpCircleIcon class="w-8 ml-1 tippy-icon" />
+                    </Tippy>  
+                </h2>
+            </div>
+
+            <!-- <h1 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-10 lg:mx-20 lg:pt-10 sm:pt-2 flex pb-4"> {{$t('settings.platform.connected_platform')}} <Tippy 
                 class="rounded-full w-fit mt-auto mb-1" 
                 data-tippy-allowHTML="true" 
                 data-tippy-placement="right" 
@@ -9,7 +23,7 @@
             > 
                 <HelpCircleIcon class="w-8 ml-1 tippy-icon" />
             </Tippy>  
-            </h1>
+            </h1> -->
         
         <!-- <div v-for="(component, key) in platform_components" :key="key">
             <component :is="component"></component>

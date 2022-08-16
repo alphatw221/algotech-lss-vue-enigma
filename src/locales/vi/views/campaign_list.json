@@ -19,7 +19,7 @@
 
     "search_bar":{
         "title": "Tiêu đề",
-        "search" : "Tìm kiếm",
+        "search" : "Tìm kiếm tiêu đề",
         "reset" : "Thiết lập lại"
     },
     "enter_post_id":{
@@ -57,7 +57,8 @@
         
         "no_have_campaign": "Bạn chưa tạo chiến dịch trước đó",
         "click_create_notify": "Nhấp chuột vào \"+ Tạo\" để tạo chiến dịch bán hàng livestream mới",
-        "connect_platform":"Kết nối nền tảng"
+        "connect_platform":"Kết nối nền tảng",
+        "quiz_game":"Trò chơi giải đố" 
     },
 
     "remind_enter_post_id_modal":{

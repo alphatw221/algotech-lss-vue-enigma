@@ -24,9 +24,9 @@
           {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
         </div>
       </div>
-      <template v-if="store.orderDetail.adjust_title !== null">
+      <template v-if="store.orderDetail.adjust_price">
         <div class="flex">
-            <div class="mr-auto">{{store.orderDetail.adjust_title ?? 'Discount'}}</div>
+            <div class="mr-auto">{{store.orderDetail.adjust_title ?? $t('order_detail.price_summary.price_adjustment')}}</div>
             <div class="font-medium" v-if="store.orderDetail.campaign">
               {{store.orderDetail.campaign.currency}}
               {{store.modify_status == '-' ? '-' + Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places : Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}

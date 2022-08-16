@@ -34,7 +34,6 @@ import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 import i18n from "@/locales/i18n";
 
 const publicLayout = usePublicLayoutStore()
-onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
 const route = useRoute()
 const router = useRouter()
 const email = ref('')

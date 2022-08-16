@@ -8,7 +8,7 @@
     "time_zone" : "時區",
     "confirmation_note" : "訂單確認訊息",
     "default_active" : "預設啟用",
-    "default_settings":"直播預設",
+    "default_settings":"銷售活動預設",
     "update_successfully":"更新成功",
     "update_failed":"更新失敗",
     "img_size_err":"圖片大小不可超過 10 MB",
@@ -120,7 +120,7 @@
         "payment":"金流"
     },
     "notes":{
-        "notes":"通用",
+        "notes":"一般",
         "delivery_note":"運送說明",
         "special_note":"購物說明",
         "confirmation_note":"訂單說明",

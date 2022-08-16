@@ -12,7 +12,8 @@
     },  
     "campaign_list":{
         "stop_checkout":"Tắt giỏ hàng ngay lập tức",
-        "instant_cart":"nhận đơn hàng mà không cần tiếp tục đăng ký phát trực tiếp trên mạng xã hội"
+        "instant_cart":"nhận đơn hàng mà không cần tiếp tục đăng ký phát trực tiếp trên mạng xã hội",
+        "price_unit":"Hiển thị đơn vị giá trên các sản phẩm, ví dụ: 10.000 được thay bằng 10K khi áp dụng đơn vị \"K\""
     },
     "lucky_draw":{
         "spin_time":"Thời gian quay rút thăm may mắn",
@@ -21,7 +22,8 @@
     "manage_order":{
         "delivery_noti":"Thông báo email khi đơn hàng đã được giao đến",
         "view_icon":"Chi tiết đơn hàng",
-        "link_icon":"Sao chép liên kết giỏ hàng"
+        "link_icon":"Sao chép liên kết giỏ hàng",
+        "product_details":"Xem danh sách sản phẩm"
     },
     "manage_order_details":{
         "price_adjustment":"Mở chức năng điều chính giá bằng việc thêm phí bổ sung hoặc giảm giá cho người mua"
@@ -36,7 +38,8 @@
             "confirm_note":"Tin nhắn thông báo đến người mua về đơn hàng của họ đã được xác nhận"
         },
         "local":{
-            "buyer_lang":"Thay đổi ngôn ngữ trên giỏ hàng của người mua và gửi tin nhắn thông báo qua mạng xã hội"
+            "buyer_lang":"Thay đổi ngôn ngữ trên giỏ hàng của người mua và gửi tin nhắn thông báo qua mạng xã hội",
+            "price_unit":"Hiển thị đơn vị giá trên các sản phẩm, ví dụ: 10.000 được thay bằng 10K khi áp dụng đơn vị \"K\""
         },
         "social":{
             "connect_social":"Liên kết tài khoản mạng xã hội của bạn để bắt đầu chiến dịch bán hàng livestream của bạn"

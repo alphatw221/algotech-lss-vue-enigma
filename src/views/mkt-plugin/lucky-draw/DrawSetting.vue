@@ -151,11 +151,11 @@
 				</div>
                 <div class="flex mt-5 justify-around"> 
                     <button type="button" @click="showModal = false"
-                    class="btn btn-rounded-secondary w-20 mr-5">
+                    class="btn btn-rounded-secondary w-32 ml-5 mr-4 shadow-md">
                     Cancel
                     </button>
                     <button type="button" @click="submit" 
-                        class="btn btn-rounded-primary w-20">
+                        class="w-32 ml-5 mr-4 shadow-md btn btn-primary">
                         submit
                     </button>
                 </div>

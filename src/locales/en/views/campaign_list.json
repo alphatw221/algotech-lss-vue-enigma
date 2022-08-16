@@ -19,7 +19,7 @@
 
     "search_bar":{
         "title": "Title",
-        "search" : "Search",
+        "search" : "Search Title",
         "reset" : "Reset"
     },
     "enter_post_id":{
@@ -44,7 +44,7 @@
         "live_on":"Live On",
         "edit_campaign":"Edit Campaign",
         "edit_campaign_product":"Edit Product",
-        "blank_cart":"Copy Blank Cart Link",
+        "blank_cart":"Copy Express Cart Link",
         "lucky_draw":"Lucky Draw",
         "quiz_game": "Quiz Game",
         "delete":"Delete",

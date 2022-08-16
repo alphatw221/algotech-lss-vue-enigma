@@ -57,7 +57,7 @@
         "method" : "付款方式",
         "information": "付款資訊",
         "record" : "付款紀錄",
-        "last_five_digits":"後五碼"
+        "last_five_digits":"末五碼"
     },
     "remark" : "備註",
     "save_remarks" : "儲存備註",

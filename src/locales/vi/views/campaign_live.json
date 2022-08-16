@@ -8,7 +8,9 @@
         "select_tag":"Thẻ đã chọn",
         "clear":"Thiết lập lại",
         "comment_message_1":"Bạn không có bất kì bình luận %{tag} gần đây",
-        "comment_message_2":"Bạn không có bất kì bình luận %{platformName} gần đây"
+        "comment_message_2":"Bạn không có bất kì bình luận %{platformName} gần đây",
+        "lucky_draw":"Quà tặng minigame",
+        "quiz_game": "Trò chơi giải đố"
     },
     "reply":{
         "reply_to":"gần đây",
