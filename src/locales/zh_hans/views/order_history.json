@@ -12,7 +12,7 @@
     "complete" : "已完成",
     "review" : "处理中",
     "shipping out":"已出货",
-    "Direct Payment":"转帐支付",
+    "direct_payment":"转帐支付",
     "stripe":"Stripe",
     "hitpay":"Hitpay",
     "paypal":"Paypal",

@@ -123,7 +123,7 @@ const initWebSocketConnection =()=> {
 
 const setLanguage = ()=>{
   if(store.userInfo.user_subscription){
-    // console.log('setlang')
+    console.log('setlang')
     app_i18n.locale=store.userInfo.lang
     // i18n.global.locale = store.userInfo.user_subscription.lang
 

@@ -1,4 +1,5 @@
 import global from './global.json'
+// import error_messages from './error_messages.json'
 import stock from './views/stock.json'
 import settings from './views/settings.json'
 import shopping_cart from './views/shopping_cart.json'
@@ -19,9 +20,13 @@ import profile from './views/profile.json'
 import register from './views/register.json'
 import tooltips from './views/tooltips.json'
 import quiz_game from './views/quiz_game.json'
+import login from './views/login.json'
+import forgot_password from './views/forgot_password.json'
+import reset_password from './views/reset_password.json'
 
 export default {
     global,
+    // error_messages,
 
     campaign_list,
     campaign_live,
@@ -43,6 +48,8 @@ export default {
     profile,
     register,
     tooltips,
-    quiz_game
-
+    quiz_game,
+    login,
+    forgot_password,
+    reset_password
 }
