@@ -11,13 +11,13 @@
 							<div class="flex justify-center"> 
 								{{ $t(`stock.table_column.${column.key}`) }}
 								<template v-if="sortBy =='-name'" > 
-									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByName()" />
+									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('name')" />
 								</template> 
 								<template v-else-if="sortBy =='name'" > 
-									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByName()" />
+									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
 								</template> 
 								<template v-else> 
-									<ChevronsDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByName()" />
+									<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
 								</template>
 							</div>
 						</template>
@@ -25,13 +25,13 @@
 							<div class="flex justify-center"> 
 								{{ $t(`stock.table_column.${column.key}`) }}
 								<template v-if="sortBy =='-qty'" > 
-									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByQty()" />
+									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('qty')" />
 								</template>
 								<template v-else-if="sortBy =='qty'" > 
-									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByQty()" />
+									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
 								</template> 
 								<template v-else> 
-									<ChevronsDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByQty()" />
+									<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
 								</template>
 							</div>
 						</template>
@@ -278,15 +278,9 @@ const copyProduct = (id) => {
 	hideDropDown()
 }
 
-const sortByName = () =>{
-	sortBy.value = sortBy.value=='name' ? '-name': 'name'
-	console.log(sortBy.value)
-	search();
-}
-
-const sortByQty = () =>{
-	sortBy.value = sortBy.value=='qty' ? '-qty': 'qty'
-	console.log(sortBy.value)
+const sortByThis = (by) =>{
+	sortBy.value = by
+	// sortBy.value = sortBy.value=='name' ? '-name': 'name'
 	search();
 }
 

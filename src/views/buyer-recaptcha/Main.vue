@@ -26,6 +26,7 @@ import loadScript from '@/libs/loadScript.js'
 import {onMounted, ref} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { buyer_create_blank_cart, guest_create_blank_cart } from '@/api_v2/pre_order';
+import { get_easy_store_checkout_url } from '@/plugin/easy-store/api/cart.js'
 import { useCookies } from 'vue3-cookies';
 import { useLSSBuyerLayoutStore } from '@/stores/lss-buyer-layout';
 
@@ -40,23 +41,31 @@ onMounted(()=>{
     loadScript('https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js',()=>{
         showAnimate.value=true
     })
-    if(buyerStore.isAuthenticated ){
+    console.log(siteKey)
+    if(cookies.get('login_with')!='anonymousUser'){
         const type = route.params.type
         const object_id = route.params.object_id
         if(type=='blank'){
             buyer_create_blank_cart(object_id, cookies.get('login_with')).then(res=>{
                 router.push(`/buyer/cart/${res.data.pre_order_oid}`)
             })
+        }else{
+            loadRecaptcha()
         }
     }else{
-        window.recaptchaOnLoad=()=>grecaptcha.execute();
-        window.recaptchaCallBack=recaptchaCallBack
-        loadScriptAsyncDefer('https://www.google.com/recaptcha/api.js?onload=recaptchaOnLoad')
+        loadRecaptcha()
     }
-    console.log(siteKey)
+
 })
 
+const loadRecaptcha = ()=>{
+    window.recaptchaOnLoad=()=>grecaptcha.execute();
+    window.recaptchaCallBack=recaptchaCallBack
+    loadScriptAsyncDefer('https://www.google.com/recaptcha/api.js?onload=recaptchaOnLoad')
+}
+
 const recaptchaCallBack = token=>{
+
     const type = route.params.type
     const object_id = route.params.object_id
     if(type=='blank'){
@@ -74,6 +83,9 @@ const recaptchaCallBack = token=>{
                 router.push(`/buyer/cart/${response.data.pre_order_oid}`)
             }
         })
+    }else if(type=='easy_store'){
+
+        get_easy_store_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
     }
 }
 </script>

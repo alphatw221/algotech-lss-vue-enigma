@@ -4,6 +4,8 @@
         "comments":"Comments Summarizer",
         "delivery":"Delivery",
         "payment":"Payment",
+        "purchase":"Purchase",
+        "return":"Return",
         "other":"Other",
         "select_tag":"Selected tag",
         "clear":"Reset",

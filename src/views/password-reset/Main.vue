@@ -1,7 +1,7 @@
 <template> 
     <div class="outterContainer">
-        <div  class="mx-2">
-            <img :src="LSSLogo" class="mx-auto">
+        <div  class="mx-2 my-10 sm:mt-20">
+            <img :src="LSSLogo" class="mx-auto w-[250px] sm:w-[300px]">
         </div>
 
         <!-- BEGIN Tab List-->
@@ -156,7 +156,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue';
+import { ref, onBeforeMount } from 'vue';
 import { seller_reset_password } from '@/api_v2/user.js';
 import { useVuelidate } from '@vuelidate/core'
 import * as validators from '@vuelidate/validators'
@@ -190,6 +190,7 @@ const passwordData = ref({
     confirm_password: ''
 })
 
+onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'overflow: hidden; height:100vh;')} )
 const confirmData = ref({})
 
 const messagePath = ({ $validator }) => `messages.${$validator}`
@@ -233,6 +234,6 @@ const submitPassword = () => {
 <style scoped>
     /* temp   TODO: create a new page layout  */
     .outterContainer{
-        height: 100vh;
+        height: 100vh; 
     }
 </style>

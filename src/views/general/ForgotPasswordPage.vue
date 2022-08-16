@@ -1,7 +1,8 @@
 <template>
-    <div class="board bg-white"> 
-        <div class="redSide hidden sm:block"> 
-            <img src="/src/assets/images/login-page/forgot_robot.svg"  class="robot hidden sm:block" />    
+<div class="board bg-white">
+    <div class="flex flex-col sm:flex-row justify-between">
+        <div class="redSide relative w-screen h-[30vh] sm:h-screen sm:w-[45vw]"> 
+            <img src="/src/assets/images/login-page/forgot_robot.svg"  class="robot max-h-full sm:max-h-[480px]" />    
         </div>
     </div>
     <div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] float-center sm:float-right"> 
@@ -44,18 +45,10 @@ const sendResetLink=()=>{
     })
 }
 
-
+onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0; padding-right: 0; overflow: hidden; height:100vh;')} )
 </script>
 
 <style scoped>
-.center {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    background:rgba(255, 255, 255, 0.95);
-}
-
 .resend_btn {
     background-color:  rgba(255, 0, 0, 0.795); 
     color: white; 
@@ -66,36 +59,30 @@ const sendResetLink=()=>{
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    position: absolute;
+    position: relative;
     z-index: 0;
 }
 
 .center {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
+    position: relative;
     background:rgba(255, 255, 255, 0.95);
+    right: 50%;
+    height: 100%;
 }
 
 .redSide{
-    height: 100vh;
-    width: 45vw;
     background-color: rgba(255, 0, 0, 0.651);
-    position: absolute;
-    z-index: -99;
-    left:0;
+    z-index: 5;
 }
 .robot{
     z-index: 0;
-    width: 480px;
     top: 50%;
-    right: 47%;
+    right: 43%;
     transform: translate(50%, -50%);
     position: absolute;
+
 }
 .container{
-    height: 100vh;
-    position: relative;
+    z-index: 1;
 }
 </style>
