@@ -37,7 +37,7 @@
                             </td> 
                         </tr> 
                         <tr v-for="(pre_order, key, index) in store.incomingOrdersDict" :key="index">
-                            <td>#{{ order.id }}</td>
+                            <td>#{{ pre_order.id }}</td>
                             <td>
                                 <div v-if="pre_order.platform === 'facebook'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
@@ -103,14 +103,13 @@ const incoming_order_columns= [
 ]
 
 
-// route.params.campaign_id
 
 onMounted(()=>{
     list_campaign_pre_order(route.params.campaign_id).then(res => {
         res.data.forEach(pre_order => {
             store.incomingOrdersDict[pre_order.id]=pre_order
         });
-        store.incomingOrders = res.data
+        store.incomingOrders = res.data  //delete if no longer needed
     })
         
 })
