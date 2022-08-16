@@ -33,7 +33,8 @@
             "ID": "(ID) +62" , 
             "PH": "(PH) +63" , 
             "SG": "(SG) +65" , 
-            "TW": "(TW) +886"
+            "TW": "(TW) +886",
+            "VN": "(VN) +84"
         },
         "number":"連絡電話",
         "email":"電子信箱",
@@ -110,7 +111,7 @@
     "confirm":{
         "succeeded":"付款完成",
         "Email":"電子信箱",
-        "Customer Name":"姓名",
+        "Customer":"姓名",
         "Password":"密碼",
         "Your Plan":"您的訂閱方案",
         "Target Country": "主要販售國家",
