@@ -69,9 +69,12 @@
                             :class="{ 'border-danger text-danger border-2': validate.countryCode.$error }" 
                             v-model="validate.countryCode.$model"
                         >
-                            <option v-for="(code, key) in countryCodeOptions" :key="key" :value="code.value" class="w-40"> 
-                                {{ $t(`register.basic_info.code_Options.` + code.value) }} 
+                            <option :value="route.query.country" class="w-40">
+                                {{ $t(`register.basic_info.code_Options.` + route.query.country) }}
                             </option>
+                            <!-- <option v-for="(code, key) in countryCodeOptions" :key="key" :value="code.value" class="w-40">
+                                    {{ $t(`register.basic_info.code_Options.` + code.value) }}
+                            </option> -->
                         </select>
                     <template v-if="validate.countryCode.$error">
                         <label class="text-danger text-[16px] leading-tight">
