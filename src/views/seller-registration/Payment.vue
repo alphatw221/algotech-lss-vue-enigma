@@ -45,6 +45,31 @@
                 </button>
             </li>
         </ul>
+        <ul class="flex-none flex flex-wrap py-2 flex-row justify-around w-full" v-if="route.query.country=='PH'">
+            <li class="flex-1 text-center">
+                <button
+                    @click="togglePaymentTabs(0)"
+                    :class="{
+                        'text-neutral-600 bg-white': paymentMethodTabNumber !== 0,
+                        'text-white bg-primary': paymentMethodTabNumber === 0 
+                        }" 
+                    class="sm:w-[300px] py-2 mx-auto flex justify-center border-2 border-primary/30 btn h-full" >
+                    <font-awesome-icon icon="fa-regular fa-credit-card" class="h-6 mr-5"/> {{$t('register.payment.payment_method.card')}}
+                </button>
+            </li>
+            <li 
+                class="flex-1 text-center">
+                <button
+                    @click="togglePaymentTabs(2)"
+                    :class="{
+                        'text-neutral-600 bg-white': paymentMethodTabNumber !== 2,
+                        'text-white bg-primary': paymentMethodTabNumber === 2 
+                        }" 
+                    class="sm:w-[300px] py-2 mx-auto flex justify-center border-2 border-primary/30 btn h-full" >
+                    <font-awesome-icon icon="fa-solid fa-money-check-dollar" class="h-7 mr-5" /> {{$t('register.payment.payment_method.direct')}}
+                </button>
+            </li>
+        </ul>
         <!--  Stripe  -->
             <div class="tab-content tab-space py-10">
                 <div :class="{ hidden: paymentMethodTabNumber !== 0, block: paymentMethodTabNumber === 0 }" 
@@ -73,7 +98,7 @@
                         <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.bank_name')}} </td> <td class="text-right pl-10"> {{registerationStore.vnBank.bankName}} </td> </tr>
                         <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_name')}} </td> <td class="text-right pl-5"> {{registerationStore.vnBank.accountName}} </td> </tr>
                         <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_number')}} </td> <td class="text-right pl-10"> {{registerationStore.vnBank.accountNumber}}  </td> </tr>
-                        <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.note')}} </td> <td class="text-right pl-10"> {{registerationStore.vnBank.note}} </td> </tr>
+                        <!-- <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.note')}} </td> <td class="text-right pl-10"> {{registerationStore.vnBank.note}} </td> </tr> -->
                     </table>
                     <img  data-action="zoom" class="w-60 mx-auto" :src="bank_img" />  
                     <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
@@ -109,7 +134,58 @@
                         </template>
                     </div>
                 </div>
-        </div> 
+        </div>
+        <!-- GCASH -->
+        <div class="flex flex-col gap-3" 
+                    :class="{ hidden: paymentMethodTabNumber !== 2, block: paymentMethodTabNumber === 2 }" > 
+
+                    <span class="mx-auto text-xl font-medium"> {{$t('register.payment.direct.payment_info')}} </span>
+                    <table class="mx-auto w-fit w-1/3 max-w-1/2"> 
+                        <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.bank_name')}} </td> <td class="text-right pl-10"> {{registerationStore.g_cash.bankName}} </td> </tr>
+                        <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_name')}} </td> <td class="text-right pl-5"> {{registerationStore.g_cash.accountName}} </td> </tr>
+                        <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_number')}} </td> <td class="text-right pl-10"> {{registerationStore.g_cash.accountNumber}}  </td> </tr>
+                        <!-- <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.note')}} </td> <td class="text-right pl-10"> {{registerationStore.g_cash.note}} </td> </tr> -->
+                    </table>
+                    <!-- <img  data-action="zoom" class="w-60 mx-auto" :src="bank_img" />   -->
+                    <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
+                        method: 'put',
+                        url: 'url',
+                        uploadMultiple: false,
+                        maxFilesize: 10,
+                        addRemoveLinks: true,
+                        autoProcessQueue: false,
+                        resizeQuality: 0.5,
+                        clickable: true,
+                        acceptedFiles: 'image/*',
+                    }" class="dropzone h-fit rounded-xl">
+
+                        <div class="text-lg font-medium">
+                            {{$t('register.payment.direct.upload_img')}}
+                        </div>
+                        <div class="text-gray-600">
+                            <br>{{$t('register.payment.direct.accepted_types')}}: jpeg, png, jpg
+                        </div>
+                        <div class="text-gray-600">{{$t('register.payment.direct.max_size')}} : 10MB</div>  
+                    </Dropzone>
+                    <div class="flex flex-col my-3">
+
+                        <label for="regular-form-2" class="form-label">{{$t('register.payment.direct.last_five_digits')}}</label>
+                        <input id="regular-form-2" type="number" class="form-control"
+                            :class="{ 'border-danger': uploadValidate.fiveDigits.$error }"
+                            v-model.trim="uploadValidate.fiveDigits.$model" />
+                        <template v-if="uploadValidate.fiveDigits.$error">
+                            <div class="form-help" :class="{ 'text-danger': uploadValidate.fiveDigits.$error }">
+                                {{$t('register.payment.direct.digits_message')}}
+                            </div>
+                        </template>
+                    </div>
+                </div>
+        
+        <!-- ECpay -->
+        <div class="flex flex-col gap-3" 
+                    :class="{ hidden: paymentMethodTabNumber !== 3, block: paymentMethodTabNumber === 3 }" >
+            <img class="w-60 mx-auto" :src="ecpay_img" /> 
+        </div>
 
     <!-- Process Button -->
         <div class="flex justify-between mt-10 text-sm lg:text-lg">
@@ -146,6 +222,7 @@ import { seller_validate_register } from '@/api_v2/user'
 import { seller_register_stripe, user_register_with_bank_transfer } from '@/api_v2/user'
 
 import bank_img from "/src/assets/images/lss-bank/vn_bank.png"
+import ecpay_img from "/src/assets/images/lss-bank/ecpay.png"
 import {
     minLength,
     maxLength,
@@ -199,6 +276,9 @@ onMounted(()=>{
     renderStripeElement(confirmInfo.value.client_secret)
   })
 
+  if(route.query.country=='TW'){
+      paymentMethodTabNumber.value = 3
+  }
 })
 
 onUnmounted(()=>{
@@ -321,8 +401,13 @@ const uploadReceipt = () => {
     }
     formData.append('last_five_digit', data.fiveDigits)
     formData.append('image', receiptImage || '')
-    formData.append('account_name', layout.accountName)
-    formData.append('bank_name', layout.bankName)
+    if(paymentMethodTabNumber === 1){ //VN
+        formData.append('account_name', registerationStore.vnBank.accountName)
+        formData.append('bank_name', registerationStore.vnBank.bankName)
+    }else if(paymentMethodTabNumber === 2){ //PH
+        formData.append('account_name', registerationStore.g_cash.accountName)
+        formData.append('bank_name', registerationStore.g_cash.bankName)
+    }
 
     showSubmitButton.value=false
     user_register_with_bank_transfer(route.query.country, formData)
