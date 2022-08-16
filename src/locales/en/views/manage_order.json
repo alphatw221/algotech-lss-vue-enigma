@@ -47,7 +47,8 @@
                 "delivery_charge":"Delivery Charge",
                 "discount":"Discount",
                 "total":"Total",
-                "null":""
+                "null":"",
+                "prize":"Prize"
         },
         "filter_modal":{
                 "payment":{

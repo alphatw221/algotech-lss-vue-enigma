@@ -1,10 +1,5 @@
 <template>
-
-	
-
-
 	<table class="table">
-
 
 		<thead>
 			<tr>
@@ -18,8 +13,6 @@
 			</tr>
 			</thead>
 			<tbody>
-
-			
 			<template v-for="(product, index) in store.order.products" :key="index" >
 				
 				<tr class="intro-x mt-5 relative">
@@ -29,6 +22,7 @@
 							<Tippy
 								tag="img"
 								class="rounded-lg"
+								data-action="zoom"
 								:src="storageUrl + product.image"
 								:content="product.name"
 							/>
@@ -42,53 +36,49 @@
 							/>
 							</div>
 							<div class="productName">{{ product.name }} </div>
-							
-							
 						</div>
 					</td>
 					<td class="text-center h-20">
 						<template v-if="store.cartProducts[index].customer_editable && product.type ==='product'">
-						<div class="flex w-full justify-center">
-							<!-- <div class="absolute -bottom-8 border-slate border-2 rounded-bl-md rounded-r-md p-3 bg-white">
-								<input type="text" class="w-10" :value="product.qty">
-								<button class="btn btn-primary">
-									Update
+							<div class="flex w-full justify-center">
+								<!-- <div class="absolute -bottom-8 border-slate border-2 rounded-bl-md rounded-r-md p-3 bg-white">
+									<input type="text" class="w-10" :value="product.qty">
+									<button class="btn btn-primary">
+										Update
+									</button>
+								</div> -->
+								<button type="button" @click="changeQuantity( index, 'minus', product)" v-show="hideUpdateSignIndex!=index">
+									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 								</button>
-							</div> -->
-							<button type="button" @click="changeQuantity( index, 'minus', product)" v-show="hideUpdateSignIndex!=index">
-								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
-							</button>
-							<input 
-								type="text" 
-								class="form-control" 
-								placeholder="Input inline 1" 
-								aria-label="default input" 
-								:value="product.qty"
-								style="width: 2.7rem;"
+								<input 
+									type="text" 
+									class="form-control" 
+									placeholder="Input inline 1" 
+									aria-label="default input" 
+									:value="product.qty"
+									style="width: 2.7rem;"
 
-								@focus="focusQtyInput(index, product)"
-								v-show="hideQtyInputIndex!=index"
-							/>
-							<button type="button" @click="changeQuantity( index, 'add', product)" v-show="hideUpdateSignIndex!=index">
-								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
-							</button>
-							<div class="flex inline-flex leading-5 items-center">
-								<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
-								<div class="leading-5 allign-middle">
-									<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
-										{{$t('shopping_cart.table.update')}}
-									</button>
-									<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
-										{{$t('shopping_cart.table.cancel')}}
-									</button>
+									@focus="focusQtyInput(index, product)"
+									v-show="hideQtyInputIndex!=index"
+								/>
+								<button type="button" @click="changeQuantity( index, 'add', product)" v-show="hideUpdateSignIndex!=index">
+									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
+								</button>
+								<div class="flex inline-flex leading-5 items-center">
+									<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
+									<div class="leading-5 allign-middle">
+										<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
+											{{$t('shopping_cart.table.update')}}
+										</button>
+										<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
+											{{$t('shopping_cart.table.cancel')}}
+										</button>
+									</div>
 								</div>
 							</div>
-							
-							
-						</div>
 						</template>
 						<template v-else>
-							<div class="flex ml-8 2xl:ml-20 qty">
+							<div class="qty text-center">
 								{{ product.qty }}
 							</div>
 						</template>
@@ -219,7 +209,8 @@ const changeQuantity = ( index, operation, product) => {
 			showQtyInput()
 			hideUpdateButton()
 		}
-	).catch(()=>{
+	).catch((err)=>{
+		layoutStore.alert.showMessageToast(err.response.data.message)
 		showUpdateSign()
 		showQtyInput()
 		hideUpdateButton()
@@ -250,7 +241,7 @@ const changeQuantity = ( index, operation, product) => {
   }
 
   tr {
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #dddddd; 
   }
 
   td {
@@ -260,9 +251,7 @@ const changeQuantity = ( index, operation, product) => {
 	height: auto !important;
   }
   .productName{
-	min-height: 42px !important;
-	padding-top:5px;
-
+	min-height: 35px !important;
   }
   .qty{
 	min-height: 42px !important;
@@ -321,8 +310,8 @@ const changeQuantity = ( index, operation, product) => {
   }
   td:nth-of-type(6) {
     display:inline-block; 
-	width: 50%;
-	padding-left: 50% !important;
+	width: 100%;
+	padding-left: 0px !important;
 	margin-bottom: 15px;
 	margin-top:10px;
     /* color: #0e9893; */

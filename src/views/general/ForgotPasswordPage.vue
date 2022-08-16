@@ -33,7 +33,6 @@ import {ref, onMounted, onBeforeMount } from 'vue'
 import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
 const publicLayout = usePublicLayoutStore()
-onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
 const route = useRoute()
 const router = useRouter()
 const email = ref('')

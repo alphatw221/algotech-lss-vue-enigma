@@ -38,7 +38,8 @@
             "confirm_note":"Tin nhắn thông báo đến người mua về đơn hàng của họ đã được xác nhận"
         },
         "local":{
-            "buyer_lang":"Thay đổi ngôn ngữ trên giỏ hàng của người mua và gửi tin nhắn thông báo qua mạng xã hội"
+            "buyer_lang":"Thay đổi ngôn ngữ trên giỏ hàng của người mua và gửi tin nhắn thông báo qua mạng xã hội",
+            "price_unit":"Hiển thị đơn vị giá trên các sản phẩm, ví dụ: 10.000 được thay bằng 10K khi áp dụng đơn vị \"K\""
         },
         "social":{
             "connect_social":"Liên kết tài khoản mạng xã hội của bạn để bắt đầu chiến dịch bán hàng livestream của bạn"

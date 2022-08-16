@@ -163,7 +163,7 @@
 
                 <div 
                     v-else-if="currentSettings.type === 'keyword'" 
-                    class="lg:w-[50%]  flex-col sm:mr-5 mt-3"
+                    class="lg:w-[50%]  flex-col sm:ml-5 mt-3"
                 >
                     <label class="form-label text-base mt-3"> {{ $t('lucky_draw.draw_create.keyword') }}</label>
                     <textarea 
@@ -198,9 +198,9 @@
             </div>
 
             <div class="lg:flex">
-                <div class="lg:w-[50%] flex-col mt-6">
+                <div class="lg:w-[100%] flex-col mt-6">
                     <div class="flex justify-between">
-                        <label class="form-label text-base mr-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
+                        <label class="form-label text-base mr-auto my-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
                         <div class="btn btn-primary bg-[#070130] w-48 sm:w-fit shadow-md sm:mt-auto lg:sm:mr-5 text-base">
                             <input type="file" id="upload" @change="uploadAnimation" hidden/>
                             <label for="upload" id="create_animation">+ {{ $t('lucky_draw.draw_create.upload_animation') }}</label>

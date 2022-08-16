@@ -99,7 +99,6 @@ import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
 
-
 const route = useRoute();
 const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
@@ -144,4 +143,5 @@ function getCampaignInfo(){
         background-color: #131C34;
         color: #fff;
     }
+    
 </style>

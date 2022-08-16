@@ -20,14 +20,14 @@
         </div> 
         <!-- END Footer -->
 
-        <Notification refKey="registerMessageNotification" :options="{duration: 3000,}" class="flex text-green-600 sm:flex-row">
+        <Notification refKey="registerMessageNotification" :options="{duration: 5000,}" class="flex text-green-600 sm:flex-row">
         <CheckCircleIcon class="w-6 h-6 mr-2" /> 
-        <div id="message" class="font-medium">Message</div>
+        <div id="message" class="font-medium max-w-xs">Message</div>
         </Notification>
 
         <Notification refKey="registerMessageAlert" :options="{duration: 3000,}" class="flex text-red-600 sm:flex-row">
         <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
-        <div id="message" class="font-medium">Message</div>
+        <div id="message" class="font-medium max-w-xs">Message</div>
         </Notification>
 
     </div>

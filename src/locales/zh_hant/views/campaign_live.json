@@ -14,7 +14,9 @@
         "all_comments":"所有留言",
         "facebook_comments":"Facebook 留言",
         "youtube_comments":"Youtube 留言",
-        "instagram_comments":"Instagram 留言"
+        "instagram_comments":"Instagram 留言",
+        "lucky_draw":"抽獎活動",
+        "quiz_game": "問答遊戲"
     },
     "reply":{
         "reply_to":"回覆",

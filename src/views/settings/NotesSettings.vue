@@ -12,7 +12,7 @@
             </TomSelect>
         </div>
         <div class="flex my-3 mt-5 form-label text-base font-medium">
-            <div class="my-auto"> {{$t("settings.localization.buyer_language")}}</div>
+            <div class="my-auto w-32"> {{$t("settings.localization.buyer_language")}}</div>
             <Tippy 
                 class="rounded-full w-30 whitespace-wrap" 
                 data-tippy-allowHTML="true" 
@@ -20,7 +20,7 @@
                 :content="$t('tooltips.settings.local.buyer_lang')" 
                 theme='light'
             > 
-                <HelpCircleIcon class="w-8 ml-1 mt-0.5 tippy-icon" />
+                <HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
             </Tippy> 
         </div>
         <div class="flex my-1">
@@ -32,7 +32,15 @@
         </div>
 
         <div class="flex my-3 mt-5 form-label text-base font-medium">
-            <div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+            <div class="my-auto w-32"> {{$t("settings.localization.price_unit")}}</div>
+            <Tippy 
+                class="rounded-full whitespace-wrap" 
+                data-tippy-allowHTML="true" 
+                data-tippy-placement="right" 
+                :content="$t('tooltips.settings.local.price_unit')" 
+            > 
+                <HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+            </Tippy> 
         </div> 
 
         <div class="flex my-1">

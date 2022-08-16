@@ -48,7 +48,8 @@
                 "delivery_charge":"運費",
                 "discount":"折扣",
                 "total":"總計",
-                "null":""
+                "null":"",
+                "prize":"獎品"
         },
         "filter_modal":{
                 "payment":{

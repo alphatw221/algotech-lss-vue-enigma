@@ -47,7 +47,8 @@
                 "delivery_charge":"Chi phí vận chuyển",
                 "discount":"giảm giá",
                 "total":"Tổng cộng",
-                "null":""
+                "null":"",
+                "prize":"Giải thưởng"
         },
         "filter_modal":{
                 "payment":{
