@@ -112,7 +112,7 @@
     "confirm":{
         "succeeded":"Thanh toán thành công",
         "Email":"Email",
-        "Customer Name":"Tên khách hàng",
+        "Customer":"Tên khách hàng",
         "Password":"Mật khẩu",
         "Your Plan":"Gói dịch vụ của bạn",
         "Target Country": "Quốc gia",
