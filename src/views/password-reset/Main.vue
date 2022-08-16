@@ -56,7 +56,7 @@
                 
 
                 <div class="flex-col w-full my-5" >
-                    <label for="horizontal-form-1" class="w-48"> User Name</label>
+                    <label for="horizontal-form-1" class="w-48"> {{ $t("reset_password.user_name") }}</label>
                     <div class="input-group"> 
                          <input 
                             id="horizontal-form-1" 
@@ -70,7 +70,7 @@
                 </div>
 
                 <div class="flex-col w-full my-5" >
-                    <label for="horizontal-form-1" class="w-48">  New Password</label>
+                    <label for="horizontal-form-1" class="w-48">  {{ $t("reset_password.new_password") }}</label>
                     <div class="input-group"> 
                     <input 
                         id="horizontal-form-1" 
@@ -86,16 +86,16 @@
                         @click="showPassword = !showPassword"
                         class="btn btn-secondary-soft rounded-l-none h-[35px] sm:h-[42px]"> <EyeIcon /> </button> 
                     </div>
-                    <template v-if="v.new_password.$error">
-                        <label class="text-danger text-[14px]">
-                            required
-                        </label>
+                    <template v-for="error in v.new_password.$errors" :key="error.$uid">
+                        <p class="text-danger text-[14px]">
+                            {{ error.$message }}
+                        </p>
                     </template>
                 </div>
                 
                 
                 <div class="flex-col w-full my-5" >
-                    <label for="horizontal-form-1" class="w-48">Confirm Password</label>
+                    <label for="horizontal-form-1" class="w-48">{{ $t("reset_password.confirm_password") }}</label>
                     <div class="input-group"> 
                         <input 
                             id="horizontal-form-1" 
@@ -113,17 +113,17 @@
                             class="btn btn-secondary-soft rounded-l-none h-[35px] sm:h-[42px]"> <EyeIcon /> 
                         </button> 
                     </div>
-                    <template v-if="v.confirm_password.$error">
-                        <label class="text-danger text-[14px]">
-                            invalid
-                        </label>
+                    <template v-for="error in v.confirm_password.$errors" :key="error.$uid">
+                        <p class="text-danger text-[14px]">
+                            {{ error.$message }}
+                        </p>
                     </template>
                 </div>
 
                 <div class=" flex items-center justify-between mt-10">
-					<button type="button" class="btn btn-secondary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="routeToHome()">Home</button>
+					<button type="button" class="btn btn-secondary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="routeToHome()">{{ $t("reset_password.home") }}</button>
 
-					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitPassword()">Submit</button>
+					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="submitPassword()">{{ $t("reset_password.submit") }}</button>
 				</div> 
 
             </div>
@@ -133,7 +133,7 @@
                 
                 <div class="bg-slate-300 rounded-lg py-5 px-4">
                      <div class="flex-col w-full my-5 " v-for="field_value,field_name ,index in confirmData" :key="index">
-                        <label for="horizontal-form-1" class="w-48">{{field_name}}: </label>
+                        <label for="horizontal-form-1" class="w-48">{{ $t(`reset_password.${field_name}`) }}: </label>
                         <label for="horizontal-form-1" class="w-48">{{field_value}}</label>
                         
                     </div>
@@ -141,9 +141,9 @@
                
 
                 <div class=" flex items-center justify-between mt-10">
-					<button type="button" class="btn btn-secondary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="routeToHome()">Home</button>
+					<button type="button" class="btn btn-secondary inline-flex w-20 md:w-32 shadow-md ml-1 md:ml-5 whitespace-nowrap" @click="routeToHome()">{{ $t("reset_password.home") }}</button>
 
-					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="routeToLoginPage()">Login</button>
+					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mx-1 md:mx-5" @click="routeToLoginPage()">{{ $t("reset_password.login") }}</button>
 				</div> 
              
 
@@ -159,10 +159,15 @@
 import { ref } from 'vue';
 import { seller_reset_password } from '@/api_v2/user.js';
 import { useVuelidate } from '@vuelidate/core'
-import { required, minLength, maxLength, sameAs } from "@vuelidate/validators";
+import * as validators from '@vuelidate/validators'
+const { createI18nMessage } = validators
 import { computed } from '@vue/runtime-core';
 
 import i18n from "@/locales/i18n";
+
+
+
+
 import { useRoute, useRouter} from "vue-router"
 
 import LSSLogo from "@/assets/images/lss-logo/LSS_logo_words.png"
@@ -187,13 +192,23 @@ const passwordData = ref({
 
 const confirmData = ref({})
 
+const messagePath = ({ $validator }) => `messages.${$validator}`
+// Create your i18n message instance. Used for vue-i18n@9
+const withI18nMessage = createI18nMessage({ t: i18n.global.t.bind(i18n) })
+const required = withI18nMessage(validators.required, { messagePath: () => 'reset_password.error_messages.required' })
+const minLength = withI18nMessage(validators.minLength, { withArguments: true, messagePath: () => 'reset_password.error_messages.minLength' })
+const maxLength = withI18nMessage(validators.maxLength, { withArguments: true, messagePath: () => 'reset_password.error_messages.maxLength' })
+const sameAs = withI18nMessage(validators.sameAs, { withArguments: true, messagePath: () => 'reset_password.error_messages.sameAs' })
+
+
 const passwordRules = computed(() => {
     return {
-        new_password: { minLength: minLength(8), maxLength: maxLength(20) },
+        new_password: { required, minLength: minLength(8), maxLength: maxLength(20) },
         confirm_password: { sameAs: sameAs(passwordData.value.new_password) }
     }
 })
 const v = useVuelidate(passwordRules, passwordData)
+
 
 const routeToHome = ()=>{window.location.href = homePageUrl}
 
@@ -202,12 +217,12 @@ const routeToLoginPage=()=>{ router.push({name:"LoginPage"}) }
 const submitPassword = () => {
     v.value.$touch()
 	if (v.value.$invalid) {
-        publicLayout.alert.showMessageToast('invalid data')
+        publicLayout.alert.showMessageToast(i18n.global.t('reset_password.invalid_data'))
 		return
 	}
 
     seller_reset_password(passwordData.value).then(res => {
-        publicLayout.notification.showMessageToast('password reset successfully')
+        publicLayout.notification.showMessageToast(i18n.global.t('reset_password.password_reset_successfully'))
         confirmData.value = res.data; 
         showTab.value = 2;
         })

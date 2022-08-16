@@ -8,18 +8,18 @@
 <div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] float-center sm:float-right"> 
     <div class="flex flex-col items-center p-10 text-center center w-[375px]">
         <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
-        <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >Login</h3>
+        <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >{{ $t('login.login') }}</h3>
         <form class="w-full flex-col flex gap-5 z-10">
             <div class="relative"> 
                 <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
                 <input type="email" class="h-[45px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
-                    placeholder="Email" 
+                    :placeholder="$t('login.email')" 
                     v-model="loginData.email" 
                     @keydown.enter.prevent="signIn()" />
             </div>
             <div class="relative"> 
                 <input class="h-[45px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
-                    placeholder="Password" 
+                    :placeholder="$t('login.password')" 
                     v-model="loginData.password"
                     :type="showPassword ? 'text' : 'password'" 
                     @keydown.enter.prevent="signIn()" />
@@ -31,13 +31,13 @@
                     class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"
                     />
             </div>
-            <button type="button" class="w-full h-[42px] text-lg text-white btn bg-red-500" @click="signIn()" >Sign in</button>
+            <button type="button" class="w-full h-[42px] text-lg text-white btn bg-red-500" @click="signIn()" >{{ $t('login.sign_in') }}</button>
         </form>
 
-        <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forgot' })">forgot password ?</a>
+        <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forgot' })">{{ $t('login.forgot_password') }}</a>
 
         <div class="flex flex-col items-center mt-3 font-medium">
-            <div class="text-[16px]">No Account ? <a @click="router.push({ name: 'registration-page' })" >Create one !</a></div>
+            <div class="text-[16px]">{{ $t('login.no_account') }}<a @click="router.push({ name: 'registration-page' })" >{{ $t('login.create_one') }}</a></div>
         </div>
         <!-- <div class="flex flex-col items-center my-5">
             <FacebookLoginButton />
@@ -53,7 +53,7 @@ import { seller_general_login } from '@/api_v2/user';
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
-import {ref, onMounted, onBeforeMount, computed } from 'vue'
+import {ref, onMounted, onBeforeMount, computed, getCurrentInstance } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
 // import { useVuelidate } from "@vuelidate/core";
@@ -66,7 +66,7 @@ onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'paddin
   
 onMounted(()=>{
     // console.log(navigator.userAgent.toLowerCase())
-    
+    console.log(app_i18n.locale)
     if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
         showReminder.value=true
     }
@@ -74,6 +74,7 @@ onMounted(()=>{
 
 const route = useRoute()
 const router = useRouter()
+const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const currentUrl = ref(window.location.href)
 const showReminder = ref(false)
 const showPassword = ref(false)
@@ -105,9 +106,6 @@ const signIn = ()=>{
         cookies.set("access_token", response.data.access)
         cookies.set("login_with", 'general')
         router.push({name:'campaign-list'})
-    }).catch(err=>{
-        console.log('123')
-        console.log(err)
     })
 }
 

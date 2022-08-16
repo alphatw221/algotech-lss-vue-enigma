@@ -35,16 +35,35 @@
 
 
 <script setup>
-import { onBeforeMount, onMounted, ref, provide } from "vue";
-
-
+import { onBeforeMount, onMounted, ref, provide, getCurrentInstance } from "vue";
 import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
 const publicLayout = usePublicLayoutStore()
+const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
+const browserLang = ref("")
+const browserLangToVueLang = ref({
+    "en": "en",
+    "zh-cn": "zh_hans",
+    "zh-hk": "zh_hans",
+    "zh-tw": "zh_hant",
+    "vi": "vi"
+})
 
+onMounted(() => {
+  setLanguage();
+})
+
+const setLanguage = ()=>{
+    console.log(window.navigator.language)
+    browserLang.value = window.navigator.language.toLowerCase()
+    app_i18n.locale=browserLangToVueLang.value[browserLang.value]
+    console.log(app_i18n.locale)
+}
 
 provide("bind[registerMessageNotification]", (el) => {publicLayout.notification = el;});
 provide("bind[registerMessageAlert]", (el) => {publicLayout.alert = el;});
+
+
 </script>
 
 <style scoped>
