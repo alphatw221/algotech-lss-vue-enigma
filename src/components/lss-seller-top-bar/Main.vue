@@ -181,7 +181,7 @@
           <DropdownMenu class="w-fit whitespace-nowrap">
             <DropdownContent class="bg-primary/80 before:block before:absolute before:bg-black before:inset-0 before:rounded-md before:z-[-1] text-white" > 
               <template  v-for="(option,index) in languages" :key="index"> 
-                <DropdownItem @click="changeLang(option.value)"> <span class="text-white"> {{$t(`settings.localization.languages.${option.value}`)}} </span> </DropdownItem>
+                <DropdownItem @click="changeLang(option.value)"> <span class="text-white"> {{option.text}} </span> </DropdownItem>
               </template>
             </DropdownContent>
           </DropdownMenu>
@@ -274,9 +274,9 @@ const data = ref({currency:'USD', lang:'en'})
 
 const languages = ref([
     {value:'en',text:'English'},
-    {value:'zh_hant',text:'Chinese-tranditional'},
-    {value:'zh_hans',text:'Chinese-simplify'},
-    {value:'vi',text:'Vietnamese'}
+    {value:'zh_hant',text:'繁體中文'},
+    {value:'zh_hans',text:'简体中文'},
+    {value:'vi',text:'Tiếng Việt'}
 ])
 
 onMounted(()=>{
@@ -288,7 +288,7 @@ onMounted(()=>{
 const changeLang = (selectLang)=>{
   data.value.lang = selectLang
   seller_update_subscription(data.value).then(res=>{
-      console.log(res)
+      // console.log(res)
       sellerLayoutStore.userInfo = res.data
       i18n.global.locale.value = res.data.lang
   })
