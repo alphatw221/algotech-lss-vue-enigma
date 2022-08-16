@@ -1,12 +1,15 @@
 <template>
 <div class="board bg-white"> 
-    <div class="round"> 
+    <div class="round hidden sm:block"> 
         <img src="/src/assets/images/login-page/bg.svg" class="whiteCircle" />
-        <img src="/src/assets/images/login-page/robot.svg"  class="robot hidden sm:block" />    
+        <img src="/src/assets/images/login-page/robot.svg"  class="robot" />    
     </div>
 </div>
-<div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] float-center sm:float-right"> 
-    <div class="flex flex-col items-center p-10 text-center center w-[375px]">
+<div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] bg-red-500/25 sm:bg-transparent float-center sm:float-right"> 
+    <img src="/src/assets/images/login-page/mobile_login_robot.svg" class="sm:hidden absolute right-1/2 translate-x-1/2 top-2" />
+    <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 left-20 z-10 -translate-y-1/3 -rotate-3" />    
+    <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 right-20 z-10 -translate-y-1/3 rotate-3" />    
+    <div class="flex relative flex-col items-center p-10 text-center z-0 center w-full h-3/4 sm:h-fit sm:w-[375px] right-50 top-1/4 sm:top-0 sm:translate-y-1/3 abosolute bg-white sm:opacity-95">
         <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
         <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >Login</h3>
         <form class="w-full flex-col flex gap-5 z-10">
@@ -62,7 +65,7 @@ import {useRoute, useRouter} from 'vue-router'
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
-onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} )
+onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0; padding-right: 0;')} )
   
 onMounted(()=>{
     // console.log(navigator.userAgent.toLowerCase())
@@ -123,15 +126,6 @@ const signIn = ()=>{
     position: absolute;
     z-index: 0;
 }
-
-.center {
-    position: absolute;
-    top: 50%;
-    right: 50%;
-    transform: translate(50%, -50%);
-    background:rgba(255, 255, 255, 0.95);
-}
-
 .round{
     height: 150vh;
     width: 150vh;
