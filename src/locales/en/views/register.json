@@ -34,7 +34,8 @@
             "ID": "(ID) +62" , 
             "PH": "(PH) +63" , 
             "SG": "(SG) +65" , 
-            "TW": "(TW) +886"
+            "TW": "(TW) +886",
+            "VN": "(VN) +84"
         },
         "number":"Contact Number",
         "email":"Email",
@@ -110,7 +111,7 @@
     "confirm":{
         "succeeded":"Payment succeeded",
         "Email":"Email",
-        "Customer Name":"Customer Name",
+        "Customer":"Customer Name",
         "Password":"Password",
         "Your Plan":"Your Plan",
         "Target Country": "Target Country",

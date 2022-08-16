@@ -21,6 +21,7 @@
         "yes": "是",
         "no": "否",
         "start": "开始",
+        "out_of_stock": "已抽完",
         "edit": "编辑",
         "delete": "刪除",
         "confirm_delete": "确定要删除该场抽奖 ?"
