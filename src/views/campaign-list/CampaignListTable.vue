@@ -122,7 +122,7 @@
             </div>
             <div v-else
               class="flex flex-col justify-center form-check form-switch">
-               <input @click="stop_checkout(index, campaign,$event.target.checked)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.stop_checkout"/>
+               <input @click="stop_checkout(index, campaign)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.stop_checkout"/>
             </div>
           </td>
           <td class="justify-center text-center entry w-fit">
