@@ -7,6 +7,34 @@
 						<template v-if="column.key === 'edit'">
 							{{ '' }}
 						</template>
+						<template v-else-if="column.key === 'name'">
+							<div class="flex justify-center"> 
+								{{ $t(`stock.table_column.${column.key}`) }}
+								<template v-if="sortBy =='-name'" > 
+									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByName()" />
+								</template> 
+								<template v-else-if="sortBy =='name'" > 
+									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByName()" />
+								</template> 
+								<template v-else> 
+									<ChevronsDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByName()" />
+								</template>
+							</div>
+						</template>
+						<template v-else-if="column.key === 'qty'">
+							<div class="flex justify-center"> 
+								{{ $t(`stock.table_column.${column.key}`) }}
+								<template v-if="sortBy =='-qty'" > 
+									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByQty()" />
+								</template>
+								<template v-else-if="sortBy =='qty'" > 
+									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByQty()" />
+								</template> 
+								<template v-else> 
+									<ChevronsDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByQty()" />
+								</template>
+							</div>
+						</template>
 						<template v-else>
 							{{ $t(`stock.table_column.${column.key}`) }}
 						</template>
@@ -175,6 +203,7 @@ const searchColumn = ref('')
 const keyword = ref('')
 const stockProducts = ref([])
 const category = ref('')
+const sortBy = ref('')
 
 const publicPath = import.meta.env.VITE_APP_IMG_URL
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
@@ -205,7 +234,7 @@ onUnmounted(()=>{
 const search = ()=>{
 	showCommentLoding.value = true
 	stockProducts.value = []
-	list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value )
+	list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value, '', sortBy.value )
 	.then(
 		response => {
 			if(response.data.count != undefined){
@@ -248,6 +277,19 @@ const copyProduct = (id) => {
 	copy_product(id).then(res => { search() })
 	hideDropDown()
 }
+
+const sortByName = () =>{
+	sortBy.value = sortBy.value=='name' ? '-name': 'name'
+	console.log(sortBy.value)
+	search();
+}
+
+const sortByQty = () =>{
+	sortBy.value = sortBy.value=='qty' ? '-qty': 'qty'
+	console.log(sortBy.value)
+	search();
+}
+
 </script>
 
 

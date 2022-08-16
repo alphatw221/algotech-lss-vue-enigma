@@ -38,7 +38,8 @@
             "confirm_note":"Message to inform buyers of their order is confirmed"
         },
         "local":{
-            "buyer_lang":"Change local language for shopping cart, comments & messages"
+            "buyer_lang":"Change local language for shopping cart, comments & messages",
+            "price_unit":"Display a price unit on products, ie: apply unit \"K\" for 10K instead of 10 dollars."
         },
         "social":{
             "connect_social":"Link your social media account to start your live-selling campaign"
