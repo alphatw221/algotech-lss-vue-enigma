@@ -15,6 +15,12 @@ export const useSellerRegistrationStore = defineStore("sellerRegistration", {
 			accountName:'Tieu Thuy Tien',
 			accountNumber:'47953',
 			note:'',
+		}),
+		g_cash:ref({
+			bankName:'GCash',
+			accountName:'GCash',
+			accountNumber:'0917 158 1183',
+			note:'',
 		})
     })
 }); 
