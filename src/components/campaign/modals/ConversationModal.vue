@@ -59,7 +59,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance, watch, computed} from 'vue';
 import { comment_on_comment, nest_comment } from '@/api_v2/campaign';
-import { get_ig_conversation_messages, retrieve_instagram_profile, reply_to_direct_message } from '@/api/instagram';
+import { get_ig_conversation_messages, retrieve_instagram_profile, reply_to_direct_message } from '@/api_v2/instagram';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";

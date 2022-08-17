@@ -1,0 +1,159 @@
+{
+    "api": {
+        "v2": {
+            "product":{
+                "search_can_not_empty": "Search field can not be empty when keyword has value",
+                "category_already_exists": "Category already exists",
+                "invalid_category_name": "Invalid category name",
+                "category_not_exist": "Category doesn't exist"
+            },
+            "campaign": {
+                "search_can_not_empty": "Search field can not be empty when keyword has value",
+            },
+            "user": {
+                "account_not_exist": "The account doesn't exist.",
+                "email_or_password_incorrect": "Email or passowrd is incorrect.",
+                "invalid_email": "invalid email",
+                "reset_password_code_manager":{
+                    "code_expired": "Code expired",
+                    "user_not_found": "User not found"
+                }
+            },
+            "user-subscription":{},
+            "facebook-page":{
+                "facebook_not_activated": "Facebook not activated"
+            },
+            "instagram-profile":{
+                "instagram_not_activated": "Instagram not activated"
+            },
+            "youtube-channel":{
+                "youtube_not_activated": "Youtube not activated"
+            },
+            "campaign-product":{
+                "campaign_product_can_not_delete": "This campaign product can't be deleted because the campaign has already started."
+            },
+            "pre_order":{
+                "refresh_try_again": "Please Refresh The Page And Retry Again",
+                "invalid_user": "Invalid User",
+                "request_data_error": "Request data error"
+                
+            },
+            "order-product":{
+                
+            },
+            "order":{
+                "image_size_exceed_maximum_size": "Image size exceed maximum size",
+                "not_support_this_image_type": "Not support this image type"
+                
+            },
+            "payment":{
+                "payment_not_enable": "Payment not enable",
+                "choose_another_payment_method": "Payment Error, Please Choose Another Payment Method",
+                "payment_failed": "Payment failed",
+                "invalid": "Invalid"
+                
+            },
+            "campaign-luckydraw":{
+                "invalid_lucky_draw_type":"Invalid lucky_draw type",
+                "invalid_lucky_draw_product": "Invalid lucky_draw product",
+                "lucky_draw_has_already_finished": "Lucky draw has already finished"
+                
+            },
+            "cart":{
+                "campaign_product_not_found": "Campaign_product not found",
+                "refresh_try_again": "Please Refresh The Page And Retry Again",
+                "invalid_user": "Invalid User",
+                "qty_invalid": "Qty invalid",
+                "request_data_error": "Request data error"
+                
+            }
+        }
+    },
+    "error_handler":{
+        "pymongo_error":{
+            "server_busy": "Server busy, please try again"
+        }
+    },
+    "stripe":{
+        "card_error":"Card has been declined",
+        "rate_limit_error":"Call Stripe api too frequently",
+        "invalid_request_error":{
+            "invalid_parameters":"Invalid parameters",
+            "invalid_integer":"Stripe only accept amount greater than or equal to 1, Please contact to our customer service."
+        },
+        "authentication_error":"Authentication failed",
+        "api_connection_error":"Network error",
+        "stripe_error":"Stripe error",
+        "no_related_error":"No related with this payment",
+        "support_for_refunding": "data invalid, please contact support for refunding",
+        "payment_error": "payment error, please contact support team"
+    },
+    "helper": {
+        "campaign_product_been_deleted": "Campaign product has already been deleted",
+        "cart_in_use":"Cart in use",
+        "enter_qty": "Please enter qty",
+        "qty_invalid": "Qty invalid",
+        "qty_not_be_zero_or_negative": "Qty can not be zero or negative",
+        "out_of_stock": "Out of stock",
+        "not_removable": "Not removable",
+        "not_editable": "Not editable",
+        "product_already_in_pre_order": "Product already in pre_order",
+        "exceeds_max_order_amount": "Product quantity exceeds max order amount",
+        "cart_is_empty": "Cart is empty",
+        "unable_purchase_now": "Sorry, you are unable to make that purchase right now",
+        "max_order_amount_should_less_than_stock": "Max order amount should be less than stock amount",
+        "not_support_this_image_type": "Not support this image type",
+        "image_size_exceed_maximum_size": "Image size exceed maximum size",
+        "payment_not_succeeded": "payment didn't succeeded",
+        "invalid_period":"Invalid period",
+        "payment_amount_error": "Payment amount error",
+        "not_valid_upgrade_plan": "Not valid upgrade plan",
+        "invalid_role": "Invalid role",
+        "dealer_status_invalid": "Dealer status invalid",
+        "time_zone_not_valid_format": "Time Zone is not a valid format",
+        "email_is_registered": "This email address has already been registered",
+        "invalid_email": "Invalid email",
+        "months_data_type_invalid": "Data type of months is invalid",
+        "months_invalid": "Months invalid",
+        "invalid_password": "Invalid password",
+        "membership_out_of_date": "Your membership is out of date.",
+        "reach_max_concurrent_campaigns":"You have reached this maximum allowed number of concurrent campaigns.",
+        "reach_max_campaigns_limit": "You have reached the maximum campaign limit.",
+        "api_fb_get_accounts_error": "Facebook API error",
+        "api_yt_list_channel_error": "YouTube API error",
+        "no_channel_found":"No channel found in this account.",
+        "fb_api_fail": "Get Facebook Service Fail, Please Retry Again",
+        "fb_user_token_invalid": "Facebook user token is invalid",
+        "unable_get_fb_email": "Unable to get email from facebook",
+        "account_not_activated": "Account is not activated"
+    },
+    "util":{
+        "no_api_user_found":"No api user found",
+        "not_activated_user": "Not activated user",
+        "language_not_supported": "This language is not supported",
+        "no_platform_name_found": "No platform name found",
+        "no_platform_found": "No platform found",
+        "not_support_platform": "The platform is not supported",
+        "user_is_not_platform_admin": "User is not platform admin",
+        "no_cart_found": "No cart found",
+        "no_pre_order_found": "No pre_order found",
+        "no_order_product_found": "No order product found",
+        "no_order_found": "No order found",
+        "user_subscription_not_found": "No subscription found",
+        "platform_not_in_any_user_subscription": "This platform doesn't belong to any subscription",
+        "static_assets_not_found": "Static assets is not found",
+        "not_dealer": "not dealer",
+        "facebook_page_not_bound_to_user_subscription": "This Facebook page is not bound to user's subscription",
+        "youtube_channel_not_bound_to_user_subscription": "This YouTube channel is not bound to user's subscription",
+        "instagram_profile_not_bound_to_user_subscription": "Thid Instagram profile is not bound to user's subscription",
+        "no_campaign_found": "No campaign found",
+        "no_campaign_product_found": "No campaign product found",
+        "no_product_found": "No product found",
+        "country_code_not_valid": "Country code not valid",
+        "no_auto_reply_found": "No auto reply found",
+        "signature_error": "Signature error",
+        "lucky_draw_not_found": "Lucky draw not found",
+        "quiz_game_not_found": "Quiz game not found",
+        "invalid_campaign_product": "invalid campaign product"
+    }
+}

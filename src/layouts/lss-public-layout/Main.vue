@@ -4,19 +4,19 @@
         <div>
             <router-view></router-view>
             <div class="sticky z-30 bottom-2"> 
-            <div class="flex justify-between font-medium flex-wrap mx-5 sm:mx-10 text-[12px] sm:text-[16px] sm:mb-4 bg-transparent"> 
-                <span>
-                        © 2021 Algotech Pte Ltd. All rights reserved
-                </span>
-                <div class="flex flex-row gap-3 ml-auto"> 
-                    <a href="https://liveshowseller.com/">  {{$t("global.footer.home")}}  </a>
+                <div class="flex justify-between font-medium flex-wrap mx-5 sm:mx-10 text-[12px] sm:text-[16px] sm:mb-4 bg-transparent"> 
+                    <span>
+                            © 2021 Algotech Pte Ltd. All rights reserved
+                    </span>
+                    <div class="flex flex-row gap-3 ml-auto"> 
+                        <a href="https://liveshowseller.com/">  {{$t("global.footer.home")}}  </a>
 
-                    <a href="https://liveshowseller.com/terms-of-service/">  {{$t("global.footer.terms")}} </a>
+                        <a href="https://liveshowseller.com/terms-of-service/">  {{$t("global.footer.terms")}} </a>
 
-                    <a href="https://liveshowseller.com/privacy-policy/"> {{$t("global.footer.private_policy")}} </a>
+                        <a href="https://liveshowseller.com/privacy-policy/"> {{$t("global.footer.private_policy")}} </a>
+                    </div> 
                 </div> 
-            </div> 
-        </div>
+            </div>
         </div>
         
         <!-- BEGIN Footer -->

@@ -1,31 +1,31 @@
 {
-    "first_name" : "First Name",
-    "last_name" : "Last Name",
-    "name" : "Name",
-    "phone" : "Phone",
-    "email" : "Email",
-    "remark" : "Remark",
-    "post_code" : "Post Code",
-    "address" : "Address",
-
+    "first_name" : "名",
+    "last_name" : "姓",
+    "name" : "昵称",
+    "phone" : "电话",
+    "email" : "电子信箱",
+    "remark" : "备注",
+    "post_code" : "邮递区号",
+    "address" : "地址",
+ 
     "status" : "Status",
     "date" : "Date",
     "delivery" : "Delivery",
-    "remarks" : "Remarks",
-    "confirm" : "Confirm",
-    "detail" : "Detail",
-    "close" : "Close",
+    "remarks" : "备注",
+    "confirm" : "确定",
+    "detail" : "详细",
+    "close" : "关闭",
     "description" : "Description",
-    "add" : "Add",
-    "upload" : "Upload",
-    "submit" : "Submit",
-    "select" : "Select",
+    "add" : "新增",
+    "upload" : "更新",
+    "submit" : "确认",
+    "select" : "选择",
     "selected" : "Selected",
     "charge" : "Charge",
     "apply" : "Apply",
-
-
-
+ 
+ 
+ 
     "qty" : "Qty",
     "product" : "Product",
     "price" : "Price",
@@ -35,12 +35,13 @@
     "record" : "Record",
     "option" : "Option",
     "summary" : "Summary",
-
+ 
     "footer": {
-        "home" : "HOME",
-        "terms" : "Terms", 
-        "private_policy" : "Private Policy" 
+        "home" : "首页",
+        "terms" : "条款",
+        "private_policy" : "隐私权政策"
     },
+ 
     "price_unit":{
         "1":"",
         "1000":"K",
