@@ -1,0 +1,153 @@
+{
+    "api": {
+        "v2": {
+            "product":{
+                "search_can_not_empty": "Search field can not be empty when keyword has value",
+                "category_already_exists": "此類別已存在",
+                "invalid_category_name": "無效的類別名稱",
+                "category_not_exist": "此類別不存在"
+            },
+            "campaign": {
+                "search_can_not_empty": "Search field can not be empty when keyword has value"
+            },
+            "user": {
+                "account_not_exist": "此帳號不存在",
+                "email_or_password_incorrect": "信箱或密碼不正確",
+                "invalid_email": "無效的信箱",
+                
+                "reset_password_code_manager":{
+                    "code_expired": "驗證碼過期",
+                    "user_not_found": "找不到此用戶"
+                }
+            },
+            "user-subscription":{},
+            "facebook-page":{
+                "facebook_not_activated": "Facebook 平台未開通"
+            },
+            "instagram-profile":{
+                "instagram_not_activated": "Instagram 平台未開通"
+            },
+            "youtube-channel":{
+                "youtube_not_activated": "Youtube 平台未開通"
+            },
+            "campaign-product":{
+                "campaign_product_can_not_delete": "此銷售活動已開始，無法刪除活動商品。"
+            },
+            "pre_order":{
+                "refresh_try_again": "請重新整理頁面後再試一次",
+                "invalid_user": "無效的用戶",
+                "request_data_error": "請求資料錯誤"
+                
+            },
+            "order-product":{},
+            "order":{
+                "image_size_exceed_maximum_size": "圖片大小超過10MB",
+                "not_support_this_image_type": "圖片格式不支援"
+            },
+            "payment":{
+                "payment_not_enable": "此付款方式未啟用",
+                "choose_another_payment_method": "付款錯誤，請選擇其他付款方式",
+                "payment_failed": "付款失敗",
+                "invalid": "無效"
+            },
+            "campaign-luckydraw":{
+                "invalid_lucky_draw_type":"無效的抽獎方式",
+                "invalid_lucky_draw_product": "無效的獎品",
+                "lucky_draw_has_already_finished": "抽獎已完成，無法刪除"
+            },
+            "cart":{
+                "campaign_product_not_found": "找不到活動商品",
+                "refresh_try_again": "請重新整理頁面後再試一次",
+                "invalid_user": "無效的用戶",
+                "qty_invalid": "無效的數量",
+                "request_data_error": "請求資料錯誤"
+            }
+        }
+    },
+    "error_handler":{
+        "pymongo_error":{
+            "server_busy": "伺服器忙碌，請稍後"
+        }
+    },
+    "stripe":{
+        "card_error":"信用卡被拒絕",
+        "rate_limit_error":"超過API請求速率限制",
+        "invalid_request_error":{
+            "invalid_parameters":"無效的參數",
+            "invalid_integer":"Stripe只接受金額大於或等於1的數值，請聯絡我們的客服"
+        },
+        "authentication_error":"驗證失敗",
+        "api_connection_error":"網路發生錯誤",
+        "stripe_error":"Stripe 錯誤",
+        "no_related_error":"無關聯的付款",
+        "support_for_refunding": "資料無效，請聯絡賣家以便申請退款",
+        "payment_error": "付款錯誤, 請聯絡賣家"
+    },
+    "helper": {
+        "campaign_product_been_deleted": "活動商品已被刪除",
+        "cart_in_use":"購物車使用中",
+        "enter_qty": "請填入數量",
+        "qty_invalid": "無效的數量",
+        "qty_not_be_zero_or_negative": "數量不可為零或負數",
+        "out_of_stock": "沒有庫存",
+        "not_removable": "無法移除",
+        "not_editable": "無法編輯",
+        "product_already_in_pre_order": "商品已存在於此訂單",
+        "exceeds_max_order_amount": "商品數量超過最大訂購數量",
+        "cart_is_empty": "購物車是空的",
+        "unable_purchase_now": "抱歉，賣家已關閉結帳，目前無法購買",
+        "max_order_amount_should_less_than_stock": "最大訂購數量需小於庫存數量",
+        "not_support_this_image_type": "圖片格式不支援",
+        "image_size_exceed_maximum_size": "圖片大小超過10MBe",
+        "payment_not_succeeded": "付款不成功",
+        "invalid_period":"無效的時間",
+        "payment_amount_error": "付款金額錯誤",
+        "not_valid_upgrade_plan": "無效的方案",
+        "invalid_role": "無效的身分",
+        "dealer_status_invalid": "代理商狀態錯誤",
+        "time_zone_not_valid_format": "時區格式錯誤",
+        "email_is_registered": "此信箱已被註冊",
+        "invalid_email": "無效的信箱",
+        "months_data_type_invalid": "月數的資料格式不正確",
+        "months_invalid": "月數需介於1到12",
+        "invalid_password": "無效的密碼",
+        "membership_out_of_date": "您訂閱的方案已過期",
+        "reach_max_concurrent_campaigns":"您已到達銷售活動最大並行數量",
+        "reach_max_campaigns_limit": "您已到達銷售活動最大數量",
+        "api_fb_get_accounts_error": "Facebook API 錯誤",
+        "api_yt_list_channel_error": "YouTube API 錯誤",
+        "no_channel_found":"此帳號找不到任何頻道",
+        "fb_api_fail": "Facebook API 錯誤，請再試一次",
+        "fb_user_token_invalid": "Facebook 用戶權杖無效",
+        "unable_get_fb_email": "無法取得Facebook信箱",
+        "account_not_activated": "此帳號尚未啟用"
+    },
+    "util":{
+        "no_api_user_found":"找不到此用戶",
+        "not_activated_user": "此帳號尚未啟用",
+        "language_not_supported": "尚未支援此語言",
+        "no_platform_name_found": "找不到平台名稱",
+        "no_platform_found": "找不到此平台",
+        "not_support_platform": "未支援此平台",
+        "user_is_not_platform_admin": "用戶不是粉專或頻道管理員",
+        "no_cart_found": "找不到購物車",
+        "no_pre_order_found": "找不到購物車",
+        "no_order_product_found": "在購物車中找不到任何商品",
+        "no_order_found": "找不到訂單",
+        "user_subscription_not_found": "找不到訂閱方案",
+        "platform_not_in_any_user_subscription": "此平台未被綁定在任何用戶訂閱方案",
+        "static_assets_not_found": "找不到靜態檔案",
+        "not_dealer": "無法驗證代理商身分",
+        "facebook_page_not_bound_to_user_subscription": "在用戶訂閱方案中找不到此Facebook頁面，請重新綁定",
+        "youtube_channel_not_bound_to_user_subscription": "在用戶訂閱方案中找不到此YouTube頻道，請重新綁定",
+        "instagram_profile_not_bound_to_user_subscription": "在用戶訂閱方案中找不到此Instagram檔案，請重新綁定",
+        "no_campaign_found": "找不到此銷售活動",
+        "no_campaign_product_found": "在銷售活動中找不到此商品",
+        "no_product_found": "找不到此庫存商品",
+        "country_code_not_valid": "無效的國家代碼",
+        "no_auto_reply_found": "找不到自動回覆設定",
+        "signature_error": "簽名錯誤",
+        "lucky_draw_not_found": "找不到抽獎設定",
+        "quiz_game_not_found": "找不到小遊戲設定"
+    }
+}

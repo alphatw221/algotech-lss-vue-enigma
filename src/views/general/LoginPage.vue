@@ -4,49 +4,50 @@
         <img src="/src/assets/images/login-page/bg.svg" class="whiteCircle" />
         <img src="/src/assets/images/login-page/robot.svg"  class="robot" />    
     </div>
-</div>
-<div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] bg-red-500/25 sm:bg-transparent float-center sm:float-right"> 
-    <img src="/src/assets/images/login-page/mobile_login_robot.svg" class="sm:hidden absolute right-1/2 translate-x-1/2 top-2" />
-    <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 left-20 z-10 -translate-y-1/3 -rotate-3" />    
-    <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 right-20 z-10 -translate-y-1/3 rotate-3" />    
-    <div class="flex relative flex-col items-center p-10 text-center z-0 center w-full h-3/4 sm:h-fit sm:w-[375px] right-50 top-1/4 sm:top-0 sm:translate-y-1/3 abosolute bg-white sm:opacity-95">
-        <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
-        <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >{{ $t('login.login') }}</h3>
-        <form class="w-full flex-col flex gap-5 z-10">
-            <div class="relative"> 
-                <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
-                <input type="email" class="h-[45px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
-                    :placeholder="$t('login.email')" 
-                    v-model="loginData.email" 
-                    @keydown.enter.prevent="signIn()" />
-            </div>
-            <div class="relative"> 
-                <input class="h-[45px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
-                    :placeholder="$t('login.password')" 
-                    v-model="loginData.password"
-                    :type="showPassword ? 'text' : 'password'" 
-                    @keydown.enter.prevent="signIn()" />
-                <EyeOffIcon v-if="showPassword"
-                    @click="showPassword = !showPassword" 
-                    class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400" /> 
-                <EyeIcon v-else
-                    @click="showPassword = !showPassword"
-                    class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"
-                    />
-            </div>
-            <button type="button" class="w-full h-[42px] text-lg text-white btn bg-red-500" @click="signIn()" >{{ $t('login.sign_in') }}</button>
-        </form>
+    <div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] bg-red-500/25 sm:bg-transparent float-center sm:float-right"> 
+        <img src="/src/assets/images/login-page/mobile_login_robot.svg" class="sm:hidden absolute right-1/2 translate-x-1/2 top-2" />
+        <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 left-20 z-10 -translate-y-1/3 -rotate-3" />    
+        <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 right-20 z-10 -translate-y-1/3 rotate-3" />    
+        <div class="flex relative flex-col items-center p-10 text-center z-0 center w-full h-3/4 sm:h-fit sm:w-[375px] right-50 top-1/4 sm:top-0 sm:translate-y-1/3 abosolute bg-white sm:opacity-95">
+            <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
+            <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >{{ $t('login.login') }}</h3>
+            <form class="w-full flex-col flex gap-5 z-10">
+                <div class="relative"> 
+                    <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
+                    <input type="email" class="h-[45px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
+                        :placeholder="$t('login.email')" 
+                        v-model="loginData.email" 
+                        @keydown.enter.prevent="signIn()" />
+                </div>
+                <div class="relative"> 
+                    <input class="h-[45px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
+                        :placeholder="$t('login.password')" 
+                        v-model="loginData.password"
+                        :type="showPassword ? 'text' : 'password'" 
+                        @keydown.enter.prevent="signIn()" />
+                    <EyeOffIcon v-if="showPassword"
+                        @click="showPassword = !showPassword" 
+                        class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400" /> 
+                    <EyeIcon v-else
+                        @click="showPassword = !showPassword"
+                        class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"
+                        />
+                </div>
+                <button type="button" class="w-full h-[42px] text-lg text-white btn bg-red-500" @click="signIn()" >{{ $t('login.sign_in') }}</button>
+            </form>
 
-        <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forgot' })">{{ $t('login.forgot_password') }}</a>
+            <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forgot' })">{{ $t('login.forgot_password') }}</a>
 
-        <div class="flex flex-col items-center mt-3 font-medium">
-            <div class="text-[16px]">{{ $t('login.no_account') }}<a @click="router.push({ name: 'registration-page' })" >{{ $t('login.create_one') }}</a></div>
+            <div class="flex flex-col items-center mt-3 font-medium">
+                <div class="text-[16px]">{{ $t('login.no_account') }}<a @click="router.push({ name: 'registration-page' })" >{{ $t('login.create_one') }}</a></div>
+            </div>
+            <!-- <div class="flex flex-col items-center my-5">
+                <FacebookLoginButton />
+                <GoogleLoginButton /> 
+            </div> -->
         </div>
-        <!-- <div class="flex flex-col items-center my-5">
-            <FacebookLoginButton />
-            <GoogleLoginButton /> 
-        </div> -->
     </div>
+    
 </div>
     
 </template>
@@ -65,11 +66,12 @@ import {useRoute, useRouter} from 'vue-router'
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
 
-onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0; padding-right: 0;')} )
+onBeforeMount (()=>{
+    document.querySelector('body').setAttribute('style', 'padding-left: 0; padding-right: 0; overflow: hidden; height:100vh;')
+})
   
 onMounted(()=>{
-    // console.log(navigator.userAgent.toLowerCase())
-    console.log(app_i18n.locale)
+    
     if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
         showReminder.value=true
     }
@@ -121,7 +123,7 @@ const signIn = ()=>{
     height: 100vh;
     width: 100vw;
     overflow: hidden;
-    position: absolute;
+    position: relative;
     z-index: 0;
 }
 .round{
@@ -155,5 +157,4 @@ const signIn = ()=>{
     height: 100vh;
     position: relative;
 }
-
 </style>
