@@ -1,5 +1,5 @@
 import global from './global.json'
-// import error_messages from './error_messages.json'
+import error_messages from './error_messages.json'
 import stock from './views/stock.json'
 import settings from './views/settings.json'
 import shopping_cart from './views/shopping_cart.json'
@@ -26,7 +26,7 @@ import reset_password from './views/reset_password.json'
 
 export default {
     global,
-    // error_messages,
+    error_messages,
 
     campaign_list,
     campaign_live,

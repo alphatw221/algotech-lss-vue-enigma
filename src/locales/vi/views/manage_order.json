@@ -53,7 +53,7 @@
         "filter_modal":{
                 "payment":{
                         "payment":"Thanh toán",
-                        "Direct Payment":"Thanh toán trực tiếp",
+                        "direct_payment":"Thanh toán trực tiếp",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
                         "paypal":"Paypal"

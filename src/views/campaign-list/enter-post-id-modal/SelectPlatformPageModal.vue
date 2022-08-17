@@ -21,9 +21,9 @@
 <script setup>
 
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
-import { check_facebook_page_token_valid } from "@/api/facebook"
-import { check_instagram_profile_token_valid } from "@/api/instagram"
-import { check_youtube_channel_token_valid } from "@/api/youtube"
+import { check_facebook_page_token_valid } from "@/api_v2/facebook"
+import { check_instagram_profile_token_valid } from "@/api_v2/instagram"
+import { check_youtube_channel_token_valid } from "@/api_v2/youtube"
 import { update_platform_live_id } from "@/api_v2/campaign"
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
 

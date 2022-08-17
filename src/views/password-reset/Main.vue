@@ -213,7 +213,7 @@ const v = useVuelidate(passwordRules, passwordData)
 
 const routeToHome = ()=>{window.location.href = homePageUrl}
 
-const routeToLoginPage=()=>{ router.push({name:"LoginPage"}) }
+const routeToLoginPage=()=>{ router.push({name:"login-page"}) }
 
 const submitPassword = () => {
     v.value.$touch()

@@ -4,26 +4,27 @@
         <div class="redSide relative w-screen h-[30vh] sm:h-screen sm:w-[45vw]"> 
             <img src="/src/assets/images/login-page/forgot_robot.svg"  class="robot max-h-full sm:max-h-[480px]" />    
         </div>
-    </div>
-    <div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] float-center sm:float-right"> 
-        <div class="flex flex-col items-center p-10 text-center center w-[375px]">
-            <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
-            <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >{{ $t('forgot_password.title') }}</h3>
-            <div class="w-full flex-col flex gap-5 z-10">
-                <!-- :placeholder="$t('campaign_list.search_bar.search')+'...'" -->
-                <div class="relative"> 
-                    <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
-                    <input type="email" class="h-[45px] pl-12 rounded-xl form-control border-slate-500 text-[16px]"
-                        :placeholder="$t('forgot_password.enter_your_email')" 
-                        v-model="email" />
+        <div class="relative w-[100vw] sm:w-[400px] h-[70vh] sm:h-screen mx-auto container"> 
+            <div class="flex flex-col items-center p-10 text-center center w-full sm:w-[375px] top-2 sm:top-[29%] translate-x-1/2">
+                <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
+                <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >{{ $t('forgot_password.title') }}</h3>
+                <div class="w-full flex-col flex gap-5 z-10">
+                    <!-- :placeholder="$t('campaign_list.search_bar.search')+'...'" -->
+                    <div class="relative"> 
+                        <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
+                        <input type="email" class="h-[45px] pl-12 rounded-xl form-control border-slate-500 text-[16px]"
+                            :placeholder="$t('forgot_password.enter_your_email')" 
+                            v-model="email" />
+                    </div>
+                    <button class="resend_btn btn rounded-xl" @click="sendResetLink()">{{ $t('forgot_password.send_password_reset_link') }}</button>
+                    <h6 class="align-center text-center text-[16px]">
+                        <a class="m-auto font-medium"  @click=" router.push({name:'login-page'});" >{{ $t('forgot_password.Back_to_login_page') }}</a>
+                    </h6>
                 </div>
-                <button class="resend_btn btn rounded-xl" @click="sendResetLink()">{{ $t('forgot_password.send_password_reset_link') }}</button>
-                <h6 class="align-center text-center text-[16px]">
-                    <a class="m-auto font-medium"  @click=" router.push({name:'LoginPage'});" >{{ $t('forgot_password.Back_to_login_page') }}</a>
-                </h6>
             </div>
         </div>
-    </div>
+    </div> 
+</div>
 </template>
 
 <script setup >

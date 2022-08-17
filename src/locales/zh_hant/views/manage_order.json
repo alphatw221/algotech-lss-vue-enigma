@@ -54,7 +54,7 @@
         "filter_modal":{
                 "payment":{
                         "payment":"付款方式",
-                        "Direct Payment":"轉帳付款",
+                        "direct_payment":"轉帳付款",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
                         "paypal":"Paypal"
