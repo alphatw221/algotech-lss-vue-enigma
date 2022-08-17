@@ -74,7 +74,9 @@
         "ecpay":{
             "merchant_id":"Merchant ID",
             "hash_key":"Hash Key",
-            "hash_iv":"Hash IV"
+            "hash_iv":"Hash IV",
+            "invoice_hash_key":"Invoice Hash Key",
+            "invoice_hash_iv":"Invoice Hash IV"
         },
         "pay_mongo":{
             "secret":"Secret Key"
@@ -83,6 +85,7 @@
 
         "payment_details":"Payment Details",
         "enabled":"Enable",
+        "invoice_enabled":"Invoice Enabled",
         "add_more_direct_payment":"Add New Direct Payment",
         "upload_image":"Upload Image",
         "remove_image":"Remove Image",
