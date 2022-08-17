@@ -293,7 +293,7 @@ const routes = [
     children: [
       {
         path: "login",
-        name: "LoginPage",
+        name: "login-page",
         beforeEnter: checkSellerLogin,
         component: () => import('@/views/general/LoginPage.vue')
       },

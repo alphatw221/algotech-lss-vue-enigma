@@ -18,7 +18,7 @@
                     </div>
                     <button class="resend_btn btn rounded-xl" @click="sendResetLink()">{{ $t('forgot_password.send_password_reset_link') }}</button>
                     <h6 class="align-center text-center text-[16px]">
-                        <a class="m-auto font-medium"  @click=" router.push({name:'LoginPage'});" >{{ $t('forgot_password.Back_to_login_page') }}</a>
+                        <a class="m-auto font-medium"  @click=" router.push({name:'login-page'});" >{{ $t('forgot_password.Back_to_login_page') }}</a>
                     </h6>
                 </div>
             </div>
