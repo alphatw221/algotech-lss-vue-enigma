@@ -35,62 +35,43 @@
             "pre_order":{
                 "refresh_try_again": "Please Refresh The Page And Retry Again",
                 "invalid_user": "Invalid User",
-                "request_data_error": "Request data error",
-                "error_handler":{
-                    "pymongo_error":{
-                        "server_busy": "Server busy, please try again"
-                    }
-                }
+                "request_data_error": "Request data error"
+                
             },
             "order-product":{
-                "error_handler":{
-                    "pymongo_error":{
-                        "server_busy": "Server busy, please try again"
-                    }
-                }
+                
             },
             "order":{
                 "image_size_exceed_maximum_size": "Image size exceed maximum size",
-                "not_support_this_image_type": "Not support this image type",
-                "error_handler":{
-                    "pymongo_error":{
-                        "server_busy": "Server busy, please try again"
-                    }
-                }
+                "not_support_this_image_type": "Not support this image type"
+                
             },
             "payment":{
                 "payment_not_enable": "Payment not enable",
                 "choose_another_payment_method": "Payment Error, Please Choose Another Payment Method",
                 "payment_failed": "Payment failed",
-                "invalid": "Invalid",
-                "error_handler":{
-                    "pymongo_error":{
-                        "server_busy": "Server busy, please try again"
-                    }
-                }
+                "invalid": "Invalid"
+                
             },
             "campaign-luckydraw":{
                 "invalid_lucky_draw_type":"Invalid lucky_draw type",
                 "invalid_lucky_draw_product": "Invalid lucky_draw product",
-                "lucky_draw_has_already_finished": "Lucky draw has already finished",
-                "error_handler":{
-                    "pymongo_error":{
-                        "server_busy": "Server busy, please try again"
-                    }
-                }
+                "lucky_draw_has_already_finished": "Lucky draw has already finished"
+                
             },
             "cart":{
                 "campaign_product_not_found": "Campaign_product not found",
                 "refresh_try_again": "Please Refresh The Page And Retry Again",
                 "invalid_user": "Invalid User",
                 "qty_invalid": "Qty invalid",
-                "request_data_error": "Request data error",
-                "error_handler":{
-                    "pymongo_error":{
-                        "server_busy": "Server busy, please try again"
-                    }
-                }
+                "request_data_error": "Request data error"
+                
             }
+        }
+    },
+    "error_handler":{
+        "pymongo_error":{
+            "server_busy": "Server busy, please try again"
         }
     },
     "stripe":{

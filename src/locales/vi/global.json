@@ -1,49 +1,52 @@
 {
-    "first_name" : "First Name",
-    "last_name" : "Last Name",
-    "name" : "Name",
-    "phone" : "Phone",
-    "email" : "Email",
-    "remark" : "Remark",
-    "post_code" : "Post Code",
-    "address" : "Address",
-
-    "status" : "Status",
-    "date" : "Date",
-    "delivery" : "Delivery",
-    "remarks" : "Remarks",
-    "confirm" : "Confirm",
-    "detail" : "Detail",
-    "close" : "Close",
-    "description" : "Description",
-    "add" : "Add",
-    "upload" : "Upload",
-    "submit" : "Submit",
-    "select" : "Select",
-    "selected" : "Selected",
-    "charge" : "Charge",
-    "apply" : "Apply",
-
-
-
+    "first_name" : "tên",
+    "last_name" : "họ",
+    "name" : "biệt hiệu",
+    "phone" : "Điện thoại",
+    "email" : "E-mail",
+    "comment" : "Nhận xét",
+    "post_code" : "Mã bưu điện",
+    "address" : "địa chỉ",
+ 
+    "status" : "Trạng thái",
+    "date" : "Ngày",
+    "delivery" : "Giao hàng",
+    "remarks" : "Nhận xét",
+    "confirm" : "Xác nhận",
+    "detail" : "chi tiết",
+    "close" : "đóng",
+    "description" : "Mô tả",
+    "add" : "Thêm",
+    "upload" : "Cập nhật",
+    "submit" : "Xác nhận",
+    "select" : "chọn",
+    "selected" : "Đã chọn",
+    "charge" : "Tính phí",
+    "apply" : "Áp dụng",
+ 
+ 
+ 
     "qty" : "Qty",
-    "product" : "Product",
-    "price" : "Price",
-    "credit_card" : "Credit Card",
-    "payment" : "Payment",
-    "method" : "Method",
-    "record" : "Record",
-    "option" : "Option",
-    "summary" : "Summary",
-
+    "product" : "Sản phẩm",
+    "price" : "Giá",
+    "credit_card" : "Thẻ tín dụng",
+    "Payment" : "Thanh toán",
+    "method" : "Phương pháp",
+    "record" : "Ghi lại",
+    "option" : "Tùy chọn",
+    "summary" : "Tóm tắt",
+ 
     "footer": {
-        "home" : "HOME",
-        "terms" : "Terms", 
-        "private_policy" : "Private Policy" 
+        "home" : "Trang chủ",
+        "terms" : "Điều khoản",
+        "private_policy" : "Chính sách Riêng tư"
     },
-    "price_unit":{
+ 
+    "price_unit": {
         "1":"",
         "1000":"K",
         "1000000":"M"
     }
 }
+ 
+
