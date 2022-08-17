@@ -2,7 +2,8 @@
 
     <Modal :show="show" @hidden="hide()" backdrop="static">
         <ModalHeader>
-            <img alt="" class="w-8 h-8 rounded-full zoom-in" :src="comment.image" />
+            <img v-if="comment.image != ''" alt="" class="w-8 h-8 rounded-full zoom-in" :src="comment.image" />
+            <img v-else alt="" class="w-8 h-8 rounded-full zoom-in" :src="igAvatar" />
             <h2 class="ml-5 mr-auto text-base font-medium">{{$t('campaign_live.conversation.conversation_with')}} {{ comment.customer_name }} </h2>
             <a @click="show = false" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
                 <XIcon class="w-12 h-12 text-slate-400" />
@@ -11,7 +12,7 @@
         <ModalBody class="flex flex-col w-full h-full">
 
             <div class="overflow-y-auto max-h-[500px] whitespace-wrap w-full">
-                <template v-for="(item,index) in messageItems" :key="index">
+                <template v-for="(item,index) in messageItems.reverse()" :key="index">
                     <div v-if="item.from.id === pageId"
                         class="flex justify-end w-full h-fit">
                         <div class="flex flex-col p-2 m-3 box bg-secondary">
@@ -27,7 +28,8 @@
                     <div v-else
                         class="flex w-full h-fit">
                         <div class="w-12 h-12 mr-1 image-fit">
-                            <img alt="" class="rounded-full zoom-in" :src="comment.image" />
+                            <img v-if="comment.image != ''" alt="" class="rounded-full zoom-in" :src="comment.image" />
+                            <img v-else alt="" class="rounded-full zoom-in" :src="igAvatar" />
                         </div>
                         <div class="flex flex-col p-2 m-3 box bg-secondary w-full">
                             <span class="font-medium text-sky-900">{{ item.from.username }}</span>
@@ -61,7 +63,7 @@ import { get_ig_conversation_messages, retrieve_instagram_profile, reply_to_dire
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
-
+import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
 
 const campaignDetailStore = useCampaignDetailStore()
 const layoutStore = useLSSSellerLayoutStore();
@@ -84,6 +86,7 @@ let pageToken = null
 onMounted(()=>{
     eventBus.on("showConversationModal", (payload) => {
         comment.value = payload.comment
+        console.log(comment.value)
         pageId.value = campaignDetailStore.campaign.instagram_profile.business_id
         retrieve_instagram_profile(campaignDetailStore.campaign.instagram_profile.id).then(res=>{
             pageToken = res.data.token

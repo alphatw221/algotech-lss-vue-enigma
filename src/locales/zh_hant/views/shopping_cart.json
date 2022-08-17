@@ -6,7 +6,7 @@
         "my_cart":"我的購物車"
     },
     "delivery_tab":{
-        "contact_info":"基本資訊",
+        "contact_info":"收件人資訊",
         "first_name":"名",
         "last_name":"姓",
         "phone":"電話",
@@ -23,8 +23,8 @@
 
         "delivery_info":"宅配資訊",
         "address":"地址",
-        "city":"城市",
-        "state":"區",
+        "city":"鄉/鎮/市/區",
+        "state":"縣/市",
         "postal_code":"郵遞區號",
         "city_err":"必填",
         "address_err":"必填",
