@@ -294,7 +294,7 @@ onMounted(() => {
 	sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => campaignData.value.meta_payment[key]={} ) } )
 	
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
-		Object.keys(campaignData.value.meta_payment).forEach(key => {
+		Object.keys(sellerStore.userInfo.user_subscription.meta_payment).forEach(key => {
 			console.log(key)
 			campaignData.value.meta_payment[key] = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[key]))
 		})
