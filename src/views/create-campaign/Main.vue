@@ -292,10 +292,14 @@ onMounted(() => {
 	}
 	
 	sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => campaignData.value.meta_payment[key]={} ) } )
-	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
-		Object.assign(campaignData.value.meta_payment,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment)))
-	}
 	
+	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
+		Object.keys(campaignData.value.meta_payment).forEach(key => {
+			console.log(key)
+			campaignData.value.meta_payment[key] = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[key]))
+		})
+	}
+	console.log(sellerStore.userInfo.user_subscription.meta_payment)
 	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
 	campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.special_note  ))
 	campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.confirmation_note  ))

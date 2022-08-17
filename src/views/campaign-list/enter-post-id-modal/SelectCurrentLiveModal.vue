@@ -82,6 +82,8 @@ onMounted(()=>{
           });
           liveItems.value = currentLiveItems
           show.value = true
+        }).catch(err=>{
+          layoutStore.alert.showMessageToast('campaign_list.enter_post_id_modal.rebind_page') 
         })
       }else if(payload.platform=='youtube'){
         get_yt_live_media(payloadBuffer.page.token)
@@ -107,6 +109,8 @@ onMounted(()=>{
             });
             liveItems.value = currentLiveItems
             show.value = true
+        }).catch(err=>{
+          layoutStore.alert.showMessageToast('campaign_list.enter_post_id_modal.rebind_channel') //temp
         })
       }else if(payload.platform=='instagram'){
         get_ig_live_media(payloadBuffer.page.business_id,payloadBuffer.page.token)
@@ -131,6 +135,8 @@ onMounted(()=>{
             });
             liveItems.value = currentLiveItems
             show.value = true
+        }).catch(err=>{
+          layoutStore.alert.showMessageToast('campaign_list.enter_post_id_modal.rebind_profile') //temp
         })
       }
   })

@@ -86,7 +86,11 @@
         "save":"Lưu lại",
         "your_current_lives": "Các phiên livestream gần đây",
         "select_this_live": "Chọn phiên livestream này",
-        "valid_post_id_notification": "Vui lòng nhập ID bài viết hợp lệ"
+        "valid_post_id_notification": "Vui lòng nhập ID bài viết hợp lệ",
+
+        "rebind_page":"Vui lòng liên kết lại Facebook Page đã chọn",
+        "rebind_channel":"Vui lòng liên kết lại Youtube Channel đã chọn",
+        "rebind_profile":"Vui lòng liên kết lại Instagram Profile đã chọn"
     },
     "update_successed":"Cập nhật thành công",
     "no_facebook_post":"Bạn không có bài viết livestream trên Facebook ngay bây giờ",

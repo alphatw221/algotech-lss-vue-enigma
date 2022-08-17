@@ -4,6 +4,8 @@
         "comments":"直播留言",
         "delivery":"運送",
         "payment":"付款",
+        "purchase":"購買",
+        "return":"退貨",
         "other":"其他",
         "select_tag":"選擇標籤",
         "clear":"清空",

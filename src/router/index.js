@@ -285,17 +285,18 @@ const routes = [
       }
     ],
   },
-  {
-    path: "/seller/login",
-    name: "LoginPage",
-    beforeEnter: checkSellerLogin,
-    component: () => import('@/views/general/LoginPage.vue')
-  },
+  
 
   {
     path: "/seller/web",
     component: LSSPublicLayout,
     children: [
+      {
+        path: "login",
+        name: "LoginPage",
+        beforeEnter: checkSellerLogin,
+        component: () => import('@/views/general/LoginPage.vue')
+      },
       {
         path: "password/forgot",
         name: "password-forgot",
