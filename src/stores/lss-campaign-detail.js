@@ -8,7 +8,7 @@ export const useCampaignDetailStore = defineStore("CampaignDetail", {
 		showAddProductFromStockModal:ref(false),
 		showEditCampaignProductModal:ref(false),
 		incomingOrders:ref([]),
-
+		incomingOrdersDict:ref({}),
 		campaign:ref({})
 
 	}),

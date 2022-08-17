@@ -111,20 +111,21 @@ export function facebookAxios(accessToken){
         baseURL: import.meta.env.VITE_FACEBOOK_API_URL_V13,
         headers: { 'Authorization': `Bearer ${accessToken}` },
     })
-    axiosInstance.interceptors.response.use(
-        response => response,
-        error => {
-            if (error.response.data.message) {
-                alert(error.response.data.message)
-            }
-            else if (error.response.data.detail){
-                alert(error.response.data.detail)
-            }else{
-                alert('error')
-            }
-            return Promise.reject(error);
-        }
-    );
+    // axiosInstance.interceptors.response.use(
+    //     response => response,
+    //     error => {
+    //         if (error.response.data.message) {
+    //             alert(error.response.data.message)
+    //         }
+    //         else if (error.response.data.detail){
+    //             alert(error.response.data.detail)
+    //         }else{
+    //             alert('error')
+    //             console.log(error)
+    //         }
+    //         return Promise.reject(error);
+    //     }
+    // );
     return axiosInstance
 }
 
@@ -133,20 +134,20 @@ export function instagramAxios(accessToken){
         baseURL: import.meta.env.VITE_FACEBOOK_API_URL_V13,
         headers: { 'Authorization': `Bearer ${accessToken}` },
     })
-    axiosInstance.interceptors.response.use(
-        response => response,
-        error => {
-            if (error.response.data.message) {
-                alert(error.response.data.message)
-            }
-            else if (error.response.data.detail){
-                alert(error.response.data.detail)
-            }else if (error.response.data.error) {
-                alert(error.response.data.error.message)
-            }
-            return Promise.reject(error);
-        }
-    );
+    // axiosInstance.interceptors.response.use(
+    //     response => response,
+    //     error => {
+    //         if (error.response.data.message) {
+    //             alert(error.response.data.message)
+    //         }
+    //         else if (error.response.data.detail){
+    //             alert(error.response.data.detail)
+    //         }else if (error.response.data.error) {
+    //             alert(error.response.data.error.message)
+    //         }
+    //         return Promise.reject(error);
+    //     }
+    // );
     return axiosInstance
 }
 
@@ -155,20 +156,20 @@ export function youtubeAxios(accessToken){
         baseURL: import.meta.env.VITE_YOUTUBE_API_URL,
         headers: { 'Authorization': `Bearer ${accessToken}` },
     })
-    axiosInstance.interceptors.response.use(
-        response => response,
-        error => {
-            if (error.response.data.message) {
-                alert(error.response.data.message)
-            }
-            else if (error.response.data.detail){
-                alert(error.response.data.detail)
-            }else{
-                alert('error')
-            }
-            return Promise.reject(error);
-        }
-    );
+    // axiosInstance.interceptors.response.use(
+    //     response => response,
+    //     error => {
+    //         if (error.response.data.message) {
+    //             alert(error.response.data.message)
+    //         }
+    //         else if (error.response.data.detail){
+    //             alert(error.response.data.detail)
+    //         }else{
+    //             alert('error')
+    //         }
+    //         return Promise.reject(error);
+    //     }
+    // );
     return axiosInstance
 }
 // const axiosInstanceWithBearer = axios.create({
