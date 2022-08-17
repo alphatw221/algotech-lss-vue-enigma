@@ -89,7 +89,9 @@
                                     </div>
                                 </template>
                             </div>
-                            <div class="mt-6 text-3xl font-medium leading-8">$ {{parseFloat(manageOrderStatus.complete_sales).toFixed(2) ?? 0}}</div>
+                            <div class="mt-6 text-3xl font-medium leading-8" v-if="store.campaign">$
+                                {{ Math.floor(parseFloat(manageOrderStatus.complete_sales) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places}}
+                            </div>
                             <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.sales')}}</div>
                         </div>
                     </div>
@@ -130,7 +132,9 @@
 import { ref, provide, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { campaign_manage_order } from "@/api/manage_order";
+import { useManageOrderStore } from "@/stores/lss-manage-order";
 const route = useRoute();
+const store = useManageOrderStore()
 
 const manageOrderStatus = ref({
         'campaign_sales_raise': 0,
