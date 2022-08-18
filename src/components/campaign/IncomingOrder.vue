@@ -31,7 +31,7 @@
                     </thead>
                 
                     <tbody>
-                        <tr v-if="store.incomingOrders.length === 0" class="h-[300px]">
+                        <tr v-if="incomingOrderCount === 0" class="h-[300px]">
                             <td class="mt-40 text-center border-none text-sm md:text-lg text-slate-500" :colspan="4" > 
                                 {{ $t(`campaign_live.incoming.table.no_order`) }}
                             </td> 
@@ -84,7 +84,7 @@
 import {list_campaign_pre_order} from '@/api/campaign_pre_order';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
-import { onMounted, onUnmounted, ref, getCurrentInstance } from "vue";
+import { onMounted, onUnmounted, ref, getCurrentInstance, computed, watch } from "vue";
 
 const router = useRouter()
 const route = useRoute()
@@ -102,7 +102,8 @@ const incoming_order_columns= [
     { name: "null", key: "detail" },
 ]
 
-
+const incomingOrderCount = ref(0)
+watch(computed(()=>store.incomingOrdersDict),incomingOrderCount.value = Object.entries(store.incomingOrdersDict).length)
 
 onMounted(()=>{
     list_campaign_pre_order(route.params.campaign_id).then(res => {
