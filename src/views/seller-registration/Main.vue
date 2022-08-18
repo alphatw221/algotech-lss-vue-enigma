@@ -91,8 +91,11 @@ const registerationStore = useSellerRegistrationStore()
 const route = useRoute();
 const router = useRouter();
 
-onBeforeMount (()=>{useI18n.global.locale.value = route.query.language || 'en'} )     
+onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
+  
 onMounted(()=>{
+
+    useI18n.global.locale.value = route.query.language || 'en'
     loadScript("https://js.stripe.com/v3/",()=>{console.log("stripe SDK loaded") })
     // registerationStore.country = route.query.language
 })
