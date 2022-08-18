@@ -206,7 +206,7 @@
             </button>
 
             <button 
-                v-else-if="paymentMethodTabNumber == 1 && showSubmitButton"
+                v-else-if="paymentMethodTabNumber == 1 || paymentMethodTabNumber == 2"
                 type="button"
                 class="w-fit ml-5 shadow-md btn btn-primary"
                 @click="uploadReceipt()">{{$t('register.payment.direct.complete_order')}}
