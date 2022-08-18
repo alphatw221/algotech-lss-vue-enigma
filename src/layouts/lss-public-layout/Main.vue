@@ -38,11 +38,14 @@
 
 
 <script setup>
-import { onBeforeMount, onMounted, ref, provide, getCurrentInstance } from "vue";
-import { usePublicLayoutStore } from "@/stores/lss-public-layout"
+import { onBeforeMount, onMounted, ref, provide } from "vue";
+import { useRoute, useRouter } from "vue-router";
+import { usePublicLayoutStore } from "@/stores/lss-public-layout";
+import useI18n from "@/locales/i18n";
 
+const route = useRoute();
+const router = useRouter();
 const publicLayout = usePublicLayoutStore()
-const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const browserLang = ref("")
 const browserLangToVueLang = ref({
     "en": "en",
@@ -58,9 +61,14 @@ onMounted(() => {
 
 const setLanguage = ()=>{
     console.log(window.navigator.language)
+    
     browserLang.value = window.navigator.language.toLowerCase()
-    app_i18n.locale=browserLangToVueLang.value[browserLang.value]
-    console.log(app_i18n.locale)
+    if (route.query.language) {
+        useI18n.global.locale.value = route.query.language
+    } else {
+        useI18n.global.locale.value = browserLangToVueLang.value[browserLang.value]
+    }
+    console.log(useI18n.global.locale.value)
 }
 
 provide("bind[registerMessageNotification]", (el) => {publicLayout.notification = el;});

@@ -238,16 +238,38 @@ onMounted(() => {
 
 		campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
 
-		campaignData.value.meta_payment = {}
-		sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach(country => { 
-			paymentMetaStore[country].forEach(key=>{
-				if (!allowedPaymentMethods.value.includes(key)) {
-					allowedPaymentMethods.value.push(key)
-					campaignData.value.meta_payment[key] = JSON.parse(JSON.stringify(res.data.meta_payment[key]))
-				}
-			})
-		})
+
+
+		//if support payment is in meta_payment -> do nothing
+		//else -> build one with all default value
+		const paymentKeySet = new Set()
+		sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => paymentKeySet.add(key) ) } )
+		paymentKeySet.forEach(key => {
+			if(key in campaignData.value.meta_payment){
+				//do nothing
+			}else{
+				campaignData.value.meta_payment[key]={}
+				paymentMetaStore[key].fields.forEach(field=>{
+					campaignData.value.meta_payment[key][field.key] = field.default
+				});
+				campaignData.value.meta_payment[key]['enabled'] = false
+			}
+		});
+
+
+		// campaignData.value.meta_payment = {}
+		// sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach(country => { 
+		// 	paymentMetaStore[country].forEach(key=>{
+		// 		if (!allowedPaymentMethods.value.includes(key)) {
+		// 			allowedPaymentMethods.value.push(key)
+		// 			campaignData.value.meta_payment[key] = JSON.parse(JSON.stringify(res.data.meta_payment[key]))
+		// 		}
+		// 	})
+		// })
 		
+
+
+
 		campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(res.data.meta_payment.special_note))
 		campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(res.data.meta_payment.confirmation_note))
 
