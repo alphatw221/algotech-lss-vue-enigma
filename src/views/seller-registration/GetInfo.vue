@@ -152,14 +152,22 @@
 
             <div class="flex-col">
                 <label for="" class="subLabel" >{{$t('register.basic_info.target_country')}}</label><span class="text-danger"> *</span>
-                    <select 
-                        class="w-full form-select sm:form-select-lg rounded-lg" 
-                        :class="{ 'border-danger text-danger border-2': validate.country.$error }" 
-                        v-model="validate.country.$model"
-                    >
+                <select 
+                    class="w-full form-select sm:form-select-lg rounded-lg" 
+                    :class="{ 'border-danger text-danger border-2': validate.country.$error }" 
+                    v-model="validate.country.$model"
+                >
+                <template v-if="route.query.country=='VN'">
+                    <option  :value="route.query.country" class="w-40"> 
+                    {{ $t(`register.basic_info.country_Options.Vietnam`) }} 
+                    </option>
+                </template>
+                <template v-else>
                     <option v-for="(country, key) in countryOptions" :key="key" :value="country.value" class="w-40"> 
                     {{ $t(`register.basic_info.country_Options.` + country.value) }} 
                     </option>
+                </template>
+                    
                 </select>
                 <template v-if="validate.country.$error">
                     <label class="text-danger text-[16px] leading-tight">

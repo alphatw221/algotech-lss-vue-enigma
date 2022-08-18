@@ -9,6 +9,14 @@
             />
             <label class="ml-3 form-label">{{ $t('settings.payment_form.enabled') }}</label>
         </div>
+        <div class="flex mt-5 lg:mb-5 lg:mt-0" v-if="props.payment.key == 'ecpay' ">
+            <input 
+                class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                type="checkbox" 
+                v-model="paymentData.invoice_enabled"
+            />
+            <label class="ml-3 form-label">{{ $t('settings.payment_form.invoice_enabled') }}</label>
+        </div>
 
         <div class="my-5 lg:my-0 p-5 rounded-md border-2 border-slate">
             <div v-if="props.payment.fields==''"> 
@@ -70,7 +78,7 @@ const router = useRouter();
 
 const paymentData = ref({
     enabled:false,
-
+    invoice_enabled:false,
 })
 
 onMounted(() => {

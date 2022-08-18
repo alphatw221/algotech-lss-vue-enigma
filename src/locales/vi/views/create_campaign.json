@@ -73,7 +73,9 @@
         "ecpay":{
             "merchant_id":"Merchant ID",
             "hash_key":"Hash Key",
-            "hash_iv":"Hash IV"
+            "hash_iv":"Hash IV",
+            "invoice_hash_key":"Invoice Hash Key",
+            "invoice_hash_iv":"Invoice Hash IV"
         },
         "pay_mongo":{
             "secret":"Mã bảo mật"
@@ -84,6 +86,7 @@
 
         "payment_details":"Thông tin thanh toán",
         "enabled":"Đã bật",
+        "invoice_enabled":"Invoice Enabled",
         "add_more_direct_payment":"Thêm Thanh toán trực tiếp",
         "upload_image":"Tải lên hình ảnh",
         "remove_image":"Gỡ hình ảnh",

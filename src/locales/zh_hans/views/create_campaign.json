@@ -74,7 +74,9 @@
         "ecpay":{
             "merchant_id":"商店代号",
             "hash_key":"Hash Key",
-            "hash_iv":"Hash IV"
+            "hash_iv":"Hash IV",
+            "invoice_hash_key":"Invoice Hash Key",
+            "invoice_hash_iv":"Invoice Hash IV"
         },
         "pay_mongo":{
             "secret":"密钥"
@@ -82,6 +84,7 @@
 
         "payment_details":"金流设定",
         "enabled":"启用",
+        "invoice_enabled":"Invoice Enabled",
         "add_more_direct_payment":"增加转账选项",
         "upload_image":"上传图片",
         "remove_image":"移除照片",
