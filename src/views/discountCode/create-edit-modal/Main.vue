@@ -159,7 +159,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
 import LimitationBlock from "./LimitationBlock.vue"
 import DiscountTypeBlock from "./DiscountTypeBlock.vue"
-
+import { useVuelidate } from "@vuelidate/core";
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore()
@@ -191,6 +191,18 @@ const columns = [
 	{ name: "limitations", key: "limitations" , type:"multiple_select_and_set"},
 	{ name: "description", key: "description" , type:"text_area"},
 ]
+
+const discountCodeRules = computed(() => {
+	return { 	
+        name: { required, minLength: minLength(1), maxLength: maxLength(255) },
+        code: { required, minLength: minLength(1), maxLength: maxLength(255) },
+        type: { required },
+        limitations:{
+
+        }
+
+    }
+})
 
 
 

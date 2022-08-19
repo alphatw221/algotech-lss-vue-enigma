@@ -308,9 +308,12 @@ onMounted(() => {
     });
 
 
-	// if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
-	// 	Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
-	// }
+
+
+	//Logistic
+	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
+		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
+	}
 	
 	// sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => campaignData.value.meta_payment[key]={} ) } )
 	

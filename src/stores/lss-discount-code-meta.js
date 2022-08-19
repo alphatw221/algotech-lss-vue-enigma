@@ -15,6 +15,7 @@ export const useLSSDiscountCodeMetaStore = defineStore("discountCodeMeta", {
 		},
 	},
 	limitations:{
+		
 		// specific_campaign:{
 		// 	key:"specific_campaign",
 		// 	name:"specific_campaign",
@@ -22,6 +23,7 @@ export const useLSSDiscountCodeMetaStore = defineStore("discountCodeMeta", {
 		// 		{key:"campaign_id", type:"api_select", endpoint:"getCampaigns", optionName:"title", optionValue:"id", name:"Campaign", dataType:"number", default:null},
 		// 	]
 		// },
+
 		subtotal_over_specific_amount:{
 			key:"subtotal_over_specific_amount",
 			name:"subtotal_over_specific_amount",
