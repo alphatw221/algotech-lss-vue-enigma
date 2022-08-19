@@ -213,6 +213,12 @@
 			<div 
 			class="flex-col flex gap-2 my-2 intro-y w-full" 
 			>
+			<label class="mt-5 lg:mt-0">商店代號</label>
+				<input 
+					class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
+					type="text"
+					v-model="props.campaign.meta_logistic.ecpay_merchant_id"
+				/>
 			<label class="mt-5 lg:mt-0">物流 Hash Key</label>
 				<input 
 					class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 

@@ -185,6 +185,12 @@
                         <div 
                         class="flex-col flex gap-2 my-2 intro-y w-full" 
                         >
+                        <label class="mt-5 lg:mt-0">商店代號</label>
+                            <input 
+                                class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
+                                type="text"
+                                v-model="deliverySettings.ecpay_merchant_id"
+                            />
                         <label class="mt-5 lg:mt-0">物流 Hash Key</label>
                             <input 
                                 class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
@@ -247,6 +253,7 @@ const deliverySettings = reactive({
     pickup_options: [],
     delivery_note : '',
     ecpay_delivery_enable : false,
+    ecpay_merchant_id:'',
     ecpay_delivery_hash_key : '',
     ecpay_delivery_hash_iv : ''
 })
@@ -290,6 +297,7 @@ const fields = [
     {key:"ecpay_delivery_enable",dataType:"boolean", default:false},
     {key:"ecpay_delivery_hash_key", dataType:"string", default:''},
     {key:"ecpay_delivery_hash_iv", dataType:"string", default:''},
+    {key:"ecpay_merchant_id", dataType:"string", default:''},
 ]
 const upsertButtonName = ref('Update')
 
