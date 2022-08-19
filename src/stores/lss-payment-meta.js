@@ -125,6 +125,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			{key:"invoice_hash_key", type:"text", name:"發票 HashKey", dataType:"string", default:''},
 			{key:"invoice_hash_iv", type:"text", name:"發票 HashIV", dataType:"string", default:''}
 		],
+		// invoice:false,
 		handle:{
 			type:'submitForm',
 			endpoint:'getEcpayCredential',

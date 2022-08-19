@@ -199,8 +199,35 @@
                     </button>
                 </div>
             </div>
-        </div> 
-
+        </div>
+		<template v-if="props.campaign.country=='TW'">
+		<div class="col-span-12 flex mt-5 lg:mb-5 lg:mt-0">
+			<input 
+				class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+				type="checkbox"
+				v-model="props.campaign.meta_logistic.ecpay_delivery_enable"
+			/>
+			<label class="ml-3 form-label">啟用綠界物流</label>
+		</div>
+		<div class="col-span-12 my-5 lg:my-0 p-5 rounded-md border-2 border-slate">
+			<div 
+			class="flex-col flex gap-2 my-2 intro-y w-full" 
+			>
+			<label class="mt-5 lg:mt-0">物流 Hash Key</label>
+				<input 
+					class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
+					type="text"
+					v-model="props.campaign.meta_logistic.ecpay_delivery_hash_key"
+				/>
+			<label class="mt-5 lg:mt-0">物流 Hash IV</label>
+				<input 
+					class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
+					type="text"
+					v-model="props.campaign.meta_logistic.ecpay_delivery_hash_iv"
+				/>
+			</div>
+		</div>
+		</template>
 	</div>
 </template>
 

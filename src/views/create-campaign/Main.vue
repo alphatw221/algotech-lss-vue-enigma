@@ -214,8 +214,12 @@ const campaignData = ref({
 		is_additional_delivery_charge : true,
 		additional_delivery_options: [],
 		pickup_options: [],
-		delivery_note : ''
+		delivery_note : '',
+		ecpay_delivery_enable : false,
+		ecpay_delivery_hash_key : '',
+		ecpay_delivery_hash_iv : ''
 	},
+	country:'SG',
 	currency:'USD', 
 	lang:'en', 
 	lang:'en', 
@@ -285,6 +289,7 @@ onMounted(() => {
 	
 	if(sellerStore.userInfo.user_subscription.currency)campaignData.value.currency=sellerStore.userInfo.user_subscription.currency
 	if(sellerStore.userInfo.user_subscription.buyer_lang)campaignData.value.lang=sellerStore.userInfo.user_subscription.buyer_lang
+	if(sellerStore.userInfo.user_subscription.country)campaignData.value.country=sellerStore.userInfo.user_subscription.country
 	if(!([undefined,null,''].includes(sellerStore.userInfo.user_subscription.decimal_places)))campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places.toString()  //temp   TomSelect only work with string value
 	if(sellerStore.userInfo.user_subscription.price_unit)campaignData.value.price_unit=sellerStore.userInfo.user_subscription.price_unit
 
@@ -308,9 +313,9 @@ onMounted(() => {
     });
 
 
-	// if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
-	// 	Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
-	// }
+	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
+		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
+	}
 	
 	// sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => campaignData.value.meta_payment[key]={} ) } )
 	
