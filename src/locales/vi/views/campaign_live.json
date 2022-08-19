@@ -11,6 +11,12 @@
         "clear":"Thiết lập lại",
         "comment_message_1":"Bạn không có bất kì bình luận %{tag} gần đây",
         "comment_message_2":"Bạn không có bất kì bình luận %{platformName} gần đây",
+
+        "comments_summarizer":"Tổng hợp bình luận",
+        "all_comments":"Tất cả bình luận",
+        "facebook_comments":"Bình luận Facebook",
+        "youtube_comments":"Bình luận Youtube",
+        "instagram_comments":"Bình luận Instagram",
         "lucky_draw":"Quà tặng minigame",
         "quiz_game": "Trò chơi giải đố"
     },
