@@ -313,6 +313,9 @@ onMounted(() => {
     });
 
 
+
+
+	//Logistic
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
 	}
