@@ -7,6 +7,13 @@
                 <option :value="''">{{'empty'}}</option>
                 <option :value="key" v-for="(data, key, index) in discountCodeMeta.types" :key="index">{{data.name}}</option>
             </TomSelect>
+
+            <label class="text-danger text-[12px]" 
+                v-for="error,index in props.v.type.$errors"
+                :key="index"
+                >
+                {{error.$uid}}
+            </label>
         </div>
         
         <div class="border-2 rounded-md border-slate"  v-if="props.discountCode.types!=''">
@@ -35,17 +42,18 @@ import { onBeforeMount, onMounted, ref, provide, defineProps } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 
-const mod = ref("")
+
 const discountCodeMeta = useLSSDiscountCodeMetaStore()
 
 const props = defineProps({
   discountCode: Object,
+  v:Object
 });
 
 
 onMounted(()=>{
 
-    
+
 })
 
 const testing = ()=>{

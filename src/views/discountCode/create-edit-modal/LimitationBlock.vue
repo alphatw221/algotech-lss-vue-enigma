@@ -7,6 +7,15 @@
                 <option :value="''">{{'empty'}}</option>
                 <option :value="key" v-for="(data, key, index) in discountCodeMeta.limitations" :key="index">{{data.name}}</option>
             </TomSelect>
+
+
+            <label class="text-danger text-[12px]" 
+                v-for="error,index in props.v.limitations.$each.$response.$errors[props.limitationIndex].key"
+                :key="index"
+                >
+                {{error.$validator}}
+            </label>
+
         </div>
         
         <div class="border-2 rounded-md border-slate"  v-if="props.discountCode.limitations[props.limitationIndex].key!=undefined">
@@ -46,7 +55,8 @@ import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 const discountCodeMeta = useLSSDiscountCodeMetaStore()
 const props = defineProps({
   discountCode: Object,
-  limitationIndex: Number
+  limitationIndex: Number,
+  v:Object
 });
 
 
