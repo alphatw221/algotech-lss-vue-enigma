@@ -102,7 +102,7 @@ const tableColumns = [
     { name: "start_at", key: "start_at", type:"datetime" },
     { name: "end_at", key: "end_at" , type:"datetime"},
     { name: "type", key: "type" , type:"text"},
-	{ name: "limitations", key: "limitations" , type:"array"},
+	// { name: "limitations", key: "limitations" , type:"array"},
 	{ name: "edit", key: "edit" , type:"action"},
 ]
 
@@ -121,7 +121,7 @@ const showLoadingIcon = ref(true)
 onMounted(() => {
 	showLoadingIcon.value = true
 	listDiscountCodes();
-	eventBus.on("listDiscountCodes", (payload) => {
+	eventBus.on("listDiscountCodes", () => {
 		listDiscountCodes();
 	});
 });
@@ -143,7 +143,7 @@ const changePageSize = page_size=> {
 
 
 const listDiscountCodes=()=> {
-
+	discountCodes.value = []
 	showLoadingIcon.value = true
 	list_discount_code(pageSize.value, currentPage.value)
 	.then((res) => {
@@ -157,7 +157,8 @@ const listDiscountCodes=()=> {
 }
 
 const editDiscountCode = discountCode=>{
-	eventBus.emit('showEditDiscountModal', discountCode)
+	hideDropDown()
+	eventBus.emit('showEditModel', discountCode)
 }
 
 const deleteDiscountCode = discountCode=> {

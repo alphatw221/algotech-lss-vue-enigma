@@ -14,12 +14,14 @@
         </div>
     </div>
     
+
+    <CreateEditDiscountCodeModal/>
 </template>
 
 <script setup>
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import DiscountCodeTable from "./DiscountCodeTable.vue";
-
+import CreateEditDiscountCodeModal from "./create-edit-modal/Main.vue"
 import { create_discount_code } from "@/api_v2/discount_code";
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -35,9 +37,7 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 
 
 
-const showCreateModal = ()=>{
-    
-}
+const showCreateModal = ()=>{eventBus.emit('showCreateModel',null)}
 
 </script>
 
