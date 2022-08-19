@@ -48,6 +48,7 @@
         }
     },
     "add":"Add",
+    "skip": "Skip",
     "add_more":"Add More",
     "reset":"Reset",
     "confirm":"Confirm",
