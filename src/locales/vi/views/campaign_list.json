@@ -2,14 +2,14 @@
     "campaign_list": "Danh sách chiến dịch",
 
     "process" : {
-            "create" : "Tạo sản phẩm",
+            "create" : "Tạo chiến dịch",
             "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",
             "connect" : "Connect",
             "connect_description" : "Click \"Edit\" button to connect camapign to your FB Post.",
             "complete" : "Complete",
             "complete_description" : "Click \"Enter\" to join the live campaign."
         },
-    "create_campaign": "Tạo sản phẩm",
+    "create_campaign": "Tạo chiến dịch",
 
     "tabs":{
         "scheduled" : "Đã lên lịch",
