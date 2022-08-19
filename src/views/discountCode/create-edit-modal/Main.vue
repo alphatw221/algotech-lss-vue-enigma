@@ -1,22 +1,16 @@
-
-
-
-
 <template>
     <!-- update Modal-->
-	<Modal size="modal-xl" :show="showModal" @hidden="hideModal()">
+	<Modal size="modal-lg" :show="showModal" @hidden="hideModal()">
 		<ModalHeader>
-			<h2 class="mr-auto text-base font-medium" v-if="modalType==CREATE">{{ 'create' }} </h2>
-            <h2 class="mr-auto text-base font-medium" v-else-if="modalType==EDIT">{{ 'edit' }} </h2>
+			<h2 class="mr-auto text-base font-medium" v-if="modalType==CREATE">{{ 'Create Discount Code' }} </h2>
+            <h2 class="mr-auto text-base font-medium" v-else-if="modalType==EDIT">{{ 'Edit Discount Code' }} </h2>
 			<a @click="hideModal()" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
 				<XIcon class="w-8 h-8 text-slate-400" />
 			</a>
 		</ModalHeader>
 		<ModalBody >
-
-
             <div 
-                class="flex flex-col intro-y"
+                class="flex flex-col intro-y mx-2"
                 v-for="(column, column_index) in columns" 
                 :key="column_index"
             >
@@ -38,32 +32,17 @@
                     />
                 </template>
 
-
                 <template v-else-if="column.type === 'select_and_set' && column.key==='type' ">
                     <label class="mt-2 text-base">{{ column.name }}</label>
                     <DiscountTypeBlock :discountCode="discountCode"/>
                 </template>
 
-
                 <template v-else-if=" column.type ==='period'">
-
-
-
-
-
-                    <div class="flex flex-col">
+                    <div class="flex flex-col mt-2">
                         <div class="flex whitespace-nowrap align-middle"> 
-                            <label for="regular-form-2" class="w-fit my-auto text-base form-label font-medium">{{$t('create_campaign.period')}}</label>
-                            <Tippy 
-                                class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
-                                data-tippy-allowHTML="true" 
-                                data-tippy-placement="right" 
-                                :content="$t('tooltips.create_campaign.campaign_period')" 
-                            > 
-                                <HelpCircleIcon class="w-5 tippy-icon" />
-                            </Tippy> 
+                            <label for="regular-form-2" class="w-fit text-base">{{$t('create_campaign.period')}}</label>
                         </div>
-                        <v-date-picker class="z-49" 
+                        <v-date-picker class="z-10" 
                             v-model="dateTimePicker" 
                             :timezone="timezone" 
                             :columns="$screens({ default: 1, sm: 2 })" 
@@ -73,60 +52,44 @@
                             <template v-slot="{ inputValue, inputEvents }">
                                 <div class="flex items-center justify-center">
                                 <input :value="inputValue.start" v-on="inputEvents.start"
-                                    class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+                                    class="form-control border h-[42px] px-2 py-1 w-42 rounded-lg focus:outline-none focus:border-indigo-300" />
                                 <ChevronsRightIcon class="w-8 h-8 m-1" />
                                 <input :value="inputValue.end" v-on="inputEvents.end" disabled
-                                    class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+                                    class="form-control border h-[42px] px-2 py-1 w-42 rounded-lg focus:outline-none focus:border-indigo-300" />
                                 </div>
                             </template>
                         </v-date-picker>
                     </div>
-
-
-
-
                 </template>
 
-
                 <template v-else-if="column.type === 'multiple_select_and_set' && column.key==='limitations' ">
-
-                    <label class="mt-2 text-base">{{ column.name }}</label>
-
-                    <div class="flex mt-5 sm:mx-5 sm:mt-0">
-                    
+                    <div class="flex flex-row justify-between mt-2">
+                        <label class="text-base">{{ column.name }}</label>
                         <button 
-                            class="inline-block rounded-lg btn btn-primary sm:ml-auto lg:w-60 h-[42px] sm:mt-auto mx-auto" 
+                            class="inline-block rounded-lg btn btn-primary lg:w-48 h-[42px]" 
                             @click="addLimitation()"
                         >
                             {{'add_limitation'}}
                         </button>
-
                     </div>
 
                     <div 
-                        class="sm:mx-5"
+                        class="flex flex-col gap-2"
                         v-for="(limitation, limitation_index) in discountCode.limitations" :key="limitation_index"
                     >
                         <LimitationBlock :discountCode="discountCode" :limitationIndex="limitation_index"/>
 
                         <div class="flex w-full"> 
                             <button 
-                                class="inline-block w-24 my-5 ml-auto text-base btn btn-danger" 
+                                class="inline-block w-fit ml-auto text-base btn btn-danger mb-2" 
                                 @click="deleteLimitation(limitation_index)"
                             > 
                                     {{'delete_limitation'}}
                             </button>
                         </div>
-
                     </div>
-
                 </template>
-
-
             </div>
-
-
-
 		</ModalBody>
 
 
@@ -143,11 +106,6 @@
 			</button>
 		</ModalFooter>
 	</Modal>
-
-
-
-
-
 </template>
 
 

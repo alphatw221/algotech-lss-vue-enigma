@@ -1,6 +1,5 @@
 <template>
-	<div class="overflow-auto h-full sm:h-fit">
-	
+	<div class="overflow-auto max-h-fit sm:h-[62vh] sm:max-h-full">
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
@@ -31,20 +30,20 @@
 					</td> 
 				</tr>
 				<tr v-for="(discountCode, discountCodeIndex) in discountCodes" :key="discountCodeIndex" class="intro-x">
-
-					
-
 					<template v-for="(column, column_index) in tableColumns" :key="column_index">
 
-						<td v-if="column.type === 'index'" class="w-20 text-center id lg:text-sm">
+						<td v-if="column.type === 'index'" class="w-20 text-center id lg:text-sm"
+							:data-content="$t('campaign_live.product.modal_column.removable')" >
 							<span class="sm:hidden"># </span>{{discountCodeIndex+1}}
 						</td>
-						<td v-else-if="column.type === 'text'" class="w-32 imgtd">
-							<span class="title sm:hidden">{{ column.name }}</span> {{ discountCode[column.key] }}
-						</td>
-						<td v-else-if="column.type === 'datetime'" class="w-32 imgtd">
-							<span class="title sm:hidden">{{ column.name }}</span> 
 
+						<td v-else-if="column.type === 'text'" class="w-32"
+							:data-content="$t('campaign_live.product.modal_column') + column.name" >
+							{{ discountCode[column.key] }}
+						</td>
+						
+						<td v-else-if="column.type === 'datetime'" class="w-32"
+							:data-content="$t('campaign_live.product.modal_column.removable')">
 							{{ 
 								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
 									year: "numeric", month: "short", hour12: false,
@@ -53,8 +52,13 @@
 							}}
 						</td>
 
-						<td v-else-if="column.type === 'action'" class="w-20 edit">
-							<Dropdown placement="bottom-start">
+						<td v-else-if="column.type === 'action'" class="w-20 edit"
+							:data-content="$t('campaign_live.product.modal_column.removable')" >
+							<EditIcon v-if="column.key == 'edit'" @click="editDiscountCode(discountCode)"
+								class="w-[20px] h-[20px] text-blue-700 mx-auto" />
+							<Trash2Icon v-if="column.key == 'delete'" @click="deleteDiscountCode(discountCode)" 
+								class="w-[20px] h-[20px] text-red-700 mx-auto" />
+							<!-- <Dropdown placement="bottom-start">
 								<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
 								<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
 								</DropdownToggle>
@@ -70,22 +74,17 @@
 									</DropdownItem>
 								</DropdownContent>
 								</DropdownMenu>
-							</Dropdown> 
+							</Dropdown>  -->
 						</td>
-
 					</template>
-
-					
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
+	<div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
 		<Page class="mx-auto my-3" :total="totalCount" @on-change="changePage" @on-page-size-change="changePageSize" />
 	</div>
 
-
-	
 </template>
 
 <script setup>
@@ -104,6 +103,7 @@ const tableColumns = [
     { name: "type", key: "type" , type:"text"},
 	// { name: "limitations", key: "limitations" , type:"array"},
 	{ name: "edit", key: "edit" , type:"action"},
+	{ name: "del", key: "delete" , type:"action"},
 ]
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -209,77 +209,94 @@ thead th{
 @media only screen and (max-width: 760px),
 (min-device-width: 769px) and (max-device-width: 769px) {
 
-	table,
-	thead,
-	tbody,
-	th,
-	td,
-	tr {
-		display: block;
-		font-size: 16px;
-		padding: 0px !important;
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+        font-size: 16px;
+        padding: 0px !important;
+    }
+
+    .form-check-input{
+        width: 1.5rem !important;
+        height: 1.5rem !important;
+        border-color: theme('colors.primary') !important;
+        border: 2px solid;
+    }
+
+    .checkboxWord {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+		border-bottom: 2px solid #DDDDDD;
+		margin-top: 20px;
+        padding-bottom: 10px !important;
 	}
 
-	thead tr {
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
+    td {
+        min-height: 42px;
+        height: auto;
+        border: none;
+        position: relative;
+        padding-left: 50% !important;
+        text-align: right !important;
+        box-shadow: none !important;
+        font-size: 14px;
+        vertical-align: middle !important;
+        padding-right: 15px !important;
+        place-content: right !important;
+    }
 
-	tr {
-		border-bottom: 2px solid #dddddd; 
-		margin-top: 10px;
-	}
+    td:before {
+        position: absolute;
+        min-height: 42px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        box-shadow: none !important;
+        background-color: white !important;
+        text-align: left;
+    }
 
-	td {
-		border: none;
-		position: relative;
-		text-align: left !important;
-		box-shadow: none !important;
-		min-height:30px;
-		padding-left: 20px !important;
-	}
+    td:nth-of-type(1):before {
+        display: none;
+    }
+    td:nth-of-type(1){
+        display: inline-block;
+        position: absolute;
+        z-index: 10;
+        left: 0;
+        width: 40px !important;
+        padding-left: 0 !important;
+        min-height: 25px !important;
+    }
 
-	.id{
-		display:inline-block;
-		width:50%;
-		font-weight: 500;
-		color: theme("colors.primary");
-		height:40px;
-		padding-top: 10px !important;
-	}
-	.imgtd {
-		display: inline-block;
-		width:50%;
-		margin-right: 20px;
-	}
-	
-	.title{
-		display:inline-block;
-		font-size: 14px;
-		width:100%;
-		font-weight: 600;
-		color: theme("colors.primary");
-	}
-	.edit{
-		display: inline-block;
-		position: absolute;
-		width:50px;
-		top:0;
-		right:0;
-	}
-	.delete{
-		display: inline-block;
-		width: 50%;
-		margin-top:10px;
-		padding-left: 0% !important;
-		margin-bottom: 10px;
-	}
+    td:nth-of-type(2):before{
+		content: attr(data-content);
+    }
 
-	.info{
-		margin-top: 10px;
-		margin-bottom: 10px;
-		font-size: 14px !important;
-	}
+	td:nth-of-type(3):before{
+		content: attr(data-content);
+    }
+
+	td:nth-of-type(4):before{
+		content: attr(data-content);
+    }
+
+	td:nth-of-type(5):before{
+		content: attr(data-content);
+    }
 }
 </style>
