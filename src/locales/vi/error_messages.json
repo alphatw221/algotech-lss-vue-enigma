@@ -21,13 +21,16 @@
             },
             "user-subscription":{},
             "facebook-page":{
-                "facebook_not_activated": "Nền tảng Facebook chưa được kích hoạt"
+                "facebook_not_activated": "Nền tảng Facebook chưa được kích hoạt",
+                "facebook_token_expired": "Mã thông báo hết hạn hoặc không hợp lệ. Vui lòng liên kết lại trang Facebook của bạn."
             },
             "instagram-profile":{
-                "instagram_not_activated": "Nền tảng Instagram chưa được kích hoạt"
+                "instagram_not_activated": "Nền tảng Instagram chưa được kích hoạt",
+                "instagram_token_expired": "Mã thông báo hết hạn hoặc không hợp lệ. Vui lòng liên kết lại hồ sơ Instagram của bạn."
             },
             "youtube-channel":{
-                "youtube_not_activated": "Nền tảng YouTube chưa được kích hoạt"
+                "youtube_not_activated": "Nền tảng YouTube chưa được kích hoạt",
+                "youtube_token_expired": "Mã thông báo hết hạn hoặc không hợp lệ. Vui lòng liên kết lại kênh YouTube của bạn."
             },
             "campaign-product":{
                 "campaign_product_can_not_delete": "Chiến dịch này đã bắt đầu, không thể xóa sản phẩm chiến dịch"
@@ -89,6 +92,7 @@
         "payment_error": "Lỗi thanh toán, vui lòng liên hệ với người bán"
     },
     "helper": {
+        "set_up_now":"Thiết lập ngay",
         "campaign_product_been_deleted": "Sản phẩm thuộc chiến dịch đã bị xóa",
         "cart_in_use":"Giỏ hàng đang dùng",
         "enter_qty": "Vui lòng nhập số lượng",
