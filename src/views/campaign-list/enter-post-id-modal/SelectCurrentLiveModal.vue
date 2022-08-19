@@ -41,9 +41,9 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
-import { get_fb_page_live_media } from "@/api/facebook"
-import { get_ig_live_media } from "@/api/instagram"
-import { get_yt_live_media } from "@/api/youtube"
+import { get_fb_page_live_media } from "@/api_v2/facebook"
+import { get_ig_live_media } from "@/api_v2/instagram"
+import { get_yt_live_media } from "@/api_v2/youtube"
 import { update_platform_live_id } from "@/api_v2/campaign"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
@@ -82,6 +82,8 @@ onMounted(()=>{
           });
           liveItems.value = currentLiveItems
           show.value = true
+        }).catch(err=>{
+          layoutStore.alert.showMessageToast('campaign_list.enter_post_id_modal.rebind_page') 
         })
       }else if(payload.platform=='youtube'){
         get_yt_live_media(payloadBuffer.page.token)
@@ -107,6 +109,8 @@ onMounted(()=>{
             });
             liveItems.value = currentLiveItems
             show.value = true
+        }).catch(err=>{
+          layoutStore.alert.showMessageToast('campaign_list.enter_post_id_modal.rebind_channel') //temp
         })
       }else if(payload.platform=='instagram'){
         get_ig_live_media(payloadBuffer.page.business_id,payloadBuffer.page.token)
@@ -131,6 +135,8 @@ onMounted(()=>{
             });
             liveItems.value = currentLiveItems
             show.value = true
+        }).catch(err=>{
+          layoutStore.alert.showMessageToast('campaign_list.enter_post_id_modal.rebind_profile') //temp
         })
       }
   })

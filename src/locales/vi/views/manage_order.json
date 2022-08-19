@@ -47,12 +47,13 @@
                 "delivery_charge":"Chi phí vận chuyển",
                 "discount":"giảm giá",
                 "total":"Tổng cộng",
-                "null":""
+                "null":"",
+                "prize":"Giải thưởng"
         },
         "filter_modal":{
                 "payment":{
                         "payment":"Thanh toán",
-                        "Direct Payment":"Thanh toán trực tiếp",
+                        "direct_payment":"Thanh toán trực tiếp",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
                         "paypal":"Paypal"

@@ -25,7 +25,7 @@
                     <div class="flex flex-col xl:flex-row flex-wrap" > 
                         <div class="xl:border-r-2 border-white flex flex-row xl:flex-col w-full xl:pr-5 xl:w-36 xl:w-44 text-sm xl:text-xl justify-between xl:justify-center text-right">
                             <div> 
-                                <span v-if="drawTitleMap[luckydraw.type] == 'Draw Like'" class="text-slate-500 whitespace-nowrap mr-auto xl:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
+                                <span v-if="drawTitleMap[luckydraw.type] == 'Draw Like'" class="text-slate-500 whitespace-wrap mr-auto xl:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }}</span>
                                 <span v-else-if="drawTitleMap[luckydraw.type] == 'Draw Purchased'" class="text-slate-500 whitespace-nowrap mr-auto xl:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                                 <span v-else class="text-slate-500 order-1 whitespace-nowrap mr-0 hidden md:block"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                             </div>

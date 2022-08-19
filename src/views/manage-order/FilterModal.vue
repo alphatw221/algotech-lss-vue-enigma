@@ -34,8 +34,8 @@
                     <div class="col-span-12 text-[20px] font-medium my-2">{{$t('manage_order.filter_modal.payment.payment')}}</div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                                v-model="store.filterTagArray.payment['Direct Payment']" 
-                                    @click="updateTag('payment','Direct Payment')"> 
+                                v-model="store.filterTagArray.payment['direct_payment']" 
+                                    @click="updateTag('payment','direct_payment')"> 
                                     <span class="ml-1"> Direct Payment </span> 
                     </div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1">

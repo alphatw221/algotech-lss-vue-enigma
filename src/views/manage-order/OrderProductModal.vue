@@ -28,34 +28,31 @@
                         <tr v-for="(product, index) in store.orderProductData.products" :key="index" class="intro-x text-[13px] sm:text-[16px]">
                             <td class="imgtd flex justify-center">
                                 <div class="w-14 sm:w-fit" v-if="product.image">
-                                    <Tippy
-                                        tag="img"
+                                    <img
                                         class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
                                         :src="storageUrl + product.image"
-                                        :content="product.name"
                                     />
                                 </div>
                                 <div class="w-14 sm:w-fit flex" v-else>
-                                    <Tippy
-                                        tag="img"
+                                    <img
                                         class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
                                         :src="storageUrl + 'no_image.jpeg'"
-                                        :content="product.name"
                                     />
                                 </div>
                             </td>
                             <td class="text-left" :data-content="$t('manage_order.product_modal.product')">
+                                <span v-if="product.type == 'lucky_draw'" class="mr-1"> *{{$t('manage_order.product_modal.prize')}}* </span>
                                 <span class="break-words whitespace-normal"> {{product.name}} </span>
                             </td>
-                            <td class="text-right w-fit" :data-content="$t('manage_order.product_modal.qty')" >
-                                <span class="w-fit"> {{product.qty}} </span> 
+                            <td class="text-center" :data-content="$t('manage_order.product_modal.qty')" >
+                                <span > {{product.qty}} </span> 
                             </td>
-                            <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.price')">
+                            <td class="text-center whitespace-nowrap" :data-content="$t('manage_order.product_modal.price')">
                             {{store.orderProductData.campaign.currency}}
                             {{ Math.floor(parseFloat(product.price) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
                             {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </td>
-                            <td class="text-right whitespace-nowrap" :data-content="$t('manage_order.product_modal.sub_total')">
+                            <td class="text-center whitespace-nowrap" :data-content="$t('manage_order.product_modal.sub_total')">
                             {{store.orderProductData.campaign.currency}}
                             {{ Math.floor(parseFloat(product.price)* product.qty * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
                             {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}

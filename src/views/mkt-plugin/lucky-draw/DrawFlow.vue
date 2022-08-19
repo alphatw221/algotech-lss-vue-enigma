@@ -81,7 +81,7 @@
         <!-- BEGIN: Cover -->
         <div id="cover" v-if="showAnimation"></div>
         <!-- END: Cover -->
-        <div v-if="hasWinner" class="winnerShowup" :class="{has_winner:hasWinner}">
+        <div v-if="hasWinner" class="winnerShowup">
             <img class="mx-auto" :src="winnerShowupPicture" />
         </div>
         <!-- BEGIN: Modal Content -->
@@ -141,17 +141,28 @@ onMounted(() => {
 
 const goDraw = (lucky_draw_id) => {
     showAnimation.value = true
+    let start = Date.now()/1000
+    console.log(start)
     draw_campaign_lucky_draw(lucky_draw_id).then(res => {
         winnerList.value = res.data
         beforeDraw.value = false
+    }).then(()=>{
+        let end = Date.now()/1000
+        console.log(end)
+        console.log(end - start)
+        console.log(luckyDrawData.value.spin_time - (end - start))
+        let spin_time = luckyDrawData.value.spin_time > (end - start) ? (luckyDrawData.value.spin_time - (end - start))*1000 : 0
+        return setTimeout(() => {
+            showAnimation.value = false
+            console.log(winnerList.value.length)
+            if (winnerList.value.length) {
+                hasWinner.value = true
+                console.log("hasWinner", hasWinner.value)
+            }
+        }, spin_time)
     })
 
-    setTimeout(() => {
-        showAnimation.value = false
-        if (winnerList.value.length) {
-            hasWinner.value = true
-        }
-    }, luckyDrawData.value.spin_time * 1000)
+    
 
 }
 
@@ -167,7 +178,9 @@ const goDraw = (lucky_draw_id) => {
     background-color: white;
     z-index: 1;
 }
-#draw_animation.hide {
+
+@media (min-width: 350px){
+    #draw_animation.hide {
         width: 75%;
         position: absolute;
         top: -100%;
@@ -179,7 +192,6 @@ const goDraw = (lucky_draw_id) => {
         transition: all 1s;
 
     }
-@media screen and (min-width: 400px){
     #draw_animation.show {
         width: 75%;
         position: absolute;
@@ -192,11 +204,27 @@ const goDraw = (lucky_draw_id) => {
         transition: all 1s;
 
     }
+    .winnerShowup img {
+        width: 75%;
+        height: inherit;
+    }
 }
 
-@media screen and (max-width: 400px){
+@media (min-width: 768px){
+    #draw_animation.hide {
+        width: 40%;
+        position: absolute;
+        top: -100%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        background-color: white;
+        z-index: 2;
+        overflow: hidden;
+        transition: all 1s;
+
+    }
     #draw_animation.show {
-        width: 75%;
+        width: 40%;
         position: absolute;
         top: 50%;
         left: 50%;
@@ -206,10 +234,14 @@ const goDraw = (lucky_draw_id) => {
         overflow: hidden;
         transition: all 1s;
     }
+    .winnerShowup img {
+        width: 40%;
+        height: inherit;
+    }
 }
 
 
-.winnerShowup.has_winner {
+.winnerShowup {
     width: 100%;
     height: 100%;
     position: absolute;
@@ -219,10 +251,7 @@ const goDraw = (lucky_draw_id) => {
     background-color: white;
     animation: winnersShowsUp 2.5s both 1;
 }
-.winnerShowup.has_winner img {
-    width: 60%;
-    height: inherit;
-}
+
 
 @keyframes winnersShowsUp {
     

@@ -314,7 +314,9 @@ const shipping_info= ref({
       shipping_remark: "",
       shipping_date: null,
       shipping_time: null,
-      pickup_address:""
+      pickup_address:"",
+
+      shipping_option_data:{}
 		})
 
 const shipping_option_index_computed = computed({
@@ -323,10 +325,16 @@ const shipping_option_index_computed = computed({
   },set:index=>{
     shipping_info.value.shipping_option_index=index
     store.shipping_info.shipping_option_index=index
-    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].address : ''
+    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.address : ''
 
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
     
+    if(shipping_info.value.shipping_method=='pickup'){
+      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.pickup_options[index]))
+    }else{
+      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.additional_delivery_options[index]))
+    }
+
   }})
 
 const shipping_method_computed = computed({
@@ -392,7 +400,12 @@ const proceed_to_payment = () =>{
   if(shipping_info.value.shipping_method==='delivery'){
 
     delivery_validate.value.$touch();
-    if(delivery_validate.value.$invalid){
+    
+     if(shipping_info.value.shipping_option_index == ''){
+      layoutStore.alert.showMessageToast('select shipping method')
+      return
+    }
+    else if(delivery_validate.value.$invalid){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }

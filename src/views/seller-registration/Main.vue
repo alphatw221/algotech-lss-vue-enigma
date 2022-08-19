@@ -92,7 +92,7 @@ const route = useRoute();
 const router = useRouter();
 
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
-onBeforeMount (()=>{useI18n.global.locale.value = route.query.language || 'en'} )     
+  
 onMounted(()=>{
     loadScript("https://js.stripe.com/v3/",()=>{console.log("stripe SDK loaded") })
     // registerationStore.country = route.query.language

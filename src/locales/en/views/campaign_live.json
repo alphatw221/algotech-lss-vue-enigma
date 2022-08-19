@@ -4,6 +4,8 @@
         "comments":"Comments Summarizer",
         "delivery":"Delivery",
         "payment":"Payment",
+        "purchase":"Purchase",
+        "return":"Return",
         "other":"Other",
         "select_tag":"Selected tag",
         "clear":"Reset",
@@ -14,7 +16,9 @@
         "all_comments":"All Comments",
         "facebook_comments":"Facebook Comments",
         "youtube_comments":"Youtube Comments",
-        "instagram_comments":"Instagram Comments"
+        "instagram_comments":"Instagram Comments",
+        "lucky_draw":"Lucky Draw",
+        "quiz_game": "Quiz Game"
 
     },
     "reply":{

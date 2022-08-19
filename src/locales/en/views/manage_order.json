@@ -47,12 +47,13 @@
                 "delivery_charge":"Delivery Charge",
                 "discount":"Discount",
                 "total":"Total",
-                "null":""
+                "null":"",
+                "prize":"Prize"
         },
         "filter_modal":{
                 "payment":{
                         "payment":"Payment",
-                        "Direct Payment":"Direct Payment",
+                        "direct_payment":"Direct Payment",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
                         "paypal":"Paypal"

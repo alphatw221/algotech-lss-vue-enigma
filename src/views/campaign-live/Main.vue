@@ -104,7 +104,9 @@ const handleSocketMessage = message=>{
         }
         
     }else if (message.type == 'order_data'){
-        campaignDetailStore.incomingOrders.unshift(message.data)
+        const order_data = message.data
+        campaignDetailStore.incomingOrdersDict[order_data.id]=order_data
+        // campaignDetailStore.incomingOrders.unshift(message.data)
     }
 
 }

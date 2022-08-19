@@ -54,6 +54,10 @@
                     <div class="grid grid-cols-6 gap-2">
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method == 'Direct Payment' ? `${$t('order_detail.payment.Direct Payment')} - ${store.order.meta.account_mode}` : store.order.payment_method }}</div>
+                        <template v-if="store.order.meta">
+                            <div class="col-start-1 col-span-2 py-2" v-if="store.order.meta.InvoiceNumber">發票號碼</div>
+                            <div class="col-start-3 col-span-3 py-2" v-if="store.order.meta.InvoiceNumber">{{store.order.meta.InvoiceNumber}}</div>
+                        </template>
                         <template v-if="store.order.payment_method">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.payment.last_five_digits')}}</div>
                             <div class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
@@ -73,14 +77,27 @@
                             <div class="col-start-3 col-span-3 py-2">{{$t('order_detail.delivery.pickup')}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_store')}}</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].name}}</div>
+                            <!-- temp -->
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index]?.name}}</div> 
+                            <!-- future -->
+                            <!-- <div class="col-start-3 col-span-3 py-2">{{store.order.shipping_option_data.name}}</div> -->
 
+                            
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].address}}</div>
+                            <!-- temp -->
+                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index]?.address}}</div>
+                            <!-- future -->
+                            <!-- <div class="col-start-3 col-span-3 py-2">{{store.order.shipping_option_data.address}}</div> -->
+
                         </template>
                         <template v-else-if="store.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.information')}}</div>
+                            <!-- temp -->
                             <div class="col-start-3 col-span-3 py-3">{{ store.order.shipping_option == '' ? 'Default' : store.order.shipping_option }}</div>
+                            <!-- future -->
+                            <!-- <div class="col-start-3 col-span-3 py-3" v-if="store.order.shipping_option.title">{{ store.order.shipping_option_data.title }}</div>
+                            <div class="col-start-3 col-span-3 py-3" v-else>{{ 'default' }}</div>   i18n here -->
+                            
 
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.address')}}</div>
                             <div class="col-start-3 col-span-3 py-3">

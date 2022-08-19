@@ -158,6 +158,7 @@ import NotesForm from '@/views/create-campaign/NotesForm.vue';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign, update_campaign } from '@/api_v2/campaign';
+import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 
 import EnterPostIDModal from "@/views/campaign-list/enter-post-id-modal/Main.vue"
 import { required, minLength, maxLength, helpers, numeric , decimal, minValue, requiredIf, integer} from "@vuelidate/validators";
@@ -168,7 +169,9 @@ import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import i18n from "@/locales/i18n"
+const sellerStore = useLSSSellerLayoutStore()
 
+const paymentMetaStore = useLSSPaymentMetaStore()
 
 const internalInstance = getCurrentInstance()
 const route = useRoute()
@@ -206,6 +209,7 @@ const decimalOptions = ref([
     {value:'0',text:'1'},
 ])
 
+const allowedPaymentMethods = ref([])
 const directPaymentImages = ref([])
 const campaignData = ref({})
 const dateTimePicker = ref({
@@ -223,20 +227,51 @@ const campaignNotes = ref({
 })
 
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
-const sellerStore = useLSSSellerLayoutStore()
 const ready = ref(false)
 onMounted(() => {
 	retrieve_campaign(route.params.campaign_id).then(res=>{
-		console.log(res.data)
-		campaignData.value = res.data
+		campaignData.value = JSON.parse(JSON.stringify(res.data))
 		campaignData.value.decimal_places = res.data.decimal_places.toString()  //temp   TomSelect only work with string value
 
 		dateTimePicker.value.start=res.data.start_at
 		dateTimePicker.value.end=res.data.end_at
 
 		campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
-		campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.special_note  ))
-		campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.confirmation_note  ))
+
+
+
+		//if support payment is in meta_payment -> do nothing
+		//else -> build one with all default value
+		const paymentKeySet = new Set()
+		sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => paymentKeySet.add(key) ) } )
+		paymentKeySet.forEach(key => {
+			if(key in campaignData.value.meta_payment){
+				//do nothing
+			}else{
+				campaignData.value.meta_payment[key]={}
+				paymentMetaStore[key].fields.forEach(field=>{
+					campaignData.value.meta_payment[key][field.key] = field.default
+				});
+				campaignData.value.meta_payment[key]['enabled'] = false
+			}
+		});
+
+
+		// campaignData.value.meta_payment = {}
+		// sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach(country => { 
+		// 	paymentMetaStore[country].forEach(key=>{
+		// 		if (!allowedPaymentMethods.value.includes(key)) {
+		// 			allowedPaymentMethods.value.push(key)
+		// 			campaignData.value.meta_payment[key] = JSON.parse(JSON.stringify(res.data.meta_payment[key]))
+		// 		}
+		// 	})
+		// })
+		
+
+
+
+		campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(res.data.meta_payment.special_note))
+		campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(res.data.meta_payment.confirmation_note))
 
 		ready.value=true
 	})

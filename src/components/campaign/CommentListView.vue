@@ -4,10 +4,13 @@
         <button class="m-1 shadow-sm btn btn-danger w-fit tags" @click="commentSummarizer('delivery')">
             <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.delivery')}}
         </button>
-        <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummarizer('payment')">
+        <button class="m-1 shadow-sm btn btn-pending w-fit tags" @click="commentSummarizer('purchase')">
             <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.payment')}}
         </button>
-        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('neutro')">
+        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('return')">
+            <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.return')}}
+        </button>
+        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('chat')">
             <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.other')}}
         </button>
         <!-- <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummarizer('Undefined')">

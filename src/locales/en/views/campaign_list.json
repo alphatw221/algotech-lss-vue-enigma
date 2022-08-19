@@ -90,7 +90,11 @@
         "save":"Save",
         "your_current_lives": "Your current lives",
         "select_this_live": "Select this live",
-        "valid_post_id_notification": "Please Enter Valid Post ID"
+        "valid_post_id_notification": "Please Enter Valid Post ID",
+
+        "rebind_page":"Please Rebind Selected Facebook Page",
+        "rebind_channel":"Please Rebind Selected Youtube Channel",
+        "rebind_profile":"Please Rebind Selected Instagram Profile"
     },
     "update_successed":"Update Successed",
     "no_facebook_post":"You don't have Facebook live posts now.",

@@ -48,12 +48,13 @@
                 "delivery_charge":"運費",
                 "discount":"折扣",
                 "total":"總計",
-                "null":""
+                "null":"",
+                "prize":"獎品"
         },
         "filter_modal":{
                 "payment":{
                         "payment":"付款方式",
-                        "Direct Payment":"轉帳付款",
+                        "direct_payment":"轉帳付款",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
                         "paypal":"Paypal"

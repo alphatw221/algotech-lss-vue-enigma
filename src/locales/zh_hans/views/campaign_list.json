@@ -93,7 +93,11 @@
         "save":"储存",
         "your_current_lives": "你目前正在进行的直播",
         "select_this_live": "选择这场直播",
-        "valid_post_id_notification": "请输入有效的贴文ID"
+        "valid_post_id_notification": "请输入有效的贴文ID",
+
+        "rebind_page":"请重新授权Facebook粉丝专页",
+        "rebind_channel":"请重新授权Youtube频道",
+        "rebind_profile":"请重新授权Instagram粉丝专页"
     },
     "update_successed":"更新成功",
     "no_facebook_post":"目前没有任何Facebook的直播",

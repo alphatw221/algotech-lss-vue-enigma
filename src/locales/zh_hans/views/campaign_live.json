@@ -4,6 +4,8 @@
         "comments":"直播留言",
         "delivery":"运送",
         "payment":"付款",
+        "purchase":"购买",
+        "return":"退货",
         "other":"其他",
         "select_tag":"相关讯息",
         "clear":"清空",
@@ -14,7 +16,9 @@
         "all_comments":"所有留言",
         "facebook_comments":"Facebook 留言",
         "youtube_comments":"YouTube 留言",
-        "instagram_comments":"Instagram 留言"
+        "instagram_comments":"Instagram 留言",
+        "lucky_draw":"抽奖活动",
+        "quiz_game": "問答游戏"
     },
     "reply":{
         "reply_to":"回覆",

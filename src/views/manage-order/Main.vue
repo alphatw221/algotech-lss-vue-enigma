@@ -145,4 +145,5 @@ function getCampaignInfo(){
         background-color: #131C34;
         color: #fff;
     }
+    
 </style>

@@ -10,12 +10,27 @@
                     {{campaignDetailStore.campaign.title}}
                 </h2>
                 <div class="my-auto mr-5">
-                    <div class="nav-pills">
-                        <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button"
+                    <div class="nav-pills flex">
+                        <!-- <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button"
                             @click="toDrawList()" 
                         >
                             <font-awesome-icon icon="fa-solid fa-gamepad" class="mt-1 h-[20px] ml-[3px]"/>
-                        </button>
+                        </button> -->
+                        <Dropdown class="btn w-8 h-8 pl-0 pr-1 mt-1">
+                            <DropdownToggle class="">
+                                <font-awesome-icon icon="fa-solid fa-gamepad" class="mt-1 h-[20px] ml-[3px]"/>
+                            </DropdownToggle>
+                            <DropdownMenu class="w-fit">
+                                <DropdownContent>
+                                    <DropdownItem @click="toDrawList()" class="whitespace-nowrap">
+                                        {{$t('campaign_live.comment.lucky_draw')}}
+                                    </DropdownItem>
+                                    <DropdownItem @click="toQuizList()" class="whitespace-nowrap">
+                                        {{$t('campaign_live.comment.quiz_game')}}
+                                    </DropdownItem>
+                                </DropdownContent>
+                            </DropdownMenu>
+                        </Dropdown>
                         <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button"
                             @click="selectVideoTabs('facebook')" 
                         >
@@ -301,8 +316,17 @@ const selectVideoTabs = tabName => openVideoTab.value=tabName
 //             this.eventBus.emit("all_commentSummurizerTrigger", { status: status })
 //         }
 //     }
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
+
 const toDrawList = ()=>{
     router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
+    hideDropDown()
+}
+const toQuizList = ()=>{
+    router.push({ name: 'quiz-game', params: { campaign_id: route.params.campaign_id} })
+    hideDropDown()
 }
 
 </script>
