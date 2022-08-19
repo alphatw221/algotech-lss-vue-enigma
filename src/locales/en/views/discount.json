@@ -1,0 +1,11 @@
+{   
+    "table":{
+        "name":"",
+        "code":"", 
+        "start_at":"", 
+        "end_at":"", 
+        "type":"", 
+        "edit":"Edit", 
+        "delete":"Delete" 
+    }
+}
