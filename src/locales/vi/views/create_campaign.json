@@ -1,11 +1,11 @@
 {
     "create_campaign":"Tạo chiến dịch",
     "title":"Tiêu đề",
-    "title_required":"Title Is Required",
+    "title_required":"Tiêu đề là bắt buộc",
     "period":"Thời gian",
 
     "cancel":"Hủy bỏ",
-    "create":"Tạo sản phẩm",
+    "create":"Tạo chiến dịch",
     "invalid_title":"Tiêu đề chiến dịch được nhập không hợp lệ",
     
 
@@ -18,8 +18,8 @@
         "add_more_delivery_option":"Thêm lựa chọn khác",
         "add_more_pickup_option":"Thêm lựa chọn khác",
         "options":"Tùy chọn phí giao hàng",
-        "on_top_of_delivery_charge":"Vượt phí giao hàng",
-        "replace_delivery_charge":"Thay thế phí giao hàng",
+        "on_top_of_delivery_charge":"Tính thêm phí giao hàng",
+        "replace_delivery_charge":"Phí giao hàng là",
 
         "delete":"Xóa",
 
