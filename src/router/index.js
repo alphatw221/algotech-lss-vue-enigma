@@ -68,7 +68,7 @@ import ImageZoom from "../views/image-zoom/Main.vue";
 
 
 import AutoReply from "../views/autoReply/Main.vue";  
-
+import DiscountCode from "../views/discountCode/Main.vue"
 // import ShoppingCart from "../views/shoppingcart/Main.vue";
 // import OrderHistory from "../views/shoppingcart/OrderHistory.vue"; 
 // import OrderDetails from "../views/shoppingcart/OrderDetails.vue";
@@ -257,6 +257,11 @@ const routes = [
         path: "autoreply",
         name: "side-menu-auto-reply",
         component: AutoReply,
+      },  
+      {  
+        path: "discount-code",
+        name: "discount-code",
+        component: DiscountCode,
       },  
       {
         path: "stock",

@@ -206,7 +206,7 @@
             </button>
 
             <button 
-                v-else-if="paymentMethodTabNumber == 1 && showSubmitButton"
+                v-else-if="paymentMethodTabNumber == 1 || paymentMethodTabNumber == 2"
                 type="button"
                 class="w-fit ml-5 shadow-md btn btn-primary"
                 @click="uploadReceipt()">{{$t('register.payment.direct.complete_order')}}
@@ -401,10 +401,11 @@ const uploadReceipt = () => {
     }
     formData.append('last_five_digit', data.fiveDigits)
     formData.append('image', receiptImage || '')
-    if(paymentMethodTabNumber === 1){ //VN
+
+    if(paymentMethodTabNumber.value === 1){ //VN
         formData.append('account_name', registerationStore.vnBank.accountName)
         formData.append('bank_name', registerationStore.vnBank.bankName)
-    }else if(paymentMethodTabNumber === 2){ //PH
+    }else if(paymentMethodTabNumber.value === 2){ //PH
         formData.append('account_name', registerationStore.g_cash.accountName)
         formData.append('bank_name', registerationStore.g_cash.bankName)
     }
