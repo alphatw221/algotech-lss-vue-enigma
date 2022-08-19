@@ -28,6 +28,27 @@
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
+
+      <div v-if="codeSucess == true" class="flex flex-row justify-between mt-2" >
+        <label class="w-fit my-auto whitespace-nowrap">{{ $t('shopping_cart.order_summary.promo_discount')}} </label>
+        <span class="font-medium"> 
+          {{store.order.campaign.currency}} 
+          {{Math.floor(parseFloat(store.order.promo_price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+          {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+        </span>
+      </div>
+
+      <div class="flex flex-row justify-between mt-2" >
+        <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
+          <input
+            type="text"
+            class="form-control w-32 h-[35px] text-right"
+            v-model="enteredCode"
+            @keydown.enter.prevent="promoCheck()"
+          />
+      </div>
+      <span v-if="codeSucess == true" class="text-right font-medium text-red-500"> {{applyedCode}} is applyed </span>
+          <span v-else-if="codeSucess == false && applyedCode != '' " class="text-right font-medium text-red-500"> {{applyedCode}} is invalid </span>
       
       <div v-if="store.shipping_info.shipping_method !== 'pickup'"
         class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
@@ -90,13 +111,12 @@ const addItem = ()=>{
 const shippingCost = ref(0)
 const cartTotal = ref(0)
 
-
 const updateOrderSummary = ()=>{
 
     console.log('update order summary')
     if (store.shipping_info.shipping_method=='pickup'){
       shippingCost.value = 0
-      cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.adjust_price ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
+      cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.discount + store.order.discount ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
       return
     }
 
@@ -136,7 +156,7 @@ const updateOrderSummary = ()=>{
     if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
         
     shippingCost.value = delivery_charge
-    cartTotal.value = store.order.subtotal + store.order.adjust_price + delivery_charge
+    cartTotal.value = store.order.subtotal + store.order.adjust_price + store.order.discount + delivery_charge 
 }
 
 watch(
@@ -144,13 +164,38 @@ watch(
   updateOrderSummary
 );
 
-
 watch(
   computed(() => {return store.shipping_info}),
   updateOrderSummary,{deep:true}
 );
 
+const enteredCode = ref('')
+const applyedCode = ref('')
+const codeSucess = ref(false)
 
+const promoCheck =()=>{
+  if(enteredCode.value == 'Sucess'){
+    codeSucess.value = true
+    applyedCode.value = enteredCode.value
+    store.order.discount = -10
+    enteredCode.value = ''
+  }else{
+    applyedCode.value = enteredCode.value
+    enteredCode.value = ''
+    codeSucess.value = false
+  }
+
+  // API().then(
+	// 	response => {
+  //     codeSucess = true
+  //     applyedCode.value = enteredCode.value
+  //     enteredCode.value = ''
+  //   }
+	// ).catch( err=>{
+  //     codeSucess = false 
+
+  // })
+}
 
 const toNext=()=>{
   store.openTab=2

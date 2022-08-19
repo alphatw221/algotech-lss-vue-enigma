@@ -8,6 +8,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			subtotal:0,
 			adjust_title:'',
 			adjust_price:0,
+			discount:0,
 			shipping_cost:0,
 			total:0
 		}),

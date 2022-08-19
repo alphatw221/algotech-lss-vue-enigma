@@ -64,7 +64,9 @@
         "total_charge":"總金額",
         "free_delivery":"運費已減免",
         "add_item":"加入更多商品",
-        "next":"下一步"
+        "next":"下一步",
+        "promo_discount": "優惠代碼折抵",
+        "enter_promo":"輸入優惠代碼" 
     },
     "add_item":{
         "select_add_ons":"加購",
