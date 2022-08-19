@@ -192,11 +192,15 @@ onMounted(()=>{
     eventBus.on('changeValidatStatus', (payload) => {
       validate.value[payload.platform]["post_id"]["error"] = false
     })
+    eventBus.on('closEnterPostIDModal', (payload) => {
+      hideModal()
+    })
 })
 
 onUnmounted(()=>{
   eventBus.off('showEnterPostIDModal')
   eventBus.off('changeValidatStatus')
+  eventBus.off('closEnterPostIDModal')
 })
 
 const router = useRouter()

@@ -13,6 +13,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     campaignAlert: ref(),
     notification: ref(),
     alert: ref(),
+    apiErrorAlert: ref(),
     menu: [
       // {
       //   icon: "HomeIcon",

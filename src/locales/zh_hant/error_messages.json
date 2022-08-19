@@ -22,13 +22,16 @@
             },
             "user-subscription":{},
             "facebook-page":{
-                "facebook_not_activated": "Facebook 平台未開通"
+                "facebook_not_activated": "Facebook 平台未开通",
+                "facebook_token_expired": "權杖過期或失效，請重新綁定你的粉絲專頁"
             },
             "instagram-profile":{
-                "instagram_not_activated": "Instagram 平台未開通"
+                "instagram_not_activated": "Instagram 平台未开通",
+                "instagram_token_expired": "權杖過期或失效，請重新綁定你的商業檔案"
             },
             "youtube-channel":{
-                "youtube_not_activated": "Youtube 平台未開通"
+                "youtube_not_activated": "Youtube 平台未开通",
+                "youtube_token_expired": "權杖過期或失效，請重新綁定你的頻道"
             },
             "campaign-product":{
                 "campaign_product_can_not_delete": "此銷售活動已開始，無法刪除活動商品。"
@@ -84,6 +87,7 @@
         "payment_error": "付款錯誤, 請聯絡賣家"
     },
     "helper": {
+        "set_up_now":"前往設定頁面",
         "campaign_product_been_deleted": "活動商品已被刪除",
         "cart_in_use":"購物車使用中",
         "enter_qty": "請填入數量",

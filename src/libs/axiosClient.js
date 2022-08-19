@@ -1,9 +1,10 @@
+import { usePublicLayoutStore } from "@/stores/lss-public-layout";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import axios from "axios";
 import i18n from "@/locales/i18n";
 
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
-
 
 
 // let axiosClient = axios.create({
@@ -39,7 +40,7 @@ axiosInstance.interceptors.response.use(
     error => {
         if (error.response.data) {
             if (error.response.data.detail){
-                alert(error.response.data.detail)
+                usePublicLayoutStore().alert.showMessageToast(error.response.data.detail)
             } else if (error.response.data.message){
                 let path = ""
                 const contain_main_error_types = ["helper", "util", "stripe", "error_handler"].some(element => {
@@ -56,11 +57,11 @@ axiosInstance.interceptors.response.use(
                 } else {
                     path = "error_messages" + error.response.config.url.split("/").splice(0,3).join(".") + "." + error.response.data.message
                 }
-                alert(i18n.global.t(path))
+                usePublicLayoutStore().alert.showMessageToast(i18n.global.t(path))
             }
         }
         else{
-            alert('error ! please refresh the page.')
+            usePublicLayoutStore().alert.showMessageToast('error ! please refresh the page.')
         }
         return Promise.reject(error);
     }
@@ -76,7 +77,7 @@ export function createAxiosWithBearer(){
         error => {
             if (error.response.data) {
                 if (error.response.data.detail){
-                    alert(error.response.data.detail)
+                    useLSSSellerLayoutStore().alert.showMessageToast(error.response.data.detail)
                 } else if (error.response.data.message){
                     let path = ""
                     if (error.response.data.message.includes("helper") || error.response.data.message.includes("util")) {
@@ -87,11 +88,11 @@ export function createAxiosWithBearer(){
                     } else {
                         path = "error_messages" + error.response.config.url.split("/").splice(0,3).join(".") + "." + error.response.data.message
                     }
-                    alert(i18n.global.t(path))
+                    useLSSSellerLayoutStore().alert.showMessageToast(i18n.global.t(path))
                 }
             }
             else{
-                alert('error ! please refresh the page.')
+                useLSSSellerLayoutStore().alert.showMessageToast('error ! please refresh the page.')
             }
             return Promise.reject(error);
         }
