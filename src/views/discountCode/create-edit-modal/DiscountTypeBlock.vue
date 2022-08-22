@@ -1,38 +1,30 @@
 <template>
     <div>
         <div>
-            <TomSelect v-model="props.discountCode.type" :options="{
-                        placeholder: 'choose_discount_type',
-                        }" class="w-full">
-                <option :value="''">{{'empty'}}</option>
-                <option :value="key" v-for="(data, key, index) in discountCodeMeta.types" :key="index">{{data.name}}</option>
-            </TomSelect>
-
+            <select v-model="props.discountCode.type" :options="{
+                    placeholder: 'choose_discount_type',
+                    }" class="w-full form-select rounded-lg mt-2 h-[42px]">
+                <option :value="key" v-for="(data, key, index) in discountCodeMeta.types" :key="index">{{$t(`discount.modal.type_options.`+data.name)}}</option>
+            </select>
             <label class="text-danger text-[12px]" 
                 v-for="error,index in props.v.type.$errors"
                 :key="index"
                 >
-                {{error.$uid}}
+                {{$t(`discount.modal.`+error.$uid)}}
             </label>
         </div>
         
-        <div class="border-2 rounded-md border-slate"  v-if="props.discountCode.types!=''">
-
-
+        <template v-if="props.discountCode.types!=''">
             <div 
                 class="flex flex-col intro-y"
                 v-for="(field, field_index) in discountCodeMeta.types[props.discountCode.type]?.fields" :key="field_index"
             >
-
                 <template v-if="field.type === 'input'">
-                    <label class="mt-2 text-base">{{ field.name }}</label>
-                    <input :type="field.dataType" v-model="props.discountCode.meta[field.key]">
+                    <label class="mt-2 text-base">{{$t(`discount.modal.`+ field.name)}}</label>
+                    <input :type="field.dataType" v-model="props.discountCode.meta[field.key]" class="rounded-lg">
                 </template>
             </div>
-        </div>
-
-
-
+        </template>
     </div>
 </template>
 
@@ -49,7 +41,6 @@ const props = defineProps({
   discountCode: Object,
   v:Object
 });
-
 
 onMounted(()=>{
 

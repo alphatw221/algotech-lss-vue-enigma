@@ -64,7 +64,10 @@
         "total_charge":"总金额",
         "free_delivery":"运费已减免",
         "add_item":"加入更多商品",
-        "next":"下一步"
+        "next":"下一步",
+        "promo_discount": "优惠代码折抵",
+        "enter_promo":"输入优惠代码",
+        "promo_apply":"优惠代码已激活"
     },
     "add_item":{
         "select_add_ons":"加购",

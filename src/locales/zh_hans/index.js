@@ -23,6 +23,7 @@ import tooltips from './views/tooltips.json'
 import login from  './views/login.json'
 import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
+import discount from './views/discount.json'
 
 export default {
     global,
@@ -51,5 +52,6 @@ export default {
     tooltips,
     login,
     forgot_password,
-    reset_password
+    reset_password,
+    discount
 }
