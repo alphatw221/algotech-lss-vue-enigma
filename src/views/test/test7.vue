@@ -17,7 +17,7 @@ const twitchCommentList = ref([])
 
 onMounted(() => {
     let username = 'niveachen'
-    let password = 'oauth:hc7dgjfy8c826ih40gvxif9k26g8gg'
+    let password = 'oauth:klrwmvvejevwbsc89s7ul41gqb1r15'
     let channel = 'niveachen'
     
     init_twitch_websocket(username, password, channel, onMessageHandler, onConnectedHandler)
@@ -31,16 +31,23 @@ const onMessageHandler = (target, context, msg, self) => {
     if (self) { return; } // Ignore messages from the bot
 
     console.log(context)
+    let campaign_id = 646
 
     let commentObj = {
-        context: context,
-        message: msg.trim()
+        platform: 'twitch',
+        id: context['id'],
+        campaign_id: campaign_id,
+        message: msg.trim(),
+        created_time: Date.now(),
+        customer_id: context['user-id'],
+        customer_name: context['username'],
+        image: ''
     }
     twitchCommentList.value.push(commentObj)
-    console.log(twitchCommentList.value.length)
+    console.log(twitchCommentList.value)
     
     if (twitchCommentList.value.length > 3) {
-        bulk_create_comment(646, { comments: twitchCommentList.value }).then(res => {
+        bulk_create_comment(campaign_id, twitchCommentList.value ).then(res => {
             console.log(res.data)            
         })
         twitchCommentList.value = []
