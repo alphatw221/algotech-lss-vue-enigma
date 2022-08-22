@@ -44,6 +44,7 @@
     "tabulator-tables": "^4.9.3",
     "tiny-slider": "^2.9.3",
     "tippy.js": "^6.2.7",
+    "tmi.js": "^1.8.5",
     "toastify-js": "^1.9.3",
     "tom-select": "^1.7.5",
     "v-calendar": "^3.0.0-alpha.8",

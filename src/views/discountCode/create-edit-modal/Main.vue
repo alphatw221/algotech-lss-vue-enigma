@@ -26,8 +26,17 @@
                         class="w-full form-control"
                         type="text" 
                         v-model="discountCode[column.key]"
+                        @blur="v[column.key].$touch"
                     />
-                    <label class="text-danger text-[12px]" ></label>
+
+                    <label class="text-danger text-[12px]" 
+                        v-for="error,index in v[column.key].$errors"
+                        :key="index"
+                        >
+                        {{error.$uid}}
+                    </label>
+
+
                 </template>
 
                 <template v-else-if="column.type === 'text_area'">
@@ -41,7 +50,7 @@
 
                 <template v-else-if="column.type === 'select_and_set' && column.key==='type' ">
                     <label class="mt-2 text-base">{{ column.name }}</label>
-                    <DiscountTypeBlock :discountCode="discountCode"/>
+                    <DiscountTypeBlock :discountCode="discountCode" :v="v"/>
                 </template>
 
 
@@ -107,7 +116,7 @@
                         class="sm:mx-5"
                         v-for="(limitation, limitation_index) in discountCode.limitations" :key="limitation_index"
                     >
-                        <LimitationBlock :discountCode="discountCode" :limitationIndex="limitation_index"/>
+                        <LimitationBlock :discountCode="discountCode" :limitationIndex="limitation_index" :v="v"/>
 
                         <div class="flex w-full"> 
                             <button 
@@ -159,6 +168,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
 import LimitationBlock from "./LimitationBlock.vue"
 import DiscountTypeBlock from "./DiscountTypeBlock.vue"
+import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
@@ -198,13 +208,14 @@ const discountCodeRules = computed(() => {
         code: { required, minLength: minLength(1), maxLength: maxLength(255) },
         type: { required },
         limitations:{
-
+            $each: helpers.forEach({
+                key:{required},
+            })
         }
-
     }
 })
 
-
+const v = useVuelidate(discountCodeRules, discountCode);
 
 const dateTimePicker = ref({
 	start:new Date(),
@@ -246,17 +257,26 @@ const hideModal = ()=>{
         meta:{}
 
     }
+    v.value.$reset()
 }
 
 
 
 const deleteLimitation = index=>{discountCode.value.limitations.splice(index,1)}
 
-const addLimitation = ()=>{discountCode.value.limitations.unshift({})}
+const addLimitation = ()=>{discountCode.value.limitations.unshift({key:''})}
 
 
 const createDiscountCode=()=>{
-    console.log(discountCode.value)
+
+    v.value.$touch()
+	if (v.value.$invalid) {
+		layoutStore.alert.showMessageToast("Invalid Data")
+        console.log(v.value)
+		return
+	}
+
+
     create_discount_code(discountCode.value).then(res=>{
 
         eventBus.emit('listDiscountCodes',null)
@@ -264,8 +284,18 @@ const createDiscountCode=()=>{
         hideModal()
     })
 }
+
 const updateDiscountCode = ()=>{
     update_discount_code(discountCode.value.id,discountCode.value).then(res=>{
+
+        v.value.$touch()
+        if (v.value.$invalid) {
+            layoutStore.alert.showMessageToast("Invalid Data")
+            console.log(v.value)
+            return
+        }
+
+
 
         eventBus.emit('listDiscountCodes',null)
         layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.saved_message'))

@@ -16,6 +16,24 @@
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
+    <Notification refKey="sellerApiErrorAlert" class="flex text-red-600 sm:flex-row">
+      
+      <div class="flex">
+        <div class="relative top-2 w-12">
+          <AlertOctagonIcon class="w-10 h-10" />
+        </div>
+        <div class="ml-1 mr-1">
+            <!-- temp: translate language and pass in -->
+            <div id="message" class="mt-1 text-slate-500">
+                Message1
+            </div>
+            <div class="flex justify-between mt-2 font-medium">
+                <button id="leftBTN" class="mr-3 text-primary text-red-500 dark:text-slate-400 font-medium" data-dismiss="function">Message2 and Function</button>
+                <a id="rightBTN" class="text-primary dark:text-slate-400 text-blue-500" data-dismiss="notification">Message3</a>
+            </div>
+        </div>
+      </div>
+    </Notification>
 <!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
     <Notification refKey="sellerCampaignAlert" borderColor="notifyCamp" >
       <div  class="flex notifyCamp">
@@ -165,6 +183,11 @@ provide("bind[sellerMessageNotification]", (el) => {
 });
 provide("bind[sellerMessageAlert]", (el) => {
   store.alert = el;
+  // el.showMessageToast('test alert')
+});
+provide("bind[sellerApiErrorAlert]", (el) => {
+  store.apiErrorAlert = el;
+
   // el.showMessageToast('test alert')
 });
 provide("bind[sellerCampaignAlert]", (el) => {

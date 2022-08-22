@@ -22,13 +22,16 @@
             },
             "user-subscription":{},
             "facebook-page":{
-                "facebook_not_activated": "Facebook platform is not activated"
+                "facebook_not_activated": "Facebook platform is not activated",
+                "facebook_token_expired": "Token expired or invalid. Please re-bind your page."
             },
             "instagram-profile":{
-                "instagram_not_activated": "Instagram platform is not activated"
+                "instagram_not_activated": "Instagram platform is not activated",
+                "instagram_token_expired": "Token expired or invalid. Please re-bind your profile."
             },
             "youtube-channel":{
-                "youtube_not_activated": "YouTube platform is not activated"
+                "youtube_not_activated": "YouTube platform is not activated",
+                "youtube_token_expired": "Token expired or invalid. Please re-bind your channel."
             },
             "campaign-product":{
                 "campaign_product_can_not_delete": "This campaign has already started, the campaign product cannot be deleted."
@@ -84,6 +87,7 @@
         "payment_error": "Payment error, please contact seller"
     },
     "helper": {
+        "set_up_now":"Set up now",
         "campaign_product_been_deleted": "Campaign product has been deleted",
         "cart_in_use":"Cart in use",
         "enter_qty": "Please enter quantity",
