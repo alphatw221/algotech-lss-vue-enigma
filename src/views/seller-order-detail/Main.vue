@@ -134,14 +134,14 @@ function get_order(){
         seller_retrieve_pre_order(route.params.order_id)
         .then(
             res => { store.orderDetail = res.data
-                     console.log(store.orderDetail) 
+                    //  console.log(store.orderDetail) 
                      show_adjust_price() }
         )
     }else{
         seller_retrieve_order(route.params.order_id)
         .then(
             res => { store.orderDetail = res.data
-                    console.log(store.orderDetail)
+                    // console.log(store.orderDetail)
                     store.modify_status = '+'
             }
         )
