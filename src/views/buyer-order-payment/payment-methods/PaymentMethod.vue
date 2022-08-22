@@ -13,6 +13,32 @@
 
             <div v-else-if="props.payment.handle.type=='submitForm'" class="text-center">
                 <img :src="imageUrl+props.payment.icon" alt="" class="w-48 mx-auto mt-5">
+                <!-- <template v-if="props.payment.invoice">
+                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
+                        <input :id="'phone-invoice'" class="form-check-input" type="radio"
+                            name="vertical_radio_button" />
+                        <label class="mr-auto form-check-label" :for="'phone-invoice'">手機條碼載具</label>
+                        <input type="text"> 
+                    </div>
+                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
+                        <input :id="'phone-invoice'" class="form-check-input" type="radio"
+                            name="vertical_radio_button" />
+                        <label class="mr-auto form-check-label" :for="'phone-invoice'">自然人憑證條碼載具</label>
+                        <input type="text"> 
+                    </div>
+                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
+                        <input :id="'phone-invoice'" class="form-check-input" type="radio"
+                            name="vertical_radio_button" />
+                        <label class="mr-auto form-check-label" :for="'phone-invoice'">捐贈發票</label>
+                        <input type="text"> 
+                    </div>
+                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
+                        <input :id="'phone-invoice'" class="form-check-input" type="radio"
+                            name="vertical_radio_button" />
+                        <label class="mr-auto form-check-label" :for="'phone-invoice'">索取紙本</label>
+                        <input type="text"> 
+                    </div>
+                </template> -->
                 <button class="btn btn-primary mt-2 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.pay_with')}} {{props.payment.name}} </button>
                 <form method="post" action="https://test.ipg-online.com/connect/gateway/processing" :id="props.payment.key" class="hidden">
                     <input type="submit" value="" class="hidden">

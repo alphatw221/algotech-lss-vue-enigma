@@ -1,6 +1,7 @@
 <template>
     <div class="py-5 sm:p-10 sm:py-5">
         <span class="mb-3 text-lg sm:text-xl font-medium leading-none">{{ $t('settings.delivery.delivery_setting') }}</span>
+        
         <div class="flex flex-col gap-1 text-base my-5 intro-y sm:gap-3 -z-50">
 
             <div class="flex flex-col mt-2 text-[16px]"> 
@@ -170,6 +171,42 @@
                     </button>
                 </div>
             </div>
+            <template v-if="layoutStore.userInfo.user_subscription.country=='TW'">
+                <div class="flex flex-col justify-center text-[16px]">
+                    <div class="flex mt-5 lg:mb-5 lg:mt-0">
+                        <input 
+                            class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                            type="checkbox"
+                            v-model="deliverySettings.ecpay_delivery_enable"
+                        />
+                        <label class="ml-3 form-label">啟用綠界物流</label>
+                    </div>
+                    <div class="my-5 lg:my-0 p-5 rounded-md border-2 border-slate">
+                        <div 
+                        class="flex-col flex gap-2 my-2 intro-y w-full" 
+                        >
+                        <label class="mt-5 lg:mt-0">商店代號</label>
+                            <input 
+                                class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
+                                type="text"
+                                v-model="deliverySettings.ecpay_merchant_id"
+                            />
+                        <label class="mt-5 lg:mt-0">物流 Hash Key</label>
+                            <input 
+                                class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
+                                type="text"
+                                v-model="deliverySettings.ecpay_delivery_hash_key"
+                            />
+                        <label class="mt-5 lg:mt-0">物流 Hash IV</label>
+                            <input 
+                                class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
+                                type="text" 
+                                v-model="deliverySettings.ecpay_delivery_hash_iv"
+                            />
+                        </div>
+                    </div>
+                </div>
+            </template>
 
             <!-- <label class=" text-xl form-label">{{ $t('settings.notes.delivery_note') }}</label>
             <textarea class="h-32  p-3 form-control" placeholder="Address" v-model="deliverySettings.delivery_note">
@@ -214,7 +251,11 @@ const deliverySettings = reactive({
     // pickup_start_date : '',
     // pickup_end_date : '',
     pickup_options: [],
-    delivery_note : ''
+    delivery_note : '',
+    ecpay_delivery_enable : false,
+    ecpay_merchant_id:'',
+    ecpay_delivery_hash_key : '',
+    ecpay_delivery_hash_iv : ''
 })
 
 
@@ -253,6 +294,10 @@ const fields = [
     // {key:"pickup_end_date", dataType:"string", default:''},
     {key:"pickup_options", dataType:"object", default:[]},
     {key:"delivery_note", dataType:"string", default:''},
+    {key:"ecpay_delivery_enable",dataType:"boolean", default:false},
+    {key:"ecpay_delivery_hash_key", dataType:"string", default:''},
+    {key:"ecpay_delivery_hash_iv", dataType:"string", default:''},
+    {key:"ecpay_merchant_id", dataType:"string", default:''},
 ]
 const upsertButtonName = ref('Update')
 
