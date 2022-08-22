@@ -1,5 +1,6 @@
 {   
     "create_discount_code":"Create New Code",
+    "discount_code":"Discount Code",
     "table":{
         "name":"Discount Name",
         "code":"Discount Code", 
@@ -7,7 +8,11 @@
         "end_at":"End Time", 
         "type":"Discount Type", 
         "edit":"Edit", 
-        "del":"Delete" 
+        "del":"Delete",
+        "percent_off":"Percentage",
+        "deduct":"Deduction",
+        "noCode":"No Discount Code",
+        "setupFirst":"Set up one by click ( + create )" 
     },
     "modal":{
         "create":"Create Discount Code",
@@ -25,7 +30,8 @@
         "delete_limitation":"Delete Limitation",
         "required":"Required",
         "type_options":{
-            "percent_off":"By Percentage"
+            "percent_off":"By Percentage(%)",
+            "deduct":"By Deduction(-)"
         },
         "limit_options":{
             "subtotal_over_specific_amount":"Subtotal Over Specific Amount",
@@ -33,6 +39,7 @@
         },
         "Order Subtotal":"Order Subtotal",
         "Product Number":"Product Number",
-        "Discount Rate":"Discount Rate"
+        "Discount Rate":"Discount Rate",
+        "Deduct Amount":"Deduct Amount"
     }
 }

@@ -22,6 +22,7 @@ import quiz_game from './views/quiz_game.json'
 import login from './views/login.json'
 import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
+import discount from './views/discount.json'
 
 export default {
     global,
@@ -49,5 +50,6 @@ export default {
     quiz_game,
     login,
     forgot_password,
-    reset_password
+    reset_password,
+    discount
 }

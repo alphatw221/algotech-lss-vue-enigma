@@ -38,6 +38,11 @@ export const buyer_retrieve_pre_order = (pre_order_oid) => {
 export const buyer_create_blank_cart = (campaign_id, loginWith) => {
     return createAxiosWithBearer().get(`/api/v2/pre_order/${campaign_id}/${loginWith}/buyer/create/`)
 }
+
+export const buyer_apply_discount_code = (order_id,data) => {
+    return createAxiosWithBearer().put(`/api/v2/pre_order/${order_id}/buyer/discount/`,data)
+}
+
 //-------------------------------seller----------------------------------
 export const seller_retrieve_pre_order = (pre_order_id) => {
     return createAxiosWithBearer().get(`/api/v2/pre_order/${pre_order_id}/seller/retrieve/`);
@@ -50,4 +55,5 @@ export const seller_adjust_price = (pre_order_id,data) => {
 export const get_pre_order_oid = (pre_order_id) => {
     return createAxiosWithBearer().get(`/api/v2/pre_order/${pre_order_id}/seller/retrieve/oid/`,data)
 }
+
 

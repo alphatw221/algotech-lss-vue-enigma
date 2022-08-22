@@ -4,7 +4,6 @@
             <select v-model="props.discountCode.type" :options="{
                     placeholder: 'choose_discount_type',
                     }" class="w-full form-select rounded-lg mt-2 h-[42px]">
-                <option :value="''">{{'empty'}}</option>
                 <option :value="key" v-for="(data, key, index) in discountCodeMeta.types" :key="index">{{$t(`discount.modal.type_options.`+data.name)}}</option>
             </select>
             <label class="text-danger text-[12px]" 

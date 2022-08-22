@@ -2,7 +2,7 @@
     <div class="flex flex-col sm:px-5 sm:h-fit">
         <div class="flex-col flex gap-3 flex-wrap sm:flex-row justify-center sm:justify-between">
             <div class="flex items-center sm:px-20 lg:pt-5 mt-3 lg:pb-4 intro-y lg:pt-5 mt-3">
-                <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ 'discount_code' }}</h2>
+                <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('discount.discount_code' )}}</h2>
             </div>
             <button class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mx-0 lg:mx-20 lg:mt-5 sm:mt-0 lg:mb-0 mb-3 border-[2px] border-slate-100 shadow-lg"
                 @click="showCreateModal() ">

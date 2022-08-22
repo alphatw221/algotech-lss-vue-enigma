@@ -1,6 +1,5 @@
 <template>
     <select v-model="props.discountCode.limitations[props.limitationIndex].key" placeholder="choose_limitation_type" class="w-full form-select rounded-lg mt-2 h-[42px]">
-        <option :value="''">{{'empty'}}</option>
         <option :value="key" v-for="(data, key, index) in discountCodeMeta.limitations" :key="index">{{$t(`discount.modal.limit_options.`+data.name)}}</option>
     </select>
 
@@ -19,7 +18,7 @@
 
             <template v-if="field.type === 'input'">
                 <label class="mt-2 text-base">{{$t(`discount.modal.`+field.name)}}</label>
-                <input :type="field.dataType" v-model="props.discountCode.limitations[props.limitationIndex][field.key]">
+                <input class="rounded-lg" :type="field.dataType" v-model="props.discountCode.limitations[props.limitationIndex][field.key]">
             </template>
 
             <template v-if="field.type === 'api_select'">

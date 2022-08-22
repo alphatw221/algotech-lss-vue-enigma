@@ -5,14 +5,14 @@
 				<tr>
 					<th v-for="column, column_index in tableColumns" :key="column_index" class="w-fit whitespace-nowrap text-center">
 						<template v-if="column.type === 'index'">
-							<span class="px-6"> {{ '' }} </span> 
+							<span class="px-6"> # </span> 
 						</template>
 						<template v-else> {{$t(`discount.table.`+column.name)}} </template>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr v-if="showLoadingIcon || discountCodes.length === 0" class="intro-x h-[300px]">
 					<td v-if="showLoadingIcon"
 						class="h-[300px] items-center relative tdDot"
 						:colspan="tableColumns.length" >
@@ -21,10 +21,10 @@
 					<td v-else-if="discountCodes.length === 0" :colspan="tableColumns.length">
 						<div class="mt-5 text-center md:mt-40 tdDot" >
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
-								{{ 'no discount code' }}
+								{{$t('discount.table.noCode')}}
 							</h1>
 							<h1 class="text-slate-500 text-sm md:text-lg">
-								{{ 'set up discount code first'}}
+								{{$t('discount.table.setupFirst')}}
 							</h1>
 						</div>
 					</td> 
@@ -32,7 +32,7 @@
 				<tr v-for="(discountCode, discountCodeIndex) in discountCodes" :key="discountCodeIndex" class="intro-x">
 					<template v-for="(column, column_index) in tableColumns" :key="column_index">
 
-						<td v-if="column.type === 'index'" class="sm:w-20 text-center id lg:text-sm"
+						<td v-if="column.type === 'index'" class="index sm:w-20 text-center id lg:text-sm"
 							:data-content="$t(`discount.table.`+column.name) " >
 							<span class="sm:hidden"># </span>{{discountCodeIndex+1}}
 						</td>
@@ -40,6 +40,10 @@
 						<td v-else-if="column.type === 'text'" class="sm:w-32"
 							:data-content="$t(`discount.table.`+column.name) " >
 							{{ discountCode[column.key] }}
+						</td>
+						<td v-else-if="column.type === 'textI18'" class="sm:w-32"
+							:data-content="$t(`discount.table.`+column.name) " >
+							{{ $t(`discount.table.` + discountCode[column.key]) }}
 						</td>
 						
 						<td v-else-if="column.type === 'datetime'" class="sm:w-32"
@@ -52,29 +56,29 @@
 							}}
 						</td>
 
-						<td v-else-if="column.type === 'action'" class="w-20 edit"
+						<td v-else-if="column.type === 'action'" class="w-20"
 							:data-content="$t(`discount.table.`+column.name) " >
-							<EditIcon v-if="column.key == 'edit'" @click="editDiscountCode(discountCode)"
+							<!-- <EditIcon v-if="column.key == 'edit'" @click="editDiscountCode(discountCode)"
 								class="w-[20px] h-[20px] text-blue-700 mx-auto" />
 							<Trash2Icon v-if="column.key == 'delete'" @click="deleteDiscountCode(discountCode)" 
-								class="w-[20px] h-[20px] text-red-700 mx-auto" />
-							<!-- <Dropdown placement="bottom-start">
-								<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
+								class="w-[20px] h-[20px] text-red-700 mx-auto" /> -->
+							<Dropdown placement="bottom-start">
+								<DropdownToggle role="button" class="block w-5 h-5 mx-auto" href="javascript:;">
 								<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
 								</DropdownToggle>
 								<DropdownMenu class="w-24 pt-2 ">
 								<DropdownContent class="w-24 text-center">
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
 										@click="editDiscountCode(discountCode)"> 
-											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ 'edit' }} 
+											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('discount.table.edit') }}
 									</DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
 										@click="deleteDiscountCode(discountCode)"> 
-											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ 'delete' }} 
+											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('discount.table.del') }}
 									</DropdownItem>
 								</DropdownContent>
 								</DropdownMenu>
-							</Dropdown>  -->
+							</Dropdown> 
 						</td>
 					</template>
 				</tr>
@@ -100,10 +104,9 @@ const tableColumns = [
     { name: "code", key: "code" , type:"text"},
     { name: "start_at", key: "start_at", type:"datetime" },
     { name: "end_at", key: "end_at" , type:"datetime"},
-    { name: "type", key: "type" , type:"text"},
+    { name: "type", key: "type" , type:"textI18"},
 	// { name: "limitations", key: "limitations" , type:"array"},
 	{ name: "edit", key: "edit" , type:"action"},
-	{ name: "del", key: "delete" , type:"action"},
 ]
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -220,17 +223,6 @@ thead th{
         padding: 0px !important;
     }
 
-    .form-check-input{
-        width: 1.5rem !important;
-        height: 1.5rem !important;
-        border-color: theme('colors.primary') !important;
-        border: 2px solid;
-    }
-
-    .checkboxWord {
-        display: block;
-    }
-
     thead tr {
         position: absolute;
         top: -9999px;
@@ -239,27 +231,26 @@ thead th{
 
     tr {
 		border-bottom: 2px solid #DDDDDD;
-		margin-top: 20px;
-        padding-bottom: 10px !important;
+		margin-top: 50px;
 	}
 
     td {
-        min-height: 42px;
+        min-height: 30px;
         height: auto;
         border: none;
         position: relative;
         padding-left: 50% !important;
+        padding-right: 15px !important;
         text-align: right !important;
         box-shadow: none !important;
         font-size: 14px;
         vertical-align: middle !important;
-        padding-right: 15px !important;
         place-content: right !important;
     }
 
     td:before {
         position: absolute;
-        min-height: 42px;
+        min-height: 30px;
         left: 6px;
         width: 45%;
         padding-right: 10px;
@@ -270,15 +261,28 @@ thead th{
         text-align: left;
 		content: attr(data-content);
     }
-
-    td:nth-of-type(1):before {
+    .index:before {
         display: none;
     }
-    td:nth-of-type(1){
+    .index{
         display: inline-block;
         position: absolute;
+		top: -30px !important;
         z-index: 10;
         left: 0;
+        width: 40px !important;
+        padding-left: 0 !important;
+        min-height: 25px !important;
+    }
+	td:nth-of-type(7):before {
+        display: none;
+    }
+    td:nth-of-type(7){
+        display: inline-block;
+        position: absolute;
+		top: -30px !important;
+        z-index: 10;
+        right: 0;
         width: 40px !important;
         padding-left: 0 !important;
         min-height: 25px !important;
