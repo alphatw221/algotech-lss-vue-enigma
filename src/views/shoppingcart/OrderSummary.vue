@@ -45,7 +45,7 @@
             @keydown.enter.prevent="promoCheck()"
           />
       </div>
-      <span v-if="store.order.discount != 0" class="text-right font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply')}} </span>
+      <span v-if="store.order.applied_discount.code != undefined" class="text-right font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :store.order.applied_discount.code})}} </span>
     
       <div v-if="store.shipping_info.shipping_method !== 'pickup'"
         class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
@@ -108,7 +108,6 @@ const shippingCost = ref(0)
 const cartTotal = ref(0)
 
 const updateOrderSummary = ()=>{
-  console.log(store.order.discount)
     if (store.shipping_info.shipping_method=='pickup'){
       shippingCost.value = 0
       cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.adjust_price - store.order.discount ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
@@ -168,6 +167,7 @@ const promoCheck =()=>{
   buyer_apply_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }).then(
     res=>{
       store.order = res.data
+      discount_code.value = ''
     })
 }
 

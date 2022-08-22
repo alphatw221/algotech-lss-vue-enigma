@@ -67,7 +67,7 @@
         "next":"Next",
         "promo_discount": "Discount from Promo Code",
         "enter_promo":"Enter Promo Code",
-        "promo_apply":"Discount Code is Applyed"
+        "promo_apply":"Discount Code  %{code} is Applyed"
     },
     "add_item":{
         "select_add_ons":"Select add-ons",

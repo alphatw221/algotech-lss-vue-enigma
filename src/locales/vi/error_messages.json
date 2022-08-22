@@ -39,7 +39,8 @@
                 "refresh_try_again": "Hãy làm mới trang và thử lại",
                 "invalid_user": "Người dùng không hợp lệ",
                 "request_data_error": "Yêu cầu dữ liệu lỗi",
-                "invalid_discount_code":"Invalid Discount Code"
+                "invalid_discount_code":"Invalid Discount Code",
+                "discount_code is required":"Discount Code is Required"
                 
             },
             "order-product":{
