@@ -51,7 +51,7 @@ const login = () => {
             const payload = {'accessToken':response.authResponse.accessToken}
             eventBus.emit(props.busName, payload)
         }
-    },{scope: 'public_profile,email,pages_read_engagement,pages_read_user_content,pages_manage_engagement,pages_messaging,pages_manage_metadata'});
+    },{scope: 'public_profile,email,pages_read_engagement,pages_read_user_content,pages_manage_engagement,pages_messaging,pages_manage_metadata,user_posts'});
 }
 
 const checkLoginState = () => {
