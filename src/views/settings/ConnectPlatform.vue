@@ -38,6 +38,9 @@
         <div>
             <BindYoutubeChannelWidgets/>
         </div>
+        <div>
+            <BindTwitchChannelWidgets/>
+        </div>
 
 
 
@@ -65,6 +68,7 @@ import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from
 import BindFacebookPageWidgets from "@/components/widgets/BindFacebookPageWidgets.vue"
 import BindInstagramProfileWidgets from "@/components/widgets/BindInstagramProfileWidgets.vue"
 import BindYoutubeChannelWidgets from "@/components/widgets/BindYoutubeChannelWidgets.vue"
+import BindTwitchChannelWidgets from "@/components/widgets/BindTwitchChannelWidgets.vue"
 import { useRoute, useRouter } from "vue-router";
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;

@@ -20,14 +20,19 @@
 
 <script setup>
 
-import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue'
+import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance} from 'vue';
+import i18n from '@/locales/i18n';
+import { useRoute, useRouter } from "vue-router";
 import { check_facebook_page_token_valid } from "@/api_v2/facebook"
 import { check_instagram_profile_token_valid } from "@/api_v2/instagram"
 import { check_youtube_channel_token_valid } from "@/api_v2/youtube"
 import { update_platform_live_id } from "@/api_v2/campaign"
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
+const router = useRouter();
 const internalInstance = getCurrentInstance()
+const sellerLayoutStore = useLSSSellerLayoutStore();
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const pages = ref([])
 const show = ref(false)
@@ -76,10 +81,29 @@ const selectPage = index => {
   }).then(res=>{
     eventBus.emit('showSelectLiveModal',payloadBuffer.value)
     hide()
+  }).catch(error=> {
+    if (error.response.data) {
+      if (error.response.data.detail) {
+        sellerLayoutStore.alert.showMessageToast(error.response.data.detail)
+      } else if (error.response.data.message) {
+        let messagePath = "error_messages" + error.response.config.url.split("/").splice(0,4).join(".") + "." + error.response.data.message
+        if (error.response.data.message.includes("not_activated")) {
+          sellerLayoutStore.alert.showMessageToast(i18n.global.t(messagePath))
+        } else if (error.response.data.message.includes("token_expired")) {
+          sellerLayoutStore.apiErrorAlert.buttonToast(`${i18n.global.t(messagePath)}`, `${i18n.global.t('error_messages.helper.set_up_now')}`, "", forPath)
+        }
+      }
+    } else {
+      sellerLayoutStore.alert.showMessageToast('error ! please refresh the page.')
+    }
   })
 
 }
-
+const forPath = () =>{
+  show.value = false
+  eventBus.emit('closEnterPostIDModal')
+  router.push({ name: 'platform'})
+}
 const hide=()=>{
   show.value=false
   pages.value=[]

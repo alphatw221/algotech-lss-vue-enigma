@@ -290,7 +290,7 @@ onMounted(() => {
 
 
 
-		
+	//payment
 	//if specific payment is set in user subscription -> clone it
 	//if not -> build one with all default value
 	const paymentKeySet = new Set()
@@ -308,20 +308,13 @@ onMounted(() => {
     });
 
 
-	// if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
-	// 	Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
-	// }
-	
-	// sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => campaignData.value.meta_payment[key]={} ) } )
-	
 
-	// if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
-	// 	Object.keys(campaignData.value.meta_payment).forEach(key => {
-	// 		console.log(key)
-	// 		campaignData.value.meta_payment[key] = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[key]))
-	// 	})
-	// }
-	// console.log(sellerStore.userInfo.user_subscription.meta_payment)
+
+	//Logistic
+	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
+		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
+	}
+	
 
 	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
 	campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.special_note  ))

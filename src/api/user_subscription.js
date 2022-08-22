@@ -47,7 +47,7 @@ export const check_activated_platform = (data) => {
 }
 
 export const seller_changePlan_payment = data =>{
-    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/intent/`, data);
+    return createAxiosWithBearer().post(`/api/v2/user-subscription/upgrade/intent/`, data);
 }
 
 export const seller_upgrade = data =>{
