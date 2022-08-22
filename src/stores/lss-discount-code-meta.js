@@ -13,6 +13,13 @@ export const useLSSDiscountCodeMetaStore = defineStore("discountCodeMeta", {
 				{key:"discount_rate", type:"input", name:"Discount Rate", dataType:"number", default:1},
 			]
 		},
+		deduct:{
+			key:"deduct",
+			name:"deduct",
+			fields:[
+				{key:"deduct_amount", type:"input", name:"Deduct Amount", dataType:"number", default:0},
+			]
+		},
 	},
 	limitations:{
 		
