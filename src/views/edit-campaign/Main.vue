@@ -237,6 +237,7 @@ onMounted(() => {
 		dateTimePicker.value.end=res.data.end_at
 
 		campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
+		if(sellerStore.userInfo.user_subscription.country)campaignData.value.country = sellerStore.userInfo.user_subscription.country
 
 
 
