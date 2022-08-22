@@ -72,6 +72,13 @@
 							<img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
 						</div>
 					</div>
+					<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.twitch_channel !== null">
+						<Tippy tag="img" class="rounded-full" :src="campaignData.twitch_channel.image"
+						:content="campaignData.twitch_channel.name" />
+						<div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+							<img class="rounded-full bg-[#f70000]" :src="twitch_platform" >
+						</div>
+					</div>
 				</div>
 
 				<a @click="editplatform()" class="inline-flex mr-2 align-middle md:mr-5">
@@ -167,6 +174,7 @@ import { useVuelidate } from "@vuelidate/core";
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
+import twitch_platform from "/src/assets/images/lss-img/twitch.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import i18n from "@/locales/i18n"
 const sellerStore = useLSSSellerLayoutStore()
