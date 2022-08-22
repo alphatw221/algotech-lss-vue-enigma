@@ -2,8 +2,8 @@
     <!-- update Modal-->
 	<Modal size="modal-lg" :show="showModal" @hidden="hideModal()">
 		<ModalHeader>
-			<h2 class="mr-auto text-base font-medium" v-if="modalType==CREATE">{{ 'Create Discount Code' }} </h2>
-            <h2 class="mr-auto text-base font-medium" v-else-if="modalType==EDIT">{{ 'Edit Discount Code' }} </h2>
+			<h2 class="mr-auto text-base font-medium" v-if="modalType==CREATE">{{ $t('discount.modal.create') }} </h2>
+            <h2 class="mr-auto text-base font-medium" v-else-if="modalType==EDIT">{{ $t('discount.modal.edit') }} </h2>
 			<a @click="hideModal()" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
 				<XIcon class="w-8 h-8 text-slate-400" />
 			</a>
@@ -15,17 +15,24 @@
                 :key="column_index"
             >
                 <template v-if="column.type === 'text'">
-                    <label class="mt-2 text-base">{{ column.name  }}</label>
+                    <label class="mt-2 text-base">{{$t(`discount.modal.`+column.name)}}</label>
                     <input 
                         class="w-full form-control"
                         type="text" 
                         v-model="discountCode[column.key]"
+                        @blur="v[column.key].$touch"
                     />
-                    <label class="text-danger text-[12px]" ></label>
+
+                    <label class="text-danger text-[12px]" 
+                        v-for="error,index in v[column.key].$errors"
+                        :key="index"
+                        >
+                        {{ $t(`discount.modal.`+ error.$uid) }}
+                    </label>
                 </template>
 
                 <template v-else-if="column.type === 'text_area'">
-                    <label class="mt-2 text-base">{{ column.name }}</label>
+                    <label class="mt-2 text-base">{{$t(`discount.modal.`+column.name)}}</label>
                     <textarea 
                         class="p-2 form-control"
                         v-model="discountCode[column.key]"
@@ -33,8 +40,8 @@
                 </template>
 
                 <template v-else-if="column.type === 'select_and_set' && column.key==='type' ">
-                    <label class="mt-2 text-base">{{ column.name }}</label>
-                    <DiscountTypeBlock :discountCode="discountCode"/>
+                    <label class="mt-2 text-base">{{$t(`discount.modal.`+column.name)}}</label>
+                    <DiscountTypeBlock :discountCode="discountCode" :v="v"/>
                 </template>
 
                 <template v-else-if=" column.type ==='period'">
@@ -64,12 +71,12 @@
 
                 <template v-else-if="column.type === 'multiple_select_and_set' && column.key==='limitations' ">
                     <div class="flex flex-row justify-between mt-2">
-                        <label class="text-base">{{ column.name }}</label>
+                        <label class="text-base">{{$t(`discount.modal.`+column.name)}}</label>
                         <button 
                             class="inline-block rounded-lg btn btn-primary lg:w-48 h-[42px]" 
                             @click="addLimitation()"
                         >
-                            {{'add_limitation'}}
+                            {{$t('discount.modal.add_limitations')}}
                         </button>
                     </div>
 
@@ -77,14 +84,14 @@
                         class="flex flex-col gap-2"
                         v-for="(limitation, limitation_index) in discountCode.limitations" :key="limitation_index"
                     >
-                        <LimitationBlock :discountCode="discountCode" :limitationIndex="limitation_index"/>
+                        <LimitationBlock :discountCode="discountCode" :limitationIndex="limitation_index" :v="v"/>
 
                         <div class="flex w-full"> 
                             <button 
                                 class="inline-block w-fit ml-auto text-base btn btn-danger mb-2" 
                                 @click="deleteLimitation(limitation_index)"
                             > 
-                                    {{'delete_limitation'}}
+                                {{$t('discount.modal.delete_limitation')}}
                             </button>
                         </div>
                     </div>
@@ -117,7 +124,8 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
 import LimitationBlock from "./LimitationBlock.vue"
 import DiscountTypeBlock from "./DiscountTypeBlock.vue"
-
+import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore()
@@ -150,7 +158,20 @@ const columns = [
 	{ name: "description", key: "description" , type:"text_area"},
 ]
 
+const discountCodeRules = computed(() => {
+	return { 	
+        name: { required, minLength: minLength(1), maxLength: maxLength(255) },
+        code: { required, minLength: minLength(1), maxLength: maxLength(255) },
+        type: { required },
+        limitations:{
+            $each: helpers.forEach({
+                key:{required},
+            })
+        }
+    }
+})
 
+const v = useVuelidate(discountCodeRules, discountCode);
 
 const dateTimePicker = ref({
 	start:new Date(),
@@ -192,17 +213,26 @@ const hideModal = ()=>{
         meta:{}
 
     }
+    v.value.$reset()
 }
 
 
 
 const deleteLimitation = index=>{discountCode.value.limitations.splice(index,1)}
 
-const addLimitation = ()=>{discountCode.value.limitations.unshift({})}
+const addLimitation = ()=>{discountCode.value.limitations.unshift({key:''})}
 
 
 const createDiscountCode=()=>{
-    console.log(discountCode.value)
+
+    v.value.$touch()
+	if (v.value.$invalid) {
+		layoutStore.alert.showMessageToast("Invalid Data")
+        console.log(v.value)
+		return
+	}
+
+
     create_discount_code(discountCode.value).then(res=>{
 
         eventBus.emit('listDiscountCodes',null)
@@ -210,8 +240,16 @@ const createDiscountCode=()=>{
         hideModal()
     })
 }
+
 const updateDiscountCode = ()=>{
     update_discount_code(discountCode.value.id,discountCode.value).then(res=>{
+
+        v.value.$touch()
+        if (v.value.$invalid) {
+            layoutStore.alert.showMessageToast("Invalid Data")
+            console.log(v.value)
+            return
+        }
 
         eventBus.emit('listDiscountCodes',null)
         layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.saved_message'))

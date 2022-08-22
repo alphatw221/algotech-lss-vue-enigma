@@ -1,8 +1,15 @@
 <template>
     <select v-model="props.discountCode.limitations[props.limitationIndex].key" placeholder="choose_limitation_type" class="w-full form-select rounded-lg mt-2 h-[42px]">
         <option :value="''">{{'empty'}}</option>
-        <option :value="key" v-for="(data, key, index) in discountCodeMeta.limitations" :key="index">{{data.name}}</option>
+        <option :value="key" v-for="(data, key, index) in discountCodeMeta.limitations" :key="index">{{$t(`discount.modal.limit_options.`+data.name)}}</option>
     </select>
+
+    <label class="text-danger text-[12px]" 
+        v-for="error,index in props.v.limitations.$each.$response.$errors[props.limitationIndex].key"
+        :key="index"
+        >
+        {{$t(`discount.modal.`+error.$validator)}}
+    </label>
     
     <template  v-if="props.discountCode.limitations[props.limitationIndex].key!=undefined">
         <div 
@@ -11,7 +18,7 @@
         >
 
             <template v-if="field.type === 'input'">
-                <label class="mt-2 text-base">{{ field.name }}</label>
+                <label class="mt-2 text-base">{{$t(`discount.modal.`+field.name)}}</label>
                 <input :type="field.dataType" v-model="props.discountCode.limitations[props.limitationIndex][field.key]">
             </template>
 
@@ -34,7 +41,8 @@ import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 const discountCodeMeta = useLSSDiscountCodeMetaStore()
 const props = defineProps({
   discountCode: Object,
-  limitationIndex: Number
+  limitationIndex: Number,
+  v:Object
 });
 
 </script>

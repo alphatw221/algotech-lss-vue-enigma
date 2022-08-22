@@ -7,7 +7,7 @@
 						<template v-if="column.type === 'index'">
 							<span class="px-6"> {{ '' }} </span> 
 						</template>
-						<template v-else> {{ column.name }} </template>
+						<template v-else> {{$t(`discount.table.`+column.name)}} </template>
 					</th>
 				</tr>
 			</thead>
@@ -32,18 +32,18 @@
 				<tr v-for="(discountCode, discountCodeIndex) in discountCodes" :key="discountCodeIndex" class="intro-x">
 					<template v-for="(column, column_index) in tableColumns" :key="column_index">
 
-						<td v-if="column.type === 'index'" class="w-20 text-center id lg:text-sm"
-							:data-content="$t('campaign_live.product.modal_column.removable')" >
+						<td v-if="column.type === 'index'" class="sm:w-20 text-center id lg:text-sm"
+							:data-content="$t(`discount.table.`+column.name) " >
 							<span class="sm:hidden"># </span>{{discountCodeIndex+1}}
 						</td>
 
-						<td v-else-if="column.type === 'text'" class="w-32"
-							:data-content="$t('campaign_live.product.modal_column') + column.name" >
+						<td v-else-if="column.type === 'text'" class="sm:w-32"
+							:data-content="$t(`discount.table.`+column.name) " >
 							{{ discountCode[column.key] }}
 						</td>
 						
-						<td v-else-if="column.type === 'datetime'" class="w-32"
-							:data-content="$t('campaign_live.product.modal_column.removable')">
+						<td v-else-if="column.type === 'datetime'" class="sm:w-32"
+							:data-content="$t(`discount.table.`+column.name) " >
 							{{ 
 								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
 									year: "numeric", month: "short", hour12: false,
@@ -53,7 +53,7 @@
 						</td>
 
 						<td v-else-if="column.type === 'action'" class="w-20 edit"
-							:data-content="$t('campaign_live.product.modal_column.removable')" >
+							:data-content="$t(`discount.table.`+column.name) " >
 							<EditIcon v-if="column.key == 'edit'" @click="editDiscountCode(discountCode)"
 								class="w-[20px] h-[20px] text-blue-700 mx-auto" />
 							<Trash2Icon v-if="column.key == 'delete'" @click="deleteDiscountCode(discountCode)" 
@@ -268,6 +268,7 @@ thead th{
         box-shadow: none !important;
         background-color: white !important;
         text-align: left;
+		content: attr(data-content);
     }
 
     td:nth-of-type(1):before {
@@ -281,22 +282,6 @@ thead th{
         width: 40px !important;
         padding-left: 0 !important;
         min-height: 25px !important;
-    }
-
-    td:nth-of-type(2):before{
-		content: attr(data-content);
-    }
-
-	td:nth-of-type(3):before{
-		content: attr(data-content);
-    }
-
-	td:nth-of-type(4):before{
-		content: attr(data-content);
-    }
-
-	td:nth-of-type(5):before{
-		content: attr(data-content);
     }
 }
 </style>

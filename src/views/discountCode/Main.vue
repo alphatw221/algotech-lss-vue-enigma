@@ -6,7 +6,7 @@
             </div>
             <button class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mx-0 lg:mx-20 lg:mt-5 sm:mt-0 lg:mb-0 mb-3 border-[2px] border-slate-100 shadow-lg"
                 @click="showCreateModal() ">
-                <span class="font-bold mr-1 text-[16px]">+</span> {{ 'create_discount_code' }}
+                <span class="font-bold mr-1 text-[16px]">+</span> {{$t('discount.create_discount_code' )}}
             </button>
         </div>
         <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-10 sm:h-[80vh] lg:mx-20">
