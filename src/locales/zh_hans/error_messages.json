@@ -20,7 +20,22 @@
                     "user_not_found": "找不到此用户"
                 }
             },
-            "user-subscription":{},
+            "user-subscription":{
+                "stripe":{
+                    "card_error":"信用卡被拒绝",
+                    "rate_limit_error":"超过API请求速率限制",
+                    "invalid_request_error":{
+                        "invalid_parameters":"无效的参数",
+                        "invalid_integer":"Stripe只接受金额大于或等于1的数值，请联络我们的客服"
+                    },
+                    "authentication_error":"验证失败",
+                    "api_connection_error":"网路发生错误",
+                    "stripe_error":"Stripe 错误",
+                    "no_related_error":"无关联的付款",
+                    "support_for_refunding": "资料无效，请联络卖家以便申请退款",
+                    "payment_error": "付款错误, 请联络卖家"
+                }
+            },
             "facebook-page":{
                 "facebook_not_activated": "Facebook 平台未开通",
                 "facebook_token_expired": "权杖过期或失效，请重新绑定你的粉丝专页"
