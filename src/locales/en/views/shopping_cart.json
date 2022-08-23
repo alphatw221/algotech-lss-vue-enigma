@@ -65,7 +65,7 @@
         "free_delivery":"Order is eligible for free delivery",
         "add_item":"Add more items",
         "next":"Next",
-        "promo_discount": "Discount from Promo Code",
+        "promo_discount": "Promo Code Discount",
         "enter_promo":"Enter Promo Code",
         "promo_apply":"Discount Code  %{code} is Applyed"
     },

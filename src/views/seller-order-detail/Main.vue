@@ -88,9 +88,10 @@
                             {{ store.orderDetail.payment_method == 'Direct Payment' ? `${$t('order_detail.payment.Direct Payment')} - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</span>
                     </template>
 
-                    <template v-if="store.orderDetail.meta.last_five_digit">
+                    <template v-if="store.orderDetail">
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.last_five_digits')}}</span>
-                        <span class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</span>
+                        <span v-if="store.orderDetail.meta.last_five_digit"  class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</span>
+                        <div v-else class="col-start-3 col-span-3 py-2">{{$t('order_detail.payment.no_record')}} </div>
                     </template>
 
                     <template v-if="store.orderDetail.meta.receipt_image">

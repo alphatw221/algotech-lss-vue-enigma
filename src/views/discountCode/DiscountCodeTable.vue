@@ -106,7 +106,9 @@ const tableColumns = [
     { name: "end_at", key: "end_at" , type:"datetime"},
     { name: "type", key: "type" , type:"textI18"},
 	// { name: "limitations", key: "limitations" , type:"array"},
+	{ name: "description", key: "description" , type:"text"},
 	{ name: "edit", key: "edit" , type:"action"},
+	
 ]
 
 const layoutStore = useLSSSellerLayoutStore();

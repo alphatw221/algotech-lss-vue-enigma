@@ -60,14 +60,16 @@
                         </template>
                         <template v-if="store.order.payment_method">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.payment.last_five_digits')}}</div>
-                            <div class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
+                            <div v-if="store.order.meta.last_five_digit" class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
+                            <div v-else class="col-start-3 col-span-3 py-3">{{$t('order_detail.payment.no_record')}} </div>
                             <div class="w-20 h-20 image-fit zoom-in absolute top-[110px] right-8">
                                 <Tippy
+                                v-if="store.order.meta.receipt_image"
                                     tag="img"
                                     data-action="zoom"
                                     content="receipt image"
                                     class="rounded-lg"
-                                    :src="store.order.meta.receipt_image||storageUrl+'no_image.jpeg'"
+                                    :src="store.order.meta.receipt_image"
                                 />
                             </div>
                         </template>
@@ -139,6 +141,14 @@
                         <div v-if="store.order.campaign">
                             {{store.order.campaign.currency}}
                             {{ Math.floor(store.order.adjust_price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                        </div>
+                    </div>
+                    <div class="flex col-start-1 col-span-3 p-2 py-1">
+                        <div class="mr-auto">{{ $t('shopping_cart.order_summary.promo_discount')}} {{store.order.adjust_title ?? ''}}</div>
+                        <div v-if="store.order.campaign">
+                            {{store.order.campaign.currency}}
+                            -{{ Math.floor(store.order.discount * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
                             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                         </div>
                     </div>

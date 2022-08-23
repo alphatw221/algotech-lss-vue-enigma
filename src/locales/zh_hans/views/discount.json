@@ -12,7 +12,8 @@
         "percent_off":"打折(%)",
         "deduct":"減价(-)",
         "noCode":"无设定优惠代码",
-        "setupFirst":"点击 (+ 创建) 以设定新代码" 
+        "setupFirst":"点击 (+ 创建) 以设定新代码",
+        "description" : "註解"
     },
     "modal":{
         "create":"创建优惠代码",

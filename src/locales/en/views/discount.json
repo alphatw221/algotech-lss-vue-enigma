@@ -12,7 +12,8 @@
         "percent_off":"Percentage",
         "deduct":"Deduction",
         "noCode":"No Discount Code",
-        "setupFirst":"Set up one by click ( + create )" 
+        "setupFirst":"Set up one by click ( + create )",
+        "description":"Description"
     },
     "modal":{
         "create":"Create Discount Code",

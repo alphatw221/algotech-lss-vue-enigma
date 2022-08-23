@@ -12,7 +12,8 @@
         "percent_off":"打折(%)",
         "deduct":"減價(-)",
         "noCode":"無設定優惠代碼",
-        "setupFirst":"點選 (+ 創建) 以設定新代碼" 
+        "setupFirst":"點選 (+ 創建) 以創建新代碼",
+        "description" : "註解"
     },
     "modal":{
         "create":"創建優惠代碼",

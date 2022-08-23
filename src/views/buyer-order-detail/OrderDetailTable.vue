@@ -14,21 +14,13 @@
 			<tbody>
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
         <td class="imgtd">
-					<div class="w-full flex" v-if="product.image">
-					<img
-						tag="img"
-						data-action="zoom"
-						class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0 "
-						:src="storageUrl+product.image"
-					/>
-					</div>
-					<div class="w-full flex" v-else>
-					<img
-						tag="img"
-						data-action="zoom"
-						class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0"
-						:src="storageUrl+`no_image.jpeg`"
-					/>
+					<div class="w-full flex">
+						<img
+							tag="img"
+							data-action="zoom"
+							class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0 "
+							:src="storageUrl+product.image || storageUrl+`no_image.jpeg`"
+						/>
 					</div>
 				</td>
 				<td class="text-left w-fit">{{ product.name }}  </td>

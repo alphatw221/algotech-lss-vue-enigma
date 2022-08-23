@@ -162,8 +162,6 @@ const goDraw = (lucky_draw_id) => {
         }, spin_time)
     })
 
-    
-
 }
 
 </script>

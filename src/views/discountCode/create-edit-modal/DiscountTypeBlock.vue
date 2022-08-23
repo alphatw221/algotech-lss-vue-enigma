@@ -21,7 +21,12 @@
             >
                 <template v-if="field.type === 'input'">
                     <label class="mt-2 text-base">{{$t(`discount.modal.`+ field.name)}}</label>
-                    <input :type="field.dataType" v-model="props.discountCode.meta[field.key]" class="rounded-lg">
+                    <div class="flex"> 
+                        <div v-if="field.name == 'Deduct Amount'" class="flex w-[60px] z-10 text-slate-500 my-auto h-[35px] sm:h-[42px] rounded-l-lg border p-1"> <font-awesome-icon icon="fa-solid fa-minus" class="w-full h-full" /> </div>
+                        <input :type="field.dataType" v-model="props.discountCode.meta[field.key]" class="w-full" :class="{ 'rounded-r-lg rounded-l-none': field.name == 'Deduct Amount', 'rounded-l-lg rounded-r-none': field.name == 'Discount Rate'}" />
+                        <div v-if="field.name == 'Discount Rate'" class="flex w-[80px] z-10 text-slate-500 my-auto h-[35px] sm:h-[42px] rounded-r-lg border p-1"> <PercentIcon class="my-auto"/> <span class="text-[21px] ml-1 my-auto"> off </span>  
+                        </div>
+                    </div>
                 </template>
             </div>
         </template>
@@ -47,8 +52,8 @@ onMounted(()=>{
 
 })
 
-const testing = ()=>{
-    console.log(props.discountCode)
-    console.log(mod.value)
-}
+// const testing = ()=>{
+//     console.log(props.discountCode)
+//     console.log(props.discountCode.meta[field.key])
+// }
 </script>

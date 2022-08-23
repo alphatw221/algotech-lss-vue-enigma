@@ -20,7 +20,22 @@
                     "user_not_found": "Cannot find this user"
                 }
             },
-            "user-subscription":{},
+            "user-subscription":{
+                "stripe":{
+                "card_error":"Credit card declined",
+                "rate_limit_error":"Exceeded API request rate limit",
+                "invalid_request_error":{
+                    "invalid_parameters":"Invalid parameters",
+                    "invalid_integer":"Stripe only accepts values ​​greater than or equal to 1, please contact our customer service"
+                },
+                "authentication_error":"Authentication failed",
+                "api_connection_error":"A network error occurred",
+                "stripe_error":"Stripe error",
+                "no_related_error":"No related payment",
+                "support_for_refunding": "The information is invalid, please contact the seller to request a refund",
+                "payment_error": "Payment error, please contact seller",
+                }
+            },
             "facebook-page":{
                 "facebook_not_activated": "Facebook platform is not activated",
                 "facebook_token_expired": "Token expired or invalid. Please re-bind your page."

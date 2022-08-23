@@ -19,7 +19,22 @@
                     "user_not_found": "Không thể tìm thấy người dùng này"
                 }
             },
-            "user-subscription":{},
+            "user-subscription":{
+                "stripe":{
+                    "card_error":"Thẻ tín dụng lỗi",
+                    "rate_limit_error":"Đã vượt quá giới hạn tỷ lệ yêu cầu API",
+                    "invalid_request_error":{
+                        "invalid_parameters":"thông số không hợp lệ",
+                        "invalid_integer":"Stripe chỉ chấp nhận các giá trị lớn hơn hoặc bằng 1, vui lòng liên hệ với dịch vụ khách hàng của chúng tôi"
+                    },
+                    "authentication_error":"Quá trình xác thực đã thất bại",
+                    "api_connection_error":"Đã xảy ra lỗi mạng",
+                    "stripe_error":"Stripe error",
+                    "no_related_error":"Không có khoản thanh toán liên quan",
+                    "support_for_refunding": "Thông tin không hợp lệ, vui lòng liên hệ với người bán để yêu cầu hoàn lại tiền",
+                    "payment_error": "Lỗi thanh toán, vui lòng liên hệ với người bán"
+                }
+            },
             "facebook-page":{
                 "facebook_not_activated": "Nền tảng Facebook chưa được kích hoạt",
                 "facebook_token_expired": "Mã thông báo hết hạn hoặc không hợp lệ. Vui lòng liên kết lại trang Facebook của bạn."
