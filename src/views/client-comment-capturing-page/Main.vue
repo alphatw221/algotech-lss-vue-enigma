@@ -7,6 +7,7 @@
         <div>{{campaign.twitch_campaign}}</div>
 
         <TiktokCommentCapturer :campaign="campaign"/>
+        <TwitchCommentCapturer :campaign="campaign"/>
     </div>
 </template>
 
@@ -26,6 +27,7 @@ const campaign = ref({})
 onMounted(()=>{
     retrieve_campaign(route.params.campaign_id).then(res=>{
 		campaign.value = res.data
+        console.log(res.data)
         ready.value = true
 	})
 })
