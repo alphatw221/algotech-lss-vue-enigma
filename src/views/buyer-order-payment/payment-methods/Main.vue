@@ -36,6 +36,7 @@ watch(computed(()=>store.order),()=>{
 
     meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => paymentKeySet.add(key) ) } )
     console.log(paymentKeySet)
+    // if (meta_payment['ecpay'] && meta_payment['ecpay'].invoice_enabled) paymentMetaStore['ecpay'].invoice = true
     paymentKeySet.forEach(key => {
         if (meta_payment[key] && meta_payment[key].enabled) payments.value.push(paymentMetaStore[key])
     });

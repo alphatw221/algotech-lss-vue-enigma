@@ -38,7 +38,9 @@
             "pre_order":{
                 "refresh_try_again": "Hãy làm mới trang và thử lại",
                 "invalid_user": "Người dùng không hợp lệ",
-                "request_data_error": "Yêu cầu dữ liệu lỗi"
+                "request_data_error": "Yêu cầu dữ liệu lỗi",
+                "invalid_discount_code":"Invalid Discount Code",
+                "discount_code is required":"Discount Code is Required"
                 
             },
             "order-product":{
@@ -157,6 +159,6 @@
         "no_auto_reply_found": "Không thể tìm thấy cài đặt trả lời tự động",
         "signature_error": "Lỗi chữ ký",
         "lucky_draw_not_found": "Không thể tìm thấy cài đặt rút thăm may mắn",
-        "quiz_game_not_found": "Không thể tìm thấy cài đặt trò chơi đố vui",
+        "quiz_game_not_found": "Không thể tìm thấy cài đặt trò chơi đố vui"
     }
 }

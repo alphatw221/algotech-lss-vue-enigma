@@ -9,8 +9,8 @@
         "settings":"設定",
         "campaign_default_setting":"銷售活動預設",
         "localization":"本地化",
-        "connect_platform":"社交平台"
-
+        "connect_platform":"社交平台",
+        "discount_code":"優惠代碼"
     },
     "bread_crumb":{
         "stock":"庫存商品",
@@ -34,7 +34,8 @@
         "edit-product":"編輯活動商品",
         "profile":"個人檔案",
         "change-plan":"更改方案",
-        "quiz-game":"問答遊戲"
+        "quiz-game":"問答遊戲",
+        "discount-code":"優惠代碼"
     },
     "top_bar":{
         "profile":"個人檔案",

@@ -26,8 +26,9 @@ import { useRoute, useRouter } from "vue-router";
 import { check_facebook_page_token_valid } from "@/api_v2/facebook"
 import { check_instagram_profile_token_valid } from "@/api_v2/instagram"
 import { check_youtube_channel_token_valid } from "@/api_v2/youtube"
+import { check_twitch_channel_token_valid } from "@/api_v2/twitch"
 import { update_platform_live_id } from "@/api_v2/campaign"
-import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
+import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels, get_user_subscription_twitch_channels } from "@/api/user_subscription"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 const router = useRouter();
@@ -47,6 +48,8 @@ onMounted(()=>{
         apiRequest = get_user_subscription_youtube_channels
       }else if(payload.platform=='instagram'){
         apiRequest = get_user_subscription_instagram_profiles
+      } else if(payload.platform=='twitch'){
+        apiRequest = get_user_subscription_twitch_channels
       }
       apiRequest().then((res)=>{
         show.value = true
@@ -69,6 +72,8 @@ const selectPage = index => {
     apiRequest = check_youtube_channel_token_valid
   }else if(payloadBuffer.value.platform=='instagram'){
     apiRequest = check_instagram_profile_token_valid
+  } else if (payloadBuffer.value.platform=='twitch') {
+    apiRequest = check_twitch_channel_token_valid
   }
   apiRequest(pages.value[index].id).then(res=>{
     payloadBuffer.value.page = res.data

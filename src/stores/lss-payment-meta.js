@@ -122,9 +122,11 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			{key:"merchant_id", type:"text", name:"Merchant ID", dataType:"string", default:''},
 			{key:"hash_key", type:"text", name:"HashKey", dataType:"string", default:''},
 			{key:"hash_iv", type:"text", name:"HashIV", dataType:"string", default:''},
+			{key:"invoice_enable", type:"checkbox", name:"啟用發票", dataType:"boolean", default:false},
 			{key:"invoice_hash_key", type:"text", name:"發票 HashKey", dataType:"string", default:''},
 			{key:"invoice_hash_iv", type:"text", name:"發票 HashIV", dataType:"string", default:''}
 		],
+		// invoice:false,
 		handle:{
 			type:'submitForm',
 			endpoint:'getEcpayCredential',

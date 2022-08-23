@@ -207,7 +207,7 @@ onMounted(() => {
         generalInfo.value = response.data
         generalInfo.value.decimal_places = response.data.decimal_places.toString()  //temp   TomSelect only work with string value
 
-        console.log(generalInfo.value)
+        // console.log(generalInfo.value)
     })
     
 })

@@ -74,6 +74,10 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
             pageName: "campaign-global-setting",
             title: "campaign_default_setting",
           },
+          {
+            pageName: "discount-code",
+            title: "discount_code",
+          },
           // {
           //   pageName: "localization",
           //   title: "localization",

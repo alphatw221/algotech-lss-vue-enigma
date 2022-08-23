@@ -9,14 +9,6 @@
             />
             <label class="ml-3 form-label">{{ $t('settings.payment_form.enabled') }}</label>
         </div>
-        <div class="flex mt-5 lg:mb-5 lg:mt-0" v-if="props.payment.key == 'ecpay' ">
-            <input 
-                class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
-                type="checkbox" 
-                v-model="paymentData.invoice_enabled"
-            />
-            <label class="ml-3 form-label">{{ $t('settings.payment_form.invoice_enabled') }}</label>
-        </div>
 
         <div class="my-5 lg:my-0 p-5 rounded-md border-2 border-slate">
             <div v-if="props.payment.fields==''"> 
@@ -34,6 +26,16 @@
                         type="text" 
                         v-model="paymentData[field.key]"
                     />
+                </template>
+                <template v-if="field.type === 'checkbox'">
+                <div class="flex mt-5 lg:mb-5 lg:mt-0">
+                    <input 
+                        class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                        type="checkbox" 
+                        v-model="paymentData.invoice_enabled"
+                    />
+                    <label class="ml-3 form-label">{{ $t('settings.payment_form.invoice_enabled') }}</label>
+                </div>
                 </template>
                 <template v-else-if="field.type === 'select'">
                     <label class="mt-5 lg:mt-0">{{ $t(`settings.payment_form.${props.payment.key}.${field.key}`)  }}</label>
@@ -94,7 +96,7 @@ onMounted(() => {
 
 const updatePayment = () => {
     seller_update_payment(props.payment.key,paymentData.value).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         sellerStore.userInfo = res.data
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })

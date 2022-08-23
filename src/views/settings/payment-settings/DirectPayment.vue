@@ -181,7 +181,7 @@ const v = useVuelidate(paymentDataRules, paymentData)
 
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
-    console.log(sellerStore.userInfo.user_subscription.meta_payment)
+    // console.log(sellerStore.userInfo.user_subscription.meta_payment)
 
     if(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]){
         Object.assign(paymentData,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key])))
@@ -251,7 +251,7 @@ const updateDirectPayment = () => {
 		const key = paymentData.v2_accounts[index].name+'_'+index   
 		formData.append(key,image)
 	});
-    console.log(directPaymentImages)
+    // console.log(directPaymentImages)
     seller_update_payment(props.payment.key,formData).then(res=>{
         sellerStore.userInfo = res.data
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))

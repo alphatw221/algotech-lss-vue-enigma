@@ -39,8 +39,9 @@
             "pre_order":{
                 "refresh_try_again": "Please refresh the page and try again",
                 "invalid_user": "Invalid User",
-                "request_data_error": "Request data error"
-               
+                "request_data_error": "Request data error",
+                "invalid_discount_code":"Invalid Discount Code",
+                "discount_code is required":"Discount Code is Required"
             },
             "order-product":{},
             "order":{

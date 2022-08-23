@@ -91,6 +91,8 @@
         "live_chat_id":"聊天室ID",
         "select_live_chat":"選擇頻道",
 
+        "twitch": "Twitch",
+
         "cancel":"取消",
         "save":"儲存",
         "your_current_lives": "你目前正在進行的銷售活動",

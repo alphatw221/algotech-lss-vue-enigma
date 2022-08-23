@@ -39,7 +39,9 @@
             "pre_order":{
                 "refresh_try_again": "请重新整理页面后再试一次",
                 "invalid_user": "无效的用户",
-                "request_data_error": "请求资料错误"
+                "request_data_error": "请求资料错误",
+                "invalid_discount_code":"无效的折扣代码",
+                "discount_code is required":"请填写折扣代码"
                
             },
             "order-product":{},
