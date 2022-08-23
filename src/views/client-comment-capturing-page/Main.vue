@@ -16,6 +16,7 @@ import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign } from '@/api_v2/campaign';
 
 import TiktokCommentCapturer from "./TiktokCommentCapturer.vue"
+import TwitchCommentCapturer from './TwitchCommentCapturer.vue'
 const router = useRouter()
 const route = useRoute()
 
