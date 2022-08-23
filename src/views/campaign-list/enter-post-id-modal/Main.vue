@@ -241,8 +241,9 @@ const enterLive = ()=>{
   let facebook_valid = (campaign.value.facebook_campaign.post_id != '' && !validate.value["facebook"]["post_id"]["error"]) || (campaign.value.facebook_campaign.post_id == '')
   let instagram_valid = campaign.value.instagram_campaign.live_media_id != '' && !validate.value["instagram"]["post_id"]["error"] || (campaign.value.instagram_campaign.live_media_id == '')
   let youtube_valid = campaign.value.youtube_campaign.live_video_id != '' && !validate.value["youtube"]["post_id"]["error"] || (campaign.value.youtube_campaign.live_video_id == '')
+  let twitch_valid = campaign.value.twitch_campaign.channel_name != '' && !validate.value["youtube"]["post_id"]["error"] || ([undefined, '', null].includes(campaign.value.twitch_campaign.channel_name))
   
-  if (facebook_valid && instagram_valid && youtube_valid) {
+  if (facebook_valid && instagram_valid && youtube_valid && twitch_valid) {
     router.push({name:'campaign-live',params:{'campaign_id':campaign.value.id}})
     hideModal()
   } else {
