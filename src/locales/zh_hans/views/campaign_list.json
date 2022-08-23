@@ -89,6 +89,8 @@
         "live_chat_id":"聊天室 ID",
         "select_live_chat":"选择直播视频",
 
+        "twitch": "Twitch",
+
         "cancel":"取消",
         "save":"储存",
         "your_current_lives": "你目前正在进行的直播",

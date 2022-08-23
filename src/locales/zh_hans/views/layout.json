@@ -9,7 +9,8 @@
         "settings":"设定",
         "campaign_default_setting":"销售活动预设",
         "localization":"在地化",
-        "connect_platform":"社交平台"
+        "connect_platform":"社交平台",
+        "discount_code":"折扣代码"
 
     },
     "bread_crumb":{
@@ -34,7 +35,8 @@
         "edit-product":"编辑活动商品",
         "profile":"个人档案",
         "change-plan":"更改方案",
-        "quiz-game":"问答游戏"
+        "quiz-game":"问答游戏",
+        "discount-code":"折扣代码"
     },
     "top_bar":{
         "profile":"个人档案",

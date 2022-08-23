@@ -50,9 +50,6 @@ import dom from "@left4code/tw-starter/dist/js/dom";
 const layout = useLSSSellerLayoutStore();
 const editModal = ref(false);
 
-onMounted(() => {
-    console.log(layout.userInfo)
-});
 
 const userAvatar = computed(() => {
     if (layout.loginWith == 'facebook') {

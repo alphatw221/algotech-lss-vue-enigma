@@ -8,8 +8,9 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			subtotal:0,
 			adjust_title:'',
 			adjust_price:0,
+			applied_discount:0,
 			shipping_cost:0,
-			total:0
+			total:0,
 		}),
 		orderDetail: ref({}),
 		contact_info: ref({

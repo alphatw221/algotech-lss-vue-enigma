@@ -70,9 +70,6 @@ const layout = useLSSSellerLayoutStore();
 const editModal = ref(false);
 const route = useRoute();
 const router = useRouter();
-onMounted(() => {
-    console.log(layout.userInfo)
-});
 
 const plan = ref(layout.userInfo.user_subscription.type)
 const userAvatar = computed(() => {

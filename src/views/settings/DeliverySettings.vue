@@ -353,7 +353,7 @@ const discardDelivery = () =>{
     // return
     if(!layoutStore.userInfo.user_subscription) return
 
-    console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+    // console.log(layoutStore.userInfo.user_subscription.meta_logistic)
     // deliverySettings = JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic))
     Object.assign(deliverySettings,JSON.parse(JSON.stringify(layoutStore.userInfo.user_subscription.meta_logistic)))
 

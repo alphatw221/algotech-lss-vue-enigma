@@ -86,6 +86,8 @@
         "live_chat_id":"Live Chat ID",
         "select_live_chat":"Select Channel",
 
+        "twitch": "Twitch",
+
         "cancel":"Cancel",
         "save":"Save",
         "your_current_lives": "Your current lives",

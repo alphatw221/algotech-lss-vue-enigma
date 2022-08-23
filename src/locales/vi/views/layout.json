@@ -9,8 +9,8 @@
         "settings":"Cài đặt",
         "campaign_default_setting":"Cài đặt chiến dịch mặc định",
         "localization":"Ngôn ngữ bản địa hóa",
-        "connect_platform":"Kết nối nền tảng"
-
+        "connect_platform":"Kết nối nền tảng",
+        "discount_code":"Discount Code"
     },
     "bread_crumb":{
         "stock":"Kho hàng",
@@ -34,7 +34,8 @@
         "edit-product":"Chỉnh sửa sản phẩm",
         "profile":"Hồ Sơ",
         "change-plan":"Thay đổi gói dịch vụ",
-        "quiz-game":"Trò chơi giải đố"
+        "quiz-game":"Trò chơi giải đố",
+        "discount-code":"Discount Code"
     },
     "top_bar":{
         "profile":"Hồ Sơ",

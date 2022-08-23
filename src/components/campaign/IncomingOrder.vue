@@ -55,7 +55,10 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>{{ pre_order.customer_name }}</td>
+                            <td>
+                                <template v-if="pre_order.customer_name != ''"> {{ pre_order.customer_name }} </template>
+                                <template v-else> Guest </template>  
+                            </td>
                             <td v-if="store.campaign">
                                 {{ store.campaign.currency }}
                                 {{ Math.floor(pre_order.subtotal * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places}}

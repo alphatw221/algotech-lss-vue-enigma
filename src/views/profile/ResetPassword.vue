@@ -141,7 +141,6 @@ const submitPassword = () => {
 
 const toggle=(v)=>{
     v = !v
-    console.log(v.value)
 }
 
 </script>
