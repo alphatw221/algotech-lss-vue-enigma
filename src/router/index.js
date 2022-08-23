@@ -209,6 +209,11 @@ const routes = [
         name: "sellerOrder",
         component: () => import('@/views/seller-order-detail/Main.vue'),
       },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/comments-capturer",
+        name: "commentCapturer",
+        component: () => import('@/views/client-comment-capturing-page/Main.vue')
+      },
       
       
       
