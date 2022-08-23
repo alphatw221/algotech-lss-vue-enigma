@@ -23,7 +23,7 @@
 				<img alt="" class="rounded-md" :src="storageUrl+`no_image.jpeg`" />
 			</div>
 			<div class="ml-4 mr-auto w-[50%]">
-				<div class="font-medium text-cyan-900 whitespace-normal break-normal">{{product.name}}</div>
+				<div class="font-medium text-primary whitespace-normal break-normal">{{product.name}}</div>
 				<div class="text-slate-500 mr-5 sm:mr-5">
 				{{$t('shopping_cart.table.qty')}} : {{product.qty}}
 				</div>

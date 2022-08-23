@@ -11,7 +11,7 @@
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
-    <Notification refKey="sellerMessageAlert" :options="{duration: 3000,}" class="flex text-red-600 sm:flex-row">
+    <Notification refKey="sellerMessageAlert" :options="{duration: 5000,}" class="flex text-red-600 sm:flex-row">
       <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
       <div id="message" class="font-medium">Message</div>
     </Notification>
@@ -121,6 +121,7 @@ const initWebSocketConnection =()=> {
         campaign_id.value = data.data.message.id
         checkCampaignTime(data.data.message)
       }
+      setTimeout(() => {}, 2000);
   };
   websocket.onopen = e => {
       console.log('connected')

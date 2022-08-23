@@ -9,8 +9,8 @@
         "settings":"Settings",
         "campaign_default_setting":"Campaign Default Setting",
         "localization":"Localization",
-        "connect_platform":"Connect Platform"
-
+        "connect_platform":"Connect Platform",
+        "discount_code":"Discount Code"
     },
     "bread_crumb":{
         "stock":"Stock",
@@ -34,7 +34,8 @@
         "edit-product":"Edit Product",
         "profile":"Profile",
         "change-plan":"Change Plan",
-        "quiz-game":"Quiz Game"
+        "quiz-game":"Quiz Game",
+        "discount-code":"Discount Code"
     },
     "top_bar":{
         "profile":"Profile",

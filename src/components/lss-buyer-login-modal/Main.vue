@@ -26,7 +26,7 @@
         <div class=" w-full flex flex-col items-center text-center
           lg:mt-20 lg:w-1/2 lg:px-2 lg:border-none h-[200px]">
           <h1 class=" mx-5"> Social Login</h1>
-          <div class="flex flex-col items-center mt-10" v-if="!showReminder">
+          <div class="flex flex-col items-center mt-10 gap-2" v-if="!showReminder">
               <FacebookLoginButton block role='buyer'/>
               <GoogleLoginButton block role='buyer'/>
           </div>

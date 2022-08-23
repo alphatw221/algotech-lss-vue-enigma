@@ -1,0 +1,46 @@
+{   
+    "create_discount_code":"創建新優惠代碼",
+    "discount_code":"優惠代碼",
+    "table":{
+        "name":"折扣名稱",
+        "code":"優惠代碼", 
+        "start_at":"開始日期", 
+        "end_at":"截止日期", 
+        "type":"折扣種類", 
+        "edit":"編輯", 
+        "del":"刪除",
+        "percent_off":"打折(%)",
+        "deduct":"減價(-)",
+        "noCode":"無設定優惠代碼",
+        "setupFirst":"點選 (+ 創建) 以創建新代碼",
+        "description" : "註解"
+    },
+    "modal":{
+        "create":"創建優惠代碼",
+        "edit":"編輯優惠代碼",
+        "name":"折扣名稱",
+        "code":"優惠代碼",
+        "period":"活動期限",
+        "type":"折扣種類",
+        "limitations":"使用限制",
+        "description":"描述",
+        "name-required":"須填寫名稱",
+        "code-required":"須填寫代碼",
+        "type-required":"須選擇種類", 
+        "add_limitations":"新增限制",
+        "delete_limitation":"取消限制",
+        "Deduct Amount":"折抵金額",
+        "Discount Rate":"打折幅度",
+        "required":"必填",
+        "type_options":{
+            "percent_off":"打折(%)",
+            "deduct":"減價(-)"
+        },
+        "limit_options":{
+            "subtotal_over_specific_amount":"所選商品總價超過特定價錢",
+            "product_over_specific_number":"購物車商品超過特定數量"
+        },
+        "Order Subtotal":"商品總價(折扣前)",
+        "Product Number":"商品數量"
+    }
+}

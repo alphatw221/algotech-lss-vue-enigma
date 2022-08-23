@@ -79,6 +79,13 @@
                       <img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
                   </div>
               </div>
+              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.twitch_channel !== null">
+                <Tippy tag="img" class="rounded-full" :src="campaign.twitch_channel.image"
+                  :content="campaign.twitch_channel.name" />
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#f70000]" :src="twitch_platform" >
+                  </div>
+              </div>
             </div>
           </td>
           <td class="text-left title w-fit">
@@ -216,6 +223,7 @@ import { get_user_subscription_facebook_pages, get_user_subscription_instagram_p
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
+import twitch_platform from "/src/assets/images/lss-img/twitch.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n"

@@ -81,10 +81,10 @@
                             </div>
                         </div>
                         <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">{{store.orderProductData.adjust_title ?? $t('manage_order.product_modal.discount')}}</div>
+                            <div class="mr-auto font-bold">{{$t('manage_order.product_modal.discount')}}</div>
                             <div class="lg:mr-0" v-if="store.orderProductData.campaign">
                                 {{store.orderProductData.campaign.currency}} 
-                                {{ Math.floor(parseFloat(store.orderProductData.adjust_price) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
+                                {{ Math.floor((parseFloat(store.orderProductData.adjust_price) - parseFloat(store.orderProductData.discount)) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}
                                 {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </div>
                         </div>

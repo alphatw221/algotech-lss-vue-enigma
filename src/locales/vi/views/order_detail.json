@@ -57,7 +57,8 @@
         "method" : "Phương thức thanh toán",
         "information": "Thông tin thanh toán",
         "record" : "Hóa đơn thanh toán",
-        "last_five_digits":"5 số cuối thẻ"
+        "last_five_digits":"5 số cuối thẻ",
+        "no_record":"Payment record has not been attached"
     },
     "remark" : "Nhận xét",
     "save_remarks" : "Lưu nhận xét",

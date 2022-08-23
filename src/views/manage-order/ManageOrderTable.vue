@@ -57,10 +57,15 @@
                                             <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
                                         </div>
                                     </div>
-                                </div> 
-                                <div v-else class="w-fit h-fit image-fit">
+                                </div>
+                                <div v-else-if="!order[column.key] && !order.customer_img" class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
                                         <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                    </div>
+                                </div>
+                                <div v-else class="w-fit h-fit image-fit">
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
+                                        <img class="rounded-full" :src="order.customer_img"/>
                                     </div>
                                 </div>
                             </div>
