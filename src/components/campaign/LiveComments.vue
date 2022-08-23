@@ -232,6 +232,8 @@ import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
 import CommentListView from './CommentListView.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
+
+
 const router = useRouter();
 const route = useRoute()
 
@@ -300,6 +302,7 @@ onMounted(()=>{
         // console.log(platformData)
         ready.value=true
     })
+
 })
 
 
