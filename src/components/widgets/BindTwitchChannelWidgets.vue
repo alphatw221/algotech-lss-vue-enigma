@@ -32,7 +32,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const showConnectButton = ref(false)
 const showPages = ref(false)
 const twitchChannels = ref([])
-const fetchingData = ref(false)
+const channelName = ref('')
 
 
 onMounted(() => {

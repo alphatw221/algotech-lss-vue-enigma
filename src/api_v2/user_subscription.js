@@ -30,6 +30,10 @@ export const bind_platform_instances = (platform_name, data) => {
     return createAxiosWithBearer().put(`/api/v2/user-subscription/platform/${platform_name}/bind/`,data)
 }
 
+export const bind_twitch_platform_instances = (platform_name, channel_name, data) => {
+    return createAxiosWithBearer().put(`/api/v2/user-subscription/platform/${platform_name}/bind/?channel_name=${channel_name}`, data)
+}
+
 export const get_platform_instances = (platform_name) => {
     return createAxiosWithBearer().get(`/api/v2/user-subscription/platform/${platform_name}/`)
 }
