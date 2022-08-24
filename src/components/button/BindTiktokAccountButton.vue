@@ -27,7 +27,7 @@ const router = useRouter()
 onMounted(() => {
     let this_url = location.href
     if (this_url.includes('state=tiktok')) {
-        important_substring = this_url.split("&")[0]
+        let important_substring = this_url.split("&")[0]
         let code = important_substring.substring(important_substring.indexOf("auth_code=") + 10)
         eventBus.emit(props.busName, {"authCode": code})
         router.push({name: 'platform'})
