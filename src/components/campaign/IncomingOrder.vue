@@ -106,6 +106,7 @@ const incoming_order_columns= [
 ]
 
 onMounted(()=>{
+    store.incomingOrdersDict = {}
     list_campaign_pre_order(route.params.campaign_id).then(res => {
         res.data.forEach(pre_order => {
             store.incomingOrdersDict[pre_order.id]=pre_order
