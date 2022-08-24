@@ -42,9 +42,28 @@
             <BindTwitchChannelWidgets/>
         </div>
 
-
-
+        <div>
+            <Modal :show="showModal" @hidden="hide()" backdrop="static">
+                <ModalBody class="p-10 text-center">
+                    <div class="mt-1">
+                        <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{ $t('settings.platform.twitch_channel') }}</label>
+                        <input 
+                            id="regular-form-2" 
+                            type="text" 
+                            class="mt-3 form-control"
+                            :placeholder="$t('settings.platform.twitch_channel_placeholder')" 
+                            v-model="channelName" 
+                            required
+                        />
+                    </div>
+                    <div class="flex justify-center">
+                        <button class="w-32 shadow-md btn btn-primary mt-7" @click="bind_twitch()">{{ $t('settings.platform.connect') }}</button>
+                    </div>
+                </ModalBody>
+            </Modal>
+        </div>
     </div>
+    
     <!-- <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
         <ModalBody class="text-center text-lg flex flex-col p-10">
             <AlertCircleIcon class="h-20 w-20 text-danger mx-auto"/>
@@ -69,6 +88,7 @@ import BindFacebookPageWidgets from "@/components/widgets/BindFacebookPageWidget
 import BindInstagramProfileWidgets from "@/components/widgets/BindInstagramProfileWidgets.vue"
 import BindYoutubeChannelWidgets from "@/components/widgets/BindYoutubeChannelWidgets.vue"
 import BindTwitchChannelWidgets from "@/components/widgets/BindTwitchChannelWidgets.vue"
+import { bind_twitch_platform_instances } from '@/api_v2/user_subscription';
 import { useRoute, useRouter } from "vue-router";
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -77,6 +97,9 @@ const router = useRouter();
 const layoutStore = useLSSSellerLayoutStore();
 const subscriptionPlan = ref(null)
 const activatedPlatformNumber = ref(0)
+const showModal = ref(false)
+const this_url = ref(location.href)
+const channelName = ref('')
 
 // const platform_components = ref({
 //     "facebook": BindFacebookPageWidgets,
@@ -86,9 +109,12 @@ const activatedPlatformNumber = ref(0)
 
 
 onMounted(() => {
-    
     let subscription_plan = layoutStore.userInfo.user_subscription.type
     subscriptionPlan.value = subscription_plan.charAt(0).toUpperCase() + subscription_plan.slice(1);
+
+    if (this_url.value.includes('code=') && this_url.value.includes('scope=')) {
+        showModal.value = true
+    }
 });
 
 const plural = (number) => {
@@ -114,6 +140,21 @@ const Capitalize = (word) => {
     return new_word
 }
 
+const bind_twitch = () => {
+    let code = this_url.value.substring( this_url.value.indexOf("code=") + 5, this_url.value.lastIndexOf("&") )
 
+    bind_twitch_platform_instances('twitch', channelName.value, {'code': code}).then(response => {
+        if (!response.data.length) {
+            return false
+        }
+        hide()
+        eventBus.emit('getTwitchChannel')
+        router.push({name: 'platform'})
+    })
+}
+
+const hide = () => {
+    showModal.value = false
+}
 
 </script>

@@ -173,6 +173,8 @@
         "connect_with_instagram": "Connect with Instagram",
         "youtube_channel":"YouTube Channel",
         "twitch_channel":"Twitch Channel",
+        "twitch_channel_placeholder": "Channel name ...",
+        "connect": "Connect",
         "connect_with_youtube": "Connect with YouTube",
         "edit":"Edit",
         "cancel":"Cancel",

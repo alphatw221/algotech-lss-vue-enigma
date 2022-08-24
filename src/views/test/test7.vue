@@ -16,9 +16,9 @@ import { init_twitch_websocket, bulk_create_comment } from '@/api_v2/twitch';
 const twitchCommentList = ref([])
 
 onMounted(() => {
-    let username = 'niveachen'
-    let password = 'oauth:klrwmvvejevwbsc89s7ul41gqb1r15'
-    let channel = 'niveachen'
+    let username = 'amouranth'
+    let password = 'oauth:udfckcfmvmyyuv4djz1xclok2x8in6'
+    let channel = 'amouranth'
     
     init_twitch_websocket(username, password, channel, onMessageHandler, onConnectedHandler)
 })

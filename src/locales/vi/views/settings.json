@@ -173,6 +173,8 @@
         "connect_with_instagram": "Kết nối với Instagram",
         "youtube_channel":"Kênh Youtube",
         "twitch_channel":"Kênh Twitch",
+        "twitch_channel_placeholder": "Channel name ...",
+        "connect": "Connect",
         "connect_with_youtube": "Kết nối với Youtube",
         "edit":"Chỉnh sửa",
         "cancel":"Hủy bỏ",

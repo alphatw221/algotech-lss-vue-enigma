@@ -27,7 +27,6 @@ const campaign = ref({})
 onMounted(()=>{
     retrieve_campaign(route.params.campaign_id).then(res=>{
 		campaign.value = res.data
-        console.log(res.data)
         ready.value = true
 	})
 })
