@@ -47,7 +47,7 @@ const checkBuffer = ()=>{
 
 
 const onMessageHandler = msg=>{
-    const created_time = Math.floor(Date.now() / 1000)
+    const created_time = Date.now()
     const data = {
         id:msg.userId+'_'+created_time,  //
         platform:'tiktok',
