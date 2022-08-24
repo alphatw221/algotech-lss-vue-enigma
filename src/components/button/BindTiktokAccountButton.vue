@@ -5,7 +5,7 @@
         type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="twitch-login-btn shadow-lg" @click="bindPage">{{$t('settings.platform.connect_with_twitch')}}</Button>
+        type="button" class="tiktok-login-btn shadow-lg" @click="bindPage">{{$t('settings.platform.connect_with_tiktok')}}</Button>
     
 </template>
 
@@ -26,24 +26,19 @@ const router = useRouter()
 
 onMounted(() => {
     let this_url = location.href
-    if (this_url.includes('scope=')) {
-        let code = this_url.substring( this_url.indexOf("code=") + 5, this_url.lastIndexOf("&"))
-        
-        bind_platform_instances('twitch', {'code': code}).then(response=>{
-            if (!response.data.length) {
-                return false
-            }
-            eventBus.emit('getTwitchChannel')
-            router.push({name: 'platform'})
-        })
+    if (this_url.includes('state=tiktok')) {
+        let important_substring = this_url.split("&")[0]
+        let code = important_substring.substring(important_substring.indexOf("auth_code=") + 10)
+        eventBus.emit(props.busName, {"authCode": code})
+        router.push({name: 'platform'})
     }
 })
 
 const handleAuthClick = () => {
-    const scope = 'chat:read+chat:edit+moderator:manage:announcements+user:manage:whispers+user:read:email+moderation:read'
-    location.href = `${import.meta.env.VITE_TWITCH_OAUTH_URL}?response_type=code&client_id=${import.meta.env.VITE_TWITCH_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_APP_WEB}/seller/platform&scope=${scope}`
+    let state = 'tiktok'
+    let redirect_uri = `${import.meta.env.VITE_APP_WEB}/seller/platform`
+    location.href = `${import.meta.env.VITE_TIKTOK_OAUTH_URL}?app_id=${import.meta.env.VITE_TIKTOK_APP_ID}&state=${state}&redirect_uri=${redirect_uri}&rid=a83sicoc4k`
 }
-
 const bindPage = () => {
     handleAuthClick()
 }
@@ -53,9 +48,9 @@ const bindPage = () => {
 </script>
 
 <style scoped>
-.twitch-login-btn { 
-    border: 1px solid rgb(63, 8, 126);
-    background-color: #75349e;
+.tiktok-login-btn { 
+    border: 1px solid rgb(5, 0, 10);
+    background-color: #020003;
     padding: auto;
     max-width: 300px;
     height: 42px;
