@@ -5,7 +5,7 @@
         type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="tiktok-login-btn shadow-lg" @click="bindPage">Connect with TikTok</Button>
+        type="button" class="tiktok-login-btn shadow-lg" @click="bindPage">{{$t('settings.platform.connect_with_tiktok')}}</Button>
     
 </template>
 
