@@ -30,14 +30,71 @@ const store = useLSSSellerLayoutStore();
 const userGotPlugin = ref(false)
 const processing = ref(false)
 const EASY_STORE = 'easy_store'
+
 onMounted(()=>{if(store.userInfo.user_subscription.user_plan?.plugins?.[EASY_STORE])userGotPlugin.value = true})
 
-const exportProductFromEasyStore = ()=>{
-    export_product_from_easy_store().then(res=>{console.log(res.data);processing.value=true})
-    .catch(err=>{console.log(err.response?.data?.message)})
+let websocket = null
+
+const exportResultHandler = e=>{
+    const data = JSON.parse(e.data);
+
+    if(data.type!="result_data") return
+
+    if(data.data.resule=='complete'){
+        
+    }else{
+
+    }
+    processing.value = false
+    websocket.close(1000);
 }
 
+const exportProductFromEasyStore = ()=>{
 
+    websocket = new WebSocket(
+        `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/plugin/easy_store/product/export/?token=${accessToken}`
+    );
+    websocket.onmessage = exportResultHandler;
+
+    websocket.onopen = e => {
+        console.log('connected')
+        export_product_from_easy_store()
+        .then(res=>{processing.value=true})
+        .catch(err=>{
+            websocket.close(1000)
+        })
+
+    };
+    websocket.onclose = e => {
+        if(e.code!=1000){
+            initWebSocketConnection()
+        }
+        console.error('Chat socket closed unexpectedly');
+    };
+    websocket.onerror = function(err) {
+        console.error('Socket encountered error: ', err.message, 'Closing socket');
+        websocket.close(1000);
+    };
+}
+
+const initWebSocketConnection =()=> {
+  const websocket = new WebSocket(
+      `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/plugin/easy_store/product/export/?token=${accessToken}`
+  );
+  websocket.onmessage = exportResultHandler;
+  websocket.onopen = e => {
+      console.log('connected')
+  };
+  websocket.onclose = e => {
+    console.error('Chat socket closed unexpectedly');
+  };
+  websocket.onerror = function(err) {
+      console.error('Socket encountered error: ', err.message, 'Closing socket');
+      websocket.close(1000);
+  };
+}
+
+// ws/plugin/easy_store/product/export/
 
 
 </script>
