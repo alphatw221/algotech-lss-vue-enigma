@@ -26,7 +26,7 @@ const router = useRouter()
 
 onMounted(() => {
     let this_url = location.href
-    if (this_url.includes('code=')) {
+    if (this_url.includes('scope=')) {
         let code = this_url.substring( this_url.indexOf("code=") + 5, this_url.lastIndexOf("&"))
         
         bind_platform_instances('twitch', {'code': code}).then(response=>{
