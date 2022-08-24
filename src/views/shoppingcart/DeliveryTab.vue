@@ -401,7 +401,7 @@ const proceed_to_payment = () =>{
 
     delivery_validate.value.$touch();
     
-     if(shipping_info.value.shipping_option_index == ''){
+     if(shipping_info.value.shipping_option_index === ''){
       layoutStore.alert.showMessageToast('select shipping method')
       return
     }

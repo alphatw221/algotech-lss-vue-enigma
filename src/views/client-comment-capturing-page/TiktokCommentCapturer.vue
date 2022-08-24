@@ -6,31 +6,73 @@
 
 <script setup>
 
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
-import { create_tiktok_connector } from '@/api_v2/tiktok';
+import { computed, onMounted, ref, watch, onUnmounted, defineProps } from "vue";
+import { create_tiktok_connector, upload_tiktok_comments } from '@/api_v2/tiktok';
+
+const props = defineProps({
+    campaign: Object,
+})
 
 const tiktok_connector = ref(null)
-const username = ref('@asdfasdf')
-
 const tiktok_comments = ref([])
+
+const BUFFER_SIZE = 20
+const UPLOAD_INTERVAL = 5000
+
+const uploadIntervalId = ref(null)
+
+
+const uploadComments = ()=>{
+    const commentsLength = tiktok_comments.value.length
+    tiktok_comments.value.splice(0,commentsLength)
+    console.log('comments uploaded')
+    // const data = JSON.parse(JSON.stringify( tiktok_comments.value.slice(0,commentsLength )))
+    // upload_tiktok_comments(props.campaign_id, data).then(res=>{
+    //     tiktok_comments.value.splice(0,commentsLength)
+    // })
+
+}
+
+watch(computed(()=>tiktok_comments.value),()=>{
+    if(tiktok_comments.value.length>BUFFER_SIZE){
+        uploadComments()
+    }
+})
+
+const checkBuffer = ()=>{
+    console.log('check buffer')
+    if(tiktok_comments.value.length==0)return
+    uploadComments()
+}
 
 
 const onMessageHandler = msg=>{
-    console.log(msg.comment)
-    tiktok_comments.push({
-        id:'',
-        
-
-
-
-
-
-
-    })
+    const created_time = Date.now()
+    const data = {
+        id:msg.userId+'_'+created_time,  //
+        platform:'tiktok',
+        message:msg.comment,
+        customer_id:msg.userId, //
+        customer_name:msg.nickname,
+        image:msg.profilePictureUrl,
+        created_time:Math.floor(created_time / 1000)
+    }
+    console.log(data)
+    tiktok_comments.value.push(data)
 }
 onMounted(()=>{
-    tiktok_connector.value = create_tiktok_connector(username.value, )
+    console.log(props.campaign)
 
+    tiktok_connector.value = create_tiktok_connector("@pro_0805", onMessageHandler)
+    uploadIntervalId.value = setInterval(checkBuffer, UPLOAD_INTERVAL)
+
+    // if(props.campaign.tiktik_campaign?.username){
+    //     tiktok_connector.value = create_tiktok_connector(props.username, onMessageHandler)
+    //     uploadIntervalId.value = setInterval(checkBuffer, UPLOAD_INTERVAL)
+    // }
+    // else{
+    //     console.log('no tiktok username')
+    // }
 
     // comment: "封了"
     // followRole: 1
@@ -47,7 +89,8 @@ onMounted(()=>{
 })
 
 onUnmounted(()=>{
-    tiktok_connector.value.close()
+    if(tiktok_connector.value)tiktok_connector.value.disconnect()
+    if(uploadIntervalId.vlaue)clearInterval(uploadIntervalId.value)
 })
 
 </script>

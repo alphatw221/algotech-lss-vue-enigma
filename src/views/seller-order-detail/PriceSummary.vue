@@ -87,7 +87,7 @@
                         <div class="flex flex-row-reverse col-span-4">
                             <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">{{$t('order_detail.price_summary.update')}}</button>
                         </div> 
-                        <div class="col-start-5 col-span-8" v-if="store.modify_status==='-' &&store.orderDetail.subtotal-store.orderDetail.adjust_price < 0" style="color:red">
+                        <div class="col-start-5 col-span-8" v-if="store.modify_status==='-' &&store.orderDetail.subtotal+store.orderDetail.shipping_cost-store.orderDetail.discount-store.orderDetail.adjust_price < 0" style="color:red">
                             {{$t('order_detail.price_summary.price_exceed')}}
                         </div>
                 </div>

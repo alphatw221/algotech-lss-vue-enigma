@@ -38,12 +38,16 @@
 
       <div class="flex flex-row justify-between mt-2" >
         <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
-          <input
+          <div class="input-group"> 
+            <input
             type="text"
             class="form-control w-32 h-[35px] text-right"
             v-model="discount_code"
             @keydown.enter.prevent="promoCheck()"
-          />
+            />
+            <button class="input-group-text h-[35px]" @click="promoCheck()"> Enter</button>
+          </div>
+          
       </div>
       <span v-if="store.order.applied_discount.code != undefined" class="text-right font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :store.order.applied_discount.code})}} </span>
     
