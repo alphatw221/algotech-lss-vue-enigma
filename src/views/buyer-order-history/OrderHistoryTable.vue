@@ -103,6 +103,7 @@ const changePageSize = pageSize => {
 
 const getOrderHistoryListData = ()=>{
 	buyer_orders_history(currentPage.value, pageSize.value).then(response => {
+    console.log(response.data)
 		dataCount.value = response.data.count;
 		const total_page = parseInt(dataCount.value / pageSize.value);
 		totalPage.value = total_page == 0 ? 1 : total_page;
