@@ -1,18 +1,17 @@
 <template>
     <LoadingIcon v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
-    
     <Button v-else-if="props.buttonName == 'edit'" 
         type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="twitch-login-btn shadow-lg" @click="bindPage">Connect with Twitch</Button>
+        type="button" class="twitch-login-btn shadow-lg" @click="handleAuthClick">Connect with Twitch</Button>
     
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance, watch, computed, onUpdated } from "vue";
 import { useRoute, useRouter } from 'vue-router';
-import { bind_platform_instances } from '@/api_v2/user_subscription';
+
 
 const props = defineProps({ 
     busName: String,
@@ -24,31 +23,10 @@ const fetchingData = ref(false)
 const router = useRouter()
 
 
-onMounted(() => {
-    let this_url = location.href
-    if (this_url.includes('code=')) {
-        let code = this_url.substring( this_url.indexOf("code=") + 5, this_url.lastIndexOf("&"))
-        
-        bind_platform_instances('twitch', {'code': code}).then(response=>{
-            if (!response.data.length) {
-                return false
-            }
-            eventBus.emit('getTwitchChannel')
-            router.push({name: 'platform'})
-        })
-    }
-})
-
 const handleAuthClick = () => {
     const scope = 'chat:read+chat:edit+moderator:manage:announcements+user:manage:whispers+user:read:email+moderation:read'
     location.href = `${import.meta.env.VITE_TWITCH_OAUTH_URL}?response_type=code&client_id=${import.meta.env.VITE_TWITCH_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_APP_WEB}/seller/platform&scope=${scope}`
 }
-
-const bindPage = () => {
-    handleAuthClick()
-}
-
-
 
 </script>
 
