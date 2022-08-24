@@ -16,7 +16,7 @@
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
-    <Notification refKey="sellerApiErrorAlert" class="flex text-red-600 sm:flex-row">
+    <Notification refKey="sellerApiErrorAlert" :options="{duration: 5000,}" class="flex text-red-600 sm:flex-row">
       
       <div class="flex">
         <div class="relative top-2 w-12">
@@ -163,20 +163,6 @@ onMounted(() => {
 const toTop=()=>{
   document.getElementById('topPoint').scrollIntoView({behavior: "smooth"});
 }
-
-
-
-// watch(computed(()=>route.path),
-// ()=>{
-//   const element = document.getElementsByClassName('modal')
-//   for (let i=0; i<element.length; i++){
-//     if(element[i])element[i].remove()
-//   }
-//   console.log(document.getElementsByClassName('modal'))
-//   // const dropdownElement = document.getElementsByClassName('dropdown-menu')[0]
-//   // if(dropdownElement)dropdownElement.style.visibility = 'hidden'
-//   ,{deep:true}}
-// ) 
 
 provide("bind[sellerMessageNotification]", (el) => {
   store.notification = el;

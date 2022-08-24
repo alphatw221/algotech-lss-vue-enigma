@@ -177,7 +177,7 @@
                     </DropdownItem>
                     <DropdownItem 
                       @click="goLuckyDraw(campaign)" class="w-fit whitespace-nowrap"> 
-                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      <GiftIcon class="h-[20px] w-[20px] mr-1"/>
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>
                     <DropdownItem 
