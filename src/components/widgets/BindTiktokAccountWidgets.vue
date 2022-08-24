@@ -23,7 +23,7 @@
 </template>
 <script setup>
 import { ref, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
-import { get_platform_instances, unbind_platform_instance } from '@/api_v2/user_subscription'
+import { get_platform_instances, unbind_platform_instance, bind_platform_instances } from '@/api_v2/user_subscription'
 import BindTiktokAccountButton from '@/components/button/BindTiktokAccountButton.vue'
 
 const internalInstance = getCurrentInstance()
