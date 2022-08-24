@@ -1,19 +1,18 @@
 <template>
-	<div class="overflow-auto h-full sm:h-fit">
-	
+	<div class="overflow-auto max-h-fit sm:h-[62vh] sm:max-h-full">
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
 					<th v-for="column, column_index in tableColumns" :key="column_index" class="w-fit whitespace-nowrap text-center">
 						<template v-if="column.type === 'index'">
-							<span class="px-6"> {{ '' }} </span> 
+							<span class="px-6"> # </span> 
 						</template>
-						<template v-else> {{ column.name }} </template>
+						<template v-else> {{$t(`discount.table.`+column.name)}} </template>
 					</th>
 				</tr>
 			</thead>
 			<tbody>
-				<tr>
+				<tr v-if="showLoadingIcon || discountCodes.length === 0" class="intro-x h-[300px]">
 					<td v-if="showLoadingIcon"
 						class="h-[300px] items-center relative tdDot"
 						:colspan="tableColumns.length" >
@@ -22,29 +21,33 @@
 					<td v-else-if="discountCodes.length === 0" :colspan="tableColumns.length">
 						<div class="mt-5 text-center md:mt-40 tdDot" >
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
-								{{ 'no discount code' }}
+								{{$t('discount.table.noCode')}}
 							</h1>
 							<h1 class="text-slate-500 text-sm md:text-lg">
-								{{ 'set up discount code first'}}
+								{{$t('discount.table.setupFirst')}}
 							</h1>
 						</div>
 					</td> 
 				</tr>
 				<tr v-for="(discountCode, discountCodeIndex) in discountCodes" :key="discountCodeIndex" class="intro-x">
-
-					
-
 					<template v-for="(column, column_index) in tableColumns" :key="column_index">
 
-						<td v-if="column.type === 'index'" class="w-20 text-center id lg:text-sm">
+						<td v-if="column.type === 'index'" class="index sm:w-20 text-center id lg:text-sm"
+							:data-content="$t(`discount.table.`+column.name) " >
 							<span class="sm:hidden"># </span>{{discountCodeIndex+1}}
 						</td>
-						<td v-else-if="column.type === 'text'" class="w-32 imgtd">
-							<span class="title sm:hidden">{{ column.name }}</span> {{ discountCode[column.key] }}
-						</td>
-						<td v-else-if="column.type === 'datetime'" class="w-32 imgtd">
-							<span class="title sm:hidden">{{ column.name }}</span> 
 
+						<td v-else-if="column.type === 'text'" class="sm:w-32"
+							:data-content="$t(`discount.table.`+column.name) " >
+							{{ discountCode[column.key] }}
+						</td>
+						<td v-else-if="column.type === 'textI18'" class="sm:w-32"
+							:data-content="$t(`discount.table.`+column.name) " >
+							{{ $t(`discount.table.` + discountCode[column.key]) }}
+						</td>
+						
+						<td v-else-if="column.type === 'datetime'" class="sm:w-32"
+							:data-content="$t(`discount.table.`+column.name) " >
 							{{ 
 								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
 									year: "numeric", month: "short", hour12: false,
@@ -53,39 +56,39 @@
 							}}
 						</td>
 
-						<td v-else-if="column.type === 'action'" class="w-20 edit">
+						<td v-else-if="column.type === 'action'" class="w-20"
+							:data-content="$t(`discount.table.`+column.name) " >
+							<!-- <EditIcon v-if="column.key == 'edit'" @click="editDiscountCode(discountCode)"
+								class="w-[20px] h-[20px] text-blue-700 mx-auto" />
+							<Trash2Icon v-if="column.key == 'delete'" @click="deleteDiscountCode(discountCode)" 
+								class="w-[20px] h-[20px] text-red-700 mx-auto" /> -->
 							<Dropdown placement="bottom-start">
-								<DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
+								<DropdownToggle role="button" class="block w-5 h-5 mx-auto" href="javascript:;">
 								<MoreHorizontalIcon class="w-5 h-5 text-slate-700" />
 								</DropdownToggle>
 								<DropdownMenu class="w-24 pt-2 ">
 								<DropdownContent class="w-24 text-center">
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
 										@click="editDiscountCode(discountCode)"> 
-											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ 'edit' }} 
+											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('discount.table.edit') }}
 									</DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
 										@click="deleteDiscountCode(discountCode)"> 
-											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ 'delete' }} 
+											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('discount.table.del') }}
 									</DropdownItem>
 								</DropdownContent>
 								</DropdownMenu>
 							</Dropdown> 
 						</td>
-
 					</template>
-
-					
 				</tr>
 			</tbody>
 		</table>
 	</div>
-	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
+	<div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
 		<Page class="mx-auto my-3" :total="totalCount" @on-change="changePage" @on-page-size-change="changePageSize" />
 	</div>
 
-
-	
 </template>
 
 <script setup>
@@ -101,9 +104,11 @@ const tableColumns = [
     { name: "code", key: "code" , type:"text"},
     { name: "start_at", key: "start_at", type:"datetime" },
     { name: "end_at", key: "end_at" , type:"datetime"},
-    { name: "type", key: "type" , type:"text"},
+    { name: "type", key: "type" , type:"textI18"},
 	// { name: "limitations", key: "limitations" , type:"array"},
+	{ name: "description", key: "description" , type:"text"},
 	{ name: "edit", key: "edit" , type:"action"},
+	
 ]
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -209,77 +214,80 @@ thead th{
 @media only screen and (max-width: 760px),
 (min-device-width: 769px) and (max-device-width: 769px) {
 
-	table,
-	thead,
-	tbody,
-	th,
-	td,
-	tr {
-		display: block;
-		font-size: 16px;
-		padding: 0px !important;
+    table,
+    thead,
+    tbody,
+    th,
+    td,
+    tr {
+        display: block;
+        font-size: 16px;
+        padding: 0px !important;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+		border-bottom: 2px solid #DDDDDD;
+		margin-top: 50px;
 	}
 
-	thead tr {
-		position: absolute;
-		top: -9999px;
-		left: -9999px;
-	}
+    td {
+        min-height: 30px;
+        height: auto;
+        border: none;
+        position: relative;
+        padding-left: 50% !important;
+        padding-right: 15px !important;
+        text-align: right !important;
+        box-shadow: none !important;
+        font-size: 14px;
+        vertical-align: middle !important;
+        place-content: right !important;
+    }
 
-	tr {
-		border-bottom: 2px solid #dddddd; 
-		margin-top: 10px;
-	}
-
-	td {
-		border: none;
-		position: relative;
-		text-align: left !important;
-		box-shadow: none !important;
-		min-height:30px;
-		padding-left: 20px !important;
-	}
-
-	.id{
-		display:inline-block;
-		width:50%;
-		font-weight: 500;
-		color: theme("colors.primary");
-		height:40px;
-		padding-top: 10px !important;
-	}
-	.imgtd {
-		display: inline-block;
-		width:50%;
-		margin-right: 20px;
-	}
-	
-	.title{
-		display:inline-block;
-		font-size: 14px;
-		width:100%;
-		font-weight: 600;
-		color: theme("colors.primary");
-	}
-	.edit{
-		display: inline-block;
-		position: absolute;
-		width:50px;
-		top:0;
-		right:0;
-	}
-	.delete{
-		display: inline-block;
-		width: 50%;
-		margin-top:10px;
-		padding-left: 0% !important;
-		margin-bottom: 10px;
-	}
-
-	.info{
-		margin-top: 10px;
-		margin-bottom: 10px;
-		font-size: 14px !important;
-	}
+    td:before {
+        position: absolute;
+        min-height: 30px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        font-weight: bold;
+        box-shadow: none !important;
+        background-color: white !important;
+        text-align: left;
+		content: attr(data-content);
+    }
+    .index:before {
+        display: none;
+    }
+    .index{
+        display: inline-block;
+        position: absolute;
+		top: -30px !important;
+        z-index: 10;
+        left: 0;
+        width: 40px !important;
+        padding-left: 0 !important;
+        min-height: 25px !important;
+    }
+	td:nth-of-type(7):before {
+        display: none;
+    }
+    td:nth-of-type(7){
+        display: inline-block;
+        position: absolute;
+		top: -30px !important;
+        z-index: 10;
+        right: 0;
+        width: 40px !important;
+        padding-left: 0 !important;
+        min-height: 25px !important;
+    }
 }
 </style>

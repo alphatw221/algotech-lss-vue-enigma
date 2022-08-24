@@ -5,7 +5,7 @@
         type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="twitch-login-btn shadow-lg" @click="check_bindable_or_upgrade">Connect with Twitch</Button>
+        type="button" class="twitch-login-btn shadow-lg" @click="bindPage">Connect with Twitch</Button>
     
 </template>
 
@@ -44,19 +44,8 @@ const handleAuthClick = () => {
     location.href = `${import.meta.env.VITE_TWITCH_OAUTH_URL}?response_type=code&client_id=${import.meta.env.VITE_TWITCH_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_APP_WEB}/seller/platform&scope=${scope}`
 }
 
-const check_bindable_or_upgrade = () => {
-    fetchingData.value = true
+const bindPage = () => {
     handleAuthClick()
-
-    // check_activated_platform().then(res=>res.data).then(res=>{
-    //     console.log(res)
-    //     fetchingData.value = false
-    //     if (res.can_bind) {
-    //         handleAuthClick()
-    //     } else {
-    //         eventBus.emit("showUpgradeModal", {"activated_platform_amount": res.activated_platform_amount})
-    //     }
-    // })
 }
 
 

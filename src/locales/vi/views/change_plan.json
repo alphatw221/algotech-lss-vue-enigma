@@ -33,8 +33,8 @@
         "choose_period":"Thời gian sử dụng", 
         "required_field": "Trường này là bắt buộc",
         "welcome_gift": "Bạn đủ điều kiện để nhận quà chào mừng lần đầu sử dụng (5% giảm giá)",
-        "promocode_question":"Bạn có mã khuyến mãi không?",
-        "promocode":"Mã khuyến mãi",
+        "promocode_question":"Bạn có mã giảm giá?",
+        "promocode":"Mã giảm giá",
         "policy":{
             "accept": "Tôi chấp nhận",
             "terms": "Điều khoản",

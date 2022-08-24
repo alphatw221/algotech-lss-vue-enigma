@@ -20,7 +20,22 @@
                     "user_not_found": "找不到此用戶"
                 }
             },
-            "user-subscription":{},
+            "user-subscription":{
+                "stripe":{
+                    "card_error":"信用卡被拒絕",
+                    "rate_limit_error":"超過API請求速率限制",
+                    "invalid_request_error":{
+                        "invalid_parameters":"無效的參數",
+                        "invalid_integer":"Stripe只接受金額大於或等於1的數值，請聯絡我們的客服"
+                    },
+                    "authentication_error":"驗證失敗",
+                    "api_connection_error":"網路發生錯誤",
+                    "stripe_error":"Stripe 錯誤",
+                    "no_related_error":"無關聯的付款",
+                    "support_for_refunding": "資料無效，請聯絡賣家以便申請退款",
+                    "payment_error": "付款錯誤, 請聯絡賣家"
+                }
+            },
             "facebook-page":{
                 "facebook_not_activated": "Facebook 平台未开通",
                 "facebook_token_expired": "權杖過期或失效，請重新綁定你的粉絲專頁"
@@ -39,8 +54,9 @@
             "pre_order":{
                 "refresh_try_again": "請重新整理頁面後再試一次",
                 "invalid_user": "無效的用戶",
-                "request_data_error": "請求資料錯誤"
-                
+                "request_data_error": "請求資料錯誤",
+                "invalid_discount_code":"無效的優惠代碼",
+                "discount_code is required":"請填寫優惠代碼"
             },
             "order-product":{},
             "order":{

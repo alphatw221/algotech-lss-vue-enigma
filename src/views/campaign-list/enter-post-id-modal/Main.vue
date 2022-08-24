@@ -114,6 +114,28 @@
               </div>
             </div>
           </div>
+
+          <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+            <div class="content">
+              <div>
+                <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.twitch')}}</h5>
+              </div>
+              <button
+                type="button"
+                v-if="!campaign.twitch_channel"
+                @click="selectPlatformPage('twitch')"
+                class="select_page btn rounded-full btn-primary lg:mt-10"
+              >
+                {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
+              </button>
+              <div class="mt-3" v-if="campaign.twitch_channel">
+                <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
+                <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
+                  <a href="javascript:;" @click="selectPlatformPage('twitch')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.twitch_channel.image" /></a>
+                </div>
+              </div>
+            </div>
+          </div>
         </template>
       </ModalBody>
 
@@ -136,7 +158,7 @@
           {{$t('campaign_list.enter_post_id_modal.cancel')}}
         </button>
         <button type="button" class="w-32 ml-5 shadow-md btn btn-primary" @click="enterLive()" v-if="ready" 
-          v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile">
+          v-show="campaign.facebook_page || campaign.youtube_channel || campaign.instagram_profile || campaign.twitch">
 
           {{$t('campaign_list.enter_post_id_modal.save')}}
         </button>
@@ -181,6 +203,11 @@ const validate = ref({
     "post_id": {
       "error": false
     }
+  },
+  "twitch": {
+    "post_id": {
+      "error": false
+    }
   }
 })
 onMounted(()=>{
@@ -214,8 +241,9 @@ const enterLive = ()=>{
   let facebook_valid = (campaign.value.facebook_campaign.post_id != '' && !validate.value["facebook"]["post_id"]["error"]) || (campaign.value.facebook_campaign.post_id == '')
   let instagram_valid = campaign.value.instagram_campaign.live_media_id != '' && !validate.value["instagram"]["post_id"]["error"] || (campaign.value.instagram_campaign.live_media_id == '')
   let youtube_valid = campaign.value.youtube_campaign.live_video_id != '' && !validate.value["youtube"]["post_id"]["error"] || (campaign.value.youtube_campaign.live_video_id == '')
+  let twitch_valid = campaign.value.twitch_campaign.channel_name != '' && !validate.value["youtube"]["post_id"]["error"] || ([undefined, '', null].includes(campaign.value.twitch_campaign.channel_name))
   
-  if (facebook_valid && instagram_valid && youtube_valid) {
+  if (facebook_valid && instagram_valid && youtube_valid && twitch_valid) {
     router.push({name:'campaign-live',params:{'campaign_id':campaign.value.id}})
     hideModal()
   } else {

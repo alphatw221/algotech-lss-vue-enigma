@@ -2,9 +2,9 @@ import { usePublicLayoutStore } from "@/stores/lss-public-layout";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import axios from "axios";
 import i18n from "@/locales/i18n";
-
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useCookies } from "vue3-cookies";
-const { cookies } = useCookies();
+const { cookies } = useCookies(); 
 
 
 // let axiosClient = axios.create({
@@ -75,9 +75,12 @@ export function createAxiosWithBearer(){
     axiosInstanceWithBearer.interceptors.response.use(
         response => response,
         error => {
+            const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSBuyerLayoutStore()
             if (error.response.data) {
                 if (error.response.data.detail){
-                    useLSSSellerLayoutStore().alert.showMessageToast(error.response.data.detail)
+                    // if(useLSSSellerLayoutStore().alert.showMessageToast) useLSSSellerLayoutStore
+                    // else useLSSBuyerLayoutStore
+                    toastify.alert.showMessageToast(error.response.data.detail)
                 } else if (error.response.data.message){
                     let path = ""
                     if (error.response.data.message.includes("helper") || error.response.data.message.includes("util")) {
@@ -88,11 +91,11 @@ export function createAxiosWithBearer(){
                     } else {
                         path = "error_messages" + error.response.config.url.split("/").splice(0,3).join(".") + "." + error.response.data.message
                     }
-                    useLSSSellerLayoutStore().alert.showMessageToast(i18n.global.t(path))
+                    toastify.alert.showMessageToast(i18n.global.t(path))
                 }
             }
             else{
-                useLSSSellerLayoutStore().alert.showMessageToast('error ! please refresh the page.')
+                toastify.alert.showMessageToast('error ! please refresh the page.')
             }
             return Promise.reject(error);
         }

@@ -4,7 +4,7 @@
         type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="google-login-btn shadow-lg" @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_youtube')}}</Button>
+        type="button" class="google-login-btn shadow-lg" @click="bindPage">{{$t('settings.platform.connect_with_youtube')}}</Button>
     
     
 </template>
@@ -62,17 +62,17 @@ const handleAuthClick = () => {
     }
 }
 
-const check_bindable_or_upgrade = () => {
-    fetchingData.value = true
-    check_activated_platform().then(res=>res.data).then(res=>{
-        console.log(res)
-        fetchingData.value = false
-        if (res.can_bind) {
-            handleAuthClick()
-        } else {
-            eventBus.emit("showUpgradeModal", {"activated_platform_amount": res.activated_platform_amount})
-        }
-    })
+const bindPage = () => {
+    handleAuthClick()
+    // check_activated_platform().then(res=>res.data).then(res=>{
+    //     console.log(res)
+    //     fetchingData.value = false
+    //     if (res.can_bind) {
+    //         handleAuthClick()
+    //     } else {
+    //         eventBus.emit("showUpgradeModal", {"activated_platform_amount": res.activated_platform_amount})
+    //     }
+    // })
 }
 </script>
 

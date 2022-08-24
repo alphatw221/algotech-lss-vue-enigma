@@ -96,7 +96,7 @@ onMounted(() => {
 
 const updatePayment = () => {
     seller_update_payment(props.payment.key,paymentData.value).then(res=>{
-        console.log(res.data)
+        // console.log(res.data)
         sellerStore.userInfo = res.data
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })

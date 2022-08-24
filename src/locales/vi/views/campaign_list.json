@@ -82,6 +82,8 @@
         "live_chat_id":"ID cuộc trò chuyện trực tiếp",
         "select_live_chat":"Chọn kênh",
 
+        "twitch": "Twitch",
+
         "cancel":"Hủy bỏ",
         "save":"Lưu lại",
         "your_current_lives": "Các phiên livestream gần đây",

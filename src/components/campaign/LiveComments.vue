@@ -47,6 +47,11 @@
                         >
                             <YoutubeIcon class="m-1 " />
                         </button>
+                        <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
+                            @click="openCapturePage()"
+                        >
+                            <YoutubeIcon class="m-1 " />
+                        </button>
                     </div>
                 </div>
             </div>
@@ -232,6 +237,8 @@ import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
 import CommentListView from './CommentListView.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
+
+
 const router = useRouter();
 const route = useRoute()
 
@@ -300,6 +307,7 @@ onMounted(()=>{
         // console.log(platformData)
         ready.value=true
     })
+
 })
 
 
@@ -329,6 +337,10 @@ const toQuizList = ()=>{
     hideDropDown()
 }
 
+const openCapturePage=()=>{
+    let routeData = router.resolve({ name: 'comment-capture-page', params: {campaign_id: route.params.campaign_id} })
+    window.open(routeData.href, '_blank')
+}
 </script>
 <style scoped>
 

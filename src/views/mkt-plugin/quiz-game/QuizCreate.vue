@@ -211,7 +211,7 @@ const deleteQuestion = (index, id) => {
 }
 
 const upsertQuizGame = () => {
-    console.log(quizgameSettings.value)
+    // console.log(quizgameSettings.value)
     v.value.$touch();
     if (v.value.$invalid || typeof quizgameSettings.value.prize === 'string') {
         layoutStore.alert.showMessageToast(i18n.global.t('quiz_game.invalid_data'))

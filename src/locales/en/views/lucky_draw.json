@@ -21,7 +21,7 @@
         "yes": "Yes",
         "no": "No",
         "start": "Start",
-        "out_of_stock": "No left",
+        "out_of_stock": "Out Of Prize",
         "edit": "Edit",
         "delete": "Delete",
         "confirm_delete": "Are you sure you want to delete this lucky draw ?"
