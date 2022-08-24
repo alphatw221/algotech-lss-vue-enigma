@@ -22,7 +22,7 @@
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
-                                        <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                        <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/facebook.png' >
                                         </div>
@@ -37,7 +37,7 @@
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
-                                        <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                        <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="rounded-full bg-cover bg-[#f70000]" src='/src/assets/images/lss-img/instagram.png' />
                                         </div>
@@ -52,7 +52,7 @@
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
-                                        <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                        <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
                                         </div>
@@ -60,7 +60,7 @@
                                 </div>
                                 <div v-else-if="!order[column.key] && !order.customer_img" class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
-                                        <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                        <img class="rounded-full" :src="unbound"/>
                                     </div>
                                 </div>
                                 <div v-else class="w-fit h-fit image-fit">
@@ -151,6 +151,7 @@ import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import unbound from '/src/assets/images/lss-img/noname.png';
 const route = useRoute();
 const router = useRouter();
 const store = useManageOrderStore()
