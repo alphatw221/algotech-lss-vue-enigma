@@ -45,7 +45,7 @@
 
 
     </div>
-    <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
+    <!-- <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
         <ModalBody class="text-center text-lg flex flex-col p-10">
             <AlertCircleIcon class="h-20 w-20 text-danger mx-auto"/>
             <h4 class="text-center">{{$t('settings.platform.your_subscription_plan_is')}} {{ subscriptionPlan }}{{$t('settings.platform.period')}} </h4>
@@ -59,7 +59,7 @@
             </button>
         </div>
         </ModalBody>
-    </Modal>
+    </Modal> -->
 </template> 
 
 <script setup>
@@ -89,12 +89,6 @@ onMounted(() => {
     
     let subscription_plan = layoutStore.userInfo.user_subscription.type
     subscriptionPlan.value = subscription_plan.charAt(0).toUpperCase() + subscription_plan.slice(1);
-    
-    eventBus.on("showUpgradeModal", (payload) => {
-      UpgradeModal.value = true
-      activatedPlatformNumber.value = payload.activated_platform_amount
-    });
-
 });
 
 const plural = (number) => {
