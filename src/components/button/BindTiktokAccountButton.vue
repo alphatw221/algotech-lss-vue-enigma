@@ -25,23 +25,18 @@ const router = useRouter()
 
 
 onMounted(() => {
-    // let this_url = location.href
-    // if (this_url.includes('code=')) {
-    //     let code = this_url.substring( this_url.indexOf("code=") + 5, this_url.lastIndexOf("&"))
-        
-    //     bind_platform_instances('twitch', {'code': code}).then(response=>{
-    //         if (!response.data.length) {
-    //             return false
-    //         }
-    //         eventBus.emit('getTwitchChannel')
-    //         router.push({name: 'platform'})
-    //     })
-    // }
+    let this_url = location.href
+    if (this_url.includes('state=tiktok')) {
+        important_substring = this_url.split("&")[0]
+        let code = important_substring.substring(important_substring.indexOf("auth_code=") + 10)
+        eventBus.emit(props.busName, {"authCode": code})
+        router.push({name: 'platform'})
+    }
 })
 
 const handleAuthClick = () => {
-    let state = ''
-    let redirect_uri = "https://staginglss.accoladeglobal.net/api/v2/user-subscription/platform/tiktok/bind/"
+    let state = 'tiktok'
+    let redirect_uri = `${import.meta.env.VITE_APP_WEB}/seller/platform`
     location.href = `${import.meta.env.VITE_TIKTOK_OAUTH_URL}?app_id=${import.meta.env.VITE_TIKTOK_APP_ID}&state=${state}&redirect_uri=${redirect_uri}&rid=a83sicoc4k`
 }
 const bindPage = () => {
