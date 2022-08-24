@@ -107,7 +107,8 @@ const getOrderHistoryListData = ()=>{
 		const total_page = parseInt(dataCount.value / pageSize.value);
 		totalPage.value = total_page == 0 ? 1 : total_page;
 		orders.value = response.data.results;
-    console.log(orders.value)
+    // console.log(orders.value)
+    console.log(response)
 	})
 }
 onMounted(()=>{

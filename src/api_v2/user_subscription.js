@@ -37,3 +37,7 @@ export const get_platform_instances = (platform_name) => {
 export const upload_animation = (data) => {
     return createAxiosWithBearer().post(`/api/v2/user-subscription/seller/upload/animation/`, data)     
 }
+
+export const get_user_subscription_facebook_pages = (data) => {
+    return createAxiosWithBearer().get(`/api/user-subscription/facebook_pages/`,data)
+}
