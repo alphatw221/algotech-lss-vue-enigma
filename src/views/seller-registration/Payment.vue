@@ -276,9 +276,9 @@ onMounted(()=>{
     renderStripeElement(confirmInfo.value.client_secret)
   })
 
-  if(route.query.country=='TW'){
-      paymentMethodTabNumber.value = 3
-  }
+//   if(route.query.country=='TW'){
+//       paymentMethodTabNumber.value = 3
+//   }
 })
 
 onUnmounted(()=>{
