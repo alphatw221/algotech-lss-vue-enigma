@@ -32,7 +32,7 @@
                     <input 
                         class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
                         type="checkbox" 
-                        v-model="paymentData.invoice_enabled"
+                        v-model="paymentData[field.key]"
                     />
                     <label class="ml-3 form-label">{{ $t('settings.payment_form.invoice_enabled') }}</label>
                 </div>
