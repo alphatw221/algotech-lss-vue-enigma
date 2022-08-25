@@ -120,7 +120,7 @@
         "not_editable": "Không thể chỉnh sửa",
         "product_already_in_pre_order": "Sản phẩm đã tồn tại trong đơn đặt hàng này",
         "exceeds_max_order_amount": "Số lượng sản phẩm vượt quá số lượng đặt hàng tối đa",
-        "cart_is_empty": "Giỏ hàng trống",
+        "cart_is_empty": "Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại", 
         "unable_purchase_now": "Xin lỗi, người bán đã đóng thanh toán và không thể mua hàng vào lúc này",
         "max_order_amount_should_less_than_stock": "Số lượng đặt hàng tối đa phải ít hơn số lượng trong kho",
         "not_support_this_image_type": "Định dạng hình ảnh không được hỗ trợ",

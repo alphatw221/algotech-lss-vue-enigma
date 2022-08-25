@@ -114,7 +114,7 @@
         "not_editable": "無法編輯",
         "product_already_in_pre_order": "商品已存在於此訂單",
         "exceeds_max_order_amount": "商品數量超過最大訂購數量",
-        "cart_is_empty": "購物車是空的",
+        "cart_is_empty": "商品已售完,請重新確認購物車並再次結帳",
         "unable_purchase_now": "抱歉，賣家已關閉結帳，目前無法購買",
         "max_order_amount_should_less_than_stock": "最大訂購數量需小於庫存數量",
         "not_support_this_image_type": "圖片格式不支援",

@@ -166,7 +166,6 @@ const initTabulator = () => {
         print: true,
         download: false,
         formatter(cell) {
-          console.log(cell)
           return `<div>
                 <div class="font-medium whitespace-nowrap">${
                   cell.getData().name

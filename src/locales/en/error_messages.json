@@ -114,7 +114,7 @@
         "not_editable": "Cannot edit",
         "product_already_in_pre_order": "Product already exists in this order",
         "exceeds_max_order_amount": "The product quantity exceeds the maximum order quantity",
-        "cart_is_empty": "Cart is empty",
+        "cart_is_empty": "Product Out Of Stock, Please Confirm Your Shopping Cart And Checkout Again",
         "unable_purchase_now": "Sorry, the seller has closed checkout and cannot purchase at this time",
         "max_order_amount_should_less_than_stock": "The maximum order quantity must be less than the stock quantity",
         "not_support_this_image_type": "The image format is not supported",

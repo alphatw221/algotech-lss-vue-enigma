@@ -105,5 +105,5 @@
     "invalid_user_info":"买家资料输入错误",
     "invalid_delivery_info":"运送资料输入错误",
     "checkout_message":"确认前往结账后，购物车将会被清空",
-    "checkout_again":"商品已售完,请重新确认购物车并再次结账"
+    "checkout_again":"商品已售完,请重新确认购物车并再次结账" 
 }
