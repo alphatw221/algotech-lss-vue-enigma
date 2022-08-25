@@ -41,6 +41,9 @@
         <div>
             <BindTwitchChannelWidgets/>
         </div>
+        <div>
+            <BindTiktokAccountWidgets/>
+        </div>
 
         <div>
             <Modal :show="showModal" @hidden="hide()" backdrop="static">
@@ -88,6 +91,7 @@ import BindFacebookPageWidgets from "@/components/widgets/BindFacebookPageWidget
 import BindInstagramProfileWidgets from "@/components/widgets/BindInstagramProfileWidgets.vue"
 import BindYoutubeChannelWidgets from "@/components/widgets/BindYoutubeChannelWidgets.vue"
 import BindTwitchChannelWidgets from "@/components/widgets/BindTwitchChannelWidgets.vue"
+import BindTiktokAccountWidgets from "@/components/widgets/BindTiktokAccountWidgets.vue"
 import { bind_twitch_platform_instances } from '@/api_v2/user_subscription';
 import { useRoute, useRouter } from "vue-router";
 const internalInstance = getCurrentInstance()
