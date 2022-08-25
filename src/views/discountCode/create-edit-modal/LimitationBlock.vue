@@ -21,11 +21,16 @@
                 <input class="rounded-lg" :type="field.dataType" v-model="props.discountCode.limitations[props.limitationIndex][field.key]">
             </template>
 
-            <template v-if="field.type === 'api_select'">
-                <label class="mt-2 text-base">{{ field.name }}</label>
-                <div>{{field.endpoint}}</div>
-                <div>{{field.optionName}}</div>
-                <div>{{field.optionValue}}</div>
+            <template v-if="field.type === 'api_select' && handleApiSelect(field)" >
+
+                <label class="mt-2 text-base">{{$t(`discount.modal.`+field.name)}}</label>
+                <TomSelect
+					v-model="props.discountCode.limitations[props.limitationIndex][field.key]"
+					class="w-full"
+                    
+				>
+					<option v-for="option, index in options" :key="index" :value="option[field.optionValue]">{{ option[field.optionName] }}</option>
+				</TomSelect>
             </template>
         </div>
     </template>
@@ -36,6 +41,7 @@ import { onBeforeMount, onMounted, ref, provide, defineProps, watch, computed} f
 
 import { useRoute, useRouter } from "vue-router";
 import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
+import { discountCodeEndPoints } from "@/api_v2/discount_code"
 
 const discountCodeMeta = useLSSDiscountCodeMetaStore()
 const props = defineProps({
@@ -44,4 +50,13 @@ const props = defineProps({
   v:Object
 });
 
+const handleApiSelect = field=>{
+    if(field.type!='api_select')return false
+    const request = discountCodeEndPoints[field.endpoint]
+    request().then(
+        res=>options.value = res.data)
+    return true
+}
+
+const options = ref([])
 </script>

@@ -30,11 +30,13 @@
         "add_limitations":"Add Limitations",
         "delete_limitation":"Delete Limitation",
         "required":"Giá trị là bắt buộc",
+        "campaign":"Hoạt động bán hàng",
         "type_options":{
             "percent_off":"By Percentage(%)",
             "deduct":"By Deduction(-)"
         },
         "limit_options":{
+            "specific_campaign":"các hoạt động bán hàng cụ thể",
             "subtotal_over_specific_amount":"Subtotal Over Specific Amount",
             "product_over_specific_number":"Product in Shopping Cart Over Specific Number"
         },

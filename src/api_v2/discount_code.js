@@ -19,15 +19,14 @@ export const delete_discount_code = (id) => {
 
 
 
-export const get_campaigns_list = ()=>{
-    return createAxiosWithBearer().get('api/v2/campaign/list')
+
+export const list_scheduled_campaign_options = () => {
+    return createAxiosWithBearer().get(`/api/v2/campaign/list/scheduled/options/`)
 }
 
 
 export const discountCodeEndPoints={
-    'getCampaigns':get_campaigns_list,
-
-
+    'getCampaigns':list_scheduled_campaign_options,
 
 
 }
