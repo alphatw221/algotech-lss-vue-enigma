@@ -184,7 +184,7 @@
         <!-- ECpay -->
         <div class="flex flex-col gap-3" 
                     :class="{ hidden: paymentMethodTabNumber !== 3, block: paymentMethodTabNumber === 3 }" >
-            <img class="w-60 mx-auto" :src="ecpay_img" /> 
+            <img class="w-60 mx-auto" :src="ecpay_img" @click="createEcpay" /> 
         </div>
 
     <!-- Process Button -->
@@ -219,7 +219,7 @@
 import { onMounted, onUnmounted, ref, getCurrentInstance, provide, reactive, toRefs   } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { seller_validate_register } from '@/api_v2/user'
-import { seller_register_stripe, user_register_with_bank_transfer } from '@/api_v2/user'
+import { seller_register_stripe, user_register_with_bank_transfer,user_register_with_ecpay } from '@/api_v2/user'
 
 import bank_img from "/src/assets/images/lss-bank/vn_bank.png"
 import ecpay_img from "/src/assets/images/lss-bank/ecpay.png"
@@ -276,9 +276,9 @@ onMounted(()=>{
     renderStripeElement(confirmInfo.value.client_secret)
   })
 
-//   if(route.query.country=='TW'){
-//       paymentMethodTabNumber.value = 3
-//   }
+  if(route.query.country=='TW'){
+      paymentMethodTabNumber.value = 3
+  }
 })
 
 onUnmounted(()=>{
@@ -416,6 +416,32 @@ const uploadReceipt = () => {
             showSubmitButton.value=true
             eventBus.emit("showComfirmRegisterTab", res.data)
         }).catch(()=>{showSubmitButton.value=true})
+}
+
+const createEcpay = ()=>{
+    user_register_with_ecpay(route.query.country,basicInfo.value).then(
+        res=>{
+            console.log(res)
+            const form = document.createElement('form');
+            form.setAttribute("id", "data_set");
+            form.method = 'post';
+            form.action = res.data.action;
+            const params = res.data.data
+            for (const key in params) {
+                if (params.hasOwnProperty(key)) {
+                    const hiddenField = document.createElement('input');
+                    hiddenField.type = 'hidden';
+                    hiddenField.name = key;
+                    hiddenField.value = params[key];
+
+                form.appendChild(hiddenField);
+                }
+            }
+
+            document.body.appendChild(form);
+            form.submit();
+        }
+    )
 }
 
 </script>
