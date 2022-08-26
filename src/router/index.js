@@ -153,19 +153,14 @@ const routes = [
         path: "campaign-list/create-campaign",
         name: "create-campaign",
         component: () => import('@/views/create-campaign/Main.vue'),
-      },  
-      {
-        path: "campaign-list/campaign-live/:campaign_id?",
-        name: "campaign-detail",
-        component: CampaignLive,
       },
       {
-        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw",
+        path: "campaign-list/lucky-draw/:campaign_id?",
         name: "lucky-draw",
         component: LuckyDraw,
       },
       {
-        path: "campaign-list/campaign-live/:campaign_id?/quiz-game",
+        path: "campaign-list/quiz-game/:campaign_id?",
         name: "quiz-game",
         component: () => import('@/views/mkt-plugin/quiz-game/Main.vue')
       },
@@ -175,7 +170,7 @@ const routes = [
       //   component: QuizGame
       // },
       {
-        path: "campaign-list/campaign-live/:campaign_id/edit-campaign",
+        path: "campaign-list/edit-campaign/:campaign_id?",
         name: "edit-campaign",
         component: () => import('@/views/edit-campaign/Main.vue'),
       },  
@@ -185,12 +180,12 @@ const routes = [
       //   component: () => import('@/views/assign-product/Main.vue'),
       // },
       {
-        path: "campaign-list/campaign-live/:campaign_id?/assign-product",
+        path: "campaign-list/assign-product/:campaign_id?",
         name: "assign-product",
         component: () => import('@/views/assign-campaign-product/Main.vue'),
       },   
       {
-        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign-product",
+        path: "campaign-list/edit-campaign-product/:campaign_id?",
         name: "edit-campaign-product",
         component: () => import('@/views/edit-campaign-product/Main.vue'),
       },   
@@ -290,15 +285,10 @@ const routes = [
         component: () => import('@/views/add-product/Main.vue'),
       },
       {
-        path: "stock/product-detail/:product_id?/edit-product",
+        path: "stock/edit-product/:product_id?",
         name: "edit-product",
         component: () => import('@/views/add-product/Main.vue'),
-      },
-      {                                                               //temp
-        path: "stock/product-detail/:product_id?",                    //temp
-        name: "product-detail",                                       //temp
-        component: () => import('@/views/add-product/Main.vue'),      //temp
-      },                                                              //temp
+      },                                                             //temp
       {
         path: "stock/category-management",
         name: "category-management",
