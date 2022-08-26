@@ -5,10 +5,10 @@
             Sellers
         </h2>
     </div>
-    <div class="flex flex-col p-3 box sm:h-[95%] p-2 lg:gap-3 sm:px-8 h-fit lg:mx-20">
+    <div class="flex flex-col p-3 box p-2 lg:gap-3 sm:px-8 lg:mx-20 layout">
         <!-- BEGIN: commit box -->
         <div class="flex flex-row flex-wrap justify-center sm:justify-between mt-5 mx-0 gap-3 sm:gap-5">
-            <div class="flex-none switch-toggle mx-auto sm:mx-0">
+            <div class="flex-none switch-toggle mx-auto sm:mx-5">
                 <input id="off" name="state-d" type="radio" />
                 <label for="off" @click="show_campaign('ongoing')"> All</label>
                 <input id="on" name="state-d" type="radio" checked="checked" />
@@ -16,9 +16,11 @@
                 <input id="na" name="state-d" type="radio" class="my-0" />
                 <label for="na" @click="show_campaign('history')">History</label>
             </div>
-            <button class="btn btn-primary shadow-md mr-2">Add New Seller</button>
+            <button class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mr-5 border-[1px] border-slate-100 shadow-lg"
+            >
+                <span class="font-bold mr-1 text-[16px]">+</span> Add New Seller
+            </button>
         </div>
-
         <SellerTable />
     </div>
     <!-- END OUTTER BOX -->
@@ -31,4 +33,10 @@ import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
 import SellerTable from "./SellerTable.vue";
 
 </script>
+
+<style scoped>
+.layout {
+    height: fit-content;
+}
+</style>
 
