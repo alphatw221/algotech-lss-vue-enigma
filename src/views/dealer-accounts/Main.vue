@@ -1,72 +1,375 @@
 <template>
-    
-    <div class="box m-10 h-full"> 
-        <Table :columns="columns" :data="data" class="table table-report"> </Table>
+  <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
+    <h2 class="text-lg font-medium mr-auto">Tabulator</h2>
+    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
+      <button class="btn btn-primary shadow-md mr-2">Add New Product</button>
+      <Dropdown class="ml-auto sm:ml-0">
+        <DropdownToggle class="btn px-2 box">
+          <span class="w-5 h-5 flex items-center justify-center">
+            <PlusIcon class="w-4 h-4" />
+          </span>
+        </DropdownToggle>
+        <DropdownMenu class="w-40">
+          <DropdownContent>
+            <DropdownItem>
+              <FilePlusIcon class="w-4 h-4 mr-2" /> New Category
+            </DropdownItem>
+            <DropdownItem>
+              <UserPlusIcon class="w-4 h-4 mr-2" /> New Group
+            </DropdownItem>
+          </DropdownContent>
+        </DropdownMenu>
+      </Dropdown>
     </div>
-
+  </div>
+  <!-- BEGIN: HTML Table Data -->
+  <div class="intro-y box p-5 mt-5">
+    <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
+      <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
+        <div class="sm:flex items-center sm:mr-4">
+          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+            >Field</label
+          >
+          <select
+            id="tabulator-html-filter-field"
+            v-model="filter.field"
+            class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto"
+          >
+            <option value="name">Name</option>
+            <option value="category">Category</option>
+            <option value="remaining_stock">Remaining Stock</option>
+          </select>
+        </div>
+        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
+          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+            >Type</label
+          >
+          <select
+            id="tabulator-html-filter-type"
+            v-model="filter.type"
+            class="form-select w-full mt-2 sm:mt-0 sm:w-auto"
+          >
+            <option value="like" selected>like</option>
+            <option value="=">=</option>
+            <option value="<">&lt;</option>
+            <option value="<=">&lt;=</option>
+            <option value=">">></option>
+            <option value=">=">>=</option>
+            <option value="!=">!=</option>
+          </select>
+        </div>
+        <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
+          <label class="w-12 flex-none xl:w-auto xl:flex-initial mr-2"
+            >Value</label
+          >
+          <input
+            id="tabulator-html-filter-value"
+            v-model="filter.value"
+            type="text"
+            class="form-control sm:w-40 2xl:w-full mt-2 sm:mt-0"
+            placeholder="Search..."
+          />
+        </div>
+        <div class="mt-2 xl:mt-0">
+          <button
+            id="tabulator-html-filter-go"
+            type="button"
+            class="btn btn-primary w-full sm:w-16"
+            @click="onFilter"
+          >
+            Go
+          </button>
+          <button
+            id="tabulator-html-filter-reset"
+            type="button"
+            class="btn btn-secondary w-full sm:w-16 mt-2 sm:mt-0 sm:ml-1"
+            @click="onResetFilter"
+          >
+            Reset
+          </button>
+        </div>
+      </form>
+      <div class="flex mt-5 sm:mt-0">
+        <button
+          id="tabulator-print"
+          class="btn btn-outline-secondary w-1/2 sm:w-auto mr-2"
+          @click="onPrint"
+        >
+          <PrinterIcon class="w-4 h-4 mr-2" /> Print
+        </button>
+        <Dropdown class="w-1/2 sm:w-auto">
+          <DropdownToggle class="btn btn-outline-secondary w-full sm:w-auto">
+            <FileTextIcon class="w-4 h-4 mr-2" /> Export
+            <ChevronDownIcon class="w-4 h-4 ml-auto sm:ml-2" />
+          </DropdownToggle>
+          <DropdownMenu class="w-40">
+            <DropdownContent>
+              <DropdownItem @click="onExportCsv">
+                <FileTextIcon class="w-4 h-4 mr-2" /> Export CSV
+              </DropdownItem>
+              <DropdownItem @click="onExportJson">
+                <FileTextIcon class="w-4 h-4 mr-2" /> Export JSON
+              </DropdownItem>
+              <DropdownItem @click="onExportXlsx">
+                <FileTextIcon class="w-4 h-4 mr-2" /> Export XLSX
+              </DropdownItem>
+              <DropdownItem @click="onExportHtml">
+                <FileTextIcon class="w-4 h-4 mr-2" /> Export HTML
+              </DropdownItem>
+            </DropdownContent>
+          </DropdownMenu>
+        </Dropdown>
+      </div>
+    </div>
+    <div class="overflow-x-auto scrollbar-hidden">
+      <div
+        id="tabulator"
+        ref="tableRef"
+        class="mt-5 table-report table-report--tabulator"
+      ></div>
+    </div>
+  </div>
+  <!-- END: HTML Table Data -->
 </template>
 
 <script setup>
-import CampaignList from "../campaign-list/CampaignListTable.vue";
-import { ref, h } from 'vue'; 
+import { ref, reactive, onMounted } from "vue";
+// import xlsx from "xlsx";
+import { createIcons, icons } from "lucide";
+import Tabulator from "tabulator-tables";
+import { dealer_search_list_subscriber } from '@/api/dealer';
+import dom from "@left4code/tw-starter/dist/js/dom";
 
-const columns = ref([
-    // { type: 'expand',width: 50 , render: (h, { row: { name, age, address, job }}) => 
-    //     { return [h('div', name + '-' + age + '-' + address ),h('div', name + '-' + age + '-' + address )]}},
-    { type: 'expand',width: 50 , render: (h, { row: { name, age, address, job }}) => { return [h('div', { class: [name, { age }], style: { color: 'red' }, innerHTML:name }), h('span', 'hello')]} },
-    { title: 'Name',key: 'name'},
-    { title: 'Age',key: 'age' },
-    { title: 'Address',key: 'address'}]);
+const tableRef = ref();
+const tabulator = ref();
+const filter = reactive({
+  field: "name",
+  type: "like",
+  value: "",
+});
 
-const data = ref([
-    {
-        name: 'John Brown',
-        age: 18,
-        address: 'New York No. 1 Lake Park',
-        job: 'Data engineer',
-        interest: 'badminton',
-        birthday: '1991-05-14',
-        book: 'Steve Jobs',
-        movie: 'The Prestige',
-        music: 'I Cry'
+onMounted(()=>{
+    dealer_search_list_subscriber().then(
+        res=>{
+            console.log(res)
+        }
+    )
+})
+
+const imageAssets = import.meta.globEager(
+  `/src/assets/images/*.{jpg,jpeg,png,svg}`
+);
+
+
+const initTabulator = () => {
+  tabulator.value = new Tabulator(tableRef.value, {
+    ajaxURL: "http://127.0.0.1:8000/api/user-subscription/dealer_search_list/",
+    ajaxConfig:{
+        method:"GET",
+        headers:{
+            Accept : 'application/json, text/plain, */*',
+            Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYxOTE5NDc2LCJpYXQiOjE2NjEzMTQ2NzYsImp0aSI6ImU5ZTI5MDU0OGNkMzQ4ZjM4MWZlNTQ4Yzg1NTg3NjhlIiwidXNlcl9pZCI6MzI4LCJkYXRhIjp7ImF1dGhfdXNlcl9pZCI6MzI4LCJzZWxsZXJfaWQiOjM2MCwiY3VzdG9tZXJfaWQiOjM3MywibmFtZSI6IkNlY2lsaWEgVyIsImVtYWlsIjoibWJydzE5QGdtYWlsLmNvbSJ9fQ.sQU4pLNqbU3fSClGByFkbUwpHCQehnpyBtydoPXISl0',
+        }
     },
-    {
-        name: 'Jim Green',
-        age: 25,
-        address: 'London No. 1 Lake Park',
-        job: 'Data Scientist',
-        interest: 'volleyball',
-        birthday: '1989-03-18',
-        book: 'My Struggle',
-        movie: 'Roman Holiday',
-        music: 'My Heart Will Go On'
+    // data:subscript.value,
+    ajaxFiltering: true,
+    ajaxSorting: true,
+    // printAsHtml: true,
+    printStyled: true,
+    pagination: "remote",
+    paginationSize: 10,
+    paginationSizeSelector: [10, 20, 30, 40],
+    layout: "fitColumns",
+    responsiveLayout: "collapse",
+    placeholder: "No matching records found",
+    columns: [
+      {
+        formatter: "responsiveCollapse",
+        width: 40,
+        minWidth: 30,
+        hozAlign: "center",
+        resizable: false,
+        headerSort: false,
+      },
+
+      // For HTML table
+      {
+        title: "Subscription ID",
+        minWidth: 200,
+        responsive: 0,
+        field: "id",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().id}</div>`; },
+      },
+      {
+        title: "Name",
+        minWidth: 200,
+        responsive: 0,
+        field: "name",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().name}</div>`; },
+      },
+      {
+        title: "langauge",
+        minWidth: 200,
+        responsive: 0,
+        field: "lang",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().lang}</div>`; },
+      },
+      {
+        title: "Country",
+        minWidth: 200,
+        responsive: 0,
+        field: "region",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().region}</div>`; },
+      },
+      {
+        title: "Facebook ID",
+        minWidth: 200,
+        responsive: 0,
+        field: "facebook_info.id",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().facebook_info.id}</div>`; },
+      },
+      {
+        title: "Status",
+        minWidth: 200,
+        responsive: 0,
+        field: "status",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().status}</div>`; },
+      },
+      {
+        title: "Timezone",
+        minWidth: 200,
+        responsive: 0,
+        field: "timezone",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().timezone}</div>`; },
+      },
+      {
+        title: "Person in Charge",
+        minWidth: 200,
+        responsive: 0,
+        field: "name",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().name}</div>`; },
+      },
+      {
+        title: "Phone",
+        minWidth: 200,
+        responsive: 0,
+        field: "phone",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().phone}</div>`; },
+      },
+      {
+        title: "E-mail",
+        minWidth: 200,
+        responsive: 0,
+        field: "email",
+        vertAlign: "middle",
+        print: true,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().email}</div>`; },
+      },
+
+      // For print format
+      {
+        title: "Subscription ID",
+        field: "id",
+        visible: false,
+        print: true,
+        download: true,
+      },
+      {
+        title: "Name",
+        field: "name",
+        visible: false,
+        print: true,
+        download: true,
+      },
+      {
+        title: "Langauge",
+        field: "lang",
+        visible: false,
+        print: true,
+        download: true,
+      },
+      {
+        title: "Country",
+        field: "region",
+        visible: false,
+        print: true,
+        download: true,
+      },
+    ],
+    renderComplete() {
+      createIcons({
+        icons,
+        "stroke-width": 1.5,
+        nameAttr: "data-lucide",
+      });
     },
-    {
-        name: 'Joe Black',
-        age: 30,
-        address: 'Sydney No. 1 Lake Park',
-        job: 'Data Product Manager',
-        interest: 'tennis',
-        birthday: '1992-01-31',
-        book: 'Win',
-        movie: 'Jobs',
-        music: 'Don’t Cry'
-    },
-    {
-        name: 'Jon Snow',
-        age: 26,
-        address: 'Ottawa No. 2 Lake Park',
-        job: 'Data Analyst',
-        interest: 'snooker',
-        birthday: '1988-7-25',
-        book: 'A Dream in Red Mansions',
-        movie: 'A Chinese Ghost Story',
-        music: 'actor'
-    }])
+  });
+};
+
+// Redraw table onresize
+const reInitOnResizeWindow = () => {
+  window.addEventListener("resize", () => {
+    tabulator.value.redraw();
+    createIcons({
+      icons,
+      "stroke-width": 1.5,
+      nameAttr: "data-lucide",
+    });
+  });
+};
+
+// Filter function
+const onFilter = () => {
+  tabulator.value.setFilter(filter.field, filter.type, filter.value);
+};
+
+// On reset filter
+const onResetFilter = () => {
+  filter.field = "name";
+  filter.type = "like";
+  filter.value = "";
+  onFilter();
+};
+
+// Export
+const onExportCsv = () => {
+  tabulator.value.download("csv", "data.csv");
+};
+
+const onPrint = () => {
+  tabulator.value.print();
+};
+
+onMounted(() => {
+  initTabulator();
+  reInitOnResizeWindow();
+});
 </script>
-
-
-
-<style scoped>
-
-</style>
