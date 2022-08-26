@@ -169,5 +169,6 @@
         "signature_error": "簽名錯誤",
         "lucky_draw_not_found": "找不到抽獎設定",
         "quiz_game_not_found": "找不到小遊戲設定"
-    }
+    },
+    "token_not_valid": "你已被登出"
 }

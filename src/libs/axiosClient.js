@@ -78,9 +78,11 @@ export function createAxiosWithBearer(){
             const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSBuyerLayoutStore()
             if (error.response.data) {
                 if (error.response.data.detail){
-                    // if(useLSSSellerLayoutStore().alert.showMessageToast) useLSSSellerLayoutStore
-                    // else useLSSBuyerLayoutStore
-                    toastify.alert.showMessageToast(error.response.data.detail)
+                    if(error.response.data.code) {
+                        toastify.alert.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
+                    } else {
+                        toastify.alert.showMessageToast(error.response.data.detail)
+                    }
                 } else if (error.response.data.message){
                     let path = ""
                     if (error.response.data.message.includes("helper") || error.response.data.message.includes("util")) {

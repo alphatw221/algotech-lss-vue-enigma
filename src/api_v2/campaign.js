@@ -72,3 +72,4 @@ export const get_campaign_product_order_code_dict = (campaign_id) => {
 export const delete_campaign = (campaign_id) => {
     return createAxiosWithBearer().delete(`/api/v2/campaign/delete/?campaign_id=${campaign_id}`)
 }
+

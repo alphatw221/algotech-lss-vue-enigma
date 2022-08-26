@@ -169,7 +169,8 @@
         "signature_error": "Signature error",
         "lucky_draw_not_found": "Cannot find the lucky draw setting",
         "quiz_game_not_found": "Cannot find quiz game settings"
-    }
+    },
+    "token_not_valid": "You've been logged out."
 }
  
 

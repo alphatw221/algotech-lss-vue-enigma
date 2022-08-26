@@ -31,7 +31,7 @@
                         type="checkbox" 
                         v-model="props.campaign.meta_payment[props.payment.key][field.key]"
                     />
-                    <label class="ml-3 form-label">{{ $t('settings.payment_form.invoice_enabled') }}</label>
+                    <label class="ml-3 form-label">{{ $t(`settings.payment_form.${props.payment.key}.${field.key}`) }}</label>
                 </div>
             </template>
             <template v-else-if="field.type === 'select'">
