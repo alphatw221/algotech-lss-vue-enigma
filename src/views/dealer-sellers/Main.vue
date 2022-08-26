@@ -16,7 +16,10 @@
                 <input id="na" name="state-d" type="radio" class="my-0" />
                 <label for="na" @click="show_campaign('history')">History</label>
             </div>
+            <button class="btn btn-primary shadow-md mr-2">Add New Seller</button>
         </div>
+
+        <SellerTable />
     </div>
     <!-- END OUTTER BOX -->
 </template>
@@ -25,5 +28,7 @@
 import { ref, watch, computed, getCurrentInstance, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
+import SellerTable from "./SellerTable.vue";
 
 </script>
+
