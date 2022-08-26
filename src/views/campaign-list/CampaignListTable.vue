@@ -86,6 +86,13 @@
                       <img class="rounded-full bg-[#f70000]" :src="twitch_platform" >
                   </div>
               </div>
+              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.tiktok_campaign.username">
+                <Tippy tag="img" class="rounded-full" :src="anonymous_profile"
+                  :content="campaign.tiktok_campaign.username" />
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#0f0f0f]" :src="tiktok_platform" >
+                  </div>
+              </div>
             </div>
           </td>
           <td class="text-left title w-fit">
@@ -177,7 +184,7 @@
                     </DropdownItem>
                     <DropdownItem 
                       @click="goLuckyDraw(campaign)" class="w-fit whitespace-nowrap"> 
-                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      <GiftIcon class="h-[20px] w-[20px] mr-1"/>
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>
                     <DropdownItem 
@@ -224,6 +231,8 @@ import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 import twitch_platform from "/src/assets/images/lss-img/twitch.png"
+import tiktok_platform from "/src/assets/images/lss-img/tiktok_black_bg.png"
+import anonymous_profile from "/src/assets/images/lss-img/noname.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n"

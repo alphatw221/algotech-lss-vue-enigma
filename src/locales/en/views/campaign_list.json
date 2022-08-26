@@ -87,6 +87,8 @@
         "select_live_chat":"Select Channel",
 
         "twitch": "Twitch",
+        "tiktok": "TikTok",
+        "enter_username": "Enter Username",
 
         "cancel":"Cancel",
         "save":"Save",
