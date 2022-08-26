@@ -200,7 +200,7 @@
                 </div>
             </div>
         </div>
-		<template v-if="props.campaign.country=='TW'">
+		<!-- <template v-if="props.campaign.country=='TW'">
 		<div class="col-span-12 flex mt-5 lg:mb-5 lg:mt-0">
 			<input 
 				class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
@@ -233,7 +233,7 @@
 				/>
 			</div>
 		</div>
-		</template>
+		</template> -->
 	</div>
 </template>
 

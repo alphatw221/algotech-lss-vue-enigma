@@ -266,7 +266,7 @@ const planOptions = [{ value: "lite" },{ value: "standard" },{ value: "premium" 
 const periodOptions = [{ value: "month" },{ value: "year" }]
 const countryCodeOptions = [{ value: "MY" },{ value: "ID" },{ value: "PH" },{ value: "SG" },{ value: "TW" }]
 const countryOptions = [{ value: "Australia" },{ value: "Cambodia" },{ value: "Canada" },{ value: "Hong Kong" },{ value: "Indonesia" },{ value: "Korea" }
-,{ value: "Malaysia" },{ value: "Philippines" },{ value: "Singapore" },{ value: "Taiwan" },{ value: "Thailand" },{ value: "United State" },{ value: "Vietnam" }]
+,{ value: "Malaysia" },{ value: "Philippines" },{ value: "Singapore" },{ value: "Taiwan" },{ value: "Thailand" },{ value: "United States" },{ value: "Vietnam" }]
 
 // const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
 
