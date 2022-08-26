@@ -53,6 +53,7 @@
         "additional_delivery_charge" : "Selected Delivery Charge Option"
     },
     "payment":{
+        "direct_payment":"转帐支付",
         "Direct Payment":"转帐支付",
         "method" : "付款方式",
         "information": "付款资讯",
