@@ -16,11 +16,11 @@ export const useLSSDealerLayoutStore = defineStore("dealerLayout", {
         pageName: "dashboard",
         title: "dashboard",
       },
-      {
-        icon: "UsersIcon",
-        pageName: "accounts",
-        title: "accounts",
-      },
+      // {
+      //   icon: "UsersIcon",
+      //   pageName: "accounts",
+      //   title: "accounts",
+      // },
       {
         icon: "DollarSignIcon",
         pageName: "transactions",
