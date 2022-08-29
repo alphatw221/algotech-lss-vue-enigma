@@ -38,7 +38,7 @@
               {{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}
 						</template>
             <template v-else-if="column.key=='payment_method' && order[column.key]">
-							{{$t(`order_history.${order[column.key]}`)}}
+							{{order[column.key]=='direct_payment'?`${$t('order_history.direct_payment')} - ${order.meta.account_mode}`:$t(`order_history.${order[column.key]}`)}}
 						</template>
             <template v-else-if="column.key=='status'">
 							{{$t(`order_history.${order[column.key]}`)}}
@@ -108,7 +108,8 @@ const getOrderHistoryListData = ()=>{
 		const total_page = parseInt(dataCount.value / pageSize.value);
 		totalPage.value = total_page == 0 ? 1 : total_page;
 		orders.value = response.data.results;
-    console.log(orders.value)
+    // console.log(orders.value)
+    console.log(response)
 	})
 }
 onMounted(()=>{

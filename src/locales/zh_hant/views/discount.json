@@ -32,11 +32,13 @@
         "Deduct Amount":"折抵金額",
         "Discount Rate":"打折幅度",
         "required":"必填",
+        "campaign":"銷售活動",
         "type_options":{
             "percent_off":"打折(%)",
             "deduct":"減價(-)"
         },
         "limit_options":{
+            "specific_campaign":"特定銷售活動",
             "subtotal_over_specific_amount":"所選商品總價超過特定價錢",
             "product_over_specific_number":"購物車商品超過特定數量"
         },

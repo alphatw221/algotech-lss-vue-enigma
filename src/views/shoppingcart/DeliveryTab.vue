@@ -423,7 +423,6 @@ const proceed_to_payment = () =>{
   .then(res=>{
     router.push(`/buyer/order/${res.data.oid}/payment`)
   }).catch(error=>{
-    layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.checkout_again'))
     if (error.response.data)store.order = error.response.data
     
   })

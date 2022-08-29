@@ -115,7 +115,7 @@
         "not_editable": "无法编辑",
         "product_already_in_pre_order": "商品已存在于此订单",
         "exceeds_max_order_amount": "商品数量超过最大订购数量",
-        "cart_is_empty": "购物车是空的",
+        "cart_is_empty": "商品已售完,请重新确认购物车并再次结账", 
         "unable_purchase_now": "抱歉，卖家已关闭结帐，目前无法购买",
         "max_order_amount_should_less_than_stock": "最大订购数量需小于库存数量",
         "not_support_this_image_type": "图片格式不支援",
@@ -170,5 +170,6 @@
         "signature_error": "签名错误",
         "lucky_draw_not_found": "找不到抽奖设定",
         "quiz_game_not_found": "找不到小游戏设定"
-    }
+    },
+    "token_not_valid": "你已被登出"
 }

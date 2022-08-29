@@ -162,6 +162,11 @@ watch(
   updateOrderSummary
 );
 
+onMounted(()=>{
+  store.order.discount = ''
+  store.order.applied_discount = {}
+})
+
 watch(
   computed(() => {return store.shipping_info}),
   updateOrderSummary,{deep:true}

@@ -77,7 +77,7 @@ const selectPage = index => {
   }
   apiRequest(pages.value[index].id).then(res=>{
     payloadBuffer.value.page = res.data
-    return update_platform_live_id(payloadBuffer.value.campaign.id, payloadBuffer.value.platform, res.data.id ,'')
+    return update_platform_live_id(payloadBuffer.value.campaign.id, {"platform": payloadBuffer.value.platform, "platform_id": res.data.id , "post_id": ''})
   }).then(res=>{
     Object.entries(res.data).forEach(([key,value]) => {
       payloadBuffer.value.campaign[key]=value                       //proxy object only got setter

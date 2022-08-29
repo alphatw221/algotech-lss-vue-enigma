@@ -56,4 +56,6 @@ export const get_pre_order_oid = (pre_order_id) => {
     return createAxiosWithBearer().get(`/api/v2/pre_order/${pre_order_id}/seller/retrieve/oid/`,data)
 }
 
-
+export const seller_cart_add = (pre_order_oid, campaign_product_id, qty) => {
+    return createAxiosWithBearer().put(`/api/v2/pre_order/${pre_order_oid}/seller/add/?campaign_product_id=${campaign_product_id}&qty=${qty}`)
+}

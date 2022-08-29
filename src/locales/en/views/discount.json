@@ -30,11 +30,13 @@
         "add_limitations":"Add Limitations",
         "delete_limitation":"Delete Limitation",
         "required":"Required",
+        "campaign":"Campaign",
         "type_options":{
             "percent_off":"By Percentage(%)",
             "deduct":"By Deduction(-)"
         },
         "limit_options":{
+            "specific_campaign":"Specific Campaign",
             "subtotal_over_specific_amount":"Subtotal Over Specific Amount",
             "product_over_specific_number":"Product Over Specific Number"
         },

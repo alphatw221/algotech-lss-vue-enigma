@@ -171,7 +171,7 @@
                     </button>
                 </div>
             </div>
-            <template v-if="layoutStore.userInfo.user_subscription.country=='TW'">
+            <!-- <template v-if="layoutStore.userInfo.user_subscription.country=='TW'">
                 <div class="flex flex-col justify-center text-[16px]">
                     <div class="flex mt-5 lg:mb-5 lg:mt-0">
                         <input 
@@ -206,7 +206,7 @@
                         </div>
                     </div>
                 </div>
-            </template>
+            </template> -->
 
             <!-- <label class=" text-xl form-label">{{ $t('settings.notes.delivery_note') }}</label>
             <textarea class="h-32  p-3 form-control" placeholder="Address" v-model="deliverySettings.delivery_note">

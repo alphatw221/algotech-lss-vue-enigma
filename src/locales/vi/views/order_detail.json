@@ -53,6 +53,7 @@
         "additional_delivery_charge" : "Tùy chọn phí giao hàng đã chọn"
     },
     "payment":{
+        "direct_payment":"Thanh toán trực tiếp",
         "Direct Payment":"Thanh toán trực tiếp",
         "method" : "Phương thức thanh toán",
         "information": "Thông tin thanh toán",
