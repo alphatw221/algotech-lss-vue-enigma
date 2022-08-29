@@ -55,6 +55,7 @@
     "payment":{
         "direct_payment":"Thanh toán trực tiếp",
         "Direct Payment":"Thanh toán trực tiếp",
+        "ecpay":"ECpay",
         "method" : "Phương thức thanh toán",
         "information": "Thông tin thanh toán",
         "record" : "Hóa đơn thanh toán",
