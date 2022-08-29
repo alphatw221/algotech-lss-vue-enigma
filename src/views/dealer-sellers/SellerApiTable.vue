@@ -1,29 +1,6 @@
 <template>
-  <div class="intro-y flex flex-col sm:flex-row items-center mt-8">
-    <h2 class="text-lg font-medium mr-auto">Tabulator</h2>
-    <div class="w-full sm:w-auto flex mt-4 sm:mt-0">
-      <button class="btn btn-primary shadow-md mr-2">Add New Product</button>
-      <Dropdown class="ml-auto sm:ml-0">
-        <DropdownToggle class="btn px-2 box">
-          <span class="w-5 h-5 flex items-center justify-center">
-            <PlusIcon class="w-4 h-4" />
-          </span>
-        </DropdownToggle>
-        <DropdownMenu class="w-40">
-          <DropdownContent>
-            <DropdownItem>
-              <FilePlusIcon class="w-4 h-4 mr-2" /> New Category
-            </DropdownItem>
-            <DropdownItem>
-              <UserPlusIcon class="w-4 h-4 mr-2" /> New Group
-            </DropdownItem>
-          </DropdownContent>
-        </DropdownMenu>
-      </Dropdown>
-    </div>
-  </div>
   <!-- BEGIN: HTML Table Data -->
-  <div class="intro-y box p-5 mt-5">
+  <div class="intro-y p-5 mt-5">
     <div class="flex flex-col sm:flex-row sm:items-end xl:items-start">
       <form id="tabulator-html-filter-form" class="xl:flex sm:mr-auto">
         <div class="sm:flex items-center sm:mr-4">
@@ -36,8 +13,8 @@
             class="form-select w-full sm:w-32 2xl:w-full mt-2 sm:mt-0 sm:w-auto"
           >
             <option value="name">Name</option>
-            <option value="id">Category</option>
-            <option value="status">Remaining Stock</option>
+            <option value="category">Category</option>
+            <option value="remaining_stock">Remaining Stock</option>
           </select>
         </div>
         <div class="sm:flex items-center sm:mr-4 mt-2 xl:mt-0">
@@ -107,9 +84,9 @@
 
 <script setup>
 import { ref, reactive, onMounted } from "vue";
+// import xlsx from "xlsx";
 import { createIcons, icons } from "lucide";
 import Tabulator from "tabulator-tables";
-import { dealer_search_list_subscriber, dealer_retrieve_subscriber } from '@/api/dealer';
 import dom from "@left4code/tw-starter/dist/js/dom";
 
 const tableRef = ref();
@@ -120,31 +97,23 @@ const filter = reactive({
   value: "",
 });
 
-const sellerList = ref('')
-onMounted(()=>{
-  dealer_search_list_subscriber().then(
-    res=>{
-      sellerList.value = res.data.data
-      console.log(sellerList.value)
-      initTabulator();
-      reInitOnResizeWindow();
-    }
-  )
-})
-
-const imageAssets = import.meta.globEager(
-  `/src/assets/images/*.{jpg,jpeg,png,svg}`
-);
-
+// const imageAssets = import.meta.globEager(
+//   `/src/assets/images/*.{jpg,jpeg,png,svg}`
+// );
 const initTabulator = () => {
   tabulator.value = new Tabulator(tableRef.value, {
-    data: sellerList.value,
-    printAsHtml: true,
+    ajaxURL: "http://127.0.0.1:8000/api/user-subscription/dealer_search_list/",
+    ajaxConfig:{
+        method:"GET",
+        headers:{
+            Accept : 'application/json, text/plain, */*',
+            Authorization: 'Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoiYWNjZXNzIiwiZXhwIjoxNjYxOTE5NDc2LCJpYXQiOjE2NjEzMTQ2NzYsImp0aSI6ImU5ZTI5MDU0OGNkMzQ4ZjM4MWZlNTQ4Yzg1NTg3NjhlIiwidXNlcl9pZCI6MzI4LCJkYXRhIjp7ImF1dGhfdXNlcl9pZCI6MzI4LCJzZWxsZXJfaWQiOjM2MCwiY3VzdG9tZXJfaWQiOjM3MywibmFtZSI6IkNlY2lsaWEgVyIsImVtYWlsIjoibWJydzE5QGdtYWlsLmNvbSJ9fQ.sQU4pLNqbU3fSClGByFkbUwpHCQehnpyBtydoPXISl0',
+        }
+    },
+    ajaxFiltering: true,
+    ajaxSorting: true,
     printStyled: true,
-    sorter:"array",
-    headerSort:true,
-    pagination:"local",
-    paginationInitialPage:1,
+    pagination: "remote",
     paginationSize: 10,
     paginationSizeSelector: [10, 20, 30, 40],
     layout: "fitColumns",
@@ -162,28 +131,28 @@ const initTabulator = () => {
 
       // For HTML table
       {
-        title: "Subscription ID",
+        title: "NAME",
         minWidth: 200,
-        field: "id",
-        vertAlign: "middle",
-        hozAlign: "center",
-        print: false,
-        download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().id}</div>`; },
-      },
-      {
-        title: "Name",
-        minWidth: 200,
+        responsive: 0,
         field: "name",
         vertAlign: "middle",
         hozAlign: "center",
         print: false,
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().name}</div>`; },
+        formatter(cell) {
+          return `<div>
+                <div class="font-medium whitespace-nowrap">${
+                  cell.getData().name
+                }</div>
+                <div class="text-slate-500 text-xs whitespace-nowrap">${
+                  cell.getData().id
+                }</div>
+              </div>`;
+        },
       },
       {
-        title: "langauge",
-        minWidth: 200,
+        title: "LANGUAGE",
+        minWidth: 150,
         field: "lang",
         vertAlign: "middle",
         hozAlign: "center",
@@ -192,8 +161,8 @@ const initTabulator = () => {
         formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().lang}</div>`; },
       },
       {
-        title: "Country",
-        minWidth: 200,
+        title: "COUNTRY",
+        minWidth: 150,
         field: "region",
         vertAlign: "middle",
         hozAlign: "center",
@@ -202,28 +171,18 @@ const initTabulator = () => {
         formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().region}</div>`; },
       },
       {
-        title: "Facebook ID",
-        minWidth: 200,
+        title: "FACEBOOK ID",
+        minWidth: 150,
         field: "facebook_info.id",
-        vertAlign: "middle",
         hozAlign: "center",
+        vertAlign: "middle",
         print: false,
         download: false,
         formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().facebook_info.id}</div>`; },
       },
       {
-        title: "Status",
-        minWidth: 200,
-        field: "status",
-        vertAlign: "middle",
-        hozAlign: "center",
-        print: false,
-        download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().status}</div>`; },
-      },
-      {
-        title: "Timezone",
-        minWidth: 200,
+        title: "TIMEZONE",
+        minWidth: 150,
         field: "timezone",
         hozAlign: "center",
         vertAlign: "middle",
@@ -232,62 +191,89 @@ const initTabulator = () => {
         formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().timezone}</div>`; },
       },
       {
-        title: "Person in Charge",
-        minWidth: 200,
-        field: "name",
-        vertAlign: "middle",
-        hozAlign: "center",
-        print: false,
-        download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().name}</div>`; },
-      },
-      {
-        title: "Phone",
-        minWidth: 200,
+        title: "PHONE",
+        minWidth: 150,
         field: "phone",
-        vertAlign: "middle",
         hozAlign: "center",
+        vertAlign: "middle",
         print: false,
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().phone}</div>`; },
       },
       {
-        title: "E-mail",
-        minWidth: 200,
-        field: "email",
-        vertAlign: "middle",
+        title: "STATUS",
+        minWidth: 150,
+        field: "status",
         hozAlign: "center",
+        vertAlign: "middle",
         print: false,
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().email}</div>`; },
+        formatter(cell) {
+          return `<div class="flex items-center lg:justify-center ${
+            cell.getData().status ? "text-success" : "text-danger"
+          }">
+                <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> ${
+                  cell.getData().status ? "Active" : "Inactive"
+                }
+              </div>`;
+        },
       },
-
       // For print format
       {
-        title: "Subscription ID",
-        field: "id",
-        visible: false,
-        print: true,
-        download: true,
-      },
-      {
-        title: "Name",
+        title: "NAME",
         field: "name",
+        minWidth: 150,
+        vertAlign: "middle",
         visible: false,
         print: true,
         download: true,
       },
       {
-        title: "Langauge",
+        title: "LANGUAGE",
         field: "lang",
+        minWidth: 150,
+        vertAlign: "middle",
         visible: false,
         print: true,
         download: true,
       },
       {
-        title: "Country",
+        title: "COUNTRY",
         field: "region",
+        minWidth: 150,
+        vertAlign: "middle",
         visible: false,
+        print: true,
+        download: true,
+      },
+      {
+        title: "FACEBOOK ID",
+        field: "facebook_info.id",
+        vertAlign: "middle",
+        visible: false,
+        print: true,
+        download: true,
+      },
+      {
+        title: "TIMEZONE",
+        field: "timezone",
+        visible: false,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+      },
+      {
+        title: "PHONE",
+        field: "phone",
+        visible: false,
+        vertAlign: "middle",
+        print: true,
+        download: true,
+      },
+      {
+        title: "STATUS",
+        field: "status",
+        visible: false,
+        vertAlign: "middle",
         print: true,
         download: true,
       },
@@ -295,7 +281,7 @@ const initTabulator = () => {
     renderComplete() {
       createIcons({
         icons,
-        "stroke-width": 1.5,
+        "stroke-width": 2,
         nameAttr: "data-lucide",
       });
     },
@@ -308,7 +294,7 @@ const reInitOnResizeWindow = () => {
     tabulator.value.redraw();
     createIcons({
       icons,
-      "stroke-width": 1.5,
+      "stroke-width": 2,
       nameAttr: "data-lucide",
     });
   });
@@ -332,8 +318,31 @@ const onExportCsv = () => {
   tabulator.value.download("csv", "data.csv");
 };
 
+const onExportJson = () => {
+  tabulator.value.download("json", "data.json");
+};
+
+const onExportXlsx = () => {
+  const win = window;
+  // win.XLSX = xlsx;
+  // tabulator.value.download("xlsx", "data.xlsx", {
+  //   sheetName: "Products",
+  // });
+};
+
+const onExportHtml = () => {
+  tabulator.value.download("html", "data.html", {
+    style: true,
+  });
+};
+
+// Print
 const onPrint = () => {
   tabulator.value.print();
 };
 
+onMounted(() => {
+  initTabulator();
+  reInitOnResizeWindow();
+});
 </script>

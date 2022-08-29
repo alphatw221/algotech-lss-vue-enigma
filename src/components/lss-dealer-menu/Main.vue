@@ -200,7 +200,7 @@ onMounted(() => {
 (min-device-width: 769px) and (max-device-width: 769px) {
   .creatCamp{
     display: none;
-  }
+  } 
   .outterContainer{
   /* height: calc(100vh - 70px); */
   height:90vh;

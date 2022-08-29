@@ -5,7 +5,7 @@ export const dealer_dashboard = () => {
 };
 
 export const dealer_retrieve_subscriber = () => {
-    return createAxiosWithBearer().get('/api/user/user-subscription/dealer_retrieve/');
+    return createAxiosWithBearer().get('/api/user-subscription/dealer_retrieve/');
 };
 
 export const dealer_search_list_subscriber = () => {
