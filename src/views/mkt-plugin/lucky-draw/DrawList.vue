@@ -111,6 +111,11 @@ const drawTitleMap = ref({
     keyword: "Draw Keyword" 
 })
 
+
+onMounted(() => {
+    console.log(props.luckyPrizeObj)
+})
+
 const toManageOrder = ()=>{
     router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
 }

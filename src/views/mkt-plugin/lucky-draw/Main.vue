@@ -53,13 +53,12 @@ onMounted(() => {
         if (Object.entries(res.data).length > 0) {
             showDrawlist.value = true
             luckydrawList.value = res.data
-            console.log(luckydrawList.value)
         }
     })
     seller_list_campaign_product(route.params.campaign_id, '', 1, 500).then(res => {
         for (let i = 0; i < res.data.results.length; i ++) {
             if (res.data.results[i].type === 'lucky_draw') {
-                luckyPrizeObj.value[res.data.results[i].id] = Math.ceil(res.data.results[i].qty_for_sale - res.data.results[i].qty_sold)
+                luckyPrizeObj.value[res.data.results[i].id] = Math.ceil(res.data.results[i].qty_for_sale - res.data.results[i].qty_add_to_cart)
             }
         }
         ready.value = true
