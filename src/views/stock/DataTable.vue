@@ -3,8 +3,16 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
+					<th class="w-10 text-center">
+						<input 
+							class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
+							type="checkbox" 
+							v-model="selectAll" 
+							@change="selectAllStock($event)"
+						/>
+					</th>
 					<th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]" v-for="column in tableColumns" :key="column.key">
-						<template v-if="column.key === 'edit'">
+						<template v-if="column.key === 'edit' || column.key === 'check'">
 							{{ '' }}
 						</template>
 						<template v-else-if="column.key === 'name'">
@@ -71,7 +79,7 @@
 						</div>
 					</td> 
 				</tr>
-
+				
 				<tr
 					v-for="(product, index) in stockProducts"
 					:key="index"
@@ -79,8 +87,15 @@
 					:class="{'trBorder' : numOfProducts != 0}"
 				>	
 					<template v-for="column,index in tableColumns" :key="index"> 
-
-						<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td class="w-10" v-if="column.key == 'check'">
+							<input 
+								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
+								type="checkbox" 
+								v-model="product.check"
+								@click="selectStock(product, $event)"
+							/>
+						</td>
+						<td v-else-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="flex justify-center">
 								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 " v-if="product.image">
 									<Tippy 
@@ -185,6 +200,7 @@ const props = defineProps({
 })
 
 const tableColumns = ref([
+	{ name: "check", key: "check"},
     { name: "image", key: "image" },
 	{ name: "name", key: "name" },
 	{ name: "category", key: "category" },
@@ -194,7 +210,7 @@ const tableColumns = ref([
 	{ name: "", key: "edit" },
 ])
 
-
+const selectAll = ref(false)
 const currentPage = ref(1)
 const totalPage = ref(1)
 const pageSize = ref(10)
@@ -202,6 +218,7 @@ const dataCount = ref(0)
 const searchColumn = ref('')
 const keyword = ref('')
 const stockProducts = ref([])
+const bulkEditStockIdList = ref([])
 const category = ref('')
 const sortBy = ref('')
 
@@ -282,6 +299,30 @@ const sortByThis = (by) =>{
 	sortBy.value = by
 	// sortBy.value = sortBy.value=='name' ? '-name': 'name'
 	search();
+}
+
+const selectAllStock = (event) => {
+	if (event.target.checked) {
+		stockProducts.value.forEach(product => { 
+			product.check = true 
+			bulkEditStockIdList.value.push(product.id)
+		})
+		selectAll.value = true
+	} else {
+		stockProducts.value.forEach(product => { 
+			product.check = false 
+			bulkEditStockIdList.value = []
+		})		
+		selectAll.value = false
+	}
+}
+
+const selectStock = (product, event) => {
+	if (event.target.checked) {
+		bulkEditStockIdList.value.push(product.id)
+	} else {
+		bulkEditStockIdList.value = bulkEditStockIdList.value.filter((v) => v != product.id)
+	}
 }
 
 </script>
