@@ -28,8 +28,8 @@ export const seller_bulk_create_campaign_products = (campaign_id, data) => {
     return createAxiosWithBearer().post(`/api/v2/campaign-product/seller/create/bulk/?campaign_id=${campaign_id}`, data)
 }
 
-export const seller_list_campaign_product = (campaign_id, category, page, page_size) => {
-    return createAxiosWithBearer().get(`/api/v2/campaign-product/seller/list/?campaign_id=${campaign_id}&category=${category}&page=${page}&page_size=${page_size}`)
+export const seller_list_campaign_product = (campaign_id, category, page, page_size, type) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign-product/seller/list/?campaign_id=${campaign_id}&category=${category}&type=${type}&page=${page}&page_size=${page_size}`)
 }
 
 export const seller_delete_campaign_product = (campaign_product_id) => {

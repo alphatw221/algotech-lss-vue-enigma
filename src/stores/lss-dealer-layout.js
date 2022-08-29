@@ -5,6 +5,7 @@ export const useLSSDealerLayoutStore = defineStore("dealerLayout", {
   state: () => ({
     showMobileMenu: ref(false),
     isAuthenticated: ref(false),
+    profileTab: ref(1),
     loginWith: ref(null),
     userInfo: ref({}),
     notification: ref(),
@@ -48,11 +49,11 @@ export const useLSSDealerLayoutStore = defineStore("dealerLayout", {
       },
       {
         icon: "SettingsIcon",
-        pageName: "settings",
+        pageName: "dealer-settings",
         title: "settings",
         subMenu: [
           {
-            pageName: "settings",
+            pageName: "dealer-settings",
             title: "settings",
           }
         ],

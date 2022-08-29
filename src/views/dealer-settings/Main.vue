@@ -8,8 +8,8 @@
                     <button
                         @click="layout.profileTab = 1"
                         :class="{
-                            'text-neutral-600 bg-white': layout.profileTab !== 1,
-                            'text-white bg-primary': layout.profileTab === 1 
+                            'text-neutral-600 bg-white': layout.profileTab !== 1 && layout.profileTab !== 4,
+                            'text-white bg-primary': layout.profileTab === 1 || layout.profileTab === 4
                             }" 
                         class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400 ">
                         <UserIcon />
@@ -67,17 +67,17 @@
 
         <div class="box p-8 sm:px-20 lg:py-10 shadow-sm rounded-lg sm:mx-20 text-sm sm:text-lg">
             <div class="tab-content tab-space">
-                <!-- <ProfileTab />
-                <ResetPasswordTab /> -->
+                <ProfileTab />
+                <ResetPasswordTab />
             </div>
         </div>
     </div>
 </template>
 
 <script setup>
-// import ProfileTab from './ProfileTab.vue';
+import ProfileTab from './ProfileTab.vue';
 // import SubscriptionTab from './SubscriptionTab.vue';
-// import ResetPasswordTab from './ResetPassword.vue';
+import ResetPasswordTab from './ResetPasswordTab.vue';
 import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
 
 const layout = useLSSDealerLayoutStore()

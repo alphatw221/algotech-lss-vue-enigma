@@ -56,7 +56,7 @@
 import { seller_general_login } from '@/api_v2/user';
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
-
+import { useLSSSellerLayoutStore } from '../../stores/lss-seller-layout';
 import {ref, onMounted, onBeforeMount, computed, getCurrentInstance } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
@@ -92,6 +92,8 @@ const copyLink = ()=>{
     })
 }
 
+const layoutStore = useLSSSellerLayoutStore()
+
 // const rules = computed(()=> {
 //     return {
 //         email: { required, email },
@@ -107,6 +109,7 @@ const signIn = ()=>{
     //     return
     // } 
     // console.log('signIn')  response.data.access
+    console.log(layoutStore)
     seller_general_login(loginData.value).then(response=>{
         cookies.set("access_token", response.data.access)
         cookies.set("login_with", 'general')

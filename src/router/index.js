@@ -95,13 +95,16 @@ import Test7 from "../views/test/test7.vue";
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
-import isBuyerLoginMiddleware from "@/libs/routerMiddleware/isBuyerLoginMiddleware"
+import isBuyerLoginMiddleware from "@/libs/routerMiddleware/isBuyerLoginMiddleware" 
 import youtubeOrderMiddleware from "@/libs/routerMiddleware/youtubeOrderMiddleware"
 import sellerAuthMiddleware from "@/libs/routerMiddleware/sellerAuthMiddleware"
+import isDealerMiddleware from "@/libs/routerMiddleware/isDealerMiddleware"
 
 import buyerLoginMiddleware from "@/libs/routerMiddleware/buyerLoginMiddleware";
 import buyerRecaptchaMiddleware from "@/libs/routerMiddleware/buyerRecaptchaMiddleware";
 import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
+import checkDealerLogin from "@/libs/routerMiddleware/checkDealerLogin";
+ 
 
 const routes = [
   {
@@ -323,7 +326,13 @@ const routes = [
         name: "registration-page",
         component: () => import('@/views/seller-registration/Main.vue')
       },
-    ]
+      {
+        path: "/dealer/login",
+        name: "dealer-login",
+        beforeEnter: checkDealerLogin,
+        component: () => import('@/views/general/DealerLoginPage.vue')
+      },
+    ],
   },
   
   {
@@ -391,31 +400,12 @@ const routes = [
     component: () => import('@/views/general/BuyerLoginPage.vue'),
   },
 
- // -------------------------------Public Route-----------------------------
-
-  {
-    path: "/public",
-    component: LSSPublicLayout,
-    children: [
-      {
-        path: "/password/forgot",
-        name: "PasswordForgot",
-        component: () => import('@/views/general/ForgotPasswordPage.vue')
-      },
-      {
-        path: "/register",
-        name: "register",
-        component: () => import('@/views/seller-registration/Main.vue')
-      },
-    ]
-  },
-
  // -------------------------------Dealer Route-----------------------------
 
  {
   path: "/dealer",
   component: LSSDealerLayout,
-  // beforeEnter: dealerAuthMiddleware,
+  beforeEnter: isDealerMiddleware,
   children: [
     {
       path: "dashboard",
@@ -454,7 +444,7 @@ const routes = [
     },
     {
       path: "settings",
-      name: "settings",
+      name: "dealer-settings",
       component: () => import('@/views/dealer-settings/Main.vue')
     }]
   },
