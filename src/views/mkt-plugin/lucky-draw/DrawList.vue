@@ -121,6 +121,7 @@ const toManageOrder = ()=>{
 }
 
 const goDraw = (lucky_draw_id) => {
+    // need fix
     let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id} })
     window.open(routeData.href, '_blank')
 }
