@@ -53,7 +53,7 @@
                     </div>
                     <div class="grid grid-cols-6 gap-2">
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</div>
-                        <div class="col-start-3 col-span-3 py-2">{{ store.order.payment_method == 'Direct Payment'||'direct_payment' ? `${$t('order_detail.payment.Direct Payment')} - ${store.order.meta.account_mode}` : store.order.payment_method }}</div>
+                        <div class="col-start-3 col-span-3 py-2" v-if="store.order.payment_method">{{ store.order.payment_method == 'direct_payment' ? `${$t('order_detail.payment.Direct Payment')} - ${store.order.meta.account_mode}` : $t(`order_detail.payment.${store.order.payment_method}`) }}</div>
                         <template v-if="store.order.meta">
                             <div class="col-start-1 col-span-2 py-2" v-if="store.order.meta.InvoiceNumber">發票號碼</div>
                             <div class="col-start-3 col-span-3 py-2" v-if="store.order.meta.InvoiceNumber">{{store.order.meta.InvoiceNumber}}</div>
