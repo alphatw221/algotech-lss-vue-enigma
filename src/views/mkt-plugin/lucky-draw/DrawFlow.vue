@@ -160,6 +160,27 @@ const goDraw = (lucky_draw_id) => {
                 console.log("hasWinner", hasWinner.value)
             }
         }, spin_time)
+    }).catch(err => {
+        if (error.response.data) {
+            if (error.response.data.detail){
+                alert(error.response.data.detail)
+            } else if (error.response.data.message){
+                let path = ""
+                if (error.response.data.message.includes("helper") || error.response.data.message.includes("util")) {
+                    path = "error_messages" + "." + error.response.data.message
+                } else if (error.response.config.url.includes("v2")) {
+                    console.log(error.response.config.url.split("/").splice(0,4).join("."))
+                    path = "error_messages" + error.response.config.url.split("/").splice(0,4).join(".") + "." + error.response.data.message
+                } else {
+                    path = "error_messages" + error.response.config.url.split("/").splice(0,3).join(".") + "." + error.response.data.message
+                }
+                console.log(path)
+                alert(i18n.global.t(path))
+            }
+        }
+        else{
+            alert('error ! please refresh the page.')
+        }
     })
 
 }
