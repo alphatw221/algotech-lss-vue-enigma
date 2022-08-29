@@ -10,7 +10,7 @@
         <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 right-20 z-10 -translate-y-1/3 rotate-3" />    
         <div class="flex relative flex-col items-center p-10 text-center z-0 center w-full h-3/4 sm:h-fit sm:w-[375px] right-50 top-1/4 sm:top-0 sm:translate-y-1/3 abosolute bg-white sm:opacity-95">
             <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
-            <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >{{ $t('login.login') }}</h3>
+            <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >Dealer {{ $t('login.login') }}</h3>
             <form class="w-full flex-col flex gap-5 z-10">
                 <div class="relative"> 
                     <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
@@ -47,24 +47,26 @@
             </div> -->
         </div>
     </div>
-    
 </div>
     
 </template>
 
 <script setup>
-import { seller_general_login } from '@/api_v2/user';
+import { admin_login } from '@/api_v2/user';
+import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
 
 import {ref, onMounted, onBeforeMount, computed, getCurrentInstance } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
-// import { useVuelidate } from "@vuelidate/core";
-// import { required, email } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
 
 import { useCookies } from "vue3-cookies";
 const { cookies } = useCookies();
+
+const layoutStore = useLSSDealerLayoutStore();
 
 onBeforeMount (()=>{
     document.querySelector('body').setAttribute('style', 'padding-left: 0; padding-right: 0; overflow: hidden; height:100vh;')
@@ -86,31 +88,35 @@ const showPassword = ref(false)
 const loginData = ref(
     {email:'',password:''})
 
+
 const copyLink = ()=>{
     navigator.clipboard.writeText(currentUrl.value).then(()=>{
         alert('copied!')
     })
 }
 
-// const rules = computed(()=> {
-//     return {
-//         email: { required, email },
-//         password: { required},
-//     }
-// })
-// const validate = useVuelidate(rules, loginData);
+const rules = computed(()=> {
+    return {
+        email: { required, email },
+        password: { required},
+    }
+})
+const validate = useVuelidate(rules, loginData);
 
 const signIn = ()=>{ 
-    // validate.value.$touch();
-    // if (validate.value.$invalid) {
-    //     alert('Input info is invalid')
-    //     return
-    // } 
-    // console.log('signIn')  response.data.access
-    seller_general_login(loginData.value).then(response=>{
+
+    console.log(layoutStore)
+    validate.value.$touch();
+    if (validate.value.$invalid) {
+        alert('Input info is invalid')
+        return
+    } 
+
+    admin_login(loginData.value).then(response=>{
+        console.log(response)
         cookies.set("access_token", response.data.access)
-        cookies.set("login_with", 'general')
-        router.push({name:'campaign-list'})
+        cookies.set("login_with", 'dealer')
+        router.push({name:'dashboard'})
     })
 }
 
