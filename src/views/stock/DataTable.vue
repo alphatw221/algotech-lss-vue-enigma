@@ -3,16 +3,15 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
-					<th class="w-10 text-center">
-						<input 
-							class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
-							type="checkbox" 
-							v-model="selectAll" 
-							@change="selectAllStock($event)"
-						/>
-					</th>
 					<th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]" v-for="column in tableColumns" :key="column.key">
-						<template v-if="column.key === 'edit' || column.key === 'check'">
+						<!-- <template v-if="column.key === 'check'">
+							<input 
+								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
+								type="checkbox" 
+								@change="selectAllStock($event)"
+							/>
+						</template> -->
+						<template v-if="column.key === 'edit'">
 							{{ '' }}
 						</template>
 						<template v-else-if="column.key === 'name'">
@@ -87,15 +86,15 @@
 					:class="{'trBorder' : numOfProducts != 0}"
 				>	
 					<template v-for="column,index in tableColumns" :key="index"> 
-						<td class="w-10" v-if="column.key == 'check'">
+						<!-- <td class="w-10" v-if="column.key == 'check'">
 							<input 
 								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
 								type="checkbox" 
 								v-model="product.check"
 								@click="selectStock(product, $event)"
 							/>
-						</td>
-						<td v-else-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
+						</td> -->
+						<td v-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="flex justify-center">
 								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 " v-if="product.image">
 									<Tippy 
@@ -179,28 +178,64 @@
 			@on-page-size-change="changePageSize"
 		/>
 	</div> 
+	<div>
+		<Modal :show="showModal" @hidden="hide()" backdrop="static">
+			<ModalBody class="p-10 ">
+				<div class="mt-1">
+					<label for="regular-form-2" class="form-label w-full text-center font-medium" style="font-size: 1.2rem;">Bulk Edit</label>
+					
+					<label for="crud-form-2" class="form-label text-base mt-2 font-medium">Category</label>
+					<TomSelect
+						multiple
+						placeholder="Select categories to update..."
+						v-model="bulkEditStockObj.categories"
+					>
+						<option v-for="category in categorySelection" :key="category">{{ category }}</option>
+					</TomSelect>
+					
+					<label class="form-label text-base mt-5 font-medium">Status</label>
+					<div class="flex">
+						<div class="ml-3" v-for="status in statusRadio" :key="status.id">
+							<input 
+								class="form-check-input w-6 h-6" 
+								type="radio" 
+								name="horizontal_radio_button1" 
+								v-model="bulkEditStockObj.status"
+								:value="status.id"
+							/>
+							<label class="form-check-label text-base" >
+								{{ $t(`stock.${status.text}`) }}
+							</label>
+						</div>
+					</div>
+
+				</div>
+				<div class="flex justify-between">
+					<button class="w-32 shadow-md btn btn-secondary mt-7" @click="hide()">Cancel</button>
+					<button class="w-32 shadow-md btn btn-primary mt-7" @click="bulkUpdateStock">Save</button>
+				</div>
+			</ModalBody>
+		</Modal>
+	</div>
 </template>
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { list_product, delete_product, copy_product } from '@/api_v2/product'
+import { list_product, delete_product, copy_product, list_product_category } from '@/api_v2/product'
 
-
-import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed} from 'vue'
+import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n";
 
 const route = useRoute()
 const router = useRouter()
-
 const props = defineProps({
 	product_status: String,
 	eventBusName: String
 })
-
 const tableColumns = ref([
-	{ name: "check", key: "check"},
+	// { name: "check", key: "check"},
     { name: "image", key: "image" },
 	{ name: "name", key: "name" },
 	{ name: "category", key: "category" },
@@ -209,8 +244,11 @@ const tableColumns = ref([
 	{ name: "price", key: "price" },
 	{ name: "", key: "edit" },
 ])
+const statusRadio = ref([
+	{text: 'for_sale', id: 'enabled'},
+	{text: 'delisted', id: 'disabled'},
+])
 
-const selectAll = ref(false)
 const currentPage = ref(1)
 const totalPage = ref(1)
 const pageSize = ref(10)
@@ -218,21 +256,34 @@ const dataCount = ref(0)
 const searchColumn = ref('')
 const keyword = ref('')
 const stockProducts = ref([])
-const bulkEditStockIdList = ref([])
 const category = ref('')
 const sortBy = ref('')
+const showModal = ref(false)
+const categorySelection = ref([])
+const bulkEditStockObj = ref({
+	categories: [],
+	status: false,
+	stockIdList: []
+})
 
 const publicPath = import.meta.env.VITE_APP_IMG_URL
 const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
-
 const layoutStore = useLSSSellerLayoutStore()
 const showCommentLoding = ref(true)
-
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-
 const numOfProducts = computed(()=>stockProducts.value.length)
 
+
+watch(computed(() => bulkEditStockObj.value.stockIdList), () => {
+	eventBus.emit('isBulkEditShow', { stockListLength: bulkEditStockObj.value.stockIdList.length })
+}, { deep:true })
+
 onMounted(()=>{
+	list_product_category().then(res => { 
+		categorySelection.value = res.data
+		categorySelection.value.unshift('uncategory')
+	})
+
 	search()
 	eventBus.on(props.eventBusName, (payload) => {
 		currentPage.value = 1
@@ -242,10 +293,18 @@ onMounted(()=>{
 		category.value = payload.filterColumn
 		search()
 	});
+
+	eventBus.on(('bulkEditStock'), () => {
+		console.log(bulkEditStockObj.value)
+		if (bulkEditStockObj.value.stockIdList.length > 0) {
+			showModal.value = true
+		}
+	})
 })
 
 onUnmounted(()=>{
 	eventBus.off(props.eventBusName)
+	eventBus.off('bulkEditStock')
 })
 
 const search = ()=>{
@@ -305,24 +364,30 @@ const selectAllStock = (event) => {
 	if (event.target.checked) {
 		stockProducts.value.forEach(product => { 
 			product.check = true 
-			bulkEditStockIdList.value.push(product.id)
+			bulkEditStockObj.value.stockIdList.push(product.id)
 		})
-		selectAll.value = true
 	} else {
 		stockProducts.value.forEach(product => { 
 			product.check = false 
-			bulkEditStockIdList.value = []
+			bulkEditStockObj.value.stockIdList = []
 		})		
-		selectAll.value = false
 	}
 }
 
 const selectStock = (product, event) => {
-	if (event.target.checked) {
-		bulkEditStockIdList.value.push(product.id)
-	} else {
-		bulkEditStockIdList.value = bulkEditStockIdList.value.filter((v) => v != product.id)
-	}
+	if (event.target.checked) bulkEditStockObj.value.stockIdList.push(product.id)  
+	else bulkEditStockObj.value.stockIdList = bulkEditStockObj.value.stockIdList.filter((v) => v != product.id)
+	
+	console.log(bulkEditStockObj.value.stockIdList)
+}
+
+const hide = () => {
+    showModal.value = false
+}
+
+const bulkUpdateStock = () => {
+	console.log('bulkEditStockObj.value')
+	console.log(bulkEditStockObj.value)
 }
 
 </script>
