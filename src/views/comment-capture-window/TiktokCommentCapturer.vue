@@ -26,6 +26,8 @@ const uploadComments = ()=>{
     const commentsLength = tiktok_comments.value.length
     tiktok_comments.value.splice(0,commentsLength)
     console.log('comments uploaded')
+
+    
     // const data = JSON.parse(JSON.stringify( tiktok_comments.value.slice(0,commentsLength )))
     // upload_tiktok_comments(props.campaign_id, data).then(res=>{
     //     tiktok_comments.value.splice(0,commentsLength)
@@ -33,11 +35,7 @@ const uploadComments = ()=>{
 
 }
 
-watch(computed(()=>tiktok_comments.value),()=>{
-    if(tiktok_comments.value.length>BUFFER_SIZE){
-        uploadComments()
-    }
-})
+
 
 const checkBuffer = ()=>{
     console.log('check buffer')
@@ -61,10 +59,18 @@ const onMessageHandler = msg=>{
     tiktok_comments.value.push(data)
 }
 onMounted(()=>{
-    console.log(props.campaign)
-
-    tiktok_connector.value = create_tiktok_connector("@pro_0805", onMessageHandler)
+    if(!props.campaign.tiktok_campaign?.username){
+        console.log('no toktok info')
+        return
+    }
+    tiktok_connector.value = create_tiktok_connector(props.campaign.tiktok_campaign?.username, onMessageHandler)
     uploadIntervalId.value = setInterval(checkBuffer, UPLOAD_INTERVAL)
+
+    watch(computed(()=>tiktok_comments.value),()=>{
+    if(tiktok_comments.value.length>BUFFER_SIZE){
+        uploadComments()
+    }
+})
 
     // if(props.campaign.tiktik_campaign?.username){
     //     tiktok_connector.value = create_tiktok_connector(props.username, onMessageHandler)
