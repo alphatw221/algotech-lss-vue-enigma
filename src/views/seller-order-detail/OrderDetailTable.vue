@@ -33,7 +33,7 @@
 					</div>
 				</td>
 				<td class="text-left" :data-content="$t('order_detail.table.product')">
-					<span class="font-bold"  v-if="product.type === 'lucky_draw'"> *Prize*</span>
+					<span class="font-bold"  v-if="product.type === 'lucky_draw'"> *{{$t('lucky_draw.winner_modal.prize')}}*</span>
 					<div class="break-words whitespace-normal">{{ product.name }} </div>
 				</td>
 				<td class="text-center w-fit" :data-content="$t('order_detail.table.qty')">

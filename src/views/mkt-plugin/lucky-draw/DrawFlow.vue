@@ -57,8 +57,9 @@
                             <div class="w-full">
                                 <div class="flex-0 xl:w-28 xl:h-28 w-20 h-20 zoom-in border-0">
                                     <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" class="rounded-full border-0 w-full" :src="`${storageUrl}fake_head.jpeg`"
-                                        />
+                                    :content="winner.name"    />
                                     <Tippy v-else tag="img" class="rounded-full border-0 w-full" :src="winner.customer_image"
+                                    :content="winner.name"
                                         />
                                     <div class="w-5 h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                         <img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
