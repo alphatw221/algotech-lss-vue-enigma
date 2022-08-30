@@ -56,3 +56,11 @@ export const user_register_with_bank_transfer = (countryCode,data) =>{
 export const user_register_with_ecpay = (countryCode,data) =>{
     return axiosInstance.post(`/api/v2/user/register/${countryCode}/ecpay/`,data);
 }
+
+export const admin_login = data => {
+    return axiosInstance.post(`/api/v2/user/admin/login/`,data);
+};
+
+export const dealer_login = data => {
+    return axiosInstance.post(`/api/v2/user/dealer/login/`,data);
+};

@@ -55,6 +55,7 @@
     "payment":{
         "Direct Payment":"Direct Payment",
         "direct_payment":"Direct Payment",
+        "ecpay":"ECpay",
         "method" : "Payment Method",
         "information": "Payment Information",
         "record" : "Record",

@@ -123,7 +123,7 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 import PriceSummary from "./PriceSummary.vue"
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
-import { seller_list_campaign_products} from "@/api_v2/campaign_product";
+import { seller_list_campaign_product} from "@/api_v2/campaign_product";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_order } from "@/api_v2/order";
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
@@ -139,8 +139,9 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus
 
 
 onMounted(()=>{
-    // console.log(route.query.type)
+    console.log(route.params)
     get_order()
+
 })
 
 function get_order(){
@@ -151,9 +152,9 @@ function get_order(){
                     //  console.log(store.orderDetail) 
                      show_adjust_price() }
         )
-        seller_list_campaign_products(route.params.order_id).then(
+        seller_list_campaign_product(route.params.campaign_id,'',1,9999,'product').then(
             res=>{
-                store.campaignProducts = res.data
+                store.campaignProducts = res.data.results
                 console.log(store.campaignProducts)
             }
         )
