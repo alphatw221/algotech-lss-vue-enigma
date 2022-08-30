@@ -10,7 +10,7 @@
         <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 right-20 z-10 -translate-y-1/3 rotate-3" />    
         <div class="flex relative flex-col items-center p-10 text-center z-0 center w-full h-3/4 sm:h-fit sm:w-[375px] right-50 top-1/4 sm:top-0 sm:translate-y-1/3 abosolute bg-white sm:opacity-95">
             <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
-            <h3 class="text-[1.8rem] mx-auto my-5 font-medium" >Dealer {{ $t('login.login') }}</h3>
+            <h3 class="text-[1.8rem] mx-auto my-5 font-medium" >{{$t('login.dealer')}}{{ $t('login.login') }}</h3>
             <form class="w-full flex-col flex gap-5 z-10">
                 <div class="relative"> 
                     <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
@@ -96,11 +96,10 @@ const copyLink = ()=>{
 }
 
 const signIn = ()=>{ 
-    admin_login(loginData.value).then(response=>{
-        eventBus.emit('showTwoFAModal',response.data.access)
+    admin_login(loginData.value).then(res=>{
+        eventBus.emit('showTwoFAModal',res.data)
     })
 }
-
 
 </script>
 
