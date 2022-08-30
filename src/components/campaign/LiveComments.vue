@@ -47,11 +47,11 @@
                         >
                             <YoutubeIcon class="m-1 " />
                         </button>
-                        <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
+                        <!-- <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
                             @click="openCapturePage()"
                         >
                             <YoutubeIcon class="m-1 " />
-                        </button>
+                        </button> -->
                     </div>
                 </div>
             </div>
@@ -363,10 +363,10 @@ const toQuizList = ()=>{
     hideDropDown()
 }
 
-const openCapturePage=()=>{
-    let routeData = router.resolve({ name: 'comment-capture-page', params: {campaign_id: route.params.campaign_id} })
-    window.open(routeData.href, '_blank')
-}
+// const openCapturePage=()=>{
+//     let routeData = router.resolve({ name: 'comment-capture-page', params: {campaign_id: route.params.campaign_id} })
+//     window.open(routeData.href, '_blank')
+// }
 </script>
 <style scoped>
 

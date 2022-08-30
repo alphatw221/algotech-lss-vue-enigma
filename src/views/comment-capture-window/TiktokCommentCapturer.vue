@@ -8,6 +8,9 @@
 
 import { computed, onMounted, ref, watch, onUnmounted, defineProps } from "vue";
 import { create_tiktok_connector, upload_tiktok_comments } from '@/api_v2/tiktok';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+
+const sellerStore = useLSSSellerLayoutStore();
 
 const props = defineProps({
     campaign: Object,
@@ -17,21 +20,18 @@ const tiktok_connector = ref(null)
 const tiktok_comments = ref([])
 
 const BUFFER_SIZE = 20
-const UPLOAD_INTERVAL = 5000
+const UPLOAD_INTERVAL = 10000
 
 const uploadIntervalId = ref(null)
 
 
 const uploadComments = ()=>{
     const commentsLength = tiktok_comments.value.length
-    tiktok_comments.value.splice(0,commentsLength)
-    console.log('comments uploaded')
-
     
-    // const data = JSON.parse(JSON.stringify( tiktok_comments.value.slice(0,commentsLength )))
-    // upload_tiktok_comments(props.campaign_id, data).then(res=>{
-    //     tiktok_comments.value.splice(0,commentsLength)
-    // })
+    const data = JSON.parse(JSON.stringify( tiktok_comments.value.slice(0,commentsLength )))
+    upload_tiktok_comments(sellerStore.commentCapturingCampaignData.id, data).then(res=>{
+        tiktok_comments.value.splice(0,commentsLength)
+    })
 
 }
 
@@ -45,58 +45,55 @@ const checkBuffer = ()=>{
 
 
 const onMessageHandler = msg=>{
-    const created_time = Date.now()
+    const date = new Date()
+    // const created_time = Math.floor((date.getTime())/1000)
+    date.setSeconds(0)
+    date.setMinutes(0)
+    date.setSeconds(0)
+    date.setMilliseconds(0)
+    const created_hour = Math.floor((date.getTime())/1000)
+    
+
     const data = {
-        id:msg.userId+'_'+created_time,  //
+        id:msg.userId+'_'+msg.comment+'_'+created_hour,  //
         platform:'tiktok',
         message:msg.comment,
         customer_id:msg.userId, //
         customer_name:msg.nickname,
         image:msg.profilePictureUrl,
-        created_time:Math.floor(created_time / 1000)
+        // created_time:created_time
     }
-    console.log(data)
+    // console.log(data)
     tiktok_comments.value.push(data)
 }
+const onErrorHandler = err=>{
+    
+    
+    if(sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status)sellerStore.commentCapturingCampaignData.tiktok_campaign.status = 'error'
+    
+    closeConnection()
+}
+
 onMounted(()=>{
-    if(!props.campaign.tiktok_campaign?.username){
-        console.log('no toktok info')
-        return
-    }
-    tiktok_connector.value = create_tiktok_connector(props.campaign.tiktok_campaign?.username, onMessageHandler)
+
+    tiktok_connector.value = create_tiktok_connector(sellerStore.commentCapturingCampaignData.tiktok_campaign?.username, onMessageHandler, onErrorHandler)   
     uploadIntervalId.value = setInterval(checkBuffer, UPLOAD_INTERVAL)
 
     watch(computed(()=>tiktok_comments.value),()=>{
-    if(tiktok_comments.value.length>BUFFER_SIZE){
-        uploadComments()
-    }
-})
-
-    // if(props.campaign.tiktik_campaign?.username){
-    //     tiktok_connector.value = create_tiktok_connector(props.username, onMessageHandler)
-    //     uploadIntervalId.value = setInterval(checkBuffer, UPLOAD_INTERVAL)
-    // }
-    // else{
-    //     console.log('no tiktok username')
-    // }
-
-    // comment: "封了"
-    // followRole: 1
-    // isModerator: true
-    // isNewGifter: false
-    // isSubscriber: false
-    // nickname: "軒.(՞ . .՞)"
-    // profilePictureUrl: "https://p16-sign-va.tiktokcdn.com/tos-useast2a-avt-0068-giso/d89be23d7c7142ae2149500a5b7d9a7b~c5_100x100.jpeg?x-expires=1661335200&x-signature=rI5t85c0TjKqaovCxGBDNLE3gAs%3D"
-    // topGifterRank: null
-    // uniqueId: "hu_0160"
-    // userBadges: [{…}]
-    // userId: "7086843598461060122"
+        if(tiktok_comments.value.length>BUFFER_SIZE){
+            uploadComments()
+        }
+    })
+    sellerStore.commentCapturingCampaignData.tiktok_campaign.status = 'capturing'
 
 })
 
 onUnmounted(()=>{
-    if(tiktok_connector.value)tiktok_connector.value.disconnect()
-    if(uploadIntervalId.vlaue)clearInterval(uploadIntervalId.value)
+    closeConnection()
 })
 
+const closeConnection = ()=>{
+    if(tiktok_connector.value)tiktok_connector.value.disconnect()  
+    if(uploadIntervalId.value)clearInterval(uploadIntervalId.value)
+}
 </script>
