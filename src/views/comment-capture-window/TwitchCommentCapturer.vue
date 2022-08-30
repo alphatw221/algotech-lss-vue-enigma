@@ -12,6 +12,7 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 const sellerStore = useLSSSellerLayoutStore();
 
 const twitchCommentList = ref([])
+const twitchConnector = ref(null)
 
 const BUFFER_SIZE = 20
 const UPLOAD_INTERVAL = 5000
@@ -53,7 +54,7 @@ const onConnectedHandler = (addr, port) => {
 }
 
 onMounted(() => {
-    init_twitch_websocket(sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, `oauth:${sellerStore.commentCapturingCampaignData.twitch_campaign.token}`, sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, onMessageHandler, onConnectedHandler)
+    twitchConnector.value = init_twitch_websocket(sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, `oauth:${sellerStore.commentCapturingCampaignData.twitch_campaign.token}`, sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, onMessageHandler, onConnectedHandler)
     intervalId.value = setInterval(checkBuffer, UPLOAD_INTERVAL)
 
     watch(computed(()=>{twitchCommentList.value}), () => {
@@ -61,14 +62,15 @@ onMounted(() => {
             uploadComments()
         }
     })
+    sellerStore.commentCapturingCampaignData.twitch_campaign.status = 'capturing'
 })
 
 onUnmounted(()=>{
     closeConnection()
 })
 
-const closeConnection = ()=>{
-    // if(tiktok_connector.value)tiktok_connector.value.disconnect()  
+const closeConnection = () => {
+    if (twitchConnector.value) twitchConnector.value.disconnect()
     if (intervalId.value) clearInterval(intervalId.value)
 }
 

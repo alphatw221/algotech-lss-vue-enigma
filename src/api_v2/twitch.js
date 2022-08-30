@@ -18,6 +18,8 @@ export const init_twitch_websocket = (username, password, channel, onMessageHand
     client.on('connected', onConnectedHandler);
 
     client.connect();
+    
+    return client
 }
 
 export const upload_twitch_comments = (campaign_id, data) => {
