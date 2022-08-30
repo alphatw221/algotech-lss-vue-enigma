@@ -10,7 +10,7 @@
         <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 right-20 z-10 -translate-y-1/3 rotate-3" />    
         <div class="flex relative flex-col items-center p-10 text-center z-0 center w-full h-3/4 sm:h-fit sm:w-[375px] right-50 top-1/4 sm:top-0 sm:translate-y-1/3 abosolute bg-white sm:opacity-95">
             <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
-            <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >Dealer {{ $t('login.login') }}</h3>
+            <h3 class="text-[1.8rem] mx-auto my-5 font-medium" >Dealer {{ $t('login.login') }}</h3>
             <form class="w-full flex-col flex gap-5 z-10">
                 <div class="relative"> 
                     <MailIcon class="absolute w-6 h-6 top-3 left-3 z-10 text-slate-400"/>
@@ -36,7 +36,7 @@
                 <button type="button" class="w-full h-[42px] text-lg text-white btn bg-red-500" @click="signIn()" >{{ $t('login.sign_in') }}</button>
             </form>
 
-            <a class="mx-auto item-center text-[16px] mt-8 font-medium" @click="router.push({ name: 'password-forgot' })">{{ $t('login.forgot_password') }}</a>
+            <a class="mx-auto item-center text-[16px] mt-5 font-medium" @click="router.push({ name: 'password-forgot' })">{{ $t('login.forgot_password') }}</a>
 
             <div class="flex flex-col items-center mt-3 font-medium">
                 <div class="text-[16px]">{{ $t('login.no_account') }}<a href="https://share.hsforms.com/1sclKwJe_QCaqxyzSgbk6kAd0w75" class="ml-1">{{ $t('login.create_one') }}</a></div>
@@ -45,35 +45,35 @@
                 <FacebookLoginButton />
                 <GoogleLoginButton /> 
             </div> -->
+            
         </div>
     </div>
 </div>
-    
+<TwoFaModal />
+
 </template>
 
 <script setup>
-import { admin_login } from '@/api_v2/user';
-import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
-
+import TwoFaModal from './modal/TwoFA.vue';
 import {ref, onMounted, onBeforeMount, computed, getCurrentInstance } from 'vue'
+import { admin_login } from '@/api_v2/user';
+import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
 import {useRoute, useRouter} from 'vue-router'
-
-import { useVuelidate } from "@vuelidate/core";
-import { required, email } from "@vuelidate/validators";
-
 import { useCookies } from "vue3-cookies";
-const { cookies } = useCookies();
 
+const { cookies } = useCookies();
+const internalInstance = getCurrentInstance()
 const layoutStore = useLSSDealerLayoutStore();
+const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const showModal = ref(false)
 
 onBeforeMount (()=>{
     document.querySelector('body').setAttribute('style', 'padding-left: 0; padding-right: 0; overflow: hidden; height:100vh;')
 })
   
 onMounted(()=>{
-    
     if (navigator.userAgent.toLowerCase().indexOf('chrome') < 0 && navigator.userAgent.toLowerCase().indexOf('safari') < 0 ) {
         showReminder.value=true
     }
@@ -95,28 +95,9 @@ const copyLink = ()=>{
     })
 }
 
-const rules = computed(()=> {
-    return {
-        email: { required, email },
-        password: { required},
-    }
-})
-const validate = useVuelidate(rules, loginData);
-
 const signIn = ()=>{ 
-
-    console.log(layoutStore)
-    validate.value.$touch();
-    if (validate.value.$invalid) {
-        alert('Input info is invalid')
-        return
-    } 
-
     admin_login(loginData.value).then(response=>{
-        console.log(response)
-        cookies.set("access_token", response.data.access)
-        cookies.set("login_with", 'dealer')
-        router.push({name:'dashboard'})
+        eventBus.emit('showTwoFAModal',response.data.access)
     })
 }
 

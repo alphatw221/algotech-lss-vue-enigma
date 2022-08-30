@@ -139,7 +139,7 @@ onMounted(()=>{
   if(route.query.type){
     if (route.query.type == 'startCampaign' && route.query.campaign != '' && route.query.campaign != undefined ) {
       retrieve_campaign(route.query.campaign).then((res) => {
-        openCampaign.value = res.data
+        // openCampaign.value = res.data
         console.log(openCampaign.value)
         if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== '') {
           router.push({name:'campaign-live',params:{'campaign_id':openCampaign.value.id}, query:{'status':"schaduled"}})
@@ -157,7 +157,7 @@ watch(computed(()=>route.query.type), () => {
     if (route.query.type == 'startCampaign') {
       retrieve_campaign(route.query.campaign).then((res) => {
         openCampaign.value = res.data
-        console.log(openCampaign.value)
+        // console.log(openCampaign.value)
         if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== '') {
           router.push({name:'campaign-live',params:{'campaign_id':openCampaign.value.id}, query:{'status':"schaduled"}})
           return

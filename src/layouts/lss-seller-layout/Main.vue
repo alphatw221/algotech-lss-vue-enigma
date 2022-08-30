@@ -120,8 +120,8 @@ const initWebSocketConnection =()=> {
       if (data.type === "notification_message") {
         campaign_id.value = data.data.message.id
         checkCampaignTime(data.data.message)
+        setTimeout(() => {}, 2000);
       }
-      setTimeout(() => {}, 2000);
   };
   websocket.onopen = e => {
       console.log('connected')
