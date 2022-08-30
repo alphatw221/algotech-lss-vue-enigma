@@ -59,7 +59,8 @@
                             required
                         />
                     </div>
-                    <div class="flex justify-center">
+                    <div class="flex justify-between">
+                        <button class="w-32 shadow-md btn btn-secondary mt-7" @click="hide()">{{ $t('settings.platform.cancel') }}</button>
                         <button class="w-32 shadow-md btn btn-primary mt-7" @click="bind_twitch()">{{ $t('settings.platform.connect') }}</button>
                     </div>
                 </ModalBody>
