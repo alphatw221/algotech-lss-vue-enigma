@@ -63,16 +63,18 @@
 
 
         <TiktokCommentCapturer />
+        <TwitchCommentCapturer />
     </div>
 
 </template>
 
 <script setup>
 import { computed, onMounted, ref, watch, onUnmounted, defineProps } from "vue";
-import { retrieve_campaign } from "@/api_v2/campaign"
+import { retrieve_campaign } from "@/api_v2/campaign";
 import loadScript from '@/libs/loadScript.js';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
-import TiktokCommentCapturer from "./TiktokCommentCapturer.vue"
+import TiktokCommentCapturer from "./TiktokCommentCapturer.vue";
+import TwitchCommentCapturer from "./TwitchCommentCapturer.vue";
 
 const sellerStore = useLSSSellerLayoutStore();
 
