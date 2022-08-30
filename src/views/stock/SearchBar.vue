@@ -30,6 +30,13 @@
                 <XIcon 
                     v-if="keyword"
                     class="flex-none w-7 h-7 mt-2 text-slate-600" @click="reset"/>
+                <button
+                    v-if="isBulkEditShow"
+                    type="button" 
+                    class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-3" 
+                    @click="bulkEdit">
+                    {{ $t('stock.search_bar.bulk_edit') }}
+                </button>
             </div>
         </div>
     </form>        
@@ -52,9 +59,19 @@ export default {
 			pageSize: 10,
 			keyword: '',
             searchField: 'name',
-            selectedCategory:''
+            selectedCategory:'',
+            isBulkEditShow: false
 		}
 	},
+    mounted() {
+        this.eventBus.on('isBulkEditShow', (payload) => {
+            if (payload.stockListLength > 0) this.isBulkEditShow = true 
+            else this.isBulkEditShow = false
+        })
+    },
+    unmounted() {
+        this.eventBus.off('isBulkEditShow')
+    },
 	watch: {
 		searchField() {
 			this.search();
@@ -69,7 +86,10 @@ export default {
 			this.keyword = '';
             this.selectedCategory=''
             this.search();
-		}
+		},
+        bulkEdit () {
+            this.eventBus.emit('bulkEditStock')
+        }
 	}
 }
 </script>

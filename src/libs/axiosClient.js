@@ -1,9 +1,11 @@
 import { usePublicLayoutStore } from "@/stores/lss-public-layout";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import axios from "axios";
 import i18n from "@/locales/i18n";
-import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useCookies } from "vue3-cookies";
+import {ref} from "vue"
 const { cookies } = useCookies(); 
 
 
@@ -75,7 +77,11 @@ export function createAxiosWithBearer(){
     axiosInstanceWithBearer.interceptors.response.use(
         response => response,
         error => {
-            const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSBuyerLayoutStore()
+        // const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSBuyerLayoutStore()
+            const toastify  =useLSSSellerLayoutStore()
+            if(useLSSBuyerLayoutStore().alert != undefined){ toastify.value = useLSSBuyerLayoutStore() }
+            else if(useLSSDealerLayoutStore().alert != undefined){toastify.value = useLSSDealerLayoutStore()}
+            else{console.log('Err')}
             if (error.response.data) {
                 if (error.response.data.detail){
                     if(error.response.data.code) {

@@ -69,12 +69,12 @@
               </div>
             </DropdownHeader>
             <DropdownDivider class="border-white/[0.08]" />
-            <!-- <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(1)">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(1)">
               <UserIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.profile`)}}</DropdownItem
             >
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(3)">
               <UnlockIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.reset_password`)}}</DropdownItem
-            > -->
+            >
             <DropdownDivider class="border-white/[0.08]" />
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="logout()">
               <ToggleRightIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.logout`)}}</DropdownItem
@@ -91,7 +91,7 @@
 <script setup>
 import { ref, defineEmits, computed, onMounted } from "vue";
 import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
-// import { seller_update_subscription } from '@/api_v2/user_subscription'
+import { seller_update_subscription } from '@/api_v2/user_subscription'
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
@@ -107,21 +107,23 @@ const toggleMobileMenu = ()=>{
   layoutStore.showMobileMenu = !layoutStore.showMobileMenu
 }
 
-// const userAvatar = computed(() => {
-//   if(cookies.get('login_with')=='facebook'){
-//     return layoutStore.userInfo.facebook_info.picture
-//   }
-//   if (cookies.get('login_with')=='google'){
-//     return layoutStore.userInfo.google_info.picture
-//   }
-//   if(layoutStore.userInfo.facebook_info.picture){
-//     return layoutStore.userInfo.facebook_info.picture
-//   }
-//   if(layoutStore.userInfo.google_info.picture){
-//     return layoutStore.userInfo.google_info.picture
-//   }
-//   return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
-// });
+const userAvatar = computed(() => {
+  // if(cookies.get('login_with')=='facebook'){
+  //   return layoutStore.userInfo.facebook_info.picture
+  // }
+  // if (cookies.get('login_with')=='google'){
+  //   return layoutStore.userInfo.google_info.picture
+  // }
+  // if(layoutStore.userInfo.facebook_info.picture){
+  //   return layoutStore.userInfo.facebook_info.picture
+  // }
+  // if(layoutStore.userInfo.google_info.picture){
+  //   return layoutStore.userInfo.google_info.picture
+  // }
+  return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
+});
+
+const data = ref({currency:'USD', lang:'en'})
 
 const languages = ref([
     {value:'en',text:'English'},
@@ -135,26 +137,26 @@ onMounted(()=>{
     data.value.lang = layoutStore.userInfo.lang
 })
 
-// const changeLang = (selectLang)=>{
-//   data.value.lang = selectLang
-//   seller_update_subscription(data.value).then(res=>{
-//       // console.log(res)
-//       layoutStore.userInfo = res.data
-//       i18n.global.locale.value = res.data.lang
-//   })
-//   hideDropDown()
-// }
+const changeLang = (selectLang)=>{
+  data.value.lang = selectLang
+  seller_update_subscription(data.value).then(res=>{
+      // console.log(res)
+      layoutStore.userInfo = res.data
+      i18n.global.locale.value = res.data.lang
+  })
+  hideDropDown()
+}
 
 const logout = () => {
   cookies.remove('access_token')
   cookies.remove('login_with')
   hideDropDown()
-  router.go()
+  router.push('login')
 }
 
 const profile =(page)=>{
   layoutStore.profileTab = page
-  router.push({name:'seller-profile'})
+  router.push({name:'dealer-settings'})
   hideDropDown()
 }
 

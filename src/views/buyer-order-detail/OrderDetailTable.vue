@@ -23,7 +23,9 @@
 						/>
 					</div>
 				</td>
-				<td class="text-left w-fit">{{ product.name }}  </td>
+				<td class="text-left w-fit"> 
+					<div v-if="product.type == 'lucky_draw'" class="font-medium text-primary" > *{{$t('lucky_draw.winner_modal.prize')}}*</div>
+					{{ product.name }}  </td>
 				<td class="text-right" :data-content="$t('order_detail.table.qty')">
 					{{ product.qty }}
 				</td>

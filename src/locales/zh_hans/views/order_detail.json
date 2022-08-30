@@ -55,6 +55,7 @@
     "payment":{
         "direct_payment":"转帐支付",
         "Direct Payment":"转帐支付",
+        "ecpay":"綠界支付",
         "method" : "付款方式",
         "information": "付款资讯",
         "record" : "付款纪录",
