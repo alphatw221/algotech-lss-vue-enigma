@@ -161,7 +161,7 @@ const goDraw = (lucky_draw_id) => {
                 // console.log("Winner",winnerList.value)
             }
         }, spin_time)
-    }).catch(err => {
+    }).catch(error => {
         if (error.response.data) {
             if (error.response.data.detail){
                 alert(error.response.data.detail)
@@ -176,7 +176,15 @@ const goDraw = (lucky_draw_id) => {
                     path = "error_messages" + error.response.config.url.split("/").splice(0,3).join(".") + "." + error.response.data.message
                 }
                 console.log(path)
-                alert(i18n.global.t(path))
+                Object.entries(error.response.data.params).forEach(([key, value]) => {
+                    if (key.split("_")[0] === "datetime") {
+                        let browser_lang = vueLangToBrowserLang.value[i18n.global.locale.value]
+                        let time = new Intl.DateTimeFormat(browser_lang, { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(value))
+                        error.response.data.params[key] = time
+                    }
+                    
+                })
+                alert(i18n.global.t(path, error.response.data.params))
             }
         }
         else{

@@ -2,11 +2,13 @@ import { usePublicLayoutStore } from "@/stores/lss-public-layout";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import { useRoute, useRouter } from 'vue-router';
 import axios from "axios";
 import i18n from "@/locales/i18n";
 import { useCookies } from "vue3-cookies";
 import {ref} from "vue"
-const { cookies } = useCookies(); 
+const { cookies } = useCookies();
+const router = useRouter()
 const vueLangToBrowserLang = ref({
     "en": "en",
     "zh_hans":"zh-cn",
@@ -14,6 +16,9 @@ const vueLangToBrowserLang = ref({
     "zh_hant":"zh-tw",
     "vi": "vi"
 })
+var timer1 = null
+var timer2 = null
+var counter = 0
 // let axiosClient = axios.create({
 //     // baseURL: process.env.BACKEND_URL,
 //     // // 跨域請求set-cookie
@@ -83,17 +88,42 @@ export function createAxiosWithBearer(){
         response => response,
         error => {
         // const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSBuyerLayoutStore()
-            const toastify  =useLSSSellerLayoutStore()
+            const toastify = useLSSSellerLayoutStore()
             if(useLSSBuyerLayoutStore().alert != undefined){ toastify.value = useLSSBuyerLayoutStore() }
             else if(useLSSDealerLayoutStore().alert != undefined){toastify.value = useLSSDealerLayoutStore()}
             else{console.log('Err')}
             if (error.response.data) {
                 if (error.response.data.detail){
+                    console.log(error.response.data.code)
                     if(error.response.data.code) {
-                        toastify.alert.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
+                        if(error.response.data.code === "token_not_valid") {
+                            console.log("7777")
+                            if (counter === 1) {
+                                return 
+                            }
+                            if (timer1) {
+                                clearTimeout(timer1)
+                            }
+                            if (timer2) {
+                                clearTimeout(timer2)
+                            }
+                            timer1 = setTimeout(() => {
+                                toastify.alert.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
+                                
+                            }, 1000)
+                            timer2 = setTimeout(() => {
+                                window.location.reload()
+                            }, 4000)
+                            counter++
+                        } else {
+                            toastify.alert.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
+                        }
+                        
                     } else {
                         toastify.alert.showMessageToast(error.response.data.detail)
                     }
+                    
+                    
                 } else if (error.response.data.message){
                     console.log(error.response.data)
                     let path = ""

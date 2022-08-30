@@ -109,7 +109,6 @@ const signIn = ()=>{
     //     return
     // } 
     // console.log('signIn')  response.data.access
-    console.log(layoutStore)
     seller_general_login(loginData.value).then(response=>{
         cookies.set("access_token", response.data.access)
         cookies.set("login_with", 'general')
