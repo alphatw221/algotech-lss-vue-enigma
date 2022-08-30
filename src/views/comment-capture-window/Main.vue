@@ -3,7 +3,7 @@
         id='comment-capturing-window' 
 
         class="fixed bg-white w-40 block top-20 left-10 z-[999] rounded-lg border-2 border-black" 
-        v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username"
+        v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username"
     
     
     >
@@ -23,28 +23,49 @@
 
             <div v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username">
                 <div>
-                    <label >platform:</label>
-                    <label >tiktok</label>
+                    <label >Platform : tiktok</label>
                 </div>
 
                 <div>
-                    <label >username:</label>
+                    <label >User Name : </label>
                     <label >{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username}}</label>
                 </div>
                 
                 <div  v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='error'">
-                    <AlertCircleIcon 
-                   
-                    class="text-danger mx-auto"
-                    />
+                    <AlertCircleIcon class="text-danger mx-auto" />
                     <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label>
                 </div>
-                
 
                 
                 <div v-else-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='capturing'">
                     <lottie-player  class="mx-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 30px; height: 30px;"   autoplay></lottie-player>
                     <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label>
+                </div>
+                
+            </div>
+
+            <div 
+                v-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.channel_name"
+                class="mt-3"
+            >
+                <div>
+                    <label >Platform : Twitch</label>
+                </div>
+
+                <div>
+                    <label >Channel Name : </label>
+                    <label >{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.channel_name}}</label>
+                </div>
+                
+                <div  v-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='error'">
+                    <AlertCircleIcon class="text-danger mx-auto" />
+                    <label>{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.status}}</label>
+                </div>
+
+                
+                <div v-else-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='capturing'">
+                    <lottie-player  class="mx-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 30px; height: 30px;"   autoplay></lottie-player>
+                    <label>{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.status}}</label>
                 </div>
                 
             </div>
@@ -124,6 +145,8 @@ const clearOffset = () =>{
 }
 
 onMounted(()=>{
+    console.log('sellerStore.commentCapturingCampaignData')
+    console.log(sellerStore.commentCapturingCampaignData)
     
     loadScript('https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js',()=>{
         showAnimate.value=true

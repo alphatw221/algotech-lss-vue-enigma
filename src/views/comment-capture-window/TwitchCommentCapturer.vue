@@ -6,7 +6,7 @@
 
 <script setup>
 import { computed, onMounted, ref, watch, onUnmounted, defineProps } from "vue";
-import { init_twitch_websocket, upload_twitch_comments } from '@/api_v2/twitch';
+import { init_twitch_websocket, upload_twitch_comments, close_twitch_websocket } from '@/api_v2/twitch';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 const sellerStore = useLSSSellerLayoutStore();
@@ -61,14 +61,15 @@ onMounted(() => {
             uploadComments()
         }
     })
+    sellerStore.commentCapturingCampaignData.twitch_campaign.status = 'capturing'
 })
 
 onUnmounted(()=>{
     closeConnection()
 })
 
-const closeConnection = ()=>{
-    // if(tiktok_connector.value)tiktok_connector.value.disconnect()  
+const closeConnection = () => {
+    close_twitch_websocket(sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, `oauth:${sellerStore.commentCapturingCampaignData.twitch_campaign.token}`, sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name)  
     if (intervalId.value) clearInterval(intervalId.value)
 }
 
