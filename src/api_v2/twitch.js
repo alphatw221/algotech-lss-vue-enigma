@@ -18,19 +18,8 @@ export const init_twitch_websocket = (username, password, channel, onMessageHand
     client.on('connected', onConnectedHandler);
 
     client.connect();
-}
-
-export const close_twitch_websocket = (username, password, channel) => {
-    const opts = {
-        identity: {
-            username: username,
-            password: password
-        },
-        channels: [ channel ]
-    };
-
-    const client = new tmi.client(opts);
-    client.ws.disconnect()
+    
+    return client
 }
 
 export const upload_twitch_comments = (campaign_id, data) => {

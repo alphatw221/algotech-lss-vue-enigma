@@ -6,12 +6,13 @@
 
 <script setup>
 import { computed, onMounted, ref, watch, onUnmounted, defineProps } from "vue";
-import { init_twitch_websocket, upload_twitch_comments, close_twitch_websocket } from '@/api_v2/twitch';
+import { init_twitch_websocket, upload_twitch_comments } from '@/api_v2/twitch';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 const sellerStore = useLSSSellerLayoutStore();
 
 const twitchCommentList = ref([])
+const twitchConnector = ref(null)
 
 const BUFFER_SIZE = 20
 const UPLOAD_INTERVAL = 5000
@@ -53,7 +54,7 @@ const onConnectedHandler = (addr, port) => {
 }
 
 onMounted(() => {
-    init_twitch_websocket(sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, `oauth:${sellerStore.commentCapturingCampaignData.twitch_campaign.token}`, sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, onMessageHandler, onConnectedHandler)
+    twitchConnector.value = init_twitch_websocket(sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, `oauth:${sellerStore.commentCapturingCampaignData.twitch_campaign.token}`, sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, onMessageHandler, onConnectedHandler)
     intervalId.value = setInterval(checkBuffer, UPLOAD_INTERVAL)
 
     watch(computed(()=>{twitchCommentList.value}), () => {
@@ -69,7 +70,7 @@ onUnmounted(()=>{
 })
 
 const closeConnection = () => {
-    close_twitch_websocket(sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name, `oauth:${sellerStore.commentCapturingCampaignData.twitch_campaign.token}`, sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name)  
+    if (twitchConnector.value) twitchConnector.value.disconnect()
     if (intervalId.value) clearInterval(intervalId.value)
 }
 

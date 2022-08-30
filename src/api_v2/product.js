@@ -16,6 +16,10 @@ export const update_product = (id, data) => {
     return createAxiosWithBearer().put(`/api/v2/product/${id}/update/`, data)
 }
 
+export const bulk_update_product = (data) => {
+    return createAxiosWithBearer().put(`/api/v2/product/bulk/update/`, data)
+}
+
 export const delete_product = (id) => {
     return createAxiosWithBearer().delete(`/api/v2/product/${id}/delete/`)
 }
