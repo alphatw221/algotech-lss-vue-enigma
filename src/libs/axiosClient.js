@@ -7,8 +7,13 @@ import i18n from "@/locales/i18n";
 import { useCookies } from "vue3-cookies";
 import {ref} from "vue"
 const { cookies } = useCookies(); 
-
-
+const vueLangToBrowserLang = ref({
+    "en": "en",
+    "zh_hans":"zh-cn",
+    "zh_hans":"zh-hk",
+    "zh_hant":"zh-tw",
+    "vi": "vi"
+})
 // let axiosClient = axios.create({
 //     // baseURL: process.env.BACKEND_URL,
 //     // // 跨域請求set-cookie
@@ -90,6 +95,7 @@ export function createAxiosWithBearer(){
                         toastify.alert.showMessageToast(error.response.data.detail)
                     }
                 } else if (error.response.data.message){
+                    console.log(error.response.data)
                     let path = ""
                     if (error.response.data.message.includes("helper") || error.response.data.message.includes("util")) {
                         path = "error_messages" + "." + error.response.data.message
@@ -99,7 +105,15 @@ export function createAxiosWithBearer(){
                     } else {
                         path = "error_messages" + error.response.config.url.split("/").splice(0,3).join(".") + "." + error.response.data.message
                     }
-                    toastify.alert.showMessageToast(i18n.global.t(path))
+                    Object.entries(error.response.data.params).forEach(([key, value]) => {
+                        if (key.split("_")[0] === "datetime") {
+                            let browser_lang = vueLangToBrowserLang.value[i18n.global.locale.value]
+                            let time = new Intl.DateTimeFormat(browser_lang, { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(value))
+                            error.response.data.params[key] = time
+                        }
+                        
+                    })
+                    toastify.alert.showMessageToast(i18n.global.t(path, error.response.data.params))
                 }
             }
             else{
