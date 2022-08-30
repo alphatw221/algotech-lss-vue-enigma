@@ -162,7 +162,7 @@ watch(computed(()=>route.query.type), () => {
           router.push({name:'campaign-live',params:{'campaign_id':openCampaign.value.id}, query:{'status':"schaduled"}})
           return
         }
-        eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': "schaduled", 'campaign':openCampaign})
+        eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': "schaduled", 'campaign':openCampaign.value})
       })}
   }
 })
