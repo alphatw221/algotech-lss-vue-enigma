@@ -37,7 +37,7 @@
                                 </div>
                             </td>
 							<td v-else-if="column.key == 'draw_type'"  class="whitespace-nowrap w-fit">
-                                {{ winner[column.key] }}
+                                {{ $t(`lucky_draw.draw_list.${winner[column.key]}`) }}
                             </td>
                             <td v-else class="break-all w-fit">
                                 {{ winner[column.key] }}
