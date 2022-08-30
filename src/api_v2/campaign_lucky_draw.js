@@ -1,4 +1,4 @@
-import { createAxiosWithBearer , Paginator} from "@/libs/axiosClient";
+import { createAxiosWithBearer , Paginator, createAxiosWithBearerWithoutInterceptor} from "@/libs/axiosClient";
 
 
 export const list_campaign_lucky_draw = (campaign_id) => {
@@ -30,5 +30,9 @@ export const delete_campaign_lucky_draw = (lucky_draw_id) => {
 }
 
 export const draw_campaign_lucky_draw = (lucky_draw_id) => {
-    return createAxiosWithBearer().post(`/api/v2/campaign-luckydraw/${lucky_draw_id}/draw/`)
+    return createAxiosWithBearerWithoutInterceptor().post(`/api/v2/campaign-luckydraw/${lucky_draw_id}/draw/`)
+}
+
+export const draw_campaign_lucky_draw_check = (lucky_draw_id) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign-luckydraw/${lucky_draw_id}/draw/check`)
 }

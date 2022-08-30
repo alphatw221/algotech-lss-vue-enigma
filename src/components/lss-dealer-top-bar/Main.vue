@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, computed, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
 import { seller_update_subscription } from '@/api_v2/user_subscription'
 import { useRoute, useRouter } from "vue-router";
@@ -151,7 +151,7 @@ const logout = () => {
   cookies.remove('access_token')
   cookies.remove('login_with')
   hideDropDown()
-  router.push('login')
+  router.go()
 }
 
 const profile =(page)=>{

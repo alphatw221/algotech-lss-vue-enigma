@@ -14,7 +14,6 @@ export default async (to, from)=>{
     if (cookies.get('access_token')) {
         try{
             const res = await get_seller_account()
-            console.log(res.data)
             sellerStore.userInfo = res.data;
             return true
         }catch(error){

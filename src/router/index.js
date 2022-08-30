@@ -323,6 +323,11 @@ const routes = [
         beforeEnter: checkDealerLogin,
         component: () => import('@/views/general/DealerLoginPage.vue')
       },
+      {
+        path: "easy_store/authorization",
+        name: "easystore-authorize",
+        component: () => import('@/plugin/easy-store/views/AuthorizationPage.vue')
+      },
     ],
   },
   

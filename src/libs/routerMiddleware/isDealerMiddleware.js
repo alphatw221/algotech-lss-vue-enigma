@@ -30,5 +30,5 @@ export default async (to, from)=>{
             return '/dealer/login'
         }
     }
-    return '/seller/login'
+    return '/dealer/login'
 }
