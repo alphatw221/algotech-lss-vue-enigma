@@ -53,8 +53,12 @@ const props = defineProps({
 const handleApiSelect = field=>{
     if(field.type!='api_select')return false
     const request = discountCodeEndPoints[field.endpoint]
-    request().then(
-        res=>options.value = res.data)
+    request().then(res=>
+        {
+            options.value = res.data
+            consolg.loe(res.data)
+        })
+        
     return true
 }
 

@@ -14,6 +14,10 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     notification: ref(),
     alert: ref(),
     apiErrorAlert: ref(),
+
+    showCommentCaptureWindow:ref(false),
+    commentCapturingCampaignData:ref({}),
+
     menu: [
       // {
       //   icon: "HomeIcon",
