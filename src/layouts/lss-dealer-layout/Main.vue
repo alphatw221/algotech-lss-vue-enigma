@@ -41,33 +41,33 @@ const accessToken = cookies.get('access_token')
 const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const campaign_id = ref('')
 
-// const setLanguage = ()=>{
-//   if(store.userInfo.user_subscription){
-//     console.log('setlang')
-//     app_i18n.locale=store.userInfo.lang
+const setLanguage = ()=>{
+  if(store.userInfo.user_subscription){
+    console.log('setlang')
+    app_i18n.locale=store.userInfo.lang
 
-//   }
-// }
+  }
+}
 
-// watch(
-//   computed(()=>store.userInfo),
-//   ()=>{setLanguage()}
-//   ,{deep:true}
-// )
+watch(
+  computed(()=>store.userInfo),
+  ()=>{setLanguage()}
+  ,{deep:true}
+)
   
-// onMounted(() => {
-//   setLanguage();
-// })
+onMounted(() => {
+  setLanguage();
+})
 
 const toTop=()=>{
   document.getElementById('topPoint').scrollIntoView({behavior: "smooth"});
 }
 
-provide("bind[sellerMessageNotification]", (el) => {
+provide("bind[dealerMessageNotification]", (el) => {
   store.notification = el;
   // el.showMessageToast('test notification')
 });
-provide("bind[sellerMessageAlert]", (el) => {
+provide("bind[dealerMessageAlert]", (el) => {
   store.alert = el;
   // el.showMessageToast('test alert')
 });
