@@ -72,7 +72,7 @@
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(1)">
               <UserIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.profile`)}}</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(3)">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(4)">
               <UnlockIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.reset_password`)}}</DropdownItem
             >
             <DropdownDivider class="border-white/[0.08]" />

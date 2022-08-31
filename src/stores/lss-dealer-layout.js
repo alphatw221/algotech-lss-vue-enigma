@@ -51,12 +51,6 @@ export const useLSSDealerLayoutStore = defineStore("dealerLayout", {
         icon: "SettingsIcon",
         pageName: "dealer-settings",
         title: "settings",
-        subMenu: [
-          {
-            pageName: "dealer-settings",
-            title: "settings",
-          }
-        ],
       },
     ],
   }),
