@@ -85,7 +85,6 @@ let pageToken = null
 
 onMounted(()=>{
     eventBus.on("showConversationModal", (payload) => {
-        show.value = true
         comment.value = payload.comment
         console.log(comment.value)
         pageId.value = campaignDetailStore.campaign.instagram_profile.business_id
@@ -93,6 +92,7 @@ onMounted(()=>{
             pageToken = res.data.token
             return getDirectMessageConversation(campaignDetailStore.campaign.instagram_profile.connected_facebook_page_id, comment.value.customer_id, pageToken)
         }).then(res=>{
+            show.value = true
             return loopGetDirectMessageConversation(campaignDetailStore.campaign.instagram_profile.connected_facebook_page_id, comment.value.customer_id, pageToken, 3000)
         }).catch(err=>{
             console.log(err)
