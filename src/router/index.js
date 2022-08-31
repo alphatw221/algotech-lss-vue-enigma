@@ -118,11 +118,6 @@ const routes = [
     component: () => import('@/views/mkt-plugin/lucky-draw/DrawFlow.vue'),
   },
   {
-    path: "/seller/:campaign_id?/comment/capture",
-    name: "comment-capture-page",
-    component: () => import('@/views/client-comment-capturing-page/Main.vue'),
-  },
-  {
     path: "/seller",
     component: LssSellerLayout,
     beforeEnter: sellerAuthMiddleware,
@@ -208,11 +203,7 @@ const routes = [
         name: "sellerOrder",
         component: () => import('@/views/seller-order-detail/Main.vue'),
       },
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/comments-capturer",
-        name: "commentCapturer",
-        component: () => import('@/views/client-comment-capturing-page/Main.vue')
-      },
+     
       
       
       
@@ -331,6 +322,11 @@ const routes = [
         name: "dealer-login",
         beforeEnter: checkDealerLogin,
         component: () => import('@/views/general/DealerLoginPage.vue')
+      },
+      {
+        path: "easy_store/authorization",
+        name: "easystore-authorize",
+        component: () => import('@/plugin/easy-store/views/AuthorizationPage.vue')
       },
     ],
   },

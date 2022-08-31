@@ -2,7 +2,7 @@
     <div class="" :class="{ hidden: layout.profileTab !== 1, block: layout.profileTab === 1 }">
         <div 
             v-show="!layout.editProfile" 
-            class="flex flex-col sm:flex-row"
+            class="flex flex-col md:flex-row"
         >
             <div class="flex flex-col spx-5 items-center justify-center sm:m-10 sm:m-12">
                 <div class="w-32 h-32 flex-none image-fit relative">
@@ -23,7 +23,7 @@
                     {{ layout.userInfo.email }}
                 </div>
             </div>
-            <button class="btn btn-primary w-fit h-fit mt-auto ml-auto" @click="layout.profileTab = 4"> Reset Password </button>
+            <button class="btn btn-primary w-fit h-fit mt-auto ml-auto whitespace-nowrap" @click="layout.profileTab = 4"> Reset Password </button>
         </div>
     </div>
 </template>
@@ -35,6 +35,7 @@ import dom from "@left4code/tw-starter/dist/js/dom";
 
 
 const layout = useLSSDealerLayoutStore();
+
 
 const userAvatar = computed(() => {
     if (layout.loginWith == 'facebook') {

@@ -483,7 +483,7 @@ const checkIfValid = ()=>{
 		if(isNaN(parseFloat(selectedProduct.price)) || selectedProduct.price<0){errorMessages.value[index]['price']='price_invalid';isSelectedProductsValid=false;}
 
 		//update orderCodeDict
-		if(typeof selectedProduct.order_code=='string'){
+		if(typeof selectedProduct.order_code=='string' && selectedProduct.type=='product'){
 			orderCodeDict[selectedProduct.order_code.toLowerCase()]=index
 		}
         // console.log(orderCodeDict)

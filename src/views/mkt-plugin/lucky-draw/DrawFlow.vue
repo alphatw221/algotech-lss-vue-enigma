@@ -7,7 +7,7 @@
                     <div class="text-center mt-7 text-2xl">{{ luckyDrawData.prize.name }}</div>
                     <div class="mt-9 flex">
                         <div class="w-[50%] flex-col mr-5">
-                            <label class="form-label text-lg text-slate-500">{{ drawTitleMap[luckyDrawData.type] }}</label>
+                            <label class="form-label text-lg text-slate-500">{{ $t(`lucky_draw.draw_list.${luckyDrawData.type}`) }}</label>
                         </div>
                         <div class="w-[50%] flex-col">
                             <label 
@@ -43,7 +43,7 @@
                     </div>
                     <div class="text-center mt-9 text-2xl">
                         <button class="btn btn-primary w-48 h-16 mt-auto" @click="goDraw(luckyDrawData.id)">
-                            Draw Now
+                            {{ $t('lucky_draw.draw_flow.draw_now') }}
                         </button>
                     </div>
                 </div>
@@ -103,6 +103,7 @@
 <script setup>
 import { ref, onMounted } from 'vue';
 import { useRoute, useRouter } from "vue-router";
+import i18n from "@/locales/i18n"
 import { retrieve_campaign_lucky_draw, draw_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
 import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
@@ -118,12 +119,6 @@ const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
 const route = useRoute();
 const router = useRouter();
 const luckyDrawData = ref({})
-const drawTitleMap = ref({
-    like: "Draw Like",
-    purchase: "Draw Purchased",
-    product: "Draw Product",
-    keyword: "Draw Keyword" 
-})
 const ready = ref(false)
 const showAnimation = ref(false)
 const beforeDraw = ref(true)
@@ -139,6 +134,9 @@ onMounted(() => {
     }).catch(err => {
         console.log(err)
     })
+    if (route.query.language) {
+        i18n.global.locale.value = route.query.language
+    }
 })
 
 const goDraw = (lucky_draw_id) => {
@@ -163,6 +161,35 @@ const goDraw = (lucky_draw_id) => {
                 // console.log("Winner",winnerList.value)
             }
         }, spin_time)
+    }).catch(error => {
+        if (error.response.data) {
+            if (error.response.data.detail){
+                alert(error.response.data.detail)
+            } else if (error.response.data.message){
+                let path = ""
+                if (error.response.data.message.includes("helper") || error.response.data.message.includes("util")) {
+                    path = "error_messages" + "." + error.response.data.message
+                } else if (error.response.config.url.includes("v2")) {
+                    console.log(error.response.config.url.split("/").splice(0,4).join("."))
+                    path = "error_messages" + error.response.config.url.split("/").splice(0,4).join(".") + "." + error.response.data.message
+                } else {
+                    path = "error_messages" + error.response.config.url.split("/").splice(0,3).join(".") + "." + error.response.data.message
+                }
+                console.log(path)
+                Object.entries(error.response.data.params).forEach(([key, value]) => {
+                    if (key.split("_")[0] === "datetime") {
+                        let browser_lang = vueLangToBrowserLang.value[i18n.global.locale.value]
+                        let time = new Intl.DateTimeFormat(browser_lang, { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(value))
+                        error.response.data.params[key] = time
+                    }
+                    
+                })
+                alert(i18n.global.t(path, error.response.data.params))
+            }
+        }
+        else{
+            alert('error ! please refresh the page.')
+        }
     })
 
 }

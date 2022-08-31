@@ -76,7 +76,9 @@
             "campaign-luckydraw":{
                 "invalid_lucky_draw_type":"Thiết lập rút thăm may mắn không hợp lệ",
                 "invalid_lucky_draw_product": "Giải thưởng không hợp lệ",
-                "lucky_draw_has_already_finished": "Rút thăm may mắn đã hoàn thành và không thể xóa"
+                "lucky_draw_has_already_finished": "Rút thăm may mắn đã hoàn thành và không thể xóa",
+                "draw_like_type_need_connect_to_facebook_post": "Không thể chọn hình thức rút thăm may mắn này vì chiến dịch không thể kết nối đến bài viết trên Facebook. Vui lòng kiểm tra lại cài đặt chiến dịch.",
+                "no_any_connected_platforms": "Chiến dịch này không kết nối đến bất kì bài viết hay kênh nào. Vui lòng kiểm tra cài đặt chiến dịch."
                 
             },
             "cart":{
@@ -146,7 +148,8 @@
         "fb_api_fail": "Lỗi Facebook API, vui lòng thử lại",
         "fb_user_token_invalid": "Mã thông báo người dùng Facebook không hợp lệ",
         "unable_get_fb_email": "Không thể nhận email Facebook",
-        "account_not_activated": "Tài khoản này chưa được kích hoạt"
+        "account_not_activated": "Tài khoản này chưa được kích hoạt",
+        "campaign_end_time_not_later_subscription_period": "Gói dịch vụ đang sử dụng sẽ hết hạn vào %{datetime_subscription_expired_at},<br />thời gian chiến dịch không trễ hơn %{datetime_subscription_expired_at}."
     },
     "util":{
         "no_api_user_found":"Không thể tìm thấy người dùng này",

@@ -319,7 +319,7 @@ const clickEntry = (index)=>{
     router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
     return
   }
-  else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
+  else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '' || campaign.twitch_campaign.channel_name !== '' || campaign.tiktok_campaign.username !== '') {
     router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
     return
   }

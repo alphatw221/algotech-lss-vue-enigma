@@ -31,10 +31,11 @@
                     v-if="keyword"
                     class="flex-none w-7 h-7 mt-2 text-slate-600" @click="reset"/>
                 <button
-                    v-if="isBulkEditShow"
+                    v-show="isBulkEditShow"
                     type="button" 
                     class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-3" 
-                    @click="bulkEdit">
+                    @click="bulkEdit"
+                >
                     {{ $t('stock.search_bar.bulk_edit') }}
                 </button>
             </div>
