@@ -7,7 +7,7 @@
               <button 
                 class="col-span-12 w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-rounded mx-auto mt-5"
                       style="border: 2px solid #EF4444; color:#EF4444;"
-                      @click="router.push({name:'platform'})"> 
+                      @click="hide(); eventBus.emit('closEnterPostIDModal'); router.push({name:'platform'})"> 
                 {{$t('campaign_list.campaign_list_table.connect_platform')}}
               </button>
             </template>
