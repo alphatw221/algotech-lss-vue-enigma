@@ -36,7 +36,13 @@
         "profile":"个人档案",
         "change-plan":"更改方案",
         "quiz-game":"问答游戏",
-        "discount-code":"折扣代码"
+        "discount-code":"折扣代码",
+        "dashboard":"仪表板",
+        "transactions":"交易报表",
+        "plans":"方案报表",
+        "licenses":"执照",
+        "sellers":"卖家",
+        "buyers":"买家"
     },
     "top_bar":{
         "profile":"个人档案",

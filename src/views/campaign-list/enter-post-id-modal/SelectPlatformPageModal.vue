@@ -3,6 +3,14 @@
         @hidden="hide()">
         <ModalBody class="text-left content-center">
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
+            <template v-if="pages.length == 0"> 
+              <button 
+                class="col-span-12 w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-rounded mx-auto mt-5"
+                      style="border: 2px solid #EF4444; color:#EF4444;"
+                      @click="router.push({name:'platform'})"> 
+                {{$t('campaign_list.campaign_list_table.connect_platform')}}
+              </button>
+            </template>
             <template v-for="page,index in pages" :key="index">
               <div class="flex col-start-3 col-span-8 selectPage" @click="selectPage(index)">
                 <div class="w-14 h-14 flex-none image-fit rounded-md overflow-hidden">

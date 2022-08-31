@@ -5,84 +5,84 @@
       <tr>
         <th>Name</th>
         <th>Subscription ID</th>
-        <th>Plan</th>
-        <th>End Date</th>
-        <th>Status</th>
-        <th>E-mail</th>
+        <th class="hidden sm:table-cell">Plan</th>
+        <th class="hidden md:table-cell">End Date</th>
+        <th class="hidden lg:table-cell">Status</th>
+        <th class="hidden lg:table-cell">E-mail</th>
       </tr>
     </thead>
     <tbody>
       <tr>
         <td class="loading"><div class="bar"></div></td>
         <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
+        <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden md:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
       </tr>
       <tr>
         <td class="loading"><div class="bar"></div></td>
         <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
+        <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden md:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
       </tr>
       <tr>
         <td class="loading"><div class="bar"></div></td>
         <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
+        <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden md:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
       </tr>
       <tr>
         <td class="loading"><div class="bar"></div></td>
         <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
+        <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden md:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
       </tr>
       <tr>
         <td class="loading"><div class="bar"></div></td>
         <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
+        <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden md:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
       </tr>
       <tr>
         <td class="loading"><div class="bar"></div></td>
         <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
+        <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden md:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
       </tr>
       <tr>
         <td class="loading"><div class="bar"></div></td>
         <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
+        <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden md:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
       </tr>
       <tr>
         <td class="loading"><div class="bar"></div></td>
         <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
+        <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden md:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
       </tr>
       <tr>
         <td class="loading"><div class="bar"></div></td>
         <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
-        <td class="loading"><div class="bar"></div></td>
+        <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden md:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+        <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
       </tr>
     </tbody>
   </table>
@@ -115,7 +115,7 @@
 
       td {
         padding: 20px 0;
-        min-width: 150px;
+        min-width: auto;
 
         span {
             color: #FEFEFE;
