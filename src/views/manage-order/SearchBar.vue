@@ -20,8 +20,8 @@
                 :tableStatus="tableStatus"
                 :tableFilter="tableFilter"/>
         </div>
-        <div class="sm:hidden w-12 ">
-            <FilterIcon class="w-8 h-8" @click="test()"/>
+        <div class="sm:hidden w-10 ">
+            <SimpleIcon icon="filter" color="#414141"  width="24" height="24" class="mt-1" @click="test()"/>
         </div>
         <div class="export hidden sm:block">
             <Dropdown class="relative p-2 mr-1 flex items-center btn border-[#131C34] w-24 h-[35px] sm:h-[42px]"
@@ -37,7 +37,7 @@
             </Dropdown>
         </div>
         <div class="sm:hidden w-12">
-            <DownloadIcon class="w-8 h-8" @click="onExportXlsx"/>
+            <SimpleIcon icon="export" color="#414141"  width="24" height="24" class="mt-1" @click="onExportXlsx"/>
         </div>
         
     </div>
@@ -49,6 +49,7 @@ import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
 import { get_campaign_order_report } from "@/api_v2/campaign"
 import { url } from "@vuelidate/validators";
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const route = useRoute();
 const internalInstance = getCurrentInstance()

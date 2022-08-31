@@ -20,7 +20,9 @@
             <h2 v-if="tags !== ''" class="p-1 mb-2">{{$t('campaign_live.comment.select_tag')}}: {{ $t(`campaign_live.comment.`+tags) }}</h2>
             <button class="flex p-1 ml-auto w-18 text-slate-900"
                 @click="commentSummarizer('')">
-                <RefreshCcwIcon class="w-4 h-4 mr-1" /> {{$t('campaign_live.comment.clear')}}
+                <!-- <RefreshCcwIcon class="w-4 h-4 mr-1" /> -->
+                <SimpleIcon icon="reset" color="#334155" class="mr-1"/> 
+                {{$t('campaign_live.comment.clear')}}
             </button> 
         </div>
     </div>
@@ -98,6 +100,7 @@ import { useRoute, useRouter } from "vue-router"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
 import ytAvatar from '@/assets/images/lss-icon/icon-user-yt.svg'
+import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue'
 
 const router = useRouter()
 const route = useRoute()

@@ -89,7 +89,7 @@
 				</div>
 
 				<a @click="editplatform()" class="inline-flex mr-2 align-middle md:mr-5">
-				<EditIcon class="w-4 h-4 mr-2" />{{$t('edit_campaign.edit_connected_platform')}}
+				<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/> {{$t('edit_campaign.edit_connected_platform')}}
 				</a>
 			</div>
 		</div>
@@ -186,6 +186,7 @@ import tiktok_platform from "/src/assets/images/lss-img/tiktok_black_bg.png"
 import anonymous_profile from "/src/assets/images/lss-img/noname.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import i18n from "@/locales/i18n"
+import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 const sellerStore = useLSSSellerLayoutStore()
 
 const paymentMetaStore = useLSSPaymentMetaStore()

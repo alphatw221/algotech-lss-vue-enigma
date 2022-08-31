@@ -100,8 +100,8 @@
 
                     <template v-if="store.orderDetail">
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.last_five_digits')}}</span>
-                        <span v-if="store.orderDetail.meta.last_five_digit"  class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</span>
-                        <div v-else class="col-start-3 col-span-3 py-2">{{$t('order_detail.payment.no_record')}} </div>
+                        <div v-if="store.orderDetail.meta.last_five_digit == '' && !store.orderDetail.meta.receipt_image" class="col-start-3 col-span-3 py-2">{{$t('order_detail.payment.no_record')}} </div>
+                        <span v-else  class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</span>
                     </template>
 
                     <template v-if="store.orderDetail.meta.receipt_image">
