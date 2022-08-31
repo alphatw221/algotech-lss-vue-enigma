@@ -44,12 +44,13 @@
     <div class="overflow-y-scroll h-fit scrollbar-hidden"  @scroll="handleScroll($event)">
 
         <div v-for="(comment, index) in comments" :key="index"
-            class="relative flex items-center p-2 m-1 rounded-l-full cursor-pointer intro-x box w-[99%] comments"
+            class="relative flex items-center p-2 m-1 rounded-l-full intro-x box w-[99%] comments"
             
             :class="{
                   'border-r-8 border-[#3c599b]': comment.platform === 'facebook',
                   'border-r-8 border-[#d63376]': comment.platform === 'instagram',
                   'border-r-8 border-[#f70000]': comment.platform === 'youtube',
+                  'cursor-pointer': route.query.status !== 'history'
                 }"
             
             @click="showReplyBar(comment)">
@@ -69,6 +70,22 @@
                     </div>
                 </div>
             </div>
+            <div v-else-if="route.query.status == 'history'" class="relative flex items-center w-full cursor-auto">
+                <div class="flex items-center w-[100%]">
+                    <div class="flex-none mr-1 w-14 h-14 image-fit">
+                        <img class="rounded-full zoom-in" :src="comment.image" />
+                    </div>
+                    <div class="w-2/3 ml-2 overflow-hidden">
+                        <div class="flex items-center">
+                            <a class="font-medium text-sky-900">{{ comment.customer_name }}</a>
+                            <div class="ml-auto text-xs text-slate-400"></div>
+                        </div>
+                        <div class="text-slate-900 mt-0.5 w-[100%] truncate">
+                            {{ comment.message }}
+                        </div>
+                    </div>
+                </div>
+            </div>
             <Tippy v-else class="rounded-full w-[100%]" content="Reply" theme='light'>
                 <div class="flex items-center w-[100%]">
                     <div class="flex-none mr-1 w-14 h-14 image-fit">
@@ -85,7 +102,7 @@
                     </div>
                 </div>
             </Tippy>
-            <SendIcon  class="hide w-6 h-6 ml-auto z-50" />
+            <SendIcon v-if="route.query.status !== 'history'" class="hide w-6 h-6 ml-auto z-50" />
         </div>
     </div>
 </template>
@@ -181,6 +198,9 @@ const commentSummarizer = category=>{
 }
 
 const showReplyBar = comment =>{
+    if (route.query.status=='history') {
+        return
+    }
     if (comment.platform=='instagram') {
         eventBus.emit('showConversationModal',{'comment':comment})
     } else {
