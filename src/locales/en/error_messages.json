@@ -14,13 +14,28 @@
                 "account_not_exist": "This account does not exist",
                 "email_or_password_incorrect": "The mailbox or password is incorrect",
                 "invalid_email": "Invalid Email",
-               
+                "password_incorrect": "Current password is incorrect",
                 "reset_password_code_manager":{
                     "code_expired": "Verification code expired",
                     "user_not_found": "Cannot find this user"
                 }
             },
-            "user-subscription":{},
+            "user-subscription":{
+                "stripe":{
+                "card_error":"Credit card declined",
+                "rate_limit_error":"Exceeded API request rate limit",
+                "invalid_request_error":{
+                    "invalid_parameters":"Invalid parameters",
+                    "invalid_integer":"Stripe only accepts values ​​greater than or equal to 1, please contact our customer service"
+                },
+                "authentication_error":"Authentication failed",
+                "api_connection_error":"A network error occurred",
+                "stripe_error":"Stripe error",
+                "no_related_error":"No related payment",
+                "support_for_refunding": "The information is invalid, please contact the seller to request a refund",
+                "payment_error": "Payment error, please contact seller"
+                }
+            },
             "facebook-page":{
                 "facebook_not_activated": "Facebook platform is not activated",
                 "facebook_token_expired": "Token expired or invalid. Please re-bind your page."
@@ -57,7 +72,9 @@
             "campaign-luckydraw":{
                 "invalid_lucky_draw_type":"Invalid draw method",
                 "invalid_lucky_draw_product": "Invalid Prize",
-                "lucky_draw_has_already_finished": "The draw has been completed and cannot be deleted"
+                "lucky_draw_has_already_finished": "The draw has been completed and cannot be deleted",
+                "draw_like_type_need_connect_to_facebook_post": "Not able to select this draw type because the campaign doesn't connect to a post on Facebook. Please check campaign setting.",
+                "no_any_connected_platforms": "This campaign doesn't connect to any posts or channels. Please check campaign setting."
             },
             "cart":{
                 "campaign_product_not_found": "Cannot find campaign product",
@@ -99,7 +116,7 @@
         "not_editable": "Cannot edit",
         "product_already_in_pre_order": "Product already exists in this order",
         "exceeds_max_order_amount": "The product quantity exceeds the maximum order quantity",
-        "cart_is_empty": "Cart is empty",
+        "cart_is_empty": "Product Out Of Stock, Please Confirm Your Shopping Cart And Checkout Again",
         "unable_purchase_now": "Sorry, the seller has closed checkout and cannot purchase at this time",
         "max_order_amount_should_less_than_stock": "The maximum order quantity must be less than the stock quantity",
         "not_support_this_image_type": "The image format is not supported",
@@ -125,7 +142,8 @@
         "fb_api_fail": "Facebook API error, please try again",
         "fb_user_token_invalid": "Facebook user token is invalid",
         "unable_get_fb_email": "Unable to get Facebook email",
-        "account_not_activated": "This account has not been activated"
+        "account_not_activated": "This account has not been activated",
+        "campaign_end_time_not_later_subscription_period": "Subscription will be expired on %{datetime_subscription_expired_at},<br />campaign period needs to be no later than %{datetime_subscription_expired_at}."
     },
     "util":{
         "no_api_user_found":"Cannot find this user",
@@ -154,7 +172,8 @@
         "signature_error": "Signature error",
         "lucky_draw_not_found": "Cannot find the lucky draw setting",
         "quiz_game_not_found": "Cannot find quiz game settings"
-    }
+    },
+    "token_not_valid": "You've been logged out."
 }
  
 

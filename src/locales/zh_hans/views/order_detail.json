@@ -53,11 +53,14 @@
         "additional_delivery_charge" : "Selected Delivery Charge Option"
     },
     "payment":{
+        "direct_payment":"转帐支付",
         "Direct Payment":"转帐支付",
+        "ecpay":"綠界支付",
         "method" : "付款方式",
         "information": "付款资讯",
         "record" : "付款纪录",
-        "last_five_digits":"末五码"
+        "last_five_digits":"末五码",
+        "no_record":"未附付款纪录"
     },
     "remark" : "备注",
     "save_remarks" : "储存备注",

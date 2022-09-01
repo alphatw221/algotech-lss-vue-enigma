@@ -321,9 +321,9 @@ onMounted(() => {
 	}
 	
 
-	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
-	campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.special_note  ))
-	campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.confirmation_note  ))
+	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic.delivery_note ))
+	campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.special_note  ))
+	campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.confirmation_note  ))
 	
 })
 

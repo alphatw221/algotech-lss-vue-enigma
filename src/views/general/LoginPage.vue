@@ -56,7 +56,7 @@
 import { seller_general_login } from '@/api_v2/user';
 import FacebookLoginButton from '@/components/button/FacebookLoginButton.vue';
 import GoogleLoginButton from '@/components/button/GoogleLoginButton.vue';
-
+import { useLSSSellerLayoutStore } from '../../stores/lss-seller-layout';
 import {ref, onMounted, onBeforeMount, computed, getCurrentInstance } from 'vue'
 import {useRoute, useRouter} from 'vue-router'
 
@@ -91,6 +91,8 @@ const copyLink = ()=>{
         alert('copied!')
     })
 }
+
+const layoutStore = useLSSSellerLayoutStore()
 
 // const rules = computed(()=> {
 //     return {

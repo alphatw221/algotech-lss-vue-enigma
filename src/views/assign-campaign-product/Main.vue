@@ -196,7 +196,7 @@
 					
 				</div> 
 				<div class="flex items-center justify-end my-5 mb-14">
-					<button type="button" class="btn btn-secondary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="router.push({name: 'campaign-list'})">{{$t('assign_product.skip')}}</button>
+					<button v-if="route.name == 'assign-product'" type="button" class="btn btn-secondary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="router.push({name: 'campaign-list'})">{{$t('assign_product.skip')}}</button>
 					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mr-1 md:mr-5" @click="openTab='confirm'">{{$t('assign_product.add')}}</button>
 				</div> 
 			</div>
@@ -483,7 +483,7 @@ const checkIfValid = ()=>{
 		if(isNaN(parseFloat(selectedProduct.price)) || selectedProduct.price<0){errorMessages.value[index]['price']='price_invalid';isSelectedProductsValid=false;}
 
 		//update orderCodeDict
-		if(typeof selectedProduct.order_code=='string'){
+		if(typeof selectedProduct.order_code=='string' && selectedProduct.type=='product'){
 			orderCodeDict[selectedProduct.order_code.toLowerCase()]=index
 		}
         // console.log(orderCodeDict)

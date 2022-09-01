@@ -1,6 +1,6 @@
 <template>
     <!-- update Modal-->
-	<Modal size="modal-lg" :show="showModal" @hidden="hideModal()">
+	<Modal size="modal-lg" backdrop="static" :show="showModal" @hidden="hideModal()">
 		<ModalHeader>
 			<h2 class="mr-auto text-base font-medium" v-if="modalType==CREATE">{{ $t('discount.modal.create') }} </h2>
             <h2 class="mr-auto text-base font-medium" v-else-if="modalType==EDIT">{{ $t('discount.modal.edit') }} </h2>
@@ -52,7 +52,7 @@
                         <v-date-picker class="z-10" 
                             v-model="dateTimePicker" 
                             :timezone="timezone" 
-                            :columns="$screens({ default: 1, sm: 2 })" 
+                            :columns="$screens({ default: 1})" 
                             mode="dateTime" is-range is-required is24hr
                             :min-date='new Date()'
                             >

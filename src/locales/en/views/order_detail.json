@@ -54,10 +54,13 @@
     },
     "payment":{
         "Direct Payment":"Direct Payment",
-        "method" : "Method of Payment",
+        "direct_payment":"Direct Payment",
+        "ecpay":"ECpay",
+        "method" : "Payment Method",
         "information": "Payment Information",
         "record" : "Record",
-        "last_five_digits":"Last Five Digits"
+        "last_five_digits":"Last Five Digits",
+        "no_record":"Payment record has not been attached"
     },
     "remark" : "Remark",
     "save_remarks" : "Save Remarks",

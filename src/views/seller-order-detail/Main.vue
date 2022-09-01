@@ -1,22 +1,32 @@
 <template>
     <div class="my-5 text-base text-xl sm:text-2xl text-center"> {{$t('order_detail.order')}} </div>
     <div class="w-[100%] mx-2 flex-col flex gap-1">
-        <div class="">
+        <div class="my-auto">
             <h2 class="text-xl font-semibold"> #{{store.orderDetail.id}} 
                 <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base">
                 {{$t(`manage_order.${store.orderDetail.status}`) }}</span> </h2>
         </div>
-        <div class="">
+        <div class="my-auto">
             <span class="text-base mr-5"> {{ store.orderDetail.customer_name }} {{store.orderDetail.platform ? `/ `+store.orderDetail.platform : ''}}</span>
         </div>
-        <div>
+        <div class="my-auto">
             <span class="text-base mr-5 break-all">{{$t('order_detail.delivery.email')}} : {{store.orderDetail.shipping_email}}</span>
         </div>
-        <div>
+        <div class="my-auto">
             <span class="text-base mr-5">{{$t('order_detail.delivery.phone')}} : {{store.orderDetail.shipping_phone}}</span>
         </div>
-        <div class="">
-            <span class="text-base mr-5"> {{$t('order_detail.order_date')}} : {{new Date(store.orderDetail.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
+        <div class="flex flex-row sm:w-[50%]">
+            <div class="my-auto">
+                <span class="text-base"> {{$t('order_detail.order_date')}} : {{new Date(store.orderDetail.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
+            </div>
+            <div class="ml-auto" v-if="route.query.type !== 'order'">
+                <button
+                    class="btn w-32 border-slate-300 dark:border-darkmode-400"
+                    @click="store.showAddItemModal = ! store.showAddItemModal"
+                >
+                    + {{$t('shopping_cart.order_summary.add_item')}}
+                </button>
+            </div>
         </div>
     </div>
     <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:max-h-[50vh]"> 
@@ -85,12 +95,13 @@
                     <template v-if="store.orderDetail.payment_method">
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</span>
                         <span class="col-start-3 col-span-3 py-2">
-                            {{ store.orderDetail.payment_method == 'Direct Payment' ? `${$t('order_detail.payment.Direct Payment')} - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</span>
+                            {{ store.orderDetail.payment_method == 'Direct Payment'||'direct_payment' ? `${$t('order_detail.payment.Direct Payment')} - ${store.orderDetail.meta.account_mode}` : store.orderDetail.payment_method }}</span>
                     </template>
 
-                    <template v-if="store.orderDetail.meta.last_five_digit">
+                    <template v-if="store.orderDetail">
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.last_five_digits')}}</span>
-                        <span class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</span>
+                        <div v-if="store.orderDetail.meta.last_five_digit == '' && !store.orderDetail.meta.receipt_image" class="col-start-3 col-span-3 py-2">{{$t('order_detail.payment.no_record')}} </div>
+                        <span v-else  class="col-start-3 col-span-3 py-2">{{store.orderDetail.meta.last_five_digit}}</span>
                     </template>
 
                     <template v-if="store.orderDetail.meta.receipt_image">
@@ -103,13 +114,16 @@
             </div>
         </div>
     </div>
+    <AddItemModal/>
 </template>
 
 <script setup>
+import AddItemModal from "./AddItemModal.vue";
 import OrderDetailTable from "./OrderDetailTable.vue";
 import PriceSummary from "./PriceSummary.vue"
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
+import { seller_list_campaign_product} from "@/api_v2/campaign_product";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_order } from "@/api_v2/order";
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
@@ -125,8 +139,9 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus
 
 
 onMounted(()=>{
-    // console.log(route.query.type)
+    console.log(route.params)
     get_order()
+
 })
 
 function get_order(){
@@ -136,6 +151,12 @@ function get_order(){
             res => { store.orderDetail = res.data
                     //  console.log(store.orderDetail) 
                      show_adjust_price() }
+        )
+        seller_list_campaign_product(route.params.campaign_id,'',1,9999,'product').then(
+            res=>{
+                store.campaignProducts = res.data.results
+                console.log(store.campaignProducts)
+            }
         )
     }else{
         seller_retrieve_order(route.params.order_id)

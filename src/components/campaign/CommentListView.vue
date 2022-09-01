@@ -10,7 +10,7 @@
         <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('return')">
             <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.return')}}
         </button>
-        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('chat')">
+        <button class="m-1 shadow-sm btn btn-warning w-fit tags" @click="commentSummarizer('other')">
             <HashIcon class="w-4 h-4 mr-2" /> {{$t('campaign_live.comment.other')}}
         </button>
         <!-- <button class="m-1 shadow-sm btn btn-dark w-fit tags" @click="commentSummarizer('Undefined')">
@@ -20,7 +20,9 @@
             <h2 v-if="tags !== ''" class="p-1 mb-2">{{$t('campaign_live.comment.select_tag')}}: {{ $t(`campaign_live.comment.`+tags) }}</h2>
             <button class="flex p-1 ml-auto w-18 text-slate-900"
                 @click="commentSummarizer('')">
-                <RefreshCcwIcon class="w-4 h-4 mr-1" /> {{$t('campaign_live.comment.clear')}}
+                <!-- <RefreshCcwIcon class="w-4 h-4 mr-1" /> -->
+                <SimpleIcon icon="reset" color="#334155" class="mr-1"/> 
+                {{$t('campaign_live.comment.clear')}}
             </button> 
         </div>
     </div>
@@ -44,20 +46,24 @@
     <div class="overflow-y-scroll h-fit scrollbar-hidden"  @scroll="handleScroll($event)">
 
         <div v-for="(comment, index) in comments" :key="index"
-            class="relative flex items-center p-2 m-1 rounded-l-full cursor-pointer intro-x box w-[99%] comments"
+            class="relative flex items-center p-2 m-1 rounded-l-full intro-x box w-[99%] comments"
             
             :class="{
                   'border-r-8 border-[#3c599b]': comment.platform === 'facebook',
                   'border-r-8 border-[#d63376]': comment.platform === 'instagram',
                   'border-r-8 border-[#f70000]': comment.platform === 'youtube',
+                  'border-r-8 border-[#000000]': comment.platform === 'tiktok',
+                  'border-r-8 border-[#6441a5]': comment.platform === 'twitch',
+                  'cursor-pointer': route.query.status !== 'history'
                 }"
             
             @click="showReplyBar(comment)">
-            <div v-if="comment.platform === 'instagram' || comment.platform === 'youtube' " class="relative flex items-center w-full cursor-auto">
+            <div v-if="comment.platform != 'facebook' && comment.platform != 'instagram'" class="relative flex items-center w-full cursor-auto">
                 <div class="flex-none mr-1 w-14 h-14 image-fit">
                 <img v-if="comment.image" class="rounded-full" :src="comment.image" />
-                <img v-else-if="comment.platform == 'instagram'" class="rounded-full" :src="igAvatar" />
                 <img v-else-if="comment.platform == 'youtube'" class="rounded-full" :src="ytAvatar" />
+                <img v-else-if="comment.platform == 'tiktok'" class="rounded-full" :src="ttAvatar" />
+                <img v-else-if="comment.platform == 'twitch'" class="rounded-full" :src="tcAvatar" />
                 </div>
                 <div class="w-full ml-2 overflow-hidden">
                     <div class="flex items-center">
@@ -69,10 +75,27 @@
                     </div>
                 </div>
             </div>
-            <Tippy v-else class="rounded-full w-[100%]" content="Reply" theme='light'>
+            <div v-else-if="route.query.status == 'history'" class="relative flex items-center w-full cursor-auto">
                 <div class="flex items-center w-[100%]">
                     <div class="flex-none mr-1 w-14 h-14 image-fit">
                         <img class="rounded-full zoom-in" :src="comment.image" />
+                    </div>
+                    <div class="w-2/3 ml-2 overflow-hidden">
+                        <div class="flex items-center">
+                            <a class="font-medium text-sky-900">{{ comment.customer_name }}</a>
+                            <div class="ml-auto text-xs text-slate-400"></div>
+                        </div>
+                        <div class="text-slate-900 mt-0.5 w-[100%]">
+                            {{ comment.message }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <Tippy v-else class="rounded-full w-[100%]" content="Reply" :options="{ theme: 'light' }">
+                <div class="flex items-center w-[100%]">
+                    <div class="flex-none mr-1 w-14 h-14 image-fit">
+                        <img v-if="comment.image" class="rounded-full zoom-in" :src="comment.image" />
+                        <img v-else-if="comment.platform == 'instagram'" class="rounded-full" :src="igAvatar" />
                     </div>
                     <div class="w-2/3 ml-2 overflow-hidden">
                         <div class="flex items-center">
@@ -85,7 +108,7 @@
                     </div>
                 </div>
             </Tippy>
-            <SendIcon  class="hide w-6 h-6 ml-auto z-50" />
+            <SendIcon v-if="route.query.status !== 'history' && comment.platform == 'facebook' ||route.query.status !== 'history' && comment.platform == 'instagram'" class="hide w-6 h-6 ml-auto z-50" />
         </div>
     </div>
 </template>
@@ -98,6 +121,9 @@ import { useRoute, useRouter } from "vue-router"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
 import ytAvatar from '@/assets/images/lss-icon/icon-user-yt.svg'
+import ttAvatar from '@/assets/images/lss-icon/icon-user-tt.svg'
+import tcAvatar from '@/assets/images/lss-icon/icon-user-tc.svg'
+import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue'
 
 const router = useRouter()
 const route = useRoute()
@@ -158,8 +184,8 @@ const readyToUpdateByWebsocket = ()=>{
         })
     }else{
         eventBus.on(`insert_${props.platformName}_comment`, payload => {
+            console.log(comments.value)
             comments.value.unshift(payload)
-        
         })
 
     }
@@ -174,6 +200,7 @@ const commentSummarizer = category=>{
     commentPaginator.getData().then(res=>{
         fetchingData.value = false
         comments.value = res.data.results
+        console.log(comments.value)
     }).catch(err=>{
         fetchingData.value = false
         return err
@@ -181,6 +208,9 @@ const commentSummarizer = category=>{
 }
 
 const showReplyBar = comment =>{
+    if (route.query.status=='history') {
+        return
+    }
     if (comment.platform=='instagram') {
         eventBus.emit('showConversationModal',{'comment':comment})
     } else {

@@ -69,9 +69,11 @@
                 <DropdownMenu class="w-30">
                     <DropdownContent>
                         <DropdownItem @click="editDraw(luckydraw.id)" class="w-24 text-center whitespace-nowrap text-[14px]" >
-                            <EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('lucky_draw.draw_list.edit') }}</DropdownItem>
+                            <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1" />  {{ $t('lucky_draw.draw_list.edit') }}</DropdownItem>
                         <DropdownItem @click="deleteDraw(luckydraw.id)" class="w-24 text-center text-danger whitespace-nowrap text-[14px]">
-                            <Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('lucky_draw.draw_list.delete') }}</DropdownItem> 
+                            <SimpleIcon icon="delete" color="#b91c1c" class="mr-1" /> 
+                            {{ $t('lucky_draw.draw_list.delete') }}
+                        </DropdownItem> 
                     </DropdownContent>
                 </DropdownMenu>
             </Dropdown>
@@ -87,13 +89,14 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
-import { delete_campaign_lucky_draw, list_campaign_lucky_draw_winners } from '@/api_v2/campaign_lucky_draw';
+import { delete_campaign_lucky_draw, list_campaign_lucky_draw_winners, draw_campaign_lucky_draw_check } from '@/api_v2/campaign_lucky_draw';
 import WinnersModal from './WinnersModal.vue';
 import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
 import instagram_platform from '/src/assets/images/lss-img/instagram.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 import i18n from "@/locales/i18n"
+import SimpleIcon from '../../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 const props = defineProps({
     luckydrawList: Object,
@@ -111,13 +114,22 @@ const drawTitleMap = ref({
     keyword: "Draw Keyword" 
 })
 
+
+onMounted(() => {
+    console.log(props.luckyPrizeObj)
+})
+
 const toManageOrder = ()=>{
     router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
 }
 
 const goDraw = (lucky_draw_id) => {
-    let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id} })
-    window.open(routeData.href, '_blank')
+    // need fix
+    draw_campaign_lucky_draw_check(lucky_draw_id).then(res=>{
+        let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id}, query: {language: i18n.global.locale.value} })
+        window.open(routeData.href, '_blank')
+    })
+    
 }
 
 const editDraw = (lucky_draw_id) => {

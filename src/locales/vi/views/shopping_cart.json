@@ -105,5 +105,5 @@
     "invalid_user_info":"Thông tin người dùng được nhập không hợp lệ",
     "invalid_delivery_info":"Thông tin vận chuyển được nhập không hợp lệ",
     "checkout_message":"Bạn có chắc chắn muốn chuyển đến thanh toán không? Giỏ hàng của bạn sẽ bị xóa.",
-    "checkout_again":"Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại"
+    "checkout_again":"Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại" 
 }

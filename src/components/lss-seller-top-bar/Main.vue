@@ -175,7 +175,8 @@
           role="button"
           class="cursor-pointer notification"
         >
-          <GlobeIcon class=" dark:text-slate-500" />
+          <!-- <GlobeIcon class=" dark:text-slate-500" /> -->
+          <SimpleIcon icon="globle" color="#e6e9ed"/>
         </DropdownToggle>
         
           <DropdownMenu class="w-fit whitespace-nowrap">
@@ -215,11 +216,11 @@
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(1)">
               <UserIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.profile`)}}</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]"  @click="profile(2)"> 
+            <!-- <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]"  @click="profile(2)"> 
               <AwardIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.subscription`)}}</DropdownItem
-            >
+            > -->
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(3)">
-              <LockIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.reset_password`)}}</DropdownItem
+              <UnlockIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.reset_password`)}}</DropdownItem
             >
             <!-- <DropdownItem class="dropdown-item hover:bg-white/5">
               <HelpCircleIcon class="w-4 h-4 mr-2" /> Help</DropdownItem
@@ -245,6 +246,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from '@/locales/i18n';
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const route = useRoute();
 const router = useRouter();

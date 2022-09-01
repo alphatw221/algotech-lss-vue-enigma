@@ -52,3 +52,19 @@ export const seller_register_stripe = (countryCode,data) =>{
 export const user_register_with_bank_transfer = (countryCode,data) =>{
     return axiosInstance.post(`/api/v2/user/register/${countryCode}/transfer/`,data);
 }
+
+export const user_register_with_ecpay = (countryCode,data) =>{
+    return axiosInstance.post(`/api/v2/user/register/${countryCode}/ecpay/`,data);
+}
+
+export const admin_login = data => {
+    return axiosInstance.post(`/api/v2/user/admin/login/`,data);
+};
+
+export const dealer_login = data => {
+    return axiosInstance.post(`/api/v2/user/dealer/login/`,data);
+};
+
+export const dealer_verify_code = data => {
+    return axiosInstance.post(`/api/v2/user/dealer/verify_code/`,data);
+};

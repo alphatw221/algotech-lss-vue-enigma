@@ -1,36 +1,29 @@
 <template>
     <!-- update Modal-->
-	<Modal :show="showModal" @hidden="hideModal()">
+	<Modal :show="showModal" @hidden="hideModal()" >
 		<ModalHeader>
 			<h2 class="mr-auto text-base font-medium">{{ 'edit' }} #{{currentInfo.id}}</h2>
 			<a @click="updateModal = false" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
 				<XIcon class="w-8 h-8 text-slate-400" />
 			</a>
 		</ModalHeader>
-		<ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
+		<ModalBody class="flex flex-col gap-4 gap-y-3">
 
-
-
-            
-			<div class="col-span-12">
+			<div>
 				<label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.keyword_detect')}}</label>
 				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
 					v-model="currentInfo.input_msg" />
 			</div>
-			<div class="col-span-12">
+			<div>
 				<label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.set_auto_reply')}}</label>
 				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
 					v-model="currentInfo.output_msg" />
 			</div>
-			<div class="col-span-12">
+			<div>
 				<label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.remark')}}</label>
 				<input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
 					v-model="currentInfo.description" />
 			</div>
-
-
-
-
 
 		</ModalBody>
 		<ModalFooter>
@@ -42,13 +35,6 @@
 			</button>
 		</ModalFooter>
 	</Modal>
-
-
-
-
-
-
-
 
 	<!--Modal Create -->
     <!-- <Modal :show="createModal" @hidden="closeWithAlert()">

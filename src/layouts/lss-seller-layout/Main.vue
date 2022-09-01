@@ -11,12 +11,12 @@
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
-    <Notification refKey="sellerMessageAlert" :options="{duration: 3000,}" class="flex text-red-600 sm:flex-row">
+    <Notification refKey="sellerMessageAlert" :options="{duration: 5000,}" class="flex text-red-600 sm:flex-row">
       <AlertOctagonIcon class="w-6 h-6 mr-2" /> 
       <div id="message" class="font-medium">Message</div>
     </Notification>
 
-    <Notification refKey="sellerApiErrorAlert" class="flex text-red-600 sm:flex-row">
+    <Notification refKey="sellerApiErrorAlert" :options="{duration: 5000,}" class="flex text-red-600 sm:flex-row">
       
       <div class="flex">
         <div class="relative top-2 w-12">
@@ -72,6 +72,9 @@
       <LSSSellerMenu /> 
 <!-- <button class="text-lg w-30 h-14" @click="toast">Test campaign schedule</button> -->
   <ChevronUpIcon class="h-10 w-10 fixed text-white bottom-2 bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50 md:hidden" @click="toTop()"/>
+
+
+  <CommentCaptureWindow v-if="showCaptureWindow"/>
   </div>
 </template>
 
@@ -80,6 +83,7 @@ import LSSSellerTopBar from "@/components/lss-seller-top-bar/Main.vue";
 import LSSSellerMobileMenu from "@/components/lss-seller-mobile-menu/Main.vue";
 import LSSSellerMenu from "@/components/lss-seller-menu/Main.vue";
 import ThemeModeSwitcher from "@/components/theme-mode-switcher/Main.vue";
+import CommentCaptureWindow from "@/views/comment-capture-window/Main.vue"
 import { useCookies } from "vue3-cookies";
 import { provide, onMounted,ref, computed, watch, getCurrentInstance } from "vue"
 import { useRouter ,useRoute} from "vue-router";
@@ -94,6 +98,7 @@ const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
 const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const campaign_id = ref('')
+const showCaptureWindow = ref(true)
 
 const checkCampaignTime = (message) =>{
   if(message.remind_time === '15 mins'){ 
@@ -120,8 +125,8 @@ const initWebSocketConnection =()=> {
       if (data.type === "notification_message") {
         campaign_id.value = data.data.message.id
         checkCampaignTime(data.data.message)
+        setTimeout(() => {}, 2000);
       }
-      setTimeout(() => {}, 2000);
   };
   websocket.onopen = e => {
       console.log('connected')
@@ -156,27 +161,16 @@ watch(
 )
   
 onMounted(() => {
+  if (route.query.status == "history") {
+    showCaptureWindow.value = false
+  }
   setLanguage();
   initWebSocketConnection();
 })
 
 const toTop=()=>{
-  document.getElementById('topPoint').scrollIntoView({behavior: "smooth"});
+  document.getElementById('topPoint').scrollIntoView({behavior: "smooth"}); 
 }
-
-
-
-// watch(computed(()=>route.path),
-// ()=>{
-//   const element = document.getElementsByClassName('modal')
-//   for (let i=0; i<element.length; i++){
-//     if(element[i])element[i].remove()
-//   }
-//   console.log(document.getElementsByClassName('modal'))
-//   // const dropdownElement = document.getElementsByClassName('dropdown-menu')[0]
-//   // if(dropdownElement)dropdownElement.style.visibility = 'hidden'
-//   ,{deep:true}}
-// ) 
 
 provide("bind[sellerMessageNotification]", (el) => {
   store.notification = el;

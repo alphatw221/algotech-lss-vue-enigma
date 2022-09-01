@@ -14,12 +14,28 @@
                 "account_not_exist": "Tài khoản này không tồn tại",
                 "email_or_password_incorrect": "Email hoặc mật khẩu không chính xác",
                 "invalid_email": "Email không hợp lệ",
+                "password_incorrect": "Mật khẩu gần đây không chính xác",
                 "reset_password_code_manager":{
                     "code_expired": "Mã xác minh đã hết hạn",
                     "user_not_found": "Không thể tìm thấy người dùng này"
                 }
             },
-            "user-subscription":{},
+            "user-subscription":{
+                "stripe":{
+                    "card_error":"Thẻ tín dụng lỗi",
+                    "rate_limit_error":"Đã vượt quá giới hạn tỷ lệ yêu cầu API",
+                    "invalid_request_error":{
+                        "invalid_parameters":"thông số không hợp lệ",
+                        "invalid_integer":"Stripe chỉ chấp nhận các giá trị lớn hơn hoặc bằng 1, vui lòng liên hệ với dịch vụ khách hàng của chúng tôi"
+                    },
+                    "authentication_error":"Quá trình xác thực đã thất bại",
+                    "api_connection_error":"Đã xảy ra lỗi mạng",
+                    "stripe_error":"Stripe error",
+                    "no_related_error":"Không có khoản thanh toán liên quan",
+                    "support_for_refunding": "Thông tin không hợp lệ, vui lòng liên hệ với người bán để yêu cầu hoàn lại tiền",
+                    "payment_error": "Lỗi thanh toán, vui lòng liên hệ với người bán"
+                }
+            },
             "facebook-page":{
                 "facebook_not_activated": "Nền tảng Facebook chưa được kích hoạt",
                 "facebook_token_expired": "Mã thông báo hết hạn hoặc không hợp lệ. Vui lòng liên kết lại trang Facebook của bạn."
@@ -61,7 +77,9 @@
             "campaign-luckydraw":{
                 "invalid_lucky_draw_type":"Thiết lập rút thăm may mắn không hợp lệ",
                 "invalid_lucky_draw_product": "Giải thưởng không hợp lệ",
-                "lucky_draw_has_already_finished": "Rút thăm may mắn đã hoàn thành và không thể xóa"
+                "lucky_draw_has_already_finished": "Rút thăm may mắn đã hoàn thành và không thể xóa",
+                "draw_like_type_need_connect_to_facebook_post": "Không thể chọn hình thức rút thăm may mắn này vì chiến dịch không thể kết nối đến bài viết trên Facebook. Vui lòng kiểm tra lại cài đặt chiến dịch.",
+                "no_any_connected_platforms": "Chiến dịch này không kết nối đến bất kì bài viết hay kênh nào. Vui lòng kiểm tra cài đặt chiến dịch."
                 
             },
             "cart":{
@@ -105,7 +123,7 @@
         "not_editable": "Không thể chỉnh sửa",
         "product_already_in_pre_order": "Sản phẩm đã tồn tại trong đơn đặt hàng này",
         "exceeds_max_order_amount": "Số lượng sản phẩm vượt quá số lượng đặt hàng tối đa",
-        "cart_is_empty": "Giỏ hàng trống",
+        "cart_is_empty": "Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại", 
         "unable_purchase_now": "Xin lỗi, người bán đã đóng thanh toán và không thể mua hàng vào lúc này",
         "max_order_amount_should_less_than_stock": "Số lượng đặt hàng tối đa phải ít hơn số lượng trong kho",
         "not_support_this_image_type": "Định dạng hình ảnh không được hỗ trợ",
@@ -131,7 +149,8 @@
         "fb_api_fail": "Lỗi Facebook API, vui lòng thử lại",
         "fb_user_token_invalid": "Mã thông báo người dùng Facebook không hợp lệ",
         "unable_get_fb_email": "Không thể nhận email Facebook",
-        "account_not_activated": "Tài khoản này chưa được kích hoạt"
+        "account_not_activated": "Tài khoản này chưa được kích hoạt",
+        "campaign_end_time_not_later_subscription_period": "Gói dịch vụ đang sử dụng sẽ hết hạn vào %{datetime_subscription_expired_at},<br />thời gian chiến dịch không trễ hơn %{datetime_subscription_expired_at}."
     },
     "util":{
         "no_api_user_found":"Không thể tìm thấy người dùng này",
@@ -160,5 +179,6 @@
         "signature_error": "Lỗi chữ ký",
         "lucky_draw_not_found": "Không thể tìm thấy cài đặt rút thăm may mắn",
         "quiz_game_not_found": "Không thể tìm thấy cài đặt trò chơi đố vui"
-    }
+    },
+    "token_not_valid": "Bạn đã đăng xuất"
 }

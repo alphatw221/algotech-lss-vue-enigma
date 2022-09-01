@@ -35,7 +35,13 @@
         "profile":"個人檔案",
         "change-plan":"更改方案",
         "quiz-game":"問答遊戲",
-        "discount-code":"優惠代碼"
+        "discount-code":"優惠代碼",
+        "dashboard":"儀表板",
+        "transactions":"交易報表",
+        "plans":"方案報表",
+        "licenses":"執照",
+        "sellers":"賣家",
+        "buyers":"買家"
     },
     "top_bar":{
         "profile":"個人檔案",

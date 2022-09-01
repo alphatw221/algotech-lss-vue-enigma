@@ -10,35 +10,37 @@
         </ModalHeader>
         <ModalBody class="grid grid-cols-12 gap-3">
             <template v-for="(column, index) in tableColumns" :key="index">
-                <div class="col-span-12">
-                    <label for="modal-form-1" class="">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                     
-                    <template v-if="column.key === 'customer_editable' || column.key === 'customer_removable'">
+                    <div class="col-span-12" v-if="column.key === 'customer_editable'  && campaignProduct.type != 'lucky_draw' || column.key === 'customer_removable' && campaignProduct.type != 'lucky_draw'">
+                        <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                         <input 
                             class="form-check-input w-[1.2rem] h-[1.2rem] ml-5"
                             type="checkbox" 
                             v-model="campaignProduct[column.key]" 
                         />
-                    </template>
+                    </div>
 
-                    <template v-else-if="column.key === 'type'">
-
+                    <div class="col-span-12" v-else-if="column.key === 'type'">
+                        <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                         <select class="form-select" v-model="campaignProduct[column.key]" >
                             <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
                                 {{$t(`edit_campaign_product.edit_product_modal.types.${type.value}`)}}
                             </option>
                         </select> 
-                    </template> 
+                    </div> 
 
-                     <template  v-else-if="column.key === 'price'">
+                     <div class="col-span-12"  v-else-if="column.key === 'price'">
+                        <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                         <input type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
-                    </template>
+                    </div>
 
-                    <template  v-else-if="column.key === 'order_code'">
+                    <div class="col-span-12"  v-else-if="column.key === 'order_code' && campaignProduct.type != 'lucky_draw'">
+                        <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                         <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
-                    </template>
+                    </div>
 
-                    <template v-else>
+                    <div class="col-span-12" v-else-if="column.key === 'max_order_amount' && campaignProduct.type != 'lucky_draw'">
+                        <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                         <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
                         <template v-if="v[column.key]">
                             <label class="text-danger text-[12px] block" 
@@ -48,8 +50,20 @@
                                 {{ $t(`edit_campaign_product.edit_product_modal.errors.${error.$validator}`) }}
                             </label>
                         </template>
-                    </template>
-                </div>
+                    </div>
+
+                    <div class="col-span-12" v-else-if="column.key === 'qty_for_sale'">
+                        <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
+                        <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
+                        <template v-if="v[column.key]">
+                            <label class="text-danger text-[12px] block" 
+                                v-for="error,index in v[column.key].$errors"
+                                :key="index"
+                                >
+                                {{ $t(`edit_campaign_product.edit_product_modal.errors.${error.$validator}`) }}
+                            </label>
+                        </template>
+                    </div>
             </template>
         </ModalBody>
         <ModalFooter>

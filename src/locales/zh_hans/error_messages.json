@@ -14,13 +14,28 @@
                 "account_not_exist": "此帐号不存在",
                 "email_or_password_incorrect": "信箱或密码不正确",
                 "invalid_email": "无效的信箱",
-               
+                "password_incorrect": "当前密码不正确",
                 "reset_password_code_manager":{
                     "code_expired": "验证码过期",
                     "user_not_found": "找不到此用户"
                 }
             },
-            "user-subscription":{},
+            "user-subscription":{
+                "stripe":{
+                    "card_error":"信用卡被拒绝",
+                    "rate_limit_error":"超过API请求速率限制",
+                    "invalid_request_error":{
+                        "invalid_parameters":"无效的参数",
+                        "invalid_integer":"Stripe只接受金额大于或等于1的数值，请联络我们的客服"
+                    },
+                    "authentication_error":"验证失败",
+                    "api_connection_error":"网路发生错误",
+                    "stripe_error":"Stripe 错误",
+                    "no_related_error":"无关联的付款",
+                    "support_for_refunding": "资料无效，请联络卖家以便申请退款",
+                    "payment_error": "付款错误, 请联络卖家"
+                }
+            },
             "facebook-page":{
                 "facebook_not_activated": "Facebook 平台未开通",
                 "facebook_token_expired": "权杖过期或失效，请重新绑定你的粉丝专页"
@@ -58,7 +73,9 @@
             "campaign-luckydraw":{
                 "invalid_lucky_draw_type":"无效的抽奖方式",
                 "invalid_lucky_draw_product": "无效的奖品",
-                "lucky_draw_has_already_finished": "抽奖已完成，无法删除"
+                "lucky_draw_has_already_finished": "抽奖已完成，无法删除",
+                "draw_like_type_need_connect_to_facebook_post": "无法选择此抽奖方法，因为这场销售活动没有连结到任何Facebook上的贴文，请确认销售活动的设定。",
+                "no_any_connected_platforms": "这场销售活动没有连结到任何到任何贴文或频道，请确认销售活动的设定。"
             },
             "cart":{
                 "campaign_product_not_found": "找不到活动商品",
@@ -100,7 +117,7 @@
         "not_editable": "无法编辑",
         "product_already_in_pre_order": "商品已存在于此订单",
         "exceeds_max_order_amount": "商品数量超过最大订购数量",
-        "cart_is_empty": "购物车是空的",
+        "cart_is_empty": "商品已售完,请重新确认购物车并再次结账", 
         "unable_purchase_now": "抱歉，卖家已关闭结帐，目前无法购买",
         "max_order_amount_should_less_than_stock": "最大订购数量需小于库存数量",
         "not_support_this_image_type": "图片格式不支援",
@@ -126,7 +143,8 @@
         "fb_api_fail": "Facebook API 错误，请再试一次",
         "fb_user_token_invalid": "Facebook 用户权杖无效",
         "unable_get_fb_email": "无法取得Facebook信箱",
-        "account_not_activated": "此帐号尚未启用"
+        "account_not_activated": "此帐号尚未启用",
+        "campaign_end_time_not_later_subscription_period": "订阅方案是到 %{datetime_subscription_expired_at} 过期，<br />销售活动的时间不能超过 %{datetime_subscription_expired_at}。"
     },
     "util":{
         "no_api_user_found":"找不到此用户",
@@ -155,5 +173,6 @@
         "signature_error": "签名错误",
         "lucky_draw_not_found": "找不到抽奖设定",
         "quiz_game_not_found": "找不到小游戏设定"
-    }
+    },
+    "token_not_valid": "你已被登出"
 }

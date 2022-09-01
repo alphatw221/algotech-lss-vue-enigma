@@ -6,7 +6,7 @@
     <div v-else-if="showPages" class="box border-2 rounded-lg p-5 mx-4 lg:p-10 lg:mx-20 mb-3 flex flex-col">
         <div class="flex flex-wrap justify-between gap-3 mb-5 sm:mb-8">
             <h4 class="text-lg sm:text-xl font-medium leading-none my-auto">{{$t('settings.platform.twitch_channel')}}</h4>
-            <!-- <BindTwitchChannelButton :busName="'addTwitchChannels'" :buttonName="'edit'"/> -->
+            <BindTwitchChannelButton :busName="'addTwitchChannels'" :buttonName="'edit'"/>
         </div>
         <LoadingIcon icon="three-dots" color="1a202c" class="flex flex-wrap w-20 h-20 mx-auto" v-if="fetchingData"/>
         <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5" v-else>
@@ -32,7 +32,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const showConnectButton = ref(false)
 const showPages = ref(false)
 const twitchChannels = ref([])
-const fetchingData = ref(false)
+const channelName = ref('')
 
 
 onMounted(() => {

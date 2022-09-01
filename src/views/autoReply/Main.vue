@@ -89,6 +89,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import i18n from "@/locales/i18n"
+import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance();

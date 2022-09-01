@@ -83,7 +83,7 @@ onMounted(()=>{
           liveItems.value = currentLiveItems
           show.value = true
         }).catch(err=>{
-          layoutStore.alert.showMessageToast('campaign_list.enter_post_id_modal.rebind_page') 
+          layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_page'))
         })
       }else if(payload.platform=='youtube'){
         get_yt_live_media(payloadBuffer.page.token)
@@ -110,7 +110,7 @@ onMounted(()=>{
             liveItems.value = currentLiveItems
             show.value = true
         }).catch(err=>{
-          layoutStore.alert.showMessageToast('campaign_list.enter_post_id_modal.rebind_channel') //temp
+          layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_channel')) //temp
         })
       }else if(payload.platform=='instagram'){
         get_ig_live_media(payloadBuffer.page.business_id,payloadBuffer.page.token)
@@ -136,7 +136,7 @@ onMounted(()=>{
             liveItems.value = currentLiveItems
             show.value = true
         }).catch(err=>{
-          layoutStore.alert.showMessageToast('campaign_list.enter_post_id_modal.rebind_profile') //temp
+          layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_profile')) //temp
         })
       }
   })
@@ -150,7 +150,7 @@ onUnmounted(()=>{
 
 const selectLive = live_id => {
   let apiRequest = null
-  apiRequest = update_platform_live_id(campaign.value.id, payloadBuffer.platform, payloadBuffer.page.id ,live_id)
+  apiRequest = update_platform_live_id(campaign.value.id, {"platform":payloadBuffer.platform, "platform_id":payloadBuffer.page.id , "post_id":live_id})
   apiRequest.then(res=>{
     Object.entries(res.data).forEach(([key,value]) => {
       campaign.value[key]=value                       //proxy object only got setter

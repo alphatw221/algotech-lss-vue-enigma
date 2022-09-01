@@ -5,7 +5,7 @@
         type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="fbBtn shadow-lg " @click="check_bindable_or_upgrade">{{$t('settings.platform.connect_with_facebook')}}</Button>
+        type="button" class="fbBtn shadow-lg " @click="bindPage">{{$t('settings.platform.connect_with_facebook')}}</Button>
 
     
 </template>
@@ -68,17 +68,8 @@ const checkLoginState = () => {
     });
 }
 
-const check_bindable_or_upgrade = () => {
-    fetchingData.value = true
-    check_activated_platform().then(res=>res.data).then(res=>{
-        console.log(res)
-        fetchingData.value = false
-        if (res.can_bind) {
-            checkLoginState()
-        } else {
-            eventBus.emit("showUpgradeModal", {"activated_platform_amount": res.activated_platform_amount})
-        }
-    })
+const bindPage = () => {
+    checkLoginState()
 }
 </script>
 
