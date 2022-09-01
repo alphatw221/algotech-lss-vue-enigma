@@ -41,7 +41,8 @@
                 @click="linkTo(menu, router, $event)"
               >
                 <div class="side-menu__icon">
-                  <component :is="menu.icon" />
+                  <!-- <component :is="menu.icon" /> -->
+                  <MenuIcon :icon="menu.icon" color="#334155" /> 
                 </div>
                 <div class="side-menu__title">
                   {{ $t(`layout.menu.${menu.title}`) }}
@@ -73,9 +74,9 @@
                       :class="{ 'side-menu--active': subMenu.active }"
                       @click="linkTo(subMenu, router, $event)"
                     >
-                      <div class="side-menu__icon">
+                      <!-- <div class="side-menu__icon">
                         <ActivityIcon />
-                      </div>
+                      </div> -->
                       <div class="side-menu__title">
                         {{ $t(`layout.menu.${subMenu.title}`) }}
                         <div
@@ -135,7 +136,10 @@
         </ul> 
           <button class="fixed mx-5 text-white rounded-lg btn btn-danger xl:m-5 bottom-5 border-[2px] border-red-900 shadow-lg"
               @click="router.push('/seller/change-plan')"
-              ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/><span class="hidden text-lg xl:block 2xl:block">{{$t('layout.upgrade')}}  </span>  </button>
+              >
+              <!-- <SimpleIcon icon="upgrade" color="white" class="mr-0 xl:mx-2 h-5"/> -->
+              <font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/>
+              <span class="hidden text-lg xl:block 2xl:block">{{$t('layout.upgrade')}}  </span>  </button>
           </nav>
       
       <!-- END: Side Menu -->
@@ -159,6 +163,8 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import SideMenuTooltip from "@/components/side-menu-tooltip/Main.vue";
 import { linkTo, nestedMenu, enter, leave } from "./index";
 import dom from "@left4code/tw-starter/dist/js/dom";
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
+import MenuIcon from "../../global-components/lss-svg-icons/MenuIcon.vue";
 
 const route = useRoute();
 const router = useRouter();

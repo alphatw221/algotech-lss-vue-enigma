@@ -175,7 +175,8 @@
           role="button"
           class="cursor-pointer notification"
         >
-          <GlobeIcon class=" dark:text-slate-500" />
+          <!-- <GlobeIcon class=" dark:text-slate-500" /> -->
+          <SimpleIcon icon="globle" color="#e6e9ed"/>
         </DropdownToggle>
         
           <DropdownMenu class="w-fit whitespace-nowrap">
@@ -245,6 +246,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from '@/locales/i18n';
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const route = useRoute();
 const router = useRouter();

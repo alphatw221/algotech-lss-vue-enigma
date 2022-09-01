@@ -24,7 +24,6 @@
                     <div class="flex mb-2">
                         <!-- <span class="font-medium mr-5"> Order Date : {{ store.order.created_at }} </span> -->
                         <span class="font-medium mr-5">{{$t('order_detail.order_date')}} : {{ new Date(store.order.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})  }} </span>
-                        
                     </div>
                 </div>
                 <div class="box p-6 border-2 border-secondary ">
@@ -60,8 +59,8 @@
                         </template>
                         <template v-if="store.order.payment_method">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.payment.last_five_digits')}}</div>
-                            <div v-if="store.order.meta.last_five_digit" class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
-                            <div v-else class="col-start-3 col-span-3 py-3">{{$t('order_detail.payment.no_record')}} </div>
+                            <div v-if="store.order.meta.last_five_digit == '' && !store.order.meta.receipt_image" class="col-start-3 col-span-3 py-3">{{$t('order_detail.payment.no_record')}} </div>
+                            <div v-else class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
                             <div class="w-20 h-20 image-fit zoom-in absolute top-[110px] right-8">
                                 <Tippy
                                 v-if="store.order.meta.receipt_image"

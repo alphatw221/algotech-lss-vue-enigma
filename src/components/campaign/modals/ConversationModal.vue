@@ -12,8 +12,8 @@
         <ModalBody class="flex flex-col w-full h-full">
 
             <div class="overflow-y-auto max-h-[500px] whitespace-wrap w-full">
-                <template v-for="(item,index) in messageItems.reverse()" :key="index">
-                    <div v-if="item.from.id === pageId"
+                <template v-for="(item,index) in messageItems" :key="index">
+                    <div v-if="item.from.id === igPageId"
                         class="flex justify-end w-full h-fit">
                         <div class="flex flex-col p-2 m-3 box bg-secondary">
                             <span class="font-medium text-right text-violet-900">{{ item.from.username }}</span>
@@ -79,21 +79,24 @@ const show=ref(false)
 const message = ref('')
 const messageItems=ref([])
 const comment = ref({})
-const pageId = ref(null)
+const igPageId = ref(null)
 let pollingInterval = null
+const igUserId = ref(null)
+const connectedFbPageId = ref(null)
 let pageToken = null
 
 onMounted(()=>{
+    
     eventBus.on("showConversationModal", (payload) => {
         show.value = true
         comment.value = payload.comment
+        igPageId.value = campaignDetailStore.campaign.instagram_profile.business_id
+        igUserId.value = comment.value.customer_id
+        connectedFbPageId.value = campaignDetailStore.campaign.instagram_profile.connected_facebook_page_id
         console.log(comment.value)
-        pageId.value = campaignDetailStore.campaign.instagram_profile.business_id
         retrieve_instagram_profile(campaignDetailStore.campaign.instagram_profile.id).then(res=>{
             pageToken = res.data.token
-            return getDirectMessageConversation(campaignDetailStore.campaign.instagram_profile.connected_facebook_page_id, comment.value.customer_id, pageToken)
-        }).then(res=>{
-            return loopGetDirectMessageConversation(campaignDetailStore.campaign.instagram_profile.connected_facebook_page_id, comment.value.customer_id, pageToken, 3000)
+            return loopGetDirectMessageConversation(pageToken, 5000)
         }).catch(err=>{
             console.log(err)
         })
@@ -108,7 +111,7 @@ onUnmounted(()=>{
 
 
 const send = ()=>{
-    reply_to_direct_message(campaignDetailStore.campaign.instagram_profile.connected_facebook_page_id, comment.value.customer_id, message.value, pageToken).then(res=>{
+    reply_to_direct_message(connectedFbPageId.value, igUserId.value, message.value, pageToken).then(res=>{
         message.value=''
         layoutStore.notification.showMessageToast("Send successfully")
     }).catch(err=>{
@@ -124,18 +127,17 @@ const hide = ()=>{
     comment.value = {}
     pollingInterval = null
 }
-const getDirectMessageConversation = (page_id, ig_user_id, pageToken) => {
-    return get_ig_conversation_messages(page_id, ig_user_id, pageToken).then(res=>{
+const getDirectMessageConversation = (pageToken) => {
+    get_ig_conversation_messages(connectedFbPageId.value, igUserId.value, pageToken).then(res=>{
         console.log("getDirectMessageConversation")
         messageItems.value = res.data.data[0].messages.data
     })
-
 }
 
-const loopGetDirectMessageConversation = (page_id, ig_user_id, pageToken, interval) => {
-    if (!show.value) return
+const loopGetDirectMessageConversation = (pageToken, interval) => {
     clearInterval(pollingInterval)
-    pollingInterval = setInterval(()=> { return getDirectMessageConversation(page_id, ig_user_id, pageToken) }, interval)
+    getDirectMessageConversation(pageToken)
+    return pollingInterval = setInterval(() => { return getDirectMessageConversation(pageToken)}, interval)
 }
 
 

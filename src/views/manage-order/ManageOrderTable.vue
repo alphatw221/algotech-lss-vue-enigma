@@ -75,13 +75,13 @@
                                 <a class="flex image-fit" @click="copyURL(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
                                     <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
-                                        <Share2Icon class="block sm:mx-auto"/>
+                                        <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto" width="24" height="23" />
                                     </Tippy>
                                 </a>
                                 <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_order_detail(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
                                     <Tippy  :content="$t('tooltips.manage_order.view_icon')" :options="{ theme: 'light' }"> 
-                                        <EyeIcon class="block sm:mx-auto"/>
+                                        <SimpleIcon icon="order_details" color="#2d8cf0" class="sm:mx-auto" width="26" height="24" />
                                     </Tippy>
                                 </a>
                             </div>
@@ -89,11 +89,13 @@
                         <template v-else-if="column.key === 'delivery'">
                             <div class="flex place-content-center">
                                 <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
-                                  <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> <TruckIcon /> </Tippy>  
+                                  <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> 
+                                    <SimpleIcon icon="truck" color="#2d8cf0" class="sm:mx-auto" width="26" height="33" />
+                                    </Tippy>  
                                 </a>
                                 <a class="w-fit h-fit image-fit" v-show="order.status === 'shipping out'">
                                    <Tippy  :content="$t('manage_order.complete')" :options="{ theme: 'light' }">
-                                        <TruckIcon style="color:#BABABA" class="cursor-not-allowed"/>
+                                        <SimpleIcon icon="truck" color="#BABABA" class="sm:mx-auto cursor-auto" width="26" height="33"/>
                                     </Tippy> 
                                 </a>
                             </div>
@@ -152,6 +154,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import unbound from '/src/assets/images/lss-img/noname.png';
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 const route = useRoute();
 const router = useRouter();
 const store = useManageOrderStore()

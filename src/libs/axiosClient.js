@@ -91,7 +91,7 @@ export function createAxiosWithBearer(){
             const toastify = useLSSSellerLayoutStore()
             if(useLSSBuyerLayoutStore().alert != undefined){ toastify.value = useLSSBuyerLayoutStore() }
             else if(useLSSDealerLayoutStore().alert != undefined){toastify.value = useLSSDealerLayoutStore()}
-            else{console.log('Err')}
+            else{toastify = useLSSSellerLayoutStore()}
             if (error.response.data) {
                 if (error.response.data.detail){
                     console.log(error.response.data.code)

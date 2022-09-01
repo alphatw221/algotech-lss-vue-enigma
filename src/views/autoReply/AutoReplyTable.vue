@@ -67,10 +67,14 @@
 								<DropdownContent class="w-24 text-center">
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
 										@click="updateInfo(index+1, reply.id, reply.input_msg, reply.output_msg, reply.description)"> 
-											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{$t('auto_reply.manipulate.edit')}} </DropdownItem>
+											<!-- <EditIcon class="w-[20px] h-[20px] mx-1"/>  -->
+											<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/> 
+											{{$t('auto_reply.manipulate.edit')}} </DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
 										@click="deleteAutoReply(reply.id)"> 
-											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{$t('auto_reply.manipulate.delete')}} </DropdownItem>
+											<!-- <Trash2Icon class="w-[20px] h-[20px] mx-1"/>  -->
+											<SimpleIcon icon="delete" color="#b91c1c" class="mr-1" /> 
+											{{$t('auto_reply.manipulate.delete')}} </DropdownItem>
 								</DropdownContent>
 								</DropdownMenu>
 							</Dropdown> 
@@ -135,6 +139,7 @@ import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { delete_auto_response, update_auto_response,list_auto_response } from "@/api_v2/auto_response"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const props = defineProps({
 	columns: Array,
