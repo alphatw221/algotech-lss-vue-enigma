@@ -120,7 +120,7 @@ const userAvatar = computed(() => {
   // if(layoutStore.userInfo.google_info.picture){
   //   return layoutStore.userInfo.google_info.picture
   // }
-  return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
+  return import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR+'fake_head.jpeg'
 });
 
 const data = ref({currency:'USD', lang:'en'})

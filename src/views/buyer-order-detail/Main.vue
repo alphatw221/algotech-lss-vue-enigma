@@ -181,7 +181,7 @@ const route = useRoute();
 const router = useRouter();
 
 const store = useLSSBuyerOrderStore(); 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 onMounted(() => {
     const retrieve_order = isAnonymousUser?guest_retrieve_order_with_user_subscription:buyer_retrieve_order_with_user_subscription

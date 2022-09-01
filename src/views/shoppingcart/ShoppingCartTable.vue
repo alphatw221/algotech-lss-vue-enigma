@@ -19,17 +19,17 @@
 					<td class="imgtd">
 						<div class="flex flex-col items-center">
 							<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
-							<img
-								class="rounded-lg"
-								data-action="zoom"
-								:src="storageUrl + product.image"
-							/>
+								<img
+									class="rounded-lg"
+									data-action="zoom"
+									:src="product.image"
+								/>
 							</div>
 							<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-else>
-							<img
-								class="rounded-lg"
-								:src="storageUrl + `no_image.jpeg`"
-							/>
+								<img
+									class="rounded-lg"
+									:src="staticDir + `no_image.jpeg`"
+								/>
 							</div>
 							<div v-if="product.type == 'lucky_draw'" class="text-primary font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}* </div>
 							<div class="productName">{{ product.name }} </div>
@@ -136,7 +136,7 @@ import i18n from "@/locales/i18n"
 const route = useRoute();
 const store = useShoppingCartStore(); 
 const layoutStore = useLSSBuyerLayoutStore();
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const { cookies } = useCookies()
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 const hideUpdateSignIndex = ref(null)

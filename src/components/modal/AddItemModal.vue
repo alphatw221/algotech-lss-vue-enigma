@@ -23,7 +23,7 @@
 					>
 						<a class="w-4/5 file__icon file__icon--image mx-auto">
 							<div class="file__icon--image__preview image-fit" style="width: 80px; height:80px">
-								<img :src="publicPath + product.image"/>
+								<img :src="product.image"/>
 							</div>
 						</a>
 						<div class="block font-medium mt-4 text-center truncate">	
@@ -84,7 +84,7 @@ import { useRoute } from "vue-router";
 const route = useRoute();
 const store = useShoppingCartStore(); 	
 
-const publicPath =  import.meta.env.VITE_APP_IMG_URL;
+
 
 onMounted(() => {
 	list(route.params.pre_order_id)

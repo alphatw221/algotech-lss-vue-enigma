@@ -16,7 +16,7 @@
             class="box bg-[#f1f1f1] relative text-left" >     
             <div class="flex flex-row flex-wrap justify-start lg:justify-between m-[0.7rem] p-5 px-3 xl:p-5 lucky-set">
                 <div class="flex flex-col xl:flex-row justify-start w-[70px] md:w-[100px] lg:w-[200px] mr-5 md:mr-10 lg:mr-20 xl:mr-5 my-auto"> 
-                    <img class="h-[120px] object-cover xl:mr-5" :src="storageUrl + luckydraw.prize.image" />
+                    <img class="h-[120px] object-cover xl:mr-5" :src="luckydraw.prize.image" />
                 </div>
                 <span class="h-auto w-40 break-words text-[16px] hidden 2xl:block">{{ luckydraw.prize.name }}</span>
                 <div class="flex flex-col 2xl:flex-row flex-wrap justify-start xl:mt-5 w-[55%] xl:w-auto xl:ml-auto">  
@@ -103,7 +103,7 @@ const props = defineProps({
 const route = useRoute();
 const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
 const drawTitleMap = ref({
     like: "Draw Like",
     purchase: "Draw Purchased",

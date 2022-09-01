@@ -240,7 +240,8 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const campaignDetailStore = useCampaignDetailStore()
 
 const platform= ref([])
-const imagePath= import.meta.env.VITE_APP_IMG_URL
+
+
 const tags=ref("")
 const ready=ref(false)
 

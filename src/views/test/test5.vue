@@ -475,7 +475,6 @@ export default {
 	},
   data() {
     return {
-      imagePath: import.meta.env.VITE_APP_IMG_URL,
       tags: "",
       replyBar: false,
       tagBox: false,

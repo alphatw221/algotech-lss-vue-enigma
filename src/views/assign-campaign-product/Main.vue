@@ -91,7 +91,7 @@
 											<div class="w-[90px] h-[90px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
 												<img class="rounded-lg cursor-auto" 
 													:class="{'checked': product.check }" 
-													:src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
+													:src="product.image ? product.image : `${staticDir}no_image.jpeg`" />
 											</div>
 										</div>
 									</td>
@@ -237,7 +237,7 @@
 										<div class="flex items-center justify-center">
 											<div class="w-[90px] h-[90px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
 												<img class="rounded-lg cursor-auto"
-													:src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
+													:src="product.image ? product.image : `${staticDir}no_image.jpeg`" />
 											</div>
 										</div>
 									</td>
@@ -392,7 +392,9 @@ const pageSize = ref(10)
 const dataCount = ref(0)
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const imageUrl = import.meta.env.VITE_APP_IMG_URL
+
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
+
 const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')

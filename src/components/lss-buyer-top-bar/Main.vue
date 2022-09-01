@@ -178,7 +178,7 @@ const userAvatar = computed(() => {
   if (cookies.get('login_with')=='google'){
     return buyerLayoutStore.userInfo.google_info.picture
   }
-  return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
+  return import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR+'fake_head.jpeg'
 });
 
 const logout = () => {

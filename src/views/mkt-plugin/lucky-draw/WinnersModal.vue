@@ -23,7 +23,7 @@
                                 <div class="flex w-full justify-around">
                                     <div class="flex-0 w-20 h-20 sm:w-12 sm:h-12 zoom-in border-0">
                                         <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" 
-											class="rounded-full border-0 w-20" :src="`${storageUrl}fake_head.jpeg`"
+											class="rounded-full border-0 w-20" :src="`${staticDir}fake_head.jpeg`"
                                             />
                                         <Tippy v-else tag="img" class="rounded-full border-0 w-20 h-20 sm:w-12 sm:h-12" :src="winner.customer_image"
                                             />
@@ -62,7 +62,7 @@ import unbound from '/src/assets/images/lss-img/noname.png';
 const route = useRoute();
 const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const tableColumns = ref([
     { key: 'platform', name: 'Platform' },
     { key: 'customer_name', name: 'Customer name' },
