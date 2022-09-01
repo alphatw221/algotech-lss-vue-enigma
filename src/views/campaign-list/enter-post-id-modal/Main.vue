@@ -336,6 +336,7 @@ const updatePostId = (platform) => {
   }
 
   if (!apiRequest) {
+    checking.value = false
     return update_platform_live_id(campaign.value.id, data)
   }
   apiRequest.then(res=>{
