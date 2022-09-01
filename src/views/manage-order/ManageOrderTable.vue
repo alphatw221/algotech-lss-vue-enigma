@@ -102,7 +102,7 @@
                         </template>
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
-                                <a class="flex image-fit" @click="copyURL(order.id,order.type)">
+                                <a class="flex image-fit sm:mr-3" @click="copyURL(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
                                     <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
                                         <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto" width="24" height="23" />
