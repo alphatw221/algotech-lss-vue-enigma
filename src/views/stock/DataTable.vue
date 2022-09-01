@@ -152,7 +152,8 @@
 												{{ $t('stock.category_manage.edit')}}
 											</DropdownItem>
 											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product.id)"> 
-												<CopyIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('stock.category_manage.duplicate')}}
+												<SimpleIcon icon="copy" color="#2d8cf0" class="mr-1" />  
+												{{ $t('stock.category_manage.duplicate')}}
 											</DropdownItem>
 											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product.id)"> 
 												<!-- <Trash2Icon class="w-[20px] h-[20px] mx-1"/> -->

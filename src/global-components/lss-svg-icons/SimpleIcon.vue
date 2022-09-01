@@ -175,6 +175,27 @@
     stroke-linejoin="round"/>
     </svg>
 
+    <svg
+    v-else-if="icon == 'store'"
+    width="24" viewBox="0 0 18 16" fill="transparent" fill-opacity="0" xmlns="http://www.w3.org/2000/svg" :stroke="props.color">
+    <path d="M14.2792 1H3.72076C3.29033 1 2.90819 1.27543 2.77208 1.68377L1.43874 5.68377C1.2229 6.3313 1.70487 7 2.38743 7H15.6126C16.2951 7 16.7771 6.3313 16.5613 5.68377L15.2279 1.68377C15.0918 1.27543 14.7097 1 14.2792 1Z" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+    <path d="M3 7V14C3 14.5523 3.44772 15 4 15H14C14.5523 15 15 14.5523 15 14V7" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+    <path d="M5.5 1V7" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+    <path d="M12.5 1V7" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+    <path d="M9 1V7" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+    <path d="M7 15V11C7 9.89543 7.89543 9 9 9V9C10.1046 9 11 9.89543 11 11V15" stroke-width="1.5" stroke-linecap="square" stroke-linejoin="round"/>
+    </svg>
+
+    <svg
+    v-else-if="icon == 'copy'" 
+    width="24" height="20" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" :stroke="props.color">
+    <rect x="1" y="4" width="10.7692" height="11" rx="1" stroke-width="1.5" stroke-linejoin="round"/>
+    <path d="M5.30774 1H13C14.1046 1 15 1.89543 15 3V11" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+
+
+
+
 
 
 

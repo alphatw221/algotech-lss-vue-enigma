@@ -31,6 +31,8 @@
                                             <img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
                                             <img v-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
                                             <img v-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
+											<img v-if="winner.platform == 'twitch'" class="rounded-full bg-[#6441a5]" :src="twitch_platform" >
+											<img v-if="winner.platform == 'tiktok'" class="rounded-full bg-[#000000]" :src="tiktok_platform" >
                                             <img v-if="winner.platform == null" class="rounded-full bg-[#9D9D9D]" :src="unbound" >
                                         </div>
                                     </div>
@@ -38,6 +40,10 @@
                             </td>
 							<td v-else-if="column.key == 'draw_type'"  class="whitespace-nowrap w-fit">
                                 {{ $t(`lucky_draw.draw_list.${winner[column.key]}`) }}
+                            </td>
+							<td v-else-if="column.key == 'customer_name'" class="break-all w-fit">
+                                <div v-if="winner[column.key] != ''"> {{ winner[column.key] }} </div>
+								<div v-else> Guest </div>
                             </td>
                             <td v-else class="break-all w-fit">
                                 {{ winner[column.key] }}
@@ -57,6 +63,8 @@ import { useRoute, useRouter } from "vue-router";
 import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
 import instagram_platform from '/src/assets/images/lss-img/instagram.png';
+import tiktok_platform from '/src/assets/images/lss-img/tiktok_black_bg.png';
+import twitch_platform from '/src/assets/images/lss-img/twitch.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 
 const route = useRoute();

@@ -17,6 +17,8 @@
         "facebook_comments":"Facebook 留言",
         "youtube_comments":"YouTube 留言",
         "instagram_comments":"Instagram 留言",
+        "tiktok_comments":"Tiktok 留言",
+        "twitch_comments":"Twitch 留言",
         "lucky_draw":"抽奖活动",
         "quiz_game": "問答游戏"
     },
