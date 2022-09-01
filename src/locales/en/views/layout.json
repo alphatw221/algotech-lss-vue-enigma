@@ -42,7 +42,13 @@
         "profile":"Profile",
         "change-plan":"Change Plan",
         "quiz-game":"Quiz Game",
-        "discount-code":"Discount Code"
+        "discount-code":"Discount Code", 
+        "dashboard":"Dashboard",
+        "transactions":"Transactions",
+        "plans":"Plans",
+        "licenses":"Licenses",
+        "sellers":"Sellers",
+        "buyers":"Buyers"
     },
     "top_bar":{
         "profile":"Profile",

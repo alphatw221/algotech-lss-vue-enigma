@@ -72,7 +72,8 @@
                                     :options="{ theme: 'light' }"
                                     :content="$t('tooltips.campaign_live.view_icon')" 
                                 > 
-                                    <EyeIcon class="click-icon" @click="routeToDetailPage(pre_order)"/> 
+                                    <!-- <EyeIcon class="click-icon" @click="routeToDetailPage(pre_order)"/>  -->
+                                    <SimpleIcon icon="view" @click="routeToDetailPage(pre_order)"/>
                                 </Tippy> 
                             </td>
                         </tr>
@@ -88,6 +89,7 @@ import {list_campaign_pre_order} from '@/api/campaign_pre_order';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted, onUnmounted, ref, getCurrentInstance, computed, watch } from "vue";
+import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 const router = useRouter()
 const route = useRoute()

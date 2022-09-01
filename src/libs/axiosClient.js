@@ -2,13 +2,23 @@ import { usePublicLayoutStore } from "@/stores/lss-public-layout";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import { useRoute, useRouter } from 'vue-router';
 import axios from "axios";
 import i18n from "@/locales/i18n";
 import { useCookies } from "vue3-cookies";
 import {ref} from "vue"
-const { cookies } = useCookies(); 
-
-
+const { cookies } = useCookies();
+const router = useRouter()
+const vueLangToBrowserLang = ref({
+    "en": "en",
+    "zh_hans":"zh-cn",
+    "zh_hans":"zh-hk",
+    "zh_hant":"zh-tw",
+    "vi": "vi"
+})
+var timer1 = null
+var timer2 = null
+var counter = 0
 // let axiosClient = axios.create({
 //     // baseURL: process.env.BACKEND_URL,
 //     // // 跨域請求set-cookie
@@ -77,19 +87,52 @@ export function createAxiosWithBearer(){
     axiosInstanceWithBearer.interceptors.response.use(
         response => response,
         error => {
-        // const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSBuyerLayoutStore()
-            const toastify  =useLSSSellerLayoutStore()
-            if(useLSSBuyerLayoutStore().alert != undefined){ toastify.value = useLSSBuyerLayoutStore() }
-            else if(useLSSDealerLayoutStore().alert != undefined){toastify.value = useLSSDealerLayoutStore()}
-            else{console.log('Err')}
+        const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSBuyerLayoutStore()
+        // if(useLSSDealerLayoutStore().alert != undefined) toastify.value = useLSSDealerLayoutStore()
+        // const toastify=ref()
+        // if(useLSSBuyerLayoutStore().alert != undefined){ toastify.value = useLSSBuyerLayoutStore() 
+        // console.log(toastify.value)
+        // }
+        // else if(useLSSDealerLayoutStore().alert != undefined){toastify.value = useLSSDealerLayoutStore()
+        //     console.log(toastify.value)
+        // }
+        // else if(useLSSSellerLayoutStore().alert != undefined){toastify.value = useLSSSellerLayoutStore()
+        //     console.log(toastify.value)
+        // }
             if (error.response.data) {
                 if (error.response.data.detail){
+                    console.log(error.response.data.code)
                     if(error.response.data.code) {
-                        toastify.alert.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
+                        if(error.response.data.code === "token_not_valid") {
+                            console.log("7777")
+                            if (counter === 1) {
+                                return 
+                            }
+                            if (timer1) {
+                                clearTimeout(timer1)
+                            }
+                            if (timer2) {
+                                clearTimeout(timer2)
+                            }
+                            timer1 = setTimeout(() => {
+                                toastify.alert.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
+                                
+                            }, 1000)
+                            timer2 = setTimeout(() => {
+                                window.location.reload()
+                            }, 4000)
+                            counter++
+                        } else {
+                            toastify.alert.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
+                        }
+                        
                     } else {
                         toastify.alert.showMessageToast(error.response.data.detail)
                     }
+                    
+                    
                 } else if (error.response.data.message){
+                    console.log(error.response.data)
                     let path = ""
                     if (error.response.data.message.includes("helper") || error.response.data.message.includes("util")) {
                         path = "error_messages" + "." + error.response.data.message
@@ -99,7 +142,15 @@ export function createAxiosWithBearer(){
                     } else {
                         path = "error_messages" + error.response.config.url.split("/").splice(0,3).join(".") + "." + error.response.data.message
                     }
-                    toastify.alert.showMessageToast(i18n.global.t(path))
+                    Object.entries(error.response.data.params).forEach(([key, value]) => {
+                        if (key.split("_")[0] === "datetime") {
+                            let browser_lang = vueLangToBrowserLang.value[i18n.global.locale.value]
+                            let time = new Intl.DateTimeFormat(browser_lang, { dateStyle: 'short', timeStyle: 'medium' }).format(new Date(value))
+                            error.response.data.params[key] = time
+                        }
+                        
+                    })
+                    toastify.alert.showMessageToast(i18n.global.t(path, error.response.data.params))
                 }
             }
             else{

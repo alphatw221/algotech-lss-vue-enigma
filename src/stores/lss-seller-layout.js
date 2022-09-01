@@ -14,6 +14,10 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     notification: ref(),
     alert: ref(),
     apiErrorAlert: ref(),
+
+    showCommentCaptureWindow:ref(false),
+    commentCapturingCampaignData:ref({}),
+
     menu: [
       // {
       //   icon: "HomeIcon",
@@ -21,7 +25,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Home",
       // },
       {
-        icon: "PackageIcon",
+        icon: "stock",
         pageName: "stock",
         title: "stock",
       },
@@ -36,7 +40,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Create Campaign",
       // },
       {
-        icon: "ListIcon",
+        icon: "campaign-list",
         pageName: "campaign-list",
         title: "campaign_list",
       },
@@ -46,7 +50,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Campaign Live",
       // },
       {
-        icon: "MessageSquareIcon",
+        icon: "auto-reply",
         pageName: "side-menu-auto-reply",
         title: "auto_reply",
       },
@@ -66,7 +70,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Shopping Cart",
       // },
       {
-        icon: "SettingsIcon",
+        icon: "settings",
         pageName: "campaign-global-setting",
         title: "settings",
         subMenu: [

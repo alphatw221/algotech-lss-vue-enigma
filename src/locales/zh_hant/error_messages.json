@@ -72,7 +72,9 @@
             "campaign-luckydraw":{
                 "invalid_lucky_draw_type":"無效的抽獎方式",
                 "invalid_lucky_draw_product": "無效的獎品",
-                "lucky_draw_has_already_finished": "抽獎已完成，無法刪除"
+                "lucky_draw_has_already_finished": "抽獎已完成，無法刪除",
+                "draw_like_type_need_connect_to_facebook_post": "無法選擇此抽獎方法，因為這場銷售活動沒有連結到任何Facebook上的貼文，請確認銷售活動的設定。",
+                "no_any_connected_platforms": "這場銷售活動沒有連結到任何到任何貼文或頻道，請確認銷售活動的設定。"
             },
             "cart":{
                 "campaign_product_not_found": "找不到活動商品",
@@ -140,7 +142,8 @@
         "fb_api_fail": "Facebook API 錯誤，請再試一次",
         "fb_user_token_invalid": "Facebook 用戶權杖無效",
         "unable_get_fb_email": "無法取得Facebook信箱",
-        "account_not_activated": "此帳號尚未啟用"
+        "account_not_activated": "此帳號尚未啟用",
+        "campaign_end_time_not_later_subscription_period": "訂閱方案是到 %{datetime_subscription_expired_at} 過期，<br />銷售活動的時間不能超過 %{datetime_subscription_expired_at}。"
     },
     "util":{
         "no_api_user_found":"找不到此用戶",

@@ -70,7 +70,7 @@
                             </span>
                         </div>
                         <div>
-                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
                         </div>
                     </div>
                 </Accordion>
@@ -93,7 +93,7 @@
                             </span>
                         </div>
                         <div>
-                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
                         </div>
                     </div>
                 </Accordion>
@@ -116,7 +116,7 @@
                             </span>
                         </div>
                         <div>
-                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
                         </div>
                     </div>
                 </Accordion>
@@ -143,6 +143,7 @@ import { ref, onMounted } from 'vue';
 import { get_general_info, update_general_info } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import i18n from "@/locales/i18n"
+import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 
 const layoutStore = useLSSSellerLayoutStore();

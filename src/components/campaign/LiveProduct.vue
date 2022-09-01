@@ -97,7 +97,7 @@
                                     <input
                                         @click="toggle_campaign_product_status(product)"
                                         class="form-check-input" type="checkbox" 
-                                        v-model="product.status"
+                                        v-model="product.status" :disabled="route.query.status == 'history'"
                                     />
                                 </div>
                             </td>

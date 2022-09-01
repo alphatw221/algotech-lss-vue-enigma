@@ -72,7 +72,7 @@
             <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(1)">
               <UserIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.profile`)}}</DropdownItem
             >
-            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(3)">
+            <DropdownItem class="dropdown-item hover:bg-white/5 text-[#dcdee2]" @click="profile(4)">
               <UnlockIcon class="w-4 h-4 mr-2" /> {{$t(`layout.top_bar.reset_password`)}}</DropdownItem
             >
             <DropdownDivider class="border-white/[0.08]" />
@@ -89,7 +89,7 @@
 </template>
 
 <script setup>
-import { ref, defineEmits, computed, onMounted } from "vue";
+import { ref, computed, onMounted } from "vue";
 import { useLSSDealerLayoutStore } from "@/stores/lss-dealer-layout"
 import { seller_update_subscription } from '@/api_v2/user_subscription'
 import { useRoute, useRouter } from "vue-router";
@@ -151,7 +151,7 @@ const logout = () => {
   cookies.remove('access_token')
   cookies.remove('login_with')
   hideDropDown()
-  router.push('login')
+  router.go()
 }
 
 const profile =(page)=>{

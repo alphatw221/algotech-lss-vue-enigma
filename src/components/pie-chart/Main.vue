@@ -28,16 +28,17 @@ const props = defineProps({
 const darkMode = computed(() => useDarkModeStore().darkMode);
 const colorScheme = computed(() => useColorSchemeStore().colorScheme);
 
-const chartData = [15, 10, 65];
+const chartData = [35, 14, 45, 30];
 const chartColors = () => [
-  colors.pending(0.9),
-  colors.warning(0.9),
-  colors.primary(0.9),
+  colors.info(0.9),
+  'rgba(75, 192, 192, 0.9)',
+  'rgba(153, 102, 255, 0.9)',
+  'rgba(255, 159, 64, 0.9)'
 ];
 
 const data = computed(() => {
   return {
-    labels: ["Html", "Vuejs", "Laravel"],
+    labels: ["Q1", "Q2", "Q3","Q4"],
     datasets: [
       {
         data: chartData,
@@ -45,6 +46,7 @@ const data = computed(() => {
         hoverBackgroundColor: colorScheme.value ? chartColors() : "",
         borderWidth: 5,
         borderColor: darkMode.value ? colors.darkmode[700]() : colors.white,
+        hoverOffset: 4
       },
     ],
   };
@@ -57,6 +59,9 @@ const options = computed(() => {
       legend: {
         labels: {
           color: colors.slate["500"](0.8),
+          font: {
+            size: 15
+          }
         },
       },
     },

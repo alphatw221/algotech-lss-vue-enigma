@@ -72,7 +72,9 @@
             "campaign-luckydraw":{
                 "invalid_lucky_draw_type":"Invalid draw method",
                 "invalid_lucky_draw_product": "Invalid Prize",
-                "lucky_draw_has_already_finished": "The draw has been completed and cannot be deleted"
+                "lucky_draw_has_already_finished": "The draw has been completed and cannot be deleted",
+                "draw_like_type_need_connect_to_facebook_post": "Not able to select this draw type because the campaign doesn't connect to a post on Facebook. Please check campaign setting.",
+                "no_any_connected_platforms": "This campaign doesn't connect to any posts or channels. Please check campaign setting."
             },
             "cart":{
                 "campaign_product_not_found": "Cannot find campaign product",
@@ -140,7 +142,8 @@
         "fb_api_fail": "Facebook API error, please try again",
         "fb_user_token_invalid": "Facebook user token is invalid",
         "unable_get_fb_email": "Unable to get Facebook email",
-        "account_not_activated": "This account has not been activated"
+        "account_not_activated": "This account has not been activated",
+        "campaign_end_time_not_later_subscription_period": "Subscription will be expired on %{datetime_subscription_expired_at},<br />campaign period needs to be no later than %{datetime_subscription_expired_at}."
     },
     "util":{
         "no_api_user_found":"Cannot find this user",

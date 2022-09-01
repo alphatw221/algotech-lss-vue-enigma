@@ -72,6 +72,9 @@
       <LSSSellerMenu /> 
 <!-- <button class="text-lg w-30 h-14" @click="toast">Test campaign schedule</button> -->
   <ChevronUpIcon class="h-10 w-10 fixed text-white bottom-2 bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50 md:hidden" @click="toTop()"/>
+
+
+  <CommentCaptureWindow v-if="showCaptureWindow"/>
   </div>
 </template>
 
@@ -80,6 +83,7 @@ import LSSSellerTopBar from "@/components/lss-seller-top-bar/Main.vue";
 import LSSSellerMobileMenu from "@/components/lss-seller-mobile-menu/Main.vue";
 import LSSSellerMenu from "@/components/lss-seller-menu/Main.vue";
 import ThemeModeSwitcher from "@/components/theme-mode-switcher/Main.vue";
+import CommentCaptureWindow from "@/views/comment-capture-window/Main.vue"
 import { useCookies } from "vue3-cookies";
 import { provide, onMounted,ref, computed, watch, getCurrentInstance } from "vue"
 import { useRouter ,useRoute} from "vue-router";
@@ -94,6 +98,7 @@ const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
 const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const campaign_id = ref('')
+const showCaptureWindow = ref(true)
 
 const checkCampaignTime = (message) =>{
   if(message.remind_time === '15 mins'){ 
@@ -120,8 +125,8 @@ const initWebSocketConnection =()=> {
       if (data.type === "notification_message") {
         campaign_id.value = data.data.message.id
         checkCampaignTime(data.data.message)
+        setTimeout(() => {}, 2000);
       }
-      setTimeout(() => {}, 2000);
   };
   websocket.onopen = e => {
       console.log('connected')
@@ -156,6 +161,9 @@ watch(
 )
   
 onMounted(() => {
+  if (route.query.status == "history") {
+    showCaptureWindow.value = false
+  }
   setLanguage();
   initWebSocketConnection();
 })

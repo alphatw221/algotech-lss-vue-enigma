@@ -18,9 +18,11 @@ export const init_twitch_websocket = (username, password, channel, onMessageHand
     client.on('connected', onConnectedHandler);
 
     client.connect();
+    
+    return client
 }
 
-export const bulk_create_comment = (campaign_id, data) => {
+export const upload_twitch_comments = (campaign_id, data) => {
     return createAxiosWithBearer().post(`/api/v2/twitch/${campaign_id}/bulk/create/comment/`, data)
 }
 

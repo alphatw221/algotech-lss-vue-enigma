@@ -38,7 +38,7 @@
             "Product":"商品",
             "order_code":"商品代码",
             "price":"价格",
-            "activate":"Activate",
+            "activate":"上架",
             "qty":"库存",
             "stock_qty":"库存",
             "category":"类别",

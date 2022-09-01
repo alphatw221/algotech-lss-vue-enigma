@@ -64,3 +64,7 @@ export const admin_login = data => {
 export const dealer_login = data => {
     return axiosInstance.post(`/api/v2/user/dealer/login/`,data);
 };
+
+export const dealer_verify_code = data => {
+    return axiosInstance.post(`/api/v2/user/dealer/verify_code/`,data);
+};

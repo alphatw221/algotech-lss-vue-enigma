@@ -1,8 +1,9 @@
 import { io } from "socket.io-client";
 import { createAxiosWithBearer, createAxiosWithBearerWithoutInterceptor } from '@/libs/axiosClient';
 
+const backendUrl = "https://tiktok-chat-reader.zerody.one/"
 class TikTokIOConnector {
-    constructor(backendUrl) {
+    constructor(messageHandler, errorHandler) {
         this.socket = io(backendUrl);
         this.uniqueId = null;
         this.options = null;
@@ -15,14 +16,21 @@ class TikTokIOConnector {
                 this.setUniqueId();
             }
         })
+        
+        this.socket.on('chat', messageHandler)
+
 
         this.socket.on('disconnect', () => {
             console.warn("Socket disconnected!");
+            console.log('disconnect')
+            errorHandler()
         })
 
         this.socket.on('streamEnd', () => {
             console.warn("LIVE has ended!");
             this.uniqueId = null;
+            console.log('streamEnd')
+            errorHandler()
         })
 
         this.socket.on('tiktokDisconnected', (errMsg) => {
@@ -30,7 +38,11 @@ class TikTokIOConnector {
             if (errMsg && errMsg.includes('LIVE has ended')) {
                 this.uniqueId = null;
             }
+            console.log('tiktokDisconnected')
+            errorHandler()
         });
+
+
     }
 
     connect(uniqueId, options) {
@@ -56,23 +68,29 @@ class TikTokIOConnector {
     on(eventName, eventHandler) {
         this.socket.on(eventName, eventHandler);
     }
+
+    disconnect(){
+        this.socket.close()
+    }
 }
 
 
 
 
-const backendUrl = "https://tiktok-chat-reader.zerody.one/"
+// const backendUrl = "https://tiktok-chat-reader.zerody.one/"
 
 
 
-export const create_tiktok_connector = (username, onMessageHandler) => {
-    let connector = new TikTokIOConnector(backendUrl);
+export const create_tiktok_connector = (username, messageHandler, errorHandler) => {
+    let connector = new TikTokIOConnector(messageHandler, errorHandler);
 
     // New chat comment received
-    connector.on('chat', onMessageHandler)
+    // connector.on('chat', onMessageHandler)
 
     connector.connect(username, {
         enableExtendedGiftInfo: false
+    }).catch(err=>{
+        errorHandler()
     })
     return connector
 }

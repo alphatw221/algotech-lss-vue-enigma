@@ -70,11 +70,13 @@
 								<DropdownContent class="w-24 text-center">
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
 										@click="editDiscountCode(discountCode)"> 
-											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('discount.table.edit') }}
+											<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
+											{{ $t('discount.table.edit') }}
 									</DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
 										@click="deleteDiscountCode(discountCode)"> 
-											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('discount.table.del') }}
+										<SimpleIcon icon="delete" color="#b91c1c" class="mr-1"/>
+										{{ $t('discount.table.del') }}
 									</DropdownItem>
 								</DropdownContent>
 								</DropdownMenu>
@@ -97,6 +99,7 @@ import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
 import { delete_discount_code, list_discount_code } from "@/api_v2/discount_code"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const tableColumns = [
 	{ name: "index", key: "index" , type:"index"},
