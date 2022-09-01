@@ -18,12 +18,44 @@
             <div class="flex flex-row flex-wrap m-[0.7rem] p-5">
                 
                 <div class="flex flex-col gap-4 md:w-[55%] qa_block">
-                    <label class="text-center text-[20px] font-bold"> {{ $t('quiz_game.quiz_list.question') }} </label>
-
+                    <table class="table -mt-3 table-report min-h-[300px]">
+                        <thead>
+                            <tr>
+                                <th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]">
+                                    {{ $t('quiz_game.quiz_list.question') }}
+                                </th>
+                                <th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]">
+                                    {{ $t('quiz_game.quiz_list.answer') }}
+                                </th>
+                                <th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]">
+                                </th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-for="(quizgame, index) in quizgameBundle.quiz_games" :key="index">
+                                <tr class="h-[300px]">
+                                    <td>
+                                        <div class="mt-40 text-center md:mt-10">
+                                            <h1 class="text-slate-500 text-sm md:text-lg font-bold">
+                                                {{ $t('stock.no_result') }}
+                                            </h1>
+                                            <h1 class="text-slate-500 text-sm md:text-lg">
+                                                {{ $t('stock.click_to_add') }}
+                                            </h1>
+                                        </div>
+                                    </td> 
+                                </tr>
+                            </template>
+                            
+                        </tbody>
+                    </table>
                     <template v-for="(quizgame, index) in quizgameBundle.quiz_games" :key="index">
                         <div class="flex flex-row items-center justify-between">
                             <div>
                                 {{ quizgame.question }}
+                            </div>
+                            <div>
+                                {{ quizgame.answer }}
                             </div>
                             <div class="">
                                 <button 
