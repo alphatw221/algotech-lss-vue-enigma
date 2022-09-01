@@ -43,6 +43,10 @@ export const buyer_apply_discount_code = (order_id,data) => {
     return createAxiosWithBearer().put(`/api/v2/pre_order/${order_id}/buyer/discount/`,data)
 }
 
+export const buyer_cancel_discount_code = (order_id) => {
+    return createAxiosWithBearer().delete(`/api/v2/pre_order/${order_id}/buyer/discount/cancel`)
+}
+
 //-------------------------------seller----------------------------------
 export const seller_retrieve_pre_order = (pre_order_id) => {
     return createAxiosWithBearer().get(`/api/v2/pre_order/${pre_order_id}/seller/retrieve/`);

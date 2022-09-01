@@ -46,6 +46,7 @@
             @keydown.enter.prevent="promoCheck()"
             />
             <button class="input-group-text h-[35px]" @click="promoCheck()"> Enter</button>
+            <XIcon v-if="store.order.discount != 0 && store.order.campaign||false" class="mt-auto w-6 h-6 text-slate-400" @click="promoDelete()"/>
           </div>
           
       </div>
@@ -95,7 +96,7 @@
 <script setup>
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_apply_discount_code } from "@/api_v2/pre_order"; 
+import { buyer_apply_discount_code, buyer_cancel_discount_code } from "@/api_v2/pre_order"; 
 import { useCookies } from "vue3-cookies";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
@@ -174,6 +175,14 @@ watch(
 const discount_code = ref('')
 const promoCheck =()=>{
   buyer_apply_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }).then(
+    res=>{
+      store.order = res.data
+      discount_code.value = ''
+    })
+}
+
+const promoDelete =()=>{
+  buyer_cancel_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }).then(
     res=>{
       store.order = res.data
       discount_code.value = ''

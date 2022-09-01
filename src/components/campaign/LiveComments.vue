@@ -361,5 +361,5 @@ button[aria-selected="true"] svg{
 }
 button[aria-selected="true"] svg .opposite{
   fill: theme('colors.primary');
-}
+} 
 </style>

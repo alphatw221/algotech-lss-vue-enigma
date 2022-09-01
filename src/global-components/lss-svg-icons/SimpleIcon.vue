@@ -202,7 +202,7 @@
       !darkModeStore.darkMode ? props.color : "#ffffff"
     );
 </script>
-<!-- 
+
 <style scoped>
 button[aria-selected="true"] svg{
 fill:white;
@@ -210,4 +210,4 @@ fill:white;
 button[aria-selected="true"] svg .opposite{
 fill: theme('colors.primary');
 }
-</style> -->
+</style>

@@ -12,7 +12,7 @@
               'text-white bg-primary': store.openTab === 1,
             }"
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
-              <ShoppingCartIcon />
+              <SimpleIcon icon="shopping_cart" :color="btnOne" />
             </button>
             <div
               class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
@@ -33,7 +33,7 @@
               'text-white bg-primary': store.openTab === 2,
             }"
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
-              <TruckIcon />
+              <SimpleIcon icon="truck" :color="btnTwo" />
             </button>
             <div
               class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
@@ -81,14 +81,18 @@ import { buyer_list_campapign_product, buyer_cart_list, guest_list_campapign_pro
 import { buyer_retrieve_pre_order, guest_retrieve_pre_order } from "@/api_v2/pre_order";
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies"
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 const route = useRoute();
 const router = useRouter();
 const store = useShoppingCartStore()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
-
+const btnOne = ref('white')
+const btnTwo = ref('#131C34')
 const { cookies } = useCookies()
 const toggleTabs = tabNumber => {
+  btnOne.value = tabNumber == 1? 'white' :'#131C34'
+  btnTwo.value = tabNumber == 2? 'white' :'#131C34'
   store.openTab = tabNumber
   router.push({query:{tab:tabNumber}})
   }
