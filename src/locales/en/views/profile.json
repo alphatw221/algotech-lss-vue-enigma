@@ -24,7 +24,6 @@
         "confirm_password" : "Confirm Password", 
         "submit" : "Submit"
     },
-
     "invalid_data":"Invalid Submission",
     "input_err":"Input Error",
     "input_required":"Input Required",

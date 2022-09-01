@@ -14,7 +14,7 @@
                 "account_not_exist": "This account does not exist",
                 "email_or_password_incorrect": "The mailbox or password is incorrect",
                 "invalid_email": "Invalid Email",
-               
+                "password_incorrect": "Current password is incorrect",
                 "reset_password_code_manager":{
                     "code_expired": "Verification code expired",
                     "user_not_found": "Cannot find this user"

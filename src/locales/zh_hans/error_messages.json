@@ -14,7 +14,7 @@
                 "account_not_exist": "此帐号不存在",
                 "email_or_password_incorrect": "信箱或密码不正确",
                 "invalid_email": "无效的信箱",
-               
+                "password_incorrect": "当前密码不正确",
                 "reset_password_code_manager":{
                     "code_expired": "验证码过期",
                     "user_not_found": "找不到此用户"
