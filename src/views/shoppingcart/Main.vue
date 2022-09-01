@@ -88,11 +88,9 @@ const store = useShoppingCartStore()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const btnOne = ref('white')
-const btnTwo = ref('#131C34')
+const btnTwo = ref('#334155')
 const { cookies } = useCookies()
 const toggleTabs = tabNumber => {
-  btnOne.value = tabNumber == 1? 'white' :'#131C34'
-  btnTwo.value = tabNumber == 2? 'white' :'#131C34'
   store.openTab = tabNumber
   router.push({query:{tab:tabNumber}})
   }
@@ -127,6 +125,8 @@ onMounted(()=>{
 
 watch(computed(()=>store.openTab),()=>{
   router.push({query:{tab:store.openTab}})
+  btnOne.value = store.openTab == 1? 'white' :'#334155'
+  btnTwo.value = store.openTab == 2? 'white' :'#334155'
   if(isAnonymousUser && store.openTab==2 && !buyerLayoutStore.refuseToLogin){
     buyerLayoutStore.showLoginModal=true
   }

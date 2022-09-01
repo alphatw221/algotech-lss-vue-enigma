@@ -169,7 +169,7 @@ onMounted(() => {
 })
 
 const toTop=()=>{
-  document.getElementById('topPoint').scrollIntoView({behavior: "smooth"});
+  document.getElementById('topPoint').scrollIntoView({behavior: "smooth"}); 
 }
 
 provide("bind[sellerMessageNotification]", (el) => {

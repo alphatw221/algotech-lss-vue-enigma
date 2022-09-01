@@ -18,31 +18,35 @@
                 </thead>
                 <tbody>
                     <tr v-for="winner in winnerList" :key="winner">
-                        <template v-for="column in tableColumns" :key="column.key">
-                            <td v-if="column.key == 'platform'" class="imgtd w-20">
-                                <div class="flex w-full justify-around">
-                                    <div class="flex-0 w-20 h-20 sm:w-12 sm:h-12 zoom-in border-0">
-                                        <Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" 
-											class="rounded-full border-0 w-20" :src="`${staticDir}fake_head.jpeg`"
-                                            />
-                                        <Tippy v-else tag="img" class="rounded-full border-0 w-20 h-20 sm:w-12 sm:h-12" :src="winner.customer_image"
-                                            />
-                                        <div class="w-6 h-6 sm:w-5 sm:h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
-                                            <img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
-                                            <img v-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
-                                            <img v-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
-                                            <img v-if="winner.platform == null" class="rounded-full bg-[#9D9D9D]" :src="unbound" >
-                                        </div>
-                                    </div>
-                                </div>
-                            </td>
-							<td v-else-if="column.key == 'draw_type'"  class="whitespace-nowrap w-fit">
-                                {{ $t(`lucky_draw.draw_list.${winner[column.key]}`) }}
-                            </td>
-                            <td v-else class="break-all w-fit">
-                                {{ winner[column.key] }}
-                            </td>
-                        </template>
+						<template v-if="winner.draw_type">
+
+							<template v-for="column in tableColumns" :key="column.key">
+								<td v-if="column.key == 'platform'" class="imgtd w-20">
+									<div class="flex w-full justify-around">
+										<div class="flex-0 w-20 h-20 sm:w-12 sm:h-12 zoom-in border-0">
+											<Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" 
+												class="rounded-full border-0 w-20" :src="`${staticDir}fake_head.jpeg`"
+												/>
+											<Tippy v-else tag="img" class="rounded-full border-0 w-20 h-20 sm:w-12 sm:h-12" :src="winner.customer_image"
+												/>
+											<div v-if="winner.platform != null" class="w-6 h-6 sm:w-5 sm:h-5 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
+												<img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
+												<img v-else-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
+												<img v-else-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
+												<img v-else-if="winner.platform == 'twitch'" class="rounded-full bg-[#6441a5]" :src="twitch_platform" >
+												<img v-else-if="winner.platform == 'tiktok'" class="rounded-full bg-[#000000]" :src="tiktok_platform" >
+											</div>
+										</div>
+									</div>
+								</td>
+								<td v-else-if="column.key == 'draw_type'"  class="whitespace-nowrap w-fit">
+									{{ $t(`lucky_draw.draw_list.${winner[column.key]}`) }}
+								</td>
+								<td v-else class="break-all w-fit">
+									{{ winner[column.key] }}
+								</td>
+							</template>
+						</template>
                     </tr>
                 </tbody>
             </table>
@@ -57,6 +61,8 @@ import { useRoute, useRouter } from "vue-router";
 import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
 import instagram_platform from '/src/assets/images/lss-img/instagram.png';
+import tiktok_platform from '/src/assets/images/lss-img/tiktok_black_bg.png';
+import twitch_platform from '/src/assets/images/lss-img/twitch.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 
 const route = useRoute();

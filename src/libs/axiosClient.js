@@ -87,18 +87,7 @@ export function createAxiosWithBearer(){
     axiosInstanceWithBearer.interceptors.response.use(
         response => response,
         error => {
-        const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSBuyerLayoutStore()
-        // if(useLSSDealerLayoutStore().alert != undefined) toastify.value = useLSSDealerLayoutStore()
-        // const toastify=ref()
-        // if(useLSSBuyerLayoutStore().alert != undefined){ toastify.value = useLSSBuyerLayoutStore() 
-        // console.log(toastify.value)
-        // }
-        // else if(useLSSDealerLayoutStore().alert != undefined){toastify.value = useLSSDealerLayoutStore()
-        //     console.log(toastify.value)
-        // }
-        // else if(useLSSSellerLayoutStore().alert != undefined){toastify.value = useLSSSellerLayoutStore()
-        //     console.log(toastify.value)
-        // }
+        const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSDealerLayoutStore().alert != undefined ? useLSSDealerLayoutStore() : useLSSBuyerLayoutStore()
             if (error.response.data) {
                 if (error.response.data.detail){
                     console.log(error.response.data.code)

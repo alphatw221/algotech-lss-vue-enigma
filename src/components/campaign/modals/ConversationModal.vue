@@ -1,6 +1,6 @@
 <template>
 
-    <Modal :show="show" @hidden="hide()" backdrop="static">
+    <Modal :show="show" @hidden="hide()" backdrop="static" ref="myModal">
         <ModalHeader>
             <img v-if="comment.image != ''" alt="" class="w-8 h-8 rounded-full zoom-in" :src="comment.image" />
             <img v-else alt="" class="w-8 h-8 rounded-full zoom-in" :src="igAvatar" />
@@ -57,7 +57,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance, watch, computed} from 'vue';
+import { ref, onMounted, onUnmounted, defineEmits, getCurrentInstance, watch, computed} from 'vue';
 import { comment_on_comment, nest_comment } from '@/api_v2/campaign';
 import { get_ig_conversation_messages, retrieve_instagram_profile, reply_to_direct_message } from '@/api_v2/instagram';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
@@ -74,7 +74,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const router = useRouter()
 const route = useRoute()
 
-
+const myModal = ref(null)
 const show=ref(false)
 const message = ref('')
 const messageItems=ref([])
@@ -86,29 +86,25 @@ const connectedFbPageId = ref(null)
 let pageToken = null
 
 onMounted(()=>{
-    
     eventBus.on("showConversationModal", (payload) => {
         show.value = true
         comment.value = payload.comment
         igPageId.value = campaignDetailStore.campaign.instagram_profile.business_id
         igUserId.value = comment.value.customer_id
         connectedFbPageId.value = campaignDetailStore.campaign.instagram_profile.connected_facebook_page_id
-        console.log(comment.value)
         retrieve_instagram_profile(campaignDetailStore.campaign.instagram_profile.id).then(res=>{
             pageToken = res.data.token
             return loopGetDirectMessageConversation(pageToken, 5000)
         }).catch(err=>{
             console.log(err)
         })
-        
     });
 })
+
 
 onUnmounted(()=>{
     eventBus.off("showConversationModal")
 })
-    
-
 
 const send = ()=>{
     reply_to_direct_message(connectedFbPageId.value, igUserId.value, message.value, pageToken).then(res=>{

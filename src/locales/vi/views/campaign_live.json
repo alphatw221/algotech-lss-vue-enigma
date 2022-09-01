@@ -17,6 +17,8 @@
         "facebook_comments":"Bình luận Facebook",
         "youtube_comments":"Bình luận Youtube",
         "instagram_comments":"Bình luận Instagram",
+        "tiktok_comments":"Bình luận Tiktok",
+        "twitch_comments":"Bình luận Twitch",
         "lucky_draw":"Quà tặng minigame",
         "quiz_game": "Trò chơi giải đố"
     },
