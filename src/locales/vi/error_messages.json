@@ -14,6 +14,7 @@
                 "account_not_exist": "Tài khoản này không tồn tại",
                 "email_or_password_incorrect": "Email hoặc mật khẩu không chính xác",
                 "invalid_email": "Email không hợp lệ",
+                "password_incorrect": "Mật khẩu gần đây không chính xác",
                 "reset_password_code_manager":{
                     "code_expired": "Mã xác minh đã hết hạn",
                     "user_not_found": "Không thể tìm thấy người dùng này"

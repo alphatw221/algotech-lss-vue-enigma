@@ -102,6 +102,7 @@ onMounted(()=>{
       res => { 
         store.order = res.data;
         i18n.locale = res.data.campaign.lang
+        Object.keys(store.order.products).length == 0 ? store.showAddItemModal = true : store.showAddItemModal = false
       }
   )
 
