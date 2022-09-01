@@ -25,7 +25,9 @@
 									<div class="flex w-full justify-around">
 										<div class="flex-0 w-20 h-20 sm:w-12 sm:h-12 zoom-in border-0">
 											<Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" 
+
 												class="rounded-full border-0 w-20" :src="`${staticDir}fake_head.jpeg`"
+
 												/>
 											<Tippy v-else tag="img" class="rounded-full border-0 w-20 h-20 sm:w-12 sm:h-12" :src="winner.customer_image"
 												/>
@@ -42,6 +44,12 @@
 								<td v-else-if="column.key == 'draw_type'"  class="whitespace-nowrap w-fit">
 									{{ $t(`lucky_draw.draw_list.${winner[column.key]}`) }}
 								</td>
+
+								<td v-else-if="column.key == 'customer_name'" class="break-all w-fit">
+									<div v-if="winner[column.key] != ''"> {{ winner[column.key] }} </div>
+									<div v-else> Guest </div>
+								</td>
+
 								<td v-else class="break-all w-fit">
 									{{ winner[column.key] }}
 								</td>
