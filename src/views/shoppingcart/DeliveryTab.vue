@@ -79,7 +79,7 @@
             <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('delivery')">
               <div class="inline-flex items-center grow place-content-center">
-                <SimpleIcon icon="truck" :color="deliveryColor" class="block mr-3" width="24" /> 
+                <SimpleIcon icon="delivery" :color="deliveryColor" class="block mr-3" width="24" /> 
                 <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
               </div>
             </Tab>

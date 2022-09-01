@@ -193,6 +193,13 @@
     <path d="M5.30774 1H13C14.1046 1 15 1.89543 15 3V11" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
 
+    <svg 
+    v-else-if="icon == 'delivery'"
+    width="24" viewBox="0 0 18 14" fill="none" xmlns="http://www.w3.org/2000/svg" :stroke="props.color">
+    <path d="M5.23539 7.11765H2.41187" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M7.58824 1H11.3529M11.3529 1L6.17647 4.29412M11.3529 1L17 4.29412M6.17647 4.29412H1M6.17647 4.29412L11.3529 7.58824M11.3529 7.58824L17 4.29412M11.3529 7.58824V13.2353M17 4.29412V9.47059L11.3529 13.2353M11.3529 13.2353L5.70588 9.47059H1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M5 1H3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
 
 
 
