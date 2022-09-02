@@ -12,12 +12,12 @@
         > 
             <HelpCircleIcon class="w-8 ml-1 mt-0.5 tippy-icon" />
         </Tippy> 
-        <Button type="button" @click="toTwitch">Twitch</Button>
-        <Button class="ml-2" type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
+        <Button type="button" @click="toTwitch">{{ $t('settings.platform.switch_account') }}</Button>
+        <Button class="ml-2" type="button" @click="handleAuthClick">{{ $t('settings.platform.edit') }}</Button>
     </div>
 
     <Button v-else 
-        type="button" class="twitch-login-btn shadow-lg" @click="handleAuthClick">{{$t('settings.platform.connect_with_twitch')}}</Button>
+        type="button" class="twitch-login-btn shadow-lg" @click="handleAuthClick">{{ $t('settings.platform.connect_with_twitch') }}</Button>
     
 </template>
 
@@ -43,7 +43,7 @@ const handleAuthClick = () => {
 }
 
 const toTwitch = () => {
-    location.href = 'https://www.twitch.tv/'
+    window.open('https://www.twitch.tv/', '_blank');
 }
 
 </script>
