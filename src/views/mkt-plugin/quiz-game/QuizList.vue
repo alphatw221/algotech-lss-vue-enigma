@@ -6,7 +6,7 @@
                 <h2 class="w-42"> {{ props.campaignTitle }} </h2>
             </div>
             <div class="flex md:justify-end manage_btn">
-                <button class="btn btn-primary h-[35px] sm:h-[42px] my-auto mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
+                <button class="btn btn-primary h-[35px] sm:h-[42px] my-auto lg:mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
             </div>
         </div>
 
@@ -18,70 +18,54 @@
             <div class="flex flex-row flex-wrap m-[0.7rem] p-5">
                 
                 <div class="flex flex-col gap-4 md:w-[55%] qa_block">
-                    <table class="table -mt-3 table-report min-h-[300px]">
+                    <table class="table -mt-3 table-report responsive-table">
                         <thead>
                             <tr>
-                                <th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]">
-                                    {{ $t('quiz_game.quiz_list.question') }}
-                                </th>
-                                <th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]">
-                                    {{ $t('quiz_game.quiz_list.answer') }}
-                                </th>
-                                <th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]">
-                                </th>
+                                <template v-for="(data, index) in tableColumns" :key="index">
+                                    <th v-if="data.name" class="whitespace-normal text-center text-slate-500 text-[18px]">
+                                        {{ $t(`quiz_game.quiz_list.${data.key}`) }}
+                                    </th>
+                                    <th v-else class="whitespace-normal text-center text-[16px]">
+                                    </th>
+                                </template>
                             </tr>
                         </thead>
                         <tbody>
                             <template v-for="(quizgame, index) in quizgameBundle.quiz_games" :key="index">
-                                <tr class="h-[300px]">
-                                    <td>
-                                        <div class="mt-40 text-center md:mt-10">
-                                            <h1 class="text-slate-500 text-sm md:text-lg font-bold">
-                                                {{ $t('stock.no_result') }}
-                                            </h1>
-                                            <h1 class="text-slate-500 text-sm md:text-lg">
-                                                {{ $t('stock.click_to_add') }}
-                                            </h1>
-                                        </div>
-                                    </td> 
+                                <tr>
+                                    <template v-for="(data, index) in tableColumns" :key="index">
+                                        <td v-if="data.name" class="whitespace-normal text-center text-[16px]">
+                                            <p class="title hidden">{{ $t(`quiz_game.quiz_list.${data.key}`) }}</p>
+                                            <p>{{ quizgame[data.key] }}</p>
+                                        </td>
+                                        <td v-else class="whitespace-normal text-center text-[16px]">
+                                            <button 
+                                                class="btn btn-primary md:w-24 h-[35px] lil_btn" 
+                                                v-if="emptyArr.includes(quizgame.start_at)"
+                                                @click="quizgameStart(quizgame.id)"
+                                            > {{ $t('quiz_game.quiz_list.start') }} </button>
+                                            <button 
+                                                class="btn btn-seconday md:w-24 h-[35px] lil_btn" 
+                                                v-else-if="emptyArr.includes(quizgame.end_at)"
+                                                @click="quizgameStop(quizgame.id)"
+                                            > {{ $t('quiz_game.quiz_list.stop') }} </button>
+                                            <button 
+                                                class="btn btn-seconday md:w-24 h-[35px] lil_btn" 
+                                                v-else 
+                                                disabled
+                                            > {{ $t('quiz_game.quiz_list.finish') }} </button>
+                                        </td>
+                                    </template>
                                 </tr>
                             </template>
-                            
                         </tbody>
                     </table>
-                    <template v-for="(quizgame, index) in quizgameBundle.quiz_games" :key="index">
-                        <div class="flex flex-row items-center justify-between">
-                            <div>
-                                {{ quizgame.question }}
-                            </div>
-                            <div>
-                                {{ quizgame.answer }}
-                            </div>
-                            <div class="">
-                                <button 
-                                    class="btn btn-primary md:w-24 h-[35px] lil_btn" 
-                                    v-if="emptyArr.includes(quizgame.start_at)"
-                                    @click="quizgameStart(quizgame.id)"
-                                > {{ $t('quiz_game.quiz_list.start') }} </button>
-                                <button 
-                                    class="btn btn-seconday md:w-24 h-[35px] lil_btn" 
-                                    v-else-if="emptyArr.includes(quizgame.end_at)"
-                                    @click="quizgameStop(quizgame.id)"
-                                > {{ $t('quiz_game.quiz_list.stop') }} </button>
-                                <button 
-                                    class="btn btn-seconday md:w-24 h-[35px] lil_btn" 
-                                    v-else 
-                                    disabled
-                                > {{ $t('quiz_game.quiz_list.finish') }} </button>
-                            </div>
-                        </div>      
-                    </template>
                 </div>
 
                 <hr class="solid">
 
                 <div class="flex flex-row md:flex-col md:border-x-2 border-white md:ml-auto md:w-36 lil_block lil_border">
-                    <div class="flex text-slate-500 md:mr-auto md:ml-auto"> {{ $t('quiz_game.quiz_list.winners') }} </div>
+                    <div class="flex text-slate-500 md:mr-auto md:ml-auto" style="font-weight: 500;"> {{ $t('quiz_game.quiz_list.winners') }} </div>
                     <span class="flex md:m-auto ml-auto md:text-[35px]"> {{ quizgameBundle.num_of_winner }} </span>
                 </div>
 
@@ -156,6 +140,11 @@ import tiktok_platform from '/src/assets/images/lss-img/tiktok_black_bg.png';
 import twitch_platform from '/src/assets/images/lss-img/twitch.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 
+const tableColumns = ref([
+    {"name": "Question", "key": "question"},
+    {"name": "Answer", "key": "answer"},
+    {"name":"", "key": "start"}
+])
 const route = useRoute()
 const router = useRouter()
 const layoutStore = useLSSSellerLayoutStore()
@@ -164,10 +153,6 @@ const props = defineProps({
     campaignTitle: String,
     quizgameList: Object
 })
-const tableColumns = ref([
-    { key: 'question' },
-    { key: 'button' }
-])
 const emptyArr = ref(['', null, undefined])
 
 
@@ -222,16 +207,21 @@ const goResult = (id) => {
 </script>
 
 <style scope>
-
+.table th {
+    padding-top: 0;
+}
+td {
+    word-break: break-all;
+}
 @media only screen and (max-width: 760px),
 (min-device-width: 769px) and (max-device-width: 769px) {
     .lil_block {
-        margin-top: 20px;
+        padding-top: 20px;
         width: 100%;
     }
 
     .lil_border {
-        padding-bottom: 10px;
+        padding-bottom: 20px;
         border-bottom: 2px solid #4F4F4F;
     }
 
@@ -242,12 +232,39 @@ const goResult = (id) => {
     }
 
     .lil_btn {
-        width: 80px;
+        width: 89px;
     }
 
     .manage_btn {
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+@media (max-width: 400px) {
+    .responsive-table {
+        display: contents;
+        width:100%;
+    }
+    .responsive-table thead {
+        display: none;
+    }
+    .responsive-table tbody tr {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        width:100%;
+    }
+    .responsive-table tbody td {
+        width:100%;
+    }
+    .responsive-table tbody td .title {
+        display: unset;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .table-report:not(.table-report--bordered):not(.table-report--tabulator) td {
+        box-shadow: none;
     }
 }
 
