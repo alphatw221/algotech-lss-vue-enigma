@@ -87,11 +87,7 @@ export function createAxiosWithBearer(){
     axiosInstanceWithBearer.interceptors.response.use(
         response => response,
         error => {
-        // const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSBuyerLayoutStore()
-            const toastify = useLSSSellerLayoutStore()
-            if(useLSSBuyerLayoutStore().alert != undefined){ toastify.value = useLSSBuyerLayoutStore() }
-            else if(useLSSDealerLayoutStore().alert != undefined){toastify.value = useLSSDealerLayoutStore()}
-            else{toastify = useLSSSellerLayoutStore()}
+        const toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore(): useLSSDealerLayoutStore().alert != undefined ? useLSSDealerLayoutStore() : useLSSBuyerLayoutStore()
             if (error.response.data) {
                 if (error.response.data.detail){
                     console.log(error.response.data.code)

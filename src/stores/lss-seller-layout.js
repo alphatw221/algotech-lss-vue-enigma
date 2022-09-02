@@ -40,9 +40,9 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Create Campaign",
       // },
       {
-        icon: "campaign-list",
+        icon: "campaign",
         pageName: "campaign-list",
-        title: "campaign_list",
+        title: "campaign_list", 
       },
       // {
       //   icon: "VideoIcon",

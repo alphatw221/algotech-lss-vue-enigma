@@ -16,6 +16,7 @@ import assign_product from './views/assign_product.json'
 import change_plan from './views/change_plan.json'
 import layout from './views/layout.json'
 import edit_campaign_product from './views/edit_campaign_product'
+import profile from './views/profile.json'
 import register from './views/register.json'
 import tooltips from './views/tooltips.json'
 import quiz_game from './views/quiz_game.json'
@@ -23,6 +24,7 @@ import login from './views/login.json'
 import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
 import discount from './views/discount.json'
+
 
 export default {
     global,
@@ -51,5 +53,6 @@ export default {
     login,
     forgot_password,
     reset_password,
-    discount
+    discount,
+    profile
 }

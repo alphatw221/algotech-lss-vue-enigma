@@ -18,6 +18,7 @@
         "keyword": "Draw Keyword",
         "winners" : "Winner(s)",
         "winner_repeat": "Winner Repeat",
+        "undefined":"",
         "yes": "Yes",
         "no": "No",
         "start": "Start",

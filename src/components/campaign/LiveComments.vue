@@ -11,14 +11,8 @@
                 </h2>
                 <div class="my-auto mr-5">
                     <div class="nav-pills flex">
-                        <!-- <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button"
-                            @click="toDrawList()" 
-                        >
-                            <font-awesome-icon icon="fa-solid fa-gamepad" class="mt-1 h-[20px] ml-[3px]"/>
-                        </button> -->
                         <Dropdown class="btn w-8 h-8 pl-0 pr-1 mt-1">
                             <DropdownToggle class="">
-                                <!-- <font-awesome-icon icon="fa-solid fa-gamepad" class="mt-1 h-[20px] ml-[3px]"/> -->
                                 <SimpleIcon icon="games" class="ml-[3px]"/>
                             </DropdownToggle>
                             <DropdownMenu class="w-fit">
@@ -48,20 +42,8 @@
                         >
                             <PlatformIcon icon="yt" class="fill-primary pl-1" />
                         </button>
-                        <!-- <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                            @click="selectVideoTabs('youtube')"
-                        >
-                            <PlatformIcon icon="twitch" class="fill-primary pl-1" />
-                        </button>
-                        <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                            @click="selectVideoTabs('youtube')"
-                        >
-                        <PlatformIcon icon="tiktok" class="fill-primary pl-1" />
-                        </button> -->
-                        <!-- <button  class="btn w-8 h-8 pl-0 pr-1 mt-1 " tag="button"
-                            @click="openCapturePage()"
-                        >
-                            <YoutubeIcon class="m-1 " />
+                        <!-- <PlatformIcon icon="twitch" class="fill-primary pl-1" />
+                             <PlatformIcon icon="tiktok" class="fill-primary pl-1" />
                         </button> -->
                     </div>
                 </div>
@@ -93,22 +75,11 @@
                             :src="`https://www.facebook.com/plugins/video.php?allowfullscreen=true&autoplay=true&href=https%3A%2F%2Fwww.facebook.com%2F${platformData.fb.page_id}%2Fvideos%2F${platformData.fb.post_id}%2F&width=auto`" 
                                 scrolling="no" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
                         </iframe> 
-
-                        
-                        <!-- END FACEBOOK IFRAME -->
-
-                        <!-- <div :class="{ hidden: openVideoTab !== 2, block: openVideoTab === 2 }"
-                            v-html="ig_video" class="-mt-2"></div> -->
-
                         <!-- BEGIN INSTAGRAM IFRAME -->
                         <iframe 
                             v-else-if="platformData.ig.ready && openVideoTab=='instagram'"
                             data-platform="yt" :src="platformData.ig.igMedia" scrolling="no" frameborder="0" allow="accelerometer;
                             autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-                        <!-- <video v-show="openVideoTab=='instagram'"
-                            v-else width="600" class="-mt-1" controls></video> -->
-                        <!-- BEGIN INSTAGRAM IFRAME -->
-
                         <!-- BEGIN YOUTUBE IFRAME -->
                         <iframe 
                             v-else-if="platformData.yt.ready && openVideoTab=='youtube'"
@@ -116,8 +87,6 @@
                             width="auto" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allow="accelerometer;
                             autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
                         </iframe>
-                        <!-- BEGIN YOUTUBE IFRAME -->
-
                     </AccordionPanel>
                 </AccordionItem>
             </AccordionGroup>
@@ -131,7 +100,6 @@
                     <TabList class="nav-pills">
                         <Tab class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" @click="setListViewTitle('comments_summarizer')"
                         >   
-                            <!-- <font-awesome-icon icon="fa-regular fa-comment-dots" class="h-6 m-1 -mt-2" @click="setListViewTitle('comments_summarizer')"/> -->
                             <Comments icon="bot" />
                         </Tab>
 
@@ -152,14 +120,14 @@
                         >
                             <Comments icon="yt" />
                         </Tab>
-                        <!-- <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('twitch_comments')"
+                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('twitch_comments')"
                         >
                             <Comments icon="twitch" />
                         </Tab>
                         <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('tiktok_comments')"
                         >
                             <Comments icon="tiktok" />
-                        </Tab> -->
+                        </Tab>
                     </TabList>
                 </div>
             </div>
@@ -198,17 +166,17 @@
                         </div>
                     </TabPanel>
 
-                     <!-- <TabPanel :class="'youtube'" v-if="route.query.status=='history'">
+                    <TabPanel :class="'twitch'" v-if="route.query.status=='history'">
                         <div class="mt-1 h-fit" >
                             <CommentListView :platformName="'twitch'"/>
                         </div>
                     </TabPanel>
 
-                     <TabPanel :class="'youtube'" v-if="route.query.status=='history'">
+                     <TabPanel :class="'tiktok'" v-if="route.query.status=='history'">
                         <div class="mt-1 h-fit" >
                             <CommentListView :platformName="'tiktok'"/>
                         </div>
-                    </TabPanel> -->
+                    </TabPanel>
 
                 </TabPanels>
             </div>
@@ -361,5 +329,5 @@ button[aria-selected="true"] svg{
 }
 button[aria-selected="true"] svg .opposite{
   fill: theme('colors.primary');
-}
+} 
 </style>

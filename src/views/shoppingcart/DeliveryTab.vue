@@ -79,14 +79,16 @@
             <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('delivery')">
               <div class="inline-flex items-center grow place-content-center">
-                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
+                <SimpleIcon icon="delivery" :color="deliveryColor" class="block mr-3" width="24" /> 
+                <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
               </div>
             </Tab>
             <template v-if="store.order.campaign && store.order.campaign.meta_logistic.additional_delivery_options">
                 <Tab v-if="store.order.campaign.meta_logistic.additional_delivery_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
                 @click="select_shipping_method('pickup')">
                 <div class="inline-flex items-center grow place-content-center">
-                  <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
+                  <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
+                  <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
                 </div>
               </Tab>
             </template>
@@ -287,6 +289,7 @@ import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
@@ -358,8 +361,12 @@ onMounted(()=>{
   
 })
 
+const deliveryColor = ref('white')
+const pickupColor = ref('#131C34')
 const select_shipping_method = method => {
   shipping_method_computed.value=method
+  deliveryColor.value = method == 'delivery'? 'white' :'#131C34'
+  pickupColor.value = method == 'pickup'? 'white' :'#131C34'
 }
 
 
