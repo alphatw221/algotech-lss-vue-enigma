@@ -105,13 +105,13 @@
                                 <a class="flex image-fit sm:mr-3" @click="copyURL(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
                                     <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
-                                        <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto" width="24" height="23" />
+                                        <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto w-6 sm:w-auto" width="24" height="23" />
                                     </Tippy>
                                 </a>
                                 <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_order_detail(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
                                     <Tippy  :content="$t('tooltips.manage_order.view_icon')" :options="{ theme: 'light' }"> 
-                                        <SimpleIcon icon="order_details" color="#2d8cf0" class="sm:mx-auto" width="26" height="24" />
+                                        <SimpleIcon icon="order_details" color="#2d8cf0" class="sm:mx-auto w-6 sm:w-auto" width="26" height="24" />
                                     </Tippy>
                                 </a>
                             </div>
