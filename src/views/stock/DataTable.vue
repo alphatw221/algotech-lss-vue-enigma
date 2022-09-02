@@ -203,11 +203,11 @@
 					<div class="flex">
 						<div class="ml-3" v-for="status in statusRadio" :key="status.id">
 							<input 
-								class="form-check-input w-6 h-6" 
 								type="radio" 
-								name="horizontal_radio_button1" 
 								v-model="bulkEditStockObj.status"
 								:value="status.id"
+								:checked="props.product_status == status.id"
+								style="color:black;"
 							/>
 							<label class="form-check-label text-base" >
 								{{ $t(`stock.${status.text}`) }}
@@ -285,6 +285,8 @@ watch(computed(() => bulkEditStockObj.value.stockIdList), () => {
 }, { deep:true })
 
 onMounted(()=>{
+	bulkEditStockObj.value.status = props.product_status
+
 	list_product_category().then(res => { 
 		categorySelection.value = res.data
 		categorySelection.value.unshift('uncategory')
@@ -301,8 +303,7 @@ onMounted(()=>{
 	});
 
 	eventBus.on(('bulkEditStock'), () => {
-		console.log(bulkEditStockObj.value)
-		if (bulkEditStockObj.value.stockIdList.length > 0) {
+		if (bulkEditStockObj.value.stockIdList.length > 0 && showModal.value == false) {
 			showModal.value = true
 		}
 	})

@@ -33,7 +33,7 @@
                 <button
                     v-show="isBulkEditShow"
                     type="button" 
-                    class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-3" 
+                    class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-4" 
                     @click="bulkEdit"
                 >
                     {{ $t('stock.search_bar.bulk_edit') }}
