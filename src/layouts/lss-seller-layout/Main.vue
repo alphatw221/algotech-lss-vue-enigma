@@ -74,7 +74,7 @@
   <ChevronUpIcon class="h-10 w-10 fixed text-white bottom-2 bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50 md:hidden" @click="toTop()"/>
 
 
-  <CommentCaptureWindow/>
+  <CommentCaptureWindow v-if="showCaptureWindow"/>
   </div>
 </template>
 
@@ -98,6 +98,7 @@ const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
 const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const campaign_id = ref('')
+const showCaptureWindow = ref(true)
 
 const checkCampaignTime = (message) =>{
   if(message.remind_time === '15 mins'){ 
@@ -160,12 +161,15 @@ watch(
 )
   
 onMounted(() => {
+  if (route.query.status == "history") {
+    showCaptureWindow.value = false
+  }
   setLanguage();
   initWebSocketConnection();
 })
 
 const toTop=()=>{
-  document.getElementById('topPoint').scrollIntoView({behavior: "smooth"});
+  document.getElementById('topPoint').scrollIntoView({behavior: "smooth"}); 
 }
 
 provide("bind[sellerMessageNotification]", (el) => {

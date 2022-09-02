@@ -49,7 +49,7 @@ const data = computed(() => {
         label: "Html Template",
         data: [0, 200, 250, 200, 500, 450, 850, 1050, 950, 1100, 900, 1200],
         borderWidth: 2,
-        borderColor: colorScheme.value ? colors.primary() : "",
+        borderColor: colorScheme.value ? 'rgba(75, 192, 192, 0.9)' : "",
         backgroundColor: "transparent",
         pointBorderColor: "transparent",
         tension: 0.4,
@@ -62,6 +62,16 @@ const data = computed(() => {
         borderColor: darkMode.value
           ? colors.slate["400"](0.6)
           : colors.slate["400"](),
+        backgroundColor: "transparent",
+        pointBorderColor: "transparent",
+        tension: 0.4,
+      },
+      {
+        label: "VueJs Template",
+        data: [0, 450,550,124,366,481,220,546,845,1120,1230],
+        borderWidth: 2,
+        borderDash: [4, 4],
+        borderColor: colorScheme.value ? colors.warning() : "",
         backgroundColor: "transparent",
         pointBorderColor: "transparent",
         tension: 0.4,

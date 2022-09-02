@@ -69,9 +69,11 @@
                                     <Tippy v-else tag="img" class="rounded-full border-0" :src="winner.customer_image" />
                                     <div class="w-4 h-4 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                         <img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
-                                        <img v-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
-                                        <img v-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
-                                        <img v-if="[undefined, null, ''].includes(winner.platform)" class="rounded-full bg-[#9D9D9D]" :src="unbound" >
+                                        <img v-else-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
+                                        <img v-else-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
+                                        <img v-else-if="winner.platform == 'twitch'" class="rounded-full bg-[#6441a5]" :src="twitch_platform" >
+										<img v-else-if="winner.platform == 'tiktok'" class="rounded-full bg-[#000000]" :src="tiktok_platform" >
+                                        <img v-else-if="[undefined, null, ''].includes(winner.platform)" class="rounded-full bg-[#9D9D9D]" :src="unbound" >
                                     </div>
                                 </div>
                                 <label class="text-base flex items-center ml-2"> {{ winner.customer_name }} </label>
@@ -94,13 +96,13 @@
                             class="w-20 text-center whitespace-nowrap text-[14px]"
                             @click="goEdit(quizgameBundle.id)"
                         > 
-                            <EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('quiz_game.quiz_list.edit') }}
+                            <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1" /> {{ $t('quiz_game.quiz_list.edit') }}
                         </DropdownItem>
                         <DropdownItem 
                             class="w-20 text-center text-danger whitespace-nowrap text-[14px]"
                             @click="goDelete(quizgameBundle.id)"
                         > 
-                            <Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('quiz_game.quiz_list.delete') }}
+                            <SimpleIcon icon="delete" color="#b91c1c" class="mr-1" /> {{ $t('quiz_game.quiz_list.delete') }}
                         </DropdownItem>
                     </DropdownContent>
                 </DropdownMenu>
@@ -118,6 +120,8 @@ import { start_campaign_quiz_game, stop_campaign_quiz_game, delete_campaign_quiz
 import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
 import instagram_platform from '/src/assets/images/lss-img/instagram.png';
+import tiktok_platform from '/src/assets/images/lss-img/tiktok_black_bg.png';
+import twitch_platform from '/src/assets/images/lss-img/twitch.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 
 const route = useRoute()

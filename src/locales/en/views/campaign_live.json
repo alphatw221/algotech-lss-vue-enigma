@@ -6,6 +6,7 @@
         "payment":"Payment",
         "purchase":"Purchase",
         "return":"Return",
+        "chat":"Chat",
         "other":"Other",
         "select_tag":"Selected tag",
         "clear":"Reset",
@@ -17,6 +18,8 @@
         "facebook_comments":"Facebook Comments",
         "youtube_comments":"Youtube Comments",
         "instagram_comments":"Instagram Comments",
+        "tiktok_comments":"Tiktok Comments",
+        "twitch_comments":"Twitch Comments",
         "lucky_draw":"Lucky Draw",
         "quiz_game": "Quiz Game"
 

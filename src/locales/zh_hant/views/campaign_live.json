@@ -17,6 +17,8 @@
         "facebook_comments":"Facebook 留言",
         "youtube_comments":"Youtube 留言",
         "instagram_comments":"Instagram 留言",
+        "tiktok_comments":"Tiktok 留言",
+        "twitch_comments":"Twitch 留言",
         "lucky_draw":"抽獎活動",
         "quiz_game": "問答遊戲"
     },
@@ -38,7 +40,7 @@
             "Product":"商品",
             "order_code":"商品代碼",
             "price":"價格",
-            "activate":"Activate",
+            "activate":"上架",
             "qty":"庫存",
             "stock_qty":"庫存",
             "category":"分類",
