@@ -21,7 +21,7 @@
                     </div>
                 </div>
             </li>
-            <li class="flex-1 text-center">
+            <li class="flex-1 text-center"> 
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
                         :class="{

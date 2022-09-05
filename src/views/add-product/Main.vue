@@ -73,7 +73,7 @@
 							<div class="text-gray-600">
 								<br>{{ $t('stock.add_product_page.accept_file_text') }}
 							</div>
-							<div class="text-gray-600">{{ $t('stock.add_product_page.max_size_text') }} : 10MB</div>  
+							<div class="text-gray-600">{{ $t('stock.add_product_page.max_size_text') }}</div>  
 						</div>
 						<img class="w-40 h-40 rounded-lg" v-else data-dz-thumbnail :src="previewImage" />
 					</Dropzone>

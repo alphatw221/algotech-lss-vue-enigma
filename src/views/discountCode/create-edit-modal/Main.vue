@@ -102,14 +102,14 @@
 
 		<ModalFooter>
 			<button type="button" @click="hideModal()" class="w-32 btn dark:border-darkmode-400">
-				{{ 'cancel' }}
+				{{$t('discount.modal.cancel')}}
 			</button>
 			<button type="button" @click="createDiscountCode()" class="w-32 ml-5 shadow-md btn btn-primary" v-if="modalType==CREATE">
-				{{ 'create' }}
+				{{$t('discount.modal.save')}}
 			</button>
 
             <button type="button" @click="updateDiscountCode()" class="w-32 ml-5 shadow-md btn btn-primary" v-else-if="modalType==EDIT">
-				{{ 'save' }}
+				{{$t('discount.modal.save')}}
 			</button>
 		</ModalFooter>
 	</Modal>

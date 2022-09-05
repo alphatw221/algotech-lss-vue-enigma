@@ -55,8 +55,7 @@ const handleApiSelect = field=>{
     const request = discountCodeEndPoints[field.endpoint]
     request().then(res=>
         {
-            options.value = res.data
-            consolg.loe(res.data)
+            options.value = res.data.reverse()
         })
         
     return true

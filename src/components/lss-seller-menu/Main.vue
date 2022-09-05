@@ -74,9 +74,9 @@
                       :class="{ 'side-menu--active': subMenu.active }"
                       @click="linkTo(subMenu, router, $event)"
                     >
-                      <!-- <div class="side-menu__icon">
+                      <div class="side-menu__icon">
                         <ActivityIcon />
-                      </div> -->
+                      </div>
                       <div class="side-menu__title">
                         {{ $t(`layout.menu.${subMenu.title}`) }}
                         <div

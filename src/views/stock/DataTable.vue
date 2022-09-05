@@ -3,7 +3,7 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
-					<th class="whitespace-normal xl:whitespace-nowrap text-center text-[16px]" v-for="column in tableColumns" :key="column.key">
+					<th class="whitespace-normal lg:whitespace-nowrap text-center text-[16px]" v-for="column in tableColumns" :key="column.key">
 						<template v-if="column.key === 'check'">
 							<input 
 								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
@@ -29,16 +29,16 @@
 							</div>
 						</template>
 						<template v-else-if="column.key === 'qty'">
-							<div class="flex justify-center"> 
-								{{ $t(`stock.table_column.${column.key}`) }}
+							<div class="flex justify-center w-24"> 
+								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
 								<template v-if="sortBy =='-qty'" > 
-									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('qty')" />
+									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('qty')" />
 								</template>
 								<template v-else-if="sortBy =='qty'" > 
-									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
+									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
 								</template> 
 								<template v-else> 
-									<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
+									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
 								</template>
 							</div>
 						</template>

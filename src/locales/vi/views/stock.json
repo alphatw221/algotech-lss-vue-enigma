@@ -57,7 +57,7 @@
         "upload_image": "Tải hình ảnh",
         "drop_file_text": "Thả tệp vào đây hoặc nhấp để tải lên",
         "accept_file_text": "Định dạng tệp tin: jpeg, png, jpg",
-        "max_size_text": "Cỡ lớn nhất",
+        "max_size_text": "Cỡ lớn nhất：10MB",
         "quantity": "Số lượng",
         "qty_warning": "Số lượng phải là một con số",
         "price": "Giá bán",

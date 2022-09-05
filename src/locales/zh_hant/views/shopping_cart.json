@@ -2,7 +2,7 @@
     "shopping_cart":"購物車",
     "delivery":"運送",
     "my_cart_tab":{
-        "special_note":"購物說明",
+        "special_note":"購物須知",
         "my_cart":"我的購物車"
     },
     "delivery_tab":{
@@ -10,7 +10,7 @@
         "first_name":"名",
         "last_name":"姓",
         "phone":"電話",
-        "email":"電子信箱",
+        "email":"電子郵件",
         "first_err":"必填",
         "last_err":"必填",
         "phone_err":"必填",

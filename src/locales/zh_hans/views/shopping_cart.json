@@ -2,7 +2,7 @@
     "shopping_cart":"购物车",
     "delivery":"运送",
     "my_cart_tab":{
-        "special_note":"购物说明",
+        "special_note":"购物須知",
         "my_cart":"我的购物车"
     },
     "delivery_tab":{
@@ -10,7 +10,7 @@
         "first_name":"名",
         "last_name":"姓",
         "phone":"连络电话",
-        "email":"电子信箱",
+        "email":"电子邮件",
         "first_err":"必填",
         "last_err":"必填",
         "phone_err":"必填",

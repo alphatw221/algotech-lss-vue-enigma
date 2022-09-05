@@ -16,7 +16,7 @@
                 </div>
                 <button
                     type="button" 
-                    class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-3" 
+                    class="btn btn-primary shadow-md w-32 h-[35px] sm:h-[42px] ml-3" 
                     @click="this.$router.push({name:'category-management'})">
                     {{ $t('stock.search_bar.category_manage') }}
                 </button>

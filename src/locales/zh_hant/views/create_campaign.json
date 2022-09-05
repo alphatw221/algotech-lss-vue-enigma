@@ -89,8 +89,8 @@
         "upload_image":"上傳圖片",
         "remove_image":"移除照片",
         "upload_a_file_or_drag_and_drop":"點擊上傳圖片",
-        "accepted_file_types":"接受檔案類型",
-        "max_file_size":"檔案容量上限",
+        "accepted_file_types":"可支援檔案格式：jpeg、png、jpg",
+        "max_file_size":"檔案大小上限：10MB",
 
         "delete":"刪除",
 
@@ -104,9 +104,9 @@
 
     "notes_form":{
         "notes_form":"備註設定",
-        "delivery_note":"運送備註",
-        "special_note":"特別備註",
-        "confirmation_note":"確認付款備註"
+        "delivery_note":"運送須知",
+        "special_note":"購物須知",
+        "confirmation_note":"訂單確認訊息"
     }
 
 }

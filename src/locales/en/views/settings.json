@@ -23,7 +23,7 @@
         "replace_charge" : "Replace delivery charge",
         "on_top_of_charge" : "On top of delivery charge",
         "title" : "Display Name",
-        "order_above":"Free Delivery for Order Above",
+        "order_above":"Free Delivery for Order Above($)",
         "minimum":"Free Delivery for Minimum Order Qty",
         "store":{
                 "collection":"Self Pickup",
@@ -90,8 +90,8 @@
         "add_direct_payment": "Add Direct Payment",
         "upload_image": "Upload Image",
         "upload_a_file_or_drag_and_drop": "Upload a file",
-        "accepted_file_types": "File types",
-        "max_file_size": "Max file size",
+        "accepted_file_types": "File types: jpeg, png, jpg",
+        "max_file_size": "Max file size: 10MB",
         "delete": "Delete",
         "update": "Update",
         "errors":{

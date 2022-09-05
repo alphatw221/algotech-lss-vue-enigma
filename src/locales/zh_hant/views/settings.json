@@ -8,7 +8,7 @@
     "time_zone" : "時區",
     "confirmation_note" : "訂單確認訊息",
     "default_active" : "預設啟用",
-    "default_settings":"銷售活動預設",
+    "default_settings":"基本設定",
     "update_successfully":"更新成功",
     "update_failed":"更新失敗",
     "img_size_err":"圖片大小不可超過 10 MB",
@@ -18,18 +18,18 @@
     "delivery":{
         "delivery":"物流",
         "delivery_setting": "物流設定",
-        "charge":"運費",
+        "charge":"基本運費",
         "charge_option":"運送方式",
         "add_more_delivery_option":"增加運送方式",
         "add_delivery_option":"新增運送方式",
         "replace_charge" : "取代基本運費",
         "on_top_of_charge" : "增加額外運費",
         "title" : "Display Name",
-        "order_above":"免運門檻: 訂單金額達(含)以上",
-        "minimum":"免運門檻: 商品數量達(含)以上",
+        "order_above":"滿額免運：訂單金額滿（$）",
+        "minimum":"滿件免運：訂單商品數量滿（件）",
         "store":{
-                "collection":"到店自取",
-                "pickup_store":"取貨店家",
+                "collection":"自行取貨",
+                "pickup_store":"取貨門市/地點",
                 "pickup_address":"取貨地址"
         },
         "errors":{
@@ -44,33 +44,33 @@
 
     "payment_form":{
         "payment_titles":{
-            "direct_payment":"轉帳付款",
-            "stripe":"Stripe付款",
-            "hitpay":"Hitpay付款",
-            "paypal":"Paypal付款",
-            "ecpay":"台灣綠界",
-            "pay_mongo":"PayMongo付款"
+            "direct_payment":"銀行轉帳",
+            "stripe":"Stripe",
+            "hitpay":"Hitpay",
+            "paypal":"Paypal",
+            "ecpay":"綠界金流",
+            "pay_mongo":"PayMongo"
         },
 
         "direct_payment":{
             "mode":"銀行名稱",
             "name":"帳戶名稱",
-            "number":"帳號",
+            "number":"銀行帳號",
             "note":"備註",
             "require_customer_return":"要求買家上傳付款證明"
         },
         "stripe":{
-            "secret":"密鑰",
-            "currency":"貨幣"
+            "secret":"Secret Key",
+            "currency":"幣別"
         },
         "hitpay":{
             "button_title":"按鈕標題",
-            "currency":"貨幣",
-            "api_key":"API 密鑰",
-            "salt":"密碼"
+            "currency":"幣別",
+            "api_key":"API Key",
+            "salt":"Salt"
         },
         "paypal":{
-            "currency":"貨幣",
+            "currency":"幣別",
             "client_id":"客戶ID",
             "secret":"密鑰"
         },
@@ -87,15 +87,15 @@
         },
 
         "payment_details":"金流設定",
-        "enabled":"啟用",
+        "enabled":"預設啟用",
         "invoice_enabled":"啟用發票",
         "add_more_direct_payment":"新增轉帳選項",
-        "upload_image":"上傳圖片",
+        "upload_image":"收款 QRCode",
         "upload_a_file_or_drag_and_drop":"點擊上傳圖片",
-        "accepted_file_types":"接受檔案類型",
-        "max_file_size":"檔案容量上限",
+        "accepted_file_types":"可支援檔案格式：jpeg、png、jpg",
+        "max_file_size":"檔案大小上限：10MB",
         "delete":"刪除",
-        "update": "更新",
+        "update": "儲存",
         "errors":{
             "Value_is_required":"此欄位必填"
         }
@@ -103,20 +103,20 @@
 
     "delivery_form":{
         "delivery_detail":"物流設定",
-        "delivery_charge":"運費",
-        "free_delivery_for_order_above":"滿額免運",
-        "free_delivery_for_minimum_order":"滿件免運",
-        "add_more_delivery_option":"增加運送方式",
-        "add_more_pickup_option":"增加自取方式",
+        "delivery_charge":"基本運費",
+        "free_delivery_for_order_above":"滿額免運：訂單金額滿（$）",
+        "free_delivery_for_minimum_order":"滿件免運：訂單商品數量滿（件）",
+        "add_more_delivery_option":"新增運送方式",
+        "add_more_pickup_option":"新增取貨地點",
         "options":"運送方式",
         "on_top_of_delivery_charge":"額外收費",
         "replace_delivery_charge":"取代基本運費",
         "delete":"刪除",
-        "store_collection":"到店自取",
-        "pickup_store":"自取地點",
+        "store_collection":"自行取貨",
+        "pickup_store":"取貨門市/地點",
         "pickup_address":"自取地址",
         "express_service_name": "快遞服務名稱",
-        "express_charge": "快遞費用"
+        "express_charge": "增加/取代金額"
     },
 
 
@@ -125,12 +125,12 @@
     },
     "notes":{
         "notes":"一般",
-        "delivery_note":"運送說明",
-        "special_note":"購物說明",
-        "confirmation_note":"訂單說明",
+        "delivery_note":"運送須知",
+        "special_note":"購物須知",
+        "confirmation_note":"訂單確認訊息",
         "discard":"取消",
         "save":"儲存",
-        "update": "更新",
+        "update": "儲存",
         "modify":"編輯"
     },
     "localization":{
@@ -144,7 +144,7 @@
             "TW":"台灣",
             "VN":"越南"
         },
-        "currency_symbol":"貨幣符號",
+        "currency_symbol":"幣別設定",
         "seller_language":"賣家語言",
         "languages":{
             "en":"英語",
@@ -156,14 +156,14 @@
         "buyer_language":"買家語言",
         "choose_language":"選擇語言",
         "choose_decimal_places":"選擇小數點位數",
-        "choose_currency_symbol":"選擇貨幣",
+        "choose_currency_symbol":"選擇幣別",
         "decimal_places":"小數位數",
         "discard":"取消",
         "save":"儲存",
-        "price_unit":"貨幣單位",
-        "choose_price_unit":"選擇貨幣單位",
+        "price_unit":"最小貨幣單位",
+        "choose_price_unit":"選擇最小貨幣單位",
         "priceOptions":{
-            "1":"標準",
+            "1":"預設",
             "1000":"K",
             "1000000":"M"
         }
@@ -172,28 +172,28 @@
 
     },
     "platform":{
-        "connected_platform":"已綁定的社交平台",
+        "connected_platform":"綁定社群平台",
         "facebook_fan_page":"Facebook 粉絲專頁",
-        "connect_with_facebook": "綁定 Facebook",
-        "instagram_profile":"Instagram 商業檔案",
-        "connect_with_instagram": "綁定 Instagram",
+        "connect_with_facebook": "連結 Facebook 粉絲專頁",
+        "instagram_profile":"Instagram 商業帳號",
+        "connect_with_instagram": "連結 Instagram 商業帳號",
         "youtube_channel":"Youtube 頻道",
-        "connect_with_youtube": "綁定 YouTube",
+        "connect_with_youtube": "連結 Youtube 頻道",
         "twitch_channel":"Twitch 頻道",
-        "connect_with_twitch": "綁定 Twitch",
+        "connect_with_twitch": "連結 Twitch 頻道",
         "connect": "連接",
         "twitch_channel_placeholder": "頻道名稱...",
         "twitch_helper_info": "如要绑定新的频道, 请登出Twitch旧的官方帐号.",
         "switch_account": "切換帳號",
         "tiktok_account": "TikTok 帳號",
-        "connect_with_tiktok": "綁定 TikTok",
+        "connect_with_tiktok": "連結 TikTok 帳號",
         "edit":"編輯",
         "cancel":"取消",
         "upgrade":"升級",
         "your_subscription_plan_is": "您的訂閱方案是",
         "you_can_only_bind": "您只能綁定",
         "unit": "個",
-        "social_media_platform": "社交平台",
+        "social_media_platform": "社群平台",
         "period": "",
         "unbind_page":"取消綁定"
     }

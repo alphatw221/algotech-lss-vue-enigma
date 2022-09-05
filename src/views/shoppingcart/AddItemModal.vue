@@ -68,7 +68,7 @@
 						<div v-else> 
 							<button 
 								class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
-								@click="add_to_wishlist(product.id, index)"
+								@click="add_to_wishlist(product.product)"
 							>
 								wishlist
 							</button>
@@ -86,11 +86,11 @@
 							<input type="email" class="h-[35px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
 								:placeholder="$t('login.email')" 
 								v-model="email" 
-								@keydown.enter.prevent="add_to_wishlist(wishlistProduct, wishlistIndex)" />
+								@keydown.enter.prevent="add_to_wishlist(wishlistStockID)" />
 						</div>
 						<button 
 							class="btn btn-sm bg-green-700 w-24 ml-auto text-white"
-							@click="add_to_wishlist(wishlistProduct, wishlistIndex)"
+							@click="add_to_wishlist(wishlistStockID)"
 						>
 						{{$t('shopping_cart.add_item.wishlist')}}
 						</button>
@@ -132,8 +132,7 @@ const storageUrl =  import.meta.env.VITE_GOOGLE_STORAGEL_URL;
 
 const wishlistModal = ref(false)
 const email = ref('')
-const wishlistProduct = ref()
-const wishlistIndex = ref()
+const wishlistStockID = ref()
 
 const addOnProducts = ref([])
 const addOnTitle = ref('select_add_ons')

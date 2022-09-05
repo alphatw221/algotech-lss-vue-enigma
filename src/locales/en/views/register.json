@@ -17,7 +17,7 @@
         "plan_options":{
             "lite":"Lite (%{price}/Month)",
             "standard":"Standard (%{price}/Month)",
-            "premium":"Premium (%{price}/Month)"
+            "premium":"Premium (start from %{price}/Month)"
         },
         "period":"Subscription Period",
         "period_options":{

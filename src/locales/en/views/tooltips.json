@@ -31,7 +31,11 @@
     "auto_reply":{
         "assign_to":"Assign auto reply to certain page"
     },
+    "discount_code":{
+        "percent_off":"To set \"20% off\", please enter \"20\"% off; \"30% off\", please enter \"30\"% off, and so on."
+    },
     "settings":{
+        "default_settings":"You can fill in the default values for sales activity settings here, and the system will automatically bring in these data each time you create a new sales activity, you can also modify it individually according to different activities.",
         "note":{
             "delivery_note":"Additnonal message to inform buyers on certain details, such as store opening timings, delivery time period etc",
             "special_note":"A custom message to buyer, such as shopping note and T&C",

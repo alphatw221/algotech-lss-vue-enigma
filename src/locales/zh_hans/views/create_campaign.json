@@ -89,8 +89,8 @@
         "upload_image":"上传图片",
         "remove_image":"移除照片",
         "upload_a_file_or_drag_and_drop":"点击上传图片",
-        "accepted_file_types":"支援档案类型",
-        "max_file_size":"档案容量上限",
+        "accepted_file_types":"可支援档案格式：jpeg、png、jpg",
+        "max_file_size":"档案大小上限：10MB",
 
         "delete":"删除",
 
@@ -104,9 +104,9 @@
 
     "notes_form":{
         "notes_form":"备注设定",
-        "delivery_note":"运送备注",
+        "delivery_note":"运送须知",
         "special_note":"特别备注",
-        "confirmation_note":"完成付款备注"
+        "confirmation_note":"订单确认信息"
     }
 
 }
