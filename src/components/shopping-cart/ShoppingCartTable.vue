@@ -19,7 +19,7 @@
 						<Tippy
 							tag="img"
 							class="rounded-full"
-							:src="storageUrl + product.image"
+							:src="product.image"
 							:content="product.name"
 						/>
 						</div>
@@ -76,7 +76,7 @@ import { useRoute } from "vue-router";
 
 const route = useRoute();
 const store = useShoppingCartStore(); 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
 
 const tableColumns = ref([
 	{ key: "image", name: " ",  },

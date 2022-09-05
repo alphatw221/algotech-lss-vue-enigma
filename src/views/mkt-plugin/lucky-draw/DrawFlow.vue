@@ -3,7 +3,7 @@
         <div class="container">
             <div class="h-screen flex justify-center rounded overflow-hidden shadow-lg">
                 <div style="margin-top: 5rem;" v-if="ready === true && beforeDraw === true">
-                    <img class="m-3 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px; height: 300px;"/>
+                    <img class="m-3 self-center" :src="luckyDrawData.prize.image" style="width: 300px; height: 300px;"/>
                     <div class="text-center mt-7 text-2xl">{{ luckyDrawData.prize.name }}</div>
                     <div class="mt-9 flex">
                         <div class="w-[50%] flex-col mr-5">
@@ -50,13 +50,13 @@
                 <div style="margin-top: 5rem;" v-else-if="ready === true && beforeDraw === false">
                     <div v-if="winnerList.length != 0" 
                         class="text-2xl text-center"> {{ $t('lucky_draw.draw_flow.congrates') }} !</div>
-                    <img class="mx-auto my-8 self-center" :src="storageUrl + luckyDrawData.prize.image" style="width: 300px; height:300px;"/>
+                    <img class="mx-auto my-8 self-center" :src="luckyDrawData.prize.image" style="width: 300px; height:300px;"/>
                     <div class="text-center text-2xl">{{ luckyDrawData.prize.name }}</div>
                     <div class="mt-9 flex flex-wrap justify-center mx-auto xl:w-420 w-300">
                         <div v-for="(winner, index) in winnerList" :key="index" class=" mb-3 mx-3">
                             <div class="w-full">
                                 <div class="flex-0 xl:w-28 xl:h-28 w-20 h-20 zoom-in border-0">
-                                    <img v-if="winner.customer_image == '' || winner.customer_image == null" class="rounded-full border-0 w-full" :src="`${storageUrl}fake_head.jpeg`"
+                                    <img v-if="winner.customer_image == '' || winner.customer_image == null" class="rounded-full border-0 w-full" :src="`${staticDir}fake_head.jpeg`"
                                         />
                                     <img v-else class="rounded-full border-0 w-full" :src="winner.customer_image"
                                     
@@ -89,10 +89,10 @@
         <!-- BEGIN: Modal Content -->
         <div id="draw_animation" :class="{ show: showAnimation, hide: !showAnimation}">
             <template v-if="luckyDrawData.animation == ''"> 
-                <img class="mx-auto" :src="`${storageUrl}static/lucky_draw1.svg`" />                        
+                <img class="mx-auto" :src="`${staticDir}lucky_draw1.svg`" />                        
             </template>
             <template v-else>
-                <img class="mx-auto" :src="storageUrl + luckyDrawData.animation" />
+                <img class="mx-auto" :src="luckyDrawData.animation" />
             </template> 
         </div>
         <!-- END: Modal Content -->
@@ -115,7 +115,7 @@ import winnerShowupPicture from '/src/assets/images/lss-img/winner_showup.svg'
 const props = defineProps({
     luckydrawList: Object
 })
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const route = useRoute();
 const router = useRouter();
 const luckyDrawData = ref({})

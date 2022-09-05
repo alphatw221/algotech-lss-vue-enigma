@@ -40,7 +40,7 @@
 									<div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12">
 										<img 
 											class="rounded-lg zoom-in"
-											:src="imageUrl+product.image"
+											:src="product.image"
 										/>
 									</div>
 								</div>
@@ -145,7 +145,7 @@
 									<div class="w-10 h-10 image-fit zoom-in lg:w-12 lg:h-12">
 										<img 
 											class="rounded-lg zoom-in"
-											:src="imageUrl+product.image"
+											:src="product.image"
 										/>
 									</div>
 								</div>
@@ -255,7 +255,7 @@ const totalPage = ref(1)
 const pageSize = ref(10)
 const dataCount = ref(0)
 
-const imageUrl = import.meta.env.VITE_APP_IMG_URL
+
 const selectedCategory = ref('')
 const productCategories = ref([{value:'', name:'All'}])
 const product_type = [{value:'product',name:'Product'},{value:'lucky_draw',name:'Lucky Draw'}]

@@ -218,7 +218,7 @@ const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
 const router = useRouter();
 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
 const product = ref({
 	id: 0,
 	name: '',
@@ -268,7 +268,7 @@ onMounted(()=>{
 		.then(
 			res => {
 				product.value = res.data
-				previewImage.value = res.data.image?storageUrl + res.data.image:null
+				previewImage.value = res.data.image?res.data.image:null
 			}
 		)
 	}

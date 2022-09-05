@@ -17,7 +17,7 @@
 
 			<div class="relative flex items-center">
 			<div class="w-12 h-12 flex-none image-fit">
-				<img alt="" class="rounded-md" :src="storageUrl+product.image" />
+				<img alt="" class="rounded-md" :src="product.image" />
 			</div>
 			<div class="ml-4 mr-auto">
 				<a class="font-medium">{{product.name}}</a>
@@ -42,7 +42,7 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 
 const store = useShoppingCartStore(); 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
 
 
 const numOfItems = computed(()=>{

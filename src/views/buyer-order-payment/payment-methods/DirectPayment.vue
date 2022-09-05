@@ -41,7 +41,7 @@
                             <td>Other Note ( Press enter to add new line )</td><td></td>
                         </tr> -->
                     </table>
-                    <img class="mt-5 w-36 h-36 " :src="storageUrl+account.image" alt="" />
+                    <img class="mt-5 w-36 h-36 " :src="account.image" alt="" />
                 </div>
             </div>
             <!-- direct_payment_mode: "22"
@@ -124,7 +124,7 @@ const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const router = useRouter();
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
+
 const receiptUploadDropzoneRef = ref();
 const openTab = ref(0);
 const select_account = index => openTab.value = index

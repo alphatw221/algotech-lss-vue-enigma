@@ -15,7 +15,7 @@
       </thead>
       <tbody>
         <tr v-for="data in product_results" :key="data.id">
-          <td><img :src="imagePath + data.image" class="w-10" /></td>
+          <td><img :src="data.image" class="w-10" /></td>
           <td>{{ data.name }}</td>
           <td>{{ data.order_code }}</td>
           <td>{{ data.qty_sold }}/{{ data.qty_for_sale - data.qty_sold }}</td>
@@ -71,7 +71,8 @@ export default {
 	},
 	data() {
 		return {
-			imagePath: import.meta.env.VITE_APP_IMG_URL,
+
+      
 			product_columns: this.columns,
 			product_results: []
 		};

@@ -32,7 +32,7 @@
                                     <img 
                                         class="rounded-lg cursor-auto" 
                                         data-action="zoom"
-                                        :src="campaign_product.image ? storageUrl + campaign_product.image : storageUrl + 'no_image.jpeg'" 
+                                        :src="campaign_product.image ? campaign_product.image : `${staticDir}no_image.jpeg`" 
                                     />
                                 </div> 
                             </div>
@@ -204,8 +204,8 @@ const layoutStore = useLSSSellerLayoutStore()
 const campaignDetailStore = useCampaignDetailStore()
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const storageUrl = import.meta.env.VITE_APP_IMG_URL
 
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const route = useRoute()
 
 const dataCount = ref(0)

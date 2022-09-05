@@ -7,12 +7,12 @@
 
 
             <div v-if="props.payment.handle.type=='gateway'" class="text-center">
-                <img :src="imageUrl+props.payment.icon" alt="" class="w-48 mx-auto mt-5">
+                <img :src="props.payment.icon" alt="" class="w-48 mx-auto mt-5">
                 <button class="btn btn-primary mt-1 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.pay_with')}} {{props.payment.name}} </button>
             </div>
 
             <div v-else-if="props.payment.handle.type=='submitForm'" class="text-center">
-                <img :src="imageUrl+props.payment.icon" alt="" class="w-48 mx-auto mt-5">
+                <img :src="props.payment.icon" alt="" class="w-48 mx-auto mt-5">
                 <!-- <template v-if="props.payment.invoice">
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
                         <input :id="'phone-invoice'" class="form-check-input" type="radio"
@@ -69,7 +69,7 @@ const props = defineProps({
 const route = useRoute();
 const router = useRouter();
 
-const imageUrl = import.meta.env.VITE_APP_IMG_URL
+
 const handlePayment=()=>{
     if(props.payment.handle.type=='gateway'){
         const getUrl = paymentEndPoints[props.payment.handle.endpoint]

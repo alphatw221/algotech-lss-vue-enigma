@@ -43,7 +43,7 @@ const userAvatar = computed(() => {
     } else if (layout.loginWith == 'google') {
         return layout.userInfo.google_info.picture
     }
-    else return import.meta.env.VITE_GOOGLE_STORAGEL_URL+'fake_head.jpeg'
+    else return import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR+'fake_head.jpeg'
 });
 
 </script>
