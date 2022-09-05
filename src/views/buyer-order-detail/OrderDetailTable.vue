@@ -19,7 +19,7 @@
 							tag="img"
 							data-action="zoom"
 							class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0 "
-							:src="storageUrl+product.image || storageUrl+`no_image.jpeg`"
+							:src="product.image || `${staticDir}no_image.jpeg`"
 						/>
 					</div>
 				</td>
@@ -50,7 +50,7 @@ import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const store = useLSSBuyerOrderStore(); 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 
 const tableColumns = ref([
 	{ key: "image", name: "null",  },

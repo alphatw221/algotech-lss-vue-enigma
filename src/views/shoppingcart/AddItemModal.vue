@@ -24,11 +24,11 @@
 
 						<a class="w-4/5 file__icon file__icon--image">
 							<div class="file__icon--image__preview image-fit" v-if="product.image">
-								<img :src="storageUrl + product.image"
+								<img :src="product.image"
 								/>
 							</div>
 							<div class="file__icon--image__preview image-fit" v-else>
-								<img :src="storageUrl + `no_image.jpeg`"
+								<img :src="staticDir + `no_image.jpeg`"
 								/>
 							</div>
 						</a>
@@ -128,7 +128,7 @@ const { cookies } = useCookies()
 const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const store = useShoppingCartStore(); 	
-const storageUrl =  import.meta.env.VITE_GOOGLE_STORAGEL_URL;
+const staticDir =  import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR;
 
 const wishlistModal = ref(false)
 const email = ref('')

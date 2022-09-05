@@ -27,6 +27,8 @@ import {onMounted, ref} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { buyer_create_blank_cart, guest_create_blank_cart } from '@/api_v2/pre_order';
 import { get_easy_store_checkout_url } from '@/plugin/easy-store/api/cart.js'
+import { get_ordr_startr_checkout_url } from '@/plugin/ordr-startr/api/cart.js'
+
 import { useCookies } from 'vue3-cookies';
 import { useLSSBuyerLayoutStore } from '@/stores/lss-buyer-layout';
 
@@ -86,6 +88,8 @@ const recaptchaCallBack = token=>{
     }else if(type=='easy_store'){
 
         get_easy_store_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
+    }else if(type=='ordr_startr'){
+        get_ordr_startr_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
     }
 }
 </script>

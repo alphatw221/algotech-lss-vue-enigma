@@ -30,13 +30,13 @@
                                 <div class="w-14 sm:w-fit" v-if="product.image">
                                     <img
                                         class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
-                                        :src="storageUrl + product.image"
+                                        :src="product.image"
                                     />
                                 </div>
                                 <div class="w-14 sm:w-fit flex" v-else>
                                     <img
                                         class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
-                                        :src="storageUrl + 'no_image.jpeg'"
+                                        :src="`${staticDir}no_image.jpeg`"
                                     />
                                 </div>
                             </td>
@@ -112,7 +112,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 const route = useRoute();
 const store = useManageOrderStore()
 const layoutStore = useLSSSellerLayoutStore()
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 

@@ -100,7 +100,7 @@
 									<Tippy 
 										tag="img"
 										class="w-full rounded-lg"
-										:src= "`${publicPath}` + product.image"
+										:src= "product.image"
 										:content="product.name"
 										data-action="zoom"
 									/>
@@ -109,7 +109,7 @@
 									<Tippy 
 										tag="img"
 										class="w-full rounded-lg"
-										:src= "`${storageUrl}` + `no_image.jpeg`"
+										:src= "`${staticDir}` + `no_image.jpeg`"
 										:content="product.name"
 										data-action="zoom"
 									/>
@@ -272,8 +272,8 @@ const bulkEditStockObj = ref({
 	stockIdList: []
 })
 
-const publicPath = import.meta.env.VITE_APP_IMG_URL
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const layoutStore = useLSSSellerLayoutStore()
 const showCommentLoding = ref(true)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;

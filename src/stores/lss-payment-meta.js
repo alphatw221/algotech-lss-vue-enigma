@@ -6,7 +6,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:true,
 		name: "Direct Payment",
 		key:"direct_payment",
-		icon:"static/payment/stripe/icon.png",
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/stripe/icon.png",
 		fields:[
 			{key:"mode", name:"Name of Bank / Payment Mode", type:"text", dataType:"string", default:''},
 			{key:"name", name:"Account Name", type:"text", dataType:"string", default:''},
@@ -29,7 +29,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"Stripe",
 		key:"stripe",
-		icon:"static/payment/stripe/icon.png",
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/stripe/icon.png",
 		fields:[
 			{key:"secret", type:"password", name: "Secret Key",dataType:"string", default:''},
 			{key:"currency", type:"select", name: "Currency", options:[
@@ -71,7 +71,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"Paypal",
 		key:"paypal",
-		icon:"static/payment/paypal/icon.jpeg",
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/paypal/icon.jpeg",
 		fields:[
 			{key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'NTD'], dataType:"string", default:'SGD'},
 			{key:"client_id", type:"text", name:"Client ID", dataType:"string", default:''},
@@ -90,7 +90,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		fields:[
 			{key:"secret", type:"password", name:"Secret Key", dataType:"string", default:''},
 		],
-		icon:"static/payment/pay_mongo/icon.jpeg",
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/pay_mongo/icon.jpeg",
 		handle:{
 			type:'gateway',
 			endpoint:'getPayMongoGateway',
@@ -116,7 +116,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"綠界",
 		key:"ecpay",
-		icon:"static/payment/ecpay/icon.jpeg",
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/ecpay/icon.jpeg",
 		fields:[
 			// {key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'NTD'], dataType:"string", default:'SGD'},
 			{key:"merchant_id", type:"text", name:"Merchant ID", dataType:"string", default:''},

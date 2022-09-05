@@ -19,12 +19,15 @@
                 <tbody>
                     <tr v-for="winner in winnerList" :key="winner">
 						<template v-if="winner.draw_type">
+
 							<template v-for="column in tableColumns" :key="column.key">
 								<td v-if="column.key == 'platform'" class="imgtd w-20">
 									<div class="flex w-full justify-around">
 										<div class="flex-0 w-20 h-20 sm:w-12 sm:h-12 zoom-in border-0">
 											<Tippy v-if="winner.customer_image == '' || winner.customer_image == null" tag="img" 
-												class="rounded-full border-0 w-20" :src="`${storageUrl}fake_head.jpeg`"
+
+												class="rounded-full border-0 w-20" :src="`${staticDir}fake_head.jpeg`"
+
 												/>
 											<Tippy v-else tag="img" class="rounded-full border-0 w-20 h-20 sm:w-12 sm:h-12" :src="winner.customer_image"
 												/>
@@ -41,10 +44,12 @@
 								<td v-else-if="column.key == 'draw_type'"  class="whitespace-nowrap w-fit">
 									{{ $t(`lucky_draw.draw_list.${winner[column.key]}`) }}
 								</td>
+
 								<td v-else-if="column.key == 'customer_name'" class="break-all w-fit">
 									<div v-if="winner[column.key] != ''"> {{ winner[column.key] }} </div>
 									<div v-else> Guest </div>
 								</td>
+
 								<td v-else class="break-all w-fit">
 									{{ winner[column.key] }}
 								</td>
@@ -71,7 +76,7 @@ import unbound from '/src/assets/images/lss-img/noname.png';
 const route = useRoute();
 const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const tableColumns = ref([
     { key: 'platform', name: 'Platform' },
     { key: 'customer_name', name: 'Customer name' },

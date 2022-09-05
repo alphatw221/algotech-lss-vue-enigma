@@ -22,7 +22,7 @@
 									<Tippy 
 										tag="img"
 										class="rounded-lg"
-										:src= "`${publicPath}` + product.image"
+										:src= "product.image"
 										:content="`Uploaded at`"
 									/>
 								</div>
@@ -82,7 +82,7 @@ export default {
             searchColumn: undefined,
             keyword: undefined,
             listItems: [],
-			publicPath: import.meta.env.VITE_APP_IMG_URL,
+
 			category: undefined
 		}
 	},

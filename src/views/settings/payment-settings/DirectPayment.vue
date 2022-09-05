@@ -164,7 +164,7 @@ const paymentData = reactive(
 )
 const directPaymentImages=reactive([])
 const previewImages = ref([])
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
+
 const formData = new FormData()
 
  const paymentDataRules = {
@@ -192,7 +192,7 @@ onMounted(() => {
     if(!Array.isArray(paymentData['v2_accounts']))paymentData['v2_accounts']=[]
 
     paymentData.v2_accounts.forEach(account => {
-        previewImages.value.push(storageUrl+account.image)
+        previewImages.value.push(account.image)
         directPaymentImages.push(null)
     });
 })

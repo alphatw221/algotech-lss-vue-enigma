@@ -210,16 +210,16 @@
                     <div class="flex flex-wrap items-center mt-5">
                         <div class="w-24 h-24 image-fit relative mr-11">
                             <input type="radio" checked class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
-                            <img class="rounded-full" :src="storageUrl + 'static/lucky_draw1.svg'" />
+                            <img class="rounded-full" :src="`${staticDir}lucky_draw1.svg`" />
                         </div>
                         <div class="w-24 h-24 image-fit relative mr-11">
                             <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw2.svg'" />
-                            <img class="rounded-full" :src="storageUrl + 'static/lucky_draw2.svg'" />
+                            <img class="rounded-full" :src="`${staticDir}lucky_draw2.svg`" />
                         </div>
                         <template v-for="(animates, key) in animationList" :key="key">
                             <div class="w-24 h-24 image-fit relative mr-11">
                                 <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = animates.path" />
-                                <img class="rounded-full" :src="storageUrl + animates.path" />
+                                <img class="rounded-full" :src="animates.path" />
                             </div>
                         </template>
                     </div>
@@ -263,7 +263,7 @@ const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore()
 const detailStore= useCampaignDetailStore()
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const spinTimes = ref([ { value: 5, name: '5 secs' }, { value: 10, name: '10 secs' }, { value: 20, name: '20 secs' }, { value: 30, name: '30 secs' }, { value: 60, name: '60 secs' }]);
 const drawTypes = ref([ { value: 'like', name: 'by like this post' }, { value: 'purchase', name: 'by purchased any product' }, { value: 'product', name: 'by purchased certain product' }, { value: 'keyword', name: 'by keyword' },]);
 const prizeList = ref([])  

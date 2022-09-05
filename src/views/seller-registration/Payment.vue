@@ -359,7 +359,7 @@ const submitCreditCardInfo=()=>{
 }
 
 // Direct Payment
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
+
 const receiptUploadDropzoneRef = ref();
 const data = reactive({ fiveDigits: "" });
 const dataRules = {

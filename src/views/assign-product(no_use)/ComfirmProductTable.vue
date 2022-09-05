@@ -21,7 +21,7 @@
                                     <Tippy 
                                         tag="img" 
                                         class="rounded-lg cursor-auto" 
-                                        :src="`${publicPath}` + product.image"
+                                        :src="product.image"
                                         :content="product.name"
                                     />
                                 </div>
@@ -186,7 +186,7 @@ import { seller_create_campaign_products, seller_bulk_create_campaign_products }
 
 const campaignStore = useCreateCampaignStore();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const publicPath = ref(import.meta.env.VITE_APP_IMG_URL)
+
 const route = useRoute();
 const router = useRouter();
 const layoutStore = useLSSSellerLayoutStore()

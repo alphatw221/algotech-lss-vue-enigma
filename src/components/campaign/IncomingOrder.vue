@@ -108,7 +108,7 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const store = useCampaignDetailStore();
-const imagePath=import.meta.env.VITE_APP_IMG_URL
+
 const incoming_order_columns= [
     { name: "order_number", key: "order_number" },
     { name: "platform", key: "platform" },
