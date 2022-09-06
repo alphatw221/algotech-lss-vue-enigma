@@ -16,6 +16,7 @@
         "purchase": "Tạo theo lượt mua",
         "product": "Tạo theo sản phẩm",
         "keyword": "Tạo theo từ khóa",
+        "sharedpost": "Với chia sẻ bài viết trên Facebook",
         "winners" : "Người thắng cuộc",
         "winner_repeat": "Lặp lại người thắng cuộc",
         "yes": "Có",
@@ -58,7 +59,8 @@
             "like": "bằng cách thích bài đăng này",
             "product": "bằng cách mua sản phẩm nhất định",
             "purchase": "bằng cách mua bất kỳ sản phẩm nào",
-            "keyword": "bằng cách bình luận đúng từ khóa"
+            "keyword": "bằng cách bình luận đúng từ khóa",
+            "sharedpost": "Với chia sẻ bài viết trên Facebook"
         },
         "no_product_err":"Chưa chọn sản phẩm cho chiến dịch này",
         "assign_product_err":"Chọn sản phẩm cho chiến dịch",

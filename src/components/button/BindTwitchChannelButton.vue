@@ -2,17 +2,19 @@
     <LoadingIcon v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
     
     <div v-else-if="props.buttonName == 'edit'" class="flex">
-        
-        <Tippy 
+        <Button class="flex" type="button" @click="toTwitch">
+            <span class="inline-block mt-1">{{ $t('settings.platform.switch_account') }} </span>
+            <Tippy 
             class="rounded-full w-50" 
             data-tippy-allowHTML="true" 
             data-tippy-placement="right" 
             :content="$t('settings.platform.twitch_helper_info')" 
             theme='light'
         > 
-            <HelpCircleIcon class="w-8 ml-1 mt-0.5 tippy-icon" />
+            <HelpCircleIcon class="inline-block w-5 ml-1 -mt-1 tippy-icon" />
         </Tippy> 
-        <Button type="button" @click="toTwitch">{{ $t('settings.platform.switch_account') }}</Button>
+        </Button>
+        
         <Button class="ml-2" type="button" @click="handleAuthClick">{{ $t('settings.platform.edit') }}</Button>
     </div>
 

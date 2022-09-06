@@ -24,7 +24,7 @@
                         type="checkbox" 
                         v-model="deliverySettings.is_free_delivery_for_order_above_price"
                     />
-                    <label class="w-full text-base">{{ $t('settings.delivery.order_above') }} $</label>
+                    <label class="w-full text-base">{{ $t('settings.delivery.order_above') }}</label>
                 </div> 
                 <input 
                     class="w-full form-control" 
@@ -76,7 +76,7 @@
                 v-for="(option, index) in deliverySettings.additional_delivery_options" :key="index">
                 <div class="flex flex-col justify-between">
                     <input  
-                    class="flex-1 w-full text-base form-control sm:w-fit"
+                    class="w-full form-control flex-2 sm:w-fit"
                     type="text" 
                     :placeholder="$t('settings.delivery_form.express_service_name')"
                     v-model="option.title"
@@ -103,7 +103,7 @@
                 
                 <div>
                     <input  
-                        class="flex-1 w-full form-control flex-2 sm:w-fit"
+                        class="w-full form-control flex-2 sm:w-fit"
                         type="text" 
                         :placeholder="$t('settings.delivery_form.express_charge')"
                         v-model="option.price"

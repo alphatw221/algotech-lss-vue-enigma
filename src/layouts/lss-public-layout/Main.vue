@@ -6,7 +6,7 @@
             <div class="sticky z-30 bottom-2"> 
                 <div class="flex justify-between font-medium flex-wrap mx-5 sm:mx-10 text-[12px] sm:text-[16px] sm:mb-4 bg-transparent"> 
                     <span>
-                            © 2021 Algotech Pte Ltd. All rights reserved
+                            © {{new Date().getFullYear()}} Algotech Pte Ltd. All rights reserved
                     </span>
                     <div class="flex flex-row gap-3 ml-auto"> 
                         <a href="https://liveshowseller.com/">  {{$t("global.footer.home")}}  </a>

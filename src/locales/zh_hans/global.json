@@ -3,7 +3,7 @@
     "last_name" : "姓",
     "name" : "昵称",
     "phone" : "电话",
-    "email" : "电子信箱",
+    "email" : "电子邮件",
     "remark" : "备注",
     "post_code" : "邮递区号",
     "address" : "地址",
@@ -38,7 +38,7 @@
  
     "footer": {
         "home" : "首页",
-        "terms" : "条款",
+        "terms" : "服务条款",
         "private_policy" : "隐私权政策"
     },
  

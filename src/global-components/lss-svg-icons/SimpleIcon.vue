@@ -41,7 +41,7 @@
 
     <svg
     v-else-if="icon == 'lucky_draw'" 
-        width="24" height="24" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+        width="24" height="20" viewBox="0 0 16 20" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M1.75 9.5C1.75 6.04822 4.54822 3.25 8 3.25C11.4518 3.25 14.25 6.04822 14.25 9.5C14.25 12.3164 
         12.3871 14.6977 9.82631 15.4789L10.3009 16.9027C13.4576 15.9226 15.75 12.979 15.75 9.5C15.75 5.21979 12.2802 1.75 8 1.75C3.71979 1.75 0.25 5.21979 
         0.25 9.5C0.25 12.982 2.54632 15.9277 5.70718 16.9052L6.18729 15.4831C3.61949 14.7061 1.75 12.3214 1.75 9.5Z" :fill="props.color"/>
@@ -200,6 +200,16 @@
     <path d="M7.58824 1H11.3529M11.3529 1L6.17647 4.29412M11.3529 1L17 4.29412M6.17647 4.29412H1M6.17647 4.29412L11.3529 7.58824M11.3529 7.58824L17 4.29412M11.3529 7.58824V13.2353M17 4.29412V9.47059L11.3529 13.2353M11.3529 13.2353L5.70588 9.47059H1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M5 1H3" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
+
+    <svg 
+    v-else-if="icon == 'express_cart'"
+    width="24" height="20" viewBox="0 0 20 19" fill="none" :stroke="props.color" xmlns="http://www.w3.org/2000/svg">
+    <path d="M2.5 1H4.77924C5.20967 1 5.59181 1.27543 5.72792 1.68377L6.27208 3.31623C6.40819 3.72457 6.79033 4 7.22076 4H18.1126C18.7951 4 19.2771 4.6687 19.0613 5.31623L16.7279 12.3162C16.5918 12.7246 16.2097 13 15.7792 13H7.5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M9.5 7L3.5 7" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M7.5 9.5H1" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <ellipse cx="7.58839" cy="16.1704" rx="1" ry="1.15872" transform="rotate(15 7.58839 16.1704)" stroke-width="1.5"/>
+    <ellipse cx="15.7659" cy="16.1704" rx="1" ry="1.15872" transform="rotate(15 15.7659 16.1704)" stroke-width="1.5"/>
+    </svg> 
 
 
 

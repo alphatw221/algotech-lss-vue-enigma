@@ -54,6 +54,16 @@
                                         <img src="/src/assets/images/lss-img/youtube.png" />
                                     </div>
                                 </div>
+                                <div v-else-if="pre_order.platform === 'twitch'" class="w-10 h-10 image-fit mx-auto">
+                                    <div class="w-10 h-10 image-fit">
+                                        <img src="/src/assets/images/lss-img/twitch.png" />
+                                    </div>
+                                </div>
+                                <div v-else-if="pre_order.platform === 'tiktok'" class="w-10 h-10 image-fit mx-auto">
+                                    <div class="w-10 h-10 image-fit">
+                                        <img src="/src/assets/images/lss-img/tiktok_black_bg.png" />
+                                    </div>
+                                </div>
                             </td>
                             <td>
                                 <template v-if="pre_order.customer_name != ''"> {{ pre_order.customer_name }} </template>

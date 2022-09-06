@@ -1,25 +1,26 @@
 {
     "tab":{
-        "profile":"个人档案",
+        "profile":"会员资讯",
         "plan":"订阅方案",
         "reset_password":"重设密码" 
     },
     "subscription":{
-        "title":"订阅",
+        "title":"会员",
         "id":"ID",
-        "joined":"启用日期",
-        "vaild":"帐号期限",
-        "change_plan":"更改方案"
+        "joined":"加入日期",
+        "vaild":"到期日",
+        "change_plan":"变更方案",
+        "country":"国家/地区"
     },
     "plan":{
         "trial":"试用版",
-        "lite":"精简版",
-        "standard":"标准版",
-        "premium":"进阶版",
-        "dealer":"销售版"
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium",
+        "dealer":"经销商"
     },
     "reset_password":{
-        "current_password": "当前密码",
+        "current_password": "目前密码",
         "new_password" : "新密码",
         "confirm_password" : "确认新密码", 
         "submit" : "密码"

@@ -2,7 +2,7 @@
     "shopping_cart":"购物车",
     "delivery":"收件资讯",
     "my_cart_tab":{
-        "special_note":"购物说明",
+        "special_note":"购物須知",
         "my_cart":"订单编号"
     },
     "delivery_tab":{
@@ -10,7 +10,7 @@
         "first_name":"姓氏",
         "last_name":"名字",
         "phone":"连络电话",
-        "email":"电子信箱",
+        "email":"电子邮件",
         "first_err":"必填",
         "last_err":"必填",
         "phone_err":"必填",
@@ -73,7 +73,8 @@
     "add_item":{
         "select_add_ons":"加入商品",
         "select_products":"加购商品",
-        "add":"加入"
+        "add":"加入",
+        "wishlist":"到货通知" 
     },
     "payment":{
         "shipping_summary":"收件资讯",

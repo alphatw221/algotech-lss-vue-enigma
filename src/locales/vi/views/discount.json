@@ -6,14 +6,16 @@
         "code":"mã giảm giá", 
         "start_at":"Thời gian bắt đầu", 
         "end_at":"Thời gian kết thúc", 
-        "type":"giãm giá Type", 
+        "type":"Code Type", 
+        "discount_type":"giãm giá Type", 
         "edit":"Chỉnh", 
         "del":"Xóa",
         "percent_off":"Percentage",
         "deduct":"Deduction",
         "noCode":"No Discount Code",
         "setupFirst":"Set up one by click ( + create )",
-        "description" : "Mô tả"
+        "description" : "Mô tả",
+        "cart_referal":"Cart Referal"
     },
     "modal":{
         "create":"Create mã giảm giá",
@@ -21,7 +23,8 @@
         "name":"giãm giá Tên",
         "code":"mã giảm giá",
         "period":"Activate Period",
-        "type":"Discount Type",
+        "type":"Code Type",
+        "discount_type":"Discount Type",
         "limitations":"Limitations",
         "description":"Description",
         "name-required":"Giá trị là bắt buộc",
@@ -32,6 +35,10 @@
         "required":"Giá trị là bắt buộc",
         "campaign":"Hoạt động bán hàng",
         "type_options":{
+            "general":"General",
+            "cart_referal":"Referal"
+        },
+        "discount_type_options":{
             "percent_off":"By Percentage(%)",
             "deduct":"By Deduction(-)"
         },
@@ -43,6 +50,8 @@
         "Order Subtotal":"Order Subtotal",
         "Product Number":"Product Number",
         "Discount Rate":"Discount Rate",
-        "Deduct Amount":"Deduction Amount"
+        "Deduct Amount":"",
+        "cancel":"Cancel",
+        "save":"Save"
     }
 }

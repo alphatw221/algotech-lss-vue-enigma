@@ -2,7 +2,7 @@
     "shopping_cart":"購物車",
     "delivery":"收件資訊",
     "my_cart_tab":{
-        "special_note":"購物說明",
+        "special_note":"購物須知",
         "my_cart":"訂單編號"
     },
     "delivery_tab":{
@@ -73,7 +73,8 @@
     "add_item":{
         "select_add_ons":"加入商品",
         "select_products":"加購商品",
-        "add":"加入"
+        "add":"加入",
+        "wishlist":"到貨通知"
     },
     "payment":{
         "shipping_summary":"收件資訊",

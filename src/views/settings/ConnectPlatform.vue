@@ -2,7 +2,7 @@
     <div class="flex flex-col">
             <div class="flex items-center sm:px-20 lg:pt-5 mt-2 pb-4 intro-y">
                 <h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('settings.platform.connected_platform')}}
-                    <Tippy 
+                    <!-- <Tippy 
                         class="rounded-full w-fit inline-block" 
                         data-tippy-allowHTML="true" 
                         data-tippy-placement="right" 
@@ -10,7 +10,7 @@
                         theme='light'
                     > 
                         <HelpCircleIcon class="w-8 ml-1 tippy-icon" />
-                    </Tippy>  
+                    </Tippy>   -->
                 </h2>
             </div>
 

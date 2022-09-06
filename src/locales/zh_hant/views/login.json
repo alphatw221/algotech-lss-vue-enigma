@@ -1,12 +1,13 @@
 {
     "dealer":"供應商",
     "login": "登入",
-    "email": "信箱",
+    "email": "電子郵件",
     "password": "密碼",
     "sign_in": "登入",
+    "seller":"賣家",
     "forgot_password": "忘記密碼 ?",
     "no_account": "沒有帳號 ? ",
-    "create_one": "創一個吧 !",
+    "create_one": "立即註冊 !",
     "codeInvalid":"驗證碼錯誤",
     "2FAModal":{
         "title":"身份驗證",

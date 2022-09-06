@@ -1,48 +1,57 @@
 {   
-    "create_discount_code":"创建新优惠代码",
+    "create_discount_code":"新增优惠代码",
     "discount_code":"优惠代码",
     "table":{
         "name":"优惠名称",
         "code":"优惠代码", 
         "start_at":"开始日期", 
         "end_at":"截止日期", 
-        "type":"折扣種類", 
+        "type":"代码種類", 
+        "discount_type":"优惠种类", 
         "edit":"编辑", 
         "del":"刪除",
-        "percent_off":"打折(%)",
-        "deduct":"減价(-)",
+        "percent_off":"折扣（％）",
+        "deduct":"减价（－）",
         "noCode":"无设定优惠代码",
-        "setupFirst":"点击 (+ 创建) 以设定新代码",
-        "description" : "註解"
+        "setupFirst":"点击（＋ 创建）以设定新代码",
+        "description" : "备注",
+        "cart_referal":"推荐码"
     },
     "modal":{
-        "create":"创建优惠代码",
+        "create":"新增优惠代码",
         "edit":"编辑优惠代码",
         "name":"优惠名称",
         "code":"优惠代码",
-        "period":"活动期限",
-        "type":"折扣种类",
-        "limitations":"使用限制",
-        "description":"描述",
+        "period":"优惠期间",
+        "type":"优惠种类",
+        "discount_type":"折扣种类",
+        "limitations":"使用条件",
+        "description":"备注",
         "name-required":"須填写名称",
         "code-required":"須填写代码",
         "type-required":"須选择种类", 
         "add_limitations":"新增限制",
-        "delete_limitation":"取消限制",
-        "Deduct Amount":"折抵金额",
+        "delete_limitation":"取消条件",
+        "Deduct Amount":"",
         "Discount Rate":"打折幅度",
         "required":"必填",
-        "campaign":"销售活动",
+        "campaign":"选择销售活动",
         "type_options":{
-            "percent_off":"打折(%)",
-            "deduct":"減价(-)"
+            "general":"一般代码",
+            "cart_referal":"推荐代码"
+        },
+        "discount_type_options":{
+            "percent_off":"折扣（％）",
+            "deduct":"减价（－）"
         },
         "limit_options":{
-            "specific_campaign":"特定销售活动",
-            "subtotal_over_specific_amount":"购买商品总价格超出特定价钱",
-            "product_over_specific_number":"购物车商品超过特定数量"
+            "specific_campaign":"指定销售活动",
+            "subtotal_over_specific_amount":"订单金额满（$）",
+            "product_over_specific_number":"订单商品数量满（件）"
         },
-        "Order Subtotal":"商品总价(折扣前)",
-        "Product Number":"商品数量"
+        "Order Subtotal":"订单金额（$）",
+        "Product Number":"订单商品数量（件）",
+        "cancel":"取消",
+        "save":"储存"
     }
 }

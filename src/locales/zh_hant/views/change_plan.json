@@ -13,33 +13,33 @@
     },
 
     "step_1":{
-        "your_info":"您的個人資料",
+        "your_info":"方案資訊",
         "current_plan":"目前方案",
-        "expired_date":"方案截止日期",
-        "name":"顧客名稱",
+        "expired_date":"到期日", 
+        "name":"會員名稱",
         "number":"聯絡電話",
-        "email":"電子信箱",
+        "email":"電子郵件",
         "plan_options":{
-            "lite":"Lite 精簡版 (NT$300/月)",
-            "standard":"Standard 標準版 (NT$900/月)",
-            "premium":"Premium 進階版 (NT$450起/月)"
+            "lite":"Lite (NT$300/月)",
+            "standard":"Standard (NT$900/月)",
+            "premium":"Premium (NT$450起/月)"
         },
         "period_options":{
-            "year":"年繳 (九折優惠)",
+            "year":"年費制（九折優惠）",
             "quarter":"季繳",
-            "month":"月繳"
+            "month":"月費制"
         },
-        "choose_plan":"訂閱方案",
-        "choose_period":"方案期限", 
+        "choose_plan":"選擇方案",
+        "choose_period":"訂閱制度", 
         "required_field": "此為必填欄位",
         "welcome_gift": "首次訂閱禮: 95折優惠",
-        "promocode_question":"是否使用優惠代碼?",
+        "promocode_question":"使用優惠代碼?",
         "promocode":"優惠代碼",
         "policy":{
             "accept": "我同意",
-            "terms": "使用條款",
+            "terms": "服務條款",
             "&": "與",
-            "conditions":"細則"
+            "conditions":"隱私權政策"
         },
         "back":"回到上一頁",
         "next":"下一步"
@@ -58,7 +58,7 @@
     },
     "step_3":{
         "succeeded":"付款完成",
-        "Email":"電子信箱",
+        "Email":"電子郵件",
         "Your Plan":"您的訂閱方案",
         "Subscription Period":"訂閱期限",
         "Subscription End Date":"方案期限",

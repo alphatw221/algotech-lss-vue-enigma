@@ -98,14 +98,6 @@ onMounted(()=>{
     // registerationStore.country = route.query.language
 })
 
-// onMounted(()=>{        //到時候在sotres 裏面 設定
-//     if(registerationStore.country === 'zh_hant'){
-//         registerationStore.home = 'https://liveshowseller.com.tw/'
-//         registerationStore.terms = 'https://liveshowseller.com.tw/terms-of-service/'
-//         registerationStore.policy = 'https://liveshowseller.com.tw/privacy-policy/'
-//     }
-// })
-
 const toggleTabs = tabNumber => {registerationStore.registerTab = tabNumber}
 
 

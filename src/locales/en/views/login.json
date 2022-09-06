@@ -1,12 +1,13 @@
 {
     "dealer":"Dealer",
     "login": "Login",
+    "seller":"Seller",
     "email": "Email",
     "password": "Password",
     "sign_in": "Sign In",
     "forgot_password": "forgot password ?",
     "no_account": "No Account ?",
-    "create_one": "Create one !",
+    "create_one": "Sign Up Now !",
     "codeInvalid":"Entered code is Incorrect",
     "2FAModal":{
         "title":"Authentication Required",

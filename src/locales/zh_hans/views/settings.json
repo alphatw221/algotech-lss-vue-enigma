@@ -8,7 +8,7 @@
     "time_zone" : "时区",
     "confirmation_note" : "订单确认信息",
     "default_active" : "预设启用",
-    "default_settings":"销售活动预设",
+    "default_settings":"基本设定",
     "update_successfully":"更新成功",
     "update_failed":"更新失败",
     "img_size_err":"图片大小不可超过 10 MB",
@@ -18,18 +18,18 @@
     "delivery":{
         "delivery":"物流",
         "delivery_setting": "物流设定",
-        "charge":"运费",
+        "charge":"基本运费",
         "charge_option":"运送方式",
         "add_more_delivery_option":"增加运送方式",
         "add_delivery_option":"新增运送方式",
         "replace_charge" : "取代基本运费",
         "on_top_of_charge" : "增加额外运费",
         "title" : "标题",
-        "order_above":"免运门槛: 订单金额达(含)以上",
-        "minimum":"免运门槛: 商品数量达(含)以上",
+        "order_above":"满额免运：订单金额满（$）",
+        "minimum":"满件免运：订单商品数量满（件）",
         "store":{
-                "collection":"到店自取",
-                "pickup_store":"取货店家",
+                "collection":"自行取货",
+                "pickup_store":"取货门市/地点",
                 "pickup_address":"取货地址"
         },
         "errors":{
@@ -44,33 +44,33 @@
 
     "payment_form":{
         "payment_titles":{
-            "direct_payment":"转账支付",
-            "stripe":"Stripe支付",
-            "hitpay":"Hitpay支付",
-            "paypal":"Paypal支付",
-            "ecpay":"綠界支付",
-            "pay_mongo":"PayMongo支付"
+            "direct_payment":"银行转帐",
+            "stripe":"Stripe",
+            "hitpay":"Hitpay",
+            "paypal":"Paypal",
+            "ecpay":"绿界金流",
+            "pay_mongo":"PayMongo"
         },
 
         "direct_payment":{
             "mode":"银行名称",
             "name":"账户名称",
-            "number":"账号",
+            "number":"银行帐号",
             "note":"备注",
             "require_customer_return":"要求买家上传付款证明"
         },
         "stripe":{
-            "secret":"密钥",
-            "currency":"货币"
+            "secret":"Secret Key",
+            "currency":"币别"
         },
         "hitpay":{
             "button_title":"按钮标题",
-            "currency":"货币",
-            "api_key":"API 密钥",
-            "salt":"密码"
+            "currency":"币别",
+            "api_key":"API Key",
+            "salt":"Salt"
         },
         "paypal":{
-            "currency":"货币",
+            "currency":"币别",
             "client_id":"客户ID",
             "secret":"密钥"
         },
@@ -86,15 +86,15 @@
         },
 
         "payment_details":"金流设定",
-        "enabled":"启用",
+        "enabled":"预设启用",
         "invoice_enabled":"Invoice Enabled",
         "add_more_direct_payment":"新增转账选项",
-        "upload_image":"上传图片",
+        "upload_image":"收款 QRCode",
         "upload_a_file_or_drag_and_drop":"点击上传图片",
-        "accepted_file_types":"接受档案类型",
-        "max_file_size":"档案容量上限",
+        "accepted_file_types":"可支援档案格式：jpeg、png、jpg",
+        "max_file_size":"档案大小上限：10MB",
         "delete":"删除",
-        "update": "更新",
+        "update": "储存",
         "errors":{
             "Value_is_required":"此字段必填"
         }
@@ -105,17 +105,17 @@
         "delivery_charge":"运费",
         "free_delivery_for_order_above":"满额免运",
         "free_delivery_for_minimum_order":"满件免运",
-        "add_more_delivery_option":"增加运送方式",
-        "add_more_pickup_option":"增加自取方式",
+        "add_more_delivery_option":"新增运送方式",
+        "add_more_pickup_option":"新增取货地点",
         "options":"运送方式",
         "on_top_of_delivery_charge":"额外收费",
         "replace_delivery_charge":"取代基本运费",
         "delete":"删除",
-        "store_collection":"到店自取",
-        "pickup_store":"自取地点",
+        "store_collection":"自行取货",
+        "pickup_store":"取货门市/地点",
         "pickup_address":"自取地址",
         "express_service_name": "快递服务名称",
-        "express_charge": "快递费用"
+        "express_charge": "增加/取代金额"
     },
 
 
@@ -124,9 +124,9 @@
     },
     "notes":{
         "notes":"一般",
-        "delivery_note":"运送说明",
-        "special_note":"购物说明",
-        "confirmation_note":"订单说明",
+        "delivery_note":"运送须知",
+        "special_note":"购物須知",
+        "confirmation_note":"订单确认信息",
         "discard":"取消",
         "save":"储存",
         "update": "更新"
@@ -142,7 +142,7 @@
             "TW":"台湾",
             "VN":"越南"
         },
-        "currency_symbol":"货币符号",
+        "currency_symbol":"币别设置",
         "seller_language":"卖家语言",
         "languages":{
             "en":"英语",
@@ -154,34 +154,34 @@
         "buyer_language":"买家语言",
         "choose_language":"选择语言",
         "choose_decimal_places":"选择小数点位数",
-        "choose_currency_symbol":"选择货币",
+        "choose_currency_symbol":"选择币别",
         "decimal_places":"小数位数",
         "discard":"取消",
         "save":"储存",
-        "price_unit":"货币单位",
-        "choose_price_unit":"选择货币单位",
+        "price_unit":"最小货币单位",
+        "choose_price_unit":"选择最小货币单位",
         "priceOptions":{
-            "1":"标准",
+            "1":"预设",
             "1000":"K",
             "1000000":"M"
         }
     },
     "platform":{
-        "connected_platform":"已绑定的社交平台",
+        "connected_platform":"绑定社群平台",
         "facebook_fan_page":"Facebook 粉丝专页",
-        "connect_with_facebook": "绑定 Facebook",
-        "instagram_profile":"Instagram 商业档案",
-        "connect_with_instagram": "绑定 Instagram",
-        "youtube_channel":"Youtube 频道",
-        "connect_with_youtube": "绑定 YouTube",
+        "connect_with_facebook": "连结 Facebook 粉丝专页",
+        "instagram_profile":"Instagram 商业帐号",
+        "connect_with_instagram": "连结 Instagram 商业帐号",
+        "youtube_channel":"YouTube 频道",
+        "connect_with_youtube": "连结 YouTube 频道",
         "twitch_channel":"Twitch 频道",
-        "connect_with_twitch": "绑定 Twitch",
+        "connect_with_twitch": "连结 Twitch 频道",
         "connect": "連結",
         "twitch_channel_placeholder": "频道名稱...",
-        "twitch_helper_info": "如要綁定新的頻道, 請登出Twitch舊的官方帳號.",
+        "twitch_helper_info": "如要綁定新的頻道, 請登出Twitch舊的官方帐号。",
         "switch_account": "切换帐号",
         "tiktok_account": "TikTok 帐号",
-        "connect_with_tiktok": "绑定 TikTok",
+        "connect_with_tiktok": "连结 TikTok 帐号",
         "edit":"编辑",
         "cancel":"取消",
         "upgrade":"升级",
