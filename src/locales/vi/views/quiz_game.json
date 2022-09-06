@@ -31,6 +31,7 @@
     "quiz_list": {
         "campaign_title": "Tiêu đề chiến dịch",
         "question": "Câu hỏi",
+        "answer": "Answer",
         "start": "Bắt đầu",
         "stop": "Dừng lại",
         "finish": "Hoàn thành",

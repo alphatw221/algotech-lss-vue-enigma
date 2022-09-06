@@ -31,6 +31,7 @@
     "quiz_list": {
         "campaign_title": "活动名称",
         "question": "问题",
+        "answer": "答案",
         "start": "开始",
         "stop": "停止",
         "finish": "已結束",
