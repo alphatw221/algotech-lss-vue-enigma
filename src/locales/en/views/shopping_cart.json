@@ -67,6 +67,7 @@
         "next":"Next",
         "promo_discount": "Promo Code Discount",
         "enter_promo":"Enter Promo Code",
+        "enter":"Enter",
         "promo_apply":"Discount Code  %{code} is Applyed"
     },
     "add_item":{
@@ -95,6 +96,11 @@
             "complete_order":"Upload & Complete Order",
             "information": "Payment Information"
         }
+    },
+    "login":{
+        "guest_login":"Login as a guest",
+        "continue":"Continue",
+        "social_login":"Social Login"
     },
     "delete_success":"Delete Success",
     "invalid_qty":"Invalid Quantity",

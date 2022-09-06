@@ -33,13 +33,13 @@
                     <h5 class="mx-auto font-bold text-black mb-3">{{$t('shopping_cart.payment.direct.information')}}</h5>
                     <table>
                         <tr>
-                            <td class="w-36">{{$t('shopping_cart.payment.direct.account_number')}}: </td><td>{{account.number}}</td>
+                            <td class="w-36">{{$t('shopping_cart.payment.direct.account')}}：</td><td>{{account.number}}</td>
                         </tr>
                         <tr>
-                            <td>{{$t('shopping_cart.payment.direct.account_name')}}: </td><td>{{account.name}}</td>
+                            <td>{{$t('shopping_cart.payment.direct.account_name')}}：</td><td>{{account.name}}</td>
                         </tr>
                         <tr>
-                            <td>{{$t('shopping_cart.payment.direct.note')}}: </td><td>{{account.note}}</td>
+                            <td>{{$t('shopping_cart.payment.direct.note')}}：</td><td>{{account.note}}</td>
                         </tr>
                         <!-- <tr>
                             <td>Other Note ( Press enter to add new line )</td><td></td>
@@ -60,7 +60,7 @@
                 </div>
             </div> -->
             <!-- END Direct Payment Radio -->
-
+ <h5 class="mx-auto font-bold text-black mb-3 items-center">{{$t('shopping_cart.payment.direct.information')}}</h5>
             <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
                 method: 'put',
                 url: 'url',
@@ -72,14 +72,14 @@
                 clickable: true,
                 acceptedFiles: 'image/*',
             }" class="dropzone h-fit">
-
+                
                 <div class="text-lg font-medium">
                    {{$t('shopping_cart.payment.direct.upload_img')}}
                 </div>
                 <div class="text-gray-600">
-                    <br>{{$t('shopping_cart.payment.direct.accepted_types')}}: jpeg, png, jpg
+                    <br>{{$t('shopping_cart.payment.direct.accepted_types')}}：jpeg, png, jpg
                 </div>
-                <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}} : 10MB</div>  
+                <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}}：10MB</div>  
             </Dropzone>
             <div class="flex flex-col m-3">
 
