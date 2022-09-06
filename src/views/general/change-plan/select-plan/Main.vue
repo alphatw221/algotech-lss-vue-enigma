@@ -169,6 +169,7 @@ onMounted(()=>{
         getPrice.value = res.data
     })
     const today = new Date();
+    console.log(layout.userInfo)
     dayLeft.value = Math.round(( expDate.getTime() - today.getTime() )/86400000)
 })
 

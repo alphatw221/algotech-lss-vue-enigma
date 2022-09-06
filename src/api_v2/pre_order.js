@@ -2,23 +2,23 @@ import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
 
 //-------------------------------guest----------------------------------
 export const guest_retrieve_pre_order_platform = (pre_order_oid) => {
-    return axiosInstance.get(`/api/v2/pre_order/guest/retrieve/${pre_order_oid}/platform/`);
+    return createAxiosWithBearer().get(`/api/v2/pre_order/guest/retrieve/${pre_order_oid}/platform/`);
 }
 
 export const guest_update_delivery_info = (pre_order_oid,data) => {
-    return axiosInstance.put(`/api/v2/pre_order/${pre_order_oid}/guest/delivery/`,data)
+    return createAxiosWithBearer().put(`/api/v2/pre_order/${pre_order_oid}/guest/delivery/`,data)
 }
 
 export const guest_cart_add = (pre_order_oid, campaign_product_id, qty) => {
-    return axiosInstance.put(`/api/v2/pre_order/${pre_order_oid}/guest/add/?campaign_product_id=${campaign_product_id}&qty=${qty}`)
+    return createAxiosWithBearer().put(`/api/v2/pre_order/${pre_order_oid}/guest/add/?campaign_product_id=${campaign_product_id}&qty=${qty}`)
 }
 
 export const guest_retrieve_pre_order = (pre_order_oid) => {
-    return axiosInstance.get(`/api/v2/pre_order/guest/retrieve/${pre_order_oid}/`);
+    return createAxiosWithBearer().get(`/api/v2/pre_order/guest/retrieve/${pre_order_oid}/`);
 }
 
 export const guest_create_blank_cart = (campaign_id, recaptcha_token, client_uuid) => {
-    return axiosInstance.get(`/api/v2/pre_order/${campaign_id}/guest/create/?recaptcha_token=${recaptcha_token}&client_uuid=${client_uuid}`,
+    return createAxiosWithBearer().get(`/api/v2/pre_order/${campaign_id}/guest/create/?recaptcha_token=${recaptcha_token}&client_uuid=${client_uuid}`,
     null,
     {withCredentials:true})
 }

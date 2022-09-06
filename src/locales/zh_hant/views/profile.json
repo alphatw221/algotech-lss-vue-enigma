@@ -5,21 +5,22 @@
         "reset_password":"重設密碼" 
     },
     "subscription":{
-        "title":"訂閱",
+        "title":"會員",
         "id":"ID",
-        "joined":"啟用日期",
-        "vaild":"帳號期限",
-        "change_plan":"更新方案"
+        "joined":"加入日期",
+        "vaild":"到期日",
+        "change_plan":"變更方案",
+        "country":"國家/地區"
     },
     "plan":{
         "trial":"試用版",
-        "lite":"精簡版",
-        "standard":"標準版",
-        "premium":"進階版",
-        "dealer":"銷售版"
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium",
+        "dealer":"經銷商"
     },
     "reset_password":{
-        "current_password": "當前密碼",
+        "current_password": "目前密碼",
         "new_password" : "新密碼",
         "confirm_password" : "確認新密碼", 
         "submit" : "確認"

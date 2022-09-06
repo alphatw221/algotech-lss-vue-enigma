@@ -18,8 +18,8 @@
 						:colspan="tableColumns.length" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="discountCodes.length === 0" :colspan="tableColumns.length">
-						<div class="mt-5 text-center md:mt-40 tdDot" >
+					<td class="tdDot" v-else-if="discountCodes.length === 0" :colspan="tableColumns.length">
+						<div class="mt-5 text-center md:mt-40" >
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{$t('discount.table.noCode')}}
 							</h1>
@@ -160,6 +160,7 @@ const listDiscountCodes=()=> {
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		discountCodes.value = res.data.results
 		showLoadingIcon.value = false
+		console.log(discountCodes.value)
 	})
 	.catch(err=>{console.log(err)});
 }
@@ -292,5 +293,13 @@ thead th{
         padding-left: 0 !important;
         min-height: 25px !important;
     }
+	.tdDot:before{
+		display: none !important;
+	}
+	.tdDot{
+		display: inline-block;
+		padding-left: 50%!important;
+		transform: translateX(-25%);
+	}
 }
 </style>

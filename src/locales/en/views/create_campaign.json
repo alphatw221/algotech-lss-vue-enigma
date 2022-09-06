@@ -90,8 +90,8 @@
         "upload_image":"Upload Image",
         "remove_image":"Remove Image",
         "upload_a_file_or_drag_and_drop":"Upload a file",
-        "accepted_file_types":"File types",
-        "max_file_size":"Max file size",
+        "accepted_file_types":"File types: jpeg, png, jpg",
+        "max_file_size":"Max file size: 10MB",
 
         "delete":"Delete",
         "errors":{

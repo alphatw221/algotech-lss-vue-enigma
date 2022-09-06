@@ -40,7 +40,7 @@
         "information" : "运送资讯",
         "name" : "收件人",
         "phone" : "电话",
-        "email" : "电子信箱",
+        "email" : "电子邮件",
         "method" : "运送方式",
         "delivery" : "宅配",
         "date" : "到货日期",

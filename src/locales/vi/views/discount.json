@@ -14,7 +14,8 @@
         "deduct":"Deduction",
         "noCode":"No Discount Code",
         "setupFirst":"Set up one by click ( + create )",
-        "description" : "Mô tả"
+        "description" : "Mô tả",
+        "cart_referal":"Cart Referal"
     },
     "modal":{
         "create":"Create mã giảm giá",
@@ -49,6 +50,8 @@
         "Order Subtotal":"Order Subtotal",
         "Product Number":"Product Number",
         "Discount Rate":"Discount Rate",
-        "Deduct Amount":"Deduction Amount"
+        "Deduct Amount":"",
+        "cancel":"Cancel",
+        "save":"Save"
     }
 }

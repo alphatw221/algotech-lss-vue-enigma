@@ -64,7 +64,7 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="form-label text-base font-medium"> {{$t('settings.notes.delivery_note')}}: </span> <br> 
+                            <span class="form-label text-base font-medium"> {{$t('settings.notes.delivery_note')}}</span> <br> 
                             <span class="text-slate-400 break-all">
                                 {{ generalInfo.delivery_note }}
                             </span>
@@ -87,7 +87,7 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="form-label text-base font-medium"> {{$t('settings.notes.special_note')}}:</span> <br> 
+                            <span class="form-label text-base font-medium"> {{$t('settings.notes.special_note')}}</span> <br> 
                             <span class="whitespace-normal text-slate-400  break-all">
                                 {{ generalInfo.special_note }}
                             </span>
@@ -110,7 +110,7 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="form-label text-base font-medium"> {{$t('settings.notes.confirmation_note')}}:</span> <br> 
+                            <span class="form-label text-base font-medium"> {{$t('settings.notes.confirmation_note')}}</span> <br> 
                             <span class="text-slate-400  break-all"> 
                                 {{  generalInfo.confirmation_note }}
                             </span>

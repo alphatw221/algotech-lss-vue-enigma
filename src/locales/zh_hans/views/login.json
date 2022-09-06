@@ -3,10 +3,11 @@
     "login": "登录",
     "email": "电子邮件",
     "password": "密码",
-    "sign_in": "登入",
+    "sign_in": "登录",
+    "seller":"卖家",
     "forgot_password": "忘记密码 ?",
     "no_account": "没有帐号 ? ",
-    "create_one": "创一个吧 !",
+    "create_one": "立即注册 !",
     "codeInvalid":"验证码错误",
     "2FAModal":{
         "title":"身份验证",

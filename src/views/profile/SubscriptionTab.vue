@@ -1,7 +1,7 @@
 <template> 
     <div  class="intro-y py-5 text-[16px] sm:text-[1.2rem]" >
         <div class="grid grid-cols-12 gap-5 w-[100%]">
-            <div class="col-span-12 sm:col-span-8 2xl:col-span-8">
+            <div class="col-span-12 lg:col-span-8 2xl:col-span-8">
                 <table class="w-full ">
                     <thead>
                         <tr class="p-4">
@@ -13,9 +13,9 @@
                                 <span v-else> <font-awesome-icon icon="fa-regular fa-star" /></span>
                             </th>
                             <th> 
-                                <div class="flex flex-col lg:flex-row items-start pl-4" >
-                                    <div class="mr-1 " >{{ $t(`profile.subscription.joined`)}} :</div>
-                                    <div>
+                                <div class="flex flex-col wrap lg:flex-row items-start pl-4" >
+                                    <div class="mr-1 whitespace-nowarp" >{{ $t(`profile.subscription.joined`)}} :</div>
+                                    <div class="whitespace-nowarp">
                                         {{ new Date(layout.userInfo.created_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"}) }}
                                     </div>
                                 </div>
@@ -41,7 +41,7 @@
                         </tr>
                         <tr class="p-4"> 
                             <td class="p-4"> 
-                                <div> {{$t("settings.localization.country")}} : </div>
+                                <div> {{$t("profile.subscription.country")}} : </div>
                             </td>
                             <td class="p-4"> 
                                 <div class="flex my-auto" v-if="layout.userInfo.user_subscription "> {{  $t(`settings.localization.countries.${layout.userInfo.user_subscription.country}`)||'' }}</div>
@@ -50,8 +50,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="col-span-12 mt-5 sm:col-span-4 2xl:col-span-4 p-10 justify-self-center">
-                <button class="text-white capitalize btn btn-elevated-success" @click="router.push('/seller/change-plan')">
+            <div class="col-span-12 mt-5 lg:col-span-4 2xl:col-span-4 p-10 justify-self-center">
+                <button class="text-white capitalize btn btn-elevated-success whitespace-nowrap" @click="router.push('/seller/change-plan')">
                     {{ $t(`profile.subscription.change_plan`)}}
                     </button>
             </div>

@@ -91,8 +91,8 @@
         "upload_image":"Tải lên hình ảnh",
         "remove_image":"Gỡ hình ảnh",
         "upload_a_file_or_drag_and_drop":"Tải ảnh lên",
-        "accepted_file_types":"Loại tệp tin",
-        "max_file_size":"Kích thước tệp tối đa",
+        "accepted_file_types":"Loại tệp tin: jpeg, png, jpg",
+        "max_file_size":"Kích thước tệp tối đa: 10MB",
 
         "delete":"Xóa",
         "errors":{

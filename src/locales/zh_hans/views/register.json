@@ -5,18 +5,18 @@
         "confirm":"确认订单"
     },
     "plan":{
-        "lite":"Lite 精简版",
-        "standard":"Standard 标准版",
-        "premium":"Premium 进阶版",
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium",
         "dealer":"Dealer"
     },
 
     "basic_info":{
         "plan":"订阅方案",
         "plan_options":{
-            "lite":"精简版 (%{price}/月)",
-            "standard":"标准版 (%{price}/月)",
-            "premium":"进阶版 (%{price}/月)"
+            "lite":"Lite (%{price}/月)",
+            "standard":"Standard (%{price}/月)",
+            "premium":"Premium (start from %{price}起/月)"
         },
         "period":"订阅期限",
         "period_options":{
@@ -37,7 +37,7 @@
             "VN": "(VN) +84"
         },
         "number":"连络电话",
-        "email":"电子信箱",
+        "email":"电子邮件",
         "password":"密码",
         "confirm_password":"密码确认",
         "target_country":"主要贩售国家",
@@ -63,7 +63,7 @@
         "promocode":"优惠代码",
         "policy":{
             "accept": "我同意",
-            "terms": "使用条款",
+            "terms": "服务条款",
             "&": "与",
             "conditions":"细则"
         },
@@ -109,7 +109,7 @@
     },
     "confirm":{
         "succeeded":"付款完成",
-        "Email":"电子信箱",
+        "Email":"电子邮件",
         "Customer":"姓名",
         "Password":"密码",
         "Your Plan":"您的订阅方案",
@@ -117,7 +117,7 @@
         "Subscription Period":"订阅期限",
         "Subscription End Date":"方案期限",
         "download":"下载电子收据",
-        "thankyou":"感谢您的注册, 您的帐号已启用! 请使用您的电子信箱登入" 
+        "thankyou":"感谢您的注册, 您的帐号已启用! 请使用您的电子邮件登入" 
     },
     "invalid_data":"输入资料无效",
     "input_err":"输入错误",

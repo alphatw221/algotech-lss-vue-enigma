@@ -9,10 +9,10 @@
             {{new Date(layout.userInfo.user_subscription.expired_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric"})}}</span>   
         <span class="col-start-1"> {{$t('change_plan.step_1.name')}} : </span>
         <span class="col-start-2 ml-3 font-medium text-[#660000]"> {{layout.userInfo.name}}</span>   
-
-        <span class="col-start-1"> {{$t('change_plan.step_1.number')}} : </span>
-        <span class="col-start-2 ml-3 font-medium text-[#660000]"> {{layout.userInfo.phone}}</span>   
-
+        <template v-if="layout.userInfo.phone"> 
+            <span class="col-start-1"> {{$t('change_plan.step_1.number')}} : </span>
+            <span class="col-start-2 ml-3 font-medium text-[#660000]"> {{layout.userInfo.phone}}</span>   
+        </template>
         <span class="col-start-1"> {{$t('change_plan.step_1.email')}} : </span>
         <span class="col-start-2 ml-3 font-medium text-[#660000] truncate"> {{layout.userInfo.email}}</span>
     </div>

@@ -5,18 +5,18 @@
         "confirm":"確認訂單"
     },
     "plan":{
-        "lite":"Lite 精簡版",
-        "standard":"Standard 標準版",
-        "premium":"Premium 進階版",
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium",
         "dealer":"Dealer"
     },
 
     "basic_info":{
         "plan":"訂閱方案",
         "plan_options":{
-            "lite":"精簡版 (%{price}/月)",
-            "standard":"標準版 (%{price}/月)",
-            "premium":"進階版 (%{price}/月)"
+            "lite":"Lite (%{price}/月)",
+            "standard":"Standard (%{price}/月)",
+            "premium":"Premium (%{price}起/月)"
         },
         "period":"訂閱期限",
         "period_options":{
@@ -37,7 +37,7 @@
             "VN": "(VN) +84"
         },
         "number":"連絡電話",
-        "email":"電子信箱",
+        "email":"電子郵件",
         "password":"密碼",
         "confirm_password":"密碼確認",
         "target_country":"主要販售國家",
@@ -63,7 +63,7 @@
         "promocode":"優惠代碼",
         "policy":{
             "accept": "我同意",
-            "terms": "使用條款",
+            "terms": "服務條款",
             "&": "與",
             "conditions":"細則"
         },
@@ -106,11 +106,10 @@
             "digits_message":"請輸入末五碼",
             "complete_order":"完成訂單"
         }
-        
     },
     "confirm":{
         "succeeded":"付款完成",
-        "Email":"電子信箱",
+        "Email":"電子郵件",
         "Customer":"姓名",
         "Password":"密碼",
         "Your Plan":"您的訂閱方案",
