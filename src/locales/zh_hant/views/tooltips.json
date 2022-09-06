@@ -5,13 +5,15 @@
     },
     "create_campaign":{
         "campaign_period":"允許讓買家下單的開始與結束時間",
-        "payment_record":"要求買家附上轉帳證明(明細截圖/末五碼)"
+        "payment_record":"要求買家附上轉帳證明(明細截圖/末五碼)",
+        "title":"標題字數不可超過 50 字。"
     },
     "campaign_live":{
-        "view_icon":"訂單詳情"
+        "view_icon":"訂單詳情",
+        "incoming_order":"此處僅顯示初步下單資訊，如要查看所有訂單，請前往「訂單管理」。"
     },  
     "campaign_list":{
-        "stop_checkout":"停止讓買家結帳",
+        "stop_checkout":"開啟「停止結帳」，系統會關閉購物車的結帳功能。",
         "instant_cart":"無須開直播也能透過連結直接購買",
         "price_unit":"顯示金額的最小單位，選擇「預設」則最低金額為 1。"
     },
@@ -23,13 +25,15 @@
         "delivery_noti":"通知買家訂單已出貨",
         "view_icon":"訂單詳情",
         "link_icon":"複製購物車連結",
-        "product_details":"訂單商品列表"
+        "product_details":"檢視商品"
     },
     "manage_order_details":{
         "price_adjustment":"調整訂單小計金額"
     },
     "auto_reply":{
-        "assign_to":"套用在指定粉專頁面"
+        "assign_to":"套用在指定粉專頁面",
+        "title":"買家需先與該社群帳號有互動紀錄（如在直播貼文中留言等），系統才會啟動此功能。",
+        "platform":"請選擇您欲套用此自動回覆的社群帳號。"
     },
     "discount_code":{
         "percent_off":"若要设定「8 折优惠」，请输入「20」% off；「7 折优惠」，请输入「30」% off，以此类推。"

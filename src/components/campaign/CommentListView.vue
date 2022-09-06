@@ -91,7 +91,7 @@
                     </div>
                 </div>
             </div>
-            <Tippy v-else class="rounded-full w-[100%]" content="Reply" :options="{ theme: 'light' }">
+            <Tippy v-else class="rounded-full w-[100%]" :content="$t('campaign_live.reply.reply_tooltips')" :options="{ theme: 'light' }">
                 <div class="flex items-center w-[100%]">
                     <div class="flex-none mr-1 w-14 h-14 image-fit">
                         <img v-if="comment.image" class="rounded-full zoom-in" :src="comment.image" />

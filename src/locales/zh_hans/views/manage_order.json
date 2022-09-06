@@ -19,17 +19,17 @@
         },
         "table":{
                 "Direct Payment":"转帐支付",
-                "stripe":"Stripe支付",
-                "hitpay":"Hitpay支付",
-                "paypal":"Paypal支付",
-                "ecpay":"綠界支付",
-                "pay_mongo":"PayMongo支付",
+                "stripe":"Stripe",
+                "hitpay":"Hitpay",
+                "paypal":"Paypal",
+                "ecpay":"綠界金流",
+                "pay_mongo":"PayMongo",
                 "details":"订单明细",
                 "copy_link":"复制订单连结",
                 "order_number" : "订单",
                 "action":"动作",
                 "delivery_notification":"出货通知",
-                "customer" : "顾客",
+                "customer" : "卖家帐号",
                 "platform" : "平台",
                 "name" : "商品名称",
                 "total_items" : "商品总数",
@@ -78,5 +78,5 @@
         "review" : "处理中",
         "shipping out":"已出货",
         "all" : "所有订单",
-        "update_successed":"更新成功"
+        "update_successed":"储存成功"
 }

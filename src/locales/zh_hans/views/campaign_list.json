@@ -38,18 +38,18 @@
 
     "campaign_list_table":{
         "title" : "标题",
-        "fan_page" : "平台",
+        "fan_page" : "社群平台",
         "start_at" : "开卖日期/时间",
         "end_at" : "结单日期/时间",
         "manage" : "管理",
         "manage_product" : "管理商品",
-        "manage_order" : "管理订单",
+        "manage_order" : "订单管理",
         "stop" : "停止结帐",
         "null":"",
-        "history":"回顾",
-        "live_on":"进入直播",
+        "history":"查看",
+        "live_on":"管理活动",
         "edit_campaign":"编辑活动",
-        "edit_campaign_product":"编辑活动商品",
+        "edit_campaign_product":"编辑销售商品",
         "blank_cart":"复制直接购买连结",
         "lucky_draw":"抽奖工具",
         "quiz_game": "問答游戏",
@@ -69,7 +69,7 @@
 
     "remind_enter_post_id_modal":{
         "confirm":"确认",
-        "message":"请在活动开始前输入直播贴文 ID"
+        "message":"请选择您欲进行销售的社群贴文"
     },
 
     "enter_post_id_modal":{
@@ -78,7 +78,8 @@
         
         "post_id":"贴文 ID",
         "select_page":"选择直播视频",
-        "select_live_post":"选择直播贴文",
+        "select_live_post":"选择销售帐号及贴文",
+        "select_live_video":"选择销售帐号及直播影片",
         "enter_post_id": "输入贴文ID",
 
         "instagram":"Instagram",
@@ -90,6 +91,7 @@
         "select_live_chat":"选择直播视频",
 
         "twitch": "Twitch",
+        "enter_username": "输入帐户名称",
 
         "cancel":"取消",
         "save":"储存",
@@ -101,9 +103,9 @@
         "rebind_channel":"请重新授权Youtube频道",
         "rebind_profile":"请重新授权Instagram粉丝专页"
     },
-    "update_successed":"更新成功",
+    "update_successed":"储存成功",
     "no_facebook_post":"目前没有任何Facebook的直播",
     "no_youtube_post":"目前沒有任何YouTube的直播",
     "no_instagram_post":"目前沒有任何Instagram的直播"
 
-}
+} 

@@ -18,14 +18,14 @@
         "reset": "清空",
         "category_manage": "分類管理",
         "name": "名稱",
-        "order_code": "商品代碼",
+        "order_code": "下單代碼",
         "description": "說明"
     },
 
     "table_column": {
         "image": "圖片",
         "name": "名稱",
-        "order_code": "商品代碼",
+        "order_code": "下單代碼",
         "type": "屬性",
         "category": "商品分類",
         "description": "說明",
@@ -74,7 +74,7 @@
 
         "not_save_message":"取消儲存",
         "create_message":"新增成功",
-        "update_message":"更新成功",
+        "update_message":"儲存成功",
         "invalid_data":"輸入資料無效"
     }
     

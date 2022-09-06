@@ -96,7 +96,7 @@
 	<!-- update Modal-->
 	<Modal :show="updateModal" @hidden="closeWithAlert()">
 		<ModalHeader>
-			<h2 class="mr-auto text-base font-medium">{{ $t('auto_reply.manipulate.edit') }} #{{currentInfo.id}}</h2>
+			<h2 class="mr-auto text-base font-medium">{{ $t('auto_reply.manipulate.edit') }} #{{currentInfo.id}} {{ $t('auto_reply.title') }}</h2>
 			<a @click="updateModal = false" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
 				<XIcon class="w-8 h-8 text-slate-400" />
 			</a>

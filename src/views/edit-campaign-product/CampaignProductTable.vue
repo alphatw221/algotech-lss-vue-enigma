@@ -4,7 +4,7 @@
             <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
-                    <th class="items-center text-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
+                    <th class="items-center text-center w-24" v-for="column in tableColumns"
                         :key="column.key">
                         {{$t(`edit_campaign_product.campaign_product_table.${column.key}`)}}
                     </th>

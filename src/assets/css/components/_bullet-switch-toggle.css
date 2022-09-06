@@ -41,9 +41,9 @@
     vertical-align: middle;
     color: rgb(56, 56, 56);
     cursor: pointer;
-    @apply px-[15px] py-[8px]; 
+    @apply px-[15px] py-[11px]; 
     @include media-breakpoint-down(sm) {
-        @apply h-[35px];
+        @apply h-[35px] py-[7px];
     }
 }
 

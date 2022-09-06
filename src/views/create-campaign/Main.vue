@@ -2,6 +2,14 @@
     <div class="flex flex-col h-[100%] text-[16px]">
 		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
+			<Tippy 
+				class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+				data-tippy-allowHTML="true" 
+				data-tippy-placement="right" 
+				:content="$t('tooltips.create_campaign.title')" 
+			> 
+				<HelpCircleIcon class="w-5 tippy-icon" />
+			</Tippy> 
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
     <!-- <div class="flex flex-col gap-5 text-[16px] h-fit">

@@ -15,7 +15,18 @@
             </div> -->
 
             <div class="flex justify-between flex w-full h-16">
-                <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.incoming.incoming_order')}}</h2>
+                <div class="flex">
+                    <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.incoming.incoming_order')}}</h2>
+                    <Tippy 
+                        class="rounded-full w-50 my-auto" 
+                        data-tippy-allowHTML="true" 
+                        data-tippy-placement="right" 
+                        :content="$t('tooltips.campaign_live.incoming_order')" 
+                        theme='light'
+                    > 
+                        <HelpCircleIcon class="inline-block w-5 -mt-1 tippy-icon" />
+                    </Tippy> 
+                </div> 
                 <button class="btn btn-primary h-fit my-auto mr-6 w-40" @click="routeTOManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
             </div>
             
@@ -29,7 +40,7 @@
                             </th>
                         </tr>
                     </thead>
-                
+                 
                     <tbody>
                         <tr v-if="store.incomingOrdersDict.length === 0" class="h-[300px]">
                             <td class="mt-40 text-center border-none text-sm md:text-lg text-slate-500" :colspan="4" > 

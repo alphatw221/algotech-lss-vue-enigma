@@ -38,18 +38,18 @@
 
     "campaign_list_table":{
         "title" : "標題",
-        "fan_page" : "平台",
+        "fan_page" : "社群平台",
         "start_at" : "開賣日期/時間",
         "end_at" : "結單日期/時間",
         "manage" : "管理",
         "manage_product" : "管理商品",
-        "manage_order" : "管理訂單",
+        "manage_order" : "訂單管理",
         "stop" : "停止結帳",
         "null":"",
-        "history":"回顧",
-        "live_on":"進入直播",
+        "history":"查看",
+        "live_on":"管理活動",
         "edit_campaign":"編輯銷售活動",
-        "edit_campaign_product":"編輯活動商品",
+        "edit_campaign_product":"編輯銷售商品",
         "blank_cart":"複製直接購買連結",
         "lucky_draw":"抽獎設定",
         "quiz_game": "問答遊戲",
@@ -69,7 +69,7 @@
 
     "remind_enter_post_id_modal":{
         "confirm":"確定",
-        "message":"請在開始前輸入直播貼文 ID"
+        "message":"請選擇您欲進行銷售的社群貼文"
     },
 
     "enter_post_id_modal":{
@@ -78,7 +78,8 @@
         "page": "粉絲專頁",
         
         "post_id":"貼文ID",
-        "select_live_post":"選擇直播貼文",
+        "select_live_post":"選擇銷售帳號及貼文",
+        "select_live_video":"選擇銷售帳號及直播影片",
         "enter_post_id": "輸入貼文ID",
 
         "instagram":"Instagram",
@@ -92,6 +93,7 @@
         "select_live_chat":"選擇頻道",
 
         "twitch": "Twitch",
+        "enter_username": "輸入帳戶名稱",
 
         "cancel":"取消",
         "save":"儲存",
@@ -103,9 +105,9 @@
         "rebind_channel":"請重新授權Youtube頻道",
         "rebind_profile":"請重新授權Instagram粉絲專頁"
     },
-    "update_successed":"更新成功",
+    "update_successed":"儲存成功",
     "no_facebook_post":"現在沒有任何Facebook的直播",
     "no_youtube_post":"現在沒有任何YouTube的直播",
     "no_instagram_post":"現在沒有任何Instagram的直播"
 
-}
+} 
