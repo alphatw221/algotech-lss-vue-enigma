@@ -31,6 +31,7 @@
     "quiz_list": {
         "campaign_title": "Campaign Title",
         "question": "Question",
+        "answer": "Answer",
         "start": "Start",
         "stop": "Stop",
         "finish": "Finished",

@@ -31,6 +31,7 @@
     "quiz_list": {
         "campaign_title": "直播名稱",
         "question": "題目",
+        "answer": "答案",
         "start": "開始",
         "stop": "停止",
         "finish": "已結束",

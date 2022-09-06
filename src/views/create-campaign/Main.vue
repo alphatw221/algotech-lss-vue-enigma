@@ -216,7 +216,7 @@ const campaignData = ref({
 	meta_logistic:{
 		delivery_charge : 0,
 		is_free_delivery_for_order_above_price : false,
-		free_delivery_for_order_above_price : 0,
+		free_delivery_for_order_above_price : 1,
 		is_free_delivery_for_how_many_order_minimum : false,
 		free_delivery_for_how_many_order_minimum : 1,
 		is_additional_delivery_charge : true,
@@ -329,9 +329,9 @@ onMounted(() => {
 	}
 	
 
-	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic.delivery_note ))
-	campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.special_note  ))
-	campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.confirmation_note  ))
+	campaignNotes.value.meta_logistic.delivery_note = sellerStore.userInfo.user_subscription.meta_logistic.delivery_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic.delivery_note )) : ''
+	campaignNotes.value.meta_payment.special_note = sellerStore.userInfo.user_subscription.meta_logistic.special_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.special_note  )) : ''
+	campaignNotes.value.meta_payment.confirmation_note = sellerStore.userInfo.user_subscription.meta_logistic.confirmation_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.confirmation_note  )) : ''
 	
 })
 

@@ -21,7 +21,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 		}),   
 		campaignProducts:ref([]),
 		cartProducts:ref([]) ,
-
+		referalCodes:ref([]),
 
 		shipping_info: ref({
 			shipping_option:"",

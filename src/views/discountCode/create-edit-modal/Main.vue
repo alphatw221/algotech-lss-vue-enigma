@@ -41,6 +41,23 @@
 
                 <template v-else-if="column.type === 'select_and_set' && column.key==='type' ">
                     <label class="mt-2 text-base">{{$t(`discount.modal.`+column.name)}}</label>
+                    <div>
+                        <select v-model="discountCode.type" :options="{
+                                placeholder: 'choose_code_type',
+                                }" class="w-full form-select rounded-lg mt-2 h-[42px]">
+                            <option :value="key" v-for="(data, key, index) in discountCodeMeta.types" :key="index">{{$t(`discount.modal.type_options.`+data.name)}}</option>
+                        </select>
+                        <label class="text-danger text-[12px]" 
+                            v-for="error,index in v.type.$errors"
+                            :key="index"
+                            >
+                            {{$t(`discount.modal.`+error.$uid)}}
+                        </label>
+                    </div>
+                </template>
+
+                <template v-else-if="column.type === 'select_and_set' && column.key==='discount_type' ">
+                    <label class="mt-2 text-base">{{$t(`discount.modal.`+column.name)}}</label>
                     <DiscountTypeBlock :discountCode="discountCode" :v="v"/>
                 </template>
 
@@ -126,7 +143,10 @@ import LimitationBlock from "./LimitationBlock.vue"
 import DiscountTypeBlock from "./DiscountTypeBlock.vue"
 import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 
+
+const discountCodeMeta = useLSSDiscountCodeMetaStore()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore()
 const CREATE = 'create'
@@ -140,7 +160,8 @@ const discountCode = ref({
     code:'',
     start_at:null,
     end_at:null,
-    type:"",
+    type:"general",
+    discount_type:"",
     limitations:[],
     description:"",
     meta:{}
@@ -154,6 +175,7 @@ const columns = [
     // { name: "start_at", key: "start_at", type:"datetime", dataType:"string"},
     // { name: "end_at", key: "end_at" , type:"datetime", dataType:"string"},
     { name: "type", key: "type" , type:"select_and_set", dataType:"string"},
+    { name: "discount_type", key: "discount_type" , type:"select_and_set", dataType:"string"},
 	{ name: "limitations", key: "limitations" , type:"multiple_select_and_set"},
 	{ name: "description", key: "description" , type:"text_area"},
 ]
@@ -163,6 +185,7 @@ const discountCodeRules = computed(() => {
         name: { required, minLength: minLength(1), maxLength: maxLength(255) },
         code: { required, minLength: minLength(1), maxLength: maxLength(255) },
         type: { required },
+        discount_type:{ required },
         limitations:{
             $each: helpers.forEach({
                 key:{required},
@@ -208,6 +231,7 @@ const hideModal = ()=>{
         start_at:null,
         end_at:null,
         type:"",
+        discount_type:"",
         limitations:[],
         description:"",
         meta:{}

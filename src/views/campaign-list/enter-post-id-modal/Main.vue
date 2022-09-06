@@ -331,6 +331,7 @@ const updatePostId = (platform) => {
   }
 
   if ([undefined, ""].includes(live_id)) {
+    checking.value = false
     validate.value[platform]["post_id"]["error"] = false
     return
   }

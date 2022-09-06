@@ -5,8 +5,9 @@
         "name":"优惠名称",
         "code":"优惠代码", 
         "start_at":"开始日期", 
-        "end_at":"结束日期",  
-        "type":"优惠种类", 
+        "end_at":"截止日期", 
+        "type":"代码種類", 
+        "discount_type":"优惠种类", 
         "edit":"编辑", 
         "del":"刪除",
         "percent_off":"折扣（％）",
@@ -23,6 +24,7 @@
         "code":"优惠代码",
         "period":"优惠期间",
         "type":"优惠种类",
+        "discount_type":"折扣种类",
         "limitations":"使用条件",
         "description":"备注",
         "name-required":"須填写名称",
@@ -35,6 +37,10 @@
         "required":"必填",
         "campaign":"选择销售活动",
         "type_options":{
+            "general":"一般代码",
+            "cart_referal":"推荐代码"
+        },
+        "discount_type_options":{
             "percent_off":"折扣（％）",
             "deduct":"减价（－）"
         },

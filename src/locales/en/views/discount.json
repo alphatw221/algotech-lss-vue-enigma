@@ -6,7 +6,8 @@
         "code":"Discount Code", 
         "start_at":"Start Time", 
         "end_at":"End Time", 
-        "type":"Discount Type", 
+        "type":"Code Type", 
+        "discount_type":"Discount Type", 
         "edit":"Edit", 
         "del":"Delete",
         "percent_off":"Percentage",
@@ -22,7 +23,8 @@
         "name":"Discount Name",
         "code":"Discount Code",
         "period":"Activate Period",
-        "type":"Discount Type",
+        "type":"Code Type",
+        "discount_type":"Discount Type",
         "limitations":"Limitations",
         "description":"Description",
         "name-required":"Name is required",
@@ -33,6 +35,10 @@
         "required":"Required",
         "campaign":"Campaign",
         "type_options":{
+            "general":"General",
+            "cart_referal":"Referal"
+        },
+        "discount_type_options":{
             "percent_off":"By Percentage(%)",
             "deduct":"By Deduction(-)"
         },

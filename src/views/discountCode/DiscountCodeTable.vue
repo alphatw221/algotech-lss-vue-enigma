@@ -107,8 +107,8 @@ const tableColumns = [
     { name: "code", key: "code" , type:"text"},
     { name: "start_at", key: "start_at", type:"datetime" },
     { name: "end_at", key: "end_at" , type:"datetime"},
-    { name: "type", key: "type" , type:"textI18"},
-	// { name: "limitations", key: "limitations" , type:"array"},
+    // { name: "type", key: "type" , type:"textI18"},
+	{ name: "discount_type", key: "discount_type" , type:"textI18"},
 	{ name: "description", key: "description" , type:"text"},
 	{ name: "edit", key: "edit" , type:"action"},
 	
