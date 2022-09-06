@@ -21,13 +21,8 @@
     <!-- BEGIN: commit box -->
     <div
       class="
-        flex flex-row flex-wrap
-        justify-center
-        sm:justify-between
-        mt-5
-        mx-0
-        gap-3
-        sm:gap-5
+        flex flex-row flex-wrap justify-center
+        sm:justify-between mt-5 mx-0 gap-3 sm:gap-5
       "
     >
       <div class="flex-none switch-toggle mx-auto sm:mx-0">

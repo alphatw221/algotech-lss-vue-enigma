@@ -2,7 +2,7 @@
     "lucky_draw" : "抽獎設定",
     "invalid_data":"輸入資料無效",
     "create_successed":"新增成功",
-    "update_successed":"更新成功",
+    "update_successed":"儲存成功",
     "save_success":"儲存成功",
     "not_saved":"取消儲存",
     "animation_size_err": "上傳檔案大小不可超過 10 MB",
@@ -16,6 +16,7 @@
         "purchase": "購買任何商品者",
         "product": "購買特定商品者",
         "keyword": "輸入特定關鍵字",
+        "sharedpost": "分享貼文者",
         "winners" : "得獎人數",
         "winner_repeat": "重複得獎",
         "yes": "是",
@@ -60,7 +61,8 @@
             "like": "對此FB貼文按讚者",
             "product": "購買特定商品者",
             "purchase": "購買任何商品者",
-            "keyword": "輸入特定關鍵字"
+            "keyword": "輸入特定關鍵字",
+            "sharedpost": "分享貼文者"
         },
         "no_product_err":"尚未將商品加入此活動",
         "assign_product_err":"需加入商品",

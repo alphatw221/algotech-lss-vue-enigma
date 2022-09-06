@@ -12,8 +12,9 @@
                 class="flex-none w-7 h-7 mt-2 text-slate-600 ml-2 " @click="reset"/>
         </div>
         <div class="export hidden sm:block">
-            <button id="tabulator-html-filter-go" type="button" class="flex-none w-16 mr-3 h-[35px] sm:h-[42px] btn btn-primary"
+            <button id="tabulator-html-filter-go" type="button" class="flex-none w-20 mr-3 h-[35px] sm:h-[42px] btn btn-primary"
                 @click="test()">
+            <SimpleIcon icon="filter" color="white"  width="16" class="mr-1" @click="test()"/>
             {{$t('manage_order.search_bar.filter')}}
             </button>
             <FilterModal

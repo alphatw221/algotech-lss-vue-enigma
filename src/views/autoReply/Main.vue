@@ -1,8 +1,16 @@
 <template>
     <div class="flex flex-col sm:px-5 sm:h-fit">
         <div class="flex-col flex gap-3 flex-wrap sm:flex-row justify-center sm:justify-between">
-            <div class="flex items-center sm:px-20 lg:pt-5 mt-3 lg:pb-4 intro-y lg:pt-5 mt-3">
-                <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{ $t('auto_reply.title') }}</h2>
+            <div class="flex items-center mx-auto lg:pt-5 mt-3 lg:pb-4 intro-y lg:pt-5 mt-3">
+                <h2 class="text-xl sm:text-2xl sm:mx-0 font-medium">{{ $t('auto_reply.title') }}</h2>
+                <Tippy 
+                    class="rounded-full w-fit whitespace-wrap ml-1 my-auto tippy-mobile" 
+                    data-tippy-allowHTML="true" 
+                    data-tippy-placement="right" 
+                    :content="$t('tooltips.auto_reply.title')" 
+                    > 
+                    <HelpCircleIcon class="w-5 tippy-icon tippy-mobile" />
+                </Tippy> 
             </div>
             <button class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mx-0 lg:mx-20 lg:mt-5 sm:mt-0 lg:mb-0 mb-3 border-[2px] border-slate-100 shadow-lg"
                 @click="createModal = true; saved=false">
@@ -52,14 +60,26 @@
                     v-model="createData.description" 
 				/>
             </div>
-            <div class="col-span-12">
+            <div class="col-span-12 flex">
                 <label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.assign_to')}}</label>
+                <Tippy 
+                    class="rounded-full w-fit whitespace-wrap ml-1 tippy-mobile" 
+                    data-tippy-allowHTML="true" 
+                    data-tippy-placement="right" 
+                    :content="$t('tooltips.auto_reply.platform')" 
+                    > 
+                    <HelpCircleIcon class="w-5 tippy-icon tippy-mobile" />
+                </Tippy> 
             </div>
             <div class="flex flex-wrap items-center justify-around col-span-12">
                 <template v-for="(data, key) in PagesData" :key="key">
                     <div class="relative w-20 h-20 image-fit">
                         <input name="fb_page" type="radio" class="absolute top-0 left-0 z-50 rounded-lg vertical-center" :value="data" v-model="validate.chosenPage.$model" />
                         <img class="rounded-full" :src="data.image" />
+                        <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                            <img v-if="data.page_id" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
+                            <img v-else class="rounded-full bg-[#d63376]" :src="instagram_platform" >
+                        </div>
                     </div>
                 </template>
             </div>
@@ -83,13 +103,14 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance, computed } from 'vue'
 import AutoReplyTable from "./AutoReplyTable.vue";
+import facebook_platform from "/src/assets/images/lss-img/facebook.png"
+import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 import { create_auto_response } from "@/api_v2/auto_response";
 import {get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles} from "@/api/user_subscription"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import i18n from "@/locales/i18n"
-import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance();
@@ -130,6 +151,7 @@ onMounted(() => {
         return get_user_subscription_instagram_profiles()
     }).then(res=>{
         PagesData.value = PagesData.value.concat(res.data);
+        console.log(PagesData.value)
     }).catch(err=> {
         console.log(err)
     })

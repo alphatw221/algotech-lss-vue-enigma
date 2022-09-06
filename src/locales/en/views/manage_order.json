@@ -30,7 +30,7 @@
                 "payment" : "Payment",
                 "status" : "Status",
                 "view" : "View",
-                "customer" : "Customer",
+                "customer" : "Buyer",
                 "platform" : "Platform",
                 "name" : "Name",
                 "order_number" : "Order No.",

@@ -99,7 +99,7 @@
     },
     "delete_success":"删除成功",
     "invalid_qty":"输入数量无效",
-    "update_successfully":"更新成功",
+    "update_successfully":"储存成功",
     "invalid_data":"输入资料无效",
     "invalid_amount":"输入金额无效",
     "add_item_success":"成功新增商品",

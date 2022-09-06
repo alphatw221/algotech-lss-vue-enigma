@@ -5,10 +5,12 @@
     },
     "create_campaign":{
         "campaign_period":"Khoảng thời gian cho phép người mua đặt hàng",
-        "payment_record":"Yêu cầu người mua đính kèm hóa đơn thanh toán"
+        "payment_record":"Yêu cầu người mua đính kèm hóa đơn thanh toán",
+        "title":"The title cannot exceed 50 characters"
     },
     "campaign_live":{
-        "view_icon":"Chi tiết đơn hàng"
+        "view_icon":"Chi tiết đơn hàng",
+        "incoming_order":"Only preliminary order information is displayed here. To view all orders, please go to \"Order Management\""
     },  
     "campaign_list":{
         "stop_checkout":"Tắt giỏ hàng ngay lập tức",
@@ -29,7 +31,9 @@
         "price_adjustment":"Mở chức năng điều chính giá bằng việc thêm phí bổ sung hoặc giảm giá cho người mua"
     },
     "auto_reply":{
-        "assign_to":"Chọn phản hồi tự động cho trang cụ thể"
+        "assign_to":"Chọn phản hồi tự động cho trang cụ thể",
+        "title":"Buyers need to have interactive records with the social account (such as leaving a message in a live post, etc.) before the system will activate this function.",
+        "platform":"Please select the community account you want to apply this auto-reply to."
     },
     "discount_code":{
         "percent_off":"To set \"20% off\", please enter \"20\"% off; \"30% off\", please enter \"30\"% off, and so on."

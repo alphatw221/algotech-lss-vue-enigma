@@ -26,6 +26,7 @@
     },
     "reply":{
         "reply_to":"Reply to",
+        "reply_tooltips":"Reply message",
         "type_your_message": "Type your message"
     },
     "conversation":{
