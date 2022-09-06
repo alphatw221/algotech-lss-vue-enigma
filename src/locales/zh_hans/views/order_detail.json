@@ -1,5 +1,5 @@
 {
-    "order" : "订单明细",
+    "order" : "订单详情",
     "order_no" : "订单编号",
     "order_status" : "订单状态",
     "order_date" : "订单日期",
@@ -17,9 +17,9 @@
         "null" : ""
     },
     "price_summary":{
-        "price_summary": "价格总计",
+        "price_summary": "订单金额",
         "sub_total" : "小计",
-        "total" : "总计",
+        "total" : "总金额",
         "shipping":"运费",
         "delivery_charge":"运费",
         "discount":"折扣",
@@ -28,7 +28,7 @@
         "apply_free_delivery" : "免运费",
         "free_delivery" : "免运费",
         "modify_price": "调整价格",
-        "price_adjustment" : "调整金额",
+        "price_adjustment" : "修改订单金额",
         "price_adjustment_note" : "想要使用折扣，请输入「- 金额」。想要收取额外费用，请直接输入「金额」。",
         "title" : "折扣名称/额外费用名称",
         "price_exceed":"金额不可超过小计",
@@ -55,11 +55,11 @@
     "payment":{
         "direct_payment":"转帐支付",
         "Direct Payment":"转帐支付",
-        "ecpay":"綠界支付",
+        "ecpay":"綠界金流",
         "method" : "付款方式",
         "information": "付款资讯",
         "record" : "付款纪录",
-        "last_five_digits":"末五码",
+        "last_five_digits":"付款證明",
         "no_record":"未附付款纪录"
     },
     "remark" : "备注",
@@ -67,6 +67,6 @@
     "save_order" : "储存订单",
     "shopping_cart" : "购物车",
     "invalid_qty":"输入数量无效",
-    "update_successfully":"更新成功",
+    "update_successfully":"储存成功",
     "delete_successfully":"刪除成功"
 }

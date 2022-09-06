@@ -18,14 +18,14 @@
         "reset": "清空",
         "category_manage": "分类管理",
         "name": "名称",
-        "order_code": "商品代码",
+        "order_code": "下单代码",
         "description": "说明"
     },
 
     "table_column": {
         "image": "图片",
         "name": "名称",
-        "order_code": "商品代码",
+        "order_code": "下单代码",
         "type": "属性",
         "category": "商品分类",
         "description": "说明",
@@ -74,7 +74,7 @@
 
         "not_save_message":"取消储存",
         "create_message":"新增成功",
-        "update_message":"更新成功",
+        "update_message":"储存成功",
         "invalid_data":"输入资料无效"
     }
     

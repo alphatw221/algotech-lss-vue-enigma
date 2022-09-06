@@ -24,6 +24,7 @@
     },
     "reply":{
         "reply_to":"gần đây",
+        "reply_tooltips":"Reply message",
         "type_your_message": "Nhập tin nhắn của bạn"
     },
     "conversation":{

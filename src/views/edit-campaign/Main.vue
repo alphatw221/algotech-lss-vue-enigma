@@ -5,7 +5,7 @@
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
-				<div class="flex flex-col">
+				<div class="flex flex-col"> 
 					<label class="w-20 my-auto text-base form-label font-medium">{{$t('edit_campaign.title')}}</label>
 					<input 
 						class="w-full form-control" 
@@ -23,7 +23,17 @@
 			</div>
 			<div class="col-span-12 sm:col-span-6">
 				<div class="flex flex-col">
-					<label for="regular-form-2" class="w-16 my-auto text-base form-label font-medium">{{$t('edit_campaign.period')}}</label>
+					<div class="flex whitespace-nowrap align-middle"> 
+						<label for="regular-form-2" class="w-16 my-auto text-base form-label font-medium">{{$t('edit_campaign.period')}}</label>
+						<Tippy 
+							class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+							data-tippy-allowHTML="true" 
+							data-tippy-placement="right" 
+							:content="$t('tooltips.create_campaign.campaign_period')" 
+						> 
+							<HelpCircleIcon class="w-5 tippy-icon" />
+						</Tippy> 
+					</div>
 					<v-date-picker class="z-49" 
 						v-model="dateTimePicker" 
 						:timezone="timezone" 

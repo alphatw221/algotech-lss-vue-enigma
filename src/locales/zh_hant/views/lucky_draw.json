@@ -2,7 +2,7 @@
     "lucky_draw" : "抽獎設定",
     "invalid_data":"輸入資料無效",
     "create_successed":"新增成功",
-    "update_successed":"更新成功",
+    "update_successed":"儲存成功",
     "save_success":"儲存成功",
     "not_saved":"取消儲存",
     "animation_size_err": "上傳檔案大小不可超過 10 MB",
