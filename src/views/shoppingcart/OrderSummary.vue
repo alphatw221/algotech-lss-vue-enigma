@@ -51,7 +51,16 @@
           
       </div>
       <span v-if="store.order.applied_discount.code != undefined" class="text-right font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :store.order.applied_discount.code})}} </span>
-    
+
+      <div class="justify-between mt-2"  v-for="referalCode, index in store.referalCodes" :key="index">
+
+        <label class=" my-auto whitespace-nowrap">{{'Referal Code:'}}</label>
+        <label class=" my-auto whitespace-nowrap">{{referalCode.code+'-'+route.params.pre_order_oid}}</label>
+
+        <div class=" my-auto whitespace-nowrap">{{referalCode.description}}</div>
+
+      </div>
+
       <div v-if="store.shipping_info.shipping_method !== 'pickup'"
         class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">

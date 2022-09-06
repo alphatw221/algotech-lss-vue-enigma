@@ -6,7 +6,8 @@
         "code":"優惠代碼", 
         "start_at":"開始日期", 
         "end_at":"截止日期", 
-        "type":"折扣種類", 
+        "type":"代碼種類", 
+        "discount_type":"折扣種類",
         "edit":"編輯", 
         "del":"刪除",
         "percent_off":"打折(%)",
@@ -21,7 +22,8 @@
         "name":"折扣名稱",
         "code":"優惠代碼",
         "period":"活動期限",
-        "type":"折扣種類",
+        "type":"代碼種類",
+        "discount_type":"折扣種類",
         "limitations":"使用限制",
         "description":"描述",
         "name-required":"須填寫名稱",
@@ -34,6 +36,10 @@
         "required":"必填",
         "campaign":"銷售活動",
         "type_options":{
+            "general":"一般代碼",
+            "cart_referal":"推薦代碼"
+        },
+        "discount_type_options":{
             "percent_off":"打折(%)",
             "deduct":"減價(-)"
         },
@@ -42,6 +48,7 @@
             "subtotal_over_specific_amount":"所選商品總價超過特定價錢",
             "product_over_specific_number":"購物車商品超過特定數量"
         },
+        
         "Order Subtotal":"商品總價(折扣前)",
         "Product Number":"商品數量"
     }

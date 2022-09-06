@@ -1,10 +1,10 @@
 <template>
     <div>
         <div>
-            <select v-model="props.discountCode.type" :options="{
+            <select v-model="props.discountCode.discount_type" :options="{
                     placeholder: 'choose_discount_type',
                     }" class="w-full form-select rounded-lg mt-2 h-[42px]">
-                <option :value="key" v-for="(data, key, index) in discountCodeMeta.types" :key="index">{{$t(`discount.modal.type_options.`+data.name)}}</option>
+                <option :value="key" v-for="(data, key, index) in discountCodeMeta.discount_types" :key="index">{{$t(`discount.modal.discount_type_options.`+data.name)}}</option>
             </select>
             <label class="text-danger text-[12px]" 
                 v-for="error,index in props.v.type.$errors"
@@ -14,10 +14,10 @@
             </label>
         </div>
         
-        <template v-if="props.discountCode.types!=''">
+        <template v-if="props.discountCode.discount_types!=''">
             <div 
                 class="flex flex-col intro-y"
-                v-for="(field, field_index) in discountCodeMeta.types[props.discountCode.type]?.fields" :key="field_index"
+                v-for="(field, field_index) in discountCodeMeta.discount_types[props.discountCode.discount_type]?.fields" :key="field_index"
             >
                 <template v-if="field.type === 'input'">
                     <label class="mt-2 text-base">{{$t(`discount.modal.`+ field.name)}}</label>
