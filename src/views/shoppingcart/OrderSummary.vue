@@ -45,7 +45,7 @@
             v-model="discount_code"
             @keydown.enter.prevent="promoCheck()"
             />
-            <button class="input-group-text h-[35px]" @click="promoCheck()"> Enter</button>
+            <button class="input-group-text h-[35px]" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
             <XIcon v-if="store.order.discount != 0 && store.order.campaign||false" class="mt-auto w-6 h-6 text-slate-400" @click="promoDelete()"/>
           </div>
           

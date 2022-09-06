@@ -5,17 +5,18 @@
             <span class="text-lg"> {{$t('shopping_cart.payment.shipping_summary')}}</span>   
         </div>
         <div class="flex">
-            <!-- <div class="mr-auto">Anna Wang</div> -->
+            <div class="mr-auto">{{$t('order_detail.delivery.name')}}</div>
             <div class="mr-auto">{{ store.order.shipping_first_name }}{{ store.order.shipping_last_name }}</div>
         </div>
         <div class="flex mt-4">
-            <!-- <div class="mr-auto">afbdifbsd@gmail.com</div> -->
+            <div class="mr-auto">{{$t('shopping_cart.delivery_tab.email')}}</div>
             <div class="mr-auto">{{ store.order.shipping_email }}</div>
         </div>
         <div class="flex mt-4">
-            <!-- <div class="mr-auto">091534846</div> -->
+            <div class="mr-auto">{{$t('shopping_cart.delivery_tab.phone')}}</div>
             <div class="mr-auto">{{ store.order.shipping_phone }}</div>
         </div>
+        <div class="mr-auto">{{$t('order_detail.delivery.method')}}</div>
         <template v-if="store.order.shipping_method === 'pickup'">
             <div class="flex mt-4 mr-auto">{{$t('shopping_cart.payment.pickup')}}</div>
             <div class="flex mt-4"> 
