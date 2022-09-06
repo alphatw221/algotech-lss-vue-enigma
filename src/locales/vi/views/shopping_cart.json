@@ -93,7 +93,8 @@
             "last_five_digits":"5 số cuối thẻ",
             "digits_message":"Vui lòng nhập chính xác 5 số cuối",
             "complete_order":"Tải lên & Hoàn thành đơn hàng",
-            "information": "Thông tin thanh toán"
+            "information": "Thông tin thanh toán",
+            "upload_record":"tải lên biên lai thanh toán"
         }
     },
     "delete_success":"Xóa thành công",

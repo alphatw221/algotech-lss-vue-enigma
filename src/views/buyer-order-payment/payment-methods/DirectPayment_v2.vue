@@ -60,7 +60,7 @@
                 </div>
             </div> -->
             <!-- END Direct Payment Radio -->
- <h5 class="mx-auto font-bold text-black mb-3 items-center">{{$t('shopping_cart.payment.direct.information')}}</h5>
+            <h5 class="mx-auto font-bold text-black mb-3 text-center">{{$t('shopping_cart.payment.direct.upload_record')}}</h5>
             <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
                 method: 'put',
                 url: 'url',

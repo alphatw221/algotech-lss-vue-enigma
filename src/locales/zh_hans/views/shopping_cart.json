@@ -94,7 +94,8 @@
             "last_five_digits":"汇款帐号末五码",
             "digits_message":"请输入后五码",
             "complete_order":"完成订单",
-            "information": "汇款资讯"
+            "information": "汇款资讯",
+            "upload_record":"上传付款证明"
         }
     },
     "login":{
