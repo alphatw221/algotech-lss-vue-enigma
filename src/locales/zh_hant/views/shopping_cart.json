@@ -96,7 +96,8 @@
             "digits_message":"請輸入末五碼",
             "complete_order":"完成訂單",
             "information": "匯款資訊",
-            "upload_record":"上傳付款證明"
+            "upload_record":"上傳付款證明",
+            "or":"或"
         }
     },
     "login":{

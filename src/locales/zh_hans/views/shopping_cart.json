@@ -96,7 +96,8 @@
             "digits_message":"请输入后五码",
             "complete_order":"完成订单",
             "information": "汇款资讯",
-            "upload_record":"上传付款证明"
+            "upload_record":"上传付款证明",
+            "or":"或"
         }
     },
     "login":{

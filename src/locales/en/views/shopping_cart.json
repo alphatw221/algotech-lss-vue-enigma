@@ -96,7 +96,8 @@
             "digits_message":"Please Enter Exactly 5 Digits",
             "complete_order":"Upload & Complete Order",
             "information": "Payment Information",
-            "upload_record":"Upload Payment Record"
+            "upload_record":"Upload Payment Record",
+            "or":"or"
         }
     },
     "login":{

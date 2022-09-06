@@ -81,6 +81,8 @@
                 </div>
                 <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}}：10MB</div>  
             </Dropzone>
+
+            <h4 class="mx-auto my-4 font-bold text-black mb-3 text-center">{{$t('shopping_cart.payment.direct.or')}}</h4>
             <div class="flex flex-col m-3">
 
                 <label for="regular-form-2" class="form-label">{{$t('shopping_cart.payment.direct.last_five_digits')}}</label>
