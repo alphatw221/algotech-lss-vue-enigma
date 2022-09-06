@@ -20,12 +20,12 @@
         "number":"Số liên hệ",
         "email":"Email",
         "plan_options":{
-            "lite":"Lite (USD 10.00/Tháng)",
-            "standard":"Standard (USD 30.00/Tháng)",
-            "premium":"Premium (USD 60.00/Tháng)"
+            "lite":"Lite （USD 10.00／Tháng）",
+            "standard":"Standard （USD 30.00／Tháng）",
+            "premium":"Premium （Start from USD 60.00／Tháng）"
         },
         "period_options":{
-            "year":"Hàng năm (10% giảm giá)",
+            "year":"Hàng năm （10% giảm giá）",
             "quarter":"Hàng quý",
             "month":"Hàng tháng"
         },

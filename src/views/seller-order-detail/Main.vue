@@ -7,7 +7,7 @@
                 {{$t(`manage_order.${store.orderDetail.status}`) }}</span> </h2>
         </div>
         <div class="my-auto">
-            <span class="text-base mr-5"> {{ store.orderDetail.customer_name }} {{store.orderDetail.platform ? `/ `+store.orderDetail.platform : ''}}</span>
+            <span class="text-base mr-5"> {{ store.orderDetail.customer_name }} {{store.orderDetail.platform ? `/ `+ $t('order_detail.'+ store.orderDetail.platform) : ''}}</span>
         </div>
         <div class="my-auto">
             <span class="text-base mr-5 break-all">{{$t('order_detail.delivery.email')}} : {{store.orderDetail.shipping_email}}</span>

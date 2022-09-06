@@ -65,3 +65,9 @@ export default {
     },
 }
 </script>
+
+<style scoped>
+.switch-toggle input+label {
+    @apply py-[7px]; 
+}
+</style>

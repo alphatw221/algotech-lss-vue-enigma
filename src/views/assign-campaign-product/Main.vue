@@ -22,7 +22,7 @@
 						<option v-for="category,index in productCategories" :key="index" :value="category">{{ category }}</option>
 					</select>
 				</div>
-				<div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
+				<!-- <div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
 					<label class="mr-auto whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
 						{{$t('assign_product.search_bar.search_by')}}
 					</label>
@@ -33,8 +33,8 @@
 							{{$t(`assign_product.search_bar.search_options.${searchColumn.value}`)}}
 						</option>
 					</select>
-				</div>
-				<div class="flex-1 items-center input-group mr-auto min-w-[100px] lg:mt-5">
+				</div> -->
+				<div class="flex-1 items-center input-group mr-auto min-w-[100px] sm:mt-5">
 					<div class="relative"> 
 						<input type="text"
 							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"

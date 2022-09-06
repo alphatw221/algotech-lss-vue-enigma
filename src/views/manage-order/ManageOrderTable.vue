@@ -4,7 +4,9 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
-                        {{ $t(`manage_order.table.`+column.name) }}
+                        <template v-if="column.name == 'action'"> </template>
+                        <template v-else> {{ $t(`manage_order.table.`+column.name) }}  </template>
+                        
                     </th>
                 </tr>
             </thead>

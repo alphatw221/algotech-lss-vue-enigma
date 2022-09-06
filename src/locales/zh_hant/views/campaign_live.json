@@ -12,7 +12,7 @@
         "comment_message_1":"尚未有%{tag}相關訊息",
         "comment_message_2":"尚未有%{platformName}訊息",
 
-        "comments_summarizer":"留言分類",
+        "comments_summarizer":"留言篩選",
         "all_comments":"所有留言",
         "facebook_comments":"Facebook 留言",
         "youtube_comments":"Youtube 留言",
@@ -23,6 +23,7 @@
         "quiz_game": "問答遊戲"
     },
     "reply":{
+        "reply_tooltips":"回覆留言",
         "reply_to":"回覆",
         "type_your_message": "輸入你的訊息"
     },
@@ -31,16 +32,16 @@
         "type_your_message": "輸入你的訊息"
     },
     "product":{
-        "product":"直播商品",
+        "product":"銷售商品",
         "modal_column":{
             "null":"",
             "cart_sold_left":"下單/售出/剩餘",
             "name":"商品",
             "description":"說明",
             "Product":"商品",
-            "order_code":"商品代碼",
+            "order_code":"下單代碼",
             "price":"價格",
-            "activate":"上架",
+            "activate":"啟用",
             "qty":"庫存",
             "stock_qty":"庫存",
             "category":"分類",
@@ -86,8 +87,8 @@
         "list":"抽獎",
         "manage_order":"訂單管理",
         "table":{
-            "order_number" : "訂單",
-            "name" : "顧客",
+            "order_number" : "訂單編號",
+            "name" : "賣家帳號",
             "platform" : "平台",
             "amount" : "金額",
             "view" : "詳情",

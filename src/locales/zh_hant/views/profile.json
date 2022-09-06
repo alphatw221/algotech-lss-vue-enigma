@@ -29,5 +29,5 @@
     "input_err":"輸入錯誤",
     "input_required":"此為必填欄位",
     "password_length":"密碼須為8-20位字元",
-    "update_successed":"更新成功"
+    "update_successed":"儲存成功"
 }

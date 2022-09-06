@@ -94,7 +94,7 @@
                 @click="selectPlatformPage('youtube')"
                 class="select_page btn rounded-full btn-primary lg:mt-10"
               >
-                {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
+                {{$t('campaign_list.enter_post_id_modal.select_live_video')}}
               </button>
               <div class="mt-3" v-if="campaign.youtube_channel">
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
@@ -126,7 +126,7 @@
                 @click="selectPlatformPage('twitch')"
                 class="select_page btn rounded-full btn-primary lg:mt-10"
               >
-                {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
+                {{$t('campaign_list.enter_post_id_modal.select_live_video')}}
               </button>
               <div class="mt-3" v-if="campaign.twitch_channel">
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>

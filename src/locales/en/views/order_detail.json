@@ -8,6 +8,11 @@
     "complete" : "Complete",
     "review" : "Review",
     "shipping out":"Shipping Out",
+    "facebook":"Facebook",
+    "instagram":"Instagram",
+    "youtube":"YouTube",
+    "tiktok":"TikTok",
+    "twitch":"Twitch",
     "table":{
         "product" : "Product",
         "price" : "Price",
