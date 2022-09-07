@@ -66,8 +66,10 @@
         "add_item":"Add more items",
         "next":"Next",
         "promo_discount": "Promo Code Discount",
-        "enter_promo":"Enter Promo Code",
-        "promo_apply":"Discount Code  %{code} is Applyed"
+        "enter_promo":"Promo Code",
+        "enter":"Enter",
+        "promo_apply":"Discount Code  %{code} is Applied",
+        "referr_code":"Referr Code"
     },
     "add_item":{
         "select_add_ons":"Select add-ons",
@@ -94,8 +96,15 @@
             "last_five_digits":"Last Five Digits",
             "digits_message":"Please Enter Exactly 5 Digits",
             "complete_order":"Upload & Complete Order",
-            "information": "Payment Information"
+            "information": "Payment Information",
+            "upload_record":"Upload Payment Record",
+            "or":"or"
         }
+    },
+    "login":{
+        "guest_login":"Login as a guest",
+        "continue":"Continue",
+        "social_login":"Social Login"
     },
     "delete_success":"Delete Success",
     "invalid_qty":"Invalid Quantity",

@@ -2,6 +2,14 @@
     <div class="flex flex-col h-[100%] text-[16px]">
 		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
+			<Tippy 
+				class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+				data-tippy-allowHTML="true" 
+				data-tippy-placement="right" 
+				:content="$t('tooltips.create_campaign.title')" 
+			> 
+				<HelpCircleIcon class="w-5 tippy-icon" />
+			</Tippy> 
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
     <!-- <div class="flex flex-col gap-5 text-[16px] h-fit">
@@ -208,7 +216,7 @@ const campaignData = ref({
 	meta_logistic:{
 		delivery_charge : 0,
 		is_free_delivery_for_order_above_price : false,
-		free_delivery_for_order_above_price : 0,
+		free_delivery_for_order_above_price : 1,
 		is_free_delivery_for_how_many_order_minimum : false,
 		free_delivery_for_how_many_order_minimum : 1,
 		is_additional_delivery_charge : true,
@@ -321,9 +329,9 @@ onMounted(() => {
 	}
 	
 
-	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic.delivery_note ))
-	campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.special_note  ))
-	campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.confirmation_note  ))
+	campaignNotes.value.meta_logistic.delivery_note = sellerStore.userInfo.user_subscription.meta_logistic.delivery_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic.delivery_note )) : ''
+	campaignNotes.value.meta_payment.special_note = sellerStore.userInfo.user_subscription.meta_logistic.special_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.special_note  )) : ''
+	campaignNotes.value.meta_payment.confirmation_note = sellerStore.userInfo.user_subscription.meta_logistic.confirmation_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.confirmation_note  )) : ''
 	
 })
 

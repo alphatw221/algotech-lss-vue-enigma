@@ -9,7 +9,8 @@
         "id":"ID",
         "joined":"Joined",
         "vaild":"Vaild till",
-        "change_plan":"Change Plan"
+        "change_plan":"Change Plan",
+        "country":"Country/Region"
     },
     "plan":{
         "trial":"Trial",

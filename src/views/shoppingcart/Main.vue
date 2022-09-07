@@ -77,11 +77,11 @@ import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { buyer_list_campapign_product, buyer_cart_list, guest_list_campapign_product, guest_cart_list } from "@/api_v2/campaign_product";
+import { search_discount_code } from "@/api_v2/discount_code"
 
 import { buyer_retrieve_pre_order, guest_retrieve_pre_order } from "@/api_v2/pre_order";
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies"
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 const route = useRoute();
 const router = useRouter();
 const store = useShoppingCartStore()
@@ -111,8 +111,13 @@ onMounted(()=>{
 		res => {
 			store.campaignProducts = res.data     
       });
-		}
-	)
+
+  search_discount_code(route.params.pre_order_oid,'cart_referal').then(
+    res=>{
+      store.referalCodes = res.data
+    }
+    )}
+)
 
   const cart_list = isAnonymousUser?guest_cart_list:buyer_cart_list
 	cart_list(route.params.pre_order_oid).then(

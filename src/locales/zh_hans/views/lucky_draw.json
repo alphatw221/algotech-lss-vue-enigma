@@ -2,7 +2,7 @@
     "lucky_draw" : "抽奖设定",
     "invalid_data":"输入资料无效",
     "create_successed":"新增成功",
-    "update_successed":"更新成功",
+    "update_successed":"储存成功",
     "save_success":"储存成功",
     "not_saved":"取消储存",
     "animation_size_err": "上传档案大小不可超过 10 MB",
@@ -16,6 +16,7 @@
         "purchase": "购买任何商品者",
         "product": "购买指定商品者",
         "keyword": "留言內容包含关键字",
+        "sharedpost": "分享贴文者",
         "winners" : "得奖人数",
         "winner_repeat": "重复得奖",
         "yes": "是",
@@ -59,7 +60,8 @@
             "like": "按赞者",
             "product": "购买指定商品者",
             "purchase": "购买任何商品者",
-            "keyword": "留言內容包含关键字"
+            "keyword": "留言內容包含关键字",
+            "sharedpost": "分享贴文者"
         },
         "no_product_err":"尚未将商品加入此直播",
         "assign_product_err":"须加入商品",

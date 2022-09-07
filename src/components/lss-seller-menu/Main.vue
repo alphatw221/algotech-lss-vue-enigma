@@ -134,7 +134,7 @@
           </template>
           <!-- END: First Child -->
         </ul> 
-          <button class="fixed mx-5 text-white rounded-lg btn btn-danger xl:m-5 bottom-5 border-[2px] border-red-900 shadow-lg"
+          <button class="fixed mx-5 text-white rounded-lg btn btn-danger xl:m-5 bottom-5 border-0 border-red-900 shadow-lg"
               @click="router.push('/seller/change-plan')"
               >
               <!-- <SimpleIcon icon="upgrade" color="white" class="mr-0 xl:mx-2 h-5"/> -->

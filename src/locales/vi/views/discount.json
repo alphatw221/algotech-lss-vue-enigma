@@ -6,7 +6,8 @@
         "code":"mã giảm giá", 
         "start_at":"Thời gian bắt đầu", 
         "end_at":"Thời gian kết thúc", 
-        "type":"giãm giá Type", 
+        "type":"Code Type", 
+        "discount_type":"giãm giá Type", 
         "edit":"Chỉnh", 
         "del":"Xóa",
         "percent_off":"Percentage",
@@ -14,7 +15,12 @@
         "noCode":"No Discount Code",
         "setupFirst":"Set up one by click ( + create )",
         "description" : "Mô tả",
-        "cart_referal":"Cart Referal"
+        "cart_referal":"Cart Referal",
+        "limitations":"Limitations",
+        "general":"Promo Code",
+        "subtotal_over_specific_amount":"Amount:",
+        "product_over_specific_number":"Product:",
+        "specific_campaign":"Campaign:"
     },
     "modal":{
         "create":"Create mã giảm giá",
@@ -22,7 +28,8 @@
         "name":"giãm giá Tên",
         "code":"mã giảm giá",
         "period":"Activate Period",
-        "type":"Discount Type",
+        "type":"Code Type",
+        "discount_type":"Discount Type",
         "limitations":"Limitations",
         "description":"Description",
         "name-required":"Giá trị là bắt buộc",
@@ -33,19 +40,24 @@
         "required":"Giá trị là bắt buộc",
         "campaign":"Hoạt động bán hàng",
         "type_options":{
+            "general":"General",
+            "cart_referal":"Referal"
+        },
+        "discount_type_options":{
             "percent_off":"By Percentage(%)",
             "deduct":"By Deduction(-)"
         },
         "limit_options":{
             "specific_campaign":"các hoạt động bán hàng cụ thể",
-            "subtotal_over_specific_amount":"Subtotal Over Specific Amount",
-            "product_over_specific_number":"Product in Shopping Cart Over Specific Number"
+            "subtotal_over_specific_amount":"By Order Amount",
+            "product_over_specific_number":"By Order Qty"
         },
         "Order Subtotal":"Order Subtotal",
         "Product Number":"Product Number",
         "Discount Rate":"Discount Rate",
         "Deduct Amount":"",
         "cancel":"Cancel",
-        "save":"Save"
+        "save":"Save",
+        "create_err":"Input Error"
     }
 }

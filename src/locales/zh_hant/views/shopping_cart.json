@@ -1,27 +1,27 @@
 {
     "shopping_cart":"購物車",
-    "delivery":"運送",
+    "delivery":"收件資訊",
     "my_cart_tab":{
         "special_note":"購物須知",
-        "my_cart":"我的購物車"
+        "my_cart":"訂單編號"
     },
     "delivery_tab":{
         "contact_info":"收件人資訊",
-        "first_name":"名",
-        "last_name":"姓",
-        "phone":"電話",
-        "email":"電子郵件",
+        "first_name":"姓氏",
+        "last_name":"名字",
+        "phone":"聯絡電話",
+        "email":"電子信箱",
         "first_err":"必填",
         "last_err":"必填",
         "phone_err":"必填",
-        "Value is not a valid email address":"Email格式不符",
+        "Value is not a valid email address":"電子信箱格式不符",
         "Value is required":"必填",
 
         "shipping_info":"運送資訊",
         "home_delivery":"宅配",
-        "self_pickup":"取貨",
+        "self_pickup":"自行取貨",
 
-        "delivery_info":"宅配資訊",
+        "delivery_info":"收件地址",
         "address":"地址",
         "city":"鄉/鎮/市/區",
         "state":"縣/市",
@@ -36,7 +36,7 @@
             "default":"基本",
             "pickup":"選擇取貨方式"
         },
-        "note":"宅配 & 取貨須知",
+        "note":"宅配 & 運送須知",
         "remark":"備註",
         "previous":"上一步",
         "proceed_to_payment":"前往付款"
@@ -44,7 +44,7 @@
     "table":{
         "update":"更新",
         "cancel":"取消",
-        "missing_message":"熱銷商品，你可能會錯過!",
+        "missing_message":"很多買家也在瀏覽此商品，趕緊結帳以免錯過！",
         "delete":"刪除",
         "empty_message":"還沒有任何商品",
         "product":"商品",
@@ -57,7 +57,7 @@
         "edit":"修改"
     },
     "order_summary":{
-        "order_summary":"訂單總結",
+        "order_summary":"訂單金額",
         "subtotal":"小計",
         "price_adjustment":"價格調整",
         "shipping":"運費",
@@ -66,40 +66,48 @@
         "add_item":"加入更多商品",
         "next":"下一步",
         "promo_discount": "優惠代碼折抵",
-        "enter_promo":"輸入優惠代碼",
+        "enter_promo":"優惠代碼",
+        "enter":"套用",
         "promo_apply":"優惠代碼 %{code} 已生效" 
     },
     "add_item":{
-        "select_add_ons":"加購",
+        "select_add_ons":"加入商品",
         "select_products":"加購商品",
         "add":"加入",
         "wishlist":"到貨通知"
     },
     "payment":{
-        "shipping_summary":"寄送資訊",
-        "pickup":"到店取貨",
+        "shipping_summary":"收件資訊",
+        "pickup":"自行取货",
         "delivery":"宅配",
-        "address":"宅配地址",
+        "address":"收件地址",
         "pay_with":"付款方式",
         "direct":{
-            "title": "轉帳付款",
-            "account":"帳號",
+            "title": "銀行轉帳",
+            "account":"銀行帳號",
             "account_number":"帳戶號碼",
             "account_name":"帳戶名稱",
-            "note":"提醒",
+            "note":"備註",
             "beneficiary":"Beneficiary Bank",
-            "upload_img":"拖動檔案或點擊上傳",
-            "accepted_types":"檔案格式",
-            "max_size":"檔案最大限制",
-            "last_five_digits":"末五碼",
+            "upload_img":"點擊上傳圖片",
+            "accepted_types":"可支援檔案格式",
+            "max_size":"檔案大小上限",
+            "last_five_digits":"匯款帳號末五碼",
             "digits_message":"請輸入末五碼",
             "complete_order":"完成訂單",
-            "information": "付款資訊"
+            "information": "匯款資訊",
+            "upload_record":"上傳付款證明",
+            "or":"或"
         }
+    },
+    "login":{
+        "guest_login":"以訪客身份結帳",
+        "continue":"繼續",
+        "social_login":"快速登入"
     },
     "delete_success":"刪除成功",
     "invalid_qty":"無效數量",
-    "update_successfully":"更新成功",
+    "update_successfully":"儲存成功",
     "invalid_data":"無效資料",
     "invalid_amount":"無效金額",
     "add_item_success":"成功新增商品",

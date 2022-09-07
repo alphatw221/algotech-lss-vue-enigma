@@ -7,6 +7,7 @@
         "start_at":"開始日期", 
         "end_at":"結束日期", 
         "type":"優惠種類", 
+        "discount_type":"折扣種類",
         "edit":"編輯", 
         "del":"刪除",
         "percent_off":"折扣（％）",
@@ -14,7 +15,12 @@
         "noCode":"無設定優惠代碼",
         "setupFirst":"點選 （＋ 創建）以創建新代碼",
         "description" : "備註",
-        "cart_referal":"推薦碼"
+        "cart_referal":"推薦碼",
+        "general":"折扣碼",
+        "limitations":"使用條件",
+        "subtotal_over_specific_amount":"總價：",
+        "product_over_specific_number":"商品：",
+        "specific_campaign":"活動："
     },
     "modal":{
         "create":"新增優惠代碼",
@@ -23,6 +29,7 @@
         "code":"優惠代碼",
         "period":"優惠期間",
         "type":"優惠種類",
+        "discount_type":"優惠種類",
         "limitations":"使用條件",
         "description":"備註",
         "name-required":"須填寫名稱",
@@ -35,6 +42,10 @@
         "required":"必填",
         "campaign":"選擇銷售活動",
         "type_options":{
+            "general":"一般代碼",
+            "cart_referal":"推薦代碼"
+        },
+        "discount_type_options":{
             "percent_off":"折扣（％）",
             "deduct":"減價（－）"
         },
@@ -43,9 +54,11 @@
             "subtotal_over_specific_amount":"訂單金額滿（$）",
             "product_over_specific_number":"訂單商品數量滿（件）"
         },
+        
         "Order Subtotal":"訂單金額（$）",
         "Product Number":"訂單商品數量（件）",
         "cancel":"取消",
-        "save":"儲存"
+        "save":"儲存",
+        "create_err":"輸入錯誤"
     }
 }

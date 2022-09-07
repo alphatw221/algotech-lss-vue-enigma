@@ -4,8 +4,22 @@ import { ref } from "vue"
 export const useLSSDiscountCodeMetaStore = defineStore("discountCodeMeta", {
   state: () => ({
 
-
 	types:{
+		general:{
+			key:"general",
+			name:"general",
+			fields:[]
+		},
+		cart_referal:{
+			key:"cart_referal",
+			name:"cart_referal",
+			fields:[
+				// {key:"seperator", type:"select", name:"seperator", options:['-','/','_'],dataType:"string", default:'-'},
+			]
+		},
+		
+	},
+	discount_types:{
 		percent_off:{
 			key:"percent_off",
 			name:"percent_off",

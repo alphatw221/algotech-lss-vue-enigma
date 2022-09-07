@@ -5,10 +5,12 @@
     },
     "create_campaign":{
         "campaign_period":"Time period that allows buyers to place an order",
-        "payment_record":"Require buyer to attach payment record"
+        "payment_record":"Require buyer to attach payment record",
+        "title":"The title cannot exceed 50 characters"
     },
     "campaign_live":{
-        "view_icon":"Order details"
+        "view_icon":"Order details",
+        "incoming_order":"Only preliminary order information is displayed here. To view all orders, please go to \"Order Management\""
     },  
     "campaign_list":{
         "stop_checkout":"Disable shopping cart immediately",
@@ -29,7 +31,9 @@
         "price_adjustment":"Adjust price that can add additional fee or give discount to buyer"
     },
     "auto_reply":{
-        "assign_to":"Assign auto reply to certain page"
+        "assign_to":"Assign auto reply to certain page",
+        "title":"Buyers need to have interactive records with the social account (such as leaving a message in a live post, etc.) before the system will activate this function.",
+        "platform":"Please select the community account you want to apply this auto-reply to."
     },
     "discount_code":{
         "percent_off":"To set \"20% off\", please enter \"20\"% off; \"30% off\", please enter \"30\"% off, and so on."

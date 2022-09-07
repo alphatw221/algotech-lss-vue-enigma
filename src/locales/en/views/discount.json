@@ -6,7 +6,8 @@
         "code":"Discount Code", 
         "start_at":"Start Time", 
         "end_at":"End Time", 
-        "type":"Discount Type", 
+        "type":"Code Type", 
+        "discount_type":"Discount Type", 
         "edit":"Edit", 
         "del":"Delete",
         "percent_off":"Percentage",
@@ -14,7 +15,12 @@
         "noCode":"No Discount Code",
         "setupFirst":"Set up one by click ( + create )",
         "description":"Description",
-        "cart_referal":"Cart Referal"
+        "cart_referal":"Cart Referral",
+        "limitations":"Limitations",
+        "general":"Promo Code",
+        "subtotal_over_specific_amount":"Amount:",
+        "product_over_specific_number":"Product:",
+        "specific_campaign":"Campaign:"
     },
     "modal":{
         "create":"Create Discount Code",
@@ -22,7 +28,8 @@
         "name":"Discount Name",
         "code":"Discount Code",
         "period":"Activate Period",
-        "type":"Discount Type",
+        "type":"Code Type",
+        "discount_type":"Discount Type",
         "limitations":"Limitations",
         "description":"Description",
         "name-required":"Name is required",
@@ -33,19 +40,24 @@
         "required":"Required",
         "campaign":"Campaign",
         "type_options":{
+            "general":"General",
+            "cart_referal":"Referal"
+        },
+        "discount_type_options":{
             "percent_off":"By Percentage(%)",
             "deduct":"By Deduction(-)"
         },
         "limit_options":{
             "specific_campaign":"Specific Campaign",
-            "subtotal_over_specific_amount":"Subtotal Over Specific Amount",
-            "product_over_specific_number":"Product Over Specific Number"
+            "subtotal_over_specific_amount":"By Order Amount",
+            "product_over_specific_number":"By Order Qty"
         },
         "Order Subtotal":"Order Subtotal",
         "Product Number":"Product Number",
         "Discount Rate":"Discount Rate",
         "Deduct Amount":"",
         "cancel":"Cancel",
-        "save":"Save"
+        "save":"Save",
+        "create_err":"Input Error"
     }
 }
