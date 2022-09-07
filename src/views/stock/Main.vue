@@ -10,7 +10,7 @@
 				<input id="off" name="state-d" type="radio" @click="toggleTabs(2)" />
 				<label for="off">{{ $t('stock.delisted') }}</label>
 			</div>
-			<div>
+			<div class="flex ">
 				<EasyStoreExportProductButton />
 				<OrdrStartrExportProductButton/>
 				<button 

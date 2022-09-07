@@ -41,7 +41,7 @@
     .ts-dropdown {
         margin-top: -1px;
         border-top: 1px solid rgba(226, 232, 240, var(--tw-border-opacity));
-        @apply z-50 text-sm shadow-sm border-slate-200 rounded;
+        @apply text-sm shadow-sm border-slate-200 rounded;
         .optgroup-header {
             padding: 9px 10px;
             @apply font-medium;

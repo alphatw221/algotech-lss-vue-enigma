@@ -18,10 +18,10 @@
                             <DropdownMenu class="w-fit">
                                 <DropdownContent>
                                     <DropdownItem @click="toDrawList()" class="whitespace-nowrap">
-                                        {{$t('campaign_live.comment.lucky_draw')}}
+                                        <SimpleIcon icon="lucky_draw" color="#2d8cf0" class="mr-1"/> {{$t('campaign_live.comment.lucky_draw')}}
                                     </DropdownItem>
                                     <DropdownItem @click="toQuizList()" class="whitespace-nowrap">
-                                        {{$t('campaign_live.comment.quiz_game')}}
+                                        <SimpleIcon icon="quiz" color="#2d8cf0" class="mr-1"/> {{$t('campaign_live.comment.quiz_game')}}
                                     </DropdownItem>
                                 </DropdownContent>
                             </DropdownMenu>
@@ -198,6 +198,7 @@ import CommentListView from './CommentListView.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import Comments from "../../global-components/lss-svg-icons/Comments.vue";
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 
 const router = useRouter();
