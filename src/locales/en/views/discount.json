@@ -15,7 +15,12 @@
         "noCode":"No Discount Code",
         "setupFirst":"Set up one by click ( + create )",
         "description":"Description",
-        "cart_referal":"Cart Referal"
+        "cart_referal":"Cart Referral",
+        "limitations":"Limitations",
+        "general":"Promo Code",
+        "subtotal_over_specific_amount":"Amount:",
+        "product_over_specific_number":"Product:",
+        "specific_campaign":"Campaign:"
     },
     "modal":{
         "create":"Create Discount Code",
@@ -52,6 +57,7 @@
         "Discount Rate":"Discount Rate",
         "Deduct Amount":"",
         "cancel":"Cancel",
-        "save":"Save"
+        "save":"Save",
+        "create_err":"Input Error"
     }
 }

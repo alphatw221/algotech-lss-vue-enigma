@@ -90,13 +90,13 @@
                     <div class="flex flex-row justify-between mt-2">
                         <label class="text-base">{{$t(`discount.modal.`+column.name)}}</label>
                         <button 
+                            v-show="showLimitButton"
                             class="inline-block rounded-lg btn btn-primary lg:w-48 h-[42px]" 
                             @click="addLimitation()"
                         >
                             {{$t('discount.modal.add_limitations')}}
                         </button>
                     </div>
-
                     <div 
                         class="flex flex-col gap-2"
                         v-for="(limitation, limitation_index) in discountCode.limitations" :key="limitation_index"
@@ -136,7 +136,7 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance, onUnmounted, watch , computed } from "vue";
 
-import { create_discount_code, update_discount_code } from "@/api_v2/discount_code"
+import { create_discount_code, update_discount_code} from "@/api_v2/discount_code"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
 import LimitationBlock from "./LimitationBlock.vue"
@@ -244,14 +244,16 @@ const hideModal = ()=>{
 
 const deleteLimitation = index=>{discountCode.value.limitations.splice(index,1)}
 
-const addLimitation = ()=>{discountCode.value.limitations.unshift({key:''})}
+const showLimitButton = ref(true)
+const addLimitation = ()=>{
+    discountCode.value.limitations.unshift({key:''})}
 
 
 const createDiscountCode=()=>{
 
     v.value.$touch()
 	if (v.value.$invalid) {
-		layoutStore.alert.showMessageToast("Invalid Data")
+		layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
         console.log(v.value)
 		return
 	}
@@ -270,7 +272,7 @@ const updateDiscountCode = ()=>{
 
         v.value.$touch()
         if (v.value.$invalid) {
-            layoutStore.alert.showMessageToast("Invalid Data")
+            layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
             console.log(v.value)
             return
         }

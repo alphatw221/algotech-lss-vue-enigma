@@ -15,7 +15,12 @@
         "noCode":"No Discount Code",
         "setupFirst":"Set up one by click ( + create )",
         "description" : "Mô tả",
-        "cart_referal":"Cart Referal"
+        "cart_referal":"Cart Referal",
+        "limitations":"Limitations",
+        "general":"Promo Code",
+        "subtotal_over_specific_amount":"Amount:",
+        "product_over_specific_number":"Product:",
+        "specific_campaign":"Campaign:"
     },
     "modal":{
         "create":"Create mã giảm giá",
@@ -52,6 +57,7 @@
         "Discount Rate":"Discount Rate",
         "Deduct Amount":"",
         "cancel":"Cancel",
-        "save":"Save"
+        "save":"Save",
+        "create_err":"Input Error"
     }
 }

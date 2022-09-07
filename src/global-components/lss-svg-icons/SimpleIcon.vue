@@ -211,6 +211,14 @@
     <ellipse cx="15.7659" cy="16.1704" rx="1" ry="1.15872" transform="rotate(15 15.7659 16.1704)" stroke-width="1.5"/>
     </svg> 
 
+    <svg 
+    v-else-if="icon == 'shopping_bag'"
+    :stroke="props.color" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M11 4H3C1.89543 4 1 4.89543 1 6V13C1 14.1046 1.89543 15 3 15H11C12.1046 15 13 14.1046 13 13V6C13 4.89543 12.1046 4 11 4Z" stroke-width="1.5"/>
+    <path d="M5 4V3C5 1.89543 5.89543 1 7 1V1C8.10457 1 9 1.89543 9 3V4" stroke-width="1.5"/>
+    </svg>
+
+
 
 
 

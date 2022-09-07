@@ -3,11 +3,14 @@
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
-					<th v-for="column, column_index in tableColumns" :key="column_index" class="w-fit whitespace-nowrap text-center">
-						<template v-if="column.type === 'index'">
-							<span class="px-6"> # </span> 
-						</template>
-						<template v-else> {{$t(`discount.table.`+column.name)}} </template>
+					<th v-for="column, column_index in tableColumns" :key="column_index" class="whitespace-nowrap text-center">
+						
+							<template v-if="column.type === 'index'">
+								<span class="px-1"> # </span> 
+							</template>
+						<div v-else-if="column.type == 'action'" class="px-1"> {{$t(`discount.table.`+column.name)}} </div>
+						<div v-else class="w-[80px]">  {{$t(`discount.table.`+column.name)}} </div>
+						
 					</th>
 				</tr>
 			</thead>
@@ -42,8 +45,21 @@
 							{{ discountCode[column.key] }}
 						</td>
 						<td v-else-if="column.type === 'textI18'" class="sm:w-32"
-							:data-content="$t(`discount.table.`+column.name) " >
+							:data-content="$t(`discount.table.`+column.key) " >
 							{{ $t(`discount.table.` + discountCode[column.key]) }}
+						</td>
+						<td v-else-if="column.type === 'multipleI18'" class="text-[12px] whitespace-nowrap"
+							:data-content="$t(`discount.table.`+column.key) " >
+							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap sm:w-[100px]"> 
+								<div> * {{ $t(`discount.table.` + limitations.key) }} </div>
+								<div class="ml-2" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{limitations.amount}} </div>
+								<div class="ml-2" v-else-if="limitations.key == 'product_over_specific_number'"> {{limitations.number}} pcs </div>
+								<div class="ml-2" v-else-if="limitations.key == 'specific_campaign'"> 
+									<template v-for="(campaign, index) in scheduledCamapign" :key="index"> 
+									<template v-if="campaign.id == limitations.campaign_id"> {{campaign.title}}  </template>	
+									</template>
+								</div>
+							</div>
 						</td>
 						
 						<td v-else-if="column.type === 'datetime'" class="sm:w-32"
@@ -96,10 +112,9 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
 
-import { delete_discount_code, list_discount_code } from "@/api_v2/discount_code"
+import { delete_discount_code, list_discount_code,list_scheduled_campaign_options } from "@/api_v2/discount_code"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const tableColumns = [
 	{ name: "index", key: "index" , type:"index"},
@@ -107,9 +122,10 @@ const tableColumns = [
     { name: "code", key: "code" , type:"text"},
     { name: "start_at", key: "start_at", type:"datetime" },
     { name: "end_at", key: "end_at" , type:"datetime"},
-    // { name: "type", key: "type" , type:"textI18"},
+    { name: "type", key: "type" , type:"textI18"},
 	{ name: "discount_type", key: "discount_type" , type:"textI18"},
-	{ name: "description", key: "description" , type:"text"},
+	{ name: "limitations", key: "limitations" , type:"multipleI18"},
+	// { name: "description", key: "description" , type:"text"},
 	{ name: "edit", key: "edit" , type:"action"},
 	
 ]
@@ -126,8 +142,10 @@ const totalCount = ref(0);
 const discountCodes = ref([]);
 const showLoadingIcon = ref(true)
 
+const scheduledCamapign = ref() 
 onMounted(() => {
 	showLoadingIcon.value = true
+	getScheduleCamp();
 	listDiscountCodes();
 	eventBus.on("listDiscountCodes", () => {
 		listDiscountCodes();
@@ -148,7 +166,12 @@ const changePageSize = page_size=> {
 	listDiscountCodes()
 }
 
-
+const getScheduleCamp =()=>{
+	list_scheduled_campaign_options().then(res=>{
+        scheduledCamapign.value= res.data
+		console.log('Camp',scheduledCamapign.value)
+    })
+}
 
 const listDiscountCodes=()=> {
 	discountCodes.value = []
@@ -280,10 +303,10 @@ thead th{
         padding-left: 0 !important;
         min-height: 25px !important;
     }
-	td:nth-of-type(7):before {
+	td:nth-of-type(9):before {
         display: none;
     }
-    td:nth-of-type(7){
+    td:nth-of-type(9){
         display: inline-block;
         position: absolute;
 		top: -30px !important;

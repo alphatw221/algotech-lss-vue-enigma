@@ -15,7 +15,12 @@
         "noCode":"无设定优惠代码",
         "setupFirst":"点击（＋ 创建）以设定新代码",
         "description" : "备注",
-        "cart_referal":"推荐码"
+        "cart_referal":"推荐码",
+        "general":"折扣码",
+        "limitations":"使用条件",
+        "subtotal_over_specific_amount":"总价：",
+        "product_over_specific_number":"商品：",
+        "specific_campaign":"活動："
     },
     "modal":{
         "create":"新增优惠代码",
@@ -52,6 +57,7 @@
         "Order Subtotal":"订单金额（$）",
         "Product Number":"订单商品数量（件）",
         "cancel":"取消",
-        "save":"储存"
+        "save":"储存",
+        "create_err":"输入错误"
     }
 }

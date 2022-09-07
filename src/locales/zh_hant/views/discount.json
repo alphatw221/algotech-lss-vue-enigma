@@ -15,7 +15,12 @@
         "noCode":"無設定優惠代碼",
         "setupFirst":"點選 （＋ 創建）以創建新代碼",
         "description" : "備註",
-        "cart_referal":"推薦碼"
+        "cart_referal":"推薦碼",
+        "general":"折扣碼",
+        "limitations":"使用條件",
+        "subtotal_over_specific_amount":"總價：",
+        "product_over_specific_number":"商品：",
+        "specific_campaign":"活動："
     },
     "modal":{
         "create":"新增優惠代碼",
@@ -53,6 +58,7 @@
         "Order Subtotal":"訂單金額（$）",
         "Product Number":"訂單商品數量（件）",
         "cancel":"取消",
-        "save":"儲存"
+        "save":"儲存",
+        "create_err":"輸入錯誤"
     }
 }
