@@ -17,6 +17,7 @@
                 </Tippy> 
               </div>
             </template>
+            <div v-else-if="column.key === 'title'" class="sm:w-[100px]"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </div>
             <template v-else> 
               {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
             </template>
@@ -99,14 +100,14 @@
             {{ campaign.title }}
           </td>
           <td class="w-5 text-center startDate" :data-content="$t('campaign_list.campaign_list_table.start_at')">
-            <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
+            <div class="my-2 sm:my-0 sm:w-fit whitespace-nowrap">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short", hour12: false,
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td> 
           <td class="w-5 text-center endDate" :data-content="$t('campaign_list.campaign_list_table.end_at')">
-            <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
+            <div class="my-2 sm:my-0 sm:w-fit whitespace-nowrap" >{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short", hour12: false,
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
@@ -349,7 +350,7 @@ const editCampaignProduct = campaign=>{
 const copyURL = (campaign)=>{
   text = `${baseURL}/buyer/recaptcha/blank/${campaign.id}`;
   navigator.clipboard.writeText(text).then(()=>{
-      alert('copied!')
+      layoutStore.notification.showMessageToast('copied!')
   })
   hideDropDown()
 }

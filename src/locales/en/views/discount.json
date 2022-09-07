@@ -49,8 +49,8 @@
         },
         "limit_options":{
             "specific_campaign":"Specific Campaign",
-            "subtotal_over_specific_amount":"Subtotal Over Specific Amount",
-            "product_over_specific_number":"Product Over Specific Number"
+            "subtotal_over_specific_amount":"By Order Amount",
+            "product_over_specific_number":"By Order Qty"
         },
         "Order Subtotal":"Order Subtotal",
         "Product Number":"Product Number",

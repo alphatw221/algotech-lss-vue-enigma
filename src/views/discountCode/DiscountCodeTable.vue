@@ -50,7 +50,7 @@
 						</td>
 						<td v-else-if="column.type === 'multipleI18'" class="text-[12px] whitespace-nowrap"
 							:data-content="$t(`discount.table.`+column.key) " >
-							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap sm:w-[100px]"> 
+							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[100px]"> 
 								<div> * {{ $t(`discount.table.` + limitations.key) }} </div>
 								<div class="ml-2" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{limitations.amount}} </div>
 								<div class="ml-2" v-else-if="limitations.key == 'product_over_specific_number'"> {{limitations.number}} pcs </div>
@@ -268,7 +268,7 @@ thead th{
         height: auto;
         border: none;
         position: relative;
-        padding-left: 50% !important;
+        padding-left: 45% !important;
         padding-right: 15px !important;
         text-align: right !important;
         box-shadow: none !important;

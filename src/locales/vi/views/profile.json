@@ -9,7 +9,8 @@
         "id":"ID",
         "joined":"Đã bắt đầu",
         "vaild":"Hợp lệ đến",
-        "change_plan":"Thay đổi gói dịch vụ"
+        "change_plan":"Thay đổi gói dịch vụ",
+        "country":"Country/Region"
     },
     "plan":{
         "trial":"dùng thử",

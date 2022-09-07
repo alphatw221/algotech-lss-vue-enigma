@@ -67,7 +67,7 @@
         "next":"Kế tiếp",
         "promo_discount": "Giảm giá từ mã giảm giá",
         "enter_promo":"Vui lòng nhập mã giảm giá",
-        "promo_apply":"Discount Code  %{code} is Applyed"
+        "promo_apply":"Discount Code  %{code} is Applied"
     },
     "add_item":{
         "select_add_ons":"Thêm bổ sung sản phẩm",

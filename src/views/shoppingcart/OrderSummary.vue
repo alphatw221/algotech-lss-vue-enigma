@@ -52,12 +52,13 @@
       </div>
       <span v-if="store.order.applied_discount.code != undefined" class="text-right font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :store.order.applied_discount.code})}} </span>
 
-      <div class="justify-between mt-2"  v-for="referalCode, index in store.referalCodes" :key="index">
+      <div class="flex justify-between mt-2 flex-wrap"  v-for="referalCode, index in store.referalCodes" :key="index">
 
-        <label class=" my-auto whitespace-nowrap">{{'Referal Code:'}}</label>
-        <label class=" my-auto whitespace-nowrap">{{referalCode.code+'-'+route.params.pre_order_oid}}</label>
-
-        <div class=" my-auto whitespace-nowrap">{{referalCode.description}}</div>
+        <label class=" my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.referr_code')}}</label>
+        <button @click="copyURL(referalCode.code+'-'+route.params.pre_order_oid)"
+          class="flex my-auto whitespace-nowrap border-2 border-green-800 rounded-md p-1 px-2 text-green-800 font-medium">{{referalCode.code+'-'+route.params.pre_order_oid}} 
+        </button>
+        <!-- <div v-if="referalCode.description" class="my-auto whitespace-nowrap">{{referalCode.description}}</div> -->
 
       </div>
 
@@ -104,6 +105,7 @@
 
 <script setup>
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { computed, onMounted, ref, watch } from "vue";
 import { buyer_apply_discount_code, buyer_cancel_discount_code } from "@/api_v2/pre_order"; 
 import { useCookies } from "vue3-cookies";
@@ -113,7 +115,7 @@ const router = useRouter();
 
 const { cookies } = useCookies();
 const store = useShoppingCartStore();
- 
+const layoutStore = useLSSBuyerLayoutStore();
 
 const addItem = ()=>{
   console.log('add item')
@@ -122,6 +124,7 @@ const shippingCost = ref(0)
 const cartTotal = ref(0)
 
 const updateOrderSummary = ()=>{
+    console.log(store.referalCodes)
     if (store.shipping_info.shipping_method=='pickup'){
       shippingCost.value = 0
       cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.adjust_price - store.order.discount ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
@@ -175,6 +178,7 @@ watch(
 onMounted(()=>{
   store.order.discount = ''
   store.order.applied_discount = {}
+  console.log(store.referalCodes)
 })
 
 watch(
@@ -196,6 +200,12 @@ const promoDelete =()=>{
       store.order = res.data
       discount_code.value = ''
     })
+}
+
+const copyURL = (code)=>{
+  navigator.clipboard.writeText(`${code}`).then(()=>{
+      layoutStore.notification.showMessageToast('copied!')
+  })
 }
 
 const toNext=()=>{
