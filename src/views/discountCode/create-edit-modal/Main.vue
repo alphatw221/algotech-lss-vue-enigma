@@ -245,8 +245,14 @@ const hideModal = ()=>{
 const deleteLimitation = index=>{discountCode.value.limitations.splice(index,1)}
 
 const showLimitButton = ref(true)
-const addLimitation = ()=>{
-    discountCode.value.limitations.unshift({key:''})}
+const addLimitation = ()=>{if(discountCode.value.limitations.length <2){
+    discountCode.value.limitations.unshift({key:''})
+    showLimitButton.value = true
+    }else{
+        discountCode.value.limitations.unshift({key:''})
+        showLimitButton.value = false
+    }
+} 
 
 
 const createDiscountCode=()=>{

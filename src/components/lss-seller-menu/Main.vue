@@ -75,7 +75,7 @@
                       @click="linkTo(subMenu, router, $event)"
                     >
                       <div class="side-menu__icon">
-                        <ActivityIcon />
+                        <MenuIcon :icon="subMenu.pageName" color="#334155" />
                       </div>
                       <div class="side-menu__title">
                         {{ $t(`layout.menu.${subMenu.title}`) }}
@@ -163,7 +163,6 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import SideMenuTooltip from "@/components/side-menu-tooltip/Main.vue";
 import { linkTo, nestedMenu, enter, leave } from "./index";
 import dom from "@left4code/tw-starter/dist/js/dom";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 import MenuIcon from "../../global-components/lss-svg-icons/MenuIcon.vue";
 
 const route = useRoute();
