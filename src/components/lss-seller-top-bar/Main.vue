@@ -257,21 +257,23 @@ const toggleMobileMenu = ()=>{
   sellerLayoutStore.showMobileMenu = !sellerLayoutStore.showMobileMenu
 }
 
-const userAvatar = computed(() => {
-  if(cookies.get('login_with')=='facebook'){
-    return sellerLayoutStore.userInfo.facebook_info.picture
-  }
-  if (cookies.get('login_with')=='google'){
-    return sellerLayoutStore.userInfo.google_info.picture
-  }
-  if(sellerLayoutStore.userInfo.facebook_info.picture){
-    return sellerLayoutStore.userInfo.facebook_info.picture
-  }
-  if(sellerLayoutStore.userInfo.google_info.picture){
-    return sellerLayoutStore.userInfo.google_info.picture
-  }
-  return import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR+'fake_head.jpeg'
-});
+// const userAvatar = computed(() => {
+//   if(cookies.get('login_with')=='facebook'){
+//     return sellerLayoutStore.userInfo.facebook_info.picture
+//   }
+//   if (cookies.get('login_with')=='google'){
+//     return sellerLayoutStore.userInfo.google_info.picture
+//   }
+//   if(sellerLayoutStore.userInfo.facebook_info.picture){
+//     return sellerLayoutStore.userInfo.facebook_info.picture
+//   }
+//   if(sellerLayoutStore.userInfo.google_info.picture){
+//     return sellerLayoutStore.userInfo.google_info.picture
+//   }
+//   return import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR+'fake_head.jpeg'
+// });
+
+const userAvatar = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR+'fake_head.jpeg'
 const data = ref({currency:'USD', lang:'en'})
 
 const languages = ref([
