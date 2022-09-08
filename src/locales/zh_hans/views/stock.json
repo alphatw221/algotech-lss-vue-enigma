@@ -5,8 +5,10 @@
     "delisted": "未上架",
     "add_product": "新增商品",
     "dont_have_product_notify": "目前没有任何商品",
-    "no_result": "您并未新增商品",
-    "click_to_add":"点击 \"+ 新增商品\"，新增您的第一个商品",
+    "no_result":{
+        "enabled":"目前没有任何可销售的商品。",
+        "disabled":"目前没有任何未上架的商品。"
+    },
 
 
     "search_bar": {

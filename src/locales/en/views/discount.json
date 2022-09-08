@@ -1,6 +1,7 @@
 {   
     "create_discount_code":"Create New Code",
     "discount_code":"Discount Code",
+    "create_err":"Input Error",
     "table":{
         "name":"Discount Name",
         "code":"Discount Code", 
@@ -12,7 +13,7 @@
         "del":"Delete",
         "percent_off":"Percentage",
         "deduct":"Deduction",
-        "noCode":"No Discount Code",
+        "noCode":"There are currently no Discount Codes",
         "setupFirst":"Set up one by click ( + create )",
         "description":"Description",
         "cart_referal":"Cart Referral",
@@ -57,7 +58,6 @@
         "Discount Rate":"Discount Rate",
         "Deduct Amount":"",
         "cancel":"Cancel",
-        "save":"Save",
-        "create_err":"Input Error"
+        "save":"Save"
     }
 }

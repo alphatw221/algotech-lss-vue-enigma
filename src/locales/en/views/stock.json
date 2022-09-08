@@ -5,7 +5,10 @@
     "delisted": "Delisted",
     "add_product": "Add Product",
     "dont_have_product_notify": "No stock yet.",
-    "no_result": "No result",
+    "no_result":{
+        "enabled":"There are currently no items available for sale.",
+        "disabled":"There are currently no unlisted items."
+    },
     "click_to_add":"Click \"+ Add product\" to add your first product.",
 
     "search_bar": {

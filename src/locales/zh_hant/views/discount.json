@@ -1,6 +1,7 @@
 {   
     "create_discount_code":"新增優惠代碼",
     "discount_code":"優惠代碼",
+    "create_err":"輸入錯誤",
     "table":{
         "name":"優惠名稱",
         "code":"優惠代碼", 
@@ -58,7 +59,6 @@
         "Order Subtotal":"訂單金額（$）",
         "Product Number":"訂單商品數量（件）",
         "cancel":"取消",
-        "save":"儲存",
-        "create_err":"輸入錯誤"
+        "save":"儲存"
     }
 }

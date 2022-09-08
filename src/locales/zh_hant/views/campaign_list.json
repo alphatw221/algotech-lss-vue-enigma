@@ -62,7 +62,11 @@
         "History" : "歷史",
         "Ongoing" : "進行中",
 
-        "no_have_campaign": "目前沒有任何銷售活動",
+        "no_have_campaign":{
+            "ongoing":"目前沒有任何進行中的銷售活動",
+            "scheduled":"目前沒有任何排程中的銷售活動",
+            "history":"目前没有任何任何銷售活動紀錄"
+        },
         "click_create_notify": "點擊 \"+ 建立銷售活動\" ，開始新的銷售活動",
         "connect_platform":"綁定平台"
     },

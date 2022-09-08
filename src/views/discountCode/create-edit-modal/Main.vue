@@ -101,7 +101,7 @@
                         class="flex flex-col gap-2" :class="`index-${limitation_index}`"
                         v-for="(limitation, limitation_index) in discountCode.limitations" :key="limitation_index"
                     >
-                        <LimitationBlock :discountCode="discountCode" :limitationIndex="limitation_index" :v="v" />
+                        <LimitationBlock :discountCode="discountCode" :limitationIndex="limitation_index" :limitationErr="limitationErr" :v="v" />
 
                         <div class="flex w-full"> 
                             <button 
@@ -141,7 +141,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
 import LimitationBlock from "./LimitationBlock.vue"
 import DiscountTypeBlock from "./DiscountTypeBlock.vue"
-import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
+import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue,sameAs,not } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 
@@ -158,8 +158,8 @@ const showModal = ref(false)
 const discountCode = ref({
     name:'',
     code:'',
-    start_at:null,
-    end_at:null,
+    start_at:new Date(),
+    end_at:new Date(),
     type:"general",
     discount_type:"",
     limitations:[],
@@ -193,6 +193,7 @@ const discountCodeRules = computed(() => {
         }
     }
 })
+
 
 const v = useVuelidate(discountCodeRules, discountCode);
 
@@ -228,8 +229,8 @@ const hideModal = ()=>{
     discountCode.value = {
         name:'',
         code:'',
-        start_at:null,
-        end_at:null,
+        start_at:new Date,
+        end_at:new Date,
         type:"",
         discount_type:"",
         limitations:[],
@@ -239,8 +240,12 @@ const hideModal = ()=>{
     }
     v.value.$reset()
 }
+const keyArray= ref([])
+const limitationErr = ref(false)
 
-
+const checkIfDuplicateExists=(arr)=> {
+    return new Set(arr).size !== arr.length
+}
 
 const deleteLimitation = index=>{discountCode.value.limitations.splice(index,1)}
 
@@ -256,17 +261,23 @@ const addLimitation = ()=>{if(discountCode.value.limitations.length <2){
 
 
 const createDiscountCode=()=>{
-
+    limitationErr.value = false
+    for(let i=0; i<discountCode.value.limitations.length; i++){
+        keyArray.value.push(discountCode.value.limitations[i].key)
+    }
     v.value.$touch()
 	if (v.value.$invalid) {
 		layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
         console.log(v.value)
 		return
-	}
-
+	}else if(checkIfDuplicateExists(keyArray.value)==true){
+        layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
+        limitationErr.value =true
+        keyArray.value=[]
+        return
+    }
 
     create_discount_code(discountCode.value).then(res=>{
-
         eventBus.emit('listDiscountCodes',null)
         layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.create_success'))
         hideModal()
@@ -275,11 +286,19 @@ const createDiscountCode=()=>{
 
 const updateDiscountCode = ()=>{
     update_discount_code(discountCode.value.id,discountCode.value).then(res=>{
-
+        limitationErr.value = false
+        for(let i=0; i<discountCode.value.limitations.length; i++){
+            keyArray.value.push(discountCode.value.limitations[i].key)
+        }
         v.value.$touch()
         if (v.value.$invalid) {
             layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
             console.log(v.value)
+            return
+        }else if(checkIfDuplicateExists(keyArray.value)==true){
+            layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
+            limitationErr.value =true
+            keyArray.value=[]
             return
         }
 

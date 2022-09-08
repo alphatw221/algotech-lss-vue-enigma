@@ -26,9 +26,9 @@
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{$t('discount.table.noCode')}}
 							</h1>
-							<h1 class="text-slate-500 text-sm md:text-lg">
+							<!-- <h1 class="text-slate-500 text-sm md:text-lg">
 								{{$t('discount.table.setupFirst')}}
-							</h1>
+							</h1> -->
 						</div>
 					</td> 
 				</tr>
@@ -50,11 +50,11 @@
 						</td>
 						<td v-else-if="column.type === 'multipleI18'" class="text-[12px] whitespace-nowrap"
 							:data-content="$t(`discount.table.`+column.key) " >
-							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[100px]"> 
+							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
 								<div> * {{ $t(`discount.table.` + limitations.key) }} </div>
 								<div class="ml-2" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{limitations.amount}} </div>
 								<div class="ml-2" v-else-if="limitations.key == 'product_over_specific_number'"> {{limitations.number}} pcs </div>
-								<div class="ml-2" v-else-if="limitations.key == 'specific_campaign'"> 
+								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitations.key == 'specific_campaign'"> 
 									<template v-for="(campaign, index) in scheduledCamapign" :key="index"> 
 									<template v-if="campaign.id == limitations.campaign_id"> {{campaign.title}}  </template>	
 									</template>
@@ -169,7 +169,6 @@ const changePageSize = page_size=> {
 const getScheduleCamp =()=>{
 	list_scheduled_campaign_options().then(res=>{
         scheduledCamapign.value= res.data
-		console.log('Camp',scheduledCamapign.value)
     })
 }
 
@@ -178,12 +177,11 @@ const listDiscountCodes=()=> {
 	showLoadingIcon.value = true
 	list_discount_code(pageSize.value, currentPage.value)
 	.then((res) => {
-		console.log(res.data)
+		// console.log(res.data)
 		totalCount.value = res.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		discountCodes.value = res.data.results
 		showLoadingIcon.value = false
-		console.log(discountCodes.value)
 	})
 	.catch(err=>{console.log(err)});
 }

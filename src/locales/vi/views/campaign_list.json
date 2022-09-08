@@ -55,7 +55,11 @@
         "History" : "Lịch sử",
         "Ongoing" : "Đang diễn ra",
         
-        "no_have_campaign": "Bạn chưa tạo chiến dịch trước đó",
+        "no_have_campaign":{
+            "ongoing":"Do not Have any Ongoing Campaign.",
+            "scheduled":"Do not Have any Scheduled Campaign.",
+            "history":"Do not Have any History Campaign."
+        },
         "click_create_notify": "Nhấp chuột vào \"+ Tạo\" để tạo chiến dịch bán hàng livestream mới",
         "connect_platform":"Kết nối nền tảng",
         "quiz_game":"Trò chơi giải đố" 
