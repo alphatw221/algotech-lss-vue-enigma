@@ -182,7 +182,7 @@ const router = useRouter()
 const showTab = ref(1)
 const showPassword = ref(false)
 const showConfirmPassword = ref(false)
-const homePageUrl = import.meta.env.VITE_LSS_HOME_PAGE_URL
+const homePageUrl = import.meta.env.VITE_HOME_URL
 
 const passwordData = ref({
     code:route.query.code,
