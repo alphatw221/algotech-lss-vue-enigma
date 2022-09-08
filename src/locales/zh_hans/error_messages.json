@@ -33,7 +33,7 @@
                     "stripe_error":"Stripe 错误",
                     "no_related_error":"无关联的付款",
                     "support_for_refunding": "资料无效，请联络卖家以便申请退款",
-                    "payment_error": "付款错误, 请联络卖家"
+                    "payment_error": "付款错误，请联络卖家"
                 }
             },
             "facebook-page":{
@@ -103,7 +103,7 @@
         "stripe_error":"Stripe 错误",
         "no_related_error":"无关联的付款",
         "support_for_refunding": "资料无效，请联络卖家以便申请退款",
-        "payment_error": "付款错误, 请联络卖家"
+        "payment_error": "付款错误，请联络卖家"
     },
     "helper": {
         "set_up_now":"前往设定页面",

@@ -20,9 +20,9 @@
         "number":"聯絡電話",
         "email":"電子郵件",
         "plan_options":{
-            "lite":"Lite (NT$300/月)",
-            "standard":"Standard (NT$900/月)",
-            "premium":"Premium (NT$450起/月)"
+            "lite":"Lite （NT$300／月）",
+            "standard":"Standard （NT$900／月）",
+            "premium":"Premium （NT$450起／月）"
         },
         "period_options":{
             "year":"年費制（九折優惠）",
@@ -63,7 +63,7 @@
         "Subscription Period":"訂閱期限",
         "Subscription End Date":"方案期限",
         "download":"下載電子收據",
-        "thankyou":"感謝您的註冊, 您的訂閱方案已變更!"
+        "thankyou":"感謝您的註冊，您的訂閱方案已變更!"
     }
 
 }
