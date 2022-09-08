@@ -209,11 +209,11 @@
 
                     <div class="flex flex-wrap items-center mt-5">
                         <div class="w-24 h-24 image-fit relative mr-11">
-                            <input type="radio" checked class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw1.svg'" />
+                            <input type="radio" checked class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = `${staticDir}lucky_draw1.svg`" />
                             <img class="rounded-full" :src="`${staticDir}lucky_draw1.svg`" />
                         </div>
                         <div class="w-24 h-24 image-fit relative mr-11">
-                            <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = 'static/lucky_draw2.svg'" />
+                            <input type="radio" class="rounded-full vertical-center absolute top-0 left-0 z-50" name="check_animation" @click="currentSettings.path = `${staticDir}lucky_draw2.svg`" />
                             <img class="rounded-full" :src="`${staticDir}lucky_draw2.svg`" />
                         </div>
                         <template v-for="(animates, key) in animationList" :key="key">
@@ -258,6 +258,8 @@ import i18n from "@/locales/i18n"
 const props = defineProps({
     campaignTitle: String
 })
+
+
 const route = useRoute();
 const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
@@ -279,7 +281,7 @@ const currentSettings = ref({
     prize: '',
     title: '',
     animation: '',
-    path: 'static/lucky_draw1.svg'
+    path: `${staticDir}lucky_draw1.svg`
 })
 const previewImage = ref(null)
 const formData = new FormData()

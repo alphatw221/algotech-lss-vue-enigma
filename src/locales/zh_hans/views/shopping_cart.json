@@ -68,7 +68,8 @@
         "promo_discount": "优惠代码折抵",
         "enter_promo":"优惠代码",
         "enter":"套用",
-        "promo_apply":"优惠代码  %{code} 已激活"
+        "promo_apply":"优惠代码  %{code} 已激活",
+        "referr_code":"分享推荐码"
     },
     "add_item":{
         "select_add_ons":"加入商品",

@@ -25,7 +25,7 @@
         "out_of_stock": "已抽完",
         "edit": "編輯",
         "delete": "刪除",
-        "confirm_delete": "確定要刪除該場抽獎 ?"
+        "confirm_delete": "確定要刪除該場抽獎？"
     },
 
     "winner_modal": {
@@ -39,7 +39,7 @@
     "draw_create": {
         "campaign_title": "活動名稱",
         "prize" : "獎品",
-        "spin_time" : "動畫時間(秒)",
+        "spin_time" : "動畫時間（秒）",
         "number_of_winner" : "得獎人數",
         "animation_style" : "抽獎動畫",
         "winner_repeat" : "重複得獎",
@@ -108,7 +108,7 @@
     "comment_include" : "抽獎條件：留言包含",
     "draw_keyword" : "開始留言抽獎",
     "error_outline" : "error_outline",
-    "no_winners" : "No Winner! There's no comment with this keyword.",
+    "no_winners" : "沒有贏家！ 沒有關於這個關鍵字的留言。",
     "got_it" : "Got it !",
     "lucky_draw_result" : "抽獎結果",
     "winner" : "得獎者",

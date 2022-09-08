@@ -5,7 +5,7 @@
     },
     "create_campaign":{
         "campaign_period":"買家可下單的期間。",
-        "payment_record":"要求買家附上轉帳證明(明細截圖/末五碼)",
+        "payment_record":"要求買家附上轉帳證明（明細截圖／末五碼）",
         "title":"標題字數不可超過 50 字。"
     },
     "campaign_live":{

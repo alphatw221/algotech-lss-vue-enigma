@@ -68,8 +68,8 @@
         "promo_discount": "Promo Code Discount",
         "enter_promo":"Promo Code",
         "enter":"Enter",
-        "promo_apply":"Discount Code  %{code} is Applied",
-        "referr_code":"Referr Code"
+        "promo_apply":"Discount Code %{code} is Applied",
+        "referr_code":"Share Referral Code"
     },
     "add_item":{
         "select_add_ons":"Select add-ons",
