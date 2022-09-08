@@ -108,6 +108,7 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { computed, onMounted, ref, watch } from "vue";
 import { buyer_apply_discount_code, buyer_cancel_discount_code } from "@/api_v2/pre_order"; 
+import { get_shopify_checkout_url } from '@/plugin/shopify/api/cart.js';
 import { useCookies } from "vue3-cookies";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
@@ -209,7 +210,14 @@ const copyURL = (code)=>{
 }
 
 const toNext=()=>{
-  store.openTab=2
+  if (store.order.campaign.user_subscription.user_plan.plugins.shopify) {
+      get_shopify_checkout_url(route.params.pre_order_oid).then(res=>{
+          window.location.href = res.data
+      })
+  } else {
+      store.openTab=2
+  }
+  
   // router.push({query:{tab:2}})
   // if(cookies.get('login_with')=='anonymousUser')
   // buyerLayoutStore.showLoginModal=true
