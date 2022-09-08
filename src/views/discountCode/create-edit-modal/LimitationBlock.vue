@@ -26,7 +26,6 @@
                 <TomSelect
 					v-model="props.discountCode.limitations[props.limitationIndex][field.key]"
 					class="w-full"
-                    
 				>
 					<option v-for="option, index in options" :key="index" :value="option[field.optionValue]">{{ option[field.optionName] }}</option>
 				</TomSelect>
@@ -59,7 +58,6 @@ const handleApiSelect = field=>{
         
     return true
 }
-
 
 const options = ref([])
 </script>

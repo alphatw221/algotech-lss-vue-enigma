@@ -98,10 +98,10 @@
                         </button>
                     </div>
                     <div 
-                        class="flex flex-col gap-2"
+                        class="flex flex-col gap-2" :class="`index-${limitation_index}`"
                         v-for="(limitation, limitation_index) in discountCode.limitations" :key="limitation_index"
                     >
-                        <LimitationBlock :discountCode="discountCode" :limitationIndex="limitation_index" :v="v"/>
+                        <LimitationBlock :discountCode="discountCode" :limitationIndex="limitation_index" :v="v" />
 
                         <div class="flex w-full"> 
                             <button 
@@ -245,8 +245,14 @@ const hideModal = ()=>{
 const deleteLimitation = index=>{discountCode.value.limitations.splice(index,1)}
 
 const showLimitButton = ref(true)
-const addLimitation = ()=>{
-    discountCode.value.limitations.unshift({key:''})}
+const addLimitation = ()=>{if(discountCode.value.limitations.length <2){
+    discountCode.value.limitations.unshift({key:''})
+    showLimitButton.value = true
+    }else{
+        discountCode.value.limitations.unshift({key:''})
+        showLimitButton.value = false
+    }
+} 
 
 
 const createDiscountCode=()=>{
@@ -283,3 +289,17 @@ const updateDiscountCode = ()=>{
     })
 }
 </script>
+
+
+<style scoped>
+
+.index-0{
+    z-index: 9 !important;
+}
+.index-1{
+    z-index: 1 !important;
+}
+.index-2{
+    z-index: -1 !important;
+}
+</style>
