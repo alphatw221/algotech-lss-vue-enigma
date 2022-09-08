@@ -4,9 +4,9 @@ export const useSellerRegistrationStore = defineStore("sellerRegistration", {
 	state: () => ({
 		registerTab: ref(1),
 		country: ref(),
-		home:ref('https://liveshowseller.com/'),
-		terms:ref('https://liveshowseller.com/terms-of-service/'),
-		policy:ref('https://liveshowseller.com/privacy-policy/'),
+		home:ref(import.meta.env.VITE_HOME_URL),
+		terms:ref(import.meta.env.VITE_TERMS_OF_SERVICE_URL),
+		policy:ref(import.meta.env.VITE_PRIVACY_POLICY_URL),
 		notification: ref(false), 
 		alert: ref(false), 
 		registerInfo: ref({}), 

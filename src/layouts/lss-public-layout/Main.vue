@@ -6,14 +6,14 @@
             <div class="sticky z-30 bottom-2"> 
                 <div class="flex justify-between font-medium flex-wrap mx-5 sm:mx-10 text-[12px] sm:text-[16px] sm:mb-4 bg-transparent"> 
                     <span>
-                            © {{new Date().getFullYear()}} Algotech Pte Ltd. All rights reserved
+                            © {{new Date().getFullYear()}} {{ companyName }} All rights reserved
                     </span>
                     <div class="flex flex-row gap-3 ml-auto"> 
-                        <a href="https://liveshowseller.com/">  {{$t("global.footer.home")}}  </a>
+                        <a :href="homeUrl">  {{$t("global.footer.home")}}  </a>
 
-                        <a href="https://liveshowseller.com/terms-of-service/">  {{$t("global.footer.terms")}} </a>
+                        <a :href="termsUrl">  {{$t("global.footer.terms")}} </a>
 
-                        <a href="https://liveshowseller.com/privacy-policy/"> {{$t("global.footer.private_policy")}} </a>
+                        <a :href="privacyPolicyUrl"> {{$t("global.footer.private_policy")}} </a>
                     </div> 
                 </div> 
             </div>
@@ -58,6 +58,11 @@ const browserLangToVueLang = ref({
 onMounted(() => {
   setLanguage();
 })
+
+const companyName = import.meta.env.VITE_COMPANY_NAME
+const homeUrl = import.meta.env.VITE_HOME_URL
+const termsUrl = import.meta.env.VITE_TERMS_OF_SERVICE_URL
+const privacyPolicyUrl = import.meta.env.VITE_PRIVACY_POLICY_URL
 
 const setLanguage = ()=>{
     console.log(window.navigator.language)
