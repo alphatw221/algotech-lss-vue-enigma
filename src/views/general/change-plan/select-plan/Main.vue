@@ -102,10 +102,10 @@
                         <label :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }" > 
                             {{$t('change_plan.step_1.policy.accept')}} 
                             <a :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }" 
-                                href="https://liveshowseller.com/terms-of-service/">{{$t('change_plan.step_1.policy.terms')}} 
+                                :href="termsUrl">{{$t('change_plan.step_1.policy.terms')}} 
                                 </a> {{$t('change_plan.step_1.policy.&')}}
                             <a :class="{ 'text-danger font-blod': validate.privacyPolicy.$error }"
-                                href="https://liveshowseller.com/privacy-policy/">{{$t('change_plan.step_1.policy.conditions')}}</a> 
+                                :href="privacyPolicyUrl">{{$t('change_plan.step_1.policy.conditions')}}</a> 
                         </label>
                     </div>
                     <!-- <template v-if="validate.privacyPolicy.$error">
@@ -157,6 +157,9 @@ const planOptions = ref([{ value: "lite" },{ value: "standard" },{ value: "premi
 const periodOptions = ref([{ value: "month" },{ value: "year" }])
 const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
 const havePromoCode = ref(false)
+
+const termsUrl = import.meta.env.VITE_TERMS_OF_SERVICE_URL
+const privacyPolicyUrl = import.meta.env.VITE_PRIVACY_POLICY_URL
 
 const dayLeft = ref('')
 const expDate = new Date(layout.userInfo.user_subscription.expired_at)

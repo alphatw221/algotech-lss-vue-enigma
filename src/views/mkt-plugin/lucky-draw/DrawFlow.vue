@@ -89,7 +89,7 @@
         <!-- BEGIN: Modal Content -->
         <div id="draw_animation" :class="{ show: showAnimation, hide: !showAnimation}">
             <template v-if="luckyDrawData.animation == ''"> 
-                <img class="mx-auto" :src="`${staticDir}lucky_draw1.svg`" />                        
+                <img class="mx-auto" :src="`${staticDir}lucky_draw1.svg`" />                    
             </template>
             <template v-else>
                 <img class="mx-auto" :src="luckyDrawData.animation" />

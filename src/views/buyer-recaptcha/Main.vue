@@ -22,13 +22,12 @@
 
 <script setup>
 import {loadScriptAsyncDefer} from '@/libs/loadScript.js';
-import loadScript from '@/libs/loadScript.js';
-import {onMounted, ref} from 'vue';
+import loadScript from '@/libs/loadScript.js'
+import {onMounted, ref} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { buyer_create_blank_cart, guest_create_blank_cart } from '@/api_v2/pre_order';
-import { get_easy_store_checkout_url } from '@/plugin/easy-store/api/cart.js';
-import { get_ordr_startr_checkout_url } from '@/plugin/ordr-startr/api/cart.js';
-import { get_shopify_checkout_url } from '@/plugin/shopify/api/cart.js';
+import { get_easy_store_checkout_url } from '@/plugin/easy-store/api/cart.js'
+import { get_ordr_startr_checkout_url } from '@/plugin/ordr-startr/api/cart.js'
 
 import { useCookies } from 'vue3-cookies';
 import { useLSSBuyerLayoutStore } from '@/stores/lss-buyer-layout';
@@ -86,12 +85,11 @@ const recaptchaCallBack = token=>{
                 router.push(`/buyer/cart/${response.data.pre_order_oid}`)
             }
         })
-    } else if (type == 'easy_store') {
+    }else if(type=='easy_store'){
+
         get_easy_store_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
-    } else if (type == 'ordr_startr') {
+    }else if(type=='ordr_startr'){
         get_ordr_startr_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
-    } else if (type == 'shopify') {
-        get_shopify_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
     }
 }
 </script>

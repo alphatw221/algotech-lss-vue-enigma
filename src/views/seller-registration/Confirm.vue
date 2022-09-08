@@ -53,7 +53,7 @@ onMounted(()=>{
   eventBus.on("showComfirmRegisterTab", (payload) => {
     confirmationInfo.value = payload
     registerationStore.registerTab = 3
-    setTimeout(() => (window.location = 'https://liveshowseller.com/thank-you/'), 10000);
+    setTimeout(() => (window.location = `${homeUrl}/thank-you/`), 10000);
     })
 })
 
@@ -63,4 +63,5 @@ onUnmounted(()=>{
 const openReceiptDownloadPage=()=>{
   window.open(confirmationInfo.value.Receipt)
 }
+const homeUrl = import.meta.env.VITE_HOME_URL
 </script>

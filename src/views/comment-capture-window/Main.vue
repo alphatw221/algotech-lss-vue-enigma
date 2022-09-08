@@ -1,78 +1,81 @@
 <template>
     <div 
         id='comment-capturing-window' 
-
-        class="fixed bg-white w-40 block top-20 left-10 z-[999] rounded-lg border-2 border-black" 
+        @mousedown="startDrag($event)"
+        @mouseup="endDrag()"
+        class="fixed bg-white w-fit block top-20 left-10 z-[999] rounded-lg border-2 border-slate-600" 
         v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username"
     
     
     >
-        <div class="bg-primary h-10 rounded-top-md"
+        <!-- <div class="bg-primary h-20"
             @mousedown="startDrag($event)"
             @mouseup="endDrag()"
         >
-        </div>
+        </div> -->
 
-        <div class="m-3 text-center">
+        <div class="m-1 text-center flex">
 
-            
-            <h1>
-                {{ sellerStore.commentCapturingCampaignData?.title }}
-            </h1>
             <!-- tiktok -->
 
-            <div v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username">
-                <div>
-                    <label >Platform : tiktok</label>
-                </div>
+            <div
+                v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username">
 
-                <div>
+                <template  v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='error'">
+                    <AlertCircleIcon class="text-danger mx-auto" />
+                    <!-- <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label> -->
+                    <div class="flex flex-col text-[12px] mx-2">
+                        <label class="font-medium" >{{sellerStore.commentCapturingCampaignData.title}}</label>
+                        <label class="text-red-500">Syncing TikTok Err</label>
+                    </div>
+                </template>
+
+                
+                <template v-else-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='capturing'">
+                    <lottie-player  class="mx-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 30px; height: 30px;"   autoplay></lottie-player>
+                    <!-- <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label> -->
+                    <div class="flex flex-col text-[12px] mx-2">
+                        <label class="font-medium w-fit truncate" >{{sellerStore.commentCapturingCampaignData.title}}</label>
+                        <label class="text-slate-500">Syncing TikTok</label>
+                    </div>
+                </template>
+
+                <!-- <div>
                     <label >User Name : </label>
                     <label >{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username}}</label>
-                </div>
-                
-                <div  v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='error'">
-                    <AlertCircleIcon class="text-danger mx-auto" />
-                    <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label>
-                </div>
-
-                
-                <div v-else-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='capturing'">
-                    <lottie-player  class="mx-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 30px; height: 30px;"   autoplay></lottie-player>
-                    <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label>
-                </div>
+                </div> -->
                 
             </div>
 
-            <div 
+            <div
                 v-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.channel_name"
-                class="mt-3"
+                class="flex"
             >
-                <div>
-                    <label >Platform : Twitch</label>
-                </div>
-
-                <div>
-                    <label >Channel Name : </label>
-                    <label >{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.channel_name}}</label>
-                </div>
-                
                 <div  v-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='error'">
                     <AlertCircleIcon class="text-danger mx-auto" />
                     <label>{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.status}}</label>
                 </div>
-
                 
                 <div v-else-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='capturing'">
-                    <lottie-player  class="mx-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 30px; height: 30px;"   autoplay></lottie-player>
-                    <label>{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.status}}</label>
+                    <lottie-player  class="mt-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 35px; height: 35px;"   autoplay></lottie-player>
+                    <!-- <label>{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.status}}</label> -->
+                </div>
+                <div class="flex flex-col w-24 text-[12px] mx-2">
+                    <label class="font-medium truncate" >{{sellerStore.commentCapturingCampaignData.title}}</label>
+                    <label class="text-slate-500">Syncing Twitch</label>
                 </div>
                 
+
+                <!-- <div>
+                    <label >Channel Name : </label>
+                    <label >{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.channel_name}}</label>
+                </div> -->
             </div>
 
+            
 
 
-            <button class="btn" @click="stopCapturing()">
+            <button class="btn w-10 h-10 rounded-full bg-danger text-white" @click="stopCapturing()">
                 stop
             </button>
 

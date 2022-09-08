@@ -10,7 +10,7 @@
         "select_tag":"相关讯息",
         "clear":"清空",
         "comment_message_1":"尚未有%{tag}相关讯息",
-        "comment_message_2":"尚未有 %{platformName} 讯息",
+        "comment_message_2":"尚未有%{platformName}讯息",
 
         "comments_summarizer":"留言筛选",
         "all_comments":"所有留言",
@@ -35,7 +35,7 @@
         "product":"销售商品",
         "modal_column":{
             "null":"",
-            "cart_sold_left":"下单/售出/剩余",
+            "cart_sold_left":"下单／售出／剩余",
             "name":"商品",
             "description":"说明",
             "Product":"商品",
@@ -53,7 +53,7 @@
             "removable":"允许顾客删除",
             "deletable":"允许顾客删除",
             "search":"搜寻",
-            "no_product":"您尚未加入商品，点击 \"+ 加入商品\" 以新增"
+            "no_product":"您尚未加入商品，点击 \"＋ 加入商品\" 以新增"
         },
         "add":"加入",
         "add_product":"加入商品",
