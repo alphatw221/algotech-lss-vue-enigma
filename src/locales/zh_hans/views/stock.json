@@ -5,8 +5,10 @@
     "delisted": "未上架",
     "add_product": "新增商品",
     "dont_have_product_notify": "目前没有任何商品",
-    "no_result": "您并未新增商品",
-    "click_to_add":"点击 \"+ 新增商品\"，新增您的第一个商品",
+    "no_result":{
+        "enabled":"目前没有任何可销售的商品。",
+        "disabled":"目前没有任何未上架的商品。"
+    },
 
 
     "search_bar": {
@@ -31,7 +33,7 @@
         "description": "说明",
         "qty": "库存数量",
         "price": "价格",
-        "confirm_delete": "确定要删除该商品 ?"
+        "confirm_delete": "确定要删除该商品？"
     },
 
     "category_manage": {
@@ -48,7 +50,7 @@
         },
         "save_success":"储存成功",
         "not_saved":"取消储存",
-        "confirm_delete": "确定要删除该类别 ?"
+        "confirm_delete": "确定要删除该类别？"
     },
 
     "add_product_page": {

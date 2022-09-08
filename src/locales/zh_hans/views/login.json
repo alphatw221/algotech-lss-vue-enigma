@@ -5,15 +5,15 @@
     "password": "密码",
     "sign_in": "登录",
     "seller":"卖家",
-    "forgot_password": "忘记密码 ?",
-    "no_account": "没有帐号 ? ",
-    "create_one": "立即注册 !",
+    "forgot_password": "忘记密码？",
+    "no_account": "没有帐号？",
+    "create_one": "立即注册！",
     "codeInvalid":"验证码错误",
     "2FAModal":{
         "title":"身份验证",
         "subTitle":"从您的电子邮件中拿取并输入验证码，如果您不想登录，请点击关闭按钮：",
         "resend":"重发",
-        "resend_again":"在 %{sec} 秒后可重新发送信件",
+        "resend_again":"在%{sec}秒后可重新发送信件",
         "submit":"提交"
     }
 }

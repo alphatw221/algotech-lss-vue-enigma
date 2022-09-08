@@ -68,7 +68,8 @@
         "promo_discount": "优惠代码折抵",
         "enter_promo":"优惠代码",
         "enter":"套用",
-        "promo_apply":"优惠代码  %{code} 已激活"
+        "promo_apply":"优惠代码  %{code} 已激活",
+        "referr_code":"分享推荐码"
     },
     "add_item":{
         "select_add_ons":"加入商品",
@@ -114,5 +115,5 @@
     "invalid_user_info":"买家资料输入错误",
     "invalid_delivery_info":"运送资料输入错误",
     "checkout_message":"确认前往结账后，购物车将会被清空",
-    "checkout_again":"商品已售完,请重新确认购物车并再次结账" 
+    "checkout_again":"商品已售完，请重新确认购物车并再次结账" 
 }

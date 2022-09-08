@@ -20,9 +20,9 @@
         "number":"电话",
         "email":"电子邮件",
         "plan_options":{
-            "lite":"Lite (USD$10/月)",
-            "standard":"Standard (USD$30/月)",
-            "premium":"Premium (USD$15起/月)"
+            "lite":"Lite （USD　$10／月）",
+            "standard":"Standard （USD　$30／月）",
+            "premium":"Premium （USD　$15起／月）"
         },
         "period_options":{
             "year":"年費制（九折優惠）",
@@ -32,7 +32,7 @@
         "choose_plan":"选择方案",
         "choose_period":"订阅制度", 
         "required_field": "此为必填栏位",
-        "welcome_gift": "首次订阅礼: 95折优惠",
+        "welcome_gift": "首次订阅礼：95折优惠",
         "promocode_question":"使用优惠代码?",
         "promocode":"优惠代码",
         "policy":{
@@ -63,7 +63,7 @@
         "Subscription Period":"订阅期间",
         "Subscription End Date":"方案到期日",
         "download":"下载电子收据",
-        "thankyou":"感谢您的注册, 您的订阅方案已变更!"
+        "thankyou":"感谢您的注册，您的订阅方案已变更!"
     }
 
 }

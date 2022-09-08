@@ -1,5 +1,6 @@
 {   
     "create_giãm giá_code":"Create New Code",
+    "create_err":"Input Error",
     "giãm giá_code":"giãm giá Code",
     "table":{
         "name":"giãm giá Tên",
@@ -12,7 +13,7 @@
         "del":"Xóa",
         "percent_off":"Percentage",
         "deduct":"Deduction",
-        "noCode":"No Discount Code",
+        "noCode":"There are currently no Discount Codes",
         "setupFirst":"Set up one by click ( + create )",
         "description" : "Mô tả",
         "cart_referal":"Cart Referal",
@@ -57,7 +58,6 @@
         "Discount Rate":"Discount Rate",
         "Deduct Amount":"",
         "cancel":"Cancel",
-        "save":"Save",
-        "create_err":"Input Error"
+        "save":"Save"
     }
 }

@@ -88,7 +88,7 @@
 
       
       <div class="mr-5 ml-auto  flex md:mr-3">
-        <button class="intro-x text-white text-[16px] hover:text-slate-300" v-if="isAnonymousUser" @click="showLoginModal()">Login</button >
+        <button class="intro-x text-white text-[16px] hover:text-slate-300" v-if="isAnonymousUser" @click="showLoginModal()">{{$t('login.login')}}</button > 
         <!-- BEGIN: Account Menu -->
         <Dropdown class="intro-x w-10 h-10" v-else>
           <DropdownToggle

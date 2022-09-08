@@ -55,8 +55,11 @@
         "Scheduled" : "Scheduled",
         "History" : "History",
         "Ongoing" : "Ongoing",
-        
-        "no_have_campaign": "No campaign yet.",
+        "no_have_campaign":{
+            "ongoing":"Do not Have any Ongoing Campaign.",
+            "scheduled":"Do not Have any Scheduled Campaign.",
+            "history":"Do not Have any History Campaign."
+        },
         "click_create_notify": "Click \"+ Create\" to create your first live selling campaign.",
         "connect_platform":"Connect Platform"
     },
