@@ -3,7 +3,7 @@
         id='comment-capturing-window' 
         @mousedown="startDrag($event)"
         @mouseup="endDrag()"
-        class="fixed bg-white w-fit block top-20 left-10 z-[999] rounded-lg border-2 border-black" 
+        class="fixed bg-white w-fit block top-20 left-10 z-[999] rounded-lg border-2 border-slate-600" 
         v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username"
     
     
@@ -14,32 +14,36 @@
         >
         </div> -->
 
-        <div class="m-3 text-center flex">
+        <div class="m-1 text-center flex">
 
             <!-- tiktok -->
 
             <div
                 v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username">
 
-                <div  v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='error'">
+                <template  v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='error'">
                     <AlertCircleIcon class="text-danger mx-auto" />
-                    <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label>
-                </div>
+                    <!-- <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label> -->
+                    <div class="flex flex-col text-[12px] mx-2">
+                        <label class="font-medium" >{{sellerStore.commentCapturingCampaignData.title}}</label>
+                        <label class="text-red-500">Syncing TikTok Err</label>
+                    </div>
+                </template>
 
                 
-                <div v-else-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='capturing'">
+                <template v-else-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='capturing'">
                     <lottie-player  class="mx-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 30px; height: 30px;"   autoplay></lottie-player>
-                    <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label>
-                </div>
+                    <!-- <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label> -->
+                    <div class="flex flex-col text-[12px] mx-2">
+                        <label class="font-medium w-fit truncate" >{{sellerStore.commentCapturingCampaignData.title}}</label>
+                        <label class="text-slate-500">Syncing TikTok</label>
+                    </div>
+                </template>
 
-                <div>
-                    <label >Platform : tiktok</label>
-                </div>
-
-                <div>
+                <!-- <div>
                     <label >User Name : </label>
                     <label >{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username}}</label>
-                </div>
+                </div> -->
                 
             </div>
 
@@ -53,10 +57,14 @@
                 </div>
                 
                 <div v-else-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='capturing'">
-                    <lottie-player  class="my-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 30px; height: 30px;"   autoplay></lottie-player>
+                    <lottie-player  class="mt-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 35px; height: 35px;"   autoplay></lottie-player>
                     <!-- <label>{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.status}}</label> -->
                 </div>
-                <label class="my-auto mx-2">Syncing Twitch</label>
+                <div class="flex flex-col w-24 text-[12px] mx-2">
+                    <label class="font-medium truncate" >{{sellerStore.commentCapturingCampaignData.title}}</label>
+                    <label class="text-slate-500">Syncing Twitch</label>
+                </div>
+                
 
                 <!-- <div>
                     <label >Channel Name : </label>

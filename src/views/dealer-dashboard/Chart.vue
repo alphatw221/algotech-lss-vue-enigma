@@ -12,6 +12,24 @@
 </template>
 
 <script setup>
+import { ref, provide, onMounted } from 'vue';
 import LineChart from "@/components/line-chart/Main.vue";
 import PieChart from "@/components/pie-chart/Main.vue";
+import { dealer_dashboard_members } from "@/api_v2/user_subscription";
+
+
+onMounted(()=>{
+    dealer_dashboard_members('year').then(
+      res=>{
+        console.log(res.data)
+      }
+    ).catch(
+      error=>{
+          console.log(error);
+      }
+    )
+})
+
+
+
 </script>
