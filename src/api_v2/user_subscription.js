@@ -45,3 +45,12 @@ export const upload_animation = (data) => {
 export const get_user_subscription_facebook_pages = (data) => {
     return createAxiosWithBearer().get(`/api/user-subscription/facebook_pages/`,data)
 }
+
+export const dealer_dashboard_card = () => {
+    return createAxiosWithBearer().get(`/api/v2/user-subscription/dashboard/cards/`)
+}
+
+export const dealer_dashboard_members = (date_period,data) => {
+    return createAxiosWithBearer().get(`/api/v2/user-subscription/dashboard/members/growing/?date_period=${date_period}/`,data)
+}
+
