@@ -5,36 +5,39 @@
         "confirm":"確認訂單"
     },
     "plan":{
-        "lite":"Lite 精簡版",
-        "standard":"Standard 標準版",
-        "premium":"Premium 進階版",
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium",
         "dealer":"Dealer"
     },
 
     "basic_info":{
         "plan":"訂閱方案",
         "plan_options":{
-            "lite":"精簡版 (NT$300/月)",
-            "standard":"標準版 (NT$900/月)",
-            "premium":"進階版 (NT$1800/月)"
+            "lite":"Lite （%{price}／月）",
+            "standard":"Standard （%{price}／月）",
+            "premium":"Premium （%{price}起／月）"
         },
         "period":"訂閱期限",
         "period_options":{
-            "year":"年繳 (九折優惠)",
-            "quarter":"季繳"
+            "year":"年繳 （九折優惠）",
+            "year_tw":"年繳 （八折優惠）",
+            "quarter":"季繳",
+            "month":"月繳"
         },
         "first_name":"名字",
         "last_name":"姓氏",
         "country_code":"國碼",
         "code_Options":{
-            "MY": "(MY) +60" , 
-            "ID": "(ID) +62" , 
-            "PH": "(PH) +63" , 
-            "SG": "(SG) +65" , 
-            "TW": "(TW) +886"
+            "MY": "（MY） +60" , 
+            "ID": "（ID） +62" , 
+            "PH": "（PH） +63" , 
+            "SG": "（SG） +65" , 
+            "TW": "（TW） +886",
+            "VN": "（VN） +84"
         },
         "number":"連絡電話",
-        "email":"電子信箱",
+        "email":"電子郵件",
         "password":"密碼",
         "confirm_password":"密碼確認",
         "target_country":"主要販售國家",
@@ -50,7 +53,7 @@
             "Singapore": "新加坡" , 
             "Taiwan": "台灣" , 
             "Thailand": "泰國" , 
-            "United State": "美國" , 
+            "United States": "美國" , 
             "Vietnam": "越南"
         },
         "required_field": "此欄位為必填",
@@ -60,7 +63,7 @@
         "promocode":"優惠代碼",
         "policy":{
             "accept": "我同意",
-            "terms": "使用條款",
+            "terms": "服務條款",
             "&": "與",
             "conditions":"細則"
         },
@@ -77,14 +80,15 @@
         "current_plan":"目前方案",
         "year":"年繳",
         "quarter":"季繳",
+        "month":"月繳",
         "payment_method":{
             "card":"信用卡付款",
             "direct":"轉帳付款"
         },
         "stripe":{
             "stripe_success":"付款成功!",
-            "stripe_process":"處理中! 請勿重新整理頁面並耐心等候, 我們正在處理你的付款資訊",
-            "stripe_failed":"付款失敗! 請改用其他付款方式",
+            "stripe_process":"處理中！請勿重新整理頁面並耐心等候，我們正在處理你的付款資訊",
+            "stripe_failed":"付款失敗！請改用其他付款方式",
             "stripe_err":"頁面發生錯誤"
         },
         "direct":{
@@ -93,28 +97,27 @@
             "account":"帳號",
             "account_number":"帳戶號碼",
             "account_name":"帳戶名稱",
-            "note":"提醒",
+            "note":"備註",
             "beneficiary":"Beneficiary Bank",
-            "upload_img":"拖動檔案或點擊上傳",
+            "upload_img":"拖曳檔案或點擊上傳",
             "accepted_types":"檔案格式",
             "max_size":"檔案最大限制",
-            "last_five_digits":"後五碼",
-            "digits_message":"請輸入後五碼",
+            "last_five_digits":"末五碼",
+            "digits_message":"請輸入末五碼",
             "complete_order":"完成訂單"
         }
-        
     },
     "confirm":{
         "succeeded":"付款完成",
-        "Email":"電子信箱",
-        "Customer Name":"姓名",
+        "Email":"電子郵件",
+        "Customer":"姓名",
         "Password":"密碼",
         "Your Plan":"您的訂閱方案",
         "Target Country": "主要販售國家",
         "Subscription Period":"訂閱期限",
         "Subscription End Date":"方案期限",
         "download":"下載電子收據",
-        "thankyou":"感謝您的註冊, 您的帳號已啟用! 請使用您的電子信箱登入" 
+        "thankyou":"感謝您的註冊，您的帳號已啟用！請使用您的電子信箱登入" 
     },
     "invalid_data":"輸入資料無效",
     "input_err":"輸入錯誤",

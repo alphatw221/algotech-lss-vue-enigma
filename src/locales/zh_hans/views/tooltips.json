@@ -4,15 +4,18 @@
         "removable":"允许买家删除购物车的商品"
     },
     "create_campaign":{
-        "campaign_period":"Time period that allows buyers to place an order",
-        "payment_record":"要求买家附上转帐证明(明细截图/末五码)"
+        "campaign_period":"买家可下单的期间。",
+        "payment_record":"要求买家附上转帐证明(明细截图/末五码)",
+        "title":"标题字数不可超过 50 字。"
     },
     "campaign_live":{
-        "view_icon":"订单详情"
+        "view_icon":"订单详情",
+        "incoming_order":"此处仅显示初步下单资讯，如要查看所有订单，请前往「订单管理」。"
     },  
     "campaign_list":{
-        "stop_checkout":"停止让买家结帐",
-        "instant_cart":"无须开直播也能透过连结直接购买"
+        "stop_checkout":"开启「停止结帐」，系统会关闭购物车的结帐功能。",
+        "instant_cart":"无须开直播也能透过连结直接购买",
+        "price_unit":"显示金额的最小单位，选择「预设」则最低金额为 1。"
     },
     "lucky_draw":{
         "spin_time":"动画播放时间",
@@ -21,25 +24,33 @@
     "manage_order":{
         "delivery_noti":"通知买家订单已出货",
         "view_icon":"订单详情",
-        "link_icon":"复制购物车连结"
+        "link_icon":"复制购物车连结",
+        "product_details":"订单商品列表"
     },
     "manage_order_details":{
         "price_adjustment":"调整订单小计金额"
     },
     "auto_reply":{
-        "assign_to":"套用在指定粉专页面"
+        "assign_to":"套用在指定粉专页面",
+        "title":"买家需先与该社群帐号有互动纪录（如在直播贴文中留言等），系统才会启动此功能。",
+        "platform":"请选择您欲套用此自动回覆的社群帐号。"
+    },
+    "discount_code":{
+        "percent_off":"若要設定「8 折優惠」，請輸入「20」% off；「7 折優惠」，請輸入「30」% off，以此類推。"
     },
     "settings":{
+        "default_settings":"您可以在此填写销售活动设定的预设值，系统会在您每次建立新的销售活动时自动带入这些资料，到时您也可以依据不同活动进行个别修改。",
         "note":{
-            "delivery_note":"物流相关提示讯息(如开店时间、交货时间等)",
-            "special_note":"购物车须知的提示讯息(如服务条款与条款)",
-            "confirm_note":"订单完成后的提示讯息"
+            "delivery_note":"您可以在此填写须告知买家的运送相关资讯，如开放取货时间、宅配预计到货日等。",
+            "special_note":"您可以在此填写须告知买家的购物相关资讯，如服务条款等。",
+            "confirm_note":"买家完成订单后，会显示的文字讯息。您可以在此填写感谢讯息或预计出货日等资讯。"
         },
         "local":{
-            "buyer_lang":"切换买家购物车语言 & 社群平台留言通知"
+            "buyer_lang":"买家购物车介面及下单通知讯息的所显示语言。", 
+            "price_unit":"金额的最小单位，选择「预设」则最低金额为 1。"
         },
         "social":{
             "connect_social":"直播销售前，预先绑定社群平台帐号"
         }
-    },
+    }
 }

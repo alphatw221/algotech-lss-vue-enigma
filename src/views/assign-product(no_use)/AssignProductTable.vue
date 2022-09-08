@@ -22,7 +22,7 @@
                                     <img 
                                         class="rounded-lg cursor-auto" 
                                         data-action="zoom"
-                                        :src="product.image ? storageUrl + product.image : storageUrl + 'no_image.jpeg'" 
+                                        :src="product.image ? product.image : `${staticDir}no_image.jpeg`" 
                                     />
                                 </div>
                             </div>
@@ -236,8 +236,8 @@ import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
 const campaignStore = useCreateCampaignStore();
 const detailStore = useCampaignDetailStore()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const storageUrl = import.meta.env.VITE_APP_IMG_URL
 
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const route = useRoute()
 const layoutStore = useLSSSellerLayoutStore()
 const dataCount = ref(0)
@@ -417,7 +417,7 @@ thead th {
 }
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
     table,
     thead,

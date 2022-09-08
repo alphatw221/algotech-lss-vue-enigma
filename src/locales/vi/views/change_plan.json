@@ -20,20 +20,21 @@
         "number":"Số liên hệ",
         "email":"Email",
         "plan_options":{
-            "lite":"Lite (USD 10.00/Tháng)",
-            "standard":"Standard (USD 30.00/Tháng)",
-            "premium":"Premium (USD 60.00/Tháng)"
+            "lite":"Lite （USD 10.00／Tháng）",
+            "standard":"Standard （USD 30.00／Tháng）",
+            "premium":"Premium （Start from USD 60.00／Tháng）"
         },
         "period_options":{
-            "year":"Hàng năm (10% giảm giá)",
-            "quarter":"Hàng quý"
+            "year":"Hàng năm （10% giảm giá）",
+            "quarter":"Hàng quý",
+            "month":"Hàng tháng"
         },
         "choose_plan":"Gói dịch vụ đăng ký",
         "choose_period":"Thời gian sử dụng", 
         "required_field": "Trường này là bắt buộc",
         "welcome_gift": "Bạn đủ điều kiện để nhận quà chào mừng lần đầu sử dụng (5% giảm giá)",
-        "promocode_question":"Bạn có mã khuyến mãi không?",
-        "promocode":"Mã khuyến mãi",
+        "promocode_question":"Bạn có mã giảm giá?",
+        "promocode":"Mã giảm giá",
         "policy":{
             "accept": "Tôi chấp nhận",
             "terms": "Điều khoản",
@@ -52,7 +53,8 @@
         "confirm_payment":"Xác nhận thanh toán",
         "current_plan":"Gói dịch vụ gần đây",
         "year":"Hàng năm",
-        "quarter":"Hàng quý"
+        "quarter":"Hàng quý",
+        "month":"Hàng tháng"
     },
     "step_3":{
         "succeeded":"Thanh toán thành công",

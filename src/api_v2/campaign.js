@@ -1,7 +1,7 @@
-import { createAxiosWithBearer } from "@/libs/axiosClient";
+import { createAxiosWithBearer, createAxiosWithBearerWithoutInterceptor } from "@/libs/axiosClient";
 
-export const update_platform_live_id = (campaign_id, platform, platform_id, post_id) => {
-    return createAxiosWithBearer().put(`/api/v2/campaign/${campaign_id}/live/update/?platform=${platform}&platform_id=${platform_id}&post_id=${post_id}`)
+export const update_platform_live_id = (campaign_id, data) => {
+    return createAxiosWithBearer().put(`/api/v2/campaign/${campaign_id}/live/update/`, data)
 }
 
 export const check_facebook_page_token = (page_id) => {
@@ -47,8 +47,8 @@ export const nest_comment = (campaign_id,comment_id) => {
     return createAxiosWithBearer().get(`/api/v2/campaign/facebook/comment-reply/?campaign_id=${campaign_id}&comment_id=${comment_id}`)
 }
 
-export const allow_checkout = (campaign_id,status) => {
-    return createAxiosWithBearer().get(`/api/v2/campaign/edit_allow_checkout/?campaign_id=${campaign_id}&status=${status ? 0 : 1}`)
+export const toggle_stop_checkout = (campaign_id,status) => {
+    return createAxiosWithBearer().get(`/api/v2/campaign/stop_checkout/toggle/?campaign_id=${campaign_id}`)
 }
 
 
@@ -72,3 +72,4 @@ export const get_campaign_product_order_code_dict = (campaign_id) => {
 export const delete_campaign = (campaign_id) => {
     return createAxiosWithBearer().delete(`/api/v2/campaign/delete/?campaign_id=${campaign_id}`)
 }
+

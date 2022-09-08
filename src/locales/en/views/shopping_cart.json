@@ -64,12 +64,18 @@
         "total_charge":"Total Charge",
         "free_delivery":"Order is eligible for free delivery",
         "add_item":"Add more items",
-        "next":"Next"
+        "next":"Next",
+        "promo_discount": "Promo Code Discount",
+        "enter_promo":"Promo Code",
+        "enter":"Enter",
+        "promo_apply":"Discount Code %{code} is Applied",
+        "referr_code":"Share Referral Code"
     },
     "add_item":{
         "select_add_ons":"Select add-ons",
         "select_products":"Select Products",
-        "add":"Add"
+        "add":"Add",
+        "wishlist":"Notify Me"
     },
     "payment":{
         "shipping_summary":"Shipping Summary",
@@ -78,6 +84,7 @@
         "address":"Delivery Address",
         "pay_with":"Pay With",
         "direct":{
+            "title": "Direct Payment",
             "account":"Account",
             "account_number":"Account Number",
             "account_name":"Account Name",
@@ -89,8 +96,15 @@
             "last_five_digits":"Last Five Digits",
             "digits_message":"Please Enter Exactly 5 Digits",
             "complete_order":"Upload & Complete Order",
-            "information": "Payment Information"
+            "information": "Payment Information",
+            "upload_record":"Upload Payment Record",
+            "or":"or"
         }
+    },
+    "login":{
+        "guest_login":"Login as a guest",
+        "continue":"Continue",
+        "social_login":"Social Login"
     },
     "delete_success":"Delete Success",
     "invalid_qty":"Invalid Quantity",

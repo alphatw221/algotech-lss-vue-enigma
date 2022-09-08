@@ -19,7 +19,7 @@
 
     "search_bar":{
         "title": "Title",
-        "search" : "Search",
+        "search" : "Search Title",
         "reset" : "Reset"
     },
     "enter_post_id":{
@@ -44,7 +44,7 @@
         "live_on":"Live On",
         "edit_campaign":"Edit Campaign",
         "edit_campaign_product":"Edit Product",
-        "blank_cart":"Copy Blank Cart Link",
+        "blank_cart":"Copy Express Cart Link",
         "lucky_draw":"Lucky Draw",
         "quiz_game": "Quiz Game",
         "delete":"Delete",
@@ -55,8 +55,11 @@
         "Scheduled" : "Scheduled",
         "History" : "History",
         "Ongoing" : "Ongoing",
-        
-        "no_have_campaign": "No campaign yet.",
+        "no_have_campaign":{
+            "ongoing":"Do not Have any Ongoing Campaign.",
+            "scheduled":"Do not Have any Scheduled Campaign.",
+            "history":"Do not Have any History Campaign."
+        },
         "click_create_notify": "Click \"+ Create\" to create your first live selling campaign.",
         "connect_platform":"Connect Platform"
     },
@@ -74,6 +77,7 @@
         
         "post_id":"Post ID",
         "select_live_post":"Select Live Post",
+        "select_live_video":"Select Live Video",
         "enter_post_id": "Enter Post ID",
 
         "instagram":"Instagram",
@@ -86,11 +90,19 @@
         "live_chat_id":"Live Chat ID",
         "select_live_chat":"Select Channel",
 
+        "twitch": "Twitch",
+        "tiktok": "TikTok",
+        "enter_username": "Enter Username",
+
         "cancel":"Cancel",
         "save":"Save",
         "your_current_lives": "Your current lives",
         "select_this_live": "Select this live",
-        "valid_post_id_notification": "Please Enter Valid Post ID"
+        "valid_post_id_notification": "Please Enter Valid Post ID",
+
+        "rebind_page":"Please Rebind Selected Facebook Page",
+        "rebind_channel":"Please Rebind Selected Youtube Channel",
+        "rebind_profile":"Please Rebind Selected Instagram Profile"
     },
     "update_successed":"Update Successed",
     "no_facebook_post":"You don't have Facebook live posts now.",

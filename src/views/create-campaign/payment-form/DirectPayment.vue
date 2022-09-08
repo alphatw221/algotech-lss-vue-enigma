@@ -99,8 +99,8 @@
                                 <ImageIcon class="w-8 h-8 mr-2 text-slate-600" /> 
                                 <strong class="text-slate-600">{{$t('create_campaign.payment_form.upload_a_file_or_drag_and_drop')}}</strong> 
                             </div>
-                            <div class="mt-2 text-slate-500">{{$t('create_campaign.payment_form.accepted_file_types')}}: jpeg, png, jpg</div>
-                            <div class="text-slate-500">{{$t('create_campaign.payment_form.max_file_size')}}: 10MB</div>  
+                            <div class="mt-2 text-slate-500">{{$t('create_campaign.payment_form.accepted_file_types')}}</div>
+                            <div class="text-slate-500">{{$t('create_campaign.payment_form.max_file_size')}}</div>  
                         </div>
                             <input
                                 type="file"
@@ -149,7 +149,7 @@ const route = useRoute();
 const router = useRouter();
 
 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
+
 const previewImages = ref([])
 
 onMounted(() => {
@@ -158,7 +158,7 @@ onMounted(() => {
     if(!Array.isArray(props.campaign.meta_payment.direct_payment['v2_accounts']))props.campaign.meta_payment.direct_payment['v2_accounts']=[]
 
     props.campaign.meta_payment.direct_payment.v2_accounts.forEach(account => {
-        previewImages.value.push(storageUrl+account.image)
+        previewImages.value.push(account.image)
         props.directPaymentImages.push(null)
     });
     ready.value = true

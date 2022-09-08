@@ -18,9 +18,9 @@ export default async (to, from)=>{
             return true
         }catch(error){
             cookies.remove("access_token")
-            return '/seller/login'
+            return '/seller/web/login'
         }
       
     }
-    return '/seller/login'
+    return '/seller/web/login'
 }

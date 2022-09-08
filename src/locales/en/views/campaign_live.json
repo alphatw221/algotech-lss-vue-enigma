@@ -4,6 +4,9 @@
         "comments":"Comments Summarizer",
         "delivery":"Delivery",
         "payment":"Payment",
+        "purchase":"Purchase",
+        "return":"Return",
+        "chat":"Chat",
         "other":"Other",
         "select_tag":"Selected tag",
         "clear":"Reset",
@@ -14,11 +17,16 @@
         "all_comments":"All Comments",
         "facebook_comments":"Facebook Comments",
         "youtube_comments":"Youtube Comments",
-        "instagram_comments":"Instagram Comments"
+        "instagram_comments":"Instagram Comments",
+        "tiktok_comments":"Tiktok Comments",
+        "twitch_comments":"Twitch Comments",
+        "lucky_draw":"Lucky Draw",
+        "quiz_game": "Quiz Game"
 
     },
     "reply":{
         "reply_to":"Reply to",
+        "reply_tooltips":"Reply message",
         "type_your_message": "Type your message"
     },
     "conversation":{
@@ -46,7 +54,8 @@
             "editable":"Editable",
             "removable":"Removable",
             "deletable":"Removable",
-            "search":"Search by"
+            "search":"Search by",
+            "no_product":"You haven't assign any product into this campaign, click Add Product to assign"
         },
         "add":"Add",
         "add_product":"Add Product",
@@ -63,7 +72,7 @@
         "errors":{
             "type_required":"required",
             "order_code_required":"required",
-            "order_code_duplicate":"duplicate",
+            "order_code_duplicate":"repeated",
             "qty_invalid":"invalid",
             "max_order_amount_grater_than_qty":"Greater than assign QTY",
             "assign_qty_required":"required",

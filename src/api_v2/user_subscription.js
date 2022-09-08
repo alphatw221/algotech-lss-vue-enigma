@@ -30,10 +30,18 @@ export const bind_platform_instances = (platform_name, data) => {
     return createAxiosWithBearer().put(`/api/v2/user-subscription/platform/${platform_name}/bind/`,data)
 }
 
+export const bind_twitch_platform_instances = (platform_name, channel_name, data) => {
+    return createAxiosWithBearer().put(`/api/v2/user-subscription/platform/${platform_name}/bind/?channel_name=${channel_name}`, data)
+}
+
 export const get_platform_instances = (platform_name) => {
     return createAxiosWithBearer().get(`/api/v2/user-subscription/platform/${platform_name}/`)
 }
 
 export const upload_animation = (data) => {
     return createAxiosWithBearer().post(`/api/v2/user-subscription/seller/upload/animation/`, data)     
+}
+
+export const get_user_subscription_facebook_pages = (data) => {
+    return createAxiosWithBearer().get(`/api/user-subscription/facebook_pages/`,data)
 }

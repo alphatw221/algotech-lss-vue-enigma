@@ -34,10 +34,19 @@
                                 {{ $t('campaign_live.product.modal_column.activate') }}
                             </th>
                             <template v-for="column in product_columns.slice(0, -1)" :key="column.key">
+                            <template v-if="column.name == 'cart_sold_left'"> 
+                                <th
+                                    class="whitespace-nowrap bg-dark text-[8px]">
+                                    {{ $t(`campaign_live.product.modal_column.`+column.name) }}
+                                </th>
+                            </template>
+                            <template v-else> 
                                 <th
                                     class="whitespace-nowrap bg-dark">
                                     {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                 </th>
+                            </template>
+                                
                             </template>
                             <th class="whitespace-nowrap bg-dark lgAct">
                                 {{ $t('campaign_live.product.modal_column.activate') }}
@@ -46,6 +55,11 @@
                     </thead>
 
                     <tbody>
+                        <tr v-if="store.campaignProducts.length === 0" class="h-[250px]">
+                            <td class="mt-40 text-center border-none text-sm md:text-lg text-slate-500" :colspan="6" > 
+                                {{ $t(`campaign_live.product.modal_column.no_product`) }}
+                            </td> 
+                        </tr> 
                         <tr v-for="product,index in store.campaignProducts" :key="index">
 
                             <td class="md:hidden">
@@ -58,13 +72,13 @@
                                 </div>
                             </td>
 
-                            <td><img data-action="zoom" :src="imagePath + product.image" class="w-10 h-10 image-fit" /></td>
+                            <td><img data-action="zoom" :src="product.image" class="w-10 h-10 image-fit" /></td>
                             
                             <td>
                                 <span class="mr-0.5"> {{[index+1].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}} </span>  
                                 {{ product.name }}</td>
                             <template v-if="product.type === 'lucky_draw'">
-                                <td class="font-medium"> *Prize*</td>
+                                <td class="font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}*</td>
                             </template>
                             <template v-else>
                                 <td>{{ product.order_code }}</td>
@@ -75,7 +89,7 @@
                             <!-- currency_sign reference from user_subscription -->
                             <td v-if="store.campaign">
                                 {{ store.campaign.currency }}
-                                {{ store.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.campaign.decimal_places)}}
+                                {{ Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places}}
                                 {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                             </td>  
                             <td class="status_active">
@@ -83,7 +97,7 @@
                                     <input
                                         @click="toggle_campaign_product_status(product)"
                                         class="form-check-input" type="checkbox" 
-                                        v-model="product.status"
+                                        v-model="product.status" :disabled="route.query.status == 'history'"
                                     />
                                 </div>
                             </td>
@@ -115,7 +129,7 @@ const store = useCampaignDetailStore()
 // const internalInstance = getCurrentInstance();
 // const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
-const imagePath = import.meta.env.VITE_APP_IMG_URL
+
 const product_columns = [
     { name: "null", key: "image" },
     { name: "name", key: "name" },
@@ -168,7 +182,7 @@ const toggle_campaign_product_status = (product) => {
 }
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
 .lgAct{
     display: none;

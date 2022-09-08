@@ -1,11 +1,11 @@
 <template>
     <div class="overflow-y-auto h-screen flex flex-col sm:h-full" v-if="ready">
-		<div class="flex items-center px-20 pt-5 pb-4 intro-y">
-			<h2 class="text-2xl font-medium">{{$t('edit_campaign.edit_campaign')}}</h2>
+		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
+			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('edit_campaign.edit_campaign')}}</h2>
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
-				<div class="flex flex-col">
+				<div class="flex flex-col"> 
 					<label class="w-20 my-auto text-base form-label font-medium">{{$t('edit_campaign.title')}}</label>
 					<input 
 						class="w-full form-control" 
@@ -23,7 +23,17 @@
 			</div>
 			<div class="col-span-12 sm:col-span-6">
 				<div class="flex flex-col">
-					<label for="regular-form-2" class="w-16 my-auto text-base form-label font-medium">{{$t('edit_campaign.period')}}</label>
+					<div class="flex whitespace-nowrap align-middle"> 
+						<label for="regular-form-2" class="w-16 my-auto text-base form-label font-medium">{{$t('edit_campaign.period')}}</label>
+						<Tippy 
+							class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+							data-tippy-allowHTML="true" 
+							data-tippy-placement="right" 
+							:content="$t('tooltips.create_campaign.campaign_period')" 
+						> 
+							<HelpCircleIcon class="w-5 tippy-icon" />
+						</Tippy> 
+					</div>
 					<v-date-picker class="z-49" 
 						v-model="dateTimePicker" 
 						:timezone="timezone" 
@@ -72,17 +82,31 @@
 							<img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
 						</div>
 					</div>
+					<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.twitch_channel !== null">
+						<Tippy tag="img" class="rounded-full" :src="campaignData.twitch_channel.image"
+						:content="campaignData.twitch_channel.name" />
+						<div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+							<img class="rounded-full bg-[#f70000]" :src="twitch_platform" >
+						</div>
+					</div>
+					<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.tiktok_campaign.username">
+						<Tippy tag="img" class="rounded-full" :src="anonymous_profile"
+						:content="campaignData.tiktok_campaign.username" />
+						<div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+							<img class="rounded-full bg-[#0f0f0f]" :src="tiktok_platform" >
+						</div>
+					</div>
 				</div>
 
 				<a @click="editplatform()" class="inline-flex mr-2 align-middle md:mr-5">
-				<EditIcon class="w-4 h-4 mr-2" />{{$t('edit_campaign.edit_connected_platform')}}
+				<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/> {{$t('edit_campaign.edit_connected_platform')}}
 				</a>
 			</div>
 		</div>
 
-		<div class="box py-5 mx-20 mt-3 sm:p-8 sm:py-5 px-2 lg:px-10 text-sm sm:text-lg ">
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
+			<div class="flex mb-3 form-label text-base font-medium">
 				<div> {{$t("settings.localization.currency_symbol")}} </div>
 			</div>
 			<div class="flex my-1 ">
@@ -158,6 +182,7 @@ import NotesForm from '@/views/create-campaign/NotesForm.vue';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign, update_campaign } from '@/api_v2/campaign';
+import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 
 import EnterPostIDModal from "@/views/campaign-list/enter-post-id-modal/Main.vue"
 import { required, minLength, maxLength, helpers, numeric , decimal, minValue, requiredIf, integer} from "@vuelidate/validators";
@@ -166,9 +191,15 @@ import { useVuelidate } from "@vuelidate/core";
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
+import twitch_platform from "/src/assets/images/lss-img/twitch.png"
+import tiktok_platform from "/src/assets/images/lss-img/tiktok_black_bg.png"
+import anonymous_profile from "/src/assets/images/lss-img/noname.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import i18n from "@/locales/i18n"
+import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
+const sellerStore = useLSSSellerLayoutStore()
 
+const paymentMetaStore = useLSSPaymentMetaStore()
 
 const internalInstance = getCurrentInstance()
 const route = useRoute()
@@ -206,6 +237,7 @@ const decimalOptions = ref([
     {value:'0',text:'1'},
 ])
 
+const allowedPaymentMethods = ref([])
 const directPaymentImages = ref([])
 const campaignData = ref({})
 const dateTimePicker = ref({
@@ -223,20 +255,52 @@ const campaignNotes = ref({
 })
 
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
-const sellerStore = useLSSSellerLayoutStore()
 const ready = ref(false)
 onMounted(() => {
 	retrieve_campaign(route.params.campaign_id).then(res=>{
-		console.log(res.data)
-		campaignData.value = res.data
+		campaignData.value = JSON.parse(JSON.stringify(res.data))
 		campaignData.value.decimal_places = res.data.decimal_places.toString()  //temp   TomSelect only work with string value
 
 		dateTimePicker.value.start=res.data.start_at
 		dateTimePicker.value.end=res.data.end_at
 
 		campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
-		campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.special_note  ))
-		campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.confirmation_note  ))
+		if(sellerStore.userInfo.user_subscription.country)campaignData.value.country = sellerStore.userInfo.user_subscription.country
+
+
+
+		//if support payment is in meta_payment -> do nothing
+		//else -> build one with all default value
+		const paymentKeySet = new Set()
+		sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => paymentKeySet.add(key) ) } )
+		paymentKeySet.forEach(key => {
+			if(key in campaignData.value.meta_payment){
+				//do nothing
+			}else{
+				campaignData.value.meta_payment[key]={}
+				paymentMetaStore[key].fields.forEach(field=>{
+					campaignData.value.meta_payment[key][field.key] = field.default
+				});
+				campaignData.value.meta_payment[key]['enabled'] = false
+			}
+		});
+
+
+		// campaignData.value.meta_payment = {}
+		// sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach(country => { 
+		// 	paymentMetaStore[country].forEach(key=>{
+		// 		if (!allowedPaymentMethods.value.includes(key)) {
+		// 			allowedPaymentMethods.value.push(key)
+		// 			campaignData.value.meta_payment[key] = JSON.parse(JSON.stringify(res.data.meta_payment[key]))
+		// 		}
+		// 	})
+		// })
+		
+
+
+
+		campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(res.data.meta_payment.special_note))
+		campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(res.data.meta_payment.confirmation_note))
 
 		ready.value=true
 	})

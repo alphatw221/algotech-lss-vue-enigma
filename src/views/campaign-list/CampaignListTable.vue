@@ -17,6 +17,7 @@
                 </Tippy> 
               </div>
             </template>
+            <div v-else-if="column.key === 'title'" class="sm:w-[100px]"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </div>
             <template v-else> 
               {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
             </template>
@@ -41,11 +42,11 @@
 					<td v-else-if="numOfCampaigns==0" :colspan="tableColumns.length +1" class="alert border-0 "> 
 						<div class="mt-5 text-center md:mt-40 w-full" >
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
-								{{ $t('campaign_list.campaign_list_table.no_have_campaign') }}
+								{{ $t('campaign_list.campaign_list_table.no_have_campaign.' +props.campaignStatus) }}
 							</h1>
-							<h1 class="text-slate-500 text-sm md:text-lg">
+							<!-- <h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('campaign_list.campaign_list_table.click_create_notify') }}
-							</h1>
+							</h1> -->
               <button 
                 class="flex w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-rounded mx-auto mt-5"
                       style="border: 2px solid #EF4444; color:#EF4444;"
@@ -79,30 +80,45 @@
                       <img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
                   </div>
               </div>
+              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.twitch_channel !== null">
+                <Tippy tag="img" class="rounded-full" :src="campaign.twitch_channel.image"
+                  :content="campaign.twitch_channel.name" />
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#f70000]" :src="twitch_platform" >
+                  </div>
+              </div>
+              <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.tiktok_campaign.username">
+                <Tippy tag="img" class="rounded-full" :src="anonymous_profile"
+                  :content="campaign.tiktok_campaign.username" />
+                  <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                      <img class="rounded-full bg-[#0f0f0f]" :src="tiktok_platform" >
+                  </div>
+              </div>
             </div>
           </td>
           <td class="text-left title w-fit">
             {{ campaign.title }}
           </td>
           <td class="w-5 text-center startDate" :data-content="$t('campaign_list.campaign_list_table.start_at')">
-            <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
+            <div class="my-2 sm:my-0 sm:w-fit whitespace-nowrap">{{ new Date(campaign.start_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short", hour12: false,
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
-          </td>
+          </td> 
           <td class="w-5 text-center endDate" :data-content="$t('campaign_list.campaign_list_table.end_at')">
-            <div class="my-2 sm:my-0 sm:w-40">{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
+            <div class="my-2 sm:my-0 sm:w-fit whitespace-nowrap" >{{ new Date(campaign.end_at).toLocaleTimeString('en-us', {
                 year: "numeric", month: "short", hour12: false,
                 day: "numeric", hour: '2-digit', minute: '2-digit'
               })
             }}</div>
           </td>
           <td class="items-center manage_order w-fit" :data-content="$t('campaign_list.campaign_list_table.action')">
-            <a class="flex items-center justify-center" @click="manageOrder(campaign.id,campaign.meta.allow_checkout)">
+            <a class="flex items-center justify-center" @click="routeToManageOrder(campaign)">
               <span class="mr-3 sm:hidden"> {{$t('campaign_list.campaign_list_table.manage_order')}}</span>
               <Tippy  :content="$t('campaign_list.campaign_list_table.manage_order')" :options="{ theme: 'light' }">
-                <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/> 
+                <!-- <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>  -->
+                <SimpleIcon icon="manage_order" color="#2d8cf0" width="30" height="32" />
               </Tippy> 
                   
             </a>
@@ -122,7 +138,7 @@
             </div>
             <div v-else
               class="flex flex-col justify-center form-check form-switch">
-               <input @click="stop_checkout(campaign.id,$event.target.checked)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.meta.allow_checkout"/>
+               <input @click="stop_checkout(index, campaign)" class="mr-0 form-check-input" type="checkbox" v-model="campaign.stop_checkout"/>
             </div>
           </td>
           <td class="justify-center text-center entry w-fit">
@@ -149,12 +165,12 @@
                   <DropdownContent class="w-44 text-center">
                     <DropdownItem class="w-fit text-center whitespace-nowrap" 
                       @click="editCampaign(campaign)"> 
-                      <EditIcon class="h-[20px] w-[20px] mr-1" />
+                      <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
                       {{$t("campaign_list.campaign_list_table.edit_campaign")}} 
                     </DropdownItem>
                     <DropdownItem class="w-fit text-center whitespace-nowrap" 
                       @click="editCampaignProduct(campaign)"> 
-                      <EditIcon class="h-[20px] w-[20px] mr-1" />
+                      <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
                       {{$t("campaign_list.campaign_list_table.edit_campaign_product")}}  
                     </DropdownItem>
                     <DropdownItem 
@@ -165,22 +181,26 @@
                         data-tippy-placement="right" 
                         :content="$t('tooltips.campaign_list.instant_cart')" 
                         > 
-                        <div class="whitespace-nowrap flex"> <ShoppingCartIcon class="h-[20px] w-[18px] mr-1" />  {{$t("campaign_list.campaign_list_table.blank_cart")}}  </div> 
+                        <div class="whitespace-nowrap flex"> 
+                          <SimpleIcon icon="express_cart" color="#2d8cf0" class="mr-1"/>
+                          {{$t("campaign_list.campaign_list_table.blank_cart")}}  </div> 
                       </Tippy> 
                     </DropdownItem>
                     <DropdownItem 
                       @click="goLuckyDraw(campaign)" class="w-fit whitespace-nowrap"> 
-                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
+                      <SimpleIcon icon="lucky_draw" color="#2d8cf0" class="mr-1"/>
                       {{$t("campaign_list.campaign_list_table.lucky_draw")}}
                     </DropdownItem>
                     <DropdownItem 
                       @click="goQuizGame(campaign)" class="w-fit whitespace-nowrap"> 
-                      <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/>
-                      {{$t("campaign_list.campaign_list_table.quiz_game")}}
+                      <!-- <font-awesome-icon icon="fa-solid fa-gift" class="h-[20px] w-[20px] mr-1"/> -->
+                      <SimpleIcon icon="quiz" color="#2d8cf0"/>
+                      <div class="ml-1"> {{$t("campaign_list.campaign_list_table.quiz_game")}} </div> 
                     </DropdownItem>
                     <DropdownItem 
-                      @click="deleteCampaign(campaign)" class="w-fit text-danger whitespace-nowrap ">
-                      <font-awesome-icon icon="fa-solid fa-trash-can" class="h-[20px] w-[20px] mr-1"/>
+                      @click="deleteCampaign(campaign)" class="w-fit text-danger whitespace-nowrap">
+                      <!-- <font-awesome-icon icon="fa-solid fa-trash-can" class="h-[20px] w-[20px] mr-1"/> -->
+                      <SimpleIcon icon="delete" color="#b91c1c" class="mr-1"/>
                       {{$t("campaign_list.campaign_list_table.delete")}}
                     </DropdownItem>
                   </DropdownContent>
@@ -199,7 +219,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { allow_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
+import { toggle_stop_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
@@ -207,9 +227,13 @@ import { get_user_subscription_facebook_pages, get_user_subscription_instagram_p
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
+import twitch_platform from "/src/assets/images/lss-img/twitch.png"
+import tiktok_platform from "/src/assets/images/lss-img/tiktok_black_bg.png"
+import anonymous_profile from "/src/assets/images/lss-img/noname.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n"
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -293,26 +317,22 @@ const clickEntry = (index)=>{
     router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
     return
   }
-  else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '') {
+  else if (campaign.facebook_campaign.post_id !== '' || campaign.instagram_campaign.live_media_id !== '' || campaign.youtube_campaign.live_video_id !== '' || campaign.twitch_campaign.channel_name !== '' || campaign.tiktok_campaign.username !== '') {
     router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
     return
   }
   eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': props.tableName, 'campaign':campaign})
 }
 
-const stop_checkout = (campaign_id,status)=>{
-      allow_checkout(campaign_id,status)
-      layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.update_successed'));
+const stop_checkout = (index, campaign)=>{
+      toggle_stop_checkout(campaign.id).then(res=>{
+        campaigns.value[index] = res.data
+        layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.update_successed'));
+      })
+      
     }
 
-const manageOrder = (campaign_id,status)=>{
-
-      // window.open(router.resolve({ 
-      //   name: 'manage-order',
-      //   params:{'campaign_id':campaign_id},query:{'checkout':status},
-      // }).href)
-      router.push({name:'manage-order',params:{'campaign_id':campaign_id},query:{'checkout':status}})
-    }
+const routeToManageOrder = (campaign)=>{ router.push({name:'manage-order',params:{'campaign_id':campaign.id}})}
 
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
@@ -330,7 +350,7 @@ const editCampaignProduct = campaign=>{
 const copyURL = (campaign)=>{
   text = `${baseURL}/buyer/recaptcha/blank/${campaign.id}`;
   navigator.clipboard.writeText(text).then(()=>{
-      alert('copied!')
+      layoutStore.notification.showMessageToast('copied!')
   })
   hideDropDown()
 }
@@ -371,6 +391,11 @@ const deleteCampaign = (campaign)=>{
   cursor: pointer;
 }
 
+a .dropdown-item{
+  padding-top: 0 !important;
+  padding-bottom: 0 !important;
+}
+
 td {
   min-height: 50px;
   border-collapse: collapse;
@@ -396,7 +421,7 @@ thead th{
 }
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
   table,
   thead,

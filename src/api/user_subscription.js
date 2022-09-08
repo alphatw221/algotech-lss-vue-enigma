@@ -19,6 +19,10 @@ export const get_user_subscription_instagram_profiles = () => {
     return createAxiosWithBearer().get(`/api/user-subscription/instagram_profiles/`)
 }
 
+export const get_user_subscription_twitch_channels = () => {
+    return createAxiosWithBearer().get(`/api/v2/user-subscription/twitch_channel/`)
+}
+
 export const bind_user_facebook_pages = (data) => {
     return createAxiosWithBearer().post(`/api/user-subscription/v2/bind_facebook_pages/`, data)
 }
@@ -47,7 +51,7 @@ export const check_activated_platform = (data) => {
 }
 
 export const seller_changePlan_payment = data =>{
-    return createAxiosWithBearer().post(`/api/user-subscription/upgrade/intent/`, data);
+    return createAxiosWithBearer().post(`/api/v2/user-subscription/upgrade/intent/`, data);
 }
 
 export const seller_upgrade = data =>{

@@ -4,14 +4,27 @@
         "comments":"Tổng hợp bình luận",
         "delivery":"Vận chuyển",
         "payment":"Thanh toán",
+        "purchase":"mua hàng",
+        "return":"trả hàng",
         "other":"Khác",
         "select_tag":"Thẻ đã chọn",
         "clear":"Thiết lập lại",
         "comment_message_1":"Bạn không có bất kì bình luận %{tag} gần đây",
-        "comment_message_2":"Bạn không có bất kì bình luận %{platformName} gần đây"
+        "comment_message_2":"Bạn không có bất kì bình luận %{platformName} gần đây",
+
+        "comments_summarizer":"Tổng hợp bình luận",
+        "all_comments":"Tất cả bình luận",
+        "facebook_comments":"Bình luận Facebook",
+        "youtube_comments":"Bình luận Youtube",
+        "instagram_comments":"Bình luận Instagram",
+        "tiktok_comments":"Bình luận Tiktok",
+        "twitch_comments":"Bình luận Twitch",
+        "lucky_draw":"Quà tặng minigame",
+        "quiz_game": "Trò chơi giải đố"
     },
     "reply":{
         "reply_to":"gần đây",
+        "reply_tooltips":"Reply message",
         "type_your_message": "Nhập tin nhắn của bạn"
     },
     "conversation":{
@@ -22,7 +35,7 @@
         "product":"Sản phẩm",
         "modal_column":{
             "null":"",
-            "cart_sold_left":"Giỏ hàng / Đã bán / Còn lại",
+            "cart_sold_left":"Tồn kho / Đã bán / Còn",
             "name":"Tên",
             "description":"Mô tả",
             "Product":"Sản phẩm",
@@ -39,7 +52,8 @@
             "editable":"Có thể chỉnh sửa",
             "removable":"Có thể xóa",
             "deletable":"Có thể xóa",
-            "search":"Tìm kiếm bởi"
+            "search":"Tìm kiếm bởi",
+            "no_product":"Bạn chưa chỉ định bất kỳ sản phẩm nào vào chiến dịch này, hãy nhấp vào Thêm sản phẩm để chỉ định"
         },
         "add":"Thêm",
         "add_product":"Thêm sản phẩm",

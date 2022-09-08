@@ -14,35 +14,29 @@
 			<tbody>
 			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
         <td class="imgtd">
-					<div class="w-full flex" v-if="product.image">
-					<img
-						tag="img"
-						data-action="zoom"
-						class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0 "
-						:src="storageUrl+product.image"
-					/>
-					</div>
-					<div class="w-full flex" v-else>
-					<img
-						tag="img"
-						data-action="zoom"
-						class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0"
-						:src="storageUrl+`no_image.jpeg`"
-					/>
+					<div class="w-full flex">
+						<img
+							tag="img"
+							data-action="zoom"
+							class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0 "
+							:src="product.image || `${staticDir}no_image.jpeg`"
+						/>
 					</div>
 				</td>
-				<td class="text-left w-fit">{{ product.name }}  </td>
+				<td class="text-left w-fit"> 
+					<div v-if="product.type == 'lucky_draw'" class="font-medium text-primary" > *{{$t('lucky_draw.winner_modal.prize')}}*</div>
+					{{ product.name }}  </td>
 				<td class="text-right" :data-content="$t('order_detail.table.qty')">
 					{{ product.qty }}
 				</td>
 				<td class="text-right" :data-content="$t('order_detail.table.price')" v-if="store.order.campaign">
 					{{store.order.campaign.currency}} 
-					{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.order.campaign.decimal_places) }}
+					{{ Math.floor(product.price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
 					{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 				</td>
 				<td class="text-right" :data-content="$t('order_detail.table.sub_total')" v-if="store.order.campaign">
-					{{store.order.campaign.currency}} 
-					{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)): parseFloat(product.qty * product.price).toFixed(store.order.campaign.decimal_places) }}
+					{{store.order.campaign.currency}}
+					{{ (Math.floor(product.price * product.qty * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places)}}
 					{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 				</td>
 			</tr>
@@ -56,7 +50,7 @@ import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const store = useLSSBuyerOrderStore(); 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 
 const tableColumns = ref([
 	{ key: "image", name: "null",  },
@@ -86,7 +80,7 @@ thead th{
 
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
 	table,
 	thead,

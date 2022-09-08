@@ -12,8 +12,10 @@
     "complete" : "Hoàn thành",
     "review" : "Đang kiểm tra",
     "shipping out":"Đã giao hàng",
-    "Direct Payment":"Thanh toán trực tiếp",
+    "direct_payment":"Thanh toán trực tiếp",
     "stripe":"Stripe",
     "hitpay":"Hitpay",
-    "paypal":"Paypal"
+    "paypal":"Paypal",
+    "pay_mongo":"PayMongo",
+    "ecpay":"ECPay"
 }

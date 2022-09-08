@@ -3,12 +3,12 @@
     "create_btn": "新增游戏",
     "invalid_data":"输入资料无效",
     "create_succeed": "新增成功",
-    "update_succeed": "更新成功",
-    "delete_succeed": "储存成功",
+    "update_succeed": "储存成功",
+    "delete_succeed": "移除成功",
     "not_saved": "取消储存",
 
     "quiz_create": {
-        "campaign_title": "直播名称",
+        "campaign_title": "活动名称",
         "question_title": "问题与答案",
         "add_question": "新增问题",
         "question": "请输入问题...",
@@ -29,8 +29,9 @@
     },
 
     "quiz_list": {
-        "campaign_title": "直播名称",
+        "campaign_title": "活动名称",
         "question": "问题",
+        "answer": "答案",
         "start": "开始",
         "stop": "停止",
         "finish": "已結束",

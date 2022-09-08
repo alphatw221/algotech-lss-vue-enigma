@@ -17,20 +17,21 @@
 
 			<div class="relative flex items-center">
 			<div class="w-12 h-12 flex-none image-fit" v-if="product.image">
-				<img alt="" class="rounded-md" :src="storageUrl+product.image" />
+				<img alt="" class="rounded-md" :src="product.image" />
 			</div>
 			<div class="w-12 h-12 flex-none image-fit" v-else>
-				<img alt="" class="rounded-md" :src="storageUrl+`no_image.jpeg`" />
+				<img alt="" class="rounded-md" :src="staticDir+`no_image.jpeg`" />
 			</div>
 			<div class="ml-4 mr-auto w-[50%]">
-				<div class="font-medium text-cyan-900 whitespace-normal break-normal">{{product.name}}</div>
+				<div v-if="product.type == 'lucky_draw'" class="text-primary font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}* </div>
+				<div class="font-medium text-primary whitespace-normal break-normal">{{product.name}}</div>
 				<div class="text-slate-500 mr-5 sm:mr-5">
 				{{$t('shopping_cart.table.qty')}} : {{product.qty}}
 				</div>
 			</div>
 			<div class="font-medium text-slate-600 dark:text-slate-500 whitespace-nowrap w-fit ml-5">
 				{{store.order.campaign.currency}} 
-				{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)):parseFloat(product.qty * product.price).toFixed(store.order.campaign.decimal_places) }}
+				{{Math.floor(parseFloat(product.qty * product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
 				{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 			</div>
 			</div> 
@@ -47,7 +48,7 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 
 const store = useShoppingCartStore(); 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 
 
 const numOfItems = computed(()=>{

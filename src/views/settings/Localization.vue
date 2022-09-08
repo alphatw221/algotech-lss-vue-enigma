@@ -30,7 +30,7 @@
                             }" class="w-5/6">
                     <option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
                 </TomSelect>
-            </div>
+            </div> 
 
             <!-- <div class="flex my-3 mt-5 form-label text-base font-medium">
                 <div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
@@ -132,7 +132,7 @@ const clean =() =>{
 
 const save = ()=>{
     seller_update_subscription(data.value).then(res=>{
-        console.log(res)
+        // console.log(res)
         layoutStore.userInfo = res.data
         i18n.global.locale.value = res.data.lang
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))

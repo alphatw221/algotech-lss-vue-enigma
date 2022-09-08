@@ -8,6 +8,10 @@ import TomSelect from "./tom-select/Main.vue";
 import LoadingIcon from "./loading-icon/Main.vue";
 import TinySlider from "./tiny-slider/Main.vue";
 import ClassicEditor from "./ckeditor/ClassicEditor.vue";
+import Comments from "./lss-svg-icons/Comments.vue";
+import SimpleIcon from "./lss-svg-icons/SimpleIcon.vue"
+import PlatformIcon from "./lss-svg-icons/PlatformIcon.vue" 
+import MenuIcon from "./lss-svg-icons/MenuIcon.vue"
 // import BalloonBlockEditor from './ckeditor/BalloonBlockEditor.vue'
 // import BalloonEditor from './ckeditor/BalloonEditor.vue'
 // import DocumentEditor from './ckeditor/DocumentEditor.vue'
@@ -44,6 +48,12 @@ import {
 import LucideIcons from "./lucide";
 
 export default (app) => {
+  // LSS ICON 
+  app.component("Comments", Comments);
+  app.component("SimpleIcon", SimpleIcon);
+  app.component("PlatformIcon", PlatformIcon);
+  app.component("MenuIcon", MenuIcon);
+  
   app.component("Chart", Chart);
   app.component("GoogleMapLoader", GoogleMapLoader);
   app.component("Litepicker", Litepicker);

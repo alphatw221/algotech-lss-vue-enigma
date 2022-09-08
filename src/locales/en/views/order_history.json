@@ -13,7 +13,10 @@
     "review" : "Review",
     "shipping out":"Shipping Out",
     "Direct Payment":"Direct Payment",
+    "direct_payment":"Direct Payment",
     "stripe":"Stripe",
     "hitpay":"Hitpay",
-    "paypal":"Paypal"
+    "paypal":"Paypal",
+    "pay_mongo":"PayMongo",
+    "ecpay":"ECPay"
 }

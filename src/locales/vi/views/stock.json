@@ -5,14 +5,17 @@
     "delisted": "Đã hủy",
     "add_product": "Thêm sản phẩm",
     "dont_have_product_notify": "Bạn không có sản phẩm trong danh mục này",
-    "no_result": "Không kết quả",
-    "click_to_add":"Nhấp chuột vào \"+Thêm sản phẩm\" để thêm sản phẩm đầu tiên",
+    "no_result":{
+        "enabled":"There are currently no items available for sale.",
+        "disabled":"There are currently no unlisted items."
+    },
 
     "search_bar": {
         "category": "Loại",
         "search_by": "Tìm kiếm bởi",
         "search_holder": "Tìm kiếm...",
         "search": "Tìm kiếm",
+        "bulk_edit": "Bulk Edit",
         "reset": "Thiết lập lại",
         "category_manage": "Chỉnh sửa",
         "name": "Tên",
@@ -28,7 +31,8 @@
         "category": "Loại",
         "description": "Mô tả",
         "qty": "Số lượng",
-        "price": "Giá bán"
+        "price": "Giá bán",
+        "confirm_delete": "Bạn có chắc chắn xóa sản phẩm này không ?"
     },
 
     "category_manage": {
@@ -55,7 +59,7 @@
         "upload_image": "Tải hình ảnh",
         "drop_file_text": "Thả tệp vào đây hoặc nhấp để tải lên",
         "accept_file_text": "Định dạng tệp tin: jpeg, png, jpg",
-        "max_size_text": "Cỡ lớn nhất",
+        "max_size_text": "Cỡ lớn nhất：10MB",
         "quantity": "Số lượng",
         "qty_warning": "Số lượng phải là một con số",
         "price": "Giá bán",

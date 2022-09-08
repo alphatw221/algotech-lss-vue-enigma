@@ -2,8 +2,8 @@
 <template>
     <div class="flex-col">
         <!-- BEGIN Tab List-->
-        <ul class="flex-none flex flex-wrap ml-14 sm:ml-0 py-2 flex-row justify-around w-full">
-            <li class="flex-1 text-center">
+        <ul class="flex-none flex flex-wrap px-8 py-2 sm:px-20 sm:mx-20 flex-row justify-around w-full">
+            <li class="flex-1 text-center ml-11 sm:ml-0">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
                         @click="layout.profileTab = 1"
@@ -23,7 +23,7 @@
                     </div>
                 </div>
             </li>
-            <li class="flex-1 text-center">
+            <!-- <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
                         @click="layout.profileTab = 2"
@@ -41,7 +41,7 @@
                         {{$t('profile.tab.plan')}}
                     </div>
                 </div>
-            </li>
+            </li> -->
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
@@ -68,7 +68,6 @@
         <div class="box p-8 sm:px-20 lg:py-10 shadow-sm rounded-lg sm:mx-20 text-sm sm:text-lg">
             <div class="tab-content tab-space">
                 <ProfileTab />
-                <SubscriptionTab />
                 <ResetPasswordTab />
             </div>
         </div>

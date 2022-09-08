@@ -19,7 +19,7 @@
 						<Tippy
 							tag="img"
 							class="rounded-lg"
-							:src="storageUrl+product.image"
+							:src="product.image"
 							:content="product.name"
               data-action="zoom"
 						/>
@@ -49,7 +49,7 @@ import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const store = useLSSBuyerOrderStore(); 
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
 
 const tableColumns = ref([
 	{ key: "image", name: " ",  },
@@ -67,7 +67,7 @@ const tableColumns = ref([
   }
 
   @media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
+  (min-device-width: 769px) and (max-device-width: 1024px) {
   table,
   thead,
   tbody,

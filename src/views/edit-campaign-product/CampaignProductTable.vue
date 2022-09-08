@@ -4,7 +4,7 @@
             <table class="table -mt-3 text-center table-report">
             <thead>
                 <tr>
-                    <th class="items-center text-center truncate whitespace-normal hover:text-clip" v-for="column in tableColumns"
+                    <th class="items-center text-center w-24" v-for="column in tableColumns"
                         :key="column.key">
                         {{$t(`edit_campaign_product.campaign_product_table.${column.key}`)}}
                     </th>
@@ -32,41 +32,56 @@
                                     <img 
                                         class="rounded-lg cursor-auto" 
                                         data-action="zoom"
-                                        :src="campaign_product.image ? storageUrl + campaign_product.image : storageUrl + 'no_image.jpeg'" 
+                                        :src="campaign_product.image ? campaign_product.image : `${staticDir}no_image.jpeg`" 
                                     />
                                 </div> 
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'order_code'" class="w-24 text-[12px] lg:text-sm orderCode" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div>
+                        <td v-else-if="column.key === 'order_code'" 
+                            class="w-24 text-[12px] lg:text-sm orderCode text-center" 
+                            :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div v-if="campaign_product.type == 'lucky_draw'"> - </div>
+                            <div v-else>
                                 {{ campaign_product[column.key] }}        
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'qty_for_sale'" class="w-24 text-[12px] lg:text-sm qty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div>
+                        <td v-else-if="column.key === 'qty_for_sale'" 
+                            class="w-24 text-[12px] lg:text-sm qty text-center" 
+                            :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div v-if="campaign_product.type == 'lucky_draw'" > - </div>
+                            <div v-else>
                                 {{ campaign_product[column.key] }}      
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'max_order_amount'" class="w-24 text-[12px] lg:text-sm maxQty" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div>
+                        <td v-else-if="column.key === 'max_order_amount'" 
+                            class="w-24 text-[12px] lg:text-sm maxQty text-center"
+                            :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div v-if="campaign_product.type == 'lucky_draw'" > - </div>
+                            <div v-else>
                                 {{ campaign_product[column.key] }}    
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'tag'" class="my-1 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end category" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                        <td v-else-if="column.key === 'tag'" 
+                            class="my-1 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end category" 
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div v-for="tag in campaign_product[column.key]" :key="tag">
                                 {{ tag }}
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'price'" class="price" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                                <div class="whitespace-nowrap" v-if="campaignDetailStore.campaign">
-                                    {{ campaignDetailStore.campaign.currency }}
-                                    {{ campaignDetailStore.campaign.decimal_places=='0'?Math.trunc(parseFloat(campaign_product[column.key])):parseFloat(campaign_product[column.key]).toFixed(campaignDetailStore.campaign.decimal_places)}}
-                                    {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}</div>
+                        <td v-else-if="column.key === 'price'" class="price" 
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div class="whitespace-nowrap" v-if="campaignDetailStore.campaign">
+                                {{ campaignDetailStore.campaign.currency }}
+                                {{ Math.floor(parseFloat(campaign_product[column.key]) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places}}
+                                {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}</div>
                         </td>
 
                         <td v-else-if="column.key === 'name'" class="text-[12px] w-full lg:w-24 lg:text-sm  content-center items-center longMessage">
@@ -84,26 +99,33 @@
                             </div>
                         </td> -->
 
-                        <td v-else-if="column.key === 'customer_editable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center editable" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class=" form-check place-content-end sm:place-content-center">
-                                    <input 
-                                        class="form-check-input w-[1.2rem] h-[1.2rem]" 
-                                        type="checkbox" 
-                                        disabled
-                                        v-model="campaign_product[column.key]" 
-                                    />
+                        <td v-else-if="column.key === 'customer_editable'" 
+                            :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 text-center content-center items-center editable" 
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div v-if="campaign_product.type == 'lucky_draw'" > - </div>
+                            <div v-else class=" form-check place-content-end sm:place-content-center">
+                                <input 
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]" 
+                                    type="checkbox" 
+                                    disabled
+                                    v-model="campaign_product[column.key]" 
+                                />
                             </div>
                         </td>
 
-                        <td v-else-if="column.key === 'customer_removable'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28  content-center items-center removable" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div class=" form-check place-content-end sm:place-content-center">
-
-                                    <input 
-                                        class="form-check-input w-[1.2rem] h-[1.2rem]"
-                                        type="checkbox" 
-                                        disabled 
-                                        v-model="campaign_product[column.key]" 
-                                    />
+                        <td v-else-if="column.key === 'customer_removable'" 
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 text-center content-center items-center removable"
+                            :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div v-if="campaign_product.type == 'lucky_draw'" > - </div>
+                            <div v-else class=" form-check place-content-end sm:place-content-center">
+                                <input 
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]"
+                                    type="checkbox" 
+                                    disabled 
+                                    v-model="campaign_product[column.key]" 
+                                />
                             </div>
                         </td>
 
@@ -182,8 +204,8 @@ const layoutStore = useLSSSellerLayoutStore()
 const campaignDetailStore = useCampaignDetailStore()
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const storageUrl = import.meta.env.VITE_APP_IMG_URL
 
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const route = useRoute()
 
 const dataCount = ref(0)
@@ -311,7 +333,7 @@ thead th {
 }
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
     table,
     thead,
@@ -431,7 +453,6 @@ thead th {
     }
 
     .category:before {
-        top: -3px;
         content: attr(data-content);
     }
     .category{
@@ -471,6 +492,12 @@ thead th {
        top:25% !important;
         margin-top: 0 !important;
     } */
+    .luckyDraw:before{
+        display: none !important;
+    }
+    .luckyDraw{
+        display: none !important;
+    }
     .trDot:before{
         display: none;
     }

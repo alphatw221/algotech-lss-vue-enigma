@@ -5,14 +5,18 @@
     "delisted": "Delisted",
     "add_product": "Add Product",
     "dont_have_product_notify": "No stock yet.",
-    "no_result": "No result",
+    "no_result":{
+        "enabled":"There are currently no items available for sale.",
+        "disabled":"There are currently no unlisted items."
+    },
     "click_to_add":"Click \"+ Add product\" to add your first product.",
 
     "search_bar": {
         "category": "Category",
         "search_by": "Search By",
-        "search_holder": "Search...",
+        "search_holder": "Search Name...",
         "search": "Search",
+        "bulk_edit": "Bulk Edit",
         "reset": "Reset",
         "category_manage": "Edit Category",
         "name": "Name",
@@ -36,6 +40,7 @@
         "create_new_category": "Create New Category",
         "edit_title": "Edit Category",
         "edit": "Edit",
+        "duplicate": "Duplicate",
         "delete": "Delete",
         "input_holder": "New Category Name",
         "modal": {
@@ -50,14 +55,14 @@
 
     "add_product_page": {
         "edit_title": "Edit Product",
-        "add_title": "Add New Product",
+        "add_title": "Add Product",
         "product_name": "Product Name",
         "name_warning": "Enter product name with no more than 50 digits",
         "category": "Category",
         "upload_image": "Upload Image",
         "drop_file_text": "Drop files here or click to upload.",
         "accept_file_text": "File types: jpeg, png, jpg",
-        "max_size_text": "Max size",
+        "max_size_text": "Max size：10MB",
         "quantity": "Quantity",
         "qty_warning": "Qty has to be a number",
         "price": "Price",

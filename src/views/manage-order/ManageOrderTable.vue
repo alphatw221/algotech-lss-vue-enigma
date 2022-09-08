@@ -4,7 +4,9 @@
             <thead>
                 <tr>
                     <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
-                        {{ $t(`manage_order.table.`+column.name) }}
+                        <template v-if="column.name == 'action'"> </template>
+                        <template v-else> {{ $t(`manage_order.table.`+column.name) }}  </template>
+                        
                     </th>
                 </tr>
             </thead>
@@ -22,7 +24,7 @@
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
-                                        <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                        <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/facebook.png' >
                                         </div>
@@ -37,7 +39,7 @@
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
-                                        <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                        <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="rounded-full bg-cover bg-[#f70000]" src='/src/assets/images/lss-img/instagram.png' />
                                         </div>
@@ -52,31 +54,66 @@
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
-                                        <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                        <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
                                         </div>
                                     </div>
-                                </div> 
+                                </div>
+                                <div v-else-if="order[column.key] === 'twitch'"
+                                    class="w-fit h-fit image-fit">
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
+                                        <img class="rounded-full" :src="order.customer_img"/>
+                                        <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
+                                        </div>
+                                    </div>
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
+                                        <img class="rounded-full" :src="unbound"/>
+                                        <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/twitch.png' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else-if="order[column.key] === 'tiktok'"
+                                    class="w-fit h-fit image-fit">
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
+                                        <img class="rounded-full" :src="order.customer_img"/>
+                                        <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/tiktok.png' >
+                                        </div>
+                                    </div>
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
+                                        <img class="rounded-full" :src="unbound"/>
+                                        <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
+                                        </div>
+                                    </div>
+                                </div>
+                                <div v-else-if="!order[column.key] && !order.customer_img" class="w-fit h-fit image-fit">
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
+                                        <img class="rounded-full" :src="unbound"/>
+                                    </div>
+                                </div>
                                 <div v-else class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
-                                        <img class="rounded-full" :src="'/src/assets/images/lss-img/noname.png'"/>
+                                        <img class="rounded-full" :src="order.customer_img"/>
                                     </div>
                                 </div>
                             </div>
                         </template>
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
-                                <a class="flex image-fit" @click="copyURL(order.id,order.type)">
+                                <a class="flex image-fit sm:mr-3" @click="copyURL(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
                                     <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
-                                        <Share2Icon class="block sm:mx-auto"/>
+                                        <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto w-6 sm:w-auto" width="24" height="23" />
                                     </Tippy>
                                 </a>
                                 <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_order_detail(order.id,order.type)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
                                     <Tippy  :content="$t('tooltips.manage_order.view_icon')" :options="{ theme: 'light' }"> 
-                                        <EyeIcon class="block sm:mx-auto"/>
+                                        <SimpleIcon icon="order_details" color="#2d8cf0" class="sm:mx-auto w-6 sm:w-auto" width="26" height="24" />
                                     </Tippy>
                                 </a>
                             </div>
@@ -84,11 +121,13 @@
                         <template v-else-if="column.key === 'delivery'">
                             <div class="flex place-content-center">
                                 <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
-                                  <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> <TruckIcon /> </Tippy>  
+                                  <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> 
+                                    <SimpleIcon icon="truck" color="#2d8cf0" class="sm:mx-auto" width="26" height="33" />
+                                    </Tippy>  
                                 </a>
                                 <a class="w-fit h-fit image-fit" v-show="order.status === 'shipping out'">
                                    <Tippy  :content="$t('manage_order.complete')" :options="{ theme: 'light' }">
-                                        <TruckIcon style="color:#BABABA" class="cursor-not-allowed"/>
+                                        <SimpleIcon icon="truck" color="#BABABA" class="sm:mx-auto cursor-auto" width="26" height="33"/>
                                     </Tippy> 
                                 </a>
                             </div>
@@ -104,7 +143,7 @@
                         <template v-else-if="column.key === 'order_product'">
                             <div class="flex place-content-center">
                                 <a class="text-black w-fit h-fit image-fit">
-                                    <Tippy  content="product details" :options="{ theme: 'light' }">
+                                    <Tippy  :content="$t('tooltips.manage_order.product_details')" :options="{ theme: 'light' }">
                                         <ChevronRightIcon @click="orderProductModal(order.id,order.type)"/>
                                     </Tippy>
                                 </a>
@@ -112,11 +151,17 @@
                         </template>
                         <template v-else-if="column.key === 'subtotal' && store.campaign" class="text-right">
                             {{store.campaign.currency}}
-                            {{ store.campaign.decimal_places=='0'?Math.trunc(parseFloat(order.total)):parseFloat(order.total).toFixed(store.campaign.decimal_places) }}
+                            {{ Math.floor(parseFloat(order.total) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places}}
                             {{store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
-                            {{ order[column.key] == 'Direct Payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : order[column.key] }}
+                            <template v-if="order[column.key] == 'direct_payment'">
+                                {{ `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` }}
+                            </template>
+                            <template v-else-if="order[column.key] != ''">
+                                {{ $t(`manage_order.table.${order[column.key]}`) }}
+                            </template>
+                            <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
                         </template>
                         <template v-else-if="column.key === 'id'">
                             <span class="sm:hidden"> #</span> {{ order.id }}
@@ -140,6 +185,8 @@ import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import unbound from '/src/assets/images/lss-img/noname.png';
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 const route = useRoute();
 const router = useRouter();
 const store = useManageOrderStore()
@@ -268,7 +315,7 @@ thead th{
 }	
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
 	table,
 	thead,

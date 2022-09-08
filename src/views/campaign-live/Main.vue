@@ -39,7 +39,9 @@ import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { retrieve_campaign } from '@/api_v2/campaign';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
+const sellerStore = useLSSSellerLayoutStore();
 const campaignDetailStore = useCampaignDetailStore()
 const { cookies } = useCookies();
 const router = useRouter();
@@ -54,6 +56,8 @@ onMounted(()=>{
     initWebSocketConnection()
     retrieve_campaign(route.params.campaign_id).then(res=>{
 		campaignDetailStore.campaign = res.data
+        if(sellerStore.commentCapturingCampaignData?.id!=res.data.id)sellerStore.commentCapturingCampaignData = res.data
+        
 	})
     
 })
@@ -104,7 +108,9 @@ const handleSocketMessage = message=>{
         }
         
     }else if (message.type == 'order_data'){
-        campaignDetailStore.incomingOrders.unshift(message.data)
+        const order_data = message.data
+        campaignDetailStore.incomingOrdersDict[order_data.id]=order_data
+        // campaignDetailStore.incomingOrders.unshift(message.data)
     }
 
 }

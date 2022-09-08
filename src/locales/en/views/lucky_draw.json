@@ -5,6 +5,8 @@
     "update_successed":"Update Successed",
     "save_success":"Save Success",
     "not_saved":"Update Canceled",
+    "animation_size_err": "File size can not exceed 10 MB.",
+    "animation_type_err": "This file type is not supported.",
 
     "draw_list": {
         "campaign_title": "Campaign Title",
@@ -14,11 +16,14 @@
         "purchase": "Draw Purchased",
         "product": "Draw Product",
         "keyword": "Draw Keyword",
+        "sharedpost": "Draw Shared Post",
         "winners" : "Winner(s)",
         "winner_repeat": "Winner Repeat",
+        "undefined":"",
         "yes": "Yes",
         "no": "No",
         "start": "Start",
+        "out_of_stock": "Out Of Prize",
         "edit": "Edit",
         "delete": "Delete",
         "confirm_delete": "Are you sure you want to delete this lucky draw ?"
@@ -57,7 +62,8 @@
             "like": "By liked this FB post",
             "product": "By purchased specific product",
             "purchase": "By any purchase",
-            "keyword": "By commented keyword"
+            "keyword": "By commented keyword",
+            "sharedpost": "By shared this FB post"
         },
         "no_product_err":"Haven't Assigned Product Into This Campaign",
         "assign_product_err":"Assign Product into your Campaign",
@@ -71,7 +77,8 @@
         "congrates": "Congratulations",
         "no_winner": "No winner this run",
         "yes": "Yes",
-        "no": "No"
+        "no": "No",
+        "draw_now": "Draw Now"
     },
 
 

@@ -5,36 +5,39 @@
         "confirm":"确认订单"
     },
     "plan":{
-        "lite":"Lite 精简版",
-        "standard":"Standard 标准版",
-        "premium":"Premium 进阶版",
+        "lite":"Lite",
+        "standard":"Standard",
+        "premium":"Premium",
         "dealer":"Dealer"
     },
 
     "basic_info":{
         "plan":"订阅方案",
         "plan_options":{
-            "lite":"精简版 (NT$300/月)",
-            "standard":"标准版 (NT$900/月)",
-            "premium":"进阶版 (NT$1800/月)"
+            "lite":"Lite　（%{price}／月）",
+            "standard":"Standard　（%{price}／月）",
+            "premium":"Premium　（start from %{price}起／月）"
         },
         "period":"订阅期限",
         "period_options":{
-            "year":"年缴 (九折优惠)",
-            "quarter":"季缴"
+            "year":"年缴　（九折优惠）",
+            "year_tw":"年缴 （八折优惠）",
+            "quarter":"季缴",
+            "month":"月缴"
         },
         "first_name":"名",
         "last_name":"姓",
         "country_code":"国码",
         "code_Options":{
-            "MY": "(MY) +60" , 
-            "ID": "(ID) +62" , 
-            "PH": "(PH) +63" , 
-            "SG": "(SG) +65" , 
-            "TW": "(TW) +886"
+            "MY": "（MY）　+60" , 
+            "ID": "（ID）　+62" , 
+            "PH": "（PH）　+63" , 
+            "SG": "（SG）　+65" , 
+            "TW": "（TW）　+886",
+            "VN": "（VN）　+84"
         },
         "number":"连络电话",
-        "email":"电子信箱",
+        "email":"电子邮件",
         "password":"密码",
         "confirm_password":"密码确认",
         "target_country":"主要贩售国家",
@@ -50,17 +53,17 @@
             "Singapore": "新加坡" , 
             "Taiwan": "台湾" , 
             "Thailand": "泰国" , 
-            "United State": "美国" , 
+            "United States": "美国" , 
             "Vietnam": "越南"
         },
         "required_field": "此栏位为必填",
         "password_err":"密码不符",
-        "welcome_gift": "符合首次订阅礼: 95折优惠",
-        "promocode_question":"是否使用优惠代码?",
+        "welcome_gift": "符合首次订阅礼：95折优惠",
+        "promocode_question":"是否使用优惠代码？",
         "promocode":"优惠代码",
         "policy":{
             "accept": "我同意",
-            "terms": "使用条款",
+            "terms": "服务条款",
             "&": "与",
             "conditions":"细则"
         },
@@ -77,14 +80,15 @@
         "current_plan":"目前方案",
         "year":"年缴",
         "quarter":"季缴",
+        "month":"月缴",
         "payment_method":{
             "card":"信用卡支付",
             "direct":"转帐支付"
         },
         "stripe":{
-            "stripe_success":"付款成功!",
-            "stripe_process":"处理中! 请勿重新整理页面并耐心等候, 我们正在处理你的付款资讯",
-            "stripe_failed":"付款失败! 请改用其他付款方式",
+            "stripe_success":"付款成功！",
+            "stripe_process":"处理中！请勿重新整理页面并耐心等候，我们正在处理你的付款资讯",
+            "stripe_failed":"付款失败！请改用其他付款方式",
             "stripe_err":"页面发生错误"
         },
         "direct":{
@@ -93,27 +97,27 @@
             "account":"账号",
             "account_number":"账户号码",
             "account_name":"账户名称",
-            "note":"提醒",
+            "note":"备注",
             "beneficiary":"Beneficiary Bank",
-            "upload_img":" 拖动档案或点击上传",
+            "upload_img":" 拖曳档案或点击上传",
             "accepted_types":"档案格式",
             "max_size":"档案最大限制",
-            "last_five_digits":"后五码",
-            "digits_message":"请输入后五码",
+            "last_five_digits":"末五码",
+            "digits_message":"请输入末五码",
             "complete_order":"完成订单"
         }
     },
     "confirm":{
         "succeeded":"付款完成",
-        "Email":"电子信箱",
-        "Customer Name":"姓名",
+        "Email":"电子邮件",
+        "Customer":"姓名",
         "Password":"密码",
         "Your Plan":"您的订阅方案",
         "Target Country": "主要贩售国家",
         "Subscription Period":"订阅期限",
         "Subscription End Date":"方案期限",
         "download":"下载电子收据",
-        "thankyou":"感谢您的注册, 您的帐号已启用! 请使用您的电子信箱登入" 
+        "thankyou":"感谢您的注册，您的帐号已启用！请使用您的电子邮件登入" 
     },
     "invalid_data":"输入资料无效",
     "input_err":"输入错误",

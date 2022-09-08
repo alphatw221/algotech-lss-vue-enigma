@@ -10,7 +10,7 @@
             "order_code":"Mã sản phẩm",
             "description":"Mô tả"
         },
-        "search_bar_place_holder":"Tìm kiếm...",
+        "search_bar_place_holder":"Tìm kiếm Tên",
         "reset":"Thiết lập lại"
     },
 
@@ -47,6 +47,7 @@
         }
     },
     "add":"Thêm vào",
+    "skip": "Nhảy",
     "add_more":"Thêm",
     "reset":"Thiết lập lại",
     "confirm":"Xác nhận",

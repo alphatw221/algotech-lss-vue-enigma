@@ -1,27 +1,27 @@
 {
     "shopping_cart":"购物车",
-    "delivery":"运送",
+    "delivery":"收件资讯",
     "my_cart_tab":{
-        "special_note":"购物说明",
-        "my_cart":"我的购物车"
+        "special_note":"购物須知",
+        "my_cart":"订单编号"
     },
     "delivery_tab":{
         "contact_info":"基本资讯",
-        "first_name":"名",
-        "last_name":"姓",
+        "first_name":"姓氏",
+        "last_name":"名字",
         "phone":"连络电话",
-        "email":"电子信箱",
+        "email":"电子邮件",
         "first_err":"必填",
         "last_err":"必填",
         "phone_err":"必填",
-        "Value is not a valid email address":"Email格式不符",
+        "Value is not a valid email address":"电子信箱格式不符",
         "Value is required":"必填",
 
         "shipping_info":"运送资讯",
         "home_delivery":"宅配",
-        "self_pickup":"取货",
+        "self_pickup":"自行取货",
 
-        "delivery_info":"宅配资讯",
+        "delivery_info":"收件地址",
         "address":"地址",
         "city":"城市",
         "state":"区",
@@ -36,7 +36,7 @@
             "default":"基本",
             "pickup":"选择取货方式"
         },
-        "note":"宅配 & 取货须知",
+        "note":"宅配 & 运送须知",
         "remark":"备注",
         "previous":"上一步",
         "proceed_to_payment":"前往付款"
@@ -44,7 +44,7 @@
     "table":{
         "update":"更新",
         "cancel":"取消",
-        "missing_message":"热销商品，你可能会错过!",
+        "missing_message":"很多买家也在浏览此商品，赶紧结帐以免错过！",
         "delete":"删除",
         "empty_message":"还没有任何商品",
         "product":"商品",
@@ -57,49 +57,63 @@
         "edit":"修改"
     },
     "order_summary":{
-        "order_summary":"订单总结",
+        "order_summary":"订单金额",
         "subtotal":"小计",
         "price_adjustment":"价格调整",
         "shipping":"运费",
         "total_charge":"总金额",
         "free_delivery":"运费已减免",
         "add_item":"加入更多商品",
-        "next":"下一步"
+        "next":"下一步",
+        "promo_discount": "优惠代码折抵",
+        "enter_promo":"优惠代码",
+        "enter":"套用",
+        "promo_apply":"优惠代码  %{code} 已激活",
+        "referr_code":"分享推荐码"
     },
     "add_item":{
-        "select_add_ons":"加购",
+        "select_add_ons":"加入商品",
         "select_products":"加购商品",
-        "add":"加入"
+        "add":"加入",
+        "wishlist":"到货通知" 
     },
     "payment":{
-        "shipping_summary":"寄送资讯",
-        "pickup":"到店取货",
+        "shipping_summary":"收件资讯",
+        "pickup":"自行取货",
         "delivery":"宅配",
-        "address":"宅配地址",
+        "address":"收件地址",
         "pay_with":"付款方式",
         "direct":{
-            "account":"账号",
+            "title": "银行转帐",
+            "account":"银行账号",
             "account_number":"账户号码",
             "account_name":"账户名称",
-            "note":"提醒",
+            "note":"备注",
             "beneficiary":"Beneficiary Bank",
-            "upload_img":"拖动档案或点击上传",
-            "accepted_types":"档案格式",
+            "upload_img":"点击上传图片",
+            "accepted_types":"可支援档案格式",
             "max_size":"档案最大限制",
-            "last_five_digits":"后五码",
+            "last_five_digits":"汇款帐号末五码",
             "digits_message":"请输入后五码",
             "complete_order":"完成订单",
-            "information": "付款资讯"
+            "information": "汇款资讯",
+            "upload_record":"上传付款证明",
+            "or":"或"
         }
     },
+    "login":{
+        "guest_login":"以访客身份结帐",
+        "continue":"继续",
+        "social_login":"快速登入"
+    },
     "delete_success":"删除成功",
-    "invalid_qty":"无效数量",
-    "update_successfully":"更新成功",
-    "invalid_data":"无效资料",
-    "invalid_amount":"无效金额",
+    "invalid_qty":"输入数量无效",
+    "update_successfully":"储存成功",
+    "invalid_data":"输入资料无效",
+    "invalid_amount":"输入金额无效",
     "add_item_success":"成功新增商品",
     "invalid_user_info":"买家资料输入错误",
     "invalid_delivery_info":"运送资料输入错误",
     "checkout_message":"确认前往结账后，购物车将会被清空",
-    "checkout_again":"商品已售完,请重新确认购物车并再次结账"
+    "checkout_again":"商品已售完，请重新确认购物车并再次结账" 
 }

@@ -12,6 +12,7 @@
     "update_successfully":"Update Successfully",
     "update_failed":"Update Failed",
     "img_size_err":"Image size exceed 10 MB",
+    "img_type_err":"This file type is not supported.",
     "invalid_data":"Invalid data",
     "delivery":{
         "delivery":"Delivery",
@@ -22,7 +23,7 @@
         "replace_charge" : "Replace delivery charge",
         "on_top_of_charge" : "On top of delivery charge",
         "title" : "Display Name",
-        "order_above":"Free Delivery for Order Above",
+        "order_above":"Free Delivery for Order Above($)",
         "minimum":"Free Delivery for Minimum Order Qty",
         "store":{
                 "collection":"Self Pickup",
@@ -44,7 +45,9 @@
             "direct_payment":"Direct Payment",
             "stripe":"Stripe",
             "hitpay":"Hitpay",
-            "paypal":"Paypal"
+            "paypal":"Paypal",
+            "ecpay":"ECPay",
+            "pay_mongo":"PayMongo"
         },
         "direct_payment":{
             "mode":"Name of Bank / Payment Mode",
@@ -65,18 +68,30 @@
         },
         "paypal":{
             "currency":"Currency",
-            "cliend_id":"Client ID",
+            "client_id":"Client ID",
             "secret":"Secret"
+        },
+        "ecpay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV",
+            "invoice_hash_key":"Invoice Hash Key",
+            "invoice_hash_iv":"Invoice Hash IV",
+            "invoice_enabled":"Invoice Enabled"
+        },
+        "pay_mongo":{
+            "secret":"Secret Key"
         },
 
         "payment_details": "Payment Details",
         "enabled": "Enable",
+        "invoice_enabled":"Invoice Enabled",
         "add_more_direct_payment": "Add New Direct Payment",
         "add_direct_payment": "Add Direct Payment",
         "upload_image": "Upload Image",
         "upload_a_file_or_drag_and_drop": "Upload a file",
-        "accepted_file_types": "File types",
-        "max_file_size": "Max file size",
+        "accepted_file_types": "File types: jpeg, png, jpg",
+        "max_file_size": "Max file size: 10MB",
         "delete": "Delete",
         "update": "Update",
         "errors":{
@@ -159,6 +174,14 @@
         "connect_with_instagram": "Connect with Instagram",
         "youtube_channel":"YouTube Channel",
         "connect_with_youtube": "Connect with YouTube",
+        "twitch_channel":"Twitch Channel",
+        "connect_with_twitch": "Connect with Twitch",
+        "connect": "Connect",
+        "twitch_channel_placeholder": "Channel Name...",
+        "twitch_helper_info": "If you want to connect a new account, Please go to Twitch pannel and logout.",
+        "switch_account": "Switch Account",
+        "tiktok_account": "TikTok Account",
+        "connect_with_tiktok": "Connect with TikTok",
         "edit":"Edit",
         "cancel":"Cancel",
         "upgrade":"Upgrade",

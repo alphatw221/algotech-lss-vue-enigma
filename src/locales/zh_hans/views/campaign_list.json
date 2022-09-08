@@ -1,19 +1,19 @@
 {
-    "campaign_list": "直播列表",
+    "campaign_list": "销售活动列表",
 
-    "no_campaign_Ongoing": "没有任何进行中的直播",
-    "no_campaign_Scheduled": "没有任何预定排程的直播",
-    "no_campaign_History": "没有任何直播的历史纪录",
+    "no_campaign_Ongoing": "没有任何进行中的活动",
+    "no_campaign_Scheduled": "没有任何预定排程的活动",
+    "no_campaign_History": "没有任何活动的历史纪录",
 
     "process" : {
         "create" : "建立",
-        "create_description" : "点击「建立」建立直播，点击「管理」从库存管理新增直播商品",
+        "create_description" : "点击「建立」建立销售活动，点击「管理」从库存管理新增活动商品",
         "connect" : "連接",
         "connect_description" : "点击「编辑」并输入 Facebook 直播贴文 ID",
         "complete" : "完成",
         "complete_description" : "点击「进入」查看并管理直播"
     },
-    "create_campaign": "建立直播",
+    "create_campaign": "建立销售活动",
 
     "tabs":{
         "scheduled" : "预定排程",
@@ -24,7 +24,7 @@
 
     "search_bar":{
         "title": "标题",
-        "search" : "搜寻",
+        "search" : "搜寻标题",
         "reset" : "清空"
     },
     "enter_post_id":{
@@ -38,38 +38,42 @@
 
     "campaign_list_table":{
         "title" : "标题",
-        "fan_page" : "平台",
-        "start_at" : "开卖日期/时间",
-        "end_at" : "结单日期/时间",
+        "fan_page" : "社群平台",
+        "start_at" : "开卖日期／时间",
+        "end_at" : "结单日期／时间",
         "manage" : "管理",
         "manage_product" : "管理商品",
-        "manage_order" : "管理订单",
+        "manage_order" : "订单管理",
         "stop" : "停止结帐",
         "null":"",
-        "history":"回顾",
-        "live_on":"进入直播",
-        "edit_campaign":"编辑直播",
-        "edit_campaign_product":"编辑直播商品",
-        "blank_cart":"复制购物车连结",
+        "history":"查看",
+        "live_on":"管理活动",
+        "edit_campaign":"编辑活动",
+        "edit_campaign_product":"编辑销售商品",
+        "blank_cart":"复制直接购买连结",
         "lucky_draw":"抽奖工具",
-        "quiz_game": "問答遊戲",
-        "confirm_delete": "确定要删除该场直播 ?",
+        "quiz_game": "問答游戏",
+        "confirm_delete": "确定要删除该场直播？",
         "more":"更多...",
         "delete": "删除",
-        "campaign_message":"沒有%{tab}的直播",
+        "campaign_message":"沒有%{tab}的销售活动",
         "no_result":"无搜索结果",
         "Scheduled" : "预定中",
         "History" : "历史",
         "Ongoing" : "进行中",
 
-        "no_have_campaign": "目前没有任何直播",
-        "click_create_notify": "点击 \"+ 建立直播\" ，开始新的直播活动",
+        "no_have_campaign":{
+            "ongoing":"目前没有任何进行中的销售活动",
+            "scheduled":"目前没有任何排程中的销售活动",
+            "history":"目前没有任何任何銷售活動紀錄"
+        },
+        "click_create_notify": "点击 \"+ 建立直播\" ，开始新的销售活动",
         "connect_platform":"绑定平台"
     },
 
     "remind_enter_post_id_modal":{
         "confirm":"确认",
-        "message":"请在开始直播销售前输入直播贴文 ID"
+        "message":"请选择您欲进行销售的社群贴文"
     },
 
     "enter_post_id_modal":{
@@ -78,7 +82,8 @@
         
         "post_id":"贴文 ID",
         "select_page":"选择直播视频",
-        "select_live_post":"选择直播贴文",
+        "select_live_post":"选择销售帐号及贴文",
+        "select_live_video":"选择销售帐号及直播影片",
         "enter_post_id": "输入贴文ID",
 
         "instagram":"Instagram",
@@ -89,15 +94,22 @@
         "live_chat_id":"聊天室 ID",
         "select_live_chat":"选择直播视频",
 
+        "twitch": "Twitch",
+        "enter_username": "输入帐户名称",
+
         "cancel":"取消",
         "save":"储存",
         "your_current_lives": "你目前正在进行的直播",
         "select_this_live": "选择这场直播",
-        "valid_post_id_notification": "请输入有效的贴文ID"
+        "valid_post_id_notification": "请输入有效的贴文ID",
+
+        "rebind_page":"请重新授权Facebook粉丝专页",
+        "rebind_channel":"请重新授权Youtube频道",
+        "rebind_profile":"请重新授权Instagram粉丝专页"
     },
-    "update_successed":"更新成功",
+    "update_successed":"储存成功",
     "no_facebook_post":"目前没有任何Facebook的直播",
     "no_youtube_post":"目前沒有任何YouTube的直播",
     "no_instagram_post":"目前沒有任何Instagram的直播"
 
-}
+} 

@@ -1,9 +1,9 @@
 {
 
-    "create_campaign":"建立直播",
-    "title":"标题",
+    "create_campaign":"建立销售活动",
+    "title":"标题", 
     "title_required":"请输入标题",
-    "period":"直播时间",
+    "period":"销售时间",
 
     "cancel":"取消",
     "create":"建立",
@@ -19,14 +19,14 @@
         "add_more_delivery_option":"增加运送选项",
         "add_more_pickup_option":"增加自取选项",
         "options":"运送方式",
-        "on_top_of_delivery_charge":"基本运费外加",
+        "on_top_of_delivery_charge":"额外收费", 
         "replace_delivery_charge":"取代基本运费",
 
         "delete":"删除",
 
-        "store_collection":"到店取货",
+        "store_collection":"自行取货",
 
-        "pickup_store":"取货店家",
+        "pickup_store":"取货门市／地点",
         "pickup_address":"取货地址",
         "errors":{
             "Value_is_required":"此字段必填",
@@ -39,59 +39,70 @@
     },
 
 
-    "payment_form":{
-        "payment_titles":{
-            "direct_payment":"转账支付",
-            "stripe":"Stripe支付"
+    "payment_titles":{
+            "direct_payment":"银行转帐",
+            "stripe":"Stripe",
+            "hitpay":"Hitpay",
+            "paypal":"Paypal",
+            "ecpay":"绿界金流",
+            "pay_mongo":"PayMongo"
         },
 
         "direct_payment":{
             "mode":"银行名称",
             "name":"账户名称",
-            "number":"账号",
-            "note":"注解",
+            "number":"银行帐号",
+            "note":"备注",
             "require_customer_return":"要求买家上传付款证明"
         },
         "stripe":{
-            "secret":"密钥",
-            "currency":"货币"
+            "secret":"Secret Key",
+            "currency":"币别"
         },
         "hitpay":{
             "button_title":"按钮标题",
-            "currency":"货币",
-            "api_key":"API 密钥",
-            "salt":"密码"
+            "currency":"币别",
+            "api_key":"API Key",
+            "salt":"Salt"
         },
         "paypal":{
-            "currency":"货币",
-            "cliend_id":"客户ID",
+            "currency":"币别",
+            "client_id":"客户ID",
+            "secret":"密钥"
+        },
+        "ecpay":{
+            "merchant_id":"商店代号",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV",
+            "invoice_hash_key":"Invoice Hash Key",
+            "invoice_hash_iv":"Invoice Hash IV"
+        },
+        "pay_mongo":{
             "secret":"密钥"
         },
 
         "payment_details":"金流设定",
-        "enabled":"启用",
-        "add_more_direct_payment":"增加转账选项",
-        "upload_image":"上传图片",
+        "enabled":"预设启用",
+        "invoice_enabled":"Invoice Enabled",
+        "add_more_direct_payment":"新增转账选项",
+        "upload_image":"收款 QRCode",
         "remove_image":"移除照片",
         "upload_a_file_or_drag_and_drop":"点击上传图片",
-        "accepted_file_types":"支援档案类型",
-        "max_file_size":"档案容量上限",
+        "accepted_file_types":"可支援档案格式：jpeg、png、jpg",
+        "max_file_size":"档案大小上限：10MB",
 
         "delete":"删除",
 
         "errors":{
             "Value_is_required":"此字段必填",
             "img_size_err":"图片大小不可超过 10 MB"
-        }
-
-
-    },
+        },
 
     "notes_form":{
-        "notes_form":"备注设定",
-        "delivery_note":"运送备注",
-        "special_note":"特别备注",
-        "confirmation_note":"完成付款备注"
+        "notes_form":"客制化讯息",
+        "delivery_note":"运送须知",
+        "special_note":"购物须知",
+        "confirmation_note":"订单确认信息"
     }
 
 }

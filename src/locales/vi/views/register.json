@@ -15,14 +15,16 @@
     "basic_info":{
         "plan":"Gói dịch vụ đăng ký",
         "plan_options":{
-            "lite":"Lite (70.000 đồng/tháng)",
-            "standard":"Standard (160.000 đồng/tháng)",
-            "premium":"Premium (Từ 100.000 đồng/tháng)"
+            "lite":"Lite (%{price}/tháng)",
+            "standard":"Standard (%{price}/tháng)",
+            "premium":"Premium (%{price}/tháng)"
         },
         "period":"Thời gian sử dụng",
         "period_options":{
             "year":"Hàng năm (giảm giá 10%)",
-            "quarter":"Hàng quý"
+            "year_tw":"Hàng năm (giảm giá 20%)",
+            "quarter":"Hàng quý",
+            "month":"Hàng tháng"
         },
         "first_name":"Họ",
         "last_name":"Tên",
@@ -32,7 +34,8 @@
             "ID": "(ID) +62" , 
             "PH": "(PH) +63" , 
             "SG": "(SG) +65" , 
-            "TW": "(TW) +886"
+            "TW": "(TW) +886",
+            "VN": "(VN) +84"
         },
         "number":"Số điện thoại",
         "email":"Email",
@@ -51,7 +54,7 @@
             "Singapore": "Singapore" , 
             "Taiwan": "Đài Loan" , 
             "Thailand": "Thái Lan" , 
-            "United State": "Hoa Kỳ" , 
+            "United States": "Hoa Kỳ" , 
             "Vietnam": "Việt Nam"
         },
         "required_field": "Trường này là bắt buộc",
@@ -78,6 +81,7 @@
         "current_plan":"Gói dịch vụ gần đây",
         "year":"Hàng năm",
         "quarter":"Hàng quý",
+        "month":"Hàng tháng",
         "payment_method":{
             "card":"thẻ tín dụng",
             "direct":"Thanh toán trực tiếp"
@@ -108,7 +112,7 @@
     "confirm":{
         "succeeded":"Thanh toán thành công",
         "Email":"Email",
-        "Customer Name":"Tên khách hàng",
+        "Customer":"Tên khách hàng",
         "Password":"Mật khẩu",
         "Your Plan":"Gói dịch vụ của bạn",
         "Target Country": "Quốc gia",

@@ -5,14 +5,17 @@
     },
     "create_campaign":{
         "campaign_period":"Khoảng thời gian cho phép người mua đặt hàng",
-        "payment_record":"Yêu cầu người mua đính kèm hóa đơn thanh toán"
+        "payment_record":"Yêu cầu người mua đính kèm hóa đơn thanh toán",
+        "title":"The title cannot exceed 50 characters"
     },
     "campaign_live":{
-        "view_icon":"Chi tiết đơn hàng"
+        "view_icon":"Chi tiết đơn hàng",
+        "incoming_order":"Only preliminary order information is displayed here. To view all orders, please go to \"Order Management\""
     },  
     "campaign_list":{
         "stop_checkout":"Tắt giỏ hàng ngay lập tức",
-        "instant_cart":"nhận đơn hàng mà không cần tiếp tục đăng ký phát trực tiếp trên mạng xã hội"
+        "instant_cart":"nhận đơn hàng mà không cần tiếp tục đăng ký phát trực tiếp trên mạng xã hội",
+        "price_unit":"Hiển thị đơn vị giá trên các sản phẩm, ví dụ: 10.000 được thay bằng 10K khi áp dụng đơn vị \"K\""
     },
     "lucky_draw":{
         "spin_time":"Thời gian quay rút thăm may mắn",
@@ -21,25 +24,33 @@
     "manage_order":{
         "delivery_noti":"Thông báo email khi đơn hàng đã được giao đến",
         "view_icon":"Chi tiết đơn hàng",
-        "link_icon":"Sao chép liên kết giỏ hàng"
+        "link_icon":"Sao chép liên kết giỏ hàng",
+        "product_details":"Xem danh sách sản phẩm"
     },
     "manage_order_details":{
         "price_adjustment":"Mở chức năng điều chính giá bằng việc thêm phí bổ sung hoặc giảm giá cho người mua"
     },
     "auto_reply":{
-        "assign_to":"Chọn phản hồi tự động cho trang cụ thể"
+        "assign_to":"Chọn phản hồi tự động cho trang cụ thể",
+        "title":"Buyers need to have interactive records with the social account (such as leaving a message in a live post, etc.) before the system will activate this function.",
+        "platform":"Please select the community account you want to apply this auto-reply to."
+    },
+    "discount_code":{
+        "percent_off":"To set \"20% off\", please enter \"20\"% off; \"30% off\", please enter \"30\"% off, and so on."
     },
     "settings":{
+        "default_settings":"You can fill in the default values for sales activity settings here, and the system will automatically bring in these data each time you create a new sales activity, you can also modify it individually according to different activities.",
         "note":{
             "delivery_note":"Tin nhắn bổ sung để thông báo cho người mua về một số chi tiết nhất định, chẳng hạn như thời gian mở cửa hàng, khoảng thời gian giao hàng,...",
             "special_note":"Thông báo tùy chỉnh cho người mua, chẳng hạn như ghi chú mua sắm, điều khoản và điều kiện",
             "confirm_note":"Tin nhắn thông báo đến người mua về đơn hàng của họ đã được xác nhận"
         },
         "local":{
-            "buyer_lang":"Thay đổi ngôn ngữ trên giỏ hàng của người mua và gửi tin nhắn thông báo qua mạng xã hội"
+            "buyer_lang":"Thay đổi ngôn ngữ trên giỏ hàng của người mua và gửi tin nhắn thông báo qua mạng xã hội",
+            "price_unit":"Hiển thị đơn vị giá trên các sản phẩm, ví dụ: 10.000 được thay bằng 10K khi áp dụng đơn vị \"K\""
         },
         "social":{
             "connect_social":"Liên kết tài khoản mạng xã hội của bạn để bắt đầu chiến dịch bán hàng livestream của bạn"
         }
-    },
+    }
 }

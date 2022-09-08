@@ -9,7 +9,8 @@
         "id":"ID",
         "joined":"Joined",
         "vaild":"Vaild till",
-        "change_plan":"Change Plan"
+        "change_plan":"Change Plan",
+        "country":"Country/Region"
     },
     "plan":{
         "trial":"Trial",
@@ -24,7 +25,6 @@
         "confirm_password" : "Confirm Password", 
         "submit" : "Submit"
     },
-
     "invalid_data":"Invalid Submission",
     "input_err":"Input Error",
     "input_required":"Input Required",

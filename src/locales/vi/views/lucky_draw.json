@@ -5,20 +5,24 @@
     "update_successed":"Cập nhật thành công",
     "save_success":"Lưu thành công",
     "not_saved":"Cập nhật Hủy bỏ",
+    "animation_size_err": "Kích thước hình ảnh vượt quá 10 MB",
+    "animation_type_err": "Tệp này không được hỗ trợ",
 
     "draw_list": {
         "campaign_title": "Tiêu đề chiến dịch   ",
         "all_winner": "Người thắng cuộc",
-        "create": "Tạo sản phẩm",
+        "create": "Tạo chiến dịch",
         "like": "Tạo theo lượt thích",
         "purchase": "Tạo theo lượt mua",
         "product": "Tạo theo sản phẩm",
         "keyword": "Tạo theo từ khóa",
+        "sharedpost": "Với chia sẻ bài viết trên Facebook",
         "winners" : "Người thắng cuộc",
         "winner_repeat": "Lặp lại người thắng cuộc",
         "yes": "Có",
         "no": "Không",
         "start": "Bắt đầu",
+        "out_of_stock": "bán hết",
         "edit": "Chỉnh sửa",
         "delete": "Xóa",
         "confirm_delete": "Bạn có chắc chắn sẽ xóa Quà tặng minigame này ?"
@@ -55,7 +59,8 @@
             "like": "bằng cách thích bài đăng này",
             "product": "bằng cách mua sản phẩm nhất định",
             "purchase": "bằng cách mua bất kỳ sản phẩm nào",
-            "keyword": "bằng cách bình luận đúng từ khóa"
+            "keyword": "bằng cách bình luận đúng từ khóa",
+            "sharedpost": "Với chia sẻ bài viết trên Facebook"
         },
         "no_product_err":"Chưa chọn sản phẩm cho chiến dịch này",
         "assign_product_err":"Chọn sản phẩm cho chiến dịch",
@@ -69,7 +74,8 @@
         "congrates": "Xin chúc mừng",
         "no_winner": "Không có người chiến thắng trong đợt này",
         "yes": "Có",
-        "no": "Không"
+        "no": "Không",
+        "draw_now": "Bắt đầu quay"
     },
 
 

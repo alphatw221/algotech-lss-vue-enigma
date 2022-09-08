@@ -21,36 +21,25 @@
     <!-- BEGIN: commit box -->
     <div
       class="
-        flex flex-row flex-wrap
-        justify-center
-        sm:justify-between
-        mt-5
-        mx-0
-        gap-3
-        sm:gap-5
+        flex flex-row flex-wrap justify-center
+        sm:justify-between mt-5 mx-0 gap-3 sm:gap-5
       "
     >
       <div class="flex-none switch-toggle mx-auto sm:mx-0">
-        <input id="off" name="state-d" type="radio" />
-        <label for="off" @click="show_campaign('ongoing')">{{
-          $t("campaign_list.tabs.ongoing")
-        }}</label>
-        <input id="on" name="state-d" type="radio" checked="checked" />
-        <label for="on" @click="show_campaign('scheduled')">{{
-          $t("campaign_list.tabs.scheduled")
-        }}</label>
-        <input id="na" name="state-d" type="radio" class="my-0" />
-        <label for="na" @click="show_campaign('history')">{{
-          $t("campaign_list.tabs.history")
-        }}</label>
+        <input id="on" name="state-d" type="radio" checked="checked" @click="show_campaign('ongoing')"/>
+        <label for="on" >{{$t("campaign_list.tabs.ongoing")}}</label>
+        <input id="na" name="state-d" type="radio" @click="show_campaign('scheduled')" />
+        <label for="na" >{{$t("campaign_list.tabs.scheduled")}}</label>
+        <input id="off" name="state-d" type="radio" class="my-0" @click="show_campaign('history')" />
+        <label for="off" >{{$t("campaign_list.tabs.history")}}</label>
       </div>
       <button
         class="
           flex
-          w-32 h-[35px] sm:h-[42px]
+          w-40 h-[35px] sm:h-[42px]
           ml-auto text-white
           btn btn-warning btn-rounded
-          mx-auto mb-5
+          mx-auto mb-5 sm:mb-2
           sm:mx-0 border-[2px] border-slate-100 shadow-lg
         "
         @click="router.push({ name: 'create-campaign' })"
@@ -59,7 +48,7 @@
         {{ $t("campaign_list.create_campaign") }}
       </button>
     </div>
-    <div class="flex-auto" v-show="campaignStatus == 'scheduled'">
+    <div class="flex-auto" v-if="campaignStatus == 'scheduled'">
       <SearchBar :searchColumns="searchColumns" :eventBusName="'Scheduled'" />
       <CampaignListTable
         :tableColumns="tableColumns"
@@ -68,7 +57,7 @@
       />
     </div>
 
-    <div class="flex-auto" v-show="campaignStatus == 'history'">
+    <div class="flex-auto" v-if="campaignStatus == 'history'">
       <SearchBar :searchColumns="searchColumns" :eventBusName="'History'" />
       <CampaignListTable
         :tableColumns="tableColumns"
@@ -77,7 +66,7 @@
       />
     </div>
 
-    <div class="flex-auto" v-show="campaignStatus == 'ongoing'">
+    <div class="flex-auto" v-if="campaignStatus == 'ongoing'">
       <SearchBar :searchColumns="searchColumns" :eventBusName="'Ongoing'" />
       <CampaignListTable
         :tableColumns="tableColumns"
@@ -116,7 +105,7 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus; 
 
 const openCampaign = ref()
-const campaignStatus = ref("scheduled");
+const campaignStatus = ref("ongoing");
 const show_campaign = (status) => {
   campaignStatus.value = status;
 };
@@ -139,7 +128,7 @@ onMounted(()=>{
   if(route.query.type){
     if (route.query.type == 'startCampaign' && route.query.campaign != '' && route.query.campaign != undefined ) {
       retrieve_campaign(route.query.campaign).then((res) => {
-        openCampaign.value = res.data
+        // openCampaign.value = res.data
         console.log(openCampaign.value)
         if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== '') {
           router.push({name:'campaign-live',params:{'campaign_id':openCampaign.value.id}, query:{'status':"schaduled"}})
@@ -157,12 +146,12 @@ watch(computed(()=>route.query.type), () => {
     if (route.query.type == 'startCampaign') {
       retrieve_campaign(route.query.campaign).then((res) => {
         openCampaign.value = res.data
-        console.log(openCampaign.value)
+        // console.log(openCampaign.value)
         if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== '') {
           router.push({name:'campaign-live',params:{'campaign_id':openCampaign.value.id}, query:{'status':"schaduled"}})
           return
         }
-        eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': "schaduled", 'campaign':openCampaign})
+        eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': "schaduled", 'campaign':openCampaign.value})
       })}
   }
 })

@@ -1,27 +1,31 @@
 {
-    "lucky_draw" : "抽獎工具",
+    "lucky_draw" : "抽獎設定",
     "invalid_data":"輸入資料無效",
     "create_successed":"新增成功",
-    "update_successed":"更新成功",
+    "update_successed":"儲存成功",
     "save_success":"儲存成功",
     "not_saved":"取消儲存",
+    "animation_size_err": "上傳檔案大小不可超過 10 MB",
+    "animation_type_err": "此檔案格式不支援",
 
     "draw_list": {
-        "campaign_title": "直播名稱",
+        "campaign_title": "活動名稱",
         "all_winner": "得獎者列表",
         "create": "建立抽獎",
-        "like": "按讚者",
-        "purchase": "購買者",
+        "like": "對此FB貼文按讚者",
+        "purchase": "購買任何商品者",
         "product": "購買特定商品者",
         "keyword": "輸入特定關鍵字",
-        "winners" : "得獎人數量",
+        "sharedpost": "分享貼文者",
+        "winners" : "得獎人數",
         "winner_repeat": "重複得獎",
         "yes": "是",
         "no": "否",
         "start": "開始",
+        "out_of_stock": "已抽完",
         "edit": "編輯",
         "delete": "刪除",
-        "confirm_delete": "確定要刪除該場抽獎 ?"
+        "confirm_delete": "確定要刪除該場抽獎？"
     },
 
     "winner_modal": {
@@ -33,17 +37,17 @@
     },
 
     "draw_create": {
-        "campaign_title": "直播名稱",
+        "campaign_title": "活動名稱",
         "prize" : "獎品",
-        "spin_time" : "動畫時間(秒)",
+        "spin_time" : "動畫時間（秒）",
         "number_of_winner" : "得獎人數",
-        "animation_style" : "動畫風格",
+        "animation_style" : "抽獎動畫",
         "winner_repeat" : "重複得獎",
         "yes": "是",
         "no": "否",
         "winner_repeat_tip": "參與者可重複獲獎",
         "upload_animation": "上傳抽獎動畫",
-        "draw_type" : "抽獎類型",
+        "draw_type" : "抽獎方式",
         "cancel": "取消",
         "save": "儲存",
         "back": "上一頁",
@@ -54,12 +58,13 @@
         "product": "商品",
         "keyword": "關鍵字",
         "draw_selection": {
-            "like": "按讚者",
+            "like": "對此FB貼文按讚者",
             "product": "購買特定商品者",
             "purchase": "購買任何商品者",
-            "keyword": "輸入特定關鍵字"
+            "keyword": "輸入特定關鍵字",
+            "sharedpost": "分享貼文者"
         },
-        "no_product_err":"尚未將商品加入此直播",
+        "no_product_err":"尚未將商品加入此活動",
         "assign_product_err":"需加入商品",
         "assign_prize_err":"需加入獎品",
         "secs":"秒"
@@ -71,7 +76,8 @@
         "congrates": "恭喜",
         "no_winner": "沒有贏家",
         "yes": "是",
-        "no": "否"
+        "no": "否",
+        "draw_now": "抽獎"
     },
 
 
@@ -102,7 +108,7 @@
     "comment_include" : "抽獎條件：留言包含",
     "draw_keyword" : "開始留言抽獎",
     "error_outline" : "error_outline",
-    "no_winners" : "No Winner! There's no comment with this keyword.",
+    "no_winners" : "沒有贏家！ 沒有關於這個關鍵字的留言。",
     "got_it" : "Got it !",
     "lucky_draw_result" : "抽獎結果",
     "winner" : "得獎者",

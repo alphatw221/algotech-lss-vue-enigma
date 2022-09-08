@@ -9,7 +9,7 @@
 
     "quiz_create": {
         "campaign_title": "Campaign Title",
-        "question_title": "Quiz Game Question",
+        "question_title": "Question & Answer",
         "add_question": "Add More Question",
         "question": "please enter your question...",
         "answer": "please enter your answer...",
@@ -31,6 +31,7 @@
     "quiz_list": {
         "campaign_title": "Campaign Title",
         "question": "Question",
+        "answer": "Answer",
         "start": "Start",
         "stop": "Stop",
         "finish": "Finished",

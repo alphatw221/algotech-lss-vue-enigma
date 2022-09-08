@@ -4,19 +4,26 @@
         "comments":"直播留言",
         "delivery":"運送",
         "payment":"付款",
+        "purchase":"購買",
+        "return":"退貨",
         "other":"其他",
         "select_tag":"選擇標籤",
         "clear":"清空",
         "comment_message_1":"尚未有%{tag}相關訊息",
         "comment_message_2":"尚未有%{platformName}訊息",
 
-        "comments_summarizer":"留言分類",
+        "comments_summarizer":"留言篩選",
         "all_comments":"所有留言",
         "facebook_comments":"Facebook 留言",
         "youtube_comments":"Youtube 留言",
-        "instagram_comments":"Instagram 留言"
+        "instagram_comments":"Instagram 留言",
+        "tiktok_comments":"Tiktok 留言",
+        "twitch_comments":"Twitch 留言",
+        "lucky_draw":"抽獎活動",
+        "quiz_game": "問答遊戲"
     },
     "reply":{
+        "reply_tooltips":"回覆留言",
         "reply_to":"回覆",
         "type_your_message": "輸入你的訊息"
     },
@@ -25,27 +32,28 @@
         "type_your_message": "輸入你的訊息"
     },
     "product":{
-        "product":"直播商品",
+        "product":"銷售商品",
         "modal_column":{
             "null":"",
-            "cart_sold_left":"下單/售出/剩餘",
+            "cart_sold_left":"下單／售出／剩餘",
             "name":"商品",
             "description":"說明",
             "Product":"商品",
-            "order_code":"商品代碼",
+            "order_code":"下單代碼",
             "price":"價格",
-            "activate":"Activate",
+            "activate":"啟用",
             "qty":"庫存",
             "stock_qty":"庫存",
             "category":"分類",
             "type":"類別",
             "Lucky Draw":"獎品",
             "qty_for_campaign":"直播庫存",
-            "max_qty":"限購數量",
+            "max_qty":"單次購買上限",
             "editable":"可修改",
             "removable":"可刪除",
             "deletable":"可刪除",
-            "search":"搜尋"
+            "search":"搜尋",
+            "no_product":"您尚未加入活動商品，點擊 \"＋ 加入商品\"以新增"
         },
         "add":"加入",
         "add_product":"加入商品",
@@ -63,14 +71,14 @@
             "type_required":"型態必填",
             "order_code_required":"商品代碼必填",
             "order_code_duplicate":"商品代碼重複",
-            "qty_invalid":"數量無效",
+            "qty_invalid":"輸入數量無效",
             "max_order_amount_grater_than_qty":"不得大於商品數量",
             "assign_qty_required":"商品數量必填",
-            "price_invalid":"價錢無效"
+            "price_invalid":"輸入價錢無效"
         },
-        "invalid":"無效",
+        "invalid":"輸入無效",
         "successed":"成功",
-        "invalid_data":"無效資料"
+        "invalid_data":"輸入資料無效"
     },
     "incoming":{
         "incoming_order":"即時訂單",
@@ -79,8 +87,8 @@
         "list":"抽獎",
         "manage_order":"訂單管理",
         "table":{
-            "order_number" : "訂單",
-            "name" : "顧客",
+            "order_number" : "訂單編號",
+            "name" : "賣家帳號",
             "platform" : "平台",
             "amount" : "金額",
             "view" : "詳情",

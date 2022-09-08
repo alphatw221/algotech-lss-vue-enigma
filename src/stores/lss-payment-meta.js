@@ -6,7 +6,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:true,
 		name: "Direct Payment",
 		key:"direct_payment",
-		icon:"static/payment/stripe/icon.png",
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/stripe/icon.png",
 		fields:[
 			{key:"mode", name:"Name of Bank / Payment Mode", type:"text", dataType:"string", default:''},
 			{key:"name", name:"Account Name", type:"text", dataType:"string", default:''},
@@ -29,7 +29,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"Stripe",
 		key:"stripe",
-		icon:"static/payment/stripe/icon.png",
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/stripe/icon.png",
 		fields:[
 			{key:"secret", type:"password", name: "Secret Key",dataType:"string", default:''},
 			{key:"currency", type:"select", name: "Currency", options:[
@@ -71,7 +71,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		multiple:false,
 		name:"Paypal",
 		key:"paypal",
-		icon:"static/payment/paypal/icon.jpeg",
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/paypal/icon.jpeg",
 		fields:[
 			{key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'NTD'], dataType:"string", default:'SGD'},
 			{key:"client_id", type:"text", name:"Client ID", dataType:"string", default:''},
@@ -82,6 +82,20 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			endpoint:'getPaypayGateway',
 		}
 
+	},
+	pay_mongo: {
+		multiple:false,
+		name:"PayMongo",
+		key:"pay_mongo",
+		fields:[
+			{key:"secret", type:"password", name:"Secret Key", dataType:"string", default:''},
+		],
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/pay_mongo/icon.jpeg",
+		handle:{
+			type:'gateway',
+			endpoint:'getPayMongoGateway',
+		}
+		// "request_url": "api/user-subscription/pay_mongo/"
 	},
 	// first_data : {
 	// 	multiple:false,
@@ -98,34 +112,55 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 	// 		endpoint:'getFirstDataCredential',
 	// 	}
 	// },
+	ecpay:{
+		multiple:false,
+		name:"綠界",
+		key:"ecpay",
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/ecpay/icon.jpeg",
+		fields:[
+			// {key:"currency", type:"select", name: "Currency", options:['SGD', 'AUD', 'NTD'], dataType:"string", default:'SGD'},
+			{key:"merchant_id", type:"text", name:"Merchant ID", dataType:"string", default:''},
+			{key:"hash_key", type:"text", name:"HashKey", dataType:"string", default:''},
+			{key:"hash_iv", type:"text", name:"HashIV", dataType:"string", default:''},
+			{key:"invoice_enabled", type:"checkbox", name:"啟用發票", dataType:"boolean", default:false},
+			{key:"invoice_hash_key", type:"text", name:"發票 HashKey", dataType:"string", default:''},
+			{key:"invoice_hash_iv", type:"text", name:"發票 HashIV", dataType:"string", default:''}
+		],
+		// invoice:false,
+		handle:{
+			type:'submitForm',
+			endpoint:'getEcpayCredential',
+		}
+	},
 
 
     SG : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
     
-    ID :['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    ID :['direct_payment', 'stripe', 'paypal'],
 
-    MY : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    MY : ['direct_payment', 'stripe', 'paypal'],
     
-    IN : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    IN : ['direct_payment', 'stripe', 'paypal'],
     
-    PH : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    PH : ['direct_payment', 'paypal', 'pay_mongo'],
 
-    VN : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    VN : ['direct_payment', 'stripe', 'paypal'],
 
-    TW : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+    TW : ['direct_payment', 'stripe', 'paypal', 'ecpay'],
 
-    CN : ['direct_payment', 'stripe'],
+    CN : ['direct_payment', 'stripe', 'paypal'],
 
-    KH : ['direct_payment', 'stripe'],
+    KH : ['direct_payment', 'stripe', 'paypal'],
 
-    AU : ['direct_payment', 'stripe'],
+    AU : ['direct_payment', 'stripe', 'paypal'],
 
-    HK : ['direct_payment', 'stripe'],
+    HK : ['direct_payment', 'stripe', 'paypal'],
 
 	paymentMap: {
 		direct_payment: 'Direct Payment',
 		stripe: 'Stripe',
-		first_data: 'First Data'
+		first_data: 'First Data',
+		ecpay:'ECPay'
 	}
     
   }),

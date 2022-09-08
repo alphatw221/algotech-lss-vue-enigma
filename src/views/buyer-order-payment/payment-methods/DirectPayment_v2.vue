@@ -1,7 +1,7 @@
 <template>
     <AccordionItem  class="mx-5 show">
         <Accordion class="rounded-t-lg bg-primary" >
-            <div class="mx-5 text-white" v-if="store.order.campaign"> {{store.order.campaign.meta_payment.direct_payment.direct_payment_button_title}} </div>
+            <div class="mx-5 text-white" v-if="store.order.campaign">{{$t('shopping_cart.payment.direct.title')}}</div>
         </Accordion>
 
         <!-- BEGIN Direct Payment -->
@@ -30,25 +30,22 @@
                     :class="{ hidden: openTab !== index, block: openTab === index }"
                     v-show="openTab===index"
                     >
-                    <h5 class="mx-auto font-bold text-black mb-3">Payment Information</h5>
+                    <h5 class="mx-auto font-bold text-black mb-3">{{$t('shopping_cart.payment.direct.information')}}</h5>
                     <table>
                         <tr>
-                            <td class="w-36">{{$t('shopping_cart.payment.direct.beneficiary')}}: </td><td>{{account.mode}}</td>
+                            <td class="w-36">{{$t('shopping_cart.payment.direct.account')}}：</td><td>{{account.number}}</td>
                         </tr>
                         <tr>
-                            <td class="w-36">{{$t('shopping_cart.payment.direct.account_number')}}: </td><td>{{account.number}}</td>
+                            <td>{{$t('shopping_cart.payment.direct.account_name')}}：</td><td>{{account.name}}</td>
                         </tr>
                         <tr>
-                            <td>{{$t('shopping_cart.payment.direct.account_name')}}: </td><td>{{account.name}}</td>
-                        </tr>
-                        <tr>
-                            <td>{{$t('shopping_cart.payment.direct.note')}}: </td><td>{{account.note}}</td>
+                            <td>{{$t('shopping_cart.payment.direct.note')}}：</td><td>{{account.note}}</td>
                         </tr>
                         <!-- <tr>
                             <td>Other Note ( Press enter to add new line )</td><td></td>
                         </tr> -->
                     </table>
-                    <img class="mt-5 w-36 h-36 " :src="storageUrl+account.image" alt="" />
+                    <img class="mt-5 w-36 h-36 " :src="account.image" alt="" />
                 </div>
             </div>
 
@@ -63,7 +60,7 @@
                 </div>
             </div> -->
             <!-- END Direct Payment Radio -->
-
+            <h5 class="mx-auto font-bold text-black mb-3 text-center">{{$t('shopping_cart.payment.direct.upload_record')}}</h5>
             <Dropzone ref-key="receiptUploadDropzoneRef" :options="{
                 method: 'put',
                 url: 'url',
@@ -75,15 +72,17 @@
                 clickable: true,
                 acceptedFiles: 'image/*',
             }" class="dropzone h-fit">
-
+                
                 <div class="text-lg font-medium">
                    {{$t('shopping_cart.payment.direct.upload_img')}}
                 </div>
                 <div class="text-gray-600">
-                    <br>{{$t('shopping_cart.payment.direct.accepted_types')}}: jpeg, png, jpg
+                    <br>{{$t('shopping_cart.payment.direct.accepted_types')}}：jpeg, png, jpg
                 </div>
-                <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}} : 10MB</div>  
+                <div class="text-gray-600">{{$t('shopping_cart.payment.direct.max_size')}}：10MB</div>  
             </Dropzone>
+
+            <h4 class="mx-auto my-4 font-bold text-black mb-3 text-center">{{$t('shopping_cart.payment.direct.or')}}</h4>
             <div class="flex flex-col m-3">
 
                 <label for="regular-form-2" class="form-label">{{$t('shopping_cart.payment.direct.last_five_digits')}}</label>
@@ -131,7 +130,7 @@ const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const router = useRouter();
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
+
 const receiptUploadDropzoneRef = ref();
 const openTab = ref(0);
 const selectAccountIndex = ref(0);
@@ -163,7 +162,9 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
 
     })
 });
-
+onMounted(() => {
+    console.log(store.order.campaign)
+})
 const uploadReceipt = () => {
     
 

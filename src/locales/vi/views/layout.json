@@ -1,7 +1,7 @@
 {
     "upgrade":"Nâng cấp gói",
     "menu":{
-        "create":"Tạo sản phẩm",
+        "create":"Tạo",
         "new_campaign":"chiến dịch",
         "stock":"Kho hàng",
         "campaign_list":"Danh sách chiến dịch",
@@ -9,8 +9,8 @@
         "settings":"Cài đặt",
         "campaign_default_setting":"Cài đặt chiến dịch mặc định",
         "localization":"Ngôn ngữ bản địa hóa",
-        "connect_platform":"Kết nối nền tảng"
-
+        "connect_platform":"Kết nối nền tảng",
+        "discount_code":"Discount Code"
     },
     "bread_crumb":{
         "stock":"Kho hàng",
@@ -29,11 +29,19 @@
         "lucky-draw":"Quà tặng minigame",
         "autoreply":"Chatbot tự động",
         "category-management":"Phân loại",
-        "add-product":"Tạo sản phẩm",
+        "add-product":"Tạo chiến dịch",
         "product-detail":"Chi tiết sản phẩm",
         "edit-product":"Chỉnh sửa sản phẩm",
         "profile":"Hồ Sơ",
-        "change-plan":"Thay đổi gói dịch vụ"
+        "change-plan":"Thay đổi gói dịch vụ",
+        "quiz-game":"Trò chơi giải đố",
+        "discount-code":"Discount Code",
+        "dashboard":"Dashboard",
+        "transactions":"Transactions",
+        "plans":"Plans",
+        "licenses":"Licenses",
+        "sellers":"Sellers",
+        "buyers":"Buyers"
     },
     "top_bar":{
         "profile":"Hồ Sơ",

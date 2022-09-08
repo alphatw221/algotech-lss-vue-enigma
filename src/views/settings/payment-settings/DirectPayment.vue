@@ -2,7 +2,7 @@
         <div class="flex-col text-[16px] flex justify-between mt-5 sm:mt-2">
             <div class="flex"> 
                 <input 
-                class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
+                class="form-control form-check-input w-[1.5rem] h-[1.5rem] my-auto ml-3" 
                 type="checkbox" 
                 v-model="paymentData.enabled"
                 />
@@ -84,7 +84,7 @@
                     <div class="relative border-2 border-dashed dark:border-darkmode-400">
                         <div class="flex items-center justify-center px-4">
                             <img :src="previewImages[index_i]" class="object-cover uploading-image h-60" />
-                            <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('create_campaign.payment_form.remove_image')"  :options="{theme: 'light',}">
+                            <Tippy v-show="previewImages[index_i]" tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('create_campaign.payment_form.remove_image')"  :options="{theme: 'light',}">
                                 <XCircleIcon class="absolute right-0 top-0 z-10 click-icon text-danger" @click="removeImage(index_i)"/>
                             </Tippy>
                         </div>
@@ -94,8 +94,8 @@
                                 <ImageIcon class="w-8 h-8 mr-2 -mt-2 text-slate-600" /> 
                                 <strong class="text-slate-600">{{ $t('settings.payment_form.upload_a_file_or_drag_and_drop') }}</strong> 
                             </div>
-                            <div class="mt-2 text-slate-500">{{ $t('settings.payment_form.accepted_file_types') }}: jpeg, png, jpg</div>
-                            <div class="text-slate-500">{{ $t('settings.payment_form.max_file_size') }} : 10MB</div>  
+                            <div class="mt-2 text-slate-500">{{ $t('settings.payment_form.accepted_file_types') }}</div>
+                            <div class="text-slate-500">{{ $t('settings.payment_form.max_file_size') }}</div>  
                         </div>
                         <input
                             type="file"
@@ -164,7 +164,7 @@ const paymentData = reactive(
 )
 const directPaymentImages=reactive([])
 const previewImages = ref([])
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL.slice(0, -1);
+
 const formData = new FormData()
 
  const paymentDataRules = {
@@ -181,7 +181,7 @@ const v = useVuelidate(paymentDataRules, paymentData)
 
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
-    console.log(sellerStore.userInfo.user_subscription.meta_payment)
+    // console.log(sellerStore.userInfo.user_subscription.meta_payment)
 
     if(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key]){
         Object.assign(paymentData,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[props.payment.key])))
@@ -192,7 +192,7 @@ onMounted(() => {
     if(!Array.isArray(paymentData['v2_accounts']))paymentData['v2_accounts']=[]
 
     paymentData.v2_accounts.forEach(account => {
-        previewImages.value.push(storageUrl+account.image)
+        previewImages.value.push(account.image)
         directPaymentImages.push(null)
     });
 })
@@ -202,6 +202,13 @@ const uploadImage = (event, index) =>{
     if([null,undefined,''].includes(image))return
     if(image.size/1024/1024>10){
         sellerStore.alert.showMessageToast(i18n.global.t('settings.img_size_err'))
+        return
+    }
+
+    let allowedExtension = ['image/jpeg', 'image/jpg', 'image/png'];
+    if(allowedExtension.indexOf(image.type) == -1) {
+        // document.getElementById(`file_input_${index}`).value=null
+        sellerStore.alert.showMessageToast(i18n.global.t('settings.img_type_err'))
         return
     }
 
@@ -244,7 +251,7 @@ const updateDirectPayment = () => {
 		const key = paymentData.v2_accounts[index].name+'_'+index   
 		formData.append(key,image)
 	});
-
+    // console.log(directPaymentImages)
     seller_update_payment(props.payment.key,formData).then(res=>{
         sellerStore.userInfo = res.data
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))

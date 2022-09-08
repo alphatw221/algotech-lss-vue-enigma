@@ -35,14 +35,14 @@
 						:colspan="columns.length" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="listItems.length === 0" :colspan="columns.length">
-						<div class="mt-5 text-center md:mt-40 tdDot" >
+					<td v-else-if="listItems.length === 0" :colspan="columns.length" class="tdDot">
+						<div class="mt-5 text-center md:mt-40 md:mb-20" >
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('auto_reply.no_have_autoreply') }}
 							</h1>
-							<h1 class="text-slate-500 text-sm md:text-lg">
+							<!-- <h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('auto_reply.set_up_first') }}
-							</h1>
+							</h1> -->
 						</div>
 					</td> 
 				</tr>
@@ -66,11 +66,15 @@
 								<DropdownMenu class="w-24 pt-2 ">
 								<DropdownContent class="w-24 text-center">
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
-										@click="updateInfo(index+1, reply.input_msg, reply.output_msg, reply.description)"> 
-											<EditIcon class="w-[20px] h-[20px] mx-1"/> {{$t('auto_reply.manipulate.edit')}} </DropdownItem>
+										@click="updateInfo(index+1, reply.id, reply.input_msg, reply.output_msg, reply.description)"> 
+											<!-- <EditIcon class="w-[20px] h-[20px] mx-1"/>  -->
+											<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/> 
+											{{$t('auto_reply.manipulate.edit')}} </DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
 										@click="deleteAutoReply(reply.id)"> 
-											<Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{$t('auto_reply.manipulate.delete')}} </DropdownItem>
+											<!-- <Trash2Icon class="w-[20px] h-[20px] mx-1"/>  -->
+											<SimpleIcon icon="delete" color="#b91c1c" class="mr-1" /> 
+											{{$t('auto_reply.manipulate.delete')}} </DropdownItem>
 								</DropdownContent>
 								</DropdownMenu>
 							</Dropdown> 
@@ -86,13 +90,13 @@
 			</tbody>
 		</table>
 	</div>
-	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10">
+	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
 		<Page class="mx-auto my-3" :total="totalCount" @on-change="changePage" @on-page-size-change="changePageSize" />
 	</div>
 	<!-- update Modal-->
 	<Modal :show="updateModal" @hidden="closeWithAlert()">
 		<ModalHeader>
-			<h2 class="mr-auto text-base font-medium">{{ $t('auto_reply.manipulate.edit') }} #{{currentInfo.id}}</h2>
+			<h2 class="mr-auto text-base font-medium">{{ $t('auto_reply.manipulate.edit') }} #{{currentInfo.id}} {{ $t('auto_reply.title') }}</h2>
 			<a @click="updateModal = false" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
 				<XIcon class="w-8 h-8 text-slate-400" />
 			</a>
@@ -122,7 +126,7 @@
 			<button type="button" @click="updateModal = false" class="w-32 btn dark:border-darkmode-400">
 				{{ $t('auto_reply.modal_cancel') }}
 			</button>
-			<button type="button" @click="updateAutoReply(currentInfo.id, currentInfo)" class="w-32 ml-5 shadow-md btn btn-primary">
+			<button type="button" @click="updateAutoReply(currentInfo.replyId, currentInfo)" class="w-32 ml-5 shadow-md btn btn-primary">
 				{{ $t('auto_reply.modal_save') }}
 			</button>
 		</ModalFooter>
@@ -135,6 +139,7 @@ import { createAxiosWithBearer } from "@/libs/axiosClient";
 import { delete_auto_response, update_auto_response,list_auto_response } from "@/api_v2/auto_response"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const props = defineProps({
 	columns: Array,
@@ -155,6 +160,7 @@ const showCommentLoding = ref(true)
 
 const currentInfo = ref({
 	id: "",
+	replyId:"",
 	input_msg: "",
 	output_msg: "",
 	description: "",
@@ -182,9 +188,10 @@ function changePageSize(page_size) {
 	getReplyData()
 }
 
-function updateInfo(id, input, output, description, facebook_page) {
+function updateInfo(id, replyId, input, output, description, facebook_page) {
 	updateModal.value = true;
 	currentInfo.value.id = id;
+	currentInfo.value.replyId = replyId;
 	currentInfo.value.input_msg = input;
 	currentInfo.value.output_msg = output;
 	currentInfo.value.description = description;
@@ -279,7 +286,7 @@ thead th{
 }	
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
 	table,
 	thead,

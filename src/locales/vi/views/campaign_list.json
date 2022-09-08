@@ -2,14 +2,14 @@
     "campaign_list": "Danh sách chiến dịch",
 
     "process" : {
-            "create" : "Tạo sản phẩm",
+            "create" : "Tạo chiến dịch",
             "create_description" : "Click \"Create\" to create a campaign and click \"Assign\" to assign product to a specific campaign from inventories.",
             "connect" : "Connect",
             "connect_description" : "Click \"Edit\" button to connect camapign to your FB Post.",
             "complete" : "Complete",
             "complete_description" : "Click \"Enter\" to join the live campaign."
         },
-    "create_campaign": "Tạo sản phẩm",
+    "create_campaign": "Tạo chiến dịch",
 
     "tabs":{
         "scheduled" : "Đã lên lịch",
@@ -19,7 +19,7 @@
 
     "search_bar":{
         "title": "Tiêu đề",
-        "search" : "Tìm kiếm",
+        "search" : "Tìm kiếm tiêu đề",
         "reset" : "Thiết lập lại"
     },
     "enter_post_id":{
@@ -55,9 +55,14 @@
         "History" : "Lịch sử",
         "Ongoing" : "Đang diễn ra",
         
-        "no_have_campaign": "Bạn chưa tạo chiến dịch trước đó",
+        "no_have_campaign":{
+            "ongoing":"Do not Have any Ongoing Campaign.",
+            "scheduled":"Do not Have any Scheduled Campaign.",
+            "history":"Do not Have any History Campaign."
+        },
         "click_create_notify": "Nhấp chuột vào \"+ Tạo\" để tạo chiến dịch bán hàng livestream mới",
-        "connect_platform":"Kết nối nền tảng"
+        "connect_platform":"Kết nối nền tảng",
+        "quiz_game":"Trò chơi giải đố" 
     },
 
     "remind_enter_post_id_modal":{
@@ -80,12 +85,19 @@
         "youtube":"Youtube",
         "live_chat_id":"ID cuộc trò chuyện trực tiếp",
         "select_live_chat":"Chọn kênh",
+        "select_live_video":"Select Live Video",
+
+        "twitch": "Twitch",
 
         "cancel":"Hủy bỏ",
         "save":"Lưu lại",
         "your_current_lives": "Các phiên livestream gần đây",
         "select_this_live": "Chọn phiên livestream này",
-        "valid_post_id_notification": "Vui lòng nhập ID bài viết hợp lệ"
+        "valid_post_id_notification": "Vui lòng nhập ID bài viết hợp lệ",
+
+        "rebind_page":"Vui lòng liên kết lại Facebook Page đã chọn",
+        "rebind_channel":"Vui lòng liên kết lại Youtube Channel đã chọn",
+        "rebind_profile":"Vui lòng liên kết lại Instagram Profile đã chọn"
     },
     "update_successed":"Cập nhật thành công",
     "no_facebook_post":"Bạn không có bài viết livestream trên Facebook ngay bây giờ",

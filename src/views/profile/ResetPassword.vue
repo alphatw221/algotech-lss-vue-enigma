@@ -134,14 +134,11 @@ const submitPassword = () => {
         passwordData.value.new_password=''
         passwordData.value.confirm_password=''
         sellerStore.profileTab = 1
-    }).catch(err=>{
-        alert(err.response.data)
-	})
+    })
 }
 
 const toggle=(v)=>{
     v = !v
-    console.log(v.value)
 }
 
 </script>

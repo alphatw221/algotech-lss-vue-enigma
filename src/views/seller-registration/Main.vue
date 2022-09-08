@@ -24,7 +24,6 @@
             <li class="flex-1 text-center">
                 <div class="intro-x lg:text-center flex items-center lg:mt-0 lg:block flex-1 z-10">
                     <button
-                        @click="toggleTabs(2)"
                         :class="{
                         'text-neutral-600 bg-white': registerationStore.registerTab !== 2,
                         'text-white bg-primary': registerationStore.registerTab === 2,
@@ -93,19 +92,11 @@ const route = useRoute();
 const router = useRouter();
 
 onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'padding-left: 0;')} ) 
-onBeforeMount (()=>{useI18n.global.locale.value = route.query.language || 'en'} )     
+  
 onMounted(()=>{
     loadScript("https://js.stripe.com/v3/",()=>{console.log("stripe SDK loaded") })
     // registerationStore.country = route.query.language
 })
-
-// onMounted(()=>{        //到時候在sotres 裏面 設定
-//     if(registerationStore.country === 'zh_hant'){
-//         registerationStore.home = 'https://liveshowseller.com.tw/'
-//         registerationStore.terms = 'https://liveshowseller.com.tw/terms-of-service/'
-//         registerationStore.policy = 'https://liveshowseller.com.tw/privacy-policy/'
-//     }
-// })
 
 const toggleTabs = tabNumber => {registerationStore.registerTab = tabNumber}
 

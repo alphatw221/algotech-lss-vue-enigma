@@ -12,6 +12,7 @@
     "update_successfully":"Cập nhật thành công",
     "update_failed":"Tải lên không thành công",
     "img_size_err":"kích thước hình ảnh vượt quá 10 MB",
+    "img_type_err":"Định dạng hình ảnh không được hỗ trợ",
     "invalid_data":"Dữ liệu không hợp lện",
 
     "delivery":{
@@ -23,7 +24,7 @@
         "replace_charge" : "Thay thế phí giao hàng",
         "on_top_of_charge" : "Vượt phí giao hàng",
         "title" : "Tiêu đề",
-        "order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
+        "order_above":"Số tiền tối thiểu để miễn phí vận chuyển($)",
         "minimum":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
         "store":{
                 "collection":"Tự nhận hàng",
@@ -45,7 +46,9 @@
             "direct_payment":"Thanh toán trực tiếp",
             "stripe":"Stripe",
             "hitpay":"Hitpay",
-            "paypal":"Paypal"
+            "paypal":"Paypal",
+            "ecpay":"ECPay",
+            "pay_mongo":"PayMongo"
         },
         "direct_payment":{
             "mode":"Tên ngân hàng / Phương thức thanh toán",
@@ -66,18 +69,29 @@
         },
         "paypal":{
             "currency":"Đơn vị tiền tệ",
-            "cliend_id":"Client ID",
+            "client_id":"Client ID",
+            "secret":"Mã bảo mật"
+        },
+        "ecpay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV",
+            "invoice_hash_key":"Invoice Hash Key",
+            "invoice_hash_iv":"Invoice Hash IV"
+        },
+        "pay_mongo":{
             "secret":"Mã bảo mật"
         },
 
         "payment_details": "Thông tin thanh toán",
         "enabled": "Đã bật",
+        "invoice_enabled":"Invoice Enabled",
         "add_more_direct_payment": "Thêm Thanh toán trực tiếp",
         "add_direct_payment": "Add Thanh toán trực tiếp",
         "upload_image": "Tải hình ảnh",
         "upload_a_file_or_drag_and_drop": "Tải ảnh lên",
-        "accepted_file_types": "Loại tệp tin",
-        "max_file_size": "Kích thước tệp tối đa",
+        "accepted_file_types": "Loại tệp tin: jpeg, png, jpg",
+        "max_file_size": "Kích thước tệp tối đa: 10MB",
         "delete": "Xóa",
         "update": "Update",
         "errors":{
@@ -93,8 +107,8 @@
         "add_more_delivery_option":"Thêm lựa chọn khác",
         "add_more_pickup_option":"Thêm địa điểm",
         "options":"Tùy chọn giao hàng",
-        "on_top_of_delivery_charge":"Vượt phí giao hàng",
-        "replace_delivery_charge":"Thay thế phí giao hàng",
+        "on_top_of_delivery_charge":"Tính thêm phí giao hàng",
+        "replace_delivery_charge":"Phí giao hàng là",
         "delete":"Xóa",
         "store_collection":"Tự nhận hàng",
         "pickup_store":"Địa điểm nhận hàng",
@@ -159,6 +173,14 @@
         "connect_with_instagram": "Kết nối với Instagram",
         "youtube_channel":"Kênh Youtube",
         "connect_with_youtube": "Kết nối với Youtube",
+        "twitch_channel":"Kênh Twitch",
+        "connect_with_twitch": "Kết nối với Twitch",
+        "connect": "Connect",
+        "twitch_channel_placeholder": "Channel Name...",
+        "twitch_helper_info": "If you want to connect a new account, Please go to Twitch pannel and logout.",
+        "switch_account": "Switch Account",
+        "tiktok_account": "TikTok Account",
+        "connect_with_tiktok": "Kết nối với TikTok",
         "edit":"Chỉnh sửa",
         "cancel":"Hủy bỏ",
         "upgrade":"Nâng cấp gói",

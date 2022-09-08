@@ -15,14 +15,16 @@
     "basic_info":{
         "plan":"Subscription Plan",
         "plan_options":{
-            "lite":"Lite (USD 10.00/Month)",
-            "standard":"Standard (USD 30.00/Month)",
-            "premium":"Premium (USD 60.00/Month)"
+            "lite":"Lite (%{price}/Month)",
+            "standard":"Standard (%{price}/Month)",
+            "premium":"Premium (start from %{price}/Month)"
         },
         "period":"Subscription Period",
         "period_options":{
             "year":"Yearly (10% discount)",
-            "quarter":"Quarterly"
+            "year_tw":"Yearly (20% discount)",
+            "quarter":"Quarterly",
+            "month":"Monthly"
         },
         "first_name":"First Name",
         "last_name":"Last Name",
@@ -32,7 +34,8 @@
             "ID": "(ID) +62" , 
             "PH": "(PH) +63" , 
             "SG": "(SG) +65" , 
-            "TW": "(TW) +886"
+            "TW": "(TW) +886",
+            "VN": "(VN) +84"
         },
         "number":"Contact Number",
         "email":"Email",
@@ -78,6 +81,7 @@
         "current_plan":"Current Plan",
         "year":"Yearly",
         "quarter":"Quarterly",
+        "month":"Monthly",
         "payment_method":{
             "card":"Credit Card", 
             "direct":"Direct Payment"
@@ -107,7 +111,7 @@
     "confirm":{
         "succeeded":"Payment succeeded",
         "Email":"Email",
-        "Customer Name":"Customer Name",
+        "Customer":"Customer Name",
         "Password":"Password",
         "Your Plan":"Your Plan",
         "Target Country": "Target Country",

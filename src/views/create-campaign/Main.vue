@@ -1,7 +1,15 @@
 <template>
     <div class="flex flex-col h-[100%] text-[16px]">
-		<div class="flex items-center sm:px-20 pt-2 pb-4 intro-y">
+		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
+			<Tippy 
+				class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+				data-tippy-allowHTML="true" 
+				data-tippy-placement="right" 
+				:content="$t('tooltips.create_campaign.title')" 
+			> 
+				<HelpCircleIcon class="w-5 tippy-icon" />
+			</Tippy> 
 		</div>
 		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
     <!-- <div class="flex flex-col gap-5 text-[16px] h-fit">
@@ -60,7 +68,7 @@
 		
 		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg ">
 
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
+			<div class="flex mb-3 form-label text-base font-medium">
 				<div> {{$t("settings.localization.currency_symbol")}} </div>
 			</div>
 			<div class="flex my-1 ">
@@ -77,7 +85,6 @@
 					data-tippy-allowHTML="true" 
 					data-tippy-placement="right" 
 					:content="$t('tooltips.settings.local.buyer_lang')" 
-					theme='light'
 				> 
 					<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
 				</Tippy> 
@@ -91,7 +98,15 @@
 			</div>
 
 			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+				<div class=""> {{$t("settings.localization.price_unit")}}</div>
+				<Tippy 
+					class="rounded-full whitespace-wrap" 
+					data-tippy-allowHTML="true" 
+					data-tippy-placement="right" 
+					:content="$t('tooltips.settings.local.price_unit')" 
+				> 
+					<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+				</Tippy> 
 			</div>
 
 			<div class="flex my-1">
@@ -201,14 +216,18 @@ const campaignData = ref({
 	meta_logistic:{
 		delivery_charge : 0,
 		is_free_delivery_for_order_above_price : false,
-		free_delivery_for_order_above_price : 0,
+		free_delivery_for_order_above_price : 1,
 		is_free_delivery_for_how_many_order_minimum : false,
 		free_delivery_for_how_many_order_minimum : 1,
 		is_additional_delivery_charge : true,
 		additional_delivery_options: [],
 		pickup_options: [],
-		delivery_note : ''
+		delivery_note : '',
+		ecpay_delivery_enable : false,
+		ecpay_delivery_hash_key : '',
+		ecpay_delivery_hash_iv : ''
 	},
+	country:'SG',
 	currency:'USD', 
 	lang:'en', 
 	lang:'en', 
@@ -278,20 +297,41 @@ onMounted(() => {
 	
 	if(sellerStore.userInfo.user_subscription.currency)campaignData.value.currency=sellerStore.userInfo.user_subscription.currency
 	if(sellerStore.userInfo.user_subscription.buyer_lang)campaignData.value.lang=sellerStore.userInfo.user_subscription.buyer_lang
+	if(sellerStore.userInfo.user_subscription.country)campaignData.value.country=sellerStore.userInfo.user_subscription.country
 	if(!([undefined,null,''].includes(sellerStore.userInfo.user_subscription.decimal_places)))campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places.toString()  //temp   TomSelect only work with string value
 	if(sellerStore.userInfo.user_subscription.price_unit)campaignData.value.price_unit=sellerStore.userInfo.user_subscription.price_unit
+
+
+
+	//payment
+	//if specific payment is set in user subscription -> clone it
+	//if not -> build one with all default value
+	const paymentKeySet = new Set()
+    sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => paymentKeySet.add(key) ) } )
+    paymentKeySet.forEach(key => {
+		if(key in sellerStore.userInfo.user_subscription.meta_payment){
+			campaignData.value.meta_payment[key] = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment[key]))
+		}else{
+			campaignData.value.meta_payment[key]={}
+			paymentMetaStore[key].fields.forEach(field=>{
+				campaignData.value.meta_payment[key][field.key] = field.default
+			});
+			campaignData.value.meta_payment[key]['enabled'] = false
+		}
+    });
+
+
+
+
+	//Logistic
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
 	}
 	
-	sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => campaignData.value.meta_payment[key]={} ) } )
-	if (Object.entries(sellerStore.userInfo.user_subscription.meta_payment).length) {
-		Object.assign(campaignData.value.meta_payment,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment)))
-	}
-	
-	campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
-	campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.special_note  ))
-	campaignNotes.value.meta_payment.confirmation_note = JSON.parse(JSON.stringify(campaignData.value.meta_payment.confirmation_note  ))
+
+	campaignNotes.value.meta_logistic.delivery_note = sellerStore.userInfo.user_subscription.meta_logistic.delivery_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic.delivery_note )) : ''
+	campaignNotes.value.meta_payment.special_note = sellerStore.userInfo.user_subscription.meta_logistic.special_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.special_note  )) : ''
+	campaignNotes.value.meta_payment.confirmation_note = sellerStore.userInfo.user_subscription.meta_logistic.confirmation_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.confirmation_note  )) : ''
 	
 })
 

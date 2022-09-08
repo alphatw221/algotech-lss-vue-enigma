@@ -5,28 +5,33 @@
                 "sales" : "銷售金額",
                 "uncheckout" : "未結帳率",
                 "comments" : "留言數",
-                "closed_rate_message":"與之前的直播相比結單率%{status}",    
-                "sales_message":"與之前的直播相比銷售額%{status}",    
-                "uncheckout_message":"與之前的直播相比未結單率%{status}",    
-                "comments_message":"與之前的直播相比留言數%{status}",
+                "closed_rate_message":"與前一場的直播相比結單率%{status}",    
+                "sales_message":"與前一場的直播相比銷售額%{status}",    
+                "uncheckout_message":"與前一場的直播相比未結單率%{status}",    
+                "comments_message":"與前一場的直播相比留言數%{status}",
                 "decreased":"下降",
-                "increased":"提升"
+                "increased":"上升"
         },
         "search_bar":{
-                "search":"搜尋",
+                "search":"搜尋訂單編號／顧客",
                 "filter":"篩選",
                 "export" : "匯出訂單"
         },
         "table":{
                 "Direct Payment":"轉帳付款",
+                "stripe":"Stripe",
+                "hitpay":"Hitpay",
+                "paypal":"Paypal",
+                "ecpay":"綠界金流",
+                "pay_mongo":"PayMongo",
                 "details":"訂單詳細",
                 "copy_link":"複製訂單連結",
-                "order_number" : "訂單",
-                "action":"Action",
-                "delivery_notification":"出貨",
-                "customer" : "顧客",
+                "order_number" : "訂單編號",
+                "action":"動作",
+                "delivery_notification":"出貨通知",
+                "customer" : "賣家帳號",
                 "platform" : "平台",
-                "name" : "產品名稱",
+                "name" : "商品名稱",
                 "total_items" : "商品總數",
                 "amount" : "金額",
                 "payment" : "付款方式",
@@ -43,12 +48,13 @@
                 "delivery_charge":"運費",
                 "discount":"折扣",
                 "total":"總計",
-                "null":""
+                "null":"",
+                "prize":"獎品"
         },
         "filter_modal":{
                 "payment":{
                         "payment":"付款方式",
-                        "Direct Payment":"轉帳付款",
+                        "direct_payment":"轉帳付款",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
                         "paypal":"Paypal"
@@ -72,5 +78,5 @@
         "review" : "處理中",
         "shipping out":"已出貨",
         "all" : "所有訂單",
-        "update_successed":"更新成功"
+        "update_successed":"儲存成功"
 }

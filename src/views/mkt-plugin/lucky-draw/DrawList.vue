@@ -16,7 +16,7 @@
             class="box bg-[#f1f1f1] relative text-left" >     
             <div class="flex flex-row flex-wrap justify-start lg:justify-between m-[0.7rem] p-5 px-3 xl:p-5 lucky-set">
                 <div class="flex flex-col xl:flex-row justify-start w-[70px] md:w-[100px] lg:w-[200px] mr-5 md:mr-10 lg:mr-20 xl:mr-5 my-auto"> 
-                    <img class="h-[120px] object-cover xl:mr-5" :src="storageUrl + luckydraw.prize.image" />
+                    <img class="h-[120px] object-cover xl:mr-5" :src="luckydraw.prize.image" />
                 </div>
                 <span class="h-auto w-40 break-words text-[16px] hidden 2xl:block">{{ luckydraw.prize.name }}</span>
                 <div class="flex flex-col 2xl:flex-row flex-wrap justify-start xl:mt-5 w-[55%] xl:w-auto xl:ml-auto">  
@@ -25,7 +25,7 @@
                     <div class="flex flex-col xl:flex-row flex-wrap" > 
                         <div class="xl:border-r-2 border-white flex flex-row xl:flex-col w-full xl:pr-5 xl:w-36 xl:w-44 text-sm xl:text-xl justify-between xl:justify-center text-right">
                             <div> 
-                                <span v-if="drawTitleMap[luckydraw.type] == 'Draw Like'" class="text-slate-500 whitespace-nowrap mr-auto xl:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
+                                <span v-if="drawTitleMap[luckydraw.type] == 'Draw Like'" class="text-slate-500 whitespace-wrap mr-auto xl:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }}</span>
                                 <span v-else-if="drawTitleMap[luckydraw.type] == 'Draw Purchased'" class="text-slate-500 whitespace-nowrap mr-auto xl:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                                 <span v-else class="text-slate-500 order-1 whitespace-nowrap mr-0 hidden md:block"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                             </div>
@@ -46,8 +46,19 @@
                     </div>
                 </div>
                 <div class="mt-5 xl:mt-0 flex w-[100%] xl:w-fit ml-auto">
-                    <button class="btn btn-primary w-full xl:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" @click="goDraw(luckydraw.id)">
+                    <button 
+                        class="btn btn-primary w-full xl:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" 
+                        @click="goDraw(luckydraw.id)"
+                        v-if="props.luckyPrizeObj[luckydraw.prize.id] > 0"
+                    >
                         {{ $t('lucky_draw.draw_list.start') }}
+                    </button>
+                    <button 
+                        class="btn btn-secondary w-full xl:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" 
+                        v-else
+                        disabled
+                    >
+                        {{ $t('lucky_draw.draw_list.out_of_stock') }}
                     </button>
                 </div>
             </div>
@@ -58,9 +69,11 @@
                 <DropdownMenu class="w-30">
                     <DropdownContent>
                         <DropdownItem @click="editDraw(luckydraw.id)" class="w-24 text-center whitespace-nowrap text-[14px]" >
-                            <EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('lucky_draw.draw_list.edit') }}</DropdownItem>
+                            <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1" />  {{ $t('lucky_draw.draw_list.edit') }}</DropdownItem>
                         <DropdownItem @click="deleteDraw(luckydraw.id)" class="w-24 text-center text-danger whitespace-nowrap text-[14px]">
-                            <Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('lucky_draw.draw_list.delete') }}</DropdownItem> 
+                            <SimpleIcon icon="delete" color="#b91c1c" class="mr-1" /> 
+                            {{ $t('lucky_draw.draw_list.delete') }}
+                        </DropdownItem> 
                     </DropdownContent>
                 </DropdownMenu>
             </Dropdown>
@@ -76,22 +89,24 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
-import { delete_campaign_lucky_draw, list_campaign_lucky_draw_winners } from '@/api_v2/campaign_lucky_draw';
+import { delete_campaign_lucky_draw, list_campaign_lucky_draw_winners, draw_campaign_lucky_draw_check } from '@/api_v2/campaign_lucky_draw';
 import WinnersModal from './WinnersModal.vue';
 import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
 import instagram_platform from '/src/assets/images/lss-img/instagram.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 import i18n from "@/locales/i18n"
+import SimpleIcon from '../../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 const props = defineProps({
     luckydrawList: Object,
-    campaignTitle: String
+    campaignTitle: String,
+    luckyPrizeObj: Object
 })
 const route = useRoute();
 const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+
 const drawTitleMap = ref({
     like: "Draw Like",
     purchase: "Draw Purchased",
@@ -99,13 +114,22 @@ const drawTitleMap = ref({
     keyword: "Draw Keyword" 
 })
 
+
+onMounted(() => {
+    console.log(props.luckyPrizeObj)
+})
+
 const toManageOrder = ()=>{
     router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
 }
 
 const goDraw = (lucky_draw_id) => {
-    let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id} })
-    window.open(routeData.href, '_blank')
+    // need fix
+    draw_campaign_lucky_draw_check(lucky_draw_id).then(res=>{
+        let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id}, query: {language: i18n.global.locale.value} })
+        window.open(routeData.href, '_blank')
+    })
+    
 }
 
 const editDraw = (lucky_draw_id) => {

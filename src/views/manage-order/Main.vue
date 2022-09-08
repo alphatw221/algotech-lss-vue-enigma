@@ -40,8 +40,9 @@
                             :tableSearch="'searchComplete'"
                             :tableFilter="'filterComplete'"/>
                     </div>
-                
-                    <div class="form-check form-switch justify-end mt-2">
+
+                    <ExportOrderButton/>
+                    <div v-if="new Date() < new Date(store.campaign.end_at)" class="form-check form-switch justify-end mt-2">
                         <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
                         <Tippy 
                             class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
@@ -51,7 +52,7 @@
                             > 
                             <HelpCircleIcon class="w-5 tippy-icon" />
                         </Tippy> 
-                        <input @click="stop_checkout($event.target.checked)" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="checkout_status"/> 
+                        <input @click="stop_checkout()" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="store.campaign.stop_checkout"/> 
                     </div>
                 </div>
             </div>
@@ -93,11 +94,15 @@ import SearchBar from "./SearchBar.vue";
 import OrderProductModal from "./OrderProductModal.vue"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 // import xlsx from "xlsx";
-import { allow_checkout, retrieve_campaign } from "@/api_v2/campaign"
+import { toggle_stop_checkout, retrieve_campaign } from "@/api_v2/campaign"
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
+import ExportOrderButton from '@/plugin/easy-store/views/ExportOrderButton.vue'
+
+// import { watch } from "fs";
+
 
 const route = useRoute();
 const store = useManageOrderStore()
@@ -116,15 +121,18 @@ onMounted(()=>{
     getCampaignInfo()
 })
 
-function stop_checkout(status){
-    allow_checkout(route.params.campaign_id,status)
-    layout.notification.showMessageToast(`${i18n.global.t('manage_order.update_successed')}`);
+
+
+function stop_checkout(){
+    toggle_stop_checkout(route.params.campaign_id).then(res=>{
+        store.campaign = res.data
+        layout.notification.showMessageToast(`${i18n.global.t('manage_order.update_successed')}`);
+    }) 
 }
 
 function getCampaignInfo(){
     retrieve_campaign(route.params.campaign_id).then(res=>{
         store.campaign = res.data
-        checkout_status.value = res.data.meta.allow_checkout == 1 ? false : true 
     })
 }
 </script>
@@ -140,4 +148,5 @@ function getCampaignInfo(){
         background-color: #131C34;
         color: #fff;
     }
+    
 </style>

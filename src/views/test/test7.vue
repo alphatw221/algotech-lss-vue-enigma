@@ -1,44 +1,59 @@
 <template>
- <TabGroup>
-            <TabList class="nav-boxed-tabs flex flex-wrap content-around justify-around items-stretch self-auto ">
 
-                <Tab
-                    class="grow py-3 max-w-64 xl:py-10 2xl:py-10 inline-flex border-[#131c34] m-1" 
-                    tag="button"
-                    v-for="payment,index in [1,2,3]" :key="index"
-                >
-                    <font-awesome-icon icon="fa-regular fa-credit-card" class="block mr-1 h-8" />
-                    <span class="text-sm w-24 lg:text-lg 2xl:text-lg lg:w-32 2xl:w-32">{{payment}}</span>
-                </Tab>
-            </TabList>
+    <div>
+        <button class="btn w-32 dark:border-darkmode-400" @click="goDeath()"> 
+            Click me to death
+        </button>
+    </div>
 
-            <TabPanels class="mt-0 lg:mt-5 2xl:mt-5 px-2 lg:px-10 2xl:px-10">
-                <TabPanel class="leading-relaxed"  v-for="payment,index in [1,2,3]" :key="index">
-                        <div>{{payment}}</div>
-
-                </TabPanel>  
-
-            </TabPanels>
-        </TabGroup>
 </template>
 
-<script setup>
-// import { onMounted, ref } from 'vue';
-// import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
-// import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
-// import TabContent from '@/views/settings/PaymentTabContent.vue';
+<script setup> 
+// { ref, onMounted, onUnmounted } from 'vue';
+// import { init_twitch_websocket, bulk_create_comment } from '@/api_v2/twitch';
 
 
-// const paymentStore = useLSSPaymentMetaStore()
-// const sellerStore = useLSSSellerLayoutStore()
-// const activatePayment = ref(['direct_payment', 'stripe'])
+// const twitchCommentList = ref([])
 
 // onMounted(() => {
-//     // const activated_country = sellerStore.userInfo.user_subscription.meta_country.activated_country[0]
-//     // activatePayment.value = paymentStore[activated_country]
+//     let username = 'amouranth'
+//     let password = 'oauth:udfckcfmvmyyuv4djz1xclok2x8in6'
+//     let channel = 'amouranth'
     
-    
-//     console.log(activatePayment.value)
+//     init_twitch_websocket(username, password, channel, onMessageHandler, onConnectedHandler)
 // })
 
+// const onConnectedHandler = (addr, port) => {
+//     console.log(`* Connected to ${addr}:${port}`);
+// }
+
+// const onMessageHandler = (target, context, msg, self) => {
+//     if (self) { return; } // Ignore messages from the bot
+
+//     console.log(context)
+//     let campaign_id = 646
+
+//     let commentObj = {
+//         platform: 'twitch',
+//         id: context['id'],
+//         campaign_id: campaign_id,
+//         message: msg.trim(),
+//         created_time: Date.now(),
+//         customer_id: context['user-id'],
+//         customer_name: context['username'],
+//         image: ''
+//     }
+//     twitchCommentList.value.push(commentObj)
+//     console.log(twitchCommentList.value)
+    
+//     if (twitchCommentList.value.length > 3) {
+//         bulk_create_comment(campaign_id, twitchCommentList.value ).then(res => {
+//             console.log(res.data)            
+//         })
+//         twitchCommentList.value = []
+//     }
+
+// }
+
+// import
 </script>

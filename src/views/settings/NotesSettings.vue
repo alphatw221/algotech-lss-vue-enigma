@@ -12,7 +12,7 @@
             </TomSelect>
         </div>
         <div class="flex my-3 mt-5 form-label text-base font-medium">
-            <div class="my-auto"> {{$t("settings.localization.buyer_language")}}</div>
+            <div class="my-auto w-32"> {{$t("settings.localization.buyer_language")}}</div>
             <Tippy 
                 class="rounded-full w-30 whitespace-wrap" 
                 data-tippy-allowHTML="true" 
@@ -20,7 +20,7 @@
                 :content="$t('tooltips.settings.local.buyer_lang')" 
                 theme='light'
             > 
-                <HelpCircleIcon class="w-8 ml-1 mt-0.5 tippy-icon" />
+                <HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
             </Tippy> 
         </div>
         <div class="flex my-1">
@@ -32,7 +32,15 @@
         </div>
 
         <div class="flex my-3 mt-5 form-label text-base font-medium">
-            <div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+            <div class="my-auto w-32"> {{$t("settings.localization.price_unit")}}</div>
+            <Tippy 
+                class="rounded-full whitespace-wrap" 
+                data-tippy-allowHTML="true" 
+                data-tippy-placement="right" 
+                :content="$t('tooltips.settings.local.price_unit')" 
+            > 
+                <HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+            </Tippy> 
         </div> 
 
         <div class="flex my-1">
@@ -56,13 +64,13 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="form-label text-base font-medium"> {{$t('settings.notes.delivery_note')}}: </span> <br> 
+                            <span class="form-label text-base font-medium"> {{$t('settings.notes.delivery_note')}}</span> <br> 
                             <span class="text-slate-400 break-all">
                                 {{ generalInfo.delivery_note }}
                             </span>
                         </div>
                         <div>
-                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
                         </div>
                     </div>
                 </Accordion>
@@ -79,13 +87,13 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="form-label text-base font-medium"> {{$t('settings.notes.special_note')}}:</span> <br> 
+                            <span class="form-label text-base font-medium"> {{$t('settings.notes.special_note')}}</span> <br> 
                             <span class="whitespace-normal text-slate-400  break-all">
                                 {{ generalInfo.special_note }}
                             </span>
                         </div>
                         <div>
-                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
                         </div>
                     </div>
                 </Accordion>
@@ -102,13 +110,13 @@
                 <Accordion>
                     <div class="flex">
                         <div class="mr-auto"> 
-                            <span class="form-label text-base font-medium"> {{$t('settings.notes.confirmation_note')}}:</span> <br> 
+                            <span class="form-label text-base font-medium"> {{$t('settings.notes.confirmation_note')}}</span> <br> 
                             <span class="text-slate-400  break-all"> 
                                 {{  generalInfo.confirmation_note }}
                             </span>
                         </div>
                         <div>
-                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <EditIcon class="h-6" /> </Tippy>
+                            <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
                         </div>
                     </div>
                 </Accordion>
@@ -135,6 +143,7 @@ import { ref, onMounted } from 'vue';
 import { get_general_info, update_general_info } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import i18n from "@/locales/i18n"
+import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -198,6 +207,8 @@ onMounted(() => {
 
         generalInfo.value = response.data
         generalInfo.value.decimal_places = response.data.decimal_places.toString()  //temp   TomSelect only work with string value
+
+        // console.log(generalInfo.value)
     })
     
 })

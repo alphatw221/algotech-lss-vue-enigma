@@ -1,12 +1,12 @@
 <template>
 <div class="flex outterContainer overflow-auto bg-secondary relative">
       <!-- BEGIN: Side Menu -->
-      <div class="top-[80px] z-[51] left-[12px] flex fixed my-3 ml-2 px-4 py-1 w-[70px] xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
+      <div class="top-[80px] z-[51] left-[16px] px-4 flex fixed my-3 mx-auto py-1 w-fit xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
         :class="{
                   'bg-slate-100': breadCrumb[breadCrumb.length-1] == 'create campaign',
                 }"
         @click="router.push({name:'create-campaign'})"> 
-        <button class="w-10 h-10 mr-3 btn btn-rounded-warning border-[2px] border-slate-100 shadow-lg"
+        <button class="w-10 h-10 xl:mr-3 btn btn-rounded-warning border-[2px] border-slate-100 shadow-lg"
           ><span class="text-2xl text-white">+</span></button> 
         <span class="hidden font-medium xl:block"
           :class="{
@@ -41,7 +41,8 @@
                 @click="linkTo(menu, router, $event)"
               >
                 <div class="side-menu__icon">
-                  <component :is="menu.icon" />
+                  <!-- <component :is="menu.icon" /> -->
+                  <MenuIcon :icon="menu.icon" color="#334155" /> 
                 </div>
                 <div class="side-menu__title">
                   {{ $t(`layout.menu.${menu.title}`) }}
@@ -74,7 +75,7 @@
                       @click="linkTo(subMenu, router, $event)"
                     >
                       <div class="side-menu__icon">
-                        <ActivityIcon />
+                        <MenuIcon :icon="subMenu.pageName" color="#334155" />
                       </div>
                       <div class="side-menu__title">
                         {{ $t(`layout.menu.${subMenu.title}`) }}
@@ -133,9 +134,12 @@
           </template>
           <!-- END: First Child -->
         </ul> 
-          <button class="fixed mx-5 text-white rounded-lg btn btn-danger xl:m-5 bottom-5 border-[2px] border-red-900 shadow-lg"
+          <button class="fixed mx-5 text-white rounded-lg btn btn-danger xl:m-5 bottom-5 border-0 border-red-900 shadow-lg"
               @click="router.push('/seller/change-plan')"
-              ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/><span class="hidden text-lg xl:block 2xl:block">{{$t('layout.upgrade')}}  </span>  </button>
+              >
+              <!-- <SimpleIcon icon="upgrade" color="white" class="mr-0 xl:mx-2 h-5"/> -->
+              <font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/>
+              <span class="hidden text-lg xl:block 2xl:block">{{$t('layout.upgrade')}}  </span>  </button>
           </nav>
       
       <!-- END: Side Menu -->
@@ -159,6 +163,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import SideMenuTooltip from "@/components/side-menu-tooltip/Main.vue";
 import { linkTo, nestedMenu, enter, leave } from "./index";
 import dom from "@left4code/tw-starter/dist/js/dom";
+import MenuIcon from "../../global-components/lss-svg-icons/MenuIcon.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -230,7 +235,7 @@ onMounted(() => {
 }
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
   .creatCamp{
     display: none;
   }

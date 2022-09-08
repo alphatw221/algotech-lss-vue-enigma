@@ -1,11 +1,11 @@
 {
     "create_campaign":"Tạo chiến dịch",
     "title":"Tiêu đề",
-    "title_required":"Title Is Required",
+    "title_required":"Tiêu đề là bắt buộc",
     "period":"Thời gian",
 
     "cancel":"Hủy bỏ",
-    "create":"Tạo sản phẩm",
+    "create":"Tạo chiến dịch",
     "invalid_title":"Tiêu đề chiến dịch được nhập không hợp lệ",
     
 
@@ -18,8 +18,8 @@
         "add_more_delivery_option":"Thêm lựa chọn khác",
         "add_more_pickup_option":"Thêm lựa chọn khác",
         "options":"Tùy chọn phí giao hàng",
-        "on_top_of_delivery_charge":"Vượt phí giao hàng",
-        "replace_delivery_charge":"Thay thế phí giao hàng",
+        "on_top_of_delivery_charge":"Tính thêm phí giao hàng",
+        "replace_delivery_charge":"Phí giao hàng là",
 
         "delete":"Xóa",
 
@@ -44,7 +44,8 @@
             "direct_payment":"Thanh toán trực tiếp",
             "stripe":"Stripe",
             "hitpay":"Hitpay",
-            "paypal":"Paypal"
+            "paypal":"Paypal",
+            "pay_mongo":"PayMongo"
         },
 
         "direct_payment":{
@@ -66,7 +67,17 @@
         },
         "paypal":{
             "currency":"Đơn vị tiền tệ",
-            "cliend_id":"Client ID",
+            "client_id":"Client ID",
+            "secret":"Mã bảo mật"
+        },
+        "ecpay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV",
+            "invoice_hash_key":"Invoice Hash Key",
+            "invoice_hash_iv":"Invoice Hash IV"
+        },
+        "pay_mongo":{
             "secret":"Mã bảo mật"
         },
 
@@ -75,12 +86,13 @@
 
         "payment_details":"Thông tin thanh toán",
         "enabled":"Đã bật",
+        "invoice_enabled":"Invoice Enabled",
         "add_more_direct_payment":"Thêm Thanh toán trực tiếp",
         "upload_image":"Tải lên hình ảnh",
         "remove_image":"Gỡ hình ảnh",
         "upload_a_file_or_drag_and_drop":"Tải ảnh lên",
-        "accepted_file_types":"Loại tệp tin",
-        "max_file_size":"Kích thước tệp tối đa",
+        "accepted_file_types":"Loại tệp tin: jpeg, png, jpg",
+        "max_file_size":"Kích thước tệp tối đa: 10MB",
 
         "delete":"Xóa",
         "errors":{

@@ -1,0 +1,63 @@
+{   
+    "create_giãm giá_code":"Create New Code",
+    "create_err":"Input Error",
+    "giãm giá_code":"giãm giá Code",
+    "table":{
+        "name":"giãm giá Tên",
+        "code":"mã giảm giá", 
+        "start_at":"Thời gian bắt đầu", 
+        "end_at":"Thời gian kết thúc", 
+        "type":"Code Type", 
+        "discount_type":"giãm giá Type", 
+        "edit":"Chỉnh", 
+        "del":"Xóa",
+        "percent_off":"Percentage",
+        "deduct":"Deduction",
+        "noCode":"There are currently no Discount Codes",
+        "setupFirst":"Set up one by click ( + create )",
+        "description" : "Mô tả",
+        "cart_referal":"Cart Referal",
+        "limitations":"Limitations",
+        "general":"Promo Code",
+        "subtotal_over_specific_amount":"Amount:",
+        "product_over_specific_number":"Product:",
+        "specific_campaign":"Campaign:"
+    },
+    "modal":{
+        "create":"Create mã giảm giá",
+        "edit":"Edit mã giảm giá",
+        "name":"giãm giá Tên",
+        "code":"mã giảm giá",
+        "period":"Activate Period",
+        "type":"Code Type",
+        "discount_type":"Discount Type",
+        "limitations":"Limitations",
+        "description":"Description",
+        "name-required":"Giá trị là bắt buộc",
+        "code-required":"Giá trị là bắt buộc",
+        "type-required":"Giá trị là bắt buộc", 
+        "add_limitations":"Add Limitations",
+        "delete_limitation":"Delete Limitation",
+        "required":"Giá trị là bắt buộc",
+        "campaign":"Hoạt động bán hàng",
+        "type_options":{
+            "general":"General",
+            "cart_referal":"Referal"
+        },
+        "discount_type_options":{
+            "percent_off":"By Percentage(%)",
+            "deduct":"By Deduction(-)"
+        },
+        "limit_options":{
+            "specific_campaign":"các hoạt động bán hàng cụ thể",
+            "subtotal_over_specific_amount":"By Order Amount",
+            "product_over_specific_number":"By Order Qty"
+        },
+        "Order Subtotal":"Order Subtotal",
+        "Product Number":"Product Number",
+        "Discount Rate":"Discount Rate",
+        "Deduct Amount":"",
+        "cancel":"Cancel",
+        "save":"Save"
+    }
+}

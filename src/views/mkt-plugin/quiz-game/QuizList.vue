@@ -6,7 +6,7 @@
                 <h2 class="w-42"> {{ props.campaignTitle }} </h2>
             </div>
             <div class="flex md:justify-end manage_btn">
-                <button class="btn btn-primary h-[35px] sm:h-[42px] my-auto mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
+                <button class="btn btn-primary h-[35px] sm:h-[42px] my-auto lg:mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
             </div>
         </div>
 
@@ -18,38 +18,54 @@
             <div class="flex flex-row flex-wrap m-[0.7rem] p-5">
                 
                 <div class="flex flex-col gap-4 md:w-[55%] qa_block">
-                    <label class="text-center text-[20px] font-bold"> {{ $t('quiz_game.quiz_list.question') }} </label>
-
-                    <template v-for="(quizgame, index) in quizgameBundle.quiz_games" :key="index">
-                        <div class="flex flex-row items-center justify-between">
-                            <div>
-                                {{ quizgame.question }}
-                            </div>
-                            <div class="">
-                                <button 
-                                    class="btn btn-primary md:w-24 h-[35px] lil_btn" 
-                                    v-if="emptyArr.includes(quizgame.start_at)"
-                                    @click="quizgameStart(quizgame.id)"
-                                > {{ $t('quiz_game.quiz_list.start') }} </button>
-                                <button 
-                                    class="btn btn-seconday md:w-24 h-[35px] lil_btn" 
-                                    v-else-if="emptyArr.includes(quizgame.end_at)"
-                                    @click="quizgameStop(quizgame.id)"
-                                > {{ $t('quiz_game.quiz_list.stop') }} </button>
-                                <button 
-                                    class="btn btn-seconday md:w-24 h-[35px] lil_btn" 
-                                    v-else 
-                                    disabled
-                                > {{ $t('quiz_game.quiz_list.finish') }} </button>
-                            </div>
-                        </div>      
-                    </template>
+                    <table class="table -mt-3 table-report responsive-table">
+                        <thead>
+                            <tr>
+                                <template v-for="(data, index) in tableColumns" :key="index">
+                                    <th v-if="data.name" class="whitespace-normal text-center text-slate-500 text-[18px]">
+                                        {{ $t(`quiz_game.quiz_list.${data.key}`) }}
+                                    </th>
+                                    <th v-else class="whitespace-normal text-center text-[16px]">
+                                    </th>
+                                </template>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <template v-for="(quizgame, index) in quizgameBundle.quiz_games" :key="index">
+                                <tr>
+                                    <template v-for="(data, index) in tableColumns" :key="index">
+                                        <td v-if="data.name" class="whitespace-normal text-center text-[16px]">
+                                            <p class="title hidden">{{ $t(`quiz_game.quiz_list.${data.key}`) }}</p>
+                                            <p>{{ quizgame[data.key] }}</p>
+                                        </td>
+                                        <td v-else class="whitespace-normal text-center text-[16px]">
+                                            <button 
+                                                class="btn btn-primary md:w-24 h-[35px] lil_btn" 
+                                                v-if="emptyArr.includes(quizgame.start_at)"
+                                                @click="quizgameStart(quizgame.id)"
+                                            > {{ $t('quiz_game.quiz_list.start') }} </button>
+                                            <button 
+                                                class="btn btn-seconday md:w-24 h-[35px] lil_btn" 
+                                                v-else-if="emptyArr.includes(quizgame.end_at)"
+                                                @click="quizgameStop(quizgame.id)"
+                                            > {{ $t('quiz_game.quiz_list.stop') }} </button>
+                                            <button 
+                                                class="btn btn-seconday md:w-24 h-[35px] lil_btn" 
+                                                v-else 
+                                                disabled
+                                            > {{ $t('quiz_game.quiz_list.finish') }} </button>
+                                        </td>
+                                    </template>
+                                </tr>
+                            </template>
+                        </tbody>
+                    </table>
                 </div>
 
                 <hr class="solid">
 
                 <div class="flex flex-row md:flex-col md:border-x-2 border-white md:ml-auto md:w-36 lil_block lil_border">
-                    <div class="flex text-slate-500 md:mr-auto md:ml-auto"> {{ $t('quiz_game.quiz_list.winners') }} </div>
+                    <div class="flex text-slate-500 md:mr-auto md:ml-auto" style="font-weight: 500;"> {{ $t('quiz_game.quiz_list.winners') }} </div>
                     <span class="flex md:m-auto ml-auto md:text-[35px]"> {{ quizgameBundle.num_of_winner }} </span>
                 </div>
 
@@ -69,9 +85,11 @@
                                     <Tippy v-else tag="img" class="rounded-full border-0" :src="winner.customer_image" />
                                     <div class="w-4 h-4 absolute right-0 bottom-0 rounded-full border-2 border-white dark:border-darkmode-600">
                                         <img v-if="winner.platform == 'facebook'" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
-                                        <img v-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
-                                        <img v-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
-                                        <img v-if="[undefined, null, ''].includes(winner.platform)" class="rounded-full bg-[#9D9D9D]" :src="unbound" >
+                                        <img v-else-if="winner.platform == 'instagram'" class="rounded-full bg-[#d63376]" :src="instagram_platform" >
+                                        <img v-else-if="winner.platform == 'youtube'" class="rounded-full bg-[#f70000]" :src="youtube_platform" >
+                                        <img v-else-if="winner.platform == 'twitch'" class="rounded-full bg-[#6441a5]" :src="twitch_platform" >
+										<img v-else-if="winner.platform == 'tiktok'" class="rounded-full bg-[#000000]" :src="tiktok_platform" >
+                                        <img v-else-if="[undefined, null, ''].includes(winner.platform)" class="rounded-full bg-[#9D9D9D]" :src="unbound" >
                                     </div>
                                 </div>
                                 <label class="text-base flex items-center ml-2"> {{ winner.customer_name }} </label>
@@ -94,13 +112,13 @@
                             class="w-20 text-center whitespace-nowrap text-[14px]"
                             @click="goEdit(quizgameBundle.id)"
                         > 
-                            <EditIcon class="w-[20px] h-[20px] mx-1"/> {{ $t('quiz_game.quiz_list.edit') }}
+                            <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1" /> {{ $t('quiz_game.quiz_list.edit') }}
                         </DropdownItem>
                         <DropdownItem 
                             class="w-20 text-center text-danger whitespace-nowrap text-[14px]"
                             @click="goDelete(quizgameBundle.id)"
                         > 
-                            <Trash2Icon class="w-[20px] h-[20px] mx-1"/> {{ $t('quiz_game.quiz_list.delete') }}
+                            <SimpleIcon icon="delete" color="#b91c1c" class="mr-1" /> {{ $t('quiz_game.quiz_list.delete') }}
                         </DropdownItem>
                     </DropdownContent>
                 </DropdownMenu>
@@ -118,8 +136,15 @@ import { start_campaign_quiz_game, stop_campaign_quiz_game, delete_campaign_quiz
 import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
 import instagram_platform from '/src/assets/images/lss-img/instagram.png';
+import tiktok_platform from '/src/assets/images/lss-img/tiktok_black_bg.png';
+import twitch_platform from '/src/assets/images/lss-img/twitch.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 
+const tableColumns = ref([
+    {"name": "Question", "key": "question"},
+    {"name": "Answer", "key": "answer"},
+    {"name":"", "key": "start"}
+])
 const route = useRoute()
 const router = useRouter()
 const layoutStore = useLSSSellerLayoutStore()
@@ -128,10 +153,6 @@ const props = defineProps({
     campaignTitle: String,
     quizgameList: Object
 })
-const tableColumns = ref([
-    { key: 'question' },
-    { key: 'button' }
-])
 const emptyArr = ref(['', null, undefined])
 
 
@@ -186,16 +207,21 @@ const goResult = (id) => {
 </script>
 
 <style scope>
-
+.table th {
+    padding-top: 0;
+}
+td {
+    word-break: break-all;
+}
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
     .lil_block {
-        margin-top: 20px;
+        padding-top: 20px;
         width: 100%;
     }
 
     .lil_border {
-        padding-bottom: 10px;
+        padding-bottom: 20px;
         border-bottom: 2px solid #4F4F4F;
     }
 
@@ -206,12 +232,39 @@ const goResult = (id) => {
     }
 
     .lil_btn {
-        width: 80px;
+        width: 89px;
     }
 
     .manage_btn {
         margin-left: auto;
         margin-right: auto;
+    }
+}
+
+@media (max-width: 400px) {
+    .responsive-table {
+        display: contents;
+        width:100%;
+    }
+    .responsive-table thead {
+        display: none;
+    }
+    .responsive-table tbody tr {
+        margin-top: 10px;
+        display: flex;
+        flex-wrap: wrap;
+        width:100%;
+    }
+    .responsive-table tbody td {
+        width:100%;
+    }
+    .responsive-table tbody td .title {
+        display: unset;
+        font-size: 17px;
+        font-weight: bold;
+    }
+    .table-report:not(.table-report--bordered):not(.table-report--tabulator) td {
+        box-shadow: none;
     }
 }
 

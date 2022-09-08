@@ -13,19 +13,28 @@
                         :class="{ 'border-danger text-danger border-2': validate.plan.$error }" 
                         v-model="validate.plan.$model"
                     >
-                        <template v-if="originalPlan==='trial' || originalPlan==='lite' || originalPlan==='dealer'" > 
-                            <option v-for="(plan, key) in planOptions" :key="key" :value="plan.value" class="w-40"> 
-                                {{ $t(`change_plan.step_1.plan_options.` + plan.value) }}  </option>
-                        </template>
-                        <template v-else-if="originalPlan==='standard'"> 
-                            <option v-for="(plan, key) in planOptions.slice(1)" :key="key" :value="plan.value" class="w-40"> 
-                                {{ $t(`change_plan.step_1.plan_options.` + plan.value) }}
+                        <template v-if="originalPlan==='standard'" :value="plan.value" class="w-40"> 
+                            <template v-for="(plan, key) in getPrice.plans" :key="key">
+                                <option  v-if="plan.text != 'Free Trial' && plan.value != 'lite'" :value="plan.value" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${plan.price.month}`}) }}
                                 </option>
+                            </template>
                         </template>
-                        <template v-else-if="originalPlan==='premium'"> 
-                            <option v-for="(plan, key) in planOptions.slice(2)" :key="key" :value="plan.value" class="w-40"> 
-                                {{ $t(`change_plan.step_1.plan_options.` + plan.value) }}
+
+                        <template v-if="originalPlan==='premium'" :value="plan.value" class="w-40"> 
+                            <template v-for="(plan, key) in getPrice.plans" :key="key">
+                                <option  v-if="plan.text != 'Free Trial' && plan.value != 'lite' && plan.value != 'standard'" :value="plan.value" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${plan.price.month}`}) }}
                                 </option>
+                            </template>
+                        </template>
+
+                        <template v-if="originalPlan==='trial' || originalPlan==='lite' || originalPlan==='dealer'" :value="plan.value" class="w-40"> 
+                            <template v-for="(plan, key) in getPrice.plans" :key="key">
+                                <option  v-if="plan.text != 'Free Trial'" :value="plan.value" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${plan.price.month}`}) }}
+                                </option>
+                            </template>
                         </template>
                     </select>
                     <template v-if="validate.plan.$error">
@@ -34,6 +43,7 @@
                         </label>
                     </template>
                 </div>
+
                 <div class="flex-col">
                     <label for="" class="subLabel" >{{$t('change_plan.step_1.choose_period')}}</label><span class="text-danger"> *</span>
                         <select 
@@ -42,8 +52,19 @@
                             :class="{ 'border-danger text-danger border-2': validate.period.$error }" 
                             v-model="validate.period.$model"
                         >
-                        <option v-for="(period, key) in periodOptions" :key="key" :value="period.value" class="w-40"> 
-                        {{ $t(`change_plan.step_1.period_options.` + period.value) }} 
+                        <option v-if=" dayLeft < 30 " 
+                            :value="periodOptions[0].value" class="w-40"> 
+                            {{ $t(`change_plan.step_1.period_options.month`) }} 
+                        </option>
+                        <option
+                            v-if="layout.userInfo.user_subscription.country == 'TW'" 
+                            :value="periodOptions[1].value" class="w-40"> 
+                            {{ $t(`register.basic_info.period_options.` + 'year_tw') }} 
+                        </option>
+                        <option
+                            v-else
+                            :value="periodOptions[1].value" class="w-40"> 
+                            {{ $t(`register.basic_info.period_options.year`) }} 
                         </option>
                     </select>
                     <template v-if="validate.period.$error">
@@ -117,6 +138,8 @@ import { useRoute, useRouter } from "vue-router";
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import UserInfo from "./UserInfo.vue";
+import { get_subscription_plan } from '@/api_v2/business_policy'
+import { seller_changePlan_payment } from '@/api/user_subscription'
 import i18n from "@/locales/i18n"
 
 const internalInstance = getCurrentInstance()
@@ -131,9 +154,24 @@ const layout = useLSSSellerLayoutStore()
 
 const originalPlan = layout.userInfo.user_subscription.type
 const planOptions = ref([{ value: "lite" },{ value: "standard" },{ value: "premium" }])
-const periodOptions = ref([{ value: "quarter" },{ value: "year" }])
+const periodOptions = ref([{ value: "month" },{ value: "year" }])
 const secured = ref({ src: "@/assets/images/lss-img/secured_tag.jpeg"})
 const havePromoCode = ref(false)
+
+const dayLeft = ref('')
+const expDate = new Date(layout.userInfo.user_subscription.expired_at)
+const getPrice = ref({
+    plans:"",
+    price: ""
+})
+onMounted(()=>{
+    get_subscription_plan(layout.userInfo.user_subscription.country).then(res=>{
+        getPrice.value = res.data
+    })
+    const today = new Date();
+    console.log(layout.userInfo)
+    dayLeft.value = Math.round(( expDate.getTime() - today.getTime() )/86400000)
+})
 
 const selectedPlan = ref({
     plan: "",
@@ -162,7 +200,9 @@ const submitBasicInfo=()=>{
         layout.alert.showMessageToast(i18n.global.t('profile.invalid_data'))
         return
     }
-    // console.log(selectedPlan.value)
-    eventBus.emit("paymentInfo", selectedPlan.value)
+    console.log(selectedPlan.value)
+    seller_changePlan_payment(selectedPlan.value).then(res=>{
+        eventBus.emit("paymentInfo", {'basicInfo':selectedPlan.value, 'confirmInfo':res.data} )
+    }).catch( err=>{layout.registerTab = 1})
 }
 </script>

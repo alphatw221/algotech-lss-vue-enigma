@@ -1,10 +1,5 @@
 <template>
-
-	
-
-
 	<table class="table">
-
 
 		<thead>
 			<tr>
@@ -18,77 +13,69 @@
 			</tr>
 			</thead>
 			<tbody>
-
-			
 			<template v-for="(product, index) in store.order.products" :key="index" >
 				
 				<tr class="intro-x mt-5 relative">
 					<td class="imgtd">
 						<div class="flex flex-col items-center">
 							<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
-							<Tippy
-								tag="img"
-								class="rounded-lg"
-								:src="storageUrl + product.image"
-								:content="product.name"
-							/>
+								<img
+									class="rounded-lg"
+									data-action="zoom"
+									:src="product.image"
+								/>
 							</div>
 							<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-else>
-							<Tippy
-								tag="img"
-								class="rounded-lg"
-								:src="storageUrl + `no_image.jpeg`"
-								:content="product.name"
-							/>
+								<img
+									class="rounded-lg"
+									:src="staticDir + `no_image.jpeg`"
+								/>
 							</div>
+							<div v-if="product.type == 'lucky_draw'" class="text-primary font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}* </div>
 							<div class="productName">{{ product.name }} </div>
-							
-							
 						</div>
 					</td>
 					<td class="text-center h-20">
 						<template v-if="store.cartProducts[index].customer_editable && product.type ==='product'">
-						<div class="flex w-full justify-center">
-							<!-- <div class="absolute -bottom-8 border-slate border-2 rounded-bl-md rounded-r-md p-3 bg-white">
-								<input type="text" class="w-10" :value="product.qty">
-								<button class="btn btn-primary">
-									Update
+							<div class="flex w-full justify-center">
+								<!-- <div class="absolute -bottom-8 border-slate border-2 rounded-bl-md rounded-r-md p-3 bg-white">
+									<input type="text" class="w-10" :value="product.qty">
+									<button class="btn btn-primary">
+										Update
+									</button>
+								</div> -->
+								<button type="button" @click="changeQuantity( index, 'minus', product)" v-show="hideUpdateSignIndex!=index">
+									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 								</button>
-							</div> -->
-							<button type="button" @click="changeQuantity( index, 'minus', product)" v-show="hideUpdateSignIndex!=index">
-								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
-							</button>
-							<input 
-								type="text" 
-								class="form-control" 
-								placeholder="Input inline 1" 
-								aria-label="default input" 
-								:value="product.qty"
-								style="width: 2.7rem;"
+								<input 
+									type="text" 
+									class="form-control" 
+									placeholder="Input inline 1" 
+									aria-label="default input" 
+									:value="product.qty"
+									style="width: 2.7rem;"
 
-								@focus="focusQtyInput(index, product)"
-								v-show="hideQtyInputIndex!=index"
-							/>
-							<button type="button" @click="changeQuantity( index, 'add', product)" v-show="hideUpdateSignIndex!=index">
-								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
-							</button>
-							<div class="flex inline-flex leading-5 items-center">
-								<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
-								<div class="leading-5 allign-middle">
-									<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
-										{{$t('shopping_cart.table.update')}}
-									</button>
-									<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
-										{{$t('shopping_cart.table.cancel')}}
-									</button>
+									@focus="focusQtyInput(index, product)"
+									v-show="hideQtyInputIndex!=index"
+								/>
+								<button type="button" @click="changeQuantity( index, 'add', product)" v-show="hideUpdateSignIndex!=index">
+									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
+								</button>
+								<div class="flex inline-flex leading-5 items-center">
+									<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
+									<div class="leading-5 allign-middle">
+										<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
+											{{$t('shopping_cart.table.update')}}
+										</button>
+										<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
+											{{$t('shopping_cart.table.cancel')}}
+										</button>
+									</div>
 								</div>
 							</div>
-							
-							
-						</div>
 						</template>
 						<template v-else>
-							<div class="flex ml-8 2xl:ml-20 qty">
+							<div class="qty text-center">
 								{{ product.qty }}
 							</div>
 						</template>
@@ -102,14 +89,14 @@
 					<td class="text-center h-20 ">
 						<div class="price whitespace-nowrap"> 
 							{{store.order.campaign.currency}} 
-							{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.order.campaign.decimal_places) }} 
+							{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
 							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 						</div>
 					</td>
 					<td class="text-center h-20">
 						<div class="price whitespace-nowrap"> 
 							{{store.order.campaign.currency}} 
-							{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)):parseFloat(product.qty * product.price).toFixed(store.order.campaign.decimal_places) }} 
+							{{Math.floor(parseFloat(product.qty * product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
 							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 						</div>
 					</td>
@@ -149,7 +136,7 @@ import i18n from "@/locales/i18n"
 const route = useRoute();
 const store = useShoppingCartStore(); 
 const layoutStore = useLSSBuyerLayoutStore();
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const { cookies } = useCookies()
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 const hideUpdateSignIndex = ref(null)
@@ -219,7 +206,7 @@ const changeQuantity = ( index, operation, product) => {
 			showQtyInput()
 			hideUpdateButton()
 		}
-	).catch(()=>{
+	).catch((err)=>{
 		showUpdateSign()
 		showQtyInput()
 		hideUpdateButton()
@@ -233,7 +220,7 @@ const changeQuantity = ( index, operation, product) => {
   }
 
   @media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 768px) {
+  (min-device-width: 769px) and (max-device-width: 769px) {
   table, thead, tbody, th, td, tr {
     display: block;
 	font-size: 16px;
@@ -250,7 +237,7 @@ const changeQuantity = ( index, operation, product) => {
   }
 
   tr {
-    border-bottom: 1px solid black;
+    border-bottom: 2px solid #dddddd; 
   }
 
   td {
@@ -260,9 +247,7 @@ const changeQuantity = ( index, operation, product) => {
 	height: auto !important;
   }
   .productName{
-	min-height: 42px !important;
-	padding-top:5px;
-
+	min-height: 35px !important;
   }
   .qty{
 	min-height: 42px !important;
@@ -321,8 +306,8 @@ const changeQuantity = ( index, operation, product) => {
   }
   td:nth-of-type(6) {
     display:inline-block; 
-	width: 50%;
-	padding-left: 50% !important;
+	width: 100%;
+	padding-left: 0px !important;
 	margin-bottom: 15px;
 	margin-top:10px;
     /* color: #0e9893; */

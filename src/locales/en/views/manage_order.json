@@ -13,19 +13,24 @@
                 "increased":"increased"
         },
         "search_bar":{
-                "search":"Search",
+                "search":"Search order no./customer",
                 "filter":"Filter",
                 "export" : "Export"
         },
         "table":{
                 "Direct Payment":"Direct Payment",
+                "stripe":"Stripe",
+                "hitpay":"Hitpay",
+                "paypal":"Paypal",
+                "ecpay":"ECPay",
+                "pay_mongo":"PayMongo",
                 "details":"Order Details",
                 "copy_link":"Copy Cart Link",
                 "amount" : "Amount",
                 "payment" : "Payment",
                 "status" : "Status",
                 "view" : "View",
-                "customer" : "Customer",
+                "customer" : "Buyer",
                 "platform" : "Platform",
                 "name" : "Name",
                 "order_number" : "Order No.",
@@ -42,12 +47,13 @@
                 "delivery_charge":"Delivery Charge",
                 "discount":"Discount",
                 "total":"Total",
-                "null":""
+                "null":"",
+                "prize":"Prize"
         },
         "filter_modal":{
                 "payment":{
                         "payment":"Payment",
-                        "Direct Payment":"Direct Payment",
+                        "direct_payment":"Direct Payment",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
                         "paypal":"Paypal"
@@ -64,7 +70,8 @@
                         "instagram":"Instagram"
                 },
                 "apply":"Apply Filter",
-                "filter":"Filter"
+                "filter":"Filter",
+                "close_alert":"Apply selected tags?"
         },
         "complete" : "Complete",
         "review" : "Review",

@@ -9,8 +9,15 @@
         "settings":"Settings",
         "campaign_default_setting":"Campaign Default Setting",
         "localization":"Localization",
-        "connect_platform":"Connect Platform"
-
+        "connect_platform":"Connect Platform",
+        "discount_code":"Discount Code",
+        "dashboard":"Dashboard",
+        "accounts":"Accounts",
+        "transactions":"Transactions",
+        "plans":"Plans",
+        "licenses":"Licenses",
+        "sellers":"Sellers",
+        "buyers":"Buyers"
     },
     "bread_crumb":{
         "stock":"Stock",
@@ -21,7 +28,7 @@
         "settings":"Settings",
         "localization":"Localization",
         "campaign-global":"Campaign Default Settings",
-        "platform":"Connected Platform",
+        "platform":"Connect Platform",
         "edit-campaign":"Edit Campaign",
         "create-campaign":"Create Campaign",
         "assign-product":"Assign Product",
@@ -29,11 +36,19 @@
         "lucky-draw":"Lucky Draw",
         "autoreply":"Auto Reply",
         "category-management":"Category Management",
-        "add-product":"Create Product",
+        "add-product":"Add Product",
         "product-detail":"Product Detail",
         "edit-product":"Edit Product",
         "profile":"Profile",
-        "change-plan":"Change Plan"
+        "change-plan":"Change Plan",
+        "quiz-game":"Quiz Game",
+        "discount-code":"Discount Code", 
+        "dashboard":"Dashboard",
+        "transactions":"Transactions",
+        "plans":"Plans",
+        "licenses":"Licenses",
+        "sellers":"Sellers",
+        "buyers":"Buyers"
     },
     "top_bar":{
         "profile":"Profile",

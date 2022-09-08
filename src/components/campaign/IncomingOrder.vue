@@ -15,7 +15,18 @@
             </div> -->
 
             <div class="flex justify-between flex w-full h-16">
-                <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.incoming.incoming_order')}}</h2>
+                <div class="flex">
+                    <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.incoming.incoming_order')}}</h2>
+                    <Tippy 
+                        class="rounded-full w-50 my-auto" 
+                        data-tippy-allowHTML="true" 
+                        data-tippy-placement="right" 
+                        :content="$t('tooltips.campaign_live.incoming_order')" 
+                        theme='light'
+                    > 
+                        <HelpCircleIcon class="inline-block w-5 -mt-1 tippy-icon" />
+                    </Tippy> 
+                </div> 
                 <button class="btn btn-primary h-fit my-auto mr-6 w-40" @click="routeTOManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
             </div>
             
@@ -29,36 +40,49 @@
                             </th>
                         </tr>
                     </thead>
-                
+                 
                     <tbody>
-                        <tr v-if="store.incomingOrders.length === 0" class="h-[300px]">
+                        <tr v-if="store.incomingOrdersDict.length === 0" class="h-[300px]">
                             <td class="mt-40 text-center border-none text-sm md:text-lg text-slate-500" :colspan="4" > 
                                 {{ $t(`campaign_live.incoming.table.no_order`) }}
                             </td> 
                         </tr> 
-                        <tr v-for="order, index in store.incomingOrders" :key="index">
-                            <td>#{{ order.id }}</td>
+                        <tr v-for="(pre_order, key, index) in store.incomingOrdersDict" :key="index">
+                            <td>#{{ pre_order.id }}</td>
                             <td>
-                                <div v-if="order.platform === 'facebook'" class="w-10 h-10 image-fit mx-auto">
+                                <div v-if="pre_order.platform === 'facebook'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/facebook.png" />
                                     </div>
                                 </div>
-                                <div v-else-if="order.platform === 'instagram'" class="w-10 h-10 image-fit mx-auto">
+                                <div v-else-if="pre_order.platform === 'instagram'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/instagram.png" />
                                     </div>
                                 </div>
-                                <div v-else-if="order.platform === 'youtube'" class="w-10 h-10 image-fit mx-auto">
+                                <div v-else-if="pre_order.platform === 'youtube'" class="w-10 h-10 image-fit mx-auto">
                                     <div class="w-10 h-10 image-fit">
                                         <img src="/src/assets/images/lss-img/youtube.png" />
                                     </div>
                                 </div>
+                                <div v-else-if="pre_order.platform === 'twitch'" class="w-10 h-10 image-fit mx-auto">
+                                    <div class="w-10 h-10 image-fit">
+                                        <img src="/src/assets/images/lss-img/twitch.png" />
+                                    </div>
+                                </div>
+                                <div v-else-if="pre_order.platform === 'tiktok'" class="w-10 h-10 image-fit mx-auto">
+                                    <div class="w-10 h-10 image-fit">
+                                        <img src="/src/assets/images/lss-img/tiktok_black_bg.png" />
+                                    </div>
+                                </div>
                             </td>
-                            <td>{{ order.customer_name }}</td>
+                            <td>
+                                <template v-if="pre_order.customer_name != ''"> {{ pre_order.customer_name }} </template>
+                                <template v-else> Guest </template>  
+                            </td>
                             <td v-if="store.campaign">
                                 {{ store.campaign.currency }}
-                                {{ store.campaign.decimal_places=='0'?Math.trunc(parseFloat(order.subtotal)):parseFloat(order.subtotal).toFixed(store.campaign.decimal_places)}}
+                                {{ Math.floor(pre_order.subtotal * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places}}
                                 {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                             </td> 
                             <td>
@@ -69,7 +93,8 @@
                                     :options="{ theme: 'light' }"
                                     :content="$t('tooltips.campaign_live.view_icon')" 
                                 > 
-                                    <EyeIcon class="click-icon" @click="routeToDetailPage(order.id)"/> 
+                                    <!-- <EyeIcon class="click-icon" @click="routeToDetailPage(pre_order)"/>  -->
+                                    <SimpleIcon icon="view" @click="routeToDetailPage(pre_order)"/>
                                 </Tippy> 
                             </td>
                         </tr>
@@ -84,7 +109,8 @@
 import {list_campaign_pre_order} from '@/api/campaign_pre_order';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
-import { onMounted, onUnmounted, ref, getCurrentInstance } from "vue";
+import { onMounted, onUnmounted, ref, getCurrentInstance, computed, watch } from "vue";
+import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 const router = useRouter()
 const route = useRoute()
@@ -93,7 +119,7 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const store = useCampaignDetailStore();
-const imagePath=import.meta.env.VITE_APP_IMG_URL
+
 const incoming_order_columns= [
     { name: "order_number", key: "order_number" },
     { name: "platform", key: "platform" },
@@ -102,12 +128,13 @@ const incoming_order_columns= [
     { name: "null", key: "detail" },
 ]
 
-
-// route.params.campaign_id
-
 onMounted(()=>{
+    store.incomingOrdersDict = {}
     list_campaign_pre_order(route.params.campaign_id).then(res => {
-        store.incomingOrders = res.data
+        res.data.forEach(pre_order => {
+            store.incomingOrdersDict[pre_order.id]=pre_order
+        });
+        store.incomingOrders = res.data  //delete if no longer needed
     })
         
 })
@@ -117,8 +144,8 @@ const hideDropDown = ()=>{
 }
 
 
-const routeToDetailPage = (order_id)=>{
-    router.push({name:'sellerOrder',params:{'campaign_id':route.params.campaign_id,'order_id':order_id},query:{'type':'pre_order'}})
+const routeToDetailPage = (pre_order)=>{
+    router.push({name:'sellerOrder',params:{'campaign_id':route.params.campaign_id,'order_id':pre_order.id},query:{'type':'pre_order'}})
 }
 
 const routeTOManageOrder = ()=>{

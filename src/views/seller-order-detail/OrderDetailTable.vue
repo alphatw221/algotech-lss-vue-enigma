@@ -20,7 +20,7 @@
 						tag="img"
 						data-action="zoom"
 						class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
-						:src="storageUrl+product.image"
+						:src="product.image"
 					/>
 					</div>
 					<div class="w-14 sm:w-20 flex" v-else>
@@ -28,12 +28,12 @@
 						tag="img"
 						data-action="zoom"
 						class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
-						:src="storageUrl+`no_image.jpeg`"
+						:src="staticDir+`no_image.jpeg`"
 					/>
 					</div>
 				</td>
 				<td class="text-left" :data-content="$t('order_detail.table.product')">
-					<span class="font-bold"  v-if="product.type === 'lucky_draw'"> *Prize*</span>
+					<span class="font-bold"  v-if="product.type === 'lucky_draw'"> *{{$t('lucky_draw.winner_modal.prize')}}*</span>
 					<div class="break-words whitespace-normal">{{ product.name }} </div>
 				</td>
 				<td class="text-center w-fit" :data-content="$t('order_detail.table.qty')">
@@ -77,12 +77,12 @@
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
 					{{store.orderDetail.campaign.currency}}
-					{{store.orderDetail.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.orderDetail.campaign.decimal_places) }}
+					{{ Math.floor(parseFloat(product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
 					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
 					{{store.orderDetail.campaign.currency}}
-					{{store.orderDetail.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.qty * product.price)):parseFloat(product.qty * product.price).toFixed(store.orderDetail.campaign.decimal_places) }}
+					{{ Math.floor(parseFloat(product.qty * product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
 					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
 				</td>
 				<td>
@@ -111,7 +111,7 @@ const route = useRoute();
 const router = useRouter();
 const store = useSellerOrderStore();
 const sellerStore = useLSSSellerLayoutStore()
-const storageUrl = import.meta.env.VITE_GOOGLE_STORAGEL_URL
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const hideUpdateSignIndex = ref(null)
@@ -228,7 +228,7 @@ thead th{
 
 
 /* @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
 	table,
 	thead,

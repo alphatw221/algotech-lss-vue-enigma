@@ -22,7 +22,7 @@
 						<option v-for="category,index in productCategories" :key="index" :value="category">{{ category }}</option>
 					</select>
 				</div>
-				<div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
+				<!-- <div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
 					<label class="mr-auto whitespace-wrap sm:whitespace-nowrap text-[13px] sm:text-[16px]">
 						{{$t('assign_product.search_bar.search_by')}}
 					</label>
@@ -33,8 +33,8 @@
 							{{$t(`assign_product.search_bar.search_options.${searchColumn.value}`)}}
 						</option>
 					</select>
-				</div>
-				<div class="flex-1 items-center input-group mr-auto min-w-[100px] lg:mt-5">
+				</div> -->
+				<div class="flex-1 items-center input-group mr-auto min-w-[100px] sm:mt-5">
 					<div class="relative"> 
 						<input type="text"
 							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
@@ -91,7 +91,7 @@
 											<div class="w-[90px] h-[90px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
 												<img class="rounded-lg cursor-auto" 
 													:class="{'checked': product.check }" 
-													:src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
+													:src="product.image ? product.image : `${staticDir}no_image.jpeg`" />
 											</div>
 										</div>
 									</td>
@@ -168,9 +168,9 @@
 
 									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
-										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+										<div class="flex place-content-end relative w-full p-0 md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]" />
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 										</div>
 									</td>
@@ -195,8 +195,9 @@
 					/>
 					
 				</div> 
-				<div class=" flex items-center justify-between my-5 mb-14">
-					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="openTab='confirm'">{{$t('assign_product.add')}}</button>
+				<div class="flex items-center justify-end my-5 mb-14">
+					<button v-if="route.name == 'assign-product'" type="button" class="btn btn-secondary inline-flex w-20 md:w-32 shadow-md ml-auto mr-1 md:mr-5" @click="router.push({name: 'campaign-list'})">{{$t('assign_product.skip')}}</button>
+					<button type="button" class="btn btn-primary inline-flex w-20 md:w-32 shadow-md mr-1 md:mr-5" @click="openTab='confirm'">{{$t('assign_product.add')}}</button>
 				</div> 
 			</div>
 			<!-- END ProductTable -->
@@ -236,7 +237,7 @@
 										<div class="flex items-center justify-center">
 											<div class="w-[90px] h-[90px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
 												<img class="rounded-lg cursor-auto"
-													:src="product.image ? imageUrl + product.image : imageUrl + 'no_image.jpeg'" />
+													:src="product.image ? product.image : `${staticDir}no_image.jpeg`" />
 											</div>
 										</div>
 									</td>
@@ -313,9 +314,9 @@
 									<td v-else-if="column.key === 'price'" class="price" :data-content="$t(`assign_product.product_table.${column.key}`)"
 										:class="{' h-12' : errorMessages[product_index][column.key] }"  >
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
-										<div class="flex place-content-end relative w-full md:w-24 lg:place-content-center">
+										<div class="flex place-content-end relative w-full md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]" />
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
@@ -391,7 +392,9 @@ const pageSize = ref(10)
 const dataCount = ref(0)
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const imageUrl = import.meta.env.VITE_APP_IMG_URL
+
+const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
+
 const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
@@ -482,7 +485,7 @@ const checkIfValid = ()=>{
 		if(isNaN(parseFloat(selectedProduct.price)) || selectedProduct.price<0){errorMessages.value[index]['price']='price_invalid';isSelectedProductsValid=false;}
 
 		//update orderCodeDict
-		if(typeof selectedProduct.order_code=='string'){
+		if(typeof selectedProduct.order_code=='string' && selectedProduct.type=='product'){
 			orderCodeDict[selectedProduct.order_code.toLowerCase()]=index
 		}
         // console.log(orderCodeDict)
@@ -696,7 +699,7 @@ thead th{
 }
 
 @media only screen and (max-width: 760px),
-(min-device-width: 768px) and (max-device-width: 768px) {
+(min-device-width: 769px) and (max-device-width: 769px) {
 
     table,
     thead,

@@ -1,0 +1,20 @@
+{
+    "dealer":"Dealer",
+    "login": "Login",
+    "seller":"Seller",
+    "email": "Email",
+    "password": "Password",
+    "sign_in": "Sign In",
+    "forgot_password": "forgot password ?",
+    "no_account": "No Account ?",
+    "create_one": "Sign Up Now !",
+    "codeInvalid":"Entered code is Incorrect",
+    "2FAModal":{
+        "title":"Authentication Required",
+        "subTitle":"Enter verification code from your email, tap close button if you don't want to login:",
+        "resend":"Resend",
+        "resend_again":"resend email in %{sec} seconds",
+        "submit":"Submit"
+    }
+    
+}

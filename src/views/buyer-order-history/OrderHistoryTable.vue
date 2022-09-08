@@ -34,11 +34,11 @@
 						</template>
 						<template v-else-if="column.type=='float' && order.campaign">
 							{{order.campaign.currency}} 
-              {{order.campaign.decimal_places=='0'?Math.trunc(parseFloat(order[column.key])):parseFloat(order[column.key]).toFixed(order.campaign.decimal_places)}}
+              {{ Math.floor(order[column.key] * (10 ** order.campaign.decimal_places)) / 10 ** order.campaign.decimal_places}}
               {{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}
 						</template>
             <template v-else-if="column.key=='payment_method' && order[column.key]">
-							{{$t(`order_history.${order[column.key]}`)}}
+							{{order[column.key]=='direct_payment'?`${$t('order_history.direct_payment')} - ${order.meta.account_mode}`:$t(`order_history.${order[column.key]}`)}}
 						</template>
             <template v-else-if="column.key=='status'">
 							{{$t(`order_history.${order[column.key]}`)}}
@@ -103,11 +103,13 @@ const changePageSize = pageSize => {
 
 const getOrderHistoryListData = ()=>{
 	buyer_orders_history(currentPage.value, pageSize.value).then(response => {
+    console.log(response.data)
 		dataCount.value = response.data.count;
 		const total_page = parseInt(dataCount.value / pageSize.value);
 		totalPage.value = total_page == 0 ? 1 : total_page;
 		orders.value = response.data.results;
-    console.log(orders.value)
+    // console.log(orders.value)
+    console.log(response)
 	})
 }
 onMounted(()=>{
@@ -124,7 +126,7 @@ onMounted(()=>{
   }
 
   @media only screen and (max-width: 760px),
-  (min-device-width: 768px) and (max-device-width: 1024px) {
+  (min-device-width: 769px) and (max-device-width: 1024px) {
   table,
   thead,
   tbody,

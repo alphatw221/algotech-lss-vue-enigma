@@ -1,0 +1,19 @@
+{
+    "dealer":"Nhà bán hàng",
+    "login": "Đăng nhập",
+    "email": "Email",
+    "password": "Mật khẩu",
+    "sign_in": "Đăng nhập",
+    "seller":"Người Bán",
+    "forgot_password": "quên mật khẩu ?",
+    "no_account": "Bạn chưa có tài khoản ? ",
+    "create_one": "Đăng Ký Ngay !",
+    "codeInvalid":"Entered code is Incorrect",
+    "2FAModal":{
+        "title":"Authentication Required",
+        "subTitle":"Enter verification code from your email, tap close button if you don't want to login:",
+        "resend":"Resend",
+        "resend_again":"resend email in %{sec} seconds",
+        "submit":"Submit"
+    }
+}

@@ -1,16 +1,16 @@
 {
     "title": "自动答复",
-    "create": "创建",
+    "create": "添加自动回复",
 
     "assign_first_reply": "创建",
     "no_have_autoreply": "目前没有任何自动答复",
-    "set_up_first": "点击 \"+ 创建\" ，新增您的第一个自动答复",
+    "set_up_first": "点击 ＂＋ 创建＂，新增您的第一个自动答复",
 
     "table_column": {
-        "keyword_detect": "侦测关键字",
+        "keyword_detect": "关键字",
         "set_auto_reply": "自动答复內容",
         "remark": "备注",
-        "assign_to": "粉丝专页设置",
+        "assign_to": "社群帐号",
         "#": "#"
     },
 
@@ -19,7 +19,7 @@
         "delete": "删除"
     },
 
-    "modal_title": "创建新答复",
+    "modal_title": "新增自动回复",
     "modal_cancel": "取消",
     "modal_save": "储存",
     "modal_field_require": "必填栏位",

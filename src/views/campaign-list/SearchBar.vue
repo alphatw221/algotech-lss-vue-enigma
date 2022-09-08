@@ -1,9 +1,9 @@
 <template>
     <form>
         <div class="flex content-end justify-start gap-3 mr-auto -mt-3 justify-items-stretch sm:mt-0">
-            <div class="items-center w-fit sm:mr-4 flex-col sm:flex-row">
+            <!-- <div class="items-center w-fit sm:mr-4 flex-col sm:flex-row"> -->
                 <!-- <label class="mr-2 w-14 xl:w-auto"> -->
-                <label class="mr-2 whitespace-nowrap">
+                <!-- <label class="mr-2 whitespace-nowrap">
                     {{$t('campaign_list.search_bar.search')}}
                 </label>
                 <select id="tabulator-html-filter-field"
@@ -13,7 +13,7 @@
                         {{ $t(`campaign_list.search_bar.`+searchColumn.text) }}
                     </option>
                 </select>
-            </div>
+            </div> -->
             <div class="items-center w-auto flex mt-auto">
                 <!-- <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 col-span-2" /> -->
                 <div class="relative "> 

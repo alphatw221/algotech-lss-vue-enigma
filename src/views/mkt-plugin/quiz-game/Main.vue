@@ -59,7 +59,7 @@ onUnmounted(() => {
 
 const listQuizGame = () => {
     list_campaign_quiz_game(route.params.campaign_id).then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         if (Object.entries(res.data).length > 0) {
             quizgameList.value = res.data
             showQuizList.value = true

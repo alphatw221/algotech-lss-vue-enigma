@@ -24,11 +24,11 @@
 
 						<a class="w-4/5 file__icon file__icon--image">
 							<div class="file__icon--image__preview image-fit" v-if="product.image">
-								<img :src="storageUrl + product.image"
+								<img :src="product.image"
 								/>
 							</div>
 							<div class="file__icon--image__preview image-fit" v-else>
-								<img :src="storageUrl + `no_image.jpeg`"
+								<img :src="staticDir + `no_image.jpeg`"
 								/>
 							</div>
 						</a>
@@ -37,10 +37,11 @@
 						</div>
 						<div class="text-slate-500 text-sm text-center">
 							{{store.order.campaign.currency}} 
-							{{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(product.price)):parseFloat(product.price).toFixed(store.order.campaign.decimal_places) }}
+							{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
 							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 						</div>
-						<div class="flex">
+						<div v-if="product.qty_for_sale> 0" class="flex"> 
+							<!-- Wait for api-->
 							<button type="button" @click="changeQuantity(null, index, 'minus')">
 								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 							</button>
@@ -57,7 +58,7 @@
 								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 							</button>
 						</div>
-						<div>
+						<div v-if="product.qty_for_sale> 0">
 							<button 
 								class="btn btn-sm btn-primary w-24 mt-3"
 								@click="buyer_add_item(product.id, index)"
@@ -65,10 +66,52 @@
 								{{$t('shopping_cart.add_item.add')}}
 							</button>
 						</div>
+						<!-- v-if="product.qty_for_sale - product.qty_sold > 0 -->
+						<div v-else> 
+							<button 
+								class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
+								@click="add_to_wishlist(product.product)"
+							>
+								wishlist
+							</button>
+						</div>
 					</div>
 				</div>
 			</div>
 			<div class="invisible h-20"> ... </div>
+			<Modal :show="wishlistModal" @hidden="wishlistModal = false">
+				<ModalBody class="text-center">
+					<div class="flex flex-col gap-5"> 
+						<div>Enter Your Email or Sign up to continue </div>
+						<div class="relative mx-10"> 
+							<MailIcon class="absolute w-6 h-6 top-1.5 left-3 z-10 text-slate-400"/>
+							<input type="email" class="h-[35px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
+								:placeholder="$t('login.email')" 
+								v-model="email" 
+								@keydown.enter.prevent="add_to_wishlist(wishlistStockID)" />
+						</div>
+						<button 
+							class="btn btn-sm bg-green-700 w-24 ml-auto text-white"
+							@click="add_to_wishlist(wishlistStockID)"
+						>
+						{{$t('shopping_cart.add_item.wishlist')}}
+						</button>
+						<div class="w-full flex justify-center border-t border-slate-200/60 dark:border-darkmode-400">
+							<div class="bg-white dark:bg-darkmode-600 px-5 -mt-3 text-slate-500">
+								or
+							</div>
+						</div>
+						<div> 
+							<button 
+								class="btn bg-green-700 w-3/4 ml-auto text-white"
+								@click="layoutStore.showLoginModal=true"
+							>
+							Login Now
+							</button>
+						</div>
+					</div>
+				</ModalBody>
+			</Modal>
 		</ModalBody>
 	</Modal>
 </template>
@@ -87,7 +130,11 @@ const { cookies } = useCookies()
 const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const store = useShoppingCartStore(); 	
-const storageUrl =  import.meta.env.VITE_GOOGLE_STORAGEL_URL;
+const staticDir =  import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR;
+
+const wishlistModal = ref(false)
+const email = ref('')
+const wishlistStockID = ref()
 
 const addOnProducts = ref([])
 const addOnTitle = ref('select_add_ons')
@@ -102,6 +149,7 @@ onMounted(()=> {
 })
 
 watch(computed(()=>store.campaignProducts),()=>{
+	console.log(store.campaignProducts)
 	if (!(store.order.products||false))return
 	updateAddOnProducts()
 })
@@ -133,13 +181,12 @@ const changeQuantity = (event, index, operation) => {
 	else{
 		if(event)event.target.value=1
 		addOnProducts.value[index].qty = 1
-		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_amount'))
+		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
 	}
 }   // minus after input works, plus after input not works
 
 
 const buyer_add_item = (campaing_product_id, index) => {
-
 
 	const cart_add = isAnonymousUser?guest_cart_add:buyer_cart_add
 	cart_add(route.params.pre_order_oid, campaing_product_id, addOnProducts.value[index].qty)
@@ -149,5 +196,10 @@ const buyer_add_item = (campaing_product_id, index) => {
 			layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.add_item_success'))
 		}
 	)
+}
+
+const add_to_wishlist = (campaing_product_id, index) =>{
+	if(isAnonymousUser){wishlistModal.value = true}
+	else{console.log('API CALLED')}
 }
 </script>

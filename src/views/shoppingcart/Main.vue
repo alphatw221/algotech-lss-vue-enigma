@@ -12,7 +12,7 @@
               'text-white bg-primary': store.openTab === 1,
             }"
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
-              <ShoppingCartIcon />
+              <SimpleIcon icon="shopping_cart" :color="btnOne" />
             </button>
             <div
               class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
@@ -33,7 +33,7 @@
               'text-white bg-primary': store.openTab === 2,
             }"
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
-              <TruckIcon />
+              <SimpleIcon icon="truck" :color="btnTwo" />
             </button>
             <div
               class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
@@ -64,6 +64,7 @@
       </div>
 
     </div>
+    
   </div>
 </template>
 
@@ -77,6 +78,7 @@ import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { buyer_list_campapign_product, buyer_cart_list, guest_list_campapign_product, guest_cart_list } from "@/api_v2/campaign_product";
+import { search_discount_code } from "@/api_v2/discount_code"
 
 import { buyer_retrieve_pre_order, guest_retrieve_pre_order } from "@/api_v2/pre_order";
 import { useRoute, useRouter } from "vue-router";
@@ -86,7 +88,8 @@ const router = useRouter();
 const store = useShoppingCartStore()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
-
+const btnOne = ref('white')
+const btnTwo = ref('#334155')
 const { cookies } = useCookies()
 const toggleTabs = tabNumber => {
   store.openTab = tabNumber
@@ -100,6 +103,7 @@ onMounted(()=>{
       res => { 
         store.order = res.data;
         i18n.locale = res.data.campaign.lang
+        Object.keys(store.order.products).length == 0 ? store.showAddItemModal = true : store.showAddItemModal = false
       }
   )
 
@@ -108,8 +112,13 @@ onMounted(()=>{
 		res => {
 			store.campaignProducts = res.data     
       });
-		}
-	)
+
+  search_discount_code(route.params.pre_order_oid,'cart_referal').then(
+    res=>{
+      store.referalCodes = res.data
+    }
+    )}
+)
 
   const cart_list = isAnonymousUser?guest_cart_list:buyer_cart_list
 	cart_list(route.params.pre_order_oid).then(
@@ -117,11 +126,13 @@ onMounted(()=>{
       res.data.forEach(element => {
         store.cartProducts[element.id] = element
 		  })
-      console.log(store.cartProducts)
+      // console.log(store.cartProducts)
 })
 
 watch(computed(()=>store.openTab),()=>{
   router.push({query:{tab:store.openTab}})
+  btnOne.value = store.openTab == 1? 'white' :'#334155'
+  btnTwo.value = store.openTab == 2? 'white' :'#334155'
   if(isAnonymousUser && store.openTab==2 && !buyerLayoutStore.refuseToLogin){
     buyerLayoutStore.showLoginModal=true
   }

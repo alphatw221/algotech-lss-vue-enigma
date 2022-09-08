@@ -79,14 +79,16 @@
             <Tab class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
               @click="select_shipping_method('delivery')">
               <div class="inline-flex items-center grow place-content-center">
-                <TruckIcon class="block mr-3" /><span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
+                <SimpleIcon icon="delivery" :color="deliveryColor" class="block mr-3" width="24" /> 
+                <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
               </div>
             </Tab>
             <template v-if="store.order.campaign && store.order.campaign.meta_logistic.additional_delivery_options">
                 <Tab v-if="store.order.campaign.meta_logistic.additional_delivery_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
                 @click="select_shipping_method('pickup')">
                 <div class="inline-flex items-center grow place-content-center">
-                  <HomeIcon class="block mr-3" /><span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
+                  <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
+                  <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
                 </div>
               </Tab>
             </template>
@@ -164,9 +166,7 @@
                       <label class="mr-auto form-check-label" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.default')}}</label>
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{
-                          store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.campaign.meta_logistic.delivery_charge)):parseFloat(store.order.campaign.meta_logistic.delivery_charge).toFixed(store.order.campaign.decimal_places)
-                        }}
+                        {{Math.floor(parseFloat(store.order.campaign.meta_logistic.delivery_charge) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
                     </div>
@@ -180,16 +180,12 @@
 
                       <div v-if="option.type === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{ 
-                          store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)):(parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)).toFixed(store.order.campaign.decimal_places)
-                        }}
+                        {{Math.floor((parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
                       <div v-else>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{
-                          store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(option.price)):parseFloat(option.price).toFixed(store.order.campaign.decimal_places)
-                        }}
+                        {{Math.floor(parseFloat(option.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
 
@@ -270,6 +266,7 @@
       <button class="mr-auto rounded-full w-fit btn btn-outline-primary" @click="store.openTab= 1">
         {{$t('shopping_cart.delivery_tab.previous')}}
       </button>
+
       <button class="w-fit btn btn-rounded-primary" @click="proceed_to_payment">
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
@@ -292,6 +289,7 @@ import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
@@ -319,7 +317,9 @@ const shipping_info= ref({
       shipping_remark: "",
       shipping_date: null,
       shipping_time: null,
-      pickup_address:""
+      pickup_address:"",
+
+      shipping_option_data:{}
 		})
 
 const shipping_option_index_computed = computed({
@@ -328,10 +328,16 @@ const shipping_option_index_computed = computed({
   },set:index=>{
     shipping_info.value.shipping_option_index=index
     store.shipping_info.shipping_option_index=index
-    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].address : ''
+    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.address : ''
 
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index].name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
     
+    if(shipping_info.value.shipping_method=='pickup'){
+      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.pickup_options[index]))
+    }else{
+      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.additional_delivery_options[index]))
+    }
+
   }})
 
 const shipping_method_computed = computed({
@@ -355,8 +361,12 @@ onMounted(()=>{
   
 })
 
+const deliveryColor = ref('white')
+const pickupColor = ref('#131C34')
 const select_shipping_method = method => {
   shipping_method_computed.value=method
+  deliveryColor.value = method == 'delivery'? 'white' :'#131C34'
+  pickupColor.value = method == 'pickup'? 'white' :'#131C34'
 }
 
 
@@ -387,30 +397,43 @@ const delivery_validate = useVuelidate(delivery_rules, shipping_info);
 const proceed_to_payment = () =>{
 
   reciever_validate.value.$touch();
+
   if (reciever_validate.value.$invalid) {
+
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
+
   if(shipping_info.value.shipping_method==='delivery'){
+
     delivery_validate.value.$touch();
-    if(delivery_validate.value.$invalid){
+    
+     if(shipping_info.value.shipping_option_index === ''){
+      layoutStore.alert.showMessageToast('select shipping method')
+      return
+    }
+    else if(delivery_validate.value.$invalid){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
   }
-  
-  if (confirm(i18n.global.t('shopping_cart.checkout_message'))){
 
-    const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
-    update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
-    .then(res=>{
-      router.push(`/buyer/order/${res.data.oid}/payment`)
-    }).catch(error=>{
-      layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.checkout_again'))
-      if (error.response.data)store.order = error.response.data
-      
-    })
-  }
+
+
+  // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
+
+  
+  
+
+  const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
+  update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
+  .then(res=>{
+    router.push(`/buyer/order/${res.data.oid}/payment`)
+  }).catch(error=>{
+    if (error.response.data)store.order = error.response.data
+    
+  })
+  
 }
 
 

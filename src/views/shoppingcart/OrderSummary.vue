@@ -1,6 +1,6 @@
 <template>
-  <div class="box p-5 m-3 border-2 border-secondary">
-    <div>
+  <div class="box p-5 sm:m-3 border-2 border-secondary">
+    <div class="flex flex-col">
       <div class="flex mb-4 dark:border-darkmode-400">
         <span class="text-lg">{{$t('shopping_cart.order_summary.order_summary')}}</span>
       </div>
@@ -9,13 +9,11 @@
         <div class="mr-auto">{{$t('shopping_cart.order_summary.subtotal')}}</div>
         <div class="font-medium" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.subtotal)):parseFloat(store.order.subtotal).toFixed(store.order.campaign.decimal_places) }}
+          {{Math.floor(parseFloat(store.order.subtotal) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
-      <div class="flex mt-4">
-
-
+      <div class="flex mt-4" v-if="store.order.adjust_price != 0">
         <div class="mr-auto" v-if="store.order.adjust_title">
           <div>{{ store.order.adjust_title }}</div>
           <div>({{$t('shopping_cart.order_summary.price_adjustment')}})</div>
@@ -24,18 +22,53 @@
 
         <div class="font-medium text-danger" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(store.order.adjust_price)):parseFloat(store.order.adjust_price).toFixed(store.order.campaign.decimal_places) }}
+          {{Math.floor(parseFloat(store.order.adjust_price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
-      
+
+      <div v-if="store.order.discount != 0 && store.order.campaign||false" class="flex flex-row justify-between mt-2" >
+        <label class="w-fit my-auto whitespace-nowrap">{{ $t('shopping_cart.order_summary.promo_discount')}} </label>
+        <span class="font-medium text-danger"> 
+          {{store.order.campaign.currency}} 
+          -{{Math.floor(parseFloat(store.order.discount) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+          {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+        </span>
+      </div>
+
+      <div class="flex flex-row justify-between mt-2" >
+        <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
+          <div class="input-group"> 
+            <input
+            type="text"
+            class="form-control w-32 h-[35px] text-right"
+            v-model="discount_code"
+            @keydown.enter.prevent="promoCheck()"
+            />
+            <button class="input-group-text h-[35px]" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
+            <XIcon v-if="store.order.discount != 0 && store.order.campaign||false" class="mt-auto w-6 h-6 text-slate-400" @click="promoDelete()"/>
+          </div>
+          
+      </div>
+      <span v-if="store.order.applied_discount.code != undefined" class="text-right font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :store.order.applied_discount.code})}} </span>
+
+      <div class="flex justify-between mt-2 flex-wrap"  v-for="referalCode, index in store.referalCodes" :key="index">
+
+        <label class=" my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.referr_code')}}</label>
+        <button @click="copyURL(referalCode.code+'-'+route.params.pre_order_oid)"
+          class="flex my-auto whitespace-nowrap border-2 border-green-800 rounded-md p-1 px-2 text-green-800 font-medium">{{referalCode.code+'-'+route.params.pre_order_oid}} 
+        </button>
+        <!-- <div v-if="referalCode.description" class="my-auto whitespace-nowrap">{{referalCode.description}}</div> -->
+
+      </div>
+
       <div v-if="store.shipping_info.shipping_method !== 'pickup'"
         class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
           pt-4">
         <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
         <div class="font-medium" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(shippingCost)):parseFloat(shippingCost).toFixed(store.order.campaign.decimal_places) }}
+          {{Math.floor(parseFloat(shippingCost) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -52,7 +85,7 @@
         <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
         <div class="font-medium text-base" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{store.order.campaign.decimal_places=='0'?Math.trunc(parseFloat(cartTotal)):parseFloat(cartTotal).toFixed(store.order.campaign.decimal_places) }}
+          {{Math.floor(parseFloat(cartTotal) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -72,17 +105,17 @@
 
 <script setup>
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { computed, onMounted, ref, watch } from "vue";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import { computed, onMounted, ref, watch } from "vue";
+import { buyer_apply_discount_code, buyer_cancel_discount_code } from "@/api_v2/pre_order"; 
 import { useCookies } from "vue3-cookies";
 import { useRoute, useRouter } from "vue-router";
 const route = useRoute();
 const router = useRouter();
 
 const { cookies } = useCookies();
-const buyerLayoutStore = useLSSBuyerLayoutStore();
 const store = useShoppingCartStore();
- 
+const layoutStore = useLSSBuyerLayoutStore();
 
 const addItem = ()=>{
   console.log('add item')
@@ -90,13 +123,11 @@ const addItem = ()=>{
 const shippingCost = ref(0)
 const cartTotal = ref(0)
 
-
 const updateOrderSummary = ()=>{
-
-    console.log('update order summary')
+    console.log(store.referalCodes)
     if (store.shipping_info.shipping_method=='pickup'){
       shippingCost.value = 0
-      cartTotal.value = parseFloat(store.order.subtotal + store.order.adjust_price ).toFixed(store.order.campaign.decimal_places)
+      cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.adjust_price - store.order.discount ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
       return
     }
 
@@ -136,7 +167,7 @@ const updateOrderSummary = ()=>{
     if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
         
     shippingCost.value = delivery_charge
-    cartTotal.value = store.order.subtotal + store.order.adjust_price + delivery_charge
+    cartTotal.value = store.order.subtotal + store.order.adjust_price - store.order.discount + delivery_charge 
 }
 
 watch(
@@ -144,13 +175,38 @@ watch(
   updateOrderSummary
 );
 
+onMounted(()=>{
+  store.order.discount = ''
+  store.order.applied_discount = {}
+  console.log(store.referalCodes)
+})
 
 watch(
   computed(() => {return store.shipping_info}),
   updateOrderSummary,{deep:true}
 );
+const discount_code = ref('')
+const promoCheck =()=>{
+  buyer_apply_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }).then(
+    res=>{
+      store.order = res.data
+      discount_code.value = ''
+    })
+}
 
+const promoDelete =()=>{
+  buyer_cancel_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }).then(
+    res=>{
+      store.order = res.data
+      discount_code.value = ''
+    })
+}
 
+const copyURL = (code)=>{
+  navigator.clipboard.writeText(`${code}`).then(()=>{
+      layoutStore.notification.showMessageToast('copied!')
+  })
+}
 
 const toNext=()=>{
   store.openTab=2

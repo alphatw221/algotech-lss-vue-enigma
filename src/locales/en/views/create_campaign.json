@@ -44,7 +44,9 @@
             "direct_payment":"Direct Payment",
             "stripe":"Stripe",
             "hitpay":"Hitpay",
-            "paypal":"Paypal"
+            "paypal":"Paypal",
+            "ecpay":"ECPay",
+            "pay_mongo":"PayMongo"
         },
 
         "direct_payment":{
@@ -66,19 +68,30 @@
         },
         "paypal":{
             "currency":"Currency",
-            "cliend_id":"Client ID",
+            "client_id":"Client ID",
             "secret":"Secret"
+        },
+        "ecpay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV",
+            "invoice_hash_key":"Invoice Hash Key",
+            "invoice_hash_iv":"Invoice Hash IV"
+        },
+        "pay_mongo":{
+            "secret":"Secret Key"
         },
 
 
         "payment_details":"Payment Details",
         "enabled":"Enable",
+        "invoice_enabled":"Invoice Enabled",
         "add_more_direct_payment":"Add New Direct Payment",
         "upload_image":"Upload Image",
         "remove_image":"Remove Image",
         "upload_a_file_or_drag_and_drop":"Upload a file",
-        "accepted_file_types":"File types",
-        "max_file_size":"Max file size",
+        "accepted_file_types":"File types: jpeg, png, jpg",
+        "max_file_size":"Max file size: 10MB",
 
         "delete":"Delete",
         "errors":{

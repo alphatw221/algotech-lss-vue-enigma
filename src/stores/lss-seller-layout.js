@@ -7,12 +7,17 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     isAuthenticated: ref(false),
     loginWith: ref(null),
     profileTab: ref(1),
-    changePlanTab: ref(1),
+    changePlanTab: ref(1), 
     userInfo: ref({}),
     floatingVideo: ref(),
     campaignAlert: ref(),
     notification: ref(),
     alert: ref(),
+    apiErrorAlert: ref(),
+
+    showCommentCaptureWindow:ref(false),
+    commentCapturingCampaignData:ref({}),
+
     menu: [
       // {
       //   icon: "HomeIcon",
@@ -20,7 +25,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Home",
       // },
       {
-        icon: "PackageIcon",
+        icon: "stock",
         pageName: "stock",
         title: "stock",
       },
@@ -35,9 +40,9 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Create Campaign",
       // },
       {
-        icon: "ListIcon",
+        icon: "campaign",
         pageName: "campaign-list",
-        title: "campaign_list",
+        title: "campaign_list", 
       },
       // {
       //   icon: "VideoIcon",
@@ -45,7 +50,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Campaign Live",
       // },
       {
-        icon: "MessageSquareIcon",
+        icon: "auto-reply",
         pageName: "side-menu-auto-reply",
         title: "auto_reply",
       },
@@ -65,7 +70,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       //   title: "Shopping Cart",
       // },
       {
-        icon: "SettingsIcon",
+        icon: "settings",
         pageName: "campaign-global-setting",
         title: "settings",
         subMenu: [
@@ -74,9 +79,13 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
             title: "campaign_default_setting",
           },
           {
-            pageName: "localization",
-            title: "localization",
+            pageName: "discount-code",
+            title: "discount_code",
           },
+          // {
+          //   pageName: "localization",
+          //   title: "localization",
+          // },
           {
             pageName: "platform",
             title: "connect_platform",

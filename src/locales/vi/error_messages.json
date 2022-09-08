@@ -1,0 +1,184 @@
+{
+    "api": {
+        "v2": {
+            "product":{
+                "search_can_not_empty": "Trường tìm kiếm không được để trống khi từ khóa có giá trị",
+                "category_already_exists": "Danh mục/Phân loại này đã tồn tại",
+                "invalid_category_name": "Tên danh mục/Phân loại không hợp lệ",
+                "category_not_exist": "Danh mục/Phân loại này không tồn tại"
+            },
+            "campaign": {
+                "search_can_not_empty": "Trường tìm kiếm không được để trống khi từ khóa có giá trị"
+            },
+            "user": {
+                "account_not_exist": "Tài khoản này không tồn tại",
+                "email_or_password_incorrect": "Email hoặc mật khẩu không chính xác",
+                "invalid_email": "Email không hợp lệ",
+                "password_incorrect": "Mật khẩu gần đây không chính xác",
+                "reset_password_code_manager":{
+                    "code_expired": "Mã xác minh đã hết hạn",
+                    "user_not_found": "Không thể tìm thấy người dùng này"
+                }
+            },
+            "user-subscription":{
+                "stripe":{
+                    "card_error":"Thẻ tín dụng lỗi",
+                    "rate_limit_error":"Đã vượt quá giới hạn tỷ lệ yêu cầu API",
+                    "invalid_request_error":{
+                        "invalid_parameters":"thông số không hợp lệ",
+                        "invalid_integer":"Stripe chỉ chấp nhận các giá trị lớn hơn hoặc bằng 1, vui lòng liên hệ với dịch vụ khách hàng của chúng tôi"
+                    },
+                    "authentication_error":"Quá trình xác thực đã thất bại",
+                    "api_connection_error":"Đã xảy ra lỗi mạng",
+                    "stripe_error":"Stripe error",
+                    "no_related_error":"Không có khoản thanh toán liên quan",
+                    "support_for_refunding": "Thông tin không hợp lệ, vui lòng liên hệ với người bán để yêu cầu hoàn lại tiền",
+                    "payment_error": "Lỗi thanh toán, vui lòng liên hệ với người bán"
+                }
+            },
+            "facebook-page":{
+                "facebook_not_activated": "Nền tảng Facebook chưa được kích hoạt",
+                "facebook_token_expired": "Mã thông báo hết hạn hoặc không hợp lệ. Vui lòng liên kết lại trang Facebook của bạn."
+            },
+            "instagram-profile":{
+                "instagram_not_activated": "Nền tảng Instagram chưa được kích hoạt",
+                "instagram_token_expired": "Mã thông báo hết hạn hoặc không hợp lệ. Vui lòng liên kết lại hồ sơ Instagram của bạn."
+            },
+            "youtube-channel":{
+                "youtube_not_activated": "Nền tảng YouTube chưa được kích hoạt",
+                "youtube_token_expired": "Mã thông báo hết hạn hoặc không hợp lệ. Vui lòng liên kết lại kênh YouTube của bạn."
+            },
+            "campaign-product":{
+                "campaign_product_can_not_delete": "Chiến dịch này đã bắt đầu, không thể xóa sản phẩm chiến dịch"
+            },
+            "pre_order":{
+                "refresh_try_again": "Hãy làm mới trang và thử lại",
+                "invalid_user": "Người dùng không hợp lệ",
+                "request_data_error": "Yêu cầu dữ liệu lỗi",
+                "invalid_discount_code":"Invalid Discount Code",
+                "discount_code is required":"Discount Code is Required"
+                
+            },
+            "order-product":{
+                
+            },
+            "order":{
+                "image_size_exceed_maximum_size": "Kích thước hình ảnh vượt quá 10MB",
+                "not_support_this_image_type": "Định dạng hình ảnh không được hỗ trợ"
+                
+            },
+            "payment":{
+                "payment_not_enable": "Phương thức thanh toán này không được kích hoạt",
+                "choose_another_payment_method": "Lỗi thanh toán, vui lòng chọn phương thức thanh toán khác",
+                "payment_failed": "Thanh toán không thành công",
+                "invalid": "không hợp lệ"
+                
+            },
+            "campaign-luckydraw":{
+                "invalid_lucky_draw_type":"Thiết lập rút thăm may mắn không hợp lệ",
+                "invalid_lucky_draw_product": "Giải thưởng không hợp lệ",
+                "lucky_draw_has_already_finished": "Rút thăm may mắn đã hoàn thành và không thể xóa",
+                "draw_like_type_need_connect_to_facebook_post": "Không thể chọn hình thức rút thăm may mắn này vì chiến dịch không thể kết nối đến bài viết trên Facebook. Vui lòng kiểm tra lại cài đặt chiến dịch.",
+                "no_any_connected_platforms": "Chiến dịch này không kết nối đến bất kì bài viết hay kênh nào. Vui lòng kiểm tra cài đặt chiến dịch."
+                
+            },
+            "cart":{
+                "campaign_product_not_found": "Không thể tìm thấy sản phẩm của chiến dịch",
+                "refresh_try_again": "Hãy làm mới trang và thử lại",
+                "invalid_user": "Người dùng không hợp lệ",
+                "qty_invalid": "Số lượng không hợp lệ",
+                "request_data_error": "Yêu cầu dữ liệu lỗi"
+                
+            }
+        }
+    },
+    "error_handler":{
+        "pymongo_error":{
+            "server_busy": "Máy chủ đang bận, vui lòng thử lại"
+        }
+    },
+    "stripe":{
+        "card_error":"Thẻ tín dụng lỗi",
+        "rate_limit_error":"Đã vượt quá giới hạn tỷ lệ yêu cầu API",
+        "invalid_request_error":{
+            "invalid_parameters":"thông số không hợp lệ",
+            "invalid_integer":"Stripe chỉ chấp nhận các giá trị lớn hơn hoặc bằng 1, vui lòng liên hệ với dịch vụ khách hàng của chúng tôi"
+        },
+        "authentication_error":"Quá trình xác thực đã thất bại",
+        "api_connection_error":"Đã xảy ra lỗi mạng",
+        "stripe_error":"Stripe error",
+        "no_related_error":"Không có khoản thanh toán liên quan",
+        "support_for_refunding": "Thông tin không hợp lệ, vui lòng liên hệ với người bán để yêu cầu hoàn lại tiền",
+        "payment_error": "Lỗi thanh toán, vui lòng liên hệ với người bán"
+    },
+    "helper": {
+        "set_up_now":"Thiết lập ngay",
+        "campaign_product_been_deleted": "Sản phẩm thuộc chiến dịch đã bị xóa",
+        "cart_in_use":"Giỏ hàng đang dùng",
+        "enter_qty": "Vui lòng nhập số lượng",
+        "qty_invalid": "Số lượng không hợp lệ",
+        "qty_not_be_zero_or_negative": "Số lượng không được bằng 0 hoặc âm",
+        "out_of_stock": "hết hàng",
+        "not_removable": "Không thể gỡ bỏ",
+        "not_editable": "Không thể chỉnh sửa",
+        "product_already_in_pre_order": "Sản phẩm đã tồn tại trong đơn đặt hàng này",
+        "exceeds_max_order_amount": "Số lượng sản phẩm vượt quá số lượng đặt hàng tối đa",
+        "cart_is_empty": "Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại", 
+        "unable_purchase_now": "Xin lỗi, người bán đã đóng thanh toán và không thể mua hàng vào lúc này",
+        "max_order_amount_should_less_than_stock": "Số lượng đặt hàng tối đa phải ít hơn số lượng trong kho",
+        "not_support_this_image_type": "Định dạng hình ảnh không được hỗ trợ",
+        "image_size_exceed_maximum_size": "Kích thước hình ảnh vượt quá 10MB",
+        "payment_not_succeeded": "Thanh toán không thành công",
+        "invalid_period":"Khoảng thời gian không hợp lệ",
+        "payment_amount_error": "Lỗi số tiền thanh toán",
+        "not_valid_upgrade_plan": "Gói dịch vụ không hợp lệ",
+        "invalid_role": "Vai trò không hợp lệ",
+        "dealer_status_invalid": "Dealer status invalid",
+        "time_zone_not_valid_format": "Lỗi định dạng múi giờ",
+        "email_is_registered": "Email này đã được đăng ký",
+        "invalid_email": "Email không hợp lệ",
+        "months_data_type_invalid": "Định dạng dữ liệu cho số tháng không chính xác",
+        "months_invalid": "Số tháng phải từ 1 đến 12",
+        "invalid_password": "Mật khẩu không hợp lệ",
+        "membership_out_of_date": "Gói đăng ký của bạn đã hết hạn",
+        "reach_max_concurrent_campaigns":"Bạn đã đạt đến số lượng chiến dịch đồng thời tối đa",
+        "reach_max_campaigns_limit": "Bạn đã đạt đến số lượng chiến dịch tối đa",
+        "api_fb_get_accounts_error": "Lỗi Facebook API",
+        "api_yt_list_channel_error": "Lỗi Youtube API",
+        "no_channel_found":"Không tìm thấy kênh nào cho tài khoản này",
+        "fb_api_fail": "Lỗi Facebook API, vui lòng thử lại",
+        "fb_user_token_invalid": "Mã thông báo người dùng Facebook không hợp lệ",
+        "unable_get_fb_email": "Không thể nhận email Facebook",
+        "account_not_activated": "Tài khoản này chưa được kích hoạt",
+        "campaign_end_time_not_later_subscription_period": "Gói dịch vụ đang sử dụng sẽ hết hạn vào %{datetime_subscription_expired_at},<br />thời gian chiến dịch không trễ hơn %{datetime_subscription_expired_at}."
+    },
+    "util":{
+        "no_api_user_found":"Không thể tìm thấy người dùng này",
+        "not_activated_user": "Tài khoản này chưa được kích hoạt",
+        "language_not_supported": "Ngôn ngữ này chưa được hỗ trợ",
+        "no_platform_name_found": "Không thể tìm thấy tên nền tảng",
+        "no_platform_found": "Không thể tìm thấy nền tảng này",
+        "not_support_platform": "Nền tảng này không được hỗ trợ",
+        "user_is_not_platform_admin": "Người dùng không phải là người hâm mộ hoặc quản trị viên kênh",
+        "no_cart_found": "Không tìm thấy giỏ hàng",
+        "no_pre_order_found": "Không tìm thấy giỏ hàng",
+        "no_order_product_found": "Không có sản phẩm nào được tìm thấy trong giỏ hàng",
+        "no_order_found": "Không tìm thấy đơn hàng",
+        "user_subscription_not_found": "Không thể tìm thấy gói dịch vụ đăng ký",
+        "platform_not_in_any_user_subscription": "Nền tảng này không bị ràng buộc với bất kỳ gói dịch vụ đăng ký nào của người dùng",
+        "static_assets_not_found": "Không thể tìm thấy tệp tĩnh",
+        "not_dealer": "Không thể xác minh danh tính của đại lý",
+        "facebook_page_not_bound_to_user_subscription": "Không thể tìm thấy trang Facebook này trong gói dịch vụ đăng ký của người dùng, vui lòng liên kết lại",
+        "youtube_channel_not_bound_to_user_subscription": "Không thể tìm thấy kênh YouTube này trong gói dịch vụ đăng ký của người dùng, vui lòng liên kết lại",
+        "instagram_profile_not_bound_to_user_subscription": "Không thể tìm thấy hồ sơ Instagram này trong gói dịch vụ đăng ký của người dùng, vui lòng liên kết lại",
+        "no_campaign_found": "Không thể tìm thấy chiến dịch này",
+        "no_campaign_product_found": "Không thể tìm thấy sản phẩm này trong kho",
+        "no_product_found": "No product found",
+        "country_code_not_valid": "Mã quốc gia không hợp lệ",
+        "no_auto_reply_found": "Không thể tìm thấy cài đặt trả lời tự động",
+        "signature_error": "Lỗi chữ ký",
+        "lucky_draw_not_found": "Không thể tìm thấy cài đặt rút thăm may mắn",
+        "quiz_game_not_found": "Không thể tìm thấy cài đặt trò chơi đố vui"
+    },
+    "token_not_valid": "Bạn đã đăng xuất"
+}

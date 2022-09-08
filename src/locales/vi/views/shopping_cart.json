@@ -64,12 +64,18 @@
         "total_charge":"Tổng phí",
         "free_delivery":"Đơn hàng đủ điều kiện để được giao hàng miễn phí",
         "add_item":"Thêm các mặt hàng khác",
-        "next":"Kế tiếp"
+        "next":"Kế tiếp",
+        "promo_discount": "Giảm giá từ mã giảm giá",
+        "enter_promo":"Vui lòng nhập mã giảm giá",
+        "promo_apply":"Discount Code  %{code} is Applied",
+        "referr_code":"Share Referral Code"
+        
     },
     "add_item":{
         "select_add_ons":"Thêm bổ sung sản phẩm",
         "select_products":"Chọn sản phẩms",
-        "add":"Thêm"
+        "add":"Thêm",
+        "wishlist":"Notify Me"
     },
     "payment":{
         "shipping_summary":"Chi tiết giao hàng",
@@ -78,6 +84,7 @@
         "address":"Địa chỉ giao hàng",
         "pay_with":"Thanh toán bằng",
         "direct":{
+            "title":"Thanh toán trực tiếp",
             "account":"Tài khoản",
             "account_number":"Số tài khoản",
             "account_name":"Tên tài khoản",
@@ -89,7 +96,9 @@
             "last_five_digits":"5 số cuối thẻ",
             "digits_message":"Vui lòng nhập chính xác 5 số cuối",
             "complete_order":"Tải lên & Hoàn thành đơn hàng",
-            "information": "Thông tin thanh toán"
+            "information": "Thông tin thanh toán",
+            "upload_record":"tải lên biên lai thanh toán",
+            "or":"hoặc"
         }
     },
     "delete_success":"Xóa thành công",
@@ -101,5 +110,5 @@
     "invalid_user_info":"Thông tin người dùng được nhập không hợp lệ",
     "invalid_delivery_info":"Thông tin vận chuyển được nhập không hợp lệ",
     "checkout_message":"Bạn có chắc chắn muốn chuyển đến thanh toán không? Giỏ hàng của bạn sẽ bị xóa.",
-    "checkout_again":"Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại"
+    "checkout_again":"Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại" 
 }

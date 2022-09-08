@@ -1,0 +1,63 @@
+{   
+    "create_discount_code":"Create New Code",
+    "discount_code":"Discount Code",
+    "create_err":"Input Error",
+    "table":{
+        "name":"Discount Name",
+        "code":"Discount Code", 
+        "start_at":"Start Time", 
+        "end_at":"End Time", 
+        "type":"Code Type", 
+        "discount_type":"Discount Type", 
+        "edit":"Edit", 
+        "del":"Delete",
+        "percent_off":"Percentage",
+        "deduct":"Deduction",
+        "noCode":"There are currently no Discount Codes",
+        "setupFirst":"Set up one by click ( + create )",
+        "description":"Description",
+        "cart_referal":"Cart Referral",
+        "limitations":"Limitations",
+        "general":"Promo Code",
+        "subtotal_over_specific_amount":"Amount:",
+        "product_over_specific_number":"Product:",
+        "specific_campaign":"Campaign:"
+    },
+    "modal":{
+        "create":"Create Discount Code",
+        "edit":"Edit Discount Code",
+        "name":"Discount Name",
+        "code":"Discount Code",
+        "period":"Activate Period",
+        "type":"Code Type",
+        "discount_type":"Discount Type",
+        "limitations":"Limitations",
+        "description":"Description",
+        "name-required":"Name is required",
+        "code-required":"Code is required",
+        "type-required":"Type is required", 
+        "add_limitations":"Add Limitations",
+        "delete_limitation":"Delete Limitation",
+        "required":"Required",
+        "campaign":"Campaign",
+        "type_options":{
+            "general":"General",
+            "cart_referal":"Referal"
+        },
+        "discount_type_options":{
+            "percent_off":"By Percentage(%)",
+            "deduct":"By Deduction(-)"
+        },
+        "limit_options":{
+            "specific_campaign":"Specific Campaign",
+            "subtotal_over_specific_amount":"By Order Amount",
+            "product_over_specific_number":"By Order Qty"
+        },
+        "Order Subtotal":"Order Subtotal",
+        "Product Number":"Product Number",
+        "Discount Rate":"Discount Rate",
+        "Deduct Amount":"",
+        "cancel":"Cancel",
+        "save":"Save"
+    }
+}

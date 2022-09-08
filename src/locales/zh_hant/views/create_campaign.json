@@ -1,33 +1,33 @@
 {
 
-    "create_campaign":"建立直播",
-    "title":"標題",
+    "create_campaign":"建立銷售活動",
+    "title":"標題", 
     "title_required":"請填寫標題",
-    "period":"直播時間",
+    "period":"銷售時間",
 
     "cancel":"取消",
     "create":"建立",
-    "invalid_title":"無效的直播標題",
+    "invalid_title":"輸入的活動標題無效",
     
 
 
     "delivery_form":{
         "delivery_detail":"物流設定",
-        "delivery_charge":"運費",
-        "free_delivery_for_order_above":"滿額免運",
-        "free_delivery_for_minimum_order":"滿件免運",
-        "add_more_delivery_option":"增加運送方式",
-        "add_more_pickup_option":"增加自取方式",
+        "delivery_charge":"基本運費",
+        "free_delivery_for_order_above":"滿額免運：訂單金額滿（$）",
+        "free_delivery_for_minimum_order":"滿件免運：訂單商品數量滿（件）",
+        "add_more_delivery_option":"新增運送方式",
+        "add_more_pickup_option":"新增取貨地點",
         "options":"運送方式",
         "on_top_of_delivery_charge":"額外收費",
         "replace_delivery_charge":"取代基本運費",
 
         "delete":"刪除",
 
-        "store_collection":"到店自取",
+        "store_collection":"自行取貨",
 
-        "pickup_store":"取貨店家",
-        "pickup_address":"取貨地址",
+        "pickup_store":"取貨門市／地點",
+        "pickup_address":"自取地址",
         "errors":{
             "Value_is_required":"此欄位必填",
             "Value_must_be_numeric":"輸入必須為數字",
@@ -41,43 +41,57 @@
 
     "payment_form":{
         "payment_titles":{
-            "direct_payment":"轉帳付款",
-            "stripe":"Stripe付款",
-            "hitpay":"Hitpay付款",
-            "paypal":"Paypal付款"
+            "direct_payment":"銀行轉帳",
+            "stripe":"Stripe",
+            "hitpay":"Hitpay",
+            "paypal":"Paypal",
+            "ecpay":"綠界金流",
+            "pay_mongo":"PayMongo"
         },
 
         "direct_payment":{
             "mode":"銀行名稱",
             "name":"帳戶名稱",
-            "number":"帳號",
+            "number":"銀行帳號",
             "note":"備註",
             "require_customer_return":"要求買家上傳付款證明"
         },
         "stripe":{
-            "secret":"密鑰",
-            "currency":"貨幣"
+            "secret":"Secret Key",
+            "currency":"幣別"
         },
         "hitpay":{
             "button_title":"按鈕標題",
-            "currency":"貨幣",
-            "api_key":"API 密鑰",
-            "salt":"密碼"
+            "currency":"幣別",
+            "api_key":"API Key",
+            "salt":"Salt"
         },
         "paypal":{
-            "currency":"貨幣",
-            "cliend_id":"客戶ID",
+            "currency":"幣別",
+            "client_id":"客戶ID",
+            "secret":"密鑰"
+        },
+        "ecpay":{
+            "merchant_id":"商店代號",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV",
+            "invoice_hash_key":"發票 Hash Key",
+            "invoice_hash_iv":"發票 Hash IV",
+            "invoice_enabled":"啟用發票"
+        },
+        "pay_mongo":{
             "secret":"密鑰"
         },
         
         "payment_details":"金流設定",
-        "enabled":"啟用",
+        "enabled":"預設啟用",
+        "invoice_enabled":"啟用發票",
         "add_more_direct_payment":"新增轉帳選項",
-        "upload_image":"上傳圖片",
+        "upload_image":"收款 QRCode",
         "remove_image":"移除照片",
         "upload_a_file_or_drag_and_drop":"點擊上傳圖片",
-        "accepted_file_types":"接受檔案類型",
-        "max_file_size":"檔案容量上限",
+        "accepted_file_types":"可支援檔案格式：jpeg、png、jpg",
+        "max_file_size":"檔案大小上限：10MB",
 
         "delete":"刪除",
 
@@ -90,10 +104,10 @@
     },
 
     "notes_form":{
-        "notes_form":"備註設定",
-        "delivery_note":"運送備註",
-        "special_note":"特別備註",
-        "confirmation_note":"確認付款備註"
+        "notes_form":"客製化訊息",
+        "delivery_note":"運送須知",
+        "special_note":"購物須知",
+        "confirmation_note":"訂單確認訊息"
     }
 
 }

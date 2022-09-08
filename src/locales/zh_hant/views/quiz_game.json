@@ -3,7 +3,7 @@
     "create_btn": "新增遊戲",
     "invalid_data":"輸入資料無效",
     "create_succeed": "新增成功",
-    "update_succeed": "更新成功",
+    "update_succeed": "儲存成功",
     "delete_succeed": "刪除成功",
     "not_saved": "取消儲存",
 
@@ -31,10 +31,11 @@
     "quiz_list": {
         "campaign_title": "直播名稱",
         "question": "題目",
+        "answer": "答案",
         "start": "開始",
         "stop": "停止",
         "finish": "已結束",
-        "winners": "得獎人數量",
+        "winners": "得獎人數",
         "no_winner": "沒有贏家",
         "result": "計算結果",
         "edit": "編輯",

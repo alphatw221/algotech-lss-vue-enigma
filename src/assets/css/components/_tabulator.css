@@ -5,12 +5,12 @@
 .tabulator {
     @apply overflow-hidden border-0 bg-transparent;
     .tabulator-header {
-        @apply font-medium text-current border-t border-b border-slate-200 bg-transparent;
+        @apply font-medium text-current border-t border-b border-slate-200 bg-secondary;
         .tabulator-headers {
             .tabulator-col {
                 @apply bg-transparent border-r-0;
                 &:hover {
-                    @apply bg-slate-100;
+                    @apply bg-slate-300;
                 }
                 .tabulator-col-content {
                     @apply px-5 py-3;
@@ -47,7 +47,7 @@
                 @apply px-0;
             }
             .tabulator-responsive-collapse-toggle {
-                @apply w-4 h-4 -mr-5 bg-slate-400 rounded-full;
+                @apply w-4 h-4 -mr-5 bg-red-500 rounded-full ;
             }
         }
         .tabulator-responsive-collapse {
@@ -55,7 +55,7 @@
             td {
                 @apply p-2;
                 strong {
-                    @apply font-medium;
+                    @apply font-bold;
                 }
             }
         }
