@@ -30,7 +30,7 @@
         "modify_price": "修改價格",
         "price_adjustment" : "修改訂單金額",
         "price_adjustment_note" : "想要使用折扣，請輸入「- 金額」。想要收取額外費用，請直接輸入「金額」。",
-        "title" : "折扣名稱/額外費用名稱",
+        "title" : "折扣名稱／額外費用名稱",
         "price_exceed":"金額不可超過小計",
         "update" : "更新",
         "display_name": "顯示名稱",
@@ -50,7 +50,7 @@
         "pickup" : "到店自取",
         "pickup_address":"取貨地點",
         "pickup_store":"取貨店家",
-        "additional_delivery_charge" : "Selected Delivery Charge Option"
+        "additional_delivery_charge" : "選定的運費選項"
     },
     "payment":{
         "direct_payment":"轉帳付款",

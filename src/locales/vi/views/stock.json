@@ -5,8 +5,10 @@
     "delisted": "Đã hủy",
     "add_product": "Thêm sản phẩm",
     "dont_have_product_notify": "Bạn không có sản phẩm trong danh mục này",
-    "no_result": "Không kết quả",
-    "click_to_add":"Nhấp chuột vào \"+Thêm sản phẩm\" để thêm sản phẩm đầu tiên",
+    "no_result":{
+        "enabled":"There are currently no items available for sale.",
+        "disabled":"There are currently no unlisted items."
+    },
 
     "search_bar": {
         "category": "Loại",

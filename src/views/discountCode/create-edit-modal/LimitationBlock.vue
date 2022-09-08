@@ -2,11 +2,14 @@
     <select v-model="props.discountCode.limitations[props.limitationIndex].key" placeholder="choose_limitation_type" class="w-full form-select rounded-lg mt-2 h-[42px]">
         <option :value="key" v-for="(data, key, index) in discountCodeMeta.limitations" :key="index">{{$t(`discount.modal.limit_options.`+data.name)}}</option>
     </select>
-    <label class="text-danger text-[12px]" 
+    <label class="text-danger text-[12px]"
         v-for="error,index in props.v.limitations.$each.$response.$errors[props.limitationIndex].key"
         :key="index"
         >
         {{$t(`discount.modal.`+error.$validator)}}
+    </label>
+    <label class="text-danger" v-if="props.limitationErr">
+        Cannot Select Duplicate limitations
     </label>
     
     <template  v-if="props.discountCode.limitations[props.limitationIndex].key!=undefined">
@@ -40,11 +43,13 @@ import { onBeforeMount, onMounted, ref, provide, defineProps, watch, computed} f
 import { useRoute, useRouter } from "vue-router";
 import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 import { discountCodeEndPoints } from "@/api_v2/discount_code"
+import { boolean } from "webidl-conversions";
 
 const discountCodeMeta = useLSSDiscountCodeMetaStore()
 const props = defineProps({
   discountCode: Object,
   limitationIndex: Number,
+  limitationErr:Boolean,
   v:Object
 });
 
