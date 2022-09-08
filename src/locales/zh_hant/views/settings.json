@@ -29,7 +29,7 @@
         "minimum":"滿件免運：訂單商品數量滿（件）",
         "store":{
                 "collection":"自行取貨",
-                "pickup_store":"取貨門市/地點",
+                "pickup_store":"取貨門市／地點",
                 "pickup_address":"取貨地址"
         },
         "errors":{
@@ -183,7 +183,7 @@
         "connect_with_twitch": "連結 Twitch 頻道",
         "connect": "連接",
         "twitch_channel_placeholder": "頻道名稱...",
-        "twitch_helper_info": "如要绑定新的频道, 请登出Twitch旧的官方帐号.",
+        "twitch_helper_info": "如要绑定新的频道, 请登出Twitch旧的官方帐号。",
         "switch_account": "切換帳號",
         "tiktok_account": "TikTok 帳號",
         "connect_with_tiktok": "連結 TikTok 帳號",

@@ -26,7 +26,7 @@
 
         "store_collection":"自行取货",
 
-        "pickup_store":"取货门市/地点",
+        "pickup_store":"取货门市／地点",
         "pickup_address":"取货地址",
         "errors":{
             "Value_is_required":"此字段必填",

@@ -33,7 +33,7 @@
         "description": "说明",
         "qty": "库存数量",
         "price": "价格",
-        "confirm_delete": "确定要删除该商品 ?"
+        "confirm_delete": "确定要删除该商品？"
     },
 
     "category_manage": {
@@ -50,7 +50,7 @@
         },
         "save_success":"储存成功",
         "not_saved":"取消储存",
-        "confirm_delete": "确定要删除该类别 ?"
+        "confirm_delete": "确定要删除该类别？"
     },
 
     "add_product_page": {

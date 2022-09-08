@@ -14,14 +14,14 @@
     "basic_info":{
         "plan":"訂閱方案",
         "plan_options":{
-            "lite":"Lite (%{price}/月)",
-            "standard":"Standard (%{price}/月)",
-            "premium":"Premium (%{price}起/月)"
+            "lite":"Lite （%{price}／月）",
+            "standard":"Standard （%{price}／月）",
+            "premium":"Premium （%{price}起／月）"
         },
         "period":"訂閱期限",
         "period_options":{
-            "year":"年繳 (九折優惠)",
-            "year_tw":"年繳 (八折優惠)",
+            "year":"年繳 （九折優惠）",
+            "year_tw":"年繳 （八折優惠）",
             "quarter":"季繳",
             "month":"月繳"
         },
@@ -29,12 +29,12 @@
         "last_name":"姓氏",
         "country_code":"國碼",
         "code_Options":{
-            "MY": "(MY) +60" , 
-            "ID": "(ID) +62" , 
-            "PH": "(PH) +63" , 
-            "SG": "(SG) +65" , 
-            "TW": "(TW) +886",
-            "VN": "(VN) +84"
+            "MY": "（MY） +60" , 
+            "ID": "（ID） +62" , 
+            "PH": "（PH） +63" , 
+            "SG": "（SG） +65" , 
+            "TW": "（TW） +886",
+            "VN": "（VN） +84"
         },
         "number":"連絡電話",
         "email":"電子郵件",
@@ -87,8 +87,8 @@
         },
         "stripe":{
             "stripe_success":"付款成功!",
-            "stripe_process":"處理中! 請勿重新整理頁面並耐心等候, 我們正在處理你的付款資訊",
-            "stripe_failed":"付款失敗! 請改用其他付款方式",
+            "stripe_process":"處理中！請勿重新整理頁面並耐心等候，我們正在處理你的付款資訊",
+            "stripe_failed":"付款失敗！請改用其他付款方式",
             "stripe_err":"頁面發生錯誤"
         },
         "direct":{
@@ -117,7 +117,7 @@
         "Subscription Period":"訂閱期限",
         "Subscription End Date":"方案期限",
         "download":"下載電子收據",
-        "thankyou":"感謝您的註冊, 您的帳號已啟用! 請使用您的電子信箱登入" 
+        "thankyou":"感謝您的註冊，您的帳號已啟用！請使用您的電子信箱登入" 
     },
     "invalid_data":"輸入資料無效",
     "input_err":"輸入錯誤",

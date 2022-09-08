@@ -25,7 +25,7 @@
         "out_of_stock": "已抽完",
         "edit": "编辑",
         "delete": "刪除",
-        "confirm_delete": "确定要删除该场抽奖 ?"
+        "confirm_delete": "确定要删除该场抽奖？"
     },
 
     "winner_modal": {
@@ -39,7 +39,7 @@
     "draw_create": {
         "campaign_title": "直播名称",
         "prize" : "奖品",
-        "spin_time" : "动画时间(秒)",
+        "spin_time" : "动画时间（秒）",
         "number_of_winner" : "得奖人数",
         "animation_style" : "抽奖动画",
         "winner_repeat" : "重复得奖",
@@ -88,7 +88,7 @@
     "prize" : "奖品",
     "number_of_winner" : "得奖人数",
     "winner_repeat" : "重复得奖",
-    "spin_time" : "动画时间(秒)",
+    "spin_time" : "动画时间（秒）",
     "style" : {
         "animation_style" : "抽奖动画",
         "default_1" : "default-spin-1",
@@ -107,7 +107,7 @@
     "comment_include" : "抽奖条件：留言內容包含关键字",
     "draw_keyword" : "开始留言抽奖",
     "error_outline" : "error_outline",
-    "no_winners" : "No Winner! There's no comment with this keyword.",
+    "no_winners" : "没有赢家！ 没有关于这个关键字的评论。",
     "got_it" : "Got it !",
     "lucky_draw_result" : "抽奖结果",
     "winner" : "得奖者",

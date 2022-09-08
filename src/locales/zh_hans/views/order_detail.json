@@ -50,7 +50,7 @@
         "pickup" : "到店取货",
         "pickup_address":"取货地址",
         "pickup_store":"取货店家",
-        "additional_delivery_charge" : "Selected Delivery Charge Option"
+        "additional_delivery_charge" : "选定的运费选项"
     },
     "payment":{
         "direct_payment":"转帐支付",
