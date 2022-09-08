@@ -70,7 +70,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue'
+import { ref, onMounted, getCurrentInstance } from 'vue'
 import { createAxiosWithBearer } from "@/libs/axiosClient";
 import SearchBar from "./SearchBar.vue";
 import DataTable from "./DataTable.vue";
@@ -80,7 +80,7 @@ import EasyStoreExportProductButton from '@/plugin/easy-store/views/ExportProduc
 import OrdrStartrExportProductButton from '@/plugin/ordr-startr/views/ExportProductButton.vue'
 
 const openTab = ref(1)
-
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const route = useRoute()
 const router = useRouter()
 
@@ -106,6 +106,7 @@ const productCategories= ref([{text:"All", value:''}])
 	
 const toggleTabs = (tabNumber) =>{
 	openTab.value = tabNumber
+	eventBus.emit('toggleTab')
 }
 
 onMounted(() => {
