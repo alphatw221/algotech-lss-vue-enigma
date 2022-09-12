@@ -82,12 +82,13 @@ const filter = reactive({
   value: "",
 });
 
-const sellerList = ref('')
+const sellerList = ref('') 
 
 onMounted(()=>{
   dealer_search_list_subscriber().then(
     res=>{
       sellerList.value = res.data
+      console.log(sellerList.value)
       initTabulator();
       reInitOnResizeWindow();
       showTable.value = true

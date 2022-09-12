@@ -1,0 +1,8 @@
+{
+    "dashboard":{
+        "year":"Yearly",
+        "month":"Monthly",
+        "year_label":"Month",
+        "month_label":"Date"
+    }
+}
