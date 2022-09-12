@@ -60,3 +60,6 @@ export const dealer_period_revenue = (period,country_code,data) => {
     return createAxiosWithBearer().get(`/api/v2/user-subscription/dashboard/period/revenue/?date_period=${period}&country_code=${country_code}`,data)
 }
 
+export const user_list_from_dealer = (data) => {
+    return createAxiosWithBearer().get(`/api/v2/user/dealer/search/list`,data)
+}
