@@ -42,6 +42,7 @@
                     </div>
 
                     <ExportOrderButton/>
+                    <ExportShopifyOrderButton/>
                     <div v-if="new Date() < new Date(store.campaign.end_at)" class="form-check form-switch justify-end mt-2">
                         <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
                         <Tippy 
@@ -100,6 +101,7 @@ import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
 import ExportOrderButton from '@/plugin/easy-store/views/ExportOrderButton.vue'
+import ExportShopifyOrderButton from '@/plugin/shopify/views/ExportOrderButton.vue'
 
 // import { watch } from "fs";
 
