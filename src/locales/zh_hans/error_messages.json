@@ -45,7 +45,7 @@
                 "instagram_token_expired": "权杖过期或失效，请重新绑定你的商业档案"
             },
             "youtube-channel":{
-                "youtube_not_activated": "Youtube 平台未开通",
+                "youtube_not_activated": "YouTube 平台未开通",
                 "youtube_token_expired": "权杖过期或失效，请重新绑定你的频道"
             },
             "campaign-product":{
