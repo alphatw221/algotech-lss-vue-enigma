@@ -69,7 +69,7 @@
 import { ref, reactive, onMounted } from "vue";
 import { createIcons, icons } from "lucide";
 import Tabulator from "tabulator-tables";
-import { dealer_search_list_subscriber, dealer_retrieve_subscriber } from '@/api/dealer';
+import { user_list_from_dealer } from '@/api_v2/user_subscription';
 import dom from "@left4code/tw-starter/dist/js/dom";
 import LoadingTable from "./LoadingTable.vue";
 
@@ -82,12 +82,13 @@ const filter = reactive({
   value: "",
 });
 
-const sellerList = ref('')
+const sellerList = ref('') 
 
 onMounted(()=>{
-  dealer_search_list_subscriber().then(
+  user_list_from_dealer().then(
     res=>{
       sellerList.value = res.data
+      console.log(sellerList.value)
       initTabulator();
       reInitOnResizeWindow();
       showTable.value = true
@@ -131,22 +132,22 @@ const initTabulator = () => {
       {
         title: "Name",
         minWidth: 150,
-        field: "name",
+        field: "user_subscription_name",
         vertAlign: "middle",
         hozAlign: "center",
         print: false,
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().name}</div>`; },
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().user_subscription_name}</div>`; },
       },
       {
         title: "Subscription ID",
         minWidth: 150,
-        field: "id",
+        field: "user_subscription_id",
         vertAlign: "middle",
         hozAlign: "center",
         print: false,
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().id}</div>`; },
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().user_subscription_id}</div>`; },
       },
       {
         title: "Plan",
@@ -161,26 +162,26 @@ const initTabulator = () => {
       {
         title: "End Date",
         minWidth: 150,
-        field: "expired_at",
+        field: "plan_expired_at",
         vertAlign: "middle",
         hozAlign: "center",
         print: false,
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${new Date(cell.getData().expired_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric",hourCycle: 'h24',hour:"2-digit",minute: "2-digit"})}</div>`; },
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${new Date(cell.getData().plan_expired_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric",hourCycle: 'h24',hour:"2-digit",minute: "2-digit"})}</div>`; },
       },
       {
         title: "Status",
-        minWidth: 150,
+        width: 100,
         field: "status",
         vertAlign: "middle",
         hozAlign: "center",
         print: false,
         download: false,
         formatter(cell) {
-          return `<div class="flex items-center lg:justify-center ${
+          return `<div class="flex items-start font-medium lg:justify-start ${
             cell.getData().status ? "text-success" : "text-danger"
           }">
-                <i data-lucide="check-square" class="w-4 h-4 mr-2"></i> ${
+                ${
                   cell.getData().status ? "Active" : "Inactive"
                 }
               </div>`;
@@ -189,22 +190,22 @@ const initTabulator = () => {
       {
         title: "E-mail",
         minWidth: 150,
-        field: "email",
+        field: "users",
         vertAlign: "middle",
         hozAlign: "center",
-        print: false,
+        print: false,  
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().email}</div>`; },
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap truncate">${cell.getData().users[0]? cell.getData().users[0].email : 'null'}</div>`; },
       },
       {
         title: "Phone",
         minWidth: 150,
-        field: "phone",
+        field: "users",
         vertAlign: "middle",
         hozAlign: "center",
         print: false,
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().phone}</div>`; },
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().users[0]? cell.getData().users[0].phone : 'null'}</div>`; },
       },
       {
         title: "Timezone",
@@ -217,33 +218,53 @@ const initTabulator = () => {
         formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().timezone}</div>`; },
       },
       {
-        title: "Description",
+        title: "Total Sells",
         minWidth: 150,
-        field: "description",
+        field: "orders_amount",
         vertAlign: "middle",
         hozAlign: "center",
         print: false,
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().description}</div>`; },
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">$${cell.getData().orders_amount}</div>`; },
+      },
+      {
+        title: "Buyers",
+        minWidth: 150,
+        field: "buyers",
+        vertAlign: "middle",
+        hozAlign: "center",
+        print: false,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().buyers}</div>`; },
+      },
+      {
+        title: "Campaigns",
+        minWidth: 150,
+        field: "campaigns_count",
+        vertAlign: "middle",
+        hozAlign: "center",
+        print: false,
+        download: false,
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${cell.getData().campaigns_count}</div>`; },
       },
 
       // For print format
       {
         title: "Name",
-        field: "name",
+        field: "user_subscription_name",
         visible: false,
         print: true,
         download: true,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap w-fit">${cell.getData().name}</div>`; },
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap w-fit">${cell.getData().user_subscription_name}</div>`; },
       },
       {
         title: "Subscription ID",
-        field: "id",
+        field: "user_subscription_id",
         visible: false,
         print: true,
         download: true,
         vertAlign: "middle",
-        formatter(cell) { return`<div class="flex items-center lg:justify-center font-medium">${cell.getData().id}</div>`; },
+        formatter(cell) { return`<div class="flex items-center lg:justify-center font-medium">${cell.getData().user_subscription_id}</div>`; },
       },
       {
         title: "Plan",
@@ -255,11 +276,11 @@ const initTabulator = () => {
       },
       {
         title: "End Date",
-        field: "expired_at",
+        field: "plan_expired_at",
         visible: false,
         print: true,
         download: true,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${new Date(cell.getData().expired_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric",hourCycle: 'h24',hour:"2-digit",minute: "2-digit"})}</div>`; },
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${new Date(cell.getData().plan_expired_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric",hourCycle: 'h24',hour:"2-digit",minute: "2-digit"})}</div>`; },
       },
       {
         title: "Status",
@@ -277,22 +298,22 @@ const initTabulator = () => {
               </div>`;
         },
       },
-      {
-        title: "Email",
-        field: "email",
-        visible: false,
-        print: true,
-        download: true,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap w-fit">${cell.getData().email}</div>`; },
-      },
-      {
-        title: "Description",
-        field: "description",
-        visible: false,
-        print: true,
-        download: true,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap w-fit">${cell.getData().description}</div>`; },
-      },
+      // {
+      //   title: "Email",
+      //   field: "users",
+      //   visible: false,
+      //   print: true,
+      //   download: true,
+      //   formatter(cell) { return`<div class="font-medium whitespace-nowrap truncate">${cell.getData().users[0]? cell.getData().users[0].email : 'null'}</div>`; },
+      // },
+      // {
+      //   title: "Phone",
+      //   field: "users",
+      //   visible: false,
+      //   print: true,
+      //   download: true,
+      //   formatter(cell) { return`<div class="font-medium whitespace-nowrap truncate">${cell.getData().users[0]? cell.getData().users[0].email : 'null'}</div>`; },
+      // },
     ],
     renderComplete() {
       createIcons({
