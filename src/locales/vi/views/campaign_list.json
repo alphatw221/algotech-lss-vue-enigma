@@ -82,7 +82,7 @@
         "media_id":"ID phương tiện",
         "select_media":"Chọn Hồ Sơ",
 
-        "youtube":"Youtube",
+        "youtube":"YouTube",
         "live_chat_id":"ID cuộc trò chuyện trực tiếp",
         "select_live_chat":"Chọn kênh",
         "select_live_video":"Select Live Video",
@@ -96,12 +96,12 @@
         "valid_post_id_notification": "Vui lòng nhập ID bài viết hợp lệ",
 
         "rebind_page":"Vui lòng liên kết lại Facebook Page đã chọn",
-        "rebind_channel":"Vui lòng liên kết lại Youtube Channel đã chọn",
+        "rebind_channel":"Vui lòng liên kết lại YouTube Channel đã chọn",
         "rebind_profile":"Vui lòng liên kết lại Instagram Profile đã chọn"
     },
     "update_successed":"Cập nhật thành công",
     "no_facebook_post":"Bạn không có bài viết livestream trên Facebook ngay bây giờ",
-    "no_youtube_post":"Bạn không có bài viết livestream trên Youtube ngay bây giờ",
+    "no_youtube_post":"Bạn không có bài viết livestream trên YouTube ngay bây giờ",
     "no_instagram_post":"Bạn không có bài viết livestream trên Instagram ngay bây giờ"
 
 }
