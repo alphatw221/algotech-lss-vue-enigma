@@ -226,6 +226,7 @@ onUnmounted(()=>{
 
 const hideModal = ()=>{
     showModal.value = false
+    showLimitButton.value = true
     discountCode.value = {
         name:'',
         code:'',
@@ -236,8 +237,8 @@ const hideModal = ()=>{
         limitations:[],
         description:"",
         meta:{}
-
     }
+    console.log(discountCode.value)
     v.value.$reset()
 }
 const keyArray= ref([])
