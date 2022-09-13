@@ -8,7 +8,7 @@
             class="h-[35px] w-fit mr-2 sm:mr-0 sm:h-[50px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
             :class="{ 'cursor-not-allowed':processing }"
             >
-            <div ><span class="mr-1 text-lg font-bold">+</span> Import From OrdrStartr </div>
+            <div >Import From OrdrStartr </div>
 
         </button>
     </div>

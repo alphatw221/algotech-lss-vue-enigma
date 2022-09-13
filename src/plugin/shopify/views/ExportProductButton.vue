@@ -9,7 +9,7 @@
             :class="{ 'cursor-not-allowed':processing }"
             >
             <SimpleIcon class="sm:relative absolute h-5 mb-0.5" width="19" icon="export" color="white" /> 
-            <template class="block"><span class="mr-1 text-lg font-bold">+</span> Import From Shopify </template>
+            <template class="block">Import From Shopify </template>
         </button>
     </div>
     
