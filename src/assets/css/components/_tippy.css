@@ -10,7 +10,7 @@
     .tippy-content {
         max-width: 130px;
         @apply px-3 py-1.5;
-        z-index: 99999999999999999 ;
+        z-index: 99 ;
     }
 }
 .tippy-popper {

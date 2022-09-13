@@ -22,7 +22,7 @@
         </div>
     </div>
     <!--Modal Create -->
-    <Modal :show="createModal" @hidden="closeWithAlert()">
+    <Modal :show="createModal" @hidden="closeWithAlert()" >
         <ModalHeader>
             <h2 class="mr-auto text-base font-medium text-[16px]">{{$t('auto_reply.modal_title')}}</h2>
             <a @click="createModal=false" class="absolute top-0 right-0 mt-3 mr-3">
@@ -143,7 +143,6 @@ const tableColumns = ref([
     { name: "assign_to", key: "page" },
     { name: "", key: "edit" },
 ])
-
 let PagesData = ref([])
 onMounted(() => {
     get_user_subscription_facebook_pages().then(res=>{
@@ -195,5 +194,13 @@ const emptyForm =()=>{
     createData.value.chosenPage = []
 }
 
+// onMounted(() => {
+//     if(document.querySelectorALL('tippy-13')){document.querySelectorALL('tippy-13').style.zIndex ="999999999"}
+// })
+
 </script>
+
+<style scoped>
+
+</style>
 
