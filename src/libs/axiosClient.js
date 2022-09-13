@@ -42,7 +42,41 @@ var counter = 0
 //     }
 // );
 
+const get_i18n_path = error=>{
+    let path = ""
+    const contain_main_error_types = ["helper", "util", "stripe", "error_handler"].some(element => {
+        if (error.response.data.message.includes(element)) {
+          return true;
+        }
+        return false;
+      });
+    if (contain_main_error_types) {
+        path = "error_messages" + "." + error.response.data.message
+    } else if (error.response.config.url.includes("v2")) {
+        console.log(error.response.config.url.split("/").splice(0,4).join("."))
+        path = "error_messages" + error.response.config.url.split("/").splice(0,4).join(".") + "." + error.response.data.message
+    } else {
+        path = "error_messages" + error.response.config.url.split("/").splice(0,3).join(".") + "." + error.response.data.message
+    }
+    return path
+}
 
+const axiosInstanceForBuyerLayout = axios.create({
+    baseURL: import.meta.env.VITE_APP_ROOT_API,
+})
+axiosInstanceForBuyerLayout.interceptors.response.use(
+    response => response,
+    error => {
+        if (error.response?.data?.detail){
+            useLSSBuyerLayoutStore().alert.showMessageToast(error.response.data.detail)
+        } else if (error.response?.data?.message){
+            useLSSBuyerLayoutStore().alert.showMessageToast(i18n.global.t(get_i18n_path(error)))
+        } else{
+            useLSSBuyerLayoutStore().alert.showMessageToast('error ! please refresh the page.')
+        }
+        return Promise.reject(error);
+    }
+);
 
 const axiosInstance = axios.create({
     baseURL: import.meta.env.VITE_APP_ROOT_API,
@@ -245,7 +279,7 @@ export function youtubeAxios(accessToken){
 //     }
 // );
 
-export { axiosInstance }
+export { axiosInstance , axiosInstanceForBuyerLayout}
 
 
 export class Paginator{
