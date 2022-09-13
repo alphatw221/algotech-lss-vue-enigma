@@ -8,8 +8,8 @@
             class="h-[35px] w-fit mr-2 sm:mr-0 sm:h-[50px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
             :class="{ 'cursor-not-allowed':processing }"
             >
-            <SimpleIcon class="sm:relative absolute h-5 mb-0.5" width="19" icon="export" color="white" /> 
-            <template class="block">Import From Shopify </template>
+            <SimpleIcon class="sm:relative absolute h-5 mb-0.5 mr-2" width="19" icon="export" color="white" /> 
+            <div>Import From Shopify </div>
         </button>
     </div>
     

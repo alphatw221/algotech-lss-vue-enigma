@@ -7,7 +7,7 @@
 
             <div class="flex justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.product.product')}}</h2>
-                <template v-if="!(route.query.status !='history' || !layout.plugins)">
+                <template v-if="!(route.query.status =='history' || layout.plugins)">
                     <Dropdown class="inline-block my-auto">
                         <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                             {{$t('campaign_live.product.add_product')}}
