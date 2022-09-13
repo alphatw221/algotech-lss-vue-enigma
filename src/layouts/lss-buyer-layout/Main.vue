@@ -21,8 +21,8 @@
       <div class="lss-content">
         <router-view />
 
-        <div class="sticky z-30 mt-5 bottom-0"> 
-          <div class="flex justify-between font-medium flex-wrap mx-5 sm:mx-10 text-[12px] sm:text-[16px] sm:mb-4 bg-transparent"> 
+        <div class="relative mt-2 z-30 bottom-0 w-full"> 
+          <div class="flex justify-between font-medium flex-wrap mx-5 sm:mx-10 text-[12px] sm:text-[16px] bg-transparent"> 
               <span>
                       © {{new Date().getFullYear()}} Algotech Pte Ltd. All rights reserved
               </span>
@@ -36,6 +36,7 @@
           </div> 
         </div>
       </div>
+     
       <!-- END: Content -->
     </div>
   </div>
@@ -75,7 +76,13 @@ provide("bind[buyerMessageAlert]", (el) => {
 .lss-content{
   padding-right: 5%;
   padding-left: 5%;
-  padding-bottom: 0px;
-  height: 100% !important;
+  min-height: 100vh;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 769px) and (max-device-width: 769px) {
+  .lss-content{
+  overflow: hidden;
+}
 }
 </style>

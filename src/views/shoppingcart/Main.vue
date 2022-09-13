@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-wrap">
-    <div class="w-full">
+    <div class="w-full calch">
       <!-- BEGIN Tab List-->
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
         <li class="-mb-px last:mr-0 flex-auto text-center ml-14">
@@ -141,3 +141,10 @@ watch(computed(()=>store.openTab),()=>{
 
 
 </script>
+
+<style scoped>
+
+.calch{
+  min-height: calc(100vh - 130px);
+}
+</style>

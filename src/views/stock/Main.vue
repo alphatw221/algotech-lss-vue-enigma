@@ -4,7 +4,7 @@
 	</div>
 	<div class="flex flex-col p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
 		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-5"> 
-			<div v-if="!store.userInfo.user_subscription.user_plan?.plugins"
+			<div v-if="!store.plugins"
 				class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
 				<label for="on">{{ $t('stock.for_sale') }}</label>
@@ -16,7 +16,7 @@
 				<OrdrStartrExportProductButton />
 				<ShopifyExportProductButton />
 				<button 
-					v-if="!store.userInfo.user_subscription.user_plan?.plugins"
+					v-if="!store.plugins"
 					type="button"
 					class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
 					@click="router.push({name: 'add-product'})"
@@ -31,7 +31,7 @@
 		<div class="flex flex-col gap-3 leading-relaxed"
 			:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
 			<SearchBar
-				v-if="!store.userInfo.user_subscription.user_plan?.plugins"
+				v-if="!store.plugins"
 				:searchColumns="searchColumns"
 				:productCategories="productCategories"
 				:eventBusName="'searchForSaleTable'"
@@ -119,6 +119,7 @@ const toggleTabs = (tabNumber) =>{
 }
 
 onMounted(() => {
+	console.log(store.userInfo.user_subscription.user_plan.plugins)
 	list_product_category().then(
 		response => { 
 			response.data.forEach(category => {

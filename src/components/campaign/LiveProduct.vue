@@ -7,7 +7,7 @@
 
             <div class="flex justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.product.product')}}</h2>
-                <template v-if="route.query.status !='history'">
+                <template v-if="route.query.status !='history' || !layout.plugins">
                     <Dropdown class="inline-block my-auto">
                         <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                             {{$t('campaign_live.product.add_product')}}
@@ -120,11 +120,12 @@ import { seller_toggle_campaign_product_status } from '@/api_v2/campaign_product
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 
 const route = useRoute();
 const router = useRouter();
-
+const layout = useLSSSellerLayoutStore()
 const store = useCampaignDetailStore()
 // const internalInstance = getCurrentInstance();
 // const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
