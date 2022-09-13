@@ -27,11 +27,11 @@
                       © {{new Date().getFullYear()}} Algotech Pte Ltd. All rights reserved
               </span>
               <div class="flex flex-row gap-3 ml-auto"> 
-                  <a href="https://liveshowseller.com/">  {{$t("global.footer.home")}}  </a>
+                  <a href="https://liveshowseller.com/" target="_blank">  {{$t("global.footer.home")}}  </a>
 
-                  <a href="https://liveshowseller.com/terms-of-service/">  {{$t("global.footer.terms")}} </a>
+                  <a href="https://liveshowseller.com/terms-of-service/" target="_blank">  {{$t("global.footer.terms")}} </a>
 
-                  <a href="https://liveshowseller.com/privacy-policy/"> {{$t("global.footer.private_policy")}} </a>
+                  <a href="https://liveshowseller.com/privacy-policy/" target="_blank"> {{$t("global.footer.private_policy")}} </a>
               </div> 
           </div> 
         </div>
