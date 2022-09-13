@@ -149,7 +149,7 @@ onMounted(()=> {
 })
 
 watch(computed(()=>store.campaignProducts),()=>{
-	console.log(store.campaignProducts)
+	// console.log(store.campaignProducts)
 	if (!(store.order.products||false))return
 	updateAddOnProducts()
 })

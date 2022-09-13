@@ -307,11 +307,18 @@ onMounted(()=>{
 			showModal.value = true
 		}
 	})
+	eventBus.on('toggleTab', () => {
+		bulkEditStockObj.value = { categories: [], status: false, stockIdList: [] }
+		stockProducts.value.forEach(product => { 
+			product.check = false 
+		})
+	})
 })
 
 onUnmounted(()=>{
 	eventBus.off(props.eventBusName)
 	eventBus.off('bulkEditStock')
+	eventBus.off('toggleTab')
 })
 
 const search = ()=>{
@@ -384,8 +391,6 @@ const selectAllStock = (event) => {
 const selectStock = (product, event) => {
 	if (event.target.checked) bulkEditStockObj.value.stockIdList.push(product.id)  
 	else bulkEditStockObj.value.stockIdList = bulkEditStockObj.value.stockIdList.filter((v) => v != product.id)
-	
-	console.log(bulkEditStockObj.value)
 }
 
 const hide = () => {

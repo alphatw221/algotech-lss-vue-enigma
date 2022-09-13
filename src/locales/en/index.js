@@ -24,6 +24,7 @@ import login from './views/login.json'
 import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
 import discount from './views/discount.json'
+import dealer from './views/dealer.json'
 
 export default {
     global,
@@ -53,5 +54,7 @@ export default {
     login,
     forgot_password,
     reset_password,
-    discount
+    discount,
+
+    dealer
 }
