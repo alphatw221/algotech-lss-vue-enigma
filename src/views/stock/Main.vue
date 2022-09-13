@@ -13,7 +13,8 @@
 			</div>
 			<div class="flex ml-auto">
 				<EasyStoreExportProductButton />
-				<OrdrStartrExportProductButton/>
+				<OrdrStartrExportProductButton />
+				<ShopifyExportProductButton />
 				<button 
 					v-if="!store.userInfo.user_subscription.user_plan?.plugins"
 					type="button"
@@ -83,6 +84,7 @@ import { list_product_category } from '@/api_v2/product';
 import EasyStoreExportProductButton from '@/plugin/easy-store/views/ExportProductButton.vue'
 import OrdrStartrExportProductButton from '@/plugin/ordr-startr/views/ExportProductButton.vue'
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import ShopifyExportProductButton from '@/plugin/shopify/views/ExportProductButton.vue'
 
 const openTab = ref(1)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
