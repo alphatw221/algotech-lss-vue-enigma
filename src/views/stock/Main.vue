@@ -12,7 +12,8 @@
 			</div>
 			<div class="flex ">
 				<EasyStoreExportProductButton />
-				<OrdrStartrExportProductButton/>
+				<OrdrStartrExportProductButton />
+				<ShopifyExportProductButton />
 				<button 
 					type="button"
 					class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
@@ -78,6 +79,7 @@ import { useRoute, useRouter } from "vue-router"
 import { list_product_category } from '@/api_v2/product';
 import EasyStoreExportProductButton from '@/plugin/easy-store/views/ExportProductButton.vue'
 import OrdrStartrExportProductButton from '@/plugin/ordr-startr/views/ExportProductButton.vue'
+import ShopifyExportProductButton from '@/plugin/shopify/views/ExportProductButton.vue'
 
 const openTab = ref(1)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
