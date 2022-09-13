@@ -30,11 +30,12 @@
 					v-model="props.discountCode.limitations[props.limitationIndex][field.key]"
 					class="w-full"
 				>
+                    <option :key="index"></option>
 					<option v-for="option, index in options" :key="index" :value="option[field.optionValue]">{{ option[field.optionName] }}</option>
 				</TomSelect>
             </template>
         </div>
-</template>
+    </template>
 </template>
 
 <script setup>
@@ -43,7 +44,6 @@ import { onBeforeMount, onMounted, ref, provide, defineProps, watch, computed} f
 import { useRoute, useRouter } from "vue-router";
 import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 import { discountCodeEndPoints } from "@/api_v2/discount_code"
-import { boolean } from "webidl-conversions";
 
 const discountCodeMeta = useLSSDiscountCodeMetaStore()
 const props = defineProps({

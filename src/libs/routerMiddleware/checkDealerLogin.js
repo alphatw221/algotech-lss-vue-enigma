@@ -15,7 +15,7 @@ export default async (to, from) => {
             if (res.data.user_subscription.type != 'dealer'){
                 cookies.remove('access_token')
                 cookies.remove('login_with')
-                console.log("NOT DEALER ACCOUNT")
+                alert("NOT DEALER ACCOUNT")
                 return '/seller/web/login'
             }else{
                 dealerStore.isAuthenticated = true;

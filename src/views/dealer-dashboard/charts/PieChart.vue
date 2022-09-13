@@ -1,6 +1,6 @@
 <template>
   <div class="flex justify-between"> 
-        <h2 class="font-medium text-2xl mb-2 text-base mr-auto">Revenue</h2>
+        <h2 class="font-medium text-2xl mb-2 text-base mr-auto">Contract Profit</h2>
         <button class="btn btn-primary w-fit" @click="changePeriod()">{{$t(`dealer.dashboard.`+period)}}</button> 
     </div>
     <LoadingIcon v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] top-1/2 right-1/2 translate-x-1/2"/>
@@ -24,7 +24,7 @@ const darkMode = computed(() => useDarkModeStore().darkMode);
 const colorScheme = computed(() => useColorSchemeStore().colorScheme);
 const layoutStore = useLSSDealerLayoutStore()
 
-const period = ref('year')
+const period = ref('quarter')
 const country_code = layoutStore.userInfo.user_subscription.country
 const revenue = ref([])
 const dataLabels = ref([])
@@ -32,7 +32,7 @@ const dataValues = ref([])
 const fetchingData = ref(true)
 
 const changePeriod =()=>{
-  period.value = period.value == 'year'?'quarter':'year'
+  period.value = period.value == 'quarter'?'year':'quarter'
   getChartData()
 }
 

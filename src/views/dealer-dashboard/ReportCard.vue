@@ -8,7 +8,7 @@
                                 <div class="text-3xl font-medium text-right leading-8">{{cards.orders_amount}}
                                 <!-- <span class="text-base">{{manageOrderStatus.order_qty}} / {{manageOrderStatus.order_qty + manageOrderStatus.cart_qty}}</span> -->
                                 </div>
-                                <div class="mt-2 -mb-1 text-base text-right text-lg font-medium text-white whitespace-nowrap">Total Transitions</div>
+                                <div class="truncate mt-2 -mb-1 text-base text-right text-lg font-medium text-white whitespace-nowrap">Total Sells</div>
                             </div>
                         </div>
                     </div>
@@ -20,7 +20,7 @@
                             <div> 
                                 <div class="text-3xl font-medium text-right leading-8">{{cards.almost_expired_count}}</div>
                                 <!-- <span class="text-base">{{manageOrderStatus.cart_qty}} / {{manageOrderStatus.order_qty + manageOrderStatus.cart_qty}}</span> -->
-                                <div class="mt-2 -mb-1 text-base text-right text-lg font-medium text-white whitespace-nowrap">Contracts Due Soon</div>
+                                <div class="truncate mt-2 -mb-1 text-base text-right text-lg font-medium text-white whitespace-nowrap w-fit">Contracts Due Soon</div>
                             </div>
                         </div>
                     </div>
@@ -31,7 +31,7 @@
                             <VideoIcon class="shrink-0 w-12 h-12 text-white bg-orange-800 rounded-full px-1 py-2.5" />
                             <div> 
                                 <div class="text-3xl font-medium text-right leading-8">{{ cards.campaigns_count}}</div>
-                                <div class="mt-2 -mb-1 text-base text-right text-lg font-medium text-white whitespace-nowrap">Total Campaigns</div>
+                                <div class="truncate mt-2 -mb-1 text-base text-right text-lg font-medium text-white whitespace-nowrap">Total Campaigns</div>
                             </div>
                         </div>
                     </div>
@@ -42,7 +42,7 @@
                             <UsersIcon class="shrink-0 w-12 h-12 text-white bg-indigo-800 rounded-full px-1 py-2.5" />
                             <div> 
                                 <div class="text-3xl font-medium text-right leading-8">{{cards.customers_count}}</div>
-                                <div class="mt-2 -mb-1 text-base text-right text-lg font-medium text-white whitespace-nowrap">Total Buyers</div>
+                                <div class="truncate mt-2 -mb-1 text-base text-right text-lg font-medium text-white whitespace-nowrap">Total Buyers</div>
                             </div>
                         </div>
                     </div>
