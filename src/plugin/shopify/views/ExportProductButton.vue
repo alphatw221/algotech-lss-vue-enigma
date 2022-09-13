@@ -5,11 +5,11 @@
             v-if="userGotPlugin"
             @click="exportProduct()"
             type="button"
-            class="h-[35px] w-[40px] sm:w-40 mr-2 sm:mr-0 sm:h-[50px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
+            class="h-[35px] w-fit mr-2 sm:mr-0 sm:h-[50px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
             :class="{ 'cursor-not-allowed':processing }"
             >
-            <SimpleIcon class="sm:relative absolute h-5 mb-0.5" width="19" icon="export" color="white" /> 
-            <template class="hidden sm:block"><span class="mr-1 text-lg font-bold">+</span> Export From Shopify </template>
+            <SimpleIcon class="sm:relative absolute h-5 mb-0.5 mr-2" width="19" icon="export" color="white" /> 
+            <div>Import From Shopify </div>
         </button>
     </div>
     

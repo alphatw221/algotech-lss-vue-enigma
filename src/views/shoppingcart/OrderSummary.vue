@@ -56,7 +56,7 @@
 
         <label class=" my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.referr_code')}}</label>
         <button @click="copyURL(referalCode.code+'-'+route.params.pre_order_oid)"
-          class="flex my-auto whitespace-nowrap border-2 border-green-800 rounded-md p-1 px-2 text-green-800 font-medium">{{referalCode.code+'-'+route.params.pre_order_oid}} 
+          class="flex my-auto whitespace-nowrap border-2 border-green-800 rounded-md p-1 px-2 text-green-800 font-medium truncate">{{referalCode.code+'-'+route.params.pre_order_oid}} 
         </button>
         <!-- <div v-if="referalCode.description" class="my-auto whitespace-nowrap">{{referalCode.description}}</div> -->
 

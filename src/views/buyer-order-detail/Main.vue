@@ -1,5 +1,5 @@
 <template>
-    <div class="h-full">
+    <div class="h-fit">
         <div class="text-2xl text-base text-center my-5"> {{$t('order_detail.order')}} </div>
 
         <div class="grid grid-cols-12 gap-5">

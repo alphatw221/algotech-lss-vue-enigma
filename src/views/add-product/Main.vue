@@ -355,9 +355,12 @@ const cancelButton = () =>{
 }
 .dz-image {
 	width: 100% !important; 
+	z-index: 1;
 }
 .dz-progress {
 	display:none !important; 
 }
-
+.ts-dropdown{
+	z-index: 9999999;
+}
 </style>

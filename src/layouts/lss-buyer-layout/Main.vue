@@ -21,21 +21,22 @@
       <div class="lss-content">
         <router-view />
 
-        <div class="sticky z-30 mt-5 bottom-0"> 
-          <div class="flex justify-between font-medium flex-wrap mx-5 sm:mx-10 text-[12px] sm:text-[16px] sm:mb-4 bg-transparent"> 
+        <div class="relative mt-2 z-30 bottom-0 w-full"> 
+          <div class="flex justify-between font-medium flex-wrap mx-5 sm:mx-10 text-[12px] sm:text-[16px] bg-transparent"> 
               <span>
                       © {{new Date().getFullYear()}} Algotech Pte Ltd. All rights reserved
               </span>
               <div class="flex flex-row gap-3 ml-auto"> 
-                  <a href="https://liveshowseller.com/">  {{$t("global.footer.home")}}  </a>
+                  <a href="https://liveshowseller.com/" target="_blank">  {{$t("global.footer.home")}}  </a>
 
-                  <a href="https://liveshowseller.com/terms-of-service/">  {{$t("global.footer.terms")}} </a>
+                  <a href="https://liveshowseller.com/terms-of-service/" target="_blank">  {{$t("global.footer.terms")}} </a>
 
-                  <a href="https://liveshowseller.com/privacy-policy/"> {{$t("global.footer.private_policy")}} </a>
+                  <a href="https://liveshowseller.com/privacy-policy/" target="_blank"> {{$t("global.footer.private_policy")}} </a>
               </div> 
           </div> 
         </div>
       </div>
+     
       <!-- END: Content -->
     </div>
   </div>
@@ -75,7 +76,13 @@ provide("bind[buyerMessageAlert]", (el) => {
 .lss-content{
   padding-right: 5%;
   padding-left: 5%;
-  padding-bottom: 0px;
-  height: 100% !important;
+  min-height: 100vh;
+}
+
+@media only screen and (max-width: 760px),
+(min-device-width: 769px) and (max-device-width: 769px) {
+  .lss-content{
+  overflow: hidden;
+}
 }
 </style>
