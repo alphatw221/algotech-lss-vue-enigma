@@ -2,7 +2,7 @@
     "tab":{
         "profile":"Profile",
         "plan":"Subscription",
-        "reset_password":"reset Password" 
+        "reset_password":"Reset Password" 
     },
     "subscription":{
         "title":"Subscription",
