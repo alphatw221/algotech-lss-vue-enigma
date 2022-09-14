@@ -6,6 +6,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     showMobileMenu: ref(false),
     isAuthenticated: ref(false),
     loginWith: ref(null),
+    plugins:ref(false),
     profileTab: ref(1),
     changePlanTab: ref(1), 
     userInfo: ref({}),

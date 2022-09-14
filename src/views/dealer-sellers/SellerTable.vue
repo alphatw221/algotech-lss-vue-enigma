@@ -167,7 +167,8 @@ const initTabulator = () => {
         hozAlign: "center",
         print: false,
         download: false,
-        formatter(cell) { return`<div class="font-medium whitespace-nowrap">${new Date(cell.getData().plan_expired_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric",hourCycle: 'h24',hour:"2-digit",minute: "2-digit"})}</div>`; },
+        formatter(cell) { return`<div class="font-medium whitespace-nowrap ${Math.round(( new Date(cell.getData().plan_expired_at).getTime() - new Date().getTime() )/86400000) < 14? "text-danger":"text-black"}">
+          ${new Date(cell.getData().plan_expired_at).toLocaleDateString('en-us', { year:"numeric", month:"short", day:"numeric",hourCycle: 'h24',hour:"2-digit",minute: "2-digit"})}</div>`; },
       },
       {
         title: "Status",

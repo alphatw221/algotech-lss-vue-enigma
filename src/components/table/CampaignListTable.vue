@@ -124,7 +124,7 @@
                   tag="img"
                   class="rounded-full -ml-3 2xl:-ml-3"
                   :src="youtube_platform"
-                  :content="`Youtube`"
+                  :content="`YouTube`"
                 />
               </div>
               <div class="w-10 h-10 image-fit zoom-in" v-else>

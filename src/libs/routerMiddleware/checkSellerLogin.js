@@ -11,7 +11,7 @@ export default async (to, from) => {
 
     if (cookies.get('access_token')) {
         const res = await get_seller_account().then(res=>{
-            console.log(res)
+            // console.log(res)
             sellerStore.isAuthenticated = true;
             sellerStore.userInfo = res.data;
             return true

@@ -11,7 +11,7 @@
             class="p-2 mr-1 flex items-center btn border-[#131C34] w-32 h-[35px] sm:h-[42px]" 
             :class="{ 'cursor-not-allowed':processing }"
             >
-            <template class="hidden sm:block">Export From Easy Store </template>
+            <template class="">Import From EasyStore </template>
 
         </button>
     </div>

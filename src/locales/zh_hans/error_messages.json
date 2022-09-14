@@ -45,7 +45,7 @@
                 "instagram_token_expired": "权杖过期或失效，请重新绑定你的商业档案"
             },
             "youtube-channel":{
-                "youtube_not_activated": "Youtube 平台未开通",
+                "youtube_not_activated": "YouTube 平台未开通",
                 "youtube_token_expired": "权杖过期或失效，请重新绑定你的频道"
             },
             "campaign-product":{
@@ -55,8 +55,8 @@
                 "refresh_try_again": "请重新整理页面后再试一次",
                 "invalid_user": "无效的用户",
                 "request_data_error": "请求资料错误",
-                "invalid_discount_code":"无效的折扣代码",
-                "discount_code is required":"请填写折扣代码"
+                "invalid_discount_code":"无效的优惠代码",
+                "discount_code is required":"请填写优惠代码"
                
             },
             "order-product":{},

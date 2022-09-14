@@ -8,10 +8,10 @@
             v-if="userGotPlugin"
             @click="exportOrderFromShopify()"
             type="button"
-            class="p-2 mr-1 flex items-center btn border-[#131C34] w-32 h-[35px] sm:h-[42px]" 
+            class="p-2 mr-1 flex items-center btn border-[#131C34] w-fit h-[35px] sm:h-[42px]" 
             :class="{ 'cursor-not-allowed':processing }"
             >
-            <template class="hidden sm:block">Export From Shopify </template>
+            <template class="block">Import From Shopify </template>
 
         </button>
     </div>

@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-wrap">
-    <div class="w-full">
+    <div class="w-full calch">
       <!-- BEGIN Tab List-->
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
         <li class="-mb-px last:mr-0 flex-auto text-center ml-14">
@@ -102,6 +102,7 @@ onMounted(()=>{
   retrieve_pre_order(route.params.pre_order_oid).then(
       res => { 
         store.order = res.data;
+        store.user_subscription = JSON.parse(JSON.stringify(res.data.campaign?.user_subscription))
         i18n.locale = res.data.campaign.lang
         Object.keys(store.order.products).length == 0 ? store.showAddItemModal = true : store.showAddItemModal = false
       }
@@ -141,3 +142,10 @@ watch(computed(()=>store.openTab),()=>{
 
 
 </script>
+
+<style scoped>
+
+.calch{
+  min-height: calc(100vh - 130px);
+}
+</style>

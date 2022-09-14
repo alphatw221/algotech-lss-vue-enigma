@@ -16,7 +16,7 @@
         "noCode":"There are currently no Discount Codes",
         "setupFirst":"Set up one by click ( + create )",
         "description" : "Mô tả",
-        "cart_referal":"Cart Referal",
+        "cart_referal":"Cart Referral",
         "limitations":"Limitations",
         "general":"Promo Code",
         "subtotal_over_specific_amount":"Amount:",
@@ -42,7 +42,7 @@
         "campaign":"Hoạt động bán hàng",
         "type_options":{
             "general":"General",
-            "cart_referal":"Referal"
+            "cart_referal":"Referral"
         },
         "discount_type_options":{
             "percent_off":"By Percentage(%)",

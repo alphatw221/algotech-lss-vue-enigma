@@ -42,7 +42,7 @@
         "campaign":"Campaign",
         "type_options":{
             "general":"General",
-            "cart_referal":"Referal"
+            "cart_referal":"Referral"
         },
         "discount_type_options":{
             "percent_off":"By Percentage(%)",
