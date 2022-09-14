@@ -56,7 +56,8 @@
                 "invalid_user": "无效的用户",
                 "request_data_error": "请求资料错误",
                 "invalid_discount_code":"无效的优惠代码",
-                "discount_code is required":"请填写优惠代码"
+                "discount_code is required":"请填写优惠代码",
+                "not_eligible":"不符合此优惠资格"
                
             },
             "order-product":{},

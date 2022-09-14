@@ -56,7 +56,8 @@
                 "invalid_user": "Invalid User",
                 "request_data_error": "Request data error",
                 "invalid_discount_code":"Invalid Discount Code",
-                "discount_code is required":"Discount Code is Required"
+                "discount_code is required":"Discount Code is Required",
+                "not_eligible":"Oops, you're not eligible for this promotion."
             },
             "order-product":{},
             "order":{
