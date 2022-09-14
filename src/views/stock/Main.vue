@@ -31,7 +31,6 @@
 		<div class="flex flex-col gap-3 leading-relaxed"
 			:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
 			<SearchBar
-				v-if="!store.plugins"
 				:searchColumns="searchColumns"
 				:productCategories="productCategories"
 				:eventBusName="'searchForSaleTable'"
