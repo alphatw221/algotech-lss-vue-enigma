@@ -29,7 +29,7 @@
                 "order_number" : "订单",
                 "action":"动作",
                 "delivery_notification":"出货通知",
-                "customer" : "卖家帐号",
+                "customer" : "买家帐号",
                 "platform" : "平台",
                 "name" : "商品名称",
                 "total_items" : "商品总数",

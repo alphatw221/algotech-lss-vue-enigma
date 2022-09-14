@@ -287,6 +287,8 @@ watch(computed(() => bulkEditStockObj.value.stockIdList), () => {
 onMounted(()=>{
 	bulkEditStockObj.value.status = props.product_status
 
+	pluginColumn()
+
 	list_product_category().then(res => { 
 		categorySelection.value = res.data
 		categorySelection.value.unshift('uncategory')
@@ -370,8 +372,19 @@ const copyProduct = (id) => {
 
 const sortByThis = (by) =>{
 	sortBy.value = by
-	// sortBy.value = sortBy.value=='name' ? '-name': 'name'
 	search();
+}
+
+const pluginColumn = ()=>{
+	if(layoutStore.plugins){
+		tableColumns.value = [
+			{ name: "image", key: "image" },
+			{ name: "name", key: "name" },
+			{ name: "category", key: "category" },
+			{ name: "description", key: "description" },
+			{ name: "qty", key: "qty" },
+			{ name: "price", key: "price" }]
+	}
 }
 
 const selectAllStock = (event) => {
