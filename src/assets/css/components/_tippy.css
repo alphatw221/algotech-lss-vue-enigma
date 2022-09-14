@@ -10,10 +10,11 @@
     .tippy-content {
         max-width: 130px;
         @apply px-3 py-1.5;
-        z-index: 99 ;
+        z-index: 9999999;
     }
 }
 .tippy-popper {
+    z-index: 9999999;
     &[x-placement="left"],
     &[x-placement="right"],
     &[x-placement="left-start"],
@@ -47,5 +48,5 @@
 
 .tippy-icon{
     @apply text-red-900;
-    z-index: 99999999999999999;
+    z-index: 9999999;
 }
