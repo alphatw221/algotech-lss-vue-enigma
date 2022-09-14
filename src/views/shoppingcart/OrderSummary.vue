@@ -210,7 +210,7 @@ const copyURL = (code)=>{
 }
 
 const toNext=()=>{
-  if (store.order.campaign.user_subscription.user_plan.plugins.shopify) {
+  if (store.user_subscription?.user_plan?.plugins?.shopify) {
       get_shopify_checkout_url(route.params.pre_order_oid).then(res=>{
           window.location.href = res.data
       })
