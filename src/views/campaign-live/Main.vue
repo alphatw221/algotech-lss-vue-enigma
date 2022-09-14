@@ -55,8 +55,9 @@ let webSocket = null
 onMounted(()=>{
     initWebSocketConnection()
     retrieve_campaign(route.params.campaign_id).then(res=>{
+        console.log(sellerStore.commentCapturingCampaignData)
 		campaignDetailStore.campaign = res.data
-        if(sellerStore.commentCapturingCampaignData?.id!=res.data.id)sellerStore.commentCapturingCampaignData = res.data
+        if(sellerStore.commentCapturingCampaignData?.id!=res.data.id) sellerStore.commentCapturingCampaignData = res.data
         
 	})
     

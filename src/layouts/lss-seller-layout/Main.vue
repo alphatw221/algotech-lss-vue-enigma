@@ -74,7 +74,7 @@
   <ChevronUpIcon class="h-10 w-10 fixed text-white bottom-2 bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50 md:hidden" @click="toTop()"/>
 
 
-  <CommentCaptureWindow v-if="showCaptureWindow"/>
+  <CommentCaptureWindow />
   </div>
 </template>
 
@@ -161,9 +161,6 @@ watch(
 )
   
 onMounted(() => {
-  if (route.query.status == "history") {
-    showCaptureWindow.value = false
-  }
   setLanguage();
   initWebSocketConnection();
 })
