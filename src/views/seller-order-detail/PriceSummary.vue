@@ -34,13 +34,15 @@
             </div>
         </div>
       </template>
-        <div class="flex" v-if="store.orderDetail.disocunt !=0">
-            <div class="mr-auto">{{store.orderDetail.disocunt ?? $t('shopping_cart.order_summary.promo_discount')}}</div>
-            <div class="font-medium" v-if="store.orderDetail.campaign"> 
+        <div class="flex" v-if="store.orderDetail.campaign">
+          <template v-if="store.orderDetail.discount !=0"> 
+            <div class="mr-auto">{{$t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger">({{store.orderDetail.applied_discount.code}})</span></div>
+            <div class="font-medium"> 
               {{store.orderDetail.campaign.currency}}
               -{{Math.floor(parseFloat(store.orderDetail.discount) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
               {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
             </div>
+          </template>
         </div>
       <template v-if="props.order_type !== 'order'">
       <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400
@@ -120,7 +122,7 @@
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { seller_adjust_price } from "@/api_v2/pre_order"
 import { useRoute, useRouter } from "vue-router";
-import {ref, watch, computed} from "vue";
+import {ref, watch, computed, onMounted} from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 const store = useSellerOrderStore();
@@ -139,7 +141,9 @@ const modify_price = {
   'free_delivery':false
 }
 
-
+onMounted(()=>{
+  console.log('xx',store.orderDetail)
+})
 function update_modify_price(){
   modify_price.adjust_title = store.orderDetail.adjust_title
   modify_price.free_delivery = store.orderDetail.free_delivery

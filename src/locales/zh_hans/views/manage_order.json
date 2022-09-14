@@ -46,7 +46,7 @@
                 "product":"商品",
                 "sub_total":"小计",
                 "delivery_charge":"运费",
-                "discount":"折扣",
+                "discount":"优惠代码",
                 "total":"总计",
                 "null":"",
                 "prize":"奖品"

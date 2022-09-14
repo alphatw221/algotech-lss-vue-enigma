@@ -25,17 +25,15 @@
 					<template class="block sm:hidden"> <PlusIcon class="w-8 h-8" /> </template>
 				</button>
 			</div>
-			
 		</div>
 		<!-- BEGIN For Sale Tab -->
 		<div class="flex flex-col gap-3 leading-relaxed"
 			:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
 			<SearchBar
-				v-if="!store.plugins"
 				:searchColumns="searchColumns"
 				:productCategories="productCategories"
 				:eventBusName="'searchForSaleTable'"
-				:showCategoryFilter="true"
+				:showCategoryFilter="!store.plugins"
 			>
 			</SearchBar>	
 			<DataTable
@@ -53,11 +51,10 @@
 		<div class="flex flex-col gap-3 leading-relaxed sm:gap-5"
 			:class="{ hidden: openTab !== 2, block: openTab === 2 }"> 
 			<SearchBar
-			v-if="!store.userInfo.user_subscription.user_plan?.plugins"
 				:searchColumns="searchColumns"
 				:productCategories="productCategories"
 				:eventBusName="'searchDelistedTable'"
-				:showCategoryFilter="true"
+				:showCategoryFilter="!store.plugins"
 			>
 			</SearchBar>	
 			<DataTable
