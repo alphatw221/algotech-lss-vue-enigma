@@ -121,7 +121,7 @@ watch(
 watch(
   computed(() => store.shipping_info.shipping_option),
   ()=>{
-    console.log(store.shipping_info.shipping_option)
+    // console.log(store.shipping_info.shipping_option)
     updateOrderSummary()
   }
 );

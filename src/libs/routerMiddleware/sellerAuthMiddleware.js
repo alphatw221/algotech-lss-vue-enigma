@@ -8,10 +8,6 @@ const { cookies } = useCookies();
 export default async (to, from)=>{
     const sellerStore = useLSSSellerLayoutStore();
     if (sellerStore.isAuthenticated) {
-        if(sellerStore.userInfo.user_subscription.user_plan?.plugins?.['easy_store']){sellerStore.plugins = true}
-        else if(sellerStore.userInfo.user_subscription.user_plan?.plugins?.['ordr_startr']){sellerStore.plugins = true}
-        else if(sellerStore.userInfo.user_subscription.user_plan?.plugins?.['shopify']){sellerStore.plugins = true}
-        console.log('ddd',sellerStore.plugins)
         return true
     }
 
@@ -19,10 +15,6 @@ export default async (to, from)=>{
         try{
             const res = await get_seller_account()
             sellerStore.userInfo = res.data;
-            if(sellerStore.userInfo.user_subscription.user_plan?.plugins?.['easy_store']){sellerStore.plugins = true}
-            else if(sellerStore.userInfo.user_subscription.user_plan?.plugins?.['ordr_startr']){sellerStore.plugins = true}
-            else if(sellerStore.userInfo.user_subscription.user_plan?.plugins?.['shopify']){sellerStore.plugins = true}
-            console.log('ddd',sellerStore.plugins)
             return true
         }catch(error){
             cookies.remove("access_token")

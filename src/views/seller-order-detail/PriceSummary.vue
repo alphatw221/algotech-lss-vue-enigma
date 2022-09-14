@@ -141,9 +141,6 @@ const modify_price = {
   'free_delivery':false
 }
 
-onMounted(()=>{
-  console.log('xx',store.orderDetail)
-})
 function update_modify_price(){
   modify_price.adjust_title = store.orderDetail.adjust_title
   modify_price.free_delivery = store.orderDetail.free_delivery

@@ -1,7 +1,6 @@
 import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
 
 export const admin_login = data => {
-    console.log(data)
     return axiosInstance.post(`/token/`,data);
 };
 
@@ -27,12 +26,10 @@ export const general_login = data =>{
 }
 
 export const retrieve_user = id => {
-    console.log(id)
     return createAxiosWithBearer().get(`/user/${id}`);
 };
 
 export const update_user = (id,data) => {
-    console.log(id)
     return createAxiosWithBearer().put(`/user/${id}`, data);
 };
 
