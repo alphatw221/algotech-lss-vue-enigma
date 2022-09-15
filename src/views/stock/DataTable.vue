@@ -70,7 +70,7 @@
 					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
-								{{ $t('stock.no_result') }}
+								{{ $t('stock.no_result.'+ product_status) }}
 							</h1>
 							<!-- <h1 class="text-slate-500 text-sm md:text-lg">
 								{{ $t('stock.click_to_add') }}

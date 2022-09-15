@@ -33,7 +33,7 @@
 				:searchColumns="searchColumns"
 				:productCategories="productCategories"
 				:eventBusName="'searchForSaleTable'"
-				:showCategoryFilter="!store.plugins"
+				:showCategoryFilter="true"
 			>
 			</SearchBar>	
 			<DataTable
@@ -54,7 +54,7 @@
 				:searchColumns="searchColumns"
 				:productCategories="productCategories"
 				:eventBusName="'searchDelistedTable'"
-				:showCategoryFilter="!store.plugins"
+				:showCategoryFilter="true"
 			>
 			</SearchBar>	
 			<DataTable
