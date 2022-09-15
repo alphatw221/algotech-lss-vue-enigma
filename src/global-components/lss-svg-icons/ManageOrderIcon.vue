@@ -26,9 +26,9 @@
     width="18" height="20" viewBox="0 0 18 20" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M5 4V3C5 1.89543 5.89543 1 7 1V1C8.10457 1 9 1.89543 9 3V4" :stroke="props.color" stroke-width="1.5"/>
     <path d="M5 6.00003V7.00003C5 8.1046 5.89543 9.00003 7 9.00003V9.00003C8.10457 9.00003 9 8.1046 9 7.00003V6.00003" :stroke="props.color" stroke-width="1.5"/>
-    <path fill-rule="evenodd" clip-rule="evenodd" :stroke="props.color" d="M3 3.25C1.48122 3.25 0.25 4.48122 0.25 6V13C0.25 14.5188 1.48122 15.75 3 15.75H8.17588C8.06136 15.3531 8 14.9337 8 14.5C8 14.4161 8.0023 14.3328 8.00683 14.25H3C2.30964 14.25 1.75 13.6904 1.75 13V6C1.75 5.30964 2.30964 4.75 3 4.75H11C11.6904 4.75 12.25 5.30964 12.25 6V10.0068C12.3328 10.0023 12.4161 10 12.5 10C12.9337 10 13.3531 10.0614 13.75 10.1759V6C13.75 4.48122 12.5188 3.25 11 3.25H3Z" :fill="props.color"/>
+    <path fill-rule="evenodd" clip-rule="evenodd" d="M3 3.25C1.48122 3.25 0.25 4.48122 0.25 6V13C0.25 14.5188 1.48122 15.75 3 15.75H8.17588C8.06136 15.3531 8 14.9337 8 14.5C8 14.4161 8.0023 14.3328 8.00683 14.25H3C2.30964 14.25 1.75 13.6904 1.75 13V6C1.75 5.30964 2.30964 4.75 3 4.75H11C11.6904 4.75 12.25 5.30964 12.25 6V10.0068C12.3328 10.0023 12.4161 10 12.5 10C12.9337 10 13.3531 10.0614 13.75 10.1759V6C13.75 4.48122 12.5188 3.25 11 3.25H3Z" :fill="props.color"/>
     <circle cx="12.5" cy="14.5" :stroke="props.color" r="4.5" stroke-width="1.5"/>
-    <path d="M14 13L11 16"  stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M14 13L11 16"  :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <circle cx="11" cy="13" r="1" :fill="props.color"/>
     <circle cx="14" cy="16" r="1" :fill="props.color"/>
 </svg>
