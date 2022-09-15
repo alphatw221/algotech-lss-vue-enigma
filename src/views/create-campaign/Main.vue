@@ -68,7 +68,7 @@
 			</div>
 		</div>
 		
-		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg ">
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg langSetting">
 
 			<div class="flex mb-3 form-label text-base font-medium">
 				<div> {{$t("settings.localization.currency_symbol")}} </div>
@@ -126,9 +126,6 @@
 				</TomSelect>
 			</div>
 		</div>
-
-
-
 
 
 		<DeliveryForm 
@@ -369,3 +366,10 @@ const createCampaign = ()=>{
 
 
 </script>
+
+<style scoped>
+
+.langSetting{
+	z-index: 50;
+}
+</style>

@@ -58,7 +58,7 @@
 								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 							</button>
 						</div>
-						<div v-if="product.qty_for_sale> 0">
+						<div v-if="product.qty_for_sale - product.qty_sold> 0">
 							<button 
 								class="btn btn-sm btn-primary w-24 mt-3"
 								@click="buyer_add_item(product.id, index)"
@@ -66,7 +66,6 @@
 								{{$t('shopping_cart.add_item.add')}}
 							</button>
 						</div>
-						<!-- v-if="product.qty_for_sale - product.qty_sold > 0 -->
 						<div v-else> 
 							<button 
 								class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
@@ -200,6 +199,6 @@ const buyer_add_item = (campaing_product_id, index) => {
 
 const add_to_wishlist = (campaing_product_id, index) =>{
 	if(isAnonymousUser){wishlistModal.value = true}
-	else{console.log('API CALLED')}
+	else{console.log('API CALLED'), layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.add_item_success'))}
 }
 </script>
