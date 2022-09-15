@@ -61,7 +61,8 @@
             "product": "购买指定商品者",
             "purchase": "购买任何商品者",
             "keyword": "留言內容包含关键字",
-            "sharedpost": "分享贴文者"
+            "sharedpost": "分享贴文者",
+            "like_and_comment":"按赞分享贴文者"
         },
         "no_product_err":"尚未将商品加入此直播",
         "assign_product_err":"须加入商品",

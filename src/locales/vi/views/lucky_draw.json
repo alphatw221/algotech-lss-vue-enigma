@@ -60,7 +60,8 @@
             "product": "bằng cách mua sản phẩm nhất định",
             "purchase": "bằng cách mua bất kỳ sản phẩm nào",
             "keyword": "bằng cách bình luận đúng từ khóa",
-            "sharedpost": "Với chia sẻ bài viết trên Facebook"
+            "sharedpost": "Với chia sẻ bài viết trên Facebook",
+            "like_and_comment":"By liked and commented"
         },
         "no_product_err":"Chưa chọn sản phẩm cho chiến dịch này",
         "assign_product_err":"Chọn sản phẩm cho chiến dịch",
