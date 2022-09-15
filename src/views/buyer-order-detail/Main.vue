@@ -31,11 +31,11 @@
                         <div class="mr-10">{{$t('order_detail.delivery.name')}}</div>
                         <div>{{ store.order.shipping_last_name }} {{ store.order.shipping_first_name }}</div>
                     </div>
-                    <div class="flex mt-4">
+                    <div class="flex mt-4" v-if="store.order.shipping_phone">
                         <div class="mr-10">{{$t('order_detail.delivery.phone')}}</div>
                         <div>{{ store.order.shipping_phone }}</div>
                     </div>
-                    <div class="flex mt-4">
+                    <div class="flex mt-4" v-if="store.order.shipping_email">
                         <div class="mr-10">{{$t('order_detail.delivery.email')}}</div>
                         <div>{{ store.order.shipping_email }}</div>
                     </div>
