@@ -106,6 +106,12 @@
         "continue":"繼續",
         "social_login":"快速登入"
     },
+    "wishlist_modal":{
+        "title":"當產品重新上架時請通知我",
+        "message_1":"在您同意的情況下，LSS 將使用您的聯繫信息（電子郵件地址）來提醒您產品已重新上架。",
+        "message_2":"更多有關我們的隱私慣例和您的權利的信息，請諮詢我們的",
+        "policy":"隱私權政策。"
+    },
     "delete_success":"刪除成功",
     "invalid_qty":"無效數量",
     "update_successfully":"儲存成功",
@@ -115,5 +121,6 @@
     "invalid_user_info":"買家資料輸入錯誤",
     "invalid_delivery_info":"運送資料輸入錯誤",
     "checkout_message":"確認前往結帳後，購物車將會被清空",
-    "checkout_again":"商品已售完，請重新確認購物車並再次結帳" 
+    "checkout_again":"商品已售完，請重新確認購物車並再次結帳",
+    "wishlist_success":"商品到貨將會通知您"
 }

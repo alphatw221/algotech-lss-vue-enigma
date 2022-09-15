@@ -83,6 +83,6 @@
     "wishlist":{
         "confirm_send":"Confirm to notify and E-mail everyone on the wishlist",
         "cancel_send":"Canceled",
-        "success_send":"E-maiL Send Successfully."
+        "success_send":"E-mail Send Successfully."
     }
 }

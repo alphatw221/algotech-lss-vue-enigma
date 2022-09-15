@@ -3,7 +3,7 @@
         <ModalBody class="text-center">
             <div
                 class="flex flex-col gap-5"> 
-                <div>Notify me if the product becomes available again</div>
+                <div>{{$t('shopping_cart.wishlist_modal.title')}}</div>
                 <div class="relative mx-10"> 
                     <MailIcon class="absolute w-6 h-6 top-2 left-3 z-10 text-slate-400"/>
                     <input type="email" class="h-[42px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
@@ -17,8 +17,8 @@
                 >
                 {{$t('shopping_cart.add_item.wishlist')}}
                 </button>
-                <p> With your consent, LSS will use your contact information (E-mail address) to alert you of the product availability.</p>
-                <p> For more information about our privacy practices and your rights, please consult our <a href="https://liveshowseller.com/privacy-policy/" target="#"> Privacy Policy. </a></p>
+                <p> {{$t('shopping_cart.wishlist_modal.message_1')}}</p>
+                <p> {{$t('shopping_cart.wishlist_modal.message_2')}}<a href="https://liveshowseller.com/privacy-policy/" target="#">{{$t('shopping_cart.wishlist_modal.policy')}} </a></p>
             </div>
         </ModalBody>
     </Modal>

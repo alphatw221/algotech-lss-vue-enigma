@@ -106,6 +106,12 @@
         "continue":"Continue",
         "social_login":"Social Login"
     },
+    "wishlist_modal":{
+        "title":"Notify me if the product becomes available again",
+        "message_1":"With your consent, LSS will use your contact information (E-mail address) to alert you of the product availability.",
+        "message_2":"For more information about our privacy practices and your rights, please consult our ",
+        "policy":"Privacy Policy."
+    },
     "delete_success":"Delete Success",
     "invalid_qty":"Invalid Quantity",
     "update_successfully":"Update Successfully",
@@ -116,5 +122,5 @@
     "invalid_delivery_info":"Invalid delivery infomation input",
     "checkout_message":"Are you sure you want to process check out? Your shopping cart will be cleared.",
     "checkout_again":"Product Out Of Stock, Please confirm your shopping Cart and checkout again",
-    "wishlist_success":"We will notify you when product becomes available again"
+    "wishlist_success":"WishList Sign Up Successfully"
 }

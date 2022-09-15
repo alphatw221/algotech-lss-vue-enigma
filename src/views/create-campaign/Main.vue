@@ -370,10 +370,10 @@ const createCampaign = ()=>{
 <style scoped>
 
 .langSetting{
-	z-index: 50;
+	z-index: 49;
 }
 
 .dateSetting{
-	z-index: 51;
+	z-index: 50;
 }
 </style>

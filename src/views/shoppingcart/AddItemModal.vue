@@ -16,75 +16,69 @@
 			</ModalHeader>
 
 			<div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5" >
-				<div 
-					class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 " 
-					v-for="(product, index) in addOnProducts" :key="index"
-				>
-					<div class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
+				<template v-for="(product, index) in addOnProducts" :key="index"> 
+					<div 
+						class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 " 
+						v-if="product.product != null" 
+					>
+						<div
+							class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
 
-						<a class="w-4/5 file__icon file__icon--image">
-							<div class="file__icon--image__preview image-fit" v-if="product.image">
-								<img :src="product.image"
-								/>
+							<a class="w-4/5 file__icon file__icon--image">
+								<div class="file__icon--image__preview image-fit" v-if="product.image">
+									<img :src="product.image"
+									/>
+								</div>
+								<div class="file__icon--image__preview image-fit" v-else>
+									<img :src="staticDir + `no_image.jpeg`"
+									/>
+								</div>
+							</a>
+							<div class="block font-medium text-center whitespace-normal break-normal w-full truncate">	
+								{{ product.name }}
 							</div>
-							<div class="file__icon--image__preview image-fit" v-else>
-								<img :src="staticDir + `no_image.jpeg`"
-								/>
+							<div class="text-slate-500 text-sm text-center">
+								{{store.order.campaign.currency}} 
+								{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+								{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 							</div>
-						</a>
-						<div class="block font-medium text-center whitespace-normal break-normal w-full truncate">	
-							{{ product.name }}
-						</div>
-						<div class="text-slate-500 text-sm text-center">
-							{{store.order.campaign.currency}} 
-							{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
-							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
-						</div>
-						<div v-if="product.qty_for_sale> 0" class="flex"> 
-							<!-- Wait for api-->
-							<button type="button" @click="changeQuantity(null, index, 'minus')">
-								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
-							</button>
-							<input 
-								type="text"
-								class="form-control" 
-								placeholder="Input inline 1" 
-								aria-label="default input"
-								:value="product.qty"
-								@change="changeQuantity($event, index, 'input')"
-								style="width: 2.7rem; height: 2rem; margin-top: 5px;"
-							/>
-							<button type="button" @click="changeQuantity(null, index, 'add')">
-								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
-							</button>
-						</div>
-						<div v-if="product.qty_for_sale - product.qty_sold> 0">
-							<button 
-								class="btn btn-sm btn-primary w-24 mt-3"
-								@click="buyer_add_item(product.id, index)"
-							>
-								{{$t('shopping_cart.add_item.add')}}
-							</button>
-						</div>
-						<div v-else> 
-							<button 
-								v-if="product.product == null"
-								disabled
-								class="btn btn-sm bg-primary w-24 mt-3 text-white"
-								@click="add_to_wishlist(product.product)"
-							>
-								Unavailable
-							</button>
-							<button 
-								v-else
-								class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
-								@click="add_to_wishlist(product.product)"
-							>
-								wishlist
-							</button>
+							<div v-if="product.qty_for_sale - product.qty_sold > 0" class="flex"> 
+								<!-- Wait for api-->
+								<button type="button" @click="changeQuantity(null, index, 'minus')">
+									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
+								</button>
+								<input 
+									type="text"
+									class="form-control" 
+									placeholder="Input inline 1" 
+									aria-label="default input"
+									:value="product.qty"
+									@change="changeQuantity($event, index, 'input')"
+									style="width: 2.7rem; height: 2rem; margin-top: 5px;"
+								/>
+								<button type="button" @click="changeQuantity(null, index, 'add')">
+									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
+								</button>
+							</div>
+							<div v-if="product.qty_for_sale - product.qty_sold> 0">
+								<button 
+									class="btn btn-sm btn-primary w-24 mt-3"
+									@click="buyer_add_item(product.id, index)"
+								>
+									{{$t('shopping_cart.add_item.add')}}
+								</button>
+							</div>
+							<div v-else> 
+								<button 
+									class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
+									@click="add_to_wishlist(product.product)"
+								>
+									{{$t('shopping_cart.add_item.wishlist')}}
+								</button>
+							</div>
 						</div>
 					</div>
-				</div>
+				</template>
 			</div>
 			<div class="invisible h-20"> ... </div>
 			<WishListModal :isAnonymousUser="isAnonymousUser"/>
