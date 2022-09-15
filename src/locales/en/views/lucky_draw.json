@@ -64,7 +64,7 @@
             "purchase": "By any purchase",
             "keyword": "By commented keyword",
             "sharedpost": "By shared this FB post",
-            "like_and_comment":"By liked and commented"
+            "like_and_comment":"By liked this FB post and commented"
         },
         "no_product_err":"Haven't Assigned Product Into This Campaign",
         "assign_product_err":"Assign Product into your Campaign",
