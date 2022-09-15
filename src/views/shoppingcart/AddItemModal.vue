@@ -68,6 +68,15 @@
 						</div>
 						<div v-else> 
 							<button 
+								v-if="product.product == null"
+								disabled
+								class="btn btn-sm bg-primary w-24 mt-3 text-white"
+								@click="add_to_wishlist(product.product)"
+							>
+								Unavailable
+							</button>
+							<button 
+								v-else
 								class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
 								@click="add_to_wishlist(product.product)"
 							>
@@ -78,45 +87,13 @@
 				</div>
 			</div>
 			<div class="invisible h-20"> ... </div>
-			<Modal :show="wishlistModal" @hidden="wishlistModal = false">
-				<ModalBody class="text-center">
-					<div class="flex flex-col gap-5"> 
-						<div>Enter Your Email or Sign up to continue </div>
-						<div class="relative mx-10"> 
-							<MailIcon class="absolute w-6 h-6 top-1.5 left-3 z-10 text-slate-400"/>
-							<input type="email" class="h-[35px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
-								:placeholder="$t('login.email')" 
-								v-model="email" 
-								@keydown.enter.prevent="add_to_wishlist(wishlistStockID)" />
-						</div>
-						<button 
-							class="btn btn-sm bg-green-700 w-24 ml-auto text-white"
-							@click="add_to_wishlist(wishlistStockID)"
-						>
-						{{$t('shopping_cart.add_item.wishlist')}}
-						</button>
-						<div class="w-full flex justify-center border-t border-slate-200/60 dark:border-darkmode-400">
-							<div class="bg-white dark:bg-darkmode-600 px-5 -mt-3 text-slate-500">
-								or
-							</div>
-						</div>
-						<div> 
-							<button 
-								class="btn bg-green-700 w-3/4 ml-auto text-white"
-								@click="layoutStore.showLoginModal=true"
-							>
-							Login Now
-							</button>
-						</div>
-					</div>
-				</ModalBody>
-			</Modal>
+			<WishListModal :isAnonymousUser="isAnonymousUser"/>
 		</ModalBody>
 	</Modal>
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 // import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
@@ -124,16 +101,14 @@ import { buyer_cart_add, guest_cart_add } from "@/api_v2/pre_order";
 import { useRoute } from "vue-router";
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
+import WishListModal from "./WishListModal.vue";
 
 const { cookies } = useCookies()
 const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const store = useShoppingCartStore(); 	
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const staticDir =  import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR;
-
-const wishlistModal = ref(false)
-const email = ref('')
-const wishlistStockID = ref()
 
 const addOnProducts = ref([])
 const addOnTitle = ref('select_add_ons')
@@ -197,8 +172,5 @@ const buyer_add_item = (campaing_product_id, index) => {
 	)
 }
 
-const add_to_wishlist = (campaing_product_id, index) =>{
-	if(isAnonymousUser){wishlistModal.value = true}
-	else{console.log('API CALLED'), layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.add_item_success'))}
-}
+const add_to_wishlist = (product)=>{eventBus.emit('showWishlistModal',product)}
 </script>

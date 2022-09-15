@@ -131,11 +131,19 @@
 							<div class="text-right">{{product[column.key]}}</div> 
 						</td>
 
-						<td v-else-if="column.key === 'price'" class="w-full sm:w-fit qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'price'" class="w-full sm:w-20 qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="text-right">
-								{{layoutStore.userInfo.user_subscription.currency}} 
+								<span class="text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span>
 								{{Math.floor(parseFloat(product[column.key]) * (10 ** layoutStore.userInfo.user_subscription.decimal_places)) / 10 ** layoutStore.userInfo.user_subscription.decimal_places}}
 								{{layoutStore.userInfo.user_subscription.price_unit?$t(`global.price_unit.${layoutStore.userInfo.user_subscription.price_unit}`):''}}</div> 
+						</td>
+
+						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
+							<div v-if="product.meta?.wish_list?.length >0"
+							class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product.id)"> 
+								<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{product.meta?.wish_list?.length}})</span>  </div>
+							<div v-else class="flex gap-2 cursor-not-allowed"> 
+							<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
 						</td>
 
 						<td v-else-if="column.key === 'edit'"  class="w-24 table-report__action edit" :data-content="$t(`stock.table_column.${column.key}`)" >
@@ -227,12 +235,13 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { list_product, delete_product, copy_product, list_product_category, bulk_update_product } from '@/api_v2/product'
+import { list_product, delete_product, copy_product, list_product_category, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n";
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const route = useRoute()
 const router = useRouter()
@@ -248,6 +257,7 @@ const tableColumns = ref([
 	{ name: "description", key: "description" },
 	{ name: "qty", key: "qty" },
 	{ name: "price", key: "price" },
+	{ name: "wishlist", key:"wishlist"},
 	{ name: "", key: "edit" },
 ])
 const statusRadio = ref([
@@ -415,6 +425,18 @@ const bulkUpdateStock = () => {
 		hide()
 		search()
 	})
+}
+
+const sentWishlistMail = (product) =>{
+	let yes = confirm(`${i18n.global.t('stock.wishlist.confirm_send')}`)
+	if (yes) {
+		wish_list_send_email(product).then(
+		res=>{
+			layoutStore.notification.showMessageToast(`${i18n.global.t('stock.wishlist.success_send')}`)
+			search()
+		})
+	}
+	else layoutStore.alert.showMessageToast(`${i18n.global.t('stock.wishlist.cancel_send')}`)
 }
 
 </script>

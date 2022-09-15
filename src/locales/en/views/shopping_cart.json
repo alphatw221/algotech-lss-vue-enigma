@@ -115,5 +115,6 @@
     "invalid_user_info":"Invalid User Infomation Input",
     "invalid_delivery_info":"Invalid delivery infomation input",
     "checkout_message":"Are you sure you want to process check out? Your shopping cart will be cleared.",
-    "checkout_again":"Product Out Of Stock, Please Confirm Your Shopping Cart And Checkout Again"
+    "checkout_again":"Product Out Of Stock, Please confirm your shopping Cart and checkout again",
+    "wishlist_success":"We will notify you when product becomes available again"
 }

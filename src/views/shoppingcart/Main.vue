@@ -127,7 +127,7 @@ onMounted(()=>{
       res.data.forEach(element => {
         store.cartProducts[element.id] = element
 		  })
-      // console.log(store.cartProducts)
+      console.log(store.cartProducts)
 })
 
 watch(computed(()=>store.openTab),()=>{

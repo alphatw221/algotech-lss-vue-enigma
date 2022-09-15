@@ -118,14 +118,10 @@ const { cookies } = useCookies();
 const store = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
 
-const addItem = ()=>{
-  console.log('add item')
-}
 const shippingCost = ref(0)
 const cartTotal = ref(0)
 
 const updateOrderSummary = ()=>{
-    console.log(store.referalCodes)
     if (store.shipping_info.shipping_method=='pickup'){
       shippingCost.value = 0
       cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.adjust_price - store.order.discount ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
@@ -179,7 +175,6 @@ watch(
 onMounted(()=>{
   store.order.discount = ''
   store.order.applied_discount = {}
-  console.log(store.referalCodes)
 })
 
 watch(

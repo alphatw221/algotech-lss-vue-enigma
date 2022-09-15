@@ -33,7 +33,8 @@
         "description": "Description",
         "qty": "Qty",
         "price": "Price",
-        "confirm_delete": "Are you sure to delete this product ?"
+        "confirm_delete": "Are you sure to delete this product ?",
+        "wishlist":"WishList"
     },
 
     "category_manage": {
@@ -78,6 +79,10 @@
         "create_message":"Create Successfully",
         "update_message":"Update Successfully",
         "invalid_data":"Invalid Submission"
+    },
+    "wishlist":{
+        "confirm_send":"Confirm to notify and E-mail everyone on the wishlist",
+        "cancel_send":"Canceled",
+        "success_send":"E-maiL Send Successfully."
     }
-    
 }
