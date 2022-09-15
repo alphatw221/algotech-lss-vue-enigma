@@ -52,13 +52,17 @@
                 <div class="grid grid-cols-6" v-show="store.orderDetail.shipping_method">
                     <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.name')}}</div>
                     <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_first_name}} {{store.orderDetail.shipping_last_name}}</div>
-
-                    <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.phone')}}</div>
-                    <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_phone}}</div>
-                
-                    <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.email')}}</div>
-                    <div class="col-start-3 col-span-3 py-2 break-all">{{store.orderDetail.shipping_email}}</div>
                     
+                    <template v-if="store.orderDetail.shipping_phone">
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.phone')}}</div>
+                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_phone}}</div>
+                    </template>
+
+                    <template v-if="store.orderDetail.shipping_email">
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.email')}}</div>
+                        <div class="col-start-3 col-span-3 py-2 break-all">{{store.orderDetail.shipping_email}}</div>
+                    </template>
+
                     <template v-if="store.orderDetail.shipping_method === 'pickup'">
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{$t(`order_detail.delivery.${store.orderDetail.shipping_method}`)}}</div>
