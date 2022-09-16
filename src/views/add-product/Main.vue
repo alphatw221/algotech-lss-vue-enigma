@@ -23,7 +23,7 @@
 					</label>
 				</template>
 			</div>
-			<div class="col-span-12 lg:col-span-6">
+			<div class="col-span-12 lg:col-span-6 tom">
 				<label for="crud-form-2" class="form-label text-base mt-2 font-medium">{{ $t('stock.add_product_page.category') }}</label>
 
 				<TomSelect
@@ -52,7 +52,7 @@
 				</template> -->
 			</div>
 
-			<div class="col-span-12 col-start-1 ">
+			<div class="col-span-12 col-start-1 drop">
 				<label class="form-label text-base mt-2 font-medium">{{ $t('stock.add_product_page.upload_image') }}</label>
 				<div class="relative">
 					<!-- <XCircleIcon class="absolute top-1 right-1 w-4 h-4 ml-2 z-index-99" style="color:red" @click="clear"/> -->
@@ -355,12 +355,16 @@ const cancelButton = () =>{
 }
 .dz-image {
 	width: 100% !important; 
-	z-index: 1;
 }
 .dz-progress {
 	display:none !important; 
 }
-.ts-dropdown{
-	z-index: 9999999;
+
+.tom{
+	z-index: 50;
+}
+
+.drop{
+	z-index: 49;
 }
 </style>
