@@ -114,6 +114,7 @@ onMounted(()=> {
 		store.showAddItemModal = true
 		addOnTitle.value = 'select_products'
 	}
+	console.log('xx',store.order)
 })
 
 watch(computed(()=>store.campaignProducts),()=>{
