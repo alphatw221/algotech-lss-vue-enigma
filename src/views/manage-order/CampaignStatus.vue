@@ -4,7 +4,8 @@
                     <div class="report-box">
                         <div class="p-5 box">
                             <div class="flex">
-                                <ShoppingCartIcon class="report-box__icon text-primary" />
+                                <!-- <ShoppingCartIcon class=" text-primary" /> -->
+                                <ManageOrderIcon icon="close_rate" color="#131C34" class="report-box__icon"/>
                                 <template v-if="!manageOrderStatus.close_rate_raise"/>
                                 <template v-else-if="manageOrderStatus.close_rate_raise >= 0">
                                     <div class="ml-auto">
@@ -36,7 +37,7 @@
                     <div class="report-box">
                         <div class="p-5 box">
                             <div class="flex">
-                                <MonitorIcon class="report-box__icon text-warning" />
+                                <ManageOrderIcon icon="unCheckout_rate" color="#b91c1c" class="report-box__icon"/>
                                 <template v-if="!manageOrderStatus.uncheckout_rate_raise"/>
                                 <template v-else-if="manageOrderStatus.uncheckout_rate_raise >= 0">
                                     <div class="ml-auto">
@@ -68,7 +69,7 @@
                     <div class="report-box">
                         <div class="p-5 box">
                             <div class="flex">
-                                <CreditCardIcon class="report-box__icon text-pending" />
+                                <ManageOrderIcon icon="sales_rate" color="#006A2B" class="report-box__icon"/>
                                 <template v-if="!manageOrderStatus.campaign_sales_raise"/>
                                 <template v-else-if="manageOrderStatus.campaign_sales_raise >= 0">                                
                                     <div class="ml-auto">
@@ -100,7 +101,7 @@
                     <div class="report-box">
                         <div class="p-5 box">
                             <div class="flex">
-                                <UserIcon class="report-box__icon text-success" />
+                                <ManageOrderIcon icon="comments_rate" color="#A96400" class="report-box__icon"/>
                                 <template v-if="!manageOrderStatus.comment_count_raise"/>
                                 <template v-else-if="manageOrderStatus.comment_count_raise >= 0">
                                     <div class="ml-auto">
