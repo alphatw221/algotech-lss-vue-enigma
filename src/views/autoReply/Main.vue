@@ -1,4 +1,5 @@
 <template>
+<div>
     <div class="flex flex-col sm:px-5 sm:h-fit">
         <div class="flex-col flex gap-3 flex-wrap sm:flex-row justify-center sm:justify-between">
             <div class="flex items-center mx-auto sm:mx-20 lg:pt-5 mt-3 lg:pb-4 intro-y lg:pt-5 mt-3">
@@ -71,7 +72,9 @@
                     <HelpCircleIcon class="w-5 tippy-icon tippy-mobile" />
                 </Tippy> 
             </div>
-            <div class="flex flex-wrap items-center justify-around col-span-12">
+
+            <!-- old version -->
+            <!-- <div class="flex flex-wrap items-center justify-around col-span-12">
                 <template v-for="(data, key) in PagesData" :key="key">
                     <div class="relative w-20 h-20 image-fit">
                         <input name="fb_page" type="radio" class="absolute top-0 left-0 z-50 rounded-lg vertical-center" :value="data" v-model="validate.chosenPage.$model" />
@@ -87,8 +90,27 @@
                 <label class="text-danger ml-2 text-[13px] col-span-12" >
                    {{ $t('auto_reply.modal_select_page') }} 
                 </label>
+            </template> -->
+
+            <div class="flex flex-wrap items-center justify-around col-span-12">
+                <template v-for="(data, key) in PagesData" :key="key">
+                    <div class="relative w-20 h-20 image-fit">
+                        <input name="fb_page" type="checkbox" class="absolute top-0 left-0 z-50 rounded-lg vertical-center" :value="data" @click="addAssignPage($event, data)"/>
+                        <img class="rounded-full" :src="data.image" />
+                        <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
+                            <img v-if="data.page_id" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
+                            <img v-else class="rounded-full bg-[#d63376]" :src="instagram_platform" >
+                        </div>
+                    </div>
+                </template>
+            </div>
+            <template v-if="validate.chosenPage.$error">
+                <label class="text-danger ml-2 text-[13px] col-span-12" >
+                   {{ $t('auto_reply.modal_select_page') }} 
+                </label>
             </template>
             
+
         </ModalBody>
         <ModalFooter>
             <button type="button" @click="createModal=false"
@@ -98,6 +120,7 @@
             <button type="button" @click="createAutoReply()" class="w-32 ml-5 shadow-md btn btn-primary">{{ $t('auto_reply.modal_save') }}</button>
         </ModalFooter>
     </Modal>
+</div>
 </template>
 
 <script setup>
@@ -136,6 +159,7 @@ const validate = useVuelidate(rules, createData);
 
 
 const tableColumns = ref([
+    { name: "check", key: "check"},
     { name: "#", key: 'id' },
     { name: "keyword_detect", key: "input_msg" },
     { name: "set_auto_reply", key: "output_msg" },
@@ -162,11 +186,9 @@ function createAutoReply() {
     if (validate.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.invalid_data'))
         return
-    }else{
+    } else {
         let data = createData.value
-        let plaftfrom = createData.value.chosenPage.page_id? "facebook": "instagram"
-        create_auto_response(plaftfrom, createData.value.chosenPage.id, data).then(
-        response => {
+        create_auto_response(data).then(response => {
             saved.value = true
             createModal.value = false
             emptyForm()
@@ -192,6 +214,11 @@ const emptyForm =()=>{
     createData.value.output_msg = ""
     createData.value.description = ""
     createData.value.chosenPage = []
+}
+
+const addAssignPage = (event, data) => {
+    if (event.target.checked) createData.value.chosenPage.push(data)
+    else createData.value.chosenPage = createData.value.chosenPage.filter(val => { return val.id !== data.id})
 }
 
 // onMounted(() => {

@@ -11,7 +11,9 @@
         "set_auto_reply": "Thiết lập phản hồi tự động",
         "remark": "Nhận xét",
         "assign_to": "Giao cho",
-        "#": "#"
+        "#": "#",
+        "bulk_delete": "Batch Delete",
+        "confirm_delete": "Are you sure to delete all ?"
     },
 
     "manipulate": {
