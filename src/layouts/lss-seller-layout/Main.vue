@@ -54,27 +54,12 @@
         </div>
       </div>
     </Notification>
-    <!-- <Notification refKey="floatingVideoToast" class="flex flex-col">
-        <div class="ml-4 mr-4">
-            <div class="font-medium">Video Streaming...</div>
-            <div class="mt-1 text-slate-500">
-                <video class="w-[450px]" controls>
-                  <source src="movie.mp4" type="video/mp4"> npm can't build with this line
-                  <source src="" type="video/mp4">
-                  Your browser does not support the video tag.
-                </video>
-            </div>
-            <span id="message"> Message</span>
-        </div>
-    </Notification> -->
-<!-- END: Notification Content  -->
-<!-- BEGIN: Notification Toggle -->
       <LSSSellerMenu /> 
 <!-- <button class="text-lg w-30 h-14" @click="toast">Test campaign schedule</button> -->
   <ChevronUpIcon class="h-10 w-10 fixed text-white bottom-2 bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50 md:hidden" @click="toTop()"/>
 
 
-  <CommentCaptureWindow v-if="showCaptureWindow"/>
+  <CommentCaptureWindow />
   </div>
 </template>
 
@@ -111,10 +96,9 @@ const checkCampaignTime = (message) =>{
 const forPath = () =>{
   router.push({ name: 'campaign-list', query: { type: 'startCampaign', campaign: campaign_id.value }})
 }
-const toast = () =>{
-  // store.floatingVideo.videoToast("Faceebook video streaming!!")
-  store.campaignAlert.buttonToast("I have a upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
-}
+// const toast = () =>{
+//   store.campaignAlert.buttonToast("I have a upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
+// }
 
 const initWebSocketConnection =()=> {
   const websocket = new WebSocket(
@@ -143,11 +127,15 @@ const initWebSocketConnection =()=> {
   };
 }
 
-
+const checkPlugin =()=>{
+  if(store.userInfo.user_subscription.user_plan?.plugins?.['easy_store']){store.plugins = true}
+  else if(store.userInfo.user_subscription.user_plan?.plugins?.['ordr_startr']){store.plugins = true}
+  else if(store.userInfo.user_subscription.user_plan?.plugins?.['shopify']){store.plugins = true}
+  else store.plugins = false
+}
 
 const setLanguage = ()=>{
   if(store.userInfo.user_subscription){
-    console.log('setlang')
     app_i18n.locale=store.userInfo.lang
     // i18n.global.locale = store.userInfo.user_subscription.lang
 
@@ -161,11 +149,9 @@ watch(
 )
   
 onMounted(() => {
-  if (route.query.status == "history") {
-    showCaptureWindow.value = false
-  }
   setLanguage();
   initWebSocketConnection();
+  checkPlugin();
 })
 
 const toTop=()=>{

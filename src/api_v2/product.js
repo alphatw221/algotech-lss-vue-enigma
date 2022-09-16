@@ -1,4 +1,4 @@
-import { createAxiosWithBearer } from '@/libs/axiosClient'
+import { createAxiosWithBearer, axiosInstance } from '@/libs/axiosClient'
 
 export const retrieve_product = (id) => {
     return createAxiosWithBearer().get(`/api/v2/product/${id}/retrieve/`)
@@ -42,4 +42,12 @@ export const update_product_category = (name, data) => {
 
 export const delete_product_category = (name) => {
     return createAxiosWithBearer().delete(`/api/v2/product/category/delete/${name}/`)
+}
+
+export const wish_list_add = (id,email) => {
+    return createAxiosWithBearer().get(`/api/v2/product/${id}/wish_list/add/?email=${email}`)
+}
+
+export const wish_list_send_email = (id) => {
+    return createAxiosWithBearer().get(`/api/v2/product/${id}/wish_list/send/email`)
 }

@@ -56,7 +56,8 @@
                 "invalid_user": "Người dùng không hợp lệ",
                 "request_data_error": "Yêu cầu dữ liệu lỗi",
                 "invalid_discount_code":"Invalid Discount Code",
-                "discount_code is required":"Discount Code is Required"
+                "discount_code is required":"Discount Code is Required",
+                "not_eligible":"Bạn không đủ điều kiện để dùng ưu đãi này"
                 
             },
             "order-product":{

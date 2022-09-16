@@ -101,6 +101,12 @@
             "or":"hoặc"
         }
     },
+    "wishlist_modal":{
+        "title":"Notify me if the product becomes available again",
+        "message_1":"With your consent, LSS will use your contact information (E-mail address) to alert you of the product availability.",
+        "message_2":"For more information about our privacy practices and your rights, please consult our ",
+        "policy":"Privacy Policy."
+    },
     "delete_success":"Xóa thành công",
     "invalid_qty":"Số lượng không hợp lệ",
     "update_successfully":"Cập nhật thành công",
@@ -110,5 +116,6 @@
     "invalid_user_info":"Thông tin người dùng được nhập không hợp lệ",
     "invalid_delivery_info":"Thông tin vận chuyển được nhập không hợp lệ",
     "checkout_message":"Bạn có chắc chắn muốn chuyển đến thanh toán không? Giỏ hàng của bạn sẽ bị xóa.",
-    "checkout_again":"Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại" 
+    "checkout_again":"Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại",
+    "wishlist_success":"WishList Sign Up Successfully" 
 }

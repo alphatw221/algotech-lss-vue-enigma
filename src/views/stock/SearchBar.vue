@@ -15,6 +15,7 @@
                     </select>
                 </div>
                 <button
+                    v-if="!store.plugins"
                     type="button" 
                     class="btn btn-primary shadow-md w-32 h-[35px] sm:h-[42px] ml-3" 
                     @click="this.$router.push({name:'category-management'})">
@@ -44,6 +45,7 @@
 </template>
 
 <script>
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 export default {
 	setup() {
@@ -61,7 +63,8 @@ export default {
 			keyword: '',
             searchField: 'name',
             selectedCategory:'',
-            isBulkEditShow: false
+            isBulkEditShow: false,
+            store: useLSSSellerLayoutStore(),
 		}
 	},
     mounted() {

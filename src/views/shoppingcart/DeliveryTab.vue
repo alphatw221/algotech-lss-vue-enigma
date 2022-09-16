@@ -289,7 +289,6 @@ import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
@@ -421,9 +420,6 @@ const proceed_to_payment = () =>{
 
 
   // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
-
-  
-  
 
   const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
   update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})

@@ -32,7 +32,8 @@
         "description": "Mô tả",
         "qty": "Số lượng",
         "price": "Giá bán",
-        "confirm_delete": "Bạn có chắc chắn xóa sản phẩm này không ?"
+        "confirm_delete": "Bạn có chắc chắn xóa sản phẩm này không ?",
+        "wishlist":"WishList"
     },
 
     "category_manage": {
@@ -75,6 +76,11 @@
         "create_message":"Tạo thành công",
         "update_message":"Cập nhật thành công",
         "invalid_data":"Bản nộp không hợp lệ"
+    },
+    "wishlist":{
+        "confirm_send":"Confirm to notify and E-mail everyone on the wishlist",
+        "cancel_send":"Canceled",
+        "success_send":"E-mail Send Successfully."
     }
     
 }

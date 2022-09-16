@@ -33,11 +33,12 @@
         "description": "說明",
         "qty": "庫存數量",
         "price": "價格",
-        "confirm_delete": "確定要刪除該商品？"
+        "confirm_delete": "確定要刪除該商品？",
+        "wishlist":"願望清單"
     },
 
     "category_manage": {
-        "create_new_category": "建立新類別",
+        "create_new_category": "建立新分類",
         "edit_title": "編輯類別",
         "edit": "編輯",
         "delete": "刪除",
@@ -78,6 +79,11 @@
         "create_message":"新增成功",
         "update_message":"儲存成功",
         "invalid_data":"輸入資料無效"
+    },
+    "wishlist":{
+        "confirm_send":"確認通過電子郵件發送通知給願望清單上的每個人",
+        "cancel_send":"取消",
+        "success_send":"電子郵件已發送成功"
     }
     
 }

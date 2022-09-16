@@ -25,11 +25,10 @@
 					<template class="block sm:hidden"> <PlusIcon class="w-8 h-8" /> </template>
 				</button>
 			</div>
-			
 		</div>
 		<!-- BEGIN For Sale Tab -->
 		<div class="flex flex-col gap-3 leading-relaxed"
-			:class="{ hidden: openTab !== 1, block: openTab === 1 }"> 
+			v-if="openTab == 1 " > 
 			<SearchBar
 				:searchColumns="searchColumns"
 				:productCategories="productCategories"
@@ -50,9 +49,8 @@
 
 		<!-- BEGIN Delisted Tab -->
 		<div class="flex flex-col gap-3 leading-relaxed sm:gap-5"
-			:class="{ hidden: openTab !== 2, block: openTab === 2 }"> 
+			v-if="openTab == 2"> 
 			<SearchBar
-			v-if="!store.userInfo.user_subscription.user_plan?.plugins"
 				:searchColumns="searchColumns"
 				:productCategories="productCategories"
 				:eventBusName="'searchDelistedTable'"
@@ -107,6 +105,7 @@ const tableColumns = ref([
 	{ name: "description", key: "description" },
 	{ name: "qty", key: "qty" },
 	{ name: "price", key: "price" },
+	// { name: "",}
 	{ name: "", key: "edit" },
 ])
 
@@ -118,7 +117,6 @@ const toggleTabs = (tabNumber) =>{
 }
 
 onMounted(() => {
-	console.log(store.userInfo.user_subscription.user_plan.plugins)
 	list_product_category().then(
 		response => { 
 			response.data.forEach(category => {

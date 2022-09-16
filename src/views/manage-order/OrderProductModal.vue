@@ -80,8 +80,10 @@
                                 {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </div>
                         </div>
-                        <div class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">{{$t('manage_order.product_modal.discount')}}</div>
+                        <div
+                            v-if="store.orderProductData.discount" 
+                            class="flex col-start-1 col-span-3 p-2">
+                            <div class="mr-auto font-bold">{{$t('manage_order.product_modal.discount')}} <span class="text-danger"> ({{store.orderProductData.applied_discount.code}}) </span></div>
                             <div class="lg:mr-0" v-if="store.orderProductData.campaign">
                                 {{store.orderProductData.campaign.currency}} 
                                 {{ Math.floor((parseFloat(store.orderProductData.adjust_price) - parseFloat(store.orderProductData.discount)) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places}}

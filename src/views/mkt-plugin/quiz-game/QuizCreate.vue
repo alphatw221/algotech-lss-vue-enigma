@@ -24,6 +24,7 @@
                 <div class="lg:w-[65%]">
                     <input  
                         class="form-control w-full text-base"
+                        :class="{'border-red-600': emptyQA}"
                         type="text" 
                         :placeholder="$t('quiz_game.quiz_create.question') "
                         v-model="question.question"
@@ -33,6 +34,7 @@
                 <div class="lg:w-[20%]">
                     <input  
                         class="form-control w-full text-base"
+                        :class="{'border-red-600': emptyQA}"
                         type="text" 
                         :placeholder="$t('quiz_game.quiz_create.answer')"
                         v-model="question.answer"
@@ -174,6 +176,7 @@ const quizgameRules = computed(() => {
 const v = useVuelidate(quizgameRules, quizgameSettings);
 const pageType = ref('create')
 const quizgameBundleId = ref(0)
+const emptyQA = ref(false)
 
 
 onMounted(() => {
@@ -217,16 +220,25 @@ const upsertQuizGame = () => {
         layoutStore.alert.showMessageToast(i18n.global.t('quiz_game.invalid_data'))
         return
     } 
+    quizgameSettings.value.quiz_games.forEach(val => {
+        if ([undefined, null, ''].includes(val.question) || [undefined, null, ''].includes(val.answer)) {
+            emptyQA.value = true
+            alert('Question and Answer are required')
+            return
+        }
+    })
 
     if (pageType.value === 'create') {
         create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.create_succeed'))
+            emptyQA.value = false
             eventBus.emit('listQuiz')
             quizgameSettings.value = quizgameEmptySettings.value
         })
     } else if (pageType.value === 'edit') {
         update_campaign_quiz_game(quizgameBundleId.value, quizgameSettings.value).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.update_succeed'))
+            emptyQA.value = false
             eventBus.emit('changePage')
             eventBus.emit('listQuiz')
             pageType.value = 'create'
