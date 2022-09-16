@@ -36,10 +36,16 @@
         &.modal-xl {
           width: 600px;
         }
+        &.modal-2xl {
+          width: 600px;
+        }
       }
       @screen lg {
         &.modal-xl {
           width: 900px;
+        },
+        &.modal-2xl {
+          width: 1100px;
         }
       }
       .modal-content {

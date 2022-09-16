@@ -1,12 +1,12 @@
 <template>
-    <div class="m-3 sm:m-5">
+    <div class="m-3 md:m-5">
         <div class="flex flex-col md:flex-row justify-between mb-10">
-            <div class="flex justify-start font-medium">
+            <div class="flex flex-wrap justify-start font-medium">
                 <label class="form-label mr-10"> {{ $t('quiz_game.quiz_list.campaign_title') }} : </label>
                 <h2 class="w-42"> {{ props.campaignTitle }} </h2>
             </div>
             <div class="flex md:justify-end manage_btn">
-                <button class="btn btn-primary h-[35px] sm:h-[42px] my-auto lg:mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
+                <button class="btn btn-primary h-[35px] md:h-[42px] my-auto lg:mr-6 w-40" @click="toManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
             </div>
         </div>
 
@@ -17,28 +17,28 @@
         >
             <div class="flex flex-row flex-wrap m-[0.7rem] p-5">
                 
-                <div class="flex flex-col gap-4 md:w-[55%] qa_block">
-                    <table class="table -mt-3 table-report responsive-table">
+                <div class="flex-1 flex flex-col gap-4 md:w-full md:mx-2 qa_block">
+                    <table class="table -mt-3 table-report responsive-table w-32">
                         <thead>
                             <tr>
                                 <template v-for="(data, index) in tableColumns" :key="index">
-                                    <th v-if="data.name" class="whitespace-normal text-center text-slate-500 text-[18px]">
+                                    <th v-if="data.name" class="whitespace-nowrap text-center text-slate-500 text-[18px]">
                                         {{ $t(`quiz_game.quiz_list.${data.key}`) }}
                                     </th>
-                                    <th v-else class="whitespace-normal text-center text-[16px]">
+                                    <th v-else class="whitespace-nowrap text-center text-[16px]">
                                     </th>
                                 </template>
                             </tr>
                         </thead>
                         <tbody>
                             <template v-for="(quizgame, index) in quizgameBundle.quiz_games" :key="index">
-                                <tr>
+                                <tr >
                                     <template v-for="(data, index) in tableColumns" :key="index">
-                                        <td v-if="data.name" class="whitespace-normal text-center text-[16px]">
+                                        <td v-if="data.name" class="whitespace-norwrap text-center text-[16px]">
                                             <p class="title hidden">{{ $t(`quiz_game.quiz_list.${data.key}`) }}</p>
                                             <p>{{ quizgame[data.key] }}</p>
                                         </td>
-                                        <td v-else class="whitespace-normal text-center text-[16px]">
+                                        <td v-else class="whitespace-nowrap text-center text-[16px]">
                                             <button 
                                                 class="btn btn-primary md:w-24 h-[35px] lil_btn" 
                                                 v-if="emptyArr.includes(quizgame.start_at)"
@@ -64,12 +64,12 @@
 
                 <hr class="solid">
 
-                <div class="flex flex-row md:flex-col md:border-x-2 border-white md:ml-auto md:w-36 lil_block lil_border">
-                    <div class="flex text-slate-500 md:mr-auto md:ml-auto" style="font-weight: 500;"> {{ $t('quiz_game.quiz_list.winners') }} </div>
+                <div class="flex-0 flex flex-row md:flex-col md:border-x-2 border-white md:ml-auto md:w-fit lil_block lil_border">
+                    <div class="flex text-slate-500 md:mx-3" style="font-weight: 500;"> {{ $t('quiz_game.quiz_list.winners') }} </div>
                     <span class="flex md:m-auto ml-auto md:text-[35px]"> {{ quizgameBundle.num_of_winner }} </span>
                 </div>
 
-                <div class="flex flex-row flex-wrap md:w-auto md:mx-auto md:w-[25%] lil_block">
+                <div class="flex-0  flex flex-row flex-wrap md:w-auto md:mx-2 md:w-fit lil_block">
                     <template v-if="Array.isArray(quizgameBundle.winner_list) && quizgameBundle.winner_list.length == 0">
                         <button 
                             class="btn btn-primary md:w-32 md:h-[50px] m-auto" 
@@ -241,7 +241,7 @@ td {
     }
 }
 
-@media (max-width: 400px) {
+@media (max-width: 450px) {
     .responsive-table {
         display: contents;
         width:100%;

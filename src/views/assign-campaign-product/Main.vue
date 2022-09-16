@@ -34,7 +34,7 @@
 						</option>
 					</select>
 				</div> -->
-				<div class="flex-1 items-center input-group mr-auto min-w-[100px] sm:mt-5">
+				<div class="flex-1 items-center input-group mr-auto min-w-[100px] mt-auto">
 					<div class="relative"> 
 						<input type="text"
 							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
