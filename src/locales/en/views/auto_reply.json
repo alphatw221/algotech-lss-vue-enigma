@@ -11,7 +11,9 @@
         "set_auto_reply": "Set Automated Response",
         "remark": "Remark",
         "assign_to": "Assign To",
-        "#": "#"
+        "#": "#",
+        "bulk_delete": "Batch Delete",
+        "confirm_delete": "Are you sure to delete all ?"
     },
 
     "manipulate": {

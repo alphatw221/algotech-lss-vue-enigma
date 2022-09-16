@@ -230,7 +230,7 @@
             <div class="font-medium text-md">
               {{$t('shopping_cart.delivery_tab.note')}}
             </div>
-            <p id="" class="col-span-12 col-start-1 p-5 form-control" placeholder="" v-if="store.order.campaign">
+            <p id="" class="col-span-12 col-start-1 p-5 form-control whitespace-pre-line" placeholder="" v-if="store.order.campaign">
               {{store.order.campaign.meta_logistic.delivery_note}}
             </p>
           </div>
