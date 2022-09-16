@@ -1,9 +1,12 @@
 <template>
-    <Modal :show="showWishlist" @hidden="showWishlist = false">
+    <Modal :show="showWishlist" @hidden="showWishlist = false" backdrop="static"> 
         <ModalBody class="text-center">
             <div
-                class="flex flex-col gap-5"> 
-                <div>{{$t('shopping_cart.wishlist_modal.title')}}</div>
+                class="flex flex-col gap-5 px-2"> 
+                <div class="flex justify-between"> 
+                    <div class="mx-auto">{{$t('shopping_cart.wishlist_modal.title')}}</div>
+                    <XIcon class="w-7 h-7 ml-2" @click="showWishlist = false"/>
+                </div>
                 <div class="relative mx-10"> 
                     <MailIcon class="absolute w-6 h-6 top-2 left-3 z-10 text-slate-400"/>
                     <input type="email" class="h-[42px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
