@@ -563,25 +563,21 @@ thead th{
 
 	td:nth-of-type(4):before {
 		content: attr(data-content);
-		min-height: 0 !important;
-		 
-	}
-	td:nth-of-type(4) {
-		min-height: 0 !important;
 	}
 	td:nth-of-type(5):before {
 		content: attr(data-content);
-		 }
+	}
+	
 	.category:before {
 		content: attr(data-content);
-		 }
+	}
 	td:nth-of-type(6):before {
 		content: attr(data-content);
-		 }
+	}
 	td:nth-of-type(6){
 		white-space: normal !important;
 		width: 100% !important;
-		 }
+	}
 
 	td:nth-of-type(7):before {
 		content: attr(data-content);

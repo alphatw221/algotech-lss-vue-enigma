@@ -100,7 +100,7 @@
 										:data-content="$t(`assign_product.product_table.${column.key}`)"
 										>
 										<div class="place-content-end w-full md:w-24 lg:place-content-center" v-if="product.type=='product'">
-											<input class="form-control w-[100%] text-right " type="text" v-model="product[column.key]"/>
+											<input class="form-control w-[100%] text-right " type="text" v-model="product[column.key]" @input="selectStockProduct(product, $event)" />
 										</div>
 										<div v-else class="text-center dashInput">-</div>
 									</td>
@@ -526,12 +526,16 @@ const updateSelectedProductDict = ()=>{
     }
 
 const selectStockProduct = (stockProduct, event) =>{
-
     if(event.target.checked){
         errorMessages.value.push({})
         selectedProducts.value.push( stockProduct )
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
-        
+    }
+	else if(event.target.value != 'on'){
+		stockProduct.check = true
+		selectedProducts.value.indexOf(stockProduct) === -1 ? selectedProducts.value.push( stockProduct ) : '';
+		errorMessages.value.push({})
+        selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1
     }else{
         const _index = selectedProductDict.value[stockProduct.id.toString()]
         // console.log(_index)
