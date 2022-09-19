@@ -4,7 +4,7 @@ import { createAxiosWithBearer, createAxiosWithBearerWithoutInterceptor } from "
 //     return facebookAxios(pageToken).get(`/${pageID}/live_videos?fields=title,status,embed_html,video`)
 // }
 export const get_fb_page_live_media = (pageID, pageToken) => {
-    return facebookAxios(pageToken).get(`/${pageID}/posts?fields=properties,attachments{title,media_type}`)
+    return facebookAxios(pageToken).get(`/${pageID}/posts?fields=properties,attachments{title,media_type}&limit=3`)
 }
 
 export const check_facebook_page_token_valid = (platform_id) => {
