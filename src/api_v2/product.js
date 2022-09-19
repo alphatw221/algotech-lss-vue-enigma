@@ -45,7 +45,7 @@ export const delete_product_category = (name) => {
 }
 
 export const wish_list_add = (id,email) => {
-    return createAxiosWithBearer().get(`/api/v2/product/${id}/wish_list/add/?email=${email}`)
+    return createAxiosWithBearer().post(`/api/v2/product/${id}/wish_list/add/`,{'email':email})
 }
 
 export const wish_list_send_email = (id) => {
