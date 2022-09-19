@@ -64,7 +64,7 @@
       </div>
 
     </div>
-    
+    <WishListModal :isAnonymousUser="isAnonymousUser"/>
   </div>
 </template>
 
@@ -74,6 +74,7 @@
 
 import MyCartTab from "./MyCartTab.vue";
 import DeliveryTab from "./DeliveryTab.vue";
+import WishListModal from "./WishListModal.vue";
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";

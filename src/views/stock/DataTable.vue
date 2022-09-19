@@ -80,8 +80,8 @@
 				</tr>
 				
 				<tr
-					v-for="(product, index) in stockProducts"
-					:key="index"
+					v-for="(product, pindex) in stockProducts"
+					:key="pindex"
 					class="intro-x"
 					:class="{'trBorder' : numOfProducts != 0}"
 				>	
@@ -139,9 +139,13 @@
 						</td>
 
 						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div v-if="product.meta?.wish_list?.length >0"
-							class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product.id)"> 
-								<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{product.meta?.wish_list?.length}})</span>  </div>
+							<template v-if="product.meta.wish_list" > 
+								<div v-if="Object.keys(product.meta.wish_list).length >0" 
+									class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product,pindex)"> 
+										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
+								<div v-else class="flex gap-2 cursor-not-allowed"> 
+									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
+							</template>
 							<div v-else class="flex gap-2 cursor-not-allowed"> 
 							<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
 						</td>
@@ -159,11 +163,11 @@
 												<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1" />  
 												{{ $t('stock.category_manage.edit')}}
 											</DropdownItem>
-											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product.id)"> 
+											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product)"> 
 												<SimpleIcon icon="copy" color="#2d8cf0" class="mr-1" />  
 												{{ $t('stock.category_manage.duplicate')}}
 											</DropdownItem>
-											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product.id)"> 
+											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product,pindex)"> 
 												<!-- <Trash2Icon class="w-[20px] h-[20px] mx-1"/> -->
 												<SimpleIcon icon="delete" color="#b91c1c" class="mr-1" />  
 												{{ $t('stock.category_manage.delete')}}
@@ -346,6 +350,7 @@ const search = ()=>{
 			}
 			stockProducts.value = response.data.results
 			showCommentLoding.value = false
+			console.log(stockProducts.value)
 		}
 	)
 }
@@ -369,14 +374,24 @@ const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
 }
 
-const deleteProduct = (id) => {
+const deleteProduct = (product,index) => {
 	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
-	if (yes) delete_product(id).then(res => { search() })
+	if (yes) delete_product(product.id).then(res => {stockProducts.value.splice(index,1)})
 	hideDropDown()
 }
 
-const copyProduct = (id) => {
-	copy_product(id).then(res => { search() })
+const copyProduct = (product) => {
+	const copy = Object.assign({}, product)
+	copy_product(product.id).then(res => {
+		console.log(res)
+		copy.id = res.data.message 
+		copy.name = 'copy - ' + product.name
+		console.log('c',copy)
+		console.log('b',product)
+		stockProducts.value.unshift(copy)
+		console.log(stockProducts.value)
+		}
+	)
 	hideDropDown()
 }
 
@@ -427,13 +442,13 @@ const bulkUpdateStock = () => {
 	})
 }
 
-const sentWishlistMail = (product) =>{
+const sentWishlistMail = (product, index) =>{
 	let yes = confirm(`${i18n.global.t('stock.wishlist.confirm_send')}`)
 	if (yes) {
-		wish_list_send_email(product).then(
+		wish_list_send_email(product.id).then(
 		res=>{
 			layoutStore.notification.showMessageToast(`${i18n.global.t('stock.wishlist.success_send')}`)
-			search()
+			stockProducts.value[index].meta.wish_list = []
 		})
 	}
 	else layoutStore.alert.showMessageToast(`${i18n.global.t('stock.wishlist.cancel_send')}`)

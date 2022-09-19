@@ -12,11 +12,11 @@
                     <input type="email" class="h-[42px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
                         :placeholder="$t('login.email')" 
                         v-model="email" 
-                        @keydown.enter.prevent="add_to_wishlist(productID)" />
+                        @keydown.enter.prevent="add_to_wishlist()" />
                 </div>
                 <button 
                     class="btn btn-sm bg-green-700 w-24 ml-auto text-white"
-                    @click="add_to_wishlist(productID)"
+                    @click="add_to_wishlist()"
                 >
                 {{$t('shopping_cart.add_item.wishlist')}}
                 </button>
@@ -49,9 +49,7 @@ onMounted(()=>{
     }
     eventBus.on('showWishlistModal',product=>{
         showWishlist.value = true
-        productID.value = product
-        // console.log(productID.value)
-
+        productID.value = product.product
     })
 })
 onUnmounted(()=>{
