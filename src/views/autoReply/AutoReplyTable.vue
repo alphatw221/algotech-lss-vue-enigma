@@ -1,21 +1,20 @@
 <template>
-	<div class="overflow-auto h-full sm:h-fit">
-		<div class="flex mb-5"> 
-			<div class="relative"> 
-				<input type="text" class=" mr-2 form-control w-40 lg:w-60 rounded-lg"
-				:placeholder="$t('stock.search_bar.search_holder')" v-model="searchKeyword" @keydown.enter.prevent="getReplyData" />
-				<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="getReplyData()"/>
-			</div>
-			<button
-				v-show="isBulkDeleteShow"
-				type="button" 
-				class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-4" 
-				@click="batchDelete"
-			>
-				{{ $t('auto_reply.table_column.bulk_delete') }}
-			</button>
+	<div class="flex"> 
+		<div class="relative"> 
+			<input type="text" class=" mr-2 form-control w-40 lg:w-60 rounded-lg"
+			:placeholder="$t('stock.search_bar.search_holder')" v-model="searchKeyword" @keydown.enter.prevent="getReplyData" />
+			<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="getReplyData()"/>
 		</div>
-	
+		<button
+			v-show="isBulkDeleteShow"
+			type="button" 
+			class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-4" 
+			@click="batchDelete"
+		>
+			{{ $t('auto_reply.table_column.bulk_delete') }}
+		</button>
+	</div>
+	<div class="overflow-auto h-full sm:h-fit">
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>

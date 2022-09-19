@@ -138,7 +138,7 @@
 								{{layoutStore.userInfo.user_subscription.price_unit?$t(`global.price_unit.${layoutStore.userInfo.user_subscription.price_unit}`):''}}</div> 
 						</td>
 
-						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div v-if="product.meta?.wish_list?.length >0"
 							class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product.id)"> 
 								<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{product.meta?.wish_list?.length}})</span>  </div>
@@ -559,39 +559,44 @@ thead th{
 
 	td:nth-of-type(3):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
-	}
+		 }
 
 	td:nth-of-type(4):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
+		min-height: 0 !important;
+		 
+	}
+	td:nth-of-type(4) {
+		min-height: 0 !important;
 	}
 	td:nth-of-type(5):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
-	}
+		 }
 	.category:before {
 		content: attr(data-content);
-		/* color: #0e9893; */
-	}
+		 }
 	td:nth-of-type(6):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
-	}
+		 }
 	td:nth-of-type(6){
 		white-space: normal !important;
 		width: 100% !important;
-		/* color: #0e9893; */
-	}
+		 }
 
 	td:nth-of-type(7):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
+		 
 	}
+	.wishlist{
+		display:inline-flex;
+		justify-content: flex-end;
+		width: 100% !important;
+	}
+
 	td:nth-of-type(8):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
-	}
+		 }
+
 	.edit{
 		position: absolute !important;
         top:0;
