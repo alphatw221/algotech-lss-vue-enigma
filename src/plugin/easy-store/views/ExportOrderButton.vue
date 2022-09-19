@@ -12,7 +12,6 @@
             :class="{ 'cursor-not-allowed':processing }"
             >
             <template class="block">Sync EasyStore Order</template>
-
         </button>
     </div>
     
