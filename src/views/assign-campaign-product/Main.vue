@@ -527,18 +527,23 @@ const updateSelectedProductDict = ()=>{
 
 const selectStockProduct = (stockProduct, event) =>{
     if(event.target.checked){
+		stockProduct.customer_editable=true
+		stockProduct.customer_removable=true
         errorMessages.value.push({})
         selectedProducts.value.push( stockProduct )
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
     }
 	else if(event.target.value != 'on'){
 		stockProduct.check = true
+		stockProduct.customer_editable=true
+		stockProduct.customer_removable=true
 		selectedProducts.value.indexOf(stockProduct) === -1 ? selectedProducts.value.push( stockProduct ) : '';
 		errorMessages.value.push({})
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1
     }else{
         const _index = selectedProductDict.value[stockProduct.id.toString()]
-        // console.log(_index)
+        stockProduct.customer_editable=false
+		stockProduct.customer_removable=false
         selectedProducts.value.splice(_index,1)
         errorMessages.value.splice(_index,1)
         updateSelectedProductDict()
@@ -570,6 +575,8 @@ const selectAllStockProduct = (event)=>{
 		stockProducts.value.forEach(product => {
 			if(!(product.id.toString() in selectedProductDict.value)) {
 				product.check=true
+				product.customer_editable=true
+				product.customer_removable=true
 				selectedProducts.value.push(product)
 				selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
 				errorMessages.value.push({})
@@ -579,6 +586,8 @@ const selectAllStockProduct = (event)=>{
 		stockProducts.value.forEach(product => {
 			if((product.id.toString() in selectedProductDict.value)) {
 				product.check=false
+				product.customer_editable=false
+				product.customer_removable=false
 				const _index = selectedProductDict.value[product.id.toString()]
 				// console.log(_index)
 				selectedProducts.value.splice(_index,1)
