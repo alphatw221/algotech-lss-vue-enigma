@@ -16,108 +16,78 @@
 			</ModalHeader>
 
 			<div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5" >
-				<div 
-					class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 " 
-					v-for="(product, index) in addOnProducts" :key="index"
-				>
-					<div class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
+				<template v-for="(product, index) in addOnProducts" :key="index"> 
+					<div 
+						class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 " 
+						v-if="product.product != null" 
+					>
+						<div
+							class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
 
-						<a class="w-4/5 file__icon file__icon--image">
-							<div class="file__icon--image__preview image-fit" v-if="product.image">
-								<img :src="product.image"
-								/>
+							<a class="w-4/5 file__icon file__icon--image">
+								<div class="file__icon--image__preview image-fit" v-if="product.image">
+									<img :src="product.image"
+									/>
+								</div>
+								<div class="file__icon--image__preview image-fit" v-else>
+									<img :src="staticDir + `no_image.jpeg`"
+									/>
+								</div>
+							</a>
+							<div class="block font-medium text-center whitespace-normal break-normal w-full truncate">	
+								{{ product.name }}
 							</div>
-							<div class="file__icon--image__preview image-fit" v-else>
-								<img :src="staticDir + `no_image.jpeg`"
-								/>
+							<div class="text-slate-500 text-sm text-center">
+								{{store.order.campaign.currency}} 
+								{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+								{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 							</div>
-						</a>
-						<div class="block font-medium text-center whitespace-normal break-normal w-full truncate">	
-							{{ product.name }}
-						</div>
-						<div class="text-slate-500 text-sm text-center">
-							{{store.order.campaign.currency}} 
-							{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
-							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
-						</div>
-						<div v-if="product.qty_for_sale> 0" class="flex"> 
-							<!-- Wait for api-->
-							<button type="button" @click="changeQuantity(null, index, 'minus')">
-								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
-							</button>
-							<input 
-								type="text"
-								class="form-control" 
-								placeholder="Input inline 1" 
-								aria-label="default input"
-								:value="product.qty"
-								@change="changeQuantity($event, index, 'input')"
-								style="width: 2.7rem; height: 2rem; margin-top: 5px;"
-							/>
-							<button type="button" @click="changeQuantity(null, index, 'add')">
-								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
-							</button>
-						</div>
-						<div v-if="product.qty_for_sale> 0">
-							<button 
-								class="btn btn-sm btn-primary w-24 mt-3"
-								@click="buyer_add_item(product.id, index)"
-							>
-								{{$t('shopping_cart.add_item.add')}}
-							</button>
-						</div>
-						<!-- v-if="product.qty_for_sale - product.qty_sold > 0 -->
-						<div v-else> 
-							<button 
-								class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
-								@click="add_to_wishlist(product.product)"
-							>
-								wishlist
-							</button>
+							<div v-if="product.qty_for_sale - product.qty_sold > 0" class="flex"> 
+								<!-- Wait for api-->
+								<button type="button" @click="changeQuantity(null, index, 'minus')">
+									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
+								</button>
+								<input 
+									type="text"
+									class="form-control" 
+									placeholder="Input inline 1" 
+									aria-label="default input"
+									:value="product.qty"
+									@change="changeQuantity($event, index, 'input')"
+									style="width: 2.7rem; height: 2rem; margin-top: 5px;"
+								/>
+								<button type="button" @click="changeQuantity(null, index, 'add')">
+									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
+								</button>
+							</div>
+							<div v-if="product.qty_for_sale - product.qty_sold> 0">
+								<button 
+									class="btn btn-sm btn-primary w-24 mt-3"
+									@click="buyer_add_item(product.id, index)"
+								>
+									{{$t('shopping_cart.add_item.add')}}
+								</button>
+							</div>
+							<div v-else> 
+								<button 
+									class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
+									@click="add_to_wishlist(product.product)"
+								>
+									{{$t('shopping_cart.add_item.wishlist')}}
+								</button>
+							</div>
 						</div>
 					</div>
-				</div>
+				</template>
 			</div>
 			<div class="invisible h-20"> ... </div>
-			<Modal :show="wishlistModal" @hidden="wishlistModal = false">
-				<ModalBody class="text-center">
-					<div class="flex flex-col gap-5"> 
-						<div>Enter Your Email or Sign up to continue </div>
-						<div class="relative mx-10"> 
-							<MailIcon class="absolute w-6 h-6 top-1.5 left-3 z-10 text-slate-400"/>
-							<input type="email" class="h-[35px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
-								:placeholder="$t('login.email')" 
-								v-model="email" 
-								@keydown.enter.prevent="add_to_wishlist(wishlistStockID)" />
-						</div>
-						<button 
-							class="btn btn-sm bg-green-700 w-24 ml-auto text-white"
-							@click="add_to_wishlist(wishlistStockID)"
-						>
-						{{$t('shopping_cart.add_item.wishlist')}}
-						</button>
-						<div class="w-full flex justify-center border-t border-slate-200/60 dark:border-darkmode-400">
-							<div class="bg-white dark:bg-darkmode-600 px-5 -mt-3 text-slate-500">
-								or
-							</div>
-						</div>
-						<div> 
-							<button 
-								class="btn bg-green-700 w-3/4 ml-auto text-white"
-								@click="layoutStore.showLoginModal=true"
-							>
-							Login Now
-							</button>
-						</div>
-					</div>
-				</ModalBody>
-			</Modal>
+			<WishListModal :isAnonymousUser="isAnonymousUser"/>
 		</ModalBody>
 	</Modal>
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch } from "vue";
+import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 // import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
@@ -125,16 +95,14 @@ import { buyer_cart_add, guest_cart_add } from "@/api_v2/pre_order";
 import { useRoute } from "vue-router";
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
+import WishListModal from "./WishListModal.vue";
 
 const { cookies } = useCookies()
 const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const store = useShoppingCartStore(); 	
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const staticDir =  import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR;
-
-const wishlistModal = ref(false)
-const email = ref('')
-const wishlistStockID = ref()
 
 const addOnProducts = ref([])
 const addOnTitle = ref('select_add_ons')
@@ -146,6 +114,7 @@ onMounted(()=> {
 		store.showAddItemModal = true
 		addOnTitle.value = 'select_products'
 	}
+	console.log('xx',store.order)
 })
 
 watch(computed(()=>store.campaignProducts),()=>{
@@ -198,8 +167,5 @@ const buyer_add_item = (campaing_product_id, index) => {
 	)
 }
 
-const add_to_wishlist = (campaing_product_id, index) =>{
-	if(isAnonymousUser){wishlistModal.value = true}
-	else{console.log('API CALLED')}
-}
+const add_to_wishlist = (product)=>{eventBus.emit('showWishlistModal',product)}
 </script>

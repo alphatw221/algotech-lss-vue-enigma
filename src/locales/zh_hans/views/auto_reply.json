@@ -11,7 +11,9 @@
         "set_auto_reply": "自动答复內容",
         "remark": "备注",
         "assign_to": "社群帐号",
-        "#": "#"
+        "#": "#",
+        "bulk_delete": "批量删除",
+        "confirm_delete": "您确定要删除 ?"
     },
 
     "manipulate": {

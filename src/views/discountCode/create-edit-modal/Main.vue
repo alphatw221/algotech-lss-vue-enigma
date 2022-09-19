@@ -248,6 +248,7 @@ const checkIfDuplicateExists=(arr)=> {
     return new Set(arr).size !== arr.length
 }
 
+
 const deleteLimitation = index=>{discountCode.value.limitations.splice(index,1)}
 
 const showLimitButton = ref(true)

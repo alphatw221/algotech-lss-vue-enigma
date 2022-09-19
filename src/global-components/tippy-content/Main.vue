@@ -44,6 +44,7 @@ const init = () => {
     animation: "shift-away",
     theme: "light",
     trigger: "click",
+    zIndex: 99999999,
     ...props.options,
   });
 };

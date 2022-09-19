@@ -1,11 +1,32 @@
 <template>
+	<div class="flex"> 
+		<div class="relative"> 
+			<input type="text" class=" mr-2 form-control w-40 lg:w-60 rounded-lg"
+			:placeholder="$t('stock.search_bar.search_holder')" v-model="searchKeyword" @keydown.enter.prevent="getReplyData" />
+			<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="getReplyData()"/>
+		</div>
+		<button
+			v-show="isBulkDeleteShow"
+			type="button" 
+			class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-4" 
+			@click="batchDelete"
+		>
+			{{ $t('auto_reply.table_column.bulk_delete') }}
+		</button>
+	</div>
 	<div class="overflow-auto h-full sm:h-fit">
-	
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
 					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap text-center">
-						<template v-if="column.name === '#'">
+						<template v-if="column.name === 'check'">
+							<input 
+								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
+								type="checkbox" 
+								@change="selectAllReply($event)"
+							/>
+						</template>
+						<template v-else-if="column.name === '#'">
 							<span class="px-6"> {{ $t(`auto_reply.table_column.${column.name}`) }} </span> 
 						</template>
 						<template v-else-if="column.name === ''">
@@ -48,7 +69,15 @@
 				</tr>
 				<tr v-for="(reply, index) in listItems" :key="index" class="intro-x">
 					<template v-for="(column, cindex) in columns" :key="cindex">
-						<td v-if="column.key === 'page'"
+						<td class="w-10" v-if="column.key == 'check'">
+							<input 
+								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
+								type="checkbox" 
+								v-model="reply.check"
+								@click="selectReply(reply, $event)"
+							/>
+						</td>
+						<td v-else-if="column.key === 'page'"
 							class="w-32 imgtd">
 							<span class="mt-4 title sm:hidden">{{ $t(`auto_reply.table_column.${column.name}`) }}</span>
 							<div class="w-12 h-12 mb-5 ml-auto -mt-8 sm:m-auto image-fit zoom-in">
@@ -134,11 +163,11 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
+import { ref, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
 import { createAxiosWithBearer } from "@/libs/axiosClient";
-import { delete_auto_response, update_auto_response,list_auto_response } from "@/api_v2/auto_response"
+import { delete_auto_response, update_auto_response, list_auto_response, batch_delete_auto_response } from "@/api_v2/auto_response";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
-import i18n from "@/locales/i18n"
+import i18n from "@/locales/i18n";
 import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const props = defineProps({
@@ -157,6 +186,7 @@ const updateModal = ref(false);
 const saved = ref(false);
 const listItems = ref([]);
 const showCommentLoding = ref(true)
+const searchKeyword = ref('')
 
 const currentInfo = ref({
 	id: "",
@@ -166,6 +196,13 @@ const currentInfo = ref({
 	description: "",
 	facebook_page: {},
 });
+const bulkDeleteIdList = ref([])
+const isBulkDeleteShow = ref(false)
+
+watch(computed(() => bulkDeleteIdList.value), () => {
+	if (bulkDeleteIdList.value.length > 0) isBulkDeleteShow.value = true
+	else isBulkDeleteShow.value = false
+}, { deep:true })
 
 onMounted(() => {
 	showCommentLoding.value = true
@@ -201,7 +238,7 @@ function updateInfo(id, replyId, input, output, description, facebook_page) {
 function getReplyData() {
 	listItems.value =[]
 	showCommentLoding.value = true
-	list_auto_response(pageSize.value, currentPage.value)
+	list_auto_response(pageSize.value, currentPage.value, searchKeyword.value)
 	.then((response) => {
 		totalCount.value = response.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
@@ -252,6 +289,36 @@ function deleteAutoReply(id) {
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
 }
+
+const selectAllReply = (event) => {
+	if (event.target.checked) {
+		listItems.value.forEach(reply => { 
+			reply.check = true 
+			bulkDeleteIdList.value.push(reply.id)
+		})
+	} else {
+		listItems.value.forEach(reply => { 
+			reply.check = false 
+			bulkDeleteIdList.value = []
+		})		
+	}
+}
+
+const selectReply = (reply, event) => {
+	if (event.target.checked) bulkDeleteIdList.value.push(reply.id)  
+	else bulkDeleteIdList.value = bulkDeleteIdList.value.filter((v) => v != reply.id)
+}
+
+const batchDelete = () => {
+	var yes = confirm(i18n.global.t('auto_reply.table_column.confirm_delete'));
+	if (yes) {
+		batch_delete_auto_response(bulkDeleteIdList.value).then(res => {
+			bulkDeleteIdList.value = []
+			getReplyData()
+		})
+	}
+}
+
 </script>
 
 <style scoped>

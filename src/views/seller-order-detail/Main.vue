@@ -6,7 +6,7 @@
                 <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base">
                 {{$t(`manage_order.${store.orderDetail.status}`) }}</span> </h2>
         </div>
-        <div class="my-auto">
+        <div v-if="store.orderDetail.customer_name" class="my-auto">
             <span class="text-base mr-5"> {{ store.orderDetail.customer_name }} {{store.orderDetail.platform ? `/ `+ $t('order_detail.'+ store.orderDetail.platform) : ''}}</span>
         </div>
         <div class="my-auto">
@@ -44,21 +44,25 @@
     </div>
 
     <!-- Second -->
-    <div class="flex flex-col sm:flex-row gap-3 h-fit mt-3 z-10"> 
+    <div class="flex flex-col sm:flex-row gap-3 h-fit mt-1 z-10"> 
         <!-- Delivery Information -->
         <div class="flex-col w-full"> 
-            <div class="p-8 sm:my-5 border-2 box border-secondary flex-col flex gap-4"> 
+            <div class="p-8 sm:my-3 border-2 box border-secondary flex-col flex gap-4"> 
                 <span class="text-lg dark:border-darkmode-400">{{$t('order_detail.delivery.information')}}</span>   
                 <div class="grid grid-cols-6" v-show="store.orderDetail.shipping_method">
                     <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.name')}}</div>
                     <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_first_name}} {{store.orderDetail.shipping_last_name}}</div>
-
-                    <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.phone')}}</div>
-                    <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_phone}}</div>
-                
-                    <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.email')}}</div>
-                    <div class="col-start-3 col-span-3 py-2 break-all">{{store.orderDetail.shipping_email}}</div>
                     
+                    <template v-if="store.orderDetail.shipping_phone">
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.phone')}}</div>
+                        <div class="col-start-3 col-span-3 py-2">{{store.orderDetail.shipping_phone}}</div>
+                    </template>
+
+                    <template v-if="store.orderDetail.shipping_email">
+                        <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.email')}}</div>
+                        <div class="col-start-3 col-span-3 py-2 break-all">{{store.orderDetail.shipping_email}}</div>
+                    </template>
+
                     <template v-if="store.orderDetail.shipping_method === 'pickup'">
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</div>
                         <div class="col-start-3 col-span-3 py-2">{{$t(`order_detail.delivery.${store.orderDetail.shipping_method}`)}}</div>
@@ -82,7 +86,7 @@
                 </div>
             </div>
             <!-- Remark -->
-            <div class="box p-8 border-2 border-secondary flex flex-col gap-3" v-show="store.orderDetail.shipping_remark">
+            <div class="box p-8 border-2 border-secondary flex flex-col gap-3 mt-2" v-show="store.orderDetail.shipping_remark">
                 <span class="text-lg">{{$t('order_detail.remark')}}</span>
                 <span class="py-2"> {{store.orderDetail.shipping_remark}} </span>
             </div>

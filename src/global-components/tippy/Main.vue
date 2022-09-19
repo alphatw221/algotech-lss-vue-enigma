@@ -45,6 +45,7 @@ const init = () => {
     },
     animateFill: false,
     animation: "shift-away",
+    zIndex: 99999999,
     ...props.options,
   });
 };

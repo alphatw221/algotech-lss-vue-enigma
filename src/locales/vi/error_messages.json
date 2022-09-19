@@ -57,7 +57,7 @@
                 "request_data_error": "Yêu cầu dữ liệu lỗi",
                 "invalid_discount_code":"Invalid Discount Code",
                 "discount_code is required":"Discount Code is Required",
-                "not_eligible":"Oops, you're not eligible for this promotion."
+                "not_eligible":"Bạn không đủ điều kiện để dùng ưu đãi này"
                 
             },
             "order-product":{

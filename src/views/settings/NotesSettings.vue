@@ -59,7 +59,7 @@
         </div>
 
 
-        <AccordionGroup class="accordion-boxed mt-10">
+        <AccordionGroup class="accordion-boxed mt-10 -z-10">
             <AccordionItem>
                 <Accordion>
                     <div class="flex">

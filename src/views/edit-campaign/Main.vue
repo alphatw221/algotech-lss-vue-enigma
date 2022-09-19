@@ -3,7 +3,7 @@
 		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('edit_campaign.edit_campaign')}}</h2>
 		</div>
-		<div class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
+		<div class="dateSetting box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
 			<div class="col-span-12 col-start-1 sm:col-span-6">
 				<div class="flex flex-col"> 
 					<label class="w-20 my-auto text-base form-label font-medium">{{$t('edit_campaign.title')}}</label>
@@ -41,7 +41,7 @@
 						mode="dateTime" is-range is-required is24hr
 						:min-date='new Date()'
 						>
-						<template v-slot="{ inputValue, inputEvents }">
+						<template v-slot="{ inputValue, inputEvents }"> 
 							<div class="flex items-center justify-center">
 							<input :value="inputValue.start" v-on="inputEvents.start"
 								class="form-control border h-[35px] sm:h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
@@ -104,7 +104,7 @@
 			</div>
 		</div>
 
-		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+		<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 
 			<div class="flex mb-3 form-label text-base font-medium">
 				<div> {{$t("settings.localization.currency_symbol")}} </div>
@@ -380,3 +380,13 @@ const editplatform = ()=>{
 
 </script>
 
+<style scoped>
+
+	.langSetting{
+		z-index: 49;
+	}
+	
+	.dateSetting{
+		z-index: 50;
+	}
+	</style>

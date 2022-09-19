@@ -33,11 +33,12 @@
         "description": "说明",
         "qty": "库存数量",
         "price": "价格",
-        "confirm_delete": "确定要删除该商品？"
+        "confirm_delete": "确定要删除该商品？",
+        "wishlist":"愿望清单"
     },
 
     "category_manage": {
-        "create_new_category": "建立新类别",
+        "create_new_category": "建立新分类",
         "edit_title": "编辑类别",
         "edit": "编辑",
         "delete": "删除",
@@ -78,6 +79,11 @@
         "create_message":"新增成功",
         "update_message":"储存成功",
         "invalid_data":"输入资料无效"
+    },
+    "wishlist":{
+        "confirm_send":"确认通过电子邮件发送通知給愿望清单上的每个人",
+        "cancel_send":"取消",
+        "success_send":"电子邮件已发送成功"
     }
     
 }

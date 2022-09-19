@@ -1,5 +1,5 @@
 <template>
-    <div class="h-fit">
+    <div class="mb-10">
         <div class="text-2xl text-base text-center my-5"> {{$t('order_detail.order')}} </div>
 
         <div class="grid grid-cols-12 gap-5">
@@ -31,11 +31,11 @@
                         <div class="mr-10">{{$t('order_detail.delivery.name')}}</div>
                         <div>{{ store.order.shipping_last_name }} {{ store.order.shipping_first_name }}</div>
                     </div>
-                    <div class="flex mt-4">
+                    <div class="flex mt-4" v-if="store.order.shipping_phone">
                         <div class="mr-10">{{$t('order_detail.delivery.phone')}}</div>
                         <div>{{ store.order.shipping_phone }}</div>
                     </div>
-                    <div class="flex mt-4">
+                    <div class="flex mt-4" v-if="store.order.shipping_email">
                         <div class="mr-10">{{$t('order_detail.delivery.email')}}</div>
                         <div>{{ store.order.shipping_email }}</div>
                     </div>
@@ -118,10 +118,11 @@
         </div>
         <div class="grid grid-cols-12 gap-2 mt-5">
             <div class="box col-start-1 col-span-12 lg:col-start-9 2xl:col-start-9">
-                <div class="grid grid-cols-3 gap-2 p-3 text-right">
+                <div v-if="store.order.campaign"  
+                    class="grid grid-cols-3 gap-2 p-3 text-right">
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
-                        <div v-if="store.order.campaign">
+                        <div>
                             {{store.order.campaign.currency}}
                             {{ Math.floor(store.order.subtotal * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
                             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
@@ -129,31 +130,34 @@
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.delivery_charge')}}</div>
-                        <div v-if="store.order.campaign">
+                        <div>
                             {{store.order.campaign.currency}}
                             {{ Math.floor(store.order.shipping_cost * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
                             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
-                    <div class="flex col-start-1 col-span-3 p-2 py-1">
-                        <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}} {{store.order.adjust_title ?? ''}}</div>
-                        <div v-if="store.order.campaign">
-                            {{store.order.campaign.currency}}
-                            {{ Math.floor(store.order.adjust_price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
-                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
-                        </div>
+                    <div
+                        v-if="store.order.adjust_price !=0" 
+                        class="flex col-start-1 col-span-3 p-2 py-1">
+                            <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}} <span class="text-danger"> {{store.order.adjust_title}} </span></div>
+                            <div >
+                                {{store.order.campaign.currency}}
+                                {{ Math.floor(store.order.adjust_price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                                {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                            </div>
                     </div>
-                    <div class="flex col-start-1 col-span-3 p-2 py-1">
-                        <div class="mr-auto">{{ $t('shopping_cart.order_summary.promo_discount')}} {{store.order.adjust_title ?? ''}}</div>
-                        <div v-if="store.order.campaign">
-                            {{store.order.campaign.currency}}
-                            -{{ Math.floor(store.order.discount * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
-                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
-                        </div>
+                    <div v-if="store.order.discount !=0"
+                        class="flex col-start-1 col-span-3 p-2 py-1">
+                            <div class="mr-auto">{{ $t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger"> ({{store.order.applied_discount.code}}) </span></div>
+                            <div>
+                                {{store.order.campaign.currency}}
+                                -{{ Math.floor(store.order.discount * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                                {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                            </div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.total')}}</div>
-                        <div v-if="store.order.campaign">
+                        <div>
                             {{store.order.campaign.currency}} 
                             {{ Math.floor(store.order.total * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
                             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}

@@ -12,6 +12,8 @@ import Comments from "./lss-svg-icons/Comments.vue";
 import SimpleIcon from "./lss-svg-icons/SimpleIcon.vue"
 import PlatformIcon from "./lss-svg-icons/PlatformIcon.vue" 
 import MenuIcon from "./lss-svg-icons/MenuIcon.vue"
+import ManageOrderIcon from "./lss-svg-icons/ManageOrderIcon.vue"
+
 // import BalloonBlockEditor from './ckeditor/BalloonBlockEditor.vue'
 // import BalloonEditor from './ckeditor/BalloonEditor.vue'
 // import DocumentEditor from './ckeditor/DocumentEditor.vue'
@@ -53,6 +55,7 @@ export default (app) => {
   app.component("SimpleIcon", SimpleIcon);
   app.component("PlatformIcon", PlatformIcon);
   app.component("MenuIcon", MenuIcon);
+  app.component("ManageOrderIcon", ManageOrderIcon);
   
   app.component("Chart", Chart);
   app.component("GoogleMapLoader", GoogleMapLoader);

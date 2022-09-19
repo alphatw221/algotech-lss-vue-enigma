@@ -4,7 +4,7 @@
             v-if="userGotPlugin"
             @click="exportProduct()"
             type="button"
-            class="h-[35px] w-48 mr-2 sm:mr-0 sm:h-[50px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
+            class="h-[35px] w-48 mr-2 sm:mr-0 sm:h-[50px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 sm:mb-0 border-[2px] border-slate-100" 
             :class="{ 'cursor-not-allowed':processing }"
             >
             <LoadingIcon  v-if="processing" icon="three-dots" color="white" class="absolute h-[30px] w-[30px] sm:w-40 mr-2 sm:mr-0 sm:h-[20px] top-4"/>
