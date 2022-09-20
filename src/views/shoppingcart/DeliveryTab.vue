@@ -329,13 +329,14 @@ const shipping_option_index_computed = computed({
     store.shipping_info.shipping_option_index=index
     shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.address : ''
 
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
     
     if(shipping_info.value.shipping_method=='pickup'){
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.pickup_options[index]))
     }else{
-      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.additional_delivery_options[index]))
+      shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.additional_delivery_options[index]))
     }
+    console.log(shipping_info.value.shipping_option_index)
 
   }})
 

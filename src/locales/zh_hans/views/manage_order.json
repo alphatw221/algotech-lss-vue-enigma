@@ -13,7 +13,7 @@
                 "increased":"上升"
         },
         "search_bar":{
-                "search":"搜寻订单编号／顾客",
+                "search":"搜寻订单编号／买家帐号",
                 "filter":"筛选",
                 "export" : "汇出"
         },
@@ -26,7 +26,7 @@
                 "pay_mongo":"PayMongo",
                 "details":"订单明细",
                 "copy_link":"复制订单连结",
-                "order_number" : "订单",
+                "order_number" : "订单编号",
                 "action":"动作",
                 "delivery_notification":"出货通知",
                 "customer" : "买家帐号",

@@ -13,7 +13,7 @@
                 "increased":"上升"
         },
         "search_bar":{
-                "search":"搜尋訂單編號／顧客",
+                "search":"搜尋訂單編號／買家帳號",
                 "filter":"篩選",
                 "export" : "匯出訂單"
         },

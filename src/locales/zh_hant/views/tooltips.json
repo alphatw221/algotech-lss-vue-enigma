@@ -32,7 +32,7 @@
     },
     "auto_reply":{
         "assign_to":"套用在指定粉專頁面",
-        "title":"買家需先與該社群帳號有互動紀錄（如在直播貼文中留言等），系統才會啟動此功能。",
+        "title":"買家在 Facebook Messenger 和 Instagram 私訊發送含關鍵字的訊息時，系統將會自動回覆相對應的訊息。",
         "platform":"請選擇您欲套用此自動回覆的社群帳號。"
     },
     "discount_code":{

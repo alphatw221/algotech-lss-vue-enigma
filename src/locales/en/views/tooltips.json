@@ -32,7 +32,7 @@
     },
     "auto_reply":{
         "assign_to":"Assign auto reply to certain page",
-        "title":"Buyers need to have interactive records with the social account (such as leaving a message in a live post, etc.) before the system will activate this function.",
+        "title":"Auto reply works when buyers interactive on FB messenger and IG direct messenger.",
         "platform":"Please select the community account you want to apply this auto-reply to."
     },
     "discount_code":{
