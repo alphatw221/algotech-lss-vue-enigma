@@ -201,7 +201,6 @@ onMounted(() => {
 	getReplyData();
 	eventBus.on("getReplyData", (payload) => {
 		payload.forEach( reply =>{
-			console.log('reply',reply)
 			listItems.value.unshift(reply)
 		})
 	});
@@ -223,7 +222,7 @@ function changePageSize(page_size) {
 
 function updateInfo(index, reply) {
 	updateModal.value = true;
-	currentInfo.value = reply
+	currentInfo.value = Object.assign({}, reply)
 	currentInfo.value.index = index
 }
 
@@ -244,7 +243,13 @@ function getReplyData() {
 
 function updateAutoReply(currentInfo) {
 	update_auto_response(currentInfo.id, currentInfo).then((response) => {
-		currentInfo.value = response.data.results;
+		listItems.value.forEach(function(reply,i) { 
+			if (reply.id == currentInfo.id){ 
+				console.log(response.data); 
+				listItems.value[i].description = response.data.description
+				listItems.value[i].input_msg = response.data.input_msg
+				listItems.value[i].output_msg = response.data.output_msg
+			}});
 		updateModal.value = false;
 	});
 }
@@ -286,9 +291,8 @@ const batchDelete = () => {
 	var yes = confirm(i18n.global.t('auto_reply.table_column.confirm_delete'));
 	if (yes) {
 		batch_delete_auto_response(bulkDeleteIdList.value).then(res => {
-			console.log(bulkDeleteIdList.value)
+			bulkDeleteIdList.value.forEach(bulk => listItems.value.splice(listItems.value.findIndex(list => list.id === bulk),1));
 			bulkDeleteIdList.value = []
-			getReplyData()
 		})
 	}
 }
