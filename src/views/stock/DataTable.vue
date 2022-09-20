@@ -42,6 +42,20 @@
 								</template>
 							</div>
 						</template>
+						<template v-else-if="column.key === 'price'">
+							<div class="flex justify-center w-24"> 
+								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
+								<template v-if="sortBy =='-price'" > 
+									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('price')" />
+								</template>
+								<template v-else-if="sortBy =='price'" > 
+									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
+								</template> 
+								<template v-else> 
+									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
+								</template>
+							</div>
+						</template>
 						<template v-else>
 							{{ $t(`stock.table_column.${column.key}`) }}
 						</template>
