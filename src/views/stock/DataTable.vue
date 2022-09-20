@@ -386,8 +386,6 @@ const copyProduct = (product) => {
 		console.log(res)
 		copy.id = res.data.message 
 		copy.name = 'copy - ' + product.name
-		console.log('c',copy)
-		console.log('b',product)
 		stockProducts.value.unshift(copy)
 		console.log(stockProducts.value)
 		}

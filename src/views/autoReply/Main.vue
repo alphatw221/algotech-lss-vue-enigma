@@ -14,7 +14,7 @@
                 </Tippy> 
             </div>
             <button class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mx-0 lg:mx-20 lg:mt-5 sm:mt-0 lg:mb-0 mb-3 border-[2px] border-slate-100 shadow-lg"
-                @click="createModal = true; saved=false">
+                @click="createModal = true;">
                 <span class="font-bold mr-1 text-[16px]">+</span> {{ $t('auto_reply.create') }}
             </button>
         </div>
@@ -23,7 +23,7 @@
         </div>
     </div>
     <!--Modal Create -->
-    <Modal :show="createModal" @hidden="closeWithAlert()" >
+    <Modal :show="createModal" @hidden="!createModal " backdrop="static" >
         <ModalHeader>
             <h2 class="mr-2 text-base font-medium text-[16px]">{{$t('auto_reply.modal_title')}}</h2>
             <Tippy 
@@ -34,7 +34,7 @@
                 > 
                 <HelpCircleIcon class="w-5 tippy-icon tippy-mobile" />
             </Tippy> 
-            <a @click="createModal=false" class="absolute top-0 right-0 mt-3 mr-3">
+            <a @click="createModal=false; layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'))" class="absolute top-0 right-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             </a>
         </ModalHeader>
@@ -103,7 +103,7 @@
             <div class="flex flex-wrap items-center justify-around col-span-12">
                 <template v-for="(data, key) in PagesData" :key="key">
                     <div class="relative w-20 h-20 image-fit">
-                        <input name="fb_page" type="checkbox" class="absolute top-0 left-0 z-50 rounded-lg vertical-center" :value="data" @click="addAssignPage($event, data)"/>
+                        <input name="fb_page" type="checkbox" class="absolute top-0 left-0 z-50 rounded-lg vertical-center" @click="addAssignPage($event, data)"/>
                         <img class="rounded-full" :src="data.image" />
                         <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                             <img v-if="data.page_id" class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
@@ -121,7 +121,7 @@
 
         </ModalBody>
         <ModalFooter>
-            <button type="button" @click="createModal=false"
+            <button type="button" @click="createModal=false; layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'))"
                 class="w-32 bg-white btn dark:border-darkmode-400">
                 {{ $t('auto_reply.modal_cancel') }}
             </button>
@@ -147,8 +147,6 @@ const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance();
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const createModal = ref(false)
-const userPlatforms = ref('facebook')
-const saved = ref(false)
 const createData = ref({
     input_msg: "",
     output_msg: "",
@@ -175,6 +173,7 @@ const tableColumns = ref([
     { name: "assign_to", key: "page" },
     { name: "", key: "edit" },
 ])
+
 let PagesData = ref([])
 onMounted(() => {
     get_user_subscription_facebook_pages().then(res=>{
@@ -187,33 +186,30 @@ onMounted(() => {
         console.log(err)
     })
 })
+const unChecked=()=>{
+    Array.from(document.querySelectorAll('input[type="checkbox"]')).forEach(value=>{
+        value.checked = false
+    })
+}
 
 function createAutoReply() {
     validate.value.$touch();
-    console.log(createData.value)
     if (validate.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.invalid_data'))
         return
     } else {
-        let data = createData.value
-        create_auto_response(data).then(response => {
-            saved.value = true
+        create_auto_response(createData.value).then(response => {
             createModal.value = false
-            emptyForm()
+            PagesData.value.forEach(value =>{
+                for(let i=0; i< response.data.length; i++){
+                    if(value.id == response.data[i].facebook_page) response.data[i].facebook_page = value
+                    else if (value.id == response.data[i].instagram_profile) response.data[i].instagram_profile = value
+                }
+            });
             layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.create_success'))
-            eventBus.emit('getReplyData')
+            eventBus.emit('getReplyData',response.data)
+            emptyForm()
         })
-    }
-}
-
-function closeWithAlert(){
-    if(saved.value===true){
-        createModal.value = false;
-        emptyForm()
-    }else{
-        createModal.value = false; 
-        layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'))
-        emptyForm()
     }
 }
 
@@ -222,20 +218,13 @@ const emptyForm =()=>{
     createData.value.output_msg = ""
     createData.value.description = ""
     createData.value.chosenPage = []
+    unChecked()
 }
 
 const addAssignPage = (event, data) => {
-    if (event.target.checked) createData.value.chosenPage.push(data)
+    if (event.target.checked) createData.value.chosenPage.push(data) 
     else createData.value.chosenPage = createData.value.chosenPage.filter(val => { return val.id !== data.id})
 }
 
-// onMounted(() => {
-//     if(document.querySelectorALL('tippy-13')){document.querySelectorALL('tippy-13').style.zIndex ="999999999"}
-// })
-
 </script>
-
-<style scoped>
-
-</style>
 

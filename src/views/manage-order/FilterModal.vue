@@ -119,17 +119,34 @@ function filter(){
         }
     }
     eventBus.emit(props.tableFilter,{'filter_data':data})
-    console.log(data)
     store.filterModal[props.tableStatus] = false
+    unChecked()
 }
 
 const closeFilter = () => {
     if(store.filterTagArray){
         let yes = confirm(`${i18n.global.t('manage_order.filter_modal.close_alert')}`)
 	    if (yes) filter()
-        else store.filterModal[props.tableStatus] = false
+        else cleanFilter()
     }
-    else store.filterModal[props.tableStatus] = false
+    else cleanFilter()
 }
 
+const cleanFilter=()=>{
+    store.filterModal[props.tableStatus] = false
+    for(const type in store.filterTagArray){
+        for(const tag in store.filterTagArray[type]){
+            if(store.filterTagArray[type][tag]){
+                store.filterTagArray[type][tag]= false
+            }
+        }
+    }
+    unChecked()
+}
+
+const unChecked=()=>{
+    Array.from(document.querySelectorAll('input[type="checkbox"]')).forEach(value=>{
+        value.checked = false
+    })
+}
 </script>
