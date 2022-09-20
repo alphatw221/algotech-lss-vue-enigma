@@ -13,7 +13,7 @@
                 "increased":"increased"
         },
         "search_bar":{
-                "search":"Search order no./customer",
+                "search":"Search order no./buyer",
                 "filter":"Filter",
                 "export" : "Export"
         },
