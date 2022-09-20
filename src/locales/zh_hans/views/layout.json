@@ -10,7 +10,7 @@
         "campaign_default_setting":"基本设定",
         "localization":"在地化",
         "connect_platform":"社群平台",
-        "discount_code":"折扣代码"
+        "discount_code":"优惠代码"
 
     },
     "bread_crumb":{
@@ -36,7 +36,7 @@
         "profile":"会员资讯",
         "change-plan":"更改方案",
         "quiz-game":"问答游戏",
-        "discount-code":"折扣代码",
+        "discount-code":"优惠代码",
         "dashboard":"主控版",
         "transactions":"交易报表",
         "plans":"方案报表",

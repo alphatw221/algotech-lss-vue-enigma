@@ -37,15 +37,15 @@
                 }
             },
             "facebook-page":{
-                "facebook_not_activated": "Facebook 平台未开通",
+                "facebook_not_activated": "Facebook 平台未開通",
                 "facebook_token_expired": "權杖過期或失效，請重新綁定你的粉絲專頁"
             },
             "instagram-profile":{
-                "instagram_not_activated": "Instagram 平台未开通",
+                "instagram_not_activated": "Instagram 平台未開通",
                 "instagram_token_expired": "權杖過期或失效，請重新綁定你的商業檔案"
             },
             "youtube-channel":{
-                "youtube_not_activated": "Youtube 平台未开通",
+                "youtube_not_activated": "Youtube 平台未開通",
                 "youtube_token_expired": "權杖過期或失效，請重新綁定你的頻道"
             },
             "campaign-product":{
