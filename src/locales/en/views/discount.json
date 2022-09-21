@@ -21,7 +21,8 @@
         "general":"Promo Code",
         "subtotal_over_specific_amount":"Amount：",
         "product_over_specific_number":"Product：",
-        "specific_campaign":"Campaign："
+        "specific_campaign":"Campaign：",
+        "all_campaign": "Campaign： All"
     },
     "modal":{
         "create":"Create Discount Code",
