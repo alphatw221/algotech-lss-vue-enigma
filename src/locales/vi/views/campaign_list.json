@@ -56,9 +56,9 @@
         "Ongoing" : "Đang diễn ra",
         
         "no_have_campaign":{
-            "ongoing":"Do not Have any Ongoing Campaign.",
-            "scheduled":"Do not Have any Scheduled Campaign.",
-            "history":"Do not Have any History Campaign."
+            "ongoing":"Không có chiến dịch đang diễn ra nào",
+            "scheduled":"Không có chiến dịch đã lên lịch nào",
+            "history":"Không có lịch sử chiến dịch nào"
         },
         "click_create_notify": "Nhấp chuột vào \"+ Tạo\" để tạo chiến dịch bán hàng livestream mới",
         "connect_platform":"Kết nối nền tảng",
@@ -85,7 +85,7 @@
         "youtube":"YouTube",
         "live_chat_id":"ID cuộc trò chuyện trực tiếp",
         "select_live_chat":"Chọn kênh",
-        "select_live_video":"Select Live Video",
+        "select_live_video":"Chọn video trực tiếp",
 
         "twitch": "Twitch",
 
@@ -102,6 +102,7 @@
     "update_successed":"Cập nhật thành công",
     "no_facebook_post":"Bạn không có bài viết livestream trên Facebook ngay bây giờ",
     "no_youtube_post":"Bạn không có bài viết livestream trên YouTube ngay bây giờ",
-    "no_instagram_post":"Bạn không có bài viết livestream trên Instagram ngay bây giờ"
+    "no_instagram_post":"Bạn không có bài viết livestream trên Instagram ngay bây giờ",
+    "copied":"Đã sao chép"
 
 }

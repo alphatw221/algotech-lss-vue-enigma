@@ -19,9 +19,9 @@
         "cart_referal":"Cart Referral",
         "limitations":"Limitations",
         "general":"Promo Code",
-        "subtotal_over_specific_amount":"Amount:",
-        "product_over_specific_number":"Product:",
-        "specific_campaign":"Campaign:"
+        "subtotal_over_specific_amount":"Amount：",
+        "product_over_specific_number":"Product：",
+        "specific_campaign":"Campaign："
     },
     "modal":{
         "create":"Create Discount Code",

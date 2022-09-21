@@ -107,6 +107,7 @@
     "update_successed":"Update Successed",
     "no_facebook_post":"You don't have Facebook live posts now.",
     "no_youtube_post":"You don't have YouTube live stream now.",
-    "no_instagram_post":"You don't have Instagram live posts now."
+    "no_instagram_post":"You don't have Instagram live posts now.",
+    "copied":"Copied."
 
 }

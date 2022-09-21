@@ -73,7 +73,7 @@
                     </template>
                     <template v-if="store.orderDetail.shipping_method === 'delivery'">
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.method')}}</span>
-                        <span class="col-start-3 col-span-3 py-2">{{ store.orderDetail.shipping_option == '' ? 'Default' : store.orderDetail.shipping_option }}</span>
+                        <span class="col-start-3 col-span-3 py-2">{{$t(`order_detail.delivery.${store.orderDetail.shipping_method}`)}}：{{ store.orderDetail.shipping_option == '' ? $t('order_detail.delivery.default') : store.orderDetail.shipping_option }}</span>
 
                         <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.address')}}</span>
                         <span class="col-start-3 col-span-3 py-2">

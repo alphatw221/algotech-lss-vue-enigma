@@ -15,7 +15,7 @@ export const update_auto_response = (id, data) => {
     return createAxiosWithBearer().put(`/api/v2/auto-response/${id}/update/`, data)
 }
 export const delete_auto_response = (id) => {
-    return createAxiosWithBearer().delete(`/api/auto_response/${id}/delete/`)
+    return createAxiosWithBearer().delete(`/api/v2/auto-response/${id}/delete/`)
 }
 export const batch_delete_auto_response = (data) => {
     return createAxiosWithBearer().post(`/api/v2/auto-response/batch/delete/`, data)
