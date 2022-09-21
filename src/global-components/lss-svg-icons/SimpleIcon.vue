@@ -225,6 +225,14 @@
     <circle cx="9" cy="9" r="8" :stroke="props.color" stroke-width="1.5"/>
     </svg>
 
+    <svg 
+    v-else-if="icon == 'stop_live'"
+    width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="7" y="7" width="6" height="6" rx="1" :fill="props.color"/>
+    <circle cx="10" cy="10" r="9" :stroke="props.color" stroke-width="1.5"/>
+    </svg>
+
+
 
 
 

@@ -50,6 +50,28 @@ v-else-if="icon == 'comments_rate'"
     <path d="M6 11.25C6 11.8023 5.55228 12.25 5 12.25C4.44772 12.25 4 11.8023 4 11.25C4 10.6977 4.44772 10.25 5 10.25C5.55228 10.25 6 10.6977 6 11.25Z"/>
 </svg>
 
+<svg 
+v-else-if="icon == 'sales_rate2'"
+  width="20" height="20" viewBox="0 0 20 20" :stroke="props.color" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="16" width="18" height="3" rx="1" stroke-width="1.5"/>
+  <path d="M3 16L3.96037 7.76824C4.07798 6.76016 4.93199 6 5.9469 6H14.0531C15.068 6 15.922 6.76017 16.0396 7.76824L17 16" stroke-width="1.5" stroke-linecap="round"/>
+  <rect x="4" y="1" width="6" height="3" rx="1" stroke-width="1.5"/>
+  <path d="M7 4V6" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M7 13.5H13" stroke-width="1.5" stroke-linecap="round"/>
+</svg>
+
+<svg 
+v-else-if="icon == 'sales_rate3'"
+  width="20" height="22" viewBox="0 0 20 22" :stroke="props.color" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect x="1" y="14" width="4" height="7" rx="1" stroke-width="1.5"/>
+  <path d="M5 16H6.42857C6.74416 16 7 15.7442 7 15.4286V15.4286C7 14.6396 7.63959 14 8.42857 14H13.5C14.3284 14 15 14.6716 15 15.5V15.5C15 16.3284 14.3284 17 13.5 17H11" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M11 17H13.2984C13.7526 17 14.1932 16.8454 14.5478 16.5617L17.0463 14.5629C17.8337 13.9331 19 14.4936 19 15.5019V15.5019C19 15.8208 18.8733 16.1267 18.6478 16.3522L14.6797 20.3203C14.2501 20.7499 13.6485 20.9609 13.0446 20.8938L5 20" stroke-width="1.5" stroke-linecap="round"/>
+  <circle cx="12" cy="6" r="5" stroke-width="1.5"/>
+  <path d="M13.5 4H11.5C10.9477 4 10.5 4.44772 10.5 5V5C10.5 5.55228 10.9477 6 11.5 6H12.5C13.0523 6 13.5 6.44772 13.5 7V7C13.5 7.55228 13.0523 8 12.5 8H10.5" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M12 3V4" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M12 9V8" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+
 
 </template>
 

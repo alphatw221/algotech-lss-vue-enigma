@@ -69,7 +69,7 @@
                     <div class="report-box">
                         <div class="p-5 box">
                             <div class="flex">
-                                <ManageOrderIcon icon="sales_rate" color="#006A2B" class="report-box__icon"/>
+                                <ManageOrderIcon icon="sales_rate3" color="#006A2B" class="report-box__icon"/>
                                 <template v-if="!manageOrderStatus.campaign_sales_raise"/>
                                 <template v-else-if="manageOrderStatus.campaign_sales_raise >= 0">                                
                                     <div class="ml-auto">
