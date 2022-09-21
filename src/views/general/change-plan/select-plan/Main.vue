@@ -205,7 +205,9 @@ const submitBasicInfo=()=>{
     }
     console.log(selectedPlan.value)
     seller_changePlan_payment(selectedPlan.value).then(res=>{
-        eventBus.emit("paymentInfo", {'basicInfo':selectedPlan.value, 'confirmInfo':res.data} )
-    }).catch( err=>{layout.registerTab = 1})
+        eventBus.emit("PaymentTab", {'basicInfo':selectedPlan.value, 'confirmInfo':res.data} )
+    }).catch( err=>{ 
+        console.log(err)
+        layout.registerTab = 1})
 }
 </script>
