@@ -376,7 +376,9 @@ const deleteProduct = (id) => {
 }
 
 const copyProduct = (id) => {
-	copy_product(id).then(res => { search() })
+	copy_product(id).then(res => { 
+		search() 
+	})
 	hideDropDown()
 }
 
