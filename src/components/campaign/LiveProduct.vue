@@ -89,7 +89,7 @@
                             <!-- currency_sign reference from user_subscription -->
                             <td v-if="store.campaign">
                                 {{ store.campaign.currency }}
-                                {{ Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places}}
+                                {{ (Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-US')}}
                                 {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                             </td>  
                             <td class="status_active">

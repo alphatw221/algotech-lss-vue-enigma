@@ -53,7 +53,7 @@
 							<div v-if="checkIsAllCampaign(discountCode[column.key])"> * {{ $t(`discount.table.all_campaign`) }}</div>
 							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
 								<div> * {{ $t(`discount.table.` + limitations.key) }} </div>
-								<div class="ml-2" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{limitations.amount}} </div>
+								<div class="ml-2" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{(limitations.amount).toLocaleString('en-US')}} </div>
 								<div class="ml-2" v-else-if="limitations.key == 'product_over_specific_number'"> {{limitations.number}} pcs </div>
 								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitations.key == 'specific_campaign'"> 
 									<template v-for="(campaign, index) in scheduledCamapign" :key="index"> 

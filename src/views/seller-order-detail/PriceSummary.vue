@@ -9,7 +9,7 @@
         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
         <div class="font-medium" v-if="store.orderDetail.campaign">
           {{store.orderDetail.campaign.currency}} 
-          {{ Math.floor(parseFloat(store.orderDetail.subtotal) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
+          {{ (Math.floor(parseFloat(store.orderDetail.subtotal) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -20,7 +20,7 @@
         </div>
         <div class="font-medium" v-if="store.orderDetail.campaign">
           {{store.orderDetail.campaign.currency}} 
-          {{ Math.floor(parseFloat(store.orderDetail.shipping_cost) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
+          {{ (Math.floor(parseFloat(store.orderDetail.shipping_cost) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -39,7 +39,7 @@
             <div class="mr-auto">{{$t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger">({{store.orderDetail.applied_discount.code}})</span></div>
             <div class="font-medium"> 
               {{store.orderDetail.campaign.currency}}
-              -{{Math.floor(parseFloat(store.orderDetail.discount) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
+              -{{(Math.floor(parseFloat(store.orderDetail.discount) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
               {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
             </div>
           </template>
@@ -79,22 +79,20 @@
                     <span> {{$t('order_detail.price_summary.subtract')}} -</span>
                 </div>
             </div>
-                <div class="mt-3 grid grid-cols-12 gap-4 xl:mt-5 2xl:mt-5">
-                        <div class="col-span-4">
-                            <input id="regular-form-2" type="text" class="form-control " :placeholder="$t('order_detail.price_summary.display_name')" v-model="store.orderDetail.adjust_title" />
-                        </div>
-                        <div class="col-span-4">
-                            <input id="regular-form-2" type="number" class="form-control " :placeholder="$t('order_detail.price_summary.amount')" v-model="store.orderDetail.adjust_price" />
-                        </div>
-                        <div class="flex flex-row-reverse col-span-4">
-                            <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">{{$t('order_detail.price_summary.update')}}</button>
-                        </div> 
-                        <div class="col-start-5 col-span-8" v-if="store.modify_status==='-' &&store.orderDetail.subtotal+store.orderDetail.shipping_cost-store.orderDetail.discount-store.orderDetail.adjust_price < 0" style="color:red">
-                            {{$t('order_detail.price_summary.price_exceed')}}
-                        </div>
-                </div>
-                
-               
+            <div class="mt-3 grid grid-cols-12 gap-4 xl:mt-5 2xl:mt-5">
+                    <div class="col-span-4">
+                        <input id="regular-form-2" type="text" class="form-control " :placeholder="$t('order_detail.price_summary.display_name')" v-model="store.orderDetail.adjust_title" />
+                    </div>
+                    <div class="col-span-4">
+                        <input id="regular-form-2" type="number" class="form-control " :placeholder="$t('order_detail.price_summary.amount')" v-model="store.orderDetail.adjust_price" />
+                    </div>
+                    <div class="flex flex-row-reverse col-span-4">
+                        <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">{{$t('order_detail.price_summary.update')}}</button>
+                    </div> 
+                    <div class="col-start-5 col-span-8" v-if="store.modify_status==='-' &&store.orderDetail.subtotal+store.orderDetail.shipping_cost-store.orderDetail.discount-store.orderDetail.adjust_price < 0" style="color:red">
+                        {{$t('order_detail.price_summary.price_exceed')}}
+                    </div>
+            </div>
         </div>
       </div>
       </template>
@@ -110,7 +108,7 @@
         <div class="mr-auto font-medium text-base">{{$t('order_detail.price_summary.total')}}</div>
         <div class="font-medium text-base" v-if="store.orderDetail.campaign">
           {{store.orderDetail.campaign.currency}} 
-          {{Math.floor(parseFloat(store.orderDetail.total) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
+          {{(Math.floor(parseFloat(store.orderDetail.total) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
         </div>
       </div>

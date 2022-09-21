@@ -89,14 +89,14 @@
 					<td class="text-center h-20 ">
 						<div class="price whitespace-nowrap"> 
 							{{store.order.campaign.currency}} 
-							{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+							{{(Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
 							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 						</div>
 					</td>
 					<td class="text-center h-20">
 						<div class="price whitespace-nowrap"> 
 							{{store.order.campaign.currency}} 
-							{{Math.floor(parseFloat(product.qty * product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+							{{(Math.floor(parseFloat(product.qty * product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
 							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 						</div>
 					</td>

@@ -3,15 +3,6 @@
         <ModalHeader>
             <h2 v-if="action == 'CREATE'" class="mr-2 text-base font-medium text-[16px]">{{$t('auto_reply.modal_title')}}</h2>
             <h2 v-if="action == 'EDIT'" class="mr-auto text-base font-medium">{{ $t('auto_reply.manipulate.edit') }} #{{keyinInfo.index+1}} {{ $t('auto_reply.title') }}</h2>
-            <Tippy 
-                v-if="action == 'CREATE'"
-                class="rounded-full w-fit whitespace-wrap ml-1 tippy-mobile mr-auto" 
-                data-tippy-allowHTML="true" 
-                data-tippy-placement="right" 
-                :content="$t('tooltips.auto_reply.platform')" 
-                > 
-                <HelpCircleIcon class="w-5 tippy-icon tippy-mobile" />
-            </Tippy> 
             <a @click="showModal=false; layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'))" class="absolute top-0 right-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             </a>

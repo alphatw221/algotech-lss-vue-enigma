@@ -33,10 +33,10 @@
 					{{ product.qty }}
 				</td>
 				<td class="text-center h-20">
-					$ {{ parseFloat(product.price).toFixed(2) }}
+					$ {{ (parseFloat(product.price).toFixed(2)).toLocaleString('en-GB') }}
 				</td>
 				<td class="text-center h-20">
-					$ {{ parseFloat(product.qty * product.price).toFixed(2) }}
+					$ {{ (parseFloat(product.qty * product.price).toFixed(2)).toLocaleString('en-GB') }}
 				</td>
 			</tr>
 		</tbody>

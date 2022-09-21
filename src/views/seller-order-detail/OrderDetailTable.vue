@@ -77,12 +77,12 @@
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
 					{{store.orderDetail.campaign.currency}}
-					{{ Math.floor(parseFloat(product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
+					{{ (Math.floor(parseFloat(product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
 					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
 					{{store.orderDetail.campaign.currency}}
-					{{ Math.floor(parseFloat(product.qty * product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
+					{{ (Math.floor(parseFloat(product.qty * product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
 					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
 				</td>
 				<td>

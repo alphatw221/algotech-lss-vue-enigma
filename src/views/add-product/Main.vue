@@ -239,9 +239,9 @@ const product = ref({
 // ])
 const rules = computed(()=>{
     return{
-		name:{required,maxLength:maxLength(40)},
+		name:{required,maxLength: maxLength(100)},
 		// order_code: {required, maxLength:maxLength(10)},
-		description: {maxLength: maxLength(100)},
+		description: {maxLength: maxLength(300)},
 		qty: {integer, minValue:minValue(1)},
 		price: {decimal, minValue:minValue(0)},  
     }

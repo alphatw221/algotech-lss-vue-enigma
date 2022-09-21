@@ -9,7 +9,7 @@
         <div class="mr-auto">{{$t('shopping_cart.order_summary.subtotal')}}</div>
         <div class="font-medium" v-if="store.order.campaign">
           {{store.order.campaign.currency}} 
-          {{ Math.floor(store.order.subtotal * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+          {{(Math.floor(store.order.subtotal * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -22,7 +22,7 @@
 
         <div class="font-medium text-danger">
           {{store.order.campaign.currency}}
-          {{ Math.floor(store.order.adjust_price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+          {{(Math.floor(store.order.adjust_price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div> 
       </div>
@@ -31,7 +31,7 @@
         <label class="w-fit my-auto whitespace-nowrap">{{ $t('shopping_cart.order_summary.promo_discount')}} </label>
         <span class="font-medium text-danger"> 
           {{store.order.campaign.currency}} 
-          -{{Math.floor(parseFloat(store.order.discount) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+          -{{(Math.floor(parseFloat(store.order.discount) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </span>
       </div>
@@ -41,7 +41,7 @@
         <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
         <div class="font-medium" v-if="store.order.campaign">
           {{store.order.campaign.currency}}
-          {{ Math.floor(store.order.shipping_cost * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+          {{(Math.floor(store.order.shipping_cost * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
@@ -58,7 +58,7 @@
         <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
         <div class="font-medium text-base" v-if="store.order.campaign">
           {{store.order.campaign.currency}}
-          {{ Math.floor(store.order.total * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+          {{(Math.floor(store.order.total * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
