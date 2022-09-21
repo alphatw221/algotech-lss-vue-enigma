@@ -3,7 +3,7 @@
         id='comment-capturing-window' 
         @mousedown="startDrag($event)"
         @mouseup="endDrag()"
-        class="fixed bg-white w-fit block top-20 left-10 z-[999] rounded-lg border-2 border-slate-600" 
+        class="fixed bg-[#141414] w-fit block top-20 left-10 z-[999] rounded-lg border-2 border-slate-800" 
         v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username"
     
     
@@ -14,7 +14,7 @@
         >
         </div> -->
 
-        <div class="m-1 text-center flex">
+        <div class="m-1 text-center text-white flex">
 
             <!-- tiktok -->
 
@@ -66,11 +66,11 @@
                 
                 <div v-else-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='capturing'" class="flex">
                     <!-- <lottie-player  class="mt-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 35px; height: 35px;"   autoplay></lottie-player> -->
-                    <LoadingIcon icon="live" class=" my-auto w-8 h-8" />
+                    <LoadingIcon icon="camera" class=" my-auto w-10 h-10" />
                     <!-- <label>{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.status}}</label> -->
                     <div class="flex flex-col w-24 text-[12px] mx-2">
                         <label class="font-medium truncate" >{{sellerStore.commentCapturingCampaignData.title}}</label>
-                        <label class="text-slate-500">Syncing Twitch</label>
+                        <label class="text-white">Syncing Twitch</label>
                     </div>
                 </div>
                 
@@ -92,11 +92,6 @@
             <SimpleIcon icon="stop_live" color="#b91c1c" width="28" height="28" class="my-auto hover:stroke-[#b91c1c]" @click="stopCapturing()" /> 
 
         </div>
-
-
-
-        
-
 
         <TiktokCommentCapturer />
         <TwitchCommentCapturer />

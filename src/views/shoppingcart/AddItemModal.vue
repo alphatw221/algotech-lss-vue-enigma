@@ -39,7 +39,7 @@
 							</div>
 							<div class="text-slate-500 text-sm text-center">
 								{{store.order.campaign.currency}} 
-								{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+								{{(Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
 								{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 							</div>
 							<div v-if="product.qty_for_sale - product.qty_sold > 0" class="flex"> 

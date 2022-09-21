@@ -166,7 +166,7 @@
                       <label class="mr-auto form-check-label" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.default')}}</label>
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{Math.floor(parseFloat(store.order.campaign.meta_logistic.delivery_charge) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                        {{(Math.floor(parseFloat(store.order.campaign.meta_logistic.delivery_charge) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
                     </div>
@@ -180,12 +180,12 @@
 
                       <div v-if="option.type === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{Math.floor((parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                        {{(Math.floor((parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
                       <div v-else>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{Math.floor(parseFloat(option.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                        {{(Math.floor(parseFloat(option.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
 
@@ -384,8 +384,8 @@ const delivery_rules = computed(()=>{
   return{
     shipping_address_1: {required,minLength: minLength(1), maxLength: maxLength(255)},
     shipping_location: {required,minLength: minLength(1), maxLength: maxLength(255)},
-    shipping_region: {required,minLength: minLength(1), maxLength: maxLength(255)},
-    shipping_postcode: {required,integer,minLength: minLength(1), maxLength: maxLength(50)},
+    shipping_region: {maxLength: maxLength(255)},
+    shipping_postcode: {maxLength: maxLength(50)},
   }}
 );
 

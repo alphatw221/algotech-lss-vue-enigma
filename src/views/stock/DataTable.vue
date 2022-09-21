@@ -111,20 +111,16 @@
 						<td v-else-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="flex justify-center">
 								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 " v-if="product.image">
-									<Tippy 
-										tag="img"
+									<img 
 										class="w-full rounded-lg"
 										:src= "product.image"
-										:content="product.name"
 										data-action="zoom"
 									/>
 								</div>
 								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12" v-else>
-									<Tippy 
-										tag="img"
+									<img 
 										class="w-full rounded-lg"
 										:src= "`${staticDir}` + `no_image.jpeg`"
-										:content="product.name"
 										data-action="zoom"
 									/>
 								</div>
@@ -148,7 +144,7 @@
 						<td v-else-if="column.key === 'price'" class="w-full sm:w-20 qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="text-right">
 								<span class="text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span>
-								{{Math.floor(parseFloat(product[column.key]) * (10 ** layoutStore.userInfo.user_subscription.decimal_places)) / 10 ** layoutStore.userInfo.user_subscription.decimal_places}}
+								{{(Math.floor(parseFloat(product[column.key]) * (10 ** layoutStore.userInfo.user_subscription.decimal_places)) / 10 ** layoutStore.userInfo.user_subscription.decimal_places ).toLocaleString('en-GB')}}
 								{{layoutStore.userInfo.user_subscription.price_unit?$t(`global.price_unit.${layoutStore.userInfo.user_subscription.price_unit}`):''}}</div> 
 						</td>
 

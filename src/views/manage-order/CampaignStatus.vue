@@ -91,7 +91,7 @@
                                 </template>
                             </div>
                             <div class="mt-6 text-3xl font-medium leading-8" v-if="store.campaign">$
-                                {{ Math.floor(parseFloat(manageOrderStatus.complete_sales) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places}}
+                                {{ (Math.floor(parseFloat(manageOrderStatus.complete_sales) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-GB')}}
                             </div>
                             <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.sales')}}</div>
                         </div>
