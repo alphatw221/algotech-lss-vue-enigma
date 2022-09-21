@@ -95,13 +95,11 @@
 								<DropdownMenu class="w-24 pt-2 ">
 								<DropdownContent class="w-24 text-center">
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
-										@click="updateInfo(index, reply)"> 
-											<!-- <EditIcon class="w-[20px] h-[20px] mx-1"/>  -->
+										@click="updateInfo(index, reply)">
 											<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/> 
 											{{$t('auto_reply.manipulate.edit')}} </DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
 										@click="deleteAutoReply(reply,index)"> 
-											<!-- <Trash2Icon class="w-[20px] h-[20px] mx-1"/>  -->
 											<SimpleIcon icon="delete" color="#b91c1c" class="mr-1" /> 
 											{{$t('auto_reply.manipulate.delete')}} </DropdownItem>
 								</DropdownContent>
@@ -122,53 +120,13 @@
 	<div class="flex flex-wrap items-center col-span-12 intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
 		<Page class="mx-auto my-3" :total="totalCount" @on-change="changePage" @on-page-size-change="changePageSize" />
 	</div>
-	<!-- update Modal-->
-	<Modal :show="updateModal" @hidden="!updateModal" backdrop="static">
-		<ModalHeader>
-			<h2 class="mr-auto text-base font-medium">{{ $t('auto_reply.manipulate.edit') }} #{{currentInfo.index+1}} {{ $t('auto_reply.title') }}</h2>
-			<a @click="updateModal = false; layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'));" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">
-				<XIcon class="w-8 h-8 text-slate-400" />
-			</a>
-		</ModalHeader>
-		<ModalBody class="grid grid-cols-12 gap-4 gap-y-3">
-			<div class="col-span-12">
-				<label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.keyword_detect')}}</label>
-				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
-					v-model="currentInfo.input_msg" />
-			</div>
-			<div class="col-span-12">
-				<label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.set_auto_reply')}}</label>
-				<input id="modal-form-1" type="text" class="rounded-lg form-control longMessage" placeholder=""
-					v-model="currentInfo.output_msg" />
-			</div>
-			<div class="col-span-12">
-				<label for="modal-form-1" class="form-label">{{$t('auto_reply.table_column.remark')}}</label>
-				<input id="modal-form-1" type="text" class="rounded-lg form-control" placeholder=""
-					v-model="currentInfo.description" />
-			</div>
-			<!-- <div class="col-span-12">
-				<label for="modal-form-1" class="form-label">Following</label>
-				<img :src="currentInfo.facebook_page.image" />
-			</div> -->
-		</ModalBody>
-		<ModalFooter>
-			<button type="button" @click="updateModal = false; layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.not_saved_message'));" class="w-32 btn dark:border-darkmode-400">
-				{{ $t('auto_reply.modal_cancel') }}
-			</button>
-			<button type="button" @click="updateAutoReply(currentInfo)" class="w-32 ml-5 shadow-md btn btn-primary">
-				{{ $t('auto_reply.modal_save') }}
-			</button>
-		</ModalFooter>
-	</Modal>
 </template>
 
 <script setup>
 import { ref, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
-import { createAxiosWithBearer } from "@/libs/axiosClient";
-import { delete_auto_response, update_auto_response, list_auto_response, batch_delete_auto_response } from "@/api_v2/auto_response";
+import { delete_auto_response, list_auto_response, batch_delete_auto_response } from "@/api_v2/auto_response";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const props = defineProps({
 	columns: Array,
@@ -182,12 +140,11 @@ const currentPage = ref(1);
 const totalPage = ref(1);
 const pageSize = ref(10);
 const totalCount = ref(0);
-const updateModal = ref(false);
 const listItems = ref([]);
 const showCommentLoding = ref(true)
 const searchKeyword = ref('')
 
-const currentInfo = ref([])
+const keyinInfo = ref([])
 const bulkDeleteIdList = ref([])
 const isBulkDeleteShow = ref(false)
 
@@ -203,6 +160,15 @@ onMounted(() => {
 		payload.forEach( reply =>{
 			listItems.value.unshift(reply)
 		})
+	});
+	eventBus.on("getUpdateReplyData", (payload) => {
+		listItems.value.forEach(function(reply,i) { 
+		if (reply.id == payload.id){ 
+			console.log(payload); 
+			listItems.value[i].description = payload.description
+			listItems.value[i].input_msg = payload.input_msg
+			listItems.value[i].output_msg = payload.output_msg
+		}});
 	});
 });
 
@@ -221,9 +187,9 @@ function changePageSize(page_size) {
 }
 
 function updateInfo(index, reply) {
-	updateModal.value = true;
-	currentInfo.value = Object.assign({}, reply)
-	currentInfo.value.index = index
+	keyinInfo.value = Object.assign({}, reply)
+	keyinInfo.value.index = index
+	eventBus.emit('showEditAutoreply',keyinInfo.value)
 }
 
 function getReplyData() {
@@ -241,19 +207,6 @@ function getReplyData() {
 	});
 }
 
-function updateAutoReply(currentInfo) {
-	update_auto_response(currentInfo.id, currentInfo).then((response) => {
-		listItems.value.forEach(function(reply,i) { 
-			if (reply.id == currentInfo.id){ 
-				console.log(response.data); 
-				listItems.value[i].description = response.data.description
-				listItems.value[i].input_msg = response.data.input_msg
-				listItems.value[i].output_msg = response.data.output_msg
-			}});
-		updateModal.value = false;
-	});
-}
-
 function deleteAutoReply(reply,index) {
 	hideDropDown()
 	delete_auto_response(reply.id)
@@ -261,10 +214,6 @@ function deleteAutoReply(reply,index) {
 			layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.deleted_message'));
 			listItems.value.splice(index,1)
 		})
-}
-
-const hideDropDown = ()=>{
-  dom('.dropdown-menu').removeClass('show')
 }
 
 const selectAllReply = (event) => {
@@ -297,6 +246,9 @@ const batchDelete = () => {
 	}
 }
 
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
 </script>
 
 <style scoped>
