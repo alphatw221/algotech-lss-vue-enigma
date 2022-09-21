@@ -47,6 +47,7 @@
         "phone" : "Phone",
         "email" : "Email",
         "method" : "Delivery Method",
+        "default":"Default",
         "delivery" : "Delivery",
         "date" : "Delivery Date",
         "address":"Delivery Address",

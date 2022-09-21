@@ -42,6 +42,7 @@
         "phone" : "Số điện thoại",
         "email" : "Email",
         "method" : "Phương thức giao hàng",
+        "default":"Mặc định",
         "delivery" : "Vận chuyển",
         "date" : "Ngày giao hàng",
         "address":"Địa chỉ giao hàng",

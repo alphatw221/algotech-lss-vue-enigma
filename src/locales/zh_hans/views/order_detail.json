@@ -42,6 +42,7 @@
         "phone" : "电话",
         "email" : "电子邮件",
         "method" : "运送方式",
+        "default":"基本",
         "delivery" : "宅配",
         "date" : "到货日期",
         "address":"运送地址",
