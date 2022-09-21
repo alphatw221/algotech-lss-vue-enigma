@@ -1,5 +1,6 @@
 {
-    "lucky_draw" : "抽獎設定",
+    "lucky_draw" : "抽獎工具",
+    "lucky_draw_create" : "建立抽獎",
     "invalid_data":"輸入資料無效",
     "create_successed":"新增成功",
     "update_successed":"儲存成功",
@@ -10,15 +11,15 @@
 
     "draw_list": {
         "campaign_title": "活動名稱",
-        "all_winner": "得獎者列表",
+        "all_winner": "得獎者名單",
         "create": "建立抽獎",
-        "like": "對此FB貼文按讚者",
-        "purchase": "購買任何商品者",
-        "product": "購買特定商品者",
-        "keyword": "輸入特定關鍵字",
+        "like": "對此Facebook貼文按讚者",
+        "purchase": "下單任一商品者",
+        "product": "下單特定商品者",
+        "keyword": "留言特定關鍵字者",
         "sharedpost": "分享貼文者",
         "winners" : "得獎人數",
-        "winner_repeat": "重複得獎",
+        "winner_repeat": "是否允許重複得獎",
         "yes": "是",
         "no": "否",
         "start": "開始",
@@ -32,22 +33,22 @@
         "all_winner": "得獎者名單",
         "platform": "平台",
         "customer_name": "中獎名單",
-        "draw_type": "抽獎方式",
+        "draw_type": "抽獎條件",
         "prize": "獎品"
     },
 
     "draw_create": {
         "campaign_title": "活動名稱",
         "prize" : "獎品",
-        "spin_time" : "動畫時間（秒）",
+        "spin_time" : "動畫時長（秒）",
         "number_of_winner" : "得獎人數",
         "animation_style" : "抽獎動畫",
-        "winner_repeat" : "重複得獎",
+        "winner_repeat" : "是否允許重複得獎",
         "yes": "是",
         "no": "否",
         "winner_repeat_tip": "參與者可重複獲獎",
         "upload_animation": "上傳抽獎動畫",
-        "draw_type" : "抽獎方式",
+        "draw_type" : "抽獎條件",
         "cancel": "取消",
         "save": "儲存",
         "back": "上一頁",
@@ -58,10 +59,10 @@
         "product": "商品",
         "keyword": "關鍵字",
         "draw_selection": {
-            "like": "對此FB貼文按讚者",
-            "product": "購買特定商品者",
-            "purchase": "購買任何商品者",
-            "keyword": "輸入特定關鍵字",
+            "like": "對此Facebook貼文按讚者",
+            "product": "下單特定商品者",
+            "purchase": "下單任一商品者",
+            "keyword": "留言特定關鍵字者",
             "sharedpost": "分享貼文者"
         },
         "no_product_err":"尚未將商品加入此活動",
@@ -72,12 +73,12 @@
 
     "draw_flow": {
         "winner": "得獎者",
-        "repeatable": "重複得獎",
+        "repeatable": "是否允許重複得獎",
         "congrates": "恭喜",
         "no_winner": "沒有贏家",
         "yes": "是",
         "no": "否",
-        "draw_now": "抽獎"
+        "draw_now": "開始抽獎"
     },
 
 
@@ -85,18 +86,18 @@
 
 
 
-    "settings" : "抽獎設定",
+    "settings" : "建立抽獎",
     "prize" : "獎品",
     "number_of_winner" : "得獎人數",
-    "winner_repeat" : "重複得獎",
-    "spin_time" : "動畫時間",
+    "winner_repeat" : "是否允許重複得獎",
+    "spin_time" : "動畫時長",
     "style" : {
         "animation_style" : "動畫風格",
         "default_1" : "default-spin-1",
         "default_2" : "default-spin-2"
     },
     "draw_type" : {
-        "draw_type" : "抽獎類型",
+        "draw_type" : "抽獎條件",
         "like" : "按讚者",
         "purchased" : "購買者",
         "order_code" : "輸入訂購代碼者",

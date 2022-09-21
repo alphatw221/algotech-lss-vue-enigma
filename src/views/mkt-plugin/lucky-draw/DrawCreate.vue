@@ -352,7 +352,7 @@ const upsert = () => {
     } else {
         drawCondition.value = false 
     }
-    console.log(currentSettings.value)
+    // console.log(currentSettings.value)
     validate.value.$touch();
     if (validate.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.invalid_data'))

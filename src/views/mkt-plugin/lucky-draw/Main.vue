@@ -1,7 +1,8 @@
 <template>
     <div class="flex flex-col h-[100%] text-lg p-3 sm:px-10 sm:m-5 gap-3 sm:gap-0" v-if="ready">
         <div class="flex flex-col sm:flex-row justify-between sm:mx-5 gap-3"> 
-            <h1 class="text-center sm:text-left text-xl sm:text-2xl font-medium my-auto"> {{ $t('lucky_draw.lucky_draw') }} </h1>
+            <h1 v-if="showDrawlist" class="text-center sm:text-left text-xl sm:text-2xl font-medium my-auto"> {{ $t('lucky_draw.lucky_draw') }} </h1>
+            <h1 v-else class="text-center sm:text-left text-xl sm:text-2xl font-medium my-auto"> {{ $t('lucky_draw.lucky_draw_create') }} </h1>
             <button
                 v-show="showDrawlist" 
                 class="w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded mx-auto sm:mx-0 border-[2px] border-slate-100 shadow-lg"

@@ -63,7 +63,7 @@
 							<div v-if="product.qty_for_sale - product.qty_sold> 0">
 								<button 
 									class="btn btn-sm btn-primary w-24 mt-3"
-									@click="buyer_add_item(product.id, index)"
+									@click="buyer_add_item(product, index)"
 								>
 									{{$t('shopping_cart.add_item.add')}}
 								</button>
@@ -71,7 +71,7 @@
 							<div v-else> 
 								<button 
 									class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
-									@click="add_to_wishlist(product.product)"
+									@click="add_to_wishlist(product)"
 								>
 									{{$t('shopping_cart.add_item.wishlist')}}
 								</button>
@@ -81,7 +81,6 @@
 				</template>
 			</div>
 			<div class="invisible h-20"> ... </div>
-			<WishListModal :isAnonymousUser="isAnonymousUser"/>
 		</ModalBody>
 	</Modal>
 </template>
@@ -95,7 +94,6 @@ import { buyer_cart_add, guest_cart_add } from "@/api_v2/pre_order";
 import { useRoute } from "vue-router";
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
-import WishListModal from "./WishListModal.vue";
 
 const { cookies } = useCookies()
 const layoutStore = useLSSBuyerLayoutStore();
@@ -114,7 +112,6 @@ onMounted(()=> {
 		store.showAddItemModal = true
 		addOnTitle.value = 'select_products'
 	}
-	console.log('xx',store.order)
 })
 
 watch(computed(()=>store.campaignProducts),()=>{
@@ -155,10 +152,10 @@ const changeQuantity = (event, index, operation) => {
 }   // minus after input works, plus after input not works
 
 
-const buyer_add_item = (campaing_product_id, index) => {
+const buyer_add_item = (product, index) => {
 
 	const cart_add = isAnonymousUser?guest_cart_add:buyer_cart_add
-	cart_add(route.params.pre_order_oid, campaing_product_id, addOnProducts.value[index].qty)
+	cart_add(route.params.pre_order_oid, product.id, addOnProducts.value[index].qty)
 	.then(
 		res => {
 			store.order = res.data

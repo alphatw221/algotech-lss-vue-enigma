@@ -19,10 +19,16 @@
         "cart_referal":"Cart Referral",
         "limitations":"Limitations",
         "general":"Promo Code",
+<<<<<<< HEAD
         "subtotal_over_specific_amount":"Amount:",
         "product_over_specific_number":"Product:",
         "specific_campaign":"Campaign:",
         "all_campaign": "Campaign: All"
+=======
+        "subtotal_over_specific_amount":"Amount：",
+        "product_over_specific_number":"Product：",
+        "specific_campaign":"Campaign："
+>>>>>>> c0517f37b2336f95e7fd482f9e38b7d3a521ba97
     },
     "modal":{
         "create":"Create Discount Code",

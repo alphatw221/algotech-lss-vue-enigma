@@ -8,12 +8,12 @@
     "forgot_password": "quên mật khẩu ?",
     "no_account": "Bạn chưa có tài khoản ? ",
     "create_one": "Đăng Ký Ngay !",
-    "codeInvalid":"Entered code is Incorrect",
+    "codeInvalid":"Mã đã nhập không chính xác",
     "2FAModal":{
-        "title":"Authentication Required",
-        "subTitle":"Enter verification code from your email, tap close button if you don't want to login:",
-        "resend":"Resend",
-        "resend_again":"resend email in %{sec} seconds",
-        "submit":"Submit"
+        "title":"Yêu cầu xác minh",
+        "subTitle":"Nhập mã xác minh từ email của bạn, nhấn vào nút đóng nếu bạn không muốn đăng nhập :",
+        "resend":"Gửi lại mã",
+        "resend_again":"gửi lại mã xác minh trong email sau% {sec} giây",
+        "submit":"Gửi"
     }
 }

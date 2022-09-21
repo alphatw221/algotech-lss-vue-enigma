@@ -52,10 +52,8 @@
                             class="w-24 text-[12px] lg:text-sm qty text-center" 
                             :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
                             :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div v-if="campaign_product.type == 'lucky_draw'" > - </div>
-                            <div v-else>
-                                {{ campaign_product[column.key] }}      
-                            </div>
+                            <!-- <div v-if="campaign_product.type == 'lucky_draw'" > - </div> -->
+                            <div>{{ campaign_product[column.key] }} </div>
                         </td>
 
                         <td v-else-if="column.key === 'max_order_amount'" 
@@ -454,12 +452,6 @@ thead th {
 
     .category:before {
         content: attr(data-content);
-    }
-    .category{
-        display: flex;
-        flex-direction:column; 
-        justify-content: center;
-        vertical-align:baseline !important;
     }
 
     .price:before {
