@@ -4,7 +4,7 @@
             <h2 v-if="action == 'CREATE'" class="mr-2 text-base font-medium text-[16px]">{{$t('auto_reply.modal_title')}}</h2>
             <h2 v-if="action == 'EDIT'" class="mr-auto text-base font-medium">{{ $t('auto_reply.manipulate.edit') }} #{{keyinInfo.index+1}} {{ $t('auto_reply.title') }}</h2>
             <Tippy 
-            v-if="action == 'CREATE'"
+                v-if="action == 'CREATE'"
                 class="rounded-full w-fit whitespace-wrap ml-1 tippy-mobile mr-auto" 
                 data-tippy-allowHTML="true" 
                 data-tippy-placement="right" 
