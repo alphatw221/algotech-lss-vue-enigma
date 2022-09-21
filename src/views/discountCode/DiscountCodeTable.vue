@@ -50,6 +50,7 @@
 						</td>
 						<td v-else-if="column.type === 'multipleI18'" class="text-[12px] whitespace-nowrap"
 							:data-content="$t(`discount.table.`+column.key) " >
+							<div v-if="checkIsAllCampaign(discountCode[column.key])"> * {{ $t(`discount.table.all_campaign`) }}</div>
 							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
 								<div> * {{ $t(`discount.table.` + limitations.key) }} </div>
 								<div class="ml-2" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{limitations.amount}} </div>
@@ -110,7 +111,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
+import { ref, onMounted, getCurrentInstance, onUnmounted, computed } from "vue";
 
 import { delete_discount_code, list_discount_code,list_scheduled_campaign_options } from "@/api_v2/discount_code"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
@@ -155,6 +156,14 @@ onMounted(() => {
 onUnmounted(() => {
 	eventBus.off("listDiscountCodes");
 });
+
+const checkIsAllCampaign = (limitationList) => {
+	let isAllCampaign = true
+	limitationList.forEach(limitation => {
+		if (limitation.key == 'specific_campaign') isAllCampaign = false
+	})
+	return isAllCampaign
+}
 
 const changePage = page=> {
 	currentPage.value = page;

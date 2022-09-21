@@ -21,7 +21,8 @@
         "limitations":"使用條件",
         "subtotal_over_specific_amount":"總價：",
         "product_over_specific_number":"商品：",
-        "specific_campaign":"活動："
+        "specific_campaign":"活動：",
+        "all_campaign": "活動：全部"
     },
     "modal":{
         "create":"新增優惠代碼",
