@@ -32,7 +32,7 @@
     },
     "auto_reply":{
         "assign_to":"Assign auto reply to certain page",
-        "title":"Auto reply works when buyers interactive on FB messenger and IG direct messenger.",
+        "title":"Auto reply works when buyers interactive on Facebook Messenger and Instagram Direct Messenger.",
         "platform":"Please select the community account you want to apply this auto-reply to."
     },
     "discount_code":{
@@ -41,7 +41,7 @@
     "settings":{
         "default_settings":"You can fill in the default values for sales activity settings here, and the system will automatically bring in these data each time you create a new sales activity, you can also modify it individually according to different activities.",
         "note":{
-            "delivery_note":"Additnonal message to inform buyers on certain details, such as store opening timings, delivery time period etc",
+            "delivery_note":"Additional message to inform buyers on certain details, such as store opening timings, delivery time period etc",
             "special_note":"A custom message to buyer, such as shopping note and T&C",
             "confirm_note":"Message to inform buyers of their order is confirmed"
         },

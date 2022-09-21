@@ -61,10 +61,10 @@
         "information": "Thông tin thanh toán",
         "record" : "Hóa đơn thanh toán",
         "last_five_digits":"5 số cuối thẻ",
-        "no_record":"Payment record has not been attached"
+        "no_record":"Biên nhận thanh toán chưa được đính kèm"
     },
-    "remark" : "Nhận xét",
-    "save_remarks" : "Lưu nhận xét",
+    "remark" : "Ghi chú",
+    "save_remarks" : "Lưu ghi chú",
     "save_order" : "Lưu đơn hàng",
     "shopping_cart" : "Giỏ hàng",
     "invalid_qty":"Số lượng không hợp lệ",

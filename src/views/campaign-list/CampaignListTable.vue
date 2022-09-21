@@ -350,7 +350,7 @@ const editCampaignProduct = campaign=>{
 const copyURL = (campaign)=>{
   text = `${baseURL}/buyer/recaptcha/blank/${campaign.id}`;
   navigator.clipboard.writeText(text).then(()=>{
-      layoutStore.notification.showMessageToast(i18n.global.t("campaign_list.campaign_list_table.quiz_game"))
+      layoutStore.notification.showMessageToast(i18n.global.t("campaign_list.copied"))
   })
   hideDropDown()
 }
