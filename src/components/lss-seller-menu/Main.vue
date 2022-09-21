@@ -8,11 +8,11 @@
         @click="router.push({name:'create-campaign'})"> 
         <button class="w-10 h-10 xl:mr-3 btn btn-rounded-warning border-[2px] border-slate-100 shadow-lg"
           ><span class="text-2xl text-white">+</span></button> 
-        <span class="hidden font-medium xl:block"
+        <span class="hidden font-medium xl:block my-auto flex flex-wrap w-24"
           :class="{
             'font-bold': breadCrumb[breadCrumb.length-1] == 'create campaign',
           }"
-          > {{$t(`layout.menu.create`)}}<br> {{$t(`layout.menu.new_campaign`)}}</span> 
+          > {{$t(`layout.menu.create`)}}<div class="w-24">{{$t(`layout.menu.new_campaign`)}}</div></span> 
       </div>
 
       <nav class="side-nav">
