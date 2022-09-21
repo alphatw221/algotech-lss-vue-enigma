@@ -20,7 +20,7 @@
                 </div>
                 <span class="h-auto w-40 break-words text-[16px] hidden 2xl:block">{{ luckydraw.prize.name }}</span>
                 <div class="flex flex-col 2xl:flex-row flex-wrap justify-start xl:mt-5 w-[55%] xl:w-auto xl:ml-auto">  
-                    <span class="my-auto 2xl:hidden break-words w-full">{{ luckydraw.prize.name }}</span>
+                    <span class="mb-2 md:my-auto lg:-mt-2 lg:mb-2 2xl:hidden break-words w-full">{{ luckydraw.prize.name }}</span>
                     
                     <div class="flex flex-col xl:flex-row flex-wrap" > 
                         <div class="xl:border-r-2 border-white flex flex-row xl:flex-col w-full xl:pr-5 xl:w-36 xl:w-44 text-sm xl:text-xl justify-between xl:justify-center text-right">
@@ -29,7 +29,7 @@
                                 <span v-else-if="drawTitleMap[luckydraw.type] == 'Draw Purchased'" class="text-slate-500 whitespace-nowrap mr-auto xl:mr-0"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                                 <span v-else class="text-slate-500 order-1 whitespace-nowrap mr-0 hidden md:block"> {{ $t(`lucky_draw.draw_list.${luckydraw.type}`) }} </span>
                             </div>
-                            <div class="h-[22px] xl:h-[28px] mr-auto xl:mr-0 xl:my-1"> 
+                            <div class=" mr-auto xl:mr-0 xl:my-1"> 
                                 <span class="text-[#E75F34]" v-if="luckydraw.type == 'product'"> ({{ luckydraw.campaign_product.order_code }}) {{ luckydraw.campaign_product.name }} </span>
                                 <span class="text-[#E75F34]" v-else-if="luckydraw.type == 'keyword'"> {{ luckydraw.comment }} </span>
                             </div>

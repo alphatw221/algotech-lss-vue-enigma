@@ -1,5 +1,6 @@
 {
     "lucky_draw" : "Lucky Draw",
+    "lucky_draw_create" : "Draw Create",
     "invalid_data":"Invalid Submission",
     "create_successed":"Create Successed",
     "update_successed":"Update Successed",

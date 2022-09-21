@@ -77,7 +77,7 @@
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
                             v-model="store.filterTagArray.platform['youtube']" 
                                 @click="updateTag('platform','youtube')"> 
-                                <span class="ml-1"> Youtube </span> 
+                                <span class="ml-1"> YouTube </span> 
                     </div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 

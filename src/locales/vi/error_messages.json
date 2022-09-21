@@ -145,7 +145,7 @@
         "reach_max_concurrent_campaigns":"Bạn đã đạt đến số lượng chiến dịch đồng thời tối đa",
         "reach_max_campaigns_limit": "Bạn đã đạt đến số lượng chiến dịch tối đa",
         "api_fb_get_accounts_error": "Lỗi Facebook API",
-        "api_yt_list_channel_error": "Lỗi Youtube API",
+        "api_yt_list_channel_error": "Lỗi YouTube API",
         "no_channel_found":"Không tìm thấy kênh nào cho tài khoản này",
         "fb_api_fail": "Lỗi Facebook API, vui lòng thử lại",
         "fb_user_token_invalid": "Mã thông báo người dùng Facebook không hợp lệ",

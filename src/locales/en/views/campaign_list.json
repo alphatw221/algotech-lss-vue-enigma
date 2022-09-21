@@ -101,7 +101,7 @@
         "valid_post_id_notification": "Please Enter Valid Post ID",
 
         "rebind_page":"Please Rebind Selected Facebook Page",
-        "rebind_channel":"Please Rebind Selected Youtube Channel",
+        "rebind_channel":"Please Rebind Selected YouTube Channel",
         "rebind_profile":"Please Rebind Selected Instagram Profile"
     },
     "update_successed":"Update Successed",
