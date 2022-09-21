@@ -164,7 +164,6 @@ onMounted(() => {
 	eventBus.on("getUpdateReplyData", (payload) => {
 		listItems.value.forEach(function(reply,i) { 
 		if (reply.id == payload.id){ 
-			console.log(payload); 
 			listItems.value[i].description = payload.description
 			listItems.value[i].input_msg = payload.input_msg
 			listItems.value[i].output_msg = payload.output_msg
@@ -221,7 +220,7 @@ const selectAllReply = (event) => {
 		listItems.value.forEach(reply => { 
 			reply.check = true 
 			bulkDeleteIdList.value.push(reply.id)
-			console.log(bulkDeleteIdList.value)
+			// console.log(bulkDeleteIdList.value)
 		})
 	} else {
 		listItems.value.forEach(reply => { 

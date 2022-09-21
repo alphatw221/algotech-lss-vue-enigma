@@ -152,7 +152,6 @@
             return get_user_subscription_instagram_profiles()
         }).then(res=>{
             PagesData.value = PagesData.value.concat(res.data);
-            console.log(PagesData.value)
         }).catch(err=> {
             console.log(err)
         })
