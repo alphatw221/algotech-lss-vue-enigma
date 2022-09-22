@@ -1,7 +1,7 @@
 <template>
     <LoadingIcon  v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
     <Button v-else-if="props.buttonName == 'edit'" 
-        type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
+        type="button" @click="bindPage">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
         type="button" class="google-login-btn shadow-lg" @click="bindPage">{{$t('settings.platform.connect_with_youtube')}}</Button>
@@ -12,7 +12,7 @@
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
  
-import {loadScriptAsyncDefer} from '@/libs/loadScript.js';
+import {googleLoadScriptAsyncDefer} from '@/libs/loadScript.js';
 import { check_activated_platform } from '@/api/user_subscription'
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -24,55 +24,27 @@ const props = defineProps({
 });
 
 
-var GoogleAuth;
+var client;
 var SCOPE = 'https://www.googleapis.com/auth/youtube';
 
 onMounted(()=>{
-    window.handleClientLoad = ()=> {
-        // Load the API's client and auth2 modules.
-        // Call the initClient function after the modules load.
-        gapi.load('client:auth2', initClient);
-    }
-    loadScriptAsyncDefer('https://apis.google.com/js/api.js?onload=handleClientLoad')
-    const initClient = () => {
-        // Initialize the gapi.client object, which app uses to make API requests.
-        // Get API key and client ID from API Console.
-        // 'scope' field specifies space-delimited list of access scopes.
-        gapi.auth2.init({
-            'clientId':import.meta.env.VITE_GOOGLE_CLIENT_ID,
-            'scope': SCOPE
-        }).then(function () {
-            GoogleAuth = gapi.auth2.getAuthInstance();
-        });
-    }
+    googleLoadScriptAsyncDefer('https://accounts.google.com/gsi/client', initClient)
 })
 
-
-const handleAuthClick = () => {
-    if (GoogleAuth.isSignedIn.get()) {
-        // User is authorized and has clicked "Sign out" button.
-        GoogleAuth.signOut();
-
-    } else {
-        // User is not signed in. Start Google auth flow.
-        // GoogleAuth.signIn();
-        GoogleAuth.grantOfflineAccess().then(function(resp) {
-            eventBus.emit(props.busName ,resp)
-        });
-    }
+const initClient = ()=> {
+    console.log("google initClient")
+    client = google.accounts.oauth2.initCodeClient({
+      client_id: import.meta.env.VITE_GOOGLE_CLIENT_ID,
+      scope: SCOPE,
+      ux_mode: 'popup',
+      callback: (response) => {
+        eventBus.emit(props.busName ,response)
+      },
+    });
 }
 
 const bindPage = () => {
-    handleAuthClick()
-    // check_activated_platform().then(res=>res.data).then(res=>{
-    //     console.log(res)
-    //     fetchingData.value = false
-    //     if (res.can_bind) {
-    //         handleAuthClick()
-    //     } else {
-    //         eventBus.emit("showUpgradeModal", {"activated_platform_amount": res.activated_platform_amount})
-    //     }
-    // })
+    client.requestCode();
 }
 </script>
 
