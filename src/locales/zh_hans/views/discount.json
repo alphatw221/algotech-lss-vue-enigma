@@ -21,8 +21,8 @@
         "limitations":"使用条件",
         "subtotal_over_specific_amount":"总价：",
         "product_over_specific_number":"商品：",
-        "specific_campaign":"活動：",
-        "all_campaign": "活動：全部"
+        "specific_campaign":"活动：",
+        "all":"全部"
     },
     "modal":{
         "create":"新增优惠代码",
