@@ -399,6 +399,7 @@ const copyProduct = (product) => {
 		console.log(res)
 		copy.id = res.data.message 
 		copy.name = 'copy - ' + product.name
+		copy.check = false
 		stockProducts.value.unshift(copy)
 		console.log(stockProducts.value)
 		}
