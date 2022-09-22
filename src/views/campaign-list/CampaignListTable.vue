@@ -312,7 +312,7 @@ const changePageSize = (pageSize)=>{
 
 const clickEntry = (index)=>{
   const campaign = campaigns.value[index]
-  console.log(index)
+  // console.log(index)
   if(props.campaignStatus === 'history'){
     router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
     return
