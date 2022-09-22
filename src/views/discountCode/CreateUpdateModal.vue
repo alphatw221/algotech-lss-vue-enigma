@@ -1,6 +1,6 @@
 <template>
     <!-- update Modal-->
-	<Modal :show="showModal" @hidden="hideModal()" >
+	<Modal backdrop="static" :show="showModal" @hidden="hideModal()" >
 		<ModalHeader>
 			<h2 class="mr-auto text-base font-medium">{{ 'edit' }} #{{currentInfo.id}}</h2>
 			<a @click="updateModal = false" class="absolute top-0 right-0 mt-3 mr-3" href="javascript:;">

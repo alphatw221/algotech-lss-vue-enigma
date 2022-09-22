@@ -1,5 +1,5 @@
 <template>
-    <Modal :show="editCampaignProduct" @hidden="editCampaignProduct = false">
+    <Modal backdrop="static" :show="editCampaignProduct" @hidden="editCampaignProduct = false">
         <ModalHeader>
             <h2 class="font-medium text-base m-auto ">
                 {{ $t('assign_product.modal.edit_title') }}

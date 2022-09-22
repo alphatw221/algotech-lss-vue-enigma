@@ -1,6 +1,7 @@
 <template>
 
     <Modal
+    backdrop="static"
       size="modal-xl"
       :show="layoutStore.showLoginModal"
       @hidden="layoutStore.showLoginModal=false"

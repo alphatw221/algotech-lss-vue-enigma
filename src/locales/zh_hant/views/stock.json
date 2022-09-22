@@ -34,7 +34,8 @@
         "qty": "庫存數量",
         "price": "價格",
         "confirm_delete": "確定要刪除該商品？",
-        "wishlist":"願望清單"
+        "wishlist":"願望清單",
+        "remark":"備註"
     },
 
     "category_manage": {
@@ -69,9 +70,12 @@
         "price": "價格",
         "price_warning": "價格需填數字",
         "status": "商品狀態",
-        "description": "說明",
-        "product_description": "商品說明···",
-        "description_warning": "說明文字不超過100字",
+        "remark": "備註",
+        "placeholder_remark": "賣家備註...",
+        "remark_warning":"備註不可超過100字",
+        "description": "商品說明",
+        "product_description": "買家可見的商品說明···",
+        "description_warning": "說明文字不可超過500字",
         "cancel": "取消",
         "save": "儲存",
 

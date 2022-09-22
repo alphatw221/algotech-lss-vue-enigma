@@ -1,5 +1,6 @@
 <template>
     <Modal :show="show"
+    backdrop="static"
         @hidden="hide()">
         <ModalBody class="text-left content-center">
           <div class="intro-y grid grid-cols-12 gap-5 my-5">

@@ -126,7 +126,7 @@
                 </DropdownMenu>
             </Dropdown>
         </div>
-        <Modal :show="showModal" @hidden="closeModal()">
+        <Modal backdrop="static" :show="showModal" @hidden="closeModal()">
             <ModalHeader>
                 <h2 class="font-medium text-center"> Create New Animation </h2>
             </ModalHeader>
