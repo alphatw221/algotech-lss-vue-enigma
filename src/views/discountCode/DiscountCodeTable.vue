@@ -48,9 +48,9 @@
 							:data-content="$t(`discount.table.`+column.key) " >
 							{{ $t(`discount.table.` + discountCode[column.key]) }}
 						</td>
-						<td v-else-if="column.type === 'multipleI18'" class="text-[12px] whitespace-nowrap"
+						<td v-else-if="column.type === 'multipleI18'" class="text-[12px] whitespace-nowrap sm:w-32"
 							:data-content="$t(`discount.table.`+column.key) " >
-							<div v-if="checkIsAllCampaign(discountCode[column.key])" class="flex justify-end sm:justify-between"> * {{ $t(`discount.table.specific_campaign`) }} <span class="ml-auto"> {{$t(`discount.table.all`)}}</span></div>
+							<div v-if="checkIsAllCampaign(discountCode[column.key])" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> * {{ $t(`discount.table.specific_campaign`) }} <div class="ml-2 sm:ml-auto"> {{$t(`discount.table.all`)}}</div></div>
 							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
 								<div> * {{ $t(`discount.table.` + limitations.key) }} </div>
 								<div class="ml-2 sm:ml-auto" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{(limitations.amount).toLocaleString('en-US')}} </div>
@@ -63,7 +63,16 @@
 							</div>
 						</td>
 						
-						<td v-else-if="column.type === 'datetime'" class="sm:w-32"
+						<td v-else-if="column.key === 'start_at'" class="sm:w-32" 
+							:data-content="$t(`discount.table.`+column.name) " >
+							{{ 
+								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
+									year: "numeric", month: "short", hour12: false,
+									day: "numeric", hour: '2-digit', minute: '2-digit'
+								}) 
+							}}
+						</td>
+						<td v-else-if="column.key === 'end_at'" class="sm:w-32" :class="{'text-danger': new Date() > new Date(discountCode[column.key])}"
 							:data-content="$t(`discount.table.`+column.name) " >
 							{{ 
 								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
