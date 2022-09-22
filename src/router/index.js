@@ -91,7 +91,7 @@ import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
 import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
 // import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 
-import Test7 from "../views/test/test7.vue"; 
+import Test2 from "../views/test/test2.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
@@ -109,8 +109,8 @@ import checkDealerLogin from "@/libs/routerMiddleware/checkDealerLogin";
 const routes = [
   {
     path: "/seller/test",
-    name: "test7",
-    component: Test7,
+    name: "test2",
+    component: Test2,
   },
   {
     path: "/seller/lucky-draw/draw/:lucky_draw_id?",
