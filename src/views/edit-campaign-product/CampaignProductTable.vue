@@ -10,8 +10,13 @@
                     </th>
                 </tr>
             </thead>
-            <tbody >
-                <tr v-if="campaignDetailStore.campaignProducts.length== 0" class="trDot">
+            <tbody>
+                <tr v-if="props.loading" class="trDot">
+                    <td :colspan="tableColumns.length" class="trDot">
+                        <LoadingIcon icon="three-dots" color="1a202c" class="absolute body-middle"/>
+                    </td>
+                </tr>
+                <tr v-else-if="campaignDetailStore.campaignProducts.length == 0" class="trDot">
                     <td :colspan="tableColumns.length" class="trDot">
 						<div class="mt-5 text-center md:mt-40" >
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
@@ -23,9 +28,9 @@
 						</div>
 					</td> 
                 </tr>
-                <tr v-for="(campaign_product, index) in campaignDetailStore.campaignProducts" :key="index" class="align-middle intro-x">
+                <template v-else> 
+                    <tr v-for="(campaign_product, index) in campaignDetailStore.campaignProducts" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
-
                         <td v-if="column.key === 'image'" class="w-18 text-[12px] sm:w-18 lg:text-sm 2xl:w-32 imgtd">
                             <div class="flex items-center justify-center">
                                 <div class="w-[90px] h-[90px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
@@ -177,6 +182,8 @@
                         </td>
                         </template>
                     </tr>
+                </template>
+                
                 </tbody>
             </table>
         </div> 
@@ -195,7 +202,7 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
 
 const props = defineProps({
-    eventBusName:String
+    loading:Boolean
 })
 
 const layoutStore = useLSSSellerLayoutStore()
@@ -233,9 +240,7 @@ const typeSelection = ref([
 const payloadBuffer = ref({})
 
 onMounted(() => {
-
     search()
-    getCampaignDetail()
     eventBus.on(props.eventBusName, (payload) => {
         payloadBuffer.value=payload
         currentPage.value = 1
@@ -251,13 +256,13 @@ onUnmounted(() => {
 
 
 const search = () => {
-        seller_list_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value)
-        .then(response => {
-            dataCount.value = response.data.count
-            campaignDetailStore.campaignProducts = response.data.results
-        }).catch(error => {
-            console.log(error);
-        })
+    seller_list_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value)
+    .then(response => {
+        dataCount.value = response.data.count
+        campaignDetailStore.campaignProducts = response.data.results
+    }).catch(error => {
+        console.log(error);
+    })
 }
 
 const changePage = (page) => {
@@ -282,12 +287,6 @@ const deleteProduct = (campaign_product, index) => {
     .then(response => {
         campaignDetailStore.campaignProducts.splice(index,1)
     })
-}
-
-const getCampaignDetail = ()=>{
-	retrieve_campaign(route.params.campaign_id).then(res=>{
-		campaignDetailStore.campaign = res.data
-	}) 
 }
 
 </script>

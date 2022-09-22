@@ -21,8 +21,8 @@
 			</div>
 		</div>
 	</div>
-	<AddProductFromStockModal/>
-	<EditCampaignProductModal/>
+	<AddProductFromStockModal :loading="loadingTable"/>
+	<EditCampaignProductModal :campaignStarted="campaignStarted"/>
 </template>
 
 <script setup>
@@ -30,13 +30,14 @@ import { onMounted, ref, getCurrentInstance, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import SearchBar from "./SearchBar.vue";
 import CampaignProductTable from "./CampaignProductTable.vue"
-
 import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal_2.vue';
 import EditCampaignProductModal from './EditCampaignProductModal.vue'
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+import { retrieve_campaign } from '@/api_v2/campaign'
 const route = useRoute();
 const router = useRouter();
-
+const campaignStarted = ref(true)
+const loadingTable = ref(true)
 const campaignDetailStore = useCampaignDetailStore()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
@@ -48,4 +49,13 @@ const routeToCampaignLive=()=>{
 const showAddProductFromStockModal =()=>{
 	campaignDetailStore.showAddProductFromStockModal = true
 }
+
+onMounted(()=>{
+	loadingTable.value = false
+	retrieve_campaign(route.params.campaign_id).then(res=>{
+		campaignDetailStore.campaign = res.data
+		campaignStarted.value = new Date(campaignDetailStore.campaign.start_at).getTime() < new Date().getTime()? true:false
+		loadingTable.value = false
+	})
+})
 </script>
