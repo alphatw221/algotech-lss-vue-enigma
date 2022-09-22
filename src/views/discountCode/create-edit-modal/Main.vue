@@ -264,9 +264,7 @@ const addLimitation = ()=>{if(discountCode.value.limitations.length <2){
 
 const createDiscountCode=()=>{
     limitationErr.value = false
-    for(let i=0; i<discountCode.value.limitations.length; i++){
-        keyArray.value.push(discountCode.value.limitations[i].key)
-    }
+    discountCode.value.limitations.forEach(limit =>{ keyArray.value.push(limit.key)} )
     v.value.$touch()
 	if (v.value.$invalid) {
 		layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))

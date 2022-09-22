@@ -1,5 +1,5 @@
 <template>
-    <Modal size="modal-xl" class="text-center" :slideOver="true" :show="campaignDetailStore.showAddProductFromStockModal"
+    <Modal size="modal-xl" class="text-center" backdrop="static" :slideOver="true" :show="campaignDetailStore.showAddProductFromStockModal"
         @hidden="hideModal()" @show="search()"> 
         <a @click="hideModal()" class="absolute right-0 top-0 mt-3 mr-3">
             <XIcon class="w-8 h-8 text-slate-400" />

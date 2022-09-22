@@ -30,7 +30,7 @@
                 </div>
                 <XIcon 
                     v-if="keyword"
-                    class="flex-none w-7 h-7 mt-2 text-slate-600" @click="reset"/>
+                    class="flex-none w-7 h-7 mt-2 text-slate-600" @click="reset()"/>
                 <button
                     v-show="isBulkEditShow"
                     type="button" 

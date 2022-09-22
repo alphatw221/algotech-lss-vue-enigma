@@ -158,7 +158,7 @@
             </tbody>
         </table>
 
-        <Modal :show="warningModalPreview" @hidden="warningModalPreview = false">
+        <Modal backdrop="static" :show="warningModalPreview" @hidden="warningModalPreview = false">
             <ModalBody class="p-0">
                 <div class="p-5 text-center">
                     <XCircleIcon class="w-16 h-16 mx-auto mt-3 text-warning" />

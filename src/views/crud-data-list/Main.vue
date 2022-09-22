@@ -182,6 +182,7 @@
   </div>
   <!-- BEGIN: Delete Confirmation Modal -->
   <Modal
+  backdrop="static"
     :show="deleteConfirmationModal"
     @hidden="deleteConfirmationModal = false"
   >

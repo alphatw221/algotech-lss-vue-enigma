@@ -2,6 +2,7 @@
 
     <!--Modal Enter Post ID -->
     <Modal
+    backdrop="static"
       size="modal-xl"
       :show="showModal"
       @hidden="hideModal()"

@@ -1,5 +1,6 @@
 <template>
     <Modal
+    backdrop="static"
         :show="show"
         @hidden="show=false"
       >
