@@ -22,7 +22,14 @@
 
                     <div class="col-span-12" v-else-if="column.key === 'type'">
                         <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                        <select class="form-select" v-model="campaignProduct[column.key]" >
+                        <select v-if="!props.campaignStarted"
+                            class="form-select" v-model="campaignProduct[column.key]" >
+                            <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
+                                {{$t(`edit_campaign_product.edit_product_modal.types.${type.value}`)}}
+                            </option>
+                        </select> 
+                        <select v-else 
+                            class="form-select" v-model="campaignProduct[column.key]" disabled>
                             <option v-for="(type, index) in typeSelection" :key="index" :value="type.value">
                                 {{$t(`edit_campaign_product.edit_product_modal.types.${type.value}`)}}
                             </option>
@@ -31,17 +38,20 @@
 
                      <div class="col-span-12"  v-else-if="column.key === 'price'">
                         <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                        <input type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
+                        <input v-if="!props.campaignStarted" type="text" class="form-control" v-model="campaignProduct[column.key]"/>
+                        <input v-else type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
                     </div>
 
                     <div class="col-span-12"  v-else-if="column.key === 'order_code' && campaignProduct.type != 'lucky_draw'">
                         <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                        <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
+                        <input v-if="!props.campaignStarted" type="text" class="form-control" v-model="campaignProduct[column.key]"/>
+                        <input v-else type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
                     </div>
 
                     <div class="col-span-12" v-else-if="column.key === 'max_order_amount' && campaignProduct.type != 'lucky_draw'">
                         <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                        <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
+                        <input v-if="!props.campaignStarted" type="text" class="form-control" v-model="campaignProduct[column.key]"/>
+                        <input v-else type="text" class="form-control" v-model="campaignProduct[column.key]" disabled/>
                         <template v-if="v[column.key]">
                             <label class="text-danger text-[12px] block" 
                                 v-for="error,index in v[column.key].$errors"
@@ -54,7 +64,7 @@
 
                     <div class="col-span-12" v-else-if="column.key === 'qty_for_sale'">
                         <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
-                        <input type="text" class="form-control" v-model="campaignProduct[column.key]" />
+                        <input type="text" class="form-control" v-model="campaignProduct[column.key]"/>
                         <template v-if="v[column.key]">
                             <label class="text-danger text-[12px] block" 
                                 v-for="error,index in v[column.key].$errors"
@@ -84,7 +94,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onUnmounted, getCurrentInstance, computed } from 'vue';
+import { ref, onMounted, onUnmounted, getCurrentInstance, computed,watch } from 'vue';
 import { seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
@@ -93,23 +103,18 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue, maxValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import i18n from "@/locales/i18n"
-
-
+const props = defineProps({ campaignStarted: Boolean} )
 const layoutStore = useLSSSellerLayoutStore()
 const campaignDetailStore = useCampaignDetailStore()
 const route = useRoute()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-
 const campaignProduct = ref({
     order_code:"",
     qty_for_sale:null,
     max_order_amount:null,
     price:null,
     type:null,
-
 })
-
-
 
 const campaignProductRules = computed(() => {
 	return { 	
@@ -121,9 +126,6 @@ const campaignProductRules = computed(() => {
 })
 
 const v = useVuelidate(campaignProductRules, campaignProduct);
-
-
-
 
 const tableColumns = [
     { name: "Order Code", key: "order_code" },
@@ -143,17 +145,10 @@ const typeSelection = [
 const payloadBuffer = ref({})
 onMounted(() => {
     eventBus.on('editCampaignProduct', (payload) => {
-        console.log(payload)
         payloadBuffer.value = payload
         campaignProduct.value = payload.campaignProduct
     })
 })
-
-
-
-
-
-
 
 onUnmounted(() => {
     eventBus.off('editCampaignProduct')

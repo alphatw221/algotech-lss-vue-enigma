@@ -22,7 +22,7 @@
         "subtotal_over_specific_amount":"Số tiền :",
         "product_over_specific_number":"Sản phẩm :",
         "specific_campaign":"Chiến dịch :",
-        "all_campaign": "CChiến dịch : Tất cả"
+        "all": "Tất cả",
     },
     "modal":{
         "create":"Create mã giảm giá",
@@ -52,11 +52,13 @@
         "limit_options":{
             "specific_campaign":"Chiến dịch bán hàng cụ thể",
             "subtotal_over_specific_amount":"Giá trị đơn hàng",
-            "product_over_specific_number":"Số lượng sản phẩm"
+            "product_over_specific_number":"Số lượng sản phẩm",
+            "discount_code_usable_time": "Usable Times"
         },
         "Order Subtotal":"Tổng đơn hàng",
         "Product Number":"Số lượng sản phẩm",
         "Discount Rate":"Phần trăm giảm giá",
+        "Usable Times": "Usable Times",
         "Deduct Amount":"",
         "cancel":"Hủy",
         "save":"Lưu"

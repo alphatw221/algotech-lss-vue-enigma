@@ -40,7 +40,7 @@
                 </template>
 
                 <template v-else-if="column.type === 'select_and_set' && column.key==='type' ">
-                    <label class="mt-2 text-base">{{$t(`discount.modal.`+column.name)}}</label>
+                    <label class="mt-2 text-base">{{$t(`discount.modal.${column.name}`)}}</label>
                     <div>
                         <select v-model="discountCode.type" :options="{
                                 placeholder: 'choose_code_type',
@@ -202,14 +202,14 @@ const dateTimePicker = ref({
 	end:new Date()
 })
 
-watch(computed(()=>dateTimePicker.value),()=>{
+watch(computed(()=>dateTimePicker.value), () => {
 	discountCode.value.start_at = dateTimePicker.value.start
 	discountCode.value.end_at = dateTimePicker.value.end
-},{deep:true})
+}, {deep:true})
 
 onMounted(()=>{
-    eventBus.on('showCreateModel',()=>{modalType.value = CREATE;showModal.value=true; })
-    eventBus.on('showEditModel',_discountCode=>{
+    eventBus.on('showCreateModel',() => {modalType.value = CREATE; showModal.value=true; })
+    eventBus.on('showEditModel', _discountCode=>{
         modalType.value = EDIT;
         showModal.value=true; 
         
@@ -249,13 +249,14 @@ const checkIfDuplicateExists=(arr)=> {
 }
 
 
-const deleteLimitation = index=>{discountCode.value.limitations.splice(index,1)}
+const deleteLimitation = index=>{ discountCode.value.limitations.splice(index, 1) }
 
 const showLimitButton = ref(true)
-const addLimitation = ()=>{if(discountCode.value.limitations.length <2){
-    discountCode.value.limitations.unshift({key:''})
-    showLimitButton.value = true
-    }else{
+const addLimitation = ()=>{
+    if (discountCode.value.limitations.length < 3) {
+        discountCode.value.limitations.unshift({key:''})
+        showLimitButton.value = true
+    } else {
         discountCode.value.limitations.unshift({key:''})
         showLimitButton.value = false
     }

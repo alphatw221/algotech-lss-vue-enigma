@@ -33,7 +33,8 @@
         "qty": "Số lượng",
         "price": "Giá bán",
         "confirm_delete": "Bạn có chắc chắn xóa sản phẩm này không ?",
-        "wishlist":"Danh sách đợi hàng"
+        "wishlist":"Danh sách đợi hàng",
+        "remark":"Remark"
     },
 
     "category_manage": {
@@ -66,9 +67,12 @@
         "price": "Giá bán",
         "price_warning": "Giá phải là một con số",
         "status": "Trạng thái",
+        "remark": "Ghi chú",
+        "placeholder_remark": "Ghi chú for seller...",
+        "remark_warning":"Ghi chú không lớn hơn 100 kí tự",
         "description": "Mô tả",
         "product_description": "mô tả sản phẩm...",
-        "description_warning": "Mô tả không lớn hơn 100 kí tự",
+        "description_warning": "Mô tả không lớn hơn 500 kí tự",
         "cancel": "Hủy bỏ",
         "save": "Lưu lại",
 

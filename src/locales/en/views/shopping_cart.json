@@ -75,7 +75,8 @@
         "select_add_ons":"Select add-ons",
         "select_products":"Select Products",
         "add":"Add",
-        "wishlist":"Notify Me"
+        "wishlist":"Notify Me",
+        "description": "Product details"
     },
     "payment":{
         "shipping_summary":"Shipping Summary",

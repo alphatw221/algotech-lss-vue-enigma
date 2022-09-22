@@ -21,6 +21,7 @@
         "limitations":"使用條件",
         "subtotal_over_specific_amount":"總價：",
         "product_over_specific_number":"商品：",
+        "discount_code_usable_time": "可使用次數：",
         "specific_campaign":"活動：",
         "all": "全部"
     },
@@ -54,11 +55,13 @@
         "limit_options":{
             "specific_campaign":"指定銷售活動",
             "subtotal_over_specific_amount":"訂單金額滿（$）",
-            "product_over_specific_number":"訂單商品數量滿（件）"
+            "product_over_specific_number":"訂單商品數量滿（件）",
+            "discount_code_usable_time": "可使用次數"
         },
         
         "Order Subtotal":"訂單金額（$）",
         "Product Number":"訂單商品數量（件）",
+        "Usable Times": "可使用次數",
         "cancel":"取消",
         "save":"儲存"
     }
