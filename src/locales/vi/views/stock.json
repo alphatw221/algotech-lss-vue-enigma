@@ -33,7 +33,7 @@
         "qty": "Số lượng",
         "price": "Giá bán",
         "confirm_delete": "Bạn có chắc chắn xóa sản phẩm này không ?",
-        "wishlist":"Danh sách mặt hàng muốn mua",
+        "wishlist":"Danh sách đợi hàng",
         "remark":"Remark"
     },
 
@@ -82,7 +82,7 @@
         "invalid_data":"Bản nộp không hợp lệ"
     },
     "wishlist":{
-        "confirm_send":"Xác nhận để thông báo và gửi E-mail cho mọi người trong danh sách mong muốn",
+        "confirm_send":"Xác nhận để thông báo và gửi E-mail cho mọi người trong danh sách đợi hàng",
         "cancel_send":"Đã hủy",
         "success_send":"Email đã được gửi thành công."
     }

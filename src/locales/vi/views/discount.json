@@ -1,5 +1,5 @@
 {   
-    "create_giãm giá_code":"Tạo mã mới",
+    "create_discount_code":"Tạo mã mới",
     "create_err":"Lỗi nhập thông tin đầu vào",
     "discount_code":"Mã giảm giá",
     "table":{
@@ -16,14 +16,13 @@
         "noCode":"Không có mã giảm giá gần đây",
         "setupFirst":"Thiết lập mã bằng nhấp chuột vào (+ tạo)",
         "description" : "Mô tả",
-        "cart_referal":"Cart Referral",
-        "limitations":"Limitations",
-        "general":"Promo Code",
-        "subtotal_over_specific_amount":"Amount：",
-        "product_over_specific_number":"Product：",
-        "discount_code_usable_time": "Usable Times：",
-        "specific_campaign":"Campaign：",
-        "all": "All"
+        "cart_referal":"Giới thiệu giỏ hàng",
+        "limitations":"Điều kiện giới hạn",
+        "general":"Mã ưu đãi",
+        "subtotal_over_specific_amount":"Số tiền :",
+        "product_over_specific_number":"Sản phẩm :",
+        "specific_campaign":"Chiến dịch :",
+        "all": "Tất cả",
     },
     "modal":{
         "create":"Create mã giảm giá",

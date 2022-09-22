@@ -84,7 +84,7 @@
         },
         
         "payment_details":"金流設定",
-        "enabled":"預設啟用",
+        "enabled":"啟用",
         "invoice_enabled":"啟用發票",
         "add_more_direct_payment":"新增轉帳選項",
         "upload_image":"收款 QRCode",
