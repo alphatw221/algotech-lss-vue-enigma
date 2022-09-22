@@ -191,6 +191,22 @@
 				</template>
 			</div>
 
+			<div class="col-span-12 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.remark') }}</label>
+				<textarea
+					:class="{ 'border-danger text-danger border-2': validate.remark.$error }" 
+					class="h-36 p-2 mr-5 form-control indent-4"
+					:placeholder="$t('stock.add_product_page.placeholder_remark')"
+					v-model="validate.remark.$model"
+				>
+				</textarea>
+				<template v-if="validate.remark.$error">
+						<label class="text-danger ml-2 text-[13px]" >
+						{{ $t('stock.add_product_page.remark_warning') }}
+						</label>
+				</template>
+			</div>
+
 			
 			<div class="z-50 col-span-12 flex justify-end sm:mt-3">
 				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="cancelButton">
@@ -231,6 +247,7 @@ const product = ref({
 	price: 0,
 	status: 'enabled',
 	tag: [],
+	remark:''
 })
 
 // const typeRadio = ref([
@@ -244,6 +261,7 @@ const rules = computed(()=>{
 		description: {maxLength: maxLength(300)},
 		qty: {integer, minValue:minValue(1)},
 		price: {decimal, minValue:minValue(0)},  
+		remark:{maxLength: maxLength(100)}
     }
 });
 

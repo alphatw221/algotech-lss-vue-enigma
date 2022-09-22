@@ -75,7 +75,8 @@
         "select_add_ons":"加入商品",
         "select_products":"加购商品",
         "add":"加入",
-        "wishlist":"到货通知" 
+        "wishlist":"到货通知",
+        "description": "商品说明"
     },
     "payment":{
         "shipping_summary":"收件资讯",

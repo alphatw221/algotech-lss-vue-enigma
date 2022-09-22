@@ -75,7 +75,8 @@
         "select_add_ons":"Thêm bổ sung sản phẩm",
         "select_products":"Chọn sản phẩms",
         "add":"Thêm",
-        "wishlist":"Thông báo cho tôi"
+        "wishlist":"Thông báo cho tôi",
+        "description": "Mô tả Sản phẩm"
     },
     "payment":{
         "shipping_summary":"Chi tiết giao hàng",

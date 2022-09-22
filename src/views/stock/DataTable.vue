@@ -268,7 +268,7 @@ const tableColumns = ref([
     { name: "image", key: "image" },
 	{ name: "name", key: "name" },
 	{ name: "category", key: "category" },
-	{ name: "description", key: "description" },
+	{ name: "remark", key: "remark" },
 	{ name: "qty", key: "qty" },
 	{ name: "price", key: "price" },
 	{ name: "wishlist", key:"wishlist"},
