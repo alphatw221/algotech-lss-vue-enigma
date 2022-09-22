@@ -26,12 +26,13 @@
       </div>
       <template v-if="store.orderDetail.adjust_price">
         <div class="flex">
-            <div class="mr-auto">{{$t('manage_order.product_modal.discount')}}</div>
+            <div class="mr-auto">{{store.orderDetail.adjust_title}}</div>
             <div class="font-medium" v-if="store.orderDetail.campaign">
               {{store.orderDetail.campaign.currency}}
               {{store.modify_status == '-' ? '-' + Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places : Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
               {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
             </div>
+            <XIcon class="w-5 h-5 text-slate-400" @click="cleanAdjust()"/>
         </div>
       </template>
         <div class="flex" v-if="store.orderDetail.campaign">
@@ -166,4 +167,11 @@ function show_adjust_price(){
     }
 }
 
+const cleanAdjust = ()=>{
+  seller_adjust_price(route.params.order_id,{'adjust_title':'','adjust_price':0,'free_delivery':false}).then(
+    res => {
+      store.orderDetail = res.data
+    }
+  )
+}
 </script>
