@@ -17,7 +17,7 @@ export const useCreateCampaignStore = defineStore("sellerCampaignProducts", {
 				additional_delivery_option: [],
 				pickup_start_date : '',
 				pickup_end_date : '',
-				pickup_option: [],
+				pickup_options: [],
 				delivery_note : ''
 			},
 			meta_payment:{}
@@ -39,7 +39,7 @@ export const useCreateCampaignStore = defineStore("sellerCampaignProducts", {
 			additional_delivery_option: [],
 			pickup_start_date : '',
 			pickup_end_date : '',
-			pickup_option: [],
+			pickup_options: [],
 			delivery_note : ''
 		}),
 		paymentSettings: ref({
