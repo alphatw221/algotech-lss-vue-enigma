@@ -1,5 +1,6 @@
 <template>
     <Modal
+    backdrop="static"
 		size="modal-xl"
 		:show="store.orderProductModal"
 		@hidden="store.orderProductModal = false"

@@ -236,6 +236,7 @@
             <!-- END: Show Modal Toggle -->
             <!-- BEGIN: Modal Content -->
             <Modal
+            backdrop="static"
               :show="datepickerModalPreview"
               @hidden="datepickerModalPreview = false"
             >
