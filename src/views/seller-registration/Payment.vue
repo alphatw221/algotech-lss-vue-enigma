@@ -11,7 +11,7 @@
           </div> 
           <div> 
               {{$t('register.payment.payment_total')}} : <span class="ml-3 font-medium text-[#660000]">
-                {{ `${confirmInfo.currency} ${confirmInfo.payment_amount}`}} </span>   
+                {{ `${confirmInfo.currency} ${(confirmInfo.payment_amount).toLocaleString('en-GB')}`}} </span>   
           </div>
           <div> 
               {{$t('register.payment.period')}} : <span class="ml-3 font-medium text-[#660000]"> {{ $t(`register.payment.` + confirmInfo.period)}}</span>   

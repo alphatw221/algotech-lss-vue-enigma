@@ -22,7 +22,7 @@
         "subtotal_over_specific_amount":"Amount：",
         "product_over_specific_number":"Product：",
         "specific_campaign":"Campaign：",
-        "all_campaign": "Campaign： All"
+        "all": "All"
     },
     "modal":{
         "create":"Create Discount Code",

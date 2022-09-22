@@ -11,7 +11,7 @@
                 >
                 <template v-for="(plan, key) in getPrice.plans" :key="key" >
                     <option v-if="plan.text != 'Free Trial'" :value="plan.value" class="w-40"> 
-                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${plan.price.month}`}) }}
+                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price.month).toLocaleString('en-GB')}`}) }}
                     </option>
                 </template>
                 </select>

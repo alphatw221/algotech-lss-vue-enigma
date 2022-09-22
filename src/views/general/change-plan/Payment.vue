@@ -14,7 +14,7 @@
           </div>
           <div> 
               {{$t('change_plan.step_2.payment_total')}} : <span class="ml-3 font-medium text-[#660000]">
-                {{ `${confirmInfo.currency} ${confirmInfo.payment_amount}`}} </span>   
+                {{ `${confirmInfo.currency} ${(confirmInfo.payment_amount).toLocaleString('en-GB')}`}} </span>   
           </div>
           <div> 
               {{$t('change_plan.step_2.period')}} : <span class="ml-3 font-medium text-[#660000]"> {{ $t(`change_plan.step_2.` + confirmInfo.period)}}</span>   
