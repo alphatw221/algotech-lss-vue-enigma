@@ -34,7 +34,7 @@
         "price": "Giá bán",
         "confirm_delete": "Bạn có chắc chắn xóa sản phẩm này không ?",
         "wishlist":"Danh sách đợi hàng",
-        "remark":"Remark"
+        "remark":"Ghi chú"
     },
 
     "category_manage": {
