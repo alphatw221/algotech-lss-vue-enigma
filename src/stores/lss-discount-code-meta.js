@@ -59,6 +59,13 @@ export const useLSSDiscountCodeMetaStore = defineStore("discountCodeMeta", {
 				{key:"number", type:"input", name:"Product Number", dataType:"number", default:0},
 			]
 		},
+		discount_code_usable_time: {
+			key: "discount_code_usable_time",
+			name: "discount_code_usable_time",
+			fields: [
+				{key: "times", type: "input", name: "Usable Times", dataType: "number", default: 9999}
+			]
+		}
 	},
 
     
