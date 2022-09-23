@@ -30,7 +30,7 @@
 import OrderSummary from "./OrderSummary.vue"; 
 import ShoppingCartTable from "./ShoppingCartTable.vue";
 // import ShoppingCartTable_mobile from "./ShoppingCartTable-mobile.vue";
-import AddItemModal from "./AddItemModal.vue";
+import AddItemModal from "./modals/AddItemModal.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";

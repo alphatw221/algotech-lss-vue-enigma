@@ -75,7 +75,7 @@
         "remark_warning":"remark cannot be more than 100 digits",
         "description": "Description",
         "product_description": "product description that will shows to customer...",
-        "description_warning": "description cannot be more than 500 digits",
+        "description_warning": "Cannot contains <head> tag",
         "cancel": "Cancel",
         "save": "Save",
 

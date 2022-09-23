@@ -61,7 +61,7 @@ import ErrorPage from "../views/error-page/Main.vue";
 // import Datepicker from "../views/datepicker/Main.vue";
 // import TomSelect from "../views/tom-select/Main.vue";
 // import FileUpload from "../views/file-upload/Main.vue";
-// import WysiwygEditor from "../views/wysiwg-editor/Main.vue";
+import WysiwygEditor from "../views/wysiwg-editor/Main.vue";
 // import Validation from "../views/validation/Main.vue";
 // import Chart from "../views/chart/Main.vue";
 // import Slider from "../views/slider/Main.vue";
@@ -116,6 +116,11 @@ const routes = [
     path: "/seller/lucky-draw/draw/:lucky_draw_id?",
     name: "lucky-draw-flow",
     component: () => import('@/views/mkt-plugin/lucky-draw/DrawFlow.vue'),
+  },
+  {
+    path: "/wysiwyg-editor",
+    name: "simple-menu-wysiwyg-editor",
+    component: WysiwygEditor,
   },
   {
     path: "/seller",
@@ -721,11 +726,11 @@ const routes = [
   //       name: "simple-menu-file-upload",
   //       component: FileUpload,
   //     },
-  //     {
-  //       path: "wysiwyg-editor",
-  //       name: "simple-menu-wysiwyg-editor",
-  //       component: WysiwygEditor,
-  //     },
+      // {
+      //   path: "wysiwyg-editor",
+      //   name: "simple-menu-wysiwyg-editor",
+      //   component: WysiwygEditor,
+      // },
   //     {
   //       path: "validation",
   //       name: "simple-menu-validation",

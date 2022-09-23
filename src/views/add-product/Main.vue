@@ -176,7 +176,10 @@
 			</div>
 
 			<div class="col-span-12 mt-2">
-				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.description') }}</label>
+				<div class="flex justify-between"> 
+					<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.description') }}</label>
+					<button class="btn btn-secondary mb-2 h-[35px]" @click="showHTML()">Preview</button>
+				</div>
 				<textarea 
 					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
 					class="h-36 p-2 mr-5 form-control indent-4"
@@ -184,6 +187,12 @@
 					v-model="validate.description.$model"
 				>
 				</textarea>
+				<!-- <ClassicEditor v-model="product.description" /> -->
+				<!-- <ClassicEditor 
+					:class="{ 'border-danger text-danger border-2': validate.description.$error }"
+					:placeholder="$t('stock.add_product_page.product_description')" 
+					class="h-36 p-2 mr-5 form-control indent-4"
+					v-model="validate.description.$model" :config="editorConfig" /> -->
 				<template v-if="validate.description.$error">
 						<label class="text-danger ml-2 text-[13px]" >
 						{{ $t('stock.add_product_page.description_warning') }}
@@ -217,6 +226,7 @@
 				</button>
 			</div>
 		</div>
+		<ItemDescriptionModal />
 	</div>
 </template>
 
@@ -228,12 +238,14 @@ import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required, integer, maxLength, decimal, minValue} from "@vuelidate/validators";
+import { helpers } from '@vuelidate/validators'
 import i18n from "@/locales/i18n"
+import ItemDescriptionModal from '../shoppingcart/modals/ItemDescriptionModal.vue'
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
 const router = useRouter();
-
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const product = ref({
 	id: 0,
@@ -250,20 +262,26 @@ const product = ref({
 	remark:''
 })
 
-// const typeRadio = ref([
-// 	{text: 'Product', id: 'product'},
-// 	{text: 'Lucky Draw', id: 'lucky_draw'},
-// ])
+const notContains = (param) => (value) => !value.includes(param)
+  
 const rules = computed(()=>{
     return{
 		name:{required,maxLength: maxLength(100)},
 		// order_code: {required, maxLength:maxLength(10)},
-		description: {maxLength: maxLength(300)},
+		description: {notContains:notContains('<head>')},
 		qty: {integer, minValue:minValue(1)},
 		price: {decimal, minValue:minValue(0)},  
 		remark:{maxLength: maxLength(100)}
     }
 });
+
+const editorConfig = {
+  toolbar: {
+    items: ["bold", "italic", "link","Blockquote","Undo","Redo","SelectAll","table","Print","Styles","FontSize",	
+"TextColor",	
+"Table","Flash"  ],
+  },
+};
 
 const statusRadio = ref([
 	{text: 'for_sale', id: 'enabled'},
@@ -349,15 +367,17 @@ const cancelButton = () =>{
 	layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.not_save_message'));
 }
 
+const showHTML = () => {
+	console.log('1')
+	eventBus.emit('showDescriptionModal',product.value)
+}
+
+
 // const clear = () =>{
 // 	previewImage.value = ''
 // 	dropzoneSingleRef.value.dropzone.previewsContainer = ''
 // 	console.log(dropzoneSingleRef.value.dropzone.previewsContainer)
 // }
-
-
-
-
 
 </script>
 
