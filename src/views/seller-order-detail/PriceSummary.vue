@@ -32,7 +32,7 @@
               {{store.modify_status == '-' ? '-' + Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places : Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
               {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
             </div>
-            <XIcon class="w-5 h-5 text-slate-400" @click="cleanAdjust()"/>
+            <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cleanAdjust()"/>
         </div>
       </template>
         <div class="flex" v-if="store.orderDetail.campaign">
@@ -151,7 +151,7 @@ function update_modify_price(){
 
   seller_adjust_price(route.params.order_id,modify_price).then(
     res => {
-      alert('Update')
+      sellerStore.notification.showMessageToast('Update')
       store.orderDetail = res.data
       show_adjust_price()
     }
@@ -159,12 +159,15 @@ function update_modify_price(){
 }
 
 function show_adjust_price(){
-    if( store.orderDetail.adjust_price < 0 ){
-        store.modify_status = '-'
-        store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
-    }else{
-        store.modify_status = '+'
-    }
+  if(store.orderDetail.free_delivery){
+      store.orderDetail.shipping_cost = 0
+  }
+  if( store.orderDetail.adjust_price < 0 ){
+      store.modify_status = '-'
+      store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
+  }else{
+      store.modify_status = '+'
+  }
 }
 
 const cleanAdjust = ()=>{
