@@ -75,8 +75,8 @@
 
 import MyCartTab from "./MyCartTab.vue";
 import DeliveryTab from "./DeliveryTab.vue";
-import WishListModal from "./WishListModal.vue";
-import ItemDescriptionModal from "./ItemDescriptionModal.vue";
+import WishListModal from "./modals/WishListModal.vue";
+import ItemDescriptionModal from "./modals/ItemDescriptionModal.vue";
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";

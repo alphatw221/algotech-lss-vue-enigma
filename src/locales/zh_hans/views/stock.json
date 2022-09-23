@@ -75,7 +75,7 @@
         "remark_warning":"备注不可超过100字",
         "description": "商品说明",
         "product_description": "买家可见的商品说明...",
-        "description_warning": "说明文字不可超过500字",
+        "description_warning": "说明文字不包含<head> tag",
         "cancel": "取消",
         "save": "储存",
 
