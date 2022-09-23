@@ -109,7 +109,7 @@ onUnmounted(()=>{
 const send = ()=>{
     reply_to_direct_message(connectedFbPageId.value, igUserId.value, message.value, pageToken).then(res=>{
         message.value=''
-        layoutStore.notification.showMessageToast("Send successfully")
+        layoutStore.notification.showMessageToast(i18n.global.t('campaign_live.conversation.send_successfully'))
     }).catch(err=>{
         layoutStore.alert.showMessageToast("You are not allowed to respond on messages after 24 hours since the latest user's message.")
     })

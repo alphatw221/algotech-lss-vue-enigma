@@ -29,7 +29,8 @@
     },
     "conversation":{
         "conversation_with":"Cuộc trò chuyện với",
-        "type_your_message": "Nhập tin nhắn của bạn"
+        "type_your_message": "Nhập tin nhắn của bạn",
+        "send_successfully":"đã gửi thành công!"
     },
     "product":{
         "product":"Sản phẩm",
@@ -77,7 +78,8 @@
         },
         "invalid":"không hợp lệ",
         "successed":"Thành công",
-        "invalid_data":"Bản nộp không hợp lệ"
+        "invalid_data":"Bản nộp không hợp lệ",
+        "name_validation":"Tên sản phẩm là bắt buộc và dài không quá 40 kí tự"
     },
     "incoming":{
         "incoming_order":"Đơn hàng đến",
