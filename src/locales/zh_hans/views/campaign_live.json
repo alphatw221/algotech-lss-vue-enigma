@@ -28,7 +28,8 @@
     },
     "conversation":{
         "conversation_with":"对话与",
-        "type_your_message": "输入您的讯息"
+        "type_your_message": "输入您的讯息",
+        "send_successfully":"发送成功"
     },
     "product":{
         "product":"销售商品",
@@ -54,7 +55,7 @@
             "search":"搜寻",
             "no_product":"您尚未加入商品，点击 \"＋ 加入商品\" 以新增"
         },
-        "add":"加入",
+        "add":"新增成功",
         "add_product":"加入商品",
         "instantly":"快速新增",
         "from_stock":"从商品清单加入",
@@ -76,8 +77,9 @@
             "price_invalid":"输入价格无效"
         },
         "invalid":"无效",
-        "successed":"成功",
-        "invalid_data":"输入资料无效"
+        "successed":"新增成功",
+        "invalid_data":"输入资料无效",
+        "name_validation":"商品名称为必填栏位，且不得超过 20 个中文字。"
     },
     "incoming":{
         "incoming_order":"即时订单",
