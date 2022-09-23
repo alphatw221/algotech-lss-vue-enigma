@@ -360,7 +360,7 @@ const search = ()=>{
 			}
 			stockProducts.value = response.data.results
 			showCommentLoding.value = false
-			console.log(stockProducts.value)
+			// console.log(stockProducts.value)
 		}
 	)
 }

@@ -75,8 +75,8 @@
 
 import MyCartTab from "./MyCartTab.vue";
 import DeliveryTab from "./DeliveryTab.vue";
-import WishListModal from "./WishListModal.vue";
-import ItemDescriptionModal from "./ItemDescriptionModal.vue";
+import WishListModal from "./modals/WishListModal.vue";
+import ItemDescriptionModal from "./modals/ItemDescriptionModal.vue";
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
@@ -105,6 +105,7 @@ onMounted(()=>{
   retrieve_pre_order(route.params.pre_order_oid).then(
       res => { 
         store.order = res.data;
+        console.log(store.order)
         store.user_subscription = JSON.parse(JSON.stringify(res.data.campaign?.user_subscription))
         i18n.locale = res.data.campaign.lang
         Object.keys(store.order.products).length == 0 ? store.showAddItemModal = true : store.showAddItemModal = false

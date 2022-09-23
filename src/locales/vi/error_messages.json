@@ -79,8 +79,8 @@
                 "invalid_lucky_draw_type":"Thiết lập rút thăm may mắn không hợp lệ",
                 "invalid_lucky_draw_product": "Giải thưởng không hợp lệ",
                 "lucky_draw_has_already_finished": "Rút thăm may mắn đã hoàn thành và không thể xóa",
-                "draw_like_type_need_connect_to_facebook_post": "Không thể chọn hình thức rút thăm may mắn này vì chiến dịch không thể kết nối đến bài viết trên Facebook. Vui lòng kiểm tra lại cài đặt chiến dịch.",
-                "no_any_connected_platforms": "Chiến dịch này không kết nối đến bất kì bài viết hay kênh nào. Vui lòng kiểm tra cài đặt chiến dịch."
+                "draw_like_type_need_connect_to_facebook_post": "Không thể bắt đầu rút thăm may mắn vì chiến dịch chưa được liên kết đến bài viết trên Facebook",
+                "no_any_connected_platforms": "Chiến dịch này không kết nối đến bất kì bài viết hay kênh nào. Vui lòng kiểm tra cài đặt chiến dịch"
                 
             },
             "cart":{

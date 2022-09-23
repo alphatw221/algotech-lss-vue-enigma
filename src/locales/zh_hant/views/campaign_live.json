@@ -29,7 +29,8 @@
     },
     "conversation":{
         "conversation_with":"對話與",
-        "type_your_message": "輸入你的訊息"
+        "type_your_message": "輸入你的訊息",
+        "send_successfully":"發送成功"
     },
     "product":{
         "product":"銷售商品",
@@ -55,7 +56,7 @@
             "search":"搜尋",
             "no_product":"您尚未加入活動商品，點擊 \"＋ 加入商品\"以新增"
         },
-        "add":"加入",
+        "add":"新增成功",
         "add_product":"加入商品",
         "instantly":"快速新增",
         "from_stock":"從商品清單加入",
@@ -77,8 +78,9 @@
             "price_invalid":"輸入價錢無效"
         },
         "invalid":"輸入無效",
-        "successed":"成功",
-        "invalid_data":"輸入資料無效"
+        "successed":"新增成功",
+        "invalid_data":"輸入資料無效",
+        "name_validation":"商品名稱為必填欄位，且不得超過 20 個中文字。"
     },
     "incoming":{
         "incoming_order":"即時訂單",

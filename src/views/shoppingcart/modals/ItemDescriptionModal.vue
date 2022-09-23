@@ -1,5 +1,5 @@
 <template>
-    <Modal :show="show" @hidden="!show" > 
+    <Modal :show="show" @hidden="!show" backdrop="static" > 
         <ModalBody class="text-center">
             <XIcon class="w-7 h-7 absolute top-1 right-2" @click="show = false"/>
             <div class="flex flex-col gap-2 px-2 justify-start"> 
@@ -9,7 +9,7 @@
                     {{(Math.floor(parseFloat(product.price) * (10 ** store.order.campaign?.decimal_places)) / 10 ** store.order.campaign?.decimal_places).toLocaleString('en-GB')}}
                     {{store.order.campaign?.price_unit?$t(`global.price_unit.${store.order.campaign?.price_unit}`):''}}</div>
                 <div class="text-xl text-left font-medium"> {{$t('shopping_cart.add_item.description')}}</div>
-                <div class="text-left"> {{product.description}}</div>
+                <div id="description" class="text-left"></div>
             </div>
         </ModalBody>
     </Modal>
@@ -28,6 +28,8 @@ onMounted(()=>{
     eventBus.on('showDescriptionModal',p=>{
         show.value = true
         product.value = p
+        var tag_id = document.getElementById('description');
+        tag_id.innerHTML = product.value.description;
     })
 })
 onUnmounted(()=>{

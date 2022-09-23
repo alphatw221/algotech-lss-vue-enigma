@@ -17,8 +17,8 @@
                         v-model="validate.name.$model"
                         :class="{ 'border-danger text-danger border-2': validate.name.$error }" />
                     <template v-if="validate.name.$error">
-                          <label class="text-danger" >
-                            product name required, with no more than 40 digits
+                          <label class="text-danger text-[14px]" >
+                            {{$t('campaign_live.product.name_validation')}}
                           </label>
                     </template>
 

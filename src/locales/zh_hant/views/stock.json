@@ -75,7 +75,7 @@
         "remark_warning":"備註不可超過100字",
         "description": "商品說明",
         "product_description": "買家可見的商品說明···",
-        "description_warning": "說明文字不可超過500字",
+        "description_warning": "說明文字不可包含<head>標籤",
         "cancel": "取消",
         "save": "儲存",
 

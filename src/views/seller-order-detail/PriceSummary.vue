@@ -26,12 +26,13 @@
       </div>
       <template v-if="store.orderDetail.adjust_price">
         <div class="flex">
-            <div class="mr-auto">{{$t('manage_order.product_modal.discount')}}</div>
+            <div class="mr-auto">{{store.orderDetail.adjust_title}}</div>
             <div class="font-medium" v-if="store.orderDetail.campaign">
               {{store.orderDetail.campaign.currency}}
               {{store.modify_status == '-' ? '-' + Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places : Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
               {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
             </div>
+            <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cleanAdjust()"/>
         </div>
       </template>
         <div class="flex" v-if="store.orderDetail.campaign">
@@ -150,7 +151,7 @@ function update_modify_price(){
 
   seller_adjust_price(route.params.order_id,modify_price).then(
     res => {
-      alert('Update')
+      sellerStore.notification.showMessageToast('Update')
       store.orderDetail = res.data
       show_adjust_price()
     }
@@ -158,12 +159,22 @@ function update_modify_price(){
 }
 
 function show_adjust_price(){
-    if( store.orderDetail.adjust_price < 0 ){
-        store.modify_status = '-'
-        store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
-    }else{
-        store.modify_status = '+'
-    }
+  if(store.orderDetail.free_delivery){
+      store.orderDetail.shipping_cost = 0
+  }
+  if( store.orderDetail.adjust_price < 0 ){
+      store.modify_status = '-'
+      store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
+  }else{
+      store.modify_status = '+'
+  }
 }
 
+const cleanAdjust = ()=>{
+  seller_adjust_price(route.params.order_id,{'adjust_title':'','adjust_price':0,'free_delivery':false}).then(
+    res => {
+      store.orderDetail = res.data
+    }
+  )
+}
 </script>

@@ -141,7 +141,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
 import LimitationBlock from "./LimitationBlock.vue"
 import DiscountTypeBlock from "./DiscountTypeBlock.vue"
-import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue,sameAs,not } from "@vuelidate/validators";
+import { required, minLength, maxLength, helpers, sameAs,not } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 
@@ -180,10 +180,13 @@ const columns = [
 	{ name: "description", key: "description" , type:"text_area"},
 ]
 
+const array = ref(['22','ee'])
+const notContains = (param) => (value) => param.forEach(p=>{ p==value?true:false})
+
 const discountCodeRules = computed(() => {
 	return { 	
         name: { required, minLength: minLength(1), maxLength: maxLength(255) },
-        code: { required, minLength: minLength(1), maxLength: maxLength(255) },
+        code: { required, minLength: minLength(1), maxLength: maxLength(255)},
         type: { required },
         discount_type:{ required },
         limitations:{

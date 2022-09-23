@@ -20,7 +20,7 @@
 				<template v-for="(product, index) in addOnProducts" :key="index"> 
 					<div 
 						class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 " 
-						v-if="product.product != null" 
+						v-if="product.product != null || (product.qty_for_sale - product.qty_sold> 0)" 
 					>
 						<div
 							class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
@@ -137,6 +137,7 @@ const updateAddOnProducts = ()=>{
 		}
 	});
 	addOnProducts.value = temp
+	console.log(addOnProducts.value)
 }
 
 const changeQuantity = (event, index, operation) => {
