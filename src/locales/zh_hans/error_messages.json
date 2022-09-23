@@ -75,7 +75,7 @@
                 "invalid_lucky_draw_type":"无效的抽奖方式",
                 "invalid_lucky_draw_product": "无效的奖品",
                 "lucky_draw_has_already_finished": "抽奖已完成，无法删除",
-                "draw_like_type_need_connect_to_facebook_post": "无法选择此抽奖方法，因为这场销售活动没有连结到任何Facebook上的贴文，请确认销售活动的设定。",
+                "draw_like_type_need_connect_to_facebook_post": "此活动目前尚未连结任何 Facebook 贴文，无法开始抽奖活动。",
                 "no_any_connected_platforms": "这场销售活动没有连结到任何到任何贴文或频道，请确认销售活动的设定。"
             },
             "cart":{

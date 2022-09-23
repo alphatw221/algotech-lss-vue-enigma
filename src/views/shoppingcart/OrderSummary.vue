@@ -36,7 +36,7 @@
         </span>
       </div>
 
-      <div class="flex flex-row justify-between mt-2" >
+      <div class="flex flex-row flex-wrap justify-between mt-2" >
         <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
           <div class="input-group"> 
             <input
@@ -46,11 +46,11 @@
             @keydown.enter.prevent="promoCheck()"
             />
             <button class="input-group-text h-[35px]" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
-            <XIcon v-if="store.order.discount != 0 && store.order.campaign||false" class="mt-auto w-6 h-6 text-slate-400" @click="promoDelete()"/>
+            <XIcon v-if="store.order.discount != 0 && store.order.campaign||false" class="mt-auto w-6 h-6 text-slate-400 cursor-pointer my-auto ml-2" @click="promoDelete()"/>
           </div>
           
       </div>
-      <span v-if="store.order.applied_discount.code != undefined" class="text-right font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :store.order.applied_discount.code})}} </span>
+      <span v-if="store.order.applied_discount.code != undefined" class="lg:text-right text-left font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :store.order.applied_discount.code})}} </span>
 
       <div class="flex justify-between mt-2"  v-for="referalCode, index in store.referalCodes" :key="index">
 
