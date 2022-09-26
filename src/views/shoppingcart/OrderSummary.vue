@@ -100,6 +100,16 @@
       <button class="btn btn-primary w-32 shadow-md ml-auto" @click="toNext()">{{$t('shopping_cart.order_summary.next')}}</button>
     </div>
   </div>
+  <Modal :show="showModal" backdrop="static">
+      <ModalBody class="p-10 text-center">
+          <div class="mt-1">
+              <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">Please social login to use promo code</label>
+          </div>
+          <div class="">
+              <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false; showLoginModal()">OK</button>
+          </div>
+      </ModalBody>
+  </Modal>
     
 </template>
 
@@ -120,6 +130,7 @@ const layoutStore = useLSSBuyerLayoutStore();
 
 const shippingCost = ref(0)
 const cartTotal = ref(0)
+const showModal = ref(false)
 
 const updateOrderSummary = ()=>{
     if (store.shipping_info.shipping_method=='pickup'){
@@ -183,11 +194,19 @@ watch(
 );
 const discount_code = ref('')
 const promoCheck =()=>{
-  buyer_apply_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }).then(
-    res=>{
-      store.order = res.data
-      discount_code.value = ''
-    })
+  if (layoutStore.userInfo && Object.keys(layoutStore.userInfo).length === 0 && Object.getPrototypeOf(layoutStore.userInfo) === Object.prototype) {
+      showModal.value = true
+  } else {
+      buyer_apply_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }).then(
+        res=>{
+          store.order = res.data
+          discount_code.value = ''
+        })
+  }
+}
+
+const showLoginModal = () => {
+  layoutStore.showLoginModal=true
 }
 
 const promoDelete =()=>{
