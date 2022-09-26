@@ -134,14 +134,14 @@
 
 
 <script setup>
-import { ref, onMounted, getCurrentInstance, onUnmounted, watch , computed } from "vue";
+import { ref, onMounted, getCurrentInstance, onUnmounted, watch , computed, onBeforeMount } from "vue";
 
 import { create_discount_code, update_discount_code} from "@/api_v2/discount_code"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
 import LimitationBlock from "./LimitationBlock.vue"
 import DiscountTypeBlock from "./DiscountTypeBlock.vue"
-import { required, minLength, maxLength, helpers, sameAs,not } from "@vuelidate/validators";
+import { required, minLength, maxLength, helpers } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 
@@ -152,9 +152,7 @@ const layoutStore = useLSSSellerLayoutStore()
 const CREATE = 'create'
 const EDIT = 'edit'
 const modalType = ref(CREATE)
-
 const showModal = ref(false)
-
 const discountCode = ref({
     name:'',
     code:'',
@@ -180,9 +178,8 @@ const columns = [
 	{ name: "description", key: "description" , type:"text_area"},
 ]
 
-const array = ref(['22','ee'])
-const notContains = (param) => (value) => param.forEach(p=>{ p==value?true:false})
-
+const array = ref(['333','qqqq','www','eee','efef','ewbweg','台','wergewrg','ervr','ee','sdf','dd0922'])
+const checkDuplicates = (param) => (value) => param.indexOf(value) === -1;
 const discountCodeRules = computed(() => {
 	return { 	
         name: { required, minLength: minLength(1), maxLength: maxLength(255) },
@@ -197,6 +194,18 @@ const discountCodeRules = computed(() => {
     }
 })
 
+// onBeforeMount(()=>{
+//     listDiscountCodes()
+// })
+// const listDiscountCodes=()=> {
+// 	discountCodes.value = []
+// 	list_discount_code(500,1).then((res) => {
+// 		(res.data.results).forEach( list => {discountCodes.value.push(list.code)})
+//         console.log(discountCodes.value)
+//         console.log(array.value)
+// 	})
+// 	.catch(err=>{console.log(err)});
+// }
 
 const v = useVuelidate(discountCodeRules, discountCode);
 
@@ -215,7 +224,6 @@ onMounted(()=>{
     eventBus.on('showEditModel', _discountCode=>{
         modalType.value = EDIT;
         showModal.value=true; 
-        
         discountCode.value = JSON.parse(JSON.stringify(_discountCode))
         dateTimePicker.value.start=discountCode.value.start_at
 		dateTimePicker.value.end=discountCode.value.end_at

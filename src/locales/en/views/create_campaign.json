@@ -13,7 +13,7 @@
     "delivery_form":{
         "delivery_detail":"Delivery Details",
         "delivery_charge":"Delivery Charge",
-        "free_delivery_for_order_above":"Free Delivery for Order Above",
+        "free_delivery_for_order_above":"Free Delivery for Order Above($)",
         "free_delivery_for_minimum_order":"Free Delivery for Minimum Order Qty",
         "add_more_delivery_option":"Add New Option",
         "add_more_pickup_option":"Add New Location",

@@ -180,19 +180,18 @@
 					<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.description') }}</label>
 					<button class="btn btn-secondary mb-2 h-[35px]" @click="showHTML()">Preview</button>
 				</div>
-				<textarea 
+				<!-- <textarea 
 					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
 					class="h-36 p-2 mr-5 form-control indent-4"
 					:placeholder="$t('stock.add_product_page.product_description')"
 					v-model="validate.description.$model"
 				>
-				</textarea>
+				</textarea> -->
 				<!-- <ClassicEditor v-model="product.description" /> -->
-				<!-- <ClassicEditor 
+				<ClassicEditor 
 					:class="{ 'border-danger text-danger border-2': validate.description.$error }"
-					:placeholder="$t('stock.add_product_page.product_description')" 
-					class="h-36 p-2 mr-5 form-control indent-4"
-					v-model="validate.description.$model" :config="editorConfig" /> -->
+					v-model="validate.description.$model"
+					:config="editorConfig"/>
 				<template v-if="validate.description.$error">
 						<label class="text-danger ml-2 text-[13px]" >
 						{{ $t('stock.add_product_page.description_warning') }}
@@ -277,9 +276,14 @@ const rules = computed(()=>{
 
 const editorConfig = {
   toolbar: {
-    items: ["bold", "italic", "link","Blockquote","Undo","Redo","SelectAll","table","Print","Styles","FontSize",	
-"TextColor",	
-"Table","Flash"  ],
+items: [
+	'heading', '|',
+	'bold', 'italic', 'strikethrough', 'underline','link', '|',
+	'blockQuote', 'insertTable', '|',
+	'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+	'-',
+	'undo', 'redo',
+],
   },
 };
 
@@ -368,7 +372,6 @@ const cancelButton = () =>{
 }
 
 const showHTML = () => {
-	console.log('1')
 	eventBus.emit('showDescriptionModal',product.value)
 }
 
@@ -380,8 +383,6 @@ const showHTML = () => {
 // }
 
 </script>
-
-<!-- test product name with maximum length to -->
 
 <style scoped>
 
