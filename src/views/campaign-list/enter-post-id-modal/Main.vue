@@ -34,6 +34,7 @@
                 {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
               </button>
               <div class="mt-3" v-if="campaign.facebook_page">
+                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" @click="campaign.facebook_page=''"/>
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.page')}}</p>
                 <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
                   <a href="javascript:;" @click="selectPlatformPage('facebook')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.facebook_page.image"/></a>
@@ -66,7 +67,8 @@
                 <!-- Select Profile -->
                 {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
               </button>
-              <div class="mt-3" v-if="campaign.instagram_profile">
+              <div class="mt-3" v-if="campaign.instagram_profile" @click="campaign.instagram_profile=''">
+                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" />
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.profile')}}</p>
                 <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
                   <a href="javascript:;" @click="selectPlatformPage('instagram')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.instagram_profile.image" /></a>
@@ -98,6 +100,7 @@
                 {{$t('campaign_list.enter_post_id_modal.select_live_video')}}
               </button>
               <div class="mt-3" v-if="campaign.youtube_channel">
+                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" @click="campaign.youtube_channel=''"/>
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
                 <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
                   <a href="javascript:;" @click="selectPlatformPage('youtube')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.youtube_channel.image" /></a>
@@ -130,6 +133,7 @@
                 {{$t('campaign_list.enter_post_id_modal.select_live_video')}}
               </button>
               <div class="mt-3" v-if="campaign.twitch_channel">
+                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" @click="campaign.twitch_channel=''"/>
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
                 <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
                   <a href="javascript:;" @click="selectPlatformPage('twitch')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.twitch_channel.image" /></a>
