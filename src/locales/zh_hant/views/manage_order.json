@@ -18,7 +18,7 @@
                 "export" : "匯出訂單"
         },
         "table":{
-                "Direct Payment":"轉帳付款",
+                "direct_payment":"轉帳付款",
                 "stripe":"Stripe",
                 "hitpay":"Hitpay",
                 "paypal":"Paypal",
@@ -37,7 +37,8 @@
                 "payment" : "付款方式",
                 "status" : "訂單狀態",
                 "view" : "詳情",
-                "null":""
+                "null":"",
+                "guest": "訪客"
         },
         "product_modal":{
                 "order_no":"訂單編號",
@@ -57,7 +58,9 @@
                         "direct_payment":"轉帳付款",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
-                        "paypal":"Paypal"
+                        "paypal":"Paypal",
+                        "ecpay":"綠界金流",
+                        "pay_mongo":"PayMongo"
                 },
                 "delivery":{
                         "status":"出貨狀態",

@@ -11,9 +11,11 @@
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 
                                         <ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, 1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
                                     </template> 
                                     <template v-else-if="sortBy[column.key] === 1" > 
                                         <ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
                                     </template> 
                                     <template v-else> 
                                         <ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
@@ -152,7 +154,7 @@
                                 {{order.customer_name}}
                             </template>
                             <template v-else>
-                                Guest
+                                {{ $t('manage_order.table.guest') }}
                             </template>        
                         </template>
                         <template v-else-if="column.key === 'order_product'">
@@ -171,12 +173,12 @@
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
-                                {{ `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` }}
+                                {{ `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` }}
                             </template>
                             <template v-else-if="order[column.key] != ''">
                                 {{ $t(`manage_order.table.${order[column.key]}`) }}
                             </template>
-                            <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
+                            <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
                         </template>
                         <template v-else-if="column.key === 'id'">
                             <span class="sm:hidden"> #</span> {{ order.id }}
@@ -323,6 +325,10 @@ const sortByThis = (field, value) =>{
 	search();
 }
 
+const cancelSortBy = (field) => {
+    delete sortBy.value[field]
+	search();
+}
 
 </script>
 
