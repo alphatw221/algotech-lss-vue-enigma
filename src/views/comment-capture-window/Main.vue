@@ -1,19 +1,23 @@
 <template>
     <Dropdown 
+        show="true"
         id='comment-capturing-window' 
         @mousedown="startDrag($event)"
         @mouseup="endDrag()"
-        class="fixed bg-[#141414]/95 w-fit block top-20 left-10 z-[999] w-[200px] h-[35px]"
+        class="fixed bg-[#141414]/95 w-fit block top-20 left-10 z-[50] w-[200px] h-[35px]"
         v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username">
         <DropdownToggle class="flex justify-between w-full h-full px-2 text-white">
                 <label class="font-medium my-auto" > Capture Status</label>
-                <PlusIcon class="ml-auto my-auto w-6 h-6 "/>
+                <div class="flex my-auto">
+                    <MoveIcon class="w-6 h-6 rotate-45"/> 
+                    <XIcon class="my-auto w-6 h-6" @click="stopCapturing('all')"/>
+                </div> 
         </DropdownToggle>
         <DropdownMenu class="w-[200px] bg-[#141414]">
             <DropdownContent
             class="bg-[#141414] text-white"
           >
-            <DropdownHeader tag="div" class="!font-normal text-white font-medium truncate">
+            <DropdownHeader tag="div" class="!font-normal text-white flex font-medium truncate">
                 {{sellerStore.commentCapturingCampaignData.title}}
             </DropdownHeader>
             <div class="w-full border-t border-slate-500/60 dark:border-darkmode-400 border-dashed"></div>
@@ -133,6 +137,7 @@ const stopCapturing = (platform)=>{
     // console.log(sellerStore.commentCapturingCampaignData)
     if(platform=='tiktok') sellerStore.commentCapturingCampaignData.tiktok_campaign={}
     if(platform=='twitch') sellerStore.commentCapturingCampaignData.twitch_campaign={}
+    if(platform=='all') sellerStore.commentCapturingCampaignData={}
     hideDropDown()
 }
 

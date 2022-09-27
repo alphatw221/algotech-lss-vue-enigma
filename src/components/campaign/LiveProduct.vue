@@ -101,7 +101,6 @@
                                     />
                                 </div>
                             </td>
-                            <LoadingIcon width="24" height="24" icon="capturing" class="my-auto flex-none"/>
                         </tr>
                     </tbody>
                 </table>
