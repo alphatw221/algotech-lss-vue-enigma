@@ -32,26 +32,11 @@
             <div class="flex text-[16px] my-6">
                 <div class="grid grid-cols-12 gap-2">
                     <div class="col-span-12 text-[20px] font-medium my-2">{{$t('manage_order.filter_modal.payment.payment')}}</div>
-                    <div class="col-span-6 lg:col-span-3 lg:my-1">
+                    <div v-for="payment_method, index in payments" :key="index" class="col-span-6 lg:col-span-3 lg:my-1">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                                v-model="store.filterTagArray.payment['direct_payment']" 
-                                    @click="updateTag('payment','direct_payment')"> 
-                                    <span class="ml-1"> Direct Payment </span> 
-                    </div>
-                    <div class="col-span-6 lg:col-span-3 lg:my-1">
-                        <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                            v-model="store.filterTagArray.payment['stripe']" 
-                                @click="updateTag('payment','stripe')"> <span class="ml-1"> Stripe </span> 
-                    </div>
-                    <div class="col-span-6 lg:col-span-3 lg:my-1">
-                        <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                            v-model="store.filterTagArray.payment['hitpay']" 
-                                @click="updateTag('payment','hitpay')"> <span class="ml-1"> Hitpay </span> 
-                    </div>
-                    <div class="col-span-6 lg:col-span-3 lg:my-1">
-                        <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                            v-model="store.filterTagArray.payment['paypal']" 
-                                @click="updateTag('payment','paypal')"> <span class="ml-1"> Paypal </span> 
+                                v-model="store.filterTagArray.payment[payment_method.key]" 
+                                    @click="updateTag('payment',payment_method.key)"> 
+                                    <span class="ml-1">{{ $t(`manage_order.filter_modal.payment.${payment_method.key}`) }}</span> 
                     </div>
                     <div class="col-span-12 text-[20px] font-medium my-2">{{$t('manage_order.filter_modal.delivery.status')}}</div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1">
@@ -93,7 +78,12 @@
 <script setup>
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
+import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import i18n from "@/locales/i18n"
+
+const paymentStore = useLSSPaymentMetaStore()
+const sellerStore = useLSSSellerLayoutStore()
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -104,6 +94,18 @@ const props = defineProps({
     tableStatus: String
 });
 
+const payments = ref([])
+
+onMounted(() => {
+    if(!sellerStore.userInfo.user_subscription)return
+    const meta_country = sellerStore.userInfo.user_subscription.meta_country
+    const paymentKeySet = new Set()
+    meta_country.activated_country.forEach( country => { paymentStore[country].forEach( key => paymentKeySet.add(key) ) } )
+    paymentKeySet.forEach(key => {
+        payments.value.push(paymentStore[key])
+    });
+    console.log(payments.value)
+})
 function updateTag(type,tag){
     store.filterTagArray[type][tag] = !store.filterTagArray[type][tag]
 }

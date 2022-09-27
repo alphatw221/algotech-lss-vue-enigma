@@ -5,7 +5,24 @@
                 <tr>
                     <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
-                        <template v-else> {{ $t(`manage_order.table.`+column.name) }}  </template>
+                        <template v-else>
+                            <div class="flex justify-center"> 
+                                {{ $t(`manage_order.table.`+column.name) }}
+                                <template v-if="column.sortable === true">
+                                    <template v-if="sortBy[column.key] === -1" > 
+                                        <ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, 1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
+                                    </template> 
+                                    <template v-else-if="sortBy[column.key] === 1" > 
+                                        <ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
+                                    </template> 
+                                    <template v-else> 
+                                        <ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
+                                    </template>
+                                </template>
+                            </div>
+                        </template>
                         
                     </th>
                 </tr>
@@ -137,7 +154,7 @@
                                 {{order.customer_name}}
                             </template>
                             <template v-else>
-                                Guest
+                                {{ $t('manage_order.table.guest') }}
                             </template>        
                         </template>
                         <template v-else-if="column.key === 'order_product'">
@@ -156,12 +173,12 @@
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
-                                {{ `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` }}
+                                {{ `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` }}
                             </template>
                             <template v-else-if="order[column.key] != ''">
                                 {{ $t(`manage_order.table.${order[column.key]}`) }}
                             </template>
-                            <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
+                            <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
                         </template>
                         <template v-else-if="column.key === 'id'">
                             <span class="sm:hidden"> #</span> {{ order.id }}
@@ -195,31 +212,38 @@ const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_ROOT_API
 const columns = ref([
-    { name: 'order_number', key: 'id' },
-    { name: 'null', key: 'platform' },
-    { name: 'customer', key: 'customer_name' },
-    { name: 'amount', key: 'subtotal' },
-    { name: 'payment', key: 'payment_method' },
-    { name: 'status', key: 'status' },
-    { name: 'delivery_notification', key: 'delivery' },
-    { name: 'action', key: 'view' },
-    { name: 'null', key: 'order_product'}
+    { name: 'order_number', key: 'id', sortable: true},
+    { name: 'null', key: 'platform', sortable: true},
+    { name: 'customer', key: 'customer_name', sortable: true},
+    { name: 'amount', key: 'subtotal', sortable: true},
+    { name: 'payment', key: 'payment_method', sortable: true},
+    { name: 'status', key: 'status', sortable: true},
+    { name: 'delivery_notification', key: 'delivery', sortable: false},
+    { name: 'action', key: 'view', sortable: false},
+    { name: 'null', key: 'order_product', sortable: false}
 ]);
 
 const loadingCount = ref(0)
-let page = 1;
-let page_size = 10;
-
 
 const props = defineProps({
     tableStatus: String,
     tableSearch: String,
 });
+const page = ref(1);
+const page_size = ref(10);
+const sortBy = ref({})
+const keyword = ref('')
+const filterData = ref({})
+const tableStatus = ref('all')
+
 
 onMounted(()=>{
-    search('','',props.tableStatus)
+    tableStatus.value = props.tableStatus
+    search()
     eventBus.on(props.tableSearch, (payload) => {
-        search(payload.keyword,payload.filter_data,props.tableStatus)
+        keyword.value = payload.keyword
+        filterData.value = payload.filter_data
+        search()
 	})
 })
 
@@ -227,15 +251,17 @@ onUnmounted(()=>{
     eventBus.off(props.tableSearch)
 })
 
-function search(searchValue,data,tableStatus){
+function search(){
     loadingCount.value += 1
-    manage_order_list(route.params.campaign_id,searchValue,page,page_size,tableStatus,data).then(
+    filterData.value['sort_by'] = sortBy.value
+    console.log(filterData.value)
+    manage_order_list(route.params.campaign_id, keyword.value, page.value, page_size.value, tableStatus.value, filterData.value).then(
         res => {
-			store[tableStatus] = res.data.data
+			store[tableStatus.value] = res.data.data
             console.log(res.data)
-            store.data_count[tableStatus] = res.data.count;
+            store.data_count[tableStatus.value] = res.data.count;
             if (res.data.count != 0) {
-                let totalPage = parseInt(res.data.count / page_size);
+                let totalPage = parseInt(res.data.count / page_size.value);
                 totalPage = totalPage == 0 ? 1 : totalPage;
                 }
             }
@@ -252,12 +278,12 @@ function to_order_detail(order_id,type){
     router.push({name:'sellerOrder',params:{'order_id':order_id, 'campaign_id':route.params.campaign_id},query:{'type':type}})
 }
 function changePage(p) {
-    page = p
-    search('','',props.tableStatus)
+    page.value = p
+    search()
     }
 function changePageSize(p) {
-    page_size = p
-    search('','',props.tableStatus)
+    page_size.value = p
+    search()
     }
 function orderProductModal(id,type){
     eventBus.emit('getProductData',{'id':id,'type':type})
@@ -293,8 +319,16 @@ function copyURL(order_id,type){
         })
         }
     }
+    
+const sortByThis = (field, value) =>{
+    sortBy.value[field] = value
+	search();
+}
 
-
+const cancelSortBy = (field) => {
+    delete sortBy.value[field]
+	search();
+}
 
 </script>
 

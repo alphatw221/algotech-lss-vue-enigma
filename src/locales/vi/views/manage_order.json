@@ -18,7 +18,7 @@
                 "export" : "Xuất"
         },
         "table":{
-                "Direct Payment":"Thanh toán trực tiếp",
+                "direct_payment":"Thanh toán trực tiếp",
                 "stripe":"Stripe",
                 "hitpay":"Hitpay",
                 "paypal":"Paypal",
@@ -36,7 +36,8 @@
                 "order_number" : "Mã đơn hàng",
                 "action":"Hành động",
                 "delivery_notification":"Thông báo",
-                "null":""
+                "null":"",
+                "guest": "Khách"
         },
         "product_modal":{
                 "order_no":"Mã đơn hàng",
@@ -56,7 +57,9 @@
                         "direct_payment":"Thanh toán trực tiếp",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
-                        "paypal":"Paypal"
+                        "paypal":"Paypal",
+                        "ecpay":"ECPay",
+                        "pay_mongo":"PayMongo"
                 },
                 "delivery":{
                         "status":"Trạng thái giao hàng",
