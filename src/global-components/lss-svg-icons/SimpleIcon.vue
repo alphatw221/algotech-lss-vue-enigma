@@ -241,6 +241,13 @@
     4.41563 1.5 8 1.5C11.5844 1.5 14.5 4.41594 14.5 8C14.5 11.5841 11.5844 14.5 8 14.5Z" fill="white" fill-opacity="0.8"/>
     </svg>
 
+    <svg 
+    v-else-if="icon == 'alert_full'"
+    width="24" height="24" viewBox="3 3 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="9" fill="#E80000"></circle>
+    <path d="M12 13.9857C12 14.2587 12.5152 10.5525 12.8663 7.98253C12.9373 7.46244 12.5328 7 12.0079 7C11.4775 7 11.0714 7.47127 11.1502 7.99576C11.5007 10.3284 12 13.717 12 13.9857Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
+    <circle cx="12" cy="17" r="1" fill="white" stroke="white"></circle>
+    </svg>
 
 
     
