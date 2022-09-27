@@ -20,7 +20,7 @@
 				<template v-for="(product, index) in addOnProducts" :key="index"> 
 					<div 
 						class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 " 
-						v-if="product.product != null || (product.qty_for_sale - product.qty_sold> 0)" 
+						v-if="product.product != null || (product.qty_for_sale - product.qty_sold> 0) || product.oversell == true" 
 					>
 						<div
 							class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
@@ -45,8 +45,7 @@
 								{{(Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
 								{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 							</div>
-							<div v-if="product.qty_for_sale - product.qty_sold > 0" class="flex"> 
-								<!-- Wait for api-->
+							<div v-if="product.qty_for_sale - product.qty_sold > 0 || product.oversell == true" class="flex"> 
 								<button type="button" @click="changeQuantity(null, index, 'minus')">
 									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 								</button>
@@ -63,7 +62,7 @@
 									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 								</button>
 							</div>
-							<div v-if="product.qty_for_sale - product.qty_sold> 0">
+							<div v-if="product.qty_for_sale - product.qty_sold> 0 || product.oversell == true">
 								<button 
 									class="btn btn-sm btn-primary w-24 mt-3"
 									@click="buyer_add_item(product, index)"

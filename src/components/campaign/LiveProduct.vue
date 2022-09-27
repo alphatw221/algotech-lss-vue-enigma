@@ -84,7 +84,9 @@
                                 <td>{{ product.order_code }}</td>
                             </template>
                             <td>
-                                <b>{{ product.qty_add_to_cart }}</b> / <b>{{ product.qty_sold }}</b> / <b>{{ product.qty_for_sale - product.qty_sold }}</b>
+                                <b>{{ product.qty_add_to_cart }}</b> / <b>{{ product.qty_sold }}</b> / 
+                                <b v-if="product.qty_for_sale - product.qty_sold >= 0" class="">{{ product.qty_for_sale - product.qty_sold }}</b>
+                                <b v-else class="text-danger">{{ product.qty_for_sale - product.qty_sold }}</b>
                             </td>
                             <!-- currency_sign reference from user_subscription -->
                             <td v-if="store.campaign">
@@ -144,7 +146,7 @@ const product_columns = [
 onMounted(() => {
         list_campaign_product(route.params.campaign_id).then(res => {
             store.campaignProducts = res.data
-
+            console.log(store.campaignProducts)
         })
     }
 )
