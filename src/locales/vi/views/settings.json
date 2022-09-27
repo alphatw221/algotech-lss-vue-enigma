@@ -102,7 +102,7 @@
     "delivery_form":{
         "delivery_detail":"Thông tin vận chuyển",
         "delivery_charge":"Chi phí vận chuyển",
-        "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
+        "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển($)",
         "free_delivery_for_minimum_order":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
         "add_more_delivery_option":"Thêm lựa chọn khác",
         "add_more_pickup_option":"Thêm địa điểm",

@@ -32,10 +32,6 @@ const layoutStore = useLSSSellerLayoutStore();
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
-
-
-
-
 const showCreateModal = ()=>{eventBus.emit('showCreateModel',null)}
 
 </script>
