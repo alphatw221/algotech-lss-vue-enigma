@@ -38,7 +38,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)
 const router = useRouter()
 const scope = 'chat:read+chat:edit+moderator:manage:announcements+user:manage:whispers+user:read:email+moderation:read'
-
+ 
 
 const handleAuthClick = () => {
     location.href = `${import.meta.env.VITE_TWITCH_OAUTH_URL}?response_type=code&client_id=${import.meta.env.VITE_TWITCH_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_APP_WEB}/seller/platform&scope=${scope}`

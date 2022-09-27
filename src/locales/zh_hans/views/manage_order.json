@@ -18,7 +18,7 @@
                 "export" : "汇出"
         },
         "table":{
-                "Direct Payment":"转帐支付",
+                "direct_payment":"转帐支付",
                 "stripe":"Stripe",
                 "hitpay":"Hitpay",
                 "paypal":"Paypal",
@@ -37,7 +37,8 @@
                 "payment" : "付款方式",
                 "status" : "订单状态",
                 "view" : "商品详情",
-                "null":""
+                "null":"",
+                "guest": "访客"
         },
         "product_modal":{
                 "order_no":"订单编号",
@@ -57,7 +58,9 @@
                         "direct_payment":"转帐支付",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
-                        "paypal":"Paypal"
+                        "paypal":"Paypal",
+                        "ecpay":"綠界金流",
+                        "pay_mongo":"PayMongo"
                 },
                 "delivery":{
                         "status":"出货状态",

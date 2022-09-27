@@ -18,7 +18,7 @@
                 "export" : "Export"
         },
         "table":{
-                "Direct Payment":"Direct Payment",
+                "direct_payment":"Direct Payment",
                 "stripe":"Stripe",
                 "hitpay":"Hitpay",
                 "paypal":"Paypal",
@@ -36,7 +36,8 @@
                 "order_number" : "Order No.",
                 "action":"Action",
                 "delivery_notification":"Notification",
-                "null":""
+                "null":"",
+                "guest": "Guest"
         },
         "product_modal":{
                 "order_no":"Order No.",
@@ -56,7 +57,9 @@
                         "direct_payment":"Direct Payment",
                         "stripe":"Stripe",
                         "hitpay":"Hitpay",
-                        "paypal":"Paypal"
+                        "paypal":"Paypal",
+                        "ecpay":"ECPay",
+                        "pay_mongo":"PayMongo"
                 },
                 "delivery":{
                         "status":"Delivery Status",

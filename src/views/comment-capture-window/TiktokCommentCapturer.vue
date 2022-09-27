@@ -6,9 +6,11 @@
 
 <script setup>
 
-import { computed, onMounted, ref, watch, onUnmounted, defineProps } from "vue";
+import { computed, onMounted, ref, watch, onUnmounted, defineProps, getCurrentInstance } from "vue";
 import { create_tiktok_connector, upload_tiktok_comments } from '@/api_v2/tiktok';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const sellerStore = useLSSSellerLayoutStore();
 
@@ -75,7 +77,17 @@ const onErrorHandler = err=>{
 }
 
 onMounted(()=>{
+    eventBus.on('refreshTiktok', ()=>{
+        tiktok_connector.value = create_tiktok_connector(sellerStore.commentCapturingCampaignData.tiktok_campaign?.username, onMessageHandler, onErrorHandler) 
+        uploadIntervalId.value = setInterval(checkBuffer, UPLOAD_INTERVAL)
 
+        watch(computed(()=>tiktok_comments.value),()=>{
+            if(tiktok_comments.value.length>BUFFER_SIZE){
+                uploadComments()
+            }
+        })
+        sellerStore.commentCapturingCampaignData.tiktok_campaign.status = 'capturing' 
+    })
     tiktok_connector.value = create_tiktok_connector(sellerStore.commentCapturingCampaignData.tiktok_campaign?.username, onMessageHandler, onErrorHandler)   
     uploadIntervalId.value = setInterval(checkBuffer, UPLOAD_INTERVAL)
 
@@ -90,6 +102,7 @@ onMounted(()=>{
 
 onUnmounted(()=>{
     closeConnection()
+    eventBus.off('refreshTiktok')
 })
 
 const closeConnection = ()=>{
