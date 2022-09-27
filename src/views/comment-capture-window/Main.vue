@@ -1,120 +1,88 @@
 <template>
-    <div 
+    <Dropdown 
         id='comment-capturing-window' 
         @mousedown="startDrag($event)"
         @mouseup="endDrag()"
-        class="fixed bg-[#141414] w-fit block top-20 left-10 z-[999] rounded-lg border-2 border-slate-800" 
-        v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username"
-    
-    
-    >
-        <!-- <div class="bg-primary h-20"
-            @mousedown="startDrag($event)"
-            @mouseup="endDrag()"
-        >
-        </div> -->
+        class="fixed bg-[#141414]/95 w-fit block top-20 left-10 z-[999] w-[200px] h-[35px]"
+        v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username">
+        <DropdownToggle class="flex justify-between w-full h-full px-2 text-white">
+                <label class="font-medium my-auto" > Capture Status</label>
+                <PlusIcon class="ml-auto my-auto w-6 h-6 "/>
+        </DropdownToggle>
+        <DropdownMenu class="w-[200px] bg-[#141414]">
+            <DropdownContent
+            class="bg-[#141414] text-white"
+          >
+            <DropdownHeader tag="div" class="!font-normal text-white font-medium truncate">
+                {{sellerStore.commentCapturingCampaignData.title}}
+            </DropdownHeader>
+            <div class="w-full border-t border-slate-500/60 dark:border-darkmode-400 border-dashed"></div>
 
-        <div class="m-1 text-center text-white flex">
-
-            <!-- tiktok -->
-
-            <div
-                v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username">
-
-                <template  v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='error'">
-                    <div class="flex">
-                        <AlertCircleIcon class="text-danger m-auto" />
-                        <!-- <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label> -->
-                        <div class="flex flex-col text-[12px] mx-2">
-                            <label class="font-medium" >{{sellerStore.commentCapturingCampaignData.title}}</label>
-                            <label class="text-red-500">Syncing TikTok Err</label>
+                <DropdownItem class="w-full hover:bg-[#141414] cursor-auto">
+                    <div class="m-1 text-center text-white flex flex-col gap-3">
+                        <div v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username"
+                            class="flex w-full">
+                            <template  v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='error'">
+                                <AlertCircleIcon class="text-danger my-auto w-5" />
+                                <label class="text-[#ff0000] flex-initial text-white my-auto w-32 ml-1">Syncing TikTok Err</label>
+                                <SimpleIcon icon="reset" color="#fff" class="w-6 my-auto ml-auto cursor-pointer" @click="refresh('tiktok')"/>
+                            </template>
+                            <template v-else-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='capturing'">
+                                <div class="my-auto flex-none"> 
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="9" cy="9" r="8" stroke="white" stroke-width="1.5"/>
+                                        <circle cx="8.99967" cy="8.99992" r="2.66667" fill="#F00000" stroke="#F00000" stroke-width="1.5"/>
+                                    </svg>
+                                </div>
+                                <label class="flex-initial text-white my-auto w-32 ml-1">Syncing TikTok</label>
+                                <SimpleIcon icon="stop_live2" width="24" height="20" class="flex-none my-auto ml-auto cursor-pointer" @click="stopCapturing('tiktok')" />  
+                            </template>
+                        </div>
+                        <div
+                            v-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.channel_name"
+                            class="flex w-full"
+                        >
+                            <template  v-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='error'" class="flex">
+                                <AlertCircleIcon class="text-[#ff0000] mx-auto" />
+                                <label class="text-[#ff0000] flex-initial text-white my-auto w-32 ml-2">Syncing Twitch Err</label>
+                            </template>
+                            
+                            <template v-else-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='capturing'">
+                                <div class="my-auto flex-none"> 
+                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <circle cx="9" cy="9" r="8" stroke="white" stroke-width="1.5"/>
+                                        <circle cx="8.99967" cy="8.99992" r="2.66667" fill="#F00000" stroke="#F00000" stroke-width="1.5"/>
+                                    </svg>
+                                </div>
+                                <label class="flex-initial text-white my-auto w-32 ml-1">Syncing Twitch</label>
+                                <SimpleIcon icon="stop_live2" width="24" height="20" class="flex-none my-auto ml-auto cursor-pointer" @click="stopCapturing('twitch')" /> 
+                            </template>
                         </div>
                     </div>
-                </template>
-
-                
-                <template v-else-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='capturing'">
-                    <div class="flex">
-                        <!-- <lottie-player  class="mx-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 30px; height: 30px;"   autoplay></lottie-player> -->
-                        <LoadingIcon icon="live" class=" my-auto w-8 h-8" />
-                        <!-- <label>{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status}}</label> -->
-                        <div class="flex flex-col text-[12px] mx-2">
-                            <label class="font-medium w-fit truncate" >{{sellerStore.commentCapturingCampaignData.title}}</label>
-                            <label class="text-slate-500">Syncing TikTok</label>
-                        </div>
-                    </div>
-                </template>
-
-                <!-- <div>
-                    <label >User Name : </label>
-                    <label >{{sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username}}</label>
-                </div> -->
-                
-            </div>
-
-            <div
-                v-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.channel_name"
-                class="flex"
-            >
-                <div  v-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='error'" class="flex">
-                    <AlertCircleIcon class="text-danger mx-auto" />
-                    <div class="flex flex-col text-[12px] mx-2">
-                        <label class="font-medium" >{{sellerStore.commentCapturingCampaignData.title}}</label>
-                        <label class="text-red-500">Syncing Twitch Err</label>
-                    </div>
-                </div>
-                
-                <div v-else-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='capturing'" class="flex">
-                    <!-- <lottie-player  class="mt-auto" v-if="showAnimate" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 35px; height: 35px;"   autoplay></lottie-player> -->
-                    <LoadingIcon icon="camera" class=" my-auto w-10 h-10" />
-                    <!-- <label>{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.status}}</label> -->
-                    <div class="flex flex-col w-24 text-[12px] mx-2">
-                        <label class="font-medium truncate" >{{sellerStore.commentCapturingCampaignData.title}}</label>
-                        <label class="text-white">Syncing Twitch</label>
-                    </div>
-                </div>
-                
-                
-
-                <!-- <div>
-                    <label >Channel Name : </label>
-                    <label >{{sellerStore.commentCapturingCampaignData?.twitch_campaign?.channel_name}}</label>
-                </div> -->
-            </div>
-
-            
-
-
-            <!-- <button class="btn w-10 h-10 rounded-full bg-danger text-white" @click="stopCapturing()">
-                stop
-            </button> -->
-
-            <SimpleIcon icon="stop_live" color="#b91c1c" width="28" height="28" class="my-auto hover:stroke-[#b91c1c]" @click="stopCapturing()" /> 
-
-        </div>
-
-        <TiktokCommentCapturer />
+                </DropdownItem>
+            </DropdownContent>
+        </DropdownMenu>
+        <TiktokCommentCapturer /> 
         <TwitchCommentCapturer />
-    </div>
-
+    </Dropdown>
 </template>
 
 <script setup>
-import { computed, onMounted, ref, watch, onUnmounted, defineProps } from "vue";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import { retrieve_campaign } from "@/api_v2/campaign";
 import loadScript from '@/libs/loadScript.js';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import TiktokCommentCapturer from "./TiktokCommentCapturer.vue";
 import TwitchCommentCapturer from "./TwitchCommentCapturer.vue";
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
+
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const sellerStore = useLSSSellerLayoutStore();
 
 const leftOffset = ref(0)
 const topOffset = ref(0)
 
-
-const ready = ref(false)
-const showAnimate = ref(false)
 const campaignData = ref({
     tiktok_campaign:{status:null},
     twitch_campaign:{status:null}
@@ -126,10 +94,12 @@ const isDraging = ref(false)
 const endDrag = ()=>{
     isDraging.value = false;
     clearOffset()
+    console.log(sellerStore.commentCapturingCampaignData)
     document.removeEventListener('mousemove',null)
 }
 const startDrag = (event)=>{
     isDraging.value = true;
+    hideDropDown()
     getOffset(event)
     document.addEventListener('mousemove',drag)
 }
@@ -153,19 +123,37 @@ const clearOffset = () =>{
     topOffset.value = 0
 }
 
-onMounted(()=>{
-    console.log('sellerStore.commentCapturingCampaignData')
-    console.log(sellerStore.commentCapturingCampaignData)
-    
-    loadScript('https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js',()=>{
-        showAnimate.value=true
-    })
-})
+// onMounted(()=>{
+//     console.log('sellerStore.commentCapturingCampaignData')
+//     console.log(sellerStore.commentCapturingCampaignData)
+// })
+
+const refresh=(platform) =>{
+
+    if(platform == 'tiktok') eventBus.emit('refreshTiktok')
+}
  
 
-const stopCapturing = ()=>{
+const stopCapturing = (platform)=>{
     console.log('stop capturing')
-    sellerStore.commentCapturingCampaignData = {}
+    console.log(sellerStore.commentCapturingCampaignData)
+    if(platform=='tiktok') sellerStore.commentCapturingCampaignData.tiktok_campaign={}
+    if(platform=='twitch') sellerStore.commentCapturingCampaignData.twitch_campaign={}
+    hideDropDown()
+}
+
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
 }
 
 </script>
+
+<style scoped>
+.dropdown-content{
+    padding: 0px ;
+}
+.dropdown-item.cursor-pointer.w-full{
+    padding: 0px !important;
+    border-radius: 0 !important;
+}
+</style>
