@@ -5,19 +5,19 @@
         <div class="flex flex-col col-span-12 h-fit lg:pt-5 mt-3 pb-4">
             <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('manage_order.title')}}</h2>
             <!-- BEGIN: campaign Status -->
-            <CampaignStatus/>
+            <CampaignStatus v-if="ready"/>
             <!-- END: campaign Status -->
 
             <div class="w-full mt-8 flex flex-col">
                 <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('all')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{store.data_count['all']}}</span>)</a>
+                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'all'}" @click="show_order('all')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{store.data_count['all']}}</span>)</a>
                     </div>
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('review')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{store.data_count['review']}}</span>)</a>
+                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'review'}" @click="show_order('review')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{store.data_count['review']}}</span>)</a>
                     </div>
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" style="color:#1e40af;" @click="show_order('complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{store.data_count['complete']}}</span>) </a>
+                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'complete'}" @click="show_order('complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{store.data_count['complete']}}</span>) </a>
                     </div>
                 </div>
                 <!--分隔線-->
@@ -118,12 +118,17 @@ const tableType = ref('all')
 const show_order = status=>{
   tableType.value=status
 }
-
+const ready = ref(false)
 onMounted(()=>{
     getCampaignInfo()
+    eventBus.on("calculateCampaignStatus", (payload) => {
+        ready.value = true
+	})
 })
 
-
+onUnmounted(()=>{
+    eventBus.off("calculateCampaignStatus")
+})
 
 function stop_checkout(){
     toggle_stop_checkout(route.params.campaign_id).then(res=>{
@@ -150,5 +155,12 @@ function getCampaignInfo(){
         background-color: #131C34;
         color: #fff;
     }
-    
+    .tab-active{
+        color: rgb(30, 64, 175);
+        border: 2px solid;
+        border-bottom: 0;
+        border-top-left-radius: 5px;
+        border-top-right-radius: 5px;
+        padding: 3px;
+    }
 </style>

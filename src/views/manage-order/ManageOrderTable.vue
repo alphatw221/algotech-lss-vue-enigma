@@ -206,6 +206,7 @@ const columns = ref([
     { name: 'null', key: 'order_product'}
 ]);
 
+const loadingCount = ref(0)
 let page = 1;
 let page_size = 10;
 
@@ -213,7 +214,6 @@ let page_size = 10;
 const props = defineProps({
     tableStatus: String,
     tableSearch: String,
-    tableFilter:String,
 });
 
 onMounted(()=>{
@@ -228,6 +228,7 @@ onUnmounted(()=>{
 })
 
 function search(searchValue,data,tableStatus){
+    loadingCount.value += 1
     manage_order_list(route.params.campaign_id,searchValue,page,page_size,tableStatus,data).then(
         res => {
 			store[tableStatus] = res.data.data
@@ -236,9 +237,14 @@ function search(searchValue,data,tableStatus){
             if (res.data.count != 0) {
                 let totalPage = parseInt(res.data.count / page_size);
                 totalPage = totalPage == 0 ? 1 : totalPage;
+                }
             }
-		}
-    )
+    ).then(res => {
+        if (loadingCount.value === 1) {
+            eventBus.emit("calculateCampaignStatus")
+        }
+        
+    })
 }
 
 function to_order_detail(order_id,type){
