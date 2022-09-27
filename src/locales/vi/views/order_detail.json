@@ -23,6 +23,7 @@
         "shipping":"Tổng tiền phí vận chuyển",
         "delivery_charge":"Chi phí vận chuyển",
         "discount":"giảm giá",
+        "tax": "Thuế",
         "add": "Thêm",
         "subtract": "Trừ",
         "apply_free_delivery" : "Miễn phí giao hàng được áp dụng",
