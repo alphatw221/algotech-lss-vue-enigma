@@ -37,7 +37,7 @@
                 "action":"Hành động",
                 "delivery_notification":"Thông báo",
                 "null":"",
-                "guest": "Guest"
+                "guest": "Khách"
         },
         "product_modal":{
                 "order_no":"Mã đơn hàng",
