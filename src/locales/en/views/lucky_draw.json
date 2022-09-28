@@ -18,6 +18,7 @@
         "product": "Draw Product",
         "keyword": "Draw Keyword",
         "sharedpost": "Draw Shared Post",
+        "like_and_comment":"Like and Comment",
         "winners" : "Winner(s)",
         "winner_repeat": "Winner Repeat",
         "undefined":"",
@@ -64,7 +65,8 @@
             "product": "By purchased specific product",
             "purchase": "By any purchase",
             "keyword": "By commented keyword",
-            "sharedpost": "By shared this FB post"
+            "sharedpost": "By shared this FB post",
+            "like_and_comment":"By liked this FB post and commented"
         },
         "no_product_err":"Haven't Assigned Product Into This Campaign",
         "assign_product_err":"Assign Product into your Campaign",
