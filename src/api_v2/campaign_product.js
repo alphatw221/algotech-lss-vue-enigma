@@ -44,6 +44,10 @@ export const seller_toggle_campaign_product_status = (campaign_product_id) => {
     return createAxiosWithBearer().put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/status/`)
 }
 
+export const seller_toggle_campaign_product_overbook = (campaign_product_id) => {
+    return createAxiosWithBearer().put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/overbook/`)
+}
+
 export const seller_list_campaign_products = (order_id) => {
     return createAxiosWithBearer().get(`/api/v2/campaign-product/seller/pre_order/list/?order_id=${order_id}`)
 }

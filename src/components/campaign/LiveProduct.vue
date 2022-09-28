@@ -97,7 +97,7 @@
                             <td class="status_active">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
-                                        @click="toggle_campaign_product_status(product)"
+                                        @click="toggle_campaign_product_overbook(product)"
                                         class="form-check-input" type="checkbox" 
                                         v-model="product.overbook" :disabled="route.query.status == 'history'"
                                     />
@@ -126,7 +126,7 @@
 </template>
 <script setup>
 import { list_campaign_product } from '@/api/campaign_product';
-import { seller_toggle_campaign_product_status } from '@/api_v2/campaign_product';
+import { seller_toggle_campaign_product_status, seller_toggle_campaign_product_overbook } from '@/api_v2/campaign_product';
 // import AddProductFromStock from './modals/AddProductFromStockModal.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
@@ -169,6 +169,16 @@ const toggle_campaign_product_status = (product) => {
         });
     })
 }
+
+const toggle_campaign_product_overbook = (product) => {
+    seller_toggle_campaign_product_overbook(product.id).then(res => {
+        Object.entries(res.data).forEach(([key,value]) => {
+            product[key]=value                       //proxy object only got setter
+        });
+    })
+    console.log(store.campaignProducts)
+}
+
 
 
 </script>
