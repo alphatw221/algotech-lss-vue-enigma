@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(order, key) in store[tableStatus]" :key="key" class="intro-x">
+                <tr v-for="(order, key) in store[props.tableStatus]" :key="key" class="intro-x">
                     <td v-for="column in columns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
@@ -192,7 +192,7 @@
         </table>
     </div>
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-        <Page class="mx-auto my-3" :total="store.data_count[tableStatus]" @on-change="changePage" @on-page-size-change="changePageSize" />
+        <Page class="mx-auto my-3" :total="store.data_count[props.tableStatus]" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>
 <script setup>
@@ -223,8 +223,6 @@ const columns = ref([
     { name: 'null', key: 'order_product', sortable: false}
 ]);
 
-const loadingCount = ref(0)
-
 const props = defineProps({
     tableStatus: String,
     tableSearch: String,
@@ -234,11 +232,9 @@ const page_size = ref(10);
 const sortBy = ref({})
 const keyword = ref('')
 const filterData = ref({})
-const tableStatus = ref('all')
 
 
 onMounted(()=>{
-    tableStatus.value = props.tableStatus
     search()
     eventBus.on(props.tableSearch, (payload) => {
         keyword.value = payload.keyword
@@ -251,55 +247,47 @@ onUnmounted(()=>{
     eventBus.off(props.tableSearch)
 })
 
-function search(){
-    loadingCount.value += 1
+const search = () => {
     filterData.value['sort_by'] = sortBy.value
-    console.log(filterData.value)
-    manage_order_list(route.params.campaign_id, keyword.value, page.value, page_size.value, tableStatus.value, filterData.value).then(
+    manage_order_list(route.params.campaign_id, keyword.value, page.value, page_size.value, props.tableStatus, filterData.value).then(
         res => {
-			store[tableStatus.value] = res.data.data
-            console.log(res.data)
-            store.data_count[tableStatus.value] = res.data.count;
+			store[props.tableStatus] = res.data.data
+            store.data_count[props.tableStatus] = res.data.count;
             if (res.data.count != 0) {
                 let totalPage = parseInt(res.data.count / page_size.value);
                 totalPage = totalPage == 0 ? 1 : totalPage;
                 }
             }
     ).then(res => {
-        if (loadingCount.value === 1) {
-            eventBus.emit("calculateCampaignStatus")
-        }
-        
+            eventBus.emit("calculateCampaignStatus")        
     })
 }
 
-function to_order_detail(order_id,type){
+const to_order_detail = (order_id,type) => {
     store.order_type = type
     router.push({name:'sellerOrder',params:{'order_id':order_id, 'campaign_id':route.params.campaign_id},query:{'type':type}})
 }
-function changePage(p) {
+const changePage = (p) => {
     page.value = p
     search()
     }
-function changePageSize(p) {
+const changePageSize = (p) => {
     page_size.value = p
     search()
     }
-function orderProductModal(id,type){
+const orderProductModal = (id,type) => {
     eventBus.emit('getProductData',{'id':id,'type':type})
     store.orderProductModal = !store.orderProductModal
 }
-function shipping_out(order_id,index){
+const shipping_out = (order_id,index) => {
     seller_shipping_out(order_id).then(
         res=>{
-            console.log(res)
             store[props.tableStatus][index].status = 'shipping out'
-            console.log(store[props.tableStatus][index].status)
         }
     
     )
 }
-function copyURL(order_id,type){
+const copyURL = (order_id,type) => {
     if(type === 'order'){
         get_order_oid(order_id).then(
             res =>{
