@@ -4,6 +4,10 @@ export const update_platform_live_id = (campaign_id, data) => {
     return createAxiosWithBearer().put(`/api/v2/campaign/${campaign_id}/live/update/`, data)
 }
 
+export const delete_platform_live_id = (campaign_id,platform) => {
+    return createAxiosWithBearer().put(`/api/v2/campaign/${campaign_id}/live/delete/${platform}`)
+}
+
 export const check_facebook_page_token = (page_id) => {
     return createAxiosWithBearer().get(`/api/v2/campaign/check_facebook_page_token/?facebook_page_id=${page_id}`)
 }

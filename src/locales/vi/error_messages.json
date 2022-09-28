@@ -8,7 +8,8 @@
                 "category_not_exist": "Danh mục/Phân loại này không tồn tại"
             },
             "campaign": {
-                "search_can_not_empty": "Trường tìm kiếm không được để trống khi từ khóa có giá trị"
+                "search_can_not_empty": "Trường tìm kiếm không được để trống khi từ khóa có giá trị",
+                "None not activated":"Platform Not Activated"
             },
             "user": {
                 "account_not_exist": "Tài khoản này không tồn tại",

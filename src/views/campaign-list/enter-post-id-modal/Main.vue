@@ -34,7 +34,7 @@
                 {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
               </button>
               <div class="mt-3" v-if="campaign.facebook_page">
-                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" @click="campaign.facebook_page=''"/>
+                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" @click="remove_platform_data('facebook')"/>
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.page')}}</p>
                 <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
                   <a href="javascript:;" @click="selectPlatformPage('facebook')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.facebook_page.image"/></a>
@@ -67,7 +67,7 @@
                 <!-- Select Profile -->
                 {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
               </button>
-              <div class="mt-3" v-if="campaign.instagram_profile" @click="campaign.instagram_profile=''">
+              <div class="mt-3" v-if="campaign.instagram_profile" @click="remove_platform_data('instagram')">
                 <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" />
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.profile')}}</p>
                 <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
@@ -77,7 +77,7 @@
               <div class="mt-3" v-if="campaign.instagram_profile">
                 <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
                 <input class="post_id" v-model="campaign.instagram_campaign.live_media_id" 
-                :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @keyup="autoUpdatePostId('instagram')" disabled/>
+                :class="{ 'border-danger text-danger border-2': validate.instagram.post_id.error }" @keyup="autoUpdatePostId('instagram','instagram_campaign')" disabled/>
                 <template v-if="validate.instagram.post_id.error">
                   <label class="text-danger ml-2" >
                     invalid post id 
@@ -100,7 +100,7 @@
                 {{$t('campaign_list.enter_post_id_modal.select_live_video')}}
               </button>
               <div class="mt-3" v-if="campaign.youtube_channel">
-                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" @click="campaign.youtube_channel=''"/>
+                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" @click="remove_platform_data('youtube')"/>
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
                 <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
                   <a href="javascript:;" @click="selectPlatformPage('youtube')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.youtube_channel.image" /></a>
@@ -133,7 +133,7 @@
                 {{$t('campaign_list.enter_post_id_modal.select_live_video')}}
               </button>
               <div class="mt-3" v-if="campaign.twitch_channel">
-                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" @click="campaign.twitch_channel=''"/>
+                <XIcon class="w-6 h-6 right-16 top-20 absolute text-slate-500" @click="remove_platform_data('twitch')"/>
                 <p class="my-auto text-center">{{$t('campaign_list.enter_post_id_modal.channel')}}</p>
                 <div class="w-14 h-14 flex-none image-fit rounded-full overflow-hidden mx-auto mt-2">
                   <a href="javascript:;" @click="selectPlatformPage('twitch')"><img alt="Midone Tailwind HTML Admin Template" :src="campaign.twitch_channel.image" /></a>
@@ -194,7 +194,7 @@
 <script setup>
 import SelectPlatformPageModal from "./SelectPlatformPageModal.vue"
 import SelectCurrentLiveModal from "./SelectCurrentLiveModal.vue"
-import { update_platform_live_id } from "@/api_v2/campaign"
+import { update_platform_live_id, delete_platform_live_id } from "@/api_v2/campaign"
 import { check_facebook_page_post_exist } from "@/api_v2/facebook"
 import { check_instagram_profile_post_exist } from "@/api_v2/instagram"
 import { check_youtube_channel_post_exist } from "@/api_v2/youtube"
@@ -355,6 +355,15 @@ const updatePostId = (platform) => {
     } else {
       validate.value[platform]["post_id"]["error"] = true
     }
+  })
+}
+
+const remove_platform_data =  (platform)=>{ 
+  delete_platform_live_id(campaign.value.id,platform).then( res=>{
+    Object.entries(res.data).forEach(([key,value]) => {
+      campaign.value[key]=value                       //proxy object only got setter
+    });
+    layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.disconnected'))
   })
 }
 

@@ -2,13 +2,14 @@
     "api": {
         "v2": {
             "product":{
-                "search_can_not_empty": "Search field can not be empty when keyword has value",
+                "search_can_not_empty": "需選擇搜尋條件",
                 "category_already_exists": "此類別已存在",
                 "invalid_category_name": "無效的類別名稱",
                 "category_not_exist": "此類別不存在"
             },
             "campaign": {
-                "search_can_not_empty": "Search field can not be empty when keyword has value"
+                "search_can_not_empty": "需選擇搜尋條件",
+                "None not activated":"粉絲專頁未啟用"
             },
             "user": {
                 "account_not_exist": "此帳號不存在",

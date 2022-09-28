@@ -98,14 +98,15 @@
         "enter_username": "输入帐户名称",
 
         "cancel":"取消",
-        "save":"储存",
+        "save":"前往直播",
         "your_current_lives": "你目前正在进行的直播",
         "select_this_live": "选择这场直播",
         "valid_post_id_notification": "请输入有效的贴文ID",
 
         "rebind_page":"请重新授权Facebook粉丝专页",
-        "rebind_channel":"请重新授权Youtube频道",
-        "rebind_profile":"请重新授权Instagram粉丝专页"
+        "rebind_channel":"请重新授权YouTube频道",
+        "rebind_profile":"请重新授权Instagram粉丝专页",
+        "disconnected":" 已断接"
     },
     "update_successed":"储存成功",
     "no_facebook_post":"目前没有任何Facebook的直播",
