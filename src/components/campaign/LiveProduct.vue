@@ -93,7 +93,16 @@
                                 {{ store.campaign.currency }}
                                 {{ (Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-US')}}
                                 {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
-                            </td>  
+                            </td>
+                            <td class="status_active">
+                                <div class="m-auto form-check form-switch w-fit">
+                                    <input
+                                        @click="toggle_campaign_product_status(product)"
+                                        class="form-check-input" type="checkbox" 
+                                        v-model="product.overbook" :disabled="route.query.status == 'history'"
+                                    />
+                                </div>
+                            </td>
                             <td class="status_active">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
@@ -139,6 +148,7 @@ const product_columns = [
     { name: "order_code", key: "order_code" },
     { name: "cart_sold_left", key: "Sold_Left" },
     { name: "price", key: "price" },
+    { name: "overbook", key: "overbook" },
     { name: "activate", key: "activate" }
 ]
 
