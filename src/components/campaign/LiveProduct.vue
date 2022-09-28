@@ -176,7 +176,6 @@ const toggle_campaign_product_overbook = (product) => {
             product[key]=value                       //proxy object only got setter
         });
     })
-    console.log(store.campaignProducts)
 }
 
 
