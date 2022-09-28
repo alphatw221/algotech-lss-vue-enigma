@@ -178,7 +178,7 @@
 			<div class="col-span-12 mt-2">
 				<div class="flex justify-between"> 
 					<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.description') }}</label>
-					<button class="btn btn-secondary mb-2 h-[35px]" @click="showHTML()">Preview</button>
+					<button class="btn btn-secondary mb-2 h-[35px]" @click="previewHTML()">Preview</button>
 				</div>
 				<!-- <textarea 
 					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
@@ -225,7 +225,7 @@
 				</button>
 			</div>
 		</div>
-		<ItemDescriptionModal />
+		<ItemDescriptionModal :status="'PREVIEW'"/>
 	</div>
 </template>
 
@@ -240,6 +240,7 @@ import { required, integer, maxLength, decimal, minValue} from "@vuelidate/valid
 import { helpers } from '@vuelidate/validators'
 import i18n from "@/locales/i18n"
 import ItemDescriptionModal from '../shoppingcart/modals/ItemDescriptionModal.vue'
+import ConversationModalVue from '../../components/campaign/modals/ConversationModal.vue';
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
@@ -371,7 +372,8 @@ const cancelButton = () =>{
 	layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.not_save_message'));
 }
 
-const showHTML = () => {
+const previewHTML = () => {
+	if(dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0]?.dataURL) product.value.image = dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0].dataURL
 	eventBus.emit('showDescriptionModal',product.value)
 }
 

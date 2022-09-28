@@ -64,10 +64,10 @@
   .ck-heading-dropdown .ck-heading_heading2 .ck-button__label {
     font-size: 1.75em;
     font-weight: normal;
-    color: hsl(203, 100%, 50%);
+    color: theme('colors.primary');
   }
   .ck-heading-dropdown .ck-heading_heading2.ck-on .ck-button__label {
-    color: var(--ck-color-list-button-on-text);
+    color: theme('colors.primary');
   }
   .ck-content h3 {
     line-height: 1.86em;
@@ -91,7 +91,6 @@
     margin-bottom: 1.13em;
   }
   .ck-content blockquote {
-    font-family: Georgia, serif;
     margin-left: calc(2 * var(--ck-spacing-large));
     margin-right: calc(2 * var(--ck-spacing-large));
   }
@@ -146,7 +145,7 @@
   .ck-heading-dropdown .ck-heading_heading2 .ck-button__label {
     font-size: 1.75em;
     font-weight: normal;
-    color: hsl(203, 100%, 50%);
+    color: theme('colors.primary');
   }
   .ck-content h4,
   .ck-heading-dropdown .ck-heading_heading3 .ck-button__label {
