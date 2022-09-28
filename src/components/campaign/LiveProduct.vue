@@ -60,7 +60,7 @@
                                 {{ $t(`campaign_live.product.modal_column.no_product`) }}
                             </td> 
                         </tr> 
-                        <tr v-for="product,index in store.campaignProducts" :key="index">
+                        <tr v-for="product,index in store.campaignProducts" :key="index" :class="{'text-slate-400': !product.status}">
 
                             <td class="md:hidden">
                                 <div class="m-auto form-check form-switch w-fit">
@@ -84,9 +84,9 @@
                                 <td>{{ product.order_code }}</td>
                             </template>
                             <td>
-                                <b>{{ product.qty_add_to_cart }}</b> / <b>{{ product.qty_sold }}</b> / 
+                                <b :class="{'text-slate-400': !product.overbook}">{{ product.qty_add_to_cart }}</b> / <b>{{ product.qty_sold }}</b> / 
                                 <b v-if="product.qty_for_sale - product.qty_sold >= 0" class="">{{ product.qty_for_sale - product.qty_sold }}</b>
-                                <b v-else class="text-danger">{{ product.qty_for_sale - product.qty_sold }}</b>
+                                <b v-else class="text-danger" :class="{'text-slate-400': !product.status}">{{ product.qty_for_sale - product.qty_sold }}</b>
                             </td>
                             <!-- currency_sign reference from user_subscription -->
                             <td v-if="store.campaign">
@@ -97,9 +97,10 @@
                             <td class="status_active">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
+                                        id="overbookCheckbox"
                                         @click="toggle_campaign_product_overbook(product)"
                                         class="form-check-input" type="checkbox" 
-                                        v-model="product.overbook" :disabled="route.query.status == 'history'"
+                                        v-model="product.overbook" :disabled="route.query.status == 'history' || product.status == false"
                                     />
                                 </div>
                             </td>
@@ -167,6 +168,7 @@ const toggle_campaign_product_status = (product) => {
         Object.entries(res.data).forEach(([key,value]) => {
             product[key]=value                       //proxy object only got setter
         });
+        product.overbook = false
     })
 }
 
