@@ -186,7 +186,7 @@ const toggle_campaign_product_overbook = (product) => {
 
 <style scoped>
 .form-check-input {
-    border-color: black !important;
+    border-color: rgb(92, 92, 92) !important;
 }
 
 .table th {
