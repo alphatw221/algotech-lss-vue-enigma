@@ -133,49 +133,100 @@ const cartTotal = ref(0)
 const showModal = ref(false)
 
 const updateOrderSummary = ()=>{
-    if (store.shipping_info.shipping_method=='pickup'){
+
+  //compute shipping cost
+  if(store.shipping_info.shipping_method=='pickup'){
+    shippingCost.value = 0
+  }else{
+    if(!store.order?.campaign?.meta_logistic){
       shippingCost.value = 0
-      cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.adjust_price - store.order.discount ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
-      return
-    }
+    }else{
+      const meta_logistic = store.order?.campaign?.meta_logistic
 
-    const campaign = store.order.campaign||null
-    if (!campaign) return
+      let delivery_charge = meta_logistic.delivery_charge || 0
+      delivery_charge = Number(delivery_charge)
+
+      const is_subtotal_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_order_above_price ? store.order.subtotal >= meta_logistic.free_delivery_for_order_above_price : false
+      const is_items_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_how_many_order_minimum ? store.order.products.length >= meta_logistic.free_delivery_for_how_many_order_minimum : false
+
+      if(typeof store.shipping_info.shipping_option_index=='number'){
+        if (meta_logistic.shipping_option_data.type== '+'){
+          delivery_charge += Number(meta_logistic.shipping_option_data.price)
+        }
+        else if(meta_logistic.shipping_option_data.type == '='){
+          delivery_charge =  Number(meta_logistic.shipping_option_data.price)
+        }
+      }
+
+      if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
+      shippingCost.value = delivery_charge
+
+    }
     
-    const meta_logistic = campaign.meta_logistic || null
-    if (!meta_logistic) return
-
-    let delivery_charge = meta_logistic.delivery_charge || 0
-    delivery_charge = Number(delivery_charge)
-
-    // const delivery_titles = meta_logistic.additional_delivery_charge_title || null
-    // const delivery_types = meta_logistic.additional_delivery_charge_type || null
-    // const delivery_prices = meta_logistic.additional_delivery_charge_price || null
+  }
 
 
-    // const free_delivery_for_order_above_price = meta_logistic.is_free_delivery_for_order_above_price == 1 ? meta_logistic.free_delivery_for_order_above_price : 0
-    // const free_delivery_for_how_many_order_minimum = meta_logistic.is_free_delivery_for_how_many_order_minimum == 1 ? meta_logistic.free_delivery_for_how_many_order_minimum : 0
+  //summarize_total
+  let total = 0
+  total += store.order.subtotal
+  total -= store.order.discount
+  total = Math.max(total, 0)
 
-    const is_subtotal_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_order_above_price ? store.order.subtotal >= meta_logistic.free_delivery_for_order_above_price : false
-    const is_items_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_how_many_order_minimum ? store.order.products.length >= meta_logistic.free_delivery_for_how_many_order_minimum : false
+  if(!store.order.free_delivery){
+    total += store.order.shipping_cost
+  }
+      
+  total += store.order.adjust_price
 
-    // let index = meta_logistic.additional_delivery_options.findIndex(option=> option.title == store.shipping_info.shipping_option)
-    if ( !['',null,undefined].includes(store.shipping_info.shipping_option_index) && meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index] ){      
-      const option = meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index]
-      // const index = delivery_titles.indexOf(store.shipping_info.shipping_option)
+  cartTotal.value = Math.max(total, 0)
 
-      if (option.type== '+'){
-        delivery_charge += Number(option.price)
-      }
-      else if(option.type == '='){
-        delivery_charge =  Number(option.price)
-      }
-    }
 
-    if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
+
+
+
+    // if (store.shipping_info.shipping_method=='pickup'){
+    //   shippingCost.value = 0
+    //   cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.adjust_price - store.order.discount ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
+    //   return
+    // }
+
+    // const campaign = store.order.campaign||null
+    // if (!campaign) return
+    
+    // const meta_logistic = campaign.meta_logistic || null
+    // if (!meta_logistic) return
+
+    // let delivery_charge = meta_logistic.delivery_charge || 0
+    // delivery_charge = Number(delivery_charge)
+
+    // // const delivery_titles = meta_logistic.additional_delivery_charge_title || null
+    // // const delivery_types = meta_logistic.additional_delivery_charge_type || null
+    // // const delivery_prices = meta_logistic.additional_delivery_charge_price || null
+
+
+    // // const free_delivery_for_order_above_price = meta_logistic.is_free_delivery_for_order_above_price == 1 ? meta_logistic.free_delivery_for_order_above_price : 0
+    // // const free_delivery_for_how_many_order_minimum = meta_logistic.is_free_delivery_for_how_many_order_minimum == 1 ? meta_logistic.free_delivery_for_how_many_order_minimum : 0
+
+    // const is_subtotal_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_order_above_price ? store.order.subtotal >= meta_logistic.free_delivery_for_order_above_price : false
+    // const is_items_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_how_many_order_minimum ? store.order.products.length >= meta_logistic.free_delivery_for_how_many_order_minimum : false
+
+    // // let index = meta_logistic.additional_delivery_options.findIndex(option=> option.title == store.shipping_info.shipping_option)
+    // if ( !['',null,undefined].includes(store.shipping_info.shipping_option_index) && meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index] ){      
+    //   const option = meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index]
+    //   // const index = delivery_titles.indexOf(store.shipping_info.shipping_option)
+
+    //   if (option.type== '+'){
+    //     delivery_charge += Number(option.price)
+    //   }
+    //   else if(option.type == '='){
+    //     delivery_charge =  Number(option.price)
+    //   }
+    // }
+
+    // if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
         
-    shippingCost.value = delivery_charge
-    cartTotal.value = store.order.subtotal + store.order.adjust_price - store.order.discount + delivery_charge 
+    // shippingCost.value = delivery_charge
+    // cartTotal.value = store.order.subtotal + store.order.adjust_price - store.order.discount + delivery_charge 
 }
 
 watch(
