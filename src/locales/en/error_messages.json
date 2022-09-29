@@ -8,7 +8,8 @@
                 "category_not_exist": "This category does not exist"
             },
             "campaign": {
-                "search_can_not_empty": "Search field can not be empty when keyword has value"
+                "search_can_not_empty": "Search field can not be empty when keyword has value",
+                "None not activated":"Platform Not Activated"
             },
             "user": {
                 "account_not_exist": "This account does not exist",

@@ -73,7 +73,6 @@ const init = (el, props) => {
       clonedEl.toastify.hideToast();
     });
     dom(clonedEl).on("click", "[data-dismiss='function']", function () {
-      console.log('Here')
       fun()
       clonedEl.toastify.hideToast();
     });
