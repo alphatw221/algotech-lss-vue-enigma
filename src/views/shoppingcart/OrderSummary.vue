@@ -1,10 +1,12 @@
 <template>
   <div class="box p-5 sm:m-3 border-2 border-secondary">
     <div class="flex flex-col">
+      <!-- ORDER SUMMARY -->
       <div class="flex mb-4 dark:border-darkmode-400">
         <span class="text-lg">{{$t('shopping_cart.order_summary.order_summary')}}</span>
       </div>
-	  
+
+      <!-- SUBTOTAL -->
       <div class="flex">
         <div class="mr-auto">{{$t('shopping_cart.order_summary.subtotal')}}</div>
         <div class="font-medium" v-if="store.order.campaign||false">
@@ -13,20 +15,10 @@
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
-      <div class="flex mt-4" v-if="store.order.adjust_price != 0">
-        <div class="mr-auto" v-if="store.order.adjust_title">
-          <div>{{ store.order.adjust_title }}</div>
-          <div>({{$t('shopping_cart.order_summary.price_adjustment')}})</div>
-        </div>
-        <div class="mr-auto" v-else>{{$t('shopping_cart.order_summary.price_adjustment')}}</div>
 
-        <div class="font-medium text-danger" v-if="store.order.campaign||false">
-          {{store.order.campaign.currency}} 
-          {{(Math.floor(parseFloat(store.order.adjust_price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-          {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
-        </div>
-      </div>
+      
 
+      <!-- DISCOUNT -->
       <div v-if="store.order.discount != 0 && store.order.campaign||false" class="flex flex-row justify-between mt-2" >
         <label class="w-fit my-auto whitespace-nowrap">{{ $t('shopping_cart.order_summary.promo_discount')}} </label>
         <span class="font-medium text-danger"> 
@@ -36,6 +28,17 @@
         </span>
       </div>
 
+      <!-- SUBTOTAL AFTER DISCOUNT -->
+      <div v-if="store.order.discount != 0 && store.order.campaign||false" class="flex flex-row justify-between mt-2" >
+        <label class="w-fit my-auto whitespace-nowrap">Subtotal After Discount </label>
+        <span class="font-medium "> 
+          {{store.order.campaign.currency}} 
+          {{(Math.floor(parseFloat(Math.max(store.order.subtotal-store.order.discount,0)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+        </span>
+      </div>
+
+      <!-- PROMO CODE INPUT -->
       <div class="flex flex-row flex-wrap justify-between mt-2" >
         <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
           <div class="input-group"> 
@@ -52,6 +55,7 @@
       </div>
       <span v-if="store.order.applied_discount.code != undefined" class="lg:text-right text-left font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :store.order.applied_discount.code})}} </span>
 
+      <!-- REFERAL CODE INFO -->
       <div class="flex justify-between mt-2"  v-for="referalCode, index in store.referalCodes" :key="index">
 
         <label class=" my-auto whitespace-nowrap mr-5">{{$t('shopping_cart.order_summary.referr_code')}}</label>
@@ -62,17 +66,56 @@
 
       </div>
 
-      <div v-if="store.shipping_info.shipping_method !== 'pickup'"
-        class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
-          pt-4">
-        <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
-        <div class="font-medium" v-if="store.order.campaign||false">
+
+      <!-- SHIPPING -->
+      <template v-if="store.shipping_info.shipping_method !== 'pickup'">
+        
+        <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
+            pt-4">
+
+          <div class="mr-auto">{{$t('shopping_cart.order_summary.shipping')}}</div>
+
+
+          <template v-if="store.order?.campaign">
+
+            <div class="font-medium" v-if="store.order?.meta?.subtotal_over_free_delivery_threshold || store.order?.meta?.items_over_free_delivery_threshold || store.order?.free_delivery">
+              {{store.order.campaign.currency}} 
+              {{(Math.floor(parseFloat(0) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+              {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+            </div>
+
+            <div class="font-medium" v-else>
+              {{store.order.campaign.currency}} 
+              {{(Math.floor(parseFloat(shippingCost) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+              {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+            </div>
+
+          </template>
+        
+        </div>
+        <div v-if="store.order?.free_delivery || store.order?.meta?.subtotal_over_free_delivery_threshold || store.order?.meta?.items_over_free_delivery_threshold" class="text-red-600 text-sm">{{$t('shopping_cart.order_summary.free_delivery')}}</div>
+
+      </template>
+      
+
+
+
+      <!-- ADJUST_PRICE -->
+      <div class="flex mt-4" v-if="store.order.adjust_price != 0">
+        <div class="mr-auto" v-if="store.order.adjust_title">
+          <div>{{ store.order.adjust_title }}</div>
+          <div>({{$t('shopping_cart.order_summary.price_adjustment')}})</div>
+        </div>
+        <div class="mr-auto" v-else>{{$t('shopping_cart.order_summary.price_adjustment')}}</div>
+
+        <div class="font-medium text-danger" v-if="store.order.campaign||false">
           {{store.order.campaign.currency}} 
-          {{(Math.floor(parseFloat(shippingCost) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(store.order.adjust_price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
         </div>
       </div>
-      <div v-if="shippingCost === 0 && store.shipping_info.shipping_method !== 'pickup'" class="text-red-600 text-sm">{{$t('shopping_cart.order_summary.free_delivery')}}</div>
+
+      <!-- TOTAL -->
       <div
         class="
           flex
@@ -90,6 +133,8 @@
         </div>
       </div>
     </div>
+
+    <!-- ADD_MORE_ITEMS NEXT BUTTON -->
     <div class="flex mt-5" v-if="store.openTab === 1">
       <button
         class="btn w-32 border-slate-300 dark:border-darkmode-400 text-slate-500"

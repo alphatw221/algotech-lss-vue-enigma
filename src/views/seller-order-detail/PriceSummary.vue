@@ -49,12 +49,14 @@
       <div class="flex">
         <div class="mr-auto">
           {{$t('order_detail.price_summary.shipping')}}
-          <span class="text-red-500" v-if="store.orderDetail.free_delivery">({{$t('order_detail.price_summary.apply_free_delivery')}})</span>
+          <span class="text-red-500" v-if="store.orderDetail.free_delivery || store.orderDetail?.meta?.subtotal_over_free_delivery_threshold || store.orderDetail?.meta?.items_over_free_delivery_threshold">
+            ({{$t('order_detail.price_summary.apply_free_delivery')}})
+          </span>
         </div>
 
         <template v-if="store.orderDetail.campaign">
 
-          <div class="font-medium" v-if="store.orderDetail.free_delivery">
+          <div class="font-medium" v-if="store.orderDetail.free_delivery || store.orderDetail?.meta?.subtotal_over_free_delivery_threshold || store.orderDetail?.meta?.items_over_free_delivery_threshold">
             {{store.orderDetail.campaign.currency}} 
             {{ (Math.floor(parseFloat(0) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
             {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
@@ -198,28 +200,41 @@ const props = defineProps({
 onMounted(()=>{
   watch(computed(()=>store.orderDetail.adjust_price), () => { 
 
-  adjustPrice.value = store.orderDetail.adjust_price
-  if( store.orderDetail.adjust_price < 0 ){
-      store.modify_status = '-'
-  }else{
-      store.modify_status = '+'
-  } })
+    if( store.orderDetail.adjust_price < 0 ){
+        store.modify_status = '-'
+    }else{
+        store.modify_status = '+'
+    } 
+    updatePriceSummary()
+  })
+
+  watch(computed(()=>store.modify_status), () => { 
+
+    store.orderDetail.adjust_price=store.modify_status === '-'? -parseFloat(Math.abs(store.orderDetail.adjust_price)) : parseFloat(Math.abs(store.orderDetail.adjust_price))
+    updatePriceSummary()
+  })
+  watch(computed(()=>store.orderDetail.free_delivery), () => { 
+    updatePriceSummary()
+  })
+
 })
 
 
-const adjustPrice = ref(0)
 
 const computedAdjustPrice = computed({
   get:()=>{
-    return Math.abs(adjustPrice.value)
+    return Math.abs(store.orderDetail.adjust_price)
   },set:adjust_price=>{
-     adjustPrice.value = store.modify_status === '-'? -parseFloat(Math.abs(adjust_price)) : parseFloat(Math.abs(adjust_price))
+     store.orderDetail.adjust_price = store.modify_status === '-'? -parseFloat(Math.abs(adjust_price)) : parseFloat(Math.abs(adjust_price))
+     updatePriceSummary()
   }});
+
+
 
 const sellerAdjustPrice = ()=>{
   const modify_price = {
     'adjust_title':store.orderDetail.adjust_title,
-    'adjust_price':store.modify_status === '-'? -parseFloat(Math.abs(adjustPrice.value)) : parseFloat(Math.abs(adjustPrice.value)),
+    'adjust_price':store.orderDetail.adjust_price,
     'free_delivery':store.orderDetail.free_delivery
   }
 
@@ -231,6 +246,23 @@ const sellerAdjustPrice = ()=>{
   )
 }
 
+const updatePriceSummary = ()=>{
+  console.log('update price summary')
+    //summarize_total
+    let total = 0
+    total += store.orderDetail.subtotal
+    total -= store.orderDetail.discount
+    total = Math.max(total, 0)
+
+    if(!store.orderDetail.free_delivery){
+      total += store.orderDetail.shipping_cost
+    }
+        
+    total += store.orderDetail.adjust_price
+
+    store.orderDetail.total = Math.max(total, 0)
+
+}
 
 
 // const update_adjust_price_sign = ()=>{
