@@ -51,11 +51,24 @@
           {{$t('order_detail.price_summary.shipping')}}
           <span class="text-red-500" v-if="store.orderDetail.free_delivery">({{$t('order_detail.price_summary.apply_free_delivery')}})</span>
         </div>
-        <div class="font-medium" v-if="store.orderDetail.campaign">
-          {{store.orderDetail.campaign.currency}} 
-          {{ (Math.floor(parseFloat(store.orderDetail.shipping_cost) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
-          {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
-        </div>
+
+        <template v-if="store.orderDetail.campaign">
+
+          <div class="font-medium" v-if="store.orderDetail.free_delivery">
+            {{store.orderDetail.campaign.currency}} 
+            {{ (Math.floor(parseFloat(0) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
+            {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+          </div>
+
+          <div class="font-medium" v-else>
+            {{store.orderDetail.campaign.currency}} 
+            {{ (Math.floor(parseFloat(store.orderDetail.shipping_cost) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
+            {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+          </div>
+
+
+        </template> 
+        
       </div>
 
       
@@ -69,7 +82,8 @@
             <div class="mr-auto">{{store.orderDetail.adjust_title}}</div>
             <div class="font-medium" v-if="store.orderDetail.campaign">
               {{store.orderDetail.campaign.currency}}
-              {{store.modify_status == '-' ? '-' + Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places : Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
+              {{Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places }}
+              <!-- {{store.modify_status == '-' ? '-' + Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places : Math.floor(parseFloat(store.orderDetail.adjust_price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}} -->
               {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
             </div>
             <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cleanAdjust()"/>
@@ -118,10 +132,10 @@
                         <input id="regular-form-2" type="text" class="form-control " :placeholder="$t('order_detail.price_summary.display_name')" v-model="store.orderDetail.adjust_title" />
                     </div>
                     <div class="col-span-4">
-                        <input id="regular-form-2" type="number" class="form-control " :placeholder="$t('order_detail.price_summary.amount')" v-model="store.orderDetail.adjust_price" />
+                        <input id="regular-form-2" type="number" class="form-control " :placeholder="$t('order_detail.price_summary.amount')" v-model="computedAdjustPrice" />
                     </div>
                     <div class="flex flex-row-reverse col-span-4">
-                        <button class="btn btn-primary w-32 shadow-md" @click="update_modify_price">{{$t('order_detail.price_summary.update')}}</button>
+                        <button class="btn btn-primary w-32 shadow-md" @click="sellerAdjustPrice()">{{$t('order_detail.price_summary.update')}}</button>
                     </div> 
                     <!-- <div class="col-start-5 col-span-8" v-if="store.modify_status==='-' &&store.orderDetail.subtotal+store.orderDetail.shipping_cost-store.orderDetail.discount-store.orderDetail.adjust_price < 0" style="color:red">
                         {{$t('order_detail.price_summary.price_exceed')}}
@@ -180,48 +194,65 @@ const props = defineProps({
   decimal_places: Number
 })
 
-const modify_price = {
-  'adjust_title':'',
-  'adjust_price':0,
-  'free_delivery':false
-}
 
-function update_modify_price(){
-  modify_price.adjust_title = store.orderDetail.adjust_title
-  modify_price.free_delivery = store.orderDetail.free_delivery
-  if(store.modify_status === '-'){
-    modify_price.adjust_price = -parseFloat(store.orderDetail.adjust_price)
+onMounted(()=>{
+  watch(computed(()=>store.orderDetail.adjust_price), () => { 
+
+  adjustPrice.value = store.orderDetail.adjust_price
+  if( store.orderDetail.adjust_price < 0 ){
+      store.modify_status = '-'
   }else{
-    modify_price.adjust_price = parseFloat(store.orderDetail.adjust_price)
+      store.modify_status = '+'
+  } })
+})
+
+
+const adjustPrice = ref(0)
+
+const computedAdjustPrice = computed({
+  get:()=>{
+    return Math.abs(adjustPrice.value)
+  },set:adjust_price=>{
+     adjustPrice.value = store.modify_status === '-'? -parseFloat(Math.abs(adjust_price)) : parseFloat(Math.abs(adjust_price))
+  }});
+
+const sellerAdjustPrice = ()=>{
+  const modify_price = {
+    'adjust_title':store.orderDetail.adjust_title,
+    'adjust_price':store.modify_status === '-'? -parseFloat(Math.abs(adjustPrice.value)) : parseFloat(Math.abs(adjustPrice.value)),
+    'free_delivery':store.orderDetail.free_delivery
   }
 
   seller_adjust_price(route.params.order_id,modify_price).then(
     res => {
       sellerStore.notification.showMessageToast('Update')
       store.orderDetail = res.data
-      show_adjust_price()
     }
   )
 }
 
-function show_adjust_price(){
-  if(store.orderDetail.free_delivery){
-      store.orderDetail.shipping_cost = 0
-  }
-  if( store.orderDetail.adjust_price < 0 ){
-      store.modify_status = '-'
-      store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
-  }else{
-      store.modify_status = '+'
-  }
-}
+
+
+// const update_adjust_price_sign = ()=>{
+//   // if(store.orderDetail.free_delivery){
+//   //     store.orderDetail.shipping_cost = 0
+//   // }
+
+//   // console.log('123')
+//   // console.log(store.orderDetail.adjust_price)
+//   if( store.orderDetail.adjust_price < 0 ){
+//       store.modify_status = '-'
+//       // store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
+//   }else{
+//       store.modify_status = '+'
+//   }
+// }
 
 const cleanAdjust = ()=>{
   seller_adjust_price(route.params.order_id,{'adjust_title':'','adjust_price':0,'free_delivery':store.orderDetail.free_delivery}).then(
     res => {
       sellerStore.notification.showMessageToast('Update')
       store.orderDetail = res.data
-      show_adjust_price()
     }
   )
 }
