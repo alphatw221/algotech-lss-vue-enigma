@@ -55,6 +55,7 @@
 								<div> * {{ $t(`discount.table.` + limitations.key) }} </div>
 								<div class="ml-2 sm:ml-auto" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{(limitations.amount).toLocaleString('en-US')}} </div>
 								<div class="ml-2 sm:ml-auto" v-else-if="limitations.key == 'product_over_specific_number'"> {{limitations.number}} pcs </div>
+								<div class="ml-2 sm:ml-auto" v-else-if="limitations.key == 'discount_code_usable_time'"> {{limitations.times}} </div>
 								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitations.key == 'specific_campaign'"> 
 									<template v-for="(campaign, index) in scheduledCamapign" :key="index"> 
 										<template v-if="campaign.id == limitations.campaign_id"> {{campaign.title}} </template>	
@@ -195,7 +196,7 @@ const listDiscountCodes=()=> {
 	showLoadingIcon.value = true
 	list_discount_code(pageSize.value, currentPage.value)
 	.then((res) => {
-		// console.log(res.data)
+		console.log(res.data)
 		totalCount.value = res.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		discountCodes.value = res.data.results
