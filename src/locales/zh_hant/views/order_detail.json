@@ -23,6 +23,7 @@
         "shipping":"運費",
         "delivery_charge":"運費",
         "discount":"折扣",
+        "tax": "稅額",
         "add": "增加",
         "subtract": "減少",
         "apply_free_delivery" : "免運費",

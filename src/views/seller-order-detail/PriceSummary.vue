@@ -35,16 +35,16 @@
             <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cleanAdjust()"/>
         </div>
       </template>
-        <div class="flex" v-if="store.orderDetail.campaign">
-          <template v-if="store.orderDetail.discount !=0"> 
-            <div class="mr-auto">{{$t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger">({{store.orderDetail.applied_discount.code}})</span></div>
-            <div class="font-medium"> 
-              {{store.orderDetail.campaign.currency}}
-              -{{(Math.floor(parseFloat(store.orderDetail.discount) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
-              {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
-            </div>
-          </template>
-        </div>
+      <div class="flex" v-if="store.orderDetail.campaign">
+        <template v-if="store.orderDetail.discount !=0"> 
+          <div class="mr-auto">{{$t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger">{{store.orderDetail.applied_discount.code ? (store.orderDetail.applied_discount.code) : '' }}</span></div>
+          <div class="font-medium"> 
+            {{store.orderDetail.campaign.currency}}
+            -{{(Math.floor(parseFloat(store.orderDetail.discount) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
+            {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+          </div>
+        </template>
+      </div>
       <template v-if="props.order_type !== 'order'">
       <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400
           pt-4">
@@ -97,6 +97,14 @@
         </div>
       </div>
       </template>
+      <div class="flex" v-if="store.orderDetail.meta?.['shopify']">
+        <div class="mr-auto">{{$t('order_detail.price_summary.tax')}}</div>
+        <div class="font-medium"> 
+          {{store.orderDetail.campaign.currency}}
+          {{(Math.floor(parseFloat(store.orderDetail.meta.shopify.total_tax) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+        </div>
+      </div>
       <div
         class="
           flex

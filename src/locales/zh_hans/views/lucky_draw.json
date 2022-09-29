@@ -18,6 +18,7 @@
         "product": "下单特定商品者",
         "keyword": "留言特定关键字者",
         "sharedpost": "分享贴文者",
+        "like_and_comment":"FB按赞&留言",
         "winners" : "得奖人数",
         "winner_repeat": "是否允许重复得奖",
         "yes": "是",
@@ -59,10 +60,11 @@
         "keyword": "商品代码",
         "draw_selection": {
             "like": "按赞者",
-            "product": "下单特定商品者",
-            "purchase": "下单任一商品者",
-            "keyword": "留言特定关键字者",
-            "sharedpost": "分享贴文者"
+            "product": "购买指定商品者",
+            "purchase": "购买任何商品者",
+            "keyword": "留言內容包含关键字",
+            "sharedpost": "分享贴文者",
+            "like_and_comment":"对此FB贴文按赞以及留言者"
         },
         "no_product_err":"尚未将商品加入此直播",
         "assign_product_err":"须加入商品",

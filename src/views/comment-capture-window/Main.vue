@@ -1,19 +1,23 @@
 <template>
     <Dropdown 
+        show="true"
         id='comment-capturing-window' 
         @mousedown="startDrag($event)"
         @mouseup="endDrag()"
-        class="fixed bg-[#141414]/95 w-fit block top-20 left-10 z-[999] w-[200px] h-[35px]"
+        class="fixed bg-[#141414]/95 w-fit block top-20 left-10 z-[50] w-[200px] h-[35px]"
         v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username">
         <DropdownToggle class="flex justify-between w-full h-full px-2 text-white">
                 <label class="font-medium my-auto" > Capture Status</label>
-                <PlusIcon class="ml-auto my-auto w-6 h-6 "/>
+                <div class="flex my-auto">
+                    <MoveIcon class="w-6 h-6 rotate-45"/> 
+                    <XIcon class="my-auto w-6 h-6" @click="stopCapturing('all')"/>
+                </div> 
         </DropdownToggle>
         <DropdownMenu class="w-[200px] bg-[#141414]">
             <DropdownContent
             class="bg-[#141414] text-white"
           >
-            <DropdownHeader tag="div" class="!font-normal text-white font-medium truncate">
+            <DropdownHeader tag="div" class="!font-normal text-white flex font-medium truncate">
                 {{sellerStore.commentCapturingCampaignData.title}}
             </DropdownHeader>
             <div class="w-full border-t border-slate-500/60 dark:border-darkmode-400 border-dashed"></div>
@@ -23,18 +27,15 @@
                         <div v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.username"
                             class="flex w-full">
                             <template  v-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='error'">
-                                <AlertCircleIcon class="text-danger my-auto w-5" />
+                                <SimpleIcon icon="alert_full" class="my-auto w-5"/>
                                 <label class="text-[#ff0000] flex-initial text-white my-auto w-32 ml-1">Syncing TikTok Err</label>
                                 <SimpleIcon icon="reset" color="#fff" class="w-6 my-auto ml-auto cursor-pointer" @click="refresh('tiktok')"/>
                             </template>
                             <template v-else-if="sellerStore.commentCapturingCampaignData?.tiktok_campaign?.status==='capturing'">
                                 <div class="my-auto flex-none"> 
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="9" cy="9" r="8" stroke="white" stroke-width="1.5"/>
-                                        <circle cx="8.99967" cy="8.99992" r="2.66667" fill="#F00000" stroke="#F00000" stroke-width="1.5"/>
-                                    </svg>
+                                    <LoadingIcon width="24" height="24" icon="capturing" class="my-auto flex-none"/>
                                 </div>
-                                <label class="flex-initial text-white my-auto w-32 ml-1">Syncing TikTok</label>
+                                <label class="flex-initial text-white my-auto w-32">Syncing TikTok</label>
                                 <SimpleIcon icon="stop_live2" width="24" height="20" class="flex-none my-auto ml-auto cursor-pointer" @click="stopCapturing('tiktok')" />  
                             </template>
                         </div>
@@ -43,17 +44,15 @@
                             class="flex w-full"
                         >
                             <template  v-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='error'" class="flex">
-                                <AlertCircleIcon class="text-[#ff0000] mx-auto" />
+                                <SimpleIcon icon="alert_full" class="my-auto w-5"/>
                                 <label class="text-[#ff0000] flex-initial text-white my-auto w-32 ml-2">Syncing Twitch Err</label>
                             </template>
                             
                             <template v-else-if="sellerStore.commentCapturingCampaignData?.twitch_campaign?.status==='capturing'">
                                 <div class="my-auto flex-none"> 
-                                    <svg width="18" height="18" viewBox="0 0 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                        <circle cx="9" cy="9" r="8" stroke="white" stroke-width="1.5"/>
-                                        <circle cx="8.99967" cy="8.99992" r="2.66667" fill="#F00000" stroke="#F00000" stroke-width="1.5"/>
-                                    </svg>
+                                    <LoadingIcon width="24" height="24" icon="capturing" class="my-auto flex-none"/>
                                 </div>
+                                
                                 <label class="flex-initial text-white my-auto w-32 ml-1">Syncing Twitch</label>
                                 <SimpleIcon icon="stop_live2" width="24" height="20" class="flex-none my-auto ml-auto cursor-pointer" @click="stopCapturing('twitch')" /> 
                             </template>
@@ -74,7 +73,6 @@ import loadScript from '@/libs/loadScript.js';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import TiktokCommentCapturer from "./TiktokCommentCapturer.vue";
 import TwitchCommentCapturer from "./TwitchCommentCapturer.vue";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
@@ -136,9 +134,10 @@ const refresh=(platform) =>{
 
 const stopCapturing = (platform)=>{
     console.log('stop capturing')
-    console.log(sellerStore.commentCapturingCampaignData)
+    // console.log(sellerStore.commentCapturingCampaignData)
     if(platform=='tiktok') sellerStore.commentCapturingCampaignData.tiktok_campaign={}
     if(platform=='twitch') sellerStore.commentCapturingCampaignData.twitch_campaign={}
+    if(platform=='all') sellerStore.commentCapturingCampaignData={}
     hideDropDown()
 }
 

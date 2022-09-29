@@ -235,7 +235,8 @@ const campaignData = ref({
 	meta_payment:{
 		special_note: '',
 		confirmation_note: ''
-	}
+	},
+	meta_reply:{}  //add for shc
 })
 
 const campaignNotes = ref({
@@ -332,6 +333,8 @@ onMounted(() => {
 	campaignNotes.value.meta_payment.special_note = sellerStore.userInfo.user_subscription.meta_payment.special_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.special_note  )) : ''
 	campaignNotes.value.meta_payment.confirmation_note = sellerStore.userInfo.user_subscription.meta_payment.confirmation_note ? JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_payment.confirmation_note  )) : ''
 	
+	//reply
+	if(sellerStore.userInfo.user_subscription.meta_reply)campaignData.value.meta_reply = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_reply))
 })
 
 

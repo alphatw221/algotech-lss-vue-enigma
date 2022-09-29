@@ -28,6 +28,7 @@
         "shipping":"Shipping",
         "delivery_charge":"Delivery Charge",
         "discount":"Discount",
+        "tax": "Tax",
         "add": "Addtional Fee",
         "subtract": "Discount",
         "apply_free_delivery" : "Free Delivery Applied",
