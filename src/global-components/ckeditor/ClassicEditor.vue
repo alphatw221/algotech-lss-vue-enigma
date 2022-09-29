@@ -14,7 +14,7 @@ import { init } from "./index";
 
 const vEditorDirective = {
   mounted(el, { value }) {
-    init(el, ClassicEditor, value);
+    init(el, ClassicEditor, value); 
   },
 };
 

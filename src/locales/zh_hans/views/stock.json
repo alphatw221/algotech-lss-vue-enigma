@@ -34,7 +34,8 @@
         "qty": "库存数量",
         "price": "价格",
         "confirm_delete": "确定要删除该商品？",
-        "wishlist":"愿望清单"
+        "wishlist":"愿望清单",
+        "remark":"备注"
     },
 
     "category_manage": {
@@ -69,11 +70,15 @@
         "price": "价格",
         "price_warning": "价格需填数字",
         "status": "商品状态",
-        "description": "说明",
-        "product_description": "商品说明...",
-        "description_warning": "说明文字不超过100字",
+        "remark": "备注",
+        "placeholder_remark": "卖家备注...",
+        "remark_warning":"备注不可超过100字",
+        "description": "商品说明",
+        "product_description": "买家可见的商品说明...",
+        "description_warning": "说明文字不包含<head> tag",
         "cancel": "取消",
         "save": "储存",
+        "preview":"预览",
 
         "not_save_message":"取消储存",
         "create_message":"新增成功",

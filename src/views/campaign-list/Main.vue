@@ -128,13 +128,13 @@ onMounted(()=>{
   if(route.query.type){
     if (route.query.type == 'startCampaign' && route.query.campaign != '' && route.query.campaign != undefined ) {
       retrieve_campaign(route.query.campaign).then((res) => {
-        // openCampaign.value = res.data
-        console.log(openCampaign.value)
-        if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== '') {
+        openCampaign.value = res.data
+        // console.log('openCamp',openCampaign.value)
+        if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== '' || openCampaign.value.twitch_campaign.channel_name !== '' || openCampaign.value.tiktok_campaign.username !== '') {
           router.push({name:'campaign-live',params:{'campaign_id':openCampaign.value.id}, query:{'status':"schaduled"}})
           return
         }
-        eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': "schaduled", 'campaign':openCampaign})
+        eventBus.emit('showRemindEnterPostIDModal',{ 'tableName': "schaduled", 'campaign':openCampaign.value})
       })
     
     }
@@ -147,7 +147,7 @@ watch(computed(()=>route.query.type), () => {
       retrieve_campaign(route.query.campaign).then((res) => {
         openCampaign.value = res.data
         // console.log(openCampaign.value)
-        if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== '') {
+        if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== ''|| openCampaign.value.twitch_campaign.channel_name !== '' || openCampaign.value.tiktok_campaign.username !== '') {
           router.push({name:'campaign-live',params:{'campaign_id':openCampaign.value.id}, query:{'status':"schaduled"}})
           return
         }

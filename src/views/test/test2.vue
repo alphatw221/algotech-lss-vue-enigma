@@ -21,7 +21,7 @@ const columns = ref([
 const data = ref([
     {
         name: 'John Brown',
-        age: 18,
+        age: 18, 
         address: 'New York No. 1 Lake Park',
         job: 'Data engineer',
         interest: 'badminton',

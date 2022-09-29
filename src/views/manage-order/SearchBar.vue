@@ -66,6 +66,7 @@ const props = defineProps({
 
 onMounted(()=>{
     eventBus.on(props.tableFilter, (payload) => {
+        console.log(payload.filter_data)
         search(payload.filter_data)
 	})
 })
@@ -73,7 +74,7 @@ onUnmounted(()=>{
     eventBus.off(props.tableFilter)
 })
 
-function search(filter_data){
+function search(filter_data={}){
     // console.log(searchValue.value)
     eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
 }

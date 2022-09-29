@@ -12,7 +12,7 @@
               {{$t('change_plan.step_2.proration')}} : <span class="ml-3 font-medium text-[#660000]"> 
               {{`${confirmInfo.currency} -${confirmInfo.adjust_amount}`}} </span>   
           </div>
-          <div> 
+          <div v-if="confirmInfo.payment_amount"> 
               {{$t('change_plan.step_2.payment_total')}} : <span class="ml-3 font-medium text-[#660000]">
                 {{ `${confirmInfo.currency} ${(confirmInfo.payment_amount).toLocaleString('en-GB')}`}} </span>   
           </div>

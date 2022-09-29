@@ -29,7 +29,7 @@
 					type="checkbox" 
 					v-model="props.campaign.meta_logistic.is_free_delivery_for_order_above_price"
 				/>
-				{{$t('create_campaign.delivery_form.free_delivery_for_order_above')}} $
+				{{$t('create_campaign.delivery_form.free_delivery_for_order_above')}}
 			</label>
 			<input 
 				class="w-full form-control" 

@@ -1,5 +1,5 @@
 <template>
-    <Modal :show="show" @hidden="show=false">
+    <Modal backdrop="static" :show="show" @hidden="show=false">
       <a
         @click="show=false"
         class="absolute right-0 top-0 mt-3 mr-3"

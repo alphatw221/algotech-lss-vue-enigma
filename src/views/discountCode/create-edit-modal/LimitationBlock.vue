@@ -1,41 +1,43 @@
 <template>
-    <select v-model="props.discountCode.limitations[props.limitationIndex].key" placeholder="choose_limitation_type" class="w-full form-select rounded-lg mt-2 h-[42px]">
-        <option :value="key" v-for="(data, key, index) in discountCodeMeta.limitations" :key="index">{{$t(`discount.modal.limit_options.`+data.name)}}</option>
-    </select>
-    <label class="text-danger text-[12px]"
-        v-for="error,index in props.v.limitations.$each.$response.$errors[props.limitationIndex].key"
-        :key="index"
-        >
-        {{$t(`discount.modal.`+error.$validator)}}
-    </label>
-    <label class="text-danger" v-if="props.limitationErr">
-        Cannot Select Duplicate limitations
-    </label>
-    
-    <template  v-if="props.discountCode.limitations[props.limitationIndex].key!=undefined">
-        <div 
-            class="flex flex-col intro-y"
-            v-for="(field, field_index) in discountCodeMeta.limitations[props.discountCode.limitations[props.limitationIndex].key]?.fields" :key="field_index"
-        >
+    <div>
+        <select v-model="props.discountCode.limitations[props.limitationIndex].key" placeholder="choose_limitation_type" class="w-full form-select rounded-lg mt-2 h-[42px]">
+            <option :value="key" v-for="(data, key, index) in discountCodeMeta.limitations" :key="index">{{$t(`discount.modal.limit_options.${data.name}`)}}</option>
+        </select>
+        <label class="text-danger text-[12px]"
+            v-for="error,index in props.v.limitations.$each.$response.$errors[props.limitationIndex].key"
+            :key="index"
+            >
+            {{$t(`discount.modal.`+error.$validator)}}
+        </label>
+        <label class="text-danger" v-if="props.limitationErr">
+            {{$t(`discount.modal.duplicate`)}}
+        </label>
+        
+        <template  v-if="props.discountCode.limitations[props.limitationIndex].key!=undefined">
+            <div 
+                class="flex flex-col intro-y"
+                v-for="(field, field_index) in discountCodeMeta.limitations[props.discountCode.limitations[props.limitationIndex].key]?.fields" :key="field_index"
+            >
 
-            <template v-if="field.type === 'input'">
-                <label class="mt-2 text-base">{{$t(`discount.modal.`+field.name)}}</label>
-                <input class="rounded-lg" :type="field.dataType" v-model="props.discountCode.limitations[props.limitationIndex][field.key]">
-            </template>
+                <template v-if="field.type === 'input'">
+                    <label class="mt-2 text-base">{{$t(`discount.modal.`+field.name)}}</label>
+                    <input class="rounded-lg" :type="field.dataType" v-model="props.discountCode.limitations[props.limitationIndex][field.key]">
+                </template>
 
-            <template v-if="field.type === 'api_select' && handleApiSelect(field)" >
+                <template v-if="field.type === 'api_select' && handleApiSelect(field)" >
 
-                <label class="mt-2 text-base">{{$t(`discount.modal.`+field.name)}}</label>
-                <TomSelect
-					v-model="props.discountCode.limitations[props.limitationIndex][field.key]"
-					class="w-full"
-				>
-                    <option :key="index"></option>
-					<option v-for="option, index in options" :key="index" :value="option[field.optionValue]">{{ option[field.optionName] }}</option>
-				</TomSelect>
-            </template>
-        </div>
-    </template>
+                    <label class="mt-2 text-base">{{$t(`discount.modal.`+field.name)}}</label>
+                    <TomSelect
+                        v-model="props.discountCode.limitations[props.limitationIndex][field.key]"
+                        class="w-full"
+                    >
+                        <option :key="index"></option>
+                        <option v-for="option, index in options" :key="index" :value="option[field.optionValue]">{{ option[field.optionName] }}</option>
+                    </TomSelect>
+                </template>
+            </div>
+        </template>
+    </div>
 </template>
 
 <script setup>

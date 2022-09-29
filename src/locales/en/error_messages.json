@@ -8,7 +8,8 @@
                 "category_not_exist": "This category does not exist"
             },
             "campaign": {
-                "search_can_not_empty": "Search field can not be empty when keyword has value"
+                "search_can_not_empty": "Search field can not be empty when keyword has value",
+                "None not activated":"Platform Not Activated"
             },
             "user": {
                 "account_not_exist": "This account does not exist",
@@ -74,7 +75,7 @@
                 "invalid_lucky_draw_type":"Invalid draw method",
                 "invalid_lucky_draw_product": "Invalid Prize",
                 "lucky_draw_has_already_finished": "The draw has been completed and cannot be deleted",
-                "draw_like_type_need_connect_to_facebook_post": "Not able to select this draw type because the campaign doesn't connect to a post on Facebook. Please check campaign setting.",
+                "draw_like_type_need_connect_to_facebook_post": "Can’t start to draw the winner, because this campaign hasn’t linked to a Facebook post.",
                 "no_any_connected_platforms": "This campaign doesn't connect to any posts or channels. Please check campaign setting."
             },
             "cart":{

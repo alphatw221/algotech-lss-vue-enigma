@@ -268,7 +268,7 @@ const tableColumns = ref([
     { name: "image", key: "image" },
 	{ name: "name", key: "name" },
 	{ name: "category", key: "category" },
-	{ name: "description", key: "description" },
+	{ name: "remark", key: "remark" },
 	{ name: "qty", key: "qty" },
 	{ name: "price", key: "price" },
 	{ name: "wishlist", key:"wishlist"},
@@ -360,7 +360,7 @@ const search = ()=>{
 			}
 			stockProducts.value = response.data.results
 			showCommentLoding.value = false
-			console.log(stockProducts.value)
+			// console.log(stockProducts.value)
 		}
 	)
 }
@@ -386,7 +386,10 @@ const hideDropDown = ()=>{
 
 const deleteProduct = (product,index) => {
 	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
-	if (yes) delete_product(product.id).then(res => {stockProducts.value.splice(index,1)})
+	if (yes) delete_product(product.id).then(res => {stockProducts.value.splice(index,1)
+		bulkEditStockObj.value.stockIdList.forEach( (id,index)=>{
+			if (id = product.id) bulkEditStockObj.value.stockIdList.splice(index,1)
+		})})
 	hideDropDown()
 }
 
@@ -396,6 +399,7 @@ const copyProduct = (product) => {
 		console.log(res)
 		copy.id = res.data.message 
 		copy.name = 'copy - ' + product.name
+		copy.check = false
 		stockProducts.value.unshift(copy)
 		console.log(stockProducts.value)
 		}

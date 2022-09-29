@@ -34,7 +34,8 @@
         "qty": "Qty",
         "price": "Price",
         "confirm_delete": "Are you sure to delete this product ?",
-        "wishlist":"WishList"
+        "wishlist":"WishList",
+        "remark":"Remark"
     },
 
     "category_manage": {
@@ -69,11 +70,15 @@
         "price": "Price",
         "price_warning": "Price has to be a number",
         "status": "Status",
+        "remark": "Remark",
+        "placeholder_remark": "remark for seller...",
+        "remark_warning":"remark cannot be more than 100 digits",
         "description": "Description",
-        "product_description": "product description...",
-        "description_warning": "description cannot be more than 100 digits",
+        "product_description": "product description that will shows to customer...",
+        "description_warning": "Cannot contains <head> tag",
         "cancel": "Cancel",
         "save": "Save",
+        "preview":"Preview",
 
         "not_save_message":"Update Canceled",
         "create_message":"Create Successfully",

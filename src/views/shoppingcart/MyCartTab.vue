@@ -15,10 +15,10 @@
     </div>
     </div>
     <div class="grid grid-cols-12 gap-4 ml-4 mr-4" v-if="store.order.campaign">
-        <div class="overflow-x-auto col-start-1 col-span-7" v-if="store.order.campaign.meta_payment.special_note">
+        <div class="overflow-x-auto col-start-1 lg:col-span-7 col-span-12" v-if="store.order.campaign.meta_payment.special_note">
             <div><span class="text-lg">{{$t('shopping_cart.my_cart_tab.special_note')}}:</span></div>
             <div class="flex">
-            <div class="mr-auto">{{store.order.campaign.meta_payment.special_note}}</div>
+            <div class="mr-auto whitespace-pre-line">{{store.order.campaign.meta_payment.special_note}}</div>
             </div>
         </div>
     </div>
@@ -30,7 +30,7 @@
 import OrderSummary from "./OrderSummary.vue"; 
 import ShoppingCartTable from "./ShoppingCartTable.vue";
 // import ShoppingCartTable_mobile from "./ShoppingCartTable-mobile.vue";
-import AddItemModal from "./AddItemModal.vue";
+import AddItemModal from "./modals/AddItemModal.vue";
 
 import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";

@@ -5,6 +5,9 @@
 			:placeholder="$t('stock.search_bar.search_holder')" v-model="searchKeyword" @keydown.enter.prevent="getReplyData" />
 			<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="getReplyData()"/>
 		</div>
+		<XIcon 
+				v-if="searchKeyword"
+				class="flex-none w-7 h-7 mt-2 text-slate-600" @click="reset()"/>
 		<button
 			v-show="isBulkDeleteShow"
 			type="button" 
@@ -12,7 +15,7 @@
 			@click="batchDelete"
 		>
 			{{ $t('auto_reply.table_column.bulk_delete') }}
-		</button>
+		</button> 
 	</div>
 	<div class="overflow-auto h-full sm:h-fit">
 		<table class="table -mt-3 table-report">
@@ -189,6 +192,11 @@ function updateInfo(index, reply) {
 	keyinInfo.value = Object.assign({}, reply)
 	keyinInfo.value.index = index
 	eventBus.emit('showEditAutoreply',keyinInfo.value)
+}
+
+const reset=()=>{
+	searchKeyword.value = ''
+	getReplyData()
 }
 
 function getReplyData() {

@@ -1,5 +1,5 @@
 <template>
-    <div class="overflow-y-auto h-screen flex flex-col sm:h-full" v-if="ready">
+    <div class="flex flex-col h-full" v-if="ready">
 		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('edit_campaign.edit_campaign')}}</h2>
 		</div>
@@ -61,28 +61,28 @@
 
 
 				<div class="inline-flex justify-around w-20 ml-auto mr-3 align-middle md:mr-5 ">
-					<div class="w-8 h-8 border-0 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.facebook_page !== null">
+					<div class="w-8 h-8 border-0 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.facebook_page">
 						<Tippy tag="img" class="border-0 rounded-full" :src="campaignData.facebook_page.image"
 						:content="campaignData.facebook_page.name" />
 						<div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
 							<img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
 						</div>
 					</div>
-					<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.instagram_profile !== null">
+					<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.instagram_profile">
 						<Tippy tag="img" class="rounded-full " :src="campaignData.instagram_profile.image"
 						:content="campaignData.instagram_profile.name" />
 						<div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
 							<img class="rounded-full bg-[#d63376]" :src="instagram_platform" >
 						</div>
 					</div>
-					<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.youtube_channel !== null">
+					<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.youtube_channel">
 						<Tippy tag="img" class="rounded-full" :src="campaignData.youtube_channel.image"
 						:content="campaignData.youtube_channel.name" />
 						<div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
 							<img class="rounded-full bg-[#f70000]" :src="youtube_platform" >
 						</div>
 					</div>
-					<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.twitch_channel !== null">
+					<div class="w-8 h-8 flex-0 md:w-10 md:h-10 zoom-in" v-if="campaignData.twitch_channel">
 						<Tippy tag="img" class="rounded-full" :src="campaignData.twitch_channel.image"
 						:content="campaignData.twitch_channel.name" />
 						<div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">

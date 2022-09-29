@@ -61,7 +61,7 @@ import ErrorPage from "../views/error-page/Main.vue";
 // import Datepicker from "../views/datepicker/Main.vue";
 // import TomSelect from "../views/tom-select/Main.vue";
 // import FileUpload from "../views/file-upload/Main.vue";
-// import WysiwygEditor from "../views/wysiwg-editor/Main.vue";
+import WysiwygEditor from "../views/wysiwg-editor/Main.vue";
 // import Validation from "../views/validation/Main.vue";
 // import Chart from "../views/chart/Main.vue";
 // import Slider from "../views/slider/Main.vue";
@@ -91,7 +91,7 @@ import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
 import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
 // import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 
-import Test7 from "../views/test/test7.vue"; 
+import Test2 from "../views/test/test2.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
@@ -109,13 +109,18 @@ import checkDealerLogin from "@/libs/routerMiddleware/checkDealerLogin";
 const routes = [
   {
     path: "/seller/test",
-    name: "test7",
-    component: Test7,
+    name: "test2",
+    component: Test2,
   },
   {
     path: "/seller/lucky-draw/draw/:lucky_draw_id?",
     name: "lucky-draw-flow",
     component: () => import('@/views/mkt-plugin/lucky-draw/DrawFlow.vue'),
+  },
+  {
+    path: "/wysiwyg-editor",
+    name: "simple-menu-wysiwyg-editor",
+    component: WysiwygEditor,
   },
   {
     path: "/seller",
@@ -721,11 +726,11 @@ const routes = [
   //       name: "simple-menu-file-upload",
   //       component: FileUpload,
   //     },
-  //     {
-  //       path: "wysiwyg-editor",
-  //       name: "simple-menu-wysiwyg-editor",
-  //       component: WysiwygEditor,
-  //     },
+      // {
+      //   path: "wysiwyg-editor",
+      //   name: "simple-menu-wysiwyg-editor",
+      //   component: WysiwygEditor,
+      // },
   //     {
   //       path: "validation",
   //       name: "simple-menu-validation",

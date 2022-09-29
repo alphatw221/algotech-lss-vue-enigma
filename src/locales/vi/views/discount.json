@@ -1,5 +1,5 @@
 {   
-    "create_giãm giá_code":"Tạo mã mới",
+    "create_discount_code":"Tạo mã mới",
     "create_err":"Lỗi nhập thông tin đầu vào",
     "discount_code":"Mã giảm giá",
     "table":{
@@ -16,13 +16,13 @@
         "noCode":"Không có mã giảm giá gần đây",
         "setupFirst":"Thiết lập mã bằng nhấp chuột vào (+ tạo)",
         "description" : "Mô tả",
-        "cart_referal":"Cart Referral",
-        "limitations":"Limitations",
-        "general":"Promo Code",
-        "subtotal_over_specific_amount":"Amount：",
-        "product_over_specific_number":"Product：",
-        "specific_campaign":"Campaign：",
-        "all_campaign": "Campaign： All"
+        "cart_referal":"Giới thiệu giỏ hàng",
+        "limitations":"Điều kiện giới hạn",
+        "general":"Mã ưu đãi",
+        "subtotal_over_specific_amount":"Số tiền :",
+        "product_over_specific_number":"Sản phẩm :",
+        "specific_campaign":"Chiến dịch :",
+        "all": "Tất cả"
     },
     "modal":{
         "create":"Create mã giảm giá",
@@ -41,6 +41,7 @@
         "delete_limitation":"Xóa điều kiện giới hạn",
         "required":"Giá trị là bắt buộc",
         "campaign":"Hoạt động bán hàng",
+        "duplicate":"Không thể chọn giới hạn trùng lặp",
         "type_options":{
             "general":"Chung",
             "cart_referal":"Giới thiệu"
@@ -52,11 +53,13 @@
         "limit_options":{
             "specific_campaign":"Chiến dịch bán hàng cụ thể",
             "subtotal_over_specific_amount":"Giá trị đơn hàng",
-            "product_over_specific_number":"Số lượng sản phẩm"
+            "product_over_specific_number":"Số lượng sản phẩm",
+            "discount_code_usable_time": "Usable Times"
         },
         "Order Subtotal":"Tổng đơn hàng",
         "Product Number":"Số lượng sản phẩm",
         "Discount Rate":"Phần trăm giảm giá",
+        "Usable Times": "Usable Times",
         "Deduct Amount":"",
         "cancel":"Hủy",
         "save":"Lưu"

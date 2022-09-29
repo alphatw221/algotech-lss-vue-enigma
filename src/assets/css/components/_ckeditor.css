@@ -55,7 +55,8 @@
     font-weight: normal;
   }
   .ck-content h2 {
-    line-height: 1.37em;
+    line-height: 3em;
+    font-size: 2.18em;
     padding-top: 0.342em;
     margin-bottom: 0.142em;
   }
@@ -63,10 +64,10 @@
   .ck-heading-dropdown .ck-heading_heading2 .ck-button__label {
     font-size: 1.75em;
     font-weight: normal;
-    color: hsl(203, 100%, 50%);
+    color: theme('colors.primary');
   }
   .ck-heading-dropdown .ck-heading_heading2.ck-on .ck-button__label {
-    color: var(--ck-color-list-button-on-text);
+    color: theme('colors.primary');
   }
   .ck-content h3 {
     line-height: 1.86em;
@@ -90,14 +91,13 @@
     margin-bottom: 1.13em;
   }
   .ck-content blockquote {
-    font-family: Georgia, serif;
     margin-left: calc(2 * var(--ck-spacing-large));
     margin-right: calc(2 * var(--ck-spacing-large));
   }
 }
 
 .ck.ck-content {
-  min-height: 250px;
+  min-height: 200px;
   &.ck-editor__editable_inline {
     @apply border border-slate-200;
   }
@@ -105,7 +105,7 @@
 
 .ck .ck {
   .ck-content {
-    @apply min-h-[250px];
+    @apply min-h-[200px];
     &.ck-editor__editable_inline {
       @apply border border-slate-200;
     }
@@ -128,6 +128,31 @@
   &a.ck-button:not(.ck-disabled):hover {
     @apply bg-slate-200;
   }
+  .ck-tooltip .ck-tooltip__text {
+    @apply text-white;
+  }
+  .ck-content h2,
+  .ck-heading-dropdown .ck-heading_heading1 .ck-button__label {
+    font-size: 2em;
+    font-weight: normal;
+  }
+  .ck-content h2 {
+    line-height: 1em;
+    font-size: 2.18em;
+    padding-top: 0.342em;
+    margin-bottom: 0.142em;
+  }
+  .ck-content h3,
+  .ck-heading-dropdown .ck-heading_heading2 .ck-button__label {
+    font-size: 1.75em;
+    font-weight: normal;
+    color: theme('colors.primary');
+  }
+  .ck-content h4,
+  .ck-heading-dropdown .ck-heading_heading3 .ck-button__label {
+    font-size: 1em;
+    font-weight: normal;
+  }
 }
 
 .dark {
@@ -142,7 +167,7 @@
         @apply bg-darkmode-800;
       }
       .ck-tooltip .ck-tooltip__text {
-        @apply text-slate-200 bg-darkmode-800;
+        @apply text-white bg-darkmode-800;
         &:after {
           @apply border-b-darkmode-800;
         }
@@ -207,7 +232,7 @@
           @apply bg-darkmode-800;
         }
         .ck-tooltip .ck-tooltip__text {
-          @apply text-slate-200 bg-darkmode-800;
+          @apply text-slate-100 bg-darkmode-800;
           &:after {
             @apply border-b-darkmode-900/20;
           }

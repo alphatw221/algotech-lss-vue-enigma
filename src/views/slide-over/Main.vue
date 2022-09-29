@@ -37,6 +37,7 @@
             <!-- END: Slide Over Toggle -->
             <!-- BEGIN: Slide Over Content -->
             <Modal
+            backdrop="static"
               :slideOver="true"
               :show="basicSlideOverPreview"
               @hidden="basicSlideOverPreview = false"

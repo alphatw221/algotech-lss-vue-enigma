@@ -1,5 +1,5 @@
 <template>
-    <Modal size="modal-lg" :slideOver="true" :show="winnerListPreview" @hidden="winnerListPreview = false">
+    <Modal backdrop="static" size="modal-lg" :slideOver="true" :show="winnerListPreview" @hidden="winnerListPreview = false">
         <ModalHeader class="p-5">
             <h2 class="font-medium text-center text-xl w-full">{{ $t('lucky_draw.winner_modal.all_winner') }}</h2>
 			<a @click="winnerListPreview = false" class="absolute right-0 top-0 mt-3 mr-3">
