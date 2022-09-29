@@ -179,6 +179,10 @@ const showModal = ref(false)
 
 const updateOrderSummary = ()=>{
 
+  let is_subtotal_over_free_delivery_threshold=false
+  let is_items_over_free_delivery_threshold=false
+
+
   //compute shipping cost
   if(store.shipping_info.shipping_method=='pickup'){
     shippingCost.value = 0
@@ -188,36 +192,38 @@ const updateOrderSummary = ()=>{
     }else{
       const meta_logistic = store.order?.campaign?.meta_logistic
 
-      let delivery_charge = meta_logistic.delivery_charge || 0
-      delivery_charge = Number(delivery_charge)
+      shippingCost.value = Number(meta_logistic.delivery_charge || 0)
+      // delivery_charge = Number(delivery_charge)
 
-      const is_subtotal_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_order_above_price ? store.order.subtotal >= meta_logistic.free_delivery_for_order_above_price : false
-      const is_items_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_how_many_order_minimum ? store.order.products.length >= meta_logistic.free_delivery_for_how_many_order_minimum : false
+      is_subtotal_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_order_above_price ? store.order.subtotal >= meta_logistic.free_delivery_for_order_above_price : false
+      is_items_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_how_many_order_minimum ? store.order.products.length >= meta_logistic.free_delivery_for_how_many_order_minimum : false
+      
 
       if(typeof store.shipping_info.shipping_option_index=='number'){
         if (meta_logistic.shipping_option_data.type== '+'){
-          delivery_charge += Number(meta_logistic.shipping_option_data.price)
+          shippingCost.value += Number(meta_logistic.shipping_option_data.price)
         }
         else if(meta_logistic.shipping_option_data.type == '='){
-          delivery_charge =  Number(meta_logistic.shipping_option_data.price)
+          shippingCost.value =  Number(meta_logistic.shipping_option_data.price)
         }
       }
 
-      if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
-      shippingCost.value = delivery_charge
+      // if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
+      // shippingCost.value = delivery_charge
 
     }
     
   }
-
-
+ 
   //summarize_total
   let total = 0
   total += store.order.subtotal
   total -= store.order.discount
   total = Math.max(total, 0)
 
-  if(!store.order.free_delivery){
+  if(store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold){
+    //
+  }else{
     total += store.order.shipping_cost
   }
       
