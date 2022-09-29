@@ -22,7 +22,7 @@
         "subtotal_over_specific_amount":"Số tiền :",
         "product_over_specific_number":"Sản phẩm :",
         "specific_campaign":"Chiến dịch :",
-        "all": "Tất cả",
+        "all": "Tất cả"
     },
     "modal":{
         "create":"Create mã giảm giá",
@@ -41,6 +41,7 @@
         "delete_limitation":"Xóa điều kiện giới hạn",
         "required":"Giá trị là bắt buộc",
         "campaign":"Hoạt động bán hàng",
+        "duplicate":"Không thể chọn giới hạn trùng lặp",
         "type_options":{
             "general":"Chung",
             "cart_referal":"Giới thiệu"

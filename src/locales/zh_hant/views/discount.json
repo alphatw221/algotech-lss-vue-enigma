@@ -44,6 +44,7 @@
         "Discount Rate":"打折幅度",
         "required":"必填",
         "campaign":"選擇銷售活動",
+        "duplicate":"限制不可重複",
         "type_options":{
             "general":"一般代碼",
             "cart_referal":"推薦代碼"
