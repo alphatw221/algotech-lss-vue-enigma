@@ -803,7 +803,7 @@
     <svg:style type="text/css"><![CDATA[
     #eW694pc8ijr2 {animation: eW694pc8ijr2_c_o 2000ms linear infinite normal forwards}@keyframes eW694pc8ijr2_c_o { 0% {opacity: 1;animation-timing-function: cubic-bezier(0.785,0.135,0.15,0.86)} 50% {opacity: 0;animation-timing-function: cubic-bezier(0.785,0.135,0.15,0.86)} 100% {opacity: 1}}
     ]]></svg:style>
-    <circle id="eW694pc8ijr2" r="3.4" transform="translate(12 12)" fill="#f00"/><image width="979" height="200" xlink:href="5BF5C8A.jpg" preserveAspectRatio="xMidYMid meet" transform="translate(-7232-7652)"/><image width="979" height="200" xlink:href="5BF5C8E.jpg" preserveAspectRatio="xMidYMid meet" transform="translate(-7232-7652)"/><circle r="7.9" transform="translate(12 12)" fill="none" stroke="#fff" stroke-width="1.5" stroke-miterlimit="10"/></svg>
+    <circle id="eW694pc8ijr2" r="3.4" transform="translate(12 12)" fill="#f00"/><image width="979" height="200" xlink:href="http://www.w3.org/1999/xlink/5BF5C8A.jpg" preserveAspectRatio="xMidYMid meet" transform="translate(-7232-7652)"/><image width="979" height="200" xlink:href="http://www.w3.org/1999/xlink/5BF5C8E.jpg" preserveAspectRatio="xMidYMid meet" transform="translate(-7232-7652)"/><circle r="7.9" transform="translate(12 12)" fill="none" stroke="#fff" stroke-width="1.5" stroke-miterlimit="10"/></svg>
 
     <svg 
     v-else-if="icon == 'camera'"
