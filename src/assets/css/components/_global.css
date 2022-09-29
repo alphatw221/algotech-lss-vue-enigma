@@ -23,7 +23,7 @@ html {
     input{
         @apply h-[35px] md:h-[42px]
     }
-    #description > h2{
+    /* #description > h2{
         line-height: 1em;
         font-size: 2.18em;
         padding-top: 0.342em;
@@ -43,5 +43,5 @@ html {
     #description > blockquote {
     margin-left: calc(2 * var(--ck-spacing-large));
     margin-right: calc(2 * var(--ck-spacing-large));
-    }
+    } */
 }

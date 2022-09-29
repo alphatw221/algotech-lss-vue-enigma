@@ -45,5 +45,25 @@ onUnmounted(()=>{
 </script>
 
 <style scoped>
+#description :deep(h2){
+    line-height: 1em;
+    font-size: 2.18em;
+    padding-top: 0.342em;
+    margin-bottom: 0.142em;
+}
 
+#description :deep(h3){
+    font-size: 1.75em;
+    line-height: 1em;
+    font-weight: normal;
+    color: theme('colors.primary');
+}
+#description :deep(h4){
+    font-size: 1em;
+    font-weight: normal;
+}
+#description > :deep(blockquote) {
+    margin-left: calc(2 * var(--ck-spacing-large));
+    margin-right: calc(2 * var(--ck-spacing-large));
+}
 </style>
