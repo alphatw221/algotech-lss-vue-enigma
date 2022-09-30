@@ -52,15 +52,6 @@
 
 						<td v-else-if="column.type === 'multipleI18' && column.key=='limitations'" class="text-[12px] whitespace-nowrap sm:w-32"
 							:data-content="$t(`discount.table.`+column.key) " >
-<<<<<<< HEAD
-							<div v-if="checkIsAllCampaign(discountCode[column.key])" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> * {{ $t(`discount.table.specific_campaign`) }} <div class="ml-2 sm:ml-auto"> {{$t(`discount.table.all`)}}</div></div>
-							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
-								<div> * {{ $t(`discount.table.` + limitations.key) }} </div>
-								<div class="ml-2 sm:ml-auto" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{(limitations.amount).toLocaleString('en-US')}} </div>
-								<div class="ml-2 sm:ml-auto" v-else-if="limitations.key == 'product_over_specific_number'"> {{limitations.number}} pcs </div>
-								<div class="ml-2 sm:ml-auto" v-else-if="limitations.key == 'discount_code_usable_time'"> {{limitations.times}} </div>
-								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitations.key == 'specific_campaign'"> 
-=======
 
 							<div v-if="isDiscountCodeForAllCampaign(discountCode)" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
 								* {{ $t(`discount.table.specific_campaign`) }} 
@@ -75,7 +66,6 @@
 								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'product_over_specific_number'"> {{limitation.number}} pcs </div>
 								<div class="ml-2 sm:ml-auto" v-else-if="limitations.key == 'discount_code_usable_time'"> {{limitations.times}} </div>
 								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitation.key == 'specific_campaign'"> 
->>>>>>> 5ad3ff58d65d86d7b3c6c66615151baa21e73d72
 									<template v-for="(campaign, index) in scheduledCamapign" :key="index"> 
 										<template v-if="campaign.id == limitation.campaign_id"> {{campaign.title}} </template>	
 									</template>
