@@ -100,7 +100,7 @@
 											{{ $t('discount.table.edit') }}
 									</DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
-										@click="deleteDiscountCode(discountCode)"> 
+										@click="deleteDiscountCode(discountCode, discountCodeIndex)"> 
 										<SimpleIcon icon="delete" color="#b91c1c" class="mr-1"/>
 										{{ $t('discount.table.del') }}
 									</DropdownItem>
@@ -157,8 +157,11 @@ onMounted(() => {
 	showLoadingIcon.value = true
 	getScheduleCamp();
 	listDiscountCodes();
-	eventBus.on("listDiscountCodes", () => {
-		listDiscountCodes();
+	eventBus.on("listDiscountCodes", (discountCode) => {
+		console.log(discountCode)
+		// listDiscountCodes();
+		discountCodes.value.unshift(discountCode)
+		console.log(discountCodes.value)
 	});
 });
 
@@ -195,7 +198,6 @@ const listDiscountCodes=()=> {
 	showLoadingIcon.value = true
 	list_discount_code(pageSize.value, currentPage.value)
 	.then((res) => {
-		// console.log(res.data)
 		totalCount.value = res.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		discountCodes.value = res.data.results
@@ -209,12 +211,12 @@ const editDiscountCode = discountCode=>{
 	eventBus.emit('showEditModel', discountCode)
 }
 
-const deleteDiscountCode = discountCode=> {
+const deleteDiscountCode = (discountCode,discountCodeIndex)=> {
 	hideDropDown()
 	delete_discount_code(discountCode.id)
 		.then(res =>{
 			layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.deleted_message'));
-			listDiscountCodes();
+			discountCodes.value.splice(discountCodeIndex,1)
 		})
 		.catch((err) => {
 			alert(err);
@@ -227,7 +229,6 @@ const hideDropDown = ()=>{dom('.dropdown-menu').removeClass('show')}
 .click-icon:hover {
 	cursor: pointer;
 }
-
 
 td {
   min-height: 50px;
