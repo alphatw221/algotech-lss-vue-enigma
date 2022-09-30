@@ -78,6 +78,9 @@
                 "draw_like_type_need_connect_to_facebook_post": "此活動目前尚未連結任何 Facebook 貼文，無法開始抽獎活動。",
                 "no_any_connected_platforms": "這場銷售活動沒有連結到任何到任何貼文或頻道，請確認銷售活動的設定。"
             },
+            "campaign-quizgame":{
+                "question null":"需填入問題或答案"
+            },
             "cart":{
                 "campaign_product_not_found": "找不到活動商品",
                 "refresh_try_again": "請重新整理頁面後再試一次",

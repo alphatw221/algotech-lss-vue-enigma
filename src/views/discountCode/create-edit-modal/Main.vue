@@ -178,8 +178,7 @@ const columns = [
 	{ name: "description", key: "description" , type:"text_area"},
 ]
 
-const array = ref(['333','qqqq','www','eee','efef','ewbweg','台','wergewrg','ervr','ee','sdf','dd0922'])
-const checkDuplicates = (param) => (value) => param.indexOf(value) === -1;
+// const checkDuplicates = (param) => (value) => param.indexOf(value) === -1;
 const discountCodeRules = computed(() => {
 	return { 	
         name: { required, minLength: minLength(1), maxLength: maxLength(255) },
@@ -227,7 +226,6 @@ onMounted(()=>{
         discountCode.value = JSON.parse(JSON.stringify(_discountCode))
         dateTimePicker.value.start=discountCode.value.start_at
 		dateTimePicker.value.end=discountCode.value.end_at
-        
     })
 })
 onUnmounted(()=>{
@@ -249,7 +247,7 @@ const hideModal = ()=>{
         description:"",
         meta:{}
     }
-    console.log(discountCode.value)
+    keyArray.value=[]
     v.value.$reset()
 }
 const keyArray= ref([])
@@ -276,11 +274,12 @@ const addLimitation = ()=>{
 
 const createDiscountCode=()=>{
     limitationErr.value = false
+    keyArray.value=[]
     discountCode.value.limitations.forEach(limit =>{ keyArray.value.push(limit.key)} )
     v.value.$touch()
 	if (v.value.$invalid) {
 		layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
-        console.log(v.value)
+        // console.log(v.value)
 		return
 	}else if(checkIfDuplicateExists(keyArray.value)==true){
         layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
@@ -299,13 +298,15 @@ const createDiscountCode=()=>{
 const updateDiscountCode = ()=>{
     update_discount_code(discountCode.value.id,discountCode.value).then(res=>{
         limitationErr.value = false
+        keyArray.value=[]
+        discountCode.value.limitations.forEach((limit,index) =>{ keyArray.value.splice(index,limit.key)} )
         for(let i=0; i<discountCode.value.limitations.length; i++){
             keyArray.value.push(discountCode.value.limitations[i].key)
         }
         v.value.$touch()
         if (v.value.$invalid) {
             layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
-            console.log(v.value)
+            // console.log(v.value)
             return
         }else if(checkIfDuplicateExists(keyArray.value)==true){
             layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))

@@ -84,6 +84,9 @@
                 "no_any_connected_platforms": "Chiến dịch này không kết nối đến bất kì bài viết hay kênh nào. Vui lòng kiểm tra cài đặt chiến dịch"
                 
             },
+            "campaign-quizgame":{
+                "question null":"Question or Answer is required"
+            },
             "cart":{
                 "campaign_product_not_found": "Không thể tìm thấy sản phẩm của chiến dịch",
                 "refresh_try_again": "Hãy làm mới trang và thử lại",

@@ -79,6 +79,9 @@
                 "draw_like_type_need_connect_to_facebook_post": "此活动目前尚未连结任何 Facebook 贴文，无法开始抽奖活动。",
                 "no_any_connected_platforms": "这场销售活动没有连结到任何到任何贴文或频道，请确认销售活动的设定。"
             },
+            "campaign-quizgame":{
+                "question null":"需填入问题或答案"
+            },
             "cart":{
                 "campaign_product_not_found": "找不到活动商品",
                 "refresh_try_again": "请重新整理页面后再试一次",
