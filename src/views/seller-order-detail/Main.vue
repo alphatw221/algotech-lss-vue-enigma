@@ -143,23 +143,24 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus
 
 
 onMounted(()=>{
-    console.log(route.params)
-    get_order()
+    // console.log(route.params)
+    // get_order()
 
-})
 
-function get_order(){
+
+
     if (route.query.type === 'pre_order'){
         seller_retrieve_pre_order(route.params.order_id)
         .then(
             res => { store.orderDetail = res.data
                     //  console.log(store.orderDetail) 
-                     show_adjust_price() }
+                    //  show_adjust_price() 
+            }
         )
         seller_list_campaign_product(route.params.campaign_id,'',1,9999,'product').then(
             res=>{
                 store.campaignProducts = res.data.results
-                console.log(store.campaignProducts)
+                // console.log(store.campaignProducts)
             }
         )
     }else{
@@ -167,21 +168,50 @@ function get_order(){
         .then(
             res => { store.orderDetail = res.data
                     // console.log(store.orderDetail)
-                    store.modify_status = '+'
+                    // store.modify_status = '+'
             }
         )
     }
-}
 
-function show_adjust_price(){
-    if( store.orderDetail.adjust_price < 0 ){
-        store.modify_status = '-'
-        store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
-    }else{
-        store.modify_status = '+'
-    }
-}
-</script>
+
+
+})
+
+// function get_order(){
+//     if (route.query.type === 'pre_order'){
+//         seller_retrieve_pre_order(route.params.order_id)
+//         .then(
+//             res => { store.orderDetail = res.data
+//                     //  console.log(store.orderDetail) 
+//                     //  show_adjust_price() 
+//             }
+//         )
+//         seller_list_campaign_product(route.params.campaign_id,'',1,9999,'product').then(
+//             res=>{
+//                 store.campaignProducts = res.data.results
+//                 console.log(store.campaignProducts)
+//             }
+//         )
+//     }else{
+//         seller_retrieve_order(route.params.order_id)
+//         .then(
+//             res => { store.orderDetail = res.data
+//                     // console.log(store.orderDetail)
+//                     // store.modify_status = '+'
+//             }
+//         )
+//     }
+// }
+
+// function show_adjust_price(){
+//     if( store.orderDetail.adjust_price < 0 ){
+//         store.modify_status = '-'
+//         store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
+//     }else{
+//         store.modify_status = '+'
+//     }
+// }
+// </script>
 
 
 <style scoped>
