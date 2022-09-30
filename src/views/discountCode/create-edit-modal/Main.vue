@@ -153,6 +153,8 @@ const CREATE = 'create'
 const EDIT = 'edit'
 const modalType = ref(CREATE)
 const showModal = ref(false)
+
+const discountCodeIndex = ref(null)
 const discountCode = ref({
     name:'',
     code:'',
@@ -220,10 +222,11 @@ watch(computed(()=>dateTimePicker.value), () => {
 
 onMounted(()=>{
     eventBus.on('showCreateModel',() => {modalType.value = CREATE; showModal.value=true; })
-    eventBus.on('showEditModel', _discountCode=>{
+    eventBus.on('showEditModel', payload=>{
         modalType.value = EDIT;
         showModal.value=true; 
-        discountCode.value = JSON.parse(JSON.stringify(_discountCode))
+        discountCodeIndex.value = payload.discountCodeIndex
+        discountCode.value = JSON.parse(JSON.stringify(payload.discountCode))
         dateTimePicker.value.start=discountCode.value.start_at
 		dateTimePicker.value.end=discountCode.value.end_at
     })
@@ -281,7 +284,8 @@ const createDiscountCode=()=>{
 		layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
         // console.log(v.value)
 		return
-	}else if(checkIfDuplicateExists(keyArray.value)==true){
+	}
+    else if(checkIfDuplicateExists(keyArray.value)==true){
         layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
         limitationErr.value =true
         keyArray.value=[]
@@ -289,7 +293,8 @@ const createDiscountCode=()=>{
     }
 
     create_discount_code(discountCode.value).then(res=>{
-        eventBus.emit('listDiscountCodes',null)
+        // console.log(res.data)
+        eventBus.emit('createDiscountCode',res.data)
         layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.create_success'))
         hideModal()
     })
@@ -308,14 +313,15 @@ const updateDiscountCode = ()=>{
             layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
             // console.log(v.value)
             return
-        }else if(checkIfDuplicateExists(keyArray.value)==true){
+        }
+        else if(checkIfDuplicateExists(keyArray.value)==true){
             layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
             limitationErr.value =true
             keyArray.value=[]
             return
         }
 
-        eventBus.emit('listDiscountCodes',null)
+        eventBus.emit('updateDiscountCodes',{'discountCode':res.data,'discountCodeIndex':discountCodeIndex.value})
         layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.saved_message'))
         hideModal()
     })
