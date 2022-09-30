@@ -149,7 +149,7 @@ onMounted(() => {
     eventBus.on('editCampaignProduct', (payload) => {
         payloadBuffer.value = payload
         campaignProduct.value = payload.campaignProduct
-        console.log(campaignProduct.value)
+        // console.log(campaignProduct.value)
     })
 })
 
@@ -164,10 +164,10 @@ const updateProduct = () => {
         layoutStore.alert.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.invalid_data'))
         return
     }
-    console.log(campaignProduct.value)
+    // console.log(campaignProduct.value)
     seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
     .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         campaignDetailStore.campaignProducts[payloadBuffer.value.index] = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.update_successfully'))
         hideModal()
