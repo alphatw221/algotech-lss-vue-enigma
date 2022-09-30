@@ -94,6 +94,9 @@
                 "qty_invalid": "Số lượng không hợp lệ",
                 "request_data_error": "Yêu cầu dữ liệu lỗi"
                 
+            },
+            "discount-code":{
+                "duplicate_discount_code":"Duplicate Discount Code"
             }
         }
     },
@@ -185,5 +188,7 @@
         "lucky_draw_not_found": "Không thể tìm thấy cài đặt rút thăm may mắn",
         "quiz_game_not_found": "Không thể tìm thấy cài đặt trò chơi đố vui"
     },
-    "token_not_valid": "Bạn đã đăng xuất"
+    "token_not_valid": "Bạn đã đăng xuất",
+    "duplicate_discount_code":"Mã giảm giá trùng lặp"
+
 }
