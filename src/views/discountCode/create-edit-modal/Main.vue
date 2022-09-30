@@ -226,7 +226,6 @@ onMounted(()=>{
         discountCode.value = JSON.parse(JSON.stringify(_discountCode))
         dateTimePicker.value.start=discountCode.value.start_at
 		dateTimePicker.value.end=discountCode.value.end_at
-        
     })
 })
 onUnmounted(()=>{
@@ -274,7 +273,7 @@ const addLimitation = ()=>{
 
 
 const createDiscountCode=()=>{
-
+    limitationErr.value = false
     keyArray.value=[]
     discountCode.value.limitations.forEach(limit =>{ keyArray.value.push(limit.key)} )
     v.value.$touch()
@@ -290,7 +289,7 @@ const createDiscountCode=()=>{
     }
 
     create_discount_code(discountCode.value).then(res=>{
-        eventBus.emit('listDiscountCodes',discountCode.value)
+        eventBus.emit('listDiscountCodes',null)
         layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.create_success'))
         hideModal()
     })
@@ -300,7 +299,7 @@ const updateDiscountCode = ()=>{
     update_discount_code(discountCode.value.id,discountCode.value).then(res=>{
         limitationErr.value = false
         keyArray.value=[]
-        discountCode.value.limitations.forEach(limit =>{ keyArray.value.push(limit.key)} )
+        discountCode.value.limitations.forEach((limit,index) =>{ keyArray.value.splice(index,limit.key)} )
         for(let i=0; i<discountCode.value.limitations.length; i++){
             keyArray.value.push(discountCode.value.limitations[i].key)
         }
