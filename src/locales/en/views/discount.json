@@ -42,6 +42,7 @@
         "delete_limitation":"Delete Limitation",
         "required":"Required",
         "campaign":"Campaign",
+        "duplicate":"Cannot Select Duplicate limitations",
         "type_options":{
             "general":"General",
             "cart_referal":"Referral"

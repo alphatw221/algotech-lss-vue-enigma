@@ -2,6 +2,7 @@
     <Modal :show="show"
     backdrop="static"
         @hidden="hide()">
+        <XIcon class="w-8 h-8 text-slate-400 absolute right-2 top-2" @click="hide()" />
         <ModalBody class="text-left content-center">
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
             <template v-if="pages.length == 0"> 

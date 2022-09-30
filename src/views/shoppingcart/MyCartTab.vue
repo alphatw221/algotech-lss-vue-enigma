@@ -18,7 +18,7 @@
         <div class="overflow-x-auto col-start-1 lg:col-span-7 col-span-12" v-if="store.order.campaign.meta_payment.special_note">
             <div><span class="text-lg">{{$t('shopping_cart.my_cart_tab.special_note')}}:</span></div>
             <div class="flex">
-            <div class="mr-auto">{{store.order.campaign.meta_payment.special_note}}</div>
+            <div class="mr-auto whitespace-pre-line">{{store.order.campaign.meta_payment.special_note}}</div>
             </div>
         </div>
     </div>

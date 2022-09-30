@@ -8,7 +8,8 @@
                 "category_not_exist": "This category does not exist"
             },
             "campaign": {
-                "search_can_not_empty": "Search field can not be empty when keyword has value"
+                "search_can_not_empty": "Search field can not be empty when keyword has value",
+                "None not activated":"Platform Not Activated"
             },
             "user": {
                 "account_not_exist": "This account does not exist",
@@ -77,12 +78,18 @@
                 "draw_like_type_need_connect_to_facebook_post": "Can’t start to draw the winner, because this campaign hasn’t linked to a Facebook post.",
                 "no_any_connected_platforms": "This campaign doesn't connect to any posts or channels. Please check campaign setting."
             },
+            "campaign-quizgame":{
+                "question null":"Question or Answer is required"
+            },
             "cart":{
                 "campaign_product_not_found": "Cannot find campaign product",
                 "refresh_try_again": "Please refresh the page and try again",
                 "invalid_user": "Invalid User",
                 "qty_invalid": "Invalid quantity",
                 "request_data_error": "Request data error"
+            },
+            "discount-code":{
+                "duplicate_discount_code":"Duplicate Discount Code"
             }
         }
     },
@@ -91,6 +98,7 @@
             "server_busy": "The server is busy, please try again"
         }
     },
+    
     "stripe":{
         "card_error":"Credit card declined",
         "rate_limit_error":"Exceeded API request rate limit",
@@ -174,7 +182,8 @@
         "lucky_draw_not_found": "Cannot find the lucky draw setting",
         "quiz_game_not_found": "Cannot find quiz game settings"
     },
-    "token_not_valid": "You've been logged out."
+    "token_not_valid": "You've been logged out.",
+    "duplicate_discount_code":"Duplicate Discount Code"
 }
  
 

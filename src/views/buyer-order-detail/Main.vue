@@ -148,12 +148,21 @@
                     </div>
                     <div v-if="store.order.discount !=0"
                         class="flex col-start-1 col-span-3 p-2 py-1">
-                            <div class="mr-auto">{{ $t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger"> ({{store.order.applied_discount.code}}) </span></div>
+                            <div class="mr-auto">{{ $t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger">{{store.order.applied_discount.code ? (store.order.applied_discount.code) : ""}}</span></div>
                             <div>
                                 {{store.order.campaign.currency}}
                                 -{{(Math.floor(store.order.discount * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                                 {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                             </div>
+                    </div>
+                    <div v-if="store.order.meta?.['shopify']"
+                        class="flex col-start-1 col-span-3 p-2 py-1">
+                        <div class="mr-auto">{{$t('order_detail.price_summary.tax')}}</div>
+                        <div> 
+                            {{store.order.campaign.currency}}
+                            {{(Math.floor(parseFloat(store.order.meta.shopify.total_tax) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                        </div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.total')}}</div>

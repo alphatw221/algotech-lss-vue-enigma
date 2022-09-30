@@ -50,7 +50,7 @@
         "live_on":"管理活动",
         "edit_campaign":"编辑活动",
         "edit_campaign_product":"编辑销售商品",
-        "blank_cart":"复制直接购买连结",
+        "blank_cart":"复制快速购物连结",
         "lucky_draw":"抽奖工具",
         "quiz_game": "問答游戏",
         "confirm_delete": "确定要删除该场直播？",
@@ -98,14 +98,15 @@
         "enter_username": "输入帐户名称",
 
         "cancel":"取消",
-        "save":"储存",
+        "save":"前往直播",
         "your_current_lives": "你目前正在进行的直播",
         "select_this_live": "选择这场直播",
         "valid_post_id_notification": "请输入有效的贴文ID",
 
         "rebind_page":"请重新授权Facebook粉丝专页",
-        "rebind_channel":"请重新授权Youtube频道",
-        "rebind_profile":"请重新授权Instagram粉丝专页"
+        "rebind_channel":"请重新授权YouTube频道",
+        "rebind_profile":"请重新授权Instagram粉丝专页",
+        "disconnected":" 已断接"
     },
     "update_successed":"储存成功",
     "no_facebook_post":"目前没有任何Facebook的直播",

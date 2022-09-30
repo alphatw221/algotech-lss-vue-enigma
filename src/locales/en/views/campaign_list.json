@@ -95,14 +95,15 @@
         "enter_username": "Enter Username",
 
         "cancel":"Cancel",
-        "save":"Save",
+        "save":"Live on",
         "your_current_lives": "Your current lives",
         "select_this_live": "Select this live",
         "valid_post_id_notification": "Please Enter Valid Post ID",
 
         "rebind_page":"Please Rebind Selected Facebook Page",
         "rebind_channel":"Please Rebind Selected YouTube Channel",
-        "rebind_profile":"Please Rebind Selected Instagram Profile"
+        "rebind_profile":"Please Rebind Selected Instagram Profile",
+        "disconnected":" Disconnected"
     },
     "update_successed":"Update Successed",
     "no_facebook_post":"You don't have Facebook live posts now.",

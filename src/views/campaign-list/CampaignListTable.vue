@@ -264,7 +264,8 @@ const checkPagePonit = ref(true)
 const campaigns=ref([])
 const numOfCampaigns = computed(()=>Object.keys(campaigns.value).length)
 onMounted(()=>{
-  search();
+  search()
+  checkPage()
   showCommentLoding.value = true
   eventBus.on(props.tableName, (payload) => {
     currentPage.value = 1; 

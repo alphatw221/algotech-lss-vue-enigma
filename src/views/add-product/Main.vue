@@ -178,16 +178,8 @@
 			<div class="col-span-12 mt-2">
 				<div class="flex justify-between"> 
 					<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.description') }}</label>
-					<button class="btn btn-secondary mb-2 h-[35px]" @click="previewHTML()">Preview</button>
+					<button class="btn btn-secondary mb-2 h-[35px]" @click="previewHTML()">{{ $t('stock.add_product_page.preview') }}</button>
 				</div>
-				<!-- <textarea 
-					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
-					class="h-36 p-2 mr-5 form-control indent-4"
-					:placeholder="$t('stock.add_product_page.product_description')"
-					v-model="validate.description.$model"
-				>
-				</textarea> -->
-				<!-- <ClassicEditor v-model="product.description" /> -->
 				<ClassicEditor 
 					:class="{ 'border-danger text-danger border-2': validate.description.$error }"
 					v-model="validate.description.$model"
