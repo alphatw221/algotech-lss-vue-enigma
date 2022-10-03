@@ -322,7 +322,7 @@ const updatePostId = (platform) => {
     page_id = campaign.value.youtube_channel.id
     live_id = campaign.value.youtube_campaign.live_video_id
     data = {"platform": platform, "platform_id": page_id, "post_id": live_id}
-    apiRequest = check_youtube_channel_post_exist(page_id, live_id)
+    apiRequest = check_youtube_channel_post_exist(page_id, live_id, layoutStore.alert)
   } else if (platform === "tiktok") {
     username = campaign.value.tiktok_campaign.username
     data = {"platform": platform, "username": username}

@@ -1,9 +1,9 @@
-import { axiosInstance, createAxiosWithBearer, createAxios } from "@/libs/axiosClient";
+import { createAxios } from "@/libs/axiosClient";
 
 //-------------------------------guest----------------------------------
 
-export const guest_create_blank_cart = (campaign_id, recaptcha_token, client_uuid) => {
-    return createAxiosWithBearer().get(`/api/v2/pre_order/${campaign_id}/guest/create/?recaptcha_token=${recaptcha_token}&client_uuid=${client_uuid}`,
+export const guest_create_blank_cart = (campaign_id, recaptcha_token, client_uuid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/pre_order/${campaign_id}/guest/create/?recaptcha_token=${recaptcha_token}&client_uuid=${client_uuid}`,
     null,
     {withCredentials:true})
 }

@@ -36,7 +36,8 @@ import { retrieve_campaign } from '@/api_v2/campaign';
 import { seller_list_campaign_product } from '@/api_v2/campaign_product';
 import DrawCreate from "./DrawCreate.vue";
 import DrawList from "./DrawList.vue";
-
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute()
 const router = useRouter()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
@@ -47,16 +48,16 @@ const campaignTitle = ref('')
 const luckyPrizeObj = ref({})
 
 onMounted(() => {
-    retrieve_campaign(route.params.campaign_id).then(res => {
+    retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res => {
         campaignTitle.value = res.data.title
     })
-    list_campaign_lucky_draw(route.params.campaign_id).then(res => {
+    list_campaign_lucky_draw(route.params.campaign_id, layoutStore.alert).then(res => {
         if (Object.entries(res.data).length > 0) {
             showDrawlist.value = true
             luckydrawList.value = res.data
         }
     })
-    seller_list_campaign_product(route.params.campaign_id, '', 1, 500).then(res => {
+    seller_list_campaign_product(route.params.campaign_id, '', 1, 500, layoutStore.alert).then(res => {
         for (let i = 0; i < res.data.results.length; i ++) {
             if (res.data.results[i].type === 'lucky_draw') {
                 luckyPrizeObj.value[res.data.results[i].id] = Math.ceil(res.data.results[i].qty_for_sale - res.data.results[i].qty_add_to_cart)

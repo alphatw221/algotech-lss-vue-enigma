@@ -62,7 +62,7 @@
 </template>
 
 <script>
-import { createAxiosWithBearer } from "@/libs/axiosClient";
+import { createAxios } from "@/libs/axiosClient";
 export default {
 	props: {
 		campaignId: Number,
@@ -79,7 +79,7 @@ export default {
 	},
 	methods: {
 		getProductData() {
-			createAxiosWithBearer().get(`${this.requestUrl}${this.campaignId}`).then(response => {
+			createAxios().get(`${this.requestUrl}${this.campaignId}`).then(response => {
 				console.log(response);
 				this.product_results = response;
 			}).catch(function (error) {

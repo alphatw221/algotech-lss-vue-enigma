@@ -157,7 +157,7 @@ onMounted(()=>{
                     //  show_adjust_price() 
             }
         )
-        seller_list_campaign_product(route.params.campaign_id,'',1,9999,'product').then(
+        seller_list_campaign_product(route.params.campaign_id,'',1,9999,'product',layoutStore.alert).then(
             res=>{
                 store.campaignProducts = res.data.results
                 // console.log(store.campaignProducts)

@@ -1,4 +1,4 @@
-import { axiosInstance, createAxiosWithBearer, createAxios } from "@/libs/axiosClient";
+import { createAxios } from "@/libs/axiosClient";
 
 
 

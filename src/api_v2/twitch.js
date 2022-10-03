@@ -1,4 +1,4 @@
-import { createAxiosWithBearer, createAxiosWithBearerWithoutInterceptor } from '@/libs/axiosClient';
+import {  createAxiosWithoutInterceptor, createAxios } from '@/libs/axiosClient';
 import tmi from 'tmi.js';
 
 
@@ -22,10 +22,10 @@ export const init_twitch_websocket = (username, password, channel, onMessageHand
     return client
 }
 
-export const upload_twitch_comments = (campaign_id, data) => {
-    return createAxiosWithBearer().post(`/api/v2/twitch/${campaign_id}/bulk/create/comment/`, data)
+export const upload_twitch_comments = (campaign_id, data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/twitch/${campaign_id}/bulk/create/comment/`, data)
 }
 
 export const check_twitch_channel_token_valid = (platform_id) => {
-    return createAxiosWithBearerWithoutInterceptor().get(`/api/v2/twitch/${platform_id}/token/check/`)
+    return createAxiosWithoutInterceptor().get(`/api/v2/twitch/${platform_id}/token/check/`)
 }

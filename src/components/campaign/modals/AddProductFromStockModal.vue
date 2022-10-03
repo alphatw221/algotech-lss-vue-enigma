@@ -623,7 +623,7 @@ const submitData = ()=>{
         return
     }
 	errorMessages.value = []
-	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
+	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value, layoutStore.alert).then(res=>{
 		campaignDetailStore.campaignProducts = res.data
         hideModal()
 	}).catch(err=>{

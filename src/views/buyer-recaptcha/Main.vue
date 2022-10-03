@@ -87,9 +87,9 @@ const recaptchaCallBack = token=>{
         })
     }else if(type=='easy_store'){
 
-        get_easy_store_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
+        get_easy_store_checkout_url(object_id, token, buyerStore.alert).then(res=>{window.location.href = res.data})
     }else if(type=='ordr_startr'){
-        get_ordr_startr_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
+        get_ordr_startr_checkout_url(object_id, token, buyerStore.alert).then(res=>{window.location.href = res.data})
     }
 }
 </script>

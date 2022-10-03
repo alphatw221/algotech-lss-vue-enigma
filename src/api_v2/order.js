@@ -1,4 +1,4 @@
-import { axiosInstance, createAxiosWithBearer, createAxios } from "@/libs/axiosClient";
+import { createAxios } from "@/libs/axiosClient";
 
 // -------------buyer------------------
 export const buyer_retrieve_order_platform = (order_oid, toastify=null) => {

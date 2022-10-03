@@ -73,7 +73,7 @@
 
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue'
-import { createAxiosWithBearer } from "@/libs/axiosClient";
+
 import SearchBar from "./SearchBar.vue";
 import DataTable from "./DataTable.vue";
 import { useRoute, useRouter } from "vue-router"

@@ -271,7 +271,7 @@ onUnmounted(() => {
 
 
 const search = () => {
-    seller_list_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value)
+    seller_list_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value, layoutStore.alert)
     .then(response => {
         dataCount.value = response.data.count
         campaignDetailStore.campaignProducts = response.data.results

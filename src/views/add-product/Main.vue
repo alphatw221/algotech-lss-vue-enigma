@@ -222,7 +222,7 @@
 </template>
 
 <script setup>
-import { createAxiosWithBearer } from '@/libs/axiosClient'
+
 import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
 import { ref, onMounted, computed, provide, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from "vue-router";

@@ -275,7 +275,7 @@ const copyURL = (code)=>{
 
 const toNext=()=>{
   if (store.user_subscription?.user_plan?.plugins?.shopify) {
-      get_shopify_checkout_url(route.params.pre_order_oid).then(res=>{
+      get_shopify_checkout_url(route.params.pre_order_oid, layoutStore.alert).then(res=>{
           window.location.href = res.data
       })
   } else {

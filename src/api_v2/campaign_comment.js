@@ -1,4 +1,4 @@
-import { createAxiosWithBearer , Paginator} from "@/libs/axiosClient";
+import { Paginator} from "@/libs/axiosClient";
 
 
 export const createCommentPaginator = (campaign_id, platformName, category)=>{

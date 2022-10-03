@@ -215,7 +215,7 @@
 </template>
 
 <script setup>
-import { createAxiosWithBearer } from '@/libs/axiosClient'
+
 import { seller_create_campaign_products, seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
 import { list_product_category, list_product } from '@/api_v2/product';
 import { useRoute, useRouter } from "vue-router";
@@ -364,7 +364,7 @@ const changePageSize = (pageSize)=>{
 const submitData = ()=>{
 	console.log(selectedProducts.value)
 	errorMessages.value = []
-	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
+	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value, layoutStore.alert).then(res=>{
 		campaignDetailStore.campaignProducts = res.data
 
 	}).catch(errors=>{
