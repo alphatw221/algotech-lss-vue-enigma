@@ -184,10 +184,13 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
-import { buyer_retrieve_order_with_user_subscription, guest_retrieve_order_with_user_subscription } from "@/api_v2/order";
+import { buyer_retrieve_order_with_user_subscription } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useCookies } from 'vue3-cookies'
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+
+const layoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const { cookies } = useCookies()
 const route = useRoute();
@@ -195,10 +198,10 @@ const router = useRouter();
 
 const store = useLSSBuyerOrderStore(); 
 
-const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
+
 onMounted(() => {
-    const retrieve_order = isAnonymousUser?guest_retrieve_order_with_user_subscription:buyer_retrieve_order_with_user_subscription
-    retrieve_order(route.params.order_oid)
+
+    buyer_retrieve_order_with_user_subscription(route.params.order_oid, layoutStore.alert)
     .then(
         res => { 
             store.order = res.data

@@ -19,20 +19,24 @@ import PaymentMethods from "./payment-methods/Main.vue";
 import ShippingSummary from "./ShippingSummary.vue";
 
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
-import { buyer_retrieve_order_with_user_subscription, guest_retrieve_order_with_user_subscription } from "@/api_v2/order";
+import { buyer_retrieve_order_with_user_subscription } from "@/api_v2/order";
 import { useCookies } from 'vue3-cookies'
-const { cookies } = useCookies()
 import { useRoute, useRouter } from "vue-router";
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
+
+const store = useLSSBuyerOrderStore(); 
+const layoutStore = useLSSBuyerLayoutStore();
+const { cookies } = useCookies()
 const route = useRoute();
 
-import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
-const store = useLSSBuyerOrderStore(); 
+
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 onMounted(()=>{
-    const retrieve_order=isAnonymousUser?guest_retrieve_order_with_user_subscription:buyer_retrieve_order_with_user_subscription
-    retrieve_order(route.params.order_oid)
+
+    buyer_retrieve_order_with_user_subscription(route.params.order_oid, layoutStore.alert)
     .then(
         res => {
             store.order = res.data

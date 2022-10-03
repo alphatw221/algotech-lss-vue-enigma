@@ -93,7 +93,7 @@ import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 // import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { buyer_cart_add, guest_cart_add } from "@/api_v2/pre_order";
+import { buyer_cart_add } from "@/api_v2/pre_order";
 import { useRoute } from "vue-router";
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
@@ -158,8 +158,7 @@ const changeQuantity = (event, index, operation) => {
 
 const buyer_add_item = (product, index) => {
 
-	const cart_add = isAnonymousUser?guest_cart_add:buyer_cart_add
-	cart_add(route.params.pre_order_oid, product.id, addOnProducts.value[index].qty)
+	buyer_cart_add(route.params.pre_order_oid, product.id, addOnProducts.value[index].qty, layoutStore.alert)
 	.then(
 		res => {
 			store.order = res.data

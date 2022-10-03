@@ -125,7 +125,7 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_delete_order_product, buyer_update_order_product, guest_delete_order_product, guest_update_order_product } from "@/api_v2/order_product"
+import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
@@ -158,8 +158,7 @@ const numOfItems = computed(()=>{
 })
 
 const deleteOrderProduct = (order_product_id, index) =>{
-	const delete_order_product = isAnonymousUser?guest_delete_order_product:buyer_delete_order_product
-	delete_order_product(order_product_id, route.params.pre_order_oid).then(res=>{
+	buyer_delete_order_product(order_product_id, route.params.pre_order_oid, layoutStore.alert).then(res=>{
 		store.order = res.data
 		layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.delete_success'))
 	})
@@ -197,8 +196,8 @@ const changeQuantity = ( index, operation, product) => {
 	hideUpdateSign(index)
 	hideUpdateButton()
 	showQtyInput()
-	const update_order_product = isAnonymousUser?guest_update_order_product:buyer_update_order_product
-	update_order_product(product.order_product_id, route.params.pre_order_oid, qty).then(
+	// const update_order_product = isAnonymousUser?guest_update_order_product:buyer_update_order_product
+	buyer_update_order_product(product.order_product_id, route.params.pre_order_oid, qty, layoutStore.alert).then(
 		res => {
 			store.order = res.data
 			layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.update_successfully'))

@@ -160,7 +160,7 @@ const changeQuantity = (index, operation, product) => {
 	hideUpdateSign(index)
 	// hideUpdateButton()
 	// showQtyInput()
-	seller_update_product(route.params.order_id, product.order_product_id, qty).then(
+	seller_update_product(route.params.order_id, product.order_product_id, qty, sellerStore.alert).then(
 		res =>{
 			store.orderDetail = res.data
 			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.update_successfully'))
@@ -182,7 +182,7 @@ const changeQuantity = (index, operation, product) => {
 // 	)
 // }
 function delete_product(order_product_id){
-	seller_delete_product(route.params.order_id,order_product_id).then(
+	seller_delete_product(route.params.order_id,order_product_id, sellerStore.alert).then(
 		res=>{
 			store.orderDetail = res.data
 			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.delete_successfully'))

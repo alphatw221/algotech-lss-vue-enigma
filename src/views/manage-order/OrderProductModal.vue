@@ -143,13 +143,13 @@ onMounted(()=>{
 
 function get_data(id,type){
     if (type === 'pre_order'){
-        seller_retrieve_pre_order(id)
+        seller_retrieve_pre_order(id, layoutStore.alert)
         .then(res => { 
             store.orderProductData = res.data
             console.log(store.orderProductData)
         })
     }else{
-        seller_retrieve_order(id)
+        seller_retrieve_order(id, layoutStore.alert)
         .then(
             res => { store.orderProductData = res.data}
         )

@@ -68,6 +68,10 @@ import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order"
 
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+
+const layoutStore = useLSSBuyerLayoutStore();
+
 const route = useRoute();
 const router = useRouter();
 
@@ -102,7 +106,7 @@ const changePageSize = pageSize => {
 		}
 
 const getOrderHistoryListData = ()=>{
-	buyer_orders_history(currentPage.value, pageSize.value).then(response => {
+	buyer_orders_history(currentPage.value, pageSize.value, layoutStore.alert).then(response => {
     console.log(response.data)
 		dataCount.value = response.data.count;
 		const total_page = parseInt(dataCount.value / pageSize.value);

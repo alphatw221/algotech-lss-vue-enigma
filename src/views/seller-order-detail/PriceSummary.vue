@@ -238,7 +238,7 @@ const sellerAdjustPrice = ()=>{
     'free_delivery':store.orderDetail.free_delivery
   }
 
-  seller_adjust_price(route.params.order_id,modify_price).then(
+  seller_adjust_price(route.params.order_id,modify_price, sellerStore.alert).then(
     res => {
       sellerStore.notification.showMessageToast('Update')
       store.orderDetail = res.data
@@ -281,7 +281,7 @@ const updatePriceSummary = ()=>{
 // }
 
 const cleanAdjust = ()=>{
-  seller_adjust_price(route.params.order_id,{'adjust_title':'','adjust_price':0,'free_delivery':store.orderDetail.free_delivery}).then(
+  seller_adjust_price(route.params.order_id,{'adjust_title':'','adjust_price':0,'free_delivery':store.orderDetail.free_delivery}, sellerStore.alert).then(
     res => {
       sellerStore.notification.showMessageToast('Update')
       store.orderDetail = res.data
