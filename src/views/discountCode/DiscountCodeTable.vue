@@ -64,7 +64,7 @@
 								<div> * {{ $t(`discount.table.` + limitation.key) }} </div>
 								<div class="ml-2 sm:ml-auto" v-if="limitation.key == 'subtotal_over_specific_amount'"> $ {{(limitation.amount).toLocaleString('en-US')}} </div>
 								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'product_over_specific_number'"> {{limitation.number}} pcs </div>
-								<div class="ml-2 sm:ml-auto" v-else-if="limitations.key == 'discount_code_usable_time'"> {{limitations.times}} </div>
+								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'discount_code_usable_time'"> {{limitation.times}} </div>
 								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitation.key == 'specific_campaign'"> 
 									<template v-for="(campaign, index) in scheduledCamapign" :key="index"> 
 										<template v-if="campaign.id == limitation.campaign_id"> {{campaign.title}} </template>	
