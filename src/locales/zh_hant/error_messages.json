@@ -2,13 +2,14 @@
     "api": {
         "v2": {
             "product":{
-                "search_can_not_empty": "Search field can not be empty when keyword has value",
+                "search_can_not_empty": "需選擇搜尋條件",
                 "category_already_exists": "此類別已存在",
                 "invalid_category_name": "無效的類別名稱",
                 "category_not_exist": "此類別不存在"
             },
             "campaign": {
-                "search_can_not_empty": "Search field can not be empty when keyword has value"
+                "search_can_not_empty": "需選擇搜尋條件",
+                "None not activated":"粉絲專頁未啟用"
             },
             "user": {
                 "account_not_exist": "此帳號不存在",
@@ -77,12 +78,18 @@
                 "draw_like_type_need_connect_to_facebook_post": "此活動目前尚未連結任何 Facebook 貼文，無法開始抽獎活動。",
                 "no_any_connected_platforms": "這場銷售活動沒有連結到任何到任何貼文或頻道，請確認銷售活動的設定。"
             },
+            "campaign-quizgame":{
+                "question null":"需填入問題或答案"
+            },
             "cart":{
                 "campaign_product_not_found": "找不到活動商品",
                 "refresh_try_again": "請重新整理頁面後再試一次",
                 "invalid_user": "無效的用戶",
                 "qty_invalid": "無效的數量",
                 "request_data_error": "請求資料錯誤"
+            },
+            "discount-code":{
+                "duplicate_discount_code":"Duplicate Discount Code"
             }
         }
     },
@@ -174,5 +181,7 @@
         "lucky_draw_not_found": "找不到抽獎設定",
         "quiz_game_not_found": "找不到小遊戲設定"
     },
-    "token_not_valid": "你已被登出"
+    "token_not_valid": "你已被登出",
+    "duplicate_discount_code":"折扣碼重複"
+
 }

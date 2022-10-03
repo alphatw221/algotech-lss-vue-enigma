@@ -8,7 +8,8 @@
                 "category_not_exist": "Danh mục/Phân loại này không tồn tại"
             },
             "campaign": {
-                "search_can_not_empty": "Trường tìm kiếm không được để trống khi từ khóa có giá trị"
+                "search_can_not_empty": "Trường tìm kiếm không được để trống khi từ khóa có giá trị",
+                "None not activated":"Platform Not Activated"
             },
             "user": {
                 "account_not_exist": "Tài khoản này không tồn tại",
@@ -83,6 +84,9 @@
                 "no_any_connected_platforms": "Chiến dịch này không kết nối đến bất kì bài viết hay kênh nào. Vui lòng kiểm tra cài đặt chiến dịch"
                 
             },
+            "campaign-quizgame":{
+                "question null":"Question or Answer is required"
+            },
             "cart":{
                 "campaign_product_not_found": "Không thể tìm thấy sản phẩm của chiến dịch",
                 "refresh_try_again": "Hãy làm mới trang và thử lại",
@@ -90,6 +94,9 @@
                 "qty_invalid": "Số lượng không hợp lệ",
                 "request_data_error": "Yêu cầu dữ liệu lỗi"
                 
+            },
+            "discount-code":{
+                "duplicate_discount_code":"Duplicate Discount Code"
             }
         }
     },
@@ -181,5 +188,7 @@
         "lucky_draw_not_found": "Không thể tìm thấy cài đặt rút thăm may mắn",
         "quiz_game_not_found": "Không thể tìm thấy cài đặt trò chơi đố vui"
     },
-    "token_not_valid": "Bạn đã đăng xuất"
+    "token_not_valid": "Bạn đã đăng xuất",
+    "duplicate_discount_code":"Mã giảm giá trùng lặp"
+
 }

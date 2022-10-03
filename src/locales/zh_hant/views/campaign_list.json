@@ -50,7 +50,7 @@
         "live_on":"管理活動",
         "edit_campaign":"編輯銷售活動",
         "edit_campaign_product":"編輯銷售商品",
-        "blank_cart":"複製直接購買連結",
+        "blank_cart":"複製快速購物連結",
         "lucky_draw":"建立抽獎",
         "quiz_game": "新增問答遊戲",
         "delete":"刪除",
@@ -100,14 +100,15 @@
         "enter_username": "輸入帳戶名稱",
 
         "cancel":"取消",
-        "save":"儲存",
+        "save":"前往直播",
         "your_current_lives": "你目前正在進行的銷售活動",
         "select_this_live": "選擇這場活動",
         "valid_post_id_notification": "請輸入有效的貼文ID",
 
         "rebind_page":"請重新授權Facebook粉絲專頁",
-        "rebind_channel":"請重新授權Youtube頻道",
-        "rebind_profile":"請重新授權Instagram粉絲專頁"
+        "rebind_channel":"請重新授權YouTube頻道",
+        "rebind_profile":"請重新授權Instagram粉絲專頁",
+        "disconnected":"已斷接"
     },
     "update_successed":"儲存成功",
     "no_facebook_post":"現在沒有任何Facebook的直播",

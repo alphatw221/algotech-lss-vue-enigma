@@ -55,8 +55,8 @@
     font-weight: normal;
   }
   .ck-content h2 {
-    line-height: 1.37em;
-    font-size: 1.75em;
+    line-height: 3em;
+    font-size: 2.18em;
     padding-top: 0.342em;
     margin-bottom: 0.142em;
   }
@@ -137,9 +137,10 @@
     font-weight: normal;
   }
   .ck-content h2 {
-    font-size: 2.75em;
-    padding-top: 0em;
-    margin-bottom: 0em;
+    line-height: 1em;
+    font-size: 2.18em;
+    padding-top: 0.342em;
+    margin-bottom: 0.142em;
   }
   .ck-content h3,
   .ck-heading-dropdown .ck-heading_heading2 .ck-button__label {

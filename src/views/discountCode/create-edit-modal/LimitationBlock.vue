@@ -10,7 +10,7 @@
             {{$t(`discount.modal.`+error.$validator)}}
         </label>
         <label class="text-danger" v-if="props.limitationErr">
-            Cannot Select Duplicate limitations
+            {{$t(`discount.modal.duplicate`)}}
         </label>
         
         <template  v-if="props.discountCode.limitations[props.limitationIndex].key!=undefined">
