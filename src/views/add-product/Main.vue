@@ -348,7 +348,7 @@ const submit = ()=>{
 	} else {
 		formData.append('image', dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] || '._no_image')
 		formData.append('data', JSON.stringify(product.value))
-		// formData.append('image', )
+		// for (var pair of formData.entries()) {  console.log(pair[0]+ ', ' + pair[1]); }  //print formdata
 		create_product(formData)
 		.then(
 			response => {
