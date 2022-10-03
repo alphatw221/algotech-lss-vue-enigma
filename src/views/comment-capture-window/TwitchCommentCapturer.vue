@@ -36,7 +36,7 @@ const uploadComments = () => {
 }
 
 const checkBuffer = ()=>{
-    console.log('check buffer')
+    // console.log('check buffer')
     if (twitchCommentList.value.length==0) return
     uploadComments()
 }

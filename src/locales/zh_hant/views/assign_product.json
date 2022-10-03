@@ -26,6 +26,7 @@
         "price":"價錢",
         "customer_editable":"允許顧客編輯",
         "customer_removable":"允許顧客刪除",
+        "oversell":"可否超賣",
         "types":{
             "product":"商品",
             "product-fast":"商品",
