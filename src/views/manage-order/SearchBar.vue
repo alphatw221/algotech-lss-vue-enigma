@@ -52,6 +52,14 @@ import { get_campaign_order_report } from "@/api_v2/campaign"
 import { url } from "@vuelidate/validators";
 import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
+
+
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+
+const layoutStore = useLSSSellerLayoutStore()
+
+
+
 const route = useRoute();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -86,7 +94,7 @@ function reset(filter_data){
     eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
 }
 function onExportXlsx(){
-    get_campaign_order_report(route.params.campaign_id).then(
+    get_campaign_order_report(route.params.campaign_id, layoutStore.alert).then(
     // order_export(route.params.campaign_id).then(
         res => {console.log(res)
         

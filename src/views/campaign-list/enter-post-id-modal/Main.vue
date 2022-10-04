@@ -312,12 +312,12 @@ const updatePostId = (platform) => {
     page_id = campaign.value.facebook_page.id
     live_id = campaign.value.facebook_campaign.post_id
     data = {"platform": platform, "platform_id": page_id, "post_id": live_id}
-    apiRequest = check_facebook_page_post_exist(page_id, live_id)
+    apiRequest = check_facebook_page_post_exist(page_id, live_id, layoutStore.alert)
   } else if (platform === "instagram") {
     page_id = campaign.value.instagram_profile.id
     live_id = campaign.value.instagram_campaign.live_media_id
     data = {"platform": platform, "platform_id": page_id, "post_id": live_id}
-    apiRequest = check_instagram_profile_post_exist(page_id, live_id)
+    apiRequest = check_instagram_profile_post_exist(page_id, live_id, layoutStore.alert)
   } else if (platform === "youtube") {
     page_id = campaign.value.youtube_channel.id
     live_id = campaign.value.youtube_campaign.live_video_id
@@ -343,7 +343,7 @@ const updatePostId = (platform) => {
 
   if (!apiRequest) {
     checking.value = false
-    return update_platform_live_id(campaign.value.id, data)
+    return update_platform_live_id(campaign.value.id, data, layoutStore.alert)
   }
   apiRequest.then(res=>{
     checking.value = false
@@ -351,7 +351,7 @@ const updatePostId = (platform) => {
   }).then(res=>{
     if (res.success_response) {
       validate.value[platform]["post_id"]["error"] = false
-      return update_platform_live_id(campaign.value.id, data)
+      return update_platform_live_id(campaign.value.id, data, layoutStore.alert)
     } else {
       validate.value[platform]["post_id"]["error"] = true
     }
@@ -359,7 +359,7 @@ const updatePostId = (platform) => {
 }
 
 const remove_platform_data =  (platform)=>{ 
-  delete_platform_live_id(campaign.value.id,platform).then( res=>{
+  delete_platform_live_id(campaign.value.id,platform, layoutStore.alert).then( res=>{
     Object.entries(res.data).forEach(([key,value]) => {
       campaign.value[key]=value                       //proxy object only got setter
     });

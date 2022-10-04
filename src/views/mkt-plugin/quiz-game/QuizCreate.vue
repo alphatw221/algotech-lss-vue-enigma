@@ -188,7 +188,7 @@ onMounted(() => {
 
     eventBus.on('editQuiz', (payload) => {
         quizgameBundleId.value = payload.quizgameBundleId
-        retrieve_campaign_quiz_game(quizgameBundleId.value).then(res => {
+        retrieve_campaign_quiz_game(quizgameBundleId.value, layoutStore.alert).then(res => {
             quizgameSettings.value = res.data
         })
         pageType.value = 'edit'
@@ -196,7 +196,7 @@ onMounted(() => {
 })
 
 const listCampaignProduct = () => {
-    list_campaign_product(route.params.campaign_id).then(res => {
+    list_campaign_product(route.params.campaign_id, layoutStore.alert).then(res => {
         for (let i = 0; i < res.data.length; i++) {
             if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
         }
@@ -209,7 +209,7 @@ const addQuestion = () => {
 
 const deleteQuestion = (index, id) => {
     if (![undefined, null, ''].includes(id)) {
-        delete_campaign_quiz_game(id).then(res => {
+        delete_campaign_quiz_game(id, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.delete_succeed'))
         })
     }
@@ -232,14 +232,14 @@ const upsertQuizGame = () => {
     })
 
     if (pageType.value === 'create') {
-        create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value).then(res => {
+        create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.create_succeed'))
             emptyQA.value = false
             eventBus.emit('listQuiz')
             quizgameSettings.value = quizgameEmptySettings.value
         })
     } else if (pageType.value === 'edit') {
-        update_campaign_quiz_game(quizgameBundleId.value, quizgameSettings.value).then(res => {
+        update_campaign_quiz_game(quizgameBundleId.value, quizgameSettings.value, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.update_succeed'))
             emptyQA.value = false
             eventBus.emit('changePage')

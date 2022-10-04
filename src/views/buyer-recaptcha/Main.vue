@@ -71,7 +71,7 @@ const recaptchaCallBack = token=>{
     const type = route.params.type
     const object_id = route.params.object_id
     if(type=='blank'){
-        guest_create_blank_cart(object_id, token, cookies.get('client_uuid')).then(response=>{
+        guest_create_blank_cart(object_id, token, cookies.get('client_uuid'), buyerStore.alert).then(response=>{
             console.log(response.data)
             if (!cookies.get('client_uuid')){
                 var set_cookie = new Promise((res) => {

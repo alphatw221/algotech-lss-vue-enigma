@@ -313,7 +313,7 @@ onMounted(()=>{
 
 	pluginColumn()
 
-	list_product_category().then(res => { 
+	list_product_category(layoutStore.alert).then(res => { 
 		categorySelection.value = res.data
 		categorySelection.value.unshift('uncategory')
 	})
@@ -350,7 +350,7 @@ onUnmounted(()=>{
 const search = ()=>{
 	showCommentLoding.value = true
 	stockProducts.value = []
-	list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value, '', sortBy.value )
+	list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value, '', sortBy.value , layoutStore.alert)
 	.then(
 		response => {
 			if(response.data.count != undefined){
@@ -386,7 +386,7 @@ const hideDropDown = ()=>{
 
 const deleteProduct = (product,index) => {
 	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
-	if (yes) delete_product(product.id).then(res => {stockProducts.value.splice(index,1)
+	if (yes) delete_product(product.id, layoutStore.alert).then(res => {stockProducts.value.splice(index,1)
 		bulkEditStockObj.value.stockIdList.forEach( (id,index)=>{
 			if (id = product.id) bulkEditStockObj.value.stockIdList.splice(index,1)
 		})})
@@ -395,7 +395,7 @@ const deleteProduct = (product,index) => {
 
 const copyProduct = (product) => {
 	const copy = Object.assign({}, product)
-	copy_product(product.id).then(res => {
+	copy_product(product.id, layoutStore.alert).then(res => {
 		console.log(res)
 		copy.id = res.data.message 
 		copy.name = 'copy - ' + product.name
@@ -448,7 +448,7 @@ const hide = () => {
 }
 
 const bulkUpdateStock = () => {
-	bulk_update_product(bulkEditStockObj.value).then(res => {
+	bulk_update_product(bulkEditStockObj.value, layoutStore.alert).then(res => {
 		hide()
 		search()
 	})
@@ -457,7 +457,7 @@ const bulkUpdateStock = () => {
 const sentWishlistMail = (product, index) =>{
 	let yes = confirm(`${i18n.global.t('stock.wishlist.confirm_send')}`)
 	if (yes) {
-		wish_list_send_email(product.id).then(
+		wish_list_send_email(product.id, layoutStore.alert).then(
 		res=>{
 			layoutStore.notification.showMessageToast(`${i18n.global.t('stock.wishlist.success_send')}`)
 			stockProducts.value[index].meta.wish_list = []

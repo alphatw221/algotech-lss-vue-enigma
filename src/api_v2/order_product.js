@@ -1,12 +1,4 @@
 import { createAxios} from "@/libs/axiosClient";
-// -------------guest------------------
-// export const guest_delete_order_product = (order_product_id, pre_order_oid) =>{
-//     return createAxios().delete(`/api/v2/order-product/${order_product_id}/guest/delete/?pre_order_oid=${pre_order_oid}`)
-// }
-
-// export const guest_update_order_product = (order_product_id, pre_order_oid, qty) =>{
-//     return createAxios(toastify).put(`/api/v2/order-product/${order_product_id}/guest/update/?pre_order_oid=${pre_order_oid}&qty=${qty}`)
-// }
 
 // -------------buyer------------------
 export const buyer_delete_order_product = (order_product_id, pre_order_oid, toastify=null) =>{

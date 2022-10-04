@@ -257,7 +257,7 @@ const campaignNotes = ref({
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const ready = ref(false)
 onMounted(() => {
-	retrieve_campaign(route.params.campaign_id).then(res=>{
+	retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
 		campaignData.value = JSON.parse(JSON.stringify(res.data))
 		campaignData.value.decimal_places = res.data.decimal_places.toString()  //temp   TomSelect only work with string value
 
@@ -368,7 +368,7 @@ const updateCampaign = ()=>{
 		formData.append(key,image)
 	});
 
-	update_campaign(route.params.campaign_id,formData).then(response => {
+	update_campaign(route.params.campaign_id,formData, sellerStore.alert).then(response => {
 		router.push({name:'campaign-list'})
 	})
 

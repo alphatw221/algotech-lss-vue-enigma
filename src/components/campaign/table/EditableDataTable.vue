@@ -267,7 +267,7 @@ const productDict = {}
 
 
 onMounted(() => {
-	list_product_category().then(
+	list_product_category(layoutStore.alert).then(
 		res => { 
 			res.data.forEach(category => {
 				productCategories.value.push({value:category, name:category})
@@ -340,7 +340,7 @@ const search = () => {
 	campaignDetailStore.campaignProducts.forEach(campaignProduct => {
 		if(campaignProduct.product)productDict[campaignProduct.product.toString()]=true
 	});
-	list_product(pageSize.value, currentPage.value, '', '', 'enabled', selectedCategory.value, Object.keys(productDict).join(','))
+	list_product(pageSize.value, currentPage.value, '', '', 'enabled', selectedCategory.value, Object.keys(productDict).join(','), layoutStore.alert)
 	.then(response => {
 		stockProducts.value = response.data.results
 		dataCount.value = response.data.count

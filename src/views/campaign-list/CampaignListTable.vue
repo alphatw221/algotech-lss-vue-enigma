@@ -287,7 +287,7 @@ onUnmounted(()=>{
 const search =()=>{
     showCommentLoding.value = true
     campaigns.value = []
-    list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,'100')
+    list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,'100', layoutStore.alert)
     .then((response) => {
         if (response.data.count != undefined) {
           dataCount.value = response.data.count;
@@ -326,7 +326,7 @@ const clickEntry = (index)=>{
 }
 
 const stop_checkout = (index, campaign)=>{
-      toggle_stop_checkout(campaign.id).then(res=>{
+      toggle_stop_checkout(campaign.id, layoutStore.alert).then(res=>{
         campaigns.value[index] = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.update_successed'));
       })
@@ -380,7 +380,7 @@ const checkPage = ()=>{
 
 const deleteCampaign = (campaign)=>{
   let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)
-	if(yes) delete_campaign(campaign.id).then(res => { search() })
+	if(yes) delete_campaign(campaign.id, layoutStore.alert).then(res => { search() })
   hideDropDown()
 }
 

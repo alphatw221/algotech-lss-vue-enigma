@@ -91,7 +91,7 @@ const tableColumns = ref([
             ])
 
 const routeToDetail =(order_id)=>{
-  buyer_retrieve_order_oid(order_id).then(res=>{
+  buyer_retrieve_order_oid(order_id, layoutStore.alert).then(res=>{
     router.push(`/buyer/order/${res.data}`)
   })
 }

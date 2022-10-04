@@ -151,7 +151,7 @@ onUnmounted(()=>{
 
 const selectLive = live_id => {
   let apiRequest = null
-  apiRequest = update_platform_live_id(campaign.value.id, {"platform":payloadBuffer.platform, "platform_id":payloadBuffer.page.id , "post_id":live_id})
+  apiRequest = update_platform_live_id(campaign.value.id, {"platform":payloadBuffer.platform, "platform_id":payloadBuffer.page.id , "post_id":live_id}, layoutStore.alert)
   apiRequest.then(res=>{
     Object.entries(res.data).forEach(([key,value]) => {
       campaign.value[key]=value                       //proxy object only got setter

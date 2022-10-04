@@ -117,7 +117,7 @@ const toggleTabs = (tabNumber) =>{
 }
 
 onMounted(() => {
-	list_product_category().then(
+	list_product_category(store.alert).then(
 		response => { 
 			response.data.forEach(category => {
 				productCategories.value.push({text: category, value: category})

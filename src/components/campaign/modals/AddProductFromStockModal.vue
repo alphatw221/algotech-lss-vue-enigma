@@ -434,7 +434,7 @@ let isSelectedProductsValid=false
 let campaignProductCache = null
 
 onMounted(() => {
-	list_product_category().then(
+	list_product_category(layoutStore.alert).then(
 		res => { 
 			res.data.forEach(category => {
 				productCategories.value.push({value:category, name:category})
@@ -590,7 +590,7 @@ const selectAllStockProduct = (event)=>{
 }
 
 const search = () => {
-	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value)
+	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value, layoutStore.alert)
 	.then(response => {
 		dataCount.value = response.data.count
 		totalPage.value = Math.ceil(response.data.count / pageSize.value)

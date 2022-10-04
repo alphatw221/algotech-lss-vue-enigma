@@ -34,6 +34,9 @@ import AddProductFromStockModal from '@/components/campaign/modals/AddProductFro
 import EditCampaignProductModal from './EditCampaignProductModal.vue'
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { retrieve_campaign } from '@/api_v2/campaign'
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+
+const layoutStore = useLSSSellerLayoutStore()
 const route = useRoute();
 const router = useRouter();
 const campaignStarted = ref(true)
@@ -52,7 +55,7 @@ const showAddProductFromStockModal =()=>{
 
 onMounted(()=>{
 	loadingTable.value = false
-	retrieve_campaign(route.params.campaign_id).then(res=>{
+	retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
 		campaignDetailStore.campaign = res.data
 		campaignStarted.value = new Date(campaignDetailStore.campaign.start_at).getTime() < new Date().getTime()? true:false
 		loadingTable.value = false

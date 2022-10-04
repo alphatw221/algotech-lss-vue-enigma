@@ -196,7 +196,7 @@ const changeQuantity = ( index, operation, product) => {
 	hideUpdateSign(index)
 	hideUpdateButton()
 	showQtyInput()
-	// const update_order_product = isAnonymousUser?guest_update_order_product:buyer_update_order_product
+
 	buyer_update_order_product(product.order_product_id, route.params.pre_order_oid, qty, layoutStore.alert).then(
 		res => {
 			store.order = res.data

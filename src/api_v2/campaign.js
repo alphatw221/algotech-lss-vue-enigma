@@ -56,24 +56,24 @@ export const toggle_stop_checkout = (campaign_id,status, toastify=null) => {
 }
 
 
-export const list_campaign = (status,searchColumn,keyword,order_by,page,page_size) => {
+export const list_campaign = (status,searchColumn,keyword,order_by,page,page_size, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/campaign/list/?status=${status}&searchColumn=${searchColumn}&keyword=${keyword}&order_by=${order_by}&page=${page}&page_size=${page_size}`)
 }
 
 
-export const fast_add_product = (campaign_id, data) => {
+export const fast_add_product = (campaign_id, data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/campaign/${campaign_id}/product/add/fast/`, data)
 }
 
-export const get_campaign_order_report = (campaign_id) => {
+export const get_campaign_order_report = (campaign_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/campaign/${campaign_id}/report/`,{responseType : 'blob'})
 }
 
-export const get_campaign_product_order_code_dict = (campaign_id) => {
+export const get_campaign_product_order_code_dict = (campaign_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/campaign/${campaign_id}/product/order_code/dict/`)
 }
 
-export const delete_campaign = (campaign_id) => {
+export const delete_campaign = (campaign_id, toastify=null) => {
     return createAxios(toastify).delete(`/api/v2/campaign/delete/?campaign_id=${campaign_id}`)
 }
 

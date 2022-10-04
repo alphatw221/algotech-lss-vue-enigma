@@ -203,7 +203,7 @@ const generalInfo = ref({
 
 
 onMounted(() => {
-    get_general_info().then(response => {
+    get_general_info(layoutStore.alert).then(response => {
 
         generalInfo.value = response.data
         generalInfo.value.decimal_places = response.data.decimal_places.toString()  //temp   TomSelect only work with string value

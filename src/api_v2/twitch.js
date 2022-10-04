@@ -22,8 +22,8 @@ export const init_twitch_websocket = (username, password, channel, onMessageHand
     return client
 }
 
-export const upload_twitch_comments = (campaign_id, data, toastify=null) => {
-    return createAxios(toastify).post(`/api/v2/twitch/${campaign_id}/bulk/create/comment/`, data)
+export const upload_twitch_comments = (campaign_id, data) => {
+    return createAxiosWithoutInterceptor().post(`/api/v2/twitch/${campaign_id}/bulk/create/comment/`, data)
 }
 
 export const check_twitch_channel_token_valid = (platform_id) => {

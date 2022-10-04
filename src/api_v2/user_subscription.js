@@ -1,4 +1,4 @@
-import { createAxios } from "@/libs/axiosClient";
+import { createAxios, createAxiosWithoutInterceptor } from "@/libs/axiosClient";
 
 
 
@@ -6,8 +6,8 @@ export const get_general_info = (toastify=null) => {
     return createAxios(toastify).get(`/api/v2/user-subscription/info/general/`)
 }
 
-export const update_general_info = (data, toastify=null) => {
-    return createAxios(toastify).put(`/api/v2/user-subscription/update/info/general/`, data)
+export const update_general_info = (data) => {
+    return createAxiosWithoutInterceptor().put(`/api/v2/user-subscription/update/info/general/`, data)
 }
 
 export const seller_update_subscription = (data, toastify=null) => {

@@ -44,10 +44,13 @@ export const delete_product_category = (name, toastify=null) => {
     return createAxios(toastify).delete(`/api/v2/product/category/delete/${name}/`)
 }
 
-export const wish_list_add = (id,email, toastify=null) => {
-    return createAxios(toastify).post(`/api/v2/product/${id}/wish_list/add/`,{'email':email})
-}
+
 
 export const wish_list_send_email = (id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/product/${id}/wish_list/send/email`)
+}
+
+//----------------------------------buyer----------------------------------------
+export const wish_list_add = (id,email, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/product/${id}/wish_list/add/`,{'email':email})
 }
