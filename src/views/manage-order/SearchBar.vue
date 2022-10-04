@@ -95,7 +95,6 @@ function reset(filter_data){
 }
 function onExportXlsx(){
     get_campaign_order_report(route.params.campaign_id, layoutStore.alert).then(
-    // order_export(route.params.campaign_id).then(
         res => {console.log(res)
         
             if (window.navigator.msSaveOrOpenBlob) {

@@ -216,13 +216,10 @@ onMounted(() => {
 
 
 const update = () => {
-    update_general_info(generalInfo.value).then(res => {
+    update_general_info(generalInfo.value, layoutStore.alert).then(res => {
         layoutStore.userInfo = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })
-    .catch(error =>
-        layoutStore.alert.showMessageToast(i18n.global.t('settings.update_failed'))
-    )
 }
 
 

@@ -6,8 +6,8 @@ export const get_general_info = (toastify=null) => {
     return createAxios(toastify).get(`/api/v2/user-subscription/info/general/`)
 }
 
-export const update_general_info = (data) => {
-    return createAxiosWithoutInterceptor().put(`/api/v2/user-subscription/update/info/general/`, data)
+export const update_general_info = (data, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/user-subscription/update/info/general/`, data)
 }
 
 export const seller_update_subscription = (data, toastify=null) => {
@@ -30,10 +30,6 @@ export const bind_platform_instances = (platform_name, data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/platform/${platform_name}/bind/`,data)
 }
 
-export const bind_twitch_platform_instances = (platform_name, channel_name, data, toastify=null) => {
-    return createAxios(toastify).put(`/api/v2/user-subscription/platform/${platform_name}/bind/?channel_name=${channel_name}`, data)
-}
-
 export const get_platform_instances = (platform_name, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/user-subscription/platform/${platform_name}/`)
 }
@@ -42,9 +38,9 @@ export const upload_animation = (data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/user-subscription/seller/upload/animation/`, data)     
 }
 
-export const get_user_subscription_facebook_pages = (data, toastify=null) => {
-    return createAxios(toastify).get(`/api/user-subscription/facebook_pages/`,data)
-}
+// export const get_user_subscription_facebook_pages = (data, toastify=null) => {
+//     return createAxios(toastify).get(`/api/user-subscription/facebook_pages/`,data)
+// }
 
 // ------------------------- DEALER -------------------------------------
 

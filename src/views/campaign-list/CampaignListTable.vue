@@ -367,11 +367,11 @@ const goQuizGame = (campaign) => {
 }
 
 const checkPage = ()=>{
-  get_user_subscription_facebook_pages().then(res=>{
+  get_user_subscription_facebook_pages(layoutStore.alert).then(res=>{
     if(res.data.length !== 0) checkPagePonit.value = false
-    else get_user_subscription_instagram_profiles().then(res=>{
+    else get_user_subscription_instagram_profiles(layoutStore.alert).then(res=>{
       if(res.data.length !== 0) checkPagePonit.value = false
-      else get_user_subscription_youtube_channels().then(res=>{
+      else get_user_subscription_youtube_channels(layoutStore.alert).then(res=>{
         if(res.data.length !== 0) checkPagePonit.value = false
       })
     })

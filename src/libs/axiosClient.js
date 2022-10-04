@@ -273,7 +273,7 @@ export function youtubeAxios(accessToken){
 //     }
 // );
 
-export { axiosInstance , axiosInstanceForBuyerLayout}
+
 
 
 export class Paginator{

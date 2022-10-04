@@ -209,7 +209,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed, defineProps } from 'vue';
-import { seller_list_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
+import { seller_search_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { retrieve_campaign } from '@/api_v2/campaign'
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
@@ -271,7 +271,7 @@ onUnmounted(() => {
 
 
 const search = () => {
-    seller_list_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value, layoutStore.alert)
+    seller_search_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value, layoutStore.alert)
     .then(response => {
         dataCount.value = response.data.count
         campaignDetailStore.campaignProducts = response.data.results

@@ -249,7 +249,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { list_product, delete_product, copy_product, list_product_category, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
+import { search_product, delete_product, copy_product, list_product_category, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router"
@@ -350,7 +350,19 @@ onUnmounted(()=>{
 const search = ()=>{
 	showCommentLoding.value = true
 	stockProducts.value = []
-	list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value, '', sortBy.value , layoutStore.alert)
+	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
+
+	search_product(
+		_pageSize=pageSize.value, 
+		_currentPage=currentPage.value, 
+		_searchColumn=searchColumn.value, 
+		_keyword=keyword.value, 
+		_productStatus=props.product_status, 
+		_productType='',
+		_category=category.value, 
+		_exclude='', 
+		_sortBy=sortBy.value , 
+		_toastify=layoutStore.alert)
 	.then(
 		response => {
 			if(response.data.count != undefined){

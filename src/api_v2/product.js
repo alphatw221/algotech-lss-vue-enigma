@@ -4,7 +4,7 @@ export const retrieve_product = (id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/product/${id}/retrieve/`)
 }
 
-export const list_product = (pageSize, currentPage, searchColumn, keyword, product_status, product_type, category, exclude='', sort_by, toastify=null) => {
+export const search_product = (pageSize, currentPage, searchColumn, keyword, product_status, product_type, category, exclude='', sort_by='', toastify=null) => {
     return createAxios(toastify).get(`/api/v2/product/search/?page_size=${pageSize}&page=${currentPage}&search_column=${searchColumn}&keyword=${keyword}&product_status=${product_status}&product_type=${product_type}&category=${category}&exclude=${exclude}&sort_by=${sort_by}`)
 }
 

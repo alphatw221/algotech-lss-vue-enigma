@@ -74,6 +74,13 @@ export const get_campaign_product_order_code_dict = (campaign_id, toastify=null)
 }
 
 export const delete_campaign = (campaign_id, toastify=null) => {
-    return createAxios(toastify).delete(`/api/v2/campaign/delete/?campaign_id=${campaign_id}`)
+    return createAxios(toastify).delete(`/api/v2/campaign/${campaign_id}/delete/`)
 }
 
+export const get_campaign_statistics = (campaign_id, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign/${campaign_id}/statistics/`)
+}
+
+export const get_campaign_setup_status = (campaign_id, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign/${campaign_id}/setup/status/`)
+}

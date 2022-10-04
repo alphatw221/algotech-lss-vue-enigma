@@ -51,7 +51,7 @@
 </template>
 <script setup>
 import { ref, provide, onMounted } from 'vue';
-import { dealer_dashboard } from "@/api/dealer"
+
 import { dealer_dashboard_card } from "@/api_v2/user_subscription"
 
 const cards = ref({

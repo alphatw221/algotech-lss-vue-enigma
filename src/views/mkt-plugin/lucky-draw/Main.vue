@@ -33,7 +33,7 @@ import { useRoute, useRouter } from "vue-router";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list"
 import { list_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
 import { retrieve_campaign } from '@/api_v2/campaign';
-import { seller_list_campaign_product } from '@/api_v2/campaign_product';
+import { seller_search_campaign_product } from '@/api_v2/campaign_product';
 import DrawCreate from "./DrawCreate.vue";
 import DrawList from "./DrawList.vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -57,7 +57,7 @@ onMounted(() => {
             luckydrawList.value = res.data
         }
     })
-    seller_list_campaign_product(route.params.campaign_id, '', 1, 500, layoutStore.alert).then(res => {
+    seller_search_campaign_product(route.params.campaign_id, '', 1, 500, layoutStore.alert).then(res => {
         for (let i = 0; i < res.data.results.length; i ++) {
             if (res.data.results[i].type === 'lucky_draw') {
                 luckyPrizeObj.value[res.data.results[i].id] = Math.ceil(res.data.results[i].qty_for_sale - res.data.results[i].qty_add_to_cart)

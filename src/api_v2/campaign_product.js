@@ -20,8 +20,12 @@ export const seller_bulk_create_campaign_products = (campaign_id, data, toastify
     return createAxios(toastify).post(`/api/v2/campaign-product/seller/create/bulk/?campaign_id=${campaign_id}`, data)
 }
 
-export const seller_list_campaign_product = (campaign_id, category, page, page_size, type, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/campaign-product/seller/list/?campaign_id=${campaign_id}&category=${category}&type=${type}&page=${page}&page_size=${page_size}`)
+export const seller_list_campaign_product = (campaign_id, type, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign-product/seller/list/?campaign_id=${campaign_id}&type=${type}`)
+}
+
+export const seller_search_campaign_product = (campaign_id, category, page, page_size, type, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign-product/seller/search/?campaign_id=${campaign_id}&category=${category}&type=${type}&page=${page}&page_size=${page_size}`)
 }
 
 export const seller_delete_campaign_product = (campaign_product_id, toastify=null) => {
@@ -40,6 +44,3 @@ export const seller_toggle_campaign_product_overbook = (campaign_product_id, toa
     return createAxios(toastify).put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/overbook/`)
 }
 
-export const seller_list_campaign_products = (order_id, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/campaign-product/seller/pre_order/list/?order_id=${order_id}`)
-}

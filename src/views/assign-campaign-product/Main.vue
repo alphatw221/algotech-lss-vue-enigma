@@ -360,7 +360,7 @@
 
 <script setup>
 import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
-import { list_product_category, list_product } from '@/api_v2/product';
+import { list_product_category, search_product } from '@/api_v2/product';
 import { get_campaign_product_order_code_dict, retrieve_campaign } from '@/api_v2/campaign';
 
 import { useRoute, useRouter } from "vue-router";
@@ -620,7 +620,18 @@ const selectAllStockProduct = (event)=>{
 }
 
 const search = () => {
-	list_product(pageSize.value, currentPage.value, searchField.value, searchKeyword.value, 'enabled', props.productType, selectedCategory.value, layoutStore.alert)
+	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
+	search_product(
+		_pageSize=pageSize.value,
+		_currentPage=currentPage.value, 
+		_searchColumn=searchField.value, 
+		_keyword=searchKeyword.value, 
+		_productStatus='enabled', 
+		_productType=props.productType, 
+		_category=selectedCategory.value, 
+		_exclude='', 
+		_sortBy='',
+		_toastify=layoutStore.alert)
 	.then(response => {
 		dataCount.value = response.data.count
 		stockProducts.value = response.data.results

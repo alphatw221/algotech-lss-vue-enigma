@@ -149,7 +149,8 @@ import { useRoute, useRouter } from 'vue-router';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useVuelidate } from "@vuelidate/core";
 import { required, maxValue, minLength, integer, minValue } from "@vuelidate/validators";
-import { list_campaign_product } from '@/api/campaign_product';
+
+import { seller_list_campaign_product } from '@/api_v2/campaign_product'
 import { create_campaign_quiz_game, update_campaign_quiz_game, delete_campaign_quiz_game, retrieve_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
 import i18n from "@/locales/i18n"
 
@@ -196,10 +197,11 @@ onMounted(() => {
 })
 
 const listCampaignProduct = () => {
-    list_campaign_product(route.params.campaign_id, layoutStore.alert).then(res => {
-        for (let i = 0; i < res.data.length; i++) {
-            if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
-        }
+    seller_list_campaign_product(route.params.campaign_id, 'lucky_draw', layoutStore.alert).then(res => {
+        // for (let i = 0; i < res.data.length; i++) {
+        //     if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
+        // }
+        prizeList.value = res.data
     })
 }
 

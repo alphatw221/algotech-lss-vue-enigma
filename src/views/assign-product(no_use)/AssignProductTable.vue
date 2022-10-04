@@ -227,8 +227,8 @@
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed } from 'vue';
 import { useCreateCampaignStore } from '@/stores/lss-create-campaign';
-import { list_product } from '@/api_v2/product';
-import { seller_list_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
+import { search_product } from '@/api_v2/product';
+import { seller_search_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
@@ -293,33 +293,45 @@ watch(computed(()=>detailStore.campaignProducts), () => { search() })
 
 const search = () => {
     if (route.name === 'assign-product') {
-        list_product(pageSize.value, currentPage.value, undefined, undefined, 'enabled', undefined,  category.value, layoutStore.alert)
-            .then(response => {
-                dataCount.value = response.data.count
-                productsList.value = response.data.results
-                productsList.value.forEach((item) => {
-                    item.selected = false
-                    item.max_order_amount = item.qty
-                    if (item.type === 'product') {
-                        item.customer_editable = true
-                        item.customer_removable = true
-                    }
-                    if (item.customer_editable === false) item.customer_removable = false
-                })
+	    var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 
-                // 換頁時選取記憶在store中 selected, editable, deletable 欄位
-                if (campaignStore.assignedProducts.length > 0) {
-                    campaignStore.assignedProducts.forEach((storeItem) => {
-                        productsList.value.forEach((productItem, pIndex) => {
-                            if (storeItem.id == productItem.id) { productsList.value[pIndex] = storeItem }
-                        })
-                    })
+        search_product(
+            _pageSize=pageSize.value, 
+            _currentPage=currentPage.value, 
+            _searchColumn=undefined, 
+            _keyword=undefined, 
+            _productStatus='enabled', 
+            _productType=undefined,  
+            _category=category.value,
+            _exclude='',
+            _sortBy='', 
+            _toastify=layoutStore.alert)
+        .then(response => {
+            dataCount.value = response.data.count
+            productsList.value = response.data.results
+            productsList.value.forEach((item) => {
+                item.selected = false
+                item.max_order_amount = item.qty
+                if (item.type === 'product') {
+                    item.customer_editable = true
+                    item.customer_removable = true
                 }
-            }).catch(error => {
-                console.log(error);
+                if (item.customer_editable === false) item.customer_removable = false
             })
+
+            // 換頁時選取記憶在store中 selected, editable, deletable 欄位
+            if (campaignStore.assignedProducts.length > 0) {
+                campaignStore.assignedProducts.forEach((storeItem) => {
+                    productsList.value.forEach((productItem, pIndex) => {
+                        if (storeItem.id == productItem.id) { productsList.value[pIndex] = storeItem }
+                    })
+                })
+            }
+        }).catch(error => {
+            console.log(error);
+        })
     } else if (route.name === 'edit-campaign-product') {
-        seller_list_campaign_product(route.params.campaign_id, category.value, currentPage.value, pageSize.value)
+        seller_search_campaign_product(route.params.campaign_id, category.value, currentPage.value, pageSize.value)
         .then(response => {
             dataCount.value = response.data.count
             productsList.value = response.data.results

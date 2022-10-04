@@ -48,6 +48,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const pages = ref([])
 const show = ref(false)
 const payloadBuffer = ref({})
+
 onMounted(()=>{
     eventBus.on('showSelectPlatformModal', (payload) => {
       payloadBuffer.value = payload
