@@ -152,6 +152,13 @@
 										</select> 
 									</td> 
 
+									<td v-else-if="column.key === 'oversell' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div class="md:min-w-[40px] sm:text-center">
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" v-if="product.type=='product'"/>
+											<div v-else class="text-center dash">-</div>
+										</div>
+									</td>
+
 									<td v-else-if="column.key === 'customer_editable' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="md:min-w-[40px] sm:text-center">
 											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="product[column.key]" @click="stockProductEditable(product_index, $event)" v-if="product.type=='product'"/>
@@ -296,6 +303,12 @@
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td> 
+									<td v-else-if=" column.key === 'oversell'  " class="removable" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div class="md:min-w-[40px] sm:text-center"> 
+											<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" type="checkbox" v-model="product[column.key]" v-if="product.type=='product' "/>
+											<div v-else class="w-[1.2rem] h-[1.2rem] dash sm:mx-auto">-</div>
+										</div>
+									</td>
 									
 									<td v-else-if="column.key === 'customer_editable' " class="editable" :data-content="$t(`assign_product.product_table.${column.key}`)">
 										<div class="md:min-w-[40px] sm:text-center"> 
@@ -373,6 +386,7 @@ const tableColumns = ref([
 	{ name: "QTY for Campaign", key: "assign_qty" },
 	{ name: "Max QTY/Order", key: "max_order_amount" },
     { name: "Price", key: "price" },
+	{ name: "Oversell", key: "oversell" },
 	{ name: "Editable", key: "customer_editable" },
 	{ name: "Deletable", key: "customer_removable" },
 	{ name: "Category", key: "category" },
@@ -438,6 +452,7 @@ const getProductCategory=()=>{list_product_category().then(res => { productCateg
 const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id).then(res=>{campaignProductOrderCodeDict.value = res.data})}
 
 const updateStockProducts = ()=>{
+	console.log('selected',selectedProductDict.value)
     stockProducts.value.forEach((product,stockProductIndex) => {
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
@@ -494,8 +509,6 @@ const checkIfValid = ()=>{
 }
 
 
-
-
 watch(computed(()=>stockProducts.value),updateStockProducts)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
@@ -514,8 +527,9 @@ watch(computed(()=>stockProducts.value),checkSelectAll,{deep:true})
 
 
 const stockProductRemovable = (product_index, event)=>{if(event.target.checked)stockProducts.value[product_index].customer_editable=true}
-const selectedProductRemovable = (product_index, event)=>{if(event.target.checked)selectedProducts.value[product_index].customer_editable=true}
 const stockProductEditable = (product_index, event)=>{if(!event.target.checked)stockProducts.value[product_index].customer_removable=false}
+
+const selectedProductRemovable = (product_index, event)=>{if(event.target.checked)selectedProducts.value[product_index].customer_editable=true}
 const selectedProductEditable = (product_index, event)=>{if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false}
 
 const updateSelectedProductDict = ()=>{
@@ -529,6 +543,7 @@ const selectStockProduct = (stockProduct, event) =>{
     if(event.target.checked){
 		stockProduct.customer_editable=true
 		stockProduct.customer_removable=true
+		stockProduct.oversell=true
         errorMessages.value.push({})
         selectedProducts.value.push( stockProduct )
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
@@ -537,6 +552,7 @@ const selectStockProduct = (stockProduct, event) =>{
 		stockProduct.check = true
 		stockProduct.customer_editable=true
 		stockProduct.customer_removable=true
+		stockProduct.oversell=true
 		selectedProducts.value.indexOf(stockProduct) === -1 ? selectedProducts.value.push( stockProduct ) : '';
 		errorMessages.value.push({})
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1
@@ -544,6 +560,7 @@ const selectStockProduct = (stockProduct, event) =>{
         const _index = selectedProductDict.value[stockProduct.id.toString()]
         stockProduct.customer_editable=false
 		stockProduct.customer_removable=false
+		stockProduct.oversell=false
         selectedProducts.value.splice(_index,1)
         errorMessages.value.splice(_index,1)
         updateSelectedProductDict()
@@ -577,6 +594,7 @@ const selectAllStockProduct = (event)=>{
 				product.check=true
 				product.customer_editable=true
 				product.customer_removable=true
+				product.oversell=true
 				selectedProducts.value.push(product)
 				selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
 				errorMessages.value.push({})
@@ -588,6 +606,7 @@ const selectAllStockProduct = (event)=>{
 				product.check=false
 				product.customer_editable=false
 				product.customer_removable=false
+				product.oversell=false
 				const _index = selectedProductDict.value[product.id.toString()]
 				// console.log(_index)
 				selectedProducts.value.splice(_index,1)
@@ -605,6 +624,7 @@ const search = () => {
 	.then(response => {
 		dataCount.value = response.data.count
 		stockProducts.value = response.data.results
+		console.log(stockProducts.value = response.data.results)
 		// proudct type 預設 product
 		let emptyType = ['', null, undefined]
 		Object.entries(stockProducts.value).forEach((product) => {
@@ -636,6 +656,7 @@ const submitData = ()=>{
         layoutStore.alert.showMessageToast(i18n.global.t('assign_product.invalid'))
         return
     }
+	console.log(selectedProducts.value)
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
 		if(props.templateInModal){
 			campaignDetailStore.campaignProducts = res.data

@@ -38,7 +38,7 @@
         <div class="w-[100%] sm:w-1/2">
             <PriceSummary 
                 :order_type="route.query.type" 
-                :decimal_places="user_store.userInfo.user_subscription.decimal_places" />
+                :decimal_places="layoutStore.userInfo.user_subscription.decimal_places" />
         </div>
         <!-- Price Summary End -->
     </div>
@@ -136,7 +136,7 @@ import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute()
 const store = useSellerOrderStore()
-const user_store = useLSSSellerLayoutStore()
+const layoutStore = useLSSSellerLayoutStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus
 
@@ -150,7 +150,7 @@ onMounted(()=>{
 
 
     if (route.query.type === 'pre_order'){
-        seller_retrieve_pre_order(route.params.order_id)
+        seller_retrieve_pre_order(route.params.order_id, layoutStore.alert)
         .then(
             res => { store.orderDetail = res.data
                     //  console.log(store.orderDetail) 
@@ -164,7 +164,7 @@ onMounted(()=>{
             }
         )
     }else{
-        seller_retrieve_order(route.params.order_id)
+        seller_retrieve_order(route.params.order_id, layoutStore.alert)
         .then(
             res => { store.orderDetail = res.data
                     // console.log(store.orderDetail)

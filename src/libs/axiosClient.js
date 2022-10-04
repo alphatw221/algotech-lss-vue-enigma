@@ -19,6 +19,7 @@ const vueLangToBrowserLang = ref({
 var timer1 = null
 var timer2 = null
 var counter = 0
+var errorAlreadyShown = false
 // let axiosClient = axios.create({
 //     // baseURL: process.env.BACKEND_URL,
 //     // // 跨域請求set-cookie
@@ -234,6 +235,58 @@ export function createAxiosWithBearerWithoutInterceptor(){
     })
 }
 
+
+export function createAxios(toastify){
+
+    const headers = {}
+    if(cookies.get("access_token")) headers.Authorization = `Bearer ${cookies.get("access_token")}`
+    const axiosInstance = axios.create({
+        baseURL: import.meta.env.VITE_APP_ROOT_API,
+        headers: headers,
+    })
+
+
+
+    if(!toastify){
+        toastify = useLSSSellerLayoutStore().alert != undefined ? useLSSSellerLayoutStore().alert: useLSSDealerLayoutStore().alert != undefined ? useLSSDealerLayoutStore().alert : useLSSBuyerLayoutStore().alert != undefined ? useLSSBuyerLayoutStore().alert: usePublicLayoutStore().alert != undefined ? usePublicLayoutStore().alert: undefined
+    }
+
+    if(!toastify) axiosInstance
+
+    axiosInstance.interceptors.response.use(
+        response => response,
+        error => {
+            
+            if (error.response?.data?.code){
+                if(error.response.data.code === "token_not_valid") {
+
+                    if(errorAlreadyShown) return
+                    errorAlreadyShown = true
+                    console.log('token_not_valid')
+                    toastify.showMessageToast(i18n.global.t(`error_messages.token_not_valid`))
+
+                    if (timer1) clearTimeout(timer1)
+                    timer1 = setTimeout(() => {window.location.reload()}, 4000)
+                    
+                } else {
+                    console.log(error.response.data.code)
+                    toastify.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
+                }
+            } else if (error.response?.data?.message){
+                console.log(error.response.data.message)
+                toastify.showMessageToast(i18n.global.t(error.response.data.message))
+            } else{
+                toastify.showMessageToast('error_messages.please_refresh_page')
+            }
+            return Promise.reject(error);
+        }
+    );
+    return axiosInstance
+}
+
+
+
+
 export function facebookAxios(accessToken){
     const axiosInstance = axios.create({
         baseURL: import.meta.env.VITE_FACEBOOK_API_URL_V13,
@@ -256,6 +309,7 @@ export function facebookAxios(accessToken){
     // );
     return axiosInstance
 }
+
 
 export function instagramAxios(accessToken){
     const axiosInstance = axios.create({

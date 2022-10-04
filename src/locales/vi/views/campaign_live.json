@@ -42,6 +42,7 @@
             "Product":"Sản phẩm",
             "order_code":"Mã đơn hàng",
             "price":"Giá",
+            "overbook":"overbid",
             "activate":"Kích hoạt",
             "qty":"Số lượng",
             "stock_qty":"Số lượng tồn kho",

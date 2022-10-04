@@ -20,6 +20,7 @@
         "customer_removable":"允许顾客删除",
         "edit":"编辑",
         "delete":"删除",
+        "oversell":"允许超卖",
         "types":{
             "product":"商品",
             "product-fast":"商品",
@@ -43,6 +44,7 @@
         "price":"价格",
         "customer_editable":"允许顾客修改",
         "customer_removable":"允许顾客删除",
+        "oversell":"允许超卖",
 
         "cancel":"取消",
         "update":"更新",

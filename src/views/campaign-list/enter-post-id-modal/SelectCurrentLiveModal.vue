@@ -23,11 +23,8 @@
                 <span class="col-span-6 text-lg content-center">
                   {{ live.title }}
                 </span>
-                <template v-if="live.page_id && live.post_id">
-                  <iframe style="z-index: 0"
-                      :src="`https://www.facebook.com/plugins/video.php?allowfullscreen=true&autoplay=true&href=https%3A%2F%2Fwww.facebook.com%2F${live.page_id}%2Fvideos%2F${live.post_id}%2F&width=auto`" 
-                          scrolling="no" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                  </iframe> 
+                <template v-if="live.embed_html">
+                  <div v-html="live.embed_html" style="z-index: 0"></div>
                 </template>
                 <template v-else-if="live.image">
                   <img
@@ -67,8 +64,7 @@ onMounted(()=>{
       if(payload.platform=='facebook'){
         get_fb_page_live_media(payloadBuffer.page.page_id, payloadBuffer.page.token)
         .then((response) => {
-
-          const live_campaign = response.data.data.filter(v => (v.properties === undefined) && (v.attachments.data[0].media_type === "video"))
+          const live_campaign = response.data.data.filter(v => v.status === "LIVE")
           if (!live_campaign.length) {
               layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_facebook_post'))
               return
@@ -76,20 +72,18 @@ onMounted(()=>{
 
           let currentLiveItems = []
           live_campaign.forEach(v => {
-            let page_id = v.id.split("_")[0]
-            let post_id = v.id.split("_")[1]
             currentLiveItems.push({
-              id: post_id,
-              title: v.attachments.data[0].title?v.attachments.data[0].title:"",
+              id: v.video.id,
+              title: v.title?v.title:"",
               image: null,
               video_url: null,
-              page_id: page_id,
-              post_id: post_id
+              embed_html: v.embed_html,
             })
           });
           liveItems.value = currentLiveItems
           show.value = true
         }).catch(err=>{
+          console.log(err.response.data.error.message)
           layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_page'))
         })
       }else if(payload.platform=='youtube'){
@@ -111,8 +105,7 @@ onMounted(()=>{
                 title: v.snippet.title,
                 image: v.snippet.thumbnails.standard.url,
                 video_url: null,
-                page_id: null,
-                post_id: null
+                embed_html: null,
               })
             });
             liveItems.value = currentLiveItems
@@ -138,8 +131,7 @@ onMounted(()=>{
                 title: v.username,
                 image: v.media_url,
                 video_url: null,
-                page_id: null,
-                post_id: null
+                embed_html: null,
               })
             });
             liveItems.value = currentLiveItems

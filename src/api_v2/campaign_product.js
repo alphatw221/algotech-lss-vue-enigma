@@ -1,21 +1,13 @@
-import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
+import { axiosInstance, createAxiosWithBearer, createAxios } from "@/libs/axiosClient";
 
-// -------------guest------------------
 
-export const guest_list_campapign_product = (pre_order_oid) => {
-    return axiosInstance.get(`/api/v2/campaign-product/guest/list/?pre_order_oid=${pre_order_oid}`)
-}
-
-export const guest_cart_list = (pre_order_oid) => {
-    return axiosInstance.get(`/api/v2/campaign-product/guest/cart/list/?pre_order_oid=${pre_order_oid}`)
-}
 // -------------buyer------------------
-export const buyer_list_campapign_product = (pre_order_oid) => {
-    return createAxiosWithBearer().get(`/api/v2/campaign-product/buyer/list/?pre_order_oid=${pre_order_oid}`)
+export const buyer_list_campapign_product = (pre_order_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign-product/buyer/list/?pre_order_oid=${pre_order_oid}`)
 }
 
-export const buyer_cart_list = (pre_order_oid) => {
-    return createAxiosWithBearer().get(`/api/v2/campaign-product/buyer/cart/list/?pre_order_oid=${pre_order_oid}`)
+export const buyer_cart_list = (pre_order_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign-product/buyer/cart/list/?pre_order_oid=${pre_order_oid}`)
 }
 
 // -------------seller------------------
@@ -42,6 +34,10 @@ export const seller_update_campaign_product = (campaign_product_id, data) => {
 
 export const seller_toggle_campaign_product_status = (campaign_product_id) => {
     return createAxiosWithBearer().put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/status/`)
+}
+
+export const seller_toggle_campaign_product_overbook = (campaign_product_id) => {
+    return createAxiosWithBearer().put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/overbook/`)
 }
 
 export const seller_list_campaign_products = (order_id) => {

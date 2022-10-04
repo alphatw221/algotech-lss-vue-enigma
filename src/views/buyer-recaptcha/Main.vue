@@ -48,7 +48,7 @@ onMounted(()=>{
         const type = route.params.type
         const object_id = route.params.object_id
         if(type=='blank'){
-            buyer_create_blank_cart(object_id, cookies.get('login_with')).then(res=>{
+            buyer_create_blank_cart(object_id, cookies.get('login_with'), buyerStore.alert).then(res=>{
                 router.push(`/buyer/cart/${res.data.pre_order_oid}`)
             })
         }else{

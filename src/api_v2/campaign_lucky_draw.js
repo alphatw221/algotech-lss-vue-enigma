@@ -1,4 +1,4 @@
-import { createAxiosWithBearer , Paginator, createAxiosWithBearerWithoutInterceptor} from "@/libs/axiosClient";
+import { createAxiosWithBearer , Paginator, createAxiosWithBearerWithoutInterceptor, createAxios} from "@/libs/axiosClient";
 
 
 export const list_campaign_lucky_draw = (campaign_id) => {
