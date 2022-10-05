@@ -155,12 +155,11 @@
                                 {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                             </div>
                     </div>
-                    <div v-if="store.order.meta?.['shopify']"
-                        class="flex col-start-1 col-span-3 p-2 py-1">
+                    <div v-if="store.order.tax" class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.tax')}}</div>
                         <div> 
                             {{store.order.campaign.currency}}
-                            {{(Math.floor(parseFloat(store.order.meta.shopify.total_tax) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{(Math.floor(parseFloat(store.order.tax) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
