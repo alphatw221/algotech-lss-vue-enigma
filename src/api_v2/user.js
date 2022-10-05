@@ -1,4 +1,4 @@
-import { createAxios } from "@/libs/axiosClient";
+import { createAxios, createAxiosWithoutInterceptor } from "@/libs/axiosClient";
 
 
 export const buyer_login_with_facebook = (data, toastify=null) =>{
@@ -25,8 +25,8 @@ export const seller_login_with_google = (data, toastify=null) =>{
     return createAxios(toastify).post(`/api/v2/user/seller/login/google/`,data);
 }
 
-export const get_seller_account = (toastify=null) =>{
-    return createAxios(toastify).get(`/api/v2/user/seller/account/`);
+export const get_seller_account = () =>{
+    return createAxiosWithoutInterceptor().get(`/api/v2/user/seller/account/`);
 }
 
 export const seller_change_password = (data, toastify=null) => {
@@ -57,9 +57,7 @@ export const user_register_with_ecpay = (countryCode,data, toastify=null) =>{
     return createAxios(toastify).post(`/api/v2/user/register/${countryCode}/ecpay/`,data);
 }
 
-export const admin_login = (data, toastify=null) => {
-    return createAxios(toastify).post(`/api/v2/user/admin/login/`,data);
-};
+
 
 export const dealer_login = (data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/user/dealer/login/`,data);
@@ -67,4 +65,17 @@ export const dealer_login = (data, toastify=null) => {
 
 export const dealer_verify_code = (data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/user/dealer/verify_code/`,data);
+};
+
+
+
+
+
+//--------------------------------------admin------------------------------------------
+export const get_admin_account = () =>{
+    return createAxiosWithoutInterceptor().get(`/api/v2/user/admin/account/`);
+}
+
+export const admin_login = (data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/user/admin/login/`,data);
 };
