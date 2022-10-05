@@ -228,8 +228,7 @@ import { ref, onMounted, computed, provide, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
-import { required, integer, maxLength, decimal, minValue} from "@vuelidate/validators";
-import { helpers } from '@vuelidate/validators'
+import { required, integer, maxLength, decimal, minValue, helpers} from "@vuelidate/validators";
 import i18n from "@/locales/i18n"
 import ItemDescriptionModal from '../shoppingcart/modals/ItemDescriptionModal.vue'
 import ConversationModalVue from '../../components/campaign/modals/ConversationModal.vue';
