@@ -1,7 +1,6 @@
 <template>
     <div class="" :class="{ hidden: layout.profileTab !== 1, block: layout.profileTab === 1 }">
         <div 
-            v-show="!layout.editProfile" 
             class="flex flex-col sm:flex-row"
         >
             <!-- <div class="flex flex-col spx-5 items-center justify-center sm:m-10 sm:m-12">
@@ -35,8 +34,14 @@
                     {{ layout.userInfo.phone }}
                 </div> -->
             </div>
+            <div class="ml-auto my-auto">
+                <button class="text-white capitalize btn btn-elevated-success whitespace-nowrap" @click="toggle()">
+                Create Accounts
+                </button>
+            </div>
         </div>
         <SubscriptionTab class="border-t-2 " />
+        <CreateAccounts :showModal="createAccountsModal" /> 
             <!-- <EditProfile /> -->
     </div>
 </template>
@@ -44,13 +49,13 @@
 <script setup>
 import { computed, onMounted, ref,} from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
-import EditProfile from "./EditProfile.vue"; 
 import dom from "@left4code/tw-starter/dist/js/dom";
 import SubscriptionTab from "./SubscriptionTab.vue"; 
-
+import CreateAccounts from "./CreateAccounts.vue"; 
 
 const layout = useLSSSellerLayoutStore();
 const editModal = ref(false);
+const createAccountsModal = ref(false);
 
 
 const userAvatar = computed(() => {
@@ -65,4 +70,7 @@ const userAvatar = computed(() => {
     return layout.userInfo.google_info.picture
 });
 
+const toggle=()=>{
+    createAccountsModal.value = !createAccountsModal.value
+}
 </script>
