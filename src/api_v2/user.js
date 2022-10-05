@@ -79,3 +79,7 @@ export const get_admin_account = () =>{
 export const admin_login = (data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/user/admin/login/`,data);
 };
+
+export const admin_import_account = (data) => {
+    return createAxiosWithoutInterceptor().post(`/api/v2/user/admin/import/`,data);
+};
