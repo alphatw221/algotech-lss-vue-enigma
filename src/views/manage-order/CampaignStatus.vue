@@ -132,7 +132,8 @@
 <script setup>
 import { ref, provide, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { campaign_manage_order } from "@/api/manage_order";
+
+import { get_campaign_statistics } from "@/api_v2/campaign"
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 const route = useRoute();
 const store = useManageOrderStore()
@@ -151,7 +152,7 @@ const manageOrderStatus = ref({
         })
 
 onMounted(()=>{
-    campaign_manage_order(route.params.campaign_id).then(
+    get_campaign_statistics(route.params.campaign_id).then(
         res =>{
             manageOrderStatus.value = res.data
             // console.log(manageOrderStatus.value)

@@ -83,7 +83,9 @@ import { required, minLength, maxLength } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import i18n from "@/locales/i18n"
 
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
+const layoutStore = useLSSSellerLayoutStore()
 const route = useRoute()
 const router = useRouter()
 const directPaymentImages = ref([])
@@ -149,7 +151,7 @@ const createCampaign = ()=>{
 	});
 
 
-	create_campaign(formData).then(response => {
+	create_campaign(formData, layoutStore.alert).then(response => {
 		// console.log(response.data)
 		router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
 	})

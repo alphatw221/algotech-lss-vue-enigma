@@ -81,7 +81,7 @@ onMounted(() => {
 })
 
 const list = () => {
-    list_product_category().then(
+    list_product_category(layoutStore.alert).then(
         response => {
             listItems.value = response.data;
         }
@@ -96,7 +96,7 @@ function update(){
     if (duplicateName.value === false) {
         if (editType.value == 'create') {
             let data = { 'category_name': categoryName.value }
-            create_product_category(data).then(
+            create_product_category(data, layoutStore.alert).then(
                 response => {
                     showModal.value = false;
                     saved.value = true;
@@ -105,7 +105,7 @@ function update(){
             )
         } else if (editType.value == 'update') {
             let data = { 'category_name': categoryName.value }
-            update_product_category(oldCategory.value, data).then(
+            update_product_category(oldCategory.value, data, layoutStore.alert).then(
                 response => {
                     showModal.value = false;
                     saved.value = true;
@@ -130,7 +130,7 @@ const showEditModal = item=>{
 
 function deleteCategory(name) {
     let yes = confirm(`${i18n.global.t('stock.category_manage.confirm_delete')}`)
-    if (yes) delete_product_category(name).then(res => { list() } )
+    if (yes) delete_product_category(name, layoutStore.alert).then(res => { list() } )
     hideDropDown()
 }
 

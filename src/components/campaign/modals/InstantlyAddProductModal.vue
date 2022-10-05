@@ -99,7 +99,7 @@ const addProduct = ref({
 })
 
 const list = () => {
-    list_product_category().then(
+    list_product_category(layoutStore.alert).then(
         response => {
             categoryList.value = response.data;
         }
@@ -107,7 +107,7 @@ const list = () => {
 }
 
 const addtoCampaign =()=>{
-    fast_add_product(campaign_id,addProduct.value ).then(
+    fast_add_product(campaign_id,addProduct.value , layoutStore.alert).then(
         response =>{
             // console.log(response.data);
             store.campaignProducts.push(response.data)

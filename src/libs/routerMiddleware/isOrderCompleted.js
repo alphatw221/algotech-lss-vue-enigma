@@ -10,7 +10,7 @@ export default async (to, from)=>{
     // if (cartStore.order.id == parseInt(order_id) && cartStore.order.status == 'complete') return `/buyer/order/${order_id}`
     // else if (cartStore.order.id == parseInt(order_id) && cartStore.order.status == 'review') return true
 
-    // const retrieve_order_state=cookies.get("login_with")=='anonymousUser'?guest_retrieve_order_state:buyer_retrieve_order_state
+
     const response = await buyer_retrieve_order_state(order_oid)
     if (response.data == 'complete') {
         console.log('complete')

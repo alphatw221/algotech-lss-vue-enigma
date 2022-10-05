@@ -292,7 +292,7 @@ const createDiscountCode=()=>{
         return
     }
 
-    create_discount_code(discountCode.value).then(res=>{
+    create_discount_code(discountCode.value, layoutStore.alert).then(res=>{
         // console.log(res.data)
         eventBus.emit('createDiscountCode',res.data)
         layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.create_success'))
@@ -301,7 +301,7 @@ const createDiscountCode=()=>{
 }
 
 const updateDiscountCode = ()=>{
-    update_discount_code(discountCode.value.id,discountCode.value).then(res=>{
+    update_discount_code(discountCode.value.id,discountCode.value, layoutStore.alert).then(res=>{
         limitationErr.value = false
         keyArray.value=[]
         discountCode.value.limitations.forEach((limit,index) =>{ keyArray.value.splice(index,limit.key)} )

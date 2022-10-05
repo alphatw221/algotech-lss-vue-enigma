@@ -117,7 +117,7 @@ onUnmounted(()=>{
     
 
 const getNestComment = ()=>{
-    nest_comment(route.params.campaign_id, comment.value.id).then((response)=>{
+    nest_comment(route.params.campaign_id, comment.value.id, layoutStore.alert).then((response)=>{
         nestComments.value = response.data[1].data   //facebook_api
         // console.log(response.data)
     })
@@ -130,7 +130,7 @@ const loopNestComment = ()=>{
 }
 
 const send = ()=>{
-    comment_on_comment(route.params.campaign_id, comment.value.id, message.value).then((res) => {
+    comment_on_comment(route.params.campaign_id, comment.value.id, message.value, layoutStore.alert).then((res) => {
         message.value=''
         loopNestComment()
     })

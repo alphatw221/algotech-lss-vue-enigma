@@ -54,7 +54,7 @@ let webSocket = null
 
 onMounted(()=>{
     initWebSocketConnection()
-    retrieve_campaign(route.params.campaign_id).then(res=>{
+    retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
 		campaignDetailStore.campaign = res.data
         console.log(res.data.end_at)
         let now = new Date()

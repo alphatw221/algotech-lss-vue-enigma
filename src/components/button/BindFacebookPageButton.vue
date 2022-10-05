@@ -12,7 +12,7 @@
 
 <script setup>
 import loadScript from '@/libs/loadScript.js';
-import { check_activated_platform } from '@/api/user_subscription'
+
 import { conforms } from 'lodash';
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
 const internalInstance = getCurrentInstance()

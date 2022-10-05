@@ -138,7 +138,7 @@
     
     let PagesData = ref([])
     onMounted(() => {
-        get_user_subscription_facebook_pages().then(res=>{
+        get_user_subscription_facebook_pages(layoutStore.alert).then(res=>{
             PagesData.value = res.data
             return get_user_subscription_instagram_profiles()
         }).then(res=>{

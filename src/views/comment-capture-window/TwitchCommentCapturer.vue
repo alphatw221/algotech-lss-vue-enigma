@@ -43,7 +43,7 @@ const checkBuffer = ()=>{
 
 const checkCampaignExists = () => {
     console.log('check twitch finished')
-    retrieve_campaign(campaignId.value).then(res=>{
+    retrieve_campaign(campaignId.value, sellerStore.alert).then(res=>{
         const end_date = new Date(res.data.end_at).getTime()
         const now_date = new Date().getTime()
         if (end_date < now_date) sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name = null

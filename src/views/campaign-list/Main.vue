@@ -97,7 +97,9 @@ import { ref, watch, computed, getCurrentInstance, onMounted} from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSCampaignListStore } from "@/stores/lss-campaign-list";
 import { retrieve_campaign } from "@/api_v2/campaign"
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
+const sellerStore = useLSSSellerLayoutStore();
 const store = useLSSCampaignListStore();
 const route = useRoute();
 const router = useRouter();
@@ -127,7 +129,7 @@ const tableColumns = ref([
 onMounted(()=>{
   if(route.query.type){
     if (route.query.type == 'startCampaign' && route.query.campaign != '' && route.query.campaign != undefined ) {
-      retrieve_campaign(route.query.campaign).then((res) => {
+      retrieve_campaign(route.query.campaign, sellerStore.alert).then((res) => {
         openCampaign.value = res.data
         // console.log('openCamp',openCampaign.value)
         if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== '' || openCampaign.value.twitch_campaign.channel_name !== '' || openCampaign.value.tiktok_campaign.username !== '') {
@@ -144,7 +146,7 @@ onMounted(()=>{
 watch(computed(()=>route.query.type), () => {
   if(route.query.type){
     if (route.query.type == 'startCampaign') {
-      retrieve_campaign(route.query.campaign).then((res) => {
+      retrieve_campaign(route.query.campaign, sellerStore.alert).then((res) => {
         openCampaign.value = res.data
         // console.log(openCampaign.value)
         if (openCampaign.value.facebook_campaign.post_id !== '' || openCampaign.value.instagram_campaign.live_media_id !== '' || openCampaign.value.youtube_campaign.live_video_id !== ''|| openCampaign.value.twitch_campaign.channel_name !== '' || openCampaign.value.tiktok_campaign.username !== '') {

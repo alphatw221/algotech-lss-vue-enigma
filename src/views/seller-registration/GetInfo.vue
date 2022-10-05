@@ -253,7 +253,7 @@ const getPrice = ref({
     price: ""
 })
 onBeforeMount(()=>{
-    get_subscription_plan(route.query.country).then(res=>{
+    get_subscription_plan(route.query.country, layoutStore.alert).then(res=>{
         getPrice.value = res.data
         // console.log(getPrice.value)
     })

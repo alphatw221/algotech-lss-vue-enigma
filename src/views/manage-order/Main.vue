@@ -88,7 +88,7 @@
 </template>
 
 <script setup>
-// import {campaign_comment_summarize} from '@/api/user';
+
 import ManageOrderTable  from "./ManageOrderTable.vue";
 import CampaignStatus from "./CampaignStatus.vue";
 import SearchBar from "./SearchBar.vue";
@@ -131,14 +131,14 @@ onUnmounted(()=>{
 })
 
 function stop_checkout(){
-    toggle_stop_checkout(route.params.campaign_id).then(res=>{
+    toggle_stop_checkout(route.params.campaign_id, layout.alert).then(res=>{
         store.campaign = res.data
         layout.notification.showMessageToast(`${i18n.global.t('manage_order.update_successed')}`);
     }) 
 }
 
 function getCampaignInfo(){
-    retrieve_campaign(route.params.campaign_id).then(res=>{
+    retrieve_campaign(route.params.campaign_id, layout.alert).then(res=>{
         store.campaign = res.data
     })
 }

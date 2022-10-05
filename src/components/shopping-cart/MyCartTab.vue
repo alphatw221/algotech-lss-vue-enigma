@@ -32,12 +32,15 @@ import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { buyer_retrieve_pre_order } from "@/api_v2/pre_order";
 
 import { useRoute, useRouter } from "vue-router";
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
+
+const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
 const store = useShoppingCartStore(); 
 
 
 onMounted(()=>{
-    buyer_retrieve_pre_order(route.params.pre_order_id)
+    buyer_retrieve_pre_order(route.params.pre_order_id, layoutStore.alert)
     .then(
         res => { store.order = res.data }
     )

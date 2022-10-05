@@ -30,7 +30,10 @@ import { useRoute, useRouter } from "vue-router";
 import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
+
+const layoutStore = useLSSSellerLayoutStore()
 const route = useRoute();
 const router = useRouter();
 const store = useCampaignDetailStore()
@@ -42,7 +45,7 @@ const categorySelection = ref([])
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 onMounted(() => {
-   list_product_category().then(response => {
+   list_product_category(layoutStore.alert).then(response => {
         categorySelection.value = response.data
     }) 
 })
@@ -53,28 +56,5 @@ const search = () => {
 }
 
 
-// export default {
-//     data() {
-//         return {
-//             page: 1,
-//             pageSize: 10,
-//             searchColumn: 'name',
-//             filterColumn: undefined,
-//             categorySelection: []
-//         }
-//     },
-//     mounted() {
-        
-//         list_product_category().then(response => {
-//             this.categorySelection = response.data
-//         })
-//     },
-//     methods: {
-//         search() {
-//             this.eventBus.emit("addProducts")
-//             this.eventBus.emit("assignTable", { filterColumn: this.filterColumn })
-//         },
-       
-//     }
-// }
+
 </script>

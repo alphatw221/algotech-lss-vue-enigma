@@ -168,7 +168,7 @@ const getPrice = ref({
     price: ""
 })
 onMounted(()=>{
-    get_subscription_plan(layout.userInfo.user_subscription.country).then(res=>{
+    get_subscription_plan(layout.userInfo.user_subscription.country, layout.alert).then(res=>{
         getPrice.value = res.data
     })
     const today = new Date();

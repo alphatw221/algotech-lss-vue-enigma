@@ -131,7 +131,7 @@ const clean =() =>{
 }
 
 const save = ()=>{
-    seller_update_subscription(data.value).then(res=>{
+    seller_update_subscription(data.value, layoutStore.alert).then(res=>{
         // console.log(res)
         layoutStore.userInfo = res.data
         i18n.global.locale.value = res.data.lang

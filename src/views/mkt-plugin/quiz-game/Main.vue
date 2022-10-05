@@ -34,7 +34,9 @@ import QuizCreate from './QuizCreate.vue';
 import QuizList from './QuizList.vue';
 import { list_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
 import { retrieve_campaign } from '@/api_v2/campaign';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
+const layoutStore = useLSSSellerLayoutStore()
 const route = useRoute()
 const router = useRouter()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus
@@ -45,7 +47,7 @@ const campaignTitle = ref('')
 
 
 onMounted(() => {
-    retrieve_campaign(route.params.campaign_id).then(res => { campaignTitle.value = res.data.title })
+    retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res => { campaignTitle.value = res.data.title })
     listQuizGame()
 
     eventBus.on('changePage', () => { showQuizList.value = !showQuizList.value })
@@ -58,7 +60,7 @@ onUnmounted(() => {
 })
 
 const listQuizGame = () => {
-    list_campaign_quiz_game(route.params.campaign_id).then(res => {
+    list_campaign_quiz_game(route.params.campaign_id, layoutStore.alert).then(res => {
         // console.log(res.data)
         if (Object.entries(res.data).length > 0) {
             quizgameList.value = res.data

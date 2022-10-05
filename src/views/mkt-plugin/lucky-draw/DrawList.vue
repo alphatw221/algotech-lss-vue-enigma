@@ -97,7 +97,7 @@ import instagram_platform from '/src/assets/images/lss-img/instagram.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 import i18n from "@/locales/i18n"
 import SimpleIcon from '../../../global-components/lss-svg-icons/SimpleIcon.vue';
-
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 const props = defineProps({
     luckydrawList: Object,
     campaignTitle: String,
@@ -107,6 +107,7 @@ const route = useRoute();
 const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
+const layoutStore = useLSSSellerLayoutStore();
 const drawTitleMap = ref({
     like: "Draw Like",
     purchase: "Draw Purchased",
@@ -125,7 +126,7 @@ const toManageOrder = ()=>{
 
 const goDraw = (lucky_draw_id) => {
     // need fix
-    draw_campaign_lucky_draw_check(lucky_draw_id).then(res=>{
+    draw_campaign_lucky_draw_check(lucky_draw_id, layoutStore.alert).then(res=>{
         let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id}, query: {language: i18n.global.locale.value} })
         window.open(routeData.href, '_blank')
     })
@@ -142,7 +143,7 @@ const deleteDraw = (lucky_draw_id) => {
     hideDropDown()
     let yes = confirm(`${i18n.global.t("lucky_draw.draw_list.confirm_delete")}`)
     if(yes){
-        delete_campaign_lucky_draw(lucky_draw_id).then(res => {
+        delete_campaign_lucky_draw(lucky_draw_id, layoutStore.alert).then(res => {
         router.go()
         }).catch(err => {
             console.log(err)
