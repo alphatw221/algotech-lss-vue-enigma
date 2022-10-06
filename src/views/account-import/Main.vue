@@ -15,13 +15,13 @@
                     paramName:file,
                     addRemoveLinks: true,
                     autoProcessQueue: false,
-                    acceptedFiles: 'text/csv,application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                    acceptedFiles: 'application/vnd.ms-excel,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
                 }" class="dropzone rounded-lg">
                 <div class="flex flex-col"> 
                     <div class="text-lg font-medium">
                         Drop files here or click to upload.
                     </div>
-                    <span> File types: csv,excel</span>
+                    <span> File types: excel</span>
                     <div class="text-gray-600">  Max size：256MB </div>  
                 </div>
             </Dropzone>
@@ -72,9 +72,6 @@ provide("bind[dropzoneFile]", (el) => {
 const submitFile = ()=>{
     processing.value = true
     startWebSocketConnection(true)
-
-    // processing.value = false
-
 }
 
 
@@ -87,7 +84,7 @@ const startWebSocketConnection =(init)=> {
         const data = JSON.parse(e.data);
         console.log(data)
 
-        if(data.type==="response_data" && init){
+        if(data.type==="room_data" && init){
             const formData = new FormData()
             formData.append('file', dropzoneFile.value.dropzone.getAcceptedFiles()[0])
             formData.append('room_id',data.room_id)
@@ -99,7 +96,32 @@ const startWebSocketConnection =(init)=> {
             })
         } 
 
-        if(data.type==="result_data"){
+        else if(data.type==="complete_data"){
+            console.log(data)
+            // if(data.data.result=='complete'){
+            //     location.reload()
+            // }else{
+            //     store.alert.showMessageToast('export_fail, please try again or contect support team.')
+            // }
+            // processing.value = false
+            layoutStore.notification.showMessageToast(``)
+            websocket.close(1000);
+        } 
+
+        else if(data.type==="error_data"){
+            console.log(data)
+            layoutStore.notification
+            // if(data.data.result=='complete'){
+            //     location.reload()
+            // }else{
+            //     store.alert.showMessageToast('export_fail, please try again or contect support team.')
+            // }
+            // processing.value = false
+            // websocket.close(1000);
+        } 
+
+        else if(data.type==="success_data"){
+            console.log(data)
             // if(data.data.result=='complete'){
             //     location.reload()
             // }else{
