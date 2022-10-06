@@ -127,6 +127,9 @@ const toManageOrder = ()=>{
 const goDraw = (lucky_draw_id) => {
     // need fix
     draw_campaign_lucky_draw_check(lucky_draw_id, layoutStore.alert).then(res=>{
+        if (res.data.type === "sharedpost") {
+            draw_start_sharedpost_crawler(lucky_draw_id)
+        }
         let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id}, query: {language: i18n.global.locale.value} })
         window.open(routeData.href, '_blank')
     })
