@@ -89,7 +89,7 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
-import { delete_campaign_lucky_draw, list_campaign_lucky_draw_winners, draw_campaign_lucky_draw_check } from '@/api_v2/campaign_lucky_draw';
+import { delete_campaign_lucky_draw, list_campaign_lucky_draw_winners, draw_campaign_lucky_draw_check, draw_start_sharedpost_crawler } from '@/api_v2/campaign_lucky_draw';
 import WinnersModal from './WinnersModal.vue';
 import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
