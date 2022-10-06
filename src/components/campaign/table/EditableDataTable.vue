@@ -215,9 +215,9 @@
 </template>
 
 <script setup>
-import { createAxiosWithBearer } from '@/libs/axiosClient'
+
 import { seller_create_campaign_products, seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
-import { list_product_category, list_product } from '@/api_v2/product';
+import { list_product_category, search_product } from '@/api_v2/product';
 import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -267,7 +267,7 @@ const productDict = {}
 
 
 onMounted(() => {
-	list_product_category().then(
+	list_product_category(layoutStore.alert).then(
 		res => { 
 			res.data.forEach(category => {
 				productCategories.value.push({value:category, name:category})
@@ -340,7 +340,18 @@ const search = () => {
 	campaignDetailStore.campaignProducts.forEach(campaignProduct => {
 		if(campaignProduct.product)productDict[campaignProduct.product.toString()]=true
 	});
-	list_product(pageSize.value, currentPage.value, '', '', 'enabled', selectedCategory.value, Object.keys(productDict).join(','))
+	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
+	search_product(
+		_pageSize=pageSize.value, 
+		_currentPage=currentPage.value, 
+		_searchColumn='', 
+		_keyword='', 
+		_productStatus='enabled',
+		_productType='', 
+		_category=selectedCategory.value, 
+		_exclude=Object.keys(productDict).join(','),
+		_sortBy='', 
+		_toastify=layoutStore.alert)
 	.then(response => {
 		stockProducts.value = response.data.results
 		dataCount.value = response.data.count
@@ -364,7 +375,7 @@ const changePageSize = (pageSize)=>{
 const submitData = ()=>{
 	console.log(selectedProducts.value)
 	errorMessages.value = []
-	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value).then(res=>{
+	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value, layoutStore.alert).then(res=>{
 		campaignDetailStore.campaignProducts = res.data
 
 	}).catch(errors=>{

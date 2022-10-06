@@ -64,11 +64,6 @@ export default {
   mounted() {
 		
 		
-		// createAxiosWithBearer().get('/api/user-subscription/buyer/list?page=1&page_size=5&search_column=shipping_email&keyword=qq').then(response => {
-		// 	console.log(response);
-		// }).catch(function (error) {
-		// 	console.log(error);
-		// })
 	},
   methods: {
       status_change(status){

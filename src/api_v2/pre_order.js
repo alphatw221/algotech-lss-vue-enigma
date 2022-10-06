@@ -1,9 +1,9 @@
-import { axiosInstance, createAxiosWithBearer, createAxios } from "@/libs/axiosClient";
+import { createAxios } from "@/libs/axiosClient";
 
 //-------------------------------guest----------------------------------
 
-export const guest_create_blank_cart = (campaign_id, recaptcha_token, client_uuid) => {
-    return createAxiosWithBearer().get(`/api/v2/pre_order/${campaign_id}/guest/create/?recaptcha_token=${recaptcha_token}&client_uuid=${client_uuid}`,
+export const guest_create_blank_cart = (campaign_id, recaptcha_token, client_uuid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/pre_order/${campaign_id}/guest/create/?recaptcha_token=${recaptcha_token}&client_uuid=${client_uuid}`,
     null,
     {withCredentials:true})
 }
@@ -53,4 +53,12 @@ export const get_pre_order_oid = (pre_order_id, toastify=null) => {
 
 export const seller_cart_add = (pre_order_id, campaign_product_id, qty, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/pre_order/${pre_order_id}/seller/add/?campaign_product_id=${campaign_product_id}&qty=${qty}`)
+}
+
+export const seller_list_pre_order = (campaign_id, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/pre_order/seller/list/?campaign_id=${campaign_id}`)
+}
+
+export const seller_search_pre_order = (campaign_id, search, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/pre_order/seller/search/?campaign_id=${campaign_id}&search=${search}`)
 }

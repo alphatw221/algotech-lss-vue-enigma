@@ -24,10 +24,14 @@
 <script setup>
 
 import BindFacebookPageButton from '@/components/button/BindFacebookPageButton.vue'
-// import { get_user_subscription_facebook_pages, bind_user_facebook_pages, unbind_facebook_page } from '@/api/user_subscription'
+
 
 import { get_platform_instances, unbind_platform_instance, bind_platform_instances } from '@/api_v2/user_subscription'
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+
+
+const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
@@ -49,7 +53,7 @@ onUnmounted(()=>{
 })
 
 const get_facebook_pages = () => {
-    get_platform_instances('facebook').then(res=>{
+    get_platform_instances('facebook', layoutStore.alert).then(res=>{
          if (!res.data.length) {
             showConnectButton.value = true;
             return false
@@ -71,7 +75,7 @@ const get_facebook_pages = () => {
 
 const bind_facebook_pages = (accessToken) => {
     fetchingData.value = true
-    bind_platform_instances('facebook', {'accessToken': accessToken}).then(res=>{
+    bind_platform_instances('facebook', {'accessToken': accessToken}, layoutStore.alert).then(res=>{
          if (!res.data.length) {
             return false
         }
@@ -98,7 +102,7 @@ const removeFacebookPage = (facebookPage) => {
     if (!facebookPage) {
         return false
     }
-    unbind_platform_instance('facebook', facebookPage.id).then(response=> {
+    unbind_platform_instance('facebook', facebookPage.id, layoutStore.alert).then(response=> {
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;

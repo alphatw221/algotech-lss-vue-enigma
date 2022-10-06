@@ -57,7 +57,7 @@ onUnmounted(()=>{
 })
 
 const add_to_wishlist = ()=>{
-    wish_list_add(productID.value, email.value).then(
+    wish_list_add(productID.value, email.value, layoutStore.alert).then(
         res => {
             layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.wishlist_success'))
             showWishlist.value = false

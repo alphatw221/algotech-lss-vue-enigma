@@ -126,7 +126,8 @@
 
 </template>
 <script setup>
-import { list_campaign_product } from '@/api/campaign_product';
+
+import { seller_list_campaign_product } from '@/api_v2/campaign_product';
 import { seller_toggle_campaign_product_status, seller_toggle_campaign_product_overbook } from '@/api_v2/campaign_product';
 // import AddProductFromStock from './modals/AddProductFromStockModal.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
@@ -155,9 +156,8 @@ const product_columns = [
 
 
 onMounted(() => {
-        list_campaign_product(route.params.campaign_id).then(res => {
+        seller_list_campaign_product(route.params.campaign_id, 'all', layout.alert).then(res => {
             store.campaignProducts = res.data
-            console.log(store.campaignProducts)
         })
     }
 )

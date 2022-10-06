@@ -214,7 +214,7 @@ const changePageSize = page_size=> {
 }
 
 const getScheduleCamp =()=>{
-	list_scheduled_campaign_options().then(res=>{
+	list_scheduled_campaign_options(layoutStore.alert).then(res=>{
         scheduledCamapign.value= res.data
     })
 }
@@ -222,7 +222,7 @@ const getScheduleCamp =()=>{
 const listDiscountCodes=()=> {
 	discountCodes.value = []
 	showLoadingIcon.value = true
-	list_discount_code(pageSize.value, currentPage.value)
+	list_discount_code(pageSize.value, currentPage.value, layoutStore.alert)
 	.then((res) => {
 		totalCount.value = res.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
@@ -246,7 +246,7 @@ const deleteDiscountCode = (discountCode, discountCodeIndex)=> {
 	// console.log(discountCodeIndex)
 
 	hideDropDown()
-	delete_discount_code(discountCode.id)
+	delete_discount_code(discountCode.id, layoutStore.alert)
 		.then(res =>{
 			layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.deleted_message'));
 			// discountCodes.value.splice(discountCodeIndex,1)

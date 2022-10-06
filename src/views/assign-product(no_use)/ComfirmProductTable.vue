@@ -252,7 +252,7 @@ onMounted(() => {
             assignedProducts[i]['max_order_amount'] = parseInt(assignedProducts[i]['max_order_amount'])
         }
 
-        seller_bulk_create_campaign_products(route.params.campaign_id, assignedProducts)
+        seller_bulk_create_campaign_products(route.params.campaign_id, assignedProducts, layoutStore.alert)
         .then(response => {
             router.push({ name: 'campaign-list' })
         }).catch(error => {

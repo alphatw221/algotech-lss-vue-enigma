@@ -252,7 +252,7 @@ const updateDirectPayment = () => {
 		formData.append(key,image)
 	});
     // console.log(directPaymentImages)
-    seller_update_payment(props.payment.key,formData).then(res=>{
+    seller_update_payment(props.payment.key,formData, sellerStore.alert).then(res=>{
         sellerStore.userInfo = res.data
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })

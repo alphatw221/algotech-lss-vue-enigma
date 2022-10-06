@@ -152,7 +152,7 @@
         <div class="mr-auto">{{$t('order_detail.price_summary.tax')}}</div>
         <div class="font-medium"> 
           {{store.orderDetail.campaign.currency}}
-          {{(Math.floor(parseFloat(store.orderDetail.meta.shopify.total_tax) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(store.orderDetail.tax) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
           {{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
         </div>
       </div>

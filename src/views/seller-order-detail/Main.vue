@@ -127,7 +127,7 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 import PriceSummary from "./PriceSummary.vue"
 import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
-import { seller_list_campaign_product} from "@/api_v2/campaign_product";
+import { seller_search_campaign_product} from "@/api_v2/campaign_product";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_order } from "@/api_v2/order";
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
@@ -157,7 +157,7 @@ onMounted(()=>{
                     //  show_adjust_price() 
             }
         )
-        seller_list_campaign_product(route.params.campaign_id,'',1,9999,'product').then(
+        seller_search_campaign_product(route.params.campaign_id,'',1,9999,'product',layoutStore.alert).then(
             res=>{
                 store.campaignProducts = res.data.results
                 // console.log(store.campaignProducts)
@@ -177,41 +177,9 @@ onMounted(()=>{
 
 })
 
-// function get_order(){
-//     if (route.query.type === 'pre_order'){
-//         seller_retrieve_pre_order(route.params.order_id)
-//         .then(
-//             res => { store.orderDetail = res.data
-//                     //  console.log(store.orderDetail) 
-//                     //  show_adjust_price() 
-//             }
-//         )
-//         seller_list_campaign_product(route.params.campaign_id,'',1,9999,'product').then(
-//             res=>{
-//                 store.campaignProducts = res.data.results
-//                 console.log(store.campaignProducts)
-//             }
-//         )
-//     }else{
-//         seller_retrieve_order(route.params.order_id)
-//         .then(
-//             res => { store.orderDetail = res.data
-//                     // console.log(store.orderDetail)
-//                     // store.modify_status = '+'
-//             }
-//         )
-//     }
-// }
 
-// function show_adjust_price(){
-//     if( store.orderDetail.adjust_price < 0 ){
-//         store.modify_status = '-'
-//         store.orderDetail.adjust_price = Math.abs(store.orderDetail.adjust_price)
-//     }else{
-//         store.modify_status = '+'
-//     }
-// }
-// </script>
+
+</script>
 
 
 <style scoped>

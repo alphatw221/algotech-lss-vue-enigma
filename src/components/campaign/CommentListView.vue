@@ -116,7 +116,7 @@
 <script setup>
 import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstance, watch, computed} from 'vue'
 import { createCommentPaginator } from '@/api_v2/campaign_comment'
-import { get_summerize_comments } from "@/api/campaign_comment"
+
 import { useRoute, useRouter } from "vue-router"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'

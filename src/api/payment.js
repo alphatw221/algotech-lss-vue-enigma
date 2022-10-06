@@ -1,6 +1,6 @@
-import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
+import { createAxios } from "@/libs/axiosClient";
 
 
-export const get_payment_meta = () => {
-    return createAxiosWithBearer().get('api/payment/meta/subscribed_country_payment')
+export const get_payment_meta = (toastify=null) => {
+    return createAxios(toastify).get('api/payment/meta/subscribed_country_payment')
 }

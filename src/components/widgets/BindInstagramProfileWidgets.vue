@@ -23,10 +23,14 @@
 <script setup>
 
 import BindInstagramProfileButton from '@/components/button/BindInstagramProfileButton.vue'
-// import { get_user_subscription_instagram_profiles, bind_user_instagram_profiles, unbind_instagram_profile } from '@/api/user_subscription'
+
 
 import { get_platform_instances, unbind_platform_instance, bind_platform_instances } from '@/api_v2/user_subscription'
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+
+
+const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
@@ -46,7 +50,7 @@ onUnmounted(()=>{
 })
    
 const get_instagram_profiles = () => {
-    get_platform_instances('instagram').then(response=>{
+    get_platform_instances('instagram', layoutStore.alert).then(response=>{
         if (!response.data.length) {
             showConnectButton.value = true;
             return false
@@ -68,7 +72,7 @@ const get_instagram_profiles = () => {
 
 const bind_instagram_profiles = (accessToken) => {
     fetchingData.value=true
-    bind_platform_instances('instagram',{'accessToken': accessToken}).then(response=>{
+    bind_platform_instances('instagram',{'accessToken': accessToken}, layoutStore.alert).then(response=>{
         if (!response.data.length) {
             return false
         }
@@ -97,7 +101,7 @@ const removeInstagramProfiles = (instagramProfile) => {
     if (!instagramProfile) {
         return false
     }
-    unbind_platform_instance('instagram', instagramProfile.id).then(response=> {
+    unbind_platform_instance('instagram', instagramProfile.id, layoutStore.alert).then(response=> {
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
