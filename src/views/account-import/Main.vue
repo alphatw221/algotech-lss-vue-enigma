@@ -1,6 +1,6 @@
 <template>   
     <div class="flex flex-row justify-between w-full">
-        <p class="font-medium text-base mr-auto">
+        <p class="font-medium text-base mr-auto my-2">
                 Create Accounts by Uplaod excel file
         </p>
     </div> 
@@ -82,7 +82,6 @@ const startWebSocketConnection =(init)=> {
 
     websocket.onmessage = e =>{
         const data = JSON.parse(e.data);
-        console.log(data)
 
         if(data.type==="room_data" && init){
             const formData = new FormData()
@@ -104,13 +103,13 @@ const startWebSocketConnection =(init)=> {
             //     store.alert.showMessageToast('export_fail, please try again or contect support team.')
             // }
             // processing.value = false
-            layoutStore.notification.showMessageToast(``)
+            layoutStore.notification.showMessageToast(`${data.data?.detail}`)
             websocket.close(1000);
         } 
 
         else if(data.type==="error_data"){
             console.log(data)
-            layoutStore.notification
+            layoutStore.alert.showMessageToast(`error:${data.data?.detail}`)
             // if(data.data.result=='complete'){
             //     location.reload()
             // }else{
@@ -122,6 +121,7 @@ const startWebSocketConnection =(init)=> {
 
         else if(data.type==="success_data"){
             console.log(data)
+            layoutStore.notification.showMessageToast(`success:${data.data?.username}`)
             // if(data.data.result=='complete'){
             //     location.reload()
             // }else{
