@@ -4,7 +4,7 @@
         id='comment-capturing-window' 
         @mousedown="startDrag($event)"
         @mouseup="endDrag()"
-        class="fixed bg-[#141414]/95 w-fit block top-20 left-10 z-[50] w-[200px] h-[35px]"
+        class="fixed bg-[#141414]/95 w-fit block top-20 left-10 z-[51] w-[200px] h-[35px]"
         v-if="sellerStore.commentCapturingCampaignData.twitch_campaign?.channel_name || sellerStore.commentCapturingCampaignData.tiktok_campaign?.username">
         <DropdownToggle class="flex justify-between w-full h-full px-2 text-white">
                 <label class="font-medium my-auto" > Capture Status</label>
