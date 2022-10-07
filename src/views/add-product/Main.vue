@@ -222,7 +222,7 @@
 </template>
 
 <script setup>
-import { createAxiosWithBearer } from '@/libs/axiosClient'
+
 import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
 import { ref, onMounted, computed, provide, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from "vue-router";
@@ -292,12 +292,12 @@ const formData = new FormData()
 const validate = useVuelidate(rules, product);
 
 onMounted(()=>{
-	list_product_category().then(res => { 
+	list_product_category(layoutStore.alert).then(res => { 
 		categorySelection.value = res.data
 		categorySelection.value.unshift('uncategory')
 	})
 	if (route.params.product_id) {
-		retrieve_product(route.params.product_id)
+		retrieve_product(route.params.product_id, layoutStore.alert)
 		.then(
 			res => {
 				product.value = res.data
@@ -336,7 +336,7 @@ const submit = ()=>{
 			
 		
 		formData.append('data', JSON.stringify(product.value))
-		update_product(route.params.product_id, formData)
+		update_product(route.params.product_id, formData, layoutStore.alert)
 		.then(
 			response => {
 				// console.log('image upload response > ', response)
@@ -349,7 +349,7 @@ const submit = ()=>{
 		formData.append('image', dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] || '._no_image')
 		formData.append('data', JSON.stringify(product.value))
 		// formData.append('image', )
-		create_product(formData)
+		create_product(formData, layoutStore.alert)
 		.then(
 			response => {
 				layoutStore.notification.showMessageToast(i18n.global.t('stock.add_product_page.create_message')),

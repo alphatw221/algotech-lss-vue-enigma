@@ -23,11 +23,15 @@
 <script setup>
 
 import BindYoutubeChannelButton from '@/components/button/BindYoutubeChannelButton.vue'
-import { get_user_subscription_youtube_channels, bind_user_youtube_channels, unbind_youtube_channel } from '@/api/user_subscription'
+
 
 
 import { get_platform_instances, unbind_platform_instance, bind_platform_instances } from '@/api_v2/user_subscription'
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+
+
+const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
@@ -48,7 +52,7 @@ onUnmounted(() => {
 
 const get_youtube_channels = () => {
 
-    get_platform_instances('youtube').then(response=>{
+    get_platform_instances('youtube', layoutStore.alert).then(response=>{
         if (!response.data.length) {
             showConnectButton.value = true;
             return false
@@ -61,7 +65,7 @@ const get_youtube_channels = () => {
 
 const bind_youtube_channels = (code) => {
     fetchingData.value=true
-    bind_platform_instances('youtube',{'code':code}).then(response=>{
+    bind_platform_instances('youtube',{'code':code}, layoutStore.alert).then(response=>{
         if (!response.data.length) {
             return false
         }
@@ -81,7 +85,7 @@ const removeYoutubeChannel = (channel) => {
     if (!channel) {
         return false
     }
-    unbind_platform_instance('youtube',channel.id).then(response=> {
+    unbind_platform_instance('youtube',channel.id, layoutStore.alert).then(response=> {
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;

@@ -101,7 +101,7 @@ const authorize = ()=>{
     } 
 
     //
-    exchange_easy_store_credential(authorizeData.value).then(res=>{
+    exchange_easy_store_credential(authorizeData.value, layoutStore.alert).then(res=>{
         router.push({name:'login-page'})
     })
 }

@@ -1,5 +1,5 @@
 import { io } from "socket.io-client";
-import { createAxiosWithBearer, createAxiosWithBearerWithoutInterceptor } from '@/libs/axiosClient';
+import { createAxiosWithoutInterceptor } from '@/libs/axiosClient';
 
 const backendUrl = "https://tiktok-chat-reader.zerody.one/"
 class TikTokIOConnector {
@@ -98,5 +98,5 @@ export const create_tiktok_connector = (username, messageHandler, errorHandler) 
 
 
 export const upload_tiktok_comments = (campaign_id, data) => {
-    return createAxiosWithBearerWithoutInterceptor().post(`/api/v2/tiktok/comment/process/${campaign_id}/`, data)
+    return createAxiosWithoutInterceptor().post(`/api/v2/tiktok/comment/process/${campaign_id}/`, data)
 }

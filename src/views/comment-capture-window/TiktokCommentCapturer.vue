@@ -40,7 +40,7 @@ const uploadComments = ()=>{
 
 
 const checkBuffer = ()=>{
-    console.log('check buffer')
+    // console.log('check buffer')
     if(tiktok_comments.value.length==0)return
     uploadComments()
 }

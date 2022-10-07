@@ -178,7 +178,7 @@ const cartTotal = ref(0)
 const showModal = ref(false)
 
 const updateOrderSummary = ()=>{
-
+  console.log('update')
   let is_subtotal_over_free_delivery_threshold=false
   let is_items_over_free_delivery_threshold=false
 
@@ -193,23 +193,19 @@ const updateOrderSummary = ()=>{
       const meta_logistic = store.order?.campaign?.meta_logistic
 
       shippingCost.value = Number(meta_logistic.delivery_charge || 0)
-      // delivery_charge = Number(delivery_charge)
 
       is_subtotal_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_order_above_price ? store.order.subtotal >= meta_logistic.free_delivery_for_order_above_price : false
       is_items_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_how_many_order_minimum ? store.order.products.length >= meta_logistic.free_delivery_for_how_many_order_minimum : false
       
 
       if(typeof store.shipping_info.shipping_option_index=='number'){
-        if (meta_logistic.shipping_option_data.type== '+'){
-          shippingCost.value += Number(meta_logistic.shipping_option_data.price)
+        if (meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index].type== '+'){
+          shippingCost.value += Number(meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index].price)
         }
-        else if(meta_logistic.shipping_option_data.type == '='){
-          shippingCost.value =  Number(meta_logistic.shipping_option_data.price)
+        else if(meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index].type == '='){
+          shippingCost.value =  Number(meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index].price)
         }
       }
-
-      // if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
-      // shippingCost.value = delivery_charge
 
     }
     
@@ -230,54 +226,6 @@ const updateOrderSummary = ()=>{
   total += store.order.adjust_price
 
   cartTotal.value = Math.max(total, 0)
-
-
-
-
-
-    // if (store.shipping_info.shipping_method=='pickup'){
-    //   shippingCost.value = 0
-    //   cartTotal.value = Math.floor(parseFloat(store.order.subtotal + store.order.adjust_price - store.order.discount ) * (10 ** store.order.campaign.decimal_places)) / (10 ** store.order.campaign.decimal_places)
-    //   return
-    // }
-
-    // const campaign = store.order.campaign||null
-    // if (!campaign) return
-    
-    // const meta_logistic = campaign.meta_logistic || null
-    // if (!meta_logistic) return
-
-    // let delivery_charge = meta_logistic.delivery_charge || 0
-    // delivery_charge = Number(delivery_charge)
-
-    // // const delivery_titles = meta_logistic.additional_delivery_charge_title || null
-    // // const delivery_types = meta_logistic.additional_delivery_charge_type || null
-    // // const delivery_prices = meta_logistic.additional_delivery_charge_price || null
-
-
-    // // const free_delivery_for_order_above_price = meta_logistic.is_free_delivery_for_order_above_price == 1 ? meta_logistic.free_delivery_for_order_above_price : 0
-    // // const free_delivery_for_how_many_order_minimum = meta_logistic.is_free_delivery_for_how_many_order_minimum == 1 ? meta_logistic.free_delivery_for_how_many_order_minimum : 0
-
-    // const is_subtotal_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_order_above_price ? store.order.subtotal >= meta_logistic.free_delivery_for_order_above_price : false
-    // const is_items_over_free_delivery_threshold = meta_logistic.is_free_delivery_for_how_many_order_minimum ? store.order.products.length >= meta_logistic.free_delivery_for_how_many_order_minimum : false
-
-    // // let index = meta_logistic.additional_delivery_options.findIndex(option=> option.title == store.shipping_info.shipping_option)
-    // if ( !['',null,undefined].includes(store.shipping_info.shipping_option_index) && meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index] ){      
-    //   const option = meta_logistic.additional_delivery_options[store.shipping_info.shipping_option_index]
-    //   // const index = delivery_titles.indexOf(store.shipping_info.shipping_option)
-
-    //   if (option.type== '+'){
-    //     delivery_charge += Number(option.price)
-    //   }
-    //   else if(option.type == '='){
-    //     delivery_charge =  Number(option.price)
-    //   }
-    // }
-
-    // if (store.order.free_delivery || is_subtotal_over_free_delivery_threshold || is_items_over_free_delivery_threshold) delivery_charge = 0
-        
-    // shippingCost.value = delivery_charge
-    // cartTotal.value = store.order.subtotal + store.order.adjust_price - store.order.discount + delivery_charge 
 }
 
 watch(
@@ -299,7 +247,7 @@ const promoCheck =()=>{
   if (layoutStore.userInfo && Object.keys(layoutStore.userInfo).length === 0 && Object.getPrototypeOf(layoutStore.userInfo) === Object.prototype) {
       showModal.value = true
   } else {
-      buyer_apply_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }).then(
+      buyer_apply_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }, layoutStore.alert).then(
         res=>{
           store.order = res.data
           discount_code.value = ''
@@ -312,7 +260,7 @@ const showLoginModal = () => {
 }
 
 const promoDelete =()=>{
-  buyer_cancel_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }).then(
+  buyer_cancel_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }, layoutStore.alert).then(
     res=>{
       store.order = res.data
       discount_code.value = ''
@@ -327,7 +275,7 @@ const copyURL = (code)=>{
 
 const toNext=()=>{
   if (store.user_subscription?.user_plan?.plugins?.shopify) {
-      get_shopify_checkout_url(route.params.pre_order_oid).then(res=>{
+      get_shopify_checkout_url(route.params.pre_order_oid, layoutStore.alert).then(res=>{
           window.location.href = res.data
       })
   } else {

@@ -25,7 +25,10 @@
 import { ref, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
 import { get_platform_instances, unbind_platform_instance, bind_platform_instances } from '@/api_v2/user_subscription'
 import BindTiktokAccountButton from '@/components/button/BindTiktokAccountButton.vue'
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
+
+const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
@@ -48,7 +51,7 @@ onUnmounted(() => {
 })
 
 const get_tiktok_accounts = () => {
-    get_platform_instances('tiktok').then(response=>{
+    get_platform_instances('tiktok', layoutStore.alert).then(response=>{
         if (!response.data.length) {
             showConnectButton.value = true;
             return false
@@ -61,7 +64,7 @@ const get_tiktok_accounts = () => {
 
 const bind_tiktok_accounts = (authCode) => {
     fetchingData.value = true
-    bind_platform_instances('tiktok', {'auth_code': authCode}).then(res=>{
+    bind_platform_instances('tiktok', {'auth_code': authCode}, layoutStore.alert).then(res=>{
          if (!res.data.length) {
             return false
         }
@@ -76,7 +79,7 @@ const removeTiktokAccount = (channel) => {
     if (!channel) {
         return false
     }
-    unbind_platform_instance('tiktok', channel.id).then(response=> {
+    unbind_platform_instance('tiktok', channel.id, layoutStore.alert).then(response=> {
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;

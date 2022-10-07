@@ -155,12 +155,11 @@
                                 {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                             </div>
                     </div>
-                    <div v-if="store.order.meta?.['shopify']"
-                        class="flex col-start-1 col-span-3 p-2 py-1">
+                    <div v-if="store.order.tax" class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.tax')}}</div>
                         <div> 
                             {{store.order.campaign.currency}}
-                            {{(Math.floor(parseFloat(store.order.meta.shopify.total_tax) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{(Math.floor(parseFloat(store.order.tax) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
@@ -184,10 +183,13 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
-import { buyer_retrieve_order_with_user_subscription, guest_retrieve_order_with_user_subscription } from "@/api_v2/order";
+import { buyer_retrieve_order_with_user_subscription } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useCookies } from 'vue3-cookies'
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+
+const layoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const { cookies } = useCookies()
 const route = useRoute();
@@ -195,10 +197,10 @@ const router = useRouter();
 
 const store = useLSSBuyerOrderStore(); 
 
-const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
+
 onMounted(() => {
-    const retrieve_order = isAnonymousUser?guest_retrieve_order_with_user_subscription:buyer_retrieve_order_with_user_subscription
-    retrieve_order(route.params.order_oid)
+
+    buyer_retrieve_order_with_user_subscription(route.params.order_oid, layoutStore.alert)
     .then(
         res => { 
             store.order = res.data

@@ -91,11 +91,11 @@
                                 {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </div>
                         </div>
-                        <div v-if="store.orderProductData.meta?.['shopify']" class="flex col-start-1 col-span-3 p-2">
+                        <div v-if="store.orderProductData.tax" class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('order_detail.price_summary.tax')}}</div>
                             <div class="lg:mr-0"> 
                                 {{store.orderProductData.campaign.currency}}
-                                {{(Math.floor(parseFloat(store.orderProductData.meta.shopify.total_tax) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{(Math.floor(parseFloat(store.orderProductData.tax) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places).toLocaleString('en-GB')}}
                                 {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
                             </div>
                         </div>
@@ -143,13 +143,13 @@ onMounted(()=>{
 
 function get_data(id,type){
     if (type === 'pre_order'){
-        seller_retrieve_pre_order(id)
+        seller_retrieve_pre_order(id, layoutStore.alert)
         .then(res => { 
             store.orderProductData = res.data
             console.log(store.orderProductData)
         })
     }else{
-        seller_retrieve_order(id)
+        seller_retrieve_order(id, layoutStore.alert)
         .then(
             res => { store.orderProductData = res.data}
         )

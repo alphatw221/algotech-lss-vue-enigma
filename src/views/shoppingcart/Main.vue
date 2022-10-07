@@ -80,10 +80,10 @@ import ItemDescriptionModal from "./modals/ItemDescriptionModal.vue";
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
-import { buyer_list_campapign_product, buyer_cart_list, guest_list_campapign_product, guest_cart_list } from "@/api_v2/campaign_product";
+import { buyer_list_campapign_product, buyer_cart_list } from "@/api_v2/campaign_product";
 import { search_discount_code } from "@/api_v2/discount_code"
 
-import { buyer_retrieve_pre_order, guest_retrieve_pre_order } from "@/api_v2/pre_order";
+import { buyer_retrieve_pre_order } from "@/api_v2/pre_order";
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies"
 const route = useRoute();
@@ -101,8 +101,7 @@ const toggleTabs = tabNumber => {
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 onMounted(()=>{
   if(route.query.tab == 2) store.openTab = 2
-  const retrieve_pre_order= isAnonymousUser?guest_retrieve_pre_order:buyer_retrieve_pre_order
-  retrieve_pre_order(route.params.pre_order_oid).then(
+  buyer_retrieve_pre_order(route.params.pre_order_oid, buyerLayoutStore.alert).then(
       res => { 
         store.order = res.data;
         console.log(store.order)
@@ -112,21 +111,21 @@ onMounted(()=>{
       }
   )
 
-  const list_campapign_product = isAnonymousUser?guest_list_campapign_product:buyer_list_campapign_product
-	list_campapign_product(route.params.pre_order_oid).then(
+
+	buyer_list_campapign_product(route.params.pre_order_oid, buyerLayoutStore.alert).then(
 		res => {
 			store.campaignProducts = res.data     
       });
 
-  search_discount_code(route.params.pre_order_oid,'cart_referal').then(
+  search_discount_code(route.params.pre_order_oid,'cart_referal', buyerLayoutStore.alert).then(
     res=>{
       store.referalCodes = res.data
     }
     )}
 )
 
-  const cart_list = isAnonymousUser?guest_cart_list:buyer_cart_list
-	cart_list(route.params.pre_order_oid).then(
+
+	buyer_cart_list(route.params.pre_order_oid, buyerLayoutStore.alert).then(
 		res => {
       res.data.forEach(element => {
         store.cartProducts[element.id] = element

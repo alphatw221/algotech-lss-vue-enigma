@@ -73,7 +73,7 @@
 
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue'
-import { createAxiosWithBearer } from "@/libs/axiosClient";
+
 import SearchBar from "./SearchBar.vue";
 import DataTable from "./DataTable.vue";
 import { useRoute, useRouter } from "vue-router"
@@ -117,7 +117,7 @@ const toggleTabs = (tabNumber) =>{
 }
 
 onMounted(() => {
-	list_product_category().then(
+	list_product_category(store.alert).then(
 		response => { 
 			response.data.forEach(category => {
 				productCategories.value.push({text: category, value: category})

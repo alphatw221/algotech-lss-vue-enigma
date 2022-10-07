@@ -20,6 +20,7 @@
         "customer_removable":"Có thể xóa",
         "edit":"Chỉnh sửa",
         "delete":"Xóa",
+        "oversell":"bán số lượng cao hơn",
         "types":{
             "product":"Sản phẩm",
             "product-fast":"Sản phẩm",
@@ -43,6 +44,7 @@
         "price":"Giá bán",
         "customer_editable":"Có thể chỉnh sửa",
         "customer_removable":"Có thể xóa",
+        "oversell":"bán số lượng cao hơn",
 
         "cancel":"Hủy bỏ",
         "update":"Cập nhật",

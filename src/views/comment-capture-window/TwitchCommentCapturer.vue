@@ -36,14 +36,14 @@ const uploadComments = () => {
 }
 
 const checkBuffer = ()=>{
-    console.log('check buffer')
+    // console.log('check buffer')
     if (twitchCommentList.value.length==0) return
     uploadComments()
 }
 
 const checkCampaignExists = () => {
     console.log('check twitch finished')
-    retrieve_campaign(campaignId.value).then(res=>{
+    retrieve_campaign(campaignId.value, sellerStore.alert).then(res=>{
         const end_date = new Date(res.data.end_at).getTime()
         const now_date = new Date().getTime()
         if (end_date < now_date) sellerStore.commentCapturingCampaignData.twitch_campaign.channel_name = null

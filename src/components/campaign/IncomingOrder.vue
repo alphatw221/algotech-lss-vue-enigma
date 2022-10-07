@@ -106,7 +106,8 @@
 </template>
 
 <script setup>
-import {list_campaign_pre_order} from '@/api/campaign_pre_order';
+
+import { seller_list_pre_order } from '@/api_v2/pre_order'
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted, onUnmounted, ref, getCurrentInstance, computed, watch } from "vue";
@@ -130,7 +131,7 @@ const incoming_order_columns= [
 
 onMounted(()=>{
     store.incomingOrdersDict = {}
-    list_campaign_pre_order(route.params.campaign_id).then(res => {
+    seller_list_pre_order(route.params.campaign_id).then(res => {
         res.data.forEach(pre_order => {
             store.incomingOrdersDict[pre_order.id]=pre_order
         });

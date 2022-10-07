@@ -54,7 +54,7 @@ let webSocket = null
 
 onMounted(()=>{
     initWebSocketConnection()
-    retrieve_campaign(route.params.campaign_id).then(res=>{
+    retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
 		campaignDetailStore.campaign = res.data
         console.log(res.data.end_at)
         let now = new Date()
@@ -77,8 +77,8 @@ const initWebSocketConnection=()=>{
     );
     webSocket.onmessage = e => {
         const message = JSON.parse(e.data);
-        console.log(message)
-        handleSocketMessage(message)
+        // console.log(message)
+        // handleSocketMessage(message)
     };
     webSocket.onopen = e => {
         console.log('connected')

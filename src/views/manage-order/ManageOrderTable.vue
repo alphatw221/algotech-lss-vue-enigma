@@ -249,7 +249,7 @@ onUnmounted(()=>{
 
 const search = () => {
     filterData.value['sort_by'] = sortBy.value
-    manage_order_list(route.params.campaign_id, keyword.value, page.value, page_size.value, props.tableStatus, filterData.value).then(
+    manage_order_list(route.params.campaign_id, keyword.value, page.value, page_size.value, props.tableStatus, filterData.value, layoutStore.alert).then(
         res => {
 			store[props.tableStatus] = res.data.data
             store.data_count[props.tableStatus] = res.data.count;
@@ -280,7 +280,7 @@ const orderProductModal = (id,type) => {
     store.orderProductModal = !store.orderProductModal
 }
 const shipping_out = (order_id,index) => {
-    seller_shipping_out(order_id).then(
+    seller_shipping_out(order_id, layoutStore.alert).then(
         res=>{
             store[props.tableStatus][index].status = 'shipping out'
         }
@@ -289,7 +289,7 @@ const shipping_out = (order_id,index) => {
 }
 const copyURL = (order_id,type) => {
     if(type === 'order'){
-        get_order_oid(order_id).then(
+        get_order_oid(order_id, layoutStore.alert).then(
             res =>{
             text = `${baseURL}/buyer/order/${res.data}`;
             navigator.clipboard.writeText(text).then(()=>{
@@ -298,7 +298,7 @@ const copyURL = (order_id,type) => {
         }
         )
     }else{ 
-        get_pre_order_oid(order_id).then(
+        get_pre_order_oid(order_id, layoutStore.alert).then(
             res =>{
             text = `${baseURL}/buyer/cart/${res.data}`;
             navigator.clipboard.writeText(text).then(()=>{

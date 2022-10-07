@@ -92,7 +92,7 @@ onMounted(()=>{
         igPageId.value = campaignDetailStore.campaign.instagram_profile.business_id
         igUserId.value = comment.value.customer_id
         connectedFbPageId.value = campaignDetailStore.campaign.instagram_profile.connected_facebook_page_id
-        retrieve_instagram_profile(campaignDetailStore.campaign.instagram_profile.id).then(res=>{
+        retrieve_instagram_profile(campaignDetailStore.campaign.instagram_profile.id, layoutStore.alert).then(res=>{
             pageToken = res.data.token
             return loopGetDirectMessageConversation(pageToken, 5000)
         }).catch(err=>{
@@ -107,7 +107,7 @@ onUnmounted(()=>{
 })
 
 const send = ()=>{
-    reply_to_direct_message(connectedFbPageId.value, igUserId.value, message.value, pageToken).then(res=>{
+    reply_to_direct_message(connectedFbPageId.value, igUserId.value, message.value, pageToken, layoutStore.alert).then(res=>{
         message.value=''
         layoutStore.notification.showMessageToast(i18n.global.t('campaign_live.conversation.send_successfully'))
     }).catch(err=>{

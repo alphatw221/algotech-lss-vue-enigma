@@ -138,7 +138,7 @@
     
     let PagesData = ref([])
     onMounted(() => {
-        get_user_subscription_facebook_pages().then(res=>{
+        get_user_subscription_facebook_pages(layoutStore.alert).then(res=>{
             PagesData.value = res.data
             return get_user_subscription_instagram_profiles()
         }).then(res=>{
@@ -183,7 +183,7 @@
             layoutStore.alert.showMessageToast(i18n.global.t('auto_reply.invalid_data'))
             return
         } else {
-            create_auto_response(keyinInfo.value).then(response => {
+            create_auto_response(keyinInfo.value, layoutStore.alert).then(response => {
                 showModal.value = false
                 PagesData.value.forEach(value =>{
                     for(let i=0; i< response.data.length; i++){
@@ -205,7 +205,7 @@
     }
 
     function updateAutoReply(keyinInfo) {
-        update_auto_response(keyinInfo.id, keyinInfo).then((response) => {
+        update_auto_response(keyinInfo.id, keyinInfo, layoutStore.alert).then((response) => {
             eventBus.emit('getUpdateReplyData',response.data)
             showModal.value = false;
         });
