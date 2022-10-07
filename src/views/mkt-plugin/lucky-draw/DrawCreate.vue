@@ -245,7 +245,8 @@
 <script setup>
 import { ref, watch, onMounted, onUnmounted, computed, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
-import { list_campaign_product } from '@/api/campaign_product';
+
+import { seller_list_campaign_product } from '@/api_v2/campaign_product'
 import { create_campapign_lucky_draw, list_campapign_lucky_draw_animation, retrieve_campaign_lucky_draw, update_campaign_lucky_draw } from '@/api_v2/campaign_lucky_draw';
 import { upload_animation } from '@/api_v2/user_subscription';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
@@ -314,9 +315,9 @@ onMounted(() => {
     eventBus.on('editDraw', (payload) => {
         type.value = 'edit'
         luckyDrawId.value = payload.lucky_draw_id
-        retrieve_campaign_lucky_draw(luckyDrawId.value).then(res => {
+        retrieve_campaign_lucky_draw(luckyDrawId.value, layoutStore.alert).then(res => {
             currentSettings.value = res.data
-            currentSettings.value.campaign_product = res.data.campaign_product.id
+            currentSettings.value.campaign_product = res.data.campaign_product?.id
             currentSettings.value.path = res.data.animation
         })
     })
@@ -329,7 +330,7 @@ onUnmounted(() => {
 watch(computed(()=>detailStore.campaignProducts), () => { listProductPrize() })
 
 const listAnimation = () => {
-    list_campapign_lucky_draw_animation().then(res => {
+    list_campapign_lucky_draw_animation(layoutStore.alert).then(res => {
         animationList.value = res.data
     })
 }
@@ -337,7 +338,7 @@ const listAnimation = () => {
 const listProductPrize = () => {
     prizeList.value = []
     productList.value = []
-    list_campaign_product(route.params.campaign_id).then(res => {
+    seller_list_campaign_product(route.params.campaign_id, 'all' , layoutStore.alert).then(res => {
         for (let i =0; i < res.data.length; i++) {
             if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
             else productList.value.push(res.data[i])
@@ -355,7 +356,7 @@ const upsert = () => {
     } else {
         drawCondition.value = false 
     }
-    console.log(currentSettings.value)
+    // console.log(currentSettings.value)
     validate.value.$touch();
     if (validate.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.invalid_data'))
@@ -364,12 +365,12 @@ const upsert = () => {
     formData.append('data', JSON.stringify(currentSettings.value))
 
     if (type.value == 'create') {
-        create_campapign_lucky_draw(route.params.campaign_id, formData).then(res => {
+        create_campapign_lucky_draw(route.params.campaign_id, formData, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('lucky_draw.create_successed'))
             router.go()
         })
     } else if (type.value == 'edit') {
-        update_campaign_lucky_draw(luckyDrawId.value, formData).then(res => {
+        update_campaign_lucky_draw(luckyDrawId.value, formData, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('lucky_draw.update_successed'))
             router.go()
         })
@@ -378,7 +379,7 @@ const upsert = () => {
 
 const goDraw = () => {
     formData.append('data', JSON.stringify(currentSettings.value))
-    create_campapign_lucky_draw(route.params.campaign_id, formData).then(res => {
+    create_campapign_lucky_draw(route.params.campaign_id, formData, layoutStore.alert).then(res => {
         layoutStore.notification.showMessageToast(i18n.global.t('lucky_draw.create_successed'))
         let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: res.data.id} })
         window.open(routeData.href, '_blank')
@@ -402,7 +403,7 @@ const uploadAnimation = e => {
 	reader.readAsDataURL(animation);
 	reader.onload = e =>{ previewImage.value = e.target.result; };
     
-    upload_animation(formData).then(res => {
+    upload_animation(formData, layoutStore.alert).then(res => {
         listAnimation()
     })
 }

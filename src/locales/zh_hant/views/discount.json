@@ -8,7 +8,7 @@
         "start_at":"開始日期", 
         "end_at":"結束日期", 
         "type":"優惠種類", 
-        "discount_type":"折扣種類",
+        "discount_type":"折抵方式",
         "edit":"編輯", 
         "del":"刪除",
         "percent_off":"折扣（％）",
@@ -21,7 +21,9 @@
         "limitations":"使用條件",
         "subtotal_over_specific_amount":"總價：",
         "product_over_specific_number":"商品：",
-        "specific_campaign":"活動："
+        "discount_code_usable_time": "可使用次數：",
+        "specific_campaign":"活動：",
+        "all": "全部"
     },
     "modal":{
         "create":"新增優惠代碼",
@@ -30,18 +32,19 @@
         "code":"優惠代碼",
         "period":"優惠期間",
         "type":"優惠種類",
-        "discount_type":"優惠種類",
+        "discount_type":"折抵方式",
         "limitations":"使用條件",
         "description":"備註",
         "name-required":"須填寫名稱",
         "code-required":"須填寫代碼",
         "type-required":"須選擇種類", 
-        "add_limitations":"新增限制",
+        "add_limitations":"新增條件",
         "delete_limitation":"取消限制",
         "Deduct Amount":"",
         "Discount Rate":"打折幅度",
         "required":"必填",
         "campaign":"選擇銷售活動",
+        "duplicate":"限制不可重複",
         "type_options":{
             "general":"一般代碼",
             "cart_referal":"推薦代碼"
@@ -53,11 +56,13 @@
         "limit_options":{
             "specific_campaign":"指定銷售活動",
             "subtotal_over_specific_amount":"訂單金額滿（$）",
-            "product_over_specific_number":"訂單商品數量滿（件）"
+            "product_over_specific_number":"訂單商品數量滿（件）",
+            "discount_code_usable_time": "可使用次數"
         },
         
         "Order Subtotal":"訂單金額（$）",
         "Product Number":"訂單商品數量（件）",
+        "Usable Times": "可使用次數",
         "cancel":"取消",
         "save":"儲存"
     }

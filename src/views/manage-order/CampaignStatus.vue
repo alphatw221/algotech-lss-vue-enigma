@@ -69,7 +69,7 @@
                     <div class="report-box">
                         <div class="p-5 box">
                             <div class="flex">
-                                <ManageOrderIcon icon="sales_rate" color="#006A2B" class="report-box__icon"/>
+                                <ManageOrderIcon icon="sales_rate3" color="#006A2B" class="report-box__icon"/>
                                 <template v-if="!manageOrderStatus.campaign_sales_raise"/>
                                 <template v-else-if="manageOrderStatus.campaign_sales_raise >= 0">                                
                                     <div class="ml-auto">
@@ -91,7 +91,7 @@
                                 </template>
                             </div>
                             <div class="mt-6 text-3xl font-medium leading-8" v-if="store.campaign">$
-                                {{ Math.floor(parseFloat(manageOrderStatus.complete_sales) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places}}
+                                {{ (Math.floor(parseFloat(manageOrderStatus.complete_sales) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-GB')}}
                             </div>
                             <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.sales')}}</div>
                         </div>
@@ -132,7 +132,8 @@
 <script setup>
 import { ref, provide, onMounted } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { campaign_manage_order } from "@/api/manage_order";
+
+import { get_campaign_statistics } from "@/api_v2/campaign"
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 const route = useRoute();
 const store = useManageOrderStore()
@@ -151,7 +152,7 @@ const manageOrderStatus = ref({
         })
 
 onMounted(()=>{
-    campaign_manage_order(route.params.campaign_id).then(
+    get_campaign_statistics(route.params.campaign_id).then(
         res =>{
             manageOrderStatus.value = res.data
             // console.log(manageOrderStatus.value)

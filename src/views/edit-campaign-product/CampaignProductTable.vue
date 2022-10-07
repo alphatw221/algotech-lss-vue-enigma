@@ -10,8 +10,13 @@
                     </th>
                 </tr>
             </thead>
-            <tbody >
-                <tr v-if="campaignDetailStore.campaignProducts.length== 0" class="trDot">
+            <tbody>
+                <tr v-if="props.loading" class="trDot">
+                    <td :colspan="tableColumns.length" class="trDot">
+                        <LoadingIcon icon="three-dots" color="1a202c" class="absolute body-middle"/>
+                    </td>
+                </tr>
+                <tr v-else-if="campaignDetailStore.campaignProducts.length == 0" class="trDot">
                     <td :colspan="tableColumns.length" class="trDot">
 						<div class="mt-5 text-center md:mt-40" >
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
@@ -23,9 +28,9 @@
 						</div>
 					</td> 
                 </tr>
-                <tr v-for="(campaign_product, index) in campaignDetailStore.campaignProducts" :key="index" class="align-middle intro-x">
+                <template v-else> 
+                    <tr v-for="(campaign_product, index) in campaignDetailStore.campaignProducts" :key="index" class="align-middle intro-x">
                     <template v-for="column in tableColumns" :key="column.key">
-
                         <td v-if="column.key === 'image'" class="w-18 text-[12px] sm:w-18 lg:text-sm 2xl:w-32 imgtd">
                             <div class="flex items-center justify-center">
                                 <div class="w-[90px] h-[90px] image-fit zoom-in md:w-14 md:h-14 place-items-center">
@@ -52,10 +57,8 @@
                             class="w-24 text-[12px] lg:text-sm qty text-center" 
                             :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
                             :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div v-if="campaign_product.type == 'lucky_draw'" > - </div>
-                            <div v-else>
-                                {{ campaign_product[column.key] }}      
-                            </div>
+                            <!-- <div v-if="campaign_product.type == 'lucky_draw'" > - </div> -->
+                            <div>{{ campaign_product[column.key] }} </div>
                         </td>
 
                         <td v-else-if="column.key === 'max_order_amount'" 
@@ -80,7 +83,7 @@
                             :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div class="whitespace-nowrap" v-if="campaignDetailStore.campaign">
                                 {{ campaignDetailStore.campaign.currency }}
-                                {{ Math.floor(parseFloat(campaign_product[column.key]) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places}}
+                                {{ (Math.floor(parseFloat(campaign_product[column.key]) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-US')}}
                                 {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}</div>
                         </td>
 
@@ -98,6 +101,20 @@
                                 />
                             </div>
                         </td> -->
+                        <td v-else-if="column.key === 'oversell'" 
+                            :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 text-center content-center items-center editable" 
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div v-if="campaign_product.type == 'lucky_draw'" > - </div>
+                            <div v-else class=" form-check place-content-end sm:place-content-center">
+                                <input 
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]" 
+                                    type="checkbox" 
+                                    disabled
+                                    v-model="campaign_product[column.key]" 
+                                />
+                            </div>
+                        </td>
 
                         <td v-else-if="column.key === 'customer_editable'" 
                             :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
@@ -179,6 +196,8 @@
                         </td>
                         </template>
                     </tr>
+                </template>
+                
                 </tbody>
             </table>
         </div> 
@@ -190,14 +209,14 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed, defineProps } from 'vue';
-import { seller_list_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
+import { seller_search_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { retrieve_campaign } from '@/api_v2/campaign'
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
 
 const props = defineProps({
-    eventBusName:String
+    loading:Boolean
 })
 
 const layoutStore = useLSSSellerLayoutStore()
@@ -223,6 +242,7 @@ const tableColumns = ref([
     { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
+    { name: "Oversell", key: "oversell" },
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
     { name: "", key: "edit" },
@@ -235,9 +255,7 @@ const typeSelection = ref([
 const payloadBuffer = ref({})
 
 onMounted(() => {
-
     search()
-    getCampaignDetail()
     eventBus.on(props.eventBusName, (payload) => {
         payloadBuffer.value=payload
         currentPage.value = 1
@@ -253,13 +271,13 @@ onUnmounted(() => {
 
 
 const search = () => {
-        seller_list_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value)
-        .then(response => {
-            dataCount.value = response.data.count
-            campaignDetailStore.campaignProducts = response.data.results
-        }).catch(error => {
-            console.log(error);
-        })
+    seller_search_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value, layoutStore.alert)
+    .then(response => {
+        dataCount.value = response.data.count
+        campaignDetailStore.campaignProducts = response.data.results
+    }).catch(error => {
+        console.log(error);
+    })
 }
 
 const changePage = (page) => {
@@ -284,12 +302,6 @@ const deleteProduct = (campaign_product, index) => {
     .then(response => {
         campaignDetailStore.campaignProducts.splice(index,1)
     })
-}
-
-const getCampaignDetail = ()=>{
-	retrieve_campaign(route.params.campaign_id).then(res=>{
-		campaignDetailStore.campaign = res.data
-	}) 
 }
 
 </script>
@@ -454,12 +466,6 @@ thead th {
 
     .category:before {
         content: attr(data-content);
-    }
-    .category{
-        display: flex;
-        flex-direction:column; 
-        justify-content: center;
-        vertical-align:baseline !important;
     }
 
     .price:before {

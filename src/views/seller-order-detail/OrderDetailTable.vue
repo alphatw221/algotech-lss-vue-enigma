@@ -77,12 +77,12 @@
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
 					{{store.orderDetail.campaign.currency}}
-					{{ Math.floor(parseFloat(product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
+					{{ (Math.floor(parseFloat(product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
 					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
 					{{store.orderDetail.campaign.currency}}
-					{{ Math.floor(parseFloat(product.qty * product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
+					{{ (Math.floor(parseFloat(product.qty * product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
 					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
 				</td>
 				<td>
@@ -160,7 +160,7 @@ const changeQuantity = (index, operation, product) => {
 	hideUpdateSign(index)
 	// hideUpdateButton()
 	// showQtyInput()
-	seller_update_product(route.params.order_id, product.order_product_id, qty).then(
+	seller_update_product(route.params.order_id, product.order_product_id, qty, sellerStore.alert).then(
 		res =>{
 			store.orderDetail = res.data
 			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.update_successfully'))
@@ -182,7 +182,7 @@ const changeQuantity = (index, operation, product) => {
 // 	)
 // }
 function delete_product(order_product_id){
-	seller_delete_product(route.params.order_id,order_product_id).then(
+	seller_delete_product(route.params.order_id,order_product_id, sellerStore.alert).then(
 		res=>{
 			store.orderDetail = res.data
 			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.delete_successfully'))

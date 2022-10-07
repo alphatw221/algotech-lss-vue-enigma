@@ -5,13 +5,30 @@
                 <tr>
                     <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
-                        <template v-else> {{ $t(`manage_order.table.`+column.name) }}  </template>
+                        <template v-else>
+                            <div class="flex justify-center"> 
+                                {{ $t(`manage_order.table.`+column.name) }}
+                                <template v-if="column.sortable === true">
+                                    <template v-if="sortBy[column.key] === -1" > 
+                                        <ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, 1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
+                                    </template> 
+                                    <template v-else-if="sortBy[column.key] === 1" > 
+                                        <ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
+                                    </template> 
+                                    <template v-else> 
+                                        <ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
+                                    </template>
+                                </template>
+                            </div>
+                        </template>
                         
                     </th>
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(order, key) in store[tableStatus]" :key="key" class="intro-x">
+                <tr v-for="(order, key) in store[props.tableStatus]" :key="key" class="intro-x">
                     <td v-for="column in columns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
@@ -137,7 +154,7 @@
                                 {{order.customer_name}}
                             </template>
                             <template v-else>
-                                Guest
+                                {{ $t('manage_order.table.guest') }}
                             </template>        
                         </template>
                         <template v-else-if="column.key === 'order_product'">
@@ -151,17 +168,17 @@
                         </template>
                         <template v-else-if="column.key === 'subtotal' && store.campaign" class="text-right">
                             {{store.campaign.currency}}
-                            {{ Math.floor(parseFloat(order.total) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places}}
+                            {{(Math.floor(parseFloat(order.total) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-GB')}}
                             {{store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
-                                {{ `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` }}
+                                {{ `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` }}
                             </template>
                             <template v-else-if="order[column.key] != ''">
                                 {{ $t(`manage_order.table.${order[column.key]}`) }}
                             </template>
-                            <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.Direct Payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
+                            <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
                         </template>
                         <template v-else-if="column.key === 'id'">
                             <span class="sm:hidden"> #</span> {{ order.id }}
@@ -175,7 +192,7 @@
         </table>
     </div>
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-        <Page class="mx-auto my-3" :total="store.data_count[tableStatus]" @on-change="changePage" @on-page-size-change="changePageSize" />
+        <Page class="mx-auto my-3" :total="store.data_count[props.tableStatus]" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>
 <script setup>
@@ -195,31 +212,34 @@ const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_ROOT_API
 const columns = ref([
-    { name: 'order_number', key: 'id' },
-    { name: 'null', key: 'platform' },
-    { name: 'customer', key: 'customer_name' },
-    { name: 'amount', key: 'subtotal' },
-    { name: 'payment', key: 'payment_method' },
-    { name: 'status', key: 'status' },
-    { name: 'delivery_notification', key: 'delivery' },
-    { name: 'action', key: 'view' },
-    { name: 'null', key: 'order_product'}
+    { name: 'order_number', key: 'id', sortable: true},
+    { name: 'null', key: 'platform', sortable: true},
+    { name: 'customer', key: 'customer_name', sortable: true},
+    { name: 'amount', key: 'subtotal', sortable: true},
+    { name: 'payment', key: 'payment_method', sortable: true},
+    { name: 'status', key: 'status', sortable: true},
+    { name: 'delivery_notification', key: 'delivery', sortable: false},
+    { name: 'action', key: 'view', sortable: false},
+    { name: 'null', key: 'order_product', sortable: false}
 ]);
-
-let page = 1;
-let page_size = 10;
-
 
 const props = defineProps({
     tableStatus: String,
     tableSearch: String,
-    tableFilter:String,
 });
+const page = ref(1);
+const page_size = ref(10);
+const sortBy = ref({})
+const keyword = ref('')
+const filterData = ref({})
+
 
 onMounted(()=>{
-    search('','',props.tableStatus)
+    search()
     eventBus.on(props.tableSearch, (payload) => {
-        search(payload.keyword,payload.filter_data,props.tableStatus)
+        keyword.value = payload.keyword
+        filterData.value = payload.filter_data
+        search()
 	})
 })
 
@@ -227,49 +247,49 @@ onUnmounted(()=>{
     eventBus.off(props.tableSearch)
 })
 
-function search(searchValue,data,tableStatus){
-    manage_order_list(route.params.campaign_id,searchValue,page,page_size,tableStatus,data).then(
+const search = () => {
+    filterData.value['sort_by'] = sortBy.value
+    manage_order_list(route.params.campaign_id, keyword.value, page.value, page_size.value, props.tableStatus, filterData.value, layoutStore.alert).then(
         res => {
-			store[tableStatus] = res.data.data
-            console.log(res.data)
-            store.data_count[tableStatus] = res.data.count;
+			store[props.tableStatus] = res.data.data
+            store.data_count[props.tableStatus] = res.data.count;
             if (res.data.count != 0) {
-                let totalPage = parseInt(res.data.count / page_size);
+                let totalPage = parseInt(res.data.count / page_size.value);
                 totalPage = totalPage == 0 ? 1 : totalPage;
+                }
             }
-		}
-    )
+    ).then(res => {
+            eventBus.emit("calculateCampaignStatus")        
+    })
 }
 
-function to_order_detail(order_id,type){
+const to_order_detail = (order_id,type) => {
     store.order_type = type
     router.push({name:'sellerOrder',params:{'order_id':order_id, 'campaign_id':route.params.campaign_id},query:{'type':type}})
 }
-function changePage(p) {
-    page = p
-    search('','',props.tableStatus)
+const changePage = (p) => {
+    page.value = p
+    search()
     }
-function changePageSize(p) {
-    page_size = p
-    search('','',props.tableStatus)
+const changePageSize = (p) => {
+    page_size.value = p
+    search()
     }
-function orderProductModal(id,type){
+const orderProductModal = (id,type) => {
     eventBus.emit('getProductData',{'id':id,'type':type})
     store.orderProductModal = !store.orderProductModal
 }
-function shipping_out(order_id,index){
-    seller_shipping_out(order_id).then(
+const shipping_out = (order_id,index) => {
+    seller_shipping_out(order_id, layoutStore.alert).then(
         res=>{
-            console.log(res)
             store[props.tableStatus][index].status = 'shipping out'
-            console.log(store[props.tableStatus][index].status)
         }
     
     )
 }
-function copyURL(order_id,type){
+const copyURL = (order_id,type) => {
     if(type === 'order'){
-        get_order_oid(order_id).then(
+        get_order_oid(order_id, layoutStore.alert).then(
             res =>{
             text = `${baseURL}/buyer/order/${res.data}`;
             navigator.clipboard.writeText(text).then(()=>{
@@ -278,7 +298,7 @@ function copyURL(order_id,type){
         }
         )
     }else{ 
-        get_pre_order_oid(order_id).then(
+        get_pre_order_oid(order_id, layoutStore.alert).then(
             res =>{
             text = `${baseURL}/buyer/cart/${res.data}`;
             navigator.clipboard.writeText(text).then(()=>{
@@ -287,8 +307,16 @@ function copyURL(order_id,type){
         })
         }
     }
+    
+const sortByThis = (field, value) =>{
+    sortBy.value[field] = value
+	search();
+}
 
-
+const cancelSortBy = (field) => {
+    delete sortBy.value[field]
+	search();
+}
 
 </script>
 

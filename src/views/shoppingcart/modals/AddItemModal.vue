@@ -1,5 +1,6 @@
 <template>
 	<Modal
+	backdrop="static"
 		size="modal-xl"
 		:show="store.showAddItemModal"
 		@hidden="store.showAddItemModal = false"
@@ -19,10 +20,12 @@
 				<template v-for="(product, index) in addOnProducts" :key="index"> 
 					<div 
 						class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 " 
-						v-if="product.product != null" 
+						v-if="product.product != null || (product.qty_for_sale - product.qty_sold> 0) || product.oversell == true" 
 					>
 						<div
 							class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
+
+							<EyeIcon class="bg-primary opacity-30 rounded-full text-white w-7 h-7 font-bold absolute top-2 right-2 p-1 z-50 hover:opacity-80" @click="openDescription(product)" />
 
 							<a class="w-4/5 file__icon file__icon--image">
 								<div class="file__icon--image__preview image-fit" v-if="product.image">
@@ -39,11 +42,10 @@
 							</div>
 							<div class="text-slate-500 text-sm text-center">
 								{{store.order.campaign.currency}} 
-								{{Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+								{{(Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
 								{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 							</div>
-							<div v-if="product.qty_for_sale - product.qty_sold > 0" class="flex"> 
-								<!-- Wait for api-->
+							<div v-if="product.qty_for_sale - product.qty_sold > 0 || product.oversell == true" class="flex"> 
 								<button type="button" @click="changeQuantity(null, index, 'minus')">
 									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 								</button>
@@ -60,10 +62,10 @@
 									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 								</button>
 							</div>
-							<div v-if="product.qty_for_sale - product.qty_sold> 0">
+							<div v-if="product.qty_for_sale - product.qty_sold> 0 || product.oversell == true">
 								<button 
 									class="btn btn-sm btn-primary w-24 mt-3"
-									@click="buyer_add_item(product.id, index)"
+									@click="buyer_add_item(product, index)"
 								>
 									{{$t('shopping_cart.add_item.add')}}
 								</button>
@@ -71,7 +73,7 @@
 							<div v-else> 
 								<button 
 									class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
-									@click="add_to_wishlist(product.product)"
+									@click="add_to_wishlist(product)"
 								>
 									{{$t('shopping_cart.add_item.wishlist')}}
 								</button>
@@ -81,7 +83,6 @@
 				</template>
 			</div>
 			<div class="invisible h-20"> ... </div>
-			<WishListModal :isAnonymousUser="isAnonymousUser"/>
 		</ModalBody>
 	</Modal>
 </template>
@@ -91,11 +92,10 @@ import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 // import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { buyer_cart_add, guest_cart_add } from "@/api_v2/pre_order";
+import { buyer_cart_add } from "@/api_v2/pre_order";
 import { useRoute } from "vue-router";
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
-import WishListModal from "./WishListModal.vue";
 
 const { cookies } = useCookies()
 const layoutStore = useLSSBuyerLayoutStore();
@@ -136,6 +136,7 @@ const updateAddOnProducts = ()=>{
 		}
 	});
 	addOnProducts.value = temp
+	console.log(addOnProducts.value)
 }
 
 const changeQuantity = (event, index, operation) => {
@@ -154,10 +155,9 @@ const changeQuantity = (event, index, operation) => {
 }   // minus after input works, plus after input not works
 
 
-const buyer_add_item = (campaing_product_id, index) => {
+const buyer_add_item = (product, index) => {
 
-	const cart_add = isAnonymousUser?guest_cart_add:buyer_cart_add
-	cart_add(route.params.pre_order_oid, campaing_product_id, addOnProducts.value[index].qty)
+	buyer_cart_add(route.params.pre_order_oid, product.id, addOnProducts.value[index].qty, layoutStore.alert)
 	.then(
 		res => {
 			store.order = res.data
@@ -167,4 +167,5 @@ const buyer_add_item = (campaing_product_id, index) => {
 }
 
 const add_to_wishlist = (product)=>{eventBus.emit('showWishlistModal',product)}
+const openDescription = (product)=>{eventBus.emit('showDescriptionModal',product)}
 </script>

@@ -77,10 +77,10 @@
                     <label class="form-label text-base"> {{ $t('quiz_game.quiz_create.prize') }} </label>
                     <select 
                         class="w-full form-select sm:form-select-lg rounded-lg"
-                        v-model="quizgameSettings.prize"
+                        v-model="v.prize.$model"
                     >
                         <template v-if="!prizeList.length">
-                            <option class="w-40" disabled> 
+                            <option class="w-40 text-danger" disabled> 
                                 {{ $t('quiz_game.quiz_create.assign_prize_err') }} 
                             </option>
                         </template>
@@ -90,6 +90,9 @@
                             </option>
                         </template>    
                     </select>
+                    <template v-if="v.prize.$error">
+                        <label class="text-danger text-[14px] leading-tight"> {{ $t('quiz_game.quiz_create.prize_err') }} </label>
+                    </template>
                 </div>
             </div>
 
@@ -146,7 +149,8 @@ import { useRoute, useRouter } from 'vue-router';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useVuelidate } from "@vuelidate/core";
 import { required, maxValue, minLength, integer, minValue } from "@vuelidate/validators";
-import { list_campaign_product } from '@/api/campaign_product';
+
+import { seller_list_campaign_product } from '@/api_v2/campaign_product'
 import { create_campaign_quiz_game, update_campaign_quiz_game, delete_campaign_quiz_game, retrieve_campaign_quiz_game } from '@/api_v2/campaign_quiz_game';
 import i18n from "@/locales/i18n"
 
@@ -170,7 +174,8 @@ const questionObj = ref({ question: null, answer: null })
 const quizgameEmptySettings = ref({ quiz_games: [{ question: null, answer: null }], remark: '', num_of_winner: 0, prize: '', repeatable: false })
 const quizgameRules = computed(() => {
     return {
-        num_of_winner: { required, integer, minValue: minValue(1) }
+        num_of_winner: { required, integer, minValue: minValue(1)},
+        prize: { required },
     }
 })
 const v = useVuelidate(quizgameRules, quizgameSettings);
@@ -184,7 +189,7 @@ onMounted(() => {
 
     eventBus.on('editQuiz', (payload) => {
         quizgameBundleId.value = payload.quizgameBundleId
-        retrieve_campaign_quiz_game(quizgameBundleId.value).then(res => {
+        retrieve_campaign_quiz_game(quizgameBundleId.value, layoutStore.alert).then(res => {
             quizgameSettings.value = res.data
         })
         pageType.value = 'edit'
@@ -192,10 +197,11 @@ onMounted(() => {
 })
 
 const listCampaignProduct = () => {
-    list_campaign_product(route.params.campaign_id).then(res => {
-        for (let i = 0; i < res.data.length; i++) {
-            if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
-        }
+    seller_list_campaign_product(route.params.campaign_id, 'lucky_draw', layoutStore.alert).then(res => {
+        // for (let i = 0; i < res.data.length; i++) {
+        //     if (res.data[i].type === "lucky_draw") prizeList.value.push(res.data[i])
+        // }
+        prizeList.value = res.data
     })
 }
 
@@ -205,7 +211,7 @@ const addQuestion = () => {
 
 const deleteQuestion = (index, id) => {
     if (![undefined, null, ''].includes(id)) {
-        delete_campaign_quiz_game(id).then(res => {
+        delete_campaign_quiz_game(id, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.delete_succeed'))
         })
     }
@@ -216,27 +222,26 @@ const deleteQuestion = (index, id) => {
 const upsertQuizGame = () => {
     // console.log(quizgameSettings.value)
     v.value.$touch();
-    if (v.value.$invalid || typeof quizgameSettings.value.prize === 'string') {
+    if (v.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('quiz_game.invalid_data'))
         return
     } 
     quizgameSettings.value.quiz_games.forEach(val => {
         if ([undefined, null, ''].includes(val.question) || [undefined, null, ''].includes(val.answer)) {
             emptyQA.value = true
-            alert('Question and Answer are required')
             return
         }
     })
 
     if (pageType.value === 'create') {
-        create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value).then(res => {
+        create_campaign_quiz_game(route.params.campaign_id, quizgameSettings.value, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.create_succeed'))
             emptyQA.value = false
             eventBus.emit('listQuiz')
             quizgameSettings.value = quizgameEmptySettings.value
         })
     } else if (pageType.value === 'edit') {
-        update_campaign_quiz_game(quizgameBundleId.value, quizgameSettings.value).then(res => {
+        update_campaign_quiz_game(quizgameBundleId.value, quizgameSettings.value, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('quiz_game.update_succeed'))
             emptyQA.value = false
             eventBus.emit('changePage')

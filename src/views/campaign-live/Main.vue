@@ -54,11 +54,15 @@ let webSocket = null
 
 onMounted(()=>{
     initWebSocketConnection()
-    retrieve_campaign(route.params.campaign_id).then(res=>{
-        console.log(sellerStore.commentCapturingCampaignData)
+    retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
 		campaignDetailStore.campaign = res.data
-        if(sellerStore.commentCapturingCampaignData?.id!=res.data.id) sellerStore.commentCapturingCampaignData = res.data
-        
+        console.log(res.data.end_at)
+        let now = new Date()
+        let isCapturable = res.data.end_at ? new Date(res.data.end_at) > now : false
+        if (isCapturable) {
+            console.log("insert capture data")
+            if(sellerStore.commentCapturingCampaignData?.id!=res.data.id) sellerStore.commentCapturingCampaignData = res.data
+        }
 	})
     
 })
@@ -73,8 +77,8 @@ const initWebSocketConnection=()=>{
     );
     webSocket.onmessage = e => {
         const message = JSON.parse(e.data);
-        console.log(message)
-        handleSocketMessage(message)
+        // console.log(message)
+        // handleSocketMessage(message)
     };
     webSocket.onopen = e => {
         console.log('connected')

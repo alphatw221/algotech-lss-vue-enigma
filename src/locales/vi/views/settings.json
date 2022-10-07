@@ -22,7 +22,7 @@
         "charge_option":"Tùy chọn phí giao hàng",
         "add_more_delivery_option":"Thêm lựa chọn khác",
         "replace_charge" : "Thay thế phí giao hàng",
-        "on_top_of_charge" : "Vượt phí giao hàng",
+        "on_top_of_charge" : "Tính thêm phí giao hàng",
         "title" : "Tiêu đề",
         "order_above":"Số tiền tối thiểu để miễn phí vận chuyển($)",
         "minimum":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
@@ -93,7 +93,7 @@
         "accepted_file_types": "Loại tệp tin: jpeg, png, jpg",
         "max_file_size": "Kích thước tệp tối đa: 10MB",
         "delete": "Xóa",
-        "update": "Update",
+        "update": "Cập nhật",
         "errors":{
             "Value_is_required":"Giá trị là bắt buộc"
         }
@@ -102,7 +102,7 @@
     "delivery_form":{
         "delivery_detail":"Thông tin vận chuyển",
         "delivery_charge":"Chi phí vận chuyển",
-        "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển",
+        "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển($)",
         "free_delivery_for_minimum_order":"Số lượng sản phẩm tối thiểu để miễn phí vận chuyển",
         "add_more_delivery_option":"Thêm lựa chọn khác",
         "add_more_pickup_option":"Thêm địa điểm",
@@ -175,11 +175,11 @@
         "connect_with_youtube": "Kết nối với YouTube",
         "twitch_channel":"Kênh Twitch",
         "connect_with_twitch": "Kết nối với Twitch",
-        "connect": "Connect",
-        "twitch_channel_placeholder": "Channel Name...",
-        "twitch_helper_info": "If you want to connect a new account, Please go to Twitch pannel and logout.",
-        "switch_account": "Switch Account",
-        "tiktok_account": "TikTok Account",
+        "connect": "Kết nối",
+        "twitch_channel_placeholder": "Tên kênh...",
+        "twitch_helper_info": "Nếu bạn muốn kết nối tài khoản mới, vui lòng chuyển đến bảng điều khiển Twitch và đăng xuất.",
+        "switch_account": "Chuyển tài khoản",
+        "tiktok_account": "Tài khoản Tiktok",
         "connect_with_tiktok": "Kết nối với TikTok",
         "edit":"Chỉnh sửa",
         "cancel":"Hủy bỏ",

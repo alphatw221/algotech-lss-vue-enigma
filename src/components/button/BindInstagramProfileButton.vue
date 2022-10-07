@@ -12,7 +12,7 @@
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed, defineProps } from "vue";
 import loadScript from '@/libs/loadScript.js';
-import { check_activated_platform } from '@/api/user_subscription'
+
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)

@@ -1,6 +1,8 @@
 <template>
     <Modal :show="show"
+    backdrop="static"
         @hidden="hide()">
+        <XIcon class="w-8 h-8 text-slate-400 absolute right-2 top-2" @click="hide()" />
         <ModalBody class="text-left content-center">
           <div class="intro-y grid grid-cols-12 gap-5 my-5">
             <template v-if="pages.length == 0"> 
@@ -46,6 +48,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const pages = ref([])
 const show = ref(false)
 const payloadBuffer = ref({})
+
 onMounted(()=>{
     eventBus.on('showSelectPlatformModal', (payload) => {
       payloadBuffer.value = payload
@@ -83,9 +86,9 @@ const selectPage = index => {
   } else if (payloadBuffer.value.platform=='twitch') {
     apiRequest = check_twitch_channel_token_valid
   }
-  apiRequest(pages.value[index].id).then(res=>{
+  apiRequest(pages.value[index].id, sellerLayoutStore.alert).then(res=>{
     payloadBuffer.value.page = res.data
-    return update_platform_live_id(payloadBuffer.value.campaign.id, {"platform": payloadBuffer.value.platform, "platform_id": res.data.id , "post_id": ''})
+    return update_platform_live_id(payloadBuffer.value.campaign.id, {"platform": payloadBuffer.value.platform, "platform_id": res.data.id , "post_id": ''}, sellerLayoutStore.alert)
   }).then(res=>{
     Object.entries(res.data).forEach(([key,value]) => {
       payloadBuffer.value.campaign[key]=value                       //proxy object only got setter

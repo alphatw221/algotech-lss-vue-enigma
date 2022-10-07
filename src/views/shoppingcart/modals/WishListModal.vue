@@ -1,19 +1,22 @@
 <template>
-    <Modal :show="showWishlist" @hidden="showWishlist = false">
+    <Modal :show="showWishlist" @hidden="showWishlist = false" backdrop="static"> 
+        <ModalHeader class="flex">
+                <div class="mx-auto">{{$t('shopping_cart.wishlist_modal.title')}}</div>
+                <XIcon class="w-7 h-7 absolute right-2" @click="showWishlist = false"/>
+        </ModalHeader>
         <ModalBody class="text-center">
             <div
-                class="flex flex-col gap-5"> 
-                <div>{{$t('shopping_cart.wishlist_modal.title')}}</div>
+                class="flex flex-col gap-5 px-2"> 
                 <div class="relative mx-10"> 
                     <MailIcon class="absolute w-6 h-6 top-2 left-3 z-10 text-slate-400"/>
                     <input type="email" class="h-[42px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
                         :placeholder="$t('login.email')" 
                         v-model="email" 
-                        @keydown.enter.prevent="add_to_wishlist(productID)" />
+                        @keydown.enter.prevent="add_to_wishlist()" />
                 </div>
                 <button 
                     class="btn btn-sm bg-green-700 w-24 ml-auto text-white"
-                    @click="add_to_wishlist(productID)"
+                    @click="add_to_wishlist()"
                 >
                 {{$t('shopping_cart.add_item.wishlist')}}
                 </button>
@@ -46,9 +49,7 @@ onMounted(()=>{
     }
     eventBus.on('showWishlistModal',product=>{
         showWishlist.value = true
-        productID.value = product
-        // console.log(productID.value)
-
+        productID.value = product.product
     })
 })
 onUnmounted(()=>{
@@ -56,7 +57,7 @@ onUnmounted(()=>{
 })
 
 const add_to_wishlist = ()=>{
-    wish_list_add(productID.value, email.value).then(
+    wish_list_add(productID.value, email.value, layoutStore.alert).then(
         res => {
             layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.wishlist_success'))
             showWishlist.value = false

@@ -93,7 +93,7 @@ import BindInstagramProfileWidgets from "@/components/widgets/BindInstagramProfi
 import BindYoutubeChannelWidgets from "@/components/widgets/BindYoutubeChannelWidgets.vue"
 import BindTwitchChannelWidgets from "@/components/widgets/BindTwitchChannelWidgets.vue"
 import BindTiktokAccountWidgets from "@/components/widgets/BindTiktokAccountWidgets.vue"
-import { bind_twitch_platform_instances } from '@/api_v2/user_subscription';
+import { bind_platform_instances } from '@/api_v2/user_subscription';
 import { useRoute, useRouter } from "vue-router";
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -148,7 +148,7 @@ const Capitalize = (word) => {
 const bind_twitch = () => {
     let code = this_url.value.substring( this_url.value.indexOf("code=") + 5, this_url.value.lastIndexOf("&") )
 
-    bind_twitch_platform_instances('twitch', channelName.value, {'code': code}).then(response => {
+    bind_platform_instances('twitch', {'code': code, 'channel_name':channelName.value}, layoutStore.alert).then(response => {
         if (!response.data.length) {
             return false
         }

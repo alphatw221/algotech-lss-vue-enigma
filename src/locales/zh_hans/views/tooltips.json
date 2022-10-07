@@ -32,7 +32,7 @@
     },
     "auto_reply":{
         "assign_to":"套用在指定粉专页面",
-        "title":"买家需先与该社群帐号有互动纪录（如在直播贴文中留言等），系统才会启动此功能。",
+        "title":"买家在 Facebook Messenger 和 Instagram 私讯发送含关键字的讯息时，系统将会自动回覆相对应的讯息。",
         "platform":"请选择您欲套用此自动回覆的社群帐号。"
     },
     "discount_code":{

@@ -6,18 +6,18 @@
       <div class="p-3 pt-5 pb-5 text-sm sm:text-lg flex-col"> 
           <div> 
               {{$t('change_plan.step_2.selected_plan')}} :
-              <span class="ml-3 font-medium text-[#660000]"> {{ $t(`change_plan.plan.` + comfirmInfo.user_plan)}}</span> 
+              <span class="ml-3 font-medium text-[#660000]"> {{ $t(`change_plan.plan.` + confirmInfo.user_plan)}}</span> 
           </div> 
-          <div v-if="comfirmInfo.adjust_amount !== 0"> 
+          <div v-if="confirmInfo.adjust_amount !== 0"> 
               {{$t('change_plan.step_2.proration')}} : <span class="ml-3 font-medium text-[#660000]"> 
-              {{`${comfirmInfo.currency} -${comfirmInfo.adjust_amount}`}} </span>   
+              {{`${confirmInfo.currency} -${confirmInfo.adjust_amount}`}} </span>   
           </div>
-          <div> 
+          <div v-if="confirmInfo.payment_amount"> 
               {{$t('change_plan.step_2.payment_total')}} : <span class="ml-3 font-medium text-[#660000]">
-                {{ `${comfirmInfo.currency} ${comfirmInfo.payment_amount}`}} </span>   
+                {{ `${confirmInfo.currency} ${(confirmInfo.payment_amount).toLocaleString('en-GB')}`}} </span>   
           </div>
           <div> 
-              {{$t('change_plan.step_2.period')}} : <span class="ml-3 font-medium text-[#660000]"> {{ $t(`change_plan.step_2.` + comfirmInfo.period)}}</span>   
+              {{$t('change_plan.step_2.period')}} : <span class="ml-3 font-medium text-[#660000]"> {{ $t(`change_plan.step_2.` + confirmInfo.period)}}</span>   
           </div>
       </div>
       <div class="flex">
@@ -61,7 +61,7 @@
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
-import { seller_upgrade, seller_changePlan_payment } from '@/api/user_subscription'
+import { seller_upgrade } from '@/api/user_subscription'
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -76,7 +76,7 @@ const toggleTabs = tabNumber => {
   layout.changePlanTab = tabNumber
   }
 
-const comfirmInfo = ref({
+const confirmInfo = ref({
   user_plan: '', 
   period:'',
 })
@@ -88,11 +88,11 @@ const paymentInfo = ref()
 //     paymentInfo.value = payload
 
 //     seller_changePlan_payment(payload).then(res=>{
-//       comfirmInfo.value = res.data
-//       console.log(comfirmInfo.value)
+//       confirmInfo.value = res.data
+//       console.log(confirmInfo.value)
 
 //       paymentInfo.value.intentSecret = res.data.client_secret
-//       renderStripeElement(comfirmInfo.value.client_secret)
+//       renderStripeElement(confirmInfo.value.client_secret)
 //         }).catch( err=>{
 //             layout.changePlanTab = 1
 //             alert(err)
@@ -104,9 +104,9 @@ const paymentInfo = ref()
 onMounted(()=>{
 
   eventBus.on("PaymentTab", (payload) => {
-    basicInfo.value = payload.basicInfo
+    let basicInfo = payload.basicInfo
     confirmInfo.value = payload.confirmInfo
-    basicInfo.value.intentSecret =  confirmInfo.value.client_secret
+    basicInfo.intentSecret =  confirmInfo.value.client_secret
     layout.changePlanTab = 2
     renderStripeElement(confirmInfo.value.client_secret)
   })
@@ -164,7 +164,7 @@ const renderStripeElement=(intentSecret)=>{
                     case 'succeeded':
                         seller_upgrade(paymentInfo.value).then(res => {
                             console.log(res.data)
-                            eventBus.emit("comfirmInfo", res.data)
+                            eventBus.emit("confirmInfo", res.data)
                         }).catch(err => {
                             alert(err)
                         })

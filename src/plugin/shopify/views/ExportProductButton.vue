@@ -9,8 +9,9 @@
             >
             <LoadingIcon  v-if="processing" icon="three-dots" color="white" class="absolute h-[30px] w-[30px] sm:w-40 mr-2 sm:mr-0 sm:h-[20px] top-4"/>
             <template v-else-if="!processing"> 
-                <SimpleIcon class="h-5 mb-0.5 mr-2" width="19" icon="export" color="white" /> 
-                <div>Import From Shopify </div>
+                <font-awesome-icon icon="fa-solid fa-arrows-rotate" class="relative h-5 mb-0.5 mr-2" width="19" color="white"/>
+                <!-- <SimpleIcon class="h-5 mb-0.5 mr-2" width="19" icon="export" color="white" />  -->
+                <div>Sync Shopify Product </div>
             </template>
         </button>
     </div>

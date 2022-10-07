@@ -193,7 +193,7 @@ import facebook_platform from "/src/assets/images/lss-img/facebook.png"
 import instagram_platform from "/src/assets/images/lss-img/instagram.png"
 
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
-import { get_comments, get_summerize_comments } from "@/api/campaign_comment";
+import { get_campaign_setup_status } from "@/api_v2/campaign"
 import CommentListView from './CommentListView.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
@@ -250,7 +250,7 @@ const openVideoTab =ref('facebook')
 
 const listViewTitle = ref('all_comments')
 onMounted(()=>{
-    get_comments(route.params.campaign_id).then(res => {
+    get_campaign_setup_status(route.params.campaign_id).then(res => {
         return res.data
     }).then(data => {
         // console.log(data)

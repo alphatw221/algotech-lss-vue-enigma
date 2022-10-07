@@ -1,5 +1,5 @@
 <template>
-    <div class="h-fit">
+    <div class="mb-10">
         <div class="text-2xl text-base text-center my-5"> {{$t('order_detail.order')}} </div>
 
         <div class="grid grid-cols-12 gap-5">
@@ -94,7 +94,7 @@
                         <template v-else-if="store.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.information')}}</div>
                             <!-- temp -->
-                            <div class="col-start-3 col-span-3 py-3">{{ store.order.shipping_option == '' ? 'Default' : store.order.shipping_option }}</div>
+                            <div class="col-start-3 col-span-3 py-3">{{$t('order_detail.delivery.delivery')}}：{{ store.order.shipping_option == '' ? $t('order_detail.delivery.default') : store.order.shipping_option }}</div>
                             <!-- future -->
                             <!-- <div class="col-start-3 col-span-3 py-3" v-if="store.order.shipping_option.title">{{ store.order.shipping_option_data.title }}</div>
                             <div class="col-start-3 col-span-3 py-3" v-else>{{ 'default' }}</div>   i18n here -->
@@ -124,7 +124,7 @@
                         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
                         <div>
                             {{store.order.campaign.currency}}
-                            {{ Math.floor(store.order.subtotal * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                            {{(Math.floor(store.order.subtotal * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
@@ -132,7 +132,7 @@
                         <div class="mr-auto">{{$t('order_detail.price_summary.delivery_charge')}}</div>
                         <div>
                             {{store.order.campaign.currency}}
-                            {{ Math.floor(store.order.shipping_cost * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                            {{(Math.floor(store.order.shipping_cost * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
@@ -142,24 +142,32 @@
                             <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}} <span class="text-danger"> {{store.order.adjust_title}} </span></div>
                             <div >
                                 {{store.order.campaign.currency}}
-                                {{ Math.floor(store.order.adjust_price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                                {{(Math.floor(store.order.adjust_price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                                 {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                             </div>
                     </div>
                     <div v-if="store.order.discount !=0"
                         class="flex col-start-1 col-span-3 p-2 py-1">
-                            <div class="mr-auto">{{ $t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger"> ({{store.order.applied_discount.code}}) </span></div>
+                            <div class="mr-auto">{{ $t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger">{{store.order.applied_discount.code ? (store.order.applied_discount.code) : ""}}</span></div>
                             <div>
                                 {{store.order.campaign.currency}}
-                                -{{ Math.floor(store.order.discount * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                                -{{(Math.floor(store.order.discount * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                                 {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                             </div>
+                    </div>
+                    <div v-if="store.order.tax" class="flex col-start-1 col-span-3 p-2 py-1">
+                        <div class="mr-auto">{{$t('order_detail.price_summary.tax')}}</div>
+                        <div> 
+                            {{store.order.campaign.currency}}
+                            {{(Math.floor(parseFloat(store.order.tax) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                        </div>
                     </div>
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.total')}}</div>
                         <div>
                             {{store.order.campaign.currency}} 
-                            {{ Math.floor(store.order.total * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                            {{(Math.floor(store.order.total * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                             {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
@@ -175,10 +183,13 @@ import OrderDetailTable from "./OrderDetailTable.vue";
 import OrderSummary from "@/views/buyer-order-payment/OrderSummary.vue";
 
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
-import { buyer_retrieve_order_with_user_subscription, guest_retrieve_order_with_user_subscription } from "@/api_v2/order";
+import { buyer_retrieve_order_with_user_subscription } from "@/api_v2/order";
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useCookies } from 'vue3-cookies'
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+
+const layoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const { cookies } = useCookies()
 const route = useRoute();
@@ -186,10 +197,10 @@ const router = useRouter();
 
 const store = useLSSBuyerOrderStore(); 
 
-const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
+
 onMounted(() => {
-    const retrieve_order = isAnonymousUser?guest_retrieve_order_with_user_subscription:buyer_retrieve_order_with_user_subscription
-    retrieve_order(route.params.order_oid)
+
+    buyer_retrieve_order_with_user_subscription(route.params.order_oid, layoutStore.alert)
     .then(
         res => { 
             store.order = res.data

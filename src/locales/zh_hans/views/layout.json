@@ -10,7 +10,7 @@
         "campaign_default_setting":"基本设定",
         "localization":"在地化",
         "connect_platform":"社群平台",
-        "discount_code":"折扣代码"
+        "discount_code":"优惠代码"
 
     },
     "bread_crumb":{
@@ -27,7 +27,7 @@
         "create-campaign":"建立销售活动",
         "assign-product":"新增活动商品",
         "edit-campaign-product":"编辑活动商品",
-        "lucky-draw":"抽奖设定",
+        "lucky-draw":"抽奖工具",
         "autoreply":"自动答复",
         "category-management":"商品分类管理",
         "add-product":"新增商品",
@@ -35,8 +35,8 @@
         "edit-product":"编辑活动商品",
         "profile":"会员资讯",
         "change-plan":"更改方案",
-        "quiz-game":"问答游戏",
-        "discount-code":"折扣代码",
+        "quiz-game":"新增问答游戏",
+        "discount-code":"优惠代码",
         "dashboard":"主控版",
         "transactions":"交易报表",
         "plans":"方案报表",

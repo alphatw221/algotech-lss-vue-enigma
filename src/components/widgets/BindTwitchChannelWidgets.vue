@@ -25,7 +25,10 @@
 import { ref, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
 import { get_platform_instances, unbind_platform_instance } from '@/api_v2/user_subscription'
 import BindTwitchChannelButton from '@/components/button/BindTwitchChannelButton.vue'
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
+
+const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
@@ -48,7 +51,7 @@ onUnmounted(() => {
 })
 
 const getTwitchChannel = () => {
-    get_platform_instances('twitch').then(response=>{
+    get_platform_instances('twitch', layoutStore).then(response=>{
         if (!response.data.length) {
             showConnectButton.value = true;
             return false
@@ -63,7 +66,7 @@ const removeTwitchChannel = (channel) => {
     if (!channel) {
         return false
     }
-    unbind_platform_instance('twitch', channel.id).then(response=> {
+    unbind_platform_instance('twitch', channel.id, layoutStore.alert).then(response=> {
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;

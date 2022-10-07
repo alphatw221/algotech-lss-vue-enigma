@@ -109,7 +109,7 @@
 import { ref, reactive, onMounted } from "vue";
 import { createIcons, icons } from "lucide";
 import Tabulator from "tabulator-tables";
-import { dealer_search_list_subscriber, dealer_retrieve_subscriber } from '@/api/dealer';
+import { dealer_search_list_subscriber } from '@/api/dealer';
 import dom from "@left4code/tw-starter/dist/js/dom";
 
 const tableRef = ref();

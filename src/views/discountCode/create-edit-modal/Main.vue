@@ -40,7 +40,7 @@
                 </template>
 
                 <template v-else-if="column.type === 'select_and_set' && column.key==='type' ">
-                    <label class="mt-2 text-base">{{$t(`discount.modal.`+column.name)}}</label>
+                    <label class="mt-2 text-base">{{$t(`discount.modal.${column.name}`)}}</label>
                     <div>
                         <select v-model="discountCode.type" :options="{
                                 placeholder: 'choose_code_type',
@@ -134,14 +134,14 @@
 
 
 <script setup>
-import { ref, onMounted, getCurrentInstance, onUnmounted, watch , computed } from "vue";
+import { ref, onMounted, getCurrentInstance, onUnmounted, watch , computed, onBeforeMount } from "vue";
 
 import { create_discount_code, update_discount_code} from "@/api_v2/discount_code"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import i18n from "@/locales/i18n"
 import LimitationBlock from "./LimitationBlock.vue"
 import DiscountTypeBlock from "./DiscountTypeBlock.vue"
-import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue,sameAs,not } from "@vuelidate/validators";
+import { required, minLength, maxLength, helpers } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import { useLSSDiscountCodeMetaStore } from "@/stores/lss-discount-code-meta"
 
@@ -152,9 +152,9 @@ const layoutStore = useLSSSellerLayoutStore()
 const CREATE = 'create'
 const EDIT = 'edit'
 const modalType = ref(CREATE)
-
 const showModal = ref(false)
 
+const discountCodeIndex = ref(null)
 const discountCode = ref({
     name:'',
     code:'',
@@ -180,10 +180,11 @@ const columns = [
 	{ name: "description", key: "description" , type:"text_area"},
 ]
 
+// const checkDuplicates = (param) => (value) => param.indexOf(value) === -1;
 const discountCodeRules = computed(() => {
 	return { 	
         name: { required, minLength: minLength(1), maxLength: maxLength(255) },
-        code: { required, minLength: minLength(1), maxLength: maxLength(255) },
+        code: { required, minLength: minLength(1), maxLength: maxLength(255)},
         type: { required },
         discount_type:{ required },
         limitations:{
@@ -194,6 +195,18 @@ const discountCodeRules = computed(() => {
     }
 })
 
+// onBeforeMount(()=>{
+//     listDiscountCodes()
+// })
+// const listDiscountCodes=()=> {
+// 	discountCodes.value = []
+// 	list_discount_code(500,1).then((res) => {
+// 		(res.data.results).forEach( list => {discountCodes.value.push(list.code)})
+//         console.log(discountCodes.value)
+//         console.log(array.value)
+// 	})
+// 	.catch(err=>{console.log(err)});
+// }
 
 const v = useVuelidate(discountCodeRules, discountCode);
 
@@ -202,21 +215,20 @@ const dateTimePicker = ref({
 	end:new Date()
 })
 
-watch(computed(()=>dateTimePicker.value),()=>{
+watch(computed(()=>dateTimePicker.value), () => {
 	discountCode.value.start_at = dateTimePicker.value.start
 	discountCode.value.end_at = dateTimePicker.value.end
-},{deep:true})
+}, {deep:true})
 
 onMounted(()=>{
-    eventBus.on('showCreateModel',()=>{modalType.value = CREATE;showModal.value=true; })
-    eventBus.on('showEditModel',_discountCode=>{
+    eventBus.on('showCreateModel',() => {modalType.value = CREATE; showModal.value=true; })
+    eventBus.on('showEditModel', payload=>{
         modalType.value = EDIT;
         showModal.value=true; 
-        
-        discountCode.value = JSON.parse(JSON.stringify(_discountCode))
+        discountCodeIndex.value = payload.discountCodeIndex
+        discountCode.value = JSON.parse(JSON.stringify(payload.discountCode))
         dateTimePicker.value.start=discountCode.value.start_at
 		dateTimePicker.value.end=discountCode.value.end_at
-        
     })
 })
 onUnmounted(()=>{
@@ -238,7 +250,7 @@ const hideModal = ()=>{
         description:"",
         meta:{}
     }
-    console.log(discountCode.value)
+    keyArray.value=[]
     v.value.$reset()
 }
 const keyArray= ref([])
@@ -249,13 +261,14 @@ const checkIfDuplicateExists=(arr)=> {
 }
 
 
-const deleteLimitation = index=>{discountCode.value.limitations.splice(index,1)}
+const deleteLimitation = index=>{ discountCode.value.limitations.splice(index, 1) }
 
 const showLimitButton = ref(true)
-const addLimitation = ()=>{if(discountCode.value.limitations.length <2){
-    discountCode.value.limitations.unshift({key:''})
-    showLimitButton.value = true
-    }else{
+const addLimitation = ()=>{
+    if (discountCode.value.limitations.length < 3) {
+        discountCode.value.limitations.unshift({key:''})
+        showLimitButton.value = true
+    } else {
         discountCode.value.limitations.unshift({key:''})
         showLimitButton.value = false
     }
@@ -264,47 +277,51 @@ const addLimitation = ()=>{if(discountCode.value.limitations.length <2){
 
 const createDiscountCode=()=>{
     limitationErr.value = false
-    for(let i=0; i<discountCode.value.limitations.length; i++){
-        keyArray.value.push(discountCode.value.limitations[i].key)
-    }
+    keyArray.value=[]
+    discountCode.value.limitations.forEach(limit =>{ keyArray.value.push(limit.key)} )
     v.value.$touch()
 	if (v.value.$invalid) {
 		layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
-        console.log(v.value)
+        // console.log(v.value)
 		return
-	}else if(checkIfDuplicateExists(keyArray.value)==true){
+	}
+    else if(checkIfDuplicateExists(keyArray.value)==true){
         layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
         limitationErr.value =true
         keyArray.value=[]
         return
     }
 
-    create_discount_code(discountCode.value).then(res=>{
-        eventBus.emit('listDiscountCodes',null)
+    create_discount_code(discountCode.value, layoutStore.alert).then(res=>{
+        // console.log(res.data)
+        eventBus.emit('createDiscountCode',res.data)
         layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.create_success'))
         hideModal()
     })
 }
 
 const updateDiscountCode = ()=>{
-    update_discount_code(discountCode.value.id,discountCode.value).then(res=>{
+    update_discount_code(discountCode.value.id,discountCode.value, layoutStore.alert).then(res=>{
         limitationErr.value = false
+        keyArray.value=[]
+        discountCode.value.limitations.forEach((limit,index) =>{ keyArray.value.splice(index,limit.key)} )
         for(let i=0; i<discountCode.value.limitations.length; i++){
             keyArray.value.push(discountCode.value.limitations[i].key)
         }
         v.value.$touch()
         if (v.value.$invalid) {
             layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
-            console.log(v.value)
+            // console.log(v.value)
             return
-        }else if(checkIfDuplicateExists(keyArray.value)==true){
+        }
+        else if(checkIfDuplicateExists(keyArray.value)==true){
             layoutStore.alert.showMessageToast(i18n.global.t('discount.create_err'))
             limitationErr.value =true
             keyArray.value=[]
             return
         }
 
-        eventBus.emit('listDiscountCodes',null)
+        eventBus.emit('updateDiscountCodes',{'discountCode':res.data,'discountCodeIndex':discountCodeIndex.value})
         layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.saved_message'))
         hideModal()
     })

@@ -44,25 +44,45 @@
 							:data-content="$t(`discount.table.`+column.name) " >
 							{{ discountCode[column.key] }}
 						</td>
+
 						<td v-else-if="column.type === 'textI18'" class="sm:w-32"
 							:data-content="$t(`discount.table.`+column.key) " >
 							{{ $t(`discount.table.` + discountCode[column.key]) }}
 						</td>
-						<td v-else-if="column.type === 'multipleI18'" class="text-[12px] whitespace-nowrap"
+
+						<td v-else-if="column.type === 'multipleI18' && column.key=='limitations'" class="text-[12px] whitespace-nowrap sm:w-32"
 							:data-content="$t(`discount.table.`+column.key) " >
-							<div  v-for="(limitations, index) in discountCode[column.key]" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
-								<div> * {{ $t(`discount.table.` + limitations.key) }} </div>
-								<div class="ml-2" v-if="limitations.key == 'subtotal_over_specific_amount'"> $ {{limitations.amount}} </div>
-								<div class="ml-2" v-else-if="limitations.key == 'product_over_specific_number'"> {{limitations.number}} pcs </div>
-								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitations.key == 'specific_campaign'"> 
+
+							<div v-if="isDiscountCodeForAllCampaign(discountCode)" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
+								* {{ $t(`discount.table.specific_campaign`) }} 
+								<div class="ml-2 sm:ml-auto"> 
+									{{$t(`discount.table.all`)}}
+								</div>
+							</div>
+
+							<div  v-for="(limitation, index) in discountCode.limitations" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
+								<div> * {{ $t(`discount.table.` + limitation.key) }} </div>
+								<div class="ml-2 sm:ml-auto" v-if="limitation.key == 'subtotal_over_specific_amount'"> $ {{(limitation.amount).toLocaleString('en-US')}} </div>
+								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'product_over_specific_number'"> {{limitation.number}} pcs </div>
+								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'discount_code_usable_time'"> {{limitation.times}} </div>
+								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitation.key == 'specific_campaign'"> 
 									<template v-for="(campaign, index) in scheduledCamapign" :key="index"> 
-									<template v-if="campaign.id == limitations.campaign_id"> {{campaign.title}}  </template>	
+										<template v-if="campaign.id == limitation.campaign_id"> {{campaign.title}} </template>	
 									</template>
 								</div>
 							</div>
 						</td>
 						
-						<td v-else-if="column.type === 'datetime'" class="sm:w-32"
+						<td v-else-if="column.key === 'start_at'" class="sm:w-32" 
+							:data-content="$t(`discount.table.`+column.name) " >
+							{{ 
+								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
+									year: "numeric", month: "short", hour12: false,
+									day: "numeric", hour: '2-digit', minute: '2-digit'
+								}) 
+							}}
+						</td>
+						<td v-else-if="column.key === 'end_at'" class="sm:w-32" :class="{'text-danger': new Date() > new Date(discountCode[column.key])}"
 							:data-content="$t(`discount.table.`+column.name) " >
 							{{ 
 								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
@@ -85,12 +105,12 @@
 								<DropdownMenu class="w-24 pt-2 ">
 								<DropdownContent class="w-24 text-center">
 									<DropdownItem class="w-24 text-center whitespace-nowrap text-[14px]" 
-										@click="editDiscountCode(discountCode)"> 
+										@click="editDiscountCode(discountCode, discountCodeIndex)"> 
 											<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
 											{{ $t('discount.table.edit') }}
 									</DropdownItem>
 									<DropdownItem class="w-24 text-center text-danger whitespace-nowrap text-[14px]" 
-										@click="deleteDiscountCode(discountCode)"> 
+										@click="deleteDiscountCode(discountCode, discountCodeIndex)"> 
 										<SimpleIcon icon="delete" color="#b91c1c" class="mr-1"/>
 										{{ $t('discount.table.del') }}
 									</DropdownItem>
@@ -110,7 +130,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
+import { ref, onMounted, getCurrentInstance, onUnmounted, computed } from "vue";
 
 import { delete_discount_code, list_discount_code,list_scheduled_campaign_options } from "@/api_v2/discount_code"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
@@ -147,14 +167,41 @@ onMounted(() => {
 	showLoadingIcon.value = true
 	getScheduleCamp();
 	listDiscountCodes();
-	eventBus.on("listDiscountCodes", () => {
-		listDiscountCodes();
+	// eventBus.on("listDiscountCodes", () => {
+	// 	listDiscountCodes();
+	// });
+
+	eventBus.on("createDiscountCode", discountCode => {
+
+		// console.log(discountCode)
+		// discountCodes.value.unshift(discountCode)
+		listDiscountCodes()
+		//
+	});
+	eventBus.on("updateDiscountCodes", payload => {
+		// console.log(payload.discountCode)
+		// console.log(payload.discountCodeIndex)
+		discountCodes.value[payload.discountCodeIndex] = payload.discountCode
+
+		//
 	});
 });
 
 onUnmounted(() => {
-	eventBus.off("listDiscountCodes");
+	// eventBus.off("listDiscountCodes");
+
+	eventBus.off("createDiscountCode");
+	eventBus.off("updateDiscountCodes");
+
 });
+
+const isDiscountCodeForAllCampaign = (discountCode) => {
+
+	discountCode.limitations.forEach(limitation => {
+		if (limitation.key == 'specific_campaign') return true
+	})
+	return false
+}
 
 const changePage = page=> {
 	currentPage.value = page;
@@ -167,7 +214,7 @@ const changePageSize = page_size=> {
 }
 
 const getScheduleCamp =()=>{
-	list_scheduled_campaign_options().then(res=>{
+	list_scheduled_campaign_options(layoutStore.alert).then(res=>{
         scheduledCamapign.value= res.data
     })
 }
@@ -175,9 +222,8 @@ const getScheduleCamp =()=>{
 const listDiscountCodes=()=> {
 	discountCodes.value = []
 	showLoadingIcon.value = true
-	list_discount_code(pageSize.value, currentPage.value)
+	list_discount_code(pageSize.value, currentPage.value, layoutStore.alert)
 	.then((res) => {
-		// console.log(res.data)
 		totalCount.value = res.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		discountCodes.value = res.data.results
@@ -186,16 +232,24 @@ const listDiscountCodes=()=> {
 	.catch(err=>{console.log(err)});
 }
 
-const editDiscountCode = discountCode=>{
+const editDiscountCode = (discountCode, discountCodeIndex)=>{
+
+
+	// console.log(discountCodeIndex)
+
 	hideDropDown()
-	eventBus.emit('showEditModel', discountCode)
+	eventBus.emit('showEditModel', {'discountCode':discountCode, 'discountCodeIndex':discountCodeIndex})
 }
 
-const deleteDiscountCode = discountCode=> {
+const deleteDiscountCode = (discountCode, discountCodeIndex)=> {
+
+	// console.log(discountCodeIndex)
+
 	hideDropDown()
-	delete_discount_code(discountCode.id)
+	delete_discount_code(discountCode.id, layoutStore.alert)
 		.then(res =>{
 			layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.deleted_message'));
+			// discountCodes.value.splice(discountCodeIndex,1)
 			listDiscountCodes();
 		})
 		.catch((err) => {
@@ -209,7 +263,6 @@ const hideDropDown = ()=>{dom('.dropdown-menu').removeClass('show')}
 .click-icon:hover {
 	cursor: pointer;
 }
-
 
 td {
   min-height: 50px;

@@ -158,7 +158,7 @@
             </tbody>
         </table>
 
-        <Modal :show="warningModalPreview" @hidden="warningModalPreview = false">
+        <Modal backdrop="static" :show="warningModalPreview" @hidden="warningModalPreview = false">
             <ModalBody class="p-0">
                 <div class="p-5 text-center">
                     <XCircleIcon class="w-16 h-16 mx-auto mt-3 text-warning" />
@@ -252,7 +252,7 @@ onMounted(() => {
             assignedProducts[i]['max_order_amount'] = parseInt(assignedProducts[i]['max_order_amount'])
         }
 
-        seller_bulk_create_campaign_products(route.params.campaign_id, assignedProducts)
+        seller_bulk_create_campaign_products(route.params.campaign_id, assignedProducts, layoutStore.alert)
         .then(response => {
             router.push({ name: 'campaign-list' })
         }).catch(error => {

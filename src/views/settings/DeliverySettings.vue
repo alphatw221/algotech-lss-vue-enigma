@@ -341,7 +341,7 @@ const updateDelivery = () => {
         layoutStore.alert.showMessageToast("Invalid data")
         return
     }
-    seller_update_delivery(deliverySettings).then(res=>{
+    seller_update_delivery(deliverySettings, layoutStore.alert).then(res=>{
         layoutStore.userInfo = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })

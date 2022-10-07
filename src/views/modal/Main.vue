@@ -37,6 +37,7 @@
             <!-- END: Modal Toggle -->
             <!-- BEGIN: Modal Content -->
             <Modal
+            backdrop="static"
               :show="basicModalPreview"
               @hidden="basicModalPreview = false"
             >

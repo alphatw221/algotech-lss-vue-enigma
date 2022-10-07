@@ -17,8 +17,8 @@
                         v-model="validate.name.$model"
                         :class="{ 'border-danger text-danger border-2': validate.name.$error }" />
                     <template v-if="validate.name.$error">
-                          <label class="text-danger" >
-                            product name required, with no more than 40 digits
+                          <label class="text-danger text-[14px]" >
+                            {{$t('campaign_live.product.name_validation')}}
                           </label>
                     </template>
 
@@ -99,7 +99,7 @@ const addProduct = ref({
 })
 
 const list = () => {
-    list_product_category().then(
+    list_product_category(layoutStore.alert).then(
         response => {
             categoryList.value = response.data;
         }
@@ -107,7 +107,7 @@ const list = () => {
 }
 
 const addtoCampaign =()=>{
-    fast_add_product(campaign_id,addProduct.value ).then(
+    fast_add_product(campaign_id,addProduct.value , layoutStore.alert).then(
         response =>{
             // console.log(response.data);
             store.campaignProducts.push(response.data)

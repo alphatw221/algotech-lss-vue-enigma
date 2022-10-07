@@ -264,7 +264,8 @@ const checkPagePonit = ref(true)
 const campaigns=ref([])
 const numOfCampaigns = computed(()=>Object.keys(campaigns.value).length)
 onMounted(()=>{
-  search();
+  search()
+  checkPage()
   showCommentLoding.value = true
   eventBus.on(props.tableName, (payload) => {
     currentPage.value = 1; 
@@ -286,7 +287,7 @@ onUnmounted(()=>{
 const search =()=>{
     showCommentLoding.value = true
     campaigns.value = []
-    list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,'100')
+    list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,'100', layoutStore.alert)
     .then((response) => {
         if (response.data.count != undefined) {
           dataCount.value = response.data.count;
@@ -312,7 +313,7 @@ const changePageSize = (pageSize)=>{
 
 const clickEntry = (index)=>{
   const campaign = campaigns.value[index]
-  console.log(index)
+  // console.log(index)
   if(props.campaignStatus === 'history'){
     router.push({name:'campaign-live',params:{'campaign_id':campaign.id}, query:{'status':props.campaignStatus}})
     return
@@ -325,7 +326,7 @@ const clickEntry = (index)=>{
 }
 
 const stop_checkout = (index, campaign)=>{
-      toggle_stop_checkout(campaign.id).then(res=>{
+      toggle_stop_checkout(campaign.id, layoutStore.alert).then(res=>{
         campaigns.value[index] = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('campaign_list.update_successed'));
       })
@@ -350,7 +351,7 @@ const editCampaignProduct = campaign=>{
 const copyURL = (campaign)=>{
   text = `${baseURL}/buyer/recaptcha/blank/${campaign.id}`;
   navigator.clipboard.writeText(text).then(()=>{
-      layoutStore.notification.showMessageToast('copied!')
+      layoutStore.notification.showMessageToast(i18n.global.t("campaign_list.copied"))
   })
   hideDropDown()
 }
@@ -366,11 +367,11 @@ const goQuizGame = (campaign) => {
 }
 
 const checkPage = ()=>{
-  get_user_subscription_facebook_pages().then(res=>{
+  get_user_subscription_facebook_pages(layoutStore.alert).then(res=>{
     if(res.data.length !== 0) checkPagePonit.value = false
-    else get_user_subscription_instagram_profiles().then(res=>{
+    else get_user_subscription_instagram_profiles(layoutStore.alert).then(res=>{
       if(res.data.length !== 0) checkPagePonit.value = false
-      else get_user_subscription_youtube_channels().then(res=>{
+      else get_user_subscription_youtube_channels(layoutStore.alert).then(res=>{
         if(res.data.length !== 0) checkPagePonit.value = false
       })
     })
@@ -379,7 +380,7 @@ const checkPage = ()=>{
 
 const deleteCampaign = (campaign)=>{
   let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)
-	if(yes) delete_campaign(campaign.id).then(res => { search() })
+	if(yes) delete_campaign(campaign.id, layoutStore.alert).then(res => { search() })
   hideDropDown()
 }
 

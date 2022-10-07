@@ -19,9 +19,11 @@
         "cart_referal":"Cart Referral",
         "limitations":"Limitations",
         "general":"Promo Code",
-        "subtotal_over_specific_amount":"Amount:",
-        "product_over_specific_number":"Product:",
-        "specific_campaign":"Campaign:"
+        "subtotal_over_specific_amount":"Amount：",
+        "product_over_specific_number":"Product：",
+        "discount_code_usable_time": "Usable Times：",
+        "specific_campaign":"Campaign：",
+        "all": "All"
     },
     "modal":{
         "create":"Create Discount Code",
@@ -40,6 +42,7 @@
         "delete_limitation":"Delete Limitation",
         "required":"Required",
         "campaign":"Campaign",
+        "duplicate":"Cannot Select Duplicate limitations",
         "type_options":{
             "general":"General",
             "cart_referal":"Referral"
@@ -51,11 +54,13 @@
         "limit_options":{
             "specific_campaign":"Specific Campaign",
             "subtotal_over_specific_amount":"By Order Amount",
-            "product_over_specific_number":"By Order Qty"
+            "product_over_specific_number":"By Order Qty",
+            "discount_code_usable_time": "Usable Times"
         },
         "Order Subtotal":"Order Subtotal",
         "Product Number":"Product Number",
         "Discount Rate":"Discount Rate",
+        "Usable Times": "Usable Times",
         "Deduct Amount":"",
         "cancel":"Cancel",
         "save":"Save"

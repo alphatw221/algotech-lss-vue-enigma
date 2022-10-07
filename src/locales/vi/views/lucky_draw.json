@@ -1,5 +1,6 @@
 {
     "lucky_draw" : "Quà tặng minigame",
+    "lucky_draw_create" : "Draw Create",
     "invalid_data":"Bản nộp không hợp lệ",
     "create_successed":"Tạo thành công",
     "update_successed":"Cập nhật thành công",

@@ -52,6 +52,14 @@ import { get_campaign_order_report } from "@/api_v2/campaign"
 import { url } from "@vuelidate/validators";
 import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
+
+
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+
+const layoutStore = useLSSSellerLayoutStore()
+
+
+
 const route = useRoute();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -66,6 +74,7 @@ const props = defineProps({
 
 onMounted(()=>{
     eventBus.on(props.tableFilter, (payload) => {
+        console.log(payload.filter_data)
         search(payload.filter_data)
 	})
 })
@@ -73,7 +82,7 @@ onUnmounted(()=>{
     eventBus.off(props.tableFilter)
 })
 
-function search(filter_data){
+function search(filter_data={}){
     // console.log(searchValue.value)
     eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
 }
@@ -85,8 +94,7 @@ function reset(filter_data){
     eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
 }
 function onExportXlsx(){
-    get_campaign_order_report(route.params.campaign_id).then(
-    // order_export(route.params.campaign_id).then(
+    get_campaign_order_report(route.params.campaign_id, layoutStore.alert).then(
         res => {console.log(res)
         
             if (window.navigator.msSaveOrOpenBlob) {

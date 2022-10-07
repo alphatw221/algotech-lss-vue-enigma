@@ -85,7 +85,7 @@
             <h4 class="mx-auto my-4 font-bold text-black mb-3 text-center">{{$t('shopping_cart.payment.direct.or')}}</h4>
             <div class="flex flex-col m-3">
 
-                <label for="regular-form-2" class="form-label">{{$t('shopping_cart.payment.direct.last_five_digits')}}</label>
+                <label for="regular-form-2" class="form-label text-center">{{$t('shopping_cart.payment.direct.last_five_digits')}}</label>
                 <input id="regular-form-2" type="text" class="form-control"
                     :class="{ 'border-danger': uploadValidate.fiveDigits.$error }"
                     v-model.trim="uploadValidate.fiveDigits.$model" />
@@ -107,7 +107,7 @@
 
 import { computed, onMounted, ref, watch, provide, reactive, toRefs } from "vue";
 
-import { buyer_upload_receipt, guest_upload_receipt } from "@/api_v2/order";
+import { buyer_upload_receipt } from "@/api_v2/order";
 
 import { useRoute, useRouter } from "vue-router";
 
@@ -189,14 +189,16 @@ const uploadReceipt = () => {
     formData.append('account_name', account.name)
     formData.append('account_mode', account.mode)
 
-    const upload_receipt = isAnonymousUser?guest_upload_receipt:buyer_upload_receipt
-    upload_receipt(route.params.order_oid, formData)
+
+    buyer_upload_receipt(route.params.order_oid, formData, layoutStore.alert)
         .then(
             res => {
                 store.order = res.data
                 router.push(`/buyer/order/${route.params.order_oid}/confirmation`)
             }
-        )
+        ).catch(err=>{
+            layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.err'))
+        })
 }
  
 </script>

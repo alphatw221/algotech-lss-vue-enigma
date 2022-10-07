@@ -83,8 +83,8 @@
                 <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
               </div>
             </Tab>
-            <template v-if="store.order.campaign && store.order.campaign.meta_logistic.additional_delivery_options">
-                <Tab v-if="store.order.campaign.meta_logistic.additional_delivery_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
+            <template v-if="store.order.campaign && store.order.campaign.meta_logistic.pickup_options">
+                <Tab v-if="store.order.campaign.meta_logistic.pickup_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
                 @click="select_shipping_method('pickup')">
                 <div class="inline-flex items-center grow place-content-center">
                   <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
@@ -166,7 +166,7 @@
                       <label class="mr-auto form-check-label" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.default')}}</label>
                       <div>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{Math.floor(parseFloat(store.order.campaign.meta_logistic.delivery_charge) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                        {{(Math.floor(parseFloat(store.order.campaign.meta_logistic.delivery_charge) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
                     </div>
@@ -180,12 +180,12 @@
 
                       <div v-if="option.type === '+'">
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{Math.floor((parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                        {{(Math.floor((parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
                       <div v-else>
                         <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{Math.floor(parseFloat(option.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places}}
+                        {{(Math.floor(parseFloat(option.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
                         <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
                       </div>
 
@@ -230,7 +230,7 @@
             <div class="font-medium text-md">
               {{$t('shopping_cart.delivery_tab.note')}}
             </div>
-            <p id="" class="col-span-12 col-start-1 p-5 form-control" placeholder="" v-if="store.order.campaign">
+            <p id="" class="col-span-12 col-start-1 p-5 form-control whitespace-pre-line" placeholder="" v-if="store.order.campaign">
               {{store.order.campaign.meta_logistic.delivery_note}}
             </p>
           </div>
@@ -284,7 +284,7 @@ import { useVuelidate } from "@vuelidate/core";
 import { computed, onMounted, ref, watch, reactive, toRefs } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
-import { buyer_update_delivery_info, guest_update_delivery_info } from "@/api_v2/pre_order"
+import { buyer_update_delivery_info } from "@/api_v2/pre_order"
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useCookies } from 'vue3-cookies'
@@ -329,13 +329,14 @@ const shipping_option_index_computed = computed({
     store.shipping_info.shipping_option_index=index
     shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.address : ''
 
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index].title : ''
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
     
     if(shipping_info.value.shipping_method=='pickup'){
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.pickup_options[index]))
     }else{
-      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.additional_delivery_options[index]))
+      shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.additional_delivery_options[index]))
     }
+    console.log(shipping_info.value.shipping_option_index)
 
   }})
 
@@ -351,7 +352,7 @@ const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 onMounted(()=>{
   if(!isAnonymousUser){
-    buyer_retrieve_latest_order_shipping_info().then(res=>{
+    buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
       res.data.shipping_method='delivery'
       res.data.shipping_option=''
       shipping_info.value = res.data
@@ -383,8 +384,8 @@ const delivery_rules = computed(()=>{
   return{
     shipping_address_1: {required,minLength: minLength(1), maxLength: maxLength(255)},
     shipping_location: {required,minLength: minLength(1), maxLength: maxLength(255)},
-    shipping_region: {required,minLength: minLength(1), maxLength: maxLength(255)},
-    shipping_postcode: {required,integer,minLength: minLength(1), maxLength: maxLength(50)},
+    shipping_region: {maxLength: maxLength(255)},
+    shipping_postcode: {maxLength: maxLength(50)},
   }}
 );
 
@@ -421,8 +422,8 @@ const proceed_to_payment = () =>{
 
   // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
 
-  const update_delivery_info = isAnonymousUser?guest_update_delivery_info:buyer_update_delivery_info
-  update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value})
+
+  buyer_update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value}, layoutStore.alert)
   .then(res=>{
     router.push(`/buyer/order/${res.data.oid}/payment`)
   }).catch(error=>{

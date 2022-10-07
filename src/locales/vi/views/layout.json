@@ -1,8 +1,8 @@
 {
     "upgrade":"Nâng cấp gói",
     "menu":{
-        "create":"Tạo",
-        "new_campaign":"chiến dịch",
+        "create":"",
+        "new_campaign":"Tạo chiến dịch",
         "stock":"Kho hàng",
         "campaign_list":"Danh sách chiến dịch",
         "auto_reply":"Chatbot tự động",
@@ -10,7 +10,7 @@
         "campaign_default_setting":"Cài đặt chiến dịch mặc định",
         "localization":"Ngôn ngữ bản địa hóa",
         "connect_platform":"Kết nối nền tảng",
-        "discount_code":"Discount Code"
+        "discount_code":"Mã giảm giá"
     },
     "bread_crumb":{
         "stock":"Kho hàng",
@@ -35,7 +35,7 @@
         "profile":"Hồ Sơ",
         "change-plan":"Thay đổi gói dịch vụ",
         "quiz-game":"Trò chơi giải đố",
-        "discount-code":"Discount Code",
+        "discount-code":"Mã giảm giá",
         "dashboard":"Dashboard",
         "transactions":"Transactions",
         "plans":"Plans",

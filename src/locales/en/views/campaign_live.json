@@ -31,7 +31,8 @@
     },
     "conversation":{
         "conversation_with":"Conversation with",
-        "type_your_message": "Type your message"
+        "type_your_message": "Type your message",
+        "send_successfully":"Send successfully!"
     },
     "product":{
         "product":"Product",
@@ -43,6 +44,7 @@
             "Product":"Product",
             "order_code":"Order Code",
             "price":"Price",
+            "overbid":"overbid",
             "activate":"Activate",
             "qty":"Qty",
             "stock_qty":"Stock QTY",
@@ -55,7 +57,7 @@
             "removable":"Removable",
             "deletable":"Removable",
             "search":"Search by",
-            "no_product":"You haven't assign any product into this campaign, click Add Product to assign"
+            "no_product":"You haven't assigned any product into this campaign, click Add Product to assign"
         },
         "add":"Add",
         "add_product":"Add Product",
@@ -80,7 +82,8 @@
         },
         "invalid":"Invalid",
         "successed":"Successed",
-        "invalid_data":"Invalid Submission"
+        "invalid_data":"Invalid Submission",
+        "name_validation":"Product name required, with no more than 40 digits."
     },
     "incoming":{
         "incoming_order":"Incoming Order",

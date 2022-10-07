@@ -796,6 +796,27 @@
         />
       </circle>
     </svg>
+
+    <svg v-else-if="icon == 'capturing'"
+    width="20" height="20"
+    id="eW694pc8ijr1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="3 3 18 18" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+    <svg:style type="text/css"><![CDATA[
+    #eW694pc8ijr2 {animation: eW694pc8ijr2_c_o 2000ms linear infinite normal forwards}@keyframes eW694pc8ijr2_c_o { 0% {opacity: 1;animation-timing-function: cubic-bezier(0.785,0.135,0.15,0.86)} 50% {opacity: 0;animation-timing-function: cubic-bezier(0.785,0.135,0.15,0.86)} 100% {opacity: 1}}
+    ]]></svg:style>
+    <circle id="eW694pc8ijr2" r="3.4" transform="translate(12 12)" fill="#f00"/><image width="979" height="200" xlink:href="http://www.w3.org/1999/xlink/5BF5C8A.jpg" preserveAspectRatio="xMidYMid meet" transform="translate(-7232-7652)"/><image width="979" height="200" xlink:href="http://www.w3.org/1999/xlink/5BF5C8E.jpg" preserveAspectRatio="xMidYMid meet" transform="translate(-7232-7652)"/><circle r="7.9" transform="translate(12 12)" fill="none" stroke="#fff" stroke-width="1.5" stroke-miterlimit="10"/></svg>
+
+    <svg 
+    v-else-if="icon == 'camera'"
+    id="eVb1EQfPwtU1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 24 24" shape-rendering="geometricPrecision" text-rendering="geometricPrecision">
+    <svg:style type="text/css"><![CDATA[
+    #eVb1EQfPwtU6 {animation: eVb1EQfPwtU6_c_o 1000ms linear infinite normal forwards}@keyframes eVb1EQfPwtU6_c_o { 0% {opacity: 0; animation-timing-function: cubic-bezier(0.785,0.135,0.15,0.86)} 40% {opacity: 1; animation-timing-function: cubic-bezier(0.785,0.135,0.15,0.86)} 100% {opacity: 1;}}
+    ]]></svg:style>
+    <g><path d="M2.88,6.72h12.4c1.1,0,2,.9,2,2v6.56c0,1.1-.9,2-2,2h-8.44c-1.1,0-2-.9-2-2v-5.68" fill="none" stroke="#fff" stroke-width="1.5" 
+      stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/></g><g>
+        <path d="M18.03,12.66c-.41-.36-.41-.95,0-1.32L20.36,9.3c.41-.36.75-.21.75.34v4.72c0,.55-.34.7-.75.34l-2.33-2.04Z" fill="none" stroke="#fff" 
+        stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" stroke-miterlimit="10"/></g><g id="eVb1EQfPwtU6" opacity="0">
+          <path d="M9.82,9.84c-.48-.26-.88-.03-.88.52v3.28c0,.55.39.78.88.52l3.08-1.68c.48-.26.48-.7,0-.96L9.82,9.84Z" stroke="#fff" fill="#ff1212"/></g></svg>
+
   </span>
 </template>
 

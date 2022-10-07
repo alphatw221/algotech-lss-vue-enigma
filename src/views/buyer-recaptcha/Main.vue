@@ -48,7 +48,7 @@ onMounted(()=>{
         const type = route.params.type
         const object_id = route.params.object_id
         if(type=='blank'){
-            buyer_create_blank_cart(object_id, cookies.get('login_with')).then(res=>{
+            buyer_create_blank_cart(object_id, cookies.get('login_with'), buyerStore.alert).then(res=>{
                 router.push(`/buyer/cart/${res.data.pre_order_oid}`)
             })
         }else{
@@ -71,7 +71,7 @@ const recaptchaCallBack = token=>{
     const type = route.params.type
     const object_id = route.params.object_id
     if(type=='blank'){
-        guest_create_blank_cart(object_id, token, cookies.get('client_uuid')).then(response=>{
+        guest_create_blank_cart(object_id, token, cookies.get('client_uuid'), buyerStore.alert).then(response=>{
             console.log(response.data)
             if (!cookies.get('client_uuid')){
                 var set_cookie = new Promise((res) => {
@@ -87,9 +87,9 @@ const recaptchaCallBack = token=>{
         })
     }else if(type=='easy_store'){
 
-        get_easy_store_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
+        get_easy_store_checkout_url(object_id, token, buyerStore.alert).then(res=>{window.location.href = res.data})
     }else if(type=='ordr_startr'){
-        get_ordr_startr_checkout_url(object_id, token).then(res=>{window.location.href = res.data})
+        get_ordr_startr_checkout_url(object_id, token, buyerStore.alert).then(res=>{window.location.href = res.data})
     }
 }
 </script>

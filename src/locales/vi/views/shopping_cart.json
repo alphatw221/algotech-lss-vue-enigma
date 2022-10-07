@@ -37,7 +37,7 @@
             "pickup":"Tùy chọn nhận hàng"
         },
         "note":"Phiếu giao hàng và thu tiền",
-        "remark":"Nhận xét",
+        "remark":"Ghi chú",
         "previous":"Trước",
         "proceed_to_payment":"Tiến hành thanh toán"
     },
@@ -67,15 +67,16 @@
         "next":"Kế tiếp",
         "promo_discount": "Giảm giá từ mã giảm giá",
         "enter_promo":"Vui lòng nhập mã giảm giá",
-        "promo_apply":"Discount Code  %{code} is Applied",
-        "referr_code":"Share Referral Code"
+        "promo_apply":"Mã giảm giá Sakura %{code} được áp dụng",
+        "referr_code":"Chia sẻ mã giới thiệu"
         
     },
     "add_item":{
         "select_add_ons":"Thêm bổ sung sản phẩm",
         "select_products":"Chọn sản phẩms",
         "add":"Thêm",
-        "wishlist":"Notify Me"
+        "wishlist":"Thông báo cho tôi",
+        "description": "Mô tả Sản phẩm"
     },
     "payment":{
         "shipping_summary":"Chi tiết giao hàng",
@@ -102,10 +103,10 @@
         }
     },
     "wishlist_modal":{
-        "title":"Notify me if the product becomes available again",
-        "message_1":"With your consent, LSS will use your contact information (E-mail address) to alert you of the product availability.",
-        "message_2":"For more information about our privacy practices and your rights, please consult our ",
-        "policy":"Privacy Policy."
+        "title":"Thông báo cho tôi nếu có hàng lại",
+        "message_1":"Với sự đồng ý của bạn, LSS sẽ sử dụng thông tin liên hệ của bạn (địa chỉ E-mail) để thông báo cho bạn về tình trạng còn hàng của sản phẩm.",
+        "message_2":"Để biết thêm thông tin về các thực tiễn bảo mật của chúng tôi và các quyền của bạn, vui lòng tham khảo ",
+        "policy":"Chính sách bảo mật."
     },
     "delete_success":"Xóa thành công",
     "invalid_qty":"Số lượng không hợp lệ",
@@ -117,5 +118,5 @@
     "invalid_delivery_info":"Thông tin vận chuyển được nhập không hợp lệ",
     "checkout_message":"Bạn có chắc chắn muốn chuyển đến thanh toán không? Giỏ hàng của bạn sẽ bị xóa.",
     "checkout_again":"Sản phẩm đã hết hàng, vui lòng xác nhận giỏ hàng của bạn và thanh toán lại",
-    "wishlist_success":"WishList Sign Up Successfully" 
+    "wishlist_success":"Đã đăng ký nhận thông báo khi có hàng" 
 }

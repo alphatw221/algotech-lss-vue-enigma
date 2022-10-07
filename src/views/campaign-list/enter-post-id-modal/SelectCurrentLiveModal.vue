@@ -1,5 +1,6 @@
 <template>
     <Modal
+    backdrop="static"
         :show="show"
         @hidden="show=false"
       >
@@ -66,9 +67,13 @@ onMounted(()=>{
       if(payload.platform=='facebook'){
         get_fb_page_live_media(payloadBuffer.page.page_id, payloadBuffer.page.token)
         .then((response) => {
+<<<<<<< HEAD
           console.log(response)
           const live_campaign = response.data.data.filter(v => (v.properties === undefined) && (v.attachments.data[0].media_type === "video"))
           console.log(live_campaign)
+=======
+          const live_campaign = response.data.data.filter(v => v.status === "LIVE")
+>>>>>>> staging
           if (!live_campaign.length) {
               layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_facebook_post'))
               return
@@ -93,6 +98,7 @@ onMounted(()=>{
           liveItems.value = currentLiveItems
           show.value = true
         }).catch(err=>{
+          console.log(err.response.data.error.message)
           layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_page'))
         })
       }else if(payload.platform=='youtube'){
@@ -160,7 +166,7 @@ onUnmounted(()=>{
 
 const selectLive = live_id => {
   let apiRequest = null
-  apiRequest = update_platform_live_id(campaign.value.id, {"platform":payloadBuffer.platform, "platform_id":payloadBuffer.page.id , "post_id":live_id})
+  apiRequest = update_platform_live_id(campaign.value.id, {"platform":payloadBuffer.platform, "platform_id":payloadBuffer.page.id , "post_id":live_id}, layoutStore.alert)
   apiRequest.then(res=>{
     Object.entries(res.data).forEach(([key,value]) => {
       campaign.value[key]=value                       //proxy object only got setter

@@ -18,6 +18,7 @@
         "enter_remark": "please enter your remark...",
         "number_of_winner" : "Number of Winner",
         "number_winner_warning": "must be between 1 to prize stock",
+        "prize_err":"Prize is required",
         "prize": "Prize",
         "assign_prize_err":"Assign Prize into your Campaign",
         "winner_repeat" : "Winner Repeat",

@@ -8,7 +8,7 @@
         "title":"Subscription",
         "id":"ID",
         "joined":"Joined",
-        "vaild":"Vaild till",
+        "vaild":"Valid till",
         "change_plan":"Change Plan",
         "country":"Country/Region"
     },

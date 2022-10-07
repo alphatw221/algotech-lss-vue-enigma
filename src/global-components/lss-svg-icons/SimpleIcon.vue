@@ -225,10 +225,29 @@
     <circle cx="9" cy="9" r="8" :stroke="props.color" stroke-width="1.5"/>
     </svg>
 
+    <svg 
+    v-else-if="icon == 'stop_live'"
+    width="20" height="20" viewBox="0 0 20 20" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <rect x="7" y="7" width="6" height="6" rx="1" :fill="props.color"/>
+    <circle cx="10" cy="10" r="9" :stroke="props.color" stroke-width="1.5"/>
+    </svg>
 
+    <svg 
+    v-else-if="icon == 'stop_live2'"
+    width="16" height="16" viewBox="0 0 16 16" fill="#D1D1D1" xmlns="http://www.w3.org/2000/svg" class="hover:fill-slate-700">
+    <circle cx="8" cy="8" r="8"  fill-opacity="0.8" />
+    <path d="M10.25 5H5.75C5.3375 5 5 5.3375 5 5.75V10.25C5 10.6625 5.3375 11 5.75 11H10.25C10.6625 11 11 10.6625 11 10.25V5.75C11 5.3375 10.6625 5 10.25 5ZM8 
+    0C3.58125 0 0 3.58125 0 8C0 12.4187 3.58125 16 8 16C12.4187 16 16 12.4187 16 8C16 3.58125 12.4187 0 8 0ZM8 14.5C4.41563 14.5 1.5 11.5841 1.5 8C1.5 4.41594 
+    4.41563 1.5 8 1.5C11.5844 1.5 14.5 4.41594 14.5 8C14.5 11.5841 11.5844 14.5 8 14.5Z" fill="white" fill-opacity="0.8"/>
+    </svg>
 
-
-
+    <svg 
+    v-else-if="icon == 'alert_full'"
+    width="24" height="24" viewBox="3 3 18 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <circle cx="12" cy="12" r="9" fill="#E80000"></circle>
+    <path d="M12 13.9857C12 14.2587 12.5152 10.5525 12.8663 7.98253C12.9373 7.46244 12.5328 7 12.0079 7C11.4775 7 11.0714 7.47127 11.1502 7.99576C11.5007 10.3284 12 13.717 12 13.9857Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
+    <circle cx="12" cy="17" r="1" fill="white" stroke="white"></circle>
+    </svg>
 
 
     

@@ -23,7 +23,7 @@
 					</label>
 				</template>
 			</div>
-			<div class="col-span-12 lg:col-span-6">
+			<div class="col-span-12 lg:col-span-6 tom">
 				<label for="crud-form-2" class="form-label text-base mt-2 font-medium">{{ $t('stock.add_product_page.category') }}</label>
 
 				<TomSelect
@@ -52,7 +52,7 @@
 				</template> -->
 			</div>
 
-			<div class="col-span-12 col-start-1 ">
+			<div class="col-span-12 col-start-1 drop">
 				<label class="form-label text-base mt-2 font-medium">{{ $t('stock.add_product_page.upload_image') }}</label>
 				<div class="relative">
 					<!-- <XCircleIcon class="absolute top-1 right-1 w-4 h-4 ml-2 z-index-99" style="color:red" @click="clear"/> -->
@@ -176,17 +176,33 @@
 			</div>
 
 			<div class="col-span-12 mt-2">
-				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.description') }}</label>
-				<textarea 
-					:class="{ 'border-danger text-danger border-2': validate.description.$error }" 
-					class="h-36 p-2 mr-5 form-control indent-4"
-					:placeholder="$t('stock.add_product_page.product_description')"
+				<div class="flex justify-between"> 
+					<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.description') }}</label>
+					<button class="btn btn-secondary mb-2 h-[35px]" @click="previewHTML()">{{ $t('stock.add_product_page.preview') }}</button>
+				</div>
+				<ClassicEditor 
+					:class="{ 'border-danger text-danger border-2': validate.description.$error }"
 					v-model="validate.description.$model"
-				>
-				</textarea>
+					:config="editorConfig"/>
 				<template v-if="validate.description.$error">
 						<label class="text-danger ml-2 text-[13px]" >
 						{{ $t('stock.add_product_page.description_warning') }}
+						</label>
+				</template>
+			</div>
+
+			<div class="col-span-12 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.remark') }}</label>
+				<textarea
+					:class="{ 'border-danger text-danger border-2': validate.remark.$error }" 
+					class="h-36 p-2 mr-5 form-control indent-4"
+					:placeholder="$t('stock.add_product_page.placeholder_remark')"
+					v-model="validate.remark.$model"
+				>
+				</textarea>
+				<template v-if="validate.remark.$error">
+						<label class="text-danger ml-2 text-[13px]" >
+						{{ $t('stock.add_product_page.remark_warning') }}
 						</label>
 				</template>
 			</div>
@@ -201,23 +217,27 @@
 				</button>
 			</div>
 		</div>
+		<ItemDescriptionModal :status="'PREVIEW'"/>
 	</div>
 </template>
 
 <script setup>
-import { createAxiosWithBearer } from '@/libs/axiosClient'
+
 import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
 import { ref, onMounted, computed, provide, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required, integer, maxLength, decimal, minValue} from "@vuelidate/validators";
+import { helpers } from '@vuelidate/validators'
 import i18n from "@/locales/i18n"
+import ItemDescriptionModal from '../shoppingcart/modals/ItemDescriptionModal.vue'
+import ConversationModalVue from '../../components/campaign/modals/ConversationModal.vue';
 
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
 const router = useRouter();
-
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const product = ref({
 	id: 0,
@@ -231,21 +251,34 @@ const product = ref({
 	price: 0,
 	status: 'enabled',
 	tag: [],
+	remark:''
 })
 
-// const typeRadio = ref([
-// 	{text: 'Product', id: 'product'},
-// 	{text: 'Lucky Draw', id: 'lucky_draw'},
-// ])
+const notContains = (param) => (value) => !value.includes(param)
+  
 const rules = computed(()=>{
     return{
-		name:{required,maxLength:maxLength(40)},
+		name:{required,maxLength: maxLength(100)},
 		// order_code: {required, maxLength:maxLength(10)},
-		description: {maxLength: maxLength(100)},
+		description: {notContains:notContains('<head>')},
 		qty: {integer, minValue:minValue(1)},
 		price: {decimal, minValue:minValue(0)},  
+		remark:{maxLength: maxLength(100)}
     }
 });
+
+const editorConfig = {
+  toolbar: {
+items: [
+	'heading', '|',
+	'bold', 'italic', 'strikethrough', 'underline','link', '|',
+	'blockQuote', 'insertTable', '|',
+	'specialCharacters', 'horizontalLine', 'pageBreak', '|',
+	'-',
+	'undo', 'redo',
+],
+  },
+};
 
 const statusRadio = ref([
 	{text: 'for_sale', id: 'enabled'},
@@ -259,12 +292,12 @@ const formData = new FormData()
 const validate = useVuelidate(rules, product);
 
 onMounted(()=>{
-	list_product_category().then(res => { 
+	list_product_category(layoutStore.alert).then(res => { 
 		categorySelection.value = res.data
 		categorySelection.value.unshift('uncategory')
 	})
 	if (route.params.product_id) {
-		retrieve_product(route.params.product_id)
+		retrieve_product(route.params.product_id, layoutStore.alert)
 		.then(
 			res => {
 				product.value = res.data
@@ -303,7 +336,7 @@ const submit = ()=>{
 			
 		
 		formData.append('data', JSON.stringify(product.value))
-		update_product(route.params.product_id, formData)
+		update_product(route.params.product_id, formData, layoutStore.alert)
 		.then(
 			response => {
 				// console.log('image upload response > ', response)
@@ -316,7 +349,7 @@ const submit = ()=>{
 		formData.append('image', dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0] || '._no_image')
 		formData.append('data', JSON.stringify(product.value))
 		// formData.append('image', )
-		create_product(formData)
+		create_product(formData, layoutStore.alert)
 		.then(
 			response => {
 				layoutStore.notification.showMessageToast(i18n.global.t('stock.add_product_page.create_message')),
@@ -331,19 +364,19 @@ const cancelButton = () =>{
 	layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.not_save_message'));
 }
 
+const previewHTML = () => {
+	if(dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0]?.dataURL) product.value.image = dropzoneSingleRef.value.dropzone.getAcceptedFiles()[0].dataURL
+	eventBus.emit('showDescriptionModal',product.value)
+}
+
+
 // const clear = () =>{
 // 	previewImage.value = ''
 // 	dropzoneSingleRef.value.dropzone.previewsContainer = ''
 // 	console.log(dropzoneSingleRef.value.dropzone.previewsContainer)
 // }
 
-
-
-
-
 </script>
-
-<!-- test product name with maximum length to -->
 
 <style scoped>
 
@@ -355,12 +388,16 @@ const cancelButton = () =>{
 }
 .dz-image {
 	width: 100% !important; 
-	z-index: 1;
 }
 .dz-progress {
 	display:none !important; 
 }
-.ts-dropdown{
-	z-index: 9999999;
+
+.tom{
+	z-index: 50;
+}
+
+.drop{
+	z-index: 49;
 }
 </style>

@@ -29,22 +29,24 @@
     },
     "conversation":{
         "conversation_with":"對話與",
-        "type_your_message": "輸入你的訊息"
+        "type_your_message": "輸入你的訊息",
+        "send_successfully":"發送成功"
     },
     "product":{
         "product":"銷售商品",
         "modal_column":{
             "null":"",
             "cart_sold_left":"下單／售出／剩餘",
-            "name":"商品",
+            "name":"商品名稱",
             "description":"說明",
             "Product":"商品",
             "order_code":"下單代碼",
             "price":"價格",
+            "overbook":"可下單",
             "activate":"啟用",
-            "qty":"庫存",
+            "qty":"直播商品數量",
             "stock_qty":"庫存",
-            "category":"分類",
+            "category":"商品分類",
             "type":"類別",
             "Lucky Draw":"獎品",
             "qty_for_campaign":"直播庫存",
@@ -55,13 +57,13 @@
             "search":"搜尋",
             "no_product":"您尚未加入活動商品，點擊 \"＋ 加入商品\"以新增"
         },
-        "add":"加入",
+        "add":"新增成功",
         "add_product":"加入商品",
-        "instantly":"快速新增商品",
-        "from_stock":"從庫存加入商品",
+        "instantly":"快速新增",
+        "from_stock":"從商品清單加入",
         "confirm_product":"確認要新增的商品",
-        "save_to_stock":"同時存入庫存",
-        "apply":"新增",
+        "save_to_stock":"同時新增至「商品管理」",
+        "apply":"儲存",
         "search": "搜尋",
         "reset":"重置",
         "add_more":"新增更多",
@@ -77,8 +79,9 @@
             "price_invalid":"輸入價錢無效"
         },
         "invalid":"輸入無效",
-        "successed":"成功",
-        "invalid_data":"輸入資料無效"
+        "successed":"新增成功",
+        "invalid_data":"輸入資料無效",
+        "name_validation":"商品名稱為必填欄位，且不得超過 20 個中文字。"
     },
     "incoming":{
         "incoming_order":"即時訂單",

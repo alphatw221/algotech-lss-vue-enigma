@@ -11,7 +11,6 @@
         "clear":"清空",
         "comment_message_1":"尚未有%{tag}相关讯息",
         "comment_message_2":"尚未有%{platformName}讯息",
-
         "comments_summarizer":"留言筛选",
         "all_comments":"所有留言",
         "facebook_comments":"Facebook 留言",
@@ -20,7 +19,7 @@
         "tiktok_comments":"Tiktok 留言",
         "twitch_comments":"Twitch 留言",
         "lucky_draw":"抽奖活动",
-        "quiz_game": "問答游戏"
+        "quiz_game": "问答游戏"
     },
     "reply":{
         "reply_tooltips":"回覆留言",
@@ -29,22 +28,24 @@
     },
     "conversation":{
         "conversation_with":"对话与",
-        "type_your_message": "输入您的讯息"
+        "type_your_message": "输入您的讯息",
+        "send_successfully":"发送成功"
     },
     "product":{
         "product":"销售商品",
         "modal_column":{
             "null":"",
             "cart_sold_left":"下单／售出／剩余",
-            "name":"商品",
+            "name":"商品名称",
             "description":"说明",
             "Product":"商品",
             "order_code":"下单代码",
             "price":"价格",
+            "overbook":"可下单",
             "activate":"启用",
-            "qty":"库存",
+            "qty":"直播商品数量",
             "stock_qty":"库存",
-            "category":"类别",
+            "category":"商品分类",
             "type":"类型",
             "Lucky Draw":"奖品",
             "qty_for_campaign":"直播库存",
@@ -55,13 +56,13 @@
             "search":"搜寻",
             "no_product":"您尚未加入商品，点击 \"＋ 加入商品\" 以新增"
         },
-        "add":"加入",
+        "add":"新增成功",
         "add_product":"加入商品",
-        "instantly":"快速新增商品",
-        "from_stock":"從库存加入商品",
+        "instantly":"快速新增",
+        "from_stock":"从商品清单加入",
         "confirm_product":"确认要新增的商品",
-        "save_to_stock":"存入库存商品",
-        "apply":"新增",
+        "save_to_stock":"同時新增至「商品管理」",
+        "apply":"储存",
         "search": "搜寻",
         "reset":"重置",
         "add_more":"新增更多",
@@ -77,8 +78,9 @@
             "price_invalid":"输入价格无效"
         },
         "invalid":"无效",
-        "successed":"成功",
-        "invalid_data":"输入资料无效"
+        "successed":"新增成功",
+        "invalid_data":"输入资料无效",
+        "name_validation":"商品名称为必填栏位，且不得超过 20 个中文字。"
     },
     "incoming":{
         "incoming_order":"即时订单",

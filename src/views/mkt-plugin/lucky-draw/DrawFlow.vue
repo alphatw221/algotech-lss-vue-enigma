@@ -111,6 +111,7 @@ import instagram_platform from '/src/assets/images/lss-img/instagram.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 import noWinner from '/src/assets/images/lss-img/no winner.svg'
 import winnerShowupPicture from '/src/assets/images/lss-img/winner_showup.svg'
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 const props = defineProps({
     luckydrawList: Object
@@ -124,10 +125,10 @@ const showAnimation = ref(false)
 const beforeDraw = ref(true)
 const winnerList = ref([])
 const hasWinner = ref(false)
-
+const layoutStore = useLSSSellerLayoutStore();
 
 onMounted(() => {
-    retrieve_campaign_lucky_draw(route.params.lucky_draw_id).then(res => {
+    retrieve_campaign_lucky_draw(route.params.lucky_draw_id, layoutStore.alert).then(res => {
         luckyDrawData.value = res.data
         console.log(luckyDrawData.value)
         ready.value = true
@@ -143,7 +144,7 @@ const goDraw = (lucky_draw_id) => {
     showAnimation.value = true
     let start = Date.now()/1000
     console.log(start)
-    draw_campaign_lucky_draw(lucky_draw_id).then(res => {
+    draw_campaign_lucky_draw(lucky_draw_id, layoutStore.alert).then(res => {
         winnerList.value = res.data
         beforeDraw.value = false
     }).then(()=>{

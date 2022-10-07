@@ -42,6 +42,20 @@
 								</template>
 							</div>
 						</template>
+						<template v-else-if="column.key === 'price'">
+							<div class="flex justify-center w-24"> 
+								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
+								<template v-if="sortBy =='-price'" > 
+									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('price')" />
+								</template>
+								<template v-else-if="sortBy =='price'" > 
+									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
+								</template> 
+								<template v-else> 
+									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
+								</template>
+							</div>
+						</template>
 						<template v-else>
 							{{ $t(`stock.table_column.${column.key}`) }}
 						</template>
@@ -80,8 +94,8 @@
 				</tr>
 				
 				<tr
-					v-for="(product, index) in stockProducts"
-					:key="index"
+					v-for="(product, pindex) in stockProducts"
+					:key="pindex"
 					class="intro-x"
 					:class="{'trBorder' : numOfProducts != 0}"
 				>	
@@ -97,20 +111,16 @@
 						<td v-else-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="flex justify-center">
 								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 " v-if="product.image">
-									<Tippy 
-										tag="img"
+									<img 
 										class="w-full rounded-lg"
 										:src= "product.image"
-										:content="product.name"
 										data-action="zoom"
 									/>
 								</div>
 								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12" v-else>
-									<Tippy 
-										tag="img"
+									<img 
 										class="w-full rounded-lg"
 										:src= "`${staticDir}` + `no_image.jpeg`"
-										:content="product.name"
 										data-action="zoom"
 									/>
 								</div>
@@ -134,14 +144,18 @@
 						<td v-else-if="column.key === 'price'" class="w-full sm:w-20 qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="text-right">
 								<span class="text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span>
-								{{Math.floor(parseFloat(product[column.key]) * (10 ** layoutStore.userInfo.user_subscription.decimal_places)) / 10 ** layoutStore.userInfo.user_subscription.decimal_places}}
+								{{(Math.floor(parseFloat(product[column.key]) * (10 ** layoutStore.userInfo.user_subscription.decimal_places)) / 10 ** layoutStore.userInfo.user_subscription.decimal_places ).toLocaleString('en-GB')}}
 								{{layoutStore.userInfo.user_subscription.price_unit?$t(`global.price_unit.${layoutStore.userInfo.user_subscription.price_unit}`):''}}</div> 
 						</td>
 
-						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div v-if="product.meta?.wish_list?.length >0"
-							class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product.id)"> 
-								<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{product.meta?.wish_list?.length}})</span>  </div>
+						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
+							<template v-if="product.meta.wish_list" > 
+								<div v-if="Object.keys(product.meta.wish_list).length >0" 
+									class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product,pindex)"> 
+										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
+								<div v-else class="flex gap-2 cursor-not-allowed"> 
+									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
+							</template>
 							<div v-else class="flex gap-2 cursor-not-allowed"> 
 							<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
 						</td>
@@ -159,11 +173,11 @@
 												<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1" />  
 												{{ $t('stock.category_manage.edit')}}
 											</DropdownItem>
-											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product.id)"> 
+											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product)"> 
 												<SimpleIcon icon="copy" color="#2d8cf0" class="mr-1" />  
 												{{ $t('stock.category_manage.duplicate')}}
 											</DropdownItem>
-											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product.id)"> 
+											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product,pindex)"> 
 												<!-- <Trash2Icon class="w-[20px] h-[20px] mx-1"/> -->
 												<SimpleIcon icon="delete" color="#b91c1c" class="mr-1" />  
 												{{ $t('stock.category_manage.delete')}}
@@ -235,7 +249,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { list_product, delete_product, copy_product, list_product_category, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
+import { search_product, delete_product, copy_product, list_product_category, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router"
@@ -254,7 +268,7 @@ const tableColumns = ref([
     { name: "image", key: "image" },
 	{ name: "name", key: "name" },
 	{ name: "category", key: "category" },
-	{ name: "description", key: "description" },
+	{ name: "remark", key: "remark" },
 	{ name: "qty", key: "qty" },
 	{ name: "price", key: "price" },
 	{ name: "wishlist", key:"wishlist"},
@@ -299,7 +313,7 @@ onMounted(()=>{
 
 	pluginColumn()
 
-	list_product_category().then(res => { 
+	list_product_category(layoutStore.alert).then(res => { 
 		categorySelection.value = res.data
 		categorySelection.value.unshift('uncategory')
 	})
@@ -336,7 +350,19 @@ onUnmounted(()=>{
 const search = ()=>{
 	showCommentLoding.value = true
 	stockProducts.value = []
-	list_product(pageSize.value, currentPage.value, searchColumn.value, keyword.value, props.product_status, '',category.value, '', sortBy.value )
+	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
+
+	search_product(
+		_pageSize=pageSize.value, 
+		_currentPage=currentPage.value, 
+		_searchColumn=searchColumn.value, 
+		_keyword=keyword.value, 
+		_productStatus=props.product_status, 
+		_productType='',
+		_category=category.value, 
+		_exclude='', 
+		_sortBy=sortBy.value , 
+		_toastify=layoutStore.alert)
 	.then(
 		response => {
 			if(response.data.count != undefined){
@@ -346,6 +372,7 @@ const search = ()=>{
 			}
 			stockProducts.value = response.data.results
 			showCommentLoding.value = false
+			// console.log(stockProducts.value)
 		}
 	)
 }
@@ -369,14 +396,26 @@ const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
 }
 
-const deleteProduct = (id) => {
+const deleteProduct = (product,index) => {
 	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
-	if (yes) delete_product(id).then(res => { search() })
+	if (yes) delete_product(product.id, layoutStore.alert).then(res => {stockProducts.value.splice(index,1)
+		bulkEditStockObj.value.stockIdList.forEach( (id,index)=>{
+			if (id = product.id) bulkEditStockObj.value.stockIdList.splice(index,1)
+		})})
 	hideDropDown()
 }
 
-const copyProduct = (id) => {
-	copy_product(id).then(res => { search() })
+const copyProduct = (product) => {
+	const copy = Object.assign({}, product)
+	copy_product(product.id, layoutStore.alert).then(res => {
+		console.log(res)
+		copy.id = res.data.message 
+		copy.name = 'copy - ' + product.name
+		copy.check = false
+		stockProducts.value.unshift(copy)
+		console.log(stockProducts.value)
+		}
+	)
 	hideDropDown()
 }
 
@@ -421,19 +460,19 @@ const hide = () => {
 }
 
 const bulkUpdateStock = () => {
-	bulk_update_product(bulkEditStockObj.value).then(res => {
+	bulk_update_product(bulkEditStockObj.value, layoutStore.alert).then(res => {
 		hide()
 		search()
 	})
 }
 
-const sentWishlistMail = (product) =>{
+const sentWishlistMail = (product, index) =>{
 	let yes = confirm(`${i18n.global.t('stock.wishlist.confirm_send')}`)
 	if (yes) {
-		wish_list_send_email(product).then(
+		wish_list_send_email(product.id, layoutStore.alert).then(
 		res=>{
 			layoutStore.notification.showMessageToast(`${i18n.global.t('stock.wishlist.success_send')}`)
-			search()
+			stockProducts.value[index].meta.wish_list = []
 		})
 	}
 	else layoutStore.alert.showMessageToast(`${i18n.global.t('stock.wishlist.cancel_send')}`)
@@ -559,39 +598,40 @@ thead th{
 
 	td:nth-of-type(3):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
-	}
+		 }
 
 	td:nth-of-type(4):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
 	}
 	td:nth-of-type(5):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
 	}
+	
 	.category:before {
 		content: attr(data-content);
-		/* color: #0e9893; */
 	}
 	td:nth-of-type(6):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
 	}
 	td:nth-of-type(6){
 		white-space: normal !important;
 		width: 100% !important;
-		/* color: #0e9893; */
 	}
 
 	td:nth-of-type(7):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
+		 
 	}
+	.wishlist{
+		display:inline-flex;
+		justify-content: flex-end;
+		width: 100% !important;
+	}
+
 	td:nth-of-type(8):before {
 		content: attr(data-content);
-		/* color: #0e9893; */
-	}
+		 }
+
 	.edit{
 		position: absolute !important;
         top:0;
