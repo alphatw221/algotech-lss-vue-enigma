@@ -13,7 +13,7 @@
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
  
 import {googleLoadScriptAsyncDefer} from '@/libs/loadScript.js';
-import { check_activated_platform } from '@/api/user_subscription'
+
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)

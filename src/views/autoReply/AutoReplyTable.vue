@@ -202,7 +202,7 @@ const reset=()=>{
 function getReplyData() {
 	listItems.value =[]
 	showCommentLoding.value = true
-	list_auto_response(pageSize.value, currentPage.value, searchKeyword.value)
+	list_auto_response(pageSize.value, currentPage.value, searchKeyword.value, layoutStore.alert)
 	.then((response) => {
 		totalCount.value = response.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
@@ -216,7 +216,7 @@ function getReplyData() {
 
 function deleteAutoReply(reply,index) {
 	hideDropDown()
-	delete_auto_response(reply.id)
+	delete_auto_response(reply.id, layoutStore.alert)
 		.then((response) =>{
 			layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.deleted_message'));
 			listItems.value.splice(index,1)
@@ -246,7 +246,7 @@ const selectReply = (reply, event) => {
 const batchDelete = () => {
 	var yes = confirm(i18n.global.t('auto_reply.table_column.confirm_delete'));
 	if (yes) {
-		batch_delete_auto_response(bulkDeleteIdList.value).then(res => {
+		batch_delete_auto_response(bulkDeleteIdList.value, layoutStore.alert).then(res => {
 			bulkDeleteIdList.value.forEach(bulk => listItems.value.splice(listItems.value.findIndex(list => list.id === bulk),1));
 			bulkDeleteIdList.value = []
 		})

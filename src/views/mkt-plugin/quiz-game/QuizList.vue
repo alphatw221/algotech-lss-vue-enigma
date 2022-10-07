@@ -157,7 +157,7 @@ const emptyArr = ref(['', null, undefined])
 
 
 const quizgameStart = (id) => {
-    start_campaign_quiz_game(id).then(res => { 
+    start_campaign_quiz_game(id, layoutStore.alert).then(res => { 
         props.quizgameList.forEach(quizgameBundle => {
             quizgameBundle.quiz_games.forEach(quizgame => {
                 if (quizgame.id === parseInt(id)) quizgame.start_at = res.data.start_at
@@ -167,7 +167,7 @@ const quizgameStart = (id) => {
 }
 
 const quizgameStop = (id) => {
-    stop_campaign_quiz_game(id).then(res => { 
+    stop_campaign_quiz_game(id, layoutStore.alert).then(res => { 
         props.quizgameList.forEach(quizgameBundle => {
             quizgameBundle.quiz_games.forEach(quizgame => {
                 if (quizgame.id === parseInt(id)) quizgame.end_at = res.data.end_at
@@ -191,7 +191,7 @@ const goEdit = (id) => {
 }
 
 const goDelete = (id) => {
-    delete_campaign_quiz_game_bundle(id).then(res => {
+    delete_campaign_quiz_game_bundle(id, layoutStore.alert).then(res => {
         if (res.data.message === 'delete success') layoutStore.notification.showMessageToast('Delete success');
         eventBus.emit('listQuiz')
     })
@@ -199,7 +199,7 @@ const goDelete = (id) => {
 }
 
 const goResult = (id) => {
-    result_campaign_quiz_game(id).then(res => {
+    result_campaign_quiz_game(id, layoutStore.alert).then(res => {
         eventBus.emit('listQuiz')
     })
 }

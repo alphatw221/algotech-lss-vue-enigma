@@ -28,7 +28,7 @@
 </template>
 
 <script setup >
-// import { forgot_password } from '@/api/user'
+
 import { seller_forgot_password } from '@/api_v2/user'
 import { useRoute, useRouter } from "vue-router";
 import {ref, onMounted, onBeforeMount } from 'vue'

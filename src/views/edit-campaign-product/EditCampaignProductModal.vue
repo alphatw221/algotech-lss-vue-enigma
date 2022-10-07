@@ -11,7 +11,8 @@
         <ModalBody class="grid grid-cols-12 gap-3">
             <template v-for="(column, index) in tableColumns" :key="index">
                     
-                    <div class="col-span-12" v-if="column.key === 'customer_editable'  && campaignProduct.type != 'lucky_draw' || column.key === 'customer_removable' && campaignProduct.type != 'lucky_draw'">
+                    <div class="col-span-12" 
+                        v-if="(column.key === 'customer_editable' || column.key === 'customer_removable' || column.key === 'oversell')  && campaignProduct.type != 'lucky_draw'">
                         <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                         <input 
                             class="form-check-input w-[1.2rem] h-[1.2rem] ml-5"
@@ -133,6 +134,7 @@ const tableColumns = [
     { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Price", key: "price" },
     { name: "Type", key: "type" },
+    { name: "Oversell", key: "oversell" },
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
 ]
@@ -147,6 +149,7 @@ onMounted(() => {
     eventBus.on('editCampaignProduct', (payload) => {
         payloadBuffer.value = payload
         campaignProduct.value = payload.campaignProduct
+        // console.log(campaignProduct.value)
     })
 })
 
@@ -161,10 +164,10 @@ const updateProduct = () => {
         layoutStore.alert.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.invalid_data'))
         return
     }
-
+    // console.log(campaignProduct.value)
     seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
     .then(res => {
-        console.log(res.data)
+        // console.log(res.data)
         campaignDetailStore.campaignProducts[payloadBuffer.value.index] = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.update_successfully'))
         hideModal()

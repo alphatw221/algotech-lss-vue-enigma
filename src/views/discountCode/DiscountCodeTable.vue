@@ -64,7 +64,7 @@
 								<div> * {{ $t(`discount.table.` + limitation.key) }} </div>
 								<div class="ml-2 sm:ml-auto" v-if="limitation.key == 'subtotal_over_specific_amount'"> $ {{(limitation.amount).toLocaleString('en-US')}} </div>
 								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'product_over_specific_number'"> {{limitation.number}} pcs </div>
-								<div class="ml-2 sm:ml-auto" v-else-if="limitations.key == 'discount_code_usable_time'"> {{limitations.times}} </div>
+								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'discount_code_usable_time'"> {{limitation.times}} </div>
 								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitation.key == 'specific_campaign'"> 
 									<template v-for="(campaign, index) in scheduledCamapign" :key="index"> 
 										<template v-if="campaign.id == limitation.campaign_id"> {{campaign.title}} </template>	
@@ -214,7 +214,7 @@ const changePageSize = page_size=> {
 }
 
 const getScheduleCamp =()=>{
-	list_scheduled_campaign_options().then(res=>{
+	list_scheduled_campaign_options(layoutStore.alert).then(res=>{
         scheduledCamapign.value= res.data
     })
 }
@@ -222,7 +222,7 @@ const getScheduleCamp =()=>{
 const listDiscountCodes=()=> {
 	discountCodes.value = []
 	showLoadingIcon.value = true
-	list_discount_code(pageSize.value, currentPage.value)
+	list_discount_code(pageSize.value, currentPage.value, layoutStore.alert)
 	.then((res) => {
 		totalCount.value = res.data.count
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
@@ -246,7 +246,7 @@ const deleteDiscountCode = (discountCode, discountCodeIndex)=> {
 	// console.log(discountCodeIndex)
 
 	hideDropDown()
-	delete_discount_code(discountCode.id)
+	delete_discount_code(discountCode.id, layoutStore.alert)
 		.then(res =>{
 			layoutStore.notification.showMessageToast(i18n.global.t('auto_reply.deleted_message'));
 			// discountCodes.value.splice(discountCodeIndex,1)

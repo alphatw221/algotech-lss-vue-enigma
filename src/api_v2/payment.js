@@ -1,28 +1,28 @@
-import { axiosInstance, createAxiosWithBearer } from "@/libs/axiosClient";
+import { createAxios } from "@/libs/axiosClient";
 
 
-const get_stripe_gateway = (order_oid) => {
-    return axiosInstance.get(`/api/v2/payment/stripe/gateway/?order_oid=${order_oid}`)
+const get_stripe_gateway = (order_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/payment/stripe/gateway/?order_oid=${order_oid}`)
 }
 
-const get_hitpay_gateway = (order_oid) => {
-    return axiosInstance.get(`/api/v2/payment/hitpay/gateway/?order_oid=${order_oid}`)
+const get_hitpay_gateway = (order_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/payment/hitpay/gateway/?order_oid=${order_oid}`)
 }
 
-const get_paypal_gateway = (order_oid) => {
-    return axiosInstance.get(`/api/v2/payment/paypal/gateway/?order_oid=${order_oid}`)
+const get_paypal_gateway = (order_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/payment/paypal/gateway/?order_oid=${order_oid}`)
 }
 
-const get_first_data_credential = (order_oid) => {
-    return axiosInstance.get(`/api/v2/payment/first_data/credential/?order_oid=${order_oid}`)
+const get_first_data_credential = (order_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/payment/first_data/credential/?order_oid=${order_oid}`)
 }
 
-const get_ecpay_credential = (order_oid) => {
-    return axiosInstance.get(`/api/v2/payment/ecpay/credential/?order_oid=${order_oid}`)
+const get_ecpay_credential = (order_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/payment/ecpay/credential/?order_oid=${order_oid}`)
 }
 
-const get_pay_mongo_gateway = (order_oid) => {
-    return axiosInstance.get(`/api/v2/payment/pay_mongo/gateway/?order_oid=${order_oid}`)
+const get_pay_mongo_gateway = (order_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/payment/pay_mongo/gateway/?order_oid=${order_oid}`)
 }
 
 

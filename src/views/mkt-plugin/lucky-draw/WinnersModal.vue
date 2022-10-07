@@ -72,7 +72,9 @@ import instagram_platform from '/src/assets/images/lss-img/instagram.png';
 import tiktok_platform from '/src/assets/images/lss-img/tiktok_black_bg.png';
 import twitch_platform from '/src/assets/images/lss-img/twitch.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
+const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
 const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
@@ -89,7 +91,7 @@ const winnerListPreview = ref(false)
 
 onMounted(() => {
     eventBus.on('showWinnersList', () => {
-        list_campaign_lucky_draw_winners(route.params.campaign_id).then(res => {
+        list_campaign_lucky_draw_winners(route.params.campaign_id, layoutStore.alert).then(res => {
         winnerList.value = res.data    
     })
     winnerListPreview.value = true

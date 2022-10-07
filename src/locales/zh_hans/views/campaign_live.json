@@ -41,6 +41,7 @@
             "Product":"商品",
             "order_code":"下单代码",
             "price":"价格",
+            "overbook":"可下单",
             "activate":"启用",
             "qty":"直播商品数量",
             "stock_qty":"库存",

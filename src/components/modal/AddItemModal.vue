@@ -82,6 +82,11 @@ import { buyer_retrieve_pre_order } from "@/api_v2/pre_order";
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute } from "vue-router";
+
+import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
+
+const layoutStore = useLSSBuyerLayoutStore();
+
 const route = useRoute();
 const store = useShoppingCartStore(); 	
 
@@ -102,7 +107,7 @@ const changeQuantity = (event, index, type) => {
 }
 
 const list = (pre_order_id) => {
-	list_campapign_product(pre_order_id)
+	list_campapign_product(pre_order_id, layoutStore.alert)
 	.then(
 		response => {
 			store.addOnProducts = response.data
@@ -115,7 +120,7 @@ const list = (pre_order_id) => {
 }
 
 const buyer_add_item = (campaing_product_id, index) => {
-	buyer_cart_add(route.params.pre_order_id, campaing_product_id, store.addOnProducts[index].qty)
+	buyer_cart_add(route.params.pre_order_id, campaing_product_id, store.addOnProducts[index].qty, layoutStore.alert)
 	.then(
 		response => {
 			list(route.params.pre_order_id)

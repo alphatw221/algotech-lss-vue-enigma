@@ -195,7 +195,7 @@
 </template>
 
 <script>
-import { createAxiosWithBearer } from "@/libs/axiosClient";
+import { createAxios } from "@/libs/axiosClient";
 
 export default {
   props: {
@@ -258,7 +258,7 @@ export default {
       return param.substr(1, param.length);
     },
     search() {
-      createAxiosWithBearer()
+      createAxios()
         .get(`${this.requestUrl}?${this.url_param()}`)
         .then((response) => {
           if (response.data.count != undefined) {

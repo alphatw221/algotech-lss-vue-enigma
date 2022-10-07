@@ -101,6 +101,20 @@
                                 />
                             </div>
                         </td> -->
+                        <td v-else-if="column.key === 'oversell'" 
+                            :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 text-center content-center items-center editable" 
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div v-if="campaign_product.type == 'lucky_draw'" > - </div>
+                            <div v-else class=" form-check place-content-end sm:place-content-center">
+                                <input 
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]" 
+                                    type="checkbox" 
+                                    disabled
+                                    v-model="campaign_product[column.key]" 
+                                />
+                            </div>
+                        </td>
 
                         <td v-else-if="column.key === 'customer_editable'" 
                             :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
@@ -195,7 +209,7 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed, defineProps } from 'vue';
-import { seller_list_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
+import { seller_search_campaign_product, seller_delete_campaign_product, seller_update_campaign_product } from '@/api_v2/campaign_product';
 import { retrieve_campaign } from '@/api_v2/campaign'
 import { useRoute } from 'vue-router';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
@@ -228,6 +242,7 @@ const tableColumns = ref([
     { name: "Max Qty / Order", key: "max_order_amount" },
     { name: "Category", key: "tag" },
     { name: "Price", key: "price" },
+    { name: "Oversell", key: "oversell" },
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
     { name: "", key: "edit" },
@@ -256,7 +271,7 @@ onUnmounted(() => {
 
 
 const search = () => {
-    seller_list_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value)
+    seller_search_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value, layoutStore.alert)
     .then(response => {
         dataCount.value = response.data.count
         campaignDetailStore.campaignProducts = response.data.results

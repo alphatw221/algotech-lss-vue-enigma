@@ -142,7 +142,7 @@ const changeQuantity = (event, index, operation) => {
 
 
 const seller_add_item = (campaing_product_id, index) => {
-	seller_cart_add(route.params.order_id, campaing_product_id, addOnProducts.value[index].qty)
+	seller_cart_add(route.params.order_id, campaing_product_id, addOnProducts.value[index].qty, layoutStore.alert)
 	.then(
 		res => {
 			store.orderDetail = res.data

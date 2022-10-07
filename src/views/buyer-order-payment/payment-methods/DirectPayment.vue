@@ -103,7 +103,7 @@
 
 import { computed, onMounted, ref, watch, provide, reactive, toRefs } from "vue";
 
-import { buyer_upload_receipt, guest_upload_receipt } from "@/api_v2/order";
+import { buyer_upload_receipt } from "@/api_v2/order";
 
 import { useRoute, useRouter } from "vue-router";
 
@@ -173,8 +173,7 @@ const uploadReceipt = () => {
     formData.append('account_name', account.direct_payment_name)
     formData.append('account_mode', account.direct_payment_mode)
 
-    const upload_receipt = isAnonymousUser?guest_upload_receipt:buyer_upload_receipt
-    upload_receipt(route.params.order_oid, formData)
+    buyer_upload_receipt(route.params.order_oid, formData, layoutStore.alert)
         .then(
             res => {
                 store.order = res.data

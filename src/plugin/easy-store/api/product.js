@@ -1,6 +1,6 @@
-import { axiosInstance, createAxiosWithBearer, createAxiosWithBearerWithoutInterceptor } from "@/libs/axiosClient";
+import { createAxiosWithoutInterceptor } from "@/libs/axiosClient";
 
 
 export const export_product_from_easy_store = data =>{
-    return createAxiosWithBearerWithoutInterceptor().get(`/api/plugin/easy_store/product/export/`);
+    return createAxiosWithoutInterceptor().get(`/api/plugin/easy_store/product/export/`);
 }

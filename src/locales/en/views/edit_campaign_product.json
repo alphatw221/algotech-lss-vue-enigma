@@ -20,6 +20,7 @@
         "customer_removable":"Removable",
         "edit":"Action",
         "delete":"Delete",
+        "oversell":"Oversell",
         "types":{
             "product":"Product",
             "product-fast":"Product",
@@ -43,7 +44,8 @@
         "price":"Price",
         "customer_editable":"Editable",
         "customer_removable":"Removable",
-
+        "oversell":"Oversell",
+        
         "cancel":"Cancel",
         "update":"Update",
         "types":{
