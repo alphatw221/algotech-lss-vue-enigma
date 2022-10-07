@@ -21,7 +21,7 @@
         "general":"Promo Code",
         "subtotal_over_specific_amount":"Amount：",
         "product_over_specific_number":"Product：",
-        "discount_code_usable_time": "Usable Times：",
+        "discount_code_usable_time": "Usage Limited：",
         "specific_campaign":"Campaign：",
         "all": "All"
     },
@@ -55,12 +55,12 @@
             "specific_campaign":"Specific Campaign",
             "subtotal_over_specific_amount":"By Order Amount",
             "product_over_specific_number":"By Order Qty",
-            "discount_code_usable_time": "Usable Times"
+            "discount_code_usable_time": "Usage Limited"
         },
         "Order Subtotal":"Order Subtotal",
         "Product Number":"Product Number",
         "Discount Rate":"Discount Rate",
-        "Usable Times": "Usable Times",
+        "Usable Times": "Usage Limited",
         "Deduct Amount":"",
         "cancel":"Cancel",
         "save":"Save"
