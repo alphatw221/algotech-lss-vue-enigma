@@ -1,33 +1,18 @@
 <template>
-<div class="flex outterContainer overflow-auto bg-secondary relative">
       <!-- BEGIN: Side Menu -->
-      <div class="top-[80px] z-0 sm:z-[51] left-[16px] px-4 flex fixed my-3 mx-auto py-1 w-fit xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100" 
-        :class="{
-                  'bg-slate-100': breadCrumb[breadCrumb.length-1] == 'create campaign',
-                }"
-        @click="router.push({name:'create-campaign'})"> 
-        <button class="w-10 h-10 xl:mr-3 btn btn-rounded-warning border-[2px] border-slate-100 shadow-lg"
-          ><span class="text-2xl text-white">+</span></button> 
-        <span class="hidden font-medium xl:block my-auto flex flex-wrap w-24"
-          :class="{
-            'font-bold': breadCrumb[breadCrumb.length-1] == 'create campaign',
-          }"
-          > {{$t(`layout.menu.create`)}}<div class="w-24">{{$t(`layout.menu.new_campaign`)}}</div></span> 
-      </div>
-
-      <nav class="side-nav">
-        <ul>
+      <nav class="side-nav bg-secondary">
+        <ul >
           <!-- BEGIN: First Child -->
           <template v-for="(menu, menuKey) in formattedMenu">
             <li
               v-if="menu == 'devider'"
               :key="menu + menuKey"
-              class="my-6 side-nav__devider"
+              class="side-nav__devider my-6"
             ></li>
             <li v-else :key="menu + menuKey"> 
               <SideMenuTooltip
                 tag="a"
-                :content="$t(`layout.menu.${menu.title}`)"
+                :content="menu.title"
                 :href="
                   menu.subMenu
                     ? 'javascript:;'
@@ -41,11 +26,10 @@
                 @click="linkTo(menu, router, $event)"
               >
                 <div class="side-menu__icon">
-                  <!-- <component :is="menu.icon" /> -->
-                  <MenuIcon :icon="menu.icon" color="#334155" /> 
+                  <component :is="menu.icon" />
                 </div>
                 <div class="side-menu__title">
-                  {{ $t(`layout.menu.${menu.title}`) }}
+                  {{ menu.title }}
                   <div
                     v-if="menu.subMenu"
                     class="side-menu__sub-icon"
@@ -64,7 +48,7 @@
                   >
                     <SideMenuTooltip
                       tag="a"
-                      :content="$t(`layout.menu.${subMenu.title}`)"
+                      :content="subMenu.title"
                       :href="
                         subMenu.subMenu
                           ? 'javascript:;'
@@ -75,10 +59,10 @@
                       @click="linkTo(subMenu, router, $event)"
                     >
                       <div class="side-menu__icon">
-                        <MenuIcon :icon="subMenu.pageName" color="#334155" />
+                        <ActivityIcon />
                       </div>
                       <div class="side-menu__title">
-                        {{ $t(`layout.menu.${subMenu.title}`) }}
+                        {{ subMenu.title }}
                         <div
                           v-if="subMenu.subMenu"
                           class="side-menu__sub-icon"
@@ -101,7 +85,7 @@
                         >
                           <SideMenuTooltip
                             tag="a"
-                            :content="$t(`layout.menu.${lastSubMenu.title}`)"
+                            :content="lastSubMenu.title"
                             :href="
                               lastSubMenu.subMenu
                                 ? 'javascript:;'
@@ -119,7 +103,7 @@
                               <ZapIcon />
                             </div>
                             <div class="side-menu__title">
-                              {{ $t(`layout.menu.${lastSubMenu.title}`) }}
+                              {{ lastSubMenu.title }}
                             </div>
                           </SideMenuTooltip >
                         </li>
@@ -133,46 +117,29 @@
             </li>
           </template>
           <!-- END: First Child -->
-        </ul> 
-          <button class="fixed mx-5 text-white rounded-lg btn btn-danger xl:m-5 bottom-5 border-0 border-red-900 shadow-lg"
-              @click="router.push('/seller/change-plan')"
-              >
-              <!-- <SimpleIcon icon="upgrade" color="white" class="mr-0 xl:mx-2 h-5"/> -->
-              <font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 xl:mx-2 h-5"/>
-              <span class="hidden text-lg xl:block 2xl:block">{{$t('layout.upgrade')}}  </span>  </button>
-          </nav>
-      
+        </ul>
+      </nav>
       <!-- END: Side Menu -->
-      <!-- BEGIN: Content -->
-      <div class="lss-content">
-        <div class="absolute -z-50 top-0 invisible" id="topPoint"></div>
-        <SellerBreadCrumb/>
-        <router-view />
-      </div>
-      
-      <!-- END: Content -->
-    </div>
 </template>
 
 <script setup>
-import SellerBreadCrumb from "./SellerBreadCrumb.vue"
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { helper as $h } from "@/utils/helper";
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { useLSSAdminLayoutStore } from "@/stores/lss-admin-layout";
+
 import SideMenuTooltip from "@/components/side-menu-tooltip/Main.vue";
 import { linkTo, nestedMenu, enter, leave } from "./index";
 import dom from "@left4code/tw-starter/dist/js/dom";
-import MenuIcon from "../../global-components/lss-svg-icons/MenuIcon.vue";
-
+import { useCookies } from "vue3-cookies"
 const route = useRoute();
 const router = useRouter();
 const formattedMenu = ref([]);
-const layoutStore = useLSSSellerLayoutStore();
+const layoutStore = useLSSAdminLayoutStore();
+const { cookies } = useCookies();
 const sideMenu = computed(() => nestedMenu(layoutStore.menu, route));
-const rawPath = ref()
-const dummy = ref()
-const breadCrumb = ref([])
+const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
+
 
 provide("forceActiveMenu", (pageName) => {
   
@@ -185,33 +152,15 @@ watch(
   () => {
     delete route.forceActiveMenu;
     formattedMenu.value = $h.toRaw(sideMenu.value);
-    // sortPath(route.path)
-  },
+  }
 );
 
 onMounted(() => {
   dom("body").removeClass("error-page").removeClass("login").addClass("main");
-  formattedMenu.value = $h.toRaw(sideMenu.value);
-  // sortPath(route.path)
+    formattedMenu.value = $h.toRaw(sideMenu.value);
+  
+
 });
-
-// const sortPath=(path)=>{
-//   rawPath.value = path
-//   rawPath.value = rawPath.value.replace(/[0-9]/g, '')
-//   rawPath.value = rawPath.value.replace(/\s/g, '')
-//   breadCrumb.value = rawPath.value.substr(8).replace(/-/g, " ")
-//   breadCrumb.value = breadCrumb.value.split('/')
-//   if(breadCrumb.value[breadCrumb.value.length-1] === ''){
-//     breadCrumb.value.splice(-1,1)
-//   }
-// }
-// const pathName=(value)=>{
-//   const crumb = ref(value)
-//   router.push({name: crumb.value.replace(" ", "-")})
-// }
-
-
-
 </script>
 
 
@@ -220,29 +169,5 @@ onMounted(() => {
   background-color: theme("colors.dark"); 
 }
 
-.breadcrumb-item a{
-  color: #7c7c7c;
-}
-
-.mobileBack{
-  position:absolute;
-  top:10px;
-  z-index: 50;
-}
-
-.outterContainer{
-  height: 100vh;
-}
-
-@media only screen and (max-width: 760px),
-(min-device-width: 769px) and (max-device-width: 769px) {
-  .creatCamp{
-    display: none;
-  }
-  .outterContainer{
-  /* height: calc(100vh - 70px); */
-  height:90vh;
-}
-}
 
 </style>
