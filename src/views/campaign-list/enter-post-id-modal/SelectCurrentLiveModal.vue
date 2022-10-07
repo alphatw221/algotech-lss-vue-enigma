@@ -67,13 +67,7 @@ onMounted(()=>{
       if(payload.platform=='facebook'){
         get_fb_page_live_media(payloadBuffer.page.page_id, payloadBuffer.page.token)
         .then((response) => {
-<<<<<<< HEAD
-          console.log(response)
-          const live_campaign = response.data.data.filter(v => (v.properties === undefined) && (v.attachments.data[0].media_type === "video"))
-          console.log(live_campaign)
-=======
           const live_campaign = response.data.data.filter(v => v.status === "LIVE")
->>>>>>> staging
           if (!live_campaign.length) {
               layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_facebook_post'))
               return
