@@ -89,7 +89,7 @@
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue';
 import { useRoute, useRouter } from "vue-router";
-import { delete_campaign_lucky_draw, list_campaign_lucky_draw_winners, draw_campaign_lucky_draw_check, draw_start_sharedpost_crawler } from '@/api_v2/campaign_lucky_draw';
+import { delete_campaign_lucky_draw, list_campaign_lucky_draw_winners, draw_campaign_lucky_draw_check } from '@/api_v2/campaign_lucky_draw';
 import WinnersModal from './WinnersModal.vue';
 import youtube_platform from '/src/assets/images/lss-img/youtube.png';
 import facebook_platform from '/src/assets/images/lss-img/facebook.png';
@@ -127,9 +127,6 @@ const toManageOrder = ()=>{
 const goDraw = (lucky_draw_id) => {
     // need fix
     draw_campaign_lucky_draw_check(lucky_draw_id, layoutStore.alert).then(res=>{
-        if (res.data.type === "sharedpost") {
-            draw_start_sharedpost_crawler(lucky_draw_id)
-        }
         let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id}, query: {language: i18n.global.locale.value} })
         window.open(routeData.href, '_blank')
     })

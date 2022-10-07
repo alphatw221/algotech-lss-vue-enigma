@@ -37,6 +37,3 @@ export const draw_campaign_lucky_draw_check = (lucky_draw_id, toastify=null) => 
     return createAxios(toastify).get(`/api/v2/campaign-luckydraw/${lucky_draw_id}/draw/check`)
 }
 
-export const draw_start_sharedpost_crawler = (lucky_draw_id, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/campaign-luckydraw/${lucky_draw_id}/draw/start_sharedpost_crawler`)
-}
