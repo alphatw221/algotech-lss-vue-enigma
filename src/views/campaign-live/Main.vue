@@ -77,8 +77,8 @@ const initWebSocketConnection=()=>{
     );
     webSocket.onmessage = e => {
         const message = JSON.parse(e.data);
-        // console.log(message)
-        // handleSocketMessage(message)
+        console.log(message)
+        handleSocketMessage(message)
     };
     webSocket.onopen = e => {
         console.log('connected')
