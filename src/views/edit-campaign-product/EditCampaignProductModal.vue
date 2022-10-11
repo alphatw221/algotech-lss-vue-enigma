@@ -10,11 +10,25 @@
         </ModalHeader>
         <ModalBody class="grid grid-cols-12 gap-3">
             <template v-for="(column, index) in tableColumns" :key="index">
-                    
                     <div class="col-span-12" 
-                        v-if="(column.key === 'customer_editable' || column.key === 'customer_removable' || column.key === 'oversell')  && campaignProduct.type != 'lucky_draw'">
+                        v-if="(column.key ==='customer_editable' || column.key ==='customer_removable' || column.key ==='oversell') && campaignProduct.type != 'lucky_draw'">
                         <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                         <input 
+                            v-if="column.key ==='customer_editable'"
+                            @click="productEditable($event)"
+                            class="form-check-input w-[1.2rem] h-[1.2rem] ml-5"
+                            type="checkbox" 
+                            v-model="campaignProduct[column.key]" 
+                        />
+                        <input 
+                            v-else-if="column.key ==='customer_removable'"
+                            @click="productRemovable($event)"
+                            class="form-check-input w-[1.2rem] h-[1.2rem] ml-5"
+                            type="checkbox" 
+                            v-model="campaignProduct[column.key]" 
+                        />
+                        <input 
+                            v-else
                             class="form-check-input w-[1.2rem] h-[1.2rem] ml-5"
                             type="checkbox" 
                             v-model="campaignProduct[column.key]" 
@@ -101,7 +115,7 @@ import { useRoute } from 'vue-router';
 import { useCampaignDetailStore } from '@/stores/lss-campaign-detail';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
-import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue, maxValue } from "@vuelidate/validators";
+import { required, integer, minValue, maxValue } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 import i18n from "@/locales/i18n"
 const props = defineProps({ campaignStarted: Boolean} )
@@ -114,7 +128,7 @@ const campaignProduct = ref({
     qty_for_sale:null,
     max_order_amount:null,
     price:null,
-    type:null,
+    type:null
 })
 
 const campaignProductRules = computed(() => {
@@ -152,6 +166,10 @@ onMounted(() => {
         // console.log(campaignProduct.value)
     })
 })
+
+const productEditable = (event)=>{if(!event.target.checked)campaignProduct.value.customer_removable=false}
+const productRemovable = (event)=>{if(event.target.checked)campaignProduct.value.customer_editable=true}
+
 
 onUnmounted(() => {
     eventBus.off('editCampaignProduct')
