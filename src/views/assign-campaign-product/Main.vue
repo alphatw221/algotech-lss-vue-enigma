@@ -631,6 +631,7 @@ const selectAllStockProduct = (event)=>{
 
 
 const search = () => {
+	currentPage.value = 1
 	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
 		_pageSize=pageSize.value,
