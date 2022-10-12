@@ -27,6 +27,7 @@
         "customer_editable":"Editable",
         "customer_removable":"Removable",
         "oversell":"Oversell",
+        "overbid":"Overbid",
         "types":{
             "product":"Product",
             "product-fast":"Product",
