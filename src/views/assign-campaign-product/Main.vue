@@ -16,7 +16,7 @@
 					<select 
 						class="form-select min-w-fit h-[35px] sm:h-[42px] lg:max-w-xl"
 						v-model="selectedCategory"
-						@change="search()"
+						@change="filterProducts()"
 					>
 						<option :value="''">{{$t(`assign_product.search_bar.all`)}}</option>
 						<option v-for="category,index in productCategories" :key="index" :value="category">{{ category }}</option>
@@ -38,9 +38,9 @@
 					<div class="relative"> 
 						<input type="text"
 							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
-							v-model="searchKeyword" @keydown.enter.prevent="search()" 
+							v-model="searchKeyword" @keydown.enter.prevent="filterProducts()" 
 						/>
-						<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="search()"/>
+						<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="filterProducts()"/>
 					</div>
 					<XIcon 
 						v-if="searchKeyword"
@@ -628,10 +628,12 @@ const selectAllStockProduct = (event)=>{
     openTab.value='select'
 }
 
-
+const filterProducts = ()=>{
+	currentPage.value = 1
+	search()
+}
 
 const search = () => {
-	currentPage.value = 1
 	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
 		_pageSize=pageSize.value,
@@ -678,6 +680,7 @@ const resetSearchBar = ()=>{
     selectedCategory.value=''
     searchField.value='name'
     searchKeyword.value = ''
+	currentPage.value = 1
     search()
 }
 
