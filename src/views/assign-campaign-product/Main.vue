@@ -199,8 +199,9 @@
 				</div>
 				<div class="intro-y flex flex-row flex-wrap sm:flex-nowrap items-center justify-between">
 					<Page 
-						class="mx-auto my-3"
-						:total="dataCount" 
+						class="mx-auto my-3" 
+						:total="dataCount"
+						:page-size="pageSize"
 						@on-change="changePage"
 						@on-page-size-change="changePageSize"
 					/>
@@ -407,6 +408,7 @@ const router = useRouter();
 const openTab = ref('select')
 const currentPage = ref(1)
 const pageSize = ref(50)
+const totalPage = ref(1)
 const dataCount = ref(0)
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
@@ -642,7 +644,17 @@ const search = () => {
 		_sortBy='',
 		_toastify=layoutStore.alert)
 	.then(response => {
-		dataCount.value = response.data.count
+		console.log('data_count')
+		console.log(response.data.count)
+		dataCount.value = response.data.count;
+		// if (response.data.count != undefined) {
+        //   dataCount.value = response.data.count;
+        //   const _totalPage = Math.ceil(response.data.count / pageSize.value);
+        //   totalPage.value = _totalPage == 0 ? 1 : _totalPage;
+		//   console.log('totalPage')
+		// 	console.log(totalPage.value)
+		// 	totalPage.value = 3
+        // }
 		stockProducts.value = response.data.results
 		console.log(stockProducts.value = response.data.results)
 		// proudct default value
@@ -674,8 +686,8 @@ const changePage = (page) => {
 }
 
 
-const changePageSize = (pageSize)=>{
-	pageSize = pageSize;
+const changePageSize = (page_size)=>{
+	pageSize.value = page_size;
 	search();
 }
 
@@ -717,8 +729,9 @@ const clearAllData = ()=>{
     selectedProductDict.value = {}
     openTab.value = 'select'
     currentPage.value = 1
-    pageSize.value=10
+    pageSize.value=50
     dataCount.value =0
+	totalPage.value = 1
 	campaignProductOrderCodeDict.value = {}
 	isSelectedProductsValid = false
 	campaignDetailStore.showAddProductFromStockModal = false
