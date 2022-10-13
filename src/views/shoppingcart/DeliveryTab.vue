@@ -208,8 +208,8 @@
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
                       v-for="(option, index) in store.order.campaign.meta_logistic.pickup_options" :key="index">
 
-                      <input :id="'pickup-switch-' + index" class="form-check-input" type="radio"
-                        name="vertical_radio_button" :value="index"
+                      <input class="form-check-input" type="radio"
+                        :name="'pickup-switch-' + index" :value="index"
                         v-model="shipping_option_index_computed" />
                       <label class="mr-auto form-check-label" :for="'pickup-switch-' + index">{{ option.name }}</label>
 
@@ -336,7 +336,6 @@ const shipping_option_index_computed = computed({
     }else{
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.additional_delivery_options[index]))
     }
-    console.log(shipping_info.value.shipping_option_index)
 
   }})
 
