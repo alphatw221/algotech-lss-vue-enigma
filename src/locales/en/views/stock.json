@@ -62,7 +62,7 @@
         "name_warning": "Enter product name with no more than 50 digits",
         "category": "Category",
         "upload_image": "Upload Image",
-        "drop_file_text": "Drop files here or click to upload.",
+        "drop_file_text": "Drop file here or click to upload.",
         "accept_file_text": "File types: jpeg, png, jpg",
         "max_size_text": "Max size：10MB",
         "quantity": "Quantity",

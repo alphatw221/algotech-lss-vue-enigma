@@ -27,6 +27,7 @@
         "customer_editable":"允许顾客修改",
         "customer_removable":"允许顾客删除",
         "oversell":"允许超卖",
+        "overbid":"允许超卖",
         "types":{
             "product":"商品",
             "product-fast":"商品",

@@ -44,7 +44,7 @@
             "Product":"Product",
             "order_code":"Order Code",
             "price":"Price",
-            "overbid":"overbid",
+            "overbook":"Overbid",
             "activate":"Activate",
             "qty":"Qty",
             "stock_qty":"Stock QTY",
