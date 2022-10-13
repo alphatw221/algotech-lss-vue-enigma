@@ -213,7 +213,7 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_ROOT_API
 const columns = ref([
     { name: 'order_number', key: 'id', sortable: true},
-    { name: 'null', key: 'platform', sortable: true},
+    { name: 'null', key: 'platform', sortable: false},
     { name: 'customer', key: 'customer_name', sortable: true},
     { name: 'amount', key: 'subtotal', sortable: true},
     { name: 'payment', key: 'payment_method', sortable: true},
