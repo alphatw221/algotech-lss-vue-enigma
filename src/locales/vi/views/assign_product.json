@@ -27,6 +27,7 @@
         "customer_editable":"Có thể chỉnh sửa",
         "customer_removable":"Có thể xóa",
         "oversell":"bán số lượng cao hơn",
+        "overbid":"Overbid",
         "types":{
             "product":"Sản phẩm",
             "product-fast":"Sản phẩm",
