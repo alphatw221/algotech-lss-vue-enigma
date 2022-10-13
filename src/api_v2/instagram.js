@@ -26,6 +26,6 @@ export const check_instagram_profile_post_exist = (platform_id, media_id, toasti
     return createAxios(toastify).get(`/api/v2/instagram-profile/${platform_id}/post/check/?post_id=${media_id}`)
 }
 
-export const get_ig_profile_picture = (platform_id, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/instagram-profile/${platform_id}/picture/`)
+export const get_ig_profile_picture = (platform_id) => {
+    return createAxiosWithoutInterceptor().get(`/api/v2/instagram-profile/${platform_id}/picture/`)
 }

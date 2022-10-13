@@ -127,11 +127,9 @@ const removeInstagramProfiles = (instagramProfile) => {
 const get_profile_picture = (instagram_profile) => {
     console.log("on error")
     get_ig_profile_picture(instagram_profile.id).then(res=> {
-        if (res.data?.error_response) {
-            instagram_profile.image = null;
-        } else {
-            instagram_profile.image = res.data;
-        }
+        instagram_profile.image = res.data;
+    }).catch(err=> {
+        instagram_profile.image = null;
     })
 }
 

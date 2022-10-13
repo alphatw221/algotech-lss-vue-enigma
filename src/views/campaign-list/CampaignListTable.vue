@@ -390,22 +390,18 @@ const deleteCampaign = (campaign)=>{
 const getFacebookPageProfilePicture = (facebook_page) => {
     console.log("on error")
     get_fb_page_profile_picture(facebook_page.id).then(res=> {
-        if (res.data?.error_response) {
-            facebook_page.image = null;
-        } else {
-            facebook_page.image = res.data;
-        }
+        facebook_page.image = res.data;
+    }).catch(err=> {
+        facebook_page.image = null;
     })
 }
 
 const getInstagramProfilePicture = (instagram_profile) => {
     console.log("on error")
     get_ig_profile_picture(instagram_profile.id).then(res=> {
-        if (res.data?.error_response) {
-            instagram_profile.image = null;
-        } else {
-            instagram_profile.image = res.data;
-        }
+        instagram_profile.image = res.data;
+    }).catch(err=> {
+        instagram_profile.image = null;
     })
 }
 </script>

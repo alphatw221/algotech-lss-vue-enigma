@@ -20,6 +20,6 @@ export const create_fb_page_live_object = (platform_id, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/facebook-page/${platform_id}/create/live_object/`)
 }
 
-export const get_fb_page_profile_picture = (platform_id, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/facebook-page/${platform_id}/picture/`)
+export const get_fb_page_profile_picture = (platform_id) => {
+    return createAxiosWithoutInterceptor().get(`/api/v2/facebook-page/${platform_id}/picture/`)
 }

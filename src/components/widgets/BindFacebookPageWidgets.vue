@@ -117,11 +117,9 @@ const removeFacebookPage = (facebookPage) => {
 const get_profile_picture = (facebook_page) => {
     console.log("on error")
     get_fb_page_profile_picture(facebook_page.id).then(res=> {
-        if (res.data?.error_response) {
-            facebook_page.image = null;
-        } else {
-            facebook_page.image = res.data;
-        }
+        facebook_page.image = res.data;
+    }).catch(err=> {
+        facebook_page.image = null;
     })
 }
 </script>
