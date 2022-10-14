@@ -144,6 +144,7 @@
                         <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.bank_name')}} </td> <td class="text-right pl-10"> {{registerationStore.g_cash.bankName}} </td> </tr>
                         <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_name')}} </td> <td class="text-right pl-5"> {{registerationStore.g_cash.accountName}} </td> </tr>
                         <tr> <td class="whitespace-nowrap text-slate-500"> {{$t('register.payment.direct.account_number')}} </td> <td class="text-right pl-10"> {{registerationStore.g_cash.accountNumber}}  </td> </tr>
+                        <tr> <td :colspan="2" class="w-full pt-5"><img src="@\assets\images\lss-bank\gCashQR.jpeg" class="w-60 mx-auto" /></td> </tr>
                         <!-- <tr> <td class="whitespace-nowrap align-top text-slate-500">{{$t('register.payment.direct.note')}} </td> <td class="text-right pl-10"> {{registerationStore.g_cash.note}} </td> </tr> -->
                     </table>
                     <!-- <img  data-action="zoom" class="w-60 mx-auto" :src="bank_img" />   -->
