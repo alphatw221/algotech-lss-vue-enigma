@@ -133,8 +133,26 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 		}
 	},
 
+	rapyd: {
+		multiple:false,
+		name:"Rapyd",
+		key:"rapyd",
+		fields:[
+			{key:"access_key", type:"password", name:"Access Key", dataType:"string", default:''},
+			{key:"secret_key", type:"password", name:"Secret Key", dataType:"string", default:''},
+			{key:"country", type:"select", name: "Country", options:['SG'], dataType:"string", default:'SG'},
+			{key:"currency", type:"select", name: "Currency", options:['SGD'], dataType:"string", default:'SGD'},
+		],
+		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/rapyd/icon.png",
+		handle:{
+			type:'gateway',
+			endpoint:'getRapydGateway',
+		}
+		// "request_url": "api/user-subscription/pay_mongo/"
+	},
 
-    SG : ['direct_payment', 'stripe', 'hitpay', 'paypal'],
+
+    SG : ['direct_payment', 'stripe', 'hitpay', 'paypal', 'rapyd'],
     
     ID :['direct_payment', 'stripe', 'paypal'],
 
