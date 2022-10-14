@@ -2,8 +2,8 @@ import { createAxios } from "@/libs/axiosClient";
 
 // -------------buyer------------------
 
-export const search_discount_code = (pre_order_oid, type, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/discount-code/search/${pre_order_oid}/?type=${type}`)
+export const buyer_list_discount_code = (cart_oid, type, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/discount-code/list/${cart_oid}/?type=${type}`)
 }
 
 

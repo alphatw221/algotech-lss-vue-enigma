@@ -10,9 +10,15 @@
 
             <div class="w-full mt-8 flex flex-col">
                 <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
+
+                    <div class="relative ml-2 mr-3">
+                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'cart'}" @click="show_order('cart')">{{$t('manage_order.cart')}} (<span style="font-weight:bold;">{{store.data_count['cart']}}</span>)</a>
+                    </div>
+
                     <div class="relative ml-2 mr-3">
                             <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'all'}" @click="show_order('all')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{store.data_count['all']}}</span>)</a>
                     </div>
+                    
                     <div class="relative ml-2 mr-3">
                             <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'review'}" @click="show_order('review')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{store.data_count['review']}}</span>)</a>
                     </div>
@@ -24,24 +30,38 @@
                 <div class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
                 <div class="flex flex-col sm:flex-row">
                     <div class="relative right-0 flex-auto m-1 sm:mt-1">
+                        
+                        <CartSearchBar 
+                            v-show="tableType == 'cart'"
+                            :tableStatus="'cart'"
+                            :tableSearch="'searchCart'"
+                            :tableFilter="'filterCart'"/>
+
                         <SearchBar 
-                            v-show="tableType === 'all'"
+                            v-show="tableType == 'all'"
                             :tableStatus="'all'"
                             :tableSearch="'searchAll'"
                             :tableFilter="'filterAll'"/>
+
+
                         <SearchBar 
-                            v-show="tableType === 'review'"
+                            v-show="tableType == 'review'"
                             :tableStatus="'review'"
                             :tableSearch="'searchReview'"
                             :tableFilter="'filterReview'"/>
+
+                        
+                        
                         <SearchBar 
-                            v-show="tableType === 'complete'"
+                            v-show="tableType == 'complete'"
                             :tableStatus="'complete'"
                             :tableSearch="'searchComplete'"
                             :tableFilter="'filterComplete'"/>
-                    </div>
 
-                    <ExportOrderButton/>
+                        <ExportOrderButton/>
+                    </div>
+                    
+                    <ExportEasyStoreOrderButton/>
                     <ExportShopifyOrderButton/>
                     <div v-if="new Date() < new Date(store.campaign.end_at)" class="form-check form-switch justify-end mt-2">
                         <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
@@ -59,7 +79,14 @@
             </div>
 
             <!-- Table -->
-            
+            <div v-show="tableType === 'cart'">
+                <ManageCartTable
+                    :tableStatus="'cart'"
+                    :tableSearch="'searchCart'"
+                    :tableFilter="'filterCart'"
+                />
+            </div>
+
             <div v-show="tableType === 'all'">
                 <ManageOrderTable
                     :tableStatus="'all'"
@@ -67,6 +94,7 @@
                     :tableFilter="'filterAll'"
                 />
             </div>
+            
             <div v-show="tableType === 'review'">
                 <ManageOrderTable
                     :tableStatus="'review'"
@@ -82,6 +110,26 @@
                 />
             </div>
             <OrderProductModal />
+
+            <FilterModal
+                :tableStatus="'cart'"
+                :tableFilter="'filterCart'"
+            />
+
+            <FilterModal
+                :tableStatus="'all'"
+                :tableFilter="'filterAll'"
+            />
+
+            <FilterModal
+                :tableStatus="'review'"
+                :tableFilter="'filterReview'"
+            />
+
+            <FilterModal
+                :tableStatus="'complete'"
+                :tableFilter="'filterComplete'"
+            />
         </div>
         <!-- <button class="btn z-50 btn-primary rounded-full" @click.native="scrollToTop()"> Back to Top </button> -->
     </div>
@@ -90,9 +138,13 @@
 <script setup>
 
 import ManageOrderTable  from "./ManageOrderTable.vue";
+import ManageCartTable from "./ManageCartTable.vue"
 import CampaignStatus from "./CampaignStatus.vue";
 import SearchBar from "./SearchBar.vue";
+import CartSearchBar from "./CartSearchBar.vue"
 import OrderProductModal from "./OrderProductModal.vue"
+import  FilterModal  from "./FilterModal.vue";
+
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 // import xlsx from "xlsx";
 import { toggle_stop_checkout, retrieve_campaign } from "@/api_v2/campaign"
@@ -100,8 +152,9 @@ import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
-import ExportOrderButton from '@/plugin/easy-store/views/ExportOrderButton.vue'
+import ExportEasyStoreOrderButton from '@/plugin/easy-store/views/ExportOrderButton.vue'
 import ExportShopifyOrderButton from '@/plugin/shopify/views/ExportOrderButton.vue'
+import ExportOrderButton from "./ExportOrderButton.vue";
 
 // import { watch } from "fs";
 
@@ -117,6 +170,7 @@ const checkout_status = ref(false)
 const tableType = ref('all')
 const show_order = status=>{
   tableType.value=status
+  console.log(tableType.value)
 }
 const ready = ref(false)
 onMounted(()=>{

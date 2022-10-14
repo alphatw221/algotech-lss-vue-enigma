@@ -3,10 +3,18 @@ import { ref } from "vue"
 export const useManageOrderStore = defineStore("sellerManageOrder", {
 	state: () => ({
 		order_type:ref('pre_order'),        
-        All: ref({}),
-		Review: ref({}),
-		Complete: ref({}),
-		data_count:ref([]),
+        All: ref([]),
+		Cart: ref([]),
+		Review: ref([]),
+		Complete: ref([]),
+
+		data_count:ref({
+			All:0,
+			Cart:0,
+			Review:0,
+			Complete:0
+		}),
+		
 		campaign:ref({}),
 		orderProductModal:ref(false),
 		filterModal:ref({'All':false,'Review':false,'Complete':false}),

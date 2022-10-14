@@ -79,7 +79,8 @@ import { computed, onMounted, ref, watch } from "vue";
 // import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
-import { seller_cart_add } from "@/api_v2/pre_order";
+// import { seller_cart_add } from "@/api_v2/pre_order";
+import { seller_edit_cart_product } from "@/api_v2/cart"
 import { useRoute } from "vue-router";
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
@@ -142,7 +143,7 @@ const changeQuantity = (event, index, operation) => {
 
 
 const seller_add_item = (campaing_product_id, index) => {
-	seller_cart_add(route.params.order_id, campaing_product_id, addOnProducts.value[index].qty, layoutStore.alert)
+	seller_edit_cart_product(route.params.order_id, campaing_product_id, addOnProducts.value[index].qty, layoutStore.alert)
 	.then(
 		res => {
 			store.orderDetail = res.data

@@ -31,9 +31,14 @@ export const seller_retrieve_order = (order_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/order/${order_id}/seller/retrieve/`);
 }
 
-export const manage_order_list = (campaign_id,searchValue,page,page_size,status,data, toastify=null) => {
-    return createAxios(toastify).post(`/api/v2/order/seller/order_list/?campaign_id=${campaign_id}&search=${searchValue}&page=${page}&page_size=${page_size}&status=${status}`,data,)
+export const seller_search_order = (campaign_id,searchValue,page,page_size,status, filter_data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/order/seller/search/?campaign_id=${campaign_id}&search=${searchValue}&page=${page}&page_size=${page_size}&status=${status}`, filter_data,)
 }
+
+// export const manage_order_list = (campaign_id,searchValue,page,page_size,status,data, toastify=null) => {
+//     return createAxios(toastify).post(`/api/v2/order/seller/order_list/?campaign_id=${campaign_id}&search=${searchValue}&page=${page}&page_size=${page_size}&status=${status}`,data,)
+// }
+
 export const seller_shipping_out = (order_id, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/order/${order_id}/seller/delivery_status/`);
 }

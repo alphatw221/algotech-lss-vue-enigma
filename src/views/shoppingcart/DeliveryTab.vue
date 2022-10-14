@@ -284,7 +284,8 @@ import { useVuelidate } from "@vuelidate/core";
 import { computed, onMounted, ref, watch, reactive, toRefs } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
-import { buyer_update_delivery_info } from "@/api_v2/pre_order"
+// import { buyer_update_delivery_info } from "@/api_v2/pre_order"
+import { buyer_checkout_cart } from "@/api_v2/cart"
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useCookies } from 'vue3-cookies'
@@ -422,12 +423,9 @@ const proceed_to_payment = () =>{
   // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
 
 
-  buyer_update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value}, layoutStore.alert)
+  buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value}, layoutStore.alert)
   .then(res=>{
-    router.push(`/buyer/order/${res.data.oid}/payment`)
-  }).catch(error=>{
-    if (error.response.data)store.order = error.response.data
-    
+    router.push({name:"buyer-order-payment-page", params:{'order_id':res.data.oid}})
   })
   
 }

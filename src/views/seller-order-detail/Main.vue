@@ -3,16 +3,21 @@
     <div class="w-[100%] mx-2 flex-col flex gap-1">
         <div class="my-auto">
             <h2 class="text-xl font-semibold"> #{{store.orderDetail.id}} 
-                <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base">
-                {{$t(`manage_order.${store.orderDetail.status}`) }}</span> </h2>
+                <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base" v-if="route.query.type == 'cart'">
+                    Cart
+                </span> 
+                <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base" v-else>
+                    {{$t(`manage_order.${store.orderDetail.status}`) }}
+                </span> 
+            </h2>
         </div>
         <div v-if="store.orderDetail.customer_name" class="my-auto">
             <span class="text-base mr-5"> {{ store.orderDetail.customer_name }} {{store.orderDetail.platform ? `/ `+ $t('order_detail.'+ store.orderDetail.platform) : ''}}</span>
         </div>
-        <div class="my-auto">
+        <div class="my-auto" v-if="route.query.type != 'cart'">
             <span class="text-base mr-5 break-all">{{$t('order_detail.delivery.email')}} : {{store.orderDetail.shipping_email}}</span>
         </div>
-        <div class="my-auto">
+        <div class="my-auto" v-if="route.query.type != 'cart'">
             <span class="text-base mr-5">{{$t('order_detail.delivery.phone')}} : {{store.orderDetail.shipping_phone}}</span>
         </div>
         <div class="flex flex-row sm:w-[50%]">
@@ -30,15 +35,18 @@
         </div>
     </div>
     <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:max-h-[50vh]"> 
+
+        <!-- OrderDetailTable -->
         <div class="flex-col mt-2 w-[100%] sm:w-1/2"> 
-            <OrderDetailTable :order_type="route.query.type"/>
+            <CartDetailTable v-if="route.query.type=='cart'"/>
+            <OrderDetailTable v-else :order_type="route.query.type"/>
         </div>
-        
+        <!-- OrderDetailTable -->
+
         <!-- Price Summary -->
         <div class="w-[100%] sm:w-1/2">
-            <PriceSummary 
-                :order_type="route.query.type" 
-                :decimal_places="layoutStore.userInfo.user_subscription.decimal_places" />
+            <CartSummary v-if="route.query.type=='cart'"/>
+            <PriceSummary v-else :order_type="route.query.type"  />
         </div>
         <!-- Price Summary End -->
     </div>
@@ -46,7 +54,8 @@
     <!-- Second -->
     <div class="flex flex-col sm:flex-row gap-3 h-fit mt-1 z-10"> 
         <!-- Delivery Information -->
-        <div class="flex-col w-full"> 
+        <DeliveryInfoCard v-if="route.query.type != 'cart'"/>
+        <!-- <div class="flex-col w-full"> 
             <div class="p-8 sm:my-3 border-2 box border-secondary flex-col flex gap-4"> 
                 <span class="text-lg dark:border-darkmode-400">{{$t('order_detail.delivery.information')}}</span>   
                 <div class="grid grid-cols-6" v-show="store.orderDetail.shipping_method">
@@ -85,14 +94,16 @@
                     </template>
                 </div>
             </div>
-            <!-- Remark -->
+
             <div class="box p-8 border-2 border-secondary flex flex-col gap-3 mt-2" v-show="store.orderDetail.shipping_remark">
                 <span class="text-lg">{{$t('order_detail.remark')}}</span>
                 <span class="py-2"> {{store.orderDetail.shipping_remark}} </span>
             </div>
-        </div>
+        </div> -->
+
         <!-- Payment Information -->
-        <div class="flex-col w-full"> 
+        <PaymentInfoCard v-if="route.query.type != 'cart'"/>
+        <!-- <div class="flex-col w-full"> 
             <div class="p-8 sm:my-5 border-2 box border-secondary flex-col flex gap-4"> 
                 <span class="text-lg"> {{$t('order_detail.payment.information')}}</span>   
                 <div class="grid grid-cols-6" v-if="store.orderDetail.payment_method">
@@ -116,7 +127,7 @@
                     </template>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
     <AddItemModal/>
 </template>
@@ -124,15 +135,20 @@
 <script setup>
 import AddItemModal from "./AddItemModal.vue";
 import OrderDetailTable from "./OrderDetailTable.vue";
+import CartDetailTable from "./CartDetailTable.vue"
 import PriceSummary from "./PriceSummary.vue"
-import OrderSummary from "@/components/box/OrderSummary.vue";
+import CartSummary from "./CartSummary.vue";
+import DeliveryInfoCard from "./DeliveryInfoCard.vue"
+import PaymentInfoCard from "./PaymentInfoCard.vue"
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
-import { seller_search_campaign_product} from "@/api_v2/campaign_product";
+import { seller_list_campaign_product } from "@/api_v2/campaign_product";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
+import { seller_retrieve_cart } from "@/api_v2/cart"
 import { seller_retrieve_order } from "@/api_v2/order";
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
+
 
 const route = useRoute()
 const store = useSellerOrderStore()
@@ -148,8 +164,24 @@ onMounted(()=>{
 
 
 
+    if (route.query.type === 'cart'){
+        seller_retrieve_cart(route.params.order_id, layoutStore.alert)
+        .then(
+            res => { store.orderDetail = res.data
+                console.log(res.data)
+                    //  console.log(store.orderDetail) 
+                    //  show_adjust_price() 
+            }
+        )
 
-    if (route.query.type === 'pre_order'){
+        var _campaign_id, _type, _toastify
+        seller_list_campaign_product(_campaign_id = route.params.campaign_id, _type='all', _toastify=layoutStore.alert).then(
+            res=>{
+                store.campaignProducts = res.data
+            }
+        )
+    }
+    else if (route.query.type === 'pre_order'){
         seller_retrieve_pre_order(route.params.order_id, layoutStore.alert)
         .then(
             res => { store.orderDetail = res.data
@@ -157,13 +189,13 @@ onMounted(()=>{
                     //  show_adjust_price() 
             }
         )
-        seller_search_campaign_product(route.params.campaign_id,'',1,9999,'product',layoutStore.alert).then(
+        seller_list_campaign_product(_campaign_id = route.params.campaign_id, _type='all', _toastify=layoutStore.alert).then(
             res=>{
-                store.campaignProducts = res.data.results
-                // console.log(store.campaignProducts)
+                store.campaignProducts = res.data
             }
         )
-    }else{
+    }
+    else{
         seller_retrieve_order(route.params.order_id, layoutStore.alert)
         .then(
             res => { store.orderDetail = res.data
