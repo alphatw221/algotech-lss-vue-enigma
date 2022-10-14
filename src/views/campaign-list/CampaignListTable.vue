@@ -60,14 +60,14 @@
           <td class="items-center min-w-12 fan_page">
             <div class="flex justify-center w-full">
               <div class="border-0 w-14 h-14 flex-0 zoom-in" v-if="campaign.facebook_page !== null">
-                <Tippy tag="img" class="border-0 rounded-full" :src="campaign.facebook_page.image"
+                <Tippy tag="img" class="border-0 rounded-full" :src="campaign.facebook_page.image" @error="getFacebookPageProfilePicture(campaign.facebook_page)"
                   :content="campaign.facebook_page.name" />
                   <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#3c599b]" :src="facebook_platform" >
                   </div>
               </div>
               <div class="w-14 h-14 flex-0 zoom-in" v-if="campaign.instagram_profile !== null">
-                <Tippy tag="img" class="rounded-full " :src="campaign.instagram_profile.image"
+                <Tippy tag="img" class="rounded-full " :src="campaign.instagram_profile.image" @error="getInstagramProfilePicture(campaign.instagram_profile)"
                   :content="campaign.instagram_profile.name" />
                 <div class="absolute bottom-0 right-0 w-5 h-5 border-2 border-white rounded-full dark:border-darkmode-600">
                       <img class="rounded-full bg-[#d63376]" :src="instagram_platform" >
@@ -223,6 +223,9 @@ import { toggle_stop_checkout, list_campaign, delete_campaign } from "@/api_v2/c
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
+import { get_fb_page_profile_picture } from '@/api_v2/facebook'
+import { get_ig_profile_picture } from '@/api_v2/instagram'
+
 
 import youtube_platform from "/src/assets/images/lss-img/youtube.png"
 import facebook_platform from "/src/assets/images/lss-img/facebook.png"
@@ -384,6 +387,23 @@ const deleteCampaign = (campaign)=>{
   hideDropDown()
 }
 
+const getFacebookPageProfilePicture = (facebook_page) => {
+    console.log("on error")
+    get_fb_page_profile_picture(facebook_page.id).then(res=> {
+        facebook_page.image = res.data;
+    }).catch(err=> {
+        facebook_page.image = null;
+    })
+}
+
+const getInstagramProfilePicture = (instagram_profile) => {
+    console.log("on error")
+    get_ig_profile_picture(instagram_profile.id).then(res=> {
+        instagram_profile.image = res.data;
+    }).catch(err=> {
+        instagram_profile.image = null;
+    })
+}
 </script>
 
 

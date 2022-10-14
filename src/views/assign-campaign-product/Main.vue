@@ -85,7 +85,7 @@
 							>
 								<td class="w-10">
 									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
-										type="checkbox" v-model="product.check" @click="selectStockProduct(product, $event)"/>
+										type="checkbox" v-model="product.check" @click="clickStockProductCheckbox(product, $event)"/>
 								</td>
 
 								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
@@ -241,7 +241,7 @@
 								class="intro-x align-middle"
 							>
 								<td class="w-10">
-									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" type="checkbox" checked @click="unSelectProduct(product, product_index, $event)"/>
+									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" type="checkbox" checked @click="clickSelectedProductCheckbox(product, product_index, $event)"/>
 								</td>
 								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
 
@@ -461,7 +461,8 @@ const getProductCategory=()=>{list_product_category(layoutStore.alert).then(res 
 const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id, layoutStore.alert).then(res=>{campaignProductOrderCodeDict.value = res.data})}
 
 const updateStockProducts = ()=>{
-	console.log('selected',selectedProductDict.value)
+	console.log('updateStockProducts')
+	console.log(selectedProductDict.value)
     stockProducts.value.forEach((product,stockProductIndex) => {
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
@@ -542,41 +543,42 @@ const selectedProductRemovable = (product_index, event)=>{if(event.target.checke
 const selectedProductEditable = (product_index, event)=>{if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false}
 
 const updateSelectedProductDict = ()=>{
+	
     selectedProductDict.value = {}
     selectedProducts.value.forEach((selectedProduct,index)=>{
 		selectedProductDict.value[selectedProduct.id.toString()]=index
 		})
-    }
+	console.log('updateSelectedProductDict')
+	console.log(selectedProductDict.value)
+}
 
-const selectStockProduct = (stockProduct, event) =>{
-    if(event.target.checked){
-		// stockProduct.customer_editable=true
-		// stockProduct.customer_removable=true
-		// stockProduct.oversell=true
+const selectStockProduct = (stockProduct) =>{
+	console.log('selectStockProduct')
+    if(!(stockProduct.id.toString() in selectedProductDict.value)){
+		stockProduct.check = true
         errorMessages.value.push({})
         selectedProducts.value.push( stockProduct )
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
     }
-	else if(event.target.value != 'on'){
-		stockProduct.check = true
-		// stockProduct.customer_editable=true
-		// stockProduct.customer_removable=true
-		// stockProduct.oversell=false
-		selectedProducts.value.indexOf(stockProduct) === -1 ? selectedProducts.value.push( stockProduct ) : '';
-		errorMessages.value.push({})
-        selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1
-    }else{
+}
+
+const clickStockProductCheckbox = (stockProduct, event) =>{
+	console.log('clickStockProductCheckbox')
+	console.log(event.target.checked)
+    if(event.target.checked && !(stockProduct.id.toString() in selectedProductDict.value)){
+        errorMessages.value.push({})
+        selectedProducts.value.push( stockProduct )
+        selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
+    }
+	else if(!(event.target.checked) && stockProduct.id.toString() in selectedProductDict.value){
         const _index = selectedProductDict.value[stockProduct.id.toString()]
-        // stockProduct.customer_editable=false
-		// stockProduct.customer_removable=false
-		// stockProduct.oversell=false
         selectedProducts.value.splice(_index,1)
         errorMessages.value.splice(_index,1)
         updateSelectedProductDict()
     }
 }
 
-const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
+const clickSelectedProductCheckbox = (selectedProduct ,selectedProductIndex, event) =>{
 	event.target.checked=true
 	selectedProducts.value.splice(selectedProductIndex,1)
 	errorMessages.value.splice(selectedProductIndex,1)
@@ -634,6 +636,8 @@ const filterProducts = ()=>{
 }
 
 const search = () => {
+	console.log('selectedProductDict')
+	console.log(selectedProductDict.value)
 	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
 		_pageSize=pageSize.value,
@@ -647,8 +651,8 @@ const search = () => {
 		_sortBy='',
 		_toastify=layoutStore.alert)
 	.then(response => {
-		console.log('data_count')
-		console.log(response.data.count)
+		// console.log('data_count')
+		// console.log(response.data.count)
 		dataCount.value = response.data.count;
 		// if (response.data.count != undefined) {
         //   dataCount.value = response.data.count;
@@ -659,7 +663,7 @@ const search = () => {
 		// 	totalPage.value = 3
         // }
 		stockProducts.value = response.data.results
-		console.log(stockProducts.value = response.data.results)
+		// console.log(stockProducts.value = response.data.results)
 		// proudct default value
 		stockProducts.value.forEach(product => {
 			if (!(product.id.toString() in selectedProductDict.value)){
