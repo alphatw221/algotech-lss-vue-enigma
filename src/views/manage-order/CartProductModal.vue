@@ -2,8 +2,8 @@
     <Modal
     backdrop="static"
 		size="modal-xl"
-		:show="store.orderProductModal"
-		@hidden="store.orderProductModal = false"
+		:show="store.showCartProductModal"
+		@hidden="store.showCartProductModal = false"
 		:slideOver="true"
 	>
         <ModalBody>
@@ -14,7 +14,7 @@
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
                     </h2>
-                    <XIcon class="w-8 h-8 text-slate-400 ml-auto" @click="store.orderProductModal = false"/>
+                    <XIcon class="w-8 h-8 text-slate-400 ml-auto" @click="store.showCartProductModal = false"/>
             </ModalHeader>
             <div class="w-full overflow-auto"> 
                 <table id="orderTable" class="table table-report mt-3 text-[13px] sm:text-[16px]">
@@ -136,9 +136,13 @@ const columns = ref([
 ]);
 
 onMounted(()=>{
-    eventBus.on("getProductData", (payload) => {
+    eventBus.on("getSlideOverCartData", (payload) => {
         get_data(payload.id,payload.type)
 	})
+})
+
+onUnmounted(()=>{
+    eventBus.off("getSlideOverCartData")
 })
 
 function get_data(id,type){

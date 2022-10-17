@@ -16,7 +16,8 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 		}),
 		
 		campaign:ref({}),
-		orderProductModal:ref(false),
+		showCartProductModal:ref(false),
+		showOrderProductModal:ref(false),
 		filterModal:ref({'All':false,'Review':false,'Complete':false}),
 		filterTagArray:ref({
 			'payment':{

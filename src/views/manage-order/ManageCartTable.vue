@@ -286,9 +286,10 @@ const changePageSize = (p) => {
     page_size.value = p
     search()
     }
-const orderProductModal = (id,type) => {
-    eventBus.emit('getProductData',{'id':id,'type':type})
-    store.orderProductModal = !store.orderProductModal
+
+const showCartProductModal = (cart) => {
+    eventBus.emit('getSlideOverCartData',{'id':cart.id})
+    store.showCartProductModal = !store.showCartProductModal
 }
 // const shipping_out = (order_id,index) => {
 //     seller_shipping_out(order_id, layoutStore.alert).then(

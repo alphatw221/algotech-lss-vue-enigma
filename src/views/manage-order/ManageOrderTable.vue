@@ -161,7 +161,7 @@
                             <div class="flex place-content-center">
                                 <a class="text-black w-fit h-fit image-fit">
                                     <Tippy  :content="$t('tooltips.manage_order.product_details')" :options="{ theme: 'light' }">
-                                        <ChevronRightIcon @click="orderProductModal(order.id,order.type)"/>
+                                        <ChevronRightIcon @click="showOrderProductModal(order)"/>
                                     </Tippy>
                                 </a>
                             </div>
@@ -196,7 +196,7 @@
     </div>
 </template>
 <script setup>
-import { seller_search_order, seller_shipping_out, get_order_oid } from "@/api_v2/order"
+import { seller_search_order, seller_deliver, get_order_oid } from "@/api_v2/order"
 import { get_pre_order_oid } from "@/api_v2/pre_order"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -278,12 +278,14 @@ const changePageSize = (p) => {
     page_size.value = p
     search()
     }
-const orderProductModal = (id,type) => {
-    eventBus.emit('getProductData',{'id':id,'type':type})
-    store.orderProductModal = !store.orderProductModal
+const showOrderProductModal = (order) => {
+    console.log('show')
+    eventBus.emit('getSlideOverOrderData',{'id':order.id})
+    store.showOrderProductModal = !store.showOrderProductModal
+    console.log(store.showOrderProductModal)
 }
 const shipping_out = (order_id,index) => {
-    seller_shipping_out(order_id, layoutStore.alert).then(
+    seller_deliver(order_id, layoutStore.alert).then(
         res=>{
             store[props.tableStatus][index].status = 'shipping out'
         }

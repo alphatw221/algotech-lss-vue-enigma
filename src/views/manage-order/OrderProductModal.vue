@@ -2,8 +2,8 @@
     <Modal
     backdrop="static"
 		size="modal-xl"
-		:show="store.orderProductModal"
-		@hidden="store.orderProductModal = false"
+		:show="store.showOrderProductModal"
+		@hidden="store.showOrderProductModal = false"
 		:slideOver="true"
 	>
         <ModalBody>
@@ -14,7 +14,7 @@
                             {{$t(`manage_order.${store.orderProductData.status}`) }}
                         </span>
                     </h2>
-                    <XIcon class="w-8 h-8 text-slate-400 ml-auto" @click="store.orderProductModal = false"/>
+                    <XIcon class="w-8 h-8 text-slate-400 ml-auto" @click="store.showOrderProductModal = false"/>
             </ModalHeader>
             <div class="w-full overflow-auto"> 
                 <table id="orderTable" class="table table-report mt-3 text-[13px] sm:text-[16px]">
@@ -136,24 +136,25 @@ const columns = ref([
 ]);
 
 onMounted(()=>{
-    eventBus.on("getProductData", (payload) => {
-        get_data(payload.id,payload.type)
+    eventBus.on("getSlideOverOrderData", (payload) => {
+        getOrderData(payload.id)
+        console.log('event bus')
 	})
 })
 
-function get_data(id,type){
-    if (type === 'pre_order'){
-        seller_retrieve_pre_order(id, layoutStore.alert)
-        .then(res => { 
-            store.orderProductData = res.data
-            console.log(store.orderProductData)
-        })
-    }else{
-        seller_retrieve_order(id, layoutStore.alert)
-        .then(
-            res => { store.orderProductData = res.data}
-        )
-    }
+onUnmounted(()=>{
+    eventBus.off("getSlideOverOrderData")
+})
+
+function getOrderData(id){
+    seller_retrieve_order(id, layoutStore.alert)
+    .then(
+        res => { store.orderProductData = res.data
+            console.log('getOrderData')
+        }
+        
+    )
+    
 }
 
 </script>

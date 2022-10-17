@@ -39,8 +39,8 @@ export const seller_search_order = (campaign_id,searchValue,page,page_size,statu
 //     return createAxios(toastify).post(`/api/v2/order/seller/order_list/?campaign_id=${campaign_id}&search=${searchValue}&page=${page}&page_size=${page_size}&status=${status}`,data,)
 // }
 
-export const seller_shipping_out = (order_id, toastify=null) => {
-    return createAxios(toastify).post(`/api/v2/order/${order_id}/seller/delivery_status/`);
+export const seller_deliver = (order_id, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/order/${order_id}/seller/deliver/`);
 }
 
 export const get_order_oid = (order_id, toastify=null) => {

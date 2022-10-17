@@ -48,65 +48,82 @@
                             </td> 
                         </tr> 
                         <template v-for="(cart, key, index) in campaignDetailStore.incomingOrdersDict" :key="index">
-
+                            
+                            <template v-for="(qty, campaign_product_id, index) in cart.products" :key="index">
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
+                            
                         
-                            <tr >
-                                <td>#{{ cart.id }}</td>
-                                <td>
-                                    <div v-if="cart.platform === 'facebook'" class="w-10 h-10 image-fit mx-auto">
-                                        <div class="w-10 h-10 image-fit">
-                                            <img src="/src/assets/images/lss-img/facebook.png" />
+                                <tr >
+                                    <td>#{{ cart.id }}</td>
+                                    <td>
+                                        <div v-if="cart.platform === 'facebook'" class="w-10 h-10 image-fit mx-auto">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src="/src/assets/images/lss-img/facebook.png" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div v-else-if="cart.platform === 'instagram'" class="w-10 h-10 image-fit mx-auto">
-                                        <div class="w-10 h-10 image-fit">
-                                            <img src="/src/assets/images/lss-img/instagram.png" />
+                                        <div v-else-if="cart.platform === 'instagram'" class="w-10 h-10 image-fit mx-auto">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src="/src/assets/images/lss-img/instagram.png" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div v-else-if="cart.platform === 'youtube'" class="w-10 h-10 image-fit mx-auto">
-                                        <div class="w-10 h-10 image-fit">
-                                            <img src="/src/assets/images/lss-img/youtube.png" />
+                                        <div v-else-if="cart.platform === 'youtube'" class="w-10 h-10 image-fit mx-auto">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src="/src/assets/images/lss-img/youtube.png" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div v-else-if="cart.platform === 'twitch'" class="w-10 h-10 image-fit mx-auto">
-                                        <div class="w-10 h-10 image-fit">
-                                            <img src="/src/assets/images/lss-img/twitch.png" />
+                                        <div v-else-if="cart.platform === 'twitch'" class="w-10 h-10 image-fit mx-auto">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src="/src/assets/images/lss-img/twitch.png" />
+                                            </div>
                                         </div>
-                                    </div>
-                                    <div v-else-if="cart.platform === 'tiktok'" class="w-10 h-10 image-fit mx-auto">
-                                        <div class="w-10 h-10 image-fit">
-                                            <img src="/src/assets/images/lss-img/tiktok_black_bg.png" />
+                                        <div v-else-if="cart.platform === 'tiktok'" class="w-10 h-10 image-fit mx-auto">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src="/src/assets/images/lss-img/tiktok_black_bg.png" />
+                                            </div>
                                         </div>
-                                    </div>
-                                </td>
-                                <td>
-                                    <template v-if="cart.customer_name != ''"> {{ cart.customer_name }} </template>
-                                    <template v-else> Guest </template>  
-                                </td>
-                                <!-- <td v-if="campaignDetailStore.campaign">
-                                    {{ campaignDetailStore.campaign.currency }}
-                                    {{ (Math.floor(pre_order.subtotal * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-US')}}
-                                    {{ campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
-                                </td>  -->
-                                <td></td>
-                                <td></td>
-                                <td></td>
-                                <td>
-                                    <Tippy 
-                                        class="rounded-full w-fit" 
-                                        data-tippy-allowHTML="true" 
-                                        data-tippy-placement="right" 
-                                        :options="{ theme: 'light' }"
-                                        :content="$t('tooltips.campaign_live.view_icon')" 
-                                    > 
-                                        <!-- <EyeIcon class="click-icon" @click="routeToDetailPage(pre_order)"/>  -->
-                                        <SimpleIcon icon="view" @click="routeToDetailPage(cart)"/>
-                                    </Tippy> 
-                                </td>
-                            </tr>
+                                    </td>
+                                    <td>
+                                        <template v-if="cart.customer_name != ''"> {{ cart.customer_name }} </template>
+                                        <template v-else> Guest </template>  
+                                    </td>
+                                    <!-- <td v-if="campaignDetailStore.campaign">
+                                        {{ campaignDetailStore.campaign.currency }}
+                                        {{ (Math.floor(pre_order.subtotal * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-US')}}
+                                        {{ campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                                    </td>  -->
+                                    <td>{{campaignDetailStore.campaignProductDict[campaign_product_id]?.name}}</td>
+                                    <td>{{qty}}</td>
+                                    <td></td>
+                                    <td>
+                                        <Tippy 
+                                            class="rounded-full w-fit" 
+                                            data-tippy-allowHTML="true" 
+                                            data-tippy-placement="right" 
+                                            :options="{ theme: 'light' }"
+                                            :content="$t('tooltips.campaign_live.view_icon')" 
+                                        > 
+                                            <!-- <EyeIcon class="click-icon" @click="routeToDetailPage(pre_order)"/>  -->
+                                            <SimpleIcon icon="view" @click="routeToDetailPage(cart)"/>
+                                        </Tippy> 
+                                    </td>
+                                </tr>
+
+                            </template>
                             <!-- CART PRODUCTS LIST -->
 
-                            <template v-for="(qty, campaign_product_id, index) in cart.products" :key="index">
+                            <!-- <template v-for="(qty, campaign_product_id, index) in cart.products" :key="index">
                                 <tr v-if="qty>0">
                                     <td v-for="(column,column_index) in product_columns" :key="column_index">
                                         
@@ -134,7 +151,7 @@
 
                                     </td>
                                 </tr>
-                            </template>
+                            </template> -->
                         </template>
 
 
@@ -166,22 +183,23 @@ const incoming_order_columns= [
     { name: "order_number", key: "order_number" },
     { name: "platform", key: "platform" },
     { name: "name", key: "name" },
-    { name: "null", key: null },
-    { name: "null", key: null },
+    { name: "product", key: "product" },
+    { name: "qty", key: "qty" },
+
     { name: "null", key: null },
     // { name: "amount", key: "amount" },
     { name: "null", key: "detail" },
 ]
 
-const product_columns = [
-    { name: "null", key: null },
-    { name: "image", key: "image" },
-    { name: "name", key: "name" },
-    { name: "price", key: "price" },
-    { name: "type", key: "type" },
-    { name: "qty", key: "qty" },
-    { name: "subtotal", key: "subtotal"}
-]
+// const product_columns = [
+//     { name: "null", key: null },
+//     { name: "image", key: "image" },
+//     { name: "name", key: "name" },
+//     { name: "price", key: "price" },
+//     { name: "type", key: "type" },
+//     { name: "qty", key: "qty" },
+//     { name: "subtotal", key: "subtotal"}
+// ]
 
 onMounted(()=>{
     campaignDetailStore.incomingOrdersDict = {}
@@ -191,6 +209,7 @@ onMounted(()=>{
         });
         campaignDetailStore.incomingOrders = res.data  //delete if no longer needed
     })
+    console.log(campaignDetailStore.incomingOrders)
     console.log(campaignDetailStore.campaignProductDict)
 })
 

@@ -79,13 +79,13 @@
             </div>
 
             <!-- Table -->
-            <div v-show="tableType === 'cart'">
+            <!-- <div v-show="tableType === 'cart'">
                 <ManageCartTable
                     :tableStatus="'cart'"
                     :tableSearch="'searchCart'"
                     :tableFilter="'filterCart'"
                 />
-            </div>
+            </div> -->
 
             <div v-show="tableType === 'all'">
                 <ManageOrderTable
@@ -109,7 +109,7 @@
                     :tableFilter="'filterComplete'"
                 />
             </div>
-            <OrderProductModal />
+            
 
             <FilterModal
                 :tableStatus="'cart'"
@@ -133,6 +133,8 @@
         </div>
         <!-- <button class="btn z-50 btn-primary rounded-full" @click.native="scrollToTop()"> Back to Top </button> -->
     </div>
+    <CartProductModal />
+    <OrderProductModal />
 </template>
 
 <script setup>
@@ -143,6 +145,7 @@ import CampaignStatus from "./CampaignStatus.vue";
 import SearchBar from "./SearchBar.vue";
 import CartSearchBar from "./CartSearchBar.vue"
 import OrderProductModal from "./OrderProductModal.vue"
+import CartProductModal from "./CartProductModal.vue"
 import  FilterModal  from "./FilterModal.vue";
 
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";

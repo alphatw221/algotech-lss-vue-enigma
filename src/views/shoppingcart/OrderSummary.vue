@@ -308,7 +308,7 @@ const promoCheck =()=>{
   if (layoutStore.userInfo && Object.keys(layoutStore.userInfo).length === 0 && Object.getPrototypeOf(layoutStore.userInfo) === Object.prototype) {
       showModal.value = true
   } else {
-      buyer_apply_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }, layoutStore.alert).then(
+      buyer_apply_discount_code(route.params.cart_oid, {discount_code : discount_code.value }, layoutStore.alert).then(
         res=>{
           shoppingCartStore.cart = res.data
           discount_code.value = ''
@@ -321,7 +321,7 @@ const showLoginModal = () => {
 }
 
 const promoDelete =()=>{
-  buyer_cancel_discount_code(route.params.pre_order_oid, {discount_code : discount_code.value }, layoutStore.alert).then(
+  buyer_cancel_discount_code(route.params.cart_oid, layoutStore.alert).then(
     res=>{
       shoppingCartStore.cart = res.data
       discount_code.value = ''
@@ -336,7 +336,7 @@ const copyURL = (code)=>{
 
 const toNext=()=>{
   if (shoppingCartStore.user_subscription?.user_plan?.plugins?.shopify) {
-      get_shopify_checkout_url(route.params.pre_order_oid, layoutStore.alert).then(res=>{
+      get_shopify_checkout_url(route.params.cart_oid, layoutStore.alert).then(res=>{
           window.location.href = res.data
       })
   } else {
