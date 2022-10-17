@@ -17,5 +17,6 @@
     "hitpay":"Hitpay",
     "paypal":"Paypal",
     "pay_mongo":"PayMongo",
+    "rapyd":"Rapyd",
     "ecpay":"ECPay"
 }

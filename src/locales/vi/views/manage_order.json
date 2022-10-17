@@ -24,6 +24,7 @@
                 "paypal":"Paypal",
                 "ecpay":"ECPay",
                 "pay_mongo":"PayMongo",
+                "rapyd":"Rapyd",
                 "details":"Chi tiết đơn hàng",
                 "copy_link":"Sao chép liên kết đơn hàng",
                 "amount" : "Số Lượng",
@@ -59,7 +60,8 @@
                         "hitpay":"Hitpay",
                         "paypal":"Paypal",
                         "ecpay":"ECPay",
-                        "pay_mongo":"PayMongo"
+                        "pay_mongo":"PayMongo",
+                        "rapyd":"Rapyd"
                 },
                 "delivery":{
                         "status":"Trạng thái giao hàng",

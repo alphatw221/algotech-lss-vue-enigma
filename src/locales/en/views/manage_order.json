@@ -24,6 +24,7 @@
                 "paypal":"Paypal",
                 "ecpay":"ECPay",
                 "pay_mongo":"PayMongo",
+                "rapyd":"Rapyd",
                 "details":"Order Details",
                 "copy_link":"Copy Cart Link",
                 "amount" : "Amount",
@@ -59,7 +60,8 @@
                         "hitpay":"Hitpay",
                         "paypal":"Paypal",
                         "ecpay":"ECPay",
-                        "pay_mongo":"PayMongo"
+                        "pay_mongo":"PayMongo",
+                        "rapyd":"Rapyd"
                 },
                 "delivery":{
                         "status":"Delivery Status",

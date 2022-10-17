@@ -63,6 +63,8 @@
         "Direct Payment":"Direct Payment",
         "direct_payment":"Direct Payment",
         "ecpay":"ECpay",
+        "pay_mongo":"PayMongo",
+        "rapyd":"Rapyd",
         "method" : "Payment Method",
         "information": "Payment Information",
         "record" : "Record",

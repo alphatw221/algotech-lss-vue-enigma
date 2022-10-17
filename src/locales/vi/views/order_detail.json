@@ -58,6 +58,8 @@
         "direct_payment":"Thanh toán trực tiếp",
         "Direct Payment":"Thanh toán trực tiếp",
         "ecpay":"ECpay",
+        "pay_mongo":"PayMongo",
+        "rapyd":"Rapyd",
         "method" : "Phương thức thanh toán",
         "information": "Thông tin thanh toán",
         "record" : "Hóa đơn thanh toán",

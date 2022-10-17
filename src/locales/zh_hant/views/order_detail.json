@@ -58,6 +58,8 @@
         "direct_payment":"轉帳付款",
         "Direct Payment":"轉帳付款",
         "ecpay":"綠界金流",
+        "pay_mongo":"PayMongo",
+        "rapyd":"Rapyd",
         "method" : "付款方式",
         "information": "付款資訊",
         "record" : "付款紀錄",
