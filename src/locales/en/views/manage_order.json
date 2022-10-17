@@ -80,6 +80,7 @@
         },
         "complete" : "Complete",
         "review" : "Review",
+        "pending_confirmation": "Pending confirmation",
         "shipping out":"Shipping Out",
         "all":"All",
         "stop_checkout" : "Stop Checkout",

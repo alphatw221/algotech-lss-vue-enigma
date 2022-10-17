@@ -7,6 +7,7 @@
     "pay":"前往付款",
     "complete" : "已完成",
     "review" : "处理中",
+    "pending_confirmation": "确认中",
     "shipping out":"已出货",
     "table":{
         "product" : "商品",

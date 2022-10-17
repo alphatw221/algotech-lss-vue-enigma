@@ -79,6 +79,7 @@
         },
         "complete" : "Hoàn thành",
         "review" : "Đang kiểm tra",
+        "pending_confirmation": "Pending confirmation",
         "shipping out":"Đã giao hàng",
         "all":"Tất cả",
         "stop_checkout" : "Hành động",

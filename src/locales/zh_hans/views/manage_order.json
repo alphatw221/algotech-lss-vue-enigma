@@ -81,6 +81,7 @@
         "stop_checkout" : "停止结帐",
         "complete" : "已完成",
         "review" : "处理中",
+        "pending_confirmation": "确认中",
         "shipping out":"已出货",
         "all" : "所有订单",
         "update_successed":"储存成功"
