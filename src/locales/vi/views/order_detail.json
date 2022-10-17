@@ -7,6 +7,7 @@
     "pay":"Tiến hành thanh toán",
     "complete" : "Hoàn thành",
     "review" : "Đang kiểm tra",
+    "pending_confirmation": "Pending confirmation",
     "shipping out":"Shipping Out",
     "table":{
         "product" : "Sản phẩm",
