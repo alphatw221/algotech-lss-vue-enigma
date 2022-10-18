@@ -42,7 +42,7 @@ onMounted(()=>{
         res => {
             store.order = res.data
             i18n.locale = res.data.campaign.lang
-            console.log(res.data)
+            // console.log(res.data)
             if (store.order.campaign.user_subscription.status === "test") router.back()
         }
     )

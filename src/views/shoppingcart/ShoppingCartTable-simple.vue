@@ -3,7 +3,7 @@
 	<div
 		class="flex items-center px-5 py-5 sm:py-3 border-b border-slate-200/60 dark:border-darkmode-400">
 		<h2 class="font-medium text-base mr-auto">
-		{{$t('shopping_cart.table.cart')}} ({{numOfItems}} {{$t('shopping_cart.table.items')}})  <span class="ml-1"> #{{store.order.id}}</span>
+		{{$t('shopping_cart.table.cart')}} ({{computedNumOfItems}} {{$t('shopping_cart.table.items')}})  <span class="ml-1"> #{{shoppingCartStore.cart.id}}</span>
 		</h2>
 		<button class="border-none sm:flex underline" @click="switchToMyCartTab()">
 		{{$t('shopping_cart.table.edit')}}
@@ -12,27 +12,27 @@
 	<!-- END title -->
 
 	<!-- BEGIN table -->
-	<div v-if="store.order.products">
-		<div class="p-5" v-for="(product, key) in store.order.products" :key="key">
+	<div v-if="shoppingCartStore.cart.products">
+		<div class="p-5" v-for="(qty, campaign_product_id, index) in shoppingCartStore.cart.products" :key="index">
 
 			<div class="relative flex items-center">
-			<div class="w-12 h-12 flex-none image-fit" v-if="product.image">
-				<img alt="" class="rounded-md" :src="product.image" />
+			<div class="w-12 h-12 flex-none image-fit" v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.image">
+				<img alt="" class="rounded-md" :src="shoppingCartStore.campaignProductDict[campaign_product_id]?.image" />
 			</div>
 			<div class="w-12 h-12 flex-none image-fit" v-else>
 				<img alt="" class="rounded-md" :src="staticDir+`no_image.jpeg`" />
 			</div>
 			<div class="ml-4 mr-auto w-[50%]">
-				<div v-if="product.type == 'lucky_draw'" class="text-primary font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}* </div>
-				<div class="font-medium text-primary whitespace-normal break-normal">{{product.name}}</div>
+				<div v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.type == 'lucky_draw'" class="text-primary font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}* </div>
+				<div class="font-medium text-primary whitespace-normal break-normal">{{shoppingCartStore.campaignProductDict[campaign_product_id]?.name}}</div>
 				<div class="text-slate-500 mr-5 sm:mr-5">
-				{{$t('shopping_cart.table.qty')}} : {{product.qty}}
+				{{$t('shopping_cart.table.qty')}} : {{qty}}
 				</div>
 			</div>
 			<div class="font-medium text-slate-600 dark:text-slate-500 whitespace-nowrap w-fit ml-5">
-				{{store.order.campaign.currency}} 
-				{{(Math.floor(parseFloat(product.qty * product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-				{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+				{{shoppingCartStore.cart.campaign.currency}} 
+				{{(Math.floor(parseFloat(qty * shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+				{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 			</div>
 			</div> 
 
@@ -47,17 +47,17 @@ import { computed, onMounted, ref, watch } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 
 
-const store = useShoppingCartStore(); 
+const shoppingCartStore = useShoppingCartStore(); 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 
 
-const numOfItems = computed(()=>{
-	if(store.order.products)return Object.keys(store.order.products).length
+const computedNumOfItems = computed(()=>{
+	if(shoppingCartStore.cart.products)return Object.keys(shoppingCartStore.cart.products).length
 	return 0
 })
 
 const switchToMyCartTab = ()=>{
-	store.openTab=1
+	shoppingCartStore.openTab=1
 }
 
 </script>

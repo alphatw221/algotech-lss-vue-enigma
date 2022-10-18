@@ -25,8 +25,8 @@
 
         <template v-if="store.order.shipping_method === 'pickup'">        
             <div class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60"> 
-                <div class="w-1/4 whitespace-nowrap">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].name}}</div>
-                <div class="w-3/4">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index].address}}</div>
+                <div class="w-1/4 whitespace-nowrap">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index]?.name}}</div>
+                <div class="w-3/4">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index]?.address}}</div>
             </div>
         </template>
 

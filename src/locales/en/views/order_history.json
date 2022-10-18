@@ -11,6 +11,7 @@
     },
     "complete" : "Complete",
     "review" : "Review",
+    "proceed" : "Review",
     "pending_confirmation": "Pending confirmation",
     "shipping out":"Shipping Out",
     "Direct Payment":"Direct Payment",

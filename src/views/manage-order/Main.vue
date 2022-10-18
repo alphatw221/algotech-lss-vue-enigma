@@ -10,40 +10,58 @@
 
             <div class="w-full mt-8 flex flex-col">
                 <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
+
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'all'}" @click="show_order('all')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{store.data_count['all']}}</span>)</a>
+                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'all'}" @click="show_order('all')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['all']}}</span>)</a>
+                    </div>
+                    
+                    <div class="relative ml-2 mr-3">
+                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'review'}" @click="show_order('proceed')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['proceed']}}</span>)</a>
                     </div>
                     <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'review'}" @click="show_order('review')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{store.data_count['review']}}</span>)</a>
-                    </div>
-                    <div class="relative ml-2 mr-3">
-                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'complete'}" @click="show_order('complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{store.data_count['complete']}}</span>) </a>
+                            <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'complete'}" @click="show_order('complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['complete']}}</span>) </a>
                     </div>
                 </div>
                 <!--分隔線-->
                 <div class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
                 <div class="flex flex-col sm:flex-row">
-                    <div class="relative right-0 flex-auto m-1 sm:mt-1">
+                    <div class="relative right-0 flex-auto sm:mt-1">
+                        
                         <SearchBar 
-                            v-show="tableType === 'all'"
+                            v-show="tableType == 'all'"
                             :tableStatus="'all'"
                             :tableSearch="'searchAll'"
-                            :tableFilter="'filterAll'"/>
+                            :tableFilter="'filterAll'"
+                            :searchEventBusName="'searchAll'"
+                            />
+
+
                         <SearchBar 
-                            v-show="tableType === 'review'"
-                            :tableStatus="'review'"
-                            :tableSearch="'searchReview'"
-                            :tableFilter="'filterReview'"/>
+                            v-show="tableType == 'proceed'"
+                            :tableStatus="'proceed'"
+                            :tableSearch="'searchProceed'"
+                            :tableFilter="'filterProceed'"
+                            :searchEventBusName="'searchProceed'"
+                            />
+
+                        
+                        
                         <SearchBar 
-                            v-show="tableType === 'complete'"
+                            v-show="tableType == 'complete'"
                             :tableStatus="'complete'"
                             :tableSearch="'searchComplete'"
-                            :tableFilter="'filterComplete'"/>
-                    </div>
+                            :tableFilter="'filterComplete'"
+                            :searchEventBusName="'searchComplete'"
+                            />
 
-                    <ExportOrderButton/>
+                        <ExportOrderButton />
+
+                        
+                    </div>
+                    
+                    <ExportEasyStoreOrderButton/>
                     <ExportShopifyOrderButton/>
-                    <div v-if="new Date() < new Date(store.campaign.end_at)" class="form-check form-switch justify-end mt-2">
+                    <div v-if="new Date() < new Date(manageOrderStore.campaign.end_at)" class="form-check form-switch justify-end mt-2">
                         <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
                         <Tippy 
                             class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
@@ -53,25 +71,29 @@
                             > 
                             <HelpCircleIcon class="w-5 tippy-icon" />
                         </Tippy> 
-                        <input @click="stop_checkout()" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="store.campaign.stop_checkout"/> 
+                        <input @click="stopCheckout()" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="manageOrderStore.campaign.stop_checkout"/> 
                     </div>
                 </div>
             </div>
 
-            <!-- Table -->
-            
+
             <div v-show="tableType === 'all'">
                 <ManageOrderTable
                     :tableStatus="'all'"
                     :tableSearch="'searchAll'"
                     :tableFilter="'filterAll'"
+                    :searchEventBusName="'searchAll'"
+                    :filterEventBusName="'filterAll'"
                 />
             </div>
-            <div v-show="tableType === 'review'">
+            
+            <div v-show="tableType === 'proceed'">
                 <ManageOrderTable
-                    :tableStatus="'review'"
-                    :tableSearch="'searchReview'"
-                    :tableFilter="'filterReview'"
+                    :tableStatus="'proceed'"
+                    :tableSearch="'searchProceed'"
+                    :tableFilter="'filterProceed'"
+                    :searchEventBusName="'searchProceed'"
+                    :filterEventBusName="'filterProceed'"
                 />
             </div>
             <div v-show="tableType === 'complete'">
@@ -79,20 +101,44 @@
                     :tableStatus="'complete'"
                     :tableSearch="'searchComplete'"
                     :tableFilter="'filterComplete'"
+                    :searchEventBusName="'searchComplete'"
+                    :filterEventBusName="'filterComplete'"
                 />
             </div>
-            <OrderProductModal />
+            
+
+            <FilterModal
+                :tableStatus="'all'"
+                :filterEventBusName="'filterAll'"
+            />
+
+            <FilterModal
+                :tableStatus="'proceed'"
+                :filterEventBusName="'filterProceed'"
+            />
+
+            <FilterModal
+                :tableStatus="'complete'"
+                :filterEventBusName="'filterComplete'"
+            />
         </div>
         <!-- <button class="btn z-50 btn-primary rounded-full" @click.native="scrollToTop()"> Back to Top </button> -->
     </div>
+    <CartProductModal />
+    <OrderProductModal />
 </template>
 
 <script setup>
 
 import ManageOrderTable  from "./ManageOrderTable.vue";
+import ManageCartTable from "./ManageCartTable.vue"
 import CampaignStatus from "./CampaignStatus.vue";
 import SearchBar from "./SearchBar.vue";
+import CartSearchBar from "./CartSearchBar.vue"
 import OrderProductModal from "./OrderProductModal.vue"
+import CartProductModal from "./CartProductModal.vue"
+import  FilterModal  from "./FilterModal.vue";
+
 import { ref, provide, onMounted, onUnmounted, onBeforeMount, getCurrentInstance } from "vue";
 // import xlsx from "xlsx";
 import { toggle_stop_checkout, retrieve_campaign } from "@/api_v2/campaign"
@@ -100,15 +146,16 @@ import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
-import ExportOrderButton from '@/plugin/easy-store/views/ExportOrderButton.vue'
+import ExportEasyStoreOrderButton from '@/plugin/easy-store/views/ExportOrderButton.vue'
 import ExportShopifyOrderButton from '@/plugin/shopify/views/ExportOrderButton.vue'
+import ExportOrderButton from "./ExportOrderButton.vue";
 
 // import { watch } from "fs";
 
 
 const route = useRoute()
 const router = useRouter()
-const store = useManageOrderStore()
+const manageOrderStore = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const layout = useLSSSellerLayoutStore()
@@ -118,6 +165,7 @@ const checkout_status = ref(false)
 const tableType = ref('all')
 const show_order = status=>{
   tableType.value=status
+  console.log(tableType.value)
 }
 const ready = ref(false)
 onBeforeMount(()=>{
@@ -125,7 +173,7 @@ onBeforeMount(()=>{
 })
 
 onMounted(()=>{
-    getCampaignInfo()
+    // getCampaignInfo()
     eventBus.on("calculateCampaignStatus", (payload) => {
         ready.value = true
 	})
@@ -135,18 +183,18 @@ onUnmounted(()=>{
     eventBus.off("calculateCampaignStatus")
 })
 
-function stop_checkout(){
+const stopCheckout = ()=>{
     toggle_stop_checkout(route.params.campaign_id, layout.alert).then(res=>{
-        store.campaign = res.data
+        manageOrderStore.campaign = res.data
         layout.notification.showMessageToast(`${i18n.global.t('manage_order.update_successed')}`);
     }) 
 }
 
-function getCampaignInfo(){
-    retrieve_campaign(route.params.campaign_id, layout.alert).then(res=>{
-        store.campaign = res.data
-    })
-}
+// function getCampaignInfo(){
+//     retrieve_campaign(route.params.campaign_id, layout.alert).then(res=>{
+//         manageOrderStore.campaign = res.data
+//     })
+// }
 </script>
 
 <style scoped>

@@ -56,6 +56,7 @@
     <Page
       class="mx-auto my-3"
       :total="dataCount"
+      :page-size="pageSize"
       @on-change="changePage"
       @on-page-size-change="changePageSize"
     />
@@ -92,7 +93,7 @@ const tableColumns = ref([
 
 const routeToDetail =(order_id)=>{
   buyer_retrieve_order_oid(order_id, layoutStore.alert).then(res=>{
-    router.push(`/buyer/order/${res.data}`)
+    router.push({name:"buyer-order-detail-page",params:{order_oid:res.data}})
   })
 }
 const changePage = page=> {      
@@ -109,11 +110,7 @@ const getOrderHistoryListData = ()=>{
 	buyer_orders_history(currentPage.value, pageSize.value, layoutStore.alert).then(response => {
     console.log(response.data)
 		dataCount.value = response.data.count;
-		const total_page = parseInt(dataCount.value / pageSize.value);
-		totalPage.value = total_page == 0 ? 1 : total_page;
 		orders.value = response.data.results;
-    // console.log(orders.value)
-    console.log(response)
 	})
 }
 onMounted(()=>{

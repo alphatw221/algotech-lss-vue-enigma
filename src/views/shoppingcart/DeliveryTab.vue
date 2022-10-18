@@ -1,5 +1,5 @@
 <template>
-  <div :class="{ hidden: store.openTab !== 2, block: store.openTab === 2 }">
+  <div :class="{ hidden: shoppingCartStore.openTab !== 2, block: shoppingCartStore.openTab === 2 }">
     <div class="grid grid-cols-12 gap-5 intro-y">
       <div class="col-span-12 row-start-2 intro-y lg:row-start-1 lg:col-span-8">
         <h2 class="w-full mr-auto text-xl font-medium">{{$t('shopping_cart.delivery_tab.contact_info')}}</h2>
@@ -83,11 +83,11 @@
                 <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
               </div>
             </Tab>
-            <template v-if="store.order.campaign && store.order.campaign.meta_logistic.pickup_options">
-                <Tab v-if="store.order.campaign.meta_logistic.pickup_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
+            <template v-if="shoppingCartStore.cart.campaign && shoppingCartStore.cart.campaign.meta_logistic.pickup_options">
+                <Tab v-if="shoppingCartStore.cart.campaign.meta_logistic.pickup_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
                 @click="select_shipping_method('pickup')">
                 <div class="inline-flex items-center grow place-content-center">
-                  <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
+                  <SimpleIcon icon="shoppingCartStore" :color="pickupColor" class="block mr-3" width="24" /> 
                   <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
                 </div>
               </Tab>
@@ -158,35 +158,35 @@
                 <!-- BEGIN Delivery Option -->
                 <label class="col-span-12 font-medium text-md">{{$t('shopping_cart.delivery_tab.option.delivery')}}</label>
                 <div class="col-span-12 gap-5 mx-0 intro-y lg:mx-20 2xl:mx-20">
-                  <div v-if="store.order.campaign">
+                  <div v-if="shoppingCartStore.cart.campaign">
 
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
                       <input :id="'radio-switch-'" class="form-check-input" type="radio"
                         name="vertical_radio_button" :value="null" v-model="shipping_option_index_computed" />
                       <label class="mr-auto form-check-label" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.default')}}</label>
                       <div>
-                        <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{(Math.floor(parseFloat(store.order.campaign.meta_logistic.delivery_charge) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-                        <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
+                        <label class="form-check-label">{{ shoppingCartStore.cart.campaign.currency }}</label>
+                        {{(Math.floor(parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                        <label class="form-check-label">{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
                       </div>
                     </div>
 
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
-                      v-for="(option, index) in store.order.campaign.meta_logistic.additional_delivery_options"
+                      v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
                       :key="index">
                       <input :id="'radio-switch-' + index" class="form-check-input" type="radio"
                         name="vertical_radio_button" :value="index" v-model="shipping_option_index_computed" />
                       <label class="mr-auto form-check-label" :for="'radio-switch-' + index">{{ option.title }}</label>
 
                       <div v-if="option.type === '+'">
-                        <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{(Math.floor((parseFloat(option.price) + parseFloat(store.order.campaign.meta_logistic.delivery_charge)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-                        <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
+                        <label class="form-check-label">{{ shoppingCartStore.cart.campaign.currency }}</label>
+                        {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                        <label class="form-check-label">{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
                       </div>
                       <div v-else>
-                        <label class="form-check-label">{{ store.order.campaign.currency }}</label>
-                        {{(Math.floor(parseFloat(option.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-                        <label class="form-check-label">{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}</label>
+                        <label class="form-check-label">{{ shoppingCartStore.cart.campaign.currency }}</label>
+                        {{(Math.floor(parseFloat(option.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                        <label class="form-check-label">{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
                       </div>
 
                     </div>
@@ -204,9 +204,9 @@
               <div class="grid grid-cols-12">
                 <label class="col-span-12 font-medium text-md">{{$t('shopping_cart.delivery_tab.option.pickup')}}</label>
                 <div class="col-span-12 gap-5 intro-y lg:mx-20 2xl:mx-20">
-                  <div v-if="store.order.campaign">
+                  <div v-if="shoppingCartStore.cart.campaign">
                     <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
-                      v-for="(option, index) in store.order.campaign.meta_logistic.pickup_options" :key="index">
+                      v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index">
 
                       <input class="form-check-input" type="radio"
                         :name="'pickup-switch-' + index" :value="index"
@@ -230,8 +230,8 @@
             <div class="font-medium text-md">
               {{$t('shopping_cart.delivery_tab.note')}}
             </div>
-            <p id="" class="col-span-12 col-start-1 p-5 form-control whitespace-pre-line" placeholder="" v-if="store.order.campaign">
-              {{store.order.campaign.meta_logistic.delivery_note}}
+            <p id="" class="col-span-12 col-start-1 p-5 form-control whitespace-pre-line" placeholder="" v-if="shoppingCartStore.cart.campaign">
+              {{shoppingCartStore.cart.campaign.meta_logistic.delivery_note}}
             </p>
           </div>
           
@@ -263,11 +263,11 @@
     </div>
     
     <div class="flex my-5">
-      <button class="mr-auto rounded-full w-fit btn btn-outline-primary" @click="store.openTab= 1">
+      <button class="mr-auto rounded-full w-fit btn btn-outline-primary" @click="shoppingCartStore.openTab= 1">
         {{$t('shopping_cart.delivery_tab.previous')}}
       </button>
 
-      <button :show="show" class="w-fit btn btn-rounded-primary" @click="proceed_to_payment" :disabled="store.user_subscription.status === sandboxMode">
+      <button :show="show" class="w-fit btn btn-rounded-primary" @click="proceed_to_payment" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
     </div>
@@ -284,7 +284,8 @@ import { useVuelidate } from "@vuelidate/core";
 import { computed, onMounted, ref, watch, reactive, toRefs } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
-import { buyer_update_delivery_info } from "@/api_v2/pre_order"
+// import { buyer_update_delivery_info } from "@/api_v2/pre_order"
+import { buyer_checkout_cart } from "@/api_v2/cart"
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useCookies } from 'vue3-cookies'
@@ -293,7 +294,7 @@ const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
 
-const store = useShoppingCartStore();
+const shoppingCartStore = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
 const sandboxMode = ref("test")
 const show = ref(false)
@@ -327,15 +328,15 @@ const shipping_option_index_computed = computed({
     return shipping_info.value.shipping_option_index
   },set:index=>{
     shipping_info.value.shipping_option_index=index
-    store.shipping_info.shipping_option_index=index
-    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.address : ''
+    shoppingCartStore.shipping_info.shipping_option_index=index
+    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address : ''
 
-    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?store.order.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? store.order.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
     
     if(shipping_info.value.shipping_method=='pickup'){
-      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.pickup_options[index]))
+      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
     }else{
-      shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(store.order.campaign.meta_logistic.additional_delivery_options[index]))
+      shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
     }
 
   }})
@@ -344,8 +345,11 @@ const shipping_method_computed = computed({
   get:()=>{
     return shipping_info.value.shipping_method
   },set:method=>{
+
+    shipping_info.value.shipping_option_index = null
+    shoppingCartStore.shipping_info.shipping_option_index = null  //order summary compute this
     shipping_info.value.shipping_method=method
-    store.shipping_info.shipping_method=method
+    shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
   }})
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
@@ -353,8 +357,11 @@ const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 onMounted(()=>{
   if(!isAnonymousUser){
     buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
-      res.data.shipping_method='delivery'
-      res.data.shipping_option=''
+
+      
+      res.data.shipping_method='delivery'     //default value
+      res.data.shipping_option_index=null     //default value
+      res.data.shipping_option_data={}        //default value
       shipping_info.value = res.data
       show.value = true
     })
@@ -424,12 +431,9 @@ const proceed_to_payment = () =>{
   // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
 
 
-  buyer_update_delivery_info(route.params.pre_order_oid, {shipping_data:shipping_info.value}, layoutStore.alert)
+  buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value}, layoutStore.alert)
   .then(res=>{
-    router.push(`/buyer/order/${res.data.oid}/payment`)
-  }).catch(error=>{
-    if (error.response.data)store.order = error.response.data
-    
+    router.push({name:"buyer-order-payment-page", params:{'order_oid':res.data.oid}})
   })
   
 }
