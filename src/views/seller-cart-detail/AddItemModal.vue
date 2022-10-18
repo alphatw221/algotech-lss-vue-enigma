@@ -2,12 +2,12 @@
 	<Modal
 	backdrop="static"
 		size="modal-xl"
-		:show="store.showAddItemModal"
-		@hidden="store.showAddItemModal = false"
+		:show="sellerCartStore.showAddItemModal"
+		@hidden="sellerCartStore.showAddItemModal = false"
 		:slideOver="true"
 	>
 		<ModalBody class="p-5 relative" >
-			<a @click="store.showAddItemModal = !store.showAddItemModal" class="absolute right-0 top-0 mt-3 mr-3">
+			<a @click="sellerCartStore.showAddItemModal = !sellerCartStore.showAddItemModal" class="absolute right-0 top-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             	</a>
 			<ModalHeader>
@@ -37,9 +37,9 @@
 							{{ product.name }}
 						</div>
 						<div class="text-slate-500 text-sm text-center">
-							{{store.orderDetail.campaign.currency}} 
-							{{Math.floor(parseFloat(product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places}}
-							{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+							{{sellerCartStore.cart.campaign.currency}} 
+							{{Math.floor(parseFloat(product.price) * (10 ** sellerCartStore.cart.campaign.decimal_places)) / 10 ** sellerCartStore.cart.campaign.decimal_places}}
+							{{sellerCartStore.cart.campaign.price_unit?$t(`global.price_unit.${sellerCartStore.cart.campaign.price_unit}`):''}}
 						</div>
 						<div class="flex">
 							<button type="button" @click="changeQuantity(null, index, 'minus')">
@@ -78,52 +78,48 @@
 import { computed, onMounted, ref, watch } from "vue";
 // import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { useSellerOrderStore } from "@/stores/lss-seller-order";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 // import { seller_cart_add } from "@/api_v2/pre_order";
 import { seller_edit_cart_product } from "@/api_v2/cart"
 import { useRoute } from "vue-router";
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
-
+import { useSellerCartStore } from "@/stores/lss-seller-cart";
+const sellerCartStore = useSellerCartStore()
+const campaignDetailStore = useCampaignDetailStore()
 const { cookies } = useCookies()
 const layoutStore = useLSSSellerLayoutStore();
 const route = useRoute();
-const store = useSellerOrderStore(); 	
+
 const staticDir =  import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR;
 
 const addOnProducts = ref([])
 const addOnTitle = ref('select_add_ons')
 
 onMounted(()=> {
-	// if (route.query.tag && route.query.tag == 'openAddOn') {
-	// 	store.showAddItemModal = true
-	// 	addOnTitle.value = 'select_products'
-	// }
-	console.log(store.orderDetail.products)
-	console.log(store.campaignProducts)
 	updateAddOnProducts()
 	
 })
 
-watch(computed(()=>store.campaignProducts),()=>{
-	if (!(store.orderDetail.products||false))return
+watch(computed(()=>campaignDetailStore.campaignProducts),()=>{
+	if (!(sellerCartStore.cart.products||false))return
 	updateAddOnProducts()
 })
 
-watch(computed(()=>store.orderDetail),()=>{
-	if (!(store.orderDetail.products||false))return
+watch(computed(()=>sellerCartStore.cart),()=>{
+	if (!(sellerCartStore.cart.products||false))return
 	updateAddOnProducts()
 })
 
 const updateAddOnProducts = ()=>{
-	let temp = []
-	store.campaignProducts.forEach(product => {
-		if(!(product.id.toString() in store.orderDetail.products)){
-			product.qty=1
-			temp.push(product)
+	addOnProducts.value = []
+	campaignDetailStore.campaignProducts.forEach(product => {
+		if(sellerCartStore.cart?.products && !(product.id.toString() in sellerCartStore.cart.products)){
+			const _product = JSON.parse(JSON.stringify(product))
+			_product.qty=1
+			addOnProducts.value.push(_product)
 		}
 	});
-	addOnProducts.value = temp
 }
 
 const changeQuantity = (event, index, operation) => {
@@ -143,10 +139,10 @@ const changeQuantity = (event, index, operation) => {
 
 
 const seller_add_item = (campaing_product_id, index) => {
-	seller_edit_cart_product(route.params.order_id, campaing_product_id, addOnProducts.value[index].qty, layoutStore.alert)
+	seller_edit_cart_product(route.params.cart_id, campaing_product_id, addOnProducts.value[index].qty, layoutStore.alert)
 	.then(
 		res => {
-			store.orderDetail = res.data
+			sellerCartStore.cart = res.data
 			layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.add_item_success'))
 		}
 	)

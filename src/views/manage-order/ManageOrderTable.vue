@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(order, key) in store[props.tableStatus]" :key="key" class="intro-x">
+                <tr v-for="(order, index) in orders" :key="index" class="intro-x">
                     <td v-for="column in columns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
@@ -121,13 +121,13 @@
                         </template>
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
-                                <a class="flex image-fit sm:mr-3" @click="copyURL(order.id,order.type)">
+                                <a class="flex image-fit sm:mr-3" @click="copyOrderLink(order)">
                                     <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
                                     <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
                                         <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto w-6 sm:w-auto" width="24" height="23" />
                                     </Tippy>
                                 </a>
-                                <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_order_detail(order.id,order.type)">
+                                <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="routeToOrderDetail(order)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
                                     <Tippy  :content="$t('tooltips.manage_order.view_icon')" :options="{ theme: 'light' }"> 
                                         <SimpleIcon icon="order_details" color="#2d8cf0" class="sm:mx-auto w-6 sm:w-auto" width="26" height="24" />
@@ -137,7 +137,7 @@
                         </template>
                         <template v-else-if="column.key === 'delivery'">
                             <div class="flex place-content-center">
-                                <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
+                                <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shippingOut(order,index)">
                                   <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> 
                                     <SimpleIcon icon="truck" color="#2d8cf0" class="sm:mx-auto" width="26" height="33" />
                                     </Tippy>  
@@ -166,10 +166,10 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal' && store.campaign" class="text-right">
-                            {{store.campaign.currency}}
-                            {{(Math.floor(parseFloat(order.total) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
+                        <template v-else-if="column.key === 'subtotal' && campaignDetailStore.campaign" class="text-right">
+                            {{campaignDetailStore.campaign.currency}}
+                            {{(Math.floor(parseFloat(order.total) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
@@ -192,7 +192,7 @@
         </table>
     </div>
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-        <Page class="mx-auto my-3" :total="store.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
+        <Page class="mx-auto my-3" :total="manageOrderStore.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>
 <script setup>
@@ -204,14 +204,23 @@ import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import unbound from '/src/assets/images/lss-img/noname.png';
 import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
-
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
+const campaignDetailStore = useCampaignDetailStore();
 const route = useRoute();
 const router = useRouter();
-const store = useManageOrderStore()
+const manageOrderStore = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_ROOT_API
+
+
+
+
+
+
+
+
 
 const columns = ref([
     { name: 'order_number', key: 'id', sortable: true},
@@ -227,48 +236,62 @@ const columns = ref([
 
 const props = defineProps({
     tableStatus: String,
-    tableSearch: String,
+    searchEventBusName:String,
+    filterEventBusName:String,
 });
 const page = ref(1);
 const page_size = ref(10);
 const sortBy = ref({})
+
 const keyword = ref('')
 const filterData = ref({})
 
+const TYPE_ORDER = 'order'
+const TYPE_CART = 'cart'
+
+const orders = ref([])
 
 onMounted(()=>{
     search()
-    eventBus.on(props.tableSearch, (payload) => {
+    eventBus.on(props.searchEventBusName, (payload) => {
         keyword.value = payload.keyword
-        filterData.value = payload.filter_data
+        search()
+	})
+    eventBus.on(props.filterEventBusName, (payload) => {
+        filterData.value = payload
         search()
 	})
 })
 
 onUnmounted(()=>{
-    eventBus.off(props.tableSearch)
+    eventBus.off(props.searchEventBusName)
+    eventBus.off(props.filterEventBusName)
 })
 
 const search = () => {
     filterData.value['sort_by'] = sortBy.value
     var _campaign_id, _search_value, _page, _page_size, _status, _filter_data, _toastify
-    seller_search_order(_campaign_id=route.params.campaign_id, _search_value=keyword.value, _page=page.value, _page_size=page_size.value, _status=props.tableStatus, _filter_data=filterData.value, _toastify=layoutStore.alert).then(
+    seller_search_order(
+        _campaign_id=route.params.campaign_id, 
+        _search_value=keyword.value, 
+        _page=page.value, 
+        _page_size=page_size.value, 
+        _status=props.tableStatus, 
+        _filter_data=filterData.value, 
+        _toastify=layoutStore.alert)
+    .then(
         res => {
-			store[props.tableStatus] = res.data.data
-            store.data_count[props.tableStatus] = res.data.count;
-            // if (res.data.count != 0) {
-            //     let totalPage = parseInt(res.data.count / page_size.value);
-            //     totalPage = totalPage == 0 ? 1 : totalPage;
-            //     }
+			orders.value = res.data.results
+            manageOrderStore.data_count[props.tableStatus] = res.data.count;
+
         }
     ).then(res => {
-        eventBus.emit("calculateCampaignStatus")        
+        eventBus.emit("calculateCampaignStatus")      //manage order dashboard start to run after all table emits this event   
     })
 }
 
-const to_order_detail = (order_id,type) => {
-    store.order_type = type
-    router.push({name:'seller-order-detail',params:{'order_id':order_id, 'campaign_id':route.params.campaign_id},query:{'type':type}})
+const routeToOrderDetail = (order) => {
+    router.push({name:'seller-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id},query:{'type':TYPE_ORDER}})
 }
 const changePage = (p) => {
     page.value = p
@@ -281,38 +304,26 @@ const changePageSize = (p) => {
 const showOrderProductModal = (order) => {
     console.log('show')
     eventBus.emit('getSlideOverOrderData',{'id':order.id})
-    store.showOrderProductModal = !store.showOrderProductModal
-    console.log(store.showOrderProductModal)
+    manageOrderStore.showOrderProductModal = !manageOrderStore.showOrderProductModal
+    console.log(manageOrderStore.showOrderProductModal)
 }
-const shipping_out = (order_id,index) => {
-    seller_deliver(order_id, layoutStore.alert).then(
+const shippingOut = (order,index) => {
+    seller_deliver(order.id, layoutStore.alert).then(
         res=>{
-            store[props.tableStatus][index].status = 'shipping out'
+            orders[index]= res.data
         }
     
     )
 }
-const copyURL = (order_id,type) => {
-    if(type === 'order'){
-        get_order_oid(order_id, layoutStore.alert).then(
-            res =>{
-            text = `${baseURL}/buyer/order/${res.data}`;
-            navigator.clipboard.writeText(text).then(()=>{
-                alert('copied!')
-            })
-        }
-        )
-    }else{ 
-        get_pre_order_oid(order_id, layoutStore.alert).then(
-            res =>{
-            text = `${baseURL}/buyer/cart/${res.data}`;
-            navigator.clipboard.writeText(text).then(()=>{
-                alert('copied!')
-            })
+const copyOrderLink = (order) => {
+    get_order_oid(order.id, layoutStore.alert).then(
+        res =>{
+        text = `${baseURL}/buyer/order/${res.data}`;
+        navigator.clipboard.writeText(text).then(()=>{
+            alert('copied!')
         })
-        }
-    }
-    
+    })
+}
 const sortByThis = (field, value) =>{
     sortBy.value[field] = value
 	search();

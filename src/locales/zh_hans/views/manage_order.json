@@ -64,6 +64,8 @@
                 },
                 "delivery":{
                         "status":"出货状态",
+                        "shipped":"已出货",
+                        "awaiting_shipment":"未出货",
                         "shipping out":"已出货",
                         "to be shipping":"未出货"
                 },
@@ -79,6 +81,7 @@
         "stop_checkout" : "停止结帐",
         "complete" : "已完成",
         "review" : "处理中",
+        "proceed": "处理中",
         "shipping out":"已出货",
         "all" : "所有订单",
         "update_successed":"储存成功"

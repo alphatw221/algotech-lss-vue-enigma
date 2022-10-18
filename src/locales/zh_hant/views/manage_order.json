@@ -64,6 +64,8 @@
                 },
                 "delivery":{
                         "status":"出貨狀態",
+                        "shipped":"已出貨",
+                        "awaiting_shipment":"未出貨",
                         "shipping out":"已出貨",
                         "to be shipping":"未出貨"
                 },
@@ -79,6 +81,7 @@
         "stop_checkout" : "停止結帳",
         "complete" : "已完成",
         "review" : "處理中",
+        "proceed" : "處理中",
         "shipping out":"已出貨",
         "all" : "所有訂單",
         "update_successed":"儲存成功"

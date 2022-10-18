@@ -209,8 +209,6 @@ onMounted(()=>{
         });
         campaignDetailStore.incomingOrders = res.data  //delete if no longer needed
     })
-    console.log(campaignDetailStore.incomingOrders)
-    console.log(campaignDetailStore.campaignProductDict)
 })
 
 const hideDropDown = ()=>{
@@ -219,7 +217,8 @@ const hideDropDown = ()=>{
 
 
 const routeToDetailPage = (cart)=>{
-    router.push({name:'seller-order-detail',params:{'campaign_id':route.params.campaign_id,'order_id':cart.id},query:{'type':'cart'}})
+    // router.push({name:'seller-order-detail',params:{'campaign_id':route.params.campaign_id,'order_id':cart.id},query:{'type':'cart'}})
+    router.push({name:'seller-cart-detail',params:{'campaign_id':route.params.campaign_id,'cart_id':cart.id}})
 }
 
 const routeTOManageOrder = ()=>{

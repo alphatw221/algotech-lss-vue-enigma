@@ -51,30 +51,21 @@ const store = useManageOrderStore()
 
 const props = defineProps({
     tableStatus: String,
-    tableSearch: String,
-    tableFilter: String,
+    searchEventBusName: String
 });
 
-onMounted(()=>{
-    eventBus.on(props.tableFilter, (payload) => {
-        console.log(payload.filter_data)
-        search(payload.filter_data)
-	})
-})
-onUnmounted(()=>{
-    eventBus.off(props.tableFilter)
-})
+
 
 function search(filter_data={}){
     // console.log(searchValue.value)
-    eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
+    eventBus.emit(props.searchEventBusName,{'keyword':searchValue.value})
 }
 function test(){
     store.filterModal[props.tableStatus] = true
 }
 function reset(filter_data){
     searchValue.value = ''
-    eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
+    eventBus.emit(props.searchEventBusName,{'keyword':searchValue.value})
 }
 // function onExportXlsx(){
 //     get_campaign_order_report(route.params.campaign_id, layoutStore.alert).then(

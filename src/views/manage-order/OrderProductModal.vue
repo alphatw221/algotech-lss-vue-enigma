@@ -2,21 +2,25 @@
     <Modal
     backdrop="static"
 		size="modal-xl"
-		:show="store.showOrderProductModal"
-		@hidden="store.showOrderProductModal = false"
+		:show="manageOrderStore.showOrderProductModal"
+		@hidden="manageOrderStore.showOrderProductModal = false; clearOrderData();"
 		:slideOver="true"
 	>
         <ModalBody>
             <ModalHeader>
                     <h2 class="font-medium text-base">
-                        {{$t('manage_order.product_modal.order_no')}} {{store.orderProductData.id}}
+                        {{$t('manage_order.product_modal.order_no')}} {{manageOrderStore.order.id}}
                         <span class="btn btn-rounded-pending cursor-auto h-8 ml-3">
-                            {{$t(`manage_order.${store.orderProductData.status}`) }}
+                            {{$t(`manage_order.${manageOrderStore.order.status}`) }}
                         </span>
                     </h2>
-                    <XIcon class="w-8 h-8 text-slate-400 ml-auto" @click="store.showOrderProductModal = false"/>
+                    <XIcon class="w-8 h-8 text-slate-400 ml-auto" @click="manageOrderStore.showOrderProductModal = false"/>
             </ModalHeader>
             <div class="w-full overflow-auto"> 
+
+
+
+                <!-- ORDER_PRODUCT_TABLE -->
                 <table id="orderTable" class="table table-report mt-3 text-[13px] sm:text-[16px]">
                     <thead>
                         <tr>
@@ -26,12 +30,12 @@
                         </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(product, index) in store.orderProductData.products" :key="index" class="intro-x text-[13px] sm:text-[16px]">
+                        <tr v-for="(order_product, index) in manageOrderStore.order.order_products" :key="index" class="intro-x text-[13px] sm:text-[16px]">
                             <td class="imgtd flex justify-center">
-                                <div class="w-14 sm:w-fit" v-if="product.image">
+                                <div class="w-14 sm:w-fit" v-if="order_product.image">
                                     <img
                                         class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
-                                        :src="product.image"
+                                        :src="order_product.image"
                                     />
                                 </div>
                                 <div class="w-14 sm:w-fit flex" v-else>
@@ -42,69 +46,106 @@
                                 </div>
                             </td>
                             <td class="text-left" :data-content="$t('manage_order.product_modal.product')">
-                                <span v-if="product.type == 'lucky_draw'" class="mr-1"> *{{$t('manage_order.product_modal.prize')}}* </span>
-                                <span class="break-words whitespace-normal"> {{product.name}} </span>
+                                <span v-if="order_product.type == 'lucky_draw'" class="mr-1"> *{{$t('manage_order.product_modal.prize')}}* </span>
+                                <span class="break-words whitespace-normal"> {{order_product.name}} </span>
                             </td>
                             <td class="text-center" :data-content="$t('manage_order.product_modal.qty')" >
-                                <span > {{product.qty}} </span> 
+                                <span > {{order_product.qty}} </span> 
                             </td>
                             <td class="text-center whitespace-nowrap" :data-content="$t('manage_order.product_modal.price')">
-                            {{store.orderProductData.campaign.currency}}
-                            {{(Math.floor(parseFloat(product.price) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            {{campaignDetailStore.campaign.currency}}
+                            {{(Math.floor(parseFloat(order_product.price) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
                             </td>
                             <td class="text-center whitespace-nowrap" :data-content="$t('manage_order.product_modal.sub_total')">
-                            {{store.orderProductData.campaign.currency}}
-                            {{(Math.floor(parseFloat(product.price)* product.qty * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            {{campaignDetailStore.campaign.currency}}
+                            {{(Math.floor(order_product.subtotal * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
                             </td>                        
                         </tr>
                     </tbody>
                 </table>
             </div>
+
+            <!-- ORDER_SUMMARY_CARD -->
             <div class="grid grid-cols-12 gap-2 text-[16px]">
                 <div class="box col-start-1 col-span-12 lg:col-start-9">
                     <div class="grid grid-cols-3 gap-2">
+
+
+                        <!-- SUBTOTAL -->
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.sub_total')}}</div>
-                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">
-                                {{store.orderProductData.campaign.currency}} 
-                                {{(Math.floor(parseFloat(store.orderProductData.subtotal) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places).toLocaleString('en-GB')}}
-                                {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            <div class="lg:mr-0" v-if="campaignDetailStore.campaign">
+                                {{campaignDetailStore.campaign.currency}} 
+                                {{(Math.floor(parseFloat(manageOrderStore.order.subtotal) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
                             </div>
                         </div>
+
+                        <!-- DISCOUNT -->
+                        <div
+                            v-if="manageOrderStore.order.discount" 
+                            class="flex col-start-1 col-span-3 p-2">
+                            <div class="mr-auto font-bold">{{$t('manage_order.product_modal.discount')}} <span class="text-danger">{{manageOrderStore.order.applied_discount.code ? (manageOrderStore.order.applied_discount.code) : ''}}</span></div>
+                            <div class="lg:mr-0" v-if="campaignDetailStore.campaign">
+                                {{campaignDetailStore.campaign.currency}} 
+                                {{(Math.floor((parseFloat(manageOrderStore.order.discount)) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                            </div>
+                        </div>
+
+                        <!-- SUBTOTAL_AFTER_DISCOUNT -->
+                        <div
+                            v-if="manageOrderStore.order.discount" 
+                            class="flex col-start-1 col-span-3 p-2">
+                            <div class="mr-auto font-bold">Subtotal After Discount </div>
+                            <div class="lg:mr-0" v-if="campaignDetailStore.campaign">
+                                {{campaignDetailStore.campaign.currency}} 
+                                {{ (Math.floor(parseFloat(Math.max(manageOrderStore.order.subtotal-manageOrderStore.order.discount,0)) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                            </div>
+                        </div>
+
+                        <!-- SHIPPING_COST -->
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.delivery_charge')}}</div>
-                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">
-                                {{store.orderProductData.campaign.currency}} 
-                                {{(Math.floor(parseFloat(store.orderProductData.shipping_cost) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places).toLocaleString('en-GB')}}
-                                {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            <div class="lg:mr-0" v-if="campaignDetailStore.campaign">
+                                {{campaignDetailStore.campaign.currency}} 
+                                {{(Math.floor(parseFloat(manageOrderStore.order.shipping_cost) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
                             </div>
                         </div>
-                        <div
-                            v-if="store.orderProductData.discount" 
-                            class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">{{$t('manage_order.product_modal.discount')}} <span class="text-danger">{{store.orderProductData.applied_discount.code ? (store.orderProductData.applied_discount.code) : ''}}</span></div>
-                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">
-                                {{store.orderProductData.campaign.currency}} 
-                                {{(Math.floor((parseFloat(store.orderProductData.adjust_price) - parseFloat(store.orderProductData.discount)) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places).toLocaleString('en-GB')}}
-                                {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                        
+                        <!-- ADJUST_PRICE -->
+                        <div class="flex col-start-1 col-span-3 p-2" v-if="manageOrderStore.order.adjust_price">
+                            <div class="mr-auto font-bold">{{manageOrderStore.order.adjust_title}}</div>
+                            <div class="lg:mr-0" v-if="campaignDetailStore.campaign">
+                                {{campaignDetailStore.campaign.currency}} 
+                                {{(Math.floor(parseFloat(manageOrderStore.order.adjust_price) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
                             </div>
                         </div>
-                        <div v-if="store.orderProductData.tax" class="flex col-start-1 col-span-3 p-2">
+
+                        
+
+                        <!-- TAX -->
+                        <div v-if="manageOrderStore.order.tax" class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('order_detail.price_summary.tax')}}</div>
                             <div class="lg:mr-0"> 
-                                {{store.orderProductData.campaign.currency}}
-                                {{(Math.floor(parseFloat(store.orderProductData.tax) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places).toLocaleString('en-GB')}}
-                                {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                                {{campaignDetailStore.campaign.currency}}
+                                {{(Math.floor(parseFloat(manageOrderStore.order.tax) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
                             </div>
                         </div>
+
+                        <!-- TOTAL -->
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.total')}}</div>
-                            <div class="lg:mr-0" v-if="store.orderProductData.campaign">
-                                {{store.orderProductData.campaign.currency}} 
-                                {{(Math.floor(parseFloat(store.orderProductData.total) * (10 ** store.orderProductData.campaign.decimal_places)) / 10 ** store.orderProductData.campaign.decimal_places).toLocaleString('en-GB')}}
-                                {{store.orderProductData.campaign.price_unit?$t(`global.price_unit.${store.orderProductData.campaign.price_unit}`):''}}
+                            <div class="lg:mr-0" v-if="campaignDetailStore.campaign">
+                                {{campaignDetailStore.campaign.currency}} 
+                                {{(Math.floor(parseFloat(manageOrderStore.order.total) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
                             </div>
                         </div>
                     </div>
@@ -120,12 +161,16 @@ import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_order } from "@/api_v2/order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
+
+const campaignDetailStore = useCampaignDetailStore();
 const route = useRoute();
-const store = useManageOrderStore()
+const manageOrderStore = useManageOrderStore()
 const layoutStore = useLSSSellerLayoutStore()
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+
 
 const columns = ref([
     { key: "image", name: "null",  },
@@ -138,7 +183,6 @@ const columns = ref([
 onMounted(()=>{
     eventBus.on("getSlideOverOrderData", (payload) => {
         getOrderData(payload.id)
-        console.log('event bus')
 	})
 })
 
@@ -146,17 +190,17 @@ onUnmounted(()=>{
     eventBus.off("getSlideOverOrderData")
 })
 
-function getOrderData(id){
+const getOrderData = id => {
     seller_retrieve_order(id, layoutStore.alert)
     .then(
-        res => { store.orderProductData = res.data
-            console.log('getOrderData')
-        }
-        
+        res => { manageOrderStore.order = res.data}
     )
     
 }
 
+const clearOrderData = ()=>{
+    manageOrderStore.order = {}
+}
 </script>
 
 <style scoped>

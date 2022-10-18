@@ -13,7 +13,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			<tr v-for="(qty, campaign_product_id, index) in store.orderDetail.products" :key="index" class="intro-x">
+			<tr v-for="(qty, campaign_product_id, index) in sellerCartStore.cart.products" :key="index" class="intro-x">
 
 				<td class=" " :data-content="$t('order_detail.table.null')">
 					<div class="w-14 sm:w-20 flex" v-if="campaignDetailStore.campaignProductDict[campaign_product_id]?.image">
@@ -82,16 +82,16 @@
 						</div>
 					</template>
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="sellerCartStore.cart.campaign">
 
-					{{store.orderDetail.campaign.currency}}
-					{{ (Math.floor(parseFloat(campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
-					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+					{{sellerCartStore.cart.campaign.currency}}
+					{{ (Math.floor(parseFloat(campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * (10 ** sellerCartStore.cart.campaign.decimal_places)) / 10 ** sellerCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+					{{sellerCartStore.cart.campaign.price_unit?$t(`global.price_unit.${sellerCartStore.cart.campaign.price_unit}`):''}}
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}}
-					{{ (Math.floor(parseFloat(qty * campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
-					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="sellerCartStore.cart.campaign">
+					{{sellerCartStore.cart.campaign.currency}}
+					{{ (Math.floor(parseFloat(qty * campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * (10 ** sellerCartStore.cart.campaign.decimal_places)) / 10 ** sellerCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+					{{sellerCartStore.cart.campaign.price_unit?$t(`global.price_unit.${sellerCartStore.cart.campaign.price_unit}`):''}}
 				</td>
 				<td>
 					<a  class="flex items-center justify-center text-danger" 
@@ -110,7 +110,7 @@
 <script setup>
 import { computed, onMounted, ref, watch,getCurrentInstance } from "vue";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
-import { useSellerOrderStore } from "@/stores/lss-seller-order";
+import { useSellerCartStore } from "@/stores/lss-seller-cart";
 import { useRoute, useRouter } from "vue-router";
 import { seller_edit_cart_product } from "@/api_v2/cart"
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
@@ -119,7 +119,8 @@ import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const router = useRouter();
-const store = useSellerOrderStore();
+
+const sellerCartStore = useSellerCartStore()
 const sellerStore = useLSSSellerLayoutStore()
 const campaignDetailStore = useCampaignDetailStore()
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
@@ -161,19 +162,24 @@ const changeQuantity = (index, operation, campaign_product_id, qty) => {
 		_qty = qty+1
 	} else if (operation == 'minus' ) {
 		_qty = qty-1
-	} else if (operation == 'input' && cacheQty.value >= 1 ) {
-		_qty = cacheQty.value
+	} else if (operation == 'input' && parseInt(cacheQty.value) >= 1 ) {
+		_qty = parseInt(cacheQty.value)
 	} else {
 		sellerStore.alert.showMessageToast(i18n.global.t('order_detail.invalid_qty'))
 		cacheQty.value = qty
 		return
 	}
+
 	hideUpdateSign(index)
 	// hideUpdateButton()
 	// showQtyInput()
-	seller_edit_cart_product(route.params.order_id, campaign_product_id, _qty, sellerStore.alert).then(
+	seller_edit_cart_product(route.params.cart_id, campaign_product_id, _qty, sellerStore.alert).then(
+
+
 		res =>{
-			store.orderDetail = res.data
+
+
+			sellerCartStore.cart = res.data
 			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.update_successfully'))
 			showUpdateSign()
 			showQtyInput()
@@ -189,9 +195,9 @@ const changeQuantity = (index, operation, campaign_product_id, qty) => {
 
 const delete_product = (campaign_product_id) => {
 	var _qty
-	seller_edit_cart_product(route.params.order_id, campaign_product_id, _qty=0, sellerStore.alert).then(
+	seller_edit_cart_product(route.params.cart_id, campaign_product_id, _qty=0, sellerStore.alert).then(
 		res =>{
-			store.orderDetail = res.data
+			sellerCartStore.cart = res.data
 			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.update_successfully'))
 			showUpdateSign()
 			showQtyInput()

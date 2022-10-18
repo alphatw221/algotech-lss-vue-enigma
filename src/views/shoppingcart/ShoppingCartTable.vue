@@ -188,8 +188,8 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
 		_qty = qty+1
 	} else if (operation == 'minus' ) {
 		_qty = qty-1
-	} else if (operation == 'input' && cacheQty.value >= 1 ) {
-		_qty = cacheQty.value
+	} else if (operation == 'input' && parseInt(cacheQty.value) >= 1 ) {
+		_qty = parseInt(cacheQty.value)
 	} else {
 		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
 		cacheQty.value = qty

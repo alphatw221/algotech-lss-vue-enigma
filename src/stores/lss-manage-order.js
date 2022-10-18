@@ -12,13 +12,14 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 			All:0,
 			Cart:0,
 			Review:0,
+			Proceed:0,
 			Complete:0
 		}),
 		
 		campaign:ref({}),
 		showCartProductModal:ref(false),
 		showOrderProductModal:ref(false),
-		filterModal:ref({'All':false,'Review':false,'Complete':false}),
+		filterModal:ref({'All':false,'Review':false,'Proceed':false,'Complete':false}),
 		filterTagArray:ref({
 			'payment':{
 				'Direct Payment':false,
@@ -37,6 +38,7 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 			}
 		}),
 		orderProductData:ref({})
+		,order:ref({})
 	}),
 });
 	
