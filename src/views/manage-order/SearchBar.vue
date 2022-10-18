@@ -1,9 +1,7 @@
 <template>
-    <div class="relative right-0 flex w-full my-1 sm:mt-1 sm:w-auto">
-        <div class="flex ml-auto sm:ml-1 mr-2"> 
+    <div class=" my-1 sm:mt-1 inline-block align-middle">
+        <div class=" ml-auto sm:ml-1 mr-2 inline-block align-middle"> 
 
-    <!-- <div class="relative right-0 inline my-1 sm:mt-1 ">
-        <div class="inline-block ml-auto sm:ml-1 mr-2">  -->
             <div class="relative inline-block"> 
                 <input type="text" class="form-control w-40 lg:w-60 rounded-lg h-[35px] sm:h-[42px] pr-10"
                 :placeholder="$t('manage_order.search_bar.search')" v-model="searchValue" @keydown.enter.prevent="search()"/>
@@ -13,15 +11,15 @@
                 v-if="searchValue"
                 class="inline-block w-7 h-7 mt-2 text-slate-600 ml-2 " @click="reset"/>
         </div>
-        <div class="export hidden sm:inline-block">
+        <div class="export hidden sm:inline-block align-middle">
             <button id="tabulator-html-filter-go" type="button" class="flex-none w-20 mr-3 h-[35px] sm:h-[42px] btn btn-primary"
-                @click="test()">
-            <SimpleIcon icon="filter" color="white"  width="16" class="mr-1" @click="test()"/>
+                @click="showFilterModal()">
+            <SimpleIcon icon="filter" color="white"  width="16" class="mr-1" @click="showFilterModal()"/>
             {{$t('manage_order.search_bar.filter')}}
             </button>
         </div>
-        <div class="sm:hidden w-10 ">
-            <SimpleIcon icon="filter" color="#414141"  width="24" height="24" class="mt-1" @click="test()"/>
+        <div class="sm:hidden w-10 inline-block align-middle">
+            <SimpleIcon icon="filter" color="#414141"  width="24" height="24" class="mt-1" @click="showFilterModal()"/>
         </div>
         
     </div>
@@ -60,7 +58,7 @@ function search(filter_data={}){
     // console.log(searchValue.value)
     eventBus.emit(props.searchEventBusName,{'keyword':searchValue.value})
 }
-function test(){
+function showFilterModal(){
     store.filterModal[props.tableStatus] = true
 }
 function reset(filter_data){

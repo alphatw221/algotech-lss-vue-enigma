@@ -25,7 +25,7 @@
                 <!--分隔線-->
                 <div class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
                 <div class="flex flex-col sm:flex-row">
-                    <div class="relative right-0 flex-auto m-1 sm:mt-1">
+                    <div class="relative right-0 flex-auto sm:mt-1">
                         
                         <SearchBar 
                             v-show="tableType == 'all'"
@@ -54,7 +54,9 @@
                             :searchEventBusName="'searchComplete'"
                             />
 
-                        <ExportOrderButton/>
+                        <ExportOrderButton />
+
+                        
                     </div>
                     
                     <ExportEasyStoreOrderButton/>

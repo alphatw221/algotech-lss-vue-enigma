@@ -105,19 +105,29 @@
                                     </td>  -->
                                     <td>{{campaignDetailStore.campaignProductDict[campaign_product_id]?.name}}</td>
                                     <td>{{qty}}</td>
-                                    <td></td>
+                                    
                                     <td>
-                                        <Tippy 
-                                            class="rounded-full w-fit" 
-                                            data-tippy-allowHTML="true" 
-                                            data-tippy-placement="right" 
-                                            :options="{ theme: 'light' }"
-                                            :content="$t('tooltips.campaign_live.view_icon')" 
-                                        > 
-                                            <!-- <EyeIcon class="click-icon" @click="routeToDetailPage(pre_order)"/>  -->
-                                            <SimpleIcon icon="view" @click="routeToDetailPage(cart)"/>
-                                        </Tippy> 
+                                        <a>
+                                            <Tippy 
+                                                class="rounded-full w-fit" 
+                                                data-tippy-allowHTML="true" 
+                                                data-tippy-placement="right" 
+                                                :options="{ theme: 'light' }"
+                                                :content="$t('tooltips.campaign_live.view_icon')" 
+                                            > 
+                                                <SimpleIcon icon="view" @click="routeToDetailPage(cart)"/>
+                                            </Tippy> 
+                                        </a>
+                                        
                                     </td>
+                                    <td>
+                                        <a  @click="copyCartLink(cart)">
+                                            <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
+                                                <SimpleIcon icon="share" class="sm:mx-auto w-6 sm:w-auto" width="24" height="23" />
+                                            </Tippy>
+                                        </a>
+                                    </td>
+
                                 </tr>
 
                             </template>
@@ -165,30 +175,33 @@
 <script setup>
 
 // import { seller_list_pre_order } from '@/api_v2/pre_order'
-import { seller_list_cart } from '@/api_v2/cart'
+import { seller_list_cart, get_cart_oid } from '@/api_v2/cart'
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted, onUnmounted, ref, getCurrentInstance, computed, watch } from "vue";
 import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
+
+const layoutStore = useLSSSellerLayoutStore()
 const router = useRouter()
 const route = useRoute()
+
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const campaignDetailStore = useCampaignDetailStore();
-
+const baseURL = import.meta.env.VITE_APP_WEB
 const incoming_order_columns= [
     { name: "order_number", key: "order_number" },
     { name: "platform", key: "platform" },
     { name: "name", key: "name" },
     { name: "product", key: "product" },
     { name: "qty", key: "qty" },
-
-    { name: "null", key: null },
     // { name: "amount", key: "amount" },
     { name: "null", key: "detail" },
+    { name: "null", key: "link" }
 ]
 
 // const product_columns = [
@@ -200,6 +213,7 @@ const incoming_order_columns= [
 //     { name: "qty", key: "qty" },
 //     { name: "subtotal", key: "subtotal"}
 // ]
+
 
 onMounted(()=>{
     campaignDetailStore.incomingOrdersDict = {}
@@ -225,6 +239,14 @@ const routeTOManageOrder = ()=>{
     router.push({name:'manage-order',params:{'campaign_id':route.params.campaign_id}})
 }
 
+const copyCartLink = (cart) => {
+    get_cart_oid(cart.id, layoutStore.alert).then(
+        res =>{
+            navigator.clipboard.writeText(`${baseURL}/buyer/cart/${res.data}`).then(()=>{
+                layoutStore.notification.showMessageToast("copied!")
+            })
+    })
+}
 // const routeTOLuckyDraw = ()=>{
 //     router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
 //     hideDropDown()

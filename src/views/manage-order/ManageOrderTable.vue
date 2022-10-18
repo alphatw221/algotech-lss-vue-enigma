@@ -212,7 +212,7 @@ const manageOrderStore = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
-const baseURL = import.meta.env.VITE_APP_ROOT_API
+const baseURL = import.meta.env.VITE_APP_WEB
 
 
 
@@ -318,9 +318,8 @@ const shippingOut = (order,index) => {
 const copyOrderLink = (order) => {
     get_order_oid(order.id, layoutStore.alert).then(
         res =>{
-        text = `${baseURL}/buyer/order/${res.data}`;
-        navigator.clipboard.writeText(text).then(()=>{
-            alert('copied!')
+        navigator.clipboard.writeText(`${baseURL}/buyer/order/${res.data}`).then(()=>{
+            layoutStore.notification.showMessageToast("copied!")
         })
     })
 }
