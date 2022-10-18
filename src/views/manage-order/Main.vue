@@ -93,7 +93,7 @@ import ManageOrderTable  from "./ManageOrderTable.vue";
 import CampaignStatus from "./CampaignStatus.vue";
 import SearchBar from "./SearchBar.vue";
 import OrderProductModal from "./OrderProductModal.vue"
-import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
+import { ref, provide, onMounted, onUnmounted, onBeforeMount, getCurrentInstance } from "vue";
 // import xlsx from "xlsx";
 import { toggle_stop_checkout, retrieve_campaign } from "@/api_v2/campaign"
 import { useRoute, useRouter } from "vue-router";
@@ -106,7 +106,8 @@ import ExportShopifyOrderButton from '@/plugin/shopify/views/ExportOrderButton.v
 // import { watch } from "fs";
 
 
-const route = useRoute();
+const route = useRoute()
+const router = useRouter()
 const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -119,6 +120,10 @@ const show_order = status=>{
   tableType.value=status
 }
 const ready = ref(false)
+onBeforeMount(()=>{
+    if (layout.userInfo.user_subscription.status === "test") router.push({ name: 'campaign-list'})
+})
+
 onMounted(()=>{
     getCampaignInfo()
     eventBus.on("calculateCampaignStatus", (payload) => {

@@ -59,5 +59,10 @@
         "time_1hour": "giờ",
         "join_now": "Bắt đầu ngay",
         "dismiss": "Bỏ qua"
+    },
+    "test_mode": "TEST MODE",
+    "switch_mode_confirmation": {
+        "message": "As you switch to production mode, it can not be switched back.",
+        "switch": "switch"
     }
 }

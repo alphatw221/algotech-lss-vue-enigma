@@ -59,5 +59,10 @@
         "time_1hour": "1 小時後",
         "join_now": "立即加入",
         "dismiss": "略過"
+    },
+    "test_mode": "測試模式",
+    "switch_mode_confirmation": {
+        "message": "一旦切換到正是模式則無法更改",
+        "switch": "切換"
     }
 }

@@ -27,7 +27,11 @@
                         <HelpCircleIcon class="inline-block w-5 -mt-1 tippy-icon" />
                     </Tippy> 
                 </div> 
-                <button class="btn btn-primary h-fit my-auto mr-6 w-40" @click="routeTOManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
+                <button class="btn btn-primary h-fit my-auto mr-6 w-40" 
+                    @click="routeTOManageOrder()" 
+                    :disabled="layoutStore.userInfo.user_subscription.status === sandboxMode"> 
+                  {{ $t(`campaign_live.incoming.manage_order` ) }}
+                </button>
             </div>
             
             <div class="overflow-auto max-h-[90%]">
@@ -109,6 +113,7 @@
 
 import { seller_list_pre_order } from '@/api_v2/pre_order'
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
 import { onMounted, onUnmounted, ref, getCurrentInstance, computed, watch } from "vue";
 import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
@@ -120,6 +125,9 @@ const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const store = useCampaignDetailStore();
+const layoutStore = useLSSSellerLayoutStore()
+
+const sandboxMode = ref("test")
 
 const incoming_order_columns= [
     { name: "order_number", key: "order_number" },

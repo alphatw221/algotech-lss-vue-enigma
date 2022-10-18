@@ -267,7 +267,7 @@
         {{$t('shopping_cart.delivery_tab.previous')}}
       </button>
 
-      <button class="w-fit btn btn-rounded-primary" @click="proceed_to_payment">
+      <button :show="show" class="w-fit btn btn-rounded-primary" @click="proceed_to_payment" :disabled="store.user_subscription.status === sandboxMode">
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
     </div>
@@ -295,7 +295,8 @@ const router = useRouter();
 
 const store = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
-
+const sandboxMode = ref("test")
+const show = ref(false)
 const shipping_info= ref({
 			shipping_option:"",
       shipping_option_index:null,
@@ -355,6 +356,7 @@ onMounted(()=>{
       res.data.shipping_method='delivery'
       res.data.shipping_option=''
       shipping_info.value = res.data
+      show.value = true
     })
   }
   
