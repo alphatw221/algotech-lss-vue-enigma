@@ -7,6 +7,7 @@
     "pay":"前往付款",
     "complete" : "已完成",
     "review" : "處理中",
+    "pending_confirmation": "確認中",
     "proceed" : "處理中",
     "shipping out":"已出貨",
     "table":{
@@ -59,6 +60,8 @@
         "direct_payment":"轉帳付款",
         "Direct Payment":"轉帳付款",
         "ecpay":"綠界金流",
+        "pay_mongo":"PayMongo",
+        "rapyd":"Rapyd",
         "method" : "付款方式",
         "information": "付款資訊",
         "record" : "付款紀錄",

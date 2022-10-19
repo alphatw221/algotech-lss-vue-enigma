@@ -24,6 +24,7 @@
                 "paypal":"Paypal",
                 "ecpay":"綠界金流",
                 "pay_mongo":"PayMongo",
+                "rapyd":"Rapyd",
                 "details":"订单明细",
                 "copy_link":"复制订单连结",
                 "order_number" : "订单编号",
@@ -60,7 +61,8 @@
                         "hitpay":"Hitpay",
                         "paypal":"Paypal",
                         "ecpay":"綠界金流",
-                        "pay_mongo":"PayMongo"
+                        "pay_mongo":"PayMongo",
+                        "rapyd":"Rapyd"
                 },
                 "delivery":{
                         "status":"出货状态",
@@ -81,6 +83,7 @@
         "stop_checkout" : "停止结帐",
         "complete" : "已完成",
         "review" : "处理中",
+        "pending_confirmation": "确认中",
         "proceed": "处理中",
         "shipping out":"已出货",
         "all" : "所有订单",

@@ -27,7 +27,11 @@
                         <HelpCircleIcon class="inline-block w-5 -mt-1 tippy-icon" />
                     </Tippy> 
                 </div> 
-                <button class="btn btn-primary h-fit my-auto mr-6 w-40" @click="routeTOManageOrder()"> {{ $t(`campaign_live.incoming.manage_order` ) }} </button>
+                <button class="btn btn-primary h-fit my-auto mr-6 w-40" 
+                    @click="routeTOManageOrder()" 
+                    :disabled="layoutStore.userInfo.user_subscription.status === sandboxMode"> 
+                  {{ $t(`campaign_live.incoming.manage_order` ) }}
+                </button>
             </div>
             
             <div class="overflow-auto max-h-[90%]">
@@ -193,6 +197,9 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
 const campaignDetailStore = useCampaignDetailStore();
 const baseURL = import.meta.env.VITE_APP_WEB
+
+const sandboxMode = ref("test")
+
 const incoming_order_columns= [
     { name: "order_number", key: "order_number" },
     { name: "platform", key: "platform" },
