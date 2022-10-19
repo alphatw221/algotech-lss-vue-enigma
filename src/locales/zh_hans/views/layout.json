@@ -61,5 +61,10 @@
         "time_1hour": "1 小时后",
         "join_now": "立即加入",
         "dismiss": "略过"
+    },
+    "test_mode": "测试模式",
+    "switch_mode_confirmation": {
+        "message": "一旦切换到正是模式则无法更改",
+        "switch": "切换"
     }
 }

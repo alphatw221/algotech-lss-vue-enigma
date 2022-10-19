@@ -114,13 +114,19 @@
             }}</div>
           </td>
           <td class="items-center manage_order w-fit" :data-content="$t('campaign_list.campaign_list_table.action')">
-            <a class="flex items-center justify-center" @click="routeToManageOrder(campaign)">
+            <a v-if="layoutStore.userInfo.user_subscription.status === sandboxMode" class="flex items-center justify-center cursor-not-allowed">
+              <span class="mr-3 sm:hidden"> {{$t('campaign_list.campaign_list_table.manage_order')}}</span>
+              <Tippy  :content="$t('campaign_list.campaign_list_table.manage_order')" :options="{ theme: 'light' }">
+                <!-- <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>  -->
+                <SimpleIcon icon="manage_order" color="#b3bbc4" width="30" height="32" />
+              </Tippy> 
+            </a>
+            <a v-else class="flex items-center justify-center" @click="routeToManageOrder(campaign)">
               <span class="mr-3 sm:hidden"> {{$t('campaign_list.campaign_list_table.manage_order')}}</span>
               <Tippy  :content="$t('campaign_list.campaign_list_table.manage_order')" :options="{ theme: 'light' }">
                 <!-- <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>  -->
                 <SimpleIcon icon="manage_order" color="#2d8cf0" width="30" height="32" />
               </Tippy> 
-                  
             </a>
           </td>
           <td class="items-center checkout w-fit" :data-content="$t('campaign_list.campaign_list_table.stop')">
@@ -263,6 +269,7 @@ const checkout= ref(true)
 const layoutStore = useLSSSellerLayoutStore()
 const showCommentLoding = ref(true)
 const checkPagePonit = ref(true)
+const sandboxMode = ref("test")
 
 const campaigns=ref([])
 const numOfCampaigns = computed(()=>Object.keys(campaigns.value).length)
