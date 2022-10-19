@@ -13,16 +13,16 @@
 			</tr>
 			</thead>
 			<tbody>
-			<template v-for="(product, index) in store.order.products" :key="index" >
+			<template v-for="(qty, campaign_product_id, index) in shoppingCartStore.cart.products" :key="index" >
 				
 				<tr class="intro-x mt-5 relative">
 					<td class="imgtd">
 						<div class="flex flex-col items-center">
-							<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="product.image">
+							<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.image">
 								<img
 									class="rounded-lg"
 									data-action="zoom"
-									:src="product.image"
+									:src="shoppingCartStore.campaignProductDict[campaign_product_id]?.image"
 								/>
 							</div>
 							<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in" v-else>
@@ -31,12 +31,12 @@
 									:src="staticDir + `no_image.jpeg`"
 								/>
 							</div>
-							<div v-if="product.type == 'lucky_draw'" class="text-primary font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}* </div>
-							<div class="productName">{{ product.name }} </div>
+							<div v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.type == 'lucky_draw'" class="text-primary font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}* </div>
+							<div class="productName">{{ shoppingCartStore.campaignProductDict[campaign_product_id]?.name }} </div>
 						</div>
 					</td>
 					<td class="text-center h-20">
-						<template v-if="store.cartProducts[index].customer_editable && product.type ==='product'">
+						<template v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.customer_editable && shoppingCartStore.campaignProductDict[campaign_product_id]?.type ==='product'">
 							<div class="flex w-full justify-center">
 								<!-- <div class="absolute -bottom-8 border-slate border-2 rounded-bl-md rounded-r-md p-3 bg-white">
 									<input type="text" class="w-10" :value="product.qty">
@@ -44,7 +44,7 @@
 										Update
 									</button>
 								</div> -->
-								<button type="button" @click="changeQuantity( index, 'minus', product)" v-show="hideUpdateSignIndex!=index">
+								<button type="button" @click="changeQuantity( index, 'minus', campaign_product_id, qty)" v-show="hideUpdateSignIndex!=index">
 									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 								</button>
 								<input 
@@ -52,19 +52,19 @@
 									class="form-control" 
 									placeholder="Input inline 1" 
 									aria-label="default input" 
-									:value="product.qty"
+									:value="qty"
 									style="width: 2.7rem;"
 
-									@focus="focusQtyInput(index, product)"
+									@focus="focusQtyInput(index, qty)"
 									v-show="hideQtyInputIndex!=index"
 								/>
-								<button type="button" @click="changeQuantity( index, 'add', product)" v-show="hideUpdateSignIndex!=index">
+								<button type="button" @click="changeQuantity( index, 'add', campaign_product_id, qty)" v-show="hideUpdateSignIndex!=index">
 									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 								</button>
 								<div class="flex inline-flex leading-5 items-center">
 									<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
 									<div class="leading-5 allign-middle">
-										<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
+										<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', campaign_product_id, qty)">
 											{{$t('shopping_cart.table.update')}}
 										</button>
 										<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
@@ -76,33 +76,33 @@
 						</template>
 						<template v-else>
 							<div class="qty text-center">
-								{{ product.qty }}
+								{{ shoppingCartStore.campaignProductDict[campaign_product_id]?.qty }}
 							</div>
 						</template>
-						<div class="absolute hidden md:block" v-show="store.cartProducts[index].qty_add_to_cart >= store.cartProducts[index].qty_for_sale && store.cartProducts[index].type === 'product'" style="color:#FF4500">
+						<div class="absolute hidden md:block" v-show="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart >= shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'" style="color:#FF4500">
 							 {{$t('shopping_cart.table.missing_message')}}
 						</div>
 					</td>
 					<td class="sm:hidden">
-						<div style="color:#FF4500" v-show="store.cartProducts[index].qty_add_to_cart >= store.cartProducts[index].qty_for_sale && store.cartProducts[index].type === 'product'"> {{$t('shopping_cart.table.missing_message')}}</div>
+						<div style="color:#FF4500" v-show="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart >= shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'"> {{$t('shopping_cart.table.missing_message')}}</div>
 					</td>
 					<td class="text-center h-20 ">
 						<div class="price whitespace-nowrap"> 
-							{{store.order.campaign.currency}} 
-							{{(Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+							{{shoppingCartStore.cart.campaign.currency}} 
+							{{(Math.floor(parseFloat(shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+							{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 						</div>
 					</td>
 					<td class="text-center h-20">
 						<div class="price whitespace-nowrap"> 
-							{{store.order.campaign.currency}} 
-							{{(Math.floor(parseFloat(product.qty * product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-							{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+							{{shoppingCartStore.cart.campaign.currency}} 
+							{{(Math.floor(parseFloat(qty * shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+							{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 						</div>
 					</td>
 					<td class="table-report__action w-30 h-20">
-					<div class="flex justify-center items-center" v-show="store.cartProducts[index].customer_removable && product.type === 'product'">
-						<a class="flex items-center text-danger" @click="deleteOrderProduct(product.order_product_id, index)">
+					<div class="flex justify-center items-center" v-show="shoppingCartStore.campaignProductDict[campaign_product_id]?.customer_removable && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'">
+						<a class="flex items-center text-danger" @click="deleteOrderProduct( index, campaign_product_id)">
 						<Trash2Icon class="w-4 h-4 mr-1" /> {{$t('shopping_cart.table.delete')}}
 						</a>
 					</div>
@@ -125,7 +125,9 @@
 
 <script setup>
 import { computed, onMounted, ref, watch } from "vue";
-import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
+// import { buyer_delete_order_product, buyer_update_order_product } from "@/api_v2/order_product"
+import { buyer_edit_cart_product } from '@/api_v2/cart'
+
 
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
@@ -134,7 +136,7 @@ import { useCookies } from "vue3-cookies"
 import i18n from "@/locales/i18n"
 
 const route = useRoute();
-const store = useShoppingCartStore(); 
+const shoppingCartStore = useShoppingCartStore(); 
 const layoutStore = useLSSBuyerLayoutStore();
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const { cookies } = useCookies()
@@ -153,13 +155,13 @@ const tableColumns = ref([
 ])
 
 const numOfItems = computed(()=>{
-	if(store.order.products)return Object.keys(store.order.products).length
+	if(shoppingCartStore.cart.products)return Object.keys(shoppingCartStore.cart.products).length
 	return 0
 })
 
-const deleteOrderProduct = (order_product_id, index) =>{
-	buyer_delete_order_product(order_product_id, route.params.pre_order_oid, layoutStore.alert).then(res=>{
-		store.order = res.data
+const deleteOrderProduct = (index, campaign_product_id) =>{
+	buyer_edit_cart_product(route.params.cart_oid, campaign_product_id, 0, layoutStore.alert).then(res=>{
+		shoppingCartStore.cart = res.data
 		layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.delete_success'))
 	})
 }
@@ -173,33 +175,33 @@ const hideUpdateSign = index=>{hideUpdateSignIndex.value = index}
 const showQtyInput = ()=>{hideQtyInputIndex.value = null}
 const hideQtyInput = index=>{hideQtyInputIndex.value = index}
 
-const focusQtyInput = (index,product)=>{
-	cacheQty.value = product.qty
+const focusQtyInput = (index,qty)=>{
+	cacheQty.value = qty
 	hideQtyInput(index)
 	hideUpdateSign(index)
 	showUpdateButton(index)
 
 }
-const changeQuantity = ( index, operation, product) => {
-	let qty=1
+const changeQuantity = ( index, operation, campaign_product_id, qty) => {
+	let _qty=1
 	if (operation == 'add' ) {
-		qty = product.qty+1
+		_qty = qty+1
 	} else if (operation == 'minus' ) {
-		qty = product.qty-1
-	} else if (operation == 'input' && cacheQty.value >= 1 ) {
-		qty = cacheQty.value
+		_qty = qty-1
+	} else if (operation == 'input' && parseInt(cacheQty.value) >= 1 ) {
+		_qty = parseInt(cacheQty.value)
 	} else {
 		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
-		cacheQty.value = product.qty
+		cacheQty.value = qty
 		return
 	}
 	hideUpdateSign(index)
 	hideUpdateButton()
 	showQtyInput()
 
-	buyer_update_order_product(product.order_product_id, route.params.pre_order_oid, qty, layoutStore.alert).then(
+	buyer_edit_cart_product(route.params.cart_oid, campaign_product_id, _qty, layoutStore.alert).then(
 		res => {
-			store.order = res.data
+			shoppingCartStore.cart = res.data
 			layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.update_successfully'))
 			showUpdateSign()
 			showQtyInput()

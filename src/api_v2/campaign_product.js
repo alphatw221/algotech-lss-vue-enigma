@@ -2,13 +2,13 @@ import { createAxios } from "@/libs/axiosClient";
 
 
 // -------------buyer------------------
-export const buyer_list_campapign_product = (pre_order_oid, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/campaign-product/buyer/list/?pre_order_oid=${pre_order_oid}`)
+export const buyer_list_campapign_product = (cart_oid, type, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign-product/buyer/list/?cart_oid=${cart_oid}&type=${type}`)
 }
 
-export const buyer_cart_list = (pre_order_oid, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/campaign-product/buyer/cart/list/?pre_order_oid=${pre_order_oid}`)
-}
+// export const buyer_cart_list = (pre_order_oid, toastify=null) => {
+//     return createAxios(toastify).get(`/api/v2/campaign-product/buyer/cart/list/?pre_order_oid=${pre_order_oid}`)
+// }
 
 // -------------seller------------------
 

@@ -3,48 +3,50 @@
         <div class="text-2xl text-base text-center my-5"> {{$t('order_detail.order')}} </div>
 
         <div class="grid grid-cols-12 gap-5">
-
+            <!-- ORDER_SHIPPING_INFO_CARD -->
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
                 <div class="w-full mx-2 ">
                     <div class="flex mb-2">
                         <h2 class="font-medium mr-5 flex-row flex-wrap flex justify-between gap-3">
-                            <span class="my-auto"> {{$t('order_detail.order_no')}} # {{ store.order.id }}  </span> 
+                            <span class="my-auto"> {{$t('order_detail.order_no')}} # {{ buyerOrderStore.order.id }}  </span> 
                             <span class="btn rounded-full bg-secondary h-8 ml-3 cursor-auto">
-                                {{ $t(`order_detail.`+store.order.status) }}
+                                {{ $t(`order_detail.`+buyerOrderStore.order.status) }}
                             </span> 
                             <button 
                                 class="btn btn-rounded-pending h-8 ml-auto sm:ml-3"
-                                v-if="store.order.status === 'review'"
-                                @click="router.push(`/buyer/order/${route.params.order_oid}/payment`)"
+                                v-if="buyerOrderStore.order.status === 'review' || buyerOrderStore.order.status === 'proceed'"
+                                @click=" routeToPaymentPage()"
                             >
                                 {{$t('order_detail.pay')}}
                             </button>
                         </h2>
                     </div>
                     <div class="flex mb-2">
-                        <!-- <span class="font-medium mr-5"> Order Date : {{ store.order.created_at }} </span> -->
-                        <span class="font-medium mr-5">{{$t('order_detail.order_date')}} : {{ new Date(store.order.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})  }} </span>
+                        <!-- <span class="font-medium mr-5"> Order Date : {{ buyerOrderStore.order.created_at }} </span> -->
+                        <span class="font-medium mr-5">{{$t('order_detail.order_date')}} : {{ new Date(buyerOrderStore.order.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})  }} </span>
                     </div>
                 </div>
                 <div class="box p-6 border-2 border-secondary ">
                     <div class="flex">
                         <div class="mr-10">{{$t('order_detail.delivery.name')}}</div>
-                        <div>{{ store.order.shipping_last_name }} {{ store.order.shipping_first_name }}</div>
+                        <div>{{ buyerOrderStore.order.shipping_last_name }} {{ buyerOrderStore.order.shipping_first_name }}</div>
                     </div>
-                    <div class="flex mt-4" v-if="store.order.shipping_phone">
+                    <div class="flex mt-4" v-if="buyerOrderStore.order.shipping_phone">
                         <div class="mr-10">{{$t('order_detail.delivery.phone')}}</div>
-                        <div>{{ store.order.shipping_phone }}</div>
+                        <div>{{ buyerOrderStore.order.shipping_phone }}</div>
                     </div>
-                    <div class="flex mt-4" v-if="store.order.shipping_email">
+                    <div class="flex mt-4" v-if="buyerOrderStore.order.shipping_email">
                         <div class="mr-10">{{$t('order_detail.delivery.email')}}</div>
-                        <div>{{ store.order.shipping_email }}</div>
+                        <div>{{ buyerOrderStore.order.shipping_email }}</div>
                     </div>
                     <div class="flex mt-4">
                         <div class="mr-7">{{$t('order_detail.remark')}}</div>
-                        <div>{{ store.order.shipping_remark }}</div>
+                        <div>{{ buyerOrderStore.order.shipping_remark }}</div>
                     </div>
                 </div>
             </div>
+            
+            <!-- ORDER_DELIVERY_PAYMENT_INFO_CARD -->
             <div class="col-span-12 lg:col-span-6 2xl:col-span-6">
                 <div class="box p-6 border-2 border-secondary"> 
                     <div class="flex mb-4 dark:border-darkmode-400">
@@ -52,60 +54,60 @@
                     </div>
                     <div class="grid grid-cols-6 gap-2">
                         <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</div>
-                        <div class="col-start-3 col-span-3 py-2" v-if="store.order.payment_method">{{ store.order.payment_method == 'direct_payment' ? `${$t('order_detail.payment.Direct Payment')} - ${store.order.meta.account_mode}` : $t(`order_detail.payment.${store.order.payment_method}`) }}</div>
-                        <template v-if="store.order.meta">
-                            <div class="col-start-1 col-span-2 py-2" v-if="store.order.meta.InvoiceNumber">發票號碼</div>
-                            <div class="col-start-3 col-span-3 py-2" v-if="store.order.meta.InvoiceNumber">{{store.order.meta.InvoiceNumber}}</div>
+                        <div class="col-start-3 col-span-3 py-2" v-if="buyerOrderStore.order.payment_method">{{ buyerOrderStore.order.payment_method == 'direct_payment' ? `${$t('order_detail.payment.Direct Payment')} - ${buyerOrderStore.order.meta.account_mode}` : $t(`order_detail.payment.${buyerOrderStore.order.payment_method}`) }}</div>
+                        <template v-if="buyerOrderStore.order.meta">
+                            <div class="col-start-1 col-span-2 py-2" v-if="buyerOrderStore.order.meta.InvoiceNumber">發票號碼</div>
+                            <div class="col-start-3 col-span-3 py-2" v-if="buyerOrderStore.order.meta.InvoiceNumber">{{buyerOrderStore.order.meta.InvoiceNumber}}</div>
                         </template>
-                        <template v-if="store.order.payment_method">
+                        <template v-if="buyerOrderStore.order.payment_method">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.payment.last_five_digits')}}</div>
-                            <div v-if="store.order.meta.last_five_digit == '' && !store.order.meta.receipt_image" class="col-start-3 col-span-3 py-3">{{$t('order_detail.payment.no_record')}} </div>
-                            <div v-else class="col-start-3 col-span-3 py-3">{{store.order.meta.last_five_digit}}</div>
+                            <div v-if="buyerOrderStore.order.meta.last_five_digit == '' && !buyerOrderStore.order.meta.receipt_image" class="col-start-3 col-span-3 py-3">{{$t('order_detail.payment.no_record')}} </div>
+                            <div v-else class="col-start-3 col-span-3 py-3">{{buyerOrderStore.order.meta.last_five_digit}}</div>
                             <div class="w-20 h-20 image-fit zoom-in absolute top-[110px] right-8">
                                 <Tippy
-                                v-if="store.order.meta.receipt_image"
+                                v-if="buyerOrderStore.order.meta.receipt_image"
                                     tag="img"
                                     data-action="zoom"
                                     content="receipt image"
                                     class="rounded-lg"
-                                    :src="store.order.meta.receipt_image"
+                                    :src="buyerOrderStore.order.meta.receipt_image"
                                 />
                             </div>
                         </template>
                         
-                        <template v-if="store.order.shipping_method === 'pickup'">
+                        <template v-if="buyerOrderStore.order.shipping_method === 'pickup'">
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.information')}}</div>
                             <div class="col-start-3 col-span-3 py-2">{{$t('order_detail.delivery.pickup')}}</div>
 
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_store')}}</div>
                             <!-- temp -->
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index]?.name}}</div> 
+                            <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.campaign.meta_logistic.pickup_options[buyerOrderStore.order.shipping_option_index]?.name}}</div> 
                             <!-- future -->
-                            <!-- <div class="col-start-3 col-span-3 py-2">{{store.order.shipping_option_data.name}}</div> -->
+                            <!-- <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.shipping_option_data.name}}</div> -->
 
                             
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
                             <!-- temp -->
-                            <div class="col-start-3 col-span-3 py-2">{{store.order.campaign.meta_logistic.pickup_options[store.order.shipping_option_index]?.address}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.campaign.meta_logistic.pickup_options[buyerOrderStore.order.shipping_option_index]?.address}}</div>
                             <!-- future -->
-                            <!-- <div class="col-start-3 col-span-3 py-2">{{store.order.shipping_option_data.address}}</div> -->
+                            <!-- <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.shipping_option_data.address}}</div> -->
 
                         </template>
-                        <template v-else-if="store.order.shipping_method === 'delivery'">
+                        <template v-else-if="buyerOrderStore.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.information')}}</div>
                             <!-- temp -->
-                            <div class="col-start-3 col-span-3 py-3">{{$t('order_detail.delivery.delivery')}}：{{ store.order.shipping_option == '' ? $t('order_detail.delivery.default') : store.order.shipping_option }}</div>
+                            <div class="col-start-3 col-span-3 py-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option == '' ? $t('order_detail.delivery.default') : buyerOrderStore.order.shipping_option }}</div>
                             <!-- future -->
-                            <!-- <div class="col-start-3 col-span-3 py-3" v-if="store.order.shipping_option.title">{{ store.order.shipping_option_data.title }}</div>
+                            <!-- <div class="col-start-3 col-span-3 py-3" v-if="buyerOrderStore.order.shipping_option.title">{{ buyerOrderStore.order.shipping_option_data.title }}</div>
                             <div class="col-start-3 col-span-3 py-3" v-else>{{ 'default' }}</div>   i18n here -->
                             
 
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.address')}}</div>
                             <div class="col-start-3 col-span-3 py-3">
-                                {{store.order.shipping_address_1}} ,
-                                {{store.order.shipping_location}} ,
-                                {{store.order.shipping_region}} ,
-                                {{store.order.shipping_postcode}} 
+                                {{buyerOrderStore.order.shipping_address_1}} ,
+                                {{buyerOrderStore.order.shipping_location}} ,
+                                {{buyerOrderStore.order.shipping_region}} ,
+                                {{buyerOrderStore.order.shipping_postcode}} 
                                 
                             </div>
                         </template>
@@ -113,62 +115,92 @@
                 </div>
             </div>
         </div>   
+
+        <!-- ORDER_DETAIL_TABLE -->
         <div class="w-full h-fit overflow-x-hidden sm:overflow-x-auto">
             <OrderDetailTable />
         </div>
+
+        <!-- SUMMARIZE_CARD -->
         <div class="grid grid-cols-12 gap-2 mt-5">
             <div class="box col-start-1 col-span-12 lg:col-start-9 2xl:col-start-9">
-                <div v-if="store.order.campaign"  
+                <div v-if="buyerOrderStore.order.campaign"  
                     class="grid grid-cols-3 gap-2 p-3 text-right">
+
+                    <!-- SUBTOTAL -->
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div>
                         <div>
-                            {{store.order.campaign.currency}}
-                            {{(Math.floor(store.order.subtotal * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                            {{buyerOrderStore.order.campaign.currency}}
+                            {{(Math.floor(buyerOrderStore.order.subtotal * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{buyerOrderStore.order.campaign.price_unit?$t(`global.price_unit.${buyerOrderStore.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
+                    
+                    <!-- DISCOUNT -->
+                    <div v-if="buyerOrderStore.order.discount !=0"
+                        class="flex col-start-1 col-span-3 p-2 py-1">
+                            <div class="mr-auto">{{ $t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger">{{buyerOrderStore.order.applied_discount.code ? (buyerOrderStore.order.applied_discount.code) : ""}}</span></div>
+                            <div>
+                                {{buyerOrderStore.order.campaign.currency}}
+                                -{{(Math.floor(buyerOrderStore.order.discount * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{buyerOrderStore.order.campaign.price_unit?$t(`global.price_unit.${buyerOrderStore.order.campaign.price_unit}`):''}}
+                            </div>
+                    </div>
+
+
+                    <!-- SUBTOTAL_AFTER_DISCOUNT -->
+                    <div v-if="buyerOrderStore.order.discount !=0"
+                        class="flex col-start-1 col-span-3 p-2 py-1">
+                            <div class="mr-auto">Subtotal After Discount </div>
+                            <div>
+                                {{buyerOrderStore.order.campaign.currency}}
+                                {{(Math.floor(Math.max((buyerOrderStore.order.subtotal - buyerOrderStore.order.discount),0) * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{buyerOrderStore.order.campaign.price_unit?$t(`global.price_unit.${buyerOrderStore.order.campaign.price_unit}`):''}}
+                            </div>
+                    </div>
+
+                    <!-- DELIVERY -->
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.delivery_charge')}}</div>
                         <div>
-                            {{store.order.campaign.currency}}
-                            {{(Math.floor(store.order.shipping_cost * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                            {{buyerOrderStore.order.campaign.currency}}
+                            {{(Math.floor(buyerOrderStore.order.shipping_cost * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{buyerOrderStore.order.campaign.price_unit?$t(`global.price_unit.${buyerOrderStore.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
+
+                    <!-- ADJUST_PRICE -->
                     <div
-                        v-if="store.order.adjust_price !=0" 
+                        v-if="buyerOrderStore.order.adjust_price !=0" 
                         class="flex col-start-1 col-span-3 p-2 py-1">
-                            <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}} <span class="text-danger"> {{store.order.adjust_title}} </span></div>
+                            <div class="mr-auto">{{$t('order_detail.price_summary.price_adjustment')}} <span class="text-danger"> {{buyerOrderStore.order.adjust_title}} </span></div>
                             <div >
-                                {{store.order.campaign.currency}}
-                                {{(Math.floor(store.order.adjust_price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-                                {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                                {{buyerOrderStore.order.campaign.currency}}
+                                {{(Math.floor(buyerOrderStore.order.adjust_price * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                                {{buyerOrderStore.order.campaign.price_unit?$t(`global.price_unit.${buyerOrderStore.order.campaign.price_unit}`):''}}
                             </div>
                     </div>
-                    <div v-if="store.order.discount !=0"
-                        class="flex col-start-1 col-span-3 p-2 py-1">
-                            <div class="mr-auto">{{ $t('shopping_cart.order_summary.promo_discount')}} <span class="text-danger">{{store.order.applied_discount.code ? (store.order.applied_discount.code) : ""}}</span></div>
-                            <div>
-                                {{store.order.campaign.currency}}
-                                -{{(Math.floor(store.order.discount * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-                                {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
-                            </div>
-                    </div>
-                    <div v-if="store.order.tax" class="flex col-start-1 col-span-3 p-2 py-1">
+
+                    
+
+                    <!-- TAX -->
+                    <div v-if="buyerOrderStore.order.tax" class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.tax')}}</div>
                         <div> 
-                            {{store.order.campaign.currency}}
-                            {{(Math.floor(parseFloat(store.order.tax) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                            {{buyerOrderStore.order.campaign.currency}}
+                            {{(Math.floor(parseFloat(buyerOrderStore.order.tax) * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{buyerOrderStore.order.campaign.price_unit?$t(`global.price_unit.${buyerOrderStore.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
+
+                    <!-- TOTAL -->
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.total')}}</div>
                         <div>
-                            {{store.order.campaign.currency}} 
-                            {{(Math.floor(store.order.total * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+                            {{buyerOrderStore.order.campaign.currency}} 
+                            {{(Math.floor(buyerOrderStore.order.total * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{buyerOrderStore.order.campaign.price_unit?$t(`global.price_unit.${buyerOrderStore.order.campaign.price_unit}`):''}}
                         </div>
                     </div>
                 </div>
@@ -195,7 +227,7 @@ const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
 
-const store = useLSSBuyerOrderStore(); 
+const buyerOrderStore = useLSSBuyerOrderStore(); 
 
 
 onMounted(() => {
@@ -203,12 +235,16 @@ onMounted(() => {
     buyer_retrieve_order_with_user_subscription(route.params.order_oid, layoutStore.alert)
     .then(
         res => { 
-            store.order = res.data
+            buyerOrderStore.order = res.data
             i18n.locale = res.data.campaign.lang
-            console.log(res.data)
+            // console.log(res.data)
         }
     )
 })
+
+const routeToPaymentPage = ()=>{
+    router.push({name:"buyer-order-payment-page", params:{order_oid:route.params.order_oid}});
+}
 </script>
 
 

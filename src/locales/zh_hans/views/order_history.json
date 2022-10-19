@@ -12,6 +12,7 @@
     "complete" : "已完成",
     "review" : "处理中",
     "pending_confirmation": "确认中",
+    "proceed" : "处理中",
     "shipping out":"已出货",
     "direct_payment":"转帐支付",
     "stripe":"Stripe",

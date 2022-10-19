@@ -12,6 +12,7 @@
     "complete" : "Hoàn thành",
     "review" : "Đang kiểm tra",
     "pending_confirmation": "Pending confirmation",
+    "proceed" : "Đang kiểm tra",
     "shipping out":"Đã giao hàng",
     "direct_payment":"Thanh toán trực tiếp",
     "stripe":"Stripe",

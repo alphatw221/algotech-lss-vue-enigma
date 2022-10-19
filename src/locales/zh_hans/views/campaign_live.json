@@ -95,7 +95,9 @@
             "amount" : "金额",
             "view" : "详情",
             "null":"",
-            "no_order":"尚未有订单"
+            "no_order":"尚未有订单",
+            "product":"商品",
+            "qty":"数量"
         }
     }
 }

@@ -2,12 +2,12 @@
 	<Modal
 	backdrop="static"
 		size="modal-xl"
-		:show="store.showAddItemModal"
-		@hidden="store.showAddItemModal = false"
+		:show="shoppingCartStore.showAddItemModal"
+		@hidden="shoppingCartStore.showAddItemModal = false"
 		:slideOver="true"
 	>
 		<ModalBody class="p-5 relative" >
-			<a @click="store.showAddItemModal = !store.showAddItemModal" class="absolute right-0 top-0 mt-3 mr-3">
+			<a @click="shoppingCartStore.showAddItemModal = !shoppingCartStore.showAddItemModal" class="absolute right-0 top-0 mt-3 mr-3">
                 <XIcon class="w-8 h-8 text-slate-400" />
             	</a>
 			<ModalHeader>
@@ -41,9 +41,9 @@
 								{{ product.name }}
 							</div>
 							<div class="text-slate-500 text-sm text-center">
-								{{store.order.campaign.currency}} 
-								{{(Math.floor(parseFloat(product.price) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
-								{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
+								{{shoppingCartStore.cart.campaign.currency}} 
+								{{(Math.floor(parseFloat(product.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+								{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 							</div>
 							<div v-if="product.qty_for_sale - product.qty_sold > 0 || product.oversell == true" class="flex"> 
 								<button type="button" @click="changeQuantity(null, index, 'minus')">
@@ -65,7 +65,7 @@
 							<div v-if="product.qty_for_sale - product.qty_sold> 0 || product.oversell == true">
 								<button 
 									class="btn btn-sm btn-primary w-24 mt-3"
-									@click="buyer_add_item(product, index)"
+									@click="buyerAddItem(product, index)"
 								>
 									{{$t('shopping_cart.add_item.add')}}
 								</button>
@@ -89,10 +89,11 @@
 
 <script setup>
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
-// import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
+
+import { buyer_edit_cart_product } from "@/api_v2/cart"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
-import { buyer_cart_add } from "@/api_v2/pre_order";
+
 import { useRoute } from "vue-router";
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
@@ -100,7 +101,7 @@ import i18n from "@/locales/i18n"
 const { cookies } = useCookies()
 const layoutStore = useLSSBuyerLayoutStore();
 const route = useRoute();
-const store = useShoppingCartStore(); 	
+const shoppingCartStore = useShoppingCartStore(); 	
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const staticDir =  import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR;
 
@@ -111,26 +112,26 @@ const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 onMounted(()=> {
 	if (route.query.tag && route.query.tag == 'openAddOn') {
-		store.showAddItemModal = true
+		shoppingCartStore.showAddItemModal = true
 		addOnTitle.value = 'select_products'
 	}
 })
 
-watch(computed(()=>store.campaignProducts),()=>{
-	// console.log(store.campaignProducts)
-	if (!(store.order.products||false))return
+watch(computed(()=>shoppingCartStore.campaignProducts),()=>{
+	// console.log(shoppingCartStore.campaignProducts)
+	if (!(shoppingCartStore.cart.products||false))return
 	updateAddOnProducts()
 })
 
-watch(computed(()=>store.order),()=>{
-	if (!(store.order.products||false))return
+watch(computed(()=>shoppingCartStore.cart),()=>{
+	if (!(shoppingCartStore.cart.products||false))return
 	updateAddOnProducts()
 })
 
 const updateAddOnProducts = ()=>{
 	let temp = []
-	store.campaignProducts.forEach(product => {
-		if(!(product.id.toString() in store.order.products)){
+	shoppingCartStore.campaignProducts.forEach(product => {
+		if(!(product.id.toString() in shoppingCartStore.cart.products)){
 			product.qty=1
 			temp.push(product)
 		}
@@ -155,12 +156,12 @@ const changeQuantity = (event, index, operation) => {
 }   // minus after input works, plus after input not works
 
 
-const buyer_add_item = (product, index) => {
+const buyerAddItem = (product, index) => {
 
-	buyer_cart_add(route.params.pre_order_oid, product.id, addOnProducts.value[index].qty, layoutStore.alert)
+	buyer_edit_cart_product(route.params.cart_oid, product.id, addOnProducts.value[index].qty, layoutStore.alert)
 	.then(
 		res => {
-			store.order = res.data
+			shoppingCartStore.cart = res.data
 			layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.add_item_success'))
 		}
 	)

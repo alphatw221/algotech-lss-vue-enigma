@@ -112,11 +112,16 @@ const handleSocketMessage = message=>{
             campaignDetailStore.campaignProducts[index]["qty_add_to_cart"] = message.data.qty_add_to_cart
         }
         
-    }else if (message.type == 'order_data'){
-        const order_data = message.data
-        campaignDetailStore.incomingOrdersDict[order_data.id]=order_data
-        // campaignDetailStore.incomingOrders.unshift(message.data)
+    }else if (message.type == 'cart_data'){
+
+        const cart_data = message.data
+        campaignDetailStore.incomingOrdersDict[cart_data.id]=cart_data
     }
+    // else if (message.type == 'order_data'){
+    //     const order_data = message.data
+    //     campaignDetailStore.incomingOrdersDict[order_data.id]=order_data
+    //     // campaignDetailStore.incomingOrders.unshift(message.data)
+    // }
 
 }
 

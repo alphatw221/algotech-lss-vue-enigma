@@ -90,8 +90,8 @@
                                     </div>
                                 </template>
                             </div>
-                            <div class="mt-6 text-3xl font-medium leading-8" v-if="store.campaign">$
-                                {{ (Math.floor(parseFloat(manageOrderStatus.complete_sales) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-GB')}}
+                            <div class="mt-6 text-3xl font-medium leading-8" v-if="campaignDetailStore.campaign">$
+                                {{ (Math.floor(parseFloat(manageOrderStatus.complete_sales) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
                             </div>
                             <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.sales')}}</div>
                         </div>
@@ -135,9 +135,14 @@ import { useRoute, useRouter } from "vue-router";
 
 import { get_campaign_statistics } from "@/api_v2/campaign"
 import { useManageOrderStore } from "@/stores/lss-manage-order";
-const route = useRoute();
-const store = useManageOrderStore()
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 
+const route = useRoute();
+
+
+
+
+const campaignDetailStore = useCampaignDetailStore();
 const manageOrderStatus = ref({
         'campaign_sales_raise': 0,
         'cart_qty': 0,
@@ -155,7 +160,7 @@ onMounted(()=>{
     get_campaign_statistics(route.params.campaign_id).then(
         res =>{
             manageOrderStatus.value = res.data
-            // console.log(manageOrderStatus.value)
+            console.log(manageOrderStatus.value)
         }
     )
 })
