@@ -163,7 +163,12 @@
                     <!-- DELIVERY -->
                     <div class="flex col-start-1 col-span-3 p-2 py-1">
                         <div class="mr-auto">{{$t('order_detail.price_summary.delivery_charge')}}</div>
-                        <div>
+                        <div v-if="buyerOrderStore.order.free_delivery || buyerOrderStore.order?.meta?.subtotal_over_free_delivery_threshold || buyerOrderStore.order?.meta?.items_over_free_delivery_threshold">
+                            {{buyerOrderStore.order.campaign.currency}}
+                            {{(Math.floor(0 * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{buyerOrderStore.order.campaign.price_unit?$t(`global.price_unit.${buyerOrderStore.order.campaign.price_unit}`):''}}
+                        </div>
+                        <div v-else>
                             {{buyerOrderStore.order.campaign.currency}}
                             {{(Math.floor(buyerOrderStore.order.shipping_cost * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
                             {{buyerOrderStore.order.campaign.price_unit?$t(`global.price_unit.${buyerOrderStore.order.campaign.price_unit}`):''}}
