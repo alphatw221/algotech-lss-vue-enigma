@@ -40,7 +40,7 @@ export const update_campaign = (campaign_id, formData, toastify=null) => {
 }
 
 export const retrieve_campaign = (campaign_id, toastify=null) => {
-    return createAxios(toastify).get(`api/v2/campaign/retrieve/?campaign_id=${campaign_id}`)
+    return createAxios(toastify).get(`api/v2/campaign/${campaign_id}/retrieve/`)
 }
 
 export const comment_on_comment = (campaign_id,comment_id,message_text, toastify=null) => {

@@ -12,6 +12,11 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			shipping_cost:0,
 			total:0,
 		}),
+		cart: ref({
+			adjust_title:'',
+			adjust_price:0,
+			discount:0,
+		}),
 		user_subscription: ref({}),
 		orderDetail: ref({}),
 		contact_info: ref({
@@ -21,6 +26,7 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			shipping_phone: "",
 		}),   
 		campaignProducts:ref([]),
+		campaignProductDict:ref({}),
 		cartProducts:ref([]) ,
 		referalCodes:ref([]),
 

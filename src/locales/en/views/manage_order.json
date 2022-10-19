@@ -63,6 +63,8 @@
                 },
                 "delivery":{
                         "status":"Delivery Status",
+                        "shipped":"Shipped",
+                        "awaiting_shipment":"Awaiting Shipment",
                         "shipping out":"Shipping out",
                         "to be shipping":"To be shipping"
                 },
@@ -78,6 +80,7 @@
         },
         "complete" : "Complete",
         "review" : "Review",
+        "proceed" : "Review",
         "shipping out":"Shipping Out",
         "all":"All",
         "stop_checkout" : "Stop Checkout",

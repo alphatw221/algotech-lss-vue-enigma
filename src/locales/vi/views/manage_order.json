@@ -63,6 +63,8 @@
                 },
                 "delivery":{
                         "status":"Trạng thái giao hàng",
+                        "shipped":"Đã giao hàng",
+                        "awaiting_shipment":"Đang giao hàng",
                         "shipping out":"Đã giao hàng",
                         "to be shipping":"Đang giao hàng"
                 },
@@ -77,6 +79,7 @@
         },
         "complete" : "Hoàn thành",
         "review" : "Đang kiểm tra",
+        "proceed" : "Đang kiểm tra",
         "shipping out":"Đã giao hàng",
         "all":"Tất cả",
         "stop_checkout" : "Hành động",

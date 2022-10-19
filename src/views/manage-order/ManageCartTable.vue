@@ -28,14 +28,14 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(order, index) in orders" :key="index" class="intro-x">
+                <tr v-for="(cart, index) in store[props.tableStatus]" :key="index" class="intro-x">
                     <td v-for="column in columns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
-                                <div v-if="order[column.key] === 'facebook'"
+                                <div v-if="cart[column.key] === 'facebook'"
                                     class="w-fit h-fit image-fit">
-                                    <div class="flex-none w-20 h-20 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
-                                        <img class="rounded-full" :src="order.customer_img"/>
+                                    <div class="flex-none w-20 h-20 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
+                                        <img class="rounded-full" :src="cart.customer_img"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="rounded-full bg-cover bg-[#3c599b]" src='/src/assets/images/lss-img/facebook.png' >
                                         </div>
@@ -47,10 +47,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-else-if="order[column.key] === 'instagram'"
+                                <div v-else-if="cart[column.key] === 'instagram'"
                                     class="w-fit h-fit image-fit">
-                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
-                                        <img class="rounded-full" :src="order.customer_img"/>
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
+                                        <img class="rounded-full" :src="cart.customer_img"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="rounded-full bg-cover bg-[#d63376]" src='/src/assets/images/lss-img/instagram.png' >
                                         </div>
@@ -62,10 +62,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-else-if="order[column.key] === 'youtube'"
+                                <div v-else-if="cart[column.key] === 'youtube'"
                                     class="w-fit h-fit image-fit">
-                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
-                                        <img class="rounded-full" :src="order.customer_img"/>
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
+                                        <img class="rounded-full" :src="cart.customer_img"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
                                         </div>
@@ -77,10 +77,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-else-if="order[column.key] === 'twitch'"
+                                <div v-else-if="cart[column.key] === 'twitch'"
                                     class="w-fit h-fit image-fit">
-                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
-                                        <img class="rounded-full" :src="order.customer_img"/>
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
+                                        <img class="rounded-full" :src="cart.customer_img"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
                                         </div>
@@ -92,10 +92,10 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-else-if="order[column.key] === 'tiktok'"
+                                <div v-else-if="cart[column.key] === 'tiktok'"
                                     class="w-fit h-fit image-fit">
-                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
-                                        <img class="rounded-full" :src="order.customer_img"/>
+                                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
+                                        <img class="rounded-full" :src="cart.customer_img"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
                                             <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/tiktok.png' >
                                         </div>
@@ -107,27 +107,28 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div v-else-if="!order[column.key] && !order.customer_img" class="w-fit h-fit image-fit">
+                                <div v-else-if="!cart[column.key] && !cart.customer_img" class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
                                         <img class="rounded-full" :src="unbound"/>
                                     </div>
                                 </div>
                                 <div v-else class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
-                                        <img class="rounded-full" :src="order.customer_img"/>
+                                        <img class="rounded-full" :src="cart.customer_img"/>
                                     </div>
                                 </div>
                             </div>
                         </template>
+
                         <template v-else-if="column.key === 'view'">
                             <div class="flex flex-col sm:flex-row place-content-center">
-                                <a class="flex image-fit sm:mr-3" @click="copyOrderLink(order)">
+                                <a class="flex image-fit sm:mr-3" @click="copyCartURL(cart)">
                                     <span class="text-[13px] sm:text-[16px] mr-1 sm:hidden"> {{$t('manage_order.table.copy_link')}} </span>
                                     <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
                                         <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto w-6 sm:w-auto" width="24" height="23" />
                                     </Tippy>
                                 </a>
-                                <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="routeToOrderDetail(order)">
+                                <a class="flex sm:ml-auto image-fit mt-2 sm:mt-0" @click="to_cart_detail(cart)">
                                     <span class="text-[13px] sm:text-[16px] mr-3 sm:hidden min-h-[4vh]"> {{$t('manage_order.table.details')}}  </span>
                                     <Tippy  :content="$t('tooltips.manage_order.view_icon')" :options="{ theme: 'light' }"> 
                                         <SimpleIcon icon="order_details" color="#2d8cf0" class="sm:mx-auto w-6 sm:w-auto" width="26" height="24" />
@@ -135,9 +136,10 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'delivery'">
+
+                        <!-- <template v-else-if="column.key === 'delivery'">
                             <div class="flex place-content-center">
-                                <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shippingOut(order,index)">
+                                <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shipping_out(order.id,key)">
                                   <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> 
                                     <SimpleIcon icon="truck" color="#2d8cf0" class="sm:mx-auto" width="26" height="33" />
                                     </Tippy>  
@@ -148,10 +150,11 @@
                                     </Tippy> 
                                 </a>
                             </div>
-                        </template>
+                        </template> -->
+
                         <template v-else-if="column.key === 'customer_name'">
-                            <template v-if="order.customer_name">
-                                {{order.customer_name}}
+                            <template v-if="cart.customer_name">
+                                {{cart.customer_name}}
                             </template>
                             <template v-else>
                                 {{ $t('manage_order.table.guest') }}
@@ -161,16 +164,18 @@
                             <div class="flex place-content-center">
                                 <a class="text-black w-fit h-fit image-fit">
                                     <Tippy  :content="$t('tooltips.manage_order.product_details')" :options="{ theme: 'light' }">
-                                        <ChevronRightIcon @click="showOrderProductModal(order)"/>
+                                        <ChevronRightIcon @click="showCartProductModal(cart)"/>
                                     </Tippy>
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal' && campaignDetailStore.campaign" class="text-right">
-                            {{campaignDetailStore.campaign.currency}}
-                            {{(Math.floor(parseFloat(order.total) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+
+                        <!-- <template v-else-if="column.key === 'subtotal' && store.campaign" class="text-right">
+                            {{store.campaign.currency}}
+                            {{(Math.floor(parseFloat(order.total) * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                         </template>
+
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
                                 {{ `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` }}
@@ -178,13 +183,14 @@
                             <template v-else-if="order[column.key] != ''">
                                 {{ $t(`manage_order.table.${order[column.key]}`) }}
                             </template>
-                            <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
-                        </template>
+                        </template> -->
+
                         <template v-else-if="column.key === 'id'">
-                            <span class="sm:hidden"> #</span> {{ order.id }}
+                            <span class="sm:hidden"> #</span> {{ cart.id }}
                         </template>
+                        
                         <template v-else class="w-30"> 
-                            {{ $t(`manage_order.${order[column.key]}`) }}
+                            {{ $t(`manage_order.${cart[column.key]}`) }}
                         </template>
                     </td>
                 </tr>
@@ -192,106 +198,85 @@
         </table>
     </div>
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-        <Page class="mx-auto my-3" :total="manageOrderStore.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
+        <Page class="mx-auto my-3" :total="store.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>
 <script setup>
-import { seller_search_order, seller_deliver, get_order_oid } from "@/api_v2/order"
+// import { seller_search_order, seller_shipping_out, get_order_oid } from "@/api_v2/order"
+import { get_cart_oid } from "@/api_v2/cart"
 import { get_pre_order_oid } from "@/api_v2/pre_order"
+import { seller_search_cart } from "@/api_v2/cart"
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import unbound from '/src/assets/images/lss-img/noname.png';
 import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
-import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
-const campaignDetailStore = useCampaignDetailStore();
+
 const route = useRoute();
 const router = useRouter();
-const manageOrderStore = useManageOrderStore()
+const store = useManageOrderStore()
 const internalInstance = getCurrentInstance()
 const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
-const baseURL = import.meta.env.VITE_APP_WEB
-
-
-
-
-
-
-
-
+const baseURL = import.meta.env.VITE_APP_ROOT_API
 
 const columns = ref([
     { name: 'order_number', key: 'id', sortable: true},
     { name: 'null', key: 'platform', sortable: false},
     { name: 'customer', key: 'customer_name', sortable: true},
-    { name: 'amount', key: 'subtotal', sortable: true},
-    { name: 'payment', key: 'payment_method', sortable: true},
-    { name: 'status', key: 'status', sortable: true},
-    { name: 'delivery_notification', key: 'delivery', sortable: false},
-    { name: 'action', key: 'view', sortable: false},
+    // { name: 'amount', key: 'subtotal', sortable: true},
+    // { name: 'payment', key: 'payment_method', sortable: true},
+    // { name: 'status', key: 'status', sortable: true},
+    // { name: 'delivery_notification', key: 'delivery', sortable: false},
+    // { name: 'action', key: 'view', sortable: false},
     { name: 'null', key: 'order_product', sortable: false}
 ]);
 
 const props = defineProps({
     tableStatus: String,
-    searchEventBusName:String,
-    filterEventBusName:String,
+    tableSearch: String,
 });
 const page = ref(1);
 const page_size = ref(10);
 const sortBy = ref({})
-
 const keyword = ref('')
 const filterData = ref({})
 
-const TYPE_ORDER = 'order'
-const TYPE_CART = 'cart'
-
-const orders = ref([])
 
 onMounted(()=>{
     search()
-    eventBus.on(props.searchEventBusName, (payload) => {
+    eventBus.on(props.tableSearch, (payload) => {
         keyword.value = payload.keyword
-        search()
-	})
-    eventBus.on(props.filterEventBusName, (payload) => {
-        filterData.value = payload
+        filterData.value = payload.filter_data
         search()
 	})
 })
 
 onUnmounted(()=>{
-    eventBus.off(props.searchEventBusName)
-    eventBus.off(props.filterEventBusName)
+    eventBus.off(props.tableSearch)
 })
 
 const search = () => {
     filterData.value['sort_by'] = sortBy.value
     var _campaign_id, _search_value, _page, _page_size, _status, _filter_data, _toastify
-    seller_search_order(
-        _campaign_id=route.params.campaign_id, 
-        _search_value=keyword.value, 
-        _page=page.value, 
-        _page_size=page_size.value, 
-        _status=props.tableStatus, 
-        _filter_data=filterData.value, 
-        _toastify=layoutStore.alert)
-    .then(
+    seller_search_cart(_campaign_id=route.params.campaign_id, _search_value=keyword.value, _page=page.value, _page_size=page_size.value, _toastify=layoutStore.alert).then(
         res => {
-			orders.value = res.data.results
-            manageOrderStore.data_count[props.tableStatus] = res.data.count;
-
+			store[props.tableStatus] = res.data.data
+            store.data_count[props.tableStatus] = res.data.count;
+            // if (res.data.count != 0) {
+            //     let totalPage = parseInt(res.data.count / page_size.value);
+            //     totalPage = totalPage == 0 ? 1 : totalPage;
+            //     }
         }
     ).then(res => {
-        eventBus.emit("calculateCampaignStatus")      //manage order dashboard start to run after all table emits this event   
+        eventBus.emit("calculateCampaignStatus")        
     })
 }
 
-const routeToOrderDetail = (order) => {
-    router.push({name:'seller-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id},query:{'type':TYPE_ORDER}})
+const to_cart_detail = (cart) => {
+    // store.order_type = type
+    router.push({name:'seller-order-detail',params:{'order_id':cart.id, 'campaign_id':route.params.campaign_id},query:{'type':'cart'}})
 }
 const changePage = (p) => {
     page.value = p
@@ -301,27 +286,28 @@ const changePageSize = (p) => {
     page_size.value = p
     search()
     }
-const showOrderProductModal = (order) => {
-    console.log('show')
-    eventBus.emit('getSlideOverOrderData',{'id':order.id})
-    manageOrderStore.showOrderProductModal = !manageOrderStore.showOrderProductModal
-    console.log(manageOrderStore.showOrderProductModal)
+
+const showCartProductModal = (cart) => {
+    eventBus.emit('getSlideOverCartData',{'id':cart.id})
+    store.showCartProductModal = !store.showCartProductModal
 }
-const shippingOut = (order,index) => {
-    seller_deliver(order.id, layoutStore.alert).then(
-        res=>{
-            orders[index]= res.data
-        }
+// const shipping_out = (order_id,index) => {
+//     seller_shipping_out(order_id, layoutStore.alert).then(
+//         res=>{
+//             store[props.tableStatus][index].status = 'shipping out'
+//         }
     
-    )
-}
-const copyOrderLink = (order) => {
-    get_order_oid(order.id, layoutStore.alert).then(
-        res =>{
-        navigator.clipboard.writeText(`${baseURL}/buyer/order/${res.data}`).then(()=>{
-            layoutStore.notification.showMessageToast("copied!")
-        })
-    })
+//     )
+// }
+const copyCartURL = (cart) => {
+        get_cart_oid(cart.id, layoutStore.alert).then(
+            res =>{
+            text = `${baseURL}/buyer/cart/${res.data}`;
+            navigator.clipboard.writeText(text).then(()=>{
+                layoutStore.notification.showMessageToast('copied!')
+            })
+        }
+        )
 }
 const sortByThis = (field, value) =>{
     sortBy.value[field] = value
