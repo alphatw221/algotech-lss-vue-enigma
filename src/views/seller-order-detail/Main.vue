@@ -52,6 +52,7 @@
     <!-- Second -->
     <div class="flex flex-col sm:flex-row gap-3 h-fit mt-1 z-10"> 
         <!-- Delivery Information -->
+        
         <DeliveryInfoCard />
 
         <!-- Payment Info -->
@@ -64,10 +65,9 @@
 // import AddItemModal from "./AddItemModal.vue";
 import OrderDetailTable from "./OrderDetailTable.vue";
 import PriceSummary from "./PriceSummary.vue"
-import DeliveryInfoCard from "./DeliveryInfoCard.vue"
-import PaymentInfoCard from "./PaymentInfoCard.vue"
+import OrderSummary from "@/components/box/OrderSummary.vue";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
-import { seller_list_campaign_product } from "@/api_v2/campaign_product";
+import { seller_search_campaign_product} from "@/api_v2/campaign_product";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_cart } from "@/api_v2/cart"
 import { seller_retrieve_order } from "@/api_v2/order";
@@ -77,12 +77,15 @@ import { useRoute, useRouter } from "vue-router";
 
 
 const route = useRoute()
+const router = useRouter()
 const sellerOrderDetail = useSellerOrderStore()
 const layoutStore = useLSSSellerLayoutStore()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus
 
-
+onBeforeMount(()=>{
+    if (layoutStore.userInfo.user_subscription.status === "test") router.push({ name: 'campaign-list'})
+})
 
 onMounted(()=>{
     sellerOrderDetail.order = {}

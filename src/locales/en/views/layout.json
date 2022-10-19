@@ -67,5 +67,10 @@
         "time_1hour": "an hour",
         "join_now": "Join now",
         "dismiss": "Dismiss"
+    },
+    "test_mode": "TEST MODE",
+    "switch_mode_confirmation": {
+        "message": "As you switch to production mode, it can not be switched back.",
+        "switch": "switch"
     }
 }
