@@ -14,7 +14,7 @@
                             </span> 
                             <button 
                                 class="btn btn-rounded-pending h-8 ml-auto sm:ml-3"
-                                v-if="buyerOrderStore.order.status === 'review' || buyerOrderStore.order.status === 'proceed'"
+                                v-if="buyerOrderStore.order.status === 'awaiting_payment'"
                                 @click=" routeToPaymentPage()"
                             >
                                 {{$t('order_detail.pay')}}
