@@ -39,14 +39,14 @@
 
 
     "payment_form":{
-
         "payment_titles":{
             "direct_payment":"Direct Payment",
             "stripe":"Stripe",
             "hitpay":"Hitpay",
             "paypal":"Paypal",
             "ecpay":"ECPay",
-            "pay_mongo":"PayMongo"
+            "pay_mongo":"PayMongo",
+            "rapyd":"Rapyd"
         },
 
         "direct_payment":{
@@ -80,6 +80,12 @@
         },
         "pay_mongo":{
             "secret":"Secret Key"
+        },
+        "rapyd":{
+            "access_key":"Access Key",
+            "secret_key":"Secret Key",
+            "country":"Country",
+            "currency":"Currency"
         },
 
 

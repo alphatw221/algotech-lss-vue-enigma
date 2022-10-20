@@ -47,7 +47,8 @@
             "hitpay":"Hitpay",
             "paypal":"Paypal",
             "ecpay":"ECPay",
-            "pay_mongo":"PayMongo"
+            "pay_mongo":"PayMongo",
+            "rapyd":"Rapyd"
         },
         "direct_payment":{
             "mode":"Name of Bank / Payment Mode",
@@ -81,6 +82,12 @@
         },
         "pay_mongo":{
             "secret":"Secret Key"
+        },
+        "rapyd":{
+            "access_key":"Access Key",
+            "secret_key":"Secret Key",
+            "country":"Country",
+            "currency":"Currency"
         },
 
         "payment_details": "Payment Details",

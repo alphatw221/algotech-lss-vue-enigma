@@ -45,7 +45,8 @@
             "stripe":"Stripe",
             "hitpay":"Hitpay",
             "paypal":"Paypal",
-            "pay_mongo":"PayMongo"
+            "pay_mongo":"PayMongo",
+            "rapyd":"Rapyd"
         },
 
         "direct_payment":{
