@@ -38,7 +38,9 @@
                 "action":"Hành động",
                 "delivery_notification":"Thông báo",
                 "null":"",
-                "guest": "Khách"
+                "guest": "Khách",
+                "payment_status":"tình trạng thanh toán",
+                "delivery_status":"tình trạng giao hàng"
         },
         "product_modal":{
                 "order_no":"Mã đơn hàng",

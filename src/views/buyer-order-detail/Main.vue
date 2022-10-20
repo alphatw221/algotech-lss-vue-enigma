@@ -81,14 +81,14 @@
 
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_store')}}</div>
                             <!-- temp -->
-                            <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.campaign.meta_logistic.pickup_options[buyerOrderStore.order.shipping_option_index]?.name}}</div> 
+                            <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.campaign?.meta_logistic?.pickup_options?.[buyerOrderStore.order.shipping_option_index]?.name}}</div> 
                             <!-- future -->
                             <!-- <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.shipping_option_data.name}}</div> -->
 
                             
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_address')}}</div>
                             <!-- temp -->
-                            <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.campaign.meta_logistic.pickup_options[buyerOrderStore.order.shipping_option_index]?.address}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.campaign?.meta_logistic?.pickup_options?.[buyerOrderStore.order.shipping_option_index]?.address}}</div>
                             <!-- future -->
                             <!-- <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order.shipping_option_data.address}}</div> -->
 

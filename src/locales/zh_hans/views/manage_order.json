@@ -39,7 +39,10 @@
                 "status" : "订单状态",
                 "view" : "商品详情",
                 "null":"",
-                "guest": "访客"
+                "guest": "访客",
+                "payment_status":"付款状态",
+                "delivery_status":"运送状态"
+                
         },
         "product_modal":{
                 "order_no":"订单编号",

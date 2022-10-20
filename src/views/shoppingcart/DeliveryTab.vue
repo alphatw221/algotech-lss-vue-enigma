@@ -433,7 +433,12 @@ const proceed_to_payment = () =>{
 
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value}, layoutStore.alert)
   .then(res=>{
-    router.push({name:"buyer-order-payment-page", params:{'order_oid':res.data.oid}})
+    if(res.data.oid){
+      router.push({name:"buyer-order-payment-page", params:{'order_oid':res.data.oid}})
+    }else{
+      shoppingCartStore.cart = res.data
+      layoutStore.alert.showMessageToast('out of stock')
+    }
   })
   
 }

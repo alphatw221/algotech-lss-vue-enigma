@@ -79,7 +79,11 @@
 								{{ qty }}
 							</div>
 						</template>
-						<div class="absolute hidden md:block" v-show="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart >= shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'" style="color:#FF4500">
+						<div class="absolute hidden md:block" 
+							v-show="
+							shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart >= shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale && 
+							!(shoppingCartStore.campaignProductDict[campaign_product_id]?.oversell) &&
+							shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'" style="color:#FF4500">
 							 {{$t('shopping_cart.table.missing_message')}}
 						</div>
 					</td>
