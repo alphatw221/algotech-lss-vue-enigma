@@ -257,7 +257,7 @@ const props = defineProps({
     campaignStatus: String
 });
 
-const baseURL = import.meta.env.VITE_APP_ROOT_API
+const baseURL = import.meta.env.VITE_APP_WEB
 const currentPage= ref(1)
 const totalPage= ref(1)
 const page_size= ref(100)

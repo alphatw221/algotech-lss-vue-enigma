@@ -44,43 +44,39 @@
 				</td>
 
 				<td class="text-center w-fit" :data-content="$t('order_detail.table.qty')">
-					<template v-if="campaignDetailStore.campaignProductDict[campaign_product_id]?.type=='lucky_draw'">
-						{{ qty }}
-					</template>
-					<template v-else>
-						<div class="self-center form-check place-content-left">
+					
+					<div class="self-center form-check place-content-left">
 
-							<button type="button" @click="changeQuantity(index, 'minus', campaign_product_id, qty)" v-show="hideUpdateSignIndex!=index">
-								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
-							</button>
-							
-							<input 
-								type="text" 
-								class="form-control" 
-								placeholder="Input inline 1" 
-								aria-label="default input" 
-								:value="qty"
-								style="width: 2.7rem;"
-								@focus="focusQtyInput(index, qty)"
-								v-show="hideQtyInputIndex!=index"
-							/>
-							<button type="button" @click="changeQuantity(index, 'add', campaign_product_id, qty)" v-show="hideUpdateSignIndex!=index">
-								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
-							</button>
+						<button type="button" @click="changeQuantity(index, 'minus', campaign_product_id, qty)" v-show="hideUpdateSignIndex!=index">
+							<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
+						</button>
+						
+						<input 
+							type="text" 
+							class="form-control" 
+							placeholder="Input inline 1" 
+							aria-label="default input" 
+							:value="qty"
+							style="width: 2.7rem;"
+							@focus="focusQtyInput(index, qty)"
+							v-show="hideQtyInputIndex!=index"
+						/>
+						<button type="button" @click="changeQuantity(index, 'add', campaign_product_id, qty)" v-show="hideUpdateSignIndex!=index">
+							<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
+						</button>
 
-							<div class="flex inline-flex leading-5 items-center">
-								<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
-								<div class="leading-5 allign-middle">
-									<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', campaign_product_id, qty)">
-										{{$t('shopping_cart.table.update')}}
-									</button>
-									<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
-										{{$t('shopping_cart.table.cancel')}}
-									</button>
-								</div>
+						<div class="flex inline-flex leading-5 items-center">
+							<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
+							<div class="leading-5 allign-middle">
+								<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', campaign_product_id, qty)">
+									{{$t('shopping_cart.table.update')}}
+								</button>
+								<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
+									{{$t('shopping_cart.table.cancel')}}
+								</button>
 							</div>
 						</div>
-					</template>
+					</div>
 				</td>
 				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="sellerCartStore.cart.campaign">
 
