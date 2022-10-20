@@ -66,7 +66,7 @@
 import OrderDetailTable from "./OrderDetailTable.vue";
 import PriceSummary from "./PriceSummary.vue"
 import OrderSummary from "@/components/box/OrderSummary.vue";
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
+import { computed, onMounted, onBeforeMount, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import { seller_search_campaign_product} from "@/api_v2/campaign_product";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
 import { seller_retrieve_cart } from "@/api_v2/cart"
