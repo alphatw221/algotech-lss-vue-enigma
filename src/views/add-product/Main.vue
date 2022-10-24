@@ -28,22 +28,23 @@
 
 				<TomSelect
 					id="crud-form-2"
-					v-model="product.tag"
+					v-model="product.categories"
 					class="w-full"
 					multiple
 					v-if="route.params.product_id"
 				>
-					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
+					<option v-for="productCategory, index in layoutStore.userInfo?.user_subscription?.product_categories" :key="index" :value="productCategory.id">{{ productCategory.name }}</option>
 				</TomSelect>
 
 				<TomSelect
 					id="crud-form-2"
-					v-model="product.tag"
+					v-model="product.categories"
 					class="w-full"
 					multiple
 					v-else
 				>
-					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
+					<!-- <option v-for="category in categorySelection" :key="category">{{ category }}</option> -->
+					<option v-for="productCategory, index in layoutStore.userInfo?.user_subscription?.product_categories" :key="index" :value="productCategory.id">{{ productCategory.name }}</option>
 				</TomSelect>
 				<!-- <template v-if="validate.tag.$error">
 						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
@@ -251,7 +252,8 @@ const product = ref({
 	price: 0,
 	status: 'enabled',
 	tag: [],
-	remark:''
+	remark:'',
+	categories:[]
 })
 
 const notContains = (param) => (value) => !value.includes(param)
@@ -292,10 +294,10 @@ const formData = new FormData()
 const validate = useVuelidate(rules, product);
 
 onMounted(()=>{
-	list_product_category(layoutStore.alert).then(res => { 
-		categorySelection.value = res.data
-		categorySelection.value.unshift('uncategory')
-	})
+	// list_product_category(layoutStore.alert).then(res => { 
+	// 	categorySelection.value = res.data
+	// 	categorySelection.value.unshift('uncategory')
+	// })
 	if (route.params.product_id) {
 		retrieve_product(route.params.product_id, layoutStore.alert)
 		.then(
@@ -322,6 +324,9 @@ const removeImage = () =>{
 
 }
 const submit = ()=>{
+
+	// console.log(product.value)
+	// return
 	validate.value.$touch();
     if (validate.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.invalid_data'))

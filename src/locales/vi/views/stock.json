@@ -29,6 +29,7 @@
         "order_code": "Mã đơn hàng",
         "type": "Loại sản phẩm",
         "category": "Loại",
+        "categories": "Loại",
         "description": "Mô tả",
         "qty": "Số lượng",
         "price": "Giá bán",
