@@ -6,6 +6,6 @@ export const campaign_manage_order = (campaign_id, toastify=null) => {
 }
 
 
-export const order_export = (campaign_id, toastify=null) => {
-    return createAxios(toastify).get(`/api/order/report/?campaign_id=${campaign_id}&column_list=id,created_at,platform,customer_name,shipping_phone,shipping_email,shipping_method,shipping_address_1,shipping_location,shipping_region,shipping_postcode,pick_up_store,pickup_address,shipping_remark,payment_method,status,payment_card_type,payment_card_number,last_five_digit,total`,{responseType : 'blob'})
+export const report_of_campaigns_in_period = (start_time, end_time, toastify=null) => {
+    return createAxios(toastify).get(`/api/dashboard/report_of_campaigns_in_period/?start_time=${start_time}&end_time=${end_time}`)
 }
