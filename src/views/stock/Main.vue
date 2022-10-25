@@ -90,6 +90,7 @@ const stockStore = useSellerStockStore();
 
 
 onMounted(()=>{
+	clearStore()
 	createProductCategoryDict()
 })
 
@@ -97,8 +98,11 @@ onUnmounted(()=>{
 	eventBus.off('refreshStockTable')
 })
 
+const clearStore = ()=>{
+	stockStore.productCategoryDict = {}
+	stockStore.selectedProductIDList = []
+}
 const createProductCategoryDict = ()=>{
-	stockStore.stockStore = {}
 	layoutStore.userInfo.user_subscription?.product_categories?.forEach(productCategory => {
 		stockStore.productCategoryDict[productCategory.id.toString()]=productCategory
 	});

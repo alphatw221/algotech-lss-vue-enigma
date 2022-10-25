@@ -101,8 +101,6 @@ const deleteCategory = (productCategory, index)=> {
     let yes = confirm(`${i18n.global.t('stock.category_manage.confirm_delete')}`)
     if (yes) delete_product_category(productCategory.id, layoutStore.alert).then(res => { 
         layoutStore.userInfo.user_subscription?.product_categories?.splice(index,1) 
-    
-    
     } )
     
 }

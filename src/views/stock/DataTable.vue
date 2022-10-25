@@ -14,14 +14,17 @@
 						<template v-else-if="column.key === 'edit'">
 							{{ '' }}
 						</template>
+						<!-- too mush duplication over here -->
 						<template v-else-if="column.key === 'name'">
 							<div class="flex justify-center"> 
 								{{ $t(`stock.table_column.${column.key}`) }}
 								<template v-if="sortBy =='-name'" > 
 									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('name')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else-if="sortBy =='name'" > 
 									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else> 
 									<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
@@ -33,9 +36,11 @@
 								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
 								<template v-if="sortBy =='-qty'" > 
 									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('qty')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template>
 								<template v-else-if="sortBy =='qty'" > 
 									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else> 
 									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
@@ -47,9 +52,11 @@
 								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
 								<template v-if="sortBy =='-price'" > 
 									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('price')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template>
 								<template v-else-if="sortBy =='price'" > 
 									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else> 
 									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
@@ -94,8 +101,8 @@
 				</tr>
 				
 				<tr
-					v-for="(product, pindex) in stockProducts"
-					:key="pindex"
+					v-for="(product, product_index) in stockProducts"
+					:key="product_index"
 					class="intro-x"
 					:class="{'trBorder' : numOfProducts != 0}"
 				>	
@@ -151,7 +158,7 @@
 						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
 							<template v-if="product.meta.wish_list" > 
 								<div v-if="Object.keys(product.meta.wish_list).length >0" 
-									class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product,pindex)"> 
+									class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product,product_index)"> 
 										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
 								<div v-else class="flex gap-2 cursor-not-allowed"> 
 									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
@@ -173,11 +180,11 @@
 												<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1" />  
 												{{ $t('stock.category_manage.edit')}}
 											</DropdownItem>
-											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product)"> 
+											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product, product_index)"> 
 												<SimpleIcon icon="copy" color="#2d8cf0" class="mr-1" />  
 												{{ $t('stock.category_manage.duplicate')}}
 											</DropdownItem>
-											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product,pindex)"> 
+											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product,product_index)"> 
 												<!-- <Trash2Icon class="w-[20px] h-[20px] mx-1"/> -->
 												<SimpleIcon icon="delete" color="#b91c1c" class="mr-1" />  
 												{{ $t('stock.category_manage.delete')}}
@@ -236,20 +243,20 @@ const computedTableColumns = computed(()=>{
 	if(layoutStore.plugins){
 		return [
 			{ name: "image", key: "image" },
-			{ name: "name", key: "name" },
+			{ name: "name", key: "name", sortable:true},
 			{ name: "category", key: "categories" },
 			{ name: "description", key: "description" },
-			{ name: "qty", key: "qty" },
-			{ name: "price", key: "price" }]
+			{ name: "qty", key: "qty", sortable:true},
+			{ name: "price", key: "price", sortable:true}]
 	}
 	return[
 		{ name: "check", key: "check"},
 		{ name: "image", key: "image" },
-		{ name: "name", key: "name" },
+		{ name: "name", key: "name", sortable:true },
 		{ name: "category", key: "categories" },
 		{ name: "remark", key: "remark" },
-		{ name: "qty", key: "qty" },
-		{ name: "price", key: "price" },
+		{ name: "qty", key: "qty", sortable:true },
+		{ name: "price", key: "price", sortable:true },
 		{ name: "wishlist", key:"wishlist"},
 		{ name: "", key: "edit" },]
 })
@@ -372,15 +379,9 @@ const deleteProduct = (product,index) => {
 	hideDropDown()
 }
 
-const copyProduct = (product) => {
-	const copy = Object.assign({}, product)
+const copyProduct = (product, index) => {
 	copy_product(product.id, layoutStore.alert).then(res => {
-		console.log(res)
-		copy.id = res.data.message 
-		copy.name = 'copy - ' + product.name
-		copy.check = false
-		stockProducts.value.unshift(copy)
-		console.log(stockProducts.value)
+		stockProducts.value.splice(index, 0 , res.data)
 		}
 	)
 	hideDropDown()
@@ -391,7 +392,10 @@ const sortByThis = (by) =>{
 	search();
 }
 
-
+const cancelSortBy = ()=>{
+	sortBy.value = ''
+	search();
+}
 
 const selectAllStock = (event) => {
 	if (event.target.checked) {

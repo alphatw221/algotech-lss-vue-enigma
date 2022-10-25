@@ -210,10 +210,10 @@
 
 			
 			<div class="z-50 col-span-12 flex justify-end sm:mt-3">
-				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="cancelButton">
+				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="cancelButton()">
 					{{ $t('stock.add_product_page.cancel') }}
 				</button>
-				<button class="w-32 ml-5 shadow-md btn btn-primary" @click="submit">
+				<button class="w-32 ml-5 shadow-md btn btn-primary" @click="submit()">
 					{{ $t('stock.add_product_page.save') }}
 				</button>
 			</div>
@@ -243,7 +243,6 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 const product = ref({
 	id: 0,
 	name: '',
-	category: [],
 	image: '',
 	type: null,
 	order_code: null,
@@ -251,7 +250,6 @@ const product = ref({
 	qty: 0,
 	price: 0,
 	status: 'enabled',
-	tag: [],
 	remark:'',
 	categories:[]
 })

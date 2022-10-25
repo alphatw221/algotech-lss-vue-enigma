@@ -10,6 +10,8 @@
                     <input id="regular-form-2" type="text"
                         class="mt-3 form-control" placeholder="Category Name" 
                         v-model="productCategory.name" />
+                    
+
 
                     <!-- <input id="regular-form-2" type="text" class="mt-3 form-control"
                         :placeholder="$t('stock.category_manage.input_holder')" v-model="categoryName" />
@@ -26,11 +28,14 @@
 </template>
 <script setup>
 import {create_product_category, update_product_category} from '@/api_v2/product_category'
-import { onMounted, ref, computed, onUnmounted, defineProps, getCurrentInstance } from "vue";
+import { onMounted, ref, computed, onUnmounted, defineProps, getCurrentInstance, reactive } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useLSSCategoryManagementStore } from "@/stores/lss-category-management"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n"
+import { helpers, required, requiredIf, numeric, integer, decimal,minValue } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
+
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore()
 const categoryManagementStore = useLSSCategoryManagementStore()
@@ -45,6 +50,50 @@ const payloadBuffer = ref({})
 const props = defineProps({
   modalType: String,
 });
+
+
+
+const meta_logistic = reactive({
+    enable_flat_rate : false,
+    flat_rate : 0,
+    // free_delivery_for_order_above_price : 0,
+    // is_free_delivery_for_how_many_order_minimum : true,
+    // free_delivery_for_how_many_order_minimum : 0,
+    // is_additional_delivery_charge : true,
+    // additional_delivery_options: [],
+    // // pickup_start_date : '',
+    // // pickup_end_date : '',
+    // pickup_options: [],
+    // delivery_note : '',
+    // ecpay_delivery_enable : false,
+    // ecpay_merchant_id:'',
+    // ecpay_delivery_hash_key : '',
+    // ecpay_delivery_hash_iv : ''
+})
+
+
+
+const metaLogisticRules = {
+    flat_rate:{required:requiredIf(()=>{ return meta_logistic.enable_flat_rate==true }), decimal, minValue:minValue(0)},
+
+}
+
+const v = useVuelidate(metaLogisticRules, meta_logistic)
+
+const metaLogisticFields = [
+    {key:"enable_flat_rate",dataType:"boolean", default:false},
+    {key:"flat_rate",dataType:"number", default:0},
+    // {key:"is_free_delivery_for_order_above_price",dataType:"boolean", default:false},
+    // {key:"free_delivery_for_order_above_price",dataType:"number", default:999999},
+    // {key:"is_free_delivery_for_how_many_order_minimum",dataType:"boolean", default:false},
+    // {key:"free_delivery_for_how_many_order_minimum",dataType:"number", default:99},
+    // {key:"is_additional_delivery_charge",dataType:"boolean", default:true},
+    // {key:"additional_delivery_options", dataType:"object", default:[]},
+    // {key:"pickup_options", dataType:"object", default:[]},
+    // {key:"delivery_note", dataType:"string", default:''},
+]
+
+
 
 onMounted(() => {
     eventBus.on('editProductCategory', (payload) => {
