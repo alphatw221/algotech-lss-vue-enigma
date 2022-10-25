@@ -216,7 +216,6 @@ const computedAdjustPrice = computed({
   },
   set:adjust_price=>{
      sellerCartStore.cart.adjust_price = sellerCartStore.modify_status === '-'? -parseFloat(Math.abs(adjust_price)) : parseFloat(Math.abs(adjust_price))
-     updatePriceSummary()
   }
 });
 
@@ -225,37 +224,37 @@ const computedSubtotalOverFreeDeliveryThreshold = computed(()=>{
 })
 
 const computedItemsOverFreeDeliveryThreshold = computed(()=>{
-  return campaignDetailStore.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? sellerCartStore.cart.products.length >= campaignDetailStore.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
+  
+  return campaignDetailStore.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? Object.keys(sellerCartStore.cart?.products||{}).length >= campaignDetailStore.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
 })
 
 const computedShippingCost = computed(()=>{
 
 
   const logisticCategories = {}
-      
-      var applyCategoryLogistic = false
-      Object.entries(sellerCartStore.cart?.products||{}).forEach(([key, value])=>{
+  var applyCategoryLogistic = false
+  Object.entries(sellerCartStore.cart?.products||{}).forEach(([key, value])=>{
 
-        if(
-          value>0 && 
-          campaignDetailStore.campaignProductDict?.[key]?.categories?.length===1 && 
-          layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()==campaignDetailStore.campaignProductDict?.[key]?.categories[0])
-          ){
-          logisticCategories[campaignDetailStore.campaignProductDict?.[key]?.categories[0]]=true
-        }
-      })
+    if(
+      value>0 && 
+      campaignDetailStore.campaignProductDict?.[key]?.categories?.length===1 && 
+      layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()==campaignDetailStore.campaignProductDict?.[key]?.categories[0])
+      ){
+      logisticCategories[campaignDetailStore.campaignProductDict?.[key]?.categories[0]]=true
+    }
+  })
 
-      var shippingCost = 0 
-      Object.keys(logisticCategories).forEach((key)=>{
-        const productCategory = layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()===key)
+  var shippingCost = 0 
+  Object.keys(logisticCategories).forEach((key)=>{
+    const productCategory = layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()===key)
 
-        if(productCategory?.meta_logistic?.enable_flat_rate){
-          applyCategoryLogistic = true
-          shippingCost+=productCategory?.meta_logistic?.flat_rate||0
-        }
-      })
+    if(productCategory?.meta_logistic?.enable_flat_rate){
+      applyCategoryLogistic = true
+      shippingCost+=productCategory?.meta_logistic?.flat_rate||0
+    }
+  })
 
-      if(applyCategoryLogistic)return shippingCost
+  if(applyCategoryLogistic)return shippingCost
       
   return campaignDetailStore.campaign?.meta_logistic?.delivery_charge||0
 })
@@ -269,11 +268,15 @@ const computedTotal = computed(()=>{
   // if(!sellerCartStore.cart.free_delivery){
   //   total += sellerCartStore.cart.shipping_cost
   // }
-  total += computedShippingCost.value
+  if(sellerCartStore.cart.free_delivery || computedSubtotalOverFreeDeliveryThreshold.value || computedItemsOverFreeDeliveryThreshold.value){
+    //
+  }else{
+    total += computedShippingCost.value
+  }
+
   total += sellerCartStore.cart.adjust_price
   total += sellerCartStore.cart.tax
   return Math.max(total, 0)
-
 
 
 })
