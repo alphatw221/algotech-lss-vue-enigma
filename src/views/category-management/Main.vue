@@ -61,7 +61,7 @@
 </template>
 
 <script setup>
-import { list_product_category, delete_product_category} from '@/api_v2/product_category'
+import { delete_product_category} from '@/api_v2/product_category'
 import { onMounted, ref, computed, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import dom from "@left4code/tw-starter/dist/js/dom";

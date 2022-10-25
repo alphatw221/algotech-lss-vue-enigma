@@ -23,6 +23,7 @@
         "assign_qty":"Assign QTY",
         "max_order_amount":"Max Order Qty",
         "category":"Category",
+        "categories":"Category",
         "price":"Price",
         "customer_editable":"Editable",
         "customer_removable":"Removable",

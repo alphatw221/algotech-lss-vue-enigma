@@ -23,6 +23,7 @@
         "assign_qty":"Số lượng đã chọn",
         "max_order_amount":"Số lượng đơn hàng tối đa",
         "category":"Loại",
+        "category":"Loại",
         "price":"Giá bán",
         "customer_editable":"Có thể chỉnh sửa",
         "customer_removable":"Có thể xóa",

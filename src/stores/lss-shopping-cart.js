@@ -18,6 +18,8 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			discount:0,
 		}),
 		user_subscription: ref({}),
+		product_categories: ref([]),
+		productCategoryDict: ref({}),
 		orderDetail: ref({}),
 		contact_info: ref({
 			shipping_first_name: "",

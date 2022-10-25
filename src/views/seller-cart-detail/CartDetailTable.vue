@@ -78,16 +78,16 @@
 						</div>
 					</div>
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="sellerCartStore.cart.campaign">
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="campaignDetailStore.campaign">
 
-					{{sellerCartStore.cart.campaign.currency}}
-					{{ (Math.floor(parseFloat(campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * (10 ** sellerCartStore.cart.campaign.decimal_places)) / 10 ** sellerCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-					{{sellerCartStore.cart.campaign.price_unit?$t(`global.price_unit.${sellerCartStore.cart.campaign.price_unit}`):''}}
+					{{campaignDetailStore.campaign?.currency}}
+					{{ (Math.floor(parseFloat(campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places).toLocaleString('en-GB')}}
+					{{campaignDetailStore.campaign?.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign?.price_unit}`):''}}
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="sellerCartStore.cart.campaign">
-					{{sellerCartStore.cart.campaign.currency}}
-					{{ (Math.floor(parseFloat(qty * campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * (10 ** sellerCartStore.cart.campaign.decimal_places)) / 10 ** sellerCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-					{{sellerCartStore.cart.campaign.price_unit?$t(`global.price_unit.${sellerCartStore.cart.campaign.price_unit}`):''}}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="campaignDetailStore.campaign">
+					{{campaignDetailStore.campaign?.currency}}
+					{{ (Math.floor(parseFloat(qty * campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places).toLocaleString('en-GB')}}
+					{{campaignDetailStore.campaign?.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign?.price_unit}`):''}}
 				</td>
 				<td>
 					<a  class="flex items-center justify-center text-danger" 

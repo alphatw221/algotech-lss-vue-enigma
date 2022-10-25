@@ -216,7 +216,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { search_product, delete_product, copy_product, list_product_category, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
+import { search_product, delete_product, copy_product, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router"

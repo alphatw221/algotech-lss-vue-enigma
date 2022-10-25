@@ -13,7 +13,6 @@
 
 <script setup>
 import { ref, onMounted, getCurrentInstance, defineProps } from 'vue';
-import { list_product_category } from '@/api_v2/product';
 import { useRoute, useRouter } from "vue-router";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -30,11 +29,7 @@ const selectedCategory = ref('')
 // const categories = ref([])
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
-// onMounted(() => {
-//    list_product_category(layoutStore.alert).then(response => {
-//         categories.value = response.data
-//     }) 
-// })
+
 
 const search = () => {
     eventBus.emit(props.eventBusName,{'category':selectedCategory.value})

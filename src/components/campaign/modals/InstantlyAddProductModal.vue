@@ -72,7 +72,6 @@
 import { ref, onMounted, computed,getCurrentInstance} from 'vue';
 import { useRoute, useRouter } from "vue-router";
 import { fast_add_product } from '@/api_v2/campaign';
-import { list_product_category} from '@/api_v2/product';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useVuelidate } from "@vuelidate/core";
@@ -98,13 +97,7 @@ const addProduct = ref({
     status: true, 
 })
 
-// const list = () => {
-//     // list_product_category(layoutStore.alert).then(
-//     //     response => {
-//     //         categoryList.value = response.data;
-//     //     }
-//     // )
-// }
+
 
 const addtoCampaign =()=>{
     fast_add_product(campaign_id,addProduct.value , layoutStore.alert).then(

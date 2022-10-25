@@ -224,7 +224,7 @@
 
 <script setup>
 
-import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
+import { create_product, update_product, retrieve_product } from '@/api_v2/product';
 import { ref, onMounted, computed, provide, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -292,10 +292,6 @@ const formData = new FormData()
 const validate = useVuelidate(rules, product);
 
 onMounted(()=>{
-	// list_product_category(layoutStore.alert).then(res => { 
-	// 	categorySelection.value = res.data
-	// 	categorySelection.value.unshift('uncategory')
-	// })
 	if (route.params.product_id) {
 		retrieve_product(route.params.product_id, layoutStore.alert)
 		.then(

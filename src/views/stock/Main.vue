@@ -74,7 +74,7 @@ import SearchBar from "./SearchBar.vue";
 import DataTable from "./DataTable.vue";
 import BulkEditModal from "./BulkEditModal.vue"
 import { useRoute, useRouter } from "vue-router"
-import { list_product_category } from '@/api_v2/product';
+
 import EasyStoreExportProductButton from '@/plugin/easy-store/views/ExportProductButton.vue'
 import OrdrStartrExportProductButton from '@/plugin/ordr-startr/views/ExportProductButton.vue'
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
