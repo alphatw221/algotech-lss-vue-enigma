@@ -85,8 +85,8 @@
                             </template>
                             <td>
                                 <b :class="{'text-slate-400': !product.overbook}">{{ product.qty_add_to_cart }}</b> / <b>{{ product.qty_sold }}</b> / 
-                                <b v-if="product.qty_for_sale - product.qty_sold >= 0" class="">{{ product.qty_for_sale - product.qty_sold }}</b>
-                                <b v-else class="text-danger" :class="{'text-slate-400': !product.status}">{{ product.qty_for_sale - product.qty_sold }}</b>
+                                <b v-if="product.qty_for_sale - product.qty_sold - product.qty_pending_payment >= 0" class="">{{ product.qty_for_sale - product.qty_sold - product.qty_pending_payment }}</b>
+                                <b v-else class="text-danger" :class="{'text-slate-400': !product.status}">{{ product.qty_for_sale - product.qty_sold - product.qty_pending_payment }}</b>
                             </td>
                             <!-- currency_sign reference from user_subscription -->
                             <td v-if="store.campaign">

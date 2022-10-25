@@ -25,8 +25,8 @@
                     <label class="mt-5 mb-2">{{$t('campaign_live.product.modal_column.category')}}</label>
                     <select v-model="addProduct.category" class="w-full rounded-lg">
                         <option value="">Uncategorized</option>
-                        <template v-for="(category, key) in categoryList" :key="key"> 
-                            <option :value="category">{{category}}</option>
+                        <template v-for="(product_category, index) in layoutStore.userInfo.user_subscription.product_categories" :key="index"> 
+                            <option :value="product_category.id">{{product_category.name}}</option>
                         </template>
                     </select>
 
@@ -85,7 +85,7 @@ const store = useCampaignDetailStore();
 const layoutStore = useLSSSellerLayoutStore(); 
 // const internalInstance = getCurrentInstance()
 // const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
-const categoryList = ref([])
+
 const campaign_id = route.params.campaign_id
 // const campaign_product = ref(productList.value)
 const addProduct = ref({
@@ -98,13 +98,13 @@ const addProduct = ref({
     status: true, 
 })
 
-const list = () => {
-    list_product_category(layoutStore.alert).then(
-        response => {
-            categoryList.value = response.data;
-        }
-    )
-}
+// const list = () => {
+//     // list_product_category(layoutStore.alert).then(
+//     //     response => {
+//     //         categoryList.value = response.data;
+//     //     }
+//     // )
+// }
 
 const addtoCampaign =()=>{
     fast_add_product(campaign_id,addProduct.value , layoutStore.alert).then(
@@ -126,9 +126,9 @@ const apply = ()=>{
     store.showInstantlyAddProductModal = false
 }
 
-onMounted(() => {
-    list();
-})
+// onMounted(() => {
+//     list();
+// })
 
 const rules = computed(()=>{
     return{

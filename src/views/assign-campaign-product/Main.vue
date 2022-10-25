@@ -19,7 +19,7 @@
 						@change="filterProducts()"
 					>
 						<option :value="''">{{$t(`assign_product.search_bar.all`)}}</option>
-						<option v-for="category,index in productCategories" :key="index" :value="category">{{ category }}</option>
+						<option v-for="product_category,index in layoutStore.userInfo.user_subscription.product_categories" :key="index" :value="product_category.id">{{ product_category.name }}</option>
 					</select>
 				</div>
 				<!-- <div class="flex-2 flex-wrap flex items-center flex-col w-fit" >

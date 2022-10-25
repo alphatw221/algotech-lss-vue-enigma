@@ -109,7 +109,11 @@ const handleSocketMessage = message=>{
 
         if(campaignDetailStore.campaignProducts[index]){
             campaignDetailStore.campaignProducts[index]["qty_sold"] = message.data.qty_sold
+            campaignDetailStore.campaignProducts[index]["qty_pending_payment"] = message.data.qty_pending_payment
             campaignDetailStore.campaignProducts[index]["qty_add_to_cart"] = message.data.qty_add_to_cart
+            const campaignProduct = JSON.parse(JSON.stringify(campaignDetailStore.campaignProducts[index]))
+            campaignDetailStore.campaignProducts.splice(index,1)
+            campaignDetailStore.campaignProducts.unshift(campaignProduct)
         }
         
     }else if (message.type == 'cart_data'){

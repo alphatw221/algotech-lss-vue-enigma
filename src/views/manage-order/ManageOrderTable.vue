@@ -173,18 +173,39 @@
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
-                                {{ `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` }}
+                                {{ `${$t('order.payment_method.direct_payment')} - ${order.meta.account_mode}` }}
                             </template>
                             <template v-else-if="order[column.key] != ''">
-                                {{ $t(`manage_order.table.${order[column.key]}`) }}
+                                {{ $t(`order.${column.key}.${order[column.key]}`) }}
                             </template>
                             <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
                         </template>
                         <template v-else-if="column.key === 'id'">
                             <span class="sm:hidden"> #</span> {{ order.id }}
                         </template>
+
+                        <template v-else-if="column.key === 'payment_status'">
+                            <template v-if="order[column.key]==='awaiting_confirm'">
+                                <select v-model="order[column.key]" class="w-30" @change="updateOrderPaymentStatus(order, index, $event)">
+                                    <option :value="option.value" v-for="(option,index) in payment_status_options" :key="index">
+                                        {{$t(`order.payment_status.${option.value}`)}}</option>
+                                </select>
+                            </template>
+                            <template v-else>
+                                {{$t(`order.payment_status.${order[column.key]}`)}}
+                            </template>
+                        </template>
+                        
+                        <template v-else-if="column.key === 'delivery_status'">
+                            <select v-model="order[column.key]" class="w-30" @change="updateOrderDeliveryStatus(order, index, $event)">
+                                <option :value="option.value" v-for="(option,index) in delivery_status_options" :key="index">
+                                    {{$t(`order.delivery_status.${option.value}`)}}</option>
+                            </select>
+                        </template>
+
+
                         <template v-else class="w-30"> 
-                            {{ $t(`manage_order.${order[column.key]}`) }}
+                            {{ $t(`order.${column.key}.${order[column.key]}`) }}
                         </template>
                     </td>
                 </tr>
@@ -196,8 +217,8 @@
     </div>
 </template>
 <script setup>
-import { seller_search_order, seller_deliver, get_order_oid } from "@/api_v2/order"
-import { get_pre_order_oid } from "@/api_v2/pre_order"
+import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid } from "@/api_v2/order"
+
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
@@ -216,7 +237,26 @@ const baseURL = import.meta.env.VITE_APP_WEB
 
 
 
+const payment_status_options = ref([
+    { key: 'awaiting_payment', value: 'awaiting_payment'},
+    { key: 'awaiting_confirm', value: 'awaiting_confirm'},
+    { key: 'failed', value: 'failed'},
+    { key: 'expired', value: 'expired', },
+    { key: 'paid', value: 'paid', },
+    { key: 'awaiting_refund', value: 'awaiting_refund', },
+    { key: 'refunded', value: 'refunded', },
+]);
 
+const delivery_status_options = ref([
+    { key: 'awaiting_fulfillment', value: 'awaiting_fulfillment'},
+    { key: 'awaiting_shipment', value: 'awaiting_shipment'},
+    { key: 'awaiting_pickup', value: 'awaiting_pickup'},
+    { key: 'partially_shipped', value: 'partially_shipped', },
+    { key: 'shipped', value: 'shipped', },
+    { key: 'collected', value: 'collected', },
+    { key: 'awaiting_return', value: 'awaiting_return', },
+    { key: 'returned', value: 'returned', },
+]);
 
 
 
@@ -228,8 +268,9 @@ const columns = ref([
     { name: 'customer', key: 'customer_name', sortable: true},
     { name: 'amount', key: 'subtotal', sortable: true},
     { name: 'payment', key: 'payment_method', sortable: true},
-    { name: 'status', key: 'status', sortable: true},
-    { name: 'delivery_notification', key: 'delivery', sortable: false},
+    { name: 'payment_status', key: 'payment_status', sortable: true},
+    { name: 'delivery_status', key: 'delivery_status', sortable: true},
+    // { name: 'delivery_notification', key: 'delivery', sortable: false},
     { name: 'action', key: 'view', sortable: false},
     { name: 'null', key: 'order_product', sortable: false}
 ]);
@@ -333,6 +374,25 @@ const cancelSortBy = (field) => {
 	search();
 }
 
+const updateOrderPaymentStatus = (order, index, event)=>{
+    seller_update_payment_status(order.id, event.target.value, layoutStore.alert).then(
+        res=>{
+            orders[index]= res.data
+            layoutStore.notification.showMessageToast("updated!")
+        }
+    
+    )
+}
+
+const updateOrderDeliveryStatus = (order, index, event)=>{
+    seller_update_deliver_status(order.id, event.target.value, layoutStore.alert).then(
+        res=>{
+            orders[index]= res.data
+            layoutStore.notification.showMessageToast("updated!")
+        }
+    
+    )
+}
 </script>
 
 <style scoped>

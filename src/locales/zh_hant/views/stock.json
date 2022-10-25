@@ -30,6 +30,7 @@
         "order_code": "下單代碼",
         "type": "屬性",
         "category": "商品分類",
+        "categories": "商品分類",
         "description": "說明",
         "qty": "庫存數量",
         "price": "價格",

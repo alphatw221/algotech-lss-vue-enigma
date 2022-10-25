@@ -39,7 +39,9 @@
                 "status" : "訂單狀態",
                 "view" : "詳情",
                 "null":"",
-                "guest": "訪客"
+                "guest": "訪客",
+                "payment_status":"付款狀態",
+                "delivery_status":"運送狀態"
         },
         "product_modal":{
                 "order_no":"訂單編號",

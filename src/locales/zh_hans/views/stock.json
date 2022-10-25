@@ -30,6 +30,7 @@
         "order_code": "下单代码",
         "type": "属性",
         "category": "商品分类",
+        "categories": "商品分类",
         "description": "说明",
         "qty": "库存数量",
         "price": "价格",

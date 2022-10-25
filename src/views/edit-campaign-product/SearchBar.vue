@@ -6,7 +6,7 @@
     <select class="form-select sm:mr-4 h-[35px] sm:h-[42px] flex-1 w-32 sm:w-40 my-auto"
         v-model="selectedCategory" @change="search()">
         <option value=''> {{$t('edit_campaign_product.search_bar.all')}} </option>
-        <option v-for="category, index in categories" :key="index">{{ category }}</option>
+        <option v-for="product_category, index in layoutStore.userInfo.user_subscription?.product_categories" :key="index" :value="product_category.id">{{ product_category.name }}</option>
     </select>
 </div>
 </template>
@@ -27,14 +27,14 @@ const router = useRouter();
 const store = useCampaignDetailStore()
 const layoutStore = useLSSSellerLayoutStore()
 const selectedCategory = ref('')
-const categories = ref([])
+// const categories = ref([])
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
-onMounted(() => {
-   list_product_category(layoutStore.alert).then(response => {
-        categories.value = response.data
-    }) 
-})
+// onMounted(() => {
+//    list_product_category(layoutStore.alert).then(response => {
+//         categories.value = response.data
+//     }) 
+// })
 
 const search = () => {
     eventBus.emit(props.eventBusName,{'category':selectedCategory.value})

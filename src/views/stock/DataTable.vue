@@ -3,7 +3,7 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
-					<th class="whitespace-normal lg:whitespace-nowrap text-center text-[16px]" v-for="column in tableColumns" :key="column.key">
+					<th class="whitespace-normal lg:whitespace-nowrap text-center text-[16px]" v-for="column in computedTableColumns" :key="column.key">
 						<template v-if="column.key === 'check'">
 							<input 
 								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
@@ -68,10 +68,10 @@
 					v-if="showCommentLoding || numOfProducts==0">
 					<td v-if="showCommentLoding"
 						class="items-center relative tdDot"
-						:colspan="tableColumns.length +2" >
+						:colspan="computedTableColumns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2" class="TDshadow">
+					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="computedTableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('stock.no_result.'+ product_status) }}
@@ -81,7 +81,7 @@
 							</h1> -->
 						</div>
 					</td> 
-					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2" class="TDshadow">
+					<td v-else-if="numOfProducts==0" :colspan="computedTableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('stock.no_result.'+ product_status) }}
@@ -99,7 +99,7 @@
 					class="intro-x"
 					:class="{'trBorder' : numOfProducts != 0}"
 				>	
-					<template v-for="column,index in tableColumns" :key="index"> 
+					<template v-for="column,index in computedTableColumns" :key="index"> 
 						<td class="w-10" v-if="column.key == 'check'">
 							<input 
 								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
@@ -127,9 +127,9 @@
 							</div>
 						</td>
 
-						<td v-else-if="column.key === 'category'" class="w-full sm:w-fit category" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div v-for="(tag,index) in product['tag'] " :key="index">
-								<div >{{ tag }}</div> 
+						<td v-else-if="column.key === 'categories'" class="w-full sm:w-fit category" :data-content="$t(`stock.table_column.${column.key}`)">
+							<div v-for="(productCategoryID,index) in product[column.key] " :key="index">
+								<div >{{ stockStore.productCategoryDict[productCategoryID]?.name }}</div> 
 							</div>
 						</td>
 
@@ -205,46 +205,6 @@
 			@on-page-size-change="changePageSize"
 		/>
 	</div> 
-	<div>
-		<Modal :show="showModal" @hidden="hide()" backdrop="static">
-			<ModalBody class="p-10 ">
-				<div class="mt-1">
-					<label for="regular-form-2" class="form-label w-full text-center font-medium" style="font-size: 1.2rem;">Bulk Edit</label>
-					
-					<label for="crud-form-2" class="form-label text-base mt-2 font-medium">Category</label>
-					<TomSelect
-						id="crud-form-2"
-						multiple
-						placeholder="Select categories to update..."
-						v-model="bulkEditStockObj.categories"
-					>
-						<option v-for="category in categorySelection" :key="category">{{ category }}</option>
-					</TomSelect>
-					
-					<label class="form-label text-base mt-5 font-medium">Status</label>
-					<div class="flex">
-						<div class="ml-3" v-for="status in statusRadio" :key="status.id">
-							<input 
-								type="radio" 
-								v-model="bulkEditStockObj.status"
-								:value="status.id"
-								:checked="props.product_status == status.id"
-								style="color:black;"
-							/>
-							<label class="form-check-label text-base" >
-								{{ $t(`stock.${status.text}`) }}
-							</label>
-						</div>
-					</div>
-
-				</div>
-				<div class="flex justify-between">
-					<button class="w-32 shadow-md btn btn-secondary mt-7" @click="hide()">Cancel</button>
-					<button class="w-32 shadow-md btn btn-primary mt-7" @click="bulkUpdateStock()">Save</button>
-				</div>
-			</ModalBody>
-		</Modal>
-	</div>
 </template>
 
 <script setup>
@@ -256,29 +216,43 @@ import { useRoute, useRouter } from "vue-router"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n";
 import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
+import { useSellerStockStore } from "@/stores/lss-seller-stock"
 
+const stockStore = useSellerStockStore();
 const route = useRoute()
 const router = useRouter()
 const props = defineProps({
 	product_status: String,
-	eventBusName: String
+	searchEventBusName: String,
+
 })
-const tableColumns = ref([
-	{ name: "check", key: "check"},
-    { name: "image", key: "image" },
-	{ name: "name", key: "name" },
-	{ name: "category", key: "category" },
-	{ name: "remark", key: "remark" },
-	{ name: "qty", key: "qty" },
-	{ name: "price", key: "price" },
-	{ name: "wishlist", key:"wishlist"},
-	{ name: "", key: "edit" },
-])
+
 const statusRadio = ref([
 	{text: 'for_sale', id: 'enabled'},
 	{text: 'delisted', id: 'disabled'},
 ])
 
+const computedTableColumns = computed(()=>{
+	if(layoutStore.plugins){
+		return [
+			{ name: "image", key: "image" },
+			{ name: "name", key: "name" },
+			{ name: "category", key: "categories" },
+			{ name: "description", key: "description" },
+			{ name: "qty", key: "qty" },
+			{ name: "price", key: "price" }]
+	}
+	return[
+		{ name: "check", key: "check"},
+		{ name: "image", key: "image" },
+		{ name: "name", key: "name" },
+		{ name: "category", key: "categories" },
+		{ name: "remark", key: "remark" },
+		{ name: "qty", key: "qty" },
+		{ name: "price", key: "price" },
+		{ name: "wishlist", key:"wishlist"},
+		{ name: "", key: "edit" },]
+})
 const currentPage = ref(1)
 const totalPage = ref(1)
 const pageSize = ref(10)
@@ -286,15 +260,9 @@ const dataCount = ref(0)
 const searchColumn = ref('')
 const keyword = ref('')
 const stockProducts = ref([])
-const category = ref('')
+const categoryID = ref('')
 const sortBy = ref('')
 const showModal = ref(false)
-const categorySelection = ref([])
-const bulkEditStockObj = ref({
-	categories: [],
-	status: false,
-	stockIdList: []
-})
 
 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
@@ -304,53 +272,35 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 const numOfProducts = computed(()=>stockProducts.value.length)
 
 
-watch(computed(() => bulkEditStockObj.value.stockIdList), () => {
-	eventBus.emit('isBulkEditShow', { stockListLength: bulkEditStockObj.value.stockIdList.length })
-}, { deep:true })
-
 onMounted(()=>{
-	bulkEditStockObj.value.status = props.product_status
-
-	pluginColumn()
-
-	list_product_category(layoutStore.alert).then(res => { 
-		categorySelection.value = res.data
-		categorySelection.value.unshift('uncategory')
-	})
 
 	search()
-	eventBus.on(props.eventBusName, (payload) => {
+	eventBus.on(props.searchEventBusName, (payload) => {
 		currentPage.value = 1
 		searchColumn.value = payload.searchColumn
 		keyword.value = payload.keyword
-		pageSize.value = payload.pageSize
-		category.value = payload.filterColumn
+		categoryID.value = payload.categoryID
+		search()
+	});
+	eventBus.on('refreshStockTable', () => {
+		currentPage.value = 1
 		search()
 	});
 
-	eventBus.on(('bulkEditStock'), () => {
-		if (bulkEditStockObj.value.stockIdList.length > 0 && showModal.value == false) {
-			showModal.value = true
-		}
-	})
-	eventBus.on('toggleTab', () => {
-		bulkEditStockObj.value = { categories: [], status: false, stockIdList: [] }
-		stockProducts.value.forEach(product => { 
-			product.check = false 
-		})
-	})
 })
 
 onUnmounted(()=>{
-	eventBus.off(props.eventBusName)
-	eventBus.off('bulkEditStock')
-	eventBus.off('toggleTab')
+	eventBus.off(props.searchEventBusName)
+	//refreshStockTable event unregister at Main
 })
+
+
+
 
 const search = ()=>{
 	showCommentLoding.value = true
 	stockProducts.value = []
-	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
+	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _categoryID, _exclude, _sortBy, _toastify;
 
 	search_product(
 		_pageSize=pageSize.value, 
@@ -359,7 +309,7 @@ const search = ()=>{
 		_keyword=keyword.value, 
 		_productStatus=props.product_status, 
 		_productType='',
-		_category=category.value, 
+		_categoryID=categoryID.value, 
 		_exclude='', 
 		_sortBy=sortBy.value , 
 		_toastify=layoutStore.alert)
@@ -376,6 +326,23 @@ const search = ()=>{
 		}
 	)
 }
+
+const updateProductsCheck = ()=>{
+	console.log('updateProductsCheck')
+	console.log(stockStore.selectedProductIDList)
+    stockProducts.value.forEach((product,index) => {
+		console.log(product.id)
+        if(stockStore.selectedProductIDList.includes(product.id)){ 
+			console.log('in')
+			product.check=true
+        }else{
+			console.log('not in')
+            product.check=false
+        }
+    });
+}
+
+watch(computed(()=>stockProducts.value),updateProductsCheck)
 
 const changePage = page=> {      
 	currentPage.value = page;
@@ -398,10 +365,10 @@ const hideDropDown = ()=>{
 
 const deleteProduct = (product,index) => {
 	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
-	if (yes) delete_product(product.id, layoutStore.alert).then(res => {stockProducts.value.splice(index,1)
-		bulkEditStockObj.value.stockIdList.forEach( (id,index)=>{
-			if (id = product.id) bulkEditStockObj.value.stockIdList.splice(index,1)
-		})})
+	if (yes) delete_product(product.id, layoutStore.alert).then(res => {
+		stockProducts.value.splice(index,1)
+		stockStore.selectedProductIDList = stockStore.selectedProductIDList.filter((v) => v != product.id)
+		})
 	hideDropDown()
 }
 
@@ -424,46 +391,38 @@ const sortByThis = (by) =>{
 	search();
 }
 
-const pluginColumn = ()=>{
-	if(layoutStore.plugins){
-		tableColumns.value = [
-			{ name: "image", key: "image" },
-			{ name: "name", key: "name" },
-			{ name: "category", key: "category" },
-			{ name: "description", key: "description" },
-			{ name: "qty", key: "qty" },
-			{ name: "price", key: "price" }]
-	}
-}
+
 
 const selectAllStock = (event) => {
 	if (event.target.checked) {
 		stockProducts.value.forEach(product => { 
 			product.check = true 
-			bulkEditStockObj.value.stockIdList.push(product.id)
+			if(product.id in stockStore.selectedProductIDList){
+				//do nothing
+			}else{
+				stockStore.selectedProductIDList.push(product.id)
+			}
 		})
 	} else {
 		stockProducts.value.forEach(product => { 
 			product.check = false 
-			bulkEditStockObj.value.stockIdList = []
+			stockStore.selectedProductIDList = []
 		})		
 	}
 }
 
 const selectStock = (product, event) => {
-	if (event.target.checked) bulkEditStockObj.value.stockIdList.push(product.id)  
-	else bulkEditStockObj.value.stockIdList = bulkEditStockObj.value.stockIdList.filter((v) => v != product.id)
-}
-
-const hide = () => {
-    showModal.value = false
-}
-
-const bulkUpdateStock = () => {
-	bulk_update_product(bulkEditStockObj.value, layoutStore.alert).then(res => {
-		hide()
-		search()
-	})
+	if (event.target.checked){
+		if(product.id in stockStore.selectedProductIDList){
+			//do nothing
+		}else{
+			stockStore.selectedProductIDList.push(product.id)
+		}
+	} 
+	else {
+		stockStore.selectedProductIDList = stockStore.selectedProductIDList.filter((v) => v != product.id)
+	}
+	console.log(stockStore.selectedProductIDList)
 }
 
 const sentWishlistMail = (product, index) =>{
