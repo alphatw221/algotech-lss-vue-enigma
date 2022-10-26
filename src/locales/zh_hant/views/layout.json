@@ -17,7 +17,7 @@
         "campaign-list":"銷售活動列表",
         "campaign-live":"銷售活動",
         "manage-order":"訂單管理",
-        "order-detail":"訂單明細",
+        "order-detail":"訂單詳情",
         "cart-detail":"購物車明细",
         "settings":"設定",
         "localization":"本地化",
@@ -61,9 +61,9 @@
         "join_now": "立即加入",
         "dismiss": "略過"
     },
-    "test_mode": "測試模式",
+    "test_mode": "正式模式",
     "switch_mode_confirmation": {
-        "message": "一旦切換到正是模式則無法更改",
+        "message": "一旦切換為正式模式，系統無法再回到測試模式",
         "switch": "切換"
     }
 }

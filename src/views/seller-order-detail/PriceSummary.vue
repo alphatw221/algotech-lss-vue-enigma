@@ -35,7 +35,7 @@
       <!-- SUBTOTAL_AFTER_DISCOUNT -->
       <div class="flex" v-if="sellerOrderDetail.order.discount !=0">
         <!-- <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div> -->
-        <div class="mr-auto">Subtotal After Doscount</div>
+        <div class="mr-auto">{{$t('order_detail.price_summary.sub_after_discount')}}</div>
         <div class="font-medium" v-if="campaignDetailStore.campaign ">
           {{campaignDetailStore.campaign.currency}} 
           {{ (Math.floor(parseFloat(Math.max(sellerOrderDetail.order.subtotal-sellerOrderDetail.order.discount,0)) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}

@@ -37,7 +37,8 @@
         "price_exceed":"Giá giảm đang vượt quá tổng giá trị đơn hàng",
         "update" : "Cập nhật      ",
         "display_name": "Hiển thị tên",
-        "amount": "Số Lượng"
+        "amount": "Số Lượng",
+        "sub_after_discount": "Subtotal after discount"
     },
     "delivery":{
         "information" : "Thông tin giao hàng",

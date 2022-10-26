@@ -53,7 +53,8 @@
         },
         "save_success":"儲存成功",
         "not_saved":"取消儲存",
-        "confirm_delete": "確定要刪除該類別？"
+        "confirm_delete": "確定要刪除該類別？",
+        "enabled": "Enabled flat reate"
     },
 
     "add_product_page": {

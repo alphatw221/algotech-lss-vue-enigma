@@ -18,7 +18,7 @@
         "campaign-list":"销售活动列表",
         "campaign-live":"销售活动",
         "manage-order":"订单管理",
-        "order-detail":"订单明细",
+        "order-detail":"订单详情",
         "cart-detail":"购物车明细",
         "settings":"设定",
         "localization":"在地化",
@@ -62,9 +62,9 @@
         "join_now": "立即加入",
         "dismiss": "略过"
     },
-    "test_mode": "测试模式",
+    "test_mode": "正式模式",
     "switch_mode_confirmation": {
-        "message": "一旦切换到正是模式则无法更改",
+        "message": "一旦切换为正式模式，系统无法再回到测试模式",
         "switch": "切换"
     }
 }

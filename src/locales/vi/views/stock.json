@@ -50,7 +50,8 @@
             "warning_duplicate": "Tên danh mục trùng lặp"
         },
         "save_success":"Lưu thành công",
-        "not_saved":"Cập nhật Hủy bỏ"
+        "not_saved":"Cập nhật Hủy bỏ",
+        "enabled": "Enabled"
     },
 
     "add_product_page": {

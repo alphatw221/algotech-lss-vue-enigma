@@ -68,9 +68,9 @@
         "join_now": "Join now",
         "dismiss": "Dismiss"
     },
-    "test_mode": "TEST MODE",
+    "test_mode": "Live Mode",
     "switch_mode_confirmation": {
-        "message": "As you switch to production mode, it can not be switched back.",
+        "message": "As you switch to Live Mode, it can not be switched back.",
         "switch": "switch"
     }
 }

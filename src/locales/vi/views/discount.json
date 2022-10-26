@@ -26,7 +26,7 @@
         "all": "Tất cả"
     },
     "modal":{
-        "create":"Create mã giảm giá",
+        "create":"Tạo mã giảm giá",
         "edit":"Chỉnh sửa mã giảm giá",
         "name":"giãm giá Tên",
         "code":"mã giảm giá",

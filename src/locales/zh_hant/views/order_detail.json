@@ -37,7 +37,8 @@
         "price_exceed":"金額不可超過小計",
         "update" : "更新",
         "display_name": "顯示名稱",
-        "amount": "金額"
+        "amount": "金額",
+        "sub_after_discount": "代碼折抵後小計"
     },
     "delivery":{
         "information" : "運送資訊",
