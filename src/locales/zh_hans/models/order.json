@@ -1,41 +1,45 @@
-{
-    "status":{
-     "complete":"完成",
-     "proceed":"处理中"
+{   
+    "status":"订单状态",
+    "status_options":{
+    "complete":"完成",
+    "proceed":"处理中"
+   },
+
+   "payment_status":"付款状态",
+   "payment_status_options":{
+    "awaiting_payment":"待付款",
+    "awaiting_confirm":"待确认",
+    "failed":"失败",
+    "expired":"过期",
+    "paid":"已付款",
+    "awaiting_refund":"待退款",
+    "refunded":"已退款"
+   },
+
+   "delivery_status":"物流状态",
+   "delivery_status_options":{
+    "awaiting_fulfillment":"理货中",
+    "awaiting_shipment":"待运送",
+    "awaiting_pickup":"未取货",
+    "partially_shipped":"部分送出",
+    "shipped":"已送出",
+    "collected":"已收货",
+    "awaiting_return":"待寄回",
+    "returned":"已寄回"
+   },
+
+   "payment_method":"付款方式",
+   "payment_method_options":{
+        "stripe":"Stripe",
+        "direct_payment":"转帐付款",
+        "hitpay":"Hitpay",
+        "paypal":"Paypal",
+        "ecpay":"Ecpay",
+        "pay_mongo":"Pay Mongo",
+        "rapyd":"Rapyd"
     },
- 
-    "payment_status":{
-     "awaiting_payment":"待付款",
-     "awaiting_confirm":"待确认",
-     "failed":"失败",
-     "expired":"过期",
-     "paid":"已付款",
-     "awaiting_refund":"待退款",
-     "refunded":"已退款"
-    },
- 
-    "delivery_status":{
-     "awaiting_fulfillment":"理货中",
-     "awaiting_shipment":"待运送",
-     "awaiting_pickup":"未取货",
-     "partially_shipped":"部分送出",
-     "shipped":"已送出",
-     "collected":"已收货",
-     "awaiting_return":"待寄回",
-     "returned":"已寄回"
-    },
- 
-    "payment_method":{
-         "stripe":"Stripe",
-         "direct_payment":"转帐付款",
-         "hitpay":"Hitpay",
-         "paypal":"Paypal",
-         "ecpay":"Ecpay",
-         "pay_mongo":"Pay Mongo",
-         "rapyd":"Rapyd"
-     },
- 
-     "subtotal_after_discount":"折扣后小计",
- 
-     "payment_completed":"付款完成"
- }
+
+    "subtotal_after_discount":"折扣后小计",
+
+    "payment_completed":"付款完成"
+}

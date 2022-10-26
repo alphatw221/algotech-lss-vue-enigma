@@ -3,9 +3,6 @@
         <div class="p-8 sm:my-5 border-2 box border-secondary flex-col flex gap-4"> 
             <div>
                 <span class="text-lg"> {{$t('order_detail.payment.information')}}</span>   
-                <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base">
-                    {{$t(`order.payment_status.${sellerOrderDetailStore.order.payment_status}`) }}
-                </span> 
             </div>
            
             <div class="grid grid-cols-6" v-if="sellerOrderDetailStore.order.payment_method">
@@ -27,6 +24,10 @@
                             <Tippy tag="img" :src="sellerOrderDetailStore.order.meta.receipt_image" />
                     </span>
                 </template>
+
+                <span class="col-start-1 col-span-2 py-2">{{$t('order.payment_status')}}</span>   
+                <span class="col-start-3 col-span-3 py-2">{{$t(`order.payment_status_options.${sellerOrderDetailStore.order.payment_status}`)}}</span>
+
             </div>
         </div>
     </div>

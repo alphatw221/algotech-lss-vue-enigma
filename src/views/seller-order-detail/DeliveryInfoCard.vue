@@ -4,9 +4,6 @@
         <div class="p-8 sm:my-3 border-2 box border-secondary flex-col flex gap-4"> 
             <div>
                 <span class="text-lg dark:border-darkmode-400">{{$t('order_detail.delivery.information')}}</span>   
-                <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base">
-                    {{$t(`order.delivery_status.${sellerOrderDetailStore.order.delivery_status}`) }}
-                </span> 
             </div>
             
 
@@ -44,7 +41,13 @@
                         {{sellerOrderDetailStore.order.shipping_postcode}}
                     </span>
                 </template>
+
+                <span class="col-start-1 col-span-2 py-2">{{$t('order.delivery_status')}}</span>   
+                <span class="col-start-3 col-span-3 py-2">{{$t(`order.delivery_status_options.${sellerOrderDetailStore.order.delivery_status}`)}}</span>
+
             </div>
+
+            
         </div>
         <!-- Remark -->
         <div class="box p-8 border-2 border-secondary flex flex-col gap-3 mt-2" v-show="sellerOrderDetailStore.order.shipping_remark">

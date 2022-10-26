@@ -75,6 +75,9 @@
                             </div>
                         </template>
                         
+                        <div class="col-start-1 col-span-2 py-3">{{$t('order.payment_status')}}</div>
+                        <div class="col-start-3 col-span-3 py-3">{{$t(`order.payment_status_options.${buyerOrderStore.order.payment_status}`)}}</div>
+
                         <template v-if="buyerOrderStore.order.shipping_method === 'pickup'">
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.information')}}</div>
                             <div class="col-start-3 col-span-3 py-2">{{$t('order_detail.delivery.pickup')}}</div>
@@ -111,6 +114,9 @@
                                 
                             </div>
                         </template>
+
+                        <div class="col-start-1 col-span-2 py-3">{{$t('order.delivery_status')}}</div>
+                        <div class="col-start-3 col-span-3 py-3">{{$t(`order.delivery_status_options.${buyerOrderStore.order.delivery_status}`)}}</div>
                     </div>
                 </div>
             </div>
