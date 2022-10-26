@@ -19,7 +19,7 @@
                     v-if="!layoutStore.plugins"
                     type="button" 
                     class="btn btn-primary shadow-md w-32 h-[35px] sm:h-[42px] ml-3" 
-                    @click="this.$router.push({name:'category-management'})">
+                    @click="router.push({name:'category-management'})">
                     {{ $t('stock.search_bar.category_manage') }}
                 </button>
             </div> 
@@ -49,7 +49,9 @@
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { ref, onMounted, getCurrentInstance, defineProps, onUnmounted,computed } from 'vue'
 import { useRoute, useRouter } from "vue-router"
-import { useSellerStockStore } from "@/stores/lss-seller-stock"
+
+const route = useRoute()
+const router = useRouter()
 
 const stockStore = useSellerStockStore();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
