@@ -54,16 +54,26 @@ let webSocket = null
 
 onMounted(()=>{
     initWebSocketConnection()
-    retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
-		campaignDetailStore.campaign = res.data
-        console.log(res.data.end_at)
-        let now = new Date()
-        let isCapturable = res.data.end_at ? new Date(res.data.end_at) > now : false
-        if (isCapturable) {
-            console.log("insert capture data")
-            if(sellerStore.commentCapturingCampaignData?.id!=res.data.id) sellerStore.commentCapturingCampaignData = res.data
-        }
-	})
+
+
+    let now = new Date()
+    let isCapturable = campaignDetailStore.campaign.end_at ? new Date(campaignDetailStore.campaign.end_at) > now : false
+    if (isCapturable) {
+        console.log("insert capture data")
+        if(sellerStore.commentCapturingCampaignData?.id!=campaignDetailStore.campaign.id) sellerStore.commentCapturingCampaignData = campaignDetailStore.campaign
+    }
+
+
+    // retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
+	// 	campaignDetailStore.campaign = res.data
+    //     console.log(res.data.end_at)
+    //     let now = new Date()
+    //     let isCapturable = res.data.end_at ? new Date(res.data.end_at) > now : false
+    //     if (isCapturable) {
+    //         console.log("insert capture data")
+    //         if(sellerStore.commentCapturingCampaignData?.id!=res.data.id) sellerStore.commentCapturingCampaignData = res.data
+    //     }
+	// })
     
 })
 

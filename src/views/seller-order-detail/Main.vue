@@ -3,10 +3,7 @@
     <div class="w-[100%] mx-2 flex-col flex gap-1">
         <div class="my-auto">
             <h2 class="text-xl font-semibold"> #{{sellerOrderDetail.order.id}} 
-                <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base" v-if="route.query.type == 'cart'">
-                    Cart
-                </span> 
-                <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base" v-else>
+                <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base">
                     {{$t(`manage_order.${sellerOrderDetail.order.status}`) }}
                 </span> 
             </h2>
@@ -14,24 +11,17 @@
         <div v-if="sellerOrderDetail.order.customer_name" class="my-auto">
             <span class="text-base mr-5"> {{ sellerOrderDetail.order.customer_name }} {{sellerOrderDetail.order.platform ? `/ `+ $t('order_detail.'+ sellerOrderDetail.order.platform) : ''}}</span>
         </div>
-        <div class="my-auto" v-if="route.query.type != 'cart'">
+        <div class="my-auto" >
             <span class="text-base mr-5 break-all">{{$t('order_detail.delivery.email')}} : {{sellerOrderDetail.order.shipping_email}}</span>
         </div>
-        <div class="my-auto" v-if="route.query.type != 'cart'">
+        <div class="my-auto" >
             <span class="text-base mr-5">{{$t('order_detail.delivery.phone')}} : {{sellerOrderDetail.order.shipping_phone}}</span>
         </div>
         <div class="flex flex-row sm:w-[50%]">
             <div class="my-auto">
                 <span class="text-base"> {{$t('order_detail.order_date')}} : {{new Date(sellerOrderDetail.order.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
             </div>
-            <div class="ml-auto" v-if="route.query.type !== 'order'">
-                <button
-                    class="btn w-32 border-slate-300 dark:border-darkmode-400"
-                    @click="sellerOrderDetail.showAddItemModal = ! sellerOrderDetail.showAddItemModal"
-                >
-                    + {{$t('shopping_cart.order_summary.add_item')}}
-                </button>
-            </div>
+            
         </div>
     </div>
     <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:max-h-[50vh]"> 
@@ -66,6 +56,9 @@
 import OrderDetailTable from "./OrderDetailTable.vue";
 import PriceSummary from "./PriceSummary.vue"
 import OrderSummary from "@/components/box/OrderSummary.vue";
+import DeliveryInfoCard from "./DeliveryInfoCard.vue"
+import PaymentInfoCard from "./PaymentInfoCard.vue"
+
 import { computed, onMounted, onBeforeMount, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 import { seller_search_campaign_product} from "@/api_v2/campaign_product";
 import { seller_retrieve_pre_order } from "@/api_v2/pre_order";
@@ -74,6 +67,7 @@ import { seller_retrieve_order } from "@/api_v2/order";
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
+
 
 
 const route = useRoute()

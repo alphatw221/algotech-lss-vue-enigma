@@ -173,7 +173,7 @@
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
-                                {{ `${$t('order.payment_method.direct_payment')} - ${order.meta.account_mode}` }}
+                                {{ `${$t('order.payment_method_options.direct_payment')} - ${order.meta.account_mode}` }}
                             </template>
                             <template v-else-if="order[column.key] != ''">
                                 {{ $t(`order.${column.key}.${order[column.key]}`) }}
@@ -188,18 +188,18 @@
                             <template v-if="order[column.key]==='awaiting_confirm'">
                                 <select v-model="order[column.key]" class="w-30" @change="updateOrderPaymentStatus(order, index, $event)">
                                     <option :value="option.value" v-for="(option,index) in payment_status_options" :key="index">
-                                        {{$t(`order.payment_status.${option.value}`)}}</option>
+                                        {{$t(`order.payment_status_options.${option.value}`)}}</option>
                                 </select>
                             </template>
                             <template v-else>
-                                {{$t(`order.payment_status.${order[column.key]}`)}}
+                                {{$t(`order.payment_status_options.${order[column.key]}`)}}
                             </template>
                         </template>
                         
                         <template v-else-if="column.key === 'delivery_status'">
                             <select v-model="order[column.key]" class="w-30" @change="updateOrderDeliveryStatus(order, index, $event)">
                                 <option :value="option.value" v-for="(option,index) in delivery_status_options" :key="index">
-                                    {{$t(`order.delivery_status.${option.value}`)}}</option>
+                                    {{$t(`order.delivery_status_options.${option.value}`)}}</option>
                             </select>
                         </template>
 

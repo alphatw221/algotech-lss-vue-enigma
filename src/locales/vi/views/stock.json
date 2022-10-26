@@ -39,6 +39,7 @@
     },
 
     "category_manage": {
+        "create": "Tạo loại/nhóm mới",
         "create_new_category": "Tạo loại/nhóm mới",
         "edit_title": "Chỉnh sửa ",
         "edit": "Chỉnh sửa",
@@ -75,7 +76,6 @@
         "description": "Mô tả",
         "product_description": "mô tả sản phẩm...",
         "description_warning":"Cannot contains <head> tag",
-        // "description_warning": "Mô tả không lớn hơn 500 kí tự",
         "preview":"Xem trước",
         "cancel": "Hủy bỏ",
         "save": "Lưu lại",
@@ -89,6 +89,12 @@
         "confirm_send":"Xác nhận để thông báo và gửi E-mail cho mọi người trong danh sách đợi hàng",
         "cancel_send":"Đã hủy",
         "success_send":"Email đã được gửi thành công."
+    },
+    "bulk_edit_modal":{
+        "bulk_edit":"số lượng lớn",
+        "select_a_category":"Chọn một danh mục để cập nhật",
+        "cancel":"sự hủy bỏ",
+        "save":"Tiết kiệm"
     }
     
 }

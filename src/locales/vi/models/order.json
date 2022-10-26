@@ -1,39 +1,45 @@
 {
-    "status":{
-     "complete":"Complete",
-     "proceed":"Proceed"
-    },
- 
-    "payment_status":{
-     "awaiting_payment":"Awaiting Payment",
-     "awaiting_confirm":"Awaiting Confirm",
-     "failed":"Failed",
-     "expired":"Expired",
-     "paid":"Paid",
-     "awaiting_refund":"Awaiting Refund",
-     "refunded":"Refunded"
-    },
- 
-    "delivery_status":{
-     "awaiting_fulfillment":"Awaiting Fulfillment",
-     "awaiting_shipment":"Awaiting Shipment",
-     "awaiting_pickup":"Awaiting Pickup",
-     "partially_shipped":"Partially Shipped",
-     "shipped":"Shipped",
-     "collected":"Collected",
-     "awaiting_return":"Awaiting Return",
-     "returned":"Returned"
+    "status":"Tình trạng đặt hàng",
+    "status_options":{
+     "complete": "Hoàn thành",
+     "proceed": "Tiếp tục"
     },
 
-    "payment_method":{
-        "stripe":"Stripe",
-        "direct_payment":"Direct Payment",
-        "hitpay":"Hitpay",
-        "paypal":"Paypal",
-        "ecpay":"Ecpay",
-        "pay_mongo":"Pay Mongo",
-        "rapyd":"Rapyd"
-    }
- 
- 
+    "payment_status":"Tình trạng thanh toán",
+    "payment_status_options":{
+     "awaiting_payment": "Đang chờ thanh toán",
+     "awaiting_confirm": "Đang chờ xác nhận",
+     "failed": "Không thành công",
+     "expired": "Đã hết hạn",
+     "paid": "Đã trả",
+     "awaiting_refund": "Đang chờ hoàn tiền",
+     "refunded": "Đã hoàn lại"
+    },
+
+    "delivery_status":"Tình trạng giao hàng",
+    "delivery_status_options":{
+     "awaiting_fulfillment": "Đang chờ thực hiện",
+     "awaiting_shipment": "Đang chờ Giao hàng",
+     "awaiting_pickup": "Đang chờ Nhận",
+     "partially_shipped": "Được vận chuyển một phần",
+     "shipped": "Đã giao hàng",
+     "collected": "Đã thu thập",
+     "awaiting_return": "Đang chờ trở lại",
+     "returned": "Đã trả lại"
+    },
+   
+    "payment_method":"Phương thức thanh toán",
+    "payment_method_options":{
+        "stripe": "Sọc",
+        "direct_payment": "Thanh toán Trực tiếp",
+        "hitpay": "Hitpay",
+        "paypal": "Paypal",
+        "ecpay": "Ecpay",
+        "pay_mongo": "Thanh toán cho Mongo",
+        "rapyd": "Rapyd"
+    },
+
+    "subtotal_after_discount": "Tổng phụ sau khi giảm giá",
+
+    "payment_completed":"Giao dịch hoàn tất"
  }

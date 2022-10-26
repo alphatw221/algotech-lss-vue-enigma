@@ -99,7 +99,7 @@
                         <div
                             v-if="manageOrderStore.order.discount" 
                             class="flex col-start-1 col-span-3 p-2">
-                            <div class="mr-auto font-bold">Subtotal After Discount </div>
+                            <div class="mr-auto font-bold">{{$t('cart.subtotal_after_discount')}}</div>
                             <div class="lg:mr-0" v-if="campaignDetailStore.campaign">
                                 {{campaignDetailStore.campaign.currency}} 
                                 {{ (Math.floor(parseFloat(Math.max(manageOrderStore.order.subtotal-manageOrderStore.order.discount,0)) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}

@@ -40,6 +40,7 @@
     },
 
     "category_manage": {
+        "create": "建立新分类",
         "create_new_category": "建立新分类",
         "edit_title": "编辑类别",
         "edit": "编辑",
@@ -91,6 +92,12 @@
         "confirm_send":"确认通过电子邮件发送通知給愿望清单上的每个人",
         "cancel_send":"取消",
         "success_send":"电子邮件已发送成功"
+    },
+    "bulk_edit_modal":{
+        "bulk_edit":"批次编辑",
+        "select_a_category":"选择商品类别",
+        "cancel":"取消",
+        "save":"储存"
     }
     
 }

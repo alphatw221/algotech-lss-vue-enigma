@@ -35,7 +35,7 @@
       <!-- SUBTOTAL_AFTER_DISCOUNT -->
       <div class="flex" v-if="sellerCartStore.cart.discount !=0">
         <!-- <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div> -->
-        <div class="mr-auto">Subtotal After Doscount{{$t('order_detail.price_summary.sub_total')}}</div>
+        <div class="mr-auto">{{$t('cart.subtotal_after_discount')}}</div>
         <div class="font-medium" v-if="campaignDetailStore.campaign ">
           {{campaignDetailStore.campaign?.currency}} 
           {{ (Math.floor(parseFloat(Math.max(computedCartSubtotal-sellerCartStore.cart.discount,0)) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places).toLocaleString('en-GB')}}
@@ -51,6 +51,8 @@
           <span class="text-red-500" v-if="sellerCartStore.cart.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold">
             ({{$t('order_detail.price_summary.apply_free_delivery')}})
           </span>
+          <div v-else-if="computedIsMultipleShippingCostApplied" class="text-red-600 text-sm">{{$t('cart.multiple_shiupping_included')}}</div>
+
         </div>
 
         <template v-if="campaignDetailStore.campaign">
@@ -78,7 +80,7 @@
             <div class="font-medium" v-if="campaignDetailStore.campaign">
               {{campaignDetailStore.campaign?.currency}}
               {{Math.floor(parseFloat(sellerCartStore.cart.adjust_price) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places }}
-              <!-- {{sellerCartStore.modify_status == '-' ? '-' + Math.floor(parseFloat(sellerCartStore.cart.adjust_price) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places : Math.floor(parseFloat(sellerCartStore.cart.adjust_price) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places}} -->
+              <!-- {{priceAdjustmentSign.value == '-' ? '-' + Math.floor(parseFloat(sellerCartStore.cart.adjust_price) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places : Math.floor(parseFloat(sellerCartStore.cart.adjust_price) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places}} -->
               {{campaignDetailStore.campaign?.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign?.price_unit}`):''}}
             </div>
             <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cleanAdjust()"/>
@@ -113,11 +115,11 @@
             </div>         
             <div class="flex flex-row w-2/3 gap-4 whitespace-nowrap">
                 <div class="">
-                    <input :id="'radio-switch-p'" class="form-check-input mr-2" type="radio" name="vertical_radio_button" v-model="sellerCartStore.modify_status" :value="'+'" />
+                    <input :id="'radio-switch-p'" class="form-check-input mr-2" type="radio" name="vertical_radio_button" v-model="priceAdjustmentSign" :value="'+'" />
                     <span> {{$t('order_detail.price_summary.add')}} +</span>
                 </div>
                 <div class="">
-                    <input :id="'radio-switch-m'" class="form-check-input mr-2" type="radio" name="vertical_radio_button" v-model="sellerCartStore.modify_status" :value="'-'" />
+                    <input :id="'radio-switch-m'" class="form-check-input mr-2" type="radio" name="vertical_radio_button" v-model="priceAdjustmentSign" :value="'-'" />
                     <span> {{$t('order_detail.price_summary.subtract')}} -</span>
                 </div>
             </div>
@@ -131,7 +133,7 @@
                     <div class="flex flex-row-reverse col-span-4">
                         <button class="btn btn-primary w-32 shadow-md" @click="sellerAdjustPrice()">{{$t('order_detail.price_summary.update')}}</button>
                     </div> 
-                    <!-- <div class="col-start-5 col-span-8" v-if="sellerCartStore.modify_status==='-' &&sellerCartStore.cart.subtotal+sellerCartStore.cart.shipping_cost-sellerCartStore.cart.discount-sellerCartStore.cart.adjust_price < 0" style="color:red">
+                    <!-- <div class="col-start-5 col-span-8" v-if="priceAdjustmentSign.value==='-' &&sellerCartStore.cart.subtotal+sellerCartStore.cart.shipping_cost-sellerCartStore.cart.discount-sellerCartStore.cart.adjust_price < 0" style="color:red">
                         {{$t('order_detail.price_summary.price_exceed')}}
                     </div> -->
             </div>
@@ -188,17 +190,16 @@ const route = useRoute();
 const router = useRouter();
 const layoutStore = useLSSSellerLayoutStore()
 
-
+const priceAdjustmentSign = ref('-')
 onMounted(()=>{
   watch(computed(()=>sellerCartStore.cart.adjust_price), () => { 
-
-    if( sellerCartStore.cart.adjust_price < 0 ){
-        sellerCartStore.modify_status = '-'
-    }else{
-        sellerCartStore.modify_status = '+'
-    } 
+    if( sellerCartStore.cart.adjust_price < 0 ){priceAdjustmentSign.value = '-'}
+    else if(sellerCartStore.cart.adjust_price > 0){priceAdjustmentSign.value = '+'}
   })
 
+  watch(computed(()=>priceAdjustmentSign.value), () => { 
+    sellerCartStore.cart.adjust_price = priceAdjustmentSign.value === '-'? -parseFloat(computedAdjustPrice.value) : parseFloat(computedAdjustPrice.value)
+  })
   
 })
 
@@ -210,12 +211,13 @@ const computedCartSubtotal = computed(()=>{
   return subtotal
 })
 
+
 const computedAdjustPrice = computed({
   get:()=>{
     return Math.abs(sellerCartStore.cart.adjust_price)
   },
   set:adjust_price=>{
-     sellerCartStore.cart.adjust_price = sellerCartStore.modify_status === '-'? -parseFloat(Math.abs(adjust_price)) : parseFloat(Math.abs(adjust_price))
+     sellerCartStore.cart.adjust_price = priceAdjustmentSign.value === '-'? -parseFloat(Math.abs(adjust_price)) : parseFloat(Math.abs(adjust_price))
   }
 });
 
@@ -258,6 +260,26 @@ const computedShippingCost = computed(()=>{
       
   return campaignDetailStore.campaign?.meta_logistic?.delivery_charge||0
 })
+
+const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
+
+  const logisticCategories = {}
+  Object.entries(sellerCartStore.cart?.products||{}).forEach(([key, value])=>{
+    if(
+      value>0 && 
+      campaignDetailStore.campaignProductDict?.[key]?.categories?.length===1 && 
+      layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()==campaignDetailStore.campaignProductDict?.[key]?.categories[0])
+      ){
+        const productCategory = layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()==campaignDetailStore.campaignProductDict?.[key]?.categories[0])
+
+        if(productCategory?.meta_logistic?.enable_flat_rate){
+          logisticCategories[campaignDetailStore.campaignProductDict?.[key]?.categories[0]]=true
+        }
+    }
+  })
+  return Object.keys(logisticCategories).length>1
+})
+
 
 const computedTotal = computed(()=>{
 

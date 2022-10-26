@@ -2,19 +2,19 @@
     <Modal :show="stockStore.showBulkEditModal" @hidden="hide()" backdrop="static">
 			<ModalBody class="p-10 ">
 				<div class="mt-1">
-					<label for="regular-form-2" class="form-label w-full text-center font-medium" style="font-size: 1.2rem;">Bulk Edit</label>
+					<label for="regular-form-2" class="form-label w-full text-center font-medium" style="font-size: 1.2rem;">{{$t(`stock.bulk_edit_modal.bulk_edit`)}}</label>
 					
-					<label for="crud-form-2" class="form-label text-base mt-2 font-medium">Category</label>
+					<label for="crud-form-2" class="form-label text-base mt-2 font-medium">{{$t(`product_category.product_category`)}}</label>
 					<TomSelect
 						id="crud-form-2"
 						multiple
-						placeholder="Select categories to update..."
+						:placeholder="$t(`stock.bulk_edit_modal.select_a_category`)"
 						v-model="categories"
 					>
 						<option v-for="productCategory, index in layoutStore.userInfo.user_subscription?.product_categories" :key="index" :value="productCategory.id">{{ productCategory.name }}</option>
 					</TomSelect>
 					
-					<label class="form-label text-base mt-5 font-medium">Status</label>
+					<label class="form-label text-base mt-5 font-medium">{{$t(`product.status`)}}</label>
 					<div class="flex">
 						<div class="ml-3" v-for="status in statusRadio" :key="status.key">
 							<input 
@@ -25,15 +25,15 @@
 								style="color:black;"
 							/>
 							<label class="form-check-label text-base" >
-								{{ $t(`stock.${status.text}`) }}
+								{{ $t(`product.status_options.${status.key}`) }}
 							</label>
 						</div>
 					</div>
 
 				</div>
 				<div class="flex justify-between">
-					<button class="w-32 shadow-md btn btn-secondary mt-7" @click="hide()">Cancel</button>
-					<button class="w-32 shadow-md btn btn-primary mt-7" @click="bulkUpdateStock()">Save</button>
+					<button class="w-32 shadow-md btn btn-secondary mt-7" @click="hide()">{{$t(`stock.bulk_edit_modal.cancel`)}}</button>
+					<button class="w-32 shadow-md btn btn-primary mt-7" @click="bulkUpdateStock()">{{$t(`stock.bulk_edit_modal.save`)}}</button>
 				</div>
 			</ModalBody>
 		</Modal>

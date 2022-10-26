@@ -4,7 +4,7 @@
         <div class="my-auto">
             <h2 class="text-xl font-semibold"> #{{sellerCartStore.cart.id}} 
                 <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base" >
-                    Cart
+                    {{$t('cart.cart')}}
                 </span> 
             </h2>
         </div>

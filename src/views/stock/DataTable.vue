@@ -335,15 +335,11 @@ const search = ()=>{
 }
 
 const updateProductsCheck = ()=>{
-	console.log('updateProductsCheck')
-	console.log(stockStore.selectedProductIDList)
     stockProducts.value.forEach((product,index) => {
-		console.log(product.id)
         if(stockStore.selectedProductIDList.includes(product.id)){ 
 			console.log('in')
 			product.check=true
         }else{
-			console.log('not in')
             product.check=false
         }
     });

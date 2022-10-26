@@ -1,0 +1,12 @@
+{
+    "product_category":"商品类别",
+    "all":"全部类别",
+    "uncategorized":"未分类",
+
+    "name":"类别名称",
+    "description":"类别叙述",
+    "meta_logistic":{
+        "enable_flat_rate":"启用固定运费",
+        "flat_rate":"固定运费"
+    }
+}

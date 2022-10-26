@@ -1,0 +1,9 @@
+{
+    "product":"Product",
+    "status":"Status",
+    "status_options":{
+        "enabled":"For Sale",
+        "disabled":"Delisted"
+    }
+    
+}
