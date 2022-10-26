@@ -96,7 +96,7 @@
 
       <!-- SUBTOTAL AFTER DISCOUNT -->
       <div v-if="store.order.discount != 0 && store.order.campaign||false" class="flex flex-row justify-between mt-2" >
-        <label class="w-fit my-auto whitespace-nowrap">Subtotal After Discount </label>
+        <label class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</label>
         <span class="font-medium "> 
           {{store.order.campaign.currency}} 
           {{(Math.floor(parseFloat(Math.max(store.order.subtotal-store.order.discount,0)) * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}

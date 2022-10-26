@@ -30,6 +30,8 @@ import discount from './views/discount.json'
 import order from './models/order.json'
 import product_category from './models/product_category.json'
 import product from './models/product.json'
+import cart from './models/cart.json'
+
 
 export default {
 
@@ -68,4 +70,5 @@ export default {
     order,
     product,
     product_category,
+    cart
 }

@@ -152,7 +152,7 @@
                     <!-- SUBTOTAL_AFTER_DISCOUNT -->
                     <div v-if="buyerOrderStore.order.discount !=0"
                         class="flex col-start-1 col-span-3 p-2 py-1">
-                            <div class="mr-auto">Subtotal After Discount </div>
+                            <div class="mr-auto">{{$t('cart.subtotal_after_discount')}}</div>
                             <div>
                                 {{buyerOrderStore.order.campaign.currency}}
                                 {{(Math.floor(Math.max((buyerOrderStore.order.subtotal - buyerOrderStore.order.discount),0) * (10 ** buyerOrderStore.order.campaign.decimal_places)) / 10 ** buyerOrderStore.order.campaign.decimal_places).toLocaleString('en-GB')}}
