@@ -293,10 +293,12 @@
     "refresh_try_again": "Please refresh the page and try again",
     "invalid_user": "Invalid User",
     "request_data_error": "Request data error",
-    "duplicate_discount_code":"Duplicate Discount Code"
+    "duplicate_discount_code":"Duplicate Discount Code",
 
 
 
+
+    "invalid_data":"Invalid Data"
 }
  
 

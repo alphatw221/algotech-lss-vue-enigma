@@ -11,7 +11,7 @@
                         v-model="selectedCategory"
                         @change="search"
                     >
-                        <option :value="''">{{ 'All' }}</option>
+                        <option :value="''">{{ $t('product_category.all') }}</option>
                         <option v-for="productCategory, index in layoutStore.userInfo.user_subscription?.product_categories" :key="index" :value="productCategory.id">{{ productCategory.name }}</option>
                     </select>
                 </div>

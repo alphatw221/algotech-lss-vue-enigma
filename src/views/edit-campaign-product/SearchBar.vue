@@ -5,7 +5,7 @@
     </label>
     <select class="form-select sm:mr-4 h-[35px] sm:h-[42px] flex-1 w-32 sm:w-40 my-auto"
         v-model="selectedCategory" @change="search()">
-        <option value=''> {{$t('edit_campaign_product.search_bar.all')}} </option>
+        <option value=''> {{$t('product_category.all')}} </option>
         <option v-for="product_category, index in layoutStore.userInfo.user_subscription?.product_categories" :key="index" :value="product_category.id">{{ product_category.name }}</option>
     </select>
 </div>

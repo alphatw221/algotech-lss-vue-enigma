@@ -1,0 +1,12 @@
+{
+    "product_category":"danh mục sản phẩm",
+    "all":"tất cả các loại",
+    "uncategorized":"chưa được phân loại",
+
+    "name":"tên danh mục",
+    "description":"Mô tả danh mục",
+    "meta_logistic":{
+        "enable_flat_rate":"Bật Ｓhipping tỷ lệ cố định",
+        "flat_rate":"Phí vận chuyển cố định"
+    }
+}

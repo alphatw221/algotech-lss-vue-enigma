@@ -38,24 +38,6 @@
                 </Dropdown>
             </div>
         </div>
-
-        <!-- <Modal :show="showModal" @hidden="closeAlert()" backdrop="static">
-            <ModalBody class="p-10 text-center">
-                <div class="mt-1">
-                    <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{ $t(`stock.category_manage.${modalTitle}`) }}</label>
-                    <input v-if="editType == 'update'" id="regular-form-2" type="text"
-                        class="mt-3 form-control" placeholder="Category Name" disabled
-                        v-model="oldCategory" />
-                    <input id="regular-form-2" type="text" class="mt-3 form-control"
-                        :placeholder="$t('stock.category_manage.input_holder')" v-model="categoryName" />
-                    <div class="text-danger whitespace-nowrap " v-if="duplicateName">{{ $t('stock.category_manage.modal.warning_duplicate') }}</div>
-                </div>
-                <div class="flex justify-between">
-                    <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false">{{ $t('stock.category_manage.modal.cancel') }}</button>
-                    <button class="w-32 shadow-md btn btn-primary mt-7" @click="update()">{{ $t('stock.category_manage.modal.save') }}</button>
-                </div>
-            </ModalBody>
-        </Modal> -->
         <CreateEditModalVue :modalType="modalType"/>
     </div>
 </template>

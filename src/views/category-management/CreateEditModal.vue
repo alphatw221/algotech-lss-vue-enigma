@@ -8,7 +8,7 @@
 
                     <div class="text-left">
                         <input id="regular-form-2" type="text"
-                            class="mt-3 form-control" placeholder="Category Name" 
+                            class="mt-3 form-control" :placeholder="$t(`product_category.name`)" 
                             v-model="productCategory.name" 
                             @blur="v.name.$touch()"    
                         />
@@ -22,7 +22,7 @@
                     <div class="text-left">
                         <textarea 
                             class="mt-3 p-3 form-control"
-                            :placeholder="'Description'"
+                            :placeholder="$t(`product_category.description`)"
                             v-model="productCategory.description"
                             @blur="v.description?.$touch()"
                         >
@@ -44,7 +44,7 @@
                                 type="checkbox" 
                                 v-model="productCategory.meta_logistic[field.key]"
                             />
-                            <label class="w-full text-base">{{field.key}}</label>
+                            <label class="w-full text-base">{{$t(`product_category.meta_logistic.${field.key}`)}}</label>
                         </div> 
 
                         <div class="text-left" v-else-if="field.type=='input_number'"> 
@@ -61,7 +61,7 @@
                             <label class="block text-danger text-[12px]" 
                                 v-for="error, index in v.meta_logistic?.[field.key]?.$errors"
                                 :key="index">
-                                {{ $t(`settings.delivery.errors.${error.$validator}`) }}
+                                {{ $t(`vulidate.${error.$validator}`) }}
                             </label>
                         </div> 
 
@@ -71,10 +71,6 @@
 
                     </template>
                     
-
-                    <!-- <input id="regular-form-2" type="text" class="mt-3 form-control"
-                        :placeholder="$t('stock.category_manage.input_holder')" v-model="categoryName" />
-                    <div class="text-danger whitespace-nowrap " v-if="duplicateName">{{ $t('stock.category_manage.modal.warning_duplicate') }}</div> -->
                 </div>
                 <div class="flex justify-between">
                     <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="hideModal()">{{ $t('stock.category_manage.modal.cancel') }}</button>
@@ -144,6 +140,11 @@ onUnmounted(() => {
 })
 
 const createProductCategory = ()=>{
+    v.value.$touch()
+    if(v.value.$invalid){
+        layoutStore.alert.showMessageToast(i18n.global.t(`error_messages.invalid_data`))
+        return
+    }
     create_product_category(productCategory.value, layoutStore.alert).then(res=>{
             layoutStore.userInfo.user_subscription.product_categories.unshift(res.data)
             layoutStore.notification.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.update_successfully'))
@@ -152,7 +153,11 @@ const createProductCategory = ()=>{
 }
 
 const updateProductCategory = () => {
-
+    v.value.$touch()
+    if(v.value.$invalid){
+        layoutStore.alert.showMessageToast(i18n.global.t(`error_messages.invalid_data`))
+        return
+    }
     update_product_category(productCategory.value.id, productCategory.value, layoutStore.alert)
         .then(res => {
             console.log(res.data)
@@ -172,6 +177,7 @@ const hideModal = ()=>{
         meta:{},
     }
     payloadBuffer.value = {}
+    v.value.$reset()
     categoryManagementStore.showCreateEditModal = false
 }
 

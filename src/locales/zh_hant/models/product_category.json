@@ -1,0 +1,12 @@
+{
+    "product_category":"商品類別",
+    "all":"全部類別",
+    "uncategorized":"未分類",
+
+    "name":"類別名稱",
+    "description":"類別敘述",
+    "meta_logistic":{
+        "enable_flat_rate":"啟用固定運費",
+        "flat_rate":"固定運費"
+    }
+}
