@@ -1,7 +1,13 @@
 <template>
     <div class="flex-col w-full"> 
         <div class="p-8 sm:my-5 border-2 box border-secondary flex-col flex gap-4"> 
-            <span class="text-lg"> {{$t('order_detail.payment.information')}}</span>   
+            <div>
+                <span class="text-lg"> {{$t('order_detail.payment.information')}}</span>   
+                <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base">
+                    {{$t(`order.payment_status.${sellerOrderDetailStore.order.payment_status}`) }}
+                </span> 
+            </div>
+           
             <div class="grid grid-cols-6" v-if="sellerOrderDetailStore.order.payment_method">
                 <template v-if="sellerOrderDetailStore.order.payment_method">
                     <span class="col-start-1 col-span-2 py-2">{{$t('order_detail.payment.method')}}</span>
