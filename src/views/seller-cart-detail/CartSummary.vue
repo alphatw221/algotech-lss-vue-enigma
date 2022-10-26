@@ -35,7 +35,7 @@
       <!-- SUBTOTAL_AFTER_DISCOUNT -->
       <div class="flex" v-if="sellerCartStore.cart.discount !=0">
         <!-- <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div> -->
-        <div class="mr-auto">Subtotal After Doscount</div>
+        <div class="mr-auto">{{$t('cart.subtotal_after_discount')}}</div>
         <div class="font-medium" v-if="campaignDetailStore.campaign ">
           {{campaignDetailStore.campaign?.currency}} 
           {{ (Math.floor(parseFloat(Math.max(computedCartSubtotal-sellerCartStore.cart.discount,0)) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places).toLocaleString('en-GB')}}
@@ -51,7 +51,7 @@
           <span class="text-red-500" v-if="sellerCartStore.cart.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold">
             ({{$t('order_detail.price_summary.apply_free_delivery')}})
           </span>
-          <div v-else-if="computedIsMultipleShippingCostApplied" class="text-red-600 text-sm">Multiple Shipping Fee Applied</div>
+          <div v-else-if="computedIsMultipleShippingCostApplied" class="text-red-600 text-sm">{{$t('cart.multiple_shiupping_included')}}</div>
 
         </div>
 
