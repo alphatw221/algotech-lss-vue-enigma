@@ -19,7 +19,7 @@
                     v-if="!layoutStore.plugins"
                     type="button" 
                     class="btn btn-primary shadow-md w-32 h-[35px] sm:h-[42px] ml-3" 
-                    @click="this.$router.push({name:'category-management'})">
+                    @click="router.push({name:'category-management'})">
                     {{ $t('stock.search_bar.category_manage') }}
                 </button>
             </div> 
