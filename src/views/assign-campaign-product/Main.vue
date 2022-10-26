@@ -19,7 +19,7 @@
 						@change="filterProducts()"
 					>
 						<option :value="''">{{$t(`assign_product.search_bar.all`)}}</option>
-						<option v-for="category,index in productCategories" :key="index" :value="category">{{ category }}</option>
+						<option v-for="product_category,index in layoutStore.userInfo.user_subscription.product_categories" :key="index" :value="product_category.id">{{ product_category.name }}</option>
 					</select>
 				</div>
 				<!-- <div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
@@ -109,13 +109,16 @@
 										<div v-else class="text-center dashInput">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'category'" 
+									<!-- <td v-else-if="column.key === 'category'" 
 										class="category"
 										:data-content="$t(`assign_product.product_table.${column.key}`)"
 										>
 										<div v-for="(tag,tag_index) in product['tag']" :key="tag_index"
 										class="flex flex-col justify-center content-center"
 										>{{ tag }}</div> 
+									</td> -->
+									<td v-else-if="column.key === 'categories'" class="category" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div v-for="(productCategoryID,productCategoryIndex) in product[column.key]" :key="productCategoryIndex">{{ (layoutStore.userInfo?.user_subscription?.product_categories?.find(productCategory=>productCategory.id.toString()==productCategoryID))?.name }}</div> 
 									</td>
 
 									<td v-else-if="column.key === 'qty'"
@@ -263,8 +266,8 @@
 										<div v-else class="text-center dashInput">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'category'" class="category" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<div v-for="(tag,tag_index) in product['tag']" :key="tag_index">{{ tag }}</div> 
+									<td v-else-if="column.key === 'categories'" class="category" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div v-for="(productCategoryID,productCategoryIndex) in product[column.key]" :key="productCategoryIndex">{{ (layoutStore.userInfo?.user_subscription?.product_categories?.find(productCategory=>productCategory.id.toString()==productCategoryID))?.name }}</div> 
 									</td>
 
 									<td v-else-if="column.key === 'qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
@@ -365,7 +368,7 @@
 
 <script setup>
 import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
-import { list_product_category, search_product } from '@/api_v2/product';
+import { search_product } from '@/api_v2/product';
 import { get_campaign_product_order_code_dict, retrieve_campaign } from '@/api_v2/campaign';
 
 import { useRoute, useRouter } from "vue-router";
@@ -394,7 +397,7 @@ const tableColumns = ref([
 	{ name: "Oversell", key: "oversell" },
 	{ name: "Editable", key: "customer_editable" },
 	{ name: "Deletable", key: "customer_removable" },
-	{ name: "Category", key: "category" },
+	{ name: "Category", key: "categories" },
 	
 ])
 
@@ -419,6 +422,7 @@ const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
 const productCategories = ref([{value:'', name:'All'}])
+
 const product_type = [{value:'product',name:'Product'},{value:'lucky_draw',name:'Lucky Draw'}]
 
 const searchColumns = [
@@ -442,11 +446,10 @@ let isSelectedProductsValid=false
 
 onMounted(() => {
 	if(props.templateInModal){
-		eventBus.on('show_assign_product_view',()=>{getProductCategory();getCampaignProductDict();search();})
+		eventBus.on('show_assign_product_view',()=>{getCampaignProductDict();search();})
 		eventBus.on('hide_assign_product_view',()=>{clearAllData();})
 		return
 	}
-	getProductCategory()
 	getCampaignProductDict()
 	getCampaignDetail()
 	search()
@@ -457,12 +460,9 @@ onUnmounted(()=>{
 	eventBus.off('hide_assign_product_view')
 })
 
-const getProductCategory=()=>{list_product_category(layoutStore.alert).then(res => { productCategories.value = res.data})}
 const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id, layoutStore.alert).then(res=>{campaignProductOrderCodeDict.value = res.data})}
 
 const updateStockProducts = ()=>{
-	console.log('updateStockProducts')
-	console.log(selectedProductDict.value)
     stockProducts.value.forEach((product,stockProductIndex) => {
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]

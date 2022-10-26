@@ -94,6 +94,7 @@
         
         </div>
         <div v-if="shoppingCartStore.cart?.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold" class="text-red-600 text-sm">{{$t('shopping_cart.order_summary.free_delivery')}}</div>
+        <div v-if="computedIsMultipleShippingCostApplied" class="text-red-600 text-sm">Multiple Shipping Fee Applied</div>
 
       </template>
       
@@ -187,15 +188,35 @@ const computedCartSubtotal = computed(()=>{
 })
 
 const computedShippingCost = computed(()=>{
-  var shippingCost 
+  var shippingCost = 0 
   if(shoppingCartStore.shipping_info.shipping_method=='pickup'){
-    shippingCost = 0
+    return 0
   }else{
     if(!shoppingCartStore.cart?.campaign?.meta_logistic){
-      shippingCost = 0
+      return 0
     }else{
       const meta_logistic = shoppingCartStore.cart?.campaign?.meta_logistic
 
+      //----------------product category logistic setting-------------------------------------
+      const logisticCategories = {}
+      var applyCategoryLogistic = false
+      Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
+
+        console.log(shoppingCartStore.campaignProductDict?.[key]?.categories)
+        console.log(shoppingCartStore.productCategoryDict)
+        if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
+          logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]=true
+        }
+      })
+      Object.keys(logisticCategories).forEach((key)=>{
+        const productCategory = shoppingCartStore.productCategoryDict[key]
+        if(productCategory?.meta_logistic?.enable_flat_rate){
+          applyCategoryLogistic = true
+          shippingCost+=productCategory?.meta_logistic?.flat_rate||0
+        }
+      })
+      if(applyCategoryLogistic)return shippingCost
+      //----------------default logistic setting-------------------------------------
       shippingCost = Number(meta_logistic.delivery_charge || 0)
 
       if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
@@ -209,6 +230,20 @@ const computedShippingCost = computed(()=>{
     }
   }
   return shippingCost
+})
+
+const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
+
+  const logisticCategories = {}
+  Object.entries(shoppingCartStore.cart?.products||[]).forEach(([key, value])=>{
+    if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
+      const productCategory = shoppingCartStore.productCategoryDict[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]
+      if(productCategory?.meta_logistic?.enable_flat_rate == true){
+        logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]] = true
+      }
+    }
+  })
+  return Object.keys(logisticCategories).length>1
 })
 
 const computedCartTotal = computed(()=>{
@@ -235,7 +270,7 @@ const computedSubtotalOverFreeDeliveryThreshold = computed(()=>{
 })
 
 const computedItemsOverFreeDeliveryThreshold = computed(()=>{
-  return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? shoppingCartStore.cart.products.length >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
+  return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? Object.keys(shoppingCartStore.cart?.products||{}).length >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
 })
 
 // const updateOrderSummary = ()=>{

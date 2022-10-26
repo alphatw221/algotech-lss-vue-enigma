@@ -30,6 +30,7 @@
         "order_code": "Order Code",
         "type": "Type",
         "category": "Category",
+        "categories": "Category",
         "description": "Description",
         "qty": "Qty",
         "price": "Price",

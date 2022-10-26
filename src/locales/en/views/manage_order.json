@@ -38,7 +38,9 @@
                 "action":"Action",
                 "delivery_notification":"Notification",
                 "null":"",
-                "guest": "Guest"
+                "guest": "Guest",
+                "payment_status":"Payment Status",
+                "delivery_status":"Delivery Status"
         },
         "product_modal":{
                 "order_no":"Order No.",

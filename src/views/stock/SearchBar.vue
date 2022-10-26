@@ -11,11 +11,12 @@
                         v-model="selectedCategory"
                         @change="search"
                     >
-                        <option v-for="category in productCategories" :key="category.value" :value="category.value">{{ category.text }}</option>
+                        <option :value="''">{{ 'All' }}</option>
+                        <option v-for="productCategory, index in layoutStore.userInfo.user_subscription?.product_categories" :key="index" :value="productCategory.id">{{ productCategory.name }}</option>
                     </select>
                 </div>
                 <button
-                    v-if="!store.plugins"
+                    v-if="!layoutStore.plugins"
                     type="button" 
                     class="btn btn-primary shadow-md w-32 h-[35px] sm:h-[42px] ml-3" 
                     @click="this.$router.push({name:'category-management'})">
@@ -32,10 +33,10 @@
                     v-if="keyword"
                     class="flex-none w-7 h-7 mt-2 text-slate-600" @click="reset()"/>
                 <button
-                    v-show="isBulkEditShow"
+                    v-show="computedShowBulkEditButton"
                     type="button" 
                     class="btn btn-primary shadow-md w-32 h-[35px] lg:h-[42px] ml-4" 
-                    @click="bulkEdit"
+                    @click="showBulkEditModal()"
                 >
                     {{ $t('stock.search_bar.bulk_edit') }}
                 </button>
@@ -44,56 +45,43 @@
     </form>        
 </template>
 
-<script>
+<script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { ref, onMounted, getCurrentInstance, defineProps, onUnmounted,computed } from 'vue'
+import { useRoute, useRouter } from "vue-router"
+import { useSellerStockStore } from "@/stores/lss-seller-stock"
 
-export default {
-	setup() {
-	},
-	props: {
-		searchColumns: Array,
-        productCategories: Array,
-        showCategoryFilter: Boolean,
-        eventBusName: String
-	},
-	data() {
-		return {
-			page: 1,
-			pageSize: 10,
-			keyword: '',
-            searchField: 'name',
-            selectedCategory:'',
-            isBulkEditShow: false,
-            store: useLSSSellerLayoutStore(),
-		}
-	},
-    mounted() {
-        this.eventBus.on('isBulkEditShow', (payload) => {
-            if (payload.stockListLength > 0) this.isBulkEditShow = true 
-            else this.isBulkEditShow = false
-        })
-    },
-    unmounted() {
-        this.eventBus.off('isBulkEditShow')
-    },
-	watch: {
-		searchField() {
-			this.search();
-		},
-	},
-	methods: {
-		search() {
-			this.eventBus.emit(this.eventBusName, {searchColumn: this.searchField, keyword: this.keyword, pageSize: this.pageSize, filterColumn: this.selectedCategory})
-		},
-		reset() {
-			this.searchField = 'name';
-			this.keyword = '';
-            this.selectedCategory=''
-            this.search();
-		},
-        bulkEdit () {
-            this.eventBus.emit('bulkEditStock')
-        }
-	}
+const stockStore = useSellerStockStore();
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
+const props = defineProps({
+    showCategoryFilter: Boolean,
+    searchEventBusName: String,
+})
+
+const keyword = ref('')
+const searchField = ref('name')
+const selectedCategory = ref('')
+const layoutStore = useLSSSellerLayoutStore()
+
+const computedShowBulkEditButton = computed(()=>{
+    if(stockStore.selectedProductIDList.length>0)return true
+    return false
+})
+
+const search = ()=> {
+    eventBus.emit(props.searchEventBusName, {searchColumn: searchField.value, keyword: keyword.value, categoryID: selectedCategory.value})
 }
+
+const reset = () => {
+    searchField.value = 'name';
+    keyword.value = '';
+    selectedCategory.value=''
+    search();
+}
+
+const showBulkEditModal = ()=> {
+    stockStore.showBulkEditModal = true
+}
+
+
 </script>

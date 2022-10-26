@@ -3,7 +3,7 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
-					<th class="whitespace-normal lg:whitespace-nowrap text-center text-[16px]" v-for="column in tableColumns" :key="column.key">
+					<th class="whitespace-normal lg:whitespace-nowrap text-center text-[16px]" v-for="column in computedTableColumns" :key="column.key">
 						<template v-if="column.key === 'check'">
 							<input 
 								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
@@ -14,14 +14,17 @@
 						<template v-else-if="column.key === 'edit'">
 							{{ '' }}
 						</template>
+						<!-- too mush duplication over here -->
 						<template v-else-if="column.key === 'name'">
 							<div class="flex justify-center"> 
 								{{ $t(`stock.table_column.${column.key}`) }}
 								<template v-if="sortBy =='-name'" > 
 									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('name')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else-if="sortBy =='name'" > 
 									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else> 
 									<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
@@ -33,9 +36,11 @@
 								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
 								<template v-if="sortBy =='-qty'" > 
 									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('qty')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template>
 								<template v-else-if="sortBy =='qty'" > 
 									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else> 
 									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
@@ -47,9 +52,11 @@
 								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
 								<template v-if="sortBy =='-price'" > 
 									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('price')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template>
 								<template v-else-if="sortBy =='price'" > 
 									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
+									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else> 
 									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
@@ -68,10 +75,10 @@
 					v-if="showCommentLoding || numOfProducts==0">
 					<td v-if="showCommentLoding"
 						class="items-center relative tdDot"
-						:colspan="tableColumns.length +2" >
+						:colspan="computedTableColumns.length +2" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 					</td>
-					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="tableColumns.length +2" class="TDshadow">
+					<td v-else-if="numOfProducts==0 && keyword == ''" :colspan="computedTableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('stock.no_result.'+ product_status) }}
@@ -81,7 +88,7 @@
 							</h1> -->
 						</div>
 					</td> 
-					<td v-else-if="numOfProducts==0" :colspan="tableColumns.length +2" class="TDshadow">
+					<td v-else-if="numOfProducts==0" :colspan="computedTableColumns.length +2" class="TDshadow">
 						<div class="mt-40 text-center md:mt-10">
 							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
 								{{ $t('stock.no_result.'+ product_status) }}
@@ -94,12 +101,12 @@
 				</tr>
 				
 				<tr
-					v-for="(product, pindex) in stockProducts"
-					:key="pindex"
+					v-for="(product, product_index) in stockProducts"
+					:key="product_index"
 					class="intro-x"
 					:class="{'trBorder' : numOfProducts != 0}"
 				>	
-					<template v-for="column,index in tableColumns" :key="index"> 
+					<template v-for="column,index in computedTableColumns" :key="index"> 
 						<td class="w-10" v-if="column.key == 'check'">
 							<input 
 								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
@@ -127,9 +134,9 @@
 							</div>
 						</td>
 
-						<td v-else-if="column.key === 'category'" class="w-full sm:w-fit category" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div v-for="(tag,index) in product['tag'] " :key="index">
-								<div >{{ tag }}</div> 
+						<td v-else-if="column.key === 'categories'" class="w-full sm:w-fit category" :data-content="$t(`stock.table_column.${column.key}`)">
+							<div v-for="(productCategoryID,index) in product[column.key] " :key="index">
+								<div >{{ stockStore.productCategoryDict[productCategoryID]?.name }}</div> 
 							</div>
 						</td>
 
@@ -151,7 +158,7 @@
 						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
 							<template v-if="product.meta.wish_list" > 
 								<div v-if="Object.keys(product.meta.wish_list).length >0" 
-									class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product,pindex)"> 
+									class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product,product_index)"> 
 										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
 								<div v-else class="flex gap-2 cursor-not-allowed"> 
 									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
@@ -173,11 +180,11 @@
 												<SimpleIcon icon="edit" color="#2d8cf0" class="mr-1" />  
 												{{ $t('stock.category_manage.edit')}}
 											</DropdownItem>
-											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product)"> 
+											<DropdownItem class="w-28 text-center whitespace-nowrap text-[14px]" @click="copyProduct(product, product_index)"> 
 												<SimpleIcon icon="copy" color="#2d8cf0" class="mr-1" />  
 												{{ $t('stock.category_manage.duplicate')}}
 											</DropdownItem>
-											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product,pindex)"> 
+											<DropdownItem class="w-28 text-center text-danger whitespace-nowrap text-[14px]" @click="deleteProduct(product,product_index)"> 
 												<!-- <Trash2Icon class="w-[20px] h-[20px] mx-1"/> -->
 												<SimpleIcon icon="delete" color="#b91c1c" class="mr-1" />  
 												{{ $t('stock.category_manage.delete')}}
@@ -205,80 +212,54 @@
 			@on-page-size-change="changePageSize"
 		/>
 	</div> 
-	<div>
-		<Modal :show="showModal" @hidden="hide()" backdrop="static">
-			<ModalBody class="p-10 ">
-				<div class="mt-1">
-					<label for="regular-form-2" class="form-label w-full text-center font-medium" style="font-size: 1.2rem;">Bulk Edit</label>
-					
-					<label for="crud-form-2" class="form-label text-base mt-2 font-medium">Category</label>
-					<TomSelect
-						id="crud-form-2"
-						multiple
-						placeholder="Select categories to update..."
-						v-model="bulkEditStockObj.categories"
-					>
-						<option v-for="category in categorySelection" :key="category">{{ category }}</option>
-					</TomSelect>
-					
-					<label class="form-label text-base mt-5 font-medium">Status</label>
-					<div class="flex">
-						<div class="ml-3" v-for="status in statusRadio" :key="status.id">
-							<input 
-								type="radio" 
-								v-model="bulkEditStockObj.status"
-								:value="status.id"
-								:checked="props.product_status == status.id"
-								style="color:black;"
-							/>
-							<label class="form-check-label text-base" >
-								{{ $t(`stock.${status.text}`) }}
-							</label>
-						</div>
-					</div>
-
-				</div>
-				<div class="flex justify-between">
-					<button class="w-32 shadow-md btn btn-secondary mt-7" @click="hide()">Cancel</button>
-					<button class="w-32 shadow-md btn btn-primary mt-7" @click="bulkUpdateStock()">Save</button>
-				</div>
-			</ModalBody>
-		</Modal>
-	</div>
 </template>
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { search_product, delete_product, copy_product, list_product_category, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
+import { search_product, delete_product, copy_product, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n";
 import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
+import { useSellerStockStore } from "@/stores/lss-seller-stock"
 
+const stockStore = useSellerStockStore();
 const route = useRoute()
 const router = useRouter()
 const props = defineProps({
 	product_status: String,
-	eventBusName: String
+	searchEventBusName: String,
+
 })
-const tableColumns = ref([
-	{ name: "check", key: "check"},
-    { name: "image", key: "image" },
-	{ name: "name", key: "name" },
-	{ name: "category", key: "category" },
-	{ name: "remark", key: "remark" },
-	{ name: "qty", key: "qty" },
-	{ name: "price", key: "price" },
-	{ name: "wishlist", key:"wishlist"},
-	{ name: "", key: "edit" },
-])
+
 const statusRadio = ref([
 	{text: 'for_sale', id: 'enabled'},
 	{text: 'delisted', id: 'disabled'},
 ])
 
+const computedTableColumns = computed(()=>{
+	if(layoutStore.plugins){
+		return [
+			{ name: "image", key: "image" },
+			{ name: "name", key: "name", sortable:true},
+			{ name: "category", key: "categories" },
+			{ name: "description", key: "description" },
+			{ name: "qty", key: "qty", sortable:true},
+			{ name: "price", key: "price", sortable:true}]
+	}
+	return[
+		{ name: "check", key: "check"},
+		{ name: "image", key: "image" },
+		{ name: "name", key: "name", sortable:true },
+		{ name: "category", key: "categories" },
+		{ name: "remark", key: "remark" },
+		{ name: "qty", key: "qty", sortable:true },
+		{ name: "price", key: "price", sortable:true },
+		{ name: "wishlist", key:"wishlist"},
+		{ name: "", key: "edit" },]
+})
 const currentPage = ref(1)
 const totalPage = ref(1)
 const pageSize = ref(10)
@@ -286,15 +267,9 @@ const dataCount = ref(0)
 const searchColumn = ref('')
 const keyword = ref('')
 const stockProducts = ref([])
-const category = ref('')
+const categoryID = ref('')
 const sortBy = ref('')
 const showModal = ref(false)
-const categorySelection = ref([])
-const bulkEditStockObj = ref({
-	categories: [],
-	status: false,
-	stockIdList: []
-})
 
 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
@@ -304,53 +279,35 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 const numOfProducts = computed(()=>stockProducts.value.length)
 
 
-watch(computed(() => bulkEditStockObj.value.stockIdList), () => {
-	eventBus.emit('isBulkEditShow', { stockListLength: bulkEditStockObj.value.stockIdList.length })
-}, { deep:true })
-
 onMounted(()=>{
-	bulkEditStockObj.value.status = props.product_status
-
-	pluginColumn()
-
-	list_product_category(layoutStore.alert).then(res => { 
-		categorySelection.value = res.data
-		categorySelection.value.unshift('uncategory')
-	})
 
 	search()
-	eventBus.on(props.eventBusName, (payload) => {
+	eventBus.on(props.searchEventBusName, (payload) => {
 		currentPage.value = 1
 		searchColumn.value = payload.searchColumn
 		keyword.value = payload.keyword
-		pageSize.value = payload.pageSize
-		category.value = payload.filterColumn
+		categoryID.value = payload.categoryID
+		search()
+	});
+	eventBus.on('refreshStockTable', () => {
+		currentPage.value = 1
 		search()
 	});
 
-	eventBus.on(('bulkEditStock'), () => {
-		if (bulkEditStockObj.value.stockIdList.length > 0 && showModal.value == false) {
-			showModal.value = true
-		}
-	})
-	eventBus.on('toggleTab', () => {
-		bulkEditStockObj.value = { categories: [], status: false, stockIdList: [] }
-		stockProducts.value.forEach(product => { 
-			product.check = false 
-		})
-	})
 })
 
 onUnmounted(()=>{
-	eventBus.off(props.eventBusName)
-	eventBus.off('bulkEditStock')
-	eventBus.off('toggleTab')
+	eventBus.off(props.searchEventBusName)
+	//refreshStockTable event unregister at Main
 })
+
+
+
 
 const search = ()=>{
 	showCommentLoding.value = true
 	stockProducts.value = []
-	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
+	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _categoryID, _exclude, _sortBy, _toastify;
 
 	search_product(
 		_pageSize=pageSize.value, 
@@ -359,7 +316,7 @@ const search = ()=>{
 		_keyword=keyword.value, 
 		_productStatus=props.product_status, 
 		_productType='',
-		_category=category.value, 
+		_categoryID=categoryID.value, 
 		_exclude='', 
 		_sortBy=sortBy.value , 
 		_toastify=layoutStore.alert)
@@ -376,6 +333,23 @@ const search = ()=>{
 		}
 	)
 }
+
+const updateProductsCheck = ()=>{
+	console.log('updateProductsCheck')
+	console.log(stockStore.selectedProductIDList)
+    stockProducts.value.forEach((product,index) => {
+		console.log(product.id)
+        if(stockStore.selectedProductIDList.includes(product.id)){ 
+			console.log('in')
+			product.check=true
+        }else{
+			console.log('not in')
+            product.check=false
+        }
+    });
+}
+
+watch(computed(()=>stockProducts.value),updateProductsCheck)
 
 const changePage = page=> {      
 	currentPage.value = page;
@@ -398,22 +372,16 @@ const hideDropDown = ()=>{
 
 const deleteProduct = (product,index) => {
 	let yes = confirm(`${i18n.global.t('stock.table_column.confirm_delete')}`)
-	if (yes) delete_product(product.id, layoutStore.alert).then(res => {stockProducts.value.splice(index,1)
-		bulkEditStockObj.value.stockIdList.forEach( (id,index)=>{
-			if (id = product.id) bulkEditStockObj.value.stockIdList.splice(index,1)
-		})})
+	if (yes) delete_product(product.id, layoutStore.alert).then(res => {
+		stockProducts.value.splice(index,1)
+		stockStore.selectedProductIDList = stockStore.selectedProductIDList.filter((v) => v != product.id)
+		})
 	hideDropDown()
 }
 
-const copyProduct = (product) => {
-	const copy = Object.assign({}, product)
+const copyProduct = (product, index) => {
 	copy_product(product.id, layoutStore.alert).then(res => {
-		console.log(res)
-		copy.id = res.data.message 
-		copy.name = 'copy - ' + product.name
-		copy.check = false
-		stockProducts.value.unshift(copy)
-		console.log(stockProducts.value)
+		stockProducts.value.splice(index, 0 , res.data)
 		}
 	)
 	hideDropDown()
@@ -424,46 +392,41 @@ const sortByThis = (by) =>{
 	search();
 }
 
-const pluginColumn = ()=>{
-	if(layoutStore.plugins){
-		tableColumns.value = [
-			{ name: "image", key: "image" },
-			{ name: "name", key: "name" },
-			{ name: "category", key: "category" },
-			{ name: "description", key: "description" },
-			{ name: "qty", key: "qty" },
-			{ name: "price", key: "price" }]
-	}
+const cancelSortBy = ()=>{
+	sortBy.value = ''
+	search();
 }
 
 const selectAllStock = (event) => {
 	if (event.target.checked) {
 		stockProducts.value.forEach(product => { 
 			product.check = true 
-			bulkEditStockObj.value.stockIdList.push(product.id)
+			if(product.id in stockStore.selectedProductIDList){
+				//do nothing
+			}else{
+				stockStore.selectedProductIDList.push(product.id)
+			}
 		})
 	} else {
 		stockProducts.value.forEach(product => { 
 			product.check = false 
-			bulkEditStockObj.value.stockIdList = []
+			stockStore.selectedProductIDList = []
 		})		
 	}
 }
 
 const selectStock = (product, event) => {
-	if (event.target.checked) bulkEditStockObj.value.stockIdList.push(product.id)  
-	else bulkEditStockObj.value.stockIdList = bulkEditStockObj.value.stockIdList.filter((v) => v != product.id)
-}
-
-const hide = () => {
-    showModal.value = false
-}
-
-const bulkUpdateStock = () => {
-	bulk_update_product(bulkEditStockObj.value, layoutStore.alert).then(res => {
-		hide()
-		search()
-	})
+	if (event.target.checked){
+		if(product.id in stockStore.selectedProductIDList){
+			//do nothing
+		}else{
+			stockStore.selectedProductIDList.push(product.id)
+		}
+	} 
+	else {
+		stockStore.selectedProductIDList = stockStore.selectedProductIDList.filter((v) => v != product.id)
+	}
+	console.log(stockStore.selectedProductIDList)
 }
 
 const sentWishlistMail = (product, index) =>{

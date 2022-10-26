@@ -62,7 +62,7 @@
 									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 								</button>
 							</div>
-							<div v-if="product.qty_for_sale - product.qty_sold> 0 || product.oversell == true">
+							<div v-if="product.qty_for_sale  > product.qty_sold+product.qty_pending_payment || product.oversell == true">
 								<button 
 									class="btn btn-sm btn-primary w-24 mt-3"
 									@click="buyerAddItem(product, index)"
@@ -131,7 +131,7 @@ watch(computed(()=>shoppingCartStore.cart),()=>{
 const updateAddOnProducts = ()=>{
 	let temp = []
 	shoppingCartStore.campaignProducts.forEach(product => {
-		if(!(product.id.toString() in shoppingCartStore.cart.products)){
+		if(!(product.id.toString() in shoppingCartStore.cart.products) && product.type!='lucky_draw'){
 			product.qty=1
 			temp.push(product)
 		}

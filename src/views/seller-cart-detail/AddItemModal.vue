@@ -37,9 +37,9 @@
 							{{ product.name }}
 						</div>
 						<div class="text-slate-500 text-sm text-center">
-							{{sellerCartStore.cart.campaign.currency}} 
-							{{Math.floor(parseFloat(product.price) * (10 ** sellerCartStore.cart.campaign.decimal_places)) / 10 ** sellerCartStore.cart.campaign.decimal_places}}
-							{{sellerCartStore.cart.campaign.price_unit?$t(`global.price_unit.${sellerCartStore.cart.campaign.price_unit}`):''}}
+							{{campaignDetailStore.campaign?.currency}} 
+							{{Math.floor(parseFloat(product.price) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places}}
+							{{campaignDetailStore.campaign?.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign?.price_unit}`):''}}
 						</div>
 						<div class="flex">
 							<button type="button" @click="changeQuantity(null, index, 'minus')">

@@ -110,11 +110,19 @@
                         <!-- SHIPPING_COST -->
                         <div class="flex col-start-1 col-span-3 p-2">
                             <div class="mr-auto font-bold">{{$t('manage_order.product_modal.delivery_charge')}}</div>
-                            <div class="lg:mr-0" v-if="campaignDetailStore.campaign">
-                                {{campaignDetailStore.campaign.currency}} 
-                                {{(Math.floor(parseFloat(manageOrderStore.order.shipping_cost) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-                                {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
-                            </div>
+                            <template class="lg:mr-0" v-if="campaignDetailStore.campaign">
+                                <div v-if="manageOrderStore.order.free_delivery || manageOrderStore.order?.meta?.subtotal_over_free_delivery_threshold || manageOrderStore.order?.meta?.items_over_free_delivery_threshold">
+                                    {{campaignDetailStore.campaign.currency}} 
+                                    {{(Math.floor(0 * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                    {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                                </div>
+
+                                <div v-else>
+                                    {{campaignDetailStore.campaign.currency}} 
+                                    {{(Math.floor(parseFloat(manageOrderStore.order.shipping_cost) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                    {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                                </div>
+                            </template>
                         </div>
                         
                         <!-- ADJUST_PRICE -->

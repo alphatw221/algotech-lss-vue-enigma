@@ -28,22 +28,23 @@
 
 				<TomSelect
 					id="crud-form-2"
-					v-model="product.tag"
+					v-model="product.categories"
 					class="w-full"
 					multiple
 					v-if="route.params.product_id"
 				>
-					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
+					<option v-for="productCategory, index in layoutStore.userInfo?.user_subscription?.product_categories" :key="index" :value="productCategory.id">{{ productCategory.name }}</option>
 				</TomSelect>
 
 				<TomSelect
 					id="crud-form-2"
-					v-model="product.tag"
+					v-model="product.categories"
 					class="w-full"
 					multiple
 					v-else
 				>
-					<option v-for="category in categorySelection" :key="category">{{ category }}</option>
+					<!-- <option v-for="category in categorySelection" :key="category">{{ category }}</option> -->
+					<option v-for="productCategory, index in layoutStore.userInfo?.user_subscription?.product_categories" :key="index" :value="productCategory.id">{{ productCategory.name }}</option>
 				</TomSelect>
 				<!-- <template v-if="validate.tag.$error">
 						<label class="text-danger ml-2 text-[13px] lg:text-[16px]" >
@@ -209,10 +210,10 @@
 
 			
 			<div class="z-50 col-span-12 flex justify-end sm:mt-3">
-				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="cancelButton">
+				<button class="w-32 bg-white btn dark:border-darkmode-400" @click="cancelButton()">
 					{{ $t('stock.add_product_page.cancel') }}
 				</button>
-				<button class="w-32 ml-5 shadow-md btn btn-primary" @click="submit">
+				<button class="w-32 ml-5 shadow-md btn btn-primary" @click="submit()">
 					{{ $t('stock.add_product_page.save') }}
 				</button>
 			</div>
@@ -223,7 +224,7 @@
 
 <script setup>
 
-import { list_product_category, create_product, update_product, retrieve_product } from '@/api_v2/product';
+import { create_product, update_product, retrieve_product } from '@/api_v2/product';
 import { ref, onMounted, computed, provide, getCurrentInstance } from 'vue'
 import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -242,7 +243,6 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 const product = ref({
 	id: 0,
 	name: '',
-	category: [],
 	image: '',
 	type: null,
 	order_code: null,
@@ -250,8 +250,8 @@ const product = ref({
 	qty: 0,
 	price: 0,
 	status: 'enabled',
-	tag: [],
-	remark:''
+	remark:'',
+	categories:[]
 })
 
 const notContains = (param) => (value) => !value.includes(param)
@@ -292,10 +292,6 @@ const formData = new FormData()
 const validate = useVuelidate(rules, product);
 
 onMounted(()=>{
-	list_product_category(layoutStore.alert).then(res => { 
-		categorySelection.value = res.data
-		categorySelection.value.unshift('uncategory')
-	})
 	if (route.params.product_id) {
 		retrieve_product(route.params.product_id, layoutStore.alert)
 		.then(
@@ -322,6 +318,9 @@ const removeImage = () =>{
 
 }
 const submit = ()=>{
+
+	// console.log(product.value)
+	// return
 	validate.value.$touch();
     if (validate.value.$invalid) {
         layoutStore.alert.showMessageToast(i18n.global.t('stock.add_product_page.invalid_data'))
