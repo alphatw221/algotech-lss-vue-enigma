@@ -38,8 +38,8 @@ export const upload_animation = (data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/user-subscription/seller/upload/animation/`, data)     
 }
 
-export const report_of_campaigns_in_period = (start_time, end_time, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/user-subscription/report_of_campaigns_in_period/?start_time=${start_time}&end_time=${end_time}`)
+export const sales_report = (start_time, end_time, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/sales_report/?start_time=${start_time}&end_time=${end_time}`)
 }
 
 // export const get_user_subscription_facebook_pages = (data, toastify=null) => {
