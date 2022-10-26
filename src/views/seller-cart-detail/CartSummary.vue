@@ -51,6 +51,8 @@
           <span class="text-red-500" v-if="sellerCartStore.cart.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold">
             ({{$t('order_detail.price_summary.apply_free_delivery')}})
           </span>
+          <div v-else-if="computedIsMultipleShippingCostApplied" class="text-red-600 text-sm">Multiple Shipping Fee Applied</div>
+
         </div>
 
         <template v-if="campaignDetailStore.campaign">
@@ -258,6 +260,26 @@ const computedShippingCost = computed(()=>{
       
   return campaignDetailStore.campaign?.meta_logistic?.delivery_charge||0
 })
+
+const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
+
+  const logisticCategories = {}
+  Object.entries(sellerCartStore.cart?.products||{}).forEach(([key, value])=>{
+    if(
+      value>0 && 
+      campaignDetailStore.campaignProductDict?.[key]?.categories?.length===1 && 
+      layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()==campaignDetailStore.campaignProductDict?.[key]?.categories[0])
+      ){
+        const productCategory = layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()==campaignDetailStore.campaignProductDict?.[key]?.categories[0])
+
+        if(productCategory?.meta_logistic?.enable_flat_rate){
+          logisticCategories[campaignDetailStore.campaignProductDict?.[key]?.categories[0]]=true
+        }
+    }
+  })
+  return Object.keys(logisticCategories).length>1
+})
+
 
 const computedTotal = computed(()=>{
 

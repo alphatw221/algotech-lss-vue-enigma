@@ -183,6 +183,7 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
 import { retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 
 import EnterPostIDModal from "@/views/campaign-list/enter-post-id-modal/Main.vue"
 import { required, minLength, maxLength, helpers, numeric , decimal, minValue, requiredIf, integer} from "@vuelidate/validators";
@@ -197,6 +198,10 @@ import anonymous_profile from "/src/assets/images/lss-img/noname.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import i18n from "@/locales/i18n"
 import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
+
+
+
+const campaignDetailStore = useCampaignDetailStore()
 const sellerStore = useLSSSellerLayoutStore()
 
 const paymentMetaStore = useLSSPaymentMetaStore()
@@ -256,7 +261,9 @@ const campaignNotes = ref({
 
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const ready = ref(false)
+
 onMounted(() => {
+
 	retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
 		campaignData.value = JSON.parse(JSON.stringify(res.data))
 		campaignData.value.decimal_places = res.data.decimal_places.toString()  //temp   TomSelect only work with string value
@@ -266,8 +273,6 @@ onMounted(() => {
 
 		campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
 		if(sellerStore.userInfo.user_subscription.country)campaignData.value.country = sellerStore.userInfo.user_subscription.country
-
-
 
 		//if support payment is in meta_payment -> do nothing
 		//else -> build one with all default value
@@ -284,19 +289,6 @@ onMounted(() => {
 				campaignData.value.meta_payment[key]['enabled'] = false
 			}
 		});
-
-
-		// campaignData.value.meta_payment = {}
-		// sellerStore.userInfo.user_subscription.meta_country.activated_country.forEach(country => { 
-		// 	paymentMetaStore[country].forEach(key=>{
-		// 		if (!allowedPaymentMethods.value.includes(key)) {
-		// 			allowedPaymentMethods.value.push(key)
-		// 			campaignData.value.meta_payment[key] = JSON.parse(JSON.stringify(res.data.meta_payment[key]))
-		// 		}
-		// 	})
-		// })
-		
-
 
 
 		campaignNotes.value.meta_payment.special_note = JSON.parse(JSON.stringify(res.data.meta_payment.special_note))
@@ -368,7 +360,8 @@ const updateCampaign = ()=>{
 		formData.append(key,image)
 	});
 
-	update_campaign(route.params.campaign_id,formData, sellerStore.alert).then(response => {
+	update_campaign(route.params.campaign_id,formData, sellerStore.alert).then(res => {
+		campaignDetailStore.campaign = res.data
 		router.push({name:'campaign-list'})
 	})
 
