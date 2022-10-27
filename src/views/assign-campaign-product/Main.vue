@@ -16,10 +16,10 @@
 					<select 
 						class="form-select min-w-fit h-[35px] sm:h-[42px] lg:max-w-xl"
 						v-model="selectedCategory"
-						@change="search()"
+						@change="filterProducts()"
 					>
 						<option :value="''">{{$t(`assign_product.search_bar.all`)}}</option>
-						<option v-for="category,index in productCategories" :key="index" :value="category">{{ category }}</option>
+						<option v-for="product_category,index in layoutStore.userInfo.user_subscription.product_categories" :key="index" :value="product_category.id">{{ product_category.name }}</option>
 					</select>
 				</div>
 				<!-- <div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
@@ -38,9 +38,9 @@
 					<div class="relative"> 
 						<input type="text"
 							class="form-control input-group min-w-fit mr-0 h-[35px] sm:h-[42px] lg:max-w-xl mt-auto" :placeholder="$t('assign_product.search_bar.search_bar_place_holder')"
-							v-model="searchKeyword" @keydown.enter.prevent="search()" 
+							v-model="searchKeyword" @keydown.enter.prevent="filterProducts()" 
 						/>
-						<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="search()"/>
+						<SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-4 z-10 text-slate-600" @click="filterProducts()"/>
 					</div>
 					<XIcon 
 						v-if="searchKeyword"
@@ -64,12 +64,16 @@
 						<thead>
 							<tr>
 								<th class="w-10 text-center">
-									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="selectAll" @change="selectAllStockProduct($event)"/></th>
+									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="selectAll" @change="selectAllStockProduct($event)"/>
+								</th>
 								<th 
 									class="whitespace-normal truncate hover:text-clip text-center" 
 									v-for="column in tableColumns" :key="column.key">
 
 									{{$t(`assign_product.product_table.${column.key}`)}}
+									<!-- <input v-if="column.key=='oversell'" class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="allProductOversellEnable" @change="selectAllStockProduct($event)"/>
+									<input v-else-if="column.key=='customer_editable'" class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="allProductEditable" @change="selectAllStockProduct($event)"/>
+									<input v-else-if="column.key=='customer_removable'" class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="allProductRemovable" @change="selectAllStockProduct($event)"/> -->
 								</th>
 							</tr>
 						</thead>
@@ -81,7 +85,7 @@
 							>
 								<td class="w-10">
 									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" 
-										type="checkbox" v-model="product.check" @click="selectStockProduct(product, $event)"/>
+										type="checkbox" v-model="product.check" @click="clickStockProductCheckbox(product, $event)"/>
 								</td>
 
 								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
@@ -105,13 +109,16 @@
 										<div v-else class="text-center dashInput">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'category'" 
+									<!-- <td v-else-if="column.key === 'category'" 
 										class="category"
 										:data-content="$t(`assign_product.product_table.${column.key}`)"
 										>
 										<div v-for="(tag,tag_index) in product['tag']" :key="tag_index"
 										class="flex flex-col justify-center content-center"
 										>{{ tag }}</div> 
+									</td> -->
+									<td v-else-if="column.key === 'categories'" class="category" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div v-for="(productCategoryID,productCategoryIndex) in product[column.key]" :key="productCategoryIndex">{{ (layoutStore.userInfo?.user_subscription?.product_categories?.find(productCategory=>productCategory.id.toString()==productCategoryID))?.name }}</div> 
 									</td>
 
 									<td v-else-if="column.key === 'qty'"
@@ -195,8 +202,9 @@
 				</div>
 				<div class="intro-y flex flex-row flex-wrap sm:flex-nowrap items-center justify-between">
 					<Page 
-						class="mx-auto my-3"
-						:total="dataCount" 
+						class="mx-auto my-3" 
+						:total="dataCount"
+						:page-size="pageSize"
 						@on-change="changePage"
 						@on-page-size-change="changePageSize"
 					/>
@@ -236,7 +244,7 @@
 								class="intro-x align-middle"
 							>
 								<td class="w-10">
-									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" type="checkbox" checked @click="unSelectProduct(product, product_index, $event)"/>
+									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" type="checkbox" checked @click="clickSelectedProductCheckbox(product, product_index, $event)"/>
 								</td>
 								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
 
@@ -258,8 +266,8 @@
 										<div v-else class="text-center dashInput">-</div>
 									</td>
 
-									<td v-else-if="column.key === 'category'" class="category" :data-content="$t(`assign_product.product_table.${column.key}`)">
-										<div v-for="(tag,tag_index) in product['tag']" :key="tag_index">{{ tag }}</div> 
+									<td v-else-if="column.key === 'categories'" class="category" :data-content="$t(`assign_product.product_table.${column.key}`)">
+										<div v-for="(productCategoryID,productCategoryIndex) in product[column.key]" :key="productCategoryIndex">{{ (layoutStore.userInfo?.user_subscription?.product_categories?.find(productCategory=>productCategory.id.toString()==productCategoryID))?.name }}</div> 
 									</td>
 
 									<td v-else-if="column.key === 'qty'" class="qty" :data-content="$t(`assign_product.product_table.${column.key}`)">
@@ -360,7 +368,7 @@
 
 <script setup>
 import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
-import { list_product_category, search_product } from '@/api_v2/product';
+import { search_product } from '@/api_v2/product';
 import { get_campaign_product_order_code_dict, retrieve_campaign } from '@/api_v2/campaign';
 
 import { useRoute, useRouter } from "vue-router";
@@ -389,7 +397,7 @@ const tableColumns = ref([
 	{ name: "Oversell", key: "oversell" },
 	{ name: "Editable", key: "customer_editable" },
 	{ name: "Deletable", key: "customer_removable" },
-	{ name: "Category", key: "category" },
+	{ name: "Category", key: "categories" },
 	
 ])
 
@@ -402,7 +410,8 @@ const router = useRouter();
 
 const openTab = ref('select')
 const currentPage = ref(1)
-const pageSize = ref(10)
+const pageSize = ref(50)
+const totalPage = ref(1)
 const dataCount = ref(0)
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
@@ -413,6 +422,7 @@ const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
 const productCategories = ref([{value:'', name:'All'}])
+
 const product_type = [{value:'product',name:'Product'},{value:'lucky_draw',name:'Lucky Draw'}]
 
 const searchColumns = [
@@ -426,6 +436,9 @@ const selectedProducts = ref([])
 const errorMessages = ref([])
 const selectedProductDict = ref({})
 const selectAll = ref(false)
+const allProductRemovable = ref(false)
+const allProductEditable = ref(false)
+const allProductOversellEnable = ref(false)
 
 const campaignProductOrderCodeDict = ref({})
 
@@ -433,11 +446,10 @@ let isSelectedProductsValid=false
 
 onMounted(() => {
 	if(props.templateInModal){
-		eventBus.on('show_assign_product_view',()=>{getProductCategory();getCampaignProductDict();search();})
+		eventBus.on('show_assign_product_view',()=>{getCampaignProductDict();search();})
 		eventBus.on('hide_assign_product_view',()=>{clearAllData();})
 		return
 	}
-	getProductCategory()
 	getCampaignProductDict()
 	getCampaignDetail()
 	search()
@@ -448,11 +460,9 @@ onUnmounted(()=>{
 	eventBus.off('hide_assign_product_view')
 })
 
-const getProductCategory=()=>{list_product_category(layoutStore.alert).then(res => { productCategories.value = res.data})}
 const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id, layoutStore.alert).then(res=>{campaignProductOrderCodeDict.value = res.data})}
 
 const updateStockProducts = ()=>{
-	console.log('selected',selectedProductDict.value)
     stockProducts.value.forEach((product,stockProductIndex) => {
         if(product.id.toString() in selectedProductDict.value){ 
             const index = selectedProductDict.value[product.id.toString()]
@@ -533,41 +543,42 @@ const selectedProductRemovable = (product_index, event)=>{if(event.target.checke
 const selectedProductEditable = (product_index, event)=>{if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false}
 
 const updateSelectedProductDict = ()=>{
+	
     selectedProductDict.value = {}
     selectedProducts.value.forEach((selectedProduct,index)=>{
 		selectedProductDict.value[selectedProduct.id.toString()]=index
 		})
-    }
+	console.log('updateSelectedProductDict')
+	console.log(selectedProductDict.value)
+}
 
-const selectStockProduct = (stockProduct, event) =>{
-    if(event.target.checked){
-		stockProduct.customer_editable=true
-		stockProduct.customer_removable=true
-		stockProduct.oversell=true
+const selectStockProduct = (stockProduct) =>{
+	console.log('selectStockProduct')
+    if(!(stockProduct.id.toString() in selectedProductDict.value)){
+		stockProduct.check = true
         errorMessages.value.push({})
         selectedProducts.value.push( stockProduct )
         selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
     }
-	else if(event.target.value != 'on'){
-		stockProduct.check = true
-		stockProduct.customer_editable=true
-		stockProduct.customer_removable=true
-		stockProduct.oversell=true
-		selectedProducts.value.indexOf(stockProduct) === -1 ? selectedProducts.value.push( stockProduct ) : '';
-		errorMessages.value.push({})
-        selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1
-    }else{
+}
+
+const clickStockProductCheckbox = (stockProduct, event) =>{
+	console.log('clickStockProductCheckbox')
+	console.log(event.target.checked)
+    if(event.target.checked && !(stockProduct.id.toString() in selectedProductDict.value)){
+        errorMessages.value.push({})
+        selectedProducts.value.push( stockProduct )
+        selectedProductDict.value[stockProduct.id.toString()]=selectedProducts.value.length-1   //cache index
+    }
+	else if(!(event.target.checked) && stockProduct.id.toString() in selectedProductDict.value){
         const _index = selectedProductDict.value[stockProduct.id.toString()]
-        stockProduct.customer_editable=false
-		stockProduct.customer_removable=false
-		stockProduct.oversell=false
         selectedProducts.value.splice(_index,1)
         errorMessages.value.splice(_index,1)
         updateSelectedProductDict()
     }
 }
 
-const unSelectProduct = (selectedProduct ,selectedProductIndex, event) =>{
+const clickSelectedProductCheckbox = (selectedProduct ,selectedProductIndex, event) =>{
 	event.target.checked=true
 	selectedProducts.value.splice(selectedProductIndex,1)
 	errorMessages.value.splice(selectedProductIndex,1)
@@ -592,9 +603,9 @@ const selectAllStockProduct = (event)=>{
 		stockProducts.value.forEach(product => {
 			if(!(product.id.toString() in selectedProductDict.value)) {
 				product.check=true
-				product.customer_editable=true
-				product.customer_removable=true
-				product.oversell=true
+				// product.customer_editable=true
+				// product.customer_removable=true
+				// product.oversell=true
 				selectedProducts.value.push(product)
 				selectedProductDict.value[product.id.toString()]=selectedProducts.value.length-1
 				errorMessages.value.push({})
@@ -604,9 +615,9 @@ const selectAllStockProduct = (event)=>{
 		stockProducts.value.forEach(product => {
 			if((product.id.toString() in selectedProductDict.value)) {
 				product.check=false
-				product.customer_editable=false
-				product.customer_removable=false
-				product.oversell=false
+				// product.customer_editable=false
+				// product.customer_removable=false
+				// product.oversell=false
 				const _index = selectedProductDict.value[product.id.toString()]
 				// console.log(_index)
 				selectedProducts.value.splice(_index,1)
@@ -619,7 +630,14 @@ const selectAllStockProduct = (event)=>{
     openTab.value='select'
 }
 
+const filterProducts = ()=>{
+	currentPage.value = 1
+	search()
+}
+
 const search = () => {
+	console.log('selectedProductDict')
+	console.log(selectedProductDict.value)
 	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
 		_pageSize=pageSize.value,
@@ -633,21 +651,40 @@ const search = () => {
 		_sortBy='',
 		_toastify=layoutStore.alert)
 	.then(response => {
-		dataCount.value = response.data.count
+		// console.log('data_count')
+		// console.log(response.data.count)
+		dataCount.value = response.data.count;
+		// if (response.data.count != undefined) {
+        //   dataCount.value = response.data.count;
+        //   const _totalPage = Math.ceil(response.data.count / pageSize.value);
+        //   totalPage.value = _totalPage == 0 ? 1 : _totalPage;
+		//   console.log('totalPage')
+		// 	console.log(totalPage.value)
+		// 	totalPage.value = 3
+        // }
 		stockProducts.value = response.data.results
-		console.log(stockProducts.value = response.data.results)
-		// proudct type 預設 product
-		let emptyType = ['', null, undefined]
-		Object.entries(stockProducts.value).forEach((product) => {
-			product[1].type = emptyType.includes(product[1].type) ? 'product' : product[1].type
-		})
+		// console.log(stockProducts.value = response.data.results)
+		// proudct default value
+		stockProducts.value.forEach(product => {
+			if (!(product.id.toString() in selectedProductDict.value)){
+				product.type = ['', null, undefined].includes(product.type) ? 'product' : product.type
+				product.oversell = false
+				product.assign_qty = product.qty
+				product.customer_editable = true
+				product.customer_removable = false
+			}
+			
+		});
 	})
 }
 
 const resetSearchBar = ()=>{
+	console.log(stockProducts.value)
+	console.log(selectedProductDict.value)
     selectedCategory.value=''
     searchField.value='name'
     searchKeyword.value = ''
+	currentPage.value = 1
     search()
 }
 
@@ -657,8 +694,8 @@ const changePage = (page) => {
 }
 
 
-const changePageSize = (pageSize)=>{
-	pageSize = pageSize;
+const changePageSize = (page_size)=>{
+	pageSize.value = page_size;
 	search();
 }
 
@@ -700,8 +737,9 @@ const clearAllData = ()=>{
     selectedProductDict.value = {}
     openTab.value = 'select'
     currentPage.value = 1
-    pageSize.value=10
+    pageSize.value=50
     dataCount.value =0
+	totalPage.value = 1
 	campaignProductOrderCodeDict.value = {}
 	isSelectedProductsValid = false
 	campaignDetailStore.showAddProductFromStockModal = false

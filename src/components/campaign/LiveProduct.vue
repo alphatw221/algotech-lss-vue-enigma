@@ -60,14 +60,14 @@
                                 {{ $t(`campaign_live.product.modal_column.no_product`) }}
                             </td> 
                         </tr> 
-                        <tr v-for="product,index in store.campaignProducts" :key="index" :class="{'text-slate-400': !product.status}">
+                        <tr v-for="product,index in store.campaignProducts" :key="index" :class="{'text-slate-400': !product.active}">
 
                             <td class="md:hidden">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
-                                        @click="toggle_campaign_product_status(product)"
+                                        @click="toggle_campaign_product_active(product)"
                                         class="form-check-input" type="checkbox" 
-                                        v-model="product.status"
+                                        v-model="product.active"
                                     />
                                 </div>
                             </td>
@@ -85,8 +85,8 @@
                             </template>
                             <td>
                                 <b :class="{'text-slate-400': !product.overbook}">{{ product.qty_add_to_cart }}</b> / <b>{{ product.qty_sold }}</b> / 
-                                <b v-if="product.qty_for_sale - product.qty_sold >= 0" class="">{{ product.qty_for_sale - product.qty_sold }}</b>
-                                <b v-else class="text-danger" :class="{'text-slate-400': !product.status}">{{ product.qty_for_sale - product.qty_sold }}</b>
+                                <b v-if="product.qty_for_sale - product.qty_sold - product.qty_pending_payment >= 0" class="">{{ product.qty_for_sale - product.qty_sold - product.qty_pending_payment }}</b>
+                                <b v-else class="text-danger" :class="{'text-slate-400': !product.active}">{{ product.qty_for_sale - product.qty_sold - product.qty_pending_payment }}</b>
                             </td>
                             <!-- currency_sign reference from user_subscription -->
                             <td v-if="store.campaign">
@@ -100,16 +100,16 @@
                                         id="overbookCheckbox"
                                         @click="toggle_campaign_product_overbook(product)"
                                         class="form-check-input" type="checkbox" 
-                                        v-model="product.overbook" :disabled="route.query.status == 'history' || product.status == false"
+                                        v-model="product.overbook" :disabled="route.query.status == 'history' || product.active == false"
                                     />
                                 </div>
                             </td>
                             <td class="status_active">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
-                                        @click="toggle_campaign_product_status(product)"
+                                        @click="toggle_campaign_product_active(product)"
                                         class="form-check-input" type="checkbox" 
-                                        v-model="product.status" :disabled="route.query.status == 'history'"
+                                        v-model="product.active" :disabled="route.query.status == 'history'"
                                     />
                                 </div>
                             </td>
@@ -128,7 +128,7 @@
 <script setup>
 
 import { seller_list_campaign_product } from '@/api_v2/campaign_product';
-import { seller_toggle_campaign_product_status, seller_toggle_campaign_product_overbook } from '@/api_v2/campaign_product';
+import { seller_toggle_campaign_product_active, seller_toggle_campaign_product_overbook } from '@/api_v2/campaign_product';
 // import AddProductFromStock from './modals/AddProductFromStockModal.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
@@ -151,7 +151,7 @@ const product_columns = [
     { name: "cart_sold_left", key: "Sold_Left" },
     { name: "price", key: "price" },
     { name: "overbook", key: "overbook" },
-    { name: "activate", key: "activate" }
+    { name: "activate", key: "active" }
 ]
 
 
@@ -163,12 +163,12 @@ onMounted(() => {
 )
 
 
-const toggle_campaign_product_status = (product) => {
-    seller_toggle_campaign_product_status(product.id).then(res => {
+const toggle_campaign_product_active = (product) => {
+    seller_toggle_campaign_product_active(product.id).then(res => {
         Object.entries(res.data).forEach(([key,value]) => {
             product[key]=value                       //proxy object only got setter
         });
-        product.overbook = false
+        // product.overbook = false
     })
 }
 

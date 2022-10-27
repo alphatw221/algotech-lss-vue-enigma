@@ -25,7 +25,6 @@
 
 <script setup>
 import { ref, onMounted, getCurrentInstance } from 'vue';
-import { list_product_category } from '@/api_v2/product';
 import { useRoute, useRouter } from "vue-router";
 import AddProductFromStockModal from '@/components/campaign/modals/AddProductFromStockModal.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
@@ -44,11 +43,7 @@ const filterColumn = ref(undefined)
 const categorySelection = ref([])
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
-onMounted(() => {
-   list_product_category(layoutStore.alert).then(response => {
-        categorySelection.value = response.data
-    }) 
-})
+
 
 const search = () => {
     eventBus.emit("addProducts")

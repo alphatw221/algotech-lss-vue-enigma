@@ -44,7 +44,7 @@
             "Product":"Product",
             "order_code":"Order Code",
             "price":"Price",
-            "overbid":"overbid",
+            "overbook":"Overbid",
             "activate":"Activate",
             "qty":"Qty",
             "stock_qty":"Stock QTY",
@@ -99,7 +99,9 @@
             "platform" : "Platform",
             "order_number" : "Order No.",
             "null":"",
-            "no_order":"You don't have any incoming order"
+            "no_order":"You don't have any incoming order",
+            "product":"Product",
+            "qty":"Qty"
         }
     }
 }

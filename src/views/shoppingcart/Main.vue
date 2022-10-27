@@ -8,8 +8,8 @@
             <button 
             @click="toggleTabs(1)"
             :class="{
-              'text-neutral-600 bg-white': store.openTab !== 1,
-              'text-white bg-primary': store.openTab === 1,
+              'text-neutral-600 bg-white': shoppingCartStore.openTab !== 1,
+              'text-white bg-primary': shoppingCartStore.openTab === 1,
             }"
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
               <SimpleIcon icon="shopping_cart" :color="btnOne" />
@@ -17,8 +17,8 @@
             <div
               class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               :class="{
-                'text-neutral-600': store.openTab !== 1,
-                'font-bold': store.openTab === 1,
+                'text-neutral-600': shoppingCartStore.openTab !== 1,
+                'font-bold': shoppingCartStore.openTab === 1,
               }">
               {{$t('shopping_cart.shopping_cart')}}
             </div>
@@ -29,8 +29,8 @@
             <button 
             @click="toggleTabs(2)"
             :class="{
-              'text-neutral-600 bg-white': store.openTab !== 2,
-              'text-white bg-primary': store.openTab === 2,
+              'text-neutral-600 bg-white': shoppingCartStore.openTab !== 2,
+              'text-white bg-primary': shoppingCartStore.openTab === 2,
             }"
               class="w-12 h-12 rounded-full shadow-lg btn text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
               <SimpleIcon icon="truck" :color="btnTwo" />
@@ -38,8 +38,8 @@
             <div
               class="w-0 hidden lg:block lg:w-32 text-base lg:mt-1 ml-3 lg:mx-auto text-slate-600 dark:text-slate-400"
               :class="{
-                'text-neutral-600': store.openTab !== 2,
-                'font-bold': store.openTab === 2,
+                'text-neutral-600': shoppingCartStore.openTab !== 2,
+                'font-bold': shoppingCartStore.openTab === 2,
               }">
               {{$t('shopping_cart.delivery')}}
             </div>
@@ -66,6 +66,7 @@
     </div>
     <WishListModal :isAnonymousUser="isAnonymousUser"/>
     <ItemDescriptionModal />
+    <AddItemModal/>
   </div>
 </template>
 
@@ -77,66 +78,78 @@ import MyCartTab from "./MyCartTab.vue";
 import DeliveryTab from "./DeliveryTab.vue";
 import WishListModal from "./modals/WishListModal.vue";
 import ItemDescriptionModal from "./modals/ItemDescriptionModal.vue";
+import AddItemModal from "./modals/AddItemModal.vue";
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
-import { buyer_list_campapign_product, buyer_cart_list } from "@/api_v2/campaign_product";
-import { search_discount_code } from "@/api_v2/discount_code"
+import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
+import { buyer_list_discount_code } from "@/api_v2/discount_code"
 
-import { buyer_retrieve_pre_order } from "@/api_v2/pre_order";
+// import { buyer_retrieve_pre_order } from "@/api_v2/pre_order";
+import { buyer_retrieve_cart } from "@/api_v2/cart"
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies"
 const route = useRoute();
 const router = useRouter();
-const store = useShoppingCartStore()
+const shoppingCartStore = useShoppingCartStore()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const btnOne = ref('white')
 const btnTwo = ref('#334155')
 const { cookies } = useCookies()
 const toggleTabs = tabNumber => {
-  store.openTab = tabNumber
+  shoppingCartStore.openTab = tabNumber
   router.push({query:{tab:tabNumber}})
   }
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 onMounted(()=>{
-  if(route.query.tab == 2) store.openTab = 2
-  buyer_retrieve_pre_order(route.params.pre_order_oid, buyerLayoutStore.alert).then(
+  if(route.query.tab == 2) shoppingCartStore.openTab = 2
+  buyer_retrieve_cart(route.params.cart_oid, buyerLayoutStore.alert).then(
       res => { 
-        store.order = res.data;
-        console.log(store.order)
-        store.user_subscription = JSON.parse(JSON.stringify(res.data.campaign?.user_subscription))
+        shoppingCartStore.cart = res.data;
+        shoppingCartStore.user_subscription = JSON.parse(JSON.stringify(res.data.campaign?.user_subscription))
+        shoppingCartStore.product_categories = JSON.parse(JSON.stringify(res.data.campaign?.user_subscription?.product_categories||[]))
+        shoppingCartStore.productCategoryDict = {}
+        shoppingCartStore.product_categories.forEach(productCategory => {
+          shoppingCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
+        });    
+
         i18n.locale = res.data.campaign.lang
-        Object.keys(store.order.products).length == 0 ? store.showAddItemModal = true : store.showAddItemModal = false
+        Object.keys(shoppingCartStore.cart.products).length == 0 ? shoppingCartStore.showAddItemModal = true : shoppingCartStore.showAddItemModal = false
       }
   )
 
-
-	buyer_list_campapign_product(route.params.pre_order_oid, buyerLayoutStore.alert).then(
+  var _cart_oid, _type, _toastify
+	buyer_list_campapign_product(_cart_oid=route.params.cart_oid, _type='all', _toastify=buyerLayoutStore.alert).then(
 		res => {
-			store.campaignProducts = res.data     
-      });
-
-  search_discount_code(route.params.pre_order_oid,'cart_referal', buyerLayoutStore.alert).then(
+			shoppingCartStore.campaignProducts = JSON.parse(JSON.stringify(res.data))
+      shoppingCartStore.campaignProductDict = {}
+      res.data.forEach(campaignProduct => {
+        shoppingCartStore.campaignProductDict[campaignProduct.id.toString()]=campaignProduct
+      });    
+  });
+    
+  var _cart_oid, _type, _toastify
+  buyer_list_discount_code(_cart_oid=route.params.cart_oid, _type='cart_referal', _toastify=buyerLayoutStore.alert).then(
     res=>{
-      store.referalCodes = res.data
+      shoppingCartStore.referalCodes = res.data
     }
-    )}
+  )}
 )
 
 
-	buyer_cart_list(route.params.pre_order_oid, buyerLayoutStore.alert).then(
-		res => {
-      res.data.forEach(element => {
-        store.cartProducts[element.id] = element
-		  })
-})
+// 	buyer_cart_list(route.params.cart_oid, buyerLayoutStore.alert).then(
+// 		res => {
+//       res.data.forEach(element => {
+//         shoppingCartStore.cartProducts[element.id] = element
+// 		  })
+// })
 
-watch(computed(()=>store.openTab),()=>{
-  router.push({query:{tab:store.openTab}})
-  btnOne.value = store.openTab == 1? 'white' :'#334155'
-  btnTwo.value = store.openTab == 2? 'white' :'#334155'
-  if(isAnonymousUser && store.openTab==2 && !buyerLayoutStore.refuseToLogin){
+watch(computed(()=>shoppingCartStore.openTab),()=>{
+  router.push({query:{tab:shoppingCartStore.openTab}})
+  btnOne.value = shoppingCartStore.openTab == 1? 'white' :'#334155'
+  btnTwo.value = shoppingCartStore.openTab == 2? 'white' :'#334155'
+  if(isAnonymousUser && shoppingCartStore.openTab==2 && !buyerLayoutStore.refuseToLogin){
     buyerLayoutStore.showLoginModal=true
   }
 })

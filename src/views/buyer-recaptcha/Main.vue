@@ -25,7 +25,8 @@ import {loadScriptAsyncDefer} from '@/libs/loadScript.js';
 import loadScript from '@/libs/loadScript.js'
 import {onMounted, ref} from 'vue'
 import { useRoute, useRouter } from "vue-router";
-import { buyer_create_blank_cart, guest_create_blank_cart } from '@/api_v2/pre_order';
+// import { buyer_create_blank_cart, guest_create_blank_cart } from '@/api_v2/pre_order';
+import { buyer_create_blank_cart, guest_create_blank_cart } from '@/api_v2/cart'
 import { get_easy_store_checkout_url } from '@/plugin/easy-store/api/cart.js'
 import { get_ordr_startr_checkout_url } from '@/plugin/ordr-startr/api/cart.js'
 
@@ -49,7 +50,8 @@ onMounted(()=>{
         const object_id = route.params.object_id
         if(type=='blank'){
             buyer_create_blank_cart(object_id, cookies.get('login_with'), buyerStore.alert).then(res=>{
-                router.push(`/buyer/cart/${res.data.pre_order_oid}`)
+                // router.push(`/buyer/cart/${res.data.pre_order_oid}`)
+                router.push({name:"buyer-shopping-cart-detail-page",params:{cart_oid:res.data.cart_oid}})
             })
         }else{
             loadRecaptcha()
@@ -79,10 +81,13 @@ const recaptchaCallBack = token=>{
                     res()
                 })
                 set_cookie.then(() => {
-                    router.push(`/buyer/cart/${response.data.pre_order_oid}`)
+                    // router.push(`/buyer/cart/${response.data.cart_oid}`)
+                    router.push({name:"buyer-shopping-cart-detail-page",params:{cart_oid:response.data.cart_oid}})
                 })
             } else{
-                router.push(`/buyer/cart/${response.data.pre_order_oid}`)
+                // router.push(`/buyer/cart/${response.data.cart_oid}`)
+                router.push({name:"buyer-shopping-cart-detail-page",params:{cart_oid:response.data.cart_oid}})
+
             }
         })
     }else if(type=='easy_store'){

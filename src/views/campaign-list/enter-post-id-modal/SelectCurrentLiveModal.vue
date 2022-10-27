@@ -23,8 +23,11 @@
                 <span class="col-span-6 text-lg content-center">
                   {{ live.title }}
                 </span>
-                <template v-if="live.embed_html">
-                  <div v-html="live.embed_html" style="z-index: 0"></div>
+                <template v-if="live.page_id && live.post_id">
+                  <iframe style="z-index: 0"
+                      :src="`https://www.facebook.com/plugins/video.php?allowfullscreen=true&autoplay=true&href=https%3A%2F%2Fwww.facebook.com%2F${live.page_id}%2Fvideos%2F${live.post_id}%2F&width=auto`" 
+                          scrolling="no" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
+                  </iframe> 
                 </template>
                 <template v-else-if="live.image">
                   <img
@@ -72,12 +75,18 @@ onMounted(()=>{
 
           let currentLiveItems = []
           live_campaign.forEach(v => {
+            console.log("7777")
+            let page_id = v.id.split("_")[0]
+            let post_id = v.id.split("_")[1]
+            console.log(page_id)
+            console.log(post_id)
             currentLiveItems.push({
-              id: v.video.id,
-              title: v.title?v.title:"",
+              id: post_id,
+              title: v.attachments.data[0].title?v.attachments.data[0].title:"",
               image: null,
               video_url: null,
-              embed_html: v.embed_html,
+              page_id: page_id,
+              post_id: post_id
             })
           });
           liveItems.value = currentLiveItems
@@ -105,7 +114,8 @@ onMounted(()=>{
                 title: v.snippet.title,
                 image: v.snippet.thumbnails.standard.url,
                 video_url: null,
-                embed_html: null,
+                page_id: null,
+                post_id: null
               })
             });
             liveItems.value = currentLiveItems
@@ -122,16 +132,15 @@ onMounted(()=>{
                 layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_instagram_post'))
                 return
             }
-
             let currentLiveItems = []
             live_campaign.forEach(v => {
-
               currentLiveItems.push({
                 id: v.id,
                 title: v.username,
                 image: v.media_url,
                 video_url: null,
-                embed_html: null,
+                page_id: null,
+                post_id: null
               })
             });
             liveItems.value = currentLiveItems

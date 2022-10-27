@@ -23,10 +23,12 @@
         "assign_qty":"直播商品數量",
         "max_order_amount":"單次購買上限",
         "category":"商品分類",
+        "categories":"商品分類",
         "price":"價錢",
         "customer_editable":"允許顧客編輯",
         "customer_removable":"允許顧客刪除",
         "oversell":"可否超賣",
+        "overbid":"可否超訂",
         "types":{
             "product":"商品",
             "product-fast":"商品",

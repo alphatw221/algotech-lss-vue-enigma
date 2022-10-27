@@ -52,8 +52,8 @@
             </div>
             <div class="col-span-12 mt-5 lg:col-span-4 2xl:col-span-4 p-10 justify-self-center">
                 <button class="text-white capitalize btn btn-elevated-success whitespace-nowrap" @click="router.push('/seller/change-plan')">
-                    {{ $t(`profile.subscription.change_plan`)}}
-                    </button>
+                {{ $t(`profile.subscription.change_plan`)}}
+                </button>
             </div>
         </div>
     </div>  

@@ -35,8 +35,8 @@
         "fan_page" : "Nền tảng",
         "start_at" : "Thời gian bắt đầu",
         "end_at" : "Thời gian kết thúc",
-        "manage" : "Manage",
-        "manage_product" : "Manage Product",
+        "manage" : "Quản lý",
+        "manage_product" : "Quản lý sản phẩm",
         "manage_order" : "Quản lý bán hàng",
         "stop" : "Dừng thanh toán",
         "null":"",
@@ -98,7 +98,7 @@
         "rebind_page":"Vui lòng liên kết lại Facebook Page đã chọn",
         "rebind_channel":"Vui lòng liên kết lại YouTube Channel đã chọn",
         "rebind_profile":"Vui lòng liên kết lại Instagram Profile đã chọn",
-        "disconnected":" Disconnected"
+        "disconnected":" Đã ngắt kết nối"
     },
     "update_successed":"Cập nhật thành công",
     "no_facebook_post":"Bạn không có bài viết livestream trên Facebook ngay bây giờ",

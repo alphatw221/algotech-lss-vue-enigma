@@ -166,7 +166,12 @@
         </DropdownMenu>
       </Dropdown> -->
       <!-- END: Notifications -->
-
+    <!-- Mode button-->
+    <button v-if="sellerLayoutStore.userInfo.user_subscription.status === sandboxMode" class="btn btn-warning test-mode h-fit my-0 sm:my-auto w-10 p-1 sm:w-28 z-[1] absolute right-[150px] xs:left-[80px]" 
+        @click="showSwitchModeMessage=true"> 
+      <p class="text-white text-[11px] leading-[11px] sm:text-sm" style="white-space:pre-wrap">{{$t('layout.test_mode')}}</p>
+      <!-- font-size: 11px; line-height: 11px;-->
+    </button>
     <!-- Language -->
 
       <Dropdown class="absolute right-[10px] sm:right-[30px] intro-x">
@@ -236,12 +241,34 @@
     </div>
   </div>
   <!-- END: Top Bar -->
+  <!-- Switch Mode Modal -->
+  <Modal backdrop="static" :show="showSwitchModeMessage" @hidden="showSwitchModeMessage=false">
+    <a
+      @click="showSwitchModeMessage=false"
+      class="absolute right-0 top-0 mt-3 mr-3"
+      href="javascript:;"
+    >
+      <XIcon class="w-8 h-8 text-slate-400" />
+    </a>
+    <ModalBody class="p-0">
+      <div class="p-5 text-center">
+        <div class="text-xl mt-5">
+          {{$t('layout.switch_mode_confirmation.message')}}
+        </div>
+      </div>
+      <div class="px-5 pb-8 text-center">
+        <button type="button" @click="switchToProductionMode()" class="btn btn-primary w-24">
+          {{$t('layout.switch_mode_confirmation.switch')}}
+        </button>
+      </div>
+    </ModalBody>
+  </Modal>
 </template>
 
 <script setup>
 import { ref, defineEmits, computed, onMounted } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
-import { seller_update_subscription } from '@/api_v2/user_subscription'
+import { seller_update_subscription, seller_switch_subscription_mode } from '@/api_v2/user_subscription'
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
@@ -252,7 +279,8 @@ const route = useRoute();
 const router = useRouter();
 const { cookies } = useCookies()
 const sellerLayoutStore = useLSSSellerLayoutStore();
-
+const sandboxMode = ref("test")
+const showSwitchModeMessage = ref(false)
 const toggleMobileMenu = ()=>{
   sellerLayoutStore.showMobileMenu = !sellerLayoutStore.showMobileMenu
 }
@@ -284,7 +312,7 @@ const languages = ref([
 ])
 
 onMounted(()=>{
-
+    console.log(sellerLayoutStore.userInfo)
     if(!sellerLayoutStore.userInfo.user_subscription) return
     data.value.lang = sellerLayoutStore.userInfo.lang
 })
@@ -323,6 +351,13 @@ const hideSearchDropdown = () => {
 
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
+}
+
+const switchToProductionMode = () => {
+  seller_switch_subscription_mode({"status": "production"}, sellerLayoutStore.alert).then(res=>{
+      sellerLayoutStore.userInfo = res.data
+      showSwitchModeMessage.value = false
+  })
 }
 
 </script>

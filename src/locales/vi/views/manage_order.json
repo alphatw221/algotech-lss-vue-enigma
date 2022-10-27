@@ -24,6 +24,7 @@
                 "paypal":"Paypal",
                 "ecpay":"ECPay",
                 "pay_mongo":"PayMongo",
+                "rapyd":"Rapyd",
                 "details":"Chi tiết đơn hàng",
                 "copy_link":"Sao chép liên kết đơn hàng",
                 "amount" : "Số Lượng",
@@ -37,7 +38,9 @@
                 "action":"Hành động",
                 "delivery_notification":"Thông báo",
                 "null":"",
-                "guest": "Khách"
+                "guest": "Khách",
+                "payment_status":"tình trạng thanh toán",
+                "delivery_status":"tình trạng giao hàng"
         },
         "product_modal":{
                 "order_no":"Mã đơn hàng",
@@ -59,10 +62,13 @@
                         "hitpay":"Hitpay",
                         "paypal":"Paypal",
                         "ecpay":"ECPay",
-                        "pay_mongo":"PayMongo"
+                        "pay_mongo":"PayMongo",
+                        "rapyd":"Rapyd"
                 },
                 "delivery":{
                         "status":"Trạng thái giao hàng",
+                        "shipped":"Đã giao hàng",
+                        "awaiting_shipment":"Đang giao hàng",
                         "shipping out":"Đã giao hàng",
                         "to be shipping":"Đang giao hàng"
                 },
@@ -77,6 +83,8 @@
         },
         "complete" : "Hoàn thành",
         "review" : "Đang kiểm tra",
+        "pending_confirmation": "Pending confirmation",
+        "proceed" : "Đang kiểm tra",
         "shipping out":"Đã giao hàng",
         "all":"Tất cả",
         "stop_checkout" : "Hành động",

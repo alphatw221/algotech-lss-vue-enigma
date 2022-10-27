@@ -96,7 +96,9 @@
             "amount" : "金額",
             "view" : "詳情",
             "null":"",
-            "no_order":"尚未有訂單"
+            "no_order":"尚未有訂單",
+            "product":"商品",
+            "qty":"數量"
         }
     }
 }

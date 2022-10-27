@@ -18,7 +18,7 @@
     @apply absolute w-[120px] h-[120px] bg-cover;
 }
 .dz-details{
-    @apply invisible;
+    display: none;
 }
 
 .dz-error-message{

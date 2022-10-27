@@ -77,6 +77,9 @@ module.exports = {
         '50%': '50%',
         '16': '4rem',
       },
+      screens: {
+        'xs': {'min': '300px', 'max': '480px'},
+      }
     },
   },
   plugins: [require("@tailwindcss/forms")],

@@ -2,13 +2,13 @@ import { createAxios } from "@/libs/axiosClient";
 
 
 // -------------buyer------------------
-export const buyer_list_campapign_product = (pre_order_oid, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/campaign-product/buyer/list/?pre_order_oid=${pre_order_oid}`)
+export const buyer_list_campapign_product = (cart_oid, type, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/campaign-product/buyer/list/?cart_oid=${cart_oid}&type=${type}`)
 }
 
-export const buyer_cart_list = (pre_order_oid, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/campaign-product/buyer/cart/list/?pre_order_oid=${pre_order_oid}`)
-}
+// export const buyer_cart_list = (pre_order_oid, toastify=null) => {
+//     return createAxios(toastify).get(`/api/v2/campaign-product/buyer/cart/list/?pre_order_oid=${pre_order_oid}`)
+// }
 
 // -------------seller------------------
 
@@ -36,8 +36,8 @@ export const seller_update_campaign_product = (campaign_product_id, data, toasti
     return createAxios(toastify).put(`/api/v2/campaign-product/${campaign_product_id}/seller/update/`, data)
 }
 
-export const seller_toggle_campaign_product_status = (campaign_product_id, toastify=null) => {
-    return createAxios(toastify).put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/status/`)
+export const seller_toggle_campaign_product_active = (campaign_product_id, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/active/`)
 }
 
 export const seller_toggle_campaign_product_overbook = (campaign_product_id, toastify=null) => {

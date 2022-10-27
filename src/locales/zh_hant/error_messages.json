@@ -154,6 +154,7 @@
         "campaign_end_time_not_later_subscription_period": "訂閱方案是到 %{datetime_subscription_expired_at} 過期，<br />銷售活動的時間不能超過 %{datetime_subscription_expired_at}。"
     },
     "util":{
+        "field_required": "%{field} 是必填",
         "no_api_user_found":"找不到此用戶",
         "not_activated_user": "此帳號尚未啟用",
         "language_not_supported": "尚未支援此語言",
@@ -181,6 +182,11 @@
         "lucky_draw_not_found": "找不到抽獎設定",
         "quiz_game_not_found": "找不到小遊戲設定"
     },
+    "params": {
+        "email": "信箱",
+        "password": "密碼"
+    },
+    
     "token_not_valid": "你已被登出",
     
     "no_api_user_found":"Cannot find this user",
@@ -291,6 +297,8 @@
     "refresh_try_again": "Please refresh the page and try again",
     "invalid_user": "Invalid User",
     "request_data_error": "Request data error",
-    "duplicate_discount_code":"折扣碼重複"
+    "duplicate_discount_code":"折扣碼重複",
 
+
+    "invalid_data":"無效資料"
 }

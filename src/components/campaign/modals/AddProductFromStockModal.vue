@@ -348,7 +348,7 @@
 
 <script setup>
 import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
-import { list_product_category, search_product } from '@/api_v2/product';
+import { search_product } from '@/api_v2/product';
 import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defineProps } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -434,13 +434,7 @@ let isSelectedProductsValid=false
 let campaignProductCache = null
 
 onMounted(() => {
-	list_product_category(layoutStore.alert).then(
-		res => { 
-			res.data.forEach(category => {
-				productCategories.value.push({value:category, name:category})
-			});
-		}
-	)
+	
 })
 
 const updateStockProducts = ()=>{

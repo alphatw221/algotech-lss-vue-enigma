@@ -1,5 +1,7 @@
 import global from './global.json'
 import error_messages from './error_messages.json'
+import vulidate from './vulidate.json'
+
 import stock from './views/stock.json'
 import settings from './views/settings.json'
 import shopping_cart from './views/shopping_cart.json'
@@ -25,17 +27,25 @@ import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
 import discount from './views/discount.json'
 
+import order from './models/order.json'
+import product_category from './models/product_category.json'
+import product from './models/product.json'
+import cart from './models/cart.json'
+
 
 export default {
+
+    //global--------------
     global,
     error_messages,
-
+    vulidate,
+    
+    //view----------------
     campaign_list,
     campaign_live,
     create_campaign,
     edit_campaign,
     lucky_draw,
-
     manage_order,
     order_detail,
     order_history,
@@ -54,5 +64,11 @@ export default {
     forgot_password,
     reset_password,
     discount,
-    profile
+    profile,
+    
+    //model--------------
+    order,
+    product,
+    product_category,
+    cart
 }

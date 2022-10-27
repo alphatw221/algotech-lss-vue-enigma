@@ -45,7 +45,8 @@
             "hitpay":"Hitpay",
             "paypal":"Paypal",
             "ecpay":"绿界金流",
-            "pay_mongo":"PayMongo"
+            "pay_mongo":"PayMongo",
+            "rapyd":"Rapyd"
         },
 
         "direct_payment":{

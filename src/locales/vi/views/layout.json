@@ -18,6 +18,7 @@
         "campaign-live":"Chiến dịch livestream",
         "manage-order":"Quản lý bán hàng",
         "order-detail":"Chi tiết đơn hàng",
+        "cart-detail":"Chi tiết giỏ hàng",
         "settings":"Cài đặt",
         "localization":"Ngôn ngữ bản địa hóa",
         "campaign-global":"Cài đặt chiến dịch mặc định",
@@ -59,5 +60,10 @@
         "time_1hour": "giờ",
         "join_now": "Bắt đầu ngay",
         "dismiss": "Bỏ qua"
+    },
+    "test_mode": "TEST MODE",
+    "switch_mode_confirmation": {
+        "message": "As you switch to production mode, it can not be switched back.",
+        "switch": "switch"
     }
 }

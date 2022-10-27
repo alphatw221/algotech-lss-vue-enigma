@@ -9,13 +9,16 @@ import { useCookies } from "vue3-cookies";
 import {ref} from "vue"
 const { cookies } = useCookies();
 const router = useRouter()
-const vueLangToBrowserLang = ref({
+const browserLang = window.navigator.language.toLowerCase()
+console.log(browserLang)
+const browserLangToVueLang = {
     "en": "en",
-    "zh_hans":"zh-cn",
-    "zh_hans":"zh-hk",
-    "zh_hant":"zh-tw",
+    "zh-cn": "zh_hans",
+    "zh-hk": "zh_hans",
+    "zh-tw": "zh_hant",
     "vi": "vi"
-})
+}
+i18n.global.locale.value = browserLangToVueLang[browserLang]
 var timer1 = null
 var timer2 = null
 var counter = 0
@@ -62,6 +65,14 @@ const get_i18n_path = error=>{
     return path
 }
 
+const get_i18n_params = params=>{
+    let i18n_params = {}
+    Object.entries(params).forEach(([key, value]) => {
+        i18n_params[key] = i18n.global.t(`error_messages.params.${value}`)
+    }); 
+    return i18n_params
+}
+
 const axiosInstanceForBuyerLayout = axios.create({
     baseURL: import.meta.env.VITE_APP_ROOT_API,
 })
@@ -71,7 +82,8 @@ axiosInstanceForBuyerLayout.interceptors.response.use(
         if (error.response?.data?.detail){
             useLSSBuyerLayoutStore().alert.showMessageToast(error.response.data.detail)
         } else if (error.response?.data?.message){
-            useLSSBuyerLayoutStore().alert.showMessageToast(i18n.global.t(get_i18n_path(error)))
+            console.log(response?.data?.params)
+            useLSSBuyerLayoutStore().alert.showMessageToast(i18n.global.t(get_i18n_path(error),error.response?.data?.params))
         } else{
             useLSSBuyerLayoutStore().alert.showMessageToast('error ! please refresh the page.')
         }
@@ -172,7 +184,7 @@ export function createAxios(toastify){
                     toastify.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
                 }
             } else if (error.response?.data?.message){
-                toastify.showMessageToast(i18n.global.t(`error_messages.${error.response.data.message}`))
+                toastify.showMessageToast(i18n.global.t(i18n.global.t(get_i18n_path(error), get_i18n_params(error.response?.data?.params))))
             } else{
                 toastify.showMessageToast('error_messages.please_refresh_page')
             }
