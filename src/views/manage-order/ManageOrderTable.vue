@@ -176,7 +176,7 @@
                                 {{ `${$t('order.payment_method_options.direct_payment')} - ${order.meta.account_mode}` }}
                             </template>
                             <template v-else-if="order[column.key] != ''">
-                                {{ $t(`order.${column.key}.${order[column.key]}`) }}
+                                {{ $t(`order.${column.key}_options.${order[column.key]}`) }}
                             </template>
                             <!-- {{ order[column.key] == 'direct_payment' ? `${$t('manage_order.table.direct_payment')} - ${order.meta.account_mode}` : $t(`manage_order.table.${order[column.key]}`) }} -->
                         </template>

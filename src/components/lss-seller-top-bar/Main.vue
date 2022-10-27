@@ -268,7 +268,7 @@
 <script setup>
 import { ref, defineEmits, computed, onMounted } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
-import { seller_update_subscription } from '@/api_v2/user_subscription'
+import { seller_update_subscription, seller_switch_subscription_mode } from '@/api_v2/user_subscription'
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
@@ -302,7 +302,7 @@ const toggleMobileMenu = ()=>{
 // });
 
 const userAvatar = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR+'fake_head.jpeg'
-const data = ref({currency:'USD', lang:'en', status:"test"})
+const data = ref({currency:'USD', lang:'en'})
 
 const languages = ref([
     {value:'en',text:'English'},
@@ -312,7 +312,7 @@ const languages = ref([
 ])
 
 onMounted(()=>{
-
+    console.log(sellerLayoutStore.userInfo)
     if(!sellerLayoutStore.userInfo.user_subscription) return
     data.value.lang = sellerLayoutStore.userInfo.lang
 })
@@ -354,9 +354,7 @@ const hideDropDown = ()=>{
 }
 
 const switchToProductionMode = () => {
-  data.value.status = "production"
-  seller_update_subscription(data.value, sellerLayoutStore.alert).then(res=>{
-      console.log(res)
+  seller_switch_subscription_mode({"status": "production"}, sellerLayoutStore.alert).then(res=>{
       sellerLayoutStore.userInfo = res.data
       showSwitchModeMessage.value = false
   })
