@@ -169,7 +169,7 @@ const hideDropDown = ()=>{
 const startWebSocketConnection = (lucky_draw_id)=> {
     console.log("startWebSocketConnection")
     const websocket = new WebSocket(
-        `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/lucky-draw/share-post/crawler/${lucky_draw_id}/?token=${accessToken}`
+        `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/lucky_draw/share_post/crawler/${lucky_draw_id}/?token=${accessToken}`
     );
     processing.value = true
     websocket.onmessage = e =>{
