@@ -132,9 +132,11 @@ const goDraw = (lucky_draw) => {
     // need fix
     let lucky_draw_id = lucky_draw.id
     draw_campaign_lucky_draw_check(lucky_draw_id, layoutStore.alert).then(res=>{
-        if (lucky_draw.type === "sharedpost") return startWebSocketConnection(lucky_draw_id)
-        openDrawPage(lucky_draw_id)
-        
+        if (lucky_draw.type === "sharedpost") {
+            startWebSocketConnection(lucky_draw_id)
+        } else {
+            openDrawPage(lucky_draw_id)
+        }
     })
     
 }
