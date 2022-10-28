@@ -169,7 +169,7 @@ const hideDropDown = ()=>{
 const startWebSocketConnection = (lucky_draw_id)=> {
     console.log("startWebSocketConnection")
     const websocket = new WebSocket(
-        `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/lucky-draw/${lucky_draw_id}/share-post/crawler/?token=${accessToken}`
+        `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/lucky-draw/share-post/crawler/${lucky_draw_id}/?token=${accessToken}`
     );
     processing.value = true
     websocket.onmessage = e =>{
@@ -203,8 +203,9 @@ const startWebSocketConnection = (lucky_draw_id)=> {
         processing.value = false
     };
 
-    websocket.onerror = function(err) {
-        console.error('Socket encountered error: ', err.message, 'Closing socket');
+    websocket.onerror = e => {
+        console.log(e)
+        console.error('Socket encountered error: ', e.message, 'Closing socket');
         websocket.close(1000);
     };
 }
