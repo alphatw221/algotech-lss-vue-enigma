@@ -41,5 +41,12 @@
 
     "subtotal_after_discount":"折扣后小计",
 
-    "payment_completed":"付款完成"
+    "payment_completed":"付款完成",
+
+    "platform":"Platofrm",
+    "platform_options":{
+        "facebook":"Facebook",
+        "youtube":"Youtube",
+        "instagram":"Instagram"
+    }
 }

@@ -23,8 +23,12 @@
                     <template v-for="(tag,tag_key) in type" :key="tag_key">
                     <div class="" v-if="tag">
                         <button class="btn w-fit h-10 m-1 text-[15px]" 
-                                :class="{ 'btn-rounded-danger' : type_key === 'payment', 'btn-rounded-primary' : type_key === 'delivery', 'btn-rounded-warning' : type_key === 'platform'}">
-                            <HashIcon class="w-4 h-4 mr-2" /> {{$t(`manage_order.filter_modal.`+type_key+`.`+tag_key)}}
+                                :class="{ 
+                                    'btn-rounded-danger' : type_key === 'payment_method_options', 
+                                    'btn-rounded-primary' : type_key === 'delivery_status_options', 
+                                    'btn-rounded-success' : type_key === 'payment_status_options', 
+                                    'btn-rounded-warning' : type_key === 'platform_options'}">
+                            <HashIcon class="w-4 h-4 mr-2" /> {{$t(`order.${type_key}.${tag_key}`)}}
                             <XIcon class="w-4 h-4 ml-2" @click="removeFilterTag(type_key,tag_key)"/>
                         </button>
                     </div>
@@ -38,16 +42,25 @@
                     <div class="col-span-12 text-[20px] font-medium my-2">{{$t('manage_order.filter_modal.payment.payment')}}</div>
                     <div  class="col-span-6 lg:col-span-3 lg:my-1" v-for="paymentOption, index in computedPaymentOptions" :key="index">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                                v-model="filterData.payment[paymentOption.key]" > 
+                                v-model="filterData.payment_method_options[paymentOption.key]" > 
                         <span class="ml-1">{{ $t(`manage_order.filter_modal.payment.${paymentOption.key}`) }}</span> 
                     </div>
 
                     <!-- DELIVERY_FILTER_OPTIONS -->
                     <div class="col-span-12 text-[20px] font-medium my-2">{{$t('manage_order.filter_modal.delivery.status')}}</div>
-                    <div class="col-span-6 lg:col-span-3 lg:my-1" v-for="deliveryOption, index in deliveryStatusOprions" :key="index">
+                    <div class="col-span-6 lg:col-span-3 lg:my-1" v-for="deliveryOption, index in deliveryStatusOptions" :key="index">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                            v-model="filterData.delivery[deliveryOption.key]" > 
-                        <span class="ml-1"> {{$t(`manage_order.filter_modal.delivery.${deliveryOption.key}`)}} </span> 
+                            v-model="filterData.delivery_status_options[deliveryOption.key]" > 
+                        <span class="ml-1"> {{$t(`order.delivery_status_options.${deliveryOption.key}`)}} </span> 
+                    </div>
+
+
+                    <!-- DELIVERY_FILTER_OPTIONS -->
+                    <div class="col-span-12 text-[20px] font-medium my-2">{{$t('order.payment_status')}}</div>
+                    <div class="col-span-6 lg:col-span-3 lg:my-1" v-for="paymentOption, index in paymentStatusOptions" :key="index">
+                        <input class="form-check-input mr-0 ml-3" type="checkbox" 
+                            v-model="filterData.payment_status_options[paymentOption.key]" > 
+                        <span class="ml-1"> {{$t(`order.payment_status_options.${paymentOption.key}`)}} </span> 
                     </div>
 
 
@@ -55,7 +68,7 @@
                     <div class="col-span-12  text-[20px] font-medium my-2"> {{$t('manage_order.filter_modal.platform.platform')}}</div>
                     <div class="col-span-6 lg:col-span-3 lg:my-1" v-for="platformOption, index in platformOptions" :key="index">
                         <input class="form-check-input mr-0 ml-3" type="checkbox" 
-                            v-model="filterData.platform[platformOption.key]" > 
+                            v-model="filterData.platform_options[platformOption.key]" > 
                         <span class="ml-1"> {{platformOption.name}}</span> 
                     </div>
 
@@ -95,17 +108,34 @@ const computedPaymentOptions = computed(()=>{
     return payments
 })
 
-const deliveryStatusOprions =[
+const deliveryStatusOptions =[
+    {name:"awaiting_fulfillment",key:"awaiting_fulfillment"},
     {name:"awaiting_shipment",key:"awaiting_shipment"},
+    {name:"awaiting_pickup",key:"awaiting_pickup"},
+    {name:"partially_shipped",key:"partially_shipped"},
     {name:"shipped",key:"shipped"},
+    {name:"collected",key:"collected"},
+    {name:"awaiting_return",key:"awaiting_return"},
+    {name:"returned",key:"returned"},
 ] 
+
+const paymentStatusOptions =[
+    {name:"awaiting_payment",key:"awaiting_payment"},
+    {name:"awaiting_confirm",key:"awaiting_confirm"},
+    {name:"failed",key:"failed"},
+    {name:"expired",key:"expired"},
+    {name:"paid",key:"paid"},
+    {name:"awaiting_refund",key:"awaiting_refund"},
+    {name:"refunded",key:"refunded"},
+] 
+
 
 const platformOptions = [
     {name:"Facebook",key:"facebook"},
     {name:"Youtube",key:"youtube"},
     {name:"Instagram",key:"instagram"},
 ]
-const filterData = ref({"payment":{},"delivery":{},"platform":{}})
+const filterData = ref({"payment_method_options":{}, "delivery_status_options":{}, "payment_status_options":{}, "platform_options":{}})
 
 
 const filter = ()=>{
@@ -119,7 +149,7 @@ const removeFilterTag = (type_key,tag_key)=>{
 }
 
 const clickXButton = () =>{
-    if(Object.keys(filterData.value.payment).length || Object.keys(filterData.value.delivery).length || Object.keys(filterData.value.platform).length){
+    if(Object.keys(filterData.value.payment_method_options).length || Object.keys(filterData.value.delivery_status_options).length || Object.keys(filterData.value.payment_status_options).length || Object.keys(filterData.value.platform_options).length){
         let yes = confirm(`${i18n.global.t('manage_order.filter_modal.close_alert')}`)
 	    if (yes) filter()
         else hideFilterModal();
@@ -131,7 +161,7 @@ const hideFilterModal=()=>{
     manageOrderStore.filterModal[props.tableStatus] = false
 }
 const clearFilterModal=()=>{
-    filterData.value = {"payment":{},"delivery":{},"platform":{}}
+    filterData.value = {"payment_method_options":{}, "delivery_status_options":{}, "payment_status_options":{}, "platform_options":{}}
 }
 
 </script>
