@@ -1,0 +1,12 @@
+{
+    "product_category":"Product Category",
+    "all":"All",
+    "uncategorized":"Uncategorized",
+
+    "name":"Category Name",
+    "description":"Category Description",
+    "meta_logistic":{
+        "enable_flat_rate":"Enable Flat Rate Ｓhipping",
+        "flat_rate":"Flat Rate Shipping Fee"
+    }
+}

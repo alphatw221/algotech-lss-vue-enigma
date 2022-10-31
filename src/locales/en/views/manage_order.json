@@ -24,6 +24,7 @@
                 "paypal":"Paypal",
                 "ecpay":"ECPay",
                 "pay_mongo":"PayMongo",
+                "rapyd":"Rapyd",
                 "details":"Order Details",
                 "copy_link":"Copy Cart Link",
                 "amount" : "Amount",
@@ -37,7 +38,9 @@
                 "action":"Action",
                 "delivery_notification":"Notification",
                 "null":"",
-                "guest": "Guest"
+                "guest": "Guest",
+                "payment_status":"Payment Status",
+                "delivery_status":"Delivery Status"
         },
         "product_modal":{
                 "order_no":"Order No.",
@@ -59,10 +62,13 @@
                         "hitpay":"Hitpay",
                         "paypal":"Paypal",
                         "ecpay":"ECPay",
-                        "pay_mongo":"PayMongo"
+                        "pay_mongo":"PayMongo",
+                        "rapyd":"Rapyd"
                 },
                 "delivery":{
                         "status":"Delivery Status",
+                        "shipped":"Shipped",
+                        "awaiting_shipment":"Awaiting Shipment",
                         "shipping out":"Shipping out",
                         "to be shipping":"To be shipping"
                 },
@@ -78,6 +84,8 @@
         },
         "complete" : "Complete",
         "review" : "Review",
+        "pending_confirmation": "Pending confirmation",
+        "proceed" : "Review",
         "shipping out":"Shipping Out",
         "all":"All",
         "stop_checkout" : "Stop Checkout",

@@ -54,16 +54,26 @@ let webSocket = null
 
 onMounted(()=>{
     initWebSocketConnection()
-    retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
-		campaignDetailStore.campaign = res.data
-        console.log(res.data.end_at)
-        let now = new Date()
-        let isCapturable = res.data.end_at ? new Date(res.data.end_at) > now : false
-        if (isCapturable) {
-            console.log("insert capture data")
-            if(sellerStore.commentCapturingCampaignData?.id!=res.data.id) sellerStore.commentCapturingCampaignData = res.data
-        }
-	})
+
+
+    let now = new Date()
+    let isCapturable = campaignDetailStore.campaign.end_at ? new Date(campaignDetailStore.campaign.end_at) > now : false
+    if (isCapturable) {
+        console.log("insert capture data")
+        if(sellerStore.commentCapturingCampaignData?.id!=campaignDetailStore.campaign.id) sellerStore.commentCapturingCampaignData = campaignDetailStore.campaign
+    }
+
+
+    // retrieve_campaign(route.params.campaign_id, sellerStore.alert).then(res=>{
+	// 	campaignDetailStore.campaign = res.data
+    //     console.log(res.data.end_at)
+    //     let now = new Date()
+    //     let isCapturable = res.data.end_at ? new Date(res.data.end_at) > now : false
+    //     if (isCapturable) {
+    //         console.log("insert capture data")
+    //         if(sellerStore.commentCapturingCampaignData?.id!=res.data.id) sellerStore.commentCapturingCampaignData = res.data
+    //     }
+	// })
     
 })
 
@@ -77,8 +87,8 @@ const initWebSocketConnection=()=>{
     );
     webSocket.onmessage = e => {
         const message = JSON.parse(e.data);
-        // console.log(message)
-        // handleSocketMessage(message)
+        console.log(message)
+        handleSocketMessage(message)
     };
     webSocket.onopen = e => {
         console.log('connected')
@@ -109,14 +119,23 @@ const handleSocketMessage = message=>{
 
         if(campaignDetailStore.campaignProducts[index]){
             campaignDetailStore.campaignProducts[index]["qty_sold"] = message.data.qty_sold
+            campaignDetailStore.campaignProducts[index]["qty_pending_payment"] = message.data.qty_pending_payment
             campaignDetailStore.campaignProducts[index]["qty_add_to_cart"] = message.data.qty_add_to_cart
+            const campaignProduct = JSON.parse(JSON.stringify(campaignDetailStore.campaignProducts[index]))
+            campaignDetailStore.campaignProducts.splice(index,1)
+            campaignDetailStore.campaignProducts.unshift(campaignProduct)
         }
         
-    }else if (message.type == 'order_data'){
-        const order_data = message.data
-        campaignDetailStore.incomingOrdersDict[order_data.id]=order_data
-        // campaignDetailStore.incomingOrders.unshift(message.data)
+    }else if (message.type == 'cart_data'){
+
+        const cart_data = message.data
+        campaignDetailStore.incomingOrdersDict[cart_data.id]=cart_data
     }
+    // else if (message.type == 'order_data'){
+    //     const order_data = message.data
+    //     campaignDetailStore.incomingOrdersDict[order_data.id]=order_data
+    //     // campaignDetailStore.incomingOrders.unshift(message.data)
+    // }
 
 }
 

@@ -14,6 +14,10 @@ export const seller_update_subscription = (data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/seller/update/`,data)
 }
 
+export const seller_switch_subscription_mode = (data, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/user-subscription/seller/switch_mode/`,data)
+}
+
 export const seller_update_payment = (paymentKey,data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/payment/${paymentKey}/`,data)
 }
@@ -36,6 +40,10 @@ export const get_platform_instances = (platform_name, toastify=null) => {
 
 export const upload_animation = (data, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/user-subscription/seller/upload/animation/`, data)     
+}
+
+export const sales_report = (start_time, end_time, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/sales_report/?start_time=${start_time}&end_time=${end_time}`)
 }
 
 // export const get_user_subscription_facebook_pages = (data, toastify=null) => {

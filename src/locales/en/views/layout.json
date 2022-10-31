@@ -25,6 +25,7 @@
         "campaign-live":"Campaign Live",
         "manage-order":"Manage Order",
         "order-detail":"Order Detail",
+        "cart-detail":"Cart Detail",
         "settings":"Settings",
         "localization":"Localization",
         "campaign-global":"Campaign Default Settings",
@@ -66,5 +67,10 @@
         "time_1hour": "an hour",
         "join_now": "Join now",
         "dismiss": "Dismiss"
+    },
+    "test_mode": "TEST MODE",
+    "switch_mode_confirmation": {
+        "message": "As you switch to production mode, it can not be switched back.",
+        "switch": "switch"
     }
 }

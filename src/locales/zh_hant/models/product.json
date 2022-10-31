@@ -1,0 +1,9 @@
+{
+    "product":"商品",
+    "status":"商品狀態",
+    "status_options":{
+        "enabled":"可銷售",
+        "disabled":"未上架"
+    }
+    
+}

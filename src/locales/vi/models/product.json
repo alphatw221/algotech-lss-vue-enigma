@@ -1,0 +1,9 @@
+{
+    "product":"sản phẩm",
+    "status":"Sttrạng thái sản phẩmatus",
+    "status_options":{
+        "enabled":"rao bán",
+        "disabled":"không phải để bán"
+    }
+    
+}

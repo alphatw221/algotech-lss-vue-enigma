@@ -10,7 +10,7 @@
         <LoadingIcon icon="three-dots" color="1a202c" class="flex flex-wrap w-20 h-20 mx-auto" v-if="fetchingData"/>
         <div class="flex flex-wrap grow justify-evenly lg:justify-start gap-2 lg:gap-5" v-else>
             <div v-for="instagramProfile,index in InstagramProfiles" :key="index" class="flex-col flex justify-center text-center relative my-3 w-24 h-auto lg:w-32">
-                <img :src="instagramProfile.image" class="rounded-full w-16 h-16 mx-auto lg:w-20 lg:h-20">
+                <img :src="instagramProfile.image" @error="get_profile_picture(instagramProfile)" class="rounded-full w-16 h-16 mx-auto lg:w-20 lg:h-20">
                 <span class="leading-tight text-[13px] sm:text-[15px] w-20 lg:w-32 mx-auto">{{ instagramProfile.name.substring(0,24) }}</span>
                 <Tippy tag="a" href="javascript:;" class="absolute right-0 top-0 tooltip" :content="$t('settings.platform.unbind_page')" :options="{
                     theme: 'light',
@@ -26,6 +26,7 @@ import BindInstagramProfileButton from '@/components/button/BindInstagramProfile
 
 
 import { get_platform_instances, unbind_platform_instance, bind_platform_instances } from '@/api_v2/user_subscription'
+import { get_ig_profile_picture } from '@/api_v2/instagram'
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
@@ -122,6 +123,16 @@ const removeInstagramProfiles = (instagramProfile) => {
     //     console.log(error)
     // })
 }
+
+const get_profile_picture = (instagram_profile) => {
+    console.log("on error")
+    get_ig_profile_picture(instagram_profile.id).then(res=> {
+        instagram_profile.image = res.data;
+    }).catch(err=> {
+        instagram_profile.image = null;
+    })
+}
+
 </script>
 
 <style scoped>

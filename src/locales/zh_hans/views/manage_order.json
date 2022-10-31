@@ -24,6 +24,7 @@
                 "paypal":"Paypal",
                 "ecpay":"綠界金流",
                 "pay_mongo":"PayMongo",
+                "rapyd":"Rapyd",
                 "details":"订单明细",
                 "copy_link":"复制订单连结",
                 "order_number" : "订单编号",
@@ -38,7 +39,10 @@
                 "status" : "订单状态",
                 "view" : "商品详情",
                 "null":"",
-                "guest": "访客"
+                "guest": "访客",
+                "payment_status":"付款状态",
+                "delivery_status":"运送状态"
+                
         },
         "product_modal":{
                 "order_no":"订单编号",
@@ -60,10 +64,13 @@
                         "hitpay":"Hitpay",
                         "paypal":"Paypal",
                         "ecpay":"綠界金流",
-                        "pay_mongo":"PayMongo"
+                        "pay_mongo":"PayMongo",
+                        "rapyd":"Rapyd"
                 },
                 "delivery":{
                         "status":"出货状态",
+                        "shipped":"已出货",
+                        "awaiting_shipment":"未出货",
                         "shipping out":"已出货",
                         "to be shipping":"未出货"
                 },
@@ -79,6 +86,8 @@
         "stop_checkout" : "停止结帐",
         "complete" : "已完成",
         "review" : "处理中",
+        "pending_confirmation": "确认中",
+        "proceed": "处理中",
         "shipping out":"已出货",
         "all" : "所有订单",
         "update_successed":"储存成功"

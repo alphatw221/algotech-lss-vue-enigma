@@ -23,10 +23,12 @@
         "assign_qty":"销售商品数量",
         "max_order_amount":"单次限购数量",
         "category":"商品分类",
+        "categories":"商品分类",
         "price":"价格",
         "customer_editable":"允许顾客修改",
         "customer_removable":"允许顾客删除",
         "oversell":"允许超卖",
+        "overbid":"允许超卖",
         "types":{
             "product":"商品",
             "product-fast":"商品",

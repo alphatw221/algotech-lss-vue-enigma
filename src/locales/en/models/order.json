@@ -1,0 +1,45 @@
+{
+    "status":"Order Status",
+    "status_options":{
+     "complete":"Complete",
+     "proceed":"Proceed"
+    },
+    
+    "payment_status":"Payment Status",
+    "payment_status_options":{
+     "awaiting_payment":"Awaiting Payment",
+     "awaiting_confirm":"Awaiting Confirm",
+     "failed":"Failed",
+     "expired":"Expired",
+     "paid":"Paid",
+     "awaiting_refund":"Awaiting Refund",
+     "refunded":"Refunded"
+    },
+    
+    "delivery_status":"Delivery Status",
+    "delivery_status_options":{
+     "awaiting_fulfillment":"Awaiting Fulfillment",
+     "awaiting_shipment":"Awaiting Shipment",
+     "awaiting_pickup":"Awaiting Pickup",
+     "partially_shipped":"Partially Shipped",
+     "shipped":"Shipped",
+     "collected":"Collected",
+     "awaiting_return":"Awaiting Return",
+     "returned":"Returned"
+    },
+    
+    "payment_method":"Payment Method",
+    "payment_method_options":{
+        "stripe":"Stripe",
+        "direct_payment":"Direct Payment",
+        "hitpay":"Hitpay",
+        "paypal":"Paypal",
+        "ecpay":"Ecpay",
+        "pay_mongo":"Pay Mongo",
+        "rapyd":"Rapyd"
+    },
+
+    "subtotal_after_discount":"Subtotal After Discount",
+    
+    "payment_completed":"Payment Completed"
+ }

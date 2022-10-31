@@ -24,6 +24,7 @@
                 "paypal":"Paypal",
                 "ecpay":"綠界金流",
                 "pay_mongo":"PayMongo",
+                "rapyd":"Rapyd",
                 "details":"訂單詳細",
                 "copy_link":"複製訂單連結",
                 "order_number" : "訂單編號",
@@ -38,7 +39,9 @@
                 "status" : "訂單狀態",
                 "view" : "詳情",
                 "null":"",
-                "guest": "訪客"
+                "guest": "訪客",
+                "payment_status":"付款狀態",
+                "delivery_status":"運送狀態"
         },
         "product_modal":{
                 "order_no":"訂單編號",
@@ -60,10 +63,13 @@
                         "hitpay":"Hitpay",
                         "paypal":"Paypal",
                         "ecpay":"綠界金流",
-                        "pay_mongo":"PayMongo"
+                        "pay_mongo":"PayMongo",
+                        "rapyd":"Rapyd"
                 },
                 "delivery":{
                         "status":"出貨狀態",
+                        "shipped":"已出貨",
+                        "awaiting_shipment":"未出貨",
                         "shipping out":"已出貨",
                         "to be shipping":"未出貨"
                 },
@@ -79,6 +85,8 @@
         "stop_checkout" : "停止結帳",
         "complete" : "已完成",
         "review" : "處理中",
+        "pending_confirmation": "確認中",
+        "proceed" : "處理中",
         "shipping out":"已出貨",
         "all" : "所有訂單",
         "update_successed":"儲存成功"

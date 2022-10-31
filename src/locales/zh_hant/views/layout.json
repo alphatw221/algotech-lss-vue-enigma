@@ -18,6 +18,7 @@
         "campaign-live":"銷售活動",
         "manage-order":"訂單管理",
         "order-detail":"訂單明細",
+        "cart-detail":"購物車明细",
         "settings":"設定",
         "localization":"本地化",
         "campaign-global":"基本設定",
@@ -59,5 +60,10 @@
         "time_1hour": "1 小時後",
         "join_now": "立即加入",
         "dismiss": "略過"
+    },
+    "test_mode": "測試模式",
+    "switch_mode_confirmation": {
+        "message": "一旦切換到正是模式則無法更改",
+        "switch": "切換"
     }
 }

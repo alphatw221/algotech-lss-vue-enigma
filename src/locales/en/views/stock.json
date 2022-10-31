@@ -30,6 +30,7 @@
         "order_code": "Order Code",
         "type": "Type",
         "category": "Category",
+        "categories": "Category",
         "description": "Description",
         "qty": "Qty",
         "price": "Price",
@@ -39,6 +40,7 @@
     },
 
     "category_manage": {
+        "create": "Create New Category",
         "create_new_category": "Create New Category",
         "edit_title": "Edit Category",
         "edit": "Edit",
@@ -89,5 +91,11 @@
         "confirm_send":"Confirm to notify and E-mail everyone on the wishlist",
         "cancel_send":"Canceled",
         "success_send":"E-mail Send Successfully."
+    },
+    "bulk_edit_modal":{
+        "bulk_edit":"Bulk Edit",
+        "select_a_category":"Select a category to update",
+        "cancel":"Cancel",
+        "save":"Save"
     }
 }

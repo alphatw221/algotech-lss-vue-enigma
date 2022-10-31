@@ -13,14 +13,14 @@
 			</tr>
 			</thead>
 			<tbody>
-			<tr v-for="(product, index) in store.orderDetail.products" :key="index" class="intro-x">
+			<tr v-for="(order_product, index) in sellerOrderDetail.order.order_products" :key="index" class="intro-x">
 				<td class=" " :data-content="$t('order_detail.table.null')">
-					<div class="w-14 sm:w-20 flex" v-if="product.image">
+					<div class="w-14 sm:w-20 flex" v-if="order_product.image">
 					<img
 						tag="img"
 						data-action="zoom"
 						class="rounded-lg w-10 h-10 sm:w-14 sm:h-14 zoom-in"
-						:src="product.image"
+						:src="order_product.image"
 					/>
 					</div>
 					<div class="w-14 sm:w-20 flex" v-else>
@@ -33,65 +33,29 @@
 					</div>
 				</td>
 				<td class="text-left" :data-content="$t('order_detail.table.product')">
-					<span class="font-bold"  v-if="product.type === 'lucky_draw'"> *{{$t('lucky_draw.winner_modal.prize')}}*</span>
-					<div class="break-words whitespace-normal">{{ product.name }} </div>
+					<span class="font-bold"  v-if="order_product.type === 'lucky_draw'"> *{{$t('lucky_draw.winner_modal.prize')}}*</span>
+					<div class="break-words whitespace-normal">{{ order_product.name }} </div>
 				</td>
 				<td class="text-center w-fit" :data-content="$t('order_detail.table.qty')">
-					<template v-if="props.order_type === 'order' || product.type=='lucky_draw'">
-						{{ product.qty }}
-					</template>
-					<template v-else>
-						<div class="self-center form-check place-content-left">
-
-							<button type="button" @click="changeQuantity(index, 'minus', product)" v-show="hideUpdateSignIndex!=index">
-								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
-							</button>
-							
-							<input 
-								type="text" 
-								class="form-control" 
-								placeholder="Input inline 1" 
-								aria-label="default input" 
-								:value="product.qty"
-								style="width: 2.7rem;"
-								@focus="focusQtyInput(index, product)"
-								v-show="hideQtyInputIndex!=index"
-							/>
-							<button type="button" @click="changeQuantity(index, 'add', product)" v-show="hideUpdateSignIndex!=index">
-								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
-							</button>
-
-                            <div class="flex inline-flex leading-5 items-center">
-								<input type="text" class="form-control mr-1 leading-5 align-middle" style="width: 2.7rem;" v-model="cacheQty" v-show="showUpdateButtonIndex==index" >
-								<div class="leading-5 allign-middle">
-									<button class="btn btn-primary w-15" v-show="showUpdateButtonIndex==index" @click="changeQuantity(index, 'input', product)">
-										{{$t('shopping_cart.table.update')}}
-									</button>
-									<button class="btn btn-secondary w-15" v-show="showUpdateButtonIndex==index" @click="showQtyInput();showUpdateSign();hideUpdateButton()">
-										{{$t('shopping_cart.table.cancel')}}
-									</button>
-								</div>
-							</div>
-                        </div>
-					</template>
+					{{ order_product.qty }}
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}}
-					{{ (Math.floor(parseFloat(product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
-					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="campaignDetailStore.campaign">
+					{{campaignDetailStore.campaign.currency}}
+					{{ (Math.floor(parseFloat(order_product.price) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+					{{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="store.orderDetail.campaign">
-					{{store.orderDetail.campaign.currency}}
-					{{ (Math.floor(parseFloat(product.qty * product.price) * (10 ** store.orderDetail.campaign.decimal_places)) / 10 ** store.orderDetail.campaign.decimal_places).toLocaleString('en-GB')}}
-					{{store.orderDetail.campaign.price_unit?$t(`global.price_unit.${store.orderDetail.campaign.price_unit}`):''}}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="campaignDetailStore.campaign">
+					{{campaignDetailStore.campaign.currency}}
+					{{ (Math.floor(parseFloat(order_product.subtotal) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+					{{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
 				</td>
-				<td>
+				<!-- <td>
 					<a  class="flex items-center justify-center text-danger" 
 						v-show="props.order_type !== 'order'"
-						@click="delete_product(product.order_product_id)" >
+						@click="delete_product(order_product)" >
 						<Trash2Icon class="w-4 h-4 mr-1" />
 					</a>
-				</td>
+				</td> -->
 			</tr>
 		</tbody>
 	</table>
@@ -102,6 +66,7 @@
 import { computed, onMounted, ref, watch,getCurrentInstance } from "vue";
 
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
+import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 import { useRoute, useRouter } from "vue-router";
 import { seller_delete_product, seller_update_product } from "@/api_v2/order_product"
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
@@ -109,7 +74,8 @@ import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const router = useRouter();
-const store = useSellerOrderStore();
+const sellerOrderDetail = useSellerOrderStore();
+const campaignDetailStore = useCampaignDetailStore();
 const sellerStore = useLSSSellerLayoutStore()
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const internalInstance = getCurrentInstance()
@@ -125,73 +91,73 @@ const tableColumns = ref([
 	{ key: "qty", name: "qty",  },
 	{ key: "price", name: "price",  },
 	{ key: "subtotal", name: "sub_total",  },
-    { key: "remove", name: "null",  }
+
 ])
 
-const showUpdateButton = index =>{showUpdateButtonIndex.value = index}
-const hideUpdateButton = () =>{showUpdateButtonIndex.value = null}
+// const showUpdateButton = index =>{showUpdateButtonIndex.value = index}
+// const hideUpdateButton = () =>{showUpdateButtonIndex.value = null}
 
-const showUpdateSign = ()=>{hideUpdateSignIndex.value = null}
-const hideUpdateSign = index=>{hideUpdateSignIndex.value = index}
+// const showUpdateSign = ()=>{hideUpdateSignIndex.value = null}
+// const hideUpdateSign = index=>{hideUpdateSignIndex.value = index}
 
-const showQtyInput = ()=>{hideQtyInputIndex.value = null}
-const hideQtyInput = index=>{hideQtyInputIndex.value = index}
+// const showQtyInput = ()=>{hideQtyInputIndex.value = null}
+// const hideQtyInput = index=>{hideQtyInputIndex.value = index}
 
-const focusQtyInput = (index,product)=>{
-	cacheQty.value = product.qty
-	hideQtyInput(index)
-	hideUpdateSign(index)
-	showUpdateButton(index)
+// const focusQtyInput = (index,product)=>{
+// 	cacheQty.value = product.qty
+// 	hideQtyInput(index)
+// 	hideUpdateSign(index)
+// 	showUpdateButton(index)
 
-}
-const changeQuantity = (index, operation, product) => {
-	let qty=1
-	if (operation == 'add' ) {
-		qty = product.qty+1
-	} else if (operation == 'minus' ) {
-		qty = product.qty-1
-	} else if (operation == 'input' && cacheQty.value >= 1 ) {
-		qty = cacheQty.value
-	} else {
-		sellerStore.alert.showMessageToast(i18n.global.t('order_detail.invalid_qty'))
-		cacheQty.value = product.qty
-		return
-	}
-	hideUpdateSign(index)
-	// hideUpdateButton()
-	// showQtyInput()
-	seller_update_product(route.params.order_id, product.order_product_id, qty, sellerStore.alert).then(
-		res =>{
-			store.orderDetail = res.data
-			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.update_successfully'))
-			showUpdateSign()
-			showQtyInput()
-			hideUpdateButton()
-		}
-	)
-}
+// }
+// const changeQuantity = (index, operation, product) => {
+// 	let qty=1
+// 	if (operation == 'add' ) {
+// 		qty = product.qty+1
+// 	} else if (operation == 'minus' ) {
+// 		qty = product.qty-1
+// 	} else if (operation == 'input' && cacheQty.value >= 1 ) {
+// 		qty = cacheQty.value
+// 	} else {
+// 		sellerStore.alert.showMessageToast(i18n.global.t('order_detail.invalid_qty'))
+// 		cacheQty.value = product.qty
+// 		return
+// 	}
+// 	hideUpdateSign(index)
+// 	// hideUpdateButton()
+// 	// showQtyInput()
+// 	seller_update_product(route.params.order_id, product.order_product_id, qty, sellerStore.alert).then(
+// 		res =>{
+// 			sellerOrderDetail.order = res.data
+// 			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.update_successfully'))
+// 			showUpdateSign()
+// 			showQtyInput()
+// 			hideUpdateButton()
+// 		}
+// 	)
+// }
 
 
 // function update_qty(id,order_product_id,qty){
-// 	// store.orderDetail.products[id].qty = qty
+// 	// sellerOrderDetail.order.products[id].qty = qty
 // 	seller_update_product(route.params.order_id,order_product_id,qty).then(
 // 		res =>{
-// 			store.orderDetail = res.data
+// 			sellerOrderDetail.order = res.data
 // 			sellerStore.notification.showMessageToast("Update Successfully")
 // 		}
 // 	)
 // }
-function delete_product(order_product_id){
-	seller_delete_product(route.params.order_id,order_product_id, sellerStore.alert).then(
-		res=>{
-			store.orderDetail = res.data
-			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.delete_successfully'))
-		}
-	)
-}
-const props = defineProps({
-  order_type: String
-})
+// function delete_product(order_product_id){
+// 	seller_delete_product(route.params.order_id,order_product_id, sellerStore.alert).then(
+// 		res=>{
+// 			sellerOrderDetail.order = res.data
+// 			sellerStore.notification.showMessageToast(i18n.global.t('order_detail.delete_successfully'))
+// 		}
+// 	)
+// }
+// const props = defineProps({
+//   order_type: String
+// })
 
 
 </script>

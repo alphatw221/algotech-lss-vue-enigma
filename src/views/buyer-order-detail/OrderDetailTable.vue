@@ -10,33 +10,34 @@
 				{{ $t(`order_detail.table.`+column.name) }}
 				</th>
 			</tr>
-			</thead>
-			<tbody>
-			<tr v-for="(product, index) in store.order.products" :key="index" class="intro-x">
-        <td class="imgtd">
+		</thead>
+
+		<tbody>
+			<tr v-for="(order_product, index) in store.order.order_products" :key="index" class="intro-x">
+        		<td class="imgtd">
 					<div class="w-full flex">
 						<img
 							tag="img"
 							data-action="zoom"
 							class="rounded-lg w-14 h-14 zoom-in mx-auto mt-3 sm:mt-0 "
-							:src="product.image || `${staticDir}no_image.jpeg`"
+							:src="order_product.image || `${staticDir}no_image.jpeg`"
 						/>
 					</div>
 				</td>
 				<td class="text-left w-fit"> 
-					<div v-if="product.type == 'lucky_draw'" class="font-medium text-primary" > *{{$t('lucky_draw.winner_modal.prize')}}*</div>
-					{{ product.name }}  </td>
+					<div v-if="order_product.type == 'lucky_draw'" class="font-medium text-primary" > *{{$t('lucky_draw.winner_modal.prize')}}*</div>
+					{{ order_product.name }}  </td>
 				<td class="text-right" :data-content="$t('order_detail.table.qty')">
-					{{ product.qty }}
+					{{ order_product.qty }}
 				</td>
 				<td class="text-right" :data-content="$t('order_detail.table.price')" v-if="store.order.campaign">
 					{{store.order.campaign.currency}} 
-					{{(Math.floor(product.price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+					{{(Math.floor(order_product.price * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
 					{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 				</td>
 				<td class="text-right" :data-content="$t('order_detail.table.sub_total')" v-if="store.order.campaign">
 					{{store.order.campaign.currency}}
-					{{(Math.floor(product.price * product.qty * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
+					{{(Math.floor(order_product.subtotal * (10 ** store.order.campaign.decimal_places)) / 10 ** store.order.campaign.decimal_places).toLocaleString('en-GB')}}
 					{{store.order.campaign.price_unit?$t(`global.price_unit.${store.order.campaign.price_unit}`):''}}
 				</td>
 			</tr>

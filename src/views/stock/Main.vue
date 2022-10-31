@@ -4,7 +4,7 @@
 	</div>
 	<div class="flex flex-col p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
 		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-5"> 
-			<div v-if="!store.plugins"
+			<div v-if="!layoutStore.plugins"
 				class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
 				<label for="on">{{ $t('stock.for_sale') }}</label>
@@ -16,7 +16,7 @@
 				<OrdrStartrExportProductButton />
 				<ShopifyExportProductButton />
 				<button 
-					v-if="!store.plugins"
+					v-if="!layoutStore.plugins"
 					type="button"
 					class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
 					@click="router.push({name: 'add-product'})"
@@ -30,18 +30,15 @@
 		<div class="flex flex-col gap-3 leading-relaxed"
 			v-if="openTab == 1 " > 
 			<SearchBar
-				:searchColumns="searchColumns"
-				:productCategories="productCategories"
-				:eventBusName="'searchForSaleTable'"
+				:searchEventBusName="'searchForSaleTable'"
 				:showCategoryFilter="true"
 			>
 			</SearchBar>	
 			<DataTable
 				class="overflow-x-auto"
-				:requestUrl="'/api/v2/product/search'"
-				:columns="tableColumns"
 				:product_status="'enabled'"
-				:eventBusName="'searchForSaleTable'"
+				:searchEventBusName="'searchForSaleTable'"
+
 			>
 			</DataTable>
 		</div>
@@ -51,17 +48,14 @@
 		<div class="flex flex-col gap-3 leading-relaxed sm:gap-5"
 			v-if="openTab == 2"> 
 			<SearchBar
-				:searchColumns="searchColumns"
-				:productCategories="productCategories"
-				:eventBusName="'searchDelistedTable'"
+				:searchEventBusName="'searchDelistedTable'"
 				:showCategoryFilter="true"
 			>
 			</SearchBar>	
 			<DataTable
-				:requestUrl="'/api/v2/product/search'"
-				:columns="tableColumns"
 				:product_status="'disabled'"
-				:eventBusName="'searchDelistedTable'"
+				:searchEventBusName="'searchDelistedTable'"
+
 			>
 			</DataTable>
 		</div>
@@ -69,60 +63,56 @@
 			<!-- <TabPanel class="leading-relaxed"> Sold. </TabPanel>
 			<TabPanel class="leading-relaxed"> Delete. </TabPanel> -->
 	</div>
+
+	<BulkEditModal/>
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance } from 'vue'
+import { ref, onMounted, getCurrentInstance, onUnmounted } from 'vue'
 
 import SearchBar from "./SearchBar.vue";
 import DataTable from "./DataTable.vue";
+import BulkEditModal from "./BulkEditModal.vue"
 import { useRoute, useRouter } from "vue-router"
-import { list_product_category } from '@/api_v2/product';
+
 import EasyStoreExportProductButton from '@/plugin/easy-store/views/ExportProductButton.vue'
 import OrdrStartrExportProductButton from '@/plugin/ordr-startr/views/ExportProductButton.vue'
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useSellerStockStore } from "@/stores/lss-seller-stock"
 import ShopifyExportProductButton from '@/plugin/shopify/views/ExportProductButton.vue'
 
 const openTab = ref(1)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const route = useRoute()
 const router = useRouter()
-const store = useLSSSellerLayoutStore();
+const layoutStore = useLSSSellerLayoutStore();
+const stockStore = useSellerStockStore();
 
 
-const searchColumns = ref([
-	{ text: "name", value: "name" },
-	// { text: "order_code", value: "order_code" },
-	{ text: "description", value: "description" }
-])
+onMounted(()=>{
+	clearStore()
+	createProductCategoryDict()
+})
 
-const tableColumns = ref([
-    { name: "image", key: "image" },
-	{ name: "name", key: "name" },
-	// { name: "order_code", key: "order_code" },
-	// { name: "type", key: "type" },
-	{ name: "category", key: "category" },
-	{ name: "description", key: "description" },
-	{ name: "qty", key: "qty" },
-	{ name: "price", key: "price" },
-	// { name: "",}
-	{ name: "", key: "edit" },
-])
+onUnmounted(()=>{
+	eventBus.off('refreshStockTable')
+})
 
-const productCategories= ref([{text:"All", value:''}])
+const clearStore = ()=>{
+	stockStore.productCategoryDict = {}
+	stockStore.selectedProductIDList = []
+}
+const createProductCategoryDict = ()=>{
+	layoutStore.userInfo.user_subscription?.product_categories?.forEach(productCategory => {
+		stockStore.productCategoryDict[productCategory.id.toString()]=productCategory
+	});
+}
+
 	
 const toggleTabs = (tabNumber) =>{
 	openTab.value = tabNumber
-	eventBus.emit('toggleTab')
+	// eventBus.emit('toggleTab')
 }
 
-onMounted(() => {
-	list_product_category(store.alert).then(
-		response => { 
-			response.data.forEach(category => {
-				productCategories.value.push({text: category, value: category})
-			});
-		}
-	)
-})
+
 </script>

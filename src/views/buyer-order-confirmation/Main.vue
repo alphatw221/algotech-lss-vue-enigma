@@ -4,7 +4,7 @@
             <lottie-player class="mx-auto" src="https://assets1.lottiefiles.com/packages/lf20_zk5i149v.json"  background="transparent"  speed="1"  style="width: 300px; height: 300px;"   autoplay></lottie-player>
         </div>
         <div class="text-center text-slate-500" v-if="store.order.campaign">
-            <h1 style="white-space:pre;line-height:normal;">{{ store.order.campaign.meta_payment.confirmation_note||'Order Payment Successful !'}}</h1>
+            <h1 style="white-space:pre;line-height:normal;">{{ store.order.campaign?.meta_payment?.confirmation_note||$t('order.payment_completed')}}</h1>
         </div>
     </div>
 </template>

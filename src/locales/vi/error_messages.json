@@ -161,6 +161,7 @@
         "campaign_end_time_not_later_subscription_period": "Gói dịch vụ đang sử dụng sẽ hết hạn vào %{datetime_subscription_expired_at},<br />thời gian chiến dịch không trễ hơn %{datetime_subscription_expired_at}."
     },
     "util":{
+        "field_required": "%{field} is required",
         "no_api_user_found":"Không thể tìm thấy người dùng này",
         "not_activated_user": "Tài khoản này chưa được kích hoạt",
         "language_not_supported": "Ngôn ngữ này chưa được hỗ trợ",
@@ -187,6 +188,10 @@
         "signature_error": "Lỗi chữ ký",
         "lucky_draw_not_found": "Không thể tìm thấy cài đặt rút thăm may mắn",
         "quiz_game_not_found": "Không thể tìm thấy cài đặt trò chơi đố vui"
+    },
+    "params": {
+        "email": "email",
+        "password": "password"
     },
     "token_not_valid": "Bạn đã đăng xuất",
     
@@ -298,6 +303,7 @@
     "refresh_try_again": "Please refresh the page and try again",
     "invalid_user": "Invalid User",
     "request_data_error": "Request data error",
-    "duplicate_discount_code":"Duplicate Discount Code"
+    "duplicate_discount_code":"Duplicate Discount Code",
 
+    "invalid_data":"Invalid Data"
 }
