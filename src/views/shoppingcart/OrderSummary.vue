@@ -94,7 +94,7 @@
         
         </div>
         <div v-if="shoppingCartStore.cart?.free_delivery || computedSubtotalOverFreeDeliveryThreshold || computedItemsOverFreeDeliveryThreshold" class="text-red-600 text-sm">{{$t('shopping_cart.order_summary.free_delivery')}}</div>
-        <div v-if="computedIsMultipleShippingCostApplied" class="text-red-600 text-sm">{{$t('cart.multiple_shiupping_included')}}</div>
+        <div v-else-if="computedIsMultipleShippingCostApplied" class="text-red-600 text-sm">{{$t('cart.multiple_shiupping_included')}}</div>
 
       </template>
       
