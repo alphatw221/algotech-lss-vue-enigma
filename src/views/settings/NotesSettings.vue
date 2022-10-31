@@ -58,7 +58,6 @@
     <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
 
     <!--POINTS-->
-
     <div class="flex flex-col md:flex-row justify-between gap-10 my-5">
         <label class="whitespace-nowrap w-60 text-[18px]"> Points Settings</label>
         <div class="flex flex-col gap-5 w-full">
@@ -82,25 +81,28 @@
             
             <div class="flex flex-row flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0" 
                 v-for="(option, index) in points.additional_points_options" :key="index">
-                <label class="w-fit whitespace-nowrap form-label text-base font-medium my-auto "> SGD</label>
-                <input  
-                class="w-24 md:w-32 form-control flex-2 "
-                type="text" 
-                v-model="option.startFrom"
-                />
-                <label class="w-fit whitespace-nowrap form-label text-base font-medium my-auto "> ~ SGD</label>
-                <input  
-                class="w-24 form-control flex-2 "
-                type="text" 
-                v-model="option.endAt"
-                />
+                <div class="w-full gap-2"> 
+                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> SGD</label>
+                    <input  
+                    class="w-24 md:w-32 form-control flex-2 "
+                    type="text" 
+                    v-model="option.startFrom"
+                    />
+                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ SGD</label>
+                    <input  
+                    class="w-24 form-control flex-2 "
+                    type="text" 
+                    v-model="option.endAt"
+                    />
+                </div>
+                
                 <ChevronsRightIcon class="my-auto"/>
+                
                 <input  
                     class="w-32 form-control flex-2 "
                     type="text" 
                     v-model="option.amount"
                 />
-
                 <select 
                     class="flex-1 w-32 rounded-lg form-select sm:form-select-lg "
                     v-model="option.type"
@@ -129,13 +131,13 @@
                     type="text" 
                     v-model="points.redeem_points"
                     />
-                    <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px]"> point(s)</label>
+                    <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> point(s)</label>
                 </div>
                 
                 <ChevronsRightIcon class="my-auto flex-0 w-8"/>
                 
                 <div class="flex flex-1 flex-row gap-3 md:max-w-1/4"> 
-                    <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px]"> SGD</label>
+                    <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> SGD</label>
                     <input  
                         class="w-14 md:w-32 form-control flex-1"
                         type="text" 
