@@ -269,7 +269,7 @@ const detailStore= useCampaignDetailStore()
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const spinTimes = ref([ { value: 5, name: '5 secs' }, { value: 10, name: '10 secs' }, { value: 20, name: '20 secs' }, { value: 30, name: '30 secs' }, { value: 60, name: '60 secs' }]);
 const drawTypes = ref([ { value: 'like', name: 'by like this post' }, { value: 'purchase', name: 'by purchased any product' }, { value: 'product', name: 'by purchased certain product' }, { value: 'keyword', name: 'by keyword' },
-//  { value: 'sharedpost', name: 'By shared the post' },
+ { value: 'sharedpost', name: 'By shared the post' },
 { value: 'like_and_comment', name: 'By like and comment this post' },
  ]);
 const prizeList = ref([])  
