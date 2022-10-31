@@ -81,7 +81,7 @@
             
             <div class="flex flex-row flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0" 
                 v-for="(option, index) in points.additional_points_options" :key="index">
-                <div class="w-full gap-2"> 
+                <div class="flex-1 gap-2 flex"> 
                     <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> SGD</label>
                     <input  
                     class="w-24 md:w-32 form-control flex-2 "
@@ -98,18 +98,21 @@
                 
                 <ChevronsRightIcon class="my-auto"/>
                 
-                <input  
-                    class="w-32 form-control flex-2 "
-                    type="text" 
-                    v-model="option.amount"
-                />
-                <select 
-                    class="flex-1 w-32 rounded-lg form-select sm:form-select-lg "
-                    v-model="option.type"
-                >
-                    <option value="percent">% of amount</option>
-                    <option value="points">points</option>
-                </select>
+                <div  class="flex-1 gap-2 flex"> 
+                    <input  
+                        class="w-32 form-control flex-2"
+                        type="text" 
+                        v-model="option.amount"
+                    />
+                    <select 
+                        class="flex-1 w-32 rounded-lg form-select sm:form-select-lg "
+                        v-model="option.type"
+                    >
+                        <option value="percent">% of amount</option>
+                        <option value="points">points</option>
+                    </select>
+                </div>
+                
             
                 
                 <button 
