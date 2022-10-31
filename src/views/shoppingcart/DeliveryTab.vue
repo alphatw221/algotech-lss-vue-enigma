@@ -267,9 +267,15 @@
         {{$t('shopping_cart.delivery_tab.previous')}}
       </button>
 
-      <button :show="show" class="w-fit btn btn-rounded-primary" @click="proceed_to_payment" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
+      <button :show="show" v-if="checkoutLoading" class="w-fit btn btn-rounded-primary" >
+        {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
+        <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-12 h-fit"/>
+      </button>
+      <button :show="show" v-else class="w-fit btn btn-rounded-primary" @click="proceed_to_payment" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
+      
+      
     </div>
   </div>
 </template>
@@ -298,6 +304,7 @@ const shoppingCartStore = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
 const sandboxMode = ref("test")
 const show = ref(false)
+const checkoutLoading = ref(false)
 const shipping_info= ref({
 			shipping_option:"",
       shipping_option_index:null,
@@ -430,7 +437,7 @@ const proceed_to_payment = () =>{
 
   // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
 
-
+  checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value}, layoutStore.alert)
   .then(res=>{
     if(res.data.oid){
@@ -439,7 +446,10 @@ const proceed_to_payment = () =>{
       shoppingCartStore.cart = res.data
       layoutStore.alert.showMessageToast('out of stock')
     }
+    checkoutLoading.value = false
   })
+  .catch(err=>{checkoutLoading.value = false})
+  
   
 }
 
