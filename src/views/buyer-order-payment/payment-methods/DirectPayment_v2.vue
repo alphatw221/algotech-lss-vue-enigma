@@ -94,9 +94,18 @@
                         {{$t('shopping_cart.payment.direct.digits_message')}}
                     </div>
                 </template>
-                <button type="button"
+
+                <button type="button" v-if="uploadReceiptLoading"
                     class="self-center mx-3 mt-5 w-fit btn btn-rounded-primary lg:self-end 2xl:self-end"
-                    @click="uploadReceipt()">{{$t('shopping_cart.payment.direct.complete_order')}}</button>
+                    >
+                    {{$t('shopping_cart.payment.direct.complete_order')}}
+                    <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-12 h-5"/>
+                </button>
+                <button type="button" v-else
+                    class="self-center mx-3 mt-5 w-fit btn btn-rounded-primary lg:self-end 2xl:self-end"
+                    @click="uploadReceipt()">{{$t('shopping_cart.payment.direct.complete_order')}}
+                </button>
+                
             </div>
         </AccordionPanel>
 
@@ -134,6 +143,7 @@ const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 const receiptUploadDropzoneRef = ref();
 const openTab = ref(0);
 const selectAccountIndex = ref(0);
+const uploadReceiptLoading = ref(false);
 
 const show_account_info = index => {
     openTab.value = index
@@ -189,15 +199,17 @@ const uploadReceipt = () => {
     formData.append('account_name', account.name)
     formData.append('account_mode', account.mode)
 
-
+    uploadReceiptLoading.value = true
     buyer_upload_receipt(route.params.order_oid, formData, layoutStore.alert)
         .then(
             res => {
                 store.order = res.data
+                uploadReceiptLoading.value = false
                 router.push(`/buyer/order/${route.params.order_oid}/confirmation`)
             }
         ).catch(err=>{
             layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.err'))
+            uploadReceiptLoading.value = false
         })
 }
  
