@@ -160,7 +160,7 @@ import { ref, onBeforeMount } from 'vue';
 import { seller_reset_password } from '@/api_v2/user.js';
 import { useVuelidate } from '@vuelidate/core'
 import * as validators from '@vuelidate/validators'
-const { createI18nMessage } = validators
+
 import { computed } from '@vue/runtime-core';
 
 import i18n from "@/locales/i18n";
@@ -173,6 +173,7 @@ import { useRoute, useRouter} from "vue-router"
 import LSSLogo from "@/assets/images/lss-logo/LSS_logo_words.png"
 import { usePublicLayoutStore } from "@/stores/lss-public-layout"
 
+const { createI18nMessage } = validators
 const publicLayout = usePublicLayoutStore()
 
 

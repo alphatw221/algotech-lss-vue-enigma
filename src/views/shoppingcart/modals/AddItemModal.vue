@@ -45,7 +45,7 @@
 								{{(Math.floor(parseFloat(product.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
 								{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 							</div>
-							<div v-if="product.qty_for_sale - product.qty_sold > 0 || product.oversell == true" class="flex"> 
+							<div v-if="product.qty_for_sale - product.qty_sold - product.qty_pending_payment  > 0 || product.oversell == true" class="flex"> 
 								<button type="button" @click="changeQuantity(null, index, 'minus')">
 									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 								</button>
@@ -62,7 +62,7 @@
 									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 								</button>
 							</div>
-							<div v-if="product.qty_for_sale  > product.qty_sold+product.qty_pending_payment || product.oversell == true">
+							<div v-if="product.qty_for_sale - product.qty_sold - product.qty_pending_payment  > 0 || product.oversell == true">
 								<button 
 									class="btn btn-sm btn-primary w-24 mt-3"
 									@click="buyerAddItem(product, index)"
