@@ -70,13 +70,12 @@
                                 {{ campaign_product[column.key] }}    
                             </div>
                         </td>
+                        
 
-                        <td v-else-if="column.key === 'tag'" 
+                        <td v-else-if="column.key === 'categories'" 
                             class="my-1 w-full text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end category" 
                             :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
-                            <div v-for="tag in campaign_product[column.key]" :key="tag">
-                                {{ tag }}
-                            </div>
+                            <div v-for="(productCategoryID,productCategoryIndex) in campaign_product[column.key]" :key="productCategoryIndex">{{ (layoutStore.userInfo?.user_subscription?.product_categories?.find(productCategory=>productCategory.id.toString()==productCategoryID))?.name }}</div> 
                         </td>
 
                         <td v-else-if="column.key === 'price'" class="price" 
@@ -240,7 +239,7 @@ const tableColumns = ref([
     { name: "Order Code", key: "order_code" },
     { name: "Qty for Sale", key: "qty_for_sale" },
     { name: "Max Qty / Order", key: "max_order_amount" },
-    { name: "Category", key: "tag" },
+    { name: "Category", key: "categories" },
     { name: "Price", key: "price" },
     { name: "Oversell", key: "oversell" },
     { name: "Editable", key: "customer_editable" },
@@ -255,6 +254,7 @@ const typeSelection = ref([
 const payloadBuffer = ref({})
 
 onMounted(() => {
+    campaignDetailStore.campaignProducts=[] //clear previous data in store
     search()
     eventBus.on(props.eventBusName, (payload) => {
         payloadBuffer.value=payload
