@@ -15,20 +15,23 @@
         </Tippy> 
         </Button>
         
-        <Button class="ml-2" type="button" @click="handleAuthClick">{{ $t('settings.platform.edit') }}</Button>
+        <Button class="ml-2" type="button" @click="bindPage">{{ $t('settings.platform.edit') }}</Button>
     </div>
 
     <Button v-else 
-        type="button" class="twitch-login-btn shadow-lg" @click="handleAuthClick">{{ $t('settings.platform.connect_with_twitch') }}</Button>
+        type="button" class="twitch-login-btn shadow-lg" @click="bindPage">{{ $t('settings.platform.connect_with_twitch') }}</Button>
     
 </template>
 
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance, watch, computed, onUpdated } from "vue";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { useRoute, useRouter } from 'vue-router';
 import { bind_platform_instances } from '@/api_v2/user_subscription';
+import { checkReachChannelLimit } from "@/libs/utils/planLimitController"
+import i18n from "@/locales/i18n"
 
-
+const layoutStore = useLSSSellerLayoutStore();
 const props = defineProps({ 
     busName: String,
     buttonName: String
@@ -38,7 +41,9 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)
 const router = useRouter()
 const scope = 'chat:read+chat:edit+moderator:manage:announcements+user:manage:whispers+user:read:email+moderation:read'
- 
+
+const channelName = ref('')
+
 
 const handleAuthClick = () => {
     location.href = `${import.meta.env.VITE_TWITCH_OAUTH_URL}?response_type=code&client_id=${import.meta.env.VITE_TWITCH_CLIENT_ID}&redirect_uri=${import.meta.env.VITE_APP_WEB}/seller/platform&scope=${scope}`
@@ -47,6 +52,17 @@ const handleAuthClick = () => {
 const toTwitch = () => {
     window.open('https://www.twitch.tv/', '_blank');
 }
+
+const bindPage = () => {
+    let result = checkReachChannelLimit(layoutStore, 'twitch')
+    console.log(result)
+    if (result) {
+        layoutStore.alert.showMessageToast(i18n.global.t('settings.platform.reach_channel_limt_message'))
+        return false
+    }
+    handleAuthClick()
+}
+
 
 </script>
 

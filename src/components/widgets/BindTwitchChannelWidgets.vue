@@ -19,46 +19,89 @@
             </div>
         </div>
     </div>
+    <Modal :show="showModal" @hidden="hide()" backdrop="static">
+        <ModalBody class="p-10 text-center">
+            <div class="mt-1">
+                <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{ $t('settings.platform.twitch_channel') }}</label>
+                <input 
+                    id="regular-form-2" 
+                    type="text" 
+                    class="mt-3 form-control"
+                    :placeholder="$t('settings.platform.twitch_channel_placeholder')" 
+                    v-model="channelName" 
+                    required
+                />
+            </div>
+            <div class="flex justify-between">
+                <button class="w-32 shadow-md btn btn-secondary mt-7" @click="hide()">{{ $t('settings.platform.cancel') }}</button>
+                <button class="w-32 shadow-md btn btn-primary mt-7" @click="bindTwitchChannels()">{{ $t('settings.platform.connect') }}</button>
+            </div>
+        </ModalBody>
+    </Modal>
+    
     
 </template>
 <script setup>
 import { ref, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
-import { get_platform_instances, unbind_platform_instance } from '@/api_v2/user_subscription'
+import { useRoute, useRouter } from "vue-router"
+import { get_platform_instances, unbind_platform_instance, bind_platform_instances } from '@/api_v2/user_subscription'
+import { addBindedPlatform, removeBindedPlatform } from "@/libs/utils/planLimitController"
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import BindTwitchChannelButton from '@/components/button/BindTwitchChannelButton.vue'
-import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
-
-const layoutStore = useLSSSellerLayoutStore();
+const router = useRouter()
+const route = useRoute()
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 
+const layoutStore = useLSSSellerLayoutStore()
 const showConnectButton = ref(false)
 const showPages = ref(false)
+const showModal = ref(false)
 const twitchChannels = ref([])
 const channelName = ref('')
-
+const platform = ref('twitch')
+const fetchingData = ref(false)
+const props = defineProps({
+    subscriptionPlatformField: String
+});
 
 onMounted(() => {
-    getTwitchChannel()
-
-    eventBus.on('getTwitchChannel', () => {
-        getTwitchChannel()
-    })
+    if (location.href.includes('code=') && location.href.includes('scope=')) {
+        showModal.value = true
+    } else {
+        showModal.value = false
+    }
+    getTwitchChannels()
 })
 
 onUnmounted(() => {
-    eventBus.off('getTwitchChannel')
 })
 
-const getTwitchChannel = () => {
-    get_platform_instances('twitch', layoutStore).then(response=>{
+const getTwitchChannels = () => {
+    console.log(layoutStore.userInfo.user_subscription[props.subscriptionPlatformField])
+    if(!layoutStore.userInfo.user_subscription[props.subscriptionPlatformField].length) {
+        showConnectButton.value = true;
+            return false
+    }
+    showPages.value = true;
+    twitchChannels.value = layoutStore.userInfo.user_subscription[props.subscriptionPlatformField]
+}
+
+const bindTwitchChannels = () => {
+    fetchingData.value = true
+    bind_platform_instances(platform.value, {'code': route.query.code, 'channel_name': channelName.value, 'redirect_uri': import.meta.env.VITE_APP_WEB}, layoutStore.alert).then(response => {
         if (!response.data.length) {
-            showConnectButton.value = true;
             return false
         }
         showConnectButton.value = false;
         showPages.value = true;
         twitchChannels.value = response.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = response.data
+        fetchingData.value = false
+        showModal.value = false
+        router.push({name: 'platform'})
+        console.log(layoutStore.userInfo.user_subscription[props.subscriptionPlatformField])
     })
 }
 
@@ -66,14 +109,21 @@ const removeTwitchChannel = (channel) => {
     if (!channel) {
         return false
     }
-    unbind_platform_instance('twitch', channel.id, layoutStore.alert).then(response=> {
+    unbind_platform_instance(platform.value, channel.id, layoutStore.alert).then(response=> {
+        twitchChannels.value = response.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = response.data
+        console.log(layoutStore.userInfo.user_subscription[props.subscriptionPlatformField])
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
             return false
         }
-        twitchChannels.value = response.data
+        
     })
+}
+
+const hide = () => {
+    showModal.value = false
 }
 
 </script>

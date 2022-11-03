@@ -1,7 +1,7 @@
 <template>
     <LoadingIcon v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
     <Button v-else-if="props.buttonName == 'edit'" 
-        type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
+        type="button" @click="bindPage">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
         type="button" class="insta-default shadow-lg" @click="bindPage">{{$t('settings.platform.connect_with_instagram')}}</Button>
@@ -12,7 +12,11 @@
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed, defineProps } from "vue";
 import loadScript from '@/libs/loadScript.js';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { checkReachChannelLimit } from "@/libs/utils/planLimitController"
+import i18n from "@/locales/i18n"
 
+const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)
@@ -68,6 +72,12 @@ const checkLoginState = () => {
 }
 
 const bindPage = () => {
+    let result = checkReachChannelLimit(layoutStore, 'instagram')
+    console.log(result)
+    if (result) {
+        layoutStore.alert.showMessageToast(i18n.global.t('settings.platform.reach_channel_limt_message'))
+        return false
+    }
     checkLoginState()
 }
 

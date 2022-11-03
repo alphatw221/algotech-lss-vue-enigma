@@ -10,6 +10,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     profileTab: ref(1),
     changePlanTab: ref(1), 
     userInfo: ref({}),
+    bindedPlatform: ref([]),
     floatingVideo: ref(),
     campaignAlert: ref(),
     notification: ref(),

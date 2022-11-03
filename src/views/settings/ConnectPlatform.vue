@@ -29,46 +29,22 @@
             <component :is="component"></component>
         </div> -->
 
-        <div>
-            <BindFacebookPageWidgets/>
+        <div v-if="activatedPlatformList.includes('facebook')">
+            <BindFacebookPageWidgets :subscriptionPlatformField="subscriptionPlatformField['facebook']"/>
         </div>
-        <div>
-            <BindInstagramProfileWidgets/>
+        <div v-if="activatedPlatformList.includes('instagram')">
+            <BindInstagramProfileWidgets :subscriptionPlatformField="subscriptionPlatformField['instagram']"/>
         </div>
-        <div>
-            <BindYoutubeChannelWidgets/>
+        <div v-if="activatedPlatformList.includes('youtube')">
+            <BindYoutubeChannelWidgets :subscriptionPlatformField="subscriptionPlatformField['youtube']"/>
         </div>
-        <div>
-            <BindTwitchChannelWidgets/>
+        <div v-if="activatedPlatformList.includes('twitch')">
+            <BindTwitchChannelWidgets :subscriptionPlatformField="subscriptionPlatformField['twitch']"/>
         </div>
-        <div>
-            <BindTiktokAccountWidgets/>
-        </div>
-
-        <div>
-            <!-- TWITCH MODAL -->
-            <Modal :show="showModal" @hidden="hide()" backdrop="static">
-                <ModalBody class="p-10 text-center">
-                    <div class="mt-1">
-                        <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{ $t('settings.platform.twitch_channel') }}</label>
-                        <input 
-                            id="regular-form-2" 
-                            type="text" 
-                            class="mt-3 form-control"
-                            :placeholder="$t('settings.platform.twitch_channel_placeholder')" 
-                            v-model="channelName" 
-                            required
-                        />
-                    </div>
-                    <div class="flex justify-between">
-                        <button class="w-32 shadow-md btn btn-secondary mt-7" @click="hide()">{{ $t('settings.platform.cancel') }}</button>
-                        <button class="w-32 shadow-md btn btn-primary mt-7" @click="bind_twitch()">{{ $t('settings.platform.connect') }}</button>
-                    </div>
-                </ModalBody>
-            </Modal>
+        <div v-if="activatedPlatformList.includes('tiktok')">
+            <BindTiktokAccountWidgets :subscriptionPlatformField="subscriptionPlatformField['tiktok']"/>
         </div>
     </div>
-    
     <!-- <Modal :show="UpgradeModal" @hidden="closeUpgradeModal()">
         <ModalBody class="text-center text-lg flex flex-col p-10">
             <AlertCircleIcon class="h-20 w-20 text-danger mx-auto"/>
@@ -88,7 +64,7 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
-import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
+import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, onBeforeMount } from "vue";
 import BindFacebookPageWidgets from "@/components/widgets/BindFacebookPageWidgets.vue"
 import BindInstagramProfileWidgets from "@/components/widgets/BindInstagramProfileWidgets.vue"
 import BindYoutubeChannelWidgets from "@/components/widgets/BindYoutubeChannelWidgets.vue"
@@ -102,26 +78,43 @@ const router = useRouter();
 
 const layoutStore = useLSSSellerLayoutStore();
 const subscriptionPlan = ref(null)
-const activatedPlatformNumber = ref(0)
-const showModal = ref(false)
-const this_url = ref(location.href)
-const channelName = ref('')
+const activatedPlatformList = ref([])
+const subscriptionPlatformField = ref({
+    "facebook": "facebook_pages",
+    "instagram": "instagram_profiles",
+    "youtube": "youtube_channels",
+    "twitch": "twitch_channels",
+    "tiktok": "tiktok_accounts"
+})
 
-// const platform_components = ref({
-//     "facebook": BindFacebookPageWidgets,
-//     "instagram": BindInstagramProfileWidgets,
-//     "youtube": BindYoutubeChannelWidgets
-// })
+const addBindedPlatformToStore = () => {
+    console.log("addBindedPlatformToStore")
+    let platforms = []
+    Object.entries(subscriptionPlatformField.value).forEach(([Key, value]) => {
+        if (layoutStore.userInfo.user_subscription[value].length) {
+            platforms.push(Key)
+        }
+    })
+    layoutStore.bindedPlatform = platforms
+}
 
+watch(computed(() => layoutStore.userInfo.user_subscription), () => {
+    console.log("watch")
+    addBindedPlatformToStore()
+}, {deep:true})
+
+onBeforeMount(()=>{
+    if (layoutStore.userInfo.user_subscription.user_plan?.activated_platform) {
+        activatedPlatformList.value = layoutStore.userInfo.user_subscription.user_plan.activated_platform
+    }
+    addBindedPlatformToStore()
+})
 
 onMounted(() => {
     let subscription_plan = layoutStore.userInfo.user_subscription.type
     subscriptionPlan.value = subscription_plan.charAt(0).toUpperCase() + subscription_plan.slice(1);
+})
 
-    if (this_url.value.includes('code=') && this_url.value.includes('scope=')) {
-        showModal.value = true
-    }
-});
 
 const plural = (number) => {
     if (layoutStore.userInfo.user_subscription.lang === "zh_hant") {
@@ -144,23 +137,6 @@ const Capitalize = (word) => {
         new_word = new_word.replace("t", "T")
     }
     return new_word
-}
-
-const bind_twitch = () => {
-    let code = this_url.value.substring( this_url.value.indexOf("code=") + 5, this_url.value.lastIndexOf("&") )
-
-    bind_platform_instances('twitch', {'code': code, 'channel_name':channelName.value}, layoutStore.alert).then(response => {
-        if (!response.data.length) {
-            return false
-        }
-        hide()
-        eventBus.emit('getTwitchChannel')
-        router.push({name: 'platform'})
-    })
-}
-
-const hide = () => {
-    showModal.value = false
 }
 
 </script>

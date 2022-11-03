@@ -20,7 +20,7 @@
 
         <template v-if="ready">
 
-          <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+          <div v-if="activatedPlatformList.includes('facebook')" class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
             <div class="content">
               <div>
                 <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.facebook')}}</h5>
@@ -53,7 +53,8 @@
               </div>
             </div>
           </div>
-          <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+
+          <div v-if="activatedPlatformList.includes('instagram')" class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
             <div class="content">
               <div>
                 <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.instagram')}}</h5>
@@ -86,7 +87,8 @@
               </div>
             </div>
           </div>
-          <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+
+          <div v-if="activatedPlatformList.includes('youtube')" class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
             <div class="content">
               <div>
                 <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.youtube')}}</h5>
@@ -119,7 +121,7 @@
             </div>
           </div>
 
-          <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+          <div v-if="activatedPlatformList.includes('twitch')" class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
             <div class="content">
               <div>
                 <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.twitch')}}</h5>
@@ -141,7 +143,8 @@
               </div>
             </div>
           </div>
-          <div class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
+
+          <div v-if="activatedPlatformList.includes('tiktok')" class="col-span-12 sm:col-span-4 p-3 lg:mx-0 sm:mx-1">
             <div class="content">
               <div>
                 <h5 class="text-lg font-medium text-center">{{$t('campaign_list.enter_post_id_modal.tiktok')}}</h5>
@@ -208,6 +211,7 @@ import { ref, onMounted, onUnmounted, defineProps, defineEmits, getCurrentInstan
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore();
+const activatedPlatformList = ref(['facebook', 'youtube', 'instagram'])
 const ready = ref(false)
 const checking = ref(false)
 const campaign = ref(null)
@@ -239,17 +243,21 @@ const validate = ref({
   }
 })
 onMounted(()=>{
-    eventBus.on('showEnterPostIDModal', (payload) => {
-      showModal.value = true
-      campaign.value = payload.campaign
-      ready.value=true
-    })
-    eventBus.on('changeValidatStatus', (payload) => {
-      validate.value[payload.platform]["post_id"]["error"] = false
-    })
-    eventBus.on('closEnterPostIDModal', (payload) => {
-      hideModal()
-    })
+  if (layoutStore.userInfo.user_subscription.user_plan?.activated_platform) {
+      activatedPlatformList.value = layoutStore.userInfo.user_subscription.user_plan.activated_platform
+  }
+  console.log(activatedPlatformList.value)
+  eventBus.on('showEnterPostIDModal', (payload) => {
+    showModal.value = true
+    campaign.value = payload.campaign
+    ready.value=true
+  })
+  eventBus.on('changeValidatStatus', (payload) => {
+    validate.value[payload.platform]["post_id"]["error"] = false
+  })
+  eventBus.on('closEnterPostIDModal', (payload) => {
+    hideModal()
+  })
 })
 
 onUnmounted(()=>{

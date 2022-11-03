@@ -2,7 +2,7 @@
     <LoadingIcon v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
     
     <Button v-else-if="props.buttonName == 'edit'" 
-        type="button" @click="handleAuthClick">{{$t('settings.platform.edit')}}</Button>
+        type="button" @click="bindPage">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
         type="button" class="tiktok-login-btn shadow-lg" @click="bindPage">{{$t('settings.platform.connect_with_tiktok')}}</Button>
@@ -13,6 +13,9 @@
 import { ref, reactive, onMounted, getCurrentInstance, watch, computed, onUpdated } from "vue";
 import { useRoute, useRouter } from 'vue-router';
 import { bind_platform_instances } from '@/api_v2/user_subscription';
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { checkReachChannelLimit } from "@/libs/utils/planLimitController"
+import i18n from "@/locales/i18n"
 
 const props = defineProps({ 
     busName: String,
@@ -22,6 +25,7 @@ const internalInstance = getCurrentInstance();
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)
 const router = useRouter()
+const layoutStore = useLSSSellerLayoutStore();
 
 
 onMounted(() => {
@@ -40,6 +44,12 @@ const handleAuthClick = () => {
     location.href = `${import.meta.env.VITE_TIKTOK_OAUTH_URL}?app_id=${import.meta.env.VITE_TIKTOK_APP_ID}&state=${state}&redirect_uri=${redirect_uri}&rid=a83sicoc4k`
 }
 const bindPage = () => {
+    let result = checkReachChannelLimit(layoutStore, 'tiktok')
+    console.log(result)
+    if (result) {
+        layoutStore.alert.showMessageToast(i18n.global.t('settings.platform.reach_channel_limt_message'))
+        return false
+    }
     handleAuthClick()
 }
 
