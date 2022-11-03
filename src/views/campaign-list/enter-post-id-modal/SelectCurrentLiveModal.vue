@@ -23,11 +23,8 @@
                 <span class="col-span-6 text-lg content-center">
                   {{ live.title }}
                 </span>
-                <template v-if="live.page_id && live.post_id">
-                  <iframe style="z-index: 0"
-                      :src="`https://www.facebook.com/plugins/video.php?allowfullscreen=true&autoplay=true&href=https%3A%2F%2Fwww.facebook.com%2F${live.page_id}%2Fvideos%2F${live.post_id}%2F&width=auto`" 
-                          scrolling="no" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                  </iframe> 
+                <template v-if="live.embed_html">
+                  <div v-html="live.embed_html" style="z-index: 0"></div>
                 </template>
                 <template v-else-if="live.image">
                   <img
