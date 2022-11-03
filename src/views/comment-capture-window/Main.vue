@@ -92,7 +92,6 @@ const isDraging = ref(false)
 const endDrag = ()=>{
     isDraging.value = false;
     clearOffset()
-    console.log(sellerStore.commentCapturingCampaignData)
     document.removeEventListener('mousemove',null)
 }
 const startDrag = (event)=>{

@@ -114,7 +114,11 @@ watch(computed(()=>sellerCartStore.cart),()=>{
 const updateAddOnProducts = ()=>{
 	addOnProducts.value = []
 	campaignDetailStore.campaignProducts.forEach(product => {
-		if(sellerCartStore.cart?.products && !(product.id.toString() in sellerCartStore.cart.products)){
+		if(sellerCartStore.cart?.products && 
+			!(product.id.toString() in sellerCartStore.cart.products) &&
+			(product.qty_for_sale - product.qty_sold - product.qty_pending_payment  > 0 || product.oversell == true)
+			
+			){
 			const _product = JSON.parse(JSON.stringify(product))
 			_product.qty=1
 			addOnProducts.value.push(_product)

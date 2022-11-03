@@ -36,7 +36,10 @@ const showConnectButton = ref(false)
 const showPages = ref(false)
 const titkokAccounts = ref([])
 const fetchingData = ref(false)
-
+const platform = ref('tiktok')
+const props = defineProps({
+    subscriptionPlatformField: String
+});
 
 onMounted(() => {
     //facebook SDK use eval() at backend
@@ -51,26 +54,24 @@ onUnmounted(() => {
 })
 
 const get_tiktok_accounts = () => {
-    get_platform_instances('tiktok', layoutStore.alert).then(response=>{
-        if (!response.data.length) {
-            showConnectButton.value = true;
+    if(!layoutStore.userInfo.user_subscription[props.subscriptionPlatformField].length) {
+        showConnectButton.value = true;
             return false
-        }
-        showConnectButton.value = false;
-        showPages.value = true;
-        titkokAccounts.value = response.data
-    })
+    }
+    showPages.value = true;
+    titkokAccounts.value = layoutStore.userInfo.user_subscription[props.subscriptionPlatformField]
 }
 
 const bind_tiktok_accounts = (authCode) => {
     fetchingData.value = true
-    bind_platform_instances('tiktok', {'auth_code': authCode}, layoutStore.alert).then(res=>{
+    bind_platform_instances(platform.value, {'auth_code': authCode}, layoutStore.alert).then(res=>{
          if (!res.data.length) {
             return false
         }
         showConnectButton.value = false;
         showPages.value = true;
         titkokAccounts.value = res.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = res.data
         fetchingData.value = false
     })
 }
@@ -79,13 +80,15 @@ const removeTiktokAccount = (channel) => {
     if (!channel) {
         return false
     }
-    unbind_platform_instance('tiktok', channel.id, layoutStore.alert).then(response=> {
+    unbind_platform_instance(platform.value, channel.id, layoutStore.alert).then(response=> {
+        titkokAccounts.value = response.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = response.data
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
             return false
         }
-        titkokAccounts.value = response.data
+        
     })
 }
 

@@ -41,5 +41,12 @@
 
     "subtotal_after_discount": "Tổng phụ sau khi giảm giá",
 
-    "payment_completed":"Giao dịch hoàn tất"
+    "payment_completed":"Giao dịch hoàn tất",
+
+    "platform":"nền tảng xã hội",
+    "platform_options":{
+        "facebook":"Facebook",
+        "youtube":"Youtube",
+        "instagram":"Instagram"
+    }
  }

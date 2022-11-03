@@ -28,7 +28,8 @@
             "lucky_draw":"Quà tặng minigame"
         },
         "no_product":"No product in this campaign yet.",
-        "set_up_first":"Click \"+ Add Product\" to assign product into this campaign."
+        "set_up_first":"Click \"+ Add Product\" to assign product into this campaign.",
+        "categories":"Loại"
     },
    
     "edit_product_modal":{

@@ -14,6 +14,10 @@ export const seller_update_subscription = (data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/seller/update/`,data)
 }
 
+export const seller_switch_subscription_mode = (data, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/user-subscription/seller/switch_mode/`,data)
+}
+
 export const seller_update_payment = (paymentKey,data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/payment/${paymentKey}/`,data)
 }

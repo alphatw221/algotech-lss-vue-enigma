@@ -36,8 +36,8 @@ export const seller_update_campaign_product = (campaign_product_id, data, toasti
     return createAxios(toastify).put(`/api/v2/campaign-product/${campaign_product_id}/seller/update/`, data)
 }
 
-export const seller_toggle_campaign_product_status = (campaign_product_id, toastify=null) => {
-    return createAxios(toastify).put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/status/`)
+export const seller_toggle_campaign_product_active = (campaign_product_id, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/active/`)
 }
 
 export const seller_toggle_campaign_product_overbook = (campaign_product_id, toastify=null) => {

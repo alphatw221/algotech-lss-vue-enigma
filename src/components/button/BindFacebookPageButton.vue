@@ -2,7 +2,7 @@
     <LoadingIcon icon="three-dots" color="1a202c" class="absolute body-middle" v-if="fetchingData"/>
 
     <Button v-else-if="props.buttonName == 'edit'" 
-        type="button" @click="checkLoginState">{{$t('settings.platform.edit')}}</Button>
+        type="button" @click="bindPage">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
         type="button" class="fbBtn shadow-lg " @click="bindPage">{{$t('settings.platform.connect_with_facebook')}}</Button>
@@ -12,10 +12,14 @@
 
 <script setup>
 import loadScript from '@/libs/loadScript.js';
-
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import { conforms } from 'lodash';
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
+import { checkReachChannelLimit } from "@/libs/utils/planLimitController"
+import i18n from "@/locales/i18n"
+
 const internalInstance = getCurrentInstance()
+const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)
 
@@ -69,6 +73,12 @@ const checkLoginState = () => {
 }
 
 const bindPage = () => {
+    let result = checkReachChannelLimit(layoutStore, 'facebook')
+    console.log(result)
+    if (result) {
+        layoutStore.alert.showMessageToast(i18n.global.t('settings.platform.reach_channel_limt_message'))
+        return false
+    }
     checkLoginState()
 }
 </script>

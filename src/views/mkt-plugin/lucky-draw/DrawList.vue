@@ -1,5 +1,7 @@
 <template>
+    
     <div class="m-3 sm:m-5">
+        <LoadingIcon v-if="processing" icon="three-dots" color="black" class="loading z-50 fixed h-[70px] w-[70px] top-0 bottom-0 right-[40%] my-auto"/>
         <div class="flex justify-between flex-col xl:flex-row gap-5 mb-10">
             <div class="flex justify-start font-medium">
                 <label class="form-label mr-10 my-auto">{{ $t('lucky_draw.draw_list.campaign_title') }}</label>
@@ -48,7 +50,7 @@
                 <div class="mt-5 xl:mt-0 flex w-[100%] xl:w-fit ml-auto">
                     <button 
                         class="btn btn-primary w-full xl:w-32 mt-auto h-[35px] sm:h-[42px] ml-auto" 
-                        @click="goDraw(luckydraw.id)"
+                        @click="goDraw(luckydraw)"
                         v-if="props.luckyPrizeObj[luckydraw.prize.id] > 0"
                     >
                         {{ $t('lucky_draw.draw_list.start') }}
@@ -82,7 +84,6 @@
         <!-- BEGIN: Winners Modal -->
         <WinnersModal />
         <!-- END: Winners Modal -->
-
     </div>
 </template>
 
@@ -96,6 +97,7 @@ import facebook_platform from '/src/assets/images/lss-img/facebook.png';
 import instagram_platform from '/src/assets/images/lss-img/instagram.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 import i18n from "@/locales/i18n"
+import { useCookies } from "vue3-cookies";
 import SimpleIcon from '../../../global-components/lss-svg-icons/SimpleIcon.vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 const props = defineProps({
@@ -105,6 +107,7 @@ const props = defineProps({
 })
 const route = useRoute();
 const router = useRouter();
+const {cookies} = useCookies()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const layoutStore = useLSSSellerLayoutStore();
@@ -114,7 +117,8 @@ const drawTitleMap = ref({
     product: "Draw Product",
     keyword: "Draw Keyword" 
 })
-
+const accessToken = cookies.get('access_token')
+const processing = ref(false)
 
 onMounted(() => {
     console.log(props.luckyPrizeObj)
@@ -124,13 +128,21 @@ const toManageOrder = ()=>{
     router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
 }
 
-const goDraw = (lucky_draw_id) => {
+const goDraw = (lucky_draw) => {
     // need fix
+    let lucky_draw_id = lucky_draw.id
     draw_campaign_lucky_draw_check(lucky_draw_id, layoutStore.alert).then(res=>{
-        let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id}, query: {language: i18n.global.locale.value} })
-        window.open(routeData.href, '_blank')
+        if (lucky_draw.type === "sharedpost") {
+            startWebSocketConnection(lucky_draw_id)
+        } else {
+            openDrawPage(lucky_draw_id)
+        }
     })
     
+}
+const openDrawPage = (lucky_draw_id) => {
+    let routeData = router.resolve({ name: 'lucky-draw-flow', params: {lucky_draw_id: lucky_draw_id}, query: {language: i18n.global.locale.value} })
+    window.open(routeData.href, '_blank')
 }
 
 const editDraw = (lucky_draw_id) => {
@@ -154,6 +166,50 @@ const deleteDraw = (lucky_draw_id) => {
 
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
+}
+
+const startWebSocketConnection = (lucky_draw_id)=> {
+    console.log("startWebSocketConnection")
+    const websocket = new WebSocket(
+        `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/lucky_draw/share_post/crawler/${lucky_draw_id}/?token=${accessToken}`
+    );
+    processing.value = true
+    websocket.onmessage = e =>{
+        const data = JSON.parse(e.data);
+
+        if(data.type==="success_data"){
+            console.log("success_data")
+            openDrawPage(lucky_draw_id)
+            console.log(data)
+            processing.value = false
+            websocket.close(1000)
+        } 
+        else if(data.type==="error_data"){
+            console.log(data)
+            layoutStore.alert.showMessageToast("something wrong")
+            processing.value = false
+            websocket.close(1000);
+        } 
+    };
+
+    websocket.onopen = e => {
+        websocket.send(JSON.stringify({"action": "start_crawler", "lucky_draw_id":lucky_draw_id}))
+        console.log('socket connected')
+    };
+
+    websocket.onclose = e => {
+        if(e.code!=1000){
+            startWebSocketConnection(lucky_draw_id)
+        }
+        console.error('socket closed');
+        processing.value = false
+    };
+
+    websocket.onerror = e => {
+        console.log(e)
+        console.error('Socket encountered error: ', e.message, 'Closing socket');
+        websocket.close(1000);
+    };
 }
 
 </script>
