@@ -23,7 +23,7 @@
             <PointsTable :status="status" />
         </div>
     </div>
-    <DescriptionModalVue />
+    <DescriptionModal />
 </template>
 
 <script setup>
@@ -32,7 +32,7 @@ import PointsTable from "./PointsTable.vue";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import dom from "@left4code/tw-starter/dist/js/dom";
 import { useCookies } from "vue3-cookies";
-import DescriptionModalVue from "./DescriptionModal.vue";
+import DescriptionModal from "./DescriptionModal.vue";
 const { cookies } = useCookies()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n

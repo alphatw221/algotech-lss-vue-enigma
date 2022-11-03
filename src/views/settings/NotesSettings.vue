@@ -84,23 +84,24 @@
                 <div class="flex-1 gap-2 flex"> 
                     <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> SGD</label>
                     <input  
-                    class="w-24 md:w-32 form-control flex-2 "
+                    class="w-24 md:w-32 form-control flex-1"
                     type="text" 
                     v-model="option.startFrom"
                     />
                     <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ SGD</label>
                     <input  
-                    class="w-24 form-control flex-2 "
+                    class="w-24 form-control flex-1 "
                     type="text" 
                     v-model="option.endAt"
                     />
                 </div>
                 
-                <ChevronsRightIcon class="my-auto"/>
+                
                 
                 <div  class="flex-1 gap-2 flex"> 
+                    <ChevronsRightIcon class="my-auto"/>
                     <input  
-                        class="w-32 form-control flex-2"
+                        class="w-24 form-control flex-2"
                         type="text" 
                         v-model="option.amount"
                     />
