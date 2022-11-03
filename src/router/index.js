@@ -384,6 +384,12 @@ const routes = [
         component: () => import('@/views/buyer-recaptcha/Main.vue'),
       },
       {
+        path: "points",
+        name: "buyer-points-page",
+        beforeEnter:isBuyerLoginMiddleware,
+        component: () => import('@/views/buyer-points/Main.vue'),
+      },
+      {
         path: "orders",
         name: "buyer-order-history-page",
         beforeEnter:isBuyerLoginMiddleware,
