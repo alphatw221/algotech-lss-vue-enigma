@@ -46,6 +46,7 @@
         </div>
 
         <div>
+            <!-- TWITCH MODAL -->
             <Modal :show="showModal" @hidden="hide()" backdrop="static">
                 <ModalBody class="p-10 text-center">
                     <div class="mt-1">
