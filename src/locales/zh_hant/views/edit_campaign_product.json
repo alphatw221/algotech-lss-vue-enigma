@@ -28,7 +28,8 @@
             "lucky_draw":"獎品"
         },
         "no_product":"尚未將商品加入此活動",
-        "set_up_first":"點擊 \"＋ 新增商品\"，新增商品到您的消售活動中"
+        "set_up_first":"點擊 \"＋ 新增商品\"，新增商品到您的消售活動中",
+        "categories":"類別"
     },
    
     "edit_product_modal":{

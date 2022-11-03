@@ -197,6 +197,7 @@
         "unit": "",
         "social_media_platform": "social media platform",
         "period": ".",
-        "unbind_page":"Unbind page"
+        "unbind_page":"Unbind page",
+        "reach_channel_limt_message": "You have reached max binded platform amount."
     }
 }

@@ -64,7 +64,7 @@
     },
     "test_mode": "测试模式",
     "switch_mode_confirmation": {
-        "message": "一旦切换到正是模式则无法更改",
+        "message": "一旦切换到正式模式则无法更改",
         "switch": "切换"
     }
 }

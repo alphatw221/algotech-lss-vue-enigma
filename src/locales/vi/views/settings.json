@@ -190,6 +190,7 @@
         "unit": "",
         "social_media_platform": "nền tảng mạng xã hội",
         "period": ".",
-        "unbind_page":"Hủy liên kết trang"
+        "unbind_page":"Hủy liên kết trang",
+        "reach_channel_limt_message": "You have reached max binded platform amount."
     }
 }

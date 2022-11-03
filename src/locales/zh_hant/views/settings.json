@@ -196,6 +196,7 @@
         "unit": "個",
         "social_media_platform": "社群平台",
         "period": "",
-        "unbind_page":"取消綁定"
+        "unbind_page":"取消綁定",
+        "reach_channel_limt_message": "您已到達最大綁定平台數量"
     }
 }

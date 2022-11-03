@@ -11,9 +11,12 @@
 
 <script setup>
 import { ref, reactive, onMounted, getCurrentInstance, onUnmounted, watch, computed } from "vue";
- 
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import {googleLoadScriptAsyncDefer} from '@/libs/loadScript.js';
+import { checkReachChannelLimit } from "@/libs/utils/planLimitController"
+import i18n from "@/locales/i18n"
 
+const layoutStore = useLSSSellerLayoutStore();
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const fetchingData = ref(false)
@@ -44,6 +47,12 @@ const initClient = ()=> {
 }
 
 const bindPage = () => {
+    let result = checkReachChannelLimit(layoutStore, 'youtube')
+    console.log(result)
+    if (result) {
+        layoutStore.alert.showMessageToast(i18n.global.t('settings.platform.reach_channel_limt_message'))
+        return false
+    }
     client.requestCode();
 }
 </script>

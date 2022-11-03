@@ -41,6 +41,11 @@ const showConnectButton = ref(false)
 const showPages = ref(false)
 const facebookPages = ref([])
 const fetchingData = ref(false)
+const platform = ref('facebook')
+const props = defineProps({
+    subscriptionPlatformField: String
+});
+
 onMounted(()=>{
     //facebook SDK use eval() at backend
     eventBus.on('addFacebookPages',payload=>{
@@ -54,64 +59,44 @@ onUnmounted(()=>{
 })
 
 const get_facebook_pages = () => {
-    get_platform_instances('facebook', layoutStore.alert).then(res=>{
-         if (!res.data.length) {
-            showConnectButton.value = true;
+    if(!layoutStore.userInfo.user_subscription[props.subscriptionPlatformField].length) {
+        showConnectButton.value = true;
             return false
-        }
-        showPages.value = true;
-        facebookPages.value = res.data
-    })
-    // get_user_subscription_facebook_pages().then(response=>{
-    //     if (!response.data.length) {
-    //         showConnectButton.value = true;
-    //         return false
-    //     }
-    //     showPages.value = true;
-    //     facebookPages.value = response.data
-    // }).catch(error=>{
-    //     console.log(error)
-    // })
+    }
+    showPages.value = true;
+    facebookPages.value = layoutStore.userInfo.user_subscription[props.subscriptionPlatformField]
 }
 
 const bind_facebook_pages = (accessToken) => {
     fetchingData.value = true
-    bind_platform_instances('facebook', {'accessToken': accessToken}, layoutStore.alert).then(res=>{
+    bind_platform_instances(platform.value, {'accessToken': accessToken}, layoutStore.alert).then(res=>{
          if (!res.data.length) {
             return false
         }
         showConnectButton.value = false;
         showPages.value = true;
         facebookPages.value = res.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = res.data
         fetchingData.value = false
     })
-
-
-    // bind_user_facebook_pages(payload).then(response=>{
-    //     if (!response.data.length) {
-    //         return false
-    //     }
-    //     showConnectButton.value = false;
-    //     showPages.value = true;
-    //     facebookPages.value = response.data
-    // }).then(response=>{
-    //     eventBus.emit("check_activated_platform")
-    // })
+    
 }
 
 const removeFacebookPage = (facebookPage) => {
     if (!facebookPage) {
         return false
     }
-    unbind_platform_instance('facebook', facebookPage.id, layoutStore.alert).then(response=> {
+    unbind_platform_instance(platform.value, facebookPage.id, layoutStore.alert).then(response=> {
+        facebookPages.value = response.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = response.data
+        console.log(layoutStore.userInfo.user_subscription)
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
-            // eventBus.emit("check_activated_platform")
             return false
         }
-        facebookPages.value = response.data
     })
+    
 }
 
 const get_profile_picture = (facebook_page) => {

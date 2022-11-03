@@ -41,5 +41,12 @@
 
     "subtotal_after_discount":"Subtotal After Discount",
     
-    "payment_completed":"Payment Completed"
+    "payment_completed":"Payment Completed",
+
+    "platform":"Platofrm",
+    "platform_options":{
+        "facebook":"Facebook",
+        "youtube":"Youtube",
+        "instagram":"Instagram"
+    }
  }

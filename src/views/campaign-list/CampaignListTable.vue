@@ -26,8 +26,8 @@
         </tr>
       </thead>
       <tbody>
-        <tr v-if="showCommentLoding || numOfCampaigns==0" >
-					<td v-if="showCommentLoding"
+        <tr v-if="showCampaignLoding || numOfCampaigns==0" >
+					<td v-if="showCampaignLoding"
 						class="h-[300px] items-center relative tdDot"
 						:colspan="tableColumns.length +1" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
@@ -50,7 +50,7 @@
               <button 
                 class="flex w-60 h-[35px] text-lg sm:h-[42px] text-white btn btn-rounded mx-auto mt-5"
                       style="border: 2px solid #EF4444; color:#EF4444;"
-                      @click="router.push({name:'platform'})" v-if="checkPagePonit"> 
+                      @click="router.push({name:'platform'})" v-if="computedUserGotPlatform"> 
                 {{$t('campaign_list.campaign_list_table.connect_platform')}}
               </button>
 						</div>
@@ -114,7 +114,7 @@
             }}</div>
           </td>
           <td class="items-center manage_order w-fit" :data-content="$t('campaign_list.campaign_list_table.action')">
-            <a v-if="layoutStore.userInfo.user_subscription.status === sandboxMode" class="flex items-center justify-center cursor-not-allowed">
+            <a v-if="layoutStore.userInfo.user_subscription.status === SANDBOX_MODE" class="flex items-center justify-center cursor-not-allowed">
               <span class="mr-3 sm:hidden"> {{$t('campaign_list.campaign_list_table.manage_order')}}</span>
               <Tippy  :content="$t('campaign_list.campaign_list_table.manage_order')" :options="{ theme: 'light' }">
                 <!-- <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>  -->
@@ -219,7 +219,7 @@
     </table>
   </div>
   <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10">
-      <Page class="mx-auto my-3" :total="totalPage" @on-change="changePage" @on-page-size-change="changePageSize" />
+      <Page class="mx-auto my-3" :total="dataCount" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>
 
@@ -260,23 +260,23 @@ const props = defineProps({
 const baseURL = import.meta.env.VITE_APP_WEB
 const currentPage= ref(1)
 const totalPage= ref(1)
-const page_size= ref(100)
+const page_size= ref(20)
 const dataCount= ref(0)
 const searchColumn= ref('')
 const keyword= ref('')
 const order_by= ref("created_at")
 const checkout= ref(true)
 const layoutStore = useLSSSellerLayoutStore()
-const showCommentLoding = ref(true)
-const checkPagePonit = ref(true)
-const sandboxMode = ref("test")
+const showCampaignLoding = ref(true)
+
+const SANDBOX_MODE = "test"
 
 const campaigns=ref([])
 const numOfCampaigns = computed(()=>Object.keys(campaigns.value).length)
 onMounted(()=>{
   search()
-  checkPage()
-  showCommentLoding.value = true
+  // checkPage()
+  showCampaignLoding.value = true
   eventBus.on(props.tableName, (payload) => {
     currentPage.value = 1; 
     searchColumn.value = payload.searchColumn;
@@ -295,19 +295,15 @@ onUnmounted(()=>{
 
 
 const search =()=>{
-    showCommentLoding.value = true
+    showCampaignLoding.value = true
     campaigns.value = []
-    list_campaign(props.campaignStatus,searchColumn.value,keyword.value,order_by.value,currentPage.value,'100', layoutStore.alert)
+    list_campaign(props.campaignStatus, searchColumn.value, keyword.value, order_by.value, currentPage.value, page_size.value, layoutStore.alert)
     .then((response) => {
         if (response.data.count != undefined) {
           dataCount.value = response.data.count;
-          const _totalPage = parseInt(response.data.count / page_size.value);
-          totalPage.value = _totalPage == 0 ? 1 : _totalPage;
         }
         campaigns.value = response.data.results
-        showCommentLoding.value = false
-
-        if (!campaigns.value) checkPage();
+        showCampaignLoding.value = false
       })
   }
 
@@ -376,17 +372,25 @@ const goQuizGame = (campaign) => {
   hideDropDown()
 }
 
-const checkPage = ()=>{
-  get_user_subscription_facebook_pages(layoutStore.alert).then(res=>{
-    if(res.data.length !== 0) checkPagePonit.value = false
-    else get_user_subscription_instagram_profiles(layoutStore.alert).then(res=>{
-      if(res.data.length !== 0) checkPagePonit.value = false
-      else get_user_subscription_youtube_channels(layoutStore.alert).then(res=>{
-        if(res.data.length !== 0) checkPagePonit.value = false
-      })
-    })
-  })
-}
+const computedUserGotPlatform = computed(()=>{
+  if(layoutStore.userInfo?.user_subscription?.facebook_pages?.length||0 != 0) return false
+  if(layoutStore.userInfo?.user_subscription?.youtube_channels?.length||0 != 0) return false
+  if(layoutStore.userInfo?.user_subscription?.instagram_profiles?.length||0 != 0) return false
+  // if(layoutStore.userInfo?.user_subscription?.twitch_channels?.length||0 != 0) return false
+  // if(layoutStore.userInfo?.user_subscription?.tiktok_accounts?.length||0 != 0) return false
+  return true
+})
+// const checkPage = ()=>{
+//   get_user_subscription_facebook_pages(layoutStore.alert).then(res=>{
+//     if(res.data.length !== 0) checkPagePonit.value = false
+//     else get_user_subscription_instagram_profiles(layoutStore.alert).then(res=>{
+//       if(res.data.length !== 0) checkPagePonit.value = false
+//       else get_user_subscription_youtube_channels(layoutStore.alert).then(res=>{
+//         if(res.data.length !== 0) checkPagePonit.value = false
+//       })
+//     })
+//   })
+// }
 
 const deleteCampaign = (campaign)=>{
   let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)
