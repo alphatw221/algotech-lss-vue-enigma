@@ -67,6 +67,7 @@ onMounted(()=>{
       if(payload.platform=='facebook'){
         get_fb_page_live_media(payloadBuffer.page.page_id, payloadBuffer.page.token)
         .then((response) => {
+          console.log(response.data.data)
           const live_campaign = response.data.data.filter(v => v.status === "LIVE")
           if (!live_campaign.length) {
               layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_facebook_post'))
@@ -75,18 +76,12 @@ onMounted(()=>{
 
           let currentLiveItems = []
           live_campaign.forEach(v => {
-            console.log("7777")
-            let page_id = v.id.split("_")[0]
-            let post_id = v.id.split("_")[1]
-            console.log(page_id)
-            console.log(post_id)
             currentLiveItems.push({
-              id: post_id,
-              title: v.attachments.data[0].title?v.attachments.data[0].title:"",
+              id: v.video.id,
+              title: v.title?v.title:"",
               image: null,
               video_url: null,
-              page_id: page_id,
-              post_id: post_id
+              embed_html: v.embed_html,
             })
           });
           liveItems.value = currentLiveItems

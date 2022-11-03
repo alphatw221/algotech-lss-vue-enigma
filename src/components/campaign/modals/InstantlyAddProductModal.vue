@@ -1,6 +1,6 @@
 <template>
-        <Modal class="text-center" :slideOver="true"  backdrop="static" :show="store.showInstantlyAddProductModal" @hidden="store.showInstantlyAddProductModal = false">
-        <a @click="store.showInstantlyAddProductModal = false" class="absolute right-0 top-0 mt-3 mr-3">
+        <Modal class="text-center" :slideOver="true"  backdrop="static" :show="campaignDetailStore.showInstantlyAddProductModal" @hidden="campaignDetailStore.showInstantlyAddProductModal = false">
+        <a @click="campaignDetailStore.showInstantlyAddProductModal = false" class="absolute right-0 top-0 mt-3 mr-3">
             <XIcon class="w-8 h-8 text-slate-400" />
         </a>
         <ModalHeader class="text-center p-5">
@@ -23,8 +23,8 @@
                     </template>
 
                     <label class="mt-5 mb-2">{{$t('campaign_live.product.modal_column.category')}}</label>
-                    <select v-model="addProduct.category" class="w-full rounded-lg">
-                        <option value="">Uncategorized</option>
+                    <select v-model="addProduct.category_id" class="w-full rounded-lg">
+                        <option value="">{{$t('product_category.uncategorized')}}</option>
                         <template v-for="(product_category, index) in layoutStore.userInfo.user_subscription.product_categories" :key="index"> 
                             <option :value="product_category.id">{{product_category.name}}</option>
                         </template>
@@ -80,7 +80,7 @@ import i18n from "@/locales/i18n"
 
 const router = useRouter();
 const route = useRoute();
-const store = useCampaignDetailStore(); 
+const campaignDetailStore = useCampaignDetailStore(); 
 const layoutStore = useLSSSellerLayoutStore(); 
 // const internalInstance = getCurrentInstance()
 // const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -90,7 +90,7 @@ const campaign_id = route.params.campaign_id
 const addProduct = ref({
     save_to_stock:false,
     name: '', 
-    category: '',
+    category_id: '',
     order_code: '', 
     price: '', 
     qty: '',
@@ -103,7 +103,7 @@ const addtoCampaign =()=>{
     fast_add_product(campaign_id,addProduct.value , layoutStore.alert).then(
         response =>{
             // console.log(response.data);
-            store.campaignProducts.push(response.data)
+            campaignDetailStore.campaignProducts.push(response.data)
             layoutStore.notification.showMessageToast(i18n.global.t('campaign_live.product.successed'))
         }
     )
@@ -116,7 +116,7 @@ const apply = ()=>{
         return
     }else 
     addtoCampaign()
-    store.showInstantlyAddProductModal = false
+    campaignDetailStore.showInstantlyAddProductModal = false
 }
 
 // onMounted(() => {
