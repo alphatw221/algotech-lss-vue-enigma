@@ -57,7 +57,9 @@ onMounted(()=>{
 
 
     let now = new Date()
+    console.log(campaignDetailStore.campaign.end_at)
     let isCapturable = campaignDetailStore.campaign.end_at ? new Date(campaignDetailStore.campaign.end_at) > now : false
+    console.log("isCapturable", isCapturable)
     if (isCapturable) {
         console.log("insert capture data")
         if(sellerStore.commentCapturingCampaignData?.id!=campaignDetailStore.campaign.id) sellerStore.commentCapturingCampaignData = campaignDetailStore.campaign

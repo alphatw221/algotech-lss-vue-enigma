@@ -39,6 +39,11 @@ const showConnectButton = ref(false)
 const showPages = ref(false)
 const youtubeChannels = ref([])
 const fetchingData = ref(false)
+const platform = ref('youtube')
+const props = defineProps({
+    subscriptionPlatformField: String
+});
+
 onMounted(() => {
     eventBus.on('addYoutubeChannels',payload=>{
         bind_youtube_channels(payload.code)
@@ -51,48 +56,40 @@ onUnmounted(() => {
 })
 
 const get_youtube_channels = () => {
-
-    get_platform_instances('youtube', layoutStore.alert).then(response=>{
-        if (!response.data.length) {
-            showConnectButton.value = true;
+    if(!layoutStore.userInfo.user_subscription[props.subscriptionPlatformField].length) {
+        showConnectButton.value = true;
             return false
-        }
-        showPages.value = true;
-        youtubeChannels.value = response.data
-
-    })
+    }
+    showPages.value = true;
+    youtubeChannels.value = layoutStore.userInfo.user_subscription[props.subscriptionPlatformField]
 }
 
 const bind_youtube_channels = (code) => {
     fetchingData.value=true
-    bind_platform_instances('youtube',{'code':code}, layoutStore.alert).then(response=>{
+    bind_platform_instances(platform.value,{'code':code}, layoutStore.alert).then(response=>{
         if (!response.data.length) {
             return false
         }
         showConnectButton.value = false;
         showPages.value = true;
         youtubeChannels.value = response.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = response.data
         fetchingData.value=false
     })
-    // .then(response=>{
-    //     eventBus.emit("check_activated_platform")
-    // }).catch(error=>{
-    //     console.log(error)
-    // })
 }
 
 const removeYoutubeChannel = (channel) => {
     if (!channel) {
         return false
     }
-    unbind_platform_instance('youtube',channel.id, layoutStore.alert).then(response=> {
+    unbind_platform_instance(platform.value,channel.id, layoutStore.alert).then(response=> {
+        youtubeChannels.value = response.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = response.data
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
-            // eventBus.emit("check_activated_platform")
             return false
         }
-        youtubeChannels.value = response.data
     })
 }
 </script>

@@ -39,6 +39,11 @@ const showConnectButton = ref(false)
 const showPages = ref(false)
 const InstagramProfiles = ref([])
 const fetchingData = ref(false)
+const platform = ref('instagram')
+const props = defineProps({
+    subscriptionPlatformField: String
+});
+
 onMounted(()=>{
     eventBus.on('addInstagramProfiles',payload=>{
         bind_instagram_profiles(payload.accessToken)
@@ -51,77 +56,42 @@ onUnmounted(()=>{
 })
    
 const get_instagram_profiles = () => {
-    get_platform_instances('instagram', layoutStore.alert).then(response=>{
-        if (!response.data.length) {
-            showConnectButton.value = true;
+    if(!layoutStore.userInfo.user_subscription[props.subscriptionPlatformField].length) {
+        showConnectButton.value = true;
             return false
-        }
-        showPages.value = true
-        InstagramProfiles.value = response.data
-    })
-    // get_user_subscription_instagram_profiles().then(response=>{
-    //     if (!response.data.length) {
-    //         showConnectButton.value = true;
-    //         return false
-    //     }
-    //     showPages.value = true
-    //     InstagramProfiles.value = response.data
-    // }).catch(error=>{
-    //     console.log(error)
-    // })
+    }
+    showPages.value = true;
+    InstagramProfiles.value = layoutStore.userInfo.user_subscription[props.subscriptionPlatformField]
 }
 
 const bind_instagram_profiles = (accessToken) => {
     fetchingData.value=true
-    bind_platform_instances('instagram',{'accessToken': accessToken}, layoutStore.alert).then(response=>{
+    bind_platform_instances(platform.value,{'accessToken': accessToken}, layoutStore.alert).then(response=>{
         if (!response.data.length) {
             return false
         }
         showConnectButton.value = false;
         showPages.value = true;
         InstagramProfiles.value = response.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = response.data
         fetchingData.value=false
     })
-
-
-    // bind_user_instagram_profiles(payload).then(response=>{
-    //     if (!response.data.length) {
-    //         return false
-    //     }
-    //     showConnectButton.value = false;
-    //     showPages.value = true;
-    //     InstagramProfiles.value = response.data
-    // }).then(response=>{
-    //     eventBus.emit("check_activated_platform")
-    // }).catch(error=>{
-    //     console.log(error)
-    // })
 }
 
 const removeInstagramProfiles = (instagramProfile) => {
     if (!instagramProfile) {
         return false
     }
-    unbind_platform_instance('instagram', instagramProfile.id, layoutStore.alert).then(response=> {
+    unbind_platform_instance(platform.value, instagramProfile.id, layoutStore.alert).then(response=> {
+        InstagramProfiles.value = response.data
+        layoutStore.userInfo.user_subscription[props.subscriptionPlatformField] = response.data
         if (!response.data.length) {
             showConnectButton.value = true;
             showPages.value = false;
-            // eventBus.emit("check_activated_platform")
             return false
         }
-        InstagramProfiles.value = response.data
     })
-    // unbind_instagram_profile(payload).then(response=> {
-    //     if (!response.data.length) {
-    //         showConnectButton.value = true;
-    //         showPages.value = false;
-    //         eventBus.emit("check_activated_platform")
-    //         return false
-    //     }
-    //     InstagramProfiles.value = response.data
-    // }).catch(error=>{
-    //     console.log(error)
-    // })
+    
 }
 
 const get_profile_picture = (instagram_profile) => {
