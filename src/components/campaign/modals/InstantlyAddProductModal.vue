@@ -104,6 +104,9 @@ const addtoCampaign =()=>{
         response =>{
             // console.log(response.data);
             campaignDetailStore.campaignProducts.push(response.data)
+            // update dict as well
+            campaignDetailStore.campaignProductDict[response.data.id.toString()]=response.data
+            console.log(campaignDetailStore.campaignProductDict)
             layoutStore.notification.showMessageToast(i18n.global.t('campaign_live.product.successed'))
         }
     )

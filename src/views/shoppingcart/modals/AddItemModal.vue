@@ -151,7 +151,7 @@ const changeQuantity = (event, index, operation) => {
 	else{
 		if(event)event.target.value=1
 		addOnProducts.value[index].qty = 1
-		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
+		// layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
 	}
 }   // minus after input works, plus after input not works
 
