@@ -7,7 +7,7 @@
     <ModalHeader>
         <div class="flex flex-row justify-between w-full">
             <p class="font-medium text-base mr-auto">
-                    Create Accounts by Uplaod excel file
+                    Create Accounts by Upload excel file
             </p>
             <XIcon class="w-8 h-8 text-slate-400" @click="hide()"/>
         </div> 
