@@ -87,7 +87,7 @@
                 <Tab v-if="shoppingCartStore.cart.campaign.meta_logistic.pickup_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
                 @click="select_shipping_method('pickup')">
                 <div class="inline-flex items-center grow place-content-center">
-                  <SimpleIcon icon="shoppingCartStore" :color="pickupColor" class="block mr-3" width="24" /> 
+                  <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
                   <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
                 </div>
               </Tab>
