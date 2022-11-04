@@ -78,6 +78,7 @@
 
     <svg 
     v-else-if="icon == 'manage_order'"
+    width="22" height="20"
         viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
         <path fill-rule="evenodd" clip-rule="evenodd" d="M3 0.783325C1.48122 0.783325 0.25 2.01454 0.25 3.53332V14.4667C0.25 15.9854 1.48122 17.2167 
         3 17.2167H12.7333C13.1475 17.2167 13.4833 16.8809 13.4833 16.4667V16.4009C13.2398 16.4441 12.9891 16.4667 12.7332 16.4667C11.836 16.4667 
@@ -94,6 +95,7 @@
 
     <svg 
     v-else-if="icon == 'order_details'"
+    width="22" height="20"
         viewBox="0 0 15 12" fill="none" :stroke="props.color" xmlns="http://www.w3.org/2000/svg">
         <path d="M1 1H10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
         <path d="M1 5H5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -104,6 +106,7 @@
 
     <svg 
     v-else-if="icon == 'share'"
+    width="22" height="20"
     viewBox="0 0 13 14" :stroke="props.color" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="3" cy="7" r="2" stroke-width="1.5"/>
     <circle cx="10" cy="3" r="2" stroke-width="1.5"/>
@@ -114,6 +117,7 @@
 
     <svg
     v-else-if="icon == 'truck'"
+    width="22" height="20"
     viewBox="0 0 17 15" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path fill-rule="evenodd" clip-rule="evenodd" d="M2.75 0C1.23122 0 0 1.23122 0 2.75V9.74754C0 11.2163 1.1514 12.4161 2.60081 12.4936C2.589 12.3993 2.58291 
         12.3032 2.58291 12.2058C2.58291 11.7623 2.70889 11.3483 2.92702 10.9975H2.75C2.05964 10.9975 1.5 10.4379 1.5 9.74754V2.75C1.5 2.05965 2.05965 1.5 2.75 
@@ -131,6 +135,7 @@
 
     <svg 
     v-else-if="icon == 'export'"
+    width="22" height="20"
     viewBox="0 0 14 14" fill="none" xmlns="http://www.w3.org/2000/svg" :stroke="props.color">
     <path d="M1 9V11C1 12.1046 1.89543 13 3 13H11C12.1046 13 13 12.1046 13 11V9" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M7 9V1M7 1L4 4M7 1L10 4" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -149,6 +154,7 @@
 
     <svg 
     v-else-if="icon == 'plus'"
+    width="22" height="20"
     viewBox="0 0 16 16" :stroke="props.color" fill="none" xmlns="http://www.w3.org/2000/svg">
     <circle cx="8" cy="8" r="7" stroke-width="1.5"/>
     <path d="M5 8H11" stroke-width="1.5" stroke-linecap="round"/>
@@ -210,6 +216,7 @@
 
     <svg 
     v-else-if="icon == 'shopping_bag'"
+    width="22" height="20"
     :stroke="props.color" viewBox="0 0 14 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M11 4H3C1.89543 4 1 4.89543 1 6V13C1 14.1046 1.89543 15 3 15H11C12.1046 15 13 14.1046 13 13V6C13 4.89543 12.1046 4 11 4Z" stroke-width="1.5"/>
     <path d="M5 4V3C5 1.89543 5.89543 1 7 1V1C8.10457 1 9 1.89543 9 3V4" stroke-width="1.5"/>
@@ -248,6 +255,7 @@
     <path d="M12 13.9857C12 14.2587 12.5152 10.5525 12.8663 7.98253C12.9373 7.46244 12.5328 7 12.0079 7C11.4775 7 11.0714 7.47127 11.1502 7.99576C11.5007 10.3284 12 13.717 12 13.9857Z" fill="white" stroke="white" stroke-width="1.5" stroke-linecap="round"></path>
     <circle cx="12" cy="17" r="1" fill="white" stroke="white"></circle>
     </svg>
+    
 
 
     
