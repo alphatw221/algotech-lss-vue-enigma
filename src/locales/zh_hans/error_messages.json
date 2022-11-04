@@ -300,5 +300,7 @@
     "duplicate_discount_code":"折扣码重复",
 
 
-    "invalid_data":"无效资料"
+    "invalid_data":"无效资料",
+    "duplicate_order_code":"商品代码重复"
+
 }

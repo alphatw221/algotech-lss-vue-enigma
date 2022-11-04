@@ -184,7 +184,8 @@ export function createAxios(toastify){
                     toastify.showMessageToast(i18n.global.t(`error_messages.${error.response.data.code}`))
                 }
             } else if (error.response?.data?.message){
-                toastify.showMessageToast(i18n.global.t(i18n.global.t(get_i18n_path(error), get_i18n_params(error.response?.data?.params))))
+                toastify.showMessageToast(i18n.global.t(`error_messages.${error.response.data.message}`))
+                // toastify.showMessageToast(i18n.global.t(i18n.global.t(get_i18n_path(error), get_i18n_params(error.response?.data?.params))))
             } else{
                 toastify.showMessageToast('error_messages.please_refresh_page')
             }

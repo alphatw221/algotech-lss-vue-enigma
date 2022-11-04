@@ -23,11 +23,8 @@
                 <span class="col-span-6 text-lg content-center">
                   {{ live.title }}
                 </span>
-                <template v-if="live.page_id && live.post_id">
-                  <iframe style="z-index: 0"
-                      :src="`https://www.facebook.com/plugins/video.php?allowfullscreen=true&autoplay=true&href=https%3A%2F%2Fwww.facebook.com%2F${live.page_id}%2Fvideos%2F${live.post_id}%2F&width=auto`" 
-                          scrolling="no" frameborder="0" allowfullscreen allow="autoplay; clipboard-write; encrypted-media; picture-in-picture; web-share">
-                  </iframe> 
+                <template v-if="live.embed_html">
+                  <div v-html="live.embed_html" style="z-index: 0"></div>
                 </template>
                 <template v-else-if="live.image">
                   <img
@@ -67,6 +64,7 @@ onMounted(()=>{
       if(payload.platform=='facebook'){
         get_fb_page_live_media(payloadBuffer.page.page_id, payloadBuffer.page.token)
         .then((response) => {
+          console.log(response.data.data)
           const live_campaign = response.data.data.filter(v => v.status === "LIVE")
           if (!live_campaign.length) {
               layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_facebook_post'))
@@ -75,18 +73,12 @@ onMounted(()=>{
 
           let currentLiveItems = []
           live_campaign.forEach(v => {
-            console.log("7777")
-            let page_id = v.id.split("_")[0]
-            let post_id = v.id.split("_")[1]
-            console.log(page_id)
-            console.log(post_id)
             currentLiveItems.push({
-              id: post_id,
-              title: v.attachments.data[0].title?v.attachments.data[0].title:"",
+              id: v.video.id,
+              title: v.title?v.title:"",
               image: null,
               video_url: null,
-              page_id: page_id,
-              post_id: post_id
+              embed_html: v.embed_html,
             })
           });
           liveItems.value = currentLiveItems
