@@ -162,7 +162,7 @@ const routes = [
         component: () => import('@/views/create-campaign/Main.vue'),
       },
       {
-        path: "campaign-list/lucky-draw/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw",
         name: "lucky-draw",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
@@ -170,7 +170,7 @@ const routes = [
         component: LuckyDraw,
       },
       {
-        path: "campaign-list/quiz-game/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?/quiz-game",
         name: "quiz-game",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
@@ -178,7 +178,7 @@ const routes = [
         component: () => import('@/views/mkt-plugin/quiz-game/Main.vue')
       },
       {
-        path: "campaign-list/edit-campaign/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign",
         name: "edit-campaign",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
@@ -186,7 +186,7 @@ const routes = [
         component: () => import('@/views/edit-campaign/Main.vue'),
       },  
       {
-        path: "campaign-list/assign-product/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?/assign-product",
         name: "assign-product",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
@@ -194,7 +194,7 @@ const routes = [
         component: () => import('@/views/assign-campaign-product/Main.vue'),
       },   
       {
-        path: "campaign-list/edit-campaign-product/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign-product",
         name: "edit-campaign-product",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
