@@ -1,46 +1,41 @@
 <template>
-    <template>
-        <select v-model="order[column.key]" class="w-30" @change="updateOrderPaymentStatus(order, index, $event)">
-            <option :value="option.value" v-for="(option,index) in payment_status_options" :key="index">
-                {{$t(`order.payment_status_options.${option.value}`)}}</option>
+    <template v-if="deliveryStatusStore[props.order.delivery_status]?.allow_adjust">
+        <select v-model="deliveryStatus" class="w-30" @change="updateOrderDeliveryStatus()">
+            <option :value="option" v-for="(option,index) in deliveryStatusStore[props.order.delivery_status].options" :key="index">
+                {{$t(`order.delivery_status_options.${option}`)}}</option>
         </select>
     </template>
-    <template >
-        {{$t(`order.payment_status_options.${order[column.key]}`)}}
+    <template v-else>
+        {{$t(`order.delivery_status_options.${props.order.delivery_status}`)}}
     </template>
 </template>
 
 
 <script setup>
+import { ref, provide, onMounted, onUnmounted, getCurrentInstance, defineProps} from "vue";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { useDeliveryStatusStore } from "@/stores/lss-delivery-status-meta"
 import {  seller_update_deliver_status } from "@/api_v2/order"
 
-import { ref, provide, onMounted, onUnmounted, getCurrentInstance, defineProps} from "vue";
-import { useRoute, useRouter } from "vue-router";
-
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { } from ""
+const deliveryStatusStore = useDeliveryStatusStore()
+const layoutStore = useLSSSellerLayoutStore()
 
 const props = defineProps({
     order: Object,
 });
 
+const deliveryStatus = ref(props.order.delivery_status)
 
-const route = useRoute();
-const router = useRouter();
+const updateOrderDeliveryStatus = ()=>{
+    seller_update_deliver_status(props.order.id, deliveryStatus.value, layoutStore.alert).then(res=>{
 
-const internalInstance = getCurrentInstance()
-const layoutStore = useLSSSellerLayoutStore()
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+        Object.entries(res.data).forEach(([key,value]) => {
+            props.order[key]=value                       //proxy object only got setter
+        });
 
-
-
-
-
-
-
-
-
-
-
+    }).catch(err=>{
+        deliveryStatus.value = props.order.delivery_status
+    })
+}
 
 </script>
