@@ -19,7 +19,7 @@ export const useSellerRegistrationStore = defineStore("sellerRegistration", {
 		g_cash:ref({
 			bankName:'GCash',
 			accountName:'GCash',
-			accountNumber:'0917 158 1183',
+			accountNumber:'0976 124 7562',
 			note:'',
 		})
     })
