@@ -54,8 +54,7 @@
 									class="form-control" 
 									placeholder="Input inline 1" 
 									aria-label="default input"
-									:value="product.qty"
-									@change="changeQuantity($event, index, 'input')"
+									v-model="product.qty"
 									style="width: 2.7rem; height: 2rem; margin-top: 5px;"
 								/>
 								<button type="button" @click="changeQuantity(null, index, 'add')">
@@ -143,20 +142,27 @@ const updateAddOnProducts = ()=>{
 const changeQuantity = (event, index, operation) => {
 	if (operation == 'add' && addOnProducts.value[index].qty < 99) {
 		addOnProducts.value[index].qty += 1
-	} else if (operation == 'minus' && addOnProducts.value[index].qty > 1) {
+	} 
+	else if (operation == 'minus' && addOnProducts.value[index].qty > 1) {
 		addOnProducts.value[index].qty -= 1
-	} else if (operation=='input' && event.target.value >= 1 && event.target.value <= 99){
-		addOnProducts.value[index].qty = event.target.value
 	} 
 	else{
-		if(event)event.target.value=1
-		addOnProducts.value[index].qty = 1
-		// layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
+		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
 	}
-}   // minus after input works, plus after input not works
+}   
 
+const checkQuantityValid = (index) => {
+	if (1 <= addOnProducts.value[index].qty && addOnProducts.value[index].qty <= 99) return true 
+	return false
+}   
 
 const buyerAddItem = (product, index) => {
+
+	if(!checkQuantityValid(index)){
+		addOnProducts.value[index].qty = 1
+		layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_qty'))
+		return
+	}
 
 	buyer_edit_cart_product(route.params.cart_oid, product.id, addOnProducts.value[index].qty, layoutStore.alert)
 	.then(
