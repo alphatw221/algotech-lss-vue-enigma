@@ -96,22 +96,21 @@
                     />
                 </div>
                 
-                
-                
                 <div  class="flex-1 gap-2 flex"> 
                     <ChevronsRightIcon class="my-auto"/>
-                    <input  
+                     <input  
                         class="w-24 form-control flex-2"
                         type="text" 
                         v-model="option.amount"
                     />
-                    <select 
+                   <!-- <select 
                         class="flex-1 w-32 rounded-lg form-select sm:form-select-lg "
                         v-model="option.type"
                     >
                         <option value="percent">% of amount</option>
                         <option value="points">points</option>
-                    </select>
+                    </select> -->
+                   <label class="form-label text-base my-auto text-[14px] md:text-[16px]"> point(s)</label>
                 </div>
                 
             

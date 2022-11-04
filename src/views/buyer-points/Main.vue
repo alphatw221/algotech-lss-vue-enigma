@@ -1,14 +1,14 @@
 <template>
     <div class="flex flex-col gap-5 m-0 my-5 p-2 py-5 lg:m-5 lg:p-10 2xl:m-5 2xl:p-10">
         <h1 class="text-xl mx-auto" style="font-size: 1.5rem;"> {{$t('points.points')}} </h1>
-        <div class="w-full box px-20 py-10 flex flex-row justify-between"> 
-            <div class="bg-primary rounded-full w-36 h-36 relative"> <p class="absolute text-[72px] font-bold text-white top-[52px] right-[45px]"> L</p></div>
+        <div class="w-full box sm:px-20 py-10 flex flex-col sm:flex-row justify-between gap-5"> 
+            <div class="bg-primary rounded-full w-36 h-36 relative mx-auto sm:mx-0"> <p class="absolute text-[72px] font-bold text-white top-[52px] right-[45px]"> L</p></div>
 
-            <div class="my-auto ml-20 text-[20px] flex flex-col gap-4"> 
+            <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
                 <p> <spam class="text-[32px] text-danger font-bold">59</spam> Points (Equal to SGD $5) </p>
                 <p> Expiry Date : 31 Sep 2022 </p>
             </div>
-            <a class="ml-auto my-auto text-[18px]" @click="showModal()"><u>Rules and Description </u> </a>
+            <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showModal()"><u>Rules and Description </u> </a>
         </div>
 
         <div class="mt-10 flex flex-row gap-5"> 
