@@ -96,7 +96,7 @@
                                     <!-- <td>{{campaignDetailStore.campaignProductDict[campaign_product_id]?.name}}</td> -->
                                     <td >
                                         <div class="flex flex-col h-fit mt-3">
-                                            <img :src="campaignDetailStore.campaignProductDict[campaign_product_id]?.image" class="h-12 object-cover"/>
+                                            <img :src="campaignDetailStore.campaignProductDict[campaign_product_id]?.image" class="h-8 object-cover"/>
                                             <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id].order_code}}</span> 
                                         </div>
                                     </td>
