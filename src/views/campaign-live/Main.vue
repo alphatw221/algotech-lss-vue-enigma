@@ -6,7 +6,7 @@
         <LiveComments/>
         <!-- END: Comments -->
 
-        <div class="flex flex-col 2xl:flex-row gap-3 w-full md:w-1/2 2xl:w-2/3 h-fit md:h-full"> 
+        <div class="flex flex-col 2xl:flex-row gap-3 w-full md:w-3/5 2xl:w-2/3 h-fit md:h-full"> 
             <!-- BEGIN: Product -->
             <LiveProduct  />
             <!-- END: Product -->
