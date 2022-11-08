@@ -5,9 +5,9 @@ export const list_campaign_lucky_draw = (campaign_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/campaign-luckydraw/${campaign_id}/list/`)
 }
 
-export const list_campapign_lucky_draw_animation = (toastify=null) => {
-    return createAxios(toastify).get('/api/v2/campaign-luckydraw/list/animation/')
-}
+// export const list_campapign_lucky_draw_animation = (toastify=null) => {
+//     return createAxios(toastify).get('/api/v2/campaign-luckydraw/list/animation/')
+// }
 
 export const list_campaign_lucky_draw_winners = (campaign_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/campaign-luckydraw/${campaign_id}/winners/`)    

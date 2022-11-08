@@ -27,7 +27,7 @@
         "create-campaign":"Tạo chiến dịch",
         "assign-product":"Chọn sản phẩm bán",
         "edit-campaign-product":"Chỉnh sửa sản phẩm trong chiến dịch",
-        "lucky-draw":"Quà tặng minigame",
+        "lucky-draw":"Chỉnh sửa Rút thăm may mắn",
         "autoreply":"Chatbot tự động",
         "category-management":"Phân loại",
         "add-product":"Tạo chiến dịch",
@@ -42,7 +42,9 @@
         "plans":"Plans",
         "licenses":"Licenses",
         "sellers":"Sellers",
-        "buyers":"Buyers"
+        "buyers":"Buyers",
+        "lucky-draw-list":"Rút thăm may mắn",
+        "create-lucky-draw":"Tạo rút thăm may mắn"
     },
     "top_bar":{
         "profile":"Hồ Sơ",

@@ -363,7 +363,7 @@ const copyURL = (campaign)=>{
 }
 
 const goLuckyDraw = (campaign) => {
-  router.push({name:'lucky-draw',params:{'campaign_id':campaign.id}})
+  router.push({name:'lucky-draw-list',params:{'campaign_id':campaign.id}})
   hideDropDown()
 }
 

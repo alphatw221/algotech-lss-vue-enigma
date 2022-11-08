@@ -90,7 +90,7 @@ import Profile from "../views/profile/Main.vue";
 import ChangePlan from "../views/general/change-plan/Main.vue";
 
 import MktPlugin from "../views/mkt-plugin/Main.vue";
-import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
+// import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
 import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
 // import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 
@@ -162,12 +162,31 @@ const routes = [
         component: () => import('@/views/create-campaign/Main.vue'),
       },
       {
-        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw",
-        name: "lucky-draw",
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list",
+        name: "lucky-draw-list",
         beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
           sellerRetrieveCampaignDataMiddleware(to, from);
         },
-        component: LuckyDraw,
+        component: () => import('@/views/mkt-plugin/lucky-draw/LuckyDrawList.vue'),
+      },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/lucky-draw/:lucky_draw_id?",
+        name: "edit-lucky-draw",
+        beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
+          sellerRetrieveCampaignDataMiddleware(to, from);
+        },
+        component:  () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
+      },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/create-lucky-draw",
+        name: "create-lucky-draw",
+        beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
+          sellerRetrieveCampaignDataMiddleware(to, from);
+        },
+        component: () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
       },
       {
         path: "campaign-list/campaign-live/:campaign_id?/quiz-game",
