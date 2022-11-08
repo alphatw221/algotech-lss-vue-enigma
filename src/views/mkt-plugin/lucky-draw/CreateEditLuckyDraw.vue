@@ -14,7 +14,7 @@
                     <select 
                         id="prizeSelect"
                         class="w-full form-select sm:form-select-lg rounded-lg" 
-                        v-model.trim="validate.prize.$model"
+                        v-model="luckyDrawData.prize_id"
                     >
                         <template v-if="!computedPrizeList.length">
                             <option class="w-40" disabled> 
@@ -22,7 +22,7 @@
                             </option>
                         </template>
                         <template v-else> 
-                            <option v-for="(prize, key) in computedPrizeList" :key="key" :value="prize" class="w-40"> 
+                            <option v-for="(prize, key) in computedPrizeList" :key="key" :value="prize.id" class="w-40"> 
                                 {{ prize.name }} 
                             </option>
                         </template>    
@@ -67,7 +67,7 @@
                     />
                     <template v-if="validate.num_of_winner.$error">
                         <label class="text-danger text-[14px] leading-tight">
-                            {{ $t('lucky_draw.draw_create.number_winner_warning') }} {{luckyDrawData.prize.qty_for_sale}}
+                            {{ $t('lucky_draw.draw_create.number_winner_warning') }} {{luckyDrawData.prize?.qty_for_sale}}
                         </label>
                     </template>
                 </div>
@@ -175,8 +175,10 @@
                     <div class="flex justify-between">
                         <label class="form-label text-base mr-auto my-auto"> {{ $t('lucky_draw.draw_create.animation_style') }} </label>
                         <div class="btn btn-primary bg-[#070130] w-48 sm:w-fit shadow-md sm:mt-auto lg:sm:mr-5 text-base">
-                            <input type="file" id="upload" @change="uploadAnimation()" hidden/>
+                            <input type="file" id="upload" @change="uploadAnimation($event)" hidden/>
                             <label for="upload" id="create_animation">+ {{ $t('lucky_draw.draw_create.upload_animation') }}</label>
+
+
                         </div>
                     </div>
 
@@ -255,19 +257,20 @@ const luckyDrawData = ref({
     repeatable: false,
     type: 'like',
     comment: '',
-    campaign_product: '',
     campaign_product_id:null,
-    prize: '',
+    campaign_product:{},
+    prize_id:null,
+    prize:{qty_for_sale:99999},
     title: '',
     animation: `${staticDir}lucky_draw1.svg`,
     // path: `${staticDir}lucky_draw1.svg`
 })
 
 const previewImage = ref(null)
-const formData = new FormData()
+// const formData = new FormData()
 // const type = ref('create')
-const luckyDrawId = ref(0)
-const productType = ref('')
+// const luckyDrawId = ref(0)
+// const productType = ref('')
 const drawCondition = ref(false)
 const amimation_validate = ref({
     "maximum_size": 10*1024*1024,
@@ -277,7 +280,7 @@ const amimation_validate = ref({
 const luckydrawRules = computed(()=> {
     return {
         prize: { required },
-        num_of_winner: { required, integer, minValue: minValue(1), maxValue: maxValue(luckyDrawData.value.prize.qty_for_sale) },
+        num_of_winner: { required, integer, minValue: minValue(1), maxValue: maxValue(luckyDrawData.value.prize?.qty_for_sale) },
     }
 });
 const validate = useVuelidate(luckydrawRules, luckyDrawData);
@@ -292,6 +295,7 @@ onMounted(() => {
     if(computedType.value === 'edit'){
         retrieve_campaign_lucky_draw(route.params.lucky_draw_id, layoutStore.alert).then(res => {
             luckyDrawData.value = res.data
+            luckyDrawData.value.prize_id = res.data.prize?.id||null
             luckyDrawData.value.campaign_product_id = res.data.campaign_product?.id || null
         })
     }
@@ -319,15 +323,16 @@ const save = () => {
         layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.invalid_data'))
         return
     } 
-    formData.append('data', JSON.stringify(luckyDrawData.value))
+
+    console.log(luckyDrawData.value)
 
     if (computedType.value == 'create') {
-        create_campapign_lucky_draw(route.params.campaign_id, formData, layoutStore.alert).then(res => {
+        create_campapign_lucky_draw(route.params.campaign_id, luckyDrawData.value, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('lucky_draw.create_successed'))
             routeToLuckyDrawList()
         })
     } else if (computedType.value == 'edit') {
-        update_campaign_lucky_draw(route.params.lucky_draw_id, formData, layoutStore.alert).then(res => {
+        update_campaign_lucky_draw(route.params.lucky_draw_id, luckyDrawData.value, layoutStore.alert).then(res => {
             layoutStore.notification.showMessageToast(i18n.global.t('lucky_draw.update_successed'))
             routeToLuckyDrawList()
         })
@@ -347,26 +352,40 @@ const routeToLuckyDrawList = ()=>{
 //     })
 // }
 
+// const previewAnimation = e =>{
+//     const animation = e.target.files[0];
+//     console.log('preview animation')
+//     if(isAnimationValid(animation)){
+//         const reader = new FileReader();
+//         reader.readAsDataURL(animation);
+//         reader.onload = e =>{ previewImage.value = e.target.result; };
+//     }
+// }
+
 const uploadAnimation = e => {
+
     const animation = e.target.files[0];
+    if(isAnimationValid(animation)){
+        const _formData = new FormData()
+        _formData.append('animation', animation)
+        upload_animation(_formData, layoutStore.alert).then(res => {
+            animationList.value.push(res.data)
+        })
+
+    }
+	
+}
+
+const isAnimationValid = (animation)=>{
+
     if (!animation.type.includes(amimation_validate.value.supported_type)) {
         layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.animation_type_err'))
-        return 
+        return false
     }
     if (animation.size > amimation_validate.value.maximum_size) {
         layoutStore.alert.showMessageToast(i18n.global.t('lucky_draw.animation_size_err'))
-        return 
+        return false
     }
-    
-	formData.append('animation', animation)
-
-	const reader = new FileReader();
-	reader.readAsDataURL(animation);
-	reader.onload = e =>{ previewImage.value = e.target.result; };
-    
-    upload_animation(formData, layoutStore.alert).then(res => {
-        getAnimations()
-    })
+    return true
 }
-
 </script>
