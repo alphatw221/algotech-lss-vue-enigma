@@ -89,12 +89,12 @@ import ConnectPlatform from "../views/settings/ConnectPlatform.vue";
 import Profile from "../views/profile/Main.vue";
 import ChangePlan from "../views/general/change-plan/Main.vue";
 
-import MktPlugin from "../views/mkt-plugin/Main.vue";
+// import MktPlugin from "../views/mkt-plugin/Main.vue";
 // import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
-import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
+// import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
 // import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 
-import Test2 from "../views/test/test2.vue"; 
+// import Test2 from "../views/test/test2.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 
@@ -273,16 +273,16 @@ const routes = [
       //   name: "OrderHistoryDetails",
       //   component: OrderDetails,
       // },
-      {
-        path: "mkt-plugin",
-        name: "mkt-plugin",
-        component: MktPlugin,
-      },
-      {
-        path: "mkt-plugin/lucky-draw",
-        name: "lucky-draw-setting",
-        component: LuckyDrawSetting,
-      },
+      // {
+      //   path: "mkt-plugin",
+      //   name: "mkt-plugin",
+      //   component: MktPlugin,
+      // },
+      // {
+      //   path: "mkt-plugin/lucky-draw",
+      //   name: "lucky-draw-setting",
+      //   component: LuckyDrawSetting,
+      // },
       
       {  
         path: "campaign-global",
