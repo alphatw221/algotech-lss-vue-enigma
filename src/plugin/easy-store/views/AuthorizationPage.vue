@@ -4,7 +4,7 @@
         <img src="/src/assets/images/login-page/bg.svg" class="whiteCircle" />
         <img src="/src/assets/images/login-page/robot.svg"  class="robot" />    
     </div>
-    <div class="container w-[100%] sm:w-[480px] m-0 sm:mr-[10%] bg-red-500/25 sm:bg-transparent float-center sm:float-right"> 
+    <div class="loginContainer w-[100%] sm:w-[480px] m-0 sm:mr-[10%] bg-red-500/25 sm:bg-transparent float-center sm:float-right"> 
         <img src="/src/assets/images/login-page/mobile_login_robot.svg" class="sm:hidden absolute right-1/2 translate-x-1/2 top-2" />
         <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 left-20 z-10 -translate-y-1/3 -rotate-3" />    
         <img src="/src/assets/images/login-page/mobile_login_robot_hand.svg"  class="sm:hidden absolute top-1/4 right-20 z-10 -translate-y-1/3 rotate-3" />    
@@ -145,7 +145,7 @@ const authorize = ()=>{
     transform: translate(50%, -50%);
     position: absolute;
 }
-.container{
+.loginContainer{
     height: 100vh;
     position: relative;
 }

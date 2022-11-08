@@ -5,7 +5,7 @@
             2xl:h-full">
         <div class="flex flex-col h-full"> 
 
-            <div class="flex justify-between flex w-full h-16">
+            <div class="shrink-0 justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.product.product')}}</h2>
                 <template v-if="!(route.query.status =='history' || layout.plugins)">
                     <Dropdown class="inline-block my-auto">
@@ -26,7 +26,7 @@
                 </template>
             </div>
 
-            <div class="overflow-auto max-h-[85%]">
+            <div class="shrink-0 overflow-auto  h-[80%] 2xl:h-[91%]">
                 <table class="table table-sm">
                     <thead class="table-dark">
                         <tr class="relative">
