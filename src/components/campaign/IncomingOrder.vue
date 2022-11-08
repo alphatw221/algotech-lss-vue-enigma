@@ -103,27 +103,24 @@
                                     <td>{{qty}}</td>
                                     
                                     <td>
-                                        <a>
-                                            <Tippy 
-                                                class="rounded-full w-fit" 
-                                                data-tippy-allowHTML="true" 
-                                                data-tippy-placement="right" 
-                                                :options="{ theme: 'light' }"
-                                                :content="$t('tooltips.campaign_live.view_icon')" 
-                                            > 
-                                                <SimpleIcon icon="view" @click="routeToDetailPage(cart)"/>
-                                            </Tippy> 
-                                        </a>
-                                        
+                                        <div class="flex flex-row gap-1"> 
+                                            <a>
+                                                <Tippy 
+                                                    data-tippy-allowHTML="true" 
+                                                    data-tippy-placement="right" 
+                                                    :options="{ theme: 'light' }"
+                                                    :content="$t('tooltips.campaign_live.view_icon')" 
+                                                > 
+                                                    <SimpleIcon icon="viewOrder" color="#334155" @click="routeToDetailPage(cart)"  class="sm:mx-auto w-6" width="24" height="23" />
+                                                </Tippy> 
+                                            </a>
+                                            <a  @click="copyCartLink(cart)">
+                                                <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
+                                                    <SimpleIcon icon="share" color="#334155" class="sm:mx-auto w-6" width="24" height="23" />
+                                                </Tippy>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
-                                        <a  @click="copyCartLink(cart)">
-                                            <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
-                                                <SimpleIcon icon="share" class="sm:mx-auto w-6 sm:w-auto" width="24" height="23" />
-                                            </Tippy>
-                                        </a>
-                                    </td>
-
                                 </tr>
 
                             </template>
@@ -200,7 +197,6 @@ const incoming_order_columns= [
     { name: "qty", key: "qty" },
     // { name: "amount", key: "amount" },
     { name: "null", key: "detail" },
-    { name: "null", key: "link" }
 ]
 
 // const product_columns = [
