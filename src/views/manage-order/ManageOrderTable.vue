@@ -185,22 +185,11 @@
                         </template>
 
                         <template v-else-if="column.key === 'payment_status'">
-                            <template v-if="order[column.key]==='awaiting_confirm'">
-                                <select v-model="order[column.key]" class="w-30" @change="updateOrderPaymentStatus(order, index, $event)">
-                                    <option :value="option.value" v-for="(option,index) in payment_status_options" :key="index">
-                                        {{$t(`order.payment_status_options.${option.value}`)}}</option>
-                                </select>
-                            </template>
-                            <template v-else>
-                                {{$t(`order.payment_status_options.${order[column.key]}`)}}
-                            </template>
+                            <OrderPaymentStatusSelect :order="order"/>
                         </template>
                         
                         <template v-else-if="column.key === 'delivery_status'">
-                            <select v-model="order[column.key]" class="w-30" @change="updateOrderDeliveryStatus(order, index, $event)">
-                                <option :value="option.value" v-for="(option,index) in delivery_status_options" :key="index">
-                                    {{$t(`order.delivery_status_options.${option.value}`)}}</option>
-                            </select>
+                            <OrderDeliveryStatusSelect :order="order" />
                         </template>
 
 
@@ -226,6 +215,10 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import unbound from '/src/assets/images/lss-img/noname.png';
 import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
+
+import OrderDeliveryStatusSelect from "@/components/order/OrderDeliveryStatusSelect.vue"
+import OrderPaymentStatusSelect from "@/components/order/OrderPaymentStatusSelect.vue"
+
 const campaignDetailStore = useCampaignDetailStore();
 const route = useRoute();
 const router = useRouter();

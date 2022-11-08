@@ -14,7 +14,7 @@
                 </button >
             </div> -->
 
-            <div class="flex justify-between flex w-full h-16">
+            <div class="shrink-0 justify-between flex w-full h-16">
                 <div class="flex">
                     <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.incoming.incoming_order')}}</h2>
                     <Tippy 
@@ -34,7 +34,7 @@
                 </button>
             </div>
             
-            <div class="overflow-auto max-h-[90%]">
+            <div class="shrink-0 overflow-auto h-[80%] 2xl:h-[90%]">
                 <table class="table table-sm h-full">
                     <thead class="table-dark text-center">
                         <tr>
@@ -249,9 +249,17 @@ const routeTOManageOrder = ()=>{
 const copyCartLink = (cart) => {
     get_cart_oid(cart.id, layoutStore.alert).then(
         res =>{
-            navigator.clipboard.writeText(`${baseURL}/buyer/cart/${res.data}`).then(()=>{
-                layoutStore.notification.showMessageToast("copied!")
-            })
+
+            if(layoutStore.userInfo.user_subscription?.user_plan?.plugins?.easy_store){
+                navigator.clipboard.writeText(`${baseURL}/buyer/recaptcha/easy_store/${res.data}`).then(()=>{
+                    layoutStore.notification.showMessageToast("copied!")
+                })
+            }else{
+                navigator.clipboard.writeText(`${baseURL}/buyer/cart/${res.data}`).then(()=>{
+                    layoutStore.notification.showMessageToast("copied!")
+                })
+            }
+            
     })
 }
 // const routeTOLuckyDraw = ()=>{

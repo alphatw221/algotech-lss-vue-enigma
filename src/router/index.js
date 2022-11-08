@@ -89,12 +89,12 @@ import ConnectPlatform from "../views/settings/ConnectPlatform.vue";
 import Profile from "../views/profile/Main.vue";
 import ChangePlan from "../views/general/change-plan/Main.vue";
 
-import MktPlugin from "../views/mkt-plugin/Main.vue";
-import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
-import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
+// import MktPlugin from "../views/mkt-plugin/Main.vue";
+// import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
+// import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
 // import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 
-import Test2 from "../views/test/test2.vue"; 
+// import Test2 from "../views/test/test2.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 
@@ -162,15 +162,34 @@ const routes = [
         component: () => import('@/views/create-campaign/Main.vue'),
       },
       {
-        path: "campaign-list/lucky-draw/:campaign_id?",
-        name: "lucky-draw",
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list",
+        name: "lucky-draw-list",
         beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
           sellerRetrieveCampaignDataMiddleware(to, from);
         },
-        component: LuckyDraw,
+        component: () => import('@/views/mkt-plugin/lucky-draw/LuckyDrawList.vue'),
       },
       {
-        path: "campaign-list/quiz-game/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/lucky-draw/:lucky_draw_id?",
+        name: "edit-lucky-draw",
+        beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
+          sellerRetrieveCampaignDataMiddleware(to, from);
+        },
+        component:  () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
+      },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/create-lucky-draw",
+        name: "create-lucky-draw",
+        beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
+          sellerRetrieveCampaignDataMiddleware(to, from);
+        },
+        component: () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
+      },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/quiz-game",
         name: "quiz-game",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
@@ -178,7 +197,7 @@ const routes = [
         component: () => import('@/views/mkt-plugin/quiz-game/Main.vue')
       },
       {
-        path: "campaign-list/edit-campaign/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign",
         name: "edit-campaign",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
@@ -186,7 +205,7 @@ const routes = [
         component: () => import('@/views/edit-campaign/Main.vue'),
       },  
       {
-        path: "campaign-list/assign-product/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?/assign-product",
         name: "assign-product",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
@@ -194,7 +213,7 @@ const routes = [
         component: () => import('@/views/assign-campaign-product/Main.vue'),
       },   
       {
-        path: "campaign-list/edit-campaign-product/:campaign_id?",
+        path: "campaign-list/campaign-live/:campaign_id?/edit-campaign-product",
         name: "edit-campaign-product",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
@@ -254,16 +273,16 @@ const routes = [
       //   name: "OrderHistoryDetails",
       //   component: OrderDetails,
       // },
-      {
-        path: "mkt-plugin",
-        name: "mkt-plugin",
-        component: MktPlugin,
-      },
-      {
-        path: "mkt-plugin/lucky-draw",
-        name: "lucky-draw-setting",
-        component: LuckyDrawSetting,
-      },
+      // {
+      //   path: "mkt-plugin",
+      //   name: "mkt-plugin",
+      //   component: MktPlugin,
+      // },
+      // {
+      //   path: "mkt-plugin/lucky-draw",
+      //   name: "lucky-draw-setting",
+      //   component: LuckyDrawSetting,
+      // },
       
       {  
         path: "campaign-global",

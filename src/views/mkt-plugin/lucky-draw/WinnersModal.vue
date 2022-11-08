@@ -90,7 +90,7 @@ const winnerListPreview = ref(false)
 
 
 onMounted(() => {
-    eventBus.on('showWinnersList', () => {
+    eventBus.on('showWinnersListModal', () => {
         list_campaign_lucky_draw_winners(route.params.campaign_id, layoutStore.alert).then(res => {
         winnerList.value = res.data    
     })
@@ -99,7 +99,7 @@ onMounted(() => {
 })
 
 onUnmounted(() => {
-    eventBus.off('showWinnersList')
+    eventBus.off('showWinnersListModal')
 })
 
 </script>
