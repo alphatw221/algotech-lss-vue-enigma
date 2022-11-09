@@ -438,7 +438,7 @@ const proceed_to_payment = () =>{
   // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
 
   checkoutLoading.value = true
-  buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value}, layoutStore.alert)
+  buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{
     if(res.data.oid){
       router.push({name:"buyer-order-payment-page", params:{'order_oid':res.data.oid}})
