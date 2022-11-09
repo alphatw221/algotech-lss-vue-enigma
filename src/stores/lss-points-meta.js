@@ -41,7 +41,7 @@ export const useLSSPointsMetaStore = defineStore("pointsMeta", {
 			{
 				key:"reward_table",
 				type:"component",
-				datatype:"array",
+				datatype:"object",
 				default:[],
 				template:{
 					fields:[
@@ -102,14 +102,14 @@ export const useLSSPointsMetaStore = defineStore("pointsMeta", {
 			},
 			{
 				key:"default_point_redemption_rate",
-				type:"input",
+				type:"component",
 				datatype:"number",
 				default:1,
 			},
 			{
 				key:"reward_table",
 				type:"component",
-				datatype:"array",
+				datatype:"object",
 				default:[],
 				template:{
 					fields:[
@@ -120,13 +120,13 @@ export const useLSSPointsMetaStore = defineStore("pointsMeta", {
 			},
 			{
 				key:"redemption_rate_point",
-				type:"input",
+				type:"component",
 				datatype:"number",
 				default:1,
 			},
 			{
 				key:"redemption_rate_cash",
-				type:"input",
+				type:"component",
 				datatype:"number",
 				default:1,
 			},

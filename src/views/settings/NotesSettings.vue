@@ -57,109 +57,7 @@
     
     <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
 
-    <!--POINTS-->
-    <div class="flex flex-col md:flex-row justify-between gap-10 my-5">
-        <label class="whitespace-nowrap w-60 text-[18px]"> Points Settings</label>
-        <div class="flex flex-col gap-5 w-full">
-            <div class="flex flex-row md:flex-col w-full justify-between md:gap-1"> 
-                <label class="w-fit whitespace-nowrap form-label text-base font-medium my-auto"> Point Validity (Month)</label>
-                <select 
-                    class="rounded-lg form-select sm:form-select-lg w-32 md:w-60"
-                    v-model="points.period"
-                >
-                    <option :value="0"> Unlimited</option>
-                    <template v-for="index in 12" :key="index"> 
-                        <option :value="index">{{index}}</option>
-                    </template>
-                </select>
-            </div>
-            
-            <div class="flex flex-row justify-between"> 
-                <label class="w-fit whitespace-nowrap form-label text-base font-medium my-auto"> Reward Point Table</label>
-                <button class="btn btn-primary w-32 h-[35px]" @click="addPoints()"> Add</button>
-            </div>
-            
-            <div class="flex flex-row flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0" 
-                v-for="(option, index) in points.additional_points_options" :key="index">
-                <div class="flex-1 gap-2 flex"> 
-                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> SGD</label>
-                    <input  
-                    class="w-24 md:w-32 form-control flex-1"
-                    type="text" 
-                    v-model="option.startFrom"
-                    />
-                    <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ SGD</label>
-                    <input  
-                    class="w-24 form-control flex-1 "
-                    type="text" 
-                    v-model="option.endAt"
-                    />
-                </div>
-                
-                <div  class="flex-1 gap-2 flex"> 
-                    <ChevronsRightIcon class="my-auto"/>
-                     <input  
-                        class="w-24 form-control flex-2"
-                        type="text" 
-                        v-model="option.amount"
-                    />
-                   <!-- <select 
-                        class="flex-1 w-32 rounded-lg form-select sm:form-select-lg "
-                        v-model="option.type"
-                    >
-                        <option value="percent">% of amount</option>
-                        <option value="points">points</option>
-                    </select> -->
-                   <label class="form-label text-base my-auto text-[14px] md:text-[16px]"> point(s)</label>
-                </div>
-                
-            
-                
-                <button 
-                    class="inline-block w-full h-[42px] ml-auto text-base btn btn-danger sm:rounded-lg sm:w-24" 
-                    @click="deleteDelivery(index)"
-                >
-                <!-- delete additional_delivery[index] -->
-                    {{ $t('settings.delivery_form.delete') }}
-                </button>
-            </div>
-
-            <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3"> Point Redemption Rate</label>
-
-            <div class="flex flex-row gap-1 md:gap-3 -mt-3" >
-                <!-- v-for="(option, index) in deliverySettings.additional_delivery_options" :key="index"> -->
-                <div class="flex flex-1 flex-row gap-3 md:max-w-1/4"> 
-                    <input  
-                    class="w-14 md:w-32 form-control flex-1"
-                    type="text" 
-                    v-model="points.redeem_points"
-                    />
-                    <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> point(s)</label>
-                </div>
-                
-                <ChevronsRightIcon class="my-auto flex-0 w-8"/>
-                
-                <div class="flex flex-1 flex-row gap-3 md:max-w-1/4"> 
-                    <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> SGD</label>
-                    <input  
-                        class="w-14 md:w-32 form-control flex-1"
-                        type="text" 
-                        v-model="points.redeem_cash"
-                    />
-                </div>
-            </div>
-
-            <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3"> Points Desciption (顯示在買家點數紀錄頁)</label>
-
-            <textarea 
-                class="h-48 p-2 mr-5 form-control -mt-3" 
-                placeholder="xxx"
-                v-model=" points.note"
-            >
-            </textarea>
-        </div> 
-
-    </div>
+        <PointsSettingsVue :meta_point="generalInfo.meta_point"/>
         
 
         <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
@@ -253,7 +151,7 @@ import { get_general_info, update_general_info } from '@/api_v2/user_subscriptio
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import i18n from "@/locales/i18n"
 import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
-
+import PointsSettingsVue from './PointsSettings.vue';
 
 const layoutStore = useLSSSellerLayoutStore();
 
@@ -306,7 +204,9 @@ const generalInfo = ref({
     price_unit:'1',
     confirmation_note:'',
     delivery_note:'',
-    confirmation_note:''})
+    confirmation_note:'',
+    meta_point:{}   //temp
+})
 
 
 //points
