@@ -34,7 +34,7 @@
         "create-campaign":"Create Campaign",
         "assign-product":"Assign Product",
         "edit-campaign-product":"Edit Campaign Product",
-        "lucky-draw":"Lucky Draw",
+        "lucky-draw":"Edit Lucky Draw",
         "autoreply":"Auto Reply",
         "category-management":"Category Management",
         "add-product":"Add Product",
@@ -49,7 +49,9 @@
         "plans":"Plans",
         "licenses":"Licenses",
         "sellers":"Sellers",
-        "buyers":"Buyers"
+        "buyers":"Buyers",
+        "lucky-draw-list":"Lucky Draws",
+        "create-lucky-draw":"Create Lucky Draw"
     },
     "top_bar":{
         "profile":"Profile",

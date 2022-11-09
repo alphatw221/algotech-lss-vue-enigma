@@ -1,5 +1,5 @@
 <template>
-    <AccordionGroup class="mb-10" :selectedIndex="selectIndex" > 
+    <AccordionGroup class="mb-10 " :selectedIndex="selectIndex" > 
         <!-- <DirectPayment /> -->
         <div class="mt-5" v-for="(payment, index) in payments" :key="index">
             <DirectPaymentV2 v-if="payment.key=='direct_payment'"/>

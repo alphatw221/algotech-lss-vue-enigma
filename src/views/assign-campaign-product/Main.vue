@@ -708,6 +708,11 @@ const submitData = ()=>{
 	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value, layoutStore.alert).then(res=>{
 		if(props.templateInModal){
 			campaignDetailStore.campaignProducts = res.data
+			
+			campaignDetailStore.campaignProductDict = {}
+			res.data.forEach(campaignProduct => {
+				campaignDetailStore.campaignProductDict[campaignProduct.id.toString()]=campaignProduct
+			});
 			clearAllData()
 		}else{
 			router.push({name:"campaign-list",})

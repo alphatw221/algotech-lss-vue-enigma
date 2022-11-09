@@ -50,6 +50,11 @@ export const sales_report = (start_time, end_time, toastify=null) => {
 //     return createAxios(toastify).get(`/api/user-subscription/facebook_pages/`,data)
 // }
 
+export const list_animation = (toastify=null) => {
+    return createAxios(toastify).get('/api/v2/user-subscription/list/animation/')
+}
+
+
 // ------------------------- DEALER -------------------------------------
 
 export const dealer_dashboard_card = (toastify=null) => {

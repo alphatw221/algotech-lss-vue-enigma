@@ -5,8 +5,31 @@
             2xl:h-full">
         <div class="flex flex-col h-full"> 
 
-            <div class="flex justify-between flex w-full h-16">
+            <div class="shrink-0 justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.product.product')}}</h2>
+
+                <!-- TEMP -->
+                <Dropdown placement="bottom-start">
+                <DropdownToggle role="button" class="block w-5 h-5" href="javascript:;">
+                  <span>.</span>
+                </DropdownToggle>
+                <DropdownMenu class="max-w-60 pt-2">
+                  <DropdownContent class="w-44 text-center">
+                    <DropdownItem class="w-fit text-center whitespace-nowrap" 
+                      @click="routeToEditCampaignPage()"> 
+                      <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
+                      {{$t("campaign_list.campaign_list_table.edit_campaign")}} 
+                    </DropdownItem>
+                    <DropdownItem class="w-fit text-center whitespace-nowrap" 
+                      @click="routeToEditCampaignProductPage()"> 
+                      <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
+                      {{$t("campaign_list.campaign_list_table.edit_campaign_product")}}  
+                    </DropdownItem>
+                  </DropdownContent>
+                </DropdownMenu>
+              </Dropdown> 
+
+
                 <template v-if="!(route.query.status =='history' || layout.plugins)">
                     <Dropdown class="inline-block my-auto">
                         <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
@@ -26,7 +49,7 @@
                 </template>
             </div>
 
-            <div class="overflow-auto max-h-[85%]">
+            <div class="shrink-0 overflow-auto  h-[80%] 2xl:h-[91%]">
                 <table class="table table-sm">
                     <thead class="table-dark">
                         <tr class="relative">
@@ -180,6 +203,18 @@ const toggle_campaign_product_overbook = (product) => {
     })
 }
 
+const hideDropDown = ()=>{
+  dom('.dropdown-menu').removeClass('show')
+}
+
+const routeToEditCampaignPage = ()=>{
+    router.push({name:'edit-campaign', params: {'campaign_id':route.params.campaign_id}})
+    hideDropDown()
+}
+const routeToEditCampaignProductPage = ()=>{
+    router.push({name:'edit-campaign-product', params: {'campaign_id':route.params.campaign_id}})
+    hideDropDown()
+}
 
 
 </script>

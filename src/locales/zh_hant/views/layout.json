@@ -27,7 +27,7 @@
         "create-campaign":"建立銷售活動",
         "assign-product":"新增活動商品",
         "edit-campaign-product":"編輯活動商品",
-        "lucky-draw":"建立抽獎",
+        "lucky-draw":"編輯抽獎",
         "autoreply":"自動回覆",
         "category-management":"商品分類管理",
         "add-product":"新增商品",
@@ -42,7 +42,9 @@
         "plans":"方案報表",
         "licenses":"執照",
         "sellers":"賣家",
-        "buyers":"買家"
+        "buyers":"買家",
+        "lucky-draw-list":"抽獎工具",
+        "create-lucky-draw":"建立抽獎"
     },
     "top_bar":{
         "profile":"會員資訊",

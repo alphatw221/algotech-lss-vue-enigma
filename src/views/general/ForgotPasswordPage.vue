@@ -4,7 +4,7 @@
         <div class="redSide relative w-screen h-[30vh] sm:h-screen sm:w-[45vw]"> 
             <img src="/src/assets/images/login-page/forgot_robot.svg"  class="robot max-h-full sm:max-h-[480px]" />    
         </div>
-        <div class="relative w-[100vw] sm:w-[400px] h-[70vh] sm:h-screen mx-auto container"> 
+        <div class="relative w-[100vw] sm:w-[400px] h-[70vh] sm:h-screen mx-auto loginContainer"> 
             <div class="flex flex-col items-center p-10 text-center center w-full sm:w-[375px] top-2 sm:top-[29%] translate-x-1/2">
                 <img src="/src/assets/images/lss-logo/LSS_logo_words.png" class="w-[200px]" />
                 <h3 class="text-[1.8rem] mx-auto my-10 font-medium" >{{ $t('forgot_password.title') }}</h3>
@@ -83,7 +83,7 @@ onBeforeMount (()=>{document.querySelector('body').setAttribute('style', 'paddin
     position: absolute;
 
 }
-.container{
+.loginContainer{
     z-index: 1;
 }
 </style>

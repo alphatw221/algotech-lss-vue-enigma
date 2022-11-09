@@ -6,7 +6,7 @@
     "name":"Category Name",
     "description":"Category Description",
     "meta_logistic":{
-        "enable_flat_rate":"Enable Flat Rate Ｓhipping",
+        "enable_flat_rate":"Enable Flat Rate Shipping",
         "flat_rate":"Flat Rate Shipping Fee"
     }
 }

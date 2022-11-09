@@ -6,7 +6,7 @@
     "name":"tên danh mục",
     "description":"Mô tả danh mục",
     "meta_logistic":{
-        "enable_flat_rate":"Bật Ｓhipping tỷ lệ cố định",
+        "enable_flat_rate":"Bật Shipping tỷ lệ cố định",
         "flat_rate":"Phí vận chuyển cố định"
     }
 }
