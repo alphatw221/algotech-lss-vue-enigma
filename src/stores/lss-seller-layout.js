@@ -53,7 +53,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       // },
       {
         icon: "auto-reply",
-        pageName: "side-menu-auto-reply",
+        pageName: "auto-reply",
         title: "auto_reply",
       },
       // {
