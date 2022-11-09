@@ -58,7 +58,8 @@
         "subscription":"Subscription",
         "reset_password":"Reset Password",
         "logout":"Logout",
-        "order_history":"Order History"
+        "order_history":"Order History",
+        "points":"Points"
     },
     "upcoming_campaign":{
         "title": "Upcoming Campaign",

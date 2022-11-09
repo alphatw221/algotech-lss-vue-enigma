@@ -86,7 +86,7 @@ import { buyer_list_campapign_product } from "@/api_v2/campaign_product";
 import { buyer_list_discount_code } from "@/api_v2/discount_code"
 
 // import { buyer_retrieve_pre_order } from "@/api_v2/pre_order";
-import { buyer_retrieve_cart } from "@/api_v2/cart"
+import { buyer_retrieve_cart, buyer_get_cart_relative_wallet } from "@/api_v2/cart"
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies"
 const route = useRoute();
@@ -134,8 +134,21 @@ onMounted(()=>{
     res=>{
       shoppingCartStore.referalCodes = res.data
     }
-  )}
-)
+  )
+
+  if(!isAnonymousUser){
+    var _cart_oid,_toastify
+    buyer_get_cart_relative_wallet(_cart_oid=route.params.cart_oid, _toastify=buyerLayoutStore.alert).then(res=>{
+      if(res.data){
+        shoppingCartStore.buyerWallet = res.data
+      }
+      
+    })
+  }
+  
+
+
+})
 
 
 // 	buyer_cart_list(route.params.cart_oid, buyerLayoutStore.alert).then(
