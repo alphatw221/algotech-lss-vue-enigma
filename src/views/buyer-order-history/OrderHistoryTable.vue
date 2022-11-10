@@ -107,8 +107,8 @@ const changePageSize = pageSize => {
 		}
 
 const getOrderHistoryListData = ()=>{
-	buyer_orders_history(currentPage.value, pageSize.value, layoutStore.alert).then(response => {
-    console.log(response.data)
+  var _page, _pageSize, _user_subscription_id, _toastify
+	buyer_orders_history(_page=currentPage.value, _pageSize=pageSize.value, _user_subscription_id=null ,_toastify=layoutStore.alert).then(response => {
 		dataCount.value = response.data.count;
 		orders.value = response.data.results;
 	})
