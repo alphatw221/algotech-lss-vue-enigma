@@ -1,5 +1,4 @@
 <template>
-    <div class="mt-3 w-full overflow-auto h-fit sm:h-[50vh]"> 
         <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
@@ -191,7 +190,7 @@
                         <template v-else-if="column.key === 'delivery_status'">
                             <OrderDeliveryStatusSelect :order="order" />
                         </template>
-
+                        <template v-else-if="column.key === 'category'"> </template>
 
                         <template v-else class="w-30"> 
                             {{ $t(`order.${column.key}.${order[column.key]}`) }}
@@ -200,7 +199,6 @@
                 </tr>
             </tbody>
         </table>
-    </div>
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
         <Page class="mx-auto my-3" :total="manageOrderStore.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
@@ -213,7 +211,6 @@ import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import unbound from '/src/assets/images/lss-img/noname.png';
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 
 import OrderDeliveryStatusSelect from "@/components/order/OrderDeliveryStatusSelect.vue"
@@ -250,9 +247,6 @@ const delivery_status_options = ref([
     { key: 'awaiting_return', value: 'awaiting_return', },
     { key: 'returned', value: 'returned', },
 ]);
-
-
-
 
 
 const columns = ref([
@@ -317,7 +311,7 @@ const search = () => {
         res => {
 			orders.value = res.data.results
             manageOrderStore.data_count[props.tableStatus] = res.data.count;
-
+            console.log(orders.value)
         }
     )
 }

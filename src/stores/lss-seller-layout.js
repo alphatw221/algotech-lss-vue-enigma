@@ -47,7 +47,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         title: "campaign_list", 
       },
       {
-        icon: "FileTextIcon",
+        icon: "manage-order",
         pageName: "manage-order",
         title: "manage_order",
       },
@@ -61,11 +61,11 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "side-menu-auto-reply",
         title: "auto_reply",
       },
-      {
-        icon: "report",
-        pageName: "report",
-        title: "report",
-      },
+      // {
+      //   icon: "report",
+      //   pageName: "report",
+      //   title: "report",
+      // },
       // {
       //   icon: "PlusSquareIcon",
       //   pageName: "mkt-plugin",

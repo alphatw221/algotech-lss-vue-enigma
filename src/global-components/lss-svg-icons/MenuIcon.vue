@@ -137,7 +137,7 @@
   </svg>
 
   <svg 
-    v-else-if="icon == 'report'"
+    v-else-if="icon == 'manage-order'"
     width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M1 15H17" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
     <path d="M1 15V1" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
