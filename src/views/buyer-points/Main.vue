@@ -14,10 +14,10 @@
         <div class="mt-10 flex flex-row gap-5"> 
         <button @click="changeStatus('all')" class="statusBtn" :class="{'all' : status=='all'}" >
             <p class="all" :data-content="$t('points.statusButton.all')">{{$t('points.statusButton.all')}}</p></button>
-        <button @click="changeStatus('earning')" class="statusBtn" :class="{'earning' : status=='earning'}" :contant="status">
-            <p class="earn" :data-content="$t('points.statusButton.earning')">{{$t('points.statusButton.earning')}}</p></button>
-        <button @click="changeStatus('spending')" class="statusBtn" :class="{'spending' : status=='spending'}" :contant="status">
-            <p class="spend" :data-content="$t('points.statusButton.spending')">{{$t('points.statusButton.spending')}}</p></button>
+        <button @click="changeStatus('wallet1')" class="statusBtn" :class="{'wallet1' : status=='wallet1'}" :contant="status">
+            <p class="earn" :data-content="'wallet1'">wallet1</p></button>
+        <button @click="changeStatus('wallet2')" class="statusBtn" :class="{'wallet2' : status=='wallet2'}" :contant="status">
+            <p class="spend" :data-content="'wallet2'">wallet2</p></button>
         </div>
         <div class="box border-2 border-slate-200 w-full">
             <PointsTable :status="status" />
@@ -84,10 +84,10 @@ const showModal=()=>{
 .all p{
   color: theme('colors.primary');
 }
-.earning p{
+.wallet1 p{
   color: #0a3d31;
 }
-.spending p{
+.wallet2 p{
   color: theme('colors.danger');
 }
 
