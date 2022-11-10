@@ -66,7 +66,7 @@
       <span v-if="shoppingCartStore.cart?.applied_discount?.code != undefined" class="lg:text-right text-left font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :shoppingCartStore.cart?.applied_discount?.code})}} </span>
 
       <!-- POINTS INPUT -->
-      <div class="flex flex-row flex-wrap justify-between mt-2" >
+      <div class="flex flex-row flex-wrap justify-between mt-2" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
         <div>
           <div class="w-fit my-auto whitespace-nowrap">Points Redemption</div>
           <div class="w-fit my-auto whitespace-nowrap text-danger">({{computedWalletPointsLeft}} points)</div>
@@ -159,7 +159,7 @@
             {{(Math.floor(parseFloat(computedCartTotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
             {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
           </div>
-          <div class="text-sky-600">
+          <div class="text-sky-600" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
             此筆訂單可以獲得{{computedPointsEarned}} POINTS回饋
           </div>
         </div>

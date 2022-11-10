@@ -209,23 +209,22 @@ onBeforeMount(() => {
     }
 })
 
-
-watch(computed(()=>props.meta_point), () => { insertMetaData()})
+onMounted(()=>{insertMetaData()}) //for create page
+watch(computed(()=>props.meta_point), () => { insertMetaData()}) //for edit page
 
 const insertMetaData = ()=>{
     sellerPointsMeta.value.fields.forEach(field => {
         if(typeof props.meta_point[field.key] != field.datatype) props.meta_point[field.key] = field.default
     });
-
-    console.log(props.meta_point)
 }
 
 const addPointTableTier = ()=>{
+
     const pointTier = {
         upper_bound:0,
         point_redemption_rate:1
     }
-    if(props.meta_point.reward_table.length>0){
+    if(props.meta_point?.reward_table.length>0){
         pointTier.upper_bound = props.meta_point.reward_table[props.meta_point.reward_table.length-1].upper_bound+1
     }
     props.meta_point.reward_table.push(pointTier)
