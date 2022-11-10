@@ -18,7 +18,11 @@
         "licenses":"Licenses",
         "sellers":"Sellers",
         "buyers":"Buyers",
+<<<<<<< HEAD
         "report":"Report"
+=======
+        "manage_order":"Manage Order"
+>>>>>>> 66d88384c55e02802a584795b58ec531bf4e5223
     },
     "bread_crumb":{
         "stock":"Stock",
