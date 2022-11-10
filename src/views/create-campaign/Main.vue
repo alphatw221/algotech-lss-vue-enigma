@@ -139,7 +139,7 @@
 			:directPaymentImages="directPaymentImages"
 			:v="v"
 		/>
-		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg langSetting">
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 			<PointsSettings 
 				:meta_point="campaignData.meta_point"
 				:v="v"
