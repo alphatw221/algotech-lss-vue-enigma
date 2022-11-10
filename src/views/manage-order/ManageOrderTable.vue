@@ -319,13 +319,16 @@ const search = () => {
             manageOrderStore.data_count[props.tableStatus] = res.data.count;
 
         }
-    ).then(res => {
-        eventBus.emit("calculateCampaignStatus")      //manage order dashboard start to run after all table emits this event   
-    })
+    )
 }
 
 const routeToOrderDetail = (order) => {
-    router.push({name:'seller-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id},query:{'type':TYPE_ORDER}})
+    if(route.params.campaign_id){
+        router.push({name:'seller-campaign-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id}})
+    }else{
+        router.push({name:'seller-order-detail',params:{'order_id':order.id}})
+    }
+    
 }
 const changePage = (p) => {
     page.value = p

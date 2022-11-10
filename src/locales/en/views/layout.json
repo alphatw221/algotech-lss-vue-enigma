@@ -17,7 +17,8 @@
         "plans":"Plans",
         "licenses":"Licenses",
         "sellers":"Sellers",
-        "buyers":"Buyers"
+        "buyers":"Buyers",
+        "manage_order":"Manage Order"
     },
     "bread_crumb":{
         "stock":"Stock",
