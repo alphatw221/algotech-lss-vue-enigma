@@ -17,7 +17,8 @@
         "plans":"Plans",
         "licenses":"Licenses",
         "sellers":"Sellers",
-        "buyers":"Buyers"
+        "buyers":"Buyers",
+        "report":"Report"
     },
     "bread_crumb":{
         "stock":"Stock",
@@ -51,7 +52,8 @@
         "sellers":"Sellers",
         "buyers":"Buyers",
         "lucky-draw-list":"Lucky Draws",
-        "create-lucky-draw":"Create Lucky Draw"
+        "create-lucky-draw":"Create Lucky Draw",
+        "report":"Report"
     },
     "top_bar":{
         "profile":"Profile",

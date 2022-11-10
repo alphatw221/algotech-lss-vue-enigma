@@ -136,10 +136,16 @@
   <circle cx="11.1716" cy="11.1716" r="1" :stroke="props.color"/>
   </svg>
 
-
-
-
-
+  <svg 
+    v-else-if="icon == 'report'"
+    width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 15H17" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1 15V1" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="4" y="5.66667" width="3" height="7.46667" rx="0.5" :fill="props.color"/>
+    <rect x="8" y="6.6" width="3" height="6.53333" rx="0.5" :fill="props.color"/>
+    <rect x="12" y="4.73333" width="3" height="8.4" rx="0.5" :fill="props.color"/>
+    <path d="M4 3.33333L8.71724 4.59412C9.04236 4.68102 9.38938 4.59855 9.64065 4.37469L12.0966 2.18667C12.2797 2.0235 12.5165 1.93333 12.7618 1.93333H15" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  </svg>
 
 </template>
 

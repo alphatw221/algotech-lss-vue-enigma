@@ -56,11 +56,11 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "side-menu-auto-reply",
         title: "auto_reply",
       },
-      // {
-      //   icon: "PackageIcon",
-      //   pageName: "",
-      //   title: "Manage Order",
-      // },
+      {
+        icon: "report",
+        pageName: "report",
+        title: "report",
+      },
       // {
       //   icon: "PlusSquareIcon",
       //   pageName: "mkt-plugin",
