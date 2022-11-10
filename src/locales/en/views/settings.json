@@ -199,5 +199,16 @@
         "period": ".",
         "unbind_page":"Unbind page",
         "reach_channel_limt_message": "You have reached max binded platform amount."
+    }, 
+    "points":{
+        "title":"Points Setting",
+        "enable":"Enable",
+        "point_validity":"Point Validity (months)",
+        "unlimited":"Umlimited",
+        "reward_table":"Reward Point Table",
+        "redemption":"Point Redemption Rate",
+        "points":"point(s)",
+        "description":"Points Description",
+        "add":"Add"
     }
 }

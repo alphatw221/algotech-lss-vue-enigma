@@ -51,6 +51,9 @@
         },
         "social":{
             "connect_social":"Link your social media account to start your live-selling campaign"
+        },
+        "points":{
+            "points_des":"Displayed on Buyer's Points Records page"
         }
     }
 }
