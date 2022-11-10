@@ -16,6 +16,18 @@
         <circle cx="12" cy="13" r="3" stroke="black" stroke-width="1.5"/>
     </svg>
 
+    <svg 
+    v-else-if="icon == 'viewOrder'"
+    :stroke="props.color"
+    width="15" height="12" viewBox="0 0 15 12" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M1 1H10" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1 5H5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M1 9H5" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path d="M12.5 9.5L14 11" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="10" cy="7" r="3" stroke-width="1.5"/>
+    </svg>
+
+
     <svg
     v-else-if="icon == 'delete'"  
         width="24" height="18" viewBox="0 0 16 16" fill="none" xmlns="http://www.w3.org/2000/svg" :stroke="props.color">
