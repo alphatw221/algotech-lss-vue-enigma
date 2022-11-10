@@ -37,6 +37,9 @@ export const buyer_cancel_discount_code = (cart_oid, toastify=null) => {
     return createAxios(toastify).delete(`/api/v2/cart/${cart_oid}/buyer/discount/cancel`)
 }
 
+export const buyer_get_cart_relative_wallet = (cart_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/cart/${cart_oid}/buyer/wallet`)
+}
 
 //-------------------------------seller----------------------------------
 export const seller_retrieve_cart = (cart_id, toastify=null) => {

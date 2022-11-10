@@ -28,12 +28,22 @@
         </span>
       </div>
 
+      <!-- POINT DISCOUNT -->
+      <div v-if="computedPointDiscount != 0 && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between mt-2" >
+        <label class="w-fit my-auto whitespace-nowrap">Point Discount</label>
+        <span class="font-medium text-danger"> 
+          {{shoppingCartStore.cart.campaign.currency}} 
+          -{{(Math.floor(parseFloat(computedPointDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
+        </span>
+      </div>
+
       <!-- SUBTOTAL AFTER DISCOUNT -->
-      <div v-if="shoppingCartStore.cart.discount != 0 && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between mt-2" >
+      <div v-if="(shoppingCartStore.cart.discount != 0 || computedPointDiscount != 0) && shoppingCartStore.cart.campaign||false" class="flex flex-row justify-between mt-2" >
         <label class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</label>
         <span class="font-medium "> 
           {{shoppingCartStore.cart.campaign.currency}} 
-          {{(Math.floor(parseFloat(Math.max(computedCartSubtotal-shoppingCartStore.cart.discount,0)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(Math.max(computedCartSubtotal-shoppingCartStore.cart.discount-computedPointDiscount,0)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
         </span>
       </div>
@@ -54,6 +64,22 @@
           
       </div>
       <span v-if="shoppingCartStore.cart?.applied_discount?.code != undefined" class="lg:text-right text-left font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :shoppingCartStore.cart?.applied_discount?.code})}} </span>
+
+      <!-- POINTS INPUT -->
+      <div class="flex flex-row flex-wrap justify-between mt-2" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
+        <div>
+          <div class="w-fit my-auto whitespace-nowrap">Points Redemption</div>
+          <div class="w-fit my-auto whitespace-nowrap text-danger">({{computedWalletPointsLeft}} points)</div>
+        </div>
+        
+          <div class="input-group"> 
+            <input
+              type="number"
+              class="form-control w-32 h-[35px] text-right"
+              v-model="shoppingCartStore.points_used"
+            />
+          </div>
+      </div>
 
       <!-- REFERAL CODE INFO -->
       <div class="flex justify-between mt-2"  v-for="referalCode, index in shoppingCartStore.referalCodes" :key="index">
@@ -127,13 +153,22 @@
         "
       >
         <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
-        <div class="font-medium text-base" v-if="shoppingCartStore.cart.campaign||false">
-          {{shoppingCartStore.cart.campaign.currency}} 
-          {{(Math.floor(parseFloat(computedCartTotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-          {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
+        <div  >
+          <div class="font-medium text-base w-fit ml-auto" v-if="shoppingCartStore.cart.campaign||false">
+            {{shoppingCartStore.cart.campaign.currency}} 
+            {{(Math.floor(parseFloat(computedCartTotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+            {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
+          </div>
+          <div class="text-sky-600" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
+            此筆訂單可以獲得{{computedPointsEarned}} POINTS回饋
+          </div>
         </div>
+        
       </div>
     </div>
+
+  
+
 
     <!-- ADD_MORE_ITEMS NEXT BUTTON -->
     <div class="flex mt-5" v-if="shoppingCartStore.openTab === 1">
@@ -168,6 +203,7 @@ import { buyer_apply_discount_code, buyer_cancel_discount_code } from "@/api_v2/
 import { get_shopify_checkout_url } from '@/plugin/shopify/api/cart.js';
 import { useCookies } from "vue3-cookies";
 import { useRoute, useRouter } from "vue-router";
+import { getPointDiscountHelper } from "@/libs/factory/pointDiscount.js"
 const route = useRoute();
 const router = useRouter();
 
@@ -181,7 +217,7 @@ const showModal = ref(false)
 
 const computedCartSubtotal = computed(()=>{
   var subtotal = 0
-  Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
+  Object.entries(shoppingCartStore.cart.products||{}).forEach(([key, value])=>{
     subtotal += ((shoppingCartStore.campaignProductDict[key]?.price||0)*value )
   })
   return subtotal
@@ -202,8 +238,8 @@ const computedShippingCost = computed(()=>{
       var applyCategoryLogistic = false
       Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
 
-        console.log(shoppingCartStore.campaignProductDict?.[key]?.categories)
-        console.log(shoppingCartStore.productCategoryDict)
+        // console.log(shoppingCartStore.campaignProductDict?.[key]?.categories)
+        // console.log(shoppingCartStore.productCategoryDict)
         if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
           logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]=true
         }
@@ -251,6 +287,7 @@ const computedCartTotal = computed(()=>{
   let total = 0
   total += computedCartSubtotal.value
   total -= shoppingCartStore.cart.discount||0
+  total -= computedPointDiscount.value
   total = Math.max(total, 0)
 
   if(shoppingCartStore.cart.free_delivery || computedSubtotalOverFreeDeliveryThreshold.value || computedItemsOverFreeDeliveryThreshold.value){
@@ -271,6 +308,38 @@ const computedSubtotalOverFreeDeliveryThreshold = computed(()=>{
 
 const computedItemsOverFreeDeliveryThreshold = computed(()=>{
   return shoppingCartStore.cart.campaign?.meta_logistic?.is_free_delivery_for_how_many_order_minimum ? Object.keys(shoppingCartStore.cart?.products||{}).length >= shoppingCartStore.cart.campaign?.meta_logistic?.free_delivery_for_how_many_order_minimum : false
+})
+
+
+const computedPointDiscount = computed(()=>{
+
+  if(shoppingCartStore.points_used<0){
+    shoppingCartStore.points_used = 0
+  }
+  else if((shoppingCartStore.buyerWallet?.points||0)<shoppingCartStore.points_used){
+    shoppingCartStore.points_used = shoppingCartStore.buyerWallet?.points||0
+  }
+
+  if(!shoppingCartStore.cart.campaign?.meta_point?.enable){
+    shoppingCartStore.points_used = 0
+    return 0
+  }
+
+  const discountHelper = getPointDiscountHelper(shoppingCartStore.user_subscription)
+  return discountHelper.computePointDiscount(null, shoppingCartStore.cart.campaign?.meta_point, shoppingCartStore.points_used)
+
+})
+
+const computedPointsEarned = computed(()=>{
+  if(!shoppingCartStore.cart.campaign?.meta_point?.enable)return 0
+  const discountHelper = getPointDiscountHelper(shoppingCartStore.user_subscription)
+  return discountHelper.computePointsEarned(null, shoppingCartStore.cart.campaign?.meta_point, computedCartSubtotal.value - shoppingCartStore.cart.discount - computedPointDiscount.value )
+
+})
+
+
+const computedWalletPointsLeft = computed(()=>{
+  return (shoppingCartStore.buyerWallet?.points||0) - (shoppingCartStore.points_used ||0)
 })
 
 // const updateOrderSummary = ()=>{
