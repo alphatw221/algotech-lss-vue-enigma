@@ -1,7 +1,7 @@
 <template>
     <!-- OUTTER BOX -->
         <!-- BEGIN: campaign Info -->
-    <div class="flex flex-col lg:pt-5 mt-3 pb-4 h-fit sm:h-[95%]">
+    <div class="flex flex-col lg:pt-5 mt-3 pb-1 h-fit sm:h-[95%]">
         <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('manage_order.title')}}</h2>
         <!-- BEGIN: campaign Status -->
         <CampaignStatus v-if="route.params.campaign_id"/>
@@ -74,7 +74,7 @@
         </div>
 
 
-        <div v-show="tableType === 'all'" class="mt-3 w-full overflow-auto h-fit" >
+        <div v-show="tableType === 'all'" class="mt-3 w-full overflow-hidden h-fit">
             <ManageOrderTable
                 :tableStatus="'all'"
                 :tableSearch="'searchAll'"
@@ -84,7 +84,7 @@
             />
         </div>
         
-        <div v-show="tableType === 'proceed'" class="mt-3 w-full overflow-auto h-fit" >
+        <div v-show="tableType === 'proceed'" class="mt-3 w-full overflow-hidden h-fit">
             <ManageOrderTable
                 :tableStatus="'proceed'"
                 :tableSearch="'searchProceed'"
@@ -93,7 +93,7 @@
                 :filterEventBusName="'filterProceed'"
             />
         </div>
-        <div v-show="tableType === 'complete'" class="mt-3 w-full overflow-auto h-fit" >
+        <div v-show="tableType === 'complete'" class="mt-3 w-full overflow-hidden h-fit">
             <ManageOrderTable
                 :tableStatus="'complete'"
                 :tableSearch="'searchComplete'"

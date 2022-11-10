@@ -1,5 +1,6 @@
 <template>
-        <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
+<div class="mt-3 w-full overflow-auto h-[88%]" > 
+    <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
                     <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
@@ -199,6 +200,8 @@
                 </tr>
             </tbody>
         </table>
+</div>
+
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
         <Page class="mx-auto my-3" :total="manageOrderStore.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
