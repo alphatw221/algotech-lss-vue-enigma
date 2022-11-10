@@ -35,7 +35,7 @@ export const useSideMenuStore = defineStore("sideMenu", {
       },
       {
         icon: "MessageSquareIcon",
-        pageName: "side-menu-auto-reply",
+        pageName: "auto-reply",
         title: "Auto Reply",
       },
       {

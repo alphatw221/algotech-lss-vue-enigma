@@ -301,7 +301,7 @@ const routes = [
       },
       {  
         path: "autoreply",
-        name: "side-menu-auto-reply",
+        name: "auto-reply",
         component: AutoReply,
       },  
       {  
