@@ -1,31 +1,40 @@
 <template>
     <!--POINTS SETTINGS-->
-    <div class="flex flex-col md:flex-row justify-between gap-10 my-5">
-        <label class="whitespace-nowrap w-60 text-[18px]"> Points Settings</label>
-        <div class="flex flex-col gap-5 w-full">
+    <div class="flex flex-col justify-between gap-5 my-5" 
+        :class="{'md:flex-row': props.status == 'settings'}">
 
+        <label v-if="props.status == 'settings'" class="whitespace-nowrap w-72 text-xl">{{$t('settings.points.title')}}</label>
+
+        <div v-else-if="props.status !== 'settings'"
+            class="flex flex-col gap-4"> 
+            <span class="text-xl font-medium leading-none lg:-mx-6 whitespace-nowrap w-60">{{$t('settings.points.title')}}</span>
+		    <hr class="-mx-6" />
+        </div>
+
+        <div class="flex flex-col gap-5 w-full">
 
             <div v-for="field in sellerPointsMeta.fields" :key="field.key">
 
 
                 <div v-if="field.type==='checkbox'">
-                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3"> {{field.key}}</label>
                     <input 
-                        class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-2" 
+                        class="form-control form-check-input w-[1.5rem] h-[1.5rem] mr-2" 
                         type="checkbox" 
                         v-model="props.meta_point[field.key]"
                     />
+                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mr-3">{{$t('settings.points.'+ field.key)}}</label>
                 </div>
 
 
                 <div class="flex flex-row md:flex-col w-full justify-between md:gap-1" v-if="field.type==='select'"> 
-                    <label class="w-fit whitespace-nowrap form-label text-base font-medium my-auto"> {{field.key}}</label>
+                    <label class="w-fit whitespace-nowrap form-label text-base font-medium my-auto"> {{$t('settings.points.'+ field.key)}}</label>
                     <select 
                         class="rounded-lg form-select sm:form-select-lg w-32 md:w-60"
                         v-model="props.meta_point[field.key]"
                     >
                         <template v-for="option in field.options" :key="option.key"> 
-                            <option :value="option.value">{{option.key}}</option>
+                            <option v-if="option.key == 'unlimited'" :value="option.value">{{$t('settings.points.'+ option.key)}}</option>
+                            <option v-else :value="option.value">{{option.key}}</option>
                         </template>
                     </select>
                 </div>
@@ -33,9 +42,18 @@
 
 
                 <div v-if="field.type==='textarea'">
-                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3"> Points Desciption (顯示在買家點數紀錄頁)</label>
+                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3">{{$t('settings.points.description')}}</label>
+                    <Tippy 
+                        class="rounded-full w-50 my-auto ml-1" 
+                        data-tippy-allowHTML="true" 
+                        data-tippy-placement="right" 
+                        :content="$t('tooltips.settings.points.points_des')" 
+                        theme='light'
+                    > 
+                        <HelpCircleIcon class="inline-block w-5 -mt-1 tippy-icon" />
+                    </Tippy> 
                     <textarea 
-                        class="h-48 p-2 mr-5 form-control -mt-3" 
+                        class="h-48 p-2 mr-5 form-control" 
                         placeholder="xxx"
                         v-model="props.meta_point[field.key]"
                     >
@@ -43,14 +61,14 @@
                 </div>
                 
                 <!-- COMPONENT -->
-                <div v-if="field.key=='reward_table'"> 
+                <div v-if="field.key=='reward_table'" class="flex flex-col gap-3"> 
 
                     <div class="flex flex-row justify-between" v-if="field.key=='reward_table'"> 
-                        <label class="w-fit whitespace-nowrap form-label text-base font-medium my-auto"> Reward Point Table</label>
-                        <button class="btn btn-primary w-32 h-[35px]" @click="addPointTableTier()"> Add</button>
+                        <label class="w-fit whitespace-nowrap form-label text-base font-medium my-auto"> {{$t('settings.points.reward_table')}} </label>
+                        <button class="btn btn-primary w-32 h-[35px]" @click="addPointTableTier()"> {{$t('settings.points.add')}} </button>
                     </div>
 
-                    <div class="flex flex-row flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0" 
+                    <div class="flex flex-row flex-wrap gap-2 mt-5 sm:flex-row sm:mt-0" 
                         v-for="(tier, index) in props.meta_point[field.key]" :key="index">
 
                         <div class="flex-1 gap-2 flex"> 
@@ -74,7 +92,7 @@
                            
                             <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ SGD</label>
                             <input  
-                                class="w-24 form-control flex-1 "
+                                class="w-24 md:w-32 form-control flex-1 "
                                 type="number" 
                                 v-model="tier.upper_bound"
                             />
@@ -83,17 +101,17 @@
                         <div  class="flex-1 gap-2 flex"> 
                             <ChevronsRightIcon class="my-auto"/>
                             <input  
-                                class="w-24 form-control flex-2"
+                                class="w-24 md:w-32 form-control flex-2"
                                 type="number" 
                                 v-model="tier.point_redemption_rate"
                             />
-                        <label class="form-label text-base my-auto text-[14px] md:text-[16px]"> point(s)</label>
+                            <label class="form-label text-base my-auto text-[14px] md:text-[16px]"> {{$t('settings.points.points')}} </label>
                         </div>
                         
                     
                         
                         <button 
-                            class="inline-block w-full h-[42px] ml-auto text-base btn btn-danger sm:rounded-lg sm:w-24" 
+                            class="flex-0 inline-block w-full h-[42px] ml-auto text-base btn btn-danger sm:rounded-lg sm:w-24" 
                             @click="deletePointTableTier(index)"
                         >
                             {{ $t('settings.delivery_form.delete') }}
@@ -124,7 +142,7 @@
                             </template>
                             <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ SGD</label>
                             <input  
-                                class="w-24 form-control flex-1 "
+                                class="w-24 md:w-32 form-control flex-1 "
                                 type="text" 
                                 :value="'above'"
                                 disabled
@@ -134,20 +152,18 @@
                         <div  class="flex-1 gap-2 flex"> 
                             <ChevronsRightIcon class="my-auto"/>
                             <input  
-                                class="w-24 form-control flex-2"
+                                class="w-24 md:w-32 form-control flex-2"
                                 type="text" 
                                 v-model="props.meta_point.default_point_redemption_rate"
                             />
-                        <label class="form-label text-base my-auto text-[14px] md:text-[16px]"> point(s)</label>
+                        <label class="form-label text-base my-auto text-[14px] md:text-[16px]"> {{$t('settings.points.points')}}</label>
                         </div>
-                        
                     </div>
-
                 </div>
                 
                 <!-- COMPONENT -->
-                <div  v-if="field.key=='redemption_rate_point'"> 
-                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3"> Point Redemption Rate</label>
+                <div  v-if="field.key=='redemption_rate_point'" class="flex flex-col gap-2"> 
+                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3"> {{$t('settings.points.redemption')}}</label>
 
                         
                     <div class="flex flex-row gap-3 md:gap-3 -mt-3" >
@@ -158,7 +174,7 @@
                             type="text" 
                             v-model="props.meta_point[field.key]"
                             />
-                            <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> point(s)</label>
+                            <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> {{$t('settings.points.points')}}</label>
                         </div>
                         
                         <ChevronsRightIcon class="my-auto flex-0 w-8"/>
@@ -172,16 +188,10 @@
                             />
                         </div>
                     </div>
-
-
                 </div>
-
             </div>
-
         </div> 
-
     </div>
-        
 </template>
 
 <script setup>
@@ -195,6 +205,7 @@ import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 const props = defineProps({
     meta_point: Object,
+    status: String, 
 })
 
 const layoutStore = useLSSSellerLayoutStore();
