@@ -19,8 +19,8 @@ export const buyer_retrieve_order_state = (order_oid, toastify=null) => {
 export const buyer_upload_receipt = (order_oid, data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/order/${order_oid}/buyer/receipt/upload/`, data);
 }
-export const buyer_orders_history = (page, page_size, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/order/buyer/history/?page=${page}&page_size=${page_size}`)
+export const buyer_orders_history = (page, page_size, user_subscription_id=null, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/order/buyer/history/?user_subscription_id=${user_subscription_id}&page=${page}&page_size=${page_size}`)
 }
 export const buyer_retrieve_order_oid = (order_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/order/${order_id}/buyer/retrieve/oid/`)
