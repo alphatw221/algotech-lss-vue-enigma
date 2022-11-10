@@ -8,7 +8,7 @@
             v-for="column in tableColumns"
             :key="column.key"
           >
-            {{ $t(`order_history.table.` + column.name) }}
+            {{ $t(`order_points.table.` + column.name) }}
           </th>
         </tr>
       </thead>
@@ -19,16 +19,16 @@
           v-for="(order, index) in orders"
           :key="index"
         >
+        <!-- <template v-if="(order.points_earned || order.points_used) !== 0">  -->
           <td
             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm"
             v-for="column in tableColumns"
             :key="column.key"
-            :data-content="$t(`order_history.table.` + column.name)"
+            :data-content="$t(`order_points.table.` + column.name)"
           >
             <template v-if="column.type == 'dateTime'">
               {{
                 new Date(order[column.key]).toLocaleDateString("en-us", {
-                  weekday: "long",
                   year: "numeric",
                   month: "short",
                   day: "numeric",
@@ -51,25 +51,23 @@
                   : ""
               }}
             </template>
+            <template v-else-if="column.type == 'int' && order.campaign">
+              {{(order[column.key]).toLocaleString("en-GB")}}
+            </template>
             <template
-              v-else-if="column.key == 'payment_method' && order[column.key]"
+              v-else-if="column.key == 'campaign.title'"
             >
-              {{
-                order[column.key] == "direct_payment"
-                  ? `${$t("order_history.direct_payment")} - ${
-                      order.meta.account_mode
-                    }`
-                  : $t(`order_history.${order[column.key]}`)
-              }}
+              {{order.campaign.title}}
             </template>
             <template v-else-if="column.key == 'status'">
-              {{ $t(`order_history.${order[column.key]}`) }}
+              {{ $t(`order_points.${order[column.key]}`) }}
             </template>
 
             <template v-else>
               {{ order[column.key] }}
             </template>
           </td>
+        <!-- </template> -->
         </tr>
       </tbody>
     </table>
@@ -113,11 +111,12 @@ const pageSize = ref(10);
 const dataCount = ref(0);
 const orders = ref([]);
 const tableColumns = ref([
-  { name: "order_no", key: "id", type: "int" },
   { name: "date", key: "created_at", type: "dateTime" },
-  { name: "payment_method", key: "payment_method", type: "string" },
-  { name: "amount", key: "total", type: "float" },
-  { name: "status", key: "status", type: "string" },
+  { name: "change_reason", key: "campaign.title", type: "string" },
+  { name: "earned", key: "points_earned", type: "int" },
+  { name: "used", key: "points_used", type: "int" },
+  { name: "discount", key: "point_discount", type: "float" },
+  { name: "expire_at", key: "point_expired_at", type: "dateTime" },
 ]);
 
 const routeToDetail = (order_id) => {
