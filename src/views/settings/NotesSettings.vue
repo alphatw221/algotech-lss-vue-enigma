@@ -3,8 +3,8 @@
 
 
     <!-- SHOPPINGCART-->
-    <div class="flex flex-col md:flex-row justify-between gap-10 my-5"> 
-        <label class="whitespace-nowrap w-60 text-[18px]"> Shopping Cart settings</label>
+    <div class="flex flex-col md:flex-row justify-between gap-5 my-5"> 
+        <label class="whitespace-nowrap w-72 text-xl"> Shopping Cart settings</label>
         <div class="flex flex-col gap-5 w-full"> 
             <div class="flex form-label text-base font-medium">{{$t("settings.localization.currency_symbol")}}</div>
             <TomSelect v-model="generalInfo.currency" :options="{
@@ -57,14 +57,14 @@
     
     <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
 
-        <PointsSettingsVue :meta_point="generalInfo.meta_point"/>
+        <PointsSettingsVue :meta_point="generalInfo.meta_point" :status="'settings'" />
         
 
         <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
 
     <!-- NOTES-->
-    <div class="flex flex-col md:flex-row justify-between gap-10 my-5"> 
-        <label class="w-60 whitespace-nowrap text-[18px]"> Custom Notes Settings</label>
+    <div class="flex flex-col md:flex-row justify-between gap-5 my-5"> 
+        <label class="w-72 whitespace-nowrap text-xl"> Custom Notes Settings</label>
         <AccordionGroup class="accordion-boxed w-full">
             <AccordionItem>
                 <Accordion>
