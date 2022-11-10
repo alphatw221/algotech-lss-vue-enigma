@@ -171,7 +171,7 @@
                         <div class="flex flex-1 flex-row gap-3 md:max-w-1/4"> 
                             <input  
                             class="w-14 md:w-32 form-control flex-1"
-                            type="text" 
+                            type="number" 
                             v-model="props.meta_point[field.key]"
                             />
                             <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> {{$t('settings.points.points')}}</label>
@@ -183,7 +183,7 @@
                             <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> SGD</label>
                             <input  
                                 class="w-14 md:w-32 form-control flex-1"
-                                type="text" 
+                                type="number" 
                                 v-model="props.meta_point['redemption_rate_cash']"
                             />
                         </div>
