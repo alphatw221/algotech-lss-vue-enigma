@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-5 m-0 my-5 p-2 py-5 lg:m-5 lg:p-10 2xl:m-5 2xl:p-10">
+    <div class="flex flex-col gap-5 m-0 p-2 py-5 lg:mx-5 lg:p-10 2xl:mx-5 2xl:px-10">
         <h1 class="text-xl mx-auto" style="font-size: 1.5rem;"> {{$t('order_points.points')}} </h1>
         <div
           v-if="status !== 'all'" 
@@ -13,13 +13,13 @@
             <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showModal()"><u>Rules and Description </u> </a>
         </div>
 
-        <div class="mt-10 flex flex-row gap-5"> 
+        <div class="mt-5 flex flex-row gap-5"> 
           <button @click="changeStatus('all', 99)" class="statusBtn" :class="{'all' : status=='all'}" >
             <p class="all" :data-content="$t('order_points.statusButton.all')">{{$t('order_points.statusButton.all')}}</p>
           </button>
 
           <template v-for="(wallet,i) in buyerLayoutStore.userInfo.wallets" :key="i"> 
-            <button @click="changeStatus(wallet.user_subscription.name, i)" class="statusBtn" :contant="status" :class="{'wallet': i == index }">
+            <button @click="changeStatus(wallet.user_subscription.id, i)" class="statusBtn" :contant="status" :class="{'wallet': i == index }">
               <p class="wallet" :data-content="wallet.user_subscription.name">{{wallet.user_subscription.name}}</p></button>
           </template>
         </div>
@@ -43,6 +43,7 @@ const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const status = ref('all')
+const id = ref('all')
 const index = ref(100)
 
 onMounted(()=>{
@@ -54,6 +55,7 @@ const changeStatus =(s,i)=>{
 //   ready.value = false
   status.value = s
   index.value =i
+  console.log(s,i)
 }
 
 const showModal=()=>{

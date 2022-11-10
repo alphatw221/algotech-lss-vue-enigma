@@ -1,5 +1,6 @@
 <template>
-  <div class="overflow-x-auto h-full">
+  <LoadingTable  v-if="ready == false"/> 
+  <div v-else-if="ready == true" class="overflow-x-auto h-full">
     <table class="table table-report mt-2 table-auto">
       <thead>
         <tr>
@@ -98,12 +99,15 @@ import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order";
 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import { get_user_subscription_facebook_pages } from "../../api/user_subscription";
+import LoadingTable from "../dealer-sellers/LoadingTable.vue";
 
 const layoutStore = useLSSBuyerLayoutStore();
 
 const route = useRoute();
 const router = useRouter();
 
+const ready = ref(false)
 const currentPage = ref(1);
 
 const totalPage = ref(1);
@@ -118,6 +122,10 @@ const tableColumns = ref([
   { name: "discount", key: "point_discount", type: "float" },
   { name: "expire_at", key: "point_expired_at", type: "dateTime" },
 ]);
+
+const props = defineProps({
+  status: String,
+});
 
 const routeToDetail = (order_id) => {
   buyer_retrieve_order_oid(order_id, layoutStore.alert).then((res) => {
@@ -138,19 +146,24 @@ const changePageSize = (pageSize) => {
 };
 
 const getOrderHistoryListData = () => {
+  ready.value = false
   buyer_orders_history(
     currentPage.value,
     pageSize.value,
+    props.status,
     layoutStore.alert
   ).then((response) => {
-    console.log(response.data);
+    ready.value = true
     dataCount.value = response.data.count;
     orders.value = response.data.results;
   });
 };
+watch(()=>props.status,()=>{getOrderHistoryListData()},{deep:true})
+
 onMounted(() => {
   getOrderHistoryListData();
 });
+
 </script>
 
 

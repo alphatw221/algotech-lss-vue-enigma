@@ -151,8 +151,11 @@
 @import "./components/_lss-buyer-mobile-menu.css";
 @import "./components/_lss-buyer-top-bar-boxed.css";
 @import "./components/_lss-content.css";
+@import "./components/_lss-loading-table.css";
 @import "./components/_lss-buyer-mobile-side-nav.css";
 @import "./components/_lss-public-layout.css";
 @import "./components/_lss_tab.css";
 @import "./components/_bullet-switch-toggle.css";
 @import "./components/_modal.css";
+
+
