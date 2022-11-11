@@ -148,6 +148,11 @@ const routes = [
         component: CampaignList,
       },
       {
+        path: "manage-order",
+        name: "manage-order",
+        component: ManageOrder,
+      },
+      {
         path: "campaign-list/campaign-live/:campaign_id?",
         name: "campaign-live",
         beforeEnter:(to, from)=>{
@@ -222,29 +227,35 @@ const routes = [
       },   
       {
         path: "campaign-list/campaign-live/:campaign_id?/manage-order",
-        name: "manage-order",
+        name: "manage-campaign-order",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
         },
         component: ManageOrder,
       },
       {
-        path: "campaign-list/campaign-live/:campaign_id?/manage-order/order-detail/:order_id?",    
+        path: "manage-order/order-detail/:order_id?",    
         name: "seller-order-detail",
+        component: SellerOrderDetail,
+      },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/manage-order/order-detail/:order_id?",    
+        name: "seller-campaign-order-detail",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
         },
         component: SellerOrderDetail,
       },
-      {
-        path: "campaign-list/campaign-live/:campaign_id?/manage-order/cart-detail/:cart_id?",    
-        name: "seller-cart-detail",
-        beforeEnter:(to, from)=>{
-          sellerGenerateCampaignProductDictMiddleware(to, from);
-          sellerRetrieveCampaignDataMiddleware(to, from);
-        },
-        component: SellerCartDetail,
-      },
+
+      // {
+      //   path: "campaign-list/campaign-live/:campaign_id?/manage-order/cart-detail/:cart_id?",    
+      //   name: "seller-cart-detail",
+      //   beforeEnter:(to, from)=>{
+      //     sellerGenerateCampaignProductDictMiddleware(to, from);
+      //     sellerRetrieveCampaignDataMiddleware(to, from);
+      //   },
+      //   component: SellerCartDetail,
+      // },
       
       
       

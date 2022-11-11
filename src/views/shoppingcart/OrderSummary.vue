@@ -160,7 +160,12 @@
             {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
           </div>
           <div class="text-sky-600" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
-            此筆訂單可以獲得{{computedPointsEarned}} POINTS回饋
+            <div v-if="isAnonymousUser">
+              登入結帳以獲得{{computedPointsEarned}} POINTS回饋
+            </div>
+            <div v-else>
+              此筆訂單可以獲得{{computedPointsEarned}} POINTS回饋
+            </div>
           </div>
         </div>
         
@@ -214,6 +219,7 @@ const layoutStore = useLSSBuyerLayoutStore();
 // const shippingCost = ref(0)
 // const cartTotal = ref(0)
 const showModal = ref(false)
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 const computedCartSubtotal = computed(()=>{
   var subtotal = 0

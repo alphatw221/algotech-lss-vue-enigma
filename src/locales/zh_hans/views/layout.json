@@ -10,7 +10,8 @@
         "campaign_default_setting":"基本设定",
         "localization":"在地化",
         "connect_platform":"社群平台",
-        "discount_code":"优惠代码"
+        "discount_code":"优惠代码",
+        "manage_order":"订单管理"
 
     },
     "bread_crumb":{

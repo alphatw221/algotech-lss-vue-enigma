@@ -166,10 +166,10 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal' && campaignDetailStore.campaign" class="text-right">
-                            {{campaignDetailStore.campaign.currency}}
-                            {{(Math.floor(parseFloat(order.total) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                        <template v-else-if="column.key === 'subtotal' && order?.campaign" class="text-right">
+                                {{order?.campaign?.currency}}
+                                {{(Math.floor(parseFloat(order.total) * (10 ** order?.campaign?.decimal_places)) / 10 ** order?.campaign?.decimal_places).toLocaleString('en-GB')}}
+                                {{order?.campaign?.price_unit?$t(`global.price_unit.${order?.campaign?.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
@@ -319,13 +319,16 @@ const search = () => {
             manageOrderStore.data_count[props.tableStatus] = res.data.count;
 
         }
-    ).then(res => {
-        eventBus.emit("calculateCampaignStatus")      //manage order dashboard start to run after all table emits this event   
-    })
+    )
 }
 
 const routeToOrderDetail = (order) => {
-    router.push({name:'seller-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id},query:{'type':TYPE_ORDER}})
+    if(route.params.campaign_id){
+        router.push({name:'seller-campaign-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id}})
+    }else{
+        router.push({name:'seller-order-detail',params:{'order_id':order.id}})
+    }
+    
 }
 const changePage = (p) => {
     page.value = p

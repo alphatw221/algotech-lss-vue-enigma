@@ -38,7 +38,7 @@
                 <table class="table table-sm h-full">
                     <thead class="table-dark text-center">
                         <tr>
-                            <th class="whitespace-nowrap bg-dark" v-for="column in incoming_order_columns"
+                            <th class="whitespace-nowrap bg-dark w-fit" v-for="column in incoming_order_columns"
                                 :key="column.key">
                                 {{ $t(`campaign_live.incoming.table.`+column.name) }}
                             </th>
@@ -55,50 +55,36 @@
                             
                             <template v-for="(qty, campaign_product_id, index) in cart.products" :key="index">
                             
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                            
-                        
                                 <tr >
                                     <td>#{{ cart.id }}</td>
                                     <td>
-                                        <div v-if="cart.platform === 'facebook'" class="w-10 h-10 image-fit mx-auto">
+                                        <div v-if="cart.platform === 'facebook'" class="w-8 h-8 image-fit mx-auto">
                                             <div class="w-10 h-10 image-fit">
                                                 <img src="/src/assets/images/lss-img/facebook.png" />
                                             </div>
                                         </div>
-                                        <div v-else-if="cart.platform === 'instagram'" class="w-10 h-10 image-fit mx-auto">
+                                        <div v-else-if="cart.platform === 'instagram'" class="w-8 h-8 image-fit mx-auto">
                                             <div class="w-10 h-10 image-fit">
                                                 <img src="/src/assets/images/lss-img/instagram.png" />
                                             </div>
                                         </div>
-                                        <div v-else-if="cart.platform === 'youtube'" class="w-10 h-10 image-fit mx-auto">
+                                        <div v-else-if="cart.platform === 'youtube'" class="w-8 h-8 image-fit mx-auto">
                                             <div class="w-10 h-10 image-fit">
                                                 <img src="/src/assets/images/lss-img/youtube.png" />
                                             </div>
                                         </div>
-                                        <div v-else-if="cart.platform === 'twitch'" class="w-10 h-10 image-fit mx-auto">
+                                        <div v-else-if="cart.platform === 'twitch'" class="w-8 h-8 image-fit mx-auto">
                                             <div class="w-10 h-10 image-fit">
                                                 <img src="/src/assets/images/lss-img/twitch.png" />
                                             </div>
                                         </div>
-                                        <div v-else-if="cart.platform === 'tiktok'" class="w-10 h-10 image-fit mx-auto">
+                                        <div v-else-if="cart.platform === 'tiktok'" class="w-8 h-8 image-fit mx-auto">
                                             <div class="w-10 h-10 image-fit">
                                                 <img src="/src/assets/images/lss-img/tiktok_black_bg.png" />
                                             </div>
                                         </div>
                                     </td>
-                                    <td>
+                                    <td class="text-[12px]">
                                         <template v-if="cart.customer_name != ''"> {{ cart.customer_name }} </template>
                                         <template v-else> Guest </template>  
                                     </td>
@@ -107,31 +93,34 @@
                                         {{ (Math.floor(pre_order.subtotal * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-US')}}
                                         {{ campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
                                     </td>  -->
-                                    <td>{{campaignDetailStore.campaignProductDict[campaign_product_id]?.name}}</td>
+                                    <!-- <td>{{campaignDetailStore.campaignProductDict[campaign_product_id]?.name}}</td> -->
+                                    <td >
+                                        <div class="flex flex-col h-fit mt-3">
+                                            <img :src="campaignDetailStore.campaignProductDict[campaign_product_id]?.image" class="h-8 object-cover"/>
+                                            <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id].order_code}}</span> 
+                                        </div>
+                                    </td>
                                     <td>{{qty}}</td>
                                     
                                     <td>
-                                        <a>
-                                            <Tippy 
-                                                class="rounded-full w-fit" 
-                                                data-tippy-allowHTML="true" 
-                                                data-tippy-placement="right" 
-                                                :options="{ theme: 'light' }"
-                                                :content="$t('tooltips.campaign_live.view_icon')" 
-                                            > 
-                                                <SimpleIcon icon="view" @click="routeToDetailPage(cart)"/>
-                                            </Tippy> 
-                                        </a>
-                                        
+                                        <div class="flex flex-row gap-1"> 
+                                            <a>
+                                                <Tippy 
+                                                    data-tippy-allowHTML="true" 
+                                                    data-tippy-placement="right" 
+                                                    :options="{ theme: 'light' }"
+                                                    :content="$t('tooltips.campaign_live.view_icon')" 
+                                                > 
+                                                    <SimpleIcon icon="viewOrder" color="#334155" @click="routeToDetailPage(cart)"  class="sm:mx-auto w-6" width="24" height="23" />
+                                                </Tippy> 
+                                            </a>
+                                            <a  @click="copyCartLink(cart)">
+                                                <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
+                                                    <SimpleIcon icon="share" color="#334155" class="sm:mx-auto w-6" width="24" height="23" />
+                                                </Tippy>
+                                            </a>
+                                        </div>
                                     </td>
-                                    <td>
-                                        <a  @click="copyCartLink(cart)">
-                                            <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
-                                                <SimpleIcon icon="share" class="sm:mx-auto w-6 sm:w-auto" width="24" height="23" />
-                                            </Tippy>
-                                        </a>
-                                    </td>
-
                                 </tr>
 
                             </template>
@@ -208,7 +197,6 @@ const incoming_order_columns= [
     { name: "qty", key: "qty" },
     // { name: "amount", key: "amount" },
     { name: "null", key: "detail" },
-    { name: "null", key: "link" }
 ]
 
 // const product_columns = [
@@ -243,7 +231,7 @@ const routeToDetailPage = (cart)=>{
 }
 
 const routeTOManageOrder = ()=>{
-    router.push({name:'manage-order',params:{'campaign_id':route.params.campaign_id}})
+    router.push({name:'manage-campaign-order',params:{'campaign_id':route.params.campaign_id}})
 }
 
 const copyCartLink = (cart) => {

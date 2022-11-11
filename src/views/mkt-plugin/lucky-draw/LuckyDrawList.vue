@@ -173,7 +173,7 @@ const routeToCreateLuckyDrawPage = ()=>{
 }
 
 const toManageOrder = ()=>{
-    router.push({ name: 'manage-order', params: { campaign_id: route.params.campaign_id}})
+    router.push({ name: 'manage-campaign-order', params: { campaign_id: route.params.campaign_id}})
 }
 
 const goDraw = (lucky_draw) => {

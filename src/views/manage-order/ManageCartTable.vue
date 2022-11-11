@@ -269,9 +269,7 @@ const search = () => {
             //     totalPage = totalPage == 0 ? 1 : totalPage;
             //     }
         }
-    ).then(res => {
-        eventBus.emit("calculateCampaignStatus")        
-    })
+    )
 }
 
 const to_cart_detail = (cart) => {
