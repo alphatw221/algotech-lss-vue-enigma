@@ -9,18 +9,20 @@
 
         <div class="w-full mt-8 flex flex-col">
             <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
+                <button @click="show_order('all')" class="statusBtn"  :class="{ 'all' : tableType === 'all'}" >
+                    <p :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['all']}}</span>)</span>
+                </button>
 
-                <div class="relative ml-2 mr-3">
-                        <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'all'}" @click="show_order('all')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['all']}}</span>)</a>
-                </div>
-                
-                <div class="relative ml-2 mr-3">
-                        <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'proceed'}" @click="show_order('proceed')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['proceed']}}</span>)</a>
-                </div>
-                <div class="relative ml-2 mr-3">
-                        <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'complete'}" @click="show_order('complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['complete']}}</span>) </a>
-                </div>
+                <button @click="show_order('proceed')" class="statusBtn" :class="{ 'all' : tableType === 'proceed'}">
+                    <p :data-content="$t('manage_order.review')">{{$t('manage_order.review')}}</p><span class=" mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['proceed']}}</span>)</span>
+                </button>
+
+                <button @click="show_order('complete')" class="statusBtn" :class="{ 'all' : tableType === 'complete'}">
+                    <p :data-content="$t('manage_order.complete')">{{$t('manage_order.complete')}}</p><span class="mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['complete']}}</span>)</span>
+                </button>
             </div>
+
+            
             <!--分隔線-->
             <div class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
             <div class="flex flex-col sm:flex-row -mb-5">
@@ -193,12 +195,65 @@ const stopCheckout = ()=>{
         background-color: #131C34;
         color: #fff;
     }
-    .tab-active{
-        color: rgb(30, 64, 175);
-        border: 2px solid;
-        border-bottom: 0;
-        border-top-left-radius: 5px;
-        border-top-right-radius: 5px;
-        padding: 3px;
+    
+    .statusBtn {
+    padding: 0;
+    margin: 0;
+    border: none;
+    background: none;
+    }
+
+    .statusBtn {
+    --primary-color: rgba(78, 78, 78, 0.808);
+    --hovered-color: #474747;
+    position: relative;
+    display: flex;
+    font-weight: 500;
+    font-size: 16px;
+    align-items: center;
+    }
+
+    .statusBtn p {
+    margin: 0;
+    position: relative;
+    font-size: 20px;
+    color: var(--primary-color)
+    }
+
+    .all p{
+    color: theme('colors.primary');
+    font-weight: 800;
+    }
+    .all{
+        border-bottom: solid 2px #131C34;
+    }
+
+    .statusBtn::after {
+    position: absolute;
+    content: "";
+    width: 0;
+    left: 0;
+    bottom: -2px;
+    font-weight: 800;
+    background: var(--hovered-color);
+    height: 2px;
+    transition: 0.3s ease-out;
+    }
+
+    .statusBtn .all::before{
+    position: absolute;
+    /*   box-sizing: border-box; */
+    content: attr(data-content);
+    width: 0%;
+    inset: 0;
+    color: theme('colors.primary');
+    overflow: hidden;
+    transition: 0.3s ease-out;
+    }
+    .statusBtn:hover::after {
+    width: 100%;
+    }
+    .statusBtn:hover p::before {
+    width: 100%;
     }
 </style>
