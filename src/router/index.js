@@ -151,7 +151,7 @@ const routes = [
       {
         path: "manage-order",
         name: "manage-order",
-        component: ManageOrderClone,
+        component: ManageOrderClone, //simply reuse got chances component won't unmount
       },
       {
         path: "campaign-list/campaign-live/:campaign_id?",
