@@ -25,7 +25,6 @@
             <div class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
             <div class="flex flex-col sm:flex-row">
                 <div class="relative right-0 flex-auto sm:mt-1">
-                    
                     <SearchBar 
                         v-show="tableType == 'all'"
                         :tableStatus="'all'"
@@ -33,7 +32,6 @@
                         :tableFilter="'filterAll'"
                         :searchEventBusName="'searchAll'"
                         />
-
 
                     <SearchBar 
                         v-show="tableType == 'proceed'"
@@ -51,8 +49,9 @@
                         :searchEventBusName="'searchComplete'"
                         />
 
-                    <ExportOrderButton />
-
+                        
+                        <ExportOrderButton :tableStatus="tableType"/>
+                    </div>
                     
                 </div>
                 
@@ -71,7 +70,6 @@
                     <input @click="stopCheckout()" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="manageOrderStore.campaign.stop_checkout"/> 
                 </div>
             </div>
-        </div>
 
 
         <div v-show="tableType === 'all'" class="mt-3 w-full overflow-hidden h-fit">
