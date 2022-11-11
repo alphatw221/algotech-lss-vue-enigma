@@ -339,7 +339,8 @@ const routes = [
         path: "stock/category-management",
         name: "category-management",
         component: () => import('@/views/category-management/Main.vue')
-      }
+      },
+      
     ],
   },
   

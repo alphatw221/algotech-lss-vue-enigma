@@ -7,7 +7,6 @@
                     <img alt="" class="rounded-full zoom-in" :src="userAvatar" />
                 </div>
                 <div class="text-lg"> {{ buyerLayoutStore.userInfo.name }}</div>
-                <p> points <span class="text-danger text-[18px] font-bold"> 59</span></p>
             </div>
         </div>
         <div for="orderHistoryTable" class="box border-2 border-slate-200 col-start-1 col-span-12 lg:col-start-4 lg:col-span-9 2xl:col-start-4 2xl:col-span-9">
