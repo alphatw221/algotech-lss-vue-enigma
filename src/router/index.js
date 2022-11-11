@@ -247,15 +247,15 @@ const routes = [
         component: SellerOrderDetail,
       },
 
-      // {
-      //   path: "campaign-list/campaign-live/:campaign_id?/manage-order/cart-detail/:cart_id?",    
-      //   name: "seller-cart-detail",
-      //   beforeEnter:(to, from)=>{
-      //     sellerGenerateCampaignProductDictMiddleware(to, from);
-      //     sellerRetrieveCampaignDataMiddleware(to, from);
-      //   },
-      //   component: SellerCartDetail,
-      // },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/manage-order/cart-detail/:cart_id?",    
+        name: "seller-cart-detail",
+        beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
+          sellerRetrieveCampaignDataMiddleware(to, from);
+        },
+        component: SellerCartDetail,
+      },
       
       
       

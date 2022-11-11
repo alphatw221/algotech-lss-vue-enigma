@@ -43,7 +43,7 @@
         <label class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</label>
         <span class="font-medium "> 
           {{shoppingCartStore.cart.campaign.currency}} 
-          {{(Math.floor(parseFloat(Math.max(computedCartSubtotal-shoppingCartStore.cart.discount-computedPointDiscount,0)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(computedSubtotalAfterDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
         </span>
       </div>
@@ -336,10 +336,13 @@ const computedPointDiscount = computed(()=>{
 
 })
 
+const computedSubtotalAfterDiscount = computed(()=>{
+  return Math.max(computedCartSubtotal.value-shoppingCartStore.cart.discount-computedPointDiscount.value,0)
+})
 const computedPointsEarned = computed(()=>{
   if(!shoppingCartStore.cart.campaign?.meta_point?.enable)return 0
   const discountHelper = getPointDiscountHelper(shoppingCartStore.user_subscription)
-  return discountHelper.computePointsEarned(null, shoppingCartStore.cart.campaign?.meta_point, computedCartSubtotal.value - shoppingCartStore.cart.discount - computedPointDiscount.value )
+  return discountHelper.computePointsEarned(null, shoppingCartStore.cart.campaign?.meta_point, computedSubtotalAfterDiscount.value )
 
 })
 
