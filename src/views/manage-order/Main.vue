@@ -10,15 +10,15 @@
         <div class="w-full mt-8 flex flex-col">
             <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
 
-                <div class="relative ml-2 mr-3">
-                        <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'all'}" @click="show_order('all')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['all']}}</span>)</a>
+                <div class="relative ml-2 mr-3" :class="{ 'tab-active' : tableType === 'all'}">
+                        <a class="mr-0.5" style="color:#1e40af;"  @click="show_order('all')">{{$t('manage_order.all')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['all']}}</span>)</a>
                 </div>
                 
-                <div class="relative ml-2 mr-3">
-                        <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'proceed'}" @click="show_order('proceed')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['proceed']}}</span>)</a>
+                <div class="relative ml-2 mr-3" :class="{ 'tab-active' : tableType === 'proceed'}">
+                        <a class="mr-0.5" style="color:#1e40af;"  @click="show_order('proceed')">{{$t('manage_order.review')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['proceed']}}</span>)</a>
                 </div>
-                <div class="relative ml-2 mr-3">
-                        <a class="mr-0.5" style="color:#1e40af;" :class="{ 'tab-active' : tableType === 'complete'}" @click="show_order('complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['complete']}}</span>) </a>
+                <div class="relative ml-2 mr-3" :class="{ 'tab-active' : tableType === 'complete'}">
+                        <a class="mr-0.5" style="color:#1e40af;"  @click="show_order('complete')">{{$t('manage_order.complete')}} (<span style="font-weight:bold;">{{manageOrderStore.data_count['complete']}}</span>) </a>
                 </div>
             </div>
             <!--分隔線-->
