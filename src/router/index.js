@@ -79,6 +79,7 @@ import DiscountCode from "../views/discountCode/Main.vue"
 import CampaignList from "../views/campaign-list/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
 import ManageOrder from "../views/manage-order/Main.vue";  
+import ManageOrderClone from "../views/manage-order/MainClone.vue"
 import SellerOrderDetail from "../views/seller-order-detail/Main.vue"
 import SellerCartDetail from "../views/seller-cart-detail/Main.vue"
 // import CampaignSelect from "../views/manage-order/Campaignselect.vue";
@@ -150,7 +151,7 @@ const routes = [
       {
         path: "manage-order",
         name: "manage-order",
-        component: ManageOrder,
+        component: ManageOrderClone,
       },
       {
         path: "campaign-list/campaign-live/:campaign_id?",
