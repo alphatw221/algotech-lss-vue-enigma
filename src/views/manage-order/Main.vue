@@ -23,7 +23,7 @@
             </div>
             <!--分隔線-->
             <div class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
-            <div class="flex flex-col sm:flex-row">
+            <div class="flex flex-col sm:flex-row -mb-5">
                 <div class="relative right-0 flex-auto sm:mt-1">
                     <SearchBar 
                         v-show="tableType == 'all'"
@@ -72,7 +72,7 @@
             </div>
 
 
-        <div v-show="tableType === 'all'" class="mt-3 w-full overflow-hidden h-fit">
+        <div v-show="tableType === 'all'" class="w-full overflow-hidden h-fit">
             <ManageOrderTable
                 :tableStatus="'all'"
                 :tableSearch="'searchAll'"
@@ -82,7 +82,7 @@
             />
         </div>
         
-        <div v-show="tableType === 'proceed'" class="mt-3 w-full overflow-hidden h-fit">
+        <div v-show="tableType === 'proceed'" class="w-full overflow-hidden h-fit">
             <ManageOrderTable
                 :tableStatus="'proceed'"
                 :tableSearch="'searchProceed'"
@@ -91,7 +91,7 @@
                 :filterEventBusName="'filterProceed'"
             />
         </div>
-        <div v-show="tableType === 'complete'" class="mt-3 w-full overflow-hidden h-fit">
+        <div v-show="tableType === 'complete'" class="w-full overflow-hidden h-fit">
             <ManageOrderTable
                 :tableStatus="'complete'"
                 :tableSearch="'searchComplete'"
