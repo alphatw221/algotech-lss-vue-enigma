@@ -35,7 +35,7 @@
             </div>
             
             <div class="shrink-0 overflow-auto h-[80%] 2xl:h-[90%]">
-                <table class="table table-sm h-full">
+                <table class="table table-sm">
                     <thead class="table-dark text-center">
                         <tr>
                             <th class="whitespace-nowrap bg-dark w-fit" v-for="column in incoming_order_columns"
