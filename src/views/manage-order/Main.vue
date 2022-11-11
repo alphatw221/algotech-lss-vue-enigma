@@ -9,16 +9,16 @@
 
         <div class="w-full mt-8 flex flex-col">
             <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
-                <button @click="show_order('all')" class="statusBtn" >
-                    <p :class="{ 'text-primary font-bold' : tableType === 'all'}" :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['all']}}</span>)</span>
+                <button @click="show_order('all')" class="statusBtn"  :class="{ 'all' : tableType === 'all'}" >
+                    <p class="all" :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['all']}}</span>)</span>
                 </button>
 
-                <button @click="show_order('proceed')" class="statusBtn">
-                    <p :class="{ 'text-primary font-bold' : tableType === 'proceed'}" :data-content="$t('manage_order.review')">{{$t('manage_order.review')}}</p><span class=" mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['proceed']}}</span>)</span>
+                <button @click="show_order('proceed')" class="statusBtn" :class="{ 'all' : tableType === 'proceed'}">
+                    <p class="all" :data-content="$t('manage_order.review')">{{$t('manage_order.review')}}</p><span class=" mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['proceed']}}</span>)</span>
                 </button>
 
-                <button @click="show_order('complete')" class="statusBtn">
-                    <p :class="{ 'text-primary font-bold' : tableType === 'complete'}" :data-content="$t('manage_order.complete')">{{$t('manage_order.complete')}}</p><span class="mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['complete']}}</span>)</span>
+                <button @click="show_order('complete')" class="statusBtn" :class="{ 'all' : tableType === 'complete'}">
+                    <p class="all" :data-content="$t('manage_order.complete')">{{$t('manage_order.complete')}}</p><span class="mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['complete']}}</span>)</span>
                 </button>
             </div>
 
@@ -219,6 +219,12 @@ const stopCheckout = ()=>{
     font-size: 20px;
     color: var(--primary-color)
     }
+
+    .all p{
+    color: theme('colors.primary');
+    font-weight: 800;
+    }
+
     .statusBtn::after {
     position: absolute;
     content: "";
@@ -231,7 +237,7 @@ const stopCheckout = ()=>{
     transition: 0.3s ease-out;
     }
 
-    .statusBtn p::before{
+    .statusBtn .all::before{
     position: absolute;
     /*   box-sizing: border-box; */
     content: attr(data-content);
