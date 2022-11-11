@@ -54,7 +54,8 @@
                             :searchEventBusName="'searchComplete'"
                             />
 
-                        <ExportOrderButton />
+                        
+                        <ExportOrderButton :tableStatus="tableType"/>
 
                         
                     </div>

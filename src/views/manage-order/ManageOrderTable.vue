@@ -166,10 +166,10 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal' && order?.campaign" class="text-right">
-                                {{order?.campaign?.currency}}
-                                {{(Math.floor(parseFloat(order.total) * (10 ** order?.campaign?.decimal_places)) / 10 ** order?.campaign?.decimal_places).toLocaleString('en-GB')}}
-                                {{order?.campaign?.price_unit?$t(`global.price_unit.${order?.campaign?.price_unit}`):''}}
+                        <template v-else-if="column.key === 'subtotal' " class="text-right">
+                                {{order?.currency}}
+                                {{(Math.floor(parseFloat(order.total) * (10 ** order?.decimal_places)) / 10 ** order?.decimal_places).toLocaleString('en-GB')}}
+                                {{order?.price_unit?$t(`global.price_unit.${order?.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
@@ -206,7 +206,7 @@
     </div>
 </template>
 <script setup>
-import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid } from "@/api_v2/order"
+import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid, get_order_report } from "@/api_v2/order"
 
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -218,6 +218,7 @@ import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 
 import OrderDeliveryStatusSelect from "@/components/order/OrderDeliveryStatusSelect.vue"
 import OrderPaymentStatusSelect from "@/components/order/OrderPaymentStatusSelect.vue"
+import { utils, writeFile } from 'xlsx'
 
 const campaignDetailStore = useCampaignDetailStore();
 const route = useRoute();
@@ -295,11 +296,15 @@ onMounted(()=>{
         filterData.value = payload
         search()
 	})
+    eventBus.on(`exportTable-${props.tableStatus}`,()=>{
+        export_order()
+    })
 })
 
 onUnmounted(()=>{
     eventBus.off(props.searchEventBusName)
     eventBus.off(props.filterEventBusName)
+    eventBus.off(`exportTable-${props.tableStatus}`)
 })
 
 const search = () => {
@@ -321,6 +326,37 @@ const search = () => {
         }
     )
 }
+
+const export_order = ()=>{
+
+    filterData.value['sort_by'] = sortBy.value
+    var _campaign_id, _search_value, _status, _filter_data, _toastify
+    get_order_report(
+        _campaign_id=route.params.campaign_id, 
+        _search_value=keyword.value, 
+        _status=props.tableStatus, 
+        _filter_data=filterData.value, 
+        _toastify=layoutStore.alert)
+    .then(
+        res => {
+            const data = res.data.data
+            const header = res.data.header
+            const displayHeader = res.data.display_header
+            const columnSettings = res.data.column_settings
+            const displayData = [displayHeader, ...data]
+
+
+            const workSheet = utils.json_to_sheet(displayData, {header:header, skipHeader:true})
+            workSheet['!cols'] = columnSettings
+            const wb = utils.book_new()
+            utils.book_append_sheet(wb, workSheet, 'sheets')
+            writeFile(wb, 'sheets.xlsx')
+
+        }
+    )
+
+}
+
 
 const routeToOrderDetail = (order) => {
     if(route.params.campaign_id){
