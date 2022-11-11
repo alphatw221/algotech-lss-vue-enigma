@@ -7,34 +7,21 @@ export const useLSSPointsMetaStore = defineStore("pointsMeta", {
 		fields:[
 			{
 				key:"enable",
-				type:"checkbox",
+				type:"input",
+				input_type:"checkbox",
 				datatype:"boolean",
 				default:false,
 			},
 			{
 				key:"point_validity",
-				type:"select",
+				type:"input",
+				input_type:"number",
 				datatype:"number",
-				default:null,
-				options:[
-					{key:'unlimited',value:null},
-					{key:'1',value:1},
-					{key:'2',value:2},
-					{key:'3',value:3},
-					{key:'4',value:4},
-					{key:'5',value:5},
-					{key:'6',value:6},
-					{key:'7',value:7},
-					{key:'8',value:8},
-					{key:'9',value:9},
-					{key:'10',value:10},
-					{key:'11',value:11},
-					{key:'12',value:12},
-				]
+				default:0,
 			},
 			{
 				key:"default_point_redemption_rate",
-				type:"input",
+				type:"component",
 				datatype:"number",
 				default:1,
 			},
@@ -52,13 +39,13 @@ export const useLSSPointsMetaStore = defineStore("pointsMeta", {
 			},
 			{
 				key:"redemption_rate_point",
-				type:"input",
+				type:"component",
 				datatype:"number",
 				default:1,
 			},
 			{
 				key:"redemption_rate_cash",
-				type:"input",
+				type:"component",
 				datatype:"number",
 				default:1,
 			},
@@ -67,6 +54,7 @@ export const useLSSPointsMetaStore = defineStore("pointsMeta", {
 				type:"textarea",
 				datatype:"string",
 				default:"",
+				placeholder:"..."
 			},
 		]
 	},
@@ -75,30 +63,17 @@ export const useLSSPointsMetaStore = defineStore("pointsMeta", {
 		fields:[
 			{
 				key:"enable",
-				type:"checkbox",
+				type:"input",
+				input_type:"checkbox",
 				datatype:"boolean",
 				default:false,
 			},
 			{
 				key:"point_validity",
-				type:"select",
+				type:"input",
+				input_type:"number",
 				datatype:"number",
-				default:null,
-				options:[
-					{key:null,value:null},
-					{key:1,value:1},
-					{key:2,value:2},
-					{key:3,value:3},
-					{key:4,value:4},
-					{key:5,value:5},
-					{key:6,value:6},
-					{key:7,value:7},
-					{key:8,value:8},
-					{key:9,value:9},
-					{key:10,value:10},
-					{key:11,value:11},
-					{key:12,value:12},
-				]
+				default:0,
 			},
 			{
 				key:"default_point_redemption_rate",
@@ -135,6 +110,7 @@ export const useLSSPointsMetaStore = defineStore("pointsMeta", {
 				type:"textarea",
 				datatype:"string",
 				default:"",
+				placeholder:"..."
 			},
 		]
 	}

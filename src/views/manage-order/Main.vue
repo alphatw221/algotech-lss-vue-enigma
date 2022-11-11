@@ -5,7 +5,7 @@
         <div class="flex flex-col col-span-12 h-fit lg:pt-5 mt-3 pb-4">
             <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('manage_order.title')}}</h2>
             <!-- BEGIN: campaign Status -->
-            <CampaignStatus v-if="ready"/>
+            <CampaignStatus v-if="route.params.campaign_id"/>
             <!-- END: campaign Status -->
 
             <div class="w-full mt-8 flex flex-col">
@@ -54,7 +54,8 @@
                             :searchEventBusName="'searchComplete'"
                             />
 
-                        <ExportOrderButton />
+                        
+                        <ExportOrderButton :tableStatus="tableType"/>
 
                         
                     </div>
@@ -124,7 +125,7 @@
         </div>
         <!-- <button class="btn z-50 btn-primary rounded-full" @click.native="scrollToTop()"> Back to Top </button> -->
     </div>
-    <CartProductModal />
+    <!-- <CartProductModal /> -->
     <OrderProductModal />
 </template>
 
@@ -167,21 +168,12 @@ const show_order = status=>{
   tableType.value=status
   console.log(tableType.value)
 }
-const ready = ref(false)
+
 onBeforeMount(()=>{
     if (layout.userInfo.user_subscription.status === "test") router.push({ name: 'campaign-list'})
 })
 
-onMounted(()=>{
-    // getCampaignInfo()
-    eventBus.on("calculateCampaignStatus", (payload) => {
-        ready.value = true
-	})
-})
 
-onUnmounted(()=>{
-    eventBus.off("calculateCampaignStatus")
-})
 
 const stopCheckout = ()=>{
     toggle_stop_checkout(route.params.campaign_id, layout.alert).then(res=>{
