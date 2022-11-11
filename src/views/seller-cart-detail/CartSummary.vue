@@ -38,7 +38,7 @@
         <div class="mr-auto">{{$t('cart.subtotal_after_discount')}}</div>
         <div class="font-medium" v-if="campaignDetailStore.campaign ">
           {{campaignDetailStore.campaign?.currency}} 
-          {{ (Math.floor(parseFloat(Math.max(computedCartSubtotal-sellerCartStore.cart.discount,0)) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places).toLocaleString('en-GB')}}
+          {{ (Math.floor(parseFloat(computedSubtotalAfterDiscount) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places).toLocaleString('en-GB')}}
           {{campaignDetailStore.campaign?.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign?.price_unit}`):''}}
         </div>
       </div>
@@ -278,6 +278,10 @@ const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
     }
   })
   return Object.keys(logisticCategories).length>1
+})
+
+const computedSubtotalAfterDiscount = computed(()=>{
+  return Math.max(computedCartSubtotal.value-sellerCartStore.cart.discount,0)
 })
 
 
