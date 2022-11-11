@@ -312,7 +312,7 @@ const routes = [
       },
       {  
         path: "autoreply",
-        name: "side-menu-auto-reply",
+        name: "auto-reply",
         component: AutoReply,
       },  
       {  
@@ -339,7 +339,8 @@ const routes = [
         path: "stock/category-management",
         name: "category-management",
         component: () => import('@/views/category-management/Main.vue')
-      }
+      },
+      
     ],
   },
   
