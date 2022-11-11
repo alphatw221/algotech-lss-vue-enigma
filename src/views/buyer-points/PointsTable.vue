@@ -151,6 +151,7 @@ const getOrderHistoryListData = () => {
     currentPage.value,
     pageSize.value,
     props.status,
+    true,
     layoutStore.alert
   ).then((response) => {
     ready.value = true
