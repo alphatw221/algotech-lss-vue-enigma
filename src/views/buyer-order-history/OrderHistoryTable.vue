@@ -1,6 +1,7 @@
 <template>
 	<div class="overflow-x-auto h-full sm:h-[62vh]">
-		<table class="table table-report mt-2 table-auto">
+    <LoadingTable v-if="ready == false" :column="tableColumns" :tableName="'order_history'" /> 
+		<table v-if="ready == true" class="table table-report mt-2 table-auto">
 			<thead>
 				<tr >
 					<th class="whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
@@ -70,12 +71,14 @@ import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order"
 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import LoadingTable from '../buyer-points/LoadingTable.vue';
 
 const layoutStore = useLSSBuyerLayoutStore();
 
 const route = useRoute();
 const router = useRouter();
 
+const ready = ref(false)
 const currentPage = ref(1)
 
 const totalPage = ref(1)
@@ -107,10 +110,12 @@ const changePageSize = pageSize => {
 		}
 
 const getOrderHistoryListData = ()=>{
+  ready.value= false
   var _page, _pageSize, _user_subscription_id, _toastify
 	buyer_orders_history(_page=currentPage.value, _pageSize=pageSize.value, _user_subscription_id=null ,_toastify=layoutStore.alert).then(response => {
 		dataCount.value = response.data.count;
 		orders.value = response.data.results;
+    ready.value= true
 	})
 }
 onMounted(()=>{

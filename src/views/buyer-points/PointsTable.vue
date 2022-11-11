@@ -1,5 +1,5 @@
 <template>
-  <LoadingTable  v-if="ready == false"/> 
+  <LoadingTable  v-if="ready == false" :column="tableColumns" :tableName="'order_points'"/> 
   <div v-else-if="ready == true" class="overflow-x-auto h-full">
     <table class="table table-report mt-2 table-auto">
       <thead>
@@ -100,7 +100,7 @@ import { buyer_retrieve_order_oid } from "@/api_v2/order";
 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { get_user_subscription_facebook_pages } from "../../api/user_subscription";
-import LoadingTable from "../dealer-sellers/LoadingTable.vue";
+import LoadingTable from "./LoadingTable.vue";
 
 const layoutStore = useLSSBuyerLayoutStore();
 

@@ -1,30 +1,35 @@
 <template>
-    <div class="tableWrapper mt-4">
+    <div class="tableWrapper mt-4 px-10">
       <table class="table">
         <thead>
           <tr>
-            <th>{{$t('order_points.table.date')}}</th>
-            <th>{{$t('order_points.table.change_reason')}}</th>
-            <th class="hidden sm:table-cell">{{$t('order_points.table.earned')}}</th>
-            <th class="hidden md:table-cell">{{$t('order_points.table.used')}}</th>
-            <th class="hidden lg:table-cell">{{$t('order_points.table.discount')}}</th>
-            <th class="hidden lg:table-cell">{{$t('order_points.table.expire_at')}}</th>
+            <template v-for="index in props.column.length" :key="index"> 
+              <th :class="{'hidden sm:table-cell': index == 3 ,'hidden md:table-cell': index== 4 ,'hidden xl:table-cell': index > 4}" >{{$t(props.tableName + '.table.'+ props.column[index-1]?.name)}}</th>
+            </template>
           </tr>
         </thead>
         <tbody>
-          <tr v-for="index in 8" :key="index">
-            <td class="loading"><div class="bar"></div></td>
-            <td class="loading"><div class="bar"></div></td>
-            <td class="loading hidden sm:table-cell"><div class="bar"></div></td>
-            <td class="loading hidden md:table-cell"><div class="bar"></div></td>
-            <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
-            <td class="loading hidden lg:table-cell"><div class="bar"></div></td>
+          <tr v-for="index in 8 " :key="index">
+            <template v-for="index in props.column.length" :key="index"> 
+              <td :class="{'hidden sm:table-cell': index == 3 ,'hidden md:table-cell': index== 4 ,'hidden xl:table-cell': index > 4}"
+               :data-content="$t(props.tableName + '.table.'+ props.column[index-1]?.name)" class="loading"><div class="bar"></div></td>
+            </template>
           </tr>
         </tbody>
       </table>
     </div>
     </template>
-    
+  
+<script setup>
+
+const props = defineProps({
+  column: Array,
+  tableName: String,
+});
+
+
+</script>
+
     
 <style scoped>
 
@@ -50,6 +55,7 @@
   tr {
     border-bottom: 2px solid #dddddd;
     background: white;
+    margin-bottom: 10px;
   }
 
   td {

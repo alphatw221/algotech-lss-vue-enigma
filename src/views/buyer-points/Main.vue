@@ -7,7 +7,7 @@
             <div class="bg-primary rounded-full w-36 h-36 relative mx-auto sm:mx-0"> <p class="absolute text-[72px] font-bold text-white top-[52px] right-[45px]"> L</p></div>
 
             <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
-                <p> <spam class="text-[32px] text-danger font-bold">{{buyerLayoutStore.userInfo.wallets[index].points}}</spam> Points (Equal to SGD $5) </p>
+                <div class="flex flex-col sm:flex-row gap-2"> <span class="text-[32px] text-danger font-bold">{{buyerLayoutStore.userInfo.wallets[index].points}}</span> Points (Equal to SGD $5) </div>
                 <p> Expiry Date : 31 Sep 2022 </p>
             </div>
             <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showModal()"><u>Rules and Description </u> </a>
