@@ -1,22 +1,23 @@
 <template>
     <div class="mx-6 my-1">
-        <TinySlider :options="{
-                        autoplay: true,
-                        controls: true,
-                        items: 1,
-                        nav: true,
-                        responsive: {
-                        1024:{
-                            items: 4,
-                        },
-                        600: {
-                            items: 2,
-                        },
-                        480: {
-                            items: 1,
-                        },
-                        },
-                    }">
+        <StatusSkeleton v-if="!ready"/> 
+        <TinySlider v-else-if="ready" :options="{
+                autoplay: true,
+                controls: true,
+                items: 1,
+                nav: true,
+                responsive: {
+                1024:{
+                    items: 4,
+                },
+                600: {
+                    items: 2,
+                },
+                480: {
+                    items: 1,
+                },
+                },
+            }">
             <div class="h-40 px-2">
                 <div class="report-box">
                     <div class="p-5 box">
@@ -154,11 +155,12 @@ import { useRoute, useRouter } from "vue-router";
 import { get_campaign_statistics } from "@/api_v2/campaign"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import StatusSkeleton from "./StatusSkeleton.vue";
 
 const campaignDetailStore = useCampaignDetailStore();
 const layoutStore = useLSSSellerLayoutStore()
 const route = useRoute();
-const key = ref(0)
+const ready = ref(false)
 
 
 onMounted(()=>{
@@ -177,12 +179,9 @@ onMounted(()=>{
 			}
         get_campaign_statistics(route.params.campaign_id, layoutStore.alert).then(
             res =>{
-                console.log(key.value)
-                console.log('x',res.data)
                 campaignDetailStore.campaignStatisticsCampaignID = parseInt(route.params.campaign_id)
                 campaignDetailStore.campaignStatistics = res.data
-
-                getCurrentInstance()?.proxy?.$forceUpdate();
+                ready.value = true
             }
         )
     }
