@@ -31,14 +31,24 @@
       </div>
 
 
+      <!-- POINT DISCOUNT -->
+      <div v-if="sellerOrderDetail.order?.point_discount!=0" class="flex flex-row justify-between mt-2" >
+        <label class="w-fit my-auto whitespace-nowrap">Point Discount</label>
+        <span class="font-medium text-danger"> 
+          {{sellerOrderDetail.order?.currency}} 
+          -{{(Math.floor(parseFloat(sellerOrderDetail.order?.point_discount) * (10 ** sellerOrderDetail.order?.decimal_places)) / 10 ** sellerOrderDetail.order?.decimal_places).toLocaleString('en-GB')}}
+          {{sellerOrderDetail.order?.price_unit?$t(`global.price_unit.${sellerOrderDetail.order?.price_unit}`):''}}
+        </span>
+      </div>
+
 
       <!-- SUBTOTAL_AFTER_DISCOUNT -->
-      <div class="flex" v-if="sellerOrderDetail.order.discount !=0">
+      <div class="flex" v-if="sellerOrderDetail.order.discount !=0 || sellerOrderDetail.order?.point_discount!=0">
         <!-- <div class="mr-auto">{{$t('order_detail.price_summary.sub_total')}}</div> -->
         <div class="mr-auto">{{$t('order.subtotal_after_discount')}}</div>
         <div class="font-medium" >
           {{sellerOrderDetail.order?.currency}} 
-          {{ (Math.floor(parseFloat(Math.max(sellerOrderDetail.order.subtotal-sellerOrderDetail.order.discount,0)) * (10 ** sellerOrderDetail.order?.decimal_places)) / 10 ** sellerOrderDetail.order?.decimal_places).toLocaleString('en-GB')}}
+          {{ (Math.floor(parseFloat(Math.max(sellerOrderDetail.order.subtotal-sellerOrderDetail.order.discount-sellerOrderDetail.order.point_discount,0)) * (10 ** sellerOrderDetail.order?.decimal_places)) / 10 ** sellerOrderDetail.order?.decimal_places).toLocaleString('en-GB')}}
           {{sellerOrderDetail.order?.price_unit?$t(`global.price_unit.${sellerOrderDetail.order?.price_unit}`):''}}
         </div>
       </div>
@@ -124,7 +134,7 @@
 </template>
 <script setup>
 import { useSellerOrderStore } from "@/stores/lss-seller-order";
-import { seller_adjust_price } from "@/api_v2/pre_order"
+
 import { useRoute, useRouter } from "vue-router";
 import {ref, watch, computed, onMounted} from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
@@ -136,100 +146,4 @@ const route = useRoute();
 const router = useRouter();
 const sellerStore = useLSSSellerLayoutStore()
 
-const props = defineProps({
-  order_type: String
-})
-
-
-onMounted(()=>{
-  watch(computed(()=>sellerOrderDetail.order.adjust_price), () => { 
-
-    if( sellerOrderDetail.order.adjust_price < 0 ){
-        sellerOrderDetail.modify_status = '-'
-    }else{
-        sellerOrderDetail.modify_status = '+'
-    } 
-    updatePriceSummary()
-  })
-
-  watch(computed(()=>sellerOrderDetail.modify_status), () => { 
-
-    sellerOrderDetail.order.adjust_price=sellerOrderDetail.modify_status === '-'? -parseFloat(Math.abs(sellerOrderDetail.order.adjust_price)) : parseFloat(Math.abs(sellerOrderDetail.order.adjust_price))
-    updatePriceSummary()
-  })
-  watch(computed(()=>sellerOrderDetail.order.free_delivery), () => { 
-    updatePriceSummary()
-  })
-
-})
-
-
-
-const computedAdjustPrice = computed({
-  get:()=>{
-    return Math.abs(sellerOrderDetail.order.adjust_price)
-  },set:adjust_price=>{
-     sellerOrderDetail.order.adjust_price = sellerOrderDetail.modify_status === '-'? -parseFloat(Math.abs(adjust_price)) : parseFloat(Math.abs(adjust_price))
-     updatePriceSummary()
-  }});
-
-
-
-const sellerAdjustPrice = ()=>{
-  const modify_price = {
-    'adjust_title':sellerOrderDetail.order.adjust_title,
-    'adjust_price':sellerOrderDetail.order.adjust_price,
-    'free_delivery':sellerOrderDetail.order.free_delivery
-  }
-
-  seller_adjust_price(route.params.order_id,modify_price, sellerStore.alert).then(
-    res => {
-      sellerStore.notification.showMessageToast('Update')
-      sellerOrderDetail.order = res.data
-    }
-  )
-}
-
-const updatePriceSummary = ()=>{
-  console.log('update price summary')
-    //summarize_total
-    let total = 0
-    total += sellerOrderDetail.order.subtotal
-    total -= sellerOrderDetail.order.discount
-    total = Math.max(total, 0)
-
-    if(!sellerOrderDetail.order.free_delivery){
-      total += sellerOrderDetail.order.shipping_cost
-    }
-        
-    total += sellerOrderDetail.order.adjust_price
-
-    sellerOrderDetail.order.total = Math.max(total, 0)
-
-}
-
-
-// const update_adjust_price_sign = ()=>{
-//   // if(sellerOrderDetail.order.free_delivery){
-//   //     sellerOrderDetail.order.shipping_cost = 0
-//   // }
-
-//   // console.log('123')
-//   // console.log(sellerOrderDetail.order.adjust_price)
-//   if( sellerOrderDetail.order.adjust_price < 0 ){
-//       sellerOrderDetail.modify_status = '-'
-//       // sellerOrderDetail.order.adjust_price = Math.abs(sellerOrderDetail.order.adjust_price)
-//   }else{
-//       sellerOrderDetail.modify_status = '+'
-//   }
-// }
-
-const cleanAdjust = ()=>{
-  seller_adjust_price(route.params.order_id,{'adjust_title':'','adjust_price':0,'free_delivery':sellerOrderDetail.order.free_delivery}, sellerStore.alert).then(
-    res => {
-      sellerStore.notification.showMessageToast('Update')
-      sellerOrderDetail.order = res.data
-    }
-  )
-}
 </script>
