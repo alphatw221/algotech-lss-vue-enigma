@@ -1,6 +1,7 @@
 <template>
     <TinySlider :options="{
         autoplay: true,
+        mouseDrag: true,
         items: 1,
         responsive: {
         1024:{

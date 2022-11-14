@@ -1,5 +1,5 @@
 <template>
-<div class="mt-3 w-full overflow-auto sm:max-h-[88%]" > 
+<div class="mt-3 w-full overflow-auto max-h-[88%]" > 
     <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
@@ -135,7 +135,7 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'delivery'">
+                        <!-- <template v-else-if="column.key === 'delivery'">
                             <div class="flex place-content-center">
                                 <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shippingOut(order,index)">
                                   <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> 
@@ -148,7 +148,7 @@
                                     </Tippy> 
                                 </a>
                             </div>
-                        </template>
+                        </template> -->
                         <template v-else-if="column.key === 'customer_name'">
                             <template v-if="order.customer_name">
                                 {{order.customer_name}}
@@ -336,6 +336,7 @@ const export_order = ()=>{
         _toastify=layoutStore.alert)
     .then(
         res => {
+
             const data = res.data.data
             const header = res.data.header
             const displayHeader = res.data.display_header
@@ -377,14 +378,14 @@ const showOrderProductModal = (order) => {
     manageOrderStore.showOrderProductModal = !manageOrderStore.showOrderProductModal
     console.log(manageOrderStore.showOrderProductModal)
 }
-const shippingOut = (order,index) => {
-    seller_deliver(order.id, layoutStore.alert).then(
-        res=>{
-            orders[index]= res.data
-        }
+// const shippingOut = (order,index) => {
+//     seller_deliver(order.id, layoutStore.alert).then(
+//         res=>{
+//             orders[index]= res.data
+//         }
     
-    )
-}
+//     )
+// }
 const copyOrderLink = (order) => {
     get_order_oid(order.id, layoutStore.alert).then(
         res =>{
@@ -403,25 +404,25 @@ const cancelSortBy = (field) => {
 	search();
 }
 
-const updateOrderPaymentStatus = (order, index, event)=>{
-    seller_update_payment_status(order.id, event.target.value, layoutStore.alert).then(
-        res=>{
-            orders[index]= res.data
-            layoutStore.notification.showMessageToast("updated!")
-        }
+// const updateOrderPaymentStatus = (order, index, event)=>{
+//     seller_update_payment_status(order.id, event.target.value, layoutStore.alert).then(
+//         res=>{
+//             orders[index]= res.data
+//             layoutStore.notification.showMessageToast("updated!")
+//         }
     
-    )
-}
+//     )
+// }
 
-const updateOrderDeliveryStatus = (order, index, event)=>{
-    seller_update_deliver_status(order.id, event.target.value, layoutStore.alert).then(
-        res=>{
-            orders[index]= res.data
-            layoutStore.notification.showMessageToast("updated!")
-        }
+// const updateOrderDeliveryStatus = (order, index, event)=>{
+//     seller_update_deliver_status(order.id, event.target.value, layoutStore.alert).then(
+//         res=>{
+//             orders[index]= res.data
+//             layoutStore.notification.showMessageToast("updated!")
+//         }
     
-    )
-}
+//     )
+// }
 </script>
 
 <style scoped>

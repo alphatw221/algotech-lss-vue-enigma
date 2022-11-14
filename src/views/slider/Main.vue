@@ -472,8 +472,8 @@
             <div class="mx-6 pb-8">
               <TinySlider
                 :options="{
-                  autoplay: false,
-                  controls: true,
+                  autoplay: true,
+                  mouseDrag: true,
                   items: 1,
                   nav: true,
                   responsive: {
