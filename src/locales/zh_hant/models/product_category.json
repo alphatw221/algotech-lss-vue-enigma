@@ -7,6 +7,8 @@
     "description":"類別敘述",
     "meta_logistic":{
         "enable_flat_rate":"啟用固定運費",
-        "flat_rate":"固定運費"
+        "flat_rate":"固定運費",
+        "is_free_delivery_for_order_above_price":"滿額免運($)",
+        "free_delivery_for_order_above_price":""
     }
 }
