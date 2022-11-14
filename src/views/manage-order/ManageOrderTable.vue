@@ -1,6 +1,6 @@
 <template>
-    <div class="mt-3 w-full overflow-auto h-fit sm:h-[50vh]"> 
-        <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
+<div class="mt-3 w-full overflow-auto h-[88%]" > 
+    <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
                     <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
@@ -166,10 +166,10 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal' && campaignDetailStore.campaign" class="text-right">
-                            {{campaignDetailStore.campaign.currency}}
-                            {{(Math.floor(parseFloat(order.total) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                        <template v-else-if="column.key === 'subtotal' " class="text-right">
+                                {{order?.currency}}
+                                {{(Math.floor(parseFloat(order.total) * (10 ** order?.decimal_places)) / 10 ** order?.decimal_places).toLocaleString('en-GB')}}
+                                {{order?.price_unit?$t(`global.price_unit.${order?.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
@@ -191,7 +191,7 @@
                         <template v-else-if="column.key === 'delivery_status'">
                             <OrderDeliveryStatusSelect :order="order" />
                         </template>
-
+                        <template v-else-if="column.key === 'category'"> </template>
 
                         <template v-else class="w-30"> 
                             {{ $t(`order.${column.key}.${order[column.key]}`) }}
@@ -200,24 +200,25 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+</div>
+
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
         <Page class="mx-auto my-3" :total="manageOrderStore.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
     </div>
 </template>
 <script setup>
-import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid } from "@/api_v2/order"
+import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid, get_order_report } from "@/api_v2/order"
 
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import unbound from '/src/assets/images/lss-img/noname.png';
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 
 import OrderDeliveryStatusSelect from "@/components/order/OrderDeliveryStatusSelect.vue"
 import OrderPaymentStatusSelect from "@/components/order/OrderPaymentStatusSelect.vue"
+import { utils, writeFile } from 'xlsx'
 
 const campaignDetailStore = useCampaignDetailStore();
 const route = useRoute();
@@ -250,9 +251,6 @@ const delivery_status_options = ref([
     { key: 'awaiting_return', value: 'awaiting_return', },
     { key: 'returned', value: 'returned', },
 ]);
-
-
-
 
 
 const columns = ref([
@@ -295,11 +293,15 @@ onMounted(()=>{
         filterData.value = payload
         search()
 	})
+    eventBus.on(`exportTable-${props.tableStatus}`,()=>{
+        export_order()
+    })
 })
 
 onUnmounted(()=>{
     eventBus.off(props.searchEventBusName)
     eventBus.off(props.filterEventBusName)
+    eventBus.off(`exportTable-${props.tableStatus}`)
 })
 
 const search = () => {
@@ -317,15 +319,49 @@ const search = () => {
         res => {
 			orders.value = res.data.results
             manageOrderStore.data_count[props.tableStatus] = res.data.count;
-
+            console.log(orders.value)
         }
-    ).then(res => {
-        eventBus.emit("calculateCampaignStatus")      //manage order dashboard start to run after all table emits this event   
-    })
+    )
 }
 
+const export_order = ()=>{
+
+    filterData.value['sort_by'] = sortBy.value
+    var _campaign_id, _search_value, _status, _filter_data, _toastify
+    get_order_report(
+        _campaign_id=route.params.campaign_id, 
+        _search_value=keyword.value, 
+        _status=props.tableStatus, 
+        _filter_data=filterData.value, 
+        _toastify=layoutStore.alert)
+    .then(
+        res => {
+            const data = res.data.data
+            const header = res.data.header
+            const displayHeader = res.data.display_header
+            const columnSettings = res.data.column_settings
+            const displayData = [displayHeader, ...data]
+
+
+            const workSheet = utils.json_to_sheet(displayData, {header:header, skipHeader:true})
+            workSheet['!cols'] = columnSettings
+            const wb = utils.book_new()
+            utils.book_append_sheet(wb, workSheet, 'sheets')
+            writeFile(wb, 'sheets.xlsx')
+
+        }
+    )
+
+}
+
+
 const routeToOrderDetail = (order) => {
-    router.push({name:'seller-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id},query:{'type':TYPE_ORDER}})
+    if(route.params.campaign_id){
+        router.push({name:'seller-campaign-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id}})
+    }else{
+        router.push({name:'seller-order-detail',params:{'order_id':order.id}})
+    }
+    
 }
 const changePage = (p) => {
     page.value = p

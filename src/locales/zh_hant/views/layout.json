@@ -10,7 +10,8 @@
         "campaign_default_setting":"基本設定",
         "localization":"本地化",
         "connect_platform":"社群平台",
-        "discount_code":"優惠代碼"
+        "discount_code":"優惠代碼",
+        "manage_order":"訂單管理"
     },
     "bread_crumb":{
         "stock":"商品管理",
@@ -27,7 +28,7 @@
         "create-campaign":"建立銷售活動",
         "assign-product":"新增活動商品",
         "edit-campaign-product":"編輯活動商品",
-        "lucky-draw":"建立抽獎",
+        "lucky-draw":"編輯抽獎",
         "autoreply":"自動回覆",
         "category-management":"商品分類管理",
         "add-product":"新增商品",
@@ -42,14 +43,17 @@
         "plans":"方案報表",
         "licenses":"執照",
         "sellers":"賣家",
-        "buyers":"買家"
+        "buyers":"買家",
+        "lucky-draw-list":"抽獎工具",
+        "create-lucky-draw":"建立抽獎"
     },
     "top_bar":{
         "profile":"會員資訊",
         "subscription":"訂閱方案",
         "reset_password":"重設密碼",
         "logout":"登出",
-        "order_history":"歷史訂單"
+        "order_history":"歷史訂單",
+        "points":"點數"
     },
     "upcoming_campaign":{
         "title": "即將開始的銷售活動",

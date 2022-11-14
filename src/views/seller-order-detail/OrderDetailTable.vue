@@ -39,15 +39,15 @@
 				<td class="text-center w-fit" :data-content="$t('order_detail.table.qty')">
 					{{ order_product.qty }}
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" v-if="campaignDetailStore.campaign">
-					{{campaignDetailStore.campaign.currency}}
-					{{ (Math.floor(parseFloat(order_product.price) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-					{{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.price')" >
+					{{sellerOrderDetail.order?.currency}}
+					{{ (Math.floor(parseFloat(order_product.price) * (10 ** sellerOrderDetail.order?.decimal_places)) / 10 ** sellerOrderDetail.order?.decimal_places).toLocaleString('en-GB')}}
+					{{sellerOrderDetail.order?.price_unit?$t(`global.price_unit.${sellerOrderDetail.order?.price_unit}`):''}}
 				</td>
-				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" v-if="campaignDetailStore.campaign">
-					{{campaignDetailStore.campaign.currency}}
-					{{ (Math.floor(parseFloat(order_product.subtotal) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-					{{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+				<td class="text-right whitespace-nowrap" :data-content="$t('order_detail.table.sub_total')" >
+					{{sellerOrderDetail.order?.currency}}
+					{{ (Math.floor(parseFloat(order_product.subtotal) * (10 ** sellerOrderDetail.order?.decimal_places)) / 10 ** sellerOrderDetail.order?.decimal_places).toLocaleString('en-GB')}}
+					{{sellerOrderDetail.order?.price_unit?$t(`global.price_unit.${sellerOrderDetail.order?.price_unit}`):''}}
 				</td>
 				<!-- <td>
 					<a  class="flex items-center justify-center text-danger" 

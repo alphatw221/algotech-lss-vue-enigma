@@ -46,6 +46,11 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "campaign-list",
         title: "campaign_list", 
       },
+      {
+        icon: "manage-order",
+        pageName: "manage-order",
+        title: "manage_order",
+      },
       // {
       //   icon: "VideoIcon",
       //   pageName: "campaign-live",
@@ -53,13 +58,13 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
       // },
       {
         icon: "auto-reply",
-        pageName: "side-menu-auto-reply",
+        pageName: "auto-reply",
         title: "auto_reply",
       },
       // {
-      //   icon: "PackageIcon",
-      //   pageName: "",
-      //   title: "Manage Order",
+      //   icon: "report",
+      //   pageName: "report",
+      //   title: "report",
       // },
       // {
       //   icon: "PlusSquareIcon",

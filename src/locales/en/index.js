@@ -27,6 +27,7 @@ import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
 import discount from './views/discount.json'
 import dealer from './views/dealer.json'
+import order_points from './views/order_points.json'
 
 import order from './models/order.json'
 import product_category from './models/product_category.json'
@@ -65,6 +66,7 @@ export default {
     forgot_password,
     reset_password,
     discount,
+    order_points,
 
     dealer,
     //model--------------

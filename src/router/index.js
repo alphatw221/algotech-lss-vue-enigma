@@ -79,6 +79,7 @@ import DiscountCode from "../views/discountCode/Main.vue"
 import CampaignList from "../views/campaign-list/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
 import ManageOrder from "../views/manage-order/Main.vue";  
+import ManageOrderClone from "../views/manage-order/MainClone.vue"
 import SellerOrderDetail from "../views/seller-order-detail/Main.vue"
 import SellerCartDetail from "../views/seller-cart-detail/Main.vue"
 // import CampaignSelect from "../views/manage-order/Campaignselect.vue";
@@ -89,12 +90,12 @@ import ConnectPlatform from "../views/settings/ConnectPlatform.vue";
 import Profile from "../views/profile/Main.vue";
 import ChangePlan from "../views/general/change-plan/Main.vue";
 
-import MktPlugin from "../views/mkt-plugin/Main.vue";
-import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
-import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
+// import MktPlugin from "../views/mkt-plugin/Main.vue";
+// import LuckyDraw from "../views/mkt-plugin/lucky-draw/Main.vue";
+// import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
 // import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 
-import Test2 from "../views/test/test2.vue"; 
+// import Test2 from "../views/test/test2.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 
@@ -148,6 +149,11 @@ const routes = [
         component: CampaignList,
       },
       {
+        path: "manage-order",
+        name: "manage-order",
+        component: ManageOrderClone, //simply reuse got chances component won't unmount
+      },
+      {
         path: "campaign-list/campaign-live/:campaign_id?",
         name: "campaign-live",
         beforeEnter:(to, from)=>{
@@ -162,12 +168,31 @@ const routes = [
         component: () => import('@/views/create-campaign/Main.vue'),
       },
       {
-        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw",
-        name: "lucky-draw",
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list",
+        name: "lucky-draw-list",
         beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
           sellerRetrieveCampaignDataMiddleware(to, from);
         },
-        component: LuckyDraw,
+        component: () => import('@/views/mkt-plugin/lucky-draw/LuckyDrawList.vue'),
+      },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/lucky-draw/:lucky_draw_id?",
+        name: "edit-lucky-draw",
+        beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
+          sellerRetrieveCampaignDataMiddleware(to, from);
+        },
+        component:  () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
+      },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/lucky-draw-list/create-lucky-draw",
+        name: "create-lucky-draw",
+        beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
+          sellerRetrieveCampaignDataMiddleware(to, from);
+        },
+        component: () => import('@/views/mkt-plugin/lucky-draw/CreateEditLuckyDraw.vue'),
       },
       {
         path: "campaign-list/campaign-live/:campaign_id?/quiz-game",
@@ -203,20 +228,26 @@ const routes = [
       },   
       {
         path: "campaign-list/campaign-live/:campaign_id?/manage-order",
-        name: "manage-order",
+        name: "manage-campaign-order",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
         },
         component: ManageOrder,
       },
       {
-        path: "campaign-list/campaign-live/:campaign_id?/manage-order/order-detail/:order_id?",    
+        path: "manage-order/order-detail/:order_id?",    
         name: "seller-order-detail",
+        component: SellerOrderDetail,
+      },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/manage-order/order-detail/:order_id?",    
+        name: "seller-campaign-order-detail",
         beforeEnter:(to, from)=>{
           sellerRetrieveCampaignDataMiddleware(to, from);
         },
         component: SellerOrderDetail,
       },
+
       {
         path: "campaign-list/campaign-live/:campaign_id?/manage-order/cart-detail/:cart_id?",    
         name: "seller-cart-detail",
@@ -254,16 +285,16 @@ const routes = [
       //   name: "OrderHistoryDetails",
       //   component: OrderDetails,
       // },
-      {
-        path: "mkt-plugin",
-        name: "mkt-plugin",
-        component: MktPlugin,
-      },
-      {
-        path: "mkt-plugin/lucky-draw",
-        name: "lucky-draw-setting",
-        component: LuckyDrawSetting,
-      },
+      // {
+      //   path: "mkt-plugin",
+      //   name: "mkt-plugin",
+      //   component: MktPlugin,
+      // },
+      // {
+      //   path: "mkt-plugin/lucky-draw",
+      //   name: "lucky-draw-setting",
+      //   component: LuckyDrawSetting,
+      // },
       
       {  
         path: "campaign-global",
@@ -282,7 +313,7 @@ const routes = [
       },
       {  
         path: "autoreply",
-        name: "side-menu-auto-reply",
+        name: "auto-reply",
         component: AutoReply,
       },  
       {  
@@ -309,7 +340,8 @@ const routes = [
         path: "stock/category-management",
         name: "category-management",
         component: () => import('@/views/category-management/Main.vue')
-      }
+      },
+      
     ],
   },
   
@@ -382,6 +414,12 @@ const routes = [
         path: "recaptcha/:type?/:object_id?",
         name: "buyer-recaptcha-page",
         component: () => import('@/views/buyer-recaptcha/Main.vue'),
+      },
+      {
+        path: "points",
+        name: "buyer-points-page",
+        beforeEnter:isBuyerLoginMiddleware,
+        component: () => import('@/views/buyer-points/Main.vue'),
       },
       {
         path: "orders",

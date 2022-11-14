@@ -1,6 +1,6 @@
 <template>
     <template v-if="deliveryStatusStore[props.order.delivery_status]?.allow_adjust">
-        <select v-model="deliveryStatus" class="w-30" @change="updateOrderDeliveryStatus()">
+        <select v-model="props.order.delivery_status" class="w-30" @change="updateOrderDeliveryStatus()">
             <option :value="option" v-for="(option,index) in deliveryStatusStore[props.order.delivery_status].options" :key="index">
                 {{$t(`order.delivery_status_options.${option}`)}}</option>
         </select>
@@ -24,7 +24,7 @@ const props = defineProps({
     order: Object,
 });
 
-const deliveryStatus = ref(props.order.delivery_status)
+// const deliveryStatus = ref(props.order.delivery_status)
 
 const updateOrderDeliveryStatus = ()=>{
     seller_update_deliver_status(props.order.id, deliveryStatus.value, layoutStore.alert).then(res=>{
@@ -33,9 +33,10 @@ const updateOrderDeliveryStatus = ()=>{
             props.order[key]=value                       //proxy object only got setter
         });
 
-    }).catch(err=>{
-        deliveryStatus.value = props.order.delivery_status
     })
+    // .catch(err=>{
+    //     deliveryStatus.value = props.order.delivery_status
+    // })
 }
 
 </script>

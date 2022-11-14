@@ -1,0 +1,121 @@
+import { defineStore } from "pinia";
+import { ref } from "vue"
+export const useLSSPointsMetaStore = defineStore("pointsMeta", {
+  state: () => ({
+	"default":{
+		name:"lss",
+		fields:[
+			{
+				key:"enable",
+				type:"input",
+				input_type:"checkbox",
+				datatype:"boolean",
+				default:false,
+			},
+			{
+				key:"point_validity",
+				type:"input",
+				input_type:"number",
+				datatype:"number",
+				default:0,
+			},
+			{
+				key:"default_point_redemption_rate",
+				type:"component",
+				datatype:"number",
+				default:1,
+			},
+			{
+				key:"reward_table",
+				type:"component",
+				datatype:"object",
+				default:[],
+				template:{
+					fields:[
+						{key:"upper_bound", type:"input", dataType:"number", default:1},
+						{key:"point_redemption_rate", type:"input", dataType:"number", default:1},
+					]
+				}
+			},
+			{
+				key:"redemption_rate_point",
+				type:"component",
+				datatype:"number",
+				default:1,
+			},
+			{
+				key:"redemption_rate_cash",
+				type:"component",
+				datatype:"number",
+				default:1,
+			},
+			{
+				key:"description",
+				type:"textarea",
+				datatype:"string",
+				default:"",
+				placeholder:"..."
+			},
+		]
+	},
+	"617":{
+		name:"shc",
+		fields:[
+			{
+				key:"enable",
+				type:"input",
+				input_type:"checkbox",
+				datatype:"boolean",
+				default:false,
+			},
+			{
+				key:"point_validity",
+				type:"input",
+				input_type:"number",
+				datatype:"number",
+				default:0,
+			},
+			{
+				key:"default_point_redemption_rate",
+				type:"component",
+				datatype:"number",
+				default:1,
+			},
+			{
+				key:"reward_table",
+				type:"component",
+				datatype:"object",
+				default:[],
+				template:{
+					fields:[
+						{key:"upper_bound", type:"input", dataType:"number", default:1},
+						{key:"point_redemption_rate", type:"input", dataType:"number", default:1},
+					]
+				}
+			},
+			{
+				key:"redemption_rate_point",
+				type:"component",
+				datatype:"number",
+				default:1,
+			},
+			{
+				key:"redemption_rate_cash",
+				type:"component",
+				datatype:"number",
+				default:1,
+			},
+			{
+				key:"description",
+				type:"textarea",
+				datatype:"string",
+				default:"",
+				placeholder:"..."
+			},
+		]
+	}
+	
+
+
+  }),
+});

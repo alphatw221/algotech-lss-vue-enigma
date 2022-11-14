@@ -139,6 +139,13 @@
 			:directPaymentImages="directPaymentImages"
 			:v="v"
 		/>
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+			<PointsSettings 
+				:meta_point="campaignData.meta_point"
+				:v="v"
+			/>
+		</div>
+		
 
 		<NotesForm :campaignNotes="campaignNotes" />
 
@@ -159,6 +166,8 @@ import { ref, watch, onMounted, computed, watchEffect } from 'vue';
 import PaymentForm from './payment-form/Main.vue'
 import DeliveryForm from './DeliveryForm.vue';
 import NotesForm from './NotesForm.vue';
+import PointsSettings from '@//views/settings/PointsSettings.vue'
+
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
 import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/campaign';
@@ -238,7 +247,8 @@ const campaignData = ref({
 		special_note: '',
 		confirmation_note: ''
 	},
-	meta_reply:{}  //add for shc
+	meta_reply:{},  //add for shc
+	meta_point:{}
 })
 
 const campaignNotes = ref({
@@ -302,7 +312,7 @@ onMounted(() => {
 	if(sellerStore.userInfo.user_subscription.country)campaignData.value.country=sellerStore.userInfo.user_subscription.country
 	if(!([undefined,null,''].includes(sellerStore.userInfo.user_subscription.decimal_places)))campaignData.value.decimal_places=sellerStore.userInfo.user_subscription.decimal_places.toString()  //temp   TomSelect only work with string value
 	if(sellerStore.userInfo.user_subscription.price_unit)campaignData.value.price_unit=sellerStore.userInfo.user_subscription.price_unit
-
+	if(sellerStore.userInfo.user_subscription.meta_point)campaignData.value.meta_point=JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_point ))
 
 
 	//payment

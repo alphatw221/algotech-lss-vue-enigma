@@ -5,7 +5,7 @@
             2xl:h-full">
         <div class="flex flex-col h-full"> 
 
-            <div class="flex justify-between flex w-full h-16">
+            <div class="shrink-0 justify-between flex w-full h-16">
                 <h2 class="text-lg font-medium ml-5 my-auto">{{$t('campaign_live.product.product')}}</h2>
 
                 <!-- TEMP -->
@@ -49,7 +49,7 @@
                 </template>
             </div>
 
-            <div class="overflow-auto max-h-[85%]">
+            <div class="shrink-0 overflow-auto  h-[80%] 2xl:h-[91%]">
                 <table class="table table-sm">
                     <thead class="table-dark">
                         <tr class="relative">
@@ -117,7 +117,7 @@
                                 {{ (Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-US')}}
                                 {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                             </td>
-                            <td class="status_active">
+                            <td class="">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
                                         id="overbookCheckbox"

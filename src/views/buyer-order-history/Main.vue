@@ -2,7 +2,7 @@
     <div class="box grid grid-cols-12 gap-5 m-0 my-5 p-2 py-5 lg:m-5 lg:p-10 2xl:m-5 2xl:p-10">
         <h1 class="text-xl col-span-12 justify-self-center" style="font-size: 1.5rem;"> {{$t('order_history.order_history')}} </h1>
         <div class="col-start-1 col-span-12 justify-self-center lg:col-span-3 2xl:col-span-3"> 
-            <div class="h-48 w-44 box border-2 border-slate-200 flex flex-col items-center justify-center ">
+            <div class="h-48 w-44 box border-2 border-slate-200 flex flex-col items-center justify-center gap-0.5">
                 <div class="w-28 h-28 flex-none image-fit mr-1">
                     <img alt="" class="rounded-full zoom-in" :src="userAvatar" />
                 </div>

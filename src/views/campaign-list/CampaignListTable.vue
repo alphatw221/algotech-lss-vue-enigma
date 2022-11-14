@@ -339,7 +339,7 @@ const stop_checkout = (index, campaign)=>{
       
     }
 
-const routeToManageOrder = (campaign)=>{ router.push({name:'manage-order',params:{'campaign_id':campaign.id}})}
+const routeToManageOrder = (campaign)=>{ router.push({name:'manage-campaign-order',params:{'campaign_id':campaign.id}})}
 
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')
@@ -363,7 +363,7 @@ const copyURL = (campaign)=>{
 }
 
 const goLuckyDraw = (campaign) => {
-  router.push({name:'lucky-draw',params:{'campaign_id':campaign.id}})
+  router.push({name:'lucky-draw-list',params:{'campaign_id':campaign.id}})
   hideDropDown()
 }
 

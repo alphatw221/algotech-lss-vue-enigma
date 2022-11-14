@@ -156,8 +156,15 @@
 			:campaign="campaignData"
 			:directPaymentImages="directPaymentImages"
 			:v="v"
-		/>
-
+		/> 
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+			<PointsSettings 
+				:meta_point="campaignData.meta_point"
+				:v="v"
+			/>
+		</div>
+		
+		
 		<NotesForm :campaignNotes="campaignNotes"/>
 
 		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 px-10 py-10">
@@ -178,6 +185,7 @@ import { ref, watch, onMounted, computed, watchEffect, getCurrentInstance } from
 import PaymentForm from '@/views/create-campaign/payment-form/Main.vue'
 import DeliveryForm from '@/views/create-campaign/DeliveryForm.vue';
 import NotesForm from '@/views/create-campaign/NotesForm.vue';
+import PointsSettings from '@//views/settings/PointsSettings.vue'
 
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";

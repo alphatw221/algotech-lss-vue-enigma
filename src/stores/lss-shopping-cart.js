@@ -36,8 +36,12 @@ export const useShoppingCartStore = defineStore("buyerShoppingCart", {
 			shipping_option:"",
 			shipping_option_index:null,
 			shipping_method: "delivery",
-		})
+		}),
 		
+		points_used: ref(0),
+		buyerWallet: ref({
+			points:0
+		})
 
 	}),
 });

@@ -19,8 +19,8 @@ export const buyer_retrieve_order_state = (order_oid, toastify=null) => {
 export const buyer_upload_receipt = (order_oid, data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/order/${order_oid}/buyer/receipt/upload/`, data);
 }
-export const buyer_orders_history = (page, page_size, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/order/buyer/history/?page=${page}&page_size=${page_size}`)
+export const buyer_orders_history = (page, page_size, user_subscription_id=null, points_relative=null, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/order/buyer/history/?user_subscription_id=${user_subscription_id}&points_relative=${points_relative}&page=${page}&page_size=${page_size}`)
 }
 export const buyer_retrieve_order_oid = (order_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/order/${order_id}/buyer/retrieve/oid/`)
@@ -54,3 +54,7 @@ export const seller_update_deliver_status = (order_id, delivery_status, toastify
     return createAxios(toastify).put(`/api/v2/order/${order_id}/seller/delivery/`,{'delivery_status':delivery_status});
 }
 
+export const get_order_report = (campaign_id,searchValue, status, filter_data, toastify=null) => {
+
+    return createAxios(toastify).post(`/api/v2/order/report/?campaign_id=${campaign_id}&search=${searchValue}&status=${status}`, filter_data)
+}

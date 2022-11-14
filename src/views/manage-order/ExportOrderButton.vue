@@ -7,45 +7,33 @@
                 </DropdownToggle>
                 <DropdownMenu class="pt-2">
                     <DropdownContent class="w-full text-center">
-                        <DropdownItem @click="exportCSV()"> CSV </DropdownItem>
+                        <DropdownItem @click="exportXLSX()"> XLSX </DropdownItem>
                     </DropdownContent>
                 </DropdownMenu>
             </Dropdown>
         </div>
         <div class="sm:hidden w-12 inline-block align-middle">
-            <SimpleIcon icon="export" color="#414141"  width="24" height="24" class="mt-1" @click="exportCSV()"/>
+            <SimpleIcon icon="export" color="#414141"  width="24" height="24" class="mt-1" @click="exportXLSX()"/>
         </div>
 </template>
 
 <script setup>
+import { defineProps, getCurrentInstance } from 'vue'
 
 import { useRoute, useRouter } from "vue-router";
-import { get_campaign_order_report } from "@/api_v2/campaign"
 import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
-
-
-
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 const layoutStore = useLSSSellerLayoutStore()
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
+const props = defineProps({
+    tableStatus: String,
+});
 
 
 const route = useRoute();
-const exportCSV = ()=>{
-    get_campaign_order_report(route.params.campaign_id, layoutStore.alert).then(
-        res => {console.log(res)
-        
-            if (window.navigator.msSaveOrOpenBlob) {
-                window.navigator.msSaveBlob(res.data);
-            } else {
-                var link = document.createElement("a");
-                link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
-                link.download = 'export';
-                document.body.appendChild(link); // Required for FF
-                link.click();
-            }
-            }
-    )
+const exportXLSX = ()=>{
+    eventBus.emit(`exportTable-${props.tableStatus}`)
 }
 </script>

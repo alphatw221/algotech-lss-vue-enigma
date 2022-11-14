@@ -292,7 +292,7 @@ const hideDropDown = ()=>{
 }
 
 const toDrawList = ()=>{
-    router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
+    router.push({ name: 'lucky-draw-list', params: { campaign_id: route.params.campaign_id} })
     hideDropDown()
 }
 const toQuizList = ()=>{
