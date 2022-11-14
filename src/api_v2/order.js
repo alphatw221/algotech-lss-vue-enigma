@@ -54,7 +54,7 @@ export const seller_update_deliver_status = (order_id, delivery_status, toastify
     return createAxios(toastify).put(`/api/v2/order/${order_id}/seller/delivery/`,{'delivery_status':delivery_status});
 }
 
-export const get_order_report = (campaign_id,searchValue, status, filter_data, toastify=null) => {
+export const get_order_report = (campaign_id, searchValue, status, filter_data, toastify=null) => {
 
-    return createAxios(toastify).post(`/api/v2/order/report/?campaign_id=${campaign_id}&search=${searchValue}&status=${status}`, filter_data)
+    return createAxios(toastify).post(`/api/v2/order/report/json/?campaign_id=${campaign_id}&search=${searchValue}&status=${status}`, filter_data)
 }

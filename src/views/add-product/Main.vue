@@ -154,6 +154,16 @@
 						</label>
 				</template>
 			</div>
+			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.sku') }}</label>
+				<input
+					id="crud-form-1"
+					type="text"
+					class="w-full form-control"
+					placeholder="Product SKU number"
+					v-model="product.sku"
+				/>
+			</div>
 
 			<div class="col-span-12 col-start-1 mt-2">
 				<label class="text-base font-medium">{{ $t('stock.add_product_page.status') }}</label>
@@ -250,7 +260,8 @@ const product = ref({
 	price: 0,
 	status: 'enabled',
 	remark:'',
-	categories:[]
+	categories:[],
+	sku:''
 })
 
 const notContains = (param) => (value) => !value.includes(param)
@@ -296,6 +307,7 @@ onMounted(()=>{
 		.then(
 			res => {
 				product.value = res.data
+				console.log(product.value)
 				previewImage.value = res.data.image?res.data.image:null
 			}
 		)
