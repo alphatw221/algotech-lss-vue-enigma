@@ -7,6 +7,8 @@
     "description":"类别叙述",
     "meta_logistic":{
         "enable_flat_rate":"启用固定运费",
-        "flat_rate":"固定运费"
+        "flat_rate":"固定运费",
+        "is_free_delivery_for_order_above_price":"满额免运",
+        "free_delivery_for_order_above_price":""
     }
 }
