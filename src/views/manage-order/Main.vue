@@ -10,15 +10,15 @@
         <div class="w-full mt-8 flex flex-col">
             <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
                 <button @click="show_order('all')" class="statusBtn"  :class="{ 'all' : tableType === 'all'}" >
-                    <p :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['all']}}</span>)</span>
+                    <p :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['all']}}</span>)</span>
                 </button>
 
                 <button @click="show_order('proceed')" class="statusBtn" :class="{ 'all' : tableType === 'proceed'}">
-                    <p :data-content="$t('manage_order.review')">{{$t('manage_order.review')}}</p><span class=" mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['proceed']}}</span>)</span>
+                    <p :data-content="$t('manage_order.review')">{{$t('manage_order.review')}}</p><span class=" mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['proceed']}}</span>)</span>
                 </button>
 
                 <button @click="show_order('complete')" class="statusBtn" :class="{ 'all' : tableType === 'complete'}">
-                    <p :data-content="$t('manage_order.complete')">{{$t('manage_order.complete')}}</p><span class="mr-2">(<span style="font-weight:bold;">{{manageOrderStore.data_count['complete']}}</span>)</span>
+                    <p :data-content="$t('manage_order.complete')">{{$t('manage_order.complete')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['complete']}}</span>)</span>
                 </button>
             </div>
 

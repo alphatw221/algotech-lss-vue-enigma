@@ -55,6 +55,7 @@
     },
 
     "add_product_page": {
+        "sku":"mã SKU của sản phẩm",
         "edit_title": "Chỉnh sửa sản phẩm",
         "add_title": "Thêm sản phẩm mới",
         "product_name": "Tên sản phẩm",

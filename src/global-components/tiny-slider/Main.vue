@@ -26,6 +26,7 @@ const props = defineProps({
     type: String,
     default: null,
   },
+  key: String, 
 });
 
 const emit = defineEmits();
