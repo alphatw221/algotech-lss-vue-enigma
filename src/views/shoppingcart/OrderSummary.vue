@@ -247,14 +247,32 @@ const computedShippingCost = computed(()=>{
         // console.log(shoppingCartStore.campaignProductDict?.[key]?.categories)
         // console.log(shoppingCartStore.productCategoryDict)
         if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
-          logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]=true
+          
+          if(logisticCategories?.[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]){
+            logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]].push({campaignProductId:key,qty:value})
+          }else{
+            logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]] = [{campaignProductId:key,qty:value},]
+          }
         }
       })
-      Object.keys(logisticCategories).forEach((key)=>{
-        const productCategory = shoppingCartStore.productCategoryDict[key]
+
+
+      Object.entries(logisticCategories).forEach(([productCategoryID, objects])=>{
+        const productCategory = shoppingCartStore.productCategoryDict[productCategoryID]
         if(productCategory?.meta_logistic?.enable_flat_rate){
           applyCategoryLogistic = true
-          shippingCost+=productCategory?.meta_logistic?.flat_rate||0
+
+          var is_category_product_subtotal_above = false
+          if(productCategory?.meta_logistic?.is_free_delivery_for_order_above_price){
+            var category_products_subtotal = 0
+            objects.forEach(object=>{
+              category_products_subtotal += (shoppingCartStore.campaignProductDict?.[object.campaignProductId].price * object.qty)
+            })
+            is_category_product_subtotal_above = category_products_subtotal > productCategory?.meta_logistic?.free_delivery_for_order_above_price|0 
+          }
+          
+
+          shippingCost+=is_category_product_subtotal_above ? 0 : (productCategory?.meta_logistic?.flat_rate||0) 
         }
       })
       if(applyCategoryLogistic)return shippingCost
