@@ -44,3 +44,9 @@ export const seller_toggle_campaign_product_overbook = (campaign_product_id, toa
     return createAxios(toastify).put(`/api/v2/campaign-product/${campaign_product_id}/seller/toggle/overbook/`)
 }
 
+export const seller_import_campaign_product = (campaign_id, data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/campaign-product/seller/import/?campaign_id=${campaign_id}`, data)
+}
+
+
+

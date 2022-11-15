@@ -8,6 +8,14 @@
                 @click="showCreateModal() ">
                 <span class="font-bold mr-1 text-[16px]">+</span> {{$t('discount.create_discount_code' )}}
             </button>
+            <!-- <FileUploadButton 
+                button_id="import_discount_code"
+                accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+                :multiple="false"
+                :uploadFunction = "importDiscountCode"
+            >
+                import from xlsx
+            </FileUploadButton> -->
         </div>
         <div class="flex flex-col gap-3 p-2 sm:gap-5 box sm:p-10 sm:h-[80vh] lg:mx-20">
             <DiscountCodeTable  />
@@ -27,6 +35,8 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useVuelidate } from "@vuelidate/core";
 import { required } from "@vuelidate/validators";
 import i18n from "@/locales/i18n"
+import FileUploadButton from "@/components/file-upload-button/Main.vue"
+
 
 const layoutStore = useLSSSellerLayoutStore();
 
@@ -34,5 +44,12 @@ const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBu
 
 const showCreateModal = ()=>{eventBus.emit('showCreateModel',null)}
 
+// const importDiscountCode = file =>{
+//     let formData = new FormData()
+// 	formData.append('file', file)
+//     import_discount_code(formData, layoutStore.alert).then(res=>{
+
+//     })
+// }
 </script>
 
