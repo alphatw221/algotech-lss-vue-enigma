@@ -1,10 +1,9 @@
 <template>
     <div class="mx-6 my-1">
-        <template v-if="!ready">
-            <StatusSkeleton /> 
+        <template  v-if="ready == false"> 
+            <StatusSkeleton/> 
         </template>
-        
-        <TinySlider v-else :options="{
+        <TinySlider v-if="ready" :options="{
                 autoplay: true,
                 controls: true,
                 items: 1,
@@ -188,6 +187,7 @@ onMounted(()=>{
                 campaignDetailStore.campaignStatisticsCampaignID = parseInt(route.params.campaign_id)
                 campaignDetailStore.campaignStatistics = res.data
                 ready.value = true
+                
             }
         )
     }

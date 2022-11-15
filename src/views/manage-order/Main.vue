@@ -6,7 +6,7 @@
             <button @click="show_table('manageOrder')" class="statusBtn"  :class="{ 'menu' : tableType === 'manageOrder'}" >
                 <h2 :data-content="$t('manage_order.title')" class="text-xl sm:text-2xl">{{$t('manage_order.title')}}</h2>
             </button>
-            <button v-if="route.params.campaign_id" @click="show_table('IncomingOrder')" class="statusBtn" :class="{ 'menu' : tableType === 'IncomingOrder'}">
+            <button v-if="route.params.campaign_id" @click="show_table('incomingOrder')" class="statusBtn" :class="{ 'menu' : tableType === 'incomingOrder'}">
                 <h2 :data-content="$t('manage_order.incoming_order')" class="text-xl sm:text-2xl border-l-2 border-slate-400 pl-2">{{$t('manage_order.incoming_order')}}</h2>
             </button>
         </div> 
@@ -81,7 +81,7 @@
             </div>
 
 
-        <div v-show="orderType === 'all'" class="w-full overflow-hidden h-fit">
+        <div v-show="orderType === 'all' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-fit">
             <ManageOrderTable
                 :tableStatus="'all'"
                 :tableSearch="'searchAll'"
@@ -91,7 +91,7 @@
             />
         </div>
         
-        <div v-show="orderType === 'proceed'" class="w-full overflow-hidden h-fit">
+        <div v-show="orderType === 'proceed' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-fit">
             <ManageOrderTable
                 :tableStatus="'proceed'"
                 :tableSearch="'searchProceed'"
@@ -100,13 +100,19 @@
                 :filterEventBusName="'filterProceed'"
             />
         </div>
-        <div v-show="orderType === 'complete'" class="w-full overflow-hidden h-fit">
+        <div v-show="orderType === 'complete' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-fit">
             <ManageOrderTable
                 :tableStatus="'complete'"
                 :tableSearch="'searchComplete'"
                 :tableFilter="'filterComplete'"
                 :searchEventBusName="'searchComplete'"
                 :filterEventBusName="'filterComplete'"
+            />
+        </div>
+        <div v-if="tableType === 'incomingOrder'" class="w-full overflow-hidden h-fit">
+            <ManageCartTable
+                :tableStatus="'complete'"
+                :tableSearch="'searchComplete'"
             />
         </div>
         

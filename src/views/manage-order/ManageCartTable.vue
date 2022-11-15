@@ -246,11 +246,11 @@ const filterData = ref({})
 
 onMounted(()=>{
     search()
-    eventBus.on(props.tableSearch, (payload) => {
-        keyword.value = payload.keyword
-        filterData.value = payload.filter_data
-        search()
-	})
+    // eventBus.on(props.tableSearch, (payload) => {
+    //     keyword.value = payload.keyword
+    //     filterData.value = payload.filter_data
+    //     search()
+	// })
 })
 
 onUnmounted(()=>{
