@@ -33,10 +33,10 @@
 						<template v-else-if="column.type=='dateTime'">
 							{{ new Date(order[column.key]).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"}) }}
 						</template>
-						<template v-else-if="column.type=='float' && order.campaign">
-							{{order.campaign.currency}} 
-              {{(Math.floor(order[column.key] * (10 ** order.campaign.decimal_places)) / 10 ** order.campaign.decimal_places).toLocaleString('en-GB')}}
-              {{order.campaign.price_unit?$t(`global.price_unit.${order.campaign.price_unit}`):''}}
+						<template v-else-if="column.key=='total'">
+							{{order.currency}} 
+              {{(Math.floor(order[column.key] * (10 ** order.decimal_places)) / 10 ** order.decimal_places).toLocaleString('en-GB')}}
+              {{order.price_unit?$t(`global.price_unit.${order.price_unit}`):''}}
 						</template>
             <template v-else-if="column.key=='payment_method' && order[column.key]">
 							{{order[column.key]=='direct_payment'?`${$t('order_history.direct_payment')} - ${order.meta.account_mode}`:$t(`order_history.${order[column.key]}`)}}

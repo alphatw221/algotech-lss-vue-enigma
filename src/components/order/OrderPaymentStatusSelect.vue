@@ -24,10 +24,9 @@ const props = defineProps({
     order: Object,
 });
 
-// const paymentStatus = ref(props.order.payment_status)
 
 const updateOrderPaymentStatus = ()=>{
-    seller_update_payment_status(props.order.id, paymentStatus.value, layoutStore.alert).then(res=>{
+    seller_update_payment_status(props.order.id, props.order.payment_status, layoutStore.alert).then(res=>{
 
         Object.entries(res.data).forEach(([key,value]) => {
             props.order[key]=value                       //proxy object only got setter
