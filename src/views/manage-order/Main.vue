@@ -248,7 +248,6 @@ const stopCheckout = ()=>{
     }
     .menu h2{
     color: theme('colors.primary');
-    font-weight: 800;
     }
     .all{
         border-bottom: solid 2px #131C34;
