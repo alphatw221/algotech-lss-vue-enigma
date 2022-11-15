@@ -97,7 +97,12 @@
                                     <td >
                                         <div class="flex flex-col h-fit mt-3">
                                             <img :src="campaignDetailStore.campaignProductDict[campaign_product_id]?.image" class="h-8 object-cover"/>
-                                            <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id].order_code}}</span> 
+                                            <!-- <template v-if="campaignDetailStore.campaignProductDict[campaign_product_id]?.type === 'lucky_draw'">
+                                                <td class="font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}*</td>
+                                            </template> -->
+                                            <template > 
+                                                <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id].order_code}}</span> 
+                                            </template>
                                         </div>
                                     </td>
                                     <td>{{qty}}</td>

@@ -158,7 +158,7 @@
 						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
 							<template v-if="product.meta.wish_list" > 
 								<div v-if="Object.keys(product.meta.wish_list).length >0" 
-									class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product,product_index)"> 
+									class="flex gap-2 cursor-pointer" @click="openWishlistModal(product,product_index)"> 
 										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
 								<div v-else class="flex gap-2 cursor-not-allowed"> 
 									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
@@ -208,8 +208,8 @@
 		<Page 
 			class="mx-auto my-3"
 			:total="dataCount" 
-			@on-change="changePage"
-			@on-page-size-change="changePageSize"
+			@on-change="changePage()"
+			@on-page-size-change="changePageSize()"
 		/>
 	</div> 
 </template>
@@ -269,7 +269,7 @@ const keyword = ref('')
 const stockProducts = ref([])
 const categoryID = ref('')
 const sortBy = ref('')
-const showModal = ref(false)
+const product = ref([])
 
 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
@@ -300,8 +300,6 @@ onUnmounted(()=>{
 	eventBus.off(props.searchEventBusName)
 	//refreshStockTable event unregister at Main
 })
-
-
 
 
 const search = ()=>{
@@ -425,16 +423,8 @@ const selectStock = (product, event) => {
 	console.log(stockStore.selectedProductIDList)
 }
 
-const sentWishlistMail = (product, index) =>{
-	let yes = confirm(`${i18n.global.t('stock.wishlist.confirm_send')}`)
-	if (yes) {
-		wish_list_send_email(product.id, layoutStore.alert).then(
-		res=>{
-			layoutStore.notification.showMessageToast(`${i18n.global.t('stock.wishlist.success_send')}`)
-			stockProducts.value[index].meta.wish_list = []
-		})
-	}
-	else layoutStore.alert.showMessageToast(`${i18n.global.t('stock.wishlist.cancel_send')}`)
+const openWishlistModal = (product, index) =>{
+	eventBus.emit('showWishlistModal', {'wishlist':product.meta.wish_list, 'index':index})
 }
 
 </script>

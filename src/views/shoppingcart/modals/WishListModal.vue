@@ -8,10 +8,19 @@
             <div
                 class="flex flex-col gap-5 px-2"> 
                 <div class="relative mx-10"> 
-                    <MailIcon class="absolute w-6 h-6 top-2 left-3 z-10 text-slate-400"/>
+                    <UserIcon class="absolute w-6 h-6 top-2 left-3 z-10" :class="{'text-danger' : v.name.$error, 'text-slate-400': !v.name.$error}"/> 
+                    <input type="text" class="h-[42px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
+                        :class="{'border-danger' : v.name.$error}"
+                        :placeholder="$t('login.user_name')" 
+                        v-model="v.name.$model" 
+                        @keydown.enter.prevent="add_to_wishlist()" />
+                </div>
+                <div class="relative mx-10"> 
+                    <MailIcon class="absolute w-6 h-6 top-2 left-3 z-10" :class="{'text-danger' : v.email.$error, 'text-slate-400': !v.email.$error}"/>
                     <input type="email" class="h-[42px] pl-11 px-4 rounded-xl form-control border-slate-500 text-[16px]"
+                        :class="{'border-danger' : v.name.$error}"
                         :placeholder="$t('login.email')" 
-                        v-model="email" 
+                        v-model="v.email.$model" 
                         @keydown.enter.prevent="add_to_wishlist()" />
                 </div>
                 <button 
@@ -32,20 +41,34 @@ import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed } from
 import { wish_list_add } from "@/api_v2/product"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import i18n from "@/locales/i18n"
+import { useVuelidate } from "@vuelidate/core";
+import { required, email } from "@vuelidate/validators";
 
 const showWishlist = ref(false)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSBuyerLayoutStore()
 const productID = ref()
-const email = ref()
+const info = ref({
+    email:'',
+    name:''
+})
 
 const props = defineProps({
   isAnonymousUser: Boolean,
 });
 
+const rules = computed(()=> {
+    return {
+        email: { required, email },
+        name: { required},
+    }
+})
+const v = useVuelidate(rules, info);
+
 onMounted(()=>{
     if(!props.isAnonymousUser){
-        email.value = layoutStore.userInfo.email
+        info.value.email = layoutStore.userInfo.email
+        info.value.name = layoutStore.userInfo.name
     }
     eventBus.on('showWishlistModal',product=>{
         showWishlist.value = true
@@ -57,11 +80,17 @@ onUnmounted(()=>{
 })
 
 const add_to_wishlist = ()=>{
-    wish_list_add(productID.value, email.value, layoutStore.alert).then(
+    v.value.$touch();
+    if (v.value.$invalid) {
+        layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
+        return
+    } else{
+        wish_list_add(productID.value, email.value, layoutStore.alert).then(
         res => {
             layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.wishlist_success'))
             showWishlist.value = false
         }
     )
+    }
 }
 </script>
