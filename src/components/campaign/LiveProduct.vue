@@ -30,7 +30,7 @@
               </Dropdown> 
 
 
-                <template v-if="!(route.query.status =='history') || !layoutStore?.userInfo?.user_subscription?.user_plan?.hide?.add_product_button ">
+                <template v-if="!(route.query.status =='history') && !layoutStore?.userInfo?.user_subscription?.user_plan?.hide?.add_product_button ">
                     <Dropdown class="inline-block my-auto">
                         <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                             {{$t('campaign_live.product.add_product')}}
