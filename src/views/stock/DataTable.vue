@@ -240,16 +240,8 @@ const statusRadio = ref([
 ])
 
 const computedTableColumns = computed(()=>{
-	if(layoutStore.plugins){
-		return [
-			{ name: "image", key: "image" },
-			{ name: "name", key: "name", sortable:true},
-			{ name: "category", key: "categories" },
-			{ name: "description", key: "description" },
-			{ name: "qty", key: "qty", sortable:true},
-			{ name: "price", key: "price", sortable:true}]
-	}
-	return[
+
+	var columns = [
 		{ name: "check", key: "check"},
 		{ name: "image", key: "image" },
 		{ name: "name", key: "name", sortable:true },
@@ -259,6 +251,17 @@ const computedTableColumns = computed(()=>{
 		{ name: "price", key: "price", sortable:true },
 		{ name: "wishlist", key:"wishlist"},
 		{ name: "", key: "edit" },]
+
+	if(layoutStore.userInfo?.user_subscription.user_plan?.hide?.stock_table_check){
+		columns = columns.filter(column=>column.key!="check")
+	}
+	if(layoutStore.userInfo?.user_subscription?.user_plan.hide?.stock_table_wishlist){
+		columns = columns.filter(column=>column.key!="wishlist")
+	}
+	if(layoutStore.userInfo?.user_subscription?.user_plan.hide?.stock_table_edit){
+		columns = columns.filter(column=>column.key!="edit")
+	}
+	return columns
 })
 const currentPage = ref(1)
 const totalPage = ref(1)

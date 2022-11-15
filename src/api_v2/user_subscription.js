@@ -34,6 +34,10 @@ export const bind_platform_instances = (platform_name, data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/platform/${platform_name}/bind/`,data)
 }
 
+export const get_single_platform_instance = (platform_name, platform_instance_id, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/platform/${platform_name}/${platform_instance_id}/`)
+}
+
 export const get_platform_instances = (platform_name, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/user-subscription/platform/${platform_name}/`)
 }

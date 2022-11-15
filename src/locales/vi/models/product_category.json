@@ -7,6 +7,8 @@
     "description":"Mô tả danh mục",
     "meta_logistic":{
         "enable_flat_rate":"Bật Shipping tỷ lệ cố định",
-        "flat_rate":"Phí vận chuyển cố định"
+        "flat_rate":"Phí vận chuyển cố định",
+        "is_free_delivery_for_order_above_price":"Giao hàng miễn phí cho đơn hàng trên ($)",
+        "free_delivery_for_order_above_price":""
     }
 }

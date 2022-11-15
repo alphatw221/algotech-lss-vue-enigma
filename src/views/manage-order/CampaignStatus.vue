@@ -1,7 +1,10 @@
 <template>
     <div class="mx-6 my-1">
-        <StatusSkeleton v-if="!ready"/> 
-        <TinySlider v-else-if="ready" :options="{
+        <template v-if="!ready">
+            <StatusSkeleton /> 
+        </template>
+        
+        <TinySlider v-else :options="{
                 autoplay: true,
                 controls: true,
                 items: 1,
@@ -164,6 +167,8 @@ const ready = ref(false)
 
 
 onMounted(()=>{
+
+    console.log('campaign statistic')
     if(campaignDetailStore.campaignStatisticsCampaignID!==parseInt(route.params.campaign_id)){
         campaignDetailStore.campaignStatistics = {
 			'campaign_sales_raise': 0,
@@ -179,6 +184,7 @@ onMounted(()=>{
 			}
         get_campaign_statistics(route.params.campaign_id, layoutStore.alert).then(
             res =>{
+                console.log(res.data)
                 campaignDetailStore.campaignStatisticsCampaignID = parseInt(route.params.campaign_id)
                 campaignDetailStore.campaignStatistics = res.data
                 ready.value = true

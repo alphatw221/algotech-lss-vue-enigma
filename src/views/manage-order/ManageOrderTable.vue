@@ -3,7 +3,7 @@
     <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
+                    <th class="whitespace-nowrap text-center" v-for="column in computedColumns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
                         <template v-else>
                             <div class="flex justify-center"> 
@@ -29,7 +29,7 @@
             </thead>
             <tbody>
                 <tr v-for="(order, index) in orders" :key="index" class="intro-x">
-                    <td v-for="column in columns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
+                    <td v-for="column in computedColumns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
                                 <div v-if="order[column.key] === 'facebook'"
@@ -188,7 +188,7 @@
                             <OrderPaymentStatusSelect :order="order"/>
                         </template>
                         
-                        <template v-else-if="column.key === 'delivery_status'">
+                        <template v-else-if="column.key === 'delivery_status' && layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status">
                             <OrderDeliveryStatusSelect :order="order" />
                         </template>
                         <template v-else-if="column.key === 'category'"> </template>
@@ -209,7 +209,7 @@
 <script setup>
 import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid, get_order_report } from "@/api_v2/order"
 
-import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
+import { ref, provide, onMounted, onUnmounted, getCurrentInstance, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -231,40 +231,58 @@ const baseURL = import.meta.env.VITE_APP_WEB
 
 
 
-const payment_status_options = ref([
-    { key: 'awaiting_payment', value: 'awaiting_payment'},
-    { key: 'awaiting_confirm', value: 'awaiting_confirm'},
-    { key: 'failed', value: 'failed'},
-    { key: 'expired', value: 'expired', },
-    { key: 'paid', value: 'paid', },
-    { key: 'awaiting_refund', value: 'awaiting_refund', },
-    { key: 'refunded', value: 'refunded', },
-]);
+// const payment_status_options = ref([
+//     { key: 'awaiting_payment', value: 'awaiting_payment'},
+//     { key: 'awaiting_confirm', value: 'awaiting_confirm'},
+//     { key: 'failed', value: 'failed'},
+//     { key: 'expired', value: 'expired', },
+//     { key: 'paid', value: 'paid', },
+//     { key: 'awaiting_refund', value: 'awaiting_refund', },
+//     { key: 'refunded', value: 'refunded', },
+// ]);
 
-const delivery_status_options = ref([
-    { key: 'awaiting_fulfillment', value: 'awaiting_fulfillment'},
-    { key: 'awaiting_shipment', value: 'awaiting_shipment'},
-    { key: 'awaiting_pickup', value: 'awaiting_pickup'},
-    { key: 'partially_shipped', value: 'partially_shipped', },
-    { key: 'shipped', value: 'shipped', },
-    { key: 'collected', value: 'collected', },
-    { key: 'awaiting_return', value: 'awaiting_return', },
-    { key: 'returned', value: 'returned', },
-]);
+// const delivery_status_options = ref([
+//     { key: 'awaiting_fulfillment', value: 'awaiting_fulfillment'},
+//     { key: 'awaiting_shipment', value: 'awaiting_shipment'},
+//     { key: 'awaiting_pickup', value: 'awaiting_pickup'},
+//     { key: 'partially_shipped', value: 'partially_shipped', },
+//     { key: 'shipped', value: 'shipped', },
+//     { key: 'collected', value: 'collected', },
+//     { key: 'awaiting_return', value: 'awaiting_return', },
+//     { key: 'returned', value: 'returned', },
+// ]);
 
+const computedColumns = computed(()=>{
 
-const columns = ref([
-    { name: 'order_number', key: 'id', sortable: true},
-    { name: 'null', key: 'platform', sortable: false},
-    { name: 'customer', key: 'customer_name', sortable: true},
-    { name: 'amount', key: 'subtotal', sortable: true},
-    { name: 'payment', key: 'payment_method', sortable: true},
-    { name: 'payment_status', key: 'payment_status', sortable: true},
-    { name: 'delivery_status', key: 'delivery_status', sortable: true},
-    // { name: 'delivery_notification', key: 'delivery', sortable: false},
-    { name: 'action', key: 'view', sortable: false},
-    { name: 'null', key: 'order_product', sortable: false}
-]);
+    var columns = [
+        { name: 'order_number', key: 'id', sortable: true},
+        { name: 'null', key: 'platform', sortable: false},
+        { name: 'customer', key: 'customer_name', sortable: true},
+        { name: 'amount', key: 'subtotal', sortable: true},
+        { name: 'payment', key: 'payment_method', sortable: true},
+        { name: 'payment_status', key: 'payment_status', sortable: true},
+        { name: 'delivery_status', key: 'delivery_status', sortable: true},
+        { name: 'action', key: 'view', sortable: false},
+        { name: 'null', key: 'order_product', sortable: false}
+    ]
+    if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status){
+        columns = columns.filter(column=>column.name!=='delivery_status')
+    }
+
+    return columns
+})
+// const columns = ref([
+//     { name: 'order_number', key: 'id', sortable: true},
+//     { name: 'null', key: 'platform', sortable: false},
+//     { name: 'customer', key: 'customer_name', sortable: true},
+//     { name: 'amount', key: 'subtotal', sortable: true},
+//     { name: 'payment', key: 'payment_method', sortable: true},
+//     { name: 'payment_status', key: 'payment_status', sortable: true},
+//     { name: 'delivery_status', key: 'delivery_status', sortable: true},
+//     // { name: 'delivery_notification', key: 'delivery', sortable: false},
+//     { name: 'action', key: 'view', sortable: false},
+//     { name: 'null', key: 'order_product', sortable: false}
+// ]);
 
 const props = defineProps({
     tableStatus: String,

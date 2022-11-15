@@ -127,12 +127,7 @@ const initWebSocketConnection =()=> {
   };
 }
 
-const checkPlugin =()=>{
-  if(store.userInfo.user_subscription.user_plan?.plugins?.['easy_store']){store.plugins = true}
-  else if(store.userInfo.user_subscription.user_plan?.plugins?.['ordr_startr']){store.plugins = true}
-  else if(store.userInfo.user_subscription.user_plan?.plugins?.['shopify']){store.plugins = true}
-  else store.plugins = false
-}
+
 
 const setLanguage = ()=>{
   if(store.userInfo.user_subscription){
@@ -151,7 +146,6 @@ watch(
 onMounted(() => {
   setLanguage();
   initWebSocketConnection();
-  checkPlugin();
 })
 
 const toTop=()=>{

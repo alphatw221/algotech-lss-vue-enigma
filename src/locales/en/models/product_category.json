@@ -7,6 +7,8 @@
     "description":"Category Description",
     "meta_logistic":{
         "enable_flat_rate":"Enable Flat Rate Shipping",
-        "flat_rate":"Flat Rate Shipping Fee"
+        "flat_rate":"Flat Rate Shipping Fee",
+        "is_free_delivery_for_order_above_price":"Free Delivery For Order Above($)",
+        "free_delivery_for_order_above_price":""
     }
 }

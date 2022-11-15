@@ -4,7 +4,8 @@
 	</div>
 	<div class="flex flex-col p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
 		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-5"> 
-			<div v-if="!layoutStore.plugins"
+			<div 
+				v-if="!layoutStore?.userInfo?.user_subscription?.user_plan?.hide?.stock_table_tabs"
 				class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
 				<label for="on">{{ $t('stock.for_sale') }}</label>
@@ -16,7 +17,7 @@
 				<OrdrStartrExportProductButton />
 				<ShopifyExportProductButton />
 				<button 
-					v-if="!layoutStore.plugins"
+					v-if="!layoutStore?.userInfo?.user_subscription?.user_plan?.hide?.add_product_button"
 					type="button"
 					class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
 					@click="router.push({name: 'add-product'})"

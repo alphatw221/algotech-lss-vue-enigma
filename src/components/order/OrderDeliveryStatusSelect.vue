@@ -24,10 +24,8 @@ const props = defineProps({
     order: Object,
 });
 
-// const deliveryStatus = ref(props.order.delivery_status)
-
 const updateOrderDeliveryStatus = ()=>{
-    seller_update_deliver_status(props.order.id, deliveryStatus.value, layoutStore.alert).then(res=>{
+    seller_update_deliver_status(props.order.id, props.order.delivery_status, layoutStore.alert).then(res=>{
 
         Object.entries(res.data).forEach(([key,value]) => {
             props.order[key]=value                       //proxy object only got setter

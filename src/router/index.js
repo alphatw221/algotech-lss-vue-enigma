@@ -453,6 +453,12 @@ const routes = [
         beforeEnter: youtubeOrderMiddleware,
         component: () => import('@/views/shoppingcart/Main.vue')
       },
+      {
+        path: "recommand/:platform_name?/:platform_id?",
+        name: "recommand-platform-page",
+        // beforeEnter: buyerLoginMiddleware,
+        component: () => import("@/views/recommand/RecommandPlatformPage.vue")
+      },
     ]
   },
   
