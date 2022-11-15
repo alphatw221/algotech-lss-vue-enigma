@@ -85,7 +85,7 @@ const add_to_wishlist = ()=>{
         layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.invalid_data'))
         return
     } else{
-        wish_list_add(productID.value, email.value, layoutStore.alert).then(
+        wish_list_add(productID.value, info.value, layoutStore.alert).then(
         res => {
             layoutStore.notification.showMessageToast(i18n.global.t('shopping_cart.wishlist_success'))
             showWishlist.value = false

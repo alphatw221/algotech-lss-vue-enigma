@@ -158,7 +158,7 @@
 						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
 							<template v-if="product.meta.wish_list" > 
 								<div v-if="Object.keys(product.meta.wish_list).length >0" 
-									class="flex gap-2 cursor-pointer" @click="openWishlistModal(product,product_index)"> 
+									class="flex gap-2 cursor-pointer" @click="openWishlistModal(product)"> 
 										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
 								<div v-else class="flex gap-2 cursor-not-allowed"> 
 									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
@@ -217,13 +217,12 @@
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { search_product, delete_product, copy_product, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
+import { search_product, delete_product, copy_product, bulk_update_product } from '@/api_v2/product'
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 import { useSellerStockStore } from "@/stores/lss-seller-stock"
 
 const stockStore = useSellerStockStore();
@@ -427,8 +426,9 @@ const selectStock = (product, event) => {
 	console.log(stockStore.selectedProductIDList)
 }
 
-const openWishlistModal = (product, index) =>{
-	eventBus.emit('showWishlistModal', {'wishlist':product.meta.wish_list, 'index':index})
+const openWishlistModal = (product) =>{
+	console.log(product)
+	eventBus.emit('showWishlistModal', {'wishlist':product.meta.wish_list, 'id':product.id})
 }
 
 </script>

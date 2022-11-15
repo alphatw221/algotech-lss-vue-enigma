@@ -32,10 +32,10 @@ export const copy_product = (id, toastify=null) => {
 
 
 export const wish_list_send_email = (id, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/product/${id}/wish_list/send/email`)
+    return createAxios(toastify).get(`/api/v2/product/${id}/wish_list/email/send`)
 }
 
 //----------------------------------buyer----------------------------------------
-export const wish_list_add = (id,email, toastify=null) => {
-    return createAxios(toastify).post(`/api/v2/product/${id}/wish_list/add/`,{'email':email})
+export const wish_list_add = (id, data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/product/${id}/wish_list/add/`,data)
 }

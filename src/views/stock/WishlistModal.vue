@@ -1,18 +1,18 @@
 <template>
     <Modal backdrop="static" size="modal-lg" :slideOver="true" :show="showModal" @hidden="hide()">
         <ModalHeader class="p-5">
-            <h2 class="font-medium text-center text-xl w-full">{{ $t('lucky_draw.winner_modal.all_winner') }}</h2>
+            <h2 class="flex flex-row justify-center gap-2 font-medium text-center text-xl w-full">{{ $t('stock.wishlist.title') }} ({{wishlist.length}})</h2>
             	<XIcon class="absolute right-0 top-0 mt-3 mr-3 w-8 h-8 text-slate-400" @click="hide()"/>
         </ModalHeader>
         
         <ModalBody>
             <div class="flex flex-col gap-3"> 
-                <button class="btn btn-primary ml-auto" @click="sentWishlistMail()"><MailIcon class="mr-2 w-5" />  Mail all customer </button> 
+                <button class="btn btn-primary ml-auto" @click="sentWishlistMail()"><MailIcon class="mr-2 w-5" />  {{ $t('stock.wishlist.mail_to') }} </button> 
                 <table class="table table-report table-auto -mt-3" style="text-align: inherit;">
                     <thead>
                         <tr>
                             <th class="whitespace-nowrap text-left" v-for="column in tableColumns" :key="column.key">
-                                {{ $t(`lucky_draw.winner_modal.${column.key}`) }}
+                                {{ $t(`stock.wishlist.${column.key}`) }}
                             </th>
                         </tr>
                     </thead>
@@ -20,7 +20,7 @@
                         <tr v-for="customer in wishlist" :key="customer">
                             <template v-for="column in tableColumns" :key="column.key">
                                 <td class="break-all w-fit">
-                                    {{ customer[column.key] ? customer[column.key] : 'null' }}
+                                    {{ customer[column.key] ? customer[column.key] : 'None' }}
                                 </td>
                             </template>
                         </tr>
@@ -33,17 +33,17 @@
 
 <script setup>
 import { ref, onMounted, onUnmounted, getCurrentInstance } from 'vue';
-import { useRoute, useRouter } from "vue-router";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
+import { wish_list_send_email } from '@/api_v2/product'
+import i18n from "@/locales/i18n"
 
 const layoutStore = useLSSSellerLayoutStore();
-const route = useRoute();
-const router = useRouter();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const showModal = ref(false)
-const index = ref('')
+const id = ref('')
 const tableColumns = ref([
-    { key: 'email', name: 'E-mail'},
+	{ key: 'name', name: 'name'},
+    { key: 'email', name: 'email'}
 ])
 // { key: 'customer_name', name: 'Customer name' },
 const wishlist = ref([])
@@ -52,10 +52,11 @@ onMounted(() => {
     eventBus.on('showWishlistModal', (playload) => {
         showModal.value = true
         console.log(playload)
-        index.value = playload.index
-        wishlist.value = playload.wishlist
-        console.log(index.value)
-        console.log(wishlist.value)
+        id.value = playload.id
+		Object.entries(playload.wishlist).forEach(([key,value]) => {
+			wishlist.value.push({email:key, name:value})
+			console.log(tableColumns.value)
+        });
     })
 })
 
@@ -67,10 +68,11 @@ const hide=()=>{showModal.value=false, wishlist.value=[] }
 const sentWishlistMail = () =>{
 	let yes = confirm(`${i18n.global.t('stock.wishlist.confirm_send')}`)
 	if (yes) {
-		wish_list_send_email(product.id, layoutStore.alert).then(
+		wish_list_send_email(id.value, layoutStore.alert).then(
 		res=>{
 			layoutStore.notification.showMessageToast(`${i18n.global.t('stock.wishlist.success_send')}`)
-			stockProducts.value[index].meta.wish_list = []
+			eventBus.emit('refreshStockTable')
+			hide()
 		})
 	}
 	else layoutStore.alert.showMessageToast(`${i18n.global.t('stock.wishlist.cancel_send')}`)
