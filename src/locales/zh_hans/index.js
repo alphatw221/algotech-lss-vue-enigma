@@ -26,6 +26,7 @@ import login from  './views/login.json'
 import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
 import discount from './views/discount.json'
+import i from './views/i.json'
 
 import order from './models/order.json'
 import product_category from './models/product_category.json'
@@ -65,6 +66,7 @@ export default {
     forgot_password,
     reset_password,
     discount,
+    i, //iview pagenation
 
     //model--------------
     order,

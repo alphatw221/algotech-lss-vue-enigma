@@ -203,7 +203,12 @@
 </div>
 
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-        <Page class="mx-auto my-3" :total="manageOrderStore.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
+        <Page class="mx-auto my-3" 
+            show-sizer :page-size-opts="[10,20,50,100]" 
+            :total="manageOrderStore.data_count[props.tableStatus]" 
+            :page-size="page_size" 
+            @on-change="changePage"
+            @on-page-size-change="changePageSize"/>
     </div>
 </template>
 <script setup>

@@ -7,7 +7,7 @@
     </template>
     <template v-else>
         {{$t(`order.delivery_status_options.${props.order.delivery_status}`)}}
-    </template>
+    </template> 
 </template>
 
 

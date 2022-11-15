@@ -208,9 +208,10 @@
 		<Page 
 			class="mx-auto my-3"
 			:total="dataCount" 
+			show-sizer :page-size-opts="[10,20,50,100]" 
+			:page-size="pageSize" 
 			@on-change="changePage()"
-			@on-page-size-change="changePageSize()"
-		/>
+			@on-page-size-change="changePageSize()" />
 	</div> 
 </template>
 
@@ -348,13 +349,13 @@ const updateProductsCheck = ()=>{
 
 watch(computed(()=>stockProducts.value),updateProductsCheck)
 
-const changePage = page=> {      
-	currentPage.value = page;
+const changePage = (p)=> {      
+	currentPage.value = p;
 	search();
 }
 
-const changePageSize = pageSize => {
-	pageSize.value = pageSize;
+const changePageSize = (p) => {
+	pageSize.value = p;
 	search();
 }
 
