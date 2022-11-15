@@ -23,7 +23,8 @@
         "product_over_specific_number":"Product：",
         "discount_code_usable_time": "Usage Limited：",
         "specific_campaign":"Campaign：",
-        "all": "All"
+        "all": "All",
+        "used_count":"Used"
     },
     "modal":{
         "create":"Create Discount Code",

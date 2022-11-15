@@ -23,7 +23,8 @@
         "product_over_specific_number":"商品：",
         "discount_code_usable_time": "可使用次数：",
         "specific_campaign":"活动：",
-        "all":"全部"
+        "all":"全部",
+        "used_count":"使用次数"
     },
     "modal":{
         "create":"新增优惠代码",
