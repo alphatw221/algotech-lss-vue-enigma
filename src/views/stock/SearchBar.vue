@@ -16,10 +16,11 @@
                     </select>
                 </div>
                 <button
-                    v-if="!layoutStore.plugins"
                     type="button" 
                     class="btn btn-primary shadow-md w-32 h-[35px] sm:h-[42px] ml-3" 
-                    @click="router.push({name:'category-management'})">
+                    @click="router.push({name:'category-management'})"
+                    v-if="!layoutStore?.userInfo?.user_subscription?.user_plan?.hide?.edit_category_button"
+                    >
                     {{ $t('stock.search_bar.category_manage') }}
                 </button>
             </div> 

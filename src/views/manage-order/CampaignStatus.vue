@@ -1,7 +1,7 @@
 <template>
     <div class="mx-6 my-1">
         <template v-if="!ready">
-            <StatusSkeleton v-if="!ready"/> 
+            <StatusSkeleton /> 
         </template>
         
         <TinySlider v-else :options="{

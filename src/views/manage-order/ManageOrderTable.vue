@@ -188,7 +188,7 @@
                             <OrderPaymentStatusSelect :order="order"/>
                         </template>
                         
-                        <template v-else-if="column.key === 'delivery_status' && layoutStore.userInfo?.user_subscription?.user_plan?.hide?.delivery_status">
+                        <template v-else-if="column.key === 'delivery_status' && layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status">
                             <OrderDeliveryStatusSelect :order="order" />
                         </template>
                         <template v-else-if="column.key === 'category'"> </template>
@@ -265,7 +265,7 @@ const computedColumns = computed(()=>{
         { name: 'action', key: 'view', sortable: false},
         { name: 'null', key: 'order_product', sortable: false}
     ]
-    if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.delivery_status){
+    if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status){
         columns = columns.filter(column=>column.name!=='delivery_status')
     }
 
