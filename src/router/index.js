@@ -106,11 +106,13 @@ import isDealerMiddleware from "@/libs/routerMiddleware/isDealerMiddleware"
 
 import buyerLoginMiddleware from "@/libs/routerMiddleware/buyerLoginMiddleware";
 import buyerRecaptchaMiddleware from "@/libs/routerMiddleware/buyerRecaptchaMiddleware";
+import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
+import redirectLoginPageMiddleware from "@/libs/routerMiddleware/redirectLoginPageMiddleware";
 import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 import checkDealerLogin from "@/libs/routerMiddleware/checkDealerLogin";
 // import checkAdminLogin from "@/libs/routerMiddleware/checkAdminLogin";
 
-import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
+
 import sellerAuthMiddleware from "@/libs/routerMiddleware/sellerAuthMiddleware"
 import adminAuthMiddleware from "@/libs/routerMiddleware/adminAuthMiddleware"
 
@@ -401,14 +403,21 @@ const routes = [
   },
   // -------------------------------Buyer Route-----------------------------
   {
+    path: "/buyer/login/:type?/:object_id?",
+    name: "buyer-login-page",
+    beforeEnter: buyerLoginMiddleware,
+    component: () => import('@/views/general/BuyerLoginPage.vue'),
+  },
+  {
     path: "/buyer",
     component: LSSBuyerLayout,
     beforeEnter: buyerAuthMiddleware,
     children: [
       {
         path: "",
-        name: "buyer-index",
-        component: () => import('@/views/buyer-index/Main.vue'),
+        redirect: to => {
+          return { name: 'buyer-login-page'}
+        },
       },
       {
         path: "recaptcha/:type?/:object_id?",
@@ -450,7 +459,13 @@ const routes = [
       {  
         path: "cart/:cart_oid?",
         name: "buyer-shopping-cart-detail-page",
-        beforeEnter: youtubeOrderMiddleware,
+        beforeEnter: (to, from)=>{
+          const result = redirectLoginPageMiddleware(to, from)
+          if (result !== true) {
+            return result
+          }
+          return youtubeOrderMiddleware(to, from)
+        },
         component: () => import('@/views/shoppingcart/Main.vue')
       },
       {
@@ -460,13 +475,6 @@ const routes = [
         component: () => import("@/views/recommand/RecommandPlatformPage.vue")
       },
     ]
-  },
-  
-  {
-    path: "/buyer/login/:type?/:object_id?",
-    name: "buyer-login-page",
-    beforeEnter: buyerLoginMiddleware,
-    component: () => import('@/views/general/BuyerLoginPage.vue'),
   },
 
  // -------------------------------Dealer Route-----------------------------
