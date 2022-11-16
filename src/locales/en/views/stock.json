@@ -58,7 +58,7 @@
     },
 
     "add_product_page": {
-        "sku":"SKU Number",
+        "sku":"SKU code",
         "edit_title": "Edit Product",
         "add_title": "Add Product",
         "product_name": "Product Name",
