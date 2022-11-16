@@ -44,26 +44,58 @@ export const useLSSDiscountCodeMetaStore = defineStore("discountCodeMeta", {
 				{key:"campaign_id", type:"api_select", endpoint:"getCampaigns", optionName:"title", optionValue:"id", name:"campaign", dataType:"number", default:null},
 			]
 		},
+		
+		specific_buyer_name:{
+			key:"specific_buyer_name",
+			name:"specific_buyer_name",
+			fields:[
+				{key:"names", type:"input", inputType:"text", name:"Specific Buyer Name", dataType:"string", default:''},
+			]
+		},
+
+		specific_buyer_email:{
+			key:"specific_buyer_email",
+			name:"specific_buyer_email",
+			fields:[
+				{key:"emails", type:"input", inputType:"text", name:"Specific Buyer Email", dataType:"string", default:''},
+			]
+		},
 
 		subtotal_over_specific_amount:{
 			key:"subtotal_over_specific_amount",
 			name:"subtotal_over_specific_amount",
 			fields:[
-				{key:"amount", type:"input", name:"Order Subtotal", dataType:"number", default:9999},
+				{key:"amount", type:"input", inputType:"number", name:"Order Subtotal", dataType:"number", default:9999},
 			]
 		},
+
 		product_over_specific_number:{
 			key:"product_over_specific_number",
 			name:"product_over_specific_number",
 			fields:[
-				{key:"number", type:"input", name:"Product Number", dataType:"number", default:0},
+				{key:"number", type:"input", inputType:"number", name:"Product Number", dataType:"number", default:0},
 			]
 		},
+
 		discount_code_usable_time: {
 			key: "discount_code_usable_time",
 			name: "discount_code_usable_time",
 			fields: [
-				{key: "times", type: "input", name: "Usable Times", dataType: "number", default: 9999}
+				{key: "times", type: "input", inputType:"number", name: "Usable Times", dataType: "number", default: 9999}
+			]
+		},
+
+		new_buyer_only: {
+			key: "new_buyer_only",
+			name: "new_buyer_only",
+			fields: []
+		},
+
+		buyer_usage_times: {
+			key: "buyer_usage_times",
+			name: "buyer_usage_times",
+			fields: [
+				{key: "times", type: "input", inputType:"number", name: "Buyer Usage Times", dataType: "number", default: 1}
 			]
 		}
 	},

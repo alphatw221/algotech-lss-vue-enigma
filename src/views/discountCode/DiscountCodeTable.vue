@@ -75,21 +75,27 @@
 						
 						<td v-else-if="column.key === 'start_at'" class="sm:w-32" 
 							:data-content="$t(`discount.table.`+column.name) " >
-							{{ 
-								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
-									year: "numeric", month: "short", hour12: false,
-									day: "numeric", hour: '2-digit', minute: '2-digit'
-								}) 
-							}}
+							<template v-if="discountCode[column.key]">
+								{{ 
+									new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
+										year: "numeric", month: "short", hour12: false,
+										day: "numeric", hour: '2-digit', minute: '2-digit'
+									}) 
+								}}
+							</template>
+							<template v-else>-</template>
 						</td>
 						<td v-else-if="column.key === 'end_at'" class="sm:w-32" :class="{'text-danger': new Date() > new Date(discountCode[column.key])}"
 							:data-content="$t(`discount.table.`+column.name) " >
-							{{ 
-								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
-									year: "numeric", month: "short", hour12: false,
-									day: "numeric", hour: '2-digit', minute: '2-digit'
-								}) 
-							}}
+							<template v-if="discountCode[column.key]">
+								{{ 
+									new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
+										year: "numeric", month: "short", hour12: false,
+										day: "numeric", hour: '2-digit', minute: '2-digit'
+									}) 
+								}}
+							</template>
+							<template v-else>-</template>
 						</td>
 
 						<td v-else-if="column.type === 'action'" class="w-20"
