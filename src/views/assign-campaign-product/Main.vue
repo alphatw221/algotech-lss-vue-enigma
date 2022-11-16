@@ -1,18 +1,21 @@
 <template>
 	<!-- BEGIN Container -->
 	<div :class="{'p-4 box': templateInModal !=true}">
-		<div class="flex flex-col col-span-12 h-fit lg:mt-3 pb-4">
+		<div class="flex flex-row items-center h-fit lg:mt-3 pb-4">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
+
+			<FileUploadButton 
+				class="ml-auto"
+				button_id="import_campaign_product"
+				accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+				:multiple="false"
+				:uploadFunction = "importCampaignProduct"
+			>
+				Import Product
+			</FileUploadButton>
 		</div>
 		
-		<FileUploadButton 
-			button_id="import_campaign_product"
-			accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-			:multiple="false"
-			:uploadFunction = "importCampaignProduct"
-		>
-			import
-		</FileUploadButton>
+		
 
 
 		<!-- BEGIN SearchPage -->
@@ -765,7 +768,14 @@ const importCampaignProduct = file =>{
     let formData = new FormData()
 	formData.append('file', file)
     seller_import_campaign_product(route.params.campaign_id, formData, layoutStore.alert).then(res=>{
-		router.push({name:"edit-campaign-product", params:{"campaign_id":route.params.campaign_id}})
+
+
+		if(route.name=='assign-product'){
+			router.push({name:"edit-campaign-product", params:{"campaign_id":route.params.campaign_id}})
+		}else{
+			router.go()
+		}
+		
     })
 }
 </script>

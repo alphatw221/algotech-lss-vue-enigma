@@ -31,9 +31,9 @@ export const delete_discount_code = (id, toastify=null) => {
     return createAxios(toastify).delete(`/api/v2/discount-code/${id}/delete/`)
 }
 
-// export const import_discount_code = (data, toastify=null) => {
-//     return createAxios(toastify).post(`/api/v2/discount-code/import/`, data)
-// }
+export const import_discount_code = (data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/discount-code/import/`, data)
+}
 
 
 
