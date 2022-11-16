@@ -1,10 +1,10 @@
 <template>
     <div class="mx-6 my-1">
-        <template v-if="!ready">
+        <div v-if="!ready">
             <StatusSkeleton /> 
-        </template>
+        </div>
         
-        <TinySlider v-else :options="{
+        <TinySlider v-if="ready" :options="{
                 autoplay: true,
                 controls: true,
                 items: 1,

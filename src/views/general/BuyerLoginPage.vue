@@ -13,7 +13,7 @@
                 <h3 class="text-[1.8rem] mx-auto mt-10 font-medium" >{{ $t('login.login') }}</h3>
                 <div class="w-full flex-col flex gap-5 z-10">
                     <div class="flex flex-col items-center mt-10 gap-3" v-if="!showReminder">
-                        <!-- <FacebookLoginButton block role='buyer'/> -->
+                        <FacebookLoginButton block role='buyer'/>
                         <GoogleLoginButton block role='buyer'/>
                         <!-- <ContinueWithoutLoginButton block/> -->
                     </div>

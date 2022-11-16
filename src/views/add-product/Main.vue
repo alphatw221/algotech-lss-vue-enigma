@@ -160,7 +160,7 @@
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Product SKU number"
+					placeholder="Product SKU code"
 					v-model="product.sku"
 				/>
 			</div>
