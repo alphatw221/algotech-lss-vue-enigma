@@ -28,6 +28,10 @@ export const copy_product = (id, toastify=null) => {
     return createAxios(toastify).post(`/api/v2/product/${id}/copy/`)
 }
 
+export const import_product = (data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/product/import/`, data)
+}
+
 
 
 

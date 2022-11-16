@@ -239,7 +239,9 @@
         </TabGroup>
 
 
-        <div class="col-span-12 mt-10">
+        <div class="col-span-12 mt-10"
+          v-if="!shoppingCartStore.user_subscription?.user_plan?.hide?.order_shipping_remark"
+        >
           <div class="font-medium text-md">{{$t('shopping_cart.delivery_tab.remark')}}</div>
           <textarea id="" class="col-span-12 col-start-1 form-control indent-4" placeholder=""
             v-model="shipping_info.shipping_remark">

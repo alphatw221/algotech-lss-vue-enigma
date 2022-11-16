@@ -15,7 +15,7 @@
         <!-- END: campaign Status -->
 
         <div class="w-full mt-8 flex flex-col">
-            <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
+            <div v-show="tableType !=='incomingOrder'" class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
                 <button @click="show_order('all')" class="statusBtn"  :class="{ 'all' : orderType === 'all'}" >
                     <p class="allp" :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['all']}}</span>)</span>
                 </button>
@@ -31,7 +31,7 @@
 
             
             <!--分隔線-->
-            <div class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
+            <div v-show="tableType !=='incomingOrder'" class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
             <div class="flex flex-col sm:flex-row -mb-5">
                 <div class="relative right-0 flex-auto sm:mt-1">
                     <SearchBar 
@@ -111,7 +111,6 @@
         </div>
         <div v-if="tableType === 'incomingOrder'" class="w-full overflow-hidden h-fit">
             <ManageCartTable
-                :tableStatus="'complete'"
                 :tableSearch="'searchComplete'"
             />
         </div>

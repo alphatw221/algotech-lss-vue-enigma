@@ -234,7 +234,6 @@ const columns = ref([
 ]);
 
 const props = defineProps({
-    tableStatus: String,
     tableSearch: String,
 });
 const page = ref(1);
@@ -246,11 +245,11 @@ const filterData = ref({})
 
 onMounted(()=>{
     search()
-    // eventBus.on(props.tableSearch, (payload) => {
-    //     keyword.value = payload.keyword
-    //     filterData.value = payload.filter_data
-    //     search()
-	// })
+    eventBus.on(props.tableSearch, (payload) => {
+        keyword.value = payload.keyword
+        filterData.value = payload.filter_data
+        search()
+	})
 })
 
 onUnmounted(()=>{
@@ -262,8 +261,10 @@ const search = () => {
     var _campaign_id, _search_value, _page, _page_size, _status, _filter_data, _toastify
     seller_search_cart(_campaign_id=route.params.campaign_id, _search_value=keyword.value, _page=page.value, _page_size=page_size.value, _toastify=layoutStore.alert).then(
         res => {
-			store[props.tableStatus] = res.data.data
-            store.data_count[props.tableStatus] = res.data.count;
+			store.carts = res.data.results
+            store.data_count.carts = res.data.count;
+            console.log(store.carts)
+            console.log(store.data_count.carts)
             // if (res.data.count != 0) {
             //     let totalPage = parseInt(res.data.count / page_size.value);
             //     totalPage = totalPage == 0 ? 1 : totalPage;

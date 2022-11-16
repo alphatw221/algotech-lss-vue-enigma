@@ -5,6 +5,16 @@
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
 		</div>
 		
+		<FileUploadButton 
+			button_id="import_campaign_product"
+			accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+			:multiple="false"
+			:uploadFunction = "importCampaignProduct"
+		>
+			import
+		</FileUploadButton>
+
+
 		<!-- BEGIN SearchPage -->
 		<div v-show="openTab=='select'">
 			<!-- BEGIN SearchBar -->
@@ -368,7 +378,7 @@
 </template>
 
 <script setup>
-import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
+import { seller_bulk_create_campaign_products, seller_import_campaign_product } from "@/api_v2/campaign_product"
 import { search_product } from '@/api_v2/product';
 import { get_campaign_product_order_code_dict, retrieve_campaign } from '@/api_v2/campaign';
 
@@ -377,6 +387,7 @@ import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defin
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+import FileUploadButton from "@/components/file-upload-button/Main.vue"
 
 const campaignDetailStore = useCampaignDetailStore()
 
@@ -751,7 +762,13 @@ const clearAllData = ()=>{
 	campaignDetailStore.showAddProductFromStockModal = false
 }
 
-
+const importCampaignProduct = file =>{
+    let formData = new FormData()
+	formData.append('file', file)
+    seller_import_campaign_product(route.params.campaign_id, formData, layoutStore.alert).then(res=>{
+		router.push({name:"edit-campaign-product", params:{"campaign_id":route.params.campaign_id}})
+    })
+}
 </script>
 
 
