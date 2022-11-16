@@ -2,7 +2,7 @@
     <!-- OUTTER BOX -->
         <!-- BEGIN: campaign Info -->
     <div class="flex flex-col lg:pt-5 mt-3 pb-1 h-fit sm:h-[95%]">
-        <div class="flex flex-row gap-2 mt-6 mx-auto sm:mx-0 font-medium">
+        <div class="flex flex-row gap-2 mt-3 mx-auto sm:mx-0 font-medium">
             <button @click="show_table('manageOrder')" class="statusBtn"  :class="{ 'menu' : tableType === 'manageOrder'}" >
                 <h2 :data-content="$t('manage_order.title')" class="text-xl sm:text-2xl">{{$t('manage_order.title')}}</h2>
             </button>

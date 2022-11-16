@@ -177,7 +177,6 @@ import { seller_list_cart, get_cart_oid } from '@/api_v2/cart'
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted, onUnmounted, ref, getCurrentInstance, computed, watch } from "vue";
-import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 
@@ -256,14 +255,6 @@ const copyCartLink = (cart) => {
             
     })
 }
-// const routeTOLuckyDraw = ()=>{
-//     router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
-//     hideDropDown()
-// }
-// const toDrawList = ()=>{
-//     router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
-//     hideDropDown()
-// }
 
 </script>
 

@@ -14,58 +14,23 @@
 						<template v-else-if="column.key === 'edit'">
 							{{ '' }}
 						</template>
-						<!-- too mush duplication over here -->
-						<template v-else-if="column.key === 'name'">
-							<div class="flex justify-center"> 
-								{{ $t(`stock.table_column.${column.key}`) }}
-								<template v-if="sortBy =='-name'" > 
-									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('name')" />
+
+						<div v-else class="flex justify-center"> 
+							{{ $t(`stock.table_column.`+column.name) }}
+							<template v-if="column.sortable === true">
+								<template v-if="sortBy[0] === '-' && sortBy.substr(1,column.key.length) === column.key" > 
+									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '')" />
 									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
-								<template v-else-if="sortBy =='name'" > 
-									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
-									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
-								</template> 
-								<template v-else> 
-									<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
-								</template>
-							</div>
-						</template>
-						<template v-else-if="column.key === 'qty'">
-							<div class="flex justify-center w-24"> 
-								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
-								<template v-if="sortBy =='-qty'" > 
-									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('qty')" />
-									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
-								</template>
-								<template v-else-if="sortBy =='qty'" > 
-									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
+								<template v-else-if="sortBy === column.key" > 
+									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '-')" />
 									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else> 
-									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
+									<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '-')" />
 								</template>
-							</div>
-						</template>
-						<template v-else-if="column.key === 'price'">
-							<div class="flex justify-center w-24"> 
-								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
-								<template v-if="sortBy =='-price'" > 
-									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('price')" />
-									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
-								</template>
-								<template v-else-if="sortBy =='price'" > 
-									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
-									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
-								</template> 
-								<template v-else> 
-									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
-								</template>
-							</div>
-						</template>
-						<template v-else>
-							{{ $t(`stock.table_column.${column.key}`) }}
-						</template>
+							</template>
+						</div>
 					</th>
 				</tr>
 			</thead>
@@ -210,8 +175,8 @@
 			:total="dataCount" 
 			show-sizer :page-size-opts="[10,20,50,100]" 
 			:page-size="pageSize" 
-			@on-change="changePage()"
-			@on-page-size-change="changePageSize()" />
+			@on-change="changePage"
+			@on-page-size-change="changePageSize" />
 	</div> 
 </template>
 
@@ -384,8 +349,9 @@ const copyProduct = (product, index) => {
 	hideDropDown()
 }
 
-const sortByThis = (by) =>{
-	sortBy.value = by
+const sortByThis = (by,operator) =>{
+	sortBy.value = operator + by
+	console.log(sortBy.value)
 	search();
 }
 

@@ -5,6 +5,7 @@ export const useManageOrderStore = defineStore("sellerManageOrder", {
 		order_type:ref('pre_order'),        
         all_orders: ref([]),
 		carts: ref([]),
+		cartsDict: ref({}),
 		review_orders: ref([]),
 		complete_orders: ref([]),
 

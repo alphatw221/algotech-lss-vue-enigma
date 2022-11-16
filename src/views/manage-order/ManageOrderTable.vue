@@ -343,7 +343,7 @@ const search = () => {
         res => {
 			orders.value = res.data.results
             manageOrderStore.data_count[props.tableStatus] = res.data.count;
-            console.log(orders.value)
+            // console.log(orders.value)
         }
     )
 }
