@@ -2,30 +2,37 @@
     <div class="flex flex-col gap-5 m-0 p-2 py-5 lg:mx-5 lg:p-10 2xl:mx-5 2xl:px-10">
         <h1 class="text-xl mx-auto" style="font-size: 1.5rem;"> {{$t('order_points.points')}} </h1>
         <div
-          v-if="status !== 'all'" 
+          v-if="walletUserSubscriptionId !== null" 
           class="w-full box sm:px-20 py-10 flex flex-col sm:flex-row justify-between gap-5"> 
-            <div class="bg-primary rounded-full w-36 h-36 relative mx-auto sm:mx-0"> <p class="absolute text-[72px] font-bold text-white top-[52px] right-[45px]"> L</p></div>
+            <div class="bg-primary rounded-full w-36 h-36 relative mx-auto sm:mx-0"> 
+              <p class="absolute text-[72px] font-bold text-white top-[52px] right-[45px]">
+              {{computedNameFirstLetter}}
+              </p>
+            </div>
 
             <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
-                <div class="flex flex-col sm:flex-row gap-2"> <span class="text-[32px] text-danger font-bold">{{buyerLayoutStore.userInfo.wallets[index].points}}</span> Points (Equal to SGD $5) </div>
-                <p> Expiry Date : 31 Sep 2022 </p>
+                <div class="flex flex-col sm:flex-row gap-2"> 
+                  <span class="text-[32px] text-danger font-bold">{{buyerLayoutStore.userInfo.wallets[walletIndex].points}}</span>
+                  Points 
+                </div>
+                <!-- <p> Expiry Date : 31 Sep 2022 </p> -->
             </div>
-            <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showModal()"><u>Rules and Description </u> </a>
+            <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showDiscriptionModal()"><u>Rules and Description </u> </a>
         </div>
 
         <div class="mt-5 flex flex-row gap-5"> 
-          <button @click="changeStatus('all', 99)" class="statusBtn" :class="{'all' : status=='all'}" >
+          <button @click="changeWallet(null, -1)" class="statusBtn" :class="{'all' : walletUserSubscriptionId==null}" >
             <p class="all" :data-content="$t('order_points.statusButton.all')">{{$t('order_points.statusButton.all')}}</p>
           </button>
 
-          <template v-for="(wallet,i) in buyerLayoutStore.userInfo.wallets" :key="i"> 
-            <button @click="changeStatus(wallet.user_subscription.id, i)" class="statusBtn" :contant="status" :class="{'wallet': i == index }">
+          <template v-for="(wallet, wallet_index) in buyerLayoutStore.userInfo.wallets" :key="wallet_index"> 
+            <button @click="changeWallet(wallet, wallet_index)" class="statusBtn" :contant="walletUserSubscriptionId" :class="{'wallet': wallet_index == walletIndex }">
               <p class="wallet" :data-content="wallet.user_subscription.name">{{wallet.user_subscription.name}}</p></button>
           </template>
         </div>
 
         <div class="box border-2 border-slate-200 w-full">
-            <PointsTable :status="status" />
+            <PointsTable :userSubscriptionId="walletUserSubscriptionId" />
         </div>
     </div>
     <DescriptionModal />
@@ -42,22 +49,28 @@ const { cookies } = useCookies()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const status = ref('all')
-const id = ref('all')
-const index = ref(100)
+
+
+const walletUserSubscriptionId = ref(null)
+const walletIndex = ref(null)
 
 onMounted(()=>{
   i18n.locale = buyerLayoutStore.userInfo.lang
   console.log(buyerLayoutStore.userInfo)
 })
 
-const changeStatus = (walletStatus,walletIndex)=>{
+const computedNameFirstLetter = computed(()=>{
+  var _words = (buyerLayoutStore.userInfo?.name||'').split(' ')
+  if (_words.length<=1) return _words.split('')[0]
+  return _words[_words.length-1].split('')[0]
+})
 
-  status.value = walletStatus
-  index.value = walletIndex
+const changeWallet =(wallet, _walletIndex)=>{
+  walletUserSubscriptionId.value = wallet?.user_subscription?.id||null
+  walletIndex.value =_walletIndex
 }
 
-const showModal=()=>{
+const showDiscriptionModal=()=>{
     eventBus.emit('showDiscriptionModal',null)
 }
 </script>
