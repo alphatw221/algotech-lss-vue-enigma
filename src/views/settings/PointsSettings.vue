@@ -261,6 +261,8 @@ onBeforeMount(() => {
 onMounted(()=>{insertMetaData()}) //for create page
 watch(computed(()=>props.meta_point), () => { insertMetaData()}) //for edit page
 
+watch(computed(()=>props.meta_point?.reward_table), () => { updateDefaultPointRedemptionRate()}, {deep:true}) //for edit page
+
 const insertMetaData = ()=>{
     sellerPointsMeta.value.fields.forEach(field => {
         if(typeof props.meta_point[field.key] != field.datatype) props.meta_point[field.key] = field.default
@@ -268,13 +270,15 @@ const insertMetaData = ()=>{
 }
 
 const addPointTableTier = ()=>{
-
-    const pointTier = {
-        upper_bound:0,
-        point_redemption_rate:1
-    }
+    var _point_redemption_rate = 1
+    var _upper_bound = 0
     if(props.meta_point?.reward_table.length>0){
-        pointTier.upper_bound = props.meta_point.reward_table[props.meta_point.reward_table.length-1].upper_bound+1
+        _point_redemption_rate = props.meta_point?.reward_table?.[(props.meta_point?.reward_table.length-1)].point_redemption_rate
+        _upper_bound = props.meta_point?.reward_table?.[(props.meta_point?.reward_table.length-1)].upper_bound+1
+    }
+    const pointTier = {
+        upper_bound:_upper_bound,
+        point_redemption_rate:_point_redemption_rate
     }
     props.meta_point.reward_table.push(pointTier)
 }
@@ -283,4 +287,11 @@ const deletePointTableTier = index=>{
     props.meta_point.reward_table.splice(index,1)
 }
 
+const updateDefaultPointRedemptionRate = ()=>{
+    if( (props.meta_point?.reward_table?.length|0) <= 0)return
+
+    if( props.meta_point.default_point_redemption_rate < props.meta_point?.reward_table?.[(props.meta_point?.reward_table.length-1)].point_redemption_rate){
+        props.meta_point.default_point_redemption_rate = props.meta_point?.reward_table?.[(props.meta_point?.reward_table.length-1)].point_redemption_rate
+    }
+}
 </script>

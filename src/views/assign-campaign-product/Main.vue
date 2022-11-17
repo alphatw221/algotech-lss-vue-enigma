@@ -1,10 +1,23 @@
 <template>
 	<!-- BEGIN Container -->
 	<div :class="{'p-4 box': templateInModal !=true}">
-		<div class="flex flex-col col-span-12 h-fit lg:mt-3 pb-4">
+		<div class="flex flex-row items-center h-fit lg:mt-3 pb-4">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
+
+			<FileUploadButton 
+				class="ml-auto"
+				button_id="import_campaign_product"
+				accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+				:multiple="false"
+				:uploadFunction = "importCampaignProduct"
+			>
+				Import Product
+			</FileUploadButton>
 		</div>
 		
+		
+
+
 		<!-- BEGIN SearchPage -->
 		<div v-show="openTab=='select'">
 			<!-- BEGIN SearchBar -->
@@ -367,7 +380,7 @@
 </template>
 
 <script setup>
-import { seller_bulk_create_campaign_products } from "@/api_v2/campaign_product"
+import { seller_bulk_create_campaign_products, seller_import_campaign_product } from "@/api_v2/campaign_product"
 import { search_product } from '@/api_v2/product';
 import { get_campaign_product_order_code_dict, retrieve_campaign } from '@/api_v2/campaign';
 
@@ -376,6 +389,7 @@ import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance, defin
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
+import FileUploadButton from "@/components/file-upload-button/Main.vue"
 
 const campaignDetailStore = useCampaignDetailStore()
 
@@ -750,7 +764,20 @@ const clearAllData = ()=>{
 	campaignDetailStore.showAddProductFromStockModal = false
 }
 
+const importCampaignProduct = file =>{
+    let formData = new FormData()
+	formData.append('file', file)
+    seller_import_campaign_product(route.params.campaign_id, formData, layoutStore.alert).then(res=>{
 
+
+		if(route.name=='assign-product'){
+			router.push({name:"edit-campaign-product", params:{"campaign_id":route.params.campaign_id}})
+		}else{
+			router.go()
+		}
+		
+    })
+}
 </script>
 
 

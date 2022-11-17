@@ -36,30 +36,33 @@
                 })
               }}
             </template>
-            <template v-else-if="column.type == 'float' && order.campaign">
-              {{ order.campaign.currency }}
+            <template v-else-if="column.type == 'float' ">
+              {{ order.currency }}
               {{
                 (
                   Math.floor(
-                    order[column.key] * 10 ** order.campaign.decimal_places
+                    order[column.key] * 10 ** order.decimal_places
                   ) /
-                  10 ** order.campaign.decimal_places
+                  10 ** order.decimal_places
                 ).toLocaleString("en-GB")
               }}
               {{
-                order.campaign.price_unit
-                  ? $t(`global.price_unit.${order.campaign.price_unit}`)
+                order.price_unit
+                  ? $t(`global.price_unit.${order.price_unit}`)
                   : ""
               }}
             </template>
-            <template v-else-if="column.type == 'int' && order.campaign">
+
+            <template v-else-if="column.type == 'int' ">
               {{(order[column.key]).toLocaleString("en-GB")}}
             </template>
+
             <template
-              v-else-if="column.key == 'campaign.title'"
+              v-else-if="column.key == 'campaign_title'"
             >
-              {{order.campaign.title}}
+              {{order.campaign?.title}}
             </template>
+            
             <template v-else-if="column.key == 'status'">
               {{ $t(`order_points.${order[column.key]}`) }}
             </template>
@@ -116,7 +119,7 @@ const dataCount = ref(0);
 const orders = ref([]);
 const tableColumns = ref([
   { name: "date", key: "created_at", type: "dateTime" },
-  { name: "change_reason", key: "campaign.title", type: "string" },
+  { name: "change_reason", key: "campaign_title", type: "string" },
   { name: "earned", key: "points_earned", type: "int" },
   { name: "used", key: "points_used", type: "int" },
   { name: "discount", key: "point_discount", type: "float" },

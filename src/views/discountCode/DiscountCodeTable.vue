@@ -40,7 +40,7 @@
 							<span class="sm:hidden"># </span>{{discountCodeIndex+1}}
 						</td>
 
-						<td v-else-if="column.type === 'text'" class="sm:w-32"
+						<td v-else-if="column.type === 'text'" class="sm:w-32 text-center"
 							:data-content="$t(`discount.table.`+column.name) " >
 							{{ discountCode[column.key] }}
 						</td>
@@ -75,21 +75,27 @@
 						
 						<td v-else-if="column.key === 'start_at'" class="sm:w-32" 
 							:data-content="$t(`discount.table.`+column.name) " >
-							{{ 
-								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
-									year: "numeric", month: "short", hour12: false,
-									day: "numeric", hour: '2-digit', minute: '2-digit'
-								}) 
-							}}
+							<template v-if="discountCode[column.key]">
+								{{ 
+									new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
+										year: "numeric", month: "short", hour12: false,
+										day: "numeric", hour: '2-digit', minute: '2-digit'
+									}) 
+								}}
+							</template>
+							<template v-else>-</template>
 						</td>
 						<td v-else-if="column.key === 'end_at'" class="sm:w-32" :class="{'text-danger': new Date() > new Date(discountCode[column.key])}"
 							:data-content="$t(`discount.table.`+column.name) " >
-							{{ 
-								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
-									year: "numeric", month: "short", hour12: false,
-									day: "numeric", hour: '2-digit', minute: '2-digit'
-								}) 
-							}}
+							<template v-if="discountCode[column.key]">
+								{{ 
+									new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
+										year: "numeric", month: "short", hour12: false,
+										day: "numeric", hour: '2-digit', minute: '2-digit'
+									}) 
+								}}
+							</template>
+							<template v-else>-</template>
 						</td>
 
 						<td v-else-if="column.type === 'action'" class="w-20"
@@ -124,7 +130,13 @@
 		</table>
 	</div>
 	<div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
-		<Page class="mx-auto my-3" :total="totalCount" @on-change="changePage" @on-page-size-change="changePageSize" />
+		<Page class="mx-auto my-3" 
+			:total="totalCount" 
+			:page-size="page_size" 
+			@on-change="changePage" 
+			@on-page-size-change="changePageSize"
+			show-sizer :page-size-opts="[10,20,50,100]" 
+			/>
 	</div>
 
 </template>
@@ -140,6 +152,7 @@ const tableColumns = [
 	{ name: "index", key: "index" , type:"index"},
     { name: "name", key: "name" , type:"text"},
     { name: "code", key: "code" , type:"text"},
+	{ name: "used_count", key: "used_count" , type:"text"},
     { name: "start_at", key: "start_at", type:"datetime" },
     { name: "end_at", key: "end_at" , type:"datetime"},
     { name: "type", key: "type" , type:"textI18"},
@@ -228,6 +241,7 @@ const listDiscountCodes=()=> {
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		discountCodes.value = res.data.results
 		showLoadingIcon.value = false
+		console.log(discountCodes.value)
 	})
 	.catch(err=>{console.log(err)});
 }
