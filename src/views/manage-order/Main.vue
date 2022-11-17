@@ -33,9 +33,9 @@
             <!--分隔線-->
             <div v-show="tableType !=='incomingOrder'" class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
             <div class="flex flex-col sm:flex-row -mb-5">
-                <div class="relative right-0 flex-auto sm:mt-1">
+                <div class="flex flex-row relative right-0 flex-auto sm:mt-1">
                     <SearchBar 
-                        v-show="orderType == 'all'"
+                        v-show="orderType == 'all' && tableType !=='incomingOrder'"
                         :tableStatus="'all'"
                         :tableSearch="'searchAll'"
                         :tableFilter="'filterAll'"
@@ -43,7 +43,7 @@
                         />
 
                     <SearchBar 
-                        v-show="orderType == 'proceed'"
+                        v-show="orderType == 'proceed' && tableType !== 'incomingOrder'"
                         :tableStatus="'proceed'"
                         :tableSearch="'searchProceed'"
                         :tableFilter="'filterProceed'"
@@ -51,17 +51,15 @@
                         />
                     
                     <SearchBar 
-                        v-show="orderType == 'complete'"
+                        v-show="orderType == 'complete' && tableType !== 'incomingOrder'"
                         :tableStatus="'complete'"
                         :tableSearch="'searchComplete'"
                         :tableFilter="'filterComplete'"
                         :searchEventBusName="'searchComplete'"
                         />
-
-                        
-                        <ExportOrderButton :tableStatus="orderType"/>
+                    <CartSearchBar v-show="tableType === 'incomingOrder'" /> 
+                    <ExportOrderButton :tableStatus="orderType" v-show="tableType !== 'incomingOrder'"/>
                     </div>
-                    
                 </div>
                 
                 <ExportEasyStoreOrderButton/>
@@ -81,7 +79,7 @@
             </div>
 
 
-        <div v-show="orderType === 'all' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-fit">
+        <div v-show="orderType === 'all' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">
             <ManageOrderTable
                 :tableStatus="'all'"
                 :tableSearch="'searchAll'"
@@ -91,7 +89,7 @@
             />
         </div>
         
-        <div v-show="orderType === 'proceed' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-fit">
+        <div v-show="orderType === 'proceed' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">
             <ManageOrderTable
                 :tableStatus="'proceed'"
                 :tableSearch="'searchProceed'"
@@ -100,7 +98,7 @@
                 :filterEventBusName="'filterProceed'"
             />
         </div>
-        <div v-show="orderType === 'complete' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-fit">
+        <div v-show="orderType === 'complete' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">
             <ManageOrderTable
                 :tableStatus="'complete'"
                 :tableSearch="'searchComplete'"
@@ -109,7 +107,7 @@
                 :filterEventBusName="'filterComplete'"
             />
         </div>
-        <div v-if="tableType === 'incomingOrder'" class="w-full overflow-hidden h-fit">
+        <div v-if="tableType === 'incomingOrder'" class="w-full overflow-hidden h-full">
             <ManageCartTable
                 :tableSearch="'searchComplete'"
             />
@@ -175,12 +173,12 @@ const tableType = ref('manageOrder')
 
 const show_table = status=>{
     tableType.value=status
-  console.log(tableType.value)
+//   console.log(tableType.value)
 }
 
 const show_order = status=>{
   orderType.value=status
-  console.log(orderType.value)
+//   console.log(orderType.value)
 }
 
 onBeforeMount(()=>{

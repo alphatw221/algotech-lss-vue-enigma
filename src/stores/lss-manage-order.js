@@ -3,9 +3,9 @@ import { ref } from "vue"
 export const useManageOrderStore = defineStore("sellerManageOrder", {
 	state: () => ({
 		order_type:ref('pre_order'),        
-        all_orders: ref([]),
-		carts: ref([]),
+        carts: ref([]),
 		cartsDict: ref({}),
+		all_orders: ref([]),
 		review_orders: ref([]),
 		complete_orders: ref([]),
 

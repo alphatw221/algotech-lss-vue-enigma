@@ -188,9 +188,9 @@ onMounted(()=>{
                 campaignDetailStore.campaignStatisticsCampaignID = parseInt(route.params.campaign_id)
                 campaignDetailStore.campaignStatistics = res.data
                 ready.value = true
-                
+                console.log(campaignDetailStore.campaignStatistics)
             }
         )
-    }
+    }else{ready.value = true}
 })
 </script>

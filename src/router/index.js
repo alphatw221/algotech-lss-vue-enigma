@@ -230,6 +230,7 @@ const routes = [
         path: "campaign-list/campaign-live/:campaign_id?/manage-order",
         name: "manage-campaign-order",
         beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
           sellerRetrieveCampaignDataMiddleware(to, from);
         },
         component: ManageOrder,

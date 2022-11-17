@@ -15,6 +15,7 @@
         },
         "search_bar":{
                 "search":"Search order no./buyer",
+                "search_product":"Product Name/Order Code",
                 "filter":"Filter",
                 "export" : "Export"
         },
@@ -41,7 +42,13 @@
                 "null":"",
                 "guest": "Guest",
                 "payment_status":"Payment Status",
-                "delivery_status":"Delivery Status"
+                "delivery_status":"Delivery Status",
+                "updated_at":"Updated At",
+                "product_img":"",
+                "product_name":"Product Name",
+                "order_code":"Order Code",
+                "qty":"Qty",
+                "subtotal":"Subtotal"
         },
         "product_modal":{
                 "order_no":"Order No.",

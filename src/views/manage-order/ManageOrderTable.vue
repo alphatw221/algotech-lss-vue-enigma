@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(order, index) in orders" :key="index" class="intro-x">
+                <tr v-for="(order, index) in orders" :key="index" class="relative">
                     <td v-for="column in computedColumns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
@@ -189,7 +189,7 @@
                         </template>
                         
                         <template v-else-if="column.key === 'delivery_status' && (!layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status)">
-                            <OrderDeliveryStatusSelect :order="order" />
+                            <OrderDeliveryStatusSelect :order="order" class="w-full"/>
                         </template>
 
                         <template v-else-if="column.key === 'category'"> </template>

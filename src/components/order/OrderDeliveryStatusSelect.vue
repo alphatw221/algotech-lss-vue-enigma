@@ -1,6 +1,6 @@
 <template>
     <template v-if="deliveryStatusStore[props.order.delivery_status]?.allow_adjust">
-        <select v-model="props.order.delivery_status" class="w-30" @change="updateOrderDeliveryStatus()">
+        <select v-model="props.order.delivery_status" class="w-full form-select-sm sm:form-select-md" @change="updateOrderDeliveryStatus()">
             <option :value="option" v-for="(option,index) in deliveryStatusStore[props.order.delivery_status].options" :key="index">
                 {{$t(`order.delivery_status_options.${option}`)}}</option>
         </select>
