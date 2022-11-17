@@ -35,6 +35,9 @@
 							<div class="productName">{{ shoppingCartStore.campaignProductDict[campaign_product_id]?.name }} </div>
 						</div>
 					</td>
+					<td class="text-center">
+						{{ shoppingCartStore.campaignProductDict[campaign_product_id]?.order_code }}
+					</td>
 					<td class="text-center h-20">
 						<template v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.customer_editable && shoppingCartStore.campaignProductDict[campaign_product_id]?.type ==='product'">
 							<div class="flex w-full justify-center">
@@ -152,6 +155,7 @@ const cacheQty = ref(0)
 
 const tableColumns = ref([
 	{ key: "product", name: "product",  },
+	{ key: "order_code", name: "order_code",  },
 	{ key: "qty", name: "qty",  },
 	{ key: "price", name: "price",  },
 	{ key: "subtotal", name: "subtotal",  },
