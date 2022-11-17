@@ -193,7 +193,7 @@
                                 <ChevronsRightIcon class="my-auto"/>
                                 <input  
                                     class="w-24 md:w-32 form-control flex-2"
-                                    type="text" 
+                                    type="number" 
                                     v-model="props.meta_point.default_point_redemption_rate"
                                 />
                                 <label class="form-label text-base my-auto text-[14px] md:text-[16px]"> {{$t('settings.points.points')}}</label>
