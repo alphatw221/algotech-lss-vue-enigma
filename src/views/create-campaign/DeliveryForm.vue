@@ -327,7 +327,6 @@ const deleteBranch = index=>{
 }
 
 watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
-	console.log(get_props.value)
 	if (get_props.value==false){
 		update_pickupdatePicker()
 	}
@@ -345,7 +344,6 @@ watch(computed(()=>pickupdatePicker.value),()=>{
 			props.campaign.meta_logistic.pickup_options[index].start_at = pickupdatePicker.value[index].start
 			props.campaign.meta_logistic.pickup_options[index].end_at = pickupdatePicker.value[index].end
 		}
-		console.log(props.campaign)
 	}
 	
 },{deep:true})
