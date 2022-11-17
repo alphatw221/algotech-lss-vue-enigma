@@ -62,10 +62,10 @@
                 </template>
 
                 <template v-else-if=" column.type ==='period'">
-                    <div class="flex flex-col mt-2">
+                    <div class="flex flex-col mt-2 gap-2">
                         <div class="flex whitespace-nowrap align-middle"> 
-                            <label for="regular-form-2" class="w-fit text-base">{{$t('create_campaign.period')}}</label>
-                            <input type="checkbox" v-model="discountCode.period_enabled">
+                            <input type="checkbox" v-model="discountCode.period_enabled" class="form-check-input h-[1.2rem] w-[1.2rem] my-auto" />
+                            <label for="regular-form-2" class="w-fit text-base ml-4">{{$t('create_campaign.period')}}</label>
                         </div>
 
                         <div v-show="discountCode.period_enabled">
