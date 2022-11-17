@@ -235,7 +235,8 @@ const campaignData = ref({
 		delivery_note : '',
 		ecpay_delivery_enable : false,
 		ecpay_delivery_hash_key : '',
-		ecpay_delivery_hash_iv : ''
+		ecpay_delivery_hash_iv : '',
+		delivery_date : {start_at:new Date(),end_at:new Date()}
 	},
 	country:'SG',
 	currency:'USD', 

@@ -218,10 +218,10 @@
 						
                     </div>
 					<!-- pickup date  -->
-					<div class="flex flex-col flex-wrap  flex-grow-2">
+					<div class="flex flex-col flex-wrap  flex-grow-2" v-if="get_props">
 						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}</label>
                         <v-date-picker class="z-49" 
-							v-model="pickupdatePicker" 
+							v-model="pickupdatePicker"
 							:timezone="timezone" 
 							:columns="$screens({ default: 1, sm: 2 })" 
 							mode="datetime" is-range is-required is24hr
@@ -294,16 +294,14 @@ import { useVuelidate } from "@vuelidate/core";
 
 
 const additional_delivery_option = { title: null, type: null, price: null }
-const branch_option = { name: null, address: null }
+const branch_option = { name: null, address: null, start_at:null, end_at:null }
 const ready = ref(false)
+const get_props = ref(false)
 const deliverydatePicker = ref({
 	start:new Date(),
 	end:new Date()
 })
-const pickupdatePicker = ref({
-	start:new Date(),
-	end:new Date()
-})
+const pickupdatePicker = ref([])
 onMounted(()=>{
 	ready.value=true
 })
@@ -327,9 +325,30 @@ const deleteBranch = index=>{
     props.campaign.meta_logistic.pickup_options.splice(index,1)
 }
 
+watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
+	if (get_props.value==false){
+		for (let option = 0; option<props.campaign.meta_logistic.pickup_options.length;option++){
+			pickupdatePicker.value.push({start:new Date(),end:new Date()})
+		}
+		get_props.value = true
+		console.log(pickupdatePicker.value[0])
+	}
+},{deep:true})
+
 watch(computed(()=>deliverydatePicker.value),()=>{
-	props.campaign.meta_logistic.deliver_date.start_at = deliverydatePicker.value.start
-	props.campaign.meta_logistic.deliver_date.end_at = deliverydatePicker.value.end
+	props.campaign.meta_logistic.delivery_date.start_at = deliverydatePicker.value.start
+	props.campaign.meta_logistic.delivery_date.end_at = deliverydatePicker.value.end
+},{deep:true})
+
+watch(computed(()=>pickupdatePicker.value),()=>{
+	if (get_props.value==true){
+		for (let index = 0; index<props.campaign.meta_logistic.pickup_options.length;index++){
+			console.log(pickupdatePicker.value)
+			props.campaign.meta_logistic.pickup_options[index].start_at = pickupdatePicker.value[index].start
+			props.campaign.meta_logistic.pickup_options[index].end_at = pickupdatePicker.value[index].end
+		}
+		console.log(props.campaign.meta_logistic.pickup_options[0])
+	}
 },{deep:true})
 
 
