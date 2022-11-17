@@ -221,7 +221,7 @@
 					<div class="flex flex-col flex-wrap  flex-grow-2" v-if="get_props">
 						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}</label>
                         <v-date-picker class="z-49" 
-							v-model="pickupdatePicker"
+							v-model="pickupdatePicker[index]"
 							:timezone="timezone" 
 							:columns="$screens({ default: 1, sm: 2 })" 
 							mode="datetime" is-range is-required is24hr
@@ -331,7 +331,6 @@ watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
 			pickupdatePicker.value.push({start:new Date(),end:new Date()})
 		}
 		get_props.value = true
-		console.log(pickupdatePicker.value[0])
 	}
 },{deep:true})
 
@@ -343,11 +342,9 @@ watch(computed(()=>deliverydatePicker.value),()=>{
 watch(computed(()=>pickupdatePicker.value),()=>{
 	if (get_props.value==true){
 		for (let index = 0; index<props.campaign.meta_logistic.pickup_options.length;index++){
-			console.log(pickupdatePicker.value)
 			props.campaign.meta_logistic.pickup_options[index].start_at = pickupdatePicker.value[index].start
 			props.campaign.meta_logistic.pickup_options[index].end_at = pickupdatePicker.value[index].end
 		}
-		console.log(props.campaign.meta_logistic.pickup_options[0])
 	}
 },{deep:true})
 
