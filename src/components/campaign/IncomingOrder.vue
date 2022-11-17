@@ -216,7 +216,7 @@ const incoming_order_columns= [
 
 onMounted(()=>{
     campaignDetailStore.incomingOrdersDict = {}
-    seller_list_cart(route.params.campaign_id).then(res => {
+    seller_list_cart(route.params.campaign_id, '', null).then(res => {
         res.data.forEach(cart => {
             campaignDetailStore.incomingOrdersDict[cart.id]=cart
         });

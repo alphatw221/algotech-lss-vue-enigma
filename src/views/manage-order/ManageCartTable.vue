@@ -30,7 +30,7 @@
             <tbody>
                 <template v-for="(cart, key, index) in manageOrderStore.cartsDict" :key="index">
                     <template v-for="(qty, campaign_product_id, index) in cart.products" :key="index">
-                        <template v-if="searchKeyword(campaignDetailStore.campaignProductDict[campaign_product_id])">
+                        <template v-if="searchKeyword(cart, campaignDetailStore.campaignProductDict[campaign_product_id])">
                             <tr class="text-center relative">
                                 <td :data-content="$t(`manage_order.table.id`)">
                                     <span class="sm:hidden"> #</span> {{ cart.id }}
@@ -220,14 +220,14 @@ const columns = ref([
     { name: "product_name", key: "name" , sortable: false},
     { name: "order_code", key: "order_code" },
     { name: "qty", key: "qty" },
-    { name: 'subtotal', key: 'subtotal', sortable: true},
+    { name: 'subtotal', key: 'subtotal', sortable: false},
     { name: 'action', key: 'view', sortable: false},
 ]);
 
 const page = ref(1);
 const page_size = ref(50);
 const sortBy = ref({})
-const keyword = ref('')
+const searchString = ref('')
 const filterData = ref({})
 let webSocket = null
 
@@ -235,7 +235,7 @@ onMounted(()=>{
     initWebSocketConnection()
     search()
     eventBus.on('keywordforCart',payload =>{
-        keyword.value = payload
+        searchString.value = payload
     })
 })
 
@@ -248,14 +248,14 @@ const search = () => {
     manageOrderStore.cartsDict = {}
     filterData.value['sort_by'] = sortBy.value
 
-    seller_list_cart(route.params.campaign_id, layoutStore.alert).then(res=>{
+    seller_list_cart(route.params.campaign_id, searchString.value ,filterData.value,layoutStore.alert).then(res=>{
         res.data.forEach(cart => {
                 manageOrderStore.cartsDict[cart.id]=cart
             });
             manageOrderStore.carts = res.data  //delete if no longer needed
             manageOrderStore.data_count.carts = res.data.count
     })
-    // seller_search_cart(_campaign_id=route.params.campaign_id, _search_value=keyword.value, _page=page.value, _page_size=page_size.value, _toastify=layoutStore.alert).then(
+    // seller_search_cart(_campaign_id=route.params.campaign_id, _search_value=searchString.value, _page=page.value, _page_size=page_size.value, _toastify=layoutStore.alert).then(
     //     res => {
     //         res.data.results.forEach(cart => {
     //             if(cart.id in manageOrderStore.cartsDict === false) manageOrderStore.cartsDict[cart.id]=cart
@@ -266,11 +266,24 @@ const search = () => {
     // )
 }
 
-const searchKeyword = (product)=>{
-    var name = product?.name.toLowerCase()
-    var order_code = product?.order_code.toLowerCase()
-    if(keyword.value == '' || name.match(keyword.value) || order_code.match(keyword.value)) return true
-    else return false
+const searchKeyword = (cart, product)=>{
+    
+    if(['', null, undefined].includes(searchString.value)) return true
+    
+    var _searchString =  searchString.value.toLowerCase()
+
+    if(
+        cart?.customer_name.toLowerCase().match(_searchString)||
+        cart?.id.toString().match(_searchString)
+    )return true
+
+    if(
+        product?.name.toLowerCase().match(_searchString)||
+        product?.order_code.toLowerCase().match(_searchString)
+    )return true
+
+    return false
+    
 }
 
 const to_cart_detail = (cart) => {
