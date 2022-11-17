@@ -321,9 +321,11 @@ const deleteDelivery = index=>{
 
 const addBranch = ()=>{
     props.campaign.meta_logistic.pickup_options.unshift(Object.assign({},branch_option))
+	pickupdatePicker.value.push({start:new Date(),end:new Date()})
 }
 const deleteBranch = index=>{
     props.campaign.meta_logistic.pickup_options.splice(index,1)
+	pickupdatePicker.value.splice(index,1)
 }
 
 watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
