@@ -14,7 +14,7 @@ export const useLSSPointsMetaStore = defineStore("pointsMeta", {
 			},
 			{
 				key:"point_validity",
-				type:"input",
+				type:"component",
 				input_type:"number",
 				datatype:"number",
 				default:0,
