@@ -123,7 +123,7 @@
 						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
 							<template v-if="product.meta.wish_list" > 
 								<div v-if="Object.keys(product.meta.wish_list).length >0" 
-									class="flex gap-2 cursor-pointer justify-center" @click="sentWishlistMail(product,product_index)"> 
+									class="flex gap-2 cursor-pointer justify-center" @click="openWishlistModal(product)"> 
 										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
 								<div v-else class="flex gap-2 cursor-not-allowed justify-center"> 
 									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
@@ -394,7 +394,7 @@ const selectStock = (product, event) => {
 }
 
 const openWishlistModal = (product) =>{
-	console.log(product)
+	console.log('xxx',product)
 	eventBus.emit('showWishlistModal', {'wishlist':product.meta.wish_list, 'id':product.id})
 }
 

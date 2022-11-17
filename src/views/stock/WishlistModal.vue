@@ -74,6 +74,7 @@ const sentWishlistMail = () =>{
 			eventBus.emit('refreshStockTable')
 			hide()
 		})
+		console.log('here')
 	}
 	else layoutStore.alert.showMessageToast(`${i18n.global.t('stock.wishlist.cancel_send')}`)
 }
