@@ -89,9 +89,14 @@
         "invalid_data":"Invalid Submission"
     },
     "wishlist":{
+
+        "title":"Wishlist",
         "confirm_send":"Confirm to notify and E-mail everyone on the wishlist",
         "cancel_send":"Canceled",
-        "success_send":"E-mail Send Successfully."
+        "success_send":"E-mail Send Successfully.",
+        "name":"Customer",
+        "email":"E-mail",
+        "mail_to":"Mail all customer"
     },
     "bulk_edit_modal":{
         "bulk_edit":"Bulk Edit",

@@ -57,7 +57,7 @@ onMounted(()=>{
 
 
     let now = new Date()
-    console.log(campaignDetailStore.campaign.end_at)
+    // console.log(campaignDetailStore.campaign.end_at)
     let isCapturable = campaignDetailStore.campaign.end_at ? new Date(campaignDetailStore.campaign.end_at) > now : false
     console.log("isCapturable", isCapturable)
     if (isCapturable) {
@@ -84,6 +84,7 @@ onUnmounted(()=>{
 })
 
 const initWebSocketConnection=()=>{
+    // console.log('Live')
     webSocket = new WebSocket(
         `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/campaign/${route.params.campaign_id}/?token=${cookies.get('access_token')}`
     );
