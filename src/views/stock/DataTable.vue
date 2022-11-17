@@ -105,15 +105,15 @@
 							</div>
 						</td>
 
-						<td v-else-if="column.key === 'type'" class="w-full sm:w-fit qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'type'" class="w-full sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="">{{product[column.key]}}</div> 
 						</td>
 
-						<td v-else-if="column.key === 'qty'" class="w-full sm:w-fit qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div class="text-right">{{product[column.key]}}</div> 
+						<td v-else-if="column.key === 'qty'" class="w-full sm:w-fit text-right" :data-content="$t(`stock.table_column.${column.key}`)">
+							{{product[column.key]}}
 						</td>
 
-						<td v-else-if="column.key === 'price'" class="w-full sm:w-20 qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'price'" class="w-full sm:w-20" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="text-right">
 								<span class="text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span>
 								{{(Math.floor(parseFloat(product[column.key]) * (10 ** layoutStore.userInfo.user_subscription.decimal_places)) / 10 ** layoutStore.userInfo.user_subscription.decimal_places ).toLocaleString('en-GB')}}
@@ -123,12 +123,12 @@
 						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
 							<template v-if="product.meta.wish_list" > 
 								<div v-if="Object.keys(product.meta.wish_list).length >0" 
-									class="flex gap-2 cursor-pointer" @click="openWishlistModal(product)"> 
+									class="flex gap-2 cursor-pointer justify-center" @click="sentWishlistMail(product,product_index)"> 
 										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
-								<div v-else class="flex gap-2 cursor-not-allowed"> 
+								<div v-else class="flex gap-2 cursor-not-allowed justify-center"> 
 									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
 							</template>
-							<div v-else class="flex gap-2 cursor-not-allowed"> 
+							<div v-else class="flex gap-2 cursor-not-allowed justify-center"> 
 							<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
 						</td>
 
@@ -160,8 +160,8 @@
 							</div>
 						</td>
 
-						<td v-else class="sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div class="sm:w-fit"> {{product[column.key]}} </div>
+						<td v-else class="sm:w-fit text-center" :data-content="$t(`stock.table_column.${column.key}`)">
+							{{product[column.key]}}
 						</td>
 
 					</template>
@@ -210,8 +210,9 @@ const computedTableColumns = computed(()=>{
 		{ name: "check", key: "check"},
 		{ name: "image", key: "image" },
 		{ name: "name", key: "name", sortable:true },
+		{ name: "order_code", key: "order_code", sortable:true },
 		{ name: "category", key: "categories" },
-		{ name: "remark", key: "remark" },
+		{ name: "remark", key: "remark"},
 		{ name: "qty", key: "qty", sortable:true },
 		{ name: "price", key: "price", sortable:true },
 		{ name: "wishlist", key:"wishlist"},
@@ -351,7 +352,7 @@ const copyProduct = (product, index) => {
 
 const sortByThis = (by,operator) =>{
 	sortBy.value = operator + by
-	console.log(sortBy.value)
+	// console.log(sortBy.value)
 	search();
 }
 
@@ -545,6 +546,10 @@ thead th{
 		display:inline-flex;
 		justify-content: flex-end;
 		width: 100% !important;
+	}
+	.wishlist:before {
+		content: attr(data-content);
+		 
 	}
 
 	td:nth-of-type(8):before {

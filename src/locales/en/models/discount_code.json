@@ -1,0 +1,64 @@
+{
+    "name":"Discount Name",
+    "code":"Discount Code",
+    "description":"Description",
+    "period":"Period",
+    "start_at":"Start Time",
+    "end_at":"End Time",
+
+    "applied_count":"Applied Count",
+    "used_count":"Used Count",
+
+    "limitations":"Limitations",
+    "limitation_options":{
+        "specific_campaign":"Specific Campaign",
+        "specific_buyer_name":"Specific Buyer Name",
+        "specific_buyer_email":"Specific Buyer Email",
+        "subtotal_over_specific_amount":"By Order Amount",
+        "product_over_specific_number":"By Order Qty",
+        "discount_code_usable_time":"Usage Limited",
+        "new_buyer_only":"New Buyer Only",
+        "buyer_usage_times":"Buyer Usage Limited"
+    },
+
+    "limitation_fields":{
+        "specific_campaign":{
+            "campaign_id":"Campaign"
+        },
+        "specific_buyer_name":{
+            "names": "Buyer Names"
+        },
+        "specific_buyer_email":{
+            "emails": "Buyer Email"
+        },
+        "subtotal_over_specific_amount":{
+            "amount": "Order Subtotal"
+        },
+        "product_over_specific_number":{
+            "number": "Product Number"
+        },
+        "discount_code_usable_time":{
+            "times": "Usage Limited"
+        },
+        "new_buyer_only":{
+            
+        },
+        "buyer_usage_times":{
+            "times": "Buyer Usage Limited"
+        }
+    },
+
+
+    "type":"Code Type",
+    "type_options":{
+        "general":"General",
+        "cart_referal":"Cart Referral"
+    },
+
+    "discount_type":"Discount Type",
+    "discount_type_options":{
+        "percent_off":"By Percentage(%)",
+        "deduct":"By Deduction(-)"
+    }
+
+}

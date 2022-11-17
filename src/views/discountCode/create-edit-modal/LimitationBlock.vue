@@ -1,7 +1,7 @@
 <template>
     <div>
         <select v-model="props.discountCode.limitations[props.limitationIndex].key" placeholder="choose_limitation_type" class="w-full form-select rounded-lg mt-2 h-[42px]">
-            <option :value="key" v-for="(data, key, index) in discountCodeMeta.limitations" :key="index">{{$t(`discount.modal.limit_options.${data.name}`)}}</option>
+            <option :value="key" v-for="(data, key, index) in discountCodeMeta.limitations" :key="index">{{$t(`discount_code.limitation_options.${data.name}`)}}</option>
         </select>
         <label class="text-danger text-[12px]"
             v-for="error,index in props.v.limitations.$each.$response.$errors[props.limitationIndex].key"
@@ -20,13 +20,13 @@
             >
 
                 <template v-if="field.type === 'input'">
-                    <label class="mt-2 text-base">{{$t(`discount.modal.`+field.name)}}</label>
-                    <input class="rounded-lg" :type="field.dataType" v-model="props.discountCode.limitations[props.limitationIndex][field.key]">
+                    <label class="mt-2 text-base">{{$t(`discount_code.limitation_fields.${props.discountCode.limitations[props.limitationIndex].key}.${field.key}`)}}</label>
+                    <input class="rounded-lg" :type="field.inputType" v-model="props.discountCode.limitations[props.limitationIndex][field.key]">
                 </template>
 
                 <template v-if="field.type === 'api_select' && handleApiSelect(field)" >
 
-                    <label class="mt-2 text-base">{{$t(`discount.modal.`+field.name)}}</label>
+                    <label class="mt-2 text-base">{{$t(`discount_code.limitation_fields.${props.discountCode.limitations[props.limitationIndex].key}.${field.key}`)}}</label>
                     <TomSelect
                         v-model="props.discountCode.limitations[props.limitationIndex][field.key]"
                         class="w-full"

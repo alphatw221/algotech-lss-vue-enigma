@@ -65,24 +65,28 @@
                     <div class="flex flex-col mt-2">
                         <div class="flex whitespace-nowrap align-middle"> 
                             <label for="regular-form-2" class="w-fit text-base">{{$t('create_campaign.period')}}</label>
+                            <input type="checkbox" v-model="discountCode.period_enabled">
                         </div>
-                        <v-date-picker class="z-10" 
-                            v-model="dateTimePicker" 
-                            :timezone="timezone" 
-                            :columns="$screens({ default: 1})" 
-                            mode="dateTime" is-range is-required is24hr
-                            :min-date='new Date()'
-                            >
-                            <template v-slot="{ inputValue, inputEvents }">
-                                <div class="flex items-center justify-center">
-                                <input :value="inputValue.start" v-on="inputEvents.start"
-                                    class="form-control border h-[42px] px-2 py-1 w-42 rounded-lg focus:outline-none focus:border-indigo-300" />
-                                <ChevronsRightIcon class="w-8 h-8 m-1" />
-                                <input :value="inputValue.end" v-on="inputEvents.end" disabled
-                                    class="form-control border h-[42px] px-2 py-1 w-42 rounded-lg focus:outline-none focus:border-indigo-300" />
-                                </div>
-                            </template>
-                        </v-date-picker>
+
+                        <div v-show="discountCode.period_enabled">
+                            <v-date-picker class="z-10" 
+                                v-model="dateTimePicker" 
+                                :timezone="timezone" 
+                                :columns="$screens({ default: 1})" 
+                                mode="dateTime" is-range is-required is24hr
+                                :min-date='new Date()'
+                                >
+                                <template v-slot="{ inputValue, inputEvents }">
+                                    <div class="flex items-center justify-center">
+                                    <input :value="inputValue.start" v-on="inputEvents.start"
+                                        class="form-control border h-[42px] px-2 py-1 w-42 rounded-lg focus:outline-none focus:border-indigo-300" />
+                                    <ChevronsRightIcon class="w-8 h-8 m-1" />
+                                    <input :value="inputValue.end" v-on="inputEvents.end" disabled
+                                        class="form-control border h-[42px] px-2 py-1 w-42 rounded-lg focus:outline-none focus:border-indigo-300" />
+                                    </div>
+                                </template>
+                            </v-date-picker>
+                        </div>
                     </div>
                 </template>
 
@@ -158,8 +162,9 @@ const discountCodeIndex = ref(null)
 const discountCode = ref({
     name:'',
     code:'',
-    start_at:new Date(),
-    end_at:new Date(),
+    period_enabled:false,
+    start_at:null,
+    end_at:null,
     type:"general",
     discount_type:"",
     limitations:[],
@@ -220,15 +225,36 @@ watch(computed(()=>dateTimePicker.value), () => {
 	discountCode.value.end_at = dateTimePicker.value.end
 }, {deep:true})
 
+watch(computed(()=>discountCode.value.period_enabled), () => {
+    if(discountCode.value.period_enabled){
+        discountCode.value.start_at = dateTimePicker.value.start
+	    discountCode.value.end_at = dateTimePicker.value.end
+    }else{
+        discountCode.value.start_at = null
+	    discountCode.value.end_at = null
+    }
+})
+
 onMounted(()=>{
     eventBus.on('showCreateModel',() => {modalType.value = CREATE; showModal.value=true; })
     eventBus.on('showEditModel', payload=>{
         modalType.value = EDIT;
-        showModal.value=true; 
+        
         discountCodeIndex.value = payload.discountCodeIndex
         discountCode.value = JSON.parse(JSON.stringify(payload.discountCode))
+
         dateTimePicker.value.start=discountCode.value.start_at
-		dateTimePicker.value.end=discountCode.value.end_at
+        dateTimePicker.value.end=discountCode.value.end_at
+
+
+        // console.log(discountCode.value.start_at)
+        // console.log(dateTimePicker.value.start)
+        // console.log(discountCode.value.end_at)
+        // console.log(dateTimePicker.value.end)
+       
+        showModal.value=true; 
+        
+        
     })
 })
 onUnmounted(()=>{
@@ -242,8 +268,9 @@ const hideModal = ()=>{
     discountCode.value = {
         name:'',
         code:'',
-        start_at:new Date,
-        end_at:new Date,
+        period_enabled:false,
+        start_at:null,
+        end_at:null,
         type:"",
         discount_type:"",
         limitations:[],

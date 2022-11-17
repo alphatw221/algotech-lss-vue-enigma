@@ -209,6 +209,7 @@ const manageOrderStore = useManageOrderStore();
 const layoutStore = useLSSSellerLayoutStore()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_ROOT_API
+const ready = ref(false)
 
 const columns = ref([
     { name: 'order_number', key: 'id', sortable: true},
@@ -249,9 +250,9 @@ const search = () => {
 
     seller_list_cart(route.params.campaign_id, layoutStore.alert).then(res=>{
         res.data.forEach(cart => {
-                if(cart.id in manageOrderStore.cartsDict === false) manageOrderStore.cartsDict[cart.id]=cart
+                manageOrderStore.cartsDict[cart.id]=cart
             });
-            manageOrderStore.carts = res.data.results  //delete if no longer needed
+            manageOrderStore.carts = res.data  //delete if no longer needed
             manageOrderStore.data_count.carts = res.data.count
     })
     // seller_search_cart(_campaign_id=route.params.campaign_id, _search_value=keyword.value, _page=page.value, _page_size=page_size.value, _toastify=layoutStore.alert).then(
@@ -309,6 +310,7 @@ const cancelSortBy = (field) => {
 
 
 const initWebSocketConnection=()=>{
+    // console.log('ManageOrder')
     webSocket = new WebSocket(
         `${import.meta.env.VITE_APP_WEBSOCKET_URL}/ws/campaign/${route.params.campaign_id}/?token=${cookies.get('access_token')}`
     );
@@ -329,14 +331,14 @@ const initWebSocketConnection=()=>{
     };
     webSocket.onerror = err => {
         console.error(err)
-         webSocket.close(1000);
+        webSocket.close(1000);
     };
 }
 
 const handleSocketMessage = message=>{
     if (message.type == 'cart_data'){
         const cart_data = message.data
-        if(cart_data.id in manageOrderStore.cartsDict === false) manageOrderStore.cartsDict[cart_data.id]=cart_data
+        manageOrderStore.cartsDict[cart_data.id]=cart_data
     }
 }
 
