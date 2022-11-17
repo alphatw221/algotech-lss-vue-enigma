@@ -218,7 +218,7 @@
 						
                     </div>
 					<!-- pickup date  -->
-					<div class="flex flex-col flex-wrap  flex-grow-2" v-if="get_props">
+					<div class="flex flex-col flex-wrap  flex-grow-2">
 						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}</label>
                         <v-date-picker class="z-49" 
 							v-model="pickupdatePicker[index]"
@@ -304,6 +304,7 @@ const deliverydatePicker = ref({
 const pickupdatePicker = ref([])
 onMounted(()=>{
 	ready.value=true
+	update_pickupdatePicker()
 })
 const props = defineProps({
     campaign: Object,
@@ -326,11 +327,9 @@ const deleteBranch = index=>{
 }
 
 watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
+	console.log(get_props.value)
 	if (get_props.value==false){
-		for (let option = 0; option<props.campaign.meta_logistic.pickup_options.length;option++){
-			pickupdatePicker.value.push({start:new Date(),end:new Date()})
-		}
-		get_props.value = true
+		update_pickupdatePicker()
 	}
 },{deep:true})
 
@@ -340,13 +339,22 @@ watch(computed(()=>deliverydatePicker.value),()=>{
 },{deep:true})
 
 watch(computed(()=>pickupdatePicker.value),()=>{
+	console.log(pickupdatePicker.value)
 	if (get_props.value==true){
 		for (let index = 0; index<props.campaign.meta_logistic.pickup_options.length;index++){
 			props.campaign.meta_logistic.pickup_options[index].start_at = pickupdatePicker.value[index].start
 			props.campaign.meta_logistic.pickup_options[index].end_at = pickupdatePicker.value[index].end
 		}
+		console.log(props.campaign)
 	}
+	
 },{deep:true})
 
 
+const update_pickupdatePicker = ()=>{
+    for (let option = 0; option<props.campaign.meta_logistic.pickup_options.length;option++){
+		pickupdatePicker.value.push({start:props.campaign.meta_logistic.pickup_options[option].start_at,end:props.campaign.meta_logistic.pickup_options[option].end_at})
+	}
+	get_props.value = true
+}
 </script>
