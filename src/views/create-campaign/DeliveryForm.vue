@@ -143,6 +143,32 @@
 			</div>
 		</div>
 		
+		<!-- delivery date -->
+		<div class="flex flex-wrap justify-between col-span-12 col-start-1 mt-5 ">
+			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
+		</div>
+		<div class="col-span-12">
+			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
+				<v-date-picker class="z-49" 
+					v-model="deliverydatePicker" 
+					:timezone="timezone" 
+					:columns="$screens({ default: 1, sm: 2 })" 
+					mode="datetime" is-range is-required is24hr
+					:min-date='new Date()'
+					>
+					<template v-slot="{ inputValue, inputEvents }">
+						<div class="flex items-center justify-center">
+						<input :value="inputValue.start" v-on="inputEvents.start"
+							class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+						<ChevronsRightIcon class="w-8 h-8 m-1" />
+						<input :value="inputValue.end" v-on="inputEvents.end" disabled
+							class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+						</div>
+					</template>
+				</v-date-picker>
+			</div>
+		</div>
+		
 		<div class="flex justify-between col-span-12 col-start-1 mt-5"> 
 			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.store_collection')}}</label>
 			<button 
@@ -190,6 +216,27 @@
 							{{ $t(`create_campaign.delivery_form.errors.${error.$message.replace(/\s/g, "_")}`) }}
 						</label>
 						
+                    </div>
+					<!-- pickup date  -->
+					<div class="flex flex-col flex-wrap  flex-grow-2">
+						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}</label>
+                        <v-date-picker class="z-49" 
+							v-model="pickupdatePicker" 
+							:timezone="timezone" 
+							:columns="$screens({ default: 1, sm: 2 })" 
+							mode="datetime" is-range is-required is24hr
+							:min-date='new Date()'
+							>
+							<template v-slot="{ inputValue, inputEvents }">
+								<div class="flex items-center justify-center">
+								<input :value="inputValue.start" v-on="inputEvents.start"
+									class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<ChevronsRightIcon class="w-8 h-8 m-1" />
+								<input :value="inputValue.end" v-on="inputEvents.end" disabled
+									class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								</div>
+							</template>
+						</v-date-picker>
                     </div>
                     <button 
                         class="inline-block w-full rounded-lg btn btn-danger sm:ml-auto sm:w-24 h-[42px] mt-auto lg:mt-6" 
@@ -249,6 +296,14 @@ import { useVuelidate } from "@vuelidate/core";
 const additional_delivery_option = { title: null, type: null, price: null }
 const branch_option = { name: null, address: null }
 const ready = ref(false)
+const deliverydatePicker = ref({
+	start:new Date(),
+	end:new Date()
+})
+const pickupdatePicker = ref({
+	start:new Date(),
+	end:new Date()
+})
 onMounted(()=>{
 	ready.value=true
 })
@@ -271,6 +326,11 @@ const addBranch = ()=>{
 const deleteBranch = index=>{
     props.campaign.meta_logistic.pickup_options.splice(index,1)
 }
+
+watch(computed(()=>deliverydatePicker.value),()=>{
+	props.campaign.meta_logistic.deliver_date.start_at = deliverydatePicker.value.start
+	props.campaign.meta_logistic.deliver_date.end_at = deliverydatePicker.value.end
+},{deep:true})
 
 
 </script>
