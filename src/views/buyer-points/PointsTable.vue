@@ -28,13 +28,18 @@
             :data-content="$t(`order_points.table.` + column.name)"
           >
             <template v-if="column.type == 'dateTime'">
-              {{
-                new Date(order[column.key]).toLocaleDateString("en-us", {
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })
-              }}
+
+              <template v-if="order[column.key]">
+                {{
+                  new Date(order[column.key]).toLocaleDateString("en-us", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                }}
+              </template>
+              <template v-else>-</template>
+              
             </template>
             <template v-else-if="column.type == 'float' ">
               {{ order.currency }}
@@ -127,7 +132,7 @@ const tableColumns = ref([
 ]);
 
 const props = defineProps({
-  status: String,
+  userSubscriptionId: Number,
 });
 
 const routeToDetail = (order_id) => {
@@ -150,11 +155,12 @@ const changePageSize = (pageSize) => {
 
 const getOrderHistoryListData = () => {
   ready.value = false
+  var _page, _page_size, _user_subscription_id, _points_relative
   buyer_orders_history(
-    currentPage.value,
-    pageSize.value,
-    props.status,
-    true,
+    _page = currentPage.value,
+    _page_size = pageSize.value,
+    _user_subscription_id = props.userSubscriptionId,
+    _points_relative = true,
     layoutStore.alert
   ).then((response) => {
     ready.value = true
@@ -162,7 +168,7 @@ const getOrderHistoryListData = () => {
     orders.value = response.data.results;
   });
 };
-watch(()=>props.status,()=>{getOrderHistoryListData()},{deep:true})
+watch(()=>props.userSubscriptionId,()=>{getOrderHistoryListData()},{deep:true})
 
 onMounted(() => {
   getOrderHistoryListData();
