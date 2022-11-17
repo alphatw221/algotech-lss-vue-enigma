@@ -51,11 +51,10 @@ onMounted(()=>{
   console.log(buyerLayoutStore.userInfo)
 })
 
-const changeStatus =(s,i)=>{
-//   ready.value = false
-  status.value = s
-  index.value =i
-  console.log(s,i)
+const changeStatus = (walletStatus,walletIndex)=>{
+
+  status.value = walletStatus
+  index.value = walletIndex
 }
 
 const showModal=()=>{

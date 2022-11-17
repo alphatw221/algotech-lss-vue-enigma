@@ -3,8 +3,8 @@
     <div class="flex flex-col p-2 font-medium text-sm sm:text-xl">
         <!-- BEGIN: commit box -->
  
-        <div class="flex items-center sm:px-20 pb-4 intro-y">
-            <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium lg:mt-5"> {{$t('settings.default_settings')}}</h2>
+        <div class="flex flex-row items-center sm:px-20 pb-4 intro-y lg:mt-5">
+            <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium"> {{$t('settings.default_settings')}}</h2>
             <Tippy 
                 class="rounded-full w-30 whitespace-wrap" 
                 data-tippy-allowHTML="true" 
@@ -12,7 +12,7 @@
                 :content="$t('tooltips.settings.default_settings')" 
                 theme='light'
             > 
-                <HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+                <HelpCircleIcon class="h-5 ml-1 tippy-icon" />
             </Tippy> 
         </div>
         <div class="flex flex-col gap-5 box lg:mx-20">

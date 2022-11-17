@@ -99,21 +99,21 @@
 							</div>
 						</td>
 
-						<td v-else-if="column.key === 'categories'" class="w-full sm:w-fit category" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'categories'" class="w-full sm:w-32 category" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div v-for="(productCategoryID,index) in product[column.key] " :key="index">
 								<div >{{ stockStore.productCategoryDict[productCategoryID]?.name }}</div> 
 							</div>
 						</td>
 
-						<td v-else-if="column.key === 'type'" class="w-full sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
+						<!-- <td v-else-if="column.key === 'type'" class="w-full sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="">{{product[column.key]}}</div> 
-						</td>
+						</td> -->
 
-						<td v-else-if="column.key === 'qty'" class="w-full sm:w-fit text-right" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'qty'" class="w-full sm:w-32 text-center" :data-content="$t(`stock.table_column.${column.key}`)">
 							{{product[column.key]}}
 						</td>
 
-						<td v-else-if="column.key === 'price'" class="w-full sm:w-20" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'price'" class="w-full sm:w-32" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="text-right">
 								<span class="text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span>
 								{{(Math.floor(parseFloat(product[column.key]) * (10 ** layoutStore.userInfo.user_subscription.decimal_places)) / 10 ** layoutStore.userInfo.user_subscription.decimal_places ).toLocaleString('en-GB')}}
@@ -160,7 +160,7 @@
 							</div>
 						</td>
 
-						<td v-else class="sm:w-fit text-center" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else class="text-center" :data-content="$t(`stock.table_column.${column.key}`)">
 							{{product[column.key]}}
 						</td>
 

@@ -11,7 +11,7 @@
 		    <hr class="-mx-6" />
         </div>
 
-        <div class="flex flex-col gap-5 w-full">
+        <div class="flex flex-col gap-1 sm:gap-5 w-full">
 
             <div v-for="field in sellerPointsMeta.fields" :key="field.key">
 
@@ -28,21 +28,21 @@
                 
                 <!-- COMPONENT -->
                 <div  v-else-if="field.key=='point_validity'" class="flex flex-col gap-2"> 
-                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3"> {{$t('settings.points.'+ field.key)}}</label>
+                    <label class="w-fit whitespace-nowrap form-label text-base mt-3"> {{$t('settings.points.'+ field.key)}}</label>
 
-                    <form>
-                        <label class="radio-inline mx-2">
-                            <input class="mx-1" type="radio" name="pointValidity" value="disable" v-model="computedPointValidity">Disable
+                    <form class="flex flex-col sm:flex-row gap-2 sm:gap-5 text-[16px]">
+                        <label class="radio-inline my-auto">
+                            <input class="mr-2" type="radio" name="pointValidity" value="disable" v-model="computedPointValidity"> Disable
                         </label>
 
-                        <label class="radio-inline mx-2">
-                            <input class="mx-1" type="radio" name="pointValidity" value="enable" v-model="computedPointValidity">
+                        <label class="radio-inline my-auto flex flex-row gap-2 items-center">
+                            <input type="radio" name="pointValidity" value="enable" v-model="computedPointValidity">
                             <input  
-                                class="w-24 md:w-32 form-control flex-2"
+                                class="w-24 md:w-14 h-fit form-control "
                                 :type="field.input_type"
                                 v-model="props.meta_point[field.key]"
                             />
-                            <span>Month(s)</span>
+                            <span class="">Month(s)</span>
                         </label>
                         
                     </form>

@@ -14,17 +14,14 @@
 </template>
 <script setup>
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
-import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
 
 const route = useRoute();
-const internalInstance = getCurrentInstance()
-const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const searchValue = ref('')
-const store = useManageOrderStore()
 
-function search(type){
+const search = (type) =>{
     if(type== 'reset') searchValue.value = ''
-    eventBus.emit('keywordforCart',searchValue.value.toLowerCase())
+    eventBus.emit('keywordforCart',searchValue.value)
 }
 </script>

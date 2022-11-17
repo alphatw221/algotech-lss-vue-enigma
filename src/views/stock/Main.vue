@@ -24,7 +24,8 @@
 					:multiple="false"
 					:uploadFunction = "importProducts"
 				>
-					<template class="hidden sm:block"><span class="mr-1 text-lg font-bold">+</span>  Import Product  </template>
+					<template class="hidden sm:block"><span class="mr-1 text-lg font-bold">+</span> {{ $t('stock.import_product') }}  </template>
+					<template class="block sm:hidden"> <ArrowDownIcon class="w-8 h-8" /> </template>
 				</FileUploadButton>
 
 				<button 
