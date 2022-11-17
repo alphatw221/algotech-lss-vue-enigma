@@ -1,0 +1,64 @@
+{
+    "name":"优惠名称",
+    "code":"优惠代码",
+    "description":"备注",
+    "period":"销售时间",
+    "start_at":"开始时间",
+    "end_at":"结束时间",
+
+    "applied_count":"输入次数",
+    "used_count":"使用次数",
+
+    "limitations":"使用条件",
+    "limitation_options":{
+        "specific_campaign":"指定销售活动",
+        "specific_buyer_name":"指定客户名称",
+        "specific_buyer_email":"指定客户电子邮件",
+        "subtotal_over_specific_amount":"订购单金满($)",
+        "product_over_specific_number":"订购商品数量满(件)",
+        "discount_code_usable_time":"可用次数",
+        "new_buyer_only":"仅限新顾客",
+        "buyer_usage_times":"单顾客可用次数"
+    },
+
+    "limitation_fields":{
+        "specific_campaign":{
+            "campaign_id":"选择销售活动"
+        },
+        "specific_buyer_name":{
+            "names": "顾客名称"
+        },
+        "specific_buyer_email":{
+            "emails": "顾客Email"
+        },
+        "subtotal_over_specific_amount":{
+            "amount": "订购单金($)"
+        },
+        "product_over_specific_number":{
+            "number": "订购单商品数量(件)"
+        },
+        "discount_code_usable_time":{
+            "times": "可用次数"
+        },
+        "new_buyer_only":{
+            
+        },
+        "buyer_usage_times":{
+            "times": "单顾客可使用次数"
+        }
+    },
+
+
+    "type":"优惠种类",
+    "type_options":{
+        "general":"通用代码",
+        "cart_referal":"优惠代码"
+    },
+
+    "discount_type":"折优惠方式",
+    "discount_type_options":{
+        "percent_off":"折扣(%)",
+        "deduct":"减价(-)"
+    }
+
+}
