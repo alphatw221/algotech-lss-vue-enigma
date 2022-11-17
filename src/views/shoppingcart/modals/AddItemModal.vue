@@ -25,7 +25,9 @@
 						<div
 							class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
 
-							<EyeIcon class="bg-primary opacity-30 rounded-full text-white w-7 h-7 font-bold absolute top-2 right-2 p-1 z-50 hover:opacity-80" @click="openDescription(product)" />
+							<template v-if="product.description !== ''"> 
+								<EyeIcon class="bg-primary opacity-30 rounded-full text-white w-7 h-7 font-bold absolute top-2 right-2 p-1 z-50 hover:opacity-80" @click="openDescription(product)" />
+							</template>
 
 							<a class="w-4/5 file__icon file__icon--image">
 								<div class="file__icon--image__preview image-fit" v-if="product.image">

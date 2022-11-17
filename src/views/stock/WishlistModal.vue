@@ -19,8 +19,11 @@
                     <tbody>
                         <tr v-for="customer in wishlist" :key="customer">
                             <template v-for="column in tableColumns" :key="column.key">
-                                <td class="break-all w-fit">
+                                <td v-if="column.key == 'email'" class="break-all w-fit">
                                     {{ customer[column.key] ? customer[column.key] : 'None' }}
+                                </td>
+								<td v-else-if="column.key == 'name'" class="break-all w-fit">
+                                    {{ customer[column.key].name ? customer[column.key].name : 'None' }}
                                 </td>
                             </template>
                         </tr>
@@ -51,7 +54,6 @@ const wishlist = ref([])
 onMounted(() => {
     eventBus.on('showWishlistModal', (playload) => {
         showModal.value = true
-        console.log(playload)
         id.value = playload.id
 		Object.entries(playload.wishlist).forEach(([key,value]) => {
 			wishlist.value.push({email:key, name:value})

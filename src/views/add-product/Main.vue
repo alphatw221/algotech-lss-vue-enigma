@@ -164,6 +164,16 @@
 					v-model="product.sku"
 				/>
 			</div>
+			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.order_code') }}</label>
+				<input
+					id="crud-form-1"
+					type="text"
+					class="w-full form-control"
+					placeholder="Product SKU code"
+					v-model="product.order_code"
+				/>
+			</div>
 
 			<div class="col-span-12 col-start-1 mt-2">
 				<label class="text-base font-medium">{{ $t('stock.add_product_page.status') }}</label>

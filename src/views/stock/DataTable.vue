@@ -99,21 +99,21 @@
 							</div>
 						</td>
 
-						<td v-else-if="column.key === 'categories'" class="w-full sm:w-fit category" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'categories'" class="w-full sm:w-32 category" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div v-for="(productCategoryID,index) in product[column.key] " :key="index">
 								<div >{{ stockStore.productCategoryDict[productCategoryID]?.name }}</div> 
 							</div>
 						</td>
 
-						<td v-else-if="column.key === 'type'" class="w-full sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
+						<!-- <td v-else-if="column.key === 'type'" class="w-full sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="">{{product[column.key]}}</div> 
-						</td>
+						</td> -->
 
-						<td v-else-if="column.key === 'qty'" class="w-full sm:w-fit text-right" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'qty'" class="w-full sm:w-32 text-center" :data-content="$t(`stock.table_column.${column.key}`)">
 							{{product[column.key]}}
 						</td>
 
-						<td v-else-if="column.key === 'price'" class="w-full sm:w-20" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'price'" class="w-full sm:w-32" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="text-right">
 								<span class="text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span>
 								{{(Math.floor(parseFloat(product[column.key]) * (10 ** layoutStore.userInfo.user_subscription.decimal_places)) / 10 ** layoutStore.userInfo.user_subscription.decimal_places ).toLocaleString('en-GB')}}
@@ -123,7 +123,7 @@
 						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
 							<template v-if="product.meta.wish_list" > 
 								<div v-if="Object.keys(product.meta.wish_list).length >0" 
-									class="flex gap-2 cursor-pointer justify-center" @click="sentWishlistMail(product,product_index)"> 
+									class="flex gap-2 cursor-pointer justify-center" @click="openWishlistModal(product)"> 
 										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
 								<div v-else class="flex gap-2 cursor-not-allowed justify-center"> 
 									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
@@ -160,7 +160,7 @@
 							</div>
 						</td>
 
-						<td v-else class="sm:w-fit text-center" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else class="text-center" :data-content="$t(`stock.table_column.${column.key}`)">
 							{{product[column.key]}}
 						</td>
 
@@ -394,7 +394,7 @@ const selectStock = (product, event) => {
 }
 
 const openWishlistModal = (product) =>{
-	console.log(product)
+	console.log('xxx',product)
 	eventBus.emit('showWishlistModal', {'wishlist':product.meta.wish_list, 'id':product.id})
 }
 
