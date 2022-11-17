@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <template v-for="(cart, key, index) in manageOrderStore.cartsDict" :key="index">
+                <template v-for="(cart, index) in manageOrderStore.carts" :key="index">
                     <template v-for="(qty, campaign_product_id, index) in cart.products" :key="index">
                         <template v-if="searchKeyword(cart, campaignDetailStore.campaignProductDict[campaign_product_id])">
                             <tr class="text-center relative">
@@ -208,7 +208,8 @@ const campaignDetailStore = useCampaignDetailStore();
 const manageOrderStore = useManageOrderStore();
 const layoutStore = useLSSSellerLayoutStore()
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const baseURL = import.meta.env.VITE_APP_ROOT_API
+const baseURL = import.meta.env.VITE_APP_WEB
+
 const ready = ref(false)
 
 const columns = ref([
@@ -249,9 +250,9 @@ const search = () => {
     filterData.value['sort_by'] = sortBy.value
 
     seller_list_cart(route.params.campaign_id, searchString.value ,filterData.value,layoutStore.alert).then(res=>{
-        res.data.forEach(cart => {
-                manageOrderStore.cartsDict[cart.id]=cart
-            });
+        // res.data.forEach(cart => {
+        //         manageOrderStore.cartsDict[cart.id]=cart
+        //     });
             manageOrderStore.carts = res.data  //delete if no longer needed
             manageOrderStore.data_count.carts = res.data.count
     })
@@ -351,7 +352,12 @@ const initWebSocketConnection=()=>{
 const handleSocketMessage = message=>{
     if (message.type == 'cart_data'){
         const cart_data = message.data
-        manageOrderStore.cartsDict[cart_data.id]=cart_data
+
+
+        const cart_index = manageOrderStore.carts.findIndex(cart=>cart.id = cart_data.id)
+        manageOrderStore.carts[cart_index] = cart_data
+
+        // manageOrderStore.cartsDict[cart_data.id]=cart_data
     }
 }
 
