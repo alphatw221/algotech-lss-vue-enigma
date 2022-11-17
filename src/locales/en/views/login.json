@@ -3,6 +3,7 @@
     "login": "Login",
     "seller":"Seller ",
     "email": "Email",
+    "user_name":"Name",
     "password": "Password",
     "sign_in": "Sign In",
     "forgot_password": "forgot password ?",

@@ -1,0 +1,64 @@
+{
+    "name":"優惠名稱",
+    "code":"優惠代碼",
+    "description":"備註",
+    "period":"銷售時間",
+    "start_at":"開始時間",
+    "end_at":"結束時間",
+
+    "applied_count":"輸入次數",
+    "used_count":"使用次數",
+
+    "limitations":"使用條件",
+    "limitation_options":{
+        "specific_campaign":"指定銷售活動",
+        "specific_buyer_name":"指定顧客名稱",
+        "specific_buyer_email":"指定顧客email",
+        "subtotal_over_specific_amount":"訂單金額滿($)",
+        "product_over_specific_number":"訂單商品數量滿(件)",
+        "discount_code_usable_time":"可使用次數",
+        "new_buyer_only":"僅限新顧客",
+        "buyer_usage_times":"單一顧客可使用次數"
+    },
+
+    "limitation_fields":{
+        "specific_campaign":{
+            "campaign_id":"選擇銷售活動"
+        },
+        "specific_buyer_name":{
+            "names": "顧客名稱"
+        },
+        "specific_buyer_email":{
+            "emails": "顧客Email"
+        },
+        "subtotal_over_specific_amount":{
+            "amount": "訂單金額($)"
+        },
+        "product_over_specific_number":{
+            "number": "訂單商品數量(件)"
+        },
+        "discount_code_usable_time":{
+            "times": "可使用次數"
+        },
+        "new_buyer_only":{
+            
+        },
+        "buyer_usage_times":{
+            "times": "單一顧客可使用次數"
+        }
+    },
+
+
+    "type":"優惠種類",
+    "type_options":{
+        "general":"一般代碼",
+        "cart_referal":"優惠代碼"
+    },
+
+    "discount_type":"折抵方式",
+    "discount_type_options":{
+        "percent_off":"折扣(%)",
+        "deduct":"減價(-)"
+    }
+
+}

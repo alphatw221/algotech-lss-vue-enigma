@@ -1,49 +1,21 @@
 <template>
-    <div class="relative right-0 flex w-full my-1 sm:mt-1 sm:w-auto">
-        <div class="flex ml-auto sm:ml-1 mr-2"> 
-            <!-- <SearchIcon class="absolute inset-y-0 left-0 z-10 w-4 h-4 my-auto ml-3 text-slate-700 col-span-2" /> -->
-            <div class="relative"> 
+    <div class=" my-1 sm:mt-1 inline-block align-middle">
+        <div class=" ml-auto sm:ml-1 mr-2 inline-block align-middle"> 
+            <div class="relative inline-block"> 
                 <input type="text" class="form-control w-40 lg:w-60 rounded-lg h-[35px] sm:h-[42px] pr-10"
-                :placeholder="$t('manage_order.search_bar.search')" v-model="searchValue" @keydown.enter.prevent="search()"/>
+                :placeholder="$t('manage_order.search_bar.search_product')" v-model="searchValue" @keydown.enter.prevent="search()"/>
                 <SearchIcon class="absolute w-7 h-7 top-1 sm:top-2 right-2 z-10 text-slate-600" @click="search()"/>
             </div>
             <XIcon 
                 v-if="searchValue"
-                class="flex-none w-7 h-7 mt-2 text-slate-600 ml-2 " @click="reset"/>
+                class="inline-block w-7 h-7 mt-2 text-slate-600 ml-2 " @click="search('reset')"/>
         </div>
-        <div class="export hidden sm:block">
-            <button id="tabulator-html-filter-go" type="button" class="flex-none w-20 mr-3 h-[35px] sm:h-[42px] btn btn-primary"
-                @click="test()">
-            <SimpleIcon icon="filter" color="white"  width="16" class="mr-1" @click="test()"/>
-            {{$t('manage_order.search_bar.filter')}}
-            </button>
-            <!-- <FilterModal
-                :tableStatus="tableStatus"
-                :tableFilter="tableFilter"/> -->
-        </div>
-        <div class="sm:hidden w-10 ">
-            <SimpleIcon icon="filter" color="#414141"  width="24" height="24" class="mt-1" @click="test()"/>
-        </div>
-        
-        
     </div>
 </template>
 <script setup>
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
-// import  FilterModal  from "./FilterModal.vue";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
-import { get_campaign_order_report } from "@/api_v2/campaign"
-import { url } from "@vuelidate/validators";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
-
-
-
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-
-const layoutStore = useLSSSellerLayoutStore()
-
-
 
 const route = useRoute();
 const internalInstance = getCurrentInstance()
@@ -51,33 +23,8 @@ const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const searchValue = ref('')
 const store = useManageOrderStore()
 
-const props = defineProps({
-    tableStatus: String,
-    tableSearch: String,
-    tableFilter: String,
-});
-
-onMounted(()=>{
-    eventBus.on(props.tableFilter, (payload) => {
-        console.log(payload.filter_data)
-        search(payload.filter_data)
-	})
-})
-onUnmounted(()=>{
-    eventBus.off(props.tableFilter)
-})
-
-function search(filter_data={}){
-    // console.log(searchValue.value)
-    eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
+function search(type){
+    if(type== 'reset') searchValue.value = ''
+    eventBus.emit('keywordforCart',searchValue.value.toLowerCase())
 }
-function test(){
-    store.filterModal[props.tableStatus] = true
-}
-function reset(filter_data){
-    searchValue.value = ''
-    eventBus.emit(props.tableSearch,{'keyword':searchValue.value,'filter_data':filter_data})
-}
-
-
 </script>

@@ -254,12 +254,12 @@ onMounted(()=>{
 		}
         get_campaign_statistics(route.params.campaign_id, layoutStore.alert).then(
             res =>{
-                console.log(res.data)
                 campaignDetailStore.campaignStatisticsCampaignID = parseInt(route.params.campaign_id)
                 campaignDetailStore.campaignStatistics = res.data
                 ready.value = true
+                console.log(campaignDetailStore.campaignStatistics)
             }
         )
-    }
+    }else{ready.value = true}
 })
 </script>

@@ -137,14 +137,13 @@
   </svg>
 
   <svg 
-    v-else-if="icon == 'manage-order'"
-    width="18" height="16" viewBox="0 0 18 16" fill="none" xmlns="http://www.w3.org/2000/svg">
-    <path d="M1 15H17" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <path d="M1 15V1" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-    <rect x="4" y="5.66667" width="3" height="7.46667" rx="0.5" :fill="props.color"/>
-    <rect x="8" y="6.6" width="3" height="6.53333" rx="0.5" :fill="props.color"/>
-    <rect x="12" y="4.73333" width="3" height="8.4" rx="0.5" :fill="props.color"/>
-    <path d="M4 3.33333L8.71724 4.59412C9.04236 4.68102 9.38938 4.59855 9.64065 4.37469L12.0966 2.18667C12.2797 2.0235 12.5165 1.93333 12.7618 1.93333H15" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  v-else-if="icon == 'manage-order'"
+  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M6 3.78333C4.48122 3.78333 3.25 5.01454 3.25 6.53332V17.4667C3.25 18.9854 4.48122 20.2167 6 20.2167H15.7333C16.1475 20.2167 16.4833 19.8809 16.4833 19.4667V19.4009C16.2398 19.4441 15.9891 19.4667 15.7332 19.4667C14.836 19.4667 14.0035 19.1897 13.3164 18.7167H6C5.30964 18.7167 4.75 18.157 4.75 17.4667V6.53332C4.75 5.84297 5.30964 5.28333 6 5.28333H12.5296C12.9476 5.28333 13.3379 5.4922 13.5697 5.83995L14.7734 7.6455C14.9103 7.85084 14.9833 8.0921 14.9833 8.33888V10.999C15.2268 10.9558 15.4774 10.9333 15.7332 10.9333C15.9891 10.9333 16.2398 10.9559 16.4833 10.999V8.33888C16.4833 7.79596 16.3226 7.26519 16.0215 6.81345L14.8178 5.0079C14.3077 4.24285 13.4491 3.78333 12.5296 3.78333H6Z" :fill="props.color"/>
+  <circle cx="16.2667" cy="15.2667" r="4.26667" :stroke="props.color" stroke-width="1.5"/>
+  <path d="M7.19995 8.79999H12.5333" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M7.19995 12H9.33328" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M15 15.5L16 16.5L18 14" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
 
 </template>

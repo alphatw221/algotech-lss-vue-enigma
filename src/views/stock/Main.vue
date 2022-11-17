@@ -77,6 +77,7 @@
 	</div>
 
 	<BulkEditModal/>
+	<WishlistModal /> 
 </template>
 
 <script setup>
@@ -92,6 +93,7 @@ import OrdrStartrExportProductButton from '@/plugin/ordr-startr/views/ExportProd
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useSellerStockStore } from "@/stores/lss-seller-stock"
 import ShopifyExportProductButton from '@/plugin/shopify/views/ExportProductButton.vue'
+import WishlistModal from './WishlistModal.vue'
 import { import_product } from "@/api_v2/product.js"
 import FileUploadButton from "@/components/file-upload-button/Main.vue"
 

@@ -1,0 +1,64 @@
+{
+    "name":"Tên giảm giá",
+    "code":"Mã Giảm Giá",
+    "description":"Mô tả",
+    "period":"thời gian",
+    "start_at":"Thời gian bắt đầu",
+    "end_at":"Thời gian kết thúc",
+
+    "applied_count":"Số lượng đã áp dụng",
+    "used_count":"Số lượng đã sử dụng",
+
+    "limitations":"Giới hạn",
+    "limitation_options":{
+        "specific_campaign":"Chiến dịch cụ thể",
+        "specific_buyer_name":"Tên người mua cụ thể",
+        "specific_buyer_email":"Email người mua cụ thể",
+        "subtotal_over_specific_amount":"Theo số lượng đặt hàng",
+        "product_over_specific_number":"Theo số lượng đặt hàng",
+        "discount_code_usable_time":"Hạn chế sử dụng",
+        "new_buyer_only":"Chỉ người mua mới",
+        "buyer_usage_times":"Số lần sử dụng của người mua bị giới hạn"
+    },
+
+    "limitation_fields":{
+        "specific_campaign":{
+            "campaign_id":"Chiến dịch"
+        },
+        "specific_buyer_name":{
+            "names": "Tên người mua"
+        },
+        "specific_buyer_email":{
+            "email": "Email người mua"
+        },
+        "subtotal_over_specific_amount":{
+            "amount": "Tổng phụ của đơn hàng"
+        },
+        "product_over_specific_number":{
+            "number": "Số sản phẩm"
+        },
+        "discount_code_usable_time":{
+            "times": "Hạn chế sử dụng"
+        },
+        "new_buyer_only":{
+            
+        },
+        "buyer_usage_times":{
+            "times": "Hạn chế sử dụng của người mua"
+        }
+    },
+
+
+    "type":"Loại mã",
+    "type_options":{
+        "general":"Chung",
+        "cart_referal":"Giỏ hàng giới thiệu"
+    },
+
+    "discount_type":"Loại giảm giá",
+    "discount_type_options":{
+        "percent_off":"Theo Tỷ lệ phần trăm(%)",
+        "deduct":"Bằng khấu trừ(-)"
+    }
+
+}
