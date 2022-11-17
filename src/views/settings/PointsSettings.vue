@@ -25,6 +25,41 @@
                     <label class="w-fit whitespace-nowrap form-label text-base font-medium mr-3">{{$t('settings.points.'+ field.key)}}</label>
                 </div>
 
+                
+                <!-- COMPONENT -->
+                <div  v-else-if="field.key=='point_validity'" class="flex flex-col gap-2"> 
+                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3"> {{$t('settings.points.'+ field.key)}}</label>
+
+                    <form>
+                        <label class="radio-inline mx-2">
+                            <input class="mx-1" type="radio" name="pointValidity" value="disable" v-model="computedPointValidity">Disable
+                        </label>
+
+                        <label class="radio-inline mx-2">
+                            <input class="mx-1" type="radio" name="pointValidity" value="enable" v-model="computedPointValidity">
+                            <input  
+                                class="w-24 md:w-32 form-control flex-2"
+                                :type="field.input_type"
+                                v-model="props.meta_point[field.key]"
+                            />
+                            <span>Month(s)</span>
+                        </label>
+                        
+                    </form>
+
+                    
+                    <!-- <input type="radio" checked class="rounded-full " name="pointValidity" value="disable" v-model="computedPointValidity"/>
+                    <label >Disable</label>
+
+                    <input type="radio" checked class="rounded-full" name="pointValidity" value="enable" v-model="computedPointValidity"/>
+                    <input  
+                        class="w-24 md:w-32 form-control flex-2"
+                        :type="field.input_type"
+                        v-model="props.meta_point[field.key]"
+                    /> -->
+                   
+                </div>
+
 
                 <div class="flex flex-row md:flex-col w-full justify-between md:gap-1" v-else-if="field.type==='input'"> 
                     <label class="w-fit whitespace-nowrap form-label text-base font-medium my-auto"> {{$t('settings.points.'+ field.key)}}</label>
@@ -261,7 +296,7 @@ onBeforeMount(() => {
 onMounted(()=>{insertMetaData()}) //for create page
 watch(computed(()=>props.meta_point), () => { insertMetaData()}) //for edit page
 
-watch(computed(()=>props.meta_point?.reward_table), () => { updateDefaultPointRedemptionRate()}, {deep:true}) //for edit page
+
 
 const insertMetaData = ()=>{
     sellerPointsMeta.value.fields.forEach(field => {
@@ -270,10 +305,9 @@ const insertMetaData = ()=>{
 }
 
 const addPointTableTier = ()=>{
-    var _point_redemption_rate = 1
+    var _point_redemption_rate = props.meta_point.default_point_redemption_rate
     var _upper_bound = 0
     if(props.meta_point?.reward_table.length>0){
-        _point_redemption_rate = props.meta_point?.reward_table?.[(props.meta_point?.reward_table.length-1)].point_redemption_rate
         _upper_bound = props.meta_point?.reward_table?.[(props.meta_point?.reward_table.length-1)].upper_bound+1
     }
     const pointTier = {
@@ -287,11 +321,18 @@ const deletePointTableTier = index=>{
     props.meta_point.reward_table.splice(index,1)
 }
 
-const updateDefaultPointRedemptionRate = ()=>{
-    if( (props.meta_point?.reward_table?.length|0) <= 0)return
-
-    if( props.meta_point.default_point_redemption_rate < props.meta_point?.reward_table?.[(props.meta_point?.reward_table.length-1)].point_redemption_rate){
-        props.meta_point.default_point_redemption_rate = props.meta_point?.reward_table?.[(props.meta_point?.reward_table.length-1)].point_redemption_rate
+const computedPointValidity = computed({
+  get:()=>{
+    return props.meta_point?.point_validity == 0 ? 'disable' : 'enable'
+  },set:value=>{
+    if(value=='enable'){
+        console.log('enable')
+        props.meta_point.point_validity = 1
+    }else if (value=='disable'){
+        console.log('disable')
+        props.meta_point.point_validity = 0
     }
-}
+
+  }})
+
 </script>
