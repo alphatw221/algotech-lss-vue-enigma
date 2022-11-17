@@ -28,7 +28,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(order, index) in orders" :key="index" class="intro-x">
+                <tr v-for="(order, index) in orders" :key="index" class="relative">
                     <td v-for="column in computedColumns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
@@ -189,7 +189,7 @@
                         </template>
                         
                         <template v-else-if="column.key === 'delivery_status' && (!layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status)">
-                            <OrderDeliveryStatusSelect :order="order" />
+                            <OrderDeliveryStatusSelect :order="order" class="w-full"/>
                         </template>
 
                         <template v-else-if="column.key === 'category'"> </template>
@@ -204,7 +204,12 @@
 </div>
 
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-        <Page class="mx-auto my-3" :total="manageOrderStore.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
+        <Page class="mx-auto my-3" 
+            show-sizer :page-size-opts="[10,20,50,100]" 
+            :total="manageOrderStore.data_count[props.tableStatus]" 
+            :page-size="page_size" 
+            @on-change="changePage"
+            @on-page-size-change="changePageSize"/>
     </div>
 </template>
 <script setup>
@@ -338,7 +343,7 @@ const search = () => {
         res => {
 			orders.value = res.data.results
             manageOrderStore.data_count[props.tableStatus] = res.data.count;
-            console.log(orders.value)
+            // console.log(orders.value)
         }
     )
 }

@@ -2,33 +2,40 @@
     <!-- OUTTER BOX -->
         <!-- BEGIN: campaign Info -->
     <div class="flex flex-col lg:pt-5 mt-3 pb-1 h-fit sm:h-[95%]">
-        <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('manage_order.title')}}</h2>
+        <div class="flex flex-row gap-2 mt-3 mx-auto sm:mx-0 font-medium">
+            <button @click="show_table('manageOrder')" class="statusBtn"  :class="{ 'menu' : tableType === 'manageOrder'}" >
+                <h2 :data-content="$t('manage_order.title')" class="text-xl sm:text-2xl">{{$t('manage_order.title')}}</h2>
+            </button>
+            <button v-if="route.params.campaign_id" @click="show_table('incomingOrder')" class="statusBtn" :class="{ 'menu' : tableType === 'incomingOrder'}">
+                <h2 :data-content="$t('manage_order.incoming_order')" class="text-xl sm:text-2xl border-l-2 border-slate-400 pl-2">{{$t('manage_order.incoming_order')}}</h2>
+            </button>
+        </div> 
         <!-- BEGIN: campaign Status -->
         <CampaignStatus v-if="route.params.campaign_id"/>
         <!-- END: campaign Status -->
 
         <div class="w-full mt-8 flex flex-col">
-            <div class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
-                <button @click="show_order('all')" class="statusBtn"  :class="{ 'all' : tableType === 'all'}" >
-                    <p :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['all']}}</span>)</span>
+            <div v-show="tableType !=='incomingOrder'" class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
+                <button @click="show_order('all')" class="statusBtn"  :class="{ 'all' : orderType === 'all'}" >
+                    <p class="allp" :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['all']}}</span>)</span>
                 </button>
 
-                <button @click="show_order('proceed')" class="statusBtn" :class="{ 'all' : tableType === 'proceed'}">
-                    <p :data-content="$t('manage_order.review')">{{$t('manage_order.review')}}</p><span class=" mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['proceed']}}</span>)</span>
+                <button @click="show_order('proceed')" class="statusBtn" :class="{ 'all' : orderType === 'proceed'}">
+                    <p class="allp" :data-content="$t('manage_order.review')">{{$t('manage_order.review')}}</p><span class=" mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['proceed']}}</span>)</span>
                 </button>
 
-                <button @click="show_order('complete')" class="statusBtn" :class="{ 'all' : tableType === 'complete'}">
-                    <p :data-content="$t('manage_order.complete')">{{$t('manage_order.complete')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['complete']}}</span>)</span>
+                <button @click="show_order('complete')" class="statusBtn" :class="{ 'all' : orderType === 'complete'}">
+                    <p class="allp" :data-content="$t('manage_order.complete')">{{$t('manage_order.complete')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['complete']}}</span>)</span>
                 </button>
             </div>
 
             
             <!--分隔線-->
-            <div class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
+            <div v-show="tableType !=='incomingOrder'" class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
             <div class="flex flex-col sm:flex-row -mb-5">
-                <div class="relative right-0 flex-auto sm:mt-1">
+                <div class="flex flex-row relative right-0 flex-auto sm:mt-1">
                     <SearchBar 
-                        v-show="tableType == 'all'"
+                        v-show="orderType == 'all' && tableType !=='incomingOrder'"
                         :tableStatus="'all'"
                         :tableSearch="'searchAll'"
                         :tableFilter="'filterAll'"
@@ -36,7 +43,7 @@
                         />
 
                     <SearchBar 
-                        v-show="tableType == 'proceed'"
+                        v-show="orderType == 'proceed' && tableType !== 'incomingOrder'"
                         :tableStatus="'proceed'"
                         :tableSearch="'searchProceed'"
                         :tableFilter="'filterProceed'"
@@ -44,17 +51,15 @@
                         />
                     
                     <SearchBar 
-                        v-show="tableType == 'complete'"
+                        v-show="orderType == 'complete' && tableType !== 'incomingOrder'"
                         :tableStatus="'complete'"
                         :tableSearch="'searchComplete'"
                         :tableFilter="'filterComplete'"
                         :searchEventBusName="'searchComplete'"
                         />
-
-                        
-                        <ExportOrderButton :tableStatus="tableType"/>
+                    <CartSearchBar v-show="tableType === 'incomingOrder'" /> 
+                    <ExportOrderButton :tableStatus="orderType" v-show="tableType !== 'incomingOrder'"/>
                     </div>
-                    
                 </div>
                 
                 <ExportEasyStoreOrderButton/>
@@ -74,7 +79,7 @@
             </div>
 
 
-        <div v-show="tableType === 'all'" class="w-full overflow-hidden h-fit">
+        <div v-show="orderType === 'all' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">
             <ManageOrderTable
                 :tableStatus="'all'"
                 :tableSearch="'searchAll'"
@@ -84,7 +89,7 @@
             />
         </div>
         
-        <div v-show="tableType === 'proceed'" class="w-full overflow-hidden h-fit">
+        <div v-show="orderType === 'proceed' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">
             <ManageOrderTable
                 :tableStatus="'proceed'"
                 :tableSearch="'searchProceed'"
@@ -93,13 +98,18 @@
                 :filterEventBusName="'filterProceed'"
             />
         </div>
-        <div v-show="tableType === 'complete'" class="w-full overflow-hidden h-fit">
+        <div v-show="orderType === 'complete' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">
             <ManageOrderTable
                 :tableStatus="'complete'"
                 :tableSearch="'searchComplete'"
                 :tableFilter="'filterComplete'"
                 :searchEventBusName="'searchComplete'"
                 :filterEventBusName="'filterComplete'"
+            />
+        </div>
+        <div v-if="tableType === 'incomingOrder'" class="w-full overflow-hidden h-full">
+            <ManageCartTable
+                :tableSearch="'searchComplete'"
             />
         </div>
         
@@ -158,10 +168,17 @@ const layout = useLSSSellerLayoutStore()
 
 const deliveryStatus = ref(false);
 const checkout_status = ref(false)
-const tableType = ref('all')
+const orderType = ref('all')
+const tableType = ref('manageOrder')
+
+const show_table = status=>{
+    tableType.value=status
+//   console.log(tableType.value)
+}
+
 const show_order = status=>{
-  tableType.value=status
-  console.log(tableType.value)
+  orderType.value=status
+//   console.log(orderType.value)
 }
 
 onBeforeMount(()=>{
@@ -195,7 +212,9 @@ const stopCheckout = ()=>{
         background-color: #131C34;
         color: #fff;
     }
-    
+
+
+/* statusBtn*/
     .statusBtn {
     padding: 0;
     margin: 0;
@@ -220,9 +239,18 @@ const stopCheckout = ()=>{
     color: var(--primary-color)
     }
 
+    .statusBtn h2 {
+    margin: 0;
+    position: relative;
+    color: var(--primary-color)
+    }
+
     .all p{
     color: theme('colors.primary');
     font-weight: 800;
+    }
+    .menu h2{
+    color: theme('colors.primary');
     }
     .all{
         border-bottom: solid 2px #131C34;
@@ -240,7 +268,7 @@ const stopCheckout = ()=>{
     transition: 0.3s ease-out;
     }
 
-    .statusBtn .all::before{
+    .statusBtn .allp::before{
     position: absolute;
     /*   box-sizing: border-box; */
     content: attr(data-content);
@@ -254,6 +282,9 @@ const stopCheckout = ()=>{
     width: 100%;
     }
     .statusBtn:hover p::before {
+    width: 100%;
+    }
+    .statusBtn:hover h2::before {
     width: 100%;
     }
 </style>

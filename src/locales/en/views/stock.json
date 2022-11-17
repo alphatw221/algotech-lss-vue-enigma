@@ -4,6 +4,7 @@
     "for_sale": "For Sale",
     "delisted": "Delisted",
     "add_product": "Add Product",
+    "import_product": "Import Product",
     "dont_have_product_notify": "No stock yet.",
     "no_result":{
         "enabled":"There are currently no items available for sale.",
@@ -82,6 +83,7 @@
         "cancel": "Cancel",
         "save": "Save",
         "preview":"Preview",
+        "order_code":"Order Code",
 
         "not_save_message":"Update Canceled",
         "create_message":"Create Successfully",
@@ -89,9 +91,14 @@
         "invalid_data":"Invalid Submission"
     },
     "wishlist":{
+
+        "title":"Wishlist",
         "confirm_send":"Confirm to notify and E-mail everyone on the wishlist",
         "cancel_send":"Canceled",
-        "success_send":"E-mail Send Successfully."
+        "success_send":"E-mail Send Successfully.",
+        "name":"Customer",
+        "email":"E-mail",
+        "mail_to":"Mail all customer"
     },
     "bulk_edit_modal":{
         "bulk_edit":"Bulk Edit",

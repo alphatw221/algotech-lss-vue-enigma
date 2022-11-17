@@ -1,12 +1,17 @@
 {
         "title":"Manage Order",
+        "incoming_order":"Incoming Order",
         "campaign_status":{
                 "closed_rate" : "Closed Rate",
                 "sales" : "Sales",
-                "uncheckout" : "Uncheckout rate",
+                "potential_sales": "Potential Sales",
+                "total_sales": "Estimated Total Sales",
+                "uncheckout" : "Uncheckout Rate",
                 "comments" : "Comments",
                 "closed_rate_message":"Closed rate is %{status} compare to previous campaign",    
-                "sales_message":"Sales is %{status} compare to previous campaign",    
+                "sales_message":"Sales is %{status} compare to previous campaign",
+                "potential_sales_message":"Potential sales is %{status} compare to previous campaign",
+                "total_sales_message":"Total sales is %{status} compare to previous campaign",         
                 "uncheckout_message":"Uncheckout rate is %{status} compare to previous campaign",    
                 "comments_message":"Comments number is %{status} compare to previous campaign",
                 "decreased":"decreased",
@@ -14,6 +19,7 @@
         },
         "search_bar":{
                 "search":"Search order no./buyer",
+                "search_product":"Search no./buyer/name/code",
                 "filter":"Filter",
                 "export" : "Export"
         },
@@ -40,7 +46,13 @@
                 "null":"",
                 "guest": "Guest",
                 "payment_status":"Payment Status",
-                "delivery_status":"Delivery Status"
+                "delivery_status":"Delivery Status",
+                "updated_at":"Updated At",
+                "product_img":"",
+                "product_name":"Product Name",
+                "order_code":"Order Code",
+                "qty":"Qty",
+                "subtotal":"Subtotal"
         },
         "product_modal":{
                 "order_no":"Order No.",

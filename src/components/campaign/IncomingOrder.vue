@@ -97,7 +97,12 @@
                                     <td >
                                         <div class="flex flex-col h-fit mt-3">
                                             <img :src="campaignDetailStore.campaignProductDict[campaign_product_id]?.image" class="h-8 object-cover"/>
-                                            <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id]?.order_code}}</span> 
+                                            <template v-if="campaignDetailStore.campaignProductDict[campaign_product_id]?.type === 'lucky_draw'">
+                                                <td class="font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}*</td>
+                                            </template>
+                                            <template v-else> 
+                                                <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id].order_code}}</span> 
+                                            </template>
                                         </div>
                                     </td>
                                     <td>{{qty}}</td>
@@ -172,7 +177,6 @@ import { seller_list_cart, get_cart_oid } from '@/api_v2/cart'
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import { onMounted, onUnmounted, ref, getCurrentInstance, computed, watch } from "vue";
-import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 
@@ -212,11 +216,12 @@ const incoming_order_columns= [
 
 onMounted(()=>{
     campaignDetailStore.incomingOrdersDict = {}
-    seller_list_cart(route.params.campaign_id).then(res => {
+    seller_list_cart(route.params.campaign_id, '', null).then(res => {
         res.data.forEach(cart => {
             campaignDetailStore.incomingOrdersDict[cart.id]=cart
         });
         campaignDetailStore.incomingOrders = res.data  //delete if no longer needed
+        console.log(campaignDetailStore.campaignProductDict)
     })
 })
 
@@ -250,14 +255,6 @@ const copyCartLink = (cart) => {
             
     })
 }
-// const routeTOLuckyDraw = ()=>{
-//     router.push({ name: 'lucky-draw', query: { behavior: 'drawInstantly' }, params: { campaign_id: route.params.campaign_id} })
-//     hideDropDown()
-// }
-// const toDrawList = ()=>{
-//     router.push({ name: 'lucky-draw', params: { campaign_id: route.params.campaign_id} })
-//     hideDropDown()
-// }
 
 </script>
 

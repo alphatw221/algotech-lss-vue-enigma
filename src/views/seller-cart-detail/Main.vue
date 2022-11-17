@@ -12,18 +12,16 @@
             <span class="text-base mr-5"> {{ sellerCartStore.cart.customer_name }} {{sellerCartStore.cart.platform ? `/ `+ $t('order_detail.'+ sellerCartStore.cart.platform) : ''}}</span>
         </div>
         
-        <div class="flex flex-row sm:w-[50%]">
+        <div class="flex flex-col sm:flex-row flex-between sm:w-[50%]">
             <div class="my-auto">
                 <span class="text-base"> {{$t('order_detail.order_date')}} : {{new Date(sellerCartStore.cart.created_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}} </span>
             </div>
-            <div class="ml-auto" >
-                <button
-                    class="btn w-32 border-slate-300 dark:border-darkmode-400"
-                    @click="sellerCartStore.showAddItemModal = ! sellerCartStore.showAddItemModal"
-                >
-                    + {{$t('shopping_cart.order_summary.add_item')}}
-                </button>
-            </div>
+            <button
+                class="ml-auto mr-2 sm:mr-4 btn w-fit btn-outline-primary dark:border-darkmode-400"
+                @click="sellerCartStore.showAddItemModal = ! sellerCartStore.showAddItemModal"
+            >
+                + {{$t('shopping_cart.order_summary.add_item')}}
+            </button>
         </div>
     </div>
     <div class="flex flex-col sm:flex-row justify-between gap-3 h-fit sm:max-h-[50vh]"> 
@@ -75,7 +73,7 @@ onMounted(()=>{
     seller_retrieve_cart(route.params.cart_id, layoutStore.alert)
     .then(
         res => { sellerCartStore.cart = res.data
-            console.log(res.data)
+            console.log('seller retrive',res.data)
                 //  console.log(sellerCartStore.cart) 
                 //  show_adjust_price() 
         }
