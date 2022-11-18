@@ -220,6 +220,8 @@
 					<!-- pickup date  -->
 					<div class="flex flex-col flex-wrap  flex-grow-2">
 						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}</label>
+						<label class="text-base text-lg font-medium whitespace-nowrap">{{new Date(props.campaign.meta_logistic.pickup_options[index].start_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}}
+							~{{new Date(props.campaign.meta_logistic.pickup_options[index].end_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}}</label>
                         <v-date-picker class="z-49" 
 							v-model="pickupdatePicker[index]"
 							:timezone="timezone" 
@@ -291,6 +293,7 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 import { required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import { end } from '@popperjs/core';
 
 
 const additional_delivery_option = { title: null, type: null, price: null }
@@ -321,7 +324,7 @@ const deleteDelivery = index=>{
 
 const addBranch = ()=>{
     props.campaign.meta_logistic.pickup_options.unshift(Object.assign({},branch_option))
-	pickupdatePicker.value.push({start:new Date(),end:new Date()})
+	pickupdatePicker.value.unshift({start:null,end:null})
 }
 const deleteBranch = index=>{
     props.campaign.meta_logistic.pickup_options.splice(index,1)
@@ -340,7 +343,7 @@ watch(computed(()=>deliverydatePicker.value),()=>{
 },{deep:true})
 
 watch(computed(()=>pickupdatePicker.value),()=>{
-	console.log(pickupdatePicker.value)
+	// console.log(pickupdatePicker.value)
 	if (get_props.value==true){
 		for (let index = 0; index<props.campaign.meta_logistic.pickup_options.length;index++){
 			props.campaign.meta_logistic.pickup_options[index].start_at = pickupdatePicker.value[index].start
@@ -353,8 +356,10 @@ watch(computed(()=>pickupdatePicker.value),()=>{
 
 const update_pickupdatePicker = ()=>{
     for (let option = 0; option<props.campaign.meta_logistic.pickup_options.length;option++){
-		pickupdatePicker.value.push({start:props.campaign.meta_logistic.pickup_options[option].start_at,end:props.campaign.meta_logistic.pickup_options[option].end_at})
+			pickupdatePicker.value.push({start:props.campaign.meta_logistic.pickup_options[option].start_at?props.campaign.meta_logistic.pickup_options[option].start_at:null,
+				end:props.campaign.meta_logistic.pickup_options[option].end_at?props.campaign.meta_logistic.pickup_options[option].end_at:null})
 	}
+	console.log(pickupdatePicker.value)
 	get_props.value = true
 }
 </script>

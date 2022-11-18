@@ -190,6 +190,24 @@
                       </div>
 
                     </div>
+                    <div class="flex flex-col flex-wrap  flex-grow-2" v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at">
+                      <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
+                      <v-date-picker class="z-49" 
+                        v-model="shipping_info.shipping_date"
+                        :timezone="timezone" 
+                        :columns="$screens({ default: 1})" 
+                        mode="datetime" is-required is24hr
+                        :min-date='shoppingCartStore.cart.campaign.meta_logistic.delivery_date.start_at'
+                        :max-date='shoppingCartStore.cart.campaign.meta_logistic.delivery_date.end_at'
+                        >
+                        <template v-slot="{ inputValue, inputEvents }">
+                          <div class="flex items-center justify-center">
+                            <input :value="inputValue" v-on="inputEvents" @click="shipping_info.shipping_date = null"
+                              class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+                          </div>
+                        </template>
+                      </v-date-picker>
+                    </div>
                   </div>
                 </div>
                 <!-- END Delivery Option -->
@@ -210,13 +228,32 @@
 
                       <input class="form-check-input" type="radio"
                         :name="'pickup-switch-' + index" :value="index"
-                        v-model="shipping_option_index_computed" />
+                        v-model="shipping_option_index_computed" 
+                        @click="pickup_date_range(index)"/>
                       <label class="mr-auto form-check-label" :for="'pickup-switch-' + index">{{ option.name }}</label>
 
 
                       <label class="form-check-label" :for="'pickup-switch-' + index">{{
                           option.address
                       }}</label>
+                    </div>
+                    <div class="flex flex-col flex-wrap  flex-grow-2" v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[pickup_select_index]?.start_at">
+                      <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
+                      <v-date-picker class="z-49" 
+                        v-model="shipping_info.shipping_date"
+                        :timezone="timezone" 
+                        :columns="$screens({ default: 1})" 
+                        mode="datetime" is-required is24hr
+                        :min-date='date_range.start'
+                        :max-date='date_range.end'
+                        >
+                        <template v-slot="{ inputValue, inputEvents }">
+                          <div class="flex items-center justify-center">
+                            <input :value="inputValue" v-on="inputEvents" 
+                              class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+                          </div>
+                        </template>
+                      </v-date-picker>
                     </div>
                   </div>
                 </div>
@@ -307,6 +344,12 @@ const layoutStore = useLSSBuyerLayoutStore();
 const sandboxMode = ref("test")
 const show = ref(false)
 const checkoutLoading = ref(false)
+const pickupdatePicker = ref(null)
+const date_range = ref({
+  start:new Date(),
+  end:new Date()
+})
+const pickup_select_index = ref(0)
 const shipping_info= ref({
 			shipping_option:"",
       shipping_option_index:null,
@@ -362,6 +405,13 @@ const shipping_method_computed = computed({
   }})
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
+
+const pickup_date_range = (index) =>{
+  date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
+  date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
+  pickup_select_index.value = index
+  console.log(shoppingCartStore.cart.campaign.meta_logistic)
+}
 
 onMounted(()=>{
   if(!isAnonymousUser){
