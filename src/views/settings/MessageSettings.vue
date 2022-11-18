@@ -55,7 +55,7 @@ const props = defineProps({
 const layoutStore = useLSSSellerLayoutStore();
 const replyMetaStore = useLSSReplyMetaStore();
 const sellerReplyMeta = ref({fields:[]})
-const field = ref({})
+const key = ref([])
 
 onBeforeMount(() => {
     sellerReplyMeta.value = replyMetaStore['default']
@@ -82,17 +82,16 @@ const insertReplyData = ()=>{
 
 const computedEnable = computed({
   get:()=>{
-    return field.value
-  },set:value=>{
-    console.log(field.value)
+    // return key.value
+  },set:(value,c)=>{
+
     console.log(value)
-    if(value){
-        console.log('enable')
-        // props.meta_reply[field.value].enable = 1
-    }else if (value==false){
-        console.log('disable')
-        // props.meta_reply[field.value].enable = 0
+    console.log(c)
+    // if(value) return true
+    // else if(!value){
+
     }
-}})
+    // console.log(sellerReplyMeta.value[value])
+    })
 
 </script>
