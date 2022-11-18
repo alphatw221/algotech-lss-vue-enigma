@@ -49,7 +49,7 @@
       </div>
 
       <!-- PROMO CODE INPUT -->
-      <div class="flex flex-row flex-wrap justify-between mt-2" >
+      <div class="flex flex-row flex-wrap justify-between mt-2" v-if="route.query?.tab==2">
         <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
           <div class="input-group"> 
             <input
