@@ -19,35 +19,41 @@
 			<div class="intro-y grid grid-cols-12 gap-3 sm:gap-6 mt-5" >
 				<template v-for="(product, index) in addOnProducts" :key="index"> 
 					<div 
-						class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3 " 
+						class="intro-y col-span-6 sm:col-span-4 md:col-span-3 2xl:col-span-3" 
 						v-if="product.product != null || (product.qty_for_sale - product.qty_sold> 0) || product.oversell == true" 
 					>
 						<div
-							class="file box rounded-md pt-3 pb-5 px-3 sm:px-5 flex flex-wrap flex-col relative zoom-in items-center justify-center" >
+							class="file h-full flex flex-col box rounded-md pt-3 pb-5 px-3 sm:px-5 flex-wrap relative zoom-in items-center justify-center" >
 
-							<template v-if="product.description !== ''"> 
+							<template v-if="product.description == ''"> 
 								<EyeIcon class="bg-primary opacity-30 rounded-full text-white w-7 h-7 font-bold absolute top-2 right-2 p-1 z-50 hover:opacity-80" @click="openDescription(product)" />
 							</template>
-
-							<a class="w-4/5 file__icon file__icon--image">
-								<div class="file__icon--image__preview image-fit" v-if="product.image">
-									<img :src="product.image"
-									/>
+								<a class="w-4/5 file__icon file__icon--image absolute">
+									<div class="file__icon--image__preview image-fit" v-if="product.image">
+										<img :src="product.image"
+										/>
+									</div>
+									<div class="file__icon--image__preview image-fit" v-else>
+										<img :src="staticDir + `no_image.jpeg`"
+										/>
+									</div>
+									<!-- <div class="absolute z-50 bottom-0 bg-primary left-[50%] -translate-x-1/2 border-[1.5px] rounded-b-[5px] border-primary text-center tracking-wide font-medium w-full text-white">	
+									{{product.order_code}}
+								</div> -->
+								</a>
+								<div class="block font-medium mt-2 text-center whitespace-normal break-normal w-full truncate">	
+									{{ product.name }}   
 								</div>
-								<div class="file__icon--image__preview image-fit" v-else>
-									<img :src="staticDir + `no_image.jpeg`"
-									/>
+								<div class="border-[1.5px] rounded-[5px] mx-auto h-fit border-orange-400 text-center font-medium w-fit px-3 text-orange-600 mt-[2px] mb-[3px]">	
+									{{product.order_code}}
 								</div>
-							</a>
-							<div class="block font-medium text-center whitespace-normal break-normal w-full truncate">	
-								{{ product.name }}
-							</div>
-							<div class="text-slate-500 text-sm text-center">
-								{{shoppingCartStore.cart.campaign.currency}} 
-								{{(Math.floor(parseFloat(product.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-								{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
-							</div>
-							<div v-if="product.qty_for_sale - product.qty_sold - product.qty_pending_payment  > 0 || product.oversell == true" class="flex"> 
+								
+								<div class="text-slate-500 text-sm text-center">
+									{{shoppingCartStore.cart.campaign.currency}} 
+									{{(Math.floor(parseFloat(product.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+									{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
+								</div>
+							<div v-if="product.qty_for_sale - product.qty_sold - product.qty_pending_payment  > 0 || product.oversell == true" class="flex mb-2"> 
 								<button type="button" @click="changeQuantity(null, index, 'minus')">
 									<MinusSquareIcon class="w-5 h-5 mt-2 mr-2" />
 								</button>
@@ -63,22 +69,22 @@
 									<PlusSquareIcon class="w-5 h-5 mt-2 ml-2" />
 								</button>
 							</div>
-							<div v-if="product.qty_for_sale - product.qty_sold - product.qty_pending_payment  > 0 || product.oversell == true">
+							<template v-if="product.qty_for_sale - product.qty_sold - product.qty_pending_payment  > 0 || product.oversell == true">
 								<button 
-									class="btn btn-sm btn-primary w-24 mt-3"
+									class="btn btn-sm btn-primary w-24 mt-auto"
 									@click="buyerAddItem(product, index)"
 								>
 									{{$t('shopping_cart.add_item.add')}}
 								</button>
-							</div>
-							<div v-else> 
+							</template>
+							<template v-else> 
 								<button 
-									class="btn btn-sm bg-green-700 w-24 mt-3 text-white"
+									class="btn btn-sm bg-green-700 w-24 mt-auto text-white"
 									@click="add_to_wishlist(product)"
 								>
 									{{$t('shopping_cart.add_item.wishlist')}}
 								</button>
-							</div>
+							</template>
 						</div>
 					</div>
 				</template>

@@ -66,3 +66,7 @@ export const seller_list_cart = (campaign_id, search, data, toastify=null) => {
 export const seller_search_cart = (campaign_id, search_value, page, page_size, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/cart/seller/search/?campaign_id=${campaign_id}&search=${search_value}&page=${page}&page_size=${page_size}`)
 }
+
+export const seller_clear_cart = (cart_id, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/cart/${cart_id}/seller/clear/`)
+}
