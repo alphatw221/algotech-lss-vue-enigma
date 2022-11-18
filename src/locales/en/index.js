@@ -35,6 +35,7 @@ import product_category from './models/product_category.json'
 import product from './models/product.json'
 import cart from './models/cart.json'
 import discount_code from './models/discount_code.json'
+import buyers from './views/buyers.json'
 
 export default {
 
@@ -77,5 +78,6 @@ export default {
     product,
     product_category,
     cart,
-    discount_code
+    discount_code,
+    buyers
 }

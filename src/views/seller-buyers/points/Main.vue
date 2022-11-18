@@ -12,7 +12,7 @@
 
             <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
                 <div class="flex flex-col sm:flex-row gap-2"> 
-                  <span class="text-[32px] text-danger font-bold">{{buyerLayoutStore.userInfo.wallets[walletIndex].points}}</span>
+                  <span class="text-[32px] text-danger font-bold">{{sellerLayoutStore.buyer.wallets[walletIndex].points}}</span>
                   Points 
                 </div>
                 <!-- <p> Expiry Date : 31 Sep 2022 </p> -->
@@ -25,14 +25,14 @@
             <p class="all" :data-content="$t('order_points.statusButton.all')">{{$t('order_points.statusButton.all')}}</p>
           </button>
 
-          <template v-for="(wallet, wallet_index) in buyerLayoutStore.userInfo.wallets" :key="wallet_index"> 
+          <template v-for="(wallet, wallet_index) in sellerLayoutStore.buyer.wallets" :key="wallet_index"> 
             <button @click="changeWallet(wallet, wallet_index)" class="statusBtn" :contant="walletUserSubscriptionId" :class="{'wallet': wallet_index == walletIndex }">
               <p class="wallet" :data-content="wallet.user_subscription.name">{{wallet.user_subscription.name}}</p></button>
           </template>
         </div>
 
         <div class="box border-2 border-slate-200 w-full">
-            <PointsTable />
+            <PointsTable :userSubscriptionId="walletUserSubscriptionId" />
         </div>
     </div>
     <DescriptionModal />
@@ -41,26 +41,22 @@
 <script setup>
 import { computed, onMounted, provide, ref, watch, getCurrentInstance } from "vue";
 import PointsTable from "./PointsTable.vue"; 
-import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import { useCookies } from "vue3-cookies";
 import DescriptionModal from "./DescriptionModal.vue";
 const { cookies } = useCookies()
-const buyerLayoutStore = useLSSBuyerLayoutStore();
-const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
+const sellerLayoutStore = useLSSSellerLayoutStore();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 
 const walletUserSubscriptionId = ref(null)
 const walletIndex = ref(null)
 
-onMounted(()=>{
-  i18n.locale = buyerLayoutStore.userInfo.lang
-  console.log(buyerLayoutStore.userInfo)
-})
+onMounted(()=>{})
 
 const computedNameFirstLetter = computed(()=>{
-  var _words = (buyerLayoutStore.userInfo?.name||'').split(' ')
+  var _words = (sellerLayoutStore.buyer?.name||'').split(' ')
   if (_words.length<=1) return _words.split('')[0]
   return _words[_words.length-1].split('')[0]
 })

@@ -1,0 +1,8 @@
+{
+    "table_column": {
+        "customer_name": "Customer Name",
+        "type": "Type",
+        "order_history": "Order History",
+        "points": "Points"
+    }
+}
