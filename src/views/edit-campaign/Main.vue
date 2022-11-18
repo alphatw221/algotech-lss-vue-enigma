@@ -280,6 +280,7 @@ onMounted(() => {
 		dateTimePicker.value.end=res.data.end_at
 
 		campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
+		campaignData.value.meta_logistic.delivery_date = campaignData.value.meta_logistic.delivery_date?campaignData.value.meta_logistic.delivery_date:{start_at:null,end_at:null}
 		if(sellerStore.userInfo.user_subscription.country)campaignData.value.country = sellerStore.userInfo.user_subscription.country
 
 		//if support payment is in meta_payment -> do nothing

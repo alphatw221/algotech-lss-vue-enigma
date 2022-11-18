@@ -193,7 +193,7 @@
                     <div class="flex flex-col flex-wrap  flex-grow-2" v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at">
                       <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
                       <v-date-picker class="z-49" 
-                        v-model="shipping_info.shipping_date"
+                        v-model="shipping_info.shipping_date_time"
                         :timezone="timezone" 
                         :columns="$screens({ default: 1})" 
                         mode="datetime" is-required is24hr
@@ -202,7 +202,7 @@
                         >
                         <template v-slot="{ inputValue, inputEvents }">
                           <div class="flex items-center justify-center">
-                            <input :value="inputValue" v-on="inputEvents" @click="shipping_info.shipping_date = null"
+                            <input :value="inputValue" v-on="inputEvents" @click="shipping_info.shipping_date_time = null"
                               class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
                           </div>
                         </template>
@@ -240,7 +240,7 @@
                     <div class="flex flex-col flex-wrap  flex-grow-2" v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[pickup_select_index]?.start_at">
                       <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
                       <v-date-picker class="z-49" 
-                        v-model="shipping_info.shipping_date"
+                        v-model="shipping_info.shipping_date_time"
                         :timezone="timezone" 
                         :columns="$screens({ default: 1})" 
                         mode="datetime" is-required is24hr
@@ -349,7 +349,7 @@ const date_range = ref({
   start:new Date(),
   end:new Date()
 })
-const pickup_select_index = ref(0)
+const pickup_select_index = ref(null)
 const shipping_info= ref({
 			shipping_option:"",
       shipping_option_index:null,
@@ -369,6 +369,7 @@ const shipping_info= ref({
       shipping_details: "",
       shipping_remark: "",
       shipping_date: null,
+      shipping_date_time:new Date(),
       shipping_time: null,
       pickup_address:"",
 

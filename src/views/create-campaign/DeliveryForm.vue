@@ -332,7 +332,7 @@ const deleteBranch = index=>{
 }
 
 watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
-	if (get_props.value==false){
+	if (pickupdatePicker.value.length === 0){
 		update_pickupdatePicker()
 	}
 },{deep:true})
