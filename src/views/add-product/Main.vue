@@ -105,23 +105,6 @@
 				</div>
 			</div> -->
 
-			<!-- <div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
-				<label for="crud-form-1" class="form-label text-base font-medium">Order Code</label>
-				<input
-					id="crud-form-1"
-					type="text"
-					class="w-full form-control"
-					placeholder=""
-					v-model="validate.order_code.$model"
-					:disabled="product.type === 'lucky_draw'"
-				/>
-				<template v-if="validate.order_code.$error">
-					<label class="text-danger ml-2 text-[13px]" >
-					Enter order code with no more than 10 digits
-					</label>
-				</template>
-			</div> -->
-
 			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
 				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.quantity') }}</label>
 				<input
@@ -170,9 +153,16 @@
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Product SKU code"
-					v-model="product.order_code"
+					placeholder="Product Order code"
+					v-model="validate.order_code.$model"
+					:disabled="product.type === 'lucky_draw'"
+					:class="{ 'border-danger text-danger border-2': validate.order_code.$error }" 
 				/>
+				<template v-if="validate.order_code.$error">
+					<label class="text-danger ml-2 text-[13px]" >
+						{{ $t('stock.add_product_page.order_code_warning') }}
+					</label>
+				</template>
 			</div>
 
 			<div class="col-span-12 col-start-1 mt-2">
@@ -279,7 +269,7 @@ const notContains = (param) => (value) => !value.includes(param)
 const rules = computed(()=>{
     return{
 		name:{required,maxLength: maxLength(100)},
-		// order_code: {required, maxLength:maxLength(10)},
+		order_code: {required, maxLength:maxLength(10)},
 		description: {notContains:notContains('<head>')},
 		qty: {integer, minValue:minValue(1)},
 		price: {decimal, minValue:minValue(0)},  
