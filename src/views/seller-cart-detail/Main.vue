@@ -1,12 +1,14 @@
 <template>
     <div class="my-5 text-base text-xl sm:text-2xl text-center"> {{$t('order_detail.order')}} </div>
     <div class="w-[100%] mx-2 flex-col flex gap-1">
-        <div class="my-auto">
+        <div class="my-auto flex flex-row items-center">
             <h2 class="text-xl font-semibold"> #{{sellerCartStore.cart.id}} 
                 <span class="h-8 ml-3 cursor-auto btn btn-rounded-pending text-base" >
                     {{$t('cart.cart')}}
                 </span> 
             </h2>
+
+            <button class="btn btn-danger ml-auto mr-5" @click="deleteCart()">{{$t('cart.delete_cart')}}</button>
         </div>
         <div v-if="sellerCartStore.cart.customer_name" class="my-auto">
             <span class="text-base mr-5"> {{ sellerCartStore.cart.customer_name }} {{sellerCartStore.cart.platform ? `/ `+ $t('order_detail.'+ sellerCartStore.cart.platform) : ''}}</span>
@@ -50,7 +52,7 @@ import CartSummary from "./CartSummary.vue";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";
 // import { seller_list_campaign_product } from "@/api_v2/campaign_product";
 
-import { seller_retrieve_cart } from "@/api_v2/cart"
+import { seller_retrieve_cart, seller_clear_cart } from "@/api_v2/cart"
 
 import { useSellerCartStore } from "@/stores/lss-seller-cart";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -58,6 +60,7 @@ import { useRoute, useRouter } from "vue-router";
 
 
 const route = useRoute()
+const router = useRouter()
 const sellerCartStore = useSellerCartStore()
 
 // import { useSellerCartStore } from "@/stores/lss-seller-cart";
@@ -79,6 +82,14 @@ onMounted(()=>{
         }
     )
 })
+
+const deleteCart = ()=>{
+    seller_clear_cart(route.params.cart_id, layoutStore.alert).then(
+        res=>{
+            sellerCartStore.cart = res.data
+        }
+    )
+}
 
 
 
