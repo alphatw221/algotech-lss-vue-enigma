@@ -219,45 +219,44 @@
 
             <!-- BEGIN Pickup Panel -->
             <TabPanel class="leading-relaxed">
-              <div class="grid grid-cols-12">
-                <label class="col-span-12 font-medium text-md">{{$t('shopping_cart.delivery_tab.option.pickup')}}</label>
-                <div class="col-span-12 gap-5 intro-y lg:mx-20 2xl:mx-20">
-                  <div v-if="shoppingCartStore.cart.campaign">
-                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
-                      v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index">
+              <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.option.pickup')}}</label>
+              <template v-if="shoppingCartStore.cart.campaign">
+                <div class="flex flex-col gap-2 intro-y lg:mx-20 z-0">
+                  <div class="flex flex-row px-10 py-6 border-2 rounded-lg form-check"
+                    v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index">
 
+                    <div class="flex flex-row z-0">
                       <input class="form-check-input" type="radio"
-                        :name="'pickup-switch-' + index" :value="index"
-                        v-model="shipping_option_index_computed" 
-                        @click="pickup_date_range(index)"/>
-                      <label class="mr-auto form-check-label" :for="'pickup-switch-' + index">{{ option.name }}</label>
-
-
-                      <label class="form-check-label" :for="'pickup-switch-' + index">{{
-                          option.address
-                      }}</label>
-                    </div>
-                    <div class="flex flex-col flex-wrap  flex-grow-2" v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[pickup_select_index]?.start_at">
-                      <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
-                      <v-date-picker class="z-49" 
-                        v-model="shipping_info.shipping_date_time"
-                        :timezone="timezone" 
-                        :columns="$screens({ default: 1})" 
-                        mode="datetime" is-required is24hr
-                        :min-date='date_range.start'
-                        :max-date='date_range.end'
-                        >
-                        <template v-slot="{ inputValue, inputEvents }">
-                          <div class="flex items-center justify-center">
-                            <input :value="inputValue" v-on="inputEvents" 
-                              class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-                          </div>
-                        </template>
-                      </v-date-picker>
-                    </div>
+                      :name="'pickup-switch-' + index" :value="index"
+                      v-model="shipping_option_index_computed" 
+                      @click="pickup_date_range(index)"/>
+                      <label class="form-check-label" :for="'pickup-switch-' + index">{{ option.name }} </label>
+                    </div>  
+                    <label class="form-check-label" :for="'pickup-switch-' + index">{{
+                        option.address
+                    }}</label>
                   </div>
                 </div>
-              </div>
+                <label class="font-medium text-md whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
+                  <!-- pickup time-->
+                <div class="flex flex-col flex-wrap lg:mx-20 z-20" v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[pickup_select_index]?.start_at">
+                  <v-date-picker class="" 
+                    v-model="shipping_info.shipping_date_time"
+                    :timezone="timezone" 
+                    :columns="$screens({ default: 1})" 
+                    mode="datetime" is-required is24hr
+                    :min-date='date_range.start'
+                    :max-date='date_range.end'
+                    >
+                    <template v-slot="{ inputValue, inputEvents }">
+                      <div class="flex items-center justify-center">
+                        <input :value="inputValue" v-on="inputEvents" 
+                          class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+                      </div>
+                    </template>
+                  </v-date-picker>
+                </div>
+              </template>
             </TabPanel>
             <!-- END Pickup Panel -->
           </TabPanels>
