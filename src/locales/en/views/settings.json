@@ -212,6 +212,7 @@
         "add":"Add"
     },
     "messages":{
+        "title":"Custom Message Settings",
         "added":"Successfully Added Product",
         "updated":"Status Updated",
         "deleted":"Product Deleted from Shopping Cart",

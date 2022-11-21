@@ -16,14 +16,14 @@
             <template v-for="field in sellerPointsMeta.fields" :key="field.key">
 
                 <template v-if="field.type==='input' && field.input_type==='checkbox'"> 
-                <div>
-                    <input 
-                        class="form-control form-check-input w-[1.5rem] h-[1.5rem] mr-2" 
-                        :type="field.input_type" 
-                        v-model="props.meta_point[field.key]"
-                    />
-                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mr-3">{{$t('settings.points.'+ field.key)}}</label>
-                </div>
+                    <div>
+                        <input 
+                            class="form-control form-check-input w-[1.5rem] h-[1.5rem] mr-2" 
+                            :type="field.input_type" 
+                            v-model="props.meta_point[field.key]"
+                        />
+                        <label class="w-fit whitespace-nowrap form-label text-base font-medium mr-3">{{$t('settings.points.'+ field.key)}}</label>
+                    </div>
                 </template>
                 <!-- COMPONENT -->
                 <template v-else-if="field.key=='point_validity'"> 

@@ -1,12 +1,28 @@
 <template>
-    <div class="flex flex-col md:flex-row justify-between gap-5 my-5"> 
-        <label class="w-72 text-xl"> Custom Message Settings</label>
+    <div class="flex flex-col justify-between gap-5 my-5"
+        :class="{'md:flex-row': props.status == 'settings'}"> 
+
+        <label v-if="props.status == 'settings'" class="whitespace-nowrap w-72 text-xl">{{$t('settings.messages.title')}}</label>
+
+        <div v-else-if="props.status !== 'settings'"
+            class="flex flex-col gap-4"> 
+            <span class="text-xl font-medium leading-none lg:-mx-6 whitespace-nowrap w-60">{{$t('settings.messages.title')}}</span>
+		    <hr class="-mx-6" />
+        </div>
+
         <AccordionGroup class="accordion-boxed w-full">
             <template v-for="field in sellerReplyMeta.fields" :key="field.key">
                 <AccordionItem v-if="field.type==='textarea'">
                     <Accordion>
                         <div class="flex flex-col">
                             <div class="flex flex-row gap-2 justify-start">
+                                <div v-if="props.status !== 'settings'">
+                                    <input 
+                                        class="form-control form-check-input w-[1.5rem] h-[1.5rem] mr-2" 
+                                        type="checkbox" 
+                                    />
+                                    <label class="w-fit whitespace-nowrap form-label text-base font-medium mr-3">{{$t('settings.messages.enable')}}</label>
+                                </div>
                                 <div class="ml-auto">
                                     <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
                                 </div>
@@ -32,10 +48,18 @@
                             <Accordion>
                                 <div class="flex flex-col">
                                     <div class="flex flex-row gap-2 justify-start">
+                                        <div v-if="props.status !== 'settings'">
+                                            <input 
+                                                class="form-control form-check-input w-[1.5rem] h-[1.5rem] mr-2" 
+                                                type="checkbox" 
+                                            />
+                                            <label class="w-fit whitespace-nowrap form-label text-base font-medium mr-3">{{$t('settings.messages.enable')}}</label>
+                                        </div>
                                         <div class="ml-auto">
                                             <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
                                         </div>
                                     </div>
+                                    
                                     <label class="form-label text-base font-medium"> {{$t('settings.messages.'+ field.key)}}</label>
                                     <span class="text-slate-400 break-all w-full"> {{messages.title}}</span>
                                 </div>
