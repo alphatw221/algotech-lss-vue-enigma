@@ -4,11 +4,10 @@
         <div
           v-if="walletUserSubscriptionId !== null" 
           class="w-full box sm:px-20 py-10 flex flex-col sm:flex-row justify-between gap-5"> 
-            <div class="bg-primary rounded-full w-36 h-36 relative mx-auto sm:mx-0"> 
-              <p class="absolute text-[72px] font-bold text-white top-[52px] right-[45px]">
-              {{computedNameFirstLetter}}
-              </p>
-            </div>
+
+            <div  class="bg-primary rounded-full w-32 h-32 flex justify-center">
+            <p class="my-auto text-[72px] font-bold text-white"> {{computedNameFirstLetter}} </p>
+            </div >
 
             <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
                 <div class="flex flex-col sm:flex-row gap-2"> 
