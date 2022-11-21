@@ -64,6 +64,7 @@
 
         <MessageSettingsVue :meta_reply="generalInfo.meta_reply" :status="'settings'" />
 
+    <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
     <!-- NOTES-->
     <div class="flex flex-col md:flex-row justify-between gap-5 my-5"> 
         <label class="w-72 text-xl"> Custom Note Settings</label>
@@ -221,6 +222,7 @@ onMounted(() => {
 })
 
 const update = () => {
+    console.log(generalInfo.value)
     update_general_info(generalInfo.value, layoutStore.alert).then(res => {
         layoutStore.userInfo = res.data
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))

@@ -9,37 +9,37 @@ export const useLSSReplyMetaStore = defineStore("replyMeta", {
 				key:"added",
 				type:"textarea",
 				datatype:"string",
-                enable:false,
+                enable:true,
 				default:'',
 			},
 			{
 				key:"updated",
 				type:"textarea",
 				datatype:"string",
-                enable:false,
+                enable:true,
 				default:'',
 			},
 			{
 				key:"deleted",
 				type:"textarea",
 				datatype:"string",
-                enable:false,
+                enable:true,
 				default:'',
 			},
 			{
 				key:"insufficient_inv",
 				type:"textarea",
 				datatype:"string",
-                enable:false,
+                enable:true,
 				default:'',
 			},
             {
 				key:"facebook_buttons",
 				type:"component",
                 datatype:"object",
-                enable:false,
+                enable:true,
                 default:[],
-				field:[
+				fields:[
                     {key:"type", type:"input", dataType:"string", default:''},
 					{key:"title", type:"input", dataType:"string", default:''},
                     {key:"payload", type:"input", dataType:"string", default:''}

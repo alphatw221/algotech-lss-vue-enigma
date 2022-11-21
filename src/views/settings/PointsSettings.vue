@@ -11,7 +11,7 @@
 		    <hr class="-mx-6" />
         </div>
 
-        <div class="flex flex-col gap-1 sm:gap-8 w-full">
+        <div class="flex flex-col gap-8 w-full">
 
             <template v-for="field in sellerPointsMeta.fields" :key="field.key">
 
@@ -70,7 +70,7 @@
                         /> -->
                         
                         <input  
-                            class="w-24 md:w-32 form-control flex-2"
+                            class="w-20 md:w-32 form-control flex-2"
                             :type="field.input_type"
                             v-model="props.meta_point[field.key]"
                         />
@@ -121,12 +121,12 @@
                             <button class="btn btn-primary w-32 h-[35px]" @click="addPointTableTier()"> {{$t('settings.points.add')}} </button>
                         </div>
 
-                        <div class="flex flex-row flex-wrap gap-2 mt-5 sm:flex-row sm:mt-0" 
+                        <div class="flex flex-row flex-wrap gap-3 sm:gap-2 mt-5 sm:flex-row sm:mt-0" 
                             v-for="(tier, index) in props.meta_point[field.key]" :key="index">
 
                             <div  class="flex-1 gap-2 flex"> 
                                 <input  
-                                    class="w-24 md:w-32 form-control flex-1"
+                                    class="w-16 md:w-32 form-control flex-1"
                                     type="number" 
                                     :value="1"
                                     disabled
@@ -134,7 +134,7 @@
                                 <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">SGD</label>
                                 <ChevronsRightIcon class="my-auto"/>
                                 <input  
-                                    class="w-24 md:w-32 form-control flex-1"
+                                    class="w-16 md:w-32 form-control flex-1"
                                     type="number" 
                                     v-model="tier.point_redemption_rate"
                                 />
@@ -144,7 +144,7 @@
                                 <template v-if="index==0">
                                     <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　SGD</label>
                                     <input  
-                                    class="w-24 md:w-32 form-control flex-1"
+                                    class="w-20 md:w-32 form-control flex-1"
                                     type="text" 
                                     :value="0"
                                     disabled
@@ -153,7 +153,7 @@
                                 <template v-else>
                                     <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　SGD</label>
                                     <input  
-                                    class="w-24 md:w-32 form-control flex-1"
+                                    class="w-20 md:w-32 form-control flex-1"
                                     type="number" 
                                     v-model="props.meta_point[field.key][index-1].upper_bound"
                                     />
@@ -161,7 +161,7 @@
                             
                                 <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ SGD</label>
                                 <input  
-                                    class="w-24 md:w-32 form-control flex-1 "
+                                    class="w-20 md:w-32 form-control flex-1 "
                                     type="number" 
                                     v-model="tier.upper_bound"
                                 />
@@ -182,7 +182,7 @@
 
                                 <div  class="flex-1 gap-2 flex"> 
                                     <input  
-                                        class="w-24 md:w-32 form-control flex-1"
+                                        class="w-16 md:w-32 form-control flex-1"
                                         type="number" 
                                         :value="1"
                                         disabled
@@ -190,7 +190,7 @@
                                     <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">SGD</label>
                                     <ChevronsRightIcon class="my-auto"/>
                                     <input  
-                                        class="w-24 md:w-32 form-control flex-1"
+                                        class="w-16 md:w-32 form-control flex-1"
                                         type="number" 
                                         v-model="props.meta_point.default_point_redemption_rate"
                                     />
@@ -201,7 +201,7 @@
                                     <template v-if="(props.meta_point[field.key]||[]).length">
                                         <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　SGD</label>
                                         <input  
-                                        class="w-24 md:w-32 form-control flex-1"
+                                        class="w-20 md:w-32 form-control flex-1"
                                         type="number" 
                                         v-model="props.meta_point[field.key][props.meta_point[field.key].length-1].upper_bound"
                                         />
@@ -209,7 +209,7 @@
                                     <template v-else>
                                         <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]">—　SGD</label>
                                         <input  
-                                        class="w-24 md:w-32 form-control flex-1"
+                                        class="w-20 md:w-32 form-control flex-1"
                                         type="number" 
                                         :value="0"
                                         disabled
@@ -217,7 +217,7 @@
                                     </template>
                                     <label class="w-fit whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> ~ SGD</label>
                                     <input  
-                                        class="w-24 md:w-32 form-control flex-1 "
+                                        class="w-20 md:w-32 form-control flex-1 "
                                         type="text" 
                                         :value="'above'"
                                         disabled
@@ -225,7 +225,7 @@
                                 </div>
                             
                                 <button 
-                                    class="flex-0 inline-block w-full h-[42px] ml-auto text-base btn-white sm:rounded-lg sm:w-24 text-white cursor-default" 
+                                    class="flex-0 hidden xl:inline-block w-full h-[42px] ml-auto text-base btn-white sm:rounded-lg sm:w-24 text-white cursor-default " 
                                 >
                                     {{ $t('settings.delivery_form.delete') }}
                                 </button>
@@ -234,13 +234,11 @@
                 </template>
                 <!-- COMPONENT -->
                 <template v-else-if="field.key=='redemption_rate_point'">         
-                    <div class="flex flex-col gap-2"> 
+                    <div class="flex flex-col"> 
                         <label class="w-fit whitespace-nowrap form-label text-base font-medium mt-3"> {{$t('settings.points.redemption')}}</label>
 
-                            
-                        <div class="flex flex-row gap-3 md:gap-3 -mt-3" >
-
-                            <div class="flex flex-1 flex-row gap-3 md:max-w-1/4"> 
+                        <div class="flex flex-row gap-3 max-w-lg">
+                            <div class="flex flex-1 flex-row gap-3"> 
                                 <input  
                                 class="w-14 md:w-32 form-control flex-1"
                                 type="number" 
@@ -251,7 +249,7 @@
                             
                             <ChevronsRightIcon class="my-auto flex-0 w-8"/>
                             
-                            <div class="flex flex-1 flex-row gap-3 md:max-w-1/4"> 
+                            <div class="flex flex-1 flex-row gap-3"> 
                                 <label class="w-fit flex-0 whitespace-nowrap form-label text-base my-auto text-[14px] md:text-[16px]"> SGD</label>
                                 <input  
                                     class="w-14 md:w-32 form-control flex-1"

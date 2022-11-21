@@ -22,7 +22,7 @@
         <ul class="border-t border-white/[0.08] py-5 pt-7 mt-5">
           <!-- BEGIN: First Child -->
           <div class="flex m-3 cursor-pointer text-white" @click="router.push({name:'create-campaign'})"> 
-            <button class="w-10 h-10 mr-1"
+            <button class="w-10 h-10 mr-1 sm:ml-5"
             ><span class="text-2xl">+</span></button> 
             <span class="">{{$t(`layout.menu.create`)}} <br> {{$t(`layout.menu.new_campaign`)}}</span> 
           </div>
