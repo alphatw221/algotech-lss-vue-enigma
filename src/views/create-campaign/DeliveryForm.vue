@@ -144,12 +144,12 @@
 		</div>
 		
 		<!-- delivery date -->
-		<div class="flex flex-wrap justify-between col-span-12 col-start-1 mt-5 ">
+		<div class="flex flex-wrap justify-between col-span-12 col-start-1 mt-5">
 			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
 		</div>
 		<div class="col-span-12">
 			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
-				<v-date-picker class="z-49" 
+				<v-date-picker class="" 
 					v-model="deliverydatePicker" 
 					:timezone="timezone" 
 					:columns="$screens({ default: 1, sm: 2 })" 
@@ -183,7 +183,7 @@
 			> <u> + {{$t('create_campaign.delivery_form.add_more_pickup_option')}}  </u> 
 			</a> -->
 		</div>
-		<div class="grid grid-cols-12 col-span-12 gap-1 text-base intro-y sm:gap-5 -z-50">
+		<div class="grid grid-cols-12 col-span-12 gap-1 text-base intro-y sm:gap-5">
             <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">
 				<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
                     <div class="flex flex-col flex-1">
@@ -219,10 +219,11 @@
                     </div>
 					<!-- pickup date  -->
 					<div class="flex flex-col flex-wrap  flex-grow-2">
-						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}</label>
-						<label class="text-base text-lg font-medium whitespace-nowrap">{{new Date(props.campaign.meta_logistic.pickup_options[index].start_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}}
-							~{{new Date(props.campaign.meta_logistic.pickup_options[index].end_at).toLocaleDateString('en-us', { weekday:"long", year:"numeric", month:"short", day:"numeric"})}}</label>
-                        <v-date-picker class="z-49" 
+						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}
+							{{props.campaign.meta_logistic.pickup_options[index].start_at!==null?'( '+new Date(props.campaign.meta_logistic.pickup_options[index].start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
+							+'~'+new Date(props.campaign.meta_logistic.pickup_options[index].end_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})+' )':''}}
+						</label>
+                        <v-date-picker class="" 
 							v-model="pickupdatePicker[index]"
 							:timezone="timezone" 
 							:columns="$screens({ default: 1, sm: 2 })" 
