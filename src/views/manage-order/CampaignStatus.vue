@@ -4,8 +4,7 @@
             <StatusSkeleton /> 
         </div>
         
-        <div v-if="ready">
-        <TinySlider :key="tinySliderKey" :options="{
+        <TinySlider v-if="ready" :key="tinySliderKey" :options="{
                 autoplay: true,
                 controls: true,
                 items: 1,
@@ -22,262 +21,197 @@
                 },
                 },
             }">
-                <div class="h-40 px-2">
-                    <div class="report-box">
-                        <div class="p-5 box">
-                            <div class="flex">
-                                <!-- <ShoppingCartIcon class=" text-primary" /> -->
-                                <ManageOrderIcon icon="close_rate" color="#131C34" class="report-box__icon"/>
-                                <div class="ml-4">
-                                    <div class="text-2xl font-medium leading-4">{{computedClosedRate}}%
-                                        <!-- <span class="text-base">{{campaignDetailStore.campaignStatistics.order_qty}} / {{campaignDetailStore.campaignStatistics.order_qty + campaignDetailStore.campaignStatistics.cart_qty}}</span> -->
-                                    </div>
-                                    <template v-if="!campaignDetailStore.campaignStatistics.close_rate_raise"/>
-                                    <template v-else-if="campaignDetailStore.campaignStatistics.close_rate_raise >= 0">
-                                        <div class="ml-auto">
-                                            <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                                :content="$t('manage_order.campaign_status.closed_rate_message',{status : $t('manage_order.campaign_status.increased') })">
-                                                {{parseInt(campaignDetailStore.campaignStatistics.close_rate_raise).toFixed(2)}}%
-                                                <ChevronUpIcon class="w-4 h-4 ml-0.5" />
-                                            </Tippy>
-                                        </div>
-                                    </template>
-                                    <template v-else>
-                                        <div class="ml-auto">
-                                            <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                                :content="$t('manage_order.campaign_status.closed_rate_message',{status:$t('manage_order.campaign_status.decreased') })">
-                                                {{parseInt(campaignDetailStore.campaignStatistics.close_rate_raise).toFixed(2)}}%
-                                                <ChevronDownIcon class="w-4 h-4 ml-0.5" />
-                                            </Tippy>
-                                        </div>
-                                    </template>
+            <div class="h-40 px-2">
+                <div class="report-box">
+                    <div class="p-5 box">
+                        <div class="flex">
+                            <!-- <ShoppingCartIcon class=" text-primary" /> -->
+                            <ManageOrderIcon icon="close_rate" color="#131C34" class="report-box__icon"/>
+                            <div class="ml-4">
+                                <div class="text-2xl font-medium leading-4">{{computedClosedRate}}%
+                                    <!-- <span class="text-base">{{campaignDetailStore.campaignStatistics.order_qty}} / {{campaignDetailStore.campaignStatistics.order_qty + campaignDetailStore.campaignStatistics.cart_qty}}</span> -->
                                 </div>
-                                <template v-if="!computedClosedRateRaise"/>
-                                <template v-else-if="computedClosedRateRaise >= 0">
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            :content="$t('manage_order.campaign_status.closed_rate_message',{status : $t('manage_order.campaign_status.increased') })">
-                                            {{computedClosedRateRaise}}%
-                                            <ChevronUpIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            :content="$t('manage_order.campaign_status.closed_rate_message',{status:$t('manage_order.campaign_status.decreased') })">
-                                            {{computedClosedRateRaise}}%
-                                            <ChevronDownIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
+                                <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.closed_rate')}}</div>
                             </div>
-                            <div class="flex mt-6">
-                                <ManageOrderIcon icon="sales_rate3" color="#006A2B" class="report-box__icon"/>
-                                <div class="ml-4">
-                                    <div class="text-2xl font-medium leading-4" v-if="campaignDetailStore.campaign">$
-                                        {{ (Math.floor(parseFloat(campaignDetailStore.campaignStatistics.complete_sales) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-                                    </div>
-                                    <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.sales')}}</div>
+                            <template v-if="!computedClosedRateRaise"/>
+                            <template v-else-if="computedClosedRateRaise >= 0">
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
+                                        :content="$t('manage_order.campaign_status.closed_rate_message',{status : $t('manage_order.campaign_status.increased') })">
+                                        {{computedClosedRateRaise}}%
+                                        <ChevronUpIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
                                 </div>
-                                <template v-if="!computedCompleteSalesRaise"/>
-                                <template v-else-if="computedCompleteSalesRaise >= 0">                                
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            :content="$t('manage_order.campaign_status.sales_message',{status : $t('manage_order.campaign_status.increased') })">
-                                            {{computedCompleteSalesRaise}}%
-                                            <ChevronUpIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                                <template v-else>                                
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            :content="$t('manage_order.campaign_status.sales_message',{status:$t('manage_order.campaign_status.decreased') })">
-                                            {{computedCompleteSalesRaise}}%
-                                            <ChevronDownIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="h-40 px-2">
-                    <div class="report-box">
-                        <div class="p-5 box">
-                            <div class="flex">
-                                <ManageOrderIcon icon="unCheckout_rate" color="#b91c1c" class="report-box__icon"/>
-                                <div class="ml-4">
-                                    <div class="text-2xl font-medium leading-4">{{computedUncheckoutRate}}%
-                                        <!-- <span class="text-base">{{campaignDetailStore.campaignStatistics.cart_qty}} / {{campaignDetailStore.campaignStatistics.order_qty + campaignDetailStore.campaignStatistics.cart_qty}}</span> -->
-                                    </div>
-                                    <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.uncheckout')}}</div>
+                            </template>
+                            <template v-else>
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
+                                        :content="$t('manage_order.campaign_status.closed_rate_message',{status:$t('manage_order.campaign_status.decreased') })">
+                                        {{computedClosedRateRaise}}%
+                                        <ChevronDownIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
                                 </div>
-                                <template v-if="!computedUncheckoutRateRaise"/>
-                                <template v-else-if="computedUncheckoutRateRaise >= 0">
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            :content="$t('manage_order.campaign_status.uncheckout_message',{status : $t('manage_order.campaign_status.increased') })">
-                                            {{computedUncheckoutRateRaise}}%
-                                            <ChevronUpIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            :content="$t('manage_order.campaign_status.uncheckout_message',{status:$t('manage_order.campaign_status.decreased') })">
-                                            {{computedUncheckoutRateRaise}}%
-                                            <ChevronDownIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                            </div>
-                            <div class="flex mt-6">
-                                <ManageOrderIcon icon="sales_rate3" color="#006A2B" class="report-box__icon"/>
-                                <div class="ml-4">
-                                    <div class="text-2xl font-medium leading-4" v-if="campaignDetailStore.campaign">$
-                                        {{ (Math.floor(parseFloat(campaignDetailStore.campaignStatistics.proceed_sales) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-                                    </div>
-                                    <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.potential_sales')}}</div>
+                            </template>
+                        </div>
+                        <div class="flex mt-6">
+                            <ManageOrderIcon icon="sales_rate3" color="#006A2B" class="report-box__icon"/>
+                            <div class="ml-4">
+                                <div class="text-2xl font-medium leading-4" v-if="campaignDetailStore.campaign">$
+                                    {{ (Math.floor(parseFloat(campaignDetailStore.campaignStatistics.complete_sales) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
                                 </div>
-                                <template v-if="!computedProceedSalesRaise"/>
-                                <template v-else-if="computedProceedSalesRaise >= 0">                                
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            :content="$t('manage_order.campaign_status.potential_sales_message',{status : $t('manage_order.campaign_status.increased') })">
-                                            {{computedProceedSalesRaise}}%
-                                            <ChevronUpIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                                <template v-else>                                
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            :content="$t('manage_order.campaign_status.potential_sales_message',{status:$t('manage_order.campaign_status.decreased') })">
-                                            {{computedProceedSalesRaise}}%
-                                            <ChevronDownIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
+                                <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.sales')}}</div>
                             </div>
-                            
+                            <template v-if="!computedCompleteSalesRaise"/>
+                            <template v-else-if="computedCompleteSalesRaise >= 0">                                
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
+                                        :content="$t('manage_order.campaign_status.sales_message',{status : $t('manage_order.campaign_status.increased') })">
+                                        {{computedCompleteSalesRaise}}%
+                                        <ChevronUpIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
+                            <template v-else>                                
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
+                                        :content="$t('manage_order.campaign_status.sales_message',{status:$t('manage_order.campaign_status.decreased') })">
+                                        {{computedCompleteSalesRaise}}%
+                                        <ChevronDownIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
                         </div>
+                        
+                    </div>
+                    
+                </div>
+            </div>
+            <div class="h-40 px-2">
+                <div class="report-box">
+                    <div class="p-5 box">
+                        <div class="flex">
+                            <ManageOrderIcon icon="unCheckout_rate" color="#b91c1c" class="report-box__icon"/>
+                            <div class="ml-4">
+                                <div class="text-2xl font-medium leading-4">{{computedUncheckoutRate}}%
+                                    <!-- <span class="text-base">{{campaignDetailStore.campaignStatistics.cart_qty}} / {{campaignDetailStore.campaignStatistics.order_qty + campaignDetailStore.campaignStatistics.cart_qty}}</span> -->
+                                </div>
+                                <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.uncheckout')}}</div>
+                            </div>
+                            <template v-if="!computedUncheckoutRateRaise"/>
+                            <template v-else-if="computedUncheckoutRateRaise >= 0">
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
+                                        :content="$t('manage_order.campaign_status.uncheckout_message',{status : $t('manage_order.campaign_status.increased') })">
+                                        {{computedUncheckoutRateRaise}}%
+                                        <ChevronUpIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
+                                        :content="$t('manage_order.campaign_status.uncheckout_message',{status:$t('manage_order.campaign_status.decreased') })">
+                                        {{computedUncheckoutRateRaise}}%
+                                        <ChevronDownIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="flex mt-6">
+                            <ManageOrderIcon icon="sales_rate3" color="#006A2B" class="report-box__icon"/>
+                            <div class="ml-4">
+                                <div class="text-2xl font-medium leading-4" v-if="campaignDetailStore.campaign">$
+                                    {{ (Math.floor(parseFloat(campaignDetailStore.campaignStatistics.proceed_sales) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                </div>
+                                <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.potential_sales')}}</div>
+                            </div>
+                            <template v-if="!computedProceedSalesRaise"/>
+                            <template v-else-if="computedProceedSalesRaise >= 0">                                
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
+                                        :content="$t('manage_order.campaign_status.potential_sales_message',{status : $t('manage_order.campaign_status.increased') })">
+                                        {{computedProceedSalesRaise}}%
+                                        <ChevronUpIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
+                            <template v-else>                                
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
+                                        :content="$t('manage_order.campaign_status.potential_sales_message',{status:$t('manage_order.campaign_status.decreased') })">
+                                        {{computedProceedSalesRaise}}%
+                                        <ChevronDownIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
+                        </div>
+                        
                     </div>
                 </div>
-                <div class="h-40 px-2">
-                    <div class="report-box">
-                        <div class="p-5 box">
-                            <div class="flex">
-                                <ManageOrderIcon icon="sales_rate3" color="#006A2B" class="report-box__icon"/>
-                                <template v-if="!computedEstimatedTotalRaise"/>
-                                <template v-else-if="computedEstimatedTotalRaise >= 0">                                
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            :content="$t('manage_order.campaign_status.total_sales_message',{status : $t('manage_order.campaign_status.increased') })">
-                                            {{computedEstimatedTotalRaise}}%
-                                            <ChevronUpIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                                <template v-else>                                
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            :content="$t('manage_order.campaign_status.total_sales_message',{status:$t('manage_order.campaign_status.decreased') })">
-                                            {{computedEstimatedTotalRaise}}%
-                                            <ChevronDownIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                    <template v-if="!campaignDetailStore.campaignStatistics.proceed_sales_raise"/>
-                                    <template v-else-if="campaignDetailStore.campaignStatistics.proceed_sales_raise >= 0">                                
-                                        <div class="ml-auto">
-                                            <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                                :content="$t('manage_order.campaign_status.potential_sales_message',{status : $t('manage_order.campaign_status.increased') })">
-                                                {{parseFloat(campaignDetailStore.campaignStatistics.proceed_sales_raise*100).toFixed(2)}}%
-                                                <ChevronUpIcon class="w-4 h-4 ml-0.5" />
-                                            </Tippy>
-                                        </div>
-                                    </template>
-                                    <template v-else>                                
-                                        <div class="ml-auto">
-                                            <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                                :content="$t('manage_order.campaign_status.potential_sales_message',{status:$t('manage_order.campaign_status.decreased') })">
-                                                {{parseFloat(campaignDetailStore.campaignStatistics.campaign_sales_raise*100).toFixed(2)}}%
-                                                <ChevronDownIcon class="w-4 h-4 ml-0.5" />
-                                            </Tippy>
-                                        </div>
-                                    </template>
-                                </template>
-                                
-                            </div>
-                            <div class="mt-6 text-3xl font-medium leading-8" v-if="campaignDetailStore.campaign">$
-                                {{ (Math.floor(parseFloat(computedEstimatedTotalSales) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-                            </div>
-                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.total_sales')}}</div>
+            </div>
+            <div class="h-40 px-2">
+                <div class="report-box">
+                    <div class="p-5 box">
+                        <div class="flex">
+                            <ManageOrderIcon icon="sales_rate3" color="#006A2B" class="report-box__icon"/>
+                            <template v-if="!computedEstimatedTotalRaise"/>
+                            <template v-else-if="computedEstimatedTotalRaise >= 0">                                
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
+                                        :content="$t('manage_order.campaign_status.total_sales_message',{status : $t('manage_order.campaign_status.increased') })">
+                                        {{computedEstimatedTotalRaise}}%
+                                        <ChevronUpIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
+                            <template v-else>                                
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
+                                        :content="$t('manage_order.campaign_status.total_sales_message',{status:$t('manage_order.campaign_status.decreased') })">
+                                        {{computedEstimatedTotalRaise}}%
+                                        <ChevronDownIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
                         </div>
+                        <div class="mt-6 text-3xl font-medium leading-8" v-if="campaignDetailStore.campaign">$
+                            {{ (Math.floor(parseFloat(computedEstimatedTotalSales) * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                        </div>
+                        <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.total_sales')}}</div>
                     </div>
                 </div>
-                <div class="h-40 px-2">
-                    <div class="report-box">
-                        <div class="p-5 box">
-                            <div class="flex">
-                                <ManageOrderIcon icon="comments_rate" color="#A96400" class="report-box__icon"/>
-                                <template v-if="!computedCommentRaise"/>
-                                <template v-else-if="computedCommentRaise >= 0">
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            :content="$t('manage_order.campaign_status.comments_message',{status : $t('manage_order.campaign_status.increased') })">
-                                            {{computedCommentRaise}}%
-                                            <ChevronUpIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            :content="$t('manage_order.campaign_status.comments_message',{status:$t('manage_order.campaign_status.decreased') })">
-                                            {{computedCommentRaise}}%
-                                            <ChevronDownIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                            </div>
+            </div>
+            <div class="h-40 px-2">
+                <div class="report-box">
+                    <div class="p-5 box">
+                        <div class="flex">
+                            <ManageOrderIcon icon="comments_rate" color="#A96400" class="report-box__icon"/>
+                            <template v-if="!computedCommentRaise"/>
+                            <template v-else-if="computedCommentRaise >= 0">
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
+                                        :content="$t('manage_order.campaign_status.comments_message',{status : $t('manage_order.campaign_status.increased') })">
+                                        {{computedCommentRaise}}%
+                                        <ChevronUpIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
+                            <template v-else>
+                                <div class="ml-auto">
+                                    <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
+                                        :content="$t('manage_order.campaign_status.comments_message',{status:$t('manage_order.campaign_status.decreased') })">
+                                        {{computedCommentRaise}}%
+                                        <ChevronDownIcon class="w-4 h-4 ml-0.5" />
+                                    </Tippy>
+                                </div>
+                            </template>
                         </div>
+                        <div class="mt-6 text-3xl font-medium leading-8">{{campaignDetailStore.campaignStatistics.comment_count}}</div>
+                        <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.comments')}}</div>
                     </div>
                 </div>
-                <div class="h-40 px-2">
-                    <div class="report-box">
-                        <div class="p-5 box">
-                            <div class="flex">
-                                <ManageOrderIcon icon="comments_rate" color="#A96400" class="report-box__icon"/>
-                                <template v-if="!campaignDetailStore.campaignStatistics.comment_count_raise"/>
-                                <template v-else-if="campaignDetailStore.campaignStatistics.comment_count_raise >= 0">
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-success"
-                                            :content="$t('manage_order.campaign_status.comments_message',{status : $t('manage_order.campaign_status.increased') })">
-                                            {{parseFloat(campaignDetailStore.campaignStatistics.comment_count_raise*100).toFixed(2)}}%
-                                            <ChevronUpIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                                <template v-else>
-                                    <div class="ml-auto">
-                                        <Tippy tag="div" class="cursor-pointer report-box__indicator bg-danger"
-                                            :content="$t('manage_order.campaign_status.comments_message',{status:$t('manage_order.campaign_status.decreased') })">
-                                            {{parseFloat(campaignDetailStore.campaignStatistics.comment_count_raise*100).toFixed(2)}}%
-                                            <ChevronDownIcon class="w-4 h-4 ml-0.5" />
-                                        </Tippy>
-                                    </div>
-                                </template>
-                            </div>
-                            <div class="mt-6 text-3xl font-medium leading-8">{{campaignDetailStore.campaignStatistics.comment_count}}</div>
-                            <div class="mt-1 text-base text-slate-500">{{$t('manage_order.campaign_status.comments')}}</div>
-                        </div>
-                    </div>
-                </div>
-            </TinySlider>
-        </div> 
+            </div>
+        </TinySlider>
     </div>
 </template>
 <script setup>
