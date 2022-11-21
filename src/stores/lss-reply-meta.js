@@ -1,0 +1,101 @@
+import { defineStore } from "pinia";
+import { ref } from "vue"
+export const useLSSReplyMetaStore = defineStore("replyMeta", {
+  state: () => ({
+	"default":{
+		name:"lss",
+		fields:[
+			{
+				key:"added_enabled",
+				type:"input",
+				datatype:"boolean",
+				default:false,
+			},
+			{
+				key:"added",
+				type:"textarea",
+				datatype:"string",
+				default:'',
+			},
+			{
+				key:"updated_enabled",
+				type:"input",
+				datatype:"boolean",
+				default:false,
+			},
+			{
+				key:"updated",
+				type:"textarea",
+				datatype:"string",
+				default:'',
+			},
+			{
+				key:"deleted_enabled",
+				type:"input",
+				datatype:"boolean",
+				default:false,
+			},
+			{
+				key:"deleted",
+				type:"textarea",
+				datatype:"string",
+				default:'',
+			},
+			{
+				key:"insufficient_inv_enabled",
+				type:"input",
+				datatype:"boolean",
+				default:false,
+			},
+			{
+				key:"insufficient_inv",
+				type:"textarea",
+				datatype:"string",
+				default:'',
+			},
+			{
+				key:"facebook_buttons_enabled",
+				type:"input",
+				datatype:"boolean",
+				default:false,
+			},
+            {
+				key:"facebook_buttons",
+				type:"component",
+                datatype:"object",
+                default:[],
+				buttons:[
+					{
+						key:"payload_button",
+						type:"postback",
+						title:"",
+						payload:"",
+					},
+					{
+						key:"URL_button",
+						type:"web_url",
+						url:"<URL_TO_OPEN>",
+						title:"<BUTTON_TEXT>",
+						fallback_url: "<URL_TO_FALLBACK_TO>",
+					},
+					{
+						key:"call_button",
+						type:"phone_number",
+						title:"<BUTTON_TEXT>",
+						payload:"<PHONE_NUMBER>"
+					},{
+						key:"game_button",
+						type:"game_play",
+						title:"Play",
+						payload:"{<SERIALIZED_JSON_PAYLOAD>}",
+						game_metadata: { // Only one of the below
+							player_id: "<PLAYER_ID>",
+							context_id: "<CONTEXT_ID>"
+						}
+					}
+				]
+			},
+		]
+	},
+  }),
+});

@@ -68,7 +68,7 @@
 			</div>
 		</div>
 		
-		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg langSetting">
+		<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 
 			<div class="flex mb-3 form-label text-base font-medium">
 				<div> {{$t("settings.localization.currency_symbol")}} </div>
@@ -145,6 +145,13 @@
 				:v="v"
 			/>
 		</div>
+
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+			<MessageSettings 
+				:meta_reply="campaignData.meta_reply"
+				:v="v"
+			/>
+		</div>
 		
 
 		<NotesForm :campaignNotes="campaignNotes" />
@@ -167,6 +174,7 @@ import PaymentForm from './payment-form/Main.vue'
 import DeliveryForm from './DeliveryForm.vue';
 import NotesForm from './NotesForm.vue';
 import PointsSettings from '@//views/settings/PointsSettings.vue'
+import MessageSettings from '@//views/settings/MessageSettings.vue'
 
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
@@ -314,7 +322,6 @@ onMounted(() => {
 	if(sellerStore.userInfo.user_subscription.price_unit)campaignData.value.price_unit=sellerStore.userInfo.user_subscription.price_unit
 	if(sellerStore.userInfo.user_subscription.meta_point)campaignData.value.meta_point=JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_point ))
 
-
 	//payment
 	//if specific payment is set in user subscription -> clone it
 	//if not -> build one with all default value
@@ -355,7 +362,13 @@ const createCampaign = ()=>{
 
 	v.value.$touch()
 	if (v.value.$invalid) {
-		sellerStore.alert.showMessageToast("Invalid Data")
+		sellerStore.alert.showMessageToast('Invalid Data')
+		document.querySelector('#lss-content').scrollTo(0, -70)
+		// var err
+		// v.value.$errors.forEach( err=>{
+		// 	console.log(err)
+		// 	sellerStore.alert.showMessageToast(err.$uid)
+		// })
 		return
 	}
 
