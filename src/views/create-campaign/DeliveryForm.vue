@@ -359,7 +359,7 @@ const update_pickupdatePicker = ()=>{
 			pickupdatePicker.value.push({start:props.campaign.meta_logistic.pickup_options[option].start_at?props.campaign.meta_logistic.pickup_options[option].start_at:null,
 				end:props.campaign.meta_logistic.pickup_options[option].end_at?props.campaign.meta_logistic.pickup_options[option].end_at:null})
 	}
-	console.log(pickupdatePicker.value)
+	// console.log(pickupdatePicker.value)
 	get_props.value = true
 }
 </script>

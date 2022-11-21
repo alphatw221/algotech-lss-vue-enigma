@@ -27,6 +27,8 @@
 
         "pickup_store":"Pickup Location",
         "pickup_address":"Pickup Address",
+        "delivery_date":"Delivery Date",
+        "pickup_date":"Pickup Date",
         "errors":{
             "Value_is_required":"Value is required",
             "Value_must_be_numeric":"Value must be numeric",

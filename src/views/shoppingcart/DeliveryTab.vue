@@ -191,7 +191,7 @@
 
                     </div>
                     <div class="flex flex-col flex-wrap  flex-grow-2" v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at">
-                      <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
+                      <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('shopping_cart.delivery_tab.delivery_date')}}</label>
                       <v-date-picker class="z-49" 
                         v-model="shipping_info.shipping_date_time"
                         :timezone="timezone" 
@@ -411,7 +411,7 @@ const pickup_date_range = (index) =>{
   date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
   date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
   pickup_select_index.value = index
-  console.log(shoppingCartStore.cart.campaign.meta_logistic)
+  // console.log(shoppingCartStore.cart.campaign.meta_logistic)
 }
 
 onMounted(()=>{

@@ -20,6 +20,8 @@
         "shipping_info":"运送资讯",
         "home_delivery":"宅配",
         "self_pickup":"自行取货",
+        "delivery_date":"运送日期",
+        "pickup_date":"取货日期",
 
         "delivery_info":"收件地址",
         "address":"地址",
