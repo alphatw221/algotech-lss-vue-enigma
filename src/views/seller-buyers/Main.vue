@@ -59,6 +59,7 @@ const searchColumns = ref([{ text: "name", value: "name" }]);
 const tableColumns = ref([
     { name: null, key: "customer_img" },
     { name: "customer_name", key: "customer_name" },
+    { name: "email", key: "email"},
     // { name: "type", key: "type" },
     { name: "order_history", key: "order_history"},
     { name: "points", key: "points"},

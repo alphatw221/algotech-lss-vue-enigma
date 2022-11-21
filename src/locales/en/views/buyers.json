@@ -3,10 +3,16 @@
     "table_column": {
         "customer_name": "Buyer Name",
         "type": "Type",
+        "email": "Email",
         "order_history": "Order History",
         "points": "Points"
     },
     "buyer_point": {
         "points": "Points"
+    },
+    "search_bar":{
+        "title": "Title",
+        "search" : "Search",
+        "reset" : "Reset"
     }
 }
