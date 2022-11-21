@@ -22,6 +22,9 @@
             <td v-if="column.key == 'customer_name'" class="w-fit text-center">
               {{ buyer.name }}
             </td>
+            <td v-if="column.key == 'email'" class="w-fit text-center">
+              {{ buyer.email }}
+            </td>
             <td v-if="column.key == 'customer_img'" class="text-left w-5 w-fit">
               <div class="flex justify-center">
                 <div class="w-fit h-fit image-fit">

@@ -3,10 +3,16 @@
     "table_column": {
         "customer_name": "买家姓名",
         "type": "类型",
+        "email": "电邮",
         "order_history": "历史订单",
         "points": "点数"
     },
     "buyer_point": {
         "points": "点数"
+    },
+    "search_bar":{
+        "title": "标题",
+        "search" : "搜寻",
+        "reset" : "重置"
     }
 }
