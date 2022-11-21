@@ -96,11 +96,12 @@
 
 
           <TabPanels class="mt-5">
+
             <!-- BEGIN Delivery Panel -->
             <TabPanel class="leading-relaxed">
-              <label class="col-span-12 font-medium text-md">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
-              <div class="grid grid-cols-12">
-                <div class="col-span-12 gap-5 p-8 intro-y">
+              <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
+              <div class="flex flex-col">
+                <div class="gap-5 p-8 intro-y">
                   <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.address')}}</label>
                   <div>
                     <input id="regular-form-2" type="text" class="form-control " placeholder=""
@@ -142,56 +143,66 @@
                   </div>
                   <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.postal_code')}}</label>
                   <div>
-                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                    :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
-                    v-model.trim="delivery_validate.shipping_postcode.$model" />
-                    <template v-if="delivery_validate.shipping_postcode.$error">
-                          <label
-                            class="mt-2 text-danger"
-                          >
-                            {{$t('shopping_cart.delivery_tab.postal_code_err')}}
-                          </label>
-                  </template>
+                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                      :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
+                      v-model.trim="delivery_validate.shipping_postcode.$model" />
+                      <template v-if="delivery_validate.shipping_postcode.$error">
+                            <label
+                              class="mt-2 text-danger"
+                            >
+                              {{$t('shopping_cart.delivery_tab.postal_code_err')}}
+                            </label>
+                    </template>
                   </div>
                   
                 </div>
                 <!-- BEGIN Delivery Option -->
-                <label class="col-span-12 font-medium text-md">{{$t('shopping_cart.delivery_tab.option.delivery')}}</label>
-                <div class="col-span-12 gap-5 mx-0 intro-y lg:mx-20 2xl:mx-20">
-                  <div v-if="shoppingCartStore.cart.campaign">
+                <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.option.delivery')}}</label>
+                <div class="gap-5 mx-0 intro-y lg:mx-20">
+                  <template v-if="shoppingCartStore.cart.campaign">
 
-                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check">
-                      <input :id="'radio-switch-'" class="form-check-input" type="radio"
+                    <div class="flex flex-row flex-wrap px-10 py-6 my-4 border-2 rounded-lg form-check"
+                      :class="{'border-slate-600': shipping_option_index_computed == null}">
+                      <div> 
+                        <input :id="'radio-switch-'" class="form-check-input" type="radio"
                         name="vertical_radio_button" :value="null" v-model="shipping_option_index_computed" />
-                      <label class="mr-auto form-check-label" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.default')}}</label>
-                      <div>
-                        <label class="form-check-label">{{ shoppingCartStore.cart.campaign.currency }}</label>
+                        <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.default')}}</label>
+                      </div>
+                      <div class="ml-auto">
+                        <label class="form-check-label">
+                        {{ shoppingCartStore.cart.campaign.currency }}
                         {{(Math.floor(parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-                        <label class="form-check-label">{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                        {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
                       </div>
                     </div>
-
-                    <div class="flex px-10 py-6 my-4 border-2 rounded-lg form-check"
+                    <template 
                       v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
-                      :key="index">
-                      <input :id="'radio-switch-' + index" class="form-check-input" type="radio"
-                        name="vertical_radio_button" :value="index" v-model="shipping_option_index_computed" />
-                      <label class="mr-auto form-check-label" :for="'radio-switch-' + index">{{ option.title }}</label>
-
-                      <div v-if="option.type === '+'">
-                        <label class="form-check-label">{{ shoppingCartStore.cart.campaign.currency }}</label>
-                        {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-                        <label class="form-check-label">{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                      :key="index"> 
+                      <div class="flex flex-row flex-wrap px-10 py-6 my-4 border-2 rounded-lg form-check gap-2"
+                        :class="{'border-slate-600': shipping_option_index_computed == index}" >
+                        <div> 
+                          <input :id="'radio-switch-' + index" class="form-check-input" type="radio"
+                          name="vertical_radio_button" :value="index" v-model="shipping_option_index_computed" />
+                          <label class="mr-auto form-check-label" :for="'radio-switch-' + index">{{ option.title }}</label>
+                        </div>
+                        
+                        <template v-if="option.type === '+'">
+                          <label class="form-check-label whitespace-nowrap ml-auto">
+                            {{ shoppingCartStore.cart.campaign.currency }}
+                            {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                        </template>
+                        <template v-else>
+                          <label class="form-check-label whitespace-nowrap ml-auto">
+                            {{ shoppingCartStore.cart.campaign.currency }}
+                            {{(Math.floor(parseFloat(option.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                            {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                        </template>
                       </div>
-                      <div v-else>
-                        <label class="form-check-label">{{ shoppingCartStore.cart.campaign.currency }}</label>
-                        {{(Math.floor(parseFloat(option.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-                        <label class="form-check-label">{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
-                      </div>
+                    </template>
 
-                    </div>
-                    <div class="flex flex-col flex-wrap  flex-grow-2" v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at">
-                      <label class="text-base text-lg font-medium whitespace-nowrap">{{$t('shopping_cart.delivery_tab.delivery_date')}}</label>
+                    <div class="flex flex-col flex-wrap" v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at">
+                      <label class="text-base text-[14px] font-medium whitespace-nowrap lg:-mx-20">{{$t('shopping_cart.delivery_tab.delivery_date')}}</label>
                       <v-date-picker class="z-49" 
                         v-model="shipping_info.shipping_date_time"
                         :timezone="timezone" 
@@ -201,61 +212,71 @@
                         :max-date='shoppingCartStore.cart.campaign.meta_logistic.delivery_date.end_at'
                         >
                         <template v-slot="{ inputValue, inputEvents }">
-                          <div class="flex items-center justify-center">
-                            <input :value="inputValue" v-on="inputEvents" @click="shipping_info.shipping_date_time = null"
-                              class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-                          </div>
+                          <input :value="inputValue" v-on="inputEvents" @click="shipping_info.shipping_date_time = null"
+                            class="form-control border h-[42px] px-10 py-6 w-42 rounded-lg focus:outline-none focus:border-indigo-400" />
                         </template>
                       </v-date-picker>
                     </div>
-                  </div>
+                  </template>
                 </div>
                 <!-- END Delivery Option -->
               </div>
             </TabPanel>
             <!-- END Delivery Panel -->
 
-
-
             <!-- BEGIN Pickup Panel -->
             <TabPanel class="leading-relaxed">
               <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.option.pickup')}}</label>
               <template v-if="shoppingCartStore.cart.campaign">
-                <div class="flex flex-col gap-2 intro-y lg:mx-20 z-0">
-                  <div class="flex flex-row px-10 py-6 border-2 rounded-lg form-check"
-                    v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index">
-
-                    <div class="flex flex-row z-0">
-                      <input class="form-check-input" type="radio"
-                      :name="'pickup-switch-' + index" :value="index"
-                      v-model="shipping_option_index_computed" 
-                      @click="pickup_date_range(index)"/>
-                      <label class="form-check-label" :for="'pickup-switch-' + index">{{ option.name }} </label>
-                    </div>  
-                    <label class="form-check-label" :for="'pickup-switch-' + index">{{
-                        option.address
-                    }}</label>
-                  </div>
-                </div>
-                <label class="font-medium text-md whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
-                  <!-- pickup time-->
-                <div class="flex flex-col flex-wrap lg:mx-20 z-20" v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[pickup_select_index]?.start_at">
-                  <v-date-picker class="" 
-                    v-model="shipping_info.shipping_date_time"
-                    :timezone="timezone" 
-                    :columns="$screens({ default: 1})" 
-                    mode="datetime" is-required is24hr
-                    :min-date='date_range.start'
-                    :max-date='date_range.end'
+                <template v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index"> 
+                  <div class="flex flex-row justify-between form-check px-5 sm:px-10 py-6 border-2 rounded-lg lg:mx-20 z-0 my-5"
+                    :class="{'border-slate-600': shipping_option_index_computed == index}"
                     >
-                    <template v-slot="{ inputValue, inputEvents }">
-                      <div class="flex items-center justify-center">
+                    <input class="form-check-input mr-5 flex-0 w-4" 
+                      type="radio"
+                      :name="'pickup-switch-' + index" 
+                      :value="index"
+                      v-model="shipping_option_index_computed" 
+                      @click="pickup_date_range(index)"
+                      />
+
+                      <div class="flex flex-col sm:flex-row flex-0 w-full"> 
+                        <div class="flex flex-col mr-auto"> 
+                          <label class="form-check-label font-medium flex-0" :for="'pickup-switch-' + index">{{ option.name }} </label>  
+                          <label class="form-check-label flex-0" :for="'pickup-switch-' + index">{{
+                              option.address
+                          }}</label>
+                        </div> 
+
+                        <template v-if="option.start_at !== null && option.end_at !== null"> 
+                          <label class="form-check-label flex-0 my-auto">{{new Date(option.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
+                            +'~'+
+                            new Date(option.end_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}}</label>
+                        </template>
+                    </div>
+                  </div>
+
+                </template>
+
+                <template v-if="shoppingCartStore.cart.campaign.meta_logistic?.pickup_options[pickup_select_index]?.start_at"> 
+                  <label class="font-medium text-md whitespace-nowrap">{{$t('shopping_cart.delivery_tab.pickup_date')}}</label>
+                    <!-- pickup time-->
+                  <div class="flex flex-col flex-wrap lg:mx-20 z-20">
+                    <v-date-picker class="z-50" 
+                      v-model="shipping_info.shipping_date_time"
+                      :timezone="timezone" 
+                      :columns="$screens({ default: 1})" 
+                      mode="datetime" is-required is24hr
+                      :min-date='date_range.start'
+                      :max-date='date_range.end'
+                      >
+                      <template v-slot="{ inputValue, inputEvents }">
                         <input :value="inputValue" v-on="inputEvents" 
-                          class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-                      </div>
-                    </template>
-                  </v-date-picker>
-                </div>
+                          class="form-control border h-[42px] px-10 py-6 w-42 rounded-lg focus:outline-none focus:border-indigo-400" />
+                      </template>
+                    </v-date-picker>
+                  </div>
+                </template>
               </template>
             </TabPanel>
             <!-- END Pickup Panel -->
