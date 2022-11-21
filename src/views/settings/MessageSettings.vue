@@ -2,11 +2,11 @@
     <div class="flex flex-col justify-between gap-5 my-5"
         :class="{'md:flex-row': props.status == 'settings'}"> 
 
-        <label v-if="props.status == 'settings'" class="whitespace-nowrap w-72 text-xl">{{$t('settings.messages.title')}}</label>
+        <label v-if="props.status == 'settings'" class="w-72 text-xl">{{$t('settings.messages.title')}}</label>
 
         <div v-else-if="props.status !== 'settings'"
             class="flex flex-col gap-4"> 
-            <span class="text-xl font-medium leading-none lg:-mx-6 whitespace-nowrap w-60">{{$t('settings.messages.title')}}</span>
+            <span class="text-xl font-medium leading-none lg:-mx-6 whitespace-nowrap">{{$t('settings.messages.title')}}</span>
 		    <hr class="-mx-6" />
         </div>
 
@@ -16,10 +16,11 @@
                     <Accordion>
                         <div class="flex flex-col">
                             <div class="flex flex-row gap-2 justify-start">
-                                <div v-if="props.status !== 'settings'">
+                                <div v-if="field.status !== 'settings'">
                                     <input 
-                                        class="form-control form-check-input w-[1.5rem] h-[1.5rem] mr-2" 
-                                        type="checkbox" 
+                                        class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-2" 
+                                        type="checkbox"
+                                        v-model="props.meta_reply[field.key+'_enabled']"
                                     />
                                     <label class="w-fit whitespace-nowrap form-label text-base font-medium mr-3">{{$t('settings.messages.enable')}}</label>
                                 </div>
@@ -42,7 +43,7 @@
                         </textarea>
                     </AccordionPanel>
                 </AccordionItem>
-                <template v-if="field.type==='component'">
+                <!-- <template v-if="field.type==='component'">
                     <template v-for="(messages, index) in props.meta_reply[field.key]" :key="index"> 
                         <AccordionItem>
                             <Accordion>
@@ -69,7 +70,7 @@
                             </AccordionPanel>
                         </AccordionItem>
                     </template>
-                </template> 
+                </template>  -->
             </template> 
         </AccordionGroup>
     </div>

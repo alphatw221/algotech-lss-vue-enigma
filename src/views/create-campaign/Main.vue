@@ -354,7 +354,6 @@ onMounted(() => {
 	
 	//reply
 	if(sellerStore.userInfo.user_subscription.meta_reply)campaignData.value.meta_reply = JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_reply))
-
 })
 
 
@@ -363,7 +362,13 @@ const createCampaign = ()=>{
 
 	v.value.$touch()
 	if (v.value.$invalid) {
-		sellerStore.alert.showMessageToast("Invalid Data")
+		sellerStore.alert.showMessageToast('Invalid Data')
+		document.querySelector('#lss-content').scrollTo(0, -70)
+		// var err
+		// v.value.$errors.forEach( err=>{
+		// 	console.log(err)
+		// 	sellerStore.alert.showMessageToast(err.$uid)
+		// })
 		return
 	}
 

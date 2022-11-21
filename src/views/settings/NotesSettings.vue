@@ -216,7 +216,7 @@ onMounted(() => {
         generalInfo.value = response.data
         generalInfo.value.decimal_places = response.data.decimal_places.toString()  //temp   TomSelect only work with string value
 
-        console.log('GERNERAL',generalInfo.value)
+        // console.log('GERNERAL',generalInfo.value)
     })
     
 })
@@ -225,10 +225,10 @@ const update = () => {
     console.log(generalInfo.value)
     update_general_info(generalInfo.value, layoutStore.alert).then(res => {
         layoutStore.userInfo = res.data
+        document.querySelector('#lss-content').scrollTo(0, -70)
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
-        console.log(layoutStore.userInfo)
+        // console.log(layoutStore.userInfo)
     })
+
 }
-
-
 </script>
