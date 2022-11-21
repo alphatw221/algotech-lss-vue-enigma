@@ -350,17 +350,27 @@ const routes = [
         component: () => import('@/views/seller-buyers/Main.vue'),
       },
       {  
+        path: "buyers/:buyer_id",
+        redirect: to => {
+          return { name: 'seller-buyers'}
+        },
+      },
+      {  
         path: "buyers/:buyer_id/orders",
         name: "seller-buyers-order-history",
         component: () => import('@/views/seller-buyers/order-history/Main.vue'),
+      },
+      {
+        path: "buyers/:buyer_id/orders/order-detail/:order_id?",    
+        name: "seller-buyers-order-detail",
+        component: SellerOrderDetail,
       },
       {
         path: "buyers/:buyer_id/points",
         name: "seller-buyers-points",
         beforeEnter:isBuyerLoginMiddleware,
         component: () => import('@/views/seller-buyers/points/Main.vue'),
-      },
-      
+      }
     ],
   },
   

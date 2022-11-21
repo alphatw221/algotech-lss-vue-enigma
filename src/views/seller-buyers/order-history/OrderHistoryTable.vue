@@ -68,7 +68,7 @@
 import { retrieve_buyer_history } from '@/api_v2/user_subscription';
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { buyer_retrieve_order_oid } from "@/api_v2/order"
+import { get_order_oid } from "@/api_v2/order"
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import LoadingTable from '@/views/buyer-points/LoadingTable.vue';
@@ -95,10 +95,9 @@ const tableColumns = ref([
             ])
 
 const routeToDetail =(order_id)=>{
-  buyer_retrieve_order_oid(order_id, layoutStore.alert).then(res=>{
-    router.push({name:"buyer-order-detail-page",params:{order_oid:res.data}})
-  })
+  router.push({name:"seller-buyers-order-detail",params:{buyer_id:buyer_id, order_id:order_id}})
 }
+
 const changePage = page=> {      
 			currentPage.value = page;
 			getOrderHistoryListData()

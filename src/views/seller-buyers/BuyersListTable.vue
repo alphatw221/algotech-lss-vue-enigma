@@ -20,41 +20,27 @@
 					</td>
           <template v-for="column in tableColumns" :key="column.key">
             <td v-if="column.key == 'customer_name'" class="w-fit text-center">
-              <template v-if="buyer.buyer">
-                {{ buyer.buyer.name }}
-              </template>
-              <template v-else-if="buyer.customer_name">
-                {{ buyer.customer_name }}
-              </template>
-              <template v-else>
-                Guest
-              </template>
+              {{ buyer.name }}
             </td>
             <td v-if="column.key == 'customer_img'" class="text-left w-5 w-fit">
               <div class="flex justify-center">
                 <div class="w-fit h-fit image-fit">
-                    <div class="flex-none w-20 h-20 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="buyer.buyer">
-                        <img class="rounded-full" :src="getBuyerImg(buyer.buyer)"/>
-                    </div>
-                    <div class="flex-none w-20 h-20 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else-if="buyer.customer_img">
-                      <img class="rounded-full" :src="buyer.customer_img"/>
-                    </div>
-                    <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
-                        <img class="rounded-full" :src="unbound"/>
+                    <div class="flex-none w-20 h-20 sm:mr-1 sm:w-12 sm:h-12 image-fit">
+                        <img class="rounded-full" :src="getBuyerImg(buyer)"/>
                     </div>
                 </div>
               </div>
             </td> 
-            <td v-if="column.key == 'type'" class="text-center w-fit">
+            <!-- <td v-if="column.key == 'type'" class="text-center w-fit">
               <template v-if="buyer.buyer">
                 Registered
               </template>
               <template v-else>
                 Guest
               </template>
-            </td>
+            </td> -->
             <td v-if="column.key == 'order_history'" class="items-center manage_order w-fit" :data-content="$t('buyers.table_column.action')">
-              <a v-if="buyer.buyer" class="flex items-center justify-center" @click="toBuyerOrderHistory(buyer)">
+              <a class="flex items-center justify-center" @click="toBuyerOrderHistory(buyer)">
                 <span class="mr-3 sm:hidden"> {{$t('buyers.table_column.order_history')}}</span>
                 <Tippy  :content="$t('buyers.table_column.order_history')" :options="{ theme: 'light' }">
                   <!-- <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>  -->
@@ -63,7 +49,7 @@
               </a>
             </td>
             <td v-if="column.key == 'points'" class="items-center manage_order w-fit" :data-content="$t('buyers.table_column.action')">
-              <a v-if="buyer.buyer" class="flex items-center justify-center" @click="toBuyerPoints(buyer)">
+              <a class="flex items-center justify-center" @click="toBuyerPoints(buyer)">
                 <span class="mr-3 sm:hidden"> {{$t('buyers.table_column.points')}}</span>
                 <Tippy  :content="$t('buyers.table_column.points')" :options="{ theme: 'light' }">
                   <!-- <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>  -->
@@ -129,12 +115,9 @@ onMounted(()=>{
   search()
   // checkPage()
   showBuyersLoding.value = true
-  eventBus.on(props.tableName, (payload) => {
+  eventBus.on("BuyerSearch", (payload) => {
     currentPage.value = 1; 
-    searchColumn.value = payload.searchColumn;
     keyword.value = payload.keyword;
-    page_size.value = payload.pageSize;
-    // order_by.value = payload.order_by;
     search();
   })
   // startFromToast();
@@ -142,7 +125,7 @@ onMounted(()=>{
 })
 
 onUnmounted(()=>{
-  eventBus.off(props.tableName);
+  eventBus.off("BuyerSearch");
 })
 
 
@@ -151,7 +134,6 @@ const search =()=>{
     buyers.value = []
     list_buyers(keyword.value, currentPage.value, page_size.value, layoutStore.alert)
     .then((response) => {
-      console.log(response.data.results)
       if (response.data.count != undefined) {
         dataCount.value = response.data.count;
       }
@@ -171,11 +153,11 @@ const changePageSize = (pageSize)=>{
     }
 
 const toBuyerOrderHistory = (buyer_data)=>{
-  router.push({name:'seller-buyers-order-history',params:{'buyer_id':buyer_data.buyer.id}})
+  router.push({name:'seller-buyers-order-history',params:{'buyer_id':buyer_data.id}})
 }
 
 const toBuyerPoints = (buyer_data) => {
-  router.push({name:'seller-buyers-points',params:{'buyer_id':buyer_data.buyer.id}})
+  router.push({name:'seller-buyers-points',params:{'buyer_id':buyer_data.id}})
 }
 const hideDropDown = ()=>{
   dom('.dropdown-menu').removeClass('show')

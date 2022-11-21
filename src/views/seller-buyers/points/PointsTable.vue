@@ -102,7 +102,7 @@
 
 <script setup>
 import { retrieve_buyer_history } from '@/api_v2/user_subscription';
-import { computed, onMounted, provide, ref, watch } from "vue";
+import { computed, onMounted, provide, ref, watch, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order";
 
@@ -110,6 +110,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import LoadingTable from "./LoadingTable.vue";
 
 const layoutStore = useLSSSellerLayoutStore();
+const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const route = useRoute();
 const router = useRouter();
@@ -145,9 +146,11 @@ const getOrderHistoryListData = () => {
   ready.value = false
 
   retrieve_buyer_history(buyer_id, true, currentPage.value, pageSize.value, layoutStore.alert).then(response => {
-    layoutStore.buyer = response.data.results ? response.data.results[0].buyer : response.data[0].buyer
-		dataCount.value = response.data.count ? response.data.count : response.data.length
-		orders.value = response.data.results ? response.data.results : response.data
+    if (response.data.count) {
+      layoutStore.buyer = response.data.results ? response.data.results[0].buyer : response.data[0].buyer
+      dataCount.value = response.data.count ? response.data.count : response.data.length
+      orders.value = response.data.results ? response.data.results : response.data
+    }
     ready.value= true
 	})
 };

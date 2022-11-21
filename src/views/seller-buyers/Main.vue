@@ -2,7 +2,7 @@
 <!-- BEGIN OUTTER BOX -->
 <div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
     <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">
-        Buyers
+        {{ $t('buyers.page_title')}}
     </h2>
 </div>
 <div
@@ -27,7 +27,7 @@
     >
     </div>
     <div class="flex-auto">
-      <BuyersSearchBar :searchColumns="searchColumns" :eventBusName="'Scheduled'" />
+      <BuyersSearchBar />
       <BuyersListTable
         :tableColumns="tableColumns"
       />
@@ -59,11 +59,12 @@ const searchColumns = ref([{ text: "name", value: "name" }]);
 const tableColumns = ref([
     { name: null, key: "customer_img" },
     { name: "customer_name", key: "customer_name" },
-    { name: "type", key: "type" },
+    // { name: "type", key: "type" },
     { name: "order_history", key: "order_history"},
     { name: "points", key: "points"},
 ]);
 
 onMounted(()=>{
+  sellerStore.buyer = {}
 })
 </script>

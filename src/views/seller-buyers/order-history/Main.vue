@@ -25,8 +25,8 @@ const sellerLayoutStore = useLSSSellerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 
 const userAvatar = computed(() => {
-  if (sellerLayoutStore.buyer.facebook_info?.picture) return sellerLayoutStore.buyer.facebook_info.picture
-  else if (sellerLayoutStore.buyer.google_info?.picture) return sellerLayoutStore.buyer.google_info.picture
+  if (sellerLayoutStore.buyer?.facebook_info?.picture) return sellerLayoutStore.buyer.facebook_info.picture
+  else if (sellerLayoutStore.buyer?.google_info?.picture) return sellerLayoutStore.buyer.google_info.picture
   return import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR+'fake_head.jpeg'
 });
 

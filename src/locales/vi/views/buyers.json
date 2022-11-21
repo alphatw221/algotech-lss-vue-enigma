@@ -3,7 +3,7 @@
     "table_column": {
         "customer_name": "Buyer Name",
         "type": "Type",
-        "order_history": "Order History",
+        "order_history": "Lịch sử đặt hàng",
         "points": "Points"
     },
     "buyer_point": {
