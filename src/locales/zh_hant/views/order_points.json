@@ -1,0 +1,16 @@
+{
+    "points":"點數",
+    "statusButton":{
+        "all":"全部",
+        "earning":"Earning",
+        "spending":"Spending"
+    },
+    "table":{
+        "date":"日期",
+        "change_reason":"Point Change Reason",
+        "earned":"獲得點數",
+        "used":"使用點數",
+        "discount":"折扣",
+        "expire_at":"過期時間"
+    }
+}

@@ -53,7 +53,9 @@
         "buyers":"Buyers",
         "lucky-draw-list":"Lucky Draws",
         "create-lucky-draw":"Create Lucky Draw",
-        "report":"Report"
+        "report":"Report",
+        "orders": "Order History",
+        "points": "Points"
     },
     "top_bar":{
         "profile":"Profile",

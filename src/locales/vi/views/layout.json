@@ -11,7 +11,8 @@
         "localization":"Ngôn ngữ bản địa hóa",
         "connect_platform":"Kết nối nền tảng",
         "discount_code":"Mã giảm giá",
-        "manage_order":"Quản lý đơn hàng"
+        "manage_order":"Quản lý đơn hàng",
+        "buyers":"Buyers"
     },
     "bread_crumb":{
         "stock":"Kho hàng",
@@ -45,7 +46,10 @@
         "sellers":"Sellers",
         "buyers":"Buyers",
         "lucky-draw-list":"Rút thăm may mắn",
-        "create-lucky-draw":"Tạo rút thăm may mắn"
+        "create-lucky-draw":"Tạo rút thăm may mắn",
+        "report":"Report",
+        "orders": "Lịch sử đặt hàng",
+        "points": "Points"
     },
     "top_bar":{
         "profile":"Hồ Sơ",
