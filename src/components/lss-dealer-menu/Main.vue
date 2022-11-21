@@ -121,7 +121,7 @@
       </nav>
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="lss-content">
+      <div class="lss-content"> 
         <div class="absolute -z-50 top-0 invisible" id="topPoint"></div>
         <DealerBreadCrumb/>
         <router-view />

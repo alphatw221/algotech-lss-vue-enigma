@@ -1,7 +1,7 @@
 <template>
 <div class="flex outterContainer overflow-auto bg-secondary relative">
       <!-- BEGIN: Side Menu -->
-      <div class="top-[80px] z-0 sm:z-[51] left-[16px] px-4 flex fixed my-3 mx-auto py-1 w-fit xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100" 
+      <div class="top-[80px] z-0 sm:z-[51] left-[16px] px-4 flex fixed my-3 mx-auto py-1 w-fit xl:w-[220px] rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
         :class="{
                   'bg-slate-100': breadCrumb[breadCrumb.length-1] == 'create campaign',
                 }"
@@ -144,7 +144,7 @@
       
       <!-- END: Side Menu -->
       <!-- BEGIN: Content -->
-      <div class="lss-content">
+      <div class="lss-content" id="lss-content">
         <div class="absolute -z-50 top-0 invisible" id="topPoint"></div>
         <SellerBreadCrumb/>
         <router-view />
