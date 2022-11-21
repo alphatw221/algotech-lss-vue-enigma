@@ -353,11 +353,13 @@ const handleSocketMessage = message=>{
     if (message.type == 'cart_data'){
         const cart_data = message.data
 
-
         const cart_index = manageOrderStore.carts.findIndex(cart=>cart.id = cart_data.id)
-        manageOrderStore.carts[cart_index] = cart_data
+        if(cart_index>=0){
+            manageOrderStore.carts[cart_index] = cart_data
+        }else{
+            manageOrderStore.crts.unshift(cart_data)
+        }
 
-        // manageOrderStore.cartsDict[cart_data.id]=cart_data
     }
 }
 

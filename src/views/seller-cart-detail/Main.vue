@@ -1,5 +1,5 @@
 <template>
-    <div class="my-5 text-base text-xl sm:text-2xl text-center"> {{$t('order_detail.order')}} </div>
+    <div class="my-5 text-base text-xl sm:text-2xl text-center"> {{$t('cart.cart_detail')}} </div>
     <div class="w-[100%] mx-2 flex-col flex gap-1">
         <div class="my-auto flex flex-row items-center">
             <h2 class="text-xl font-semibold"> #{{sellerCartStore.cart.id}} 
@@ -8,7 +8,7 @@
                 </span> 
             </h2>
 
-            <button class="btn btn-danger ml-auto mr-5" @click="deleteCart()">{{$t('cart.delete_cart')}}</button>
+            <button class="btn btn-danger ml-auto mr-5" @click="clearCart()">{{$t('cart.clear_cart')}}</button>
         </div>
         <div v-if="sellerCartStore.cart.customer_name" class="my-auto">
             <span class="text-base mr-5"> {{ sellerCartStore.cart.customer_name }} {{sellerCartStore.cart.platform ? `/ `+ $t('order_detail.'+ sellerCartStore.cart.platform) : ''}}</span>
@@ -83,7 +83,7 @@ onMounted(()=>{
     )
 })
 
-const deleteCart = ()=>{
+const clearCart = ()=>{
     seller_clear_cart(route.params.cart_id, layoutStore.alert).then(
         res=>{
             sellerCartStore.cart = res.data

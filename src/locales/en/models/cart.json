@@ -1,5 +1,9 @@
 {
     "cart":"Cart",
     "subtotal_after_discount":"Subtotal After Discount",
-    "multiple_shiupping_included":"Multiple Shipping Included"
+    "multiple_shiupping_included":"Multiple Shipping Included",
+
+    "clear_cart":"Clear Cart",
+    "delete_cart":"Delete Cart",
+    "cart_detail":"Cart Detail"
 }
