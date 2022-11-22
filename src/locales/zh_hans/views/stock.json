@@ -4,6 +4,7 @@
     "for_sale": "可销售",
     "delisted": "未上架",
     "add_product": "新增商品",
+    "import_product": "批次上传商品",
     "dont_have_product_notify": "目前没有任何商品",
     "no_result":{
         "enabled":"目前没有任何可销售的商品。",
@@ -91,7 +92,11 @@
     "wishlist":{
         "confirm_send":"确认通过电子邮件发送通知給愿望清单上的每个人",
         "cancel_send":"取消",
-        "success_send":"电子邮件已发送成功"
+        "success_send":"电子邮件已发送成功",
+        "title":"愿望清单",
+        "name":"客户",
+        "email":"电子邮件",
+        "mail_to":"邮寄給所有客户"
     },
     "bulk_edit_modal":{
         "bulk_edit":"批次编辑",

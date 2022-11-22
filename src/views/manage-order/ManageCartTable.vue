@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-3 w-full overflow-auto max-h-[88%]" > 
+    <div class="mt-3 w-full overflow-auto max-h-[99%]" > 
         <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>

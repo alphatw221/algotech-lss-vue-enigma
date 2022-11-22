@@ -4,6 +4,7 @@
     "for_sale": "Để bán",
     "delisted": "Đã hủy",
     "add_product": "Thêm sản phẩm",
+    "import_product": "Import Product",
     "dont_have_product_notify": "Bạn không có sản phẩm trong danh mục này",
     "no_result":{
         "enabled":"Hiện tại không có mặt hàng nào có sẵn để bán.",
@@ -88,7 +89,11 @@
     "wishlist":{
         "confirm_send":"Xác nhận để thông báo và gửi E-mail cho mọi người trong danh sách đợi hàng",
         "cancel_send":"Đã hủy",
-        "success_send":"Email đã được gửi thành công."
+        "success_send":"Email đã được gửi thành công.",
+        "title":"Wishlist",
+        "name":"Customer",
+        "email":"E-mail",
+        "mail_to":"Mail all customer"
     },
     "bulk_edit_modal":{
         "bulk_edit":"số lượng lớn",

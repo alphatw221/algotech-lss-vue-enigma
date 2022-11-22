@@ -4,7 +4,7 @@
 
     <!-- SHOPPINGCART-->
     <div class="flex flex-col md:flex-row justify-between gap-5 my-5"> 
-        <label class="w-72 text-xl"> Shopping Cart settings</label>
+        <label class="w-72 text-xl"> {{$t("settings.localization.title")}}</label>
         <div class="flex flex-col gap-5 w-full"> 
             <div class="flex form-label text-base font-medium">{{$t("settings.localization.currency_symbol")}}</div>
             <TomSelect v-model="generalInfo.currency" :options="{
@@ -67,7 +67,7 @@
     <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
     <!-- NOTES-->
     <div class="flex flex-col md:flex-row justify-between gap-5 my-5"> 
-        <label class="w-72 text-xl"> Custom Note Settings</label>
+        <label class="w-72 text-xl"> {{$t('settings.notes.title')}}</label>
         <AccordionGroup class="accordion-boxed w-full">
             <AccordionItem>
                 <Accordion>

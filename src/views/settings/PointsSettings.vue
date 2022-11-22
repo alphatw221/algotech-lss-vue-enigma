@@ -32,7 +32,8 @@
 
                         <form class="flex flex-col sm:flex-row gap-2 sm:gap-5 text-[16px]">
                             <label class="radio-inline my-auto">
-                                <input class="mr-2" type="radio" name="pointValidity" value="disable" v-model="computedPointValidity"> Disable
+                                <input class="mr-2" type="radio" name="pointValidity" value="disable" v-model="computedPointValidity"> 
+                                {{$t('settings.points.unlimited')}}
                             </label>
 
                             <label class="radio-inline my-auto flex flex-row gap-2 items-center">
@@ -42,7 +43,7 @@
                                     :type="field.input_type"
                                     v-model="props.meta_point[field.key]"
                                 />
-                                <span class="">Month(s)</span>
+                                <span class="">{{$t('settings.points.month')}}</span>
                             </label>
                             
                         </form>
@@ -225,7 +226,7 @@
                                 </div>
                             
                                 <button 
-                                    class="flex-0 hidden xl:inline-block w-full h-[42px] ml-auto text-base btn-white sm:rounded-lg sm:w-24 text-white cursor-default " 
+                                    class="flex-0 hidden 2xl:inline-block w-full h-[42px] ml-auto text-base btn-white sm:rounded-lg sm:w-24 text-white cursor-default " 
                                 >
                                     {{ $t('settings.delivery_form.delete') }}
                                 </button>
