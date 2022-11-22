@@ -1,0 +1,18 @@
+{
+    "page_title": "買家",
+    "table_column": {
+        "customer_name": "買家姓名",
+        "type": "類型",
+        "email": "信箱",
+        "order_history": "歷史訂單",
+        "points": "點數"
+    },
+    "buyer_point": {
+        "points": "點數"
+    },
+    "search_bar":{
+        "title": "標題",
+        "search" : "搜尋",
+        "reset" : "重置"
+    }
+}
