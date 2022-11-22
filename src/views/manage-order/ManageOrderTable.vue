@@ -164,7 +164,7 @@
                                     {{ $t('manage_order.table.guest') }}
                                 </template>   
 
-                                <SimpleIcon icon="new_user" v-if="order.remark == 'new customer'" />
+                                <SimpleIcon icon="new_user2" v-if="order.remark == 'new customer'" />
                             </div>
                                  
                         </template>
@@ -355,7 +355,7 @@ const search = () => {
         res => {
 			orders.value = res.data.results
             manageOrderStore.data_count[props.tableStatus] = res.data.count;
-            console.log(orders.value)
+            // console.log(orders.value)
         }
     )
 }
