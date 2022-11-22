@@ -11,8 +11,9 @@
 
             <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
                 <div class="flex flex-col sm:flex-row gap-2"> 
-                  <span class="text-[32px] text-danger font-bold">{{buyerLayoutStore.userInfo.wallets[walletIndex].points}}</span>
-                  Points 
+                  <span class="text-[32px] text-danger font-bold">
+                  {{Math.floor(buyerLayoutStore.userInfo.wallets[walletIndex].points).toLocaleString("en-GB")}}
+                  Points </span>
                 </div>
                 <!-- <p> Expiry Date : 31 Sep 2022 </p> -->
             </div>
