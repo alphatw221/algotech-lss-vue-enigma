@@ -62,7 +62,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         title: "auto_reply",
       },
       {
-        icon: "manage-order",
+        icon: "buyers",
         pageName: "seller-buyers",
         title: "buyers",
       },

@@ -19,7 +19,7 @@
 
     "search_bar":{
         "title": "Title",
-        "search" : "Search Customer Name",
+        "search" : "Search Title",
         "reset" : "Reset"
     },
     "enter_post_id":{
