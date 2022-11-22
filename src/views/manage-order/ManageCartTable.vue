@@ -138,7 +138,7 @@
                                     <template v-else>
                                         {{ $t('manage_order.table.guest') }}
                                     </template>        
-                                    <SimpleIcon icon="new_user" v-if="cart?.remark == 'new customer'" />
+                                    <SimpleIcon icon="new_user2" v-if="cart?.remark == 'new customer'" />
                                     </div>
                                 </td>
                                 <td :data-content="$t(`manage_order.table.updated_at`)">
