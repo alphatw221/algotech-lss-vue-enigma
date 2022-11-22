@@ -79,6 +79,7 @@ import DiscountCode from "../views/discountCode/Main.vue"
 import CampaignList from "../views/campaign-list/Main.vue";
 import CampaignLive from "../views/campaign-live/Main.vue"; 
 import ManageOrder from "../views/manage-order/Main.vue";  
+import ManageOrderClone from "../views/manage-order/MainClone.vue"
 import SellerOrderDetail from "../views/seller-order-detail/Main.vue"
 import SellerCartDetail from "../views/seller-cart-detail/Main.vue"
 // import CampaignSelect from "../views/manage-order/Campaignselect.vue";
@@ -105,11 +106,13 @@ import isDealerMiddleware from "@/libs/routerMiddleware/isDealerMiddleware"
 
 import buyerLoginMiddleware from "@/libs/routerMiddleware/buyerLoginMiddleware";
 import buyerRecaptchaMiddleware from "@/libs/routerMiddleware/buyerRecaptchaMiddleware";
+import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
+import redirectLoginPageMiddleware from "@/libs/routerMiddleware/redirectLoginPageMiddleware";
 import checkSellerLogin from "@/libs/routerMiddleware/checkSellerLogin";
 import checkDealerLogin from "@/libs/routerMiddleware/checkDealerLogin";
 // import checkAdminLogin from "@/libs/routerMiddleware/checkAdminLogin";
 
-import buyerAuthMiddleware from "@/libs/routerMiddleware/buyerAuthMiddleware"
+
 import sellerAuthMiddleware from "@/libs/routerMiddleware/sellerAuthMiddleware"
 import adminAuthMiddleware from "@/libs/routerMiddleware/adminAuthMiddleware"
 
@@ -150,7 +153,7 @@ const routes = [
       {
         path: "manage-order",
         name: "manage-order",
-        component: ManageOrder,
+        component: ManageOrderClone, //simply reuse got chances component won't unmount
       },
       {
         path: "campaign-list/campaign-live/:campaign_id?",
@@ -229,6 +232,7 @@ const routes = [
         path: "campaign-list/campaign-live/:campaign_id?/manage-order",
         name: "manage-campaign-order",
         beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
           sellerRetrieveCampaignDataMiddleware(to, from);
         },
         component: ManageOrder,
@@ -247,15 +251,15 @@ const routes = [
         component: SellerOrderDetail,
       },
 
-      // {
-      //   path: "campaign-list/campaign-live/:campaign_id?/manage-order/cart-detail/:cart_id?",    
-      //   name: "seller-cart-detail",
-      //   beforeEnter:(to, from)=>{
-      //     sellerGenerateCampaignProductDictMiddleware(to, from);
-      //     sellerRetrieveCampaignDataMiddleware(to, from);
-      //   },
-      //   component: SellerCartDetail,
-      // },
+      {
+        path: "campaign-list/campaign-live/:campaign_id?/manage-order/cart-detail/:cart_id?",    
+        name: "seller-cart-detail",
+        beforeEnter:(to, from)=>{
+          sellerGenerateCampaignProductDictMiddleware(to, from);
+          sellerRetrieveCampaignDataMiddleware(to, from);
+        },
+        component: SellerCartDetail,
+      },
       
       
       
@@ -312,7 +316,7 @@ const routes = [
       },
       {  
         path: "autoreply",
-        name: "side-menu-auto-reply",
+        name: "auto-reply",
         component: AutoReply,
       },  
       {  
@@ -339,6 +343,33 @@ const routes = [
         path: "stock/category-management",
         name: "category-management",
         component: () => import('@/views/category-management/Main.vue')
+      },
+      {  
+        path: "buyers",
+        name: "seller-buyers",
+        component: () => import('@/views/seller-buyers/Main.vue'),
+      },
+      {  
+        path: "buyers/:buyer_id",
+        redirect: to => {
+          return { name: 'seller-buyers'}
+        },
+      },
+      {  
+        path: "buyers/:buyer_id/orders",
+        name: "seller-buyers-order-history",
+        component: () => import('@/views/seller-buyers/order-history/Main.vue'),
+      },
+      {
+        path: "buyers/:buyer_id/orders/order-detail/:order_id?",    
+        name: "seller-buyers-order-detail",
+        component: SellerOrderDetail,
+      },
+      {
+        path: "buyers/:buyer_id/points",
+        name: "seller-buyers-points",
+        beforeEnter:isBuyerLoginMiddleware,
+        component: () => import('@/views/seller-buyers/points/Main.vue'),
       }
     ],
   },
@@ -399,14 +430,21 @@ const routes = [
   },
   // -------------------------------Buyer Route-----------------------------
   {
+    path: "/buyer/login/:type?/:object_id?",
+    name: "buyer-login-page",
+    beforeEnter: buyerLoginMiddleware,
+    component: () => import('@/views/general/BuyerLoginPage.vue'),
+  },
+  {
     path: "/buyer",
     component: LSSBuyerLayout,
     beforeEnter: buyerAuthMiddleware,
     children: [
       {
         path: "",
-        name: "buyer-index",
-        component: () => import('@/views/buyer-index/Main.vue'),
+        redirect: to => {
+          return { name: 'buyer-login-page'}
+        },
       },
       {
         path: "recaptcha/:type?/:object_id?",
@@ -448,17 +486,22 @@ const routes = [
       {  
         path: "cart/:cart_oid?",
         name: "buyer-shopping-cart-detail-page",
-        beforeEnter: youtubeOrderMiddleware,
+        beforeEnter: (to, from)=>{
+          const result = redirectLoginPageMiddleware(to, from)
+          if (result !== true) {
+            return result
+          }
+          return youtubeOrderMiddleware(to, from)
+        },
         component: () => import('@/views/shoppingcart/Main.vue')
       },
+      {
+        path: "recommand/:platform_name?/:platform_id?",
+        name: "recommand-platform-page",
+        // beforeEnter: buyerLoginMiddleware,
+        component: () => import("@/views/recommand/RecommandPlatformPage.vue")
+      },
     ]
-  },
-  
-  {
-    path: "/buyer/login/:type?/:object_id?",
-    name: "buyer-login-page",
-    beforeEnter: buyerLoginMiddleware,
-    component: () => import('@/views/general/BuyerLoginPage.vue'),
   },
 
  // -------------------------------Dealer Route-----------------------------
@@ -1131,7 +1174,7 @@ const router = createRouter({
   history: createWebHistory(),
   routes,
   scrollBehavior(to, from, savedPosition) {
-    return savedPosition || { left: 0, top: 0 };
+    return savedPosition || { left: 0, top: -70 };
   },
 });
 

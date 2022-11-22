@@ -14,58 +14,23 @@
 						<template v-else-if="column.key === 'edit'">
 							{{ '' }}
 						</template>
-						<!-- too mush duplication over here -->
-						<template v-else-if="column.key === 'name'">
-							<div class="flex justify-center"> 
-								{{ $t(`stock.table_column.${column.key}`) }}
-								<template v-if="sortBy =='-name'" > 
-									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('name')" />
+
+						<div v-else class="flex justify-center"> 
+							{{ $t(`stock.table_column.`+column.name) }}
+							<template v-if="column.sortable === true">
+								<template v-if="sortBy[0] === '-' && sortBy.substr(1,column.key.length) === column.key" > 
+									<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '')" />
 									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
-								<template v-else-if="sortBy =='name'" > 
-									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
-									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
-								</template> 
-								<template v-else> 
-									<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-name')" />
-								</template>
-							</div>
-						</template>
-						<template v-else-if="column.key === 'qty'">
-							<div class="flex justify-center w-24"> 
-								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
-								<template v-if="sortBy =='-qty'" > 
-									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('qty')" />
-									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
-								</template>
-								<template v-else-if="sortBy =='qty'" > 
-									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
+								<template v-else-if="sortBy === column.key" > 
+									<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '-')" />
 									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
 								</template> 
 								<template v-else> 
-									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-qty')" />
+									<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '-')" />
 								</template>
-							</div>
-						</template>
-						<template v-else-if="column.key === 'price'">
-							<div class="flex justify-center w-24"> 
-								<div class="shrink-0">{{ $t(`stock.table_column.${column.key}`) }}</div>
-								<template v-if="sortBy =='-price'" > 
-									<ChevronsUpIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('price')" />
-									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
-								</template>
-								<template v-else-if="sortBy =='price'" > 
-									<ChevronsDownIcon class="shrink-0 ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
-									<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
-								</template> 
-								<template v-else> 
-									<ChevronDownIcon class="shrink-0 ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis('-price')" />
-								</template>
-							</div>
-						</template>
-						<template v-else>
-							{{ $t(`stock.table_column.${column.key}`) }}
-						</template>
+							</template>
+						</div>
 					</th>
 				</tr>
 			</thead>
@@ -134,21 +99,21 @@
 							</div>
 						</td>
 
-						<td v-else-if="column.key === 'categories'" class="w-full sm:w-fit category" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'categories'" class="w-full sm:w-32 category" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div v-for="(productCategoryID,index) in product[column.key] " :key="index">
 								<div >{{ stockStore.productCategoryDict[productCategoryID]?.name }}</div> 
 							</div>
 						</td>
 
-						<td v-else-if="column.key === 'type'" class="w-full sm:w-fit qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
+						<!-- <td v-else-if="column.key === 'type'" class="w-full sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="">{{product[column.key]}}</div> 
+						</td> -->
+
+						<td v-else-if="column.key === 'qty'" class="w-full sm:w-32 text-center" :data-content="$t(`stock.table_column.${column.key}`)">
+							{{product[column.key]}}
 						</td>
 
-						<td v-else-if="column.key === 'qty'" class="w-full sm:w-fit qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div class="text-right">{{product[column.key]}}</div> 
-						</td>
-
-						<td v-else-if="column.key === 'price'" class="w-full sm:w-20 qtyPrice" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'price'" class="w-full sm:w-32" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="text-right">
 								<span class="text-[12px]"> {{layoutStore.userInfo.user_subscription.currency}} </span>
 								{{(Math.floor(parseFloat(product[column.key]) * (10 ** layoutStore.userInfo.user_subscription.decimal_places)) / 10 ** layoutStore.userInfo.user_subscription.decimal_places ).toLocaleString('en-GB')}}
@@ -158,12 +123,12 @@
 						<td v-else-if="column.key === 'wishlist'" class="w-full sm:w-fit wishlist" :data-content="$t(`stock.table_column.${column.key}`)">
 							<template v-if="product.meta.wish_list" > 
 								<div v-if="Object.keys(product.meta.wish_list).length >0" 
-									class="flex gap-2 cursor-pointer" @click="sentWishlistMail(product,product_index)"> 
+									class="flex gap-2 cursor-pointer justify-center" @click="openWishlistModal(product)"> 
 										<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> ({{Object.keys(product.meta.wish_list).length}})</span>  </div>
-								<div v-else class="flex gap-2 cursor-not-allowed"> 
+								<div v-else class="flex gap-2 cursor-not-allowed justify-center"> 
 									<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
 							</template>
-							<div v-else class="flex gap-2 cursor-not-allowed"> 
+							<div v-else class="flex gap-2 cursor-not-allowed justify-center"> 
 							<SimpleIcon icon="wishlist" width="24" height="24"/><span class="font-bold"> (0) </span>  </div>
 						</td>
 
@@ -195,8 +160,8 @@
 							</div>
 						</td>
 
-						<td v-else class="sm:w-fit" :data-content="$t(`stock.table_column.${column.key}`)">
-							<div class="sm:w-fit"> {{product[column.key]}} </div>
+						<td v-else class="text-center" :data-content="$t(`stock.table_column.${column.key}`)">
+							{{product[column.key]}}
 						</td>
 
 					</template>
@@ -208,21 +173,21 @@
 		<Page 
 			class="mx-auto my-3"
 			:total="dataCount" 
+			show-sizer :page-size-opts="[10,20,50,100]" 
+			:page-size="pageSize" 
 			@on-change="changePage"
-			@on-page-size-change="changePageSize"
-		/>
+			@on-page-size-change="changePageSize" />
 	</div> 
 </template>
 
 <script setup>
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { search_product, delete_product, copy_product, bulk_update_product, wish_list_send_email } from '@/api_v2/product'
+import { search_product, delete_product, copy_product, bulk_update_product } from '@/api_v2/product'
 
 import { ref, onMounted, onUnmounted, defineProps, getCurrentInstance, computed, watch } from 'vue'
 import { useRoute, useRouter } from "vue-router"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 import { useSellerStockStore } from "@/stores/lss-seller-stock"
 
 const stockStore = useSellerStockStore();
@@ -240,25 +205,29 @@ const statusRadio = ref([
 ])
 
 const computedTableColumns = computed(()=>{
-	if(layoutStore.plugins){
-		return [
-			{ name: "image", key: "image" },
-			{ name: "name", key: "name", sortable:true},
-			{ name: "category", key: "categories" },
-			{ name: "description", key: "description" },
-			{ name: "qty", key: "qty", sortable:true},
-			{ name: "price", key: "price", sortable:true}]
-	}
-	return[
+
+	var columns = [
 		{ name: "check", key: "check"},
 		{ name: "image", key: "image" },
 		{ name: "name", key: "name", sortable:true },
+		{ name: "order_code", key: "order_code", sortable:true },
 		{ name: "category", key: "categories" },
-		{ name: "remark", key: "remark" },
+		{ name: "remark", key: "remark"},
 		{ name: "qty", key: "qty", sortable:true },
 		{ name: "price", key: "price", sortable:true },
 		{ name: "wishlist", key:"wishlist"},
 		{ name: "", key: "edit" },]
+
+	if(layoutStore.userInfo?.user_subscription.user_plan?.hide?.stock_table_check){
+		columns = columns.filter(column=>column.key!="check")
+	}
+	if(layoutStore.userInfo?.user_subscription?.user_plan.hide?.stock_table_wishlist){
+		columns = columns.filter(column=>column.key!="wishlist")
+	}
+	if(layoutStore.userInfo?.user_subscription?.user_plan.hide?.stock_table_edit){
+		columns = columns.filter(column=>column.key!="edit")
+	}
+	return columns
 })
 const currentPage = ref(1)
 const totalPage = ref(1)
@@ -269,7 +238,7 @@ const keyword = ref('')
 const stockProducts = ref([])
 const categoryID = ref('')
 const sortBy = ref('')
-const showModal = ref(false)
+const product = ref([])
 
 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
@@ -300,8 +269,6 @@ onUnmounted(()=>{
 	eventBus.off(props.searchEventBusName)
 	//refreshStockTable event unregister at Main
 })
-
-
 
 
 const search = ()=>{
@@ -347,13 +314,13 @@ const updateProductsCheck = ()=>{
 
 watch(computed(()=>stockProducts.value),updateProductsCheck)
 
-const changePage = page=> {      
-	currentPage.value = page;
+const changePage = (p)=> {      
+	currentPage.value = p;
 	search();
 }
 
-const changePageSize = pageSize => {
-	pageSize.value = pageSize;
+const changePageSize = (p) => {
+	pageSize.value = p;
 	search();
 }
 
@@ -383,8 +350,9 @@ const copyProduct = (product, index) => {
 	hideDropDown()
 }
 
-const sortByThis = (by) =>{
-	sortBy.value = by
+const sortByThis = (by,operator) =>{
+	sortBy.value = operator + by
+	// console.log(sortBy.value)
 	search();
 }
 
@@ -425,16 +393,9 @@ const selectStock = (product, event) => {
 	console.log(stockStore.selectedProductIDList)
 }
 
-const sentWishlistMail = (product, index) =>{
-	let yes = confirm(`${i18n.global.t('stock.wishlist.confirm_send')}`)
-	if (yes) {
-		wish_list_send_email(product.id, layoutStore.alert).then(
-		res=>{
-			layoutStore.notification.showMessageToast(`${i18n.global.t('stock.wishlist.success_send')}`)
-			stockProducts.value[index].meta.wish_list = []
-		})
-	}
-	else layoutStore.alert.showMessageToast(`${i18n.global.t('stock.wishlist.cancel_send')}`)
+const openWishlistModal = (product) =>{
+	console.log('xxx',product)
+	eventBus.emit('showWishlistModal', {'wishlist':product.meta.wish_list, 'id':product.id})
 }
 
 </script>
@@ -585,6 +546,10 @@ thead th{
 		display:inline-flex;
 		justify-content: flex-end;
 		width: 100% !important;
+	}
+	.wishlist:before {
+		content: attr(data-content);
+		 
 	}
 
 	td:nth-of-type(8):before {

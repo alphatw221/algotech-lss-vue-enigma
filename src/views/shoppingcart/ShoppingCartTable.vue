@@ -35,7 +35,12 @@
 							<div class="productName">{{ shoppingCartStore.campaignProductDict[campaign_product_id]?.name }} </div>
 						</div>
 					</td>
-					<td class="text-center h-20">
+					<td class="text-center" :data-content="$t(`shopping_cart.table.order_code`)">
+						<div class="flex items-center"> 
+							<span class="ordercode mx-auto"> {{ shoppingCartStore.campaignProductDict[campaign_product_id]?.order_code }}</span>
+						</div>
+					</td>
+					<td class="text-center h-20" :data-content="$t(`shopping_cart.table.Qty`)">
 						<template v-if="shoppingCartStore.campaignProductDict[campaign_product_id]?.customer_editable && shoppingCartStore.campaignProductDict[campaign_product_id]?.type ==='product'">
 							<div class="flex w-full justify-center">
 								<!-- <div class="absolute -bottom-8 border-slate border-2 rounded-bl-md rounded-r-md p-3 bg-white">
@@ -90,14 +95,14 @@
 					<td class="sm:hidden">
 						<div style="color:#FF4500" v-show="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart >= shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'"> {{$t('shopping_cart.table.missing_message')}}</div>
 					</td>
-					<td class="text-center h-20 ">
+					<td class="text-center h-20 " :data-content="$t(`shopping_cart.table.price`)">
 						<div class="price whitespace-nowrap"> 
 							{{shoppingCartStore.cart.campaign.currency}} 
 							{{(Math.floor(parseFloat(shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
 							{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 						</div>
 					</td>
-					<td class="text-center h-20">
+					<td class="text-center h-20" :data-content="$t(`shopping_cart.table.subtotal`)">
 						<div class="price whitespace-nowrap"> 
 							{{shoppingCartStore.cart.campaign.currency}} 
 							{{(Math.floor(parseFloat(qty * shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
@@ -152,6 +157,7 @@ const cacheQty = ref(0)
 
 const tableColumns = ref([
 	{ key: "product", name: "product",  },
+	{ key: "order_code", name: "order_code",  },
 	{ key: "qty", name: "qty",  },
 	{ key: "price", name: "price",  },
 	{ key: "subtotal", name: "subtotal",  },
@@ -221,7 +227,7 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
 
 <style scoped>
   td{
-    height: 42px;
+    min-height: 42px;
   }
 
   @media only screen and (max-width: 760px),
@@ -230,9 +236,6 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
     display: block;
 	font-size: 16px;
 	padding: 0px !important;
-  }
-  .imgtd{
-    height: 100px;
   }
 
   thead tr {
@@ -248,74 +251,74 @@ const changeQuantity = ( index, operation, campaign_product_id, qty) => {
   td {
     border: none;
     padding-left: 50% !important;
-    text-align: center !important;
-	height: auto !important;
+    text-align: right !important;
+	min-height: 32px !important;
+	padding-right: 10px !important;
+	height: auto;
   }
-  .productName{
-	min-height: 35px !important;
-  }
-  .qty{
-	min-height: 42px !important;
-	padding-top: 10px;
-	text-align: center;
-  }
-  .price{
-	padding-left: 20px;
-	padding-right: 20px;
-	height:40px;
-	padding-top:10px;
-  }
+
   td:before {
     position: absolute;
-    left: 6px;
+    left: 10px;
     width: 45%;
-    padding-right: 10px;
-	padding-top:10px;
     white-space: nowrap;
     font-weight: bold;
 	text-align: left !important;
+	min-height: 32px !important;
   }
 
-  td:nth-of-type(1):before {
-    content: "";
-    /* color: #0e9893; */
+  .imgtd{
+    min-height: 125px !important;
+	padding-left: 0% !important;
   }
+  .imgtd:before{
+	display:none;
+  }
+
   td:nth-of-type(2):before {
-    content: "Q'ty";
-	display: flex;
-	align-self: flex-end !important;
-    /* color: #0e9893; */
+	display:none;
+  }
+  td:nth-of-type(2) {
+	padding-left: 0 !important;
+	text-align: center;
+  }
+  .ordercode{
+	border: 1.5px solid #f6ad55;  
+	border-radius: 5px;
+	font-weight: 600;
+	color: #dd6b20; 
+	width: fit-content;
+	padding-right: 5px;
+	padding-left: 5px;
   }
   td:nth-of-type(3) {
-    display:block;
-	width: 100%;
-	padding-left: 0% !important;
-	height: auto;
-    /* color: #0e9893; */
+	padding-left: 0 !important;
   }
   td:nth-of-type(3):before {
     display:none;
-    /* color: #0e9893; */
+  }
+  td:nth-of-type(4) {
+    position: absolute;
+	bottom:0 !important;
   }
   td:nth-of-type(4):before {
-    content: "Price";
-    /* color: #0e9893; */
+    display:none;
   }
+ 
   td:nth-of-type(5):before {
-    content: "Subtotal";
-    /* color: #0e9893; */
+    content: attr(data-content);
   }
   td:nth-of-type(6):before {
-    display:none; 
-    /* color: #0e9893; */
+    content: attr(data-content);
   }
-  td:nth-of-type(6) {
-    display:inline-block; 
-	width: 100%;
-	padding-left: 0px !important;
-	margin-bottom: 15px;
-	margin-top:10px;
-    /* color: #0e9893; */
+
+  td:nth-of-type(7):before {
+    display:none; 
+  }
+  td:nth-of-type(7){
+    padding-left: 0% !important;
+	padding-bottom: 10px !important;
+	min-height: 0 !important;
   }
 }
 </style>

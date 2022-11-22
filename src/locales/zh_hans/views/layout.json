@@ -11,7 +11,8 @@
         "localization":"在地化",
         "connect_platform":"社群平台",
         "discount_code":"优惠代码",
-        "manage_order":"订单管理"
+        "manage_order":"订单管理",
+        "buyers":"买家"
 
     },
     "bread_crumb":{
@@ -46,7 +47,10 @@
         "sellers":"卖家",
         "buyers":"买家",
         "lucky-draw-list":"抽奖工具",
-        "create-lucky-draw":"建立抽奖"
+        "create-lucky-draw":"建立抽奖",
+        "report":"报告",
+        "orders": "历史订单",
+        "points": "点数"
     },
     "top_bar":{
         "profile":"会员资讯",

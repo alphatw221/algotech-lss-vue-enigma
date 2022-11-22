@@ -59,6 +59,7 @@
     },
 
     "add_product_page": {
+        "sku":"商品貨號 (SKU)",
         "edit_title": "編輯活動商品",
         "add_title": "新增商品",
         "product_name": "商品名稱",

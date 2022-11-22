@@ -38,7 +38,7 @@
         <div class="mr-auto">{{$t('cart.subtotal_after_discount')}}</div>
         <div class="font-medium" v-if="campaignDetailStore.campaign ">
           {{campaignDetailStore.campaign?.currency}} 
-          {{ (Math.floor(parseFloat(Math.max(computedCartSubtotal-sellerCartStore.cart.discount,0)) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places).toLocaleString('en-GB')}}
+          {{ (Math.floor(parseFloat(computedSubtotalAfterDiscount) * (10 ** campaignDetailStore.campaign?.decimal_places)) / 10 ** campaignDetailStore.campaign?.decimal_places).toLocaleString('en-GB')}}
           {{campaignDetailStore.campaign?.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign?.price_unit}`):''}}
         </div>
       </div>
@@ -232,7 +232,7 @@ const computedItemsOverFreeDeliveryThreshold = computed(()=>{
 
 const computedShippingCost = computed(()=>{
 
-
+  //----------------product category logistic setting-------------------------------------
   const logisticCategories = {}
   var applyCategoryLogistic = false
   Object.entries(sellerCartStore.cart?.products||{}).forEach(([key, value])=>{
@@ -242,17 +242,37 @@ const computedShippingCost = computed(()=>{
       campaignDetailStore.campaignProductDict?.[key]?.categories?.length===1 && 
       layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()==campaignDetailStore.campaignProductDict?.[key]?.categories[0])
       ){
-      logisticCategories[campaignDetailStore.campaignProductDict?.[key]?.categories[0]]=true
+      // logisticCategories[campaignDetailStore.campaignProductDict?.[key]?.categories[0]]=true
+
+      if(logisticCategories?.[campaignDetailStore.campaignProductDict?.[key]?.categories[0]]){
+        logisticCategories[campaignDetailStore.campaignProductDict?.[key]?.categories[0]].push({campaignProductId:key,qty:value})
+      }else{
+        logisticCategories[campaignDetailStore.campaignProductDict?.[key]?.categories[0]] = [{campaignProductId:key,qty:value},]
+      }
+
     }
   })
 
   var shippingCost = 0 
-  Object.keys(logisticCategories).forEach((key)=>{
-    const productCategory = layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()===key)
+  Object.entries(logisticCategories).forEach(([productCategoryID, objects])=>{
+    const productCategory = layoutStore.userInfo?.user_subscription?.product_categories?.find(product_category=>product_category.id.toString()===productCategoryID)
 
     if(productCategory?.meta_logistic?.enable_flat_rate){
       applyCategoryLogistic = true
-      shippingCost+=productCategory?.meta_logistic?.flat_rate||0
+
+
+
+      var is_category_product_subtotal_above = false
+      if(productCategory?.meta_logistic?.is_free_delivery_for_order_above_price){
+        var category_products_subtotal = 0
+        objects.forEach(object=>{
+          category_products_subtotal += (shoppingCartStore.campaignProductDict?.[object.campaignProductId].price * object.qty)
+        })
+        is_category_product_subtotal_above = category_products_subtotal > productCategory?.meta_logistic?.free_delivery_for_order_above_price|0 
+      }
+
+
+      shippingCost+= is_category_product_subtotal_above ? 0 : productCategory?.meta_logistic?.flat_rate||0
     }
   })
 
@@ -278,6 +298,10 @@ const computedIsMultipleShippingCostApplied = computed(()=>{  //temp
     }
   })
   return Object.keys(logisticCategories).length>1
+})
+
+const computedSubtotalAfterDiscount = computed(()=>{
+  return Math.max(computedCartSubtotal.value-sellerCartStore.cart.discount,0)
 })
 
 

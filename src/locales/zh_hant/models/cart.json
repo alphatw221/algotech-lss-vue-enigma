@@ -1,5 +1,9 @@
 {
     "cart":"購物車",
     "subtotal_after_discount":"折扣後小計",
-    "multiple_shiupping_included":"包含多筆運費"
+    "multiple_shiupping_included":"包含多筆運費",
+
+    "clear_cart":"清空購物車",
+    "delete_cart":"刪除購物車",
+    "cart_detail":"購物車明細"
 }

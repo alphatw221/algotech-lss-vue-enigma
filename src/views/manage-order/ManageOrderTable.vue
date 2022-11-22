@@ -1,9 +1,9 @@
 <template>
-    <div class="mt-3 w-full overflow-auto h-fit sm:h-[50vh]"> 
-        <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
+<div class="mt-3 w-full overflow-auto max-h-[88%]" > 
+    <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
+                    <th class="whitespace-nowrap text-center" v-for="column in computedColumns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
                         <template v-else>
                             <div class="flex justify-center"> 
@@ -28,8 +28,8 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(order, index) in orders" :key="index" class="intro-x">
-                    <td v-for="column in columns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
+                <tr v-for="(order, index) in orders" :key="index" class="relative">
+                    <td v-for="column in computedColumns" :key="column.key" :data-content="$t(`manage_order.table.`+column.name)">
                         <template v-if="column.key === 'platform'">
                             <div class="flex justify-center">
                                 <div v-if="order[column.key] === 'facebook'"
@@ -135,7 +135,7 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'delivery'">
+                        <!-- <template v-else-if="column.key === 'delivery'">
                             <div class="flex place-content-center">
                                 <a class=" w-fit h-fit image-fit" v-show="order.status === 'complete' && order.shipping_method === 'delivery'" @click="shippingOut(order,index)">
                                   <Tippy  :content="$t('tooltips.manage_order.delivery_noti')" :options="{ theme: 'light' }"> 
@@ -148,7 +148,7 @@
                                     </Tippy> 
                                 </a>
                             </div>
-                        </template>
+                        </template> -->
                         <template v-else-if="column.key === 'customer_name'">
                             <template v-if="order.customer_name">
                                 {{order.customer_name}}
@@ -166,10 +166,10 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal' && order?.campaign" class="text-right">
-                                {{order?.campaign?.currency}}
-                                {{(Math.floor(parseFloat(order.total) * (10 ** order?.campaign?.decimal_places)) / 10 ** order?.campaign?.decimal_places).toLocaleString('en-GB')}}
-                                {{order?.campaign?.price_unit?$t(`global.price_unit.${order?.campaign?.price_unit}`):''}}
+                        <template v-else-if="column.key === 'subtotal' " class="text-right">
+                                {{order?.currency}}
+                                {{(Math.floor(parseFloat(order.total) * (10 ** order?.decimal_places)) / 10 ** order?.decimal_places).toLocaleString('en-GB')}}
+                                {{order?.price_unit?$t(`global.price_unit.${order?.price_unit}`):''}}
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
@@ -188,10 +188,11 @@
                             <OrderPaymentStatusSelect :order="order"/>
                         </template>
                         
-                        <template v-else-if="column.key === 'delivery_status'">
-                            <OrderDeliveryStatusSelect :order="order" />
+                        <template v-else-if="column.key === 'delivery_status' && (!layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status)">
+                            <OrderDeliveryStatusSelect :order="order" class="w-full"/>
                         </template>
 
+                        <template v-else-if="column.key === 'category'"> </template>
 
                         <template v-else class="w-30"> 
                             {{ $t(`order.${column.key}.${order[column.key]}`) }}
@@ -200,24 +201,30 @@
                 </tr>
             </tbody>
         </table>
-    </div>
+</div>
+
     <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
-        <Page class="mx-auto my-3" :total="manageOrderStore.data_count[props.tableStatus]" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
+        <Page class="mx-auto my-3" 
+            show-sizer :page-size-opts="[10,20,50,100]" 
+            :total="manageOrderStore.data_count[props.tableStatus]" 
+            :page-size="page_size" 
+            @on-change="changePage"
+            @on-page-size-change="changePageSize"/>
     </div>
 </template>
 <script setup>
-import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid } from "@/api_v2/order"
+import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid, get_order_report } from "@/api_v2/order"
 
-import { ref, provide, onMounted, onUnmounted, getCurrentInstance } from "vue";
+import { ref, provide, onMounted, onUnmounted, getCurrentInstance, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import unbound from '/src/assets/images/lss-img/noname.png';
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 
 import OrderDeliveryStatusSelect from "@/components/order/OrderDeliveryStatusSelect.vue"
 import OrderPaymentStatusSelect from "@/components/order/OrderPaymentStatusSelect.vue"
+import { utils, writeFile } from 'xlsx'
 
 const campaignDetailStore = useCampaignDetailStore();
 const route = useRoute();
@@ -230,43 +237,58 @@ const baseURL = import.meta.env.VITE_APP_WEB
 
 
 
-const payment_status_options = ref([
-    { key: 'awaiting_payment', value: 'awaiting_payment'},
-    { key: 'awaiting_confirm', value: 'awaiting_confirm'},
-    { key: 'failed', value: 'failed'},
-    { key: 'expired', value: 'expired', },
-    { key: 'paid', value: 'paid', },
-    { key: 'awaiting_refund', value: 'awaiting_refund', },
-    { key: 'refunded', value: 'refunded', },
-]);
+// const payment_status_options = ref([
+//     { key: 'awaiting_payment', value: 'awaiting_payment'},
+//     { key: 'awaiting_confirm', value: 'awaiting_confirm'},
+//     { key: 'failed', value: 'failed'},
+//     { key: 'expired', value: 'expired', },
+//     { key: 'paid', value: 'paid', },
+//     { key: 'awaiting_refund', value: 'awaiting_refund', },
+//     { key: 'refunded', value: 'refunded', },
+// ]);
 
-const delivery_status_options = ref([
-    { key: 'awaiting_fulfillment', value: 'awaiting_fulfillment'},
-    { key: 'awaiting_shipment', value: 'awaiting_shipment'},
-    { key: 'awaiting_pickup', value: 'awaiting_pickup'},
-    { key: 'partially_shipped', value: 'partially_shipped', },
-    { key: 'shipped', value: 'shipped', },
-    { key: 'collected', value: 'collected', },
-    { key: 'awaiting_return', value: 'awaiting_return', },
-    { key: 'returned', value: 'returned', },
-]);
+// const delivery_status_options = ref([
+//     { key: 'awaiting_fulfillment', value: 'awaiting_fulfillment'},
+//     { key: 'awaiting_shipment', value: 'awaiting_shipment'},
+//     { key: 'awaiting_pickup', value: 'awaiting_pickup'},
+//     { key: 'partially_shipped', value: 'partially_shipped', },
+//     { key: 'shipped', value: 'shipped', },
+//     { key: 'collected', value: 'collected', },
+//     { key: 'awaiting_return', value: 'awaiting_return', },
+//     { key: 'returned', value: 'returned', },
+// ]);
 
+const computedColumns = computed(()=>{
 
+    var columns = [
+        { name: 'order_number', key: 'id', sortable: true},
+        { name: 'null', key: 'platform', sortable: false},
+        { name: 'customer', key: 'customer_name', sortable: true},
+        { name: 'amount', key: 'subtotal', sortable: true},
+        { name: 'payment', key: 'payment_method', sortable: true},
+        { name: 'payment_status', key: 'payment_status', sortable: true},
+        { name: 'delivery_status', key: 'delivery_status', sortable: true},
+        { name: 'action', key: 'view', sortable: false},
+        { name: 'null', key: 'order_product', sortable: false}
+    ]
+    if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status){
+        columns = columns.filter(column=>column.key!='delivery_status')
+    }
 
-
-
-const columns = ref([
-    { name: 'order_number', key: 'id', sortable: true},
-    { name: 'null', key: 'platform', sortable: false},
-    { name: 'customer', key: 'customer_name', sortable: true},
-    { name: 'amount', key: 'subtotal', sortable: true},
-    { name: 'payment', key: 'payment_method', sortable: true},
-    { name: 'payment_status', key: 'payment_status', sortable: true},
-    { name: 'delivery_status', key: 'delivery_status', sortable: true},
-    // { name: 'delivery_notification', key: 'delivery', sortable: false},
-    { name: 'action', key: 'view', sortable: false},
-    { name: 'null', key: 'order_product', sortable: false}
-]);
+    return columns
+})
+// const columns = ref([
+//     { name: 'order_number', key: 'id', sortable: true},
+//     { name: 'null', key: 'platform', sortable: false},
+//     { name: 'customer', key: 'customer_name', sortable: true},
+//     { name: 'amount', key: 'subtotal', sortable: true},
+//     { name: 'payment', key: 'payment_method', sortable: true},
+//     { name: 'payment_status', key: 'payment_status', sortable: true},
+//     { name: 'delivery_status', key: 'delivery_status', sortable: true},
+//     // { name: 'delivery_notification', key: 'delivery', sortable: false},
+//     { name: 'action', key: 'view', sortable: false},
+//     { name: 'null', key: 'order_product', sortable: false}
+// ]);
 
 const props = defineProps({
     tableStatus: String,
@@ -295,11 +317,15 @@ onMounted(()=>{
         filterData.value = payload
         search()
 	})
+    eventBus.on(`exportTable-${props.tableStatus}`,()=>{
+        export_order()
+    })
 })
 
 onUnmounted(()=>{
     eventBus.off(props.searchEventBusName)
     eventBus.off(props.filterEventBusName)
+    eventBus.off(`exportTable-${props.tableStatus}`)
 })
 
 const search = () => {
@@ -317,10 +343,42 @@ const search = () => {
         res => {
 			orders.value = res.data.results
             manageOrderStore.data_count[props.tableStatus] = res.data.count;
-
+            // console.log(orders.value)
         }
     )
 }
+
+const export_order = ()=>{
+
+    filterData.value['sort_by'] = sortBy.value
+    var _campaign_id, _search_value, _status, _filter_data, _toastify
+    get_order_report(
+        _campaign_id=route.params.campaign_id, 
+        _search_value=keyword.value, 
+        _status=props.tableStatus, 
+        _filter_data=filterData.value, 
+        _toastify=layoutStore.alert)
+    .then(
+        res => {
+
+            const data = res.data.data
+            const header = res.data.header
+            const displayHeader = res.data.display_header
+            const columnSettings = res.data.column_settings
+            const displayData = [displayHeader, ...data]
+
+
+            const workSheet = utils.json_to_sheet(displayData, {header:header, skipHeader:true})
+            workSheet['!cols'] = columnSettings
+            const wb = utils.book_new()
+            utils.book_append_sheet(wb, workSheet, 'sheets')
+            writeFile(wb, 'sheets.xlsx')
+
+        }
+    )
+
+}
+
 
 const routeToOrderDetail = (order) => {
     if(route.params.campaign_id){
@@ -344,14 +402,14 @@ const showOrderProductModal = (order) => {
     manageOrderStore.showOrderProductModal = !manageOrderStore.showOrderProductModal
     console.log(manageOrderStore.showOrderProductModal)
 }
-const shippingOut = (order,index) => {
-    seller_deliver(order.id, layoutStore.alert).then(
-        res=>{
-            orders[index]= res.data
-        }
+// const shippingOut = (order,index) => {
+//     seller_deliver(order.id, layoutStore.alert).then(
+//         res=>{
+//             orders[index]= res.data
+//         }
     
-    )
-}
+//     )
+// }
 const copyOrderLink = (order) => {
     get_order_oid(order.id, layoutStore.alert).then(
         res =>{
@@ -370,25 +428,25 @@ const cancelSortBy = (field) => {
 	search();
 }
 
-const updateOrderPaymentStatus = (order, index, event)=>{
-    seller_update_payment_status(order.id, event.target.value, layoutStore.alert).then(
-        res=>{
-            orders[index]= res.data
-            layoutStore.notification.showMessageToast("updated!")
-        }
+// const updateOrderPaymentStatus = (order, index, event)=>{
+//     seller_update_payment_status(order.id, event.target.value, layoutStore.alert).then(
+//         res=>{
+//             orders[index]= res.data
+//             layoutStore.notification.showMessageToast("updated!")
+//         }
     
-    )
-}
+//     )
+// }
 
-const updateOrderDeliveryStatus = (order, index, event)=>{
-    seller_update_deliver_status(order.id, event.target.value, layoutStore.alert).then(
-        res=>{
-            orders[index]= res.data
-            layoutStore.notification.showMessageToast("updated!")
-        }
+// const updateOrderDeliveryStatus = (order, index, event)=>{
+//     seller_update_deliver_status(order.id, event.target.value, layoutStore.alert).then(
+//         res=>{
+//             orders[index]= res.data
+//             layoutStore.notification.showMessageToast("updated!")
+//         }
     
-    )
-}
+//     )
+// }
 </script>
 
 <style scoped>

@@ -8,6 +8,7 @@ import shopping_cart from './views/shopping_cart.json'
 import manage_order from './views/manage_order.json'
 import order_detail from './views/order_detail.json'
 import order_history from './views/order_history.json'
+import order_points from './views/order_points.json'
 import campaign_list from './views/campaign_list.json'
 import campaign_live from './views/campaign_live.json'
 import create_campaign from './views/create_campaign.json'
@@ -26,11 +27,14 @@ import login from  './views/login.json'
 import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
 import discount from './views/discount.json'
+import i from './views/i.json'
 
 import order from './models/order.json'
 import product_category from './models/product_category.json'
 import product from './models/product.json'
 import cart from './models/cart.json'
+import discount_code from './models/discount_code.json'
+import buyers from './views/buyers.json'
 
 
 export default {
@@ -49,6 +53,7 @@ export default {
     manage_order,
     order_detail,
     order_history,
+    order_points,
     settings,
     shopping_cart,
     stock,
@@ -65,10 +70,13 @@ export default {
     forgot_password,
     reset_password,
     discount,
+    i, //iview pagenation
 
     //model--------------
     order,
     product,
     product_category,
-    cart
+    cart,
+    discount_code,
+    buyers
 }

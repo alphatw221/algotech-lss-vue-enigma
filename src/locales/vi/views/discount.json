@@ -23,7 +23,8 @@
         "product_over_specific_number":"Sản phẩm :",
         "discount_code_usable_time": "Số lượng ưu đãi：",
         "specific_campaign":"Chiến dịch :",
-        "all": "Tất cả"
+        "all": "Tất cả",
+        "used_count":"Used"
     },
     "modal":{
         "create":"Tạo mã giảm giá",

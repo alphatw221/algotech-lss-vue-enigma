@@ -219,7 +219,14 @@
     </table>
   </div>
   <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10">
-      <Page class="mx-auto my-3" :total="dataCount" :page-size="page_size" @on-change="changePage" @on-page-size-change="changePageSize" />
+    <Page 
+          class="mx-auto my-3" 
+          :total="dataCount"
+          :page-size="page_size"
+          show-sizer :page-size-opts="[10,20,50,100]" 
+          @on-change="changePage"
+          @on-page-size-change="changePageSize"
+        />
     </div>
 </template>
 

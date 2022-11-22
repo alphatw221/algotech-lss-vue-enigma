@@ -124,9 +124,10 @@ const v = useVuelidate(productCategoryRules, productCategory)
 const metaLogisticFields = [
     {key:"enable_flat_rate",dataType:"boolean", default:false, type:'checkbox'},
     {key:"flat_rate",dataType:"number", default:0, type:'input_number', max:999999999, min:0},
+
+    {key:"is_free_delivery_for_order_above_price",dataType:"boolean", default:false, type:'checkbox'},
+    {key:"free_delivery_for_order_above_price",dataType:"number", default:1, type:'input_number', max:999999999, min:1},
 ]
-
-
 
 onMounted(() => {
     eventBus.on('editProductCategory', (payload) => {

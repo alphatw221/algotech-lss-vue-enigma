@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-auto max-h-fit sm:h-[62vh] sm:max-h-full">
+	<div class="overflow-hidden sm:overflow-auto max-h-fit sm:max-h-[62vh]">
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
@@ -15,23 +15,25 @@
 				</tr>
 			</thead>
 			<tbody>
-				<tr v-if="showLoadingIcon || discountCodes.length === 0" class="intro-x h-[300px]">
-					<td v-if="showLoadingIcon"
-						class="h-[300px] items-center relative tdDot"
-						:colspan="tableColumns.length" >
-						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
-					</td>
-					<td class="tdDot" v-else-if="discountCodes.length === 0" :colspan="tableColumns.length">
-						<div class="mt-5 text-center md:mt-40" >
-							<h1 class="text-slate-500 text-sm md:text-lg font-bold">
-								{{$t('discount.table.noCode')}}
-							</h1>
-							<!-- <h1 class="text-slate-500 text-sm md:text-lg">
-								{{$t('discount.table.setupFirst')}}
-							</h1> -->
-						</div>
-					</td> 
-				</tr>
+				<template v-if="showLoadingIcon || discountCodes.length === 0" >
+					<tr class="intro-x h-[300px]">
+						<td v-if="showLoadingIcon"
+							class="h-[300px] items-center relative tdDot"
+							:colspan="tableColumns.length" >
+							<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
+						</td>
+						<td class="tdDot" v-else-if="discountCodes.length === 0" :colspan="tableColumns.length">
+							<div class="mt-5 text-center md:mt-40" >
+								<h1 class="text-slate-500 text-sm md:text-lg font-bold">
+									{{$t('discount.table.noCode')}}
+								</h1>
+								<!-- <h1 class="text-slate-500 text-sm md:text-lg">
+									{{$t('discount.table.setupFirst')}}
+								</h1> -->
+							</div>
+						</td> 
+					</tr>
+				</template>
 				<tr v-for="(discountCode, discountCodeIndex) in discountCodes" :key="discountCodeIndex" class="intro-x">
 					<template v-for="(column, column_index) in tableColumns" :key="column_index">
 
@@ -40,17 +42,17 @@
 							<span class="sm:hidden"># </span>{{discountCodeIndex+1}}
 						</td>
 
-						<td v-else-if="column.type === 'text'" class="sm:w-32"
+						<td v-else-if="column.type === 'text'" class="sm:min-w-24 text-center"
 							:data-content="$t(`discount.table.`+column.name) " >
 							{{ discountCode[column.key] }}
 						</td>
 
-						<td v-else-if="column.type === 'textI18'" class="sm:w-32"
+						<td v-else-if="column.type === 'textI18'" class="sm:min-w-32"
 							:data-content="$t(`discount.table.`+column.key) " >
 							{{ $t(`discount.table.` + discountCode[column.key]) }}
 						</td>
 
-						<td v-else-if="column.type === 'multipleI18' && column.key=='limitations'" class="text-[12px] whitespace-nowrap sm:w-32"
+						<td v-else-if="column.type === 'multipleI18' && column.key=='limitations'" class="text-[12px] whitespace-nowrap sm:min-w-32"
 							:data-content="$t(`discount.table.`+column.key) " >
 
 							<div v-if="isDiscountCodeForAllCampaign(discountCode)" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
@@ -60,8 +62,10 @@
 								</div>
 							</div>
 
-							<div  v-for="(limitation, index) in discountCode.limitations" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:w-[120px]"> 
-								<div> * {{ $t(`discount.table.` + limitation.key) }} </div>
+							<div  v-for="(limitation, index) in discountCode.limitations" :key="index" class="flex justify-end sm:justify-between flex-row flex-wrap w-full sm:min-w-[130px]"> 
+								<template v-for="(field, limit_key ) in limitation" :key="limit_key" class="mr-auto"> 
+									<div v-if="limit_key !== 'key' && field != ''" class="font-medium"> * {{ $t(`discount_code.limitation_fields.` + limitation.key +'.' + limit_key ) }}</div>
+								</template>
 								<div class="ml-2 sm:ml-auto" v-if="limitation.key == 'subtotal_over_specific_amount'"> $ {{(limitation.amount).toLocaleString('en-US')}} </div>
 								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'product_over_specific_number'"> {{limitation.number}} pcs </div>
 								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'discount_code_usable_time'"> {{limitation.times}} </div>
@@ -73,23 +77,29 @@
 							</div>
 						</td>
 						
-						<td v-else-if="column.key === 'start_at'" class="sm:w-32" 
+						<td v-else-if="column.key === 'start_at'" class="sm:min-w-32" 
 							:data-content="$t(`discount.table.`+column.name) " >
-							{{ 
-								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
-									year: "numeric", month: "short", hour12: false,
-									day: "numeric", hour: '2-digit', minute: '2-digit'
-								}) 
-							}}
+							<template v-if="discountCode[column.key]">
+								{{ 
+									new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
+										year: "numeric", month: "short", hour12: false,
+										day: "numeric", hour: '2-digit', minute: '2-digit'
+									}) 
+								}}
+							</template>
+							<div v-else class="w-full text-black text-center"> - </div>
 						</td>
-						<td v-else-if="column.key === 'end_at'" class="sm:w-32" :class="{'text-danger': new Date() > new Date(discountCode[column.key])}"
+						<td v-else-if="column.key === 'end_at'" class="sm:min-w-32" :class="{'text-danger': new Date() > new Date(discountCode[column.key])}"
 							:data-content="$t(`discount.table.`+column.name) " >
-							{{ 
-								new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
-									year: "numeric", month: "short", hour12: false,
-									day: "numeric", hour: '2-digit', minute: '2-digit'
-								}) 
-							}}
+							<template v-if="discountCode[column.key]">
+								{{ 
+									new Date(discountCode[column.key]).toLocaleTimeString('en-us', {
+										year: "numeric", month: "short", hour12: false,
+										day: "numeric", hour: '2-digit', minute: '2-digit'
+									}) 
+								}}
+							</template>
+							<div v-else class="w-full text-black text-center"> - </div>
 						</td>
 
 						<td v-else-if="column.type === 'action'" class="w-20"
@@ -124,7 +134,13 @@
 		</table>
 	</div>
 	<div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10 sm:mb-0">
-		<Page class="mx-auto my-3" :total="totalCount" @on-change="changePage" @on-page-size-change="changePageSize" />
+		<Page class="mx-auto my-3" 
+			:total="totalCount" 
+			:page-size="page_size" 
+			@on-change="changePage" 
+			@on-page-size-change="changePageSize"
+			show-sizer :page-size-opts="[10,20,50,100]" 
+			/>
 	</div>
 
 </template>
@@ -140,6 +156,7 @@ const tableColumns = [
 	{ name: "index", key: "index" , type:"index"},
     { name: "name", key: "name" , type:"text"},
     { name: "code", key: "code" , type:"text"},
+	{ name: "used_count", key: "used_count" , type:"text"},
     { name: "start_at", key: "start_at", type:"datetime" },
     { name: "end_at", key: "end_at" , type:"datetime"},
     { name: "type", key: "type" , type:"textI18"},
@@ -228,6 +245,7 @@ const listDiscountCodes=()=> {
 		totalPage.value = Math.ceil(totalCount.value / pageSize.value)
 		discountCodes.value = res.data.results
 		showLoadingIcon.value = false
+		console.log(discountCodes.value)
 	})
 	.catch(err=>{console.log(err)});
 }
@@ -350,14 +368,14 @@ thead th{
 		top: -30px !important;
         z-index: 10;
         left: 0;
-        width: 40px !important;
+        width: 50px !important;
         padding-left: 0 !important;
         min-height: 25px !important;
     }
-	td:nth-of-type(9):before {
+	td:nth-of-type(10):before {
         display: none;
     }
-    td:nth-of-type(9){
+    td:nth-of-type(10){
         display: inline-block;
         position: absolute;
 		top: -30px !important;

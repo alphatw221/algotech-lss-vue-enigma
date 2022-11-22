@@ -1,5 +1,6 @@
 <template>
-  <div class="overflow-x-auto h-full">
+  <LoadingTable  v-if="ready == false" :column="tableColumns" :tableName="'order_points'"/> 
+  <div v-else-if="ready == true" class="overflow-x-auto h-full">
     <table class="table table-report mt-2 table-auto">
       <thead>
         <tr>
@@ -8,7 +9,7 @@
             v-for="column in tableColumns"
             :key="column.key"
           >
-            {{ $t(`order_history.table.` + column.name) }}
+            {{ $t(`order_points.table.` + column.name) }}
           </th>
         </tr>
       </thead>
@@ -19,57 +20,63 @@
           v-for="(order, index) in orders"
           :key="index"
         >
+        <!-- <template v-if="(order.points_earned || order.points_used) !== 0">  -->
           <td
             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm"
             v-for="column in tableColumns"
             :key="column.key"
-            :data-content="$t(`order_history.table.` + column.name)"
+            :data-content="$t(`order_points.table.` + column.name)"
           >
             <template v-if="column.type == 'dateTime'">
-              {{
-                new Date(order[column.key]).toLocaleDateString("en-us", {
-                  weekday: "long",
-                  year: "numeric",
-                  month: "short",
-                  day: "numeric",
-                })
-              }}
+
+              <template v-if="order[column.key]">
+                {{
+                  new Date(order[column.key]).toLocaleDateString("en-us", {
+                    year: "numeric",
+                    month: "short",
+                    day: "numeric",
+                  })
+                }}
+              </template>
+              <template v-else>-</template>
+              
             </template>
-            <template v-else-if="column.type == 'float' && order.campaign">
-              {{ order.campaign.currency }}
+            <template v-else-if="column.type == 'float' ">
+              {{ order.currency }}
               {{
                 (
                   Math.floor(
-                    order[column.key] * 10 ** order.campaign.decimal_places
+                    order[column.key] * 10 ** order.decimal_places
                   ) /
-                  10 ** order.campaign.decimal_places
+                  10 ** order.decimal_places
                 ).toLocaleString("en-GB")
               }}
               {{
-                order.campaign.price_unit
-                  ? $t(`global.price_unit.${order.campaign.price_unit}`)
+                order.price_unit
+                  ? $t(`global.price_unit.${order.price_unit}`)
                   : ""
               }}
             </template>
-            <template
-              v-else-if="column.key == 'payment_method' && order[column.key]"
-            >
-              {{
-                order[column.key] == "direct_payment"
-                  ? `${$t("order_history.direct_payment")} - ${
-                      order.meta.account_mode
-                    }`
-                  : $t(`order_history.${order[column.key]}`)
-              }}
+
+            <template v-else-if="column.type == 'int' ">
+              {{(order[column.key]).toLocaleString("en-GB")}}
             </template>
+
+            <template
+              v-else-if="column.key == 'campaign_title'"
+            >
+              {{order.campaign?.title}}
+            </template>
+            
             <template v-else-if="column.key == 'status'">
-              {{ $t(`order_history.${order[column.key]}`) }}
+              {{ $t(`order_points.${order[column.key]}`) }}
             </template>
 
             <template v-else>
               {{ order[column.key] }}
             </template>
           </td>
+        <!-- </template> -->
         </tr>
       </tbody>
     </table>
@@ -100,12 +107,15 @@ import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order";
 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
+import { get_user_subscription_facebook_pages } from "../../api/user_subscription";
+import LoadingTable from "./LoadingTable.vue";
 
 const layoutStore = useLSSBuyerLayoutStore();
 
 const route = useRoute();
 const router = useRouter();
 
+const ready = ref(false)
 const currentPage = ref(1);
 
 const totalPage = ref(1);
@@ -113,12 +123,17 @@ const pageSize = ref(10);
 const dataCount = ref(0);
 const orders = ref([]);
 const tableColumns = ref([
-  { name: "order_no", key: "id", type: "int" },
   { name: "date", key: "created_at", type: "dateTime" },
-  { name: "payment_method", key: "payment_method", type: "string" },
-  { name: "amount", key: "total", type: "float" },
-  { name: "status", key: "status", type: "string" },
+  { name: "change_reason", key: "campaign_title", type: "string" },
+  { name: "earned", key: "points_earned", type: "int" },
+  { name: "used", key: "points_used", type: "int" },
+  { name: "discount", key: "point_discount", type: "float" },
+  { name: "expire_at", key: "point_expired_at", type: "dateTime" },
 ]);
+
+const props = defineProps({
+  userSubscriptionId: Number,
+});
 
 const routeToDetail = (order_id) => {
   buyer_retrieve_order_oid(order_id, layoutStore.alert).then((res) => {
@@ -139,19 +154,26 @@ const changePageSize = (pageSize) => {
 };
 
 const getOrderHistoryListData = () => {
+  ready.value = false
+  var _page, _page_size, _user_subscription_id, _points_relative
   buyer_orders_history(
-    currentPage.value,
-    pageSize.value,
+    _page = currentPage.value,
+    _page_size = pageSize.value,
+    _user_subscription_id = props.userSubscriptionId,
+    _points_relative = true,
     layoutStore.alert
   ).then((response) => {
-    console.log(response.data);
+    ready.value = true
     dataCount.value = response.data.count;
     orders.value = response.data.results;
   });
 };
+watch(()=>props.userSubscriptionId,()=>{getOrderHistoryListData()},{deep:true})
+
 onMounted(() => {
   getOrderHistoryListData();
 });
+
 </script>
 
 

@@ -54,7 +54,8 @@
         "null":"",
         "cart":"My Cart",
         "items":"Items",
-        "edit":"Edit"
+        "edit":"Edit",
+        "order_code":"Order Code"
     },
     "order_summary":{
         "order_summary":"Order Summary",
@@ -76,7 +77,7 @@
         "select_products":"Select Products",
         "add":"Add",
         "wishlist":"Notify Me",
-        "description": "Product details"
+        "description": "Product details",
     },
     "payment":{
         "shipping_summary":"Shipping Summary",

@@ -1,26 +1,38 @@
 <template>
-    <div class="flex flex-col gap-5 m-0 my-5 p-2 py-5 lg:m-5 lg:p-10 2xl:m-5 2xl:p-10">
-        <h1 class="text-xl mx-auto" style="font-size: 1.5rem;"> {{$t('points.points')}} </h1>
-        <div class="w-full box sm:px-20 py-10 flex flex-col sm:flex-row justify-between gap-5"> 
-            <div class="bg-primary rounded-full w-36 h-36 relative mx-auto sm:mx-0"> <p class="absolute text-[72px] font-bold text-white top-[52px] right-[45px]"> L</p></div>
+    <div class="flex flex-col gap-5 m-0 p-2 py-5 lg:mx-5 lg:p-10 2xl:mx-5 2xl:px-10">
+        <h1 class="text-xl mx-auto" style="font-size: 1.5rem;"> {{$t('order_points.points')}} </h1>
+        <div
+          v-if="walletUserSubscriptionId !== null" 
+          class="w-full box sm:px-20 py-10 flex flex-col sm:flex-row justify-between gap-5"> 
+            <div class="bg-primary rounded-full w-36 h-36 relative mx-auto sm:mx-0"> 
+              <p class="absolute text-[72px] font-bold text-white top-[52px] right-[45px]">
+              {{computedNameFirstLetter}}
+              </p>
+            </div>
 
             <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
-                <p> <spam class="text-[32px] text-danger font-bold">59</spam> Points (Equal to SGD $5) </p>
-                <p> Expiry Date : 31 Sep 2022 </p>
+                <div class="flex flex-col sm:flex-row gap-2"> 
+                  <span class="text-[32px] text-danger font-bold">{{buyerLayoutStore.userInfo.wallets[walletIndex].points}}</span>
+                  Points 
+                </div>
+                <!-- <p> Expiry Date : 31 Sep 2022 </p> -->
             </div>
-            <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showModal()"><u>Rules and Description </u> </a>
+            <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showDiscriptionModal()"><u>Rules and Description </u> </a>
         </div>
 
-        <div class="mt-10 flex flex-row gap-5"> 
-        <button @click="changeStatus('all')" class="statusBtn" :class="{'all' : status=='all'}" >
-            <p class="all" :data-content="$t('points.statusButton.all')">{{$t('points.statusButton.all')}}</p></button>
-        <button @click="changeStatus('wallet1')" class="statusBtn" :class="{'wallet1' : status=='wallet1'}" :contant="status">
-            <p class="earn" :data-content="'wallet1'">wallet1</p></button>
-        <button @click="changeStatus('wallet2')" class="statusBtn" :class="{'wallet2' : status=='wallet2'}" :contant="status">
-            <p class="spend" :data-content="'wallet2'">wallet2</p></button>
+        <div class="mt-5 flex flex-row gap-5"> 
+          <button @click="changeWallet(null, -1)" class="statusBtn" :class="{'all' : walletUserSubscriptionId==null}" >
+            <p class="all" :data-content="$t('order_points.statusButton.all')">{{$t('order_points.statusButton.all')}}</p>
+          </button>
+
+          <template v-for="(wallet, wallet_index) in buyerLayoutStore.userInfo.wallets" :key="wallet_index"> 
+            <button @click="changeWallet(wallet, wallet_index)" class="statusBtn" :contant="walletUserSubscriptionId" :class="{'wallet': wallet_index == walletIndex }">
+              <p class="wallet" :data-content="wallet.user_subscription.name">{{wallet.user_subscription.name}}</p></button>
+          </template>
         </div>
+
         <div class="box border-2 border-slate-200 w-full">
-            <PointsTable :status="status" />
+            <PointsTable />
         </div>
     </div>
     <DescriptionModal />
@@ -37,18 +49,28 @@ const { cookies } = useCookies()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const status = ref('all')
+
+
+const walletUserSubscriptionId = ref(null)
+const walletIndex = ref(null)
 
 onMounted(()=>{
   i18n.locale = buyerLayoutStore.userInfo.lang
+  console.log(buyerLayoutStore.userInfo)
 })
 
-const changeStatus =(s)=>{
-//   ready.value = false
-  status.value = s
+const computedNameFirstLetter = computed(()=>{
+  var _words = (buyerLayoutStore.userInfo?.name||'').split(' ')
+  if (_words.length<=1) return _words.split('')[0]
+  return _words[_words.length-1].split('')[0]
+})
+
+const changeWallet =(wallet, _walletIndex)=>{
+  walletUserSubscriptionId.value = wallet?.user_subscription?.id||null
+  walletIndex.value =_walletIndex
 }
 
-const showModal=()=>{
+const showDiscriptionModal=()=>{
     eventBus.emit('showDiscriptionModal',null)
 }
 </script>
@@ -84,11 +106,8 @@ const showModal=()=>{
 .all p{
   color: theme('colors.primary');
 }
-.wallet1 p{
+.wallet p{
   color: #0a3d31;
-}
-.wallet2 p{
-  color: theme('colors.danger');
 }
 
 .statusBtn::after {
@@ -112,7 +131,7 @@ const showModal=()=>{
   overflow: hidden;
   transition: 0.3s ease-out;
 }
-.statusBtn .earn::before {
+.statusBtn .wallet::before {
   position: absolute;
 /*   box-sizing: border-box; */
   content: attr(data-content);
@@ -122,17 +141,6 @@ const showModal=()=>{
   overflow: hidden;
   transition: 0.3s ease-out;
 }
-.statusBtn .spend::before {
-  position: absolute;
-/*   box-sizing: border-box; */
-  content: attr(data-content);
-  width: 0%;
-  inset: 0;
-  color: theme('colors.danger');
-  overflow: hidden;
-  transition: 0.3s ease-out;
-}
-
 .statusBtn:hover::after {
   width: 100%;
 }

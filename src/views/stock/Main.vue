@@ -4,7 +4,8 @@
 	</div>
 	<div class="flex flex-col p-2 sm:gap-5 box sm:px-8 h-fit lg:mx-20">
 		<div class="flex flex-wrap justify-between gap-3 mx-0 mt-5"> 
-			<div v-if="!layoutStore.plugins"
+			<div 
+				v-if="!layoutStore?.userInfo?.user_subscription?.user_plan?.hide?.stock_table_tabs"
 				class="switch-toggle">
 				<input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
 				<label for="on">{{ $t('stock.for_sale') }}</label>
@@ -15,8 +16,20 @@
 				<EasyStoreExportProductButton />
 				<OrdrStartrExportProductButton />
 				<ShopifyExportProductButton />
+				<FileUploadButton 
+					v-if="layoutStore?.userInfo?.user_subscription?.user_plan?.display?.import_product_button"
+					class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
+					button_id="import_product"
+					accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+					:multiple="false"
+					:uploadFunction = "importProducts"
+				>
+					<template class="hidden sm:block"><span class="mr-1 text-lg font-bold">+</span> {{ $t('stock.import_product') }}  </template>
+					<template class="block sm:hidden"> <ArrowDownIcon class="w-8 h-8" /> </template>
+				</FileUploadButton>
+
 				<button 
-					v-if="!layoutStore.plugins"
+					v-if="!layoutStore?.userInfo?.user_subscription?.user_plan?.hide?.add_product_button"
 					type="button"
 					class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
 					@click="router.push({name: 'add-product'})"
@@ -65,6 +78,7 @@
 	</div>
 
 	<BulkEditModal/>
+	<WishlistModal /> 
 </template>
 
 <script setup>
@@ -80,6 +94,9 @@ import OrdrStartrExportProductButton from '@/plugin/ordr-startr/views/ExportProd
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useSellerStockStore } from "@/stores/lss-seller-stock"
 import ShopifyExportProductButton from '@/plugin/shopify/views/ExportProductButton.vue'
+import WishlistModal from './WishlistModal.vue'
+import { import_product } from "@/api_v2/product.js"
+import FileUploadButton from "@/components/file-upload-button/Main.vue"
 
 const openTab = ref(1)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
@@ -114,5 +131,12 @@ const toggleTabs = (tabNumber) =>{
 	// eventBus.emit('toggleTab')
 }
 
+const importProducts = file =>{
+    let formData = new FormData()
+	formData.append('file', file)
+    import_product(formData, layoutStore.alert).then(res=>{
+		eventBus.emit('refreshStockTable')
+    })
+}
 
 </script>

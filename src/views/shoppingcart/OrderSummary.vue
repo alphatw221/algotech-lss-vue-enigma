@@ -43,25 +43,24 @@
         <label class="w-fit my-auto whitespace-nowrap">{{$t('cart.subtotal_after_discount')}}</label>
         <span class="font-medium "> 
           {{shoppingCartStore.cart.campaign.currency}} 
-          {{(Math.floor(parseFloat(Math.max(computedCartSubtotal-shoppingCartStore.cart.discount-computedPointDiscount,0)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+          {{(Math.floor(parseFloat(computedSubtotalAfterDiscount) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
           {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
         </span>
       </div>
 
       <!-- PROMO CODE INPUT -->
-      <div class="flex flex-row flex-wrap justify-between mt-2" >
+      <div class="flex flex-row flex-wrap justify-between mt-2" v-if="route.query?.tab==2">
         <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
-          <div class="input-group"> 
+          <div class="input-group ml-auto"> 
             <input
             type="text"
-            class="form-control w-32 h-[35px] text-right"
+            class="form-control sm:w-32 h-[35px] text-right"
             v-model="discount_code"
             @keydown.enter.prevent="promoCheck()"
             />
             <button class="input-group-text h-[35px]" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
             <XIcon v-if="shoppingCartStore.cart.discount != 0 && shoppingCartStore.cart.campaign||false" class="mt-auto w-6 h-6 text-slate-400 cursor-pointer my-auto ml-2" @click="promoDelete()"/>
           </div>
-          
       </div>
       <span v-if="shoppingCartStore.cart?.applied_discount?.code != undefined" class="lg:text-right text-left font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :shoppingCartStore.cart?.applied_discount?.code})}} </span>
 
@@ -145,27 +144,29 @@
       <!-- TOTAL -->
       <div
         class="
-          flex
+          flex flex-col
           mt-4
           pt-4
+          gap-2
           border-t border-slate-200/60
           dark:border-darkmode-400
         "
       >
-        <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
-        <div  >
+        
+        <div class="flex flex-row">
+          <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
           <div class="font-medium text-base w-fit ml-auto" v-if="shoppingCartStore.cart.campaign||false">
             {{shoppingCartStore.cart.campaign.currency}} 
             {{(Math.floor(parseFloat(computedCartTotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
             {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
           </div>
-          <div class="text-sky-600" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
-            <div v-if="isAnonymousUser">
-              登入結帳以獲得{{computedPointsEarned}} POINTS回饋
-            </div>
-            <div v-else>
-              此筆訂單可以獲得{{computedPointsEarned}} POINTS回饋
-            </div>
+        </div>
+        <div class="text-sky-600 ml-auto" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
+          <div v-if="isAnonymousUser">
+            登入結帳以獲得{{computedPointsEarned}} POINTS回饋
+          </div>
+          <div v-else>
+            此筆訂單可以獲得{{computedPointsEarned}} POINTS回饋
           </div>
         </div>
         
@@ -176,7 +177,7 @@
 
 
     <!-- ADD_MORE_ITEMS NEXT BUTTON -->
-    <div class="flex mt-5" v-if="shoppingCartStore.openTab === 1">
+    <div class="flex gap-3 mt-5" v-if="shoppingCartStore.openTab === 1">
       <button
         class="btn w-32 border-slate-300 dark:border-darkmode-400 text-slate-500"
         @click="shoppingCartStore.showAddItemModal = ! shoppingCartStore.showAddItemModal"
@@ -244,17 +245,33 @@ const computedShippingCost = computed(()=>{
       var applyCategoryLogistic = false
       Object.entries(shoppingCartStore.cart.products).forEach(([key, value])=>{
 
-        // console.log(shoppingCartStore.campaignProductDict?.[key]?.categories)
-        // console.log(shoppingCartStore.productCategoryDict)
         if(value>0 && shoppingCartStore.campaignProductDict?.[key]?.categories?.length===1 && shoppingCartStore.campaignProductDict?.[key]?.categories[0] in shoppingCartStore.productCategoryDict){
-          logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]=true
+          
+          if(logisticCategories?.[shoppingCartStore.campaignProductDict?.[key]?.categories[0]]){
+            logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]].push({campaignProductId:key,qty:value})
+          }else{
+            logisticCategories[shoppingCartStore.campaignProductDict?.[key]?.categories[0]] = [{campaignProductId:key,qty:value},]
+          }
         }
       })
-      Object.keys(logisticCategories).forEach((key)=>{
-        const productCategory = shoppingCartStore.productCategoryDict[key]
+
+
+      Object.entries(logisticCategories).forEach(([productCategoryID, objects])=>{
+        const productCategory = shoppingCartStore.productCategoryDict[productCategoryID]
         if(productCategory?.meta_logistic?.enable_flat_rate){
           applyCategoryLogistic = true
-          shippingCost+=productCategory?.meta_logistic?.flat_rate||0
+
+          var is_category_product_subtotal_above = false
+          if(productCategory?.meta_logistic?.is_free_delivery_for_order_above_price){
+            var category_products_subtotal = 0
+            objects.forEach(object=>{
+              category_products_subtotal += (shoppingCartStore.campaignProductDict?.[object.campaignProductId].price * object.qty)
+            })
+            is_category_product_subtotal_above = category_products_subtotal > productCategory?.meta_logistic?.free_delivery_for_order_above_price|0 
+          }
+          
+
+          shippingCost+=is_category_product_subtotal_above ? 0 : (productCategory?.meta_logistic?.flat_rate||0) 
         }
       })
       if(applyCategoryLogistic)return shippingCost
@@ -336,10 +353,13 @@ const computedPointDiscount = computed(()=>{
 
 })
 
+const computedSubtotalAfterDiscount = computed(()=>{
+  return Math.max(computedCartSubtotal.value-shoppingCartStore.cart.discount-computedPointDiscount.value,0)
+})
 const computedPointsEarned = computed(()=>{
   if(!shoppingCartStore.cart.campaign?.meta_point?.enable)return 0
   const discountHelper = getPointDiscountHelper(shoppingCartStore.user_subscription)
-  return discountHelper.computePointsEarned(null, shoppingCartStore.cart.campaign?.meta_point, computedCartSubtotal.value - shoppingCartStore.cart.discount - computedPointDiscount.value )
+  return discountHelper.computePointsEarned(null, shoppingCartStore.cart.campaign?.meta_point, computedSubtotalAfterDiscount.value )
 
 })
 

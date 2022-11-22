@@ -34,6 +34,10 @@ export const bind_platform_instances = (platform_name, data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/platform/${platform_name}/bind/`,data)
 }
 
+export const get_single_platform_instance = (platform_name, platform_instance_id, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/platform/${platform_name}/${platform_instance_id}/`)
+}
+
 export const get_platform_instances = (platform_name, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/user-subscription/platform/${platform_name}/`)
 }
@@ -53,6 +57,16 @@ export const sales_report = (start_time, end_time, toastify=null) => {
 export const list_animation = (toastify=null) => {
     return createAxios(toastify).get('/api/v2/user-subscription/list/animation/')
 }
+
+export const list_buyers = (keyword,page,page_size, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/list/buyers/?keyword=${keyword}&page=${page}&page_size=${page_size}`)
+}
+
+export const retrieve_buyer_history = (buyer_id,points_relative,page,page_size, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/retrieve/buyers/history/?buyer_id=${buyer_id}&points_relative=${points_relative}&page=${page}&page_size=${page_size}`)
+}
+
+
 
 
 // ------------------------- DEALER -------------------------------------

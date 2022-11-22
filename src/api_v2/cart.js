@@ -58,11 +58,15 @@ export const seller_edit_cart_product = (cart_id, campaign_product_id, qty, toas
     return createAxios(toastify).put(`/api/v2/cart/${cart_id}/seller/product/edit/`, {"campaign_product_id":campaign_product_id, "qty":qty})
 }
 
-export const seller_list_cart = (campaign_id, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/cart/seller/list/?campaign_id=${campaign_id}`)
+export const seller_list_cart = (campaign_id, search, data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/cart/seller/list/?campaign_id=${campaign_id}&search=${search}`,data)
 }
 
 
 export const seller_search_cart = (campaign_id, search_value, page, page_size, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/cart/seller/search/?campaign_id=${campaign_id}&search=${search_value}&page=${page}&page_size=${page_size}`)
+}
+
+export const seller_clear_cart = (cart_id, toastify=null) => {
+    return createAxios(toastify).put(`/api/v2/cart/${cart_id}/seller/clear/`)
 }

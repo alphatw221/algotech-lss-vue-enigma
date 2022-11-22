@@ -27,12 +27,15 @@ import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
 import discount from './views/discount.json'
 import dealer from './views/dealer.json'
-import points from './views/points.json'
+import order_points from './views/order_points.json'
+import i from './views/i.json'
 
 import order from './models/order.json'
 import product_category from './models/product_category.json'
 import product from './models/product.json'
 import cart from './models/cart.json'
+import discount_code from './models/discount_code.json'
+import buyers from './views/buyers.json'
 
 export default {
 
@@ -66,12 +69,15 @@ export default {
     forgot_password,
     reset_password,
     discount,
-    points,
+    order_points,
+    i, //iview pagenation
 
     dealer,
     //model--------------
     order,
     product,
     product_category,
-    cart
+    cart,
+    discount_code,
+    buyers
 }

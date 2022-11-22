@@ -30,7 +30,7 @@
               </Dropdown> 
 
 
-                <template v-if="!(route.query.status =='history' || layout.plugins)">
+                <template v-if="!(route.query.status =='history') && (!layoutStore?.userInfo?.user_subscription?.user_plan?.hide?.add_product_button )">
                     <Dropdown class="inline-block my-auto">
                         <DropdownToggle class="w-40 mr-6 shadow-md btn btn-primary">
                             {{$t('campaign_live.product.add_product')}}
@@ -117,7 +117,7 @@
                                 {{ (Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-US')}}
                                 {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
                             </td>
-                            <td class="status_active">
+                            <td class="">
                                 <div class="m-auto form-check form-switch w-fit">
                                     <input
                                         id="overbookCheckbox"
@@ -161,7 +161,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 const route = useRoute();
 const router = useRouter();
-const layout = useLSSSellerLayoutStore()
+const layoutStore = useLSSSellerLayoutStore()
 const store = useCampaignDetailStore()
 // const internalInstance = getCurrentInstance();
 // const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
@@ -179,7 +179,7 @@ const product_columns = [
 
 
 onMounted(() => {
-        seller_list_campaign_product(route.params.campaign_id, 'all', layout.alert).then(res => {
+        seller_list_campaign_product(route.params.campaign_id, 'all', layoutStore.alert).then(res => {
             store.campaignProducts = res.data
         })
     }
