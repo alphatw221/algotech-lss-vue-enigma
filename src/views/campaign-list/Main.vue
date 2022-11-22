@@ -11,7 +11,6 @@
       p-3
       box
       sm:h-[95%]
-      p-2
       lg:gap-3
       sm:px-8
       h-fit
