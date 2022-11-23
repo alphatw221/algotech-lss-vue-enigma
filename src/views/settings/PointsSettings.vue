@@ -32,7 +32,7 @@
 
                         <form class="flex flex-col sm:flex-row gap-2 sm:gap-5 text-[16px]">
                             <label class="radio-inline my-auto">
-                                <input class="mr-2" type="radio" name="pointValidity" value="disable" v-model="computedPointValidity"> Disable
+                                <input class="mr-2" type="radio" name="pointValidity" value="disable" v-model="computedPointValidity">{{$t('settings.points.unlimited')}}
                             </label>
 
                             <label class="radio-inline my-auto flex flex-row gap-2 items-center">
@@ -42,7 +42,7 @@
                                     :type="field.input_type"
                                     v-model="props.meta_point[field.key]"
                                 />
-                                <span class="">Month(s)</span>
+                                <span class="">{{$t('settings.points.month')}}</span>
                             </label>
                             
                         </form>

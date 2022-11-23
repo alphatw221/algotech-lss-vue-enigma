@@ -135,7 +135,8 @@
         "discard":"Discard",
         "save":"Save",
         "update": "Update",
-        "modify":"Modify"
+        "modify":"Modify",
+        "custom_note":"Custom Note Settings"
     },
     "localization":{
         "title": "Localization",
@@ -157,6 +158,7 @@
             "id":"Indonesian",
             "vi":"Vietnamese"
         },
+        "cart_settings":"Shopping Cart Settings",
         "buyer_language":"Buyer Language",
         "choose_language":"Choose Language",
         "choose_decimal_places":"Select your Decimal Places",
@@ -168,8 +170,8 @@
         "choose_price_unit":"Choose Currency Unit",
         "priceOptions":{
             "1":"Standard",
-            "1000":"K",
-            "1000000":"M"
+            "1000":"K(1,000)",
+            "1000000":"M(1,000,000)"
         }
 
     },
@@ -203,7 +205,8 @@
     "points":{
         "title":"Points Setting",
         "enable":"Enable",
-        "point_validity":"Point Validity (months)",
+        "point_validity":"Point Validity",
+        "month":"months",
         "unlimited":"Umlimited",
         "reward_table":"Reward Point Table",
         "redemption":"Point Redemption Rate",

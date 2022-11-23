@@ -131,8 +131,9 @@
         "confirmation_note":"訂單確認訊息",
         "discard":"取消",
         "save":"儲存",
-        "update": "儲存",
-        "modify":"編輯"
+        "update": "更新",
+        "modify":"編輯",
+        "custom_note":"Custom Note Settings"
     },
     "localization":{
         "title": "本地化",
@@ -165,8 +166,8 @@
         "choose_price_unit":"選擇最小貨幣單位",
         "priceOptions":{
             "1":"預設",
-            "1000":"K",
-            "1000000":"M"
+            "1000":"K (1,000)",
+            "1000000":"M (1,000,000)"
         }
 
 
@@ -198,5 +199,26 @@
         "period": "",
         "unbind_page":"取消綁定",
         "reach_channel_limt_message": "您已到達最大綁定平台數量"
+    },
+    "points":{
+        "title":"會員點數設定",
+        "enable":"啟用",
+        "point_validity":"點數使用期限",
+        "month":"月",
+        "unlimited":"無限制",
+        "reward_table":"點數換算設定",
+        "redemption":"點數折抵設定",
+        "points":"點數",
+        "description":"點數使用方式說明",
+        "add":"新增"
+    },
+    "messages":{
+        "title":"Custom Facebook Message Settings",
+        "added":"Successfully Added Product",
+        "updated":"Status Updated",
+        "deleted":"Product Deleted from Shopping Cart",
+        "insufficient_inv":"Not Enough Product Amount",
+        "facebook_buttons":"Process Order Button",
+        "enable":"Enable"
     }
 }

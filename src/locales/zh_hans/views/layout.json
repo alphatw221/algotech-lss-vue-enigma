@@ -12,7 +12,7 @@
         "connect_platform":"社群平台",
         "discount_code":"优惠代码",
         "manage_order":"订单管理",
-        "buyers":"买家"
+        "buyers":"买家管理"
 
     },
     "bread_crumb":{
@@ -45,7 +45,7 @@
         "plans":"方案报表",
         "licenses":"执照",
         "sellers":"卖家",
-        "buyers":"买家",
+        "buyers":"买家管理",
         "lucky-draw-list":"抽奖工具",
         "create-lucky-draw":"建立抽奖",
         "report":"报告",

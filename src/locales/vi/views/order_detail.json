@@ -7,9 +7,9 @@
     "pay":"Tiến hành thanh toán",
     "complete" : "Hoàn thành",
     "review" : "Đang kiểm tra",
-    "pending_confirmation": "Pending confirmation",
+    "pending_confirmation": "Chờ xác nhận",
     "proceed" : "Đang kiểm tra",
-    "shipping out":"Shipping Out",
+    "shipping out":"Đang giao hàng",
     "table":{
         "product" : "Sản phẩm",
         "price" : "Giá bán",
@@ -38,7 +38,7 @@
         "update" : "Cập nhật      ",
         "display_name": "Hiển thị tên",
         "amount": "Số Lượng",
-        "sub_after_discount": "Subtotal after discount"
+        "sub_after_discount": "Tổng sau khi chiết khấu"
     },
     "delivery":{
         "information" : "Thông tin giao hàng",

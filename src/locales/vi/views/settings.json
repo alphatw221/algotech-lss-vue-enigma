@@ -129,7 +129,8 @@
         "discard":"Hủy bỏ",
         "save":"Lưu lại",
         "update": "Cập nhật",
-        "modify":"Modify"
+        "modify":"Thay đổi",
+        "custom_note":"Cài đặt ghi chú tùy chỉnh"
     },
     "localization":{
         "title": "Ngôn ngữ bản địa hóa",
@@ -151,6 +152,7 @@
             "id":"Tiếng Indonesia",
             "vi":"Tiếng Việt"
         },
+        "cart_settings":"Cài đặt giỏ hàng",
         "buyer_language":"Ngôn ngữ người mua",
         "choose_language":"Chọn ngôn ngữ",
         "choose_decimal_places":"Chọn vị trí thập phân của bạn",
@@ -162,8 +164,8 @@
         "choose_price_unit":"Chọn đơn vị tiền tệ",
         "priceOptions":{
             "1":"Standard",
-            "1000":"K",
-            "1000000":"M"
+            "1000":"K (1,000)",
+            "1000000":"M (1,000,000)"
         }
     },
     "platform":{
@@ -191,6 +193,27 @@
         "social_media_platform": "nền tảng mạng xã hội",
         "period": ".",
         "unbind_page":"Hủy liên kết trang",
-        "reach_channel_limt_message": "You have reached max binded platform amount."
+        "reach_channel_limt_message": "Bạn đã đạt đến số lượng nền tảng ràng buộc tối đa"
+    },
+    "points":{
+        "title":"Cài đặt điểm thưởng",
+        "enable":"Kích hoạt",
+        "point_validity":"Hiệu lực",
+        "month":"tháng",
+        "unlimited":"Không giới hạn",
+        "reward_table":"Bảng điểm thưởng",
+        "redemption":"Tỷ lệ đổi điểm",
+        "points":"điểm",
+        "description":"Mô tả điểm thưởng",
+        "add":"Thêm"
+    },
+    "messages":{
+        "title":"Cài đặt tin nhắn Facebook tùy chỉnh",
+         "add":"Đã thêm sản phẩm thành công",
+         "updated":"Cập nhật trạng thái",
+         "deleted":"Sản phẩm đã bị xóa khỏi giỏ hàng",
+         "in enough_inv":"Không đủ số lượng sản phẩm",
+         "facebook_buttons":"Xử lý nút đặt hàng",
+         "enable":"Bật"
     }
 }
