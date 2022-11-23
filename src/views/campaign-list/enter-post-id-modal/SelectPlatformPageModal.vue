@@ -90,12 +90,14 @@ const selectPage = index => {
     payloadBuffer.value.page = res.data
     return update_platform_live_id(payloadBuffer.value.campaign.id, {"platform": payloadBuffer.value.platform, "platform_id": res.data.id , "post_id": ''}, sellerLayoutStore.alert)
   }).then(res=>{
+    console.log(res)
     Object.entries(res.data).forEach(([key,value]) => {
       payloadBuffer.value.campaign[key]=value                       //proxy object only got setter
     });
+    console.log(payloadBuffer.value)
     return 
   }).then(res=>{
-    eventBus.emit('showSelectLiveModal',payloadBuffer.value)
+    eventBus.emit('showSelectPostsModal',payloadBuffer.value)
     hide()
   }).catch(error=> {
     if (error.response.data) {

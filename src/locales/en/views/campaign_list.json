@@ -26,7 +26,9 @@
             "message":"Please enter post ID to start live selling.",
             "select_stream":"Select Stream",
             "select_page":"Select Page",
-            "id":"Post ID"
+            "id":"Post ID",
+            "select_live_post": "Select Live Post",
+            "select_video_post": "Select Video Post"
         },
 
 
@@ -76,9 +78,11 @@
         "page": "Page",
         
         "post_id":"Post ID",
-        "select_live_post":"Select Live Post",
+        "select_live_post":"Live Post",
+        "select_video_post": "Video Post",
         "select_live_video":"Select Live Video",
         "enter_post_id": "Enter Post ID",
+        "search_recent_posts": "Search recent posts",
 
         "instagram":"Instagram",
         "profile": "Profile",
@@ -96,7 +100,8 @@
 
         "cancel":"Cancel",
         "save":"Live on",
-        "your_current_lives": "Your current lives",
+        "your_current_live_posts": "Your current live posts",
+        "your_current_video_posts": "Your current video posts",
         "select_this_live": "Select this live",
         "valid_post_id_notification": "Please Enter Valid Post ID",
 
