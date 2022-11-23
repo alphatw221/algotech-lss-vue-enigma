@@ -30,6 +30,8 @@ library.add(fas, far, fab)
 
 import i18n from './locales/i18n'
 app.use(i18n)
+app.use(ViewUIPlus, {i18n});
+//i18n: (key:string, value: String) => i18n.t(key, value)
 
 //mitt (eventBus)
 import mitt from 'mitt'

@@ -1,5 +1,6 @@
 {   
     "create_discount_code":"Create Code",
+    "import":"Import Code",
     "discount_code":"Discount Code",
     "create_err":"Input Error",
     "table":{

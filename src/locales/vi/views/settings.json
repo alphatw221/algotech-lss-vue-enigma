@@ -122,6 +122,7 @@
         "payment":"Thanh toán"
     },
     "notes":{
+        "title":"Shopping Cart settings",
         "notes":"Các lưu ý",
         "delivery_note":"Lưu ý khi giao hàng",
         "special_note":"Ghi chú đặc biệt",
@@ -132,7 +133,7 @@
         "modify":"Modify"
     },
     "localization":{
-        "title": "Ngôn ngữ bản địa hóa",
+        "title": "Shopping Cart settings",
         "country":"Quốc gia",
         "countries":{
             "PH":"Philippines",
@@ -192,5 +193,26 @@
         "period": ".",
         "unbind_page":"Hủy liên kết trang",
         "reach_channel_limt_message": "You have reached max binded platform amount."
+    },
+    "points":{
+        "title":"Point Settings",
+        "enable":"Enable",
+        "point_validity":"Point Validity (months)",
+        "unlimited":"Umlimited",
+        "month":"month(s)",
+        "reward_table":"Reward Point Table",
+        "redemption":"Point Redemption Rate",
+        "points":"point(s)",
+        "description":"Points Description",
+        "add":"Add"
+    },
+    "messages":{
+        "title":"Custom Message Settings",
+        "added":"Successfully Added Product",
+        "updated":"Status Updated",
+        "deleted":"Product Deleted from Shopping Cart",
+        "insufficient_inv":"Not Enough Product Amount",
+        "facebook_buttons":"Process Order Button",
+        "enable":"Enable"
     }
 }

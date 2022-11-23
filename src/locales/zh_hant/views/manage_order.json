@@ -1,5 +1,6 @@
 {
         "title":"訂單管理",
+        "incoming_order":"即時訂單",
         "campaign_status":{
                 "closed_rate" : "成交率",
                 "sales" : "銷售金額",
@@ -45,7 +46,13 @@
                 "null":"",
                 "guest": "訪客",
                 "payment_status":"付款狀態",
-                "delivery_status":"運送狀態"
+                "delivery_status":"運送狀態",
+                "updated_at":"最后更新",
+                "product_img":"",
+                "product_name":"商品名稱",
+                "order_code":"下單代碼",
+                "qty":"數量",
+                "subtotal":"小計"
         },
         "product_modal":{
                 "order_no":"訂單編號",

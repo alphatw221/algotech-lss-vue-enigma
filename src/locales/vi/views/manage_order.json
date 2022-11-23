@@ -1,5 +1,6 @@
 {
         "title":"Quản lý bán hàng",
+        "incoming_order":"Đơn hàng đến",
         "campaign_status":{
                 "closed_rate" : "Tỉ lệ chốt đơn",
                 "sales" : "Doanh số",
@@ -44,7 +45,13 @@
                 "null":"",
                 "guest": "Khách",
                 "payment_status":"tình trạng thanh toán",
-                "delivery_status":"tình trạng giao hàng"
+                "delivery_status":"tình trạng giao hàng",
+                "updated_at":"Updated At",
+                "product_img":"",
+                "product_name":"Product Name",
+                "order_code":"Order Code",
+                "qty":"Qty",
+                "subtotal":"Subtotal"
         },
         "product_modal":{
                 "order_no":"Mã đơn hàng",

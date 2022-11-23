@@ -1,6 +1,6 @@
 <template>
     <template v-if="paymentStatusStore[props.order.payment_status]?.allow_adjust">
-        <select v-model="props.order.payment_status" class="w-full form-select-sm sm:form-select-md" @change="updateOrderPaymentStatus()">
+        <select v-model="props.order.payment_status" class="w-full" :class="selecterClass" @change="updateOrderPaymentStatus()">
             <option :value="option" v-for="(option,index) in paymentStatusStore[props.order.payment_status].options" :key="index">
                 {{$t(`order.payment_status_options.${option}`)}}</option>
         </select>
@@ -19,11 +19,25 @@ import {  seller_update_payment_status } from "@/api_v2/order"
 
 const paymentStatusStore = usePaymentStatusStore()
 const layoutStore = useLSSSellerLayoutStore()
+const selecterClass = ref('form-select-sm')
 
 const props = defineProps({
     order: Object,
 });
 
+onMounted(()=>{
+    handleResize()
+    window.addEventListener('resize', handleResize())
+})
+onUnmounted(()=>{
+    window.removeEventListener('resize', handleResize())
+})
+
+
+const handleResize =()=>{
+    selecterClass.value = window.matchMedia('(max-width: 600px)').matches ? 'form-select-sm' : 'form-select-md'
+    //change selecter size (only works when refresh) 
+}
 
 const updateOrderPaymentStatus = ()=>{
     seller_update_payment_status(props.order.id, props.order.payment_status, layoutStore.alert).then(res=>{
