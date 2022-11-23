@@ -51,17 +51,16 @@
       <!-- PROMO CODE INPUT -->
       <div class="flex flex-row flex-wrap justify-between mt-2" v-if="route.query?.tab==2">
         <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
-          <div class="input-group"> 
+          <div class="input-group ml-auto"> 
             <input
             type="text"
-            class="form-control w-32 h-[35px] text-right"
+            class="form-control sm:w-32 h-[35px] text-right"
             v-model="discount_code"
             @keydown.enter.prevent="promoCheck()"
             />
             <button class="input-group-text h-[35px]" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
             <XIcon v-if="shoppingCartStore.cart.discount != 0 && shoppingCartStore.cart.campaign||false" class="mt-auto w-6 h-6 text-slate-400 cursor-pointer my-auto ml-2" @click="promoDelete()"/>
           </div>
-          
       </div>
       <span v-if="shoppingCartStore.cart?.applied_discount?.code != undefined" class="lg:text-right text-left font-medium text-red-600">{{$t('shopping_cart.order_summary.promo_apply',{ code :shoppingCartStore.cart?.applied_discount?.code})}} </span>
 
@@ -145,27 +144,29 @@
       <!-- TOTAL -->
       <div
         class="
-          flex
+          flex flex-col
           mt-4
           pt-4
+          gap-2
           border-t border-slate-200/60
           dark:border-darkmode-400
         "
       >
-        <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
-        <div  >
+        
+        <div class="flex flex-row">
+          <div class="mr-auto font-medium text-base">{{$t('shopping_cart.order_summary.total_charge')}}</div>
           <div class="font-medium text-base w-fit ml-auto" v-if="shoppingCartStore.cart.campaign||false">
             {{shoppingCartStore.cart.campaign.currency}} 
             {{(Math.floor(parseFloat(computedCartTotal) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
             {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
           </div>
-          <div class="text-sky-600" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
-            <div v-if="isAnonymousUser">
-              登入結帳以獲得{{computedPointsEarned}} POINTS回饋
-            </div>
-            <div v-else>
-              此筆訂單可以獲得{{computedPointsEarned}} POINTS回饋
-            </div>
+        </div>
+        <div class="text-sky-600 ml-auto" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
+          <div v-if="isAnonymousUser">
+            登入結帳以獲得{{computedPointsEarned}} POINTS回饋
+          </div>
+          <div v-else>
+            此筆訂單可以獲得{{computedPointsEarned}} POINTS回饋
           </div>
         </div>
         
@@ -176,7 +177,7 @@
 
 
     <!-- ADD_MORE_ITEMS NEXT BUTTON -->
-    <div class="flex mt-5" v-if="shoppingCartStore.openTab === 1">
+    <div class="flex gap-3 mt-5" v-if="shoppingCartStore.openTab === 1">
       <button
         class="btn w-32 border-slate-300 dark:border-darkmode-400 text-slate-500"
         @click="shoppingCartStore.showAddItemModal = ! shoppingCartStore.showAddItemModal"

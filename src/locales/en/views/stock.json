@@ -79,6 +79,7 @@
         "remark_warning":"remark cannot be more than 100 digits",
         "description": "Description",
         "product_description": "product description that will shows to customer...",
+        "order_code_warning":"Enter order code with no more than 10 digits",
         "description_warning": "Cannot contains <head> tag",
         "cancel": "Cancel",
         "save": "Save",
