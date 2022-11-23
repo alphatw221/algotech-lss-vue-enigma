@@ -83,7 +83,7 @@
 						<td v-else-if="column.key === 'image'" class="w-fit text-[12px] lg:w-18 lg:text-sm 2xl:w-32 imgtd" :data-content="$t(`stock.table_column.${column.key}`)">
 							<div class="flex justify-center">
 								<div class="w-20 h-20 image-fit zoom-in lg:w-12 lg:h-12 " v-if="product.image">
-									<img 
+									<img
 										class="w-full rounded-lg"
 										:src= "product.image"
 										data-action="zoom"
