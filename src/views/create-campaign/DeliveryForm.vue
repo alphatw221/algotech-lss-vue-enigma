@@ -1,77 +1,77 @@
 <template>
-	<div class="box grid grid-cols-12 gap-4 intro-y lg:mx-20 lg:px-40 px-5 py-10 mt-3" v-if="ready">
+	<div class="box grid grid-cols-12 gap-5 intro-y lg:mx-20 lg:px-40 px-5 py-10 mt-3" v-if="ready">
 		<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">{{$t('create_campaign.delivery_form.delivery_detail')}}</span>
-		<hr class="col-span-12 mb-3 -mx-6" />
+		<hr class="col-span-12 -mx-6" />
 
-
-
-		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
-			<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
-			<input 
-				class="w-full form-control"
-				type="text" 
-				v-model="props.campaign.meta_logistic.delivery_charge"
-				@blur="props.v.meta_logistic.delivery_charge.$touch()"
-			/>
-			<label class="text-danger text-[12px] " 
-				v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
-				:key="index"
-				>
-				{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
-			</label>
-		</div>
-		
-
-		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
-			<label class="form-label text-base text-lg font-medium">
+		<!-- Delivery charge setting-->
+		<div class="col-span-12 sm:col-start-1 flex flex-col gap-3"> 
+			<div class="flex flex-col flex-wrap">
+				<label class="text-base whitespace-nowrap text-lg font-medium">{{$t('create_campaign.delivery_form.delivery_charge')}}</label>
 				<input 
-					class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-1" 
-					type="checkbox" 
-					v-model="props.campaign.meta_logistic.is_free_delivery_for_order_above_price"
+					class="w-full form-control"
+					type="text" 
+					v-model="props.campaign.meta_logistic.delivery_charge"
+					@blur="props.v.meta_logistic.delivery_charge.$touch()"
 				/>
-				{{$t('create_campaign.delivery_form.free_delivery_for_order_above')}}
-			</label>
-			<input 
-				class="w-full form-control" 
-				type="text" 
-				v-model="props.campaign.meta_logistic.free_delivery_for_order_above_price"
-				@blur="props.v.meta_logistic.free_delivery_for_order_above_price.$touch()"
-			/>
-			<label class="text-danger text-[12px] " 
-				v-for="error,index in props.v.meta_logistic.free_delivery_for_order_above_price.$errors"
-				:key="index"
-				>
-				{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
-			</label>
-
-		</div> 
-
-		<div class="flex flex-col flex-wrap col-span-12 mt-2 sm:col-start-1 ">
+				<label class="text-danger text-[12px] " 
+					v-for="error,index in props.v.meta_logistic.delivery_charge.$errors"
+					:key="index"
+					>
+					{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+				</label>
+			</div>
 			
-			<label class="form-label text-base my-auto w-[19rem] text-lg font-medium">
-				<input 
-					class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-1" 
-					type="checkbox"
-					v-model="props.campaign.meta_logistic.is_free_delivery_for_how_many_order_minimum"
+			<div class="flex flex-col flex-wrap">
+				<label class="form-label text-base text-lg font-medium">
+					<input 
+						class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-1" 
+						type="checkbox" 
+						v-model="props.campaign.meta_logistic.is_free_delivery_for_order_above_price"
 					/>
-				{{$t('create_campaign.delivery_form.free_delivery_for_minimum_order')}}
-			</label>
+					{{$t('create_campaign.delivery_form.free_delivery_for_order_above')}}
+				</label>
+				<input 
+					class="w-full form-control" 
+					type="text" 
+					v-model="props.campaign.meta_logistic.free_delivery_for_order_above_price"
+					@blur="props.v.meta_logistic.free_delivery_for_order_above_price.$touch()"
+				/>
+				<label class="text-danger text-[12px] " 
+					v-for="error,index in props.v.meta_logistic.free_delivery_for_order_above_price.$errors"
+					:key="index"
+					>
+					{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+				</label>
 
-			<input 
-				class="w-full form-control mt-2"
-				type="text"
-				v-model="props.campaign.meta_logistic.free_delivery_for_how_many_order_minimum"
-				@blur="props.v.meta_logistic.free_delivery_for_how_many_order_minimum.$touch()"
-			/> 
-			<label class="text-danger text-[12px] " 
-				v-for="error,index in props.v.meta_logistic.free_delivery_for_how_many_order_minimum.$errors"
-				:key="index"
-				>
-				{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
-			</label>      
-		</div> 
-		
-		<div class="flex flex-wrap justify-between col-span-12 col-start-1 mt-5 "> 
+			</div> 
+
+			<div class="flex flex-col flex-wrap">
+				
+				<label class="form-label text-base my-auto w-[19rem] text-lg font-medium">
+					<input 
+						class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-1" 
+						type="checkbox"
+						v-model="props.campaign.meta_logistic.is_free_delivery_for_how_many_order_minimum"
+						/>
+					{{$t('create_campaign.delivery_form.free_delivery_for_minimum_order')}}
+				</label>
+
+				<input 
+					class="w-full form-control mt-2"
+					type="text"
+					v-model="props.campaign.meta_logistic.free_delivery_for_how_many_order_minimum"
+					@blur="props.v.meta_logistic.free_delivery_for_how_many_order_minimum.$touch()"
+				/> 
+				<label class="text-danger text-[12px] " 
+					v-for="error,index in props.v.meta_logistic.free_delivery_for_how_many_order_minimum.$errors"
+					:key="index"
+					>
+					{{ $t(`create_campaign.delivery_form.errors.${error.$validator}`) }}
+				</label>      
+			</div> 
+		</div>
+
+		<div class="flex flex-wrap justify-between col-span-12 col-start-1 mt-5">
 			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.options')}}</label>
 			<button 
 				class="inline-block rounded-lg btn btn-primary ml-auto lg:w-48 h-[42px] sm:mt-auto" 
@@ -142,7 +142,30 @@
 				> {{$t('create_campaign.delivery_form.delete')}} </button>
 			</div>
 		</div>
-		
+
+		<!-- delivery date -->
+		<div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1">
+			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
+			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 z-50">
+				<v-date-picker class="" 
+					v-model="deliverydatePicker" 
+					:timezone="timezone" 
+					:columns="$screens({ default: 1, sm: 2 })" 
+					mode="datetime" is-range is-required is24hr
+					:min-date='new Date()'
+					>
+					<template v-slot="{ inputValue, inputEvents }">
+						<div class="flex items-center justify-center">
+						<input :value="inputValue.start" v-on="inputEvents.start"
+							class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+						<ChevronsRightIcon class="w-8 h-8 m-1" />
+						<input :value="inputValue.end" v-on="inputEvents.end" disabled
+							class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+						</div>
+					</template>
+				</v-date-picker>
+			</div>
+		</div> 
 		<div class="flex justify-between col-span-12 col-start-1 mt-5"> 
 			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.store_collection')}}</label>
 			<button 
@@ -157,8 +180,8 @@
 			> <u> + {{$t('create_campaign.delivery_form.add_more_pickup_option')}}  </u> 
 			</a> -->
 		</div>
-		<div class="grid grid-cols-12 col-span-12 gap-1 text-base intro-y sm:gap-5 -z-50">
-            <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12 gap-3" :key="index">
+		<div class="grid grid-cols-12 col-span-12 text-base intro-y gap-4 sm:gap-2 2xl:gap-3 z-10">
+            <div v-for="(option, index) in props.campaign.meta_logistic.pickup_options" class="col-span-12" :key="index">
 				<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 ">
                     <div class="flex flex-col flex-1">
 						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_store')}}</label>
@@ -191,8 +214,32 @@
 						</label>
 						
                     </div>
+					<!-- pickup date  -->
+					<div class="flex flex-col flex-wrap  flex-grow-2">
+						<label class="text-base text-lg font-medium whitespace-nowrap">{{$t('create_campaign.delivery_form.pickup_date')}}
+							{{props.campaign.meta_logistic.pickup_options[index].start_at!==null?'( '+new Date(props.campaign.meta_logistic.pickup_options[index].start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
+							+'~'+new Date(props.campaign.meta_logistic.pickup_options[index].end_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})+' )':''}}
+						</label>
+                        <v-date-picker class="" 
+							v-model="pickupdatePicker[index]"
+							:timezone="timezone" 
+							:columns="$screens({ default: 1, sm: 2 })" 
+							mode="datetime" is-range is-required is24hr
+							:min-date='new Date()'
+							>
+							<template v-slot="{ inputValue, inputEvents }">
+								<div class="flex items-center justify-center">
+								<input :value="inputValue.start" v-on="inputEvents.start"
+									class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<ChevronsRightIcon class="w-8 h-8 m-1" />
+								<input :value="inputValue.end" v-on="inputEvents.end" disabled
+									class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								</div>
+							</template>
+						</v-date-picker>
+                    </div>
                     <button 
-                        class="inline-block w-full rounded-lg btn btn-danger sm:ml-auto sm:w-24 h-[42px] mt-auto lg:mt-6" 
+                        class="inline-block w-full rounded-lg btn btn-danger sm:ml-auto sm:w-24 h-[42px] mt-auto" 
                         @click="deleteBranch(index)"
                         >
                         {{$t('create_campaign.delivery_form.delete')}}
@@ -244,13 +291,21 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
 import { required } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
+import { end } from '@popperjs/core';
 
 
 const additional_delivery_option = { title: null, type: null, price: null }
-const branch_option = { name: null, address: null }
+const branch_option = { name: null, address: null, start_at:null, end_at:null }
 const ready = ref(false)
+const get_props = ref(false)
+const deliverydatePicker = ref({
+	start:new Date(),
+	end:new Date()
+})
+const pickupdatePicker = ref([])
 onMounted(()=>{
 	ready.value=true
+	update_pickupdatePicker()
 })
 const props = defineProps({
     campaign: Object,
@@ -267,10 +322,42 @@ const deleteDelivery = index=>{
 
 const addBranch = ()=>{
     props.campaign.meta_logistic.pickup_options.unshift(Object.assign({},branch_option))
+	pickupdatePicker.value.unshift({start:null,end:null})
 }
 const deleteBranch = index=>{
     props.campaign.meta_logistic.pickup_options.splice(index,1)
+	pickupdatePicker.value.splice(index,1)
 }
 
+watch(computed(()=>props.campaign.meta_logistic.pickup_options),()=>{
+	if (pickupdatePicker.value.length === 0){
+		update_pickupdatePicker()
+	}
+},{deep:true})
 
+watch(computed(()=>deliverydatePicker.value),()=>{
+	props.campaign.meta_logistic.delivery_date.start_at = deliverydatePicker.value.start
+	props.campaign.meta_logistic.delivery_date.end_at = deliverydatePicker.value.end
+},{deep:true})
+
+watch(computed(()=>pickupdatePicker.value),()=>{
+	// console.log(pickupdatePicker.value)
+	if (get_props.value==true){
+		for (let index = 0; index<props.campaign.meta_logistic.pickup_options.length;index++){
+			props.campaign.meta_logistic.pickup_options[index].start_at = pickupdatePicker.value[index].start
+			props.campaign.meta_logistic.pickup_options[index].end_at = pickupdatePicker.value[index].end
+		}
+	}
+	
+},{deep:true})
+
+
+const update_pickupdatePicker = ()=>{
+    for (let option = 0; option<props.campaign.meta_logistic.pickup_options.length;option++){
+			pickupdatePicker.value.push({start:props.campaign.meta_logistic.pickup_options[option].start_at?props.campaign.meta_logistic.pickup_options[option].start_at:null,
+				end:props.campaign.meta_logistic.pickup_options[option].end_at?props.campaign.meta_logistic.pickup_options[option].end_at:null})
+	}
+	// console.log(pickupdatePicker.value)
+	get_props.value = true
+}
 </script>

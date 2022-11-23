@@ -83,6 +83,11 @@
                                                 <img src="/src/assets/images/lss-img/tiktok_black_bg.png" />
                                             </div>
                                         </div>
+                                        <div v-else class="w-8 h-8 image-fit mx-auto">
+                                            <div class="w-10 h-10 image-fit">
+                                                <img src='/src/assets/images/lss-icon/express_Icon.svg' >
+                                            </div>
+                                        </div>
                                     </td>
                                     <td class="text-[12px]">
                                         <template v-if="cart.customer_name != ''"> {{ cart.customer_name }} </template>
@@ -101,7 +106,7 @@
                                                 <td class="font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}*</td>
                                             </template>
                                             <template v-else> 
-                                                <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id].order_code}}</span> 
+                                                <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id]?.order_code}}</span> 
                                             </template>
                                         </div>
                                     </td>

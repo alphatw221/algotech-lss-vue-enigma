@@ -20,6 +20,8 @@
         "shipping_info":"Shipping Information",
         "home_delivery":"Home Delivery",
         "self_pickup":"Self Pickup",
+        "delivery_date":"Delivery Date",
+        "pickup_date":"Pickup Date",
 
         "delivery_info":"Delivery Information",
         "address":"Address",
@@ -77,7 +79,7 @@
         "select_products":"Select Products",
         "add":"Add",
         "wishlist":"Notify Me",
-        "description": "Product details",
+        "description": "Product details"
     },
     "payment":{
         "shipping_summary":"Shipping Summary",

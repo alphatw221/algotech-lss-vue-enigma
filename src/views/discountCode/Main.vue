@@ -14,7 +14,7 @@
                     :uploadFunction = "importDiscountCode"
                     v-if="layoutStore.userInfo?.user_subscription?.user_plan?.display?.import_discount_code_button"
                 >
-                    <span class="font-bold mr-1 text-[16px]">+</span> Import 
+                    <span class="font-bold mr-1 text-[16px]">+</span> {{$t('discount.import' )}} 
                 </FileUploadButton>
 
                 <button class="mx-1 sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded border-[2px] border-slate-100 shadow-lg"

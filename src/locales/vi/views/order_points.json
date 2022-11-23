@@ -1,0 +1,16 @@
+{
+    "points":"Points",
+    "statusButton":{
+        "all":"All",
+        "earning":"Earning",
+        "spending":"Spending"
+    },
+    "table":{
+        "date":"Date",
+        "change_reason":"Point Change Reason",
+        "earned":"Points Earned",
+        "used":"Points Used",
+        "discount":"Discount",
+        "expire_at":"Expiry Date"
+    }
+}
