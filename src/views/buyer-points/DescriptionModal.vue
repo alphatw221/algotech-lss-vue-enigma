@@ -9,7 +9,7 @@
       </a>
       <ModalBody class="p-0">
         <div class="p-5 text-center">
-          ;liskdjg;olsdikjv;olsikfjv;dslkvnm
+          ...
         </div>
       </ModalBody>
     </Modal>
