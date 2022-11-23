@@ -83,6 +83,7 @@
         "cancel": "取消",
         "save": "储存",
         "preview":"预览",
+        "order_code":"下单代码",
 
         "not_save_message":"取消储存",
         "create_message":"新增成功",

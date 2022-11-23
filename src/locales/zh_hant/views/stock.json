@@ -83,6 +83,7 @@
         "cancel": "取消",
         "save": "儲存",
         "preview":"預覽",
+        "order_code":"下單代碼",
 
         "not_save_message":"取消儲存",
         "create_message":"新增成功",
