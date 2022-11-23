@@ -16,7 +16,7 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     notification: ref(),
     alert: ref(),
     apiErrorAlert: ref(),
-
+    buyer: ref({}),
     showCommentCaptureWindow:ref(false),
     commentCapturingCampaignData:ref({}),
 
@@ -60,6 +60,11 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         icon: "auto-reply",
         pageName: "auto-reply",
         title: "auto_reply",
+      },
+      {
+        icon: "manage-order",
+        pageName: "seller-buyers",
+        title: "buyers",
       },
       // {
       //   icon: "report",

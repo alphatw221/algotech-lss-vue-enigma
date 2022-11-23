@@ -92,7 +92,6 @@
         "invalid_data":"Invalid Submission"
     },
     "wishlist":{
-
         "title":"Wishlist",
         "confirm_send":"Confirm to notify and E-mail everyone on the wishlist",
         "cancel_send":"Canceled",

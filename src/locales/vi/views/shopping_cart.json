@@ -20,6 +20,8 @@
         "shipping_info":"Thông tin vận chuyển",
         "home_delivery":"Giao hàng tận nhà",
         "self_pickup":"Tự nhận hàng",
+        "delivery_date":"Delivery Date",
+        "pickup_date":"Pickup Date",
 
         "delivery_info":"Thông tin giao hàng",
         "address":"Địa chỉ",
@@ -54,7 +56,8 @@
         "null":"",
         "cart":"Giỏ hàng của tôi",
         "items":"Mặt hàng",
-        "edit":"Chỉnh sửa"
+        "edit":"Chỉnh sửa",
+        "order_code":"Mã đặt hàng"
     },
     "order_summary":{
         "order_summary":"Tóm tắt theo thứ tự",

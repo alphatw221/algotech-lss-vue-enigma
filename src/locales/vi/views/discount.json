@@ -1,6 +1,7 @@
 {   
     "create_discount_code":"Tạo mã mới",
     "create_err":"Lỗi nhập thông tin đầu vào",
+    "import":"Import Code",
     "discount_code":"Mã giảm giá",
     "table":{
         "name":"giãm giá Tên",

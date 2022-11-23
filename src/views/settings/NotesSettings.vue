@@ -4,7 +4,7 @@
 
     <!-- SHOPPINGCART-->
     <div class="flex flex-col md:flex-row justify-between gap-5 my-5"> 
-        <label class="whitespace-nowrap w-72 text-xl"> Shopping Cart settings</label>
+        <label class="w-72 text-xl"> {{$t("settings.localization.title")}}</label>
         <div class="flex flex-col gap-5 w-full"> 
             <div class="flex form-label text-base font-medium">{{$t("settings.localization.currency_symbol")}}</div>
             <TomSelect v-model="generalInfo.currency" :options="{
@@ -60,11 +60,14 @@
         <PointsSettingsVue :meta_point="generalInfo.meta_point" :status="'settings'" />
         
 
-        <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
+    <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
 
+        <MessageSettingsVue :meta_reply="generalInfo.meta_reply" :status="'settings'" />
+
+    <div class="w-full border-t border-slate-300/60 dark:border-darkmode-400 my-10"></div>
     <!-- NOTES-->
     <div class="flex flex-col md:flex-row justify-between gap-5 my-5"> 
-        <label class="w-72 whitespace-nowrap text-xl"> Custom Notes Settings</label>
+        <label class="w-72 text-xl"> {{$t('settings.notes.title')}}</label>
         <AccordionGroup class="accordion-boxed w-full">
             <AccordionItem>
                 <Accordion>
@@ -152,13 +155,10 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import i18n from "@/locales/i18n"
 import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 import PointsSettingsVue from './PointsSettings.vue';
+import MessageSettingsVue from './MessageSettings.vue';
 
 const layoutStore = useLSSSellerLayoutStore();
 
-//之後這邊改成 綁layoutStore裡面的userInfo.user_subscription
-const deliveryNote = ref('')
-const specialNote = ref('')
-const confirmationNote = ref('')
 
 
 // shopping cart
@@ -204,35 +204,10 @@ const generalInfo = ref({
     price_unit:'1',
     confirmation_note:'',
     delivery_note:'',
-    confirmation_note:'',
-    meta_point:{}   //temp
-})
-
-
-//points
-
-const points = reactive({
-    period: '',
-    note:'',
-    additional_points_options:[{ startFrom: null, endAt: null, type: null, amount:null }],
-    startFrom:'',
-    endAt:'',
-    type:'', 
-    amount:'',
-    redeem_points:'',
-    redeem_cash:''
-})
-
-const additional_points_option = { startFrom: null, endAt: null, type: null, amount:null }
-
-const deleteDelivery = index=>{ 
-    points.additional_points_options.splice(index,1)
-}
-
-const addPoints = () =>{
-    points.additional_points_options.unshift( Object.assign({},additional_points_option) )
-}
-
+    special_note:'',
+    meta_point:{},   //temp
+    meta_reply:{}
+}) 
 
 
 onMounted(() => {
@@ -241,19 +216,19 @@ onMounted(() => {
         generalInfo.value = response.data
         generalInfo.value.decimal_places = response.data.decimal_places.toString()  //temp   TomSelect only work with string value
 
-        // console.log(generalInfo.value)
+        // console.log('GERNERAL',generalInfo.value)
     })
     
 })
 
-
-
 const update = () => {
+    console.log(generalInfo.value)
     update_general_info(generalInfo.value, layoutStore.alert).then(res => {
         layoutStore.userInfo = res.data
+        document.querySelector('#lss-content').scrollTo(0, -70)
         layoutStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
+        // console.log(layoutStore.userInfo)
     })
+
 }
-
-
 </script>

@@ -163,6 +163,13 @@
 				:v="v"
 			/>
 		</div>
+
+		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+			<MessageSettings 
+				:meta_reply="campaignData.meta_reply"
+				:v="v"
+			/>
+		</div>
 		
 		
 		<NotesForm :campaignNotes="campaignNotes"/>
@@ -186,6 +193,7 @@ import PaymentForm from '@/views/create-campaign/payment-form/Main.vue'
 import DeliveryForm from '@/views/create-campaign/DeliveryForm.vue';
 import NotesForm from '@/views/create-campaign/NotesForm.vue';
 import PointsSettings from '@//views/settings/PointsSettings.vue'
+import MessageSettings from '@//views/settings/MessageSettings.vue'
 
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
@@ -205,7 +213,6 @@ import tiktok_platform from "/src/assets/images/lss-img/tiktok_black_bg.png"
 import anonymous_profile from "/src/assets/images/lss-img/noname.png"
 import unbound from "/src/assets/images/lss-img/noname.png"
 import i18n from "@/locales/i18n"
-import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 
 
@@ -280,6 +287,7 @@ onMounted(() => {
 		dateTimePicker.value.end=res.data.end_at
 
 		campaignNotes.value.meta_logistic.delivery_note = JSON.parse(JSON.stringify(campaignData.value.meta_logistic.delivery_note ))
+		campaignData.value.meta_logistic.delivery_date = campaignData.value.meta_logistic.delivery_date?campaignData.value.meta_logistic.delivery_date:{start_at:null,end_at:null}
 		if(sellerStore.userInfo.user_subscription.country)campaignData.value.country = sellerStore.userInfo.user_subscription.country
 
 		//if support payment is in meta_payment -> do nothing

@@ -1,5 +1,5 @@
 <template>
-    <div class="mt-3 w-full overflow-auto max-h-[88%]" > 
+    <div class="mt-3 w-full overflow-auto max-h-[99%]" > 
         <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
@@ -87,13 +87,13 @@
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
                                                 <img class="rounded-full" :src="cart.customer_img"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
+                                                    <img class="bg-cover rounded-full bg-[#6441a5]" src='/src/assets/images/lss-img/twitch.png' >
                                                 </div>
                                             </div>
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                                 <img class="rounded-full" :src="unbound"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/twitch.png' >
+                                                    <img class="bg-cover rounded-full bg-[#6441a5]" src='/src/assets/images/lss-img/twitch.png' >
                                                 </div>
                                             </div>
                                         </div>
@@ -102,35 +102,44 @@
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
                                                 <img class="rounded-full" :src="cart.customer_img"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/tiktok.png' >
+                                                    <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
                                                 </div>
                                             </div>
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                                 <img class="rounded-full" :src="unbound"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
+                                                    <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
                                                 </div>
                                             </div>
                                         </div>
                                         <div v-else-if="!cart.platform && !cart.customer_img" class="w-fit h-fit image-fit">
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
                                                 <img class="rounded-full" :src="unbound"/>
+                                                <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                                    <img class="bg-cover rounded-full bg-[#F2502D]" src='/src/assets/images/lss-icon/express_Icon.svg' >
+                                                </div>
                                             </div>
                                         </div>
                                         <div v-else class="w-fit h-fit image-fit">
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
                                                 <img class="rounded-full" :src="cart.customer_img"/>
+                                                <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                                    <img class="bg-cover rounded-full bg-[#F2502D]" src='/src/assets/images/lss-icon/express_Icon.svg' >
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td :data-content="$t(`manage_order.table.customer_name`)">
+                                    <div class="flex gap-2 justify-center"> 
                                     <template v-if="cart.customer_name">
-                                        {{cart.customer_name}}
+                                        {{cart.customer_name}} 
                                     </template>
                                     <template v-else>
                                         {{ $t('manage_order.table.guest') }}
                                     </template>        
+                                    <SimpleIcon icon="new_user2" v-if="cart?.remark == 'new customer'" />
+                                    </div>
                                 </td>
                                 <td :data-content="$t(`manage_order.table.updated_at`)">
                                     {{ new Date(cart.updated_at).toLocaleTimeString('en-us', {month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'}) }}
@@ -353,11 +362,13 @@ const handleSocketMessage = message=>{
     if (message.type == 'cart_data'){
         const cart_data = message.data
 
-
         const cart_index = manageOrderStore.carts.findIndex(cart=>cart.id = cart_data.id)
-        manageOrderStore.carts[cart_index] = cart_data
+        if(cart_index>=0){
+            manageOrderStore.carts[cart_index] = cart_data
+        }else{
+            manageOrderStore.crts.unshift(cart_data)
+        }
 
-        // manageOrderStore.cartsDict[cart_data.id]=cart_data
     }
 }
 

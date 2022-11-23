@@ -11,7 +11,8 @@
         "localization":"本地化",
         "connect_platform":"社群平台",
         "discount_code":"優惠代碼",
-        "manage_order":"訂單管理"
+        "manage_order":"訂單管理",
+        "buyers":"買家"
     },
     "bread_crumb":{
         "stock":"商品管理",
@@ -45,7 +46,10 @@
         "sellers":"賣家",
         "buyers":"買家",
         "lucky-draw-list":"抽獎工具",
-        "create-lucky-draw":"建立抽獎"
+        "create-lucky-draw":"建立抽獎",
+        "report":"報告",
+        "orders": "歷史訂單",
+        "points": "點數"
     },
     "top_bar":{
         "profile":"會員資訊",
