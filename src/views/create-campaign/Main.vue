@@ -243,7 +243,7 @@ const campaignData = ref({
 		delivery_note : '',
 		ecpay_delivery_enable : false,
 		ecpay_delivery_hash_key : '',
-		ecpay_delivery_hash_iv : ''
+		ecpay_delivery_hash_iv : '',
 	},
 	country:'SG',
 	currency:'USD', 
@@ -345,6 +345,7 @@ onMounted(() => {
 	//Logistic
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
+		campaignData.value.meta_logistic.delivery_date = sellerStore.userInfo.user_subscription.meta_logistic.delivery_date?sellerStore.userInfo.user_subscription.meta_logistic.delivery_date:{start_at:null,end_at:null}
 	}
 	
 

@@ -20,6 +20,8 @@
         "shipping_info":"Thông tin vận chuyển",
         "home_delivery":"Giao hàng tận nhà",
         "self_pickup":"Tự nhận hàng",
+        "delivery_date":"Delivery Date",
+        "pickup_date":"Pickup Date",
 
         "delivery_info":"Thông tin giao hàng",
         "address":"Địa chỉ",
