@@ -124,6 +124,7 @@
         "payment":"金流"
     },
     "notes":{
+        "title":"客制化留言设定",
         "notes":"一般",
         "delivery_note":"运送须知",
         "special_note":"购物須知",
@@ -133,7 +134,7 @@
         "update": "更新"
     },
     "localization":{
-        "title": "在地化",
+        "title": "购物车设定",
         "country":"国家",
         "countries":{
             "PH":"菲律宾",
@@ -193,5 +194,27 @@
         "period": "",
         "unbind_page":"取消绑定",
         "reach_channel_limt_message": "您已到达最大绑定平台数量"
+    },
+    "points":{
+        "title":"积分设定",
+        "enable":"启用",
+        "point_validity":"积分有效期 (月)",
+        "unlimited":"无限制",
+        "month":"月",
+        "reward_table":"奖励积分表",
+        "redemption":"积分兑换率",
+        "points":"点",
+        "description":"积分注解",
+        "add":"新增"
+    },
+    "messages":{
+        "title":"客制化留言设定",
+        "added":"成功加入购物车",
+        "updated":"状态更新",
+        "deleted":"商品已从购物车删除",
+        "insufficient_inv":"商品库存不足",
+        "facebook_buttons":"Facebook显示按钮设定",
+        "enable":"启用"
     }
 }
+

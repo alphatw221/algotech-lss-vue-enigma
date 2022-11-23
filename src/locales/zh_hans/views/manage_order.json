@@ -1,5 +1,6 @@
 {
         "title":"订单管理",
+        "incoming_order":"即时订单",
         "campaign_status":{
                 "closed_rate" : "成交率",
                 "sales" : "销售额",
@@ -45,7 +46,13 @@
                 "null":"",
                 "guest": "访客",
                 "payment_status":"付款状态",
-                "delivery_status":"运送状态"
+                "delivery_status":"运送状态",
+                "updated_at":"最后更新",
+                "product_img":"",
+                "product_name":"商品名称",
+                "order_code":"下单代码",
+                "qty":"数量",
+                "subtotal":"小计"
                 
         },
         "product_modal":{

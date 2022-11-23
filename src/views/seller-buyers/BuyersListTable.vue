@@ -13,7 +13,7 @@
       </thead>
       <tbody>
         <tr v-for="(buyer, index) in buyers" :key="index" class="intro-x">
-          <td v-if="showBuyersLoding"
+          <td v-if="showBuyersLoading"
 						class="h-[300px] items-center relative tdDot"
 						:colspan="tableColumns.length +1" >
 						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
@@ -22,7 +22,7 @@
             <td v-if="column.key == 'customer_name'" class="w-fit text-center">
               {{ buyer.name }}
             </td>
-            <td v-if="column.key == 'email'" class="w-fit text-center">
+            <td v-if="column.key == 'email'" class="w-fit text-center" :data-content="$t('buyers.table_column.' + column.key)">
               {{ buyer.email }}
             </td>
             <td v-if="column.key == 'customer_img'" class="text-left w-5 w-fit">
@@ -42,7 +42,7 @@
                 Guest
               </template>
             </td> -->
-            <td v-if="column.key == 'order_history'" class="items-center manage_order w-fit" :data-content="$t('buyers.table_column.action')">
+            <td v-if="column.key == 'order_history'" class="items-center manage_order w-fit" :data-content="$t('buyers.table_column.' + column.key)">
               <a class="flex items-center justify-center" @click="toBuyerOrderHistory(buyer)">
                 <span class="mr-3 sm:hidden"> {{$t('buyers.table_column.order_history')}}</span>
                 <Tippy  :content="$t('buyers.table_column.order_history')" :options="{ theme: 'light' }">
@@ -51,7 +51,7 @@
                 </Tippy> 
               </a>
             </td>
-            <td v-if="column.key == 'points'" class="items-center manage_order w-fit" :data-content="$t('buyers.table_column.action')">
+            <td v-if="column.key == 'points'" class="items-center manage_order w-fit" :data-content="$t('buyers.table_column.' + column.key)">
               <a class="flex items-center justify-center" @click="toBuyerPoints(buyer)">
                 <span class="mr-3 sm:hidden"> {{$t('buyers.table_column.points')}}</span>
                 <Tippy  :content="$t('buyers.table_column.points')" :options="{ theme: 'light' }">
@@ -65,7 +65,7 @@
       </tbody>
     </table>
   </div>
-  <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap mb-10">
+  <div class="flex flex-wrap items-center intro-y sm:flex-row sm:flex-nowrap">
     <Page 
           class="mx-auto my-3" 
           :total="dataCount"
@@ -111,13 +111,13 @@ const keyword= ref('')
 const order_by= ref("created_at")
 const checkout= ref(true)
 const layoutStore = useLSSSellerLayoutStore()
-const showBuyersLoding = ref(true)
+const showBuyersLoading = ref(true)
 const buyers = ref([])
 
 onMounted(()=>{
   search()
   // checkPage()
-  showBuyersLoding.value = true
+  showBuyersLoading.value = true
   eventBus.on("BuyerSearch", (payload) => {
     currentPage.value = 1; 
     keyword.value = payload.keyword;
@@ -133,7 +133,7 @@ onUnmounted(()=>{
 
 
 const search =()=>{
-    showBuyersLoding.value = true
+    showBuyersLoading.value = true
     buyers.value = []
     list_buyers(keyword.value, currentPage.value, page_size.value, layoutStore.alert)
     .then((response) => {
@@ -141,7 +141,7 @@ const search =()=>{
         dataCount.value = response.data.count;
       }
       buyers.value = response.data.results
-      showBuyersLoding.value = false
+      showBuyersLoading.value = false
     })
   }
 
@@ -223,10 +223,6 @@ thead th{
     padding: 0px !important;
   }
 
-  .fan_page {
-    height: 65px !important;
-  }
-
   thead tr {
     position: absolute;
     top: -9999px;
@@ -267,58 +263,41 @@ thead th{
     text-align:left;
 	}
 
-  .fan_page{
-    display: inline-block;
-    padding-left: 0px !important;
-
-  }
-  .fan_page:before{
-    display:none;
-  }
-
-  .title:before{
-    display:none;
-  }
-  .title {
-    width:100%;
-    display: inline-block;
-    font-weight:600;
-    color:theme("colors.primary");
-    min-height: 35px !important;
-    padding-left: 0px !important;
-  }
-  .startDate:before {
-    content: attr(data-content); 
-  }
-  
-  .endDate:before {
-    content: attr(data-content); 
-  }
-
-  .manage_order:before{
-    content:"Action"; 
-  }
-  .checkout:before{
-    content: attr(data-content); 
-  }
-  .entry:before{
-		display: none;
+  td:nth-of-type(1):before {
+		display:none;
+		
 	}
-  .entry{
-		display: inline-block;
+  td:nth-of-type(1){
+    width: 100%;
+    min-height: 20px !important;
     padding-left: 0px !important;
+    justify-content:center;
 	}
-  .moreTools{
-    display: inline-block;
-    position: absolute !important;
-    padding-left: 0px !important;
-    top:0;
-    right:0;
-    width:30px !important;
+  td:nth-of-type(2):before {
+		display:none;
+	}
+  td:nth-of-type(2){
+    display:inline-block; 
+    position:relative !important;
+    top:8px;
+    width: 100%;
+    padding-left: 0 !important;
   }
-  .moreTools:before{
-    display:none;
-  }
+
+  td:nth-of-type(3):before {
+		content: attr(data-content);
+		
+	}
+
+  td:nth-of-type(4):before {
+		content: attr(data-content);
+
+	}
+
+  td:nth-of-type(5):before {
+		content: attr(data-content);
+
+	}
 
   .dotTr{
     border: none;

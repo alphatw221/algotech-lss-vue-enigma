@@ -80,7 +80,9 @@
 
                         <template v-if="buyerOrderStore.order.shipping_method === 'pickup'">
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.information')}}</div>
-                            <div class="col-start-3 col-span-3 py-2">{{$t('order_detail.delivery.pickup')}}</div>
+                            <div class="col-start-3 col-span-3 py-2">{{$t('order_detail.delivery.pickup')}}
+                                {{buyerOrderStore.order.shipping_date_time!==null?'('+new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
+                            </div>
 
                             <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.pickup_store')}}</div>
                             <div class="col-start-3 col-span-3 py-2">{{buyerOrderStore.order?.shipping_option_data?.name}}</div> 
@@ -92,7 +94,9 @@
                         </template>
                         <template v-else-if="buyerOrderStore.order.shipping_method === 'delivery'">
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.information')}}</div>
-                            <div class="col-start-3 col-span-3 py-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option_data?.title|| $t('order_detail.delivery.default') }}</div>
+                            <div class="col-start-3 col-span-3 py-3">{{$t('order_detail.delivery.delivery')}}：{{ buyerOrderStore.order.shipping_option_data?.title|| $t('order_detail.delivery.default') }}
+                                {{buyerOrderStore.order.shipping_date_time!==null?'('+new Date(buyerOrderStore.order.shipping_date_time).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'})+')':''}}
+                            </div>
 
                             <div class="col-start-1 col-span-2 py-3">{{$t('order_detail.delivery.address')}}</div>
                             <div class="col-start-3 col-span-3 py-3">
