@@ -125,6 +125,7 @@
         "payment":"金流"
     },
     "notes":{
+        "title":"客製化留言設定",
         "notes":"一般",
         "delivery_note":"運送須知",
         "special_note":"購物須知",
@@ -135,7 +136,7 @@
         "modify":"編輯"
     },
     "localization":{
-        "title": "本地化",
+        "title": "購物車設定",
         "country":"國家",
         "countries":{
             "PH":"菲律賓",
@@ -198,5 +199,26 @@
         "period": "",
         "unbind_page":"取消綁定",
         "reach_channel_limt_message": "您已到達最大綁定平台數量"
+    },
+    "points":{
+        "title":"積分設定",
+        "enable":"啟用",
+        "point_validity":"積分有效期 (月)",
+        "unlimited":"無限制",
+        "month":"月",
+        "reward_table":"獎勵積分表",
+        "redemption":"積分兌換率",
+        "points":"點",
+        "description":"積分註解",
+        "add":"新增"
+    },
+    "messages":{
+        "title":"客製化留言設定",
+        "added":"成功加入購物車",
+        "updated":"狀態更新",
+        "deleted":"已將商品從購物車刪除",
+        "insufficient_inv":"商品庫存不足",
+        "facebook_buttons":"Facebook顯示按鈕設定",
+        "enable":"啟用"
     }
 }
