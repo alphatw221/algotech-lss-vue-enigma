@@ -14,9 +14,10 @@ export const useLSSBuyerLayoutStore = defineStore("buyerLayout", {
     isAuthenticated: ref(false),
     // loginWith: ref(null),
     userInfo: ref({}),
+    sellerInfo:ref({}),
     notification:ref(),
     alert:ref(),
     showLoginModal: ref(false),
-    refuseToLogin: ref(false)
+    refuseToLogin: ref(false),
   }),
 });

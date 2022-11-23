@@ -28,9 +28,9 @@
           xl:ml-5
         ">
           <img
-            alt="Enigma Tailwind HTML Admin Template"
+            alt="Logo"
             class="logo__image mb-1"
-            src="@/assets/images/lss-logo/LSS_logo_words_white.png"
+            :src="userLogo"
           />
           <!-- <span class="logo__text text-white text-lg ml-3 mt-2"> LiveShowSeller </span> -->
         </a>
@@ -162,6 +162,7 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
 import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
+import lssLogo from "@/assets/images/lss-logo/LSS_logo_words_white.png";
 
 const route = useRoute();
 const router = useRouter();
@@ -172,6 +173,9 @@ const toggleMobileMenu = ()=>{
   buyerLayoutStore.showMobileMenu = !buyerLayoutStore.showMobileMenu
 }
 
+const userLogo = computed(() => {
+  return buyerLayoutStore.sellerInfo.meta_store.shoppingcart_icon ? buyerLayoutStore.sellerInfo.meta_store.shoppingcart_icon : lssLogo
+})
 
 const isAnonymousUser = cookies.get('login_with')=='anonymousUser'
 const userAvatar = computed(() => {
