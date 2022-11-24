@@ -125,6 +125,7 @@
         "payment":"金流"
     },
     "notes":{
+        "title":"客製化訊息",
         "notes":"一般",
         "delivery_note":"運送須知",
         "special_note":"購物須知",
@@ -133,10 +134,10 @@
         "save":"儲存",
         "update": "更新",
         "modify":"編輯",
-        "custom_note":"Custom Note Settings"
+        "custom_note":"客製化訊息"
     },
     "localization":{
-        "title": "本地化",
+        "title": "購物車設定",
         "country":"國家",
         "countries":{
             "PH":"菲律賓",
@@ -213,12 +214,12 @@
         "add":"新增"
     },
     "messages":{
-        "title":"Custom Facebook Message Settings",
-        "added":"Successfully Added Product",
-        "updated":"Status Updated",
-        "deleted":"Product Deleted from Shopping Cart",
-        "insufficient_inv":"Not Enough Product Amount",
-        "facebook_buttons":"Process Order Button",
-        "enable":"Enable"
+        "title":"客製化留言/私訊設定",
+        "added":"成功加入購物車",
+        "updated":"狀態已更新",
+        "deleted":"已將商品從購物車刪除",
+        "insufficient_inv":"商品庫存不足",
+        "facebook_buttons":"Facebook顯示按鈕設定",
+        "enable":"啟用"
     }
 }

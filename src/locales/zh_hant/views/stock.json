@@ -4,6 +4,7 @@
     "for_sale": "可銷售",
     "delisted": "未上架",
     "add_product": "新增商品",
+    "import_product": "批次上傳商品",
     "dont_have_product_notify": "目前沒有任何商品",
     "no_result":{
         "enabled":"目前沒有任何可銷售的商品。",
@@ -83,6 +84,7 @@
         "cancel": "取消",
         "save": "儲存",
         "preview":"預覽",
+        "order_code":"下單代碼",
 
         "not_save_message":"取消儲存",
         "create_message":"新增成功",
@@ -92,7 +94,11 @@
     "wishlist":{
         "confirm_send":"確認通過電子郵件發送通知給願望清單上的每個人",
         "cancel_send":"取消",
-        "success_send":"電子郵件已發送成功"
+        "success_send":"電子郵件已發送成功",
+        "title":"願望清單",
+        "name":"顧客",
+        "email":"電子信箱",
+        "mail_to":"發送給所有顧客"
     },
     "bulk_edit_modal":{
         "bulk_edit":"批次編輯",
