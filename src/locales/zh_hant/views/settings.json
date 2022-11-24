@@ -215,9 +215,9 @@
     },
     "messages":{
         "title":"客製化留言/私訊設定",
-        "added":"成功加入購物車",
-        "updated":"狀態已更新",
-        "deleted":"已將商品從購物車刪除",
+        "added":"商品成功加入購物車",
+        "updated":"商品狀態已更新",
+        "deleted":"商品已從購物車刪除",
         "insufficient_inv":"商品庫存不足",
         "facebook_buttons":"Facebook顯示按鈕設定",
         "enable":"啟用"

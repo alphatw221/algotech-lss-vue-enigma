@@ -18,7 +18,7 @@
         "product_over_specific_number":"By Order Qty",
         "discount_code_usable_time":"Usage Limited",
         "new_buyer_only":"New Buyer Only",
-        "buyer_usage_times":"Buyer Usage Limited"
+        "buyer_usage_times":"Usage Limited per Buyer"
     },
 
     "limitation_fields":{

@@ -122,7 +122,7 @@
         "payment":"Thanh toán"
     },
     "notes":{
-        "title":"Shopping Cart settings",
+        "title":"Cài đặt ghi chú tùy chỉnh",
         "notes":"Các lưu ý",
         "delivery_note":"Lưu ý khi giao hàng",
         "special_note":"Ghi chú đặc biệt",
@@ -134,7 +134,7 @@
         "custom_note":"Cài đặt ghi chú tùy chỉnh"
     },
     "localization":{
-        "title": "Shopping Cart settings",
+        "title": "Cài đặt giỏ hàng",
         "country":"Quốc gia",
         "countries":{
             "PH":"Philippines",
@@ -209,11 +209,11 @@
         "add":"Thêm"
     },
     "messages":{
-        "title":"Cài đặt tin nhắn Facebook tùy chỉnh",
-         "add":"Đã thêm sản phẩm thành công",
+        "title":"Cài đặt tin nhắn/tin nhắn riêng tùy chỉnh",
+         "added":"Đã thêm sản phẩm thành công",
          "updated":"Cập nhật trạng thái",
          "deleted":"Sản phẩm đã bị xóa khỏi giỏ hàng",
-         "in enough_inv":"Không đủ số lượng sản phẩm",
+         "insufficient_inv":"Không đủ số lượng sản phẩm",
          "facebook_buttons":"Xử lý nút đặt hàng",
          "enable":"Bật"
     }

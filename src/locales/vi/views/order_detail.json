@@ -60,6 +60,8 @@
     "payment":{
         "direct_payment":"Thanh toán trực tiếp",
         "Direct Payment":"Thanh toán trực tiếp",
+        "hitpay":"Hitpay",
+        "paypal":"Paypal",
         "ecpay":"ECpay",
         "pay_mongo":"PayMongo",
         "rapyd":"Rapyd",

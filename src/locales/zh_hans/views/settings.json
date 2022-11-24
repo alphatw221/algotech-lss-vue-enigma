@@ -210,8 +210,8 @@
     },
     "messages":{
         "title":"客制化留言/私讯设定",
-        "added":"成功加入购物车",
-        "updated":"状态已更新",
+        "added":"商品成功加入购物车",
+        "updated":"商品状态已更新",
         "deleted":"商品已从购物车删除",
         "insufficient_inv":"商品库存不足",
         "facebook_buttons":"Facebook 显示按钮设定",

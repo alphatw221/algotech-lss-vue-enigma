@@ -60,6 +60,8 @@
     "payment":{
         "direct_payment":"转帐支付",
         "Direct Payment":"转帐支付",
+        "hitpay":"Hitpay",
+        "paypal":"Paypal",
         "ecpay":"綠界金流",
         "pay_mongo":"PayMongo",
         "rapyd":"Rapyd",

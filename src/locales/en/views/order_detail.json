@@ -65,6 +65,8 @@
     "payment":{
         "Direct Payment":"Direct Payment",
         "direct_payment":"Direct Payment",
+        "hitpay":"Hitpay",
+        "paypal":"Paypal",
         "ecpay":"ECpay",
         "pay_mongo":"PayMongo",
         "rapyd":"Rapyd",

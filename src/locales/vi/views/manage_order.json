@@ -19,6 +19,7 @@
         },
         "search_bar":{
                 "search":"Tìm kiếm",
+                "search_product":"Số tìm kiếm/người mua/hàng hóa/mã",
                 "filter":"Lọc",
                 "export" : "Xuất"
         },

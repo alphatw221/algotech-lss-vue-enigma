@@ -4,7 +4,7 @@
     "for_sale": "Để bán",
     "delisted": "Đã hủy",
     "add_product": "Thêm sản phẩm",
-    "import_product": "Import Product",
+    "import_product": "nhập sản phẩm",
     "dont_have_product_notify": "Bạn không có sản phẩm trong danh mục này",
     "no_result":{
         "enabled":"Hiện tại không có mặt hàng nào có sẵn để bán.",
@@ -53,7 +53,7 @@
         },
         "save_success":"Lưu thành công",
         "not_saved":"Cập nhật Hủy bỏ",
-        "enabled": "Enabled"
+        "enabled": "Bật"
     },
 
     "add_product_page": {

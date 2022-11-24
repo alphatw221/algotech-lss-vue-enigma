@@ -1,7 +1,7 @@
 {   
     "create_discount_code":"Tạo mã mới",
     "create_err":"Lỗi nhập thông tin đầu vào",
-    "import":"Import Code",
+    "import":"Nhập khẩu",
     "discount_code":"Mã giảm giá",
     "table":{
         "name":"giãm giá Tên",
@@ -25,7 +25,7 @@
         "discount_code_usable_time": "Số lượng ưu đãi：",
         "specific_campaign":"Chiến dịch :",
         "all": "Tất cả",
-        "used_count":"Used"
+        "used_count":"Đã sử dụng"
     },
     "modal":{
         "create":"Tạo mã giảm giá",
