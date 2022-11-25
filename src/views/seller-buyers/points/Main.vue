@@ -3,7 +3,7 @@
         <h1 class="text-xl mx-auto" style="font-size: 1.5rem;"> {{$t('order_points.points')}} </h1>
         <div v-if="sellerLayoutStore.buyer !== null"
           class="w-full box sm:px-20 py-10 flex flex-col sm:flex-row justify-between gap-5"> 
-            <div class="h-48 w-44 box border-2 border-slate-200 flex flex-col items-center justify-center gap-0.5">
+            <div class="h-48 w-44 box border-2 border-slate-200 flex flex-col items-center justify-center gap-0.5 mx-auto sm:mx-0">
               <div class="w-28 h-28 flex-none image-fit mr-1">
                   <img alt="" class="rounded-full zoom-in" :src="userAvatar" />
               </div>
