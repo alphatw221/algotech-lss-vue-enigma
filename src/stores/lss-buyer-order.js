@@ -5,7 +5,7 @@ export const useLSSBuyerOrderStore = defineStore("buyerOrder", {
   state: () => ({
 
     order: ref({}),
-    
+    user_subscription:ref({})
      
   }),
 });

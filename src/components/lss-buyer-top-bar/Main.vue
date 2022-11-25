@@ -174,7 +174,7 @@ const toggleMobileMenu = ()=>{
 }
 
 const userLogo = computed(() => {
-  return buyerLayoutStore.sellerInfo?.meta_store?.shoppingcart_icon ? buyerLayoutStore.sellerInfo.meta_store.shoppingcart_icon : lssLogo
+  return buyerLayoutStore.sellerInfo?.meta_store?.shopping_cart_icon ? buyerLayoutStore.sellerInfo.meta_store.shopping_cart_icon : lssLogo
 })
 
 const isAnonymousUser = cookies.get('login_with')=='anonymousUser'

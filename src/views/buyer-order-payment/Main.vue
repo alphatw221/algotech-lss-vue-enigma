@@ -41,7 +41,7 @@ onMounted(()=>{
     .then(
         res => {
             store.order = res.data
-            layoutStore.sellerInfo = res.data.campaign.user_subscription
+            layoutStore.sellerInfo = res.data.user_subscription
             i18n.locale = res.data.campaign.lang
             if (store.order.campaign.user_subscription.status === "test") router.back()
         }

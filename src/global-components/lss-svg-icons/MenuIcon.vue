@@ -138,13 +138,22 @@
 
   <svg 
   v-else-if="icon == 'manage-order'"
-  width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-  <path fill-rule="evenodd" clip-rule="evenodd" d="M6 3.78333C4.48122 3.78333 3.25 5.01454 3.25 6.53332V17.4667C3.25 18.9854 4.48122 20.2167 6 20.2167H15.7333C16.1475 20.2167 16.4833 19.8809 16.4833 19.4667V19.4009C16.2398 19.4441 15.9891 19.4667 15.7332 19.4667C14.836 19.4667 14.0035 19.1897 13.3164 18.7167H6C5.30964 18.7167 4.75 18.157 4.75 17.4667V6.53332C4.75 5.84297 5.30964 5.28333 6 5.28333H12.5296C12.9476 5.28333 13.3379 5.4922 13.5697 5.83995L14.7734 7.6455C14.9103 7.85084 14.9833 8.0921 14.9833 8.33888V10.999C15.2268 10.9558 15.4774 10.9333 15.7332 10.9333C15.9891 10.9333 16.2398 10.9559 16.4833 10.999V8.33888C16.4833 7.79596 16.3226 7.26519 16.0215 6.81345L14.8178 5.0079C14.3077 4.24285 13.4491 3.78333 12.5296 3.78333H6Z" :fill="props.color"/>
-  <circle cx="16.2667" cy="15.2667" r="4.26667" :stroke="props.color" stroke-width="1.5"/>
-  <path d="M7.19995 8.79999H12.5333" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M7.19995 12H9.33328" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-  <path d="M15 15.5L16 16.5L18 14" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  width="19" height="18" viewBox="0 0 19 18" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path fill-rule="evenodd" clip-rule="evenodd" d="M3 0.783325C1.48122 0.783325 0.25 2.01454 0.25 3.53332V14.4667C0.25 15.9854 1.48122 17.2167 3 17.2167H12.7333C13.1475 17.2167 13.4833 16.8809 13.4833 16.4667V16.4009C13.2398 16.4441 12.9891 16.4667 12.7332 16.4667C11.836 16.4667 11.0035 16.1897 10.3164 15.7167H3C2.30964 15.7167 1.75 15.157 1.75 14.4667V3.53332C1.75 2.84297 2.30964 2.28333 3 2.28333H9.52963C9.94757 2.28333 10.3379 2.4922 10.5697 2.83995L11.7734 4.6455C11.9103 4.85084 11.9833 5.0921 11.9833 5.33888V7.999C12.2268 7.95584 12.4774 7.93332 12.7332 7.93332C12.9891 7.93332 13.2398 7.95585 13.4833 7.99904V5.33888C13.4833 4.79596 13.3226 4.26519 13.0215 3.81345L11.8178 2.0079C11.3077 1.24285 10.4491 0.783325 9.52963 0.783325H3Z" :fill="props.color"/>
+  <circle cx="13.2667" cy="12.2667" r="4.26667" :stroke="props.color" stroke-width="1.5"/>
+  <path d="M4.19995 5.79999H9.53328" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M4.19995 9H6.33328" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+  <path d="M12 12.5L13 13.5L15 11" :stroke="props.color" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
   </svg>
+
+  <svg 
+  v-else-if="icon == 'sidebar'"
+  width="14" height="12" viewBox="0 0 14 12" fill="none" :stroke="props.color" xmlns="http://www.w3.org/2000/svg">
+  <path d="M1 1H13" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M1 6H13" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M1 11H13" stroke-width="1.5" stroke-linecap="round"/>
+  </svg>
+
 
 </template>
 

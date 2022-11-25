@@ -95,7 +95,7 @@
                                 </div>
                             </td>
 
-                            <td><img data-action="zoom" :src="product.image" class="w-10 h-10 image-fit" /></td>
+                            <!-- <td><img data-action="zoom" :src="product.image" class="w-10 h-10 image-fit" /></td> -->
                             
                             <td>
                                 <span class="mr-0.5"> {{[index+1].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}} </span>  
@@ -168,7 +168,7 @@ const store = useCampaignDetailStore()
 
 
 const product_columns = [
-    { name: "null", key: "image" },
+    // { name: "null", key: "image" },
     { name: "name", key: "name" },
     { name: "order_code", key: "order_code" },
     { name: "cart_sold_left", key: "Sold_Left" },
