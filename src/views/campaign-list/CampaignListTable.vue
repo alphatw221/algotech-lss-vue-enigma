@@ -3,7 +3,7 @@
     <table class="table -mt-3 table-report">
       <thead>
         <tr>
-          <th class="text-center whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
+          <th class="text-left whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
             <template v-if="column.key === 'stop'"> 
               <div class="flex align-middle"> 
                 <span class="my-auto"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </span> 

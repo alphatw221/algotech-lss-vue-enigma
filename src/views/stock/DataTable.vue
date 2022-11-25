@@ -3,7 +3,7 @@
 		<table class="table -mt-3 table-report min-h-[300px]">
 			<thead>
 				<tr>
-					<th class="whitespace-normal lg:whitespace-nowrap text-center text-[16px]" v-for="column in computedTableColumns" :key="column.key">
+					<th class="whitespace-normal text-left lg:whitespace-nowrap text-[16px]" v-for="column in computedTableColumns" :key="column.key">
 						<template v-if="column.key === 'check'">
 							<input 
 								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 
@@ -11,11 +11,31 @@
 								@change="selectAllStock($event)"
 							/>
 						</template>
+						<template v-else-if="column.key === 'image'">
+							<div class="text-center">{{ $t(`stock.table_column.`+column.name) }}</div>
+						</template>
+							<div v-else-if="column.key === 'price'" class="row flex  justify-end">
+								<div class="text-right">{{ $t(`stock.table_column.`+column.name) }}</div>
+								<template v-if="column.sortable === true">
+									<template v-if="sortBy[0] === '-' && sortBy.substr(1,column.key.length) === column.key" > 
+										<ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '')" />
+										<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
+									</template> 
+									<template v-else-if="sortBy === column.key" > 
+										<ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '-')" />
+										<XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy()"/>
+									</template> 
+									<template v-else> 
+										<ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, '-')" />
+									</template>
+								</template>
+							</div>
 						<template v-else-if="column.key === 'edit'">
 							{{ '' }}
 						</template>
+						
 
-						<div v-else class="flex justify-center"> 
+						<div v-else class="flex justify-start"> 
 							{{ $t(`stock.table_column.`+column.name) }}
 							<template v-if="column.sortable === true">
 								<template v-if="sortBy[0] === '-' && sortBy.substr(1,column.key.length) === column.key" > 
@@ -109,7 +129,7 @@
 							<div class="">{{product[column.key]}}</div> 
 						</td> -->
 
-						<td v-else-if="column.key === 'qty'" class="w-full sm:w-32 text-center" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else-if="column.key === 'qty'" class="w-full sm:w-32 text-left" :data-content="$t(`stock.table_column.${column.key}`)">
 							{{product[column.key]}}
 						</td>
 
@@ -160,7 +180,7 @@
 							</div>
 						</td>
 
-						<td v-else class="text-center" :data-content="$t(`stock.table_column.${column.key}`)">
+						<td v-else class="text-left" :data-content="$t(`stock.table_column.${column.key}`)">
 							{{product[column.key]}}
 						</td>
 
