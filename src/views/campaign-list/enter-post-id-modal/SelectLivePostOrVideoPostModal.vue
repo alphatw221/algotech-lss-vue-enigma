@@ -51,6 +51,10 @@ const postType = ref('')
 onMounted(()=>{
   eventBus.on('popSelectLivePostOrVideoPostModal', (payload)=>{
     payloadBuffer.value = payload
+    if (payload.platform === 'youtube') {
+      selectLivePost()
+      return false
+    }
     show.value = true
   })
 })

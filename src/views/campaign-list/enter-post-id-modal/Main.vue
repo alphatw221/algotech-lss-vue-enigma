@@ -126,9 +126,16 @@
                 </div>
               </div>
               <div class="mt-3" v-if="campaign.youtube_channel">
-                <p class="text-center">{{$t('campaign_list.enter_post_id_modal.enter_post_id')}}</p>
-                <input class="post_id" v-model="campaign.youtube_campaign.live_video_id" 
-                :class="{ 'border-danger text-danger border-2': validate.youtube.post_id.error }" @keyup="autoUpdatePostId('youtube')"/>
+                <div style="display:flex;">
+                  <input class="post_id" v-model="campaign.youtube_campaign.live_video_id" 
+                  :placeholder="$t('campaign_list.enter_post_id_modal.enter_post_id')"
+                  :class="{ 'border-danger text-danger border-2': validate.youtube.post_id.error }" @keyup="autoUpdatePostId('youtube')"/>
+                  <Tippy tag="a" href="javascript:;" class="absolute right-[40px] tooltip" :content="$t('campaign_list.enter_post_id_modal.search_recent_posts')" :options="{
+                    theme: 'light',
+                  }">
+                  <SearchIcon class="absolute right-[-12px] z-10 click-icon" @click="popSelectLivePostOrVideoPostModal('youtube', campaign.youtube_channel.id)"/></Tippy>
+                </div>
+                
                 <template v-if="validate.youtube.post_id.error">
                   <label class="text-danger ml-2" >
                     invalid post id 

@@ -195,7 +195,7 @@ const dateTimePicker = ref({
 	start:new Date(),
 	end:new Date()
 })
-
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 const currencySymbols = ref([
     {value:'USD',text:'USD'},
     {value:'NTD',text:'NTD'},

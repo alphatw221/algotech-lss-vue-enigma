@@ -23,33 +23,30 @@
         <ModalBody class="text-left content-center">
           <div class="intro-y grid grid-cols-12 gap-3 my-0">
             <template v-for="live,index in liveItems" :key="index">
-              <div class="col-span-12">
+              <div class="col-span-12 post_frame">
                 <button type="button" href="javascript:;" class="btn btn-primary mr-3" @click="selectLive(live.id)">{{$t('campaign_list.enter_post_id_modal.select_this_live')}}</button>
-              </div>
-              <div style="height: 100%;width:100%;" class="select_live flex-none rounded-md overflow-hidden col-start-1 col-span-12">
-                <span class="col-span-6 text-lg content-center">
-                  {{ live.title }}
-                </span>
-                <p class="col-span-6 text-lg content-center">
-                  {{ live.time }}
-                </p>
-                <template v-if="live.embed_html">
-                  <div v-html="live.embed_html" style="z-index: 0; overflow:hidden; height:300px; width:500px;"></div>
-                </template>
-                <template v-else-if="live.image">
-                  <img
-                    alt=""
-                    :src="live.image"
-                    class="w-1/2"
-                    style="z-index: 0"
-                  />
-                </template>
-                <template v-else-if="live.video_url">
-                  <iframe
-                   :src="live.video_url" scrolling="no" frameborder="0" allow="accelerometer;
-                    autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
-                  </iframe>
-                </template>
+                <div class="select_live flex-none rounded-md overflow-hidden">
+                  <span class="col-span-6 text-lg content-center">
+                    {{ live.title }}
+                  </span>
+                  <p class="col-span-6 text-sm content-center">
+                    {{ datetimeReformat(live.time) }}
+                  </p>
+                  <template v-if="live.image">
+                    <img
+                      alt=""
+                      :src="live.image"
+                      class="w-1/2"
+                      style="z-index: 0"
+                    />
+                  </template>
+                  <template v-else-if="live.video_url">
+                    <iframe
+                     :src="live.video_url" scrolling="no" frameborder="0" allow="accelerometer;
+                      autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen>
+                    </iframe>
+                  </template>
+                </div>
               </div>
             </template>
           </div>
@@ -97,7 +94,7 @@ onUnmounted(()=>{
 
 const getFbPostsData = () => {
   if (postType.value === 'live') {
-    get_fb_page_live_videos(payloadBuffer.platform_id, layoutStore.alert)
+    get_fb_page_live_videos(payloadBuffer.platform_id, 10, layoutStore.alert)
     .then((response) => {
       const live_campaign = response.data.data
       if (!live_campaign.length) {
@@ -112,21 +109,16 @@ const getFbPostsData = () => {
           title: v.title?v.title:v.description?v.description:"",
           time: v.broadcast_start_time,
           image: null,
-          video_url: null,
-          embed_html: v.embed_html,
+          video_url: `https://www.facebook.com/plugins/video.php?allowfullscreen=true&autoplay=true&href=https%3A%2F%2Fwww.facebook.com%2F${v.from.id}%2Fvideos%2F${v.video.id}%2F&width=auto`,
         })
       });
       liveItems.value = currentLiveItems
       show.value = true
-    }).catch(err=>{
-      console.log(err.response.data.error.message)
-      layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_page'))
     })
   }
   if (postType.value === 'video') {
-    get_fb_page_videos(payloadBuffer.platform_id, layoutStore.alert)
+    get_fb_page_videos(payloadBuffer.platform_id, 10, layoutStore.alert)
     .then((response) => {
-      console.log(response.data.data)
       const live_campaign = response.data.data.filter(element=>element.live_status !== "LIVE")
       if (!live_campaign.length) {
           layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_facebook_post'))
@@ -140,21 +132,17 @@ const getFbPostsData = () => {
           title: v.title?v.title:v.description?v.description:"",
           time: v.created_time,
           image: null,
-          video_url: null,
-          embed_html: v.embed_html,
+          video_url: `https://www.facebook.com/plugins/video.php?allowfullscreen=true&autoplay=true&href=https%3A%2F%2Fwww.facebook.com%2F${v.from.id}%2Fvideos%2F${v.id}%2F&width=auto`,
         })
       });
       liveItems.value = currentLiveItems
       show.value = true
-    }).catch(err=>{
-      console.log(err.response.data.error.message)
-      layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_page'))
     })
   }
 }
 const getIgPostsData = () => {
   if (postType.value === 'live') {
-    get_ig_live_media(payloadBuffer.platform_id, 5, layoutStore.alert)
+    get_ig_live_media(payloadBuffer.platform_id, 10, layoutStore.alert)
     .then((response) => {
         const live_campaign = response.data.data
         if (!live_campaign.length) {
@@ -169,17 +157,14 @@ const getIgPostsData = () => {
             time: v.timestamp,
             image: v.media_url,
             video_url: null,
-            embed_html: null,
           })
         });
         liveItems.value = currentLiveItems
         show.value = true
-    }).catch(err=>{
-      layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_profile')) //temp
     })
   }
   if (postType.value === 'video') {
-    get_ig_media(payloadBuffer.platform_id, 5, layoutStore.alert)
+    get_ig_media(payloadBuffer.platform_id, 10, layoutStore.alert)
     .then((response) => {
       console.log("get_ig_media")
         const live_campaign = response.data.data
@@ -195,22 +180,17 @@ const getIgPostsData = () => {
             time: v.timestamp,
             image: null,
             video_url: v.media_url,
-            embed_html: null,
           })
         });
         liveItems.value = currentLiveItems
         show.value = true
-    }).catch(err=>{
-      console.log("err get_ig_media")
-      layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_profile')) //temp
     })
   }
 }
 const getYtPOstsData = () => {
-  get_yt_live_media(payloadBuffer.page.token)
-  .then((response) => {
-
-      // const sort = response.data.data.filter(v => v.status === "LIVE")
+  if (postType.value === 'live') {
+    get_yt_live_media(payloadBuffer.platform_id, 10, layoutStore.alert)
+    .then((response) => {
       const live_campaign = response.data.items
       if (!live_campaign.length) {
           layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.no_youtube_post'))
@@ -223,18 +203,17 @@ const getYtPOstsData = () => {
         currentLiveItems.push({
           id: v.id,
           title: v.snippet.title,
-          image: v.snippet.thumbnails.standard.url,
-          video_url: null,
-          embed_html: null,
+          time: v.snippet.publishedAt,
+          image: null,
+          video_url: `https://www.youtube.com/embed/${v.id}`,
         })
       });
       liveItems.value = currentLiveItems
       show.value = true
-  }).catch(err=>{
-    layoutStore.alert.showMessageToast(i18n.global.t('campaign_list.enter_post_id_modal.rebind_channel')) //temp
-  })
+    })
+  }
 }
-const selectLive = live_id => {
+const selectLive = (live_id) => {
   let apiRequest = null
   apiRequest = update_platform_live_id(campaign.value.id, {"platform":payloadBuffer.platform, "platform_id":payloadBuffer.platform_id , "post_id":live_id}, layoutStore.alert)
   apiRequest.then(res=>{
@@ -252,6 +231,18 @@ const hideModal = ()=>{
   show.value = false
 }
 
+const datetimeReformat = (datetime) => {
+  return new Date(datetime).toLocaleTimeString('en-us', {
+    year: "numeric", month: "short", hour12: false,
+    day: "numeric", hour: '2-digit', minute: '2-digit'
+  })
+}
 </script>
 <style scoped>
+.post_frame {
+  box-sizing: border-box;
+  padding: 20px;
+  border: 2px solid rgb(109, 109, 182);
+  border-radius: 16px;
+}
 </style>

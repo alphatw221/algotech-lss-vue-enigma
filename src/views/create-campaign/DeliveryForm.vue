@@ -302,6 +302,7 @@ const deliverydatePicker = ref({
 	start:new Date(),
 	end:new Date()
 })
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 const pickupdatePicker = ref([])
 onMounted(()=>{
 	ready.value=true

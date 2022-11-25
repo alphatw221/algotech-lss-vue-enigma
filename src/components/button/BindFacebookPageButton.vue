@@ -2,10 +2,10 @@
     <LoadingIcon icon="three-dots" color="1a202c" class="absolute body-middle" v-if="fetchingData"/>
 
     <Button v-else-if="props.buttonName == 'edit'" 
-        type="button" @click="bindPage">{{$t('settings.platform.edit')}}</Button>
+          @click="bindPage">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="fbBtn shadow-lg " @click="bindPage">{{$t('settings.platform.connect_with_facebook')}}</Button>
+          class="fbBtn shadow-lg " @click="bindPage">{{$t('settings.platform.connect_with_facebook')}}</Button>
 
     
 </template>
@@ -50,7 +50,6 @@ onUnmounted(()=>{
 const login = () => {
     console.log("login")
     window.FB.login(response => {
-        console.log(response)
         if (response.status === 'connected') {
             const payload = {'accessToken':response.authResponse.accessToken}
             eventBus.emit(props.busName, payload)

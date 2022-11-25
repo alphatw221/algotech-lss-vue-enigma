@@ -110,7 +110,7 @@ const campaignData = ref({
 	},
 	meta_payment:{}
 })
-
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 watch(computed(()=>dateTimePicker.value),()=>{
 	campaignData.value.start_at = dateTimePicker.value.start
 	campaignData.value.end_at = dateTimePicker.value.end

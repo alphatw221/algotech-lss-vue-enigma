@@ -1,8 +1,8 @@
 import { youtubeAxios } from "@/libs/axiosClient";
 import { createAxiosWithoutInterceptor, createAxios } from "@/libs/axiosClient";
 
-export const get_yt_live_media = (pageToken) => {
-    return youtubeAxios(pageToken).get(`/liveBroadcasts?part=id,snippet,contentDetails,status&broadcastStatus=active`)
+export const get_yt_live_media = (platform_id, limit='', toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/youtube-channel/${platform_id}/live_broadcasts?limit=${limit}`)
 }
 
 export const check_youtube_channel_token_valid = (platform_id) => {

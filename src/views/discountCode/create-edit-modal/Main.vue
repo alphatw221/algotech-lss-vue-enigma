@@ -157,7 +157,7 @@ const CREATE = 'create'
 const EDIT = 'edit'
 const modalType = ref(CREATE)
 const showModal = ref(false)
-
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 const discountCodeIndex = ref(null)
 const discountCode = ref({
     name:'',
