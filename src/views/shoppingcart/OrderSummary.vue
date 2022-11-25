@@ -190,7 +190,7 @@
   <Modal :show="showModal" backdrop="static">
       <ModalBody class="p-10 text-center">
           <div class="mt-1">
-              <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">Please social login to use promo code</label>
+              <label for="regular-form-2" class="form-label" style="font-size: 1.2rem;">{{$t('shopping_cart.order_summary.promo_login')}}</label>
           </div>
           <div class="">
               <button class="w-32 btn dark:border-darkmode-400 mt-7" @click="showModal =false; showLoginModal()">OK</button>
