@@ -106,9 +106,10 @@ onMounted(()=>{
   if(route.query.tab == 2) shoppingCartStore.openTab = 2
   buyer_retrieve_cart(route.params.cart_oid, buyerLayoutStore.alert).then(
       res => { 
+
         shoppingCartStore.cart = res.data;
-        shoppingCartStore.user_subscription = JSON.parse(JSON.stringify(res.data.campaign?.user_subscription))
-        shoppingCartStore.product_categories = JSON.parse(JSON.stringify(res.data.campaign?.user_subscription?.product_categories||[]))
+        shoppingCartStore.user_subscription = JSON.parse(JSON.stringify(res.data?.user_subscription))
+        shoppingCartStore.product_categories = JSON.parse(JSON.stringify(res.data?.user_subscription?.product_categories||[]))
         shoppingCartStore.productCategoryDict = {}
         shoppingCartStore.product_categories.forEach(productCategory => {
           shoppingCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
