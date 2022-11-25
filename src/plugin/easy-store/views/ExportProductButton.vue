@@ -1,27 +1,20 @@
 <template>
     <div class="relative">
-        <LoadingIcon  v-if="processing" icon="three-dots" color="1a202c" class="absolute h-[30px] w-[30px] sm:w-40 mr-2 sm:mr-0 sm:h-[20px] top-3"/>
+        
         <button 
             v-if="userGotPlugin"
             @click="exportProduct()"
             type="button"
-            class="h-[35px] w-fit mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full border-[2px] border-slate-100" 
+            class="h-[35px] w-56 mr-2 sm:mr-0 sm:h-[50px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 sm:mb-0 border-[2px] border-slate-100" 
             :class="{ 'cursor-not-allowed':processing }"
             >
-            <font-awesome-icon icon="fa-solid fa-arrows-rotate" class="relative h-5 mb-0.5" width="19" color="white"/>
-            <!-- <SimpleIcon class="relative h-5 mb-0.5" width="19" icon="export" color="white" />  -->
-            <div class="ml-2">Sync EasyStore Product </div>
-
-        </button>
-        <button 
-            v-if="pluginShopify"
-            @click="exportProduct(SHOPIFY)"
-            type="button"
-            class="h-[35px] w-fit mr-2 sm:mr-0 sm:h-[50px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
-            :class="{ 'cursor-not-allowed':processing }"
-            >
-            <div class=""><span class="mr-1 text-lg font-bold">+</span> Sync Shopify Product</div>
-
+            <LoadingIcon  v-if="processing" icon="three-dots" color="white" class="absolute h-[30px] w-[30px] sm:w-40 mr-2 sm:mr-0 sm:h-[20px] top-4"/>
+            <template v-else-if="!processing">
+                <font-awesome-icon icon="fa-solid fa-arrows-rotate" class="relative h-5 mb-0.5 mr-2" width="19" color="white"/>
+                <!-- <SimpleIcon class="relative h-5 mb-0.5" width="19" icon="export" color="white" />  -->
+                <div class="ml-2">Sync EasyStore Product </div>
+            </template>
+            
         </button>
     </div>
     

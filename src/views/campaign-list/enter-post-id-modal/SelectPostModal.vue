@@ -231,8 +231,8 @@ const hideModal = ()=>{
   show.value = false
 }
 
-const datetimeReformat = (datetime) => {
-  return new Date(datetime).toLocaleTimeString('en-us', {
+const datetimeReformat = (datetime_string) => {
+  return new Date(datetime_string).toLocaleTimeString('en-us', {
     year: "numeric", month: "short", hour12: false,
     day: "numeric", hour: '2-digit', minute: '2-digit'
   })

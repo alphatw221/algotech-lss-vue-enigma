@@ -1,7 +1,4 @@
 <template>
-
-
-
     <div class="relative m-2 sm:mt-2">
         <LoadingIcon  v-if="processing" icon="three-dots" color="1a202c" class="absolute h-[30px] w-[20px] sm:w-32 mr-2 sm:mr-0 sm:h-[20px] top-3 "/>
         <button 
