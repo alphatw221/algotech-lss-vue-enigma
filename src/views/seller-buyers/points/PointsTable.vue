@@ -1,7 +1,7 @@
 <template>
   <LoadingTable  v-if="ready == false" :column="tableColumns" :tableName="'order_points'"/> 
-  <div v-else-if="ready == true" class="overflow-x-auto h-full">
-    <table class="table table-report mt-2 table-auto">
+  <div v-else-if="ready == true" class="h-full">
+    <table class="table table-report mt-2">
       <thead>
         <tr>
           <th
@@ -22,7 +22,7 @@
         >
         <!-- <template v-if="(order.points_earned || order.points_used) !== 0">  -->
           <td
-            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm"
+            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:min-w-32"
             v-for="column in tableColumns"
             :key="column.key"
             :data-content="$t(`order_points.table.` + column.name)"

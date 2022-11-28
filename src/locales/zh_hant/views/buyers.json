@@ -8,7 +8,17 @@
         "points": "點數"
     },
     "buyer_point": {
-        "points": "點數"
+        "points": "點數",
+        "adjust_point":"點數調整",
+        "adjust_point_modal":{
+            "title":"點數調整",
+            "current_points":"目前點數：",
+            "type":"類型",
+            "points":"點",
+            "reason":"理由／歷史紀錄",
+            "expired_at":"到期日",
+            "save":"儲存"
+        }
     },
     "search_bar":{
         "title": "標題",
