@@ -3,7 +3,7 @@
       <!-- BEGIN: Side Menu -->
       <nav class="side-nav relative" :class="{'side-nav--simple' : closeSidebar }" >
         <!-- <MenuIcon class="absolute z-[52] top-[60px] left-[225px] h-6 w-6" icon="sidebar" color="#333333" />  -->
-        <div class="sidebar_container absolute z-[52] top-[60px]" 
+        <div class="sidebar_container absolute z-[52] top-[60px] hidden lg:block" 
           :class="[{'left-[35px]' : closeSidebar},{'change left-[220px]' : !closeSidebar}]" @click="closeSidebar = !closeSidebar">
           <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div>
         </div>
