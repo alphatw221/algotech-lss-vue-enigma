@@ -1,7 +1,7 @@
 <template>
     <!-- OUTTER BOX -->
         <!-- BEGIN: campaign Info -->
-    <div class="flex flex-col lg:pt-5 mt-3 pb-1 h-fit sm:h-[95%]">
+    <div class="flex flex-col lg:pt-5 mt-3 h-fit sm:h-[95%] gap-5">
         <div class="flex flex-row gap-2 mt-3 mx-auto sm:mx-0 font-medium">
             <button @click="show_table('manageOrder')" class="statusBtn"  :class="{ 'menu' : tableType === 'manageOrder'}" >
                 <h2 :data-content="$t('manage_order.title')" class="text-xl sm:text-2xl">{{$t('manage_order.title')}}</h2>
@@ -14,7 +14,7 @@
         <CampaignStatus v-if="route.params.campaign_id"/>
         <!-- END: campaign Status -->
 
-        <div class="w-full mt-8 flex flex-col">
+        <div class="w-full flex flex-col -mb-5 sm:mb-0 mt-3 lg:mt-0">
             <div v-show="tableType !=='incomingOrder'" class="flex -mb-5 text-base align-baseline justify-end lg:text-xl">
                 <button @click="show_order('all')" class="statusBtn"  :class="{ 'all' : orderType === 'all'}" >
                     <p class="allp" :data-content="$t('manage_order.all')">{{$t('manage_order.all')}}</p><span class="mr-2">(<span style="font-weight:500;">{{manageOrderStore.data_count['all']}}</span>)</span>
@@ -31,9 +31,9 @@
 
             
             <!--分隔線-->
-            <div v-show="tableType !=='incomingOrder'" class="w-full mt-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
-            <div class="flex flex-col sm:flex-row -mb-5">
-                <div class="flex flex-row relative right-0 flex-auto sm:mt-1">
+            <div v-show="tableType !=='incomingOrder'" class="w-full my-5 border-t border-slate-800/60 dark:border-darkmode-400"></div>
+            <div class="flex flex-col sm:flex-row">
+                <div class="flex flex-row relative right-0 flex-auto sm:my-auto">
                     <SearchBar 
                         v-show="orderType == 'all' && tableType !=='incomingOrder'"
                         :tableStatus="'all'"
@@ -59,24 +59,27 @@
                         />
                     <CartSearchBar v-show="tableType === 'incomingOrder'" /> 
                     <ExportOrderButton :tableStatus="orderType" v-show="tableType !== 'incomingOrder'"/>
-                    </div>
                 </div>
-                
-                <ExportEasyStoreOrderButton/>
-                <ExportShopifyOrderButton/>
-                <div v-if="new Date() < new Date(manageOrderStore.campaign.end_at)" class="form-check form-switch justify-end mt-2">
-                    <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
-                    <Tippy 
-                        class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
-                        data-tippy-allowHTML="true" 
-                        data-tippy-placement="right" 
-                        :content="$t('tooltips.campaign_list.stop_checkout')" 
-                        > 
-                        <HelpCircleIcon class="w-5 tippy-icon" />
-                    </Tippy> 
-                    <input @click="stopCheckout()" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="manageOrderStore.campaign.stop_checkout"/> 
-                </div>
+                <template  v-if="tableType !== 'incomingOrder'">
+                    <ExportEasyStoreOrderButton/>
+                    <ExportShopifyOrderButton/>
+                </template>  
             </div>
+            
+            
+            <div v-if="new Date() < new Date(manageOrderStore.campaign.end_at)" class="form-check form-switch justify-end mt-2">
+                <label class="ml-0 form-check-label" for="show-example-3"> {{$t('manage_order.stop_checkout')}}</label>
+                <Tippy 
+                    class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+                    data-tippy-allowHTML="true" 
+                    data-tippy-placement="right" 
+                    :content="$t('tooltips.campaign_list.stop_checkout')" 
+                    > 
+                    <HelpCircleIcon class="w-5 tippy-icon" />
+                </Tippy> 
+                <input @click="stopCheckout()" class="ml-3 mr-0 form-check-input" type="checkbox" v-model="manageOrderStore.campaign.stop_checkout"/> 
+            </div>
+        </div>
 
 
         <div v-show="orderType === 'all' && tableType !=='incomingOrder'" class="w-full overflow-hidden h-full">

@@ -156,7 +156,7 @@ const changePageSize = (pageSize)=>{
     }
 
 const toBuyerOrderHistory = (buyer_data)=>{
-  router.push({name:'seller-buyers-order-history',params:{'buyer_id':buyer_data.id}})
+  router.push({name:'seller-buyers-order-history',params:{'buyer_id':buyer_data.id}}) 
 }
 
 const toBuyerPoints = (buyer_data) => {

@@ -72,7 +72,8 @@
         "enter_promo":"優惠代碼",
         "enter":"套用",
         "promo_apply":"優惠代碼 %{code} 已生效" ,
-        "referr_code":"分享推薦碼"
+        "referr_code":"分享推薦碼",
+        "promo_login":"登入社群帳號以使用優惠折扣碼"
     },
     "add_item":{
         "select_add_ons":"加入商品",

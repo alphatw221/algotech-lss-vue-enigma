@@ -106,15 +106,15 @@ onMounted(()=>{
   if(route.query.tab == 2) shoppingCartStore.openTab = 2
   buyer_retrieve_cart(route.params.cart_oid, buyerLayoutStore.alert).then(
       res => { 
-
         shoppingCartStore.cart = res.data;
         shoppingCartStore.user_subscription = JSON.parse(JSON.stringify(res.data?.user_subscription))
         shoppingCartStore.product_categories = JSON.parse(JSON.stringify(res.data?.user_subscription?.product_categories||[]))
         shoppingCartStore.productCategoryDict = {}
         shoppingCartStore.product_categories.forEach(productCategory => {
           shoppingCartStore.productCategoryDict[productCategory.id.toString()]=productCategory
-        });    
-
+        }); 
+        buyerLayoutStore.sellerInfo = res.data.user_subscription
+        console.log(buyerLayoutStore.sellerInfo)
         i18n.locale = res.data.campaign.lang
         Object.keys(shoppingCartStore.cart.products).length == 0 ? shoppingCartStore.showAddItemModal = true : shoppingCartStore.showAddItemModal = false
       }

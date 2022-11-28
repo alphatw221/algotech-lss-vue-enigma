@@ -19,6 +19,7 @@
         },
         "search_bar":{
                 "search":"搜寻订单编号／买家帐号",
+                "search_product":"搜寻订单编号/买家/商品/代码",
                 "filter":"筛选",
                 "export" : "汇出"
         },
@@ -47,7 +48,7 @@
                 "guest": "访客",
                 "payment_status":"付款状态",
                 "delivery_status":"运送状态",
-                "updated_at":"最后更新",
+                "updated_at":"最后更新时间",
                 "product_img":"",
                 "product_name":"商品名称",
                 "order_code":"下单代码",

@@ -518,44 +518,24 @@
                     <input
                       class="form-check-input mr-5 flex-0 w-4"
                       type="radio"
-                      :name="'pickup-switch-' + index"
-                      :value="index"
+                      :name="'pickup-switch-' + index" 
                       v-model="shipping_option_index_computed"
-                      @click="pickup_date_range(index)"
-                    />
+                      :value="index"
+                      />
 
-                    <div class="flex flex-col sm:flex-row flex-0 w-full">
-                      <div class="flex flex-col mr-auto">
-                        <label
-                          class="form-check-label font-medium flex-0"
-                          :for="'pickup-switch-' + index"
-                          >{{ option.name }}
-                        </label>
-                        <label
-                          class="form-check-label flex-0"
-                          :for="'pickup-switch-' + index"
-                          >{{ option.address }}</label
-                        >
-                      </div>
-
-                      <template
-                        v-if="
-                          option.start_at !== null && option.end_at !== null
-                        "
-                      >
-                        <label class="form-check-label flex-0 my-auto">{{
-                          new Date(option.start_at).toLocaleDateString(
-                            "en-us",
-                            { year: "numeric", month: "short", day: "numeric" }
-                          ) +
-                          "~" +
-                          new Date(option.end_at).toLocaleDateString("en-us", {
-                            year: "numeric",
-                            month: "short",
-                            day: "numeric",
-                          })
-                        }}</label>
-                      </template>
+                      <div class="flex flex-col sm:flex-row flex-0 w-full"> 
+                        <div class="flex flex-col mr-auto"> 
+                          <label class="form-check-label font-medium flex-0" :for="'pickup-switch-' + index">{{ option.name }} </label>  
+                          <label class="form-check-label flex-0" :for="'pickup-switch-' + index">{{
+                              option.address
+                          }}</label>
+                        </div> 
+ 
+                        <template v-if=" !['',null,undefined,' '].includes(option.start_at) && !['',null,undefined,' '].includes(option.end_at)"> 
+                          <label class="form-check-label flex-0 my-auto">{{new Date(option.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
+                            +'~'+
+                            new Date(option.end_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}}</label>
+                        </template>
                     </div>
                   </div>
                 </template>
@@ -754,60 +734,43 @@ const shipping_info = ref({
 });
 
 const shipping_option_index_computed = computed({
-  get: () => {
-    return shipping_info.value.shipping_option_index;
-  },
-  set: (index) => {
-    shipping_info.value.shipping_option_index = index;
-    shoppingCartStore.shipping_info.shipping_option_index = index;
-    shipping_info.value.pickup_address =
-      shipping_info.value.shipping_method == "pickup"
-        ? shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]
-            ?.address
-        : "";
+  get:()=>{
+    return shipping_info.value.shipping_option_index
+  },set:index=>{
+    shipping_info.value.shipping_date_time = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
+    date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
+    date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
+    pickup_select_index.value = index
+    shipping_info.value.shipping_option_index=index
+    shoppingCartStore.shipping_info.shipping_option_index=index
+    shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address : ''
 
-    shipping_info.value.shipping_option =
-      shipping_info.value.shipping_method == "pickup"
-        ? shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]
-            ?.name
-        : shipping_info.value.shipping_method == "delivery" && index != null
-        ? shoppingCartStore.cart.campaign.meta_logistic
-            .additional_delivery_options[index]?.title
-        : "";
-
-    if (shipping_info.value.shipping_method == "pickup") {
-      shipping_info.value.shipping_option_data = JSON.parse(
-        JSON.stringify(
-          shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]
-        )
-      );
-    } else {
-      shipping_info.value.shipping_option_data =
-        index == null
-          ? {}
-          : JSON.parse(
-              JSON.stringify(
-                shoppingCartStore.cart.campaign.meta_logistic
-                  .additional_delivery_options[index]
-              )
-            );
+    shipping_info.value.shipping_option=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.name :shipping_info.value.shipping_method=='delivery' && index!=null ? shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.title : ''
+    
+    if(shipping_info.value.shipping_method=='pickup'){
+      shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
+    }else{
+      shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
     }
   },
 });
 
 const shipping_method_computed = computed({
-  get: () => {
-    return shipping_info.value.shipping_method;
-  },
-  set: (method) => {
-    shipping_info.value.shipping_option_index = null;
-    shoppingCartStore.shipping_info.shipping_option_index = null; //order summary compute this
-    shipping_info.value.shipping_method = method;
-    shoppingCartStore.shipping_info.shipping_method = method; //order summary compute this
-  },
-});
+  get:()=>{
+    return shipping_info.value.shipping_method
+  },set:method=>{
 
-const isAnonymousUser = cookies.get("login_with") == "anonymousUser";
+    shipping_info.value.shipping_option_index = null
+    shoppingCartStore.shipping_info.shipping_option_index = null  //order summary compute this
+    shipping_info.value.shipping_method=method
+    shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
+  }})
+
+const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
+
+onMounted(()=>{
+  if(!isAnonymousUser){
+    buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
 
 const pickup_date_range = (index) => {
   date_range.value.start =

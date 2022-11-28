@@ -3,10 +3,13 @@
         <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
+                    <th class="whitespace-nowrap text-left" v-for="column in columns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
+                        <template v-else-if="column.key === 'subtotal'">
+							<div class="text-right">{{ $t(`manage_order.table.`+column.name) }}</div>
+						</template>
                         <template v-else>
-                            <div class="flex justify-center"> 
+                            <div class="flex"> 
                                 {{ $t(`manage_order.table.`+column.name) }}
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 
@@ -31,7 +34,7 @@
                 <template v-for="(cart, index) in manageOrderStore.carts" :key="index">
                     <template v-for="(qty, campaign_product_id, index) in cart.products" :key="index">
                         <template v-if="searchKeyword(cart, campaignDetailStore.campaignProductDict[campaign_product_id])">
-                            <tr class="text-center relative">
+                            <tr class="text-left relative">
                                 <td :data-content="$t(`manage_order.table.id`)">
                                     <span class="sm:hidden"> #</span> {{ cart.id }}
                                 </td>
@@ -131,7 +134,7 @@
                                     </div>
                                 </td>
                                 <td :data-content="$t(`manage_order.table.customer_name`)">
-                                    <div class="flex gap-2 justify-center"> 
+                                    <div class="flex gap-2 justify-left"> 
                                     <template v-if="cart.customer_name">
                                         {{cart.customer_name}} 
                                     </template>
@@ -162,9 +165,12 @@
                                     {{qty}}
                                 </td>
                                 <td v-if="campaignDetailStore.campaign" :data-content="$t(`manage_order.table.subtotal`)">
-                                    {{campaignDetailStore.campaign.currency}}
-                                    {{(Math.floor(parseFloat(campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * qty * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-                                    {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                                    <div class="text-right">
+                                        {{campaignDetailStore.campaign.currency}}
+                                        {{(Math.floor(parseFloat(campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * qty * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                        {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                                    </div>
+                                    
                                 </td>
                                 <td :data-content="$t(`manage_order.table.view`)">
                                     <div class="flex flex-col sm:flex-row place-content-center">

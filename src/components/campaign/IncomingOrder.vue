@@ -98,12 +98,12 @@
                                                     :options="{ theme: 'light' }"
                                                     :content="$t('tooltips.campaign_live.view_icon')" 
                                                 > 
-                                                    <SimpleIcon icon="viewOrder" color="#334155" @click="routeToDetailPage(cart)"  class="sm:mx-auto w-6" width="24" height="23" />
+                                                    <SimpleIcon icon="viewOrder" color="#2d8cf0" @click="routeToDetailPage(cart)"  class="sm:mx-auto w-6" width="24" height="23" />
                                                 </Tippy> 
                                             </a>
                                             <a  @click="copyCartLink(cart)">
                                                 <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
-                                                    <SimpleIcon icon="share" color="#334155" class="sm:mx-auto w-6" width="24" height="23" />
+                                                    <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto w-6" width="24" height="23" />
                                                 </Tippy>
                                             </a>
                                         </div>

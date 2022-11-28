@@ -5,7 +5,7 @@
         <tr>
           <th class="text-center whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
             <template v-if="column.key === 'stop'"> 
-              <div class="flex align-middle"> 
+              <div class="flex align-middle justify-center"> 
                 <span class="my-auto"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </span> 
                 <Tippy 
                   class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
@@ -17,7 +17,13 @@
                 </Tippy> 
               </div>
             </template>
-            <div v-else-if="column.key === 'title'" class="sm:w-[100px]"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </div>
+            <div v-else-if="column.key === 'title'" class="sm:w-[100px] text-left"> {{ $t(`campaign_list.campaign_list_table.`+column.name) }} </div>
+            <template v-else-if="column.key === 'start_at'">
+							<div class="text-left">{{ $t(`campaign_list.campaign_list_table.`+column.name) }}</div>
+						</template>
+            <template v-else-if="column.key === 'end_at'">
+							<div class="text-left">{{ $t(`campaign_list.campaign_list_table.`+column.name) }}</div>
+						</template>
             <template v-else> 
               {{ $t(`campaign_list.campaign_list_table.`+column.name) }}
             </template>
