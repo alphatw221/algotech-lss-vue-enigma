@@ -55,7 +55,8 @@
         },
         "save_success":"Save Success",
         "not_saved":"Update Canceled",
-        "confirm_delete": "Are you sure to delete this category ?"
+        "confirm_delete": "Are you sure to delete this category ?",
+        "enabled": "Enabled flat rate"
     },
 
     "add_product_page": {

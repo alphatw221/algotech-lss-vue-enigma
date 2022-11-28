@@ -37,7 +37,8 @@
         "price_exceed":"金额不可超过小计",
         "update" : "更新",
         "display_name": "调整价格显示名称",
-        "amount": "金额"
+        "amount": "金额",
+        "sub_after_discount": "代码折抵后小计"
     },
     "delivery":{
         "information" : "运送资讯",
@@ -59,6 +60,8 @@
     "payment":{
         "direct_payment":"转帐支付",
         "Direct Payment":"转帐支付",
+        "hitpay":"Hitpay",
+        "paypal":"Paypal",
         "ecpay":"綠界金流",
         "pay_mongo":"PayMongo",
         "rapyd":"Rapyd",

@@ -1,17 +1,14 @@
 <template>
 
-
-
-    <div class="relative m-2 sm:mt-2">
+    <div class="relative my-auto ml-auto" v-if="userGotPlugin">
         <LoadingIcon  v-if="processing" icon="three-dots" color="1a202c" class="absolute h-[30px] w-[20px] sm:w-32 mr-2 sm:mr-0 sm:h-[20px] top-3 "/>
         <button 
-            v-if="userGotPlugin "
             @click="exportOrderFromEasyStore()"
             type="button"
-            class="p-2 mr-1 flex items-center btn border-[#131C34] color-[#131C34]  w-32 h-[35px] sm:h-[42px]" 
+            class="p-2 mr-1 flex items-center btn btn-outline-primary w-fit h-[35px] sm:h-[42px]" 
             :class="{ 'cursor-not-allowed':processing }"
             >
-            <template class="block">Sync EasyStore Order</template>
+            <template class="block whitespace-nowrap">Sync EasyStore Order</template>
         </button>
     </div>
     

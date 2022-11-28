@@ -55,7 +55,8 @@
         },
         "save_success":"储存成功",
         "not_saved":"取消储存",
-        "confirm_delete": "确定要删除该类别？"
+        "confirm_delete": "确定要删除该类别？",
+        "enabled": "Enabled flat rate"
     },
 
     "add_product_page": {

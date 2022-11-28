@@ -18,13 +18,13 @@
 				<ShopifyExportProductButton />
 				<FileUploadButton 
 					v-if="layoutStore?.userInfo?.user_subscription?.user_plan?.display?.import_product_button"
-					class="h-[35px] w-[35px] sm:w-40 mr-2 sm:mr-0 sm:h-[42px] text-white font-medium shadow-lg btn btn-warning rounded-full mb-5 border-[2px] border-slate-100" 
+					class="text-sm h-[35px] w-[40px] sm:w-40 mr-2 sm:mr-2 sm:h-[42px] text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] rounded-full mb-5 border-[2px] border-slate-100" 
 					button_id="import_product"
 					accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
 					:multiple="false"
 					:uploadFunction = "importProducts"
 				>
-					<template class="hidden sm:block"><span class="mr-1 text-lg font-bold">+</span> {{ $t('stock.import_product') }}  </template>
+					<template class="hidden sm:block"><span class="mr-1 text-lg font-bold text-[#ff9505] inline-block align-middle"><ArrowDownIcon class="" /></span> {{ $t('stock.import_product') }}  </template>
 					<template class="block sm:hidden"> <ArrowDownIcon class="w-8 h-8" /> </template>
 				</FileUploadButton>
 

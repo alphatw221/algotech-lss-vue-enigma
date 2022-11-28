@@ -90,7 +90,7 @@
         "manage_order":"订单管理",
         "table":{
             "order_number" : "订单编号",
-            "name" : "卖家帐号",
+            "name" : "买家帐号",
             "platform" : "平台",
             "amount" : "金额",
             "view" : "详情",
