@@ -27,8 +27,8 @@
             "lucky_draw-fast":"Quà tặng minigame",
             "lucky_draw":"Quà tặng minigame"
         },
-        "no_product":"No product in this campaign yet.",
-        "set_up_first":"Click \"+ Add Product\" to assign product into this campaign.",
+        "no_product":"Chưa có sản phẩm nào trong chiến dịch này",
+        "set_up_first":"Nhấp vào \"+ Thêm Sản phẩm \" để chỉ định sản phẩm vào chiến dịch này",
         "categories":"Loại"
     },
    

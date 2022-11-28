@@ -3,10 +3,27 @@
     <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap text-center" v-for="column in computedColumns" :key="column.key">
+                    <th class="whitespace-nowrap text-left" v-for="column in computedColumns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
+                        <div v-else-if="column.key === 'subtotal'" class="row flex justify-end">
+							<div class="text-right">{{ $t(`manage_order.table.`+column.name) }}</div>
+                                <template v-if="column.sortable === true">
+                                    <template v-if="sortBy[column.key] === -1" > 
+                                        <ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, 1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
+                                    </template> 
+                                    <template v-else-if="sortBy[column.key] === 1" > 
+                                        <ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
+                                    </template>
+                                    <template v-else> 
+                                        <ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
+                                    </template>
+                                </template>
+						</div>
+                        
                         <template v-else>
-                            <div class="flex justify-center"> 
+                            <div class="flex"> 
                                 {{ $t(`manage_order.table.`+column.name) }}
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 
@@ -16,14 +33,13 @@
                                     <template v-else-if="sortBy[column.key] === 1" > 
                                         <ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
                                         <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
-                                    </template> 
+                                    </template>
                                     <template v-else> 
                                         <ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
                                     </template>
                                 </template>
                             </div>
                         </template>
-                        
                     </th>
                 </tr>
             </thead>
@@ -156,7 +172,7 @@
                             </div>
                         </template> -->
                         <template v-else-if="column.key === 'customer_name'">
-                            <div class="flex gap-2 justify-center"> 
+                            <div class="flex gap-2 justify-left"> 
                                 <template v-if="order.customer_name">
                                     {{order.customer_name}}
                                 </template>
@@ -177,10 +193,12 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal' " class="text-right">
+                        <template v-else-if="column.key === 'subtotal'">
+                            <div class="text-right">
                                 {{order?.currency}}
                                 {{(Math.floor(parseFloat(order.total) * (10 ** order?.decimal_places)) / 10 ** order?.decimal_places).toLocaleString('en-GB')}}
                                 {{order?.price_unit?$t(`global.price_unit.${order?.price_unit}`):''}}
+                            </div>                                
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">

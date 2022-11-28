@@ -3,12 +3,12 @@
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
-					<th v-for="column, column_index in tableColumns" :key="column_index" class="whitespace-nowrap text-center">
+					<th v-for="column, column_index in tableColumns" :key="column_index" class="whitespace-nowrap text-left">
 						
 							<template v-if="column.type === 'index'">
 								<span class="px-1"> # </span> 
 							</template>
-						<div v-else-if="column.type == 'action'" class="px-1"> {{$t(`discount.table.`+column.name)}} </div>
+						<div v-else-if="column.type == 'action'" class="px-1 text-center"> {{$t(`discount.table.`+column.name)}} </div>
 						<div v-else class="w-[80px]">  {{$t(`discount.table.`+column.name)}} </div>
 						
 					</th>
@@ -18,7 +18,7 @@
 				<template v-if="showLoadingIcon || discountCodes.length === 0" >
 					<tr class="intro-x h-[300px]">
 						<td v-if="showLoadingIcon"
-							class="h-[300px] items-center relative tdDot"
+							class="h-[300px] items-left relative tdDot"
 							:colspan="tableColumns.length" >
 							<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 						</td>
@@ -37,12 +37,12 @@
 				<tr v-for="(discountCode, discountCodeIndex) in discountCodes" :key="discountCodeIndex" class="intro-x">
 					<template v-for="(column, column_index) in tableColumns" :key="column_index">
 
-						<td v-if="column.type === 'index'" class="index sm:w-20 text-center id lg:text-sm"
+						<td v-if="column.type === 'index'" class="index sm:w-20 text-left id lg:text-sm"
 							:data-content="$t(`discount.table.`+column.name) " >
 							<span class="sm:hidden"># </span>{{discountCodeIndex+1}}
 						</td>
 
-						<td v-else-if="column.type === 'text'" class="sm:min-w-24 text-center"
+						<td v-else-if="column.type === 'text'" class="sm:min-w-24 text-left"
 							:data-content="$t(`discount.table.`+column.name) " >
 							{{ discountCode[column.key] }}
 						</td>

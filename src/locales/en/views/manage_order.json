@@ -19,7 +19,7 @@
         },
         "search_bar":{
                 "search":"Search order no./buyer",
-                "search_product":"Search no./buyer/name/code",
+                "search_product":"Search no./buyer/product/code",
                 "filter":"Filter",
                 "export" : "Export"
         },
