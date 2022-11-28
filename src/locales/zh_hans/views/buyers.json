@@ -14,7 +14,7 @@
             "title":"点数调整",
             "current_points":"目前点数：",
             "type":"类型",
-            "points":"点",
+            "points":"点数",
             "reason":"理由／历史纪录",
             "expired_at":"到期日",
             "save":"储存"

@@ -1,7 +1,7 @@
 <template>
   <div class="flex flex-col m-0 my-5 sm:mt-8 lg:mx-20 gap-5">
     <h1 class="text-xl font-medium text-xl sm:text-2xl" > {{$t('order_points.points')}} </h1>
-    <button class="ml-auto btn btn-primary" @click="showPointAdjustModal()"> Manually Adjust Points</button>
+    <button class="ml-auto btn btn-primary" @click="showPointAdjustModal()">  {{$t('buyers.buyer_point.adjust_point')}}</button>
     <div v-if="sellerLayoutStore.buyer !== null"
       class="w-full box sm:px-20 py-5 flex flex-col sm:flex-row justify-between gap-3 s:gap-5"> 
         <div class="h-fit w-fit flex flex-col sm:flex-row items-center justify-center gap-5 mx-auto sm:mx-0">

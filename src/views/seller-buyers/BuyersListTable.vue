@@ -55,8 +55,7 @@
               <a class="flex items-center justify-center" @click="toBuyerPoints(buyer)">
                 <span class="mr-3 sm:hidden"> {{$t('buyers.table_column.points')}}</span>
                 <Tippy  :content="$t('buyers.table_column.points')" :options="{ theme: 'light' }">
-                  <!-- <font-awesome-icon icon="fa-solid fa-list-check" class="self-center w-8 h-[24px]"/>  -->
-                  <StarIcon color="#2d8cf0" width="30" height="32" />
+                  <SimpleIcon color="#2d8cf0" icon="point" width="30" height="32" />
                 </Tippy> 
               </a>
             </td>
@@ -88,7 +87,6 @@ import { useRoute, useRouter } from "vue-router";
 import unbound from "/src/assets/images/lss-img/noname.png"
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from "@/locales/i18n"
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const route = useRoute();
 const router = useRouter();
