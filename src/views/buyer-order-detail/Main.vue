@@ -108,8 +108,8 @@
                             </div>
                         </template>
 
-                        <div class="col-start-1 col-span-2 py-3">{{$t('order.delivery_status')}}</div>
-                        <div class="col-start-3 col-span-3 py-3">{{$t(`order.delivery_status_options.${buyerOrderStore.order.delivery_status}`)}}</div>
+                        <div class="col-start-1 col-span-2 py-3" v-if="!buyerOrderStore.user_subscription?.user_plan?.hide?.order_delivery_status">{{$t('order.delivery_status')}}</div>
+                        <div class="col-start-3 col-span-3 py-3" v-if="!buyerOrderStore.user_subscription?.user_plan?.hide?.order_delivery_status">{{$t(`order.delivery_status_options.${buyerOrderStore.order.delivery_status}`)}}</div>
                     </div>
                 </div>
             </div>
@@ -240,6 +240,7 @@ onMounted(() => {
     .then(
         res => { 
             buyerOrderStore.order = res.data
+            buyerOrderStore.user_subscription = JSON.parse(JSON.stringify(res.data.user_subscription))
             i18n.locale = res.data.campaign.lang
             // console.log(res.data)
         }

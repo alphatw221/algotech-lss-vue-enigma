@@ -63,12 +63,20 @@
                                     {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                 </th>
                             </template>
+                            <template v-else-if="column.name == 'price'"> 
+                                <th
+                                    class="whitespace-nowrap bg-dark text-right">
+                                    {{ $t(`campaign_live.product.modal_column.`+column.name) }}
+                                </th>
+                            </template>
                             <template v-else> 
                                 <th
                                     class="whitespace-nowrap bg-dark">
                                     {{ $t(`campaign_live.product.modal_column.`+column.name) }}
                                 </th>
                             </template>
+                            
+
                                 
                             </template>
                             <th class="whitespace-nowrap bg-dark lgAct">
@@ -95,10 +103,10 @@
                                 </div>
                             </td>
 
-                            <td><img data-action="zoom" :src="product.image" class="w-10 h-10 image-fit" /></td>
+                            <!-- <td><img data-action="zoom" :src="product.image" class="w-10 h-10 image-fit" /></td> -->
                             
                             <td>
-                                <span class="mr-0.5"> {{[index+1].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}} </span>  
+                                <span class="mr-0.5 font-semibold"> {{[index+1].toLocaleString('en-US', {minimumIntegerDigits: 2, useGrouping:false})}}.</span>
                                 {{ product.name }}</td>
                             <template v-if="product.type === 'lucky_draw'">
                                 <td class="font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}*</td>
@@ -113,9 +121,12 @@
                             </td>
                             <!-- currency_sign reference from user_subscription -->
                             <td v-if="store.campaign">
-                                {{ store.campaign.currency }}
-                                {{ (Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-US')}}
-                                {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
+                                <div class="text-right">
+                                    {{ store.campaign.currency }}
+                                    {{ (Math.floor(product.price * (10 ** store.campaign.decimal_places)) / 10 ** store.campaign.decimal_places).toLocaleString('en-US')}}
+                                    {{ store.campaign.price_unit?$t(`global.price_unit.${store.campaign.price_unit}`):''}}
+                                </div>
+                                
                             </td>
                             <td class="">
                                 <div class="m-auto form-check form-switch w-fit">
@@ -168,7 +179,7 @@ const store = useCampaignDetailStore()
 
 
 const product_columns = [
-    { name: "null", key: "image" },
+    // { name: "null", key: "image" },
     { name: "name", key: "name" },
     { name: "order_code", key: "order_code" },
     { name: "cart_sold_left", key: "Sold_Left" },

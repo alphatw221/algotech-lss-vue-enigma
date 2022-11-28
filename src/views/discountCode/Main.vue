@@ -1,25 +1,29 @@
 <template>
     <div class="flex flex-col sm:px-5 sm:h-fit">
 
-        <div class="flex flex-row justify-betweeen items-center sm:px-20 lg:py-5 intro-y my-3 pt-10">
+        <div class="flex flex-row justify-betweeen items-center sm:px-20 lg:pt-5 intro-y my-3 pt-10">
             <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium whitespace-nowrap">{{$t('discount.discount_code' )}}</h2>
             <div
                 class="ml-auto"
             >
                 <FileUploadButton 
-                    class="mx-1 sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded border-[2px] border-slate-100 shadow-lg"
+                    class="mx-1 text-sm sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-rounded text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] border-[2px] border-slate-100 shadow-lg"
                     button_id="import_discount_code"
                     accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
                     :multiple="false"
                     :uploadFunction = "importDiscountCode"
                     v-if="layoutStore.userInfo?.user_subscription?.user_plan?.display?.import_discount_code_button"
                 >
-                    <span class="font-bold mr-1 text-[16px]">+</span> Import 
+                    <template class="hidden sm:block"><span class="mr-1 text-lg font-bold text-[#ff9505] inline-block align-middle"><ArrowDownIcon class="" /></span> {{$t('discount.import' )}}</template>
+					<template class="block sm:hidden"> <ArrowDownIcon class="w-8 h-8" /> </template>
+                    <!-- <span class="font-bold mr-1 text-[16px]">+</span> {{$t('discount.import' )}}  -->
                 </FileUploadButton>
 
                 <button class="mx-1 sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-warning btn-rounded border-[2px] border-slate-100 shadow-lg"
                     @click="showCreateModal() ">
-                    <span class="font-bold mr-1 text-[16px]">+</span> {{$t('discount.create_discount_code' )}}
+                    <template class="hidden sm:block"><span class="mr-1 text-lg font-bold">+</span> {{$t('discount.create_discount_code' )}} </template>
+					<template class="block sm:hidden"> <PlusIcon class="w-8 h-8" /> </template>
+                    <!-- <span class="font-bold mr-1 text-[16px]">+</span> {{$t('discount.create_discount_code' )}} -->
                 </button>
             </div>
         </div>

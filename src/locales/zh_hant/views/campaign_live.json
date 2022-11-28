@@ -91,7 +91,7 @@
         "manage_order":"訂單管理",
         "table":{
             "order_number" : "訂單編號",
-            "name" : "賣家帳號",
+            "name" : "買家帳號",
             "platform" : "平台",
             "amount" : "金額",
             "view" : "詳情",

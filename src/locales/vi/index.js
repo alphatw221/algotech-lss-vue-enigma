@@ -27,7 +27,6 @@ import login from './views/login.json'
 import forgot_password from './views/forgot_password.json'
 import reset_password from './views/reset_password.json'
 import discount from './views/discount.json'
-import i from './views/i.json'
 
 import order from './models/order.json'
 import product_category from './models/product_category.json'
@@ -36,6 +35,7 @@ import cart from './models/cart.json'
 import discount_code from './models/discount_code.json'
 import buyers from './views/buyers.json'
 
+import i from './package/iview.json'
 
 export default {
 
@@ -70,12 +70,14 @@ export default {
     reset_password,
     discount,
     profile,
-    i,
     //model--------------
     order,
     product,
     product_category,
     cart,
     discount_code,
-    buyers
+    buyers,
+
+    //package------
+    i
 }

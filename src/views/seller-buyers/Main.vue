@@ -1,41 +1,15 @@
 <template>
-<!-- BEGIN OUTTER BOX -->
-<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
-    <h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">
-        {{ $t('buyers.page_title')}}
-    </h2>
-</div>
-<div
-    class="
-      flex flex-col
-      p-3
-      box
-      sm:h-[95%]
-      p-2
-      lg:gap-3
-      sm:px-8
-      h-fit
-      lg:mx-20
-    "
-  >
-    <!-- BEGIN: commit box -->
-    <div
-      class="
-        flex flex-row flex-wrap justify-center
-        sm:justify-between mt-5 mx-0 gap-3 sm:gap-5
-      "
-    >
-    </div>
-    <div class="flex-auto">
-      <BuyersSearchBar />
-      <BuyersListTable
-        :tableColumns="tableColumns"
-      />
-    </div>
-
-    <!-- END: commit box -->
+<div class="flex flex-col lg:pt-5 mt-3 pb-4 gap-5 h-fit sm:h-full">
+  <h2 class="text-xl sm:px-20 sm:text-2xl mx-auto sm:mx-0 font-medium">
+    {{ $t('buyers.page_title')}}
+  </h2>
+  <div class="flex flex-col p-3 sm:px-8 py-10 box h-full lg:mx-20">
+    <BuyersSearchBar /> 
+    <BuyersListTable
+      :tableColumns="tableColumns"
+    />
   </div>
-  <!-- END OUTTER BOX -->
+</div>
 </template>
 
 <script setup>

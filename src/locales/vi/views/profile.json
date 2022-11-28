@@ -10,7 +10,7 @@
         "joined":"Đã bắt đầu",
         "vaild":"Hợp lệ đến",
         "change_plan":"Thay đổi gói dịch vụ",
-        "country":"Country/Region"
+        "country":"Quốc gia / Khu vực"
     },
     "plan":{
         "trial":"dùng thử",
@@ -27,7 +27,7 @@
     },
     "invalid_data":"Bản nộp không hợp lệ",
     "input_err":"Lỗi nhập thông tin đầu vào",
-    "input_required":"Input Required",
+    "input_required":"Yêu cầu điền vào",
     "update_successed":"Cập nhật thành công",
-    "password_length":"Passwords must be between 8 to 20 characters"
+    "password_length":"Mật khẩu phải dài từ 8 đến 20 kí tự"
 }

@@ -4,15 +4,16 @@
 		<div class="flex flex-row items-center h-fit lg:mt-3 pb-4">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
 
-			<FileUploadButton 
-				class="ml-auto"
+			<!-- <FileUploadButton 
+				class="ml-auto mx-1 text-sm sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-rounded text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] border-[2px] border-slate-100 shadow-lg"
 				button_id="import_campaign_product"
 				accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
 				:multiple="false"
 				:uploadFunction = "importCampaignProduct"
 			>
-				Import Product
-			</FileUploadButton>
+			<template class="hidden sm:block"><span class="mr-1 text-lg font-bold text-[#ff9505] inline-block align-middle"><ArrowDownIcon class="" /></span> {{$t('assign_product.import')}} </template>
+			<template class="block sm:hidden"> <ArrowDownIcon class="w-8 h-8" /> </template>
+			</FileUploadButton> -->
 		</div>
 		
 		
@@ -66,6 +67,16 @@
 						{{$t('assign_product.search_bar.reset')}}
 					</button> -->
 				</div>
+				<FileUploadButton 
+					class="mt-auto mx-1 text-sm sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-rounded text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] border-[2px] border-slate-100 shadow-lg"
+					button_id="import_campaign_product"
+					accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+					:multiple="false"
+					:uploadFunction = "importCampaignProduct"
+				>
+				<template class="hidden sm:block"><span class="mr-1 text-lg font-bold text-[#ff9505] inline-block align-middle"><ArrowDownIcon class="" /></span> {{$t('assign_product.import')}} </template>
+				<template class="block sm:hidden"> <ArrowDownIcon class="w-8 h-8" /> </template>
+				</FileUploadButton>
 			</div>   
 			<!-- END SearchBar -->
 

@@ -3,12 +3,12 @@
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
-					<th v-for="column, column_index in tableColumns" :key="column_index" class="whitespace-nowrap text-center">
+					<th v-for="column, column_index in tableColumns" :key="column_index" class="whitespace-nowrap text-left">
 						
 							<template v-if="column.type === 'index'">
 								<span class="px-1"> # </span> 
 							</template>
-						<div v-else-if="column.type == 'action'" class="px-1"> {{$t(`discount.table.`+column.name)}} </div>
+						<div v-else-if="column.type == 'action'" class="px-1 text-center"> {{$t(`discount.table.`+column.name)}} </div>
 						<div v-else class="w-[80px]">  {{$t(`discount.table.`+column.name)}} </div>
 						
 					</th>
@@ -18,7 +18,7 @@
 				<template v-if="showLoadingIcon || discountCodes.length === 0" >
 					<tr class="intro-x h-[300px]">
 						<td v-if="showLoadingIcon"
-							class="h-[300px] items-center relative tdDot"
+							class="h-[300px] items-left relative tdDot"
 							:colspan="tableColumns.length" >
 							<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
 						</td>
@@ -37,12 +37,12 @@
 				<tr v-for="(discountCode, discountCodeIndex) in discountCodes" :key="discountCodeIndex" class="intro-x">
 					<template v-for="(column, column_index) in tableColumns" :key="column_index">
 
-						<td v-if="column.type === 'index'" class="index sm:w-20 text-center id lg:text-sm"
+						<td v-if="column.type === 'index'" class="index sm:w-20 text-left id lg:text-sm"
 							:data-content="$t(`discount.table.`+column.name) " >
 							<span class="sm:hidden"># </span>{{discountCodeIndex+1}}
 						</td>
 
-						<td v-else-if="column.type === 'text'" class="sm:min-w-24 text-center"
+						<td v-else-if="column.type === 'text'" class="sm:min-w-24 text-left"
 							:data-content="$t(`discount.table.`+column.name) " >
 							{{ discountCode[column.key] }}
 						</td>
@@ -69,6 +69,14 @@
 								<div class="ml-2 sm:ml-auto" v-if="limitation.key == 'subtotal_over_specific_amount'"> $ {{(limitation.amount).toLocaleString('en-US')}} </div>
 								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'product_over_specific_number'"> {{limitation.number}} pcs </div>
 								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'discount_code_usable_time'"> {{limitation.times}} </div>
+								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'specific_buyer_name'"> 
+									<div v-for="name, index in limitation.names.split(',')" :key="index">{{name}}</div>
+								</div>
+								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'specific_buyer_email'"> 
+									<div v-for="email, index in limitation.emails.split(',')" :key="index">{{email}}</div>
+								</div>
+								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'new_buyer_only'"> {{$t('discount_code.limitation_options.new_buyer_only')}} </div>
+								<div class="ml-2 sm:ml-auto" v-else-if="limitation.key == 'buyer_usage_times'"> {{limitation.times}} </div>
 								<div class="ml-2 sm:ml-0 truncate w-fit hover:text-clip hover:w-full" v-else-if="limitation.key == 'specific_campaign'"> 
 									<template v-for="(campaign, index) in scheduledCamapign" :key="index"> 
 										<template v-if="campaign.id == limitation.campaign_id"> {{campaign.title}} </template>	

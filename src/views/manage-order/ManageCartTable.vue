@@ -1,12 +1,15 @@
 <template>
-    <div class="mt-3 w-full overflow-auto max-h-[88%]" > 
+    <div class="mt-3 w-full overflow-auto max-h-[99%]" > 
         <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap text-center" v-for="column in columns" :key="column.key">
+                    <th class="whitespace-nowrap text-left" v-for="column in columns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
+                        <template v-else-if="column.key === 'subtotal'">
+							<div class="text-right">{{ $t(`manage_order.table.`+column.name) }}</div>
+						</template>
                         <template v-else>
-                            <div class="flex justify-center"> 
+                            <div class="flex"> 
                                 {{ $t(`manage_order.table.`+column.name) }}
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 
@@ -31,7 +34,7 @@
                 <template v-for="(cart, index) in manageOrderStore.carts" :key="index">
                     <template v-for="(qty, campaign_product_id, index) in cart.products" :key="index">
                         <template v-if="searchKeyword(cart, campaignDetailStore.campaignProductDict[campaign_product_id])">
-                            <tr class="text-center relative">
+                            <tr class="text-left relative">
                                 <td :data-content="$t(`manage_order.table.id`)">
                                     <span class="sm:hidden"> #</span> {{ cart.id }}
                                 </td>
@@ -87,13 +90,13 @@
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
                                                 <img class="rounded-full" :src="cart.customer_img"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
+                                                    <img class="bg-cover rounded-full bg-[#6441a5]" src='/src/assets/images/lss-img/twitch.png' >
                                                 </div>
                                             </div>
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                                 <img class="rounded-full" :src="unbound"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/twitch.png' >
+                                                    <img class="bg-cover rounded-full bg-[#6441a5]" src='/src/assets/images/lss-img/twitch.png' >
                                                 </div>
                                             </div>
                                         </div>
@@ -102,35 +105,44 @@
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="cart.customer_img">
                                                 <img class="rounded-full" :src="cart.customer_img"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/tiktok.png' >
+                                                    <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
                                                 </div>
                                             </div>
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                                 <img class="rounded-full" :src="unbound"/>
                                                 <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                                    <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
+                                                    <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
                                                 </div>
                                             </div>
                                         </div>
                                         <div v-else-if="!cart.platform && !cart.customer_img" class="w-fit h-fit image-fit">
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
                                                 <img class="rounded-full" :src="unbound"/>
+                                                <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                                    <img class="bg-cover rounded-full bg-[#F2502D]" src='/src/assets/images/lss-icon/express_Icon.svg' >
+                                                </div>
                                             </div>
                                         </div>
                                         <div v-else class="w-fit h-fit image-fit">
                                             <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
                                                 <img class="rounded-full" :src="cart.customer_img"/>
+                                                <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                                    <img class="bg-cover rounded-full bg-[#F2502D]" src='/src/assets/images/lss-icon/express_Icon.svg' >
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
                                 </td>
                                 <td :data-content="$t(`manage_order.table.customer_name`)">
+                                    <div class="flex gap-2 justify-left"> 
                                     <template v-if="cart.customer_name">
-                                        {{cart.customer_name}}
+                                        {{cart.customer_name}} 
                                     </template>
                                     <template v-else>
                                         {{ $t('manage_order.table.guest') }}
                                     </template>        
+                                    <SimpleIcon icon="new_user2" v-if="cart?.remark == 'new customer'" />
+                                    </div>
                                 </td>
                                 <td :data-content="$t(`manage_order.table.updated_at`)">
                                     {{ new Date(cart.updated_at).toLocaleTimeString('en-us', {month:"short", day:"numeric",hour: '2-digit', minute: '2-digit'}) }}
@@ -153,9 +165,12 @@
                                     {{qty}}
                                 </td>
                                 <td v-if="campaignDetailStore.campaign" :data-content="$t(`manage_order.table.subtotal`)">
-                                    {{campaignDetailStore.campaign.currency}}
-                                    {{(Math.floor(parseFloat(campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * qty * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
-                                    {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                                    <div class="text-right">
+                                        {{campaignDetailStore.campaign.currency}}
+                                        {{(Math.floor(parseFloat(campaignDetailStore.campaignProductDict[campaign_product_id]?.price) * qty * (10 ** campaignDetailStore.campaign.decimal_places)) / 10 ** campaignDetailStore.campaign.decimal_places).toLocaleString('en-GB')}}
+                                        {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}}
+                                    </div>
+                                    
                                 </td>
                                 <td :data-content="$t(`manage_order.table.view`)">
                                     <div class="flex flex-col sm:flex-row place-content-center">

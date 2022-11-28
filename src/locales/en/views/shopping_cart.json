@@ -72,7 +72,8 @@
         "enter_promo":"Promo Code",
         "enter":"Enter",
         "promo_apply":"Discount Code %{code} is Applied",
-        "referr_code":"Share Referral Code"
+        "referr_code":"Share Referral Code",
+        "promo_login":"Please social login to use promo code"
     },
     "add_item":{
         "select_add_ons":"Select add-ons",

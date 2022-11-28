@@ -124,16 +124,18 @@
         "payment":"金流"
     },
     "notes":{
+        "title":"客制化讯息",
         "notes":"一般",
         "delivery_note":"运送须知",
         "special_note":"购物須知",
         "confirmation_note":"订单确认信息",
         "discard":"取消",
         "save":"储存",
-        "update": "更新"
+        "update": "更新",
+        "custom_note":"客制化讯息"
     },
     "localization":{
-        "title": "在地化",
+        "title": "购物车设定",
         "country":"国家",
         "countries":{
             "PH":"菲律宾",
@@ -163,8 +165,8 @@
         "choose_price_unit":"选择最小货币单位",
         "priceOptions":{
             "1":"预设",
-            "1000":"K",
-            "1000000":"M"
+            "1000":"K (1,000)",
+            "1000000":"M (1,000,000)"
         }
     },
     "platform":{
@@ -193,5 +195,27 @@
         "period": "",
         "unbind_page":"取消绑定",
         "reach_channel_limt_message": "您已到达最大绑定平台数量"
+    },
+    "points":{
+        "title":"会员点数设定",
+        "enable":"启用",
+        "point_validity":"点数使用期限",
+        "month":"月",
+        "unlimited":"无限制",
+        "reward_table":"点数换算设定",
+        "redemption":"点数折抵设定",
+        "points":"点数",
+        "description":"点数使用方式说明",
+        "add":"新增"
+    },
+    "messages":{
+        "title":"客制化留言/私讯设定",
+        "added":"商品成功加入购物车",
+        "updated":"商品状态已更新",
+        "deleted":"商品已从购物车删除",
+        "insufficient_inv":"商品库存不足",
+        "facebook_buttons":"Facebook 显示按钮设定",
+        "enable":"启用"
     }
 }
+

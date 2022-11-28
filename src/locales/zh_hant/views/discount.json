@@ -2,6 +2,7 @@
     "create_discount_code":"新增優惠代碼",
     "discount_code":"優惠代碼",
     "create_err":"輸入錯誤",
+    "import":"批次匯入",
     "table":{
         "name":"優惠名稱",
         "code":"優惠代碼", 

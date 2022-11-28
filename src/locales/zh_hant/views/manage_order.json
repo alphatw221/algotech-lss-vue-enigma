@@ -1,5 +1,6 @@
 {
         "title":"訂單管理",
+        "incoming_order":"即時訂單",
         "campaign_status":{
                 "closed_rate" : "成交率",
                 "sales" : "銷售金額",
@@ -18,6 +19,7 @@
         },
         "search_bar":{
                 "search":"搜尋訂單編號／買家帳號",
+                "search_product":"搜尋訂單編號/買家/商品/代碼",
                 "filter":"篩選",
                 "export" : "匯出訂單"
         },
@@ -45,7 +47,13 @@
                 "null":"",
                 "guest": "訪客",
                 "payment_status":"付款狀態",
-                "delivery_status":"運送狀態"
+                "delivery_status":"運送狀態",
+                "updated_at":"最後更新時間",
+                "product_img":"",
+                "product_name":"商品名稱",
+                "order_code":"下單代碼",
+                "qty":"數量",
+                "subtotal":"小計"
         },
         "product_modal":{
                 "order_no":"訂單編號",

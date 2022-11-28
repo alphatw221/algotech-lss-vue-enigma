@@ -3,10 +3,27 @@
     <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap text-center" v-for="column in computedColumns" :key="column.key">
+                    <th class="whitespace-nowrap text-left" v-for="column in computedColumns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
+                        <div v-else-if="column.key === 'subtotal'" class="row flex justify-end">
+							<div class="text-right">{{ $t(`manage_order.table.`+column.name) }}</div>
+                                <template v-if="column.sortable === true">
+                                    <template v-if="sortBy[column.key] === -1" > 
+                                        <ChevronsUpIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, 1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
+                                    </template> 
+                                    <template v-else-if="sortBy[column.key] === 1" > 
+                                        <ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
+                                        <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
+                                    </template>
+                                    <template v-else> 
+                                        <ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
+                                    </template>
+                                </template>
+						</div>
+                        
                         <template v-else>
-                            <div class="flex justify-center"> 
+                            <div class="flex"> 
                                 {{ $t(`manage_order.table.`+column.name) }}
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 
@@ -16,14 +33,13 @@
                                     <template v-else-if="sortBy[column.key] === 1" > 
                                         <ChevronsDownIcon class="ml-3 h-5 w-5 text-white bg-[#131c34] opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
                                         <XIcon class="w-5 h-5 text-slate-400 cursor-pointer" @click="cancelSortBy(column.key)"/>
-                                    </template> 
+                                    </template>
                                     <template v-else> 
                                         <ChevronDownIcon class="ml-3 h-5 w-5 text-black bg-null opacity-[.85] rounded-full right-[5%] z-50" @click="sortByThis(column.key, -1)" />
                                     </template>
                                 </template>
                             </div>
                         </template>
-                        
                     </th>
                 </tr>
             </thead>
@@ -43,7 +59,7 @@
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                         <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full" src='/src/assets/images/lss-img/facebook.png' >
+                                            <img class="rounded-full bg-cover bg-[#3c599b]" src='/src/assets/images/lss-img/facebook.png' >
                                         </div>
                                     </div>
                                 </div>
@@ -58,7 +74,7 @@
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                         <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="rounded-full bg-cover bg-[#f70000]" src='/src/assets/images/lss-img/instagram.png' />
+                                            <img class="rounded-full bg-cover bg-[#d63376]" src='/src/assets/images/lss-img/instagram.png' />
                                         </div>
                                     </div>
                                 </div>
@@ -82,13 +98,13 @@
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
                                         <img class="rounded-full" :src="order.customer_img"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
+                                            <img class="bg-cover rounded-full bg-[#6441a5]" src='/src/assets/images/lss-img/twitch.png' >
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                         <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/twitch.png' >
+                                            <img class="bg-cover rounded-full bg-[#6441a5]" src='/src/assets/images/lss-img/twitch.png' >
                                         </div>
                                     </div>
                                 </div>
@@ -97,24 +113,30 @@
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-if="order.customer_img">
                                         <img class="rounded-full" :src="order.customer_img"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/tiktok.png' >
+                                            <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
                                         </div>
                                     </div>
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit" v-else>
                                         <img class="rounded-full" :src="unbound"/>
                                         <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
-                                            <img class="bg-cover rounded-full bg-[#f70000]" src='/src/assets/images/lss-img/youtube.png' >
+                                            <img class="bg-cover rounded-full bg-black" src='/src/assets/images/lss-img/tiktok.png' >
                                         </div>
                                     </div>
                                 </div>
                                 <div v-else-if="!order[column.key] && !order.customer_img" class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
-                                        <img class="rounded-full" :src="unbound"/>
+                                        <img class="rounded-full" :src="unbound"/> 
+                                        <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                            <img class="bg-cover rounded-full bg-[#F2502D]" src='/src/assets/images/lss-icon/express_Icon.svg' >
+                                        </div>
                                     </div>
                                 </div>
                                 <div v-else class="w-fit h-fit image-fit">
                                     <div class="flex-none w-20 h-20 mr-1 sm:mr-1 sm:w-12 sm:h-12 image-fit">
                                         <img class="rounded-full" :src="order.customer_img"/>
+                                        <div class="absolute bottom-0 right-0 w-8 h-8 border-2 border-white rounded-full sm:w-5 sm:h-5 dark:border-darkmode-600">
+                                            <img class="bg-cover rounded-full bg-[#F2502D]" src='/src/assets/images/lss-icon/express_Icon.svg' >
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -150,12 +172,17 @@
                             </div>
                         </template> -->
                         <template v-else-if="column.key === 'customer_name'">
-                            <template v-if="order.customer_name">
-                                {{order.customer_name}}
-                            </template>
-                            <template v-else>
-                                {{ $t('manage_order.table.guest') }}
-                            </template>        
+                            <div class="flex gap-2 justify-left"> 
+                                <template v-if="order.customer_name">
+                                    {{order.customer_name}}
+                                </template>
+                                <template v-else>
+                                    {{ $t('manage_order.table.guest') }}
+                                </template>   
+
+                                <SimpleIcon icon="new_user2" v-if="order.remark == 'new customer'" />
+                            </div>
+                                 
                         </template>
                         <template v-else-if="column.key === 'order_product'">
                             <div class="flex place-content-center">
@@ -166,10 +193,12 @@
                                 </a>
                             </div>
                         </template>
-                        <template v-else-if="column.key === 'subtotal' " class="text-right">
+                        <template v-else-if="column.key === 'subtotal'">
+                            <div class="text-right">
                                 {{order?.currency}}
                                 {{(Math.floor(parseFloat(order.total) * (10 ** order?.decimal_places)) / 10 ** order?.decimal_places).toLocaleString('en-GB')}}
                                 {{order?.price_unit?$t(`global.price_unit.${order?.price_unit}`):''}}
+                            </div>                                
                         </template>
                         <template v-else-if="column.key === 'payment_method'">
                             <template v-if="order[column.key] == 'direct_payment'">
@@ -225,6 +254,7 @@ import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 import OrderDeliveryStatusSelect from "@/components/order/OrderDeliveryStatusSelect.vue"
 import OrderPaymentStatusSelect from "@/components/order/OrderPaymentStatusSelect.vue"
 import { utils, writeFile } from 'xlsx'
+import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const campaignDetailStore = useCampaignDetailStore();
 const route = useRoute();

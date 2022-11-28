@@ -58,30 +58,8 @@
                                 <tr >
                                     <td>#{{ cart.id }}</td>
                                     <td>
-                                        <div v-if="cart.platform === 'facebook'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/facebook.png" />
-                                            </div>
-                                        </div>
-                                        <div v-else-if="cart.platform === 'instagram'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/instagram.png" />
-                                            </div>
-                                        </div>
-                                        <div v-else-if="cart.platform === 'youtube'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/youtube.png" />
-                                            </div>
-                                        </div>
-                                        <div v-else-if="cart.platform === 'twitch'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/twitch.png" />
-                                            </div>
-                                        </div>
-                                        <div v-else-if="cart.platform === 'tiktok'" class="w-8 h-8 image-fit mx-auto">
-                                            <div class="w-10 h-10 image-fit">
-                                                <img src="/src/assets/images/lss-img/tiktok_black_bg.png" />
-                                            </div>
+                                        <div  class="h-10 w-10 image-fit mx-auto">
+                                            <img class="object-cover" :src="platformImg(cart)" />
                                         </div>
                                     </td>
                                     <td class="text-[12px]">
@@ -95,13 +73,17 @@
                                     </td>  -->
                                     <!-- <td>{{campaignDetailStore.campaignProductDict[campaign_product_id]?.name}}</td> -->
                                     <td >
-                                        <div class="flex flex-col h-fit mt-3">
-                                            <img :src="campaignDetailStore.campaignProductDict[campaign_product_id]?.image" class="h-8 object-cover"/>
+                                        <div class="flex flex-col my-auto">
+                                            <div class="mx-auto border-2 border-white product rounded-lg mt-1"> 
+                                                <img :src="campaignDetailStore.campaignProductDict[campaign_product_id]?.image" 
+                                                class="object-cover h-10 w-14 rounded-lg"/>
+                                            </div>
+
                                             <template v-if="campaignDetailStore.campaignProductDict[campaign_product_id]?.type === 'lucky_draw'">
-                                                <td class="font-medium"> *{{$t('lucky_draw.winner_modal.prize')}}*</td>
+                                                <span class="font-medium -mb-1"> *{{$t('lucky_draw.winner_modal.prize')}}*</span>
                                             </template>
                                             <template v-else> 
-                                                <span class="mx-auto font-medium"> {{campaignDetailStore.campaignProductDict[campaign_product_id].order_code}}</span> 
+                                                <span class="mx-auto font-medium -mb-1"> {{campaignDetailStore.campaignProductDict[campaign_product_id]?.order_code}}</span> 
                                             </template>
                                         </div>
                                     </td>
@@ -116,12 +98,12 @@
                                                     :options="{ theme: 'light' }"
                                                     :content="$t('tooltips.campaign_live.view_icon')" 
                                                 > 
-                                                    <SimpleIcon icon="viewOrder" color="#334155" @click="routeToDetailPage(cart)"  class="sm:mx-auto w-6" width="24" height="23" />
+                                                    <SimpleIcon icon="viewOrder" color="#2d8cf0" @click="routeToDetailPage(cart)"  class="sm:mx-auto w-6" width="24" height="23" />
                                                 </Tippy> 
                                             </a>
                                             <a  @click="copyCartLink(cart)">
                                                 <Tippy  :content="$t('tooltips.manage_order.link_icon')" :options="{ theme: 'light' }"> 
-                                                    <SimpleIcon icon="share" color="#334155" class="sm:mx-auto w-6" width="24" height="23" />
+                                                    <SimpleIcon icon="share" color="#2d8cf0" class="sm:mx-auto w-6" width="24" height="23" />
                                                 </Tippy>
                                             </a>
                                         </div>
@@ -203,6 +185,11 @@ const incoming_order_columns= [
     { name: "null", key: "detail" },
 ]
 
+const platformImg = (cart) =>{
+    var imgrul = '/src/assets/images/lss-img/'
+    if(cart.platform) return imgrul + cart.platform + '.png'
+    else return '/src/assets/images/lss-icon/express_Icon.svg'
+}
 // const product_columns = [
 //     { name: "null", key: null },
 //     { name: "image", key: "image" },
@@ -283,4 +270,7 @@ const copyCartLink = (cart) => {
 	cursor: pointer;
 }
 
+.product{
+    box-shadow: 0px 0px 2px rgba(61, 61, 61, 0.801);
+}
 </style>

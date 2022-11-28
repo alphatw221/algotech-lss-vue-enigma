@@ -21,7 +21,7 @@
 		<table class="table -mt-3 table-report">
 			<thead>
 				<tr>
-					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap text-center">
+					<th v-for="column in columns" :key="column.key" class="w-fit whitespace-nowrap">
 						<template v-if="column.name === 'check'">
 							<input 
 								class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" 

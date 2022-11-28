@@ -128,6 +128,7 @@
         "payment":"Payment"
     },
     "notes":{
+        "title":"Shopping Cart settings",
         "notes":"General",
         "delivery_note":"Delivery Note",
         "special_note":"Special Note",
@@ -135,10 +136,11 @@
         "discard":"Discard",
         "save":"Save",
         "update": "Update",
-        "modify":"Modify"
+        "modify":"Modify",
+        "custom_note":"Custom Note Settings"
     },
     "localization":{
-        "title": "Localization",
+        "title": "Shopping Cart settings",
         "country":"Country",
         "countries":{
             "PH":"Philippines",
@@ -157,6 +159,7 @@
             "id":"Indonesian",
             "vi":"Vietnamese"
         },
+        "cart_settings":"Shopping Cart Settings",
         "buyer_language":"Buyer Language",
         "choose_language":"Choose Language",
         "choose_decimal_places":"Select your Decimal Places",
@@ -168,8 +171,8 @@
         "choose_price_unit":"Choose Currency Unit",
         "priceOptions":{
             "1":"Standard",
-            "1000":"K",
-            "1000000":"M"
+            "1000":"K(1,000)",
+            "1000000":"M(1,000,000)"
         }
 
     },
@@ -201,10 +204,12 @@
         "reach_channel_limt_message": "You have reached max binded platform amount."
     }, 
     "points":{
-        "title":"Points Setting",
+        "title":"Point Settings",
         "enable":"Enable",
-        "point_validity":"Point Validity (months)",
+        "point_validity":"Point Validity",
+        "month":"months",
         "unlimited":"Umlimited",
+        "month":"month(s)",
         "reward_table":"Reward Point Table",
         "redemption":"Point Redemption Rate",
         "points":"point(s)",
@@ -212,7 +217,7 @@
         "add":"Add"
     },
     "messages":{
-        "title":"Custom Facebook Message Settings",
+        "title":"Custom Message Settings",
         "added":"Successfully Added Product",
         "updated":"Status Updated",
         "deleted":"Product Deleted from Shopping Cart",

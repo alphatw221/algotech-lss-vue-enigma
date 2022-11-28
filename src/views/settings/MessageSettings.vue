@@ -16,7 +16,12 @@
                     <Accordion>
                         <div class="flex flex-col">
                             <div class="flex flex-row gap-2 justify-start">
-                                <div v-if="field.status !== 'settings'">
+                                <label class="form-label text-base font-medium"> {{$t('settings.messages.'+ field.key)}}</label> 
+                                <div class="ml-auto">
+                                    <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
+                                </div>
+                            </div>
+                            <div v-if="field.status !== 'settings'">
                                     <input 
                                         class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-2" 
                                         type="checkbox"
@@ -24,11 +29,6 @@
                                     />
                                     <label class="w-fit whitespace-nowrap form-label text-base font-medium mr-3">{{$t('settings.messages.enable')}}</label>
                                 </div>
-                                <div class="ml-auto">
-                                    <Tippy  :content="$t('settings.notes.modify')" :options="{ theme: 'light' }"> <SimpleIcon icon="edit" color="#334155"/> </Tippy>
-                                </div>
-                            </div>
-                            <label class="form-label text-base font-medium"> {{$t('settings.messages.'+ field.key)}}</label> 
                             <span class="text-slate-400 break-all w-full"> {{props.meta_reply[field.key]}}</span>
                         </div>
                     </Accordion>

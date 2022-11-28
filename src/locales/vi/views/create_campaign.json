@@ -27,8 +27,8 @@
 
         "pickup_store":"Tên cửa hàng",
         "pickup_address":"Địa chỉ cửa hàng",
-        "delivery_date":"Delivery Date",
-        "pickup_date":"Pickup Date",
+        "delivery_date":"Ngày giao hàng",
+        "pickup_date":"Ngày đón",
         "errors":{
             "Value_is_required":"Giá trị là bắt buộc",
             "Value_must_be_numeric":"Giá trị phải là số",

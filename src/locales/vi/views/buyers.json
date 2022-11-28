@@ -1,18 +1,18 @@
 {
-    "page_title": "Buyers",
+    "page_title": "Người mua",
     "table_column": {
-        "customer_name": "Buyer Name",
-        "type": "Type",
+        "customer_name": "Tên người mua",
+        "type": "Loại hình",
         "email": "Email",
         "order_history": "Lịch sử đặt hàng",
-        "points": "Points"
+        "points": "điểm"
     },
     "buyer_point": {
-        "points": "Points"
+        "points": "điểm"
     },
     "search_bar":{
-        "title": "Title",
-        "search" : "Search",
-        "reset" : "Reset"
+        "title": "Tiêu đề",
+        "search" : "Tìm kiếm",
+        "reset" : "Đặt lại"
     }
 }
