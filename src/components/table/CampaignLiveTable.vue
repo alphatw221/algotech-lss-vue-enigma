@@ -24,7 +24,7 @@
 
 
 <script>
-import { get_summerize_comments } from "@/api/campaign_comment"
+import { get_summerize_comments } from "@/api_v2/campaign_comment"
 
 export default {
   props: {

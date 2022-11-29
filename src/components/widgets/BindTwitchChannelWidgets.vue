@@ -79,7 +79,6 @@ onUnmounted(() => {
 })
 
 const getTwitchChannels = () => {
-    console.log(layoutStore.userInfo.user_subscription[props.subscriptionPlatformField])
     if(!layoutStore.userInfo.user_subscription[props.subscriptionPlatformField].length) {
         showConnectButton.value = true;
             return false

@@ -1,9 +1,14 @@
 import { facebookAxios } from "@/libs/axiosClient";
 import { createAxiosWithoutInterceptor, createAxios } from "@/libs/axiosClient";
-export const get_fb_page_live_media = (pageID, pageToken) => {
-    return facebookAxios(pageToken).get(`/${pageID}/live_videos?fields=title,status,embed_html,video`)
+
+export const get_fb_page_videos = (platform_id, limit='', toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/facebook-page/${platform_id}/videos?limit=${limit}`)
 }
-// export const get_fb_page_live_media = (pageID, pageToken) => {
+
+export const get_fb_page_live_videos = (platform_id, limit='', toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/facebook-page/${platform_id}/live_videos?limit=${limit}`)
+}
+// export const get_fb_page_live_videos = (pageID, pageToken) => {
 //     return facebookAxios(pageToken).get(`/${pageID}/posts?fields=properties,attachments{title,media_type}&limit=3`)
 // }
 

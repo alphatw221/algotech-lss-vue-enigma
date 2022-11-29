@@ -312,7 +312,6 @@ const languages = ref([
 ])
 
 onMounted(()=>{
-    console.log(sellerLayoutStore.userInfo)
     if(!sellerLayoutStore.userInfo.user_subscription) return
     data.value.lang = sellerLayoutStore.userInfo.lang
 })

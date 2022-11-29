@@ -3,13 +3,13 @@
         <h1 class="text-xl mx-auto" style="font-size: 1.5rem;"> {{$t('order_points.points')}} </h1>
         <div
           v-if="walletUserSubscriptionId !== null" 
-          class="w-full box sm:px-20 py-10 flex flex-col sm:flex-row justify-between gap-5"> 
+          class="w-full box sm:px-20 py-5 flex flex-col sm:flex-row justify-between gap-5"> 
 
-            <div  class="bg-primary rounded-full w-32 h-32 flex justify-center">
-            <p class="my-auto text-[72px] font-bold text-white"> {{computedNameFirstLetter}} </p>
+            <div  class="bg-primary rounded-full w-32 h-32 flex justify-center mx-auto sm:mx-0">
+              <p class="my-auto text-[72px] font-bold text-white"> {{computedNameFirstLetter}} </p>
             </div >
 
-            <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
+            <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left sm:mr-auto"> 
                 <div class="flex flex-col sm:flex-row gap-2"> 
                   <span class="text-[32px] text-danger font-bold">
                   {{Math.floor(buyerLayoutStore.userInfo.wallets[walletIndex].points).toLocaleString("en-GB")}}
@@ -17,7 +17,7 @@
                 </div>
                 <!-- <p> Expiry Date : 31 Sep 2022 </p> -->
             </div>
-            <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showDiscriptionModal()"><u>Rules and Description </u> </a>
+            <!-- <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showDiscriptionModal()"><u>Rules and Description </u> </a> -->
         </div>
 
         <div class="mt-5 flex flex-row gap-5"> 
@@ -77,13 +77,6 @@ const showDiscriptionModal=()=>{
 
 
 <style scoped>
-
-.statusBtn {
-  padding: 0;
-  margin: 0;
-  border: none;
-  background: none;
-}
 
 .statusBtn {
   --primary-color: rgba(78, 78, 78, 0.808);

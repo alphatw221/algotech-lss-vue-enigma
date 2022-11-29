@@ -19,7 +19,7 @@
 
     "search_bar":{
         "title": "Tiêu đề",
-        "search" : "Search Customer Name",
+        "search" : "Tìm kiếm tiêu đề",
         "reset" : "Thiết lập lại"
     },
     "enter_post_id":{

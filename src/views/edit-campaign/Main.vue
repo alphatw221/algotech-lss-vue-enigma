@@ -224,7 +224,7 @@ const paymentMetaStore = useLSSPaymentMetaStore()
 const internalInstance = getCurrentInstance()
 const route = useRoute()
 const router = useRouter()
-
+const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
 const currencySymbols = ref([
     {value:'USD',text:'USD'},

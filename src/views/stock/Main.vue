@@ -75,68 +75,69 @@
 			<!-- END Delisted Tab -->
 			<!-- <TabPanel class="leading-relaxed"> Sold. </TabPanel>
 			<TabPanel class="leading-relaxed"> Delete. </TabPanel> -->
-	</div>
+  </div>
 
-	<BulkEditModal/>
-	<WishlistModal /> 
+  <BulkEditModal />
+  <WishlistModal />
 </template>
 
 <script setup>
-import { ref, onMounted, getCurrentInstance, onUnmounted } from 'vue'
+import { ref, onMounted, getCurrentInstance, onUnmounted } from "vue";
 
 import SearchBar from "./SearchBar.vue";
 import DataTable from "./DataTable.vue";
-import BulkEditModal from "./BulkEditModal.vue"
-import { useRoute, useRouter } from "vue-router"
+import BulkEditModal from "./BulkEditModal.vue";
+import { useRoute, useRouter } from "vue-router";
 
-import EasyStoreExportProductButton from '@/plugin/easy-store/views/ExportProductButton.vue'
-import OrdrStartrExportProductButton from '@/plugin/ordr-startr/views/ExportProductButton.vue'
-import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import { useSellerStockStore } from "@/stores/lss-seller-stock"
-import ShopifyExportProductButton from '@/plugin/shopify/views/ExportProductButton.vue'
-import WishlistModal from './WishlistModal.vue'
-import { import_product } from "@/api_v2/product.js"
-import FileUploadButton from "@/components/file-upload-button/Main.vue"
+import EasyStoreExportProductButton from "@/plugin/easy-store/views/ExportProductButton.vue";
+import OrdrStartrExportProductButton from "@/plugin/ordr-startr/views/ExportProductButton.vue";
+import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
+import { useSellerStockStore } from "@/stores/lss-seller-stock";
+import ShopifyExportProductButton from "@/plugin/shopify/views/ExportProductButton.vue";
+import WishlistModal from "./WishlistModal.vue";
+import { import_product } from "@/api_v2/product.js";
+import FileUploadButton from "@/components/file-upload-button/Main.vue";
 
-const openTab = ref(1)
-const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
-const route = useRoute()
-const router = useRouter()
+const openTab = ref(1);
+const eventBus =
+  getCurrentInstance().appContext.config.globalProperties.eventBus;
+const route = useRoute();
+const router = useRouter();
 const layoutStore = useLSSSellerLayoutStore();
 const stockStore = useSellerStockStore();
 
+onMounted(() => {
+  clearStore();
+  createProductCategoryDict();
+});
 
-onMounted(()=>{
-	clearStore()
-	createProductCategoryDict()
-})
+onUnmounted(() => {
+  eventBus.off("refreshStockTable");
+});
 
-onUnmounted(()=>{
-	eventBus.off('refreshStockTable')
-})
+const clearStore = () => {
+  stockStore.productCategoryDict = {};
+  stockStore.selectedProductIDList = [];
+};
+const createProductCategoryDict = () => {
+  layoutStore.userInfo.user_subscription?.product_categories?.forEach(
+    (productCategory) => {
+      stockStore.productCategoryDict[productCategory.id.toString()] =
+        productCategory;
+    }
+  );
+};
 
-const clearStore = ()=>{
-	stockStore.productCategoryDict = {}
-	stockStore.selectedProductIDList = []
-}
-const createProductCategoryDict = ()=>{
-	layoutStore.userInfo.user_subscription?.product_categories?.forEach(productCategory => {
-		stockStore.productCategoryDict[productCategory.id.toString()]=productCategory
-	});
-}
+const toggleTabs = (tabNumber) => {
+  openTab.value = tabNumber;
+  // eventBus.emit('toggleTab')
+};
 
-	
-const toggleTabs = (tabNumber) =>{
-	openTab.value = tabNumber
-	// eventBus.emit('toggleTab')
-}
-
-const importProducts = file =>{
-    let formData = new FormData()
-	formData.append('file', file)
-    import_product(formData, layoutStore.alert).then(res=>{
-		eventBus.emit('refreshStockTable')
-    })
-}
-
+const importProducts = (file) => {
+  let formData = new FormData();
+  formData.append("file", file);
+  import_product(formData, layoutStore.alert).then((res) => {
+    eventBus.emit("refreshStockTable");
+  });
+};
 </script>

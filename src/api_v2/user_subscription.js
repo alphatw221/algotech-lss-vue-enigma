@@ -26,6 +26,10 @@ export const seller_update_delivery = (data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/delivery/`,data)
 }
 
+export const unbind_platform_all = (data, toastify=null) => {
+    return createAxios(toastify).put("/api/v2/user-subscription/platform/unbind/all/", data)
+}
+
 export const unbind_platform_instance = (platform_name, platform_instance_id, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/user-subscription/platform/${platform_name}/unbind/?instance_id=${platform_instance_id}`)
 }
@@ -64,7 +68,13 @@ export const retrieve_buyer_history = (buyer_id,points_relative,page,page_size, 
     return createAxios(toastify).get(`/api/v2/user-subscription/retrieve/buyers/history/?buyer_id=${buyer_id}&points_relative=${points_relative}&page=${page}&page_size=${page_size}`)
 }
 
+export const seller_changePlan_payment = (data, toastify=null) =>{
+    return createAxios(toastify).post(`/api/v2/user-subscription/upgrade/intent/`, data);
+}
 
+export const seller_upgrade = (data, toastify=null) =>{
+    return createAxios(toastify).post(`/api/v2/user-subscription/upgrade/`, data);
+}
 
 
 // ------------------------- DEALER -------------------------------------
