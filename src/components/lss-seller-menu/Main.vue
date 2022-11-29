@@ -137,7 +137,6 @@
           <button class="fixed ml-2 text-white rounded-lg btn btn-danger bottom-5 border-0 border-red-900 shadow-lg"
               @click="router.push('/seller/change-plan')"
               >
-              <!-- <SimpleIcon icon="upgrade" color="white" class="mr-0 xl:mx-2 h-5"/> -->
               <font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 h-5 m-1" :class="{'xl:mx-2': !closeSidebar}"/>
               <span class="hidden text-lg"
               :class="{'xl:block': !closeSidebar}">{{$t('layout.upgrade')}}  </span>  </button>
