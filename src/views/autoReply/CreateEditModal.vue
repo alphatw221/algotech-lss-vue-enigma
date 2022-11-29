@@ -138,6 +138,7 @@
     
     let PagesData = ref([])
     onMounted(() => {
+        console.log(layoutStore.userInfo?.user_subscription)
         PagesData.value = layoutStore.userInfo?.user_subscription?.facebook_pages
         PagesData.value = PagesData.value.concat(layoutStore.userInfo?.user_subscription?.instagram_profiles);
 
