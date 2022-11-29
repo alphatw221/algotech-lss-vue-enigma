@@ -1,30 +1,32 @@
 <template>
-    <div class="flex flex-col gap-5 m-0 p-2 py-5 lg:mx-5 lg:p-10 2xl:mx-5 2xl:px-10">
-        <h1 class="text-xl mx-auto" style="font-size: 1.5rem;"> {{$t('order_points.points')}} </h1>
-        <div v-if="sellerLayoutStore.buyer !== null"
-          class="w-full box sm:px-20 py-10 flex flex-col sm:flex-row justify-between gap-5"> 
-            <div class="h-48 w-44 box border-2 border-slate-200 flex flex-col items-center justify-center gap-0.5 mx-auto sm:mx-0">
-              <div class="w-28 h-28 flex-none image-fit mr-1">
-                  <img alt="" class="rounded-full zoom-in" :src="userAvatar" />
-              </div>
-              <div class="text-lg"> {{ sellerLayoutStore.buyer.name }}</div>
-            </div>
-
-            <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
-                <div class="flex flex-col sm:flex-row gap-2"> 
-                  <span class="text-[32px] text-danger font-bold">{{wallet.points}}</span>
-                  {{ $t('buyers.buyer_point.points') }} 
-                </div>
-                <!-- <p> Expiry Date : 31 Sep 2022 </p> -->
-            </div>
-            <!-- <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showDiscriptionModal()"><u>Rules and Description </u> </a> -->
+  <div class="flex flex-col m-0 my-5 sm:mt-8 lg:mx-20 gap-5">
+    <h1 class="text-xl font-medium text-xl sm:text-2xl" > {{$t('order_points.points')}} </h1>
+    <button class="ml-auto btn btn-primary" @click="showPointAdjustModal()">  {{$t('buyers.buyer_point.adjust_point')}}</button>
+    <div v-if="sellerLayoutStore.buyer !== null"
+      class="w-full box sm:px-20 py-5 flex flex-col sm:flex-row justify-between gap-3 s:gap-5"> 
+        <div class="h-fit w-fit flex flex-col sm:flex-row items-center justify-center gap-5 mx-auto sm:mx-0">
+          <div class="w-24 h-24 flex-none image-fit mr-1">
+              <img alt="" class="rounded-full" :src="userAvatar" />
+          </div>
+          <div class="flex flex-col"> 
+            <span class="text-lg text-center sm:text-left"> {{ sellerLayoutStore.buyer.name }}</span>
+            <span class="text-lg"> {{ sellerLayoutStore.buyer.email }}</span>
+          </div>
         </div>
-
-        <div class="box border-2 border-slate-200 w-full">
-            <PointsTable />
+        <div class="my-auto sm:ml-20 text-[20px] flex flex-col gap-4 text-center sm:text-left"> 
+            <div class="flex flex-col sm:flex-row gap-2 text-danger"> 
+              <span class="text-[32px] font-bold">{{Math.floor(wallet.points).toLocaleString("en-GB") }}</span>
+              {{ $t('buyers.buyer_point.points') }} 
+            </div>
+            <!-- <p> Expiry Date : 31 Sep 2022 </p> -->
         </div>
+        <!-- <a class="mx-auto sm:mr-0 sm:ml-auto my-auto text-[18px]" @click="showDiscriptionModal()"><u>Rules and Description </u> </a> -->
     </div>
-    <DescriptionModal />
+    <div class="box border-2 border-slate-200 px-2">
+        <PointsTable />
+    </div>
+  </div>
+  <PointAdjustModal :wallet="wallet"/>
 </template>
 
 <script setup>
@@ -34,7 +36,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
 import dom from "@left4code/tw-starter/dist/js/dom";
 import { useCookies } from "vue3-cookies";
-import DescriptionModal from "./DescriptionModal.vue";
+import PointAdjustModal from "./PointAdjustModal.vue";
 const { cookies } = useCookies()
 const sellerLayoutStore = useLSSSellerLayoutStore();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
@@ -69,9 +71,15 @@ const computedNameFirstLetter = computed(()=>{
 })
 
 
-const showDiscriptionModal=()=>{
-    eventBus.emit('showDiscriptionModal',null)
+// const showDiscriptionModal=()=>{
+//   eventBus.emit('showDiscriptionModal',null)
+// }
+
+const showPointAdjustModal=()=>{
+  eventBus.emit('showPointAdjustModal',null)
 }
+
+
 </script>
 
 

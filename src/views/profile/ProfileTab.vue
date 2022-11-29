@@ -34,11 +34,11 @@
                     {{ layout.userInfo.phone }}
                 </div> -->
             </div>
-            <div class="ml-auto my-auto">
+            <!-- <div class="ml-auto my-auto">
                 <button class="text-white capitalize btn btn-elevated-success whitespace-nowrap" @click="toggle()">
                 Create Accounts
                 </button>
-            </div>
+            </div> -->
         </div>
         <SubscriptionTab class="border-t-2 " />
         <CreateAccounts :showModal="createAccountsModal" /> 

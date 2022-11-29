@@ -1,9 +1,9 @@
 <template>
-<div class="flex flex-col lg:pt-5 mt-3 pb-4 gap-5 h-fit sm:h-full">
-  <h2 class="text-xl sm:px-20 sm:text-2xl mx-auto sm:mx-0 font-medium">
+<div class="flex flex-col lg:mt-8 my-3 gap-5 h-fit sm:h-full">
+  <h2 class="text-xl sm:text-2xl sm:px-20 mx-auto sm:mx-0 font-medium">
     {{ $t('buyers.page_title')}}
   </h2>
-  <div class="flex flex-col p-3 sm:px-8 py-10 box h-full lg:mx-20">
+  <div class="flex flex-col px-3 sm:px-8 py-10 box h-full lg:mx-20">
     <BuyersSearchBar /> 
     <BuyersListTable
       :tableColumns="tableColumns"
