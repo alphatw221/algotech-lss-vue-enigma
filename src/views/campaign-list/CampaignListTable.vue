@@ -241,7 +241,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { toggle_stop_checkout, list_campaign, delete_campaign } from "@/api_v2/campaign"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
-import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels } from "@/api/user_subscription"
+
 import { get_fb_page_profile_picture } from '@/api_v2/facebook'
 import { get_ig_profile_picture } from '@/api_v2/instagram'
 
@@ -393,17 +393,7 @@ const computedUserGotPlatform = computed(()=>{
   // if(layoutStore.userInfo?.user_subscription?.tiktok_accounts?.length||0 != 0) return false
   return true
 })
-// const checkPage = ()=>{
-//   get_user_subscription_facebook_pages(layoutStore.alert).then(res=>{
-//     if(res.data.length !== 0) checkPagePonit.value = false
-//     else get_user_subscription_instagram_profiles(layoutStore.alert).then(res=>{
-//       if(res.data.length !== 0) checkPagePonit.value = false
-//       else get_user_subscription_youtube_channels(layoutStore.alert).then(res=>{
-//         if(res.data.length !== 0) checkPagePonit.value = false
-//       })
-//     })
-//   })
-// }
+
 
 const deleteCampaign = (campaign)=>{
   let yes = confirm(`${i18n.global.t("campaign_list.campaign_list_table.confirm_delete")}`)

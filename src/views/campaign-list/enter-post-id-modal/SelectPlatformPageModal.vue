@@ -38,7 +38,6 @@ import { check_instagram_profile_token_valid } from "@/api_v2/instagram"
 import { check_youtube_channel_token_valid } from "@/api_v2/youtube"
 import { check_twitch_channel_token_valid } from "@/api_v2/twitch"
 import { update_platform_live_id } from "@/api_v2/campaign"
-import { get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles, get_user_subscription_youtube_channels, get_user_subscription_twitch_channels } from "@/api/user_subscription"
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 
 const router = useRouter();
@@ -52,20 +51,16 @@ const payloadBuffer = ref({})
 onMounted(()=>{
     eventBus.on('showSelectPlatformModal', (payload) => {
       payloadBuffer.value = payload
-      let apiRequest =null
       if(payload.platform=='facebook'){
-        apiRequest = get_user_subscription_facebook_pages
+        pages.value = sellerLayoutStore.userInfo?.user_subscription?.facebook_pages||[]
       }else if(payload.platform=='youtube'){
-        apiRequest = get_user_subscription_youtube_channels
+        pages.value = sellerLayoutStore.userInfo?.user_subscription?.youtube_channels||[]
       }else if(payload.platform=='instagram'){
-        apiRequest = get_user_subscription_instagram_profiles
+        pages.value = sellerLayoutStore.userInfo?.user_subscription?.instagram_profiles||[]
       } else if(payload.platform=='twitch'){
-        apiRequest = get_user_subscription_twitch_channels
+        pages.value = sellerLayoutStore.userInfo?.user_subscription?.twitch_channels||[]
       }
-      apiRequest().then((res)=>{
-        show.value = true
-        pages.value = res.data
-      })
+      show.value = true
 
   })
 })
