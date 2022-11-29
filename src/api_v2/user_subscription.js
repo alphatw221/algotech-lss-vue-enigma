@@ -68,7 +68,13 @@ export const retrieve_buyer_history = (buyer_id,points_relative,page,page_size, 
     return createAxios(toastify).get(`/api/v2/user-subscription/retrieve/buyers/history/?buyer_id=${buyer_id}&points_relative=${points_relative}&page=${page}&page_size=${page_size}`)
 }
 
+export const seller_changePlan_payment = (data, toastify=null) =>{
+    return createAxios(toastify).post(`/api/v2/user-subscription/upgrade/intent/`, data);
+}
 
+export const seller_upgrade = (data, toastify=null) =>{
+    return createAxios(toastify).post(`/api/v2/user-subscription/upgrade/`, data);
+}
 
 
 // ------------------------- DEALER -------------------------------------

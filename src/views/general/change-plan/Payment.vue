@@ -61,7 +61,7 @@
 import { computed, onMounted, ref, watch, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
-import { seller_upgrade } from '@/api/user_subscription'
+import { seller_upgrade } from '@/api_v2/user_subscription'
 
 const internalInstance = getCurrentInstance()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
