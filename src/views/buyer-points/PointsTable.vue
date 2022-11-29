@@ -107,7 +107,7 @@ import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order";
 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
-import { get_user_subscription_facebook_pages } from "../../api/user_subscription";
+
 import LoadingTable from "./LoadingTable.vue";
 
 const layoutStore = useLSSBuyerLayoutStore();

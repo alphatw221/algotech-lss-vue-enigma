@@ -54,9 +54,7 @@ export const sales_report = (start_time, end_time, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/user-subscription/sales_report/?start_time=${start_time}&end_time=${end_time}`)
 }
 
-// export const get_user_subscription_facebook_pages = (data, toastify=null) => {
-//     return createAxios(toastify).get(`/api/user-subscription/facebook_pages/`,data)
-// }
+
 
 export const list_animation = (toastify=null) => {
     return createAxios(toastify).get('/api/v2/user-subscription/list/animation/')
