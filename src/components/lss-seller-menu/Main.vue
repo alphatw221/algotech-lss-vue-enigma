@@ -1,7 +1,7 @@
 <template>
 <div class="flex outterContainer overflow-auto bg-secondary">
       <!-- BEGIN: Side Menu -->
-      <div class="sidebar_container absolute z-[52] top-[110px] hidden lg:block" 
+      <div class="sidebar_container absolute z-[52] top-[110px] hidden xl:block" 
         :class="[{'left-[106px]' : closeSidebar},{'left-[260px]' : !closeSidebar}]" @click="closeSidebar = !closeSidebar">
         <ChevronRightIcon class="sidebar_icon" :class="{'hidden' : !closeSidebar}" /> 
         <ChevronLeftIcon class="sidebar_icon" :class="{'hidden' : closeSidebar}" /> 
@@ -231,7 +231,6 @@ const isCreateCampaign = computed(()=>{
 }
 
 .sidebar_container {
-  display: inline-block;
   cursor: pointer;
   height: 70px;
   width: 20px;
@@ -253,7 +252,7 @@ const isCreateCampaign = computed(()=>{
   .outterContainer{
   /* height: calc(100vh - 70px); */
   height:90vh;
-}
+  }
 }
 
 </style>

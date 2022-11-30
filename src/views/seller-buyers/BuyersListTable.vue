@@ -1,5 +1,7 @@
 <template>
-  <div class="overflow-x-hidden sm:overflow-auto sm:h-[62vh] mt-4">
+  <LoadingTable  v-if="(showBuyersLoading == true)" :column="tableColumns" :tableName="'buyers'" theadColor="#E2E8F0"/> 
+  <div v-else-if="(showBuyersLoading == false)" 
+    class="overflow-x-hidden sm:overflow-auto sm:h-[62vh] mt-4">
     <table class="table -mt-3 table-report">
       <thead>
         <tr>
@@ -13,11 +15,6 @@
       </thead>
       <tbody>
         <tr v-for="(buyer, index) in buyers" :key="index" class="intro-x">
-          <td v-if="showBuyersLoading"
-						class="h-[300px] items-center relative tdDot"
-						:colspan="tableColumns.length +1" >
-						<LoadingIcon icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] right-[50%] top-[50%] translate-x-1/2"/>
-					</td>
           <template v-for="column in tableColumns" :key="column.key">
             <td v-if="column.key == 'customer_name'" class="w-fit text-center">
               {{ buyer.name }}
@@ -81,7 +78,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { list_buyers } from "@/api_v2/user_subscription"
 import {defineProps, onMounted, onUnmounted, getCurrentInstance, ref, defineEmits, computed} from 'vue'
 import { useRoute, useRouter } from "vue-router";
-
+import LoadingTable from '@/components/lss-skeleton/table/LoadingTable.vue'
 
 
 import unbound from "/src/assets/images/lss-img/noname.png"

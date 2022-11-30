@@ -1,6 +1,7 @@
 {
     "page_title": "Buyers",
     "table_column": {
+        "null":"",
         "customer_name": "Buyer Name",
         "type": "Type",
         "email": "Email",

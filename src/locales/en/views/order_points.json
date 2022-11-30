@@ -5,7 +5,8 @@
         "earning":"Earning",
         "spending":"Spending"
     },
-    "table":{
+    "table_column":{
+        "null":"",
         "date":"Date",
         "change_reason":"Point Change Reason",
         "earned":"Points Earned",

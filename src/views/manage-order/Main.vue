@@ -1,14 +1,15 @@
 <template>
     <!-- OUTTER BOX -->
         <!-- BEGIN: campaign Info -->
-    <div class="flex flex-col lg:pt-5 mt-3 h-fit sm:h-[95%] gap-5">
-        <div class="flex flex-row gap-2 mt-3 mx-auto sm:mx-0 font-medium">
-            <button @click="show_table('manageOrder')" class="statusBtn"  :class="{ 'menu' : tableType === 'manageOrder'}" >
-                <h2 :data-content="$t('manage_order.title')" class="text-xl sm:text-2xl">{{$t('manage_order.title')}}</h2>
-            </button>
-            <button v-if="route.params.campaign_id" @click="show_table('incomingOrder')" class="statusBtn" :class="{ 'menu' : tableType === 'incomingOrder'}">
-                <h2 :data-content="$t('manage_order.incoming_order')" class="text-xl sm:text-2xl border-l-2 border-slate-400 pl-2">{{$t('manage_order.incoming_order')}}</h2>
-            </button>
+    <div class="flex flex-col lg:pt-5 mt-3 h-fit sm:h-[95%] gap-5 mx-20">
+        <div class="flex flex-row gap-4 mt-3 mx-auto sm:mx-0 font-medium">
+            <div @click="show_table('manageOrder')" :class="[{ 'menu' : tableType === 'manageOrder'},{'statusBtn': route.params.campaign_id}]" >
+                <h2 :data-content="$t('manage_order.title')" class="text-xl sm:text-2xl allp" >{{$t('manage_order.title')}}</h2>
+            </div>
+            <div v-if="route.params.campaign_id" class="bar"></div>
+            <div v-if="route.params.campaign_id" @click="show_table('incomingOrder')" class="statusBtn" :class="{ 'menu' : tableType === 'incomingOrder'}">
+                <h2 :data-content="$t('manage_order.incoming_order')" class="text-xl sm:text-2xl allp">{{$t('manage_order.incoming_order')}}</h2>
+            </div>
         </div> 
         <!-- BEGIN: campaign Status -->
         <CampaignStatus v-if="route.params.campaign_id"/>
@@ -229,6 +230,7 @@ const stopCheckout = ()=>{
     --primary-color: rgba(78, 78, 78, 0.808);
     --hovered-color: #474747;
     position: relative;
+    cursor: pointer;
     display: flex;
     font-weight: 500;
     font-size: 16px;
@@ -289,5 +291,10 @@ const stopCheckout = ()=>{
     }
     .statusBtn:hover h2::before {
     width: 100%;
+    }
+
+    .bar{
+        background-color: #4E4E4ECE;
+        width: 3px;
     }
 </style>

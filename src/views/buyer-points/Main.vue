@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col gap-5 m-0 p-2 py-5 lg:mx-5 lg:p-10 2xl:mx-5 2xl:px-10 min-h-[95%]">
+    <div class="flex flex-col gap-5 p-2 py-5 lg:mx-5 lg:p-10 2xl:px-10 min-h-[95%]">
         <h1 class="text-xl mx-auto" style="font-size: 1.5rem;"> {{$t('order_points.points')}} </h1>
         <div
           v-if="walletUserSubscriptionId !== null" 
