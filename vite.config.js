@@ -12,7 +12,12 @@ export default defineConfig({
     outDir:'./static',
     manifest:true,
     rollupOptions: {
-      input: {lss:'./src/main.js'}
+      input: {lss:'./src/main.js'},
+      output: {
+        entryFileNames: `assets/[name].js`,
+        chunkFileNames: `assets/[name]_lss.js`,
+        assetFileNames: `assets/[name]_lss.[ext]`
+      }
     }
   },
   server: { 
