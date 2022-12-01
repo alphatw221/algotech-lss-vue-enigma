@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { buyer_orders_history } from '@/api_v2/order';
+import { buyer_orders_history } from '@/api_v2/user';
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order"

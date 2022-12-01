@@ -101,7 +101,7 @@
 </template>
 
 <script setup>
-import { buyer_orders_history } from "@/api_v2/order";
+import { buyer_points_history } from "@/api_v2/user";
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order";
@@ -124,11 +124,11 @@ const dataCount = ref(0);
 const orders = ref([]);
 const tableColumns = ref([
   { name: "date", key: "created_at", type: "dateTime" },
-  { name: "change_reason", key: "campaign_title", type: "string" },
-  { name: "earned", key: "points_earned", type: "int" },
-  { name: "used", key: "points_used", type: "int" },
-  { name: "discount", key: "point_discount", type: "float" },
-  { name: "expire_at", key: "point_expired_at", type: "dateTime" },
+  { name: "change_reason", key: "type", type: "string" },
+  { name: "earned", key: "earned", type: "int" },
+  { name: "used", key: "used", type: "int" },
+  // { name: "discount", key: "point_discount", type: "float" },
+  { name: "expire_at", key: "expired_at", type: "dateTime" },
 ]);
 
 const props = defineProps({
@@ -155,14 +155,14 @@ const changePageSize = (pageSize) => {
 
 const getOrderHistoryListData = () => {
   ready.value = false
-  var _page, _page_size, _user_subscription_id, _points_relative
-  buyer_orders_history(
+  var _page, _page_size, _user_subscription_id
+  buyer_points_history(
     _page = currentPage.value,
     _page_size = pageSize.value,
     _user_subscription_id = props.userSubscriptionId,
-    _points_relative = true,
     layoutStore.alert
   ).then((response) => {
+    console.log(response.data.results)
     ready.value = true
     dataCount.value = response.data.count;
     orders.value = response.data.results;

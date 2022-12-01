@@ -86,7 +86,7 @@
 
 <script setup>
 import { list_buyer_point_history } from '@/api_v2/user_subscription';
-import { computed, onMounted, provide, ref, watch, getCurrentInstance } from "vue";
+import { computed, onMounted, onUnmounted, provide, ref, watch, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
@@ -128,19 +128,28 @@ const getPointHistoryListData = () => {
   ready.value = false
 
   list_buyer_point_history(buyer_id, currentPage.value, pageSize.value, layoutStore.alert).then(response => {
-    console.log(response.data.results)
-    if (response.data.count) {
-      layoutStore.buyer = response.data.results ? response.data.results[0].buyer : response.data[0].buyer
-      dataCount.value = response.data.count ? response.data.count : response.data.length
-      pointsListData.value = response.data.results ? response.data.results : response.data
+    let point_transaction = response.data.data
+    let wallet = response.data.wallet
+    if (point_transaction.count) {
+      dataCount.value = point_transaction.count ? point_transaction.count : point_transaction.length
+      pointsListData.value = point_transaction.results ? point_transaction.results : point_transaction
     }
+    eventBus.emit("renderBuyerAndWallet", wallet)
     ready.value= true
 	})
 };
 
 onMounted(() => {
+  eventBus.on("renderPointsTable", (payload) => {
+    dataCount.value = payload.count ? payload.count : payload.length
+    pointsListData.value = payload.results ? payload.results : payload
+  })
   getPointHistoryListData();
 });
+
+onUnmounted(()=>{
+    eventBus.off("renderPointsTable")
+})
 
 </script>
 
