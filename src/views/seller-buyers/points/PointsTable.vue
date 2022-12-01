@@ -18,7 +18,7 @@
         <tr
           class="intro-x"
           style="line-height: 30px"
-          v-for="(order, index) in orders"
+          v-for="(points_data, index) in pointsListData"
           :key="index"
         >
         <!-- <template v-if="(order.points_earned || order.points_used) !== 0">  -->
@@ -30,9 +30,9 @@
           >
             <template v-if="column.type == 'dateTime'">
 
-              <template v-if="order[column.key]">
+              <template v-if="points_data[column.key]">
                 {{
-                  new Date(order[column.key]).toLocaleDateString("en-us", {
+                  new Date(points_data[column.key]).toLocaleDateString("en-us", {
                     year: "numeric",
                     month: "short",
                     day: "numeric",
@@ -42,39 +42,22 @@
               <template v-else>-</template>
               
             </template>
-            <template v-else-if="column.type == 'float' ">
-              {{ order.currency }}
-              {{
-                (
-                  Math.floor(
-                    order[column.key] * 10 ** order.decimal_places
-                  ) /
-                  10 ** order.decimal_places
-                ).toLocaleString("en-GB")
-              }}
-              {{
-                order.price_unit
-                  ? $t(`global.price_unit.${order.price_unit}`)
-                  : ""
-              }}
-            </template>
-
             <template v-else-if="column.type == 'int' ">
-              {{(order[column.key]).toLocaleString("en-GB")}}
+              {{(points_data[column.key]).toLocaleString("en-GB")}}
             </template>
 
             <template
-              v-else-if="column.key == 'campaign_title'"
+              v-else-if="column.key == 'type'"
             >
-              {{order.campaign?.title}}
+              {{points_data.type}}
             </template>
             
             <template v-else-if="column.key == 'status'">
-              {{ $t(`order_points.${order[column.key]}`) }}
+              {{ $t(`order_points.${points_data[column.key]}`) }}
             </template>
 
             <template v-else>
-              {{ order[column.key] }}
+              {{ points_data[column.key] }}
             </template>
           </td>
         <!-- </template> -->
@@ -102,10 +85,9 @@
 </template>
 
 <script setup>
-import { retrieve_buyer_history } from '@/api_v2/user_subscription';
-import { computed, onMounted, provide, ref, watch, getCurrentInstance } from "vue";
+import { list_buyer_point_history } from '@/api_v2/user_subscription';
+import { computed, onMounted, onUnmounted, provide, ref, watch, getCurrentInstance } from "vue";
 import { useRoute, useRouter } from "vue-router";
-import { buyer_retrieve_order_oid } from "@/api_v2/order";
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import LoadingTable from '@/components/lss-skeleton/table/LoadingTable.vue'
@@ -123,42 +105,51 @@ const currentPage = ref(1);
 const totalPage = ref(1);
 const pageSize = ref(10);
 const dataCount = ref(0);
-const orders = ref([]);
+const pointsListData = ref([]);
 const tableColumns = ref([
   { name: "date", key: "created_at", type: "dateTime" },
-  { name: "change_reason", key: "campaign_title", type: "string" },
-  { name: "earned", key: "points_earned", type: "int" },
-  { name: "used", key: "points_used", type: "int" },
-  { name: "discount", key: "point_discount", type: "float" },
-  { name: "expire_at", key: "point_expired_at", type: "dateTime" },
+  { name: "change_reason", key: "type", type: "string" },
+  { name: "earned", key: "earned", type: "int" },
+  { name: "used", key: "used", type: "int" },
+  { name: "expire_at", key: "expired_at", type: "dateTime" },
 ]);
 
 const changePage = (page) => {
   currentPage.value = page;
-  getOrderHistoryListData();
+  getPointHistoryListData();
 };
 
 const changePageSize = (pageSize) => {
   pageSize.value = pageSize;
-  getOrderHistoryListData();
+  getPointHistoryListData();
 };
 
-const getOrderHistoryListData = () => {
+const getPointHistoryListData = () => {
   ready.value = false
 
-  retrieve_buyer_history(buyer_id, true, currentPage.value, pageSize.value, layoutStore.alert).then(response => {
-    if (response.data.count) {
-      layoutStore.buyer = response.data.results ? response.data.results[0].buyer : response.data[0].buyer
-      dataCount.value = response.data.count ? response.data.count : response.data.length
-      orders.value = response.data.results ? response.data.results : response.data
+  list_buyer_point_history(buyer_id, currentPage.value, pageSize.value, layoutStore.alert).then(response => {
+    let point_transaction = response.data.data
+    let wallet = response.data.wallet
+    if (point_transaction.count) {
+      dataCount.value = point_transaction.count ? point_transaction.count : point_transaction.length
+      pointsListData.value = point_transaction.results ? point_transaction.results : point_transaction
     }
+    eventBus.emit("renderBuyerAndWallet", wallet)
     ready.value= true
 	})
 };
 
 onMounted(() => {
-  getOrderHistoryListData();
+  eventBus.on("renderPointsTable", (payload) => {
+    dataCount.value = payload.count ? payload.count : payload.length
+    pointsListData.value = payload.results ? payload.results : payload
+  })
+  getPointHistoryListData();
 });
+
+onUnmounted(()=>{
+    eventBus.off("renderPointsTable")
+})
 
 </script>
 

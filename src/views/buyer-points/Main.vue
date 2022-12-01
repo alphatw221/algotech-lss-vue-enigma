@@ -32,7 +32,7 @@
         </div>
 
         <div class="box border-2 border-slate-200 w-full">
-            <PointsTable />
+            <PointsTable :userSubscriptionId="walletUserSubscriptionId" :key="walletUserSubscriptionId"/>
         </div>
     </div>
     <DescriptionModal />
@@ -56,16 +56,16 @@ const walletIndex = ref(null)
 
 onMounted(()=>{
   i18n.locale = buyerLayoutStore.userInfo.lang
-  console.log(buyerLayoutStore.userInfo)
 })
 
 const computedNameFirstLetter = computed(()=>{
   var _words = (buyerLayoutStore.userInfo?.name||'').split(' ')
-  if (_words.length<=1) return _words.split('')[0]
+  if (_words.length<=1) return _words[0].split('')[0]
   return _words[_words.length-1].split('')[0]
 })
 
 const changeWallet =(wallet, _walletIndex)=>{
+  console.log("changeWallet")
   walletUserSubscriptionId.value = wallet?.user_subscription?.id||null
   walletIndex.value =_walletIndex
 }
