@@ -76,6 +76,9 @@ export const seller_upgrade = (data, toastify=null) =>{
     return createAxios(toastify).post(`/api/v2/user-subscription/upgrade/`, data);
 }
 
+export const import_customer = (data, toastify=null) =>{
+    return createAxios(toastify).post(`/api/v2/user-subscription/customer/import/`, data);
+}
 
 // ------------------------- DEALER -------------------------------------
 
