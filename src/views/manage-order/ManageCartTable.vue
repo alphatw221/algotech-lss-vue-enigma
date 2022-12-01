@@ -307,14 +307,32 @@ const to_cart_detail = (cart) => {
 }
 
 const copyCartURL = (cart) => {
+    // get_cart_oid(cart.id, layoutStore.alert).then(
+    //     res =>{
+    //     text = `${baseURL}/buyer/cart/${res.data}`;
+    //     navigator.clipboard.writeText(text).then(()=>{
+    //         layoutStore.notification.showMessageToast('copied!')
+    //     })
+    // }
+    // )
+
+
     get_cart_oid(cart.id, layoutStore.alert).then(
         res =>{
-        text = `${baseURL}/buyer/cart/${res.data}`;
-        navigator.clipboard.writeText(text).then(()=>{
-            layoutStore.notification.showMessageToast('copied!')
-        })
-    }
-    )
+
+            if(layoutStore.userInfo.user_subscription?.user_plan?.plugins?.easy_store){
+                navigator.clipboard.writeText(`${baseURL}/buyer/recaptcha/easy_store/${res.data}`).then(()=>{
+                    layoutStore.notification.showMessageToast("copied!")
+                })
+            }else{
+                navigator.clipboard.writeText(`${baseURL}/buyer/cart/${res.data}`).then(()=>{
+                    layoutStore.notification.showMessageToast("copied!")
+                })
+            }
+            
+    })
+
+
 }
 
 // Pagination
