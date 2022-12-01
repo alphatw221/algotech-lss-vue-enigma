@@ -83,6 +83,7 @@ provide("bind[buyerMessageAlert]", (el) => {
 (min-device-width: 769px) and (max-device-width: 769px) {
   .lss-content{
   overflow: hidden;
+  min-height: 90vh;
 }
 }
 </style>

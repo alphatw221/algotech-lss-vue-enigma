@@ -18,7 +18,7 @@
             <div class="flex flex-row gap-5">
                 <div class="flex flex-col w-full">
                     <span> {{$t('buyers.buyer_point.adjust_point_modal.type')}} </span>
-                    <select class="form-control h-[42px]" v-model="point.type"> 
+                    <select class="form-control h-[35px] sm:h-[42px]" v-model="point.type"> 
                         <template v-for="opt in options" :key="opt" > 
                             <option :value="opt.name"> {{opt.name}}</option>
                         </template>

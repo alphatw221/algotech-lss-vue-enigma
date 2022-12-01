@@ -1,5 +1,5 @@
 <template>
-    <div class="tableWrapper mt-4 px-10">
+    <div class="tableWrapper mt-4 px-2 sm:px-10">
       <table class="table">
         <thead>
           <tr>
@@ -63,43 +63,21 @@ const props = defineProps({
     border-bottom: 0 !important;
     position: relative;
     width: auto;
-    padding-left: 50% !important;
+    padding-left: 55% !important;
     text-align: left !important;
     box-shadow: none !important;
     min-height: 28px;
   }
 
   td:before {
+    content: attr(data-content);
     position: absolute;
-    left: 6px;
+    left: 0px;
     width: 45%;
     padding-right: 10px;
     white-space: nowrap;
     font-weight: bold;
     box-shadow: none !important;
-  }
-
-  td:nth-of-type(1):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(2):before {
-    content: attr(data-content);
-    height: 100px;
-  }
-  td:nth-of-type(3):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(4):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(5):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(6):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(6) {
-    min-height: 35px !important;
   }
 }
 </style>
