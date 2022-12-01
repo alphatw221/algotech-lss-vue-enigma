@@ -1,5 +1,5 @@
 <template>
-	<div class="overflow-x-auto h-full sm:h-[62vh]">
+	<div class="overflow-x-auto h-fit sm:h-full">
     <LoadingTable v-if="ready == false" :column="tableColumns" :tableName="'order_history'" /> 
 		<table v-if="ready == true" class="table table-report mt-2 table-auto">
 			<thead>

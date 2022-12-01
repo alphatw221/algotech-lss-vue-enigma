@@ -9,7 +9,7 @@
             v-for="column in tableColumns"
             :key="column.key"
           >
-            {{ $t(`order_points.table.` + column.name) }}
+            {{ $t(`order_points.table_column.` + column.name) }}
           </th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@
             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm"
             v-for="column in tableColumns"
             :key="column.key"
-            :data-content="$t(`order_points.table.` + column.name)"
+            :data-content="$t(`order_points.table_column.` + column.name)"
           >
             <template v-if="column.type == 'dateTime'">
 

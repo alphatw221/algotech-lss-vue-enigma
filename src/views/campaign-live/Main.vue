@@ -1,6 +1,6 @@
 <template>
     <!-- OUTTER BOX -->
-    <div class="flex flex-col md:flex-row gap-3 h-full lg:h-[90vh] mt-10 md:mt-0">
+    <div class="flex flex-col md:flex-row gap-3 h-full lg:h-[88vh] mt-10 md:mt-0">
 
         <!-- BEGIN: Comments -->
         <LiveComments/>
