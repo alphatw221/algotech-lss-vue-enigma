@@ -2,7 +2,7 @@
     <LoadingIcon v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
     
     <div v-else-if="props.buttonName == 'edit'" class="flex">
-        <Button class="flex" type="button" @click="toTwitch">
+        <Button class="flex" @click="toTwitch">
             <span class="inline-block mt-1">{{ $t('settings.platform.switch_account') }} </span>
             <Tippy 
             class="rounded-full w-50" 
@@ -15,11 +15,10 @@
         </Tippy> 
         </Button>
         
-        <Button class="ml-2" type="button" @click="bindPage">{{ $t('settings.platform.edit') }}</Button>
+        <Button class="ml-2" @click="bindPage">{{ $t('settings.platform.edit') }}</Button>
     </div>
 
-    <Button v-else 
-        type="button" class="twitch-login-btn shadow-lg" @click="bindPage">{{ $t('settings.platform.connect_with_twitch') }}</Button>
+    <Button v-else class="twitch-login-btn shadow-lg" @click="bindPage">{{ $t('settings.platform.connect_with_twitch') }}</Button>
     
 </template>
 

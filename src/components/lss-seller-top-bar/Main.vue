@@ -273,7 +273,6 @@ import { useRoute, useRouter } from "vue-router";
 import { useCookies } from "vue3-cookies";
 import dom from "@left4code/tw-starter/dist/js/dom";
 import i18n from '@/locales/i18n';
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const route = useRoute();
 const router = useRouter();
@@ -312,7 +311,6 @@ const languages = ref([
 ])
 
 onMounted(()=>{
-    console.log(sellerLayoutStore.userInfo)
     if(!sellerLayoutStore.userInfo.user_subscription) return
     data.value.lang = sellerLayoutStore.userInfo.lang
 })

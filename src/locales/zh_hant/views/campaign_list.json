@@ -24,7 +24,7 @@
 
     "search_bar":{
         "title": "標題",
-        "search" : "搜尋買家姓名",
+        "search" : "搜尋標題",
         "reset" : "清空"
     },
     "enter_post_id":{

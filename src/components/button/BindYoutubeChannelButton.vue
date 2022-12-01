@@ -1,10 +1,10 @@
 <template>
     <LoadingIcon  v-if="fetchingData" icon="three-dots" color="1a202c" class="absolute w-[60px] h-[60px] body-middle"/>
     <Button v-else-if="props.buttonName == 'edit'" 
-        type="button" @click="bindPage">{{$t('settings.platform.edit')}}</Button>
+          @click="bindPage">{{$t('settings.platform.edit')}}</Button>
 
     <Button v-else 
-        type="button" class="google-login-btn shadow-lg" @click="bindPage">{{$t('settings.platform.connect_with_youtube')}}</Button>
+          class="google-login-btn shadow-lg" @click="bindPage">{{$t('settings.platform.connect_with_youtube')}}</Button>
     
     
 </template>

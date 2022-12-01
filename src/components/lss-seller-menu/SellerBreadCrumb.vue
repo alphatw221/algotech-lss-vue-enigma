@@ -53,7 +53,6 @@ const resolvePath = ()=>{
         isParams = false
     }
     breadCrumb.value = crumb.reverse()
-    console.log(breadCrumb.value)
 }
 
 const getParamsDict = ()=>{

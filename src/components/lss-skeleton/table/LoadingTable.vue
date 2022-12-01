@@ -1,10 +1,10 @@
 <template>
-    <div class="tableWrapper mt-4 px-10">
+    <div class="tableWrapper mt-4">
       <table class="table">
-        <thead>
+        <thead  :style="{ backgroundColor: props.theadColor}" >
           <tr>
             <template v-for="index in props.column.length" :key="index"> 
-              <th :class="{'hidden sm:table-cell': index == 3 ,'hidden md:table-cell': index== 4 ,'hidden xl:table-cell': index > 4}" >{{$t(props.tableName + '.table.'+ props.column[index-1]?.name)}}</th>
+              <th :class="{'hidden sm:table-cell': index == 3 ,'hidden md:table-cell': index== 4 ,'hidden xl:table-cell': index > 4}" >{{$t(props.tableName + '.table_column.'+ props.column[index-1]?.name)}}</th>
             </template>
           </tr>
         </thead>
@@ -12,8 +12,10 @@
           <tr v-for="index in 8 " :key="index">
             <template v-for="index in props.column.length" :key="index"> 
               <td :class="{'hidden sm:table-cell': index == 3 ,'hidden md:table-cell': index== 4 ,'hidden xl:table-cell': index > 4}"
-               :data-content="$t(props.tableName + '.table.'+ props.column[index-1]?.name)" class="loading"><div class="bar"></div></td>
+               :data-content="$t(props.tableName + '.table_column.'+ props.column[index-1]?.name)" class="loading"><div class="bar"></div></td>
             </template>
+            <td :class="{'hidden sm:table-cell': index == 3 ,'hidden md:table-cell': index== 4 ,'hidden xl:table-cell': index > 4}"
+               :data-content="$t(props.tableName + '.table_column.'+ props.column[index-1]?.name)" class="loading"><div class="bar"></div></td>
           </tr>
         </tbody>
       </table>
@@ -21,17 +23,23 @@
     </template>
   
 <script setup>
+import { computed } from "@vue/runtime-core";
+
 
 const props = defineProps({
   column: Array,
   tableName: String,
+  theadColor:{
+    type: String,
+    default: "#fff"
+  },
 });
-
 
 </script>
 
     
 <style scoped>
+
 
 @media only screen and (max-width: 760px),
   (min-device-width: 769px) and (max-device-width: 1024px) {
@@ -59,6 +67,7 @@ const props = defineProps({
   }
 
   td {
+    
     border: none;
     border-bottom: 0 !important;
     position: relative;
@@ -70,6 +79,7 @@ const props = defineProps({
   }
 
   td:before {
+    content: attr(data-content);
     position: absolute;
     left: 6px;
     width: 45%;
@@ -79,27 +89,5 @@ const props = defineProps({
     box-shadow: none !important;
   }
 
-  td:nth-of-type(1):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(2):before {
-    content: attr(data-content);
-    height: 100px;
-  }
-  td:nth-of-type(3):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(4):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(5):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(6):before {
-    content: attr(data-content);
-  }
-  td:nth-of-type(6) {
-    min-height: 35px !important;
-  }
 }
 </style>

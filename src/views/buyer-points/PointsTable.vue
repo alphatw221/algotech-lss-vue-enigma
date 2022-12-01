@@ -9,7 +9,7 @@
             v-for="column in tableColumns"
             :key="column.key"
           >
-            {{ $t(`order_points.table.` + column.name) }}
+            {{ $t(`order_points.table_column.` + column.name) }}
           </th>
         </tr>
       </thead>
@@ -25,7 +25,7 @@
             class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm"
             v-for="column in tableColumns"
             :key="column.key"
-            :data-content="$t(`order_points.table.` + column.name)"
+            :data-content="$t(`order_points.table_column.` + column.name)"
           >
             <template v-if="column.type == 'dateTime'">
 
@@ -107,7 +107,7 @@ import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order";
 
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
-import { get_user_subscription_facebook_pages } from "../../api/user_subscription";
+
 import LoadingTable from "./LoadingTable.vue";
 
 const layoutStore = useLSSBuyerLayoutStore();

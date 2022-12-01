@@ -109,7 +109,7 @@
     import facebook_platform from "/src/assets/images/lss-img/facebook.png"
     import instagram_platform from "/src/assets/images/lss-img/instagram.png"
     import { create_auto_response, update_auto_response } from "@/api_v2/auto_response";
-    import {get_user_subscription_facebook_pages, get_user_subscription_instagram_profiles} from "@/api/user_subscription"
+
     import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
     import { useVuelidate } from "@vuelidate/core";
     import { required } from "@vuelidate/validators";
@@ -138,14 +138,10 @@
     
     let PagesData = ref([])
     onMounted(() => {
-        get_user_subscription_facebook_pages(layoutStore.alert).then(res=>{
-            PagesData.value = res.data
-            return get_user_subscription_instagram_profiles()
-        }).then(res=>{
-            PagesData.value = PagesData.value.concat(res.data);
-        }).catch(err=> {
-            console.log(err)
-        })
+        console.log(layoutStore.userInfo?.user_subscription)
+        PagesData.value = layoutStore.userInfo?.user_subscription?.facebook_pages
+        PagesData.value = PagesData.value.concat(layoutStore.userInfo?.user_subscription?.instagram_profiles);
+
         eventBus.on("showCreateAutoreply", () => {showModal.value = true; action.value = 'CREATE' })
         eventBus.on("showEditAutoreply", (payload) => {
             keyinInfo.value = payload

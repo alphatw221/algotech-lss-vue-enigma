@@ -1,12 +1,17 @@
 <template>
 <div class="flex outterContainer overflow-auto bg-secondary">
       <!-- BEGIN: Side Menu -->
+      <div class="sidebar_container absolute z-[52] top-[110px] hidden xl:block" 
+        :class="[{'left-[106px]' : closeSidebar},{'left-[260px]' : !closeSidebar}]" @click="closeSidebar = !closeSidebar">
+        <ChevronRightIcon class="sidebar_icon" :class="{'hidden' : !closeSidebar}" /> 
+        <ChevronLeftIcon class="sidebar_icon" :class="{'hidden' : closeSidebar}" /> 
+      </div>
       <nav class="side-nav relative" :class="{'side-nav--simple' : closeSidebar }" >
         <!-- <MenuIcon class="absolute z-[52] top-[60px] left-[225px] h-6 w-6" icon="sidebar" color="#333333" />  -->
-        <div class="sidebar_container absolute z-[52] top-[60px] hidden lg:block" 
+        <!-- <div class="sidebar_container absolute z-[52] top-[60px] hidden lg:block" 
           :class="[{'left-[35px]' : closeSidebar},{'change left-[220px]' : !closeSidebar}]" @click="closeSidebar = !closeSidebar">
           <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div>
-        </div>
+        </div> -->
         <ul :class="{'notSimple' : !closeSidebar }">
           <div class="top-[115px] z-[51] left-[20px] pl-3 flex fixed my-3 mx-auto py-1 w-fit rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
             :class="[{'bg-slate-100': isCreateCampaign},{'xl:w-[220px]': !closeSidebar}]"
@@ -137,7 +142,6 @@
           <button class="fixed ml-2 text-white rounded-lg btn btn-danger bottom-5 border-0 border-red-900 shadow-lg"
               @click="router.push('/seller/change-plan')"
               >
-              <!-- <SimpleIcon icon="upgrade" color="white" class="mr-0 xl:mx-2 h-5"/> -->
               <font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 h-5 m-1" :class="{'xl:mx-2': !closeSidebar}"/>
               <span class="hidden text-lg"
               :class="{'xl:block': !closeSidebar}">{{$t('layout.upgrade')}}  </span>  </button>
@@ -227,26 +231,20 @@ const isCreateCampaign = computed(()=>{
 }
 
 .sidebar_container {
-  display: inline-block;
   cursor: pointer;
+  height: 70px;
+  width: 20px;
+  border-radius: 0px 12px 12px 0px;
+  background-color: white;
 }
 
-.bar1, .bar2, .bar3 {
-  width: 35px;
-  height: 5px;
-  background-color: #475569;
-  margin: 6px 0;
+.sidebar_icon{
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  top: 20px;
+  right: -4px;
   transition: 0.4s;
-}
-
-.change .bar1 {
-  transform: translate(0, 11px) rotate(-45deg);
-}
-
-.change .bar2 {opacity: 0;}
-
-.change .bar3 {
-  transform: translate(0, -11px) rotate(45deg);
 }
 
 @media only screen and (max-width: 760px),
@@ -254,7 +252,7 @@ const isCreateCampaign = computed(()=>{
   .outterContainer{
   /* height: calc(100vh - 70px); */
   height:90vh;
-}
+  }
 }
 
 </style>

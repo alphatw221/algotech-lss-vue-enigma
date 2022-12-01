@@ -1,4 +1,10 @@
 export const checkReachChannelLimit = (layoutStore, platform) => {
+    if (layoutStore.bindedPlatform.length === 0){
+        return false
+    }
+    if (!layoutStore.userInfo.user_subscription.user_plan?.activated_platform) {
+        return true
+    }
     return !layoutStore.bindedPlatform.includes(platform) && layoutStore.userInfo.user_subscription.channel_limit != 0 && layoutStore.bindedPlatform.length >= layoutStore.userInfo.user_subscription.channel_limit
 }
 

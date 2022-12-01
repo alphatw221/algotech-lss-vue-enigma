@@ -235,8 +235,9 @@
                     <input class="form-check-input mr-5 flex-0 w-4" 
                       type="radio"
                       :name="'pickup-switch-' + index" 
-                      v-model="shipping_option_index_computed"
                       :value="index"
+                      v-model="shipping_option_index_computed" 
+                      @click="pickup_date_range(index)"
                       />
 
                       <div class="flex flex-col sm:flex-row flex-0 w-full"> 
@@ -246,8 +247,8 @@
                               option.address
                           }}</label>
                         </div> 
- 
-                        <template v-if=" !['',null,undefined,' '].includes(option.start_at) && !['',null,undefined,' '].includes(option.end_at)"> 
+
+                        <template v-if="option.start_at !== null && option.end_at !== null"> 
                           <label class="form-check-label flex-0 my-auto">{{new Date(option.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
                             +'~'+
                             new Date(option.end_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})}}</label>
@@ -399,10 +400,6 @@ const shipping_option_index_computed = computed({
   get:()=>{
     return shipping_info.value.shipping_option_index
   },set:index=>{
-    shipping_info.value.shipping_date_time = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
-    date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
-    date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
-    pickup_select_index.value = index
     shipping_info.value.shipping_option_index=index
     shoppingCartStore.shipping_info.shipping_option_index=index
     shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address : ''
@@ -429,6 +426,13 @@ const shipping_method_computed = computed({
   }})
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
+
+const pickup_date_range = (index) =>{
+  date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
+  date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
+  pickup_select_index.value = index
+  // console.log(shoppingCartStore.cart.campaign.meta_logistic)
+}
 
 onMounted(()=>{
   if(!isAnonymousUser){

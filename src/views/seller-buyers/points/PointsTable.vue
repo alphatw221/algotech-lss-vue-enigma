@@ -1,7 +1,8 @@
 <template>
-  <LoadingTable  v-if="ready == false" :column="tableColumns" :tableName="'order_points'"/> 
-  <div v-else-if="ready == true" class="overflow-x-auto h-full">
-    <table class="table table-report mt-2 table-auto">
+  <LoadingTable  v-if="ready == false" :column="tableColumns" :tableName="'order_points'" /> 
+  
+  <div v-else-if="ready == true" class="h-full">
+    <table class="table table-report mt-2">
       <thead>
         <tr>
           <th
@@ -9,7 +10,7 @@
             v-for="column in tableColumns"
             :key="column.key"
           >
-            {{ $t(`order_points.table.` + column.name) }}
+            {{ $t(`order_points.table_column.` + column.name) }}
           </th>
         </tr>
       </thead>
@@ -22,10 +23,10 @@
         >
         <!-- <template v-if="(order.points_earned || order.points_used) !== 0">  -->
           <td
-            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-32 2xl:text-sm"
+            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:min-w-32"
             v-for="column in tableColumns"
             :key="column.key"
-            :data-content="$t(`order_points.table.` + column.name)"
+            :data-content="$t(`order_points.table_column.` + column.name)"
           >
             <template v-if="column.type == 'dateTime'">
 
@@ -107,7 +108,7 @@ import { useRoute, useRouter } from "vue-router";
 import { buyer_retrieve_order_oid } from "@/api_v2/order";
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
-import LoadingTable from "./LoadingTable.vue";
+import LoadingTable from '@/components/lss-skeleton/table/LoadingTable.vue'
 
 const layoutStore = useLSSSellerLayoutStore();
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;

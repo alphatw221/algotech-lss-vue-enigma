@@ -24,7 +24,7 @@
 
     "search_bar":{
         "title": "标题",
-        "search" : "搜寻买家姓名",
+        "search" : "搜寻标题",
         "reset" : "清空"
     },
     "enter_post_id":{

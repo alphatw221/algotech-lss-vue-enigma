@@ -34,7 +34,7 @@
         </div>
       </div>
     </Notification>
-<!-- store.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
+<!-- sellerLayoutStore.campaignAlert.buttonToast("Message1","Message2 with Function","Message3",Function) -->
     <Notification refKey="sellerCampaignAlert" borderColor="notifyCamp" >
       <div  class="flex notifyCamp">
         <div class="relative px-3 top-5 w-12">
@@ -70,26 +70,34 @@ import LSSSellerMenu from "@/components/lss-seller-menu/Main.vue";
 import ThemeModeSwitcher from "@/components/theme-mode-switcher/Main.vue";
 import CommentCaptureWindow from "@/views/comment-capture-window/Main.vue"
 import { useCookies } from "vue3-cookies";
-import { provide, onMounted,ref, computed, watch, getCurrentInstance } from "vue"
+import { provide, onMounted, onBeforeMount, ref, computed, watch, getCurrentInstance } from "vue"
 import { useRouter ,useRoute} from "vue-router";
+import { unbind_platform_all } from "@/api_v2/user_subscription"
 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
 
 const route = useRoute();
 const router = useRouter();
-const store = useLSSSellerLayoutStore();
+const sellerLayoutStore = useLSSSellerLayoutStore();
 const { cookies } = useCookies()
 const accessToken = cookies.get('access_token')
 const app_i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
 const campaign_id = ref('')
 const showCaptureWindow = ref(true)
+const subscriptionPlatformField = ref({
+    "facebook": "facebook_pages",
+    "instagram": "instagram_profiles",
+    "youtube": "youtube_channels",
+    "twitch": "twitch_channels",
+    "tiktok": "tiktok_accounts"
+})
 
 const checkCampaignTime = (message) =>{
   if(message.remind_time === '15 mins'){ 
-    store.campaignAlert.buttonToast(`${i18n.global.t('layout.upcoming_campaign.notification_text1')} ${message.title} ${i18n.global.t('layout.upcoming_campaign.notification_text2')} ${i18n.global.t('layout.upcoming_campaign.time_15min')}${i18n.global.t('layout.upcoming_campaign.notification_text3')}`,`${i18n.global.t('layout.upcoming_campaign.join_now')}!!`,`${i18n.global.t('layout.upcoming_campaign.dismiss')}`,forPath)
+    sellerLayoutStore.campaignAlert.buttonToast(`${i18n.global.t('layout.upcoming_campaign.notification_text1')} ${message.title} ${i18n.global.t('layout.upcoming_campaign.notification_text2')} ${i18n.global.t('layout.upcoming_campaign.time_15min')}${i18n.global.t('layout.upcoming_campaign.notification_text3')}`,`${i18n.global.t('layout.upcoming_campaign.join_now')}!!`,`${i18n.global.t('layout.upcoming_campaign.dismiss')}`,forPath)
   } else { 
-    store.campaignAlert.buttonToast(`${i18n.global.t('layout.upcoming_campaign.notification_text1')} ${message.title} ${i18n.global.t('layout.upcoming_campaign.notification_text2')} ${i18n.global.t('layout.upcoming_campaign.time_1hour')}${i18n.global.t('layout.upcoming_campaign.notification_text3')}`,`${i18n.global.t('layout.upcoming_campaign.join_now')}!!`,`${i18n.global.t('layout.upcoming_campaign.dismiss')}`,forPath)
+    sellerLayoutStore.campaignAlert.buttonToast(`${i18n.global.t('layout.upcoming_campaign.notification_text1')} ${message.title} ${i18n.global.t('layout.upcoming_campaign.notification_text2')} ${i18n.global.t('layout.upcoming_campaign.time_1hour')}${i18n.global.t('layout.upcoming_campaign.notification_text3')}`,`${i18n.global.t('layout.upcoming_campaign.join_now')}!!`,`${i18n.global.t('layout.upcoming_campaign.dismiss')}`,forPath)
   }
 }
 
@@ -97,7 +105,7 @@ const forPath = () =>{
   router.push({ name: 'campaign-list', query: { type: 'startCampaign', campaign: campaign_id.value }})
 }
 // const toast = () =>{
-//   store.campaignAlert.buttonToast("I have a upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
+//   sellerLayoutStore.campaignAlert.buttonToast("I have a upcoming Campaign in 1 hour","Join now!!","Remind me Later",forPath)
 // }
 
 const initWebSocketConnection =()=> {
@@ -130,19 +138,55 @@ const initWebSocketConnection =()=> {
 
 
 const setLanguage = ()=>{
-  if(store.userInfo.user_subscription){
-    app_i18n.locale=store.userInfo.lang
-    // i18n.global.locale = store.userInfo.user_subscription.lang
+  if(sellerLayoutStore.userInfo.user_subscription){
+    app_i18n.locale=sellerLayoutStore.userInfo.lang
+    // i18n.global.locale = sellerLayoutStore.userInfo.user_subscription.lang
 
   }
 }
 
 watch(
-  computed(()=>store.userInfo),
+  computed(()=>sellerLayoutStore.userInfo),
   ()=>{setLanguage()}
   ,{deep:true}
 )
-  
+
+const addBindedPlatformToStore = () => {
+    let platforms = []
+    Object.entries(subscriptionPlatformField.value).forEach(([Key, value]) => {
+        if (sellerLayoutStore.userInfo.user_subscription[value].length) {
+            platforms.push(Key)
+        }
+    })
+    sellerLayoutStore.bindedPlatform = platforms
+}
+
+const removeNotActivatedPlatform = () => {
+  const notActivatedPlatform = sellerLayoutStore.bindedPlatform.filter(value => !sellerLayoutStore.userInfo.user_subscription.user_plan?.activated_platform.includes(value))
+  console.log(notActivatedPlatform)
+  if (notActivatedPlatform.length) {
+    unbind_platform_all({"unbind_platforms": notActivatedPlatform}, sellerLayoutStore.alert)
+    .then(response=> {
+      console.log(response.data)
+      sellerLayoutStore.bindedPlatform = sellerLayoutStore.bindedPlatform.filter(value => !response.data.data.includes(value))
+    })
+  }
+}
+watch(computed(() => sellerLayoutStore.userInfo.user_subscription), () => {
+  console.log("watch")
+
+  addBindedPlatformToStore()
+  removeNotActivatedPlatform()
+}, {deep:true})
+
+onBeforeMount(()=>{
+    if (!sellerLayoutStore.userInfo.user_subscription.user_plan?.activated_platform) {
+      sellerLayoutStore.userInfo.user_subscription.user_plan['activated_platform'] = []
+    }
+    addBindedPlatformToStore()
+    removeNotActivatedPlatform()
+})
+
 onMounted(() => {
   setLanguage();
   initWebSocketConnection();
@@ -153,25 +197,25 @@ const toTop=()=>{
 }
 
 provide("bind[sellerMessageNotification]", (el) => {
-  store.notification = el;
+  sellerLayoutStore.notification = el;
   // el.showMessageToast('test notification')
 });
 provide("bind[sellerMessageAlert]", (el) => {
-  store.alert = el;
+  sellerLayoutStore.alert = el;
   // el.showMessageToast('test alert')
 });
 provide("bind[sellerApiErrorAlert]", (el) => {
-  store.apiErrorAlert = el;
+  sellerLayoutStore.apiErrorAlert = el;
 
   // el.showMessageToast('test alert')
 });
 provide("bind[sellerCampaignAlert]", (el) => {
-  store.campaignAlert = el;
+  sellerLayoutStore.campaignAlert = el;
 
   // el.showMessageToast('test alert')
 });
 provide("bind[floatingVideoToast]", (el) => {
-  store.floatingVideo = el;
+  sellerLayoutStore.floatingVideo = el;
 
   // el.showMessageToast('test alert')
 });

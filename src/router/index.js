@@ -486,8 +486,8 @@ const routes = [
       {  
         path: "cart/:cart_oid?",
         name: "buyer-shopping-cart-detail-page",
-        beforeEnter: (to, from)=>{
-          const result = redirectLoginPageMiddleware(to, from)
+        beforeEnter: async (to, from)=>{
+          const result = await redirectLoginPageMiddleware(to, from)
           if (result !== true) {
             return result
           }

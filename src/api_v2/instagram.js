@@ -1,10 +1,13 @@
 import { instagramAxios } from "@/libs/axiosClient";
 import { createAxiosWithoutInterceptor, createAxios } from "@/libs/axiosClient";
 
-export const get_ig_live_media = (pageID, pageToken) => {
-    return instagramAxios(pageToken).get(`/${pageID}/live_media?fields=id,media_url,username`)
+export const get_ig_live_media = (platform_id, limit='', toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/instagram-profile/${platform_id}/live_media?limit=${limit}`)
 }
 
+export const get_ig_media = (platform_id, limit='', toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/instagram-profile/${platform_id}/media?limit=${limit}`)
+}
 
 export const check_instagram_profile_token_valid = (platform_id) => {
     return createAxiosWithoutInterceptor().get(`/api/v2/instagram-profile/${platform_id}/token/check/`)
@@ -29,3 +32,4 @@ export const check_instagram_profile_post_exist = (platform_id, media_id, toasti
 export const get_ig_profile_picture = (platform_id) => {
     return createAxiosWithoutInterceptor().get(`/api/v2/instagram-profile/${platform_id}/picture/`)
 }
+

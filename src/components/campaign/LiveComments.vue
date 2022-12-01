@@ -1,11 +1,11 @@
 <template>
     <!-- BEGIN: Comments -->
-        <TabGroup :selectedIndex="1" v-if="ready"
-            class="box mt-2 max-h-screen w-full 
-                md:w-1/2 
-                2xl:w-1/3">
-        <div class="flex flex-col h-full">
-            <div class="flex flex-none h-14">
+    <div
+        class="box mt-2 max-h-screen w-full 
+            md:w-1/2 
+            2xl:w-1/3
+            flex flex-col h-full gap-2">
+            <div class="flex flex-0 h-10 w-full">
                 <h2 class="my-auto ml-5 mr-auto text-lg font-medium">
                     {{campaignDetailStore.campaign.title}}
                 </h2>
@@ -43,12 +43,12 @@
                             <PlatformIcon icon="yt" class="fill-primary pl-1" />
                         </button>
                         <!-- <PlatformIcon icon="twitch" class="fill-primary pl-1" />
-                             <PlatformIcon icon="tiktok" class="fill-primary pl-1" />
+                            <PlatformIcon icon="tiktok" class="fill-primary pl-1" />
                         </button> -->
                     </div>
                 </div>
             </div>
-            <AccordionGroup class="flex-none accordion-boxed h-fit">
+            <AccordionGroup class="flex-0 accordion-boxed h-fit w-full" >
                 <AccordionItem class="h-auto">
                     <Accordion class="rounded-lg bg-primary">
                         <div class="flex justify-end w-full"> <PlusIcon class="mx-5 -mt-2 text-white" /> </div>
@@ -90,99 +90,94 @@
                     </AccordionPanel>
                 </AccordionItem>
             </AccordionGroup>
+            <TabGroup  class="flex-1 flex flex-col h-[55%] w-full gap-2" :selectedIndex="1" v-if="ready">
+                <div class="flex flex-0">
+                    <h2 class="my-auto ml-5 mr-auto text-lg font-medium leading-4">
+                        {{$t(`campaign_live.comment.${listViewTitle}`)}}
+                    </h2>
+                    <div class="my-auto mr-5">
+                        <TabList class="nav-pills">
+                            <Tab class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" @click="setListViewTitle('comments_summarizer')"
+                            >   
+                                <Comments icon="bot" />
+                            </Tab>
 
+                            <Tab class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" @click="setListViewTitle('all_comments')" 
+                            >
+                                <Comments icon="all" />
+                            </Tab>
 
-            <div class="flex flex-none h-fit">
-                <h2 class="my-auto ml-5 mr-auto text-lg font-medium leading-4">
-                    {{$t(`campaign_live.comment.${listViewTitle}`)}}
-                </h2>
-                <div class="my-auto mr-5">
-                    <TabList class="nav-pills">
-                        <Tab class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" @click="setListViewTitle('comments_summarizer')"
-                        >   
-                            <Comments icon="bot" />
-                        </Tab>
-
-                        <Tab class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" @click="setListViewTitle('all_comments')" 
-                        >
-                            <Comments icon="all" />
-                        </Tab>
-
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('facebook_comments')"
-                        >
-                            <Comments icon="fb" />
-                        </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('instagram_comments')"
-                        >
-                            <Comments icon="ig" /> 
-                        </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('youtube_comments')"
-                        >
-                            <Comments icon="yt" />
-                        </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('twitch_comments')"
-                        >
-                            <Comments icon="twitch" />
-                        </Tab>
-                        <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('tiktok_comments')"
-                        >
-                            <Comments icon="tiktok" />
-                        </Tab>
-                    </TabList>
+                            <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('facebook_comments')"
+                            >
+                                <Comments icon="fb" />
+                            </Tab>
+                            <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('instagram_comments')"
+                            >
+                                <Comments icon="ig" /> 
+                            </Tab>
+                            <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('youtube_comments')"
+                            >
+                                <Comments icon="yt" />
+                            </Tab>
+                            <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('twitch_comments')"
+                            >
+                                <Comments icon="twitch" />
+                            </Tab>
+                            <Tab  class="w-8 h-8 pl-0 pr-1 mt-1 relative" tag="button" v-if="route.query.status=='history'"  @click="setListViewTitle('tiktok_comments')"
+                            >
+                                <Comments icon="tiktok" />
+                            </Tab>
+                        </TabList>
+                    </div>
                 </div>
-            </div>
-            
+                <div class="mx-3 mb-3 overflow-y-auto bg-white grow scrollbar-hidden">
+                    <TabPanels>
 
-            <div class="mx-3 mb-3 overflow-y-auto bg-white grow h-fit scrollbar-hidden">
-                <TabPanels>
+                        <TabPanel  :class="'all'" class="relative bg-white">
+                            <div class="mt-1 h-fit" >
+                                <CommentListView :platformName="'commentSummarize'"  />
+                            </div>
+                        </TabPanel>
 
-                    <TabPanel  :class="'all'" class="relative bg-white">
-                        <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'commentSummarize'"  />
-                        </div>
-                    </TabPanel>
+                        <TabPanel  :class="'all'" class="relative bg-white">
+                            <div class="mt-1 h-fit" >
+                                <CommentListView :platformName="'all'"  />
+                            </div>
+                        </TabPanel>
 
-                    <TabPanel  :class="'all'" class="relative bg-white">
-                        <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'all'"  />
-                        </div>
-                    </TabPanel>
+                        <TabPanel :class="'facebook'" v-if="route.query.status=='history'">
+                            <div class="mt-1 h-fit" >
+                                <CommentListView :platformName="'facebook'"/>
+                            </div>
+                        </TabPanel>
+                        
+                        <TabPanel :class="'instagram'" v-if="route.query.status=='history'">
+                            <div class="mt-1 h-fit" >
+                                <CommentListView :platformName="'instagram'"/>
+                            </div>
+                        </TabPanel>
 
-                    <TabPanel :class="'facebook'" v-if="route.query.status=='history'">
-                        <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'facebook'"/>
-                        </div>
-                    </TabPanel>
-                    
-                    <TabPanel :class="'instagram'" v-if="route.query.status=='history'">
-                        <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'instagram'"/>
-                        </div>
-                    </TabPanel>
+                        <TabPanel :class="'youtube'" v-if="route.query.status=='history'">
+                            <div class="mt-1 h-fit" >
+                                <CommentListView :platformName="'youtube'"/>
+                            </div>
+                        </TabPanel>
 
-                    <TabPanel :class="'youtube'" v-if="route.query.status=='history'">
-                        <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'youtube'"/>
-                        </div>
-                    </TabPanel>
+                        <TabPanel :class="'twitch'" v-if="route.query.status=='history'">
+                            <div class="mt-1 h-fit" >
+                                <CommentListView :platformName="'twitch'"/>
+                            </div>
+                        </TabPanel>
 
-                    <TabPanel :class="'twitch'" v-if="route.query.status=='history'">
-                        <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'twitch'"/>
-                        </div>
-                    </TabPanel>
-
-                     <TabPanel :class="'tiktok'" v-if="route.query.status=='history'">
-                        <div class="mt-1 h-fit" >
-                            <CommentListView :platformName="'tiktok'"/>
-                        </div>
-                    </TabPanel>
-
-                </TabPanels>
-            </div>
-        </div>
-            
-    </TabGroup>
+                        <TabPanel :class="'tiktok'" v-if="route.query.status=='history'">
+                            <div class="mt-1 h-fit" >
+                                <CommentListView :platformName="'tiktok'"/>
+                            </div>
+                        </TabPanel>
+                    </TabPanels>
+                </div>
+            </TabGroup>
+    </div>
     <!-- END: comments -->
 </template>
 
