@@ -34,6 +34,7 @@ import product from './models/product.json'
 import cart from './models/cart.json'
 import discount_code from './models/discount_code.json'
 import buyers from './views/buyers.json'
+import point_transaction from './models/point_transaction'
 
 import i from './package/iview.json'
 
@@ -79,6 +80,7 @@ export default {
     cart,
     discount_code,
     buyers,
+    point_transaction,
 
     //package
     i
