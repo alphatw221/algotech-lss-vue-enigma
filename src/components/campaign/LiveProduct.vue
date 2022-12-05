@@ -163,7 +163,6 @@
 
 import { seller_list_campaign_product } from '@/api_v2/campaign_product';
 import { seller_toggle_campaign_product_active, seller_toggle_campaign_product_overbook } from '@/api_v2/campaign_product';
-// import AddProductFromStock from './modals/AddProductFromStockModal.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
 import { computed, onMounted, ref, watch, onUnmounted, getCurrentInstance } from "vue";

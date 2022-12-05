@@ -2,8 +2,15 @@
 	<!-- BEGIN Container -->
 	<div :class="{'p-4 box': templateInModal !=true}">
 		<div class="flex flex-row items-center h-fit lg:mt-3 pb-4">
-			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}}</h2>
-
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}} from</h2>
+			<select 
+				class="form-select ml-2 h-[35px] sm:h-[42px] w-[150px]"
+				v-model="selectedStockUserSubscriptionId"
+				@change="getSubscriptionStock()"
+			>
+				<option :value="''">{{$t(`assign_product.stock_origin.own`)}}</option>
+				<option v-for="subscriptoin,index in layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscriptoin.user_subscription_id">{{ subscriptoin.name }}</option>
+			</select>
 			<!-- <FileUploadButton 
 				class="ml-auto mx-1 text-sm sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-rounded text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] border-[2px] border-slate-100 shadow-lg"
 				button_id="import_campaign_product"
@@ -443,7 +450,7 @@ const dataCount = ref(0)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
-
+const selectedStockUserSubscriptionId = ref('')
 const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
@@ -664,8 +671,9 @@ const filterProducts = ()=>{
 const search = () => {
 	console.log('selectedProductDict')
 	console.log(selectedProductDict.value)
-	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
+	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
+		_support_stock_user_subscription_id=selectedStockUserSubscriptionId.value,
 		_pageSize=pageSize.value,
 		_currentPage=currentPage.value, 
 		_searchColumn=searchField.value, 
@@ -731,7 +739,7 @@ const submitData = ()=>{
         return
     }
 	console.log(selectedProducts.value)
-	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value, layoutStore.alert).then(res=>{
+	seller_bulk_create_campaign_products(route.params.campaign_id, selectedStockUserSubscriptionId.value, selectedProducts.value, layoutStore.alert).then(res=>{
 		if(props.templateInModal){
 			campaignDetailStore.campaignProducts = res.data
 			
@@ -789,6 +797,12 @@ const importCampaignProduct = file =>{
 		}
 		
     })
+}
+
+const getSubscriptionStock = () => {
+	currentPage.value = 1
+	search()
+	console.log(selectedStockUserSubscriptionId.value)
 }
 </script>
 

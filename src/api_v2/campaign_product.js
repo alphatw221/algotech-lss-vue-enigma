@@ -16,8 +16,8 @@ export const seller_create_campaign_products = (campaign_id, data, toastify=null
     return createAxios(toastify).post(`/api/v2/campaign-product/seller/create/?campaign_id=${campaign_id}`, data)
 }
 
-export const seller_bulk_create_campaign_products = (campaign_id, data, toastify=null) => {
-    return createAxios(toastify).post(`/api/v2/campaign-product/seller/create/bulk/?campaign_id=${campaign_id}`, data)
+export const seller_bulk_create_campaign_products = (campaign_id, support_stock_user_subscription_id, data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/campaign-product/seller/create/bulk/?campaign_id=${campaign_id}&support_stock_user_subscription_id=${support_stock_user_subscription_id}`, data)
 }
 
 export const seller_list_campaign_product = (campaign_id, type, toastify=null) => {

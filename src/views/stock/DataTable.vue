@@ -294,9 +294,10 @@ onUnmounted(()=>{
 const search = ()=>{
 	showCommentLoding.value = true
 	stockProducts.value = []
-	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _categoryID, _exclude, _sortBy, _toastify;
+	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _categoryID, _exclude, _sortBy, _toastify;
 
 	search_product(
+		_support_stock_user_subscription_id="",
 		_pageSize=pageSize.value, 
 		_currentPage=currentPage.value, 
 		_searchColumn=searchColumn.value, 
