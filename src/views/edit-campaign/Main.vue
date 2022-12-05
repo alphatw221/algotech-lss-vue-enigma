@@ -54,7 +54,7 @@
 				</div>
 			</div>
 
-			<div class="col-span-12 flex items-center justify-between py-3 mx-1 mt-5 leading-5 border-2 rounded-md border-slate-200">
+			<div class="col-span-12 flex items-center justify-between py-3 mt-5 leading-5 border-2 rounded-md border-slate-200">
 				<h3 class="inline-flex my-auto ml-2 leading-5 align-middle md:ml-3 text-lg font-medium">
 					{{$t('edit_campaign.connected_platform')}}
 				</h3>
@@ -104,78 +104,82 @@
 			</div>
 		</div>
 
-		<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+		<div v-show="sellerStore.userInfo.user_subscription.type !== 'kol'">
 
-			<div class="flex mb-3 form-label text-base font-medium">
-				<div> {{$t("settings.localization.currency_symbol")}} </div>
-			</div>
-			<div class="flex my-1 ">
-				<TomSelect v-model="campaignData.currency" :options="{
-							placeholder: $t('settings.localization.choose_currency_symbol'),
-							}" class="w-full">
-					<option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
-				</TomSelect>
-			</div>
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
-			</div>
-			<div class="flex my-1">
-				<TomSelect v-model="campaignData.lang" :options="{
-							placeholder: $t('settings.localization.choose_language'),
-							}" class="w-full">
-					<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
-				</TomSelect>
+			<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+
+				<div class="flex mb-3 form-label text-base font-medium">
+					<div> {{$t("settings.localization.currency_symbol")}} </div>
+				</div>
+				<div class="flex my-1 ">
+					<TomSelect v-model="campaignData.currency" :options="{
+								placeholder: $t('settings.localization.choose_currency_symbol'),
+								}" class="w-full">
+						<option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
+					</TomSelect>
+				</div>
+				<div class="flex my-3 mt-5 form-label text-base font-medium">
+					<div class="mr-5"> {{$t("settings.localization.buyer_language")}}</div>
+				</div>
+				<div class="flex my-1">
+					<TomSelect v-model="campaignData.lang" :options="{
+								placeholder: $t('settings.localization.choose_language'),
+								}" class="w-full">
+						<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
+					</TomSelect>
+				</div>
+
+				<div class="flex my-3 mt-5 form-label text-base font-medium">
+					<div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
+				</div>
+
+				<div class="flex my-1">
+					<TomSelect v-model="campaignData.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
+						<option :value="option.value" v-for="(option,index) in priceUnitOptions" :key="index">{{$t(`settings.localization.priceOptions.${option.key}`)}}</option>
+					</TomSelect>
+				</div>
+
+				<div class="flex my-3 mt-5 form-label text-base font-medium">
+					<div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
+				</div>
+				<div class="flex my-1">
+					<TomSelect v-model="campaignData.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-full">
+						<option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
+					</TomSelect>
+				</div>
 			</div>
 
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class="mr-5"> {{$t("settings.localization.price_unit")}}</div>
-			</div>
-
-			<div class="flex my-1">
-				<TomSelect v-model="campaignData.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
-					<option :value="option.value" v-for="(option,index) in priceUnitOptions" :key="index">{{$t(`settings.localization.priceOptions.${option.key}`)}}</option>
-				</TomSelect>
-			</div>
-
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
-			</div>
-			<div class="flex my-1">
-				<TomSelect v-model="campaignData.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-full">
-					<option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
-				</TomSelect>
-			</div>
-		</div>
-
-		<DeliveryForm 
-			:campaign="campaignData"
-			:v="v"
-		/>
-
-		<PaymentForm 
-			:campaign="campaignData"
-			:directPaymentImages="directPaymentImages"
-			:v="v"
-		/> 
-		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
-			<PointsSettings 
-				:meta_point="campaignData.meta_point"
+			<DeliveryForm 
+				:campaign="campaignData"
 				:v="v"
 			/>
-		</div>
 
-		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
-			<MessageSettings 
-				:meta_reply="campaignData.meta_reply"
+			<PaymentForm 
+				:campaign="campaignData"
+				:directPaymentImages="directPaymentImages"
 				:v="v"
-			/>
-		</div>
-		
-		
-		<NotesForm :campaignNotes="campaignNotes"/>
+			/> 
+			<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+				<PointsSettings 
+					:meta_point="campaignData.meta_point"
+					:v="v"
+				/>
+			</div>
 
-		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 px-10 py-10">
-			<button class="z-50 w-32 bg-white btn dark:border-darkmode-400 " @click="$router.push({ name: 'campaign-list' })">
+			<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+				<MessageSettings 
+					:meta_reply="campaignData.meta_reply"
+					:v="v"
+				/>
+			</div>
+			
+			
+			<NotesForm :campaignNotes="campaignNotes"/>
+
+		</div>
+
+		<div class="box col-span-12 flex justify-end shadow-none -mt-5 lg:mx-20 lg:px-40 px-10 py-10">
+			<button class=" w-32 bg-white btn dark:border-darkmode-400 " @click="$router.push({ name: 'campaign-list' })">
 				{{$t('edit_campaign.cancel')}}
 			</button>
 			<button class="w-32 ml-5 mr-4 shadow-md btn btn-primary" @click="updateCampaign()">

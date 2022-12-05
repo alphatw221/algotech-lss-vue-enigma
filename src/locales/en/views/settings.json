@@ -128,7 +128,7 @@
         "payment":"Payment"
     },
     "notes":{
-        "title":"Shopping Cart settings",
+        "title":"Notes Settings",
         "notes":"General",
         "delivery_note":"Delivery Note",
         "special_note":"Special Note",

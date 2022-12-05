@@ -17,7 +17,8 @@
         "lite":"Lite",
         "standard":"Standard",
         "premium":"Premium",
-        "dealer":"Dealer"
+        "dealer":"Dealer",
+        "kol":"KOL"
     },
     "reset_password":{
         "current_password": "Current Password",

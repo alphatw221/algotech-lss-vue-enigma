@@ -180,7 +180,9 @@
                       <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
                       {{$t("campaign_list.campaign_list_table.edit_campaign")}} 
                     </DropdownItem>
-                    <DropdownItem class="w-fit text-center whitespace-nowrap" 
+                    <DropdownItem 
+                      v-if="campaignStatus === 'scheduled'"
+                      class="w-fit text-center whitespace-nowrap" 
                       @click="editCampaignProduct(campaign)"> 
                       <SimpleIcon icon="edit" color="#2d8cf0" class="mr-1"/>
                       {{$t("campaign_list.campaign_list_table.edit_campaign_product")}}  
@@ -210,6 +212,7 @@
                       <div class="ml-1"> {{$t("campaign_list.campaign_list_table.quiz_game")}} </div> 
                     </DropdownItem>
                     <DropdownItem 
+                      v-if="campaignStatus === 'scheduled' || campaignStatus === 'ongoing'"
                       @click="deleteCampaign(campaign)" class="w-fit text-danger whitespace-nowrap">
                       <!-- <font-awesome-icon icon="fa-solid fa-trash-can" class="h-[20px] w-[20px] mr-1"/> -->
                       <SimpleIcon icon="delete" color="#b91c1c" class="mr-1"/>

@@ -111,7 +111,7 @@ const hide = ()=>{
         type:"add",
         points:"",
         reason:"",
-        expire_at:""
+        expire_at: new Date()
     }
     showModal.value=false
 }
