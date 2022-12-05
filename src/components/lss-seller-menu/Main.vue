@@ -141,6 +141,7 @@
         </ul> 
           <button class="fixed ml-2 text-white rounded-lg btn btn-danger bottom-5 border-0 border-red-900 shadow-lg"
               @click="router.push('/seller/change-plan')"
+              :disabled="layoutStore.userInfo.user_subscription.type == 'kol'"
               >
               <font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 h-5 m-1" :class="{'xl:mx-2': !closeSidebar}"/>
               <span class="hidden text-lg"
@@ -175,11 +176,11 @@ const route = useRoute();
 const router = useRouter();
 const formattedMenu = ref([]);
 const layoutStore = useLSSSellerLayoutStore();
-const sideMenu = computed(() => nestedMenu(layoutStore.menu, route));
 const closeSidebar = ref(false)
 
+const sideMenu = computed(() => layoutStore.userInfo.user_subscription.type == 'kol'? nestedMenu(layoutStore.kol_menu, route):nestedMenu(layoutStore.menu, route) );
+
 provide("forceActiveMenu", (pageName) => {
-  
   route.forceActiveMenu = pageName;
   formattedMenu.value = $h.toRaw(sideMenu.value);
 });
@@ -188,7 +189,7 @@ watch(
   computed(() => route.path),
   () => {
     delete route.forceActiveMenu;
-    formattedMenu.value = $h.toRaw(sideMenu.value);
+    formattedMenu.value = $h.toRaw(sideMenu.value); 
   },
 );
 

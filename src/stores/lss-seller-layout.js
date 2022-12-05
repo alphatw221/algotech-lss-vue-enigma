@@ -21,26 +21,11 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
     commentCapturingCampaignData:ref({}),
 
     menu: [
-      // {
-      //   icon: "HomeIcon",
-      //   pageName: "side-menu-inbox",
-      //   title: "Home",
-      // },
       {
         icon: "stock",
         pageName: "stock",
         title: "stock",
       },
-      // {
-      //   icon: "BoxIcon",
-      //   pageName: "Stock1",
-      //   title: "Stock1",
-      // },
-      // {
-      //   icon: "CalendarIcon",
-      //   pageName: "create-campaign",
-      //   title: "Create Campaign",
-      // },
       {
         icon: "campaign",
         pageName: "campaign-list",
@@ -51,11 +36,6 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "manage-order",
         title: "manage_order",
       },
-      // {
-      //   icon: "VideoIcon",
-      //   pageName: "campaign-live",
-      //   title: "Campaign Live",
-      // },
       {
         icon: "auto-reply",
         pageName: "auto-reply",
@@ -66,21 +46,6 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "seller-buyers",
         title: "buyers",
       },
-      // {
-      //   icon: "report",
-      //   pageName: "report",
-      //   title: "report",
-      // },
-      // {
-      //   icon: "PlusSquareIcon",
-      //   pageName: "mkt-plugin",
-      //   title: "MKT Plugin",
-      // },
-      // {
-      //   icon: "ShoppingCartIcon",
-      //   pageName: "side-menu-shopping-cart",
-      //   title: "Shopping Cart",
-      // },
       {
         icon: "settings",
         pageName: "campaign-global-setting",
@@ -94,10 +59,6 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
             pageName: "discount-code",
             title: "discount_code",
           },
-          // {
-          //   pageName: "localization",
-          //   title: "localization",
-          // },
           {
             pageName: "platform",
             title: "connect_platform",
@@ -105,5 +66,22 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         ],
       },
     ],
+    kol_menu:[
+      {
+        icon: "stock",
+        pageName: "stock",
+        title: "stock",
+      },
+      {
+        icon: "campaign",
+        pageName: "campaign-list",
+        title: "campaign_list", 
+      },
+      {
+        icon: "platform",
+        pageName: "platform",
+        title: "connect_platform",
+      },
+    ]
   }),
 });

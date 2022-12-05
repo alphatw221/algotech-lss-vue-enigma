@@ -215,7 +215,7 @@
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full p-0 md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]"  :placeholder="product[column.key]"/>
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 										</div>
 									</td>
@@ -369,7 +369,7 @@
 										<!-- <div class="w-full lg:w-fit lg:text-sm whitespace-nowrap"> ${{product[column.key]}} </div> -->
 										<div class="flex place-content-end relative w-full md:w-32 lg:place-content-center">
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.currency}} </span> 
-											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-[100%] text-right p-0" min="1" type="number" v-model="product[column.key]" :placeholder="product[column.key]" />
 											<span class="my-auto mr-1 text-[12px]" v-if="campaignDetailStore.campaign"> {{campaignDetailStore.campaign.price_unit?$t(`global.price_unit.${campaignDetailStore.campaign.price_unit}`):''}} </span>
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
