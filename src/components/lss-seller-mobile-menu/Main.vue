@@ -92,6 +92,7 @@
           <!-- END: First Child -->
           <button class="absolute m-0 text-white rounded-lg btn btn-danger top-[40px] right-[12px]"
               @click="sellerLayoutStore.profileTab = 1; router.replace('/seller/profile')"
+              :disabled="sellerLayoutStore.userInfo.user_subscription.type == 'kol'"
           ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-2 h-5"/><span class="text-[16px]">{{$t('layout.upgrade')}} </span>  </button>
         </ul>
         <!-- </transition> -->
@@ -121,7 +122,7 @@
   const router = useRouter();
   const formattedMenu = ref([]);
   const sellerLayoutStore = useLSSSellerLayoutStore();
-  const mobileMenu = computed(() => nestedMenu(sellerLayoutStore.menu, route));
+  const mobileMenu = computed(() => sellerLayoutStore.userInfo.user_subscription.type == 'kol'? nestedMenu(sellerLayoutStore.kol_menu, route):nestedMenu(sellerLayoutStore.menu, route));
   
   watch(
     computed(() => route.path),

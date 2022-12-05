@@ -43,10 +43,12 @@ const get_i18n_path = error=>{
 }
 
 const get_i18n_params = params=>{
-    let i18n_params = {}
-    Object.entries(params).forEach(([key, value]) => {
-        i18n_params[key] = i18n.global.t(`error_messages.params.${value}`)
-    }); 
+    let i18n_params = []
+    if(params){
+        Object.entries(params).forEach(([key, value]) => {
+            i18n_params[key] = i18n.global.t(`error_messages.params.${value}`)
+        }); 
+    }
     return i18n_params
 }
 

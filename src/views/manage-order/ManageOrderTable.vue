@@ -304,6 +304,9 @@ const computedColumns = computed(()=>{
     if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status){
         columns = columns.filter(column=>column.key!='delivery_status')
     }
+    else if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_payment_status){
+        columns = columns.filter(column=>column.key!='payment_status')
+    }
 
     return columns
 })

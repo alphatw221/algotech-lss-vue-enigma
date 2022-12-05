@@ -182,7 +182,7 @@ const updateProduct = () => {
         layoutStore.alert.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.invalid_data'))
         return
     }
-    // console.log(campaignProduct.value)
+    console.log(campaignProduct.value)
     seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
     .then(res => {
         // console.log(res.data)

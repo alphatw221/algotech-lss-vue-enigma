@@ -3,7 +3,7 @@
 		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
 		</div>
-		<div class="dateSetting box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
+		<div class="dateSetting box shadow-none grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
     <!-- <div class="flex flex-col gap-5 text-[16px] h-fit">
 		<span class="mt-3 ml-5 text-xl sm:ml-0 sm:mt-5"> Create Campaign </span>
 		<div class="grid grid-cols-12 gap-1 px-5 py-5 sm:p-8 intro-y box sm:gap-5 -z-50"> -->
@@ -68,6 +68,8 @@
 			</div>
 		</div>
 		
+	<div v-show="sellerStore.userInfo.user_subscription.type !== 'kol'"> 
+
 		<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 
 			<div class="flex mb-3 form-label text-base font-medium">
@@ -155,15 +157,16 @@
 		
 
 		<NotesForm :campaignNotes="campaignNotes" />
+	</div>
 
-		<div class="box z-50 col-span-12 flex justify-end -mt-8 lg:mx-20 lg:px-40 py-10">
-			<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
-				{{$t('create_campaign.cancel')}}
-			</button>
-			<button class="w-32 ml-5 mr-4 shadow-md btn btn-primary" @click="createCampaign()">
-				{{$t('create_campaign.create')}}
-			</button>
-		</div>
+	<div class="box shadow-none col-span-12 flex justify-end lg:mx-20 lg:px-40 py-10 -mt-3">
+		<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
+			{{$t('create_campaign.cancel')}}
+		</button>
+		<button class="w-32 ml-5 mr-4 shadow-md btn btn-primary" @click="createCampaign()">
+			{{$t('create_campaign.create')}}
+		</button>
+	</div>
 	</div>
 </template>  
 
