@@ -360,8 +360,6 @@ const campaignDataRules = computed(() => {
 const v = useVuelidate(campaignDataRules, campaignData);
 
 const updateCampaign = ()=>{
-
-
 	v.value.$touch()
 	if (v.value.$invalid) {
 		sellerStore.alert.showMessageToast(i18n.global.t('edit_campaign.invalid_data'))
@@ -374,16 +372,15 @@ const updateCampaign = ()=>{
 
 	let formData = new FormData()
 	formData.append('data', JSON.stringify(campaignData.value))
-	
+	console.log(campaignData.value)
 	directPaymentImages.value.forEach( (image,index) => {
 		const key = campaignData.value.meta_payment.direct_payment.v2_accounts[index].name+'_'+index   
 		formData.append(key,image)
 	});
-
-	update_campaign(route.params.campaign_id,formData, sellerStore.alert).then(res => {
-		campaignDetailStore.campaign = res.data
-		router.push({name:'campaign-list'})
-	})
+	// update_campaign(route.params.campaign_id,formData, sellerStore.alert).then(res => {
+	// 	campaignDetailStore.campaign = res.data
+	// 	router.push({name:'campaign-list'})
+	// })
 
 }
 
