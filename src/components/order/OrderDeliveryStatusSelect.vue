@@ -1,6 +1,6 @@
 <template>
     <template v-if="deliveryStatusStore[props.order.delivery_status]?.allow_adjust">
-        <select v-model="props.order.delivery_status" class="w-full form-select-sm sm:form-select-md" @change="updateOrderDeliveryStatus()">
+        <select v-model="props.order.delivery_status" class="w-full" @change="updateOrderDeliveryStatus()">
             <option :value="option" v-for="(option,index) in deliveryStatusStore[props.order.delivery_status].options" :key="index">
                 {{$t(`order.delivery_status_options.${option}`)}}</option>
         </select>
@@ -23,6 +23,19 @@ const layoutStore = useLSSSellerLayoutStore()
 const props = defineProps({
     order: Object,
 });
+
+onMounted(()=>{
+    handleResize()
+    window.addEventListener('resize', handleResize())
+})
+onUnmounted(()=>{
+    window.removeEventListener('resize', handleResize())
+})
+
+const handleResize =()=>{
+    selecterClass.value = window.matchMedia('(max-width: 600px)').matches ? 'form-select-sm' : 'form-select-md'
+    //change selecter size (only works when refresh) 
+}
 
 const updateOrderDeliveryStatus = ()=>{
     seller_update_deliver_status(props.order.id, props.order.delivery_status, layoutStore.alert).then(res=>{
