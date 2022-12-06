@@ -1,16 +1,21 @@
 <template>
 	<!-- BEGIN Container -->
 	<div :class="{'p-4 box': templateInModal !=true}">
-		<div class="flex flex-row items-center h-fit lg:mt-3 pb-4">
-			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium -mt-2">{{$t('assign_product.assign_product')}} from</h2>
-			<select 
-				class="form-select ml-2 h-[35px] sm:h-[42px] w-[150px]"
-				v-model="selectedStockUserSubscriptionId"
-				@change="getSubscriptionStock()"
-			>
-				<option :value="''">{{$t(`assign_product.stock_origin.own`)}}</option>
-				<option v-for="subscriptoin,index in layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscriptoin.user_subscription_id">{{ subscriptoin.name }}</option>
-			</select>
+
+		<div class="flex flex-col sm:flex-row items-center h-fit lg:mt-3 pb-4">
+			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('assign_product.assign_product')}}</h2>
+
+			<div class="ml-5 flex flex-row items-center"  v-if="layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions">
+				<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium"> From</h2>
+				<select 
+					class="form-select ml-2 h-[35px] sm:h-[42px] w-[150px]"
+					v-model="selectedStockUserSubscriptionId"
+					@change="getSubscriptionStock()"
+				>
+					<option value="">{{$t(`assign_product.stock_origin.own`)}}</option>
+					<option v-for="subscription,index in layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
+				</select>
+			</div>
 			<!-- <FileUploadButton 
 				class="ml-auto mx-1 text-sm sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-rounded text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] border-[2px] border-slate-100 shadow-lg"
 				button_id="import_campaign_product"
@@ -99,7 +104,7 @@
 								</th>
 								<th 
 									class="whitespace-normal truncate hover:text-clip text-center" 
-									v-for="column in tableColumns" :key="column.key">
+									v-for="column in computedColumns" :key="column.key">
 
 									{{$t(`assign_product.product_table.${column.key}`)}}
 									<!-- <input v-if="column.key=='oversell'" class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto" type="checkbox" v-model="allProductOversellEnable" @change="selectAllStockProduct($event)"/>
@@ -119,7 +124,7 @@
 										type="checkbox" v-model="product.check" @click="clickStockProductCheckbox(product, $event)"/>
 								</td>
 
-								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
+								<template v-for="column in computedColumns" :key="column.key" class="text-[14px]">
 
 									<td v-if="column.key === 'image'" >
 										<div class="flex items-center justify-center imgtd">
@@ -185,6 +190,7 @@
 										<select
 											class="form-select w-auto mt-0 "
 											v-model="product[column.key]"
+											:disabled="disableButton"
 										>
 											<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`assign_product.product_table.types.${type.value}`)}}</option>
 										</select> 
@@ -264,7 +270,7 @@
 								<th class="w-10"></th>
 								<th 
 									class="whitespace-normal truncate hover:text-clip text-center" 
-									v-for="column in tableColumns" :key="column.key">
+									v-for="column in computedColumns" :key="column.key">
 									{{$t(`assign_product.product_table.${column.key}`)}}
 								</th>
 							</tr>
@@ -278,7 +284,7 @@
 								<td class="w-10">
 									<input class="form-control form-check-input w-[1.2rem] h-[1.2rem] sm:mr-1 my-auto selectCheck" type="checkbox" checked @click="clickSelectedProductCheckbox(product, product_index, $event)"/>
 								</td>
-								<template v-for="column in tableColumns" :key="column.key" class="text-[14px]">
+								<template v-for="column in computedColumns" :key="column.key" class="text-[14px]">
 
 									<td v-if="column.key === 'image'">
 										<div class="flex items-center justify-center">
@@ -337,6 +343,7 @@
 											<select
 												class="form-select w-[100%]"
 												v-model="product[column.key]"
+												:disabled="disableButton"
 											>
 												<option v-for="(type, index) in product_type" :key="index" :value="type.value">{{$t(`assign_product.product_table.types.${type.value}`)}}</option>
 											</select> 
@@ -412,31 +419,39 @@ import FileUploadButton from "@/components/file-upload-button/Main.vue"
 
 const campaignDetailStore = useCampaignDetailStore()
 
-
 const props = defineProps({
     productType: String,
 	templateInModal:Boolean,
 })
 
-const tableColumns = ref([
-    { name: "Product", key: "image" },
-    { name: "", key: "name" },
-    { name: "Type", key: "type" },
-    { name: "Order Code", key: "order_code" },
-	{ name: "Stock QTY", key: "qty" },
-	{ name: "QTY for Campaign", key: "assign_qty" },
-	{ name: "Max QTY/Order", key: "max_order_amount" },
-    { name: "Price", key: "price" },
-	{ name: "Oversell", key: "oversell" },
-	{ name: "Editable", key: "customer_editable" },
-	{ name: "Deletable", key: "customer_removable" },
-	{ name: "Category", key: "categories" },
-	
-])
+const disableButton = computed(()=>{
+	if(selectedStockUserSubscriptionId.value) return true
+	else return false
+})
 
+const computedColumns = computed(()=>{
+	var columns = [
+		{ name: "Product", key: "image" },
+		{ name: "", key: "name" },
+		{ name: "Type", key: "type" },
+		{ name: "Order Code", key: "order_code" },
+		{ name: "Stock QTY", key: "qty" },
+		{ name: "QTY for Campaign", key: "assign_qty" },
+		{ name: "Max QTY/Order", key: "max_order_amount" },
+		{ name: "Price", key: "price" },
+		{ name: "Oversell", key: "oversell" },
+		{ name: "Editable", key: "customer_editable" },
+		{ name: "Deletable", key: "customer_removable" },
+		{ name: "Category", key: "categories" },
+	]
+	if(selectedStockUserSubscriptionId.value){
+		columns = columns.filter(column=>column.key!='oversell')
+		columns = columns.filter(column=>column.key!='qty')
+	}
+	return columns
+})
 
 const layoutStore = useLSSSellerLayoutStore();
-
 
 const route = useRoute();
 const router = useRouter();

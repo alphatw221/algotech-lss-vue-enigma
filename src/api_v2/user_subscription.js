@@ -69,7 +69,7 @@ export const list_buyer_order_history = (buyer_id, page, page_size, toastify=nul
 }
 
 export const list_buyer_point_history = (buyer_id, page, page_size, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/user-subscription/list/buyer/${buyer_id}/points/history/?page=${page}&page_size=${page_size}`)
+    return createAxios(toastify).get(`/api/v2/user-subscription/list/buyer/${buyer_id}/point/history/?page=${page}&page_size=${page_size}`)
 }
 
 export const create_buyer_points_transaction = (buyer_id, page_size=10, data, toastify=null) => {

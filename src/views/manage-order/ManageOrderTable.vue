@@ -5,7 +5,7 @@
                 <tr>
                     <th class="whitespace-nowrap text-left" v-for="column in computedColumns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
-                        <div v-else-if="column.key === 'subtotal'" class="row flex justify-end">
+                        <div v-else-if="column.key === 'subtotal'" class="row flex justify-center">
 							<div class="text-right">{{ $t(`manage_order.table.`+column.name) }}</div>
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 
@@ -23,7 +23,7 @@
 						</div>
                         
                         <template v-else>
-                            <div class="flex"> 
+                            <div class="flex justify-center"> 
                                 {{ $t(`manage_order.table.`+column.name) }}
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 
@@ -292,7 +292,7 @@ const computedColumns = computed(()=>{
 
     var columns = [
         { name: 'order_number', key: 'id', sortable: true},
-        { name: 'null', key: 'platform', sortable: false},
+        { name: 'platform', key: 'platform', sortable: false},
         { name: 'customer', key: 'customer_name', sortable: true},
         { name: 'amount', key: 'subtotal', sortable: true},
         { name: 'payment', key: 'payment_method', sortable: true},
@@ -304,24 +304,12 @@ const computedColumns = computed(()=>{
     if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status){
         columns = columns.filter(column=>column.key!='delivery_status')
     }
-    else if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_payment_status){
+    if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_payment_status){
         columns = columns.filter(column=>column.key!='payment_status')
     }
 
     return columns
 })
-// const columns = ref([
-//     { name: 'order_number', key: 'id', sortable: true},
-//     { name: 'null', key: 'platform', sortable: false},
-//     { name: 'customer', key: 'customer_name', sortable: true},
-//     { name: 'amount', key: 'subtotal', sortable: true},
-//     { name: 'payment', key: 'payment_method', sortable: true},
-//     { name: 'payment_status', key: 'payment_status', sortable: true},
-//     { name: 'delivery_status', key: 'delivery_status', sortable: true},
-//     // { name: 'delivery_notification', key: 'delivery', sortable: false},
-//     { name: 'action', key: 'view', sortable: false},
-//     { name: 'null', key: 'order_product', sortable: false}
-// ]);
 
 const props = defineProps({
     tableStatus: String,
