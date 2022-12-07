@@ -425,7 +425,7 @@ const props = defineProps({
 })
 
 const disableButton = computed(()=>{
-	if(selectedStockUserSubscriptionId.value) return true
+	if(campaignDetailStore.campaign.meta?.stock_subscription_id) return true
 	else return false
 })
 
@@ -444,7 +444,7 @@ const computedColumns = computed(()=>{
 		{ name: "Deletable", key: "customer_removable" },
 		{ name: "Category", key: "categories" },
 	]
-	if(selectedStockUserSubscriptionId.value){
+	if(campaignDetailStore.campaign.meta?.stock_subscription_id){
 		columns = columns.filter(column=>column.key!='oversell')
 		columns = columns.filter(column=>column.key!='qty')
 	}
@@ -465,7 +465,7 @@ const dataCount = ref(0)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
-const selectedStockUserSubscriptionId = ref('')
+// const selectedStockUserSubscriptionId = ref('')
 const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
@@ -509,6 +509,12 @@ onUnmounted(()=>{
 })
 
 const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id, layoutStore.alert).then(res=>{campaignProductOrderCodeDict.value = res.data})}
+
+const getCampaignDetail = ()=>{
+	retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
+		campaignDetailStore.campaign = res.data
+	}) 
+}
 
 const updateStockProducts = ()=>{
     stockProducts.value.forEach((product,stockProductIndex) => {
@@ -688,7 +694,7 @@ const search = () => {
 	console.log(selectedProductDict.value)
 	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
-		_support_stock_user_subscription_id=selectedStockUserSubscriptionId.value,
+		_support_stock_user_subscription_id=campaignDetailStore.campaign.meta?.stock_subscription_id,
 		_pageSize=pageSize.value,
 		_currentPage=currentPage.value, 
 		_searchColumn=searchField.value, 
@@ -774,11 +780,6 @@ const submitData = ()=>{
 			errorMessages.value = err.response.data.errors
 		}
 	})
-}
-const getCampaignDetail = ()=>{
-	retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
-		campaignDetailStore.campaign = res.data
-	}) 
 }
 
 
