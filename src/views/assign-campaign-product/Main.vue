@@ -754,7 +754,7 @@ const submitData = ()=>{
         return
     }
 	console.log(selectedProducts.value)
-	seller_bulk_create_campaign_products(route.params.campaign_id, selectedStockUserSubscriptionId.value, selectedProducts.value, layoutStore.alert).then(res=>{
+	seller_bulk_create_campaign_products(route.params.campaign_id, selectedProducts.value, layoutStore.alert).then(res=>{
 		if(props.templateInModal){
 			campaignDetailStore.campaignProducts = res.data
 			
