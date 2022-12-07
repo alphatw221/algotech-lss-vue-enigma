@@ -87,6 +87,23 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         pageName: "platform",
         title: "connect_platform",
       },
-    ]
+    ],
+    supplier_menu: [
+      {
+        icon: "stock",
+        pageName: "stock",
+        title: "stock",
+      },
+      {
+        icon: "manage-order",
+        pageName: "manage-order",
+        title: "manage_order",
+      },
+      {
+        icon: "campaign-global-setting",
+        pageName: "campaign-global-setting",
+        title: "campaign_default_setting",
+      },
+    ],
   }),
 });

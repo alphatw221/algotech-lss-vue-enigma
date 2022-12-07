@@ -73,7 +73,7 @@
 			<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">General setting: </span>
 			<hr class="-mx-6" />
 
-			<div class="flex flex-col"> 
+			<div v-show="sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" class="flex flex-col"> 
 				<span> Sell Product from stock: </span>
 				<select 
 				class="form-select h-[35px] sm:h-[42px] w-full"

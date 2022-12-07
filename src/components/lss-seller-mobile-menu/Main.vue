@@ -21,7 +21,7 @@
         <!-- <transition @enter="enter" @leave="leave"> -->
         <ul class="border-t border-white/[0.08] py-5 pt-7 mt-5">
           <!-- BEGIN: First Child -->
-          <div class="flex m-3 cursor-pointer text-white" @click="router.push({name:'create-campaign'})"> 
+          <div v-if="role !== 'supplier'" class="flex m-3 cursor-pointer text-white" @click="router.push({name:'create-campaign'})"> 
             <button class="w-10 h-10 mr-1 sm:ml-5"
             ><span class="text-2xl">+</span></button> 
             <span class="">{{$t(`layout.menu.create`)}} <br> {{$t(`layout.menu.new_campaign`)}}</span> 
@@ -92,7 +92,7 @@
           <!-- END: First Child -->
           <button class="absolute m-0 text-white rounded-lg btn btn-danger top-[40px] right-[12px]"
               @click="sellerLayoutStore.profileTab = 1; router.replace('/seller/profile')"
-              :disabled="sellerLayoutStore.userInfo.user_subscription.type == 'kol'"
+              :disabled="sellerLayoutStore.userInfo.user_subscription.type == 'kol' || sellerLayoutStore.userInfo.user_subscription.type == 'supplier'"
           ><font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-2 h-5"/><span class="text-[16px]">{{$t('layout.upgrade')}} </span>  </button>
         </ul>
         <!-- </transition> -->
@@ -122,8 +122,10 @@
   const router = useRouter();
   const formattedMenu = ref([]);
   const sellerLayoutStore = useLSSSellerLayoutStore();
-  const mobileMenu = computed(() => sellerLayoutStore.userInfo.user_subscription.type == 'kol'? nestedMenu(sellerLayoutStore.kol_menu, route):nestedMenu(sellerLayoutStore.menu, route));
-  
+
+  const role = sellerLayoutStore.userInfo.user_subscription.type
+  const mobileMenu = computed(() =>role == 'kol'? nestedMenu(sellerLayoutStore.kol_menu, route): role == 'supplier'? nestedMenu(sellerLayoutStore.supplier_menu, route):nestedMenu(sellerLayoutStore.menu, route) )
+
   watch(
     computed(() => route.path),
     () => {

@@ -44,7 +44,8 @@
 <script>
 import NotesSettings from './NotesSettings.vue';
 import PaymentSettings from './payment-settings/Main.vue';
-import DeliverySettings from './DeliverySettings.vue';
+import DeliverySettings from './delivery-settings/Main.vue';
+// import DeliverySettings from './DeliverySettings.vue';
 
 export default {
     components: {
