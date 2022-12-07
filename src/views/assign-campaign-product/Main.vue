@@ -5,7 +5,7 @@
 		<div class="flex flex-col sm:flex-row items-center h-fit lg:mt-3 pb-4">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('assign_product.assign_product')}}</h2>
 
-			<div class="ml-5 flex flex-row items-center"  v-if="layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions">
+			<!-- <div class="ml-5 flex flex-row items-center"  v-if="layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions">
 				<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium"> From</h2>
 				<select 
 					class="form-select ml-2 h-[35px] sm:h-[42px] w-[150px]"
@@ -15,7 +15,7 @@
 					<option value="">{{$t(`assign_product.stock_origin.own`)}}</option>
 					<option v-for="subscription,index in layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
 				</select>
-			</div>
+			</div> -->
 			<!-- <FileUploadButton 
 				class="ml-auto mx-1 text-sm sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-rounded text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] border-[2px] border-slate-100 shadow-lg"
 				button_id="import_campaign_product"
@@ -170,7 +170,7 @@
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
-											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" :disabled="disableButton"/>
 										</div>
 									</td>
 
@@ -318,7 +318,7 @@
 										:class="{' h-12' : errorMessages[product_index][column.key] }">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
-											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]"  :disabled="disableButton"/>
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td>
@@ -425,7 +425,7 @@ const props = defineProps({
 })
 
 const disableButton = computed(()=>{
-	if(selectedStockUserSubscriptionId.value) return true
+	if(campaignDetailStore.campaign.meta?.stock_subscription_id) return true
 	else return false
 })
 
@@ -444,7 +444,7 @@ const computedColumns = computed(()=>{
 		{ name: "Deletable", key: "customer_removable" },
 		{ name: "Category", key: "categories" },
 	]
-	if(selectedStockUserSubscriptionId.value){
+	if(campaignDetailStore.campaign.meta?.stock_subscription_id){
 		columns = columns.filter(column=>column.key!='oversell')
 		columns = columns.filter(column=>column.key!='qty')
 	}
@@ -465,7 +465,7 @@ const dataCount = ref(0)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
-const selectedStockUserSubscriptionId = ref('')
+const selectedStockUserSubscriptionId = computed(()=>{return campaignDetailStore.campaign.meta?.stock_subscription_id? campaignDetailStore.campaign.meta?.stock_subscription_id:''})
 const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
@@ -509,6 +509,12 @@ onUnmounted(()=>{
 })
 
 const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id, layoutStore.alert).then(res=>{campaignProductOrderCodeDict.value = res.data})}
+
+const getCampaignDetail = ()=>{
+	retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
+		campaignDetailStore.campaign = res.data
+	}) 
+}
 
 const updateStockProducts = ()=>{
     stockProducts.value.forEach((product,stockProductIndex) => {
@@ -567,6 +573,7 @@ const checkIfValid = ()=>{
 }
 
 
+
 watch(computed(()=>stockProducts.value),updateStockProducts)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
@@ -591,7 +598,6 @@ const selectedProductRemovable = (product_index, event)=>{if(event.target.checke
 const selectedProductEditable = (product_index, event)=>{if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false}
 
 const updateSelectedProductDict = ()=>{
-	
     selectedProductDict.value = {}
     selectedProducts.value.forEach((selectedProduct,index)=>{
 		selectedProductDict.value[selectedProduct.id.toString()]=index
@@ -599,6 +605,7 @@ const updateSelectedProductDict = ()=>{
 	console.log('updateSelectedProductDict')
 	console.log(selectedProductDict.value)
 }
+
 
 const selectStockProduct = (stockProduct) =>{
 	console.log('selectStockProduct')
@@ -685,7 +692,7 @@ const filterProducts = ()=>{
 
 const search = () => {
 	console.log('selectedProductDict')
-	console.log(selectedProductDict.value)
+	// console.log(selectedProductDict.value)
 	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
 		_support_stock_user_subscription_id=selectedStockUserSubscriptionId.value,
@@ -712,13 +719,13 @@ const search = () => {
 		// 	totalPage.value = 3
         // }
 		stockProducts.value = response.data.results
-		// console.log(stockProducts.value = response.data.results)
+		// console.log(stockProducts.value)
 		// proudct default value
-		stockProducts.value.forEach(product => {
+		stockProducts.value.forEach((product,index) => {
 			if (!(product.id.toString() in selectedProductDict.value)){
 				product.type = ['', null, undefined].includes(product.type) ? 'product' : product.type
 				product.oversell = false
-				product.assign_qty = product.qty
+				product.assign_qty = selectedStockUserSubscriptionId.value? 100:product.qty
 				product.customer_editable = true
 				product.customer_removable = false
 			}
@@ -775,11 +782,6 @@ const submitData = ()=>{
 		}
 	})
 }
-const getCampaignDetail = ()=>{
-	retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
-		campaignDetailStore.campaign = res.data
-	}) 
-}
 
 
 const clearAllData = ()=>{
@@ -814,11 +816,11 @@ const importCampaignProduct = file =>{
     })
 }
 
-const getSubscriptionStock = () => {
-	currentPage.value = 1
-	search()
-	console.log(selectedStockUserSubscriptionId.value)
-}
+// const getSubscriptionStock = () => {
+// 	currentPage.value = 1
+// 	search()
+// 	console.log(selectedStockUserSubscriptionId.value)
+// }
 </script>
 
 

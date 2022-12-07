@@ -78,6 +78,11 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         title: "campaign_list", 
       },
       {
+        icon: "manage-order",
+        pageName: "manage-order",
+        title: "manage_order",
+      },
+      {
         icon: "platform",
         pageName: "platform",
         title: "connect_platform",

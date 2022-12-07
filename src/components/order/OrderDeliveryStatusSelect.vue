@@ -1,6 +1,6 @@
 <template>
     <template v-if="deliveryStatusStore[props.order.delivery_status]?.allow_adjust">
-        <select v-model="props.order.delivery_status" class="w-full" @change="updateOrderDeliveryStatus()">
+        <select v-model="props.order.delivery_status" class="w-full" :class="selecterClass" @change="updateOrderDeliveryStatus()">
             <option :value="option" v-for="(option,index) in deliveryStatusStore[props.order.delivery_status].options" :key="index">
                 {{$t(`order.delivery_status_options.${option}`)}}</option>
         </select>
@@ -15,11 +15,11 @@
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance, defineProps} from "vue";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useDeliveryStatusStore } from "@/stores/lss-delivery-status-meta"
-import {  seller_update_deliver_status } from "@/api_v2/order"
+import { seller_update_deliver_status } from "@/api_v2/order"
 
 const deliveryStatusStore = useDeliveryStatusStore()
 const layoutStore = useLSSSellerLayoutStore()
-
+const selecterClass = ref('form-select-sm')
 const props = defineProps({
     order: Object,
 });
