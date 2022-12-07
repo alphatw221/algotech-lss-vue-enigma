@@ -5,7 +5,7 @@
 		<div class="flex flex-col sm:flex-row items-center h-fit lg:mt-3 pb-4">
 			<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium">{{$t('assign_product.assign_product')}}</h2>
 
-			<div class="ml-5 flex flex-row items-center"  v-if="layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions">
+			<!-- <div class="ml-5 flex flex-row items-center"  v-if="layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions">
 				<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium"> From</h2>
 				<select 
 					class="form-select ml-2 h-[35px] sm:h-[42px] w-[150px]"
@@ -15,7 +15,7 @@
 					<option value="">{{$t(`assign_product.stock_origin.own`)}}</option>
 					<option v-for="subscription,index in layoutStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
 				</select>
-			</div>
+			</div> -->
 			<!-- <FileUploadButton 
 				class="ml-auto mx-1 text-sm sm:w-40 h-[35px] sm:h-[42px] text-white btn btn-rounded text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] border-[2px] border-slate-100 shadow-lg"
 				button_id="import_campaign_product"
@@ -814,11 +814,11 @@ const importCampaignProduct = file =>{
     })
 }
 
-const getSubscriptionStock = () => {
-	currentPage.value = 1
-	search()
-	console.log(selectedStockUserSubscriptionId.value)
-}
+// const getSubscriptionStock = () => {
+// 	currentPage.value = 1
+// 	search()
+// 	console.log(selectedStockUserSubscriptionId.value)
+// }
 </script>
 
 

@@ -67,33 +67,44 @@
 				</div>
 			</div>
 		</div>
-		
-	<div v-show="sellerStore.userInfo.user_subscription.type !== 'kol'"> 
 
-		<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+		<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-10 text-[16px] gap-5 flex flex-col">
 
-			<div class="flex mb-3 form-label text-base font-medium">
-				<div> {{$t("settings.localization.currency_symbol")}} </div>
+			<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">General setting: </span>
+			<hr class="-mx-6" />
+
+			<div class="flex flex-col"> 
+				<span> Sell Product from stock: </span>
+				<select 
+				class="form-select h-[35px] sm:h-[42px] w-full"
+				v-model="stockSubscriptionId"
+				>
+					<option value="">my personal inventory</option>
+					<option v-for="subscription,index in sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
+				</select>
 			</div>
-			<div class="flex my-1 ">
+
+			<div class="flex flex-col w-full">
+				<span> {{$t("settings.localization.currency_symbol")}} </span>
 				<TomSelect v-model="campaignData.currency" :options="{
 							placeholder: $t('settings.localization.choose_currency_symbol'),
 							}" class="w-full">
 					<option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
 				</TomSelect>
 			</div>
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class=""> {{$t("settings.localization.buyer_language")}}</div>
-				<Tippy 
-					class="rounded-full whitespace-wrap" 
-					data-tippy-allowHTML="true" 
-					data-tippy-placement="right" 
-					:content="$t('tooltips.settings.local.buyer_lang')" 
-				> 
-					<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
-				</Tippy> 
-			</div>
-			<div class="flex my-1">
+
+			<div class="flex flex-col">
+				<div class="flex flex-row gap-3">
+					<span class=""> {{$t("settings.localization.buyer_language")}}</span>
+					<Tippy 
+						class="rounded-full whitespace-wrap" 
+						data-tippy-allowHTML="true" 
+						data-tippy-placement="right" 
+						:content="$t('tooltips.settings.local.buyer_lang')" 
+					> 
+						<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+					</Tippy> 
+				</div>
 				<TomSelect v-model="campaignData.lang" :options="{
 							placeholder: $t('settings.localization.choose_language'),
 							}" class="w-full">
@@ -101,35 +112,32 @@
 				</TomSelect>
 			</div>
 
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
-				<div class=""> {{$t("settings.localization.price_unit")}}</div>
-				<Tippy 
-					class="rounded-full whitespace-wrap" 
-					data-tippy-allowHTML="true" 
-					data-tippy-placement="right" 
-					:content="$t('tooltips.settings.local.price_unit')" 
-				> 
-					<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
-				</Tippy> 
-			</div>
-
-			<div class="flex my-1">
+			<div class="flex flex-col">
+				<div class="flex flex-row gap-3">
+					<span> {{$t("settings.localization.price_unit")}}</span>
+					<Tippy 
+						class="rounded-full whitespace-wrap" 
+						data-tippy-allowHTML="true" 
+						data-tippy-placement="right" 
+						:content="$t('tooltips.settings.local.price_unit')" 
+					> 
+						<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+					</Tippy> 
+				</div>
 				<TomSelect v-model="campaignData.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
 					<option :value="option.value" v-for="(option,index) in priceUnitOptions" :key="index">{{$t(`settings.localization.priceOptions.${option.key}`)}}</option>
 				</TomSelect>
 			</div>
-
-			<div class="flex my-3 mt-5 form-label text-base font-medium">
+			<div class="flex flex-col">
 				<div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
-			</div>
-			<div class="flex my-1">
+
 				<TomSelect v-model="campaignData.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-full">
 					<option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
 				</TomSelect>
 			</div>
 		</div>
 
-
+	<div v-show="!stockSubscriptionId" class="otherSetting"> 
 		<DeliveryForm 
 			:campaign="campaignData"
 			:v="v"
@@ -159,7 +167,7 @@
 		<NotesForm :campaignNotes="campaignNotes" />
 	</div>
 
-	<div class="box shadow-none col-span-12 flex justify-end lg:mx-20 lg:px-40 py-10 -mt-3">
+	<div class="box shadow-none col-span-12 flex justify-end lg:mx-20 lg:px-40 py-10 mt-3">
 		<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
 			{{$t('create_campaign.cancel')}}
 		</button>
@@ -191,6 +199,9 @@ const paymentMetaStore = useLSSPaymentMetaStore()
 
 const route = useRoute()
 const router = useRouter()
+
+const stockSubscriptionId = ref('')
+
 const directPaymentImages = ref([])
 const dateTimePicker = ref({
 	start:new Date(),
@@ -257,7 +268,8 @@ const campaignData = ref({
 		confirmation_note: ''
 	},
 	meta_reply:{},  //add for shc
-	meta_point:{}
+	meta_point:{},
+	meta:{}
 })
 
 const campaignNotes = ref({
@@ -272,37 +284,37 @@ const campaignNotes = ref({
 
 const campaignDataRules = computed(() => {
 	return { 	
-				title: { required, minLength: minLength(1), maxLength: maxLength(255) },
-				meta_logistic:{
-					delivery_charge:{required, decimal, minValue:minValue(0)},
-					free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
-					free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
+			title: { required, minLength: minLength(1), maxLength: maxLength(255) },
+			meta_logistic:{
+				delivery_charge:{required, decimal, minValue:minValue(0)},
+				free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
+				free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
 
-					additional_delivery_options: {
-					$each: helpers.forEach({
-						title:{required},
-						type: {required},
-						price:{required, numeric}
-					})
-				},
-				pickup_options: {
-					$each: helpers.forEach({
-						name:{required},
-						address: {required},
-					})
-				},
-				},
-				meta_payment:{
-					direct_payment:{
-						v2_accounts: {
-							$each: helpers.forEach({
-								mode:{required},
-								name: {required},
-								number:{required}
-							})
-						}
+				additional_delivery_options: {
+				$each: helpers.forEach({
+					title:{required},
+					type: {required},
+					price:{required, numeric}
+				})
+			},
+			pickup_options: {
+				$each: helpers.forEach({
+					name:{required},
+					address: {required},
+				})
+			},
+			},
+			meta_payment:{
+				direct_payment:{
+					v2_accounts: {
+						$each: helpers.forEach({
+							mode:{required},
+							name: {required},
+							number:{required}
+						})
 					}
-				} }
+				}
+			} }
 })
 
 const v = useVuelidate(campaignDataRules, campaignData);
@@ -340,9 +352,6 @@ onMounted(() => {
 		}
     });
 
-
-
-
 	//Logistic
 	if (Object.entries(sellerStore.userInfo.user_subscription.meta_logistic).length) {
 		Object.assign(campaignData.value.meta_logistic,JSON.parse(JSON.stringify(sellerStore.userInfo.user_subscription.meta_logistic)))
@@ -365,6 +374,8 @@ const createCampaign = ()=>{
 	v.value.$touch()
 	if (v.value.$invalid) {
 		sellerStore.alert.showMessageToast('Invalid Data')
+
+		//back to top when err
 		document.querySelector('#lss-content').scrollTo(0, -70)
 		// var err
 		// v.value.$errors.forEach( err=>{
@@ -378,6 +389,16 @@ const createCampaign = ()=>{
 	campaignData.value.meta_payment.special_note = campaignNotes.value.meta_payment.special_note
 	campaignData.value.meta_payment.confirmation_note = campaignNotes.value.meta_payment.confirmation_note
 
+	if(stockSubscriptionId.value) {
+		campaignData.value.meta={stock_subscription_id:stockSubscriptionId.value}
+	}
+	else if(!stockSubscriptionId.value && ['stock_subscription_id'].includes(campaignData.value.meta)){
+		const _index = campaignData.value.meta.indexOf('stock_subscription_id')
+		campaignData.value.meta.splice(_index,-1)
+	}
+
+	campaignData.value.meta = stockSubscriptionId.value? {stock_subscription_id:stockSubscriptionId.value}: {}
+
 	let formData = new FormData()
 	formData.append('data', JSON.stringify(campaignData.value))
 	
@@ -387,10 +408,10 @@ const createCampaign = ()=>{
 	});
 
 
-	create_campaign(formData, sellerStore.alert).then(response => {
+	// create_campaign(formData, sellerStore.alert).then(response => {
 
-		router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
-	})
+	// 	router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
+	// })
 
 }
 
@@ -405,5 +426,9 @@ const createCampaign = ()=>{
 
 .dateSetting{
 	z-index: 50;
+}
+
+.otherSetting{
+	z-index: 48;
 }
 </style>
