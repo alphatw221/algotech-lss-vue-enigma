@@ -408,10 +408,10 @@ const createCampaign = ()=>{
 	});
 
 
-	// create_campaign(formData, sellerStore.alert).then(response => {
+	create_campaign(formData, sellerStore.alert).then(response => {
 
-	// 	router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
-	// })
+		router.push({name:'assign-product', params:{'campaign_id': response.data.id}})
+	})
 
 }
 
