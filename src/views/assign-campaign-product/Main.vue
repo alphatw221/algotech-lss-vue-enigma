@@ -170,7 +170,7 @@
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
 											
-											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" :disabled="disableButton"/>
 										</div>
 									</td>
 
@@ -318,7 +318,7 @@
 										:class="{' h-12' : errorMessages[product_index][column.key] }">
 										<div class="place-content-end relative w-full md:w-24 lg:place-content-center">
 
-											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]" />
+											<input class="form-control w-full text-right" min="1" type="number" v-model="product[column.key]"  :disabled="disableButton"/>
 											<div class="text-danger absolute z-10 -bottom-5 right-0 sm:right-auto sm:left-0 whitespace-nowrap z-10" v-if="errorMessages[product_index]&& errorMessages[product_index][column.key]">{{  $t(`assign_product.product_table.errors.${errorMessages[product_index][column.key]}`)}}</div>
 										</div>
 									</td>
@@ -465,7 +465,7 @@ const dataCount = ref(0)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
-// const selectedStockUserSubscriptionId = ref('')
+const selectedStockUserSubscriptionId = computed(()=>{return campaignDetailStore.campaign.meta?.stock_subscription_id? campaignDetailStore.campaign.meta?.stock_subscription_id:''})
 const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
@@ -573,6 +573,7 @@ const checkIfValid = ()=>{
 }
 
 
+
 watch(computed(()=>stockProducts.value),updateStockProducts)
 
 watch(computed(()=>selectedProducts.value),checkIfValid,{deep:true})
@@ -597,7 +598,6 @@ const selectedProductRemovable = (product_index, event)=>{if(event.target.checke
 const selectedProductEditable = (product_index, event)=>{if(!event.target.checked)selectedProducts.value[product_index].customer_removable=false}
 
 const updateSelectedProductDict = ()=>{
-	
     selectedProductDict.value = {}
     selectedProducts.value.forEach((selectedProduct,index)=>{
 		selectedProductDict.value[selectedProduct.id.toString()]=index
@@ -605,6 +605,7 @@ const updateSelectedProductDict = ()=>{
 	console.log('updateSelectedProductDict')
 	console.log(selectedProductDict.value)
 }
+
 
 const selectStockProduct = (stockProduct) =>{
 	console.log('selectStockProduct')
@@ -691,10 +692,10 @@ const filterProducts = ()=>{
 
 const search = () => {
 	console.log('selectedProductDict')
-	console.log(selectedProductDict.value)
+	// console.log(selectedProductDict.value)
 	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
-		_support_stock_user_subscription_id=campaignDetailStore.campaign.meta?.stock_subscription_id,
+		_support_stock_user_subscription_id=selectedStockUserSubscriptionId.value,
 		_pageSize=pageSize.value,
 		_currentPage=currentPage.value, 
 		_searchColumn=searchField.value, 
@@ -718,13 +719,13 @@ const search = () => {
 		// 	totalPage.value = 3
         // }
 		stockProducts.value = response.data.results
-		// console.log(stockProducts.value = response.data.results)
+		// console.log(stockProducts.value)
 		// proudct default value
-		stockProducts.value.forEach(product => {
+		stockProducts.value.forEach((product,index) => {
 			if (!(product.id.toString() in selectedProductDict.value)){
 				product.type = ['', null, undefined].includes(product.type) ? 'product' : product.type
 				product.oversell = false
-				product.assign_qty = product.qty
+				product.assign_qty = selectedStockUserSubscriptionId.value? 100:product.qty
 				product.customer_editable = true
 				product.customer_removable = false
 			}
