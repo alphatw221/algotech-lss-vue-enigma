@@ -3,25 +3,24 @@
   <h2 class="text-xl sm:text-2xl sm:px-20 mx-auto sm:mx-0 font-medium">
     {{ $t('buyers.page_title')}}
   </h2>
-  <div class="flex flex-col px-3 sm:px-8 py-10 box h-full lg:mx-20">
+  <div class="flex flex-col px-3 sm:px-8 py-5 box h-full lg:mx-20 gap-4">
     <div class="flex flex-row">
-      <BuyersSearchBar /> 
-      <div class=" ml-auto">
-        <div class="relative">
-          <FileUploadButton 
-            v-if="sellerStore?.userInfo?.user_subscription?.user_plan?.display?.import_customer_button"
-            class="text-sm h-[35px] w-[40px] sm:w-40 mr-2 sm:mr-2 sm:h-[42px] text-[#ff9505] bg-[#fefce8] font-medium shadow-lg btn color-[#f59e0b] border-[#fcd34d] hover:bg-[#fef6e8] rounded-full mb-5 border-[2px] border-slate-100" 
-            button_id="import_customer"
-            accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
-            :multiple="false"
-            :uploadFunction = "importCustomers"
-          >
-            <LoadingIcon  v-if="import_processing" icon="three-dots" color="black" class="absolute h-[30px] w-[30px] sm:w-40 mr-2 sm:mr-0 sm:h-[20px] top-2"/>
-            <template v-else class="hidden sm:block"><span class="mr-1 text-lg font-bold text-[#ff9505] inline-block align-middle"><ArrowDownIcon class="" /></span> Import Customer  </template>
-            <template class="block sm:hidden"> <ArrowDownIcon class="w-8 h-8" /> </template>
-          </FileUploadButton>
-        </div>
-      </div>
+      <BuyersSearchBar class="my-auto"/> 
+      <FileUploadButton 
+        v-if="sellerStore?.userInfo?.user_subscription?.user_plan?.display?.import_customer_button"
+        class="ml-auto text-sm h-[35px] w-[35px] p-0 sm:p-2 sm:w-fit sm:h-[42px] text-[#ff9505] bg-[#fefce8] font-medium shadow-lg border-[#fcd34d] hover:bg-[#fef6e8] rounded-full border-[2px]" 
+        button_id="import_customer"
+        accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel"
+        :multiple="false"
+        :uploadFunction = "importCustomers"
+      >
+      
+      <LoadingIcon  v-if="import_processing" icon="three-dots" color="black" class="absolute h-[30px] w-[30px] sm:w-40 mr-2 sm:mr-0 sm:h-[20px] top-2"/>
+      <template  v-else> 
+        <ArrowDownIcon class="w-6 h-6 " />
+        <span class="hidden sm:inline-block text-md font-bold text-[#ff9505] align-middle flex flex-row">Import Customer</span> 
+      </template>
+      </FileUploadButton>
       
     </div>
     
