@@ -192,8 +192,6 @@ import { get_campaign_setup_status } from "@/api_v2/campaign"
 import CommentListView from './CommentListView.vue';
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 import { useRoute, useRouter } from "vue-router";
-import Comments from "../../global-components/lss-svg-icons/Comments.vue";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 
 const router = useRouter();

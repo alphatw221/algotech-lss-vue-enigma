@@ -116,7 +116,7 @@
     leave,
   } from "./index";
   import { nestedMenu } from "@/layouts/side-menu";
-  import MenuIcon from "../../global-components/lss-svg-icons/MenuIcon.vue";
+  import MenuIcon from "@/global-components/lss-svg-icons/MenuIcon.vue";
   
   const route = useRoute();
   const router = useRouter();

@@ -123,7 +123,6 @@ import igAvatar from '@/assets/images/lss-icon/icon-user-ig.svg'
 import ytAvatar from '@/assets/images/lss-icon/icon-user-yt.svg'
 import ttAvatar from '@/assets/images/lss-icon/icon-user-tt.svg'
 import tcAvatar from '@/assets/images/lss-icon/icon-user-tc.svg'
-import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue'
 
 const router = useRouter()
 const route = useRoute()
