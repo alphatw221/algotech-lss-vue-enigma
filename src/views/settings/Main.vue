@@ -17,23 +17,23 @@
         </div>
         <div class="flex flex-col gap-5 box lg:mx-20">
             <div class="switch-toggle mx-auto sm:ml-14 mt-6 sm:mt-10">
-                <input id="on" name="state-d" type="radio" checked="checked" @click="toggleTabs(1)"/>
-                <label for="on">{{$t('settings.notes.notes')}}</label>
-                <input id="na" name="state-d" type="radio" class="" @click="toggleTabs(2)" />
-                <label for="na">{{$t('settings.payment.payment')}}</label>
-                <input id="off" name="state-d" type="radio" @click="toggleTabs(3)" />
-                <label for="off">{{$t('settings.delivery.delivery')}}</label>
+                <template v-for="category in computedCategorys" :key="category"> 
+                    <input :id="category.name" type="radio" :checked="(openTab == category.name)" :value="category.name" v-model="openTab"/>
+                    <label :for="category.name">{{$t('settings.categorys.'+ category.name)}}</label>
+                </template>
             </div>
+
+
             <div class="pb-10 px-3">
-                <div id="notes" :class="{ hidden: openTab !== 1, block: openTab === 1 }">
+                <div id="general" :class="{ hidden: openTab !== 'general', block: openTab === 'general' }">
                     <NotesSettings />
                 </div>
 
-                <div id="payment" :class="{ hidden: openTab !== 2, block: openTab === 2 }">
+                <div id="payment" :class="{ hidden: openTab !== 'payment', block: openTab === 'payment' }">
                     <PaymentSettings />
                 </div>
 
-                <div id="delivery" :class="{ hidden: openTab !== 3, block: openTab === 3 }">
+                <div id="logistic" :class="{ hidden: openTab !== 'logistic', block: openTab === 'logistic' }">
                     <DeliverySettings />
                 </div>
             </div>
@@ -41,30 +41,28 @@
     </div>
 </template>
 
-<script>
+<script setup>
+import { ref, watch, computed, onMounted, getCurrentInstance } from "vue";
+import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+
 import NotesSettings from './NotesSettings.vue';
 import PaymentSettings from './payment-settings/Main.vue';
 import DeliverySettings from './delivery-settings/Main.vue';
-// import DeliverySettings from './DeliverySettings.vue';
 
-export default {
-    components: {
-        NotesSettings,
-        PaymentSettings,
-        DeliverySettings
-    },
-    data() {
-        return {
-            openTab: 1,
-            range: 1,
-        }
-    },
-    methods: {
-        toggleTabs: function (tabNumber) {
-            this.openTab = tabNumber;
-        },
-    },
-}
+const sellerLayout = useLSSSellerLayoutStore()
+const openTab = ref('general')
+const computedCategorys = computed(()=>{
+    var categorys = [ {name:'general'},{name:'payment'},{name:'logistic'} ]
+
+    if(sellerLayout.userInfo?.user_subscription?.type === 'supplier'){
+        categorys = categorys.filter(category=>category.name!='general')
+        categorys = categorys.filter(category=>category.name!='payment')
+        openTab.value = 'logistic'
+    }
+    return categorys
+})
+
+
 </script>
 
 <style scoped>

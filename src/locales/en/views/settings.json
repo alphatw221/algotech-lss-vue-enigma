@@ -1,4 +1,9 @@
 {
+    "categorys":{
+        "general":"General",
+        "payment":"Payment",
+        "logistic":"Delivery"
+    },
     "settings" : "Settings",
     "client_id" : "Client ID",
     "secret" : "Secret",
