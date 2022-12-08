@@ -333,6 +333,11 @@
       <button :show="show" v-else class="w-fit btn btn-rounded-primary" @click="proceed_to_payment" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
+
+      <!-- Ecpay csv map test button -->
+      <button class="w-fit btn btn-rounded-primary" @click="get_map">
+        test ecpay
+      </button>
       
       
     </div>
@@ -350,7 +355,7 @@ import { computed, onMounted, ref, watch, reactive, toRefs } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 // import { buyer_update_delivery_info } from "@/api_v2/pre_order"
-import { buyer_checkout_cart } from "@/api_v2/cart"
+import { buyer_checkout_cart,buyer_get_cvs_map } from "@/api_v2/cart"
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useCookies } from 'vue3-cookies'
@@ -480,6 +485,41 @@ const delivery_rules = computed(()=>{
 const reciever_validate = useVuelidate(reciever_rules, shipping_info);
 const delivery_validate = useVuelidate(delivery_rules, shipping_info);
 
+const get_map = () =>{
+  const cvsdata = {'LogisticsSubType':'FAMIC2C'} //UNIMARTC2C or FAMIC2C
+  buyer_get_cvs_map(route.params.cart_oid,cvsdata).then(
+    res=>{
+      const form = document.createElement('form');
+      form.setAttribute("id", "data_set");
+      form.method = 'post';
+      form.action = res.data.action;
+      const params = res.data.data
+      // {
+      //   "MerchantID": "3344643",
+      //   "MerchantTradeNo": "anyno",
+      //   "LogisticsType": "CVS",
+      //   "LogisticsSubType": "UNIMARTC2C",
+      //   "IsCollection": "Y",
+      //   "ServerReplyURL": "https://3612-220-136-84-226.jp.ngrok.io/api/v2/cart/buyer/cvsmap/callback/",
+      //   "ExtraData": "6390449bbc4b20ae3d99e212"
+      // }
+      for (const key in params) {
+        if (params.hasOwnProperty(key)) {
+          const hiddenField = document.createElement('input');
+          hiddenField.type = 'hidden';
+          hiddenField.name = key;
+          hiddenField.value = params[key];
+
+          form.appendChild(hiddenField);
+        }
+      }
+
+  document.body.appendChild(form);
+  form.submit();
+    }
+  )
+  
+}
 
 
 const proceed_to_payment = () =>{

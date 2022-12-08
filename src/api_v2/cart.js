@@ -41,6 +41,11 @@ export const buyer_get_cart_relative_wallet = (cart_oid, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/cart/${cart_oid}/buyer/wallet`)
 }
 
+export const buyer_get_cvs_map = (cart_oid,data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/cart/buyer/cvs_map/${cart_oid}/`,data)
+}
+
+
 //-------------------------------seller----------------------------------
 export const seller_retrieve_cart = (cart_id, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/cart/${cart_id}/seller/retrieve/`);
