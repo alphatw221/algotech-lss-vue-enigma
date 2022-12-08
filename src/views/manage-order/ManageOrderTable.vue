@@ -254,7 +254,6 @@ import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 import OrderDeliveryStatusSelect from "@/components/order/OrderDeliveryStatusSelect.vue"
 import OrderPaymentStatusSelect from "@/components/order/OrderPaymentStatusSelect.vue"
 import { utils, writeFile } from 'xlsx'
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 const campaignDetailStore = useCampaignDetailStore();
 const route = useRoute();

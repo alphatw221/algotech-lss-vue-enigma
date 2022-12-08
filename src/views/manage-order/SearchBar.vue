@@ -31,7 +31,6 @@ import { useManageOrderStore } from "@/stores/lss-manage-order";
 import { useRoute, useRouter } from "vue-router";
 import { get_campaign_order_report } from "@/api_v2/campaign"
 import { url } from "@vuelidate/validators";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
 
 
 

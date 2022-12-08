@@ -273,7 +273,6 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useLSSPointsMetaStore } from '@/stores/lss-points-meta';
 
 import i18n from "@/locales/i18n"
-import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 const props = defineProps({
     meta_point: Object,
