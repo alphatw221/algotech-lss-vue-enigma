@@ -11,13 +11,13 @@
             </button>
         </div>
 
-        <div class="text-sm sm:text-[16px] flex flex-col gap-3 sm:gap-5 divide-y-10">
+        <div class="text-sm sm:text-[16px] flex flex-col gap-3 sm:gap-5 my-5">
             <template v-for="(option, index) in deliverySettings.pickup_options" :key="index">
-                <div class="flex flex-col flex-wrap gap-3 sm:flex-row">
-                    <div class="flex flex-col flex-1 ">
-                            <label class="text-base whitespace-nowrap">{{ $t('settings.delivery.store.pickup_store') }}</label> 
+                <div class="flex flex-col flex-wrap gap-3 sm:flex-row my-3">
+                    <div class="flex flex-col flex-1">
+                        <label class="text-base whitespace-nowrap">{{ $t('settings.delivery.store.pickup_store') }}</label> 
                         <input 
-                            class="w-full h-[42px] text-base form-control sm:mt-0"
+                            class="w-full h-[42px] text-base form-control"
                             type="text"
                             v-model="option.name" 
                         />
@@ -52,20 +52,25 @@
 
                     <div class="flex flex-col flex-wrap flex-grow-2">
                         <label class="text-base">{{ $t('settings.delivery.store.pickup_address') }}</label>
-                        <input 
-                            class="w-full h-[42px] mr-5 text-base form-control sm:mt-0"
+                        <div class="flex flex-row"> 
+                            <input 
+                            class="w-full h-[42px] sm:mr-5 text-base form-control"
                             type="text" 
                             v-model="option.address"
-                        />
+                            />
+                            <button 
+                                class="hidden sm:inline-block w-full btn btn-danger sm:ml-auto sm:rounded-lg sm:w-24 h-[42px]" 
+                                @click="deleteBranch(index)"
+                                >
+                                {{ $t('settings.delivery_form.delete') }}
+                            </button>
+                        </div>
                         <label class="text-danger text-[12px]" 
                             v-for="error, index in v.pickup_options.$each.$response.$errors[index].address"
                             :key="index"
                             >{{ $t(`settings.delivery.errors.${error.$message.replace(/\s/g, "_")}`) }}</label>
-                    </div>
-                    <div class="flex flex-col">
-                        <label class="text-base invisible">　</label>
                         <button 
-                            class="inline-block w-full btn btn-danger sm:ml-auto sm:rounded-lg sm:w-24 h-[42px]" 
+                            class="inline-block sm:hidden w-full btn btn-danger sm:ml-auto sm:rounded-lg sm:w-24 h-[42px] mt-3" 
                             @click="deleteBranch(index)"
                             >
                             {{ $t('settings.delivery_form.delete') }}
@@ -99,7 +104,7 @@ import { seller_update_delivery } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import i18n from '@/locales/i18n';
 
-import { helpers, required, requiredIf, numeric, integer, decimal,minValue } from '@vuelidate/validators'
+import { helpers, required} from '@vuelidate/validators'
 import useVuelidate from '@vuelidate/core'
 
 const layoutStore = useLSSSellerLayoutStore();

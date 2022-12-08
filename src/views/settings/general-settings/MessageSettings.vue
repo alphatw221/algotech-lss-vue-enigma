@@ -82,7 +82,6 @@ import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useLSSReplyMetaStore } from '@/stores/lss-reply-meta';
 
 import i18n from "@/locales/i18n"
-import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 
 const props = defineProps({
     meta_reply: Object,

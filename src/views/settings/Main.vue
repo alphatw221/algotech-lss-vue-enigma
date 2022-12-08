@@ -45,7 +45,7 @@
 import { ref, watch, computed, onMounted, getCurrentInstance } from "vue";
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
-import NotesSettings from './NotesSettings.vue';
+import NotesSettings from './general-settings/NotesSettings.vue';
 import PaymentSettings from './payment-settings/Main.vue';
 import DeliverySettings from './delivery-settings/Main.vue';
 

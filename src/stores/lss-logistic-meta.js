@@ -15,7 +15,6 @@ export const useLSSLogisticMetaStore = defineStore("logisticMeta", {
 			{key:"free_delivery_for_how_many_order_minimum",dataType:"number", default:99},
 			{key:"is_additional_delivery_charge",dataType:"boolean", default:true},
 			{key:"additional_delivery_options", dataType:"object", default:[]},
-			// {key:"delivery_note", dataType:"string", default:''},
 		],
 	},
 	store_pickup: {

@@ -21,7 +21,7 @@
     "invalid_data":"Invalid data",
     "delivery":{
         "delivery":"Delivery",
-        "delivery_setting": "Delivery Settings",
+        "delivery_setting": "Delivery Settings", 
         "charge":"Delivery Charge",
         "charge_option":"Delivery Charge Option",
         "add_more_delivery_option":"Add New Option",
