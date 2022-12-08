@@ -242,7 +242,7 @@
     </div>
 </template>
 <script setup>
-import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid, get_order_report } from "@/api_v2/order"
+import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid, get_order_report, get_order_report_for_kol } from "@/api_v2/order"
 
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -264,7 +264,7 @@ const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_WEB
 
-
+var _campaign_id, _search_value, _status, _filter_data, _toastify
 
 // const payment_status_options = ref([
 //     { key: 'awaiting_payment', value: 'awaiting_payment'},
@@ -371,7 +371,16 @@ const search = () => {
 const export_order = ()=>{
 
     filterData.value['sort_by'] = sortBy.value
-    var _campaign_id, _search_value, _status, _filter_data, _toastify
+    if (layoutStore.userInfo.user_subscription.type == 'kol') {
+        kolFormatOrderReport()
+    } else {
+        normalFormatOrderReport()
+    }
+    
+
+}
+
+const normalFormatOrderReport = () => {
     get_order_report(
         _campaign_id=route.params.campaign_id, 
         _search_value=keyword.value, 
@@ -396,10 +405,53 @@ const export_order = ()=>{
 
         }
     )
-
 }
 
+const kolFormatOrderReport = () => {
+    get_order_report_for_kol(
+        _campaign_id=route.params.campaign_id, 
+        _search_value=keyword.value, 
+        _status=props.tableStatus, 
+        _filter_data=filterData.value, 
+        _toastify=layoutStore.alert)
+    .then(
+        res => {
 
+            const data = res.data.data
+            const header = res.data.header
+            const displayHeader = res.data.display_header
+            const columnSettings = res.data.column_settings
+            const displayData = [displayHeader, ...data]
+            let total_gross_value = 0
+            data.forEach(e=> {
+                total_gross_value += e['gross']
+            })
+
+            const workSheet = utils.json_to_sheet(displayData, {header:header, skipHeader:true})
+            workSheet['!cols'] = columnSettings
+
+            // append additional data 
+            const additional_text_data = [
+                {"key": "total_gross_title", "value": "Total Gross", "ceil_address": {c: header.length -2, r: data.length +1}},
+                {"key": "total_gross_value", "value": total_gross_value, "ceil_address": {c: header.length -1, r: data.length +1}}
+            ]
+            additional_text_data.forEach(ceil_data => {
+                let ceil_address = utils.encode_cell(ceil_data['ceil_address']);
+                let ceil = workSheet[ceil_address];
+                if (ceil) {
+                    ceil.v = ceil_data['value']
+                } else {
+                    utils.sheet_add_aoa(workSheet, [[ceil_data['value']]], {origin: ceil_address});
+                }
+            })
+
+            const wb = utils.book_new()
+            utils.book_append_sheet(wb, workSheet, 'sheets')
+            writeFile(wb, 'sheets.xlsx')
+
+        }
+    )
+}
 const routeToOrderDetail = (order) => {
     if(route.params.campaign_id){
         router.push({name:'seller-campaign-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id}})

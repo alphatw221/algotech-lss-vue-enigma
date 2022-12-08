@@ -56,3 +56,8 @@ export const get_order_report = (campaign_id, searchValue, status, filter_data, 
 
     return createAxios(toastify).post(`/api/v2/order/report/json/?campaign_id=${campaign_id}&search=${searchValue}&status=${status}`, filter_data)
 }
+
+export const get_order_report_for_kol = (campaign_id, searchValue, status, filter_data, toastify=null) => {
+
+    return createAxios(toastify).post(`/api/v2/order/report/kol/json/?campaign_id=${campaign_id}&search=${searchValue}&status=${status}`, filter_data)
+}
