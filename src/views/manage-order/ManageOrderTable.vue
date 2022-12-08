@@ -416,24 +416,29 @@ const kolFormatOrderReport = () => {
         _toastify=layoutStore.alert)
     .then(
         res => {
-
+            
             const data = res.data.data
             const header = res.data.header
             const displayHeader = res.data.display_header
             const columnSettings = res.data.column_settings
             const displayData = [displayHeader, ...data]
+            const row_index = 3
+            const blank_rows_number = row_index + 1
+            var workSheet = utils.aoa_to_sheet([[""]],{origin: row_index});
+            workSheet['!cols'] = columnSettings
+            utils.sheet_add_json(workSheet, displayData , {header: header, skipHeader: true, origin: -1});
+
             let total_gross_value = 0
             data.forEach(e=> {
                 total_gross_value += e['gross']
             })
 
-            const workSheet = utils.json_to_sheet(displayData, {header:header, skipHeader:true})
-            workSheet['!cols'] = columnSettings
-
             // append additional data 
             const additional_text_data = [
-                {"key": "total_gross_title", "value": "Total Gross", "ceil_address": {c: header.length -2, r: data.length +1}},
-                {"key": "total_gross_value", "value": total_gross_value, "ceil_address": {c: header.length -1, r: data.length +1}}
+                {"keu": "campaign_title",  "value": `Campaign : ${campaignDetailStore.campaign.title}`, "ceil_address":{c: 1, r: 2}},
+                {"keu": "campaign_title",  "value": `Campaign Period: ${campaignDetailStore.campaign.start_at} - ${campaignDetailStore.campaign.end_at}`, "ceil_address":{c: 1, r: 3}},
+                {"key": "total_gross_title", "value": "Total Gross", "ceil_address": {c: header.length -2, r: data.length + blank_rows_number + 2}},
+                {"key": "total_gross_value", "value": total_gross_value, "ceil_address": {c: header.length -1, r: data.length + blank_rows_number + 2}}
             ]
             additional_text_data.forEach(ceil_data => {
                 let ceil_address = utils.encode_cell(ceil_data['ceil_address']);
