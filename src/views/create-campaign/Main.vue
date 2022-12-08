@@ -184,8 +184,8 @@ import { ref, watch, onMounted, computed, watchEffect } from 'vue';
 import PaymentForm from './payment-form/Main.vue'
 import DeliveryForm from './DeliveryForm.vue';
 import NotesForm from './NotesForm.vue';
-import PointsSettings from '@//views/settings/PointsSettings.vue'
-import MessageSettings from '@//views/settings/MessageSettings.vue'
+import PointsSettings from '@//views/settings/general-settings/PointsSettings.vue'
+import MessageSettings from '@//views/settings/general-settings/MessageSettings.vue'
 
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";
