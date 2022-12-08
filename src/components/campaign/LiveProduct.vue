@@ -1,7 +1,6 @@
 <template>
     <div
-        class="box mt-2 min-h-[30%] w-full max-h-screen
-            md:min-h-[40%] md:h-[45vh] 
+        class="box mt-2 min-h-[40vh] w-full max-h-screen
             2xl:h-full">
         <div class="flex flex-col h-full"> 
 
@@ -49,8 +48,8 @@
                 </template>
             </div>
 
-            <div class="shrink-0 overflow-auto  h-[80%] 2xl:h-[91%]">
-                <table class="table table-sm">
+            <div class="shrink-0 overflow-auto  h-[85%] 2xl:h-[91%]">
+                <table class="table table-sm -mt-1">
                     <thead class="table-dark">
                         <tr class="relative">
                             <th class="whitespace-nowrap bg-dark md:hidden">
