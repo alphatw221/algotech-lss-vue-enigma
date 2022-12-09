@@ -169,8 +169,7 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import SideMenuTooltip from "@/components/side-menu-tooltip/Main.vue";
 import { linkTo, nestedMenu, enter, leave } from "./index";
 import dom from "@left4code/tw-starter/dist/js/dom";
-import MenuIcon from "../../global-components/lss-svg-icons/MenuIcon.vue";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
+import MenuIcon from "@/global-components/lss-svg-icons/MenuIcon.vue";
 
 const route = useRoute();
 const router = useRouter();
