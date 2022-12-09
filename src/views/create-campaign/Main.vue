@@ -73,7 +73,7 @@
 			<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">General setting: </span>
 			<hr class="-mx-6" />
 
-			<div class="flex flex-col"> 
+			<div v-show="sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" class="flex flex-col"> 
 				<span> Sell Product from stock: </span>
 				<select 
 				class="form-select h-[35px] sm:h-[42px] w-full"
@@ -184,8 +184,8 @@ import { ref, watch, onMounted, computed, watchEffect } from 'vue';
 import PaymentForm from './payment-form/Main.vue'
 import DeliveryForm from './DeliveryForm.vue';
 import NotesForm from './NotesForm.vue';
-import PointsSettings from '@//views/settings/PointsSettings.vue'
-import MessageSettings from '@//views/settings/MessageSettings.vue'
+import PointsSettings from '@//views/settings/general-settings/PointsSettings.vue'
+import MessageSettings from '@//views/settings/general-settings/MessageSettings.vue'
 
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";

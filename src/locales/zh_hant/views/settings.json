@@ -1,4 +1,9 @@
 {
+    "categorys":{
+        "general":"基本設定",
+        "payment":"金流",
+        "logistic":"物流"
+    },
     "settings" : "專頁設定",
     "client_id" : "Client ID",
     "secret" : "Secret",
@@ -101,8 +106,17 @@
             "Value_is_required":"此欄位必填"
         }
     },
-
     "delivery_form":{
+        "delivery_titles":{
+            "own_delivery":"Own Delivery",
+            "store_pickup":"Store Pickup",
+            "ecpay":"ECPay"
+        },
+        "ecpay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV"
+        },
         "delivery_detail":"物流設定",
         "delivery_charge":"基本運費",
         "free_delivery_for_order_above":"滿額免運：訂單金額滿（$）",
@@ -117,7 +131,9 @@
         "pickup_store":"取貨門市/地點",
         "pickup_address":"自取地址",
         "express_service_name": "例如：離島、當日送達......",
-        "express_charge": "增加/取代金額"
+        "express_charge": "增加/取代金額",
+        "enabled":"啟用",
+        "update":"更新"        
     },
 
 

@@ -21,7 +21,7 @@
             </a> -->
         </div>
 
-        <div class="flex justify-between mt-5 sm:mt-0" v-if="paymentData.v2_accounts != 0" >
+        <div class="flex justify-between mt-5 lg:mt-0" v-if="paymentData.v2_accounts != 0" >
             <!-- <div class="flex"> 
                 <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem] my-auto" 
@@ -31,7 +31,7 @@
                 <label class="ml-3 form-label my-auto">{{ $t('settings.payment_form.enabled') }}</label>
             </div> -->
             <button 
-				class="inline-block rounded-lg btn btn-primary sm:ml-auto w-full lg:w-fit text-sm sm:text-lg " 
+				class="inline-block rounded-lg btn btn-primary sm:ml-auto w-full md:w-fit text-sm sm:text-lg" 
 				@click="addDirectPayment()"
 			>
 				{{ $t('settings.payment_form.add_more_direct_payment') }}

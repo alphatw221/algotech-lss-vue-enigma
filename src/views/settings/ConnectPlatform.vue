@@ -32,7 +32,7 @@
 
     <div
       v-if="
-        layoutStore.userInfo.user_subscription.user_plan?.activated_platform.includes(
+        layoutStore.userInfo.user_subscription.user_plan?.activated_platform?.includes(
           'facebook'
         )
       "
