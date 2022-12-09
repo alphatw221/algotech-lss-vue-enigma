@@ -166,10 +166,10 @@
                     <!-- Ecpay 店到店 -->
                     <template v-if="!shoppingCartStore.cart.campaign.meta_logistic.ecpay_delivery_enable"> 
                       <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check"
-                        :class="{'border-slate-600': shipping_option_index_computed == 'c2c'}">
+                        :class="{'border-slate-600': shipping_option_index_computed == 'CVS'}">
                         <div> 
                           <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                          name="vertical_radio_button" value="c2c" v-model="shipping_option_index_computed" />
+                          name="vertical_radio_button" value="CVS" v-model="shipping_option_index_computed" />
                           <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
                         </div>
                         <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
@@ -179,15 +179,14 @@
                       </div>
                       
                       <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check"
-                        :class="{'border-slate-600': shipping_option_index_computed == 'c2c'}">
+                        :class="{'border-slate-600': shipping_option_index_computed == 'HOME'}">
                         <div> 
                           <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                          name="vertical_radio_button" value="c2c" v-model="shipping_option_index_computed" />
-                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
+                          name="vertical_radio_button" value="HOME" v-model="shipping_option_index_computed" />
+                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">黑貓</label>
                         </div>
                         <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
-                          <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/> 
-                          <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/> 
+
                         </div>
                       </div>
                     </template>
@@ -377,7 +376,7 @@ import ShoppingCartTableSimple from "./ShoppingCartTable-simple.vue";
 import { required, minLength, maxLength, email, integer } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
-import { computed, onMounted, ref, watch, reactive, toRefs } from "vue";
+import { computed, onMounted,onUnmounted, ref, watch, reactive, toRefs } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 // import { buyer_update_delivery_info } from "@/api_v2/pre_order"
@@ -400,6 +399,7 @@ const date_range = ref({
   start:new Date(),
   end:new Date()
 })
+let webSocket = null
 const pickup_select_index = ref(null)
 const shipping_info= ref({
 			shipping_option:"",
@@ -441,6 +441,8 @@ const shipping_option_index_computed = computed({
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
     }
     else if(typeof shipping_info.value.shipping_option_index == 'string'){
+      shipping_info.value.shipping_option_data = {'logisticsType':shipping_info.value.shipping_option_index}
+      shipping_info.value.shipping_option_index = null
       console.log(shipping_info.value.shipping_option_data)
     }
     else{
@@ -561,6 +563,11 @@ const proceed_to_payment = () =>{
 
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
+  }
+  if (!shoppingCartStore.cart?.meta?.ecpay_cvs) {
+
+  layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
+  return
   }
 
   if(shipping_info.value.shipping_method==='delivery'){
