@@ -8,14 +8,15 @@
                 </DropdownToggle>
                 <DropdownMenu class="pt-2">
                     <DropdownContent class="w-full text-center">
-                        <DropdownItem @click="exportXLSX()"> XLSX </DropdownItem>
+                        <DropdownItem @click="exportOrderDetailReport()">{{$t("order_report.order_detail_report")}}</DropdownItem>
+                        <DropdownItem @click="exportSalesReport()">{{$t("order_report.order_sales_report")}}</DropdownItem>
                     </DropdownContent>
                 </DropdownMenu>
             </Dropdown>
         </div>
-        <div class="sm:hidden w-12 inline-block align-middle">
-            <SimpleIcon icon="export" color="#414141"  width="24" height="24" class="mt-1" @click="exportXLSX()"/>
-        </div>
+        <!-- <div class="sm:hidden w-12 inline-block align-middle">
+            <SimpleIcon icon="export" color="#414141"  width="24" height="24" class="mt-1" @click="exportOrderDetail()"/>
+        </div> -->
     </div>
 </template>
 
@@ -34,7 +35,10 @@ const props = defineProps({
 
 
 const route = useRoute();
-const exportXLSX = ()=>{
-    eventBus.emit(`exportTable-${props.tableStatus}`)
+const exportOrderDetailReport = ()=>{
+    eventBus.emit(`exportOrderDetailReport-${props.tableStatus}`)
+}
+const exportSalesReport = ()=>{
+    eventBus.emit(`exportSalesReport-${props.tableStatus}`)
 }
 </script>
