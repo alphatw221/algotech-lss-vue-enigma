@@ -6,6 +6,10 @@
             <PaymentMethod class="mt-1" v-else :payment="payment" />
         </div>
     </AccordionGroup>
+    <!-- Ecpay csv map test button -->
+    <button class="w-fit btn btn-rounded-primary" @click="cash_on_delivery">
+        test ecpay
+    </button>
 </template>
 
 
@@ -18,9 +22,12 @@ import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import {onMounted, computed, watch} from "vue"
 import {ref} from "vue"
+import { useRoute, useRouter } from "vue-router";
+import {buyer_cash_on_delivery} from "@/api_v2/order"
 const store = useLSSBuyerOrderStore(); 
 const paymentMetaStore = useLSSPaymentMetaStore()
-
+const route = useRoute();
+const router = useRouter();
 const selectIndex = ref(0)
 const payments = ref([])
 
@@ -42,6 +49,19 @@ watch(computed(()=>store.order),()=>{
     });
     console.log(payments.value)
 })
+
+const cash_on_delivery = () =>{
+  const data = {
+    'is_collection': 'Y', //Y or N
+    'logistics_type':'CVS' //CVS or HOME
+    } 
+    buyer_cash_on_delivery(route.params.order_oid,data).then(
+    res=>{
+        console.log(res.data)
+    }
+  )
+  
+}
 
 
 </script>

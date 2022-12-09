@@ -351,7 +351,7 @@ import ShoppingCartTableSimple from "./ShoppingCartTable-simple.vue";
 import { required, minLength, maxLength, email, integer } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
-import { computed, onMounted, ref, watch, reactive, toRefs } from "vue";
+import { computed, onMounted,onUnmounted, ref, watch, reactive, toRefs } from "vue";
 import { useShoppingCartStore } from "@/stores/lss-shopping-cart";
 import { useRoute, useRouter } from "vue-router";
 // import { buyer_update_delivery_info } from "@/api_v2/pre_order"
@@ -374,6 +374,7 @@ const date_range = ref({
   start:new Date(),
   end:new Date()
 })
+let webSocket = null
 const pickup_select_index = ref(null)
 const shipping_info= ref({
 			shipping_option:"",
@@ -486,7 +487,7 @@ const reciever_validate = useVuelidate(reciever_rules, shipping_info);
 const delivery_validate = useVuelidate(delivery_rules, shipping_info);
 
 const get_map = () =>{
-  const cvsdata = {'LogisticsSubType':'FAMIC2C'} //UNIMARTC2C or FAMIC2C
+  const cvsdata = {'LogisticsSubType':'UNIMARTC2C'} //UNIMARTC2C or FAMIC2C
   buyer_get_cvs_map(route.params.cart_oid,cvsdata).then(
     res=>{
       const form = document.createElement('form');
