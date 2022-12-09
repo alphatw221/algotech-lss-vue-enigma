@@ -442,11 +442,9 @@ const shipping_option_index_computed = computed({
     }
     else if(typeof shipping_info.value.shipping_option_index == 'string'){
       shipping_info.value.shipping_option_data = {'logisticsType':shipping_info.value.shipping_option_index}
-      shipping_info.value.shipping_option_index = null
       console.log(shipping_info.value.shipping_option_data)
     }
     else{
-      console.log("HHH")
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
       console.log(shipping_info.value.shipping_option_data)
     }
