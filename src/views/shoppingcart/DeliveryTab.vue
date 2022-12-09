@@ -101,6 +101,7 @@
             <TabPanel class="leading-relaxed">
               <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
               <div class="flex flex-col">
+                <!-- Delivery Address -->
                 <div class="gap-5 p-8 intro-y">
                   <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.address')}}</label>
                   <div>
@@ -161,6 +162,24 @@
                 <div class="gap-5 mx-0 intro-y lg:mx-20">
                   <template v-if="shoppingCartStore.cart.campaign">
 
+
+                    <!-- Ecpay 店到店 -->
+                    <template v-if="!shoppingCartStore.cart.campaign.meta_logistic.ecpay_delivery_enable"> 
+                      <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check"
+                        :class="{'border-slate-600': shipping_option_index_computed == 'c2c'}">
+                        <div> 
+                          <input :id="'radio-switch-'" class="form-check-input" type="radio"
+                          name="vertical_radio_button" value="c2c" v-model="shipping_option_index_computed" />
+                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
+                        </div>
+                        <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
+                          <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/> 
+                          <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/> 
+                        </div>
+                      </div>
+                    </template>
+
+                    <!-- Default Option -->
                     <div class="flex flex-row flex-wrap px-10 py-6 my-4 border-2 rounded-lg form-check"
                       :class="{'border-slate-600': shipping_option_index_computed == null}">
                       <div> 
@@ -175,6 +194,7 @@
                         {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
                       </div>
                     </div>
+
                     <template 
                       v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
                       :key="index"> 
@@ -333,13 +353,6 @@
       <button :show="show" v-else class="w-fit btn btn-rounded-primary" @click="proceed_to_payment" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
-
-      <!-- Ecpay csv map test button -->
-      <button class="w-fit btn btn-rounded-primary" @click="get_map">
-        test ecpay
-      </button>
-      
-      
     </div>
   </div>
 </template>
@@ -413,8 +426,14 @@ const shipping_option_index_computed = computed({
     
     if(shipping_info.value.shipping_method=='pickup'){
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
-    }else{
+    }
+    else if(typeof shipping_info.value.shipping_option_index == 'string'){
+      console.log(shipping_info.value.shipping_option_data)
+    }
+    else{
+      console.log("HHH")
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
+      console.log(shipping_info.value.shipping_option_data)
     }
 
   }})
@@ -443,7 +462,6 @@ onMounted(()=>{
   if(!isAnonymousUser){
     buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
 
-      
       res.data.shipping_method='delivery'     //default value
       res.data.shipping_option_index=null     //default value
       res.data.shipping_option_data={}        //default value
@@ -485,8 +503,8 @@ const delivery_rules = computed(()=>{
 const reciever_validate = useVuelidate(reciever_rules, shipping_info);
 const delivery_validate = useVuelidate(delivery_rules, shipping_info);
 
-const get_map = () =>{
-  const cvsdata = {'LogisticsSubType':'FAMIC2C'} //UNIMARTC2C or FAMIC2C
+const get_c2c_map = (storeType) =>{
+  const cvsdata = {'LogisticsSubType':storeType} //UNIMARTC2C or FAMIC2C
   buyer_get_cvs_map(route.params.cart_oid,cvsdata).then(
     res=>{
       const form = document.createElement('form');
@@ -513,9 +531,9 @@ const get_map = () =>{
           form.appendChild(hiddenField);
         }
       }
-
-  document.body.appendChild(form);
-  form.submit();
+      document.body.appendChild(form);
+      console.log('44',params)
+      form.submit();
     }
   )
   
