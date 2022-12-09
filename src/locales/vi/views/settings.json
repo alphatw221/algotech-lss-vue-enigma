@@ -1,4 +1,9 @@
 {
+    "categorys":{
+        "general":"Chung",
+        "payment":"Thanh toán",
+        "logistic":"Vận chuyển"
+    },
     "settings" : "Cài đặt",
     "client_id" : "Client ID",
     "secret" : "Mã bảo mật",
@@ -99,8 +104,17 @@
             "Value_is_required":"Giá trị là bắt buộc"
         }
     },
-
     "delivery_form":{
+        "delivery_titles":{
+            "own_delivery":"Own Delivery",
+            "store_pickup":"Store Pickup",
+            "ecpay":"ECPay"
+        },
+        "ecpay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV"
+        },
         "delivery_detail":"Thông tin vận chuyển",
         "delivery_charge":"Chi phí vận chuyển",
         "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển($)",
@@ -115,7 +129,9 @@
         "pickup_store":"Địa điểm nhận hàng",
         "pickup_address":"Địa chỉ cửa hàng",
         "express_service_name": "tên dịch vụ vận chuyển",
-        "express_charge": "Chi phí vận chuyển"
+        "express_charge": "Chi phí vận chuyển",
+        "enabled":"Enabled",
+        "update":"Update"        
     },
 
     "payment":{
