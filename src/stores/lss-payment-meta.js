@@ -134,21 +134,14 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 	},
 	pickup_pay:{
 		multiple:false,
-		name:"取貨付款",
+		name:"貨到付款",
 		key:"pickup_pay",
 		icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/ecpay/icon.jpeg",
-		fields:[
-			{key:"cvs_store_name", name:"Store Name", type:"text", dataType:"string", default:''},
-			{key:"cvs_store_id", name:"Store ID", type:"text", dataType:"string", default:''},
-			{key:"cvs_address", name:"Store Address", type:"text", dataType:"string", default:''},
-			{key:"logistics_sub_type", name:"Store Type", type:"text", dataType:"string", default:''},
-			{key:"cvs_telephone", name:"Store Contact Number", type:"text", dataType:"string", default:''}
-		],
+		fields:[],
 		// invoice:false,
 		handle:{
-			type:'submitForm',
-			endpoint:'getEcpayCredential',
-		}
+			type:'pickup_pay',
+		} 
 	},
 
 	rapyd: {

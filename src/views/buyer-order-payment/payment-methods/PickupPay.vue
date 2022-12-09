@@ -13,7 +13,7 @@
         </AccordionPanel>
 
     </AccordionItem>
-    <button class="w-fit btn btn-rounded-primary" @click="cash_on_delivery">
+    <button class="w-fit btn btn-rounded-primary" @click="cash_on_delivery()">
         test ecpay
     </button>
 </template>
@@ -22,7 +22,7 @@
 import {onMounted, computed, watch, ref} from "vue"
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
-import {buyer_cash_on_delivery} from "@/api_v2/order"
+import {buyer_cash_on_delivery} from "@/api_v2/order" 
 
 const store = useLSSBuyerOrderStore();
 
@@ -34,11 +34,7 @@ const route = useRoute();
 const router = useRouter();
 
 const cash_on_delivery = () =>{
-  const data = {
-    'is_collection': 'Y', //Y or N
-    'logistics_type':'CVS' //CVS or HOME
-    } 
-    buyer_cash_on_delivery(route.params.order_oid,data).then(
+    buyer_cash_on_delivery(route.params.order_oid,{'is_collection': 'Y'}).then(
     res=>{
         console.log(res.data)
     }

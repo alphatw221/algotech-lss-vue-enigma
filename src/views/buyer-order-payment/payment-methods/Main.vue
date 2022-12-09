@@ -1,11 +1,14 @@
 <template>
     <AccordionGroup class="mb-10 " :selectedIndex="selectIndex" > 
         <!-- <DirectPayment /> -->
-        <div class="mt-5" v-for="(payment, index) in payments" :key="index">
-            <DirectPaymentV2 v-if="payment.key=='direct_payment'"/>
-            <PickupPay v-else-if="payment.key=='pickup_pay'"/> 
-            <PaymentMethod class="mt-1" v-else :payment="payment" />
-        </div>
+        <PickupPay v-if="store.order.shipping_option_data?.logisticsType == 'CVS'" /> 
+        <template v-else> 
+            <div class="mt-5" v-for="(payment, index) in payments" :key="index">
+                <DirectPaymentV2 v-if="payment.key=='direct_payment'"/>
+                <PickupPay v-else-if="payment.key=='pickup_pay'" :payment="payment"/> 
+                <PaymentMethod class="mt-1" v-else :payment="payment" />
+            </div>
+        </template>
     </AccordionGroup>
 </template>
 

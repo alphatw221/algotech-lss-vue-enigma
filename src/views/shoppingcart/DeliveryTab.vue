@@ -68,11 +68,9 @@
           </div>
         </div>
 
-        <div class="flex flex-col items-center mt-8 intro-y sm:flex-row">
-          <h2 class="mb-5 mr-auto text-xl font-medium">
-            {{$t('shopping_cart.delivery_tab.shipping_info')}}
-          </h2>
-        </div>
+        <h2 class="my-5 mr-auto text-xl font-medium">
+          {{$t('shopping_cart.delivery_tab.shipping_info')}}
+        </h2>
 
         <TabGroup>
           <TabList class="flex items-center justify-around w-full nav-boxed-tabs grow">
@@ -99,82 +97,48 @@
 
             <!-- BEGIN Delivery Panel -->
             <TabPanel class="leading-relaxed">
-              <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
+
               <div class="flex flex-col">
-                <!-- Delivery Address -->
-                <div class="gap-5 p-8 intro-y">
-                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.address')}}</label>
-                  <div>
-                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                      :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
-                      v-model.trim="delivery_validate.shipping_address_1.$model" />
-                    <template v-if="delivery_validate.shipping_address_1.$error">
-                          <label
-                            class="mt-2 text-danger"
-                          >
-                            {{$t('shopping_cart.delivery_tab.address_err')}}
-                          </label>
-                    </template>
-                  </div>
-                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.city')}}</label>
-                  <div>
-                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                    :class="{ 'border-danger': delivery_validate.shipping_location.$error }"
-                    v-model.trim="delivery_validate.shipping_location.$model" />
-                  <template v-if="delivery_validate.shipping_location.$error">
-                          <label
-                            class="mt-2 text-danger"
-                          >
-                            {{$t('shopping_cart.delivery_tab.city_err')}}
-                          </label>
-                  </template>
-                  </div>
-                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.state')}}</label>
-                  <div>
-                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                    :class="{ 'border-danger': delivery_validate.shipping_region.$error }"
-                    v-model.trim="delivery_validate.shipping_region.$model" />
-                    <template v-if="delivery_validate.shipping_region.$error">
-                          <label
-                            class="mt-2 text-danger"
-                          >
-                            {{$t('shopping_cart.delivery_tab.state_err')}}
-                          </label>
-                  </template>
-                  </div>
-                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.postal_code')}}</label>
-                  <div>
-                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                      :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
-                      v-model.trim="delivery_validate.shipping_postcode.$model" />
-                      <template v-if="delivery_validate.shipping_postcode.$error">
-                            <label
-                              class="mt-2 text-danger"
-                            >
-                              {{$t('shopping_cart.delivery_tab.postal_code_err')}}
-                            </label>
-                    </template>
-                  </div>
-                  
-                </div>
                 <!-- BEGIN Delivery Option -->
-                <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.option.delivery')}}</label>
+                <label class="font-medium text-md mt-5">{{$t('shopping_cart.delivery_tab.option.delivery')}}</label>
                 <div class="gap-5 mx-0 intro-y lg:mx-20">
                   <template v-if="shoppingCartStore.cart.campaign">
 
-
                     <!-- Ecpay 店到店 -->
                     <template v-if="!shoppingCartStore.cart.campaign.meta_logistic.ecpay_delivery_enable"> 
-                      <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check"
-                        :class="{'border-slate-600': shipping_option_index_computed == 'CVS'}">
+                      <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
+                      :class="{'border-slate-600': shipping_option_index_computed == 'UNIMARTC2C'}">
                         <div> 
                           <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                          name="vertical_radio_button" value="CVS" v-model="shipping_option_index_computed" />
-                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
+                          name="vertical_radio_button" value="UNIMARTC2C" v-model="shipping_option_index_computed" />
+                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">7-11{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
                         </div>
-                        <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
-                          <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/> 
-                          <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/> 
+                        <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs.logistics_sub_type == 'UNIMARTC2C'">
+                          <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
+                          
+                          <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_address}}</p>
+                        </div>
+                        <div class="flex flex-row gap-4 h-12 -p-6">
+                          <a class="my-auto" @click="get_c2c_map('UNIMARTC2C')">選擇門市</a>
+                          <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/>  -->
+                        </div>
+                      </div>
+
+                      <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
+                      :class="{'border-slate-600': shipping_option_index_computed == 'FAMIC2C'}">
+                        <div> 
+                          <input :id="'radio-switch-'" class="form-check-input" type="radio"
+                          name="vertical_radio_button" value="FAMIC2C" v-model="shipping_option_index_computed" />
+                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">全家{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
+                        </div>
+                        <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs.logistics_sub_type == 'FAMIC2C'">
+                          <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
+                          
+                          <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_address}}</p>
+                        </div>
+                        <div class="flex flex-row gap-4 h-12 -p-6">
+                          <a class="my-auto" @click="get_c2c_map('FAMIC2C')">選擇門市</a>
+                          <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/>  -->
                         </div>
                       </div>
                       
@@ -252,6 +216,64 @@
                   </template>
                 </div>
                 <!-- END Delivery Option -->
+
+                 <!-- Delivery Address -->
+                <label class="font-medium text-md mt-5">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
+                <div class="gap-5 mx-0 intro-y lg:mx-20">
+                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.address')}}</label>
+                  <div>
+                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                      :class="{ 'border-danger': delivery_validate.shipping_address_1.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C')}"
+                      v-model.trim="delivery_validate.shipping_address_1.$model" />
+                    <template v-if="(delivery_validate.shipping_address_1.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C') )">
+                          <label
+                            class="mt-2 text-danger"
+                          >
+                            {{$t('shopping_cart.delivery_tab.address_err')}}
+                          </label>
+                    </template>
+                  </div>
+                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.city')}}</label>
+                  <div>
+                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                    :class="{ 'border-danger': delivery_validate.shipping_location.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C')}"
+                    v-model.trim="delivery_validate.shipping_location.$model" />
+                  <template v-if="delivery_validate.shipping_location.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C')">
+                    <label
+                      class="mt-2 text-danger"
+                    >
+                      {{$t('shopping_cart.delivery_tab.city_err')}}
+                    </label>
+                  </template>
+                  </div>
+                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.state')}}</label>
+                  <div>
+                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                    :class="{ 'border-danger': delivery_validate.shipping_region.$error }"
+                    v-model.trim="delivery_validate.shipping_region.$model" />
+                    <template v-if="delivery_validate.shipping_region.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C')">
+                          <label
+                            class="mt-2 text-danger"
+                          >
+                            {{$t('shopping_cart.delivery_tab.state_err')}}
+                          </label>
+                  </template>
+                  </div>
+                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.postal_code')}}</label>
+                  <div>
+                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                      :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
+                      v-model.trim="delivery_validate.shipping_postcode.$model" />
+                      <template v-if="delivery_validate.shipping_postcode.$error ">
+                            <label
+                              class="mt-2 text-danger"
+                            >
+                              {{$t('shopping_cart.delivery_tab.postal_code_err')}}
+                            </label>
+                    </template>
+                  </div>
+                  
+                </div>
               </div>
             </TabPanel>
             <!-- END Delivery Panel -->
@@ -441,12 +463,17 @@ const shipping_option_index_computed = computed({
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
     }
     else if(typeof shipping_info.value.shipping_option_index == 'string'){
-      shipping_info.value.shipping_option_data = {'logisticsType':shipping_info.value.shipping_option_index}
+      shipping_info.value.shipping_option_data = {}
+      if(shipping_info.value.shipping_option_index == shoppingCartStore.cart.meta.ecpay_cvs.logistics_sub_type) {
+        shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
+        Object.assign(shipping_info.value.shipping_option_data,{'logisticsType':'CVS'})
+      }else{
+        shipping_info.value.shipping_option_data = {'logisticsType':shipping_info.value.shipping_option_index}
+      } 
       console.log(shipping_info.value.shipping_option_data)
     }
     else{
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
-      console.log(shipping_info.value.shipping_option_data)
     }
 
   }})
@@ -562,27 +589,29 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
-  if (!shoppingCartStore.cart?.meta?.ecpay_cvs) {
 
-  layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
-  return
-  }
-
+  console.log(shipping_info.value)
   if(shipping_info.value.shipping_method==='delivery'){
 
     delivery_validate.value.$touch();
     
-     if(shipping_info.value.shipping_option_index === ''){
+    if(shipping_info.value.shipping_option_index === ''){
       layoutStore.alert.showMessageToast('select shipping method')
       return
     }
-    else if(delivery_validate.value.$invalid){
+
+    else if(shipping_info.value.shipping_option_data.logisticsType ==='UNIMARTC2C' ||shipping_info.value.shipping_option_data.logisticsType ==='FAMIC2C'){
+      layoutStore.alert.showMessageToast('選取店到店門市')
+      return
+    }
+    
+    else if(delivery_validate.value.$invalid && shipping_info.value.shipping_option_data.logisticsType !== 'CVS'){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
   }
 
-
+  if(typeof shipping_info.value.shipping_option_index == 'string') shipping_info.value.shipping_option_index=null
 
   // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
 

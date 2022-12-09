@@ -18,34 +18,52 @@
                 class="flex-col flex gap-2 my-2 intro-y w-full" 
                 v-for="(field, index) in props.logistic.fields" 
                 :key="index"
-            >
-                <template v-if="field.type === 'text' || field.type === 'password'">
-                    <label class="mt-5 lg:mt-0">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}`)  }}</label>
-                    <input 
-                        class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
-                        type="text" 
-                        v-model="logisticData[field.key]"
-                    />
+            >   
+                <template v-if="field.dataType === 'object'">
+                    <label class="mt-3 form-label">{{ $t(`settings.delivery_form.${props.logistic.key}.shipping_way`) }}</label>
+                    <div class="grid grid-cols-3 mb-5">
+                        <div  v-for="option in field.options" :key="option" class="flex">
+                            <input 
+                                class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                                type="checkbox" 
+                                :value="option.key"
+                                v-model="logisticData[field.key]"
+                            />
+                            <label class="ml-3 form-label">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}.${option.key}`) }}</label>
+                        </div>
+                    </div> 
                 </template>
-                <template v-if="field.type === 'checkbox'">
-                <div class="flex mt-5 lg:mb-5 lg:mt-0">
-                    <input 
-                        class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
-                        type="checkbox" 
-                        v-model="logisticData[field.key]"
-                    />
-                    <label class="ml-3 form-label">{{ $t('settings.delivery_form.invoice_enabled') }}</label>
-                </div>
+
+                <template  v-else> 
+                    <template v-if="field.type === 'text' || field.type === 'password'">
+                        <label class="mt-5 lg:mt-0">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}`)  }}</label>
+                        <input 
+                            class="col-span-12 -mt-3 form-control lg:mt-0 lg:w-5/6" 
+                            type="text" 
+                            v-model="logisticData[field.key]"
+                        />
+                    </template>
+                    <template v-if="field.type === 'checkbox'">
+                    <div class="flex mt-5 lg:mb-5 lg:mt-0">
+                        <input 
+                            class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                            type="checkbox" 
+                            v-model="logisticData[field.key]"
+                        />
+                        <label class="ml-3 form-label">{{ $t('settings.delivery_form.invoice_enabled') }}</label>
+                    </div>
+                    </template>
+                    <template v-else-if="field.type === 'select'">
+                        <label class="mt-5 lg:mt-0">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}`)  }}</label>
+                        <TomSelect 
+                            class="w-full sm:w-[300px]"
+                            v-model="logisticData[field.key]"
+                        >
+                            <option v-for="option in field.options" :key="option">{{ option }}</option>
+                        </TomSelect>
+                    </template>
                 </template>
-                <template v-else-if="field.type === 'select'">
-                    <label class="mt-5 lg:mt-0">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}`)  }}</label>
-                    <TomSelect 
-                        class="w-full sm:w-[300px]"
-                        v-model="logisticData[field.key]"
-                    >
-                        <option v-for="option in field.options" :key="option">{{ option }}</option>
-                    </TomSelect>
-                </template>
+                
             </div>
         </div>
     
@@ -80,7 +98,6 @@ const router = useRouter();
 
 const logisticData = ref({
     enabled:false,
-    invoice_enabled:false,
 })
 
 onMounted(() => {
@@ -95,6 +112,8 @@ onMounted(() => {
 })
 
 const updateDelivery = () => {
+    console.log(props.logistic.key)
+    console.log(logisticData.value)
     seller_update_delivery(props.logistic.key,logisticData.value, sellerStore.alert).then(res=>{
         sellerStore.userInfo = res.data
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
