@@ -265,7 +265,6 @@ const internalInstance = getCurrentInstance()
 const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_WEB
-
 var _campaign_id, _search_value, _status, _filter_data, _toastify
 
 // const payment_status_options = ref([
@@ -390,20 +389,25 @@ const normalFormatOrderReport = () => {
             const data = res.data.data
             data.forEach(e => {
                 //payment_method
-                let words_split_list = e['payment_method'].split(" ")
-                if (words_split_list[0] == "direct_payment") {
-                    words_split_list[0] = i18n.global.t(`order.payment_method_options.direct_payment`)
-                    e['payment_method'] = words_split_list.join(' ')
-                } else {
-                    e['payment_method'] = i18n.global.t(`order.payment_method_options.${e['payment_method']}`)
+                if (e['payment_method']) {
+                    let words_split_list = e['payment_method'].split(" ")
+                    if (words_split_list[0] == "direct_payment") {
+                        words_split_list[0] = i18n.global.t(`order.payment_method_options.direct_payment`)
+                        e['payment_method'] = words_split_list.join(' ')
+                    } else {
+                        e['payment_method'] = i18n.global.t(`order.payment_method_options.${e['payment_method']}`)
+                    }
                 }
                 //payment_status
-                e['payment_status'] = i18n.global.t(`order.payment_status_options.${e['payment_status']}`)
+                if (e['payment_status']) {
+                    e['payment_status'] = i18n.global.t(`order.payment_status_options.${e['payment_status']}`)
+                }
             });
             const header = res.data.header
             const displayHeader = res.data.display_header
+            console.log(displayHeader)
             Object.entries(displayHeader).forEach(([key,value]) => {
-                displayHeader[key] = i18n.global.t(`order.${value}`)
+                displayHeader[key] = i18n.global.t(`order.${key}`)
             });
             const columnSettings = res.data.column_settings
             const displayData = [displayHeader, ...data]
@@ -455,15 +459,20 @@ const kolFormatOrderReport = () => {
 
             // append additional data 
             const additional_text_data = [
-                {"keu": "campaign_title",  "value": campaign_title, "ceil_address":{c: 0, r: 2}},
-                {"keu": "campaign_title_value",  "value": `${campaignDetailStore.campaign.title}`, "ceil_address":{c: 1, r: 2}},
-                {"keu": "campaign_period",  "value": campaign_period, "ceil_address":{c: 0, r: 3}},
-                {"keu": "campaign_period_value",  "value": `${campaign_start_time} - ${campaign_end_time}`, "ceil_address":{c: 1, r: 3}},
+                
                 {"keu": "calculate_formula",  "value": calculate_formula, "ceil_address":{c: 0, r: 4}},
                 {"keu": "calculate_formula_value",  "value": calculate_formula_value, "ceil_address":{c: 1, r: 4}},
                 {"key": "total_profit_title", "value": total_profit_title, "ceil_address": {c: header.length -2, r: data.length + blank_rows_number + 2}},
                 {"key": "total_profit_value", "value": total_profit_value, "ceil_address": {c: header.length -1, r: data.length + blank_rows_number + 2}}
             ]
+            if (route.params.campaign_id) {
+                additional_text_data.concat([
+                    {"keu": "campaign_title",  "value": campaign_title, "ceil_address":{c: 0, r: 2}},
+                    {"keu": "campaign_title_value",  "value": `${campaignDetailStore.campaign.title}`, "ceil_address":{c: 1, r: 2}},
+                    {"keu": "campaign_period",  "value": campaign_period, "ceil_address":{c: 0, r: 3}},
+                    {"keu": "campaign_period_value",  "value": `${campaign_start_time} - ${campaign_end_time}`, "ceil_address":{c: 1, r: 3}}
+                ])
+            }
             additional_text_data.forEach(ceil_data => {
                 let ceil_address = utils.encode_cell(ceil_data['ceil_address']);
                 let ceil = workSheet[ceil_address];
