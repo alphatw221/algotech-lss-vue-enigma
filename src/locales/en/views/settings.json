@@ -129,7 +129,7 @@
             "sender_address":"Address",
             "shipping_way":"Shipping Methods",
             "logistics_sub_type":{
-                "TCAT POST":"黑貓宅配",
+                "TCAT":"黑貓宅配",
                 "FAMIC2C":"全家店到店",
                 "UNINARTC2C":"7-11店到店"
             }

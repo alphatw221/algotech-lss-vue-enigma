@@ -105,7 +105,7 @@
                   <template v-if="shoppingCartStore.cart.campaign">
 
                     <!-- Ecpay 店到店 -->
-                    <template v-if="!shoppingCartStore.cart.campaign.meta_logistic.ecpay_delivery_enable"> 
+                    <template v-if="(shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled == true)"> 
                       <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
                       :class="{'border-slate-600': shipping_option_index_computed == 'UNIMARTC2C'}">
                         <div> 
@@ -113,7 +113,7 @@
                           name="vertical_radio_button" value="UNIMARTC2C" v-model="shipping_option_index_computed" />
                           <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">7-11{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
                         </div>
-                        <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs.logistics_sub_type == 'UNIMARTC2C'">
+                        <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'UNIMARTC2C'">
                           <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
                           
                           <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_address}}</p>
@@ -131,7 +131,7 @@
                           name="vertical_radio_button" value="FAMIC2C" v-model="shipping_option_index_computed" />
                           <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">全家{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
                         </div>
-                        <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs.logistics_sub_type == 'FAMIC2C'">
+                        <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'FAMIC2C'">
                           <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
                           
                           <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_address}}</p>
@@ -464,7 +464,7 @@ const shipping_option_index_computed = computed({
     }
     else if(typeof shipping_info.value.shipping_option_index == 'string'){
       shipping_info.value.shipping_option_data = {}
-      if(shipping_info.value.shipping_option_index == shoppingCartStore.cart.meta.ecpay_cvs.logistics_sub_type) {
+      if(shipping_info.value.shipping_option_index == shoppingCartStore.cart.meta.ecpay_cvs?.logistics_sub_type) {
         shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
         Object.assign(shipping_info.value.shipping_option_data,{'logisticsType':'CVS'})
       }else{
@@ -474,6 +474,7 @@ const shipping_option_index_computed = computed({
     }
     else{
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
+      console.log(shipping_info.value.shipping_option_data)
     }
 
   }})

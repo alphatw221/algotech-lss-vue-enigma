@@ -39,7 +39,7 @@ export const useLSSLogisticMetaStore = defineStore("logisticMeta", {
 			{key:"return_store_id", type:"text", name:"Store ID", dataType:"string", default:''},
 			{key:"logistics_sub_type", dataType:"object", name:"Shipping Methods",  default:[], 
 				options:[
-					{key:"TCAT POST", type:"checkbox", name:"黑貓", dataType:"boolean", default:false},
+					{key:"TCAT", type:"checkbox", name:"黑貓", dataType:"boolean", default:false},
 					{key:"FAMIC2C", type:"checkbox", name:"全家", dataType:"boolean", default:false},
 					{key:"UNINARTC2C", type:"checkbox", name:"7-11", dataType:"boolean", default:false}
 				]},

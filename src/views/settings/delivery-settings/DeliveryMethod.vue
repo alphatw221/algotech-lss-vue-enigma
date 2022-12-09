@@ -102,19 +102,20 @@ const logisticData = ref({
 
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
+
     if(sellerStore.userInfo.user_subscription.meta_logistic[props.logistic.key]){
         logisticData.value = sellerStore.userInfo.user_subscription.meta_logistic[props.logistic.key]
     }
+
     props.logistic.fields.forEach(field => {
         if(typeof logisticData.value[field.key] != field.dataType)logisticData.value[field.key]=field.default
     });
+
     if(typeof logisticData.value['enabled'] != 'boolean')logisticData.value['enabled']=false
 })
 
 const updateDelivery = () => {
-    console.log(props.logistic.key)
-    console.log(logisticData.value)
-    seller_update_delivery(props.logistic.key,logisticData.value, sellerStore.alert).then(res=>{
+    seller_update_delivery({'ecpay':logisticData.value}, sellerStore.alert).then(res=>{
         sellerStore.userInfo = res.data
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })

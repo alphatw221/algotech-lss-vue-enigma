@@ -70,7 +70,7 @@
 
 		<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-10 text-[16px] gap-5 flex flex-col">
 
-			<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">General setting: </span>
+			<span class="text-xl font-medium leading-none lg:-mx-6">General setting: </span>
 			<hr class="-mx-6" />
 
 			<div v-show="sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" class="flex flex-col"> 
