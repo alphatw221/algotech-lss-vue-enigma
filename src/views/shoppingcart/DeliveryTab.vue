@@ -177,6 +177,19 @@
                           <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/> 
                         </div>
                       </div>
+                      
+                      <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check"
+                        :class="{'border-slate-600': shipping_option_index_computed == 'c2c'}">
+                        <div> 
+                          <input :id="'radio-switch-'" class="form-check-input" type="radio"
+                          name="vertical_radio_button" value="c2c" v-model="shipping_option_index_computed" />
+                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
+                        </div>
+                        <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
+                          <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/> 
+                          <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/> 
+                        </div>
+                      </div>
                     </template>
 
                     <!-- Default Option -->
