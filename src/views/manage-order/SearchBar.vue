@@ -64,21 +64,6 @@ function reset(filter_data){
     searchValue.value = ''
     eventBus.emit(props.searchEventBusName,{'keyword':searchValue.value})
 }
-// function onExportXlsx(){
-//     get_campaign_order_report(route.params.campaign_id, layoutStore.alert).then(
-//         res => {console.log(res)
-        
-//             if (window.navigator.msSaveOrOpenBlob) {
-//                 window.navigator.msSaveBlob(res.data);
-//             } else {
-//                 var link = document.createElement("a");
-//                 link.href = window.URL.createObjectURL(new Blob([res.data], {type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'}));
-//                 link.download = 'export';
-//                 document.body.appendChild(link); // Required for FF
-//                 link.click();
-//             }
-//             }
-//     )
-// }
+
 
 </script>
