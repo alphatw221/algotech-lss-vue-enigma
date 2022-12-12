@@ -143,7 +143,7 @@
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Product SKU code"
+					:placeholder="$t('stock.add_product_page.sku_input')"
 					v-model="product.sku"
 				/>
 			</div>
@@ -153,7 +153,7 @@
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Product Order code"
+					:placeholder="$t('stock.add_product_page.order_code_input')"
 					v-model="validate.order_code.$model"
 					:disabled="product.type === 'lucky_draw'"
 					:class="{ 'border-danger text-danger border-2': validate.order_code.$error }" 

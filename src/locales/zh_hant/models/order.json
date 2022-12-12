@@ -34,7 +34,7 @@
         "direct_payment":"轉帳付款",
         "hitpay":"Hitpay",
         "paypal":"Paypal",
-        "ecpay":"Ecpay",
+        "ecpay":"綠界金流",
         "pay_mongo":"Pay Mongo",
         "rapyd":"Rapyd"
     },
@@ -47,7 +47,9 @@
     "platform_options":{
         "facebook":"Facebook",
         "youtube":"Youtube",
-        "instagram":"Instagram"
+        "instagram":"Instagram",
+        "tiktok":"Tiktok",
+        "expressCart":"快速購物連結"
     },
     "id": "訂單編號",
     "created_at": "訂單日期",

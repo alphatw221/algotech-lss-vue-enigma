@@ -47,7 +47,7 @@
         "email" : "電子信箱",
         "method" : "運送方式",
         "default":"基本",
-        "delivery" : "宅配",
+        "delivery" : "運送",
         "date" : "到貨日期",
         "address":"收件地址",
         "post_code" : "郵遞區號",

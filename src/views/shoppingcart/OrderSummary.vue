@@ -58,7 +58,7 @@
             v-model="discount_code"
             @keydown.enter.prevent="promoCheck()"
             />
-            <button class="input-group-text h-[35px]" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
+            <button class="input-group-text h-[35px] w-16" @click="promoCheck()">{{$t('shopping_cart.order_summary.enter')}}</button>
             <XIcon v-if="shoppingCartStore.cart.discount != 0 && shoppingCartStore.cart.campaign||false" class="mt-auto w-6 h-6 text-slate-400 cursor-pointer my-auto ml-2" @click="promoDelete()"/>
           </div>
       </div>
@@ -67,7 +67,7 @@
       <!-- POINTS INPUT -->
       <div class="flex flex-row flex-wrap justify-between mt-2" v-if="shoppingCartStore.cart.campaign?.meta_point?.enable">
         <div>
-          <div class="w-fit my-auto whitespace-nowrap">Points Redemption</div>
+          <div class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.points_redemption')}}</div>
           <div class="w-fit my-auto whitespace-nowrap text-danger">({{computedWalletPointsLeft}} points)</div>
         </div>
         
