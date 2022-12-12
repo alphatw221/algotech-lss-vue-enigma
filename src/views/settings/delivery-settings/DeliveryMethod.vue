@@ -31,6 +31,15 @@
                             />
                             <label class="ml-3 form-label">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}.${option.key}`) }}</label>
                         </div>
+                        <div v-if="logisticData[field.key].includes('FAMIC2C')" class="flex"> 
+                            <input 
+                                class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                                type="checkbox" 
+                                :value="option.key"
+                                v-model="logisticData[field.key]"
+                            />
+                            <label class="ml-3 form-label">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}.${option.key}`) }}</label>
+                        </div>
                     </div> 
                 </template>
 
@@ -43,15 +52,15 @@
                             v-model="logisticData[field.key]"
                         />
                     </template>
-                    <template v-if="field.type === 'checkbox'">
-                    <div class="flex mt-5 lg:mb-5 lg:mt-0">
-                        <input 
-                            class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
-                            type="checkbox" 
-                            v-model="logisticData[field.key]"
-                        />
-                        <label class="ml-3 form-label">{{ $t('settings.delivery_form.invoice_enabled') }}</label>
-                    </div>
+                    <template v-else-if="field.type === 'checkbox'">
+                        <div class="flex mt-5 lg:mb-5 lg:mt-0">
+                            <input 
+                                class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                                type="checkbox" 
+                                v-model="logisticData[field.key]"
+                            />
+                            <label class="ml-3 form-label">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}`)  }}</label>
+                        </div>
                     </template>
                     <template v-else-if="field.type === 'select'">
                         <label class="mt-5 lg:mt-0">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}`)  }}</label>
