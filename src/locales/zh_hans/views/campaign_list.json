@@ -73,7 +73,9 @@
 
     "remind_enter_post_id_modal":{
         "confirm":"确认",
-        "message":"请选择您欲进行销售的社群贴文"
+        "message":"请选择您欲进行销售的社群贴文",
+        "select_live_post": "选择直播影片",
+        "select_video_post": "选择影片貼文"
     },
 
     "enter_post_id_modal":{
@@ -83,8 +85,9 @@
         "post_id":"贴文 ID",
         "select_page":"选择直播视频",
         "select_live_post":"选择销售帐号及贴文",
-        "select_live_video":"选择销售帐号及直播影片",
         "enter_post_id": "输入贴文ID",
+        "select_live_video": "选择直播视频",
+        "select_video_post": "选择视频贴文",
 
         "instagram":"Instagram",
         "media_id":"貼文 ID",
@@ -102,6 +105,7 @@
         "your_current_lives": "你目前正在进行的直播",
         "select_this_live": "选择这场直播",
         "valid_post_id_notification": "请输入有效的贴文ID",
+        "your_current_video_posts": "您目前的视频贴文",
 
         "rebind_page":"请重新授权Facebook粉丝专页",
         "rebind_channel":"请重新授权YouTube频道",

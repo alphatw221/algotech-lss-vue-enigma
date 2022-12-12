@@ -4,7 +4,7 @@
     "for_sale": "可销售",
     "delisted": "未上架",
     "add_product": "新增商品",
-    "import_product": "批次上传商品",
+    "import_product": "汇入商品",
     "dont_have_product_notify": "目前没有任何商品",
     "no_result":{
         "enabled":"目前没有任何可销售的商品。",
@@ -56,11 +56,12 @@
         "save_success":"储存成功",
         "not_saved":"取消储存",
         "confirm_delete": "确定要删除该类别？",
-        "enabled": "Enabled flat rate"
+        "enabled": "启用固定运费"
     },
 
     "add_product_page": {
         "sku":"商品货号 (SKU)",
+        "sku_input":"商品货号 (SKU)",
         "edit_title": "编辑商品",
         "add_title": "新增商品",
         "product_name": "商品名称",
@@ -76,15 +77,16 @@
         "price_warning": "价格需填数字",
         "status": "商品状态",
         "remark": "备注",
-        "placeholder_remark": "卖家备注...",
+        "placeholder_remark": "卖家备注",
         "remark_warning":"备注不可超过100字",
         "description": "商品说明",
-        "product_description": "买家可见的商品说明...",
+        "product_description": "买家可见的商品说明",
         "description_warning": "说明文字不包含<head> tag",
         "cancel": "取消",
         "save": "储存",
         "preview":"预览",
         "order_code":"下单代码",
+        "order_code_input":"商品下单代码",
 
         "not_save_message":"取消储存",
         "create_message":"新增成功",

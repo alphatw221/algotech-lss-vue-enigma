@@ -9,10 +9,10 @@
                 <h2 class="font-medium text-base mr-auto text-xl">
                         {{$t('manage_order.filter_modal.filter')}}
                 </h2>
-                <button id="tabulator-html-filter-go" type="button" class="flex-none text-[18px] btn btn-primary w-fit mr-3"
+                <!-- <button id="tabulator-html-filter-go" type="button" class="flex-none text-[18px] btn btn-primary w-fit mr-3"
                     @click="filterSubmit()">
                     {{$t('manage_order.filter_modal.apply')}}
-                </button>
+                </button> -->
                 <XIcon class="w-8 h-8 ml-2" @click="clickXButton()"/>
             </ModalHeader>
         <ModalBody class="w-full h-full">
@@ -28,7 +28,14 @@
                                     'btn-rounded-primary' : type_key === 'delivery_status_options', 
                                     'btn-rounded-success' : type_key === 'payment_status_options', 
                                     'btn-rounded-warning' : type_key === 'platform_options'}">
-                            <HashIcon class="w-4 h-4 mr-2" /> {{$t(`order.${type_key}.${tag_key}`)}}
+                            <HashIcon class="w-4 h-4 mr-2" /> 
+                            <template v-if="type_key=='platform_options' && tag_key ==''"> 
+                                {{$t(`order.${type_key}.expressCart`)}}
+                            </template>
+                            <template v-else> 
+                                {{$t(`order.${type_key}.${tag_key}`)}}
+                            </template>
+                           
                             <XIcon class="w-4 h-4 ml-2" @click="removeFilterTag(type_key,tag_key)"/>
                         </button>
                     </div>
@@ -73,6 +80,13 @@
                     </div>
 
                 </div>
+            </div>
+            <div class="justify-right">
+
+                <button id="tabulator-html-filter-go" type="button" class="flex text-[18px] btn btn-primary w-fit mr-3 text-right"
+                    @click="filterSubmit()">
+                    {{$t('manage_order.filter_modal.apply')}}
+                </button>
             </div>
         </ModalBody>
     </Modal>

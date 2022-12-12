@@ -18,7 +18,7 @@
         "Value is required":"必填",
 
         "shipping_info":"運送資訊",
-        "home_delivery":"宅配",
+        "home_delivery":"運送",
         "self_pickup":"自行取貨",
         "delivery_date":"運送日期",
         "pickup_date":"取貨日期",
@@ -38,7 +38,7 @@
             "default":"基本",
             "pickup":"選擇取貨方式"
         },
-        "note":"宅配 & 運送須知",
+        "note":"運送須知",
         "remark":"備註",
         "previous":"上一步",
         "proceed_to_payment":"前往付款"
@@ -73,7 +73,8 @@
         "enter":"套用",
         "promo_apply":"優惠代碼 %{code} 已生效" ,
         "referr_code":"分享推薦碼",
-        "promo_login":"登入社群帳號以使用優惠折扣碼"
+        "promo_login":"登入社群帳號以使用優惠折扣碼",
+        "points_redemption":"點數折抵"
     },
     "add_item":{
         "select_add_ons":"加入商品",
@@ -85,7 +86,7 @@
     "payment":{
         "shipping_summary":"收件資訊",
         "pickup":"自行取货",
-        "delivery":"宅配",
+        "delivery":"運送",
         "address":"收件地址",
         "pay_with":"付款方式",
         "direct":{

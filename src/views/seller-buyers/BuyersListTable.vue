@@ -6,8 +6,25 @@
       <thead>
         <tr>
           <th class="text-center whitespace-nowrap" v-for="column in tableColumns" :key="column.key">
-            <template v-if="column.name">
-              {{ $t(`buyers.table_column.`+column.name) }}
+            <template v-if="column.key === 'customer_name'">
+              <div class="text-left">
+                  {{ $t(`buyers.table_column.`+column.name) }}
+              </div>
+            </template>
+            <template v-if="column.key === 'email'">
+              <div class="text-left">
+                  {{ $t(`buyers.table_column.`+column.name) }}
+              </div>
+            </template>
+            <template v-else-if="column.key === 'order_history'">
+              <div class="text-center">
+                  {{ $t(`buyers.table_column.`+column.name) }}
+              </div>
+            </template>
+            <template v-else-if="column.key === 'points'">
+              <div class="text-center">
+                  {{ $t(`buyers.table_column.`+column.name) }}
+              </div>
             </template>
             
           </th>
@@ -16,10 +33,10 @@
       <tbody>
         <tr v-for="(buyer, index) in buyers" :key="index" class="intro-x">
           <template v-for="column in tableColumns" :key="column.key">
-            <td v-if="column.key == 'customer_name'" class="w-fit text-center">
+            <td v-if="column.key == 'customer_name'" class="w-fit">
               {{ buyer.name }}
             </td>
-            <td v-if="column.key == 'email'" class="w-fit text-center" :data-content="$t('buyers.table_column.' + column.key)">
+            <td v-if="column.key == 'email'" class="w-fit" :data-content="$t('buyers.table_column.' + column.key)">
               {{ buyer.email }}
             </td>
             <td v-if="column.key == 'customer_img'" class="text-left w-5 w-fit">

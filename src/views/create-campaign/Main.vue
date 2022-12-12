@@ -70,16 +70,16 @@
 
 		<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-10 text-[16px] gap-5 flex flex-col">
 
-			<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">General setting: </span>
+			<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">{{$t('create_campaign.general_settings')}}</span>
 			<hr class="-mx-6" />
 
 			<div class="flex flex-col"> 
-				<span> Sell Product from stock: </span>
+				<span>{{$t('create_campaign.selling_type')}}</span>
 				<select 
 				class="form-select h-[35px] sm:h-[42px] w-full"
 				v-model="stockSubscriptionId"
 				>
-					<option value="">my personal inventory</option>
+					<option value="">{{$t('create_campaign.my_stock')}}</option>
 					<option v-for="subscription,index in sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
 				</select>
 			</div>

@@ -47,6 +47,8 @@
     "platform_options":{
         "facebook":"Facebook",
         "youtube":"Youtube",
-        "instagram":"Instagram"
+        "instagram":"Instagram",
+        "tiktok":"Tiktok",
+        "expressCart":"Express Cart"
     }
  }
