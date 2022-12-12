@@ -53,7 +53,8 @@
             "paypal":"Paypal",
             "ecpay":"ECPay",
             "pay_mongo":"PayMongo",
-            "rapyd":"Rapyd"
+            "rapyd":"Rapyd",
+            "pickup_pay":"貨到付款"
         },
         "direct_payment":{
             "mode":"Name of Bank / Payment Mode",
@@ -120,7 +121,19 @@
         "ecpay":{
             "merchant_id":"Merchant ID",
             "hash_key":"Hash Key",
-            "hash_iv":"Hash IV"
+            "hash_iv":"Hash IV", 
+            "return_store_id":"Return Store ID",
+            "sender_name":"Sender's Name",
+            "sender_phone":"Phone",
+            "sender_zip_code":"Zip Code",
+            "sender_address":"Address",
+            "shipping_way":"Shipping Methods",
+            "pickup_pay":"允許貨到付款",
+            "logistics_sub_type":{
+                "TCAT":"黑貓宅配",
+                "FAMIC2C":"全家店到店",
+                "UNINARTC2C":"7-11店到店"
+            }
         },
         "delivery_detail":"Delivery Details",
         "delivery_charge":"Delivery Charge",

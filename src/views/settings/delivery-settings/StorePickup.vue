@@ -142,7 +142,7 @@ onMounted(() => {
 
     update_pickupdatePicker()
 
-    console.log(layoutStore.userInfo.user_subscription.meta_logistic)
+    // console.log(layoutStore.userInfo.user_subscription.meta_logistic)
     
 })
 

@@ -115,6 +115,7 @@ onMounted(()=>{
         }); 
         buyerLayoutStore.sellerInfo = res.data.user_subscription
         console.log(buyerLayoutStore.sellerInfo)
+        console.log(shoppingCartStore.cart)
         i18n.locale = res.data.campaign.lang
         Object.keys(shoppingCartStore.cart.products).length == 0 ? shoppingCartStore.showAddItemModal = true : shoppingCartStore.showAddItemModal = false
       }
