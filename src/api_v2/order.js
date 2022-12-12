@@ -25,7 +25,7 @@ export const buyer_retrieve_order_oid = (order_id, toastify=null) => {
 }
 
 export const buyer_cash_on_delivery = (order_oid,data, toastify=null) => {
-    return createAxios(toastify).put(`/api/v2/order/${order_oid}/buyer/cash_on_delivery/`,data)
+    return createAxios(toastify).put(`/api/v2/order/${order_oid}/buyer/create/delivery_order/`,data)
 }
 
 // -------------seller------------------
