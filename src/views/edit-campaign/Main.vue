@@ -196,8 +196,8 @@ import { ref, watch, onMounted, computed, watchEffect, getCurrentInstance } from
 import PaymentForm from '@/views/create-campaign/payment-form/Main.vue'
 import DeliveryForm from '@/views/create-campaign/DeliveryForm.vue';
 import NotesForm from '@/views/create-campaign/NotesForm.vue';
-import PointsSettings from '@//views/settings/PointsSettings.vue'
-import MessageSettings from '@//views/settings/MessageSettings.vue'
+import PointsSettings from '@//views/settings/general-settings/PointsSettings.vue'
+import MessageSettings from '@//views/settings/general-settings/MessageSettings.vue'
 
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import { useRoute, useRouter } from "vue-router";

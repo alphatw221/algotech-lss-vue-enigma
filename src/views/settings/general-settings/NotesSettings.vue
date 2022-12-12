@@ -153,7 +153,6 @@ import { ref, onMounted, reactive } from 'vue';
 import { get_general_info, update_general_info } from '@/api_v2/user_subscription'
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 import i18n from "@/locales/i18n"
-import SimpleIcon from '../../global-components/lss-svg-icons/SimpleIcon.vue';
 import PointsSettingsVue from './PointsSettings.vue';
 import MessageSettingsVue from './MessageSettings.vue';
 

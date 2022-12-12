@@ -95,7 +95,7 @@ import ChangePlan from "../views/general/change-plan/Main.vue";
 // import LuckyDrawSetting from "../views/mkt-plugin/lucky-draw/DrawSetting.vue";
 // import QuizGame from "../views/mkt-plugin/quiz-game/QuizGame.vue";
 
-// import Test2 from "../views/test/test2.vue"; 
+import Test2 from "../views/test/test2.vue"; 
 
 import isOrderCompleted from "@/libs/routerMiddleware/isOrderCompleted"
 
@@ -416,6 +416,13 @@ const routes = [
         name: "easystore-authorize",
         component: () => import('@/plugin/easy-store/views/AuthorizationPage.vue')
       },
+      {
+        path: "test2",
+        name: "test2",
+        component: Test2
+      },
+
+      
     ],
   },
   

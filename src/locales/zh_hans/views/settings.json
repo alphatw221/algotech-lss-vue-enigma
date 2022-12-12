@@ -1,4 +1,9 @@
-{
+{   
+    "categorys":{
+        "general":"基本設定",
+        "payment":"金流",
+        "logistic":"物流"
+    },
     "settings" : "设定",
     "client_id" : "Client ID",
     "secret" : "Secret",
@@ -13,7 +18,7 @@
     "update_failed":"更新失败",
     "img_size_err":"图片大小不可超过 10 MB",
     "img_type_err":"图片格式不支援",
-    "invalid_data":"无效",
+    "invalid_data":"无效", 
 
     "delivery":{
         "delivery":"物流",
@@ -100,8 +105,17 @@
             "Value_is_required":"此字段必填"
         }
     },
-
     "delivery_form":{
+        "delivery_titles":{
+            "own_delivery":"Own Delivery",
+            "store_pickup":"Store Pickup",
+            "ecpay":"ECPay"
+        },
+        "ecpay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV"
+        },
         "delivery_detail":"物流设定",
         "delivery_charge":"基本运费",
         "free_delivery_for_order_above":"免运门槛：订单金额达",
@@ -116,7 +130,9 @@
         "pickup_store":"取货门市/地点",
         "pickup_address":"取货地址",
         "express_service_name": "例如：离岛、当日送达......",
-        "express_charge": "增加/取代金额"
+        "express_charge": "增加/取代金额",
+        "enabled":"启用",
+        "update":"更新"        
     },
 
 
