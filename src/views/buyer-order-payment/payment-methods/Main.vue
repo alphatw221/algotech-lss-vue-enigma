@@ -1,14 +1,12 @@
 <template>
     <AccordionGroup class="mb-10 " :selectedIndex="selectIndex" > 
         <!-- <DirectPayment /> -->
-        <PickupPay v-if="store.order.shipping_option_data?.logisticsType == 'CVS'" /> 
-        <template v-else> 
-            <div class="mt-5" v-for="(payment, index) in payments" :key="index">
-                <DirectPaymentV2 v-if="payment.key=='direct_payment'"/>
-                <PickupPay v-else-if="payment.key=='pickup_pay'" :payment="payment"/> 
-                <PaymentMethod class="mt-1" v-else :payment="payment" />
-            </div>
-        </template>
+        <PickupPay v-if="store.order.shipping_option_data?.logisticsType == 'CVS' && store.order.campaign.meta_logistic.ecpay.allow_pickup_pay" /> 
+        <div class="mt-5" v-for="(payment, index) in payments" :key="index">
+            <DirectPaymentV2 v-if="payment.key=='direct_payment'"/>
+            <PickupPay v-else-if="payment.key=='pickup_pay'" :payment="payment"/> 
+            <PaymentMethod class="mt-1" v-else :payment="payment" />
+        </div>
     </AccordionGroup>
 </template>
 
@@ -44,7 +42,7 @@ watch(computed(()=>store.order),()=>{
     paymentKeySet.forEach(key => {
         if (meta_payment[key] && meta_payment[key].enabled) payments.value.push(paymentMetaStore[key])
     });
-    console.log('pp',payments.value)
+    console.log('pp',store.order)
 })
 
 const cash_on_delivery = () =>{
