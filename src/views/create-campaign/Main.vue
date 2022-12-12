@@ -77,9 +77,9 @@
 				<span>{{$t('create_campaign.selling_type')}}</span>
 				<select 
 				class="form-select h-[35px] sm:h-[42px] w-full"
-				v-model="stockSubscriptionId"
+				v-model="v.supplier.$model"
 				>
-					<option value="">{{$t('create_campaign.my_stock')}}</option>
+					<option :value="null">{{$t('create_campaign.my_stock')}}</option>
 					<option v-for="subscription,index in sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
 				</select>
 			</div>
@@ -137,7 +137,7 @@
 			</div>
 		</div>
 
-	<div v-show="!stockSubscriptionId" class="otherSetting"> 
+	<div v-show="v.supplier.$model === null" class="otherSetting"> 
 		<DeliveryForm 
 			:campaign="campaignData"
 			:v="v"
@@ -243,6 +243,7 @@ const campaignData = ref({
 	title:'',
 	start_at:new Date(),
 	end_at:new Date(),
+	supplier: null,
 	meta_logistic:{
 		delivery_charge : 0,
 		is_free_delivery_for_order_above_price : false,
@@ -314,7 +315,9 @@ const campaignDataRules = computed(() => {
 						})
 					}
 				}
-			} }
+			},
+			supplier: {}
+		}
 })
 
 const v = useVuelidate(campaignDataRules, campaignData);

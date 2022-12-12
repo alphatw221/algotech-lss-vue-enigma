@@ -9,7 +9,7 @@
 				<h2 class="text-xl sm:text-2xl mx-auto sm:mx-0 font-medium"> From</h2>
 				<select 
 					class="form-select ml-2 h-[35px] sm:h-[42px] w-[150px]"
-					v-model="selectedStockUserSubscriptionId"
+					v-model="campaignDetailStore.campaign.supplier"
 					@change="getSubscriptionStock()"
 				>
 					<option value="">{{$t(`assign_product.stock_origin.own`)}}</option>
@@ -425,7 +425,7 @@ const props = defineProps({
 })
 
 const disableButton = computed(()=>{
-	if(campaignDetailStore.campaign.meta?.stock_subscription_id) return true
+	if(campaignDetailStore.campaign.supplier) return true
 	else return false
 })
 
@@ -465,7 +465,7 @@ const dataCount = ref(0)
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 
 const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
-const selectedStockUserSubscriptionId = computed(()=>{return campaignDetailStore.campaign.meta?.stock_subscription_id? campaignDetailStore.campaign.meta?.stock_subscription_id:''})
+
 const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
@@ -499,22 +499,19 @@ onMounted(() => {
 		return
 	}
 	getCampaignProductDict()
-	getCampaignDetail()
-	search()
+	retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
+		console.log(res.data)
+		campaignDetailStore.campaign = res.data
+		return search()
+	})
+	
 })
-
 onUnmounted(()=>{
 	eventBus.off('show_assign_product_view')
 	eventBus.off('hide_assign_product_view')
 })
 
 const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id, layoutStore.alert).then(res=>{campaignProductOrderCodeDict.value = res.data})}
-
-const getCampaignDetail = ()=>{
-	retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
-		campaignDetailStore.campaign = res.data
-	}) 
-}
 
 const updateStockProducts = ()=>{
     stockProducts.value.forEach((product,stockProductIndex) => {
@@ -695,7 +692,7 @@ const search = () => {
 	// console.log(selectedProductDict.value)
 	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
-		_support_stock_user_subscription_id=selectedStockUserSubscriptionId.value,
+		_support_stock_user_subscription_id=campaignDetailStore.campaign.supplier,
 		_pageSize=pageSize.value,
 		_currentPage=currentPage.value, 
 		_searchColumn=searchField.value, 
@@ -707,25 +704,13 @@ const search = () => {
 		_sortBy='',
 		_toastify=layoutStore.alert)
 	.then(response => {
-		// console.log('data_count')
-		// console.log(response.data.count)
 		dataCount.value = response.data.count;
-		// if (response.data.count != undefined) {
-        //   dataCount.value = response.data.count;
-        //   const _totalPage = Math.ceil(response.data.count / pageSize.value);
-        //   totalPage.value = _totalPage == 0 ? 1 : _totalPage;
-		//   console.log('totalPage')
-		// 	console.log(totalPage.value)
-		// 	totalPage.value = 3
-        // }
 		stockProducts.value = response.data.results
-		// console.log(stockProducts.value)
-		// proudct default value
 		stockProducts.value.forEach((product,index) => {
 			if (!(product.id.toString() in selectedProductDict.value)){
 				product.type = ['', null, undefined].includes(product.type) ? 'product' : product.type
 				product.oversell = false
-				product.assign_qty = selectedStockUserSubscriptionId.value? 100:product.qty
+				product.assign_qty = campaignDetailStore.campaign.supplier? 100:product.qty
 				product.customer_editable = true
 				product.customer_removable = false
 			}
@@ -816,11 +801,6 @@ const importCampaignProduct = file =>{
     })
 }
 
-// const getSubscriptionStock = () => {
-// 	currentPage.value = 1
-// 	search()
-// 	console.log(selectedStockUserSubscriptionId.value)
-// }
 </script>
 
 
