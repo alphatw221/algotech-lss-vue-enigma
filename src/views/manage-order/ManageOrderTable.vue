@@ -458,7 +458,7 @@ const kolFormatOrderReport = () => {
             })
 
             // append additional data 
-            const additional_text_data = [
+            let additional_text_data = [
                 
                 {"keu": "calculate_formula",  "value": calculate_formula, "ceil_address":{c: 0, r: 4}},
                 {"keu": "calculate_formula_value",  "value": calculate_formula_value, "ceil_address":{c: 1, r: 4}},
@@ -466,13 +466,15 @@ const kolFormatOrderReport = () => {
                 {"key": "total_profit_value", "value": total_profit_value, "ceil_address": {c: header.length -1, r: data.length + blank_rows_number + 2}}
             ]
             if (route.params.campaign_id) {
-                additional_text_data.concat([
+                console.log(4444)
+                additional_text_data = additional_text_data.concat([
                     {"keu": "campaign_title",  "value": campaign_title, "ceil_address":{c: 0, r: 2}},
                     {"keu": "campaign_title_value",  "value": `${campaignDetailStore.campaign.title}`, "ceil_address":{c: 1, r: 2}},
                     {"keu": "campaign_period",  "value": campaign_period, "ceil_address":{c: 0, r: 3}},
                     {"keu": "campaign_period_value",  "value": `${campaign_start_time} - ${campaign_end_time}`, "ceil_address":{c: 1, r: 3}}
                 ])
             }
+            console.log(additional_text_data)
             additional_text_data.forEach(ceil_data => {
                 let ceil_address = utils.encode_cell(ceil_data['ceil_address']);
                 let ceil = workSheet[ceil_address];
