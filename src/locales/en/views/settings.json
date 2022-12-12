@@ -128,7 +128,7 @@
             "sender_zip_code":"Zip Code",
             "sender_address":"Address",
             "shipping_way":"Shipping Methods",
-            "pickup_pay":"貨到付款",
+            "pickup_pay":"允許貨到付款",
             "logistics_sub_type":{
                 "TCAT":"黑貓宅配",
                 "FAMIC2C":"全家店到店",

@@ -44,7 +44,6 @@ export const useLSSLogisticMetaStore = defineStore("logisticMeta", {
 					{key:"UNINARTC2C", type:"checkbox", name:"7-11店到店", dataType:"boolean", default:false}
 				]
 			},
-			{key:"pickup_pay", type:"checkbox", name:"取貨付款", dataType:"boolean", default:false},
 			{key:"sender_name", type:"text", name:"Sender Name", dataType:"string", default:''},
 			{key:"sender_phone", type:"text", name:"Phone", dataType:"string", default:''},
 			{key:"sender_zip_code", type:"text", name:"zipCode", dataType:"string", default:''},

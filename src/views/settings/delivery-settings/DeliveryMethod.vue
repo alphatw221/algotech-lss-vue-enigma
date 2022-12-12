@@ -31,16 +31,14 @@
                             />
                             <label class="ml-3 form-label">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}.${option.key}`) }}</label>
                         </div>
-                        <div v-if="logisticData[field.key].includes('FAMIC2C')" class="flex"> 
-                            <input 
-                                class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
-                                type="checkbox" 
-                                :value="option.key"
-                                v-model="logisticData[field.key]"
-                            />
-                            <label class="ml-3 form-label">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}.${option.key}`) }}</label>
-                        </div>
                     </div> 
+                    <div v-if="logisticData[field.key]?.includes('FAMIC2C')||logisticData[field.key]?.includes('UNINARTC2C')" class="flex"> 
+                        <input 
+                            class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
+                            type="checkbox"
+                        />
+                        <label class="ml-3 form-label">{{ $t(`settings.delivery_form.ecpay.pickup_pay`)  }}</label>
+                    </div>
                 </template>
 
                 <template  v-else> 
