@@ -113,13 +113,13 @@
 					<span> Sell Product from stock: </span>
 					<select 
 					class="form-select h-[35px] sm:h-[42px] w-full"
-					v-model="stockSubscriptionId"
+					v-model="v.supplier.$model"
+					:disabled="route.name === 'edit-campaign'"
 					>
-						<option value="">my personal inventory</option>
+						<option :value="null">my personal inventory</option>
 						<option v-for="subscription,index in sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
 					</select>
 				</div>
-
 				<div class="flex mb-3 form-label text-base font-medium">
 					<div> {{$t("settings.localization.currency_symbol")}} </div>
 				</div>
@@ -161,7 +161,7 @@
 				</div>
 			</div>
 		
-		<div v-show="!stockSubscriptionId" class="otherSetting"> 
+		<div v-show="v.supplier.$model === null" class="otherSetting"> 
 			<DeliveryForm 
 				:campaign="campaignData"
 				:v="v"
@@ -232,7 +232,7 @@ import unbound from "/src/assets/images/lss-img/noname.png"
 import i18n from "@/locales/i18n"
 
 
-
+const stockSubscriptionId = ref(null)
 const campaignDetailStore = useCampaignDetailStore()
 const sellerStore = useLSSSellerLayoutStore()
 
@@ -369,7 +369,9 @@ const campaignDataRules = computed(() => {
 							})
 						}
 					}
-				} }
+				},
+				supplier: {}
+			}
 })
 const v = useVuelidate(campaignDataRules, campaignData);
 
@@ -391,10 +393,10 @@ const updateCampaign = ()=>{
 		const key = campaignData.value.meta_payment.direct_payment.v2_accounts[index].name+'_'+index   
 		formData.append(key,image)
 	});
-	// update_campaign(route.params.campaign_id,formData, sellerStore.alert).then(res => {
-	// 	campaignDetailStore.campaign = res.data
-	// 	router.push({name:'campaign-list'})
-	// })
+	update_campaign(route.params.campaign_id,formData, sellerStore.alert).then(res => {
+		campaignDetailStore.campaign = res.data
+		router.push({name:'campaign-list'})
+	})
 
 }
 
