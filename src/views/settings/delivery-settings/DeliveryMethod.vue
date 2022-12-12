@@ -36,6 +36,7 @@
                         <input 
                             class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
                             type="checkbox"
+                            v-model="logisticData.allow_pickup_pay"
                         />
                         <label class="ml-3 form-label">{{ $t(`settings.delivery_form.ecpay.pickup_pay`)  }}</label>
                     </div>
@@ -105,6 +106,7 @@ const router = useRouter();
 
 const logisticData = ref({
     enabled:false,
+    allow_pickup_pay:false,
 })
 
 onMounted(() => {
