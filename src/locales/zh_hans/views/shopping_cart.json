@@ -36,7 +36,8 @@
         "option":{
             "delivery":"选择运送方式",
             "default":"基本",
-            "pickup":"选择取货方式"
+            "pickup":"选择取货方式",
+            "c2c":"店到店"
         },
         "note":"宅配 & 运送须知",
         "remark":"备注",

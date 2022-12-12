@@ -36,7 +36,8 @@
         "option":{
             "delivery":"Tùy chọn giao hàng",
             "default":"Mặc định",
-            "pickup":"Tùy chọn nhận hàng"
+            "pickup":"Tùy chọn nhận hàng",
+            "c2c":"Store to Store"
         },
         "note":"Phiếu giao hàng và thu tiền",
         "remark":"Ghi chú",

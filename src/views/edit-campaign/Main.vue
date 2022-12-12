@@ -104,9 +104,21 @@
 			</div>
 		</div>
 
-		<div v-show="sellerStore.userInfo.user_subscription.type !== 'kol'">
-
 			<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+
+				<span class="text-xl font-medium leading-none lg:-mx-6">General setting: </span>
+				<hr class="-mx-6" />
+
+				<div v-show="sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" class="flex flex-col"> 
+					<span> Sell Product from stock: </span>
+					<select 
+					class="form-select h-[35px] sm:h-[42px] w-full"
+					v-model="stockSubscriptionId"
+					>
+						<option value="">my personal inventory</option>
+						<option v-for="subscription,index in sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
+					</select>
+				</div>
 
 				<div class="flex mb-3 form-label text-base font-medium">
 					<div> {{$t("settings.localization.currency_symbol")}} </div>
@@ -148,7 +160,8 @@
 					</TomSelect>
 				</div>
 			</div>
-
+		
+		<div v-show="!stockSubscriptionId" class="otherSetting"> 
 			<DeliveryForm 
 				:campaign="campaignData"
 				:v="v"
@@ -393,11 +406,16 @@ const editplatform = ()=>{
 
 <style scoped>
 
-	.langSetting{
-		z-index: 49;
-	}
-	
-	.dateSetting{
-		z-index: 50;
-	}
-	</style>
+.langSetting{
+	z-index: 49;
+}
+
+.dateSetting{
+	z-index: 50;
+}
+
+.otherSetting{
+	z-index: 48;
+}
+
+</style>

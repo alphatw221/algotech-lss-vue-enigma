@@ -132,6 +132,17 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 			endpoint:'getEcpayCredential',
 		}
 	},
+	// pickup_pay:{
+	// 	multiple:false,
+	// 	name:"貨到付款",
+	// 	key:"pickup_pay",
+	// 	icon:"https://storage.googleapis.com/lss_public_bucket/static/payment/ecpay/icon.jpeg",
+	// 	fields:[],
+	// 	// invoice:false,
+	// 	handle:{
+	// 		type:'pickup_pay',
+	// 	} 
+	// },
 
 	rapyd: {
 		multiple:false,
@@ -164,7 +175,7 @@ export const useLSSPaymentMetaStore = defineStore("paymentMeta", {
 
     VN : ['direct_payment', 'stripe', 'paypal'],
 
-    TW : ['direct_payment', 'stripe', 'paypal', 'ecpay'],
+    TW : ['direct_payment','ecpay', 'stripe', 'paypal'],
 
     CN : ['direct_payment', 'stripe', 'paypal'],
 

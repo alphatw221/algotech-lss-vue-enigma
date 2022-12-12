@@ -173,7 +173,7 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
     })
 });
 onMounted(() => {
-    console.log(store.order.campaign)
+    console.log(store.order)
 })
 const uploadReceipt = () => {
     

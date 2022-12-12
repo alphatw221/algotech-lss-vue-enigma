@@ -35,6 +35,19 @@ export const useLSSLogisticMetaStore = defineStore("logisticMeta", {
 			{key:"merchant_id", type:"text", name:"Merchant ID", dataType:"string", default:''},
 			{key:"hash_key", type:"text", name:"HashKey", dataType:"string", default:''},
 			{key:"hash_iv", type:"text", name:"HashIV", dataType:"string", default:''},
+
+			{key:"return_store_id", type:"text", name:"Store ID", dataType:"string", default:''},
+			{key:"logistics_sub_type", name:"Shipping Methods", dataType:"object",   default:[], 
+				options:[
+					{key:"TCAT", type:"checkbox", name:"黑貓宅配", dataType:"boolean", default:false},
+					{key:"FAMIC2C", type:"checkbox", name:"全家店到店", dataType:"boolean", default:false},
+					{key:"UNINARTC2C", type:"checkbox", name:"7-11店到店", dataType:"boolean", default:false}
+				]
+			},
+			{key:"sender_name", type:"text", name:"Sender Name", dataType:"string", default:''},
+			{key:"sender_phone", type:"text", name:"Phone", dataType:"string", default:''},
+			{key:"sender_zip_code", type:"text", name:"zipCode", dataType:"string", default:''},
+			{key:"sender_address", type:"text", name:"address", dataType:"string", default:''},
 		],
 		// invoice:false,
 		handle:{
