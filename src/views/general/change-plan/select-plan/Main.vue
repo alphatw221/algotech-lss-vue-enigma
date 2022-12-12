@@ -16,7 +16,7 @@
                         <template v-if="originalPlan==='standard'" :value="plan.value" class="w-40"> 
                             <template v-for="(plan, key) in getPrice.plans" :key="key">
                                 <option  v-if="plan.text != 'Free Trial' && plan.value != 'lite'" :value="plan.value" class="w-40"> 
-                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price.month).toLocaleString('en-GB')}`}) }}
+                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price?.month).toLocaleString('en-GB')}`}) }}
                                 </option>
                             </template>
                         </template>
@@ -24,7 +24,7 @@
                         <template v-if="originalPlan==='premium'" :value="plan.value" class="w-40"> 
                             <template v-for="(plan, key) in getPrice.plans" :key="key">
                                 <option  v-if="plan.text != 'Free Trial' && plan.value != 'lite' && plan.value != 'standard'" :value="plan.value" class="w-40"> 
-                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price.month).toLocaleString('en-GB')}`}) }}
+                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price?.month).toLocaleString('en-GB')}`}) }}
                                 </option>
                             </template>
                         </template>
@@ -32,7 +32,7 @@
                         <template v-if="originalPlan==='trial' || originalPlan==='lite' || originalPlan==='dealer'" :value="plan.value" class="w-40"> 
                             <template v-for="(plan, key) in getPrice.plans" :key="key">
                                 <option  v-if="plan.text != 'Free Trial'" :value="plan.value" class="w-40"> 
-                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price.month).toLocaleString('en-GB')}`}) }}
+                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price?.month).toLocaleString('en-GB')}`}) }}
                                 </option>
                             </template>
                         </template>
