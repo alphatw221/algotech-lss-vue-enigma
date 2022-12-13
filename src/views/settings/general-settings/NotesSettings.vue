@@ -165,7 +165,6 @@ const layoutStore = useLSSSellerLayoutStore();
 const computedCategorys = computed(()=>{
     var categorys = [ {name:'shoppingCart'},{name:'points'},{name:'messages'},{name:'notes'} ]
     if(layoutStore.userInfo?.user_subscription?.type === 'kol')categorys = categorys.filter(category=>category.name!='points')
-    console.log(categorys)
     return categorys
 })
 
