@@ -37,7 +37,8 @@
         "price": "Price",
         "confirm_delete": "Are you sure to delete this product ?",
         "wishlist":"WishList",
-        "remark":"Remark"
+        "remark":"Remark",
+        "price_ori":"Suggestion Price"
     },
 
     "category_manage": {

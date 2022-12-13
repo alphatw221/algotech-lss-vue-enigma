@@ -166,7 +166,7 @@ const filterData = ref({"payment_method_options":{}, "delivery_status_options":{
 
 
 const filterSubmit = ()=>{
-    console.log(props.filterEventBusName)
+    console.log(filterData.value)
     eventBus.emit(props.filterEventBusName,filterData.value)
     hideFilterModal()
 }

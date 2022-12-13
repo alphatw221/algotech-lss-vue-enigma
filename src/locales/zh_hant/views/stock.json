@@ -37,7 +37,8 @@
         "price": "價格",
         "confirm_delete": "確定要刪除該商品？",
         "wishlist":"願望清單",
-        "remark":"備註"
+        "remark":"備註",
+        "price_ori":"建議售價"
     },
 
     "category_manage": {

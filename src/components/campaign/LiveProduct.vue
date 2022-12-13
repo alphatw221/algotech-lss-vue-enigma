@@ -36,6 +36,7 @@
                         </DropdownToggle>
                         <DropdownMenu class="w-48">
                             <DropdownContent>
+                                <!-- <template v-if=""> </template> -->
                                 <DropdownItem @click="store.showInstantlyAddProductModal = true">
                                     {{$t('campaign_live.product.instantly')}}
                                 </DropdownItem>
@@ -190,6 +191,7 @@ const product_columns = [
 onMounted(() => {
         seller_list_campaign_product(route.params.campaign_id, 'all', layoutStore.alert).then(res => {
             store.campaignProducts = res.data
+            console.log(store.campaign)
         })
     }
 )
