@@ -110,7 +110,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == 'UNIMARTC2C'}">
                         <div> 
                           <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                          name="vertical_radio_button" value="UNIMARTC2C" v-model="shipping_option_index_computed" />
+                          name="vertical_radio_button" value="UNIMARTC2C" v-model="shipping_option_index_computed" @click="select_shipping_method('ecpay')"/>
                           <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">7-11{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
                         </div>
                         <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'UNIMARTC2C'">
@@ -128,7 +128,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == 'FAMIC2C'}">
                         <div> 
                           <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                          name="vertical_radio_button" value="FAMIC2C" v-model="shipping_option_index_computed" />
+                          name="vertical_radio_button" value="FAMIC2C" v-model="shipping_option_index_computed" @click="select_shipping_method('ecpay')"/>
                           <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">全家{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
                         </div>
                         <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'FAMIC2C'">
@@ -146,7 +146,7 @@
                         :class="{'border-slate-600': shipping_option_index_computed == 'HOME'}">
                         <div> 
                           <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                          name="vertical_radio_button" value="HOME" v-model="shipping_option_index_computed" />
+                          name="vertical_radio_button" value="HOME" v-model="shipping_option_index_computed" @click="select_shipping_method('ecpay')"/>
                           <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">黑貓</label>
                         </div>
                         <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
@@ -449,10 +449,36 @@ const shipping_info= ref({
       shipping_option_data:{}
 		})
 
+
+const deliveryColor = ref('white')
+const pickupColor = ref('#131C34')
+const select_shipping_method = method => {
+  console.log("select_shipping_method")
+  shipping_method_computed.value=method
+  deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
+  pickupColor.value = method == 'pickup'? 'white' :'#131C34'
+}
+
+const shipping_method_computed = computed({
+  get:()=>{
+    return shipping_info.value.shipping_method
+  },set:method=>{
+    shipping_info.value.shipping_method=method
+    shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
+    if (method === "delivery") {
+      shoppingCartStore.shipping_info.shipping_option_index = shipping_info.value.shipping_option_index
+    } 
+    if (method === "pickup") {
+      shoppingCartStore.shipping_info.shipping_option_index = null
+    }
+  }
+})
+
 const shipping_option_index_computed = computed({
   get:()=>{
     return shipping_info.value.shipping_option_index
   },set:index=>{
+    console.log("set")
     shipping_info.value.shipping_option_index=index
     shoppingCartStore.shipping_info.shipping_option_index=index
     shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address : ''
@@ -477,18 +503,8 @@ const shipping_option_index_computed = computed({
       console.log(shipping_info.value.shipping_option_data)
     }
 
-  }})
-
-const shipping_method_computed = computed({
-  get:()=>{
-    return shipping_info.value.shipping_method
-  },set:method=>{
-
-    shipping_info.value.shipping_option_index = null
-    shoppingCartStore.shipping_info.shipping_option_index = null  //order summary compute this
-    shipping_info.value.shipping_method=method
-    shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
-  }})
+  }
+})
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
@@ -512,14 +528,6 @@ onMounted(()=>{
   }
   
 })
-
-const deliveryColor = ref('white')
-const pickupColor = ref('#131C34')
-const select_shipping_method = method => {
-  shipping_method_computed.value=method
-  deliveryColor.value = method == 'delivery'? 'white' :'#131C34'
-  pickupColor.value = method == 'pickup'? 'white' :'#131C34'
-}
 
 
 
