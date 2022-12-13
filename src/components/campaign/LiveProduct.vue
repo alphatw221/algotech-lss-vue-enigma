@@ -36,10 +36,11 @@
                         </DropdownToggle>
                         <DropdownMenu class="w-48">
                             <DropdownContent>
-                                <!-- <template v-if=""> </template> -->
-                                <DropdownItem @click="store.showInstantlyAddProductModal = true">
-                                    {{$t('campaign_live.product.instantly')}}
-                                </DropdownItem>
+                                <template v-if="!store.campaign.supplier">
+                                    <DropdownItem @click="store.showInstantlyAddProductModal = true">
+                                        {{$t('campaign_live.product.instantly')}}
+                                    </DropdownItem>
+                                </template>
                                 <DropdownItem @click="store.showAddProductFromStockModal = true">
                                     {{$t('campaign_live.product.from_stock')}}
                                 </DropdownItem>
