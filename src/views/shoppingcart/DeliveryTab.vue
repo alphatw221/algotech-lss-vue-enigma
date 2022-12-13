@@ -218,62 +218,64 @@
                 <!-- END Delivery Option -->
 
                  <!-- Delivery Address -->
-                <label class="font-medium text-md mt-5">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
-                <div class="gap-5 mx-0 intro-y lg:mx-20">
-                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.address')}}</label>
-                  <div>
-                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                      :class="{ 'border-danger': delivery_validate.shipping_address_1.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C')}"
-                      v-model.trim="delivery_validate.shipping_address_1.$model" />
-                    <template v-if="(delivery_validate.shipping_address_1.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C') )">
-                          <label
-                            class="mt-2 text-danger"
-                          >
-                            {{$t('shopping_cart.delivery_tab.address_err')}}
-                          </label>
-                    </template>
-                  </div>
-                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.city')}}</label>
-                  <div>
-                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                    :class="{ 'border-danger': delivery_validate.shipping_location.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C')}"
-                    v-model.trim="delivery_validate.shipping_location.$model" />
-                  <template v-if="delivery_validate.shipping_location.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C')">
-                    <label
-                      class="mt-2 text-danger"
-                    >
-                      {{$t('shopping_cart.delivery_tab.city_err')}}
-                    </label>
-                  </template>
-                  </div>
-                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.state')}}</label>
-                  <div>
-                  <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                    :class="{ 'border-danger': delivery_validate.shipping_region.$error }"
-                    v-model.trim="delivery_validate.shipping_region.$model" />
-                    <template v-if="delivery_validate.shipping_region.$error && !(shipping_option_index_computed === 'FAMIC2C' || shipping_option_index_computed === 'UNIMARTC2C')">
-                          <label
-                            class="mt-2 text-danger"
-                          >
-                            {{$t('shopping_cart.delivery_tab.state_err')}}
-                          </label>
-                  </template>
-                  </div>
-                  <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.postal_code')}}</label>
-                  <div>
-                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                      :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
-                      v-model.trim="delivery_validate.shipping_postcode.$model" />
-                      <template v-if="delivery_validate.shipping_postcode.$error ">
+                <template v-if="!(shipping_option_index_computed === 'UNIMARTC2C' || shipping_option_index_computed === 'FAMIC2C')">
+                  <label class="font-medium text-md mt-5">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
+                  <div class="gap-5 mx-0 intro-y lg:mx-20">
+                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.address')}}</label>
+                    <div>
+                      <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                        :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
+                        v-model.trim="delivery_validate.shipping_address_1.$model" />
+                      <template v-if="delivery_validate.shipping_address_1.$error">
                             <label
                               class="mt-2 text-danger"
                             >
-                              {{$t('shopping_cart.delivery_tab.postal_code_err')}}
+                              {{$t('shopping_cart.delivery_tab.address_err')}}
+                            </label>
+                      </template>
+                    </div>
+                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.city')}}</label>
+                    <div>
+                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                      :class="{ 'border-danger': delivery_validate.shipping_location.$error}"
+                      v-model.trim="delivery_validate.shipping_location.$model" />
+                    <template v-if="delivery_validate.shipping_location.$error">
+                      <label
+                        class="mt-2 text-danger"
+                      >
+                        {{$t('shopping_cart.delivery_tab.city_err')}}
+                      </label>
+                    </template>
+                    </div>
+                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.state')}}</label>
+                    <div>
+                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                      :class="{ 'border-danger': delivery_validate.shipping_region.$error }"
+                      v-model.trim="delivery_validate.shipping_region.$model" />
+                      <template v-if="delivery_validate.shipping_region.$error">
+                            <label
+                              class="mt-2 text-danger"
+                            >
+                              {{$t('shopping_cart.delivery_tab.state_err')}}
                             </label>
                     </template>
+                    </div>
+                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.postal_code')}}</label>
+                    <div>
+                      <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                        :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
+                        v-model.trim="delivery_validate.shipping_postcode.$model" />
+                        <template v-if="delivery_validate.shipping_postcode.$error ">
+                              <label
+                                class="mt-2 text-danger"
+                              >
+                                {{$t('shopping_cart.delivery_tab.postal_code_err')}}
+                              </label>
+                      </template>
+                    </div>
+                    
                   </div>
-                  
-                </div>
+                </template> 
               </div>
             </TabPanel>
             <!-- END Delivery Panel -->
@@ -470,11 +472,9 @@ const shipping_option_index_computed = computed({
       }else{
         shipping_info.value.shipping_option_data = {'logisticsType':shipping_info.value.shipping_option_index}
       } 
-      console.log(shipping_info.value.shipping_option_data)
     }
     else{
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
-      console.log(shipping_info.value.shipping_option_data)
     }
 
   }})
