@@ -186,7 +186,8 @@ watch(computed(()=>pickupdatePicker.value),()=>{
 },{deep:true})
 
 const update_pickupdatePicker = ()=>{
-    for (let option = 0; option<layoutStore.userInfo.user_subscription.meta_logistic.pickup_options.length;option++){
+    let pickup_options = layoutStore.userInfo.user_subscription.meta_logistic?.pickup_options ? layoutStore.userInfo.user_subscription.meta_logistic?.pickup_options : {}
+    for (let option = 0; option<pickup_options.length;option++){
 			pickupdatePicker.value.push({start:layoutStore.userInfo.user_subscription.meta_logistic.pickup_options[option].start_at?layoutStore.userInfo.user_subscription.meta_logistic.pickup_options[option].start_at:null,
 				end:layoutStore.userInfo.user_subscription.meta_logistic.pickup_options[option].end_at?layoutStore.userInfo.user_subscription.meta_logistic.pickup_options[option].end_at:null})
 	}

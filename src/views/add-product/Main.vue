@@ -105,7 +105,7 @@
 				</div>
 			</div> -->
 
-			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
+			<div class="col-span-12 lg:col-span-12 col-start-1 mt-2">
 				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.quantity') }}</label>
 				<input
 					id="crud-form-1"
@@ -120,6 +120,16 @@
 						{{ $t('stock.add_product_page.qty_warning') }}
 						</label>
 				</template>
+			</div>
+			<div class="col-start-1 col-span-12 lg:col-span-6 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.price_ori') }}</label>
+				<input
+					id="crud-form-1"
+					type="text"
+					class="w-full form-control"
+					placeholder="Input Price"
+					v-model="product.price_ori"
+				/>
 			</div>
 			<div class="col-span-12 lg:col-span-6 mt-2">
 				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.price') }}</label>
@@ -258,6 +268,7 @@ const product = ref({
 	description: '',
 	qty: 0,
 	price: 0,
+	price_oid:0,
 	status: 'enabled',
 	remark:'',
 	categories:[],

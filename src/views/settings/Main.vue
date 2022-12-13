@@ -59,6 +59,11 @@ const computedCategorys = computed(()=>{
         categorys = categorys.filter(category=>category.name!='payment')
         openTab.value = 'logistic'
     }
+    if(sellerLayout.userInfo?.user_subscription?.type === 'kol'){
+        categorys = categorys.filter(category=>category.name!='payment')
+        openTab.value = 'general'
+    }
+
     return categorys
 })
 

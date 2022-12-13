@@ -38,7 +38,7 @@
         "confirm_delete": "Are you sure to delete this product ?",
         "wishlist":"WishList",
         "remark":"Remark",
-        "price_ori":"Suggestion Price"
+        "price_ori":"Buying Price"
     },
 
     "category_manage": {
@@ -87,6 +87,7 @@
         "save": "Save",
         "preview":"Preview",
         "order_code":"Order Code",
+        "price_ori":"Buying Price",
 
         "not_save_message":"Update Canceled",
         "create_message":"Create Successfully",
