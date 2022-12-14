@@ -119,7 +119,7 @@
 					<span class="form-label text-base font-medium"> {{$t('edit_campaign.selectSupplier')}} </span>
 					<select 
 					class="form-select h-[35px] sm:h-[42px] w-full"
-					v-model="v.supplier.$model"
+					v-model="v.supplier.$model.id"
 					:disabled="route.name === 'edit-campaign'"
 					>
 						<option :value="null">{{$t('create_campaign.my_stock')}}</option>
