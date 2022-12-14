@@ -31,7 +31,7 @@ import {onMounted, computed, watch, ref} from "vue"
 import { useRoute, useRouter } from "vue-router";
 import { useLSSBuyerOrderStore } from "@/stores/lss-buyer-order";
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout";
-import {buyer_cash_on_delivery} from "@/api_v2/order" 
+import { create_ecpay_delivery_order } from "@/api_v2/delivery" 
 
 const store = useLSSBuyerOrderStore();
 const layoutStore = useLSSBuyerLayoutStore()
@@ -40,7 +40,7 @@ const route = useRoute();
 const router = useRouter();
 
 const cash_on_delivery = () =>{
-    buyer_cash_on_delivery(route.params.order_oid,{'is_collection': 'Y'}).then(
+    create_ecpay_delivery_order(route.params.order_oid,{'is_collection': 'Y'}, layoutStore.alert).then(
     res=>{
         console.log(res.data)
         layoutStore.notification.showMessageToast(res.data.RtnMsg)
