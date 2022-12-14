@@ -39,9 +39,30 @@ export const useLSSLogisticMetaStore = defineStore("logisticMeta", {
 			{key:"return_store_id", type:"text", name:"Store ID", dataType:"string", default:''},
 			{key:"logistics_sub_type", name:"Shipping Methods", dataType:"object",   default:[], 
 				options:[
-					{key:"TCAT", type:"checkbox", name:"黑貓宅配", dataType:"boolean", default:false},
-					{key:"FAMIC2C", type:"checkbox", name:"全家店到店", dataType:"boolean", default:false},
-					{key:"UNINARTC2C", type:"checkbox", name:"7-11店到店", dataType:"boolean", default:false}
+					// {key:"TCAT", type:"checkbox", name:"黑貓宅配", dataType:"boolean", default:false},
+					// {key:"FAMIC2C", type:"checkbox", name:"全家店到店", dataType:"boolean", default:false},
+					// {key:"UNINARTC2C", type:"checkbox", name:"7-11店到店", dataType:"boolean", default:false},
+					{key:"TCAT", name:"黑貓宅配", dataType:"object",
+					details:[
+						{key:"enabled", type:"checkbox", name:"enabled", dataType:"boolean", default:false},
+						{key:"title", type:"text", name:"黑貓宅配", dataType:"string", default:''},
+						{key:"type", type:"select", name:"type", dataType:"string", default:'='},
+						{key:"price", type:"text", name:"price", dataType:"number", default:0}
+					]},
+					{key:"FAMIC2C", name:"全家店到店", dataType:"object",
+						details:[
+							{key:"enabled", type:"checkbox", name:"enabled", dataType:"boolean", default:false},
+							{key:"title", type:"text", name:"全家店到店", dataType:"string", default:''},
+							{key:"type", type:"select", name:"type", dataType:"string", default:'='},
+							{key:"price", type:"text", name:"price", dataType:"number", default:0}
+						]},
+					{key:"UNINARTC2C", name:"7-11店到店", dataType:"object",
+						details:[
+							{key:"enabled", type:"checkbox", name:"enabled", dataType:"boolean", default:false},
+							{key:"title", type:"text", name:"7-11店到店", dataType:"string", default:''},
+							{key:"type", type:"select", name:"type", dataType:"string", default:'='},
+							{key:"price", type:"text", name:"price", dataType:"number", default:0}
+						]}
 				]
 			},
 			{key:"sender_name", type:"text", name:"Sender Name", dataType:"string", default:''},

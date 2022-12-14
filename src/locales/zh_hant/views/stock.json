@@ -37,7 +37,8 @@
         "price": "價格",
         "confirm_delete": "確定要刪除該商品？",
         "wishlist":"願望清單",
-        "remark":"備註"
+        "remark":"備註",
+        "price_ori":"進價"
     },
 
     "category_manage": {
@@ -87,6 +88,7 @@
         "preview":"預覽",
         "order_code":"下單代碼",
         "order_code_input":"商品下單代碼",
+        "price_ori":"進價",
 
         "not_save_message":"取消儲存",
         "create_message":"新增成功",

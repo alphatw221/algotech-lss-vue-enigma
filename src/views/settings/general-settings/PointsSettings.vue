@@ -3,7 +3,7 @@
     <div class="flex flex-col justify-between gap-5 my-5" 
         :class="{'md:flex-row': props.status == 'settings'}">
 
-        <label v-if="props.status == 'settings'" class="whitespace-nowrap w-72 text-xl">{{$t('settings.points.title')}}</label>
+        <label v-if="props.status == 'settings'" class="w-72 text-xl">{{$t('settings.points.title')}}</label>
 
         <div v-else-if="props.status !== 'settings'"
             class="flex flex-col gap-4"> 

@@ -36,9 +36,11 @@
                         </DropdownToggle>
                         <DropdownMenu class="w-48">
                             <DropdownContent>
-                                <DropdownItem @click="store.showInstantlyAddProductModal = true">
-                                    {{$t('campaign_live.product.instantly')}}
-                                </DropdownItem>
+                                <template v-if="!store.campaign.supplier">
+                                    <DropdownItem @click="store.showInstantlyAddProductModal = true">
+                                        {{$t('campaign_live.product.instantly')}}
+                                    </DropdownItem>
+                                </template>
                                 <DropdownItem @click="store.showAddProductFromStockModal = true">
                                     {{$t('campaign_live.product.from_stock')}}
                                 </DropdownItem>
@@ -190,6 +192,7 @@ const product_columns = [
 onMounted(() => {
         seller_list_campaign_product(route.params.campaign_id, 'all', layoutStore.alert).then(res => {
             store.campaignProducts = res.data
+            console.log(store.campaign)
         })
     }
 )
