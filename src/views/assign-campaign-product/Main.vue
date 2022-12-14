@@ -45,7 +45,7 @@
 						@change="filterProducts()"
 					>
 						<option :value="''">{{$t(`assign_product.search_bar.all`)}}</option>
-						<option v-for="product_category,index in layoutStore.userInfo.user_subscription.product_categories" :key="index" :value="product_category.id">{{ product_category.name }}</option>
+						<option v-for="product_category,index in productCategories" :key="index" :value="product_category.id">{{ product_category.name }}</option>
 					</select>
 				</div>
 				<!-- <div class="flex-2 flex-wrap flex items-center flex-col w-fit" >
@@ -469,7 +469,7 @@ const staticDir = import.meta.env.VITE_GOOGLE_STORAGE_STATIC_DIR
 const selectedCategory = ref('')
 const searchField = ref('name')
 const searchKeyword = ref('')
-const productCategories = ref([{value:'', name:'All'}])
+// const productCategories = ref([{value:'', name:'All'}])
 
 const product_type = [{value:'product',name:'Product'},{value:'lucky_draw',name:'Lucky Draw'}]
 
@@ -512,7 +512,13 @@ onUnmounted(()=>{
 })
 
 const getCampaignProductDict=()=>{get_campaign_product_order_code_dict(route.params.campaign_id, layoutStore.alert).then(res=>{campaignProductOrderCodeDict.value = res.data})}
-
+const productCategories = computed(() => {
+	if (campaignDetailStore.campaign.supplier) {
+		return campaignDetailStore.campaign.supplier.product_categories
+	} else {
+		return layoutStore.userInfo.user_subscription.product_categories
+	}
+})
 const updateStockProducts = ()=>{
     stockProducts.value.forEach((product,stockProductIndex) => {
         if(product.id.toString() in selectedProductDict.value){ 
@@ -692,7 +698,7 @@ const search = () => {
 	// console.log(selectedProductDict.value)
 	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
-		_support_stock_user_subscription_id=campaignDetailStore.campaign.supplier,
+		_support_stock_user_subscription_id=campaignDetailStore.campaign.supplier.id,
 		_pageSize=pageSize.value,
 		_currentPage=currentPage.value, 
 		_searchColumn=searchField.value, 
