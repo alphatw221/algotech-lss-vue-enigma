@@ -106,13 +106,11 @@
 
                     <!-- Ecpay 店到店 -->
                     <template v-if="(shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled == true)"> 
-                      <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
-                      :class="{'border-slate-600': shipping_option_index_computed == 'UNIMARTC2C'}">
-                        <div> 
-                          <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                          name="vertical_radio_button" value="UNIMARTC2C" v-model="shipping_option_index_computed" @click="select_shipping_method('ecpay')"/>
-                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">7-11{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
-                        </div>
+                      <div class="flex flex-row flex-wrap cursor-pointer px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
+                      :class="{'border-slate-600': shipping_option_index_computed == 'UNIMARTC2C'}"
+                      @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'UNIMARTC2C')"
+                      >
+                        <div>7-11{{$t('shopping_cart.delivery_tab.option.c2c')}}</div>
                         <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'UNIMARTC2C'">
                           <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
                           
@@ -124,13 +122,11 @@
                         </div>
                       </div>
 
-                      <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
-                      :class="{'border-slate-600': shipping_option_index_computed == 'FAMIC2C'}">
-                        <div> 
-                          <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                          name="vertical_radio_button" value="FAMIC2C" v-model="shipping_option_index_computed" @click="select_shipping_method('ecpay')"/>
-                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">全家{{$t('shopping_cart.delivery_tab.option.c2c')}}</label>
-                        </div>
+                      <div class="flex flex-row flex-wrap cursor-pointer px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
+                      :class="{'border-slate-600': shipping_option_index_computed == 'FAMIC2C'}"
+                      @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'FAMIC2C')"
+                      >
+                        <div>全家{{$t('shopping_cart.delivery_tab.option.c2c')}}</div>
                         <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'FAMIC2C'">
                           <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
                           
@@ -142,13 +138,11 @@
                         </div>
                       </div>
                       
-                      <div class="flex flex-row flex-wrap px-10 py-3 my-4 border-2 rounded-lg form-check"
-                        :class="{'border-slate-600': shipping_option_index_computed == 'HOME'}">
-                        <div> 
-                          <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                          name="vertical_radio_button" value="HOME" v-model="shipping_option_index_computed" @click="select_shipping_method('ecpay')"/>
-                          <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">黑貓</label>
-                        </div>
+                      <div class="flex flex-row flex-wrap cursor-pointer px-10 py-3 my-4 border-2 rounded-lg form-check"
+                        :class="{'border-slate-600': shipping_option_index_computed == 'HOME'}"
+                        @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'HOME')"
+                        >
+                        <div>黑貓</div>
                         <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
 
                         </div>
@@ -156,13 +150,11 @@
                     </template>
 
                     <!-- Default Option -->
-                    <div class="flex flex-row flex-wrap px-10 py-6 my-4 border-2 rounded-lg form-check"
-                      :class="{'border-slate-600': shipping_option_index_computed == null}">
-                      <div> 
-                        <input :id="'radio-switch-'" class="form-check-input" type="radio"
-                        name="vertical_radio_button" :value="null" v-model="shipping_option_index_computed" />
-                        <label class="mr-auto form-check-label whitespace-nowrap" :for="'radio-switch-'">{{$t('shopping_cart.delivery_tab.option.default')}}</label>
-                      </div>
+                    <div class="flex flex-row flex-wrap cursor-pointer px-10 py-6 my-4 border-2 rounded-lg form-check"
+                      :class="{'border-slate-600': shipping_option_index_computed == null}"
+                      @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
+                      >
+                      <div class="ml-2">{{$t('shopping_cart.delivery_tab.option.default')}}</div>
                       <div class="ml-auto">
                         <label class="form-check-label">
                         {{ shoppingCartStore.cart.campaign.currency }}
@@ -174,13 +166,11 @@
                     <template 
                       v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
                       :key="index"> 
-                      <div class="flex flex-row flex-wrap px-10 py-6 my-4 border-2 rounded-lg form-check gap-2"
-                        :class="{'border-slate-600': shipping_option_index_computed == index}" >
-                        <div> 
-                          <input :id="'radio-switch-' + index" class="form-check-input" type="radio"
-                          name="vertical_radio_button" :value="index" v-model="shipping_option_index_computed" />
-                          <label class="mr-auto form-check-label" :for="'radio-switch-' + index">{{ option.title }}</label>
-                        </div>
+                      <div class="flex flex-row flex-wrap cursor-pointer px-10 py-6 my-4 border-2 rounded-lg form-check gap-2"
+                        :class="{'border-slate-600': shipping_option_index_computed == index}"
+                        @click="select_shipping_method('delivery') & (shipping_option_index_computed = index)"
+                      >
+                      <div class="ml-2">{{ option.title }}</div>
                         
                         <template v-if="option.type === '+'">
                           <label class="form-check-label whitespace-nowrap ml-auto">
@@ -285,25 +275,16 @@
               <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.option.pickup')}}</label>
               <template v-if="shoppingCartStore.cart.campaign">
                 <template v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index"> 
-                  <div class="flex flex-row justify-between form-check px-5 sm:px-10 py-6 border-2 rounded-lg lg:mx-20 z-0 my-5"
+                  <div class="flex flex-row justify-between form-check cursor-pointer px-5 sm:px-10 py-6 border-2 rounded-lg lg:mx-20 z-0 my-5"
                     :class="{'border-slate-600': shipping_option_index_computed == index}"
+                    @click="select_shipping_method('pickup') & (shipping_option_index_computed = index) & pickup_date_range(index)"
                     >
-                    <input class="form-check-input mr-5 flex-0 w-4" 
-                      type="radio"
-                      :name="'pickup-switch-' + index" 
-                      :value="index"
-                      v-model="shipping_option_index_computed" 
-                      @click="pickup_date_range(index)"
-                      />
 
                       <div class="flex flex-col sm:flex-row flex-0 w-full"> 
-                        <div class="flex flex-col mr-auto"> 
-                          <label class="form-check-label font-medium flex-0" :for="'pickup-switch-' + index">{{ option.name }} </label>  
-                          <label class="form-check-label flex-0" :for="'pickup-switch-' + index">{{
-                              option.address
-                          }}</label>
+                        <div class="flex flex-col mr-auto">
+                          <div class="font-medium flex-0">{{ option.name }}</div>
+                          <div class="font-medium flex-0">{{ option.address }}</div>
                         </div> 
-
                         <template v-if="option.start_at !== null && option.end_at !== null"> 
                           <label class="form-check-label flex-0 my-auto">{{new Date(option.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
                             +'~'+
@@ -424,10 +405,10 @@ const date_range = ref({
   end:new Date()
 })
 let webSocket = null
+const shipping_option_index = ref(null)
 const pickup_select_index = ref(null)
 const shipping_info= ref({
 			shipping_option:"",
-      shipping_option_index:null,
       shipping_method: "delivery",
       shipping_first_name: "",
       shipping_last_name: "",
@@ -455,7 +436,7 @@ const shipping_info= ref({
 const deliveryColor = ref('white')
 const pickupColor = ref('#131C34')
 const select_shipping_method = method => {
-  console.log("select_shipping_method")
+  console.log("select_shipping_method", method)
   shipping_method_computed.value=method
   deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
   pickupColor.value = method == 'pickup'? 'white' :'#131C34'
@@ -467,8 +448,8 @@ const shipping_method_computed = computed({
   },set:method=>{
     shipping_info.value.shipping_method=method
     shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
-    if (method === "delivery") {
-      shoppingCartStore.shipping_info.shipping_option_index = shipping_info.value.shipping_option_index
+    if (method !== "delivery") {
+      shoppingCartStore.shipping_info.shipping_option_index = shipping_option_index.value
     } 
     if (method === "pickup") {
       shoppingCartStore.shipping_info.shipping_option_index = null
@@ -478,10 +459,10 @@ const shipping_method_computed = computed({
 
 const shipping_option_index_computed = computed({
   get:()=>{
-    return shipping_info.value.shipping_option_index
+    return shipping_option_index.value
   },set:index=>{
-    console.log("set")
-    shipping_info.value.shipping_option_index=index
+    console.log("set", index)
+    shipping_option_index.value = index
     shoppingCartStore.shipping_info.shipping_option_index=index
     shipping_info.value.pickup_address=shipping_info.value.shipping_method=='pickup'?shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]?.address : ''
 
@@ -490,13 +471,13 @@ const shipping_option_index_computed = computed({
     if(shipping_info.value.shipping_method=='pickup'){
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
     }
-    else if(typeof shipping_info.value.shipping_option_index == 'string'){
+    else if(typeof shipping_option_index.value == 'string'){
       shipping_info.value.shipping_option_data = {}
-      if(shipping_info.value.shipping_option_index == shoppingCartStore.cart.meta.ecpay_cvs?.logistics_sub_type) {
+      if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.logistics_sub_type) {
         shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
         Object.assign(shipping_info.value.shipping_option_data,{'logisticsType':'CVS'})
       }else{
-        shipping_info.value.shipping_option_data = {'logisticsType':shipping_info.value.shipping_option_index}
+        shipping_info.value.shipping_option_data = {'logisticsType':shipping_option_index.value}
       } 
     }
     else{
@@ -520,7 +501,7 @@ onMounted(()=>{
     buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
 
       res.data.shipping_method='delivery'     //default value
-      res.data.shipping_option_index=null     //default value
+      shipping_option_index.value=null     //default value
       res.data.shipping_option_data={}        //default value
       shipping_info.value = res.data
       show.value = true
@@ -600,11 +581,11 @@ const proceed_to_payment = () =>{
   }
 
   console.log(shipping_info.value)
-  if(shipping_info.value.shipping_method==='delivery'){
+  if(shipping_info.value.shipping_method !== 'pickup'){
 
     delivery_validate.value.$touch();
     
-    if(shipping_info.value.shipping_option_index === ''){
+    if(shipping_option_index.value === ''){
       layoutStore.alert.showMessageToast('select shipping method')
       return
     }
@@ -620,10 +601,8 @@ const proceed_to_payment = () =>{
     }
   }
 
-  if(typeof shipping_info.value.shipping_option_index == 'string') shipping_info.value.shipping_option_index=null
 
   // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
-
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{
