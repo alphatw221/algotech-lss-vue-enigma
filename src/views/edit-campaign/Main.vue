@@ -117,9 +117,17 @@
 
 				<div v-show="sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" class="flex flex-col mb-3"> 
 					<span class="form-label text-base font-medium"> {{$t('edit_campaign.selectSupplier')}} </span>
-					<select 
+					<select v-if="v.supplier.$model"
 					class="form-select h-[35px] sm:h-[42px] w-full"
 					v-model="v.supplier.$model.id"
+					:disabled="route.name === 'edit-campaign'"
+					>
+						<option :value="null">{{$t('create_campaign.my_stock')}}</option>
+						<option v-for="subscription,index in sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
+					</select>
+					<select v-else
+					class="form-select h-[35px] sm:h-[42px] w-full"
+					v-model="v.supplier.$model"
 					:disabled="route.name === 'edit-campaign'"
 					>
 						<option :value="null">{{$t('create_campaign.my_stock')}}</option>

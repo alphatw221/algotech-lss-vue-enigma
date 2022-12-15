@@ -166,7 +166,7 @@ const props = defineProps({
 });
 
 const deliverySettingsRules = {
-    delivery_charge:{required, decimal, minValue:minValue(0)},
+    delivery_charge:{decimal, minValue:minValue(0)},
     free_delivery_for_order_above_price:{required:requiredIf(()=>{ return deliverySettings.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
     free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return deliverySettings.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
 

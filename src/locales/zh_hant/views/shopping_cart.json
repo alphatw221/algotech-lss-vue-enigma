@@ -7,16 +7,16 @@
     },
     "delivery_tab":{
         "contact_info":"收件人資訊",
-        "first_name":"姓氏",
-        "last_name":"名字",
+        "first_name":"名字",
+        "last_name":"姓氏",
+        "full_name":"全名",
         "phone":"聯絡電話",
+        "cell_phone":"聯絡手機",
         "email":"電子信箱",
         "first_err":"必填",
         "last_err":"必填",
         "phone_err":"必填",
-        "Value is not a valid email address":"電子信箱格式不符",
-        "Value is required":"必填",
-
+       
         "shipping_info":"運送資訊",
         "home_delivery":"運送",
         "self_pickup":"自行取貨",
@@ -24,9 +24,11 @@
         "pickup_date":"取貨日期",
 
         "delivery_info":"收件地址",
+        "address_hint": "街道、巷弄、樓層",
         "address":"地址",
-        "city":"鄉／鎮／市／區",
-        "state":"縣／市",
+        "district": "鄉／鎮／區",
+        "city": "縣／市",
+        "state": "省/州",
         "postal_code":"郵遞區號",
         "city_err":"必填",
         "address_err":"必填",
@@ -39,6 +41,7 @@
             "pickup":"選擇取貨方式",
             "c2c":"店到店"
         },
+        "please_select": "請選擇",
         "note":"運送須知",
         "remark":"備註",
         "previous":"上一步",

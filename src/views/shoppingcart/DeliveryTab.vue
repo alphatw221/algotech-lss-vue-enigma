@@ -5,21 +5,20 @@
         <h2 class="w-full mr-auto text-xl font-medium">{{$t('shopping_cart.delivery_tab.contact_info')}}</h2>
         <div class="grid grid-cols-12 gap-5 p-0 my-10 mt-3 intro-y lg:p-10">
           <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
-            {{$t('shopping_cart.delivery_tab.first_name')}}</label>
+            {{$t('shopping_cart.delivery_tab.full_name')}}</label>
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
                 class="col-span-8 form-control lg:col-span-4" placeholder=""
                 :class="{ 'border-danger': reciever_validate.shipping_first_name.$error }"
                 v-model.trim="reciever_validate.shipping_first_name.$model" @blur="reciever_validate.shipping_first_name.$touch"/>
-                <template v-if="reciever_validate.shipping_first_name.$error">
-                      <label
-                        class="mt-2 text-danger"
-                      >
-                        {{$t('shopping_cart.delivery_tab.first_err')}}
-                      </label>
-                  </template>
+                <template v-for="(error, index) in reciever_validate.shipping_first_name.$errors" :key="index">
+                  <label class="mt-2 text-danger">
+                    {{ error.$message }}
+                  </label>
+                  <br/>
+                </template>
               </div>
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
+          <!-- <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
             {{$t('shopping_cart.delivery_tab.last_name')}}</label>
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
@@ -27,13 +26,13 @@
                 :class="{ 'border-danger': reciever_validate.shipping_last_name.$error }"
                 v-model.trim="reciever_validate.shipping_last_name.$model" />
                 <template v-if="reciever_validate.shipping_last_name.$error">
-                          <label
-                            class="mt-2 text-danger"
-                          >
-                            {{$t('shopping_cart.delivery_tab.last_err')}}
-                          </label>
-                  </template>
-            </div>
+                  <label
+                    class="mt-2 text-danger"
+                  >
+                    {{$t('shopping_cart.delivery_tab.last_err')}}
+                  </label>
+                </template>
+            </div> -->
           <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.email')}}</label>
           <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="email"
@@ -47,24 +46,38 @@
                   :key="index"
                     class="mt-2 text-danger"
                   >
-                    {{$t(`shopping_cart.delivery_tab.`+error.$message)}}
+                  {{ error.$message }}
                   </label>
+                  <br/>
               </template>
           </div>
           
           <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.phone')}}</label>
           <div class="col-span-8 lg:col-span-4">
           <input id="regular-form-2" type="tel"
-            class="form-control " placeholder=""
+            class="form-control"
             :class="{ 'border-danger': reciever_validate.shipping_phone.$error }"
+            placeholder="ex: 02xxxxxxxx"
             v-model.trim="reciever_validate.shipping_phone.$model" />
-            <template v-if="reciever_validate.shipping_phone.$error">
-                  <label
-                    class="mt-2 text-danger"
-                  >
-                    {{$t('shopping_cart.delivery_tab.phone_err')}}
-                  </label>
-              </template>
+            <template v-for="(error, index) in reciever_validate.shipping_phone.$errors" :key="index">
+              <label class="mt-2 text-danger">
+                {{ error.$message }}
+              </label>
+              <br/>
+            </template>
+          </div>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.cell_phone')}}</label>
+          <div class="col-span-8 lg:col-span-4">
+          <input id="regular-form-2" type="tel"
+            class="form-control " placeholder=""
+            :class="{ 'border-danger': reciever_validate.shipping_cellphone.$error }"
+            v-model.trim="reciever_validate.shipping_cellphone.$model" />
+            <template v-for="(error, index) in reciever_validate.shipping_cellphone.$errors" :key="index">
+              <label class="mt-2 text-danger">
+                {{ error.$message }}
+              </label>
+              <br/>
+            </template>
           </div>
         </div>
 
@@ -110,7 +123,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == 'UNIMARTC2C'}"
                       @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'UNIMARTC2C')"
                       >
-                        <div>7-11{{$t('shopping_cart.delivery_tab.option.c2c')}}</div>
+                        <div class="ml-2 text-lg">7-11{{$t('shopping_cart.delivery_tab.option.c2c')}}</div>
                         <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'UNIMARTC2C'">
                           <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
                           
@@ -126,7 +139,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == 'FAMIC2C'}"
                       @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'FAMIC2C')"
                       >
-                        <div>全家{{$t('shopping_cart.delivery_tab.option.c2c')}}</div>
+                        <div class="ml-2 text-lg">全家{{$t('shopping_cart.delivery_tab.option.c2c')}}</div>
                         <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'FAMIC2C'">
                           <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
                           
@@ -142,7 +155,7 @@
                         :class="{'border-slate-600': shipping_option_index_computed == 'HOME'}"
                         @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'HOME')"
                         >
-                        <div>黑貓</div>
+                        <div class="ml-2 text-lg">黑貓</div>
                         <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
 
                         </div>
@@ -154,7 +167,7 @@
                       :class="{'border-slate-600': shipping_option_index_computed == null}"
                       @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
                       >
-                      <div class="ml-2">{{$t('shopping_cart.delivery_tab.option.default')}}</div>
+                      <div class="ml-2 text-lg">{{$t('shopping_cart.delivery_tab.option.default')}}</div>
                       <div class="ml-auto">
                         <label class="form-check-label">
                         {{ shoppingCartStore.cart.campaign.currency }}
@@ -170,7 +183,7 @@
                         :class="{'border-slate-600': shipping_option_index_computed == index}"
                         @click="select_shipping_method('delivery') & (shipping_option_index_computed = index)"
                       >
-                      <div class="ml-2">{{ option.title }}</div>
+                      <div class="ml-2 text-lg">{{ option.title }}</div>
                         
                         <template v-if="option.type === '+'">
                           <label class="form-check-label whitespace-nowrap ml-auto">
@@ -211,59 +224,80 @@
                 <template v-if="!(shipping_option_index_computed === 'UNIMARTC2C' || shipping_option_index_computed === 'FAMIC2C')">
                   <label class="font-medium text-md mt-5">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
                   <div class="gap-5 mx-0 intro-y lg:mx-20">
-                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.address')}}</label>
-                    <div>
-                      <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                        :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
-                        v-model.trim="delivery_validate.shipping_address_1.$model" />
-                      <template v-if="delivery_validate.shipping_address_1.$error">
-                            <label
-                              class="mt-2 text-danger"
-                            >
-                              {{$t('shopping_cart.delivery_tab.address_err')}}
-                            </label>
-                      </template>
-                    </div>
-                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.city')}}</label>
-                    <div>
-                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                      :class="{ 'border-danger': delivery_validate.shipping_location.$error}"
-                      v-model.trim="delivery_validate.shipping_location.$model" />
-                    <template v-if="delivery_validate.shipping_location.$error">
-                      <label
-                        class="mt-2 text-danger"
-                      >
-                        {{$t('shopping_cart.delivery_tab.city_err')}}
-                      </label>
-                    </template>
-                    </div>
-                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.state')}}</label>
-                    <div>
-                    <input id="regular-form-2" type="text" class="form-control " placeholder=""
-                      :class="{ 'border-danger': delivery_validate.shipping_region.$error }"
-                      v-model.trim="delivery_validate.shipping_region.$model" />
-                      <template v-if="delivery_validate.shipping_region.$error">
-                            <label
-                              class="mt-2 text-danger"
-                            >
-                              {{$t('shopping_cart.delivery_tab.state_err')}}
-                            </label>
-                    </template>
-                    </div>
+
+                    <!--Postal Code-->
                     <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.postal_code')}}</label>
                     <div>
                       <input id="regular-form-2" type="text" class="form-control " placeholder=""
                         :class="{ 'border-danger': delivery_validate.shipping_postcode.$error }"
                         v-model.trim="delivery_validate.shipping_postcode.$model" />
-                        <template v-if="delivery_validate.shipping_postcode.$error ">
-                              <label
-                                class="mt-2 text-danger"
-                              >
-                                {{$t('shopping_cart.delivery_tab.postal_code_err')}}
-                              </label>
+                      <template v-for="(error,index) in delivery_validate.shipping_postcode.$errors" :key="index">
+                        <label
+                          class="mt-2 text-danger"
+                        >
+                        {{ error.$message }}
+                        </label>
+                        <br/>
                       </template>
                     </div>
                     
+                    <!--City-->
+                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.city')}}</label>
+                    <div>
+                      <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="city_computed">
+                        <option :value="null">{{ $t('shopping_cart.delivery_tab.please_select') }}</option>
+                        <option v-for="(city,index) in twZipcodeStore.data" :key="index" :value="index">{{ city.name }}</option>
+                      </select>
+                      <!-- <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                        :class="{ 'border-danger': delivery_validate.shipping_region.$error }"
+                        v-model.trim="delivery_validate.shipping_region.$model" /> -->
+                      <template v-for="(error, index) in delivery_validate.shipping_region.$errors" :key="index">
+                        <label
+                          class="mt-2 text-danger"
+                        >
+                        {{ error.$message }}
+                        </label>
+                        <br/>
+                      </template>
+                    </div>
+
+                    <!--District Area-->
+                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.district')}}</label>
+                    <div>
+                      <select class="form-select h-[35px] sm:h-[42px] w-full" v-model="area_computed">
+                        <option :value="null">{{ $t('shopping_cart.delivery_tab.please_select') }}</option>
+                        <option v-for="(area,index) in twZipcodeStore.data[cityIndex]?.areas" :key="index" :value="index">{{ area.name }}</option>
+                      </select>
+                      
+                      <!-- <input id="regular-form-2" type="text" class="form-control " placeholder=""
+                        :class="{ 'border-danger': delivery_validate.shipping_location.$error}"
+                        v-model.trim="delivery_validate.shipping_location.$model" /> -->
+                      <template v-for="(error,index) in delivery_validate.shipping_location.$errors" :key="index">
+                        <label
+                          class="mt-2 text-danger"
+                        >
+                        {{ error.$message }}
+                        </label>
+                        <br/>
+                      </template>
+                    </div>
+                    
+                    <!--Street Address-->
+                    <label for="regular-form-2" class="my-2 form-label">{{$t('shopping_cart.delivery_tab.address')}}</label>
+                    <div>
+                      <input id="regular-form-2" type="text" class="form-control"
+                        :class="{ 'border-danger': delivery_validate.shipping_address_1.$error }"
+                        :placeholder="$t('shopping_cart.delivery_tab.address_hint')"
+                        v-model.trim="delivery_validate.shipping_address_1.$model" />
+                      <template v-for="(error,index) in delivery_validate.shipping_address_1.$errors" :key="index">
+                        <label
+                          class="mt-2 text-danger"
+                        >
+                        {{ error.$message }}
+                        </label>
+                        <br/>
+                      </template>
+                    </div>
                   </div>
                 </template> 
               </div>
@@ -282,8 +316,8 @@
 
                       <div class="flex flex-col sm:flex-row flex-0 w-full"> 
                         <div class="flex flex-col mr-auto">
-                          <div class="font-medium flex-0">{{ option.name }}</div>
-                          <div class="font-medium flex-0">{{ option.address }}</div>
+                          <div class="font-medium flex-0 text-lg ml-2">{{ option.name }}</div>
+                          <div class="font-medium flex-0 ml-2">{{ option.address }}</div>
                         </div> 
                         <template v-if="option.start_at !== null && option.end_at !== null"> 
                           <label class="form-check-label flex-0 my-auto">{{new Date(option.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
@@ -378,7 +412,7 @@
 <script setup>
 import OrderSummary from "./OrderSummary.vue";
 import ShoppingCartTableSimple from "./ShoppingCartTable-simple.vue";
-import { required, minLength, maxLength, email, integer } from "@vuelidate/validators";
+import { required, minLength, maxLength, email, integer, helpers, requiredUnless } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 import { computed, onMounted,onUnmounted, ref, watch, reactive, toRefs } from "vue";
@@ -388,6 +422,7 @@ import { useRoute, useRouter } from "vue-router";
 import { buyer_checkout_cart,buyer_get_cvs_map } from "@/api_v2/cart"
 import { buyer_retrieve_latest_order_shipping_info } from "@/api_v2/order"
 import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
+import { useTwZipcodeStore } from "@/stores/tw-zipcode"
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
 const { cookies } = useCookies()
@@ -396,6 +431,7 @@ const router = useRouter();
 
 const shoppingCartStore = useShoppingCartStore();
 const layoutStore = useLSSBuyerLayoutStore();
+const twZipcodeStore = useTwZipcodeStore();
 const sandboxMode = ref("test")
 const show = ref(false)
 const checkoutLoading = ref(false)
@@ -405,6 +441,7 @@ const date_range = ref({
   end:new Date()
 })
 let webSocket = null
+
 const shipping_option_index = ref(null)
 const pickup_select_index = ref(null)
 const shipping_info= ref({
@@ -414,6 +451,7 @@ const shipping_info= ref({
       shipping_last_name: "",
       shipping_email: "",
       shipping_phone: "",
+      shipping_cellphone: "",
       shipping_gender: "",
       shipping_company: "",
       shipping_postcode: "",
@@ -442,10 +480,33 @@ const select_shipping_method = method => {
   pickupColor.value = method == 'pickup'? 'white' :'#131C34'
 }
 
+const areaIndex = ref(null)
+const cityIndex = ref(null)
+const city_computed = computed({
+  get:()=>{
+    return cityIndex.value
+  },
+  set:index=>{
+    cityIndex.value = index
+    areaIndex.value = null
+    shipping_info.value.shipping_region = twZipcodeStore.data[index]?.name
+  }
+})
+const area_computed = computed({
+  get:()=>{
+    return areaIndex.value
+  },
+  set:index=>{
+    areaIndex.value = index
+    shipping_info.value.shipping_location = twZipcodeStore.data[cityIndex.value]?.areas[index].name
+    shipping_info.value.shipping_postcode = twZipcodeStore.data[cityIndex.value]?.areas[index].zip
+  }
+})
 const shipping_method_computed = computed({
   get:()=>{
     return shipping_info.value.shipping_method
-  },set:method=>{
+  }
+  ,set:method=>{
     shipping_info.value.shipping_method=method
     shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
     if (method !== "delivery") {
@@ -511,22 +572,83 @@ onMounted(()=>{
 })
 
 
-
+const exactlength = (param) =>
+  helpers.withParams(
+    { type: 'exactlength', value: param },
+    (value) => {
+      if (value.length === 0) return true
+      return value.length === param
+    }
+)
+const twCellPhoneBeginning = (value) => {
+  if (value.length === 0) return true
+  if (value[0] !== "0") return false
+  if (value.length === 1) return true
+  if (value[1] !== "9") return false
+  return true
+}
+const specialCharacter = (value) => {
+  const special_characters = "^‘`!@#%&*+”<>|_[]"
+  return !special_characters.split('').some(char => value.includes(char))
+}
 const reciever_rules = computed(()=>{
     return{
-      shipping_first_name: {required,minLength: minLength(1), maxLength: maxLength(50)},
-      shipping_last_name: {required,minLength: minLength(1), maxLength: maxLength(50)},
-      shipping_phone: {required,integer,minLength: minLength(1), maxLength: maxLength(50)},
-      shipping_email: {required,email, maxLength: maxLength(255)},
+      shipping_first_name: {
+        required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+        maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:5 }), maxLength(5)),
+        specialCharacter: helpers.withMessage(i18n.global.t("vulidate.contains_special_characters") + " ^ ‘ ` ! @ # % & * + ” < > | _ [ ]", specialCharacter)
+      },
+      shipping_last_name: {
+        required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+        maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:10 }), maxLength(10)),
+      },
+      shipping_phone: {
+        integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
+        requiredIf: helpers.withMessage(i18n.global.t("vulidate.required_either_one"), 
+          requiredUnless(function() {
+            return shipping_info.value.shipping_cellphone !== ""
+          })
+        ),
+        maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:10 }), maxLength(10)),
+      },
+      shipping_cellphone: {
+        integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
+        requiredIf: helpers.withMessage(i18n.global.t("vulidate.required_either_one"), 
+          requiredUnless(function() {
+            return shipping_info.value.shipping_phone !== ""
+          })
+        ),
+        cellphoneLength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:10}), exactlength(10)),
+        twCellPhoneBeginning: helpers.withMessage(i18n.global.t("vulidate.tw_cellphone_begining"), twCellPhoneBeginning)
+      },
+      shipping_email: {
+        required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+        email: helpers.withMessage(i18n.global.t("vulidate.invalid_email"), email),
+        maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:100 }), maxLength(100)),
+      }
   }
 });
 
 const delivery_rules = computed(()=>{
   return{
-    shipping_address_1: {required,minLength: minLength(1), maxLength: maxLength(255)},
-    shipping_location: {required,minLength: minLength(1), maxLength: maxLength(255)},
-    shipping_region: {maxLength: maxLength(255)},
-    shipping_postcode: {maxLength: maxLength(50)},
+    shipping_address_1: {
+      required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+      minLength: helpers.withMessage(i18n.global.t("vulidate.least_minimum_length", { number:3 }), minLength(3)), 
+      maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:24 }), maxLength(24)),
+    },
+    shipping_location: {
+      required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+      exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
+    },
+    shipping_region: {
+      required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+      exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
+    },
+    shipping_postcode: {
+      integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
+      required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
+      maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:6 }), maxLength(6)),
+    },
   }}
 );
 

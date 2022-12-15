@@ -698,7 +698,7 @@ const search = () => {
 	// console.log(selectedProductDict.value)
 	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _category, _exclude, _sortBy, _toastify;
 	search_product(
-		_support_stock_user_subscription_id=campaignDetailStore.campaign.supplier.id,
+		_support_stock_user_subscription_id=campaignDetailStore.campaign.supplier?.id,
 		_pageSize=pageSize.value,
 		_currentPage=currentPage.value, 
 		_searchColumn=searchField.value, 
