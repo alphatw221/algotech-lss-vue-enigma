@@ -91,7 +91,7 @@
 
         "payment_details": "Thông tin thanh toán",
         "enabled": "Đã bật",
-        "invoice_enabled":"Invoice Enabled",
+        "invoice_enabled":"Đã bật hóa đơn",
         "add_more_direct_payment": "Thêm Thanh toán trực tiếp",
         "add_direct_payment": "Add Thanh toán trực tiếp",
         "upload_image": "Tải hình ảnh",

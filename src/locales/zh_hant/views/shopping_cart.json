@@ -58,7 +58,7 @@
         "cart":"購物車",
         "items":"件商品",
         "edit":"修改",
-        "order_code":"訂購代碼"
+        "order_code":"下單代碼"
     },
     "order_summary":{
         "order_summary":"訂單金額",

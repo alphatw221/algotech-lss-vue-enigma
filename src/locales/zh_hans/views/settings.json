@@ -123,9 +123,9 @@
             "shipping_way":"运送方式",
             "pickup_pay":"允許貨到付款",
             "logistics_sub_type":{
-                "TCAT":"黑貓宅配",
-                "FAMIC2C":"全家店到店",
-                "UNINARTC2C":"7-11店到店"
+                "TCAT":"宅配 黑猫宅急便",
+                "FAMIC2C":"超商取货 全家",
+                "UNINARTC2C":"超商取货 7-11"
             }
         },
         "delivery_detail":"物流设定",
