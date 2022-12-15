@@ -17,7 +17,8 @@
         "lite":"Lite",
         "standard":"Standard",
         "premium":"Premium",
-        "dealer":"经销商"
+        "dealer":"经销商",
+        "kol":"KOL"
     },
     "reset_password":{
         "current_password": "目前密码",

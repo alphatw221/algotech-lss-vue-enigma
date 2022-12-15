@@ -34,11 +34,11 @@
         "categories": "商品分類",
         "description": "說明",
         "qty": "庫存數量",
-        "price": "價格",
+        "price": "售價",
         "confirm_delete": "確定要刪除該商品？",
         "wishlist":"願望清單",
         "remark":"備註",
-        "price_ori":"進價"
+        "price_ori":"成本價"
     },
 
     "category_manage": {
@@ -62,7 +62,7 @@
 
     "add_product_page": {
         "sku":"商品貨號 (SKU)",
-        "sku_input":"商品貨號 (SKU)",
+        "sku_input":"請輸入商品貨號 (SKU)",
         "edit_title": "編輯活動商品",
         "add_title": "新增商品",
         "product_name": "商品名稱",
@@ -74,8 +74,8 @@
         "max_size_text": "檔案大小上限：10MB",
         "quantity": "庫存數量",
         "qty_warning": "數量需填數字",
-        "price": "價格",
-        "price_warning": "價格需填數字",
+        "price": "售價",
+        "price_warning": "售價需填數字",
         "status": "商品狀態",
         "remark": "備註",
         "placeholder_remark": "賣家備註",
@@ -87,8 +87,10 @@
         "save": "儲存",
         "preview":"預覽",
         "order_code":"下單代碼",
-        "order_code_input":"商品下單代碼",
-        "price_ori":"進價",
+        "order_code_input":"請輸入商品下單代碼",
+        "price_ori":"成本價",
+        "price_ori_input":"請輸入商品成本價",
+        "price_input":"請輸入商品售價",
 
         "not_save_message":"取消儲存",
         "create_message":"新增成功",

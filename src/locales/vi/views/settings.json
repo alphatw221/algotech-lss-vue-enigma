@@ -106,8 +106,8 @@
     },
     "delivery_form":{
         "delivery_titles":{
-            "own_delivery":"Own Delivery",
-            "store_pickup":"Store Pickup",
+            "own_delivery":"Giao hàng riêng",
+            "store_pickup":"Cửa hàng bán tải",
             "ecpay":"ECPay"
         },
         "ecpay":{
@@ -130,8 +130,8 @@
         "pickup_address":"Địa chỉ cửa hàng",
         "express_service_name": "tên dịch vụ vận chuyển",
         "express_charge": "Chi phí vận chuyển",
-        "enabled":"Enabled",
-        "update":"Update"        
+        "enabled":"Đã bật",
+        "update":"Cập nhật"        
     },
 
     "payment":{

@@ -84,8 +84,8 @@
             "merchant_id":"商店代号",
             "hash_key":"Hash Key",
             "hash_iv":"Hash IV",
-            "invoice_hash_key":"Invoice Hash Key",
-            "invoice_hash_iv":"Invoice Hash IV"
+            "invoice_hash_key":"发票 Hash Key",
+            "invoice_hash_iv":"发票 Hash IV"
         },
         "pay_mongo":{
             "secret":"密钥"
@@ -93,7 +93,7 @@
 
         "payment_details":"金流设定",
         "enabled":"预设启用",
-        "invoice_enabled":"Invoice Enabled",
+        "invoice_enabled":"启用发票",
         "add_more_direct_payment":"新增转账选项",
         "upload_image":"收款 QRCode",
         "upload_a_file_or_drag_and_drop":"点击上传图片",
@@ -107,14 +107,26 @@
     },
     "delivery_form":{
         "delivery_titles":{
-            "own_delivery":"Own Delivery",
-            "store_pickup":"Store Pickup",
-            "ecpay":"ECPay"
+            "own_delivery":"自订物流",
+            "store_pickup":"自取/面交",
+            "ecpay":"绿界金/物流"
         },
         "ecpay":{
-            "merchant_id":"Merchant ID",
+            "merchant_id":"商店代号",
             "hash_key":"Hash Key",
-            "hash_iv":"Hash IV"
+            "hash_iv":"Hash IV", 
+            "return_store_id":"退回原寄件门市代号",
+            "sender_name":"寄件人姓名",
+            "sender_phone":"联络电话",
+            "sender_zip_code":"邮递区号",
+            "sender_address":"地址",
+            "shipping_way":"运送方式",
+            "pickup_pay":"允許貨到付款",
+            "logistics_sub_type":{
+                "TCAT":"黑貓宅配",
+                "FAMIC2C":"全家店到店",
+                "UNINARTC2C":"7-11店到店"
+            }
         },
         "delivery_detail":"物流设定",
         "delivery_charge":"基本运费",

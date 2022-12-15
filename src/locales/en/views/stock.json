@@ -87,7 +87,11 @@
         "save": "Save",
         "preview":"Preview",
         "order_code":"Order Code",
-        "price_ori":"Buying Price",
+        "order_code_input":"Product Order Code",
+        "sku_input":"Product SKU",
+        "price_ori_input":"Product Cost Price",
+        "price_input":"Product Price",
+        "price_ori":"Cost",
 
         "not_save_message":"Update Canceled",
         "create_message":"Create Successfully",

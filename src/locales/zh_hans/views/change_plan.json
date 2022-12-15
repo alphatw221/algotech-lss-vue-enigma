@@ -10,7 +10,8 @@
         "standard":"Standard",
         "premium":"Premium",
         "dealer":"Dealer",
-        "admin":"Admin"
+        "admin":"Admin",
+        "kol":"KOL"
     },
 
     "step_1":{

@@ -127,7 +127,7 @@
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Input Price"
+					:placeholder="$t('stock.add_product_page.price_ori_input')"
 					v-model="product.price_ori"
 				/>
 			</div>
@@ -137,7 +137,7 @@
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Input Price"
+					:placeholder="$t('stock.add_product_page.price_input')"
 					v-model="validate.price.$model"
 					:class="{ 'border-danger text-danger border-2': validate.price.$error }" 
 				/>
