@@ -17,7 +17,8 @@
         "lite":"Lite",
         "standard":"Standard",
         "premium":"Premium",
-        "dealer":"經銷商"
+        "dealer":"經銷商",
+        "kol":"KOL"
     },
     "reset_password":{
         "current_password": "目前密碼",

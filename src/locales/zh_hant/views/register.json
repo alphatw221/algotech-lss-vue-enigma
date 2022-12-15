@@ -14,6 +14,7 @@
     "basic_info":{
         "plan":"訂閱方案",
         "plan_options":{
+            "trial":"Trial",
             "lite":"Lite （%{price}／月）",
             "standard":"Standard （%{price}／月）",
             "premium":"Premium （%{price}起／月）"

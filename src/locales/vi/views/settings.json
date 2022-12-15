@@ -91,7 +91,7 @@
 
         "payment_details": "Thông tin thanh toán",
         "enabled": "Đã bật",
-        "invoice_enabled":"Invoice Enabled",
+        "invoice_enabled":"Đã bật hóa đơn",
         "add_more_direct_payment": "Thêm Thanh toán trực tiếp",
         "add_direct_payment": "Add Thanh toán trực tiếp",
         "upload_image": "Tải hình ảnh",
@@ -106,8 +106,8 @@
     },
     "delivery_form":{
         "delivery_titles":{
-            "own_delivery":"Own Delivery",
-            "store_pickup":"Store Pickup",
+            "own_delivery":"Giao hàng riêng",
+            "store_pickup":"Cửa hàng bán tải",
             "ecpay":"ECPay"
         },
         "ecpay":{
@@ -130,8 +130,8 @@
         "pickup_address":"Địa chỉ cửa hàng",
         "express_service_name": "tên dịch vụ vận chuyển",
         "express_charge": "Chi phí vận chuyển",
-        "enabled":"Enabled",
-        "update":"Update"        
+        "enabled":"Đã bật",
+        "update":"Cập nhật"        
     },
 
     "payment":{
