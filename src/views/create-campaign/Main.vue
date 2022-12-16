@@ -144,12 +144,12 @@
 		/>
 
 		<PaymentForm 
-
+			v-if="sellerStore.userInfo.user_subscription.type !== 'kol'"
 			:campaign="campaignData"
 			:directPaymentImages="directPaymentImages"
 			:v="v"
 		/>
-		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+		<div v-if="sellerStore.userInfo.user_subscription.type !== 'kol'" class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 			<PointsSettings 
 				:meta_point="campaignData.meta_point"
 				:v="v"

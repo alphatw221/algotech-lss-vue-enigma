@@ -1,6 +1,6 @@
 <template>
 
-    <div class="flex flex-col justify-center text-[16px] px-5">
+    <div v-if="ready" class="flex flex-col justify-center text-[16px] px-5">
         <div class="flex mt-5 lg:mb-5 lg:mt-0">
             <input 
                 class="form-check-input ml-3 w-[1.5rem] h-[1.5rem]" 
@@ -22,28 +22,38 @@
                 <template v-if="field.dataType === 'object'">
                     <label class="mt-3 form-label">{{ $t(`settings.delivery_form.${props.logistic.key}.shipping_way`) }}</label>
                     <div class="flex flex-row flex-wrap gap-5 justify-between mb-5 lg:w-5/6">
-                        <div  v-for="(option, option_index) in field.options" :key="option_index" class="flex flex-row">
-                            <div class="col-span-3 md:col-span-1 " v-if="logisticData[field.key][option_index]">
-                                <div class="flex gap-2"> 
+                        <template  v-for="(option_fields, option_key, option_index) in field.options" :key="option_index">
+                            <div class="flex-row flex-wrap col-span-3 md:col-span-1">
+                                <template v-for="(option_field, option_field_index) in option_fields" :key="option_field_index">
                                     <input
+                                        v-if="option_field.type === 'checkbox'"
                                         class="form-check-input w-[1.5rem] h-[1.5rem]" 
-                                        type="checkbox"
-                                        v-model="logisticData[field.key][option_index].enabled"
+                                        :type="option_field.type"
+                                        v-model="logisticData[field.key][option_key][option_field.key]"
                                         />
-                                    <label class="form-label">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}.${option.key}`) }}</label>
-                                </div>
-                                <div v-if="logisticData[field.key][option_index].enabled == true" class="flex flex-row gap-3"> 
-                                    <span class=" ml-auto my-auto">運費</span>
-                                    <input type="number" :min="0" class="text-center w-14 h-[35px] form-control px-1" v-model="logisticData[field.key][option_index].price"/> 
-                                </div>
+                                    <label v-if="option_field.type === 'text'" class="ml-2">
+                                        {{ option_field.name }}
+                                    </label>
+                                    
+                                    <div v-if="option_field.type === 'number'">
+                                        <span class=" ml-auto my-auto">{{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}.${option_field.key}`) }}</span>
+                                        <!-- <span class=" ml-auto my-auto">{{ option_field.name }}</span> -->
+                                        <input :type="option_field.type" :min="option_field.default" class="text-center w-20 h-[33px] form-control px-1 ml-1" 
+                                        v-model="logisticData[field.key][option_key][option_field.key]"
+                                        :readonly="logisticData[field.key][option_key].enabled == false"
+                                        />
+                                    </div>
+                                    
+                                </template>
                             </div>
-                        </div>
-                    </div> 
-                    <div v-if="show_pickup_pay" class="flex"> 
+                        </template>
+                    </div>
+                    <div class="flex"> 
                         <input 
                             class="form-check-input w-[1.5rem] h-[1.5rem]" 
                             type="checkbox"
                             v-model="logisticData.allow_pickup_pay"
+                            :disabled="disablePickupPay"
                         />
                         <label class="ml-3 form-label">{{ $t(`settings.delivery_form.ecpay.pickup_pay`)  }}</label>
                     </div>
@@ -74,7 +84,7 @@
                             class="w-full sm:w-[300px]"
                             v-model="logisticData[field.key]"
                         >
-                            <option v-for="option in field.options" :key="option">{{ option }}</option>
+                            <option v-for="secondary_field, secondary_index in field.fields" :key="secondary_index" :value="secondary_field.vlaue">{{ secondary_field.name }}</option>
                         </TomSelect>
                     </template>
                 </template>
@@ -114,27 +124,35 @@ const router = useRouter();
 const logisticData = ref({
     enabled:false,
     allow_pickup_pay:false,
-    logistics_sub_type:[]
+    logistics_sub_type:{
+    }
 })
+const ready = ref(false)
+const disablePickupPay = ref(true)
 
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
     if(sellerStore.userInfo.user_subscription.meta_logistic[props.logistic.key]){
         logisticData.value = sellerStore.userInfo.user_subscription.meta_logistic[props.logistic.key]
-        console.log('a',logisticData.value)
     }
-
-    props.logistic.fields.forEach(field => {
-        if(typeof logisticData.value[field.key] != field.dataType)logisticData.value[field.key]=field.default
-    });
-
     if(typeof logisticData.value['enabled'] != 'boolean')logisticData.value['enabled']=false
-
-    var shippingMethods = ['TCAT','FAMIC2C','UNINARTC2C']
-    for(var index in shippingMethods){
-        var fields = {title: shippingMethods[index],type: '=',price: 0,enabled:false}
-        if(!logisticData.value.logistics_sub_type?.includes(shippingMethods[index])) logisticData.value.logistics_sub_type.push(fields)
-    }
+    props.logistic.fields.forEach(field => {
+        if(typeof logisticData.value[field.key] != field.dataType) logisticData.value[field.key] = field.default
+        if (field.dataType == "object") {
+            Object.entries(field.options).forEach(([option_key, option_fields]) => {
+                if (!logisticData.value[field.key][option_key]) {
+                    logisticData.value[field.key][option_key] = {}
+                }
+                option_fields.forEach(option_field => {
+                    if (!logisticData.value[field.key][option_key][option_field.key]) {
+                        logisticData.value[field.key][option_key][option_field.key] = option_field.default
+                    }
+                })
+            })
+        }
+    });
+    console.log('logisticData',logisticData.value)
+    ready.value = true
 })
 
 
@@ -146,18 +164,24 @@ const updateDelivery = () => {
     })
 }
 
-const show_pickup_pay = ref(false)
-
-const enabled_pickup_pay = ()=>{
-    show_pickup_pay.value = false
-    logisticData.value.logistics_sub_type.forEach( type=>{
-        if(type.title !='TCAT' && type.enabled == true) show_pickup_pay.value = true 
+const checkDisablePickupPay = () => {
+    disablePickupPay.value = true
+    let has_cvs_enable = false
+    Object.entries(logisticData.value.logistics_sub_type).forEach(([key, value]) => {
+        if(key !== 'TCAT' && value.enabled == true) {
+            disablePickupPay.value = false
+            has_cvs_enable = true
+            return false
+        }
     })
-    if(show_pickup_pay.value == false) logisticData.value.allow_pickup_pay = false
+    if (!has_cvs_enable) {
+        logisticData.value.allow_pickup_pay = false
+    }
 }
 watch(computed(()=>logisticData.value),()=>{
-    enabled_pickup_pay()}
-    , {deep:true})
+    // console.log(logisticData.value)
+    checkDisablePickupPay()
+},{deep:true})
 
 
 

@@ -29,7 +29,7 @@
                                     />
                                     <label class="w-fit whitespace-nowrap form-label text-base font-medium mr-3">{{$t('settings.messages.enable')}}</label>
                                 </div>
-                            <span class="text-slate-400 break-all w-full"> {{props.meta_reply[field.key]}}</span>
+                            <p class="text-slate-400 break-all w-full whitespace-pre-line"> {{props.meta_reply[field.key]}}</p>
                         </div>
                     </Accordion>
                     <AccordionPanel class="leading-relaxed text-slate-600 dark:text-slate-500">
