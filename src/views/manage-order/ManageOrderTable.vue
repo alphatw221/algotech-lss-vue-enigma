@@ -3,9 +3,9 @@
     <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap text-left" v-for="column in computedColumns" :key="column.key">
+                    <th class="whitespace-nowrap text-right" v-for="column in computedColumns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
-                        <div v-else-if="column.key === 'subtotal'" class="row flex justify-center">
+                        <div v-else-if="column.key === 'subtotal'" class="row flex justify-end">
 							<div class="text-right">{{ $t(`manage_order.table.`+column.name) }}</div>
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 
@@ -21,9 +21,13 @@
                                     </template>
                                 </template>
 						</div>
+
+                        <template v-else-if="column.key === 'platform'">
+							<div class="text-center">{{ $t(`manage_order.table.`+column.name) }}</div>
+						</template>
                         
                         <template v-else>
-                            <div class="flex justify-center"> 
+                            <div class="flex justify-left"> 
                                 {{ $t(`manage_order.table.`+column.name) }}
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 

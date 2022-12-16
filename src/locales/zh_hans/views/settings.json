@@ -171,7 +171,8 @@
             "ID":"印尼",
             "IN":"印度",
             "TW":"台湾",
-            "VN":"越南"
+            "VN":"越南",
+            "MY":"马来西亚"
         },
         "currency_symbol":"币别设置",
         "seller_language":"卖家语言",

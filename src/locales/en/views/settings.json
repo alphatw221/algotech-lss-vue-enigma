@@ -178,7 +178,8 @@
             "ID":"Indonesia",
             "IN":"India",
             "TW":"Taiwan",
-            "VN":"Vietnam"
+            "VN":"Vietnam",
+            "MY":"Malaysia"
         },
         "currency_symbol":"Currency Symbol",
         "seller_language":"Seller Language",

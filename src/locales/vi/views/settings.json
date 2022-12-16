@@ -158,7 +158,8 @@
             "ID":"Indonesia",
             "IN":"Ấn Độ",
             "TW":"Đài Loan",
-            "VN":"Việt Nam"
+            "VN":"Việt Nam",
+            "MY":"Malaysia"
         },
         "currency_symbol":"Đơn vị tiền tệ",
         "seller_language":"Ngôn ngữ nhà bán hàng",

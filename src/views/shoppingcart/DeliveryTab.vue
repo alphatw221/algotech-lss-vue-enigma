@@ -155,7 +155,7 @@
                         :class="{'border-slate-600': shipping_option_index_computed == 'HOME'}"
                         @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'HOME')"
                         >
-                        <div class="ml-2 text-lg">黑貓</div>
+                        <div class="ml-2 text-lg">宅配 黑貓宅急便</div>
                         <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
 
                         </div>
