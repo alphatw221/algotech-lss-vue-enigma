@@ -3,170 +3,180 @@
 		<div class="flex items-center sm:px-20 lg:pt-5 mt-3 pb-4 intro-y">
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
 		</div>
-		<div class="dateSetting box shadow-none grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
-    <!-- <div class="flex flex-col gap-5 text-[16px] h-fit">
-		<span class="mt-3 ml-5 text-xl sm:ml-0 sm:mt-5"> Create Campaign </span>
-		<div class="grid grid-cols-12 gap-1 px-5 py-5 sm:p-8 intro-y box sm:gap-5 -z-50"> -->
-			<div class="col-span-12 col-start-1 sm:col-span-6">
-				<div class="flex flex-col">
-					<div class="flex">
-						<label class="w-fit my-auto text-base form-label font-medium">{{$t('create_campaign.title')}}</label>
-						<Tippy 
-							class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
-							data-tippy-allowHTML="true" 
-							data-tippy-placement="right" 
-							:content="$t('tooltips.create_campaign.title')" 
-						> 
-							<HelpCircleIcon class="w-5 tippy-icon" />
-						</Tippy> 
-					</div>
-					<input 
-						class="w-full form-control" 
-						type="text" 
-						:class="{ 'border-danger': v.title.$error }"
-						v-model.trim="v.title.$model"
-						@blur="v.title.$touch" 
-						/>
-				</div>
-				<template v-if="v.title.$error">
-					<label class="text-danger text-[14px] ml-2">
-						{{$t('create_campaign.title_required')}}
-					</label>
-				</template>
-			</div>
-			<div class="col-span-12 sm:col-span-6">
-				<div class="flex flex-col">
-					<div class="flex whitespace-nowrap align-middle"> 
-						<label for="regular-form-2" class="w-fit my-auto text-base form-label font-medium">{{$t('create_campaign.period')}}</label>
-						<Tippy 
-							class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
-							data-tippy-allowHTML="true" 
-							data-tippy-placement="right" 
-							:content="$t('tooltips.create_campaign.campaign_period')" 
-						> 
-							<HelpCircleIcon class="w-5 tippy-icon" />
-						</Tippy> 
-					</div>
-					<v-date-picker class="z-49" 
-						v-model="dateTimePicker" 
-						:timezone="timezone" 
-						:columns="$screens({ default: 1, sm: 2 })" 
-						mode="dateTime" is-range is-required is24hr
-						:min-date='new Date()'
-						>
-						<template v-slot="{ inputValue, inputEvents }">
-							<div class="flex items-center justify-center">
-							<input :value="inputValue.start" v-on="inputEvents.start"
-								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-							<ChevronsRightIcon class="w-8 h-8 m-1" />
-							<input :value="inputValue.end" v-on="inputEvents.end" disabled
-								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+		<template v-for="(category, index) in computedCategory" :key="index">
+			<template v-if="category.name == 'date'">
+				<div :class="category.name" class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
+					<div class="col-span-12 col-start-1 sm:col-span-6">
+						<div class="flex flex-col">
+							<div class="flex">
+								<label class="w-fit my-auto text-base form-label font-medium">{{$t('create_campaign.title')}}</label>
+								<Tippy 
+									class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+									data-tippy-allowHTML="true" 
+									data-tippy-placement="right" 
+									:content="$t('tooltips.create_campaign.title')" 
+								> 
+									<HelpCircleIcon class="w-5 tippy-icon" />
+								</Tippy> 
 							</div>
+							<input 
+								class="w-full form-control" 
+								type="text" 
+								:class="{ 'border-danger': v.title.$error }"
+								v-model.trim="v.title.$model"
+								@blur="v.title.$touch" 
+								/>
+						</div>
+						<template v-if="v.title.$error">
+							<label class="text-danger text-[14px] ml-2">
+								{{$t('create_campaign.title_required')}}
+							</label>
 						</template>
-					</v-date-picker>
+					</div>
+					<div class="col-span-12 sm:col-span-6">
+						<div class="flex flex-col">
+							<div class="flex whitespace-nowrap align-middle"> 
+								<label for="regular-form-2" class="w-fit my-auto text-base form-label font-medium">{{$t('create_campaign.period')}}</label>
+								<Tippy 
+									class="rounded-full w-fit whitespace-wrap ml-1 my-auto" 
+									data-tippy-allowHTML="true" 
+									data-tippy-placement="right" 
+									:content="$t('tooltips.create_campaign.campaign_period')" 
+								> 
+									<HelpCircleIcon class="w-5 tippy-icon" />
+								</Tippy> 
+							</div>
+							<v-date-picker class="z-49" 
+								v-model="dateTimePicker" 
+								:timezone="timezone" 
+								:columns="$screens({ default: 1, sm: 2 })" 
+								mode="dateTime" is-range is-required is24hr
+								:min-date='new Date()'
+								>
+								<template v-slot="{ inputValue, inputEvents }">
+									<div class="flex items-center justify-center">
+									<input :value="inputValue.start" v-on="inputEvents.start"
+										class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+									<ChevronsRightIcon class="w-8 h-8 m-1" />
+									<input :value="inputValue.end" v-on="inputEvents.end" disabled
+										class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+									</div>
+								</template>
+							</v-date-picker>
+						</div>
+					</div>
 				</div>
-			</div>
-		</div>
+			</template>
+			<template v-else-if="category.name == 'general'">
+				<div :class="category.name" class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 
-		<div class="langSetting box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-10 text-[16px] gap-5 flex flex-col">
+					<span class="text-xl font-medium leading-none lg:-mx-6">{{$t('create_campaign.general_settings')}}</span>
+					<hr class="-mx-6 my-4" />
 
-			<span class="col-span-12 text-xl font-medium leading-none lg:-mx-6">{{$t('create_campaign.general_settings')}}</span>
-			<hr class="-mx-6" />
+					<div v-show="sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" class="flex flex-col"> 
+						<span>{{$t('create_campaign.selling_type')}}</span>
+						<select 
+						class="form-select h-[35px] sm:h-[42px] w-full"
+						v-model="v.supplier.$model"
+						>
+							<option :value="null">{{$t('create_campaign.my_stock')}}</option>
+							<option v-for="subscription,index in sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
+						</select>
+					</div>
 
-			<div v-show="sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" class="flex flex-col"> 
-				<span>{{$t('create_campaign.selling_type')}}</span>
-				<select 
-				class="form-select h-[35px] sm:h-[42px] w-full"
-				v-model="v.supplier.$model"
-				>
-					<option :value="null">{{$t('create_campaign.my_stock')}}</option>
-					<option v-for="subscription,index in sellerStore.userInfo.user_subscription.meta_store?.support_stock_user_subscriptions" :key="index" :value="subscription.user_subscription_id">{{ subscription.name }}</option>
-				</select>
-			</div>
+					<div class="flex flex-col w-full">
+						<span> {{$t("settings.localization.currency_symbol")}} </span>
+						<TomSelect v-model="campaignData.currency" :options="{
+									placeholder: $t('settings.localization.choose_currency_symbol'),
+									}" class="w-full">
+							<option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
+						</TomSelect>
+					</div>
 
-			<div class="flex flex-col w-full">
-				<span> {{$t("settings.localization.currency_symbol")}} </span>
-				<TomSelect v-model="campaignData.currency" :options="{
-							placeholder: $t('settings.localization.choose_currency_symbol'),
-							}" class="w-full">
-					<option :value="option.value" v-for="(option,index) in currencySymbols" :key="index">{{option.text}}</option>
-				</TomSelect>
-			</div>
+					<div class="flex flex-col">
+						<div class="flex flex-row gap-3">
+							<span class=""> {{$t("settings.localization.buyer_language")}}</span>
+							<Tippy 
+								class="rounded-full whitespace-wrap" 
+								data-tippy-allowHTML="true" 
+								data-tippy-placement="right" 
+								:content="$t('tooltips.settings.local.buyer_lang')" 
+							> 
+								<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+							</Tippy> 
+						</div>
+						<TomSelect v-model="campaignData.lang" :options="{
+									placeholder: $t('settings.localization.choose_language'),
+									}" class="w-full">
+							<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
+						</TomSelect>
+					</div>
 
-			<div class="flex flex-col">
-				<div class="flex flex-row gap-3">
-					<span class=""> {{$t("settings.localization.buyer_language")}}</span>
-					<Tippy 
-						class="rounded-full whitespace-wrap" 
-						data-tippy-allowHTML="true" 
-						data-tippy-placement="right" 
-						:content="$t('tooltips.settings.local.buyer_lang')" 
-					> 
-						<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
-					</Tippy> 
+					<div class="flex flex-col">
+						<div class="flex flex-row gap-3">
+							<span> {{$t("settings.localization.price_unit")}}</span>
+							<Tippy 
+								class="rounded-full whitespace-wrap" 
+								data-tippy-allowHTML="true" 
+								data-tippy-placement="right" 
+								:content="$t('tooltips.settings.local.price_unit')" 
+							> 
+								<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
+							</Tippy> 
+						</div>
+						<TomSelect v-model="campaignData.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
+							<option :value="option.value" v-for="(option,index) in priceUnitOptions" :key="index">{{$t(`settings.localization.priceOptions.${option.key}`)}}</option>
+						</TomSelect>
+					</div>
+					<div class="flex flex-col">
+						<div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
+
+						<TomSelect v-model="campaignData.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-full">
+							<option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
+						</TomSelect>
+					</div>
 				</div>
-				<TomSelect v-model="campaignData.lang" :options="{
-							placeholder: $t('settings.localization.choose_language'),
-							}" class="w-full">
-					<option :value="option.value" v-for="(option,index) in languages" :key="index">{{$t(`settings.localization.languages.${option.value}`)}}</option>
-				</TomSelect>
-			</div>
-
-			<div class="flex flex-col">
-				<div class="flex flex-row gap-3">
-					<span> {{$t("settings.localization.price_unit")}}</span>
-					<Tippy 
-						class="rounded-full whitespace-wrap" 
-						data-tippy-allowHTML="true" 
-						data-tippy-placement="right" 
-						:content="$t('tooltips.settings.local.price_unit')" 
-					> 
-						<HelpCircleIcon class="h-5 ml-1 mt-0.5 tippy-icon" />
-					</Tippy> 
+			</template>
+			<template v-else-if="category.name == 'logistics'">
+				<DeliveryForm 
+					:campaign="campaignData"
+					:v="v"
+					:class="category.name"
+				/>
+			</template>
+			<template v-else-if="category.name == 'payments'">
+				<PaymentForm 
+					v-show="sellerStore.userInfo.user_subscription.type !== 'kol'"
+					:campaign="campaignData"
+					:directPaymentImages="directPaymentImages"
+					:v="v"
+					:class="category.name"
+				/>
+			</template>
+			<template v-else-if="category.name == 'points'"> 
+				<div :class="category.name" 
+					class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+					<PointsSettings 
+						:meta_point="campaignData.meta_point"
+						:v="v"
+					/>
 				</div>
-				<TomSelect v-model="campaignData.price_unit" :options="{placeholder: $t('settings.localization.choose_price_unit')}" class="w-full">
-					<option :value="option.value" v-for="(option,index) in priceUnitOptions" :key="index">{{$t(`settings.localization.priceOptions.${option.key}`)}}</option>
-				</TomSelect>
-			</div>
-			<div class="flex flex-col">
-				<div class="mr-5"> {{$t("settings.localization.decimal_places")}}</div>
-
-				<TomSelect v-model="campaignData.decimal_places" :options="{placeholder: $t('settings.localization.choose_decimal_places')}" class="w-full">
-					<option :value="option.value" v-for="(option,index) in decimalOptions" :key="index">{{option.text}}</option>
-				</TomSelect>
-			</div>
-		</div>
-
-	<div v-show="v.supplier.$model === null" class="otherSetting"> 
-		<DeliveryForm 
-			:campaign="campaignData"
-			:v="v"
-		/>
-
-		<PaymentForm 
-			v-if="sellerStore.userInfo.user_subscription.type !== 'kol'"
-			:campaign="campaignData"
-			:directPaymentImages="directPaymentImages"
-			:v="v"
-		/>
-		<div v-if="sellerStore.userInfo.user_subscription.type !== 'kol'" class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
-			<PointsSettings 
-				:meta_point="campaignData.meta_point"
-				:v="v"
-			/>
-		</div>
-
-		<div class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
-			<MessageSettings 
-				:meta_reply="campaignData.meta_reply"
-				:v="v"
-			/>
-		</div>
+			</template>
+			<template v-else-if="category.name == 'messages'">
+				<div
+				:class="category.name" 
+					class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+					<MessageSettings 
+						:meta_reply="campaignData.meta_reply"
+						:v="v"
+					/>
+				</div>
+			</template>
 		
-
-		<NotesForm :campaignNotes="campaignNotes" />
-	</div>
-
+			<template v-else-if="category.name == 'notes'"> 
+				<NotesForm :campaignNotes="campaignNotes" :class="category.name" />
+			</template>
+		</template>
 	<div class="box shadow-none col-span-12 flex justify-end lg:mx-20 lg:px-40 py-10 mt-3">
 		<button class="w-32 bg-white btn dark:border-darkmode-400" @click="$router.push({ name: 'campaign-list' })">
 			{{$t('create_campaign.cancel')}}
@@ -208,6 +218,24 @@ const dateTimePicker = ref({
 	end:new Date()
 })
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
+
+const computedCategory = computed(()=>{
+	var categorys = [{name:'date'},{name:'general'},{name:'logistics'},
+	{name:'payments'},{name:'points'},{name:'messages'},{name:'notes'}]
+
+	if(sellerStore.userInfo.user_subscription.type=='kol'){
+		categorys = categorys.filter(category=>category.name!='points')
+	}
+	if(v.value.supplier.$model){
+		categorys = categorys.filter(category=>category.name!='logistics')
+		categorys = categorys.filter(category=>category.name!='points')
+		categorys = categorys.filter(category=>category.name!='messages')
+		categorys = categorys.filter(category=>category.name!='notes')
+	}
+
+	return categorys
+})
+
 const currencySymbols = ref([
     {value:'USD',text:'USD'},
     {value:'NTD',text:'NTD'},
@@ -423,15 +451,15 @@ const createCampaign = ()=>{
 
 <style scoped>
 
-.langSetting{
-	z-index: 49;
-}
-
-.dateSetting{
+.date{
 	z-index: 50;
 }
 
-.otherSetting{
+.general{
+	z-index: 49;
+}
+
+.logistics{
 	z-index: 48;
 }
 </style>
