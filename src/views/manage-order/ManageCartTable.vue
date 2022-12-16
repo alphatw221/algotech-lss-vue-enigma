@@ -8,6 +8,9 @@
                         <template v-else-if="column.key === 'subtotal'">
 							<div class="text-right">{{ $t(`manage_order.table.`+column.name) }}</div>
 						</template>
+                        <template v-else-if="column.key === 'platform'">
+							<div class="text-center">{{ $t(`manage_order.table.`+column.name) }}</div>
+						</template>
                         <template v-else>
                             <div class="flex"> 
                                 {{ $t(`manage_order.table.`+column.name) }}
