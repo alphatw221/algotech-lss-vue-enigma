@@ -88,6 +88,11 @@ export const useLSSSellerLayoutStore = defineStore("sellerLayout", {
         title: "campaign_default_setting",
       },
       {
+        icon: "discount-code",
+        pageName: "discount-code",
+        title: "discount_code",
+      },
+      {
         icon: "platform",
         pageName: "platform",
         title: "connect_platform",

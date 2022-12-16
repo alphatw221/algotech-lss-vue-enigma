@@ -32,7 +32,7 @@
                                         v-model="logisticData[field.key][option_key][option_field.key]"
                                         />
                                     <label v-if="option_field.type === 'text'" class="ml-2">
-                                        {{ option_field.name }}
+                                        {{ $t(`settings.delivery_form.${props.logistic.key}.${field.key}.${option_key}`) }}
                                     </label>
                                     
                                     <div v-if="option_field.type === 'number'">

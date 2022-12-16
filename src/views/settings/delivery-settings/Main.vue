@@ -25,7 +25,7 @@
 
                             <StorePickup :logistic ="logistic" v-else-if="logistic.key=='store_pickup'"/>
 
-                            <DeliveryMethod :logistic="logistic" v-else /> 
+                            <DeliveryMethod  :logistic="logistic" v-else /> 
                         
                             <!-- <PaymentMethod :payment="payment" v-else/> -->
 
@@ -57,6 +57,10 @@ onMounted(() => {
     logisticKeySet.forEach(key => {
         logistics.value.push(logisticStore[key])
     });
+    // don't let kol use ecpay, temporarily remove it
+    if (sellerStore.userInfo.user_subscription.type == 'kol') {
+        logistics.value = logistics.value.filter(v=>v.key !== "ecpay")
+    }
     logisticReady.value=true
     console.log(logistics.value)
 })
