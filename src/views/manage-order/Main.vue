@@ -198,11 +198,6 @@ const stopCheckout = ()=>{
     }) 
 }
 
-// function getCampaignInfo(){
-//     retrieve_campaign(route.params.campaign_id, layout.alert).then(res=>{
-//         manageOrderStore.campaign = res.data
-//     })
-// }
 </script>
 
 <style scoped>

@@ -34,15 +34,19 @@ watch(computed(()=>store.order),()=>{
     if (!meta_payment) return
     const meta_country = store.order.campaign.user_subscription.meta_country
     if (!meta_country) return
-    const paymentKeySet = new Set()
-
-    meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => paymentKeySet.add(key) ) } )
-    console.log('keySet',paymentKeySet)
+    // const paymentKeySet = new Set()
+    console.log(meta_payment)
+    // meta_country.activated_country.forEach( country => { paymentMetaStore[country].forEach( key => paymentKeySet.add(key) ) } )
+    // console.log('keySet',paymentKeySet)
     // if (meta_payment['ecpay'] && meta_payment['ecpay'].invoice_enabled) paymentMetaStore['ecpay'].invoice = true
-    paymentKeySet.forEach(key => {
-        if (meta_payment[key] && meta_payment[key].enabled) payments.value.push(paymentMetaStore[key])
-    });
-    console.log('pp',store.order)
+    // paymentKeySet.forEach(key => {
+    //     if (meta_payment[key] && meta_payment[key].enabled) payments.value.push(paymentMetaStore[key])
+    // });
+    Object.entries(meta_payment).forEach(([key, value]) => {
+        if (value.enabled) {
+            payments.value.push(paymentMetaStore[key])
+        }
+    })
 })
 
 const cash_on_delivery = () =>{

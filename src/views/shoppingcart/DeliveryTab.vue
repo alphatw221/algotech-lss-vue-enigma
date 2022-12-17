@@ -488,8 +488,9 @@ const city_computed = computed({
   },
   set:index=>{
     cityIndex.value = index
+    delivery_validate.value.shipping_region.$model = twZipcodeStore.data[index]?.name
     areaIndex.value = null
-    shipping_info.value.shipping_region = twZipcodeStore.data[index]?.name
+    delivery_validate.value.shipping_location.$model = null
   }
 })
 const area_computed = computed({
@@ -498,8 +499,8 @@ const area_computed = computed({
   },
   set:index=>{
     areaIndex.value = index
-    shipping_info.value.shipping_location = twZipcodeStore.data[cityIndex.value]?.areas[index].name
-    shipping_info.value.shipping_postcode = twZipcodeStore.data[cityIndex.value]?.areas[index].zip
+    delivery_validate.value.shipping_location.$model = twZipcodeStore.data[cityIndex.value]?.areas[index]?.name
+    delivery_validate.value.shipping_postcode.$model = twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip
   }
 })
 const shipping_method_computed = computed({
@@ -565,6 +566,8 @@ onMounted(()=>{
       shipping_option_index.value=null     //default value
       res.data.shipping_option_data={}        //default value
       shipping_info.value = res.data
+      cityIndex.value = twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region)
+      areaIndex.value = twZipcodeStore.data[city_computed.value].areas.findIndex(area => area.name == shipping_info.value.shipping_location)
       show.value = true
     })
   }
@@ -684,7 +687,6 @@ const get_c2c_map = (storeType) =>{
         }
       }
       document.body.appendChild(form);
-      console.log('44',params)
       form.submit();
     }
   )
@@ -693,7 +695,7 @@ const get_c2c_map = (storeType) =>{
 
 
 const proceed_to_payment = () =>{
-
+  console.log()
   reciever_validate.value.$touch();
 
   if (reciever_validate.value.$invalid) {
@@ -702,7 +704,6 @@ const proceed_to_payment = () =>{
     return
   }
 
-  console.log(shipping_info.value)
   if(shipping_info.value.shipping_method !== 'pickup'){
 
     delivery_validate.value.$touch();
@@ -724,7 +725,6 @@ const proceed_to_payment = () =>{
   }
 
 
-  // if (!confirm(i18n.global.t('shopping_cart.checkout_message')))return 
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{

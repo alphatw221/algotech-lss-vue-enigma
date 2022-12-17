@@ -4,8 +4,8 @@
 			<h2 class="text-xl sm:text-2xl font-medium mx-auto sm:mx-0">{{$t('create_campaign.create_campaign')}}</h2>
 		</div>
 		<template v-for="(category, index) in computedCategory" :key="index">
-			<template v-if="category.name == 'date'">
-				<div :class="category.name" class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
+			<template v-if="category == 'date'">
+				<div :class="category" class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
 					<div class="col-span-12 col-start-1 sm:col-span-6">
 						<div class="flex flex-col">
 							<div class="flex">
@@ -67,8 +67,8 @@
 					</div>
 				</div>
 			</template>
-			<template v-else-if="category.name == 'general'">
-				<div :class="category.name" class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+			<template v-else-if="category == 'general'">
+				<div :class="category" class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 
 					<span class="text-xl font-medium leading-none lg:-mx-6">{{$t('create_campaign.general_settings')}}</span>
 					<hr class="-mx-6 my-4" />
@@ -137,24 +137,23 @@
 					</div>
 				</div>
 			</template>
-			<template v-else-if="category.name == 'logistics'">
+			<template v-else-if="category == 'logistics'">
 				<DeliveryForm 
 					:campaign="campaignData"
 					:v="v"
-					:class="category.name"
+					:class="category"
 				/>
 			</template>
-			<template v-else-if="category.name == 'payments'">
+			<template v-else-if="category == 'payments'">
 				<PaymentForm 
-					v-show="sellerStore.userInfo.user_subscription.type !== 'kol'"
 					:campaign="campaignData"
 					:directPaymentImages="directPaymentImages"
 					:v="v"
-					:class="category.name"
+					:class="category"
 				/>
 			</template>
-			<template v-else-if="category.name == 'points'"> 
-				<div :class="category.name" 
+			<template v-else-if="category == 'points'"> 
+				<div :class="category" 
 					class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 					<PointsSettings 
 						:meta_point="campaignData.meta_point"
@@ -162,9 +161,9 @@
 					/>
 				</div>
 			</template>
-			<template v-else-if="category.name == 'messages'">
+			<template v-else-if="category == 'messages'">
 				<div
-				:class="category.name" 
+				:class="category" 
 					class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 					<MessageSettings 
 						:meta_reply="campaignData.meta_reply"
@@ -173,8 +172,8 @@
 				</div>
 			</template>
 		
-			<template v-else-if="category.name == 'notes'"> 
-				<NotesForm :campaignNotes="campaignNotes" :class="category.name" />
+			<template v-else-if="category == 'notes'"> 
+				<NotesForm :campaignNotes="campaignNotes" :class="category" />
 			</template>
 		</template>
 	<div class="box shadow-none col-span-12 flex justify-end lg:mx-20 lg:px-40 py-10 mt-3">
@@ -190,6 +189,8 @@
 
 <script setup>
 import { ref, watch, onMounted, computed, watchEffect } from 'vue';
+import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
+import { useVuelidate } from "@vuelidate/core";
 
 import PaymentForm from './payment-form/Main.vue'
 import DeliveryForm from './DeliveryForm.vue';
@@ -197,14 +198,14 @@ import NotesForm from './NotesForm.vue';
 import PointsSettings from '@//views/settings/general-settings/PointsSettings.vue'
 import MessageSettings from '@//views/settings/general-settings/MessageSettings.vue'
 
+
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
+import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 import { useRoute, useRouter } from "vue-router";
 import { create_campaign, retrieve_campaign, update_campaign } from '@/api_v2/campaign';
 
-import { required, minLength, maxLength, helpers, numeric, requiredIf, decimal, integer, minValue } from "@vuelidate/validators";
-import { useVuelidate } from "@vuelidate/core";
-import { useLSSPaymentMetaStore } from '@/stores/lss-payment-meta';
 
+const sellerStore = useLSSSellerLayoutStore()
 const paymentMetaStore = useLSSPaymentMetaStore()
 
 const route = useRoute()
@@ -218,23 +219,6 @@ const dateTimePicker = ref({
 	end:new Date()
 })
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
-
-const computedCategory = computed(()=>{
-	var categorys = [{name:'date'},{name:'general'},{name:'logistics'},
-	{name:'payments'},{name:'points'},{name:'messages'},{name:'notes'}]
-
-	if(sellerStore.userInfo.user_subscription.type=='kol'){
-		categorys = categorys.filter(category=>category.name!='points')
-	}
-	if(v.value.supplier.$model){
-		categorys = categorys.filter(category=>category.name!='logistics')
-		categorys = categorys.filter(category=>category.name!='points')
-		categorys = categorys.filter(category=>category.name!='messages')
-		categorys = categorys.filter(category=>category.name!='notes')
-	}
-
-	return categorys
-})
 
 const currencySymbols = ref([
     {value:'USD',text:'USD'},
@@ -281,10 +265,7 @@ const campaignData = ref({
 		is_additional_delivery_charge : true,
 		additional_delivery_options: [],
 		pickup_options: [],
-		delivery_note : '',
-		ecpay_delivery_enable : false,
-		ecpay_delivery_hash_key : '',
-		ecpay_delivery_hash_iv : '',
+		delivery_note : ''
 	},
 	country:'SG',
 	currency:'USD', 
@@ -310,52 +291,70 @@ const campaignNotes = ref({
 		confirmation_note: ''
 	}
 })
+const computedCategory = computed(()=>{
+	var categorys = ['date','general','logistics','payments','points','messages','notes']
 
+	if(sellerStore.userInfo.user_subscription.type=='kol'){
+		categorys = categorys.filter(category=>category !='points')
+		categorys = categorys.filter(category=>category != 'payments')
+	}
+	if(campaignData.value.supplier){
+		categorys = categorys.filter(category=>category!='logistics')
+		categorys = categorys.filter(category=>category!='messages')
+		categorys = categorys.filter(category=>category!='notes')
+	}
+	return categorys
+})
 const campaignDataRules = computed(() => {
-	return { 	
-			title: { required, minLength: minLength(1), maxLength: maxLength(255) },
-			meta_logistic:{
-				delivery_charge:{required, decimal, minValue:minValue(0)},
-				free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
-				free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
+	let rules = { 	
+		title: { required, minLength: minLength(1), maxLength: maxLength(255) },
+		meta_logistic:{
+			delivery_charge:{required, decimal, minValue:minValue(0)},
+			free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
+			free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
 
-				additional_delivery_options: {
-				$each: helpers.forEach({
-					title:{required},
-					type: {required},
-					price:{required, numeric}
-				})
-			},
-			pickup_options: {
-				$each: helpers.forEach({
-					name:{required},
-					address: {required},
-				})
-			},
-			},
-			meta_payment:{
-				direct_payment:{
-					v2_accounts: {
-						$each: helpers.forEach({
-							mode:{required},
-							name: {required},
-							number:{required}
-						})
-					}
+			additional_delivery_options: {
+			$each: helpers.forEach({
+				title:{required},
+				type: {required},
+				price:{required, numeric}
+			})
+		},
+		pickup_options: {
+			$each: helpers.forEach({
+				name:{required},
+				address: {required},
+			})
+		},
+		},
+		supplier: {}
+	}
+	if (computedCategory.value.includes("payments")) {
+		rules["meta_payment"] = {
+			direct_payment:{
+				v2_accounts: {
+					$each: helpers.forEach({
+						mode:{required},
+						name: {required},
+						number:{required}
+					})
 				}
-			},
-			supplier: {}
+			}
 		}
+	}
+	return rules
 })
 
 const v = useVuelidate(campaignDataRules, campaignData);
+
+
 
 watch(computed(()=>dateTimePicker.value),()=>{
 	campaignData.value.start_at = dateTimePicker.value.start
 	campaignData.value.end_at = dateTimePicker.value.end
 },{deep:true})
 
-const sellerStore = useLSSSellerLayoutStore()
+
 onMounted(() => {
 	if(!sellerStore.userInfo.user_subscription) return
 	
@@ -432,7 +431,6 @@ const createCampaign = ()=>{
 
 	let formData = new FormData()
 	formData.append('data', JSON.stringify(campaignData.value))
-	
 	directPaymentImages.value.forEach( (image,index) => {
 		const key = campaignData.value.meta_payment.direct_payment.v2_accounts[index].name+'_'+index   
 		formData.append(key,image)

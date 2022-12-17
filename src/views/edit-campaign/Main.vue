@@ -6,8 +6,8 @@
 
 		<template v-for="(category, index) in computedCategory" :key="index">
 			
-			<template v-if="category.name == 'date'">
-				<div :class="category.name" class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
+			<template v-if="category == 'date'">
+				<div :class="category" class="box grid grid-cols-12 gap-4 p-5 intro-y lg:mx-20 lg:px-40">
 					<div class="col-span-12 col-start-1 sm:col-span-6">
 						<div class="flex flex-col"> 
 							<label class="w-20 my-auto text-base form-label font-medium">{{$t('edit_campaign.title')}}</label>
@@ -109,8 +109,8 @@
 				</div>
 			</template>
 
-			<template v-else-if="category.name == 'general'">
-				<div :class="category.name" class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+			<template v-else-if="category == 'general'">
+				<div :class="category" class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 
 					<span class="text-xl font-medium leading-none lg:-mx-6">{{$t('create_campaign.general_settings')}}</span>
 					<hr class="-mx-6 my-4" />
@@ -176,24 +176,24 @@
 				</div>
 			</template>
 
-			<template v-else-if="category.name == 'logistics'">
+			<template v-else-if="category == 'logistics'">
 				<DeliveryForm 
 					:campaign="campaignData"
 					:v="v"
-					:class="category.name"
+					:class="category"
 				/>
 			</template>
 
-			<template v-else-if="category.name == 'payments'">
+			<template v-else-if="category == 'payments'">
 				<PaymentForm 
 					:campaign="campaignData"
 					:directPaymentImages="directPaymentImages"
 					:v="v"
-					:class="category.name"
+					:class="category"
 				/> 
 			</template>
-			<template v-else-if="category.name == 'points'"> 
-				<div :class="category.name" 
+			<template v-else-if="category == 'points'"> 
+				<div :class="category" 
 					class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 					<PointsSettings 
 						:meta_point="campaignData.meta_point"
@@ -201,9 +201,9 @@
 					/>
 				</div>
 			</template>
-			<template v-else-if="category.name == 'messages'">
+			<template v-else-if="category == 'messages'">
 				<div
-				:class="category.name" 
+				:class="category" 
 					class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
 					<MessageSettings 
 						:meta_reply="campaignData.meta_reply"
@@ -212,10 +212,10 @@
 				</div>
 			</template>
 			
-			<template v-else-if="category.name == 'notes'"> 
+			<template v-else-if="category == 'notes'"> 
 				<NotesForm 
 					:campaignNotes="campaignNotes"
-					:class="category.name"/>
+					:class="category"/>
 			</template>
 		</template>
 	
@@ -272,21 +272,17 @@ const router = useRouter()
 const timezone = Intl.DateTimeFormat().resolvedOptions().timeZone
 
 const computedCategory = computed(()=>{
-	var categorys = [{name:'date'},{name:'general'},{name:'logistics'},
-	{name:'payments'},{name:'points'},{name:'messages'},{name:'notes'}]
+	var categorys = ['date','general','logistics','payments','points','messages','notes']
 
 	if(sellerStore.userInfo.user_subscription.type=='kol'){
-		categorys = categorys.filter(category=>category.name!='payments')
-		categorys = categorys.filter(category=>category.name!='points')
+		categorys = categorys.filter(category=>category !='points')
+		categorys = categorys.filter(category=>category != 'payments')
 	}
-	if(v.value.supplier.$model){
-		categorys = categorys.filter(category=>category.name!='logistics')
-		categorys = categorys.filter(category=>category.name!='payments')
-		categorys = categorys.filter(category=>category.name!='points')
-		categorys = categorys.filter(category=>category.name!='messages')
-		categorys = categorys.filter(category=>category.name!='notes')
+	if(campaignData.value.supplier){
+		categorys = categorys.filter(category=>category!='logistics')
+		categorys = categorys.filter(category=>category!='messages')
+		categorys = categorys.filter(category=>category!='notes')
 	}
-
 	return categorys
 })
 
@@ -386,39 +382,43 @@ watch(computed(()=>{return dateTimePicker.value}),()=>{
 
 
 const campaignDataRules = computed(() => {
-	return { 	
-				title: { required, minLength: minLength(1), maxLength: maxLength(255) },
-				meta_logistic:{
-					delivery_charge:{required, decimal, minValue:minValue(0)},
-					free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
-					free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
-					additional_delivery_options: {
-						$each: helpers.forEach({
-							title:{required},
-							type: {required},
-							price:{required, numeric}
-						})
-					},
-					pickup_options: {
-						$each: helpers.forEach({
-							name:{required},
-							address: {required},
-						})
-					},
-				},
-				meta_payment:{
-					direct_payment:{
-						v2_accounts: {
-							$each: helpers.forEach({
-								mode:{required},
-								name: {required},
-								number:{required}
-							})
-						}
-					}
-				},
-				supplier: {}
+	let rules = { 	
+		title: { required, minLength: minLength(1), maxLength: maxLength(255) },
+		meta_logistic:{
+			delivery_charge:{required, decimal, minValue:minValue(0)},
+			free_delivery_for_order_above_price:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
+			free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return campaignData.value.meta_logistic.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
+
+			additional_delivery_options: {
+			$each: helpers.forEach({
+				title:{required},
+				type: {required},
+				price:{required, numeric}
+			})
+		},
+		pickup_options: {
+			$each: helpers.forEach({
+				name:{required},
+				address: {required},
+			})
+		},
+		},
+		supplier: {}
+	}
+	if (computedCategory.value.includes("payments")) {
+		rules["meta_payment"] = {
+			direct_payment:{
+				v2_accounts: {
+					$each: helpers.forEach({
+						mode:{required},
+						name: {required},
+						number:{required}
+					})
+				}
 			}
+		}
+	}
+	return rules
 })
 const v = useVuelidate(campaignDataRules, campaignData);
 
