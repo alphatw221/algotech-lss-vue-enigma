@@ -224,8 +224,8 @@ const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
 
 const computedCartSubtotal = computed(()=>{
   var subtotal = 0
-  Object.entries(shoppingCartStore.cart.products||{}).forEach(([key, value])=>{
-    subtotal += ((shoppingCartStore.campaignProductDict[key]?.price||0)*value )
+  Object.entries(shoppingCartStore.cart.products||{}).forEach(([key, qty])=>{
+    subtotal += ((shoppingCartStore.campaignProductDict[key]?.price||0)*qty )
   })
   return subtotal
 })
@@ -277,8 +277,8 @@ const computedShippingCost = computed(()=>{
       if(applyCategoryLogistic)return shippingCost
       //----------------default logistic setting-------------------------------------
       shippingCost = Number(meta_logistic.delivery_charge || 0)
-
-      if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
+      if (shoppingCartStore.shipping_info.shipping_method == 'delivery') {
+        if(typeof shoppingCartStore.shipping_info.shipping_option_index=='number'){
         if (meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
           shippingCost += Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
         }
@@ -286,6 +286,17 @@ const computedShippingCost = computed(()=>{
           shippingCost =  Number(meta_logistic.additional_delivery_options[shoppingCartStore.shipping_info.shipping_option_index].price)
         }
       }
+      }
+      //----------------ecpay logistic setting-------------------------------------
+      else if (shoppingCartStore.shipping_info.shipping_method == 'ecpay') {
+        if (meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type== '+'){
+          shippingCost += Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
+        }
+        else if(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].type == '='){
+          shippingCost =  Number(meta_logistic.ecpay.logistics_sub_type[shoppingCartStore.shipping_info.shipping_option_index].delivery_charge)
+        }
+      }
+      
     }
   }
   return shippingCost

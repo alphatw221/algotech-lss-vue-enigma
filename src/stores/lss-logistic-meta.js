@@ -46,19 +46,19 @@ export const useLSSLogisticMetaStore = defineStore("logisticMeta", {
 					"TCAT":[
 						{key:"enabled", type:"checkbox", name:"enabled", dataType:"boolean", default:false},
 						{key:"title", type:"text", name:"黑貓宅配", dataType:"string", default:'黑貓宅配'},
-						// {key:"type", type:"select", name:"type", dataType:"string", default:'='},
+						{key:"type", type:"select", name:"type", dataType:"string", default:'='},
 						{key:"delivery_charge", type:"number", name:"delivery charge", dataType:"number", default:0}
 					],
 					"FAMIC2C":[
 						{key:"enabled", type:"checkbox", name:"enabled", dataType:"boolean", default:false},
 						{key:"title", type:"text", name:"全家店到店", dataType:"string", default:'全家店到店'},
-						// {key:"type", type:"select", name:"type", dataType:"string", default:'='},
+						{key:"type", type:"select", name:"type", dataType:"string", default:'='},
 						{key:"delivery_charge", type:"number", name:"delivery charge", dataType:"number", default:0}
 					],
-					"UNINARTC2C":[
+					"UNIMARTC2C":[
 						{key:"enabled", type:"checkbox", name:"enabled", dataType:"boolean", default:false},
 						{key:"title", type:"text", name:"7-11店到店", dataType:"string", default:'7-11店到店'},
-						// {key:"type", type:"select", name:"type", dataType:"string", default:'='},
+						{key:"type", type:"select", name:"type", dataType:"string", default:'='},
 						{key:"delivery_charge", type:"number", name:"delivery charge", dataType:"number", default:0}
 					]
 				}

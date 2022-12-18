@@ -4,7 +4,7 @@
         
         <div class="flex flex-col gap-1 text-base my-5 intro-y sm:gap-3 -z-50">
 
-            <div class="flex flex-col mt-2 text-[16px]"> 
+            <!-- <div class="flex flex-col mt-2 text-[16px]"> 
                 <label class="w-full mr-1 text-base whitespace-nowrap">{{ $t('settings.delivery.charge') }}</label>
                 <input 
                     class="w-full form-control h-[35px] sm:h-[42px]"
@@ -57,7 +57,7 @@
                             :key="index">
                             {{ $t(`settings.delivery.errors.${error.$validator}`) }}
                 </label>
-            </div>
+            </div> -->
             <div class="flex flex-wrap justify-between mt-5"> 
                 <label for="regular-form-2" class="text-base font-bold form-label my-auto">{{ $t('settings.delivery.charge_option') }}</label>
                 <!-- <a 

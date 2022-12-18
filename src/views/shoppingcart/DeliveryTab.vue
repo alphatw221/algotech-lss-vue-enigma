@@ -118,48 +118,37 @@
                   <template v-if="shoppingCartStore.cart.campaign">
 
                     <!-- Ecpay 店到店 -->
-                    <template v-if="(shoppingCartStore.cart.campaign.meta_logistic.ecpay.enabled == true)"> 
-                      <div class="flex flex-row flex-wrap cursor-pointer px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
-                      :class="{'border-slate-600': shipping_option_index_computed == 'UNIMARTC2C'}"
-                      @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'UNIMARTC2C')"
-                      >
-                        <div class="ml-2 text-lg">7-11{{$t('shopping_cart.delivery_tab.option.c2c')}}</div>
-                        <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'UNIMARTC2C'">
-                          <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
-                          
-                          <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_address}}</p>
-                        </div>
-                        <div class="flex flex-row gap-4 h-12 -p-6">
-                          <a class="my-auto" @click="get_c2c_map('UNIMARTC2C')">選擇門市</a>
-                          <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/>  -->
-                        </div>
-                      </div>
-
-                      <div class="flex flex-row flex-wrap cursor-pointer px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
-                      :class="{'border-slate-600': shipping_option_index_computed == 'FAMIC2C'}"
-                      @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'FAMIC2C')"
-                      >
-                        <div class="ml-2 text-lg">全家{{$t('shopping_cart.delivery_tab.option.c2c')}}</div>
-                        <div v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == 'FAMIC2C'">
-                          <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
-                          
-                          <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_address}}</p>
-                        </div>
-                        <div class="flex flex-row gap-4 h-12 -p-6">
-                          <a class="my-auto" @click="get_c2c_map('FAMIC2C')">選擇門市</a>
-                          <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/>  -->
-                        </div>
-                      </div>
-                      
-                      <div class="flex flex-row flex-wrap cursor-pointer px-10 py-3 my-4 border-2 rounded-lg form-check"
-                        :class="{'border-slate-600': shipping_option_index_computed == 'HOME'}"
-                        @click="select_shipping_method('ecpay') & (shipping_option_index_computed = 'HOME')"
+                    <template v-if="(shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled == true)">
+                      <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type">
+                        <div v-if="item?.enabled == true" class="flex flex-row flex-wrap cursor-pointer px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
+                        :class="{'border-slate-600': shipping_option_index_computed == key}"
+                        @click="select_shipping_method('ecpay') & (shipping_option_index_computed = key)"
                         >
-                        <div class="ml-2 text-lg">宅配 黑貓宅急便</div>
-                        <div class="ml-auto flex flex-row gap-4 h-12 -p-6">
-
+                          <div class="ml-2 text-lg">{{ $t(`settings.delivery_form.ecpay.logistics_sub_type.${key}`) }}</div>
+                          <div v-if="key !== 'TCAT'" class="flex flex-row gap-4 h-12 -p-6">
+                            <a class="ml-2 my-auto" @click="get_c2c_map(key)">選擇門市</a>
+                            <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/>  -->
+                            <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/>  -->
+                          </div>
+                          <div class="ml-4 my-auto" v-if="shoppingCartStore.cart.meta?.ecpay_cvs?.logistics_sub_type == key">
+                            <p> {{shoppingCartStore.cart.meta.ecpay_cvs.cvs_store_name}} </p>
+                            
+                            <p> {{shoppingCartStore.cart.meta?.ecpay_cvs?.cvs_address}}</p>
+                          </div>
+                          <template v-if="item.type === '+'">
+                            <label class="form-check-label whitespace-nowrap ml-auto">
+                              {{ shoppingCartStore.cart.campaign.currency }}
+                              {{(Math.floor((parseFloat(item.delivery_charge) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                              {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                          </template>
+                          <template v-else>
+                            <label class="form-check-label whitespace-nowrap ml-auto">
+                              {{ shoppingCartStore.cart.campaign.currency }}
+                              {{(Math.floor(parseFloat(item.delivery_charge) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                              {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                          </template>
                         </div>
-                      </div>
+                      </template>
                     </template>
 
                     <!-- Default Option -->
@@ -473,12 +462,6 @@ const shipping_info= ref({
 
 const deliveryColor = ref('white')
 const pickupColor = ref('#131C34')
-const select_shipping_method = method => {
-  console.log("select_shipping_method", method)
-  shipping_method_computed.value=method
-  deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
-  pickupColor.value = method == 'pickup'? 'white' :'#131C34'
-}
 
 const areaIndex = ref(null)
 const cityIndex = ref(null)
@@ -503,6 +486,13 @@ const area_computed = computed({
     delivery_validate.value.shipping_postcode.$model = twZipcodeStore.data[cityIndex.value]?.areas[index]?.zip
   }
 })
+
+const select_shipping_method = method => {
+  console.log("select_shipping_method", method)
+  shipping_method_computed.value=method
+  deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
+  pickupColor.value = method == 'pickup'? 'white' :'#131C34'
+}
 const shipping_method_computed = computed({
   get:()=>{
     return shipping_info.value.shipping_method
@@ -510,7 +500,7 @@ const shipping_method_computed = computed({
   ,set:method=>{
     shipping_info.value.shipping_method=method
     shoppingCartStore.shipping_info.shipping_method=method        //order summary compute this
-    if (method !== "delivery") {
+    if (method !== "pickup") {
       shoppingCartStore.shipping_info.shipping_option_index = shipping_option_index.value
     } 
     if (method === "pickup") {
@@ -566,8 +556,8 @@ onMounted(()=>{
       shipping_option_index.value=null     //default value
       res.data.shipping_option_data={}        //default value
       shipping_info.value = res.data
-      cityIndex.value = twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region)
-      areaIndex.value = twZipcodeStore.data[city_computed.value].areas.findIndex(area => area.name == shipping_info.value.shipping_location)
+      city_computed.value = (twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region) == -1) ? null : twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region)
+      areaIndex.value = (twZipcodeStore.data[city_computed.value]?.areas) ? twZipcodeStore.data[city_computed.value]?.areas.findIndex(area => area.name == shipping_info.value.shipping_location) : null
       show.value = true
     })
   }

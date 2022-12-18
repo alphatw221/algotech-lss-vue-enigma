@@ -125,7 +125,7 @@
             "logistics_sub_type":{
                 "TCAT":"宅配 黑猫宅急便",
                 "FAMIC2C":"超商取货 全家",
-                "UNINARTC2C":"超商取货 7-11"
+                "UNIMARTC2C":"超商取货 7-11"
             }
         },
         "delivery_detail":"物流设定",
