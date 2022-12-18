@@ -1,5 +1,8 @@
 {
     "assign_product": "Assign Products",
+    "stock_origin": {
+        "own": "Own"
+    },
     "confirm_select_product":"Confirm Assign Products",
     "search_bar":{
         "category":"Category",

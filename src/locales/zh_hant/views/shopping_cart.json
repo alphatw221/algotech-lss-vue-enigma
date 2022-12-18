@@ -7,26 +7,28 @@
     },
     "delivery_tab":{
         "contact_info":"收件人資訊",
-        "first_name":"姓氏",
-        "last_name":"名字",
+        "first_name":"名字",
+        "last_name":"姓氏",
+        "full_name":"全名",
         "phone":"聯絡電話",
+        "cell_phone":"聯絡手機",
         "email":"電子信箱",
         "first_err":"必填",
         "last_err":"必填",
         "phone_err":"必填",
-        "Value is not a valid email address":"電子信箱格式不符",
-        "Value is required":"必填",
-
+       
         "shipping_info":"運送資訊",
-        "home_delivery":"宅配",
+        "home_delivery":"運送",
         "self_pickup":"自行取貨",
         "delivery_date":"運送日期",
         "pickup_date":"取貨日期",
 
         "delivery_info":"收件地址",
+        "address_hint": "街道、巷弄、樓層",
         "address":"地址",
-        "city":"鄉／鎮／市／區",
-        "state":"縣／市",
+        "district": "鄉／鎮／區",
+        "city": "縣／市",
+        "state": "省/州",
         "postal_code":"郵遞區號",
         "city_err":"必填",
         "address_err":"必填",
@@ -36,9 +38,11 @@
         "option":{
             "delivery":"選擇運送方式",
             "default":"基本",
-            "pickup":"選擇取貨方式"
+            "pickup":"選擇取貨方式",
+            "c2c":"店到店"
         },
-        "note":"宅配 & 運送須知",
+        "please_select": "請選擇",
+        "note":"運送須知",
         "remark":"備註",
         "previous":"上一步",
         "proceed_to_payment":"前往付款"
@@ -57,7 +61,7 @@
         "cart":"購物車",
         "items":"件商品",
         "edit":"修改",
-        "order_code":"訂購代碼"
+        "order_code":"下單代碼"
     },
     "order_summary":{
         "order_summary":"訂單金額",
@@ -73,7 +77,8 @@
         "enter":"套用",
         "promo_apply":"優惠代碼 %{code} 已生效" ,
         "referr_code":"分享推薦碼",
-        "promo_login":"登入社群帳號以使用優惠折扣碼"
+        "promo_login":"登入社群帳號以使用優惠折扣碼",
+        "points_redemption":"點數折抵"
     },
     "add_item":{
         "select_add_ons":"加入商品",
@@ -85,7 +90,7 @@
     "payment":{
         "shipping_summary":"收件資訊",
         "pickup":"自行取货",
-        "delivery":"宅配",
+        "delivery":"運送",
         "address":"收件地址",
         "pay_with":"付款方式",
         "direct":{

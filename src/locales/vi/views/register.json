@@ -15,6 +15,7 @@
     "basic_info":{
         "plan":"Gói dịch vụ đăng ký",
         "plan_options":{
+            "trial":"Trial",
             "lite":"Lite (%{price}/tháng)",
             "standard":"Standard (%{price}/tháng)",
             "premium":"Premium (%{price}/tháng)"

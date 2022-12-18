@@ -5,9 +5,11 @@
     "period":"Period",
     "connected_platform":"Connected Platform",
     "edit_connected_platform":"Edit",
+    "selectSupplier":"Sell Product from",
 
     "cancel":"Cancel",
     "update":"Update",
     "invalid_data":"Invalid Data"
+    
 
 }

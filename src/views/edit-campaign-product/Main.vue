@@ -54,14 +54,6 @@ const showAddProductFromStockModal =()=>{
 }
 
 onMounted(()=>{
-
 	campaignStarted.value = new Date(campaignDetailStore.campaign.start_at).getTime() < new Date().getTime()? true:false
-
-	// loadingTable.value = false
-	// retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
-	// 	campaignDetailStore.campaign = res.data
-	// 	campaignStarted.value = new Date(campaignDetailStore.campaign.start_at).getTime() < new Date().getTime()? true:false
-	// 	loadingTable.value = false
-	// })
 })
 </script>

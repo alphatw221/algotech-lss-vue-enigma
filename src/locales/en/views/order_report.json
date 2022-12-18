@@ -1,0 +1,15 @@
+{
+    "order_detail_report": "Orders Detail",
+    "order_sales_report": "Sales Report",
+    "campaign_title": "Campaign",
+    "campaign_period": "Campaign Period",
+    "total_profit": "Total Profit",
+    "calculate_formula": "Profit Formula",
+    "order_id": "Order ID",
+    "subtotal":"Product Selling Price Total(A)",
+    "price_ori_subtotal": "Product Cost Price Total(B)",
+    "discount_promo_code": "Discount(from promo code)(C)",
+    "discount_point": "Discount(from points)(D)",
+    "adjust_price": "Seller Adjust(E)",
+    "profit": "Profit Per Order(C)"
+}

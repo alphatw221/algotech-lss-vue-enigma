@@ -1,6 +1,6 @@
 <template>
   <div class="flex flex-col m-0 my-5 sm:mt-8 lg:mx-20 gap-5">
-    <h1 class="text-xl font-medium text-xl sm:text-2xl" > {{$t('order_points.points')}} </h1>
+    <h1 class="mx-auto sm:mr-auto text-xl font-medium sm:text-2xl" > {{$t('order_points.points')}} </h1>
     <button class="ml-auto btn btn-primary" @click="showPointAdjustModal()">  {{$t('buyers.buyer_point.adjust_point')}}</button>
     <div v-if="sellerLayoutStore.buyer !== null"
       class="w-full box sm:px-20 py-5 flex flex-col sm:flex-row justify-between gap-3 s:gap-5"> 
@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { computed, onMounted, provide, ref, watch, getCurrentInstance } from "vue";
+import { computed, onMounted, onUnmounted, provide, ref, watch, getCurrentInstance } from "vue";
 import PointsTable from "./PointsTable.vue"; 
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useRoute, useRouter } from "vue-router";
@@ -61,9 +61,16 @@ watch(computed(()=>sellerLayoutStore.buyer), () => {
 },{deep:true})
 
 onMounted(()=>{
+  eventBus.on("renderBuyerAndWallet", (payload) => {
+    wallet.value = payload
+    sellerLayoutStore.buyer = payload.buyer
+  })
   sellerLayoutStore.buyer = null
+  
 })
-
+onUnmounted(()=>{
+  eventBus.off("renderBuyerAndWallet")
+})
 const computedNameFirstLetter = computed(()=>{
   var _words = (sellerLayoutStore.buyer?.name||'').split(' ')
   if (_words.length<=1) return _words[0].split('')[0]

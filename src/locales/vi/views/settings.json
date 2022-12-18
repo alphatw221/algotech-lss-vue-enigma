@@ -1,4 +1,9 @@
 {
+    "categorys":{
+        "general":"Chung",
+        "payment":"Thanh toán",
+        "logistic":"Vận chuyển"
+    },
     "settings" : "Cài đặt",
     "client_id" : "Client ID",
     "secret" : "Mã bảo mật",
@@ -86,7 +91,7 @@
 
         "payment_details": "Thông tin thanh toán",
         "enabled": "Đã bật",
-        "invoice_enabled":"Invoice Enabled",
+        "invoice_enabled":"Đã bật hóa đơn",
         "add_more_direct_payment": "Thêm Thanh toán trực tiếp",
         "add_direct_payment": "Add Thanh toán trực tiếp",
         "upload_image": "Tải hình ảnh",
@@ -99,8 +104,17 @@
             "Value_is_required":"Giá trị là bắt buộc"
         }
     },
-
     "delivery_form":{
+        "delivery_titles":{
+            "own_delivery":"Giao hàng riêng",
+            "store_pickup":"Cửa hàng bán tải",
+            "ecpay":"ECPay"
+        },
+        "ecpay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV"
+        },
         "delivery_detail":"Thông tin vận chuyển",
         "delivery_charge":"Chi phí vận chuyển",
         "free_delivery_for_order_above":"Số tiền tối thiểu để miễn phí vận chuyển($)",
@@ -115,7 +129,9 @@
         "pickup_store":"Địa điểm nhận hàng",
         "pickup_address":"Địa chỉ cửa hàng",
         "express_service_name": "tên dịch vụ vận chuyển",
-        "express_charge": "Chi phí vận chuyển"
+        "express_charge": "Chi phí vận chuyển",
+        "enabled":"Đã bật",
+        "update":"Cập nhật"        
     },
 
     "payment":{
@@ -142,7 +158,8 @@
             "ID":"Indonesia",
             "IN":"Ấn Độ",
             "TW":"Đài Loan",
-            "VN":"Việt Nam"
+            "VN":"Việt Nam",
+            "MY":"Malaysia"
         },
         "currency_symbol":"Đơn vị tiền tệ",
         "seller_language":"Ngôn ngữ nhà bán hàng",

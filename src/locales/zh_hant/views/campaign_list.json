@@ -31,7 +31,9 @@
         "message":"請在活動開始前輸入直播貼文 ID",
         "select_stream":"選擇直播",
         "select_page":"選擇專頁",
-        "post_id":"直播 ID"
+        "post_id":"直播 ID",
+        "select_live_post": "選擇直播影片",
+        "select_video_post": "選擇影片/貼文"
     },
 
     
@@ -83,8 +85,10 @@
         
         "post_id":"貼文ID",
         "select_live_post":"選擇銷售帳號及貼文",
-        "select_live_video":"選擇銷售帳號及直播影片",
         "enter_post_id": "輸入貼文ID",
+        "select_live_video": "選擇直播影片",
+        "select_video_post": "選擇影片貼文",
+        "search_recent_posts": "搜尋影片貼文",
 
         "instagram":"Instagram",
         "profile": "商業檔案",
@@ -104,6 +108,7 @@
         "your_current_lives": "你目前正在進行的銷售活動",
         "select_this_live": "選擇這場活動",
         "valid_post_id_notification": "請輸入有效的貼文ID",
+        "your_current_video_posts": "您目前的影片貼文",
 
         "rebind_page":"請重新授權Facebook粉絲專頁",
         "rebind_channel":"請重新授權YouTube頻道",

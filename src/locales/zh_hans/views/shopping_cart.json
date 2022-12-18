@@ -18,7 +18,7 @@
         "Value is required":"必填",
 
         "shipping_info":"运送资讯",
-        "home_delivery":"宅配",
+        "home_delivery":"运送",
         "self_pickup":"自行取货",
         "delivery_date":"运送日期",
         "pickup_date":"取货日期",
@@ -36,9 +36,10 @@
         "option":{
             "delivery":"选择运送方式",
             "default":"基本",
-            "pickup":"选择取货方式"
+            "pickup":"选择取货方式",
+            "c2c":"店到店"
         },
-        "note":"宅配 & 运送须知",
+        "note":"运送须知",
         "remark":"备注",
         "previous":"上一步",
         "proceed_to_payment":"前往付款"
@@ -57,7 +58,7 @@
         "cart":"购物车",
         "items":"件商品",
         "edit":"修改",
-        "order_code":"订购代码"
+        "order_code":"下单代码"
     },
     "order_summary":{
         "order_summary":"订单金额",
@@ -73,7 +74,8 @@
         "enter":"套用",
         "promo_apply":"优惠代码  %{code} 已激活",
         "referr_code":"分享推荐码",
-        "promo_login":"登入社群帐号以使用优惠折扣码"
+        "promo_login":"登入社群帐号以使用优惠折扣码",
+        "points_redemption":"点数折抵"
     },
     "add_item":{
         "select_add_ons":"加入商品",
@@ -85,7 +87,7 @@
     "payment":{
         "shipping_summary":"收件资讯",
         "pickup":"自行取货",
-        "delivery":"宅配",
+        "delivery":"运送",
         "address":"收件地址",
         "pay_with":"付款方式",
         "direct":{

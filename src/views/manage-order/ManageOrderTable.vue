@@ -3,7 +3,7 @@
     <table id="orderTable" class="table -mt-3 text-[13px] sm:text-[16px] table-report">
             <thead>
                 <tr>
-                    <th class="whitespace-nowrap text-left" v-for="column in computedColumns" :key="column.key">
+                    <th class="whitespace-nowrap text-right" v-for="column in computedColumns" :key="column.key">
                         <template v-if="column.name == 'action'"> </template>
                         <div v-else-if="column.key === 'subtotal'" class="row flex justify-end">
 							<div class="text-right">{{ $t(`manage_order.table.`+column.name) }}</div>
@@ -21,9 +21,13 @@
                                     </template>
                                 </template>
 						</div>
+
+                        <template v-else-if="column.key === 'platform'">
+							<div class="text-center">{{ $t(`manage_order.table.`+column.name) }}</div>
+						</template>
                         
                         <template v-else>
-                            <div class="flex"> 
+                            <div class="flex justify-left"> 
                                 {{ $t(`manage_order.table.`+column.name) }}
                                 <template v-if="column.sortable === true">
                                     <template v-if="sortBy[column.key] === -1" > 
@@ -242,7 +246,7 @@
     </div>
 </template>
 <script setup>
-import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid, get_order_report } from "@/api_v2/order"
+import { seller_search_order, seller_update_deliver_status, seller_update_payment_status, get_order_oid, get_order_report, get_order_report_for_kol } from "@/api_v2/order"
 
 import { ref, provide, onMounted, onUnmounted, getCurrentInstance, computed } from "vue";
 import { useRoute, useRouter } from "vue-router";
@@ -254,7 +258,8 @@ import { useCampaignDetailStore } from "@/stores/lss-campaign-detail"
 import OrderDeliveryStatusSelect from "@/components/order/OrderDeliveryStatusSelect.vue"
 import OrderPaymentStatusSelect from "@/components/order/OrderPaymentStatusSelect.vue"
 import { utils, writeFile } from 'xlsx'
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
+import { helper as $h } from "@/utils/helper";
+import i18n from "@/locales/i18n"
 
 const campaignDetailStore = useCampaignDetailStore();
 const route = useRoute();
@@ -264,8 +269,7 @@ const internalInstance = getCurrentInstance()
 const layoutStore = useLSSSellerLayoutStore()
 const eventBus = internalInstance.appContext.config.globalProperties.eventBus;
 const baseURL = import.meta.env.VITE_APP_WEB
-
-
+var _campaign_id, _search_value, _status, _filter_data, _toastify
 
 // const payment_status_options = ref([
 //     { key: 'awaiting_payment', value: 'awaiting_payment'},
@@ -292,7 +296,7 @@ const computedColumns = computed(()=>{
 
     var columns = [
         { name: 'order_number', key: 'id', sortable: true},
-        { name: 'null', key: 'platform', sortable: false},
+        { name: 'platform', key: 'platform', sortable: false},
         { name: 'customer', key: 'customer_name', sortable: true},
         { name: 'amount', key: 'subtotal', sortable: true},
         { name: 'payment', key: 'payment_method', sortable: true},
@@ -304,21 +308,12 @@ const computedColumns = computed(()=>{
     if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_delivery_status){
         columns = columns.filter(column=>column.key!='delivery_status')
     }
+    if(layoutStore.userInfo?.user_subscription?.user_plan?.hide?.order_payment_status){
+        columns = columns.filter(column=>column.key!='payment_status')
+    }
 
     return columns
 })
-// const columns = ref([
-//     { name: 'order_number', key: 'id', sortable: true},
-//     { name: 'null', key: 'platform', sortable: false},
-//     { name: 'customer', key: 'customer_name', sortable: true},
-//     { name: 'amount', key: 'subtotal', sortable: true},
-//     { name: 'payment', key: 'payment_method', sortable: true},
-//     { name: 'payment_status', key: 'payment_status', sortable: true},
-//     { name: 'delivery_status', key: 'delivery_status', sortable: true},
-//     // { name: 'delivery_notification', key: 'delivery', sortable: false},
-//     { name: 'action', key: 'view', sortable: false},
-//     { name: 'null', key: 'order_product', sortable: false}
-// ]);
 
 const props = defineProps({
     tableStatus: String,
@@ -347,15 +342,21 @@ onMounted(()=>{
         filterData.value = payload
         search()
 	})
-    eventBus.on(`exportTable-${props.tableStatus}`,()=>{
-        export_order()
+    eventBus.on(`exportOrderDetailReport-${props.tableStatus}`,()=>{
+        filterData.value['sort_by'] = sortBy.value
+        normalFormatOrderReport()
+    })
+    eventBus.on(`exportSalesReport-${props.tableStatus}`,()=>{
+        filterData.value['sort_by'] = sortBy.value
+        kolFormatOrderReport()
     })
 })
 
 onUnmounted(()=>{
     eventBus.off(props.searchEventBusName)
     eventBus.off(props.filterEventBusName)
-    eventBus.off(`exportTable-${props.tableStatus}`)
+    eventBus.off(`exportOrderDetailReport-${props.tableStatus}`)
+    eventBus.off(`exportSalesReport-${props.tableStatus}`)
 })
 
 const search = () => {
@@ -378,10 +379,9 @@ const search = () => {
     )
 }
 
-const export_order = ()=>{
 
-    filterData.value['sort_by'] = sortBy.value
-    var _campaign_id, _search_value, _status, _filter_data, _toastify
+const normalFormatOrderReport = () => {
+    console.log("normalFormatOrderReport")
     get_order_report(
         _campaign_id=route.params.campaign_id, 
         _search_value=keyword.value, 
@@ -390,14 +390,31 @@ const export_order = ()=>{
         _toastify=layoutStore.alert)
     .then(
         res => {
-
             const data = res.data.data
+            data.forEach(e => {
+                //payment_method
+                if (e['payment_method']) {
+                    let words_split_list = e['payment_method'].split(" ")
+                    if (words_split_list[0] == "direct_payment") {
+                        words_split_list[0] = i18n.global.t(`order.payment_method_options.direct_payment`)
+                        e['payment_method'] = words_split_list.join(' ')
+                    } else {
+                        e['payment_method'] = i18n.global.t(`order.payment_method_options.${e['payment_method']}`)
+                    }
+                }
+                //payment_status
+                if (e['payment_status']) {
+                    e['payment_status'] = i18n.global.t(`order.payment_status_options.${e['payment_status']}`)
+                }
+            });
             const header = res.data.header
             const displayHeader = res.data.display_header
+            console.log(displayHeader)
+            Object.entries(displayHeader).forEach(([key,value]) => {
+                displayHeader[key] = i18n.global.t(`order.${key}`)
+            });
             const columnSettings = res.data.column_settings
             const displayData = [displayHeader, ...data]
-
-
             const workSheet = utils.json_to_sheet(displayData, {header:header, skipHeader:true})
             workSheet['!cols'] = columnSettings
             const wb = utils.book_new()
@@ -406,10 +423,79 @@ const export_order = ()=>{
 
         }
     )
-
 }
 
+const kolFormatOrderReport = () => {
+    get_order_report_for_kol(
+        _campaign_id=route.params.campaign_id, 
+        _search_value=keyword.value, 
+        _status=props.tableStatus, 
+        _filter_data=filterData.value, 
+        _toastify=layoutStore.alert)
+    .then(
+        res => {
+            const data = res.data.data
+            const header = res.data.header
+            const displayHeader = res.data.display_header
+            Object.entries(displayHeader).forEach(([key,value]) => {
+                displayHeader[key] = i18n.global.t(`order_report.${value}`)
+            });
+            const columnSettings = res.data.column_settings
+            const displayData = [displayHeader, ...data]
+            const row_index = 5
+            const blank_rows_number = row_index + 1
+            const campaign_start_time = $h.datetimeReformat(campaignDetailStore.campaign.start_at, "zh-TW")
+            const campaign_end_time = $h.datetimeReformat(campaignDetailStore.campaign.end_at, "zh-TW")
+            const campaign_title = i18n.global.t("order_report.campaign_title")
+            const campaign_period = i18n.global.t("order_report.campaign_period")
+            const total_profit_title = i18n.global.t("order_report.total_profit")
+            const calculate_formula = i18n.global.t("order_report.calculate_formula")
+            const calculate_formula_value = "C=A-B"
 
+            var workSheet = utils.aoa_to_sheet([[""]],{origin: row_index});
+            workSheet['!cols'] = columnSettings
+            utils.sheet_add_json(workSheet, displayData , {header: header, skipHeader: true, origin: -1});
+
+            let total_profit_value = 0
+            data.forEach(e=> {
+                total_profit_value += e['profit']
+            })
+
+            // append additional data 
+            let additional_text_data = [
+                
+                {"keu": "calculate_formula",  "value": calculate_formula, "ceil_address":{c: 0, r: 4}},
+                {"keu": "calculate_formula_value",  "value": calculate_formula_value, "ceil_address":{c: 1, r: 4}},
+                {"key": "total_profit_title", "value": total_profit_title, "ceil_address": {c: header.length -2, r: data.length + blank_rows_number + 2}},
+                {"key": "total_profit_value", "value": total_profit_value, "ceil_address": {c: header.length -1, r: data.length + blank_rows_number + 2}}
+            ]
+            if (route.params.campaign_id) {
+                console.log(4444)
+                additional_text_data = additional_text_data.concat([
+                    {"keu": "campaign_title",  "value": campaign_title, "ceil_address":{c: 0, r: 2}},
+                    {"keu": "campaign_title_value",  "value": `${campaignDetailStore.campaign.title}`, "ceil_address":{c: 1, r: 2}},
+                    {"keu": "campaign_period",  "value": campaign_period, "ceil_address":{c: 0, r: 3}},
+                    {"keu": "campaign_period_value",  "value": `${campaign_start_time} - ${campaign_end_time}`, "ceil_address":{c: 1, r: 3}}
+                ])
+            }
+            console.log(additional_text_data)
+            additional_text_data.forEach(ceil_data => {
+                let ceil_address = utils.encode_cell(ceil_data['ceil_address']);
+                let ceil = workSheet[ceil_address];
+                if (ceil) {
+                    ceil.v = ceil_data['value']
+                } else {
+                    utils.sheet_add_aoa(workSheet, [[ceil_data['value']]], {origin: ceil_address});
+                }
+            })
+
+            const wb = utils.book_new()
+            utils.book_append_sheet(wb, workSheet, 'sheets')
+            writeFile(wb, 'sheets.xlsx')
+
+        }
+    )
+}
 const routeToOrderDetail = (order) => {
     if(route.params.campaign_id){
         router.push({name:'seller-campaign-order-detail',params:{'order_id':order.id, 'campaign_id':route.params.campaign_id}})

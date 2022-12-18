@@ -26,7 +26,6 @@ import { useRouter ,useRoute} from "vue-router";
 import { useCookies } from "vue3-cookies";
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import i18n from "@/locales/i18n"
-import SimpleIcon from "../../../global-components/lss-svg-icons/SimpleIcon.vue";
 // import { export_product_from_easy_store } from '../api/product'
 
 const { cookies } = useCookies()

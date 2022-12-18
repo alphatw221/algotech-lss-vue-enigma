@@ -64,8 +64,20 @@ export const list_buyers = (keyword,page,page_size, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/user-subscription/list/buyers/?keyword=${keyword}&page=${page}&page_size=${page_size}`)
 }
 
-export const retrieve_buyer_history = (buyer_id,points_relative,page,page_size, toastify=null) => {
-    return createAxios(toastify).get(`/api/v2/user-subscription/retrieve/buyers/history/?buyer_id=${buyer_id}&points_relative=${points_relative}&page=${page}&page_size=${page_size}`)
+export const list_buyer_order_history = (buyer_id, page, page_size, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/list/buyer/${buyer_id}/order/history/?page=${page}&page_size=${page_size}`)
+}
+
+export const list_buyer_point_history = (buyer_id, page, page_size, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/user-subscription/list/buyer/${buyer_id}/point/history/?page=${page}&page_size=${page_size}`)
+}
+
+export const create_buyer_points_transaction = (buyer_id, page_size=10, data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/user-subscription/buyer/${buyer_id}/points/transaction/create/?page_size=${page_size}`, data)
+}
+
+export const update_buyer_points_transaction = (buyer_id, points_transaction_id, page_size=10, data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/user-subscription/buyer/${buyer_id}/points/transaction/${points_transaction_id}/update/?page_size=${page_size}`, data)
 }
 
 export const seller_changePlan_payment = (data, toastify=null) =>{

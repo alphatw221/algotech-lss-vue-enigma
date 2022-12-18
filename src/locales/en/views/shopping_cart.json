@@ -36,7 +36,8 @@
         "option":{
             "delivery":"Delivery Option",
             "default":"default",
-            "pickup":"Pickup Option"
+            "pickup":"Pickup Option",
+            "c2c":"店到店"
         },
         "note":"Delivery and Collection Note",
         "remark":"Remark",
@@ -73,7 +74,8 @@
         "enter":"Enter",
         "promo_apply":"Discount Code %{code} is Applied",
         "referr_code":"Share Referral Code",
-        "promo_login":"Please social login to use promo code"
+        "promo_login":"Please social login to use promo code",
+        "points_redemption":"Points Redemption"
     },
     "add_item":{
         "select_add_ons":"Select add-ons",

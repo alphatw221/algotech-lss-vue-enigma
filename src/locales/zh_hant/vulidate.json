@@ -1,4 +1,14 @@
 {
     "required":"必填",
-    "requiredIf":"必填"
+    "requiredIf":"必填",
+    "invalid_email":"電子信箱格式不符",
+    "exceed_maximum_length": "字數不可超過%{number}個",
+    "least_minimum_length": "字數至少要%{number}個",
+    "only_integer": "只能填數字",
+    "required_either_one": "需填入其中一欄",
+    "exact_number_length": "請輸入%{number}碼",
+    "exact_word_length": "請輸入%{number}個字",
+    "contains_special_characters": "不可包含特殊字元",
+    "tw_cellphone_begining": "手機需為09開頭",
+    "data_invalid": "資料錯誤"
 }
