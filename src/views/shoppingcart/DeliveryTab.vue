@@ -716,8 +716,12 @@ const proceed_to_payment = () =>{
       return
     }
   }
-
-
+  if (["UNIMARTC2C", "FAMIC2C"].includes(shipping_option_index.value)) {
+    shipping_info.value.shipping_location = ''
+    shipping_info.value.shipping_region = ''
+    shipping_info.value.shipping_address_1 = ''
+    shipping_info.value.shipping_postcode = ''
+  }
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{
