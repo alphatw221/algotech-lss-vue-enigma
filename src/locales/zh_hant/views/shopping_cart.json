@@ -24,7 +24,7 @@
         "pickup_date":"取貨日期",
 
         "delivery_info":"收件地址",
-        "address_hint": "街道、巷弄、樓層",
+        "address_hint": "街道、巷弄、門牌號碼、樓層",
         "address":"地址",
         "district": "鄉／鎮／區",
         "city": "縣／市",
