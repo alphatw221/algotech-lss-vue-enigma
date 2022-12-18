@@ -23,6 +23,8 @@
     "delivery":{
         "delivery":"物流",
         "delivery_setting": "物流設定",
+        "free_delivery_settings": "免運設定",
+        "delivery_method_settings": "物流方式設定",
         "charge":"基本運費",
         "charge_option":"運送方式",
         "add_more_delivery_option":"新增運送方式",
@@ -145,7 +147,9 @@
         "express_service_name": "例如：離島、當日送達......",
         "express_charge": "增加/取代金額",
         "enabled":"啟用",
-        "update":"更新"        
+        "update":"更新",
+        "free_delivery_settings_update": "免運設定更新",
+        "delivery_method_settings_update": "物流方式設定更新"      
     },
 
 

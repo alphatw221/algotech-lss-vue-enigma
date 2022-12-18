@@ -152,7 +152,9 @@
                     </template>
 
                     <!-- Default Option -->
-                    <div class="flex flex-row flex-wrap cursor-pointer px-10 py-6 my-4 border-2 rounded-lg form-check"
+                    <div 
+                    v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true)"
+                      class="flex flex-row flex-wrap cursor-pointer px-10 py-6 my-4 border-2 rounded-lg form-check"
                       :class="{'border-slate-600': shipping_option_index_computed == null}"
                       @click="select_shipping_method('delivery') & (shipping_option_index_computed = null)"
                       >
@@ -165,7 +167,8 @@
                       </div>
                     </div>
 
-                    <template 
+                    <template
+                      v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true)"
                       v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
                       :key="index"> 
                       <div class="flex flex-row flex-wrap cursor-pointer px-10 py-6 my-4 border-2 rounded-lg form-check gap-2"

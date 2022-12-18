@@ -1,7 +1,59 @@
 <template>
-    <div class="p-2 2xl:p-10">
+    <div class="p-2 2xl:p-10 mx-5">
+        <div class="mb-3 text-lg sm:text-xl font-medium leading-none">{{ $t('settings.delivery.free_delivery_settings') }}</div>
+        <div class="flex mt-5"> 
+            <input 
+                class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-2" 
+                type="checkbox" 
+                v-model="freeDeliverySettingsData.is_free_delivery_for_order_above_price"
+            />
+            <label class="w-full text-base">{{ $t('settings.delivery.order_above') }}</label>
+        </div> 
+        <input 
+            class="w-full form-control" 
+            type="number" 
+            v-model="v.free_delivery_for_order_above_price.$model"
+            @blur="v.free_delivery_for_order_above_price.$touch()"
+        />
+        <label class="block text-danger text-[12px]" 
+                    v-for="error, index in v.free_delivery_for_order_above_price.$errors"
+                    :key="index">
+                    {{ $t(`settings.delivery.errors.${error.$validator}`) }}
+        </label>
+
+        <div class="flex  mt-5"> 
+            <input 
+                class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-2" 
+                type="checkbox"
+                v-model="freeDeliverySettingsData.is_free_delivery_for_how_many_order_minimum"
+            />
+            <label class="w-full text-base ">{{ $t('settings.delivery.minimum') }}</label>
+        </div> 
+        <input 
+            class="w-full form-control"
+            type="number"
+            v-model="v.free_delivery_for_how_many_order_minimum.$model"
+            @blur="v.free_delivery_for_how_many_order_minimum.$touch()"
+        />       
+        <label class="block text-danger text-[12px]" 
+                    v-for="error, index in v.free_delivery_for_how_many_order_minimum.$errors"
+                    :key="index">
+                    {{ $t(`settings.delivery.errors.${error.$validator}`) }}
+        </label>
+        <div class="flex text-[14px]">
+            <button 
+                class="btn btn-primary w-32 shadow-md ml-auto mt-7"
+                @click="updateDelivery()"
+            >
+                {{ $t('settings.delivery_form.free_delivery_settings_update') }}
+            </button>
+        </div>
+    </div>
+    <div class="p-2 2xl:p-10 mx-5">
+        <div class="mb-3 text-lg sm:text-xl font-medium leading-none">{{ $t('settings.delivery.delivery_method_settings') }}</div>
         <TabGroup v-if="logisticReady">
             <TabList class="flex flex-wrap items-center justify-end gap-1 sm:gap-3 nav-boxed-tabs sm:px-10">
+                
                 <Tab
                     class="h-20 mx-auto border-[#131c34] w-[100%] max-w-[180px] text-center" 
                     tag="button"
@@ -37,7 +89,11 @@
 </template>
 
 <script setup>
-import { onMounted, ref } from 'vue';
+import { onMounted, ref, reactive } from 'vue';
+import { helpers, required, requiredIf, numeric, integer, decimal,minValue } from '@vuelidate/validators'
+import useVuelidate from '@vuelidate/core'
+import i18n from '@/locales/i18n';
+import { seller_update_delivery } from '@/api_v2/user_subscription'
 import { useLSSLogisticMetaStore } from '@/stores/lss-logistic-meta';
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
 
@@ -49,6 +105,18 @@ const logisticStore = useLSSLogisticMetaStore()
 const sellerStore = useLSSSellerLayoutStore()
 const logistics = ref([])
 const logisticReady = ref(false)
+const freeDeliverySettingsData = reactive({
+    is_free_delivery_for_order_above_price : true,
+    free_delivery_for_order_above_price : 0,
+    is_free_delivery_for_how_many_order_minimum : true,
+    free_delivery_for_how_many_order_minimum : 0,
+})
+const freeDeliverySettingsRules = {
+    free_delivery_for_order_above_price:{required:requiredIf(()=>{ return freeDeliverySettingsData.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
+    free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return freeDeliverySettingsData.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
+}
+
+const v = useVuelidate(freeDeliverySettingsRules, freeDeliverySettingsData)
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
     const meta_country = sellerStore.userInfo.user_subscription.meta_country
@@ -57,12 +125,28 @@ onMounted(() => {
     logisticKeySet.forEach(key => {
         logistics.value.push(logisticStore[key])
     });
+    Object.entries(freeDeliverySettingsData).forEach(([key, value])=>{
+        freeDeliverySettingsData[key] = sellerStore.userInfo.user_subscription.meta_logistic[key]?sellerStore.userInfo.user_subscription.meta_logistic[key]:freeDeliverySettingsData[key]
+    })
+    console.log(freeDeliverySettingsData)
     // don't let kol use ecpay, temporarily remove it
     if (sellerStore.userInfo.user_subscription.type == 'kol') {
         logistics.value = logistics.value.filter(v=>v.key !== "ecpay")
     }
     logisticReady.value=true
-    console.log(logistics.value)
 })
+
+const updateDelivery = () => {
+    v.value.$touch()
+    // return
+    if(v.value.$invalid){
+        layoutStore.alert.showMessageToast("Invalid data")
+        return
+    }
+    seller_update_delivery(freeDeliverySettingsData, sellerStore.alert).then(res=>{
+        sellerStore.userInfo = res.data
+        sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
+    })
+}
 
 </script>

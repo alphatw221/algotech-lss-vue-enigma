@@ -89,10 +89,10 @@
                 {{ $t('settings.notes.discard') }}
             </button> -->
             <button 
-                class="w-32 ml-5 shadow-md btn btn-primary float-right"
+                class="w-36 ml-5 shadow-md btn btn-primary float-right"
                 @click="updateDelivery"
             >
-                {{ $t('settings.notes.update') }}
+                {{ $t('settings.delivery_form.delivery_method_settings_update') }}
             </button>
         </div>
     </div>

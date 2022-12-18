@@ -92,12 +92,12 @@
             </div>
         </div>
     
-        <div class="flex">
+        <div class="flex text-[14px]">
              <button 
-                class="btn btn-primary w-32 shadow-md ml-auto mt-7 "
+                class="btn btn-primary w-36 shadow-md ml-auto mt-7 "
                 @click="updateDelivery()"
             > 
-                {{ $t('settings.delivery_form.update') }} 
+                {{ $t('settings.delivery_form.delivery_method_settings_update') }} 
             </button>
         </div>
        
