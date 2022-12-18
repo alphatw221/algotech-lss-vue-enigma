@@ -9,7 +9,9 @@
         "contact_info":"Contact Information",
         "first_name":"First Name",
         "last_name":"Last Name",
+        "full_name":"Full Name",
         "phone":"Phone",
+        "cell_phone":"Cell Phone",
         "email":"Email",
         "first_err":"Please enter First Name",
         "last_err":"Please enter Last Name",
@@ -24,7 +26,9 @@
         "pickup_date":"Pickup Date",
 
         "delivery_info":"Delivery Information",
+        "address_hint": "Enter valid address",
         "address":"Address",
+        "district": "District",
         "city":"City",
         "state":"State",
         "postal_code":"Postal Code",
@@ -37,8 +41,9 @@
             "delivery":"Delivery Option",
             "default":"default",
             "pickup":"Pickup Option",
-            "c2c":"店到店"
+            "c2c":"Shop to Shop"
         },
+        "please_select": "Please select",
         "note":"Delivery and Collection Note",
         "remark":"Remark",
         "previous":"Previous",
