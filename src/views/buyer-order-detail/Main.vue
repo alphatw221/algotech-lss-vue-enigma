@@ -29,7 +29,7 @@
                 <div class="box p-6 border-2 border-secondary ">
                     <div class="flex">
                         <div class="mr-10">{{$t('order_detail.delivery.name')}}</div>
-                        <div>{{ buyerOrderStore.order.shipping_last_name }} {{ buyerOrderStore.order.shipping_first_name }}</div>
+                        <div>{{ buyerOrderStore.order.shipping_first_name }}</div>
                     </div>
                     <div class="flex mt-4" v-if="buyerOrderStore.order.shipping_phone">
                         <div class="mr-10">{{$t('order_detail.delivery.phone')}}</div>

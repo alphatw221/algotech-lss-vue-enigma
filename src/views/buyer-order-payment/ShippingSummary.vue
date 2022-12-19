@@ -6,7 +6,7 @@
         </div>
         <div class="flex flex-wrap">
             <div class="w-1/4 whitespace-nowrap">{{$t('order_detail.delivery.name')}}</div>
-            <div class="sm:w-3/4">{{ store.order.shipping_first_name }}{{ store.order.shipping_last_name }}</div>
+            <div class="sm:w-3/4">{{ store.order.shipping_first_name }}</div>
         </div>
         <div class="flex flex-wrap mt-4 pt-4 border-t border-slate-200/60">
             <div class="w-1/4 whitespace-nowrap">{{$t('shopping_cart.delivery_tab.email')}}</div>

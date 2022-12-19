@@ -439,7 +439,7 @@ const shipping_info= ref({
 			shipping_option:"",
       shipping_method: "delivery",
       shipping_first_name: "",
-      shipping_last_name: "",
+      // shipping_last_name: "",
       shipping_email: "",
       shipping_phone: "",
       shipping_cellphone: "",
@@ -596,9 +596,9 @@ const reciever_rules = computed(()=>{
         maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:5 }), maxLength(5)),
         specialCharacter: helpers.withMessage(i18n.global.t("vulidate.contains_special_characters") + " ^ ‘ ` ! @ # % & * + ” < > | _ [ ]", specialCharacter)
       },
-      shipping_last_name: {
-        maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:10 }), maxLength(10)),
-      },
+      // shipping_last_name: {
+      //   maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:10 }), maxLength(10)),
+      // },
       shipping_phone: {
         integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
         requiredIf: helpers.withMessage(i18n.global.t("vulidate.required_either_one"), 
@@ -721,7 +721,7 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
-
+  console.log(shipping_info.value)
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{

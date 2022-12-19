@@ -12,6 +12,10 @@ export const buyer_retrieve_cart_platform = (cart_oid, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/cart/buyer/retrieve/${cart_oid}/platform/`);
 }
 
+export const buyer_retrieve_cart_platform_and_products = (cart_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/cart/buyer/retrieve/${cart_oid}/platform_and_products/`);
+}
+
 
 export const buyer_checkout_cart = (cart_oid, data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/cart/${cart_oid}/buyer/checkout/`,data)
