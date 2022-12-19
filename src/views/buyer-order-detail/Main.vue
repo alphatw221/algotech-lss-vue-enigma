@@ -14,7 +14,7 @@
                             </span> 
                             <button 
                                 class="btn btn-rounded-pending h-8 ml-auto sm:ml-3"
-                                v-if="buyerOrderStore.order.payment_status === 'awaiting_payment' && buyerOrderStore.order.payment_method !== 'ecpay_cash_on_delivery'"
+                                v-if="buyerOrderStore.order.payment_status === 'awaiting_payment' && !buyerOrderStore.order.payment_method.includes('ecpay')"
                                 @click=" routeToPaymentPage()"
                             >
                                 {{$t('order_detail.pay')}}
