@@ -494,7 +494,11 @@ const routes = [
         path: "cart/:cart_oid?",
         name: "buyer-shopping-cart-detail-page",
         beforeEnter: async (to, from)=>{
-          return redirectLoginPageMiddleware(to, from)
+          const result = await redirectLoginPageMiddleware(to, from)
+          if (result !== true) {
+            return result
+          }
+          return youtubeOrderMiddleware(to, from)
         },
         component: () => import('@/views/shoppingcart/Main.vue')
       },
