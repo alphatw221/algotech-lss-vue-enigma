@@ -525,14 +525,19 @@ const shipping_option_index_computed = computed({
     if(shipping_info.value.shipping_method=='pickup'){
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
     }
+    // temp for ecpay
     else if(typeof shipping_option_index.value == 'string'){
-      shipping_info.value.shipping_option_data = {}
       if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.logistics_sub_type) {
         shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
         Object.assign(shipping_info.value.shipping_option_data,{'logisticsType':'CVS'})
       }else{
         shipping_info.value.shipping_option_data = {'logisticsType':shipping_option_index.value}
-      } 
+      }
+      Object.assign(shipping_info.value.shipping_option_data,{
+        'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].type,
+        "price": shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].delivery_charge,
+      })
+      console.log(shipping_info.value.shipping_option_data)
     }
     else{
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
