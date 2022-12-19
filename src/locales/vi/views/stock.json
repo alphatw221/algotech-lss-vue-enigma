@@ -78,6 +78,7 @@
         "remark_warning":"Ghi chú không lớn hơn 100 kí tự",
         "description": "Mô tả",
         "product_description": "mô tả sản phẩm...",
+        "order_code_warning":"Nhập không quá 10 ký tự",
         "description_warning":"Cannot contains <head> tag",
         "preview":"Xem trước",
         "cancel": "Hủy bỏ",

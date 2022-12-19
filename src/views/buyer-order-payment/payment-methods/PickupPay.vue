@@ -2,7 +2,7 @@
 
 <AccordionItem  class="mx-5 " >
         <Accordion class="bg-primary rounded-t-lg" >
-            <div class="text-white mx-5" > 貨到付款 </div>
+            <div class="text-white mx-5" > 超商貨到付款 </div>
         </Accordion>
         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary" >
             <div v-if="store.order.campaign" class="grid grid-cols-3 justify-center text-left mx-20 text-[16px]">
