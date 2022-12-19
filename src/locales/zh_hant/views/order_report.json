@@ -1,0 +1,15 @@
+{
+    "order_detail_report": "訂單詳細資訊",
+    "order_sales_report": "分潤報表",
+    "campaign_title": "銷售活動",
+    "campaign_period": "銷售活動時間",
+    "calculate_formula": "分潤公式",
+    "total_profit": "總分潤",
+    "order_id": "訂單編號",
+    "subtotal":"實際售價(A)",
+    "price_ori_subtotal": "成本價(B)",
+    "discount_promo_code": "折扣(優惠代碼)(C)",
+    "discount_point": "點數折抵(D)",
+    "adjust_price": "賣家調整(E)",
+    "profit": "每筆分潤(C)"
+}

@@ -40,7 +40,7 @@
             "description":"说明",
             "Product":"商品",
             "order_code":"下单代码",
-            "price":"价格",
+            "price":"售价",
             "overbook":"可下单",
             "activate":"启用",
             "qty":"直播商品数量",
@@ -75,7 +75,7 @@
             "qty_invalid":"输入数量无效",
             "max_order_amount_grater_than_qty":"不得大于商品数量",
             "assign_qty_required":"商品数量必填",
-            "price_invalid":"输入价格无效"
+            "price_invalid":"输入售价无效"
         },
         "invalid":"无效",
         "successed":"新增成功",

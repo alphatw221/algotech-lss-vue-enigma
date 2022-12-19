@@ -1,12 +1,15 @@
 {
     "create_campaign":"Create Campaign",
     "title":"Title",
-    "title_required":"Title Is Required",
+    "title_required":"Title is required",
     "period":"Period",
 
     "cancel":"Cancel",
     "create":"Create",
     "invalid_title":"Invalid campaign title input",
+    "general_settings":"General Settings",
+    "selling_type":"Sell Product from",
+    "my_stock":"My stock",
     
 
 

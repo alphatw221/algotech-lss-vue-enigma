@@ -17,6 +17,12 @@ const helpers = {
   formatDate(date, format) {
     return dayjs(date).format(format);
   },
+  datetimeReformat(datetime_string, format='en-us') {
+    return new Date(datetime_string).toLocaleTimeString(format, {
+      year: "numeric", month: "short", hour12: false,
+      day: "numeric", hour: '2-digit', minute: '2-digit'
+    })
+  },
   capitalizeFirstLetter(string) {
     if (string) {
       return string.charAt(0).toUpperCase() + string.slice(1);

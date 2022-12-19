@@ -1,7 +1,7 @@
 <template>
     <!-- OUTTER BOX -->
         <!-- BEGIN: campaign Info -->
-    <div class="flex flex-col lg:pt-5 mt-3 h-fit sm:h-[95%] gap-5 mx-20">
+    <div class="flex flex-col lg:pt-5 mt-3 h-fit sm:h-[95%] gap-5 sm:mx-20">
         <div class="flex flex-row gap-4 mt-3 mx-auto sm:mx-0 font-medium">
             <div @click="show_table('manageOrder')" :class="[{ 'menu' : tableType === 'manageOrder'},{'statusBtn': route.params.campaign_id}]" >
                 <h2 :data-content="$t('manage_order.title')" class="text-xl sm:text-2xl allp" >{{$t('manage_order.title')}}</h2>
@@ -198,11 +198,6 @@ const stopCheckout = ()=>{
     }) 
 }
 
-// function getCampaignInfo(){
-//     retrieve_campaign(route.params.campaign_id, layout.alert).then(res=>{
-//         manageOrderStore.campaign = res.data
-//     })
-// }
 </script>
 
 <style scoped>

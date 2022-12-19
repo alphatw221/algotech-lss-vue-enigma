@@ -79,7 +79,7 @@
         
         "post_id":"Post ID",
         "select_live_post":"Live Post",
-        "select_video_post": "Video Post",
+        "select_video_post": "Select Video Post",
         "select_live_video":"Select Live Video",
         "enter_post_id": "Enter Post ID",
         "search_recent_posts": "Search recent posts",

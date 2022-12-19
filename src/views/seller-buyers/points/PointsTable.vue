@@ -49,7 +49,7 @@
             <template
               v-else-if="column.key == 'type'"
             >
-              {{points_data.type}}
+              {{ $t(`point_transaction.${points_data.type}`) }}
             </template>
             
             <template v-else-if="column.key == 'status'">

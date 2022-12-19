@@ -12,6 +12,10 @@ export const buyer_retrieve_cart_platform = (cart_oid, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/cart/buyer/retrieve/${cart_oid}/platform/`);
 }
 
+export const buyer_retrieve_cart_platform_and_products = (cart_oid, toastify=null) => {
+    return createAxios(toastify).get(`/api/v2/cart/buyer/retrieve/${cart_oid}/platform_and_products/`);
+}
+
 
 export const buyer_checkout_cart = (cart_oid, data, toastify=null) => {
     return createAxios(toastify).put(`/api/v2/cart/${cart_oid}/buyer/checkout/`,data)
@@ -40,6 +44,11 @@ export const buyer_cancel_discount_code = (cart_oid, toastify=null) => {
 export const buyer_get_cart_relative_wallet = (cart_oid, toastify=null) => {
     return createAxios(toastify).get(`/api/v2/cart/${cart_oid}/buyer/wallet`)
 }
+
+export const buyer_get_cvs_map = (cart_oid,data, toastify=null) => {
+    return createAxios(toastify).post(`/api/v2/cart/buyer/cvs_map/${cart_oid}/`,data)
+}
+
 
 //-------------------------------seller----------------------------------
 export const seller_retrieve_cart = (cart_id, toastify=null) => {

@@ -1,4 +1,9 @@
 {
+    "categorys":{
+        "general":"General",
+        "payment":"Payment",
+        "logistic":"Delivery"
+    },
     "settings" : "Settings",
     "client_id" : "Client ID",
     "secret" : "Secret",
@@ -14,9 +19,10 @@
     "img_size_err":"Image size exceed 10 MB",
     "img_type_err":"This file type is not supported.",
     "invalid_data":"Invalid data",
+    
     "delivery":{
         "delivery":"Delivery",
-        "delivery_setting": "Delivery Settings",
+        "delivery_setting": "Delivery Settings", 
         "charge":"Delivery Charge",
         "charge_option":"Delivery Charge Option",
         "add_more_delivery_option":"Add New Option",
@@ -48,7 +54,8 @@
             "paypal":"Paypal",
             "ecpay":"ECPay",
             "pay_mongo":"PayMongo",
-            "rapyd":"Rapyd"
+            "rapyd":"Rapyd",
+            "pickup_pay":"貨到付款"
         },
         "direct_payment":{
             "mode":"Name of Bank / Payment Mode",
@@ -107,6 +114,29 @@
     },
 
     "delivery_form":{
+        "delivery_titles":{
+            "own_delivery":"Own Delivery",
+            "store_pickup":"Store Pickup",
+            "ecpay":"ECPay"
+        },
+        "ecpay":{
+            "merchant_id":"Merchant ID",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV", 
+            "return_store_id":"Return Store ID",
+            "sender_name":"Sender's Name",
+            "sender_phone":"Phone",
+            "sender_zip_code":"Zip Code",
+            "sender_address":"Address",
+            "shipping_way":"Shipping Methods",
+            "pickup_pay":"允許貨到付款",
+            "logistics_sub_type":{
+                "TCAT":"宅配 黑貓宅急便",
+                "FAMIC2C":"超商取貨 全家",
+                "UNIMARTC2C":"超商取貨 7-11",
+                "delivery_charge": "delivery charge"
+            }
+        },
         "delivery_detail":"Delivery Details",
         "delivery_charge":"Delivery Charge",
         "free_delivery_for_order_above":"Free Delivery for Order Above($)",
@@ -121,14 +151,16 @@
         "pickup_store":"Pickup Location",
         "pickup_address":"Pickup Address",
         "express_service_name": "delivery service name",
-        "express_charge": "delivery charge"
+        "express_charge": "delivery charge",
+        "enabled":"Enabled",
+        "update":"Update"        
     },
 
     "payment":{
         "payment":"Payment"
     },
     "notes":{
-        "title":"Shopping Cart settings",
+        "title":"Notes Settings",
         "notes":"General",
         "delivery_note":"Delivery Note",
         "special_note":"Special Note",
@@ -148,7 +180,8 @@
             "ID":"Indonesia",
             "IN":"India",
             "TW":"Taiwan",
-            "VN":"Vietnam"
+            "VN":"Vietnam",
+            "MY":"Malaysia"
         },
         "currency_symbol":"Currency Symbol",
         "seller_language":"Seller Language",

@@ -105,7 +105,7 @@
 				</div>
 			</div> -->
 
-			<div class="col-span-12 lg:col-span-6 col-start-1 mt-2">
+			<div class="col-span-12 lg:col-span-12 col-start-1 mt-2">
 				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.quantity') }}</label>
 				<input
 					id="crud-form-1"
@@ -121,13 +121,23 @@
 						</label>
 				</template>
 			</div>
+			<div class="col-start-1 col-span-12 lg:col-span-6 mt-2">
+				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.price_ori') }}</label>
+				<input
+					id="crud-form-1"
+					type="text"
+					class="w-full form-control"
+					:placeholder="$t('stock.add_product_page.price_ori_input')"
+					v-model="product.price_ori"
+				/>
+			</div>
 			<div class="col-span-12 lg:col-span-6 mt-2">
 				<label for="crud-form-1" class="form-label text-base font-medium">{{ $t('stock.add_product_page.price') }}</label>
 				<input
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Input Price"
+					:placeholder="$t('stock.add_product_page.price_input')"
 					v-model="validate.price.$model"
 					:class="{ 'border-danger text-danger border-2': validate.price.$error }" 
 				/>
@@ -143,7 +153,7 @@
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Product SKU code"
+					:placeholder="$t('stock.add_product_page.sku_input')"
 					v-model="product.sku"
 				/>
 			</div>
@@ -153,7 +163,7 @@
 					id="crud-form-1"
 					type="text"
 					class="w-full form-control"
-					placeholder="Product Order code"
+					:placeholder="$t('stock.add_product_page.order_code_input')"
 					v-model="validate.order_code.$model"
 					:disabled="product.type === 'lucky_draw'"
 					:class="{ 'border-danger text-danger border-2': validate.order_code.$error }" 
@@ -258,6 +268,7 @@ const product = ref({
 	description: '',
 	qty: 0,
 	price: 0,
+	price_oid:0,
 	status: 'enabled',
 	remark:'',
 	categories:[],
