@@ -35,6 +35,7 @@
         "hitpay":"Hitpay",
         "paypal":"Paypal",
         "ecpay":"綠界金流",
+        "ecpay_cash_on_delivery":"綠界金流_貨到付款",
         "pay_mongo":"Pay Mongo",
         "rapyd":"Rapyd"
     },
