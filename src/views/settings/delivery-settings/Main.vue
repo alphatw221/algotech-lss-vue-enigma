@@ -5,7 +5,8 @@
             <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-2" 
                 type="checkbox" 
-                v-model="freeDeliverySettingsData.is_free_delivery_for_order_above_price"
+                v-model="v.is_free_delivery_for_order_above_price.$model"
+                @blur="v.is_free_delivery_for_order_above_price.$touch"
             />
             <label class="w-full text-base">{{ $t('settings.delivery.order_above') }}</label>
         </div> 
@@ -13,7 +14,7 @@
             class="w-full form-control" 
             type="number" 
             v-model="v.free_delivery_for_order_above_price.$model"
-            @blur="v.free_delivery_for_order_above_price.$touch()"
+            @blur="v.free_delivery_for_order_above_price.$touch"
         />
         <label class="block text-danger text-[12px]" 
                     v-for="error, index in v.free_delivery_for_order_above_price.$errors"
@@ -25,7 +26,8 @@
             <input 
                 class="form-control form-check-input w-[1.2rem] h-[1.2rem] mr-2" 
                 type="checkbox"
-                v-model="freeDeliverySettingsData.is_free_delivery_for_how_many_order_minimum"
+                v-model="v.is_free_delivery_for_how_many_order_minimum.$model"
+                @blur="v.is_free_delivery_for_how_many_order_minimum.$touch"
             />
             <label class="w-full text-base ">{{ $t('settings.delivery.minimum') }}</label>
         </div> 
@@ -33,7 +35,7 @@
             class="w-full form-control"
             type="number"
             v-model="v.free_delivery_for_how_many_order_minimum.$model"
-            @blur="v.free_delivery_for_how_many_order_minimum.$touch()"
+            @blur="v.free_delivery_for_how_many_order_minimum.$touch"
         />       
         <label class="block text-danger text-[12px]" 
                     v-for="error, index in v.free_delivery_for_how_many_order_minimum.$errors"
@@ -105,45 +107,58 @@ const logisticStore = useLSSLogisticMetaStore()
 const sellerStore = useLSSSellerLayoutStore()
 const logistics = ref([])
 const logisticReady = ref(false)
-const freeDeliverySettingsData = reactive({
-    is_free_delivery_for_order_above_price : true,
-    free_delivery_for_order_above_price : 0,
-    is_free_delivery_for_how_many_order_minimum : true,
-    free_delivery_for_how_many_order_minimum : 0,
-})
-const freeDeliverySettingsRules = {
-    free_delivery_for_order_above_price:{required:requiredIf(()=>{ return freeDeliverySettingsData.is_free_delivery_for_order_above_price==true }), decimal, minValue:minValue(0.01)},
-    free_delivery_for_how_many_order_minimum:{required:requiredIf(()=>{ return freeDeliverySettingsData.is_free_delivery_for_how_many_order_minimum==true }), integer, minValue:minValue(1)},
-}
 
-const v = useVuelidate(freeDeliverySettingsRules, freeDeliverySettingsData)
+
+
+
 onMounted(() => {
     if(!sellerStore.userInfo.user_subscription)return
     const meta_country = sellerStore.userInfo.user_subscription.meta_country
+    const meta_logistic = sellerStore.userInfo.user_subscription.meta_logistic
     const logisticKeySet = new Set()
     meta_country.activated_country.forEach( country => { logisticStore[country].forEach( key => logisticKeySet.add(key) ) } )
     logisticKeySet.forEach(key => {
         logistics.value.push(logisticStore[key])
     });
-    Object.entries(freeDeliverySettingsData).forEach(([key, value])=>{
-        freeDeliverySettingsData[key] = sellerStore.userInfo.user_subscription.meta_logistic[key]?sellerStore.userInfo.user_subscription.meta_logistic[key]:freeDeliverySettingsData[key]
+    Object.entries(freeDeliverySettingsData.value).forEach(([key, value])=>{
+        freeDeliverySettingsData.value[key] = meta_logistic[key]
     })
-    console.log(freeDeliverySettingsData)
+   
     // don't let kol use ecpay, temporarily remove it
     if (sellerStore.userInfo.user_subscription.type == 'kol') {
         logistics.value = logistics.value.filter(v=>v.key !== "ecpay")
     }
     logisticReady.value=true
 })
-
+const freeDeliverySettingsData = ref({
+    is_free_delivery_for_order_above_price : true,
+    free_delivery_for_order_above_price : 0.00,
+    is_free_delivery_for_how_many_order_minimum : true,
+    free_delivery_for_how_many_order_minimum : 0.00,
+})
+const freeDeliverySettingsRules = {
+    is_free_delivery_for_order_above_price:{},
+    is_free_delivery_for_how_many_order_minimum:{},
+    free_delivery_for_order_above_price:{
+        required:requiredIf(()=>{ 
+            return freeDeliverySettingsData.value.is_free_delivery_for_order_above_price==true 
+        }), 
+        numeric, 
+    },
+    free_delivery_for_how_many_order_minimum:{
+        required:requiredIf(()=>{ return freeDeliverySettingsData.value.is_free_delivery_for_how_many_order_minimum==true }), 
+        numeric
+    }
+}
+const v = useVuelidate(freeDeliverySettingsRules, freeDeliverySettingsData.value)
 const updateDelivery = () => {
     v.value.$touch()
     // return
     if(v.value.$invalid){
-        layoutStore.alert.showMessageToast("Invalid data")
+        sellerStore.alert.showMessageToast("Invalid data")
         return
     }
-    seller_update_delivery(freeDeliverySettingsData, sellerStore.alert).then(res=>{
+    seller_update_delivery(freeDeliverySettingsData.value, sellerStore.alert).then(res=>{
         sellerStore.userInfo = res.data
         sellerStore.notification.showMessageToast(i18n.global.t('settings.update_successfully'))
     })

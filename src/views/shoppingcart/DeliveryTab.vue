@@ -8,7 +8,8 @@
             {{$t('shopping_cart.delivery_tab.full_name')}}</label>
             <div class="col-span-8 lg:col-span-4">
               <input id="regular-form-2" type="text"
-                class="col-span-8 form-control lg:col-span-4" placeholder=""
+                class="col-span-8 form-control lg:col-span-4 full-name" 
+                placeholder="中文 2~5 個字, 英文 4~10 個字"
                 :class="{ 'border-danger': reciever_validate.shipping_first_name.$error }"
                 v-model.trim="reciever_validate.shipping_first_name.$model" @blur="reciever_validate.shipping_first_name.$touch"/>
                 <template v-for="(error, index) in reciever_validate.shipping_first_name.$errors" :key="index">
@@ -213,7 +214,7 @@
                 <!-- END Delivery Option -->
 
                  <!-- Delivery Address -->
-                <template v-if="!(shipping_option_index_computed === 'UNIMARTC2C' || shipping_option_index_computed === 'FAMIC2C')">
+                <template v-if="showAddressForm()">
                   <label class="font-medium text-md mt-5">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
                   <div class="gap-5 mx-0 intro-y lg:mx-20">
 
@@ -434,7 +435,7 @@ const date_range = ref({
 })
 let webSocket = null
 
-const shipping_option_index = ref(null)
+const shipping_option_index = ref('')
 const pickup_select_index = ref(null)
 const shipping_info= ref({
 			shipping_option:"",
@@ -538,12 +539,16 @@ const shipping_option_index_computed = computed({
     else{
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
     }
-
   }
 })
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
-
+const showAddressForm = () => {
+  if (shipping_info.value.shipping_method == "pickup") return true
+  if (shipping_option_index_computed.value == "") return false
+  if (shipping_option_index_computed.value === 'UNIMARTC2C' || shipping_option_index_computed.value === 'FAMIC2C') return false
+  return true
+}
 const pickup_date_range = (index) =>{
   date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
   date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
@@ -556,7 +561,6 @@ onMounted(()=>{
     buyer_retrieve_latest_order_shipping_info(layoutStore.alert).then(res=>{
 
       res.data.shipping_method='delivery'     //default value
-      shipping_option_index.value=null     //default value
       res.data.shipping_option_data={}        //default value
       shipping_info.value = res.data
       city_computed.value = (twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region) == -1) ? null : twZipcodeStore.data.findIndex(city => city.name == shipping_info.value.shipping_region)
@@ -595,7 +599,6 @@ const reciever_rules = computed(()=>{
         specialCharacter: helpers.withMessage(i18n.global.t("vulidate.contains_special_characters") + " ^ ‘ ` ! @ # % & * + ” < > | _ [ ]", specialCharacter)
       },
       shipping_last_name: {
-        required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
         maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:10 }), maxLength(10)),
       },
       shipping_phone: {
@@ -698,21 +701,13 @@ const proceed_to_payment = () =>{
   }
 
   if(shipping_info.value.shipping_method !== 'pickup'){
-
-    delivery_validate.value.$touch();
-    
     if(shipping_option_index.value === ''){
-      layoutStore.alert.showMessageToast('select shipping method')
+      layoutStore.alert.showMessageToast('選擇運送方式')
       return
     }
 
     else if(shipping_info.value.shipping_option_data.logisticsType ==='UNIMARTC2C' ||shipping_info.value.shipping_option_data.logisticsType ==='FAMIC2C'){
       layoutStore.alert.showMessageToast('選取店到店門市')
-      return
-    }
-    
-    else if(delivery_validate.value.$invalid && shipping_info.value.shipping_option_data.logisticsType !== 'CVS'){
-      layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
   }
@@ -721,6 +716,12 @@ const proceed_to_payment = () =>{
     shipping_info.value.shipping_region = ''
     shipping_info.value.shipping_address_1 = ''
     shipping_info.value.shipping_postcode = ''
+  } else {
+    delivery_validate.value.$touch();
+    if (delivery_validate.value.$invalid && shipping_info.value.shipping_option_data.logisticsType !== 'CVS'){
+      layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
+      return
+    }
   }
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
@@ -749,5 +750,9 @@ const proceed_to_payment = () =>{
 .nav-item{
   justify-content: center;
   display: flex !important;
+}
+
+input::placeholder {
+  font: 10px/3 sans-serif;
 }
 </style>
