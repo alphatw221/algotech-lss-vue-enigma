@@ -493,17 +493,18 @@ const campaignProductOrderCodeDict = ref({})
 let isSelectedProductsValid=false
 
 onMounted(() => {
-	if(props.templateInModal){
-		eventBus.on('show_assign_product_view',()=>{getCampaignProductDict();search();})
-		eventBus.on('hide_assign_product_view',()=>{clearAllData();})
-		return
-	}
 	getCampaignProductDict()
 	retrieve_campaign(route.params.campaign_id, layoutStore.alert).then(res=>{
 		console.log(res.data)
 		campaignDetailStore.campaign = res.data
 		return search()
 	})
+	if(props.templateInModal){
+		eventBus.on('show_assign_product_view',()=>{search();})
+		eventBus.on('hide_assign_product_view',()=>{clearAllData();})
+		return
+	}
+	
 	
 })
 onUnmounted(()=>{
