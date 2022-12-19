@@ -93,6 +93,7 @@
         "delivery":"運送",
         "address":"收件地址",
         "pay_with":"付款方式",
+        "go_pay": "前往付款",
         "direct":{
             "title": "銀行轉帳",
             "account":"銀行帳號",

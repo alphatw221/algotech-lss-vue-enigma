@@ -1,7 +1,7 @@
 <template>
     <AccordionItem  class="mx-5 " >
         <Accordion class="bg-primary rounded-t-lg" >
-            <div class="text-white mx-5" > {{payment.name}} </div>
+            <div class="text-white mx-5" > <span class="text-2xl">{{payment.name}}</span> {{ payment.key == "ecpay" ? "(線上匯款/信用卡/超商代碼繳費/超商條碼繳費)" : "" }}</div>
         </Accordion>
         <AccordionPanel class="text-slate-600 dark:text-slate-500 leading-relaxed border-2 border-secondary" >
 
@@ -39,7 +39,7 @@
                         <input type="text"> 
                     </div>
                 </template> -->
-                <button class="btn btn-primary mt-2 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.pay_with')}} {{props.payment.name}} </button>
+                <button class="btn btn-primary mt-2 mb-5" @click="handlePayment()">{{$t('shopping_cart.payment.go_pay')}}</button>
                 <form method="post" action="https://test.ipg-online.com/connect/gateway/processing" :id="props.payment.key" class="hidden">
                     <input type="submit" value="" class="hidden">
                 </form>

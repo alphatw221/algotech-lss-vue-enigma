@@ -2,85 +2,7 @@
   <div :class="{ hidden: shoppingCartStore.openTab !== 2, block: shoppingCartStore.openTab === 2 }">
     <div class="grid grid-cols-12 gap-5 intro-y">
       <div class="col-span-12 row-start-2 intro-y lg:row-start-1 lg:col-span-8">
-        <h2 class="w-full mr-auto text-xl font-medium">{{$t('shopping_cart.delivery_tab.contact_info')}}</h2>
-        <div class="grid grid-cols-12 gap-5 p-0 my-10 mt-3 intro-y lg:p-10">
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
-            {{$t('shopping_cart.delivery_tab.full_name')}}</label>
-            <div class="col-span-8 lg:col-span-4">
-              <input id="regular-form-2" type="text"
-                class="col-span-8 form-control lg:col-span-4 full-name" 
-                placeholder="中文 2~5 個字, 英文 4~10 個字"
-                :class="{ 'border-danger': reciever_validate.shipping_first_name.$error }"
-                v-model.trim="reciever_validate.shipping_first_name.$model" @blur="reciever_validate.shipping_first_name.$touch"/>
-                <template v-for="(error, index) in reciever_validate.shipping_first_name.$errors" :key="index">
-                  <label class="mt-2 text-danger">
-                    {{ error.$message }}
-                  </label>
-                  <br/>
-                </template>
-              </div>
-          <!-- <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
-            {{$t('shopping_cart.delivery_tab.last_name')}}</label>
-            <div class="col-span-8 lg:col-span-4">
-              <input id="regular-form-2" type="text"
-                class="form-control " placeholder=""
-                :class="{ 'border-danger': reciever_validate.shipping_last_name.$error }"
-                v-model.trim="reciever_validate.shipping_last_name.$model" />
-                <template v-if="reciever_validate.shipping_last_name.$error">
-                  <label
-                    class="mt-2 text-danger"
-                  >
-                    {{$t('shopping_cart.delivery_tab.last_err')}}
-                  </label>
-                </template>
-            </div> -->
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.email')}}</label>
-          <div class="col-span-8 lg:col-span-4">
-              <input id="regular-form-2" type="email"
-                placeholder="example@gmail.com"
-                class="form-control "
-                :class="{ 'border-danger': reciever_validate.shipping_email.$error }"
-                v-model.trim="reciever_validate.shipping_email.$model" />
-              <template v-if="reciever_validate.shipping_email.$error">
-                  <label
-                    v-for="(error, index) in reciever_validate.shipping_email.$errors"
-                  :key="index"
-                    class="mt-2 text-danger"
-                  >
-                  {{ error.$message }}
-                  </label>
-                  <br/>
-              </template>
-          </div>
-          
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.phone')}}</label>
-          <div class="col-span-8 lg:col-span-4">
-          <input id="regular-form-2" type="tel"
-            class="form-control"
-            :class="{ 'border-danger': reciever_validate.shipping_phone.$error }"
-            placeholder="ex: 02xxxxxxxx"
-            v-model.trim="reciever_validate.shipping_phone.$model" />
-            <template v-for="(error, index) in reciever_validate.shipping_phone.$errors" :key="index">
-              <label class="mt-2 text-danger">
-                {{ error.$message }}
-              </label>
-              <br/>
-            </template>
-          </div>
-          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.cell_phone')}}</label>
-          <div class="col-span-8 lg:col-span-4">
-          <input id="regular-form-2" type="tel"
-            class="form-control " placeholder=""
-            :class="{ 'border-danger': reciever_validate.shipping_cellphone.$error }"
-            v-model.trim="reciever_validate.shipping_cellphone.$model" />
-            <template v-for="(error, index) in reciever_validate.shipping_cellphone.$errors" :key="index">
-              <label class="mt-2 text-danger">
-                {{ error.$message }}
-              </label>
-              <br/>
-            </template>
-          </div>
-        </div>
+        
 
         <h2 class="my-5 mr-auto text-xl font-medium">
           {{$t('shopping_cart.delivery_tab.shipping_info')}}
@@ -345,20 +267,96 @@
             </TabPanel>
             <!-- END Pickup Panel -->
           </TabPanels>
-
-
-          <div class="col-span-12 mt-10">
-            <div class="font-medium text-md">
-              {{$t('shopping_cart.delivery_tab.note')}}
-            </div>
-            <p id="" class="col-span-12 col-start-1 p-5 form-control whitespace-pre-line" placeholder="" v-if="shoppingCartStore.cart.campaign">
-              {{shoppingCartStore.cart.campaign.meta_logistic.delivery_note}}
-            </p>
-          </div>
-          
-
         </TabGroup>
 
+        <h2 class="w-full mr-auto text-xl font-medium mt-5">{{$t('shopping_cart.delivery_tab.contact_info')}}</h2>
+        <div class="grid grid-cols-12 gap-5 p-0 my-10 mt-3 intro-y lg:p-10">
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
+            {{$t('shopping_cart.delivery_tab.full_name')}}</label>
+            <div class="col-span-8 lg:col-span-4">
+              <input id="regular-form-2" type="text"
+                class="col-span-8 form-control lg:col-span-4 full-name" 
+                placeholder="中文 2~5 個字, 英文 4~10 個字"
+                :class="{ 'border-danger': reciever_validate.shipping_first_name.$error }"
+                v-model.trim="reciever_validate.shipping_first_name.$model" @blur="reciever_validate.shipping_first_name.$touch"/>
+                <template v-for="(error, index) in reciever_validate.shipping_first_name.$errors" :key="index">
+                  <label class="mt-2 text-danger">
+                    {{ error.$message }}
+                  </label>
+                  <br/>
+                </template>
+              </div>
+          <!-- <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">
+            {{$t('shopping_cart.delivery_tab.last_name')}}</label>
+            <div class="col-span-8 lg:col-span-4">
+              <input id="regular-form-2" type="text"
+                class="form-control " placeholder=""
+                :class="{ 'border-danger': reciever_validate.shipping_last_name.$error }"
+                v-model.trim="reciever_validate.shipping_last_name.$model" />
+                <template v-if="reciever_validate.shipping_last_name.$error">
+                  <label
+                    class="mt-2 text-danger"
+                  >
+                    {{$t('shopping_cart.delivery_tab.last_err')}}
+                  </label>
+                </template>
+            </div> -->
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.email')}}</label>
+          <div class="col-span-8 lg:col-span-4">
+              <input id="regular-form-2" type="email"
+                placeholder="example@gmail.com"
+                class="form-control "
+                :class="{ 'border-danger': reciever_validate.shipping_email.$error }"
+                v-model.trim="reciever_validate.shipping_email.$model" />
+              <template v-if="reciever_validate.shipping_email.$error">
+                  <label
+                    v-for="(error, index) in reciever_validate.shipping_email.$errors"
+                  :key="index"
+                    class="mt-2 text-danger"
+                  >
+                  {{ error.$message }}
+                  </label>
+                  <br/>
+              </template>
+          </div>
+          
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.phone')}}</label>
+          <div class="col-span-8 lg:col-span-4">
+          <input id="regular-form-2" type="tel"
+            class="form-control"
+            :class="{ 'border-danger': reciever_validate.shipping_phone.$error }"
+            placeholder="ex: 02xxxxxxxx"
+            v-model.trim="reciever_validate.shipping_phone.$model" />
+            <template v-for="(error, index) in reciever_validate.shipping_phone.$errors" :key="index">
+              <label class="mt-2 text-danger">
+                {{ error.$message }}
+              </label>
+              <br/>
+            </template>
+          </div>
+          <label for="regular-form-2" class="col-span-4 form-label lg:col-span-2 my-auto">{{$t('shopping_cart.delivery_tab.cell_phone')}}</label>
+          <div class="col-span-8 lg:col-span-4">
+          <input id="regular-form-2" type="tel"
+            class="form-control " placeholder=""
+            :class="{ 'border-danger': reciever_validate.shipping_cellphone.$error }"
+            v-model.trim="reciever_validate.shipping_cellphone.$model" />
+            <template v-for="(error, index) in reciever_validate.shipping_cellphone.$errors" :key="index">
+              <label class="mt-2 text-danger">
+                {{ error.$message }}
+              </label>
+              <br/>
+            </template>
+          </div>
+        </div>
+
+        <div class="col-span-12 mt-10">
+          <div class="font-medium text-md">
+            {{$t('shopping_cart.delivery_tab.note')}}
+          </div>
+          <p id="" class="col-span-12 col-start-1 p-5 form-control whitespace-pre-line" placeholder="" v-if="shoppingCartStore.cart.campaign">
+            {{shoppingCartStore.cart.campaign.meta_logistic.delivery_note}}
+          </p>
+        </div>
 
         <div class="col-span-12 mt-10"
           v-if="!shoppingCartStore.user_subscription?.user_plan?.hide?.order_shipping_remark"
@@ -691,15 +689,7 @@ const get_c2c_map = (storeType) =>{
 
 
 const proceed_to_payment = () =>{
-  console.log()
-  reciever_validate.value.$touch();
-
-  if (reciever_validate.value.$invalid) {
-
-    layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
-    return
-  }
-
+  
   if(shipping_info.value.shipping_method !== 'pickup'){
     if(shipping_option_index.value === ''){
       layoutStore.alert.showMessageToast('選擇運送方式')
@@ -723,6 +713,15 @@ const proceed_to_payment = () =>{
       return
     }
   }
+
+  reciever_validate.value.$touch();
+
+  if (reciever_validate.value.$invalid) {
+
+    layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
+    return
+  }
+
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{
