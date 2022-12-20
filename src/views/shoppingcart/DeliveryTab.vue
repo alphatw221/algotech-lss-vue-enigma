@@ -42,13 +42,13 @@
 
                     <!-- Ecpay 店到店 -->
                     <template v-if="(shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.enabled == true)">
-                      <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type">
-                        <div v-if="item?.enabled == true" class="flex flex-row flex-wrap cursor-pointer px-10 py-3 my-4 border-2 rounded-lg form-check justify-between"
+                      <template v-for="(item, key, index) in shoppingCartStore.cart.campaign.meta_logistic?.ecpay?.logistics_sub_type" :key="key">
+                        <div v-if="item?.enabled == true" class="flex flex-row flex-wrap cursor-pointer px-10 py-5 my-4 border-2 rounded-lg form-check justify-between"
                         :class="{'border-slate-600': shipping_option_index_computed == key}"
                         @click="select_shipping_method('ecpay') & (shipping_option_index_computed = key)"
                         >
                           <div class="ml-2 text-lg">{{ $t(`settings.delivery_form.ecpay.logistics_sub_type.${key}`) }}</div>
-                          <div v-if="key !== 'TCAT'" class="flex flex-row gap-4 h-12 -p-6">
+                          <div v-if="key !== 'TCAT'" class="flex flex-row gap-4 -p-6">
                             <a class="ml-2 my-auto" @click="get_c2c_map(key)">選擇門市</a>
                             <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/711.png" @click="get_c2c_map('UNIMARTC2C')"/>  -->
                             <!-- <img class="cursor-pointer" src="@/assets/images/lss-img/Family_Mart.png" @click="get_c2c_map('FAMIC2C')"/>  -->
@@ -526,14 +526,19 @@ const shipping_option_index_computed = computed({
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
     }
     // temp for ecpay
-    else if(typeof shipping_option_index.value == 'string'){
+    else if(shipping_info.value.shipping_method=='ecpay'){
       if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.logistics_sub_type) {
         shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
-        Object.assign(shipping_info.value.shipping_option_data,{'logisticsType':'CVS'})
-      }else{
-        shipping_info.value.shipping_option_data = {'logisticsType':shipping_option_index.value}
+      } else {
+        shipping_info.value.shipping_option_data = {}
+      }
+      if (["TCAT"].includes(shipping_option_index.value)) {
+        shipping_info.value.shipping_option_data['logisticsType'] = 'HOME'
+      } else {
+        shipping_info.value.shipping_option_data['logisticsType'] = 'CVS'
       }
       Object.assign(shipping_info.value.shipping_option_data,{
+        'LogisticsSubType': shipping_option_index.value,
         'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].type,
         "price": shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].delivery_charge,
       })
@@ -594,16 +599,30 @@ const specialCharacter = (value) => {
   const special_characters = "^‘`!@#%&*+”<>|_[]"
   return !special_characters.split('').some(char => value.includes(char))
 }
+
+const bytesBtwLength = (min,num) => (value) => {
+  var string; 
+  var len = 0;
+  for(var i=0; i < value.length; i++){
+    string = value.charCodeAt(i);
+   while( string > 0 && string != 32){
+      len++;
+      string = string >> 8;
+   }
+  }
+  if (len > num) return false
+  if (min > len) return false
+  else return true
+}
+
 const reciever_rules = computed(()=>{
     return{
       shipping_first_name: {
         required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-        maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:5 }), maxLength(5)),
+        // maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:5 }), maxLength(5)),
+        bytesBtwLength: helpers.withMessage(i18n.global.t("vulidate.name_between_length", { number:'4-10' }), bytesBtwLength(4,10)),
         specialCharacter: helpers.withMessage(i18n.global.t("vulidate.contains_special_characters") + " ^ ‘ ` ! @ # % & * + ” < > | _ [ ]", specialCharacter)
       },
-      // shipping_last_name: {
-      //   maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:10 }), maxLength(10)),
-      // },
       shipping_phone: {
         integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
         requiredIf: helpers.withMessage(i18n.global.t("vulidate.required_either_one"), 
@@ -635,8 +654,7 @@ const delivery_rules = computed(()=>{
   return{
     shipping_address_1: {
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-      minLength: helpers.withMessage(i18n.global.t("vulidate.least_minimum_length", { number:3 }), minLength(3)), 
-      maxLength: helpers.withMessage(i18n.global.t("vulidate.exceed_maximum_length", { number:24 }), maxLength(24)),
+      bytesBtwLength: helpers.withMessage(i18n.global.t("vulidate.invalid_address"), bytesBtwLength(4,60)),
     },
     shipping_location: {
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
@@ -701,7 +719,7 @@ const proceed_to_payment = () =>{
       return
     }
 
-    else if(shipping_info.value.shipping_option_data.logisticsType ==='UNIMARTC2C' ||shipping_info.value.shipping_option_data.logisticsType ==='FAMIC2C'){
+    else if(shipping_info.value.shipping_option_data['logisticsType'] == 'CVS' && !shipping_info.value.shipping_option_data['cvs_store_id']){
       layoutStore.alert.showMessageToast('選取店到店門市')
       return
     }

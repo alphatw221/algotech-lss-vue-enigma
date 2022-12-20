@@ -68,7 +68,7 @@
 				</div>
 			</template>
 			<template v-else-if="category == 'general'">
-				<div :class="category" class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg">
+				<div :class="category" class="box p-5 lg:mx-20 lg:px-40 mt-3 sm:p-8 text-sm sm:text-lg flex flex-col gap-3">
 
 					<span class="text-xl font-medium leading-none lg:-mx-6">{{$t('create_campaign.general_settings')}}</span>
 					<hr class="-mx-6 my-4" />
