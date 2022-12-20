@@ -37,7 +37,7 @@
                             rows="8"
                             cols="40"
                             class="h-48 p-2 mr-5 form-control"
-                            :placeholder="$t('tooltips.settings.note.delivery_note')"
+                            :placeholder="$t('settings.messages.placeholder.'+ field.key)"
                             v-model="props.meta_reply[field.key]"
                         >
                         </textarea>
