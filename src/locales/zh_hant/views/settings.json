@@ -149,7 +149,8 @@
         "enabled":"啟用",
         "update":"更新",
         "free_delivery_settings_update": "免運設定更新",
-        "delivery_method_settings_update": "物流方式設定更新"      
+        "delivery_method_settings_update": "物流方式設定更新",
+        "turn_on_cvs_map": "開啟超商地圖"   
     },
 
 
