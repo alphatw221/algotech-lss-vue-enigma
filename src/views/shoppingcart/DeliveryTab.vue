@@ -17,15 +17,17 @@
                 <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.home_delivery')}}</span>
               </div>
             </Tab>
-            <template v-if="shoppingCartStore.cart.campaign && shoppingCartStore.cart.campaign.meta_logistic.pickup_options">
-                <Tab v-if="shoppingCartStore.cart.campaign.meta_logistic.pickup_options.length !== 0" class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
-                @click="select_shipping_method('pickup')">
-                <div class="inline-flex items-center grow place-content-center">
-                  <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
-                  <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
-                </div>
-              </Tab>
-            </template>
+
+            <Tab  class="w-[95%] h-14 border-[#131c34] lg:w-64 flex" tag="button"
+                  v-show="shoppingCartStore.cart.campaign && shoppingCartStore.cart.campaign.meta_logistic.pickup_options.length !== 0"
+                  @click="select_shipping_method('pickup')">
+
+              <div class="inline-flex items-center grow place-content-center">
+                <SimpleIcon icon="store" :color="pickupColor" class="block mr-3" width="24" /> 
+                <span class="text-sm lg:text-lg">{{$t('shopping_cart.delivery_tab.self_pickup')}}</span>
+              </div>
+            </Tab>
+
           </TabList>
 
 
@@ -90,29 +92,30 @@
                       </div>
                     </div>
 
-                    <template
-                      v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true)"
-                      v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
-                      :key="index"> 
-                      <div class="flex flex-row flex-wrap cursor-pointer px-10 py-6 my-4 border-2 rounded-lg form-check gap-2"
-                        :class="{'border-slate-600': shipping_option_index_computed == index}"
-                        @click="select_shipping_method('delivery') & (shipping_option_index_computed = index)"
-                      >
-                      <div class="ml-2 text-lg">{{ option.title }}</div>
-                        
-                        <template v-if="option.type === '+'">
-                          <label class="form-check-label whitespace-nowrap ml-auto">
-                            {{ shoppingCartStore.cart.campaign.currency }}
-                            {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
-                        </template>
-                        <template v-else>
-                          <label class="form-check-label whitespace-nowrap ml-auto">
-                            {{ shoppingCartStore.cart.campaign.currency }}
-                            {{(Math.floor(parseFloat(option.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
-                            {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
-                        </template>
-                      </div>
+                    <template v-if="(shoppingCartStore.cart.campaign.meta_logistic?.is_self_delivery_enabled == true)"> 
+                      <template
+                        v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options"
+                        :key="index"> 
+                        <div class="flex flex-row flex-wrap cursor-pointer px-10 py-6 my-4 border-2 rounded-lg form-check gap-2"
+                          :class="{'border-slate-600': shipping_option_index_computed == index}"
+                          @click="select_shipping_method('delivery') & (shipping_option_index_computed = index)"
+                        >
+                        <div class="ml-2 text-lg">{{ option.title }}</div>
+                          
+                          <template v-if="option.type === '+'">
+                            <label class="form-check-label whitespace-nowrap ml-auto">
+                              {{ shoppingCartStore.cart.campaign.currency }}
+                              {{(Math.floor((parseFloat(option.price) + parseFloat(shoppingCartStore.cart.campaign.meta_logistic.delivery_charge)) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                              {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                          </template>
+                          <template v-else>
+                            <label class="form-check-label whitespace-nowrap ml-auto">
+                              {{ shoppingCartStore.cart.campaign.currency }}
+                              {{(Math.floor(parseFloat(option.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
+                              {{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}</label>
+                          </template>
+                        </div>
+                      </template>
                     </template>
 
                     <div class="flex flex-col flex-wrap" v-if="shoppingCartStore.cart.campaign.meta_logistic.delivery_date?.start_at">
@@ -136,7 +139,7 @@
                 <!-- END Delivery Option -->
 
                  <!-- Delivery Address -->
-                <template v-if="showAddressForm()">
+                <template v-if="showAddressForm">
                   <label class="font-medium text-md mt-5">{{$t('shopping_cart.delivery_tab.delivery_info')}}</label>
                   <div class="gap-5 mx-0 intro-y lg:mx-20">
 
@@ -224,15 +227,15 @@
               <label class="font-medium text-md">{{$t('shopping_cart.delivery_tab.option.pickup')}}</label>
               <template v-if="shoppingCartStore.cart.campaign">
                 <template v-for="(option, index) in shoppingCartStore.cart.campaign.meta_logistic.pickup_options" :key="index"> 
-                  <div class="flex flex-row justify-between form-check cursor-pointer px-5 sm:px-10 py-6 border-2 rounded-lg lg:mx-20 z-0 my-5"
+                  <div class="flex flex-row justify-between form-check cursor-pointer px-5 sm:px-10 py-5 border-2 rounded-lg lg:mx-20 z-0 my-5"
                     :class="{'border-slate-600': shipping_option_index_computed == index}"
-                    @click="select_shipping_method('pickup') & (shipping_option_index_computed = index) & pickup_date_range(index)"
+                    @click="select_shipping_method('pickup'); (shipping_option_index_computed = index); pickup_date_range(index);"
                     >
 
                       <div class="flex flex-col sm:flex-row flex-0 w-full"> 
                         <div class="flex flex-col mr-auto">
                           <div class="font-medium flex-0 text-lg ml-2">{{ option.name }}</div>
-                          <div class="font-medium flex-0 ml-2">{{ option.address }}</div>
+                          <div class="flex-0 ml-2">{{ option.address }}</div>
                         </div> 
                         <template v-if="option.start_at !== null && option.end_at !== null"> 
                           <label class="form-check-label flex-0 my-auto">{{new Date(option.start_at).toLocaleDateString('en-us', {year:"numeric", month:"short", day:"numeric"})
@@ -371,14 +374,13 @@
 
       <div class="col-span-12 row-start-1 lg:col-span-4">
         <div class="intro-y">
-          <OrderSummary class="m-0 2xl:m-5" />
+          <OrderSummarySkeleton v-if="props.cartLoading"/>
+          <OrderSummary class="m-0 2xl:m-5" v-else />
         </div>
 
         <div class="col-span-12 mt-5 intro-y box lg:col-span-6">
           <ShoppingCartTableSimple />
         </div>
-
-
 
       </div>
     </div>
@@ -387,21 +389,26 @@
       <button class="mr-auto rounded-full w-fit btn btn-outline-primary" @click="shoppingCartStore.openTab= 1">
         {{$t('shopping_cart.delivery_tab.previous')}}
       </button>
-
-      <button :show="show" v-if="checkoutLoading" class="w-fit btn btn-rounded-primary" >
-        {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
-        <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-12 h-fit"/>
-      </button>
-      <button :show="show" v-else class="w-fit btn btn-rounded-primary" @click="proceed_to_payment" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
+      <button :show="show" class="w-fit btn btn-rounded-primary" @click="proceed_to_payment()" :disabled="shoppingCartStore.user_subscription.status === sandboxMode">
         {{$t('shopping_cart.delivery_tab.proceed_to_payment')}}
       </button>
     </div>
+
+    <Modal :show="checkoutLoading" @hidden="!checkoutLoading" class="text-center" backdrop="static">
+        <ModalBody class="">
+          <div class="flex flex-col"> 
+            <p class="text-lg text-primary font-medium"> Payment processing </p>
+            <lottie-player class="mx-auto" src="https://assets10.lottiefiles.com/packages/lf20_vIyvPR.json" loop background="transparent"  speed="1"  style="width: 300px; height: 300px;"   autoplay></lottie-player>
+          </div>
+        </ModalBody>
+    </Modal>
   </div>
 </template>
 
 
 <script setup>
 import OrderSummary from "./OrderSummary.vue";
+import OrderSummarySkeleton from "./skeleton/OrderSummarySkeleton.vue";
 import ShoppingCartTableSimple from "./ShoppingCartTable-simple.vue";
 import { required, minLength, maxLength, email, integer, helpers, requiredUnless } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
@@ -416,6 +423,7 @@ import { useLSSBuyerLayoutStore } from "@/stores/lss-buyer-layout"
 import { useTwZipcodeStore } from "@/stores/tw-zipcode"
 import { useCookies } from 'vue3-cookies'
 import i18n from "@/locales/i18n"
+import { ModalHeader } from "../../global-components/modal";
 const { cookies } = useCookies()
 const route = useRoute();
 const router = useRouter();
@@ -426,20 +434,24 @@ const twZipcodeStore = useTwZipcodeStore();
 const sandboxMode = ref("test")
 const show = ref(false)
 const checkoutLoading = ref(false)
-const pickupdatePicker = ref(null)
 const date_range = ref({
   start:new Date(),
   end:new Date()
 })
-let webSocket = null
 
-const shipping_option_index = ref('')
+const props = defineProps({
+    cartLoading: {
+        type: Boolean,
+        default: true,
+  },
+})
+
+const shipping_option_index = ref(null)
 const pickup_select_index = ref(null)
 const shipping_info= ref({
 			shipping_option:"",
       shipping_method: "delivery",
       shipping_first_name: "",
-      // shipping_last_name: "",
       shipping_email: "",
       shipping_phone: "",
       shipping_cellphone: "",
@@ -464,6 +476,7 @@ const shipping_info= ref({
 
 const deliveryColor = ref('white')
 const pickupColor = ref('#131C34')
+const showAddressForm = ref(true)
 
 const areaIndex = ref(null)
 const cityIndex = ref(null)
@@ -489,7 +502,7 @@ const area_computed = computed({
   }
 })
 
-const select_shipping_method = method => {
+const select_shipping_method = (method) => {
   console.log("select_shipping_method", method)
   shipping_method_computed.value=method
   deliveryColor.value = method !== 'pickup'? 'white' :'#131C34'
@@ -524,6 +537,7 @@ const shipping_option_index_computed = computed({
     
     if(shipping_info.value.shipping_method=='pickup'){
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
+      showAddressForm.value = false
     }
     // temp for ecpay
     else if(shipping_info.value.shipping_method=='ecpay'){
@@ -534,29 +548,28 @@ const shipping_option_index_computed = computed({
       }
       if (["TCAT"].includes(shipping_option_index.value)) {
         shipping_info.value.shipping_option_data['logisticsType'] = 'HOME'
+        showAddressForm.value = true
       } else {
         shipping_info.value.shipping_option_data['logisticsType'] = 'CVS'
+        showAddressForm.value = false
       }
       Object.assign(shipping_info.value.shipping_option_data,{
         'LogisticsSubType': shipping_option_index.value,
         'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].type,
         "price": shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].delivery_charge,
       })
-      console.log(shipping_info.value.shipping_option_data)
+      // console.log(shipping_info.value.shipping_option_data)
     }
     else{
+      showAddressForm.value = true
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
+
     }
   }
 })
 
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
-const showAddressForm = () => {
-  if (shipping_info.value.shipping_method == "pickup") return true
-  if (shipping_option_index_computed.value == "") return false
-  if (shipping_option_index_computed.value === 'UNIMARTC2C' || shipping_option_index_computed.value === 'FAMIC2C') return false
-  return true
-}
+
 const pickup_date_range = (index) =>{
   date_range.value.start = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].start_at
   date_range.value.end = shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index].end_at
@@ -658,11 +671,11 @@ const delivery_rules = computed(()=>{
     },
     shipping_location: {
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-      exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
+      // exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
     },
     shipping_region: {
       required: helpers.withMessage(i18n.global.t("vulidate.required"), required),
-      exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
+      // exactlength: helpers.withMessage(i18n.global.t("vulidate.exact_number_length", {number:3}), exactlength(3)),
     },
     shipping_postcode: {
       integer: helpers.withMessage(i18n.global.t("vulidate.only_integer"), integer),
@@ -729,7 +742,8 @@ const proceed_to_payment = () =>{
     shipping_info.value.shipping_region = ''
     shipping_info.value.shipping_address_1 = ''
     shipping_info.value.shipping_postcode = ''
-  } else {
+
+  } else if(shipping_info.value.shipping_method === 'delivery') {
     delivery_validate.value.$touch();
     if (delivery_validate.value.$invalid && shipping_info.value.shipping_option_data.logisticsType !== 'CVS'){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
@@ -744,7 +758,7 @@ const proceed_to_payment = () =>{
     layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_user_info'))
     return
   }
-  console.log(shipping_info.value)
+  // console.log(shipping_info.value)
   checkoutLoading.value = true
   buyer_checkout_cart(route.params.cart_oid, {shipping_data:shipping_info.value, points_used:shoppingCartStore.points_used}, layoutStore.alert)
   .then(res=>{
@@ -757,7 +771,6 @@ const proceed_to_payment = () =>{
     checkoutLoading.value = false
   })
   .catch(err=>{checkoutLoading.value = false})
-  
   
 }
 

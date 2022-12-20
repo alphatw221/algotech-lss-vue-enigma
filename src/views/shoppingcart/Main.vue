@@ -1,5 +1,5 @@
 <template>
-  <div class="flex flex-wrap">
+  <div class="flex flex-wrap" :class="{'pulse': cartLoading==true}">
     <div class="w-full calch">
       <!-- BEGIN Tab List-->
       <ul class="flex mb-0 list-none flex-wrap pt-3 pb-4 flex-row">
@@ -53,11 +53,11 @@
 
           <div class="tab-content tab-space">
             <!-- BEGIN My Cart Tab -->
-              <MyCartTab />
+              <MyCartTab :cartLoading="cartLoading"/>
             <!-- END My Cart Tab -->
 
             <!-- BEGIN Delivery Tab -->
-              <DeliveryTab/>
+              <DeliveryTab :cartLoading="cartLoading"/>
             <!-- END Delivery Tab-->
           </div>
         </div>
@@ -66,7 +66,7 @@
     </div>
     <WishListModal :isAnonymousUser="isAnonymousUser"/>
     <ItemDescriptionModal />
-    <AddItemModal/>
+    <AddItemModal :cartLoading="cartLoading"/>
   </div>
 </template>
 
@@ -94,9 +94,11 @@ const router = useRouter();
 const shoppingCartStore = useShoppingCartStore()
 const buyerLayoutStore = useLSSBuyerLayoutStore();
 const i18n = getCurrentInstance().appContext.config.globalProperties.$i18n
+
 const btnOne = ref('white')
 const btnTwo = ref('#334155')
 const { cookies } = useCookies()
+const cartLoading = ref(true)
 const toggleTabs = tabNumber => {
   shoppingCartStore.openTab = tabNumber
   router.push({query:{tab:tabNumber}})
@@ -118,6 +120,7 @@ onMounted(()=>{
         console.log(shoppingCartStore.cart)
         i18n.locale = res.data.campaign.lang
         Object.keys(shoppingCartStore.cart.products).length == 0 ? shoppingCartStore.showAddItemModal = true : shoppingCartStore.showAddItemModal = false
+        cartLoading.value = false
       }
   )
 
@@ -177,5 +180,18 @@ watch(computed(()=>shoppingCartStore.openTab),()=>{
 
 .calch{
   min-height: calc(100vh - 130px);
+}
+
+.pulse {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+
+    @keyframes pulse {
+    0%, 100% {
+        opacity: 1;
+    }
+    50% {
+        opacity: .5;
+    }
+    }
 }
 </style>
