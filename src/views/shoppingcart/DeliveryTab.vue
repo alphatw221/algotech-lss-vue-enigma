@@ -526,14 +526,19 @@ const shipping_option_index_computed = computed({
       shipping_info.value.shipping_option_data = JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.pickup_options[index]))
     }
     // temp for ecpay
-    else if(typeof shipping_option_index.value == 'string'){
+    else if(shipping_info.value.shipping_method=='ecpay'){
       if(shipping_option_index.value == shoppingCartStore.cart.meta.ecpay_cvs?.logistics_sub_type) {
         shipping_info.value.shipping_option_data = shoppingCartStore.cart.meta.ecpay_cvs
-        Object.assign(shipping_info.value.shipping_option_data,{'logisticsType':'CVS'})
-      }else{
-        shipping_info.value.shipping_option_data = {'logisticsType':shipping_option_index.value}
+      } else {
+        shipping_info.value.shipping_option_data = {}
+      }
+      if (["TCAT"].includes(shipping_option_index.value)) {
+        shipping_info.value.shipping_option_data['logisticsType'] = 'HOME'
+      } else {
+        shipping_info.value.shipping_option_data['logisticsType'] = 'CVS'
       }
       Object.assign(shipping_info.value.shipping_option_data,{
+        'LogisticsSubType': shipping_option_index.value,
         'type': shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].type,
         "price": shoppingCartStore.cart.campaign.meta_logistic[shipping_info.value.shipping_method]["logistics_sub_type"][shipping_option_index.value].delivery_charge,
       })
@@ -714,7 +719,7 @@ const proceed_to_payment = () =>{
       return
     }
 
-    else if(shipping_info.value.shipping_option_data.logisticsType ==='UNIMARTC2C' ||shipping_info.value.shipping_option_data.logisticsType ==='FAMIC2C'){
+    else if(shipping_info.value.shipping_option_data['logisticsType'] == 'CVS' && !shipping_info.value.shipping_option_data['cvs_store_id']){
       layoutStore.alert.showMessageToast('選取店到店門市')
       return
     }
