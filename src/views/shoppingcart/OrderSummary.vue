@@ -173,9 +173,6 @@
       </div>
     </div>
 
-  
-
-
     <!-- ADD_MORE_ITEMS NEXT BUTTON -->
     <div class="flex gap-3 mt-5" v-if="shoppingCartStore.openTab === 1">
       <button
@@ -221,6 +218,7 @@ const layoutStore = useLSSBuyerLayoutStore();
 // const cartTotal = ref(0)
 const showModal = ref(false)
 const isAnonymousUser=cookies.get("login_with")=='anonymousUser'
+
 
 const computedCartSubtotal = computed(()=>{
   var subtotal = 0
