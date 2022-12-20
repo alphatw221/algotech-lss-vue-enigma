@@ -13,8 +13,58 @@
 			</tr>
 			</thead>
 			<tbody>
+			<template v-if="props.cartLoading"> 
+				<tr v-for="index in 2 " :key="index" class="intro-x mt-5 relative">
+					<td class="imgtd">
+						<div class="flex flex-col items-center">
+							<div class="w-24 h-24 lg:w-12 lg:h-12  2xl:x-12 2xl:h-12 image-fit zoom-in">
+								<img
+									class="rounded-lg"
+									:src="staticDir + `no_image.jpeg`"
+								/>
+							</div>
+							<div class="h-4 w-20 bg-slate-200 rounded mt-2"></div>
+						</div>
+					</td>
+					<!-- ordercode -->
+					<td class="text-center" :data-content="$t(`shopping_cart.table.order_code`)">
+						<div class="flex items-center"> 
+							<div class="h-4 w-14 mx-auto bg-slate-200 rounded"></div>
+						</div>
+					</td>
+					<!-- qty-->
+					<td class="text-center h-20" :data-content="$t(`shopping_cart.table.Qty`)">
+						<div class="flex w-full justify-center">
+							<button type="button" disabled>
+								<MinusSquareIcon class="w-5 h-5 mt-2 mr-2 text-slate-400" />
+							</button>
+							<input 
+								type="text" 
+								class="form-control" 
+								aria-label="default input" 
+								style="width: 2.7rem;"
+								value="1"
+							/>
+							<button type="button" disabled>
+								<PlusSquareIcon class="w-5 h-5 mt-2 ml-2 text-slate-400" />
+							</button>
+						</div>
+					</td>
+					<td class="sm:hidden">
+						<div style="color:#FF4500" v-show="false"></div>
+					</td>
+					<!-- price -->
+					<td class="text-center h-20" :data-content="$t(`shopping_cart.table.price`)">
+						<div class="h-4 w-14 ml-auto sm:mx-auto bg-slate-200 rounded"></div>
+					</td>
+
+					<!-- subtotal-->
+					<td class="text-center h-20" :data-content="$t(`shopping_cart.table.subtotal`)">
+						<div class="h-4 w-14 ml-auto sm:mx-auto bg-slate-200 rounded"></div>
+					</td>
+				</tr>
+			</template>
 			<template v-for="(qty, campaign_product_id, index) in shoppingCartStore.cart.products" :key="index" >
-				
 				<tr class="intro-x mt-5 relative">
 					<td class="imgtd">
 						<div class="flex flex-col items-center">
@@ -95,14 +145,14 @@
 					<td class="sm:hidden">
 						<div style="color:#FF4500" v-show="shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_add_to_cart >= shoppingCartStore.campaignProductDict[campaign_product_id]?.qty_for_sale && shoppingCartStore.campaignProductDict[campaign_product_id]?.type === 'product'"> {{$t('shopping_cart.table.missing_message')}}</div>
 					</td>
-					<td class="text-center h-20 " :data-content="$t(`shopping_cart.table.price`)">
+					<td class="text-center h-20 tdPrice" :data-content="$t(`shopping_cart.table.price`)">
 						<div class="price whitespace-nowrap"> 
 							{{shoppingCartStore.cart.campaign.currency}} 
 							{{(Math.floor(parseFloat(shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
 							{{shoppingCartStore.cart.campaign.price_unit?$t(`global.price_unit.${shoppingCartStore.cart.campaign.price_unit}`):''}}
 						</div>
 					</td>
-					<td class="text-center h-20" :data-content="$t(`shopping_cart.table.subtotal`)">
+					<td class="text-center h-20 tdSubtotal" :data-content="$t(`shopping_cart.table.subtotal`)">
 						<div class="price whitespace-nowrap"> 
 							{{shoppingCartStore.cart.campaign.currency}} 
 							{{(Math.floor(parseFloat(qty * shoppingCartStore.campaignProductDict[campaign_product_id]?.price) * (10 ** shoppingCartStore.cart.campaign.decimal_places)) / 10 ** shoppingCartStore.cart.campaign.decimal_places).toLocaleString('en-GB')}}
@@ -124,12 +174,13 @@
 	</table>
 
 	<!-- BEGIN Empty Cart Text -->
-			<div class=" text-center mt-5 md:mt-10" v-if="numOfItems==0">
-				<h1 class="text-slate-500 text-sm md:text-lg">
-					{{$t('shopping_cart.table.empty_message')}}
-				</h1>
-			</div>
+		<div class=" text-center mt-5 md:mt-10" v-if="numOfItems==0 && !props.cartLoading">
+			<h1 class="text-slate-500 text-sm md:text-lg">
+				{{$t('shopping_cart.table.empty_message')}}
+			</h1>
+		</div>
 	<!-- END Empty Cart Text -->
+
 </template>
 
 <script setup>
@@ -163,6 +214,13 @@ const tableColumns = ref([
 	{ key: "subtotal", name: "subtotal",  },
 	{ key: "remove", name: "null",  },
 ])
+
+const props = defineProps({
+    cartLoading: {
+        type: Boolean,
+        default: true,
+  },
+})
 
 const numOfItems = computed(()=>{
 	if(shoppingCartStore.cart.products)return Object.keys(shoppingCartStore.cart.products).length
