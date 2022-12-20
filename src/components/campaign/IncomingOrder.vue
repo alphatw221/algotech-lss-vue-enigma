@@ -1,5 +1,5 @@
 <template>
-    <div class="box mt-2 min-h-[45vh] w-full max-h-screen
+    <div class="box mt-2 min-h-[40vh] w-full max-h-screen
             2xl:h-full">
         <div class="h-full flex flex-col">
             <!-- <div class="flex w-full m-3"> 
