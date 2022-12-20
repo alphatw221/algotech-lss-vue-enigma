@@ -57,7 +57,7 @@
             <!-- END My Cart Tab -->
 
             <!-- BEGIN Delivery Tab -->
-              <DeliveryTab/>
+              <DeliveryTab :cartLoading="cartLoading"/>
             <!-- END Delivery Tab-->
           </div>
         </div>
@@ -66,7 +66,7 @@
     </div>
     <WishListModal :isAnonymousUser="isAnonymousUser"/>
     <ItemDescriptionModal />
-    <AddItemModal/>
+    <AddItemModal :cartLoading="cartLoading"/>
   </div>
 </template>
 

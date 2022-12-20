@@ -12,6 +12,18 @@
           <div class="h-4 w-20 bg-slate-200 rounded"></div>
         </div>
 
+        <div class="flex flex-row flex-wrap justify-between mt-2" v-if="shoppingCartStore.openTab === 2">
+        <label class="w-fit my-auto whitespace-nowrap">{{$t('shopping_cart.order_summary.enter_promo')}}</label>
+          <div class="input-group ml-auto"> 
+            <input
+            type="text"
+            disabled
+            class="form-control sm:w-32 h-[35px] text-right"
+            />
+            <button class="input-group-text h-[35px] w-16">{{$t('shopping_cart.order_summary.enter')}}</button>
+          </div>
+      </div>
+
         <!-- SHIPPING -->
         <div class="flex mt-4 border-t border-slate-200/60 dark:border-darkmode-400 mt-4
             pt-4">
