@@ -564,7 +564,12 @@ const shipping_option_index_computed = computed({
       // console.log(shipping_info.value.shipping_option_data)
     }
     else{
-      showAddressForm.value = true
+      if (shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]?.is_cvs) {
+        showAddressForm.value = false
+      } else {
+        showAddressForm.value = true
+      }
+      
       shipping_info.value.shipping_option_data = index == null ? {} : JSON.parse(JSON.stringify(shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[index]))
 
     }
@@ -750,12 +755,17 @@ const proceed_to_payment = () =>{
     shipping_info.value.shipping_address_1 = ''
     shipping_info.value.shipping_postcode = ''
 
-  } else if(shipping_info.value.shipping_method === 'delivery') {
+  } else if(shipping_info.value.shipping_method === 'delivery' && shoppingCartStore.cart.campaign.meta_logistic.additional_delivery_options[shipping_option_index]?.is_cvs == false) {
     delivery_validate.value.$touch();
     if (delivery_validate.value.$invalid && shipping_info.value.shipping_option_data.logisticsType !== 'CVS'){
       layoutStore.alert.showMessageToast(i18n.global.t('shopping_cart.invalid_delivery_info'))
       return
     }
+  } else {
+    shipping_info.value.shipping_location = ''
+    shipping_info.value.shipping_region = ''
+    shipping_info.value.shipping_address_1 = ''
+    shipping_info.value.shipping_postcode = ''
   }
 
   reciever_validate.value.$touch();
