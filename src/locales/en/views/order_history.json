@@ -21,5 +21,6 @@
     "paypal":"Paypal",
     "pay_mongo":"PayMongo",
     "rapyd":"Rapyd",
-    "ecpay":"ECPay"
+    "ecpay":"ECPay",
+    "ecpay_cash_on_delivery":"貨到付款"
 }
