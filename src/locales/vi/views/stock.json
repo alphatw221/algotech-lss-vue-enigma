@@ -58,6 +58,7 @@
 
     "add_product_page": {
         "sku":"mã SKU của sản phẩm",
+        "sku_input":"Vui lòng nhập số mặt hàng (SKU)",
         "edit_title": "Chỉnh sửa sản phẩm",
         "add_title": "Thêm sản phẩm mới",
         "product_name": "Tên sản phẩm",
@@ -77,11 +78,16 @@
         "remark_warning":"Ghi chú không lớn hơn 100 kí tự",
         "description": "Mô tả",
         "product_description": "mô tả sản phẩm...",
+        "order_code_warning":"Nhập không quá 10 ký tự",
         "description_warning":"Cannot contains <head> tag",
         "preview":"Xem trước",
         "cancel": "Hủy bỏ",
         "save": "Lưu lại",
-        "order_code":"Order Code",
+        "order_code":"Mã đơn hàng",
+        "order_code_input":"Vui lòng nhập mã đặt hàng sản phẩm",
+        "price_ori":"Giá cả",
+        "price_ori_input":"Vui lòng nhập giá vốn của sản phẩm",
+        "price_input":"Vui lòng nhập giá sản phẩm",
 
         "not_save_message":"Cập nhật Hủy bỏ",
         "create_message":"Tạo thành công",

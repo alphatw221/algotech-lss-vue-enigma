@@ -124,7 +124,6 @@ import instagram_platform from '/src/assets/images/lss-img/instagram.png';
 import unbound from '/src/assets/images/lss-img/noname.png';
 import i18n from "@/locales/i18n"
 import { useCookies } from "vue3-cookies";
-import SimpleIcon from '../../../global-components/lss-svg-icons/SimpleIcon.vue';
 import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout"
 import { useCampaignDetailStore } from "@/stores/lss-campaign-detail";
 

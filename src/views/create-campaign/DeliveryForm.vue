@@ -135,6 +135,17 @@
 					</label>
 				</div>
 				
+				<div>
+                    <input  
+                        class="w-10 h-10 form-control"
+                        type="checkbox" 
+                        :placeholder="$t('settings.delivery_form.express_charge')"
+                        v-model="option.is_cvs"
+                    />
+                    <label class="text-[16px] ml-2" 
+                        >{{ $t("settings.delivery_form.turn_on_cvs_map") }}
+                    </label>                    
+                </div>
 
 				<button 
 					class="btn btn-danger inline-block text-base w-full sm:w-24 ml-auto h-[42px]" 
@@ -144,7 +155,7 @@
 		</div>
 
 		<!-- delivery date -->
-		<div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1">
+		<div class="flex flex-col flex-wrap justify-between col-span-12 col-start-1 gap-2">
 			<label for="regular-form-2" class="text-base font-bold form-label my-auto">{{$t('create_campaign.delivery_form.delivery_date')}}</label>
 			<div class="flex flex-col flex-wrap gap-3 mt-5 sm:flex-row sm:mt-0 z-50">
 				<v-date-picker class="" 
@@ -155,12 +166,20 @@
 					:min-date='new Date()'
 					>
 					<template v-slot="{ inputValue, inputEvents }">
-						<div class="flex items-center justify-center">
-						<input :value="inputValue.start" v-on="inputEvents.start"
-							class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-						<ChevronsRightIcon class="w-8 h-8 m-1" />
-						<input :value="inputValue.end" v-on="inputEvents.end" disabled
-							class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+						<div class="flex items-center justify-center gap-1">
+							<div class="flex flex-col relative">
+								<p> From</p>
+								<input :value="inputValue.start" v-on="inputEvents.start"
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/>
+							</div> 
+							<ChevronsRightIcon class="w-8 h-8 mt-auto mb-1" />
+							<div class="flex flex-col relative">
+								<p> To</p>
+								<input :value="inputValue.end" v-on="inputEvents.end" disabled
+								class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/> 
+							</div>
 						</div>
 					</template>
 				</v-date-picker>
@@ -228,12 +247,18 @@
 							:min-date='new Date()'
 							>
 							<template v-slot="{ inputValue, inputEvents }">
-								<div class="flex items-center justify-center">
-								<input :value="inputValue.start" v-on="inputEvents.start"
-									class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
-								<ChevronsRightIcon class="w-8 h-8 m-1" />
-								<input :value="inputValue.end" v-on="inputEvents.end" disabled
-									class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+								<div class="flex items-center justify-start gap-1">
+									<div class="flex flex-col relative">
+										<input :value="inputValue.start" v-on="inputEvents.start"
+										class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+										<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/>
+									</div> 
+									<ChevronsRightIcon class="w-8 h-8 mt-auto mb-1" />
+									<div class="flex flex-col relative">
+										<input :value="inputValue.end" v-on="inputEvents.end" disabled
+										class="form-control border h-[42px] px-2 py-1 w-42 rounded focus:outline-none focus:border-indigo-300" />
+										<CalendarIcon class="hidden sm:block absolute right-2 bottom-2.5 text-slate-600"/> 
+									</div>
 								</div>
 							</template>
 						</v-date-picker>

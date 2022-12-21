@@ -3,7 +3,7 @@
     "confirm_select_product":"確認商品",
     "search_bar":{
         "category":"商品分類",
-        "all":"全部",
+        "all":"全部類別",
         "search_by":"搜尋欄位",
         "search_options":{
             "name":"名稱",
@@ -24,11 +24,12 @@
         "max_order_amount":"單次購買上限",
         "category":"商品分類",
         "categories":"商品分類",
-        "price":"價錢",
+        "price":"售價",
         "customer_editable":"允許顧客編輯",
         "customer_removable":"允許顧客刪除",
         "oversell":"可否超賣",
         "overbid":"可否超訂",
+        "pinned":"商品置頂",
         "types":{
             "product":"商品",
             "product-fast":"商品",

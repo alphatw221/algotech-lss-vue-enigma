@@ -1,4 +1,17 @@
 {
     "required":"required",
-    "requiredIf":"required"
+    "requiredIf":"required",
+    "invalid_email":"invalid email format",
+    "invalid_address":"invalid address format",
+    "exceed_maximum_length": "allow maximum length is %{number}",
+    "bytes_between_length": "accpet %{number} characters",
+    "name_between_length": "accpet %{number} characters",
+    "address_between_length": "accpet %{number} characters",
+    "only_integer": "only allow integer",
+    "required_either_one": "either one is required",
+    "exact_number_length": "please enter %{number} numbers",
+    "exact_word_length": "please enter %{number} words",
+    "contains_special_characters": "can not contain special characters",
+    "tw_cellphone_begining": "invalid cellpone format",
+    "data_invalid": "invalid data"
 }

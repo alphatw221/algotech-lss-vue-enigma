@@ -234,6 +234,7 @@ const computedTableColumns = computed(()=>{
 		{ name: "category", key: "categories" },
 		{ name: "remark", key: "remark"},
 		{ name: "qty", key: "qty", sortable:true },
+		{ name: "price_ori", key:"price_ori", sortable:true },
 		{ name: "price", key: "price", sortable:true },
 		{ name: "wishlist", key:"wishlist"},
 		{ name: "", key: "edit" },]
@@ -294,9 +295,10 @@ onUnmounted(()=>{
 const search = ()=>{
 	showCommentLoding.value = true
 	stockProducts.value = []
-	var _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _categoryID, _exclude, _sortBy, _toastify;
+	var _support_stock_user_subscription_id, _pageSize, _currentPage, _searchColumn, _keyword, _productStatus, _productType, _categoryID, _exclude, _sortBy, _toastify;
 
 	search_product(
+		_support_stock_user_subscription_id="",
 		_pageSize=pageSize.value, 
 		_currentPage=currentPage.value, 
 		_searchColumn=searchColumn.value, 
@@ -316,7 +318,7 @@ const search = ()=>{
 			}
 			stockProducts.value = response.data.results
 			showCommentLoding.value = false
-			// console.log(stockProducts.value)
+			console.log(stockProducts.value)
 		}
 	)
 }
@@ -500,6 +502,7 @@ thead th{
 	}
 
 	td:before {
+		content: attr(data-content);
 		position: absolute;
 		left: 15px;
 		width: 45%; 
@@ -536,46 +539,16 @@ thead th{
 		font-size: 16px !important;
 	}
 
-	td:nth-of-type(3):before {
-		content: attr(data-content);
-		 }
-
-	td:nth-of-type(4):before {
-		content: attr(data-content);
-	}
-	td:nth-of-type(5):before {
-		content: attr(data-content);
-	}
-	
-	.category:before {
-		content: attr(data-content);
-	}
-	td:nth-of-type(6):before {
-		content: attr(data-content);
-	}
 	td:nth-of-type(6){
 		white-space: normal !important;
 		width: 100% !important;
 	}
 
-	td:nth-of-type(7):before {
-		content: attr(data-content);
-		 
-	}
 	.wishlist{
 		display:inline-flex;
 		justify-content: flex-end;
 		width: 100% !important;
 	}
-	.wishlist:before {
-		content: attr(data-content);
-		 
-	}
-
-	td:nth-of-type(8):before {
-		content: attr(data-content);
-		 }
-
 	.edit{
 		position: absolute !important;
         top:0;

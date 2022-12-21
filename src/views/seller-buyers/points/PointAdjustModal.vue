@@ -18,7 +18,7 @@
             <div class="flex flex-row gap-5">
                 <div class="flex flex-col w-full">
                     <span> {{$t('buyers.buyer_point.adjust_point_modal.type')}} </span>
-                    <select class="form-control h-[35px] sm:h-[42px]" v-model="point.type"> 
+                    <select class="form-control h-[42px]" v-model="action"> 
                         <template v-for="opt in options" :key="opt" > 
                             <option :value="opt.name"> {{opt.name}}</option>
                         </template>
@@ -26,9 +26,9 @@
                 </div> 
                 <div class="flex flex-col w-full">
                     <span> {{$t('buyers.buyer_point.adjust_point_modal.points')}} </span>
-                    <input class="form-control" type="number" v-model="v.points.$model"/> 
+                    <input class="form-control" type="number" v-model="v.earned.$model"/> 
                     <label class="block text-danger text-[12px]" 
-                        v-for="error, index in v.points.$errors" :key="index">
+                        v-for="error, index in v.earned.$errors" :key="index">
                         {{ $t(`settings.delivery.errors.${error.$validator}`) }}
                     </label>
                 </div> 
@@ -36,13 +36,13 @@
 
             <div class="flex flex-col w-full">
                 <span> {{$t('buyers.buyer_point.adjust_point_modal.reason')}} </span>
-                <input class="form-control" type="text" v-model="point.reason"/> 
+                <input class="form-control" type="text" v-model="point.description"/> 
             </div> 
 
-            <div v-if="point.type == 'add'" class="flex flex-col w-full">
+            <div v-if="action == 'add'" class="flex flex-col w-full">
                 <span> {{$t('buyers.buyer_point.adjust_point_modal.expired_at')}} </span>
                 <v-date-picker class="" 
-					v-model="v.expire_at.$model" 
+					v-model="v.expired_at.$model" 
 					:timezone="timezone" 
 					is-required
                     mode="date"
@@ -54,7 +54,7 @@
                     </template>
 				</v-date-picker>
                 <label class="block text-danger text-[12px]" 
-                    v-for="error, index in v.expire_at.$errors" :key="index">
+                    v-for="error, index in v.expired_at.$errors" :key="index">
                     {{ $t(`settings.delivery.errors.${error.$validator}`) }}
                 </label>
             </div> 
@@ -69,33 +69,39 @@
 
 <script setup>
 import { useRoute, useRouter } from "vue-router"
+import { create_buyer_points_transaction } from "@/api_v2/user_subscription"
 import { useLSSSellerLayoutStore } from '@/stores/lss-seller-layout';
-import { ref, onMounted, onUnmounted, getCurrentInstance, computed} from 'vue'
+import { ref, onMounted, onUnmounted, getCurrentInstance, watch, computed} from 'vue'
 import { required,integer, minValue,requiredIf } from "@vuelidate/validators";
 import { useVuelidate } from "@vuelidate/core";
 
 const eventBus = getCurrentInstance().appContext.config.globalProperties.eventBus;
 const layoutStore = useLSSSellerLayoutStore()
 const showModal = ref(false)
+const route = useRoute()
 const options = ref([
     {name:"add"},
     {name:"deduct"}
 ])
+const action = ref("add")
 const props = defineProps({
     wallet:Object
 })
+const buyer_id = parseInt(route.params.buyer_id)
 
 const point = ref({
-    type:"add",
-    points:"",
-    reason:"",
-    expire_at:""
+    user_subscription: layoutStore.userInfo.user_subscription.id,
+    earned:0,
+    description:"",
+    type: "seller_transfer",
+    buyer: buyer_id,
+    expired_at: new Date()
 })
 
 const pointRules = computed(()=>{
     return {
-        points:{required,integer,minValue:minValue(1)},
-        expire_at:{required:requiredIf(point.value.type == 'add')}
+        earned:{required,integer,minValue:minValue(1)},
+        expired_at:{required:requiredIf(action.value == 'add')}
     }
 })
 
@@ -103,16 +109,33 @@ const v = useVuelidate(pointRules, point);
 
 const save=()=>{
     v.value.$touch()
-    if (v.value.$invalid)layoutStore.alert.showMessageToast('Invalid Data')
+    if (v.value.$invalid){
+        layoutStore.alert.showMessageToast('Invalid Data')
+    } else {
+        let data = JSON.parse(JSON.stringify(point.value))
+        if (action.value === "deduct") {
+            data['earned'] = data['earned'] * -1
+        }
+        
+        create_buyer_points_transaction(buyer_id, 10, data, layoutStore.alert)
+        .then(response => {
+            eventBus.emit("renderPointsTable", response.data.data)
+            eventBus.emit("renderBuyerAndWallet", response.data.wallet)
+            hide()
+        })
+    }
 }
 
 const hide = ()=>{
-    point.value={
-        type:"add",
-        points:"",
-        reason:"",
-        expire_at:""
+    point.value = {
+        user_subscription: layoutStore.userInfo.user_subscription.id,
+        earned: 0,
+        description: "",
+        type: "seller_transfer",
+        buyer: buyer_id,
+        expired_at: new Date()
     }
+    
     showModal.value=false
 }
 

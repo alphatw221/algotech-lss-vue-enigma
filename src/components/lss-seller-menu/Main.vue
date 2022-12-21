@@ -13,7 +13,7 @@
           <div class="bar1"></div><div class="bar2"></div><div class="bar3"></div>
         </div> -->
         <ul :class="{'notSimple' : !closeSidebar }">
-          <div class="top-[115px] z-[51] left-[20px] pl-3 flex fixed my-3 mx-auto py-1 w-fit rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
+          <div v-if="role !== 'supplier'" class="z-[51] pl-3 flex relative my-3 mx-auto py-1 w-fit rounded-xl cursor-pointer hover:bg-slate-100 creatCamp" 
             :class="[{'bg-slate-100': isCreateCampaign},{'xl:w-[220px]': !closeSidebar}]"
             @click="router.push({name:'create-campaign'})"> 
             <button class="w-10 h-10 xl:mr-3 btn btn-rounded-warning border-[2px] border-slate-100 shadow-lg"
@@ -141,6 +141,7 @@
         </ul> 
           <button class="fixed ml-2 text-white rounded-lg btn btn-danger bottom-5 border-0 border-red-900 shadow-lg"
               @click="router.push('/seller/change-plan')"
+              :disabled="role == 'kol' || role == 'supplier'"
               >
               <font-awesome-icon icon="fa-solid fa-bolt-lightning" class="mr-0 h-5 m-1" :class="{'xl:mx-2': !closeSidebar}"/>
               <span class="hidden text-lg"
@@ -168,18 +169,17 @@ import { useLSSSellerLayoutStore } from "@/stores/lss-seller-layout";
 import SideMenuTooltip from "@/components/side-menu-tooltip/Main.vue";
 import { linkTo, nestedMenu, enter, leave } from "./index";
 import dom from "@left4code/tw-starter/dist/js/dom";
-import MenuIcon from "../../global-components/lss-svg-icons/MenuIcon.vue";
-import SimpleIcon from "../../global-components/lss-svg-icons/SimpleIcon.vue";
+import MenuIcon from "@/global-components/lss-svg-icons/MenuIcon.vue";
 
 const route = useRoute();
 const router = useRouter();
 const formattedMenu = ref([]);
 const layoutStore = useLSSSellerLayoutStore();
-const sideMenu = computed(() => nestedMenu(layoutStore.menu, route));
 const closeSidebar = ref(false)
+const role = layoutStore.userInfo.user_subscription.type
+const sideMenu = computed(() =>role == 'kol'? nestedMenu(layoutStore.kol_menu, route): role == 'supplier'? nestedMenu(layoutStore.supplier_menu, route):nestedMenu(layoutStore.menu, route) )
 
 provide("forceActiveMenu", (pageName) => {
-  
   route.forceActiveMenu = pageName;
   formattedMenu.value = $h.toRaw(sideMenu.value);
 });
@@ -188,7 +188,7 @@ watch(
   computed(() => route.path),
   () => {
     delete route.forceActiveMenu;
-    formattedMenu.value = $h.toRaw(sideMenu.value);
+    formattedMenu.value = $h.toRaw(sideMenu.value); 
   },
 );
 

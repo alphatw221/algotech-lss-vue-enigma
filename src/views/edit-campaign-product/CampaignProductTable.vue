@@ -145,6 +145,21 @@
                             </div>
                         </td>
 
+                        <td v-else-if="column.key === 'pinned'" 
+                            :class="{'luckyDraw': campaign_product.type == 'lucky_draw'}"
+                            class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 text-center content-center items-center pinned" 
+                            :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
+                            <div v-if="campaign_product.type == 'lucky_draw'" > - </div>
+                            <div v-else class=" form-check place-content-end sm:place-content-center">
+                                <input 
+                                    class="form-check-input w-[1.2rem] h-[1.2rem]" 
+                                    type="checkbox" 
+                                    disabled
+                                    v-model="campaign_product[column.key]" 
+                                />
+                            </div>
+                        </td>
+
                         <td v-else-if="column.key === 'type'" class="w-12 text-[12px] lg:w-18 lg:text-sm 2xl:w-28 items-end type" :data-content="$t(`edit_campaign_product.campaign_product_table.${column.key}`)">
                             <div class=" form-check place-content-end sm:place-content-center">
                                     {{$t(`edit_campaign_product.campaign_product_table.types.${campaign_product[column.key] }`)}}    
@@ -244,6 +259,7 @@ const tableColumns = ref([
     { name: "Oversell", key: "oversell" },
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
+    { name: "Pinned", key: "pinned" },
     { name: "", key: "edit" },
 ])
 const typeSelection = ref([
@@ -271,10 +287,11 @@ onUnmounted(() => {
 
 
 const search = () => {
-    seller_search_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value, layoutStore.alert)
+    seller_search_campaign_product(route.params.campaign_id, payloadBuffer.value.category, currentPage.value, pageSize.value,"", layoutStore.alert)
     .then(response => {
         dataCount.value = response.data.count
         campaignDetailStore.campaignProducts = response.data.results
+        console.log(campaignDetailStore.campaignProducts)
     }).catch(error => {
         console.log(error);
     })

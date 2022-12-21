@@ -6,7 +6,11 @@
                     <thead>
                         <tr class="p-4">
                             <th class="flex">
-                                <span class="mr-2 current_plan bg-[#FFD66B] shadow-lg text-black"> {{ $t(`profile.plan.`+ layout.userInfo.user_subscription.type) }}</span>
+                                <!-- layout.userInfo.user_subscription.type == ('trial'||'lite'||'standard'||'premium'||'dealer'||'kol') -->
+                                <template v-if="['trial','lite','standard','premium','dealer','kol'].includes(plan)" > 
+                                    <span class="mr-2 current_plan bg-[#FFD66B] shadow-lg text-black"> {{ $t(`profile.plan.`+ plan) }}</span>
+                                </template>
+                                    <span v-else class="mr-2 current_plan bg-[#FFD66B] shadow-lg text-black"> {{plan}}</span>
                                 <span v-if="plan === 'standard'"> <font-awesome-icon icon="fa-solid fa-star" class="" /> </span>
                                 <span v-else-if="plan === 'premium'"> <font-awesome-icon icon="fa-solid fa-crown" class="text-[#FFD66B]" /> </span>
                                 <span v-else-if="plan === 'lite'"><font-awesome-icon icon="fa-solid fa-shield" /> </span>
@@ -82,7 +86,6 @@ const userAvatar = computed(() => {
     }
     return layout.userInfo.google_info.picture
 });
-
 </script>
 
 <style scoped>

@@ -11,7 +11,7 @@
         <ModalBody class="grid grid-cols-12 gap-3">
             <template v-for="(column, index) in tableColumns" :key="index">
                     <div class="col-span-12" 
-                        v-if="(column.key ==='customer_editable' || column.key ==='customer_removable' || column.key ==='oversell') && campaignProduct.type != 'lucky_draw'">
+                        v-if="(column.key ==='customer_editable' || column.key ==='customer_removable' || column.key ==='oversell' || column.key ==='pinned') && campaignProduct.type != 'lucky_draw'">
                         <label for="modal-form-1">{{$t(`edit_campaign_product.edit_product_modal.${column.key}`)}}</label>
                         <input 
                             v-if="column.key ==='customer_editable'"
@@ -151,6 +151,7 @@ const tableColumns = [
     { name: "Oversell", key: "oversell" },
     { name: "Editable", key: "customer_editable" },
     { name: "Deletable", key: "customer_removable" },
+    { name: "Pinned", key: "pinned" },
 ]
 
 const typeSelection = [
@@ -182,7 +183,7 @@ const updateProduct = () => {
         layoutStore.alert.showMessageToast(i18n.global.t('edit_campaign_product.edit_product_modal.invalid_data'))
         return
     }
-    // console.log(campaignProduct.value)
+    console.log(campaignProduct.value)
     seller_update_campaign_product(campaignProduct.value.id, campaignProduct.value)
     .then(res => {
         // console.log(res.data)

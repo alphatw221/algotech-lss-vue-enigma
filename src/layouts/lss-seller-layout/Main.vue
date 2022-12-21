@@ -173,7 +173,7 @@ const removeNotActivatedPlatform = () => {
   }
 }
 watch(computed(() => sellerLayoutStore.userInfo.user_subscription), () => {
-  console.log("watch")
+  // console.log("watch")
 
   addBindedPlatformToStore()
   removeNotActivatedPlatform()

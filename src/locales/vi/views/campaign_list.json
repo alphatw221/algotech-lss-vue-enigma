@@ -26,7 +26,9 @@
             "message":"Vui lòng nhập ID bài viết để bắt đầu bán hàng livestream",
             "select_stream":"Chọn Livestream",
             "select_page":"Chọn Trang",
-            "id":"điền ID"
+            "id":"điền ID",
+            "select_live_post": "Chọn bài đăng trực tiếp",
+            "select_video_post": "Chọn bài đăng video"
         },
 
 
@@ -77,6 +79,7 @@
         "post_id":"điền ID",
         "select_page":"Chọn Trang",
         "enter_post_id": "Nhập ID bài viết",
+        "search_recent_posts": "Tìm kiếm bài viết gần đây",
 
         "instagram":"Instagram",
         "media_id":"ID phương tiện",
@@ -85,7 +88,8 @@
         "youtube":"YouTube",
         "live_chat_id":"ID cuộc trò chuyện trực tiếp",
         "select_live_chat":"Chọn kênh",
-        "select_live_video":"Chọn video trực tiếp",
+        "select_live_video":"Chọn bài đăng video",
+        "select_video_post": "Chọn đăng video",
 
         "twitch": "Twitch",
 
@@ -94,6 +98,7 @@
         "your_current_lives": "Các phiên livestream gần đây",
         "select_this_live": "Chọn phiên livestream này",
         "valid_post_id_notification": "Vui lòng nhập ID bài viết hợp lệ",
+        "your_current_video_posts": "Bài đăng video hiện tại của bạn",
 
         "rebind_page":"Vui lòng liên kết lại Facebook Page đã chọn",
         "rebind_channel":"Vui lòng liên kết lại YouTube Channel đã chọn",

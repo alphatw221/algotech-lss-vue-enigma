@@ -12,7 +12,7 @@
               @click="selectLivePost()"
               class="btn  btn-primary w-3/4 p-5 mx-auto my-4"
             >
-              {{$t('campaign_list.enter_post_id_modal.select_live_post')}}
+              {{$t('campaign_list.enter_post_id_modal.select_live_video')}}
             </button>
             <!--select video post-->
             <button

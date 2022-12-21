@@ -65,7 +65,7 @@
 </template>
 
 <script setup>
-import { retrieve_buyer_history } from '@/api_v2/user_subscription';
+import { list_buyer_order_history } from '@/api_v2/user_subscription';
 import { computed, onMounted, provide, ref, watch } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import { get_order_oid } from "@/api_v2/order"
@@ -111,7 +111,7 @@ const changePageSize = pageSize => {
 const getOrderHistoryListData = ()=>{
   ready.value= false
 
-	retrieve_buyer_history(buyer_id, false, currentPage.value, pageSize.value, layoutStore.alert).then(response => {
+	list_buyer_order_history(buyer_id, currentPage.value, pageSize.value, layoutStore.alert).then(response => {
     layoutStore.buyer = response.data.results ? response.data.results[0].buyer : response.data[0].buyer
 		dataCount.value = response.data.count ? response.data.count : response.data.length
 		orders.value = response.data.results ? response.data.results : response.data

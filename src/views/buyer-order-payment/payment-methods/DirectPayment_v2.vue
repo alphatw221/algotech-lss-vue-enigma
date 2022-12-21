@@ -1,23 +1,23 @@
 <template>
     <AccordionItem  class="mx-5 show">
         <Accordion class="rounded-t-lg bg-primary" >
-            <div class="mx-5 text-white" v-if="store.order.campaign">{{$t('shopping_cart.payment.direct.title')}}</div>
+            <div class="mx-5 text-white text-2xl" v-if="store.order.campaign">{{$t('shopping_cart.payment.direct.title')}}</div>
         </Accordion>
 
         <!-- BEGIN Direct Payment -->
         <AccordionPanel class="leading-relaxed border-2 text-slate-600 dark:text-slate-500 border-secondary" >
 
             <!-- BEGIN Direct Payment Select -->
-            <div class="mb-5" v-if="store.order.campaign">
+            <div class="mb-5 mx-5" v-if="store.order.campaign">
 
             
-                <ul class="flex flex-row flex-wrap items-center self-center justify-around pt-3 pb-4 list-none" >
+                <ul class="flex flex-row gap-3 flex-wrap items-center self-center justify-around pt-3 pb-4 list-none" >
                     <li class="flex last:mr-0" v-for="(account, index) in store.order.campaign.meta_payment.direct_payment.v2_accounts" :key="index">
                         <div class="z-10 flex items-center self-center flex-1 intro-x lg:text-center lg:mt-0 lg:block w-fit">
                             <button @click="show_account_info(index)" :class="{
                                 'text-neutral-600 bg-white shadow-lg': openTab !== index,
                                 'bg-slate-300 font-semibold': openTab === index,
-                            }" class="h-10 rounded-lg w-30 btn border-slate-300 text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
+                            }" class="h-10 rounded-lg btn border-slate-300 text-slate-500 dark:bg-darkmode-400 dark:border-darkmode-400">
                                 <CheckIcon v-show="openTab === index" :class="{ 'rounded-full bg-white mr-2': true}" />
                                 <div v-if="account.mode === ''"> {{$t('shopping_cart.payment.direct.account')}} {{index+1}} </div>
                                 <div v-else> {{ account.mode }} </div>
@@ -102,10 +102,9 @@
                     <LoadingIcon icon="three-dots" color="1a202c" class="absolute w-12 h-5"/>
                 </button>
                 <button type="button" v-else
-                    class="self-center mx-3 mt-5 w-fit btn btn-rounded-primary lg:self-end 2xl:self-end"
+                    class="self-center mx-3 mt-5 w-fit btn btn-primary rounded-lg lg:self-end 2xl:self-end"
                     @click="uploadReceipt()">{{$t('shopping_cart.payment.direct.complete_order')}}
                 </button>
-                
             </div>
         </AccordionPanel>
 
@@ -172,9 +171,7 @@ provide("bind[receiptUploadDropzoneRef]", (el) => {
 
     })
 });
-onMounted(() => {
-    console.log(store.order.campaign)
-})
+onMounted(() => {})
 const uploadReceipt = () => {
     
 

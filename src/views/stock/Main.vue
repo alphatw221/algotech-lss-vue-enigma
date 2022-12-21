@@ -137,6 +137,9 @@ const importProducts = (file) => {
   let formData = new FormData();
   formData.append("file", file);
   import_product(formData, layoutStore.alert).then((res) => {
+	layoutStore.userInfo = res.data
+	clearStore();
+  	createProductCategoryDict();
     eventBus.emit("refreshStockTable");
   });
 };

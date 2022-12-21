@@ -34,6 +34,8 @@ import product from './models/product.json'
 import cart from './models/cart.json'
 import discount_code from './models/discount_code.json'
 import buyers from './views/buyers.json'
+import point_transaction from './models/point_transaction'
+import order_report from './views/order_report'
 
 import i from './package/iview.json'
 
@@ -53,7 +55,6 @@ export default {
     manage_order,
     order_detail,
     order_history,
-    order_points,
     settings,
     shopping_cart,
     stock,
@@ -64,12 +65,13 @@ export default {
     change_plan,
     profile,
     register,
-    quiz_game,
     tooltips,
+    quiz_game,
     login,
     forgot_password,
     reset_password,
     discount,
+    order_points,
 
     //model--------------
     order,
@@ -78,7 +80,9 @@ export default {
     cart,
     discount_code,
     buyers,
+    point_transaction,
+    order_report,
 
-    //package------
+    //package
     i
 }

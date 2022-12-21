@@ -12,7 +12,8 @@
         "connect_platform":"Kết nối nền tảng",
         "discount_code":"Mã giảm giá",
         "manage_order":"Quản lý đơn hàng",
-        "buyers":"Người mua"
+        "buyers":"Người mua",
+        "order_overview":"Tổng quan về đơn hàng"
     },
     "bread_crumb":{
         "stock":"Kho hàng",
@@ -49,7 +50,8 @@
         "create-lucky-draw":"Tạo rút thăm may mắn",
         "report":"Report",
         "orders": "Lịch sử đặt hàng",
-        "points": "Points"
+        "points": "điểm",
+        "order-overview":"Tổng quan về đơn hàng"
     },
     "top_bar":{
         "profile":"Hồ Sơ",
@@ -57,7 +59,7 @@
         "reset_password":"Thay đổi mật khẩu",
         "logout":"Đăng xuất",
         "order_history":"Lịch sử đặt hàng",
-        "points":"Points"
+        "points":"điểm"
     },
     "upcoming_campaign":{
         "title": "Chiến dịch sắp tới",

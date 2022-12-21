@@ -1,4 +1,9 @@
 {
+    "categorys":{
+        "general":"基本設定",
+        "payment":"金流",
+        "logistic":"物流"
+    },
     "settings" : "專頁設定",
     "client_id" : "Client ID",
     "secret" : "Secret",
@@ -18,13 +23,14 @@
     "delivery":{
         "delivery":"物流",
         "delivery_setting": "物流設定",
+        "free_delivery_settings": "免運設定",
+        "delivery_method_settings": "物流方式設定",
         "charge":"基本運費",
         "charge_option":"運送方式",
         "add_more_delivery_option":"新增運送方式",
-        "add_delivery_option":"新增運送方式",
         "replace_charge" : "取代基本運費",
         "on_top_of_charge" : "新增額外運費",
-        "title" : "Display Name",
+        "title" : "顯示標題",
         "order_above":"滿額免運：訂單金額滿（$）",
         "minimum":"滿件免運：訂單商品數量滿（件）",
         "store":{
@@ -101,8 +107,30 @@
             "Value_is_required":"此欄位必填"
         }
     },
-
     "delivery_form":{
+        "delivery_titles":{
+            "own_delivery":"自訂物流",
+            "store_pickup":"自取/面交",
+            "ecpay":"綠界金/物流"
+        },
+        "ecpay":{
+            "merchant_id":"商店代號",
+            "hash_key":"Hash Key",
+            "hash_iv":"Hash IV", 
+            "return_store_id":"退回原寄件門市代號",
+            "sender_name":"寄件人姓名",
+            "sender_phone":"聯絡電話",
+            "sender_zip_code":"郵遞區號",
+            "sender_address":"地址",
+            "shipping_way":"運送方式",
+            "pickup_pay":"允許貨到付款",
+            "logistics_sub_type":{
+                "TCAT":"宅配 黑貓宅急便",
+                "FAMIC2C":"超商取貨 全家",
+                "UNIMARTC2C":"超商取貨 7-11",
+                "delivery_charge": "運費"
+            }
+        },
         "delivery_detail":"物流設定",
         "delivery_charge":"基本運費",
         "free_delivery_for_order_above":"滿額免運：訂單金額滿（$）",
@@ -117,7 +145,12 @@
         "pickup_store":"取貨門市/地點",
         "pickup_address":"自取地址",
         "express_service_name": "例如：離島、當日送達......",
-        "express_charge": "增加/取代金額"
+        "express_charge": "增加/取代金額",
+        "enabled":"啟用",
+        "update":"更新",
+        "free_delivery_settings_update": "免運設定更新",
+        "delivery_method_settings_update": "物流方式設定更新",
+        "turn_on_cvs_map": "開啟超商地圖"   
     },
 
 
@@ -145,7 +178,8 @@
             "ID":"印尼",
             "IN":"印度",
             "TW":"台灣",
-            "VN":"越南"
+            "VN":"越南",
+            "MY":"馬來西亞"
         },
         "currency_symbol":"幣別設定",
         "seller_language":"賣家語言",
@@ -170,8 +204,6 @@
             "1000":"K (1,000)",
             "1000000":"M (1,000,000)"
         }
-
-
 
     },
     "platform":{

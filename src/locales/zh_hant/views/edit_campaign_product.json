@@ -8,6 +8,7 @@
         "all":"全部"
     },
     "campaign_product_table":{
+        "pinned":"商品置頂",
         "image":"圖片",
         "name":"名稱",
         "type":"模式",
@@ -15,7 +16,7 @@
         "qty_for_sale":"商品數量",
         "max_order_amount":"單次購買上限",
         "tag":"商品分類",
-        "price":"價錢",
+        "price":"售價",
         "customer_editable":"允許顧客編輯",
         "customer_removable":"允許顧客刪除",
         "edit":"編輯",
@@ -34,7 +35,7 @@
    
     "edit_product_modal":{
         "edit_campaign_product":"編輯活動商品",
-
+        "pinned":"商品置頂",
         "image":"圖片",
         "name":"名稱",
         "type":"模式",
@@ -42,7 +43,7 @@
         "qty_for_sale":"銷售商品數量",
         "max_order_amount":"單次購買上限",
         "category":"商品類別",
-        "price":"價錢",
+        "price":"售價",
         "customer_editable":"允許顧客編輯",
         "customer_removable":"允許顧客刪除",
         "oversell":"可否超賣",

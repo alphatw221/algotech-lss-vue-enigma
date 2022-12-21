@@ -41,13 +41,14 @@
         "sub_after_discount": "代碼折抵後小計"
     },
     "delivery":{
+        "cellphone":"手機號碼",
         "information" : "運送資訊",
         "name" : "收件人",
         "phone" : "聯絡電話",
         "email" : "電子信箱",
         "method" : "運送方式",
         "default":"基本",
-        "delivery" : "宅配",
+        "delivery" : "運送",
         "date" : "到貨日期",
         "address":"收件地址",
         "post_code" : "郵遞區號",
@@ -63,6 +64,7 @@
         "hitpay":"Hitpay",
         "paypal":"Paypal",
         "ecpay":"綠界金流",
+        "ecpay_cash_on_delivery": "超商貨到付款",
         "pay_mongo":"PayMongo",
         "rapyd":"Rapyd",
         "method" : "付款方式",

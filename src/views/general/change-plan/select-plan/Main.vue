@@ -14,25 +14,25 @@
                         v-model="validate.plan.$model"
                     >
                         <template v-if="originalPlan==='standard'" :value="plan.value" class="w-40"> 
-                            <template v-for="(plan, key) in getPrice.plans" :key="key">
-                                <option  v-if="plan.text != 'Free Trial' && plan.value != 'lite'" :value="plan.value" class="w-40"> 
-                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price.month).toLocaleString('en-GB')}`}) }}
+                            <template v-for="(item, key, index) in getPrice.plans" :key="index">
+                                <option  v-if="['trial', 'lite'].includes(kye) == false" :value="key" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.${key}`, {price: `${getPrice.currency} ${(item.price.month).toLocaleString('en-GB')}`}) }}
                                 </option>
                             </template>
                         </template>
 
                         <template v-if="originalPlan==='premium'" :value="plan.value" class="w-40"> 
-                            <template v-for="(plan, key) in getPrice.plans" :key="key">
-                                <option  v-if="plan.text != 'Free Trial' && plan.value != 'lite' && plan.value != 'standard'" :value="plan.value" class="w-40"> 
-                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price.month).toLocaleString('en-GB')}`}) }}
+                            <template v-for="(item, key, index) in getPrice.plans" :key="index">
+                                <option  v-if="['trial', 'lite', 'standard'].includes(kye) == false" :value="key" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.${key}`, {price: `${getPrice.currency} ${(item.price.month).toLocaleString('en-GB')}`}) }}
                                 </option>
                             </template>
                         </template>
 
                         <template v-if="originalPlan==='trial' || originalPlan==='lite' || originalPlan==='dealer'" :value="plan.value" class="w-40"> 
-                            <template v-for="(plan, key) in getPrice.plans" :key="key">
-                                <option  v-if="plan.text != 'Free Trial'" :value="plan.value" class="w-40"> 
-                                    {{ $t(`register.basic_info.plan_options.` + plan.value, {price: `${getPrice.currency} ${(plan.price.month).toLocaleString('en-GB')}`}) }}
+                            <template v-for="(item, key, index) in getPrice.plans" :key="index">
+                                <option  v-if="['trial'].includes(kye) == false" :value="key" class="w-40"> 
+                                    {{ $t(`register.basic_info.plan_options.${key}`, {price: `${getPrice.currency} ${(item.price.month).toLocaleString('en-GB')}`}) }}
                                 </option>
                             </template>
                         </template>
@@ -163,16 +163,16 @@ const privacyPolicyUrl = import.meta.env.VITE_PRIVACY_POLICY_URL
 
 const dayLeft = ref('')
 const expDate = new Date(layout.userInfo.user_subscription.expired_at)
-const getPrice = ref({
-    plans:"",
-    price: ""
-})
+const getPrice = ref({})
 onMounted(()=>{
     get_subscription_plan(layout.userInfo.user_subscription.country, layout.alert).then(res=>{
+        console.log(res.data)
         getPrice.value = res.data
+        console.log(getPrice.value.plans)
     })
+    
     const today = new Date();
-    console.log(layout.userInfo)
+    
     dayLeft.value = Math.round(( expDate.getTime() - today.getTime() )/86400000)
 })
 

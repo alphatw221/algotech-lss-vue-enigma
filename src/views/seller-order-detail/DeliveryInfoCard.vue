@@ -9,7 +9,7 @@
 
             <div class="grid grid-cols-6" v-show="sellerOrderDetailStore.order.shipping_method">
                 <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.name')}}</div>
-                <div class="col-start-3 col-span-3 py-2">{{sellerOrderDetailStore.order.shipping_first_name}} {{sellerOrderDetailStore.order.shipping_last_name}}</div>
+                <div class="col-start-3 col-span-3 py-2">{{sellerOrderDetailStore.order.shipping_first_name}}</div>
                 
                 <template v-if="sellerOrderDetailStore.order.shipping_phone">
                     <div class="col-start-1 col-span-2 py-2">{{$t('order_detail.delivery.phone')}}</div>
