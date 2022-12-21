@@ -41,6 +41,7 @@
         "sub_after_discount": "代碼折抵後小計"
     },
     "delivery":{
+        "cellphone":"手機號碼",
         "information" : "運送資訊",
         "name" : "收件人",
         "phone" : "聯絡電話",
